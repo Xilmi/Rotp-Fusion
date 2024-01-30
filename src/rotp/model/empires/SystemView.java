@@ -376,8 +376,11 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     private void setFlagColor(int color, int id)	{ // BR: flagColorCount
     	flagColor = getMixedColor(flagColor, color, id);
     }
-    int getFlagColor(int id)						{ return getBaseColor(flagColor, id); }
-    public	boolean hasFlag(int id)					{ return getFlagColor(id) != FLAG_NONE; }
+    int getFlagColor(int id)				{ return getBaseColor(flagColor, id); }
+    public	String getFlagColorName(int id)	{ return getColorName(getFlagColor(id)); }
+    private	String getColorName(int id)		{ return flagImageNameList.get(id).replace("Flag_", "");  }
+    
+    public	boolean hasFlag(int id)			{ return getFlagColor(id) != FLAG_NONE; }
     public	boolean hasFlagColor(int id, int color) { return getFlagColor(id) == color; }
     private int getMixedColor(int mixedColor, int color, int id) { // BR: flagColorCount
     	return getFilteredColor(mixedColor, id) | getShiftedColor(color, id);

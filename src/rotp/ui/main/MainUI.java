@@ -365,6 +365,17 @@ public class MainUI extends BasePanel implements IMapHandler {
         setOpaque(false);
     }
     public boolean enableButtons()   { return !session().performingTurn(); }
+    public void selectSystem(StarSystem sys) {
+        // main goal here is to trigger sprite click behavior with no click sound
+        sys.click(map, 1, false, false, false);
+        hoveringSprite(null);
+        clickedSprite(sys);
+        Empire emp = player();
+        map.centerX(avg(emp.minX(), emp.maxX()));
+        map.centerY(avg(emp.minY(), emp.maxY()));
+        map.setBounds(emp.minX()-3, emp.maxX()+3, emp.minY()-3, emp.maxY()+3);
+        repaint();
+    }
     private void selectPlayerHomeSystem() {
         Empire pl = player();
         StarSystem sys = galaxy().system(pl.capitalSysId());

@@ -5,7 +5,7 @@ import static rotp.ui.UserPreferences.showMemory;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import rotp.ui.main.CommandConsole;
+import rotp.ui.console.CommandConsole;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamSubUI;

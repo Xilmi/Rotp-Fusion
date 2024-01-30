@@ -73,7 +73,7 @@ import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
-import rotp.ui.main.CommandConsole;
+import rotp.ui.console.CommandConsole;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.GNNExpansionEvent;
 import rotp.ui.notifications.GNNRankingNoticeCheck;

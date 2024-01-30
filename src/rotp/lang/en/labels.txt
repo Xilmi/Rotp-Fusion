@@ -99,7 +99,7 @@ PLANET_ULTRA_RICH                 | Ultra Rich
 PLANET_HOSTILE                    | Hostile
 PLANET_FERTILE                    | Fertile
 PLANET_GAIA                       | Gaia
-PLANET_ARTIFACTS_HELP             | Double Reaserch.
+PLANET_ARTIFACTS_HELP             | Double Research.
 PLANET_ULTRA_POOR_HELP            | Ship, base, and factory production are divided by three.
 PLANET_POOR_HELP                  | Halve ship, base, and factory production.
 PLANET_RICH_HELP                  | Double ship, base, and factory production.
@@ -3912,7 +3912,7 @@ SETUP_RACE_HOMEWORLD_HELP         | You can set your home world name here, or ch
 // Galaxy Menu Guides and Help
 SETUP_GALAXY_MAIN_DESC            | OVERVIEW<br> This screen allows you to select your Galaxy and your Opponents.<br> Use "Ctrl" and "Shift" to change the buttons functions. Global = All options. Local = Options from this panel.
 SETUP_START_DESC                  | Save options and Start the Game.<br> "Ctrl" => Restart a new game based on and old save game.
-SETUP_BUTTON_START_DESC           | Save options and Start the Game.
+SETUP_BUTTON_START_DESC           | Save the current options and Start the Game.
 SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.
 SETUP_GALAXY_BACK_DESC            | Cancel options and go back to the Player options menu.
 SETUP_GALAXY_CLASSIC_OPTIONS_HELP | These buttons open Advanced option Menus.<br> "Pregame" contains parameters being set once when starting or restarting a game.<br> "In-game" contains parameters adjustable in game.<br>To switch to 2 compact option menus:<br> - Go to "Menus Options" and set "Show Compact Options" to "Yes".  (at the bottom right)<br>Compact option menus have the same appearence as the one showing in-game, following "Ctrl-o". 

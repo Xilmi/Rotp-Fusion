@@ -1,4 +1,4 @@
-package rotp.ui.main;
+package rotp.ui.console;
 
 import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
@@ -8,12 +8,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -40,9 +42,12 @@ import rotp.model.galaxy.Transport;
 import rotp.model.game.GameSession;
 import rotp.model.game.IAdvOptions;
 import rotp.model.game.IGameOptions;
+import rotp.model.game.IInGameOptions;
+import rotp.model.game.IMainOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
+import rotp.ui.main.MainUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -58,25 +63,27 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	private static final int NULL_ID	= -1;
 	private static final int OPTION_ID	= 0;
 	private static final int SETTING_ID	= 1;
-	private static final int PANEL_ID	= 2;
+	private static final int MENU_ID	= 2;
 	private static JFrame frame;
 	private static CommandConsole instance;
-	public	static Panel introPanel, loadPanel, savePanel;
+	public	static Menu introMenu, loadMenu, saveMenu;
 
-	private final JLabel cmdLabel, optLabel, resultLabel;
-	private final JTextField cmdField, optField;
+	private final JLabel commandLabel, resultLabel;
+	private final JTextField commandField;
 	private final JTextPane resultPane;
 	private final JScrollPane scrollPane;
-	private final List<Panel>		panels		= new ArrayList<>();
+	private final List<Menu>		menus		= new ArrayList<>();
 	private final List<Transport>	transports	= new ArrayList<>();
 	private final List<ShipFleet>	fleets		= new ArrayList<>();
 	private final List<StarSystem>	systems		= new ArrayList<>();
-	private Panel livePanel;
-	private Panel mainPanel, setupPanel, gamePanel, speciesPanel;
-	private int selectedStar, destStar, selectedEmpire, selectedFleet, selectedTransport, selectedDesign;
+	private final LinkedList<String> lastCmd	= new LinkedList<>();
+	private Menu liveMenu;
+	private Menu mainMenu, setupMenu, gameMenu, speciesMenu;
+	int selectedStar; //, destStar, selectedEmpire, selectedFleet, selectedTransport, selectedDesign;
 	private HashMap<Integer, Integer> altIndex2SystemIndex = new HashMap<>();
-//	private Panel stars, fleet, ships, opponents;
+//	private Menu stars, fleet, ships, opponents;
 //	private final List<SystemView> starList = new ArrayList<>();
+	private StarView starView;
 	
 	// ##### STATIC METHODS #####
 	public static void updateConsole()			{ instance.reInit(); }
@@ -96,9 +103,112 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		return result;
 	}
 	// ##### INITIALIZERS #####
-	private	void reInit()			{
-		initAltIndex();
+	private Command initContinue()	{
+		Command cmd = new Command("Continue", "C") {
+			@Override protected String execute(List<String> param) {
+				if (RotPUI.gameUI().canContinue()) {
+					RotPUI.gameUI().continueGame();
+					return gameMenu.open("");
+				}
+				else
+					return "Nothing to continue" + newline;
+			}
+		};
+		cmd.cmdHelp("Continue the current game. If none are started, continue with the last saved game.");
+		return cmd;
 	}
+	private Command initLoadFile()	{
+		Command cmd = new Command("Load File", "L") {
+			@Override protected String execute(List<String> param) {
+				return loadMenu.open("");
+			}
+		};
+		cmd.cmdHelp("Open a standard file chooser to load a previously saved game.");
+		return cmd;
+	}
+	private Command initSaveFile()	{
+		Command cmd = new Command("Save File", "S") {
+			@Override protected String execute(List<String> param) {
+				return saveMenu.open("");
+			}
+		};
+		cmd.cmdHelp("Open a standard file chooser to save the current game.");
+		return cmd;
+	}
+	private Command initStartGame()	{
+		Command cmd = new Command("Start Game", "go", "start") {
+			@Override protected String execute(List<String> param) {
+				RotPUI.setupGalaxyUI().startGame();
+				return "";
+			}
+		};
+		cmd.cmdHelp(text("SETUP_BUTTON_START_DESC"));
+		return cmd;
+	}
+	private Command initNextTurn()	{
+		Command cmd = new Command("Next Turn", "N") {
+			@Override protected String execute(List<String> param) {
+				session().nextTurn();
+				return "Performing Next Turn...";
+			}
+		};
+		cmd.cmdHelp("Next Turn");
+		return cmd;
+	}
+	private Command initView()		{
+		Command cmd = new Command("View planets & fleets", "V") {
+			@Override protected String execute(List<String> param) {
+				ViewFilter filter = new ViewFilter(this, param);
+				return filter.getResult("");
+			}
+		};
+		cmd.cmdParam(" [SHip|SCout|Rxx|Dxx] [Y|O|Oxx|W] [A|U|X|N|C] [P|F|T]");
+		cmd.cmdHelp("Loop thru all the given filters and return the result"
+				+ newline + "Distance filters:"
+				+ newline + "[SH | Ship] : filter in ship range of the player empire"
+				+ newline + "[SC | Scout] : filter in scout range of the player empire"
+				+ newline + "[Rxx] : filter in xx light years Range of the player empire"
+				+ newline + "[Dxx] : filter in xx light years Distance of the selected star system"
+				+ newline + "Owner filters: if none all are displayed"
+				+ newline + "[Y] : add plaYer"
+				+ newline + "[O] : add all Opponents"
+				+ newline + "[Oxx] : add Opponent xx (Index)"
+				+ newline + "[W | OW] : add Opponents at War with the player"
+				+ newline + "Category filters:"
+				+ newline + "[A] : planets under Attack"
+				+ newline + "[U] : Unexplored star system only"
+				+ newline + "[X] : eXplored star system only"
+				+ newline + "[N] : uNcolonized star system only"
+				+ newline + "[C] : Colonized star system only"
+				+ newline + "List filters: if none, all three lists are shown"
+				+ newline + "[P] : add Planet list (star systems)"
+				+ newline + "[F] : add Fleet list"
+				+ newline + "[T] : add Transport list"
+				);
+		return cmd;
+	}
+	private Command initPlanet()	{ // TODO BR: Display planet
+		Command cmd = new Command("select Planet from index", "P") {
+			@Override protected String execute(List<String> param) {
+				if (param.isEmpty())
+					return getLineGuide();
+				String s = param.get(0);
+				Integer p = getInteger(s);
+				if (p == null)
+					return getLineGuide();
+				selectedStar = validPlanet(p);
+				StarSystem sys = getSys(selectedStar);
+				mainUI().selectSystem(sys);
+				return starView.planetInfo(selectedStar, "");
+				//return planetInfo(selectedStar, "");
+			}
+		};
+		cmd.cmdParam(" Index");
+		cmd.cmdHelp("Select current Planet from planet index and show info");
+		return cmd;		
+	}
+
+	private	void reInit()			{ initAltIndex(); }
 	private void initAltIndex()		{
 		// Alternative index built from distance to the original player homeworld.
 		// The original index gives too much info on opponents home world and is too random for other systems.
@@ -118,16 +228,16 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			altId++;
 		}
 	}
-	private void initPanels()		{
-		mainPanel = initMainPanel();
-		livePanel = mainPanel;
-		panels.clear();
-		panels.add(mainPanel);
-		loadPanel = initLoadPanel();
-		savePanel = initSavePanel();
+	private void initMenus()		{
+		mainMenu = initMainMenu();
+		liveMenu = mainMenu;
+		menus.clear();
+		menus.add(mainMenu);
+		loadMenu = initLoadMenu();
+		saveMenu = initSaveMenu();
 	}
-	private Panel initSavePanel()	{
-		Panel panel = new Panel("Save Panel") {
+	private Menu initSaveMenu()		{
+		Menu menu = new Menu("Save Menu") {
 			private String fileBaseName(String fn) {
 				String ext = GameSession.SAVEFILE_EXTENSION;
 				if (fn.endsWith(ext)) {
@@ -140,7 +250,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			@Override public String open(String out) {
 				if (!session().status().inProgress()) {
 					out += "No game in progress" + newline;
-					return mainPanel.open(out);
+					return mainMenu.open(out);
 				}
 				String dirPath = UserPreferences.saveDirectoryPath();
 				String fileName = GameUI.gameName + GameSession.SAVEFILE_EXTENSION;
@@ -155,7 +265,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 					File rawFile = chooser.getSelectedFile();
 					if (rawFile == null) {
 						out +=  "No file selected" + newline;
-						return mainPanel.open(out);
+						return mainMenu.open(out);
 					}
 					GameUI.gameName = fileBaseName(rawFile.getName());
 					dirPath = rawFile.getParent();
@@ -174,22 +284,22 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 						}
 						catch(Exception e) {
 							String str = "Save unsuccessful: " + file.getAbsolutePath() + newline;
-							resultPane.setText(mainPanel.open(str));
+							resultPane.setText(mainMenu.open(str));
 							return;
 						}
 					};
 					SwingUtilities.invokeLater(save);
 					out +=  "Saved to File: " + file.getAbsolutePath() + newline;
-					return mainPanel.open(out);
+					return mainMenu.open(out);
 				}
 				out +=  "No file selected" + newline + newline;
-				return mainPanel.open(out);
+				return mainMenu.open(out);
 			}
 		};
-		return panel;
+		return menu;
 	}
-	private Panel initLoadPanel()	{
-		Panel panel = new Panel("Load Panel") {
+	private Menu initLoadMenu()		{
+		Menu menu = new Menu("Load Menu") {
 			private String fileBaseName(String fn) {
 				String ext = GameSession.SAVEFILE_EXTENSION;
 				if (fn.endsWith(ext)) {
@@ -211,7 +321,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 					File file = chooser.getSelectedFile();
 					if (file == null) {
 						out +=  "No file selected" + newline + newline;
-						return mainPanel.open(out);
+						return mainMenu.open(out);
 					}
 					GameUI.gameName = fileBaseName(file.getName());
 					String dirName = file.getParent();
@@ -220,177 +330,158 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 					};
 					SwingUtilities.invokeLater(load);
 					out +=  "File: " + GameUI.gameName + newline;
-					return gamePanel.open(out);
+					return gameMenu.open(out);
 				}
 				out +=  "No file selected" + newline + newline;
-				return mainPanel.open(out);
+				return mainMenu.open(out);
 			}
 		};
-		return panel;
+		return menu;
 	}
-	private Panel initMainPanel()	{ // TODO BR: complete initMainPanel
-		Panel main = new Panel("Main Panel") {
+	private Menu initMainMenu()		{
+		Menu main = new Menu("Main Menu") {
 			@Override public String open(String out) {
 				RotPUI.instance().selectGamePanel();
 				return super.open(out);
 			}
 		};
-		speciesPanel = initSpeciePanel(main);
-		setupPanel = initSetupPanels(main);
-		main.addPanel(setupPanel);
-		gamePanel = initGamePanels(main);
-		main.addPanel(gamePanel);
-		main.addCommand(new Command("Continue", "C") {
-			@Override protected String execute(List<String> param) { // TODO BR: new Command("Continue"
-				if (RotPUI.gameUI().canContinue()) {
-					RotPUI.gameUI().continueGame();
-					return gamePanel.open("");
-				}
-				else
-					return "Nothing to continue" + newline;
-			}
-		});
-		main.addCommand(new Command("Load File", "L") {
-			@Override protected String execute(List<String> param) { // TODO BR: new Command("Load"
-				return loadPanel.open("");
-			}
-		});
-		main.addCommand(new Command("Save File", "S") {
-			@Override protected String execute(List<String> param) { // TODO BR: new Command("Load"
-				return savePanel.open("");
-			}
-		});
+		main.addMenu(new Menu("Global Settings Menu", main, IMainOptions.commonOptions()));
+		speciesMenu = initSpecieMenu(main);
+		setupMenu = initSetupMenus(main);
+		main.addMenu(setupMenu);
+		gameMenu = initGameMenus(main);
+		main.addMenu(gameMenu);
+		main.addCommand(initContinue()); // C
+		main.addCommand(initLoadFile()); // L
+		main.addCommand(initSaveFile()); // S
 		return main;
 	}
-	private Panel initSetupPanels(Panel parent) {
-		Panel panel = new Panel("New Setup Panel", parent) {
+	private Menu initSetupMenus(Menu parent) {
+		Menu menu = new Menu("New Setup Menu", parent) {
 			@Override public String open(String out) {
 				RotPUI.instance().selectGamePanel();
-				return speciesPanel.open(out);
+				return speciesMenu.open(out);
 			}
 		};
-		panel.addPanel(speciesPanel);
-		return panel;
+		menu.addMenu(speciesMenu);
+		return menu;
 	}
-	private Panel initGamePanels(Panel parent)	{ // TODO BR: initGamePanels
-		Panel panel = new Panel("Game Panel", parent);
-		panel.addCommand(new Command("Next Turn", "N") {
-			@Override protected String execute(List<String> param) { // TODO BR: new Command("Load"
-				session().nextTurn();
-				return "Performing Next Turn...";
-			}
-		});
-		panel.addCommand(new Command("View Star Systems [Ship | Scout | Distance]", "VS") {
-			@Override protected String execute(List<String> param) { // TODO BR: new Command("Load"
-				resetSystems();
-				if (!param.isEmpty()) {
-					String cmd = param.remove(0).toUpperCase();
-					filterMOList(systems, cmd);
-//					Float dist;
-//
-//					if (cmd.equals("SHIP"))
-//						dist = player().shipRange();
-//					else if (cmd.equals("SCOUT"))
-//						dist = player().scoutRange();
-//					else
-//						dist = getFloat(cmd);
-//					if (dist != null) {
-//						filterMOList(starList, dist);
-//					}
-				}
-				sortSystems();
-				return viewSystems("");
-			}
-		});
-		introPanel	= initIntroPanel(panel);
-		return panel;
+	private Menu initGameMenus(Menu parent)	 { // TODO BR: initGameMenus
+		Menu menu = new Menu("Game Menu", parent);
+		menu.addMenu(new Menu("In Game Settings Menu", menu, IInGameOptions.inGameOptions()));
+		menu.addCommand(initNextTurn());	// N
+		menu.addCommand(initView());		// V
+		menu.addCommand(initPlanet());		// P
+		introMenu = initIntroMenu(menu);
+		return menu;
 	}
-	private Panel initSpeciePanel(Panel parent) {
-		Panel panel = new Panel("Player Species Panel", parent) {
+	private Menu initSpecieMenu(Menu parent) {
+		Menu menu = new Menu("Player Species Menu", parent) {
 			@Override public String open(String out) {
 				RotPUI.instance().selectSetupRacePanel();
 				return super.open(out);
 			}
 		};
-		panel.addPanel(initGalaxyPanel(panel));
-		panel.addSetting(RotPUI.setupRaceUI().playerSpecies());
-		panel.addSetting(RotPUI.setupRaceUI().playerHomeWorld());
-		panel.addSetting(RotPUI.setupRaceUI().playerLeader());
-		return panel;
+		menu.addMenu(initGalaxyMenu(menu));
+		menu.addSetting(RotPUI.setupRaceUI().playerSpecies());
+		menu.addSetting(RotPUI.setupRaceUI().playerHomeWorld());
+		menu.addSetting(RotPUI.setupRaceUI().playerLeader());
+		return menu;
 	}
-	private Panel initGalaxyPanel(Panel parent) {
-		Panel panel = new Panel("Galaxy Panel", parent) {
+	private Menu initGalaxyMenu(Menu parent) {
+		Menu menu = new Menu("Galaxy Menu", parent) {
 			@Override public String open(String out) {
 				RotPUI.instance().selectSetupGalaxyPanel();
 				return super.open(out);
 			}
 		};
-		panel.addPanel(new Panel("Advanced Options Panel", panel, IAdvOptions.advancedOptions()));
-		panel.addSetting(rotp.model.game.IGalaxyOptions.sizeSelection);
-		panel.addSetting(rotp.model.game.IPreGameOptions.dynStarsPerEmpire);
-		panel.addSetting(rotp.model.game.IGalaxyOptions.shapeSelection);
-		panel.addSetting(rotp.model.game.IGalaxyOptions.shapeOption1);
-		panel.addSetting(rotp.model.game.IGalaxyOptions.shapeOption2);
-		panel.addSetting(rotp.model.game.IGalaxyOptions.difficultySelection);
-		panel.addSetting(rotp.model.game.IInGameOptions.customDifficulty);
-		panel.addSetting(rotp.model.game.IGalaxyOptions.aliensNumber);
-		panel.addSetting(rotp.model.game.IGalaxyOptions.showNewRaces);
-		panel.addSetting(RotPUI.setupGalaxyUI().opponentAI);
-		panel.addSetting(RotPUI.setupGalaxyUI().globalAbilities);
-		panel.addCommand(new Command("Start Game", "go", "start") {
-			@Override protected String execute(List<String> param) { // TODO BR: new Command("Start Game", "go", "start")
-				RotPUI.setupGalaxyUI().startGame();
-				return "";
-			}
-		});
-		return panel;
+		menu.addMenu(new Menu("Advanced Options Menu", menu, IAdvOptions.advancedOptions()));
+		menu.addSetting(rotp.model.game.IGalaxyOptions.sizeSelection);
+		menu.addSetting(rotp.model.game.IPreGameOptions.dynStarsPerEmpire);
+		menu.addSetting(rotp.model.game.IGalaxyOptions.shapeSelection);
+		menu.addSetting(rotp.model.game.IGalaxyOptions.shapeOption1);
+		menu.addSetting(rotp.model.game.IGalaxyOptions.shapeOption2);
+		menu.addSetting(rotp.model.game.IGalaxyOptions.difficultySelection);
+		menu.addSetting(rotp.model.game.IInGameOptions.customDifficulty);
+		menu.addSetting(rotp.model.game.IGalaxyOptions.aliensNumber);
+		menu.addSetting(rotp.model.game.IGalaxyOptions.showNewRaces);
+		menu.addSetting(RotPUI.setupGalaxyUI().opponentAI);
+		menu.addSetting(RotPUI.setupGalaxyUI().globalAbilities);
+		menu.addCommand(initStartGame());
+		return menu;
 	}
-	private Panel initIntroPanel(Panel parent)	{
-		Panel panel = new Panel("Intro Panel", parent) {
+	private Menu initIntroMenu(Menu parent)	 {
+		Menu menu = new Menu("Intro Menu", parent) {
 			@Override public String open(String out) {
 				reInit();
 				Empire pl = player();
 				List<String> text = pl.race().introduction();
-				out = "Intro Panel" + newline + newline;
+				out = "Intro Menu" + newline + newline;
 				for (int i=0; i<text.size(); i++)  {
 					String paragraph = text.get(i).replace("[race]", pl.raceName());
 					out += paragraph + newline;
 				}
 				out += newline + "Enter any command to continue";
-				livePanel = this;
+				liveMenu = this;
 				resultPane.setText(out);
 				return "";
 			}
 			@Override protected String close(String out) {
 				RotPUI.raceIntroUI().finish();
-				return gamePanel.open(out);
+				return gameMenu.open(out);
 			}
-			@Override protected void newEntry(ActionEvent evt)	{
+			@Override protected void newEntry(String entry)	{
 				resultPane.setText(close(""));
 			}
 		};
-		return panel;
+		return menu;
 	}
 
-	public CommandConsole() {
+	private void previousCmd() 	{
+		if (lastCmd.isEmpty())
+			return;
+		String txt = commandField.getText().toUpperCase();
+		int idx = lastCmd.indexOf(txt)-1;
+		if (idx<0)
+			idx = lastCmd.size()-1;
+		commandField.setText(lastCmd.get(idx));
+	}
+	private void nextCmd()		{
+		if (lastCmd.isEmpty())
+			return;
+		String txt = commandField.getText().toUpperCase();
+		int idx = lastCmd.indexOf(txt);
+		if (idx<0)
+			return;
+		idx = min(idx+1, lastCmd.size()-1);
+		commandField.setText(lastCmd.get(idx));
+	}
+	public CommandConsole()		{
 		super(new GridBagLayout());
-		cmdLabel = new JLabel("Command: ");
-		cmdField = new JTextField(80);
-		cmdLabel.setLabelFor(cmdField);
-		cmdField.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				newCommandEntry(evt);
+		commandLabel = new JLabel("Options: ");
+		commandField = new JTextField(80);
+		commandField.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) { }
+			@Override public void keyReleased(KeyEvent e) {
+				int code = e.getKeyCode();
+				switch(code) {
+					case KeyEvent.VK_UP:
+						previousCmd();
+						break;
+					case KeyEvent.VK_DOWN:
+						nextCmd();
+						break;
+				}
 			}
+			@Override public void keyPressed(KeyEvent e) { }
 		});
-		optLabel = new JLabel("Options: ");
-		optField = new JTextField(80);
-		optLabel.setLabelFor(optField);
-		optField.addActionListener(new java.awt.event.ActionListener() {
+		commandLabel.setLabelFor(commandField);
+		commandField.addActionListener(new java.awt.event.ActionListener() {
 			@Override public void actionPerformed(java.awt.event.ActionEvent evt) {
-				optionEntry(evt);
+				commandEntry(evt);
 			}
 		});
+
 		resultLabel = new JLabel("Result: ");
 		resultPane = new JTextPane();
 		resultLabel.setLabelFor(resultPane);
@@ -398,17 +489,33 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		resultPane.setOpaque(true);
 		resultPane.setContentType("text/html");
 		resultPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+		resultPane.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e)		{ }
+			@Override public void keyReleased(KeyEvent e)	{ }
+			@Override public void keyPressed(KeyEvent e)	{
+				switch(e.getKeyCode()) {
+					case KeyEvent.VK_UP:
+						previousCmd();
+						break;
+					case KeyEvent.VK_DOWN:
+						nextCmd();
+						break;
+					case KeyEvent.VK_ENTER:
+						 liveMenu.newEntry(commandField.getText());
+						 e.consume();
+						break;
+				}
+			}
+		});
 		scrollPane = new JScrollPane(resultPane);
 
-		//Add Components to this panel.
+		//Add Components to this menu.
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridwidth = GridBagConstraints.REMAINDER;
 
 		c.fill = GridBagConstraints.HORIZONTAL;
-		add(optLabel);
-		add(optField, c);
-		add(cmdLabel);
-		add(cmdField, c);
+		add(commandLabel);
+		add(commandField, c);
 
 		add(resultLabel);
 		c.fill = GridBagConstraints.BOTH;
@@ -419,13 +526,17 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		setPreferredSize(new Dimension(800, 600));
 		resultPane.setContentType("text/html");
 		resultPane.setText("<html>");
-		initPanels();
-		resultPane.setText(livePanel.panelGuide(""));
+		initMenus();
+		resultPane.setText(liveMenu.menuGuide(""));
+
+		starView = new StarView(this);
+		instance = this;
 	}
 
+	private MainUI mainUI()	  { return RotPUI.instance().mainUI(); }
 	// ##### EVENTS METHODES #####
 	@Override public void actionPerformed(ActionEvent evt)	{ }
-	private void optionEntry(ActionEvent evt)	{ livePanel.newEntry(evt); }
+	private void commandEntry(ActionEvent evt)	{ liveMenu.newEntry(((JTextField) evt.getSource()).getText()); }
 
 	private String optsGuide()	{
 		String out = "";
@@ -438,143 +549,16 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		out += newline + "S INDEX: select chosen setting";
 		out += newline + "S+: next setting";
 		out += newline + "S-: previous setting";
-		out += newline + "P: list all available panels";
-		out += newline + "P INDEX: select chosen panel";
-		out += newline + "P+: next panel";
-		out += newline + "P-: previous panel";
+		out += newline + "M: list all available menus";
+		out += newline + "M INDEX: select chosen menu";
+		out += newline + "M+: next menu";
+		out += newline + "M-: previous menu";
 		return out;
-	}
-	private String cmdGuide()	{
-		String out = "";
-		out += newline + "new: create a new setup";
-		return out;
-	}
-	private void newCommandEntry(ActionEvent evt) {
-		List<String> param = new ArrayList<>();
-		String txt = cmdField.getText();
-		String cmd = getParam(txt, param);
-		String out = "Command = " + txt + newline;
-		switch (cmd.toUpperCase()) {
-			case ""		:
-			case "?"	: out += cmdGuide();	break;
-			case "CLS"	: out = "";				break;
-			case "NEW"	: out = setupPanel.open(out);		break;
-			default:
-				out += "? unrecognised command";
-				resultPane.setText(out);
-				return;
-		}
-		cmdField.setText("");
-		resultPane.setText(out);
 	}
 	// ##### Tools
-//	private void newStarList()	{
-//		starList.clear();
-//		SystemInfo sv = player().sv;
-//		int size = galaxy().systemCount;
-//		for(int i=0; i<size; i++) {
-//			starList.add(sv.view(altIndex2SystemIndex.get(i)));
-//		}
-//	}
-	private void sortSystems()	{ systems.sort((s1, s2) -> s1.altId-s2.altId); }
-//	private void sortStarList()	{ starList.sort((s1, s2) -> s1.system().altId-s2.system().altId); }
-//	private void filterMOList(List<? extends IMappedObject> list, List<String> filters)	{
-//		if (list.isEmpty() || filters.isEmpty())
-//			return;
-//		for (String filter : filters)
-//			filterMOList(list, filter);
-//	}
-	private void filterMOList(List<? extends IMappedObject> list, String filter)	{
-		if (list.isEmpty() || filter.isEmpty())
-			return;
-		Integer opponent = null; // none
-		String c1, c2, se;
-		Float dist	= null;
-		Float range	= null;
-		Empire pl = player();
-		c1 = filter.substring(0, 1).toUpperCase();
-		if (filter.length()>1) {
-			c2 = filter.substring(1, 2);
-			se = filter.substring(1);
-		} else {
-			c2 = "";
-			se = "";			
-		}
-		switch (c1) {
-		case "S": // Ship or scout range
-			if (c2.equals("H"))
-				range = pl.shipRange();
-			else
-				range = pl.scoutRange();
-			break;
-		case "R": // Range value
-			range = getFloat(se);
-			break;
-		case "D": // Distance value
-			dist = getFloat(se);
-			break;
-		case "P": // Player only
-			opponent = 0;
-			break;
-		case "O": // Selected Opponent
-			opponent = getInteger(se);
-			break;			
-		}
-		if (range != null) {
-			List<? extends IMappedObject> copy = new ArrayList<>(list);
-			for (IMappedObject imo : copy) {
-				if (pl.distanceTo(imo) > range)
-					list.remove(imo);
-			}
-			return;
-		}
-		else if (dist != null) {
-			StarSystem ref = getSys(selectedStar);
-			List<? extends IMappedObject> copy = new ArrayList<>(list);
-			for (IMappedObject imo : copy) {
-				if (ref.distanceTo(imo) > dist)
-					list.remove(imo);
-			}
-			return;
-		}
-		else if (opponent != null) {
-			StarSystem ref = getSys(selectedStar);
-			List<? extends IMappedObject> copy = new ArrayList<>(list);
-			for (IMappedObject imo : copy) {
-				if (ref.distanceTo(imo) > dist)
-					list.remove(imo);
-			}
-			return;
-		}
-	}
-//	private String viewStarList(String out)	{
-//		if (starList.isEmpty())
-//			return out + "Empty Star System List" + newline;
-//		StarSystem ref = getSys(selectedStar);
-//		for (SystemView s : starList) {
-//			StarSystem sys = s.system();
-//			out += "(" + sys.altId + ")";
-//			out += " " + ly(ref.distanceTo(sys));
-//			out += " " + s.descriptiveName(); 
-//			out += newline;	
-//		}
-//		return out;
-//	}
-	private String viewSystems(String out)	{
-		if (systems.isEmpty())
-			return out + "Empty Star System List" + newline;
-		StarSystem ref = getSys(selectedStar);
-		Empire pl = player();
-		SystemInfo sv = pl.sv;
-		for (StarSystem sys : systems) {
-			SystemView view = sv.view(sys.id);
-			out += "(" + sys.altId + ")";
-			out += " " + ly(ref.distanceTo(sys));
-			out += " " + view.descriptiveName(); 
-			out += newline;	
-		}
-		return out;
-	}
+//	private String cLn(String s)	{ return s.isEmpty() ? "" : (newline + s); }
+	private int validPlanet(int p)	{ return bounds(0, p, galaxy().systemCount-1); }
+	private void sortSystems()		{ systems.sort((s1, s2) -> s1.altId-s2.altId); }
 	private void resetSystems()		{
 		systems.clear();
 		systems.addAll(Arrays.asList(galaxy().starSystems()));
@@ -585,14 +569,13 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	}
 	private void resetFleets()		{
 		fleets.clear();
-		fleets.addAll(player().allFleets());
+		fleets.addAll(player().getVisibleFleet());
 	}
-
 	private String getParam (String input, List<String> param) {
 		String[] text = input.trim().split("\\s+");
 		for (int i=1; i<text.length; i++)
 			param.add(text[i]);
-		param.add(""); // to avoid empty list!
+		//param.add(""); // to avoid empty list!
 		return text[0];
 	}
 	private Integer getInteger(String text)	{
@@ -609,10 +592,9 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			return null;
 		}
 	}
-	private StarSystem getSys(int altIdx)	{ return galaxy().system(altIndex2SystemIndex.get(altIdx)); }
-	private SystemView getView(int altIdx)	{ return player().sv.view(altIndex2SystemIndex.get(altIdx)); }
-	private String ly (float dist)			{ return String.format("%.1f ly", dist); }
-
+	StarSystem getSys(int altIdx)	{ return galaxy().system(altIndex2SystemIndex.get(altIdx)); }
+	SystemView getView(int altIdx)	{ return player().sv.view(altIndex2SystemIndex.get(altIdx)); }
+	private String ly (float dist)	{ return text("SYSTEMS_RANGE", df1.format(Math.ceil(10*dist)/10)); }
 	private static void createAndShowGUI(boolean show)	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override public void run() {
@@ -622,8 +604,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 					frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 					//Add contents to the window.
-					instance = new CommandConsole();
-					frame.add(instance);
+					frame.add(new CommandConsole());
 
 					//Display the window.
 					frame.pack();
@@ -651,67 +632,73 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			}
 		});
 	}
-	// ################### SUB CLASS PANEL ######################
-	public class Panel {
-		private final String panelName;
-		private final Panel parent;
+	// ################### SUB CLASS MENU ######################
+	public class Menu {
+		private final String menuName;
+		private final Menu parent;
 		private final List<IParam> settings	 = new ArrayList<>();
-		private final List<Panel> subPanels	 = new ArrayList<>();
+		private final List<Menu>   subMenus	 = new ArrayList<>();
 		private final List<Command> commands = new ArrayList<>();
 		private int lastList = NULL_ID;
 		private IParam liveSetting;
 
 		// ##### CONSTRUCTORS #####
-		Panel(String name)	{
+		Menu(String name)	{
 			parent = this;
-			panelName = name;
-		} // For the main panel
-		Panel(String name, Panel parent)	{
+			menuName = name;
+		} // For the main menu
+		Menu(String name, Menu parent)	{
 			this.parent = parent;
-			panelName = name;
-			addPanel(parent);
+			menuName = name;
+			addMenu(parent);
 		}
-		Panel(String name, Panel parent, ParamSubUI ui)		{ this(name, parent, ui.optionsList); }
-		Panel(String name, Panel parent, List<IParam> src)	{
+		Menu(String name, Menu parent, ParamSubUI ui)		{ this(name, parent, ui.optionsList); }
+		Menu(String name, Menu parent, List<IParam> src)	{
 			this(name, parent);
 			for (IParam p : src)
 				if (p != null)
 					if (p.isSubMenu()) {
 						ParamSubUI ui = (ParamSubUI) p;
 						String uiName = text(ui.titleId());
-						subPanels.add(new Panel(uiName, this, ui));
+						subMenus.add(new Menu(uiName, this, ui));
 					}
 					else
 						settings.add(p);
 		}
 		// #####  #####
 		public String open(String out)		{
-			livePanel = this;
-			return panelGuide(out);
+			liveMenu = this;
+			return menuGuide(out);
 		}
 		protected String close(String out)		{ return parent.open(out); }
-		private void addPanel(Panel panel)		{ subPanels.add(panel); }
+		private void addMenu(Menu menu)			{ subMenus.add(menu); }
 		private void addSetting(IParam setting)	{ settings.add(setting); }
 		private void addCommand(Command cmd)	{ commands.add(cmd); }
-		protected void newEntry(ActionEvent evt)	{
+		protected void newEntry(String entry)	{
 			List<String> param = new ArrayList<>();
-			String txt = ((JTextField) evt.getSource()).getText();
-			String cmd = getParam(txt, param);
+			String txt = entry.trim().toUpperCase();
+			lastCmd.remove(txt); // To keep unique and at last position
+			if (!txt.isEmpty())
+				lastCmd.add(txt);
+			String cmd = getParam(txt, param); // this will remove the cmd from param list
 			String out = "Command = " + txt + newline;
 			for (Command c : commands) {
 				if (c.isKey(cmd)) {
-					out += c.execute(param);
-					optField.setText("");
+					if (param.contains("?"))
+						out += c.cmdHelp();
+					else
+						out += c.execute(param);
+					commandField.setText("");
 					resultPane.setText(out);
 					return;
 				}
 			}
-			switch (cmd.toUpperCase()) {
-				case ""		: out = panelGuide(out);	break;
+			switch (cmd) {
+				case ""		: out = menuGuide(out);	break;
 				case "?"	: out = optsGuide();	break;
 				case "CLS"	: out = "";				break;
 				case "UP"	:
-					optField.setText("");
+					commandField.setText("");
 					close(out);
 					return;
 				case "O"	: out = optionEntry(out, param.remove(0), param);	break;
@@ -724,16 +711,16 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				case "S-"	: out = settingEntry(out, "-", param);	break;
 				case "S*"	: out = settingEntry(out, "*", param);	break;
 				case "S="	: out = settingEntry(out, "=", param);	break;
-				case "P"	: out = panelEntry(out, param.remove(0), param);	break;
-				case "P+"	: out = panelEntry(out, "+", param);	break;
-				case "P-"	: out = panelEntry(out, "-", param);	break;
-				case "P*"	: out = panelEntry(out, "*", param);	break;
-				case "P="	: out = panelEntry(out, "=", param);	break;
+				case "M"	: out = menuEntry(out, param.remove(0), param);	break;
+				case "M+"	: out = menuEntry(out, "+", param);	break;
+				case "M-"	: out = menuEntry(out, "-", param);	break;
+				case "M*"	: out = menuEntry(out, "*", param);	break;
+				case "M="	: out = menuEntry(out, "=", param);	break;
 				default	:
 					switch (lastList) {
-					case OPTION_ID	: out = optionSel(out, cmd);	break;
-					case SETTING_ID	: out = settingSel(out, cmd);	break;
-					case PANEL_ID	: out = panelSel(out, cmd);		break;
+					case OPTION_ID	: out = optionSelect(out, cmd);	break;
+					case SETTING_ID	: out = settingSelect(out, cmd);	break;
+					case MENU_ID	: out = menuSelect(out, cmd);		break;
 					case NULL_ID	:
 					default	:
 						out += "? unrecognised command";
@@ -741,86 +728,86 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 						return;
 					}
 			}
-			optField.setText("");
+			commandField.setText("");
 			resultPane.setText(out);
 		}
-		private String panelEntry(String out, String cmd, List<String> p) {
-			switch (cmd.toUpperCase()) {
+		private String menuEntry(String out, String cmd, List<String> p) {
+			switch (cmd) {
 				case ""	:
 				case "?":
-				case "*": return panelList(out);
-				case "+": return panelNext(out);
-				case "-": return panelPrev(out);
-				case "=": return panelSel(out, p.get(0));
+				case "*": return menuList(out);
+				case "+": return menuNext(out);
+				case "-": return menuPrev(out);
+				case "=": return menuSelect(out, p.get(0));
 				default	:
-					return panelSel(out, cmd);
+					return menuSelect(out, cmd);
 			}
 		}
 		private String settingEntry(String out, String cmd, List<String> p) {
-			switch (cmd.toUpperCase()) {
+			switch (cmd	) {
 				case ""	:
 				case "?":
 				case "*": return settingList(out);
 				case "+": return settingNext(out);
 				case "-": return settingPrev(out);
-				case "=": return settingSel(out, p.get(0));
+				case "=": return settingSelect(out, p.get(0));
 				default	:
-					return settingSel(out, cmd);
+					return settingSelect(out, cmd);
 			}
 		}
 		private String optionEntry(String out, String cmd, List<String> p) {
-			switch (cmd.toUpperCase()) {
+			switch (cmd	) {
 				case ""	:
 				case "?":
 				case "*": return optionList(out);
 				case "+": return optionNext(out);
 				case "-": return optionPrev(out);
-				case "=": return optionSel(out, p.get(0));
+				case "=": return optionSelect(out, p.get(0));
 				default	:
-					return optionSel(out, cmd);
+					return optionSelect(out, cmd);
 			}
 		}
-		// Panels methods
-		private String panelPrev(String out) { return close(out); }
-		private String panelNext(String out) {
-			List<Panel> list = parent.subPanels;
+		// Menus methods
+		private String menuPrev(String out) { return close(out); }
+		private String menuNext(String out) {
+			List<Menu> list = parent.subMenus;
 			int index = list.indexOf(this) + 1;
 			if (index >= list.size())
 				return close(out); // Return to parent
 			return list.get(index).open(out);
 		}
-		private String panelSel(String out, int index) {
+		private String menuSelect(String out, int index) {
 			if (index < 0)
 				return out + " ? Should not be negative";
-			if (index >= subPanels.size())
-				return out + " ? Index to high! max = " + (subPanels.size()-1);
-			return subPanels.get(index).open(out);
+			if (index >= subMenus.size())
+				return out + " ? Index to high! max = " + (subMenus.size()-1);
+			return subMenus.get(index).open(out);
 		}
-		private String panelSel(String out, String param) {
+		private String menuSelect(String out, String param) {
 			if (param == null || param.isEmpty())
-				return panelGuide(out); // No parameters = ask for help
+				return menuGuide(out); // No parameters = ask for help
 			Integer number = getInteger(param);
 			if (number == null)
-				return "? Invalid parameter" + newline + panelGuide(out);
-			return panelSel(out, number);
+				return "? Invalid parameter" + newline + menuGuide(out);
+			return menuSelect(out, number);
 		}
-		private String panelList(String out) {
-			if (subPanels.size() == 0)
-				return "? No panel list available";
-			out += "Panel List: " + newline;
+		private String menuList(String out) {
+			if (subMenus.size() == 0)
+				return "? No menu list available";
+			out += "Menu List: " + newline;
 			int i=0;
-			for (Panel p: subPanels) {
-				out += "(P " + i + ") " + p.panelName + newline;
+			for (Menu p: subMenus) {
+				out += "(M " + i + ") " + p.menuName + newline;
 				i++;
 			}
-			lastList = PANEL_ID;
+			lastList = MENU_ID;
 			return out;
 		}
-		private String panelGuide(String out) {
-			out += "Current Panel: ";
-			out += panelName + newline;
+		private String menuGuide(String out) {
+			out += "Current Menu: ";
+			out += menuName + newline;
 			out = commandGuide(out);			
-			out = panelList(out);
+			out = menuList(out);
 			return settingGuide(out);
 		}
 		// Settings methods
@@ -836,7 +823,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				index = 0;
 			return settingSel(out, index);
 		}
-		private String settingSel(String out, String param) {
+		private String settingSelect(String out, String param) {
 			if (param == null || param.isEmpty())
 				return settingGuide(out);
 			Integer number = getInteger(param);
@@ -852,7 +839,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			if (index < 0)
 				return out + " ? Should not be negative";
 			if (index >= settings.size())
-				return out + " ? Index to high! max = " + (subPanels.size()-1);
+				return out + " ? Index to high! max = " + (subMenus.size()-1);
 			return settingSel(out, settings.get(index));
 		}
 		private String settingList(String out) {
@@ -871,7 +858,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		}
 		protected String settingGuide(String out) { return settingList(out); }
 		// Options methods
-		private String optionSel(String out, String param) {
+		private String optionSelect(String out, String param) {
 			if (param == null || param.isEmpty())
 				return optionGuide(out);
 			if (liveSetting instanceof ParamList) {
@@ -935,51 +922,78 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		// Command methods
 		private String commandGuide(String out) {
 			for (Command cmd : commands) {
-				out += cmd.getGuide() + newline;
+				out += cmd.getLineGuide() + newline;
 			}
 			return out;
 		}
 	}
 	// ################### SUB CLASS COMMAND ######################
-	private class Command {
+	class Command {
 		private final List <String> keyList = new ArrayList<>();
 		private final String description;
+		private String cmdHelp	= "";
+		private String cmdParam	= "";
 		protected String execute(List<String> param) { return "Unimplemented command!" + newline; }
-		private Command(String descr, String... keys) {
+		Command(String descr, String... keys) {
 			description = descr;
 			for (String key : keys)
-				keyList.add(key.toUpperCase());
+				keyList.add(key	);
 		}
-		private boolean isKey(String str) { return keyList.contains(str.toUpperCase()); }
-		private String getKey() { return keyList.get(0);}
-		private String getGuide() { 
+		private boolean isKey(String str)	{ return keyList.contains(str	); }
+		private void cmdHelp(String help)	{ cmdHelp = help;}
+		private void cmdParam(String p)		{ cmdParam = p;}
+		private String cmdHelp()			{ return cmdHelp;}
+		private String getKey()				{ return keyList.get(0);}
+		protected String getLineGuide()		{
 			String out = "(";
 			out += getKey();
-			out += ") ";
+			out += cmdParam + ") ";
 			out += description;
 			return out;
 		}
 	}
-	// ################### SUB CLASS COMMAND ######################
-	private class MO_Filter {
-		private List<Integer> opponent = new ArrayList<>();
-		private Boolean colonized = null;
-		private Boolean explored  = null;
+	// ################### SUB CLASS VIEW FILTER ######################
+	class ViewFilter {
+		private List<Integer> empires = new ArrayList<>();
+		private Boolean colonized	= null;
+		private Boolean explored	= null;
+		private boolean attacked	= false;
+		private boolean allList		= true;
+		private boolean planetList	= false;
+		private boolean fleetList	= false;
+		private boolean transList	= false;
 		private Float dist	= null;
 		private Float range	= null;
 		private	Empire pl	= player();
-		private List<String> filterList;
+		private String result	= "";
 
-		private MO_Filter(List<String> filters) {
-			filterList = filters;
-			if (filters.isEmpty())
+		String getResult(String out)	{ return out + result; } 
+
+		ViewFilter(Command cmd, List<String> filters)	{
+			if (filters.contains("?")) {
+				result = cmd.description + newline + cmd.cmdHelp();
 				return;
+			}
 			for (String filter : filters)
 				filterMOList(filter);
+			if (allList) {
+				filterSystems();
+				filterFleets();
+				filterTransports();
+				return;
+			}
+			if (planetList)
+				filterSystems();
+			if (fleetList)
+				filterFleets();
+			if (transList)
+				filterTransports();
 		}
 		private void filterMOList(String filter)	{
+			if (filter.isEmpty())
+				return;
 			String c1, c2, se;
-			c1 = filter.substring(0, 1).toUpperCase();
+			c1 = filter.substring(0, 1)	;
 			if (filter.length()>1) {
 				c2 = filter.substring(1, 2);
 				se = filter.substring(1);
@@ -1001,27 +1015,30 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				dist = getFloat(se);
 				break;
 			case "Y": // Player only
-				opponent.add(0);
+				empires.add(0);
 				break;
 			case "O": // Selected Opponent
 				if (se.isEmpty()) { // All opponents
 					for (Empire e : galaxy().activeEmpires())
 						if (!e.isPlayer())
-							opponent.add(e.id);
+							empires.add(e.id);
 				}
 				else if (se.equals("W")) { // At war with
 					for (Empire e : pl.warEnemies())
-						opponent.add(e.id);
+						empires.add(e.id);
 				}
 				else { // Specified opponents
 					Integer opp = getInteger(se);
 					if (opp != null)
-						opponent.add(opp);
+						empires.add(opp);
 				}
 				break;			
 			case "W": // At war with
 				for (Empire e : pl.warEnemies())
-					opponent.add(e.id);
+					empires.add(e.id);
+				break;			
+			case "A": // Unexplored
+				attacked = true;
 				break;			
 			case "U": // Unexplored
 				explored = false;
@@ -1035,39 +1052,146 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			case "C": // colonized
 				colonized = true;
 				break;			
+			case "P": // Planets
+				allList = false;
+				planetList = true;
+				break;			
+			case "F": // Fleets
+				allList = false;
+				fleetList = true;
+				break;			
+			case "T": // Transports
+				allList = false;
+				transList = true;
+				break;			
 			}
 		}
 		private void filterSystems()	{
 			resetSystems();
 			filterMOList(systems);
-			if (!opponent.isEmpty()) {
+			if (!empires.isEmpty()) {
 				List<StarSystem> copy = new ArrayList<>(systems);
 				for (StarSystem sys : copy)
-					if (!opponent.contains(sys.empId()))
+					if (!empires.contains(sys.empId()))
 						systems.remove(sys);
 			}
+			List<StarSystem> copy = new ArrayList<>(systems);
+			for (StarSystem sys : copy) {
+				SystemView sv = pl.sv.view(sys.id);
+				if (attacked && !sv.attackTarget())
+					systems.remove(sys);
+				if (colonized != null && colonized && !sv.isColonized())
+					systems.remove(sys);
+				else if (colonized != null && !colonized && sv.isColonized())
+					systems.remove(sys);
+				else if (explored != null && explored && !sv.scouted())
+					systems.remove(sys);
+				else if (explored != null && !explored && sv.scouted())
+					systems.remove(sys);
+			}
+			sortSystems();
+			result = viewSystems(result);
 		}
 		private void filterFleets()	{
 			resetFleets();
 			filterMOList(fleets);
-			if (!opponent.isEmpty()) {
+			if (!empires.isEmpty()) {
 				List<ShipFleet> copy = new ArrayList<>(fleets);
 				for (ShipFleet sf : copy)
-					if (!opponent.contains(sf.empId()))
+					if (!empires.contains(sf.empId()))
 						fleets.remove(sf);
 			}
+			result = viewFleets(result);
 		}
 		private void filterTransports()	{
 			resetTransports();
 			filterMOList(transports);
-			if (!opponent.isEmpty()) {
+			if (!empires.isEmpty()) {
 				List<Transport> copy = new ArrayList<>(transports);
 				for (Transport tr : copy)
-					if (!opponent.contains(tr.empId()))
+					if (!empires.contains(tr.empId()))
 						transports.remove(tr);
 			}
+			result = viewTransports(result);
 		}
-
+		private String viewSystems(String out)	{
+			if (systems.isEmpty())
+				return out + "Empty Star System List" + newline;
+			StarSystem ref = getSys(selectedStar);
+			Empire pl = player();
+			SystemInfo sv = pl.sv;
+			for (StarSystem sys : systems) {
+				SystemView view = sv.view(sys.id);
+				Empire emp = sys.empire();
+				out += "(P " + sys.altId + ")";
+				if (dist == null && !emp.isPlayer())
+					out += " Dist player = " + ly(pl.distanceTo(sys));
+				else
+					out +=  " Dist P" + selectedStar + " = " + ly(ref.distanceTo(sys));
+				if (pl.knowsOf(emp))
+					out += ", Empire = " + emp.id;
+				String s = view.name();
+				if (!s.isEmpty())
+					out += ", " + view.name();
+				out += ", " + view.descriptiveName(); 
+				out += newline;	
+			}
+			return out;
+		}
+		private String viewFleets(String out)	{
+			if (fleets.isEmpty())
+				return out + "Empty Fleet List" + newline;
+			StarSystem ref = getSys(selectedStar);
+			int idx = 0;
+			for (ShipFleet fleet : fleets) {
+				out += "(F " + idx + ")";
+				Empire emp = fleet.empire();
+				if (pl.knowsOf(emp))
+					out += " Empire = " + emp.id;
+				else
+					out += " Empire = ?";
+				if (fleet.isOrbiting())
+					out += ", Orbit P" + fleet.system().altId;
+				else if (pl.knowETA(fleet)) {
+					int destination = fleet.destination().altId;
+					int eta = fleet.travelTurnsRemaining();
+					out += ", ETA P" + destination + " = " + eta + " year";
+					if (eta>1)
+						out += "s";
+				}
+				else
+					out += ", Dist P" + selectedStar + " = " + ly(ref.distanceTo(fleet));
+				out += newline;
+				idx++;
+			}
+			return out;
+		}
+		private String viewTransports(String out)	{ // TODO BR: String viewTransports(String out)
+			if (transports.isEmpty())
+				return out + "Empty Transport List" + newline;
+			StarSystem ref = getSys(selectedStar);
+			int idx = 0;
+			for (Transport transport : transports) {
+				out += "(T " + idx + ")";
+				Empire emp = transport.empire();
+				if (pl.knowsOf(emp))
+					out += " Empire = " + emp.id;
+				else
+					out += " Empire = ?";
+				if (pl.knowETA(transport)) {
+					int destination = transport.destination().altId;
+					int eta = transport.travelTurnsRemaining();
+					out += ", ETA P" + destination + " = " + eta + " year";
+					if (eta>1)
+						out += "s";
+				}
+				else
+					out += ", Dist P" + selectedStar + " = " + ly(ref.distanceTo(transport));
+				out += newline;
+				idx++;
+			}
+			return out;
+		}
 		private void filterMOList(List<? extends IMappedObject> list)	{
 			if (range != null) {
 				List<? extends IMappedObject> copy = new ArrayList<>(list);
@@ -1085,4 +1209,3 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		}
 	}
 }
-

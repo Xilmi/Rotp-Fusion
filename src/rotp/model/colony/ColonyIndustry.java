@@ -370,7 +370,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
     // PRIVATE METHODS
     //
     private float factoryConversionCost()    { return 2; }
-    private boolean hasAlienFactories()       { return planet().numAlienFactories() > 0; }
+    // private boolean hasAlienFactories()       { return planet().numAlienFactories() > 0; }
     private float totalAlienConversionCost() { 
         return convertableAlienFactories() * factoryConversionCost(); 
     }

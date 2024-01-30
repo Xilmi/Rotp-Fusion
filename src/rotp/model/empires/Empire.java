@@ -2422,6 +2422,18 @@ public final class Empire implements Base, NamedObject, Serializable {
             	addVisibleMonster(sh);
         }
     }
+    public List<ShipFleet> getVisibleFleet() {
+    	Galaxy gal = galaxy();
+        List<ShipFleet> myShips = galaxy().ships.allFleets(id);
+        List<StarSystem> mySystems = this.allColonizedSystems();
+        List<ShipFleet> ships = new ArrayList<>();
+        for (ShipFleet sh : gal.ships.allFleets())
+        	if (sh.visibleTo(id) && sh.isActive()
+        		&& (canSeeShips(sh.empId()) || canScanTo(sh, mySystems, myShips)))
+        		ships.add(sh);
+        return ships;
+    }
+
     public Map<Ship, Ship> matchShipsSeenThisTurnToShipsSeenLastTurn(List<Ship> visibleShips, Set<Ship> shipsVisibleLastTurnDestroyed) {
         // This function attempts to match ships seen last turn with ships seen this turn (to determine trajectories).
         // Obviously, we have the object references in hand, so we could just compare their identities.

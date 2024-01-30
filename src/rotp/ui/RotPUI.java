@@ -52,6 +52,7 @@ import rotp.model.ships.ShipLibrary;
 import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechLibrary;
 import rotp.ui.combat.ShipBattleUI;
+import rotp.ui.console.CommandConsole;
 import rotp.ui.design.DesignUI;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
@@ -361,7 +362,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     	newGameOptions = new MOO1GameOptions();
     	newGameOptions.setAsSetup();
     	Rotp.noOptions = false;
-        System.out.println("==================== Rotp.noOptions = false; ====================");
+        // System.out.println("==================== Rotp.noOptions = false; ====================");
     }
     public void toggleAnimations() {
         if (playAnimations())
@@ -415,7 +416,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     }
     public void selectLoadGamePanel() {
 		if (guiOptions().selectedShowConsolePanel()) {
-			rotp.ui.main.CommandConsole.loadPanel.open("");
+			CommandConsole.loadMenu.open("");
 		} else {
 			loadGameUI.init();
 			selectPanel(LOAD_PANEL, loadGameUI);
@@ -434,7 +435,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         repaint();
         GovernorOptions.callForReset();
 		if (guiOptions().selectedShowConsolePanel())
-			rotp.ui.main.CommandConsole.introPanel.open("");
+			CommandConsole.introMenu.open("");
     }
     public void selectMainPanel()      { selectMainPanel(false); }
     public void selectMainPanel(boolean pauseNextTurn)      {

@@ -61,6 +61,11 @@ Later:
 
 ## What's New
 
+2024.01.30 (BR)
+- Command Console:
+  - Split the class.
+  - Added star systems selection.
+
 2024.01.25 (BR)
 - New option: Research Moo1 style vs vanilla RotP
   - YES: Reload won't change research probability (Moo1 style)
