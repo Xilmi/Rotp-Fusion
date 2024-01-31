@@ -4,6 +4,7 @@ import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
 
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -31,6 +32,7 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import rotp.Rotp;
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemInfo;
 import rotp.model.empires.SystemView;
@@ -713,6 +715,15 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			}
 			commandField.setText("");
 			resultPane.setText(out);
+			frame.setVisible(true);
+			// System.out.println(Rotp.isIDE());
+			EventQueue.invokeLater(new Runnable() {
+				@Override public void run() {
+					// commandField.grabFocus();
+					// commandField.requestFocus();
+					commandField.requestFocusInWindow();
+				}
+			});
 		}
 		private String menuEntry(String out, String cmd, List<String> p) {
 			switch (cmd) {
