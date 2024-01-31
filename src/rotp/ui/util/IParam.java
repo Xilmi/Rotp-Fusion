@@ -16,6 +16,7 @@
 
 package rotp.ui.util;
 
+import static rotp.model.game.IDebugOptions.showConsolePanel;
 import static rotp.ui.game.BaseModPanel.guideFontSize;
 import static rotp.util.Base.lineSplit;
 import static rotp.util.Base.textSubs;
@@ -24,7 +25,6 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import rotp.model.game.IDebugOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.util.LabelManager;
@@ -114,7 +114,7 @@ public interface IParam extends InterfaceOptions{
 //	public default String headerHelp()			{ return headerHelp(getLangLabel(), true); }
 	public default String defaultValueHelp()	{
 		String help = labelFormat("Default Value") + guideDefaultValue();
-		if (!IDebugOptions.showConsolePanel.get())
+		if (!showConsolePanel.get())
 			help += htmlTuneFont(-2, "&emsp<i>(set with Middle Click)<i/>");
 		help += baseSeparator();
 		return help;
@@ -146,6 +146,8 @@ public interface IParam extends InterfaceOptions{
 		return val + baseSeparator() + help;
 	}
 	public default String modifierHelp()		{
+		if (showConsolePanel.get())
+			return "";
 		String[] mod = getModifiers();
 		if (mod == null)
 			return "";

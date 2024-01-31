@@ -184,7 +184,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 				if (key.startsWith(BASE_RACE_MARKER))
 					help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
 				else
-					help = "("+ id +") "+labelFormat(raceName) + race.description1;
+					help = labelFormat(raceName) + race.description1;
 				help += "<br>" + race.description2
 					 +  "<br>" + race.description3.replace("[race]", raceName)
 					 +  "<br>" + race.description4;

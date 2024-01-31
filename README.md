@@ -66,6 +66,8 @@ Later:
   - Crash fix when listing stars of an old save.
   - Fixed Typo!: "GO" will now start the game!
   - Removed the key listener to the result pane.
+  - Fixed double Index.
+  - Removed useless key modifiers.
 
 2024.01.30 (BR)
 - Command Console:

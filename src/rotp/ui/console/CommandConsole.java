@@ -482,8 +482,8 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			}
 		});
 
-		resultLabel = new JLabel("Result: ");
-		resultPane = new JTextPane();
+		resultLabel	= new JLabel("Result: ");
+		resultPane	= new JTextPane();
 		resultLabel.setLabelFor(resultPane);
 		resultPane.setEditable(false);
 		resultPane.setOpaque(true);
