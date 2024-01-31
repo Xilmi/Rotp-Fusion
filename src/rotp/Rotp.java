@@ -57,6 +57,7 @@ public class Rotp {
     public static String exeFileName = "rotp-" + version + ".exe";
     public static boolean countWords = false;
     private static String startupDir;
+    private static Boolean isIDE;
     private static JFrame frame;
     public static String releaseId = version;
     public static long startMs = System.currentTimeMillis();
@@ -273,6 +274,11 @@ public class Rotp {
             }
         }
         return startupDir;
+    }
+    public	static boolean isIDE() {
+    	if (isIDE == null)
+    		isIDE = jarPath().toUpperCase().endsWith("TARGET");
+    	return isIDE;
     }
     private static void stopIfInsufficientMemory(JFrame frame, int allocMb) {
         if (allocMb < 260) {

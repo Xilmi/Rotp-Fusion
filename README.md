@@ -69,6 +69,8 @@ Later:
   - Fixed double Index.
   - Removed useless key modifiers.
   - Starting the console set the Graphic mode to "Low".
+  - Smoothly ask for focus at the end of each command.
+- DEBUG: added Rotp.isIDE() for debug purpose.
 
 2024.01.30 (BR)
 - Command Console:
