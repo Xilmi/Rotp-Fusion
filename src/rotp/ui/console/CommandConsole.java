@@ -513,6 +513,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 
 		starView = new StarView(this);
 		instance = this;
+		IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
 	}
 
 	private MainUI mainUI()	  { return RotPUI.instance().mainUI(); }

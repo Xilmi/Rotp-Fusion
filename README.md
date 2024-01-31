@@ -68,6 +68,7 @@ Later:
   - Removed the key listener to the result pane.
   - Fixed double Index.
   - Removed useless key modifiers.
+  - Starting the console set the Graphic mode to "Low".
 
 2024.01.30 (BR)
 - Command Console:
