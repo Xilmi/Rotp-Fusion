@@ -129,7 +129,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
    
     public Long seed() { // BR: seed for deterministic randomness
     	if (seed == null)
-    		seed = (long) random.nextInt(); // To allow seed multiplication
+    		seed = (long) rng().nextInt(); // To allow seed multiplication
     	return seed;
     }
     public SystemTransportSprite transportSprite() {

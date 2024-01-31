@@ -25,7 +25,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
+import rotp.Rotp;
 import rotp.model.colony.Colony;
 import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
@@ -74,12 +76,13 @@ public class Galaxy implements Base, Serializable {
     private float maxScaleAdj = 1.0f;
     public int systemCount = 0;
 
-    // BR: Dynamic options
-    private DynOptions dynamicOptions = new DynOptions();
+    private DynOptions dynamicOptions = new DynOptions();// BR: Dynamic options
     private Integer lastHashCodeDiplomaticIncident	= 0;
     private Integer lastHashCodeShipDesign			= 0;
     private Integer lastHashCodeDesign				= 0;
     private Integer lastHashCodeShip				= 0;
+    private Random	permRandom = rng(); // BR: to memorize RNG state
+
     public	Integer nextHashCodeDiplomaticIncident() {
     	if (lastHashCodeDiplomaticIncident!=null)
     		lastHashCodeDiplomaticIncident++;
@@ -472,6 +475,10 @@ public class Galaxy implements Base, Serializable {
     public void validateOnLoad() {
     	if (dynamicOptions == null)
     		dynamicOptions = new DynOptions();
+    	if (permRandom == null) // For backward compatibility
+    		permRandom = rng();
+    	if (options().persistentRNG())
+    		Rotp.random = permRandom;
         for (Empire emp: empires())
              emp.validateOnLoad();
         RandomEventSpacePirates.triggerEmpire = isTechDiscovered(RandomEventSpacePirates.TRIGGER_TECH);

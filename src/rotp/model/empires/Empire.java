@@ -43,6 +43,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import rotp.Rotp;
 import rotp.model.ai.AI;
 import rotp.model.ai.interfaces.Diplomat;
 import rotp.model.ai.interfaces.FleetCommander;
@@ -195,12 +196,12 @@ public final class Empire implements Base, NamedObject, Serializable {
     	if (options().researchMoo1() || galaxy().numberTurns() < 1) {
         	if (techRandom == null) {
         		if (randomSource == null)
-        			randomSource = random.nextLong();
+        			randomSource = rng().nextLong();
         		techRandom = new Random(randomSource);
         	}
         	return techRandom;
     	}
-    	return random;
+    	return rng();
     }
 
     public void resetAI() { ai = null; } // BR:
@@ -473,7 +474,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     		int[] compId, Integer cId, String name, EmpireBaseData empSrc) {
         log("creating empire for ",  r.id);
         if (empSrc == null)
-        	randomSource = random.nextLong();
+        	randomSource = rng().nextLong();
         else
         	randomSource = empSrc.randomSource();
         	
@@ -3635,10 +3636,10 @@ public final class Empire implements Base, NamedObject, Serializable {
         int minLevel = isOrion ? 20: 1;
         s.planet().plunderBonusTech();
         long seed;
-        if (options().isDeterministicArtifact())
+        if (options().isPersistentArtifact())
         	seed = s.seed() + s.id;
         else
-        	seed = (long) random.nextInt(); // To allow seed multiplication
+        	seed = (long) rng().nextInt(); // To allow seed multiplication
         for (int i=0;i<numTechs;i++) {
         	long seed1 = seed * (i+1);
         	long seed2 = (seed+9) * (i+1);
@@ -4558,7 +4559,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 		}
 		public void raceAI(int ai)	{ raceAI = ai; }
 		public int  raceAI()		{ return raceAI; }
-		public Long randomSource()	{ return randomSource == null? random.nextLong() : randomSource; }
+		public Long randomSource()	{ return randomSource == null? Rotp.random.nextLong() : randomSource; }
 		
 	}
 }

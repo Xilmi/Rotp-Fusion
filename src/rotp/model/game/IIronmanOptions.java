@@ -32,9 +32,16 @@ public interface IIronmanOptions extends IBaseOptsTools {
 	ParamInteger ironmanLoadDelay	= new ParamInteger( MOD_UI, "IRONMAN_LOAD_DELAY", 10, 1, 500, 1, 5, 20);
 	default int selectedIronmanLoadDelay()	{ return ironmanLoadDelay.get(); }
 
-	ParamBoolean deterministicArtifact	= new ParamBoolean(MOD_UI, "REPEATABLE_ARTIFACT", false)
+	ParamBoolean persistentArtifact	= new ParamBoolean(MOD_UI, "REPEATABLE_ARTIFACT", false)
 	{ { isValueInit(false); } };
-	default boolean isDeterministicArtifact()	{ return deterministicArtifact.get(); }
+	default boolean isPersistentArtifact()	{ return persistentArtifact.get(); }
+	
+	ParamBoolean researchMoo1		= new ParamBoolean(MOD_UI, "RESEARCH_MOO1", false);
+	default boolean researchMoo1()			{ return researchMoo1.get(); }
+
+	ParamBoolean persistentRNG		= new ParamBoolean(MOD_UI, "PERSISTENT_RNG", false);
+	default boolean persistentRNG()			{ return persistentRNG.get(); }
+
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -49,8 +56,9 @@ public interface IIronmanOptions extends IBaseOptsTools {
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("IRONMAN_CUSTOM"),
 				IGameOptions.fixedEventsMode,
-				deterministicArtifact,
-				ironmanNoLoad, ironmanLoadDelay
+				persistentArtifact,
+				ironmanNoLoad, ironmanLoadDelay,
+				researchMoo1, persistentRNG
 				)));
 		return map;
 	};

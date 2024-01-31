@@ -18,11 +18,11 @@ package rotp.ui.util;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.game.IMainOptions.minListSizePopUp;
+import static rotp.Rotp.random;
 import static rotp.ui.util.IParam.langHelp;
 import static rotp.ui.util.IParam.langLabel;
 import static rotp.ui.util.IParam.rowsSeparator;
 import static rotp.ui.util.IParam.tableFormat;
-import static rotp.util.Base.random;
 import static rotp.util.Base.textSubs;
 
 import java.awt.Color;

@@ -525,7 +525,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 		double xWSR = (dS2-dD2+xDSR2)/(2*xDSR);
 		double yWSR = Math.sqrt(dS2 - xWSR*xWSR);
 		// randomize sign of Y
-		if (random.nextBoolean())
+		if (rng().nextBoolean())
 			yWSR = -yWSR;
 		// Rotate back
 		double cosE = xDestShift/xDSR;

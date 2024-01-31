@@ -93,7 +93,8 @@ import rotp.util.sound.SoundManager;
 public interface Base {
     public static String[] monthName = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
     public static String[] letter = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N" };
-    public static Random random = new Random();
+    //public static Random random = new Random(); // Moved to Rotp for reset purpose
+    public default Random rng() { return Rotp.random; }
     public static DecimalFormat df1 = new DecimalFormat("0.0");
     public static DecimalFormat df2 = new DecimalFormat("0.00");
     public static DecimalFormat df3 = new DecimalFormat("0.000");
@@ -298,11 +299,11 @@ public interface Base {
     public default float distance(float x0, float y0, float x1, float y1) {
         return (float) Math.sqrt( ((x1-x0)*(x1-x0)) + ((y1-y0)*(y1-y0)) );
     }
-    public default float random()               { return random.nextFloat(); }
+    public default float random()               { return rng().nextFloat(); }
     public default float random(float d)       { return d * random(); }
     public default float random(float low, float hi) { return low + ((hi-low)*random()); }
     public default <T> T random(T[] array) {
-        return array == null ? null : array[(random.nextInt(array.length))];
+        return array == null ? null : array[(rng().nextInt(array.length))];
     }
     public default <T> T random(T[] array, Long seed) {
     	if (seed == null)
@@ -312,7 +313,7 @@ public interface Base {
         return array[(new Random(seed).nextInt(array.length))];
     }
     public default <T> T random(List<T> list) {
-        return (list == null || list.isEmpty()) ? null : list.get(random.nextInt(list.size()));
+        return (list == null || list.isEmpty()) ? null : list.get(rng().nextInt(list.size()));
     }
     public default <T> T random(List<T> list, Long seed) {
     	if (seed == null)

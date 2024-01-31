@@ -13,7 +13,7 @@ import static rotp.model.game.IDebugOptions.debugAutoRun;
 import static rotp.model.game.IFlagOptions.autoFlagOptionsUI;
 import static rotp.model.game.IFlagOptions.flagColorCount;
 import static rotp.model.game.IGalaxyOptions.difficultySelection;
-import static rotp.model.game.IIronmanOptions.deterministicArtifact;
+import static rotp.model.game.IIronmanOptions.persistentArtifact;
 import static rotp.model.game.IIronmanOptions.ironmanLoadDelay;
 import static rotp.model.game.IIronmanOptions.ironmanNoLoad;
 import static rotp.model.game.IMainOptions.compactOptionOnly;
@@ -210,12 +210,9 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default boolean transportAutoEcoDefaultYes(){ return transportAutoEco.get().equals("Yes"); }
 	default boolean transportAutoEcoLast()		{ return transportAutoEco.get().equals("Last"); }
 
-	
 	ParamBoolean spyOverSpend			= new ParamBoolean(MOD_UI, "SPY_OVERSPEND", true);
 	default boolean spyOverSpend()			{ return spyOverSpend.get(); }
 
-	ParamBoolean researchMoo1			= new ParamBoolean(MOD_UI, "RESEARCH_MOO1", false);
-	default boolean researchMoo1()			{ return researchMoo1.get(); }
 
 	// ==================== GUI List Declarations ====================
 	static LinkedList<IParam> modDynamicAOptions() {
@@ -250,8 +247,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 						ICombatOptions.combatOptionsUI,
 						null,
 						fixedEventsMode, eventsFavorWeak,
-						IRandomEvents.customRandomEventUI,
-						researchMoo1
+						IRandomEvents.customRandomEventUI
 						));
 	}
 	// ==================== GUI List Declarations ====================
@@ -267,7 +263,6 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				new ParamTitle("GAME_DIFFICULTY"),
 				difficultySelection, customDifficulty,
 				dynamicDifficulty, challengeMode,
-				researchMoo1,
 
 				headerSpacer,
 				new ParamTitle("GAME_VARIOUS"),
@@ -278,7 +273,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 				headerSpacer,
 				new ParamTitle("IRONMAN_BASIC"),
-				deterministicArtifact,
+				persistentArtifact,
 				ironmanNoLoad, ironmanLoadDelay
 				)));
 		map.add(new LinkedList<>(Arrays.asList(

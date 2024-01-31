@@ -514,7 +514,7 @@ public class CombatStack implements Base {
         int kills = 0;
         if (num < 10)
         	for (int i=0; i<num; i++) { // to give chance to small pct with small stack
-        		if (random.nextFloat() < pctLoss)
+        		if (rng().nextFloat() < pctLoss)
         			kills++;
         	}
         else

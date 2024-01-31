@@ -1,4 +1,9 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
+<b><ins>Very las changes:</ins></b>
+- Moved Research Moo1 option to Ironman Panel.
+- Added Persistent Random Generator option to to Ironman Panel.
+- Fixed some display options not being saved!
+
 
 <b><ins>Updates since last releases:</ins></b>
 
@@ -26,9 +31,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Restored vanilla galaxy setup panel advanced options. 
 - Restart will now gives the same research tech list.
   - This accidentally removed the "new dice roll" when reloading a game! To fix this:
-    - New option: Research Moo1 style vs vanilla RotP.
+    - New option: Research Moo1 style vs vanilla RotP. (Ironman Panel)
     - YES: Reload won't change research probability (Moo1 style)
     - NO: You may try to reload to get a new dice roll! (RotP default)
+- Added Persistent Random Generator option to to Ironman Panel.
 
 
 <b><ins>Bug Fixes:</ins></b>
@@ -38,6 +44,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed some low occurences crash vulnerabilities. (Thanks for reporting them)
 - Fixed wrong button display after Ctrl-option Pop-up panel.
 - Fixed "Continue" on startup will suggest a name based on the loaded game.
+- Fixed some display options not being saved!
 
 <b><ins>Last Release:</ins></b>
 

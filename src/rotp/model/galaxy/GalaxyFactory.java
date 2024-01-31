@@ -587,7 +587,7 @@ public class GalaxyFactory implements Base {
 							dataRace = fileToAlienRace(random(alienRaceList));
 						break;
 					case FILES_RACES:
-						if (random.nextBoolean())
+						if (rng().nextBoolean())
 							if (allowedRaceList.isEmpty())
 								dataRace = Race.keyed(random(opts.allRaceOptions()));
 							else
@@ -596,15 +596,15 @@ public class GalaxyFactory implements Base {
 							dataRace = Race.keyed(random(opts.allRaceOptions()));
 						break;
 					case ALL:
-						if (random.nextBoolean())
-							if (random.nextBoolean())
+						if (rng().nextBoolean())
+							if (rng().nextBoolean())
 								if (allowedRaceList.isEmpty())
 									dataRace = optionToAlienRace(g.empire(0).raceOptions());
 								else
 									dataRace = fileToAlienRace(random(allowedRaceList));
 							else
 								dataRace = optionToAlienRace(g.empire(0).raceOptions());
-						else if (random.nextBoolean())
+						else if (rng().nextBoolean())
 							dataRace = Race.keyed(random(opts.allRaceOptions()));
 						else
 							dataRace = Race.keyed(RANDOM_RACE_KEY);
@@ -778,9 +778,9 @@ public class GalaxyFactory implements Base {
 		float prob = opts.guardianMonstersProbability(planet);
 		if (prob == 0)
 			return;
-		if (prob <= random.nextFloat())
+		if (prob <= rng().nextFloat())
 			return;
-		if (random.nextBoolean())
+		if (rng().nextBoolean())
 			sys.monster(new SpaceJellyfish(null, null));
 		else
 			sys.monster(new SpaceCuttlefish(null, null));

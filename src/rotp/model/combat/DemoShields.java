@@ -857,7 +857,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			monsterId	= roll(0, monsters.length-1);
 			hullId		= roll(0, MAX_HULLS);
 			modelId		= roll(0, MAX_MODELS);
-			playerIsTarget = random.nextBoolean();
+			playerIsTarget = rng().nextBoolean();
 			loadShields();
 		} else {
 			if (srcRotate)

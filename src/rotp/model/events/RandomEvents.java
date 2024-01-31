@@ -57,17 +57,17 @@ public class RandomEvents implements Base, Serializable {
 	// BR: Added option for fixed random (reloading wont change the issue)
 	private Long turnSeed()				{
 		if (turnSeed == null)
-			turnSeed = random.nextLong();
+			turnSeed = rng().nextLong();
 		return turnSeed;
 	}
 	private Long listSeed()				{
 		if (listSeed == null)
-			listSeed = random.nextLong();
+			listSeed = rng().nextLong();
 		return listSeed;
 	}
 	private Long targetSeed()			{
 		if (targetSeed == null)
-			targetSeed = random.nextLong();
+			targetSeed = rng().nextLong();
 		return targetSeed;
 	}
 	private float turnRnd()				{
@@ -84,7 +84,7 @@ public class RandomEvents implements Base, Serializable {
 			return new Random(listSeed).nextInt(max);
 		}
 		else
-			return random.nextInt(max);
+			return rng().nextInt(max);
 	}
 	private <T> T listRnd(List<T> list)	{
 		if (list == null || list.isEmpty())

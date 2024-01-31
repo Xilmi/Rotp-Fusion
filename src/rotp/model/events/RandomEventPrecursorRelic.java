@@ -65,10 +65,10 @@ public class RandomEventPrecursorRelic extends AbstractRandomEvent {
         // go through planet generation again for those empty star systems
         for (StarSystem sys : systems) {
             sys.planet(PlanetFactory.createPlanet(sys, session().populationBonus()));
-            if(random.nextFloat()<richArtifactProb) {
+            if(rng().nextFloat()<richArtifactProb) {
             	richArtifactProb = 0;
             	sys.planet().setArtifact();
-            	if (random.nextBoolean())
+            	if (rng().nextBoolean())
             		sys.planet().setResourceUltraRich();
             	else
             		sys.planet().setResourceRich();

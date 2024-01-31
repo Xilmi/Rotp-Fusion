@@ -65,6 +65,9 @@ Later:
 - Command Console:
   - Split the class.
   - Added star systems selection.
+- Moved Research Moo1 option to Ironman Panel.
+- Added Persistent Random Generator option to to Ironman Panel.
+- Fixed some display options not being saved!
 
 2024.01.25 (BR)
 - New option: Research Moo1 style vs vanilla RotP

@@ -16,18 +16,18 @@
 
 package rotp.model.empires;
 
+import static rotp.Rotp.random;
 import static rotp.model.empires.Race.crEmpireNameRandom;
-import static rotp.model.game.IGameOptions.defaultRace;
-import static rotp.model.game.IGameOptions.randomAlienRaces;
-import static rotp.model.game.IGameOptions.randomAlienRacesMax;
-import static rotp.model.game.IGameOptions.randomAlienRacesMin;
-import static rotp.model.game.IGameOptions.randomAlienRacesSmoothEdges;
-import static rotp.model.game.IGameOptions.randomAlienRacesTargetMax;
-import static rotp.model.game.IGameOptions.randomAlienRacesTargetMin;
+import static rotp.model.game.IPreGameOptions.randomAlienRaces;
+import static rotp.model.game.IPreGameOptions.randomAlienRacesMax;
+import static rotp.model.game.IPreGameOptions.randomAlienRacesMin;
+import static rotp.model.game.IPreGameOptions.randomAlienRacesSmoothEdges;
+import static rotp.model.game.IPreGameOptions.randomAlienRacesTargetMax;
+import static rotp.model.game.IPreGameOptions.randomAlienRacesTargetMin;
+import static rotp.model.game.IRaceOptions.defaultRace;
 import static rotp.ui.util.PlayerShipSet.DISPLAY_RACE_SET;
 import static rotp.ui.util.SettingBase.CostFormula.DIFFERENCE;
 import static rotp.ui.util.SettingBase.CostFormula.NORMALIZED;
-import static rotp.util.Base.random;
 
 import java.io.File;
 import java.io.FilenameFilter;

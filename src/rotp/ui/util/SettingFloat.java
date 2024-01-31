@@ -16,8 +16,8 @@
 
 package rotp.ui.util;
 
+import static rotp.Rotp.random;
 import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
-import static rotp.util.Base.random;
 
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
