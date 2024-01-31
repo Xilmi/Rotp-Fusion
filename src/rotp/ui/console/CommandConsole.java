@@ -489,24 +489,6 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		resultPane.setOpaque(true);
 		resultPane.setContentType("text/html");
 		resultPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
-		resultPane.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e)		{ }
-			@Override public void keyReleased(KeyEvent e)	{ }
-			@Override public void keyPressed(KeyEvent e)	{
-				switch(e.getKeyCode()) {
-					case KeyEvent.VK_UP:
-						previousCmd();
-						break;
-					case KeyEvent.VK_DOWN:
-						nextCmd();
-						break;
-					case KeyEvent.VK_ENTER:
-						 liveMenu.newEntry(commandField.getText());
-						 e.consume();
-						break;
-				}
-			}
-		});
 		scrollPane = new JScrollPane(resultPane);
 
 		//Add Components to this menu.
