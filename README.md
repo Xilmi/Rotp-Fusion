@@ -61,6 +61,11 @@ Later:
 
 ## What's New
 
+2024.01.31 (BR)
+- Command Console:
+  - Crash fix when listing stars of an old save.
+  - Fixed Typo!: "GO" will now start the game!
+
 2024.01.30 (BR)
 - Command Console:
   - Split the class.

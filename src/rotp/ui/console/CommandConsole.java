@@ -937,9 +937,9 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		Command(String descr, String... keys) {
 			description = descr;
 			for (String key : keys)
-				keyList.add(key	);
+				keyList.add(key.toUpperCase());
 		}
-		private boolean isKey(String str)	{ return keyList.contains(str	); }
+		private boolean isKey(String str)	{ return keyList.contains(str); }
 		private void cmdHelp(String help)	{ cmdHelp = help;}
 		private void cmdParam(String p)		{ cmdParam = p;}
 		private String cmdHelp()			{ return cmdHelp;}
@@ -1124,7 +1124,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				SystemView view = sv.view(sys.id);
 				Empire emp = sys.empire();
 				out += "(P " + sys.altId + ")";
-				if (dist == null && !emp.isPlayer())
+				if (dist == null && emp != null && !emp.isPlayer())
 					out += " Dist player = " + ly(pl.distanceTo(sys));
 				else
 					out +=  " Dist P" + selectedStar + " = " + ly(ref.distanceTo(sys));
