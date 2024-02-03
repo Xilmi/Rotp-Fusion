@@ -10,6 +10,7 @@ target/
 bin/
 *.iml
 *.log
+rotp_log.txt
 nbactions.xml
 .project
 .settings/

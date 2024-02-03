@@ -2423,18 +2423,31 @@ public final class Empire implements Base, NamedObject, Serializable {
             	addVisibleMonster(sh);
         }
     }
-    public List<ShipFleet> getVisibleFleet() {
+    public List<ShipFleet> getVisibleFleets() {
     	Galaxy gal = galaxy();
-        List<ShipFleet> myShips = galaxy().ships.allFleets(id);
+        List<ShipFleet> myFleets = galaxy().ships.allFleets(id);
         List<StarSystem> mySystems = this.allColonizedSystems();
-        List<ShipFleet> ships = new ArrayList<>();
-        for (ShipFleet sh : gal.ships.allFleets())
-        	if (sh.visibleTo(id) && sh.isActive()
-        		&& (canSeeShips(sh.empId()) || canScanTo(sh, mySystems, myShips)))
-        		ships.add(sh);
-        return ships;
+        List<ShipFleet> fleets = new ArrayList<>();
+        for (ShipFleet fl : gal.ships.allFleets())
+        	if (fl.isActive() && fl.visibleTo(id)
+        		&& (canSeeShips(fl.empId()) || canScanTo(fl, mySystems, myFleets)))
+        		fleets.add(fl);
+        return fleets;
     }
-
+    public List<ShipFleet> getEtaFleets() {
+        List<ShipFleet> fleets = new ArrayList<>();
+        for (ShipFleet fl : getVisibleFleets())
+        	if (!fl.inOrbit() && knowETA(fl))
+        		fleets.add(fl);
+        return fleets;
+    }
+    public List<ShipFleet> getEtaFleets(StarSystem sys) {
+        List<ShipFleet> fleets = new ArrayList<>();
+        for (ShipFleet fl : getEtaFleets())
+        	if (sys == fl.destination())
+        		fleets.add(fl);
+        return fleets;
+    }
     public Map<Ship, Ship> matchShipsSeenThisTurnToShipsSeenLastTurn(List<Ship> visibleShips, Set<Ship> shipsVisibleLastTurnDestroyed) {
         // This function attempts to match ships seen last turn with ships seen this turn (to determine trajectories).
         // Obviously, we have the object references in hand, so we could just compare their identities.

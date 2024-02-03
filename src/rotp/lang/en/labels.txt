@@ -1668,7 +1668,7 @@ SETUP_GLOBAL_AI_DESC              | Select one AI...
 SETUP_GLOBAL_AI                   | Opponents AI
 SETUP_SPECIFIC_ABILITY_DESC       | Select the abilities to associate to this specific opponent.
 SETUP_SPECIFIC_ABILITY            | Opponent Specific Abilities
-SETUP_GLOBAL_ABILITY_DESC         | Select the abilities of your opponents, by default the standard abilities associated to the Sspecies will be used.
+SETUP_GLOBAL_ABILITY_DESC         | Select the abilities of your opponents, by default the standard abilities associated to the Species will be used.
 SETUP_GLOBAL_ABILITY              | Global Abilities
 SETUP_SPECIFIC_OPPONENT_DESC      | You can select your opponents individually, or let the game choose for you...<br>A maximum of 5 opponents of the same species is allowed.
 SETUP_SPECIFIC_OPPONENT           | Specific Opponent
@@ -3938,9 +3938,9 @@ SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 
 'Selection'_DESC        | Same abilities as the global abilitied selected on the top.
 'Original Species'_DESC | Original abilities of the selected species (the one on the icon)
-'Reworked'_DESC         | Reworked abilities of the selected species (the one on the icon), modified and saved by the player (in the Species Customization Panel) with the respectively named spcies files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
+'Reworked'_DESC         | Reworked abilities of the selected species (the one on the icon), modified and saved by the player (in the Species Customization Panel) with the respectively named species files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
 'Player'_DESC           | Same abilities as the selected player race.
-'Random'_DESC           | Abilities will be randomly generared using the pregame parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
+'Random'_DESC           | Abilities will be randomly generated using the pregame parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
 'Random 10'_DESC        | Abilities randomly selected within the ten original species abilities.
 'Random 16'_DESC        | Abilities randomly selected within the sixteen species abilities. <i>(The ten original species and the six Modnar species)</i>
 'Files'_DESC            | Abilities randomly selected within customized species files, having the "Available to AI" option enabled. If this list is empty the selection will be made within the original species abilities.

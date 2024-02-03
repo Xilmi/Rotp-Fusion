@@ -5,6 +5,7 @@ import static rotp.ui.UserPreferences.showMemory;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import rotp.ui.RotPUI;
 import rotp.ui.console.CommandConsole;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
@@ -61,6 +62,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 		{ isDuplicate(false); isCfgFile(true); }
 		@Override public Boolean set(Boolean newValue) {
 			super.set(newValue);
+			RotPUI.useDebugFile = newValue;
 			CommandConsole.showConsole(newValue);
 			return newValue;
 		}

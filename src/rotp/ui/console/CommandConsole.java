@@ -4,7 +4,6 @@ import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -34,7 +33,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import rotp.Rotp;
 import rotp.model.empires.Empire;
-import rotp.model.empires.SystemInfo;
 import rotp.model.empires.SystemView;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.IMappedObject;
@@ -81,7 +79,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	private final LinkedList<String> lastCmd	= new LinkedList<>();
 	private Menu liveMenu;
 	private Menu mainMenu, setupMenu, gameMenu, speciesMenu;
-	int selectedStar; //, destStar, selectedEmpire, selectedFleet, selectedTransport, selectedDesign;
+	int selectedStar, targetStar; // , selectedEmpire, selectedFleet, selectedTransport, selectedDesign;
 	private HashMap<Integer, Integer> altIndex2SystemIndex = new HashMap<>();
 //	private Menu stars, fleet, ships, opponents;
 //	private final List<SystemView> starList = new ArrayList<>();
@@ -104,7 +102,99 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 
 		return result;
 	}
+	public static void showConsole(boolean show)		{
+//		if(!Rotp.isIDE())
+			Rotp.setVisible(!show);
+		if (frame == null) {
+			if (show)
+				createAndShowGUI(show);
+			return;
+		}
+		else
+			frame.setVisible(show);
+	}
+	public static void hideConsole()			{ showConsole(false); }
+	// ##### CONSTRUCTOR #####
+	private static void createAndShowGUI(boolean show)	{
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			@Override public void run() {
+				if (frame == null) {
+					//Create and set up the window.
+					frame = new JFrame("Command Console");
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					//frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+					//Add contents to the window.
+					frame.add(new CommandConsole());
+
+					//Display the window.
+					frame.pack();
+					frame.setVisible(show);
+				}
+			}
+		});
+	}
+	public CommandConsole()		{
+		super(new GridBagLayout());
+		commandLabel = new JLabel("Options: ");
+		commandField = new JTextField(80);
+		commandField.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) { }
+			@Override public void keyReleased(KeyEvent e) {
+				int code = e.getKeyCode();
+				switch(code) {
+					case KeyEvent.VK_UP:
+						previousCmd();
+						break;
+					case KeyEvent.VK_DOWN:
+						nextCmd();
+						break;
+				}
+			}
+			@Override public void keyPressed(KeyEvent e) { }
+		});
+		commandLabel.setLabelFor(commandField);
+		commandField.addActionListener(new java.awt.event.ActionListener() {
+			@Override public void actionPerformed(java.awt.event.ActionEvent evt) {
+				commandEntry(evt);
+			}
+		});
+
+		resultLabel	= new JLabel("Result: ");
+		resultPane	= new JTextPane();
+		resultLabel.setLabelFor(resultPane);
+		resultPane.setEditable(false);
+		resultPane.setOpaque(true);
+		resultPane.setContentType("text/html");
+		resultPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+		scrollPane = new JScrollPane(resultPane);
+
+		//Add Components to this menu.
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridwidth = GridBagConstraints.REMAINDER;
+
+		c.fill = GridBagConstraints.HORIZONTAL;
+		add(commandLabel);
+		add(commandField, c);
+
+		add(resultLabel);
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1.0;
+		c.weighty = 1.0;
+		add(scrollPane, c);
+
+		setPreferredSize(new Dimension(800, 600));
+		resultPane.setContentType("text/html");
+		resultPane.setText("<html>");
+		initMenus();
+		resultPane.setText(liveMenu.menuGuide(""));
+
+		starView = new StarView(this);
+		instance = this;
+		IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
+	}
 	// ##### INITIALIZERS #####
+	private	void reInit()			{ initAltIndex(); }
 	private Command initContinue()	{
 		Command cmd = new Command("Continue", "C") {
 			@Override protected String execute(List<String> param) {
@@ -189,28 +279,129 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				);
 		return cmd;
 	}
-	private Command initPlanet()	{ // TODO BR: Display planet
+	private Command initSelectPlanet()		{
 		Command cmd = new Command("select Planet from index", "P") {
 			@Override protected String execute(List<String> param) {
 				if (param.isEmpty())
-					return getLineGuide();
+					return getShortGuide();
 				String s = param.get(0);
 				Integer p = getInteger(s);
 				if (p == null)
-					return getLineGuide();
+					return getShortGuide();
 				selectedStar = validPlanet(p);
 				StarSystem sys = getSys(selectedStar);
 				mainUI().selectSystem(sys);
 				return starView.planetInfo(selectedStar, "");
-				//return planetInfo(selectedStar, "");
 			}
 		};
 		cmd.cmdParam(" Index");
-		cmd.cmdHelp("Select current Planet from planet index and show info");
+		cmd.cmdHelp("Select current Planet from planet index and gives info");
+		return cmd;		
+	}
+	private Command initTargetPlanet()		{
+		Command cmd = new Command("select Destination planet from index, or Selected planet", "D") {
+			@Override protected String execute(List<String> param) {
+				String out = getShortGuide() + newline;
+				if (!param.isEmpty()) {
+					String s = param.get(0);
+					if (s.equalsIgnoreCase("S"))
+						targetStar = selectedStar;
+					else {
+						Integer p = getInteger(s);
+						if (p != null) {
+							targetStar = p;
+							out = "";
+						}
+					}
+				}
+				StarSystem sys	= getSys(targetStar);
+				out += descSystem(sys, true);
+				return out;
+			}
+		};
+		cmd.cmdParam(" [Index | S]");
+		cmd.cmdHelp("select Destination planet from planet index, or from Selected planet if \"S\", and gives Destination info");
+		return cmd;		
+	}
+	private Command initSelectFleet()		{ // TODO BR: initSelectFleet()
+		Command cmd = new Command("select Fleet from index", "F") {
+			@Override protected String execute(List<String> param) {
+				//targetStar = selectedStar;
+				String out = getShortGuide() + newline;
+				if (!param.isEmpty()) {
+					String s = param.get(0);
+					if (s.equalsIgnoreCase("S"))
+						targetStar = selectedStar;
+					else {
+						Integer p = getInteger(s);
+						if (p != null) {
+							targetStar = p;
+							out = "";
+						}
+					}
+				}
+				StarSystem sys	= getSys(targetStar);
+				out += descSystem(sys, true);
+				return out;
+			}
+		};
+		cmd.cmdParam(" Index");
+		cmd.cmdHelp("Select Fleet and gives info");
+		return cmd;		
+	}
+	private Command initSelectTransport()	{ // TODO BR: initSelectTransport()
+		Command cmd = new Command("select Tansport", "T") {
+			@Override protected String execute(List<String> param) {
+				//targetStar = selectedStar;
+				String out = getShortGuide() + newline;
+				if (!param.isEmpty()) {
+					String s = param.get(0);
+					if (s.equalsIgnoreCase("S"))
+						targetStar = selectedStar;
+					else {
+						Integer p = getInteger(s);
+						if (p != null) {
+							targetStar = p;
+							out = "";
+						}
+					}
+				}
+				StarSystem sys	= getSys(targetStar);
+				out += descSystem(sys, true);
+				return out;
+			}
+		};
+		cmd.cmdParam(" [Index | S]");
+		cmd.cmdHelp("Select Tansport index, and gives Tansport info");
+		return cmd;		
+	}
+	private Command initSelectEmpire()		{ // TODO BR: initSelectEmpire()
+		Command cmd = new Command("select Empire from index", "E") {
+			@Override protected String execute(List<String> param) {
+				//targetStar = selectedStar;
+				String out = getShortGuide() + newline;
+				if (!param.isEmpty()) {
+					String s = param.get(0);
+					if (s.equalsIgnoreCase("S"))
+						targetStar = selectedStar;
+					else {
+						Integer p = getInteger(s);
+						if (p != null) {
+							targetStar = p;
+							out = "";
+						}
+					}
+				}
+				StarSystem sys	= getSys(targetStar);
+				out += descSystem(sys, true);
+				return out;
+			}
+		};
+		cmd.cmdParam(" [Index | S]");
+		cmd.cmdHelp("Select Empire from index, and gives Empire info");
 		return cmd;		
 	}
 
-	private	void reInit()			{ initAltIndex(); }
 	private void initAltIndex()		{
 		// Alternative index built from distance to the original player homeworld.
 		// The original index gives too much info on opponents home world and is too random for other systems.
@@ -371,9 +562,10 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	private Menu initGameMenus(Menu parent)	 { // TODO BR: initGameMenus
 		Menu menu = new Menu("Game Menu", parent);
 		menu.addMenu(new Menu("In Game Settings Menu", menu, IInGameOptions.inGameOptions()));
-		menu.addCommand(initNextTurn());	// N
-		menu.addCommand(initView());		// V
-		menu.addCommand(initPlanet());		// P
+		menu.addCommand(initNextTurn());		// N
+		menu.addCommand(initView());			// V
+		menu.addCommand(initSelectPlanet());			// P
+		menu.addCommand(initTargetPlanet());	// T
 		introMenu = initIntroMenu(menu);
 		return menu;
 	}
@@ -458,65 +650,6 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		idx = min(idx+1, lastCmd.size()-1);
 		commandField.setText(lastCmd.get(idx));
 	}
-	public CommandConsole()		{
-		super(new GridBagLayout());
-		commandLabel = new JLabel("Options: ");
-		commandField = new JTextField(80);
-		commandField.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) { }
-			@Override public void keyReleased(KeyEvent e) {
-				int code = e.getKeyCode();
-				switch(code) {
-					case KeyEvent.VK_UP:
-						previousCmd();
-						break;
-					case KeyEvent.VK_DOWN:
-						nextCmd();
-						break;
-				}
-			}
-			@Override public void keyPressed(KeyEvent e) { }
-		});
-		commandLabel.setLabelFor(commandField);
-		commandField.addActionListener(new java.awt.event.ActionListener() {
-			@Override public void actionPerformed(java.awt.event.ActionEvent evt) {
-				commandEntry(evt);
-			}
-		});
-
-		resultLabel	= new JLabel("Result: ");
-		resultPane	= new JTextPane();
-		resultLabel.setLabelFor(resultPane);
-		resultPane.setEditable(false);
-		resultPane.setOpaque(true);
-		resultPane.setContentType("text/html");
-		resultPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
-		scrollPane = new JScrollPane(resultPane);
-
-		//Add Components to this menu.
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridwidth = GridBagConstraints.REMAINDER;
-
-		c.fill = GridBagConstraints.HORIZONTAL;
-		add(commandLabel);
-		add(commandField, c);
-
-		add(resultLabel);
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1.0;
-		c.weighty = 1.0;
-		add(scrollPane, c);
-
-		setPreferredSize(new Dimension(800, 600));
-		resultPane.setContentType("text/html");
-		resultPane.setText("<html>");
-		initMenus();
-		resultPane.setText(liveMenu.menuGuide(""));
-
-		starView = new StarView(this);
-		instance = this;
-		IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
-	}
 
 	private MainUI mainUI()	  { return RotPUI.instance().mainUI(); }
 	// ##### EVENTS METHODES #####
@@ -541,6 +674,32 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		return out;
 	}
 	// ##### Tools
+	private String descSystem(StarSystem sys, boolean local)	{
+		Empire emp		= sys.empire();
+		Empire pl		= player();
+		SystemView view	= pl.sv.view(sys.id);
+		String out = "Target System = ";
+		out += "(P " + sys.altId + ")";
+		// Planet Name
+		String s = view.name();
+		if (!s.isEmpty())
+			out += " " + view.name() + ",";
+		out += " " + view.descriptiveName(); 
+		// Planet Owner
+		if (pl == emp)
+			out += ", Empire = Player";
+		else if (pl.knowsOf(emp))
+			out += ", Empire = " + emp.id;
+		// Planet Distance
+		if (local) {
+			StarSystem ref = getSys(selectedStar);
+			out +=  ", Dist (P " + selectedStar + ") = " + ly(ref.distanceTo(sys));
+		}
+		else if (pl != emp){
+			out += ", Dist player = " + ly( pl.distanceTo(sys));
+		}
+		return out;
+	}
 //	private String cLn(String s)	{ return s.isEmpty() ? "" : (newline + s); }
 	private int validPlanet(int p)	{ return bounds(0, p, galaxy().systemCount-1); }
 	private void sortSystems()		{ systems.sort((s1, s2) -> s1.altId-s2.altId); }
@@ -554,7 +713,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	}
 	private void resetFleets()		{
 		fleets.clear();
-		fleets.addAll(player().getVisibleFleet());
+		fleets.addAll(player().getVisibleFleets());
 	}
 	private String getParam (String input, List<String> param) {
 		String[] text = input.trim().split("\\s+");
@@ -580,43 +739,6 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	StarSystem getSys(int altIdx)	{ return galaxy().system(altIndex2SystemIndex.get(altIdx)); }
 	SystemView getView(int altIdx)	{ return player().sv.view(altIndex2SystemIndex.get(altIdx)); }
 	private String ly (float dist)	{ return text("SYSTEMS_RANGE", df1.format(Math.ceil(10*dist)/10)); }
-	private static void createAndShowGUI(boolean show)	{
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			@Override public void run() {
-				if (frame == null) {
-					//Create and set up the window.
-					frame = new JFrame("Command Console");
-					frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-					//Add contents to the window.
-					frame.add(new CommandConsole());
-
-					//Display the window.
-					frame.pack();
-					frame.setVisible(show);
-				}
-			}
-		});
-	}
-	public static void showConsole(boolean show)		{
-		if (frame == null) {
-			if (show)
-				createAndShowGUI(show);
-			return;
-		}
-		else
-			frame.setVisible(show);
-	}
-	public static void hideConsole()		{ showConsole(false); }
-	public static void main(String[] args)	{
-		//Schedule a job for the event dispatch thread:
-		//creating and showing this application's GUI.
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			@Override public void run() {
-				createAndShowGUI(true);
-			}
-		});
-	}
 	// ################### SUB CLASS MENU ######################
 	public class Menu {
 		private final String menuName;
@@ -662,6 +784,16 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		protected void newEntry(String entry)	{
 			List<String> param = new ArrayList<>();
 			String txt = entry.trim().toUpperCase();
+			err("Console Command = " + txt);
+			if (txt.equals("SHOW MAIN")) {
+				Rotp.setVisible(true);
+				frame.setVisible(true);
+				return;
+			}
+			if (txt.equals("HIDE MAIN")) {
+				Rotp.setVisible(false);
+				return;
+			}
 			lastCmd.remove(txt); // To keep unique and at last position
 			if (!txt.isEmpty())
 				lastCmd.add(txt);
@@ -715,15 +847,18 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			}
 			commandField.setText("");
 			resultPane.setText(out);
-			frame.setVisible(true);
-			// System.out.println(Rotp.isIDE());
-			EventQueue.invokeLater(new Runnable() {
-				@Override public void run() {
-					// commandField.grabFocus();
-					// commandField.requestFocus();
-					commandField.requestFocusInWindow();
-				}
-			});
+//			if (!Rotp.isIDE())
+//				Rotp.hideMainFrame();
+//			frame.setVisible(true);
+//			// System.out.println(Rotp.isIDE());
+//			EventQueue.invokeLater(new Runnable() {
+//				@Override public void run() {
+//					frame.requestFocusInWindow();
+//					// commandField.grabFocus();
+//					// commandField.requestFocus();
+//					commandField.requestFocusInWindow();
+//				}
+//			});
 		}
 		private String menuEntry(String out, String cmd, List<String> p) {
 			switch (cmd) {
@@ -916,7 +1051,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		// Command methods
 		private String commandGuide(String out) {
 			for (Command cmd : commands) {
-				out += cmd.getLineGuide() + newline;
+				out += cmd.getShortGuide() + newline;
 			}
 			return out;
 		}
@@ -938,7 +1073,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		private void cmdParam(String p)		{ cmdParam = p;}
 		private String cmdHelp()			{ return cmdHelp;}
 		private String getKey()				{ return keyList.get(0);}
-		protected String getLineGuide()		{
+		protected String getShortGuide()		{
 			String out = "(";
 			out += getKey();
 			out += cmdParam + ") ";
@@ -1111,25 +1246,8 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		private String viewSystems(String out)	{
 			if (systems.isEmpty())
 				return out + "Empty Star System List" + newline;
-			StarSystem ref = getSys(selectedStar);
-			Empire pl = player();
-			SystemInfo sv = pl.sv;
-			for (StarSystem sys : systems) {
-				SystemView view = sv.view(sys.id);
-				Empire emp = sys.empire();
-				out += "(P " + sys.altId + ")";
-				if (dist == null && emp != null && !emp.isPlayer())
-					out += " Dist player = " + ly(pl.distanceTo(sys));
-				else
-					out +=  " Dist P" + selectedStar + " = " + ly(ref.distanceTo(sys));
-				if (pl.knowsOf(emp))
-					out += ", Empire = " + emp.id;
-				String s = view.name();
-				if (!s.isEmpty())
-					out += ", " + view.name();
-				out += ", " + view.descriptiveName(); 
-				out += newline;	
-			}
+			for (StarSystem sys : systems)
+				out += descSystem(sys, dist!=null) + newline;
 			return out;
 		}
 		private String viewFleets(String out)	{

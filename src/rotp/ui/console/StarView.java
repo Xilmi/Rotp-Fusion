@@ -1,16 +1,13 @@
 package rotp.ui.console;
 
-import java.util.List;
-
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemInfo;
 import rotp.model.empires.SystemView;
+import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
-import rotp.ui.RotPUI;
-import rotp.ui.main.MainUI;
 import rotp.util.Base;
 
 public class StarView implements Base {
@@ -19,24 +16,19 @@ public class StarView implements Base {
 	private Empire pl, empire;
 	private StarSystem sys;
 	private SystemView sv;
+	private SystemInfo si;
+	private int id;
 	private boolean isPlayer, scouted, colony;
 	
 	StarView(CommandConsole parent)	{ console = parent; }
 	
-	private MainUI mainUI()	  { return RotPUI.instance().mainUI(); }
-
-	String selectSystem (int altIndex) {
-		altIndex = validPlanet(altIndex);
-		console.selectedStar = altIndex;
-		StarSystem selectedSystem = console.getSys(altIndex);
-		mainUI().selectSystem(selectedSystem);
-		return planetInfo(altIndex, "");
-	}
 	// ##### Systems Report
 	String planetInfo(int p, String out)	{
 		pl	= player();
+		si	= player().sv;
+		sv	= console.getView(p);
 		sys	= console.getSys(p);
-		sv		= console.getView(p);
+		id	= sys.id;
 		empire 	= sv.empire();
 		isPlayer= isPlayer(empire);
 		scouted	= sv.scouted();
@@ -46,6 +38,7 @@ public class StarView implements Base {
 		if (pl.hiddenSystem(sys)) // Dark Galaxy
 			return out + " !!! Hidden";
 		out = systemBox(out);
+		out += fleetInfo();
 		out = empireBox(out);
 		out = terrainBox(out);
 		out = distanceBox(out);
@@ -82,6 +75,7 @@ public class StarView implements Base {
 		}
 		else {
 			out += " (E "+ empire.id + ")";
+			out += cLn(treatyStatus());
 			out += newline + alienColonyData();
 		}
 		return out;
@@ -149,8 +143,11 @@ public class StarView implements Base {
 			return text("MAIN_SYSTEM_DETAIL_NO_DATA");
 		String out = "Population = " + pop;
 		Planet planet = sv.planet();
-		if (planet != null)
+		if (planet != null) {
 			out += " / ECOmax = " + (int) planet.sizeAfterWaste();
+		}
+		if (si.isColonized(id) && si.colony(id).inRebellion())
+			out += " ! " + text("MAIN_PLANET_REBELLION");
 		out += newline + "Factories = " + sv.factories();
 		Colony colony = sv.colony();
 		if (colony != null)
@@ -166,7 +163,10 @@ public class StarView implements Base {
 		int pop	= sv.population();
 		if (pop == 0)
 			return text("MAIN_SYSTEM_DETAIL_NO_DATA");
-		String out = "Population = " + pop;
+		String out = cLn(systemReportAge());
+		out += "Population = " + pop;
+		if (si.isColonized(id) && si.colony(id).inRebellion())
+			out += " ! " + text("MAIN_PLANET_REBELLION");
 		out += newline + "Factories = " + sv.factories();
 		if (sv.shieldLevel() > 0)
 		   	out += newline + "Shield Level = " + sv.shieldLevel();
@@ -192,11 +192,32 @@ public class StarView implements Base {
 			}
 		}
 		return "";
-	}	
+	}
+	private String fleetInfo()			{
+		String out = "";
+		for (ShipFleet fl: sys.orbitingFleets()) {
+			if (fl.visibleTo(pl)) {
+				out += newline + "In Orbit: ";
+				if (pl == fl.empire())
+					out += "player";
+				else
+					out += "alien (E " + fl.empId() + ") " + fl.empire().name();
+				out += " fleet";				
+			}
+		}
+		for (ShipFleet fl: pl.getEtaFleets(sys)) {
+			out += newline + "Incoming ";
+			if (pl == fl.empire())
+				out += "player";
+			else
+				out += "alien (E " + fl.empId() + ") " + fl.empire().name();
+			out += " fleet, ETA = " + (int) Math.ceil(fl.travelTime(sys)) + " Years";
+		}
+		return out;
+	}
 	private String treatyStatus()		{
-		int id = sys.id;
-		int empId = pl.sv.empId(id);
-		if (empId == pl.id)
+		int empId = si.empId(id);
+		if (pl == empire)
 			return "";
 		if (pl.alliedWith(empId))
 			return text("MAIN_FLEET_ALLY");
@@ -210,47 +231,6 @@ public class StarView implements Base {
 			return text(sys.eventKey());
 		return "";
 	}	
-	private String systemPopulation()	{
-		int id	= sys.id;
-		SystemInfo si = player().sv;
-		Planet planet = sys.planet();
-		String out = "";
-		if (planet.maxSize() > 0) {
-			int planetSize = (int) si.currentSize(id);
-			int population = (int) si.population(id);
-			if (si.isColonized(id) && si.colony(id).inRebellion())
-				out += "! " + text("MAIN_PLANET_REBELLION");
-			else if (planetSize == population)
-				out += text("MAIN_PLANET_POP", population);
-			else
-				out += text("MAIN_PLANET_POP_SIZE", population, planetSize);
-		}
-		return out;
-	}	
-	private String systemSize()			{
-		int id		= sys.id;
-		Planet planet	= sys.planet();
-		String out = "";
-		if (!planet.type().isAsteroids() && (planet.maxSize() > 0)) {
-			boolean ignoreWaste = planet.isColonized() && planet.empire().ignoresPlanetEnvironment();
-			int planetSize = 0;
-			if (planet.empire() != pl)
-				planetSize = pl.sv.currentSize(id);
-			else 
-				planetSize = ignoreWaste ? (int) planet.currentSize() : (int) planet.sizeAfterWaste();
-			if (!(ignoreWaste || (planet.waste() == 0)))
-				out += "! Waste = " + planet.waste() + newline;
-			if (pl.sv.isColonized(id) && pl.sv.colony(id).inRebellion())
-				out += "! " + text("MAIN_PLANET_REBELLION");
-			else if (planet.currentSize() == planet.maxSize())
-				out += text("MAIN_PLANET_SIZE", planetSize);
-			else if (pl.sv.isColonized(id) && pl.sv.empire(id).isAI())
-				out += text("MAIN_PLANET_SIZE", planetSize);
-			else
-				out += text("MAIN_PLANET_SIZE+", planetSize);
-		}
-		return out;
-	}	
 	private String systemReportAge()	{
 		int age = player().sv.spyReportAge(sys.id);
 		if (age > 0)
@@ -259,8 +239,6 @@ public class StarView implements Base {
 			return "";
 	}	
 	private String systemRange()		{
-		int id	= sys.id;
-		SystemInfo si = pl.sv;
 		float range	  = (float) Math.ceil(si.distance(id)*10)/10;
 		String out = "Distance = ";
 		if (pl.alliedWith(id(sys.empire())))
@@ -281,5 +259,4 @@ public class StarView implements Base {
 	}
 	// ##### Tools
 	private String cLn(String s)	{ return s.isEmpty() ? "" : (newline + s); }
-	private int validPlanet(int p)	{ return bounds(0, p, galaxy().systemCount-1); }
 }

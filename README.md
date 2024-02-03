@@ -61,6 +61,11 @@ Later:
 
 ## What's New
 
+2024.02.03 (BR)
+- Command Console:
+  - Will hide the main frame.
+  - Will activate debug log
+
 2024.01.31 (BR)
 - Command Console:
   - Crash fix when listing stars of an old save.

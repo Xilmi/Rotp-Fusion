@@ -15,6 +15,7 @@
  */
 package rotp.ui;
 
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.SwingUtilities;
 import rotp.Rotp;
@@ -41,5 +42,12 @@ public class SwingExceptionHandler implements Thread.UncaughtExceptionHandler {
     private void showError(Throwable e) {
         RotPUI.instance().selectErrorPanel(e);
         Rotp.becomeVisible();
+        if (RotPUI.useDebugFile) { // TODO BR: may be removed later
+            PrintWriter debugFile = RotPUI.debugFile();
+            if (debugFile != null) {
+                debugFile.println(e.getMessage());
+                debugFile.flush();
+            }
+        }
     }
 }
