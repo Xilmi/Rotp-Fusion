@@ -81,10 +81,10 @@ public interface IDebugOptions extends IBaseOptsTools {
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_MEMORY"),
 				debugShowMemory, debugConsoleMemory,
-				debugShowMoreMemory, debugFileMemory,
+				debugShowMoreMemory, debugFileMemory
 
-				headerSpacer,
-				showConsolePanel
+				// headerSpacer,
+				// showConsolePanel
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_AUTO_PLAY"),

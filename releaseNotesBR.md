@@ -1,8 +1,7 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
-<b><ins>Very las changes:</ins></b>
-- Moved Research Moo1 option to Ironman Panel.
-- Added Persistent Random Generator option to to Ironman Panel.
-- Fixed some display options not being saved!
+<b><ins>Very last changes:</ins></b>
+- Command console fixes and improvements.
+  - This option is under construction! (Every other features are OK)
 
 
 <b><ins>Updates since last releases:</ins></b>

@@ -64,7 +64,8 @@ Later:
 2024.02.03 (BR)
 - Command Console:
   - Will hide the main frame.
-  - Will activate debug log
+  - Will activate debug log.
+  - Removed direct acces to game menu.
 
 2024.01.31 (BR)
 - Command Console:

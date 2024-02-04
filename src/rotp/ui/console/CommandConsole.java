@@ -543,7 +543,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		setupMenu = initSetupMenus(main);
 		main.addMenu(setupMenu);
 		gameMenu = initGameMenus(main);
-		main.addMenu(gameMenu);
+//		main.addMenu(gameMenu);
 		main.addCommand(initContinue()); // C
 		main.addCommand(initLoadFile()); // L
 		main.addCommand(initSaveFile()); // S
