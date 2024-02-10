@@ -61,6 +61,9 @@ Later:
 
 ## What's New
 
+2024.02.10 (BR)
+- Fixed Fullscreen crash on startup
+
 2024.02.03 (BR)
 - Command Console:
   - Will hide the main frame.
