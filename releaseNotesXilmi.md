@@ -1,4 +1,4 @@
 ## What's New
 
-2023.12.10 (Xilmi)
-- Fixed an issue that caused the fleet-commander of the AI to underestimate the damage-output of missile-bases equipped with scatter-packs.
+2024.02.11 (Xilmi)
+- The AI will now try to get a spy-network up and running as quickly as possible with empires that it never had infiltrated before. This also applies to the governor, when "Let AI handle spies" is enabled.

@@ -103,6 +103,8 @@ public class AISpyMaster implements Base, SpyMaster {
             float bcPerTick = empire.totalPlanetaryProduction() * empire.spySpendingModifier() / 200.0f;
             float maxTicksNeeded = spies.maxSpies() * empire.baseSpyCost() / bcPerTick;
             maxSpiesNeeded = min(maxSpiesNeeded, (int)Math.ceil(maxTicksNeeded));
+            if(spies.lastSpyDate() == -1)
+                maxSpiesNeeded = (int)Math.ceil(max(maxSpiesNeeded, spies.realCostForNextSpy() / bcPerTick));
             spies.allocation(maxSpiesNeeded);
         }
     }

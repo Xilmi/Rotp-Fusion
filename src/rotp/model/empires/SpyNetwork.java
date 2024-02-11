@@ -532,6 +532,11 @@ public final class SpyNetwork implements Base, Serializable {
             spyCost *= 2;
         return spyCost;
     }
+    
+    public float realCostForNextSpy() {
+        return costForNextSpy() - allocationBC;
+    }
+    
     private float overallSecurityAdj(boolean ignoreHideBonus) {
         // security pct based on their spending
         float adj = empire().totalInternalSecurityPct();
