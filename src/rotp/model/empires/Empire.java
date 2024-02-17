@@ -2360,10 +2360,21 @@ public final class Empire implements Base, NamedObject, Serializable {
             if (v!= null)
                 v.refresh();
         }
-        // redetermine border/support/inner status for colonies
+        // Redetermines border/support/inner status for colonies
         for (int n=0;n<sv.count();n++)
             sv.resetSystemData(n);
-
+    }
+    public StarSystem closestSystem(IMappedObject mapObj) {
+    	float minDistance = Float.MAX_VALUE;
+    	StarSystem closestSystem = null;
+    	for (StarSystem sys : colonizedSystems) {
+    		float dist = sys.distanceTo(mapObj);
+    		if (dist < minDistance) {
+    			minDistance	  = dist;
+    			closestSystem = sys;
+    		}
+    	}
+    	return closestSystem;
     }
     public void setVisibleShips(int sysId) {
         addVisibleShips(sv.orbitingFleets(sysId));

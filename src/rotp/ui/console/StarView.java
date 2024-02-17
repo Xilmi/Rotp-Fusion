@@ -8,10 +8,8 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
-import rotp.util.Base;
 
-public class StarView implements Base {
-	private static final String newline = "<br>";
+public class StarView implements IConsole {
 	private final CommandConsole console;
 	private Empire pl, empire;
 	private StarSystem sys;
@@ -20,10 +18,11 @@ public class StarView implements Base {
 	private int id;
 	private boolean isPlayer, scouted, colony;
 	
+	// ##### CONSTRUCTOR #####
 	StarView(CommandConsole parent)	{ console = parent; }
-	
+
 	// ##### Systems Report
-	String planetInfo(int p, String out)	{
+	String getInfo(int p, String out)	{
 		pl	= player();
 		si	= player().sv;
 		sv	= console.getView(p);
@@ -34,7 +33,6 @@ public class StarView implements Base {
 		scouted	= sv.scouted();
 		colony	= sv.isColonized();
 
-		out += newline + "(P " + p +") ";
 		if (pl.hiddenSystem(sys)) // Dark Galaxy
 			return out + " !!! Hidden";
 		out = systemBox(out);
@@ -46,46 +44,34 @@ public class StarView implements Base {
 	}
 	// ##### SUB BOXES
 	private String systemBox(String out)	{
-		String name = sv.name();
-		out += name;
-		if (!scouted) {
-			if (!name.isEmpty())
-				out += newline;
-			out += "Unexplored";
-			return out;
-		}
+		out += planetName(sv, NEWLINE);
 		out += cLn(planetEnvironment());
 		out += cLn(transportInfo());
 		out += cLn(researchProject());
 		if (sv.isAlert())
-			out += newline + "! Under Attack";
+			out += NEWLINE + "! Under Attack";
 		return out;
 	}
 	private String empireBox(String out)	{
 		if (sv.flagColorId() > 0)
-		   	out += newline + systemFlag("Flag colors = ");
-		if (!scouted)
-			return out;
-		out += cLn(sv.descriptiveName());
+		   	out += NEWLINE + systemFlag("Flag colors = ");
 		if (!colony)
 			return out;
-		if (isPlayer) {
-			out += " (Player)";
-			out += newline + playerColonyData();
-		}
+		out += NEWLINE + shortSystemInfo(sv);
+		if (isPlayer)
+			out += NEWLINE + playerColonyData();
 		else {
-			out += " (E "+ empire.id + ")";
 			out += cLn(treatyStatus());
-			out += newline + alienColonyData();
+			out += NEWLINE + alienColonyData();
 		}
 		return out;
 	}
 	private String terrainBox(String out)	{
 		if (isPlayer)
 			return colonyControls(out);
-		out += newline + text(sys.starType().description());		
+		out += NEWLINE + text(sys.starType().description());		
 		if (scouted)
-			out += newline + planetColonizable();
+			out += NEWLINE + planetColonizable();
 		return out;
 	}
 	private String distanceBox(String out)	{
@@ -103,7 +89,7 @@ public class StarView implements Base {
 		int numFlag = options().selectedFlagColorCount();
 		for (int i=0; i<numFlag; i++) {
 			if (i>0)
-				out += ", ";
+				out += SPACER;
 			out += sv.getFlagColorName(i);
 		}
 		return out;
@@ -129,12 +115,12 @@ public class StarView implements Base {
 		String out = "Planet Type = " + planetType.name();
 		String ecology = text(sv.ecologyType());
 		if (!ecology.isEmpty())
-			out += ", " + ecology;
+			out += SPACER + ecology;
 		String resource = text(sv.resourceType());
 		if (!resource.isEmpty())
-			out += ", " + resource;
+			out += SPACER + resource;
 		if (sv.currentSize() > 0)
-			out += newline + "Current Size = " + sv.currentSize();
+			out += NEWLINE + "Current Size = " + sv.currentSize();
 		return out;		
 	}
 	private String playerColonyData()	{
@@ -148,15 +134,15 @@ public class StarView implements Base {
 		}
 		if (si.isColonized(id) && si.colony(id).inRebellion())
 			out += " ! " + text("MAIN_PLANET_REBELLION");
-		out += newline + "Factories = " + sv.factories();
+		out += NEWLINE + "Factories = " + sv.factories();
 		Colony colony = sv.colony();
 		if (colony != null)
 			out += " / max = " + colony.industry().maxBuildableFactories();
 		if (sv.shieldLevel() > 0)
-		   	out += newline + "Shield Level = " + sv.shieldLevel();
+		   	out += NEWLINE + "Shield Level = " + sv.shieldLevel();
 		int bases = sv.bases();
 		if (bases > 0)
-			out += newline + "Bases = " + bases;
+			out += NEWLINE + "Bases = " + bases;
 		return out;
 	}
 	private String alienColonyData()	{
@@ -167,12 +153,12 @@ public class StarView implements Base {
 		out += "Population = " + pop;
 		if (si.isColonized(id) && si.colony(id).inRebellion())
 			out += " ! " + text("MAIN_PLANET_REBELLION");
-		out += newline + "Factories = " + sv.factories();
+		out += NEWLINE + "Factories = " + sv.factories();
 		if (sv.shieldLevel() > 0)
-		   	out += newline + "Shield Level = " + sv.shieldLevel();
+		   	out += NEWLINE + "Shield Level = " + sv.shieldLevel();
 		int bases = sv.bases();
 		if (bases > 0)
-			out += newline + "Bases = " + bases;
+			out += NEWLINE + "Bases = " + bases;
 		return out;
 	}
 	private String transportInfo()		{
@@ -197,21 +183,14 @@ public class StarView implements Base {
 		String out = "";
 		for (ShipFleet fl: sys.orbitingFleets()) {
 			if (fl.visibleTo(pl)) {
-				out += newline + "In Orbit: ";
-				if (pl == fl.empire())
-					out += "player";
-				else
-					out += "alien (E " + fl.empId() + ") " + fl.empire().name();
-				out += " fleet";				
+				out += NEWLINE + "In Orbit " + longEmpireInfo(fl.empire()) + " fleet";
+				out += NEWLINE + fleetDesignInfo(fl, NEWLINE);
 			}
 		}
 		for (ShipFleet fl: pl.getEtaFleets(sys)) {
-			out += newline + "Incoming ";
-			if (pl == fl.empire())
-				out += "player";
-			else
-				out += "alien (E " + fl.empId() + ") " + fl.empire().name();
-			out += " fleet, ETA = " + (int) Math.ceil(fl.travelTime(sys)) + " Years";
+			out += NEWLINE + "Incoming " + longEmpireInfo(fl.empire()) + " fleet";
+			out += NEWLINE + fleetDesignInfo(fl, NEWLINE);
+			out += NEWLINE + "ETA = " + (int) Math.ceil(fl.travelTime(sys)) + " Years";
 		}
 		return out;
 	}
@@ -239,13 +218,13 @@ public class StarView implements Base {
 			return "";
 	}	
 	private String systemRange()		{
-		float range	  = (float) Math.ceil(si.distance(id)*10)/10;
-		String out = "Distance = ";
+		float range	= (float) Math.ceil(si.distance(id)*10)/10;
+		String out  = "Distance = ";
 		if (pl.alliedWith(id(sys.empire())))
 			out += text("MAIN_ALLIED_COLONY");
 		else
 			out += text("MAIN_SYSTEM_RANGE", df1.format(range));
-		out += ", ";
+		out += SPACER;
 		if (si.inShipRange(id)) {
 			out += text("MAIN_IN_RANGE_DESC");
 		}
@@ -258,5 +237,4 @@ public class StarView implements Base {
 		return out;		
 	}
 	// ##### Tools
-	private String cLn(String s)	{ return s.isEmpty() ? "" : (newline + s); }
 }

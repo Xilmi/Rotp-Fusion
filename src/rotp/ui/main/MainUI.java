@@ -365,6 +365,30 @@ public class MainUI extends BasePanel implements IMapHandler {
         setOpaque(false);
     }
     public boolean enableButtons()   { return !session().performingTurn(); }
+    public void selectSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick) {
+        // if not in normal mode, then NextTurnControls are
+        // the only sprites clickable
+        if (overlay.consumesClicks(o)) {
+            if (nextTurnControls.contains(o)) {
+                o.click(map, count, rightClick, click, middleClick);
+                map.repaint();
+            }
+            return;
+        }
+        boolean used = (displayPanel != null) && displayPanel.useClickedSprite(o, count, rightClick);
+        hoveringOverSprite(null);
+        if (!used)  {
+            o.click(map, count, rightClick, click, middleClick);
+//            if (o.persistOnClick()) { // BR: For console, to validate displayed info
+                hoveringSprite(null);
+                if(rightClick == true)
+                    handleRightClick(o);
+                else
+                    clickedSprite(o);
+//            }
+            o.repaint(map);
+        }
+    }
     public void selectSystem(StarSystem sys) {
         // main goal here is to trigger sprite click behavior with no click sound
         sys.click(map, 1, false, false, false);

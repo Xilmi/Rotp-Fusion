@@ -44,6 +44,7 @@ import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.ui.NoticeMessage;
 import rotp.ui.UserPreferences;
+import rotp.ui.console.CommandConsole;
 import rotp.ui.notifications.AdviceNotification;
 import rotp.ui.notifications.BombardSystemNotification;
 import rotp.util.Base;
@@ -531,6 +532,8 @@ public class Galaxy implements Base, Serializable {
             memLog();
             // RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment
         }
+        if (options().selectedShowConsolePanel())
+        	CommandConsole.updateConsole();
         giveAdvice("MAIN_ADVISOR_SCOUT");
         session().processNotifications();
     }

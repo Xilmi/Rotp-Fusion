@@ -1255,7 +1255,8 @@ public final class GameSession implements Base, Serializable {
         // BR: Backward compatibility tentative
         galaxy().validateOnLoad();
         ((MOO1GameOptions) options).validateOnLoad();
-
+        if (options.selectedShowConsolePanel())
+        	CommandConsole.updateConsole();
         if (options.debugShowMoreMemory()) {
             memLog();
             // RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment

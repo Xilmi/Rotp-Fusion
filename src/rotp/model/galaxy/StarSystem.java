@@ -34,6 +34,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import rotp.model.Sprite;
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
@@ -253,11 +255,13 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
             starType = StarType.keyed(starTypeKey);
         return starType;
     }
+    public String starColor() { return StringUtils.capitalize(starTypeKey.toLowerCase()); }
+
     public boolean piracy()                     { return piracy; }
     public void piracy(boolean b)               { piracy = b; }
 
     public List<Transport> transports()         { return orbitingTransports; }
-    public int orbitingTransports(int empId) {
+    public int orbitingTransports(int empId)    {
         for (Transport tr: orbitingTransports) {
             if (tr.empId() == empId)
                 return tr.size();

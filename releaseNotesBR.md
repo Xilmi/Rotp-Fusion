@@ -1,7 +1,7 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Very last changes:</ins></b>
-- Command console fixes and improvements.
-  - This option is under construction! (Every other features are OK)
+- Right click on spending result will maximise the spending (even if not needed).
+- Command Console: more commands available.
 
 
 <b><ins>Updates since last releases:</ins></b>
@@ -34,7 +34,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - YES: Reload won't change research probability (Moo1 style)
     - NO: You may try to reload to get a new dice roll! (RotP default)
 - Added Persistent Random Generator option to to Ironman Panel.
-
+- Right click on spending result will maximize the spending (even if not needed).
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.
@@ -44,6 +44,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed wrong button display after Ctrl-option Pop-up panel.
 - Fixed "Continue" on startup will suggest a name based on the loaded game.
 - Fixed some display options not being saved!
+- Fixed some Fullscreen crash on startup
 
 <b><ins>Last Release:</ins></b>
 

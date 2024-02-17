@@ -55,15 +55,8 @@ import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamString;
 import rotp.ui.util.ParamSubUI;
-import rotp.util.Base;
 
-public class CommandConsole extends JPanel  implements Base, ActionListener {
-
-	private static final String newline = "<br>";
-	private static final int NULL_ID	= -1;
-	private static final int OPTION_ID	= 0;
-	private static final int SETTING_ID	= 1;
-	private static final int MENU_ID	= 2;
+public class CommandConsole extends JPanel  implements IConsole, ActionListener {
 	private static JFrame frame;
 	private static CommandConsole instance;
 	public	static Menu introMenu, loadMenu, saveMenu;
@@ -79,17 +72,18 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	private final LinkedList<String> lastCmd	= new LinkedList<>();
 	private Menu liveMenu;
 	private Menu mainMenu, setupMenu, gameMenu, speciesMenu;
-	int selectedStar, targetStar; // , selectedEmpire, selectedFleet, selectedTransport, selectedDesign;
+	int selectedStar, aimedStar, selectedFleet, selectedTransport, selectedEmpire; // ,, selectedDesign;
 	private HashMap<Integer, Integer> altIndex2SystemIndex = new HashMap<>();
 //	private Menu stars, fleet, ships, opponents;
 //	private final List<SystemView> starList = new ArrayList<>();
-	private StarView starView;
+	private StarView	starView;
+	private FleetView	fleetView;
 	
 	// ##### STATIC METHODS #####
-	public static void updateConsole()			{ instance.reInit(); }
-	public static void turnCompleted(int turn)	{
-		instance.resultPane.setText("Current turn: " + turn + newline);
-		
+	public static CommandConsole cc()				{ return instance; }
+	public static void updateConsole()				{ instance.reInit(); }
+	public static void turnCompleted(int turn)		{
+		instance.resultPane.setText("Current turn: " + turn + NEWLINE);
 	}
 	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
 		List<Entry<K, V>> list = new ArrayList<>(map.entrySet());
@@ -102,8 +96,8 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 
 		return result;
 	}
-	public static void showConsole(boolean show)		{
-//		if(!Rotp.isIDE())
+	public static void showConsole(boolean show)	{
+		if(!Rotp.isIDE())
 			Rotp.setVisible(!show);
 		if (frame == null) {
 			if (show)
@@ -113,7 +107,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		else
 			frame.setVisible(show);
 	}
-	public static void hideConsole()			{ showConsole(false); }
+	public static void hideConsole()				{ showConsole(false); }
 	// ##### CONSTRUCTOR #####
 	private static void createAndShowGUI(boolean show)	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -134,7 +128,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			}
 		});
 	}
-	public CommandConsole()		{
+	public CommandConsole()			{
 		super(new GridBagLayout());
 		commandLabel = new JLabel("Options: ");
 		commandField = new JTextField(80);
@@ -189,8 +183,9 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		initMenus();
 		resultPane.setText(liveMenu.menuGuide(""));
 
-		starView = new StarView(this);
-		instance = this;
+		starView	= new StarView(this);
+		fleetView	= new FleetView(this);
+		instance	= this;
 		IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
 	}
 	// ##### INITIALIZERS #####
@@ -203,7 +198,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 					return gameMenu.open("");
 				}
 				else
-					return "Nothing to continue" + newline;
+					return "Nothing to continue" + NEWLINE;
 			}
 		};
 		cmd.cmdHelp("Continue the current game. If none are started, continue with the last saved game.");
@@ -256,31 +251,31 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		};
 		cmd.cmdParam(" [SHip|SCout|Rxx|Dxx] [Y|O|Oxx|W] [A|U|X|N|C] [P|F|T]");
 		cmd.cmdHelp("Loop thru all the given filters and return the result"
-				+ newline + "Distance filters:"
-				+ newline + "[SH | Ship] : filter in ship range of the player empire"
-				+ newline + "[SC | Scout] : filter in scout range of the player empire"
-				+ newline + "[Rxx] : filter in xx light years Range of the player empire"
-				+ newline + "[Dxx] : filter in xx light years Distance of the selected star system"
-				+ newline + "Owner filters: if none all are displayed"
-				+ newline + "[Y] : add plaYer"
-				+ newline + "[O] : add all Opponents"
-				+ newline + "[Oxx] : add Opponent xx (Index)"
-				+ newline + "[W | OW] : add Opponents at War with the player"
-				+ newline + "Category filters:"
-				+ newline + "[A] : planets under Attack"
-				+ newline + "[U] : Unexplored star system only"
-				+ newline + "[X] : eXplored star system only"
-				+ newline + "[N] : uNcolonized star system only"
-				+ newline + "[C] : Colonized star system only"
-				+ newline + "List filters: if none, all three lists are shown"
-				+ newline + "[P] : add Planet list (star systems)"
-				+ newline + "[F] : add Fleet list"
-				+ newline + "[T] : add Transport list"
+				+ NEWLINE + "Distance filters:"
+				+ NEWLINE + "[SH | Ship] : filter in ship range of the player empire"
+				+ NEWLINE + "[SC | Scout] : filter in scout range of the player empire"
+				+ NEWLINE + "[Rxx] : filter in xx light years Range of the player empire"
+				+ NEWLINE + "[Dxx] : filter in xx light years Distance of the selected star system"
+				+ NEWLINE + "Owner filters: if none all are displayed"
+				+ NEWLINE + "[Y] : add plaYer"
+				+ NEWLINE + "[O] : add all Opponents"
+				+ NEWLINE + "[Oxx] : add Opponent xx (Index)"
+				+ NEWLINE + "[W | OW] : add Opponents at War with the player"
+				+ NEWLINE + "Category filters:"
+				+ NEWLINE + "[A] : planets under Attack"
+				+ NEWLINE + "[U] : Unexplored star system only"
+				+ NEWLINE + "[X] : eXplored star system only"
+				+ NEWLINE + "[N] : uNcolonized star system only"
+				+ NEWLINE + "[C] : Colonized star system only"
+				+ NEWLINE + "List filters: if none, all three lists are shown"
+				+ NEWLINE + "[P] : add Planet list (star systems)"
+				+ NEWLINE + "[F] : add Fleet list"
+				+ NEWLINE + "[T] : add Transport list"
 				);
 		return cmd;
 	}
 	private Command initSelectPlanet()		{
-		Command cmd = new Command("select Planet from index", "P") {
+		Command cmd = new Command("select Planet from index", SYSTEM_KEY) {
 			@Override protected String execute(List<String> param) {
 				if (param.isEmpty())
 					return getShortGuide();
@@ -291,113 +286,102 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				selectedStar = validPlanet(p);
 				StarSystem sys = getSys(selectedStar);
 				mainUI().selectSystem(sys);
-				return starView.planetInfo(selectedStar, "");
+				return starView.getInfo(selectedStar, "");
 			}
 		};
 		cmd.cmdParam(" Index");
 		cmd.cmdHelp("Select current Planet from planet index and gives info");
 		return cmd;		
 	}
-	private Command initTargetPlanet()		{
-		Command cmd = new Command("select Destination planet from index, or Selected planet", "D") {
+	private Command initAimedPlanet()		{
+		Command cmd = new Command("select Aimed planet from index, or Selected planet", AIMED_KEY) {
 			@Override protected String execute(List<String> param) {
-				String out = getShortGuide() + newline;
+				String out = getShortGuide() + NEWLINE;
 				if (!param.isEmpty()) {
 					String s = param.get(0);
 					if (s.equalsIgnoreCase("S"))
-						targetStar = selectedStar;
+						aimedStar = selectedStar;
 					else {
 						Integer p = getInteger(s);
 						if (p != null) {
-							targetStar = p;
+							aimedStar = p;
 							out = "";
 						}
 					}
 				}
-				StarSystem sys	= getSys(targetStar);
-				out += descSystem(sys, true);
+				StarSystem sys	= getSys(aimedStar);
+				out += descTargetSystem(sys, true);
 				return out;
 			}
 		};
 		cmd.cmdParam(" [Index | S]");
-		cmd.cmdHelp("select Destination planet from planet index, or from Selected planet if \"S\", and gives Destination info");
+		cmd.cmdHelp("select Aimed planet from planet index, or from Selected planet if \"S\", and gives Destination info");
 		return cmd;		
 	}
-	private Command initSelectFleet()		{ // TODO BR: initSelectFleet()
-		Command cmd = new Command("select Fleet from index", "F") {
+	private Command initSelectFleet()		{
+		Command cmd = new Command("select Fleet from index", FLEET_KEY) {
 			@Override protected String execute(List<String> param) {
-				//targetStar = selectedStar;
-				String out = getShortGuide() + newline;
+				String out = getShortGuide() + NEWLINE;
 				if (!param.isEmpty()) {
 					String s = param.get(0);
-					if (s.equalsIgnoreCase("S"))
-						targetStar = selectedStar;
-					else {
-						Integer p = getInteger(s);
-						if (p != null) {
-							targetStar = p;
-							out = "";
-						}
+					Integer f = getInteger(s);
+					if (f != null) {
+						selectedFleet = bounds(0, f, fleets.size()-1);
+						ShipFleet fleet = fleets.get(selectedFleet);
+						mainUI().selectSprite(fleet, 1, false, true, false);
+						mainUI().map().recenterMapOn(fleet);
+						mainUI().repaint();
+						out = fleetView.getInfo(f, "");
 					}
 				}
-				StarSystem sys	= getSys(targetStar);
-				out += descSystem(sys, true);
 				return out;
 			}
 		};
 		cmd.cmdParam(" Index");
-		cmd.cmdHelp("Select Fleet and gives info");
+		cmd.cmdHelp("Select Fleet index and gives fleet info");
 		return cmd;		
 	}
-	private Command initSelectTransport()	{ // TODO BR: initSelectTransport()
-		Command cmd = new Command("select Tansport", "T") {
+	private Command initSelectTransport()	{
+		Command cmd = new Command("select Tansport", TRANSPORT_KEY) {
 			@Override protected String execute(List<String> param) {
-				//targetStar = selectedStar;
-				String out = getShortGuide() + newline;
+				String out = getShortGuide() + NEWLINE;
 				if (!param.isEmpty()) {
 					String s = param.get(0);
-					if (s.equalsIgnoreCase("S"))
-						targetStar = selectedStar;
-					else {
-						Integer p = getInteger(s);
-						if (p != null) {
-							targetStar = p;
-							out = "";
-						}
+					Integer f = getInteger(s);
+					if (f != null) {
+						selectedTransport = bounds(0, f, transports.size()-1);
+						Transport transport = transports.get(selectedTransport);
+						mainUI().selectSprite(transport, 1, false, true, false);
+						mainUI().map().recenterMapOn(transport);
+						mainUI().repaint();
+						out = transportInfo(transport, NEWLINE);
 					}
 				}
-				StarSystem sys	= getSys(targetStar);
-				out += descSystem(sys, true);
 				return out;
 			}
 		};
-		cmd.cmdParam(" [Index | S]");
+		cmd.cmdParam(" Index");
 		cmd.cmdHelp("Select Tansport index, and gives Tansport info");
 		return cmd;		
 	}
 	private Command initSelectEmpire()		{ // TODO BR: initSelectEmpire()
-		Command cmd = new Command("select Empire from index", "E") {
+		Command cmd = new Command("select Empire from index", EMPIRE_KEY) {
 			@Override protected String execute(List<String> param) {
-				//targetStar = selectedStar;
-				String out = getShortGuide() + newline;
+				String out = getShortGuide() + NEWLINE;
 				if (!param.isEmpty()) {
 					String s = param.get(0);
-					if (s.equalsIgnoreCase("S"))
-						targetStar = selectedStar;
-					else {
-						Integer p = getInteger(s);
-						if (p != null) {
-							targetStar = p;
-							out = "";
-						}
+					Integer f = getInteger(s);
+					if (f != null) {
+						selectedEmpire = bounds(0, f, galaxy().numEmpires()-1);
+						out = "";
 					}
 				}
-				StarSystem sys	= getSys(targetStar);
-				out += descSystem(sys, true);
+				Empire emp = galaxy().empire(selectedEmpire);
+				out += descEmpire(emp);
 				return out;
 			}
 		};
-		cmd.cmdParam(" [Index | S]");
+		cmd.cmdParam(" Index");
 		cmd.cmdHelp("Select Empire from index, and gives Empire info");
 		return cmd;		
 	}
@@ -442,7 +426,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			}
 			@Override public String open(String out) {
 				if (!session().status().inProgress()) {
-					out += "No game in progress" + newline;
+					out += "No game in progress" + NEWLINE;
 					return mainMenu.open(out);
 				}
 				String dirPath = UserPreferences.saveDirectoryPath();
@@ -457,7 +441,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				if (status == JFileChooser.APPROVE_OPTION) {
 					File rawFile = chooser.getSelectedFile();
 					if (rawFile == null) {
-						out +=  "No file selected" + newline;
+						out +=  "No file selected" + NEWLINE;
 						return mainMenu.open(out);
 					}
 					GameUI.gameName = fileBaseName(rawFile.getName());
@@ -476,16 +460,16 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 							RotPUI.instance().selectGamePanel();
 						}
 						catch(Exception e) {
-							String str = "Save unsuccessful: " + file.getAbsolutePath() + newline;
+							String str = "Save unsuccessful: " + file.getAbsolutePath() + NEWLINE;
 							resultPane.setText(mainMenu.open(str));
 							return;
 						}
 					};
 					SwingUtilities.invokeLater(save);
-					out +=  "Saved to File: " + file.getAbsolutePath() + newline;
+					out +=  "Saved to File: " + file.getAbsolutePath() + NEWLINE;
 					return mainMenu.open(out);
 				}
-				out +=  "No file selected" + newline + newline;
+				out +=  "No file selected" + NEWLINE + NEWLINE;
 				return mainMenu.open(out);
 			}
 		};
@@ -513,7 +497,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				if (status == JFileChooser.APPROVE_OPTION) {
 					File file = chooser.getSelectedFile();
 					if (file == null) {
-						out +=  "No file selected" + newline + newline;
+						out +=  "No file selected" + NEWLINE + NEWLINE;
 						return mainMenu.open(out);
 					}
 					GameUI.gameName = fileBaseName(file.getName());
@@ -522,10 +506,10 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 						GameSession.instance().loadSession(dirName, file.getName(), false);
 					};
 					SwingUtilities.invokeLater(load);
-					out +=  "File: " + GameUI.gameName + newline;
+					out +=  "File: " + GameUI.gameName + NEWLINE;
 					return gameMenu.open(out);
 				}
-				out +=  "No file selected" + newline + newline;
+				out +=  "No file selected" + NEWLINE + NEWLINE;
 				return mainMenu.open(out);
 			}
 		};
@@ -564,8 +548,11 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		menu.addMenu(new Menu("In Game Settings Menu", menu, IInGameOptions.inGameOptions()));
 		menu.addCommand(initNextTurn());		// N
 		menu.addCommand(initView());			// V
-		menu.addCommand(initSelectPlanet());			// P
-		menu.addCommand(initTargetPlanet());	// T
+		menu.addCommand(initSelectPlanet());	// P
+		menu.addCommand(initAimedPlanet());		// A
+		menu.addCommand(initSelectFleet());		// F
+		menu.addCommand(initSelectTransport());	// T
+		menu.addCommand(initSelectEmpire());	// E
 		introMenu = initIntroMenu(menu);
 		return menu;
 	}
@@ -610,12 +597,12 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				reInit();
 				Empire pl = player();
 				List<String> text = pl.race().introduction();
-				out = "Intro Menu" + newline + newline;
+				out = "Intro Menu" + NEWLINE + NEWLINE;
 				for (int i=0; i<text.size(); i++)  {
 					String paragraph = text.get(i).replace("[race]", pl.raceName());
-					out += paragraph + newline;
+					out += paragraph + NEWLINE;
 				}
-				out += newline + "Enter any command to continue";
+				out += NEWLINE + "Enter any command to continue";
 				liveMenu = this;
 				resultPane.setText(out);
 				return "";
@@ -658,60 +645,89 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 
 	private String optsGuide()	{
 		String out = "";
-		out += newline + "Empty: list availble settings";
-		out += newline + "O: list all available options";
-		out += newline + "O INDEX: select chosen option";
-		out += newline + "O+: select next option";
-		out += newline + "O-: select previous option";
-		out += newline + "S: list all available settings";
-		out += newline + "S INDEX: select chosen setting";
-		out += newline + "S+: next setting";
-		out += newline + "S-: previous setting";
-		out += newline + "M: list all available menus";
-		out += newline + "M INDEX: select chosen menu";
-		out += newline + "M+: next menu";
-		out += newline + "M-: previous menu";
+		out += NEWLINE + "Empty: list availble settings";
+		out += NEWLINE + "O: list all available options";
+		out += NEWLINE + "O INDEX: select chosen option";
+		out += NEWLINE + "O+: select next option";
+		out += NEWLINE + "O-: select previous option";
+		out += NEWLINE + "S: list all available settings";
+		out += NEWLINE + "S INDEX: select chosen setting";
+		out += NEWLINE + "S+: next setting";
+		out += NEWLINE + "S-: previous setting";
+		out += NEWLINE + "M: list all available menus";
+		out += NEWLINE + "M INDEX: select chosen menu";
+		out += NEWLINE + "M+: next menu";
+		out += NEWLINE + "M-: previous menu";
 		return out;
 	}
 	// ##### Tools
+	private String descEmpire(Empire emp)	{
+		String out = empireContactInfo(emp, NEWLINE);
+		return out;
+	}
+	private String descFleet(ShipFleet fleet)	{
+		if (fleet.isEmpty())
+			return "Empty Fleet";
+		Empire pl  = player();
+		Empire emp = fleet.empire();
+		// Empire
+		String out = "Owner = " + shortEmpireInfo(emp);
+		// Location
+		if (fleet.isOrbiting())
+			out += SPACER + "Orbit " + planetName(fleet.system().altId);
+		else if (pl.knowETA(fleet)) {
+			int destination = fleet.destination().altId;
+			int eta = fleet.travelTurnsRemaining();
+			out += SPACER + "ETA " + planetName(destination) + " = " + eta + " year";
+			if (eta>1)
+				out += "s";
+		}
+		else {
+			out += SPACER + "Closest System = ";
+			StarSystem sys = pl.closestSystem(fleet);
+			out += planetName(sys.altId) + SPACER + "Distance = " + ly(sys.distanceTo(fleet));
+		}
+		out += SPACER + fleetDesignInfo(fleet, SPACER);
+		return out;
+	}
+	private String descTargetSystem(StarSystem sys, boolean local)	{
+		return "Aimed System = " + descSystem(sys, local);
+	}
 	private String descSystem(StarSystem sys, boolean local)	{
 		Empire emp		= sys.empire();
 		Empire pl		= player();
 		SystemView view	= pl.sv.view(sys.id);
-		String out = "Target System = ";
-		out += "(P " + sys.altId + ")";
+		String out = bracketed(SYSTEM_KEY, sys.altId) + " ";
+		// Star Color
+		out += sys.starColor() + " star";
 		// Planet Name
 		String s = view.name();
 		if (!s.isEmpty())
-			out += " " + view.name() + ",";
-		out += " " + view.descriptiveName(); 
-		// Planet Owner
-		if (pl == emp)
-			out += ", Empire = Player";
-		else if (pl.knowsOf(emp))
-			out += ", Empire = " + emp.id;
+			out += SPACER + view.name();
+		out += SPACER + shortSystemInfo(view);
 		// Planet Distance
 		if (local) {
 			StarSystem ref = getSys(selectedStar);
-			out +=  ", Dist (P " + selectedStar + ") = " + ly(ref.distanceTo(sys));
+			out +=  SPACER + "Distance " + bracketed(SYSTEM_KEY, selectedStar) + "s = " + ly(ref.distanceTo(sys));
 		}
 		else if (pl != emp){
-			out += ", Dist player = " + ly( pl.distanceTo(sys));
+			out += SPACER + "Distance to player = " + ly( pl.distanceTo(sys));
 		}
 		return out;
 	}
-//	private String cLn(String s)	{ return s.isEmpty() ? "" : (newline + s); }
-	private int validPlanet(int p)	{ return bounds(0, p, galaxy().systemCount-1); }
-	private void sortSystems()		{ systems.sort((s1, s2) -> s1.altId-s2.altId); }
-	private void resetSystems()		{
+	private int validPlanet(int p)		{ return bounds(0, p, galaxy().systemCount-1); }
+	private int validFleet(int idx)		{ return bounds(0, idx, fleets.size()-1); }
+	private int validTransport(int idx)	{ return bounds(0, idx, transports.size()-1); }
+	private void sortSystems()			{ systems.sort((s1, s2) -> s1.altId-s2.altId); }
+	private void resetSystems()			{
 		systems.clear();
 		systems.addAll(Arrays.asList(galaxy().starSystems()));
 	}
-	private void resetTransports()	{
+	private void resetTransports()		{
 		transports.clear();
 		transports.addAll(player().opponentsTransports());
 	}
-	private void resetFleets()		{
+	private void resetFleets()			{
 		fleets.clear();
 		fleets.addAll(player().getVisibleFleets());
 	}
@@ -736,9 +752,12 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			return null;
 		}
 	}
-	StarSystem getSys(int altIdx)	{ return galaxy().system(altIndex2SystemIndex.get(altIdx)); }
-	SystemView getView(int altIdx)	{ return player().sv.view(altIndex2SystemIndex.get(altIdx)); }
-	private String ly (float dist)	{ return text("SYSTEMS_RANGE", df1.format(Math.ceil(10*dist)/10)); }
+	StarSystem getSys(int altIdx)		{ return galaxy().system(altIndex2SystemIndex.get(altIdx)); }
+	SystemView getView(int altIdx)		{ return player().sv.view(altIndex2SystemIndex.get(altIdx)); }
+	ShipFleet  getFleet(int idx)		{ return fleets.get(validFleet(idx)); }
+	Transport  getTransport(int idx)	{ return transports.get(validTransport(idx)); }
+	int getFleetIndex(ShipFleet fl)		{ return fleets.indexOf(fl); }
+	int getTransportIndex(Transport tr)	{ return transports.indexOf(tr); }
 	// ################### SUB CLASS MENU ######################
 	public class Menu {
 		private final String menuName;
@@ -785,6 +804,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			List<String> param = new ArrayList<>();
 			String txt = entry.trim().toUpperCase();
 			err("Console Command = " + txt);
+			// For debug purpose only
 			if (txt.equals("SHOW MAIN")) {
 				Rotp.setVisible(true);
 				frame.setVisible(true);
@@ -794,11 +814,19 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				Rotp.setVisible(false);
 				return;
 			}
+			// \debug
 			lastCmd.remove(txt); // To keep unique and at last position
 			if (!txt.isEmpty())
 				lastCmd.add(txt);
 			String cmd = getParam(txt, param); // this will remove the cmd from param list
-			String out = "Command = " + txt + newline;
+			String out = "Command = " + txt + NEWLINE;
+			boolean hasDigit = cmd.matches(".*\\d.*");
+			String cmd0 = "";
+			String cmd1 = "";
+			if (hasDigit) {
+				cmd0 = cmd.replaceAll("[^a-zA-Z]", "");
+				cmd1 = cmd.replaceAll("[*a-zA-Z]", "");
+			}
 			for (Command c : commands) {
 				if (c.isKey(cmd)) {
 					if (param.contains("?"))
@@ -809,7 +837,58 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 					resultPane.setText(out);
 					return;
 				}
+				else if (hasDigit && c.isKey(cmd0)) {
+					param.add(0, cmd1);
+					if (param.contains("?"))
+						out += c.cmdHelp();
+					else
+						out += c.execute(param);
+					commandField.setText("");
+					resultPane.setText(out);
+					return;
+				}
 			}
+			otherCase(cmd, out, param, hasDigit, cmd0, cmd1);
+//			switch (cmd) {
+//				case ""		: out = menuGuide(out);	break;
+//				case "?"	: out = optsGuide();	break;
+//				case "CLS"	: out = "";				break;
+//				case "UP"	:
+//					commandField.setText("");
+//					close(out);
+//					return;
+//				case OPTION_KEY			: out = optionEntry(out, param.remove(0), param);	break;
+//				case OPTION_KEY + "+"	: out = optionEntry(out, "+", param);	break;
+//				case OPTION_KEY + "-"	: out = optionEntry(out, "-", param);	break;
+//				case OPTION_KEY + "*"	: out = optionEntry(out, "*", param);	break;
+//				case OPTION_KEY + "="	: out = optionEntry(out, "=", param);	break;
+//				case SETTING_KEY		: out = settingEntry(out, param.remove(0), param);	break;
+//				case SETTING_KEY + "+"	: out = settingEntry(out, "+", param);	break;
+//				case SETTING_KEY + "-"	: out = settingEntry(out, "-", param);	break;
+//				case SETTING_KEY + "*"	: out = settingEntry(out, "*", param);	break;
+//				case SETTING_KEY + "="	: out = settingEntry(out, "=", param);	break;
+//				case MENU_KEY			: out = menuEntry(out, param.remove(0), param);	break;
+//				case MENU_KEY + "+"		: out = menuEntry(out, "+", param);	break;
+//				case MENU_KEY + "-"		: out = menuEntry(out, "-", param);	break;
+//				case MENU_KEY + "*"		: out = menuEntry(out, "*", param);	break;
+//				case MENU_KEY + "="		: out = menuEntry(out, "=", param);	break;
+//				default	:
+//					switch (lastList) {
+//						case OPTION_ID	: out = optionSelect(out, cmd);	break;
+//						case SETTING_ID	: out = settingSelect(out, cmd);	break;
+//						case MENU_ID	: out = menuSelect(out, cmd);		break;
+//						case NULL_ID	:
+//						default	:
+//							out += "? unrecognised command";
+//							resultPane.setText(out);
+//							return;
+//				}
+//			}
+//			commandField.setText("");
+//			resultPane.setText(out);
+		}
+		private void otherCase(String cmd, String out, List<String> param,
+								boolean hasDigit, String cmd0, String cmd1) {
 			switch (cmd) {
 				case ""		: out = menuGuide(out);	break;
 				case "?"	: out = optsGuide();	break;
@@ -818,47 +897,42 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 					commandField.setText("");
 					close(out);
 					return;
-				case "O"	: out = optionEntry(out, param.remove(0), param);	break;
-				case "O+"	: out = optionEntry(out, "+", param);	break;
-				case "O-"	: out = optionEntry(out, "-", param);	break;
-				case "O*"	: out = optionEntry(out, "*", param);	break;
-				case "O="	: out = optionEntry(out, "=", param);	break;
-				case "S"	: out = settingEntry(out, param.remove(0), param);	break;
-				case "S+"	: out = settingEntry(out, "+", param);	break;
-				case "S-"	: out = settingEntry(out, "-", param);	break;
-				case "S*"	: out = settingEntry(out, "*", param);	break;
-				case "S="	: out = settingEntry(out, "=", param);	break;
-				case "M"	: out = menuEntry(out, param.remove(0), param);	break;
-				case "M+"	: out = menuEntry(out, "+", param);	break;
-				case "M-"	: out = menuEntry(out, "-", param);	break;
-				case "M*"	: out = menuEntry(out, "*", param);	break;
-				case "M="	: out = menuEntry(out, "=", param);	break;
+				case OPTION_KEY			: out = optionEntry(out, param.remove(0), param);	break;
+				case OPTION_KEY + "+"	: out = optionEntry(out, "+", param);	break;
+				case OPTION_KEY + "-"	: out = optionEntry(out, "-", param);	break;
+				case OPTION_KEY + "*"	: out = optionEntry(out, "*", param);	break;
+				case OPTION_KEY + "="	: out = optionEntry(out, "=", param);	break;
+				case SETTING_KEY		: out = settingEntry(out, param.remove(0), param);	break;
+				case SETTING_KEY + "+"	: out = settingEntry(out, "+", param);	break;
+				case SETTING_KEY + "-"	: out = settingEntry(out, "-", param);	break;
+				case SETTING_KEY + "*"	: out = settingEntry(out, "*", param);	break;
+				case SETTING_KEY + "="	: out = settingEntry(out, "=", param);	break;
+				case MENU_KEY			: out = menuEntry(out, param.remove(0), param);	break;
+				case MENU_KEY + "+"		: out = menuEntry(out, "+", param);	break;
+				case MENU_KEY + "-"		: out = menuEntry(out, "-", param);	break;
+				case MENU_KEY + "*"		: out = menuEntry(out, "*", param);	break;
+				case MENU_KEY + "="		: out = menuEntry(out, "=", param);	break;
 				default	:
-					switch (lastList) {
-					case OPTION_ID	: out = optionSelect(out, cmd);	break;
-					case SETTING_ID	: out = settingSelect(out, cmd);	break;
-					case MENU_ID	: out = menuSelect(out, cmd);		break;
-					case NULL_ID	:
-					default	:
-						out += "? unrecognised command";
-						resultPane.setText(out);
+					if (hasDigit && !cmd0.isEmpty()) {
+						param.add(0, cmd1);
+						otherCase(cmd0, out, param, false, "", "");
 						return;
+					}
+					else {
+						switch (lastList) {
+							case OPTION_ID	: out = optionSelect(out, cmd);		break;
+							case SETTING_ID	: out = settingSelect(out, cmd);	break;
+							case MENU_ID	: out = menuSelect(out, cmd);		break;
+							case NULL_ID	:
+							default	:
+								out += "? unrecognised command";
+								resultPane.setText(out);
+								return;
+						}
 					}
 			}
 			commandField.setText("");
 			resultPane.setText(out);
-//			if (!Rotp.isIDE())
-//				Rotp.hideMainFrame();
-//			frame.setVisible(true);
-//			// System.out.println(Rotp.isIDE());
-//			EventQueue.invokeLater(new Runnable() {
-//				@Override public void run() {
-//					frame.requestFocusInWindow();
-//					// commandField.grabFocus();
-//					// commandField.requestFocus();
-//					commandField.requestFocusInWindow();
-//				}
-//			});
 		}
 		private String menuEntry(String out, String cmd, List<String> p) {
 			switch (cmd) {
@@ -917,16 +991,16 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				return menuGuide(out); // No parameters = ask for help
 			Integer number = getInteger(param);
 			if (number == null)
-				return "? Invalid parameter" + newline + menuGuide(out);
+				return "? Invalid parameter" + NEWLINE + menuGuide(out);
 			return menuSelect(out, number);
 		}
 		private String menuList(String out) {
 			if (subMenus.size() == 0)
 				return "? No menu list available";
-			out += "Menu List: " + newline;
+			out += "Menu List: " + NEWLINE;
 			int i=0;
 			for (Menu p: subMenus) {
-				out += "(M " + i + ") " + p.menuName + newline;
+				out += "(M " + i + ") " + p.menuName + NEWLINE;
 				i++;
 			}
 			lastList = MENU_ID;
@@ -934,7 +1008,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		}
 		private String menuGuide(String out) {
 			out += "Current Menu: ";
-			out += menuName + newline;
+			out += menuName + NEWLINE;
 			out = commandGuide(out);			
 			out = menuList(out);
 			return settingGuide(out);
@@ -957,7 +1031,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				return settingGuide(out);
 			Integer number = getInteger(param);
 			if (number == null)
-				return settingGuide(out+ "? Invalid parameter" + newline);
+				return settingGuide(out+ "? Invalid parameter" + NEWLINE);
 			return settingSel(out, number);
 		}
 		protected String settingSel(String out, IParam option) {
@@ -976,7 +1050,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			for (int i=0; i<settings.size(); i++) {
 				IParam setting = settings.get(i);
 				if (setting.isActive()) {
-					out += newline + "( S " + i + ") ";
+					out += NEWLINE + "( S " + i + ") ";
 					out += setting.getGuiDisplay();
 					out += ": ";
 					out += setting.getDescription();					
@@ -1042,16 +1116,16 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		private String optionGuide(String out) {
 			if (liveSetting == null)
 				return "? No selected option";
-			out += "Current Setting: " + newline;
+			out += "Current Setting: " + NEWLINE;
 			out += liveSetting.getHelp();
-			out += newline + liveSetting.selectionGuide();
-			out += newline + newline;
+			out += NEWLINE + liveSetting.selectionGuide();
+			out += NEWLINE + NEWLINE;
 			return optionList(out);
 		}
 		// Command methods
 		private String commandGuide(String out) {
 			for (Command cmd : commands) {
-				out += cmd.getShortGuide() + newline;
+				out += cmd.getShortGuide() + NEWLINE;
 			}
 			return out;
 		}
@@ -1062,7 +1136,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		private final String description;
 		private String cmdHelp	= "";
 		private String cmdParam	= "";
-		protected String execute(List<String> param) { return "Unimplemented command!" + newline; }
+		protected String execute(List<String> param) { return "Unimplemented command!" + NEWLINE; }
 		Command(String descr, String... keys) {
 			description = descr;
 			for (String key : keys)
@@ -1100,7 +1174,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 
 		ViewFilter(Command cmd, List<String> filters)	{
 			if (filters.contains("?")) {
-				result = cmd.description + newline + cmd.cmdHelp();
+				result = cmd.description + NEWLINE + cmd.cmdHelp();
 				return;
 			}
 			for (String filter : filters)
@@ -1166,7 +1240,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				for (Empire e : pl.warEnemies())
 					empires.add(e.id);
 				break;			
-			case "A": // Unexplored
+			case "A": // Aimed
 				attacked = true;
 				break;			
 			case "U": // Unexplored
@@ -1181,15 +1255,15 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			case "C": // colonized
 				colonized = true;
 				break;			
-			case "P": // Planets
+			case SYSTEM_KEY: // Planets
 				allList = false;
 				planetList = true;
 				break;			
-			case "F": // Fleets
+			case FLEET_KEY: // Fleets
 				allList = false;
 				fleetList = true;
 				break;			
-			case "T": // Transports
+			case TRANSPORT_KEY: // Transports
 				allList = false;
 				transList = true;
 				break;			
@@ -1245,62 +1319,33 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		}
 		private String viewSystems(String out)	{
 			if (systems.isEmpty())
-				return out + "Empty Star System List" + newline;
+				return out + "Empty Star System List" + NEWLINE;
 			for (StarSystem sys : systems)
-				out += descSystem(sys, dist!=null) + newline;
+				out += descSystem(sys, dist!=null) + NEWLINE;
 			return out;
 		}
 		private String viewFleets(String out)	{
 			if (fleets.isEmpty())
-				return out + "Empty Fleet List" + newline;
-			StarSystem ref = getSys(selectedStar);
+				return out + "Empty Fleet List" + NEWLINE;
 			int idx = 0;
 			for (ShipFleet fleet : fleets) {
-				out += "(F " + idx + ")";
-				Empire emp = fleet.empire();
-				if (pl.knowsOf(emp))
-					out += " Empire = " + emp.id;
-				else
-					out += " Empire = ?";
-				if (fleet.isOrbiting())
-					out += ", Orbit P" + fleet.system().altId;
-				else if (pl.knowETA(fleet)) {
-					int destination = fleet.destination().altId;
-					int eta = fleet.travelTurnsRemaining();
-					out += ", ETA P" + destination + " = " + eta + " year";
-					if (eta>1)
-						out += "s";
-				}
-				else
-					out += ", Dist P" + selectedStar + " = " + ly(ref.distanceTo(fleet));
-				out += newline;
+				out += bracketed(FLEET_KEY, idx) + " ";
+				out += descFleet(fleet);
+				out += NEWLINE;
 				idx++;
 			}
 			return out;
 		}
 		private String viewTransports(String out)	{ // TODO BR: String viewTransports(String out)
 			if (transports.isEmpty())
-				return out + "Empty Transport List" + newline;
-			StarSystem ref = getSys(selectedStar);
-			int idx = 0;
+				return out + "Empty Transport List" + NEWLINE;
+			// int idx = 0;
 			for (Transport transport : transports) {
-				out += "(T " + idx + ")";
-				Empire emp = transport.empire();
-				if (pl.knowsOf(emp))
-					out += " Empire = " + emp.id;
-				else
-					out += " Empire = ?";
-				if (pl.knowETA(transport)) {
-					int destination = transport.destination().altId;
-					int eta = transport.travelTurnsRemaining();
-					out += ", ETA P" + destination + " = " + eta + " year";
-					if (eta>1)
-						out += "s";
-				}
-				else
-					out += ", Dist P" + selectedStar + " = " + ly(ref.distanceTo(transport));
-				out += newline;
-				idx++;
+				//out += bracketed(TRANSPORT_KEY, idx) + " ";
+				out += transportInfo(transport, SPACER);
+				// out += descTransport(transport, true);
+				out += NEWLINE;
+				// idx++;
 			}
 			return out;
 		}

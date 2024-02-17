@@ -412,7 +412,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             if (colony == null)
                 return;
             if(!colony.locked(category)) {
-                //colony.clearUnlockedSpending();
+                colony.clearUnlockedSpending();
             	if (e.isControlDown())
             		 colony.toggleOrder(category);
                 int allocation = colony.allocationRemaining();
@@ -461,14 +461,13 @@ public class EmpireColonySpendingPane extends BasePanel {
             		colony.toggleOrder(category);
                 float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
                 switch(category) {
-                    case SHIP:		break;
-                    case DEFENSE:	break;
-                    case INDUSTRY:	break;
                     case ECOLOGY:
                     	colony.checkEcoAtTerraform();
                     	colony.keepEcoLockedToClean = false;
                         break;
-                    default:		break;
+                    default:
+                    	maxSlider(click, e);
+                    	return;
                 }
                 if (mapListener == null)
                     RotPUI.instance().techUI().resetPlanetaryResearch();
