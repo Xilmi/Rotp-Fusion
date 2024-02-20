@@ -71,6 +71,7 @@ public class UserPreferences implements IMainOptions {
 	private static int screenSizePct = 93;
 	private static int selectedScreen = -1; // BR: to specify the destination display
 	private static int backupTurns = 5; // modnar: change default turns between backups to 5
+	private static String cfgPath;
 	// private static boolean initialList = true;
 	private static List<IParam> optionList;
 	private static List<IParam> optionList() {
@@ -113,6 +114,7 @@ public class UserPreferences implements IMainOptions {
 //		SoundManager.current().resetSoundVolumes();
 //		save();
 //	}
+	public static String cfgPath()           { return cfgPath; }
 	public static void setForNewGame() {
 		autoColonize = false;
 		autoBombardMode = AUTOBOMBARD_NO;
@@ -220,7 +222,7 @@ public class UserPreferences implements IMainOptions {
 	public	static int		screenSizePct()					{ return screenSizePct; }
 	public	static String	saveDirectoryPath()				{
 		if (saveDir.isEmpty())
-			return Rotp.jarPath();
+			return UserPreferences.cfgPath;
 		else
 			return saveDir;
 	}
@@ -272,8 +274,7 @@ public class UserPreferences implements IMainOptions {
 	public static void load() {
 		
 		//System.out.println("UserPreferences: load()");
-		String path = Rotp.jarPath();
-		File configFile = new File(path, PREFERENCES_FILE);
+		File configFile = new File(cfgPath, PREFERENCES_FILE);
 		// modnar: change to InputStreamReader, force UTF-8
 		try ( BufferedReader in = new BufferedReader( new InputStreamReader( new FileInputStream(configFile), "UTF-8"));) {
 			String input;
@@ -283,7 +284,7 @@ public class UserPreferences implements IMainOptions {
 			}
 		}
 		catch (FileNotFoundException e) {
-			System.err.println(path+PREFERENCES_FILE+" not found.");
+			System.err.println(cfgPath+PREFERENCES_FILE+" not found.");
 		}
 		catch (IOException e) {
 			System.err.println("UserPreferences.load -- IOException: "+ e.toString());
@@ -291,8 +292,7 @@ public class UserPreferences implements IMainOptions {
 	}
 	public static int save() {
 		// System.out.println("UserPreferences: save()");
-		String path = Rotp.jarPath();
-		try (FileOutputStream fout = new FileOutputStream(new File(path, PREFERENCES_FILE));
+		try (FileOutputStream fout = new FileOutputStream(new File(cfgPath, PREFERENCES_FILE));
 			// modnar: change to OutputStreamWriter, force UTF-8
 			PrintWriter out = new PrintWriter(new OutputStreamWriter(fout, "UTF-8")); ) {
 			out.println("===== Base ROTP Settings =====");
@@ -528,6 +528,17 @@ public class UserPreferences implements IMainOptions {
 			case "Low":    return SENSITIVITY_LOW;
 		}
 		return SENSITIVITY_MEDIUM;
+	}
+
+	public static void setCfgPath(String cfg) {
+		File f = new File(cfg);
+		if(f.exists() && !f.isDirectory()) {
+			cfg = cfg.substring(0, cfg.length() - PREFERENCES_FILE.length());
+			cfgPath = cfg;
+		}
+		else {
+			cfgPath = Rotp.jarPath();
+		}
 	}
 //	public static void increaseMusicLevel()	{
 //		musicVolume = Math.min(10, musicVolume+1);

@@ -115,6 +115,7 @@ public class Rotp {
     public static void main(String[] args) {
         frame = new JFrame("Remnants of the Precursors");
         String loadSaveFile = "";
+        String cfgFile = "";
         if (args.length == 0) {
             if (restartWithMoreMemory(frame, false))
                 return;
@@ -123,6 +124,9 @@ public class Rotp {
         else {
             if (args[0].toLowerCase().endsWith(".rotp"))
                 loadSaveFile = args[0];
+
+            if (args[0].endsWith("Remnants.cfg"))
+                cfgFile = args[0];
         }
 
         reloadRecentSave = containsArg(args, "reload");
@@ -143,7 +147,8 @@ public class Rotp {
         MOO1GameOptions optionsStaticInit = new MOO1GameOptions(false);
         optionsStaticInit.allModOptions();
         optionsStaticInit = null;
-        
+        UserPreferences.setCfgPath(cfgFile);
+
         // note: referencing the RotPUI class executes its static block
         // which loads in sounds, images, etc
         frame.setLayout(new BorderLayout());

@@ -160,7 +160,7 @@ public class LanguageManager implements Base {
 
     protected void loadLanguages() {
         loadInstalledLanguages();
-        File langDir = new File(Rotp.jarPath()+"/lang");
+        File langDir = new File(UserPreferences.cfgPath()+"/lang");
         File[] langFolders = langDir.listFiles();
         if (langFolders != null) {
             for (File f : langFolders){
@@ -182,7 +182,7 @@ public class LanguageManager implements Base {
     protected String languageDisplayName(String fn) {
         FileInputStream fis;
         try {
-            fis = new FileInputStream(new File(Rotp.jarPath()+"/lang/"+fn, "fonts.txt"));
+            fis = new FileInputStream(new File(UserPreferences.cfgPath()+"/lang/"+fn, "fonts.txt"));
         } catch (FileNotFoundException e) {
             return null;
         }

@@ -744,12 +744,12 @@ public interface Base {
             return new ImageIcon(resource);
     }
     public default File file(String n) {
-        return new File(Rotp.jarPath(), n);
+        return new File(UserPreferences.cfgPath(), n);
     }
     public default InputStream fileInputStream(String n) {
         String fullString = "../rotp/" +n;
 
-        try { return new FileInputStream(new File(Rotp.jarPath(), n)); } 
+        try { return new FileInputStream(new File(UserPreferences.cfgPath(), n)); }
         catch (FileNotFoundException e) {
             try { return new FileInputStream(fullString); } 
             catch (FileNotFoundException ex) {
@@ -764,7 +764,7 @@ public interface Base {
         InputStream zipStream = null;
 
         try {
-            fis = new FileInputStream(new File(Rotp.jarPath(), n));
+            fis = new FileInputStream(new File(UserPreferences.cfgPath(), n));
         } catch (FileNotFoundException e) {
             try {
                 fis = new FileInputStream(fullString);
@@ -792,7 +792,7 @@ public interface Base {
         InputStream zipStream = null;
 
         try {
-            fis = new FileInputStream(new File(Rotp.jarPath(), n));
+            fis = new FileInputStream(new File(UserPreferences.cfgPath(), n));
         } catch (FileNotFoundException e) {
             try {
                 fis = new FileInputStream(fullString);
