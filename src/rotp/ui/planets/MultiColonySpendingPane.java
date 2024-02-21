@@ -23,6 +23,7 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -236,22 +237,22 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
         }
         parent.repaintAll();
     }
-    public void increaseBase() {
+    public void increaseBase(InputEvent e) {
         List<StarSystem> systems = parent.systemsToDisplay();
         for (StarSystem sys: systems) {
             Colony c = sys.colony();
             if (c != null) {
-            	c.defense().incrementMaxBases();
+            	c.defense().incrMaxBases(1, e.isShiftDown(), e.isControlDown());
             }
         }
         parent.repaintAll();
     }
-    public void decreaseBase() {
+    public void decreaseBase(InputEvent e) {
         List<StarSystem> systems = parent.systemsToDisplay();
         for (StarSystem sys: systems) {
             Colony c = sys.colony();
             if (c != null) {
-            	c.defense().decrementMaxBases();
+            	c.defense().incrMaxBases(-1, e.isShiftDown(), e.isControlDown());
             }
         }
         parent.repaintAll();

@@ -20,6 +20,7 @@ import rotp.model.empires.Empire;
 
 public class ColonyDefense extends ColonySpendingCategory {
     private static final long serialVersionUID = 1L;
+    public static final int MAX_BASES = 9999; // BR: != Default Max bases
     private MissileBase missileBase;
     private float bases = 0;
     private float previousBases = 0;
@@ -68,21 +69,32 @@ public class ColonyDefense extends ColonySpendingCategory {
         newBaseUpgradeCost = 0;
     }
     @Override
-    public int categoryType()              { return Colony.DEFENSE; }
+    public int categoryType()          { return Colony.DEFENSE; }
     @Override
-    public float totalBC()                { return super.totalBC() * planet().productionAdj(); }
-    public int maxBases()                  { return maxBases; }
-    public void maxBases(int i)            { maxBases = i; }
-    public int deltaBases()                { return (int) bases - (int) previousBases; }
-    public boolean incrementMaxBases() {
-        maxBases = max(0, maxBases+1);
-        return true;
+    public float totalBC()             { return super.totalBC() * planet().productionAdj(); }
+    public int maxBases()              { return maxBases; }
+    public void maxBases(int i)        { maxBases = i; }
+    public int deltaBases()            { return (int) bases - (int) previousBases; }
+    public void incrMaxBases(int inc, boolean shiftDown, boolean ctrlDown)  {
+       	if (shiftDown)
+       		inc *= 5;
+       	if (ctrlDown)
+       		inc *= 20;
+       	maxBases += inc;
+        if (maxBases > MAX_BASES)
+        	maxBases = 0;
+        else if (maxBases < 0) 
+        	maxBases = MAX_BASES;
     }
-    public boolean decrementMaxBases() {
-        int prev = maxBases;
-        maxBases = max(0, maxBases-1);
-        return prev != maxBases;
-    }
+//    public boolean incrementMaxBases() {
+//        maxBases = max(0, maxBases+1);
+//        return true;
+//    }
+//    public boolean decrementMaxBases() {
+//        int prev = maxBases;
+//        maxBases = max(0, maxBases-1);
+//        return prev != maxBases;
+//    }
     public String armorDesc()        { return tech().topArmorTech().shortName(); }
     public String battleSuitDesc()   { return tech().topBattleSuitTech().name(); }
     public String weaponDesc()       { return tech().topHandWeaponTech().name(); }

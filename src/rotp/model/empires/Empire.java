@@ -100,6 +100,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private static final long serialVersionUID = 1L;
     private static final float SHIP_MAINTENANCE_PCT = .02f;
     private static final float SECURITY_COST_RATIO = 2f;
+    private static final int MAX_DEFAULT_MAX_BASES = 999; // BR:
     public static final int PLAYER_ID = 0;
     public static final int NULL_ID = -1;
     public static final int ABSTAIN_ID = -2;
@@ -308,18 +309,30 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void scanPlanets(boolean b)            { scanPlanets = (scanPlanets || b); }
     public void setRecalcDistances()              { recalcDistances = true; }
     public int defaultMaxBases()                  { return defaultMaxBases; }
-    public boolean incrDefaultMaxBases()  { 
-        int maxBase=999;
-        if (defaultMaxBases == maxBase)
-            return false;
-        defaultMaxBases = min(maxBase, defaultMaxBases+1);
-        return true;
-    }
-    public boolean decrDefaultMaxBases() { 
-        if (defaultMaxBases == 0) 
-            return false;
-        defaultMaxBases = max(0, defaultMaxBases-1); 
-        return true;
+//    public boolean incrDefaultMaxBases()  { 
+//        int maxBase=999;
+//        if (defaultMaxBases == maxBase)
+//            return false;
+//        defaultMaxBases = min(maxBase, defaultMaxBases+1);
+//        return true;
+//    }
+//    public boolean decrDefaultMaxBases() { 
+//        if (defaultMaxBases == 0) 
+//            return false;
+//        defaultMaxBases = max(0, defaultMaxBases-1); 
+//        return true;
+//    }
+    // BR: made it more global with more control
+    public void incrDefaultMaxBases(int inc, boolean shiftDown, boolean ctrlDown)  {
+       	if (shiftDown)
+       		inc *= 5;
+       	if (ctrlDown)
+       		inc *= 20;
+       	defaultMaxBases += inc;
+        if (defaultMaxBases > MAX_DEFAULT_MAX_BASES)
+        	defaultMaxBases = 0;
+        else if (defaultMaxBases < 0) 
+        	defaultMaxBases = MAX_DEFAULT_MAX_BASES;
     }
 
     public Colony.Orders priorityOrders()         { return priorityOrders; }
@@ -2768,10 +2781,14 @@ public final class Empire implements Base, NamedObject, Serializable {
         float distance = Float.MAX_VALUE;
         for (StarSystem from: froms)
             distance = min(from.distanceTo(sys), distance);
-
         return distance;
     }
-
+    public float distanceToEmpire(Empire emp) {
+        float distance = Float.MAX_VALUE;
+        for (StarSystem from: emp.colonizedSystems)
+            distance = min(distanceToSystem(from, colonizedSystems), distance);
+        return distance;
+    }
     public float distanceTo(IMappedObject xyz) {
         float distance = Float.MAX_VALUE;
 

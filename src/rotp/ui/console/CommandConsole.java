@@ -66,6 +66,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private final JTextPane resultPane;
 	private final JScrollPane scrollPane;
 	private final List<Menu>		menus		= new ArrayList<>();
+	private final List<Empire>		empires		= new ArrayList<>();
 	private final List<Transport>	transports	= new ArrayList<>();
 	private final List<ShipFleet>	fleets		= new ArrayList<>();
 	private final List<StarSystem>	systems		= new ArrayList<>();
@@ -268,9 +269,10 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				+ NEWLINE + "[N] : uNcolonized star system only"
 				+ NEWLINE + "[C] : Colonized star system only"
 				+ NEWLINE + "List filters: if none, all three lists are shown"
-				+ NEWLINE + "[P] : add Planet list (star systems)"
-				+ NEWLINE + "[F] : add Fleet list"
-				+ NEWLINE + "[T] : add Transport list"
+				+ NEWLINE + "[" + SYSTEM_KEY	+ "] : add Planet list (star systems)"
+				+ NEWLINE + "[" + FLEET_KEY		+ "] : add Fleet list"
+				+ NEWLINE + "[" + TRANSPORT_KEY	+ "] : add Transport list"
+				+ NEWLINE + "[" + EMPIRE_KEY	+ "] : add Empire list"
 				);
 		return cmd;
 	}
@@ -342,7 +344,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		return cmd;		
 	}
 	private Command initSelectTransport()	{
-		Command cmd = new Command("select Tansport", TRANSPORT_KEY) {
+		Command cmd = new Command("select Transport", TRANSPORT_KEY) {
 			@Override protected String execute(List<String> param) {
 				String out = getShortGuide() + NEWLINE;
 				if (!param.isEmpty()) {
@@ -361,7 +363,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			}
 		};
 		cmd.cmdParam(" Index");
-		cmd.cmdHelp("Select Tansport index, and gives Tansport info");
+		cmd.cmdHelp("Select Transport index, and gives Transport info");
 		return cmd;		
 	}
 	private Command initSelectEmpire()		{ // TODO BR: initSelectEmpire()
@@ -722,6 +724,12 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private void resetSystems()			{
 		systems.clear();
 		systems.addAll(Arrays.asList(galaxy().starSystems()));
+	}
+	private void resetEmpires()			{
+		empires.clear();
+		for (Empire emp : galaxy().empires())
+			if (!emp.extinct() && player().knowsOf(emp))
+				empires.add(emp);
 	}
 	private void resetTransports()		{
 		transports.clear();
@@ -1157,14 +1165,15 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	}
 	// ################### SUB CLASS VIEW FILTER ######################
 	class ViewFilter {
-		private List<Integer> empires = new ArrayList<>();
+		private List<Integer> empireFilter = new ArrayList<>();
 		private Boolean colonized	= null;
 		private Boolean explored	= null;
 		private boolean attacked	= false;
 		private boolean allList		= true;
 		private boolean planetList	= false;
 		private boolean fleetList	= false;
-		private boolean transList	= false;
+		private boolean transpList	= false;
+		private boolean empireList	= false;
 		private Float dist	= null;
 		private Float range	= null;
 		private	Empire pl	= player();
@@ -1183,14 +1192,17 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				filterSystems();
 				filterFleets();
 				filterTransports();
+				filterEmpires();
 				return;
 			}
 			if (planetList)
 				filterSystems();
 			if (fleetList)
 				filterFleets();
-			if (transList)
+			if (transpList)
 				filterTransports();
+			if (empireList)
+				filterEmpires();
 		}
 		private void filterMOList(String filter)	{
 			if (filter.isEmpty())
@@ -1218,29 +1230,29 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				dist = getFloat(se);
 				break;
 			case "Y": // Player only
-				empires.add(0);
+				empireFilter.add(0);
 				break;
 			case "O": // Selected Opponent
 				if (se.isEmpty()) { // All opponents
 					for (Empire e : galaxy().activeEmpires())
 						if (!e.isPlayer())
-							empires.add(e.id);
+							empireFilter.add(e.id);
 				}
 				else if (se.equals("W")) { // At war with
 					for (Empire e : pl.warEnemies())
-						empires.add(e.id);
+						empireFilter.add(e.id);
 				}
 				else { // Specified opponents
 					Integer opp = getInteger(se);
 					if (opp != null)
-						empires.add(opp);
+						empireFilter.add(opp);
 				}
 				break;			
 			case "W": // At war with
 				for (Empire e : pl.warEnemies())
-					empires.add(e.id);
+					empireFilter.add(e.id);
 				break;			
-			case "A": // Aimed
+			case "A": // Attacked
 				attacked = true;
 				break;			
 			case "U": // Unexplored
@@ -1255,6 +1267,10 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			case "C": // colonized
 				colonized = true;
 				break;			
+			case EMPIRE_KEY: // Planets
+				allList = false;
+				empireList = true;
+				break;			
 			case SYSTEM_KEY: // Planets
 				allList = false;
 				planetList = true;
@@ -1265,17 +1281,17 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				break;			
 			case TRANSPORT_KEY: // Transports
 				allList = false;
-				transList = true;
+				transpList = true;
 				break;			
 			}
 		}
 		private void filterSystems()	{
 			resetSystems();
 			filterMOList(systems);
-			if (!empires.isEmpty()) {
+			if (!empireFilter.isEmpty()) {
 				List<StarSystem> copy = new ArrayList<>(systems);
 				for (StarSystem sys : copy)
-					if (!empires.contains(sys.empId()))
+					if (!empireFilter.contains(sys.empId()))
 						systems.remove(sys);
 			}
 			List<StarSystem> copy = new ArrayList<>(systems);
@@ -1298,10 +1314,10 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		private void filterFleets()	{
 			resetFleets();
 			filterMOList(fleets);
-			if (!empires.isEmpty()) {
+			if (!empireFilter.isEmpty()) {
 				List<ShipFleet> copy = new ArrayList<>(fleets);
 				for (ShipFleet sf : copy)
-					if (!empires.contains(sf.empId()))
+					if (!empireFilter.contains(sf.empId()))
 						fleets.remove(sf);
 			}
 			result = viewFleets(result);
@@ -1309,13 +1325,36 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		private void filterTransports()	{
 			resetTransports();
 			filterMOList(transports);
-			if (!empires.isEmpty()) {
+			if (!empireFilter.isEmpty()) {
 				List<Transport> copy = new ArrayList<>(transports);
 				for (Transport tr : copy)
-					if (!empires.contains(tr.empId()))
+					if (!empireFilter.contains(tr.empId()))
 						transports.remove(tr);
 			}
 			result = viewTransports(result);
+		}
+		private void filterEmpires()	{
+			resetEmpires();
+			if (range != null) {
+				List<Empire> copy = new ArrayList<>(empires);
+				for (Empire emp : copy)
+					if (pl.distanceToEmpire(emp) > range)
+						empires.remove(emp);
+			}
+			if (dist != null) {
+				StarSystem ref = getSys(selectedStar);
+				List<Empire> copy = new ArrayList<>(empires);
+				for (Empire emp : copy)
+					if (emp.distanceTo(ref) > dist)
+						empires.remove(emp);
+			}
+			if (!empireFilter.isEmpty()) {
+				List<Empire> copy = new ArrayList<>(empires);
+				for (Empire emp : copy)
+					if (!empireFilter.contains(emp.id))
+						empires.remove(emp);
+			}
+			result = viewEmpires(result);
 		}
 		private String viewSystems(String out)	{
 			if (systems.isEmpty())
@@ -1336,16 +1375,21 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			}
 			return out;
 		}
-		private String viewTransports(String out)	{ // TODO BR: String viewTransports(String out)
+		private String viewTransports(String out)	{
 			if (transports.isEmpty())
 				return out + "Empty Transport List" + NEWLINE;
-			// int idx = 0;
 			for (Transport transport : transports) {
-				//out += bracketed(TRANSPORT_KEY, idx) + " ";
 				out += transportInfo(transport, SPACER);
-				// out += descTransport(transport, true);
 				out += NEWLINE;
-				// idx++;
+			}
+			return out;
+		}
+		private String viewEmpires(String out)	{ // TODO BR: String viewEmpires(String out)
+			if (empires.isEmpty())
+				return out + "Empty Empire List" + NEWLINE;
+			for (Empire empire : empires) {
+				out += shortEmpireInfo(empire);
+				out += NEWLINE;
 			}
 			return out;
 		}

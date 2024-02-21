@@ -33,10 +33,12 @@ public interface IConsole extends Base {
 	String OPTION_KEY		= "O";
 	String SETTING_KEY		= "S";
 
+	// ##### TOOLS
 	default Empire empire(int empId)	{ return galaxy().empire(empId); }
 	default String cLn(String s)		{ return s.isEmpty() ? "" : (NEWLINE + s); }
 	default String ly(float dist)		{ return text("SYSTEMS_RANGE", df1.format(Math.ceil(10*dist)/10)); }
 	default String bracketed(String key, int index)		{ return "(" + key + " " +index + ")"; }
+	// ##### FLEETS
 	default String fleetDesignInfo(ShipFleet fl, String sep)	{
 		String out = "";
 		int[] visible = fl.visibleShips(player().id);
@@ -70,6 +72,27 @@ public interface IConsole extends Base {
 			out += "Unknown ";
 		return out;
 	}
+	default String transportInfo(Transport transport, String sep)	{
+		Empire pl  = player();
+		Empire emp = transport.empire();
+		String out = bracketed(TRANSPORT_KEY, cc().getTransportIndex(transport));
+		out += " Size = " + transport.launchSize();
+		out += sep + "Owner = " + longEmpireInfo(emp);
+		if (pl.knowETA(transport)) {
+			SystemView sv = cc().getView(transport.from().altId);
+			out += sep + "From " + planetName(sv, sep);
+			sv = cc().getView(transport.destination().altId);
+			out += sep + "To " + planetName(sv, sep);
+			int eta = transport.travelTurnsRemaining();
+			out += sep + "ETA = " + eta + " year";
+			if (eta>1)
+				out += "s";
+		}
+		else
+			out += sep + closestSystem(transport, sep);
+		return out;
+	}
+	// ##### SYSTEMS
 	default String planetName(int altId)	{ return planetName(cc().getView(altId), SPACER); }
 	default String planetNameCR(int altId)	{ return planetName(cc().getView(altId), NEWLINE); }
 	default String planetName(int altId, String sep)	{ return planetName(cc().getView(altId), sep); }
@@ -110,26 +133,6 @@ public interface IConsole extends Base {
             out = id + text("PLANET_WORLD", name);
         out = emp.replaceTokens(out, "alien");
         return out;
-	}
-	default String transportInfo(Transport transport, String sep)	{
-		Empire pl  = player();
-		Empire emp = transport.empire();
-		String out = bracketed(TRANSPORT_KEY, cc().getTransportIndex(transport));
-		out += " Size = " + transport.launchSize();
-		out += sep + "Owner = " + longEmpireInfo(emp);
-		if (pl.knowETA(transport)) {
-			SystemView sv = cc().getView(transport.from().altId);
-			out += sep + "From " + planetName(sv, sep);
-			sv = cc().getView(transport.destination().altId);
-			out += sep + "To " + planetName(sv, sep);
-			int eta = transport.travelTurnsRemaining();
-			out += sep + "ETA = " + eta + " year";
-			if (eta>1)
-				out += "s";
-		}
-		else
-			out += sep + closestSystem(transport, sep);
-		return out;
 	}
 	default String closestSystem(IMappedObject mapObj, String sep)	{
 		StarSystem sys = player().closestSystem(mapObj);

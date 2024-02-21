@@ -15,6 +15,8 @@
  */
 package rotp.ui.main;
 
+import static rotp.model.colony.ColonyDefense.MAX_BASES;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -23,6 +25,7 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -89,11 +92,11 @@ public class EmpireColonyInfoPane extends BasePanel {
         add(shieldBasesPane);
         add(new EmpireProductionPane());
     }
-    public void incrementBases() {
-        basesPane.incrementBases();
+    public void incrementBases(InputEvent e) {
+        basesPane.incrBases(1, e.isShiftDown(), e.isControlDown());
     }
-    public void decrementBases() {
-        basesPane.decrementBases();
+    public void decrementBases(InputEvent e) {
+        basesPane.incrBases(-1, e.isShiftDown(), e.isControlDown());
     }
     abstract class EmpireDataPane extends BasePanel {
         private static final long serialVersionUID = 1L;
@@ -292,30 +295,53 @@ public class EmpireColonyInfoPane extends BasePanel {
             addMouseMotionListener(this);
             addMouseWheelListener(this);
         }
-        private void incrementBases() {
-            maxBasesValue++;
-            for (Colony c: colonies)
-                c.defense().maxBases(maxBasesValue);
-            softClick();
-            repaint();
-        }
-        private void decrementBases() {
+        public void incrBases(int inc, boolean shiftDown, boolean ctrlDown)  {
             StarSystem sys = parentUI.systemViewToDisplay();
             if (sys == null)
                 return;
             Colony colony = sys.colony();
             if  (colony == null)
                 return;
-            if (maxBasesValue == 0) {
-                misClick();
-                return;
-            }
-            maxBasesValue--;
+
+            if (shiftDown)
+           		inc *= 5;
+           	if (ctrlDown)
+           		inc *= 20;
+           	maxBasesValue += inc;
+            if (maxBasesValue > MAX_BASES)
+            	maxBasesValue = 0;
+            else if (maxBasesValue < 0) 
+            	maxBasesValue = MAX_BASES;
+
             for (Colony c: colonies)
                 c.defense().maxBases(maxBasesValue);
             softClick();
-            repaint();
+            repaint();            
         }
+//        private void incrementBases() {
+//            maxBasesValue++;
+//            for (Colony c: colonies)
+//                c.defense().maxBases(maxBasesValue);
+//            softClick();
+//            repaint();
+//        }
+//        private void decrementBases() {
+//            StarSystem sys = parentUI.systemViewToDisplay();
+//            if (sys == null)
+//                return;
+//            Colony colony = sys.colony();
+//            if  (colony == null)
+//                return;
+//            if (maxBasesValue == 0) {
+//                misClick();
+//                return;
+//            }
+//            maxBasesValue--;
+//            for (Colony c: colonies)
+//                c.defense().maxBases(maxBasesValue);
+//            softClick();
+//            repaint();
+//        }
         @Override
         public String textureName()      { return parentUI.subPanelTextureName(); }
         @Override
@@ -376,10 +402,10 @@ public class EmpireColonyInfoPane extends BasePanel {
             g.setColor(enabledArrowColor);
             g.fillPolygon(upButtonX, upButtonY, 3);
 
-            if (maxBasesValue == 0)
-                g.setColor(disabledArrowColor);
-            else
-                g.setColor(enabledArrowColor);
+//            if (maxBasesValue == 0)
+//                g.setColor(disabledArrowColor);
+//            else
+//                g.setColor(enabledArrowColor);
             g.fillPolygon(downButtonX, downButtonY, 3);
 
             upArrow.reset();
@@ -394,8 +420,7 @@ public class EmpireColonyInfoPane extends BasePanel {
                 g.setColor(SystemPanel.yellowText);
                 g.drawPolygon(upArrow);
             }
-            else if ((hoverBox == downArrow)
-                && (maxBasesValue > 0)) {
+            else if (hoverBox == downArrow) {
                 g.setColor(SystemPanel.yellowText);
                 g.drawPolygon(downArrow);
             }
@@ -421,9 +446,9 @@ public class EmpireColonyInfoPane extends BasePanel {
             int x = e.getX();
             int y = e.getY();
             if (upArrow.contains(x,y))
-                incrementBases();
+                incrementBases(e);
             else if (downArrow.contains(x,y)) 
-                decrementBases();
+                decrementBases(e);
         }
         @Override
         public void mouseDragged(MouseEvent e) { }
@@ -448,9 +473,9 @@ public class EmpireColonyInfoPane extends BasePanel {
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {
             if (e.getWheelRotation() < 0)
-                incrementBases();
+                incrementBases(e);
             else
-                decrementBases();
+                decrementBases(e);
         }
     }
     class EmpireProductionPane extends BasePanel {

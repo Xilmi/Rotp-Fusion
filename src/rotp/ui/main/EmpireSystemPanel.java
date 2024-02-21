@@ -90,9 +90,9 @@ public class EmpireSystemPanel extends SystemPanel {
         switch (k) {
             case KeyEvent.VK_B:
                 if (code == 0)
-                    infoPane.incrementBases();
+                    infoPane.incrementBases(e);
                 else if (code == 64)
-                    infoPane.decrementBases();
+                    infoPane.decrementBases(e);
                 return;
             case KeyEvent.VK_F:
                 foundedPane.toggleFlagColor(shift);

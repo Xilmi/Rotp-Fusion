@@ -670,9 +670,9 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 return;
             case KeyEvent.VK_B:
             	if(shift)
-            		multiSpendingPane.decreaseBase();
+            		multiSpendingPane.decreaseBase(e);
             	else
-            		multiSpendingPane.increaseBase();
+            		multiSpendingPane.increaseBase(e);
         }
         if (repaint)
             repaint();

@@ -61,6 +61,14 @@ Later:
 
 ## What's New
 
+2024.02.21 (BR)
+- Missile base settings: Improved controls
+  - Shift = +/- 5;
+  - Control = +/- 20;
+  - Shift Control = +/- 100;
+  - Max value = 9999; (default max still limited to 999)
+  - Loop at Max and Min
+
 2024.02.17 (BR)
 - Right click on spending result will maximise the spending (even if not needed).
 - Command Console: more commands available.

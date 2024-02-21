@@ -378,7 +378,6 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         g.fillRect(x, y, w, h-s40);
         int y0 = y + s20;
 
-        Empire pl = player();
         EmpireView v = player().viewForEmpire(emp.id);
         if (v == null)
             return;
@@ -548,7 +547,7 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         int sw = g.getFontMetrics().stringWidth(s);
         int x1 = x+((x0-x-sw)/2);
         int y1 = y+(h/2)-s10;
-        if (view.canDistinguishFromOtherDesigns())
+        if (ShipView.canDistinguishFromOtherDesigns())
             drawShadowedString(g, s, 1, x1, y1, SystemPanel.blackText, c0);
 
         nameBox.setBounds(x1-s5,y1-s18,sw+s10,s22);
@@ -632,7 +631,7 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         drawString(g,label,  x0, y3);
              
         g.setFont(narrowFont(15));
-        String val = view.sizeKnown() ? d.sizeDesc() : unk;
+        String val = ShipView.sizeKnown() ? d.sizeDesc() : unk;
         int sw = g.getFontMetrics().stringWidth(val);
         drawString(g,val, x+w-sw-s10, y0);
         val = view.armorKnown() ? str((int)d.hits()) : unk;
@@ -641,7 +640,7 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         val =  view.shieldKnown() ? str((int)d.shieldLevel()) : unk;
         sw = g.getFontMetrics().stringWidth(val);
         drawString(g,val, x+w-sw-s10, y2);
-        val = view.warpSpeedKnown() ? str(d.warpSpeed()) : unk;
+        val = ShipView.warpSpeedKnown() ? str(d.warpSpeed()) : unk;
         sw = g.getFontMetrics().stringWidth(val);
         drawString(g,val, x+w-sw-s10, y3);
     }
@@ -821,13 +820,13 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         if (e.getButton() > 3)
             return;
         if (hoverShape == maxBasesDecr) {
-            if (player().decrDefaultMaxBases())
-               repaint();
+        	player().incrDefaultMaxBases(-1, e.isShiftDown(), e.isControlDown());
+            repaint();
             return;
         }
         else if (hoverShape == maxBasesIncr) {
-            if (player().incrDefaultMaxBases())
-                repaint();
+        	player().incrDefaultMaxBases(1, e.isShiftDown(), e.isControlDown());
+            repaint();
             return;
         }
         else if (hoverNameBox != null) {
@@ -868,13 +867,11 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
             return;
         }
         else if (maxBasesBox.contains(x,y)) {
-            boolean repaint;
             if (count < 0)
-                repaint = player().incrDefaultMaxBases();
+                player().incrDefaultMaxBases(1, e.isShiftDown(), e.isControlDown());
             else
-                repaint = player().decrDefaultMaxBases();
-            if (repaint)
-                repaint();
+            	player().incrDefaultMaxBases(-1, e.isShiftDown(), e.isControlDown());
+            repaint();
         }
     }
 }

@@ -1,8 +1,11 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Very last changes:</ins></b>
-- Right click on spending result will maximise the spending (even if not needed).
-- Command Console: more commands available.
-
+- Missile base settings: Improved controls
+  - Shift = +/- 5;
+  - Control = +/- 20;
+  - Shift Control = +/- 100;
+  - Max value = 9999; (default max still limited to 999)
+  - Loop at Max and Min
 
 <b><ins>Updates since last releases:</ins></b>
 
@@ -35,6 +38,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - NO: You may try to reload to get a new dice roll! (RotP default)
 - Added Persistent Random Generator option to to Ironman Panel.
 - Right click on spending result will maximize the spending (even if not needed).
+- Missile base settings: Improved controls
+  - Shift = +/- 5;
+  - Control = +/- 20;
+  - Shift Control = +/- 100;
+  - Max value = 9999; (default max still limited to 999)
+  - Loop at Max and Min
+
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.
