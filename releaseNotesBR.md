@@ -1,5 +1,7 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Very last changes:</ins></b>
+- New Ironman option:
+  - In the Empire Diplomacy panel, allows or prohibits calling for more detailed species information.
 - Missile base settings: Improved controls
   - Shift = +/- 5;
   - Control = +/- 20;
@@ -25,6 +27,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New Limited Ignores Eco, a new custom race option: (by Practical-Incarnation)
   - In addition to No, which is the default for all races, and All, which is what Silicoids have, there's a new setting Limited. Limited ignores Waste and Hostile environments like All, but only Barren, Tundra, and Dead hostile planets can be immediately colonized in addition to the normal environments. Inferno, Toxic, and Radiated environments still needs to be researched first.
   - The goal of this new option is to provide a new option to create Silicoid-like races, that are not too overpowered on certain galaxy settings such as larger Hellish galaxies.
+- New Ironman option:
+  - In the Empire Diplomacy panel, allows or prohibits calling for more detailed species information.
 
 
 <b><ins>Optimisation:</ins></b>

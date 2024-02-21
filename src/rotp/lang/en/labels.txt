@@ -2404,6 +2404,9 @@ SETTINGS_MOD_RESEARCH_MOO1               | Research Moo1: %1
 SETTINGS_MOD_PERSISTENT_RNG_DESC         | To make the base Random Generator Persistent. Reload won't change game randomness. 
 SETTINGS_MOD_PERSISTENT_RNG              | persistent RNG: %1
 
+SETTINGS_MOD_ALLOW_SPECIES_DETAILS_DESC  | In the Empire Diplomacy panel, allows or prohibits calling for more detailed species informations.
+SETTINGS_MOD_ALLOW_SPECIES_DETAILS       | Allow Species Details: %1
+
 SETTINGS_MOD_SHOW_PENDING_ORDERS_DESC    | Spending categories having pending orders (Given after Technology update) are highlighted in blue.
 SETTINGS_MOD_SHOW_PENDING_ORDERS         | Show Orders: %1
 

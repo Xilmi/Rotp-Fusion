@@ -62,6 +62,10 @@ Later:
 ## What's New
 
 2024.02.21 (BR)
+- New Ironman option:
+ - In the Empire Diplomacy panel, allows or prohibits calling for more detailed species information.
+
+2024.02.21 (BR)
 - Missile base settings: Improved controls
   - Shift = +/- 5;
   - Control = +/- 20;

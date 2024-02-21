@@ -42,6 +42,9 @@ public interface IIronmanOptions extends IBaseOptsTools {
 	ParamBoolean persistentRNG		= new ParamBoolean(MOD_UI, "PERSISTENT_RNG", false);
 	default boolean persistentRNG()			{ return persistentRNG.get(); }
 
+	ParamBoolean allowSpeciesDetails	= new ParamBoolean(MOD_UI, "ALLOW_SPECIES_DETAILS", true);
+	default boolean allowSpeciesDetails()	{ return allowSpeciesDetails.get(); }
+
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -58,7 +61,8 @@ public interface IIronmanOptions extends IBaseOptsTools {
 				IGameOptions.fixedEventsMode,
 				persistentArtifact,
 				ironmanNoLoad, ironmanLoadDelay,
-				researchMoo1, persistentRNG
+				researchMoo1, persistentRNG,
+				allowSpeciesDetails
 				)));
 		return map;
 	};

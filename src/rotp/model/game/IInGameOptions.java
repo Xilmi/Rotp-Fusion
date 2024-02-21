@@ -9,17 +9,18 @@ import static rotp.model.game.IAdvOptions.researchRate;
 import static rotp.model.game.IAdvOptions.techTrading;
 import static rotp.model.game.IAdvOptions.terraforming;
 import static rotp.model.game.IAdvOptions.warpSpeed;
+import static rotp.model.game.ICombatOptions.combatOptionsUI;
 import static rotp.model.game.IDebugOptions.debugAutoRun;
 import static rotp.model.game.IFlagOptions.autoFlagOptionsUI;
 import static rotp.model.game.IFlagOptions.flagColorCount;
 import static rotp.model.game.IGalaxyOptions.difficultySelection;
-import static rotp.model.game.IIronmanOptions.persistentArtifact;
+import static rotp.model.game.IIronmanOptions.allowSpeciesDetails;
 import static rotp.model.game.IIronmanOptions.ironmanLoadDelay;
 import static rotp.model.game.IIronmanOptions.ironmanNoLoad;
+import static rotp.model.game.IIronmanOptions.persistentArtifact;
 import static rotp.model.game.IMainOptions.compactOptionOnly;
 import static rotp.model.game.IMainOptions.galaxyPreviewColorStarsSize;
 import static rotp.model.game.IMainOptions.raceStatusLog;
-import static rotp.model.game.ICombatOptions.combatOptionsUI;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -274,7 +275,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				headerSpacer,
 				new ParamTitle("IRONMAN_BASIC"),
 				persistentArtifact,
-				ironmanNoLoad, ironmanLoadDelay
+				ironmanNoLoad, ironmanLoadDelay,
+				allowSpeciesDetails
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
