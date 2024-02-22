@@ -431,7 +431,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                 }
             }
             //if we don't have scouts anymore, we still need a way to uncover new systems
-            else if(!empire.sv.isScouted(id) && myPower == 0 )
+            else if((!empire.sv.isScouted(id) || current.monster() != null) && myPower == 0 )
             {
                 score = 5.0f;
                 if(current.starType().key().equals("YELLOW"))

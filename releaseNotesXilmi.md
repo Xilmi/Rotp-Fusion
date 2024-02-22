@@ -1,4 +1,4 @@
 ## What's New
 
-2024.02.11 (Xilmi)
-- The AI will now try to get a spy-network up and running as quickly as possible with empires that it never had infiltrated before. This also applies to the governor, when "Let AI handle spies" is enabled.
+2024.02.22 (Xilmi)
+- Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners.
