@@ -1,13 +1,6 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Very last changes:</ins></b>
-- New Ironman option:
-  - In the Empire Diplomacy panel, allows or prohibits calling for more detailed species information.
-- Missile base settings: Improved controls
-  - Shift = +/- 5;
-  - Control = +/- 20;
-  - Shift Control = +/- 100;
-  - Max value = 9999; (default max still limited to 999)
-  - Loop at Max and Min
+- Fixed Orion Guardian auto-repair not working.
 
 <b><ins>Updates since last releases:</ins></b>
 
@@ -48,6 +41,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Shift Control = +/- 100;
   - Max value = 9999; (default max still limited to 999)
   - Loop at Max and Min
+- The AI will now try to get a spy-network up and running as quickly as possible with empires that it never had infiltrated before. This also applies to the governor, when "Let AI handle spies" is enabled. (Xilmi)
 
 
 <b><ins>Bug Fixes:</ins></b>
@@ -59,6 +53,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed "Continue" on startup will suggest a name based on the loaded game.
 - Fixed some display options not being saved!
 - Fixed some Fullscreen crash on startup
+- Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners. (Xilmi)
+- Fixed Orion Guardian auto-repair not working.
 
 <b><ins>Last Release:</ins></b>
 

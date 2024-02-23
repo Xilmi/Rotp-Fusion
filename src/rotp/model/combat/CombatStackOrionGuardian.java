@@ -47,6 +47,7 @@ public class CombatStackOrionGuardian extends CombatStack {
     public CombatStackOrionGuardian() {
         num = 1;
         maxStackHits(10000);
+        startingMaxHits(maxStackHits());
         hits(maxStackHits());
         streamProjectorHits(0); // BR:
         maxMove = move = 2;
