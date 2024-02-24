@@ -295,7 +295,10 @@ public final class TechCategory implements Base, Serializable {
                     found = true;
             }
             if (!found)
-                addPossibleTech(random(techs));
+            	if(techs.size() > 0)
+            		addPossibleTech(random(techs));
+            	else // For Silicoids when Cloning and Atmospheric Terraforming are set to "Never"
+            		addPossibleTech("EcoRestoration:3");
         }
         /*for(String t : possibleTechs)
             System.out.println(t + " is in "+key()+" for "+emp.name());*/

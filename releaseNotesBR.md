@@ -1,7 +1,7 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Very last changes:</ins></b>
 - New option for the player to vote first or Last.
-
+- Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
 
 <b><ins>Updates since last releases:</ins></b>
 
@@ -57,6 +57,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed some Fullscreen crash on startup
 - Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners. (Xilmi)
 - Fixed Orion Guardian auto-repair not working.
+- Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
 
 <b><ins>Last Release:</ins></b>
 

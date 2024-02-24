@@ -64,6 +64,7 @@ Later:
 2024.02.24 (BR)
 - New option for the player to vote first or Last.
 - Command Console: Fixed wrong list number display on Guide pop-up.
+- Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
 
 2024.02.23 (BR)
 - Fixed Orion Guardian auto-repair not working.
