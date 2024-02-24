@@ -320,6 +320,14 @@ public class GalacticCouncil implements Base, Serializable {
         votes2 = 0;
         candidate1 = empires.get(0);
         candidate2 = empires.get(1);
+    	if (options().playerVotesFirst()) {
+    		empires.remove(player());
+    		empires.add(0, player());
+    	}
+    	else if (options().playerVotesLast()) {
+    		empires.remove(player());
+    		empires.add(player());
+    	}
         voteIndex = 0;
         totalVotes = 0;
     }

@@ -26,6 +26,7 @@ import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 import java.util.List;
 
+import rotp.model.game.IDebugOptions;
 import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
@@ -304,9 +305,16 @@ public class ParamList extends AbstractParam<String> {
 		int size = listSize();
 		String rows = "";
 		if (size>0) {
-			rows = "(0) " + getRowGuide(0);
-			for (int i=1; i<size; i++)
-				rows += rowsSeparator() + "(" + i + ") " + getRowGuide(i);
+			if (IDebugOptions.showConsolePanel.get()) {
+				rows = "(0) " + getRowGuide(0);
+				for (int i=1; i<size; i++)
+					rows += rowsSeparator() + "(" + i + ") " + getRowGuide(i);
+			}
+			else {
+				rows = getRowGuide(0);
+				for (int i=1; i<size; i++)
+					rows += rowsSeparator() + getRowGuide(i);
+			}
 		}
 		return tableFormat(rows);
 	}

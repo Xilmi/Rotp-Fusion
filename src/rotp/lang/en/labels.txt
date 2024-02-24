@@ -2135,6 +2135,15 @@ SETTINGS_MOD_IRONMAN_NO_SAVE_HELP        | No save game allowed
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Percentage needed to win the council vote.
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Council Requirement: %1%
 
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_DESC       | During councils, when should the player cast his vote.
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE            | Player vote: %1
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_FIRST_DESC | The player will always be the last to vote.
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_FIRST      | First
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_SIZE_DESC  | The player will vote after the more populous empires.
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_SIZE       | by Size
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST_DESC  | The player will always be the last to vote.
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST       | Last
+
 //SETTINGS_MOD_EMPIRES_SPACING_HELP        | Minimum distance between Empire Homeworlds in light-years.<br>A small value will allow a great variety of distances between Empire homeworlds.<br>Increasing this value will uniformize these distances.<br>The absolute minimum distance is: 3.8 light-years.
 //SETTINGS_MOD_EMPIRES_SPACING_DESC        | Minimum distance between Empire Homeworlds in light-years.
 //SETTINGS_MOD_EMPIRES_SPACING             | Empires Spacing: %1 ly

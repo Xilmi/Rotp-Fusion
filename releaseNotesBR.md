@@ -1,6 +1,7 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Very last changes:</ins></b>
-- Fixed Orion Guardian auto-repair not working.
+- New option for the player to vote first or Last.
+
 
 <b><ins>Updates since last releases:</ins></b>
 
@@ -22,6 +23,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - The goal of this new option is to provide a new option to create Silicoid-like races, that are not too overpowered on certain galaxy settings such as larger Hellish galaxies.
 - New Ironman option:
   - In the Empire Diplomacy panel, allows or prohibits calling for more detailed species information.
+- New option for the player to vote first or Last.
 
 
 <b><ins>Optimisation:</ins></b>

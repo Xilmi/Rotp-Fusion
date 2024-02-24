@@ -212,8 +212,18 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default boolean transportAutoEcoLast()		{ return transportAutoEco.get().equals("Last"); }
 
 	ParamBoolean spyOverSpend			= new ParamBoolean(MOD_UI, "SPY_OVERSPEND", true);
-	default boolean spyOverSpend()			{ return spyOverSpend.get(); }
+	default boolean spyOverSpend()				{ return spyOverSpend.get(); }
 
+	ParamList councilPlayerVote			= new ParamList( MOD_UI, "COUNCIL_PLAYER_VOTE", "By Size") {
+		{
+			showFullGuide(true);
+			put("First",	MOD_UI + "COUNCIL_PLAYER_VOTE_FIRST");
+			put("By Size",	MOD_UI + "COUNCIL_PLAYER_VOTE_SIZE");
+			put("Last",		MOD_UI + "COUNCIL_PLAYER_VOTE_LAST");
+		}
+	};
+	default boolean playerVotesFirst()	{ return councilPlayerVote.get().equalsIgnoreCase("First"); }
+	default boolean playerVotesLast()	{ return councilPlayerVote.get().equalsIgnoreCase("Last"); }
 
 	// ==================== GUI List Declarations ====================
 	static LinkedList<IParam> modDynamicAOptions() {
@@ -280,8 +290,9 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
-				councilWin, counciRequiredPct, aiHostility,
-				techTrading, allowTechStealing, maxSecurityPct,
+				councilWin, counciRequiredPct, councilPlayerVote,
+				aiHostility, techTrading,
+				allowTechStealing, maxSecurityPct,
 
 				headerSpacer,
 				new ParamTitle("GAME_COMBAT"),

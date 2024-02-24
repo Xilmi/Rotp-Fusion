@@ -61,6 +61,10 @@ Later:
 
 ## What's New
 
+2024.02.24 (BR)
+- New option for the player to vote first or Last.
+- Command Console: Fixed wrong list number display on Guide pop-up.
+
 2024.02.23 (BR)
 - Fixed Orion Guardian auto-repair not working.
 
