@@ -1,4 +1,4 @@
 ## What's New
 
-2024.02.22 (Xilmi)
-- Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners.
+2024.02.29 (Xilmi)
+- Successfull execution of a sabotage-mission will now also provide a full scan of the target-system and thus allow the system to be invaded.

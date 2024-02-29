@@ -61,6 +61,9 @@ Later:
 
 ## What's New
 
+2024.02.29 (Xilmi)
+- Successfull execution of a sabotage-mission will now also provide a full scan of the target-system and thus allow the system to be invaded.
+
 2024.02.24 (BR)
 - New option for the player to vote first or Last.
 - Command Console: Fixed wrong list number display on Guide pop-up.

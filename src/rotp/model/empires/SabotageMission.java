@@ -92,7 +92,7 @@ public class SabotageMission implements Base, Serializable {
             sys.colony().industry().factories(factories-factoriesDestroyed);
             SabotageFactoriesIncident.addIncident(this);
             spies.checkForTreatyBreak();
-            spies.owner().sv.refreshSpyScan(sys.id);
+            spies.owner().sv.refreshFullScan(sys.id);
         }
     }
     public void destroyMissileBases(StarSystem sys) {
@@ -114,7 +114,7 @@ public class SabotageMission implements Base, Serializable {
             sys.colony().defense().destroyBases(missileBasesDestroyed);
             SabotageBasesIncident.addIncident(this);
             spies.checkForTreatyBreak();
-            spies.owner().sv.refreshSpyScan(sys.id);
+            spies.owner().sv.refreshFullScan(sys.id);
         }
     }
     public void inciteRebellion(StarSystem sys) {
@@ -134,6 +134,7 @@ public class SabotageMission implements Base, Serializable {
             spies.report().recordSabotage(missionType, system.id, rebelsIncited);
             SabotageRebellionIncident.addIncident(this);
             spies.checkForTreatyBreak();
+            spies.owner().sv.refreshFullScan(sys.id);
         }
     }
     public void cancelMission() {
