@@ -8,7 +8,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Defaut value will be "On"
 - The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.
   - Named "Governor instructions", this value can be toggled by clicking on it.
-<b><ins>Updates since last releases:</ins></b>
+- Increased Governor Max Bases value to 1000.
+
+<b><ins>Updates since last Reddit announcement:</ins></b>
 
 <b><ins>New Features:</ins></b>
 - New Random Galaxy selection. (Pairs well with the dark galaxy!)
@@ -56,7 +58,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Max value = 9999; (default max still limited to 999)
   - Loop at Max and Min
 - The AI will now try to get a spy-network up and running as quickly as possible with empires that it never had infiltrated before. This also applies to the governor, when "Let AI handle spies" is enabled. (Xilmi)
-
+- Increased Governor Max Bases value to 1000.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.
@@ -70,47 +72,3 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners. (Xilmi)
 - Fixed Orion Guardian auto-repair not working.
 - Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
-
-
-<b><ins>Last Release:</ins></b>
-
-<b><ins>New Features:</ins></b>
-- New hotkeys to loop thru flagged star systems: ("SHIFT" for reverse)
-  - Num * : Loop thru systems with top left flag ("CTRL-/" Same Flag Color only)
-  - Num - : Loop thru systems with top right flag ("CTRL-* " Same Flag Color only)
-  - Num + : Loop thru systems with bottom right flag ("CTRL-9" Same Flag Color only)
-  - Num 9 or / : Loop thru systems with bottom left flag ("CTRL-8" Same Flag Color only)
-    - When "Num" is off: "9" = "PgUp", then "/" can be used instead.
-- New Space Monsters Guardian
-  - Good planets may now be Guarded (Space Monster)
-    - Option to select the ressource to protect.
-    - Option to tune the probability of guardian.
-    - Option to tune the Monster level.
-  - Added Monster Guardian: Giant Space Cyaneidae.
-  - Added Monster Guardian: Giant Space Sepiidae.
-- New nebulae from real photography option.
-  - Nebulae shapes can be different than rectangular.
-  - Adjustable real nebulae opacity.
-
-
-<b><ins>Optimisation:</ins></b>
-- Fixed Apple Retina Screen compatibility.
-  - Previous reactivity optimisation was not compatible with some retina screen specificity!
-    - Optimized for image quality with reactivity cost.
-- New Mass Transport Auto-refill Set independently for each colony.
-  - Replace the previous global system.
-  - Option to initialyze at the panel opening to "On", "Off", or No changes.
-  - Auto-refill colony are set by Ctrl-Click the slider.
-  - Auto-refill colony sliders are shown in a different color.
-
-
-<b><ins>Bug Fixes:</ins></b>
-- Fixed an issue that caused the fleet-commander of the AI to underestimate the damage-output of missile-bases equipped with scatter-packs. (Xilmi)
-- Fixed reset to Default in Galaxy setting panel badly initialyzing the player homeworld.
-- Fixed crash starting a new game after playing vanilla savegame.
-- Fixed species stat being sometime hidden under the scroll bar.
-- Fixed rally from alien planets. (Xilmi)
-- Fixed language font generating errors.
-- Fixed modnar races text files missing in most languages.
-- Fixed "No Spying" protection disabling council alliance alliance tech sharing call.
-- Fixed "Continue" will now initialise empty game name.

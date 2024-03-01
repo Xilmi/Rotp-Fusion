@@ -43,7 +43,7 @@ public interface IGovOptions {
 	};
 
 	// Colony Options
-	ParamInteger missileBasesMin	= new ParamInteger(GOV_UI, "MIN_MISSILE_BASES", 0, 0, 20, 1, 3, 5);
+	ParamInteger missileBasesMin	= new ParamInteger(GOV_UI, "MIN_MISSILE_BASES", 0, 0, 1000, 1, 5, 20);
 	ParamBoolean shieldAlones		= new ParamBoolean(GOV_UI, "SHIELD_WITHOUT_BASES", false);
 	ParamBoolean autoSpend			= new ParamBoolean(GOV_UI, "AUTOSPEND", false);
 	ParamInteger reserveForSlow		= new ParamInteger(GOV_UI, "RESERVE", 0, 0, 100000, 10, 50, 200);

@@ -70,6 +70,7 @@ Later:
 - The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.
   - Named "Governor instructions", this value can be toggled by clicking on it.
 - Reduced font size in "Memory low messages"
+- Increased Governor Max Bases value to 1000.
 
 2024.03.01 (Xilmi)
 - The espionage-AI now takes into consideration that it can explore systems via sabotage and will choose targets accordingly.
