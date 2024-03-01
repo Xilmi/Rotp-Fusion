@@ -1111,6 +1111,11 @@ public final class Empire implements Base, NamedObject, Serializable {
                 v.makeDiplomaticOffers();
         }
     }
+    public void threatReplyAgainst(int empId, int reply) {
+        EmpireView v = viewForEmpire(empId);
+        if (v != null)
+            v.spies().lastSpyThreatReply(reply);
+    }
     public void hideSpiesAgainst(int empId) {
         EmpireView v = viewForEmpire(empId);
         if (v != null)

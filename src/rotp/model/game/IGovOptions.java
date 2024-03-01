@@ -53,7 +53,7 @@ public interface IGovOptions {
 	// Intelligence Options
 	ParamBoolean auto_Infiltrate	= new ParamBoolean(GOV_UI, "AUTO_INFILTRATE", true);
 	ParamBoolean auto_Spy			= new ParamBoolean(GOV_UI, "AUTO_SPY", false);
-	ParamBoolean spareXenophobes	= new ParamBoolean(GOV_UI, "SPARE_XENOPHOBES", false);
+	ParamBoolean respectPromises	= new ParamBoolean(GOV_UI, "SPARE_XENOPHOBES", false); // Keep the name for backward compatibility
 
 	// Aspect Options
 	ParamBoolean originalPanel		= new ParamBoolean(GOV_UI, "ORIGINAL_PANEL", false);
@@ -98,7 +98,7 @@ public interface IGovOptions {
 				)));
 		map.add(new LinkedList<>(Arrays.asList(				
 				new ParamTitle(GOV_UI + "INTELLIGENCE_OPTIONS"),
-				auto_Infiltrate, auto_Spy, spareXenophobes,
+				auto_Infiltrate, auto_Spy, respectPromises,
 				
 				headerSpacer,
 				new ParamTitle(GOV_UI + "FLEET_OPTIONS"),

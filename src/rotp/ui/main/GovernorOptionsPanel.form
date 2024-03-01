@@ -782,8 +782,8 @@
       <SubComponents>
         <Component class="javax.swing.JCheckBox" name="spareXenophobes">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Spare the Xenophobes"/>
-            <Property name="toolTipText" type="java.lang.String" value="Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage"/>
+            <Property name="text" type="java.lang.String" value="Respect promises"/>
+            <Property name="toolTipText" type="java.lang.String" value="Once enjoined to stop espionage by an alien empire, the Governor will follow the player&apos;s choice for the time necessary for the empire to calm down."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="spareXenophobesActionPerformed"/>

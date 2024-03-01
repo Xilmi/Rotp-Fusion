@@ -1,8 +1,13 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
-<b><ins>Very last changes:</ins></b>
-- New option for the player to vote first or Last.
-- Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
 
+<b><ins>Very last changes:</ins></b>
+- Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"
+  - Once framed by an alien empire, the Governor will follow the player's choice for the time necessary for the empire to calm down.
+  - Players who had checked "Spare Xenophobes" will now have to also give the right answers when warned!
+  - Players who had not checked "Spare Xenophobes" will not be impacted!
+  - Defaut value will be "On"
+- The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.
+  - Named "Governor instructions", this value can be toggled by clicking on it.
 <b><ins>Updates since last releases:</ins></b>
 
 <b><ins>New Features:</ins></b>
@@ -24,7 +29,14 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New Ironman option:
   - In the Empire Diplomacy panel, allows or prohibits calling for more detailed species information.
 - New option for the player to vote first or Last.
-
+- Successfull execution of a sabotage-mission will now also provide a full scan of the target-system and thus allow the system to be invaded. (Xilmi)
+- Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"
+  - Once framed by an alien empire, the Governor will follow the player's choice for the time necessary for the empire to calm down.
+  - Players who had checked "Spare Xenophobes" will now have to also give the right answers when warned!
+  - Players who had not checked "Spare Xenophobes" will not be impacted!
+  - Defaut value will be "On"
+- The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.
+  - Named "Governor instructions", this value can be toggled by clicking on it.
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
@@ -58,6 +70,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners. (Xilmi)
 - Fixed Orion Guardian auto-repair not working.
 - Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
+
 
 <b><ins>Last Release:</ins></b>
 

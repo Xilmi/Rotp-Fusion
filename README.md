@@ -61,6 +61,15 @@ Later:
 
 ## What's New
 
+2024.03.01 (BR)
+- Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"
+  - Once framed by an alien empire, the Governor will follow the player's choice for the time necessary for the empire to calm down.
+  - Players who had checked "Spare Xenophobes" will now have to also give the right answers when warned!
+  - Players who had not checked "Spare Xenophobes" will not be impacted!
+  - Defaut value will be "On"
+- The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.
+  - Named "Governor instructions", this value can be toggled by clicking on it.
+
 2024.02.29 (Xilmi)
 - Successfull execution of a sabotage-mission will now also provide a full scan of the target-system and thus allow the system to be invaded.
 

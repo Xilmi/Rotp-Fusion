@@ -43,7 +43,11 @@ public final class SpyNetwork implements Base, Serializable {
     private static final int THREAT_NONE = 0;
     private static final int THREAT_HIDE = 1;
     private static final int THREAT_EVICT = 2;
-    
+
+    private static final int GOV_SPY_IGNORE   = 0;
+    private static final int GOV_SPY_HIDE     = 1;
+    private static final int GOV_SPY_SHUTDOWN = 2;
+
     public enum Sabotage {
         FACTORIES, MISSILES, REBELS;
     }
@@ -68,6 +72,7 @@ public final class SpyNetwork implements Base, Serializable {
     private List<String> possibleTechs = new ArrayList<>();
     private int threatened = 0;
     private SpyReport report = new SpyReport();
+    private Integer lastSpyThreatReply; // BR: For the governor to know
     private transient List<StarSystem> baseTargets;
     private transient List<StarSystem> factoryTargets;
     private transient List<StarSystem> rebellionTargets;
@@ -94,6 +99,28 @@ public final class SpyNetwork implements Base, Serializable {
         tech.init(empire(), true);
     }
 
+    public void nextPromise() 	          {
+    	switch(lastSpyThreatReply()) {
+    	case GOV_SPY_IGNORE:
+    		lastSpyThreatReply = GOV_SPY_HIDE;
+    		break;
+    	case GOV_SPY_HIDE:
+    		lastSpyThreatReply = GOV_SPY_SHUTDOWN;
+    		break;
+    	default:
+    		lastSpyThreatReply = GOV_SPY_IGNORE;
+    		break;
+    	}
+    }
+    public void lastSpyThreatReply(int r) {  lastSpyThreatReply = r; }
+    public int  lastSpyThreatReply()      {
+    	if (lastSpyThreatReply == null)
+    		lastSpyThreatReply = GOV_SPY_SHUTDOWN;
+    	return lastSpyThreatReply;
+    }
+    public boolean govIgnoreThreat() { return lastSpyThreatReply() == GOV_SPY_IGNORE; }
+    public boolean govHideSpy()      { return lastSpyThreatReply() == GOV_SPY_HIDE; }
+    public boolean govShutdownSpy()  { return lastSpyThreatReply() == GOV_SPY_SHUTDOWN; }
     public Empire owner()            { return view.owner(); }
     public Empire empire()           { return view.empire(); }
     public int lastSpyDate()         { return lastSpyDate; }

@@ -254,8 +254,8 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public boolean isAutoSpy()					{ return auto_Spy.get(); }
 	public void setAutoSpy(boolean b)			{ auto_Spy.silentSet(b); }
 
-	public boolean isSpareXenophobes()			{ return spareXenophobes.get(); }
-	public void setSpareXenophobes(boolean b)	{ spareXenophobes.silentSet(b); }
+	public boolean respectPromises()			{ return respectPromises.get(); }
+	public void setRespectPromises(boolean b)	{ respectPromises.silentSet(b); }
 
 	public boolean isAutoScout()				{ return auto_Scout.get(); }
 	public void setAutoScout(boolean b)			{ auto_Scout.silentSet(b); }

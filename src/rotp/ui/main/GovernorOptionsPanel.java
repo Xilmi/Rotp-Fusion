@@ -635,7 +635,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		// Intelligence Options
 		this.autoInfiltrate.setSelected(options.isAutoInfiltrate());
 		this.autoSpy.setSelected(options.isAutoSpy());
-		this.spareXenophobes.setSelected(options.isSpareXenophobes());
+		this.spareXenophobes.setSelected(options.respectPromises());
 
 		// Fleet Options
 		this.autoScout.setSelected(options.isAutoScout());
@@ -678,7 +678,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		// Intelligence Options
 		options.setAutoInfiltrate(autoInfiltrate.isSelected());
 		options.setAutoSpy(autoSpy.isSelected());
-		options.setSpareXenophobes(spareXenophobes.isSelected());
+		options.setRespectPromises(spareXenophobes.isSelected());
 
 		// Fleet Options
 		options.setAutoScout(autoScout.isSelected());
@@ -1292,8 +1292,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 
         spyPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Intelligence Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13))); // NOI18N
 
-        spareXenophobes.setText("Spare the Xenophobes");
-        spareXenophobes.setToolTipText("Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage");
+        spareXenophobes.setText("Respect promises");
+        spareXenophobes.setToolTipText("Once enjoined to stop espionage by an alien empire, the Governor will follow the player's choice for the time necessary for the empire to calm down.");
         spareXenophobes.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1699,7 +1699,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 
 	private void spareXenophobesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoSpyActionPerformed
 		if (isAutoApply())
-			options().setSpareXenophobes(spareXenophobes.isSelected());
+			options().setRespectPromises(spareXenophobes.isSelected());
 	}//GEN-LAST:event_autoSpyActionPerformed
 
 	private void stargateOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOffActionPerformed

@@ -142,20 +142,23 @@ public final class EmpireView implements Base, Serializable {
         }
         return values;
     }
+    public boolean timerIsActive() {
+    	return otherView() != null 
+        		&& otherView().embassy() != null
+        		&& otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING);
+    }
     public void setSuggestedAllocations() { // BR: added Xenophobic management
         if (owner.isAIControlled()) {
             spies.setSuggestedAllocations();
             return;
         }
         GovernorOptions governor = owner.session().getGovernorOptions();
-        if (empire.leader().isXenophobic()
-				&& governor.isSpareXenophobes()
-				&& otherView() != null
-				&& otherView().embassy() != null
-				&& otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING)) {
+        if (governor.respectPromises()
+        		&& !spies.govIgnoreThreat()
+        		&& timerIsActive()) {
         	if(spies.allocation() > 0)
 		        spies.allocation(0);
-		    if(spies.maxSpies() > 0)
+		    if(spies.maxSpies() > 0 && spies.govShutdownSpy())
 		        spies.maxSpies(0);
 		    return;
         }
@@ -170,6 +173,30 @@ public final class EmpireView implements Base, Serializable {
         		spies.maxSpies(1);
         	return;
         }
+
+//        if (empire.leader().isXenophobic()
+//				&& governor.isSpareXenophobes()
+//				&& otherView() != null
+//				&& otherView().embassy() != null
+//				&& otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING)) {        
+//        	if(spies.allocation() > 0)
+//		        spies.allocation(0);
+//		    if(spies.maxSpies() > 0)
+//		        spies.maxSpies(0);
+//		    return;
+//        }
+//        if(governor.isAutoSpy()) {
+//        	spies.setSuggestedAllocations();
+//		    return;
+//        }
+//        if(governor.isAutoInfiltrate()) {
+//        	if(spies.allocation() < 1)
+//        		spies.allocation(1);
+//        	if(spies.maxSpies() < 1)
+//        		spies.maxSpies(1);
+//        	return;
+//        }
+        
 //        if (owner.isAIControlled() || owner.session().getGovernorOptions().isAutoSpy()) {
 //            spies.setSuggestedAllocations();
 //        } else if(owner.session().getGovernorOptions().isAutoInfiltrate())

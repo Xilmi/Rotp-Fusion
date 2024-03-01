@@ -39,6 +39,7 @@ import java.util.List;
 import rotp.model.empires.DiplomaticEmbassy;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
+import rotp.model.game.GovernorOptions;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechTree;
@@ -68,6 +69,7 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
     private final Polygon buttonDecr = new Polygon();
     private final Polygon missionIncr = new Polygon();
     private final Polygon missionDecr = new Polygon();
+    private final Rectangle governorBox = new Rectangle();
     Rectangle buttonSlider = new Rectangle();
     Shape hoverShape;
     int dragY;
@@ -279,7 +281,22 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
     private void drawAIBaseInfo(Graphics2D g, Empire emp, int x, int y, int w, int h) {
         EmpireView view = player().viewForEmpire(emp);
         g.setColor(RacesUI.darkBrown);
-        g.fillRect(x, y, w, h);
+        GovernorOptions govOptions = govOptions();
+
+        boolean timerIsActive    = view.timerIsActive();
+        // timerIsActive = true; // TO DO BR: REMOVE
+        boolean isAutoSpy        = govOptions.isAutoSpy();
+        boolean isAutoInfiltrate = govOptions.isAutoInfiltrate();
+        boolean respectPromises  = govOptions.respectPromises();
+        boolean govOn = respectPromises && (isAutoSpy || isAutoInfiltrate);
+        boolean showGov = timerIsActive && govOn;
+        if (showGov) {
+        	g.fillRect(x, y, w, h+s20);
+        }
+        else {
+        	g.fillRect(x, y, w, h);
+        	governorBox.setBounds(0, 0, 0, 0);
+        }
 
         int lineH = s30;
         int y1 = y+lineH-s5;
@@ -389,6 +406,37 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
             int sliderH = s16;
             drawSecuritySliderBar(g,x+w-s50-sw-sliderW, y3-sliderH+s3, sliderW, sliderH);
         }
+        // Governor instructions
+        if (showGov) {
+        	int y5 = y4+s10;
+        	String govLabel = text("RACES_INTEL_GOVERNOR_INSTRUCTIONS");
+        	g.setFont(narrowFont(22));
+            textC = SystemPanel.whiteText;
+        	drawShadowedString(g, govLabel, 1, x0, y5, SystemPanel.blackText, textC);
+        	switch (view.spies().lastSpyThreatReply()) {
+	        	case 0:
+	        		desc = text("RACES_INTEL_GOVERNOR_IGNORE");
+	        		break;
+	        	case 1:
+	        		desc = text("RACES_INTEL_GOVERNOR_HIDE");
+	        		break;
+	        	default:
+	        		desc = text("RACES_INTEL_GOVERNOR_SHUTDOWN");
+        	};
+            g.setFont(narrowFont(20));
+            g.setColor(SystemPanel.blackText);
+        	sw = g.getFontMetrics().stringWidth(desc);
+        	drawString(g, desc, x+w-s20-sw, y5);
+        	governorBox.setBounds(x+s10, y5-s18, w-s20, s22);
+        	if (hoverShape == governorBox) {
+                Stroke prev = g.getStroke();
+                g.setStroke(stroke2);
+        		g.setColor(SystemPanel.yellowText);
+        		g.draw(governorBox);
+                g.setStroke(prev);
+        	}
+        }
+       
     }
     private void drawTechnologyTitle(Graphics2D g, Empire emp, int x, int y, int w, int h) {
         g.setColor(SystemPanel.orangeText);
@@ -917,6 +965,12 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
             setValues();
         }
     }
+    private void nextGovernorTask() {
+        EmpireView view = player().viewForEmpire(parent.selectedEmpire());
+        if (view != null) {
+            view.spies().nextPromise();        
+        }
+    }
     private boolean increaseSliderValue(int i) {
         if (parent.selectedEmpire().isPlayer()) {
             int oldValue = player().internalSecurity();
@@ -1117,7 +1171,9 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
             else if (techBoxes[i].contains(x,y)) 
                 hoverShape = techBoxes[i];
         }
-        if (spyMaxIncr.contains(x,y))
+        if (governorBox.contains(x,y))
+            hoverShape = governorBox;
+        else if (spyMaxIncr.contains(x,y))
             hoverShape = spyMaxIncr;
         else if (spyMaxDecr.contains(x,y))
             hoverShape = spyMaxDecr;
@@ -1163,8 +1219,13 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
             openManageSpiesPane();
             return;
         }
+        else if (hoverShape == governorBox) {
+            nextGovernorTask();
+            repaint();
+            return;
+        }
         else if (hoverShape == spyMaxDecr) {
-            decreaseMaxSpies();
+        	decreaseMaxSpies();
             repaint();
             return;
         }
