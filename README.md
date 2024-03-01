@@ -69,7 +69,8 @@ Later:
   - Defaut value will be "On"
 - The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.
   - Named "Governor instructions", this value can be toggled by clicking on it.
-
+- Reduced font size in "Memory low messages"
+ 
 2024.02.29 (Xilmi)
 - Successfull execution of a sabotage-mission will now also provide a full scan of the target-system and thus allow the system to be invaded.
 

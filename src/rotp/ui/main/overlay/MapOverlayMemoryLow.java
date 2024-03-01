@@ -134,7 +134,7 @@ public class MapOverlayMemoryLow extends MapOverlay {
         
         y2a += s10;
         String desc4 = memHeap();
-        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
         drawString(g, desc4, x2a, y2a);
         y2a += lineH;
 
