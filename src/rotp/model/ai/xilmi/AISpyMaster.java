@@ -24,6 +24,7 @@ import rotp.model.empires.EmpireView;
 import rotp.model.empires.SpyNetwork;
 import rotp.model.empires.SpyNetwork.Sabotage;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.galaxy.Location;
 import rotp.util.Base;
 
 public class AISpyMaster implements Base, SpyMaster {
@@ -194,6 +195,26 @@ public class AISpyMaster implements Base, SpyMaster {
         // choice: 1 - factories, 2 - missiles, 3 - rebellion
 
         List<StarSystem> targets = v.empire().allColonizedSystems();
+        
+        // if there are unexplored systems, we'll prefer those and start with the closest
+        StarSystem best = null;
+        Location colonyCenter = empire.generalAI().colonyCenter(empire);
+        float lowestDistance = Float.MAX_VALUE;
+                
+        for (StarSystem tgt: targets) {
+            if (!empire.sv.canSabotageFactories(tgt.id) && !empire.sv.canSabotageBases(tgt.id) && !empire.sv.canInciteRebellion(tgt.id))
+                continue;
+            if(empire.sv.isScouted(tgt.id))
+                continue;
+            float distance = colonyCenter.distanceTo(tgt);
+            if(distance < lowestDistance)
+            {
+                lowestDistance = distance;
+                best = tgt;
+            }
+        }
+        if(best != null)
+            return best;
 
         switch(choice){
             case FACTORIES:
