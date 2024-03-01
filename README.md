@@ -61,6 +61,9 @@ Later:
 
 ## What's New
 
+2024.03.01 (Xilmi)
+- The espionage-AI now takes into consideration that it can explore systems via sabotage and will choose targets accordingly.
+
 2024.02.29 (Xilmi)
 - Successfull execution of a sabotage-mission will now also provide a full scan of the target-system and thus allow the system to be invaded.
 
