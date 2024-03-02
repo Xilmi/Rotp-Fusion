@@ -1,5 +1,6 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
+
 <b><ins>Very last changes:</ins></b>
 - Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"
   - Once framed by an alien empire, the Governor will follow the player's choice for the time necessary for the empire to calm down.
@@ -9,6 +10,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.
   - Named "Governor instructions", this value can be toggled by clicking on it.
 - Increased Governor Max Bases value to 1000.
+- Added option to remove the colony notification messages requesting new allocations.
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -39,6 +42,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Defaut value will be "On"
 - The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.
   - Named "Governor instructions", this value can be toggled by clicking on it.
+- Added option to remove the colony notification messages requesting new allocations.
+
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
@@ -59,6 +64,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Loop at Max and Min
 - The AI will now try to get a spy-network up and running as quickly as possible with empires that it never had infiltrated before. This also applies to the governor, when "Let AI handle spies" is enabled. (Xilmi)
 - Increased Governor Max Bases value to 1000.
+
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.

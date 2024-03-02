@@ -71,6 +71,7 @@ Later:
   - Named "Governor instructions", this value can be toggled by clicking on it.
 - Reduced font size in "Memory low messages"
 - Increased Governor Max Bases value to 1000.
+- Added option to remove the colony notification messages requesting new allocations.
 
 2024.03.01 (Xilmi)
 - The espionage-AI now takes into consideration that it can explore systems via sabotage and will choose targets accordingly.

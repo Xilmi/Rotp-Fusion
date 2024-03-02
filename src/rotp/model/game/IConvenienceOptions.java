@@ -40,6 +40,10 @@ public interface IConvenienceOptions extends IMapOptions {
 	{	{ isCfgFile(false); }	};
 	default boolean hideMinorReports()		{ return hideMinorReports.get(); }
 
+	ParamBoolean showAllocatePopUp	= new ParamBoolean(MOD_UI, "SHOW_ALLOCATE_POPUP", true)
+	{	{ isCfgFile(false); }	};
+	default boolean showAllocatePopUp()		{ return showAllocatePopUp.get(); }
+
 	ParamBoolean techExchangeAutoRefuse = new ParamBoolean(MOD_UI, "TECH_EXCHANGE_AUTO_NO", false)
 	{	{ isCfgFile(false); }	};
 
@@ -81,6 +85,8 @@ public interface IConvenienceOptions extends IMapOptions {
 				null,
 				displayYear, showNextCouncil,
 				showAlliancesGNN, showLimitedWarnings,
-				techExchangeAutoRefuse
+				techExchangeAutoRefuse,
+				null,
+				hideMinorReports, showAllocatePopUp
 			));
 }

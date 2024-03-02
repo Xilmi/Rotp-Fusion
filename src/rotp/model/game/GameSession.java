@@ -564,7 +564,10 @@ public final class GameSession implements Base, Serializable {
                     RotPUI.instance().selectMainPanel();
                 }
                 if (!systemsToAllocate().isEmpty())
-                    RotPUI.instance().allocateSystems();
+                	if (options.showAllocatePopUp())
+                		RotPUI.instance().allocateSystems();
+                	else
+                		systemsToAllocate().clear();
 
                 if (spyActivity)
                     SpyReportAlert.create();

@@ -2537,6 +2537,8 @@ SETTINGS_MOD_SHOW_ALLIANCES_GNN_DESC     | Allow GNN Alliances announcements.
 SETTINGS_MOD_SHOW_ALLIANCES_GNN          | Show GNN Alliances: %1
 SETTINGS_MOD_HIDE_MINOR_REPORTS_DESC     | Disable all no essential GNN announcements.
 SETTINGS_MOD_HIDE_MINOR_REPORTS          | Hide Unessential GNN: %1
+SETTINGS_MOD_SHOW_ALLOCATE_POPUP_DESC    | At the start of the turn, display the colony notification messages requesting new allocations.
+SETTINGS_MOD_SHOW_ALLOCATE_POPUP         | Show Allocate Popup: %1
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO_DESC  | Auto Refuse Tech Exchange offers.
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO       | Auto Refuse Exchanges: %1
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS_DESC  | Limit the number of aliens repeating the same warning:<br> For Expansion, Genocide, and use of Bio weapons. 
