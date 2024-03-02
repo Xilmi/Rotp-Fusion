@@ -13,7 +13,6 @@ import static rotp.ui.util.IParam.langLabel;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import rotp.Rotp;
 import rotp.ui.RotPUI;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.IParam;
@@ -22,6 +21,7 @@ import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamString;
 import rotp.ui.util.SpecificCROption;
+import rotp.ui.UserPreferences;
 
 public interface IGalaxyOptions extends IBaseOptsTools {
 
@@ -310,7 +310,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
 		}
 	};
-	ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath())
+	ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", UserPreferences.cfgPath())
 	{	{ isCfgFile(true); }	};
 
 	// ==================== GUI List Declarations ====================

@@ -1440,15 +1440,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     //
     public static void copyOptionsFromLiveToLast() {
     	MOO1GameOptions live = loadOptions(LIVE_OPTIONS_FILE);
-    	saveOptions(live, Rotp.jarPath(), LAST_OPTIONS_FILE);
+        saveOptions(live, UserPreferences.cfgPath(), LAST_OPTIONS_FILE);
     }
     private static MOO1GameOptions loadOptions(String fileName) {
-    	MOO1GameOptions dest = loadOptions(Rotp.jarPath(), fileName);
+    	MOO1GameOptions dest = loadOptions(UserPreferences.cfgPath(), fileName);
    		return dest;
     }
     // BR: save options to zip file
     private static void saveOptions(MOO1GameOptions options, String fileName) {
-    	saveOptions(options, Rotp.jarPath(), fileName);
+    	saveOptions(options, UserPreferences.cfgPath(), fileName);
     }
     private static void saveOptions(MOO1GameOptions options, String path, String fileName) {
 		File saveFile = new File(path, fileName);

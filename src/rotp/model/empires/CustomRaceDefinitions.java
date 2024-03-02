@@ -38,7 +38,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import rotp.Rotp;
 import rotp.model.empires.Leader.Personality;
 import rotp.model.game.DynOptions;
 import rotp.model.game.DynamicOptions;
@@ -50,6 +49,7 @@ import rotp.ui.util.SettingBoolean;
 import rotp.ui.util.SettingFloat;
 import rotp.ui.util.SettingInteger;
 import rotp.ui.util.SettingString;
+import rotp.ui.UserPreferences;
 
 public class CustomRaceDefinitions  {
 	
@@ -106,7 +106,7 @@ public class CustomRaceDefinitions  {
 		pushSettings();
 	}
 	private CustomRaceDefinitions(String fileName) {
-		this(loadOptions(Rotp.jarPath(), fileName + EXT));
+		this(loadOptions(UserPreferences.cfgPath(), fileName + EXT));
 	}
 
 	// -------------------- Static Methods --------------------
@@ -128,7 +128,7 @@ public class CustomRaceDefinitions  {
     }
 
 	public static boolean raceFileExist(String fileName) {
-		File f = new File(Rotp.jarPath(), fileName + EXT);
+		File f = new File(UserPreferences.cfgPath(), fileName + EXT);
 		return (f.exists() && !f.isDirectory());
 	}
 	public static Race fileToAlienRace(String fileName) {
@@ -236,12 +236,12 @@ public class CustomRaceDefinitions  {
 		
 	}
 	private String fileName() { return race.id + EXT; }
-	public void saveRace() { saveSettingList(Rotp.jarPath(), fileName()); }
+	public void saveRace() { saveSettingList(UserPreferences.cfgPath(), fileName()); }
 	public void loadRace() {
 		if (Race.isValidKey(race.id))
 			setRace(race.id);
 		else
-			loadSettingList(Rotp.jarPath(), fileName());
+			loadSettingList(UserPreferences.cfgPath(), fileName());
 	}
 	// ========== Main Getters ==========
 	//
@@ -553,7 +553,7 @@ public class CustomRaceDefinitions  {
 			set(currentValue);
 		}
 	    private File[] loadListing() {
-	        String path	= Rotp.jarPath();
+	        String path	= UserPreferences.cfgPath();
 	        File saveDir = new File(path);
 	        FilenameFilter filter = (File dir, String name1) -> name1.toLowerCase().endsWith(EXT);
 	        File[] fileList = saveDir.listFiles(filter);
@@ -633,7 +633,7 @@ public class CustomRaceDefinitions  {
 		    	updateSettings();
 		    	return;
 			}
-			File file = new File(Rotp.jarPath(), settingValue()+EXT);
+			File file = new File(UserPreferences.cfgPath(), settingValue()+EXT);
 			if (file.exists()) {
 				setSettingTools(loadOptions(file));
 				newValue = true;

@@ -51,7 +51,6 @@ import java.util.zip.ZipFile;
 
 import javax.swing.SwingUtilities;
 
-import rotp.Rotp;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.game.GameSession;
 import rotp.ui.BasePanel;
@@ -149,7 +148,7 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         
         // fileList = null if prefs pointing to an invalid folder...default to jarPath 
         if (fileList == null) {
-            saveDirPath = Rotp.jarPath();
+            saveDirPath = UserPreferences.cfgPath();
             saveDir = new File(saveDirPath);
             backupDirPath = saveDirPath+"/"+GameSession.BACKUP_DIRECTORY;
             backupDir = new File(backupDirPath);

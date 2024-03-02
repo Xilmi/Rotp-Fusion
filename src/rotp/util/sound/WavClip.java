@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import rotp.ui.UserPreferences;
 
 import rotp.Rotp;
 
@@ -230,7 +231,7 @@ public class WavClip  implements SoundClip, Base {
     public static InputStream wavFileStream(String n) {
         String fullString = "../rotp/" +n;
 
-        try { return new FileInputStream(new File(Rotp.jarPath(), n)); } 
+        try { return new FileInputStream(new File(UserPreferences.cfgPath(), n)); }
         catch (FileNotFoundException e) {
                 try { return new FileInputStream(fullString); } 
                 catch (FileNotFoundException ex) {

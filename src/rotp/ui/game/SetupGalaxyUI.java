@@ -95,7 +95,6 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import rotp.Rotp;
 import rotp.model.ai.AIList;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
@@ -1141,7 +1140,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			return galaxyTextArray;
 		LinkedList<String> list = new LinkedList<>();
 		// list.add(newGameOptions().selectedHomeWorldName());
-		String path = Rotp.jarPath();
+		String path = UserPreferences.cfgPath();
 		String galaxyfile = GALAXY_TEXT_FILE;
 		File file = new File(path, galaxyfile);
 		if (!file.exists())

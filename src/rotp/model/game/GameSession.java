@@ -429,7 +429,7 @@ public final class GameSession implements Base, Serializable {
     }
     @SuppressWarnings("unused")
 	private void ModnarPrivateLogging() {
-		String LogPath = Rotp.jarPath();
+		String LogPath = UserPreferences.cfgPath();
 		File TestLogFile = new File(LogPath, "TestLogFile.txt");
 		if (galaxy.currentTurn() % 5 == 0) { // log every 5 turns
 			PrintWriter out = null;
