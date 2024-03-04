@@ -525,7 +525,11 @@ GAME_SETTINGS_DEFAULT_MAX_BASES_DESC         | Default Maximum Missile Bases for
 SETTINGS_MOD_DISABLE_ADVISOR_YES  | Disabled
 SETTINGS_MOD_DISABLE_ADVISOR_NO   | Enabled
 SETTINGS_MOD_DISABLE_ADVISOR      | Disable Advisor: %1
-SETTINGS_MOD_DISABLE_ADVISOR_DESC | To Enable / Disable to automatics display of Galaxy Panel Help when starting a new Game.
+SETTINGS_MOD_DISABLE_ADVISOR_DESC | To Enable / Disable to automatics display of Galaxy Panel Advice when starting a new Game.
+SETTINGS_MOD_DISABLE_AUTO_HELP_YES  | Disabled
+SETTINGS_MOD_DISABLE_AUTO_HELP_NO   | Enabled
+SETTINGS_MOD_DISABLE_AUTO_HELP      | Disable Auto Help: %1
+SETTINGS_MOD_DISABLE_AUTO_HELP_DESC | To Enable / Disable to automatics display of Galaxy Panel Help when starting a new Game.
 
 // Load Game UI
 LOAD_GAME_TITLE                   | Load Game
@@ -1557,6 +1561,19 @@ SETUP_BUTTON_START                | Start
 SETUP_BUTTON_RESTART              | Restart
 SETUP_BUTTON_SETTINGS             | Advanced Options
 // BR: add UI panel for modnar MOD game options
+// REF_PREGAME        | Pregame
+// REF_INGAME         | In-game
+// REF_PREGAME_C      | Pregame Options
+// REF_INGAME_C       | In-game Options
+// REF_PREGAME_PANEL  | Setup
+// REF_INGAME_PANEL   | Options
+REF_PREGAME           | Setup
+REF_INGAME            | Options
+REF_PREGAME_C         | Setup
+REF_INGAME_C          | Options
+REF_PREGAME_PANEL     | Setup
+REF_INGAME_PANEL      | Options
+// →REF_PREGAME←
 SETUP_BUTTON_STATIC_A_SETTINGS    | Pregame A
 SETUP_BUTTON_STATIC_B_SETTINGS    | Pregame B
 SETUP_BUTTON_DYNAMIC_A_SETTINGS   | In-game A
@@ -1979,6 +1996,8 @@ HEADERS_ZOOM_FACTORS_DESC         | Open Sub Menu to set several In-Game Prefere
 HEADERS_ZOOM_FACTORS              | ~~~ DISPLAY PREFERENCES ~~~%1
 HEADERS_MENU_OPTIONS_DESC         | Options controlling Menu Parameters. Can be changed dynamically. (Remnant.cfg options)
 HEADERS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~%1
+HEADERS_ENOUGH_IS_ENOUGH_DESC     | Get these pop-up out of my face!
+HEADERS_ENOUGH_IS_ENOUGH          | ~~~ ENOUGH is ENOUGH ~~~%1
 HEADERS_PLANETS_FLAG_OPTIONS_DESC | To allow greater customization of the flag(s) of the planets.
 HEADERS_PLANETS_FLAG_OPTIONS      | ~~~ PLANETS FLAG OPTIONS ~~~%1
 HEADERS_SUB_PANEL_OPTIONS_DESC    | Clicking the following options will open a sub-panel with more dedicated option.
@@ -2307,10 +2326,14 @@ SETTINGS_MOD_MENU_STARTUP                | GUI at Startup: %1
 // SETTINGS_MOD_MENU_LOADING_GAME_DESC      | What options should be used when loading a game?
 // SETTINGS_MOD_MENU_LOADING_GAME           | Loading Game: %1
 SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic option menus (six menus) and Compact option menus (2 menus). Both provide a distinction between:<br><b>Pregame Options:</b>&nbsp which are only read once, when a game starts (or restarts).<br><b>In-game Options:</b>&nbsp which can be changed while playing a game. (Ctrl-o) to call the option menu.
-SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC    | Show multiple Options Menus at standard size, or only one compacted options menu?
-SETTINGS_MOD_COMPACT_OPTION_ONLY         | Show Compact Options: %1
-SETTINGS_MOD_COMPACT_OPTION_ONLY_YES     | Display the two buttons for accessing the compact options menus (which share a descripion space), allowing more options per menu.<br>One for the Pregame Options, the other for the In-game Options.
-SETTINGS_MOD_COMPACT_OPTION_ONLY_NO      | Display six buttons for accessing the classic options menus (which simultaneously display a small description of each option).<br>One for the original <b>Advanced Options</b>&nbsp containing both Pregame and In-game Options, two for the mod's Pregame Options, two for the mod's In-game Options, and one for display settings (not affecting game play).
+SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC     | Show multiple Options Menus at standard size, or only one compacted options menu?
+SETTINGS_MOD_COMPACT_OPTION_ONLY          | Options Buttons: %1
+SETTINGS_MOD_COMPACT_OPTION_ONLY_YES_DESC | Display the two buttons for accessing the compact options menus (which share a descripion space), allowing more options per menu.<br>One for the Pregame Options, the other for the In-game Options.
+SETTINGS_MOD_COMPACT_OPTION_ONLY_NO_DESC  | Display the vanilla Advanced Options Button which includes all the mod options.
+SETTINGS_MOD_COMPACT_OPTION_ONLY_6_DESC   | Display six buttons for accessing the classic options menus (which simultaneously display a small description of each option).<br>One for the original <b>Advanced Options</b>&nbsp containing both Pregame and In-game Options, two for the mod's Pregame Options, two for the mod's In-game Options, and one for display settings (not affecting game play).
+SETTINGS_MOD_COMPACT_OPTION_ONLY_YES      | Compact
+SETTINGS_MOD_COMPACT_OPTION_ONLY_NO       | Vanilla
+SETTINGS_MOD_COMPACT_OPTION_ONLY_6        | Classic x 6
 
 SETTINGS_MOD_RACE_STATUS_LOG_HELP        | The Empire status graphs can either be displayed on a linear or logarithmic scale.
 SETTINGS_MOD_RACE_STATUS_LOG_DESC        | The Empire status graphs can be displayed on a linear or logarithmic scale.

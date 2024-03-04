@@ -333,7 +333,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 				setValueColor(i);
 				btListLeft.get(i).repaint(activeList.get(i).getGuiDisplay(0));
 				btListRight.get(i).repaint(activeList.get(i).getGuiDisplay(1));
-				if (autoGuide)
+				if (showGuide())
 					loadGuide();
 				repaint();
 				return;

@@ -309,9 +309,9 @@ public class Rotp {
 
         System.out.println("maxMB:"+maxMb+"  freeMB:"+freeMb+"  allocMb:"+allocMb+"   bits:"+bits);
         // if system has given us 2.5G+, then we're good
-        if (!reload && (allocMb > 2560))
+        if (!reload && (allocMb >= 2560))
             return false;
-//        if (!reload && (allocMb >= 1536)) // TODO BR: Remove
+//        if (!reload && (allocMb >= 1536)) // TODO BR: Remove -Xmx1536m
 //            return false;
 
         // desiredAlloc is 1G or 1/3rd of max memory, whichever is higher

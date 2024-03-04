@@ -239,13 +239,19 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		@Override public void	setOption(String s)	{ saveDir(s); }
 	};
 //	default int saveDir()		{ return saveDirectory.get(); }
-	ParamBoolean disableAdvisor		= new ParamBoolean(MOD_UI, "DISABLE_ADVISOR", true)
+	ParamBoolean disableAdvisor		= new ParamBoolean(MOD_UI, "DISABLE_ADVISOR", false)
 	{
 		{  isDuplicate(true); isCfgFile(true); }
 		@Override public Boolean getOption()		{ return disableAdvisor(); }
 		@Override public void setOption(Boolean b)	{ disableAdvisor(b); }
 	};
+	ParamBoolean disableAutoHelp	= new ParamBoolean(MOD_UI, "DISABLE_AUTO_HELP", false)
+	{ { isCfgFile(true); } };
+	default boolean disableAutoHelp()	{ return disableAutoHelp.get(); }
 
+	ParamBoolean showGuide			= new ParamBoolean(MOD_UI, "SHOW_GUIDE", true)
+	{ { isCfgFile(true); } };
+	default boolean showGuide()			{ return showGuide.get(); }
 	
 	// ==================== Mod Options ====================
 	//
@@ -256,7 +262,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		{ isCfgFile(true); }
 		@Override public void setOption(Boolean val) { FontManager.INSTANCE.resetGalaxyFont(); }
 	};
-	ParamList compactOptionOnly			= new ParamList( MOD_UI, "COMPACT_OPTION_ONLY", "No") {
+	ParamList compactOptionOnly		= new ParamList( MOD_UI, "COMPACT_OPTION_ONLY", "Yes") {
 		{
 			isCfgFile(true);
 			showFullGuide(true);
@@ -435,12 +441,13 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 						null,
 						soundVolume, musicVolume,
 						debugShowMemory, colorSet,
-						disableAdvisor,
+						
 						null,
 						IConvenienceOptions.autoColonize_, IConvenienceOptions.autoBombard_,
 						backupTurns, saveDirectory,
 						originalSpeciesOnly,
 						null,
+						disableAutoHelp, disableAdvisor,
 						commonOptionsUI(),
 						ICombatOptions.combatOptionsUI(),
 						IDebugOptions.debugOptionsUI()
@@ -504,7 +511,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 
 				headerSpacer,
 				new ParamTitle("GAME_UI_PREFERENCES"),
-				raceStatusLog, disableAdvisor,
+				raceStatusLog, disableAdvisor, disableAutoHelp,
 				originalSpeciesOnly,
 
 				// headerSpacer,

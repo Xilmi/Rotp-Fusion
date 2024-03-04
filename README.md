@@ -66,6 +66,9 @@ Later:
   - Now based on Garbage collection.
   - Based on min of 10 poll if GC does not work.
   - Changed Low Memory tracker!
+- The state of the guide is now remembered from session to session. Default = Enabled.
+- The advisor has been restored... Easy to switch off in In-Game Options.
+- The Auto help at start has been restored... Easy to switch off in In-Game Options.
 
 2024.03.01 (BR)
 - Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"

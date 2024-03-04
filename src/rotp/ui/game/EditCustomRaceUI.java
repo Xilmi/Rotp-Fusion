@@ -183,7 +183,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				if (hoverBox == setting.settingText().box()) { // Check Setting
 					setting.toggle(e, w, this);
 					setting.guiSelect();
-					if (autoGuide) {
+					if (showGuide()) {
 						loadGuide();
 						repaint();
 					}
@@ -213,7 +213,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				setting.toggle(e, w, this);
 				setting.settingText().repaint();
 				totalCostText.repaint(totalCostStr());
-				if (autoGuide) {
+				if (showGuide()) {
 					loadGuide();
 					repaint();
 				}

@@ -327,7 +327,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 				param.toggle(e, w, this);
 				param.updated(true);
 				btList.get(i).repaint(activeList.get(i).getGuiDisplay());
-				if (autoGuide)
+				if (showGuide())
 					loadGuide();
 				repaint();
 				return;
@@ -494,7 +494,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		for (int i=0; i<activeList.size(); i++) {
 			if (hoverBox == btList.get(i).box()) {	
 				btList.get(i).repaint(activeList.get(i).getGuiDisplay());
-				if (autoGuide) {
+				if (showGuide()) {
 					loadGuide();
 					repaint();
 				}

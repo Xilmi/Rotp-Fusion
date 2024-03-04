@@ -112,7 +112,8 @@ public class MemoryTracker {
 		@Override public void handleNotification(Notification notification, Object handback) {
 			if (notification.getType().equals(type)) {
 				isMemoryMonitored = true;
-				System.out.println("GC: " + getMemoryInfo());
+				getMemoryInfo();
+				//System.out.println("GC: " + getMemoryInfo());
 			}
 		}
 	}

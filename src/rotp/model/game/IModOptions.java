@@ -102,6 +102,8 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.add(IMainOptions.realNebulaeSize);
 		allModOptions.add(IMainOptions.realNebulaShape);
 		allModOptions.add(IMainOptions.realNebulaeOpacity);
+		allModOptions.add(IMainOptions.showGuide);
+		allModOptions.add(IMainOptions.disableAutoHelp);
 		allModOptions.addAll(IDebugOptions.debugOptions());
 		allModOptions.addAll(ICombatOptions.combatOptions());
 		allModOptions.addAll(IIronmanOptions.ironmanOptions());

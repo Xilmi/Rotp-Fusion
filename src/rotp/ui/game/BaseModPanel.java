@@ -20,6 +20,7 @@ import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.LAST_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.USER_OPTIONS_FILE;
+import static rotp.model.game.IMainOptions.showGuide;
 import static rotp.ui.util.IParam.LABEL_DESCRIPTION;
 
 import java.awt.Color;
@@ -81,7 +82,9 @@ public abstract class BaseModPanel extends BasePanel
 	protected static int	 cnr;
 
 	public	  static int	 guideFontSize;
-	public	  static boolean autoGuide	= false; // To disable automated Guide
+	public	  static void 	 showGuide(boolean b) { showGuide.set(b); }
+	public	  static boolean showGuide() 		  { return showGuide.get(); }
+//	public	  static boolean showGuide	= false; // To disable automated Guide
 	public	  static boolean dialGuide	= false; // To disable automated Guide on dialog list
 	private	  static boolean contextHlp	= false; // The time to show  the contextual help
 
@@ -370,9 +373,9 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	protected void doGuideBoxAction() {
 		buttonClick();
-		autoGuide = !autoGuide;
-		dialGuide &= autoGuide;
-		if (autoGuide)
+		showGuide.toggle();
+		dialGuide &= showGuide.get();
+		if (showGuide.get())
 			loadGuide();
 		else
 			clearGuide();
@@ -705,7 +708,7 @@ public abstract class BaseModPanel extends BasePanel
 			clearGuide();
 			return;
 		}
-		if (!(autoGuide || dialGuide))
+		if (!(showGuide.get() || dialGuide))
 			return;
 		guidePopUp.setDest(hoverBox, false, getGraphics());
 	}
@@ -719,7 +722,7 @@ public abstract class BaseModPanel extends BasePanel
 	  	return true;
 	}
 	protected void showGuide(Graphics g)	{
-		if (!(autoGuide || dialGuide || contextHlp))
+		if (!(showGuide.get() || dialGuide || contextHlp))
 			return;
 		guidePopUp.paintGuide(g);
 	}

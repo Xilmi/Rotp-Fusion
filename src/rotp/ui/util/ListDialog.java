@@ -156,7 +156,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		this.alternateReturn = alternateReturn;
 		this.param 			 = param;
 		this.initialValue	 = initialValue;
-		dialGuide			 = BaseModPanel.autoGuide; // Always reinitialize.
+		dialGuide			 = BaseModPanel.showGuide(); // Always reinitialize.
 
 		int s5 = scaled(5);
 		int s10 = scaled(10);

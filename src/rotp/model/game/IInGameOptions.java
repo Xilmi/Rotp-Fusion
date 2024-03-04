@@ -327,7 +327,13 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				divertExcessToResearch, defaultMaxBases, displayYear,
 				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
 				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
-				showAllAI, raceStatusLog, compactOptionOnly
+				showAllAI, raceStatusLog, compactOptionOnly,
+				
+				headerSpacer,
+				headerSpacer,
+				new ParamTitle("ENOUGH_IS_ENOUGH"),
+				IMainOptions.disableAutoHelp, IMainOptions.disableAdvisor,
+				new ParamTitle("ENOUGH_IS_ENOUGH")
 				)));
 		return map;
 	};
