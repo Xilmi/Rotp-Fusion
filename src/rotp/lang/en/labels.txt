@@ -450,7 +450,7 @@ GAME_SETTINGS_SENSITIVITY_DESC        | Toggle how quickly the galaxy map respon
 GAME_SETTINGS_MEMORY                  | Show Memory Usage: %1
 GAME_SETTINGS_MEMORY_YES              | Yes
 GAME_SETTINGS_MEMORY_NO               | No
-GAME_SETTINGS_MEMORY_DESC             | Toggles the display of memory usage statistics at the bottom right corner of the game. Useful for monitoring memory usage. (Used / Allocated / Available (Max Used / Max Allocated) / Threads)
+GAME_SETTINGS_MEMORY_DESC             | Toggles the display of memory usage statistics at the bottom right corner of the game. Useful for monitoring memory usage. ([Reseve from GC] {Reserve from mins} Used / Allocated / Available (Max Used / Max Allocated) / Threads)
 GAME_SETTINGS_MORE_MEMORY             | Console More Memory: %1
 GAME_SETTINGS_MORE_MEMORY_YES         | Yes
 GAME_SETTINGS_MORE_MEMORY_NO          | No

@@ -19,18 +19,19 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.awt.Image;
-import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.URISyntaxException;
+import java.util.ArrayList; // modnar: change to cleaner icon set
 import java.util.List; // modnar: change to cleaner icon set
 import java.util.Random;
-import java.util.ArrayList; // modnar: change to cleaner icon set
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -61,7 +62,7 @@ public class Rotp {
     private static JFrame frame;
     public static String releaseId = version;
     public static long startMs = System.currentTimeMillis();
-    public static long maxHeapMemory = Runtime.getRuntime().maxMemory() / 1048576;
+    public static long maxHeapMemory = Runtime.getRuntime().maxMemory() / MB;
     // BR: needs static access;
     // BR: Adjusted the values for new options
     // BR: Adjusted margin values because memory size grow as we play (events memorization)
@@ -69,44 +70,19 @@ public class Rotp {
     // BR: tested: 8GB => 75 stars/MB; 3.5GB => 100 stars/MB
     public static int maximumSystems = (maxHeapMemory > 4096 ?  75 : 100) * (int)(maxHeapMemory-600);
     public static long maxUsedMemory;
-    public static long maxAllocatedMemory;
+    //public static long maxAllocatedMemory;
+    public static long memoryReserve = -1;
+    public static boolean isMemoryMonitored = false;
     public static boolean logging = false;
     private static float resizeAmt =  -1.0f;
     public static int actualAlloc = -1;
     public static boolean reloadRecentSave = false;
+    public static MemoryTracker memoryTracker;
 
     private static GraphicsDevice device;
     
-    public static String getMemoryInfo(boolean screen) {
-        int  threads   = Thread.activeCount();
-    	long available = Runtime.getRuntime().maxMemory() / 1048576;
-    	long allocated = Runtime.getRuntime().totalMemory() / 1048576;
-        long free      = Runtime.getRuntime().freeMemory() / 1048576;
-        long used      = allocated - free;
-        if (used > maxUsedMemory)
-            maxUsedMemory = used;
-        if (allocated > maxAllocatedMemory)
-            maxAllocatedMemory = allocated;
-        if (screen) {
-            String s = used   + "M / "  +
-            		allocated + "M / "  +
-            		available + "M  ("  +
-            		maxUsedMemory + "/" +
-            		maxAllocatedMemory  + ")";
-            if (threads >= 15)
-                s += " T:" + Integer.toString(threads);
-            return s;
-        }
-        else {
-            String s = "Memory used:"   + String.format("% 5d", used) + " MB" +
-            		" | Allocated:"     + String.format("% 5d", allocated) + " MB" +
-            		" | Available:"     + String.format("% 5d", available) + " MB" +
-            		" | Max used:"      + String.format("% 5d", maxUsedMemory) + " MB" +
-            		" | Max allocated:" + String.format("% 5d", maxAllocatedMemory) + " MB" +
-            		" | Threads:"       + String.format("% 3d", threads);
-           return s;        	
-        }
-    }
+    public static boolean memoryLow() { return memoryTracker.memoryLow(); }
+    public static String getMemoryInfo(boolean screen) { return(memoryTracker.getMemoryInfo(screen)); }
     public static boolean noOptions(String id) {
     	if (noOptions)
     		System.out.println("### noOptions() usefully called from " + id + " ###");
@@ -200,7 +176,9 @@ public class Rotp {
             GameSession.instance().loadSession("", loadSaveFile, false);
 
         becomeVisible();
+        installGCMonitoring();
     }
+    private static void installGCMonitoring() { memoryTracker = new MemoryTracker(maxHeapMemory); }
     private static GraphicsDevice device() {
     	if (device == null) {
             int selectedScreen = UserPreferences.selectedScreen();
@@ -294,13 +272,6 @@ public class Rotp {
             System.exit(0);
         }
     }
-    public static boolean memoryLow() {
-        // returns true if total memory allocated to the JVM is within 100 MB of maximum allowed
-        long max = Runtime.getRuntime().maxMemory() / 1048576;
-        long total = Runtime.getRuntime().totalMemory() / 1048576;
-        long free = Runtime.getRuntime().freeMemory() / 1048576;
-        return (max == total) && (free < 300);
-    }
     @SuppressWarnings("deprecation")
 	public static void restart() {
         File exeFile = new File(startupDir+"/"+exeFileName);
@@ -340,6 +311,8 @@ public class Rotp {
         // if system has given us 2.5G+, then we're good
         if (!reload && (allocMb > 2560))
             return false;
+//        if (!reload && (allocMb >= 1536)) // TODO BR: Remove
+//            return false;
 
         // desiredAlloc is 1G or 1/3rd of max memory, whichever is higher
         int desiredAlloc = Math.max(1024, (int)maxMb/3);
@@ -367,4 +340,5 @@ public class Rotp {
         }
         return false;
     }
+
 }

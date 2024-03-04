@@ -61,6 +61,12 @@ Later:
 
 ## What's New
 
+2024.03.03 (BR)
+- Changed how the memory is monitored.
+  - Now based on Garbage collection.
+  - Based on min of 10 poll if GC does not work.
+  - Changed Low Memory tracker!
+
 2024.03.01 (BR)
 - Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"
   - Once framed by an alien empire, the Governor will follow the player's choice for the time necessary for the empire to calm down.

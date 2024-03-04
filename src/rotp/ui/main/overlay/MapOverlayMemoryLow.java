@@ -68,10 +68,6 @@ public class MapOverlayMemoryLow extends MapOverlay {
         int s25 = BasePanel.s25;
         int s35 = BasePanel.s35;
 
-//        int x0 = scaled(330);
-//        int y0 = scaled(165);
-//        int w0 = scaled(420);
-//        int h0 = scaled(335);
         int x0 = scaled(100);
         int y0 = scaled(30);
         int w0 = scaled(850);
@@ -89,7 +85,6 @@ public class MapOverlayMemoryLow extends MapOverlay {
         int x2 = x1;
         int y2 = y1+h1+s3;
         int w2 = w1;
-//        int h2 = scaled(212);
         int h2 = scaled(462);
         g.setColor(MainUI.paneBackground);
         g.fillRect(x2, y2, w2, h2);
@@ -134,7 +129,7 @@ public class MapOverlayMemoryLow extends MapOverlay {
         
         y2a += s10;
         String desc4 = memHeap();
-        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, BasePanel.s16));
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, BasePanel.s15));
         drawString(g, desc4, x2a, y2a);
         y2a += lineH;
 
@@ -161,6 +156,8 @@ public class MapOverlayMemoryLow extends MapOverlay {
             y2a += lineH;
             lines = wrappedLines(g, desc4, textW);
         }
+        y2a += s10;
+        drawString(g,"Last " + Rotp.getMemoryInfo(true), x2a, y2a);
 
         // init and draw continue button sprite
         parent.addNextTurnControl(restartButton);
