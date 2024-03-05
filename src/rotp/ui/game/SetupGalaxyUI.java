@@ -2473,7 +2473,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	public	void startGame() {
 		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		starting = true;
-		repaint();
+		// repaint();
 		buttonClick();
 		GameUI.gameName = generateGameName();
 		UserPreferences.setForNewGame();

@@ -1741,7 +1741,7 @@ CUSTOM_RACE_HOME_TYPE             | Planet Type
 CUSTOM_RACE_HOME_SIZE_DESC        | Starting Size of this Empire Home world.
 CUSTOM_RACE_HOME_SIZE             | Planet Size
 CUSTOM_RACE_HOME_ARTIFACTS_DESC   | This selection will affect the research of the home world.
-CUSTOM_RACE_HOME_ARTIFACTS        | Planet Artefacts
+CUSTOM_RACE_HOME_ARTIFACTS        | Planet Artifacts
 CUSTOM_RACE_HOME_RESOURCES_DESC   | This selection will affect the production of the home world.
 CUSTOM_RACE_HOME_RESOURCES        | Planet Resources
 CUSTOM_RACE_HOME_ENVIRONMENT_DESC | This selection will affect the growth rate of the home world.
@@ -1757,7 +1757,7 @@ CUSTOM_RACE_RACE_ROBOTIC          | Robotic
 CUSTOM_RACE_IGNORES_ECO_DESC      | Will be able to colonize any planet, and wont be impaired by their Hostility.
 CUSTOM_RACE_IGNORES_ECO           | Species Ignores Eco
 CUSTOM_RACE_PROPERTIE             | Species Propertie
-CUSTOM_RACE_CREDIT_DESC           | Easy Money Species?
+CUSTOM_RACE_CREDIT_DESC           | Easy Money! Gives each turn: Population * CreditBonus / 100
 CUSTOM_RACE_CREDIT                | Credits Bonus
 CUSTOM_RACE_HIT_POINTS_DESC       | Hull hability to get damage percentage.
 CUSTOM_RACE_HIT_POINTS            | Hit Point Factor
@@ -1875,7 +1875,9 @@ CUSTOM_RACE_AVAILABLE_AI_DESC     | Should this file be available to Alien?
 CUSTOM_RACE_RESOURCES_NORMAL      | Normal
 CUSTOM_RACE_ENVIRONMENT_NORMAL    | Normal
 CUSTOM_RACE_ARTIFACTS_NONE        | None
+CUSTOM_RACE_ARTIFACTS_NONE_DESC   | Normal Research
 CUSTOM_RACE_ARTIFACTS_ORION       | Orion Ruin
+CUSTOM_RACE_ARTIFACTS_ORION_DESC  | Quadruple Research
 
 CUSTOM_RACE_FAVORED_SHIPSET       | ShipSet
 CUSTOM_RACE_FAVORED_SHIPSET_DESC  | What is the preferred shipset used by this specie? (If still available)

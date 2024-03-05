@@ -66,6 +66,8 @@ Later:
   - Will be Shown only once (Auto set to off).
   - Added Option to always display them to match Original RotP choice.
 - The Info about remnant.cfg missing is memorized in rotp.hadCfgFile (for future use...)
+- Improved some Species options descriptions.
+- Fixed Guide visual glitch when starting a new game.
 
 2024.03.04 (BR)
 - Ship Classes and extended:

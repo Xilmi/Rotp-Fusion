@@ -1061,7 +1061,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         // modnar: newRace GearHead gets 0.25 BC directly from 1.0 POP
         // BR: direct call to Race
-        addToTreasury(dataRace().bCBonus() * totalPlanetaryPopulation());
+        addToTreasury(bCBonus() * totalPlanetaryPopulation());
         recalcPlanetaryProduction();
     }
     public void postNextTurn() {
