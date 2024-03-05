@@ -44,7 +44,7 @@ public class MemoryTracker {
 		long free		= Runtime.getRuntime().freeMemory()  / MB;
 		long used		= allocated - free;
 		long reserves	= available - used;
-		// isMemoryMonitored = true; // TODO Comment
+		// isMemoryMonitored = true; // TO DO Comment
 		// Update reserve values
 		if (screen) { // Stream update
 			lastReserves[index] = reserves;

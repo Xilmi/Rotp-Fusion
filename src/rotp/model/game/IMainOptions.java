@@ -245,7 +245,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		@Override public Boolean getOption()		{ return disableAdvisor(); }
 		@Override public void setOption(Boolean b)	{ disableAdvisor(b); }
 	};
-	ParamBoolean disableAutoHelp	= new ParamBoolean(MOD_UI, "DISABLE_AUTO_HELP", false)
+	ParamBoolean disableAutoHelp	= new ParamBoolean(MOD_UI, "DISABLE_AUTO_HELP", rotp.Rotp.hadCfgFile)
 	{ { isCfgFile(true); } };
 	default boolean disableAutoHelp()	{ return disableAutoHelp.get(); }
 

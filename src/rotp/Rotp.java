@@ -56,6 +56,7 @@ public class Rotp {
 
     public static String jarFileName = "rotp-" + version + RotpGovernor.miniSuffix() + ".jar";
     public static String exeFileName = "rotp-" + version + ".exe";
+    public static boolean hadCfgFile = true;
     public static boolean countWords = false;
     private static String startupDir;
     private static Boolean isIDE;
@@ -311,7 +312,7 @@ public class Rotp {
         // if system has given us 2.5G+, then we're good
         if (!reload && (allocMb >= 2560))
             return false;
-//        if (!reload && (allocMb >= 1536)) // TODO BR: Remove -Xmx1536m
+//        if (!reload && (allocMb >= 1536)) // TO DO BR: Remove -Xmx1536m
 //            return false;
 
         // desiredAlloc is 1G or 1/3rd of max memory, whichever is higher

@@ -283,6 +283,7 @@ public class UserPreferences implements IMainOptions {
 			}
 		}
 		catch (FileNotFoundException e) {
+			rotp.Rotp.hadCfgFile = false;
 			System.err.println(path+PREFERENCES_FILE+" not found.");
 		}
 		catch (IOException e) {

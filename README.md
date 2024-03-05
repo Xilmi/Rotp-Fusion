@@ -61,6 +61,10 @@ Later:
 
 ## What's New
 
+2024.03.05 (BR)
+- Auto Help for first user only set if remnant.cfg is missing.
+  - The Inf about remnant.cfg missing is memorized in rotp.hadCfgFile (for future use...)
+
 2024.03.04 (BR)
 - Ship Classes and extended:
   - Commented unused method.
