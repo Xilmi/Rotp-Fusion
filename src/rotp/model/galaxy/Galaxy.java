@@ -543,7 +543,7 @@ public class Galaxy implements Base, Serializable {
         List<Transport> incoming = new ArrayList<>(transports);
         Collections.sort(incoming, Ship.ARRIVAL_TIME);
         for (Transport sh: incoming) {
-            if (sh.arrivalTime() > currentTime)
+            if (sh.arrivalTimeAdjusted() > currentTime)
                 break;
             arrivingTransports.add(sh);
             sh.arrive();
@@ -554,7 +554,7 @@ public class Galaxy implements Base, Serializable {
         List<ShipFleet> incomingFleets = ships.inTransitFleets();
         Collections.sort(incomingFleets, Ship.ARRIVAL_TIME);
         for (ShipFleet sh: incomingFleets) {
-            if (sh.arrivalTime() > currentTime)
+            if (sh.arrivalTimeAdjusted() > currentTime)
                 break;
             galaxy().ships.arriveFleet(sh);
         }
@@ -635,7 +635,7 @@ public class Galaxy implements Base, Serializable {
 
         for (Transport tr: gal.transports()) {
             if (tr.empId() == sys.empire().id) {
-                if (tr.destSysId() == sys.id && tr.travelTurnsRemaining() <= 1)
+                if (tr.destSysId() == sys.id && tr.travelTurnsRemainingAdjusted() <= 1)
                     pop += tr.size();
             }
         }
@@ -644,7 +644,7 @@ public class Galaxy implements Base, Serializable {
             if (system.planet().isColonized()) {
                 Colony col = system.planet().colony();
                 if ((col.empire() == sys.empire()) && col.transporting() && (col.transport().destSysId() == sys.id)) {
-                    if (col.transport().travelTurnsRemaining() <= 1) {
+                    if (col.transport().travelTurnsRemainingAdjusted() <= 1) {
                         pop += col.inTransport();
                     }
                 }

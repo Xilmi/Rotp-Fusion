@@ -679,7 +679,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			out += SPACER + "Orbit " + planetName(fleet.system().altId);
 		else if (pl.knowETA(fleet)) {
 			int destination = fleet.destination().altId;
-			int eta = fleet.travelTurnsRemaining();
+			int eta = fleet.travelTurnsRemainingAdjusted();
 			out += SPACER + "ETA " + planetName(destination) + " = " + eta + " year";
 			if (eta>1)
 				out += "s";

@@ -90,12 +90,12 @@ public class Transport extends FleetBase {
     }
     @Override
     public String toString()          { return concat("Transport: ", Integer.toHexString(hashCode())); }
-    public Colony home()              { return from.colony(); }
+    private Colony home()              { return from.colony(); }
     @Override
 	public StarSystem destination()   { return dest; }
     public void setDest(StarSystem d) {
         dest = d;
-        setArrivalTime();
+        setArrivalTimeAdjusted();
     }
     public StarSystem from()          { return from; }
     @Override
@@ -137,7 +137,7 @@ public class Transport extends FleetBase {
     public float x() { return inTransit() ? transitX() : from.x();  }
     @Override
     public float y() { return inTransit() ? transitY() : from.y();  }
-    public boolean launched()       { return launchTime > NOT_LAUNCHED; }
+    private boolean launched()       { return launchTime > NOT_LAUNCHED; }
     @Override
     public boolean deployed()       { return launched(); }
     @Override
@@ -167,7 +167,7 @@ public class Transport extends FleetBase {
         targetEmp = dest.empire();
         speed = empire.tech().transportTravelSpeed();
         combatSpeed = empire.tech().transportCombatSpeed();
-        setArrivalTime();
+        setArrivalTimeAdjusted();
 
         gal.addTransport(this);
         TechTree tech = empire.tech();
@@ -205,13 +205,13 @@ public class Transport extends FleetBase {
         }
     }
 
-    public float range()                        { return empire.tech().shipRange(); }
-    public float travelTime(StarSystem dest)    { 
+    private float range()                        { return empire.tech().shipRange(); }
+    public float travelTimeAdjusted(StarSystem dest)    { 
         float normalTime;
         if (speed == 0)
-            normalTime = travelTime(this, dest, empire().tech().transportTravelSpeed());
+            normalTime = travelTimeAdjusted(this, dest, empire().tech().transportTravelSpeed());
         else
-            normalTime = travelTime(this, dest, speed); 
+            normalTime = travelTimeAdjusted(this, dest, speed); 
         
         if ((from.empire() == dest.empire()) && (from.empire() == empire)
         && from.colony().shipyard().hasStargate() && dest.colony().shipyard().hasStargate())
@@ -219,42 +219,43 @@ public class Transport extends FleetBase {
         else
             return normalTime;
     }
-    public float travelTime(IMappedObject fr, StarSystem to) {
-        //float speed = empire.transportSpeed(fr, to);
-        float normalTime = travelTime(fr ,to, travelSpeed);
-
-        if (fr instanceof StarSystem) {
-            StarSystem fromSystem = (StarSystem) fr;
-            if ((fromSystem.empire() == to.empire()) && (fromSystem.empire() == empire)
-            && fromSystem.colony().shipyard().hasStargate() && to.colony().shipyard().hasStargate())
-                return min(1, normalTime);
-        }
-        return normalTime;
-    }
-    @Override
+//    public float travelTime(IMappedObject fr, StarSystem to) {
+//        //float speed = empire.transportSpeed(fr, to);
+//        float normalTime = travelTimeAdjusted(fr ,to, travelSpeed);
+//
+//        if (fr instanceof StarSystem) {
+//            StarSystem fromSystem = (StarSystem) fr;
+//            if ((fromSystem.empire() == to.empire()) && (fromSystem.empire() == empire)
+//            && fromSystem.colony().shipyard().hasStargate() && to.colony().shipyard().hasStargate())
+//                return min(1, normalTime);
+//        }
+//        return normalTime;
+//    }
+    
     // Why does Transport.travelTurnsRemaining() check whether it's inTransit?
     // It sort of works, since Transports don't have a "deployed, not in transit" state like ShipFleet,
     // but a Transport is only not inTransit when dest == null, and when could that ever happen?
-    public int travelTurnsRemaining()     { return !inTransit() ? 0 : (int)Math.ceil(arrivalTime()-galaxy().currentTime()); }
     @Override
-	public float calculateArrivalTime() {
+    public int travelTurnsRemainingAdjusted() { return !inTransit() ? 0 : (int)Math.ceil(arrivalTimeAdjusted()-galaxy().currentTime()); }
+    @Override
+	public float calculateAdjustedArrivalTime() {
         // direct time is if we go straight there at empire's tech transport speed
-        float directTime = travelTime(dest);
-        // set time is if we have travelSpeed alrady set, by synching transports
+        float directTime = travelTimeAdjusted(dest);
+        // set time is if we have travelSpeed already set, by synching transports
         float setTime = travelSpeed > 0 ? distanceTo(dest)/travelSpeed : directTime;
         // take the worst time
         return galaxy().currentTime() + max(setTime, directTime);
     }
-    public boolean  changeDestination(StarSystem to) {
-        if (inTransit()
-        && validDestination(id(to))) {
-            setDest(to);
-            targetEmp = to.empire();
-            return true;
-        }
-        return false;
-    }
-    public void joinWith(Transport tr) {
+//    public boolean  changeDestination(StarSystem to) {
+//        if (inTransit()
+//        && validDestination(id(to))) {
+//            setDest(to);
+//            targetEmp = to.empire();
+//            return true;
+//        }
+//        return false;
+//    }
+    void joinWith(Transport tr) {
         size += tr.size;
         originalSize += tr.originalSize;
         hitPoints = Math.max(hitPoints, tr.hitPoints);
@@ -280,7 +281,7 @@ public class Transport extends FleetBase {
         else if ((tr.troopShieldId != null) && (tr.troopShield().level > troopShield().level))
             troopShieldId = tr.troopShieldId;
     }
-    public void land() {
+    void land() {
         //there's a chance that our empire was destroyed between the arrival of our transport and it's landing
         if(empire().extinct())
             size = 0;

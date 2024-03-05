@@ -190,7 +190,7 @@ public class StarView implements IConsole {
 		for (ShipFleet fl: pl.getEtaFleets(sys)) {
 			out += NEWLINE + "Incoming " + longEmpireInfo(fl.empire()) + " fleet";
 			out += NEWLINE + fleetDesignInfo(fl, NEWLINE);
-			out += NEWLINE + "ETA = " + (int) Math.ceil(fl.travelTime(sys)) + " Years";
+			out += NEWLINE + "ETA = " + (int) Math.ceil(fl.travelTimeAdjusted(sys)) + " Years";
 		}
 		return out;
 	}

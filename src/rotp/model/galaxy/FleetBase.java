@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import rotp.ui.main.GalaxyMapPanel;
 
-public abstract class FleetBase implements Ship, Serializable {
+abstract class FleetBase implements Ship, Serializable {
 	private static final long serialVersionUID = 1L;
 	private float arrivalTime = Float.MAX_VALUE;
 	private final Integer hashCode;
@@ -33,16 +33,15 @@ public abstract class FleetBase implements Ship, Serializable {
     FleetBase () {
     	hashCode = galaxy().nextHashCodeShip();
     }
-	@Override
-	public float arrivalTime() {
+	@Override public float arrivalTimeAdjusted() {
 		if (arrivalTime == Float.MAX_VALUE) {
 	    	throw new RuntimeException("Something has gone terribly wrong: it appears setArrivalTime() was never called.");
 	    }
 	    return arrivalTime;
 	}
-	protected abstract float calculateArrivalTime();
-	public void setArrivalTime() {
-		arrivalTime = calculateArrivalTime();
+	protected abstract float calculateAdjustedArrivalTime();
+	void setArrivalTimeAdjusted() {
+		arrivalTime = calculateAdjustedArrivalTime();
 		if (arrivalTime == Float.MAX_VALUE) {
 			throw new RuntimeException("Something has gone terribly wrong: calculateArrivalTime() returned Float.MAX_VALUE.");
 		}
@@ -56,7 +55,7 @@ public abstract class FleetBase implements Ship, Serializable {
 		displayed = decideWhetherDisplayed(map);
 	}
 
-	public Rectangle selectBox() {
+	Rectangle selectBox() {
 		if (selectBox == null)
 			selectBox = new Rectangle();
 		return selectBox;

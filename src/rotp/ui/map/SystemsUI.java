@@ -138,7 +138,7 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
         for (ShipFleet fl: allFleets) {
             StarSystem sys = fl.destination();
             if (fl.canColonizeSystem(sys)) {
-                int fleetTurns = fl.travelTurns(sys);
+                int fleetTurns = fl.travelTurnsAdjusted(sys);
                 if (expandEnRouteSystems.containsKey(sys.id)) {
                     int prevTurns = expandEnRouteSystems.get(sys.id);
                     if (fleetTurns < prevTurns)

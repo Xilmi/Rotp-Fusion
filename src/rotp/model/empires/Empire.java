@@ -755,7 +755,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (synch) {
             float maxTime = 0;
             for (StarSystem from: fromSystems)
-                maxTime = max(maxTime, from.colony().transport().travelTime(dest));
+                maxTime = max(maxTime, from.colony().transport().travelTimeAdjusted(dest));
             for (StarSystem from: fromSystems)
                 from.transportSprite().accept(maxTime);
         }
@@ -764,10 +764,10 @@ public final class Empire implements Base, NamedObject, Serializable {
                 from.transportSprite().accept();
         }
     }
-    public int travelTurns(StarSystem from, StarSystem dest, float speed) {
+    public int travelTurnsAdjusted(StarSystem from, StarSystem dest, float speed) {
         if (from.hasStargate(this) && dest.hasStargate(this))
             return 1;
-        return (int) Math.ceil(from.travelTime(from,dest,speed));
+        return (int) Math.ceil(from.travelTimeAdjusted(from,dest,speed));
     }
     public void stopRalliesWithSystem(StarSystem dest) {
         List<StarSystem> systems = allColonizedSystems();
@@ -1353,10 +1353,10 @@ public final class Empire implements Base, NamedObject, Serializable {
             float neededPopulation = (int) (c.planet().currentSize() - c.expectedPopulation());
             // Sort donors by distance
             Colony donor = Collections.min(donors, (Colony o1, Colony o2) -> (int) Math.signum(
-                    o1.travelTime(o1, c, this.tech().transportTravelSpeed()) -
-                            o2.travelTime(o2, c, this.tech().transportTravelSpeed())));
+                    o1.travelTimeAdjusted(o1, c, this.tech().transportTravelSpeed()) -
+                            o2.travelTimeAdjusted(o2, c, this.tech().transportTravelSpeed())));
             if (neededPopulation > 1) {
-                float transportTime = donor.travelTime(donor, c, this.tech().transportTravelSpeed());
+                float transportTime = donor.travelTimeAdjusted(donor, c, this.tech().transportTravelSpeed());
                 // limit max transport time
                 double maxTime = c.starSystem().inNebula() ? options.getTransportMaxTurns() * 1.5 : options.getTransportMaxTurns();
                 if (transportTime > maxTime) {
@@ -1631,7 +1631,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 for (ShipFleet f : fleets) {
                     System.out.println("Fleet " + sv.descriptiveName(f.sysId()) +" "+sv.name(f.sysId()) +
                             " to "+sv.descriptiveName(si)+" "+sv.name(si) +
-                            " travel time " + f.travelTime(sv.system(si), warpSpeed));
+                            " travel time " + f.travelTimeAdjusted(sv.system(si), warpSpeed));
                 }
                 for (ShipFleet sf: fleets) {
                     // if fleet was sent elsewhere during previous iteration, don't redirect it again
@@ -1752,8 +1752,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         };
 
         FleetsSorter fleetsSorter = (targetSysten, fleets, warpSpeed) -> fleets.sort((f1, f2) ->
-                (int)Math.signum(f1.travelTime(sv.system(targetSysten), warpSpeed) -
-                        f2.travelTime(sv.system(targetSysten), warpSpeed)) );
+                (int)Math.signum(f1.travelTimeAdjusted(sv.system(targetSysten), warpSpeed) -
+                        f2.travelTimeAdjusted(sv.system(targetSysten), warpSpeed)) );
 
         int sendCount = Math.max(1, govOptions().getAutoScoutShipCount());
         // don't send out armed scout ships when enemy fleet is incoming, hence the need for defend predicate
@@ -1869,8 +1869,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
 
         FleetsSorter fleetsSorter = (targetSysten, fleets, warpSpeed) -> fleets.sort((f1, f2) ->
-                (int)Math.signum(f1.travelTime(sv.system(targetSysten), warpSpeed) -
-                        f2.travelTime(sv.system(targetSysten), warpSpeed)) );
+                (int)Math.signum(f1.travelTimeAdjusted(sv.system(targetSysten), warpSpeed) -
+                        f2.travelTimeAdjusted(sv.system(targetSysten), warpSpeed)) );
 
         int sendCount = Math.max(1, govOptions().getAutoColonyShipCount());
         // don't send out armed colony ships when enemy fleet is incoming, hence the need for defend predicate
@@ -1984,8 +1984,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
 
         FleetsSorter fleetsSorter = (targetSysten, fleets, warpSpeed) -> fleets.sort((f1, f2) ->
-                (int)Math.signum(f1.travelTime(sv.system(targetSysten), warpSpeed) -
-                        f2.travelTime(sv.system(targetSysten), warpSpeed)) );
+                (int)Math.signum(f1.travelTimeAdjusted(sv.system(targetSysten), warpSpeed) -
+                        f2.travelTimeAdjusted(sv.system(targetSysten), warpSpeed)) );
 
 
         autoSendShips(designs, targets, new ColonizePriority("toAttack"), fleetsSorter,
@@ -2181,7 +2181,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return tech().transportTravelSpeed();
         
         float dist = fr.distanceTo(to);
-        float time = fr.travelTime(fr, to, tech().transportTravelSpeed());
+        float time = fr.travelTimeAdjusted(fr, to, tech().transportTravelSpeed());
         return dist/time;
     }
     public void checkForRebellionSpread() {

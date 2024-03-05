@@ -83,7 +83,7 @@ public interface IConsole extends Base {
 			out += sep + "From " + planetName(sv, sep);
 			sv = cc().getView(transport.destination().altId);
 			out += sep + "To " + planetName(sv, sep);
-			int eta = transport.travelTurnsRemaining();
+			int eta = transport.travelTurnsRemainingAdjusted();
 			out += sep + "ETA = " + eta + " year";
 			if (eta>1)
 				out += "s";

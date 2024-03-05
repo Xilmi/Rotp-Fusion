@@ -101,7 +101,7 @@ public class FleetView implements IConsole {
 							retreatText = text("MAIN_FLEET_AUTO_RETREAT");
 							rallyText = text("MAIN_FLEET_SET_RALLY");
 						}
-						int dist = fl.travelTurns(currDest);
+						int dist = fl.travelTurnsAdjusted(currDest);
 						String destName = player().sv.name(currDest.id);
 						if (destName.isEmpty())
 							text = text("MAIN_FLEET_ETA_UNNAMED", dist);
@@ -123,7 +123,7 @@ public class FleetView implements IConsole {
 					rallyText = text("MAIN_FLEET_SET_RALLY");
 				}
 				dest = dest == null ? fl.destination() : dest;
-				int dist = fl.travelTurns(dest);
+				int dist = fl.travelTurnsAdjusted(dest);
 				String destName = player().sv.name(dest.id);
 				if (destName.isEmpty())
 					text = text("MAIN_FLEET_ETA_UNNAMED", dist);
@@ -135,7 +135,7 @@ public class FleetView implements IConsole {
 			else if (fl.canSendTo(id(dest))) {
 				int dist = 0;
 				if (fl.canReach(dest)) {
-					dist = fl.travelTurns(dest);
+					dist = fl.travelTurnsAdjusted(dest);
 					String destName = player().sv.name(dest.id);
 					if (destName.isEmpty())
 						text = text("MAIN_FLEET_ETA_UNNAMED", dist);
@@ -159,7 +159,7 @@ public class FleetView implements IConsole {
 				rallyText = text("MAIN_FLEET_SET_RALLY");
 			}
 			if (player().knowETA(fl)) {
-				int dist = fl.travelTurnsRemaining();
+				int dist = fl.travelTurnsRemainingAdjusted();
 				if (fl.hasDestination()) {
 					String destName = player().sv.name(fl.destSysId());
 					if (destName.isEmpty())

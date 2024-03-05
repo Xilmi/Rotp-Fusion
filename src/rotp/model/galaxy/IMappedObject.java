@@ -28,14 +28,14 @@ public interface IMappedObject {
     default public float distanceTo (IMappedObject obj) {
         return distanceTo(obj.x(), obj.y());
     }
-    default float squaredDistanceTo (float x2, float y2) {
-        float horizontalDistance = x() - x2;
-        float verticalDistance = y() - y2;
-        return horizontalDistance*horizontalDistance + verticalDistance*verticalDistance;
-    }
-    default float squaredDistanceTo (IMappedObject point) {
-        return distanceTo(point.x(), point.y());
-    }
+//    default float squaredDistanceTo (float x2, float y2) {
+//        float horizontalDistance = x() - x2;
+//        float verticalDistance = y() - y2;
+//        return horizontalDistance*horizontalDistance + verticalDistance*verticalDistance;
+//    }
+//    default float squaredDistanceTo (IMappedObject point) {
+//        return distanceTo(point.x(), point.y());
+//    }
     public static Comparator<IMappedObject> MAP_ORDER = new Comparator<IMappedObject>() {
         @Override
         public int compare(IMappedObject o1, IMappedObject o2) {
@@ -60,7 +60,7 @@ public interface IMappedObject {
         }
         return false;
     }
-    default public float travelTime(IMappedObject fr, IMappedObject to, float speed) {
+    default public float travelTimeAdjusted(IMappedObject fr, IMappedObject to, float speed) {
         float dist = fr.distanceTo(to);
         if (speed<=1) // for Monsters
         	return dist/speed-0.01f;

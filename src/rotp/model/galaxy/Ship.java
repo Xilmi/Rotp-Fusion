@@ -40,7 +40,7 @@ public interface Ship extends IMappedObject, Base, Sprite {
     public boolean canSendTo(int sysId);
     public float travelSpeed();
     public float launchTime();
-    public float arrivalTime();
+    public float arrivalTimeAdjusted();
     public boolean visibleTo(int empId);
 
     // empId() and empire() provide the same information and either could be defined in terms of the other.
@@ -61,17 +61,18 @@ public interface Ship extends IMappedObject, Base, Sprite {
     // destination is always a star system, but origin point need not be?
     public float fromX();
     public float fromY();
-    default float transitX() {
+    default float transitX() { // Not Overridden
         return fromX() + travelPct()*(destX() - fromX());
     }
-    default float transitY() {
+    default float transitY() { // Not Overridden
         return fromY() + travelPct()*(destY() - fromY());
     }
     default float travelPct(float currTime) {
         if ((launchTime() == NOT_LAUNCHED) || (launchTime() == currTime))
             return 0;
         else 
-            return (currTime-launchTime()) / (arrivalTime()-launchTime());
+        	return (float) ((currTime-launchTime()) / Math.ceil(arrivalTimeAdjusted()-launchTime()));
+//            return (currTime-launchTime()) / (arrivalTimeAdjusted()-launchTime());
     }
     default float travelPct() {
         return travelPct(galaxy().currentTime());
@@ -85,7 +86,7 @@ public interface Ship extends IMappedObject, Base, Sprite {
 
     public boolean inTransit();
     // This default travelTurnsRemaining() assumes that arrivalTime is always well-defined even if the Ship is not in transit (as it is for ShipFleet).
-    default int travelTurnsRemaining() { return (int)Math.ceil(arrivalTime() - galaxy().currentTime()); }
+    default int travelTurnsRemainingAdjusted() { return (int)Math.ceil(arrivalTimeAdjusted() - galaxy().currentTime()); }
     @Override // from IMappedObject
     default float x() { return inTransit() ? transitX() : fromX(); }
     @Override // from IMappedObject
@@ -101,6 +102,6 @@ public interface Ship extends IMappedObject, Base, Sprite {
     public boolean displayed();
 
     public boolean isPotentiallyArmed(Empire e);
-    public static Comparator<Ship> ARRIVAL_TIME = (Ship sh1, Ship sh2) -> Base.compare(sh1.arrivalTime(),sh2.arrivalTime());
+    public static Comparator<Ship> ARRIVAL_TIME = (Ship sh1, Ship sh2) -> Base.compare(sh1.arrivalTimeAdjusted(),sh2.arrivalTimeAdjusted());
     public static Comparator<Ship> EMPIRE_ID = (Ship sh1, Ship sh2) -> Base.compare(sh1.empId(), sh2.empId());
 }

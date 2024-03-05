@@ -391,7 +391,7 @@ public class TransportPanel extends BasePanel {
             destBox.setBounds(0,0,0,0);
         }
         private void drawShowDestButton(Graphics2D g, Transport tr, StarSystem sys) {
-            drawButton(g,fullGrayBackC,text("MAIN_TRANSPORTS_SHOW_DEST",player().sv.name(sys.id), tr.travelTurnsRemaining()), destBox, leftM, rightM);
+            drawButton(g,fullGrayBackC,text("MAIN_TRANSPORTS_SHOW_DEST",player().sv.name(sys.id), tr.travelTurnsRemainingAdjusted()), destBox, leftM, rightM);
         }
         private void drawCancelButton(Graphics2D g) {
             drawButton(g,fullGrayBackC,text("MAIN_TRANSPORT_CANCEL"), destBox, leftM, rightM);

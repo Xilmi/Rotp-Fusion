@@ -352,7 +352,7 @@ public class AIGeneral implements Base, General {
         {
             if(fl.empire() == empire)
             {
-                destroyed += Math.round(fl.expectedBombardDamage(true) / 50f) * (turnsTillInvasion - fl.travelTurnsRemaining());
+                destroyed += Math.round(fl.expectedBombardDamage(true) / 50f) * (turnsTillInvasion - fl.travelTurnsRemainingAdjusted());
                 destroyedInOneTurn = max(destroyedInOneTurn, Math.round(fl.expectedBombardDamage(true) / 50f));
             }
         }
@@ -400,7 +400,7 @@ public class AIGeneral implements Base, General {
         float allowableTurns = (float) (1 + Math.min(7, Math.floor(22 / topSpeed)));
         float minTravelTime = allowableTurns;
         for (StarSystem sys : allSystems) {
-            float travelTime = sys.colony().transport().travelTime(target);
+            float travelTime = sys.colony().transport().travelTimeAdjusted(target);
             if ((travelTime < minTravelTime) && sys.colony().canTransport()) {
                 minTravelTime = min(minTravelTime, travelTime);
                 if(minTravelTime <= 1)
@@ -441,7 +441,7 @@ public class AIGeneral implements Base, General {
         
         for (StarSystem sys : allSystems) {
             if (troopsAvailable < troopsDesired) {
-                float travelTime = sys.colony().transport().travelTime(target);
+                float travelTime = sys.colony().transport().travelTimeAdjusted(target);
                 // modnar: only consider systems within 8 travel turns at the start of the game
                 // decrease with faster warp (faster transport speed)
                 // down to 3 travel turns with warp-9
@@ -466,7 +466,7 @@ public class AIGeneral implements Base, General {
             return;
 
         for (StarSystem sys: launchPoints)
-            maxTravelTime = max(maxTravelTime, sys.colony().transport().travelTime(target));
+            maxTravelTime = max(maxTravelTime, sys.colony().transport().travelTimeAdjusted(target));
 
         // send transports from launch points
         for (StarSystem sys : launchPoints) {
@@ -540,7 +540,7 @@ public class AIGeneral implements Base, General {
             {
                 if(fl.empire() == empire)
                 {
-                    killed += Math.round(fl.expectedBombardDamage(false) / 200f) * max(0, (turnsTillInvasion - fl.travelTurnsRemaining()));
+                    killed += Math.round(fl.expectedBombardDamage(false) / 200f) * max(0, (turnsTillInvasion - fl.travelTurnsRemainingAdjusted()));
                     killedInOneTurn = max(killedInOneTurn, Math.round(fl.expectedBombardDamage(false) / 200f));
                 }
             }

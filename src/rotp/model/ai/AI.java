@@ -272,7 +272,7 @@ public class AI implements Base {
                 if(giver.colony.transport().size() > 0)
                     continue;
                 allGiversBusy = false;
-                float travelTime = giver.colony.transport().travelTime(needer.colony.starSystem());
+                float travelTime = giver.colony.transport().travelTimeAdjusted(needer.colony.starSystem());
                 if ((giver.maxPopToGive >= minTransportSize) && (giver.transportPriority < needer.transportPriority)
                         && travelTime <= allowableTurns) {
                     float needed = needer.popNeeded - ((int) (Math.ceil(giver.transportTimeTo(needer))) * needer.growth);

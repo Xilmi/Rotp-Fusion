@@ -476,7 +476,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         handleEvent = true;
                     }
                 }
-                if(current.colony() != null && enemyBombardDamage > current.colony().untargetedHitPoints() && fleet.travelTurns(current) > 1)
+                if(current.colony() != null && enemyBombardDamage > current.colony().untargetedHitPoints() && fleet.travelTurnsAdjusted(current) > 1)
                 {
                     score = 1.0f;
                 }
@@ -541,7 +541,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             }
             if(!ignoreTravelTime)
             {
-                score /= pow(max(1, fleet.travelTurns(current)), 2) + 1;
+                score /= pow(max(1, fleet.travelTurnsAdjusted(current)), 2) + 1;
             }
             /*if(score > 0)
                 System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" => "+empire.sv.name(current.id)+" score: "+score+" enemy-transports: "+transports+" colonizerEnroute: "+colonizerEnroute);*/
@@ -868,7 +868,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                     }
                     if(target != null)
                     {
-                        int travelTurns = fleet.travelTurns(target);                    
+                        int travelTurns = fleet.travelTurnsAdjusted(target);                    
                         //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" wants to go for "+empire.sv.name(target.id)+" id: "+target.id);
                         float bombardDamage = fleet.expectedBombardDamage(target, false);
                         float killPower = empire.governorAI().expectedBombardDamageAsIfBasesWereThere(fleet, target, 0) / 200;
@@ -960,7 +960,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                             {
                                 if(!empire.visibleShips().contains(incoming))
                                     continue;
-                                if(incoming.travelTurnsRemaining() > travelTurns)
+                                if(incoming.travelTurnsRemainingAdjusted() > travelTurns)
                                     continue;
                                 EmpireView ev = empire.viewForEmpire(incoming.empId());
                                 if(incoming.isArmed()){

@@ -819,7 +819,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                                 retreatText = text("MAIN_FLEET_AUTO_RETREAT");
                                 rallyText = text("MAIN_FLEET_SET_RALLY");
                             }
-                            int dist = displayFl.travelTurns(currDest);
+                            int dist = displayFl.travelTurnsAdjusted(currDest);
                             String destName = player().sv.name(currDest.id);
                             if (destName.isEmpty())
                                 text = text("MAIN_FLEET_ETA_UNNAMED", dist);
@@ -842,7 +842,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                         rallyText = text("MAIN_FLEET_SET_RALLY");
                     }
                     dest = dest == null ? displayFl.destination() : dest;
-                    int dist = displayFl.travelTurns(dest);
+                    int dist = displayFl.travelTurnsAdjusted(dest);
                     String destName = player().sv.name(dest.id);
                     if (destName.isEmpty())
                         text = text("MAIN_FLEET_ETA_UNNAMED", dist);
@@ -854,7 +854,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 else if (displayFl.canSendTo(id(dest))) {
                     int dist = 0;
                     if (displayFl.canReach(dest)) {
-                        dist = displayFl.travelTurns(dest);
+                        dist = displayFl.travelTurnsAdjusted(dest);
                         String destName = player().sv.name(dest.id);
                         if (destName.isEmpty())
                             text = text("MAIN_FLEET_ETA_UNNAMED", dist);
@@ -878,7 +878,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                     rallyText = text("MAIN_FLEET_SET_RALLY");
                 }
                 if (player().knowETA(displayFl)) {
-                    int dist = displayFl.travelTurnsRemaining();
+                    int dist = displayFl.travelTurnsRemainingAdjusted();
                     if (displayFl.hasDestination()) {
                         String destName = player().sv.name(displayFl.destSysId());
                         if (destName.isEmpty())

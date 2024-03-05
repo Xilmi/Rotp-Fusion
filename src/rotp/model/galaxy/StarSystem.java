@@ -322,7 +322,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
             return 0;
 
         ShipDesign sd = (ShipDesign) d;
-        return travelTime(this, s, sd.engine().warp());
+        return travelTimeAdjusted(this, s, sd.engine().warp());
     }
 
     public Empire empire()                      { return planet().empire(); }

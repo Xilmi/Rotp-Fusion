@@ -373,7 +373,7 @@ public class AIGeneral implements Base, General {
 
         for (StarSystem sys : allSystems) {
             if (troopsAvailable < troopsDesired) {
-                float travelTime = sys.colony().transport().travelTime(target);
+                float travelTime = sys.colony().transport().travelTimeAdjusted(target);
                 // modnar: only consider systems within 8 travel turns at the start of the game
                 // decrease with faster warp (faster transport speed)
                 // down to 3 travel turns with warp-9
@@ -400,7 +400,7 @@ public class AIGeneral implements Base, General {
             return;
 
         for (StarSystem sys: launchPoints)
-            maxTravelTime = max(maxTravelTime, sys.colony().transport().travelTime(target));
+            maxTravelTime = max(maxTravelTime, sys.colony().transport().travelTimeAdjusted(target));
 
         // send transports from launch points
         for (StarSystem sys : launchPoints) {

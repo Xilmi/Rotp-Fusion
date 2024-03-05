@@ -61,6 +61,14 @@ Later:
 
 ## What's New
 
+2024.03.04 (BR)
+- Ship Classes and extended:
+  - Commented unused method.
+    - there was a lot of unused methods that disrupt readability, and may be not fully debugged!
+    - commented them as a warning to not be used trustfully!
+  - Renamed the travelTime dependent methods, adding "Adjusted" when accurate to improve readabilty!
+- Ship Display position will be rounded in fraction of total travel time. 
+
 2024.03.03 (BR)
 - Changed how the memory is monitored.
   - Now based on Garbage collection.
