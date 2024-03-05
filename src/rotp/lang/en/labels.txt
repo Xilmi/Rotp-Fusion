@@ -526,10 +526,16 @@ SETTINGS_MOD_DISABLE_ADVISOR_YES  | Disabled
 SETTINGS_MOD_DISABLE_ADVISOR_NO   | Enabled
 SETTINGS_MOD_DISABLE_ADVISOR      | Disable Advisor: %1
 SETTINGS_MOD_DISABLE_ADVISOR_DESC | To Enable / Disable to automatics display of Galaxy Panel Advice when starting a new Game.
-SETTINGS_MOD_DISABLE_AUTO_HELP_YES  | Disabled
-SETTINGS_MOD_DISABLE_AUTO_HELP_NO   | Enabled
-SETTINGS_MOD_DISABLE_AUTO_HELP      | Disable Auto Help: %1
-SETTINGS_MOD_DISABLE_AUTO_HELP_DESC | To Enable / Disable to automatics display of Galaxy Panel Help when starting a new Game.
+
+SETTINGS_MOD_DISABLE_AUTO_HELP_YES        | Yes
+SETTINGS_MOD_DISABLE_AUTO_HELP_NO         | No
+SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER      | Never
+SETTINGS_MOD_DISABLE_AUTO_HELP            | Disable Auto Help: %1
+SETTINGS_MOD_DISABLE_AUTO_HELP_DESC       | To Enable / Disable to automatics display of Galaxy Panel Help when starting a new Game.
+for the mod's In-game Options, and one for display settings (not affecting game play).
+SETTINGS_MOD_DISABLE_AUTO_HELP_YES_DESC   | Yes (But will be shown again if you delete Remnant.cfg)
+SETTINGS_MOD_DISABLE_AUTO_HELP_NO_DESC    | No (But will only be displayed once)
+SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER_DESC | I'm a fan of these pop-ups, keep them!
 
 // Load Game UI
 LOAD_GAME_TITLE                   | Load Game

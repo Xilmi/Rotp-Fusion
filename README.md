@@ -62,8 +62,10 @@ Later:
 ## What's New
 
 2024.03.05 (BR)
-- Auto Help for first user only set if remnant.cfg is missing.
-  - The Inf about remnant.cfg missing is memorized in rotp.hadCfgFile (for future use...)
+- Auto Help for first user will only be set if remnant.cfg is missing.
+  - Will be Shown only once (Auto set to off).
+  - Added Option to always display them to match Original RotP choice.
+- The Info about remnant.cfg missing is memorized in rotp.hadCfgFile (for future use...)
 
 2024.03.04 (BR)
 - Ship Classes and extended:

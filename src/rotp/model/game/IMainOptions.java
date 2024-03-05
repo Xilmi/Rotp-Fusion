@@ -245,9 +245,22 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		@Override public Boolean getOption()		{ return disableAdvisor(); }
 		@Override public void setOption(Boolean b)	{ disableAdvisor(b); }
 	};
-	ParamBoolean disableAutoHelp	= new ParamBoolean(MOD_UI, "DISABLE_AUTO_HELP", rotp.Rotp.hadCfgFile)
-	{ { isCfgFile(true); } };
-	default boolean disableAutoHelp()	{ return disableAutoHelp.get(); }
+	ParamList disableAutoHelp		= new ParamList( MOD_UI, "DISABLE_AUTO_HELP", "Yes") {
+		{
+			isCfgFile(true);
+			showFullGuide(true);
+			put("Yes",		MOD_UI + "DISABLE_AUTO_HELP_YES");
+			put("No",		MOD_UI + "DISABLE_AUTO_HELP_NO");
+			put("Never",	MOD_UI + "DISABLE_AUTO_HELP_NEVER");
+		}
+	};
+	// ParamBoolean disableAutoHelp	= new ParamBoolean(MOD_UI, "DISABLE_AUTO_HELP", rotp.Rotp.hadCfgFile)
+	// { { isCfgFile(true); } };
+	default boolean isAutoHelpDisabled()	{ return disableAutoHelp.get().equalsIgnoreCase("Yes"); }
+	default void autoHelpHasBeenShown()		{
+		if (disableAutoHelp.get().equalsIgnoreCase("No"))
+			disableAutoHelp.set("Yes");
+	}
 
 	ParamBoolean showGuide			= new ParamBoolean(MOD_UI, "SHOW_GUIDE", true)
 	{ { isCfgFile(true); } };

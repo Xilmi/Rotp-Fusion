@@ -466,8 +466,10 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         mainUI.clearOverlay();
         mainUI.init(true);
         // modnar: don't show help on new game // BR: Conditional
-        if (!options().isAutoPlay() && !options().disableAutoHelp())
+        if (!options().isAutoPlay() && !options().isAutoHelpDisabled()) {
             mainUI.showHelp();
+            options().autoHelpHasBeenShown();
+        }
         mainUI.showDisplayPanel();
         selectPanel(MAIN_PANEL, mainUI());
         repaint();
