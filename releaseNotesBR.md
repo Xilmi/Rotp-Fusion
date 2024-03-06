@@ -2,7 +2,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Ship Display position will be rounded in fraction of total travel time.
+- Species Customization:
+  - Added malus value in Species customization panel.
+  - New values for Worker Production and Factory Control.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -41,6 +43,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - The state of the guide is now remembered from session to session. Default = Enabled.
 - The advisor has been restored... Easy to switch off in In-Game Options.
 - The Auto help at start has been restored... Easy to switch off in In-Game Options.
+- Sepcies Customization:
+  - Added malus value in Species customization panel.
+  - New values for Worker Production and Factory Control.
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.

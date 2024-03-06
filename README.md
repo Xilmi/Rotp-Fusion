@@ -62,12 +62,20 @@ Later:
 ## What's New
 
 2024.03.05 (BR)
+- Factory Refit: Quadratic value
+  - 1 => 12.5, 2 => 30, 3 => 52.5, 4 => 80
+- Added malus value in Species customization panel.
+
+2024.03.05 (BR)
 - Auto Help for first user will only be set if remnant.cfg is missing.
   - Will be Shown only once (Auto set to off).
   - Added Option to always display them to match Original RotP choice.
 - The Info about remnant.cfg missing is memorized in rotp.hadCfgFile (for future use...)
 - Improved some Species options descriptions.
 - Fixed Guide visual glitch when starting a new game.
+- Adjusted some Custom Species options values
+  - Factory Refit: 40 (was 20)
+  - Worker Production: 200% = 80 (was 60)
 
 2024.03.04 (BR)
 - Ship Classes and extended:

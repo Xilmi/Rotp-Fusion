@@ -379,6 +379,17 @@ public class CustomRaceDefinitions  {
 		}
 		return totalCost;
 	}
+	public  float getMalusCost() {
+		float malus = 0;
+		for (SettingBase<?> setting : settingList) {
+			if (setting.isSpacer())
+				continue;
+			float cost = setting.settingCost();
+			if (cost < 0)
+				malus += setting.settingCost();
+		}
+		return -malus;
+	}
 	private void pushSettings() {
 			race = Race.keyed(baseRace).copy();
 		for (SettingBase<?> setting : settingList) {
@@ -1591,7 +1602,7 @@ public class CustomRaceDefinitions  {
 		// bigger = better
 		private ProdWorker() {
 			super(ROOT, "PROD_WORKER", 100, 70, 200, 1, 5, 20,
-					DIFFERENCE, new float[]{0f, .3f, 0.003f}, new float[]{0f, 0.8f, 0.006f});
+					DIFFERENCE, new float[]{0f, .4f, 0.004f}, new float[]{0f, 0.8f, 0.006f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -1606,7 +1617,7 @@ public class CustomRaceDefinitions  {
 	private class ProdControl extends SettingInteger {
 		private ProdControl() {
 			super(ROOT, "PROD_CONTROL", 0, -1, 4, 1, 1, 1,
-					DIFFERENCE, new float[]{0f, 15f}, new float[]{0f, 30f});
+					DIFFERENCE, new float[]{0f, 10f, 2.5f}, new float[]{0f, 30f, 0f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -1622,7 +1633,7 @@ public class CustomRaceDefinitions  {
 		private static final boolean defaultValue = false;
 		
 		private IgnoresFactoryRefit() {
-			super(ROOT, "PROD_REFIT_COST", defaultValue, 20f, 0f);
+			super(ROOT, "PROD_REFIT_COST", defaultValue, 40f, 0f);
 			isBullet(booleansAreBullet);
 			initOptionsText();
 		}

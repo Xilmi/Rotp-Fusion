@@ -1718,6 +1718,7 @@ SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Species
 CUSTOM_RACE_RACE_AI_DESC          | Change the empire AI
 CUSTOM_RACE_GUI_TITLE             | Sapiens Species Customization
 CUSTOM_RACE_SHOW_TITLE            | Species' Abilities
+CUSTOM_RACE_GUI_MALUS             | (Malus: %1)
 CUSTOM_RACE_GUI_COST              | Total Value: %1
 CUSTOM_RACE_GUI_SELECT_DESC       | Save Current Species, Select it as Player Species, Save as Last Settings and Exit Panel
 CUSTOM_RACE_GUI_SELECT            | Set as Player

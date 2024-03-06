@@ -54,6 +54,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private static final long serialVersionUID	= 1L;
 	private static final String	 playerAIOffKey	= "SETUP_OPPONENT_AI_PLAYER";
 	private static final String	 totalCostKey	= ROOT + "GUI_COST";
+	private static final String	 malusCostKey	= ROOT + "GUI_MALUS";
 	
 	private	static final int	 tooltipPadV	= s10;
 	private	static final int	 descPadM		= s5;
@@ -71,6 +72,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	protected static final int	 columnPad		= s12;
 
 	private static final Color	costC			= SystemPanel.blackText;
+	private static final Color	malusC			= SystemPanel.redText;
 	private static final int	costFontSize	= 18;
 	private	static final Font	titleFont		= FontManager.current().narrowFont(30);
 	private static final int	titleOffset		= s30; // Offset from Margin
@@ -136,6 +138,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private	  final Box raceAIBox		= new Box(ROOT + "RACE_AI");
 	private	  final JTextPane descBox	= new JTextPane();
 	protected ModText totalCostText;
+	protected ModText malusCostText;
 	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
 	CustomRaceDefinitions cr;
@@ -152,6 +155,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		descBox.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
 	    totalCostText = new ModText(this, costFontSize, 
 	    		costC, costC, hoverC, depressedC, costC, false);
+	    malusCostText = new ModText(this, costFontSize, 
+	    		malusC, malusC, hoverC, depressedC, malusC, false);
 	}
 	public static ShowCustomRaceUI instance() {
 		return instance.init0();
@@ -300,6 +305,10 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	protected  String totalCostStr()	{
 		return text(totalCostKey, Math.round(cr.getTotalCost()));
 	}
+	protected  String malusCostStr()	{
+		return text(malusCostKey, Math.round(cr.getMalusCost()));
+	}
+
 	private boolean checkForHoveredSettings(LinkedList<SettingBase<?>> settings) {
 		for (SettingBase<?> setting : settings) {
 			if (setting.settingText().contains(mX,mY)) {
@@ -572,6 +581,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		}
 		totalCostText.displayText(totalCostStr());
 		totalCostText.disabled(true);
+		malusCostText.displayText(malusCostStr());
+		malusCostText.disabled(true);
 		descBox.setText("<b>Shift</b>&nbsp and <b>Ctrl</b>&nbsp can be used to change buttons, click and scroll functions");
 	}
 	@Override public boolean checkModifierKey(InputEvent e) {
@@ -600,6 +611,10 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		totalCostText.displayText(totalCostStr());
 		totalCostText.setScaledXY(xCost, yCost);
 		totalCostText.draw(g);
+		// Malus cost
+		malusCostText.displayText(malusCostStr());
+		malusCostText.setScaledXY(xCost + scaled(110), yCost);
+		malusCostText.draw(g);
 		
 		// Loop thru the parameters
 		xLine = leftM+s10;
