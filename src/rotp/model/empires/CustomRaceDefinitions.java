@@ -1601,8 +1601,8 @@ public class CustomRaceDefinitions  {
 	private class ProdWorker extends SettingInteger {
 		// bigger = better
 		private ProdWorker() {
-			super(ROOT, "PROD_WORKER", 100, 70, 200, 1, 5, 20,
-					DIFFERENCE, new float[]{0f, .4f, 0.004f}, new float[]{0f, 0.8f, 0.006f});
+			super(ROOT, "PROD_WORKER", 100, 70, 300, 1, 5, 20,
+					DIFFERENCE, new float[]{0f, .8f, 0f}, new float[]{0f, 0.8f, 0.01f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -1617,7 +1617,7 @@ public class CustomRaceDefinitions  {
 	private class ProdControl extends SettingInteger {
 		private ProdControl() {
 			super(ROOT, "PROD_CONTROL", 0, -1, 4, 1, 1, 1,
-					DIFFERENCE, new float[]{0f, 10f, 2.5f}, new float[]{0f, 30f, 0f});
+					DIFFERENCE, new float[]{0f, 15f, 0f}, new float[]{0f, 30f, 0f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
