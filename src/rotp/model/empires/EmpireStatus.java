@@ -142,6 +142,12 @@ public class EmpireStatus implements Base, Serializable {
         }
         return 0;
     }
+    public int lastTurnAlive() {
+    		for (int i=1; i<populationF.length; i++)
+    			if(populationF[i] == 0)
+    				return i-1;
+    		return galaxy().currentTurn();
+    }
     private float valueFor(float[] vals, int turn) {
         if (turn < 0)
             return -1;
@@ -185,7 +191,7 @@ public class EmpireStatus implements Base, Serializable {
     private float currentTechnologyValue() {
         return (float)Math.ceil(empire.tech().avgTechLevel()); // BR: kept ceil to avoid compatibility issues
     }
-    private float currentPowerValue() {
+    public float currentPowerValue() {
         float tech = (float)Math.pow(1 / miniFastRate, empire.tech().avgTechLevel());
         float industrialPower = tech * empire.totalPlanetaryProduction();
         float militaryPower = tech * empire.totalFleetSize();

@@ -61,7 +61,19 @@ Later:
 
 ## What's New
 
-2024.03.05 (BR)
+2024.03.07 (BR)
+- Fixed some null pointer exception in for loops when list content may not be up to date.
+- Fine tuned Auto-Run Benchmark.
+
+2024.03.07 (BR)
+- Factory Refit: Linear value
+  - 1 => 15, 2 => 30, 3 => 45, 4 => 60
+- Galaxy setup panel: Player custom species name correctly displayed.
+- Auto-Run works with council.
+- New Auto-Run Benchmark. 
+- Fixed shift b adding 5 bases instead of removing one!
+
+2024.03.06 (BR)
 - Factory Refit: Quadratic value
   - 1 => 12.5, 2 => 30, 3 => 52.5, 4 => 80
 - Added malus value in Species customization panel.

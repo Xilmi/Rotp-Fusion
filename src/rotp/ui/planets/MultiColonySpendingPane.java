@@ -242,7 +242,8 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
         for (StarSystem sys: systems) {
             Colony c = sys.colony();
             if (c != null) {
-            	c.defense().incrMaxBases(1, e.isShiftDown(), e.isControlDown());
+            	c.defense().incrMaxBases(1, false, false);
+            	//c.defense().incrMaxBases(1, e.isShiftDown(), e.isControlDown());
             }
         }
         parent.repaintAll();
@@ -252,7 +253,8 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
         for (StarSystem sys: systems) {
             Colony c = sys.colony();
             if (c != null) {
-            	c.defense().incrMaxBases(-1, e.isShiftDown(), e.isControlDown());
+            	c.defense().incrMaxBases(-1, false, false);
+            	//c.defense().incrMaxBases(-1, e.isShiftDown(), e.isControlDown());
             }
         }
         parent.repaintAll();

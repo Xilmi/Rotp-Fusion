@@ -254,8 +254,6 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			put("Never",	MOD_UI + "DISABLE_AUTO_HELP_NEVER");
 		}
 	};
-	// ParamBoolean disableAutoHelp	= new ParamBoolean(MOD_UI, "DISABLE_AUTO_HELP", rotp.Rotp.hadCfgFile)
-	// { { isCfgFile(true); } };
 	default boolean isAutoHelpDisabled()	{ return disableAutoHelp.get().equalsIgnoreCase("Yes"); }
 	default void autoHelpHasBeenShown()		{
 		if (disableAutoHelp.get().equalsIgnoreCase("No"))

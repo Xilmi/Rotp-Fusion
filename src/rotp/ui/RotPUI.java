@@ -15,6 +15,8 @@
  */
 package rotp.ui;
 
+import static rotp.model.game.IDebugOptions.AUTORUN_BENCHMARK;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -28,6 +30,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -436,6 +441,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         GovernorOptions.callForReset();
 		if (guiOptions().selectedShowConsolePanel())
 			CommandConsole.introMenu.open("");
+    	if (options().debugBenchmark()) {
+    		raceIntroUI.finish();
+    		repaint();
+    		return;
+    	}  	
     }
     public void selectMainPanel()      { selectMainPanel(false); }
     public void selectMainPanel(boolean pauseNextTurn)      {
@@ -474,6 +484,10 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         selectPanel(MAIN_PANEL, mainUI());
         repaint();
         GovernorOptions.callForReset();
+        if (options().debugBenchmark()) {
+        	handleNextTurn();       	
+        	session().nextTurn();
+        }
     }
     public void selectGamePanel()      {
         gameUI.init();
@@ -490,6 +504,10 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void selectTechPanel()      { allocateTechUI.init(); selectPanel(TECH_PANEL, allocateTechUI); }
     public void selectTechPanel(int r) { allocateTechUI.init(r); selectPanel(TECH_PANEL, allocateTechUI); }
     public void selectCouncilPanel()   {
+    	if (options().debugAutoRun()) {
+    		galacticCouncilUI.autoRun();
+    		return;
+    	}  	
         session().pauseNextTurnProcessing("Show Council");
         galacticCouncilUI.init();
         if (!UserPreferences.windowed())
@@ -498,7 +516,31 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             selectPanel(COUNCIL_PANEL, galacticCouncilUI);
         session().waitUntilNextTurnCanProceed();
     }
+    private void benchmarkGameOver()  {
+    	List<Empire> sortedEmpires = new ArrayList<>();
+    	sortedEmpires.addAll(Arrays.asList(galaxy().empires()));
+        for (Empire emp: sortedEmpires)
+            emp.setBenchmark();
+        Collections.sort(sortedEmpires, Empire.BENCHMARK);
+        String sep   = "	"; // Tab
+        String aiKey = options().selectedAutoplayOption();
+        String out   =  "Turn:" + galaxy().currentTurn() + sep + text(aiKey);
+        for (Empire emp: sortedEmpires) {
+        	out   += sep + emp.raceType() + ": " + emp.benchmark();
+        }
+        writeToFile(AUTORUN_BENCHMARK, out, true, true);        	
+
+    	// May be overkill, but better safe than sorry
+    	selectGamePanel();
+		selectSetupRacePanel();
+		selectSetupGalaxyPanel();
+		setupGalaxyUI().startGame();
+    }
     public void selectGameOverPanel()  {
+    	if (options().debugBenchmark()) {
+    		benchmarkGameOver();
+    		return;
+    	}  	
         gameOverUI.init();
         if (!UserPreferences.windowed())
             selectDialogPanel(GAME_OVER_PANEL, gameOverUI);

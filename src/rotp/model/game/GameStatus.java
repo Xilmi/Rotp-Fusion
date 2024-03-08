@@ -25,6 +25,7 @@ public class GameStatus implements Base, Serializable {
         WIN_NEW_REPUBLIC, WIN_REBELLION, WIN_REBELLION_ALLIANCE, WIN_COUNCIL_ALLIANCE, LOSS_NO_COLONIES; }
     private Status status = Status.NO_GAME;
 
+    public String key() { return status.toString(); }
     public boolean inProgress()       {
     	if (status != Status.NO_GAME && status != Status.IN_PROGRESS && options().debugAutoRun())
     		return GameSession.instance().galaxy().numActiveEmpires() > 1;
@@ -37,6 +38,10 @@ public class GameStatus implements Base, Serializable {
     public boolean won() {
     	return wonCouncilAlliance() || wonMilitary() || wonMilitaryAlliance() 
             || wonNewRepublic() || wonRebellion() || wonRebellionAlliance() || wonDiplomatic();
+    }
+    public boolean endAutoRun() {
+    	return won() || lostOverthrown() || lostDiplomatic()
+    			|| lostNewRepublic() || lostRebellion(); 
     }
     public boolean lostOverthrown()       { return status == Status.LOSS_OVERTHROWN; }
     public boolean lostMilitary()         { return status == Status.LOSS_MILITARY; }
@@ -66,5 +71,7 @@ public class GameStatus implements Base, Serializable {
     public void winRebellion()            { status = Status.WIN_REBELLION; }
     public void winRebellionAlliance()    { status = Status.WIN_REBELLION_ALLIANCE; }
     public void winCouncilAlliance()      { status = Status.WIN_COUNCIL_ALLIANCE; }
+    
+    
     
 }

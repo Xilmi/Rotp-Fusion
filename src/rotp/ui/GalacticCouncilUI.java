@@ -15,6 +15,8 @@
  */
 package rotp.ui;
 
+import static rotp.model.game.IDebugOptions.AUTORUN_OTHERFILE;
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -95,6 +97,31 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
         displayMode = Display.ANNOUNCE;
         background = player().race().council();
         startFadeTimer();
+    }
+    public void autoRun() { // TODO BR: Auto-Run
+    	GalacticCouncil council = galaxy().council();
+    	showVoterSummary = true;
+        displayMode = Display.ANNOUNCE;
+        council.continueNonPlayerVoting();
+        displayMode = nextVotingMode();
+        showVoterSummary = false;
+        displayMode = Display.SHOW_VOTE_RESULT;
+        advanceScreen();
+        String s = concat(getTurn(), " | Council ");
+        if(displayMode == Display.NO_WINNER) {
+        	s += "No Winner";
+        	advanceScreen();
+        	advanceScreen();
+        }
+        else {
+        	council.acceptRuling(player());
+        	advanceScreen();
+        	s += "Winner = ";
+        	s += council.leader().name();
+        }
+        writeToFile(AUTORUN_OTHERFILE, s, true, true);
+    	if (options().consoleAutoRun())
+    		System.out.println(s);
     }
     @Override
     public String ambienceSoundKey() { return "CouncilAmbience"; }

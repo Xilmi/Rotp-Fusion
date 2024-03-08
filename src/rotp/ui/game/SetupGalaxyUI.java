@@ -97,6 +97,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import rotp.Rotp;
 import rotp.model.ai.AIList;
+import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
@@ -2506,8 +2507,17 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
         g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		Race race = Race.keyed(newGameOptions().selectedPlayerRace());
-
+		Race race;
+		String setupName;
+		if (newGameOptions().selectedPlayerIsCustom()) {
+			race = Race.keyed(CustomRaceDefinitions.CUSTOM_RACE_KEY, null);
+			setupName = race.setupName;
+		}
+		else {
+			race = Race.keyed(newGameOptions().selectedPlayerRace());
+			setupName = race.setupName();
+		}
+		
 		// background image
 		Image back = GameUI.defaultBackground;
 		int imgW = back.getWidth(null);
@@ -2557,8 +2567,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int y2 = boxY+s25+mugH-s52; // BR: up a little
 		int yho = s5; // BR: a little space for new races on/off 
 		g.setFont(narrowFont(28));
-		String header1 = text("SETUP_OPPONENTS_HEADER_1", race.setupName());
-		String header2 = text("SETUP_OPPONENTS_HEADER_2", race.setupName());
+		String header1 = text("SETUP_OPPONENTS_HEADER_1", setupName);
+		String header2 = text("SETUP_OPPONENTS_HEADER_2");
 		int swHdr = g.getFontMetrics().stringWidth(header1);
 		drawBorderedString(g, header1, 1, x2, y2-yho, Color.black, Color.white);
 

@@ -390,6 +390,7 @@ public final class GameSession implements Base, Serializable {
     	boolean append = galaxy().currentTurn() > 1;
     	String turn;
     	String duration;
+    	String state = status().key();
     	if (dt == 0) {
     		turn = getTurn(".5");
     		duration = " ";
@@ -414,6 +415,7 @@ public final class GameSession implements Base, Serializable {
 					" | Aliens:", String.format("%3d", player().numContacts()),
 					"/", StringUtils.rightPad(String.valueOf(galaxy().numActiveEmpires()-1), 2),
 					" | War:", String.format("%3d", player().numEnemies()),
+					" | Status: ", state,
 					" | ", new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()),
 					" | ", duration
 					);
@@ -427,8 +429,7 @@ public final class GameSession implements Base, Serializable {
         }
 
     }
-    @SuppressWarnings("unused")
-	private void ModnarPrivateLogging() {
+    @SuppressWarnings("unused") private void ModnarPrivateLogging() {
 		String LogPath = Rotp.jarPath();
 		File TestLogFile = new File(LogPath, "TestLogFile.txt");
 		if (galaxy.currentTurn() % 5 == 0) { // log every 5 turns
@@ -478,7 +479,7 @@ public final class GameSession implements Base, Serializable {
                 performingTurn = true;
                 Galaxy gal = galaxy();
                 String turnTitle = nextTurnTitle();
-                NoticeMessage.setStatus(turnTitle, text("TURN_SAVING"));
+                NoticeMessage.setStatus(turnTitle, text("TURN_SAVING") + " a");
                 FlightPathSprite.clearWorkingPaths();
                 RotPUI.instance().mainUI().saveMapState();
                 log("Next Turn - BEGIN: ", str(galaxy.currentYear()));
@@ -585,7 +586,7 @@ public final class GameSession implements Base, Serializable {
                 gal.refreshAllEmpireViews();
                 log("Autosaving post-turn");
                 log("NEXT TURN PROCESSING TIME: ", str(timeMs()-startMs));
-                NoticeMessage.resetSubstatus(text("TURN_SAVING"));
+                NoticeMessage.resetSubstatus(text("TURN_SAVING" + " b"));
                 ufs = instance.saveRecentSession(true);
 
                 log("Reselecting main panel");
@@ -610,11 +611,12 @@ public final class GameSession implements Base, Serializable {
                 RotPUI.instance().mainUI().restoreMapState();
                 if (Rotp.memoryLow())
                     RotPUI.instance().mainUI().showMemoryLowPrompt();
+                // RotPUI.instance().selectGameOverPanel();
                 // handle game over possibility
                 if (autoRunning && options().debugAutoRun()) {
-                	if ((galaxy().numActiveEmpires() == 1 
+                	if ( (galaxy().numActiveEmpires() == 1 
                 			&& options.selectedOpponentRaces()[0]!=null)
-                			|| session().status().won()) {
+                			|| status().endAutoRun() ) {
                 		RotPUI.instance().selectGameOverPanel();
                 	}
                 	else {
@@ -623,7 +625,7 @@ public final class GameSession implements Base, Serializable {
                 	}
                 }
                 else {
-                    if (!session().status().inProgress())
+                    if (!status().inProgress())
                         RotPUI.instance().selectGameOverPanel();                	
                 }
                 performingTurn = false;

@@ -188,11 +188,21 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient float totalEmpireShipMaintenanceCost;
     private transient float totalEmpireStargateCost;
     private transient float totalEmpireMissileBaseCost;
+    private transient float benchmark;
     private transient int inRange;
     public  transient int numColoniesHistory;
     private transient String empireName;
     private transient List<SpaceMonster> visibleMonsters = new ArrayList<>();
 
+    public float benchmark() { return benchmark; }
+        public void setBenchmark() {
+    	if (extinct()) {
+    		benchmark = status.lastTurnAlive() - galaxy().currentTurn();
+    	}
+    	else {
+    		benchmark = status.currentPowerValue();
+    	}
+    }
     public Random techRandom() { // for more repeatable restart
     	if (options().researchMoo1() || galaxy().numberTurns() < 1) {
         	if (techRandom == null) {
@@ -261,6 +271,12 @@ public final class Empire implements Base, NamedObject, Serializable {
         else
             rn = names.get(i);
         return dataRace().racePrefix + rn + dataRace().raceSuffix; // BR: for custom Races
+    }
+    public String raceType() {
+    	if (isCustomRace())
+    		return dataRace().setupName;
+    	else
+    		return dataRace.nameVariant(0);
     }
     public boolean masksDiplomacy()               { return race().masksDiplomacy || ai().diplomat().masksDiplomacy(); }
     public List<StarSystem> shipBuildingSystems() { return shipBuildingSystems; }
@@ -672,7 +688,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return false;
         
         for (StarSystem abSys: galaxy().abandonedSystems()) {
-            if (sv.inShipRange(abSys.id) && canColonize(abSys))
+            if (abSys != null && sv.inShipRange(abSys.id) && canColonize(abSys))
                 return true;
         }
             
@@ -721,7 +737,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void changeAllExistingRallies(StarSystem dest) {
         if (canRallyFleetsTo(id(dest))) {
             for (StarSystem sys: allColonizedSystems()) {
-                if (sv.hasRallyPoint(sys.id))
+                if (sys != null && sv.hasRallyPoint(sys.id))
                     sv.rallySystem(sys.id, dest);
             }
         }
@@ -729,7 +745,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void changeRalliesFromAToB(StarSystem source, StarSystem dest) {
         if (canRallyFleetsFrom(id(source)) && canRallyFleetsTo(id(dest))) {
             for (StarSystem sys: allColonizedSystems()) {
-                if (sv.rallySystem(sys.id) == source)
+                if (sys != null && sv.rallySystem(sys.id) == source)
                     sv.rallySystem(sys.id, dest);
             }
             sv.rallySystem(source.id, dest);
@@ -738,12 +754,14 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void startRallies(List<StarSystem> fromSystems, StarSystem dest) {
         if (canRallyFleetsTo(id(dest))) {
             for (StarSystem sys: fromSystems)
-                sv.rallySystem(sys.id, dest);
+            	if(sys != null)
+            		sv.rallySystem(sys.id, dest);
         }
     }
     public void stopRallies(List<StarSystem> fromSystems) {
         for (StarSystem sys: fromSystems)
-            sv.stopRally(sys.id);
+           	if(sys != null)
+           		sv.stopRally(sys.id);
     }
     public void cancelTransport(StarSystem from) {
         from.transportSprite().clear();
@@ -773,7 +791,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         List<StarSystem> systems = allColonizedSystems();
         sv.stopRally(dest.id);
         for (StarSystem sys: systems) {
-            if (sv.rallySystem(sys.id) == dest) 
+            if (sys != null && sv.rallySystem(sys.id) == dest) 
                 sv.stopRally(sys.id);
         }
     }
@@ -787,7 +805,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private void validateColonizedSystems() {
         List<StarSystem> good = new ArrayList<>();
         for (StarSystem sys: colonizedSystems) {
-            if (sys.isColonized() && (sys.empire() == this)) {
+            if (sys != null && sys.isColonized() && (sys.empire() == this)) {
                 if (!good.contains(sys))
                     good.add(sys);
             }
@@ -924,7 +942,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return false;
         List<ShipFleet> fleets = galaxy().ships.allFleets(id);
         for (ShipFleet fl: fleets) {
-            if (shipScanningRange() >= fl.distanceTo(sys))
+            if (fl != null && shipScanningRange() >= fl.distanceTo(sys))
                 return true;
         }
         return false;
@@ -1093,7 +1111,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void lowerECOToCleanIfEcoComplete() {
         List<StarSystem> systems = new ArrayList<>(colonizedSystems);
         for (StarSystem sys: systems) {
-            if (sys.isColonized())
+            if (sys != null && sys.isColonized())
                 sys.colony().lowerECOToCleanIfEcoComplete();
         }
     }
@@ -1132,29 +1150,31 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void retreatShipsFrom(int empId) {
         List<Transport> transports = transports();
         for (Transport tr: transports) {
-            if (tr.destination().empId() == empId)
+            if (tr != null && tr.destination().empId() == empId)
                 tr.orderToSurrenderOnArrival();
         }
         ShipCaptain shipCaptain = shipCaptainAI();
         Ships shipMgr = galaxy().ships;
         List<ShipFleet> fleets = shipMgr.allFleets(id);
         for (ShipFleet fl: fleets) {
-            // if orbiting a system colonized by empId, then retreat it
-            if (fl.isOrbiting()) {
-                StarSystem orbitSys = fl.system();
-                if (orbitSys.empId() == empId) {
-                    StarSystem dest = shipCaptain.retreatSystem(orbitSys); 
-                    if (dest != null)
-                        shipMgr.retreatFleet(fl, dest.id);
-                }
-            }
-            // if in transit to a system colonized by empId, then
-            // set it to retreat on arrival
-            else if (fl.isInTransit()) {
-                StarSystem dest = fl.destination();
-                if (dest.empId() == empId)
-                    fl.makeRetreatOnArrival();
-            }
+	        	if (fl != null) {
+	            // if orbiting a system colonized by empId, then retreat it
+	            if (fl.isOrbiting()) {
+	                StarSystem orbitSys = fl.system();
+	                if (orbitSys.empId() == empId) {
+	                    StarSystem dest = shipCaptain.retreatSystem(orbitSys); 
+	                    if (dest != null)
+	                        shipMgr.retreatFleet(fl, dest.id);
+	                }
+	            }
+	            // if in transit to a system colonized by empId, then
+	            // set it to retreat on arrival
+	            else if (fl.isInTransit()) {
+	                StarSystem dest = fl.destination();
+	                if (dest.empId() == empId)
+	                    fl.makeRetreatOnArrival();
+	            }
+        	}
         }
     }
     public void completeResearch() {
@@ -2130,7 +2150,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         Galaxy gal = galaxy();
         List<Transport> transports = new ArrayList<>();
         for (Transport tr: gal.transports()) {
-            if (tr.empId() == id)
+            if (tr != null && tr.empId() == id)
                 transports.add(tr);
         }
         return transports;
@@ -2147,7 +2167,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         int transports = s.orbitingTransports(id);
         
         for (Transport tr: gal.transports()) {
-            if ((tr.empId() == id) && (tr.destSysId() == s.id))
+            if (tr != null && (tr.empId() == id) && (tr.destSysId() == s.id))
                 transports += tr.size();
         }
         return transports;
@@ -2258,7 +2278,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         Empire e = galaxy().empire(empId);
         float range = max(e.scoutRange(), scoutRange());
         for (StarSystem sys: e.allColonizedSystems()) {
-            if (sv.distance(sys.id) <= range)
+            if (sys != null && sv.distance(sys.id) <= range)
                 return true;
         }
         return false;
@@ -4109,7 +4129,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         // prevent double notifications
         if (extinct)
             return;
-        
+
         if (lastAttacker instanceof Empire)
             GenocideIncident.create(this, (Empire) lastAttacker);
         GNNGenocideNotice.create(this, lastAttacker);
@@ -4549,6 +4569,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public static Comparator<Empire> TOTAL_FLEET_SIZE = (Empire o1, Empire o2) -> o2.totalFleetSize().compareTo(o1.totalFleetSize());
     public static Comparator<Empire> RACE_NAME        = (Empire o1, Empire o2) -> o1.raceName().compareTo(o2.raceName());
     public static Comparator<Empire> HISTORICAL_SIZE  = (Empire o1, Empire o2) -> Base.compare(o2.numColoniesHistory, o1.numColoniesHistory);
+    public static Comparator<Empire> BENCHMARK        = (Empire o1, Empire o2) -> Base.compare(o2.benchmark, o1.benchmark);
 	// ==================== EmpireBaseData ====================
 	//
 	public static class EmpireBaseData {

@@ -342,7 +342,7 @@ public interface IGameOptions extends IModOptions {
     	return list;
     }
     public default boolean isAutoPlay()           { return !selectedAutoplayOption().equals(AUTOPLAY_OFF); }
-	public default boolean autoRunAILocked()      { return debugAutoRun.get() && !isAutoPlay(); }
+	public default boolean autoRunAILocked()      { return debugAutoRun() && !isAutoPlay(); }
     //public default boolean communityAI()        { return false; }
     public default boolean selectableAI()         { return selectedOpponentAIOption().equals(OPPONENT_AI_SELECTABLE); }
     //public default boolean usingExtendedRaces() { return (selectedNumberOpponents()+1) > startingRaceOptions().size(); }

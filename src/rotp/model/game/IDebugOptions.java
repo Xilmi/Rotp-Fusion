@@ -9,16 +9,18 @@ import rotp.ui.RotPUI;
 import rotp.ui.console.CommandConsole;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
+import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 
 public interface IDebugOptions extends IBaseOptsTools {
-	String DEBUG_GUI_ID		= "DEBUG_OPTIONS";
-    String MEMORY_LOGFILE	= "AutoRunMemory.txt";
-    String AUTORUN_LOGFILE	= "AutoRunPlayer.txt";
-    String NOTIF_LOGFILE	= "AutoRunNotifications.txt";
-    String AUTORUN_OTHERFILE= "AutoRunOther.txt";
-    String AUTORUN_EVENTS   = "AutoRunEvents.txt";
+	String DEBUG_GUI_ID		 = "DEBUG_OPTIONS";
+    String MEMORY_LOGFILE	 = "AutoRunMemory.txt";
+    String AUTORUN_LOGFILE	 = "AutoRunPlayer.txt";
+    String NOTIF_LOGFILE	 = "AutoRunNotifications.txt";
+    String AUTORUN_OTHERFILE = "AutoRunOther.txt";
+    String AUTORUN_EVENTS	 = "AutoRunEvents.txt";
+    String AUTORUN_BENCHMARK = "AutoRunBenchmark.txt";
 
 	ParamBoolean debugShowMemory	= new ParamBoolean(GAME_UI, "MEMORY", false) {
 		{ isDuplicate(true); isCfgFile(true); }
@@ -40,10 +42,21 @@ public interface IDebugOptions extends IBaseOptsTools {
 	{ { isDuplicate(false); isCfgFile(true); } };
 	default boolean debugFileMemory()		{ return debugFileMemory.get(); }
 
+	ParamList debugAutoRun		= new ParamList( MOD_UI, "DEBUG_AUTO_RUN", "Off") {
+		{
+			isCfgFile(true);
+			showFullGuide(true);
+			put("Off",		MOD_UI + "DEBUG_AUTO_RUN_OFF");
+			put("On",		MOD_UI + "DEBUG_AUTO_RUN_ON");
+			put("Bench",	MOD_UI + "DEBUG_AUTO_RUN_BENCH");
+		}
+	};
+	default boolean debugAutoRun()		{ return !debugAutoRun.get().equalsIgnoreCase("Off"); }
+	default boolean debugBenchmark()	{ return debugAutoRun.get().equalsIgnoreCase("Bench"); }
 
-	ParamBoolean debugAutoRun		= new ParamBoolean(GAME_UI, "DEBUG_AUTO_PLAY", false)
-	{ { isDuplicate(false); isCfgFile(true); } };
-	default boolean debugAutoRun()			{ return debugAutoRun.get(); }
+//	ParamBoolean debugAutoRun		= new ParamBoolean(GAME_UI, "DEBUG_AUTO_PLAY", false)
+//	{ { isDuplicate(false); isCfgFile(true); } };
+//	default boolean debugAutoRun()			{ return debugAutoRun.get(); }
 
 	ParamBoolean consoleAutoRun		= new ParamBoolean(GAME_UI, "CONSOLE_AUTO_PLAY", false)
 	{ { isDuplicate(false); isCfgFile(true); } };
@@ -87,7 +100,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 				// showConsolePanel
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("DEBUG_AUTO_PLAY"),
+				new ParamTitle("DEBUG_AUTO_RUN"),
 				debugAutoRun, consoleAutoRun,
 				debugLogNotif, debugLogEvents,
 

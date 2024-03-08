@@ -29,7 +29,7 @@ public class ThreatForSpying extends TurnNotificationMessage {
     public int numReplies()       		{ return 3; }
     @Override
     public boolean enabled(int i)       { return true; }
-     @Override
+    @Override
     public String reply(int i)          { 
         switch (i) {
             case 0 : return text("DIPLOMACY_IGNORE_THREAT");

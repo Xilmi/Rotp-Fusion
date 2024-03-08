@@ -85,14 +85,13 @@ public class EmpireSystemPanel extends SystemPanel {
     public void keyPressed(KeyEvent e) {
     	setModifierKeysState(e); // BR: For the Flag color selection
         int k = e.getKeyCode();
-        int code = e.getModifiersEx();
         boolean shift = e.isShiftDown();
         switch (k) {
             case KeyEvent.VK_B:
-                if (code == 0)
-                    infoPane.incrementBases(e);
-                else if (code == 64)
-                    infoPane.decrementBases(e);
+                if (shift)
+                	infoPane.basesPane.incrBases(-1, false, false);
+                else
+                	infoPane.basesPane.incrBases(1, false, false);
                 return;
             case KeyEvent.VK_F:
                 foundedPane.toggleFlagColor(shift);

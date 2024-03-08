@@ -464,8 +464,15 @@ GAME_SETTINGS_MEMORY_FILE_DESC    | Toggles the file output of memory usage stat
 GAME_SETTINGS_SHOW_CONSOLE_PANEL      | Show Console Panel: %1
 GAME_SETTINGS_SHOW_CONSOLE_PANEL_DESC | Toggles the Display of a console for alternate interactions.
 
-GAME_SETTINGS_DEBUG_AUTO_PLAY        | Auto Run: %1
-GAME_SETTINGS_DEBUG_AUTO_PLAY_DESC   | Toggles the Debug auto run. Game will not stop at the end of each turns.<br>Press ESC to pause
+SETTINGS_MOD_DEBUG_AUTO_RUN            | Auto Run: %1
+SETTINGS_MOD_DEBUG_AUTO_RUN_DESC       | Toggles the Debug auto run. Game will not stop at the end of each turns.<br>Press ESC to pause
+SETTINGS_MOD_DEBUG_AUTO_RUN_OFF        | Off
+SETTINGS_MOD_DEBUG_AUTO_RUN_OFF_DESC   | To disable Auto Run
+SETTINGS_MOD_DEBUG_AUTO_RUN_ON         | On
+SETTINGS_MOD_DEBUG_AUTO_RUN_ON_DESC    | Game will not stop at the end of each turns
+SETTINGS_MOD_DEBUG_AUTO_RUN_BENCH      | Benchmark
+SETTINGS_MOD_DEBUG_AUTO_RUN_BENCH_DESC | Game will not stop at the end of each turns, will log the result at the end of the game and start a new game with the same parameters.
+
 GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Log to console: %1
 GAME_SETTINGS_CONSOLE_AUTO_PLAY_DESC | When enabled, the logged data are also shown on the console.
 GAME_SETTINGS_DEBUG_LOG_NOTIF        | Log Notifications: %1
@@ -2037,8 +2044,8 @@ HEADERS_RANDOM_EVENTS_RETURNS        | ~~~ RECURING PARAMETERS ~~~%1
 
 HEADERS_DEBUG_MEMORY_DESC            | To enable or disable Memory monitoring.
 HEADERS_DEBUG_MEMORY                 | ~~~ MEMORY MONITORING ~~~%1
-HEADERS_DEBUG_AUTO_PLAY_DESC         | To enable and configure Full Auto Run.
-HEADERS_DEBUG_AUTO_PLAY              | ~~~ AUTO RUN ~~~%1
+HEADERS_DEBUG_AUTO_RUN_DESC          | To enable and configure Full Auto Run.
+HEADERS_DEBUG_AUTO_RUN               | ~~~ AUTO RUN ~~~%1
 
 HEADERS_ZOOM_FONT_DESC               | To set galaxy map font sizes.
 HEADERS_ZOOM_FONT                    | ~~~ ZOOM FONT FACTORS ~~~%1

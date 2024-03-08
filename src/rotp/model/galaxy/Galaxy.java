@@ -618,7 +618,7 @@ public class Galaxy implements Base, Serializable {
         Galaxy gal = galaxy();
 
         for (Transport tr: gal.transports()) {
-            if (tr.empId() == player().id) {
+            if (tr != null && tr.empId() == player().id) {
                 if (tr.destSysId() == sys.id)
                     pop += tr.size();
             }
@@ -656,7 +656,7 @@ public class Galaxy implements Base, Serializable {
         int pop = 0;
         Empire pl = player();
         for (Transport sh: transports) {
-            if ( (sh.destSysId() == sys.id)
+            if ( sh != null && (sh.destSysId() == sys.id)
             		&& (sh.empId() != pl.id)
             		&& pl.knowETA(sh))
                 pop += sh.size();

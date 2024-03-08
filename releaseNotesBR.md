@@ -2,9 +2,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Species Customization:
-  - Added malus value in Species customization panel.
-  - New values for Worker Production and Factory Control.
+- Auto-Run manage council
+- New Benchmark tester
+- minor fixes and tuning.
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -43,9 +44,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - The state of the guide is now remembered from session to session. Default = Enabled.
 - The advisor has been restored... Easy to switch off in In-Game Options.
 - The Auto help at start has been restored... Easy to switch off in In-Game Options.
-- Sepcies Customization:
+- Species Customization:
   - Added malus value in Species customization panel.
   - New values for Worker Production and Factory Control.
+- Auto-Run manage council
+  - New Benchmark tester
+
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
@@ -80,3 +84,4 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners. (Xilmi)
 - Fixed Orion Guardian auto-repair not working.
 - Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
+- minor fixes...
