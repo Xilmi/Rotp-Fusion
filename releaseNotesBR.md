@@ -2,14 +2,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Auto-Run:
-  - Manage council
-  - Notice will be shown at the bottom of the screen.
-  - New Benchmark tester
-    - Option to show the zoomed out galaxy when Benchmarking.
-    - Benchmark "Continue" option to Stop the current game, log results, then Continue the tests.
-    - Option to limit for max turns to play.
-    - Option to limit for max turns to play after player lost.
+- Fixed a bug where AI:Rookie was listed twice in AI:Random
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -95,4 +88,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners. (Xilmi)
 - Fixed Orion Guardian auto-repair not working.
 - Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
+- Fixed a bug where AI:Rookie was listed twice in AI:Random
 - minor fixes...

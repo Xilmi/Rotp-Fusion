@@ -310,7 +310,7 @@ public interface IGameOptions extends IModOptions {
 
     // AI Subset Getter: These sequences can be changed to fit GUI requirements
     public static AIList allAIset() {
-    	AIList list = baseAIset();
+    	AIList list = optionalAIset();
      	list.addAll(mandatoryAIset());
     	return list;
     }

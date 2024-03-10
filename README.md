@@ -63,6 +63,7 @@ Later:
 
 2024.03.10 (BR)
 - Added null test in loop list of Empire class.
+- Fixed a bug where AI:Rookie was listed twice in AI:Random
 
 2024.03.09 (BR)
 - New Debug Option to disable Auto save
