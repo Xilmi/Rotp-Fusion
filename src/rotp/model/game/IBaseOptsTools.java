@@ -14,6 +14,7 @@ public interface IBaseOptsTools {
 	String LAST_OPTIONS_FILE	= "Last.options";
 	String LIVE_OPTIONS_FILE	= "Live.options";
 	String USER_OPTIONS_FILE	= "User.options";
+	String NEGATIVE_DISABLED	= "SETTINGS_MOD_NEGATIVE_DISABLED";
 	// To be able to identify the current options
 	int UNKNOWN_ID = 0;
 	int GAME_ID  = 1;

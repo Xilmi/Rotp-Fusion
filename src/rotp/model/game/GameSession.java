@@ -125,6 +125,7 @@ public final class GameSession implements Base, Serializable {
     private final GameStatus status = new GameStatus();
     private long id;
     private boolean spyActivity = false;
+    private Integer lastTurnAlive;
 
     public GameStatus status()                   { return status; }
     public long id()                             { return id; }
@@ -611,7 +612,11 @@ public final class GameSession implements Base, Serializable {
                 RotPUI.instance().mainUI().restoreMapState();
                 if (Rotp.memoryLow())
                     RotPUI.instance().mainUI().showMemoryLowPrompt();
-                // RotPUI.instance().selectGameOverPanel();
+                if(benchmarkBreakAndContinue()) {
+                	options().debugBMContinue();
+                	RotPUI.instance().selectGameOverPanel();
+                	return;
+                }
                 // handle game over possibility
                 if (autoRunning && options().debugAutoRun()) {
                 	if ( (galaxy().numActiveEmpires() == 1 
@@ -633,6 +638,28 @@ public final class GameSession implements Base, Serializable {
                 	CommandConsole.turnCompleted(galaxy().currentTurn());
             }
         };
+    }
+    private boolean benchmarkBreakAndContinue() {
+    	if (options().debugBMBreak())
+    		return true;
+    	if (!options().debugBenchmark())
+    		return false;
+		int turn = galaxy().currentTurn();
+		int maxTurns = options().debugBMMaxTurns();
+		if (maxTurns > 0 && turn > maxTurns) {
+			System.err.println("maxTurns > 0 && turn > maxTurns");
+			return true;
+		}
+		int maxLostTurns = options().debugBMLostTurns();
+		if (maxLostTurns > 0 && status().lost()) {
+			if (lastTurnAlive == null)
+				lastTurnAlive = player().status().lastTurnAlive();
+			if (turn - lastTurnAlive > maxLostTurns) {
+				System.err.println("turn - lastTurnAlive > maxLostTurns");
+				return true;
+			}
+		}
+    	return false;
     }
     private void clearNotificationLimits() {
     	DiplomaticNotification.clearNotificationLimits();
@@ -1070,6 +1097,8 @@ public final class GameSession implements Base, Serializable {
         return concat(leader,dash,race,dash,gShape,dash,gSize,dash,diff,dash,opp,dash,turn,SAVEFILE_EXTENSION);
     }
     public long saveRecentSession(boolean endOfTurn) {
+    	if (options().debugNoAutoSave())
+    		return -1;
     	long ufs = -1;
     	if (!endOfTurn) // BR: Always keep a copy of starting turn
     		saveRecentStartSession();
@@ -1171,11 +1200,13 @@ public final class GameSession implements Base, Serializable {
 
             loadPreviousSession(newSession, startUp);
             newSession.ironmanValidation();
-            // do not autosave the current session if that is the file we are trying to reload            
-            if (!filename.equals(RECENT_SAVEFILE))
-                saveRecentSession(false);
-            else
-            	saveRecentStartSession(); // BR: to keep a copy of the beginning of the turn
+        	if (!options().debugNoAutoSave()) {
+                // do not autosave the current session if that is the file we are trying to reload            
+                if (!filename.equals(RECENT_SAVEFILE))
+                    saveRecentSession(false);
+                else
+                	saveRecentStartSession(); // BR: to keep a copy of the beginning of the turn
+        	}
          }
         catch(IOException e) {
             throw new RuntimeException(text("LOAD_GAME_BAD_VERSION", filename));

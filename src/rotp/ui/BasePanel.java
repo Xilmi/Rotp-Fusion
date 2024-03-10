@@ -268,9 +268,10 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
         int x = (w-sw)/2;
         int y = (h+yAdj)/2;
         if (autoRun) { // let us see the map while auto-run
-        	x = bdrW+s10;
-        	y = bdrW+s10;
-        }
+        	y = h - noticeH - bdrW ;
+        	// x = bdrW+s10;
+        	// y = bdrW+s10;
+       }
         	
         g.setColor(MainUI.paneShadeC);
         g.fillRect(x-bdrW, y-bdrW, noticeW+bdrW+bdrW, noticeH+bdrW+bdrW);

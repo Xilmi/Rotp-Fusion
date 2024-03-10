@@ -9,6 +9,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.console.CommandConsole;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
+import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
@@ -44,19 +45,56 @@ public interface IDebugOptions extends IBaseOptsTools {
 
 	ParamList debugAutoRun		= new ParamList( MOD_UI, "DEBUG_AUTO_RUN", "Off") {
 		{
+			isDuplicate(false);
 			isCfgFile(true);
 			showFullGuide(true);
 			put("Off",		MOD_UI + "DEBUG_AUTO_RUN_OFF");
 			put("On",		MOD_UI + "DEBUG_AUTO_RUN_ON");
 			put("Bench",	MOD_UI + "DEBUG_AUTO_RUN_BENCH");
+			put("End",		MOD_UI + "DEBUG_AUTO_RUN_END");
 		}
 	};
 	default boolean debugAutoRun()		{ return !debugAutoRun.get().equalsIgnoreCase("Off"); }
 	default boolean debugBenchmark()	{ return debugAutoRun.get().equalsIgnoreCase("Bench"); }
+	default void	debugBMContinue()	{ debugAutoRun.set("Bench"); }
+	default boolean debugBMBreak()		{ return debugAutoRun.get().equalsIgnoreCase("End"); }
 
-//	ParamBoolean debugAutoRun		= new ParamBoolean(GAME_UI, "DEBUG_AUTO_PLAY", false)
-//	{ { isDuplicate(false); isCfgFile(true); } };
-//	default boolean debugAutoRun()			{ return debugAutoRun.get(); }
+	ParamList debugBMShowAll		= new ParamList( MOD_UI, "DEBUG_BM_SHOW_ALL", "Off") {
+		{
+			isDuplicate(false);
+			isCfgFile(true);
+			showFullGuide(true);
+			put("Off",		MOD_UI + "DEBUG_BM_SHOW_ALL_OFF");
+			put("Alway",	MOD_UI + "DEBUG_BM_SHOW_ALL_ALWAY");
+			put("Lost",		MOD_UI + "DEBUG_BM_SHOW_ALL_LOSS");
+		}
+	};
+	default boolean debugBMShowAll()	{
+		switch (debugBMShowAll.get()) {
+		case "Off":
+			return false;
+		case "Alway":
+			return true;
+		case "Lost":
+			return GameSession.instance().status().lost();
+		}
+		return false;
+	}
+	ParamInteger debugBMMaxTurns	= new ParamInteger(MOD_UI, "DEBUG_BM_MAX_TURNS",
+									-1, -1, null, 1, 10, 100).specialNegative(NEGATIVE_DISABLED);
+	default int debugBMMaxTurns()			{ return debugBMMaxTurns.get(); }
+	
+	ParamInteger debugBMLostTurns	= new ParamInteger(MOD_UI, "DEBUG_BM_LOST_TURNS",
+									-1, -1, null, 1, 10, 100).specialNegative(NEGATIVE_DISABLED);
+	default int debugBMLostTurns()			{ return debugBMLostTurns.get(); }
+
+	ParamBoolean debugBMZoomOut		= new ParamBoolean(MOD_UI, "DEBUG_BM_ZOOM_OUT", false)
+	{ { isDuplicate(false); isCfgFile(true); } };
+	default boolean debugBMZoomOut()			{ return debugBMZoomOut.get(); }
+
+	ParamBoolean debugNoAutoSave	= new ParamBoolean(MOD_UI, "DEBUG_NO_AUTOSAVE", false)
+	{ { isDuplicate(false); isCfgFile(true); } };
+	default boolean debugNoAutoSave()			{ return debugNoAutoSave.get(); }
 
 	ParamBoolean consoleAutoRun		= new ParamBoolean(GAME_UI, "CONSOLE_AUTO_PLAY", false)
 	{ { isDuplicate(false); isCfgFile(true); } };
@@ -101,11 +139,14 @@ public interface IDebugOptions extends IBaseOptsTools {
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_AUTO_RUN"),
-				debugAutoRun, consoleAutoRun,
-				debugLogNotif, debugLogEvents,
+				debugAutoRun, debugNoAutoSave,
+				debugBMMaxTurns, debugBMLostTurns,
+				debugBMZoomOut, debugBMShowAll,
+				consoleAutoRun, debugLogNotif, debugLogEvents,
 
 				headerSpacer,
-				IAdvOptions.councilWin, IAdvOptions.autoplay
+				IAdvOptions.councilWin, IAdvOptions.autoplay,
+				IMainOptions.backupTurns
 				)));
 		return map;
 	}

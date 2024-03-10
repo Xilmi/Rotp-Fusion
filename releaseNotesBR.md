@@ -2,10 +2,14 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Auto-Run manage council
-- New Benchmark tester
-- minor fixes and tuning.
-
+- Auto-Run:
+  - Manage council
+  - Notice will be shown at the bottom of the screen.
+  - New Benchmark tester
+    - Option to show the zoomed out galaxy when Benchmarking.
+    - Benchmark "Continue" option to Stop the current game, log results, then Continue the tests.
+    - Option to limit for max turns to play.
+    - Option to limit for max turns to play after player lost.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -71,6 +75,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - The AI will now try to get a spy-network up and running as quickly as possible with empires that it never had infiltrated before. This also applies to the governor, when "Let AI handle spies" is enabled. (Xilmi)
 - Increased Governor Max Bases value to 1000.
 - Ship Display position will be rounded in fraction of total travel time.
+- Auto-Run:
+  - Manage council
+  - New Benchmark tester
+  - Benchmark "Continue" option to Stop the current game, log results, then Continue the tests.
+  - Notice will be shown at the bottom of the screen.
+  - Option to show the full galaxy when Benchmarking.
+
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.

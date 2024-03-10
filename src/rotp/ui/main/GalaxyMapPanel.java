@@ -267,6 +267,15 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         scaleY(scale);
         scaleX(scale*mapSizeX/mapSizeY);
     }
+    public void initBenchmark() {
+    	IGameOptions opts = options();
+    	debugShowAll = opts.debugBMShowAll();
+    	if (opts.debugBMZoomOut()) {
+    		centerX(sizeX()/2);
+        	centerY(sizeY()/2);
+        	setScale(maxScale());
+    	}
+    }
     private float maxScale() {
         float largestAxis = Math.max(sizeX(), sizeY());
         return galaxy().maxScaleAdj()*largestAxis;
@@ -863,32 +872,37 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             // commodification exception here without this copy
             List<Ship> visibleShips = new ArrayList<>(pl.visibleShips());
             for (Ship sh: visibleShips) {
-                sh.setDisplayed(this);
-                if (sh.displayed() || debugShowAll) {
-                    Sprite spr = (Sprite) sh;
-                    // if we are drawing the ship, then check if its flight path should be drawn first
-                    if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
-                    && (parent.shouldDrawSprite(sh.pathSprite()) || debugShowAll)) {
-                        if (pl.knowETA(sh) && sh.pathSprite()!=null)
-                            sh.pathSprite().draw(this,g);
-                        else if (options().selectedTrackUFOsAcrossTurns()) {
-                            StarSystem suspectedDestination = player().suspectedDestinationOfVisibleShip(sh);
-                            if (suspectedDestination != null)
-                                sh.pathSpriteTo(suspectedDestination).draw(this, g);
+            	if (sh != null) {
+                    sh.setDisplayed(this);
+                    if (sh.displayed() || debugShowAll) {
+                        Sprite spr = (Sprite) sh;
+                        // if we are drawing the ship, then check if its flight path should be drawn first
+                        if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
+                        && (parent.shouldDrawSprite(sh.pathSprite()) || debugShowAll)) {
+                            if (pl.knowETA(sh) && sh.pathSprite()!=null)
+                                sh.pathSprite().draw(this,g);
+                            else if (options().selectedTrackUFOsAcrossTurns()) {
+                                StarSystem suspectedDestination = player().suspectedDestinationOfVisibleShip(sh);
+                                if (suspectedDestination != null)
+                                    sh.pathSpriteTo(suspectedDestination).draw(this, g);
+                            }
                         }
-                    }
-                    spr.draw(this, g);
-                }
+                        spr.draw(this, g);
+                    }            		
+            	}
             }
             List<SpaceMonster> visibleMonsters = new ArrayList<>(pl.visibleMonsters());
             for (SpaceMonster sh: visibleMonsters) {
-                sh.setDisplayed(this);
-                if (sh.displayed()) {
-                    Sprite spr = (Sprite) sh;
-                    if (sh.event!=null && sh.event.notified() && sh.pathSprite()!=null)
-                        sh.pathSprite().draw(this, g);
-                    spr.draw(this, g);
-                }
+            	if (sh != null) {
+                    sh.setDisplayed(this);
+                    if (sh.displayed()) {
+                        Sprite spr = (Sprite) sh;
+                        if (sh.event!=null && sh.event.notified() && sh.pathSprite()!=null)
+                            sh.pathSprite().draw(this, g);
+                        spr.draw(this, g);
+                    }
+            		
+            	}
             }
         }
     }

@@ -61,9 +61,20 @@ Later:
 
 ## What's New
 
-2024.03.07 (BR)
+2024.03.09 (BR)
+- New Debug Option to disable Auto save
+- Auto-Run Benchmark.
+  - Show the all galaxy content when Benchmarking. (Off | On Loss | Alway)
+  - New limit for max turns to play.
+  - New limit for max turns to play after player lost.
+
+2024.03.08 (BR)
 - Fixed some null pointer exception in for loops when list content may not be up to date.
 - Fine tuned Auto-Run Benchmark.
+- Auto-Run:
+  - Added Benchmark "Continue" option to Stop the current game, log results, then Continue the tests.
+  - Notice will be shown at the bottom of the screen.
+  - Added option to max zoom out galaxy when Benchmarking.
 
 2024.03.07 (BR)
 - Factory Refit: Linear value

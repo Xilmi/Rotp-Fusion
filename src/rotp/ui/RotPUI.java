@@ -36,9 +36,11 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import rotp.Rotp;
+import rotp.model.ai.AI;
 import rotp.model.colony.Colony;
 import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
@@ -80,6 +82,7 @@ import rotp.ui.game.SetupRaceUI;
 import rotp.ui.game.StaticAOptionsUI;
 import rotp.ui.game.StaticBOptionsUI;
 import rotp.ui.history.HistoryUI;
+import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.map.SystemsUI;
 import rotp.ui.notifications.DiplomaticNotification;
@@ -485,8 +488,13 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         repaint();
         GovernorOptions.callForReset();
         if (options().debugBenchmark()) {
-        	handleNextTurn();       	
-        	session().nextTurn();
+        	mainUI.map().initBenchmark();
+        	mainUI.repaintAllImmediately();
+        	final Runnable save = () -> {
+        		handleNextTurn();       	
+            	session().nextTurn();
+        	};
+        	SwingUtilities.invokeLater(save);
         }
     }
     public void selectGamePanel()      {
@@ -524,14 +532,17 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         Collections.sort(sortedEmpires, Empire.BENCHMARK);
         String sep   = "	"; // Tab
         String aiKey = options().selectedAutoplayOption();
-        String out   =  "Turn:" + galaxy().currentTurn() + sep + text(aiKey);
+        String out   =  "Turn:" + galaxy().currentTurn() + sep + "Player " + text(aiKey);
         for (Empire emp: sortedEmpires) {
         	out   += sep + emp.raceType() + ": " + emp.benchmark();
         }
-        writeToFile(AUTORUN_BENCHMARK, out, true, true);        	
-
-    	// May be overkill, but better safe than sorry
+        for (Empire emp: sortedEmpires) {
+        	aiKey = emp.getAiKey();
+        	String aiName = text(aiKey).replace("AI: ", "");
+        	out   += sep + aiName;
+        }
     	selectGamePanel();
+        writeToFile(AUTORUN_BENCHMARK, out, true, true);        	
 		selectSetupRacePanel();
 		selectSetupGalaxyPanel();
 		setupGalaxyUI().startGame();

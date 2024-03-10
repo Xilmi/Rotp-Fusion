@@ -472,6 +472,28 @@ SETTINGS_MOD_DEBUG_AUTO_RUN_ON         | On
 SETTINGS_MOD_DEBUG_AUTO_RUN_ON_DESC    | Game will not stop at the end of each turns
 SETTINGS_MOD_DEBUG_AUTO_RUN_BENCH      | Benchmark
 SETTINGS_MOD_DEBUG_AUTO_RUN_BENCH_DESC | Game will not stop at the end of each turns, will log the result at the end of the game and start a new game with the same parameters.
+SETTINGS_MOD_DEBUG_AUTO_RUN_END        | Continue
+SETTINGS_MOD_DEBUG_AUTO_RUN_END_DESC   | For Benchmark mode, Stop the current game, log results, then Continue the tests.<br>When the player has lost the game and the remaining factions are no longer fighting.
+
+SETTINGS_MOD_NEGATIVE_DISABLED         | Off
+SETTINGS_MOD_DEBUG_BM_MAX_TURNS        | Benchmark max turns: %1
+SETTINGS_MOD_DEBUG_BM_MAX_TURNS_DESC   | When in Benchmark mode, maximum number of turns to play. Then break and start a new game.
+SETTINGS_MOD_DEBUG_BM_LOST_TURNS       | Benchmark lost turns: %1
+SETTINGS_MOD_DEBUG_BM_LOST_TURNS_DESC  | When in Benchmark mode, maximum number of turns to play after the player loses the game. Then break and start a new game.
+
+SETTINGS_MOD_DEBUG_BM_SHOW_ALL            | Benchmark show all: %1
+SETTINGS_MOD_DEBUG_BM_SHOW_ALL_DESC       | When in Benchmark mode, galaxy will display things unknown to the player.
+SETTINGS_MOD_DEBUG_BM_SHOW_ALL_OFF        | Off
+SETTINGS_MOD_DEBUG_BM_SHOW_ALL_OFF_DESC   | No, don't change anything.
+SETTINGS_MOD_DEBUG_BM_SHOW_ALL_ALWAY      | Alway
+SETTINGS_MOD_DEBUG_BM_SHOW_ALL_ALWAY_DESC | Display all from the begining.
+SETTINGS_MOD_DEBUG_BM_SHOW_ALL_LOSS       | On Loss
+SETTINGS_MOD_DEBUG_BM_SHOW_ALL_LOSS_DESC  | Only enabled if the player empire is extinct. (Military loss)
+
+SETTINGS_MOD_DEBUG_BM_ZOOM_OUT       | Benchmark Zoom Out: %1
+SETTINGS_MOD_DEBUG_BM_ZOOM_OUT_DESC  | When running a benchmark, the whole galaxy will be displayed.
+SETTINGS_MOD_DEBUG_NO_AUTOSAVE       | Disable Auto Save : %1
+SETTINGS_MOD_DEBUG_NO_AUTOSAVE_DESC  | Disable background security auto saving. Backup has to be shut off independently.
 
 GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Log to console: %1
 GAME_SETTINGS_CONSOLE_AUTO_PLAY_DESC | When enabled, the logged data are also shown on the console.
