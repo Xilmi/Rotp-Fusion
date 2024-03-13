@@ -256,6 +256,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 
 				headerSpacer,
 				new ParamTitle("GAME_OTHER"),
+				IMainOptions.showAllAI,
 				autoplay
 				)));
 		map.add(new LinkedList<>(Arrays.asList(

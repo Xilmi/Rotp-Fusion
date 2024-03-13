@@ -618,11 +618,14 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         List<StarSystem> alliedSystems = new ArrayList<>();
         // only show range for allied systems when player is selected
         if (isPlayer) {
-            for (Empire ally: emp.allies())
-                for (StarSystem sys: ally.allColonizedSystems()) {
-                    if (pl.sv.empId(sys.id) == ally.id)
+        	List<Empire> allyEmp = new ArrayList<>(emp.allies());
+            for (Empire ally: allyEmp) {
+            	List<StarSystem> allySystems = new ArrayList<>(ally.allColonizedSystems());
+                for (StarSystem sys: allySystems) {
+                    if (sys != null && pl.sv.empId(sys.id) == ally.id)
                         alliedSystems.add(sys);
                 }
+            }
         }
 
         float scale = getWidth()/scaleX();

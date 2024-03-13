@@ -2021,6 +2021,8 @@ HEADERS_GAME_VARIOUS_DESC         | Diverses Options. Can be changed dynamically
 HEADERS_GAME_VARIOUS              | ~~~ VARIOUS OPTIONS ~~~%1
 HEADERS_GAME_OTHER_DESC           | Other Options. Can be changed dynamically.
 HEADERS_GAME_OTHER                | ~~~ OTHER OPTIONS ~~~%1
+HEADERS_GAME_AUTOMATION_DESC      | Option to remove annoying tasks!
+HEADERS_GAME_AUTOMATION           | ~~~ GAME AUTOMATIONS ~~~%1
 HEADERS_GAME_COMBAT_DESC          | Options affecting attack and defense. Can be changed dynamically.
 HEADERS_GAME_COMBAT               | ~~~ COMBAT OPTIONS ~~~%1
 HEADERS_BETA_TEST_DESC            | New options under construction.<br>Please test and report bugs and inconsistencies.

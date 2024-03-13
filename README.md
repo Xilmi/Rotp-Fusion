@@ -61,6 +61,19 @@ Later:
 
 ## What's New
 
+2024.03.12 (BR)
+- Fixed some null pointer exception in for loops when list content may not be up to date.
+- Added list clearing in goExtinct to help memory collection
+
+2024.03.11 (BR)
+- Auto-Run Benchmark: Fixed a potential diplomatic win bug, where the winner may not be the most powerful empire, thus will not be logged as winner!
+- Fixed an old bug when loosing as non leader ally will pop up the lost as rebel screen! Will be military loss instead!
+- Removed autoBombard and autocolonize from "Main Menu -> Settings", as they are no more stored in Remnant.cfg, and it could be confusing!
+- Moved "Show all AI" in Remnant.cfg
+  - Added it to "Main Menu -> Settings"
+  - Added it to Pre Game Options (above autoplay setting)
+- Little reorganisation in "In-Game Options" Panel for more clarity... I hope!
+
 2024.03.10 (BR)
 - Added null test in loop list of Empire class.
 - Fixed a bug where AI:Rookie was listed twice in AI:Random

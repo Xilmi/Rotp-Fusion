@@ -39,6 +39,7 @@ public class GalacticCouncil implements Base, Serializable {
     private static final int INACTIVE = 0;
     private static final int ACTIVE = 1;
     private static final int DISBANDED = 2;
+    private static final int FINAL_WAR = 3;
 
     private static final int noticeDuration = 5;
     private static final int interval = 20;
@@ -49,6 +50,7 @@ public class GalacticCouncil implements Base, Serializable {
     private Empire leader;
     private final List<Empire> rebels = new ArrayList<>();
     private final List<Empire> allies = new ArrayList<>();
+    private Empire rebelLeader;
 
     //convention variables - reset when convention starts
     private transient List<Empire> voters, empires;
@@ -58,6 +60,7 @@ public class GalacticCouncil implements Base, Serializable {
     private transient Empire candidate1, candidate2, lastVoter, lastVoted;
 
     public static float pctRequired()  { return IGameOptions.counciRequiredPct.get(); }  // BR:Made it adjustable
+    public Empire rebelLeader()        { return rebelLeader; }
     public Empire leader()             { return leader; }
     public void leader(Empire e)       { leader = e; }
     public List<Empire>  allies()      { return allies; }
@@ -121,7 +124,8 @@ public class GalacticCouncil implements Base, Serializable {
     }
     public boolean inactive()         { return currentStatus == INACTIVE; }
     public boolean active()           { return currentStatus == ACTIVE; }
-    public boolean disbanded()        { return currentStatus == DISBANDED; }
+    public boolean disbanded()        { return currentStatus >= DISBANDED; }
+    public boolean rebelion()         { return currentStatus >= FINAL_WAR; }
     private void checkFormation() {
         Galaxy gal = galaxy();
         int limit = (int) Math.ceil(gal.numStarSystems()*pctRequired());
@@ -209,18 +213,24 @@ public class GalacticCouncil implements Base, Serializable {
     }
     private void end() {
         currentStatus = DISBANDED;
-        if (leader == null)
+        if (leader == null) // only two empire remaining
             return;
+        // The Final war started
+        currentStatus = FINAL_WAR;
         rotp.ui.notifications.TradeTechNotification.showSkipTechButton = true;
         boolean playerWasAllied = player().alliedWith(leader.id);
 
         boolean electedLeaderIsCrazy = rebels.contains(leader);
         if (electedLeaderIsCrazy) {
             Empire crazyEmpire = leader;
-            if (crazyEmpire == candidate1)
-                leader = candidate2;
-            else
-                leader = candidate1;
+            if (crazyEmpire == candidate1) {
+            	leader = candidate2;
+            	rebelLeader = candidate1;
+            }
+            else {
+            	leader = candidate1;
+            	rebelLeader = candidate2;
+            }
             allies.addAll(rebels);
             allies.remove(crazyEmpire);
             rebels.clear();
@@ -335,11 +345,16 @@ public class GalacticCouncil implements Base, Serializable {
         // determine leader
         int minVotes = this.votesToElect();
         leader = null;
+        rebelLeader = null;
 
-        if (votes1 >= minVotes)
-            leader = candidate1;
-        else if (votes2 >= minVotes)
-            leader = candidate2;
+        if (votes1 >= minVotes) {
+        	leader = candidate1;
+        	rebelLeader = candidate2;
+        }
+        else if (votes2 >= minVotes) {
+        	leader = candidate2;
+        	rebelLeader = candidate1;
+        }
 
         List<Empire> allVoters = new ArrayList<>(empires);
         // if leader is elected, ask all empires to accept ruling
@@ -375,6 +390,7 @@ public class GalacticCouncil implements Base, Serializable {
     }
 
     public void removeEmpire(Empire deadEmpire) {
+    	boolean wasAllied = allies.contains(deadEmpire);
         allies.remove(deadEmpire);
         rebels.remove(deadEmpire);
         
@@ -382,6 +398,9 @@ public class GalacticCouncil implements Base, Serializable {
             if (leader().isPlayer())
                 // player was leader of alliance and still lost!
                 session().status().loseNewRepublic();
+            else if (wasAllied)
+            	 // Not perfect, but better than "player was a rebel against alliance and lost"
+            	session().status().loseMilitary();
             else
                 // player was a rebel against alliance and lost
                 session().status().loseRebellion();

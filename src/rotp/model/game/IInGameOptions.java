@@ -155,17 +155,6 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	};
 	default String selectedAutoTerraformEnding()	{ return autoTerraformEnding.get(); }
 
-	ParamBoolean showAllAI			= new ParamBoolean(MOD_UI, "SHOW_ALL_AI", true) {
-		@Override public Boolean set(Boolean newValue) {
-			super.set(newValue);
-			rotp.ui.game.SetupGalaxyUI.specificAI().reInit(null);
-			rotp.ui.game.SetupGalaxyUI.opponentAI().reInit(null);
-			rotp.model.game.IAdvOptions.autoplay.reInit(null);
-			return get();
-		}
-	};
-	default boolean selectedShowAllAI()			{ return showAllAI.get(); }
-
 	ParamBoolean trackUFOsAcrossTurns = new ParamBoolean(MOD_UI, "TRACK_UFOS_ACROSS_TURNS", false);
 	default boolean selectedTrackUFOsAcrossTurns() { return trackUFOsAcrossTurns.get(); }
 
@@ -230,8 +219,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		return new LinkedList<>(
 				Arrays.asList(
 						customDifficulty, dynamicDifficulty,
-						challengeMode, showAllAI,
-						trackUFOsAcrossTurns,
+						challengeMode, trackUFOsAcrossTurns,
 						null,
 						missileBaseModifier, missileShipModifier,
 						retreatRestrictions, retreatRestrictionTurns,
@@ -277,10 +265,11 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 				headerSpacer,
 				new ParamTitle("GAME_VARIOUS"),
-				transportAutoEco, terraforming,
+				terraforming,
 				colonizing, researchRate,
-				warpSpeed, fuelRange,
-				spyOverSpend, popGrowthFactor,
+				warpSpeed, fuelRange, popGrowthFactor,
+				IMainOptions.realNebulaeSize, IMainOptions.realNebulaShape,
+				IMainOptions.realNebulaeOpacity,
 
 				headerSpacer,
 				new ParamTitle("IRONMAN_BASIC"),
@@ -298,36 +287,34 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				new ParamTitle("GAME_COMBAT"),
 				retreatRestrictions, retreatRestrictionTurns,
 				missileBaseModifier, missileShipModifier,
-				targetBombard, bombingTarget, autoBombard_, autoColonize_,
-				scrapRefundFactor, scrapRefundOption
-				)));
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("SUB_PANEL_OPTIONS"),
-				customRandomEventUI,
-				autoFlagOptionsUI,
-				GovernorOptions.governorOptionsUI,
-				combatOptionsUI,
-				IMainOptions.commonOptionsUI(),
-
-				headerSpacer,
-				new ParamTitle("GAME_OTHER"),
-				randomEvents,
-				flagColorCount, 
-				showAlliancesGNN, hideMinorReports, showAllocatePopUp, showLimitedWarnings,
-				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns,
-				IMainOptions.realNebulaeSize, IMainOptions.realNebulaShape,
-				IMainOptions.realNebulaeOpacity,
+				targetBombard, bombingTarget,
+				scrapRefundFactor, scrapRefundOption,
 
 				headerSpacer,
 				new ParamTitle("BETA_TEST"),
 				debugAutoRun, darkGalaxy
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("SUB_PANEL_OPTIONS"),
+				customRandomEventUI,
+				randomEvents,
+				autoFlagOptionsUI, flagColorCount,
+				GovernorOptions.governorOptionsUI,
+				combatOptionsUI,
+				IMainOptions.commonOptionsUI(),
+
+				headerSpacer,
+				new ParamTitle("GAME_AUTOMATION"),
+				autoBombard_, autoColonize_, spyOverSpend, transportAutoEco,
+				showAlliancesGNN, hideMinorReports, showAllocatePopUp, showLimitedWarnings,
+				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("MENU_OPTIONS"),
 				divertExcessToResearch, defaultMaxBases, displayYear,
 				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
 				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
-				showAllAI, raceStatusLog, compactOptionOnly,
+				raceStatusLog, compactOptionOnly,
 				
 				headerSpacer,
 				headerSpacer,

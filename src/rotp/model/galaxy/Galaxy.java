@@ -282,7 +282,7 @@ public class Galaxy implements Base, Serializable {
     public List<StarSystem> systemsNamed(String name) {
         List<StarSystem> systems = new ArrayList<>();
         for (StarSystem sys: starSystems) {
-            if (sys.name().equals(name))
+            if (sys != null && sys.name().equals(name))
                 systems.add(sys);
         }
         return systems;
@@ -358,7 +358,8 @@ public class Galaxy implements Base, Serializable {
     public void preNextTurn() {
         NoticeMessage.resetSubstatus(text("TURN_LAUNCHING_FLEETS"));
         for (StarSystem sys: starSystems)
-            sys.launchTransports();
+        	if(sys != null)
+        		sys.launchTransports();
         ships.disembarkFleets();
         ships.reloadBombs();
     }
@@ -412,27 +413,29 @@ public class Galaxy implements Base, Serializable {
     }
     private void checkForPlanetaryBombardment() {
         for (StarSystem sys: starSystems) {
-            Empire home = sys.empire();
-            List<ShipFleet> fleets = sys.orbitingFleets();
-            if ((home != null) && !fleets.isEmpty()){
-                for (ShipFleet fl: fleets) {
-                    if (fl.inOrbit() && !fl.retreating()) {
-                        Empire fleetEmp = fl.empire();
-                        // cannot bombard if alliance or unity
-                        if (fleetEmp.aggressiveWith(home.id)) {
-                            int promtResult = fleetEmp.ai().promptForBombardment(sys, fl);
-                            if (promtResult == 1)
-                            {
-                                BombardSystemNotification.create(sys.id, fl, true, 0);
-                            }
-                            else if(promtResult > 1)
-                            {
-                                BombardSystemNotification.create(sys.id, fl, true, 1);
-                            }
-                        }
-                    }                
-                }
-            }
+        	if(sys != null) {
+	            Empire home = sys.empire();
+	            List<ShipFleet> fleets = sys.orbitingFleets();
+	            if ((home != null) && !fleets.isEmpty()){
+	                for (ShipFleet fl: fleets) {
+	                    if (fl != null && fl.inOrbit() && !fl.retreating()) {
+	                        Empire fleetEmp = fl.empire();
+	                        // cannot bombard if alliance or unity
+	                        if (fleetEmp.aggressiveWith(home.id)) {
+	                            int promtResult = fleetEmp.ai().promptForBombardment(sys, fl);
+	                            if (promtResult == 1)
+	                            {
+	                                BombardSystemNotification.create(sys.id, fl, true, 0);
+	                            }
+	                            else if(promtResult > 1)
+	                            {
+	                                BombardSystemNotification.create(sys.id, fl, true, 1);
+	                            }
+	                        }
+	                    }                
+	                }
+	            }
+        	}
         }
     }
     public void checkForColonization() {
@@ -489,7 +492,7 @@ public class Galaxy implements Base, Serializable {
         player().setVisibleMonsters();
         // Gives Guardian monster their systems
     	for (StarSystem sys : starSystems())
-    		if (sys.hasMonster()) {
+    		if (sys != null && sys.hasMonster()) {
     			SpaceMonster monster = sys.monster();
     			if (monster.isGuardian()) {
     				monster.sysId(sys.id);
@@ -543,10 +546,12 @@ public class Galaxy implements Base, Serializable {
         List<Transport> incoming = new ArrayList<>(transports);
         Collections.sort(incoming, Ship.ARRIVAL_TIME);
         for (Transport sh: incoming) {
-            if (sh.arrivalTimeAdjusted() > currentTime)
-                break;
-            arrivingTransports.add(sh);
-            sh.arrive();
+	       	if (sh != null) {
+	            if (sh.arrivalTimeAdjusted() > currentTime)
+	                break;
+	            arrivingTransports.add(sh);
+	            sh.arrive();
+	       	}
         }
         transports.removeAll(arrivingTransports);
         
@@ -554,9 +559,11 @@ public class Galaxy implements Base, Serializable {
         List<ShipFleet> incomingFleets = ships.inTransitFleets();
         Collections.sort(incomingFleets, Ship.ARRIVAL_TIME);
         for (ShipFleet sh: incomingFleets) {
-            if (sh.arrivalTimeAdjusted() > currentTime)
-                break;
-            galaxy().ships.arriveFleet(sh);
+        	if (sh != null) {
+	            if (sh.arrivalTimeAdjusted() > currentTime)
+	                break;
+	            galaxy().ships.arriveFleet(sh);
+        	}
         }
     }
     public void clearSpaceMonsters()			{ spaceMonsters = null; }
@@ -565,7 +572,7 @@ public class Galaxy implements Base, Serializable {
     	if (spaceMonsters == null) {
         	spaceMonsters = events.monsters();
         	for (StarSystem sys : starSystems())
-        		if (sys.hasMonster())
+        		if (sys != null && sys.hasMonster())
         			if (sys.monster().isGuardian())
         				spaceMonsters.add(sys.monster());
     	}
@@ -577,7 +584,7 @@ public class Galaxy implements Base, Serializable {
     public void removeAllTransports(int empId) {
         List<Transport> allTransports = new ArrayList<>(transports);
         for (Transport tr: allTransports) {
-            if (tr.empId() == empId)
+            if (tr != null && tr.empId() == empId)
                 transports.remove(tr);
         }
     }
@@ -598,7 +605,7 @@ public class Galaxy implements Base, Serializable {
         Galaxy gal = galaxy();
 
         for (Transport tr: gal.transports()) {
-            if (tr.empId() == sys.empire().id) {
+            if (tr != null && tr.empId() == sys.empire().id) {
                 if (tr.destSysId() == sys.id)
                     pop += tr.size();
             }
@@ -624,8 +631,10 @@ public class Galaxy implements Base, Serializable {
             }
         }
         for (StarSystem system : player().allColonizedSystems()) {
-            Colony col = system.planet().colony();
-            pop += col.plannedTransport(sys.id);
+        	if (system != null) {
+        		Colony col = system.planet().colony();
+        		pop += col.plannedTransport(sys.id);
+        	}
         }
         return pop;
     }
@@ -634,7 +643,7 @@ public class Galaxy implements Base, Serializable {
         Galaxy gal = galaxy();
 
         for (Transport tr: gal.transports()) {
-            if (tr.empId() == sys.empire().id) {
+            if (tr != null && tr.empId() == sys.empire().id) {
                 if (tr.destSysId() == sys.id && tr.travelTurnsRemainingAdjusted() <= 1)
                     pop += tr.size();
             }
@@ -666,8 +675,8 @@ public class Galaxy implements Base, Serializable {
     public int enemyPopApproachingSystem(StarSystem sys) {
         int pop = 0;
         for (Transport sh: transports) {
-            if ( (sh.destSysId() == sys.id)
-            && (sh.empId() != sys.empire().id))
+            if ( (sh != null) &&  (sh.destSysId() == sys.id)
+            		&& (sh.empId() != sys.empire().id))
                 pop += sh.size();
         }
         for (int i=0; i<numStarSystems(); i++) {
@@ -684,15 +693,17 @@ public class Galaxy implements Base, Serializable {
         int pop = 0;
 
         for (Transport tr: transports()) {
-            if ((tr.empire() == emp) && (tr.destSysId() == sys.id))
+            if (tr != null && (tr.empire() == emp) && (tr.destSysId() == sys.id))
                pop += tr.size();
         }
         for (StarSystem system : emp.allColonizedSystems()) {
-            Colony col = system.colony();
-            if (col != null) {
-                if (col.transporting() && (col.transport().destSysId() == sys.id))
-                    pop += col.inTransport();
-            }
+        	if (system != null) {
+	            Colony col = system.colony();
+	            if (col != null) {
+	                if (col.transporting() && (col.transport().destSysId() == sys.id))
+	                    pop += col.inTransport();
+	            }
+        	}
         }
         return pop;
     }

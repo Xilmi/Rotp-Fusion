@@ -2,7 +2,16 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
+- Auto-Run Benchmark: Fixed a potential diplomatic win bug, where the winner may not be the most powerful empire, thus will not be logged as winner!
+- Removed autoBombard and autocolonize from "Main Menu -> Settings", as they are no more stored in Remnant.cfg, and it could be confusing!
+- Moved "Show all AI" in Remnant.cfg
+  - Added it to "Main Menu -> Settings"
+  - Added it to Pre Game Options (above autoplay setting)
+- Little reorganisation in "In-Game Options" Panel for more clarity... I hope!
+- Fixed some null pointer exception in for loops when list content may not be up to date.
 - Fixed a bug where AI:Rookie was listed twice in AI:Random
+- Fixed an old bug when loosing as "non leader ally" will pop up the lost as rebel screen! Changed to military loss instead!
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -74,6 +83,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Benchmark "Continue" option to Stop the current game, log results, then Continue the tests.
   - Notice will be shown at the bottom of the screen.
   - Option to show the full galaxy when Benchmarking.
+- Moved "Show all AI" in Remnant.cfg
+  - Added it to "Main Menu -> Settings"
+  - Added it to Pre Game Options (above autoplay setting)
+- Little reorganisation in "In-Game Options" Panel for more clarity... I hope!
 
 
 <b><ins>Bug Fixes:</ins></b>
@@ -89,4 +102,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Orion Guardian auto-repair not working.
 - Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
 - Fixed a bug where AI:Rookie was listed twice in AI:Random
+- Fixed an old bug when loosing as "non leader ally" will pop up the lost as rebel screen! Changed to military loss instead!
+- Fixed some null pointer exception in for loops when list content may not be up to date.
+- Removed autoBombard and autocolonize from "Main Menu -> Settings", as they are no more stored in Remnant.cfg, and it could be confusing!
 - minor fixes...

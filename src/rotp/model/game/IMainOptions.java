@@ -418,10 +418,24 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	{	{ isCfgFile(true); } };
 	default boolean realNebulaShape()	{ return realNebulaShape.get(); }
 
-	ParamInteger realNebulaeOpacity	= new ParamInteger(MOD_UI, "REAL_NEBULAE_OPACITY", 60, 10, 100, 1, 5, 20) {
-		{ isCfgFile(true); }
-	};
+	ParamInteger realNebulaeOpacity	= new ParamInteger(MOD_UI, "REAL_NEBULAE_OPACITY", 60, 10, 100, 1, 5, 20)
+	{	{ isCfgFile(true); } };
 	default float realNebulaeOpacity()	{ return realNebulaeOpacity.get()/100f; }
+
+	ParamBoolean showAllAI			= new ParamBoolean(MOD_UI, "SHOW_ALL_AI", true) {
+		{
+			isCfgFile(true);
+			isDuplicate(false);
+		}
+		@Override public Boolean set(Boolean newValue) {
+			super.set(newValue);
+			rotp.ui.game.SetupGalaxyUI.specificAI().reInit(null);
+			rotp.ui.game.SetupGalaxyUI.opponentAI().reInit(null);
+			rotp.model.game.IAdvOptions.autoplay.reInit(null);
+			return get();
+		}
+	};
+	default boolean selectedShowAllAI()			{ return showAllAI.get(); }
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -454,9 +468,10 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 						debugShowMemory, colorSet,
 						
 						null,
-						IConvenienceOptions.autoColonize_, IConvenienceOptions.autoBombard_,
+						// IConvenienceOptions.autoColonize_, IConvenienceOptions.autoBombard_,
 						backupTurns, saveDirectory,
-						originalSpeciesOnly,
+						originalSpeciesOnly, showAllAI,
+
 						null,
 						disableAutoHelp, disableAdvisor,
 						commonOptionsUI(),

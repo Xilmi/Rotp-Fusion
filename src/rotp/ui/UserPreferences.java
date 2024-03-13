@@ -58,10 +58,10 @@ public class UserPreferences implements IMainOptions {
 	private static boolean governorAutoSpendByDefault = false;
 	private static boolean legacyGrowth      = true; // BR:
 	private static boolean governorAutoApply = true; // BR:
-	private static boolean autoColonize      = false;
+	// private static boolean autoColonize      = false;
 	private static boolean divertColonyExcessToResearch = true;
 	private static boolean disableAdvisor = true;
-	private static String autoBombardMode = AUTOBOMBARD_NO;
+	// private static String autoBombardMode = AUTOBOMBARD_NO;
 	private static String displayMode     = WINDOW_MODE;
 	private static String graphicsMode    = GRAPHICS_HIGH;
 	private static String texturesMode    = TEXTURES_BOTH;
@@ -114,8 +114,8 @@ public class UserPreferences implements IMainOptions {
 //		save();
 //	}
 	public static void setForNewGame() {
-		autoColonize = false;
-		autoBombardMode = AUTOBOMBARD_NO;
+		// autoColonize = false;
+		// autoBombardMode = AUTOBOMBARD_NO;
 	}
 	public static void musicVolume(int i)    { musicVolume = i; }
 	public static int musicVolume()		     { return musicVolume; }
@@ -183,7 +183,7 @@ public class UserPreferences implements IMainOptions {
 
 	// public static String autoColonizeMode()	  { return autoColonize ? AUTOCOLONIZE_YES : AUTOCOLONIZE_NO; }
 //	public static void toggleAutoColonize()	  { autoColonize = !autoColonize; save();  }
-	public static boolean getAutoColonize()	  { return autoColonize; }
+//	public static boolean getAutoColonize()	  { return autoColonize; }
 //	public static void autoColonize(boolean val)  { autoColonize = val; }
 
 //	public static void toggleAutoBombard()	  {
@@ -203,8 +203,8 @@ public class UserPreferences implements IMainOptions {
 //	public static boolean autoBombardYes()   { return autoBombardMode.equals(AUTOBOMBARD_YES); }
 //	public static boolean autoBombardWar()   { return autoBombardMode.equals(AUTOBOMBARD_WAR); }
 //	public static boolean autoBombardInvading() { return autoBombardMode.equals(AUTOBOMBARD_INVADE); }
+//	public static String autoBombardMode()	{ return autoBombardMode; }
 
-	public static String autoBombardMode()	{ return autoBombardMode; }
 	public static boolean graphicLow()		{ return graphicsMode.equals(GRAPHICS_LOW); }
 	public static boolean graphicHigh()		{ return graphicsMode.equals(GRAPHICS_HIGH); }
 	public static boolean graphicRetina()	{ return graphicsMode.equals(GRAPHICS_RETINA); }
@@ -306,8 +306,8 @@ public class UserPreferences implements IMainOptions {
 			out.println(keyFormat("SOUND_VOLUME")+ soundVolume);
 			out.println(keyFormat("SAVE_DIR")+ saveDir);
 			out.println(keyFormat("BACKUP_TURNS")+ backupTurns);
-			out.println(keyFormat("AUTOCOLONIZE")+ yesOrNo(autoColonize));
-			out.println(keyFormat("AUTOBOMBARD")+autoBombardToSettingName(autoBombardMode));
+			// out.println(keyFormat("AUTOCOLONIZE")+ yesOrNo(autoColonize));
+			// out.println(keyFormat("AUTOBOMBARD")+autoBombardToSettingName(autoBombardMode));
 			out.println(keyFormat("TEXTURES")+texturesToSettingName(texturesMode));
 			out.println(keyFormat("SENSITIVITY")+sensitivityToSettingName(sensitivityMode));
 			out.println(keyFormat("SHOW_MEMORY")+ yesOrNo(showMemory));
@@ -366,8 +366,8 @@ public class UserPreferences implements IMainOptions {
 			case "SOUND_VOLUME": setSoundVolume(val); return;
 			case "SAVE_DIR":     saveDir  = fullVal.trim(); return;
 			case "BACKUP_TURNS": backupTurns  = Integer.valueOf(val); return;
-			case "AUTOCOLONIZE": autoColonize = yesOrNo(val); return;
-			case "AUTOBOMBARD":  autoBombardMode = autoBombardFromSettingName(val); return;
+			// case "AUTOCOLONIZE": autoColonize = yesOrNo(val); return;
+			// case "AUTOBOMBARD":  autoBombardMode = autoBombardFromSettingName(val); return;
 			case "TEXTURES":     texturesMode = texturesFromSettingName(val); return;
 			case "SENSITIVITY":  sensitivityMode = sensitivityFromSettingName(val); return;
 			case "SHOW_MEMORY":  showMemory = yesOrNo(val); return;
@@ -486,16 +486,16 @@ public class UserPreferences implements IMainOptions {
 		}
 		return "No";
 	}
-	private static String autoBombardFromSettingName(String s) {
-		switch(s) {
-			case "No":	   return AUTOBOMBARD_NO;
-			case "Never":  return AUTOBOMBARD_NEVER;
-			case "Yes":    return AUTOBOMBARD_YES;
-			case "War":	   return AUTOBOMBARD_WAR;
-			case "Invade": return AUTOBOMBARD_INVADE;
-		}
-		return AUTOBOMBARD_NO;
-	}
+//	private static String autoBombardFromSettingName(String s) {
+//		switch(s) {
+//			case "No":	   return AUTOBOMBARD_NO;
+//			case "Never":  return AUTOBOMBARD_NEVER;
+//			case "Yes":    return AUTOBOMBARD_YES;
+//			case "War":	   return AUTOBOMBARD_WAR;
+//			case "Invade": return AUTOBOMBARD_INVADE;
+//		}
+//		return AUTOBOMBARD_NO;
+//	}
 	public static String texturesToSettingName(String s) {
 		switch(s) {
 			case TEXTURES_NO:		 return "No";

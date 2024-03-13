@@ -4226,6 +4226,13 @@ public final class Empire implements Base, NamedObject, Serializable {
             }
         }
 
+        // BR: Clear lists to allow memory collection
+        visibleShips.clear();
+        suspectedDestinationsOfVisibleShips.clear();
+        shipBuildingSystems.clear();
+        colonizedSystems.clear();
+        visibleMonsters.clear();
+        
         Galaxy g = galaxy();
         if (g.council().finalWar()) {
             g.council().removeEmpire(this);

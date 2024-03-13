@@ -40,7 +40,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import rotp.Rotp;
-import rotp.model.ai.AI;
 import rotp.model.colony.Colony;
 import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
@@ -82,7 +81,6 @@ import rotp.ui.game.SetupRaceUI;
 import rotp.ui.game.StaticAOptionsUI;
 import rotp.ui.game.StaticBOptionsUI;
 import rotp.ui.history.HistoryUI;
-import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.map.SystemsUI;
 import rotp.ui.notifications.DiplomaticNotification;
@@ -530,9 +528,35 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         for (Empire emp: sortedEmpires)
             emp.setBenchmark();
         Collections.sort(sortedEmpires, Empire.BENCHMARK);
+        Empire allyLeader  = galaxy().council().leader();
+        Empire rebelLeader = galaxy().council().rebelLeader();
+        boolean hasLeader  = allyLeader != null;
+        String out = "";
+        // In case of Diplomatic win, the winner may not be the most powerful!
+        // Then move it back on the top of the list!
+        if (hasLeader) {
+        	if (!allyLeader.extinct()) {
+            	sortedEmpires.remove(allyLeader);
+            	sortedEmpires.add(0, allyLeader);
+            	out = "Diplomatic:";
+            	// System.out.println("Diplomatic win Ally");
+            }
+        	else if (!rebelLeader.extinct()) {
+            	sortedEmpires.remove(rebelLeader);
+            	sortedEmpires.add(0, rebelLeader);
+            	out = "Rebelion:";
+            	// System.out.println("Diplomatic win Rebel");
+            }
+        }
+        else {
+        	out = "Military:";
+        	System.out.println("Military win");
+        }
+
         String sep   = "	"; // Tab
         String aiKey = options().selectedAutoplayOption();
-        String out   =  "Turn:" + galaxy().currentTurn() + sep + "Player " + text(aiKey);
+        out += galaxy().currentTurn() + sep + "Player " + text(aiKey);
+        // out += "Turn:" + galaxy().currentTurn() + sep + "Player " + text(aiKey);
         for (Empire emp: sortedEmpires) {
         	out   += sep + emp.raceType() + ": " + emp.benchmark();
         }

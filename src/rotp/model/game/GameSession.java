@@ -53,6 +53,7 @@ import rotp.Rotp;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.EspionageMission;
+import rotp.model.empires.GalacticCouncil;
 import rotp.model.empires.Leader;
 import rotp.model.empires.Race;
 import rotp.model.empires.SabotageMission;
@@ -612,24 +613,47 @@ public final class GameSession implements Base, Serializable {
                 RotPUI.instance().mainUI().restoreMapState();
                 if (Rotp.memoryLow())
                     RotPUI.instance().mainUI().showMemoryLowPrompt();
+                // handle game over possibility
+                // Follow turn limit request
                 if(benchmarkBreakAndContinue()) {
                 	options().debugBMContinue();
                 	RotPUI.instance().selectGameOverPanel();
                 	return;
                 }
-                // handle game over possibility
                 if (autoRunning && options().debugAutoRun()) {
-                	if ( (galaxy().numActiveEmpires() == 1 
-                			&& options.selectedOpponentRaces()[0]!=null)
-                			|| status().endAutoRun() ) {
+                	// Auto Run Mode Stop if:
+                	// 1) Easy case: the player won
+                	// 2) Military win: Only one empire remaining
+                	// 3) Diplomatic win, no rebels
+                	// 4) Final war: one side win
+                 	if(status().won()) {
                 		RotPUI.instance().selectGameOverPanel();
+                		return;
                 	}
-                	else {
-                		performingTurn = false;
-                		nextTurnLoop();
+                	// Stop if only one empire remaining and player started with opponent(s)
+                	if (galaxy().numActiveEmpires() == 1 
+                			&& options.selectedOpponentRaces()[0]!=null) {
+                		RotPUI.instance().selectGameOverPanel();
+                		return;
                 	}
+                	GalacticCouncil council = galaxy().council();
+                	boolean wonByAlly = !council.finalWar(); // No rebellion or win by ally.
+                    boolean wonByRebels = council.allies().isEmpty();
+                	if (council.rebelion() && (wonByAlly || wonByRebels) ) {
+            			// System.out.println("wonByAlly Or wonByRebels");
+                		RotPUI.instance().selectGameOverPanel();
+                		return;
+                	}
+//                	// Stop status conditions are met
+//                	if (status().endAutoRun()) {
+//                		RotPUI.instance().selectGameOverPanel();
+//                		return;
+//                	}
+                	// Then Continue
+               		performingTurn = false;
+               		nextTurnLoop();
                 }
-                else {
+                else { // Normal mode
                     if (!status().inProgress())
                         RotPUI.instance().selectGameOverPanel();                	
                 }
