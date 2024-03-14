@@ -36,7 +36,6 @@ import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.ArrayList;
 import java.util.List;
 import rotp.model.empires.Empire;
-import rotp.model.empires.GalacticCouncil;
 import rotp.model.empires.Race;
 import rotp.ui.BasePanel;
 import rotp.ui.FadeInPanel;
@@ -240,16 +239,26 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         if (Id != 0)
         	return title;
         // English variation
-        if (!session().status().wonDiplomatic())
-        	return title;
-        GalacticCouncil council = galaxy().council();
-        int totalVotes   = council.totalVotes();
-        int votesToElect = council.votesToElect();
-        int playerVotes  = (int) Math.ceil(player().totalPlanetaryPopulation() / 100);
-        if (playerVotes >= votesToElect)
-        	return text("GAME_OVER_CONQUEST_WIN");
-        if (playerVotes >= totalVotes/2.0)
-        	return text("GAME_OVER_DOMINATION_WIN");
+        if (session().status().lostNewRepublicAsAllied())
+            return text("");
+        else if (session().status().lostRebellionAsFollower())
+            return text("");
+        else if (session().status().wonDiplomaticMajor())
+            return text("GAME_OVER_DIPLO_MAJOR_WIN");
+        else if (session().status().wonDiplomaticFeared())
+            return text("GAME_OVER_DIPLO_FEARED_WIN");
+        else if (session().status().wonNewRepublicAsAllied())
+            return text("GAME_OVER_NEW_REPUBLIC_ALLIED");
+        else if (session().status().wonNewRepublicAsChampion())
+            return text("GAME_OVER_NEW_REPUBLIC_CHAMPION");
+        else if (session().status().wonRebellionAsLeader())
+            return text("GAME_OVER_REBELLION_WIN");
+        else if (session().status().wonRebellionAsFollower())
+            return text("GAME_OVER_REBELLION_FOLLOWER");
+        else if (session().status().wonRebellionAllianceAsLeader())
+            return text("GAME_OVER_ALLIANCE_WIN");
+        else if (session().status().wonRebellionAllianceAsFollower())
+            return text("GAME_OVER_REBEL_ALLIANCE_FOLLOWER");
         return title;
     }
     private String gameOverTitleCommon() {

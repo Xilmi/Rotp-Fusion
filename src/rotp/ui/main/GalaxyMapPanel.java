@@ -59,6 +59,7 @@ import rotp.model.galaxy.Ship;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.galaxy.Transport;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IMapOptions;
 import rotp.model.tech.TechCategory;
@@ -887,7 +888,11 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                             else if (options().selectedTrackUFOsAcrossTurns()) {
                                 StarSystem suspectedDestination = player().suspectedDestinationOfVisibleShip(sh);
                                 if (suspectedDestination != null)
-                                    sh.pathSpriteTo(suspectedDestination).draw(this, g);
+                                	// BR: To fix dHannash resulting pathSprite bug
+                                	if (sh instanceof Transport)
+                                		((Transport) sh).pathSpriteTo(suspectedDestination).draw(this, g);
+                                	else if (sh instanceof ShipFleet)
+                                		((ShipFleet) sh).pathSpriteTo(suspectedDestination).draw(this, g);
                             }
                         }
                         spr.draw(this, g);

@@ -3816,22 +3816,55 @@ DIPLOMACY_HIDE_SPIES              | Order all spies in the [alien_empire] to Hid
 DIPLOMACY_RETREAT_SHIPS           | Order all ships orbiting or in transit to [alien_race] systems to Retreat
 
 // types of endings
-GAME_OVER_OVERTHROWN_LOSS         | Overthrown Loss
-GAME_OVER_MILITARY_LOSS           | Military Loss
-GAME_OVER_DIPLOMATIC_LOSS         | Diplomatic Loss
-GAME_OVER_NEW_REPUBLIC_LOSS       | New Republic Loss
-GAME_OVER_REBELLION_LOSS          | Rebellion Loss
-GAME_OVER_DIPLOMATIC_WIN          | Diplomatic Victory
-GAME_OVER_CONQUEST_WIN            | Conquest Victory
-GAME_OVER_DOMINATION_WIN          | Domination Victory
-// GAME_OVER_MILITARY_WIN            | Military Win
-GAME_OVER_MILITARY_WIN            | Extermination Victory
+//GAME_OVER_OVERTHROWN_LOSS         | Overthrown Loss
+//GAME_OVER_MILITARY_LOSS           | Military Loss
+//GAME_OVER_DIPLOMATIC_LOSS         | Diplomatic Loss
+//GAME_OVER_NEW_REPUBLIC_LOSS       | New Republic Loss
+//GAME_OVER_REBELLION_LOSS          | Rebellion Loss
+//GAME_OVER_DIPLOMATIC_WIN          | Diplomatic Victory
+//GAME_OVER_CONQUEST_WIN            | Conquest Victory
+//GAME_OVER_DOMINATION_WIN          | Domination Victory
+//// GAME_OVER_MILITARY_WIN            | Military Win
+//GAME_OVER_MILITARY_WIN            | Extermination Victory
+//GAME_OVER_MILITARY_ALLIANCE_WIN   | Survival as part of alliance
+//GAME_OVER_NEW_REPUBLIC_WIN        | New Republic Victory
+//GAME_OVER_REBELLION_WIN           | Rebellion Victory
+//GAME_OVER_REBEL_ALLIANCE_WIN      | Rebel Alliance Victory
+//GAME_OVER_ALLIANCE_WIN            | Survival as vassal
+//GAME_OVER_NO_COLONIES_LOSS        | Societal Collapse Loss
+
+GAME_OVER_OVERTHROWN_LOSS         | Revolution
+GAME_OVER_MILITARY_LOSS           | Exterminated
+GAME_OVER_DIPLOMATIC_LOSS         | Alien Overlords
+GAME_OVER_REBELLION_LOSS          | Destruction of the Rebellion
+GAME_OVER_NEW_REPUBLIC_LOSS       | Fall of the New Republic
+GAME_OVER_NO_COLONIES_LOSS        | Societal Collapse
+GAME_OVER_MILITARY_WIN            | Galactic Extermination
 GAME_OVER_MILITARY_ALLIANCE_WIN   | Survival as part of alliance
-GAME_OVER_NEW_REPUBLIC_WIN        | New Republic Victory
-GAME_OVER_REBELLION_WIN           | Rebellion Victory
-GAME_OVER_REBEL_ALLIANCE_WIN      | Rebel Alliance Victory
-GAME_OVER_ALLIANCE_WIN            | Survival as vassal
-GAME_OVER_NO_COLONIES_LOSS        | Societal Collapse Loss
+GAME_OVER_NEW_REPUBLIC_WIN        | Leader of New Republic Victory
+// Final war allies survivor (not leader)
+GAME_OVER_NEW_REPUBLIC_ALLIED     | Allied to New Republic Victory
+// Final war allies survivor (leader is extinct)
+GAME_OVER_NEW_REPUBLIC_CHAMPION   | Champion of New Republic Victory
+// Only survivor of the rebellion, was second nominee
+GAME_OVER_REBELLION_WIN           | Conquest of the New Republic
+GAME_OVER_REBEL_ALLIANCE_WIN      | Rebel Alliance Leader
+// Only survivor of the rebellion, was not part of the nominee
+GAME_OVER_REBELLION_FOLLOWER      | Rebellion Champion
+GAME_OVER_REBEL_ALLIANCE_FOLLOWER | Rebel Alliance Member
+GAME_OVER_ALLIANCE_WIN            | Allies of the Galactic Leader 
+// Was grouped in diplomatic Win
+// Diplomatic: player weight is less than 50%
+GAME_OVER_DIPLOMATIC_WIN          | Democratic Galaxy Leader
+// Diplomatic: player weight is over 50% but less than 2/3
+GAME_OVER_DIPLO_MAJOR_WIN         | United Galaxy Leader
+// Diplomatic: player weight is over 2/3
+GAME_OVER_DIPLO_FEARED_WIN        | Feared Leaders of a United Galaxy
+
+
+// Military Allied Win -> Leaders of the Alliance
+// New Republic Win -> Leaders of the New Republic
+
 
 GAME_OVER_EXIT                    | Exit
 GAME_OVER_REPLAY                  | Replay

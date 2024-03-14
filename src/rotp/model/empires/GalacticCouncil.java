@@ -390,32 +390,87 @@ public class GalacticCouncil implements Base, Serializable {
     }
 
     public void removeEmpire(Empire deadEmpire) {
-    	boolean wasAllied = allies.contains(deadEmpire);
+    	boolean deadWasAllied  = allies.contains(deadEmpire);
         allies.remove(deadEmpire);
         rebels.remove(deadEmpire);
         
         if (deadEmpire.isPlayer()) {
-            if (leader().isPlayer())
+            if (leader().isPlayer()) {
                 // player was leader of alliance and still lost!
                 session().status().loseNewRepublic();
-            else if (wasAllied)
-            	 // Not perfect, but better than "player was a rebel against alliance and lost"
-            	session().status().loseMilitary();
-            else
-                // player was a rebel against alliance and lost
+                return;
+            }
+            else if (deadWasAllied) {
+            	// player was part of alliance and still lost!
+            	session().status().loseNewRepublicAsAllied();
+                return;
+            }
+            else if (rebelLeader().isPlayer()) {
+                // player was rebel leader against alliance and lost
                 session().status().loseRebellion();
+                return;
+            }
+            else {
+	            // player was following rebels against alliance and lost
+	            session().status().loseRebellionAsFollower();
+                return;
+            }
         }
-        else {
-            if (rebels.isEmpty() && leader().isPlayer())
-                // rebellion has been defeated
-                session().status().winNewRepublic();
-            else if (allies.isEmpty() && !leader().isPlayer()) {
-                // New Republic has been defeated
-                if (rebels.size() == 1) 
-                    session().status().winRebellion();
-                else
-                    session().status().winRebellionAlliance();
-            }               
+        else { // Player is alive
+        	if (rebels.isEmpty()) { // rebellion has been defeated
+        		if (leader().isPlayer()) {
+        			// leaded by player the rebellion has been defeated.
+                    session().status().winNewRepublic();
+                    return;
+                }
+        		else if (allies.contains(leader())) {
+                	// player was part of winning alliance!
+                	session().status().winNewRepublicAsAllied();
+                    return;
+                }
+        		else {
+                	// player was part of winning alliance! but leader has been defeated
+                	session().status().winNewRepublicAsChampion();
+                    return;                	
+                }
+        	}
+        	if (allies.isEmpty()) { // New Republic has been defeated
+        		if (rebelLeader().isPlayer()) {
+        			// player was leading rebellion!
+        			if (rebels.size() == 1) {
+	                    session().status().winRebellion();
+	                    return;
+                    }
+        			else {
+	                    session().status().winRebellionAlliance();
+	                    return;
+                    }
+        		}
+        		else { // player was part of winning rebellion!
+        			if (rebels.size() == 1) {
+	                    session().status().winRebellionAsFollower();
+	                    return;
+                    }
+        			else {
+	                    session().status().winRebellionAllianceAsFollower();
+	                    return;
+                    }        				
+        		}
+        	}
+
+//        	if (rebels.isEmpty() && leader().isPlayer())
+//                // rebellion has been defeated
+//                session().status().winNewRepublic();
+//            else if (rebels.isEmpty() && deadWasAllied)
+//                // rebellion has been defeated
+//                session().status().winNewRepublicAsAllied();
+//            else if (allies.isEmpty() && !leader().isPlayer()) {
+//                // New Republic has been defeated
+//                if (rebels.size() == 1) 
+//                    session().status().winRebellion();
+//                else
+//                    session().status().winRebellionAlliance();
+//            }               
         }
     }
 //    private void ensureFullContact() {

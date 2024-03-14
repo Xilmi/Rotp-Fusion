@@ -62,6 +62,10 @@ Later:
 
 ## What's New
 
+2024.03.14 (BR)
+- GameOver Title even more diversified.
+- Fixed relocating ship pathSprite bug.
+
 2024.03.13 (BR)
 - Fixed remaining Mentaran name.
 - GameOver Title Improved and diversified:

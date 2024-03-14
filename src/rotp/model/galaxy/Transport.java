@@ -417,4 +417,8 @@ public class Transport extends FleetBase {
         g.drawRoundRect(x,y,w,h, cnr, cnr);
         g.setStroke(prev);
     }
+    // BR: To fix dHannash resulting pathSprite bug
+    public FlightPathSprite pathSpriteTo(StarSystem sys) {
+        return new FlightPathSprite(this, sys);
+    }
 }
