@@ -43,9 +43,10 @@ Very soon:
 - Add Help to History.
 - Some Achievements options.
 - Add option to limit random event tech generosity... (For slow research, etc...)
+- Option to continue game after victory!
 
 Later:
-- Symmetric nebulae in symetric galaxy.
+- Color List for opponents...
 - Some kind of positive monster like instead of attacking strong empires it defends weak empires
 - Stronger GNN filters
 - Stronger Warning filters
@@ -60,6 +61,13 @@ Later:
 
 
 ## What's New
+
+2024.03.13 (BR)
+- Fixed remaining Mentaran name.
+- GameOver Title like MoO1:
+  - Replaced Military Win by Extermination Win
+  - Split Diplomatic win title to Conquest / Domination / Diplomatic
+  - Better readability on light background.
 
 2024.03.12 (BR)
 - Fixed some null pointer exception in for loops when list content may not be up to date.

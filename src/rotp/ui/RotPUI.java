@@ -550,7 +550,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         }
         else {
         	out = "Military:";
-        	System.out.println("Military win");
+        	// System.out.println("Military win");
         }
 
         String sep   = "	"; // Tab

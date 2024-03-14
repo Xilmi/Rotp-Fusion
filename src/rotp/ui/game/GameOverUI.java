@@ -36,12 +36,14 @@ import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.ArrayList;
 import java.util.List;
 import rotp.model.empires.Empire;
+import rotp.model.empires.GalacticCouncil;
 import rotp.model.empires.Race;
 import rotp.ui.BasePanel;
 import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.SystemPanel;
+import rotp.util.LanguageManager;
 
 public final class GameOverUI extends FadeInPanel implements MouseListener, MouseMotionListener, ActionListener {
     private static final long serialVersionUID = 1L;
@@ -109,7 +111,9 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         g.setFont(narrowFont(30));
         g.setColor(Color.lightGray);
         String title = gameOverTitle();
-        drawString(g,title, s10, s35);
+//        drawString(g,title, s10, s35);
+//        drawShadowedString(g, title, 1, s10, s35, SystemPanel.blackText, SystemPanel.whiteText);
+        drawShadowedString(g, title, 1, s10, s35, SystemPanel.blackText, Color.lightGray);
         
         if (transIndex >= 0) {
             int lineH = s30;
@@ -231,6 +235,24 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         drawShadowedString(g, exitText, x2a, exitBox.y + exitBox.height - s12, Color.black, c0);
     }
     public String gameOverTitle() {
+    	String title = gameOverTitleCommon();
+        int Id = LanguageManager.selectedLanguage();
+        if (Id != 0)
+        	return title;
+        // English variation
+        if (!session().status().wonDiplomatic())
+        	return title;
+        GalacticCouncil council = galaxy().council();
+        int totalVotes   = council.totalVotes();
+        int votesToElect = council.votesToElect();
+        int playerVotes  = (int) Math.ceil(player().totalPlanetaryPopulation() / 100);
+        if (playerVotes >= votesToElect)
+        	return text("GAME_OVER_CONQUEST_WIN");
+        if (playerVotes >= totalVotes/2.0)
+        	return text("GAME_OVER_DOMINATION_WIN");
+        return title;
+    }
+    private String gameOverTitleCommon() {
         if (session().status().lostOverthrown())
             return text("GAME_OVER_OVERTHROWN_LOSS");
         else if (session().status().lostMilitary())
@@ -257,7 +279,6 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
             return text("GAME_OVER_ALLIANCE_WIN");
         else if (session().status().wonRebellionAlliance())
             return text("GAME_OVER_REBEL_ALLIANCE_WIN");
-
         return "";
     }
     private String gameOverText() {
