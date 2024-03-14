@@ -12,7 +12,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed a bug where AI:Rookie was listed twice in AI:Random
 - Fixed an old bug when loosing as "non leader ally" will pop up the lost as rebel screen! Changed to military loss instead!
 - Fixed remaining Mentaran name.
-- GameOver Title like MoO1:
+- GameOver Title Improved and diversified:
   - Replaced Military Win by Extermination Win
   - Split Diplomatic win title to Conquest / Domination / Diplomatic
   - Better readability on light background.
@@ -92,7 +92,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Added it to "Main Menu -> Settings"
   - Added it to Pre Game Options (above autoplay setting)
 - Little reorganisation in "In-Game Options" Panel for more clarity... I hope!
-- GameOver Title like MoO1
+-- GameOver Title Improved and diversified:
   - Replaced Military Win by Extermination Win
   - Split Diplomatic win title to Conquest / Domination / Diplomatic
   - Better readability on light background.

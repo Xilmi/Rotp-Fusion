@@ -64,7 +64,7 @@ Later:
 
 2024.03.13 (BR)
 - Fixed remaining Mentaran name.
-- GameOver Title like MoO1:
+- GameOver Title Improved and diversified:
   - Replaced Military Win by Extermination Win
   - Split Diplomatic win title to Conquest / Domination / Diplomatic
   - Better readability on light background.

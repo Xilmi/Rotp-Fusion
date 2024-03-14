@@ -3821,15 +3821,15 @@ GAME_OVER_MILITARY_LOSS           | Military Loss
 GAME_OVER_DIPLOMATIC_LOSS         | Diplomatic Loss
 GAME_OVER_NEW_REPUBLIC_LOSS       | New Republic Loss
 GAME_OVER_REBELLION_LOSS          | Rebellion Loss
-GAME_OVER_DIPLOMATIC_WIN          | Diplomatic Win
-GAME_OVER_CONQUEST_WIN            | Conquest Win
-GAME_OVER_DOMINATION_WIN          | Domination Win
+GAME_OVER_DIPLOMATIC_WIN          | Diplomatic Victory
+GAME_OVER_CONQUEST_WIN            | Conquest Victory
+GAME_OVER_DOMINATION_WIN          | Domination Victory
 // GAME_OVER_MILITARY_WIN            | Military Win
-GAME_OVER_MILITARY_WIN            | Extermination Win
+GAME_OVER_MILITARY_WIN            | Extermination Victory
 GAME_OVER_MILITARY_ALLIANCE_WIN   | Survival as part of alliance
-GAME_OVER_NEW_REPUBLIC_WIN        | New Republic Win
-GAME_OVER_REBELLION_WIN           | Rebellion Win
-GAME_OVER_REBEL_ALLIANCE_WIN      | Rebel Alliance Win
+GAME_OVER_NEW_REPUBLIC_WIN        | New Republic Victory
+GAME_OVER_REBELLION_WIN           | Rebellion Victory
+GAME_OVER_REBEL_ALLIANCE_WIN      | Rebel Alliance Victory
 GAME_OVER_ALLIANCE_WIN            | Survival as vassal
 GAME_OVER_NO_COLONIES_LOSS        | Societal Collapse Loss
 
