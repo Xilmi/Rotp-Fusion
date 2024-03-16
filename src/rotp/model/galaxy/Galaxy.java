@@ -441,7 +441,7 @@ public class Galaxy implements Base, Serializable {
     public void checkForColonization() {
         for (StarSystem sys: starSystems) {
             Empire home = sys.empire();
-            List<ShipFleet> fleets = sys.orbitingFleets();
+            List<ShipFleet> fleets = sys.orbitingFleetsNoMonster();
             if ((home == null) && !fleets.isEmpty()){
                 for (ShipFleet fl: fleets) 
                     fl.checkColonize();
