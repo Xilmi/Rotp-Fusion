@@ -62,13 +62,24 @@ Later:
 
 ## What's New
 
+2024.03.20 (BR)
+- Completed Game Over Panel new titles.
+- Fixed too strong No Auto-Save.
+
+2024.03.16 (BR)
+- New option to choose if the autorun should continue after the player lost!
+- New option to select the Game Over Panel title set!
+
+2024.03.15 (BR)
+- Fixed crash due to monster checking to colonize planet!
+
 2024.03.14 (BR)
-- GameOver Title even more diversified.
+- Game Over Title even more diversified.
 - Fixed relocating ship pathSprite bug.
 
 2024.03.13 (BR)
 - Fixed remaining Mentaran name.
-- GameOver Title Improved and diversified:
+- Game Over Title Improved and diversified:
   - Replaced Military Win by Extermination Win
   - Split Diplomatic win title to Conquest / Domination / Diplomatic
   - Better readability on light background.

@@ -2,8 +2,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- GameOver Title even more diversified.
-- Fixed relocating ship pathSprite bug.
+- Game Over panel: Option to get more diversified titles.
+- New option to choose if the autorun should continue after the player lost!
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -47,7 +47,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - New values for Worker Production and Factory Control.
 - Auto-Run manage council
   - New Benchmark tester
-
+- Game Over panel: Option to get more diversified titles.
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
@@ -75,14 +75,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Benchmark "Continue" option to Stop the current game, log results, then Continue the tests.
   - Notice will be shown at the bottom of the screen.
   - Option to show the full galaxy when Benchmarking.
+  - New option to choose if the autorun should continue after the player lost!
 - Moved "Show all AI" in Remnant.cfg
   - Added it to "Main Menu -> Settings"
   - Added it to Pre Game Options (above autoplay setting)
 - Little reorganisation in "In-Game Options" Panel for more clarity... I hope!
--- GameOver Title Improved and diversified:
-  - Replaced Military Win by Extermination Win
-  - Split Diplomatic win title to Conquest / Domination / Diplomatic
-  - Better readability on light background.
 
 
 <b><ins>Bug Fixes:</ins></b>
@@ -102,4 +99,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed some null pointer exception in for loops when list content may not be up to date.
 - Removed autoBombard and autocolonize from "Main Menu -> Settings", as they are no more stored in Remnant.cfg, and it could be confusing!
 - Fixed relocating ship pathSprite bug
+- Fixed crash due to monster checking to colonize planet!
 - minor fixes...

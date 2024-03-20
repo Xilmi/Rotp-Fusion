@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.GameStatus;
 import rotp.model.game.IGameOptions;
 import rotp.model.incidents.CouncilVoteIncident;
 import rotp.model.incidents.FinalWarIncident;
@@ -50,13 +51,14 @@ public class GalacticCouncil implements Base, Serializable {
     private Empire leader;
     private final List<Empire> rebels = new ArrayList<>();
     private final List<Empire> allies = new ArrayList<>();
-    private Empire rebelLeader;
+    private Empire rebelLeader; // Challenger
 
     //convention variables - reset when convention starts
     private transient List<Empire> voters, empires;
     private transient int voteIndex = 0;
     private transient int[] votes;
-    private transient int totalVotes, votes1, votes2, lastVotes;
+    private transient int totalVotes, votes1, votes2, lastVotes, playerVotes;
+    private transient float playerVotesRatio;
     private transient Empire candidate1, candidate2, lastVoter, lastVoted;
 
     public static float pctRequired()  { return IGameOptions.counciRequiredPct.get(); }  // BR:Made it adjustable
@@ -212,13 +214,26 @@ public class GalacticCouncil implements Base, Serializable {
             closeConvention();
     }
     private void end() {
+    	GameStatus status = session().status();
         currentStatus = DISBANDED;
         if (leader == null) // only two empire remaining
             return;
         // The Final war started
         currentStatus = FINAL_WAR;
         rotp.ui.notifications.TradeTechNotification.showSkipTechButton = true;
-        boolean playerWasAllied = player().alliedWith(leader.id);
+        boolean playerhasAlliance = player().alliedWith(leader.id);
+        status.playerVotesRatio(playerVotesRatio);
+        if (leader.isPlayer()) {
+        	status.playerStatus(GameStatus.playerIsLeader);
+        	status.allianceWithLeader(false);
+        }
+        else if (rebelLeader.isPlayer()) {
+        	status.playerStatus(GameStatus.playerIsChallenger);
+        	status.allianceWithLeader(playerhasAlliance);
+        }
+        else {
+        	status.allianceWithLeader(playerhasAlliance);
+        }
 
         boolean electedLeaderIsCrazy = rebels.contains(leader);
         if (electedLeaderIsCrazy) {
@@ -245,22 +260,23 @@ public class GalacticCouncil implements Base, Serializable {
             }
         }
         // if player accepted ruling, also game over
-        else if (!leader.isPlayer() && allies.contains(player())) {
-            if (playerWasAllied)
+        else if (allies.contains(player())) {
+            if (playerhasAlliance)
                 session().status().winCouncilAlliance();
             else
                 session().status().loseDiplomatic();
             return;
         }
 
-        // final war: player is rebelling against leader, or player
-        // is leader and at least one AI is rebelling
+        // ==> final war:
+        // Either player is rebelling against leader,
+        // or player is leader and at least one AI is rebelling
         if (leader.isPlayerControlled())
             galaxy().giveAdvice("MAIN_ADVISOR_COUNCIL_RESISTED", leader.raceName());                   
         else 
             galaxy().giveAdvice("MAIN_ADVISOR_RESIST_COUNCIL");
 
-        // all members of alliance declare final war on player and all rebels
+        // all members of alliance declare final war on player or all rebels
         // everyone gets the incident first. Once Final War is declared, no
         // more incidents are checked
         for (Empire rebel: rebels) {
@@ -269,7 +285,7 @@ public class GalacticCouncil implements Base, Serializable {
             }
         }
         
-        // all members of alliance declare final war on player and all rebels
+        // all members of alliance declare final war on player or all rebels
         for (Empire rebel: rebels) {
             for (Empire ally: allies) {
                 ally.viewForEmpire(rebel).embassy().declareFinalWar();
@@ -315,7 +331,10 @@ public class GalacticCouncil implements Base, Serializable {
             Empire voter = empires.get(i);
             votes[i] = (int) Math.ceil(voter.totalPlanetaryPopulation() / 100);
             totalVotes += votes[i];
+            if (voter.isPlayer())
+            	playerVotes = votes[i];
         }
+        playerVotesRatio = (float)playerVotes/totalVotes;
 
         log("Convening council. # empires: " + empires.size());
     }
@@ -340,6 +359,8 @@ public class GalacticCouncil implements Base, Serializable {
     	}
         voteIndex = 0;
         totalVotes = 0;
+        lastVotes = 0;
+        playerVotes = 0;
     }
     private void closeConvention() {
         // determine leader
@@ -401,6 +422,8 @@ public class GalacticCouncil implements Base, Serializable {
                 return;
             }
             else if (deadWasAllied) {
+            	// Should not happen! as accepting as non leader ends the game
+            	// But in case of an future option...
             	// player was part of alliance and still lost!
             	session().status().loseNewRepublicAsAllied();
                 return;
@@ -412,6 +435,7 @@ public class GalacticCouncil implements Base, Serializable {
             }
             else {
 	            // player was following rebels against alliance and lost
+            	// player was not candidate
 	            session().status().loseRebellionAsFollower();
                 return;
             }
@@ -423,12 +447,12 @@ public class GalacticCouncil implements Base, Serializable {
                     session().status().winNewRepublic();
                     return;
                 }
-        		else if (allies.contains(leader())) {
+        		else if (allies.contains(leader())) { // Not reachable yet
                 	// player was part of winning alliance!
                 	session().status().winNewRepublicAsAllied();
                     return;
                 }
-        		else {
+        		else { // Not reachable yet
                 	// player was part of winning alliance! but leader has been defeated
                 	session().status().winNewRepublicAsChampion();
                     return;                	

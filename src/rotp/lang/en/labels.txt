@@ -481,6 +481,15 @@ SETTINGS_MOD_DEBUG_BM_MAX_TURNS_DESC   | When in Benchmark mode, maximum number 
 SETTINGS_MOD_DEBUG_BM_LOST_TURNS       | Benchmark lost turns: %1
 SETTINGS_MOD_DEBUG_BM_LOST_TURNS_DESC  | When in Benchmark mode, maximum number of turns to play after the player loses the game. Then break and start a new game.
 
+SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS              | Continue on defeat: %1
+SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_DESC         | In Auto-Run Mode, when the player loose the game, continue with the remaining empires?
+SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_NEVER        | Never
+SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_NEVER_DESC   | No, follow the rules and stop!
+SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_ALWAYS       | Always
+SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_ALWAYS_DESC  | Continue, I want to know who win!
+SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_BM_ONLY      | On Benchmark
+SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_BM_ONLY_DESC | Only continue in benchmark mode.)
+
 SETTINGS_MOD_DEBUG_BM_SHOW_ALL            | Benchmark show all: %1
 SETTINGS_MOD_DEBUG_BM_SHOW_ALL_DESC       | When in Benchmark mode, galaxy will display things unknown to the player.
 SETTINGS_MOD_DEBUG_BM_SHOW_ALL_OFF        | Off
@@ -2070,6 +2079,8 @@ HEADERS_DEBUG_MEMORY_DESC            | To enable or disable Memory monitoring.
 HEADERS_DEBUG_MEMORY                 | ~~~ MEMORY MONITORING ~~~%1
 HEADERS_DEBUG_AUTO_RUN_DESC          | To enable and configure Full Auto Run.
 HEADERS_DEBUG_AUTO_RUN               | ~~~ AUTO RUN ~~~%1
+HEADERS_DEBUG_RELEVANT_DESC          | May be you may need to adjust those settings too.
+HEADERS_DEBUG_RELEVANT               | ~~~ RELEVANT ~~~%1
 
 HEADERS_ZOOM_FONT_DESC               | To set galaxy map font sizes.
 HEADERS_ZOOM_FONT                    | ~~~ ZOOM FONT FACTORS ~~~%1
@@ -2374,6 +2385,15 @@ SETTINGS_MOD_COMPACT_OPTION_ONLY_6_DESC   | Display six buttons for accessing th
 SETTINGS_MOD_COMPACT_OPTION_ONLY_YES      | Compact
 SETTINGS_MOD_COMPACT_OPTION_ONLY_NO       | Vanilla
 SETTINGS_MOD_COMPACT_OPTION_ONLY_6        | Classic x 6
+
+SETTINGS_MOD_GAME_OVER_TITLE_DESC          | To switch between original Game Over panels Titles, extended ones (more specific), or the Realms Beyond community ones
+SETTINGS_MOD_GAME_OVER_TITLE               | Game Over Titles: %1
+SETTINGS_MOD_GAME_OVER_TITLE_ORIGINAL_DESC | Original Game Over panels Titles.
+SETTINGS_MOD_GAME_OVER_TITLE_EXTENDED_DESC | Extended Game Over panels Titles. More detailled info on victory conditions
+SETTINGS_MOD_GAME_OVER_TITLE_RB_DESC       | Realms Beyond community inspired titles.
+SETTINGS_MOD_GAME_OVER_TITLE_ORIGINAL      | Originals
+SETTINGS_MOD_GAME_OVER_TITLE_EXTENDED      | Extended
+SETTINGS_MOD_GAME_OVER_TITLE_RB            | Realms Beyond
 
 SETTINGS_MOD_RACE_STATUS_LOG_HELP        | The Empire status graphs can either be displayed on a linear or logarithmic scale.
 SETTINGS_MOD_RACE_STATUS_LOG_DESC        | The Empire status graphs can be displayed on a linear or logarithmic scale.
@@ -3815,56 +3835,119 @@ DIPLOMACY_SHUTDOWN_SPIES          | Shutdown all spy networks in the [alien_empi
 DIPLOMACY_HIDE_SPIES              | Order all spies in the [alien_empire] to Hide
 DIPLOMACY_RETREAT_SHIPS           | Order all ships orbiting or in transit to [alien_race] systems to Retreat
 
-// types of endings
-//GAME_OVER_OVERTHROWN_LOSS         | Overthrown Loss
-//GAME_OVER_MILITARY_LOSS           | Military Loss
-//GAME_OVER_DIPLOMATIC_LOSS         | Diplomatic Loss
-//GAME_OVER_NEW_REPUBLIC_LOSS       | New Republic Loss
-//GAME_OVER_REBELLION_LOSS          | Rebellion Loss
-//GAME_OVER_DIPLOMATIC_WIN          | Diplomatic Victory
-//GAME_OVER_CONQUEST_WIN            | Conquest Victory
-//GAME_OVER_DOMINATION_WIN          | Domination Victory
-//// GAME_OVER_MILITARY_WIN            | Military Win
-//GAME_OVER_MILITARY_WIN            | Extermination Victory
-//GAME_OVER_MILITARY_ALLIANCE_WIN   | Survival as part of alliance
-//GAME_OVER_NEW_REPUBLIC_WIN        | New Republic Victory
-//GAME_OVER_REBELLION_WIN           | Rebellion Victory
-//GAME_OVER_REBEL_ALLIANCE_WIN      | Rebel Alliance Victory
-//GAME_OVER_ALLIANCE_WIN            | Survival as vassal
-//GAME_OVER_NO_COLONIES_LOSS        | Societal Collapse Loss
+// types of endings: Original
+GAME_OVER_OVERTHROWN_LOSS               | Overthrown Loss
+GAME_OVER_MILITARY_LOSS                 | Military Loss
+GAME_OVER_NO_COLONIES_LOSS              | Societal Collapse Loss
+GAME_OVER_DIPLOMATIC_LOSS               | Diplomatic Loss
+GAME_OVER_DIPLOMATIC_LOSS_LEADER        | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER    | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE  | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_NEW_REPUBLIC_LOSS             | New Republic Loss
+GAME_OVER_NEW_REPUBLIC_LOSS_LEADER      | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_NEW_REPUBLIC_LOSS_MAJOR       | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_NEW_REPUBLIC_LOSS_MINOR       | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_NEW_REPUBLIC_ALLY_LOSS        | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_REBELLION_LOSS                | Rebellion Loss
+GAME_OVER_REBELLION_LEADER_LOSS         | →GAME_OVER_REBELLION_LOSS←
+GAME_OVER_REBELLION_CHALLENGER_LOSS     | →GAME_OVER_REBELLION_LOSS←
+GAME_OVER_REBELLION_FOLLOWER_LOSS       | →GAME_OVER_REBELLION_LOSS←
+GAME_OVER_MILITARY_WIN                  | Military Win
+GAME_OVER_MILITARY_ALLIANCE_WIN         | Military Alliance Win
+GAME_OVER_DIPLOMATIC_WIN                | Diplomatic Win
+GAME_OVER_DIPLO_FEARED_WIN              | →GAME_OVER_DIPLOMATIC_WIN←
+GAME_OVER_DIPLO_MAJOR_WIN               | →GAME_OVER_DIPLOMATIC_WIN←
+GAME_OVER_DIPLO_MINOR_WIN               | →GAME_OVER_DIPLOMATIC_WIN←
+GAME_OVER_ALLIANCE_WIN                  | Alliance Win
+GAME_OVER_NEW_REPUBLIC_WIN              | New Republic Win
+GAME_OVER_NEW_REPUBLIC_WIN_FEARED       | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_MAJOR        | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_MINOR        | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_ALLIED       | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_CHAMPION     | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_REBELLION_WIN                 | Rebellion Win
+GAME_OVER_REBELLION_CRAZY_WIN           | →GAME_OVER_REBELLION_WIN←
+GAME_OVER_REBELLION_CHALLENGER_WIN      | →GAME_OVER_REBELLION_WIN←
+GAME_OVER_REBELLION_FOLLOWER_WIN        | →GAME_OVER_REBELLION_WIN←
+GAME_OVER_REBEL_ALLIANCE_WIN            | Rebel Alliance Win
+GAME_OVER_REBEL_ALLIANCE_CHALLENGER_WIN | →GAME_OVER_REBEL_ALLIANCE_WIN←
+GAME_OVER_REBEL_ALLIANCE_FOLLOWER_WIN   | →GAME_OVER_REBEL_ALLIANCE_WIN←
 
-GAME_OVER_OVERTHROWN_LOSS         | Revolution
-GAME_OVER_MILITARY_LOSS           | Exterminated
-GAME_OVER_DIPLOMATIC_LOSS         | Alien Overlords
-GAME_OVER_REBELLION_LOSS          | Destruction of the Rebellion
-GAME_OVER_NEW_REPUBLIC_LOSS       | Fall of the New Republic
-GAME_OVER_NO_COLONIES_LOSS        | Societal Collapse
-GAME_OVER_MILITARY_WIN            | Galactic Extermination
-GAME_OVER_MILITARY_ALLIANCE_WIN   | Survival as part of alliance
-GAME_OVER_NEW_REPUBLIC_WIN        | Leader of New Republic Victory
-// Final war allies survivor (not leader)
-GAME_OVER_NEW_REPUBLIC_ALLIED     | Allied to New Republic Victory
-// Final war allies survivor (leader is extinct)
-GAME_OVER_NEW_REPUBLIC_CHAMPION   | Champion of New Republic Victory
-// Only survivor of the rebellion, was second nominee
-GAME_OVER_REBELLION_WIN           | Conquest of the New Republic
-GAME_OVER_REBEL_ALLIANCE_WIN      | Rebel Alliance Leader
-// Only survivor of the rebellion, was not part of the nominee
-GAME_OVER_REBELLION_FOLLOWER      | Rebellion Champion
-GAME_OVER_REBEL_ALLIANCE_FOLLOWER | Rebel Alliance Member
-GAME_OVER_ALLIANCE_WIN            | Allies of the Galactic Leader 
-// Was grouped in diplomatic Win
-// Diplomatic: player weight is less than 50%
-GAME_OVER_DIPLOMATIC_WIN          | Democratic Galaxy Leader
-// Diplomatic: player weight is over 50% but less than 2/3
-GAME_OVER_DIPLO_MAJOR_WIN         | United Galaxy Leader
-// Diplomatic: player weight is over 2/3
-GAME_OVER_DIPLO_FEARED_WIN        | Feared Leaders of a United Galaxy
+// types of endings: Extended
+GAME_OVER_OVERTHROWN_LOSS_E               | →GAME_OVER_MILITARY_LOSS←
+GAME_OVER_MILITARY_LOSS_E                 | Exterminated
+GAME_OVER_NO_COLONIES_LOSS_E              | Societal Collapse
+GAME_OVER_DIPLOMATIC_LOSS_E               | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_LEADER_E        | Bond to Alien Overlords
+GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER_E    | Alien Overlords
+GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE_E  | Submission to Alien Overlords
+GAME_OVER_NEW_REPUBLIC_LOSS_E             | Fall of the New Republic
+GAME_OVER_NEW_REPUBLIC_LOSS_LEADER_E      | Fiasco of the New Republic
+GAME_OVER_NEW_REPUBLIC_LOSS_MAJOR_E       | Fall of the New Republic
+GAME_OVER_NEW_REPUBLIC_LOSS_MINOR_E       | Unsuccesful New Republic
+GAME_OVER_NEW_REPUBLIC_ALLY_LOSS_E        | Attempt to Help the New Republic
+GAME_OVER_REBELLION_LOSS_E                | Destruction of the Rebellion
+GAME_OVER_REBELLION_LEADER_LOSS_E         | Crazy Leader Defeated During his Rebellion
+GAME_OVER_REBELLION_CHALLENGER_LOSS_E     | Challenger Defeated During his Rebellion
+GAME_OVER_REBELLION_FOLLOWER_LOSS_E       | Destroyed following the Rebellion
+GAME_OVER_MILITARY_WIN_E                  | Galactic Extermination
+GAME_OVER_MILITARY_ALLIANCE_WIN_E         | Survival as part of alliance
+GAME_OVER_DIPLOMATIC_WIN_E                | →GAME_OVER_DIPLOMATIC_WIN←
+GAME_OVER_DIPLO_FEARED_WIN_E              | Feared Leaders of a United Galaxy
+GAME_OVER_DIPLO_MAJOR_WIN_E               | United Galaxy Leader
+GAME_OVER_DIPLO_MINOR_WIN_E               | Democratic Galaxy Leader
+GAME_OVER_ALLIANCE_WIN_E                  | Allies of the Galactic Leader
+GAME_OVER_NEW_REPUBLIC_WIN_E              | Leader of the New Republic
+GAME_OVER_NEW_REPUBLIC_WIN_FEARED_E       | Feared Leader of the New Republic
+GAME_OVER_NEW_REPUBLIC_WIN_MAJOR_E        | Confirmed Leader of the New Republic
+GAME_OVER_NEW_REPUBLIC_WIN_MINOR_E        | Celebrated Leader of the New Republic
+GAME_OVER_NEW_REPUBLIC_WIN_ALLIED_E       | Allied to the New Republic
+GAME_OVER_NEW_REPUBLIC_WIN_CHAMPION_E     | Champion of the New Republic
+GAME_OVER_REBELLION_WIN_E                 | →GAME_OVER_REBELLION_WIN←
+GAME_OVER_REBELLION_CRAZY_WIN_E           | Crazy Conquest of the New Republic
+GAME_OVER_REBELLION_CHALLENGER_WIN_E      | Conquest of the New Republic
+GAME_OVER_REBELLION_FOLLOWER_WIN_E        | Conquest of the New Republic Champion
+GAME_OVER_REBEL_ALLIANCE_WIN_E            | →GAME_OVER_REBEL_ALLIANCE_WIN←
+GAME_OVER_REBEL_ALLIANCE_CHALLENGER_WIN_E | Rebel Alliance Leader
+GAME_OVER_REBEL_ALLIANCE_FOLLOWER_WIN_E   | Rebel Alliance Member
 
-
-// Military Allied Win -> Leaders of the Alliance
-// New Republic Win -> Leaders of the New Republic
-
+// types of endings: Realms Beyond
+GAME_OVER_OVERTHROWN_LOSS_RB               | →GAME_OVER_OVERTHROWN_LOSS←
+GAME_OVER_MILITARY_LOSS_RB                 | →GAME_OVER_MILITARY_LOSS←
+GAME_OVER_NO_COLONIES_LOSS_RB              | →GAME_OVER_NO_COLONIES_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_RB               | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_LEADER_RB        | →GAME_OVER_DIPLOMATIC_LOSS_LEADER←
+GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER_RB    | →GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER←
+GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE_RB  | →GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE←
+GAME_OVER_NEW_REPUBLIC_LOSS_RB             | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_NEW_REPUBLIC_LOSS_LEADER_RB      | →GAME_OVER_DIPLO_FEARED_WIN_RB← Overtrown
+GAME_OVER_NEW_REPUBLIC_LOSS_MAJOR_RB       | →GAME_OVER_DIPLO_MAJOR_WIN_RB← Overtrown
+GAME_OVER_NEW_REPUBLIC_LOSS_MINOR_RB       | →GAME_OVER_DIPLOMATIC_WIN_RB← Overtrown
+GAME_OVER_NEW_REPUBLIC_ALLY_LOSS_RB        | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_REBELLION_LOSS_RB                | →GAME_OVER_REBELLION_LOSS←
+GAME_OVER_REBELLION_LEADER_LOSS_RB         | →GAME_OVER_REBELLION_LEADER_LOSS←
+GAME_OVER_REBELLION_CHALLENGER_LOSS_RB     | →GAME_OVER_REBELLION_CHALLENGER_LOSS←
+GAME_OVER_REBELLION_FOLLOWER_LOSS_RB       | →GAME_OVER_REBELLION_FOLLOWER_LOSS←
+GAME_OVER_MILITARY_WIN_RB                  | Extermination Victory
+GAME_OVER_MILITARY_ALLIANCE_WIN_RB         | →GAME_OVER_MILITARY_ALLIANCE_WIN←
+GAME_OVER_DIPLOMATIC_WIN_RB                | →GAME_OVER_DIPLOMATIC_WIN←
+GAME_OVER_DIPLO_FEARED_WIN_RB              | Conquest Victory
+GAME_OVER_DIPLO_MAJOR_WIN_RB               | Domination Victory
+GAME_OVER_DIPLO_MINOR_WIN_RB               | Diplomatic Victory
+GAME_OVER_ALLIANCE_WIN_RB                  | →GAME_OVER_ALLIANCE_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_RB              | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_FEARED_RB       | →GAME_OVER_DIPLO_FEARED_WIN_RB← Upheld
+GAME_OVER_NEW_REPUBLIC_WIN_MAJOR_RB        | →GAME_OVER_DIPLO_MAJOR_WIN_RB← Upheld
+GAME_OVER_NEW_REPUBLIC_WIN_MINOR_RB        | →GAME_OVER_DIPLOMATIC_WIN_RB← Upheld
+GAME_OVER_NEW_REPUBLIC_WIN_ALLIED_RB       | →GAME_OVER_NEW_REPUBLIC_WIN_ALLIED←
+GAME_OVER_NEW_REPUBLIC_WIN_CHAMPION_RB     | →GAME_OVER_NEW_REPUBLIC_WIN_CHAMPION←
+GAME_OVER_REBELLION_WIN_RB                 | →GAME_OVER_REBELLION_WIN←
+GAME_OVER_REBELLION_CRAZY_WIN_RB           | →GAME_OVER_REBELLION_CRAZY_WIN←
+GAME_OVER_REBELLION_CHALLENGER_WIN_RB      | →GAME_OVER_REBELLION_CHALLENGER_WIN←
+GAME_OVER_REBELLION_FOLLOWER_WIN_RB        | →GAME_OVER_REBELLION_FOLLOWER_WIN←
+GAME_OVER_REBEL_ALLIANCE_WIN_RB            | →GAME_OVER_REBEL_ALLIANCE_WIN←
+GAME_OVER_REBEL_ALLIANCE_CHALLENGER_WIN_RB | →GAME_OVER_REBEL_ALLIANCE_CHALLENGER_WIN←
+GAME_OVER_REBEL_ALLIANCE_FOLLOWER_WIN_RB   | →GAME_OVER_REBEL_ALLIANCE_FOLLOWER_WIN←
 
 GAME_OVER_EXIT                    | Exit
 GAME_OVER_REPLAY                  | Replay

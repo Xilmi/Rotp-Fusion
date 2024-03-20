@@ -59,6 +59,27 @@ public interface IDebugOptions extends IBaseOptsTools {
 	default void	debugBMContinue()	{ debugAutoRun.set("Bench"); }
 	default boolean debugBMBreak()		{ return debugAutoRun.get().equalsIgnoreCase("End"); }
 
+	ParamList debugARContinueOnLoss		= new ParamList( MOD_UI, "DEBUG_AR_CONTINUE_ON_LOSS", "BMOnly") {
+		{
+			isDuplicate(false);
+			isCfgFile(true);
+			showFullGuide(true);
+			put("Always",	MOD_UI + "DEBUG_AR_CONTINUE_ON_LOSS_ALWAYS");
+			put("Never",	MOD_UI + "DEBUG_AR_CONTINUE_ON_LOSS_NEVER");
+			put("BMOnly",	MOD_UI + "DEBUG_AR_CONTINUE_ON_LOSS_BM_ONLY");
+		}
+	};
+	default boolean debugARStopOnLoss()	{
+		switch (debugARContinueOnLoss.get()) {
+		case "Never":
+			return true;
+		case "Always":
+			return false;
+		case "BMOnly":
+			return !debugBenchmark();
+		}
+		return true;
+	}
 	ParamList debugBMShowAll		= new ParamList( MOD_UI, "DEBUG_BM_SHOW_ALL", "Off") {
 		{
 			isDuplicate(false);
@@ -132,21 +153,20 @@ public interface IDebugOptions extends IBaseOptsTools {
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_MEMORY"),
 				debugShowMemory, debugConsoleMemory,
-				debugShowMoreMemory, debugFileMemory
+				debugShowMoreMemory, debugFileMemory,
 
-				// headerSpacer,
-				// showConsolePanel
+				headerSpacer,
+				new ParamTitle("DEBUG_RELEVANT"),
+				IAdvOptions.councilWin, IAdvOptions.autoplay,
+				IMainOptions.backupTurns
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_AUTO_RUN"),
 				debugAutoRun, debugNoAutoSave,
-				debugBMMaxTurns, debugBMLostTurns,
+				debugARContinueOnLoss,
+				debugBMLostTurns, debugBMMaxTurns,
 				debugBMZoomOut, debugBMShowAll,
-				consoleAutoRun, debugLogNotif, debugLogEvents,
-
-				headerSpacer,
-				IAdvOptions.councilWin, IAdvOptions.autoplay,
-				IMainOptions.backupTurns
+				consoleAutoRun, debugLogNotif, debugLogEvents
 				)));
 		return map;
 	}

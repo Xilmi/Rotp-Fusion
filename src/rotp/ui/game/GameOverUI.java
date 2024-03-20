@@ -37,12 +37,12 @@ import java.util.ArrayList;
 import java.util.List;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
+import rotp.model.game.GameStatus;
 import rotp.ui.BasePanel;
 import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.SystemPanel;
-import rotp.util.LanguageManager;
 
 public final class GameOverUI extends FadeInPanel implements MouseListener, MouseMotionListener, ActionListener {
     private static final long serialVersionUID = 1L;
@@ -110,8 +110,7 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         g.setFont(narrowFont(30));
         g.setColor(Color.lightGray);
         String title = gameOverTitle();
-//        drawString(g,title, s10, s35);
-//        drawShadowedString(g, title, 1, s10, s35, SystemPanel.blackText, SystemPanel.whiteText);
+        // drawString(g,title, s10, s35);
         drawShadowedString(g, title, 1, s10, s35, SystemPanel.blackText, Color.lightGray);
         
         if (transIndex >= 0) {
@@ -234,62 +233,104 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         drawShadowedString(g, exitText, x2a, exitBox.y + exitBox.height - s12, Color.black, c0);
     }
     public String gameOverTitle() {
-    	String title = gameOverTitleCommon();
-        int Id = LanguageManager.selectedLanguage();
-        if (Id != 0)
-        	return title;
-        // English variation
-        if (session().status().lostNewRepublicAsAllied())
-            return text("");
-        else if (session().status().lostRebellionAsFollower())
-            return text("");
-        else if (session().status().wonDiplomaticMajor())
-            return text("GAME_OVER_DIPLO_MAJOR_WIN");
-        else if (session().status().wonDiplomaticFeared())
-            return text("GAME_OVER_DIPLO_FEARED_WIN");
-        else if (session().status().wonNewRepublicAsAllied())
-            return text("GAME_OVER_NEW_REPUBLIC_ALLIED");
-        else if (session().status().wonNewRepublicAsChampion())
-            return text("GAME_OVER_NEW_REPUBLIC_CHAMPION");
-        else if (session().status().wonRebellionAsLeader())
-            return text("GAME_OVER_REBELLION_WIN");
-        else if (session().status().wonRebellionAsFollower())
-            return text("GAME_OVER_REBELLION_FOLLOWER");
-        else if (session().status().wonRebellionAllianceAsLeader())
-            return text("GAME_OVER_ALLIANCE_WIN");
-        else if (session().status().wonRebellionAllianceAsFollower())
-            return text("GAME_OVER_REBEL_ALLIANCE_FOLLOWER");
-        return title;
+    	String titleBaseKey = gameOverTitleKey();
+    	String titleKey = titleBaseKey + options().gameOverTitlesKeyExt();
+    	return text(titleKey);
     }
-    private String gameOverTitleCommon() {
-        if (session().status().lostOverthrown())
-            return text("GAME_OVER_OVERTHROWN_LOSS");
-        else if (session().status().lostMilitary())
-            return text("GAME_OVER_MILITARY_LOSS");
-        else if (session().status().lostDiplomatic())
-            return text("GAME_OVER_DIPLOMATIC_LOSS");
-        else if (session().status().lostNewRepublic())
-            return text("GAME_OVER_NEW_REPUBLIC_LOSS");
-        else if (session().status().lostRebellion())
-            return text("GAME_OVER_REBELLION_LOSS");
-        else if (session().status().lostNoColonies())
-            return text("GAME_OVER_NO_COLONIES_LOSS");
-        else if (session().status().wonDiplomatic())
-            return text("GAME_OVER_DIPLOMATIC_WIN");
-        else if (session().status().wonMilitary())
-            return text("GAME_OVER_MILITARY_WIN");
-        else if (session().status().wonMilitaryAlliance())
-            return text("GAME_OVER_MILITARY_ALLIANCE_WIN");
-        else if (session().status().wonNewRepublic())
-            return text("GAME_OVER_NEW_REPUBLIC_WIN");
-        else if (session().status().wonRebellion())
-            return text("GAME_OVER_REBELLION_WIN");
-        else if (session().status().wonCouncilAlliance())
-            return text("GAME_OVER_ALLIANCE_WIN");
-        else if (session().status().wonRebellionAlliance())
-            return text("GAME_OVER_REBEL_ALLIANCE_WIN");
+    private String gameOverTitleKey() {
+    	GameStatus status = session().status();
+        if (status.lostOverthrown())
+            return "GAME_OVER_OVERTHROWN_LOSS";
+        else if (status.lostMilitary())
+            return "GAME_OVER_MILITARY_LOSS";
+        else if (status.lostNoColonies())
+            return "GAME_OVER_NO_COLONIES_LOSS";
+        else if (status.lostDiplomaticAsLeader())
+            return "GAME_OVER_DIPLOMATIC_LOSS_LEADER";
+        else if (status.lostDiplomaticAsChallenger())
+            return "GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER";
+        else if (status.lostDiplomaticAsNonCandidate())
+            return "GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE";
+        else if (status.lostNewRepublicAsFearedLeader())
+            return "GAME_OVER_DIPLOMATIC_LOSS_FEARED";
+        else if (status.lostNewRepublicAsMajorLeader())
+            return "GAME_OVER_DIPLOMATIC_LOSS_MAJOR";
+        else if (status.lostNewRepublicAsMinorLeader())
+            return "GAME_OVER_DIPLOMATIC_LOSS_MINOR";
+        else if (status.lostNewRepublicAlliance())
+            return "GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE";
+        else if (status.lostNewRepublic())
+            return "GAME_OVER_NEW_REPUBLIC_LOSS";
+        else if (status.lostRebellionAsCrazyLeader())
+            return "GAME_OVER_REBELLION_LEADER_LOSS";
+        else if (status.lostRebellionAsChallenger())
+            return "GAME_OVER_REBELLION_CHALLENGER_LOSS";
+        else if (status.lostRebellionAsFollower())
+            return "GAME_OVER_REBELLION_FOLLOWER_LOSS";
+        else if (status.wonMilitary())
+            return "GAME_OVER_MILITARY_WIN";
+        else if (status.wonMilitaryAlliance())
+            return "GAME_OVER_MILITARY_ALLIANCE_WIN";
+        else if (status.wonDiplomaticFeared())
+            return "GAME_OVER_DIPLO_FEARED_WIN";
+        else if (status.wonDiplomaticMajor())
+            return "GAME_OVER_DIPLO_MAJOR_WIN";
+        else if (status.wonDiplomaticMinor())
+            return "GAME_OVER_DIPLOMATIC_MINOR_WIN";
+        else if (status.wonCouncilAlliance())
+            return "GAME_OVER_ALLIANCE_WIN";
+        else if (status.wonNewRepublicAsFearedLeader())
+            return "GAME_OVER_NEW_REPUBLIC_WIN_FEARED";
+        else if (status.wonNewRepublicAsMajorLeader())
+            return "GAME_OVER_NEW_REPUBLIC_WIN_MAJOR";
+        else if (status.wonNewRepublicAsMinorLeader())
+            return "GAME_OVER_NEW_REPUBLIC_WIN_MINOR";
+        else if (status.wonNewRepublicAsAllied())
+            return "GAME_OVER_NEW_REPUBLIC_WIN_ALLIED";
+        else if (status.wonNewRepublicAsChampion())
+            return "GAME_OVER_NEW_REPUBLIC_WIN_CHAMPION";
+        else if (status.wonRebellionAsCrazyLeader())
+            return "GAME_OVER_REBELLION_CRAZY_WIN_E";
+        else if (status.wonRebellionAsChallenger())
+            return "GAME_OVER_REBELLION_CHALLENGER_WIN";
+        else if (status.wonRebellionAsFollower())
+            return "GAME_OVER_REBELLION_FOLLOWER_WIN";
+        else if (status.wonRebellionAllianceAsLeader())
+            return "GAME_OVER_REBEL_ALLIANCE_CHALLENGER_WIN";
+        else if (status.wonRebellionAllianceAsFollower())
+            return "GAME_OVER_REBEL_ALLIANCE_FOLLOWER_WIN";
         return "";
     }
+
+//    private String gameOverTitleCommon() {
+//        if (session().status().lostOverthrown())
+//            return text("GAME_OVER_OVERTHROWN_LOSS");
+//        else if (session().status().lostMilitary())
+//            return text("GAME_OVER_MILITARY_LOSS");
+//        else if (session().status().lostDiplomatic())
+//            return text("GAME_OVER_DIPLOMATIC_LOSS");
+//        else if (session().status().lostNewRepublic())
+//            return text("GAME_OVER_NEW_REPUBLIC_LOSS");
+//        else if (session().status().lostRebellion())
+//            return text("GAME_OVER_REBELLION_LOSS");
+//        else if (session().status().lostNoColonies())
+//            return text("GAME_OVER_NO_COLONIES_LOSS");
+//        else if (session().status().wonDiplomatic())
+//            return text("GAME_OVER_DIPLOMATIC_WIN");
+//        else if (session().status().wonMilitary())
+//            return text("GAME_OVER_MILITARY_WIN");
+//        else if (session().status().wonMilitaryAlliance())
+//            return text("GAME_OVER_MILITARY_ALLIANCE_WIN");
+//        else if (session().status().wonNewRepublic())
+//            return text("GAME_OVER_NEW_REPUBLIC_WIN");
+//        else if (session().status().wonRebellion())
+//            return text("GAME_OVER_REBELLION_WIN");
+//        else if (session().status().wonCouncilAlliance())
+//            return text("GAME_OVER_ALLIANCE_WIN");
+//        else if (session().status().wonRebellionAlliance())
+//            return text("GAME_OVER_REBEL_ALLIANCE_WIN");
+//        return "";
+//    }
     private String gameOverText() {
         Empire pl = player();
         String year = str(galaxy().currentYear());

@@ -618,22 +618,31 @@ public final class GameSession implements Base, Serializable {
                 if(benchmarkBreakAndContinue()) {
                 	options().debugBMContinue();
                 	RotPUI.instance().selectGameOverPanel();
+                	performingTurn = false;
                 	return;
                 }
                 if (autoRunning && options().debugAutoRun()) {
                 	// Auto Run Mode Stop if:
-                	// 1) Easy case: the player won
-                	// 2) Military win: Only one empire remaining
-                	// 3) Diplomatic win, no rebels
-                	// 4) Final war: one side win
+                   	// 1) Easy case: the player won
+                   	// 2) The player lost with option StopOnLoss
+                	// 3) Military win: Only one empire remaining
+                	// 4) Diplomatic win, no rebels
+                	// 5) Final war: one side win
                  	if(status().won()) {
                 		RotPUI.instance().selectGameOverPanel();
+                		performingTurn = false;
+                		return;
+                	}
+                 	if(status().lost() && options().debugARStopOnLoss()) {
+                		RotPUI.instance().selectGameOverPanel();
+                		performingTurn = false;
                 		return;
                 	}
                 	// Stop if only one empire remaining and player started with opponent(s)
                 	if (galaxy().numActiveEmpires() == 1 
                 			&& options.selectedOpponentRaces()[0]!=null) {
                 		RotPUI.instance().selectGameOverPanel();
+                		performingTurn = false;
                 		return;
                 	}
                 	GalacticCouncil council = galaxy().council();
@@ -642,6 +651,7 @@ public final class GameSession implements Base, Serializable {
                 	if (council.rebelion() && (wonByAlly || wonByRebels) ) {
             			// System.out.println("wonByAlly Or wonByRebels");
                 		RotPUI.instance().selectGameOverPanel();
+                		performingTurn = false;
                 		return;
                 	}
 //                	// Stop status conditions are met
@@ -1121,14 +1131,14 @@ public final class GameSession implements Base, Serializable {
         return concat(leader,dash,race,dash,gShape,dash,gSize,dash,diff,dash,opp,dash,turn,SAVEFILE_EXTENSION);
     }
     public long saveRecentSession(boolean endOfTurn) {
-    	if (options().debugNoAutoSave())
-    		return -1;
+    	boolean allowAutoSave = !options().debugNoAutoSave();
     	long ufs = -1;
-    	if (!endOfTurn) // BR: Always keep a copy of starting turn
+    	if (allowAutoSave && !endOfTurn) // BR: Always keep a copy of starting turn
     		saveRecentStartSession();
         String filename = RECENT_SAVEFILE;
         try {
-            ufs = saveSession(filename, false);
+        	if (allowAutoSave)
+        		ufs = saveSession(filename, false);
             if (endOfTurn)
                saveBackupSession(galaxy().currentTurn());
         }

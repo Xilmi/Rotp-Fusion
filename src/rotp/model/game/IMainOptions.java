@@ -282,9 +282,26 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			put("6",	MOD_UI + "COMPACT_OPTION_ONLY_6");
 		}
 	};
-
-//	ParamBoolean compactOptionOnly	= new ParamBoolean(MOD_UI, "COMPACT_OPTION_ONLY", false)
-//	{	{ isCfgFile(true); } };
+	ParamList gameOverTitles		= new ParamList( MOD_UI, "GAME_OVER_TITLE", "Original") {
+		{
+			isCfgFile(true);
+			isDuplicate(false);
+			showFullGuide(true);
+			put("Original",	MOD_UI + "GAME_OVER_TITLE_ORIGINAL");
+			put("Extended",	MOD_UI + "GAME_OVER_TITLE_EXTENDED");
+			put("RealmsBeyond",	MOD_UI + "GAME_OVER_TITLE_RB");
+		}
+	};
+	default String gameOverTitlesKeyExt() {
+		switch (gameOverTitles.get()) {
+			case "Extended" :		return "_E";
+			case "RealmsBeyond" :	return "_RB";
+			default:				return "";
+		}
+	}
+	default boolean originalGOTitles()	{ return gameOverTitles.get().equalsIgnoreCase("Original"); }
+	default boolean extendedGOTitles()	{ return gameOverTitles.get().equalsIgnoreCase("Extended"); }
+	default boolean rbGOTitles()		{ return gameOverTitles.get().equalsIgnoreCase("RealmsBeyond"); }
 
 	ParamBoolean showAlternateAnimation	= new ParamBoolean(MOD_UI, "SHOW_ALT_ANIMATION", true)
 	{	{ isCfgFile(true); } };
@@ -292,11 +309,10 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	{	{ isCfgFile(true); } };
 	default boolean originalSpeciesOnly()	{ return originalSpeciesOnly.get(); }
 
-	ParamBoolean  noFogOnIcons	= new ParamBoolean( BASE_UI, "NO_FOG_ON_ICONS", false)
+	ParamBoolean  noFogOnIcons		= new ParamBoolean( BASE_UI, "NO_FOG_ON_ICONS", false)
 	{	{ isCfgFile(true); } };
 	default boolean noFogOnIcons()	{ return noFogOnIcons.get(); }
 
-	
 	ParamFloat   showFlagFactor		= new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
 		{ isCfgFile(true); }
@@ -470,7 +486,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 						null,
 						// IConvenienceOptions.autoColonize_, IConvenienceOptions.autoBombard_,
 						backupTurns, saveDirectory,
-						originalSpeciesOnly, showAllAI,
+						originalSpeciesOnly, showAllAI, gameOverTitles,
 
 						null,
 						disableAutoHelp, disableAdvisor,

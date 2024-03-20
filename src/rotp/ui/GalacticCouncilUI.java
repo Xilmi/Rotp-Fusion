@@ -98,7 +98,7 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
         background = player().race().council();
         startFadeTimer();
     }
-    public void autoRun() { // TODO BR: Auto-Run
+    public void autoRun() {
     	GalacticCouncil council = galaxy().council();
     	showVoterSummary = true;
         displayMode = Display.ANNOUNCE;
