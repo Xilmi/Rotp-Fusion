@@ -62,6 +62,10 @@ Later:
 
 ## What's New
 
+2024.03.210 (BR)
+- Added Spanish folder (src/rotp/lang/es) with english content, ready for translation.
+- Added Spanish language selection at the bottom of the list.
+
 2024.03.20 (BR)
 - Completed Game Over Panel new titles.
 - Fixed too strong No Auto-Save.
