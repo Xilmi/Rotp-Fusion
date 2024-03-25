@@ -4,6 +4,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Very last changes:</ins></b>
 - Game Over panel: Option to get more diversified titles.
 - New option to choose if the autorun should continue after the player lost!
+- Renamed some remaining Nazloks, Fiershan, Ssslauran, and Cryslonoids.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -80,6 +81,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Added it to "Main Menu -> Settings"
   - Added it to Pre Game Options (above autoplay setting)
 - Little reorganisation in "In-Game Options" Panel for more clarity... I hope!
+- Renamed some remaining Nazloks, Fiershan, Ssslauran, and Cryslonoids.
 
 
 <b><ins>Bug Fixes:</ins></b>
