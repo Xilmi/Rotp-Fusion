@@ -4251,7 +4251,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             else if (activeEmpires.size() == 1)
                 session().status().winMilitary();
             // multiple empires, all allied with player.. that's a win
-            else if (galaxy().allAlliedWithPlayer() && !options().realmsBeyondCouncil()) 
+            else if (galaxy().allAlliedWithPlayer() && !options().noAllianceCouncil()) 
                 session().status().winMilitaryAlliance();
         }            
         status.assessTurn();

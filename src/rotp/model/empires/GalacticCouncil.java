@@ -261,7 +261,7 @@ public class GalacticCouncil implements Base, Serializable {
         }
         // if player accepted ruling, also game over
         else if (allies.contains(player()) || options().realmsBeyondCouncil()) {
-            if (playerhasAlliance && !options().realmsBeyondCouncil())
+            if (playerhasAlliance && !options().noAllianceCouncil())
                 session().status().winCouncilAlliance();
             else
                 session().status().loseDiplomatic();
