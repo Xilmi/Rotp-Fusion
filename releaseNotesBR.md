@@ -2,9 +2,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Game Over panel: Option to get more diversified titles.
-- New option to choose if the autorun should continue after the player lost!
 - Renamed some remaining Nazloks, Fiershan, Ssslauran, and Cryslonoids.
+- Added a new option in the council setting: Realms Beyond.
+  - No second chances, no half win... ==> No Alliance victory (Neither Council nor Military) & No rebellion! (Including player)
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -49,6 +50,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Auto-Run manage council
   - New Benchmark tester
 - Game Over panel: Option to get more diversified titles.
+- Added a new option in the council setting: Realms Beyond.
+  - No second chances, no half win... ==> No Alliance victory (Neither Council nor Military) & No rebellion! (Including player)
+
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.

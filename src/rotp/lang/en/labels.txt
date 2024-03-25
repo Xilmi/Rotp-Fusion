@@ -1505,9 +1505,11 @@ SETUP_NEBULA_FREQUENT_HELP        | Quadruple the nebula occurence.
 SETUP_COUNCIL_NONE                | No Council
 SETUP_COUNCIL_IMMEDIATE           | Immediate
 SETUP_COUNCIL_REBELS              | Allow Rebels
+SETUP_COUNCIL_REALMS_BEYOND       | Realms Beyond
 SETUP_COUNCIL_NONE_HELP           | No Council! the only way to win is by destroying all the other empires!
 SETUP_COUNCIL_IMMEDIATE_HELP      | Once two-thirds of the galaxy has been colonized, councils will pop up every 25 years to hold elections. If you win, every one will agree you are the best!
 SETUP_COUNCIL_REBELS_HELP         | Once two-thirds of the galaxy has been colonized, councils will pop up every 25 years to hold elections. If you win, some of your worst enemies may refuse to follow you, and will start a rebellion: The final War!!!
+SETUP_COUNCIL_REALMS_BEYOND_HELP  | No second chances, no half win... ==> No Alliance victory (Neither Council nor Military) & No rebellion! (Including player)
 SETUP_STAR_DENSITY_LOWEST         | Lowest
 SETUP_STAR_DENSITY_LOWER          | Lower
 SETUP_STAR_DENSITY_LOW            | Low

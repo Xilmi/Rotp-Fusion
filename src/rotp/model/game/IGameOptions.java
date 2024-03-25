@@ -160,6 +160,7 @@ public interface IGameOptions extends IModOptions {
     public static final String COUNCIL_IMMEDIATE = "SETUP_COUNCIL_IMMEDIATE";
     public static final String COUNCIL_REBELS    = "SETUP_COUNCIL_REBELS";
     public static final String COUNCIL_NONE      = "SETUP_COUNCIL_NONE";
+    public static final String COUNCIL_REALMS_BEYOND = "SETUP_COUNCIL_REALMS_BEYOND";
 
     public static final String STAR_DENSITY_LOWEST   = "SETUP_STAR_DENSITY_LOWEST";
     public static final String STAR_DENSITY_LOWER    = "SETUP_STAR_DENSITY_LOWER";
@@ -507,6 +508,7 @@ public interface IGameOptions extends IModOptions {
     //default void copyOptions(IGameOptions opt) { }
     default boolean immediateCouncilWin()    { return selectedCouncilWinOption().equals(COUNCIL_IMMEDIATE); }
     default boolean noGalacticCouncil()      { return selectedCouncilWinOption().equals(COUNCIL_NONE); }
+    default boolean realmsBeyondCouncil()    { return selectedCouncilWinOption().equals(COUNCIL_REALMS_BEYOND); }
     default float fuelRangeMultiplier() {
         switch(selectedFuelRangeOption()) { // BR: restored and added 2
             case FUEL_RANGE_CUT:    return 0.67f;
@@ -676,6 +678,7 @@ public interface IGameOptions extends IModOptions {
         list.add(COUNCIL_IMMEDIATE);
         list.add(COUNCIL_REBELS);
         list.add(COUNCIL_NONE);
+        list.add(COUNCIL_REALMS_BEYOND);
         return list;
     }
     public static List<String> getFuelRangeOptions() { // BR: restored and added 2

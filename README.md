@@ -62,6 +62,10 @@ Later:
 
 ## What's New
 
+2024.03.25 (BR)
+- Added a new option in the council setting: Realms Beyond.
+  - No second chances, no half win... ==> No Alliance victory (Neither Council nor Military) & No rebellion! (Including player)
+
 2024.03.24 (BR)
 - Renamed some remaining Nazloks, Fiershan, Ssslauran, and Cryslonoids.
 

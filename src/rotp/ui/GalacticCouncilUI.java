@@ -1107,8 +1107,14 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
             case SHOW_VOTE_RESULT:
                 if (galaxy().council().votingInProgress())
                     displayMode = nextVotingMode();
-                else if (galaxy().council().hasLeader())
-                    displayMode = Display.ACCEPT_RULING;
+                else if (galaxy().council().hasLeader()) {
+                	displayMode = Display.ACCEPT_RULING;
+                	if (options().realmsBeyondCouncil()) {
+                		galaxy().council().acceptRuling(player());
+                		exit();
+                		break;
+                	}
+                }
                 else
                     displayMode = Display.NO_WINNER;
                 break;
