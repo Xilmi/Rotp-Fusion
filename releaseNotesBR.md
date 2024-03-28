@@ -2,11 +2,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Renamed some remaining Nazloks, Fiershan, Ssslauran, and Cryslonoids.
-- Added a new option in the council setting: Realms Beyond.
-  - No second chances, no half win... ==> No Alliance victory (Neither Council nor Military) & No rebellion! (Including player)
-- Added a new option in the council setting: No Alliances.
-  - No half win... ==> No Alliance victory (Neither Council nor Military)
+- Spending Pane: Fixed wrong ship building time estimation when interrupting stargate build.
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -107,4 +104,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Removed autoBombard and autocolonize from "Main Menu -> Settings", as they are no more stored in Remnant.cfg, and it could be confusing!
 - Fixed relocating ship pathSprite bug
 - Fixed crash due to monster checking to colonize planet!
+- Spending Pane: Fixed wrong ship building time estimation when interrupting stargate build.
 - minor fixes...

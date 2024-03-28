@@ -62,6 +62,9 @@ Later:
 
 ## What's New
 
+2024.03.28 (BR)
+- Spending Pane: Fixed wrong ship building time estimation when interrupting stargate build.
+
 2024.03.25 (BR)
 - Added a new option in the council setting: Realms Beyond.
   - No second chances, no half win... ==> No Alliance victory (Neither Council nor Military) & No rebellion! (Including player)

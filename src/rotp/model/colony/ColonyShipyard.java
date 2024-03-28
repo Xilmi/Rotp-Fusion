@@ -363,14 +363,16 @@ public class ColonyShipyard extends ColonySpendingCategory {
         
         float tmpShipReserveBC = shipReserveBC;
         float tmpShipBC = shipBC;
-        float tmpStargateBC = stargateBC;
+//        float tmpStargateBC = stargateBC;
         float accumBC = buildingStargate ? stargateBC : shipBC;
         // if we switched designs, send previous ship BC to shipyard reserve
         if (design != prevDesign) {
-            if (prevDesign instanceof DesignStargate)
-                tmpShipReserveBC += tmpStargateBC;
-            else
+            if (!(prevDesign instanceof DesignStargate))
                 tmpShipReserveBC += tmpShipBC;
+//            if (prevDesign instanceof DesignStargate)
+//                tmpShipReserveBC += tmpStargateBC;
+//            else
+//                tmpShipReserveBC += tmpShipBC;
             accumBC = 0;
         }
         float prodBC = pct()* colony().totalProductionIncome() * planet().productionAdj();
