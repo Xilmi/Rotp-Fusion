@@ -53,6 +53,7 @@ Later:
   - Check what recall diplomat limitations are.
 - Species Easy-Normal-Hard
 - Tech trading extended list.
+  - Switch tech level category...
 - Option to be used to force war declaration upon "Smart Resolve".
   - Check if at war and add a button if not!
 - Governor: Individual disable receive troops
@@ -61,6 +62,9 @@ Later:
 
 
 ## What's New
+
+2024.04.01 (BR)
+- New sub panel to customize Artifact and ressources probabilities.
 
 2024.03.28 (BR)
 - Spending Pane: Fixed wrong ship building time estimation when interrupting stargate build.

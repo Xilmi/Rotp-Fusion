@@ -20,7 +20,7 @@ import rotp.ui.util.ParamTech;
 import rotp.ui.util.ParamTitle;
 import rotp.ui.util.RandomAlienRaces;
 
-public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
+public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsOptions {
 
 	// ========================================================================
 	// Factory options
@@ -289,8 +289,13 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 
 				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
-				IMainOptions.useFusionFont, IMainOptions.compactOptionOnly
+				IMainOptions.useFusionFont, IMainOptions.compactOptionOnly,
+				
+				headerSpacer,
+				new ParamTitle("SUB_PANEL_OPTIONS"),
+				ISystemsOptions.systemsOptionsUI()
 				)));
+
 		return map;
 	};
 	String PRE_GAME_GUI_ID	= "PRE_GAME_OPTIONS";

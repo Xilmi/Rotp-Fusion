@@ -2,8 +2,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Spending Pane: Fixed wrong ship building time estimation when interrupting stargate build.
-
+- New sub panel to customize Artifact and ressources probabilities.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -51,6 +50,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Added a new option in the council setting:
   - Realms Beyond: No second chances, no half win... ==> No Alliance victory (Neither Council nor Military) & No rebellion! (Including player)
   - No Alliances: No half win... ==> No Alliance victory (Neither Council nor Military)
+- New sub panel to customize Artifact and ressources probabilities.
+
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.

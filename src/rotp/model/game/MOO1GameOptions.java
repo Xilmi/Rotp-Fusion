@@ -799,7 +799,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         checkForPoorResources(p, s);
         if (p.isResourceNormal())
             checkForRichResources(p, s);
-        if (p.isResourceNormal())
+        if (p.isResourceNormal() || allowRichPoorArtifact())
             checkForArtifacts(p, s);
         return p;
     }
@@ -988,8 +988,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     private void checkForPoorResources(Planet p, StarSystem s) {
         // these planet types and no chance for poor resources -- skip
+        float r1 = 0;
+        float r2 = 0;
         switch(p.type().key()) {
             case PlanetType.NONE:
+            	return; // BR: No way to force asteroids to poor!
             case PlanetType.RADIATED:
             case PlanetType.TOXIC:
             case PlanetType.INFERNO:
@@ -998,30 +1001,28 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case PlanetType.BARREN:
             case PlanetType.JUNGLE:
             case PlanetType.TERRAN:
-                return;
-        }
+            	break; // BR: to allow special customization
 
-        float r1 = 0;
-        float r2 = 0;
-        switch(s.starType().key()) {
-            case StarType.BLUE:
-            case StarType.WHITE:
-            case StarType.YELLOW:
-                r1 = .025f; r2 = .10f;
-                break;
-            case StarType.RED:
-                r1 = .06f;  r2 = .20f;
-                break;
-            case StarType.ORANGE:
-                r1 = .135f; r2 = .30f;
-                break;
-            case StarType.PURPLE:
-                // can never have poor/ultrapoor
-                return;
             default:
-                throw new RuntimeException(concat("Invalid star type for options: ", s.starType().key()));
+                switch(s.starType().key()) {
+                case StarType.BLUE:
+                case StarType.WHITE:
+                case StarType.YELLOW:
+                    r1 = .025f; r2 = .10f;
+                    break;
+                case StarType.RED:
+                    r1 = .06f;  r2 = .20f;
+                    break;
+                case StarType.ORANGE:
+                    r1 = .135f; r2 = .30f;
+                    break;
+                case StarType.PURPLE:
+                    // can never have poor/ultra poor // BR: except told otherwise!
+                	break;
+                default:
+                    throw new RuntimeException(concat("Invalid star type for options: ", s.starType().key()));
+            }
         }
-        
         // modnar: change PLANET_QUALITY settings, 20% more Poor with LARGER, 20% less Poor with RICHER
         switch(selectedPlanetQualityOption()) {
             case PLANET_QUALITY_LARGER:   r1 *= 1.2f; r2 *= 1.2f; break;
@@ -1029,14 +1030,19 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case PLANET_QUALITY_NORMAL:   break;
             default:    break;
         }
+        // BR: Special player customization
+        r1 = ultraPoorPlanetProb(r1);
+        r2 = poorPlanetProb(r2);
         
         float r = random();
-        if (r <= r1)
+        if (r < r1)
             p.setResourceUltraPoor();
-        else if (r <= r2)
+        else if (r < r2)
             p.setResourcePoor();
     }
     private void checkForRichResources(Planet p, StarSystem s) {
+    	if (p.type().key() == PlanetType.NONE)
+    		return; // BR: asteroids !!!
         // planet/star ratios per Table 3-9a of Strategy Guide
         float r1 = 0;
         float r2 = 0;
@@ -1090,14 +1096,19 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case PLANET_QUALITY_NORMAL:   break;
             default:    break;
         }
+        // BR: Special player customization
+        r1 = richPlanetProb(r1);
+        r2 = ultraRichPlanetProb(r2);
         
         float r = random();
-        if (r <= r1)
+        if (r < r1)
             p.setResourceRich();
-        else if (r <= r2)
+        else if (r < r2)
             p.setResourceUltraRich();
     }
     private void checkForArtifacts(Planet p, StarSystem s) {
+    	if (p.type().key() == PlanetType.NONE)
+    		return; // BR: asteroids !!!
         // modnar: no Artifact planets if randomTechStart selected
         float rArtifact = 1.0f;
         // modnar: change PLANET_QUALITY settings, 50% more Artifact with RICHER
@@ -1116,9 +1127,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case PlanetType.OCEAN:
             case PlanetType.JUNGLE:
             case PlanetType.TERRAN:
-                if (random() <= 0.10 * rArtifact) // modnar: change artifact ratio for testing, original 0.10
-                    p.setArtifact();
+            	break;
+            default:
+            	rArtifact *= 0.0f;
         }
+        float r = random();
+        if (r < 0.1f * rArtifact) // modnar: change artifact ratio for testing, original 0.10
+        	p.setArtifact();
+        else if (r <= orionPlanetProb())
+        	p.setOrionArtifact();
     }
     // ========== All Menu Options ==========
     private void setBaseSettingsToDefault() {
