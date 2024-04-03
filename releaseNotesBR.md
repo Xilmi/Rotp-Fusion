@@ -2,7 +2,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- New sub panel to customize Artifact and ressources probabilities.
+- Fixed possible crash with random Galaxies
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -106,4 +106,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed relocating ship pathSprite bug
 - Fixed crash due to monster checking to colonize planet!
 - Spending Pane: Fixed wrong ship building time estimation when interrupting stargate build.
+- Fixed possible crash with random Galaxies
 - minor fixes...

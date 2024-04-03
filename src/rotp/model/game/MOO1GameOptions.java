@@ -394,6 +394,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		else
 			rnd = rand.nextInt(12);
 		// System.out.println("setRandomGalaxyShape() rand = " + rnd);
+		if (galaxyShape == null) // BR: to avoid crash!
+			galaxyShape = new GalaxyRectangularShape(this);
         selectedGalaxyShapeOption1 = galaxyShape.randomOption();
         selectedGalaxyShapeOption2 = galaxyShape.randomOption();
     	switch (rnd) {

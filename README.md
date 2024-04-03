@@ -63,6 +63,9 @@ Later:
 
 ## What's New
 
+2024.04.03 (BR)
+- Fixed possible crash with random Galaxies.
+
 2024.04.01 (BR)
 - New sub panel to customize Artifact and ressources probabilities.
 
