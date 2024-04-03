@@ -50,7 +50,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Added a new option in the council setting:
   - Realms Beyond: No second chances, no half win... ==> No Alliance victory (Neither Council nor Military) & No rebellion! (Including player)
   - No Alliances: No half win... ==> No Alliance victory (Neither Council nor Military)
-- New sub panel to customize Artifact and ressources probabilities.
+- New sub panel to customize Artifact and resources probabilities.
+- New option to set the minimal distance Between Orion and Empires
 
 
 <b><ins>Optimisation:</ins></b>

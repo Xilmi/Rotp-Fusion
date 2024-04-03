@@ -68,6 +68,11 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	ParamBoolean allowRichPoorArtifact	= new ParamBoolean( MOD_UI, "RICH_POOR_ARTIFACT", false);
 	default boolean allowRichPoorArtifact()		{ return allowRichPoorArtifact.get(); }
 
+	ParamInteger orionToEmpireModifier	= new ParamInteger( MOD_UI, "ORION_TO_EMPIRE_MODIFIER",
+			100, 0, 1000, 1, 10, 100);
+	
+	default float	orionToEmpireModifier()	{ return (float) (0.01 * orionToEmpireModifier.get()); }
+	
 	// ==================== GUI List Declarations ====================
 	//
 
@@ -91,6 +96,10 @@ public interface ISystemsOptions extends IBaseOptsTools {
 				headerSpacer,
 				richPlanetMult, richPlanetOffset,
 				ultraRichPlanetMult, ultraRichPlanetOffset
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("GAME_OTHER"),
+				orionToEmpireModifier
 				)));
 		return map;
 	};

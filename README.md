@@ -65,9 +65,10 @@ Later:
 
 2024.04.03 (BR)
 - Fixed possible crash with random Galaxies.
+- New option to set the minimal distance Between Orion and Empires
 
 2024.04.01 (BR)
-- New sub panel to customize Artifact and ressources probabilities.
+- New sub panel to customize Artifact and resources probabilities.
 
 2024.03.28 (BR)
 - Spending Pane: Fixed wrong ship building time estimation when interrupting stargate build.

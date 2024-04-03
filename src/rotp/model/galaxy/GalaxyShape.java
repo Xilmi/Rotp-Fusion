@@ -406,7 +406,10 @@ public abstract class GalaxyShape implements Base, Serializable {
 		sysBuffer    = systemBuffer();
 		empireBuffer = empireBuffer();
 		// Orion buffer is 50% greater with minimum of 8 ly.
-		orionBuffer  = max(4 * sysBuffer, empireBuffer*3/2); // BR: Restored Vanilla values.		
+		orionBuffer  = max(4 * sysBuffer, empireBuffer*3/2); // BR: Restored Vanilla values.
+		// BR: Player customization
+		orionBuffer  = max(sysBuffer, orionBuffer * opts.orionToEmpireModifier());
+		
 	}
 	private void fullInit() {
 		fullyInit = true;
