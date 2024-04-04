@@ -65,6 +65,7 @@ Later:
 
 2024.04.04 (BR)
 - Fixed Save Notification Text.
+- New Hotkey: Alt 1~5 to smartmax spendings.
 
 2024.04.04 (Xilmi)
 - Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion.

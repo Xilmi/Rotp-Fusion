@@ -107,44 +107,84 @@ public class EmpireColonySpendingPane extends BasePanel {
         int mods = e.getModifiersEx();
         switch (k) {
             case KeyEvent.VK_1:
-                switch (mods) {
-                    case 0: shipSlider.increment(true); break;
-                    case 64: shipSlider.decrement(true); break;
-                    case 128: shipSlider.toggleLock();    break;
-                    default:  break;
-                }
+//                switch (mods) {
+//                    case 0: shipSlider.increment(true); break;
+//                    case 64: shipSlider.decrement(true); break;
+//                    case 128: shipSlider.toggleLock();    break;
+//                    default:  break;
+//                }
+            	if (mods == 0) // No modifiers
+            		shipSlider.increment(true);
+            	else if (e.isShiftDown())
+            		shipSlider.decrement(true);
+            	else if (e.isControlDown())
+            		shipSlider.toggleLock();
+            	else if (e.isAltDown())
+            		shipSlider.smoothMaxSlider(true, null);
                 return;
             case KeyEvent.VK_2:
-                switch (mods) {
-                    case 0: defSlider.increment(true); break;
-                    case 64: defSlider.decrement(true); break;
-                    case 128: defSlider.toggleLock();    break;
-                    default: break;
-                }
+//                switch (mods) {
+//                    case 0: defSlider.increment(true); break;
+//                    case 64: defSlider.decrement(true); break;
+//                    case 128: defSlider.toggleLock();    break;
+//                    default: break;
+//                }
+            	if (mods == 0) // No modifiers
+            		defSlider.increment(true);
+            	else if (e.isShiftDown())
+            		defSlider.decrement(true);
+            	else if (e.isControlDown())
+            		defSlider.toggleLock();
+            	else if (e.isAltDown())
+            		defSlider.smoothMaxSlider(true, null);
                 return;
             case KeyEvent.VK_3:
-                switch (mods) {
-                    case 0: indSlider.increment(true); break;
-                    case 64: indSlider.decrement(true); break;
-                    case 128: indSlider.toggleLock();    break;
-                    default: break;
-                }
+//                switch (mods) {
+//                    case 0: indSlider.increment(true); break;
+//                    case 64: indSlider.decrement(true); break;
+//                    case 128: indSlider.toggleLock();    break;
+//                    default: break;
+//                }
+            	if (mods == 0) // No modifiers
+            		indSlider.increment(true);
+            	else if (e.isShiftDown())
+            		indSlider.decrement(true);
+            	else if (e.isControlDown())
+            		indSlider.toggleLock();
+            	else if (e.isAltDown())
+            		indSlider.smoothMaxSlider(true, null);
                 return;
             case KeyEvent.VK_4:
-                switch (mods) {
-                    case 0: ecoSlider.increment(true); break;
-                    case 64: ecoSlider.decrement(true); break;
-                    case 128: ecoSlider.toggleLock();    break;
-                    default: break;
-                }
+//                switch (mods) {
+//                    case 0: ecoSlider.increment(true); break;
+//                    case 64: ecoSlider.decrement(true); break;
+//                    case 128: ecoSlider.toggleLock();    break;
+//                    default: break;
+//                }
+            	if (mods == 0) // No modifiers
+            		ecoSlider.increment(true);
+            	else if (e.isShiftDown())
+            		ecoSlider.decrement(true);
+            	else if (e.isControlDown())
+            		ecoSlider.toggleLock();
+            	else if (e.isAltDown())
+            		ecoSlider.smoothMaxSlider(true, null);
                 return;
             case KeyEvent.VK_5:
-                switch (mods) {
-                    case 0: researchSlider.increment(true); break;
-                    case 64: researchSlider.decrement(true); break;
-                    case 128: researchSlider.toggleLock();    break;
-                    default:  break;
-                }
+//                switch (mods) {
+//                    case 0: researchSlider.increment(true); break;
+//                    case 64: researchSlider.decrement(true); break;
+//                    case 128: researchSlider.toggleLock();    break;
+//                    default:  break;
+//                }
+            	if (mods == 0) // No modifiers
+            		researchSlider.increment(true);
+            	else if (e.isShiftDown())
+            		researchSlider.decrement(true);
+            	else if (e.isControlDown())
+            		researchSlider.toggleLock();
+            	else if (e.isAltDown())
+            		researchSlider.smoothMaxSlider(true, null);
                 return;
             case KeyEvent.VK_Q:
             {

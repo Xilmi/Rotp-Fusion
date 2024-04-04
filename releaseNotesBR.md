@@ -6,6 +6,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion. (Xilmi)
   - It usually would vastly underestimate the enemie's chances to repel the invasion and thus very often invaded when this was too risky of an endeavour.
 - Fixed Save Notification Text.
+- New Hotkey: Alt 1~5 to smartmax spendings.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -89,6 +90,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Added it to Pre Game Options (above autoplay setting)
 - Little reorganisation in "In-Game Options" Panel for more clarity... I hope!
 - Renamed some remaining Nazloks, Fiershan, Ssslauran, and Cryslonoids.
+- New Hotkey: Alt 1~5 to smartmax spendings.
 
 
 <b><ins>Bug Fixes:</ins></b>
