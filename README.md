@@ -63,8 +63,12 @@ Later:
 
 ## What's New
 
-2024.04.03 (BR)
+2024.04.04 (BR)
 - Fixed Save Notification Text.
+
+2024.04.04 (Xilmi)
+- Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion.
+  - It usually would vastly underestimate the enemie's chances to repel the invasion and thus very often invaded when this was too risky of an endeavour.
 
 2024.04.03 (BR)
 - Fixed possible crash with random Galaxies.

@@ -3,6 +3,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 - Fixed possible crash with random Galaxies
+- Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion. (Xilmi)
+  - It usually would vastly underestimate the enemie's chances to repel the invasion and thus very often invaded when this was too risky of an endeavour.
 - Fixed Save Notification Text.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -108,6 +110,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed relocating ship pathSprite bug
 - Fixed crash due to monster checking to colonize planet!
 - Spending Pane: Fixed wrong ship building time estimation when interrupting stargate build.
-- Fixed possible crash with random Galaxies
+- Fixed possible crash with random Galaxies.
+- Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion. (Xilmi)
+  - It usually would vastly underestimate the enemie's chances to repel the invasion and thus very often invaded when this was too risky of an endeavour.
 - Fixed Save Notification Text.
 - minor fixes...
