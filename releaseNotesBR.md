@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 - Fixed possible crash with random Galaxies
+- Fixed Save Notification Text.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -108,4 +109,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed crash due to monster checking to colonize planet!
 - Spending Pane: Fixed wrong ship building time estimation when interrupting stargate build.
 - Fixed possible crash with random Galaxies
+- Fixed Save Notification Text.
 - minor fixes...

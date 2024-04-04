@@ -588,7 +588,7 @@ public final class GameSession implements Base, Serializable {
                 gal.refreshAllEmpireViews();
                 log("Autosaving post-turn");
                 log("NEXT TURN PROCESSING TIME: ", str(timeMs()-startMs));
-                NoticeMessage.resetSubstatus(text("TURN_SAVING" + " b"));
+                NoticeMessage.resetSubstatus(text("TURN_SAVING") + " b");
                 ufs = instance.saveRecentSession(true);
 
                 log("Reselecting main panel");

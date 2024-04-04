@@ -64,6 +64,9 @@ Later:
 ## What's New
 
 2024.04.03 (BR)
+- Fixed Save Notification Text.
+
+2024.04.03 (BR)
 - Fixed possible crash with random Galaxies.
 - New option to set the minimal distance Between Orion and Empires
 
