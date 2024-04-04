@@ -1459,14 +1459,11 @@ public class AIDiplomat implements Base, Diplomat {
         float myPower = empire.powerLevel(empire);
         float ourPower = myPower;
         float ourMilitaryPower = 0;
-        boolean skipAggressionCheck = false;
         Empire victim = getVictim();
         if(victim != v.empire())
             return false;
         if(victim != null)
         {
-            float victimPowerLevel = victim.powerLevel(victim);
-            float myPowerLevel = empire.powerLevel(empire);
             if(empire.generalAI().smartPowerLevel() > victim.totalIncome())
                 ourMilitaryPower = empire.generalAI().smartPowerLevel();
             float victimPower = victim.powerLevel(victim);
