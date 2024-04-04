@@ -920,7 +920,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         // calculate ally kills & deaths
         float allyKillTime = 0;
         float enemyKillTime = 0;
-        float enemyKillTimeWithoutHeal = 0;
+        float enemyKillTimeWithoutHeal = Float.MAX_VALUE;
         float bomberKillTime = 0;
         
         float dpsOnColony = 0;
@@ -1021,6 +1021,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             boolean previousCloakingState = st1.cloaked;
             st1.cloaked = false;
             float pctOfMaxHP = ((st1.num-1) * st1.maxStackHits() + st1.hits()) / (st1.num * st1.maxStackHits());
+            float topShipHP = st1.hits() / st1.maxStackHits() / st1.num;
             float damagePerTurn = 0;
             float damagePerTurnWithoutHeal = 0;
             for (CombatStack st2: foes) {
@@ -1053,11 +1054,9 @@ public class AIShipCaptain implements Base, ShipCaptain {
             }
             damagePerTurnWithoutHeal = damagePerTurn;
             damagePerTurn -= healPerTurn;
-            //System.out.print("\n"+stack.mgr.system().name()+" "+st1.fullName()+" takes "+damagePerTurn+" damage per turn with heal. heal per turn: "+healPerTurn);
-            if(damagePerTurnWithoutHeal > 0)
-                enemyKillTimeWithoutHeal += pctOfMaxHP / min(damagePerTurnWithoutHeal, 1.0f);
-            else
-                enemyKillTimeWithoutHeal = Float.MAX_VALUE;
+            //System.out.println(stack.mgr.system().name()+" "+st1.fullName()+" takes "+damagePerTurn+" damage per turn with heal. heal per turn: "+healPerTurn);
+            if(stack == st1 && damagePerTurnWithoutHeal > 0)
+                enemyKillTimeWithoutHeal = min(enemyKillTimeWithoutHeal, topShipHP / min(damagePerTurnWithoutHeal, 1.0f));
             if(damagePerTurn > 0)
             {
                 enemyKillTime += pctOfMaxHP / min(damagePerTurn, 1.0f);
@@ -1093,8 +1092,11 @@ public class AIShipCaptain implements Base, ShipCaptain {
             else
                 return true;
         }
-        else if ((stack.num == 1 && friends.size() == 1 && !enemyHasWarpDissipator))
-            return enemyKillTimeWithoutHeal < 2;
+        else if (!enemyHasWarpDissipator)
+            if(enemyKillTimeWithoutHeal < 2)
+                return allyKillTime > enemyKillTime;
+            else
+                return false;
         else
             return allyKillTime > enemyKillTime;
     }
