@@ -1445,17 +1445,21 @@ public class AIFleetCommander implements Base, FleetCommander {
             return 0;
         float totalEnemyFleet = 0;
         if(empire.sv.empire(sys.id) != null)
-            totalEnemyFleet = empire.sv.empire(sys.id).totalFleetCost();
+        {
+            List<ShipFleet> fleets = galaxy().ships.allFleets(empire.sv.empire(sys.id).id);
+            for (ShipFleet fl: fleets)
+                totalEnemyFleet += combatPower(fl, empire);
+        }
         for(ShipFleet fl:empire.enemyFleets())
         {
             if(fl.empire() == empire.sv.empire(sys.id))
             {
                 //It is orbiting one of my systems, so it's unlikely it'll go back
                 if(fl.inOrbit() && fl.system().empire() == empire)
-                    totalEnemyFleet -= empire.fleetCommanderAI().bcValue(fl, false, true, false, false);
+                    totalEnemyFleet -= combatPower(fl, empire);
                 //It is en route to one of my systems, so it's unlikely it'll go back
                 if(fl.destination() != null && !fl.empire().tech().hyperspaceCommunications() && fl.destination().empire() == empire)
-                    totalEnemyFleet -= empire.fleetCommanderAI().bcValue(fl, false, true, false, false);
+                    totalEnemyFleet -= combatPower(fl, empire);
             }
         }
         if(totalEnemyFleet <= 0)
@@ -1501,8 +1505,8 @@ public class AIFleetCommander implements Base, FleetCommander {
         }
         if(myPower > 0)
             uniqueTargets *= allTheirEnemiesPower / myPower;
-        //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+sys.name()+" uniqueTargets: "+uniqueTargets+" knownSituation: "+knownSituation+" totalEnemyFleet: "+totalEnemyFleet);
         float confidence = min(1, knownSituation / (totalEnemyFleet / uniqueTargets));
+        //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+sys.name()+" uniqueTargets: "+uniqueTargets+" knownSituation: "+knownSituation+" totalEnemyFleet: "+totalEnemyFleet+" confidence: "+confidence);
         bridgeHeadConfidenceBuffer.put(sys.id, confidence);
         return confidence;
     }
