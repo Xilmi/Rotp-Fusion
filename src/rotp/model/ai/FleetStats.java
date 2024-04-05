@@ -10,12 +10,14 @@ public class FleetStats {
     public float avgMissileDefense;
     public float totalHP;
     public float avgSpecials;
+    public float avgCombatSpeed;
     public FleetStats() {
        avgShield = 0;
        avgDefense = 0;
        avgMissileDefense = 0;
        totalHP = 0;
        avgSpecials = 0;
+       avgCombatSpeed = 0;
     }
     public void merge(FleetStats statsToMerge) {
         float newHP = totalHP + statsToMerge.totalHP;
@@ -23,6 +25,7 @@ public class FleetStats {
         avgDefense = (avgDefense * totalHP + statsToMerge.avgDefense * statsToMerge.totalHP) / newHP;
         avgMissileDefense = (avgMissileDefense * totalHP + statsToMerge.avgMissileDefense * statsToMerge.totalHP) / newHP;
         avgSpecials = (avgSpecials * totalHP + statsToMerge.avgSpecials * statsToMerge.totalHP) / newHP;
+        avgCombatSpeed = (avgCombatSpeed * totalHP + statsToMerge.avgCombatSpeed * statsToMerge.totalHP) / newHP;
         totalHP = newHP;
     }
 }

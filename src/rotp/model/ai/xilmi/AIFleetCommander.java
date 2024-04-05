@@ -552,7 +552,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             }
         }
         /*if(best != null)
-            System.out.print("\n"+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" x: "+fleet.x()+" y: "+fleet.y()+" => "+empire.sv.name(best.id)+" score: "+bestScore+" colonizersEnroute: "+systemInfoBuffer.get(best.id).colonizersEnroute);*/
+            System.out.println(fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" x: "+fleet.x()+" y: "+fleet.y()+" => "+empire.sv.name(best.id)+" score: "+bestScore+" colonizersEnroute: "+systemInfoBuffer.get(best.id).colonizersEnroute);*/
         return best;
     }
     
@@ -1004,10 +1004,12 @@ public class AIFleetCommander implements Base, FleetCommander {
                                 {
                                     enemyBaseHP = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().maxHits();
                                     float ourShield = avgFleetShield(fleet);
+                                    float timeToReachColony = (float) Math.ceil(8.0 / getFleetStats(fleet).avgCombatSpeed);
+                                    float timeToKillBases = (float) Math.ceil(enemyBaseHP / bombardDamage); 
                                     if(target.inNebula())
                                         ourShield = 0;
-                                    enemyBaseDamage = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().firepower(ourShield) * 10;
-                                    //System.out.print("\n"+galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+fleet.system().name()+" => "+empire.sv.name(target.id)+" avgShield: "+avgFleetShield(fleet)+" missile-bases at target deal damage: "+enemyBaseDamage+" Fleet-Health: "+totalFleetHealth(fleet));
+                                    enemyBaseDamage = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().firepower(ourShield) * (timeToReachColony + timeToKillBases);
+                                    //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+fleet.system().name()+" => "+empire.sv.name(target.id)+" avgShield: "+avgFleetShield(fleet)+" missile-bases at target deal damage: "+enemyBaseDamage+" Fleet-Health: "+totalFleetHealth(fleet)+ " Time to kill bases: "+(timeToReachColony + timeToKillBases)+" move: "+timeToReachColony+" kill: "+timeToKillBases);
                                     enemyPop = empire.sv.population(target.id);
                                 }
                             }
@@ -1015,6 +1017,9 @@ public class AIFleetCommander implements Base, FleetCommander {
                             //System.out.print("\n"+fleet.empire().name()+" Fleet at "+fleet.system().name()+" thinks "+target.name()+" has "+enemyFightingBC+" our effective: "+(ourEffectiveBC - keepBc));
                             if(killPower > 0 && enemyPop > 0)
                                 sendBombAmount = min(sendBombAmount, enemyPop / killPower);
+                            if(enemyBaseDamage > 0 && bombardDamage > 0)
+                                sendBombAmount = max(sendBombAmount, enemyBaseDamage / totalFleetHealth(fleet), enemyBaseHP / bombardDamage);
+                            sendBombAmount = min(1, sendBombAmount);
                             //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.sysId())+" => "+empire.sv.name(target.id)+" sendAmount before fleetpower: "+sendAmount);
                             sendAmount = max(sendBombAmount, min(1.0f, max(TransportKillPowerNeeded,  enemyFleetPower * 2) / ourFleetPower));
                             sendAmount = min(sendAmount, 1 - keepAmount);
@@ -1035,7 +1040,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                                 }
                             }
                         }
-                        if(!empire.sv.isScouted(target.id) && !empire.sv.isColonized(target.id))
+                        if(!empire.sv.isScouted(target.id) && !empire.sv.isColonized(target.id) && target.monster() == null)
                         {
                             sendAmount = 0.01f;
                             sendBombAmount = 0.01f;
@@ -1592,6 +1597,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         float totalMissileDefense = 0;
         float totalSpecials = 0;
         float totalHP = 0;
+        float totalCombatSpeed = 0;
         for (int i=0;i<fl.num.length;i++) {
             int num = fl.num(i);
             if (num > 0) {
@@ -1603,6 +1609,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                 totalDefense += num * (des.beamDefense() + des.empire().shipDefenseBonus()) * des.hits();
                 totalMissileDefense += num * (des.missileDefense() + des.empire().shipDefenseBonus()) * des.hits();
                 totalSpecials += num * des.getSpecialCount(true) * des.hits();
+                totalCombatSpeed += num * des.combatSpeed() * des.hits();
             }
         }
         if(totalHP > 0)
@@ -1611,6 +1618,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             stats.avgDefense = totalDefense / totalHP;
             stats.avgMissileDefense = totalMissileDefense / totalHP;
             stats.avgSpecials = totalSpecials / totalHP;
+            stats.avgCombatSpeed = totalCombatSpeed / totalHP;
             stats.totalHP = totalHP;
         }
         return stats;
