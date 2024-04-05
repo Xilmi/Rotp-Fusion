@@ -39,7 +39,9 @@ public final class ShipSpecialProjector extends ShipSpecial {
     @Override
     public float estimatedKills(CombatStack source, CombatStack target, int num) {
         float armorMod = tech().armorMod(num);
-        float dam = max(1, target.maxStackHits()*armorMod) * target.num;
+        float oldStackHit	= target.maxStackHits();
+        float newStackHit	= (int) oldStackHit * armorMod;
+        float dam = oldStackHit - newStackHit;
         return dam / target.maxStackHits() * target.num;
     }
     @Override
@@ -62,6 +64,14 @@ public final class ShipSpecialProjector extends ShipSpecial {
             st.streamProjectorHits(st.streamProjectorHits() + streamDamage);
             st.maxStackHits(newStackHit);
             st.hits(min(st.hits()-1, st.maxStackHits()));
+        } 
+        else if (target.isMonster()) {
+            float oldStackHit	= target.maxStackHits();
+            float newStackHit	= (int) oldStackHit * armorMod;
+            float streamDamage	= oldStackHit - newStackHit;
+            target.streamProjectorHits(target.streamProjectorHits() + streamDamage);
+            target.maxStackHits(newStackHit);
+            target.hits(min(target.hits()-1, newStackHit));
         }
         if (source.mgr.showAnimations())
         {

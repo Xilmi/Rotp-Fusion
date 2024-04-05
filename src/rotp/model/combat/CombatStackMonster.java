@@ -1,12 +1,12 @@
 /*
  * Copyright 2015-2020 Ray Fowler
- * 
+ *
  * Licensed under the GNU General Public License, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *	 https://www.gnu.org/licenses/gpl-3.0.html
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -53,10 +53,10 @@ public class CombatStackMonster extends CombatStack {
 			if (monster.isGuardian() && system() != null)
 				monsterLevel = options().guardianMonstersLevel() * system().monsterPlanetValue();
 			else
-				monsterLevel = options().monstersLevel();			
+				monsterLevel = options().monstersLevel();
 		} else
 			monsterLevel = level;
-			
+
 		init0(designId);
 	}
 	protected void init0(int designId) {
@@ -125,7 +125,7 @@ public class CombatStackMonster extends CombatStack {
 		return healPct;
 	}
 	private int designBeamRangeBonus() {
-		int rng = 0;   
+		int rng = 0;
 		for (int j=0;j<ShipDesign.maxSpecials();j++)
 			rng += design.special(j).beamRangeBonus();
 		return rng;
@@ -165,11 +165,11 @@ public class CombatStackMonster extends CombatStack {
 	@Override public ShipDesign design()	{ return design; }
 	@Override public void	 endTurn()		{
 		super.endTurn();
-		for (int i=0;i<shotsRemaining.length;i++) 
-			wpnTurnsToFire[i] = shotsRemaining[i] == 0 ? baseTurnsToFire[i] : wpnTurnsToFire[i]-1;		  
+		for (int i=0;i<shotsRemaining.length;i++)
+			wpnTurnsToFire[i] = shotsRemaining[i] == 0 ? baseTurnsToFire[i] : wpnTurnsToFire[i]-1;
 	}
 	@Override public void	 fireWeapon(CombatStack targetStack)		{ fireWeapon(targetStack, weaponIndex()); }
-	@Override public void	 fireWeapon(CombatStack targetStack, int index)	{ 
+	@Override public void	 fireWeapon(CombatStack targetStack, int index)	{
 		 if (targetStack == null)
 			return;
 
@@ -190,7 +190,7 @@ public class CombatStackMonster extends CombatStack {
 				log(fullName(), " firing ", str(count), " ", selectedWeapon.name(), " at ", targetStack.fullName());
 				selectedWeapon.fireUpon(this, target, count);
 			}
-			if (target == null) 
+			if (target == null)
 				log("TARGET IS NULL AFTER BEING FIRED UPON!");
 			shotsRemaining[index] = max(0, shotsRemaining[index]-1);
 			if (selectedWeapon.isLimitedShotWeapon())
@@ -224,10 +224,10 @@ public class CombatStackMonster extends CombatStack {
 	@Override public int	 numWeapons()						{ return weapons.size(); }
 	@Override public int	 optimalFiringRange(CombatStack tgt){ return 2; }
 	@Override public void	 reloadWeapons()					{
-		for (int i=0;i<shotsRemaining.length;i++) 
+		for (int i=0;i<shotsRemaining.length;i++)
 			shotsRemaining[i] = 1;
 		for (ShipComponent c: weapons)
-			c.reload(); 
+			c.reload();
 	};
 	@Override public void	 rotateToUsableWeapon(CombatStack target)	{
 		if (selectedWeapon == null)
@@ -261,26 +261,27 @@ public class CombatStackMonster extends CombatStack {
 	@Override public int 	 weaponIndex()					{ return weapons.indexOf(selectedWeapon); }
 	@Override public int	 weaponNum(ShipComponent comp)	{ return weapons.indexOf(comp); }
 	@Override public int	 wpnCount(int i)				{ return weaponCount[i]; }
-    @Override public float	 estimatedKills(CombatStack target) {
-        float kills = 0;
-        for (int i=0;i<weapons.size();i++) {
-            ShipComponent comp = weapons.get(i);
-            if (!comp.isLimitedShotWeapon() || (roundsRemaining[i] > 0)) 
-            {
-                //ail: take attack and defense into account
-                float hitPct = 1.0f;
-                if(comp.isBeamWeapon())
-                    hitPct = (5 + attackLevel - target.beamDefense()) / 10;
-                if(comp.isMissileWeapon())
-                    hitPct = (5 + attackLevel - target.missileDefense()) / 10;
-                hitPct = max(.05f, hitPct);
-                hitPct = min(hitPct, 1.0f);
-                //ail: we totally have to consider the weapon-count too!
-                kills += hitPct * comp.estimatedKills(this, target, weaponCount[i] * num);
-            }
-        }
-        return kills;
-    }
+    @Override
+	public float estimatedKills(CombatStack target) {
+		float kills = 0;
+		for (int i=0;i<weapons.size();i++) {
+			ShipComponent comp = weapons.get(i);
+			if (!comp.isLimitedShotWeapon() || (roundsRemaining[i] > 0))
+			{
+				//ail: take attack and defense into account
+				float hitPct = 1.0f;
+				if(comp.isBeamWeapon())
+					hitPct = (5 + attackLevel - target.beamDefense()) / 10;
+				if(comp.isMissileWeapon())
+					hitPct = (5 + attackLevel - target.missileDefense()) / 10;
+				hitPct = max(.05f, hitPct);
+				hitPct = min(hitPct, 1.0f);
+				//ail: we totally have to consider the weapon-count too!
+				kills += hitPct * comp.estimatedKills(this, target, weaponCount[i] * num);
+			}
+		}
+		return kills;
+	}
 
 	private boolean shipComponentCanAttack(CombatStack target, int index)	{
 		if (target == null)
@@ -291,7 +292,7 @@ public class CombatStackMonster extends CombatStack {
 
 		if (shotsRemaining[index] < 1)
 			return false;
-		
+
 		if (wpnTurnsToFire[index] > 1)
 			return false;
 
@@ -315,10 +316,10 @@ public class CombatStackMonster extends CombatStack {
 
 		return true;
 	}
-	public void		drawAttack() { 
+	public void		drawAttack() {
 		if (mgr.ui == null)
 			return;
-		
+
 		brighten = 1.0f;
 		for (int i=0;i<2;i++) {
 			scale += 1.5;
