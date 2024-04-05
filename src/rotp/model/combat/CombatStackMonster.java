@@ -261,6 +261,26 @@ public class CombatStackMonster extends CombatStack {
 	@Override public int 	 weaponIndex()					{ return weapons.indexOf(selectedWeapon); }
 	@Override public int	 weaponNum(ShipComponent comp)	{ return weapons.indexOf(comp); }
 	@Override public int	 wpnCount(int i)				{ return weaponCount[i]; }
+    @Override public float	 estimatedKills(CombatStack target) {
+        float kills = 0;
+        for (int i=0;i<weapons.size();i++) {
+            ShipComponent comp = weapons.get(i);
+            if (!comp.isLimitedShotWeapon() || (roundsRemaining[i] > 0)) 
+            {
+                //ail: take attack and defense into account
+                float hitPct = 1.0f;
+                if(comp.isBeamWeapon())
+                    hitPct = (5 + attackLevel - target.beamDefense()) / 10;
+                if(comp.isMissileWeapon())
+                    hitPct = (5 + attackLevel - target.missileDefense()) / 10;
+                hitPct = max(.05f, hitPct);
+                hitPct = min(hitPct, 1.0f);
+                //ail: we totally have to consider the weapon-count too!
+                kills += hitPct * comp.estimatedKills(this, target, weaponCount[i] * num);
+            }
+        }
+        return kills;
+    }
 
 	private boolean shipComponentCanAttack(CombatStack target, int index)	{
 		if (target == null)
