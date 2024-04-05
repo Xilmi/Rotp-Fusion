@@ -981,7 +981,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 {
                     killPct = 0;
                 }
-                if(st2.maxMove < st1.maxMove && st2.isShip())
+                if(st2.maxMove < st1.maxMove && (st2.isShip() || st2.isMonster()))
                 {
                     float mySpeedRange = st2.maxMove + maxFiringRange(st2, st1, true);
                     float enemySpeedRange = st1.maxMove + maxFiringRange(st1, st2, true);
@@ -1000,9 +1000,13 @@ public class AIShipCaptain implements Base, ShipCaptain {
             {
                 CombatStackShip ship = (CombatStackShip)st1;
                 healPerTurn = ship.designShipRepairPct() / st1.num;
+            } 
+            else if (st1.isMonster())
+            {
+                healPerTurn = st1.repairPct;
             }
             damagePerTurn -= healPerTurn;
-            //System.out.print("\n"+stack.mgr.system().name()+" "+st1.fullName()+" takes "+damagePerTurn+" damage per turn with heal. heal per turn: "+healPerTurn);
+            //System.out.println(stack.mgr.system().name()+" "+st1.fullName()+" takes "+damagePerTurn+" damage per turn with heal. heal per turn: "+healPerTurn);
             if(damagePerTurn > 0)
                 allyKillTime += pctOfMaxHP / min(damagePerTurn, 1.0f);
             else
@@ -1032,7 +1036,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 {
                     killPct = 0;
                 }
-                if(st2.maxMove < st1.maxMove && st2.isShip())
+                if(st2.maxMove < st1.maxMove && (st2.isShip() || st2.isMonster()))
                 {
                     float mySpeedRange = st2.maxMove + maxFiringRange(st2, st1, true);
                     float enemySpeedRange = st1.maxMove + maxFiringRange(st1, st2, true);
@@ -1051,6 +1055,10 @@ public class AIShipCaptain implements Base, ShipCaptain {
             {
                 CombatStackShip ship = (CombatStackShip)st1;
                 healPerTurn = ship.designShipRepairPct() / st1.num;
+            }
+            else if (st1.isMonster())
+            {
+                healPerTurn = st1.repairPct;
             }
             damagePerTurnWithoutHeal = damagePerTurn;
             damagePerTurn -= healPerTurn;
