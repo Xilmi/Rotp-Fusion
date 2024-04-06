@@ -7,6 +7,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed completly wrong estimate for stream-projector-damage used in AI-calculations. (Xilmi)
 - Fixed stream-projectors not working against space-monsters. (Xilmi)
 - Added a necessary method for the AI to be able to estimate the damage-output of the orion-guardian. (Xilmi)
+- Fleet-commander-improvements (Xilmi)
+  - For the estimate how many losses will be endured by enemy missile-bases the AI now calculates the amount of turns to move to the planet plus the amount of turns it takes to take the missile-bases out instead of always using a fixed amount of ten turns.
+  - Estimating a high amount of losses can reduce the willingness to split the fleet in several smaller ones.
+  - The AI will no longer just send a scouting-fleet to a system that has a space-monster but instead a fleet that is believed to beat the monster.
 - Hotkey: Alt 1~5 smartmax spendings works on Multi selection too.
 - Hotkey: Alt S/D/W/E/R smartmax spendings on Multi selection.
 
@@ -95,6 +99,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New Hotkey: Alt 1~5 to smartmax spendings.
 - Hotkey: Alt 1~5 smartmax spendings works on Multi selection too.
 - Hotkey: Alt S/D/W/E/R smartmax spendings on Multi selection.
+- Fleet-commander-improvements (Xilmi)
+  - For the estimate how many losses will be endured by enemy missile-bases the AI now calculates the amount of turns to move to the planet plus the amount of turns it takes to take the missile-bases out instead of always using a fixed amount of ten turns.
+  - Estimating a high amount of losses can reduce the willingness to split the fleet in several smaller ones.
+  - The AI will no longer just send a scouting-fleet to a system that has a space-monster but instead a fleet that is believed to beat the monster.
 
 
 <b><ins>Bug Fixes:</ins></b>

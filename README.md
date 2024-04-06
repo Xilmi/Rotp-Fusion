@@ -73,6 +73,11 @@ Later:
 - Fixed completly wrong estimate for stream-projector-damage used in AI-calculations.
 - Fixed stream-projectors not working against space-monsters.
 - Added a necessary method for the AI to be able to estimate the damage-output of the orion-guardian.
+- Update AIShipCaptain.java: Added further treatment for monsters in AI-combat-outcome-estimates.
+- Fleet-commander-improvements
+  - For the estimate how many losses will be endured by enemy missile-bases the AI now calculates the amount of turns to move to the planet plus the amount of turns it takes to take the missile-bases out instead of always using a fixed amount of ten turns.
+  - Estimating a high amount of losses can reduce the willingness to split the fleet in several smaller ones.
+  - The AI will no longer just send a scouting-fleet to a system that has a space-monster but instead a fleet that is believed to beat the monster.
 
 2024.04.04 (BR)
 - Fixed Save Notification Text.
