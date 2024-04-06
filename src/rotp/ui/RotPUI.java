@@ -642,7 +642,6 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             session().pauseNextTurnProcessing("Show Bombard Notice");
             mainUI().showBombardmentNotice(sysId, fl);
             selectMainPanel();
-            session().pauseNextTurnProcessing("Show Bombard Notice");
             session().waitUntilNextTurnCanProceed();
         } finally {
             drawNextTurnNotice = true;

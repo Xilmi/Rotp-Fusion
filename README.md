@@ -63,6 +63,9 @@ Later:
 
 ## What's New
 
+2024.04.06 (BR)
+- Bombard notification: Moved the lock after the skip condition
+
 2024.04.05 (BR)
 - Fixed Bombard notification not showing when occuring at the same time of a war declaration.
 - Hotkey: Alt 1~5 smartmax spendings works on Multi selection too.

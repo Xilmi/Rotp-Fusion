@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 - Fixed Bombard notification not showing when occuring at the same time of a war declaration.
+  - Fixed the fix: Moved the lock after the skip condition
 - The AI will no longer retreat stacks that aren't threatened from losing at least one ship. (Xilmi)
 - Fixed completly wrong estimate for stream-projector-damage used in AI-calculations. (Xilmi)
 - Fixed stream-projectors not working against space-monsters. (Xilmi)

@@ -79,6 +79,7 @@ public class MapOverlayBombardedNotice  extends MapOverlay {
         parent.mapFocus(sys);
         parent.clickedSprite(sys);
         parent.repaint();
+        session().pauseNextTurnProcessing("Show Bombard Notice");
     }
     @Override
     public boolean masksMouseOver(int x, int y)   { return true; }
