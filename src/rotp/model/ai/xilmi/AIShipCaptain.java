@@ -841,7 +841,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         List<CombatStack> activeStacks = new ArrayList<>(currStack.mgr.activeStacks());
         for (CombatStack st: activeStacks) {
             for (CombatStackMissile miss: st.missiles()) {
-                if (miss.target == currStack && st.isShip())
+                if (miss.target == currStack && (st.isShip() || st.isMonster()))
                 {
                     float hitPct;
                     hitPct = (5 + miss.attackLevel - miss.target.missileDefense()) / 10;
@@ -849,7 +849,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     hitPct = min(hitPct, 1.0f);
                     killPct += ((miss.maxDamage()-miss.target.shieldLevel())*miss.num*hitPct)/(miss.target.maxStackHits()*miss.target.num);
                     maxHit += (miss.maxDamage() - currStack.shieldLevel()) * miss.num; //don't use hitPct for max-hit as we have to expect the worst in this case
-                    //System.out.println(currStack.fullName()+" will be hit by missiles for approx "+killPct+" dmg: "+maxHit+" hp: "+currStack.hits+" threshold: "+(1.0f / miss.missile.shots()));
+                    //System.out.println(currStack.fullName()+" will be hit by missiles for approx "+killPct+" dmg: "+maxHit+" hp: "+currStack.hits()+" threshold: "+(1.0f / miss.missile.shots()));
                     if((killPct > 1.0f / miss.missile.shots() && maxHit >= currStack.hits()) || (currStack.num == 1 && maxHit >= currStack.hits()))
                     {
                         Point safestPoint = findSafestPoint(currStack);
