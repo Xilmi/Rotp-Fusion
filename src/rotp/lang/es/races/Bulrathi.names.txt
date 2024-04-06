@@ -1,22 +1,21 @@
 // all possible names
-name: Bulrathi, Bearathi, Burlathi, Pawrathi, Grizzlathi
+name: Ursinatiano, Bearatiano, Bulratiano, Poratiano, Grizzlatiano
 
-desc1: Aggressive Ecologists
-desc2: Terrific Ground Fighters
-desc3: The fiercely loyal [race] value both strength and wisdom in their philosopher-king.
-desc4: Ground ATK +25
+desc1: Ecologistas Agresivos
+desc2: Fantásticos Luchadores Terrestres
+desc3: [_race_pluralnoun] ferozmente leales valoran tanto la fuerza como la sabiduría en su rey-filósofo.
 
 // possible home system names
-home: Ursa, Canis, Grizzla, Pandara, Bruin
+casa: Ursa, Canis, Grizzla, Pandara, Bruin
 
-title:     Grand Hierarch
-fulltitle: Grand Hierarch
+título:     Gran Jerarca
+título completo: Gran Jerarca
 
 // possible leader names
-leader: Bullux, Durpp, Grunk, Krungo, Monch, Smurch
+líder: Bullux, Durpp, Grunk, Krungo, Monch, Smurch
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-ship1: Paw, Patrol, Claw, Fang, Tooth, Boar, Ursine
-ship2: Hunter, Gladiator, Sentinel, Fisher, Tracker, Carnivore, Panda
-ship3: Warbear, Brute, Predator, Intimidator, Killer, Guardian, Protector
-ship4: Grizzly, Punisher, Rhino, Kodiak, Destroyer, Cerberus, Mauler
+nave1: Pata, Patrulla, Garra, Colmillo, Diente, Jabali, Ursino
+nave2: Cazador, Gladiador, Centinela, Pescador, Rastreador, Carnívoro, Panda
+nave3: Oso de Guerra, Bruto, Depredador, Intimidador, Matador, Guardián, Protector
+nave4: Gris, Castigador, Rinoceronte, Kodiak, Destructor, Cerbero, Torturador

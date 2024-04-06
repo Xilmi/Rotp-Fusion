@@ -1,22 +1,21 @@
 // all possible names
-name: Psilon, Mentalon, Psychon, Cerebron, Neuralon
+nome: Mentaraniano, Mentaloniano, Psychoniano, Cerebroniano, Neuraloniano
 
-desc1: Pacifist Technologists
-desc2: Superior Research Techniques
-desc3: The [race] Republic seeks peaceful and enlightened coexistence with other races.
-desc4: Research +50%, Tech Tree +50%
+desc1: Tecnólogos Pacifistas
+desc2: Técnicas Superiores de Investigación
+desc3: La Republica [raceadjecF] busca la coexistencia pacífica e ilustrada con otras razas.
 
 // possible home system names
-home: Mentar, Cogitar, Psilar, Metrica, Neura
+casa: Mentar, Cogitar, Psilar, Metrica, Neura
 
-title:     Councilor
-fulltitle: High Councilor
+título:     Consejero
+título completo: Alto Consejero
 
 // possible leader names
-leader: Dynalon, Kelvan, Meson, Quark, Tachaon, Zygot
+líder: Dynalon, Kelvan, Meson, Quark, Tachaon, Zygot
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-ship1: Electron, Neutrino, Quark, Neutron, Proton, Atom, Molecule
-ship2: Sigma, Prime, Radius, Hypotenuse, Algebra, Tangent, Logarithm
-ship3: Parallax, Ellipse, Axis, Sine Wave, Fractal, Calculus, Derivation
-ship4: Sun Fire, Constellation, Nova, Quasar, Galaxy, Nebula, Corona
+nave1: Electrón, Neutrino, Cuark, Neutrón, Protón, Átomo, Molécula
+nave2: Sigma, Primo, Radio, Hipotenusa, Álgebra, Tangente, Logaritmo
+nave3: Paralaje, Elipse, Eje, Onda sinusoidal, Fractal, Cálculo, Derivación
+nave4: Fuego Solar, Constelación, Nova, Cuásar, Galaxia, Nebulosa, Corona

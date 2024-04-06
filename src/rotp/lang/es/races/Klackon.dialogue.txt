@@ -14,214 +14,214 @@
 
 // Klackon specific dialogue
 
-CONTACT_AGGRESSIVE         | I am the [my_name], and you are the... [your_name]? An odd name for another like me, but you say you are nothing like me? This is becoming a most... irritating encounter.
-CONTACT_RUTHLESS           | I am known as [my_name]. You are the [your_name]? What is a [your_name]? I have little need for a kind who thrives on such convolution!
-CONTACT_XENOPHOBIC         | I knew when I began my journey that there must be another like me, but you are not like me at all... You are different... alien... and dangerous.
+CONTACT_AGGRESSIVE         | Soy [my_name], y tú eres... [your_name]? Un nombre extraño para alguien como yo, ¿pero dices que no eres como yo? Esto se está convirtiendo en un encuentro muy... irritante.
+CONTACT_RUTHLESS           | Soy conocido como [my_name]. ¿Tú eres [your_name]? ¿Qué es un [your_name]? ¡Tengo poca necesidad de una especie que prospere con tal convolución!
+CONTACT_XENOPHOBIC         | Supe cuando comencé mi viaje que debe haber otro como yo, pero tú no eres como yo en absoluto... Eres diferente... extraño... y peligroso.
 //
-GREETING_01                | My friend! I am happy that you've come! I hope I can provide whatever it is you're seeking.
-GREETING_04                | The strange [your_name] calls on me. What do you require, strange [your_name]?
-GREETING_07                | You behave oddly and I do not like it. Just say what it is you've come to say and leave.
+GREETING_01                | ¡Mi amigo! ¡Estoy feliz de que hayas venido! Espero poder proporcionarte lo que sea que estés buscando.
+GREETING_04                | El extraño [your_name] me llama. ¿Qué requieres, extraño [your_name?
+GREETING_07                | Te comportas de forma extraña y no me gusta. Sólo di lo que has venido a decir y vete.
 //
 
-DECLAREWAR_HATE_01         | I've waited too long, I must find another who is like me! You continue to be in my way, and I'll not wait a second longer to be rid of you.
-DECLAREWAR_HATE_02         | When I think of you it gives me a feeling of disgust I never even knew I could feel. I will give everything I must to see you destroyed once and for all!
-DECLAREWAR_HATE_03         | No! It can't be that I set out on my journey only to find something like you in this galaxy! I won't continue living with you as a neighbor! Either you perish or I will!
-DECLAREWAR_ERRATIC_01      | You cannot fool me with your trickery! I know you will strike me at the time that suits you best! But I will kill you before that can happen!
-DECLAREWAR_ERRATIC_02      | Your behavior is strange and unpredictable. The uncertainty you make me feel vexes me so, and I do not see why I should have to suffer it any longer. Prepare for oblivion!
-DECLAREWAR_ERRATIC_03      | Why do you do what you do? What drives you? And will it drive you to bring war to me one day? I cannot just wait to see what you'll do next: for my future I must make war on you immediately!
-DECLAREWAR_MILITARY_01     | I still have not found the one who is like me. I know they must exist, and I will search for them on each and every one of your worlds once I take them from you!
-DECLAREWAR_MILITARY_02     | What do you hide from me [your_name]? I will not know for certain until I examine each of your worlds, and I'll take them from you now so that I may do so!
-DECLAREWAR_MILITARY_03     | I won't let you conceal the object of my search any longer! I know that the one I seek is on one of your worlds. I will not rest until you have given them to me!
-DECLAREWAR_ALLIANCE_01     | My friend called [other_name] has aided me in my quest more than you could know. I'm happy to repay them by getting rid of you!
-DECLAREWAR_ALLIANCE_02     | Those who help me in my search have my undying appreciation, and I will happily give what I can to honor my friend [other_name]. Prepare to die, [your_name]!
-DECLAREWAR_ALLIANCE_03     | You push everyone in the galaxy because you think no one would dare oppose your will. If the [other_name] will bring the fight to you, then so will I!
-DECLAREWAR_SPYING_01       | Not a thing happens on one of my worlds that escapes my gaze. Since you insist on behaving in such a nefarious way, you leave me no choice but to destroy you.
-DECLAREWAR_SPYING_02       | Silly [your_name], I have had enough of your games! You won't have time for such devious scheming if you have to fend off my armies! Prepare for war!
-DECLAREWAR_SPYING_03       | What did you hope to gain by moving against me so? Now I have no choice but to fight you, no matter what the difference in our armies may be!
-DECLAREWAR_ATTACK_01       | What is this, [your_name]? Do you mean to impede me in my search by attacking one of my worlds? I suppose that destroying you will provide an amusing, if short, distraction.
-DECLAREWAR_ATTACK_02       | Is this what's known as an act of war? You wish your armies and fleet to do battle against mine? Let us go to war then: I'm eager to learn more!
-DECLAREWAR_ATTACK_03       | How dare you launch such a strike against me?! You mean to prevent me from completing my search, but instead you will now know my full fury!
-DECLAREWAR_OPPORTUNITY_01  | When something proves to be an obstacle, the best way to be rid of it is to eliminate it entirely. I don't know all the ways of diplomacy, but I do know that eliminating you from my path will be a laughably simple thing.
-DECLAREWAR_ASSASSIN_01     | To attack one of my bodies is to attack all of my bodies. Since you have chosen to kill one of me, I'll kill all of you in return!
+DECLAREWAR_HATE_01         | ¡He esperado demasiado, debo encontrar a otro que sea como yo! Sigues estorbando en mi camino, y no esperaré ni un segundo más para deshacerme de ti.
+DECLAREWAR_HATE_02         | Cuando pienso en ti me da una sensación de disgusto que ni siquiera sabía que podía sentir. ¡Daré todo lo que debo para verte destruido de una vez por todas!
+DECLAREWAR_HATE_03         | No! ¡No puede ser que comencé mi viaje solo para encontrar algo como tú en esta galaxia! ¡No seguiré viviendo contigo como vecino! ¡O tú mueres o yo!
+DECLAREWAR_ERRATIC_01      | ¡No puedes engañarme con tus trucos! ¡Sé que me atacarás en el momento que más te convenga! ¡Pero te mataré antes de que eso suceda!
+DECLAREWAR_ERRATIC_02      | Tu comportamiento es extraño e imprevisible. La incertidumbre que me haces sentir me aflige tanto, y no veo por qué tendría que sufrirla más. ¡Prepárate para el olvido!
+DECLAREWAR_ERRATIC_03      | ¿Por qué haces lo que haces? ¿Qué te motiva? ¿Y te impulsará a traerme la guerra algún día? No puedo esperar a ver qué harás a continuación: ¡por mi futuro debo declararte la guerra de inm
+DECLAREWAR_MILITARY_01     | Aún no he encontrado al que sea como yo. ¡Sé que deben existir, y los buscaré en todos y cada uno de sus mundos una vez que se los quite!
+DECLAREWAR_MILITARY_02     | ¿Qué me escondes, [your_name]? ¡No lo sabré con certeza hasta que examine cada uno de sus mundos, y se los quitaré ahora para poder hacerlo!
+DECLAREWAR_MILITARY_03     | ¡No permitiré que sigas ocultando el objeto de mi búsqueda! Sé que el que busco está en uno de vuestros mundos. ¡No descansaré hasta que me los hayas dado!
+DECLAREWAR_ALLIANCE_01     | Mi amigo llamado [other_name] me ha ayudado en mi búsqueda más de lo que podrías saber. ¡Estoy feliz de pagarles deshaciéndome de ti!
+DECLAREWAR_ALLIANCE_02     | Aquellos que me ayuden en mi búsqueda tienen mi agradecimiento eterno, y felizmente daré lo que pueda para honrar a mi amigo [other_name]. Prepárate para morir, [your_name]!
+DECLAREWAR_ALLIANCE_03     | Presionas a todos en la galaxia porque crees que nadie se atrevería a oponerse a tu voluntad. Si [other_name] te traerá la pelea, ¡también lo haré yo!
+DECLAREWAR_SPYING_01       | Nada sucede en uno de mis mundos que escape a mi mirada. Ya que insistes en comportarte de una manera tan nefasta, no me dejas más remedio que destruirte.
+DECLAREWAR_SPYING_02       | Tonto [your_name], ¡He tenido suficiente de tus juegos! ¡No tendrás tiempo para intrigas tan tortuosas si tienes que defenderte de mis ejércitos! ¡Prepárate para la guerra!
+DECLAREWAR_SPYING_03       | ¿Qué esperabas ganar moviéndote así contra mí? ¡Ahora no tengo más remedio que luchar contra ti, sin importar cuál sea la diferencia en nuestros ejércitos!
+DECLAREWAR_ATTACK_01       | ¿Qué es esto, [your_name]? ¿Pretendes obstaculizarme en mi búsqueda atacando uno de mis mundos? Supongo que destruirte proporcionará una distracción divertida, aunque breve.
+DECLAREWAR_ATTACK_02       | ¿Es esto lo que se conoce como un acto de guerra? ¿Deseas que tus ejércitos y tu flota peleen contra los míos? Vayamos a la guerra entonces: ¡Estoy ansioso por aprender más!
+DECLAREWAR_ATTACK_03       | ¡¿Cómo te atreves a lanzar semejante ataque contra mí?! ¡Pretendes evitar que complete mi búsqueda, pero ahora conocerás mi furia completa!
+DECLAREWAR_OPPORTUNITY_01  | Cuando algo resulta ser un obstáculo, la mejor manera de deshacerse de él es eliminarlo por completo. No conozco todos los caminos de la diplomacia, pero sé que eliminarte de mi camino será algo ridículamente simple.
+DECLAREWAR_ASSASSIN_01     | Atacar uno de mis cuerpos es atacar todos mis cuerpos. Ya que eligieron matar a uno de mí, ¡los mataré a todos a cambio!
 
-OFFER_PEACE_01             | I do not like this thing you call war. It is merciless and cruel, and we both have more important things to do than continuing this ceaseless killing. Let us end this in peace, [your_name].
-OFFER_TRADE_01             | We both set into the galaxy with our own goals, [your_name]. Why not help each other to accomplish our ambitions? A trade agreement of [amt] BC every year would do just that, yes?
-OFFER_PACT_01              | I have met many strange creatures on my journey through space, and many of them are quarrelsome and violent by nature. You seem to be neither of these things, so let us prevent any misunderstandings with a pact of non-aggression. 
-OFFER_ALLIANCE_01          | Our relationship has been exceedingly beneficial to both of us, [your_name]. Let us become allies in word and in bond, so that all in the galaxy will know that we stand as one! 
+OFFER_PEACE_01             | No me gusta eso que llamas guerra. Es despiadado y cruel, y ambos tenemos cosas más importantes que hacer que continuar con esta matanza incesante. Acabemos con esto en paz, [your_name].
+OFFER_TRADE_01             | Ambos nos adentramos en la galaxia con nuestros propios objetivos, [your_name]. ¿Por qué no ayudarnos unos a otros a lograr nuestras ambiciones? Un acuerdo comercial de [amt] BC cada año haría precisamente eso, ¿no?
+OFFER_PACT_01              | Me he encontrado con muchas criaturas extrañas en mi viaje por el espacio, y muchas de ellas son pendencieras y violentas por naturaleza. Parece que no eres ninguna de estas cosas, así que evitemos malentendidos con un pacto de no agresión. 
+OFFER_ALLIANCE_01          | Nuestra relación ha sido extremadamente beneficiosa para los dos, [your_name]. ¡Hagámonos aliados en palabra y en vínculo, para que todos en la galaxia sepan que somos uno! 
  
-WARN_TRESPASSING_01        | You being at [system] makes me very uneasy. Remove the [your_name] fleet from the area, or I may be forced to retaliate.  
-WARN_EXPANSION_01          | I won't let you prevent me from completing my search by claiming every world you lay your eyes upon. Stop at once, or prepare yourself for war!
-WARN_BUILDUP_01            | You have grown your fleet to an impressive size, [your_name]. Be careful how you use it while my fleets are present. 
-WARN_SKIRMISH_01           | The incident at [system] unsettles me. Was it merely a misunderstanding on your part? Ensure that it does not happen again: I don't want to fight the [your_name] if I don't have to. 
-WARN_ATTACKED_01           | What is there to gain by attacking me so? Cease your aggression at once, or you'll force me to repay it back onto you one-hundred fold! 
-WARN_INVADED_01            | Why have you invaded my space at the [system] system?! Do you intend to start a conflict or have you merely lost control of your bodies? 
-WARN_ESPIONAGE_01          | I don't understand you, [spy_name]. You act as though you don't want conflict but then try to steal my secrets? If you insist on continuing this way, I promise to make you sorry! [framed]
-WARN_SABOTAGE_01           | You make a mockery of me with this act of sabotage! My quest takes precedence over all else, but if this happens again I will pause my search to deal with you personally! [forced]
-WARN_BIOWEAPON_01          | This weapon of yours is absolutely horrifying. To use it at all speaks of what you really are, but to use it on the bodies of another living thing makes me completely mortified! 
-WARN_GENOCIDE_01           | How callous! I never expected that you would go so far as to completely destroy the one known as [victim_name]. I will never forget the barbarity you've shown this day. 
-WARN_FINAL_WAR_01          | I now see that for me to realize my dream, the galaxy must be at peace. But as long as you exist that peace can never be made real. The answer is obvious: the [rebel_name] must be destroyed! 
-WARN_COUNCIL_VOTE_01       | I admit that I'm unfamiliar with the nuances of what you call "political maneuvering." But I do know that by voting for [other_name] you have made a move against me, and I don't forget those impede me so. 
-WARN_OATHBREAKER_01        | Is this how you operate, [your_name]? To make an agreement only to break it when you see fit? I knew that you were nothing like me, and your actions prove this beyond a shadow of a doubt! [spiesCaught] 
-WARN_ATTACKED_ALLY_01      | Why do you attack my friend [defender_name], [your name]? Find another way to resolve your differences: I will not like being forced to intervene! 
-WARN_REBELLING_AGAINST_01  | I do not like the [your_name], and I like even less that you were chosen as leader of the council! I must reflect on what has happened today, and you should reflect on how I may soon be forced to respond! 
+WARN_TRESPASSING_01        | Que estés en [system] me pone muy incómodo. Retire la flota [your_name] del área, o puede que me vea obligado a tomar represalias.  
+WARN_EXPANSION_01          | No permitiré que me impidascompletar mi búsqueda reclamando todos los mundos que veas. ¡Deténte de inmediato o prepárate para la guerra!
+WARN_BUILDUP_01            | Has aumentado tu flota a un tamaño impresionante, [your_name]. Tenga cuidado de cómo la usa, mis flotas están presentes. 
+WARN_SKIRMISH_01           | El incidente en [system] me inquieta. ¿Fue simplemente un malentendido de tu parte? Asegúrate de que no vuelva a suceder: no quiero pelear contra [your_name] si no es necesario. 
+WARN_ATTACKED_01           | ¿Qué se gana con atacarme así? ¡Cesa tu agresión de una vez, o me obligarás a devolvértela cien vezes! 
+WARN_INVADED_01            | ¡¿Por qué has invadido mi espacio en el sistema [system]?! ¿Tienes la intención de iniciar un conflicto o simplemente has perdido el control de tus cuerpos?
+WARN_ESPIONAGE_01          | No te entiendo, [spy_name]. ¿Actúas como si no quisieras conflictos pero luego intentas robar mis secretos? Si insistes en seguir así, ¡te prometo que te arrepentirás! [framed]
+WARN_SABOTAGE_01           | ¡Te burlas de mí con este acto de sabotaje! ¡Mi búsqueda tiene prioridad sobre todo lo demás, pero si esto vuelve a suceder, haré una pausa en mi búsqueda para tratar contigo personalmente! [forced]
+WARN_BIOWEAPON_01          | Esta arma tuya es absolutamente horrible. ¡Siquiera usarla habla ya de lo que realmente eres, pero usarla en los cuerpos de otro ser vivo me mortifica por completo! 
+WARN_GENOCIDE_01           | ¡Qué insensible! Nunca esperé que llegaras tan lejos como para destruir por completo al conocido como [victim_name]. Nunca olvidaré la barbarie que has mostrado este día. 
+WARN_FINAL_WAR_01          | Ahora veo que para realizar mi sueño, la galaxia debe estar en paz. Pero mientras existas, esa paz nunca podrá hacerse realidad. La respuesta es obvia: ¡[rebel_name] debe ser destruido! 
+WARN_COUNCIL_VOTE_01       | Admito que no estoy familiarizado con los matices de lo que llamas "maniobras políticas". Pero sé que al votar por [other_name] has hecho un movimiento en mi contra, y no me olvido de los que me impiden así. 
+WARN_OATHBREAKER_01        | ¿Es así como operas, [your_name]? ¿Haces un acuerdo solo para romperlo cuando lo creas conveniente? ¡Sabía que no eras como yo, y tus acciones lo prueban sin lugar a dudas! 
+WARN_ATTACKED_ALLY_01      | Porque atacas a mi amigo [defender_name], [your name]? Encuentra otra manera de resolver sus diferencias: ¡No me gustará que me obliguen a intervenir! 
+WARN_REBELLING_AGAINST_01  | ¡No me gusta [your_name], y me gusta aún menos que hayas sido elegido como líder del consejo! ¡Debo reflexionar sobre lo que sucedió hoy, y debes reflexionar sobre cómo pronto me veré obligado a responder! 
 
-PRAISE_COUNCIL_VOTE_01     | [voter_name]! Don't think I take your vote in the Council for granted! Though you and I are very different, I'm truly happy that I was able to meet such a wonderful friend as you on my journey. 
-PRAISE_COUNCIL_VOTE_02     | I have never had a need for "politics" in my long existence, but what you've done is a thing that benefits me, yes? Let us talk again soon, so that we may better learn how to benefit each other. 
-PRAISE_COUNCIL_VOTE_03     | Your vote for me in the council is just an attempt to have me rethink my opinion of you. However, I believe I may be forced to do so if your actions continue to benefit me.  
-PRAISE_ATTACKED_ENEMY_01   | Yes! I am attacked and my friend comes to my aid! Let us show the despicable [defender_name] that we fight together with an unbreakable bond! 
-PRAISE_ATTACKED_ENEMY_02   | Thank you [attacker_name]! It is good to see there's another who recognizes what a menace the one known as "[defender_name]" poses. Come! We will attack it together until nothing remains! 
-PRAISE_ATTACKED_ENEMY_03   |I don't know what you hope to gain in attacking [defender_name], [attacker_name]. You are erratic and not one to be trusted, but still I will remember this all the same.
-PRAISE_TRADE_01            | We have only managed to come so far by working together for mutual benefit. May the prosperity gained from our trades last until we both find what we are seeking!   
-PRAISE_TRADE_02            | It pleases me how much our trade agreement aids us both. You're pleased by this as well, aren't you, [your_name]?  
-PRAISE_REBELLING_WITH_01   | The [your_name] calls for aid! I will join you in taking up arms against this ridiculous council! You are my friend, and that means you will never fight alone!
+PRAISE_COUNCIL_VOTE_01     | [voter_name]! ¡No creas que doy por sentado su voto en el Consejo! Aunque tú y yo somos muy diferentes, estoy realmente feliz de haber podido conocer a un amigo tan maravilloso como tú en mi viaje. 
+PRAISE_COUNCIL_VOTE_02     | Nunca he tenido necesidad de "política" en mi larga existencia, pero lo que has hecho es algo que me beneficia, ¿sí? Hablemos de nuevo pronto, para que podamos aprender mejor cómo beneficiarnos unos a otros. 
+PRAISE_COUNCIL_VOTE_03     | Tu voto por mí en el consejo es solo un intento de que reconsidere mi opinión acerca de ti. Sin embargo, creo que me veré obligado a hacerlo si tus acciones continúan beneficiándome.  
+PRAISE_ATTACKED_ENEMY_01   | Sí! ¡Me atacan y mi amigo viene en mi ayuda! ¡Demostrémosle al despreciable [defender_name] que luchamos juntos con un vínculo inquebrantable! 
+PRAISE_ATTACKED_ENEMY_02   | ¡Gracias, [attacker_name]! Es bueno ver que hay otro que reconoce la amenaza que representa el conocido como "[defender_name]". ¡Ven! ¡Lo atacaremos juntos hasta que no quede nada! 
+PRAISE_ATTACKED_ENEMY_03   | No se que esperas ganar atacando [defender_name], [attacker_name]. Eres errático y nadie en quien confiar, pero aun así lo recordaré de todos modos.
+PRAISE_TRADE_01            | Solo hemos logrado llegar tan lejos trabajando juntos para beneficio mutuo. ¡Que la prosperidad obtenida de nuestros oficios dure hasta que ambos encontremos lo que buscamos!   
+PRAISE_TRADE_02            | Me complace cuánto nos ayuda a ambos nuestro acuerdo comercial. Estás complacido con esto también, ¿no es así?, [your_name]?  
+PRAISE_REBELLING_WITH_01   | [your_name] pide auxilio! ¡Me uniré a ti para tomar las armas contra este ridículo consejo! ¡Eres mi amigo, y eso significa que nunca lucharás solo!
 
-DIPLO_TECH_REQUEST_MENU_01   | What type of technology interests you?
-DIPLO_TECH_COUNTER_MENU_01   | What will you trade for it?
-DIPLO_TRADE_MENU_01          | You propose a trade agreement for:
-DIPLO_TREATY_MENU_01         | You propose a treaty
-DIPLO_DECLARE_WAR_MENU_01    | Are you sure you want to start a war?
-DIPLO_SUGGEST_WAR_MENU_01    | Who should I declare war on?
-DIPLO_BREAK_ALLIANCE_MENU_01 | Which alliance should I break?
-DIPLO_THREATEN_MENU_01       | Your actions:
+DIPLO_TECH_REQUEST_MENU_01   | ¿Qué tipo de tecnología te interesa?
+DIPLO_TECH_COUNTER_MENU_01   | ¿Qué cambiarás por eso?
+DIPLO_TRADE_MENU_01          | Tú propones un acuerdo comercial para:
+DIPLO_TREATY_MENU_01         | Tú propones un tratado
+DIPLO_DECLARE_WAR_MENU_01    | ¿Estás seguro de que quieres comenzar una guerra?
+DIPLO_SUGGEST_WAR_MENU_01    | ¿A quién debo declarar la guerra?
+DIPLO_BREAK_ALLIANCE_MENU_01 | ¿Qué alianza debo romper?
+DIPLO_THREATEN_MENU_01       | Tus acciones:
 
-DECLINE_OFFER_01           | I decline.
-DECLINE_OFFER_02           | I have considered your offer, and rejected it.
-DECLINE_OFFER_03           | I respectfully decline your offer.
-DECLINE_OFFER_04           | I am not interested at this time.
-DECLINE_OFFER_05           | I do not consider your offer a fair one.
-DECLINE_OFFER_06           | It would not be in my best interest to accept your offer at this time.
-DECLINE_OFFER_07           | Perhaps you mistook me for a gullible fool. I reject your offer.
-DECLINE_OFFER_08           | Your offer does not seem fair to me.
-DECLINE_OFFER_09           | I am afraid I must decline.
+DECLINE_OFFER_01           | Declino.
+DECLINE_OFFER_02           | He considerado tu oferta y la he rechazado.
+DECLINE_OFFER_03           | Respetuosamente rechazo su oferta.
+DECLINE_OFFER_04           | No estoy interesado en este momento.
+DECLINE_OFFER_05           | No considero tu oferta justa.
+DECLINE_OFFER_06           | No estaría en mi mejor interés aceptar tu oferta en este momento.
+DECLINE_OFFER_07           | Tal vez me confundiste con un tonto crédulo. Rechazo tu oferta.
+DECLINE_OFFER_08           | Tu oferta no me parece justa.
+DECLINE_OFFER_09           | Me temo que debo declinar.
 
-DECLINE_ENEMY_ALLY_01      | I would never deal with allies of the hated [other_name]
+DECLINE_ENEMY_ALLY_01      | Nunca trataría con aliados del odiado [other_name]
 
-DECLINE_ANNOYED_01         | [your_name] is a creature of much wind and little action. I tire of your prattle.
-DECLINE_ANNOYED_01         | [your_name], you try my patience. Perhaps you should speak again later.
-DECLINE_ANNOYED_01         | I have heard enough. We will talk again later.
-DECLINE_ANNOYED_02         | I tire of diplomatic negotiations. We can continue discussions at a later time.
-DECLINE_ANNOYED_02         | These talks get us nowhere. I must take my leave.
-DECLINE_ANNOYED_02         | I go now.
-DECLINE_ANNOYED_03         | A thousand apologies, [your_name], but other duties call.
-DECLINE_ANNOYED_03         | Pardon me, but our time is at an end.
-DECLINE_ANNOYED_03         | I have little time and much to do. Perhaps we can talk again later.
+DECLINE_ANNOYED_01         | [your_name] es una criatura de mucho viento y poca acción. Estoy cansado de tu charla.
+DECLINE_ANNOYED_01         | [your_name], pones a prueba mi paciencia. Tal vez deberías hablar de nuevo más tarde.
+DECLINE_ANNOYED_01         | He escuchado suficiente. Nosotros hablaremos de nuevo más tarde.
+DECLINE_ANNOYED_02         | Estoy cansado de las negociaciones diplomáticas. Podemos continuar las discusiones en otro momento.
+DECLINE_ANNOYED_02         | Estas conversaciones no nos llevan a ninguna parte. Debo retirarme.
+DECLINE_ANNOYED_02         | Me voy ahora
+DECLINE_ANNOYED_03         | Mil disculpas, [your_nae], pero otros deberes llaman.
+DECLINE_ANNOYED_03         | Perdóname, pero nuestro tiempo ha llegado a su fin.
+DECLINE_ANNOYED_03         | Tengo poco tiempo y mucho que hacer. Tal vez podamos hablar de nuevo más tarde.
 
 
-DECLINE_OATHBREAKER_01     | I am unwilling to enter into a treaty at this time because you have broken treaties in the past.
-DECLINE_OATHBREAKER_01     | You have not honored your past agreements. I see little reason to trust you now.
-DECLINE_OATHBREAKER_01     | Why should I trust you now, when you have broken so many past treaties?
-DECLINE_OATHBREAKER_01     | I see no reason to agree with someone who has not lived up to past promises.
-DECLINE_OATHBREAKER_01     | I will not deal with [your_name] who has no honor.
+DECLINE_OATHBREAKER_01     | No estoy dispuesto a celebrar un tratado en este momento porque usted ha violado tratados en el pasado.
+DECLINE_OATHBREAKER_01     | No has cumplido con tus acuerdos pasados. Veo pocas razones para confiar en ti ahora.
+DECLINE_OATHBREAKER_01     | ¿Por qué debería confiar en ti ahora, cuando has roto tantos tratados pasados?
+DECLINE_OATHBREAKER_01     | No veo ninguna razón para estar de acuerdo con alguien que no ha cumplido las promesas del pasado.
+DECLINE_OATHBREAKER_01     | No trataré con [your_name] que no tiene honor.
 
-DECLINE_ESPIONAGE_01       | You thieving dogs, you steal the fruits of my research. I deny your request.
-DECLINE_ESPIONAGE_01       | My technology is for the me alone. You have no right to steal it. I will talk when you stop stealing.
-DECLINE_ESPIONAGE_01       | Why should I give you anything? Your spies already steal everything you need!
-DECLINE_ESPIONAGE_01       | How can you expect me to accept when your spies are stealing my technology?
-DECLINE_ESPIONAGE_01       | Remove your spies, then we will talk.
+DECLINE_ESPIONAGE_01       | Perros ladrones, roban los frutos de mi investigación. Niego tu petición.
+DECLINE_ESPIONAGE_01       | Mi tecnología es solo para mí. No tienes derecho a robarla. Hablaré cuando dejes de robar.
+DECLINE_ESPIONAGE_01       | ¿Por qué debería darte algo? ¡Tus espías ya roban todo lo que necesitas!
+DECLINE_ESPIONAGE_01       | ¿Cómo puedes esperar que acepte cuando tus espías están robando mi tecnología?
+DECLINE_ESPIONAGE_01       | Retira a tus espías, luego hablaremos.
 
-DECLINE_SABOTAGE_01        | I have not forgotten your last sabotage incident. Until you have proven to be more trustworthy, I will not deal with you.
-DECLINE_SABOTAGE_01        | I have suffered from your sabotage. I will not deal with you until it ceases.
-DECLINE_SABOTAGE_01        | What! You expect me to agree when you are sabotaging my [target]?
-DECLINE_SABOTAGE_01        | You destroy my [target]. Why should I deal with you?
-DECLINE_SABOTAGE_01        | When you stop sabotaging my [target], I can consider the matter further.
+DECLINE_SABOTAGE_01        | No he olvidado tu último incidente de sabotaje. Hasta que demuestres ser más digno de confianza, no trataré contigo.
+DECLINE_SABOTAGE_01        | He sufrido por tu sabotaje. No trataré contigo hasta que cese.
+DECLINE_SABOTAGE_01        | ¡Qué! Esperas que esté de acuerdo cuando estás saboteando mi[target]?
+DECLINE_SABOTAGE_01        | Destruyes mi [target]. ¿Por qué debería tratar contigo?
+DECLINE_SABOTAGE_01        | Cuando dejes de sabotear mi [target], puedo considerar el asunto más a fondo.
 
-DECLINE_BUILDUP_01         | I will not talk of it while you are amassing ships near my borders.
-DECLINE_BUILDUP_01         | Remove your ships along my borders and I will consider accepting. Until then I am not interested.
-DECLINE_BUILDUP_01         | Your ships on my borders are no threat to me. But I refuse to deal while they remain.
-DECLINE_BUILDUP_01         | If you wish to deal with me, then send your ships to threaten others, not I.
+DECLINE_BUILDUP_01         | No hablaré de eso mientras estés acumulando naves cerca de mis fronteras.
+DECLINE_BUILDUP_01         | Retira tus barcos a lo largo de mis fronteras y consideraré aceptar. Hasta entonces no estoy interesado.
+DECLINE_BUILDUP_01         | Tus barcos en mis fronteras no son una amenaza para mí. Pero me niego a tratar mientras ellos permanezcan.
+DECLINE_BUILDUP_01         | Si deseas tratar conmigo, entonces envía tus naves para amenazar a otros, no a mí.
 
-DECLINE_ENCROACH_01        | Your fleets intrude on my space. Move them away, then we shall talk.
+DECLINE_ENCROACH_01        | Tus flotas se entrometen en mi espacio. Muévelos lejos, luego hablaremos.
 
-DECLINE_SKIRMISH_01        | You attack my ships without provocation and expect me to accept? I refuse to deal.
-DECLINE_SKIRMISH_01        | I cannot accept an offer from one who attacks my fleets.
-DECLINE_SKIRMISH_01        | Once your fleets have stopped attacking mine, we can talk.
-DECLINE_SKIRMISH_01        | If you wish to deal with the me, then leave my fleets alone.
-DECLINE_SKIRMISH_01        | I do not appreciate your destruction of my fleets. I do not accept.
+DECLINE_SKIRMISH_01        | ¿Atacas mis naves sin provocación y esperas que acepte? Me niego a negociar.
+DECLINE_SKIRMISH_01        | No puedo aceptar una oferta de alguien que ataca mis flotas.
+DECLINE_SKIRMISH_01        | Una vez que tus flotas hayan dejado de atacar a las mías, podemos hablar.
+DECLINE_SKIRMISH_01        | Si deseas tratar conmigo, entonces deja mis flotas en paz.
+DECLINE_SKIRMISH_01        | No aprecio tu destrucción de mis flotas. No acepto.
 
-DECLINE_ATTACK_01          | Your unjustified assault of [system] gives you little room to bargain.
-DECLINE_ATTACK_01          | I have not forgotten the attack on the [system] colony. There is no way that I will accept.
+DECLINE_ATTACK_01          | Tu asalto injustificado al [system] te da poco espacio para negociar.
+DECLINE_ATTACK_01          | No he olvidado el ataque a la colonia de [system]. No hay forma de que yo acepte.
 
-DECLINE_INVASION_01        | I do not wish to deal with the butchers of [system]. Make your amends first.
-DECLINE_INVASION_01        | My blood at [system] smears your words. I cannot accept your offer.
-DECLINE_INVASION_01        | My loss at [system] cries out for retribution. The pain I feel is louder than your offer.
+DECLINE_INVASION_01        | No deseo tratar con los carniceros de [system]. Haga sus enmiendas primero.
+DECLINE_INVASION_01        | Mi sangre en [system] mancha tus palabras. No puedo aceptar tu oferta.
+DECLINE_INVASION_01        | Mi pérdida en [system] clama por retribución. El dolor que siento es más fuerte que tu oferta.
 
-DECLINE_BIOWEAPONS_01      | I will not make any deals with one who would use biological weapons.
-DECLINE_BIOWEAPONS_01      | I cannot deal with anybody desperate enough to use biological weaponry.
-DECLINE_BIOWEAPONS_01      | You use weapons that cause untold horrors on me. I refuse to deal with such madness.
-DECLINE_BIOWEAPONS_01      | The gods abhor those who would destroy planets with biological weaponry. I cannot allow it.
-DECLINE_BIOWEAPONS_01      | The pain inflicted on me by your biological weapons fills my ears. I cannot hear your offer.
+DECLINE_BIOWEAPONS_01      | No haré ningún trato con alguien que use armas biológicas.
+DECLINE_BIOWEAPONS_01      | No puedo tratar con nadie lo suficientemente desesperado como para usar armas biológicas.
+DECLINE_BIOWEAPONS_01      | Usas armas que me causan horrores incalculables. Me niego a lidiar con tal locura.
+DECLINE_BIOWEAPONS_01      | Los dioses aborrecen a aquellos que destruirían planetas con armas biológicas. No puedo permitirlo.
+DECLINE_BIOWEAPONS_01      | El dolor que me infligieron tus armas biológicas llena mis oídos. No puedo escuchar tu oferta.
 
-DECLINE_TECH_TRADE_01      | You have no technology which interests me.
-DECLINE_TECH_TRADE_01      | I have no need of your toys.
-DECLINE_TECH_TRADE_01      | Your primitive inventions do not interest me.
-DECLINE_TECH_TRADE_01      | I am far beyond your technology.
-DECLINE_TECH_TRADE_01      | [your_name], I have little need for what you offer me.
-DECLINE_TECH_TRADE_01      | I see little of interest in your technology.
+DECLINE_TECH_TRADE_01      | No tienes ninguna tecnología que me interese.
+DECLINE_TECH_TRADE_01      | No necesito tus juguetes.
+DECLINE_TECH_TRADE_01      | Tus inventos primitivos no me interesan.
+DECLINE_TECH_TRADE_01      | Estoy mucho más allá de su tecnología.
+DECLINE_TECH_TRADE_01      | [your_name], tengo poca necesidad de lo que me ofreces.
+DECLINE_TECH_TRADE_01      | Veo poco de interés en su tecnología.
 
-DECLINE_NO_WAR_ON_ALLY_01  | I will not declare war on an ally.
-DECLINE_PEACE_TREATY_01    | I will not break my peace treaty with [other_name].
+DECLINE_NO_WAR_ON_ALLY_01  | No le declararé la guerra a un aliado.
+DECLINE_PEACE_TREATY_01    | No romperé mi tratado de paz con [other_name].
 
-OFFER_TECH_EXCHANGE_01     | I am in great need of your [tech] technology. Perhaps you are willing to exchange it for some of my technology.
-OFFER_TECH_EXCHANGE_01     | I know you have learned the secrets of [tech]. Can I offer you some of my technology in exchange?
-OFFER_TECH_EXCHANGE_01     | I wish for the secret of the [tech] technology. Will you exchange it for one of my advances?
-OFFER_TECH_EXCHANGE_01     | I am awed by the scientific wonders of [tech]. What can I offer you for its secret?
+OFFER_TECH_EXCHANGE_01     | Tengo una gran necesidad de tu tecnología [tech]. Tal vez estés dispuesto a cambiarlo por algo de mi tecnología.
+OFFER_TECH_EXCHANGE_01     | Sé que has aprendido los secretos de [tech]. ¿Puedo ofrecerte parte de mi tecnología a cambio?
+OFFER_TECH_EXCHANGE_01     | Deseo el secreto de la tecnología [tech]. ¿Lo cambiarás por uno de mis adelantos?
+OFFER_TECH_EXCHANGE_01     | Estoy maravillado por las maravillas científicas de [tech]. ¿Qué puedo ofrecerte por su secreto?
 
-ACCEPT_TECH_EXCHANGE_01    | Very well. I agree to exchange my wondrous secrets of [techGiven] for the technology [techReceived].
-ACCEPT_FINANCIAL_AID_01    | I accept your gift of [amt] BC.
-ACCEPT_TECHNOLOGY_AID_01   | I accept your gift of [tech].
+ACCEPT_TECH_EXCHANGE_01    | Muy bien. Acepto intercambiar mis maravillosos secretos de [techGiven] por la tecnología [techReceived].
+ACCEPT_FINANCIAL_AID_01    | Acepto tu regalo de [amt] BC.
+ACCEPT_TECHNOLOGY_AID_01   | Acepto tu regalo de [tech].
 
-BREAK_TRADE_01             | I have no further desire for the trade goods from [your_name].
-ANNOUNCE_TRADE_01          | Effective [year], I and [your_name] agree to trade [amt] BC per year.
-ACCEPT_TRADE_01            | A trade pact of [amt] BC is acceptable.
-ACCEPT_TRADE_01            | I eagerly await the fine goods that [your_name] offers. I accept an agreement for [amt] BC per year.
-ACCEPT_TRADE_01            | I agree to trade [amt] BC per year.
-ACCEPT_TRADE_01            | Well, [your_name], I find your offer of [amt] BC per year to be fair and equitable.
+BREAK_TRADE_01             | No tengo más deseo por los bienes comerciales de[your_name].
+ANNOUNCE_TRADE_01          | A partir del [year], yo y [your_name] acordamos intercambiar [amt] BC por año.
+ACCEPT_TRADE_01            | Un pacto comercial de [amt] BC es aceptable.
+ACCEPT_TRADE_01            | Espero ansiosamente los excelentes productos que [your_name] ofrece. Acepto un acuerdo por [amt] BC por año.
+ACCEPT_TRADE_01            | Acepto intercambiar [amt] BC por año.
+ACCEPT_TRADE_01            | Bien, [your_name], Considero que tu oferta de [amt] BC por año es justa y equitativa.
 
-ANNOUNCE_PEACE_01          | In the year [year], I and [your_name] agree to terminate all hostilities.
-ANNOUNCE_PEACE_01          | I hereby order all hostilities to end between your and I.
-ACCEPT_PEACE_01            | I agree that the time has come to end our petty bickering.
-ACCEPT_PEACE_01            | I accept your offer of peace. Cease fire on me, and I will stop attacking your forces.
-ACCEPT_PEACE_01            | I grow weary of this senseless destruction. I accept your offer of peace.
+ANNOUNCE_PEACE_01          | En el año [year], yo y [your_name] acordamos poner fin a todas las hostilidades.
+ANNOUNCE_PEACE_01          | Por la presente ordeno que terminen todas las hostilidades entre usted y yo.
+ACCEPT_PEACE_01            | Estoy de acuerdo en que ha llegado el momento de poner fin a nuestras pequeñas disputas.
+ACCEPT_PEACE_01            | Acepto tu oferta de paz. Deja de dispararme y dejaré de atacar a tus fuerzas.
+ACCEPT_PEACE_01            | Me canso de esta destrucción sin sentido. Acepto tu oferta de paz.
 
-BREAK_PACT_01              | A warning to the [your_name] from me: our Non-Aggression Pact is broken!
-ANNOUNCE_PACT_01           | In the year [year], I pledge to adhere to a Non-Aggression Pact and not to attack your fleets unless they are orbiting one of my colonies.
-ACCEPT_PACT_01             | I agree to a Non-Aggression Pact. Neither will attack the other's fleets, unless the orbit of an opposing colony is entered.
-ACCEPT_PACT_01             | If you agree not to send ships to any of my colonies, I vow to not attack any of your ships.
-ACCEPT_PACT_01             | I agree to your proposed Non-Aggression Pact. So it is written, so shall it be done!
-ACCEPT_PACT_01             | Agreed, then. As long as you do not attack my colonies, I will abide by the Non-Aggression Pact.
+BREAK_PACT_01              | Una advertencia mía para [your_name]: ¡nuestro Pacto de No Agresión está roto!
+ANNOUNCE_PACT_01           | En el año [year], prometo adherirme a un Pacto de No Agresión y no atacar sus flotas a menos que estén orbitando una de mis colonias.
+ACCEPT_PACT_01             | Acepto un Pacto de No Agresión. Ninguno atacará las flotas del otro, a menos que se entre en la órbita de una colonia opuesta.
+ACCEPT_PACT_01             | Si accedes a no enviar naves a ninguna de mis colonias, prometo no atacar ninguno de tus barcos.
+ACCEPT_PACT_01             | Estoy de acuerdo con tu propuesta de Pacto de No Agresión. ¡Así está escrito, así se hará!
+ACCEPT_PACT_01             | De acuerdo, entonces. Mientras no ataques mis colonias, respetaré el Pacto de No Agresión.
 
-BREAK_ALLIANCE_01          | I can no longer maintain an Alliance with [your_name].
-ANNOUNCE_ALLIANCE_01       | In the year [year] I and [your_name] agree to form an alliance in which neither will attack the other's fleets or colonies.
-ANNOUNCE_ALLIANCE_01       | So our Alliance is forged. Your ships may visit my colonies as you wish, and get fuel from my bases.
-ACCEPT_ALLIANCE_01         | I welcome an Alliance with my good friend, [your_name].
-ACCEPT_ALLIANCE_01         | I and [your_name] today forge an Alliance. Death to our enemies!
-ACCEPT_ALLIANCE_01         | I see the wisdom in an Alliance with [your_name]. So be it!
+BREAK_ALLIANCE_01          | Ya no puedo mantener una Alianza con [your_name].
+ANNOUNCE_ALLIANCE_01       | En el año [year] yo y [your_name] acordamos formar una alianza en la que ninguno atacará las flotas o colonias del otro.
+ANNOUNCE_ALLIANCE_01       | Así se forja nuestra Alianza. Tus naves pueden visitar mis colonias como desees y obtener combustible de mis bases.
+ACCEPT_ALLIANCE_01         | Doy la bienvenida a una Alianza con mi buen amigo, [your_name].
+ACCEPT_ALLIANCE_01         | Yo y [your_name] hoy forjamos una Alianza. ¡Muerte a nuestros enemigos!
+ACCEPT_ALLIANCE_01         | Veo la sabiduría en una Alianza con [your_name]. ¡Que así sea!
 
-ACCEPT_BREAK_ALLIANCE_01   | I agree, [other_name] is no longer trustworthy and I have broken my alliance with them.
-ACCEPT_BREAK_ALLIANCE_01   | Though it pains me to turn our backs on [other_name], I have done so.
-ACCEPT_BREAK_ALLIANCE_01   | [other_name] is no longer my ally
-ACCEPT_BREAK_ALLIANCE_01   | The Alliance of I and [other_name] now lies in shreds under our feet.
-ACCEPT_BREAK_ALLIANCE_01   | As you wish, I no longer shall call [other_name] my ally.
+ACCEPT_BREAK_ALLIANCE_01   | Estoy de acuerdo, [other_name] ya no es confiable y he roto mi alianza con ellos.
+ACCEPT_BREAK_ALLIANCE_01   | Aunque me duele darle la espalda a [other_name], lo he hecho.
+ACCEPT_BREAK_ALLIANCE_01   | [other_name] ya no es mi aliado.
+ACCEPT_BREAK_ALLIANCE_01   | La alianza entre yo y [other_name] ahora yace hecha trizas bajo nuestros pies.
+ACCEPT_BREAK_ALLIANCE_01   | Como desees, ya no llamaré a [other_name] mi aliado.
 
-ACCEPT_JOINT_WAR_01        | [other_name] must fall before the combined might of [your_name] and I.
-ACCEPT_JOINT_WAR_01        | With [your_name] and I allied, [other_name] will not last long.
-ACCEPT_JOINT_WAR_01        | In the year [year], I and [your_name] join forces to rid the galaxy of the [other_name] menace.
+ACCEPT_JOINT_WAR_01        | [other_name] debe caer ante el poder combinado de [your_name] y yo.
+ACCEPT_JOINT_WAR_01        | Con [your_name] y yo aliados, [other_name] no durará mucho.
+ACCEPT_JOINT_WAR_01        | En el año [year], yo y [your_name] unimos fuerzas para librar a la galaxia de la amenaza de [other_name].
 
-RESPOND_CLOSE_EMBASSY_01   | So be it. There will be no further discussions between myself and [your_name].
+RESPOND_CLOSE_EMBASSY_01   | Que así sea. No habrá más discusiones entre mí y [your_name].
 
-RESPOND_BREAK_TRADE_01     | I will remember this.
-RESPOND_BREAK_TRADE_01     | So, [your_name], you cannot keep your word. I will not forget this.
+RESPOND_BREAK_TRADE_01     | Voy a recordar esto.
+RESPOND_BREAK_TRADE_01     | Entonces, [your_name], no puedes mantener tu palabra. No olvidaré esto.
 
-RESPOND_BREAK_PACT_01      | I will inscribe the words of your broken treaties upon your tombstone, [your_name].
-RESPOND_BREAK_PACT_01      | [your_name] will crumble under the weight of its own broken promises.
+RESPOND_BREAK_PACT_01      | Inscribiré las palabras de tus tratados rotos en tu lápida, [your_name].
+RESPOND_BREAK_PACT_01      | [your_name] se derrumbará bajo el peso de sus propias promesas rotas.
 
-RESPOND_BREAK_ALLIANCE_01  | You have dishonored the agreement. The alliance is broken.
-RESPOND_BREAK_ALLIANCE_01  | Very well. Your untrustworthy intentions have shown. The alliance is broken.
-RESPOND_BREAK_ALLIANCE_01  | I have little need of treaties that are not honored. The alliance is broken.
-RESPOND_BREAK_ALLIANCE_01  | So be it. The alliance is broken.`
+RESPOND_BREAK_ALLIANCE_01  | Has deshonrado el acuerdo. La alianza está rota.
+RESPOND_BREAK_ALLIANCE_01  | Muy bien. Tus intenciones poco confiables se han mostrado. La alianza está rota.
+RESPOND_BREAK_ALLIANCE_01  | Tengo poca necesidad de tratados que no se cumplan. La alianza está rota.
+RESPOND_BREAK_ALLIANCE_01  | Así sea. La alianza está rota.
 
-ACCEPT_TRADE_01            | You want to trade with me? How much was it? [amt] BC every year? Yes... yes I think I can accept such an arrangement from [your_name].
-RESPOND_IGNORE_THREAT_01   | Don't threaten me, stupid [your_name]. There are so many of me you could never hope to win if we were to wage war. Go away!
-RESPOND_STOP_SPYING_01     | I was just trying to see how [your_name] was when you are alone among yourself. I will not do this again. Please return my spy to me now?
-RESPOND_STOP_ATTACKING_01  | Haha! See how strong I am! [your_name] cannot compare to me! Don't forget that after I return my fleets home!
+ACCEPT_TRADE_01            | ¿Quieres comerciar conmigo? ¿Cuánto era? [amt] BC todos los años? Sí... sí, creo que puedo aceptar tal arreglo de [your_name].
+RESPOND_IGNORE_THREAT_01   | No me amenazas, estúpido [your_name]. Hay tantos de mí que nunca podrías esperar ganar si hiciéramos la guerra. ¡Vete!
+RESPOND_STOP_SPYING_01     | Solo estaba tratando de ver cómo era [your_name] cuando estás solo entre ustedes. No volveré a hacer esto. Por favor, devuélveme mi espía ahora.
+RESPOND_STOP_ATTACKING_01  | Haha! ¡Mira qué fuerte soy! ¡[your_name] no puede compararse conmigo! ¡No olvides eso después de que yo regrese mis flotas a casa!
 

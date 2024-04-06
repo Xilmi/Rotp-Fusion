@@ -13,71 +13,71 @@
 //
 
 // Psilon specific dialogue
-CONTACT_PACIFIST           | Greetings and salutations! We of the [my_empire] learned long ago the benefits of peaceful cooperation. We hope that our diplomatic ties with you will be as harmonious as our own internal affairs.
-CONTACT_HONORABLE          | What a joyous occasion to meet others traversing this infinite expanse! We are called the [my_race_plural], and we will do what we can to avail ourselves to you at every opportunity.
-CONTACT_ERRATIC            | The [my_empire] wishes you well. We should know your people as the... [your_empire], was it? How fascinating. Yes... quite fascinating indeed.
+CONTACT_PACIFIST           | ¡Saludos! Nosotros [my_empireof] aprendimos hace mucho tiempo los beneficios de la cooperación pacífica. Esperamos que nuestros lazos diplomáticos con ustedes sean tan armoniosos como nuestros propios asuntos internos.
+CONTACT_HONORABLE          | ¡Qué gozosa ocasión para encontrarse con otros que atraviesan esta extensión infinita! ¡Somos llamados [my_race_pluraladjec], y haremos lo que podamos para aprovecharnos de ustedes en cada oportunidad.
+CONTACT_ERRATIC            | [my_empire] les desea lo mejor. Debemos conocer a su gente como... [your_empire], ¿era eso? Que fascinante. Sí... bastante fascinante por cierto.
 
 //
-GREETING_01                | We are overjoyed to hear from such an esteemed friend. How can the [my_empire] be of assistance?
-GREETING_04                | Greetings ambassador. I am happy to bring your requests to the Council for... deliberation.
-GREETING_07                | The line is open, ambassador. What is it you... wish to discuss?
+GREETING_01                | Estamos encantados de saber de un amigo tan estimado. ¿Cómo puede [my_empire] ser de ayuda?
+GREETING_04                | Saludos, embajador. Me complace llevar sus solicitudes al Consejo para... deliberación.
+GREETING_07                | La línea está abierta, embajador. ¿Qué es lo que... desea discutir?
 //
-DECLAREWAR_HATE_01         | We have done all we can to... accommodate your presence, but a race as unintelligent as yours is simply too much to bear as a celestial neighbor. Fear not, your end will be as swift as it is painless.
-DECLAREWAR_HATE_02         | We have spent much time in deliberation. It is... regrettable, but we have determined your people must be removed from the galaxy at this time.
-DECLAREWAR_HATE_03         | Though we prefer peace in all instances, we cannot abide you to continue to act as you have been. We will... do what we must to restore peace to the galaxy.
-DECLAREWAR_ERRATIC_01      | I admit I find actions of the Council puzzling, but they have deemed that your people have reached the limit of their intelligence and must be... removed. Alas, I am merely an ambassador and have no means to persuade them otherwise.
-DECLAREWAR_ERRATIC_02      | To properly value peace, we must on occasion... remind ourselves of the ugliness of war. Do you not agree, ambassador?
-DECLAREWAR_ERRATIC_03      | The time for battle is upon us, ambassador. By the time we are done, one of our empires will be forever reminded of the costs of war. The other empire will, unfortunately, cease to exist.
-DECLAREWAR_MILITARY_01     | I apologize ambassador, but the time has come for the Republic to expand its influence. If we cannot... gain these territories peacefully, we must take them by force.
-DECLAREWAR_MILITARY_02     | Few things in this galaxy are worth breaking a peace for. You would certainly agree, ambassador, that territory is one of them?
-DECLAREWAR_MILITARY_03     | I come with tidings of war, ambassador. The Council has decreed that we must increase the territory of the Republic at this time. Though your combat prowess may be... impressive, the will of the Council will not be denied.
-DECLAREWAR_ALLIANCE_01     | One of our allies, the [other_race], has come to us to plead for our aid in their fight against you. The Council has heard them and agreed, and so our aid they shall have.
-DECLAREWAR_ALLIANCE_02     | That your race and the [other_race] have broken your peace is... sorrowful. That we must join in the fight against you is even more so. 
-DECLAREWAR_ALLIANCE_03     | It is evident that your kind are too quarrelsome for any... lasting peace to be brokered. If the [other_race] have chosen to go to war with you, we will do so as well.
-DECLAREWAR_SPYING_01       | I am curious about how you thought this course would play out. To take such actions against the Republic... perhaps we overestimated your intelligence after all. 
-DECLAREWAR_SPYING_02       | Had you wished to... gain something from us, we would have preferred that you merely ask rather than act covertly. Now you leave us no choice but to break this peace we have tried so hard to preserve. 
-DECLAREWAR_SPYING_03       | Saddening, ambassador. There were so many other options for you and your spies to consider, and now both our peoples must suffer the great ignominy of war.
-DECLAREWAR_ATTACK_01       | Your actions are without logic, ambassador. To strike a people who solely desire peace while they so clearly out match you is... puzzling. It would seem that your race is much less clever than previously thought.  
-DECLAREWAR_ATTACK_02       | A... dark day for both our empires. We wished nothing more than harmonious co-existence with your people. Why do you force our hand so?
-DECLAREWAR_ATTACK_03       | Why have you chosen this course? We are a peaceful people down to our very essence, but rest assured that we know how to defend ourselves in times such as these.
-DECLAREWAR_OPPORTUNITY_01  | Ah well, it has certainly been an interesting experience, ambassador. However the time has come for us to put an end to your history. We believe those of such diminutive intellectual capabilities will ultimately interfere with our goals in the end.
-DECLAREWAR_ASSASSIN_01     | I must offer you some level of... congratulations. Few actions could cause the [my_empire] to mobilize for war so readily, but killing an unarmed ambassador is doubtlessly one of them.
+DECLAREWAR_HATE_01         | Hemos hecho todo lo posible para... acomodarnos a la presencia de ustedes, pero una raza tan poco inteligente como la suya es simplemente demasiado para soportarla como vecino celestial. No tema, su final será tan rápido como indoloro.
+DECLAREWAR_HATE_02         | Hemos pasado mucho tiempo deliberando. Es... lamentable, pero hemos determinado que su gente debe ser retirada de la galaxia en este momento..
+DECLAREWAR_HATE_03         | Aunque preferimos la paz en todos los casos, no podemos tolerar que sigan actuando como lo han hecho. Nosotros... haremos lo que debamos para restaurar la paz en la galaxia.
+DECLAREWAR_ERRATIC_01      | Admito que encuentro desconcertantes las acciones del Consejo, pero han considerado que la gente de ustedes ha llegado al límite de su inteligencia y debe ser... eliminada. Por desgracia, soy simplemente un embajador y no tengo medios para persuadirlos de lo contrario..
+DECLAREWAR_ERRATIC_02      | Para valorar adecuadamente la paz, en ocasiones debemos... recordarnos la fealdad de la guerra. ¿No está de acuerdo, embajador?
+DECLAREWAR_ERRATIC_03      | El momento de la batalla está sobre nosotros, embajador. Para cuando terminemos, uno de nuestros imperios recordará para siempre los costos de la guerra. El otro imperio, lamentablemente, dejará de existir.
+DECLAREWAR_MILITARY_01     | Pido disculpas, embajador, pero ha llegado el momento de que la República amplíe su influencia. Si no podemos... ganar estos territorios pacíficamente, debemos tomarlos por la fuerza.
+DECLAREWAR_MILITARY_02     | Son pocas cosas en esta galaxia por las cuales se vale la pena romper la paz. ¿Estaría de acuerdo, embajador, en que el territorio es uno de ellas?
+DECLAREWAR_MILITARY_03     | Vengo con noticias de guerra, embajador. El Consejo ha decretado que debemos aumentar el territorio de la República en este momento. Aunque la destreza de ustedes en el combate puede ser... impresionante, la voluntad del Consejo no será negada.
+DECLAREWAR_ALLIANCE_01     | Uno de nuestros aliados, [other_race_pluralnoun], ha acudido a nosotros para suplicar nuestra ayuda en su lucha contra ustedes. El Consejo los ha oído y está de acuerdo, y así tendrán nuestra ayuda.
+DECLAREWAR_ALLIANCE_02     | Que la raza de ustedes y [other_race_pluralnoun] hayan quebrantado su paz es... triste. Que debemos unirnos en la lucha contra ustedes lo es aún más. 
+DECLAREWAR_ALLIANCE_03     | Es evidente que los de su especie son demasiado pendencieros para negociar... una paz duradera. Si [other_race_pluralnoun] han elegido ir a la guerra contra ustedes, lo haremos también.
+DECLAREWAR_SPYING_01       | Tengo curiosidad acerca de cómo pensó usted que se desarrollaría este curso. Tomar tales acciones contra la República... quizás hemos sobreestimado su inteligencia después de todo. 
+DECLAREWAR_SPYING_02       | Si querian... obtener algo de nosotros, hubiéramos preferido que simplemente hubieran pedido en lugar de actuar de forma encubierta. Ahora no nos dejan más remedio que romper esta paz que tanto nos hemos esforzado por preservar. 
+DECLAREWAR_SPYING_03       | Triste, embajador. Había tantas otras opciones para que usted y sus espías consideraran, y ahora nuestros dos pueblos deben sufrir la gran ignominia de la guerra.
+DECLAREWAR_ATTACK_01       | Sus acciones no tienen lógica, embajador. Atacar a un pueblo que únicamente desea la paz mientras claramente supera a ustedes es... desconcertante. Parece que su raza es mucho menos inteligente de lo que se pensaba.  
+DECLAREWAR_ATTACK_02       | Un... día oscuro para nuestros dos imperios. No deseábamos nada más que la convivencia armoniosa con su gente. ¿Por qué fuerzan nuestra mano así?
+DECLAREWAR_ATTACK_03       | ¿Por qué han elegido este camino? Somos un pueblo pacífico hasta la médula, pero tenga por seguro que sabemos defendernos en momentos como estos.
+DECLAREWAR_OPPORTUNITY_01  | Ah, bueno, sin duda ha sido una experiencia interesante, embajador. Sin embargo, ha llegado el momento de que pongamos fin a la historia de ustedes.Creemos que aquellos con capacidades intelectuales tan diminutas finalmente interferirán con nuestros objetivos al final.
+DECLAREWAR_ASSASSIN_01     | Debo ofrecerle algún nivel de... felicitaciones. Pocas acciones podrían hacer que [my_empire] se movilizara para la guerra con tanta facilidad, pero matar a un embajador desarmado es sin duda una de ellas.
 
-OFFER_PEACE_01             | War never changes, ambassador. So much killing, so much destruction, all of it for what? Please, let us acknowledge our... past wrongs and begin a new era of peace. 
-OFFER_TRADE_01             | Civilized and... intelligent races like ours know that prosperity, not war, proves the most beneficial. The Republic wishes mutual prosperity with your people, and a trade agreement of [amt] BC each year as the best place to begin. 
-OFFER_PACT_01              | The more time we spend amongst your kind, the more we value our diplomatic ties. We should do all we can to... preserve that bond, and a non-aggression pact between our people will see that continues to endure, will it not, ambassador? 
-OFFER_ALLIANCE_01          | The time has come ambassador: an alliance between the [my_empire] and the [your_empire] must be forged. Through us the galaxy will see that peaceful co-existence is the only acceptable choice! 
+OFFER_PEACE_01             | La guerra nunca cambia, embajador. Tanta matanza, tanta destrucción, ¿todo para qué? Por favor, reconozcamos nuestros... errores del pasado y comencemos una nueva era de paz. 
+OFFER_TRADE_01             | Las razas civilizadas e inteligentes como la nuestra saben que la prosperidad, no la guerra, es lo más beneficioso. La República desea prosperidad mutua con su gente y un acuerdo comercial de [amt] BC cada año como el mejor lugar para comenzar. 
+OFFER_PACT_01              | Cuanto más tiempo pasamos entre los de su especie, más valoramos nuestros lazos diplomáticos. Deberíamos hacer todo lo posible para... preservar ese vínculo, y un pacto de no agresión entre nuestro pueblo hará que siga perdurando, ¿no es así, embajador? 
+OFFER_ALLIANCE_01          | Ha llegado el momento embajador: se debe forjar una alianza entre [my_empire] y [your_empire]. ¡A través de nosotros, la galaxia verá que la coexistencia pacífica es la única opción aceptable! 
 
-WARN_TRESPASSING_01        | Your presence at the [system] has raised eyebrows in the council. Please, withdraw at once before the peace we've worked so hard to achieve is broken. 
-WARN_EXPANSION_01          | There are few ways for us to interpret you so rapidly... expanding your sphere of influence. None of them are good for maintaining the peace between our people.
-WARN_BUILDUP_01            | To build up your fleets this way could prove an... ill portent for peace, ambassador. Be wary of how such an intimidating fleet will be construed by others, the Republic included.
-WARN_SKIRMISH_01           | The skirmish at the [system] is... troublesome. Are we to interpret this as a temporary leave of sanity? Or a sign that something far more dangerous may soon occur? 
-WARN_ATTACKED_01           | This is outrageous! Such attacks cannot be allowed to continue! I warn you ambassador: do not endanger the peace between the [attacker_empire] and the Republic so lightly. 
-WARN_INVADED_01            | Ambassador, what is the meaning of your encroachment into [defender_race] territory!? Surely you do not intend to break our peace by acting so aggressively? 
-WARN_ESPIONAGE_01          | Spying, ambassador? Would it not have been more prudent to merely... negotiate for the things you seek? We will allow this in the name of harmonious co-existence, but we may not be so forgiving next time... [framed]
-WARN_SABOTAGE_01           | I never would have dreamed the [spy_empire] was capable of such... despicable sabotage. In the name of peace, I pray you do not repeat this foolish mistake again. [forced]
-WARN_BIOWEAPON_01          | This is... unheard of, ambassador. To use a bioweapon on civilian targets even a single time forces us to reconsider in every possible way how we perceive you! 
-WARN_GENOCIDE_01           | And just like that, a voice in the chorus of the galaxy is lost forever. For a people to be capable of such evil... I fear we may not be able to form a lasting peace with you in the end.
-WARN_FINAL_WAR_01          | The galaxy is on the brink of harmony, and yet you obstinately choose to stand in the way. If the... removal of the [rebel_empire] is the cost of eternal peace, than we will do what we can to see that cost paid.  
-WARN_COUNCIL_VOTE_01       | The [candidate_empire] seeks nothing but peace so that all may share in the prosperity it brings. If you wish for the best... future for your people, you will not vote against the Republic in council again.
-WARN_OATHBREAKER_01        | Scurrilous and dishonorable, ambassador. We wonder if you would break peace as easily as you break agreements, and we will be ready should you ever choose to do so. [spiesCaught]
-WARN_ATTACKED_ALLY_01      | Call off these attacks of yours, ambassador! You know we are allies of the [defender_race]. Can we not instead broker a peace through dialogue instead of you forcing us all to war? 
-WARN_REBELLING_AGAINST_01  | No! You cannot be trusted to lead the council to peace! Our dedication to peace far outmatches yours, but you may force us to soon discard that dedication! 
+WARN_TRESPASSING_01        | Su presencia en el [system] ha llamado la atención en el consejo. Por favor, retírese de inmediato antes de que se rompa la paz por la que tanto hemos trabajado. 
+WARN_EXPANSION_01          | Hay pocas maneras de interpretarlos tan rápidamente... expandiendo su esfera de influencia. Ninguno de ellas es bueno para mantener la paz entre nuestro pueblo.
+WARN_BUILDUP_01            | Aumentar sus flotas de esta manera podría ser un mal augurio para la paz, embajador. Tenga cuidado con la forma en que una flota tan intimidante será interpretada por otros, incluida la República.
+WARN_SKIRMISH_01           | La escaramuza en [system] es... problemática. ¿Debemos interpretar esto como una ausencia temporaria de cordura? ¿O una señal de que algo mucho más peligroso puede ocurrir pronto? 
+WARN_ATTACKED_01           | ¡Esto es indignante! ¡No se puede permitir que tales ataques continúen! Le advierto, embajador: no ponga en peligro la paz entre el [attacker_empire] y la República tan a la ligera. 
+WARN_INVADED_01            | Embajador, ¿cuál es el significado de su invasión al territorio [defender_raceadjec]? ¿Seguramente no pretenden romper nuestra paz actuando de manera tan agresiva? 
+WARN_ESPIONAGE_01          | ¿Espionage, embajador? ¿No hubiera sido más prudente simplemente... negociar por las cosas que buscan? Permitiremos esto en nombre de la coexistencia armoniosa, pero puede que no seamos tan indulgentes la próxima vez... [framed]
+WARN_SABOTAGE_01           | Nunca hubiera soñado que [spy_empire] fuera capaz de un sabotaje tan... despreciable. En nombre de la paz, ruego que no vuelva a repetir este tonto error. [forced]
+WARN_BIOWEAPON_01          | Esto es ... inaudito, embajador. ¡Usar un arma biológica en objetivos civiles incluso una sola vez nos obliga a reconsiderar de todas las formas posibles cómo los percibimos! 
+WARN_GENOCIDE_01           | Y así, una voz en el coro de la galaxia se pierde para siempre. Que un pueblo sea capaz de tanta maldad... Me temo que al final no seremos capaces de formar una paz duradera con ustedes.
+WARN_FINAL_WAR_01          | La galaxia está al borde de la armonía y, sin embargo, ustedes eligen obstinadamente interponerse en el camino. Si... la eliminación de [rebel_empire] es el costo de la paz eterna, entonces haremos lo que podamos para pagar ese costo.  
+WARN_COUNCIL_VOTE_01       | [candidate_empire] no busca nada más que la paz para que todos puedan compartir la prosperidad que trae. Si usted desea el mejor... futuro para su pueblo, no volverá a votar en contra de la República en el consejo.
+WARN_OATHBREAKER_01        | Difamatorio y deshonroso, embajador. Nos preguntamos si romperían la paz tan fácilmente como rompen los acuerdos, y estaremos listos si alguna vez deciden hacerlo.
+WARN_ATTACKED_ALLY_01      | ¡Suspendan estos ataques suyos, embajador! Saben que somos aliados [defender_race_pluralnounof]. ¿No podemos en cambio negociar una paz a través del diálogo en lugar de obligarnos a todos a la guerra? 
+WARN_REBELLING_AGAINST_01  | ¡No! ¡No se puede confiar en usted para llevar el consejo a la paz! Nuestra dedicación a la paz supera con creces la suya, ¡pero es posible que pronto nos obliguen a descartar esa dedicación! 
 
-PRAISE_COUNCIL_VOTE_01     | Our friends at the [voter_empire] have never let us down before! The Republic extends its gratitude to you for your... actions in council today, and we look forward to hosting you on [candidate_home] as soon as you can spare the time. 
-PRAISE_COUNCIL_VOTE_02     | Wise decisions were made at the council, but perhaps the wisest was the vote you placed for the Republic. We recognize such... dedication to peace, and may enjoy friendship with you so long as that dedication continues.  
-PRAISE_COUNCIL_VOTE_03     | We are aware of your vote for the Republic in council. We are surprised, ambassador, and may have underestimated the intelligence of your people. 
+PRAISE_COUNCIL_VOTE_01     | ¡Nuestros amigos [voter_empireof] nunca nos han decepcionado antes! La República le extiende su gratitud por sus... acciones en el consejo de hoy, y esperamos recibirlo en [candidate_home] tan pronto como pueda disponer de tiempo. 
+PRAISE_COUNCIL_VOTE_02     | Se tomaron decisiones sabias en el consejo, pero quizás la más sabia fue el voto que usted depositó a favor de la República. Reconocemos tal... dedicación a la paz, y podemos disfrutar de nuestra amistad mientras esa dedicación continúe.  
+PRAISE_COUNCIL_VOTE_03     | Estamos al corriente de su voto por la República en consejo. Estamos sorprendidos, embajador, y puede que hayamos subestimado la inteligencia de su gente. 
 
-PRAISE_ATTACKED_ENEMY_01   | Ambassador! Your aid is most... appreciated. Together we will remove the [defender_race] menace, and restore the peace this galaxy so desperately craves. 
-PRAISE_ATTACKED_ENEMY_02   | We see and honor the actions of the [attacker_empire] as a commitment to our ideals of a greater peace. Rest assured that as soon as we... force the [defender_race] to abate, that peace can be allowed to resume. 
-PRAISE_ATTACKED_ENEMY_03   | Your people are both violent and brazen, so it is little surprise you would join in a war so readily. Still, the fact that you turned your weapons towards the party who does not fight for peace must at least be... acknowledged. 
+PRAISE_ATTACKED_ENEMY_01   | ¡Embajador! Su ayuda es muy... apreciada. Juntos eliminaremos la amenaza [defender_raceadjecF] y restauraremos la paz que esta galaxia anhela tan desesperadamente. 
+PRAISE_ATTACKED_ENEMY_02   | Vemos y honramos las acciones [attacker_empireof] como un compromiso con nuestros ideales de una mayor paz. Tenga la seguridad de que tan pronto como... obliguemos [defender_race_pluralnounto] a amainar, se podrá permitir que se reanude la paz. 
+PRAISE_ATTACKED_ENEMY_03   | Su pueblo es violento y descarado, por lo que no sorprende que se unan a la guerra con tanta facilidad. Aún así, el hecho de que apuntaron sus armas hacia el partido que no lucha por la paz debe al menos ser... reconocido. 
 
-PRAISE_TRADE_01            | To trade with another who is dedicated to peace is a boon, but to trade with a friend who is dedicated to peace is truly a blessing. May our trade agreements, and our friendship, last until the ending of the galaxy! 
-PRAISE_TRADE_02            | Isn't it wonderful, ambassador? See how much simple acts of trade benefit all parties involved! We hope that this will continue to be a boon to both our races for eons to come! 
-PRAISE_REBELLING_WITH_01   | We [my_race_plural] have always believed that war is never the answer. This council, however, shows us that we were in error all along. Make your war, ambassador, and know the Republic stands with you! 
+PRAISE_TRADE_01            | Comerciar con otro que se dedica a la paz es una bendición, pero comerciar con un amigo que se dedica a la paz es verdaderamente una bendición. ¡Que nuestros acuerdos comerciales y nuestra amistad duren hasta el final de la galaxia! 
+PRAISE_TRADE_02            | ¿No es maravilloso, embajador? ¡Vea cuánto benefician los actos comerciales simples a todas las partes involucradas! ¡Esperamos que esto siga siendo una bendición para nuestras dos razas en los próximos eones! 
+PRAISE_REBELLING_WITH_01   | Nosotros [my_race_pluraladjec] siempre hemos creído que la guerra nunca es la respuesta. Este consejo, sin embargo, nos muestra que estuvimos en error todo el tiempo. ¡Hagan su guerra, embajador, y sepa que la República está con ustedes! 
  
-ACCEPT_TRADE_01            | Yes, ambassador, we do agree that mutual trade is the best path to peace. [amt] BC each year is quite fine, and we thank you for your generosity.
-RESPOND_IGNORE_THREAT_01   | Do not mistake our pacifism for weakness! Surely your threat was spoken in irrational anger, and so we shall forgive your outburst this time.
-RESPOND_STOP_SPYING_01     | A [my_race] spy, you say? Surely this must be a misunderstanding. Please return our citizen to us so that we may get to the bottom of this, and rest easy knowing spying is the last thing on our minds.
-RESPOND_STOP_ATTACKING_01  | May this mighty fleet deter anyone foolish enough to begin a costly war, and may our removal of it without ordering it to be used show our commitment to peace.
+ACCEPT_TRADE_01            | Sí, embajador, estamos de acuerdo en que el comercio mutuo es el mejor camino hacia la paz. amt] BC cada año está bastante bien, y les agradecemos su generosidad.
+RESPOND_IGNORE_THREAT_01   | ¡No confunda nuestro pacifismo con debilidad! Seguramente su amenaza fue pronunciada con una ira irracional, por lo que perdonaremos su arrebato esta vez.
+RESPOND_STOP_SPYING_01     | Un espía [my_raceadjec], ¿usted dice? Seguramente esto debe ser un malentendido. Por favor, devuelvannos a nuestro ciudadano para que podamos llegar al fondo de esto, y descansen tranquilos sabiendo que espiar es lo último que tenemos en mente.
+RESPOND_STOP_ATTACKING_01  | Que esta poderosa flota disuada a cualquiera que sea lo suficientemente tonto como para comenzar una guerra costosa, y que el hecho de que la eliminemos sin ordenar su uso muestre nuestro compromiso con la paz.
 

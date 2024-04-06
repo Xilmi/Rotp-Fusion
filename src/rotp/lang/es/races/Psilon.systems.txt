@@ -28,9 +28,6 @@ Curie
 Herschel
 Lyell
 Laplace
-Slipher
-Friedmann
-Lemaître
 Hubble
 Thomson
 Born
@@ -112,6 +109,7 @@ Joule
 Foucault
 Kelvin
 Lister
+Kekule
 Roentgen
 Edison
 Pavlov
@@ -129,4 +127,3 @@ Ptolemy
 Khwarizmi
 daVinci
 Gutenberg
-Fresnel

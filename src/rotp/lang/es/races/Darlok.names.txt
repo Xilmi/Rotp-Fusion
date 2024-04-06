@@ -1,22 +1,21 @@
 // all possible names
-name: Darlok, Sarlok, Spylok, Shadelok, Dralok
+nome: Nazlokiano, Sarlokiano, Spailokiano, Shadelokiano
 
-desc1: Aggressive Diplomats
-desc2: Supreme Spies
-desc3: The [race]s are unnatural and secretive wraiths, originating from another dimension.
-desc4: Spy Cost -50%, Spying +20%, Security +20%
+desc1: Diplomáticos Agresivos
+desc2: Espías Supremos
+desc3: [_race_pluralnoun] son espectros antinaturales y secretos, que se originan en otra dimensión  
 
 // possible home system names
-home: Nazin, Mordor, Hades, Abyssal, Hel
-title:     Emperor
-fulltitle: Emperor
+casa: Nazin, Mordor, Hades, Abyssal, Hel
+título:     Soberano
+título completo: Soberano
 
 // possible leader names
-leader: Darquan, Morfane, Narzina, Nazgur, Shador, Ssithra
+líder: Darquan, Morfane, Narzina, Nazgur, Shador, Ssithra
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-ship1: Mist, Vapor, Spark, Veil, Omen, Ether, Glimmer
-ship2: Mirage, Shadow, Dream, Illusion, Reflection, Vision, Haunt
-ship3: Phantom, Spectre, Wraith, Shade, Ghost, Spirit, Poltergeist
-ship4: Nightmare, Phantasm, Terror, Horror, Revenant, Grim Reaper, Phobos
+nave1: Niebla, Vapor, Chispa, Velo, Presagio, Éter, Centelleo
+nave2: Espejismo, Sombra, Sueño, Ilusión, Reflexión, Visión, Guarida
+nave3: Fantasma, Espectro, Wraith, Shade, Ghost, Espíritu, Poltergeist
+nave4: Pesadilla, Phantasm, Terror, Horror, Renacido, La Parca, Fobos
 

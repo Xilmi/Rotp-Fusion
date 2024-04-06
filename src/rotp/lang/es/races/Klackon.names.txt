@@ -1,23 +1,22 @@
 // all possible names
-name: Klackon, Klackant, Klockan, Arthropon, Coleopteron
+name: Koldaniano, Klackantiano, Klockaniano, Arthroponiano, Coleopteroniano
 
-desc1: Xenophobic Industrialists
-desc2: Hive Mind and Increased Worker Production
-desc3: A species with a single controlling mind, the industrious [race] is inscrutable to outsiders.
-desc4: POP Productivity +100%
+desc1: Industriales Xenófobos
+desc2: Mente de Colmena y Aumento de la Producción de Trabajadores
+desc3: Una especie con una sola mente controladora, la industriosa [_raceadjecF] es inescrutable para los extraños.
 
 // possible home system names
-home: Kholdan, Klackant, Klockan, Arthropon, Coleopteron
+casa: Kholdan, Kholdant, Khaldon, Klokdon, Khakdon
 
-title:     The
-fulltitle: The
+título:     Soberano
+título completo: Soberano
 
 // possible leader names
-leader: Ixitixl, Kaxal, Kikitik, Klaquan, K'kalak, Xantak
+líder: Ixitixl, Kaxal, Kikitik, Klaquan, K'kalak, Xantak
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-ship1: Bumblebee, Needle, Mantis, Beetle, Drone, Spider, Mandible
-ship2: Hornet, Poison, Venom, Dragonfly, Stinger, Scarab, Wasp
-ship3: Tarantula, Viper, Cobra, Asp, Snake, Mamba, Scorpion
-ship4: King Cobra, Black Widow, Death Wyn, Pit Viper, Naga, Black Adder, Black Mamba
+nave1: Abejorro, Aguja, Mantis Religiosa, Escarabajo, Zángano, Araña, Mandíbula
+nave2: Avispón, Veneno, Venom, Libélula, Aguijón, Escarabeo, Avispa
+nave3: Tarántula, Víbora, Naja, Áspid, Serpiente, Mamba, Escorpión
+nave4: Cobra Real, Viuda Negra, Death Wyn, Crótalo, Naga, Víbora Negra, Mamba Negro
 

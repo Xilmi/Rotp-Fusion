@@ -1,23 +1,22 @@
 // all possible names
-name: Sakkra, Reptara, Saura, Raptora, Tyranna
+nome: Ssslaurano, Reptarano, Saurano, Raptorano, Tyrannano
 
-desc1: Aggressive Expansionists
-desc2: Increased Population Growth
-desc3: The zealots of the [race] Conclave strive to perfect the worlds they conquer.
-desc4: POP Growth +100%
+desc1: Expansionistas Agresivos
+desc2: Mayor crecimiento de la población
+desc3: Los fanáticos del Cónclave [_raceadjec] se esfuerzan por perfeccionar los mundos que conquistan.
 
 // possible home system names
-home: Sssla, Repta, Saur, Raptor, Tyrann
+casa: Sssla, Sssana, Sssihs, Sssha, Sssss, Hsssa
 
-title:     Magister
-fulltitle: Prime Magister
+título:     Magíster
+título completo: Primer Magíster
 
 // possible leader names
-leader: Guanar, Hissa, Kryssta, Saurak, Sauron, Tyranid
+líder: Guanar, Hissa, Kryssta, Saurak, Sauron, Tyranid
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-ship1: Gecko, Chameleon, Lizard, Iguana, Skink, Anole, Whiptail
-ship2: Tegu, Monitor, Caiman, Alligator, Crocodile, Gavial, Basilisk
-ship3: Dinosaur, Raptor, Pterodactyl, Theropod, Ceratops, Predator, Plesiosaur
-ship4: Titan, Colossus, Dragon, Godzilla, Kraken, Gorgon, Tyrannosaur
+nave1: Geco, Camaleón, Lagarto, Iguana, Esquinco, Anolis, Cola de Látigo
+nave2: Tegu, Varanus, Dracaena, Caimán, Cocodrilo, Gavial, Basilisco
+nave3: Dinosaurio, Raptor, Pterodáctilo, Terópodo, Ceratops, Depredador, Plesiosauro
+nave4: Titán, Coloso, Dragón, Godzilla, Kraken, Gorgona, Tiranosaurio
 

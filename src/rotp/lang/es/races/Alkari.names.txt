@@ -1,23 +1,22 @@
 // all possible names
-name: Alkari, Aviari, Cluckari, Feathari, Fowlari
+nome: Altairianos, Aviarianos, Cluckarianos, Featharianos, Fowlarianos
 
-desc1: Honorable Militarists
-desc2: Superior Pilots
-desc3: The [race] Sovereignty is an organized warrior society that prizes honor in battle.
-desc4: Ship DEF/INIT +3
+desc1: Militaristas Honorables
+desc2: Pilotos Superiores
+desc3: La Soberanía [_raceadjecF] es una sociedad guerrera organizada que valora el honor en la batalla.
 
 // possible home system names
-home: Altair, Aegir, Aviar, Volary, Aerie
+casa: Altair, Aegir, Aviar, Volary, Aerie
 
-title:     King
-fulltitle: Spire King
+título:     Rey de la Espira
+título completo: Rey de la Espira
 
 // possible leader names
-leader: Ariel, Farseer, Highsoar, Redwing, Sharpclaw, Skylord
+líder: Ariel, Vidente, Altovuelo, Alaroja, Garrafilada, Señor del Cielo
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-ship1: Foxbat, Sparrowhawk, Pelican, Finch, Wren, Raven, Feather
-ship2: Falcon, Sky Hawk, Space Gull, Battle Owl, Puffin, Star Wing
-ship3: Warbird, Warhawk, War Eagle, Osprey, Vulture, Harpy, Condor
-ship4: Thunderbird, Dreadwing, Sky Master, Roc, Rodan, Griffon, Phoenix
+nave1: Zorromurciélago, Gavilán, Pelícano, Pinzón, Reyezuelo, Cuervo, Pluma
+nave2: Halcón, Halcón del Cielo, Gaviota Espacial, Búho de Battla, Frailecillo, Ala Estelar
+nave3: Pájaro de Guerra, Halcón de Guerra, Águila de Guerra, Halieto, Buitre, Arpía, Cóndor
+nave4: Pájaro del Trueno, Ala del Temor, Maestro del Cielo, Ruc, Rodan, Grifo, Fénix
 
