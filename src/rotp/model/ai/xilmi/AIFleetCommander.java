@@ -1148,7 +1148,7 @@ public class AIFleetCommander implements Base, FleetCommander {
     public void attackWithFleet(ShipFleet fl, StarSystem target, float amount, float bombAmount, boolean includeScouts, boolean includeFighters, boolean includeBombers, boolean includeColonizer, float needToKeep, boolean splitBySpeed)
     {
         /*if(fl.system() != null)
-            System.out.print("\n"+empire.name()+" fleet at "+fl.system().name()+" sent to "+target.name()+" amount: "+amount+" bomb-amount: "+bombAmount+" keepBc: "+needToKeep);*/
+            System.out.println(empire.name()+" fleet at "+fl.system().name()+" sent to "+target.name()+" amount: "+amount+" bomb-amount: "+bombAmount+" keepBc: "+needToKeep);*/
         if(fl.system() == target)
             return;
         ShipDesignLab lab = empire.shipLab();
@@ -1201,8 +1201,6 @@ public class AIFleetCommander implements Base, FleetCommander {
             for (int i=0;i<fl.num.length;i++) {
                 int num = fl.num(i);
                 ShipDesign d = lab.design(i); 
-                float designFirePower = d.firepowerAntiShip(d.shieldLevel(), d.beamDefense(), d.missileDefense()) * d.hits();
-                //System.out.print("\n"+empire.name()+" design in fleet: "+d.name()+" power: "+designFirePower+" is scout: "+d.isScout()+" figting adapted: "+empire.shipDesignerAI().fightingAdapted(d)+" bombing-adapted: "+empire.shipDesignerAI().bombingAdapted(d));
                 if(d.warpSpeed()!=speed && splitBySpeed)
                     continue;
                 if(!d.isArmed() && !d.hasColonySpecial() && !includeScouts)
@@ -1215,16 +1213,18 @@ public class AIFleetCommander implements Base, FleetCommander {
                 {
                     continue;
                 }
-                if(empire.shipDesignerAI().bombingAdapted(d) >= 0.5f && !includeBombers && !d.isColonyShip())
+                if(empire.shipDesignerAI().bombingAdapted(d) >= 0.75f && !includeBombers && !d.isColonyShip())
                 {
                     continue;
                 }
-                if(empire.shipDesignerAI().fightingAdapted(d) > 0.5f && !includeFighters && !d.isColonyShip())
+                if(empire.shipDesignerAI().fightingAdapted(d) > 0.75f && !includeFighters && !d.isColonyShip())
                 {
                     continue;
                 }
                 if(!empire.sv.inShipRange(target.id) && d.range() < empire.scoutRange())
+                {
                     continue;
+                }
                 if(!d.hasColonySpecial())
                     if(empire.shipDesignerAI().fightingAdapted(d) > 0 && empire.shipDesignerAI().bombingAdapted(d) == 0)
                         counts[i] = (int)Math.ceil(num * amount);
@@ -1242,7 +1242,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                 if(counts[i] > 0)
                 {
                     haveToDeploy = true;
-                    //System.out.print("\n"+empire.name()+" deploy "+counts[i]+" "+d.name()+" speed "+speed+" to "+target.name()+" splitBySpeed: "+splitBySpeed);
+                    //System.out.println(empire.name()+" deploy "+counts[i]+" "+d.name()+" speed "+speed+" to "+target.name()+" splitBySpeed: "+splitBySpeed);
                     systemInfoBuffer.get(target.id).myBombardDamage += counts[i] * designBombardDamage(d, target);
                     systemInfoBuffer.get(target.id).myTotalPower += fullPowerValue * counts[i] / num;
                     if(d.hasColonySpecial())
@@ -1598,6 +1598,8 @@ public class AIFleetCommander implements Base, FleetCommander {
         float totalSpecials = 0;
         float totalHP = 0;
         float totalCombatSpeed = 0;
+        float totalWeighedHP = 0;
+        float totalArmor = 0;
         for (int i=0;i<fl.num.length;i++) {
             int num = fl.num(i);
             if (num > 0) {
@@ -1610,6 +1612,8 @@ public class AIFleetCommander implements Base, FleetCommander {
                 totalMissileDefense += num * (des.missileDefense() + des.empire().shipDefenseBonus()) * des.hits();
                 totalSpecials += num * des.getSpecialCount(true) * des.hits();
                 totalCombatSpeed += num * des.combatSpeed() * des.hits();
+                totalWeighedHP += num * des.hits() * des.hits();
+                totalArmor += num * des.armor().tech().hitsAdj * des.hits();
             }
         }
         if(totalHP > 0)
@@ -1620,6 +1624,8 @@ public class AIFleetCommander implements Base, FleetCommander {
             stats.avgSpecials = totalSpecials / totalHP;
             stats.avgCombatSpeed = totalCombatSpeed / totalHP;
             stats.totalHP = totalHP;
+            stats.avgHP = totalWeighedHP / totalHP;
+            stats.avgArmor = totalArmor / totalHP;
         }
         return stats;
     }
@@ -1631,6 +1637,8 @@ public class AIFleetCommander implements Base, FleetCommander {
         float totalSpecials = 0;
         float totalHP = 0;
         float totalVal = 0;
+        float totalCombatSpeed = 0;
+        float totalWeighedHP = 0;
         for (CombatStack monster : monsters) {
             int num = monster.num;
             if (num > 0) {
@@ -1640,6 +1648,8 @@ public class AIFleetCommander implements Base, FleetCommander {
                 totalDefense += num * monster.beamDefense() * monster.hits();
                 totalMissileDefense += num * monster.missileDefense() * monster.hits();
                 totalSpecials += num * 2 * monster.hits();
+                totalCombatSpeed += monster.maxMove();
+                totalWeighedHP += num * monster.hits() * monster.hits();
             }
         }
         if(totalVal > 0)
@@ -1648,7 +1658,10 @@ public class AIFleetCommander implements Base, FleetCommander {
             stats.avgDefense = totalDefense / totalVal;
             stats.avgMissileDefense = totalMissileDefense / totalVal;
             stats.avgSpecials = totalSpecials / totalVal;
+            stats.avgCombatSpeed = totalCombatSpeed / totalVal;
             stats.totalHP = totalHP;
+            stats.avgHP = totalWeighedHP / totalVal;
+            stats.avgArmor = totalHP / 600;
         }
         return stats;
     }
@@ -1673,7 +1686,9 @@ public class AIFleetCommander implements Base, FleetCommander {
         FleetStats attackerStats = getFleetStats(attacker);
         float power = attacker.firepowerAntiShip(defenderStats.avgShield, defenderStats.avgDefense, defenderStats.avgMissileDefense);
         power *= Math.pow(1.26, attackerStats.avgSpecials);
-        power *= attackerStats.totalHP;
+        float shipsOfAvgPower = attackerStats.totalHP / attackerStats.avgHP;
+        power *= (shipsOfAvgPower + 1) / (2 * shipsOfAvgPower);
+        power *= attackerStats.avgArmor;
         return power;
     }
     public float combatPower(ShipFleet attacker, ShipFleet defender) {
@@ -1685,7 +1700,9 @@ public class AIFleetCommander implements Base, FleetCommander {
         FleetStats monsterStats = getMonsterStats(monster.combatStacks());
         float power = monsterFirePower(monster.combatStacks(), defenderStats.avgShield, defenderStats.avgDefense, defenderStats.avgMissileDefense);
         power *= Math.pow(1.26, monsterStats.avgSpecials);
-        power *= monsterStats.totalHP;
+        float shipsOfAvgPower = monsterStats.totalHP / monsterStats.avgHP;
+        power *= (shipsOfAvgPower + 1) / (2 * shipsOfAvgPower);
+        power *= monsterStats.avgArmor;
         return power;
     }
     public float myTotalPower() {
