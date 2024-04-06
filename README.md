@@ -63,6 +63,17 @@ Later:
 
 ## What's New
 
+2024.04.05 (BR)
+- Fixed Bombard notification not showing when occuring at the same time of a war declaration.
+- Hotkey: Alt 1~5 smartmax spendings works on Multi selection too.
+- Hotkey: Alt S/D/W/E/R smartmax spendings on Multi selection.
+
+2024.04.05 (Xilmi)
+- The AI will no longer retreat stacks that aren't threatened from losing at least one ship.
+- Fixed completly wrong estimate for stream-projector-damage used in AI-calculations.
+- Fixed stream-projectors not working against space-monsters.
+- Added a necessary method for the AI to be able to estimate the damage-output of the orion-guardian.
+
 2024.04.04 (BR)
 - Fixed Save Notification Text.
 - New Hotkey: Alt 1~5 to smartmax spendings.
@@ -307,7 +318,7 @@ Later:
 
 2024.01.04 (BR)
 - Fixed untested null list loop crash!
-- Fixed crash when sending transport to planey without colony!?
+- Fixed crash when sending transport to planet without colony!?
 - Fixed crash of lost transport (from dead empire to dead colony)!?
 - Improved galaxy randomization.
 - Restored Original Settings.
@@ -386,7 +397,7 @@ Later:
 2023.12.11 (BR)
 - New Mass Transport Auto-refill Set independently for each colony.
   - Replace the previous global system.
-  - Option to initialyze at the panel opening to "On", "Off", or No changes.
+  - Option to initialize at the panel opening to "On", "Off", or No changes.
   - Auto-refill colony are set by Ctrl-Click on the slider.
   - Auto-refill colony sliders are shown in a different color.
 - Cleaned TODO comments

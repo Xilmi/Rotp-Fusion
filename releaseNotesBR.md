@@ -2,11 +2,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Fixed possible crash with random Galaxies
-- Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion. (Xilmi)
-  - It usually would vastly underestimate the enemie's chances to repel the invasion and thus very often invaded when this was too risky of an endeavour.
-- Fixed Save Notification Text.
-- New Hotkey: Alt 1~5 to smartmax spendings.
+- Fixed Bombard notification not showing when occuring at the same time of a war declaration.
+- The AI will no longer retreat stacks that aren't threatened from losing at least one ship. (Xilmi)
+- Fixed completly wrong estimate for stream-projector-damage used in AI-calculations. (Xilmi)
+- Fixed stream-projectors not working against space-monsters. (Xilmi)
+- Added a necessary method for the AI to be able to estimate the damage-output of the orion-guardian. (Xilmi)
+- Hotkey: Alt 1~5 smartmax spendings works on Multi selection too.
+- Hotkey: Alt S/D/W/E/R smartmax spendings on Multi selection.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -91,6 +93,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Little reorganisation in "In-Game Options" Panel for more clarity... I hope!
 - Renamed some remaining Nazloks, Fiershan, Ssslauran, and Cryslonoids.
 - New Hotkey: Alt 1~5 to smartmax spendings.
+- Hotkey: Alt 1~5 smartmax spendings works on Multi selection too.
+- Hotkey: Alt S/D/W/E/R smartmax spendings on Multi selection.
 
 
 <b><ins>Bug Fixes:</ins></b>
@@ -116,4 +120,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion. (Xilmi)
   - It usually would vastly underestimate the enemie's chances to repel the invasion and thus very often invaded when this was too risky of an endeavour.
 - Fixed Save Notification Text.
+- Fixed Bombard notification not showing when occuring at the same time of a war declaration.
+- The AI will no longer retreat stacks that aren't threatened from losing at least one ship. (Xilmi)
+- Fixed completly wrong estimate for stream-projector-damage used in AI-calculations. (Xilmi)
+- Fixed stream-projectors not working against space-monsters. (Xilmi)
+- Added a necessary method for the AI to be able to estimate the damage-output of the orion-guardian. (Xilmi)
 - minor fixes...

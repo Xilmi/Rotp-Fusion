@@ -15,6 +15,9 @@
  */
 package rotp.ui.planets;
 
+import static rotp.model.colony.Colony.ECOLOGY;
+import static rotp.model.colony.Colony.RESEARCH;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -270,6 +273,23 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
         }
         parent.repaintAll();
     }
+    public void smoothSmartMax() {
+        List<StarSystem> systems = parent.systemsToDisplay();
+        for (StarSystem sys: systems) {
+            Colony colony = sys.colony();
+            if (colony != null) {
+            	if(!colony.locked(selectedCat))
+                    colony.smoothMaxSlider(selectedCat);
+                if(selectedCat != ECOLOGY)
+                	colony.checkEcoAtClean();
+                if(selectedCat != RESEARCH && !colony.locked(RESEARCH))
+                	colony.allocation(RESEARCH, 0);
+                colony.redistributeReducedEcoSpending();
+            }
+        }
+        parent.repaintAll();
+    }
+
     public void setLock(int cat, boolean lock) {
         List<StarSystem> systems = parent.systemsToDisplay();
         for (StarSystem sys: systems) {

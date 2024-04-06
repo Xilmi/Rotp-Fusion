@@ -276,7 +276,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         helpUI.clear();
         int xHK = scaled(100);
         int yHK = scaled(70);
-        int wHK = scaled(500);
+        int wHK = scaled(600);
         helpUI.addBrownHelpText(xHK, yHK, wHK, 28, text("PLANETS_HELP_HK"));
         helpUI.open(this);
     }
@@ -558,6 +558,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         boolean repaint = false;
         boolean shift = e.isShiftDown();
         boolean control = e.isControlDown();
+        boolean alt = e.isAltDown();
         switch(e.getKeyCode()) {
             case KeyEvent.VK_F1:
             	if (e.isShiftDown())
@@ -586,11 +587,46 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 instance.repaint();
                 return;
             case KeyEvent.VK_1:
+            	if (alt) {
+            		multiSpendingPane.selectCat(Colony.SHIP);
+            		multiSpendingPane.smoothSmartMax();
+            	}
+            	else
+            		spendingPane.keyPressed(e);
+            	return;
             case KeyEvent.VK_2:
+            	if (alt) {
+            		multiSpendingPane.selectCat(Colony.DEFENSE);
+            		multiSpendingPane.smoothSmartMax();
+            	}
+            	else
+            		spendingPane.keyPressed(e);
+            	return;
             case KeyEvent.VK_3:
+            	if (alt) {
+            		multiSpendingPane.selectCat(Colony.INDUSTRY);
+            		multiSpendingPane.smoothSmartMax();
+            	}
+            	else
+            		spendingPane.keyPressed(e);
+            	return;
             case KeyEvent.VK_4:
+            	if (alt) {
+            		multiSpendingPane.selectCat(Colony.ECOLOGY);
+            		multiSpendingPane.smoothSmartMax();
+            	}
+            	else
+            		spendingPane.keyPressed(e);
+            	return;
             case KeyEvent.VK_5:
-                spendingPane.keyPressed(e); return;
+            	if (alt) {
+            		multiSpendingPane.selectCat(Colony.RESEARCH);
+            		multiSpendingPane.smoothSmartMax();
+            	}
+            	else
+            		spendingPane.keyPressed(e);
+            	return;
+//                spendingPane.keyPressed(e); return;
             case KeyEvent.VK_F:
                 colonyFoundedPane.toggleFlagColor(shift); 
                 instance.repaint();
@@ -621,6 +657,8 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                     multiSpendingPane.setLock(0, true);
                 else if(shift)
                     multiSpendingPane.setLock(0, false);
+                else if(alt)
+                    multiSpendingPane.smoothSmartMax();
                 else
                     multiSpendingPane.setSpendingLevel(1);
                 return;
@@ -630,6 +668,8 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                     multiSpendingPane.setLock(1, true);
                 else if(shift)
                     multiSpendingPane.setLock(1, false);
+                else if(alt)
+                    multiSpendingPane.smoothSmartMax();
                 else
                     multiSpendingPane.setSpendingLevel(1);
                 return;
@@ -639,6 +679,8 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                     multiSpendingPane.setLock(2, true);
                 else if(shift)
                     multiSpendingPane.setLock(2, false);
+                else if(alt)
+                    multiSpendingPane.smoothSmartMax();
                 else
                     multiSpendingPane.setSpendingLevel(1);
                 return;
@@ -648,6 +690,8 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                     multiSpendingPane.setLock(3, true);
                 else if(shift)
                     multiSpendingPane.setLock(3, false);
+                else if(alt)
+                    multiSpendingPane.smoothSmartMax();
                 else
                     multiSpendingPane.setSpendingLevel(1);
                 return;
@@ -657,6 +701,8 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                     multiSpendingPane.setLock(4, true);
                 else if(shift)
                     multiSpendingPane.setLock(4, false);
+                else if(alt)
+                    multiSpendingPane.smoothSmartMax();
                 else
                     multiSpendingPane.setSpendingLevel(1);
                 return;
