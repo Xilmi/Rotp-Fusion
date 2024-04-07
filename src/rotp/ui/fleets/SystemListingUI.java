@@ -1205,10 +1205,10 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             if (e.isControlDown()) {
             	if (sys.toggleTransportAutoEco()) {
             		softClick();
-                   	repaint();
+                   	// repaint();
             	} else
             		misClick();
-             	return;
+             	// return;
             }
             	
             int maxSendingSize = player().sv.maxTransportsToSend(sys.id);

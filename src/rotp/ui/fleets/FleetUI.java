@@ -934,7 +934,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         int y3 = y2;
         int x3a = scaled(780);
         int y3a = scaled(185);
-        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 6, text("FLEETS_HELP_3C"));
+        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 7, text("FLEETS_HELP_3C"));
         sp3.setLine(x3+w3/2, y3, x3a, y3a);
 
 //        int x4 = x3;

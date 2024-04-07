@@ -14,6 +14,7 @@ bg,  българин         ,  ,   ,
 #bn,  বাংলা            ,  ,   ,  , ০১২৩৪৫৬৭৮৯
 de,  Deutsch          ,  ,   , 
 el,  Ελληνικά         ,  ,   , 
+es,  Español          ,  ,   ,
 fr,  Français         ,  ,   ,  , 
 hu,  Magyar           ,  ,   ,  , 
 id,  Indonesia        ,  ,   , 
@@ -30,11 +31,9 @@ tr,  Türkçe           ,  ,   ,
 uk,  Українська       ,  ,   , 
 zh,  简体中文          ,  ,   , Y
 zh2, 繁體中文          ,  ,   , Y
-es,  Español          ,  ,   ,
 
 
 //bn,     , বাংলা     , 
-//es,     , Español    ,
 //fi,     , Suomen kieli,
 //he,     , עִברִית ,
 //hi,     , हिन्दी              ,

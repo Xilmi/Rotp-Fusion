@@ -1169,7 +1169,7 @@ FLEETS_HELP_2D                    | Selected for Deployment - a count of ships, 
 FLEETS_HELP_2E                    | Deploy Fleets - deploy the selected fleets to a single target system.
 FLEETS_HELP_3A                    | Stable:<br>The maximum number of population you can send from this planet while being able to regrowth to the same level, with ECO bar set to max.<br>It's up to the player or the governor to adjust the ECO bar.
 FLEETS_HELP_3B                    | Fill:<br>The maximum number of population you can send from this planet while being able to regrowth to fill the planet, with ECO bar set to max.<br>It's up to the player or the governor to adjust the ECO bar.
-FLEETS_HELP_3C                    | Population to send selection bars:<br>- Left click on slider = Normal percentage selection.<br>- Middle click on slider = "Stable"-value selection.<br>- Right click on slider = "Fill"-value selection.<br>Ctrl+Click to toggle auto-refill (Ungoverned only) shown as Green over Grey.
+FLEETS_HELP_3C                    | Population to send selection bars:<br>- Left click on slider = Normal percentage selection.<br>- Middle click on slider = "Stable"-value selection.<br>- Right click on slider = "Fill"-value selection.<br>Ctrl+Click to toggle auto-refill (Ungoverned only) shown as Green over Grey.<br>Default auto-refill state is set by option "→TRANSPORT_AUTO_ECO_HK←".
 // FLEETS_HELP_3D                    | Ungoverned colony will have their Eco sliders set to "Growth" after Transports are sent.<br>(Green = On; Dark = Off)
 FLEETS_HELP_3MAIN                 | OVERVIEW:<br> This screen allows the management of population and troops transport.<br>Select the destination colony and transport size.<br>Destination colony can be changed at will.
 
@@ -2421,8 +2421,8 @@ SETTINGS_MOD_SHOW_INFO_FONT_RATIO_DESC   | To adjust the galaxy map swap info to
 SETTINGS_MOD_SHOW_INFO_FONT_RATIO        | System Info Font Ratio: %1
 SETTINGS_MOD_MAP_FONT_FACTOR_DESC        | To adjust the galaxy map font size. Bigger factor means bigger fonts.
 SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1
-SETTINGS_MOD_MENU_STARTUP_DESC           | How should the GUI be initialized on startup?
-SETTINGS_MOD_MENU_STARTUP                | GUI at Startup: %1
+SETTINGS_MOD_MENU_STARTUP_DESC           | How should the Game Settings be initialized when Launching RotP?
+SETTINGS_MOD_MENU_STARTUP                | Launch Settings: %1
 // SETTINGS_MOD_MENU_AFTER_GAME_DESC        | How should the GUI be initialized after a game was played?
 // SETTINGS_MOD_MENU_AFTER_GAME             | GUI after Game: %1
 // SETTINGS_MOD_MENU_LOADING_GAME_DESC      | What options should be used when loading a game?
@@ -2467,10 +2467,10 @@ SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings
 SETTINGS_MOD_OPTIONS_USER                | User's Settings
 // SETTINGS_MOD_OPTIONS_VANILLA             | Old Way
-SETTINGS_MOD_OPTIONS_DEFAULT_HELP        | The options will reset to their default values.
-SETTINGS_MOD_OPTIONS_LAST_HELP           | The options will be set to the same state as the last time you left ROTP.
-SETTINGS_MOD_OPTIONS_GAME_HELP           | The options will be set to the same state as the last played game.
-SETTINGS_MOD_OPTIONS_USER_HELP           | The options will be set as stored in the User's preferred settings.
+SETTINGS_MOD_OPTIONS_DEFAULT_HELP        | The options will be reset to their default values.
+SETTINGS_MOD_OPTIONS_LAST_HELP           | The options will be in the same state as the last time you exited ROTP.
+SETTINGS_MOD_OPTIONS_GAME_HELP           | The options will be in the same state as the last game played.
+SETTINGS_MOD_OPTIONS_USER_HELP           | The options will be in the same state as the User's preferred settings.
 // SETTINGS_MOD_OPTIONS_VANILLA_HELP        | The options will be set as if it was no mods... a mixt of default, last state and last played game...
 
 SETTINGS_MOD_SHOW_ALL_AI_DESC            | AI:Base, AI:Modnar, and AI:Rookies are quite similar. AI:Rookie is based on the other two, with some important bug fixed. You may want to hide unfixed AI.
@@ -2530,7 +2530,8 @@ SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
 
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_Help     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the Mass Transport Panel.<br>The slider will be set to green to confirm the auto refill status.<br> Ctrl+Click on sliders to toggle.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_DESC     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the transport panel.
-SETTINGS_MOD_TRANSPORT_AUTO_ECO          | Transport ECO: %1
+TRANSPORT_AUTO_ECO_HK                    | Transport ECO
+SETTINGS_MOD_TRANSPORT_AUTO_ECO          | →TRANSPORT_AUTO_ECO_HK←: %1
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES_DESC | Default will be set to auto-refill the colony.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES      | On
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | Default will be set to No.

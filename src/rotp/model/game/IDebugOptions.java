@@ -168,6 +168,10 @@ public interface IDebugOptions extends IBaseOptsTools {
 				debugBMZoomOut, debugBMShowAll,
 				consoleAutoRun, debugLogNotif, debugLogEvents
 				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("GAME_OTHER"),
+				IMainOptions.menuStartup
+				)));
 		return map;
 	}
 	ParamSubUI debugOptionsUI = debugOptionsUI();

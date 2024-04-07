@@ -63,8 +63,24 @@ Later:
 
 ## What's New
 
+2024.04.07 (BR)
+- Spending Pane: Fixed ship building time estimation not using reserves.
+- Transport Panel:
+  - Auto-refill can be toggled at the same time as setting a value.
+  - Completed Help panel with info about default auto-refill state.
+
 2024.04.06 (BR)
 - Bombard notification: Moved the lock after the skip condition
+- Fixed Redirect Ship Path Glitch
+- Renamed "GUI at Startup" to "Launch Settings" and added it to Debug Menu
+
+2024.04.06 (Ray)
+- Spanish Translation now available.
+
+2024.04.06 (Xilmi)
+- Fixed an issue that caused the AI to ignore missiles that were fired by a space-monster.
+- Fixed an issue where the AI would not use ships with many bombs but still decent fighting-power to a battle against the orion-guardian.
+- Improved the algorithm for the AI to estimate the strength of fleets. Firepower is now considered as much more important than health.
 
 2024.04.05 (BR)
 - Fixed Bombard notification not showing when occuring at the same time of a war declaration.

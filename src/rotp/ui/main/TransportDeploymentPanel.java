@@ -536,10 +536,10 @@ public class TransportDeploymentPanel extends SystemPanel {
                 if (e.isControlDown()) {
                 	if (system().toggleTransportAutoEco()) {
                 		softClick();
-                		parentSpritePanel.repaint();
+                		// parentSpritePanel.repaint();
                 	} else
                 		misClick();
-                 	return;
+                 	// return;
                 }
 
                 float pct = (float) (x -sliderBox.x) / sliderBox.width;

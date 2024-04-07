@@ -2,18 +2,16 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Fixed Bombard notification not showing when occuring at the same time of a war declaration.
-  - Fixed the fix: Moved the lock after the skip condition
-- The AI will no longer retreat stacks that aren't threatened from losing at least one ship. (Xilmi)
-- Fixed completly wrong estimate for stream-projector-damage used in AI-calculations. (Xilmi)
-- Fixed stream-projectors not working against space-monsters. (Xilmi)
-- Added a necessary method for the AI to be able to estimate the damage-output of the orion-guardian. (Xilmi)
-- Fleet-commander-improvements (Xilmi)
-  - For the estimate how many losses will be endured by enemy missile-bases the AI now calculates the amount of turns to move to the planet plus the amount of turns it takes to take the missile-bases out instead of always using a fixed amount of ten turns.
-  - Estimating a high amount of losses can reduce the willingness to split the fleet in several smaller ones.
-  - The AI will no longer just send a scouting-fleet to a system that has a space-monster but instead a fleet that is believed to beat the monster.
-- Hotkey: Alt 1~5 smartmax spendings works on Multi selection too.
-- Hotkey: Alt S/D/W/E/R smartmax spendings on Multi selection.
+- Fixed an issue that caused the AI to ignore missiles that were fired by a space-monster. (Xilmi)
+- Fixed an issue where the AI would not use ships with many bombs but still decent fighting-power to a battle against the orion-guardian. (Xilmi)
+- Improved the algorithm for the AI to estimate the strength of fleets. Firepower is now considered as much more important than health. (Xilmi)
+- Spanish Translation now available (Thanks to Ray)
+- Fixed Redirect Ship Path Glitch
+- Spending Pane: Fixed ship building time estimation not using reserves.
+- Transport Panel:
+  - Auto-refill can be toggled at the same time as setting a value.
+  - Completed Help panel with info about default auto-refill state.
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -104,6 +102,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - For the estimate how many losses will be endured by enemy missile-bases the AI now calculates the amount of turns to move to the planet plus the amount of turns it takes to take the missile-bases out instead of always using a fixed amount of ten turns.
   - Estimating a high amount of losses can reduce the willingness to split the fleet in several smaller ones.
   - The AI will no longer just send a scouting-fleet to a system that has a space-monster but instead a fleet that is believed to beat the monster.
+- Transport Panel:
+  - Auto-refill can be toggled at the same time as setting a value.
+  - Completed Help panel with info about default auto-refill state.
 
 
 <b><ins>Bug Fixes:</ins></b>
@@ -124,7 +125,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Removed autoBombard and autocolonize from "Main Menu -> Settings", as they are no more stored in Remnant.cfg, and it could be confusing!
 - Fixed relocating ship pathSprite bug
 - Fixed crash due to monster checking to colonize planet!
-- Spending Pane: Fixed wrong ship building time estimation when interrupting stargate build.
+- Spending Pane:
+  - Fixed wrong ship building time estimation when interrupting stargate build.
+  - Fixed ship building time estimation not using reserves.
 - Fixed possible crash with random Galaxies.
 - Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion. (Xilmi)
   - It usually would vastly underestimate the enemie's chances to repel the invasion and thus very often invaded when this was too risky of an endeavour.
@@ -134,4 +137,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed completly wrong estimate for stream-projector-damage used in AI-calculations. (Xilmi)
 - Fixed stream-projectors not working against space-monsters. (Xilmi)
 - Added a necessary method for the AI to be able to estimate the damage-output of the orion-guardian. (Xilmi)
+- Fixed Redirect Ship Path Glitch
 - minor fixes...

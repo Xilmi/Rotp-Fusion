@@ -769,7 +769,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         int y3	= y0;
         int x3a = w-scaled(120);
         int y3a = scaled(250);
-        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 6, text("FLEETS_HELP_3C"));
+        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 7, text("FLEETS_HELP_3C"));
         sp3.setLine(x3+w3, y3+sp3.height()/2, x3a, y3a);
 
         

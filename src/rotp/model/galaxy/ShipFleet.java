@@ -202,7 +202,11 @@ public class ShipFleet extends FleetBase {
         destX = f.destX;
         destY = f.destY;
         status = f.status;
-        launchTime = f.launchTime;
+        // launchTime = f.launchTime;
+        if (f.launchTime == NOT_LAUNCHED)
+        	launchTime = NOT_LAUNCHED; // TODO BR: Validate
+        else
+        	launchTime = galaxy().currentTime();
         
         reloadBombs();
     }
@@ -1195,6 +1199,9 @@ public class ShipFleet extends FleetBase {
         if (imgSize < 1)
             return;
         
+//        int x1 = centerMapX(map);
+//        int y1 = centerMapY(map);
+//        System.out.println("drawShipPath x1 / y1 : " + x1 + " / " + y1);
         int x = mapX(map);
         int y = mapY(map);
         BufferedImage img;

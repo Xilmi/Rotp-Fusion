@@ -469,7 +469,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         {
             case SHIP:
                 if(shipyard().buildLimit() > 0)
-                    needAllocation = shipyard().maxAllocationNeeded();
+                    needAllocation = shipyard().smoothMaxAllocationNeeded();
                 break;
             case DEFENSE:
                 needAllocation = defense().maxAllocationNeeded();
