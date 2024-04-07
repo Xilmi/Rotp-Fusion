@@ -71,6 +71,7 @@ Later:
 - Transport Panel:
   - Auto-refill can be toggled at the same time as setting a value.
   - Completed Help panel with info about default auto-refill state.
+- Fixed Redirect Ship Path Fix: wrongly always allowing redirection.
 
 2024.04.06 (BR)
 - Bombard notification: Moved the lock after the skip condition
