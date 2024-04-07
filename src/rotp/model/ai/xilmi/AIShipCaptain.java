@@ -115,6 +115,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 for (int i=0;i<stack.numWeapons(); i++) {
                     if(stack.weapon(i).isMissileWeapon())
                         shouldPerformKiting = true;
+                    if(tgtBeforeClose != null && stack.optimalFiringRange(tgtBeforeClose) > 1)
+                        shouldPerformKiting = true;
                 }
             }
             if(stack.repulsorRange() > 0)
@@ -976,7 +978,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             for (CombatStack st2: friends) {
                 if(st2.inStasis)
                     continue;
-                float killPct = min(1.0f,max(st2.estimatedKillPct(st1), expectedPopLossPct(st2, st1)));
+                float killPct = max(st2.estimatedKillPct(st1), expectedPopLossPct(st2, st1));
                 if(st2.maxFiringRange(st1) <= st1.repulsorRange() && st1.maxFiringRange(st2) > 1 && !st2.canCloak && !st2.canTeleport())
                 {
                     killPct = 0;
@@ -1031,7 +1033,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
             for (CombatStack st2: foes) {
                 if(st2.inStasis)
                     continue;
-                float killPct = min(1.0f,max(st2.estimatedKillPct(st1), expectedPopLossPct(st2, st1)));
+                float killPct = max(st2.estimatedKillPct(st1), expectedPopLossPct(st2, st1));
+                //System.out.println(stack.mgr.system().name()+" "+stack.fullName()+" raw killpct: "+killPct);
                 if(st2.maxFiringRange(st1) <= st1.repulsorRange() && st1.maxFiringRange(st2) > 1 && !st2.canCloak && !st2.canTeleport())
                 {
                     killPct = 0;
@@ -1043,6 +1046,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     if(st2.initiative() <= st1.initiative() || maxFiringRange(st2, st1, true) < maxFiringRange(st1, st2, true))
                         killPct *= max(0, (2 * mySpeedRange - enemySpeedRange) / mySpeedRange);
                 }
+                //System.out.println(stack.mgr.system().name()+" "+stack.fullName()+" kite-adapted killpct: "+killPct);
                 damagePerTurn += killPct;
                 if(st1.maxFiringRange(st2) <= st2.repulsorRange() && st2.maxFiringRange(st1) > 1 && !st1.canCloak && !st1.canTeleport())
                 {
