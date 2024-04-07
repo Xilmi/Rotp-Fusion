@@ -652,9 +652,9 @@ public class EmpireSystemPanel extends SystemPanel {
             
             int adjAmt = 1;
             if (shiftPressed)
-                adjAmt = 5;
-            else if (ctrlPressed)
-                adjAmt = 20;
+                adjAmt *= 5;
+            if (ctrlPressed)
+                adjAmt *= 20;
                     
             if (upArrow.contains(x,y))
                 incrementBuildLimit(adjAmt);

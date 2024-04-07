@@ -464,12 +464,14 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public void smoothMaxSlider(int category) {
     	if(locked(category))
     		return;
+    	checkEcoAtClean(); // BR: to avoid wrong setting if not clean!
         int needAllocation = MAX_TICKS;
         switch(category)
         {
             case SHIP:
-                if(shipyard().buildLimit() > 0)
-                    needAllocation = shipyard().smoothMaxAllocationNeeded();
+                if(shipyard().buildLimit() > 0) {
+                	needAllocation = shipyard().smoothMaxAllocationNeeded();
+                }
                 break;
             case DEFENSE:
                 needAllocation = defense().maxAllocationNeeded();
@@ -484,8 +486,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
                 break;
         }
         int prevAllocation = allocation(category);
-        int incr = needAllocation>prevAllocation ? 1 : -1;
-        int lim = (needAllocation-prevAllocation) * incr;
+        int incr = needAllocation > prevAllocation ? 1 : -1;
+        int lim = (needAllocation - prevAllocation) * incr;
         for (int i=0; i<lim; i++) {
         	if(!increment(category, incr))
         		break;

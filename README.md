@@ -64,7 +64,10 @@ Later:
 ## What's New
 
 2024.04.07 (BR)
-- Spending Pane: Fixed ship building time estimation not using reserves.
+- Spending Pane ship building:
+  - Fixed time estimation not using reserves.
+  - Fixed wrong estimation if previous spending was 0.
+  - Fixed wrong estimation if previous ECO was too low.
 - Transport Panel:
   - Auto-refill can be toggled at the same time as setting a value.
   - Completed Help panel with info about default auto-refill state.
