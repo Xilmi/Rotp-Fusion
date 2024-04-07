@@ -285,16 +285,17 @@ public class ColonyShipyard extends ColonySpendingCategory {
     }
     public boolean canCycleDesign()   { return design.scrapped() || (empire().shipLab().numDesigns() > 1) || canBuildStargate(); }
     public boolean canBuildStargate() { return tech().canBuildStargate() && !hasStargate; }
-    public int upcomingShipCount()    { return upcomingShipCount(pct()); }
-    private int upcomingShipCount(float pct) {
+    public int upcomingShipCount()    {
         if (buildingObsoleteDesign())
             return 0;
         if (colony().allocation(categoryType()) == 0)
             return 0;
-        
+    	return upcomingShipCount(pct());
+    }
+    private int upcomingShipCount(float pct) {
         float tmpShipReserveBC = shipReserveBC;
         float tmpShipBC = shipBC;
-        float tmpStargateBC = stargateBC;
+//        float tmpStargateBC = stargateBC;
         float accumBC = buildingStargate ? stargateBC : shipBC;
         // if we switched designs, send previous ship BC to shipyard reserve
         if (design != prevDesign) {
@@ -493,8 +494,8 @@ public class ColonyShipyard extends ColonySpendingCategory {
     private int buildTarget() {
     	if (buildingStargate)
     		return 1;
-    	if (buildLimit == 0)
+    	if (buildLimit() == 0)
     		return Integer.MAX_VALUE;
-    	return buildLimit;
+    	return buildLimit();
     }
 }

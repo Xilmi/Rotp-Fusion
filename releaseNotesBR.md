@@ -7,7 +7,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Improved the algorithm for the AI to estimate the strength of fleets. Firepower is now considered as much more important than health. (Xilmi)
 - Spanish Translation now available (Thanks to Ray)
 - Fixed Redirect Ship Path Glitch
-- Spending Pane: Fixed ship building time estimation not using reserves.
+- Spending Pane ship building:
+  - Fixed time estimation not using reserves.
+  - Fixed the Fix!
+  - Fixed wrong time estimation when ECO was too low.
 - Transport Panel:
   - Auto-refill can be toggled at the same time as setting a value.
   - Completed Help panel with info about default auto-refill state.

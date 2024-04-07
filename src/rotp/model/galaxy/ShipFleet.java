@@ -205,8 +205,9 @@ public class ShipFleet extends FleetBase {
         // launchTime = f.launchTime;
         if (f.launchTime == NOT_LAUNCHED)
         	launchTime = NOT_LAUNCHED; // TODO BR: Validate
-        else
-        	launchTime = galaxy().currentTime();
+        else // Fix for HyperSpace communication;
+        	// Offset to identify as already launched! 
+        	launchTime = galaxy().currentTime() - 0.05f;
         
         reloadBombs();
     }
