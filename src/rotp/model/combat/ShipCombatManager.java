@@ -24,6 +24,7 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IInGameOptions;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
 import rotp.ui.RotPUI;
@@ -31,7 +32,8 @@ import rotp.ui.combat.ShipBattleUI;
 import rotp.util.Base;
 
 public class ShipCombatManager implements Base {
-    private static final int MAX_TURNS = 100;
+    // private static final int MAX_TURNS = 100;
+    private static int MAX_TURNS() { return IInGameOptions.maxCombatTurns.get(); };
     private static Thread autoRunThread;
     @SuppressWarnings("unused")
 	private static Thread runningThread;
@@ -445,7 +447,7 @@ public class ShipCombatManager implements Base {
                     destroyStack(sh);
                 else
                 {
-                    turnCounter = MAX_TURNS; //Set turn-counter to max-turns so retreating works in this case
+                    turnCounter = MAX_TURNS(); //Set turn-counter to max-turns so retreating works in this case
                     retreatStack(sh, dest);
                 }
                 showAnimations = prevShow;
@@ -888,7 +890,7 @@ public class ShipCombatManager implements Base {
         if (finished)
             return true;
         // stop after max turns to avoid infinite looping
-        if (turnCounter > MAX_TURNS) {
+        if (turnCounter > MAX_TURNS()) {
             retreatEmpire(results.attacker());
             log("combat finished-- max turns exceeded. Retreating: "+results.attacker());
             finished = true;

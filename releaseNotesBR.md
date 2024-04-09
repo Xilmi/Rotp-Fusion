@@ -2,18 +2,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Fixed an issue that caused the AI to ignore missiles that were fired by a space-monster. (Xilmi)
-- Fixed an issue where the AI would not use ships with many bombs but still decent fighting-power to a battle against the orion-guardian. (Xilmi)
-- Improved the algorithm for the AI to estimate the strength of fleets. Firepower is now considered as much more important than health. (Xilmi)
-- Spanish Translation now available (Thanks to Ray)
-- Fixed Redirect Ship Path Glitch
-- Spending Pane ship building:
-  - Fixed time estimation not using reserves.
-  - Fixed the Fix!
-  - Fixed wrong time estimation when ECO was too low.
-- Transport Panel:
-  - Auto-refill can be toggled at the same time as setting a value.
-  - Completed Help panel with info about default auto-refill state.
+- New Option: Max combat turns from 10 to 1000
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -64,6 +53,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - No Alliances: No half win... ==> No Alliance victory (Neither Council nor Military)
 - New sub panel to customize Artifact and resources probabilities.
 - New option to set the minimal distance Between Orion and Empires
+- New Option: Max combat turns from 10 to 1000
 
 
 <b><ins>Optimisation:</ins></b>

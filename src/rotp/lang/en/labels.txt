@@ -2181,6 +2181,7 @@ SETTINGS_MOD_RETREAT_AI_HELP         | AI can't retreat that easily, but Player 
 SETTINGS_MOD_RETREAT_PLAYER_HELP     | Player can't retreat that easily, but AI is allowed to do so!
 SETTINGS_MOD_RETREAT_BOTH_HELP       | Nobody can retreat that easily!
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS | Retreat restricted turns: %1
+SETTINGS_MOD_MAX_COMBAT_TURNS        | Max combat turns: %1
 SETTINGS_MOD_HOME_ORION              | Orion Ruin HomeWorld: %1
 SETTINGS_MOD_HOME_ARTIFACT           | Get Artifact HomeWorld: %1
 SETTINGS_MOD_HOME_FERTILE            | Get Fertile HomeWorld: %1
@@ -2206,6 +2207,7 @@ SETTINGS_MOD_MISSILE_BASE_MODIFIER_DESC | Sets cost of missile-bases from 10% to
 SETTINGS_MOD_MISSILE_SHIP_MODIFIER_DESC | Sets size, cost and power-consuption of missiles from 10% to 200%. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
 SETTINGS_MOD_RETREAT_RESTRICTIONS_DESC | Sets for whom retreating shall be restricted. (scroll the mouse wheel to change)
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS_DESC | Sets for how many turns someone who's retreating is restricted must remain in combat. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5/20.)
+SETTINGS_MOD_MAX_COMBAT_TURNS_DESC   | Sets the maximum duration of ship battles. (It was 50 for MoO1)<br>After this delay, the attackers retreat. Chosen at random if there is no colony.
 SETTINGS_MOD_HOME_ORION_DESC         | {Always, Never, Auto} Gives Player/AI Orion Ruin HomeWorld
 SETTINGS_MOD_HOME_ARTIFACT_DESC      | {Always, Never, Auto} Gives Player/AI Artifact HomeWorld
 SETTINGS_MOD_HOME_FERTILE_DESC       | {Always, Never, Auto} Gives Player/AI Fertile HomeWorld

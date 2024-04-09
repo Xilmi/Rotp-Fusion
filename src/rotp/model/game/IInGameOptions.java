@@ -145,6 +145,9 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	ParamInteger bombingTarget		= new ParamInteger(MOD_UI, "BOMBING_TARGET", 10, null, null, 1, 5, 20);
 	default int selectedBombingTarget()			{ return bombingTarget.get(); }
 
+	ParamInteger maxCombatTurns		= new ParamInteger(MOD_UI, "MAX_COMBAT_TURNS", 100, 10, 1000, 1, 10, 50);
+	default int maxCombatTurns()				{ return maxCombatTurns.get(); }
+
 	ParamList autoTerraformEnding	= new ParamList( MOD_UI, "AUTO_TERRAFORM_ENDING", "Populated") {
 		{
 			showFullGuide(true);
@@ -285,6 +288,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 				headerSpacer,
 				new ParamTitle("GAME_COMBAT"),
+				maxCombatTurns,
 				retreatRestrictions, retreatRestrictionTurns,
 				missileBaseModifier, missileShipModifier,
 				targetBombard, bombingTarget,

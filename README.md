@@ -63,6 +63,9 @@ Later:
 
 ## What's New
 
+2024.04.08 (BR)
+- New Option: Max combat turns from 10 to 1000
+
 2024.04.07 (BR)
 - Spending Pane ship building:
   - Fixed time estimation not using reserves.
