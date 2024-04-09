@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
+import rotp.model.game.GameSession;
 import rotp.model.game.GameStatus;
 import rotp.ui.BasePanel;
 import rotp.ui.FadeInPanel;
@@ -54,6 +55,7 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
     private LinearGradientPaint back1, back2;
     Rectangle exitBox = new Rectangle();
     Rectangle replayBox = new Rectangle();
+    Rectangle continueBox = new Rectangle();
     Shape hoverBox;
     int fadeDelay = 0;
     public GameOverUI() {
@@ -171,11 +173,17 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         g.setFont(narrowFont(24));
         String exitText = text("GAME_OVER_EXIT");
         String replayText = text("GAME_OVER_REPLAY");
+        String continueText = text("GAME_OVER_CONTINUE");
         int sw0 = g.getFontMetrics().stringWidth(exitText);
         int sw1 = g.getFontMetrics().stringWidth(replayText);
+        int sw2 = g.getFontMetrics().stringWidth(continueText);
         
         exitBox.setBounds(w-sw0-s70, h-s45, sw0+s60, s40);
         replayBox.setBounds(exitBox.x-s80-sw1, h-s45, sw1+s60, s40);
+        if (galaxy().player().extinct())
+        	continueBox.setBounds(0, 0, 0, 0);
+        else
+        	continueBox.setBounds(replayBox.x-s80-sw2, h-s45, sw2+s60, s40);
         
         if (back1 == null) {
             float[] dist = {0.0f, 0.5f, 1.0f};
@@ -188,6 +196,7 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
             back2 = new LinearGradientPaint(pt1, pt2, dist, greenColors);                
         }
         
+
         // draw replay button
         g.setColor(SystemPanel.blackText);
         g.fillRoundRect(replayBox.x+s3, replayBox.y+s3, replayBox.width, replayBox.height, s8, s8);           
@@ -209,8 +218,31 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         g.setStroke(prevStr);
         int x2a = replayBox.x + ((replayBox.width - sw1) / 2);
         drawShadowedString(g, replayText, x2a, replayBox.y + replayBox.height - s12, Color.black, c0);
-           
-        
+
+
+        // draw continue button
+        if (!galaxy().player().extinct()) {
+            g.setColor(SystemPanel.blackText);
+            g.fillRoundRect(continueBox.x+s3, continueBox.y+s3, continueBox.width, continueBox.height, s8, s8);           
+            hovering = hoverBox == continueBox;
+            g.setPaint(back1);
+            g.fillRoundRect(continueBox.x, continueBox.y, continueBox.width, continueBox.height, s8, s8);
+            prevStr = g.getStroke();
+            if (hovering) {
+                c0 = SystemPanel.yellowText;
+                g.setStroke(stroke2);
+            }
+            else {
+                c0 = SystemPanel.whiteText;
+                g.setStroke(BasePanel.stroke1);              
+            }
+            g.setColor(c0);
+            g.drawRoundRect(continueBox.x, continueBox.y, continueBox.width, continueBox.height, s8, s8);
+            g.setStroke(prevStr);
+            int x2b = continueBox.x + ((continueBox.width - sw2) / 2);
+            drawShadowedString(g, continueText, x2b, continueBox.y + continueBox.height - s12, Color.black, c0);
+        }
+
         // draw exit button
         g.setColor(SystemPanel.blackText);
         g.fillRoundRect(exitBox.x+s3, exitBox.y+s3, exitBox.width, exitBox.height, s8, s8);           
@@ -386,6 +418,13 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
     }
     private void advanceMode() {
         stopAmbience();
+        if (options().continueAnyway() && !GameSession.instance().galaxy().player().extinct()) {
+        	RotPUI rotPUIinstance = RotPUI.instance();
+        	rotPUIinstance.mainUI().showDisplayPanel();
+        	rotPUIinstance.selectMainPanel();
+        	rotPUIinstance.mainUI().restoreMapState();
+            return;
+        }
         RotPUI.instance().selectGamePanel();
     }
     @Override
@@ -417,6 +456,8 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
             hoverBox = exitBox;
         else if (replayBox.contains(x,y))
             hoverBox = replayBox;
+        else if (continueBox.contains(x,y))
+            hoverBox = continueBox;
 
         if (prevHover != hoverBox) 
            repaint();
@@ -449,6 +490,12 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         else if (hoverBox == replayBox) {
             softClick(); 
             RotPUI.instance().selectHistoryPanel(player().id, true);
+            return;
+        }
+        else if (hoverBox == continueBox) {
+            softClick();
+            options().continueAnyway(true);
+            advanceMode();
             return;
         }
     }

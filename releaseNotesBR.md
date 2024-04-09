@@ -5,6 +5,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New Option: Max combat turns from 10 to 1000
 - Fixed Typo
 - Restored Choice pop up after Realms Beyond Council, with the only choice to accept the ruling!
+- New option to contine after gameover panel!
+  - Only if the player is still alive.
+  - Not tested extensively... Consider this an alpha feature.
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -55,6 +59,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New sub panel to customize Artifact and resources probabilities.
 - New option to set the minimal distance Between Orion and Empires
 - New Option: Max combat turns from 10 to 1000
+- New option to contine after gameover panel!
+  - Only if the player is still alive.
+  - Not tested extensively... Consider this an alpha feature.
 
 
 <b><ins>Optimisation:</ins></b>

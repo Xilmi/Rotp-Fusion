@@ -51,6 +51,8 @@ public class GameStatus implements Base, Serializable {
     public boolean inProgress()    {
     	if (status != Status.NO_GAME && status != Status.IN_PROGRESS && options().debugAutoRun())
     		return GameSession.instance().galaxy().numActiveEmpires() > 1;
+    	if (options().continueAnyway() && GameSession.instance().galaxy() != null)
+    		return !GameSession.instance().galaxy().player().extinct();
     	return status == Status.IN_PROGRESS;
     }
     public boolean lost() {

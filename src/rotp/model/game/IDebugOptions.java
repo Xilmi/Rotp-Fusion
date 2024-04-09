@@ -146,6 +146,11 @@ public interface IDebugOptions extends IBaseOptsTools {
 		showConsolePanel();
 	}
 
+	ParamBoolean continueAnyway		= new ParamBoolean(GAME_UI, "CONTINUE_ANYWAY", false)
+	{ { isValueInit(false); } };
+	default void continueAnyway(boolean b)	{ continueAnyway.set(b); }
+	default boolean continueAnyway()		{ return continueAnyway.get(); }
+
 	// ==================== GUI List Declarations ====================
 	//
 	static LinkedList<LinkedList<IParam>> debugOptionsMap() {
@@ -170,7 +175,8 @@ public interface IDebugOptions extends IBaseOptsTools {
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_OTHER"),
-				IMainOptions.menuStartup
+				IMainOptions.menuStartup,
+				continueAnyway
 				)));
 		return map;
 	}

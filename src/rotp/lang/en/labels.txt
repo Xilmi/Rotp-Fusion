@@ -511,6 +511,9 @@ GAME_SETTINGS_DEBUG_LOG_NOTIF_DESC   | Toggles the Notification logging  when in
 GAME_SETTINGS_DEBUG_LOG_EVENTS       | Log Random Events: %1
 GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Toggles the RandomEvents logging  when in Debug AutoPlay.
 
+GAME_SETTINGS_CONTINUE_ANYWAY        | Continue Anyway: %1
+GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | The Game will continue while the player is alive!
+
 GAME_SETTINGS_SCREEN               | Selected Screen: %1
 GAME_SETTINGS_SELECTED_SCREEN      | Selected Screen: %1
 GAME_SETTINGS_SELECTED_SCREEN_DESC | Select the screen on which you will play. (-1 = Main Screen)
@@ -4005,6 +4008,7 @@ GAME_OVER_REBEL_ALLIANCE_FOLLOWER_WIN_RB   | →GAME_OVER_REBEL_ALLIANCE_FOLLOWE
 
 GAME_OVER_EXIT                    | Exit
 GAME_OVER_REPLAY                  | Replay
+GAME_OVER_CONTINUE                | Continue (test)
 
 // text for race-generic endings
 // %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 special text

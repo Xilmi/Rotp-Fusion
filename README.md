@@ -66,6 +66,9 @@ Later:
 2024.04.09 (BR)
 - Fixed Typo: GAME_OVER_DIPLOMATIC_MINOR_WIN -> GAME_OVER_DIPLO_MINOR_WIN
 - Restored Choice pop up after Realms Beyond Council, with the only choice to accept the ruling!
+- New option to contine after gameover panel!
+  - Only if the player is still alive.
+  - Not tested extensively... Consider this an alpha feature.
 
 2024.04.08 (BR)
 - New Option: Max combat turns from 10 to 1000
