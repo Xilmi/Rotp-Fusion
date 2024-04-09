@@ -276,7 +276,7 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         else if (status.wonDiplomaticMajor())
             return "GAME_OVER_DIPLO_MAJOR_WIN";
         else if (status.wonDiplomaticMinor())
-            return "GAME_OVER_DIPLOMATIC_MINOR_WIN";
+            return "GAME_OVER_DIPLO_MINOR_WIN";
         else if (status.wonCouncilAlliance())
             return "GAME_OVER_ALLIANCE_WIN";
         else if (status.wonNewRepublicAsFearedLeader())

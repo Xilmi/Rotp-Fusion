@@ -64,6 +64,9 @@ Later:
 ## What's New
 
 2024.04.08 (BR)
+- Fixed Typo: GAME_OVER_DIPLOMATIC_MINOR_WIN -> GAME_OVER_DIPLO_MINOR_WIN
+
+2024.04.08 (BR)
 - New Option: Max combat turns from 10 to 1000
 
 2024.04.07 (BR)
