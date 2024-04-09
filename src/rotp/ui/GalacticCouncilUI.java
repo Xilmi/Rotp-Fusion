@@ -686,6 +686,9 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
         int sw2 = g.getFontMetrics().stringWidth(button2Text);
         int buttonW = max(sw1,sw2)+s40;
         int button1X = (w/2)-buttonW-s10;
+        if (options().realmsBeyondCouncil()) {
+        	button1X = (w - buttonW)/2;
+        }
         int button2X = (w/2)+s10;
         int buttonH = s30;
         int buttonY = y1c+s10;
@@ -710,21 +713,23 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
         int x2a = button1X + ((buttonW - sw1) / 2);
         drawBorderedString(g, button1Text, x2a, buttonY + buttonH - s9, SystemPanel.textShadowC, c0);  
         
-        rejectBox.setBounds(button2X, buttonY, buttonW, buttonH);
-        ptStart = new Point2D.Float(button2X, 0);
-        ptEnd = new Point2D.Float(button2X + buttonW, 0);
-        LinearGradientPaint back2 = new LinearGradientPaint(ptStart, ptEnd, dist, colors2);
-        hovering = hoverTarget == rejectBox;
-        g.setPaint(back2);
-        g.fillRoundRect(button2X, buttonY, buttonW, buttonH, s3, s3);
-        c0 = hovering ? SystemPanel.yellowText : SystemPanel.whiteText;
-        g.setColor(c0);
-        prevStr = g.getStroke();
-        g.setStroke(BasePanel.stroke1);
-        g.drawRoundRect(button2X, buttonY, buttonW, buttonH, s3, s3);
-        g.setStroke(prevStr);
-        int x2b = button2X + ((buttonW - sw2) / 2);
-        drawBorderedString(g, button2Text, x2b, buttonY + buttonH - s9, SystemPanel.textShadowC, c0);       
+        if (!options().realmsBeyondCouncil()) {
+        	rejectBox.setBounds(button2X, buttonY, buttonW, buttonH);
+            ptStart = new Point2D.Float(button2X, 0);
+            ptEnd = new Point2D.Float(button2X + buttonW, 0);
+            LinearGradientPaint back2 = new LinearGradientPaint(ptStart, ptEnd, dist, colors2);
+            hovering = hoverTarget == rejectBox;
+            g.setPaint(back2);
+            g.fillRoundRect(button2X, buttonY, buttonW, buttonH, s3, s3);
+            c0 = hovering ? SystemPanel.yellowText : SystemPanel.whiteText;
+            g.setColor(c0);
+            prevStr = g.getStroke();
+            g.setStroke(BasePanel.stroke1);
+            g.drawRoundRect(button2X, buttonY, buttonW, buttonH, s3, s3);
+            g.setStroke(prevStr);
+            int x2b = button2X + ((buttonW - sw2) / 2);
+           	drawBorderedString(g, button2Text, x2b, buttonY + buttonH - s9, SystemPanel.textShadowC, c0);       
+        }
     }
     private void paintVoterSummary(Graphics2D g) {
         GalacticCouncil c = galaxy().council();
@@ -899,9 +904,6 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
         g.setStroke(prevStr);
         int x2a = button1X + ((button1W - sw1) / 2);
         drawBorderedString(g, button1Text, x2a, buttonY + buttonH - s9, SystemPanel.textShadowC, c0);          
-
-
-
     }
     private void drawVoterSummaryPane(Graphics2D g, Empire voter, int x, int y, int w, int h) {
         GalacticCouncil c = galaxy().council();
@@ -1109,11 +1111,11 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
                     displayMode = nextVotingMode();
                 else if (galaxy().council().hasLeader()) {
                 	displayMode = Display.ACCEPT_RULING;
-                	if (options().realmsBeyondCouncil()) {
-                		galaxy().council().acceptRuling(player());
-                		exit();
-                		break;
-                	}
+//                	if (options().realmsBeyondCouncil()) {
+//                		galaxy().council().acceptRuling(player());
+//                		exit();
+//                		break;
+//                	}
                 }
                 else
                     displayMode = Display.NO_WINNER;
@@ -1172,7 +1174,11 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
             case ACCEPT_RULING:
                 switch(k) {
                     case KeyEvent.VK_1: c.acceptRuling(player()); break;
-                    case KeyEvent.VK_2: c.defyRuling(player()); break;
+                    case KeyEvent.VK_2:
+                    	if (options().realmsBeyondCouncil())
+                    		return;
+                    	c.defyRuling(player());
+                    	break;
                     default: return; // don't advance screen if no vote
                 }
                 advanceScreen();

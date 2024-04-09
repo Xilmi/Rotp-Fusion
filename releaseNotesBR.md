@@ -4,6 +4,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Very last changes:</ins></b>
 - New Option: Max combat turns from 10 to 1000
 - Fixed Typo
+- Restored Choice pop up after Realms Beyond Council, with the only choice to accept the ruling!
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
