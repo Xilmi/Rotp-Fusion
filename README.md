@@ -69,6 +69,7 @@ Later:
 - New option to contine after gameover panel!
   - Only if the player is still alive.
   - Not tested extensively... Consider this an alpha feature.
+- Fixed "Cannot redirect rallying ship"
 
 2024.04.08 (BR)
 - New Option: Max combat turns from 10 to 1000

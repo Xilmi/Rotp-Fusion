@@ -61,10 +61,10 @@ public interface Ship extends IMappedObject, Base, Sprite {
     // destination is always a star system, but origin point need not be?
     public float fromX();
     public float fromY();
-    default float transitX() { // Not Overridden
+    default float transitX() {
         return fromX() + travelPct()*(destX() - fromX());
     }
-    default float transitY() { // Not Overridden
+    default float transitY() {
         return fromY() + travelPct()*(destY() - fromY());
     }
     default float travelPct(float currTime) {

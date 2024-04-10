@@ -58,6 +58,7 @@ public class ShipFleet extends FleetBase {
     private transient FlightPathSprite pathSprite;
     private transient int[] bombardCount = new int[ShipDesignLab.MAX_DESIGNS];
     private transient FleetStats fleetStats;
+    private transient boolean isCopy = false;
 
     public int sysId()                  { return sysId; }
     public void sysId(int i)            { sysId = i; }
@@ -202,12 +203,8 @@ public class ShipFleet extends FleetBase {
         destX = f.destX;
         destY = f.destY;
         status = f.status;
-        // launchTime = f.launchTime;
-        if (f.launchTime == NOT_LAUNCHED)
-        	launchTime = NOT_LAUNCHED; // TODO BR: Validate
-        else // Fix for HyperSpace communication;
-        	// Offset to identify as already launched! 
-        	launchTime = galaxy().currentTime() - 0.05f;
+        launchTime = f.launchTime;
+        isCopy = true;
         
         reloadBombs();
     }
@@ -277,6 +274,18 @@ public class ShipFleet extends FleetBase {
     public float x() { return isInTransit() ? transitX() : fromX; }
     @Override
     public float y() { return isInTransit() ? transitY() : fromY; }
+    @Override public float transitX() {
+    	if (isCopy)
+            return fromX();
+    	else
+    		return fromX() + travelPct()*(destX() - fromX());
+    }
+    @Override public float transitY() {
+    	if (isCopy)
+            return fromY();
+    	else
+    		return fromY() + travelPct()*(destY() - fromY());
+    }
 
     public void launch() {
         StarSystem sys = system();
@@ -1131,11 +1140,11 @@ public class ShipFleet extends FleetBase {
         return y;
     }
     @Override
-    public int centerMapX(GalaxyMapPanel map) {
+    public int centerMapX(GalaxyMapPanel map) { // BR: Only used by drawShipPath
         return mapX(map) + BasePanel.s7;
     }
     @Override
-    public int centerMapY(GalaxyMapPanel map) {
+    public int centerMapY(GalaxyMapPanel map) { // BR: Only used by drawShipPath
         return mapY(map) + BasePanel.s5;
     }
     @Override

@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option to contine after gameover panel!
   - Only if the player is still alive.
   - Not tested extensively... Consider this an alpha feature.
+- Fixed "Cannot redirect rallying ship"
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
