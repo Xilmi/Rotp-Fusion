@@ -63,6 +63,7 @@ public class SpriteDisplayPanel extends BasePanel implements SystemViewer, Mouse
 
     IMapHandler parent;
 
+    public FleetPanel fleetPane()	{ return fleetPane; }
     public SpriteDisplayPanel(IMapHandler p) {
         parent = p;
         initModel();

@@ -1,8 +1,13 @@
 package rotp.ui.console;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
+import rotp.ui.RotPUI;
+import rotp.ui.main.FleetPanel;
 
 public class FleetView implements IConsole {
 	private final CommandConsole console;
@@ -19,7 +24,7 @@ public class FleetView implements IConsole {
 	String getInfo(int f, String out)	{
 		pl	= player();
 		fl	= console.getFleet(f);
-		if (fl.isEmpty())
+		if (fl == null || fl.isEmpty())
 			return out;
 
 		if (fl.isOrbiting()) {
@@ -83,7 +88,7 @@ public class FleetView implements IConsole {
 	}
 	private String infoBox(String out)	{
 		if (fl.canBeSentBy(player()))
-			out += "Deployable ship list";
+			out += "Deployable ship list" + NEWLINE;
 		else
 			out += "Ship list" + NEWLINE;
 		String text	= null;
@@ -188,6 +193,72 @@ public class FleetView implements IConsole {
 		out += fleetDesignInfo(fl, NEWLINE);
 		if (nebulaText != null)
 			out += NEWLINE + nebulaText;
+		return out;
+	}
+
+	// ##### SEND FLEET
+	String sendFleet(List<String> param, String out)	{
+		System.out.println("Select Fleet Send " + param);
+		FleetPanel panel = RotPUI.instance().mainUI().displayPanel().fleetPane();
+		String s = param.get(0);
+		Integer f;
+		// Check for destination
+		if (s.equalsIgnoreCase(AIMED_KEY))
+			param.remove(0); // Parameter processed... Implicit target, Nothing to do
+		else if (s.startsWith(SYSTEM_KEY)) { // New destination
+			if (s.length() > 1) { // Parameter linked
+				s = s.substring(1);
+				param.remove(0); // Parameter processed
+			}
+			else { // Planet number in the following parameter
+				param.remove(0); // Parameter processed
+				if (param.isEmpty()) {
+					out += NEWLINE + "Wrong Destination Parameter";
+					return out;
+				}
+				else { // get planet Number
+					s = param.remove(0);
+				}
+			}
+			// Process the planet index
+			f = getInteger(s);
+			if (f != null) { // select a new Destination
+				console.aimedStar(f);
+			}
+			else {
+				out += NEWLINE + "Wrong Destination Parameter";
+				return out;
+			}
+		}
+
+		// process adjusted fleet selection
+		if (!param.isEmpty()) {
+			// Convert to Integer
+			List<Integer> counts = new ArrayList<>();
+			for (String str : param) {
+				f = getInteger(str);
+				if (f == null || f<0) {
+					out += NEWLINE + "Wrong Sub Fleet Parameter " + str;
+					return out;
+				}
+				counts.add(f);
+			}
+			// activate adjustment
+			panel.newAdjustedFleet(counts); // TODO BR: panel.newAdjustedFleet
+		}
+
+		// TODO BR: All parameters are set: Process command
+		int validDest = console.validPlanet(console.aimedStar());
+		if (validDest != console.aimedStar()) {
+			out += NEWLINE + "Invalid Destination star system " + console.aimedStar();
+			panel.cancel();
+			// panel.cancelFleet();
+			return out;
+		}
+		StarSystem dest = console.getSys(console.aimedStar());
+		String status = panel.sendFleet(dest);
+		out += NEWLINE + status;
+
 		return out;
 	}
 }

@@ -1598,4 +1598,18 @@ public interface Base {
        			+ " Count = " + StringUtils.leftPad(bean.getCollectionCount() + "",    3)
     			+ " Time = "  + StringUtils.leftPad(bean.getCollectionTime()  + " ms", 6);
     }
+    default Integer getInteger(String text)	{
+		try {
+			return Integer.parseInt(text);
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
+    default Float getFloat(String text)		{
+		try {
+			return Float.parseFloat(text);
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
 }

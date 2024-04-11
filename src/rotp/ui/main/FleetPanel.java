@@ -1328,6 +1328,53 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             }
         }
     }
+
+    public String sendFleet(StarSystem sys) {
+        // special case check:
+        // on Cancel, then selected fleet is null and we get
+        // here when the last selected system is reselected
+        if (selectedFleet() == null)
+            return "Error selected Fleet is null";
+        if (selectedFleet().empire() != player())
+            return "Error selected Fleet is not owned by the player";
+        if (selectedFleet().destSysId() == sys.id) 
+            return "Error Fleet already at destination";;
+
+        tentativeDest(sys);
+        // don't accept clicks for out of range systems
+        // but consume the click (to stay on this view)
+        ShipFleet adjustedFleet = adjustedFleet();
+        if (adjustedFleet == null) 
+            return "Error adjusted Fleet is null";
+        if (!adjustedFleet.canReach(sys))
+            return "Error Fleet can not reach destination system";
+        if (!adjustedFleet.canSendTo(id(sys)))
+            return "Error Fleet can not be sent";
+
+        selectedDest(sys);
+        adjustedFleet.use(sys, parent.parent);
+        sendFleet();
+        return "Fleet sent successfully";
+    }
+    public void newAdjustedFleet(List<Integer> counts) {
+    	ShipFleet selectedFleet = selectedFleet();
+    	for (int i=0; i<ShipDesignLab.MAX_DESIGNS; i++) {
+    		int stackNum = selectedFleet.num(i);
+            stackAdjustment[i] = 0-stackNum;
+    	}
+    	// Update the stackAdjustment
+    	for (int i=0; i<counts.size(); i++) {
+    		ShipDesign d = selectedFleet.visibleDesign(player().id, i);
+            int index    = d.id();
+            int stackNum = selectedFleet.num(index);
+            int toSend   = counts.get(i);
+            int toKeep   = max(0, stackNum - toSend);
+            int newAdj   = 0-toKeep;
+            stackAdjustment[index] = newAdj;
+    	}
+    	// Build the temporary fleet
+    	adjustedFleet(newAdjustedFleet());
+    }
     public class FleetButtonPane extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
         private final FleetPanel parent;

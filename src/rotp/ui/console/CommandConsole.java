@@ -47,6 +47,7 @@ import rotp.model.game.IMainOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
+import rotp.ui.main.FleetPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
@@ -73,7 +74,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private final LinkedList<String> lastCmd	= new LinkedList<>();
 	private Menu liveMenu;
 	private Menu mainMenu, setupMenu, gameMenu, speciesMenu;
-	int selectedStar, aimedStar, selectedFleet, selectedTransport, selectedEmpire; // ,, selectedDesign;
+	private int selectedStar, aimedStar, selectedFleet, selectedTransport, selectedEmpire; // ,, selectedDesign;
 	private HashMap<Integer, Integer> altIndex2SystemIndex = new HashMap<>();
 //	private Menu stars, fleet, ships, opponents;
 //	private final List<SystemView> starList = new ArrayList<>();
@@ -109,6 +110,10 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			frame.setVisible(show);
 	}
 	public static void hideConsole()				{ showConsole(false); }
+	// variables control
+	int aimedStar()			{ return aimedStar; }
+	void aimedStar(int id)	{ aimedStar = id; }
+	
 	// ##### CONSTRUCTOR #####
 	private static void createAndShowGUI(boolean show)	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -323,26 +328,50 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private Command initSelectFleet()		{
 		Command cmd = new Command("select Fleet from index", FLEET_KEY) {
 			@Override protected String execute(List<String> param) {
-				String out = getShortGuide() + NEWLINE;
+//				String out = getShortGuide() + NEWLINE;
+				String out = cmdHelp() + NEWLINE;
 				if (!param.isEmpty()) {
-					String s = param.get(0);
+					FleetPanel panel = RotPUI.instance().mainUI().displayPanel().fleetPane();
+					String  s = param.get(0);
 					Integer f = getInteger(s);
-					if (f != null) {
-						selectedFleet = bounds(0, f, fleets.size()-1);
-						ShipFleet fleet = fleets.get(selectedFleet);
+					ShipFleet fleet;
+					if (f != null) { // select a new fleet
+						selectedFleet = validFleet(f);
+						if (selectedFleet == f)
+							out = "";
+						else
+							return "Invalid Fleet selection";
+						fleet = fleets.get(selectedFleet);
 						mainUI().selectSprite(fleet, 1, false, true, false);
 						mainUI().map().recenterMapOn(fleet);
 						mainUI().repaint();
-						out = fleetView.getInfo(f, "");
+						out = fleetView.getInfo(selectedFleet, out);
+						param.remove(0); // Parameter processed
+					}
+
+					if (!param.isEmpty()) { // Do something with selected fleet
+						s = param.remove(0);
+						if (s.equalsIgnoreCase("Send")) { // Send Fleet
+							out = fleetView.sendFleet(param, out);
+						}
+						else if (s.equalsIgnoreCase("U")) {
+							panel.undeployFleet();
+						}
+						else
+							out += NEWLINE + "Wrong parameter " + s;
 					}
 				}
 				return out;
 			}
 		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("Select Fleet index and gives fleet info");
+		cmd.cmdParam(" Index [U] | [Send Px [n] [n] [n] [n] [n]]");
+		cmd.cmdHelp("Select Fleet index and gives fleet info"
+				 + NEWLINE + "Optional [U] to Undeploy fleet"
+				 + NEWLINE + "Optional [Send] to Star System Px"
+				 + NEWLINE + "Optional select sub fleet by adding the number of each listed design");
 		return cmd;		
 	}
+
 	private Command initSelectTransport()	{
 		Command cmd = new Command("select Transport", TRANSPORT_KEY) {
 			@Override protected String execute(List<String> param) {
@@ -717,7 +746,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		}
 		return out;
 	}
-	private int validPlanet(int p)		{ return bounds(0, p, galaxy().systemCount-1); }
+	int validPlanet(int p)				{ return bounds(0, p, galaxy().systemCount-1); }
 	private int validFleet(int idx)		{ return bounds(0, idx, fleets.size()-1); }
 	private int validTransport(int idx)	{ return bounds(0, idx, transports.size()-1); }
 	private void sortSystems()			{ systems.sort((s1, s2) -> s1.altId-s2.altId); }
@@ -746,23 +775,14 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		//param.add(""); // to avoid empty list!
 		return text[0];
 	}
-	private Integer getInteger(String text)	{
-		try {
-			return Integer.parseInt(text);
-		} catch (NumberFormatException e) {
-			return null;
-		}
-	}
-	private Float getFloat(String text)		{
-		try {
-			return Float.parseFloat(text);
-		} catch (NumberFormatException e) {
-			return null;
-		}
-	}
 	StarSystem getSys(int altIdx)		{ return galaxy().system(altIndex2SystemIndex.get(altIdx)); }
 	SystemView getView(int altIdx)		{ return player().sv.view(altIndex2SystemIndex.get(altIdx)); }
-	ShipFleet  getFleet(int idx)		{ return fleets.get(validFleet(idx)); }
+	ShipFleet  getFleet(int idx)		{
+		int validIdx = validFleet(idx);
+		if (idx == validIdx)
+			return fleets.get(validFleet(idx));
+		return null;
+	}
 	Transport  getTransport(int idx)	{ return transports.get(validTransport(idx)); }
 	int getFleetIndex(ShipFleet fl)		{ return fleets.indexOf(fl); }
 	int getTransportIndex(Transport tr)	{ return transports.indexOf(tr); }
@@ -857,43 +877,13 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				}
 			}
 			otherCase(cmd, out, param, hasDigit, cmd0, cmd1);
-//			switch (cmd) {
-//				case ""		: out = menuGuide(out);	break;
-//				case "?"	: out = optsGuide();	break;
-//				case "CLS"	: out = "";				break;
-//				case "UP"	:
-//					commandField.setText("");
-//					close(out);
-//					return;
-//				case OPTION_KEY			: out = optionEntry(out, param.remove(0), param);	break;
-//				case OPTION_KEY + "+"	: out = optionEntry(out, "+", param);	break;
-//				case OPTION_KEY + "-"	: out = optionEntry(out, "-", param);	break;
-//				case OPTION_KEY + "*"	: out = optionEntry(out, "*", param);	break;
-//				case OPTION_KEY + "="	: out = optionEntry(out, "=", param);	break;
-//				case SETTING_KEY		: out = settingEntry(out, param.remove(0), param);	break;
-//				case SETTING_KEY + "+"	: out = settingEntry(out, "+", param);	break;
-//				case SETTING_KEY + "-"	: out = settingEntry(out, "-", param);	break;
-//				case SETTING_KEY + "*"	: out = settingEntry(out, "*", param);	break;
-//				case SETTING_KEY + "="	: out = settingEntry(out, "=", param);	break;
-//				case MENU_KEY			: out = menuEntry(out, param.remove(0), param);	break;
-//				case MENU_KEY + "+"		: out = menuEntry(out, "+", param);	break;
-//				case MENU_KEY + "-"		: out = menuEntry(out, "-", param);	break;
-//				case MENU_KEY + "*"		: out = menuEntry(out, "*", param);	break;
-//				case MENU_KEY + "="		: out = menuEntry(out, "=", param);	break;
-//				default	:
-//					switch (lastList) {
-//						case OPTION_ID	: out = optionSelect(out, cmd);	break;
-//						case SETTING_ID	: out = settingSelect(out, cmd);	break;
-//						case MENU_ID	: out = menuSelect(out, cmd);		break;
-//						case NULL_ID	:
-//						default	:
-//							out += "? unrecognised command";
-//							resultPane.setText(out);
-//							return;
-//				}
-//			}
-//			commandField.setText("");
-//			resultPane.setText(out);
+		}
+		private String safeRemove(List<String> param, int id) {
+			if (param == null)
+				return "";
+			if (param.size() <= id)
+				return "";
+			return param.remove(id);
 		}
 		private void otherCase(String cmd, String out, List<String> param,
 								boolean hasDigit, String cmd0, String cmd1) {
@@ -905,17 +895,17 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					commandField.setText("");
 					close(out);
 					return;
-				case OPTION_KEY			: out = optionEntry(out, param.remove(0), param);	break;
+				case OPTION_KEY			: out = optionEntry(out, safeRemove(param, 0), param);	break;
 				case OPTION_KEY + "+"	: out = optionEntry(out, "+", param);	break;
 				case OPTION_KEY + "-"	: out = optionEntry(out, "-", param);	break;
 				case OPTION_KEY + "*"	: out = optionEntry(out, "*", param);	break;
 				case OPTION_KEY + "="	: out = optionEntry(out, "=", param);	break;
-				case SETTING_KEY		: out = settingEntry(out, param.remove(0), param);	break;
+				case SETTING_KEY		: out = settingEntry(out, safeRemove(param, 0), param);	break;
 				case SETTING_KEY + "+"	: out = settingEntry(out, "+", param);	break;
 				case SETTING_KEY + "-"	: out = settingEntry(out, "-", param);	break;
 				case SETTING_KEY + "*"	: out = settingEntry(out, "*", param);	break;
 				case SETTING_KEY + "="	: out = settingEntry(out, "=", param);	break;
-				case MENU_KEY			: out = menuEntry(out, param.remove(0), param);	break;
+				case MENU_KEY			: out = menuEntry(out, safeRemove(param, 0), param);	break;
 				case MENU_KEY + "+"		: out = menuEntry(out, "+", param);	break;
 				case MENU_KEY + "-"		: out = menuEntry(out, "-", param);	break;
 				case MENU_KEY + "*"		: out = menuEntry(out, "*", param);	break;
@@ -1153,7 +1143,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		private boolean isKey(String str)	{ return keyList.contains(str); }
 		private void cmdHelp(String help)	{ cmdHelp = help;}
 		private void cmdParam(String p)		{ cmdParam = p;}
-		private String cmdHelp()			{ return cmdHelp;}
+		protected String cmdHelp()			{ return cmdHelp;}
 		private String getKey()				{ return keyList.get(0);}
 		protected String getShortGuide()		{
 			String out = "(";
