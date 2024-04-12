@@ -1,5 +1,7 @@
 package rotp.ui.console;
 
+import java.util.List;
+
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemInfo;
@@ -8,6 +10,9 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
+import rotp.model.ships.Design;
+import rotp.model.ships.ShipDesignLab;
+import rotp.ui.RotPUI;
 
 public class StarView implements IConsole {
 	private final CommandConsole console;
@@ -15,24 +20,30 @@ public class StarView implements IConsole {
 	private StarSystem sys;
 	private SystemView sv;
 	private SystemInfo si;
+	private Colony colony;
 	private int id;
-	private boolean isPlayer, scouted, colony;
+	private boolean isPlayer, isScouted, isColony;
 	
 	// ##### CONSTRUCTOR #####
 	StarView(CommandConsole parent)	{ console = parent; }
 
-	// ##### Systems Report
-	String getInfo(int p, String out)	{
+	void init(int p)	{
 		pl	= player();
 		si	= player().sv;
 		sv	= console.getView(p);
 		sys	= console.getSys(p);
 		id	= sys.id;
-		empire 	= sv.empire();
-		isPlayer= isPlayer(empire);
-		scouted	= sv.scouted();
-		colony	= sv.isColonized();
-
+		empire 		= sv.empire();
+		isPlayer	= isPlayer(empire);
+		isScouted	= sv.scouted();
+		isColony	= sv.isColonized();
+		if (isPlayer)
+			colony = sv.colony();
+		else
+			colony	= null;
+	}
+	// ##### Systems Report
+	String getInfo(String out)	{
 		if (pl.hiddenSystem(sys)) // Dark Galaxy
 			return out + " !!! Hidden";
 		out = systemBox(out);
@@ -40,6 +51,7 @@ public class StarView implements IConsole {
 		out = empireBox(out);
 		out = terrainBox(out);
 		out = distanceBox(out);
+		//out = colonyControls(out);
 		return out;
 	}
 	// ##### SUB BOXES
@@ -55,7 +67,7 @@ public class StarView implements IConsole {
 	private String empireBox(String out)	{
 		if (sv.flagColorId() > 0)
 		   	out += NEWLINE + systemFlag("Flag colors = ");
-		if (!colony)
+		if (!isColony)
 			return out;
 		out += NEWLINE + shortSystemInfo(sv);
 		if (isPlayer)
@@ -70,7 +82,7 @@ public class StarView implements IConsole {
 		if (isPlayer)
 			return colonyControls(out);
 		out += NEWLINE + text(sys.starType().description());		
-		if (scouted)
+		if (isScouted)
 			out += NEWLINE + planetColonizable();
 		return out;
 	}
@@ -82,6 +94,49 @@ public class StarView implements IConsole {
 	}
 	// ##### PLAYER COLONY CONTROLS
 	private String colonyControls(String out)	{
+		if (!isPlayer)
+			return out;
+
+		// Income
+		int income = (int) colony.totalIncome();
+		int prod   = (int) colony.production();
+        String str1 = text("MAIN_COLONY_PRODUCTION");
+        String str2 = str(income);
+        String str3 = concat(str1, " ", str2, " ", "(", str(prod), ")");
+		out += NEWLINE + str3;
+
+        // Governor
+		if (colony.isGovernor())
+			out += NEWLINE + "Governor is On";
+		else
+			out += NEWLINE + "Governor is Off";
+		
+		// Categories
+		for (int category=0; category<Colony.NUM_CATS; category++) {
+			out += NEWLINE;
+			int pct = 2 * colony.allocation(category);
+			String labelText  = text(Colony.categoryName(category));
+			String resultText = text(colony.category(category).upcomingResult());
+			out += labelText + " = " + pct + "%, out = " + resultText;
+			if (!colony.canAdjust(category))
+				out += " (locked)";
+		}
+		
+		// Ship Build Queue
+		String str = text("MAIN_COLONY_SHIPYARD_CONSTRUCTION");
+		String name = colony.shipyard().design().name();
+		out += NEWLINE + str + " = " + name;
+		Design d = colony.shipyard().design();
+        if (d.scrapped())
+        	out += " " + text("MAIN_COLONY_SHIP_SCRAPPED");
+        else {
+            int i = colony.shipyard().upcomingShipCount();
+        	out += ", out = " + i;
+        }
+		String label = text("MAIN_COLONY_SHIPYARD_LIMIT");
+		String amt   = colony.shipyard().buildLimitStr();
+		out += NEWLINE + label + " " + amt;
+		
 		return out;
 	}
 	// ##### SUB ELEMENTS
@@ -141,8 +196,11 @@ public class StarView implements IConsole {
 		if (sv.shieldLevel() > 0)
 		   	out += NEWLINE + "Shield Level = " + sv.shieldLevel();
 		int bases = sv.bases();
-		if (bases > 0)
-			out += NEWLINE + "Bases = " + bases;
+		out += NEWLINE + "Bases = " + bases;
+		if (colony != null) {
+			int maxBase = colony.defense().maxBases();
+			out += "/" + maxBase;
+		}
 		return out;
 	}
 	private String alienColonyData()	{
@@ -236,5 +294,170 @@ public class StarView implements IConsole {
 		}
 		return out;		
 	}
-	// ##### Tools
+
+	private String spending(int category, List<String> param, String out)	{
+		if (param.isEmpty()) {
+			return out + "Error: Missing parameter ";
+		}
+
+		String s  = param.remove(0);
+		if (TOGGLE_LOCK.equalsIgnoreCase(s)) {
+			colony.toggleLock(category);
+			if (colony.canAdjust(category))
+				return out + "Unlocked";
+			else
+				return out + "Locked";
+		}
+		
+		if (!colony.canAdjust(category))
+			return out + "Error: Category is locked";
+		
+		switch (s.toUpperCase()) {
+			case SMART_ECO_MAX:
+				colony.forcePct(category, 1);
+				colony.keepEcoLockedToClean = true;
+				colony.checkEcoAtClean();
+				return out + "Maxed keeping ECO clean";
+			case SMOOTH_MAX:
+				colony.keepEcoLockedToClean = true;
+				colony.smoothMaxSlider(category);
+				colony.checkEcoAtClean();
+				return out + "Smart Maxed";
+			default:
+				Integer val = getInteger(s);
+				if (val == null)
+					return out + "Unexpected parameter " + s;
+				double pct = val/100.0;
+				colony.forcePct(category, (float) pct);
+				if (category != Colony.RESEARCH)
+					RotPUI.instance().techUI().resetPlanetaryResearch();
+				pct = colony.pct(category);
+				return out + "Set to " + (int)(pct*100) + "%";
+		}
+	}
+	// ##### Spending
+	String toggleGovernor(String out)	{
+		colony.setGovernor(!colony.isGovernor());
+        if (colony.isGovernor()) {
+            colony.govern();
+            out += "Governor is now active";
+        }
+        else
+        	out += "Governor is disabled";
+		return out;
+	}
+	String shipSpending(List<String> param, String out)	{
+		out += "Ship spending: ";
+		return spending(Colony.SHIP, param, out);
+	}
+	String indSpending(List<String> param, String out)	{
+		out += "Industry spending: ";
+		return spending(Colony.INDUSTRY, param, out);
+	}
+	String defSpending(List<String> param, String out)	{
+		out += "Defense spending: ";
+		return spending(Colony.DEFENSE, param, out);
+	}
+	String ecoSpending(List<String> param, String out)	{
+		int category = Colony.ECOLOGY;
+		out += "Ecology spending: ";
+		if (param.isEmpty()) {
+			return out + "Error: Missing parameter ";
+		}
+
+		String s  = param.remove(0);
+		if (TOGGLE_LOCK.equalsIgnoreCase(s)) {
+			colony.toggleLock(category);
+			if (colony.canAdjust(category))
+				return out + "Unlocked";
+			else
+				return out + "Locked";
+		}
+		
+		if (!colony.canAdjust(category))
+			return out + "Error: Category is locked";
+		
+		switch (s.toUpperCase()) {
+			case ECO_CLEAN:
+				colony.keepEcoLockedToClean = true;
+				colony.checkEcoAtClean();
+				return out + "Set ECO to clean";
+			case ECO_GROWTH:
+				colony.smoothMaxSlider(category);
+				return out + "Smart Maxed";
+			case ECO_TERRAFORM:
+				colony.checkEcoAtTerraform();
+            	colony.keepEcoLockedToClean = false;
+				return out + "Set ECO to Terraform";
+			default:
+				Integer val = getInteger(s);
+				if (val == null)
+					return out + "Unexpected parameter " + s;
+				double pct = val/100.0;
+				colony.forcePct(category, (float) pct);
+				if (category != Colony.RESEARCH)
+					RotPUI.instance().techUI().resetPlanetaryResearch();
+				pct = colony.pct(category);
+				return out + "Set to " + (int)(pct*100) + "%";
+		}
+	}
+	String techSpending(List<String> param, String out)	{
+		out += "Technology spending: ";
+		return spending(Colony.RESEARCH, param, out);
+	}
+	String shipBuilding(List<String> param, String out)	{
+		out += "Ship Building ";
+		if (param.isEmpty()) {
+			return out + "Error: Missing parameter ";
+		}
+		String s  = param.remove(0);
+		Integer val = getInteger(s);
+		if (val == null)
+			return out + "Unexpected parameter " + s;
+		int id = bounds(0, val, ShipDesignLab.MAX_DESIGNS-1);
+		Design d;
+		if (id == val)
+			d = pl.shipLab().design(val);
+		else if (!pl.tech().canBuildStargate())
+			return out + "Error: Stargate Tech not yet available";
+		else if (colony.shipyard().hasStargate())
+			return out + "Error: Already has a Stargate";
+		else
+			d = pl.shipLab().stargateDesign();
+		
+		if (d.active())
+			out += "Set to " + d.name();
+		else
+			return out + "Error Invalid design";
+			
+		colony.shipyard().design(d);
+		return out;
+	}
+	String shipLimit(List<String> param, String out)	{
+		out += "Ship Limit ";
+		if (param.isEmpty()) {
+			return out + "Error: Missing parameter ";
+		}
+		String s  = param.remove(0);
+		Integer val = getInteger(s);
+		if (val == null)
+			return out + "Unexpected parameter " + s;
+		colony.shipyard().buildLimit(val);
+		out += "Set to " + colony.shipyard().buildLimitStr();
+		return out;
+	}
+	String missBuilding(List<String> param, String out)	{
+		out += "Missiles Limit ";
+		if (param.isEmpty()) {
+			return out + "Error: Missing parameter ";
+		}
+		String s  = param.remove(0);
+		Integer val = getInteger(s);
+		if (val == null)
+			return out + "Unexpected parameter " + s;
+		val = max(0, val);
+		colony.defense().maxBases(val);
+		out += "Set to " + colony.defense().maxBases();
+		return out;
+	}
 }

@@ -33,6 +33,23 @@ public interface IConsole extends Base {
 	String OPTION_KEY		= "O";
 	String SETTING_KEY		= "S";
 
+	String TOGGLE_GOV		= "TG";
+	String SHIP_SPENDING	= "S";
+	String IND_SPENDING		= "I";
+	String DEF_SPENDING		= "D";
+	String ECO_SPENDING		= "E";
+	String TECH_SPENDING	= "R";
+	String SHIP_BUILDING	= "SB";
+	String SHIP_LIMIT		= "SL";
+	String MISS_BUILDING	= "MISS";
+
+	String TOGGLE_LOCK		= "TL";
+	String SMART_ECO_MAX	= "ME";
+	String SMOOTH_MAX		= "SM";
+	String ECO_CLEAN		= "C";
+	String ECO_GROWTH		= "G";
+	String ECO_TERRAFORM	= "T";
+
 	// ##### TOOLS
 	default Empire empire(int empId)	{ return galaxy().empire(empId); }
 	default String cLn(String s)		{ return s.isEmpty() ? "" : (NEWLINE + s); }

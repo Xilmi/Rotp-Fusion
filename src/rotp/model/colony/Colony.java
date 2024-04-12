@@ -61,7 +61,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
 
     // if these values are changed, the spendingSeq array needs to be changed
-    private static final int NUM_CATS = 5;
+    public static final int NUM_CATS = 5;
     public static final int SHIP = 0;
     public static final int DEFENSE = 1;
     public static final int INDUSTRY = 2;

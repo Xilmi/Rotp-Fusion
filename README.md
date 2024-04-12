@@ -63,6 +63,12 @@ Later:
 
 ## What's New
 
+2024.04.12 (BR)
+- Consoleimprovement:
+  - added player spending View.
+  - added player spending control.
+  - minor fleet fixes.
+
 2024.04.11 (BR)
 - Console Fleet: added deploy (Send) and undeploy (U).
 

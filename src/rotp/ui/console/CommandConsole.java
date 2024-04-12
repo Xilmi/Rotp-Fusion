@@ -286,14 +286,57 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			@Override protected String execute(List<String> param) {
 				if (param.isEmpty())
 					return getShortGuide();
-				String s = param.get(0);
+				String s = param.remove(0);
 				Integer p = getInteger(s);
 				if (p == null)
 					return getShortGuide();
-				selectedStar = validPlanet(p);
-				StarSystem sys = getSys(selectedStar);
+
+				String out	= "";
+				selectedStar	= validPlanet(p);
+				StarSystem sys	= getSys(selectedStar);
 				mainUI().selectSystem(sys);
-				return starView.getInfo(selectedStar, "");
+				starView.init(selectedStar);
+
+				// Action are reserved to player colonies
+				if (!isPlayer(sys.empire()))
+					return starView.getInfo(out);
+
+				while (!param.isEmpty()) {
+					s = param.remove(0);
+					switch (s.toUpperCase()) {
+					case TOGGLE_GOV:
+						out = starView.toggleGovernor(out) + NEWLINE;
+						break;
+					case SHIP_SPENDING:
+						out = starView.shipSpending(param, out) + NEWLINE;
+						break;
+					case IND_SPENDING:
+						out = starView.indSpending(param, out) + NEWLINE;
+						break;
+					case DEF_SPENDING:
+						out = starView.defSpending(param, out) + NEWLINE;
+						break;
+					case ECO_SPENDING:
+						out = starView.ecoSpending(param, out) + NEWLINE;
+						break;
+					case TECH_SPENDING:
+						out = starView.techSpending(param, out) + NEWLINE;
+						break;
+					case SHIP_BUILDING:
+						out = starView.shipBuilding(param, out) + NEWLINE;
+						break;
+					case SHIP_LIMIT:
+						out = starView.shipLimit(param, out) + NEWLINE;
+						break;
+					case MISS_BUILDING:
+						out = starView.missBuilding(param, out) + NEWLINE;
+						break;
+					default:
+						out += "Don't understant parameter " + s;
+						break;
+					}
+				}
+				return starView.getInfo(out);
 			}
 		};
 		cmd.cmdParam(" Index");
@@ -328,38 +371,41 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private Command initSelectFleet()		{
 		Command cmd = new Command("select Fleet from index", FLEET_KEY) {
 			@Override protected String execute(List<String> param) {
-//				String out = getShortGuide() + NEWLINE;
-				String out = cmdHelp() + NEWLINE;
-				if (!param.isEmpty()) {
-					FleetPanel panel = RotPUI.instance().mainUI().displayPanel().fleetPane();
-					String  s = param.get(0);
-					Integer f = getInteger(s);
-					ShipFleet fleet;
-					if (f != null) { // select a new fleet
-						selectedFleet = validFleet(f);
-						if (selectedFleet == f)
-							out = "";
-						else
-							return "Invalid Fleet selection";
-						fleet = fleets.get(selectedFleet);
-						mainUI().selectSprite(fleet, 1, false, true, false);
-						mainUI().map().recenterMapOn(fleet);
-						mainUI().repaint();
-						out = fleetView.getInfo(selectedFleet, out);
-						param.remove(0); // Parameter processed
-					}
+				if (param.isEmpty())
+					return cmdHelp();
 
-					if (!param.isEmpty()) { // Do something with selected fleet
-						s = param.remove(0);
-						if (s.equalsIgnoreCase("Send")) { // Send Fleet
-							out = fleetView.sendFleet(param, out);
-						}
-						else if (s.equalsIgnoreCase("U")) {
-							panel.undeployFleet();
-						}
-						else
-							out += NEWLINE + "Wrong parameter " + s;
+				String  s = param.remove(0);
+				Integer f = getInteger(s);
+				ShipFleet fleet;
+				if (f == null) { // select a new fleet
+					return "??? parameter " + s + NEWLINE + cmdHelp();
+				}
+
+				FleetPanel panel = RotPUI.instance().mainUI().displayPanel().fleetPane();
+				String out = getShortGuide() + NEWLINE;
+				// select a new fleet
+				selectedFleet = validFleet(f);
+				if (selectedFleet == f)
+					out = "";
+				else
+					return "Invalid Fleet selection";
+				fleet = fleets.get(selectedFleet);
+				mainUI().selectSprite(fleet, 1, false, true, false);
+				mainUI().map().recenterMapOn(fleet);
+				mainUI().repaint();
+				fleetView.init(selectedFleet);
+				out = fleetView.getInfo(out);
+
+				if (!param.isEmpty()) { // Do something with selected fleet
+					s = param.remove(0);
+					if (s.equalsIgnoreCase("Send")) { // Send Fleet
+						out = fleetView.sendFleet(param, out);
 					}
+					else if (s.equalsIgnoreCase("U")) {
+						panel.undeployFleet();
+					}
+					else
+						out += NEWLINE + "Wrong parameter " + s;
 				}
 				return out;
 			}
