@@ -350,13 +350,13 @@ public class StarView implements IConsole {
 		out += "Ship spending: ";
 		return spending(Colony.SHIP, param, out);
 	}
-	String indSpending(List<String> param, String out)	{
-		out += "Industry spending: ";
-		return spending(Colony.INDUSTRY, param, out);
-	}
 	String defSpending(List<String> param, String out)	{
 		out += "Defense spending: ";
 		return spending(Colony.DEFENSE, param, out);
+	}
+	String indSpending(List<String> param, String out)	{
+		out += "Industry spending: ";
+		return spending(Colony.INDUSTRY, param, out);
 	}
 	String ecoSpending(List<String> param, String out)	{
 		int category = Colony.ECOLOGY;

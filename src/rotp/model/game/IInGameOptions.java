@@ -72,8 +72,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	};
 	default String selectedTargetBombard()		{ return targetBombard.get(); }
 	default boolean targetBombardAllowedForAI() {
-		switch (targetBombard.get()) {
-			case  "Both":
+		switch (targetBombard.get().toUpperCase()) {
+			case  "BOTH":
 			case  "AI":
 				return true;
 			default:
@@ -81,9 +81,9 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		}
 	}
 	default boolean targetBombardAllowedForPlayer() {
-		switch (targetBombard.get()) {
-			case  "Both":
-			case  "Player":
+		switch (targetBombard.get().toUpperCase()) {
+			case  "BOTH":
+			case  "PLAYER":
 				return true;
 			default:
 				return false;

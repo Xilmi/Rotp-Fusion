@@ -35,20 +35,23 @@ public interface IConsole extends Base {
 
 	String TOGGLE_GOV		= "TG";
 	String SHIP_SPENDING	= "S";
-	String IND_SPENDING		= "I";
 	String DEF_SPENDING		= "D";
+	String IND_SPENDING		= "I";
 	String ECO_SPENDING		= "E";
 	String TECH_SPENDING	= "R";
 	String SHIP_BUILDING	= "SB";
 	String SHIP_LIMIT		= "SL";
-	String MISS_BUILDING	= "MISS";
+	String BASE_LIMIT		= "BL";
 
 	String TOGGLE_LOCK		= "TL";
-	String SMART_ECO_MAX	= "ME";
+	String SMART_ECO_MAX	= "EM";
 	String SMOOTH_MAX		= "SM";
 	String ECO_CLEAN		= "C";
 	String ECO_GROWTH		= "G";
 	String ECO_TERRAFORM	= "T";
+
+	String FLEET_SEND		= "SEND";
+	String FLEET_UNDEPLOY	= "U";
 
 	// ##### TOOLS
 	default Empire empire(int empId)	{ return galaxy().empire(empId); }

@@ -282,7 +282,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		return cmd;
 	}
 	private Command initSelectPlanet()		{
-		Command cmd = new Command("select Planet from index", SYSTEM_KEY) {
+		Command cmd = new Command("Select Planet from index and gives Info", SYSTEM_KEY) {
 			@Override protected String execute(List<String> param) {
 				if (param.isEmpty())
 					return getShortGuide();
@@ -328,7 +328,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					case SHIP_LIMIT:
 						out = starView.shipLimit(param, out) + NEWLINE;
 						break;
-					case MISS_BUILDING:
+					case BASE_LIMIT:
 						out = starView.missBuilding(param, out) + NEWLINE;
 						break;
 					default:
@@ -339,8 +339,38 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				return starView.getInfo(out);
 			}
 		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("Select current Planet from planet index and gives info");
+		cmd.cmdParam(" Index " + optional(TOGGLE_GOV)
+						+ optional(SHIP_SPENDING + " %")
+						+ optional(DEF_SPENDING + " %")
+						+ optional(IND_SPENDING + " %")
+						+ optional(ECO_SPENDING + " %")
+						+ optional(TECH_SPENDING + " %")
+						+ optional(SHIP_BUILDING + " val")
+						+ optional(SHIP_LIMIT + " max")
+						+ optional(BASE_LIMIT + " max")
+						);
+		cmd.cmdHelp("Additionnal sequentially processed requests:"
+				+ NEWLINE + optional(TOGGLE_GOV) + " To Toggle Governo on/off"
+				+ NEWLINE + optional(SHIP_SPENDING + " " + TOGGLE_LOCK) + " To lock/unlock Ship spending"
+				+ NEWLINE + optional(SHIP_SPENDING + " %") + " To set Ship spending percentage"
+				+ NEWLINE + optional(SHIP_SPENDING + " " + SMART_ECO_MAX) + " To maximize Ship spending, while keeping ECO clean"
+				+ NEWLINE + optional(SHIP_SPENDING + " " + SMOOTH_MAX) + " To smart maximize Ship spending to reach target, while keeping ECO clean"
+				+ NEWLINE + optional(DEF_SPENDING + " " + TOGGLE_LOCK) + " To lock/unlock Defense spending"
+				+ NEWLINE + optional(DEF_SPENDING + " %") + " To set Defense spending percentage"
+				+ NEWLINE + optional(DEF_SPENDING + " " + SMART_ECO_MAX) + " To maximize Defense spending, while keeping ECO clean"
+				+ NEWLINE + optional(DEF_SPENDING + " " + SMOOTH_MAX) + " To smart maximize Defense spending to reach target, while keeping ECO clean"
+				+ NEWLINE + optional(IND_SPENDING + " " + TOGGLE_LOCK) + " To lock/unlock Industry spending"
+				+ NEWLINE + optional(IND_SPENDING + " %") + " To set Industry spending percentage"
+				+ NEWLINE + optional(IND_SPENDING + " " + SMART_ECO_MAX) + " To maximize Industry spending, while keeping ECO clean"
+				+ NEWLINE + optional(ECO_SPENDING + " " + TOGGLE_LOCK) + " To lock/unlock Ecology spending"
+				+ NEWLINE + optional(ECO_SPENDING + " %") + " To set Ecology spending percentage"
+				+ NEWLINE + optional(ECO_SPENDING + " " + ECO_CLEAN) + " To set Ecology spending to clean"
+				+ NEWLINE + optional(ECO_SPENDING + " " + ECO_GROWTH) + " To set Ecology spending to grow population"
+				+ NEWLINE + optional(ECO_SPENDING + " " + ECO_TERRAFORM) + " To set Ecology spending to terraform planet"
+				+ NEWLINE + optional(TECH_SPENDING + " " + TOGGLE_LOCK) + " To lock/unlock Research spending"
+				+ NEWLINE + optional(TECH_SPENDING + " %") + " To set Research spending percentage"
+				+ NEWLINE + optional(TECH_SPENDING + " " + SMART_ECO_MAX) + " To maximize Research spending, while keeping ECO clean"
+				);
 		return cmd;		
 	}
 	private Command initAimedPlanet()		{
@@ -369,7 +399,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		return cmd;		
 	}
 	private Command initSelectFleet()		{
-		Command cmd = new Command("select Fleet from index", FLEET_KEY) {
+		Command cmd = new Command("select Fleet from index and gives fleet info", FLEET_KEY) {
 			@Override protected String execute(List<String> param) {
 				if (param.isEmpty())
 					return cmdHelp();
@@ -398,10 +428,10 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 
 				if (!param.isEmpty()) { // Do something with selected fleet
 					s = param.remove(0);
-					if (s.equalsIgnoreCase("Send")) { // Send Fleet
+					if (s.equalsIgnoreCase(FLEET_SEND)) { // Send Fleet
 						out = fleetView.sendFleet(param, out);
 					}
-					else if (s.equalsIgnoreCase("U")) {
+					else if (s.equalsIgnoreCase(FLEET_UNDEPLOY)) {
 						panel.undeployFleet();
 					}
 					else
@@ -410,16 +440,17 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				return out;
 			}
 		};
-		cmd.cmdParam(" Index [U] | [Send Px [n] [n] [n] [n] [n]]");
-		cmd.cmdHelp("Select Fleet index and gives fleet info"
-				 + NEWLINE + "Optional [U] to Undeploy fleet"
-				 + NEWLINE + "Optional [Send] to Star System Px"
+		cmd.cmdParam(" Index " + optional(FLEET_UNDEPLOY) + " | "
+					+ optional(FLEET_SEND + " " + SYSTEM_KEY + "x [n] [n] [n] [n] [n]"));
+
+		cmd.cmdHelp("Additionnal requests:"
+				 + NEWLINE + "Optional "+ optional(FLEET_UNDEPLOY) + " to Undeploy fleet"
+				 + NEWLINE + "Optional "+ optional(FLEET_SEND) + " to Star System " + SYSTEM_KEY + "x"
 				 + NEWLINE + "Optional select sub fleet by adding the number of each listed design");
 		return cmd;		
 	}
-
 	private Command initSelectTransport()	{
-		Command cmd = new Command("select Transport", TRANSPORT_KEY) {
+		Command cmd = new Command("select Transport and gives Transport info", TRANSPORT_KEY) {
 			@Override protected String execute(List<String> param) {
 				String out = getShortGuide() + NEWLINE;
 				if (!param.isEmpty()) {
@@ -438,7 +469,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			}
 		};
 		cmd.cmdParam(" Index");
-		cmd.cmdHelp("Select Transport index, and gives Transport info");
+		cmd.cmdHelp("No secondary options");
 		return cmd;		
 	}
 	private Command initSelectEmpire()		{ // TODO BR: initSelectEmpire()
@@ -738,6 +769,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		return out;
 	}
 	// ##### Tools
+	private String optional (String key)	{ return "[" + key + "]"; }
 	private String descEmpire(Empire emp)	{
 		String out = empireContactInfo(emp, NEWLINE);
 		return out;
@@ -1189,7 +1221,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		private boolean isKey(String str)	{ return keyList.contains(str); }
 		private void cmdHelp(String help)	{ cmdHelp = help;}
 		private void cmdParam(String p)		{ cmdParam = p;}
-		protected String cmdHelp()			{ return cmdHelp;}
+		protected String cmdHelp()			{ return getShortGuide() + NEWLINE + cmdHelp;}
 		private String getKey()				{ return keyList.get(0);}
 		protected String getShortGuide()		{
 			String out = "(";

@@ -293,9 +293,9 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		}
 	};
 	default String gameOverTitlesKeyExt() {
-		switch (gameOverTitles.get()) {
-			case "Extended" :		return "_E";
-			case "RealmsBeyond" :	return "_RB";
+		switch (gameOverTitles.get().toUpperCase()) {
+			case "EXTENDED" :		return "_E";
+			case "REALMSBEYOND" :	return "_RB";
 			default:				return "";
 		}
 	}
@@ -392,9 +392,9 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		}
 	};
 	static int selectedColorSet()	{
-		switch (colorSet.get()) {
-			case "Brown":	return 0;
-			case "Grey":	return 1;
+		switch (colorSet.get().toUpperCase()) {
+			case "BROWN":	return 0;
+			case "GREY":	return 1;
 			default:		return 0;
 		}
 	}
