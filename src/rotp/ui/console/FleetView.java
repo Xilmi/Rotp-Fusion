@@ -250,10 +250,10 @@ public class FleetView implements IConsole {
 				counts.add(f);
 			}
 			// activate adjustment
-			panel.newAdjustedFleet(counts); // TODO BR: panel.newAdjustedFleet
+			panel.newAdjustedFleet(counts);
 		}
 
-		// TODO BR: All parameters are set: Process command
+		// All parameters are set: Process command
 		int validDest = console.validPlanet(console.aimedStar());
 		if (validDest != console.aimedStar()) {
 			out += NEWLINE + "Invalid Destination star system " + console.aimedStar();

@@ -798,7 +798,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             selectPanel(DIPLOMATIC_MESSAGE_PANEL, diplomaticMessageUI);
         session().waitUntilNextTurnCanProceed();
     }
-    // BR: After using the Reseach panel as help!
+    // BR: After using the Research panel as help!
     public void continueDiplomaticReplyModalPanel() {
         if (!UserPreferences.windowed())
             selectDialogPanel(DIPLOMATIC_MESSAGE_PANEL, diplomaticMessageUI);
@@ -824,7 +824,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void showSystemsScouted() {
         session().pauseNextTurnProcessing("Show Systems Scouted");
         log("==MAIN UI==   show systems scouted");
-        mainUI().showSystemsScouted(session().systemsScouted());
+   		mainUI().showSystemsScouted(session().systemsScouted());
         selectMainPanel();
         session().waitUntilNextTurnCanProceed();
     }

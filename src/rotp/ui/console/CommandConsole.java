@@ -44,6 +44,7 @@ import rotp.model.game.IAdvOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IInGameOptions;
 import rotp.model.game.IMainOptions;
+import rotp.model.ships.ShipDesign;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
@@ -61,6 +62,8 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private static JFrame frame;
 	private static CommandConsole instance;
 	public	static Menu introMenu, loadMenu, saveMenu;
+	public	static ReportMenu reportMenu;
+	public	static ColonizeMenu colonizeMenu;
 
 	private final JLabel commandLabel, resultLabel;
 	private final JTextField commandField;
@@ -295,7 +298,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				selectedStar	= validPlanet(p);
 				StarSystem sys	= getSys(selectedStar);
 				mainUI().selectSystem(sys);
-				starView.init(selectedStar);
+				starView.initAltId(selectedStar);
 
 				// Action are reserved to player colonies
 				if (!isPlayer(sys.empire()))
@@ -472,7 +475,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		cmd.cmdHelp("No secondary options");
 		return cmd;		
 	}
-	private Command initSelectEmpire()		{ // TODO BR: initSelectEmpire()
+	private Command initSelectEmpire()		{
 		Command cmd = new Command("select Empire from index", EMPIRE_KEY) {
 			@Override protected String execute(List<String> param) {
 				String out = getShortGuide() + NEWLINE;
@@ -651,7 +654,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		menu.addMenu(speciesMenu);
 		return menu;
 	}
-	private Menu initGameMenus(Menu parent)	 { // TODO BR: initGameMenus
+	private Menu initGameMenus(Menu parent)	 {
 		Menu menu = new Menu("Game Menu", parent);
 		menu.addMenu(new Menu("In Game Settings Menu", menu, IInGameOptions.inGameOptions()));
 		menu.addCommand(initNextTurn());		// N
@@ -661,7 +664,9 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		menu.addCommand(initSelectFleet());		// F
 		menu.addCommand(initSelectTransport());	// T
 		menu.addCommand(initSelectEmpire());	// E
-		introMenu = initIntroMenu(menu);
+		introMenu		= initIntroMenu(menu);
+		reportMenu		= new ReportMenu("Report Menu", menu);
+		colonizeMenu	= new ColonizeMenu("Colonize Menu", menu);
 		return menu;
 	}
 	private Menu initSpecieMenu(Menu parent) {
@@ -725,7 +730,6 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		};
 		return menu;
 	}
-
 	private void previousCmd() 	{
 		if (lastCmd.isEmpty())
 			return;
@@ -862,9 +866,118 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		return null;
 	}
 	Transport  getTransport(int idx)	{ return transports.get(validTransport(idx)); }
+	int getSysId(int altIdx)			{ return altIndex2SystemIndex.get(altIdx); }
 	int getFleetIndex(ShipFleet fl)		{ return fleets.indexOf(fl); }
 	int getTransportIndex(Transport tr)	{ return transports.indexOf(tr); }
 	// ################### SUB CLASS MENU ######################
+	public class ReportMenu extends Menu {
+		ReportMenu(String name)	{ super(name); }
+		ReportMenu(String name, Menu parent)	{ super(name, parent); }
+		@Override protected String close(String out) {
+			session().resumeNextTurnProcessing();
+			liveMenu = gameMenu;
+			return out;
+//			return gameMenu.open(out);
+		}
+		@Override protected void newEntry(String entry)	{ resultPane.setText(close("")); }
+		public String openScoutReport(HashMap<String, List<StarSystem>> newSystems) {
+			if (newSystems.isEmpty())
+				return close("Scout Report: Empty List!");
+
+			String out ="";
+			List<StarSystem> scoutSystems		= newSystems.get("Scouts");
+			List<StarSystem> allySystems		= newSystems.get("Allies");
+			List<StarSystem> astronomerSystems	= newSystems.get("Astronomers");
+
+			if (!scoutSystems.isEmpty()) {
+				scoutSystems.sort((s1, s2) -> s1.altId-s2.altId);
+				if (scoutSystems.size() == 1)
+					out += "Our ships have scouted this system" + NEWLINE;
+				else
+					out += "Our ships have scouted these systems" + NEWLINE;
+				for (StarSystem sys : scoutSystems)
+					out += descSystem(sys, true) + NEWLINE;
+			}
+			if (!allySystems.isEmpty()) {
+				allySystems.sort((s1, s2) -> s1.altId-s2.altId);
+				out += "Our allies have shared these data" + NEWLINE;
+				for (StarSystem sys : allySystems)
+					out += descSystem(sys, true) + NEWLINE;
+			}
+			if (!astronomerSystems.isEmpty()) {
+				astronomerSystems.sort((s1, s2) -> s1.altId-s2.altId);
+				out += "Our astronomers have collected these data" + NEWLINE;
+				for (StarSystem sys : astronomerSystems)
+					out += descSystem(sys, true) + NEWLINE;
+			}
+
+			out += NEWLINE + "Enter any command to continue";
+			liveMenu = this;
+			resultPane.setText(out);
+			return "";
+		}
+		public String acknowledgeMessage(String message) {
+			String out = message + NEWLINE + NEWLINE + "Enter any command to continue";
+			liveMenu = this;
+			resultPane.setText(out);
+			return "";
+		}
+		public String openTemplate() {
+			String out = "";
+			liveMenu = this;
+			resultPane.setText(out);
+			return out;
+		}
+	}
+	public class ColonizeMenu extends Menu {
+	    int sysId;
+	    ShipFleet fleet;
+	    ShipDesign design;
+		ColonizeMenu(String name)	{ super(name); }
+		ColonizeMenu(String name, Menu parent)	{ super(name, parent); }
+		@Override protected String close(String out) {
+			session().resumeNextTurnProcessing();
+			fleet  = null;
+			design = null;
+			//return out;
+			liveMenu = gameMenu;
+			return out;
+		}
+		@Override protected void newEntry(String entry)	{
+			switch (entry.toUpperCase()) {
+				case "N":
+					commandField.setText("");
+					resultPane.setText(close(""));
+					return;
+				case "Y":
+					fleet.colonizeSystem(galaxy().system(sysId));
+					String title = text("MAIN_COLONIZE_ANIMATION_TITLE", str(galaxy().currentYear()));
+					title = player().replaceTokens(title, "player");
+					commandField.setText("");
+					//resultPane.setText(close(title));
+					reportMenu.acknowledgeMessage(title);
+					return;
+				default:
+					misClick();
+			}
+		}
+		public String openColonyPrompt(int systemId, ShipFleet fl, ShipDesign d) {
+	        sysId  = systemId;
+	        fleet  = fl;
+	        design = d;
+			String sysName = player().sv.name(sysId);
+			String out = text("MAIN_COLONIZE_TITLE", sysName) + NEWLINE;
+			String yearStr = displayYearOrTurn();
+			out += yearStr + NEWLINE;
+			starView.initId(sysId);
+			out = starView.getInfo(out) + NEWLINE + NEWLINE;
+			String promptStr = text("MAIN_COLONIZE_PROMPT");
+			out += promptStr + " Y or N";
+			liveMenu = this;
+			resultPane.setText(out);
+			return "";
+		}
+	}
 	public class Menu {
 		private final String menuName;
 		private final Menu parent;
@@ -1452,7 +1565,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			}
 			return out;
 		}
-		private String viewEmpires(String out)	{ // TODO BR: String viewEmpires(String out)
+		private String viewEmpires(String out)	{
 			if (empires.isEmpty())
 				return out + "Empty Empire List" + NEWLINE;
 			for (Empire empire : empires) {

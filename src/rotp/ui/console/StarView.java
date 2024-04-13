@@ -27,12 +27,12 @@ public class StarView implements IConsole {
 	// ##### CONSTRUCTOR #####
 	StarView(CommandConsole parent)	{ console = parent; }
 
-	void init(int p)	{
+	void initId(int sysId)	{
 		pl	= player();
-		si	= player().sv;
-		sv	= console.getView(p);
-		sys	= console.getSys(p);
-		id	= sys.id;
+		si	= pl.sv;
+		sv	= si.view(sysId);
+		sys	= galaxy().system(sysId);
+		id	= sysId;
 		empire 		= sv.empire();
 		isPlayer	= isPlayer(empire);
 		isScouted	= sv.scouted();
@@ -41,6 +41,23 @@ public class StarView implements IConsole {
 			colony = sv.colony();
 		else
 			colony	= null;
+	}
+
+	void initAltId(int altId)	{
+		initId(console.getSysId(altId));
+//		pl	= player();
+//		si	= player().sv;
+//		sv	= console.getView(altId);
+//		sys	= console.getSys(altId);
+//		id	= sys.id;
+//		empire 		= sv.empire();
+//		isPlayer	= isPlayer(empire);
+//		isScouted	= sv.scouted();
+//		isColony	= sv.isColonized();
+//		if (isPlayer)
+//			colony = sv.colony();
+//		else
+//			colony	= null;
 	}
 	// ##### Systems Report
 	String getInfo(String out)	{

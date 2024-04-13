@@ -42,6 +42,7 @@ import rotp.model.ships.ShipDesign;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.console.CommandConsole;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.overlay.*;
@@ -299,6 +300,10 @@ public class MainUI extends BasePanel implements IMapHandler {
         repaint();
     }
     public void showColonizationPrompt(int sysId, ShipFleet fl, ShipDesign d) {
+    	if (options().selectedShowConsolePanel()) {
+    		CommandConsole.colonizeMenu.openColonyPrompt(sysId, fl, d);
+    		return;
+    	}
         overlay = overlayColonizePrompt;
         overlayColonizePrompt.init(sysId, fl, d);
         repaint();
@@ -322,10 +327,18 @@ public class MainUI extends BasePanel implements IMapHandler {
             repaint();
     }
     public void showSystemsScouted(HashMap<String, List<StarSystem>> newSystems) {
-        overlay = overlaySystemsScouted;
+    	if (options().selectedShowConsolePanel()) {
+    		CommandConsole.reportMenu.openScoutReport(newSystems);
+    		return;
+    	}
+		overlay = overlaySystemsScouted;
         overlaySystemsScouted.init(newSystems);
     }
     public void allocateSystems(HashMap<StarSystem,List<String>> newSystems) {
+    	if (options().selectedShowConsolePanel()) {
+    		session().resumeNextTurnProcessing();
+    		return;
+    	}
         overlay = overlayAllocateSystems;
         overlayAllocateSystems.init(newSystems);
     }

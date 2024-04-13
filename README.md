@@ -63,6 +63,12 @@ Later:
 
 ## What's New
 
+2024.04.13 (BR)
+- Console improvement:
+  - Intercept Scout Report.
+  - Intercept Build Colony.
+  - Intercept Allocation change popup.
+
 2024.04.12 (BR)
 - Console improvement:
   - added player spending View.
