@@ -2,14 +2,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- New Option: Max combat turns from 10 to 1000
-- Fixed Typo
-- Restored Choice pop up after Realms Beyond Council, with the only choice to accept the ruling!
-- New option to contine after gameover panel!
-  - Only if the player is still alive.
-  - Not tested extensively... Consider this an alpha feature.
-- Fixed "Cannot redirect rallying ship"
-
+- Fixed Ship Combat when player ship turn may be skipped! this when following another ship destruction!
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -140,4 +133,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed stream-projectors not working against space-monsters. (Xilmi)
 - Added a necessary method for the AI to be able to estimate the damage-output of the orion-guardian. (Xilmi)
 - Fixed Redirect Ship Path Glitch
+- Fixed Ship Combat when player ship turn may be skipped! this when following another ship destruction!
 - minor fixes...

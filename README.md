@@ -63,11 +63,14 @@ Later:
 
 ## What's New
 
+TODO Deploy Transport
+
 2024.04.13 (BR)
 - Console improvement:
   - Intercept Scout Report.
   - Intercept Build Colony.
   - Intercept Allocation change popup.
+- Fixed Ship Combat when player ship turn may be skipped! this when following another ship destruction!
 
 2024.04.12 (BR)
 - Console improvement:

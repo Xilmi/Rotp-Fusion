@@ -2727,12 +2727,21 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             // possible for the stack we are moving to die during the move 
             // (missiles) so if it's complete and the new current Stack is
             // the AI then continue until we get to another player stack
-            if (curr.isTurnComplete() || curr.destroyed()) {
+//            if (curr.isTurnComplete() || curr.destroyed()) {
+//                if (mgr.currentStack().usingAI())
+//                    mgr.continueToNextPlayerStack();
+//                else
+//                    nextStack(); // BR: Not if stack was destroyed! Next is already chosen!
+//            }
+            if (curr.isTurnComplete()) {
                 if (mgr.currentStack().usingAI())
                     mgr.continueToNextPlayerStack();
                 else
                     nextStack();
             }
+            else if (curr.destroyed() && mgr.currentStack().usingAI()) // Next already chosen!
+                    mgr.continueToNextPlayerStack();
+
             mgr.performingStackTurn = false;
             repaint();
         }
