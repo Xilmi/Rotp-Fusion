@@ -3,6 +3,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 - Fixed Ship Combat when player ship turn may be skipped! this when following another ship destruction!
+- Added Scrolling in System Hystory pane.
+  - Left / Right Click to scroll up / down
+  - Mid Click to restore view.
+  - scroll to scroll...
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -100,6 +104,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Transport Panel:
   - Auto-refill can be toggled at the same time as setting a value.
   - Completed Help panel with info about default auto-refill state.
+- Added Scrolling in System Hystory pane.
+  - Left / Right Click to scroll up / down
+  - Mid Click to restore view.
+  - scroll to scroll...
 
 
 <b><ins>Bug Fixes:</ins></b>

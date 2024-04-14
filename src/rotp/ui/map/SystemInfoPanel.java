@@ -392,13 +392,19 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
                 comments.setText(emptyNotes);
         }
     }
-    final class SystemHistoryPane extends BasePanel implements MouseListener {
+    final class SystemHistoryPane extends BasePanel implements MouseListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
-        StarSystem sys;
+        private final int lineH = s16;
+        private final int scrollH = 3 * lineH;
+        StarSystem sys, lastSys;
+        int offsetY = 0;
+        
         Rectangle eventsBox = new Rectangle();
         SystemHistoryPane() {
             setBackground(unselectedC);
-        }
+            addMouseListener(this);
+            addMouseWheelListener(this);
+       }
         @Override
         public void paintComponent(Graphics g0) {
             int w = getWidth();
@@ -406,7 +412,10 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
             Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
             sys = systemViewToDisplay();
-            
+            if (sys != lastSys) {
+            	lastSys = sys;
+            	offsetY = 0;
+            }
             if (sys == null)
                 return;
             
@@ -427,10 +436,10 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
             
             g.setFont(narrowFont(16));
             g.setColor(SystemPanel.blackText);
-            int y0 = eventsBox.y+s20;
+            int y0 = eventsBox.y+s20-offsetY;
             int x0 = eventsBox.x+s10;
             int w0 = eventsBox.width-s20;
-            int lineH = s16;
+            // int lineH = s16;
             int lastTurn = sv.lastReportTurn();
             List<StarSystemEvent> reverseEvents = new ArrayList<>(sv.system().events());
             Collections.reverse(reverseEvents);
@@ -451,7 +460,14 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
             g.setClip(null);
         }
         @Override
-        public void mouseClicked(MouseEvent e) { }
+        public void mouseClicked(MouseEvent e) { 
+        	if (SwingUtilities.isMiddleMouseButton(e))
+        		offsetY = 0;
+        	if (SwingUtilities.isRightMouseButton(e))
+        		offsetY += scrollH;
+        	if (SwingUtilities.isLeftMouseButton(e))
+        		offsetY = max(0, offsetY-scrollH);
+        }
         @Override
         public void mousePressed(MouseEvent e) { }
         @Override
@@ -460,5 +476,12 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
         public void mouseEntered(MouseEvent e) { }
         @Override
         public void mouseExited(MouseEvent e) { }
+		@Override
+		public void mouseWheelMoved(MouseWheelEvent e) {
+			if (e.getWheelRotation() > 0)
+				offsetY += scrollH;
+			else
+				offsetY = max(0, offsetY-scrollH);
+		}
     }
 }

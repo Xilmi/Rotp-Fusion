@@ -65,6 +65,12 @@ Later:
 
 TODO Deploy Transport
 
+2024.04.14 (BR)
+- Added Scrolling in System Hystory pane.
+  - Left / Right Click to scroll up / down
+  - Mid Click to restore view.
+  - scroll to scroll...
+
 2024.04.13 (BR)
 - Console improvement:
   - Intercept Scout Report.
