@@ -66,7 +66,7 @@ Later:
 TODO Deploy Transport
 
 2024.04.14 (BR)
-- Added Scrolling in System Hystory pane.
+- Added Scrolling in System History pane.
   - Left / Right Click to scroll up / down
   - Mid Click to restore view.
   - scroll to scroll...
