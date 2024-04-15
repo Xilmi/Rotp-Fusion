@@ -65,6 +65,11 @@ Later:
 
 TODO Deploy Transport
 
+2024.04.15 (BR)
+- Console improvement:
+  - Direct access to governor menu with M2
+  - added Planet abandon, send transport and cancel transport
+
 2024.04.14 (BR)
 - Added Scrolling in System History pane.
   - Left / Right Click to scroll up / down

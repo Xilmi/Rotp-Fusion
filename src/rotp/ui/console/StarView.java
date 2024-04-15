@@ -13,10 +13,11 @@ import rotp.model.planet.PlanetType;
 import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesignLab;
 import rotp.ui.RotPUI;
+import rotp.ui.sprites.SystemTransportSprite;
 
 public class StarView implements IConsole {
-	private final CommandConsole console;
-	private Empire pl, empire;
+	// private final CommandConsole console;
+	private Empire player, empire;
 	private StarSystem sys;
 	private SystemView sv;
 	private SystemInfo si;
@@ -25,11 +26,11 @@ public class StarView implements IConsole {
 	private boolean isPlayer, isScouted, isColony;
 	
 	// ##### CONSTRUCTOR #####
-	StarView(CommandConsole parent)	{ console = parent; }
+	//StarView(CommandConsole parent)	{ console = parent; }
 
 	void initId(int sysId)	{
-		pl	= player();
-		si	= pl.sv;
+		player	= player();
+		si	= player.sv;
 		sv	= si.view(sysId);
 		sys	= galaxy().system(sysId);
 		id	= sysId;
@@ -43,25 +44,10 @@ public class StarView implements IConsole {
 			colony	= null;
 	}
 
-	void initAltId(int altId)	{
-		initId(console.getSysId(altId));
-//		pl	= player();
-//		si	= player().sv;
-//		sv	= console.getView(altId);
-//		sys	= console.getSys(altId);
-//		id	= sys.id;
-//		empire 		= sv.empire();
-//		isPlayer	= isPlayer(empire);
-//		isScouted	= sv.scouted();
-//		isColony	= sv.isColonized();
-//		if (isPlayer)
-//			colony = sv.colony();
-//		else
-//			colony	= null;
-	}
+	void initAltId(int altId)	{ initId(console().getSysId(altId)); }
 	// ##### Systems Report
 	String getInfo(String out)	{
-		if (pl.hiddenSystem(sys)) // Dark Galaxy
+		if (player.hiddenSystem(sys)) // Dark Galaxy
 			return out + " !!! Hidden";
 		out = systemBox(out);
 		out += fleetInfo();
@@ -206,6 +192,28 @@ public class StarView implements IConsole {
 		}
 		if (si.isColonized(id) && si.colony(id).inRebellion())
 			out += " ! " + text("MAIN_PLANET_REBELLION");
+		// Test for Transport
+		int trId = sys.transportDestId;
+		if (trId != StarSystem.NULL_ID) {
+			StarSystem destination = galaxy().system(trId);
+			int amount = sys.transportAmt;
+			String dest = bracketed(SYSTEM_KEY, destination.altId);
+			if (amount == 1)
+				out += NEWLINE + "Planned "+ amount + " transport to " + dest;
+			else if (amount >= (int)sys.population())
+				out += NEWLINE + text("MAIN_TRANSPORT_ABANDON_TITLE") + " to " + dest;
+			else
+				out += NEWLINE + "Planned "+ amount + " transports to " + dest;
+			int turns = (int) Math.ceil(sys.transportTimeTo(destination));
+			out += NEWLINE + text("MAIN_TRANSPORT_ETA", dest, turns);
+			int maxAllowed = player.maxTransportsAllowed(destination);
+			if (amount > maxAllowed) {
+                if (maxAllowed == 0)
+                    out += NEWLINE + text("MAIN_TRANSPORT_NO_ROOM");
+                else
+                	out += NEWLINE + text("MAIN_TRANSPORT_SIZE_WARNING", str(maxAllowed));
+			}
+		}
 		out += NEWLINE + "Factories = " + sv.factories();
 		Colony colony = sv.colony();
 		if (colony != null)
@@ -257,12 +265,12 @@ public class StarView implements IConsole {
 	private String fleetInfo()			{
 		String out = "";
 		for (ShipFleet fl: sys.orbitingFleets()) {
-			if (fl.visibleTo(pl)) {
+			if (fl.visibleTo(player)) {
 				out += NEWLINE + "In Orbit " + longEmpireInfo(fl.empire()) + " fleet";
 				out += NEWLINE + fleetDesignInfo(fl, NEWLINE);
 			}
 		}
-		for (ShipFleet fl: pl.getEtaFleets(sys)) {
+		for (ShipFleet fl: player.getEtaFleets(sys)) {
 			out += NEWLINE + "Incoming " + longEmpireInfo(fl.empire()) + " fleet";
 			out += NEWLINE + fleetDesignInfo(fl, NEWLINE);
 			out += NEWLINE + "ETA = " + (int) Math.ceil(fl.travelTimeAdjusted(sys)) + " Years";
@@ -271,11 +279,11 @@ public class StarView implements IConsole {
 	}
 	private String treatyStatus()		{
 		int empId = si.empId(id);
-		if (pl == empire)
+		if (player == empire)
 			return "";
-		if (pl.alliedWith(empId))
+		if (player.alliedWith(empId))
 			return text("MAIN_FLEET_ALLY");
-		else if (pl.atWarWith(empId))
+		else if (player.atWarWith(empId))
 			return text("MAIN_FLEET_ENEMY");
 		else
 			return "";
@@ -295,7 +303,7 @@ public class StarView implements IConsole {
 	private String systemRange()		{
 		float range	= (float) Math.ceil(si.distance(id)*10)/10;
 		String out  = "Distance = ";
-		if (pl.alliedWith(id(sys.empire())))
+		if (player.alliedWith(id(sys.empire())))
 			out += text("MAIN_ALLIED_COLONY");
 		else
 			out += text("MAIN_SYSTEM_RANGE", df1.format(range));
@@ -311,7 +319,6 @@ public class StarView implements IConsole {
 		}
 		return out;		
 	}
-
 	private String spending(int category, List<String> param, String out)	{
 		if (param.isEmpty()) {
 			return out + "Error: Missing parameter ";
@@ -434,13 +441,13 @@ public class StarView implements IConsole {
 		int id = bounds(0, val, ShipDesignLab.MAX_DESIGNS-1);
 		Design d;
 		if (id == val)
-			d = pl.shipLab().design(val);
-		else if (!pl.tech().canBuildStargate())
+			d = player.shipLab().design(val);
+		else if (!player.tech().canBuildStargate())
 			return out + "Error: Stargate Tech not yet available";
 		else if (colony.shipyard().hasStargate())
 			return out + "Error: Already has a Stargate";
 		else
-			d = pl.shipLab().stargateDesign();
+			d = player.shipLab().stargateDesign();
 		
 		if (d.active())
 			out += "Set to " + d.name();
@@ -475,6 +482,93 @@ public class StarView implements IConsole {
 		val = max(0, val);
 		colony.defense().maxBases(val);
 		out += "Set to " + colony.defense().maxBases();
+		return out;
+	}
+	// ##### Population
+	private String validTransportDestination(StarSystem dest) {
+		if (dest == null) {
+			return "Error: Invalid destination";
+		}
+		if (!si.isScouted(dest.id)) {
+			return "Error: " + text("MAIN_TRANSPORT_UNSCOUTED");
+		}
+		if (!si.isColonized(dest.id) && !si.isAbandoned(dest.id)) {
+			return "Error: Destination neither colonized nor abandoned";
+		}
+		if (!si.inShipRange(dest.id)) {
+			return "Error: " + text("MAIN_TRANSPORT_OUT_OF_RANGE");
+		}
+		if (!player.canColonize(dest.planet().type())
+				&& !((dest.empire() == player) && dest.colony().inRebellion())) {
+			return "Error: " + text("MAIN_TRANSPORT_HOSTILE");
+		}
+		return "";
+	}
+	String sendPopulation(List<String> param, String out)	{
+		// System.out.println("Send Transport " + param);
+		// Check for destination
+		out = setDest(param, out);
+		// Check for amount
+		if (param.isEmpty()) {
+			out += NEWLINE + "Error: Amount to send is missing";
+			return out;
+		}
+		String s = param.remove(0);
+		Integer amount = getInteger(s);
+		if (amount == null || amount<=0) {
+			out += NEWLINE + "Error: Wrong amount Parameter " + s;
+			return out;
+		}
+		amount = min(amount, (int)(sys.population()/2));
+		StarSystem dest = console().aimedSystem();
+		String destError = validTransportDestination(dest);
+		if (!destError.isEmpty()) {
+			out += NEWLINE + destError;
+			return out;
+		}
+		if (amount == 1)
+			out += NEWLINE + "Send"+ amount + " transport to " + dest;
+		else
+			out += NEWLINE + "Send "+ amount + " transports to " + dest;
+
+		SystemTransportSprite transportSprite = sys.transportSprite();
+		transportSprite.clickedDest(dest);
+		transportSprite.amt(amount);
+		
+		player.deployTransport(sys);
+		RotPUI.instance().mainUI().clickedSprite(sys);
+
+		return out;
+	}
+	String abandonColony(List<String> param, String out)	{
+		// System.out.println("Abandon Planet" + param);
+		// Check for destination
+		out = setDest(param, out);
+		StarSystem dest = console().aimedSystem();
+		String destError = validTransportDestination(dest);
+		if (!destError.isEmpty()) {
+			out += NEWLINE + destError;
+			return out;
+		}
+		int amount = (int) sys.population();
+		out += NEWLINE + "Abandon Planet " + amount + " transports sent to " + dest;
+		SystemTransportSprite transportSprite = sys.transportSprite();
+		transportSprite.clickedDest(dest);
+		transportSprite.amt(amount);
+		
+		player.deployTransport(sys);
+		RotPUI.instance().mainUI().clickedSprite(sys);
+
+		return out;
+	}
+	String cancelSend(List<String> param, String out)	{
+		System.out.println("Cancel Transport" + param);
+
+		SystemTransportSprite transportSprite = sys.transportSprite();
+		transportSprite.clear();
+		player.deployTransport(sys);
+		RotPUI.instance().mainUI().clickedSprite(sys);
+
 		return out;
 	}
 }

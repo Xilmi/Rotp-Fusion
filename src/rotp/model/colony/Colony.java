@@ -1207,7 +1207,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     		 return;
     	}
     		
-        // adjust pop to max allowed
+        // adjust pop to max allowed... But still send original pop to allow abandon!
         int xPop = min(pop, maxTransportsAllowed());
         log("Scheduling " + xPop + " transports from: " + starSystem().name() + "  to: " + dest.name());
 

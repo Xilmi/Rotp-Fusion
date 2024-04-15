@@ -40,6 +40,7 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.model.game.GameSession;
+import rotp.model.game.GovernorOptions;
 import rotp.model.game.IAdvOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IInGameOptions;
@@ -116,6 +117,11 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	// variables control
 	int aimedStar()			{ return aimedStar; }
 	void aimedStar(int id)	{ aimedStar = id; }
+	StarSystem aimedSystem()	{
+		if (aimedStar() < 0 || aimedStar() >= galaxy().systemCount)
+			return null;
+		return console().getSys(aimedStar());
+	}
 	
 	// ##### CONSTRUCTOR #####
 	private static void createAndShowGUI(boolean show)	{
@@ -192,10 +198,11 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		initMenus();
 		resultPane.setText(liveMenu.menuGuide(""));
 
-		starView	= new StarView(this);
-		fleetView	= new FleetView(this);
+		starView	= new StarView();
+		fleetView	= new FleetView();
 		instance	= this;
-		IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
+		if(!Rotp.isIDE())
+			IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
 	}
 	// ##### INITIALIZERS #####
 	private	void reInit()			{ initAltIndex(); }
@@ -334,8 +341,17 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					case BASE_LIMIT:
 						out = starView.missBuilding(param, out) + NEWLINE;
 						break;
+					case TROOP_SEND:
+						out = starView.sendPopulation(param, out) + NEWLINE;
+						break;
+					case ABANDON:
+						out = starView.abandonColony(param, out) + NEWLINE;
+						break;
+					case CANCEL_SEND:
+						out = starView.cancelSend(param, out) + NEWLINE;
+						break;
 					default:
-						out += "Don't understant parameter " + s;
+						out += "Don't understand parameter " + s;
 						break;
 					}
 				}
@@ -373,6 +389,9 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				+ NEWLINE + optional(TECH_SPENDING + " " + TOGGLE_LOCK) + " To lock/unlock Research spending"
 				+ NEWLINE + optional(TECH_SPENDING + " %") + " To set Research spending percentage"
 				+ NEWLINE + optional(TECH_SPENDING + " " + SMART_ECO_MAX) + " To maximize Research spending, while keeping ECO clean"
+				+ NEWLINE + optional(TROOP_SEND + " " + SYSTEM_KEY) + " destId amount : To send transport to another planet"
+				+ NEWLINE + optional(ABANDON + " " + SYSTEM_KEY) + " destId amount : To abandon the planet"
+				+ NEWLINE + optional(CANCEL_SEND) + " To cancel all transports from this planet"
 				);
 		return cmd;		
 	}
@@ -383,16 +402,16 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				if (!param.isEmpty()) {
 					String s = param.get(0);
 					if (s.equalsIgnoreCase("S"))
-						aimedStar = selectedStar;
+						aimedStar(selectedStar);
 					else {
 						Integer p = getInteger(s);
 						if (p != null) {
-							aimedStar = p;
+							aimedStar(p);
 							out = "";
 						}
 					}
 				}
-				StarSystem sys	= getSys(aimedStar);
+				StarSystem sys	= getSys(aimedStar());
 				out += descTargetSystem(sys, true);
 				return out;
 			}
@@ -444,7 +463,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			}
 		};
 		cmd.cmdParam(" Index " + optional(FLEET_UNDEPLOY) + " | "
-					+ optional(FLEET_SEND + " " + SYSTEM_KEY + "x [n] [n] [n] [n] [n]"));
+					+ optional(FLEET_SEND + " " + SYSTEM_KEY + " destId [n] [n] [n] [n] [n]"));
 
 		cmd.cmdHelp("Additionnal requests:"
 				 + NEWLINE + "Optional "+ optional(FLEET_UNDEPLOY) + " to Undeploy fleet"
@@ -638,7 +657,6 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		setupMenu = initSetupMenus(main);
 		main.addMenu(setupMenu);
 		gameMenu = initGameMenus(main);
-//		main.addMenu(gameMenu);
 		main.addCommand(initContinue()); // C
 		main.addCommand(initLoadFile()); // L
 		main.addCommand(initSaveFile()); // S
@@ -657,6 +675,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private Menu initGameMenus(Menu parent)	 {
 		Menu menu = new Menu("Game Menu", parent);
 		menu.addMenu(new Menu("In Game Settings Menu", menu, IInGameOptions.inGameOptions()));
+		menu.addMenu(new Menu("Governor Menu", menu, GovernorOptions.governorOptionsUI));
 		menu.addCommand(initNextTurn());		// N
 		menu.addCommand(initView());			// V
 		menu.addCommand(initSelectPlanet());	// P

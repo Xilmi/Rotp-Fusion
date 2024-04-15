@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Left / Right Click to scroll up / down
   - Mid Click to restore view.
   - scroll to scroll...
+- Console improvement...
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
