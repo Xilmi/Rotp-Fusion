@@ -63,7 +63,9 @@ Later:
 
 ## What's New
 
-TODO Deploy Transport
+2024.04.16 (BR)
+- New Option: Default Forward Rally.
+  - To set the default action when setting up a fleet rally.
 
 2024.04.15 (BR)
 - Console improvement:

@@ -2,12 +2,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Fixed Ship Combat when player ship turn may be skipped! this when following another ship destruction!
-- Added Scrolling in System History pane.
-  - Left / Right Click to scroll up / down
-  - Mid Click to restore view.
-  - scroll to scroll...
 - Console improvement...
+- New Option: Default Forward Rally.
+  - To set the default action when setting up a fleet rally.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -61,7 +58,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option to contine after gameover panel!
   - Only if the player is still alive.
   - Not tested extensively... Consider this an alpha feature.
-
+- New Option: Default Forward Rally.
+  - To set the default action when setting up a fleet rally.
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.

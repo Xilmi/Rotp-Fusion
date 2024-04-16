@@ -146,7 +146,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     private int vArtifacts = 0;
     private boolean vStargate = false;
     private int flagColor = FLAG_NONE;
-    private boolean forwardRallies = false;
+    private boolean forwardRallies = options().defaultForwardRally();
 
     private transient Empire owner;
     private transient PlanetType vPlanetType;
@@ -213,6 +213,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     }
     public boolean forwardRallies()          { return forwardRallies; }
     public void toggleForwardRallies()       { forwardRallies = !forwardRallies; }
+    public void setForwardRallies(boolean b) { forwardRallies = b; }
     public void stopRally() { 
         relocationSystem = null;
         system().rallySprite().stop(); 
@@ -906,6 +907,8 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     private SystemView(int sId, int empId) {
         ownerId = empId;
         sysId = sId;
+        if (player().id == ownerId)
+        	setForwardRallies(options().defaultForwardRally());
     }
     private void setLocationSecurity() {
         if (distance() > owner().scoutRange()) {

@@ -217,6 +217,9 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default boolean playerVotesFirst()	{ return councilPlayerVote.get().equalsIgnoreCase("First"); }
 	default boolean playerVotesLast()	{ return councilPlayerVote.get().equalsIgnoreCase("Last"); }
 
+	ParamBoolean defaultForwardRally	= new ParamBoolean(MOD_UI, "DEFAULT_FORWARD_RALLY", true);
+	default boolean defaultForwardRally()		{ return defaultForwardRally.get(); }
+
 	// ==================== GUI List Declarations ====================
 	static LinkedList<IParam> modDynamicAOptions() {
 		return new LinkedList<>(
@@ -241,7 +244,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		return new LinkedList<>(
 				Arrays.asList(
 						counciRequiredPct, darkGalaxy,
-						transportAutoEco,
+						transportAutoEco, defaultForwardRally,
+
 						GovernorOptions.governorOptionsUI,
 						null,
 						eventsStartTurn, eventsPace,
@@ -309,7 +313,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 				headerSpacer,
 				new ParamTitle("GAME_AUTOMATION"),
-				autoBombard_, autoColonize_, spyOverSpend, transportAutoEco,
+				autoBombard_, autoColonize_, spyOverSpend,
+				transportAutoEco, defaultForwardRally,
 				showAlliancesGNN, hideMinorReports, showAllocatePopUp, showLimitedWarnings,
 				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
 				)));

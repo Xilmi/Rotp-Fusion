@@ -128,6 +128,7 @@ public class SystemInfo implements Serializable, Base {
     public void stopRally(int i)                 { view(i).stopRally(); }
     public boolean forwardRallies(int i)         { return missing(i) ? false : view(i).forwardRallies(); }
     public void toggleForwardRallies(int i)      { if (!missing(i)) view(i).toggleForwardRallies(); }
+    public void setForwardRallies(int i, boolean b) { if (!missing(i)) view(i).setForwardRallies(b); }
     public void raiseHostility(int i)            { view(i).raiseHostility(); }
     public boolean hasStargate(int i)            { return missing(i) ? false : view(i).stargate(); }
     public void removeStargate(int i)            { if (!missing(i))
