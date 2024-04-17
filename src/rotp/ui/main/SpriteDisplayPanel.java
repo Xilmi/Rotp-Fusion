@@ -47,6 +47,7 @@ public class SpriteDisplayPanel extends BasePanel implements SystemViewer, Mouse
     private static final String DEPLOY_TRANSPORTS = "DeployTransports";
     private static final String DISPLAY_TRANSPORTS = "DisplayTransports";
     private static final String RELOCATE_SHIPS = "RelocateShips";
+    private static final String DISPLAY_WAR_VIEW = "DisplayWarView";
 
     private final CardLayout layout = new CardLayout();
     BasePanel currentPanel;
@@ -60,6 +61,7 @@ public class SpriteDisplayPanel extends BasePanel implements SystemViewer, Mouse
     TransportDeploymentPanel transportDeployPane;
     TransportPanel transportDisplayPane;
     RallyPointPanel shipRelocationPane;
+    WarViewPanel warViewPane;
 
     IMapHandler parent;
 
@@ -140,7 +142,7 @@ public class SpriteDisplayPanel extends BasePanel implements SystemViewer, Mouse
     @Override
     public boolean useClickedSprite(Sprite o, int count, boolean rightClick) {
         boolean canUse = (currentPanel != null) && currentPanel.useClickedSprite(o, count, rightClick);
-
+        
         if (!canUse) {
             // if the currentPanel cannot "use" the selected sprite, find out the
             // best panel to display the sprite. If different, switch to that panel
@@ -192,6 +194,8 @@ public class SpriteDisplayPanel extends BasePanel implements SystemViewer, Mouse
                 selectExploredSystemPanel();
             else if (!(sys.empire() == pl))
                 selectAlienSystemPanel();
+            else if (GalaxyMapPanel.isWarView())
+                selectWarViewPanel();
             else
                 selectPlayerSystemPanel();
         }
@@ -226,6 +230,8 @@ public class SpriteDisplayPanel extends BasePanel implements SystemViewer, Mouse
                 return exploredSystemPane;
             else if (!(sys.empire() == pl))
                 return alienSystemPane;
+            else if (GalaxyMapPanel.isWarView())
+                return warViewPane;
             else
                 return playerSystemPane;
         }
@@ -253,6 +259,7 @@ public class SpriteDisplayPanel extends BasePanel implements SystemViewer, Mouse
     public void selectTransportDeployPanel()     { currentPanel = transportDeployPane;  layout.show(this, DEPLOY_TRANSPORTS); }
     public void selectTransportDisplayPanel()    { currentPanel = transportDisplayPane; layout.show(this, DISPLAY_TRANSPORTS); }
     public void selectShipRelocationPanel()      { currentPanel = shipRelocationPane;   layout.show(this, RELOCATE_SHIPS); }
+    public void selectWarViewPanel()             { currentPanel = warViewPane;          layout.show(this, DISPLAY_WAR_VIEW); }
 
     @Override
     public void paint(Graphics g) {
@@ -285,6 +292,7 @@ public class SpriteDisplayPanel extends BasePanel implements SystemViewer, Mouse
         transportDeployPane = new TransportDeploymentPanel(this);
         transportDisplayPane = new TransportPanel(this);
         shipRelocationPane = new RallyPointPanel(this);
+        warViewPane = new WarViewPanel(this);
 
         add(playerSystemPane, PLAYER_SYSTEM);
         add(alienSystemPane, ALIEN_SYSTEM);
@@ -295,6 +303,7 @@ public class SpriteDisplayPanel extends BasePanel implements SystemViewer, Mouse
         add(transportDeployPane, DEPLOY_TRANSPORTS);
         add(transportDisplayPane, DISPLAY_TRANSPORTS);
         add(shipRelocationPane, RELOCATE_SHIPS);
+        add(warViewPane, DISPLAY_WAR_VIEW);
         
         addMouseListener(this);
         addMouseMotionListener(this);

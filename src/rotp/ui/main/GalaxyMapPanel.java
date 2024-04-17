@@ -82,6 +82,7 @@ import rotp.ui.sprites.ZoomOutWidgetSprite;
 
 public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionListener, MouseListener, MouseWheelListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
+    private static final int NO_TARGET = -999;
     
     // BR These values may be changed remotely!
     public static int MAX_FLAG_SCALE			= 80;
@@ -94,7 +95,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     public static int MAX_FLEET_HUGE_SCALE		= 100;
     private static boolean debugShowAll = false;
 	// \BR:
-    
     public static Color gridLight = new Color(160,160,160);
     public static Color gridDark = new Color(64,64,64);
 
@@ -139,6 +139,27 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     private boolean searchingSprite = false;
 
     private final Timer zoomTimer;
+
+    private static boolean warView = false;
+    private static int targetSysId = NO_TARGET;
+    
+    public static boolean isWarView()	 	{ return warView; }
+    public static void toggleWarView()	 	{ warView = !warView; }
+    private void clearWarView()				{
+		targetSysId	= NO_TARGET;
+		warView		= false;
+    }
+    private boolean setTargetSys(int sysId)	{
+    	List<StarSystem> systems = player().orderedUnderAttackSystems(true, true);
+    	StarSystem sys = galaxy().system(sysId);
+    	if (systems.contains(sys)) {
+    		targetSysId = sysId;
+    		return true;
+    	}
+    	clearWarView();
+    	return false;
+    }
+    
 
     public IMapHandler parent()     { return parent; }
     public boolean showArmedShips() { return true; }
@@ -324,6 +345,15 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
        		g2.setClip(darkRangeArea);
         if (!isPlayer)
         	drawShipRanges(g2);
+        
+    	// BR: check for WarView Mode
+    	if (warView) {
+    		Sprite clickedSprite = parent.clickedSprite();
+    		if (clickedSprite instanceof StarSystem)
+    			setTargetSys(((StarSystem) clickedSprite).id);
+    		else
+    			clearWarView();
+    	}
 
        	// display background stars
         if (parent.drawBackgroundStars() && showStars()) {
@@ -872,7 +902,86 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         			sh.pathSprite().draw(this, g);
         		spr.draw(this, g);
         	}
-        } else {
+        }
+        else if (warView) {
+            // commodification exception here without this copy
+            List<Ship> visibleShips = new ArrayList<>(pl.visibleShips());
+            for (Ship sh: visibleShips) {
+            	if (sh != null) {
+            		// display only ship targeting the clicked system
+        			if (sh.inTransit()) {
+        				if (sh.destSysId() == targetSysId) {
+	            			if (!pl.knowETA(sh))
+	            				continue;
+        				}
+        				else
+        					continue;
+        			}
+        			else if (sh.deployed()) {
+        				if (sh.destSysId() == targetSysId) {
+	            			if (!pl.knowETA(sh))
+	            				continue;
+        				}
+        				else
+        					continue;
+        			}
+        			else {
+            			// or display only ship orbiting the clicked system
+            			if (sh instanceof ShipFleet) { 
+            				ShipFleet fl = (ShipFleet) sh;
+            				if (fl.isOrbiting()) {
+	            				if (fl.sysId() != targetSysId)
+	            					continue;
+            				}
+            				else
+            					continue;
+            			}
+            			else
+            				continue;
+        			}
+
+        			sh.setDisplayed(this);
+                    if (sh.displayed() || debugShowAll) {
+                        Sprite spr = (Sprite) sh;
+                        // if we are drawing the ship, then check if its flight path should be drawn first
+                        if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
+                        && (parent.shouldDrawSprite(sh.pathSprite()) || debugShowAll)) {
+                            if (pl.knowETA(sh) && sh.pathSprite()!=null)
+                                sh.pathSprite().draw(this,g);
+                            else if (options().selectedTrackUFOsAcrossTurns()) {
+                                StarSystem suspectedDestination = player().suspectedDestinationOfVisibleShip(sh);
+                                if (suspectedDestination != null)
+                                	// BR: To fix dHannash resulting pathSprite bug
+                                	if (sh instanceof Transport)
+                                		((Transport) sh).pathSpriteTo(suspectedDestination).draw(this, g);
+                                	else if (sh instanceof ShipFleet)
+                                		((ShipFleet) sh).pathSpriteTo(suspectedDestination).draw(this, g);
+                            }
+                        }
+                        spr.draw(this, g);
+                    }            		
+            	}
+            }
+            List<SpaceMonster> visibleMonsters = new ArrayList<>(pl.visibleMonsters());
+            for (SpaceMonster sh: visibleMonsters) {
+            	if (sh != null) {
+            		if (!sh.inTransit())
+        				continue;
+        			if (sh.destSysId() != targetSysId)
+        				continue;
+
+        			sh.setDisplayed(this);
+                    if (sh.displayed()) {
+                        Sprite spr = (Sprite) sh;
+                        if (sh.event!=null && sh.event.notified() && sh.pathSprite()!=null)
+                            sh.pathSprite().draw(this, g);
+                        spr.draw(this, g);
+                    }
+            		
+            	}
+            }    		
+    	}
+        else {
             // commodification exception here without this copy
             List<Ship> visibleShips = new ArrayList<>(pl.visibleShips());
             for (Ship sh: visibleShips) {

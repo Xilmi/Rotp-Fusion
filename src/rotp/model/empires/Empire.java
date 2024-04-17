@@ -4480,6 +4480,30 @@ public final class Empire implements Base, NamedObject, Serializable {
         Collections.sort(list, IMappedObject.MAP_ORDER);
         return list;
     }
+    public List<Ship> incomingKnownETAFleets(int sysId) {
+    	List<Ship> list = new ArrayList<>();
+    	List<Ship> vShips = visibleShips();
+    	for (Ship sh: vShips) {
+    		if (sh != null && sh.destSysId() == sysId) {
+    			if (sh.inTransit()) {
+	    			if (knowShipETA || sh.empId() == id)
+	    				list.add(sh);
+    			}
+    			else if (sh.deployed() && (knowShipETA || sh.empId() == id))
+    				list.add(sh);
+    		}
+    	}
+    	return list;
+    }
+    public List<ShipFleet> visibleOrbitingFleet(StarSystem sys) {
+    	List<ShipFleet> list = new ArrayList<>();
+    	List<ShipFleet> vShips = sys.orbitingFleetsNoMonster();
+    	for (ShipFleet fl: vShips) {
+    		if (fl != null && visibleShips.contains(fl))
+   				list.add(fl);
+    	}
+    	return list;
+    }
     public List<StarSystem> orderedUnderAttackSystems(boolean showUnarmed, boolean showTransports) {
         List<StarSystem> list = new ArrayList<>();
         Galaxy g = galaxy();

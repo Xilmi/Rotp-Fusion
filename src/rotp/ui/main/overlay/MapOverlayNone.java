@@ -243,6 +243,9 @@ public class MapOverlayNone extends MapOverlay {
             case KeyEvent.VK_Y: // BR:
             	options().toggleYearDisplay();
                 break;
+            case KeyEvent.VK_W: // BR:
+            	GalaxyMapPanel.toggleWarView();
+                break;
             case KeyEvent.VK_F1:
             	if (shift)
             		parent.showHotKeys();

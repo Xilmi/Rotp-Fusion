@@ -63,6 +63,13 @@ Later:
 
 ## What's New
 
+2024.04.17 (BR)
+- New "war view" mode:
+  - Toggled with "W" Key (Good companion of "F6"/"F7")
+  - Auto off when selected planet is not in danger.
+  - War view mode show only the fleets targeting the planet in danger.
+  - Incoming Fleets are listed in the Right Panel (Scrollable).
+
 2024.04.16 (BR)
 - New Option: Default Forward Rally.
   - To set the default action when setting up a fleet rally.

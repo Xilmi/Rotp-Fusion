@@ -3742,8 +3742,6 @@ HISTORY_EXTINCT                   | Extinct
 HISTORY_SYSTEMS                   | Systems
 HISTORY_EMPIRE                    | Empire
 
-
-
 // Council UIs
 COUNCIL_CONVENE_TITLE             | The High Council Convenes
 COUNCIL_CONVENE                   | The High Council has convened to elect one leader to be Ruler of the Galaxy.
@@ -3845,6 +3843,9 @@ SYSTEMS_STATUS_SPACE_AMOEBA       | A giant space amoeba is heading towards this
 SYSTEMS_STATUS_SPACE_CRYSTAL      | A gigantic space crystal is heading towards this system.
 // modnar: add space pirate random event
 SYSTEMS_STATUS_SPACE_PIRATES      | A fleet of space pirates are headed towards this system.
+
+// War View UI
+WAR_VIEW_TITLE                    | Years · Incoming Fleets
 
 
 DIPLOMACY_RECEIVING               | Translating Incoming Message...
@@ -4391,7 +4392,7 @@ HK_SEL_B      | /+ALT/+CTRL/+SHIFT : Current Selection
 HK_SEL_E      | Spending to 100% / Smart Max / Lock / Unlock
 
 // Shortcuts Full lists*
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet →HK_FLAG_LOOP←<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mousewheel : Increment quantities/moves slider<br>→HK_ESCAPE←
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>W : Toggle war view mode showing only the fleets targeting the planet in danger.<br>        (Auto off when selected planet is not in danger)<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet →HK_FLAG_LOOP←<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mousewheel : Increment quantities/moves slider<br>→HK_ESCAPE←
 
 PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Multi selection too)<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S→HK_SEL_B← Ship →HK_SEL_E←<br>D→HK_SEL_B← Defense →HK_SEL_E←<br>W→HK_SEL_B← Industry →HK_SEL_E←<br>E→HK_SEL_B← Ecology →HK_SEL_E←<br>R→HK_SEL_B← Research →HK_SEL_E←<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
 

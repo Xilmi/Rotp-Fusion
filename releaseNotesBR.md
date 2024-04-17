@@ -5,6 +5,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Console improvement...
 - New Option: Default Forward Rally.
   - To set the default action when setting up a fleet rally.
+- New "war view" mode:
+  - Toggled with "W" Key (Good companion of "F6"/"F7")
+  - Auto off when selected planet is not in danger.
+  - War view mode show only the fleets targeting the planet in danger.
+  - Incoming Fleets are listed in the Right Panel (Scrollable).
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -60,6 +65,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Not tested extensively... Consider this an alpha feature.
 - New Option: Default Forward Rally.
   - To set the default action when setting up a fleet rally.
+- New "war view" mode:
+  - Toggled with "W" Key (Good companion of "F6"/"F7")
+  - Auto off when selected planet is not in danger.
+  - War view mode show only the fleets targeting the planet in danger.
+  - Incoming Fleets are listed in the Right Panel (Scrollable).
+
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
