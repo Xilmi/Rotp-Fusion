@@ -52,23 +52,10 @@ public class WarViewPanel extends SystemPanel {
 	}
 
 	private void init() { initModel(); }
-	//private StarSystem system() { return parentSpritePanel.systemViewToDisplay(); }
 
 	@Override public void animate() {
 		topPane.animate();
 		detailPane.animate();
-	}
-	@Override public void keyPressed(KeyEvent e) {
-		int k = e.getKeyCode();
-		switch (k) {
-			case KeyEvent.VK_ESCAPE:
-				return;
-			case KeyEvent.VK_SPACE:
-			case KeyEvent.VK_ENTER:
-				return;
-			case KeyEvent.VK_TAB:
-				parentSpritePanel.repaint();
-		}
 	}
 	@Override protected BasePanel topPane() {
 		if (topPane == null)
@@ -153,7 +140,6 @@ public class WarViewPanel extends SystemPanel {
 		private final int lineH = scaled(fontSize);
 		private final int scrollH = 3 * lineH;
 		private StarSystem sys, lastSys;
-		// private List<FleetRecord> orderedList = new ArrayList<>();
 		private FleetRecordMap fleetsMap = new FleetRecordMap();
 		int offsetY = 0;
 		

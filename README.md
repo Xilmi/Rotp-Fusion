@@ -63,6 +63,9 @@ Later:
 
 ## What's New
 
+2024.04.18 (BR)
+- Fixed war view mode crash when hitting "Tab" Key.
+
 2024.04.17 (BR)
 - New "war view" mode:
   - Toggled with "W" Key (Good companion of "F7"/"F8")
