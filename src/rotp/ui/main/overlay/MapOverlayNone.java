@@ -245,6 +245,22 @@ public class MapOverlayNone extends MapOverlay {
                 break;
             case KeyEvent.VK_W: // BR:
             	GalaxyMapPanel.toggleWarView();
+            	// Refresh to force activation
+            	currSys = null;
+            	// are we transporting?
+                if (parent.clickedSprite() instanceof SystemTransportSprite)
+                    currSys = ((SystemTransportSprite) parent.clickedSprite()).homeSystem();
+                    // are we ship relocating?
+                else if (parent.clickedSprite() instanceof ShipRelocationSprite)
+                    currSys = ((ShipRelocationSprite) parent.clickedSprite()).homeSystemView();
+                else if (parent.clickedSprite() instanceof StarSystem)
+                    currSys = (StarSystem) parent.clickedSprite();
+                
+                if (currSys != null) {
+                	parent.clickedSprite(currSys);
+                	parent.map().recenterMapOn(currSys);
+                }
+                parent.repaint();
                 break;
             case KeyEvent.VK_F1:
             	if (shift)

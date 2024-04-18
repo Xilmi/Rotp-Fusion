@@ -65,10 +65,11 @@ Later:
 
 2024.04.17 (BR)
 - New "war view" mode:
-  - Toggled with "W" Key (Good companion of "F6"/"F7")
+  - Toggled with "W" Key (Good companion of "F7"/"F8")
   - Auto off when selected planet is not in danger.
   - War view mode show only the fleets targeting the planet in danger.
   - Incoming Fleets are listed in the Right Panel (Scrollable).
+- Removed the need need to move the mouse to activate/deactivate "war view" mode!
 
 2024.04.16 (BR)
 - New Option: Default Forward Rally.

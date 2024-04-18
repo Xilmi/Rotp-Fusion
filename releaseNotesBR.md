@@ -6,10 +6,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New Option: Default Forward Rally.
   - To set the default action when setting up a fleet rally.
 - New "war view" mode:
-  - Toggled with "W" Key (Good companion of "F6"/"F7")
+  - Toggled with "W" Key (Good companion of "F7"/"F8")
   - Auto off when selected planet is not in danger.
   - War view mode show only the fleets targeting the planet in danger.
   - Incoming Fleets are listed in the Right Panel (Scrollable).
+- Removed the need need to move the mouse to activate/deactivate "war view" mode!
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -66,7 +67,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New Option: Default Forward Rally.
   - To set the default action when setting up a fleet rally.
 - New "war view" mode:
-  - Toggled with "W" Key (Good companion of "F6"/"F7")
+  - Toggled with "W" Key (Good companion of "F7"/"F8")
   - Auto off when selected planet is not in danger.
   - War view mode show only the fleets targeting the planet in danger.
   - Incoming Fleets are listed in the Right Panel (Scrollable).
