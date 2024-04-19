@@ -26,7 +26,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.List;
+
+import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.main.SystemPanel;
@@ -44,14 +47,68 @@ public class SystemMassRallyPanel extends SystemPanel {
         initModel(0);
     }
     public void startRallies() {
-        if (!canStartRallies())
-            return;
+        if (!canStartRallies()) {
+        	misClick();
+        	return;
+        }
 
         player().startRallies(topParent.filteredSystems, topParent.targetSystem);
         topParent.clearMapSelections();
         topParent.showQueryPanel();
         topParent.repaint();
     }
+    public void startRallyToGates() { // TODO BR: startRallyToGates
+    	List<StarSystem> destSystems = player().systemsWithStargate();
+        if (destSystems.isEmpty()) {
+        	misClick();
+        	return;
+        }
+    	List<StarSystem> fromSystems = new ArrayList<>();
+    	Empire player = player();
+        for (StarSystem sys: topParent.filteredSystems)
+        	if (sys != null && !sys.hasStargate(player))
+        		fromSystems.add(sys);
+        if (fromSystems.isEmpty()) {
+        	misClick(); // All systems have a stargate!
+            topParent.clearMapSelections();
+            topParent.showQueryPanel();
+            topParent.repaint();
+        	return;
+        }
+
+        int destSize = destSystems.size();
+        int fromSize = fromSystems.size();
+        int[] destId = new int[fromSize];
+        // Search for destination
+        for (int from=0; from<fromSize; from++) {
+        	StarSystem source = fromSystems.get(from);
+        	float minDist = Float.MAX_VALUE;
+        	int minIdx = -1;
+        	for (int dest=0; dest<destSize; dest++) {
+        		float distance = source.distanceTo(destSystems.get(dest));
+        		if (distance < minDist) {
+        			minDist = distance;
+        			minIdx  = dest;
+        		}
+        	}
+        	destId[from] = minIdx;
+        }
+        // Star the rallies
+        for (int dest=0; dest<destSize; dest++) {
+        	StarSystem destSys = destSystems.get(dest);
+        	List<StarSystem> fromList = new ArrayList<>();
+        	for (int from=0; from<fromSize; from++) {
+        		if (destId[from] == dest)
+        			fromList.add(fromSystems.get(from));
+        	}
+        	if (!fromList.isEmpty())
+        		player().startRallies(fromList, destSys);
+        }
+        topParent.clearMapSelections();
+        topParent.showQueryPanel();
+        topParent.repaint();
+    }
+    private boolean hasStarGates()	 { return !player().systemsWithStargate().isEmpty(); }
     public boolean canStartRallies() {
         StarSystem target = topParent.hoverSystem;
         if (target == null)
@@ -133,13 +190,14 @@ public class SystemMassRallyPanel extends SystemPanel {
         private static final long serialVersionUID = 1L;
         private Rectangle hoverBox;
         private final Rectangle cancelBox = new Rectangle();
-        private final Rectangle startBox = new Rectangle();
+        private final Rectangle startBox  = new Rectangle();
+        private final Rectangle toGateBox = new Rectangle();
         Shape textureClip;
         public SystemRallyFooterPane() {
             initModel();
         }
         private void initModel() {
-            setPreferredSize(new Dimension(getWidth(), s70));
+            setPreferredSize(new Dimension(getWidth(), scaled(103))); // was s70
             setBackground(FleetUI.backHiC);
             addMouseListener(this);
             addMouseMotionListener(this);
@@ -160,10 +218,17 @@ public class SystemMassRallyPanel extends SystemPanel {
             g.setColor(FleetUI.backHiC);
             g.fillRect(0,0,w,h);
 
-            if (canStartRallies())
-                topParent.drawGreenButton(g,text("FLEETS_START_RALLIES"), startBox, hoverBox, h-s65);
+        	topParent.drawGreenButton(g, "Start rally to nearest Stargates", toGateBox, hoverBox, h-s98);
+            
+            if (hasStarGates())
+            	topParent.drawGreenButton(g,text("FLEETS_RALLY_TO_STARGATES"), toGateBox, hoverBox, h-s98);
             else
-                topParent.drawGrayButton(g,text("FLEETS_START_RALLIES"), null, hoverBox, h-s65);
+            	topParent.drawGrayButton(g,text("FLEETS_RALLY_TO_STARGATES"), toGateBox, hoverBox, h-s98);
+
+            if (canStartRallies())
+            	topParent.drawGreenButton(g,text("FLEETS_START_RALLIES"), startBox, hoverBox, h-s65);
+            else
+            	topParent.drawGrayButton(g,text("FLEETS_START_RALLIES"), null, hoverBox, h-s65);
 
             topParent.drawBrownButton(g, text("FLEETS_CANCEL"), cancelBox, hoverBox, h-s32);
             textureClip = new Rectangle2D.Float(s3, h-s65, topParent.SIDE_PANE_W-s18, s60);
@@ -215,6 +280,8 @@ public class SystemMassRallyPanel extends SystemPanel {
             }
             else if (startBox.contains(x,y)) 
                 startRallies();
+            else if (toGateBox.contains(x,y)) 
+                startRallyToGates();
         }
     }
 }

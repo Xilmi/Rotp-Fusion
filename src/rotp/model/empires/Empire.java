@@ -4106,8 +4106,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (totalEmpireStargateCost < 0) {
             float totalCostBC = 0;
             // modnar: newRace GearHead gets 50% stargate maintenance cost
-             // BR: Made dataRace call
-           float raceBonus = dataRace().maintenanceFactor();
+            // BR: Made dataRace call
+            float raceBonus = dataRace().maintenanceFactor();
             List<StarSystem> allSystems = new ArrayList<>(allColonizedSystems());
             for (StarSystem sys: allSystems)
             	if (sys != null)
@@ -4386,6 +4386,14 @@ public final class Empire implements Base, NamedObject, Serializable {
         		index = 0;
         }
         return list.get(index);
+    }
+    public List<StarSystem> systemsWithStargate() {
+        List<StarSystem> systemsWithStargate = new ArrayList<>();
+        List<StarSystem> allSystems = new ArrayList<>(allColonizedSystems());
+        for (StarSystem sys: allSystems)
+        	if (sys != null && sys.hasStargate(this))
+        		systemsWithStargate.add(sys);
+        return systemsWithStargate;
     }
     public List<StarSystem> orderedColonies() {
         List<StarSystem> list = new ArrayList<>(allColonizedSystems());

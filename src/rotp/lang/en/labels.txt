@@ -1123,6 +1123,7 @@ FLEETS_STOP_RALLIES_DESC          | %1 selected systems already have assigned ra
 FLEETS_STOP_RALLIES               | Stop Rallies
 FLEETS_SETTING_RALLY_POINTS       | Starting Rally Points
 FLEETS_START_RALLIES_DESC         | Select a system you control to send newly built ships from all selected systems.
+FLEETS_RALLY_TO_STARGATES         | Start rallying nearest stargates
 FLEETS_START_RALLIES              | Start Rallies
 FLEETS_SEND_TRANSPORTS            | Send Transports
 FLEETS_ADJUST_SPENDING_SELECT     | Select systems to set Ship spending 
@@ -1164,7 +1165,8 @@ FLEETS_HELP_1B                    | Filter By - select check boxes to narrow dow
 FLEETS_HELP_1C                    | And building - filter systems according to the ship design being constructed. 
 FLEETS_HELP_1D                    | Ship Design - change the ship design to build in the selected systems. A blank image means that the selected systems are currently building different designs. Caution! There is no confirmation prompt for this action.
 FLEETS_HELP_1E                    | Send Transports - send transports from the selected systems to a single target system.
-FLEETS_HELP_1F                    | Set Rally Points - set the rally points for the selected systems to a single target system. 
+FLEETS_HELP_1F                    | Set Rally Points - set the rally points for the selected systems to a single target system.
+FLEETS_HELP_1G                    | →FLEETS_RALLY_TO_STARGATES←<br>Start rallying selected systems to the nearest system with a stargate.<br>Selected systems with Stargates are not affected.<br>(No preview, no undo!)
 FLEETS_HELP_2A                    | Select Fleets - there are three ways to select fleets: 1) by clicking fleets on the map, 2) by right-click dragging over the map, and 3) by using the "Select All" and "Deselect All" buttons.
 FLEETS_HELP_2B                    | Filter By - select check boxes to narrow down the list of selected fleets. Filters can also be clicked to cycle through related options.
 FLEETS_HELP_2C                    | Only Deploy Ships of Type - restrict the types of ships you want to deploy from your fleets.
