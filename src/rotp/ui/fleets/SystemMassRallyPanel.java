@@ -26,10 +26,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 import java.util.List;
 
 import rotp.model.empires.Empire;
+import rotp.model.empires.SystemInfo;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.main.SystemPanel;
@@ -57,53 +57,18 @@ public class SystemMassRallyPanel extends SystemPanel {
         topParent.showQueryPanel();
         topParent.repaint();
     }
-    public void startRallyToGates() { // TODO BR: startRallyToGates
+    public void startRallyToGates() {
     	List<StarSystem> destSystems = player().systemsWithStargate();
         if (destSystems.isEmpty()) {
         	misClick();
         	return;
         }
-    	List<StarSystem> fromSystems = new ArrayList<>();
-    	Empire player = player();
-        for (StarSystem sys: topParent.filteredSystems)
-        	if (sys != null && !sys.hasStargate(player))
-        		fromSystems.add(sys);
-        if (fromSystems.isEmpty()) {
-        	misClick(); // All systems have a stargate!
-            topParent.clearMapSelections();
-            topParent.showQueryPanel();
-            topParent.repaint();
-        	return;
-        }
+        Empire player = player();
+    	SystemInfo sv = player.sv;
+    	for (StarSystem sys: topParent.filteredSystems)
+    		if (sys != null && !sys.hasStargate(player))
+    			sv.rallyNearestSystem(sys.id, destSystems);
 
-        int destSize = destSystems.size();
-        int fromSize = fromSystems.size();
-        int[] destId = new int[fromSize];
-        // Search for destination
-        for (int from=0; from<fromSize; from++) {
-        	StarSystem source = fromSystems.get(from);
-        	float minDist = Float.MAX_VALUE;
-        	int minIdx = -1;
-        	for (int dest=0; dest<destSize; dest++) {
-        		float distance = source.distanceTo(destSystems.get(dest));
-        		if (distance < minDist) {
-        			minDist = distance;
-        			minIdx  = dest;
-        		}
-        	}
-        	destId[from] = minIdx;
-        }
-        // Star the rallies
-        for (int dest=0; dest<destSize; dest++) {
-        	StarSystem destSys = destSystems.get(dest);
-        	List<StarSystem> fromList = new ArrayList<>();
-        	for (int from=0; from<fromSize; from++) {
-        		if (destId[from] == dest)
-        			fromList.add(fromSystems.get(from));
-        	}
-        	if (!fromList.isEmpty())
-        		player().startRallies(fromList, destSys);
-        }
         topParent.clearMapSelections();
         topParent.showQueryPanel();
         topParent.repaint();

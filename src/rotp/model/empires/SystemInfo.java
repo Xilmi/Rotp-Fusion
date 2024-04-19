@@ -124,6 +124,8 @@ public class SystemInfo implements Serializable, Base {
     public List<ShipFleet> orbitingFleets(int i) { return missing(i) ? null : view(i).orbitingFleets(); }
     public List<ShipFleet> exitingFleets(int i)  { return missing(i) ? null : view(i).exitingFleets(); }
     public StarSystem rallySystem(int i)         { return missing(i) ? null : view(i).rallySystem(); }
+    public void rallyNearestStarGate(int i)      { view(i).rallyNearestStarGate();}
+    public void rallyNearestSystem(int i, List<StarSystem> destList) { view(i).rallyNearestSystem(destList);}
     public void rallySystem(int i, StarSystem sys) { view(i).rallySystem(sys);}
     public void stopRally(int i)                 { view(i).stopRally(); }
     public boolean forwardRallies(int i)         { return missing(i) ? false : view(i).forwardRallies(); }

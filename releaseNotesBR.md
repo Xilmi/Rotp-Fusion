@@ -12,6 +12,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Incoming Fleets are listed in the Right Panel (Scrollable).
 - Removed the need need to move the mouse to activate/deactivate "war view" mode!
 - Fixed war view mode crash when hitting "Tab" Key.
+- Added Rally to nearest stargate button in the right panel. (When available)
+- Added Rally to nearest stargate button in mass rally panel.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -73,6 +75,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Auto off when selected planet is not in danger.
   - War view mode show only the fleets targeting the planet in danger.
   - Incoming Fleets are listed in the Right Panel (Scrollable).
+- Added Rally to nearest stargate button in the right panel. (When available)
+- Added Rally to nearest stargate button in mass rally panel.
 
 
 <b><ins>Optimisation:</ins></b>

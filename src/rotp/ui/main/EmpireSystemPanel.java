@@ -25,6 +25,7 @@ import java.awt.Image;
 import java.awt.Paint;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
@@ -34,12 +35,14 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
+
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
 import rotp.model.colony.Colony;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.Design;
+import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 
 public class EmpireSystemPanel extends SystemPanel {
@@ -197,6 +200,7 @@ public class EmpireSystemPanel extends SystemPanel {
 
         private final Rectangle shipDesignBox = new Rectangle();
         private final Rectangle rallyPointBox = new Rectangle();
+        private final Rectangle rallyToSGBox  = new Rectangle();
         private final Rectangle transportBox  = new Rectangle();
         private final Rectangle abandonBox  = new Rectangle();
         private final Rectangle shipNameBox = new Rectangle();
@@ -253,8 +257,18 @@ public class EmpireSystemPanel extends SystemPanel {
             drawShipIcon(g, col, s5,s30,midMargin-s15,s75);
             drawShipCompletion(g, col, midMargin,h-scaled(116),w-s10-midMargin,s30);
             drawNameSelector(g, col, midMargin,h-scaled(103),w-s10-midMargin,s30);
-            drawRallyPointButton(g,midMargin,h-s70,w-s10-midMargin,s25);
-            
+           	int wR = w-s10-midMargin;
+           	int yR = h-s70;
+           
+            if (rallyToSGEnabled()) {
+            	wR -= s25;
+             	int x2 = midMargin + wR + s5;
+            	drawRallyToSG(g, x2, yR, s25 ,s25);            	
+            }
+            else
+            	rallyToSGBox.setBounds(0, 0, 0, 0);
+           	drawRallyPointButton(g, midMargin, yR, wR, s25);
+
             // 60:40 width ratio for "Send Transports" & "Abandon" buttons
             int w0 = (w-s5)*12/20;
             int w1 = (w-s5)*8/20;
@@ -263,6 +277,7 @@ public class EmpireSystemPanel extends SystemPanel {
             drawTransportButton(g,0,h-s35,w0,s35);
             drawAbandonButton(g,w0+s5,h-s35,w1,s35);
         }
+        private boolean hasStargate()	{ return player().stargateCostPerBC()>0; }
         private void drawTitle(Graphics g) {
             g.setColor(MainUI.shadeBorderC());
             g.fillRect(0, 0, getWidth(), s3);
@@ -502,6 +517,39 @@ public class EmpireSystemPanel extends SystemPanel {
             int x0 = x+((w-sw)/2);
             drawString(g,s, x0, y+h-s7);
         }
+        private void drawRallyToSG(Graphics2D g, int x, int y, int w, int h) {
+            StarSystem sys = parentSpritePanel.systemViewToDisplay();
+            if (sys == null)
+                return;
+
+            boolean enabled = rallyToSGEnabled();
+            rallyToSGBox.setBounds(x, y, w, h);
+            Paint prevPaint = g.getPaint();
+            g.setPaint(Color.BLACK);
+            g.fillRoundRect(x, y, w, h, s10, s10);
+            g.setPaint(prevPaint);
+
+            Stroke prevStroke = g.getStroke();
+            if ((hoverBox == rallyToSGBox) && enabled)
+                g.setColor(SystemPanel.yellowText);
+            else
+                g.setColor(gray175C);
+
+            g.setStroke(stroke2);
+            g.drawRoundRect(x,y,w,h,s15,s15);
+            g.setStroke(prevStroke);
+
+            int sgOfs = s3;
+            int sgW = s25 - 2*sgOfs;
+            int x1 = x + sgOfs;
+            int y1 = y + sgOfs;
+            int x2 = x1 + sgW;
+            int y2 = y1 + sgW;
+            Image img = ShipLibrary.current().stargate.getImage();
+            int imgW = img.getWidth(null);
+            int imgH = img.getHeight(null);
+            g.drawImage(img, x1, y1, x2, y2, 0, 0, imgW, imgH, null);
+        }
         private void drawTransportButton(Graphics2D g, int x, int y, int w, int h) {
             StarSystem sys = parentSpritePanel.systemViewToDisplay();
             if (sys == null)
@@ -625,6 +673,12 @@ public class EmpireSystemPanel extends SystemPanel {
             }
             return starBackground;
         }
+        private void rallyToNearestSG() {
+        	player().sv.rallyNearestStarGate(parentSpritePanel.systemViewToDisplay().id);
+        }
+        private boolean rallyToSGEnabled()	{
+        	StarSystem sys = parentSpritePanel.systemViewToDisplay();
+        	return !sys.hasStargate(player()) && rallyPointEnabled() && hasStargate(); }
         private boolean rallyPointEnabled() { return !session().performingTurn() && player().canRallyFleetsFrom(id(parentSpritePanel.systemViewToDisplay())); }
         private boolean transportEnabled() { return !session().performingTurn() && player().canSendTransportsFrom(parentSpritePanel.systemViewToDisplay()); }
         @Override
@@ -692,6 +746,12 @@ public class EmpireSystemPanel extends SystemPanel {
                     parentSpritePanel.repaint();
                 }
             }
+            else if (rallyToSGBox.contains(x,y)){
+                if (rallyToSGEnabled()) {
+                	rallyToNearestSG();
+                    parentSpritePanel.repaint();
+                }
+            }
             else if (transportBox.contains(x,y)){
                 if (transportEnabled()) {
                     StarSystem sys =  parentSpritePanel.systemViewToDisplay();
@@ -739,6 +799,8 @@ public class EmpireSystemPanel extends SystemPanel {
                 hoverBox = prevDesign;
             else if (rallyPointBox.contains(x,y))
                 hoverBox = rallyPointBox;
+            else if (rallyToSGBox.contains(x,y))
+                hoverBox = rallyToSGBox;
             else if (transportBox.contains(x,y))
                 hoverBox = transportBox;
             else if (abandonBox.contains(x,y))

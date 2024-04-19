@@ -63,6 +63,10 @@ Later:
 
 ## What's New
 
+2024.04.19 (BR)
+- Added Rally to nearest stargate button in the right panel. (When available)
+- Added Rally to nearest stargate button in mass rally panel.
+
 2024.04.18 (BR)
 - Fixed war view mode crash when hitting "Tab" Key.
 

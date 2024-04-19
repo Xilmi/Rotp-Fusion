@@ -933,6 +933,12 @@ public class MainUI extends BasePanel implements IMapHandler {
         HelpSpec sp6 = helpUI.addBlueHelpText(x6, y6, w6, 2, text("MAIN_HELP_2F"));
         sp6.setLine(x6+w6, y6a, w-scaled(154), y6a, w-scaled(144), scaled(545));
 
+        int w6sg = scaled(225);
+        int x6sg = w-w6sg-s4;;
+        int y6sg = y5 - s20;
+        HelpSpec sp6sg = helpUI.addBrownHelpText(x6sg, y6sg, w6sg, 2, text("MAIN_HELP_2FSG"));
+        sp6sg.setLine(x6sg+w6sg*3/4, y6sg+sp6sg.height(), w-scaled(30), scaled(520));
+
         int x7 = x1+s50;
         int y7 = scaled(605);
         int w7 = scaled(350);

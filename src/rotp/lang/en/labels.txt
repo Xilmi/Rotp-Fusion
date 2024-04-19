@@ -653,6 +653,7 @@ MAIN_HELP_2C                      | Total planetary production from industry and
 MAIN_HELP_2D                      | Actual production adjusted for empire-wide trade income, spy and security costs, as well as missile base and ship maintenance.
 MAIN_HELP_2E                      | Change ship design to build in the planet's orbiting shipyard. Production accrued for unfinished ships will accelerate production of new ships by 50% until spent. Click or use the mousewheel to change the ship design.
 MAIN_HELP_2F                      | Set a rally point to automatically send newly constructed ships to another colony.
+MAIN_HELP_2FSG                    | Rally to the nearest stargate.<br>(Based on current top speed)
 MAIN_HELP_2G                      | Transport population to fortify another colony or send troops to invade an enemy planet. The colony incurs a one-time production cost for transporting.
 MAIN_HELP_2H                      | Completely abandon a planet by transferring all population from it to another colony.
 MAIN_HELP_2I                      | Current and maximum planet population. 100 represents a full home planet that has not been terraformed.

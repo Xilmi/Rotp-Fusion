@@ -205,6 +205,33 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     public StarSystem rallySystem()          { return relocationSystem; }
     public float spyTurn()                   { return spyTime - galaxy().beginningYear(); }
     public float scoutTurn()                 { return scoutTime - galaxy().beginningYear(); }
+    public void rallyNearestStarGate()       { rallyNearestSystem(owner.systemsWithStargate()); }
+    public void rallyNearestSystem(List<StarSystem> destList)  {
+    	if (destList.isEmpty())
+        	return;
+    	StarSystem from = system();
+    	float topSpeed = owner.tech().topSpeed();
+    	int destSize = destList.size();
+    	int minTime = Integer.MAX_VALUE;
+    	float minDist = Float.MAX_VALUE;
+    	int minIdx = -1;
+    	for (int dest=0; dest<destSize; dest++) {
+    		int travelTime = (int) Math.ceil(from.travelTimeTo(destList.get(dest), topSpeed));
+    		float distance = from.distanceTo(destList.get(dest));
+       		if (travelTime < minTime) {
+    			minTime = travelTime;
+    			minDist = distance;
+    			minIdx  = dest;
+        	}
+       		// Check for min distance for older non TopSpeed units
+       		else if (travelTime == minTime && distance < minDist) {
+    			minDist = distance;
+    			minIdx  = dest;	       			
+       		}
+    	}
+    	StarSystem destSys = destList.get(minIdx);
+    	rallySystem(destSys);
+    }
     public void rallySystem(StarSystem sys)  {
         if (canRallyTo(sys)) {
             relocationSystem = (sys == system()) ? null : sys;
