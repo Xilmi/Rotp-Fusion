@@ -14,7 +14,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed war view mode crash when hitting "Tab" Key.
 - Added Rally to nearest stargate button in the right panel. (When available)
 - Added Rally to nearest stargate button in mass rally panel.
-
+- Added Preview when hovering "Rally to nearest stargate" buttons
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

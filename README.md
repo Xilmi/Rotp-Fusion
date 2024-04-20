@@ -63,6 +63,9 @@ Later:
 
 ## What's New
 
+2024.04.20 (BR)
+- Added Preview when hovering "Rally to nearest stargate" buttons
+
 2024.04.19 (BR)
 - Added Rally to nearest stargate button in the right panel. (When available)
 - Added Rally to nearest stargate button in mass rally panel.

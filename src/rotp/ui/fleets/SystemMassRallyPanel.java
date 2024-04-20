@@ -30,6 +30,7 @@ import java.util.List;
 
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemInfo;
+import rotp.model.empires.SystemView;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.main.SystemPanel;
@@ -38,6 +39,7 @@ import rotp.ui.main.SystemViewInfoPane;
 public class SystemMassRallyPanel extends SystemPanel {
     private static final long serialVersionUID = 1L;
     FleetUI topParent;
+    private boolean hasRallyPreview = false;
 
     public SystemMassRallyPanel(FleetUI p) {
         topParent = p;
@@ -53,11 +55,12 @@ public class SystemMassRallyPanel extends SystemPanel {
         }
 
         player().startRallies(topParent.filteredSystems, topParent.targetSystem);
+        hasRallyPreview = false;
         topParent.clearMapSelections();
         topParent.showQueryPanel();
         topParent.repaint();
     }
-    public void startRallyToGates() {
+    public void startRallyToGates(int action) {
     	List<StarSystem> destSystems = player().systemsWithStargate();
         if (destSystems.isEmpty()) {
         	misClick();
@@ -67,11 +70,14 @@ public class SystemMassRallyPanel extends SystemPanel {
     	SystemInfo sv = player.sv;
     	for (StarSystem sys: topParent.filteredSystems)
     		if (sys != null && !sys.hasStargate(player))
-    			sv.rallyNearestSystem(sys.id, destSystems);
+    			sv.rallyNearestSystem(sys.id, destSystems, action);
 
-        topParent.clearMapSelections();
-        topParent.showQueryPanel();
-        topParent.repaint();
+    	hasRallyPreview = (action == SystemView.PREVIEW_RALLY);
+    	if (action == SystemView.SET_RALLY) {
+    		topParent.clearMapSelections();
+            topParent.showQueryPanel();
+            topParent.repaint();
+    	}
     }
     private boolean hasStarGates()	 { return !player().systemsWithStargate().isEmpty(); }
     public boolean canStartRallies() {
@@ -185,8 +191,15 @@ public class SystemMassRallyPanel extends SystemPanel {
 
         	topParent.drawGreenButton(g, "Start rally to nearest Stargates", toGateBox, hoverBox, h-s98);
             
-            if (hasStarGates())
+            if (hasStarGates()) {
             	topParent.drawGreenButton(g,text("FLEETS_RALLY_TO_STARGATES"), toGateBox, hoverBox, h-s98);
+            	if (hoverBox == toGateBox) {
+            		if (!hasRallyPreview)
+            			startRallyToGates(SystemView.PREVIEW_RALLY);
+            	}
+            	else if (hasRallyPreview)
+            		startRallyToGates(SystemView.CLEAR_PREVIEW);
+            }
             else
             	topParent.drawGrayButton(g,text("FLEETS_RALLY_TO_STARGATES"), toGateBox, hoverBox, h-s98);
 
@@ -215,6 +228,8 @@ public class SystemMassRallyPanel extends SystemPanel {
                 hoverBox = cancelBox;
             else if (startBox.contains(x,y))
                 hoverBox = startBox;
+            else if (toGateBox.contains(x,y))
+                hoverBox = toGateBox;
 
             if (hoverBox != prevHover)
                 repaint();
@@ -240,13 +255,14 @@ public class SystemMassRallyPanel extends SystemPanel {
             int y = e.getY();
 
             if (cancelBox.contains(x,y)) {
+            	hasRallyPreview = false;
                 topParent.clearMapSelections();
                 topParent.showQueryPanel();
             }
             else if (startBox.contains(x,y)) 
                 startRallies();
             else if (toGateBox.contains(x,y)) 
-                startRallyToGates();
+                startRallyToGates(SystemView.SET_RALLY);
         }
     }
 }

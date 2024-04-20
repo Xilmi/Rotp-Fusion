@@ -40,6 +40,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import rotp.model.colony.Colony;
+import rotp.model.empires.SystemView;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.Design;
 import rotp.model.ships.ShipLibrary;
@@ -530,10 +531,14 @@ public class EmpireSystemPanel extends SystemPanel {
             g.setPaint(prevPaint);
 
             Stroke prevStroke = g.getStroke();
-            if ((hoverBox == rallyToSGBox) && enabled)
-                g.setColor(SystemPanel.yellowText);
-            else
-                g.setColor(gray175C);
+            if ((hoverBox == rallyToSGBox) && enabled) {
+            	previewRallyPath();
+            	g.setColor(SystemPanel.yellowText);
+            }
+            else {
+            	clearRallyPathPreview();
+            	g.setColor(gray175C);
+            }
 
             g.setStroke(stroke2);
             g.drawRoundRect(x,y,w,h,s15,s15);
@@ -673,8 +678,14 @@ public class EmpireSystemPanel extends SystemPanel {
             }
             return starBackground;
         }
-        private void rallyToNearestSG() {
-        	player().sv.rallyNearestStarGate(parentSpritePanel.systemViewToDisplay().id);
+        private void rallyToNearestSG(int action) {
+        	player().sv.rallyNearestStarGate(parentSpritePanel.systemViewToDisplay().id, action);
+        }
+        private void previewRallyPath() {
+        	rallyToNearestSG (SystemView.PREVIEW_RALLY);
+        }
+        private void clearRallyPathPreview() {
+        	rallyToNearestSG (SystemView.CLEAR_PREVIEW);
         }
         private boolean rallyToSGEnabled()	{
         	StarSystem sys = parentSpritePanel.systemViewToDisplay();
@@ -684,7 +695,7 @@ public class EmpireSystemPanel extends SystemPanel {
         @Override
         public void mouseClicked(MouseEvent arg0) { }
         @Override
-        public void mouseEntered(MouseEvent arg0) { }
+        public void mouseEntered(MouseEvent arg0) {}
         @Override
         public void mouseExited(MouseEvent arg0) {
             if (hoverBox != null) {
@@ -748,7 +759,7 @@ public class EmpireSystemPanel extends SystemPanel {
             }
             else if (rallyToSGBox.contains(x,y)){
                 if (rallyToSGEnabled()) {
-                	rallyToNearestSG();
+                	rallyToNearestSG(SystemView.SET_RALLY);
                     parentSpritePanel.repaint();
                 }
             }

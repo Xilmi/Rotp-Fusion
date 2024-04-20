@@ -50,6 +50,7 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.game.IFlagOptions;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
+import rotp.ui.sprites.ShipRelocationSprite;
 import rotp.util.Base;
 import rotp.util.ImageManager;
 import rotp.util.ModifierKeysState;
@@ -60,6 +61,9 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     protected static final int INNER_SYSTEM  = 1;
     protected static final int BORDER_SYSTEM = 2;
     protected static final int ATTACK_TARGET = 3;
+    public	  static final int SET_RALLY     = 1;
+    public	  static final int PREVIEW_RALLY = 0;
+    public	  static final int CLEAR_PREVIEW = -1;
 
     // BR: Flag locations
     private static final int SIDE		= 133;			// Flag icon width and height
@@ -205,8 +209,13 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     public StarSystem rallySystem()          { return relocationSystem; }
     public float spyTurn()                   { return spyTime - galaxy().beginningYear(); }
     public float scoutTurn()                 { return scoutTime - galaxy().beginningYear(); }
-    public void rallyNearestStarGate()       { rallyNearestSystem(owner.systemsWithStargate()); }
-    public void rallyNearestSystem(List<StarSystem> destList)  {
+    public void rallyNearestStarGate(int action) { rallyNearestSystem(owner.systemsWithStargate(), action); }
+    public void rallyNearestSystem(List<StarSystem> destList, int action)  {
+    	if (action == CLEAR_PREVIEW) {
+    		ShipRelocationSprite rallySprite = system().rallySprite();
+    		rallySprite.hoveringDest(null);
+    		rallySprite.hovering(false);
+    	}
     	if (destList.isEmpty())
         	return;
     	StarSystem from = system();
@@ -229,8 +238,15 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     			minIdx  = dest;	       			
        		}
     	}
-    	StarSystem destSys = destList.get(minIdx);
-    	rallySystem(destSys);
+		StarSystem destSys = destList.get(minIdx);
+    	if (action == SET_RALLY) {
+    	   	rallySystem(destSys);
+    	}
+    	else if (action == PREVIEW_RALLY) {
+    		ShipRelocationSprite rallySprite = from.rallySprite();
+    		rallySprite.hoveringDest(destSys);
+    		rallySprite.hovering(true);
+    	}
     }
     public void rallySystem(StarSystem sys)  {
         if (canRallyTo(sys)) {
