@@ -336,7 +336,7 @@ public class SystemMassQueryPanel extends BasePanel {
             else if (topParent.showingSpendingPanel())
                 drawShipSpendingHeader(g,w,h);
         }
-        private void drawRallyPointHeader(Graphics2D g, int w, int h) {
+        private void drawRallyPointHeader(Graphics2D g, int w, int h) { // TODO BR: Add Chain Rally
             g.setFont(narrowFont(25));
             String title = text("FLEETS_SET_RALLY_POINTS");
             drawShadowedString(g, title, 3, s5, h-s75, SystemPanel.textShadowC, SystemPanel.orangeText);

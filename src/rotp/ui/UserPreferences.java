@@ -140,7 +140,7 @@ public class UserPreferences implements IMainOptions {
 //		}
 //		save();
 //	}
-	public static void graphicsMode(String s) { graphicsMode = s; }
+	public static void graphicsMode(String s) { graphicsMode = s; save();}
 	public static String graphicsMode()	      { return graphicsMode; }
 //	public static void toggleGraphicsMode()   {
 //		switch(graphicsMode) {
@@ -161,7 +161,7 @@ public class UserPreferences implements IMainOptions {
 //		}
 //		save();
 //	}
-	public static void texturesMode(String s) { texturesMode = s; }
+	public static void texturesMode(String s) { texturesMode = s; save();}
 	public static String texturesMode()	      { return texturesMode; }
 	public static boolean texturesInterface() { return texturesMode.equals(TEXTURES_INTERFACE) || texturesMode.equals(TEXTURES_BOTH); }
 	public static boolean texturesMap()	      { return texturesMode.equals(TEXTURES_MAP) || texturesMode.equals(TEXTURES_BOTH); }
@@ -175,7 +175,7 @@ public class UserPreferences implements IMainOptions {
 //		}
 //		save();
 //	}
-	public static void sensitivityMode(String s) { sensitivityMode = s; }
+	public static void sensitivityMode(String s) { sensitivityMode = s; save();}
 	public static String sensitivityMode()	     { return sensitivityMode; }
 	// public static boolean sensitivityHigh()	 { return sensitivityMode.equals(SENSITIVITY_HIGH); }
 	public static boolean sensitivityMedium()    { return sensitivityMode.equals(SENSITIVITY_MEDIUM); }
