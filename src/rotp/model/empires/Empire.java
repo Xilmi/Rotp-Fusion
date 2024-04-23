@@ -79,6 +79,7 @@ import rotp.model.game.IGameOptions;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.model.incidents.GenocideIncident;
 import rotp.model.planet.PlanetType;
+import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
 import rotp.model.ships.ShipLibrary;
@@ -752,8 +753,16 @@ public final class Empire implements Base, NamedObject, Serializable {
             boolean ChainRally = options().defaultChainRally();
             if (ModifierKeysState.isShiftDown())
             	ChainRally = !ChainRally;
-            if (ChainRally)
-            	chainRally(source, dest, SystemView.SET_RALLY, null);
+            if (ChainRally) {
+            	ColonyShipyard shipyard = source.colony().shipyard();
+        		Float speed = null;
+        		Design design = shipyard.design();
+        		if (design instanceof ShipDesign) {
+        			ShipDesign shipDesign = (ShipDesign) design;
+        			speed = options().chainRallySpeed(this, shipDesign);
+        		}
+            	chainRally(source, dest, SystemView.SET_RALLY, speed);
+            }
             else
             	sv.rallySystem(source.id, dest);
         }

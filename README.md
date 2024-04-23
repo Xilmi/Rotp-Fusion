@@ -68,6 +68,7 @@ Later:
  - Fleet: Based on the speed of the ship under construction or the slowest ship in the selected fleet.
  - Min: Based on the speed of the slowest active ship design.
  - Top: Based on the top speed allowed by currently known technologies.
+- Fix: Right click on star will look at the selected speed.
 
 2024.04.22 (BR)
 - New Option: Chain Rally that choose the quickest way to go to destination.
