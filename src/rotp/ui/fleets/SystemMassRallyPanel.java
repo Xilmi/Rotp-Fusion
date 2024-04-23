@@ -28,10 +28,14 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
+import rotp.model.colony.ColonyShipyard;
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemInfo;
 import rotp.model.empires.SystemView;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
+import rotp.model.ships.Design;
+import rotp.model.ships.ShipDesign;
 import rotp.ui.BasePanel;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.main.SystemViewInfoPane;
@@ -53,8 +57,26 @@ public class SystemMassRallyPanel extends SystemPanel {
         	misClick();
         	return;
         }
+        if (chainRally()) {
+            Empire player = player();
+            StarSystem target = topParent.targetSystem;
+        	IGameOptions options = options();
+        	List<StarSystem> gates = player.systemsWithStargate();
+        	for (StarSystem sys  : topParent.filteredSystems) {
+        		ColonyShipyard shipyard = sys.colony().shipyard();
+        		Design design = shipyard.design();
+        		Float speed = null;
+        		if (design instanceof ShipDesign) {
+        			ShipDesign shipDesign = (ShipDesign) design;
+        			speed = options.chainRallySpeed(player, shipDesign);
+        		}
+        		player.chainRallies(sys, gates, target, SystemView.SET_RALLY, speed);
+        	}
+        }
+        else {
+        	player().startRallies(topParent.filteredSystems, topParent.targetSystem);
+        }
 
-        player().startRallies(topParent.filteredSystems, topParent.targetSystem);
         hasRallyPreview = false;
         topParent.clearMapSelections();
         topParent.showQueryPanel();
@@ -68,9 +90,18 @@ public class SystemMassRallyPanel extends SystemPanel {
         }
         Empire player = player();
     	SystemInfo sv = player.sv;
+    	IGameOptions options = options();
     	for (StarSystem sys: topParent.filteredSystems)
-    		if (sys != null && !sys.hasStargate(player))
-    			sv.rallyNearestSystem(sys.id, destSystems, action);
+    		if (sys != null && !sys.hasStargate(player)) {
+        		ColonyShipyard shipyard = sys.colony().shipyard();
+        		Design design = shipyard.design();
+        		Float speed = null;
+        		if (design instanceof ShipDesign) {
+        			ShipDesign shipDesign = (ShipDesign) design;
+        			speed = options.chainRallySpeed(player, shipDesign);
+        		}
+    			sv.rallyNearestSystem(sys.id, destSystems, action, speed);
+    		}
 
     	hasRallyPreview = (action == SystemView.PREVIEW_RALLY);
     	if (action == SystemView.SET_RALLY) {
@@ -79,6 +110,7 @@ public class SystemMassRallyPanel extends SystemPanel {
             topParent.repaint();
     	}
     }
+    private boolean chainRally()     { return topParent.chainRally(); }
     private boolean hasStarGates()	 { return !player().systemsWithStargate().isEmpty(); }
     public boolean canStartRallies() {
         StarSystem target = topParent.hoverSystem;

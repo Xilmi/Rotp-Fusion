@@ -25,6 +25,9 @@ import static rotp.model.game.IMainOptions.raceStatusLog;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import rotp.model.empires.Empire;
+import rotp.model.galaxy.ShipFleet;
+import rotp.model.ships.ShipDesign;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -70,7 +73,6 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 			put("Both",		MOD_UI + "TARGET_BOMBARD_BOTH");
 		}
 	};
-	default String selectedTargetBombard()		{ return targetBombard.get(); }
 	default boolean targetBombardAllowedForAI() {
 		switch (targetBombard.get().toUpperCase()) {
 			case  "BOTH":
@@ -162,7 +164,6 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default boolean selectedTrackUFOsAcrossTurns() { return trackUFOsAcrossTurns.get(); }
 
 	ParamBoolean allowTechStealing	= new ParamBoolean(MOD_UI, "ALLOW_TECH_STEALING", true);
-	default boolean selectedAllowTechStealing()	{ return allowTechStealing.get(); }
 	default boolean forbidTechStealing()	 	{ return !allowTechStealing.get(); }
 
 	ParamInteger maxSecurityPct		= new ParamInteger(MOD_UI, "MAX_SECURITY_PCT", 10, 10, 90, 1, 5, 20);
@@ -218,7 +219,56 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default boolean playerVotesLast()	{ return councilPlayerVote.get().equalsIgnoreCase("Last"); }
 
 	ParamBoolean defaultForwardRally	= new ParamBoolean(MOD_UI, "DEFAULT_FORWARD_RALLY", true);
-	default boolean defaultForwardRally()		{ return defaultForwardRally.get(); }
+	default boolean defaultForwardRally()	{ return defaultForwardRally.get(); }
+
+	ParamBoolean defaultChainRally		= new ParamBoolean(MOD_UI, "DEFAULT_CHAIN_RALLY", true);
+	default boolean defaultChainRally()		{ return defaultChainRally.get(); }
+
+	ParamList chainRallySpeed			= new ParamList( MOD_UI, "CHAIN_RALLY_SPEED", "Fleet") {
+		{
+			showFullGuide(true);
+			put("Fleet",	MOD_UI + "CHAIN_RALLY_SPEED_FLEET");
+			put("Min",		MOD_UI + "CHAIN_RALLY_SPEED_MIN");
+			put("Top",		MOD_UI + "CHAIN_RALLY_SPEED_TOP");
+		}
+	};
+	default String chainRallySpeed()		{ return chainRallySpeed.get(); }
+	default Float chainRallySpeed(Empire player, ShipFleet fleet)	{
+		if (fleet == null)
+			return chainRallySpeed(player);
+		switch (chainRallySpeed.get().toUpperCase()) {
+			case "FLEET" :
+				return fleet.slowestStackSpeed();
+			case "MIN" :
+				return fleet.empire().minActiveDesignSpeed();
+			case "TOP" :
+				return fleet.empire().tech().topSpeed();
+		}
+		return null;
+	}
+	default Float chainRallySpeed(Empire player, ShipDesign design)	{
+		if (design == null)
+			return chainRallySpeed(player);
+		switch (chainRallySpeed.get().toUpperCase()) {
+			case "FLEET" :
+				return (float) design.warpSpeed();
+			case "MIN" :
+				return player.minActiveDesignSpeed();
+			case "TOP" :
+				return player.tech().topSpeed();
+		}
+		return null;
+	}
+	default Float chainRallySpeed(Empire player)	{
+		switch (chainRallySpeed.get().toUpperCase()) {
+			case "FLEET" :
+			case "MIN" :
+				return player.minActiveDesignSpeed();
+			case "TOP" :
+				return player.tech().topSpeed();
+		}
+		return null;
+	}
 
 	// ==================== GUI List Declarations ====================
 	static LinkedList<IParam> modDynamicAOptions() {
@@ -315,6 +365,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				new ParamTitle("GAME_AUTOMATION"),
 				autoBombard_, autoColonize_, spyOverSpend,
 				transportAutoEco, defaultForwardRally,
+				defaultChainRally, 	chainRallySpeed,
 				showAlliancesGNN, hideMinorReports, showAllocatePopUp, showLimitedWarnings,
 				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
 				)));

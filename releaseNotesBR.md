@@ -2,19 +2,20 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Console improvement...
-- New Option: Default Forward Rally.
-  - To set the default action when setting up a fleet rally.
-- New "war view" mode:
-  - Toggled with "W" Key (Good companion of "F7"/"F8")
-  - Auto off when selected planet is not in danger.
-  - War view mode show only the fleets targeting the planet in danger.
-  - Incoming Fleets are listed in the Right Panel (Scrollable).
-- Removed the need need to move the mouse to activate/deactivate "war view" mode!
-- Fixed war view mode crash when hitting "Tab" Key.
-- Added Rally to nearest stargate button in the right panel. (When available)
-- Added Rally to nearest stargate button in mass rally panel.
-- Added Preview when hovering "Rally to nearest stargate" buttons
+- New Buttons "Rally to nearest sargate"
+  - In the right panel. (When stargate are available)
+  - In mass rally panel.
+  - With preview.
+- New Option: Chain Rally that select the quickest way through stargate to go to destination.
+  - Disabled by default, but can be set in "In Game Option" panel.
+  - Can be temporary changed in the "Set Rally Point" panel.
+  - Works with the right click on star systems (Inverted if Shift key is down)
+  - Can be used in Mass Rally Panel too.
+- New option to select the fleet speed to use when building a chain rally through stargate.
+  - Fleet: Based on the speed of the ship under construction or the slowest ship in the selected fleet.
+  - Min: Based on the speed of the slowest active ship design.
+  - Top: Based on the top speed allowed by currently known technologies.
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

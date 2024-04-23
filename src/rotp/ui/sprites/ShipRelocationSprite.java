@@ -41,14 +41,31 @@ public class ShipRelocationSprite extends MapSprite {
         clickedDest = null;
         hoveringDest = null;
     }
+    public void clearPreview() {
+        pathSprite = null;
+        hoveringDest = null;
+        hovering(false);
+    }
     public void stop() {
         pathSprite = null;
         clickedDest = null;
         hoveringDest = null;
     }
     public boolean hasSelectedDestination()   { return clickedDest != null; }
-    public void clickedDest(StarSystem sv)    { clickedDest = sv; }
-    public void hoveringDest(StarSystem sv)   { hoveringDest = sv; }
+    public void clickedDest(StarSystem sys)   { clickedDest = sys; }
+    public void hoveringDest(StarSystem sys)  { hoveringDest = sys; }
+    public void previewDestRally(StarSystem sys) {
+    	if (sys == null) {
+    		clearPreview();
+    		return;
+    	}
+    	else if (clickedDest == sys) // Path already shown
+    		return;
+    	else {
+	    	hoveringDest = sys;
+	    	hovering(true);
+    	}
+    }
     public StarSystem rallySystem()           { return player().sv.rallySystem(from.id); }
     public StarSystem homeSystemView()        { return (StarSystem) source(); }
     public boolean forwardRallies()           { return player().sv.forwardRallies(from.id); }

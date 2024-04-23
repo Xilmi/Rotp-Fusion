@@ -41,6 +41,7 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.Design;
 import rotp.ui.BasePanel;
+import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
 
 public class SystemMassQueryPanel extends BasePanel {
@@ -293,10 +294,12 @@ public class SystemMassQueryPanel extends BasePanel {
         private final Rectangle transportBox  = new Rectangle();
         private final Rectangle spendingBox  = new Rectangle();
         private final Rectangle shipNameBox = new Rectangle();
+        private final Rectangle chainRallyBox = new Rectangle();
         private final Polygon prevDesign = new Polygon();
         private final Polygon nextDesign = new Polygon();
         private Shape hoverBox;
         Area textureArea;
+
 
         public SystemAction() {
             initModel();
@@ -336,11 +339,37 @@ public class SystemMassQueryPanel extends BasePanel {
             else if (topParent.showingSpendingPanel())
                 drawShipSpendingHeader(g,w,h);
         }
-        private void drawRallyPointHeader(Graphics2D g, int w, int h) { // TODO BR: Add Chain Rally
+        private void drawRallyPointHeader(Graphics2D g, int w, int h) {
             g.setFont(narrowFont(25));
             String title = text("FLEETS_SET_RALLY_POINTS");
-            drawShadowedString(g, title, 3, s5, h-s75, SystemPanel.textShadowC, SystemPanel.orangeText);
+            drawShadowedString(g, title, 3, s5, h-s95, SystemPanel.textShadowC, SystemPanel.orangeText);
+            //drawShadowedString(g, title, 3, s5, h-s75, SystemPanel.textShadowC, SystemPanel.orangeText);
 
+            int leftM  = s5;
+            int checkW = s12;
+            int checkX = leftM;
+            int y0 = h-s75;
+            Stroke prev = g.getStroke();
+            chainRallyBox.setBounds(checkX, y0-checkW, checkW, checkW);
+            g.setStroke(stroke2);
+            g.setColor(FleetUI.backHiC);
+            g.fill(chainRallyBox);
+            if (hoverBox == chainRallyBox) {
+                g.setColor(Color.yellow);
+                g.draw(chainRallyBox);
+            }
+            if (chainRally()) {
+                g.setColor(SystemPanel.whiteText);
+                g.drawLine(checkX-s1, y0-s6, checkX+s3, y0-s3);
+                g.drawLine(checkX+s3, y0-s3, checkX+checkW, y0-s12);
+            }
+            g.setStroke(prev);
+            String chain = text("MAIN_RALLY_CHAIN");
+            g.setFont(narrowFont(16));
+
+            g.setColor(MainUI.darkShadowC);
+            drawString(g, chain, leftM+s15, y0-s1);
+            
             g.setColor(FleetUI.backHiC);
             g.fillRect(0, h-s70, w, s70);
 
@@ -359,7 +388,7 @@ public class SystemMassQueryPanel extends BasePanel {
             if (rallyCount == 0)
                 return;
 
-            int y0 = h-s52;
+            y0 = h-s52;
             g.setColor(SystemPanel.blackText);
             String desc = text("FLEETS_STOP_RALLIES_DESC", str(rallyCount));
             List<String> descLines = scaledNarrowWrappedLines(g, desc, w-s20, 2, 16, 14);
@@ -639,8 +668,10 @@ public class SystemMassQueryPanel extends BasePanel {
             for (StarSystem sys: topParent.filteredSystems) 
                 sys.colony().shipyard().switchToDesign(topParent.currDesign);
         }
+        private void toggleChainRally()     { topParent.toggleChainRally(); }
+        private boolean chainRally()        { return topParent.chainRally(); }
         private boolean rallyPointEnabled() { return player().canRallyFleets(); }
-        private boolean transportEnabled() { return player().canSendTransports(); }
+        private boolean transportEnabled()  { return player().canSendTransports(); }
         private Image initializedBackgroundImage(int w, int h) {
             if ((starBackground == null)
             || (starBackground.getWidth() != w)
@@ -671,7 +702,6 @@ public class SystemMassQueryPanel extends BasePanel {
                 return;
             int x = e.getX();
             int y = e.getY();
-
             if (shipDesignBox.contains(x,y)){
                 nextShipDesign(true);
                 topParent.repaint();
@@ -712,6 +742,10 @@ public class SystemMassQueryPanel extends BasePanel {
                 topParent.showSpendingPanel();
                 repaint();
             }
+            else if (this.chainRallyBox.contains(x,y)){
+                toggleChainRally();
+                topParent.repaint();
+            }
         }
         @Override
         public void mouseDragged(MouseEvent arg0) { }
@@ -720,9 +754,8 @@ public class SystemMassQueryPanel extends BasePanel {
             int x = e.getX();
             int y = e.getY();
             Shape prevHover = hoverBox;
-
             hoverBox = null;
-
+            
             if (shipDesignBox.contains(x,y))
                 hoverBox = shipDesignBox;
             else if (shipNameBox.contains(x,y))
@@ -741,8 +774,10 @@ public class SystemMassQueryPanel extends BasePanel {
                 hoverBox = stopRalliesBox;
             else if (stopTransportsBox.contains(x,y))
                 hoverBox = stopTransportsBox;
+            else if (chainRallyBox.contains(x,y))
+                hoverBox = chainRallyBox;
 
-            if (prevHover != hoverBox)
+            if (hoverBox != prevHover)
                 repaint();
         }
         @Override

@@ -45,11 +45,13 @@ import javax.swing.border.Border;
 
 import rotp.Rotp;
 import rotp.model.Sprite;
+import rotp.model.colony.ColonyShipyard;
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemView;
 import rotp.model.galaxy.Location;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
@@ -95,6 +97,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
     public HashMap<ShipDesign, BufferedImage> designImageCache = new HashMap<>();
     private GalaxyMapPanel map;
     private LinearGradientPaint backGradient;
+    private boolean chainRally = options().defaultChainRally();
 
     private final List<Sprite> controls = new ArrayList<>();
 
@@ -167,6 +170,8 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         resetAllFleetFilters();
         showQueryPanel();
     }
+    public boolean chainRally()            { return chainRally; }
+    public void toggleChainRally()         { chainRally = !chainRally; }
     public boolean showingQueryPanel()     { return currentPane.equals(QUERY_PANEL); }
     public boolean showingRallyPanel()     { return currentPane.equals(RALLY_PANEL); }
     public boolean showingTransportPanel() { return currentPane.equals(TRANSPORT_PANEL); }
@@ -685,8 +690,37 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         List<FlightPathSprite> sprites = FlightPathSprite.workingPaths();
         sprites.clear();
         if (target != null) {
-            for (StarSystem sys: filteredSystems)
-                sprites.add(new FlightPathSprite(sys, target));
+        	if (chainRally()) {
+                Empire player = player();
+            	IGameOptions options = options();
+        		for (StarSystem sys: filteredSystems) {
+            		ColonyShipyard shipyard = sys.colony().shipyard();
+            		Float speed = null;
+            		Design design = shipyard.design();
+            		if (design instanceof ShipDesign) {
+            			ShipDesign shipDesign = (ShipDesign) design;
+            			speed = options.chainRallySpeed(player, shipDesign);
+            		}
+        			List<StarSystem> chainList = player().getRallyChain(sys, target, speed);
+        			if (chainList == null)
+        				sprites.add(new FlightPathSprite(sys, target));
+        			else
+	        	    	switch (chainList.size()) {
+		        	    	case 1:
+		        	    		sprites.add(new FlightPathSprite(sys, chainList.get(0)));
+		        	    		sprites.add(new FlightPathSprite(chainList.get(0), target));
+		        	    		break;
+		        	    	case 2:
+		        	    		sprites.add(new FlightPathSprite(sys, chainList.get(0)));
+		        	    		sprites.add(new FlightPathSprite(chainList.get(0), chainList.get(1)));
+		        	    		sprites.add(new FlightPathSprite(chainList.get(1), target));
+	        	    	}
+        		}
+         	}
+        	else {
+                for (StarSystem sys: filteredSystems)
+                    sprites.add(new FlightPathSprite(sys, target));
+        	}
         }
     }
     private void resetTransportPaths() {
@@ -971,23 +1005,29 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         
         int x2 = w-scaled(650);
         int w2 = scaled(360);
-        int y2 = scaled(120);
+        int y2 = y1 + s100;
         HelpUI.HelpSpec sp2 = helpUI.addBrownHelpText(x2, y2, w2, 3, text("FLEETS_HELP_1B"));
         sp2.setLine(x2+w2, y2+(sp2.height()/2), x1a, scaled(145));
         
-        int y3 = scaled(200);
+        int y3 = y2 + s82;
         HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x2, y3, w2, 2, text("FLEETS_HELP_1C"));
         sp3.setLine(x2+w2, y3+(sp3.height()/2), x1a, scaled(215));
         
-        int x7 = w-scaled(650);
-        int w7 = scaled(360);
+        int x6 = x2;
+        int w6 = w2;
+        int y6 = y3 + s64;
+        HelpUI.HelpSpec sp6 = helpUI.addBrownHelpText(x6,y6,w6, 5, text("FLEETS_HELP_1H"));
+        sp6.setLine(x6+w6, y6+(sp6.height()/2), x1a, scaled(293));        	
+
+        int x7 = x2;
+        int w7 = w2;
         int y7 = scaled(540);
         HelpUI.HelpSpec sp7 = helpUI.addBrownHelpText(x7,y7,w7, 5, text("FLEETS_HELP_1G"));
-        sp7.setLine(x7+w7, y7+(sp7.height()/2), x1a, scaled(588));        	
+        sp7.setLine(x7+w7, y7+(sp7.height()/2), x1a+s10, scaled(588));        	
 
         helpUI.open(this);
     }
-   private void loadHelpFrame1() {
+    private void loadHelpFrame1() {
         int w = getWidth();
         HelpUI helpUI = RotPUI.helpUI();
         helpUI.clear();

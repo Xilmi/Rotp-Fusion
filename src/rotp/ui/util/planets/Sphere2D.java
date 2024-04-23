@@ -254,30 +254,30 @@ public class Sphere2D implements Base {
 		}
 		return (a1/numX << 24)+(r1/numX << 16)+(g1/numX << 8)+b1/numX;
 	}
-	private FastImage squishCloudsToOval(FastImage clouds, FastImage base) {
-		// must be same size as terrain base image
-		if ((clouds.getWidth() != base.getWidth())
-				|| (clouds.getHeight() != base.getHeight()))
-			return clouds;
-
-		for (int y=0;y<base.getHeight();y++) {
-			int x0 = -1;
-			int x1 = -1;
-			for (int x=0;x<base.getWidth();x++) {
-				if (base.getAlpha(x, y) == 255) {
-					x0 = x;
-					break;
-				}
-			}
-			for (int x=base.getWidth()-1;x>=0;x--) {
-				if (base.getAlpha(x, y) == 255) {
-					x1 = x;
-					break;
-				}
-			}
-			clouds.squishRow(y, x0, x1);
-		}
-
-		return clouds;
-	}
+//	private FastImage squishCloudsToOval(FastImage clouds, FastImage base) {
+//		// must be same size as terrain base image
+//		if ((clouds.getWidth() != base.getWidth())
+//				|| (clouds.getHeight() != base.getHeight()))
+//			return clouds;
+//
+//		for (int y=0;y<base.getHeight();y++) {
+//			int x0 = -1;
+//			int x1 = -1;
+//			for (int x=0;x<base.getWidth();x++) {
+//				if (base.getAlpha(x, y) == 255) {
+//					x0 = x;
+//					break;
+//				}
+//			}
+//			for (int x=base.getWidth()-1;x>=0;x--) {
+//				if (base.getAlpha(x, y) == 255) {
+//					x1 = x;
+//					break;
+//				}
+//			}
+//			clouds.squishRow(y, x0, x1);
+//		}
+//
+//		return clouds;
+//	}
 }

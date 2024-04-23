@@ -50,7 +50,6 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.game.IFlagOptions;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
-import rotp.ui.sprites.ShipRelocationSprite;
 import rotp.util.Base;
 import rotp.util.ImageManager;
 import rotp.util.ModifierKeysState;
@@ -209,23 +208,26 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     public StarSystem rallySystem()          { return relocationSystem; }
     public float spyTurn()                   { return spyTime - galaxy().beginningYear(); }
     public float scoutTurn()                 { return scoutTime - galaxy().beginningYear(); }
-    public void rallyNearestStarGate(int action) { rallyNearestSystem(owner.systemsWithStargate(), action); }
-    public void rallyNearestSystem(List<StarSystem> destList, int action)  {
-    	if (action == CLEAR_PREVIEW) {
-    		ShipRelocationSprite rallySprite = system().rallySprite();
-    		rallySprite.hoveringDest(null);
-    		rallySprite.hovering(false);
-    	}
+    public StarSystem rallyNearestStarGate(int action, Float speed) {
+    	return rallyNearestSystem(owner.systemsWithStargate(), action, speed);
+    }
+    public StarSystem rallyNearestSystem(List<StarSystem> destList, int action, Float speed)  {
+    	if (action == CLEAR_PREVIEW)
+    		system().rallySprite().previewDestRally(null);
     	if (destList.isEmpty())
-        	return;
+        	return null;
+
     	StarSystem from = system();
-    	float topSpeed = owner.tech().topSpeed();
+    	if (speed == null)
+    		speed = options().chainRallySpeed(owner);
+    	
+    	//float topSpeed = owner.tech().topSpeed();
     	int destSize = destList.size();
     	int minTime = Integer.MAX_VALUE;
     	float minDist = Float.MAX_VALUE;
     	int minIdx = -1;
     	for (int dest=0; dest<destSize; dest++) {
-    		int travelTime = (int) Math.ceil(from.travelTimeTo(destList.get(dest), topSpeed));
+    		int travelTime = (int) Math.ceil(from.travelTimeTo(destList.get(dest), speed));
     		float distance = from.distanceTo(destList.get(dest));
        		if (travelTime < minTime) {
     			minTime = travelTime;
@@ -239,13 +241,27 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
        		}
     	}
 		StarSystem destSys = destList.get(minIdx);
-    	if (action == SET_RALLY) {
+    	if (action == SET_RALLY)
     	   	rallySystem(destSys);
-    	}
-    	else if (action == PREVIEW_RALLY) {
-    		ShipRelocationSprite rallySprite = from.rallySprite();
-    		rallySprite.hoveringDest(destSys);
-    		rallySprite.hovering(true);
+    	else if (action == PREVIEW_RALLY)
+    		from.rallySprite().previewDestRally(destSys);
+    	return destSys;
+    }
+    public void rallySys(StarSystem sys, int action) { // BR: used by chain rally
+    	if (canRallyTo(sys) && sys != system()) {
+    		switch (action) {
+        	case SET_RALLY:
+        		rallySystem(sys);
+        		return;
+        	case PREVIEW_RALLY:
+        		system().rallySprite().previewDestRally(sys);
+        		return;
+        	case CLEAR_PREVIEW:
+        		system().rallySprite().previewDestRally(null);
+        		return;
+        	default:
+        		System.err.println("Wrong Rally action !!!");
+        	}
     	}
     }
     public void rallySystem(StarSystem sys)  {

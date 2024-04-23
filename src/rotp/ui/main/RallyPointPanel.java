@@ -33,14 +33,24 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.List;
+
 import rotp.model.Sprite;
+import rotp.model.colony.ColonyShipyard;
+import rotp.model.empires.Empire;
+import rotp.model.empires.SystemView;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
+import rotp.model.ships.Design;
+import rotp.model.ships.ShipDesign;
 import rotp.ui.BasePanel;
 import rotp.ui.sprites.ShipRelocationSprite;
 
 public class RallyPointPanel extends SystemPanel {
     private static final long serialVersionUID = 1L;
-    BasePanel topPane;
+    private List<StarSystem> lastPreviewChain;
+    private BasePanel topPane;
+    private boolean chainRally = options().defaultChainRally();
+    
     public RallyPointPanel(SpriteDisplayPanel p) {
         parentSpritePanel = p;
         init();
@@ -59,12 +69,38 @@ public class RallyPointPanel extends SystemPanel {
     public boolean useHoveringSprite(Sprite o) {
         if (!(parentSpritePanel.spriteToDisplay() instanceof ShipRelocationSprite))
             return false;
-
         ShipRelocationSprite sprite = (ShipRelocationSprite) parentSpritePanel.spriteToDisplay();
-        if (o instanceof StarSystem)
-            sprite.hoveringDest((StarSystem) o);
-        else
-            sprite.hoveringDest(null);
+        
+    	if (chainRally) {
+            Empire player = player();
+        	IGameOptions options = options();
+    		StarSystem from = sprite.from();
+    		if (o instanceof StarSystem && isPlayer(((StarSystem) o).empire())) {
+    			StarSystem dest = (StarSystem) o;
+        		ColonyShipyard shipyard = from.colony().shipyard();
+        		Design design = shipyard.design();
+        		Float speed = null;
+        		if (design instanceof ShipDesign) {
+        			ShipDesign shipDesign = (ShipDesign) design;
+        			speed = options.chainRallySpeed(player, shipDesign);
+        		}
+    			if (lastPreviewChain != null) // may happen with quick moves
+    				player().processChainRally(lastPreviewChain, SystemView.CLEAR_PREVIEW);
+    			lastPreviewChain = player().chainRally(from, dest, SystemView.PREVIEW_RALLY, speed);
+     		}
+    		else if (lastPreviewChain == null) {
+    			sprite.hoveringDest(null);
+    		}
+    		else {
+    			player().processChainRally(lastPreviewChain, SystemView.CLEAR_PREVIEW);
+    			lastPreviewChain = null;
+    		}
+    	}
+    	else
+	        if (o instanceof StarSystem)
+	        	sprite.hoveringDest((StarSystem) o);
+	        else
+	            sprite.hoveringDest(null);
 
         return true;
     }
@@ -154,22 +190,47 @@ public class RallyPointPanel extends SystemPanel {
     public void cancelRelocation() {
         StarSystem sys = relocationSprite().from();
         relocationSprite().clear();
+		if (lastPreviewChain != null)
+			player().processChainRally(lastPreviewChain, SystemView.CLEAR_PREVIEW);
+        chainRally = options().defaultChainRally();
+        lastPreviewChain = null;
         parentSpritePanel.parent.clickedSprite(sys);
         parentSpritePanel.parent.repaint();
     }
     public void createRelocationPath() {
         if (!canRelocateShips())
             return;
-
         ShipRelocationSprite spr = relocationSprite();
         StarSystem sys = spr.homeSystemView();
-        player().sv.rallySystem(sys.id, spr.starSystem());
+		if (lastPreviewChain != null)
+			player().processChainRally(lastPreviewChain, SystemView.CLEAR_PREVIEW);
+		StarSystem from = spr.from();
+		StarSystem dest = spr.starSystem();
+        if (chainRally && isPlayer(dest.empire())) {
+            Empire player = player();
+        	IGameOptions options = options();
+    		ColonyShipyard shipyard = sys.colony().shipyard();
+       		Design design = shipyard.design();
+    		Float speed = null;
+    		if (design instanceof ShipDesign) {
+    			ShipDesign shipDesign = (ShipDesign) design;
+    			speed = options.chainRallySpeed(player, shipDesign);
+    		}
+        	player().chainRally(from, dest, SystemView.SET_RALLY, speed);
+        }
+        else {
+            player().sv.rallySystem(sys.id, spr.starSystem());
+        }
+        chainRally = options().defaultChainRally();
+        lastPreviewChain = null;
         parentSpritePanel.parent.clickedSprite(sys);
         parentSpritePanel.parent.repaint();
     }
     public void cancelRelocationPath() {
         StarSystem sys = relocationSprite().homeSystemView();
         player().sv.stopRally(sys.id);
+        chainRally = options().defaultChainRally();
+        lastPreviewChain = null;
         parentSpritePanel.parent.clickedSprite(sys);
         parentSpritePanel.parent.repaint();
     }
@@ -216,7 +277,8 @@ public class RallyPointPanel extends SystemPanel {
     class FromSystemDetailPane extends BasePanel  implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
         private Shape hoverBox;
-        private final Rectangle retreatBox = new Rectangle();
+        private final Rectangle forwardRallyBox = new Rectangle();
+        private final Rectangle chainRallyBox   = new Rectangle();
         Shape arrow;
         Shape textureClip;
         public FromSystemDetailPane() {
@@ -244,9 +306,11 @@ public class RallyPointPanel extends SystemPanel {
             g.setColor(MainUI.darkShadowC);
             g.fill(arrow());
             g.setColor(MainUI.paneBackground());
-            g.fillRect(0, s5, w, s100+s5);
+            
+            int hSep = s100+s15;
+            g.fillRect(0, s5, w, hSep);
 
-            textureClip = new Rectangle2D.Float(0,s5,w,s100+s5);
+            textureClip = new Rectangle2D.Float(0,s5,w,hSep);
 
             int leftM = s5;
             String title = text("MAIN_RALLY_TITLE");
@@ -256,7 +320,7 @@ public class RallyPointPanel extends SystemPanel {
             String prompt = text("MAIN_RALLY_PROMPT");
             g.setFont(narrowFont(18));
 
-            int y0 = s40;
+            int y0 = s35;
             g.setColor(MainUI.darkShadowC);
             List<String> lines = wrappedLines(g, prompt, getWidth()-leftM-s20);
             for (String line: lines) {
@@ -267,38 +331,64 @@ public class RallyPointPanel extends SystemPanel {
             int checkW = s12;
             int checkX = leftM;
             y0 = y0+s25;
-            retreatBox.setBounds(checkX, y0-checkW, checkW, checkW);
+            forwardRallyBox.setBounds(checkX, y0-checkW, checkW, checkW);
             Stroke prev = g.getStroke();
             g.setStroke(stroke2);
             g.setColor(MainUI.shadeBorderC());
-            g.fill(retreatBox);
-            if (hoverBox == retreatBox) {
+            g.fill(forwardRallyBox);
+            if (hoverBox == forwardRallyBox) {
                 g.setColor(Color.yellow);
-                g.draw(retreatBox);
+                g.draw(forwardRallyBox);
             }
             if (relocationSprite().forwardRallies()) {
                 g.setColor(SystemPanel.whiteText);
                 g.drawLine(checkX-s1, y0-s6, checkX+s3, y0-s3);
                 g.drawLine(checkX+s3, y0-s3, checkX+checkW, y0-s12);
             }
-            g.setStroke(prev);
             String forward = text("MAIN_RALLY_FORWARD");
             g.setFont(narrowFont(16));
             g.setColor(MainUI.darkShadowC);
             drawString(g,forward, leftM+s15, y0-s1);
+
+            y0 = y0+s20;
+            chainRallyBox.setBounds(checkX, y0-checkW, checkW, checkW);
+            g.setStroke(stroke2);
+            g.setColor(MainUI.shadeBorderC());
+            g.fill(chainRallyBox);
+            if (hoverBox == chainRallyBox) {
+                g.setColor(Color.yellow);
+                g.draw(chainRallyBox);
+            }
+            if (chainRally) {
+                g.setColor(SystemPanel.whiteText);
+                g.drawLine(checkX-s1, y0-s6, checkX+s3, y0-s3);
+                g.drawLine(checkX+s3, y0-s3, checkX+checkW, y0-s12);
+            }
+            g.setStroke(prev);
+            String chain = text("MAIN_RALLY_CHAIN");
+            g.setFont(narrowFont(16));
+            g.setColor(MainUI.darkShadowC);
+            drawString(g, chain, leftM+s15, y0-s1);
         }
         private Shape arrow() {
-            if (arrow == null) {
+            //if (arrow == null) {
                 int w  = getWidth();
                 int h = getHeight();
                 int[] x = new int[9];
                 int[] y = new int[9];
-                int x0=(w/2)-s35; int x1=x0+s25; int x2=x1+s20; int x3=x2+s25;
-                int y0=0; int y1=h-s45; int y2=h-s65; int y3=h-s40; int y4=h-s5;
+                int x0=(w/2)-s28;	// was s35
+                int x1=x0+s20;	// was s35
+                int x2=x1+s16;	// was s20
+                int x3=x2+s20;	// was s25
+                int y0=0;
+                int y1=h-s32;	// was s45
+                int y2=h-s48;	// was s65
+                int y3=h-s28;	// was s40
+                int y4=h;		// was h-s5;
                 x[0]=x1;x[1]=x1;x[2]=x0;x[3]=x0;x[4]=w/2;x[5]=x3;x[6]=x3;x[7]=x2;x[8]=x2;
                 y[0]=y0;y[1]=y1;y[2]=y2;y[3]=y3;y[4]=y4;y[5]=y3;y[6]=y2;y[7]=y1;y[8]=y0;
                 arrow = new Polygon(x,y,x.length);
-            }
+            //}
             return arrow;
         }
         @Override
@@ -307,8 +397,14 @@ public class RallyPointPanel extends SystemPanel {
                 return;
             int x = e.getX();
             int y = e.getY();
-             if (retreatBox.contains(x,y)) {
+            if (forwardRallyBox.contains(x,y)) {
                 relocationSprite().toggleForwardRallies();
+                softClick();
+                repaint();
+                return;
+            }
+            else if (chainRallyBox.contains(x,y)) {
+            	chainRally = !chainRally;
                 softClick();
                 repaint();
                 return;
@@ -336,8 +432,10 @@ public class RallyPointPanel extends SystemPanel {
             Shape prevHover = hoverBox;
             hoverBox = null;
             
-            if (retreatBox.contains(x,y)) 
-                hoverBox = retreatBox;
+            if (forwardRallyBox.contains(x,y)) 
+                hoverBox = forwardRallyBox;
+            else if (chainRallyBox.contains(x,y)) 
+                hoverBox = chainRallyBox;
 
             if (hoverBox != prevHover)
                 repaint();

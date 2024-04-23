@@ -40,9 +40,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import rotp.model.colony.Colony;
+import rotp.model.colony.ColonyShipyard;
 import rotp.model.empires.SystemView;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.Design;
+import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 
@@ -216,6 +218,7 @@ public class EmpireSystemPanel extends SystemPanel {
         private final int downButtonX[] = new int[3];
         private final int downButtonY[] = new int[3];
         protected Rectangle limitBox = new Rectangle();
+        private boolean hasPreview = false;
 
         Color textColor = newColor(204,204,204);
         Color gray20C = newColor(20,20,20);
@@ -260,7 +263,7 @@ public class EmpireSystemPanel extends SystemPanel {
             drawNameSelector(g, col, midMargin,h-scaled(103),w-s10-midMargin,s30);
            	int wR = w-s10-midMargin;
            	int yR = h-s70;
-           
+
             if (rallyToSGEnabled()) {
             	wR -= s25;
              	int x2 = midMargin + wR + s5;
@@ -678,14 +681,28 @@ public class EmpireSystemPanel extends SystemPanel {
             }
             return starBackground;
         }
+        private void rallyToNearestSG(int action, Float speed) {
+        	player().sv.rallyNearestStarGate(parentSpritePanel.systemViewToDisplay().id, action, speed);
+        }
         private void rallyToNearestSG(int action) {
-        	player().sv.rallyNearestStarGate(parentSpritePanel.systemViewToDisplay().id, action);
+        	StarSystem sys =parentSpritePanel.systemViewToDisplay();
+        	Float speed = null;
+        	if (sys != null) {
+        		ColonyShipyard shipyard = sys.colony().shipyard();
+        		ShipDesign shipDesign = (ShipDesign) shipyard.design();
+        		speed = options().chainRallySpeed(player(), shipDesign);
+        	}
+        	rallyToNearestSG(action, speed);        		
         }
         private void previewRallyPath() {
+        	hasPreview = true;
         	rallyToNearestSG (SystemView.PREVIEW_RALLY);
         }
         private void clearRallyPathPreview() {
-        	rallyToNearestSG (SystemView.CLEAR_PREVIEW);
+        	if (hasPreview) {
+        		rallyToNearestSG (SystemView.CLEAR_PREVIEW, null);
+        		hasPreview = false;
+        	}
         }
         private boolean rallyToSGEnabled()	{
         	StarSystem sys = parentSpritePanel.systemViewToDisplay();

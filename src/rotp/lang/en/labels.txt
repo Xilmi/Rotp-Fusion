@@ -653,7 +653,7 @@ MAIN_HELP_2C                      | Total planetary production from industry and
 MAIN_HELP_2D                      | Actual production adjusted for empire-wide trade income, spy and security costs, as well as missile base and ship maintenance.
 MAIN_HELP_2E                      | Change ship design to build in the planet's orbiting shipyard. Production accrued for unfinished ships will accelerate production of new ships by 50% until spent. Click or use the mousewheel to change the ship design.
 MAIN_HELP_2F                      | Set a rally point to automatically send newly constructed ships to another colony.
-MAIN_HELP_2FSG                    | Rally to the nearest stargate.<br>(Based on current top speed)
+MAIN_HELP_2FSG                    | Rally to the nearest stargate.<br>(Based on "→CHAIN_RALLY_SPEED_HK←" setting)
 MAIN_HELP_2G                      | Transport population to fortify another colony or send troops to invade an enemy planet. The colony incurs a one-time production cost for transporting.
 MAIN_HELP_2H                      | Completely abandon a planet by transferring all population from it to another colony.
 MAIN_HELP_2I                      | Current and maximum planet population. 100 represents a full home planet that has not been terraformed.
@@ -770,6 +770,7 @@ MAIN_FLEET_INVALID_DESTINATION2   | Cannot send fleet to this system
 MAIN_RALLY_TITLE                  | Setting Rally Point
 MAIN_RALLY_PROMPT                 | Select a system under your control to send newly built ships to.
 MAIN_RALLY_FORWARD                | Forward incoming rallies
+MAIN_RALLY_CHAIN                  | Chain rallies through Stargates
 MAIN_RALLY_TRAVEL_TIME            | Travel time to %1: %2 Years
 MAIN_RALLY_INSTANT_TIME           | Travel time to %1: Instantaneous
 MAIN_RALLY_WILL_CANCEL            | Selecting this destination will clear any existing rally point.
@@ -1167,7 +1168,9 @@ FLEETS_HELP_1C                    | And building - filter systems according to t
 FLEETS_HELP_1D                    | Ship Design - change the ship design to build in the selected systems. A blank image means that the selected systems are currently building different designs. Caution! There is no confirmation prompt for this action.
 FLEETS_HELP_1E                    | Send Transports - send transports from the selected systems to a single target system.
 FLEETS_HELP_1F                    | Set Rally Points - set the rally points for the selected systems to a single target system.
-FLEETS_HELP_1G                    | →FLEETS_RALLY_TO_STARGATES←<br>Start rallying selected systems to the nearest system with a stargate.<br>- Based on current top speed.<br>- Selected systems with Stargates are not affected.
+FLEETS_HELP_1G                    | →FLEETS_RALLY_TO_STARGATES←<br>Start rallying selected systems to the nearest system with a stargate.<br>- Based on "→CHAIN_RALLY_SPEED_HK←" setting.<br>- Selected systems with Stargates are not affected.
+FLEETS_HELP_1H                   | →MAIN_RALLY_CHAIN←<br>To minimize travel time by taking a shortcut via the nearest stargate. (Based on "→CHAIN_RALLY_SPEED_HK←" setting)<br>This will also enable "Forward Rally" on intermediate stargate systems.
+
 FLEETS_HELP_2A                    | Select Fleets - there are three ways to select fleets: 1) by clicking fleets on the map, 2) by right-click dragging over the map, and 3) by using the "Select All" and "Deselect All" buttons.
 FLEETS_HELP_2B                    | Filter By - select check boxes to narrow down the list of selected fleets. Filters can also be clicked to cycle through related options.
 FLEETS_HELP_2C                    | Only Deploy Ships of Type - restrict the types of ships you want to deploy from your fleets.
@@ -2552,6 +2555,19 @@ SETTINGS_MOD_SPY_OVERSPEND               | Spy Overspend: %1
 
 SETTINGS_MOD_DEFAULT_FORWARD_RALLY_DESC  | Default action when setting up a rally: Should other incoming rallied fleets be forwarded?
 SETTINGS_MOD_DEFAULT_FORWARD_RALLY       | Default Forward Rally: %1
+
+SETTINGS_MOD_DEFAULT_CHAIN_RALLY_DESC    | Default value for Chained rallies through stargates to minimize the travel time?
+SETTINGS_MOD_DEFAULT_CHAIN_RALLY         | Default Chain Rally: %1
+
+CHAIN_RALLY_SPEED_HK                     | Chain Rally Speed
+SETTINGS_MOD_CHAIN_RALLY_SPEED_DESC      | Speed to use when selecting the optimal rally path.
+SETTINGS_MOD_CHAIN_RALLY_SPEED           | →CHAIN_RALLY_SPEED_HK←: %1
+SETTINGS_MOD_CHAIN_RALLY_SPEED_FLEET_DESC | Based on the speed of the ship under construction or the slowest ship in the selected fleet.
+SETTINGS_MOD_CHAIN_RALLY_SPEED_FLEET     | Fleet
+SETTINGS_MOD_CHAIN_RALLY_SPEED_MIN_DESC  | Based on the speed of the slowest active ship design.
+SETTINGS_MOD_CHAIN_RALLY_SPEED_MIN       | Min
+SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP_DESC  | Based on the top speed allowed by currently known technologies.
+SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP       | Top
 
 SETTINGS_MOD_RESEARCH_MOO1_DESC          | YES: Reload won't change research probability<br>NO: You may try to reload to get a new dice roll! (RotP default)
 SETTINGS_MOD_RESEARCH_MOO1               | Research Moo1: %1

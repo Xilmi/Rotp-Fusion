@@ -63,8 +63,22 @@ Later:
 
 ## What's New
 
+2024.04.23 (BR)
+- New option to select the fleet speed to use when building a chain rally through stargate.
+ - Fleet: Based on the speed of the ship under construction or the slowest ship in the selected fleet.
+ - Min: Based on the speed of the slowest active ship design.
+ - Top: Based on the top speed allowed by currently known technologies.
+
+2024.04.22 (BR)
+- New Option: Chain Rally that choose the quickest way to go to destination.
+  - Disabled by default, but can be set in "In Game Option" panel.
+  - Can be temporary changed in the "Set Rally Point" panel.
+  - Works with the right click on star (Inverted if Shift key is down)
+  - Can be used in Mass Rally Panel too.
+
 2024.04.20 (BR)
 - Added Preview when hovering "Rally to nearest stargate" buttons
+- Distinct Help for Rally panel.
 
 2024.04.19 (BR)
 - Added Rally to nearest stargate button in the right panel. (When available)

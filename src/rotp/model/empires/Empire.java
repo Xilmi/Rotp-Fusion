@@ -95,6 +95,7 @@ import rotp.ui.notifications.GNNNotification;
 import rotp.ui.notifications.PlunderShipTechNotification;
 import rotp.ui.notifications.PlunderTechNotification;
 import rotp.util.Base;
+import rotp.util.ModifierKeysState;
 
 public final class Empire implements Base, NamedObject, Serializable {
     private static final long serialVersionUID = 1L;
@@ -734,7 +735,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         else
             return (int) sv.currentSize(sys.id);
     }
-    public void changeAllExistingRallies(StarSystem dest) {
+    public void changeAllExistingRallies(StarSystem dest) { // TODO BR: Adapt to Chain
         if (canRallyFleetsTo(id(dest))) {
             for (StarSystem sys: allColonizedSystems()) {
                 if (sys != null && sv.hasRallyPoint(sys.id))
@@ -748,8 +749,168 @@ public final class Empire implements Base, NamedObject, Serializable {
                 if (sys != null && sv.rallySystem(sys.id) == source)
                     sv.rallySystem(sys.id, dest);
             }
-            sv.rallySystem(source.id, dest);
+            boolean ChainRally = options().defaultChainRally();
+            if (ModifierKeysState.isShiftDown())
+            	ChainRally = !ChainRally;
+            if (ChainRally)
+            	chainRally(source, dest, SystemView.SET_RALLY, null);
+            else
+            	sv.rallySystem(source.id, dest);
         }
+    }
+    public void processChainRally(List<StarSystem> chainList, int action) {
+    	switch (chainList.size()) {
+    	case 2:
+    		sv.rallySys(chainList.get(0).id, chainList.get(1), action);
+    		return;
+    	case 3:
+    		sv.rallySys(chainList.get(0).id, chainList.get(1), action);
+    		sv.rallySys(chainList.get(1).id, chainList.get(2), action);
+    		if (action == SystemView.SET_RALLY)
+        		sv.setForwardRallies(chainList.get(1).id, true);
+    		return;
+    	case 4:
+    		sv.rallySys(chainList.get(0).id, chainList.get(1), action);
+       		sv.rallySys(chainList.get(1).id, chainList.get(2), action);
+       		sv.rallySys(chainList.get(2).id, chainList.get(3), action);
+       	    if (action == SystemView.SET_RALLY) {
+       	    	sv.setForwardRallies(chainList.get(1).id, true);
+       	    	sv.setForwardRallies(chainList.get(2).id, true);
+       	    }
+    		return;
+    	}
+    }
+    /**
+     * Try to find a shortcut through any stargates
+     * 
+     * @param from Origin StarSystem (Mandatory)
+     * @param dest Destination StarSystem (Mandatory)
+     * @param action SystemView SET_RALLY | PREVIEW_RALLY | CLEAR_PREVIEW  (Mandatory)
+     * @param speed speed to use (optional, can be null)
+     */
+    public List<StarSystem> chainRally(StarSystem from, StarSystem dest, int action, Float speed) {
+    	return chainRallies(from, systemsWithStargate(), dest, action, speed);
+    }
+    /**
+     * Try to find a shortcut through any stargates
+     * 
+     * @param from Origin StarSystem (Mandatory)
+     * @param gates allowed stargates to be used (Mandatory)
+     * @param dest Destination StarSystem (Mandatory)
+     * @param action SystemView SET_RALLY | PREVIEW_RALLY | CLEAR_PREVIEW  (Mandatory)
+     * @param speed speed to use (optional, can be null)
+     */
+    public List<StarSystem> chainRallies(StarSystem from,
+    		List<StarSystem> gates, StarSystem dest, int action, Float speed) {
+        List<StarSystem> chainList = new ArrayList<>();
+        List<StarSystem> rallyList = getRallyChain(from, gates, dest, speed);
+        chainList.add(from);
+        if (rallyList != null)
+        	chainList.addAll(rallyList);
+        chainList.add(dest);
+        processChainRally(chainList, action);
+        return chainList;
+    }
+    /**
+     * Try to find a shortcut through any stargates
+     * 
+     * @param from Origin StarSystem (Mandatory)
+     * @param dest Destination StarSystem (Mandatory)
+     * @param speed speed to use (optional, can be null)
+     */
+    public List<StarSystem> getRallyChain(StarSystem from, StarSystem dest, Float speed) {
+    	return getRallyChain(from, systemsWithStargate(), dest, speed);
+    }
+    /**
+     * Try to find a shortcut through any stargates
+     * 
+     * @param from Origin StarSystem (Mandatory)
+     * @param gates allowed stargates to be used (Mandatory)
+     * @param dest Destination StarSystem (Mandatory)
+     * @param speed speed to use (optional, can be null)
+     */
+    public List<StarSystem> getRallyChain(StarSystem from, List<StarSystem> gates, StarSystem dest, Float speed) {
+    	boolean fromHasSG = from.hasStargate(this);
+        boolean destHasSG = dest.hasStargate(this);
+    	int numEndSG = 0;
+    	if (fromHasSG) numEndSG ++;
+    	if (destHasSG) numEndSG ++;
+        if (gates == null || gates.size() < 3-numEndSG || numEndSG == 2)
+        	return null;
+        if (speed == null)
+        	speed = options().chainRallySpeed(this);
+        int directTravelTime = (int) Math.ceil(from.travelTimeTo(dest, speed));
+        int allowedTime = directTravelTime-(2-numEndSG);
+        if (allowedTime <=0)
+        	return null;
+
+        // check for link from to stargate
+        int[] fromSG = new int[] {-1, 0};
+        if (!fromHasSG) {
+            fromSG = nearestStargate(from, gates, speed, allowedTime);
+            if (fromSG == null)
+            	return null;
+            allowedTime = directTravelTime-fromSG[1]-1;
+        }
+
+        List<StarSystem> relays = new ArrayList<>();
+        
+        // check for link dest to stargate
+        int[] destSG = new int[] {-1, 0};
+        if (!destHasSG) {
+	        destSG = nearestStargate(dest, gates, speed, allowedTime);
+	        if (destSG == null)
+	        	return null;
+        }
+        else { // no-SG to SG to SG
+        	relays.add(gates.get(fromSG[0]));
+        	return relays;
+        }
+
+        if (fromHasSG) { // SG to SG to no-SG
+        	relays.add(gates.get(destSG[0]));
+        	return relays;
+        }
+        // no-SG to SG to SG to no-SG
+        relays.add(gates.get(fromSG[0]));
+        relays.add(gates.get(destSG[0]));
+        return relays;
+    }
+    private int[] nearestStargate(StarSystem sys, List<StarSystem> sgList, float speed, int baseTime) {
+    	if (sgList == null || sgList.isEmpty())
+    		return null;
+    	float minDist = Float.MAX_VALUE;
+        int minTime   = baseTime;
+    	int minIdx    = -1;
+    	int gatesSize = sgList.size();
+    	for (int idx=0; idx<gatesSize; idx++) {
+    		int travelTime = (int) Math.ceil(sys.travelTimeTo(sgList.get(idx), speed));
+    		float distance = sys.distanceTo(sgList.get(idx));
+       		if (travelTime < minTime) {
+    			minTime = travelTime;
+    			minDist = distance;
+    			minIdx  = idx;
+        	}
+       		// Check for min distance for older non TopSpeed units
+       		else if (travelTime == minTime && distance < minDist) {
+    			minDist = distance;
+    			minIdx  = idx;	       			
+       		}
+    	}
+    	if (minTime == baseTime)
+    		return null;
+    	return new int[] {minIdx, minTime};
+    }
+    public float minActiveDesignSpeed() {
+    	float minSpeed = tech().topSpeed();
+		for (ShipDesign design : shipLab.designs()) {
+			if (design != null && design.active()) {
+				float designSpeed =  (float) design.warpSpeed();
+				if (designSpeed < minSpeed)
+					minSpeed = designSpeed;
+			}
+		}
+		return minSpeed;
     }
     public void startRallies(List<StarSystem> fromSystems, StarSystem dest) {
         if (canRallyFleetsTo(id(dest))) {
