@@ -119,7 +119,10 @@ public class LanguageManager implements Base {
     public void selectLanguage(int i) {
         if (selectedLanguage() == i)
             return;
-
+        loadLanguage(i);
+    }
+    public void reloadLanguage()      { loadLanguage(selectedLanguage()); } // BR: to reload labels without having to restart
+    public void loadLanguage(int i)   {
         Language defLang = languages().get(DEFAULT_LANGUAGE); // BR: Uncommented
         Language newLang = languages().get(i);
 

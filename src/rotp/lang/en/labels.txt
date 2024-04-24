@@ -2335,39 +2335,43 @@ SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP_DESC | The player will take the curren
 SETTINGS_MOD_RESTART_PLAYER_RACE_LAST_DESC     | The player will keep the original species.
 SETTINGS_MOD_RESTART_PLAYER_RACE_SWAP_DESC     | The player will take the species of the swapped empire, and the opponent will use the player former species.
 
-SETTINGS_MOD_TECH_IRRADIATED_HELP        | To Force Include or Exclude the Technology <b>Irradiated Control</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 18.<br>It coul be very frustrating not being able to colonize all the planet late in the game!
-SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18){Always, Never, Auto} Include "Irradiated Control"  in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_IRRADIATED             | Tech Irradiated Control: %1
-SETTINGS_MOD_TECH_CLOAKING_HELP          | To Force Include or Exclude the Technology <b>Cloaking Device</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 27.<br>You like it! or not! Used in conjunction with Hyperspace Communication, game endings can get very boring.
-SETTINGS_MOD_TECH_CLOAKING_DESC          | (Level 27) {Always, Never, Auto} Include "Cloaking Device" in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_CLOAKING               | Tech Cloaking: %1
-SETTINGS_MOD_TECH_STARGATES_HELP         | To Force Include or Exclude the Technology <b>Intergalactic Star Gates</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 27.<br>Huge galaxies without them are a no go for me!
-SETTINGS_MOD_TECH_STARGATES_DESC         | (Level 27) {Always, Never, Auto} Include "Intergalactic Star Gates" in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_STARGATES              | Tech Star Gates: %1
-SETTINGS_MOD_TECH_HYPERSPACE_HELP        | To Force Include or Exclude the Technology <b>Hyperspace Communication</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 34.<br>You like it! or not! Some may like the game of cat and mouse...
-SETTINGS_MOD_TECH_HYPERSPACE_DESC        | (Level 34) {Always, Never, Auto} Include "Hyperspace Communication" in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_HYPERSPACE             | Tech Hyperspace Comm: %1
-SETTINGS_MOD_TECH_INDUSTRY_2_HELP        | To Force Include or Exclude the Technology <b>Improved Industrial 2</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 38.<br>To speed up the construction of new planetary factories in the endgames!
-SETTINGS_MOD_TECH_INDUSTRY_2_DESC        | (Level 38) {Always, Never, Auto} Include "Improved Industrial 2" in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_INDUSTRY_2             | Tech Factory cost 2: %1
-SETTINGS_MOD_TECH_THORIUM_HELP           | To Force Include or Exclude the Technology <b>Thorium Cells</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 41.<br>Essential to reach Orion in some ring and symmetric galaxies... But some time you only want to protect you backlines...
-SETTINGS_MOD_TECH_THORIUM_DESC           | (Level 41) {Always, Never, Auto} Include "Thorium Cells" in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_THORIUM                | Tech Thorium Cells: %1
-SETTINGS_MOD_TECH_TRANSPORTERS_HELP      | To Force Include or Exclude the Technology <b>Combat Transporter</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 45.<br>A possible remedy against savage invasions...
-SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) {Always, Never, Auto} Include "Combat Transporter" in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_TRANSPORTERS           | Tech Combat Transporter: %1
+TECH_HEAD_HK                             | To force Include or Exclude the Technology
+TECH_END_HK                              | in the Tech Tree for Player/AI.
+TECH_VAL_HK                              | {Always, Never, Auto} Include
+TECH_LEVEL_HK                            | This technology could be available at Level
+SETTINGS_MOD_TECH_IRRADIATED_HELP        | →TECH_HEAD_HK← <b>→CONTROLENV_6_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CONTROLENV_6_DETAIL←</i><br>→TECH_LEVEL_HK← 18.<br>It coul be very frustrating not being able to colonize all the planet late in the game!
+SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18)→TECH_VAL_HK← "→CONTROLENV_6_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_IRRADIATED             | Radiated Colony: %1
+SETTINGS_MOD_TECH_CLOAKING_HELP          | →TECH_HEAD_HK← <b>→CLOAK_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CLOAK_0_DETAIL←</i><br>→TECH_LEVEL_HK← 27.<br>You like it! or not! Used in conjunction with Hyperspace Communication, game endings can get very boring.
+SETTINGS_MOD_TECH_CLOAKING_DESC          | (Level 27) →TECH_VAL_HK← "→CLOAK_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_CLOAKING               | →CLOAK_0_NAME←: %1
+SETTINGS_MOD_TECH_STARGATES_HELP         | →TECH_HEAD_HK← <b>→STARGATE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→STARGATE_0_DETAIL←</i><br>→TECH_LEVEL_HK← 27.<br>Huge galaxies without them are a no go for me!
+SETTINGS_MOD_TECH_STARGATES_DESC         | (Level 27) →TECH_VAL_HK← "→STARGATE_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_STARGATES              | →STARGATE_0_NAME←: %1
+SETTINGS_MOD_TECH_HYPERSPACE_HELP        | →TECH_HEAD_HK← <b>→HYPERSPACE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→HYPERSPACE_0_DETAIL←</i><br>→TECH_LEVEL_HK← 34.<br>You like it! or not! Some may like the game of cat and mouse...
+SETTINGS_MOD_TECH_HYPERSPACE_DESC        | (Level 34) →TECH_VAL_HK← "→HYPERSPACE_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_HYPERSPACE             | Hyperspace Talking: %1
+SETTINGS_MOD_TECH_INDUSTRY_2_HELP        | →TECH_HEAD_HK← <b>→IMPRINDUSTRY_7_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→IMPRINDUSTRY_7_DETAIL←</i><br>→TECH_LEVEL_HK← 38.<br>To speed up the construction of new planetary factories in the endgames!
+SETTINGS_MOD_TECH_INDUSTRY_2_DESC        | (Level 38) →TECH_VAL_HK← "→IMPRINDUSTRY_7_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_INDUSTRY_2             | Factory cost 2: %1
+SETTINGS_MOD_TECH_THORIUM_HELP           | →TECH_HEAD_HK← <b>→FUELRANGE_8_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→FUELRANGE_8_DETAIL←</i><br>→TECH_LEVEL_HK← 41.<br>Essential to reach Orion in some ring and symmetric galaxies... But some time you only want to protect you backlines...
+SETTINGS_MOD_TECH_THORIUM_DESC           | (Level 41) →TECH_VAL_HK← "→FUELRANGE_8_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_THORIUM                | →FUELRANGE_8_NAME←: %1
+SETTINGS_MOD_TECH_TRANSPORTERS_HELP      | →TECH_HEAD_HK← <b>→COMBATTRANSPORT_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→COMBATTRANSPORT_0_DETAIL←</i> <br>→TECH_LEVEL_HK← 45.<br>A possible remedy against savage invasions...
+SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) →TECH_VAL_HK← "→COMBATTRANSPORT_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_TRANSPORTERS           | →COMBATTRANSPORT_0_NAME←: %1
 
-SETTINGS_MOD_TECH_CLONING_HELP           | To Force Include or Exclude the Technology <b>Cloning</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 21.<br>A possible contribution against savage invasions...
-SETTINGS_MOD_TECH_CLONING_DESC           | (Level 21) {Always, Never, Auto} Include "Cloning" in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_CLONING                | Tech Cloning: %1
+SETTINGS_MOD_TECH_CLONING_HELP           | →TECH_HEAD_HK← <b>→CLONE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CLONE_0_DETAIL←</i> <br>→TECH_LEVEL_HK← 21. <br>A possible contribution against savage invasions...
+SETTINGS_MOD_TECH_CLONING_DESC           | (Level 21) →TECH_VAL_HK← "→CLONE_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_CLONING                | →CLONE_0_NAME←: %1
 
-SETTINGS_MOD_TECH_ATMOSPHERIC_HELP       | To Force Include or Exclude the Technology <b>Atmospheric Terraforming</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 22.<br> To remove the 50% Hostile penalty...
-SETTINGS_MOD_TECH_ATMOSPHERIC_DESC       | (Level 22) {Always, Never, Auto} Include "Atmospheric Terraforming" in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_ATMOSPHERIC            | Atmospheric Terraform: %1
+SETTINGS_MOD_TECH_ATMOSPHERIC_HELP       | →TECH_HEAD_HK← <b>→ATMOSPHERE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→ATMOSPHERE_0_DETAIL←</i> <br>→TECH_LEVEL_HK← 22.<br> To remove the 50% Hostile penalty...
+SETTINGS_MOD_TECH_ATMOSPHERIC_DESC       | (Level 22) →TECH_VAL_HK← "→ATMOSPHERE_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_ATMOSPHERIC            | Atmospheric Control: %1
 
-SETTINGS_MOD_TECH_GAIA_HELP              | To Force Include or Exclude the Technology <b>Advanced Soil Enrichment</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 30.<br>And will allow Gaia Terraforming...
-SETTINGS_MOD_TECH_GAIA_DESC              | (Level 30) {Always, Never, Auto} Include "Advanced Soil Enrichment" (Gaia Terraforming) in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_GAIA                   | Tech Adv. Soil Enrichment: %1
+SETTINGS_MOD_TECH_GAIA_HELP              | →TECH_HEAD_HK← <b>→SOILENRICH_1_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→SOILENRICH_1_DETAIL←</i> <br>→TECH_LEVEL_HK← 30.<br>And will allow Gaia Terraforming...
+SETTINGS_MOD_TECH_GAIA_DESC              | (Level 30) →TECH_VAL_HK← "→SOILENRICH_1_NAME←" (Gaia Terraforming) →TECH_END_HK←
+SETTINGS_MOD_TECH_GAIA                   | Gaia Improvement: %1
 
 SETTINGS_MOD_RACES_RAND_MIN_HELP         | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Setting Range, each individual setting will be set within a relative range. This is the lower limit of this range.
 SETTINGS_MOD_RACES_RAND_MIN_DESC         | Alien species randomization: Lower limit for the settings relative randomization window.

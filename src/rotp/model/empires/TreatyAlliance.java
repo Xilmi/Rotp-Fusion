@@ -24,11 +24,10 @@ import rotp.model.incidents.FinancialAidIncident;
 import rotp.model.incidents.TechnologyAidIncident;
 import rotp.ui.notifications.AllianceBreakingAlert;
 import rotp.ui.notifications.AllianceWeakeningAlert;
-import rotp.util.Base;
 
-public class TreatyAlliance extends DiplomaticTreaty implements Base {
+public class TreatyAlliance extends DiplomaticTreaty {
     private static final long serialVersionUID = 1L;
-    private int standing = 50; // unused
+    // private int standing = 50; // unused
     private int[] standings;
     private boolean[] wantToBreak = new boolean[2];
     public TreatyAlliance(Empire e1, Empire e2) {

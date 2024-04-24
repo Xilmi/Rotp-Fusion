@@ -15,9 +15,7 @@
  */
 package rotp.model.empires;
 
-import rotp.util.Base;
-
-public class TreatyWar extends DiplomaticTreaty implements Base {
+public class TreatyWar extends DiplomaticTreaty {
     private static final long serialVersionUID = 1L;
     int[] coloniesStart = new int[2];
     int[] contactsStart = new int[2];

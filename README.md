@@ -64,6 +64,11 @@ Later:
 ## What's New
 
 2024.04.23 (BR)
+- IDE only: "ALT-L" in option menu will reload labels.
+- Improved some option help text.
+- Removed redundant superinterface declaration not well managed by Eclipse IDE help tools.
+
+2024.04.23 (BR)
 - New option to select the fleet speed to use when building a chain rally through stargate.
  - Fleet: Based on the speed of the ship under construction or the slowest ship in the selected fleet.
  - Min: Based on the speed of the slowest active ship design.

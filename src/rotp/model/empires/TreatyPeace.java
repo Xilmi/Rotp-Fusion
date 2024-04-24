@@ -15,9 +15,7 @@
  */
 package rotp.model.empires;
 
-import rotp.util.Base;
-
-public class TreatyPeace extends DiplomaticTreaty implements Base {
+public class TreatyPeace extends DiplomaticTreaty {
     private static final long serialVersionUID = 1L;
     private int duration;
     public TreatyPeace(Empire e1, Empire e2, int d) {

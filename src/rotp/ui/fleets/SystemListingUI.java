@@ -969,7 +969,7 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             notesField.repaint();
         }
     }
-    public class PlanetTypeColumn extends Column implements Base {
+    public class PlanetTypeColumn extends Column {
         String attributeKey;
         Comparator<StarSystem> comp;
         PlanetTypeColumn(String s1, String s2, int i, Comparator<StarSystem> c) {
@@ -1011,7 +1011,7 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             }
         }
     }
-    public class SystemDeltaDataColumn extends Column implements Base {
+    public class SystemDeltaDataColumn extends Column {
         String attributeKey;
         String deltaKey;
         Color color;

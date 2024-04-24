@@ -20,9 +20,8 @@ import java.awt.geom.AffineTransform;
 import rotp.model.ships.ShipWeaponMissileType;
 import rotp.ui.BasePanel;
 import rotp.ui.combat.ShipBattleUI;
-import rotp.util.Base;
 
-public class CombatStackMissile extends CombatStack implements Base {
+public class CombatStackMissile extends CombatStack {
     public static int MAX_TURNS = 10;
     public static final float MIN_ATTACK_DIST = 0.7f;
     public CombatStack owner;

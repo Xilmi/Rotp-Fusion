@@ -15,10 +15,8 @@
  */
 package rotp.ui.diplomacy;
 
-import java.util.ArrayList;
 import java.util.List;
 import rotp.model.empires.Empire;
-import rotp.model.empires.SpyReport;
 import rotp.model.tech.Tech;
 
 public class DiplomacyTechRequestMenu extends DiplomaticMessage {

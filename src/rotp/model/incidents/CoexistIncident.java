@@ -15,7 +15,6 @@
  */
 package rotp.model.incidents;
 
-import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 
 public class CoexistIncident extends DiplomaticIncident {

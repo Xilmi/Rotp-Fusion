@@ -159,6 +159,10 @@ public class HelpUI extends BasePanel implements MouseListener {
             case KeyEvent.VK_ENTER:
                 parent.advanceHelp();
                 break;
+			case KeyEvent.VK_L:
+				if (e.isAltDown())
+				reloadLabels();
+				return;
         }
     }
     @Override

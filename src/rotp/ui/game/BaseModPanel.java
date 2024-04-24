@@ -699,6 +699,10 @@ public abstract class BaseModPanel extends BasePanel
 			case KeyEvent.VK_G:
 				doGuideBoxAction();
 				return;
+			case KeyEvent.VK_L:
+				if (e.isAltDown())
+				reloadLabels();
+				return;
 		}
 	}
 	// ---------- Help management
