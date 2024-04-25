@@ -2,20 +2,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- New Buttons "Rally to nearest sargate"
-  - In the right panel. (When stargate are available)
-  - In mass rally panel.
-  - With preview.
-- New Option: Chain Rally that select the quickest way through stargate to go to destination.
-  - Disabled by default, but can be set in "In Game Option" panel.
-  - Can be temporary changed in the "Set Rally Point" panel.
-  - Works with the right click on star systems (Inverted if Shift key is down)
-  - Can be used in Mass Rally Panel too.
-- New option to select the fleet speed to use when building a chain rally through stargate.
-  - Fleet: Based on the speed of the ship under construction or the slowest ship in the selected fleet.
-  - Min: Based on the speed of the slowest active ship design.
-  - Top: Based on the top speed allowed by currently known technologies.
-- Fix: Right click on star will look at the selected speed.
+- Restored Original vanilla "fast speed" as Fastest.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -137,7 +124,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Left / Right Click to scroll up / down
   - Mid Click to restore view.
   - scroll to scroll...
-
+- Restored Original vanilla "fast speed" as Fastest.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.

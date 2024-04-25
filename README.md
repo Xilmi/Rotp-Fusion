@@ -63,10 +63,11 @@ Later:
 
 ## What's New
 
-2024.04.23 (BR)
+2024.04.24 (BR)
 - IDE only: "ALT-L" in option menu will reload labels.
 - Improved some option help text.
 - Removed redundant superinterface declaration not well managed by Eclipse IDE help tools.
+- Restored Original vanilla "fast speed" as Fastest.
 
 2024.04.23 (BR)
 - New option to select the fleet speed to use when building a chain rally through stargate.

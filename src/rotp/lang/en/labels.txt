@@ -1494,10 +1494,12 @@ SETUP_TECH_TRADING_NO             | No
 SETUP_TECH_TRADING_YES_HELP       | Anyone can trade with anyone, as long as their relationship is good enough.<br>Empires at war won't trade!
 SETUP_TECH_TRADING_ALLIES_HELP    | Trade is limited between allies only.
 SETUP_TECH_TRADING_NO_HELP        | Trade is disabled.
-SETUP_WARP_SPEED_NORMAL_HELP      | Warp Seep progression: 1, 2, 3, 4, 5,  6,  7,  8,  9
+SETUP_WARP_SPEED_NORMAL_HELP      | Warp Speed progression: 1, 2, 3, 4, 5,  6,  7,  8,  9
 SETUP_WARP_SPEED_NORMAL           | Normal
-SETUP_WARP_SPEED_FAST_HELP        | Warp Seep progression: 1, 2, 3, 5, 7, 10, 13, 17, 21
+SETUP_WARP_SPEED_FAST_HELP        | Warp Speed progression: 1, 2, 3, 5, 7, 10, 13, 17, 21
 SETUP_WARP_SPEED_FAST             | Fast
+SETUP_WARP_SPEED_FAST_F_HELP      | Warp Speed progression: 1, 2, 3, 5, 8, 13, 21, 34, 55 (original Fibonacci progression)
+SETUP_WARP_SPEED_FAST_F           | Fastest
 SETUP_NEBULA_NONE                 | None
 SETUP_NEBULA_RARE                 | Rare
 SETUP_NEBULA_UNCOMMON             | Uncommon
@@ -1987,7 +1989,7 @@ SETTINGS_FUEL_RANGE               | Fuel Range: %1
 SETTINGS_AI_HOSTILITY             | Hostility: %1
 SETTINGS_RANDOM_EVENTS_HELP       | There are twenty random events in Remnants of the Precursors <i> (sixten vanilla and four from the Modnar)</i>, some favorable and some unfavorable. As of turn 50 <i> (this value can be changed) </i>, the percentage chance that a random event will occur somewhere in the galaxy begins to climb. After a random event occurs, the percentage chance resets to zero and begins climbing again next turn.<br>Random events are a catch-up mechanic that favors weaker factions. Once the event is determined, it will target a player based on how well they're doing in the game. Favorable events are more likely to happen to players with lower overall production, whereas unfavorable events are more likely to happen to players with higher overall production. Some event can only happen once.
 SETTINGS_RANDOM_EVENTS_DESC       | Space Monsters are random events and considerable mid-game threats.<br> Turn off space monsters or all random events. 
-SETTINGS_WARP_SPEED_DESC          | Increase the speed of more advanced warp technologies. This can be desirable on very large maps.<br> [Fastest speeds reduced in modnar MOD]
+SETTINGS_WARP_SPEED_DESC          | Increase the speed of more advanced warp technologies. This can be desirable on very large maps.
 SETTINGS_GALAXY_AGE_DESC          | Compared to normal galaxies, young galaxies have more white and blue stars while old galaxies have more red and neutron stars.
 SETTINGS_TECH_TRADING_HELP        | Tech trading is the other common way to learn a technology. The AI factions will trade technologies with each other, so you might as well get in on the action.<br>You can turn off all technology trades or restrict these trades to allies.
 SETTINGS_TECH_TRADING_DESC        | Turn off all technology trades or restrict these trades to allies.

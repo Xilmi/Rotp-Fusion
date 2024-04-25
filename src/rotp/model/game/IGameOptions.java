@@ -149,6 +149,7 @@ public interface IGameOptions extends IModOptions {
 
     public static final String WARP_SPEED_NORMAL = "SETUP_WARP_SPEED_NORMAL";
     public static final String WARP_SPEED_FAST   = "SETUP_WARP_SPEED_FAST";
+    public static final String WARP_SPEED_FAST_F = "SETUP_WARP_SPEED_FAST2";
 
     public static final String NEBULAE_NONE      = "SETUP_NEBULA_NONE";
     public static final String NEBULAE_RARE      = "SETUP_NEBULA_RARE";
@@ -787,6 +788,7 @@ public interface IGameOptions extends IModOptions {
         List<String> list = new ArrayList<>();
         list.add(WARP_SPEED_NORMAL);
         list.add(WARP_SPEED_FAST);
+        list.add(WARP_SPEED_FAST_F);
         return list;
     }
     public static List<String> getGameDifficultyOptions() {
