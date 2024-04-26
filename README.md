@@ -63,6 +63,9 @@ Later:
 
 ## What's New
 
+2024.04.25 (BR)
+- Console catches errors to avoid focus jump.
+
 2024.04.24 (BR)
 - IDE only: "ALT-L" in option menu will reload labels.
 - Improved some option help text.

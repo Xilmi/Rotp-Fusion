@@ -197,7 +197,7 @@ public class Rotp {
     	return GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length-1;
     }
     public static void becomeVisible() { frame.setVisible(true); }
-    public static void setVisible(boolean b) { frame.setVisible(b); }
+    public static void setVisible(boolean b) { frame.setVisible(b); } // BR: used by command console only
    
     public static boolean containsArg(String[] argList, String key) {
         for (String s: argList) {

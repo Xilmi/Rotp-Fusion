@@ -3,6 +3,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 - Restored Original vanilla "fast speed" as Fastest.
+- Some developper tools.
+- Console catches errors to avoid focus jump.
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

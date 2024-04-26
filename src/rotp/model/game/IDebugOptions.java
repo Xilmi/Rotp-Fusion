@@ -135,6 +135,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 		@Override public Boolean set(Boolean newValue) {
 			super.set(newValue);
 			RotPUI.useDebugFile = newValue;
+			RotPUI.isConsole = newValue;
 			CommandConsole.showConsole(newValue);
 			return newValue;
 		}

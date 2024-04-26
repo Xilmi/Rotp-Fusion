@@ -145,6 +145,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         catch (Throwable t) { startupException = t; System.out.println("Err: UserPreferences init: "+t.getMessage()); }
     }
 
+    public static boolean isConsole = false; // BR: to avoid complex call on error!
     public static boolean useDebugFile = false;
     public static IGameOptions newGameOptions;
 
@@ -598,8 +599,13 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             }
         }
         //e.printStackTrace();
-        errorUI.init(e);
-        selectPanel(ERROR_PANEL, errorUI);
+        if (isConsole) {
+        	CommandConsole.throwError(e);
+        }
+        else {
+        	errorUI.init(e);
+            selectPanel(ERROR_PANEL, errorUI);
+        }
     }
     public void selectGNNPanel(String title, String id, List<Empire> empires) {
         session().pauseNextTurnProcessing("Show GNN");

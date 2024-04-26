@@ -122,7 +122,24 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			return null;
 		return console().getSys(aimedStar());
 	}
-	
+	public static void throwError(Throwable e) {
+		StackTraceElement[] trace = e.getStackTrace();
+		String out = e.toString();
+		for (StackTraceElement ste : trace)
+			out += NEWLINE + ste.toString();
+		instance.resultPane.setText(out);
+	}
+	private void testError() {
+		boolean allowTest = false;
+		int location = allowTest? -2 : 0;
+		String test = "Test";
+		test.charAt(location);
+		try {
+			test.charAt(location);
+		} catch (Exception e) {
+			throwError(e);
+		}
+	}
 	// ##### CONSTRUCTOR #####
 	private static void createAndShowGUI(boolean show)	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -157,6 +174,9 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 						break;
 					case KeyEvent.VK_DOWN:
 						nextCmd();
+						break;
+					case KeyEvent.VK_PAGE_UP:
+						testError();
 						break;
 				}
 			}
