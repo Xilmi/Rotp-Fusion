@@ -63,6 +63,11 @@ Later:
 
 ## What's New
 
+2024.04.26 (BR)
+- Console:
+  - Error messages will be the last ones to be displayed.
+  - Interception of Incoming Diplomatic Messages.
+
 2024.04.25 (BR)
 - Console catches errors to avoid focus jump.
 

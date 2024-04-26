@@ -424,7 +424,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void selectLoadGamePanel() {
 		if (guiOptions().selectedShowConsolePanel()) {
 			CommandConsole.loadMenu.open("");
-		} else {
+		}
+		else {
 			loadGameUI.init();
 			selectPanel(LOAD_PANEL, loadGameUI);
 		}
@@ -443,7 +444,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         GovernorOptions.callForReset();
 		if (guiOptions().selectedShowConsolePanel())
 			CommandConsole.introMenu.open("");
-    	if (options().debugBenchmark()) {
+
+		else if (options().debugBenchmark()) {
     		raceIntroUI.finish();
     		repaint();
     		return;

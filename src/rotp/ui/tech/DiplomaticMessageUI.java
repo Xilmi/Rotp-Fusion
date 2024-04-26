@@ -42,6 +42,8 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
+import rotp.ui.console.CommandConsole;
+import rotp.ui.console.ConsoleListener;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.diplomacy.DiplomaticMessage;
@@ -49,7 +51,8 @@ import rotp.ui.main.SystemPanel;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.util.ThickBevelBorder;
 
-public class DiplomaticMessageUI extends FadeInPanel implements MouseListener, MouseMotionListener, ActionListener {
+public class DiplomaticMessageUI extends FadeInPanel 
+		implements MouseListener, MouseMotionListener, ActionListener, ConsoleListener {
     private static final long serialVersionUID = 1L;
     static Color innerTextBackC = new Color(73,163,163);
     static Color outerTextAreaC = new Color(92,208,208);
@@ -121,6 +124,7 @@ public class DiplomaticMessageUI extends FadeInPanel implements MouseListener, M
             messageRemark = diplomatEmpire.decode(message.remark(notif.otherEmpire()), player());
             
         commonInit();
+        initForConsole();
     }
     public void initReply(DiplomacyRequestReply reply) {
         diplomatEmpire = reply.view().owner();
@@ -136,6 +140,7 @@ public class DiplomaticMessageUI extends FadeInPanel implements MouseListener, M
         message = reply;
         messageRemark = reply.remark();
         commonInit();
+        initForConsole();
     }
     private void commonInit() {
         exited = false;
@@ -518,6 +523,66 @@ public class DiplomaticMessageUI extends FadeInPanel implements MouseListener, M
             return;
         selectOption(selectHover);
     }
+     @Override public String getEmpireInfo(String sep) {
+    	if (diplomatEmpire.isPlayer())
+    		return "";
+
+    	String info = diplomatEmpire.name();
+    	info += sep + text("LEADER_PERSONALITY_FORMAT",
+    						diplomatEmpire.leader().personality(),
+    						diplomatEmpire.leader().objective());
+    	info += sep + player().treatyWithEmpire(diplomatEmpire.id).status(player());
+    	return info;
+    }
+    @Override public String getMessageRemark()		 { return messageRemark; }
+    @Override public String getMessageRemarkDetail() { return messageRemarkDetail; }
+    @Override public String[] getDataLines()		 {
+        int dataLines = message.numDataLines();
+        if (dataLines > 0) {
+        	String[] lines = new String[dataLines];
+            for (int i=0; i<dataLines; i++)
+                 lines[i] = message.dataLine(i);
+            return lines;
+        }
+    	return null;
+    }
+    @Override public String[][] getOptions()			 {
+    	int numReplies = message.numReplies();
+    	if (numReplies > 0) {
+        	String[] replies = new String[numReplies];
+        	String[] details = new String[numReplies];
+        	String[] enabled = new String[numReplies];
+            for (int i=0; i<numReplies; i++) {
+            	enabled[i] = message.enabled(i)? "Y" : "N";
+                replies[i] = message.reply(i);
+                details[i] = message.replyDetail(i);
+            }
+            String[][] options = new String[][] {replies, details, enabled};
+            return options;
+    	}
+    	return null;
+    }
+    @Override public boolean consoleResponse(int i)	 {
+    	if (i<1) {
+    		exited = true;
+            message.escape();
+    	}
+    	else if (i>6) {
+    		misClick();
+    	}
+    	else {
+	    	selectHover = i-1;
+	    	selectOption(selectHover);
+    	}
+        return exited;
+    }
+    @Override public void initForConsole()			 {
+    	if (!RotPUI.isConsole)
+    		return;
+    	talkTimeMs = 10;
+    	CommandConsole.diplomaticMessageMenu.openDiplomaticMessagPrompt(this);
+    }
+    
     @Override
     public void animate() {
         if (!playAnimations())

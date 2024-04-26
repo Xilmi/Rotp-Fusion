@@ -51,6 +51,7 @@ import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
 import rotp.ui.main.FleetPanel;
 import rotp.ui.main.MainUI;
+import rotp.ui.tech.DiplomaticMessageUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -62,22 +63,24 @@ import rotp.ui.util.ParamSubUI;
 public class CommandConsole extends JPanel  implements IConsole, ActionListener {
 	private static JFrame frame;
 	private static CommandConsole instance;
-	public	static Menu introMenu, loadMenu, saveMenu;
+	private static boolean errorDisplayed = false;
+	public	static CommandMenu introMenu, loadMenu, saveMenu;
 	public	static ReportMenu reportMenu;
 	public	static ColonizeMenu colonizeMenu;
+	public	static DiplomaticMessageMenu diplomaticMessageMenu;
 
 	private final JLabel commandLabel, resultLabel;
 	private final JTextField commandField;
 	private final JTextPane resultPane;
 	private final JScrollPane scrollPane;
-	private final List<Menu>		menus		= new ArrayList<>();
+	private final List<CommandMenu>	menus		= new ArrayList<>();
 	private final List<Empire>		empires		= new ArrayList<>();
 	private final List<Transport>	transports	= new ArrayList<>();
 	private final List<ShipFleet>	fleets		= new ArrayList<>();
 	private final List<StarSystem>	systems		= new ArrayList<>();
 	private final LinkedList<String> lastCmd	= new LinkedList<>();
-	private Menu liveMenu;
-	private Menu mainMenu, setupMenu, gameMenu, speciesMenu;
+	private CommandMenu liveMenu;
+	private CommandMenu mainMenu, setupMenu, gameMenu, speciesMenu;
 	private int selectedStar, aimedStar, selectedFleet, selectedTransport, selectedEmpire; // ,, selectedDesign;
 	private HashMap<Integer, Integer> altIndex2SystemIndex = new HashMap<>();
 //	private Menu stars, fleet, ships, opponents;
@@ -115,9 +118,11 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	}
 	public static void hideConsole()				{ showConsole(false); }
 	// variables control
-	int aimedStar()			{ return aimedStar; }
-	void aimedStar(int id)	{ aimedStar = id; }
-	StarSystem aimedSystem()	{
+	void liveMenu(CommandMenu menu)	{ liveMenu = menu; }
+	CommandMenu liveMenu()			{ return liveMenu; }
+	int aimedStar()					{ return aimedStar; }
+	void aimedStar(int id)			{ aimedStar = id; }
+	StarSystem aimedSystem()		{
 		if (aimedStar() < 0 || aimedStar() >= galaxy().systemCount)
 			return null;
 		return console().getSys(aimedStar());
@@ -128,6 +133,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		for (StackTraceElement ste : trace)
 			out += NEWLINE + ste.toString();
 		instance.resultPane.setText(out);
+		errorDisplayed = true;
 	}
 	private void testError() {
 		boolean allowTest = false;
@@ -190,7 +196,9 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		});
 
 		resultLabel	= new JLabel("Result: ");
-		resultPane	= new JTextPane();
+		resultPane	= new JTextPane() {
+			@Override public void setText(String t) { if (!errorDisplayed) super.setText(t); }
+		};
 		resultLabel.setLabelFor(resultPane);
 		resultPane.setEditable(false);
 		resultPane.setOpaque(true);
@@ -216,7 +224,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		resultPane.setContentType("text/html");
 		resultPane.setText("<html>");
 		initMenus();
-		resultPane.setText(liveMenu.menuGuide(""));
+		resultPane.setText(liveMenu().menuGuide(""));
 
 		starView	= new StarView();
 		fleetView	= new FleetView();
@@ -557,15 +565,15 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	}
 	private void initMenus()		{
 		mainMenu = initMainMenu();
-		liveMenu = mainMenu;
+		liveMenu(mainMenu);
 		menus.clear();
 		menus.add(mainMenu);
 		loadMenu = initLoadMenu();
 		saveMenu = initSaveMenu();
 	}
-	private Menu initSaveMenu()		{
-		Menu menu = new Menu("Save Menu") {
-			private String fileBaseName(String fn) {
+	private CommandMenu initSaveMenu()		{
+		CommandMenu menu = new CommandMenu("Save Menu") {
+			private String fileBaseName(String fn)		{
 				String ext = GameSession.SAVEFILE_EXTENSION;
 				if (fn.endsWith(ext)) {
 					List<String> parts = substrings(fn, '.');
@@ -574,7 +582,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				}
 				return fn;
 			}
-			@Override public String open(String out) {
+			@Override public String open(String out)	{
 				if (!session().status().inProgress()) {
 					out += "No game in progress" + NEWLINE;
 					return mainMenu.open(out);
@@ -625,8 +633,8 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		};
 		return menu;
 	}
-	private Menu initLoadMenu()		{
-		Menu menu = new Menu("Load Menu") {
+	private CommandMenu initLoadMenu()		{
+		CommandMenu menu = new CommandMenu("Load Menu") {
 			private String fileBaseName(String fn) {
 				String ext = GameSession.SAVEFILE_EXTENSION;
 				if (fn.endsWith(ext)) {
@@ -665,14 +673,14 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		};
 		return menu;
 	}
-	private Menu initMainMenu()		{
-		Menu main = new Menu("Main Menu") {
+	private CommandMenu initMainMenu()		{
+		CommandMenu main = new CommandMenu("Main Menu") {
 			@Override public String open(String out) {
 				RotPUI.instance().selectGamePanel();
 				return super.open(out);
 			}
 		};
-		main.addMenu(new Menu("Global Settings Menu", main, IMainOptions.commonOptions()));
+		main.addMenu(new CommandMenu("Global Settings Menu", main, IMainOptions.commonOptions()));
 		speciesMenu = initSpecieMenu(main);
 		setupMenu = initSetupMenus(main);
 		main.addMenu(setupMenu);
@@ -682,8 +690,8 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		main.addCommand(initSaveFile()); // S
 		return main;
 	}
-	private Menu initSetupMenus(Menu parent) {
-		Menu menu = new Menu("New Setup Menu", parent) {
+	private CommandMenu initSetupMenus(CommandMenu parent)	{
+		CommandMenu menu = new CommandMenu("New Setup Menu", parent) {
 			@Override public String open(String out) {
 				RotPUI.instance().selectGamePanel();
 				return speciesMenu.open(out);
@@ -692,10 +700,10 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		menu.addMenu(speciesMenu);
 		return menu;
 	}
-	private Menu initGameMenus(Menu parent)	 {
-		Menu menu = new Menu("Game Menu", parent);
-		menu.addMenu(new Menu("In Game Settings Menu", menu, IInGameOptions.inGameOptions()));
-		menu.addMenu(new Menu("Governor Menu", menu, GovernorOptions.governorOptionsUI));
+	private CommandMenu initGameMenus(CommandMenu parent)	{
+		CommandMenu menu = new CommandMenu("Game Menu", parent);
+		menu.addMenu(new CommandMenu("In Game Settings Menu", menu, IInGameOptions.inGameOptions()));
+		menu.addMenu(new CommandMenu("Governor Menu", menu, GovernorOptions.governorOptionsUI));
 		menu.addCommand(initNextTurn());		// N
 		menu.addCommand(initView());			// V
 		menu.addCommand(initSelectPlanet());	// P
@@ -703,13 +711,14 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		menu.addCommand(initSelectFleet());		// F
 		menu.addCommand(initSelectTransport());	// T
 		menu.addCommand(initSelectEmpire());	// E
-		introMenu		= initIntroMenu(menu);
-		reportMenu		= new ReportMenu("Report Menu", menu);
-		colonizeMenu	= new ColonizeMenu("Colonize Menu", menu);
+		introMenu				= initIntroMenu(menu);
+		reportMenu				= new ReportMenu("Report Menu", menu);
+		colonizeMenu			= new ColonizeMenu("Colonize Menu", menu);
+		diplomaticMessageMenu	= new DiplomaticMessageMenu("Diplomatic Messages Menu", menu);
 		return menu;
 	}
-	private Menu initSpecieMenu(Menu parent) {
-		Menu menu = new Menu("Player Species Menu", parent) {
+	private CommandMenu initSpecieMenu(CommandMenu parent)	{
+		CommandMenu menu = new CommandMenu("Player Species Menu", parent) {
 			@Override public String open(String out) {
 				RotPUI.instance().selectSetupRacePanel();
 				return super.open(out);
@@ -721,14 +730,14 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		menu.addSetting(RotPUI.setupRaceUI().playerLeader());
 		return menu;
 	}
-	private Menu initGalaxyMenu(Menu parent) {
-		Menu menu = new Menu("Galaxy Menu", parent) {
+	private CommandMenu initGalaxyMenu(CommandMenu parent)	{
+		CommandMenu menu = new CommandMenu("Galaxy Menu", parent) {
 			@Override public String open(String out) {
 				RotPUI.instance().selectSetupGalaxyPanel();
 				return super.open(out);
 			}
 		};
-		menu.addMenu(new Menu("Advanced Options Menu", menu, IAdvOptions.advancedOptions()));
+		menu.addMenu(new CommandMenu("Advanced Options Menu", menu, IAdvOptions.advancedOptions()));
 		menu.addSetting(rotp.model.game.IGalaxyOptions.sizeSelection);
 		menu.addSetting(rotp.model.game.IPreGameOptions.dynStarsPerEmpire);
 		menu.addSetting(rotp.model.game.IGalaxyOptions.shapeSelection);
@@ -743,8 +752,8 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		menu.addCommand(initStartGame());
 		return menu;
 	}
-	private Menu initIntroMenu(Menu parent)	 {
-		Menu menu = new Menu("Intro Menu", parent) {
+	private CommandMenu initIntroMenu(CommandMenu parent)	{
+		CommandMenu menu = new CommandMenu("Intro Menu", parent) {
 			@Override public String open(String out) {
 				reInit();
 				Empire pl = player();
@@ -755,7 +764,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					out += paragraph + NEWLINE;
 				}
 				out += NEWLINE + "Enter any command to continue";
-				liveMenu = this;
+				liveMenu(this);
 				resultPane.setText(out);
 				return "";
 			}
@@ -792,7 +801,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private MainUI mainUI()	  { return RotPUI.instance().mainUI(); }
 	// ##### EVENTS METHODES #####
 	@Override public void actionPerformed(ActionEvent evt)	{ }
-	private void commandEntry(ActionEvent evt)	{ liveMenu.newEntry(((JTextField) evt.getSource()).getText()); }
+	private void commandEntry(ActionEvent evt)	{ liveMenu().newEntry(((JTextField) evt.getSource()).getText()); }
 
 	private String optsGuide()	{
 		String out = "";
@@ -909,14 +918,13 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	int getFleetIndex(ShipFleet fl)		{ return fleets.indexOf(fl); }
 	int getTransportIndex(Transport tr)	{ return transports.indexOf(tr); }
 	// ################### SUB CLASS MENU ######################
-	public class ReportMenu extends Menu {
+	public class ReportMenu extends CommandMenu {
 		ReportMenu(String name)	{ super(name); }
-		ReportMenu(String name, Menu parent)	{ super(name, parent); }
-		@Override protected String close(String out) {
+		ReportMenu(String name, CommandMenu parent)		{ super(name, parent); }
+		@Override protected String close(String out)	{
 			session().resumeNextTurnProcessing();
-			liveMenu = gameMenu;
+			liveMenu(gameMenu);
 			return out;
-//			return gameMenu.open(out);
 		}
 		@Override protected void newEntry(String entry)	{ resultPane.setText(close("")); }
 		public String openScoutReport(HashMap<String, List<StarSystem>> newSystems) {
@@ -951,35 +959,104 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			}
 
 			out += NEWLINE + "Enter any command to continue";
-			liveMenu = this;
+			liveMenu(this);
 			resultPane.setText(out);
 			return "";
 		}
 		public String acknowledgeMessage(String message) {
 			String out = message + NEWLINE + NEWLINE + "Enter any command to continue";
-			liveMenu = this;
+			liveMenu(this);
 			resultPane.setText(out);
 			return "";
 		}
 		public String openTemplate() {
 			String out = "";
-			liveMenu = this;
+			liveMenu(this);
 			resultPane.setText(out);
 			return out;
 		}
 	}
-	public class ColonizeMenu extends Menu {
+	public class DiplomaticMessageMenu extends CommandMenu {
+		private DiplomaticMessageUI parentUI;
+		private String message;
+		private String[][] options;
+
+		DiplomaticMessageMenu(String name, CommandMenu parent)	{ super(name, parent); }
+		@Override protected String close(String out) {
+			session().resumeNextTurnProcessing();
+			parentUI = null;
+			message  = null;
+			options	 = null;
+			liveMenu(gameMenu);
+			return out;
+		}
+		@Override protected void newEntry(String entry)	{
+			boolean exited = false;
+			switch (entry.toUpperCase()) {
+				case "0":
+					exited = parentUI.consoleResponse(0);
+					break;
+				case "1":
+					exited = parentUI.consoleResponse(1);
+					break;
+				case "2":
+					exited = parentUI.consoleResponse(2);
+					break;
+				case "3":
+					exited = parentUI.consoleResponse(3);
+					break;
+				case "4":
+					exited = parentUI.consoleResponse(4);
+					break;
+				case "5":
+					exited = parentUI.consoleResponse(5);
+					break;
+				case "6":
+					exited = parentUI.consoleResponse(6);
+					break;
+				default:
+					misClick();
+			}
+			commandField.setText("");
+			if (exited)
+				close("");
+		}
+		public String openDiplomaticMessagPrompt(DiplomaticMessageUI ui) {
+			parentUI = ui;
+			message = "New incoming Message from";
+			message += NEWLINE + parentUI.getEmpireInfo(NEWLINE);
+			message += NEWLINE + "Translated Message = ";
+			message += NEWLINE + parentUI.getMessageRemark();
+			String remarkDetails = parentUI.getMessageRemarkDetail();
+			if (!remarkDetails.isEmpty())
+				message += NEWLINE + remarkDetails;
+			options = parentUI.getOptions();
+			if (options != null) {
+				message += NEWLINE + "Available options";
+	        	String[] replies = options[0];
+	        	String[] details = options[1];
+	        	String[] enabled = options[2];
+				int optSize = options[0].length;
+				for (int i=0; i<optSize; i++)
+					if (enabled[i].equals("Y"))
+						message += NEWLINE + (i+1) + " - " + replies[i] + " " + details[i];
+			}
+			liveMenu(this);
+			resultPane.setText(message);
+			return "";
+		}
+	}
+	public class ColonizeMenu extends CommandMenu {
 	    int sysId;
 	    ShipFleet fleet;
 	    ShipDesign design;
 		ColonizeMenu(String name)	{ super(name); }
-		ColonizeMenu(String name, Menu parent)	{ super(name, parent); }
+		ColonizeMenu(String name, CommandMenu parent)	{ super(name, parent); }
 		@Override protected String close(String out) {
 			session().resumeNextTurnProcessing();
 			fleet  = null;
 			design = null;
-			//return out;
-			liveMenu = gameMenu;
+			liveMenu(gameMenu);
 			return out;
 		}
 		@Override protected void newEntry(String entry)	{
@@ -987,7 +1064,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				case "N":
 					commandField.setText("");
 					resultPane.setText(close(""));
-					return;
+					break;
 				case "Y":
 					fleet.colonizeSystem(galaxy().system(sysId));
 					String title = text("MAIN_COLONIZE_ANIMATION_TITLE", str(galaxy().currentYear()));
@@ -995,10 +1072,11 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					commandField.setText("");
 					//resultPane.setText(close(title));
 					reportMenu.acknowledgeMessage(title);
-					return;
+					break;
 				default:
 					misClick();
 			}
+			commandField.setText("");
 		}
 		public String openColonyPrompt(int systemId, ShipFleet fl, ShipDesign d) {
 	        sysId  = systemId;
@@ -1012,50 +1090,52 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			out = starView.getInfo(out) + NEWLINE + NEWLINE;
 			String promptStr = text("MAIN_COLONIZE_PROMPT");
 			out += promptStr + " Y or N";
-			liveMenu = this;
+			liveMenu(this);
 			resultPane.setText(out);
 			return "";
 		}
 	}
-	public class Menu {
+	public class CommandMenu {
 		private final String menuName;
-		private final Menu parent;
+		private final CommandMenu parent;
 		private final List<IParam> settings	 = new ArrayList<>();
-		private final List<Menu>   subMenus	 = new ArrayList<>();
+		private final List<CommandMenu>   subMenus	 = new ArrayList<>();
 		private final List<Command> commands = new ArrayList<>();
 		private int lastList = NULL_ID;
 		private IParam liveSetting;
 
 		// ##### CONSTRUCTORS #####
-		Menu(String name)	{
+		protected CommandMenu(String name)	{
 			parent = this;
 			menuName = name;
 		} // For the main menu
-		Menu(String name, Menu parent)	{
+		protected CommandMenu(String name, CommandMenu parent)	{
 			this.parent = parent;
 			menuName = name;
 			addMenu(parent);
 		}
-		Menu(String name, Menu parent, ParamSubUI ui)		{ this(name, parent, ui.optionsList); }
-		Menu(String name, Menu parent, List<IParam> src)	{
+		CommandMenu(String name, CommandMenu parent, ParamSubUI ui)		{
+			this(name, parent, ui.optionsList);
+		}
+		CommandMenu(String name, CommandMenu parent, List<IParam> src)	{
 			this(name, parent);
 			for (IParam p : src)
 				if (p != null)
 					if (p.isSubMenu()) {
 						ParamSubUI ui = (ParamSubUI) p;
 						String uiName = text(ui.titleId());
-						subMenus.add(new Menu(uiName, this, ui));
+						subMenus.add(new CommandMenu(uiName, this, ui));
 					}
 					else
 						settings.add(p);
 		}
 		// #####  #####
 		public String open(String out)		{
-			liveMenu = this;
+			liveMenu(this);
 			return menuGuide(out);
 		}
 		protected String close(String out)		{ return parent.open(out); }
-		private void addMenu(Menu menu)			{ subMenus.add(menu); }
+		private void addMenu(CommandMenu menu)	{ subMenus.add(menu); }
 		private void addSetting(IParam setting)	{ settings.add(setting); }
 		private void addCommand(Command cmd)	{ commands.add(cmd); }
 		protected void newEntry(String entry)	{
@@ -1201,7 +1281,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		// Menus methods
 		private String menuPrev(String out) { return close(out); }
 		private String menuNext(String out) {
-			List<Menu> list = parent.subMenus;
+			List<CommandMenu> list = parent.subMenus;
 			int index = list.indexOf(this) + 1;
 			if (index >= list.size())
 				return close(out); // Return to parent
@@ -1227,7 +1307,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				return "? No menu list available";
 			out += "Menu List: " + NEWLINE;
 			int i=0;
-			for (Menu p: subMenus) {
+			for (CommandMenu p: subMenus) {
 				out += "(M " + i + ") " + p.menuName + NEWLINE;
 				i++;
 			}
