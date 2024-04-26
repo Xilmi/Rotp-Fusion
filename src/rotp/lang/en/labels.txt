@@ -405,6 +405,7 @@ GAME_VERSION                      | Version: %1
 GAME_SHRINK                       | Shrink -
 GAME_ENLARGE                      | Expand
 GAME_MENU_GLOBAL_MOD_SETTINGS     | Mod Settings
+GAME_MENU_REPLAY_LAST_TURN        | Replay Last Turn
 
 // Game Settings UI
 GAME_SETTINGS_TITLE               | Game Settings

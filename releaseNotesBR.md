@@ -3,10 +3,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 - Restored Original vanilla "fast speed" as Fastest.
-- Some developper tools.
 - Console: 
   - Catches errors to avoid focus jump.
   - Interception of Incoming Diplomatic Messages.
+- Developer tool on main panel:
+  - Press "R" to Replay last Turn.
+  - "Ctrl" will replace "Continue" with "Replay Last Turn"
+  - May be useful for non developer too...
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -130,6 +133,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Mid Click to restore view.
   - scroll to scroll...
 - Restored Original vanilla "fast speed" as Fastest.
+- Developer tool on main panel:
+  - Press "R" to Replay last Turn.
+  - "Ctrl" will replace "Continue" with "Replay Last Turn"
+  - May be useful for non developer too...
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.

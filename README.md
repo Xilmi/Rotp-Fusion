@@ -67,6 +67,10 @@ Later:
 - Console:
   - Error messages will be the last ones to be displayed.
   - Interception of Incoming Diplomatic Messages.
+- Developer tool on main panel:
+  - Press "R" to Replay last Turn.
+  - "Ctrl" will replace "Continue" with "Replay Last Turn"
+  - May be useful for non developer too...
 
 2024.04.25 (BR)
 - Console catches errors to avoid focus jump.

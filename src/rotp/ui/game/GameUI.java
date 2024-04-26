@@ -426,11 +426,11 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     }
     private void setTextValues() {
         discussText.displayText(text("GAME_DISCUSS_ONLINE"));
-        continueText.displayText(text("GAME_MENU_CONTINUE"));
+        // continueText.displayText(text("GAME_MENU_CONTINUE"));
         newGameText.displayText(text("GAME_MENU_NEW_GAME"));
         loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
         saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
-//        settingsText.displayText(text("GAME_MENU_SETTINGS"));
+        settingsText.displayText(text("GAME_MENU_SETTINGS"));
         manualText.displayText(text("GAME_MENU_OPEN_MANUAL"));
         exitText.displayText(text("GAME_MENU_EXIT"));
         restartText.displayText(text("GAME_MENU_RESTART"));
@@ -452,10 +452,12 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
-	        settingsText.displayText(text("GAME_MENU_GLOBAL_MOD_SETTINGS"));
+	        // settingsText.displayText(text("GAME_MENU_GLOBAL_MOD_SETTINGS"));
+	        continueText.displayText(text("GAME_MENU_REPLAY_LAST_TURN"));
 	        break;
 		default:
-	        settingsText.displayText(text("GAME_MENU_SETTINGS"));
+	        // settingsText.displayText(text("GAME_MENU_SETTINGS"));
+	        continueText.displayText(text("GAME_MENU_CONTINUE"));
 		}
 	}
 
@@ -668,6 +670,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         return readerExists(filename);
     }
     public	boolean canContinue()    { return session().status().inProgress() || session().hasRecentSession(); }
+    public	boolean canRecenStart()  { return session().hasRecentStartSession(); }
     private boolean canNewGame()     { return true; }
     private boolean canLoadGame()    { return true; }
     private boolean canSaveGame()    { return session().status().inProgress(); }
@@ -722,6 +725,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             case KeyEvent.VK_N:  newGame();      return;
             case KeyEvent.VK_L:  loadGame();     return;
             case KeyEvent.VK_O:  openManual();   return;
+            case KeyEvent.VK_R:  replayLastTurn(); return;
             case KeyEvent.VK_S:  saveGame();     return;
             case KeyEvent.VK_T:  goToSettings(); return;
             case KeyEvent.VK_E:
@@ -777,6 +781,18 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
                 Desktop.getDesktop().open(userManual);
         } catch (IOException e) {}
     }
+    public void replayLastTurn() { // BR:
+        if (canRecenStart()) {
+            buttonClick();
+           	session().loadRecentStartGame(true);
+        	RotPUI.currentOptions(IGameOptions.GAME_ID);
+        	UserPreferences.load();
+            RotPUI.instance().selectMainPanel();
+            RotPUI.instance().mainUI().showDisplayPanel();
+            if (gameName == "")
+        		gameName = generateGameName(options());
+        }
+    }
     public void continueGame() { // BR:
         if (canContinue()) {
             buttonClick();
@@ -830,12 +846,12 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         repaint();
     }
     public void goToSettings() {
-    	if (isCtrlDown()) {
-            buttonClick();
-    		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
-    		modGlobalOptionsUI.init();
-    		return;
-    	}
+//    	if (isCtrlDown()) {
+//            buttonClick();
+//    		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
+//    		modGlobalOptionsUI.init();
+//    		return;
+//    	}
 //	if (isShiftDown()) {
 		buttonClick();
 		MainOptionsUI mainOptionsUI = RotPUI.mainOptionsUI();
@@ -881,7 +897,10 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         else if (discussText.contains(x,y))
             openRedditPage();
         else if (continueText.contains(x,y))
-            continueGame();
+        	if (e.isControlDown())
+        		replayLastTurn();
+        	else
+        		continueGame();
         else if (newGameText.contains(x,y))
             newGame();
         else if (loadGameText.contains(x,y))

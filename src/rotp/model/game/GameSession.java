@@ -1185,6 +1185,16 @@ public final class GameSession implements Base, Serializable {
         }
         return true;
     }
+    public boolean hasRecentStartSession() {
+    	File f = new File(saveDir(), RECENT_START_SAVEFILE);
+        try {
+            InputStream file = new FileInputStream(f);
+            file.close();
+        } catch (IOException ex) {
+            return false;
+        }
+        return true;
+    }
     public void loadLastSavedGame(boolean startUp) {
     	String ext = GameSession.SAVEFILE_EXTENSION;
     	File saveDir = new File(saveDir());
@@ -1201,6 +1211,9 @@ public final class GameSession implements Base, Serializable {
             }
         }
         loadSession(saveDir(), lastSave, startUp);
+    }
+    public void loadRecentStartGame(boolean startUp) {
+       loadSession(saveDir(), RECENT_START_SAVEFILE, startUp);
     }
     public void loadRecentSession(boolean startUp) {
         loadSession(saveDir(), RECENT_SAVEFILE, startUp);
