@@ -120,6 +120,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	// variables control
 	void liveMenu(CommandMenu menu)	{ liveMenu = menu; }
 	CommandMenu liveMenu()			{ return liveMenu; }
+	int selectedStar()				{ return selectedStar; }
 	int aimedStar()					{ return aimedStar; }
 	void aimedStar(int id)			{ aimedStar = id; }
 	StarSystem aimedSystem()		{
@@ -440,7 +441,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					}
 				}
 				StarSystem sys	= getSys(aimedStar());
-				out += descTargetSystem(sys, true);
+				out += viewTargetSystemInfo(sys, true);
 				return out;
 			}
 		};
@@ -523,7 +524,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		return cmd;		
 	}
 	private Command initSelectEmpire()		{
-		Command cmd = new Command("select Empire from index", EMPIRE_KEY) {
+		Command cmd = new Command("select Empire from index and gives Info", EMPIRE_KEY) {
 			@Override protected String execute(List<String> param) {
 				String out = getShortGuide() + NEWLINE;
 				if (!param.isEmpty()) {
@@ -535,7 +536,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					}
 				}
 				Empire emp = galaxy().empire(selectedEmpire);
-				out += descEmpire(emp);
+				out += longEmpireInfo(emp);
 				return out;
 			}
 		};
@@ -821,62 +822,6 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		return out;
 	}
 	// ##### Tools
-	private String optional (String key)	{ return "[" + key + "]"; }
-	private String descEmpire(Empire emp)	{
-		String out = empireContactInfo(emp, NEWLINE);
-		return out;
-	}
-	private String descFleet(ShipFleet fleet)	{
-		if (fleet.isEmpty())
-			return "Empty Fleet";
-		Empire pl  = player();
-		Empire emp = fleet.empire();
-		// Empire
-		String out = "Owner = " + shortEmpireInfo(emp);
-		// Location
-		if (fleet.isOrbiting())
-			out += SPACER + "Orbit " + planetName(fleet.system().altId);
-		else if (pl.knowETA(fleet)) {
-			int destination = fleet.destination().altId;
-			int eta = fleet.travelTurnsRemainingAdjusted();
-			out += SPACER + "ETA " + planetName(destination) + " = " + eta + " year";
-			if (eta>1)
-				out += "s";
-		}
-		else {
-			out += SPACER + "Closest System = ";
-			StarSystem sys = pl.closestSystem(fleet);
-			out += planetName(sys.altId) + SPACER + "Distance = " + ly(sys.distanceTo(fleet));
-		}
-		out += SPACER + fleetDesignInfo(fleet, SPACER);
-		return out;
-	}
-	private String descTargetSystem(StarSystem sys, boolean local)	{
-		return "Aimed System = " + descSystem(sys, local);
-	}
-	private String descSystem(StarSystem sys, boolean local)	{
-		Empire emp		= sys.empire();
-		Empire pl		= player();
-		SystemView view	= pl.sv.view(sys.id);
-		String out = bracketed(SYSTEM_KEY, sys.altId) + " ";
-		// Star Color
-		out += sys.starColor() + " star";
-		// Planet Name
-		String s = view.name();
-		if (!s.isEmpty())
-			out += SPACER + view.name();
-		out += SPACER + shortSystemInfo(view);
-		// Planet Distance
-		if (local) {
-			StarSystem ref = getSys(selectedStar);
-			out +=  SPACER + "Distance " + bracketed(SYSTEM_KEY, selectedStar) + "s = " + ly(ref.distanceTo(sys));
-		}
-		else if (pl != emp){
-			out += SPACER + "Distance to player = " + ly( pl.distanceTo(sys));
-		}
-		return out;
-	}
-	int validPlanet(int p)				{ return bounds(0, p, galaxy().systemCount-1); }
 	private int validFleet(int idx)		{ return bounds(0, idx, fleets.size()-1); }
 	private int validTransport(int idx)	{ return bounds(0, idx, transports.size()-1); }
 	private void sortSystems()			{ systems.sort((s1, s2) -> s1.altId-s2.altId); }
@@ -887,7 +832,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private void resetEmpires()			{
 		empires.clear();
 		for (Empire emp : galaxy().empires())
-			if (!emp.extinct() && player().knowsOf(emp))
+			if (!emp.extinct() && player().hasContacted(emp.id))
 				empires.add(emp);
 	}
 	private void resetTransports()		{
@@ -917,7 +862,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	int getSysId(int altIdx)			{ return altIndex2SystemIndex.get(altIdx); }
 	int getFleetIndex(ShipFleet fl)		{ return fleets.indexOf(fl); }
 	int getTransportIndex(Transport tr)	{ return transports.indexOf(tr); }
-	// ################### SUB CLASS MENU ######################
+	// ################### SUB CLASS REPORT MENU ######################
 	public class ReportMenu extends CommandMenu {
 		ReportMenu(String name)	{ super(name); }
 		ReportMenu(String name, CommandMenu parent)		{ super(name, parent); }
@@ -943,19 +888,19 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				else
 					out += "Our ships have scouted these systems" + NEWLINE;
 				for (StarSystem sys : scoutSystems)
-					out += descSystem(sys, true) + NEWLINE;
+					out += viewSystemInfo(sys, true) + NEWLINE;
 			}
 			if (!allySystems.isEmpty()) {
 				allySystems.sort((s1, s2) -> s1.altId-s2.altId);
 				out += "Our allies have shared these data" + NEWLINE;
 				for (StarSystem sys : allySystems)
-					out += descSystem(sys, true) + NEWLINE;
+					out += viewSystemInfo(sys, true) + NEWLINE;
 			}
 			if (!astronomerSystems.isEmpty()) {
 				astronomerSystems.sort((s1, s2) -> s1.altId-s2.altId);
 				out += "Our astronomers have collected these data" + NEWLINE;
 				for (StarSystem sys : astronomerSystems)
-					out += descSystem(sys, true) + NEWLINE;
+					out += viewSystemInfo(sys, true) + NEWLINE;
 			}
 
 			out += NEWLINE + "Enter any command to continue";
@@ -976,80 +921,46 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			return out;
 		}
 	}
+	// ################### SUB CLASS DIPLOMATIC MESSAGE MENU ######################
 	public class DiplomaticMessageMenu extends CommandMenu {
 		private DiplomaticMessageUI parentUI;
 		private String message;
-		private String[][] options;
 
 		DiplomaticMessageMenu(String name, CommandMenu parent)	{ super(name, parent); }
 		@Override protected String close(String out) {
 			session().resumeNextTurnProcessing();
 			parentUI = null;
-			message  = null;
-			options	 = null;
+			message	 = null;
 			liveMenu(gameMenu);
 			return out;
 		}
 		@Override protected void newEntry(String entry)	{
-			boolean exited = false;
-			switch (entry.toUpperCase()) {
-				case "0":
-					exited = parentUI.consoleResponse(0);
-					break;
-				case "1":
-					exited = parentUI.consoleResponse(1);
-					break;
-				case "2":
-					exited = parentUI.consoleResponse(2);
-					break;
-				case "3":
-					exited = parentUI.consoleResponse(3);
-					break;
-				case "4":
-					exited = parentUI.consoleResponse(4);
-					break;
-				case "5":
-					exited = parentUI.consoleResponse(5);
-					break;
-				case "6":
-					exited = parentUI.consoleResponse(6);
-					break;
-				default:
-					misClick();
-			}
+			boolean exited = parentUI.consoleResponse(entry);
 			commandField.setText("");
 			if (exited)
 				close("");
+			else {
+				misClick();
+				String out = "Invalid Answer: " + entry + NEWLINE;
+				out += NEWLINE + message;
+				resultPane.setText(out);
+			}
 		}
 		public String openDiplomaticMessagPrompt(DiplomaticMessageUI ui) {
 			parentUI = ui;
-			message = "New incoming Message from";
-			message += NEWLINE + parentUI.getEmpireInfo(NEWLINE);
-			message += NEWLINE + "Translated Message = ";
-			message += NEWLINE + parentUI.getMessageRemark();
-			String remarkDetails = parentUI.getMessageRemarkDetail();
-			if (!remarkDetails.isEmpty())
-				message += NEWLINE + remarkDetails;
-			options = parentUI.getOptions();
-			if (options != null) {
-				message += NEWLINE + "Available options";
-	        	String[] replies = options[0];
-	        	String[] details = options[1];
-	        	String[] enabled = options[2];
-				int optSize = options[0].length;
-				for (int i=0; i<optSize; i++)
-					if (enabled[i].equals("Y"))
-						message += NEWLINE + (i+1) + " - " + replies[i] + " " + details[i];
-			}
+			message = parentUI.getConsoleMessage(NEWLINE);
 			liveMenu(this);
 			resultPane.setText(message);
 			return "";
 		}
 	}
+	// ################### SUB CLASS COLONIZE MENU ######################
 	public class ColonizeMenu extends CommandMenu {
 	    int sysId;
-	    ShipFleet fleet;
-	    ShipDesign design;
+	    private ShipFleet fleet;
+	    private ShipDesign design;
+		private String message;
+		
 		ColonizeMenu(String name)	{ super(name); }
 		ColonizeMenu(String name, CommandMenu parent)	{ super(name, parent); }
 		@Override protected String close(String out) {
@@ -1075,6 +986,9 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					break;
 				default:
 					misClick();
+					String out = "Invalid Answer: " + entry + NEWLINE;
+					out += NEWLINE + message;
+					resultPane.setText(out);
 			}
 			commandField.setText("");
 		}
@@ -1083,18 +997,19 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	        fleet  = fl;
 	        design = d;
 			String sysName = player().sv.name(sysId);
-			String out = text("MAIN_COLONIZE_TITLE", sysName) + NEWLINE;
+			message = text("MAIN_COLONIZE_TITLE", sysName) + NEWLINE;
 			String yearStr = displayYearOrTurn();
-			out += yearStr + NEWLINE;
+			message += yearStr + NEWLINE;
 			starView.initId(sysId);
-			out = starView.getInfo(out) + NEWLINE + NEWLINE;
+			message = starView.getInfo(message) + NEWLINE + NEWLINE;
 			String promptStr = text("MAIN_COLONIZE_PROMPT");
-			out += promptStr + " Y or N";
+			message += promptStr + " Y or N";
 			liveMenu(this);
-			resultPane.setText(out);
+			resultPane.setText(message);
 			return "";
 		}
 	}
+	// ################### SUB CLASS COMMAND MENU ######################
 	public class CommandMenu {
 		private final String menuName;
 		private final CommandMenu parent;
@@ -1660,7 +1575,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			if (systems.isEmpty())
 				return out + "Empty Star System List" + NEWLINE;
 			for (StarSystem sys : systems)
-				out += descSystem(sys, dist!=null) + NEWLINE;
+				out += viewSystemInfo(sys, dist!=null) + NEWLINE;
 			return out;
 		}
 		private String viewFleets(String out)	{
@@ -1669,7 +1584,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			int idx = 0;
 			for (ShipFleet fleet : fleets) {
 				out += bracketed(FLEET_KEY, idx) + " ";
-				out += descFleet(fleet);
+				out += viewFleetInfo(fleet);
 				out += NEWLINE;
 				idx++;
 			}

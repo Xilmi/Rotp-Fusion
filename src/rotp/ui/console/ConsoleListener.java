@@ -1,6 +1,6 @@
 package rotp.ui.console;
 
-public interface ConsoleListener {
+public interface ConsoleListener { // TODO BR: Foe later
 	public String getEmpireInfo(String sep);
 	public String getMessageRemark();
 	public String getMessageRemarkDetail();

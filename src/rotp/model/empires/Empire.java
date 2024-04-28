@@ -3803,6 +3803,14 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return true;
     }
+    /**
+     * !!! this is different than hasContacted() !!! 
+     * Do you or any contacted empire has contact with Empire e?
+     * The empire must be in economical Range
+     * 
+     * @param e Empire to have heard of
+     * @return Do any of any contact has contact with this empire
+     */
     public boolean knowsOf(Empire e) {
         if (e == null)
             return false;
@@ -3814,7 +3822,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         	if (emp != null) {
 	            EmpireView v = this.viewForEmpire(emp.id);
 	            if (v.inEconomicRange() && emp.hasContacted(e.id)) 
-	                return true;
+	                return true; // BR: Why different from knowsOf(int empId)
         	}
         }
         return false;
@@ -3823,6 +3831,14 @@ public final class Empire implements Base, NamedObject, Serializable {
         EmpireView ev = this.viewForEmpire(empId);
         return (ev != null) && ev.embassy().contact();
     }
+    /**
+     * !!! this is different than hasContacted() !!! 
+     * Do you or any contacted empire has contact with Empire e?
+     * The empire is not required to be in economical range
+     * 
+     * @param empId id of Empire to have heard of
+     * @return Do any of my contact has contact with this empire
+     */
     public boolean knowsOf(int empId) {
         if (empId == Empire.NULL_ID)
             return false;
@@ -3832,7 +3848,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return true;
         for (Empire emp : contactedEmpires()) {
             if (emp != null && emp.hasContacted(empId))
-                return true;
+                return true; // BR: Why different from knowsOf(Empire e)
         }
         return false;
     }

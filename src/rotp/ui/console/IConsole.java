@@ -57,13 +57,15 @@ public interface IConsole extends Base {
 	String FLEET_SEND		= "SEND";
 	String FLEET_UNDEPLOY	= "U";
 
-	// ##### TOOLS
+//	##### TOOLS #####
 	default CommandConsole console()	{ return cc(); }
 	default Empire empire(int empId)	{ return galaxy().empire(empId); }
+	default int validPlanet(int p)		{ return bounds(0, p, galaxy().systemCount-1); }
 	default String cLn(String s)		{ return s.isEmpty() ? "" : (NEWLINE + s); }
 	default String ly(float dist)		{ return text("SYSTEMS_RANGE", df1.format(Math.ceil(10*dist)/10)); }
 	default String bracketed(String key, int index)		{ return "(" + key + " " +index + ")"; }
-	default String setDest(List<String> param, String out) {
+	default String optional (String key)				{ return "[" + key + "]"; }
+	default String setDest(List<String> param, String out)	{
 		String s = param.get(0);
 		Integer f;
 		if (s.equalsIgnoreCase(AIMED_KEY))
@@ -95,7 +97,32 @@ public interface IConsole extends Base {
 		}
 		return out;
 	}
-	// ##### FLEETS
+	default String viewSystemInfo(StarSystem sys, boolean local)	{
+		Empire emp		= sys.empire();
+		Empire pl		= player();
+		SystemView view	= pl.sv.view(sys.id);
+		String out = bracketed(SYSTEM_KEY, sys.altId) + " ";
+		// Star Color
+		out += sys.starColor() + " star";
+		// Planet Name
+		String s = view.name();
+		if (!s.isEmpty())
+			out += SPACER + view.name();
+		out += SPACER + shortSystemInfo(view);
+		// Planet Distance
+		if (local) {
+			StarSystem ref = cc().getSys(cc().selectedStar());
+			out +=  SPACER + "Distance " + bracketed(SYSTEM_KEY, cc().selectedStar()) + "s = " + ly(ref.distanceTo(sys));
+		}
+		else if (pl != emp){
+			out += SPACER + "Distance to player = " + ly( pl.distanceTo(sys));
+		}
+		return out;
+	}
+	default String viewTargetSystemInfo(StarSystem sys, boolean local)	{
+		return "Aimed System = " + viewSystemInfo(sys, local);
+	}
+	//	##### FLEETS #####
 	default String fleetDesignInfo(ShipFleet fl, String sep)	{
 		String out = "";
 		int[] visible = fl.visibleShips(player().id);
@@ -129,6 +156,32 @@ public interface IConsole extends Base {
 			out += "Unknown ";
 		return out;
 	}
+	default String viewFleetInfo(ShipFleet fleet)	{
+		if (fleet.isEmpty())
+			return "Empty Fleet";
+		Empire pl  = player();
+		Empire emp = fleet.empire();
+		// Empire
+		String out = "Owner = " + shortEmpireInfo(emp);
+		// Location
+		if (fleet.isOrbiting())
+			out += SPACER + "Orbit " + planetName(fleet.system().altId);
+		else if (pl.knowETA(fleet)) {
+			int destination = fleet.destination().altId;
+			int eta = fleet.travelTurnsRemainingAdjusted();
+			out += SPACER + "ETA " + planetName(destination) + " = " + eta + " year";
+			if (eta>1)
+				out += "s";
+		}
+		else {
+			out += SPACER + "Closest System = ";
+			StarSystem sys = pl.closestSystem(fleet);
+			out += planetName(sys.altId) + SPACER + "Distance = " + ly(sys.distanceTo(fleet));
+		}
+		out += SPACER + fleetDesignInfo(fleet, SPACER);
+		return out;
+	}
+//	##### TRANSPORTS #####
 	default String transportInfo(Transport transport, String sep)	{
 		Empire pl  = player();
 		Empire emp = transport.empire();
@@ -149,7 +202,7 @@ public interface IConsole extends Base {
 			out += sep + closestSystem(transport, sep);
 		return out;
 	}
-	// ##### SYSTEMS
+//	##### SYSTEMS #####
 	default String planetName(int altId)	{ return planetName(cc().getView(altId), SPACER); }
 	default String planetNameCR(int altId)	{ return planetName(cc().getView(altId), NEWLINE); }
 	default String planetName(int altId, String sep)	{ return planetName(cc().getView(altId), sep); }
@@ -198,21 +251,21 @@ public interface IConsole extends Base {
 		out += sep + "Distance = " + ly(sys.distanceTo(mapObj));
 		return out;
 	}
-	// ##### EMPIRES
-	default String shortEmpireInfo(Empire emp)			{
-		if (player().knowsOf(emp))
+//	##### EMPIRES
+	default String shortEmpireInfo(Empire emp)	{
+		if (player().hasContacted(emp.id))
 			return bracketed(EMPIRE_KEY, emp.id);
 		else
 			return "Unknown";
 	}
-	default String longEmpireInfo(Empire emp)			{
+	default String longEmpireInfo(Empire emp)	{
 		String out = shortEmpireInfo(emp);
-		if (player().knowsOf(emp))
+		if (player().hasContacted(emp.id))
 			out += " " + emp.name();
 		return out;
 	}
 	default String empireContactInfo(Empire emp, String sep)	{
-		if (!player().knowsOf(emp))
+		if (!player().hasContacted(emp.id))
 			return "Unknown Empire";
 		String out = longEmpireInfo(emp);
 		boolean inRange = true;
@@ -267,6 +320,4 @@ public interface IConsole extends Base {
 		else
 			return text("RACES_TRADE_LEVEL", level);
 	}
-
-
 }

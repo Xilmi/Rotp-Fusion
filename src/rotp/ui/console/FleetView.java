@@ -257,7 +257,7 @@ public class FleetView implements IConsole {
 		}
 
 		// All parameters are set: Process command
-		int validDest = console().validPlanet(console().aimedStar());
+		int validDest = validPlanet(console().aimedStar());
 		if (validDest != console().aimedStar()) {
 			out += NEWLINE + "Invalid Destination star system " + console().aimedStar();
 			panel.cancel();

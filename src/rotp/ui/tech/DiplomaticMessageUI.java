@@ -36,58 +36,55 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
-import javax.swing.border.Border;
 import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
 import rotp.ui.console.CommandConsole;
-import rotp.ui.console.ConsoleListener;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.diplomacy.DiplomaticMessage;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.notifications.DiplomaticNotification;
-import rotp.util.ThickBevelBorder;
 
 public class DiplomaticMessageUI extends FadeInPanel 
-		implements MouseListener, MouseMotionListener, ActionListener, ConsoleListener {
+		implements MouseListener, MouseMotionListener, ActionListener {
     private static final long serialVersionUID = 1L;
-    static Color innerTextBackC = new Color(73,163,163);
-    static Color outerTextAreaC = new Color(92,208,208);
-    static Color textBorderLo1 = new Color(73,163,163);
-    static Color textBorderLo2 = new Color(52,126,126);
-    static Color textBorderHi1  = new Color(110,240,240);
-    static Color textBorderHi2  = new Color(115,252,252);
-    static Color textC = Color.white;
-    static Color textBgC = Color.darkGray;
-    static Color optionC = Color.white;
-    static Color hoverOptionC = Color.yellow;
-    static Color disabledOptionC = Color.gray;
+    // static Color innerTextBackC = new Color(73,163,163);
+    // static Color outerTextAreaC = new Color(92,208,208);
+    // private static Color textBorderLo1 = new Color(73,163,163);
+    // private static Color textBorderLo2 = new Color(52,126,126);
+    // private static Color textBorderHi1  = new Color(110,240,240);
+    // private static Color textBorderHi2  = new Color(115,252,252);
+    private static Color textC = Color.white;
+    private static Color textBgC = Color.darkGray;
+    private static Color optionC = Color.white;
+    private static Color hoverOptionC = Color.yellow;
+    private static Color disabledOptionC = Color.gray;
 
-    static Border outerTextAreaBorder, innerTextAreaBorder;
+    // static Border outerTextAreaBorder, innerTextAreaBorder;
 
     private Image flagPole;
 
     private final Rectangle[] selectBoxes = new Rectangle[DiplomaticMessage.MAX_SELECTIONS];
     private int selectHover = -1;
 
-    Empire diplomatEmpire;
-    Image flag, dialogBox;
-    DiplomaticMessage message;
-    String messageRemark, messageRemarkDetail;
+    private Empire diplomatEmpire;
+    private Image flag, dialogBox;
+    private DiplomaticMessage message;
+    private String messageRemark, messageRemarkDetail;
 
-    int talkTimeMs = 5000;
-    long startTimeMs;
-    float holoPct = 0f;
-    boolean hasSpoken = false;
-    boolean mouseSet = false;
-    boolean exited = false;
+    private int talkTimeMs = 5000;
+    private long startTimeMs;
+    private float holoPct = 0f;
+    private boolean hasSpoken = false;
+    private boolean mouseSet = false;
+    private boolean exited = false;
 
     public DiplomaticMessageUI() {
-        outerTextAreaBorder = new ThickBevelBorder(8, textBorderHi2, textBorderHi1, textBorderHi2, textBorderHi1, textBorderLo2, textBorderLo1, textBorderLo2, textBorderLo1);
-        innerTextAreaBorder = new ThickBevelBorder(8, textBorderLo1, textBorderLo2, textBorderLo1, textBorderLo2, textBorderHi1, textBorderHi2, textBorderHi1, textBorderHi2);
+        // outerTextAreaBorder = new ThickBevelBorder(8, textBorderHi2, textBorderHi1, textBorderHi2, textBorderHi1, textBorderLo2, textBorderLo1, textBorderLo2, textBorderLo1);
+        // innerTextAreaBorder = new ThickBevelBorder(8, textBorderLo1, textBorderLo2, textBorderLo1, textBorderLo2, textBorderHi1, textBorderHi2, textBorderHi1, textBorderHi2);
 
         for (int i=0;i<selectBoxes.length;i++)
             selectBoxes[i] = new Rectangle();
@@ -174,7 +171,7 @@ public class DiplomaticMessageUI extends FadeInPanel
         g.drawImage(img0,0,0,null);
         drawOverlay(g);
     }
-    public Image paintToImage() {
+    private Image paintToImage() {
         if (message == null) 
             err(messageRemark);
         
@@ -523,66 +520,7 @@ public class DiplomaticMessageUI extends FadeInPanel
             return;
         selectOption(selectHover);
     }
-     @Override public String getEmpireInfo(String sep) {
-    	if (diplomatEmpire.isPlayer())
-    		return "";
 
-    	String info = diplomatEmpire.name();
-    	info += sep + text("LEADER_PERSONALITY_FORMAT",
-    						diplomatEmpire.leader().personality(),
-    						diplomatEmpire.leader().objective());
-    	info += sep + player().treatyWithEmpire(diplomatEmpire.id).status(player());
-    	return info;
-    }
-    @Override public String getMessageRemark()		 { return messageRemark; }
-    @Override public String getMessageRemarkDetail() { return messageRemarkDetail; }
-    @Override public String[] getDataLines()		 {
-        int dataLines = message.numDataLines();
-        if (dataLines > 0) {
-        	String[] lines = new String[dataLines];
-            for (int i=0; i<dataLines; i++)
-                 lines[i] = message.dataLine(i);
-            return lines;
-        }
-    	return null;
-    }
-    @Override public String[][] getOptions()			 {
-    	int numReplies = message.numReplies();
-    	if (numReplies > 0) {
-        	String[] replies = new String[numReplies];
-        	String[] details = new String[numReplies];
-        	String[] enabled = new String[numReplies];
-            for (int i=0; i<numReplies; i++) {
-            	enabled[i] = message.enabled(i)? "Y" : "N";
-                replies[i] = message.reply(i);
-                details[i] = message.replyDetail(i);
-            }
-            String[][] options = new String[][] {replies, details, enabled};
-            return options;
-    	}
-    	return null;
-    }
-    @Override public boolean consoleResponse(int i)	 {
-    	if (i<1) {
-    		exited = true;
-            message.escape();
-    	}
-    	else if (i>6) {
-    		misClick();
-    	}
-    	else {
-	    	selectHover = i-1;
-	    	selectOption(selectHover);
-    	}
-        return exited;
-    }
-    @Override public void initForConsole()			 {
-    	if (!RotPUI.isConsole)
-    		return;
-    	talkTimeMs = 10;
-    	CommandConsole.diplomaticMessageMenu.openDiplomaticMessagPrompt(this);
-    }
-    
     @Override
     public void animate() {
         if (!playAnimations())
@@ -598,4 +536,87 @@ public class DiplomaticMessageUI extends FadeInPanel
         }
         repaint();
     }
+
+    // ##### Console Tools
+    public String getConsoleMessage(String sep)	{
+		String out = "New incoming Message from";
+		out += sep + getEmpireInfo(sep);
+		out += sep + "Translated Message = ";
+		out += sep + messageRemark;
+		String remarkDetails = messageRemarkDetail;
+		if (!remarkDetails.isEmpty())
+			out += sep + remarkDetails;
+		String[][] options = getOptions();
+		if (options != null) {
+			out += sep + "Available options";
+        	String[] replies = options[0];
+        	String[] details = options[1];
+        	String[] enabled = options[2];
+			int optSize = options[0].length;
+			for (int i=0; i<optSize; i++)
+				if (enabled[i].equals("Y"))
+					out += sep + (i+1) + " - " + replies[i] + " " + details[i];
+		}
+		return out;
+    }
+    private String getEmpireInfo(String sep)	{
+    	if (diplomatEmpire.isPlayer())
+    		return "";
+
+    	String info = diplomatEmpire.name();
+    	info += sep + text("LEADER_PERSONALITY_FORMAT",
+    						diplomatEmpire.leader().personality(),
+    						diplomatEmpire.leader().objective());
+    	info += sep + player().treatyWithEmpire(diplomatEmpire.id).status(player());
+    	return info;
+    }
+    public String[] getDataLines()				{
+        int dataLines = message.numDataLines();
+        if (dataLines > 0) {
+        	String[] lines = new String[dataLines];
+            for (int i=0; i<dataLines; i++)
+                 lines[i] = message.dataLine(i);
+            return lines;
+        }
+    	return null;
+    }
+    private String[][] getOptions()				{
+    	int numReplies = message.numReplies();
+    	if (numReplies > 0) {
+        	String[] replies = new String[numReplies];
+        	String[] details = new String[numReplies];
+        	String[] enabled = new String[numReplies];
+            for (int i=0; i<numReplies; i++) {
+            	enabled[i] = message.enabled(i)? "Y" : "N";
+                replies[i] = message.reply(i);
+                details[i] = message.replyDetail(i);
+            }
+            String[][] options = new String[][] {replies, details, enabled};
+            return options;
+    	}
+    	return null;
+    }
+    public boolean consoleResponse(String s)	{
+    	switch (s.toUpperCase()) {
+			case "0": case "ESC": case "ESCAPE":
+				exited = true;
+	            message.escape();
+				break;
+			case "1": case "2": case "3": case "4": case "5": case "6":
+				int response = (int)s.charAt(0) - (int)'1';
+				if (response<message.numReplies()) {
+					selectHover = response;
+					selectOption(selectHover);
+				}
+				break;
+		}
+    	return exited;
+    }
+    private void initForConsole()				{
+    	if (!RotPUI.isConsole)
+    		return;
+    	talkTimeMs = 10;
+    	CommandConsole.diplomaticMessageMenu.openDiplomaticMessagPrompt(this);
+    }
+    
 }
