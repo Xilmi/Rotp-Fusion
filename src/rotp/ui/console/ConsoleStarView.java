@@ -15,23 +15,16 @@ import rotp.model.ships.ShipDesignLab;
 import rotp.ui.RotPUI;
 import rotp.ui.sprites.SystemTransportSprite;
 
-public class StarView implements IConsole {
-	// private final CommandConsole console;
-	private Empire player, empire;
+public class ConsoleStarView implements IConsole {
+	private Empire empire;
 	private StarSystem sys;
 	private SystemView sv;
-	private SystemInfo si;
 	private Colony colony;
 	private int id;
 	private boolean isPlayer, isScouted, isColony;
 	
-	// ##### CONSTRUCTOR #####
-	//StarView(CommandConsole parent)	{ console = parent; }
-
 	void initId(int sysId)	{
-		player	= player();
-		si	= player.sv;
-		sv	= si.view(sysId);
+		sv	= player().sv.view(sysId);
 		sys	= galaxy().system(sysId);
 		id	= sysId;
 		empire 		= sv.empire();
@@ -47,7 +40,7 @@ public class StarView implements IConsole {
 	void initAltId(int altId)	{ initId(console().getSysId(altId)); }
 	// ##### Systems Report
 	String getInfo(String out)	{
-		if (player.hiddenSystem(sys)) // Dark Galaxy
+		if (player().hiddenSystem(sys)) // Dark Galaxy
 			return out + " !!! Hidden";
 		out = systemBox(out);
 		out += fleetInfo();
@@ -190,6 +183,7 @@ public class StarView implements IConsole {
 		if (planet != null) {
 			out += " / ECOmax = " + (int) planet.sizeAfterWaste();
 		}
+		SystemInfo si	= player().sv;
 		if (si.isColonized(id) && si.colony(id).inRebellion())
 			out += " ! " + text("MAIN_PLANET_REBELLION");
 		// Test for Transport
@@ -206,7 +200,7 @@ public class StarView implements IConsole {
 				out += NEWLINE + "Planned "+ amount + " transports to " + dest;
 			int turns = (int) Math.ceil(sys.transportTimeTo(destination));
 			out += NEWLINE + text("MAIN_TRANSPORT_ETA", dest, turns);
-			int maxAllowed = player.maxTransportsAllowed(destination);
+			int maxAllowed = player().maxTransportsAllowed(destination);
 			if (amount > maxAllowed) {
                 if (maxAllowed == 0)
                     out += NEWLINE + text("MAIN_TRANSPORT_NO_ROOM");
@@ -234,6 +228,7 @@ public class StarView implements IConsole {
 			return text("MAIN_SYSTEM_DETAIL_NO_DATA");
 		String out = cLn(systemReportAge());
 		out += "Population = " + pop;
+		SystemInfo si	= player().sv;
 		if (si.isColonized(id) && si.colony(id).inRebellion())
 			out += " ! " + text("MAIN_PLANET_REBELLION");
 		out += NEWLINE + "Factories = " + sv.factories();
@@ -265,12 +260,12 @@ public class StarView implements IConsole {
 	private String fleetInfo()			{
 		String out = "";
 		for (ShipFleet fl: sys.orbitingFleets()) {
-			if (fl.visibleTo(player)) {
+			if (fl.visibleTo(player())) {
 				out += NEWLINE + "In Orbit " + longEmpireInfo(fl.empire()) + " fleet";
 				out += NEWLINE + fleetDesignInfo(fl, NEWLINE);
 			}
 		}
-		for (ShipFleet fl: player.getEtaFleets(sys)) {
+		for (ShipFleet fl: player().getEtaFleets(sys)) {
 			out += NEWLINE + "Incoming " + longEmpireInfo(fl.empire()) + " fleet";
 			out += NEWLINE + fleetDesignInfo(fl, NEWLINE);
 			out += NEWLINE + "ETA = " + (int) Math.ceil(fl.travelTimeAdjusted(sys)) + " Years";
@@ -278,12 +273,12 @@ public class StarView implements IConsole {
 		return out;
 	}
 	private String treatyStatus()		{
-		int empId = si.empId(id);
-		if (player == empire)
+		int empId = player().sv.empId(id);
+		if (player() == empire)
 			return "";
-		if (player.alliedWith(empId))
+		if (player().alliedWith(empId))
 			return text("MAIN_FLEET_ALLY");
-		else if (player.atWarWith(empId))
+		else if (player().atWarWith(empId))
 			return text("MAIN_FLEET_ENEMY");
 		else
 			return "";
@@ -301,9 +296,10 @@ public class StarView implements IConsole {
 			return "";
 	}	
 	private String systemRange()		{
+		SystemInfo si = player().sv;
 		float range	= (float) Math.ceil(si.distance(id)*10)/10;
 		String out  = "Distance = ";
-		if (player.alliedWith(id(sys.empire())))
+		if (player().alliedWith(id(sys.empire())))
 			out += text("MAIN_ALLIED_COLONY");
 		else
 			out += text("MAIN_SYSTEM_RANGE", df1.format(range));
@@ -441,13 +437,13 @@ public class StarView implements IConsole {
 		int id = bounds(0, val, ShipDesignLab.MAX_DESIGNS-1);
 		Design d;
 		if (id == val)
-			d = player.shipLab().design(val);
-		else if (!player.tech().canBuildStargate())
+			d = player().shipLab().design(val);
+		else if (!player().tech().canBuildStargate())
 			return out + "Error: Stargate Tech not yet available";
 		else if (colony.shipyard().hasStargate())
 			return out + "Error: Already has a Stargate";
 		else
-			d = player.shipLab().stargateDesign();
+			d = player().shipLab().stargateDesign();
 		
 		if (d.active())
 			out += "Set to " + d.name();
@@ -489,6 +485,7 @@ public class StarView implements IConsole {
 		if (dest == null) {
 			return "Error: Invalid destination";
 		}
+		SystemInfo si	= player().sv;
 		if (!si.isScouted(dest.id)) {
 			return "Error: " + text("MAIN_TRANSPORT_UNSCOUTED");
 		}
@@ -498,8 +495,8 @@ public class StarView implements IConsole {
 		if (!si.inShipRange(dest.id)) {
 			return "Error: " + text("MAIN_TRANSPORT_OUT_OF_RANGE");
 		}
-		if (!player.canColonize(dest.planet().type())
-				&& !((dest.empire() == player) && dest.colony().inRebellion())) {
+		if (!player().canColonize(dest.planet().type())
+				&& !((dest.empire() == player()) && dest.colony().inRebellion())) {
 			return "Error: " + text("MAIN_TRANSPORT_HOSTILE");
 		}
 		return "";
@@ -535,7 +532,7 @@ public class StarView implements IConsole {
 		transportSprite.clickedDest(dest);
 		transportSprite.amt(amount);
 		
-		player.deployTransport(sys);
+		player().deployTransport(sys);
 		RotPUI.instance().mainUI().clickedSprite(sys);
 
 		return out;
@@ -556,7 +553,7 @@ public class StarView implements IConsole {
 		transportSprite.clickedDest(dest);
 		transportSprite.amt(amount);
 		
-		player.deployTransport(sys);
+		player().deployTransport(sys);
 		RotPUI.instance().mainUI().clickedSprite(sys);
 
 		return out;
@@ -566,7 +563,7 @@ public class StarView implements IConsole {
 
 		SystemTransportSprite transportSprite = sys.transportSprite();
 		transportSprite.clear();
-		player.deployTransport(sys);
+		player().deployTransport(sys);
 		RotPUI.instance().mainUI().clickedSprite(sys);
 
 		return out;

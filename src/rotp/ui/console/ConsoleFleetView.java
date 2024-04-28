@@ -9,26 +9,20 @@ import rotp.model.galaxy.StarSystem;
 import rotp.ui.RotPUI;
 import rotp.ui.main.FleetPanel;
 
-public class FleetView implements IConsole {
+public class ConsoleFleetView implements IConsole {
 	//private final CommandConsole console;
-	private Empire pl, empire;
+	private Empire empire;
 	private StarSystem dest;
 	private ShipFleet  fleet;
 	private int fleetId;
 	private String nebulaText;
 	// private boolean isPlayer, contact;
 	
-	// ##### CONSTRUCTOR #####
-	// FleetView()	{  }
-	// FleetView(CommandConsole parent)	{ console = parent; }
-
-	void init(int f)	{
-		pl	= player();
-		fleet	= console().getFleet(f);
-		fleetId	= f;
+	void init(int flId)	{
+		fleet	= console().getFleet(flId);
+		fleetId	= flId;
 	}
 
-		
 	// ##### Systems Report
 	String getInfo(String out)	{
 		if (fleet == null || fleet.isEmpty())
@@ -52,8 +46,8 @@ public class FleetView implements IConsole {
 	// ##### SUB BOXES
 	private String topBox(String out)	{
 		// draw orbiting data, bottom up
-		if (fleet.launched() || (fleet.deployed() && !pl.knowETA(fleet))) {
-			if (pl.knowETA(fleet) && (fleet.hasDestination())) {
+		if (fleet.launched() || (fleet.deployed() && !player().knowETA(fleet))) {
+			if (player().knowETA(fleet) && (fleet.hasDestination())) {
 				String dest =  planetName(fleet.destination().altId);
 				String str2 = dest.isEmpty() ? text("MAIN_FLEET_DEST_UNSCOUTED") : text("MAIN_FLEET_DESTINATION", dest);
 				out += str2;
@@ -61,10 +55,10 @@ public class FleetView implements IConsole {
 			String str3 = fleet.retreating() ? text("MAIN_FLEET_RETREATING") : text("MAIN_FLEET_IN_TRANSIT");
 			out += NEWLINE + str3;
 			if (!fleet.empire().isPlayer()) {
-				if (pl.alliedWith(fleet.empId)) {
+				if (player().alliedWith(fleet.empId)) {
 					String str4 = text("MAIN_FLEET_ALLY");
 					out += str4;
-				} else if (pl.atWarWith(fleet.empId)) {
+				} else if (player().atWarWith(fleet.empId)) {
 					String str4 = text("MAIN_FLEET_ENEMY");
 					out += "!" + str4;
 				}
@@ -209,36 +203,6 @@ public class FleetView implements IConsole {
 		FleetPanel panel = RotPUI.instance().mainUI().displayPanel().fleetPane();
 		// Check for destination
 		out = setDest(param, out);
-//		String s = param.get(0);
-//		Integer f;
-//		// Check for destination
-//		if (s.equalsIgnoreCase(AIMED_KEY))
-//			param.remove(0); // Parameter processed... Implicit target, Nothing to do
-//		else if (s.startsWith(SYSTEM_KEY)) { // New destination
-//			if (s.length() > 1) { // Parameter linked
-//				s = s.substring(1);
-//				param.remove(0); // Parameter processed
-//			}
-//			else { // Planet number in the following parameter
-//				param.remove(0); // Parameter processed
-//				if (param.isEmpty()) {
-//					out += NEWLINE + "Wrong Destination Parameter";
-//					return out;
-//				}
-//				else { // get planet Number
-//					s = param.remove(0);
-//				}
-//			}
-//			// Process the planet index
-//			f = getInteger(s);
-//			if (f != null) { // select a new Destination
-//				console().aimedStar(f);
-//			}
-//			else {
-//				out += NEWLINE + "Wrong Destination Parameter";
-//				return out;
-//			}
-//		}
 		Integer amt;
 		// process adjusted fleet selection
 		if (!param.isEmpty()) {
@@ -261,7 +225,6 @@ public class FleetView implements IConsole {
 		if (validDest != console().aimedStar()) {
 			out += NEWLINE + "Invalid Destination star system " + console().aimedStar();
 			panel.cancel();
-			// panel.cancelFleet();
 			return out;
 		}
 		StarSystem dest = console().getSys(console().aimedStar());

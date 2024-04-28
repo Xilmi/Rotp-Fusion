@@ -219,30 +219,30 @@ public interface IConsole extends Base {
 		return out;
 	}
 	default String shortSystemInfo(SystemView sv)		{
-        if (!sv.isColonized()) {
-            if (!sv.scouted()) 
-                return text("MAIN_UNSCOUTED");
-            else if (sv.system().planet().isEnvironmentNone())
-                return text("MAIN_NO_PLANETS");
-            else if (sv.abandoned())
-                return text("MAIN_ABANDONED");
-            else
-                return text("MAIN_NO_COLONIES");
-        }
-        String out;
-        Empire emp	= sv.empire();
-        String name	= emp.raceName();
-        String id	= bracketed(EMPIRE_KEY, emp.id) + " ";
-        if (!sv.scouted())
-            out = text("MAIN_UNSCOUTED") + " " +  id + text("PLANET_WORLD", name);
-        else if (emp.isHomeworld(sv.system()))
-            out = id + text("PLANET_HOMEWORLD", name);
-        else if (emp.isColony(sv.system()))
-            out = id + text("PLANET_COLONY", name);
-        else
-            out = id + text("PLANET_WORLD", name);
-        out = emp.replaceTokens(out, "alien");
-        return out;
+		if (!sv.isColonized()) {
+			if (!sv.scouted()) 
+				return text("MAIN_UNSCOUTED");
+			else if (sv.system().planet().isEnvironmentNone())
+				return text("MAIN_NO_PLANETS");
+			else if (sv.abandoned())
+				return text("MAIN_ABANDONED");
+			else
+				return text("MAIN_NO_COLONIES");
+		}
+		String out;
+		Empire emp	= sv.empire();
+		String name	= emp.raceName();
+		String id	= bracketed(EMPIRE_KEY, emp.id) + " ";
+		if (!sv.scouted())
+			out = text("MAIN_UNSCOUTED") + " " +  id + text("PLANET_WORLD", name);
+		else if (emp.isHomeworld(sv.system()))
+			out = id + text("PLANET_HOMEWORLD", name);
+		else if (emp.isColony(sv.system()))
+			out = id + text("PLANET_COLONY", name);
+		else
+			out = id + text("PLANET_WORLD", name);
+		out = emp.replaceTokens(out, "alien");
+		return out;
 	}
 	default String closestSystem(IMappedObject mapObj, String sep)	{
 		StarSystem sys = player().closestSystem(mapObj);
@@ -252,26 +252,78 @@ public interface IConsole extends Base {
 		return out;
 	}
 //	##### EMPIRES
-	default String shortEmpireInfo(Empire emp)	{
-		if (player().hasContacted(emp.id))
+	default String shortEmpireInfo(Empire emp)		{
+		if (emp.isPlayer() || player().hasContacted(emp.id))
 			return bracketed(EMPIRE_KEY, emp.id);
 		else
 			return "Unknown";
 	}
-	default String longEmpireInfo(Empire emp)	{
+	default String longEmpireInfo(Empire emp)		{
 		String out = shortEmpireInfo(emp);
-		if (player().hasContacted(emp.id))
+		if (emp.isPlayer() || player().hasContacted(emp.id))
 			out += " " + emp.name();
 		return out;
 	}
-	default String empireContactInfo(Empire emp, String sep)	{
-		if (!player().hasContacted(emp.id))
-			return "Unknown Empire";
-		String out = longEmpireInfo(emp);
+
+//	default String xshortEmpireInfo(Empire emp)		{
+//		String out;
+//		boolean inRange = true;
+//		if (emp.isPlayer()) {
+//			List<EmpireView> views = player().contacts();
+//			int n = views.size();
+//			out = bracketed(EMPIRE_KEY, emp.id) +  " " + emp.name();
+//			out += NEWLINE + text("RACES_KNOWN_EMPIRES", n);
+//			if (n > 0) {
+//				int r = 0;
+//				for (EmpireView v : views) {
+//					if (!v.diplomats())
+//						r++;
+//				}
+//				out += NEWLINE + text("RACES_RECALLED_DIPLOMATS", r);
+//			}
+//		}
+//		else {
+//			EmpireView view = player().viewForEmpire(emp);
+//			inRange = view.inEconomicRange();
+//			out = bracketed(EMPIRE_KEY, emp.id) +  " " + emp.name();
+//			if (inRange) {
+//				// treaty status
+//				DiplomaticTreaty treaty = view.embassy().treaty();
+//				boolean isAlly = treaty.isAlliance();
+//				out += NEWLINE + treaty.status(player());
+//				if (isAlly) {
+//					TreatyAlliance alliance = (TreatyAlliance) treaty;
+//					int standing = alliance.standing(player());
+//					out += ", standing = " + standing;
+//				}
+//				// trade
+//				int level = view.trade().level();
+//				if (level == 0)
+//					out += NEWLINE + text("RACES_TRADE_NONE");
+//				else
+//					out += NEWLINE + text("RACES_TRADE_LEVEL", level);
+//			}
+//			else {
+//				out += NEWLINE + text("RACES_OUT_OF_RANGE");
+//			}
+//			if (!emp.masksDiplomacy()) {
+//				float relations = view.embassy().relations();
+//			}
+//		}
+//		if (!player().hasContacted(emp.id)) {
+//			return "Unknown";
+//		}
+//		String out = bracketed(EMPIRE_KEY, emp.id);
+//		out += " " + emp.name();
+//		return out;
+//	}
+	default String empireContactInfo(Empire emp, String sep){
+		String out;
 		boolean inRange = true;
 		if (emp.isPlayer()) {
 			List<EmpireView> views = player().contacts();
 			int n = views.size();
+			out = bracketed(EMPIRE_KEY, emp.id) +  " " + emp.name();
 			out += sep + text("RACES_KNOWN_EMPIRES", n);
 			if (n > 0) {
 				int r = 0;
@@ -281,7 +333,11 @@ public interface IConsole extends Base {
 				out += sep + text("RACES_RECALLED_DIPLOMATS", r);
 			}
 		}
+		else if (!player().hasContacted(emp.id)) {
+			return "Unknown Empire";
+		}
 		else {
+			out = longEmpireInfo(emp);
 			EmpireView view = player().viewForEmpire(emp);
 			inRange = view.inEconomicRange();
 			if (inRange) {
@@ -300,7 +356,7 @@ public interface IConsole extends Base {
 		int relation = (int) (0.5f + view.embassy().relations());
 		return "Relation = " + relation + "%";
 	}
-	default String empireTreaty(Empire emp)	{
+	default String empireTreaty(Empire emp)			{
 		EmpireView view = emp.viewForEmpire(player());
 		DiplomaticTreaty treaty = view.embassy().treaty();
 		String out = treaty.status(player());
@@ -312,7 +368,7 @@ public interface IConsole extends Base {
 		}
 		return out;
 	}
-	default String empireTrade(Empire emp)	{
+	default String empireTrade(Empire emp)			{
 		EmpireView view = emp.viewForEmpire(player());
 		int level = view.trade().level();
 		if (level == 0)
@@ -320,4 +376,15 @@ public interface IConsole extends Base {
 		else
 			return text("RACES_TRADE_LEVEL", level);
 	}
+	default String viewEmpiresContactInfo(List<Empire>	empires)	{
+		String out = "";
+		if (empires.isEmpty())
+			return out + "Empty Empire List" + NEWLINE;
+		for (Empire empire : empires) {
+			out += empireContactInfo(empire, NEWLINE);
+			out += NEWLINE;
+		}
+		return out;
+	}
+	default String viewEmpiresContactInfo()	{ return viewEmpiresContactInfo(player().contactedEmpires()); }
 }

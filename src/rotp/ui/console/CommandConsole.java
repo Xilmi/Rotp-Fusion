@@ -85,8 +85,8 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private HashMap<Integer, Integer> altIndex2SystemIndex = new HashMap<>();
 //	private Menu stars, fleet, ships, opponents;
 //	private final List<SystemView> starList = new ArrayList<>();
-	private StarView	starView;
-	private FleetView	fleetView;
+	private ConsoleStarView	 starView;
+	private ConsoleFleetView fleetView;
 	
 	// ##### STATIC METHODS #####
 	public static CommandConsole cc()				{ return instance; }
@@ -227,8 +227,8 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		initMenus();
 		resultPane.setText(liveMenu().menuGuide(""));
 
-		starView	= new StarView();
-		fleetView	= new FleetView();
+		starView	= new ConsoleStarView();
+		fleetView	= new ConsoleFleetView();
 		instance	= this;
 		if(!Rotp.isIDE())
 			IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
@@ -455,18 +455,18 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				if (param.isEmpty())
 					return cmdHelp();
 
-				String  s = param.remove(0);
-				Integer f = getInteger(s);
+				String  str  = param.remove(0);
+				Integer flId = getInteger(str);
 				ShipFleet fleet;
-				if (f == null) { // select a new fleet
-					return "??? parameter " + s + NEWLINE + cmdHelp();
+				if (flId == null) { // select a new fleet
+					return "??? parameter " + str + NEWLINE + cmdHelp();
 				}
 
 				FleetPanel panel = RotPUI.instance().mainUI().displayPanel().fleetPane();
 				String out = getShortGuide() + NEWLINE;
 				// select a new fleet
-				selectedFleet = validFleet(f);
-				if (selectedFleet == f)
+				selectedFleet = validFleet(flId);
+				if (selectedFleet == flId)
 					out = "";
 				else
 					return "Invalid Fleet selection";
@@ -478,15 +478,15 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				out = fleetView.getInfo(out);
 
 				if (!param.isEmpty()) { // Do something with selected fleet
-					s = param.remove(0);
-					if (s.equalsIgnoreCase(FLEET_SEND)) { // Send Fleet
+					str = param.remove(0);
+					if (str.equalsIgnoreCase(FLEET_SEND)) { // Send Fleet
 						out = fleetView.sendFleet(param, out);
 					}
-					else if (s.equalsIgnoreCase(FLEET_UNDEPLOY)) {
+					else if (str.equalsIgnoreCase(FLEET_UNDEPLOY)) {
 						panel.undeployFleet();
 					}
 					else
-						out += NEWLINE + "Wrong parameter " + s;
+						out += NEWLINE + "Wrong parameter " + str;
 				}
 				return out;
 			}
@@ -527,16 +527,19 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		Command cmd = new Command("select Empire from index and gives Info", EMPIRE_KEY) {
 			@Override protected String execute(List<String> param) {
 				String out = getShortGuide() + NEWLINE;
-				if (!param.isEmpty()) {
-					String s = param.get(0);
-					Integer f = getInteger(s);
-					if (f != null) {
-						selectedEmpire = bounds(0, f, galaxy().numEmpires()-1);
-						out = "";
-					}
+				if (param.isEmpty()) {
+					out += empireContactInfo(player(), NEWLINE);
+					out += NEWLINE + viewEmpiresContactInfo();
+					return out;
+				}
+				String str = param.get(0);
+				Integer empId = getInteger(str);
+				if (empId != null) {
+					selectedEmpire = bounds(0, empId, galaxy().numEmpires()-1);
+					out = "";
 				}
 				Empire emp = galaxy().empire(selectedEmpire);
-				out += longEmpireInfo(emp);
+				out += out = empireContactInfo(emp, NEWLINE);
 				return out;
 			}
 		};
@@ -958,7 +961,6 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	public class ColonizeMenu extends CommandMenu {
 	    int sysId;
 	    private ShipFleet fleet;
-	    private ShipDesign design;
 		private String message;
 		
 		ColonizeMenu(String name)	{ super(name); }
@@ -966,7 +968,6 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		@Override protected String close(String out) {
 			session().resumeNextTurnProcessing();
 			fleet  = null;
-			design = null;
 			liveMenu(gameMenu);
 			return out;
 		}
@@ -992,10 +993,9 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			}
 			commandField.setText("");
 		}
-		public String openColonyPrompt(int systemId, ShipFleet fl, ShipDesign d) {
+		public String openColonyPrompt(int systemId, ShipFleet fl) {
 	        sysId  = systemId;
 	        fleet  = fl;
-	        design = d;
 			String sysName = player().sv.name(sysId);
 			message = text("MAIN_COLONIZE_TITLE", sysName) + NEWLINE;
 			String yearStr = displayYearOrTurn();
@@ -1569,6 +1569,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					if (!empireFilter.contains(emp.id))
 						empires.remove(emp);
 			}
+			//result += viewEmpiresContactInfo(empires);
 			result = viewEmpires(result);
 		}
 		private String viewSystems(String out)	{
@@ -1603,7 +1604,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			if (empires.isEmpty())
 				return out + "Empty Empire List" + NEWLINE;
 			for (Empire empire : empires) {
-				out += shortEmpireInfo(empire);
+				out += empireContactInfo(empire, SPACER);
 				out += NEWLINE;
 			}
 			return out;

@@ -301,7 +301,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     }
     public void showColonizationPrompt(int sysId, ShipFleet fl, ShipDesign d) {
     	if (options().selectedShowConsolePanel()) {
-    		CommandConsole.colonizeMenu.openColonyPrompt(sysId, fl, d);
+    		CommandConsole.colonizeMenu.openColonyPrompt(sysId, fl);
     		return;
     	}
         overlay = overlayColonizePrompt;
