@@ -97,7 +97,7 @@ public class DiplomaticMessageUI extends FadeInPanel
     @Override
     public String ambienceSoundKey() { return diplomatEmpire.isPlayer() ? defaultAmbience() : diplomatEmpire.race().diplomacyTheme; }
 
-    public void init(DiplomaticNotification notif) {
+    public boolean init(DiplomaticNotification notif) {
         clearBuffer();
         diplomatEmpire = notif.talker();
         if (diplomatEmpire.isPlayer()) {
@@ -119,9 +119,20 @@ public class DiplomaticMessageUI extends FadeInPanel
             messageRemark = diplomatEmpire.decode(message.remark(notif.otherEmpire()), player());
         else 
             messageRemark = diplomatEmpire.decode(message.remark(notif.otherEmpire()), player());
-            
+
         commonInit();
         initForConsole();
+
+        if (!diplomatEmpire.isPlayer()
+        		&& notif.type() == DialogueManager.OFFER_TRADE
+        		&& player().atWarWith(diplomatEmpire.id)) {
+        	log("Skipped Offer Trade by Empire now at war");
+        	// System.out.println("Skipped Offer Trade by Empire now at war");
+            exited = true;
+            message.escape();
+        	return false;
+        }
+        return true;
     }
     public void initReply(DiplomacyRequestReply reply) {
         diplomatEmpire = reply.view().owner();

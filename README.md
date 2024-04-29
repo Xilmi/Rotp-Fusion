@@ -64,6 +64,9 @@ Later:
 ## What's New
 
 2024.04.26 (BR)
+- Fixed aliens offering Trade treaties while at war.
+
+2024.04.26 (BR)
 - Console:
   - Error messages will be the last ones to be displayed.
   - Interception of Incoming Diplomatic Messages.

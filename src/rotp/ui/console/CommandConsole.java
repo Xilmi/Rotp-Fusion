@@ -45,7 +45,6 @@ import rotp.model.game.IAdvOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IInGameOptions;
 import rotp.model.game.IMainOptions;
-import rotp.model.ships.ShipDesign;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;

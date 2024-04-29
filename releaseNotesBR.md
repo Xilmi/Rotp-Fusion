@@ -2,14 +2,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Restored Original vanilla "fast speed" as Fastest.
-- Console: 
-  - Catches errors to avoid focus jump.
-  - Interception of Incoming Diplomatic Messages.
-- Developer tool on main panel:
-  - Press "R" to Replay last Turn.
-  - "Ctrl" will replace "Continue" with "Replay Last Turn"
-  - May be useful for non developer too...
+- Fixed aliens offering Trade treaties while at war.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -170,4 +163,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Added a necessary method for the AI to be able to estimate the damage-output of the orion-guardian. (Xilmi)
 - Fixed Redirect Ship Path Glitch
 - Fixed Ship Combat when player ship turn may be skipped! this when following another ship destruction!
+- Fixed aliens offering Trade treaties while at war.
 - minor fixes...

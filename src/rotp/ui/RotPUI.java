@@ -770,7 +770,10 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void selectDiplomaticMessagePanel(DiplomaticNotification notif) {
         session().pauseNextTurnProcessing("Show Diplomatic Message");
         log("==MAIN UI==   selectDiplomaticMessagePanel");
-        diplomaticMessageUI.init(notif);
+        if (!diplomaticMessageUI.init(notif)) { // BR: to skip Offer Trade by Empire now at war
+        	// System.out.println("Skipped selectDiplomaticMessagePanel");
+        	return;
+        }
         if (!UserPreferences.windowed())
             selectDialogPanel(DIPLOMATIC_MESSAGE_PANEL, diplomaticMessageUI);
         else
