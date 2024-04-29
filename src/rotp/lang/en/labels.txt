@@ -2576,6 +2576,16 @@ SETTINGS_MOD_CHAIN_RALLY_SPEED_MIN       | Min
 SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP_DESC  | Based on the top speed allowed by currently known technologies.
 SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP       | Top
 
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | To disable peace treaties or remove the ability to colonize when another fleet is orbiting the planet.
+SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Peace Treaty: %1
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL_DESC | No change: The duration of peace treaties is randomly set between 10 and 15 years.
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL      | Peace
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR_DESC  | This will end the war and go to the state: →RACES_NO_TREATY←. Then you will still be able to engage in fleet combat to protect planets you may want to colonize. (*Beta Test)
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR       | Stop War*
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE_DESC  | Peace treaties still have a duration of 10 to 15 years. But planets can no longer be colonized when non-allied alien fleets are in orbit. AIs are not aware of this limitation, therefore this option could disrupt their fleet plans. (*Beta Test)
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE       | Truce*
+
+
 SETTINGS_MOD_RESEARCH_MOO1_DESC          | YES: Reload won't change research probability<br>NO: You may try to reload to get a new dice roll! (RotP default)
 SETTINGS_MOD_RESEARCH_MOO1               | Research Moo1: %1
 

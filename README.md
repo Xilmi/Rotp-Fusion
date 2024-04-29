@@ -65,6 +65,10 @@ Later:
 
 2024.04.26 (BR)
 - Fixed aliens offering Trade treaties while at war.
+- New Option to customise peace treaties.
+  - Peace: as before.
+  - Stop War: Peace Treaty duration = 0 years.
+  - Truce: No colonisation when non allied alien fleets are orbiting.
 
 2024.04.26 (BR)
 - Console:

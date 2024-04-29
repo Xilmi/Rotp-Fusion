@@ -402,6 +402,17 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         }
         return false;
     }
+    public boolean nonAlliedAlienShipsInOrbit(Empire emp) {
+        List<ShipFleet> fleets = orbitingFleets();
+        for (ShipFleet fleet: fleets) {
+        	if (fleet != null) {
+        		Empire flEmp = fleet.empire();
+        		if (flEmp != emp && !flEmp.alliedWith(id))
+        			return true;
+        	}
+        }
+        return false;
+    }
     public boolean orbitingShipsInConflict() {
         List<ShipFleet> fleets = orbitingFleetsNoMonster();
         if (hasMonster() && !fleets.isEmpty())

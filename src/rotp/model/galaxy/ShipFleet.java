@@ -446,7 +446,13 @@ public class ShipFleet extends FleetBase {
     }
     void checkColonize() {
         if ((system() != null) && inOrbit())
-            empire().ai().checkColonize(system(), this);
+        	if (options().noColPeaceTreaty()) {
+        		boolean dangerFleets = system().nonAlliedAlienShipsInOrbit(empire());
+        		if (!dangerFleets)
+        			empire().ai().checkColonize(system(), this);
+        	}
+        	else
+        		empire().ai().checkColonize(system(), this);
     }
     public boolean canColonizeSystem(StarSystem sys) {
         if ((sys == null) || sys.planet().type().isAsteroids())

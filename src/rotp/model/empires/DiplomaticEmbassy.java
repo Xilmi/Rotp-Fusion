@@ -563,7 +563,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
     public DiplomaticIncident signPeace() {
         beginTreaty();
         boolean allowPeaceTreaty = options().allowPeaceTreaty();
-        int duration = allowPeaceTreaty? roll(10,15) : 0; // TODO BR: May be "1" SPECIAL_PEACE_TREATY Validation 
+        int duration = allowPeaceTreaty? roll(10,15) : 0;
         otherEmbassy().endWarPreparations();
         beginPeace(duration);
         endWarPreparations();
@@ -571,9 +571,13 @@ public class DiplomaticEmbassy implements Base, Serializable {
         owner().hideSpiesAgainst(empire().id);
         empire().hideSpiesAgainst(owner().id);
         DiplomaticIncident inc = SignPeaceIncident.create(owner(), empire(), duration);
-        if (allowPeaceTreaty) { // TODO BR: SPECIAL_PEACE_TREATY Validation
+        if (allowPeaceTreaty) {
 	        addIncident(inc);
 	        otherEmbassy().addIncident(SignPeaceIncident.create(empire(), owner(), duration));
+        }
+        else {
+            galaxy().empire(empire().id).viewForEmpire(owner().id).embassy().setNoTreaty();
+            galaxy().empire(owner().id).viewForEmpire(empire().id).embassy().setNoTreaty();
         }
         return inc;
     }

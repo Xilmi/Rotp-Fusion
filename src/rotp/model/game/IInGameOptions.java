@@ -224,12 +224,16 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	ParamBoolean defaultChainRally		= new ParamBoolean(MOD_UI, "DEFAULT_CHAIN_RALLY", true);
 	default boolean defaultChainRally()		{ return defaultChainRally.get(); }
 
-	ParamList chainRallySpeed			= new ParamList( MOD_UI, "CHAIN_RALLY_SPEED", "Fleet") {
+	
+	String CHAIN_RALLY_SPEED_FLEET	= "FLEET";
+	String CHAIN_RALLY_SPEED_MIN	= "MIN";
+	String CHAIN_RALLY_SPEED_TOP	= "TOP";
+	ParamList chainRallySpeed			= new ParamList( MOD_UI, "CHAIN_RALLY_SPEED", CHAIN_RALLY_SPEED_FLEET) {
 		{
 			showFullGuide(true);
-			put("Fleet",	MOD_UI + "CHAIN_RALLY_SPEED_FLEET");
-			put("Min",		MOD_UI + "CHAIN_RALLY_SPEED_MIN");
-			put("Top",		MOD_UI + "CHAIN_RALLY_SPEED_TOP");
+			put(CHAIN_RALLY_SPEED_FLEET,	MOD_UI + "CHAIN_RALLY_SPEED_FLEET");
+			put(CHAIN_RALLY_SPEED_MIN,		MOD_UI + "CHAIN_RALLY_SPEED_MIN");
+			put(CHAIN_RALLY_SPEED_TOP,		MOD_UI + "CHAIN_RALLY_SPEED_TOP");
 		}
 	};
 	default String chainRallySpeed()		{ return chainRallySpeed.get(); }
@@ -237,11 +241,11 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		if (fleet == null)
 			return chainRallySpeed(player);
 		switch (chainRallySpeed.get().toUpperCase()) {
-			case "FLEET" :
+			case CHAIN_RALLY_SPEED_FLEET :
 				return fleet.slowestStackSpeed();
-			case "MIN" :
+			case CHAIN_RALLY_SPEED_MIN :
 				return fleet.empire().minActiveDesignSpeed();
-			case "TOP" :
+			case CHAIN_RALLY_SPEED_TOP :
 				return fleet.empire().tech().topSpeed();
 		}
 		return null;
@@ -250,25 +254,40 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		if (design == null)
 			return chainRallySpeed(player);
 		switch (chainRallySpeed.get().toUpperCase()) {
-			case "FLEET" :
+			case CHAIN_RALLY_SPEED_FLEET :
 				return (float) design.warpSpeed();
-			case "MIN" :
+			case CHAIN_RALLY_SPEED_MIN :
 				return player.minActiveDesignSpeed();
-			case "TOP" :
+			case CHAIN_RALLY_SPEED_TOP :
 				return player.tech().topSpeed();
 		}
 		return null;
 	}
 	default Float chainRallySpeed(Empire player)	{
 		switch (chainRallySpeed.get().toUpperCase()) {
-			case "FLEET" :
-			case "MIN" :
+			case CHAIN_RALLY_SPEED_FLEET :
+			case CHAIN_RALLY_SPEED_MIN :
 				return player.minActiveDesignSpeed();
-			case "TOP" :
+			case CHAIN_RALLY_SPEED_TOP :
 				return player.tech().topSpeed();
 		}
 		return null;
 	}
+
+
+	String PEACE_TREATY_NORMAL	= "NORMAL";
+	String PEACE_TREATY_NOWAR	= "NOWAR";
+	String PEACE_TREATY_TRUCE	= "TRUCE";
+	ParamList specialPeaceTreaty		= new ParamList( MOD_UI, "SPECIAL_PEACE_TREATY", PEACE_TREATY_NORMAL) {
+		{
+			showFullGuide(true);
+			put(PEACE_TREATY_NORMAL,	MOD_UI + "SPECIAL_PEACE_TREATY_NORMAL");
+			put(PEACE_TREATY_NOWAR,	MOD_UI + "SPECIAL_PEACE_TREATY_NOWAR");
+			put(PEACE_TREATY_TRUCE,	MOD_UI + "SPECIAL_PEACE_TREATY_TRUCE");
+		}
+	};
+	default boolean allowPeaceTreaty()	{ return !specialPeaceTreaty.get().equalsIgnoreCase(PEACE_TREATY_NOWAR) ;}
+	default boolean noColPeaceTreaty()	{ return specialPeaceTreaty.get().equalsIgnoreCase(PEACE_TREATY_TRUCE) ;}
 
 	// ==================== GUI List Declarations ====================
 	static LinkedList<IParam> modDynamicAOptions() {
@@ -339,6 +358,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				councilWin, counciRequiredPct, councilPlayerVote,
 				aiHostility, techTrading,
 				allowTechStealing, maxSecurityPct,
+				specialPeaceTreaty,
 
 				headerSpacer,
 				new ParamTitle("GAME_COMBAT"),

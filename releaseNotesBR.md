@@ -3,6 +3,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 - Fixed aliens offering Trade treaties while at war.
+- New Option to customise peace treaties.
+  - Peace: as before.
+  - Stop War: Peace Treaty duration = 0 years.
+  - Truce: No colonisation when non allied alien fleets are orbiting.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -77,6 +81,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Fleet: Based on the speed of the ship under construction or the slowest ship in the selected fleet.
   - Min: Based on the speed of the slowest active ship design.
   - Top: Based on the top speed allowed by currently known technologies.
+- New Option to customise peace treaties.
+  - Normal
+  - None (Treaty duration = 0 years)
+  - No colonisation when non allied alien fleets are orbiting.
 
 
 <b><ins>Optimisation:</ins></b>
