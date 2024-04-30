@@ -367,6 +367,8 @@ INC_JOINT_WAR_TITLE               | Declared War
 INC_LEFT_ALLIANCE_TITLE           | Broke Alliance
 INC_SIGNED_PACT_TITLE             | Non-Aggression Pact
 INC_SIGNED_PACT_DESC              | The [my_empire] and the [your_empire] signed a Non-Aggression Pact, avoiding ship conflict in neutral systems.
+INC_SIGNED_ARMISTICE_TITLE        | Sign Armistice
+INC_SIGNED_ARMISTICE_DESC         | The [my_empire] and the [your_empire] signed the Armistice, then a Non-Aggression Pact,  avoiding ship conflict in neutral systems.
 INC_SIGNED_PEACE_TITLE            | Peace Treaty
 INC_SIGNED_PEACE_DESC             | The [my_empire] and the [your_empire] signed a Peace Treaty, ending all hostilities until [endYear].
 INC_SIGNED_TRADE_TITLE            | Trade Treaty
@@ -2578,12 +2580,12 @@ SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP       | Top
 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | To disable peace treaties or remove the ability to colonize when another fleet is orbiting the planet.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Peace Treaty: %1
-SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL_DESC | No change: The duration of peace treaties is randomly set between 10 and 15 years.
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL_DESC | No change: The duration of peace treaties is randomly set between 10 and 15 years.<br>Planets can be colonized, in the presence of their armed fleet, and of course your armed fleet cannot prevent them from colonizing either.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL      | Peace
-SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR_DESC  | This will end the war and go to the state: →RACES_NO_TREATY←. Then you will still be able to engage in fleet combat to protect planets you may want to colonize. (*Beta Test)
-SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR       | Stop War*
-SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE_DESC  | Peace treaties still have a duration of 10 to 15 years. But planets can no longer be colonized when non-allied alien fleets are in orbit. AIs are not aware of this limitation, therefore this option could disrupt their fleet plans. (*Beta Test)
-SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE       | Truce*
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR_DESC  | This will end the war and go to the state: →RACES_NO_TREATY←.<br>Therefore, fleets can still engage in combat to protect colonizable planets.<br>For new treaties only, current treaties are not affected. (*Beta Test)
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR       | Armistice*
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE_DESC  | This is still a peace treaty with a standard duration of 10-15 years.<br>But you will not allow this empire to colonize a planet you protect with an armed fleet stationed in orbit. And of course they won't allow you to do this either.<br>The AIs are not aware of this limitation, so this option could disrupt their fleet's plans. (*Beta Test)
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE       | Cold War*
 
 
 SETTINGS_MOD_RESEARCH_MOO1_DESC          | YES: Reload won't change research probability<br>NO: You may try to reload to get a new dice roll! (RotP default)
@@ -3551,6 +3553,7 @@ RACES_RECALLED_DIPLOMATS          | %1 recalled diplomats
 RACES_NO_TREATY                   | No diplomatic treaty
 RACES_AT_FINAL_WAR                | Final war
 RACES_AT_WAR                      | At war
+RACES_COLD_WAR                    | (Cold War)
 RACES_PEACE                       | Peace treaty
 RACES_PACT                        | Non-aggression pact
 RACES_ALLY                        | Alliance
@@ -3905,6 +3908,7 @@ DIPLOMACY_MENU_STOP_ATTACKING     | Stop Attacking
 DIPLOMACY_MENU_GOODBYE            | Good Bye
 DIPLOMACY_MENU_PACT               | Propose Non-Aggression Pact
 DIPLOMACY_MENU_ALLIANCE           | Propose Alliance
+DIPLOMACY_MENU_ARMISTICE          | Propose Armistice
 DIPLOMACY_MENU_PEACE              | Propose Peace Treaty
 DIPLOMACY_MENU_TRADE              | Propose Trade Treaty
 DIPLOMACY_MENU_JOINT_WAR          | Joint Declaration of War on Another Empire

@@ -81,7 +81,10 @@ public class DiplomacyTreatyMenu extends DiplomaticMessage {
         
         int choice = options.get(i);
         switch(choice) {
-            case PROPOSE_PEACE          : return text("DIPLOMACY_MENU_PEACE");
+            case PROPOSE_PEACE          :
+            	if (options().allowPeaceTreaty())
+            		return text("DIPLOMACY_MENU_PEACE");
+            	return text("DIPLOMACY_MENU_ARMISTICE");
             case PROPOSE_TRADE          : return text("DIPLOMACY_MENU_TRADE");
             case PROPOSE_PACT           : return text("DIPLOMACY_MENU_PACT");
             case PROPOSE_ALLIANCE       : return text("DIPLOMACY_MENU_ALLIANCE");

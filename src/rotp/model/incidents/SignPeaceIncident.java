@@ -36,11 +36,19 @@ public class SignPeaceIncident extends DiplomaticIncident {
         duration = dur;
     }
     @Override
-    public String title()               { return text("INC_SIGNED_PEACE_TITLE"); }
+    public String title()          {
+    	if (options().allowPeaceTreaty())
+    		return text("INC_SIGNED_PEACE_TITLE");
+    	return text("INC_SIGNED_ARMISTICE_TITLE");
+    }
     @Override
-    public String description()       { return decode(text("INC_SIGNED_PEACE_DESC")); }
+    public String description()    {
+    	if (options().allowPeaceTreaty())
+    		return text("INC_SIGNED_PEACE_DESC");
+    	return decode(text("INC_SIGNED_ARMISTICE_DESC"));
+    }
     @Override
-    public String key()                 { return "Peace Treaty"; }
+    public String key()            { return "Peace Treaty"; }
     @Override
     public String decode(String s) {
         String s1 = super.decode(s);

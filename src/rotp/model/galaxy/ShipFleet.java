@@ -446,7 +446,7 @@ public class ShipFleet extends FleetBase {
     }
     void checkColonize() {
         if ((system() != null) && inOrbit())
-        	if (options().noColPeaceTreaty()) {
+        	if (options().isColdWarMode()) {
         		boolean dangerFleets = system().nonAlliedAlienShipsInOrbit(empire());
         		if (!dangerFleets)
         			empire().ai().checkColonize(system(), this);

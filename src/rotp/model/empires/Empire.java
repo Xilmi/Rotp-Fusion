@@ -3474,6 +3474,10 @@ public final class Empire implements Base, NamedObject, Serializable {
         EmpireView v = viewForEmpire(empId);
         return v == null ? false : v.embassy().pact();
     }
+    /**
+     * @param empId
+     * @return true if is empire, is allied or is unity
+     */
     public boolean alliedWith(int empId) {
         if (empId == id) return true;
         if (empId == Empire.NULL_ID) return false;

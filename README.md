@@ -63,7 +63,10 @@ Later:
 
 ## What's New
 
-2024.04.26 (BR)
+2024.04.29 (BR)
+- Updated customized peace treaties names and diplomatic panels.
+
+2024.04.28 (BR)
 - Fixed aliens offering Trade treaties while at war.
 - New Option to customise peace treaties.
   - Peace: as before.

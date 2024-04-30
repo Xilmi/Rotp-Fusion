@@ -275,19 +275,19 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	}
 
 
-	String PEACE_TREATY_NORMAL	= "NORMAL";
-	String PEACE_TREATY_NOWAR	= "NOWAR";
-	String PEACE_TREATY_TRUCE	= "TRUCE";
-	ParamList specialPeaceTreaty		= new ParamList( MOD_UI, "SPECIAL_PEACE_TREATY", PEACE_TREATY_NORMAL) {
+	String PEACE_TREATY_NORMAL		= "NORMAL";
+	String PEACE_TREATY_ARMISTICE	= "NOWAR";
+	String PEACE_TREATY_COLD_WAR	= "TRUCE";
+	ParamList specialPeaceTreaty	= new ParamList( MOD_UI, "SPECIAL_PEACE_TREATY", PEACE_TREATY_NORMAL) {
 		{
 			showFullGuide(true);
 			put(PEACE_TREATY_NORMAL,	MOD_UI + "SPECIAL_PEACE_TREATY_NORMAL");
-			put(PEACE_TREATY_NOWAR,	MOD_UI + "SPECIAL_PEACE_TREATY_NOWAR");
-			put(PEACE_TREATY_TRUCE,	MOD_UI + "SPECIAL_PEACE_TREATY_TRUCE");
+			put(PEACE_TREATY_ARMISTICE,	MOD_UI + "SPECIAL_PEACE_TREATY_NOWAR");
+			put(PEACE_TREATY_COLD_WAR,	MOD_UI + "SPECIAL_PEACE_TREATY_TRUCE");
 		}
 	};
-	default boolean allowPeaceTreaty()	{ return !specialPeaceTreaty.get().equalsIgnoreCase(PEACE_TREATY_NOWAR) ;}
-	default boolean noColPeaceTreaty()	{ return specialPeaceTreaty.get().equalsIgnoreCase(PEACE_TREATY_TRUCE) ;}
+	default boolean allowPeaceTreaty()	{ return !specialPeaceTreaty.get().equalsIgnoreCase(PEACE_TREATY_ARMISTICE) ;}
+	default boolean isColdWarMode()		{ return specialPeaceTreaty.get().equalsIgnoreCase(PEACE_TREATY_COLD_WAR) ;}
 
 	// ==================== GUI List Declarations ====================
 	static LinkedList<IParam> modDynamicAOptions() {

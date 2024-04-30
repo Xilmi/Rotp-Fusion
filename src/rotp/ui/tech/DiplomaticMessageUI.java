@@ -274,6 +274,8 @@ public class DiplomaticMessageUI extends FadeInPanel
             empY += s20;
             DiplomaticTreaty treaty = player().treatyWithEmpire(diplomatEmpire.id);
             s = treaty.status(player());
+            if (treaty.isPeace() && options().isColdWarMode())
+            	s += " " + text("RACES_COLD_WAR");
             sw = g.getFontMetrics().stringWidth(s);
             drawBorderedString(g, s, fX+(fW-sw)/2, empY, Color.black, Color.white);
 //            drawString(g,s, fX+(fW-sw)/2, empY);
@@ -573,12 +575,14 @@ public class DiplomaticMessageUI extends FadeInPanel
     private String getEmpireInfo(String sep)	{
     	if (diplomatEmpire.isPlayer())
     		return "";
-
+    	DiplomaticTreaty treaty = player().treatyWithEmpire(diplomatEmpire.id);
     	String info = diplomatEmpire.name();
     	info += sep + text("LEADER_PERSONALITY_FORMAT",
     						diplomatEmpire.leader().personality(),
     						diplomatEmpire.leader().objective());
-    	info += sep + player().treatyWithEmpire(diplomatEmpire.id).status(player());
+    	info += sep + treaty.status(player());
+        if (treaty.isPeace() && options().isColdWarMode())
+        	info += " " + text("RACES_COLD_WAR");
     	return info;
     }
     public String[] getDataLines()				{

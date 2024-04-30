@@ -407,7 +407,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         for (ShipFleet fleet: fleets) {
         	if (fleet != null) {
         		Empire flEmp = fleet.empire();
-        		if (flEmp != emp && !flEmp.alliedWith(id))
+        		if (!flEmp.alliedWith(id) && fleet.isArmed())
         			return true;
         	}
         }

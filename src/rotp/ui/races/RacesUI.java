@@ -1054,6 +1054,8 @@ public class RacesUI extends BasePanel {
                     boolean isAlly = treaty.isAlliance();
                     int starW = s8;
                     String s = treaty.status(player());
+                    if (treaty.isPeace() && options().isColdWarMode())
+                    	s += " " + text("RACES_COLD_WAR");
                     int sw = g.getFontMetrics().stringWidth(s);
                     scaledFont(g, s, scaled(130), 16, 12);
                     drawString(g,s, x1, y1);

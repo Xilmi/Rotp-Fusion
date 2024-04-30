@@ -327,10 +327,12 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
 
         EmpireView view = player().viewForEmpire(emp);
         DiplomaticTreaty treaty = view.embassy().treaty();
-        boolean isAlly = treaty.isAlliance();
+        boolean isAlly  = treaty.isAlliance();
         int starW = s10;
         int offset = isAlly ? (starW*5)+s5 : 0;
         s = treaty.status(player());
+        if (treaty.isPeace() && options().isColdWarMode())
+        	s += " " + text("RACES_COLD_WAR");
         sw = g.getFontMetrics().stringWidth(s);
         drawString(g,s, x+w-s20-offset-sw, y4);
         if (isAlly) {
@@ -1186,10 +1188,13 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
                 g.setFont(narrowFont(18));
                 drawString(g,contact.empire().raceName(), x3, y3);
                 g.setFont(narrowFont(15));
-                String treaty = contact.embassy().treaty().status(player());
-                int sw1 = g.getFontMetrics().stringWidth(treaty);
+                DiplomaticTreaty treaty = contact.embassy().treaty();
+                String str = treaty.status(player());
+                if (treaty.isPeace() && options().isColdWarMode())
+                	str += " " + text("RACES_COLD_WAR");
+                int sw1 = g.getFontMetrics().stringWidth(str);
                 int x3b = x2+w2-sw1-rightM;
-                drawString(g,treaty, x3b, y3);
+                drawString(g,str, x3b, y3);
             }
         }      
         relationsYMax = max(0, fullListH-listH);

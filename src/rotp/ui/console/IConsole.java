@@ -364,8 +364,11 @@ public interface IConsole extends Base {
 		if (isAlly) {
 			TreatyAlliance alliance = (TreatyAlliance) treaty;
 			int standing = alliance.standing(player());
-			out += "level " + standing;
+			out += " level " + standing;
 		}
+        if (treaty.isPeace() && options().isColdWarMode())
+        	out += " " + text("RACES_COLD_WAR");
+
 		return out;
 	}
 	default String empireTrade(Empire emp)			{
