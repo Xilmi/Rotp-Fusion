@@ -248,7 +248,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     	return destSys;
     }
     public void rallySys(StarSystem sys, int action) { // BR: used by chain rally
-    	if (canRallyTo(sys) && sys != system()) {
+    	if (canRallyTo(sys)) {
     		switch (action) {
         	case SET_RALLY:
         		rallySystem(sys);

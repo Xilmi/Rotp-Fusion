@@ -63,6 +63,13 @@ Later:
 
 ## What's New
 
+2024.05.02 (BR)
+- Console: more empire reports
+- Fixed Rally right click:
+  - Right clicking the origin system will now correctly cancel the rally.
+- Fixed War View showing invisible ship:
+  - Fleet with both visible and invisible ship will only show the visible one.
+
 2024.04.29 (BR)
 - Updated customized peace treaties names and diplomatic panels.
 

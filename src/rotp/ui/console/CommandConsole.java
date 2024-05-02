@@ -84,8 +84,9 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private HashMap<Integer, Integer> altIndex2SystemIndex = new HashMap<>();
 //	private Menu stars, fleet, ships, opponents;
 //	private final List<SystemView> starList = new ArrayList<>();
-	private ConsoleStarView	 starView;
-	private ConsoleFleetView fleetView;
+	private ConsoleStarView		starView;
+	private ConsoleFleetView	fleetView;
+	private ConsoleEmpireView	empireView;
 	
 	// ##### STATIC METHODS #####
 	public static CommandConsole cc()				{ return instance; }
@@ -228,6 +229,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 
 		starView	= new ConsoleStarView();
 		fleetView	= new ConsoleFleetView();
+		empireView	= new ConsoleEmpireView();
 		instance	= this;
 		if(!Rotp.isIDE())
 			IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
@@ -293,29 +295,33 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				return filter.getResult("");
 			}
 		};
-		cmd.cmdParam(" [SHip|SCout|Rxx|Dxx] [Y|O|Oxx|W] [A|U|X|N|C] [P|F|T]");
+		cmd.cmdParam( " " + optional("SHip", "SCout", "Rxx", "Dxx")
+			 		+ " " + optional("Y", "O", "Oxx", "W")
+			 		+ " " + optional("A", "U", "X", "N", "C")
+			 		+ " " + optional(SYSTEM_KEY, FLEET_KEY, TRANSPORT_KEY, EMPIRE_KEY)
+			 		);
 		cmd.cmdHelp("Loop thru all the given filters and return the result"
 				+ NEWLINE + "Distance filters:"
-				+ NEWLINE + "[SH | Ship] : filter in ship range of the player empire"
-				+ NEWLINE + "[SC | Scout] : filter in scout range of the player empire"
-				+ NEWLINE + "[Rxx] : filter in xx light years Range of the player empire"
-				+ NEWLINE + "[Dxx] : filter in xx light years Distance of the selected star system"
+				+ NEWLINE + optional("SH", "Ship") + " : filter in ship range of the player empire"
+				+ NEWLINE + optional("SC", "Scout") + " : filter in scout range of the player empire"
+				+ NEWLINE + optional("Rxx") + " : filter in xx light years Range of the player empire"
+				+ NEWLINE + optional("Dxx") + " : filter in xx light years Distance of the selected star system"
 				+ NEWLINE + "Owner filters: if none all are displayed"
-				+ NEWLINE + "[Y] : add plaYer"
-				+ NEWLINE + "[O] : add all Opponents"
-				+ NEWLINE + "[Oxx] : add Opponent xx (Index)"
-				+ NEWLINE + "[W | OW] : add Opponents at War with the player"
+				+ NEWLINE + optional("Y") + " : add plaYer"
+				+ NEWLINE + optional("O") + " : add all Opponents"
+				+ NEWLINE + optional("Oxx") + " : add Opponent xx (Index)"
+				+ NEWLINE + optional("W", "OW") + " : add Opponents at War with the player"
 				+ NEWLINE + "Category filters:"
-				+ NEWLINE + "[A] : planets under Attack"
-				+ NEWLINE + "[U] : Unexplored star system only"
-				+ NEWLINE + "[X] : eXplored star system only"
-				+ NEWLINE + "[N] : uNcolonized star system only"
-				+ NEWLINE + "[C] : Colonized star system only"
+				+ NEWLINE + optional("A") + " : planets under Attack"
+				+ NEWLINE + optional("U") + " : Unexplored star system only"
+				+ NEWLINE + optional("X") + " : eXplored star system only"
+				+ NEWLINE + optional("N") + " : uNcolonized star system only"
+				+ NEWLINE + optional("C") + " : Colonized star system only"
 				+ NEWLINE + "List filters: if none, all three lists are shown"
-				+ NEWLINE + "[" + SYSTEM_KEY	+ "] : add Planet list (star systems)"
-				+ NEWLINE + "[" + FLEET_KEY		+ "] : add Fleet list"
-				+ NEWLINE + "[" + TRANSPORT_KEY	+ "] : add Transport list"
-				+ NEWLINE + "[" + EMPIRE_KEY	+ "] : add Empire list"
+				+ NEWLINE + optional(SYSTEM_KEY)	+ " : add Planet list (star systems)"
+				+ NEWLINE + optional(FLEET_KEY)		+ " : add Fleet list"
+				+ NEWLINE + optional(TRANSPORT_KEY)	+ " : add Transport list"
+				+ NEWLINE + optional(EMPIRE_KEY)	+ " : add Empire list"
 				);
 		return cmd;
 	}
@@ -444,7 +450,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				return out;
 			}
 		};
-		cmd.cmdParam(" [Index | S]");
+		cmd.cmdParam(" " + optional("Index", "S"));
 		cmd.cmdHelp("select Aimed planet from planet index, or from Selected planet if \"S\", and gives Destination info");
 		return cmd;		
 	}
@@ -490,7 +496,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				return out;
 			}
 		};
-		cmd.cmdParam(" Index " + optional(FLEET_UNDEPLOY) + " | "
+		cmd.cmdParam(" Index " + optional(FLEET_UNDEPLOY) + OR_SEP
 					+ optional(FLEET_SEND + " " + SYSTEM_KEY + " destId [n] [n] [n] [n] [n]"));
 
 		cmd.cmdHelp("Additionnal requests:"
@@ -526,24 +532,51 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		Command cmd = new Command("select Empire from index and gives Info", EMPIRE_KEY) {
 			@Override protected String execute(List<String> param) {
 				String out = getShortGuide() + NEWLINE;
+				// If no parameters, then return player contact info
 				if (param.isEmpty()) {
 					out += empireContactInfo(player(), NEWLINE);
 					out += NEWLINE + viewEmpiresContactInfo();
 					return out;
 				}
+				// Empire selection
 				String str = param.get(0);
 				Integer empId = getInteger(str);
-				if (empId != null) {
+				if (empId == null)
+					selectedEmpire = player().id;
+				else {
 					selectedEmpire = bounds(0, empId, galaxy().numEmpires()-1);
-					out = "";
+					param.remove(0);
 				}
-				Empire emp = galaxy().empire(selectedEmpire);
-				out += out = empireContactInfo(emp, NEWLINE);
-				return out;
+				//empireView.initId(selectedEmpire);
+				Empire empire = galaxy().empire(selectedEmpire);
+				
+				// Info selection
+				if (param.isEmpty()) // No param, then basic contact info
+					return empireView.contactInfo(empire, "");
+
+				str = param.get(0);
+				switch (str) {
+				case EMP_DIPLOMACY:
+					return empireView.diplomacyInfo(empire, "");
+				case EMP_INTELLIGENCE:
+					return empireView.intelligenceInfo(empire, "");
+				case EMP_MILITARY:
+					return empireView.militaryInfo(empire, "");
+				case EMP_STATUS:
+					return empireView.statusInfo(empire, "");
+				}
+				return out + " Unknown Parameter " + str;
 			}
 		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("Select Empire from index, and gives Empire info");
+		cmd.cmdParam(" " + optional("Index")
+				+ optional("EMP_DIPLOMACY")
+				);
+		cmd.cmdHelp("Select Empire from index, and gives Empire contact info; Player empire will be selected when no index is given."
+				+ NEWLINE + optional(EMP_DIPLOMACY)		+ " To get Empire diplomatic info"
+				+ NEWLINE + optional(EMP_INTELLIGENCE)	+ " To get Empire intelligence info"
+				+ NEWLINE + optional(EMP_MILITARY)		+ " To get Empire military info"
+				+ NEWLINE + optional(EMP_STATUS)		+ " To get Empire status info"
+				);
 		return cmd;		
 	}
 

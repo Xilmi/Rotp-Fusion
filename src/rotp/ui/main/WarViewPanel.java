@@ -107,8 +107,10 @@ public class WarViewPanel extends SystemPanel {
 					num = fleet.num(id);
 					if (num > 0) {
 						ShipDesign design = fleet.design(id);
-						name = design.name();
-						add(yearMap, name, num);
+						if (!design.allowsCloaking()) {
+							name = design.name();
+							add(yearMap, name, num);
+						}
 					}
 				}
 			}
@@ -156,18 +158,18 @@ public class WarViewPanel extends SystemPanel {
 			FleetRecord orbitingRecord = new FleetRecord();
 			fleetsMap.put(0, orbitingRecord);
 			List<ShipFleet> orbitingFleet = player().visibleOrbitingFleet(sys);
-			for (Ship sh : orbitingFleet) {
-				orbitingRecord.add(sh);
+			for (Ship fleet : orbitingFleet) {
+				orbitingRecord.add(fleet);
 			}
 			List<Ship> incomingFleet = player().incomingKnownETAFleets(sys.id);
-			for (Ship sh : incomingFleet) {
-				Integer turn = sh.travelTurnsRemainingAdjusted();
+			for (Ship fleet : incomingFleet) {
+				Integer turn = fleet.travelTurnsRemainingAdjusted();
 				FleetRecord incomingRecord = fleetsMap.get(turn);
 				if (incomingRecord == null) {
 					incomingRecord = new FleetRecord();
 					fleetsMap.put(turn, incomingRecord);
 				}
-				incomingRecord.add(sh);
+				incomingRecord.add(fleet);
 			}
 		}
 		@Override

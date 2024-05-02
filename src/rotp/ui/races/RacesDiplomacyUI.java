@@ -703,7 +703,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         int sliderH = s16;
         drawSecuritySliderBar(g,x+s20+sw4, y4-sliderH+s3, sliderW, sliderH);
     }
-   private void drawSecuritySliderBar(Graphics2D g, int x, int y, int w, int h) {
+    private void drawSecuritySliderBar(Graphics2D g, int x, int y, int w, int h) {
         // draw spending bar
         int h1 = h; // height of bar
         int w1 = w; // width of bar
@@ -757,7 +757,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
             drawString(g,spyCost, xa, ya);
         }
     }
-   private void drawPlayerIntelligenceBureau(Graphics2D g, Empire emp, int x, int y, int w, int h) {
+    private void drawPlayerIntelligenceBureau(Graphics2D g, Empire emp, int x, int y, int w, int h) {
         g.setColor(RacesUI.darkBrown);
         g.fillRect(x, y, w, h);
         

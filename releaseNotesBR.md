@@ -2,12 +2,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Fixed aliens offering Trade treaties while at war.
-- New Option to customise peace treaties.
-  - Peace: as before.
-  - Armistice: Peace Treaty duration = 0 years.
-  - ColdWar: No colonisation when non allied alien fleets are orbiting.
-- Updated customized peace treaties names and diplomatic panels.
+- Fixed Rally right click:
+  - Right clicking the origin system will now correctly cancel the rally.
+- Fixed War View showing invisible ship:
+  - Fleet with both visible and invisible ship will only show the visible one.
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -172,4 +171,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Redirect Ship Path Glitch
 - Fixed Ship Combat when player ship turn may be skipped! this when following another ship destruction!
 - Fixed aliens offering Trade treaties while at war.
+- Fixed Rally right click:
+  - Right clicking the origin system will now correctly cancel the rally.
+- Fixed War View showing invisible ship:
+  - Fleet with both visible and invisible ship will only show the visible one.
 - minor fixes...

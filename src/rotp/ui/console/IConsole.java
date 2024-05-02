@@ -23,6 +23,9 @@ public interface IConsole extends Base {
 	int MENU_ID		= 2;
 	String NEWLINE	= "<br>";
 	String SPACER	= ", ";
+	String OR_SEP	= "|";	// " or " may be better?
+	String EQUAL_SEP	= " = ";
+
 	String AIMED_KEY		= "A";
 	String DESIGN_KEY		= "D";
 	String EMPIRE_KEY		= "E";
@@ -53,9 +56,13 @@ public interface IConsole extends Base {
 	String TROOP_SEND		= "SEND";
 	String ABANDON			= "ABANDON";
 	String CANCEL_SEND		= "CANCEL";
-
 	String FLEET_SEND		= "SEND";
 	String FLEET_UNDEPLOY	= "U";
+	// EMPIRE
+	String EMP_DIPLOMACY	= "D";
+	String EMP_INTELLIGENCE	= "I";
+	String EMP_MILITARY		= "M";
+	String EMP_STATUS		= "S";
 
 //	##### TOOLS #####
 	default CommandConsole console()	{ return cc(); }
@@ -63,8 +70,17 @@ public interface IConsole extends Base {
 	default int validPlanet(int p)		{ return bounds(0, p, galaxy().systemCount-1); }
 	default String cLn(String s)		{ return s.isEmpty() ? "" : (NEWLINE + s); }
 	default String ly(float dist)		{ return text("SYSTEMS_RANGE", df1.format(Math.ceil(10*dist)/10)); }
-	default String bracketed(String key, int index)		{ return "(" + key + " " +index + ")"; }
-	default String optional (String key)				{ return "[" + key + "]"; }
+	default String bracketed(String key, int index)	{ return "(" + key + " " +index + ")"; }
+	default String optional(String... keys)			{
+		String sep = "[";
+		String out = "";
+		for (String key : keys) {
+			out += sep + key;
+			sep = OR_SEP;
+		}
+		out += "]";
+		return out;
+	}
 	default String setDest(List<String> param, String out)	{
 		String s = param.get(0);
 		Integer f;
@@ -264,59 +280,6 @@ public interface IConsole extends Base {
 			out += " " + emp.name();
 		return out;
 	}
-
-//	default String xshortEmpireInfo(Empire emp)		{
-//		String out;
-//		boolean inRange = true;
-//		if (emp.isPlayer()) {
-//			List<EmpireView> views = player().contacts();
-//			int n = views.size();
-//			out = bracketed(EMPIRE_KEY, emp.id) +  " " + emp.name();
-//			out += NEWLINE + text("RACES_KNOWN_EMPIRES", n);
-//			if (n > 0) {
-//				int r = 0;
-//				for (EmpireView v : views) {
-//					if (!v.diplomats())
-//						r++;
-//				}
-//				out += NEWLINE + text("RACES_RECALLED_DIPLOMATS", r);
-//			}
-//		}
-//		else {
-//			EmpireView view = player().viewForEmpire(emp);
-//			inRange = view.inEconomicRange();
-//			out = bracketed(EMPIRE_KEY, emp.id) +  " " + emp.name();
-//			if (inRange) {
-//				// treaty status
-//				DiplomaticTreaty treaty = view.embassy().treaty();
-//				boolean isAlly = treaty.isAlliance();
-//				out += NEWLINE + treaty.status(player());
-//				if (isAlly) {
-//					TreatyAlliance alliance = (TreatyAlliance) treaty;
-//					int standing = alliance.standing(player());
-//					out += ", standing = " + standing;
-//				}
-//				// trade
-//				int level = view.trade().level();
-//				if (level == 0)
-//					out += NEWLINE + text("RACES_TRADE_NONE");
-//				else
-//					out += NEWLINE + text("RACES_TRADE_LEVEL", level);
-//			}
-//			else {
-//				out += NEWLINE + text("RACES_OUT_OF_RANGE");
-//			}
-//			if (!emp.masksDiplomacy()) {
-//				float relations = view.embassy().relations();
-//			}
-//		}
-//		if (!player().hasContacted(emp.id)) {
-//			return "Unknown";
-//		}
-//		String out = bracketed(EMPIRE_KEY, emp.id);
-//		out += " " + emp.name();
-//		return out;
-//	}
 	default String empireContactInfo(Empire emp, String sep){
 		String out;
 		boolean inRange = true;
@@ -354,7 +317,8 @@ public interface IConsole extends Base {
 	default String empireRelationPct(Empire emp)	{
 		EmpireView view = emp.viewForEmpire(player());
 		int relation = (int) (0.5f + view.embassy().relations());
-		return "Relation = " + relation + "%";
+		String str = text("RACES_DIPLOMACY_RELATIONS_METER");
+		return str + EQUAL_SEP + relation + "%";
 	}
 	default String empireTreaty(Empire emp)			{
 		EmpireView view = emp.viewForEmpire(player());
