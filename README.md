@@ -63,6 +63,11 @@ Later:
 
 ## What's New
 
+2024.05.03 (BR)
+- Console: Empire report
+  - Diplomacy tab: Player and AI
+  - Intelligence tab: Player and AI
+
 2024.05.02 (BR)
 - Console: more empire reports
 - Fixed Rally right click:
