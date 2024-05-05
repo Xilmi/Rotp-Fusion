@@ -395,6 +395,7 @@ public class RacesUI extends BasePanel {
     public void init() {
         diploPanel.init();
         intelPanel.init();
+        militaryPanel.init();
         statusPanel.init();
         raceListingPanel.init();
         empires.clear();

@@ -801,10 +801,10 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
             repaint();
         }
     }
-    class RaceValue  implements Comparable<RaceValue> {
-        float value = 0;
-        int age = 0;
-        Empire emp;
+    public static class RaceValue implements Comparable<RaceValue> {
+        public float value = 0;
+        public int age = 0;
+        public Empire emp;
         public RaceValue(Empire e, float v, int a) {
         	value = v;
             age  = a;

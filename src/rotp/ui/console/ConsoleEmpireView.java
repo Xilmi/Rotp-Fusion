@@ -8,15 +8,20 @@ import java.util.List;
 import rotp.model.empires.DiplomaticEmbassy;
 import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
+import rotp.model.empires.EmpireStatus;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.Leader;
+import rotp.model.empires.ShipView;
 import rotp.model.empires.SpyNetwork;
 import rotp.model.empires.TreatyAlliance;
 import rotp.model.game.GovernorOptions;
+import rotp.model.game.IGameOptions;
 import rotp.model.incidents.DiplomaticIncident;
+import rotp.model.ships.ShipDesign;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechTree;
+import rotp.ui.races.RacesStatusUI.RaceValue;
 
 public class ConsoleEmpireView implements IConsole {
 	private static final String INCIDENT_SEP = ", ";
@@ -62,45 +67,49 @@ public class ConsoleEmpireView implements IConsole {
 	}
 	String militaryInfo(Empire empire, String out)		{
 		if (empire.isPlayer()) {
-			out += empireName(empire);
+			out += playerMilitaryBaseInfo(empire);
+			out += NEWLINE + playerDefenseInfo(empire);
+			out += NEWLINE + shipDesignList(empire, player().shipLab().designHistory());
 		}
 		else {
-			out += empireName(empire);
+			out += aiMilitaryBaseInfo(empire);
+			out += NEWLINE + aiDefenseInfo(empire);
+			out += NEWLINE + shipDesignList(empire, player().viewForEmpire(empire).spies().ships());
 		}
 		return out;
 	}
 	String statusInfo(Empire empire, String out)		{
 		if (empire.isPlayer()) {
-			out += empireName(empire);
+			out += playerVsAllStatus(empire);
 		}
 		else {
-			out += empireName(empire);
+			out += aiVsPlayerStatus(empire);
 		}
 		return out;
 	}
 	
 	// DIPLOMATIC PANEL
-	private String playerDiploBaseInfo(Empire empire)				{
+	private String playerDiploBaseInfo(Empire player)		{
 		String out = text("RACES_DIPLOMACY_HOMEWORLD");
-		out += EQUAL_SEP + empire.sv.name(empire.capitalSysId());
+		out += EQUAL_SEP + player.sv.name(player.capitalSysId());
 
 		out += NEWLINE + text("RACES_DIPLOMACY_LEADER");
-		String s = text("TITLE_LEADERNAME", empire.labels().text("_nameTitle"), empire.leader().name());
-		s = empire.replaceTokens(s, "alien");
+		String s = text("TITLE_LEADERNAME", player.labels().text("_nameTitle"), player.leader().name());
+		s = player.replaceTokens(s, "alien");
 		out += EQUAL_SEP + s;
 
 		out += NEWLINE + text("RACES_DIPLOMACY_CURRENT_TRADE");
-		int amt = (int) empire.totalTradeIncome();
+		int amt = (int) player.totalTradeIncome();
 		s = text("RACES_DIPLOMACY_TRADE_AMT", str(amt));
 		out += EQUAL_SEP + s;
 
 		out += NEWLINE + text("RACES_DIPLOMACY_TOTAL_TRADE");
-		amt = empire.totalTradeTreaties();
+		amt = player.totalTradeTreaties();
 		s = text("RACES_DIPLOMACY_TRADE_AMT", str(amt));
 		out += EQUAL_SEP + s;
 		return out;
 	}
-	private String playerDiplomaticEvents(Empire empire)			{
+	private String playerDiplomaticEvents(Empire player)	{
 		String out = "";
 		boolean displayYear = options().displayYear();
 		if (displayYear)
@@ -113,7 +122,7 @@ public class ConsoleEmpireView implements IConsole {
 
 		List<DiplomaticIncident> incidents = new ArrayList<>();
 		HashMap<DiplomaticIncident, Empire> incidentMap = new HashMap<>();
-		for (EmpireView view: empire.contacts()) {
+		for (EmpireView view: player.contacts()) {
 			for (DiplomaticIncident inc : view.otherView().embassy().allIncidents()) {
 				if ((inc.currentSeverity() != 0) && inc.triggeredByAction()) {
 					incidents.add(inc);
@@ -136,9 +145,9 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		return out;
 	}
-	private String playerDiplomacyBureau(Empire empire)				{
+	private String playerDiplomacyBureau(Empire player)		{
 		String out = text("RACES_DIPLOMACY_BUREAU");
-		List<EmpireView> views = empire.contacts();
+		List<EmpireView> views = player.contacts();
 		int recalls = 0;
 		for (EmpireView v: views) {
 			if (v.embassy().diplomatGone())
@@ -150,8 +159,8 @@ public class ConsoleEmpireView implements IConsole {
 		out += EQUAL_SEP + recalls;
 		return out;
 	}
-	private String empireName(Empire empire)						{ return "Empire Name" + EQUAL_SEP + empire.name(); }
-	private String aiDiploBaseInfo(Empire empire)					{
+	private String empireName(Empire empire)				{ return "Empire Name" + EQUAL_SEP + empire.name(); }
+	private String aiDiploBaseInfo(Empire empire)			{
 		Leader leader = empire.leader();
 		String out = text("RACES_DIPLOMACY_HOMEWORLD");
 		out += EQUAL_SEP + empire.sv.name(empire.capitalSysId());
@@ -179,7 +188,7 @@ public class ConsoleEmpireView implements IConsole {
 		out += EQUAL_SEP + str;
 		return out;
 	}
-	private String relationsMeter(Empire empire)					{
+	private String relationsMeter(Empire empire)			{
 		if (empire.masksDiplomacy()) {
 			String out = text("RACES_DIPLOMACY_RELATIONS_METER");
 			String str = text("RACES_DIPLOMACY_RELATIONS_UNKNOWN");
@@ -190,7 +199,7 @@ public class ConsoleEmpireView implements IConsole {
 		else
 			return empireRelationPct(empire);
 	}
-	private String aiDiplomaticEvents(Empire empire)				{
+	private String aiDiplomaticEvents(Empire empire)		{
 		String out = "Diplomatic event history";
 		boolean displayYear = options().displayYear();
 		boolean masksDiplomacy = empire.masksDiplomacy();
@@ -220,7 +229,7 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		return out;
 	}
-	private String aiDiplomacyBureau(Empire empire)					{
+	private String aiDiplomacyBureau(Empire empire)			{
 		String out = text("RACES_DIPLOMACY_BUREAU");
 		EmpireView view = player().viewForEmpire(empire);
 		boolean finalWar = view.embassy().finalWar();
@@ -237,7 +246,7 @@ public class ConsoleEmpireView implements IConsole {
 		out += NEWLINE + desc;
 		return out;
 	}
-	private String aiTradeSummary(Empire empire)					{
+	private String aiTradeSummary(Empire empire)			{
 		String out = text("RACES_DIPLOMACY_TRADE_SUMMARY");
 		EmpireView view = player().viewForEmpire(empire);
 		boolean finalWar = view.embassy().finalWar();
@@ -259,7 +268,7 @@ public class ConsoleEmpireView implements IConsole {
 		out += EQUAL_SEP + text("RACES_DIPLOMACY_TRADE_AMT", str(amt));
 		return out;
 	}
-	private String aiForeignRelations(Empire empire)				{
+	private String aiForeignRelations(Empire empire)		{
 		String out = text("RACES_DIPLOMACY_FOREIGN_RELATIONS");
 		EmpireView view = player().viewForEmpire(empire);
 		boolean outOfRange = !view.inEconomicRange();
@@ -288,7 +297,7 @@ public class ConsoleEmpireView implements IConsole {
 	}
 
 	// INTELLIGENCE PANEL
-	private String playerCounterIntelligenceReport(Empire empire)	{
+	private String playerCounterIntelligenceReport(Empire player)	{
 		String out = text("RACES_DIPLOMACY_COUNTER_BUREAU");
 		out += NEWLINE + text("RACES_INTEL_SECURITY_BONUS");
 		int amt = (int) (100*player().totalInternalSecurityPct());
@@ -297,35 +306,34 @@ public class ConsoleEmpireView implements IConsole {
 		else
 			out += text("RACES_INTEL_SECURITY_BONUS_AMT", str(amt));
 		out += NEWLINE + text("RACES_INTEL_TOTAL_SPENDING");
-		amt = (int) empire.empireInternalSecurityCost();
+		amt = (int) player.empireInternalSecurityCost();
 		out += EQUAL_SEP + text("RACES_INTEL_SPENDING_ANNUAL", str(amt));
 		out += NEWLINE + text("RACES_INTEL_SECURITY_TAX");
-		out += EQUAL_SEP + text("RACES_INTEL_PERCENT_AMT",(int)(empire.internalSecurityCostPct()*100));
+		out += EQUAL_SEP + text("RACES_INTEL_PERCENT_AMT",(int)(player.internalSecurityCostPct()*100));
 		out += NEWLINE + text("RACES_DIPLOMACY_COUNTER_DESC2");
 		return out;
 	}
-	private String playerIntelligenceReport(Empire empire)			{
+	private String playerIntelligenceReport(Empire player)	{
 		String out = text("RACES_INTEL_BUREAU_DESC");
 		out += NEWLINE + text("RACES_INTEL_BUREAU_SPIES");
-		out += EQUAL_SEP + empire.totalActiveSpies();
+		out += EQUAL_SEP + player.totalActiveSpies();
 		out += NEWLINE + text("RACES_INTEL_BUREAU_SPENDING");
-		int amt = (int) empire.empireExternalSpyingCost();
+		int amt = (int) player.empireExternalSpyingCost();
 		if (amt == 0)
 			out += EQUAL_SEP + text("RACES_INTEL_SECURITY_BONUS_NONE");
 		else
 			out += EQUAL_SEP + text("RACES_INTEL_SPENDING_ANNUAL", str(amt));
 		return out;
 	}
-	private String playerTechnologyList(Empire empire)				{
+	private String playerTechnologyList(Empire player)		{
 		String str = text("RACES_INTEL_UNKNOWN_TECHNOLOGY");
-		str = empire.replaceTokens(str, "alien");
+		str = player.replaceTokens(str, "alien");
 		String out = str;
 		str = text("RACES_INTEL_UNKNOWN_TECH_DESC");
-		str = empire.replaceTokens(str, "alien");
+		str = player.replaceTokens(str, "alien");
 		out += NEWLINE + str;
 
-		TechTree tree = empire.tech();
-		Empire player = player();
+		TechTree tree = player.tech();
 		HashMap<Integer, List<String>> unknownTechs	= new HashMap<>();
 		HashMap<Integer, List<String>> knownTechs	= new HashMap<>();
 		HashMap<String,  List<Empire>> techOwners	= new HashMap<>();
@@ -362,7 +370,7 @@ public class ConsoleEmpireView implements IConsole {
 	private void loadAllUnknownTechs(
 			HashMap<Integer, List<String>> unknownTechs,
 			HashMap<Integer, List<String>> knownTechs,
-			HashMap<String,  List<Empire>> techOwners) 				{
+			HashMap<String,  List<Empire>> techOwners) 		{
 
 		for (int i=0;i<TechTree.NUM_CATEGORIES;i++) {
 			knownTechs.put(i, new ArrayList<>());
@@ -394,7 +402,7 @@ public class ConsoleEmpireView implements IConsole {
 	private void loadAllTechs(Empire empire,
 			HashMap<Integer, List<String>> unknownTechs,
 			HashMap<Integer, List<String>> knownTechs,
-			HashMap<String,  List<Empire>> techOwners) 				{
+			HashMap<String,  List<Empire>> techOwners) 		{
 		Empire player = player();
 		
 		TechTree empTree = player.viewForEmpire(empire).spies().tech();
@@ -417,7 +425,7 @@ public class ConsoleEmpireView implements IConsole {
 			unknownTechs.put(i, aiUnknown);
 		}
 	}
-	private String aiTechnologyList(Empire empire)					{
+	private String aiTechnologyList(Empire empire)			{
 		String str = text("RACES_INTEL_KNOWN_TECHNOLOGY");
 		str = empire.replaceTokens(str, "alien");
 		String out = str;
@@ -467,7 +475,7 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		return out;
 	}
-	private String aiIntelligenceReport(Empire empire)				{
+	private String aiIntelligenceReport(Empire empire)		{
 		String title = text("RACES_INTEL_TITLE");
 		String out	 = empire.replaceTokens(title, "alien");
 		EmpireView view = player().viewForEmpire(empire);
@@ -534,7 +542,7 @@ public class ConsoleEmpireView implements IConsole {
 
 		return out;
 	}
-	private String aiSpyOrders(Empire empire)						{
+	private String aiSpyOrders(Empire empire)				{
 		Empire player = player();
 		EmpireView view = player.viewForEmpire(empire);
 		// no spy orders for new republic allies
@@ -570,6 +578,298 @@ public class ConsoleEmpireView implements IConsole {
 	}
 		
 	// MILITARY PANEL
+	private String playerMilitaryBaseInfo(Empire player)	{
+		String str = text("RACES_MILITARY_TITLE");
+		String out = player.replaceTokens(str, "alien");
+		out += NEWLINE + text("RACES_MILITARY_SUBTITLE");
+		out += NEWLINE + text("RACES_MILITARY_SMALL");
+		out += EQUAL_SEP + player.shipCount(ShipDesign.SMALL);
+		out += NEWLINE + text("RACES_MILITARY_MEDIUM");
+		out += EQUAL_SEP + player.shipCount(ShipDesign.MEDIUM);
+		out += NEWLINE + text("RACES_MILITARY_LARGE");
+		out += EQUAL_SEP + player.shipCount(ShipDesign.LARGE);
+		out += NEWLINE + text("RACES_MILITARY_HUGE");
+		out += EQUAL_SEP + player.shipCount(ShipDesign.HUGE);
+		return out;
+	}
+	private String playerDefenseInfo(Empire player)			{
+		TechTree tech = player.tech();
+		String out = text("RACES_MILITARY_DEFENSE");
 
+		out += NEWLINE + text("RACES_MILITARY_DEF_PLANET_SHIELD");
+		int shieldLvl = tech.topPlanetaryShieldTech() == null ? 0 : tech.topPlanetaryShieldTech().damage;
+		String shieldLvlStr = shieldLvl > 0 ? str(shieldLvl) : text("RACES_MILITARY_NO_SHIELD");
+		out += EQUAL_SEP + shieldLvlStr;
+
+		out += NEWLINE + text("RACES_MILITARY_DEF_DEFL_SHIELD");
+		shieldLvl = tech.topDeflectorShieldTech() == null ? 0 : tech.topDeflectorShieldTech().damage;
+		shieldLvlStr = shieldLvl > 0 ? str(shieldLvl) : text("RACES_MILITARY_NO_SHIELD");
+		out += EQUAL_SEP + shieldLvlStr;
+
+		out += NEWLINE + text("RACES_MILITARY_DEF_ARMOR");
+		String armor = tech.topArmorTech() == null ? "" : tech.topArmorTech().shortName();
+		out += EQUAL_SEP + armor;
+
+		out += NEWLINE + text("RACES_MILITARY_DEF_MISSILE");
+		String miss = tech.topBaseMissileTech() == null ? "" : tech.topBaseMissileTech().name();
+		out += EQUAL_SEP + miss;
+
+		out += NEWLINE + text("RACES_MILITARY_TROOP_BONUS");
+		String bonus = concat("+",str((int)tech.troopCombatAdj(false)));
+		out += EQUAL_SEP + bonus;
+
+		out += NEWLINE + text("RACES_MILITARY_DEF_MISSILE_MAX");
+		String numBases = str(player.defaultMaxBases());
+		out += EQUAL_SEP + numBases;
+
+		return out;
+	}
+	private String shipDesignList(Empire empire, List<ShipView> ships)	{
+		if (ships == null)
+			return text("RACES_MILITARY_NO_SHIPS");
+		String out = "Ship Design List";
+		List<ShipView> ships1 = ships;
+		if (empire.isPlayer())
+			Collections.sort(ships1, ShipView.VIEW_ACTIVE);
+		for (ShipView view: ships1) {
+			// Ship Name and status
+			ShipDesign d = view.design();
+			String s = view.reportingName();
+			if (ShipView.canDistinguishFromOtherDesigns())
+				out += NEWLINE + "Ship name" + EQUAL_SEP + s + SPACER;
+			if (view.empire().isPlayer()) {
+				if (d.scrapped()) 
+					out += text("RACES_MILITARY_INACTIVE");
+				else
+					out += text("RACES_MILITARY_ACTIVE");
+			}
+			else {
+				int age = galaxy().currentYear() - view.lastViewDate();
+				if (age < 1) 
+					out += text("RACES_MILITARY_ACTIVE");
+				else {
+					out += text("RACES_MILITARY_LAST_SEEN");
+					out += " " + text("RACES_MILITARY_SCAN_AGE", str(age));			   
+				}
+			}
+			// Ship tactical 1
+			String unk = text("RACES_MILITARY_UNSCANNED");
+			out += NEWLINE + text("RACES_MILITARY_HULL");
+			String val = ShipView.sizeKnown() ? d.sizeDesc() : unk;
+			out += EQUAL_SEP + val;
+			out += NEWLINE + text("RACES_MILITARY_ARMOR");
+			val = view.armorKnown() ? str((int)d.hits()) : unk;
+			out += EQUAL_SEP + val;
+			out += NEWLINE + text("RACES_MILITARY_SHIELD");
+			val =  view.shieldKnown() ? str((int)d.shieldLevel()) : unk;
+			out += EQUAL_SEP + val;
+			out += NEWLINE + text("RACES_MILITARY_TRAVEL_SPEED");
+			val = ShipView.warpSpeedKnown() ? str(d.warpSpeed()) : unk;
+			out += EQUAL_SEP + val;
+			// Ship tactical 2
+			out += NEWLINE + text("RACES_MILITARY_ATTACK_LEVEL");
+			val = view.computerKnown() ? str((int)d.attackLevel()+d.empire().shipAttackBonus()) : unk;
+			out += EQUAL_SEP + val;
+			out += NEWLINE + text("RACES_MILITARY_MISSILE_DEFENSE");
+			val = view.maneuverKnown() ? str(d.missileDefense()+d.empire().shipDefenseBonus()) : unk;
+			out += EQUAL_SEP + val;
+			out += NEWLINE + text("RACES_MILITARY_BEAM_DEFENSE");
+			val = view.maneuverKnown() ? str(d.beamDefense()+d.empire().shipDefenseBonus()) : unk;
+			out += EQUAL_SEP + val;
+			out += NEWLINE + text("RACES_MILITARY_COMBAT_SPEED");
+			val = view.maneuverKnown() ? str(d.combatSpeed()) : unk;
+			out += EQUAL_SEP + val;
+			// Ship weapons
+			int totalWpnCount = 0;
+			boolean wpnScanned = false;
+			for (int i=0;i<ShipDesign.maxWeapons();i++) {
+				wpnScanned = wpnScanned || view.weaponKnown(i);
+				totalWpnCount += d.wpnCount(i);
+			}
+			if (!wpnScanned)
+				out += NEWLINE + text("RACES_MILITARY_UNSCANNED_LONG");
+			else if (totalWpnCount == 0)
+				out += NEWLINE + text("RACES_MILITARY_NO_WEAPONS");
+			else
+				for (int i=0;i<ShipDesign.maxWeapons();i++) {
+					if (view.weaponKnown(i) && view.hasWeapon(i))
+						out += NEWLINE + text("RACES_MILITARY_WEAPON_CNT", str(d.wpnCount(i)), d.weapon(i).name());
+				}
+			// Ship specials
+			for (int i=0;i<ShipDesign.maxSpecials();i++) {
+				if (view.specialKnown(i)) {
+					if (view.hasSpecial(i)) {
+						out += NEWLINE + d.special(i).name();
+					}
+					else if (i == 0)
+						out += NEWLINE + text("RACES_MILITARY_NO_SPECIALS");
+				}
+				else if (i == 0)
+					out += NEWLINE + text("RACES_MILITARY_UNSCANNED_LONG");
+			}
+		}
+		return out;
+	}
+	private String aiMilitaryBaseInfo(Empire empire)		{
+		EmpireView view = player().viewForEmpire(empire);
+		SpyNetwork.FleetView fv = view.spies().fleetView();
+		boolean showReport = !fv.noReport();
+		int age = fv.reportAge();
+		String str = text("RACES_MILITARY_TITLE");
+		String out = empire.replaceTokens(str, "alien");
+		out += NEWLINE + text("RACES_MILITARY_SUBTITLE");
+		if (!showReport) {
+			out += NEWLINE + text("RACES_MILITARY_REPORT_NONE");
+			return out;
+		}
+		else if (age == 0)
+			out += NEWLINE + text("RACES_MILITARY_REPORT_CURRENT");
+		else
+			out += NEWLINE + text("RACES_MILITARY_REPORT_OLD", str(age));
+			
+		out += NEWLINE + text("RACES_MILITARY_SMALL");
+		if (showReport)
+			out += EQUAL_SEP + empire.shipCount(ShipDesign.SMALL);
+		out += NEWLINE + text("RACES_MILITARY_MEDIUM");
+		if (showReport)
+			out += EQUAL_SEP + empire.shipCount(ShipDesign.MEDIUM);
+		out += NEWLINE + text("RACES_MILITARY_LARGE");
+		if (showReport)
+			out += EQUAL_SEP + empire.shipCount(ShipDesign.LARGE);
+		out += NEWLINE + text("RACES_MILITARY_HUGE");
+		if (showReport)
+			out += EQUAL_SEP + empire.shipCount(ShipDesign.HUGE);
+		return out;
+	}
+	private String aiDefenseInfo(Empire empire)				{
+		EmpireView v = player().viewForEmpire(empire.id);
+		if (v == null)
+			return "";
+		TechTree tech = v.spies().tech();
+		String out = text("RACES_MILITARY_DEFENSE");
+
+		out += NEWLINE + text("RACES_MILITARY_DEF_PLANET_SHIELD");
+		int shieldLvl = tech.topPlanetaryShieldTech() == null ? 0 : tech.topPlanetaryShieldTech().damage;
+		String shieldLvlStr = shieldLvl > 0 ? str(shieldLvl) : text("RACES_MILITARY_NO_SHIELD");
+		out += EQUAL_SEP + shieldLvlStr;
+
+		out += NEWLINE + text("RACES_MILITARY_DEF_DEFL_SHIELD");
+		shieldLvl = tech.topDeflectorShieldTech() == null ? 0 : tech.topDeflectorShieldTech().damage;
+		shieldLvlStr = shieldLvl > 0 ? str(shieldLvl) : text("RACES_MILITARY_NO_SHIELD");
+		out += EQUAL_SEP + shieldLvlStr;
+
+		out += NEWLINE + text("RACES_MILITARY_DEF_ARMOR");
+		String armor = tech.topArmorTech() == null ? "" : tech.topArmorTech().shortName();
+		out += EQUAL_SEP + armor;
+
+		out += NEWLINE + text("RACES_MILITARY_DEF_MISSILE");
+		String miss = tech.topBaseMissileTech() == null ? "" : tech.topBaseMissileTech().name();
+		out += EQUAL_SEP + miss;
+
+		out += NEWLINE + text("RACES_MILITARY_TROOP_BONUS");
+		String bonus = concat("+",str((int)tech.troopCombatAdj(false)));
+		out += EQUAL_SEP + bonus;
+
+		return out;
+	}
 	// STATUS PANEL
+	private String playerVsAllStatus(Empire player)			{
+		String str = text("RACES_STATUS_THE_EMPIRE");
+		String out = player.replaceTokens(str, "alien");
+		out += " " + text("RACES_STATUS_VS");
+		out += " " + text("RACES_STATUS_KNOWN_EMPIRES", player.contacts().size());
+		
+		List<RaceValue> raceValues = new ArrayList<>();
+		EmpireStatus playerStatus  = player.status();
+		IGameOptions opts = options();
+		boolean absolute  = false;
+		boolean pctPlayer = false;
+		boolean pctTotal  = false;
+		if (opts.raceStatusViewPlayer()) {
+			out += NEWLINE + "Results are percentage of Player";
+			pctPlayer = true;
+		}
+		else if (opts.raceStatusViewTotal()) {
+			out += NEWLINE + "Results are percentage of Total";
+			pctTotal = true;
+		}
+		else {
+			out += NEWLINE + "Results are absolute value";
+			absolute = true;
+		}
+		
+		for (int cat=0; cat<6; cat++) {
+			out += NEWLINE + " Status of " +  playerStatus.title(cat);
+			// Update listing
+			raceValues.clear();
+			for (Empire empire: player.contactedEmpires()) {
+				EmpireStatus empireStatus  = empire.status();
+				float val = empireStatus.lastViewValue(player, cat);
+				int   age = empireStatus.age(player);
+				raceValues.add(new RaceValue(empire, val, age));
+			}
+			float val = playerStatus.lastViewValue(player, cat);
+			raceValues.add(new RaceValue(player, val, 0));
+			Collections.sort(raceValues);
+
+			// Display listing
+			float maxValue	= raceValues.get(0).value;
+			float sumValues	= 0;
+			for (RaceValue rv: raceValues)
+				if (rv.value > 0)
+					sumValues += rv.value;
+
+			float playerVal	= playerStatus.lastViewValue(player, cat);
+			float norm = 1;
+			if (pctPlayer)
+				norm = 100 / playerVal;
+			else if (pctTotal)
+				norm = 100 / sumValues;
+			else
+				absolute = true;
+
+			for (RaceValue raceValue: raceValues) {
+				out += NEWLINE + raceValue.emp.raceName() + EQUAL_SEP;
+				if (raceValue.value < 0)
+					out += text("RACES_STATUS_NO_DATA");
+				else if (maxValue > 0) {
+					float dispVal = raceValue.value * norm;
+					if (absolute)
+						out += str(Math.round(dispVal));
+					else if (dispVal >= 10)
+						out += str(Math.round(dispVal)) + "%";
+					else
+						out += df1.format(dispVal) + "%";
+					
+					if (raceValue.age > 0)
+						out += SPACER + "age" + EQUAL_SEP + raceValue.age;
+				}
+			}
+		}
+		return out;
+	}
+	private String aiVsPlayerStatus(Empire empire)			{
+		Empire player = player();
+		String str = text("RACES_STATUS_THE_EMPIRE");
+		String out = player.replaceTokens(str, "alien");
+		out += " " + text("RACES_STATUS_VS");
+		str = text("RACES_STATUS_THE_EMPIRE");
+		out += empire.replaceTokens(str, "alien");
+		out += NEWLINE + "Results are percentage of Player";
+		
+		EmpireStatus playerStatus = player.status();
+		EmpireStatus empireStatus = empire.status();
+		int aiAge = empireStatus.age(player);
+		if (aiAge > 0)
+			out += NEWLINE + "age" + EQUAL_SEP + aiAge;
+
+		for (int cat=0; cat<6; cat++) {
+			out += NEWLINE + playerStatus.title(cat);
+			float aiVal = empireStatus.lastViewValue(player, cat);
+			float plVal = playerStatus.lastViewValue(player, cat);
+			int	  ratioPct = (int) (100 * aiVal / plVal);
+			out += EQUAL_SEP + ratioPct + "%";
+		}
+		return out;
+	}
 }

@@ -78,6 +78,7 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
     public void drawTexture(Graphics g)      { }
     @Override
     public String textureName()     { return TEXTURE_BROWN; }
+    public void init()    			{ changedEmpire(); }
     public void changedEmpire()     { 
         renameBoxes.clear();      
         ships = null;

@@ -63,6 +63,12 @@ Later:
 
 ## What's New
 
+2024.05.04 (BR)
+- Console: Empire report
+  - Military tab: Player and AI
+  - Status tab: Player and AI
+- Fixed Military panel not properly initialised when reloading a game.
+
 2024.05.03 (BR)
 - Console: Empire report
   - Diplomacy tab: Player and AI
