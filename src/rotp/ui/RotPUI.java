@@ -422,7 +422,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     	selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);
     }
     public void selectLoadGamePanel() {
-		if (guiOptions().selectedShowConsolePanel()) {
+		if (guiOptions().selectedShowConsolePanel() && !Rotp.isIDE()) {
 			CommandConsole.loadMenu.open("");
 		}
 		else {

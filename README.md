@@ -63,6 +63,10 @@ Later:
 
 ## What's New
 
+2024.05.06 (BR)
+- Console: Empire short report
+  - preparation for verbose or non verbose mode
+
 2024.05.04 (BR)
 - Console: Empire report
   - Military tab: Player and AI

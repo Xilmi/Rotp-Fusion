@@ -63,6 +63,7 @@ public interface IConsole extends Base {
 	String EMP_INTELLIGENCE	= "I";
 	String EMP_MILITARY		= "M";
 	String EMP_STATUS		= "S";
+	String EMP_REPORT		= "R";
 
 //	##### TOOLS #####
 	default CommandConsole console()	{ return cc(); }
@@ -289,11 +290,11 @@ public interface IConsole extends Base {
 			out = bracketed(EMPIRE_KEY, emp.id) +  " " + emp.name();
 			out += sep + text("RACES_KNOWN_EMPIRES", n);
 			if (n > 0) {
-				int r = 0;
+				int recalled = 0;
 				for (EmpireView v : views)
 					if (!v.diplomats())
-						r++;
-				out += sep + text("RACES_RECALLED_DIPLOMATS", r);
+						recalled++;
+				out += sep + text("RACES_RECALLED_DIPLOMATS", recalled);
 			}
 		}
 		else if (!player().hasContacted(emp.id)) {
@@ -306,6 +307,8 @@ public interface IConsole extends Base {
 			if (inRange) {
 				out += sep + empireTreaty(emp);
 				out += sep + empireTrade(emp);
+				if (!view.diplomats())
+					out += sep + text("RACES_DIPLOMATS_RECALLED");
 			}
 			else
 				out += sep + text("RACES_OUT_OF_RANGE");

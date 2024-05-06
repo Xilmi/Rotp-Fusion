@@ -552,18 +552,20 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				
 				// Info selection
 				if (param.isEmpty()) // No param, then basic contact info
-					return empireView.contactInfo(empire, "");
+					return empireView.contactInfo(empire, true);
 
 				str = param.get(0);
 				switch (str) {
 				case EMP_DIPLOMACY:
-					return empireView.diplomacyInfo(empire, "");
+					return empireView.diplomacyInfo(empire, true);
 				case EMP_INTELLIGENCE:
-					return empireView.intelligenceInfo(empire, "");
+					return empireView.intelligenceInfo(empire, true);
 				case EMP_MILITARY:
-					return empireView.militaryInfo(empire, "");
+					return empireView.militaryInfo(empire, true);
 				case EMP_STATUS:
-					return empireView.statusInfo(empire, "");
+					return empireView.statusInfo(empire, true);
+				case EMP_REPORT:
+					return empireView.reportInfo(empire, false);
 				}
 				return out + " Unknown Parameter " + str;
 			}

@@ -29,67 +29,110 @@ public class ConsoleEmpireView implements IConsole {
 	private static final String OBSOLETE	 = "~ ";
 	private static final String COULD_STEAL	 = "*** ";
 	
-	String contactInfo(Empire empire, String out)		{ return out + empireContactInfo(empire, NEWLINE); }
-	String diplomacyInfo(Empire empire, String out)		{
+	String contactInfo(Empire empire, boolean verbose)		{
+		if (verbose)
+			return empireContactInfo(empire, NEWLINE);
+		return empireContactInfo(empire, SPACER);
+	}
+	String diplomacyInfo(Empire empire, boolean verbose)	{
+		String out = "";
 		if (empire.isPlayer()) {
 			out += empireName(empire);
-			out += NEWLINE + playerDiploBaseInfo(empire);
-			out += NEWLINE + playerDiplomacyBureau(empire);
-			out += NEWLINE + playerCounterIntelligenceReport(empire);
-			out += NEWLINE + playerIntelligenceReport(empire);
-			out += NEWLINE + playerDiplomaticEvents(empire);
+			out += NEWLINE + playerDiploBaseInfo(empire, verbose);
+			out += NEWLINE + playerDiplomacyBureau(empire, verbose);
+			out += NEWLINE + playerCounterIntelligenceReport(empire, verbose);
+			out += NEWLINE + playerIntelligenceReport(empire, verbose);
+			out += NEWLINE + playerDiplomaticEvents(empire, verbose);
 		}
 		else {
+			if (!player().hasContacted(empire.id))
+				return "Unknown Empire";
 			out += empireName(empire);
-			out += NEWLINE + aiDiploBaseInfo(empire);
-			out += NEWLINE + relationsMeter(empire);
-			out += NEWLINE + aiDiplomacyBureau(empire);
-			out += NEWLINE + aiTradeSummary(empire);
-			out += NEWLINE + aiForeignRelations(empire);
-			out += NEWLINE + aiDiplomaticEvents(empire);
+			out += NEWLINE + aiDiploBaseInfo(empire, verbose);
+			out += NEWLINE + relationsMeter(empire, verbose);
+			out += NEWLINE + aiDiplomacyBureau(empire, verbose);
+			out += NEWLINE + aiTradeSummary(empire, verbose);
+			out += NEWLINE + aiForeignRelations(empire, verbose);
+			out += NEWLINE + aiDiplomaticEvents(empire, verbose);
 		}
 		return out;
 	}
-	String intelligenceInfo(Empire empire, String out)	{
+	String intelligenceInfo(Empire empire, boolean verbose)	{
+		String out = "";
 		if (empire.isPlayer()) {
 			out += empireName(empire);
-			out += NEWLINE + playerCounterIntelligenceReport(empire);
-			out += NEWLINE + playerIntelligenceReport(empire);
-			out += NEWLINE + playerTechnologyList(empire);
+			out += NEWLINE + playerCounterIntelligenceReport(empire, verbose);
+			out += NEWLINE + playerIntelligenceReport(empire, verbose);
+			out += NEWLINE + playerTechnologyList(empire, verbose);
 		}
 		else {
+			if (!player().hasContacted(empire.id))
+				return "Unknown Empire";
 			out += empireName(empire);
-			out += NEWLINE + aiIntelligenceReport(empire);
-			out += NEWLINE + aiSpyOrders(empire);			
-			out += NEWLINE + aiTechnologyList(empire);
+			out += NEWLINE + aiIntelligenceReport(empire, verbose);
+			out += NEWLINE + aiSpyOrders(empire, verbose);			
+			out += NEWLINE + aiTechnologyList(empire, verbose);
 		}
 		return out;
 	}
-	String militaryInfo(Empire empire, String out)		{
+	String militaryInfo(Empire empire, boolean verbose)		{
+		String out = "";
 		if (empire.isPlayer()) {
-			out += playerMilitaryBaseInfo(empire);
-			out += NEWLINE + playerDefenseInfo(empire);
-			out += NEWLINE + shipDesignList(empire, player().shipLab().designHistory());
+			out += playerMilitaryBaseInfo(empire, verbose);
+			out += NEWLINE + playerDefenseInfo(empire, verbose);
+			List<ShipView> ships = player().shipLab().designHistory();
+			out += NEWLINE + shipDesignList(empire, ships, verbose);
 		}
 		else {
-			out += aiMilitaryBaseInfo(empire);
-			out += NEWLINE + aiDefenseInfo(empire);
-			out += NEWLINE + shipDesignList(empire, player().viewForEmpire(empire).spies().ships());
+			if (!player().hasContacted(empire.id))
+				return "Unknown Empire";
+			out += aiMilitaryBaseInfo(empire, verbose);
+			out += NEWLINE + aiDefenseInfo(empire, verbose);
+			List<ShipView> ships = player().viewForEmpire(empire).spies().ships();
+			out += NEWLINE + shipDesignList(empire, ships, verbose);
 		}
 		return out;
 	}
-	String statusInfo(Empire empire, String out)		{
+	String statusInfo(Empire empire, boolean verbose)		{
+		String out = "";
 		if (empire.isPlayer()) {
-			out += playerVsAllStatus(empire);
+			out += playerVsAllStatus(empire, verbose);
 		}
 		else {
-			out += aiVsPlayerStatus(empire);
+			if (!player().hasContacted(empire.id))
+				return "Unknown Empire";
+			out += aiVsPlayerStatus(empire, verbose);
+		}
+		return out;
+	}
+	String reportInfo(Empire empire, boolean verbose)		{
+		String out = "";
+		if (empire.isPlayer()) {
+			out += contactInfo(empire, verbose);
+			out += NEWLINE + playerDiploBaseInfo(empire, verbose);
+			out += NEWLINE + playerCounterIntelligenceReport(empire, verbose);
+			out += NEWLINE + playerIntelligenceReport(empire, verbose);
+			out += NEWLINE + playerDefenseInfo(empire, verbose);
+			out += NEWLINE + playerMilitaryBaseInfo(empire, verbose);
+			out += NEWLINE + playerTechnologyList(empire, verbose);
+		}
+		else {
+			if (!player().hasContacted(empire.id))
+				return "Unknown Empire";
+			out += contactInfo(empire, verbose);
+			out += NEWLINE + aiDiploBaseInfo(empire, verbose);
+			out += NEWLINE + relationsMeter(empire, verbose);
+			out += NEWLINE + aiTradeSummary(empire, verbose);
+			out += NEWLINE + aiForeignRelations(empire, verbose);
+			out += NEWLINE + aiMilitaryBaseInfo(empire, verbose);
+			out += NEWLINE + aiDefenseInfo(empire, verbose);
+			out += NEWLINE + aiVsPlayerStatus(empire, verbose);
 		}
 		return out;
 	}
 	
 	// DIPLOMATIC PANEL
-	private String playerDiploBaseInfo(Empire player)		{
+	private String playerDiploBaseInfo(Empire player, boolean verbose)		{
 		String out = text("RACES_DIPLOMACY_HOMEWORLD");
 		out += EQUAL_SEP + player.sv.name(player.capitalSysId());
 
@@ -109,7 +152,7 @@ public class ConsoleEmpireView implements IConsole {
 		out += EQUAL_SEP + s;
 		return out;
 	}
-	private String playerDiplomaticEvents(Empire player)	{
+	private String playerDiplomaticEvents(Empire player, boolean verbose)	{
 		String out = "";
 		boolean displayYear = options().displayYear();
 		if (displayYear)
@@ -145,7 +188,7 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		return out;
 	}
-	private String playerDiplomacyBureau(Empire player)		{
+	private String playerDiplomacyBureau(Empire player, boolean verbose)	{
 		String out = text("RACES_DIPLOMACY_BUREAU");
 		List<EmpireView> views = player.contacts();
 		int recalls = 0;
@@ -159,8 +202,8 @@ public class ConsoleEmpireView implements IConsole {
 		out += EQUAL_SEP + recalls;
 		return out;
 	}
-	private String empireName(Empire empire)				{ return "Empire Name" + EQUAL_SEP + empire.name(); }
-	private String aiDiploBaseInfo(Empire empire)			{
+	private String empireName(Empire empire)	{ return "Empire Name" + EQUAL_SEP + empire.name(); }
+	private String aiDiploBaseInfo(Empire empire, boolean verbose)			{
 		Leader leader = empire.leader();
 		String out = text("RACES_DIPLOMACY_HOMEWORLD");
 		out += EQUAL_SEP + empire.sv.name(empire.capitalSysId());
@@ -188,9 +231,11 @@ public class ConsoleEmpireView implements IConsole {
 		out += EQUAL_SEP + str;
 		return out;
 	}
-	private String relationsMeter(Empire empire)			{
+	private String relationsMeter(Empire empire, boolean verbose)			{
 		if (empire.masksDiplomacy()) {
 			String out = text("RACES_DIPLOMACY_RELATIONS_METER");
+			if (!verbose)
+				return out + EQUAL_SEP + "Hidden";
 			String str = text("RACES_DIPLOMACY_RELATIONS_UNKNOWN");
 			str = empire.replaceTokens(str, "alien");
 			out += EQUAL_SEP + str;
@@ -199,7 +244,7 @@ public class ConsoleEmpireView implements IConsole {
 		else
 			return empireRelationPct(empire);
 	}
-	private String aiDiplomaticEvents(Empire empire)		{
+	private String aiDiplomaticEvents(Empire empire, boolean verbose)		{
 		String out = "Diplomatic event history";
 		boolean displayYear = options().displayYear();
 		boolean masksDiplomacy = empire.masksDiplomacy();
@@ -229,7 +274,7 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		return out;
 	}
-	private String aiDiplomacyBureau(Empire empire)			{
+	private String aiDiplomacyBureau(Empire empire, boolean verbose)		{
 		String out = text("RACES_DIPLOMACY_BUREAU");
 		EmpireView view = player().viewForEmpire(empire);
 		boolean finalWar = view.embassy().finalWar();
@@ -246,21 +291,22 @@ public class ConsoleEmpireView implements IConsole {
 		out += NEWLINE + desc;
 		return out;
 	}
-	private String aiTradeSummary(Empire empire)			{
+	private String aiTradeSummary(Empire empire, boolean verbose)			{
 		String out = text("RACES_DIPLOMACY_TRADE_SUMMARY");
 		EmpireView view = player().viewForEmpire(empire);
 		boolean finalWar = view.embassy().finalWar();
 		boolean outOfRange = !view.inEconomicRange();
-		String desc;
+		String desc = "";
 		if (finalWar)
 			desc = text("RACES_DIPLOMACY_TRADE_DESC_FINAL");
 		else if (outOfRange)
 			desc = text("RACES_DIPLOMACY_TRADE_DESC_RANGE");
-		else {
+		else if (verbose) {
 			desc = text("RACES_DIPLOMACY_TRADE_DESC");
 			desc = empire.replaceTokens(desc, "alien");
 		}
-		out += NEWLINE + desc;
+		if (!desc.isEmpty())
+			out += NEWLINE + desc;
 		out += NEWLINE + text("RACES_DIPLOMACY_TRADE_TREATY");
 		out += EQUAL_SEP + text("RACES_DIPLOMACY_TRADE_AMT", view.trade().level());
 		out += NEWLINE + text("RACES_DIPLOMACY_CURRENT_TRADE");
@@ -268,7 +314,7 @@ public class ConsoleEmpireView implements IConsole {
 		out += EQUAL_SEP + text("RACES_DIPLOMACY_TRADE_AMT", str(amt));
 		return out;
 	}
-	private String aiForeignRelations(Empire empire)		{
+	private String aiForeignRelations(Empire empire, boolean verbose)		{
 		String out = text("RACES_DIPLOMACY_FOREIGN_RELATIONS");
 		EmpireView view = player().viewForEmpire(empire);
 		boolean outOfRange = !view.inEconomicRange();
@@ -297,7 +343,7 @@ public class ConsoleEmpireView implements IConsole {
 	}
 
 	// INTELLIGENCE PANEL
-	private String playerCounterIntelligenceReport(Empire player)	{
+	private String playerCounterIntelligenceReport(Empire player, boolean verbose)	{
 		String out = text("RACES_DIPLOMACY_COUNTER_BUREAU");
 		out += NEWLINE + text("RACES_INTEL_SECURITY_BONUS");
 		int amt = (int) (100*player().totalInternalSecurityPct());
@@ -310,12 +356,15 @@ public class ConsoleEmpireView implements IConsole {
 		out += EQUAL_SEP + text("RACES_INTEL_SPENDING_ANNUAL", str(amt));
 		out += NEWLINE + text("RACES_INTEL_SECURITY_TAX");
 		out += EQUAL_SEP + text("RACES_INTEL_PERCENT_AMT",(int)(player.internalSecurityCostPct()*100));
-		out += NEWLINE + text("RACES_DIPLOMACY_COUNTER_DESC2");
+		if (verbose)
+			out += NEWLINE + text("RACES_DIPLOMACY_COUNTER_DESC2");
 		return out;
 	}
-	private String playerIntelligenceReport(Empire player)	{
-		String out = text("RACES_INTEL_BUREAU_DESC");
-		out += NEWLINE + text("RACES_INTEL_BUREAU_SPIES");
+	private String playerIntelligenceReport(Empire player, boolean verbose)	{
+		String out = "";
+		if (verbose)
+			out += text("RACES_INTEL_BUREAU_DESC") + NEWLINE;
+		out += text("RACES_INTEL_BUREAU_SPIES");
 		out += EQUAL_SEP + player.totalActiveSpies();
 		out += NEWLINE + text("RACES_INTEL_BUREAU_SPENDING");
 		int amt = (int) player.empireExternalSpyingCost();
@@ -325,22 +374,24 @@ public class ConsoleEmpireView implements IConsole {
 			out += EQUAL_SEP + text("RACES_INTEL_SPENDING_ANNUAL", str(amt));
 		return out;
 	}
-	private String playerTechnologyList(Empire player)		{
+	private String playerTechnologyList(Empire player, boolean verbose)		{
 		String str = text("RACES_INTEL_UNKNOWN_TECHNOLOGY");
 		str = player.replaceTokens(str, "alien");
 		String out = str;
 		str = text("RACES_INTEL_UNKNOWN_TECH_DESC");
 		str = player.replaceTokens(str, "alien");
-		out += NEWLINE + str;
+		if (verbose)
+			out += NEWLINE + str;
 
 		TechTree tree = player.tech();
 		HashMap<Integer, List<String>> unknownTechs	= new HashMap<>();
 		HashMap<Integer, List<String>> knownTechs	= new HashMap<>();
 		HashMap<String,  List<Empire>> techOwners	= new HashMap<>();
 		loadAllUnknownTechs(unknownTechs, knownTechs, techOwners);
+		str = "";
 		for (int id=0; id<TechTree.NUM_CATEGORIES; id++ ) {
 			TechCategory cat = tree.category(id);
-			out += NEWLINE + text(cat.id());
+			String str2 = "";
 			List<String> aiUnknown = unknownTechs.get(cat.index());
 			for (String idxStr: aiUnknown) {
 				Tech t = tech(idxStr);
@@ -356,15 +407,21 @@ public class ConsoleEmpireView implements IConsole {
 						annotation = OBSOLETE;
 					else if(couldSteal)
 						annotation = COULD_STEAL;
-					out += NEWLINE + annotation + tech(idxStr).name() + " ";
+					str2 += NEWLINE + annotation + tech(idxStr).name() + " ";
 					String sep = "";
 					for (Empire emp1: emps) {
-						out += sep + emp1.raceName();
+						str2 += sep + emp1.raceName();
 						sep = EMPIRE_SEP;
 					}
 				}
 			}
+			if (verbose || !str2.isEmpty())
+				str += NEWLINE + text(cat.id()) + str2;
 		}
+		if (verbose || !str.isEmpty())
+			out += str;
+		else if (!verbose && str.isEmpty())
+			out += EQUAL_SEP + "None";
 		return out;
 	}
 	private void loadAllUnknownTechs(
@@ -425,7 +482,7 @@ public class ConsoleEmpireView implements IConsole {
 			unknownTechs.put(i, aiUnknown);
 		}
 	}
-	private String aiTechnologyList(Empire empire)			{
+	private String aiTechnologyList(Empire empire, boolean verbose)			{
 		String str = text("RACES_INTEL_KNOWN_TECHNOLOGY");
 		str = empire.replaceTokens(str, "alien");
 		String out = str;
@@ -475,7 +532,7 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		return out;
 	}
-	private String aiIntelligenceReport(Empire empire)		{
+	private String aiIntelligenceReport(Empire empire, boolean verbose)		{
 		String title = text("RACES_INTEL_TITLE");
 		String out	 = empire.replaceTokens(title, "alien");
 		EmpireView view = player().viewForEmpire(empire);
@@ -542,7 +599,7 @@ public class ConsoleEmpireView implements IConsole {
 
 		return out;
 	}
-	private String aiSpyOrders(Empire empire)				{
+	private String aiSpyOrders(Empire empire, boolean verbose)				{
 		Empire player = player();
 		EmpireView view = player.viewForEmpire(empire);
 		// no spy orders for new republic allies
@@ -578,21 +635,29 @@ public class ConsoleEmpireView implements IConsole {
 	}
 		
 	// MILITARY PANEL
-	private String playerMilitaryBaseInfo(Empire player)	{
+	private String playerMilitaryBaseInfo(Empire player, boolean verbose)	{
 		String str = text("RACES_MILITARY_TITLE");
 		String out = player.replaceTokens(str, "alien");
-		out += NEWLINE + text("RACES_MILITARY_SUBTITLE");
-		out += NEWLINE + text("RACES_MILITARY_SMALL");
-		out += EQUAL_SEP + player.shipCount(ShipDesign.SMALL);
-		out += NEWLINE + text("RACES_MILITARY_MEDIUM");
-		out += EQUAL_SEP + player.shipCount(ShipDesign.MEDIUM);
-		out += NEWLINE + text("RACES_MILITARY_LARGE");
-		out += EQUAL_SEP + player.shipCount(ShipDesign.LARGE);
-		out += NEWLINE + text("RACES_MILITARY_HUGE");
-		out += EQUAL_SEP + player.shipCount(ShipDesign.HUGE);
-		return out;
+		str = "";
+		if (verbose)
+			str += NEWLINE + text("RACES_MILITARY_SUBTITLE");
+		int count = player.shipCount(ShipDesign.SMALL);
+		if (verbose || count > 0)
+			str += NEWLINE + text("RACES_MILITARY_SMALL") + EQUAL_SEP + count;
+		count = player.shipCount(ShipDesign.MEDIUM);
+		if (verbose || count > 0)
+			str += NEWLINE + text("RACES_MILITARY_MEDIUM") + EQUAL_SEP + count;
+		count = player.shipCount(ShipDesign.LARGE);
+		if (verbose || count > 0)
+			str += NEWLINE + text("RACES_MILITARY_LARGE") + EQUAL_SEP + count;
+		count = player.shipCount(ShipDesign.HUGE);
+		if (verbose || count > 0)
+			str += NEWLINE + text("RACES_MILITARY_HUGE") + EQUAL_SEP + count;
+		if (str.isEmpty())
+			str = EQUAL_SEP + "None";
+		return out + str;
 	}
-	private String playerDefenseInfo(Empire player)			{
+	private String playerDefenseInfo(Empire player, boolean verbose)		{
 		TechTree tech = player.tech();
 		String out = text("RACES_MILITARY_DEFENSE");
 
@@ -624,7 +689,7 @@ public class ConsoleEmpireView implements IConsole {
 
 		return out;
 	}
-	private String shipDesignList(Empire empire, List<ShipView> ships)	{
+	private String shipDesignList(Empire empire, List<ShipView> ships, boolean verbose)	{
 		if (ships == null)
 			return text("RACES_MILITARY_NO_SHIPS");
 		String out = "Ship Design List";
@@ -710,14 +775,15 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		return out;
 	}
-	private String aiMilitaryBaseInfo(Empire empire)		{
+	private String aiMilitaryBaseInfo(Empire empire, boolean verbose)		{
 		EmpireView view = player().viewForEmpire(empire);
 		SpyNetwork.FleetView fv = view.spies().fleetView();
 		boolean showReport = !fv.noReport();
 		int age = fv.reportAge();
 		String str = text("RACES_MILITARY_TITLE");
 		String out = empire.replaceTokens(str, "alien");
-		out += NEWLINE + text("RACES_MILITARY_SUBTITLE");
+		if (verbose)
+			out += NEWLINE + text("RACES_MILITARY_SUBTITLE");
 		if (!showReport) {
 			out += NEWLINE + text("RACES_MILITARY_REPORT_NONE");
 			return out;
@@ -726,22 +792,25 @@ public class ConsoleEmpireView implements IConsole {
 			out += NEWLINE + text("RACES_MILITARY_REPORT_CURRENT");
 		else
 			out += NEWLINE + text("RACES_MILITARY_REPORT_OLD", str(age));
-			
-		out += NEWLINE + text("RACES_MILITARY_SMALL");
-		if (showReport)
-			out += EQUAL_SEP + empire.shipCount(ShipDesign.SMALL);
-		out += NEWLINE + text("RACES_MILITARY_MEDIUM");
-		if (showReport)
-			out += EQUAL_SEP + empire.shipCount(ShipDesign.MEDIUM);
-		out += NEWLINE + text("RACES_MILITARY_LARGE");
-		if (showReport)
-			out += EQUAL_SEP + empire.shipCount(ShipDesign.LARGE);
-		out += NEWLINE + text("RACES_MILITARY_HUGE");
-		if (showReport)
-			out += EQUAL_SEP + empire.shipCount(ShipDesign.HUGE);
-		return out;
+
+		str = "";
+		int count = empire.shipCount(ShipDesign.SMALL);
+		if (verbose || count > 0)
+			str += NEWLINE + text("RACES_MILITARY_SMALL") + EQUAL_SEP + count;
+		count = empire.shipCount(ShipDesign.MEDIUM);
+		if (verbose || count > 0)
+			str += NEWLINE + text("RACES_MILITARY_MEDIUM") + EQUAL_SEP + count;
+		count = empire.shipCount(ShipDesign.LARGE);
+		if (verbose || count > 0)
+			str += NEWLINE + text("RACES_MILITARY_LARGE") + EQUAL_SEP + count;
+		count = empire.shipCount(ShipDesign.HUGE);
+		if (verbose || count > 0)
+			str += NEWLINE + text("RACES_MILITARY_HUGE") + EQUAL_SEP + count;
+		if (str.isEmpty())
+			str = NEWLINE + "No ships";
+		return out + str;
 	}
-	private String aiDefenseInfo(Empire empire)				{
+	private String aiDefenseInfo(Empire empire, boolean verbose)			{
 		EmpireView v = player().viewForEmpire(empire.id);
 		if (v == null)
 			return "";
@@ -759,11 +828,11 @@ public class ConsoleEmpireView implements IConsole {
 		out += EQUAL_SEP + shieldLvlStr;
 
 		out += NEWLINE + text("RACES_MILITARY_DEF_ARMOR");
-		String armor = tech.topArmorTech() == null ? "" : tech.topArmorTech().shortName();
+		String armor = tech.topArmorTech() == null ? "Unknown" : tech.topArmorTech().shortName();
 		out += EQUAL_SEP + armor;
 
 		out += NEWLINE + text("RACES_MILITARY_DEF_MISSILE");
-		String miss = tech.topBaseMissileTech() == null ? "" : tech.topBaseMissileTech().name();
+		String miss = tech.topBaseMissileTech() == null ? "Unknown" : tech.topBaseMissileTech().name();
 		out += EQUAL_SEP + miss;
 
 		out += NEWLINE + text("RACES_MILITARY_TROOP_BONUS");
@@ -773,7 +842,7 @@ public class ConsoleEmpireView implements IConsole {
 		return out;
 	}
 	// STATUS PANEL
-	private String playerVsAllStatus(Empire player)			{
+	private String playerVsAllStatus(Empire player, boolean verbose)		{
 		String str = text("RACES_STATUS_THE_EMPIRE");
 		String out = player.replaceTokens(str, "alien");
 		out += " " + text("RACES_STATUS_VS");
@@ -848,17 +917,24 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		return out;
 	}
-	private String aiVsPlayerStatus(Empire empire)			{
+	private String aiVsPlayerStatus(Empire empire, boolean verbose)			{
 		Empire player = player();
-		String str = text("RACES_STATUS_THE_EMPIRE");
-		String out = player.replaceTokens(str, "alien");
-		out += " " + text("RACES_STATUS_VS");
-		str = text("RACES_STATUS_THE_EMPIRE");
-		out += empire.replaceTokens(str, "alien");
-		out += NEWLINE + "Results are percentage of Player";
-		
+		String out = "";
+		// if (verbose) {
+			String str = text("RACES_STATUS_THE_EMPIRE");
+			out = player.replaceTokens(str, "alien");
+			out += " " + text("RACES_STATUS_VS");
+			str = text("RACES_STATUS_THE_EMPIRE");
+			out += empire.replaceTokens(str, "alien");
+			out += NEWLINE;
+		//}
 		EmpireStatus playerStatus = player.status();
 		EmpireStatus empireStatus = empire.status();
+		int lastViewTurn = empireStatus.lastViewTurn(player);
+		if (lastViewTurn < 0)
+			return out + "No Data";
+		out += "Results are percentage of Player";
+
 		int aiAge = empireStatus.age(player);
 		if (aiAge > 0)
 			out += NEWLINE + "age" + EQUAL_SEP + aiAge;
