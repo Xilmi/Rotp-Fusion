@@ -63,6 +63,12 @@ Later:
 
 ## What's New
 
+2024.05.08 (BR)
+- Console: Empire commands
+  - Security taxes
+  - Spy spending and orders
+  - Audiences with alien empires
+
 2024.05.06 (BR)
 - Console: Empire short report
   - preparation for verbose or non verbose mode

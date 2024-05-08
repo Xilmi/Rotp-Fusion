@@ -203,23 +203,24 @@ public final class SpyNetwork implements Base, Serializable {
             possibleTechs = new ArrayList<>();
         return possibleTechs;
     }
-    public int allocation()           { return allocation; }
-    public void allocation(int i)     { 
+    public int allocation()             { return allocation; }
+    public void allocation(int i)       { 
         allocation = bounds(0,i,MAX_SPENDING_TICKS); 
         view().owner().flagColoniesToRecalcSpending();
     }
-    public float allocationPct()     { return (float) allocation/MAX_SPENDING_TICKS; }
-    public float allocationCostPct() { 
+    public float allocationPct()        { return (float) allocation/MAX_SPENDING_TICKS; }
+    public float rawAllocationCostPct() { return allocationPct() * MAX_SPENDING_PCT; }
+    public float allocationCostPct()    { 
         if (numActiveSpies() >= maxSpies)
             return 0;
         if (!view.inEconomicRange())
             return 0;
-
-        return allocationPct() * MAX_SPENDING_PCT; 
+        return rawAllocationCostPct();
     }
-    public void decreaseSpending()    { allocation(allocation-1); }
-    public void increaseSpending()    { allocation(allocation+1); }
-    public void allocationPct(float d) {
+    public void decreaseSpending()      { allocation(allocation-1); }
+    public void increaseSpending()      { allocation(allocation+1); }
+    public void rawAllocationPct(int i) { allocationPct(i * MAX_SPENDING_PCT); }
+    public void allocationPct(float d)  {
         // d assumed to be between 0 & 1, representing pct of slider clicked
         float incr = 1.0f/(MAX_SPENDING_TICKS+1);
         float sum = 0;

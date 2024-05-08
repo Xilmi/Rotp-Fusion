@@ -66,7 +66,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	public	static CommandMenu introMenu, loadMenu, saveMenu;
 	public	static ReportMenu reportMenu;
 	public	static ColonizeMenu colonizeMenu;
-	public	static DiplomaticMessageMenu diplomaticMessageMenu;
+	public	static DiplomaticMessages diplomaticMessages;
 
 	private final JLabel commandLabel, resultLabel;
 	private final JTextField commandField;
@@ -554,30 +554,50 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				if (param.isEmpty()) // No param, then basic contact info
 					return empireView.contactInfo(empire, true);
 
-				str = param.get(0);
+				str = param.remove(0);
 				switch (str) {
-				case EMP_DIPLOMACY:
-					return empireView.diplomacyInfo(empire, true);
-				case EMP_INTELLIGENCE:
-					return empireView.intelligenceInfo(empire, true);
-				case EMP_MILITARY:
-					return empireView.militaryInfo(empire, true);
-				case EMP_STATUS:
-					return empireView.statusInfo(empire, true);
-				case EMP_REPORT:
-					return empireView.reportInfo(empire, false);
+					case EMP_DIPLOMACY:
+						return empireView.diplomacyInfo(empire, true);
+					case EMP_INTELLIGENCE:
+						return empireView.intelligenceInfo(empire, true);
+					case EMP_MILITARY:
+						return empireView.militaryInfo(empire, true);
+					case EMP_STATUS:
+						return empireView.statusInfo(empire, true);
+					case EMP_REPORT:
+						return empireView.reportInfo(empire, false);
+					case EMP_DEF_BASES:
+						return empireView.defaultBases(empire, param, false);
+					case EMP_INTEL_TAXES:
+						return empireView.intelTaxes(empire, param, false);
+					case EMP_SPY_NETWORK:
+						return empireView.spiesNumber(empire, param, false);
+					case EMP_SPY_ORDER:
+						return empireView.spiesOrders(empire, param, false);
+					case EMP_AUDIENCE:
+						empireView.audience(empire, true);
+						return diplomaticMessages.lastMessage();
 				}
 				return out + " Unknown Parameter " + str;
 			}
 		};
 		cmd.cmdParam(" " + optional("Index")
-				+ optional("EMP_DIPLOMACY")
+				+ optional(EMP_DIPLOMACY, EMP_INTELLIGENCE, EMP_MILITARY, EMP_STATUS, EMP_REPORT,
+						EMP_DEF_BASES + " num", EMP_INTEL_TAXES + " %", EMP_SPY_NETWORK + " num",
+						EMP_SPY_ORDER + " order", EMP_AUDIENCE)
 				);
 		cmd.cmdHelp("Select Empire from index, and gives Empire contact info; Player empire will be selected when no index is given."
 				+ NEWLINE + optional(EMP_DIPLOMACY)		+ " To get Empire diplomatic info"
 				+ NEWLINE + optional(EMP_INTELLIGENCE)	+ " To get Empire intelligence info"
 				+ NEWLINE + optional(EMP_MILITARY)		+ " To get Empire military info"
 				+ NEWLINE + optional(EMP_STATUS)		+ " To get Empire status info"
+				+ NEWLINE + optional(EMP_REPORT)		+ " To get Empire compact report info"
+				+ NEWLINE + optional(EMP_DEF_BASES)		+ " num"		+ " To set player default maximum missile bases"
+				+ NEWLINE + optional(EMP_INTEL_TAXES)	+ " percentage"	+ " To set Empire security taxes or spies spending"
+				+ NEWLINE + optional(EMP_SPY_NETWORK)	+ " num"		+ " To set number of spies to keep in this Empire"
+				+ NEWLINE + optional(EMP_SPY_ORDER)		+ either(EMP_SPY_HIDE, EMP_SPY_ESPION, EMP_SPY_SABOTAGE)
+														+ " To give orders to spies in this empire"
+				+ NEWLINE + optional(EMP_AUDIENCE)		+ " To get an audience with this empire"
 				);
 		return cmd;		
 	}
@@ -749,10 +769,10 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		menu.addCommand(initSelectFleet());		// F
 		menu.addCommand(initSelectTransport());	// T
 		menu.addCommand(initSelectEmpire());	// E
-		introMenu				= initIntroMenu(menu);
-		reportMenu				= new ReportMenu("Report Menu", menu);
-		colonizeMenu			= new ColonizeMenu("Colonize Menu", menu);
-		diplomaticMessageMenu	= new DiplomaticMessageMenu("Diplomatic Messages Menu", menu);
+		introMenu			= initIntroMenu(menu);
+		reportMenu			= new ReportMenu("Report Menu", menu);
+		colonizeMenu		= new ColonizeMenu("Colonize Menu", menu);
+		diplomaticMessages	= new DiplomaticMessages(menu);
 		return menu;
 	}
 	private CommandMenu initSpecieMenu(CommandMenu parent)	{
@@ -899,6 +919,86 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	int getSysId(int altIdx)			{ return altIndex2SystemIndex.get(altIdx); }
 	int getFleetIndex(ShipFleet fl)		{ return fleets.indexOf(fl); }
 	int getTransportIndex(Transport tr)	{ return transports.indexOf(tr); }
+
+	// ################### SUB CLASS DIPLOMATIC MESSAGE MENU ######################
+	public class DiplomaticMessages extends LinkedList<DiplomaticMessageMenu> {
+		private final CommandMenu topMenu;
+		private boolean hasReply;
+		DiplomaticMessages(CommandMenu menu)	{ topMenu = menu; }
+		public void newMenu(String name, DiplomaticMessageUI ui, boolean isReply)	{
+			DiplomaticMessageMenu menu = new DiplomaticMessageMenu(name, topMenu);
+			add(menu);
+			hasReply |= isReply;
+			menu.openDiplomaticMessagPrompt(ui);
+		}
+		public void updateResultPane()	{ resultPane.setText(lastMessage()); }
+		public String lastMessage()		{ return getLast().getMessage(); }
+		public void closeLast()			{
+			DiplomaticMessageMenu menu = removeLast();
+			menu.close("");
+			next();
+		}
+		public void close(DiplomaticMessageMenu menu)	{
+			remove(menu);
+			menu.close("");
+			next();
+		}
+		private void next()	{
+			if (isEmpty()) {
+				hasReply = false;
+				liveMenu(topMenu);
+				session().resumeNextTurnProcessing();
+			}
+			else {
+				liveMenu(getLast());
+				if (!hasReply)
+					session().resumeNextTurnProcessing();
+			}
+		}
+	}
+	// ################### SUB CLASS DIPLOMATIC MESSAGE MENU ######################
+	public class DiplomaticMessageMenu extends CommandMenu {
+		private DiplomaticMessageUI parentUI;
+		private String message;
+		DiplomaticMessageMenu(String name, CommandMenu parent)	{ super(name, parent); }
+		@Override protected String close(String out) {
+			// session().resumeNextTurnProcessing();
+			parentUI = null;
+			message	 = null;
+			liveMenu(gameMenu);
+			return out;
+		}
+		@Override protected void newEntry(String entry)	{
+			System.out.println("New Entry = " + entry);
+			System.out.println("Messages count = " + diplomaticMessages.size());
+			boolean state[] = parentUI.consoleResponse(entry);
+			boolean exited = state[0];
+			boolean validResponse = state[1];
+			commandField.setText("");
+			if (exited) {
+				diplomaticMessages.close(this);
+			}
+			else if (!validResponse) {
+				misClick();
+				String out = "Invalid Answer: " + entry + NEWLINE;
+				out += NEWLINE + message;
+				resultPane.setText(out);
+			}
+			else { // Valid response
+				// diplomaticMessages.updateResultPane();
+				diplomaticMessages.close(this);
+			}
+			System.out.println("Messages count = " + diplomaticMessages.size());
+		}
+		public String openDiplomaticMessagPrompt(DiplomaticMessageUI ui) {
+			parentUI = ui;
+			message = menuName + NEWLINE + parentUI.getConsoleMessage(NEWLINE);
+			liveMenu(this);
+			resultPane.setText(message);
+			return "";
+		}
+		public String getMessage()	{ return message; }
+	}
 	// ################### SUB CLASS REPORT MENU ######################
 	public class ReportMenu extends CommandMenu {
 		ReportMenu(String name)	{ super(name); }
@@ -958,39 +1058,6 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			return out;
 		}
 	}
-	// ################### SUB CLASS DIPLOMATIC MESSAGE MENU ######################
-	public class DiplomaticMessageMenu extends CommandMenu {
-		private DiplomaticMessageUI parentUI;
-		private String message;
-
-		DiplomaticMessageMenu(String name, CommandMenu parent)	{ super(name, parent); }
-		@Override protected String close(String out) {
-			session().resumeNextTurnProcessing();
-			parentUI = null;
-			message	 = null;
-			liveMenu(gameMenu);
-			return out;
-		}
-		@Override protected void newEntry(String entry)	{
-			boolean exited = parentUI.consoleResponse(entry);
-			commandField.setText("");
-			if (exited)
-				close("");
-			else {
-				misClick();
-				String out = "Invalid Answer: " + entry + NEWLINE;
-				out += NEWLINE + message;
-				resultPane.setText(out);
-			}
-		}
-		public String openDiplomaticMessagPrompt(DiplomaticMessageUI ui) {
-			parentUI = ui;
-			message = parentUI.getConsoleMessage(NEWLINE);
-			liveMenu(this);
-			resultPane.setText(message);
-			return "";
-		}
-	}
 	// ################### SUB CLASS COLONIZE MENU ######################
 	public class ColonizeMenu extends CommandMenu {
 	    int sysId;
@@ -1045,11 +1112,11 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	}
 	// ################### SUB CLASS COMMAND MENU ######################
 	public class CommandMenu {
-		private final String menuName;
+		protected final String menuName;
 		private final CommandMenu parent;
-		private final List<IParam> settings	 = new ArrayList<>();
-		private final List<CommandMenu>   subMenus	 = new ArrayList<>();
-		private final List<Command> commands = new ArrayList<>();
+		private final List<IParam>		settings = new ArrayList<>();
+		private final List<CommandMenu>	subMenus = new ArrayList<>();
+		private final List<Command>		commands = new ArrayList<>();
 		private int lastList = NULL_ID;
 		private IParam liveSetting;
 

@@ -6,6 +6,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Right clicking the origin system will now correctly cancel the rally.
 - Fixed War View showing invisible ship:
   - Fleet with both visible and invisible ship will only show the visible one.
+- Console: added empire reports and commands.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

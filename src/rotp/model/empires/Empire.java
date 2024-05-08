@@ -327,6 +327,10 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void scanPlanets(boolean b)            { scanPlanets = (scanPlanets || b); }
     public void setRecalcDistances()              { recalcDistances = true; }
     public int defaultMaxBases()                  { return defaultMaxBases; }
+    public int defaultMaxBases(int newMax)        {
+    	defaultMaxBases = bounds(0, newMax, MAX_DEFAULT_MAX_BASES);
+    	return defaultMaxBases;
+    }
 //    public boolean incrDefaultMaxBases()  { 
 //        int maxBase=999;
 //        if (defaultMaxBases == maxBase)
@@ -3276,9 +3280,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     	}
     	return securityAllocation;
     }
-    public int internalSecurity()            {
-    	return securityAllocation();
-    }
+    public int internalSecurity()            { return securityAllocation(); }
     public void internalSecurity(int i)      {
         securityAllocation = bounds(0,i,maxSecurityPct());
         flagColoniesToRecalcSpending();

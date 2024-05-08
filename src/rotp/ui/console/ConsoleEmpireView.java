@@ -21,6 +21,8 @@ import rotp.model.ships.ShipDesign;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechTree;
+import rotp.ui.diplomacy.DialogueManager;
+import rotp.ui.diplomacy.DiplomaticMessage;
 import rotp.ui.races.RacesStatusUI.RaceValue;
 
 public class ConsoleEmpireView implements IConsole {
@@ -130,8 +132,153 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		return out;
 	}
+	String audience(Empire empire, boolean verbose)			{ // TODO BR: audience(Empire empire, boolean verbose)
+		String out = "";
+		if (empire.isPlayer()) {
+			return "Error: Invalid parameter for player empire";
+		}
+		else {
+			if (!player().hasContacted(empire.id))
+				return "Unknown Empire";
+			openEmbassy(empire);
+		}
+		return out;
+	}
+	String spiesOrders(Empire empire, List<String> param, boolean verbose)	{
+		if (empire.isPlayer())
+			return "Error: Invalid parameter for player empire";
+		if (!player().hasContacted(empire.id))
+			return "Unknown Empire";
+
+		String out = "";
+		EmpireView view = player().viewForEmpire(empire);
+		if (param.isEmpty())
+			out = "Missing new spies orders" + NEWLINE;
+		else {
+			String str = param.get(0);
+			switch (str) {
+				case EMP_SPY_HIDE:
+					param.remove(0);
+					view.spies().beginHide();
+					break;
+				case EMP_SPY_ESPION:
+					param.remove(0);
+					view.spies().beginEspionage();
+					break;
+				case EMP_SPY_SABOTAGE:
+					param.remove(0);
+					view.spies().beginSabotage();
+					break;
+				default:
+					out = "Invalid new spies orders" + NEWLINE;
+			}
+		}
+		out += aiSpyOrders(empire, verbose);
+		return out;
+	}
+	String defaultBases(Empire empire, List<String> param, boolean verbose)	{
+		if (empire.isPlayer()) {
+			String out = "";
+			if (param.isEmpty())
+				out = "Missing new default max bases value" + NEWLINE;
+			else {
+				String str = param.get(0);
+				Integer newMax = getInteger(str);
+				if (newMax == null)
+					out = "Missing new default max bases value" + NEWLINE;
+				else {
+					param.remove(0);
+					if (newMax != player().defaultMaxBases(newMax))
+						out = "Invalid new default max base value" + NEWLINE;
+				}
+			}
+			out += text("RACES_MILITARY_DEF_MISSILE_MAX") + EQUAL_SEP + player().defaultMaxBases();
+			return out;
+		}
+		else {
+			return "Error: Invalid parameter for alien empire";
+		}
+	}
+	String intelTaxes(Empire empire, List<String> param, boolean verbose)	{
+		String out = "";
+		if (empire.isPlayer()) {
+			if (param.isEmpty())
+				out = "Missing new internal security value" + NEWLINE;
+			else {
+				String str = param.get(0);
+				Integer newTax = getInteger(str);
+				if (newTax == null)
+					out ="Missing new internal security value" + NEWLINE;
+				else {
+					param.remove(0);
+					player().internalSecurity(newTax);
+					if (newTax != player().internalSecurity())
+						out = "Invalid new internal security value" + NEWLINE;
+				}
+			}
+			out += playerCounterIntelligenceReport(empire, verbose);
+		}
+		else {
+			if (!player().hasContacted(empire.id))
+				return "Unknown Empire";
+			EmpireView view = player().viewForEmpire(empire);
+			if (param.isEmpty())
+				out = "Missing new spies spending percentage value" + NEWLINE;
+			else {
+				String str = param.get(0);
+				Integer newTax = getInteger(str);
+				if (newTax == null)
+					out ="Missing new spies spending percentage value" + NEWLINE;
+				else {
+					param.remove(0);
+					view.spies().rawAllocationPct(newTax);
+					if (newTax != view.spies().rawAllocationCostPct())
+						out += "Invalid new spies spending percentage value" + NEWLINE;
+				}
+			}
+			out += spiesNetwork(view);
+		}
+		return out;
+	}
+	String spiesNumber(Empire empire, List<String> param, boolean verbose)	{
+		if (empire.isPlayer())
+			return "Error: Invalid parameter for player empire";
+		if (!player().hasContacted(empire.id))
+			return "Unknown Empire";
+
+		String out = "";
+		EmpireView view = player().viewForEmpire(empire);
+		if (param.isEmpty())
+			out = "Missing new Max spies number value" + NEWLINE;
+		else {
+			String str = param.get(0);
+			Integer newMax = getInteger(str);
+			if (newMax == null)
+				out ="Missing new Max spies number value" + NEWLINE;
+			else {
+				param.remove(0);
+				view.spies().maxSpies(newMax);
+			}
+		}
+		out += spiesNetwork(view);
+		return out;
+	}
 	
 	// DIPLOMATIC PANEL
+	private void openEmbassy(Empire empire) { // TODO BR: void openEmbassy(Empire empire)
+        EmpireView view = player().viewForEmpire(empire);
+        if (view == null)
+            return;
+                
+        if (view.embassy().diplomatGone()) {
+            view.embassy().reopenEmbassy();
+            return;
+        }
+        
+        if (!view.diplomats())
+            return;
+        DiplomaticMessage.show(empire.viewForEmpire(player()), DialogueManager.DIPLOMACY_MAIN_MENU);     
+    }
 	private String playerDiploBaseInfo(Empire player, boolean verbose)		{
 		String out = text("RACES_DIPLOMACY_HOMEWORLD");
 		out += EQUAL_SEP + player.sv.name(player.capitalSysId());
@@ -344,18 +491,24 @@ public class ConsoleEmpireView implements IConsole {
 
 	// INTELLIGENCE PANEL
 	private String playerCounterIntelligenceReport(Empire player, boolean verbose)	{
-		String out = text("RACES_DIPLOMACY_COUNTER_BUREAU");
+		String out = "";
+		if (verbose)
+			out = text("RACES_DIPLOMACY_COUNTER_BUREAU") + NEWLINE;
+
+		out += text("RACES_INTEL_SECURITY_TAX");
+		out += EQUAL_SEP + text("RACES_INTEL_PERCENT_AMT",(int)(player.internalSecurityCostPct()*100));
+
+		out += NEWLINE + text("RACES_INTEL_TOTAL_SPENDING");
+		int amt = (int) player.empireInternalSecurityCost();
+		out += EQUAL_SEP + text("RACES_INTEL_SPENDING_ANNUAL", str(amt));
+
 		out += NEWLINE + text("RACES_INTEL_SECURITY_BONUS");
-		int amt = (int) (100*player().totalInternalSecurityPct());
+		amt = (int) (100*player().totalInternalSecurityPct());
 		if (amt == 0)
 			out += EQUAL_SEP + text("RACES_INTEL_SECURITY_BONUS_NONE");
 		else
-			out += text("RACES_INTEL_SECURITY_BONUS_AMT", str(amt));
-		out += NEWLINE + text("RACES_INTEL_TOTAL_SPENDING");
-		amt = (int) player.empireInternalSecurityCost();
-		out += EQUAL_SEP + text("RACES_INTEL_SPENDING_ANNUAL", str(amt));
-		out += NEWLINE + text("RACES_INTEL_SECURITY_TAX");
-		out += EQUAL_SEP + text("RACES_INTEL_PERCENT_AMT",(int)(player.internalSecurityCostPct()*100));
+			out += EQUAL_SEP + text("RACES_INTEL_SECURITY_BONUS_AMT", str(amt));
+
 		if (verbose)
 			out += NEWLINE + text("RACES_DIPLOMACY_COUNTER_DESC2");
 		return out;
@@ -532,6 +685,33 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		return out;
 	}
+	private float spyingCost(EmpireView view)		{
+		float spyingCost = player().totalTaxablePlanetaryProduction()
+				* view.spies().allocationCostPct() * view.owner().spySpendingModifier();
+		return spyingCost;
+	}
+	private String spiesSpending(EmpireView view)	{
+		String newSpies = view.spies().newSpiesExpected();
+		String out = text("RACES_INTEL_SPENDING");
+		int level = (int) (100 * view.spies().rawAllocationCostPct());
+		out += EQUAL_SEP + level + "%";
+		float spyingCost = spyingCost(view);
+		out += EQUAL_SEP + text("RACES_INTEL_SPENDING_ANNUAL", (int) spyingCost);
+		out += SPACER +"Expected new spies" + EQUAL_SEP + newSpies;
+		return out;
+	}
+	private String spiesNetwork(EmpireView view)	{
+		String out = text("RACES_INTEL_SPY_NETWORK");
+		int num = view.spies().numActiveSpies();
+		int max = view.spies().maxSpies();
+		out += EQUAL_SEP + text("RACES_INTEL_SPIES", str(num), str(max));
+
+		// Spies spending
+		if (!view.embassy().unity())
+			out += NEWLINE + spiesSpending(view);
+
+		return out;
+	}
 	private String aiIntelligenceReport(Empire empire, boolean verbose)		{
 		String title = text("RACES_INTEL_TITLE");
 		String out	 = empire.replaceTokens(title, "alien");
@@ -555,21 +735,8 @@ public class ConsoleEmpireView implements IConsole {
 		else
 			out += EQUAL_SEP + text("RACES_INTEL_YEARS", str(age));
 
-		out += NEWLINE + text("RACES_INTEL_SPY_NETWORK");
-		int num = spies.numActiveSpies();
-		int max = spies.maxSpies();
-		out += EQUAL_SEP + text("RACES_INTEL_SPIES", str(num), str(max));
+		out += NEWLINE + spiesNetwork(view);
 		
-		// Security spending
-		if (!view.embassy().unity()) {
-			String newSpies = spies.newSpiesExpected();
-			out += NEWLINE + text("RACES_INTEL_SPENDING");
-			float spyingCost = player().totalTaxablePlanetaryProduction()
-					* spies.allocationCostPct() * view.owner().spySpendingModifier();
-			out += EQUAL_SEP + text("RACES_INTEL_SPENDING_ANNUAL", (int) spyingCost);
-			out += SPACER +"Expected new spies" + EQUAL_SEP + newSpies;
-		}
-
 		// Governor instructions
 		if (showGov) {
 			out += NEWLINE + text("RACES_INTEL_GOVERNOR_INSTRUCTIONS");

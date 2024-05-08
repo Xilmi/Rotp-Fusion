@@ -121,6 +121,7 @@ public class DiplomaticMessageUI extends FadeInPanel
             messageRemark = diplomatEmpire.decode(message.remark(notif.otherEmpire()), player());
 
         commonInit();
+//        initForConsole("Incoming Diplomatic Message");
         initForConsole();
 
         if (!diplomatEmpire.isPlayer()
@@ -148,7 +149,7 @@ public class DiplomaticMessageUI extends FadeInPanel
         message = reply;
         messageRemark = reply.remark();
         commonInit();
-        initForConsole();
+        initReplyForConsole();
     }
     private void commonInit() {
         exited = false;
@@ -552,8 +553,9 @@ public class DiplomaticMessageUI extends FadeInPanel
 
     // ##### Console Tools
     public String getConsoleMessage(String sep)	{
-		String out = "New incoming Message from";
-		out += sep + getEmpireInfo(sep);
+//		String out = "New incoming Message from";
+//		out += sep + getEmpireInfo(sep);
+		String out = getEmpireInfo(sep);
 		out += sep + "Translated Message = ";
 		out += sep + messageRemark;
 		String remarkDetails = messageRemarkDetail;
@@ -573,11 +575,12 @@ public class DiplomaticMessageUI extends FadeInPanel
 		return out;
     }
     private String getEmpireInfo(String sep)	{
-    	if (diplomatEmpire.isPlayer())
-    		return "";
+//    	if (diplomatEmpire.isPlayer())
+//    		return "";
     	DiplomaticTreaty treaty = player().treatyWithEmpire(diplomatEmpire.id);
-    	String info = diplomatEmpire.name();
-    	info += sep + text("LEADER_PERSONALITY_FORMAT",
+//    	String info = diplomatEmpire.name();
+//    	info += sep + text("LEADER_PERSONALITY_FORMAT",
+    	String info = text("LEADER_PERSONALITY_FORMAT",
     						diplomatEmpire.leader().personality(),
     						diplomatEmpire.leader().objective());
     	info += sep + treaty.status(player());
@@ -611,27 +614,40 @@ public class DiplomaticMessageUI extends FadeInPanel
     	}
     	return null;
     }
-    public boolean consoleResponse(String s)	{
+    public boolean[] consoleResponse(String s)	{
+    	boolean validResponse = false;
     	switch (s.toUpperCase()) {
 			case "0": case "ESC": case "ESCAPE":
 				exited = true;
+				validResponse = true;
 	            message.escape();
 				break;
 			case "1": case "2": case "3": case "4": case "5": case "6":
 				int response = (int)s.charAt(0) - (int)'1';
-				if (response<message.numReplies()) {
+				if (response < message.numReplies()) {
 					selectHover = response;
 					selectOption(selectHover);
+					validResponse = true;
 				}
+				else
+					validResponse = false;
 				break;
 		}
-    	return exited;
+    	return new boolean[] {exited, validResponse};
     }
     private void initForConsole()				{
+    	String title = "Dialogue with " + diplomatEmpire.name();
     	if (!RotPUI.isConsole)
     		return;
     	talkTimeMs = 10;
-    	CommandConsole.diplomaticMessageMenu.openDiplomaticMessagPrompt(this);
+    	CommandConsole.diplomaticMessages.newMenu(title, this, false);
     }
-    
+    private void initReplyForConsole()			{
+    	String title = "Final reply from " + diplomatEmpire.name();
+    	if (!RotPUI.isConsole)
+    		return;
+    	talkTimeMs = 10;
+    	CommandConsole.diplomaticMessages.newMenu(title, this, true);
+    }
+   
 }

@@ -64,6 +64,15 @@ public interface IConsole extends Base {
 	String EMP_MILITARY		= "M";
 	String EMP_STATUS		= "S";
 	String EMP_REPORT		= "R";
+	String EMP_DEF_BASES	= "B";
+	String EMP_INTEL_TAXES	= "T"; // Both security and Spying
+	String EMP_SPY_NETWORK	= "N";
+	String EMP_SPY_ORDER	= "O";
+	String EMP_AUDIENCE		= "A";
+	String EMP_SPY_HIDE		= "H";
+	String EMP_SPY_ESPION	= "E";
+	String EMP_SPY_SABOTAGE	= "S";
+	
 
 //	##### TOOLS #####
 	default CommandConsole console()	{ return cc(); }
@@ -72,14 +81,14 @@ public interface IConsole extends Base {
 	default String cLn(String s)		{ return s.isEmpty() ? "" : (NEWLINE + s); }
 	default String ly(float dist)		{ return text("SYSTEMS_RANGE", df1.format(Math.ceil(10*dist)/10)); }
 	default String bracketed(String key, int index)	{ return "(" + key + " " +index + ")"; }
-	default String optional(String... keys)			{
-		String sep = "[";
+	default String optional(String... keys)			{ return "[" + either(keys) + "]"; }
+	default String either(String... keys)			{
+		String sep = "";
 		String out = "";
 		for (String key : keys) {
 			out += sep + key;
 			sep = OR_SEP;
 		}
-		out += "]";
 		return out;
 	}
 	default String setDest(List<String> param, String out)	{
