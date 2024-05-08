@@ -321,7 +321,7 @@ public class ConsoleStarView implements IConsole {
 		}
 
 		String s  = param.remove(0);
-		if (TOGGLE_LOCK.equalsIgnoreCase(s)) {
+		if (COL_TOGGLE_LOCK.equalsIgnoreCase(s)) {
 			colony.toggleLock(category);
 			if (colony.canAdjust(category))
 				return out + "Unlocked";
@@ -333,12 +333,12 @@ public class ConsoleStarView implements IConsole {
 			return out + "Error: Category is locked";
 		
 		switch (s.toUpperCase()) {
-			case SMART_ECO_MAX:
+			case COL_SMART_ECO_MAX:
 				colony.forcePct(category, 1);
 				colony.keepEcoLockedToClean = true;
 				colony.checkEcoAtClean();
 				return out + "Maxed keeping ECO clean";
-			case SMOOTH_MAX:
+			case COL_SMOOTH_MAX:
 				colony.keepEcoLockedToClean = true;
 				colony.smoothMaxSlider(category);
 				colony.checkEcoAtClean();
@@ -386,7 +386,7 @@ public class ConsoleStarView implements IConsole {
 		}
 
 		String s  = param.remove(0);
-		if (TOGGLE_LOCK.equalsIgnoreCase(s)) {
+		if (COL_TOGGLE_LOCK.equalsIgnoreCase(s)) {
 			colony.toggleLock(category);
 			if (colony.canAdjust(category))
 				return out + "Unlocked";
@@ -398,14 +398,14 @@ public class ConsoleStarView implements IConsole {
 			return out + "Error: Category is locked";
 		
 		switch (s.toUpperCase()) {
-			case ECO_CLEAN:
+			case COL_ECO_CLEAN:
 				colony.keepEcoLockedToClean = true;
 				colony.checkEcoAtClean();
 				return out + "Set ECO to clean";
-			case ECO_GROWTH:
+			case COL_ECO_GROWTH:
 				colony.smoothMaxSlider(category);
 				return out + "Smart Maxed";
-			case ECO_TERRAFORM:
+			case COL_ECO_TERRAFORM:
 				colony.checkEcoAtTerraform();
             	colony.keepEcoLockedToClean = false;
 				return out + "Set ECO to Terraform";
@@ -478,6 +478,21 @@ public class ConsoleStarView implements IConsole {
 		val = max(0, val);
 		colony.defense().maxBases(val);
 		out += "Set to " + colony.defense().maxBases();
+		return out;
+	}
+	String getFunds(List<String> param, String out)	{
+		if (param.isEmpty())
+			return out + "Error: Amount parameter is missing";
+		String str = param.get(0);
+		Integer amount = getInteger(str);
+		if (amount == null)
+			return out + "Error: Wrong amount parameter";
+
+		param.remove(0);
+		float realAmount = player().allocateReserve(sys.colony(), amount);
+		out += text("PLANETS_TRANSFER_DESC", sys.name());
+		out += NEWLINE + "Amount requested" + EQUAL_SEP + amount;
+		out += NEWLINE + "Amount transfered" + EQUAL_SEP + df1.format(realAmount);
 		return out;
 	}
 	// ##### Population

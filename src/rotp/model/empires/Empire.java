@@ -4384,10 +4384,11 @@ public final class Empire implements Base, NamedObject, Serializable {
         		factories += sys.colony().industry().factories();
         return factories;
     }
-    public void allocateReserve(Colony col, int amount) {
+    public float allocateReserve(Colony col, int amount) {
         float amt = min(totalReserve, amount);
         totalReserve -= amt;
         col.adjustReserveIncome(amt);
+        return amt;
     }
     public void goExtinct() {
         // prevent double notifications

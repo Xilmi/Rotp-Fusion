@@ -263,6 +263,112 @@ public class ConsoleEmpireView implements IConsole {
 		out += spiesNetwork(view);
 		return out;
 	}
+	String finances(Empire player, List<String> param, boolean verbose)	{
+		if (!player.isPlayer())
+			return "Error: Invalid parameter for alien empire";
+
+		if (param.isEmpty()) {
+			String out = annualIncome(player, verbose);
+			out += NEWLINE + empireSpending(player, verbose);
+			out += NEWLINE + empireTreasury(player, verbose);
+			return out;
+		}
+		else {
+			String str = param.get(0);
+			switch (str) {
+				case EMP_DEV_COLONIES:
+					param.remove(0);
+					if (!player.empireTaxOnlyDeveloped())
+						player.toggleEmpireTaxOnlyDeveloped();
+					return empireTreasury(player, false);
+				case EMP_ALL_COLONIES:
+					param.remove(0);
+					if (player.empireTaxOnlyDeveloped())
+						player.toggleEmpireTaxOnlyDeveloped();
+					return empireTreasury(player, false);
+				default:
+					Integer newMax = getInteger(str);
+					if (newMax == null) {
+						String out = "Wrong Fiscality parameter";
+						out += NEWLINE + annualIncome(player, verbose);
+						out += NEWLINE + empireSpending(player, verbose);
+						out += NEWLINE + empireTreasury(player, verbose);
+						return out;
+					}
+					else {
+						param.remove(0);
+						player.empireTaxLevel(newMax);
+						return empireTreasury(player, false);
+					}
+			}
+		}
+	}
+	// FINANCE PANEL
+	private String annualIncome(Empire player, boolean verbose)	{
+		String out = "";
+		if (verbose)
+			out = text("PLANETS_TOTAL_INCOME") + NEWLINE;
+
+		String amount = text("PLANETS_AMT_BC", df1.format(player.netTradeIncome()));
+		out += text("PLANETS_INCOME_TRADE") + EQUAL_SEP + amount;
+
+		amount = text("PLANETS_AMT_BC", df1.format(player.totalPlanetaryIncome()));
+		out += NEWLINE + text("PLANETS_INCOME_PLANETS") + EQUAL_SEP + amount;
+
+		amount = text("PLANETS_AMT_BC", df1.format(player.totalIncome()));
+		out += NEWLINE + text("PLANETS_INCOME_TOTAL") + EQUAL_SEP + amount;
+		return out;
+	}
+	private String empireSpending(Empire player, boolean verbose)	{
+		String out = "";
+		if (verbose) {
+			out = text("PLANETS_SPENDING_COSTS") + NEWLINE;
+			out += text("PLANETS_COSTS_DESC") + NEWLINE;			
+		}
+
+		String amount = text("PLANETS_AMT_PCT", df1.format(100 * player.shipMaintCostPerBC()));
+		out += text("PLANETS_COSTS_SHIPS") + EQUAL_SEP + amount;
+
+		amount = text("PLANETS_AMT_PCT", df1.format(100 * player.missileBaseCostPerBC()));
+		out += NEWLINE + text("PLANETS_COSTS_BASES") + EQUAL_SEP + amount;
+
+		amount = text("PLANETS_AMT_PCT", df1.format(100 * player.stargateCostPerBC()));
+		out += NEWLINE + text("PLANETS_COSTS_STARGATES") + EQUAL_SEP + amount;
+
+		amount = text("PLANETS_AMT_PCT", df1.format(100 * player.totalSpyCostPct()));
+		out += NEWLINE + text("PLANETS_COSTS_SPYING") + EQUAL_SEP + amount;
+
+		amount = text("PLANETS_AMT_PCT", df1.format(100 * player.internalSecurityCostPct()));
+		out += NEWLINE + text("PLANETS_COSTS_SECURITY") + EQUAL_SEP + amount;
+		return out;
+	}
+	private String empireTreasury(Empire player, boolean verbose)	{
+		String out = "";
+		if (verbose)
+			out = text("PLANETS_TREASURY") + NEWLINE;
+
+		String amount = text("PLANETS_AMT_BC", shortFmt(player.totalReserve()));
+		out += text("PLANETS_TREASURY_FUNDS") + EQUAL_SEP + amount;
+		if (verbose)
+			out += NEWLINE + text("PLANETS_TAX_DESC");
+
+        if (player.empireTaxLevel() > 0) {
+            float revenue = player.empireTaxRevenue();
+            String revStr;
+            if (revenue < 100)
+                revStr = fmt(player.empireTaxRevenue(),1);
+            else
+                revStr = shortFmt(revenue);
+            int pct = player.empireTaxLevel();
+            amount = pct+"%" + EQUAL_SEP + text("PLANETS_RESERVE_INCREASE", revStr);
+        }
+        else
+        	amount = text("PLANETS_RESERVE_NO_TAX");
+		out += NEWLINE + text("PLANETS_RESERVE_TAX") + EQUAL_SEP + amount;
+
+		out += NEWLINE + text("PLANETS_RESERVE_ONLY_DEVELOPED") + EQUAL_SEP + player.empireTaxOnlyDeveloped();
+		return out;
+	}
 	
 	// DIPLOMATIC PANEL
 	private void openEmbassy(Empire empire) { // TODO BR: void openEmbassy(Empire empire)
@@ -1008,6 +1114,7 @@ public class ConsoleEmpireView implements IConsole {
 
 		return out;
 	}
+
 	// STATUS PANEL
 	private String playerVsAllStatus(Empire player, boolean verbose)		{
 		String str = text("RACES_STATUS_THE_EMPIRE");

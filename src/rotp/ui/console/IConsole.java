@@ -36,28 +36,31 @@ public interface IConsole extends Base {
 	String OPTION_KEY		= "O";
 	String SETTING_KEY		= "S";
 
-	String TOGGLE_GOV		= "TG";
-	String SHIP_SPENDING	= "S";
-	String DEF_SPENDING		= "D";
-	String IND_SPENDING		= "I";
-	String ECO_SPENDING		= "E";
-	String TECH_SPENDING	= "R";
-	String SHIP_BUILDING	= "SB";
-	String SHIP_LIMIT		= "SL";
-	String BASE_LIMIT		= "BL";
+	String COL_TOGGLE_GOV		= "TG";
+	String COL_SHIP_SPENDING	= "S";
+	String COL_DEF_SPENDING		= "D";
+	String COL_IND_SPENDING		= "I";
+	String COL_ECO_SPENDING		= "E";
+	String COL_TECH_SPENDING	= "R";
+	String COL_SHIP_BUILDING	= "SB";
+	String COL_SHIP_LIMIT		= "SL";
+	String COL_BASE_LIMIT		= "BL";
+	String COL_GET_FUND			= "FUND";
 
-	String TOGGLE_LOCK		= "TL";
-	String SMART_ECO_MAX	= "EM";
-	String SMOOTH_MAX		= "SM";
-	String ECO_CLEAN		= "C";
-	String ECO_GROWTH		= "G";
-	String ECO_TERRAFORM	= "T";
+	String COL_TOGGLE_LOCK		= "TL";
+	String COL_SMART_ECO_MAX	= "EM";
+	String COL_SMOOTH_MAX		= "SM";
+	String COL_ECO_CLEAN		= "C";
+	String COL_ECO_GROWTH		= "G";
+	String COL_ECO_TERRAFORM	= "T";
 
-	String TROOP_SEND		= "SEND";
-	String ABANDON			= "ABANDON";
-	String CANCEL_SEND		= "CANCEL";
+	String COL_TROOP_SEND		= "SEND";
+	String COL_ABANDON			= "ABANDON";
+	String COL_CANCEL_SEND		= "CANCEL";
+
 	String FLEET_SEND		= "SEND";
 	String FLEET_UNDEPLOY	= "U";
+
 	// EMPIRE
 	String EMP_DIPLOMACY	= "D";
 	String EMP_INTELLIGENCE	= "I";
@@ -72,6 +75,9 @@ public interface IConsole extends Base {
 	String EMP_SPY_HIDE		= "H";
 	String EMP_SPY_ESPION	= "E";
 	String EMP_SPY_SABOTAGE	= "S";
+	String EMP_FINANCES		= "F";
+	String EMP_DEV_COLONIES	= "D";
+	String EMP_ALL_COLONIES	= "A";
 	
 
 //	##### TOOLS #####

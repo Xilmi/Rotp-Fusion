@@ -44,9 +44,9 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
 	// modnar: MAX_SOLDIERS = 500 causes bugs when troops > 500
 	// other parts of the code has been changed to work around having any such max value
     private static final int MAX_SOLDIERS = 500;
-    private static final int MAX_COUNTDOWN = 50;
+    // private static final int MAX_COUNTDOWN = 50;
     private static final int MAX_SHIPS = 3;
-    private static final int MIN_COUNTDOWN = -10;
+    // private static final int MIN_COUNTDOWN = -10;
     private final static int[] attackerState = new int[MAX_SOLDIERS];
     private final static int[] defenderState = new int[MAX_SOLDIERS];
     private final static int[] attackerX = new int[MAX_SOLDIERS];
@@ -319,10 +319,10 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
     private void allStartFiring(int attackerCount, int defenderCount) {
         float attackerStartPct = startPct(attackerCount);
         float defenderStartPct = startPct(defenderCount);
-        int attackFrames = attackerFrames.size();
+        // int attackFrames = attackerFrames.size();
 
         for (int i=0;i<attackerCount;i++) {
-            int currState= attackerState[i];
+            // int currState= attackerState[i];
             if (attackerState[i] == NOT_FIRING) {
                 if (random() < attackerStartPct)
                     attackerState[i] = BEGIN_FIRING;
@@ -339,7 +339,7 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
             //System.out.println("Attacker "+i+": from "+currState+" to "+attackerState[i]);
         }
         for (int i=0;i<defenderCount;i++) {
-            int currState= defenderState[i];
+            // int currState= defenderState[i];
             if (defenderState[i] == NOT_FIRING) {
                 if (random() < defenderStartPct)
                     defenderState[i] = BEGIN_FIRING;

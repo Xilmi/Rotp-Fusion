@@ -68,6 +68,7 @@ Later:
   - Security taxes
   - Spy spending and orders
   - Audiences with alien empires
+- Console: Systems: Transfer funds to colony
 
 2024.05.06 (BR)
 - Console: Empire short report

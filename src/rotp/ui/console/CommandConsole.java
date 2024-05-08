@@ -348,41 +348,44 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				while (!param.isEmpty()) {
 					s = param.remove(0);
 					switch (s.toUpperCase()) {
-					case TOGGLE_GOV:
+					case COL_TOGGLE_GOV:
 						out = starView.toggleGovernor(out) + NEWLINE;
 						break;
-					case SHIP_SPENDING:
+					case COL_SHIP_SPENDING:
 						out = starView.shipSpending(param, out) + NEWLINE;
 						break;
-					case IND_SPENDING:
+					case COL_IND_SPENDING:
 						out = starView.indSpending(param, out) + NEWLINE;
 						break;
-					case DEF_SPENDING:
+					case COL_DEF_SPENDING:
 						out = starView.defSpending(param, out) + NEWLINE;
 						break;
-					case ECO_SPENDING:
+					case COL_ECO_SPENDING:
 						out = starView.ecoSpending(param, out) + NEWLINE;
 						break;
-					case TECH_SPENDING:
+					case COL_TECH_SPENDING:
 						out = starView.techSpending(param, out) + NEWLINE;
 						break;
-					case SHIP_BUILDING:
+					case COL_SHIP_BUILDING:
 						out = starView.shipBuilding(param, out) + NEWLINE;
 						break;
-					case SHIP_LIMIT:
+					case COL_SHIP_LIMIT:
 						out = starView.shipLimit(param, out) + NEWLINE;
 						break;
-					case BASE_LIMIT:
+					case COL_BASE_LIMIT:
 						out = starView.missBuilding(param, out) + NEWLINE;
 						break;
-					case TROOP_SEND:
+					case COL_TROOP_SEND:
 						out = starView.sendPopulation(param, out) + NEWLINE;
 						break;
-					case ABANDON:
+					case COL_ABANDON:
 						out = starView.abandonColony(param, out) + NEWLINE;
 						break;
-					case CANCEL_SEND:
+					case COL_CANCEL_SEND:
 						out = starView.cancelSend(param, out) + NEWLINE;
+						break;
+					case COL_GET_FUND:
+						out = starView.getFunds(param, out) + NEWLINE;
 						break;
 					default:
 						out += "Don't understand parameter " + s;
@@ -392,40 +395,41 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				return starView.getInfo(out);
 			}
 		};
-		cmd.cmdParam(" Index " + optional(TOGGLE_GOV)
-						+ optional(SHIP_SPENDING + " %")
-						+ optional(DEF_SPENDING + " %")
-						+ optional(IND_SPENDING + " %")
-						+ optional(ECO_SPENDING + " %")
-						+ optional(TECH_SPENDING + " %")
-						+ optional(SHIP_BUILDING + " val")
-						+ optional(SHIP_LIMIT + " max")
-						+ optional(BASE_LIMIT + " max")
+		cmd.cmdParam(" Index " + optional(COL_TOGGLE_GOV)
+						+ optional(COL_SHIP_SPENDING + " %")
+						+ optional(COL_DEF_SPENDING + " %")
+						+ optional(COL_IND_SPENDING + " %")
+						+ optional(COL_ECO_SPENDING + " %")
+						+ optional(COL_TECH_SPENDING + " %")
+						+ optional(COL_SHIP_BUILDING + " val")
+						+ optional(COL_SHIP_LIMIT + " max")
+						+ optional(COL_BASE_LIMIT + " max")
 						);
 		cmd.cmdHelp("Additionnal sequentially processed requests:"
-				+ NEWLINE + optional(TOGGLE_GOV) + " To Toggle Governo on/off"
-				+ NEWLINE + optional(SHIP_SPENDING + " " + TOGGLE_LOCK) + " To lock/unlock Ship spending"
-				+ NEWLINE + optional(SHIP_SPENDING + " %") + " To set Ship spending percentage"
-				+ NEWLINE + optional(SHIP_SPENDING + " " + SMART_ECO_MAX) + " To maximize Ship spending, while keeping ECO clean"
-				+ NEWLINE + optional(SHIP_SPENDING + " " + SMOOTH_MAX) + " To smart maximize Ship spending to reach target, while keeping ECO clean"
-				+ NEWLINE + optional(DEF_SPENDING + " " + TOGGLE_LOCK) + " To lock/unlock Defense spending"
-				+ NEWLINE + optional(DEF_SPENDING + " %") + " To set Defense spending percentage"
-				+ NEWLINE + optional(DEF_SPENDING + " " + SMART_ECO_MAX) + " To maximize Defense spending, while keeping ECO clean"
-				+ NEWLINE + optional(DEF_SPENDING + " " + SMOOTH_MAX) + " To smart maximize Defense spending to reach target, while keeping ECO clean"
-				+ NEWLINE + optional(IND_SPENDING + " " + TOGGLE_LOCK) + " To lock/unlock Industry spending"
-				+ NEWLINE + optional(IND_SPENDING + " %") + " To set Industry spending percentage"
-				+ NEWLINE + optional(IND_SPENDING + " " + SMART_ECO_MAX) + " To maximize Industry spending, while keeping ECO clean"
-				+ NEWLINE + optional(ECO_SPENDING + " " + TOGGLE_LOCK) + " To lock/unlock Ecology spending"
-				+ NEWLINE + optional(ECO_SPENDING + " %") + " To set Ecology spending percentage"
-				+ NEWLINE + optional(ECO_SPENDING + " " + ECO_CLEAN) + " To set Ecology spending to clean"
-				+ NEWLINE + optional(ECO_SPENDING + " " + ECO_GROWTH) + " To set Ecology spending to grow population"
-				+ NEWLINE + optional(ECO_SPENDING + " " + ECO_TERRAFORM) + " To set Ecology spending to terraform planet"
-				+ NEWLINE + optional(TECH_SPENDING + " " + TOGGLE_LOCK) + " To lock/unlock Research spending"
-				+ NEWLINE + optional(TECH_SPENDING + " %") + " To set Research spending percentage"
-				+ NEWLINE + optional(TECH_SPENDING + " " + SMART_ECO_MAX) + " To maximize Research spending, while keeping ECO clean"
-				+ NEWLINE + optional(TROOP_SEND + " " + SYSTEM_KEY) + " destId amount : To send transport to another planet"
-				+ NEWLINE + optional(ABANDON + " " + SYSTEM_KEY) + " destId amount : To abandon the planet"
-				+ NEWLINE + optional(CANCEL_SEND) + " To cancel all transports from this planet"
+				+ NEWLINE + optional(COL_TOGGLE_GOV) + " To Toggle Governo on/off"
+				+ NEWLINE + optional(COL_SHIP_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Ship spending"
+				+ NEWLINE + optional(COL_SHIP_SPENDING + " %") + " To set Ship spending percentage"
+				+ NEWLINE + optional(COL_SHIP_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Ship spending, while keeping ECO clean"
+				+ NEWLINE + optional(COL_SHIP_SPENDING + " " + COL_SMOOTH_MAX) + " To smart maximize Ship spending to reach target, while keeping ECO clean"
+				+ NEWLINE + optional(COL_DEF_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Defense spending"
+				+ NEWLINE + optional(COL_DEF_SPENDING + " %") + " To set Defense spending percentage"
+				+ NEWLINE + optional(COL_DEF_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Defense spending, while keeping ECO clean"
+				+ NEWLINE + optional(COL_DEF_SPENDING + " " + COL_SMOOTH_MAX) + " To smart maximize Defense spending to reach target, while keeping ECO clean"
+				+ NEWLINE + optional(COL_IND_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Industry spending"
+				+ NEWLINE + optional(COL_IND_SPENDING + " %") + " To set Industry spending percentage"
+				+ NEWLINE + optional(COL_IND_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Industry spending, while keeping ECO clean"
+				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Ecology spending"
+				+ NEWLINE + optional(COL_ECO_SPENDING + " %") + " To set Ecology spending percentage"
+				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_ECO_CLEAN) + " To set Ecology spending to clean"
+				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_ECO_GROWTH) + " To set Ecology spending to grow population"
+				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_ECO_TERRAFORM) + " To set Ecology spending to terraform planet"
+				+ NEWLINE + optional(COL_TECH_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Research spending"
+				+ NEWLINE + optional(COL_TECH_SPENDING + " %") + " To set Research spending percentage"
+				+ NEWLINE + optional(COL_TECH_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Research spending, while keeping ECO clean"
+				+ NEWLINE + optional(COL_GET_FUND + " amount") + " To transfert funds from the empire to this colony"
+				+ NEWLINE + optional(COL_TROOP_SEND + " " + SYSTEM_KEY) + " destId amount : To send transport to another planet"
+				+ NEWLINE + optional(COL_ABANDON + " " + SYSTEM_KEY) + " destId amount : To abandon the planet"
+				+ NEWLINE + optional(COL_CANCEL_SEND) + " To cancel all transports from this planet"
 				);
 		return cmd;		
 	}
@@ -577,12 +581,14 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					case EMP_AUDIENCE:
 						empireView.audience(empire, true);
 						return diplomaticMessages.lastMessage();
+					case EMP_FINANCES:
+						return empireView.finances(empire, param, true);
 				}
 				return out + " Unknown Parameter " + str;
 			}
 		};
 		cmd.cmdParam(" " + optional("Index")
-				+ optional(EMP_DIPLOMACY, EMP_INTELLIGENCE, EMP_MILITARY, EMP_STATUS, EMP_REPORT,
+				+ optional(EMP_DIPLOMACY, EMP_INTELLIGENCE, EMP_MILITARY, EMP_STATUS, EMP_REPORT, EMP_FINANCES,
 						EMP_DEF_BASES + " num", EMP_INTEL_TAXES + " %", EMP_SPY_NETWORK + " num",
 						EMP_SPY_ORDER + " order", EMP_AUDIENCE)
 				);
@@ -592,10 +598,19 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				+ NEWLINE + optional(EMP_MILITARY)		+ " To get Empire military info"
 				+ NEWLINE + optional(EMP_STATUS)		+ " To get Empire status info"
 				+ NEWLINE + optional(EMP_REPORT)		+ " To get Empire compact report info"
-				+ NEWLINE + optional(EMP_DEF_BASES)		+ " num"		+ " To set player default maximum missile bases"
-				+ NEWLINE + optional(EMP_INTEL_TAXES)	+ " percentage"	+ " To set Empire security taxes or spies spending"
-				+ NEWLINE + optional(EMP_SPY_NETWORK)	+ " num"		+ " To set number of spies to keep in this Empire"
-				+ NEWLINE + optional(EMP_SPY_ORDER)		+ either(EMP_SPY_HIDE, EMP_SPY_ESPION, EMP_SPY_SABOTAGE)
+				+ NEWLINE + optional(EMP_FINANCES)		+ " "
+							+ optional("percentage", EMP_DEV_COLONIES, EMP_ALL_COLONIES)
+														+ " To get or set Empire Fiscality"
+														+ SPACER + EMP_DEV_COLONIES + " To only taxes developed colonies"
+														+ SPACER + EMP_ALL_COLONIES + " To taxes all colonies"
+				+ NEWLINE + optional(EMP_DEF_BASES)		
+							+ optional("num")			+ " To get or set player default maximum missile bases"
+				+ NEWLINE + optional(EMP_INTEL_TAXES)
+							+ optional("percentage")	+ " To get or set Empire security taxes or spies spending"
+				+ NEWLINE + optional(EMP_SPY_NETWORK)	+ " "
+							+ optional("num")			+ " To get or set number of spies to keep in this Empire"
+				+ NEWLINE + optional(EMP_SPY_ORDER)		+ " "
+							+ optional(EMP_SPY_HIDE, EMP_SPY_ESPION, EMP_SPY_SABOTAGE)
 														+ " To give orders to spies in this empire"
 				+ NEWLINE + optional(EMP_AUDIENCE)		+ " To get an audience with this empire"
 				);

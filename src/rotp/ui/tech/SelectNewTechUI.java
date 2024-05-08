@@ -372,7 +372,7 @@ public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMo
     }
     @Override
     public void mouseDragged(MouseEvent e) {
-        int x = e.getX();
+        //int x = e.getX();
         int y = e.getY();
         int dY = y-dragY;
         dragY = y;
