@@ -63,6 +63,11 @@ Later:
 
 ## What's New
 
+2024.05.09 (BR)
+- Console:
+  - Temporary no council is allowed!
+  - Intercepted Ship Combat pop-up
+
 2024.05.08 (BR)
 - Console: Empire commands
   - Security taxes

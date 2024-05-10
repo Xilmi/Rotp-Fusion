@@ -3,6 +3,7 @@ package rotp.ui.console;
 import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -65,7 +66,9 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private static boolean errorDisplayed = false;
 	public	static CommandMenu introMenu, loadMenu, saveMenu;
 	public	static ReportMenu reportMenu;
-	public	static ColonizeMenu colonizeMenu;
+	public	static ColonizeMenu		colonizeMenu;
+	public	static GuiPromptMenu	guiPromptMenu;
+	public	static ReportPromptMenu	reportPromptMenu;
 	public	static DiplomaticMessages diplomaticMessages;
 
 	private final JLabel commandLabel, resultLabel;
@@ -94,17 +97,6 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	public static void turnCompleted(int turn)		{
 		instance.resultPane.setText("Current turn: " + turn + NEWLINE);
 	}
-	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
-		List<Entry<K, V>> list = new ArrayList<>(map.entrySet());
-		list.sort(Entry.comparingByValue());
-
-		Map<K, V> result = new LinkedHashMap<>();
-		for (Entry<K, V> entry : list) {
-			result.put(entry.getKey(), entry.getValue());
-		}
-
-		return result;
-	}
 	public static void showConsole(boolean show)	{
 		if(!Rotp.isIDE())
 			Rotp.setVisible(!show);
@@ -117,6 +109,25 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			frame.setVisible(show);
 	}
 	public static void hideConsole()				{ showConsole(false); }
+	public static String systemInfo(StarSystem sys)	{ return instance.starView.systemInfo(sys.id); }
+	public static KeyEvent getKeyEvent(int keyCode, char keyChar)	{
+		Component source = instance.commandField;
+		int	 id			= KeyEvent.KEY_PRESSED;
+		long when		= System.currentTimeMillis();
+		int  modifiers	= 0;
+		return new KeyEvent(source, id, when, modifiers, keyCode, keyChar);
+	}
+	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+		List<Entry<K, V>> list = new ArrayList<>(map.entrySet());
+		list.sort(Entry.comparingByValue());
+
+		Map<K, V> result = new LinkedHashMap<>();
+		for (Entry<K, V> entry : list) {
+			result.put(entry.getKey(), entry.getValue());
+		}
+
+		return result;
+	}
 	// variables control
 	void liveMenu(CommandMenu menu)	{ liveMenu = menu; }
 	CommandMenu liveMenu()			{ return liveMenu; }
@@ -136,17 +147,17 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		instance.resultPane.setText(out);
 		errorDisplayed = true;
 	}
-	private void testError() {
-		boolean allowTest = false;
-		int location = allowTest? -2 : 0;
-		String test = "Test";
-		test.charAt(location);
-		try {
-			test.charAt(location);
-		} catch (Exception e) {
-			throwError(e);
-		}
-	}
+//	private void testError() {
+//		boolean allowTest = false;
+//		int location = allowTest? -2 : 0;
+//		String test = "Test";
+//		test.charAt(location);
+//		try {
+//			test.charAt(location);
+//		} catch (Exception e) {
+//			throwError(e);
+//		}
+//	}
 	// ##### CONSTRUCTOR #####
 	private static void createAndShowGUI(boolean show)	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -182,9 +193,9 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					case KeyEvent.VK_DOWN:
 						nextCmd();
 						break;
-					case KeyEvent.VK_PAGE_UP:
-						testError();
-						break;
+//					case KeyEvent.VK_PAGE_UP:
+//						testError();
+//						break;
 				}
 			}
 			@Override public void keyPressed(KeyEvent e) { }
@@ -788,6 +799,8 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		reportMenu			= new ReportMenu("Report Menu", menu);
 		colonizeMenu		= new ColonizeMenu("Colonize Menu", menu);
 		diplomaticMessages	= new DiplomaticMessages(menu);
+		reportPromptMenu	= new ReportPromptMenu("Report Prompt Menu", menu);
+		guiPromptMenu		= new GuiPromptMenu("Gui Prompt Menu", menu);
 		return menu;
 	}
 	private CommandMenu initSpecieMenu(CommandMenu parent)	{
@@ -935,6 +948,57 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	int getFleetIndex(ShipFleet fl)		{ return fleets.indexOf(fl); }
 	int getTransportIndex(Transport tr)	{ return transports.indexOf(tr); }
 
+	// ################### SUB CLASS REPORT PROMPT MENU ######################
+	public class ReportPromptMenu extends CommandMenu {
+		protected IConsoleListener parentUI;
+		ReportPromptMenu(String name, CommandMenu parent)	{ super(name, parent); }
+		@Override protected String close(String out)	{
+			parentUI = null;
+			if (reportPromptMenu.isActive()) {
+				liveMenu(reportPromptMenu);
+				out += reportPromptMenu.getMessage();
+			}
+			else
+				liveMenu(gameMenu);
+			return out;
+		}
+		@Override protected void newEntry(String entry)	{
+			if (entry.equalsIgnoreCase("x")) { // TODO BR: COMMENT
+				commandField.setText("");
+				resultPane.setText(parentUI.getMessage());
+				return;
+			}
+			parentUI.consoleEntry();
+			commandField.setText("");
+			resultPane.setText(close(""));
+		}
+		public void openConsolePrompt(IConsoleListener ui) {
+			parentUI	= ui;
+			liveMenu(this);
+			resultPane.setText(parentUI.getMessage());
+		}
+		boolean isActive()	{ return parentUI != null; }
+		String getMessage()	{ return parentUI.getMessage(); }
+	}
+	// ################### SUB CLASS GUI PROMPT MENU ######################
+	public class GuiPromptMenu extends ReportPromptMenu {
+		GuiPromptMenu(String name, CommandMenu parent)	{ super(name, parent); }
+		@Override protected void newEntry(String entry)	{
+			int validation = parentUI.consoleEntry(entry);
+			if (validation == IConsoleListener.VALID_ENTRY) {
+				commandField.setText("");
+				resultPane.setText(close(""));
+			}
+			else {
+				misClick();
+				String out = "Invalid Answer: " + entry + NEWLINE;
+				out += NEWLINE + parentUI.getMessage();
+				resultPane.setText(out);
+				commandField.setText("");
+			}
+		}
+	}
+
 	// ################### SUB CLASS DIPLOMATIC MESSAGE MENU ######################
 	public class DiplomaticMessages extends LinkedList<DiplomaticMessageMenu> {
 		private final CommandMenu topMenu;
@@ -984,8 +1048,6 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			return out;
 		}
 		@Override protected void newEntry(String entry)	{
-			System.out.println("New Entry = " + entry);
-			System.out.println("Messages count = " + diplomaticMessages.size());
 			boolean state[] = parentUI.consoleResponse(entry);
 			boolean exited = state[0];
 			boolean validResponse = state[1];
@@ -1000,7 +1062,6 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				resultPane.setText(out);
 			}
 			else { // Valid response
-				// diplomaticMessages.updateResultPane();
 				diplomaticMessages.close(this);
 			}
 			System.out.println("Messages count = " + diplomaticMessages.size());
@@ -1741,4 +1802,13 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			}
 		}
 	}
+
+class Test extends KeyEvent {
+
+	public Test(Component source, int id, long when, int modifiers, int keyCode, char keyChar) {
+		super(source, id, when, modifiers, keyCode, keyChar);
+		// TODO Auto-generated constructor stub
+	}
+	
+}
 }

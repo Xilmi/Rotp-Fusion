@@ -636,16 +636,16 @@ public class DiplomaticMessageUI extends FadeInPanel
     	return new boolean[] {exited, validResponse};
     }
     private void initForConsole()				{
-    	String title = "Dialogue with " + diplomatEmpire.name();
     	if (!RotPUI.isConsole)
     		return;
+    	String title = "Dialogue with " + diplomatEmpire.name();
     	talkTimeMs = 10;
     	CommandConsole.diplomaticMessages.newMenu(title, this, false);
     }
     private void initReplyForConsole()			{
-    	String title = "Final reply from " + diplomatEmpire.name();
     	if (!RotPUI.isConsole)
     		return;
+    	String title = "Final reply from " + diplomatEmpire.name();
     	talkTimeMs = 10;
     	CommandConsole.diplomaticMessages.newMenu(title, this, true);
     }

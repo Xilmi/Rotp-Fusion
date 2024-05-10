@@ -23,7 +23,7 @@ public class ConsoleStarView implements IConsole {
 	private int id;
 	private boolean isPlayer, isScouted, isColony;
 	
-	void initId(int sysId)	{
+	void initId(int sysId)		{
 		sv	= player().sv.view(sysId);
 		sys	= galaxy().system(sysId);
 		id	= sysId;
@@ -36,9 +36,17 @@ public class ConsoleStarView implements IConsole {
 		else
 			colony	= null;
 	}
-
 	void initAltId(int altId)	{ initId(console().getSysId(altId)); }
 	// ##### Systems Report
+	String systemInfo(int id)	{
+		initId(id);
+		String out = systemBox("");
+		if (isColony)
+			out += NEWLINE + shortSystemInfo(sv);
+		out = terrainBox(out);
+		out = distanceBox(out);
+		return out;
+	}
 	String getInfo(String out)	{
 		if (player().hiddenSystem(sys)) // Dark Galaxy
 			return out + " !!! Hidden";

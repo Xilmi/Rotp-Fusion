@@ -15,6 +15,8 @@
  */
 package rotp.ui.main.overlay;
 
+import rotp.ui.console.CommandConsole;
+import rotp.ui.console.IConsoleListener;
 import rotp.model.Sprite;
 import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
@@ -32,12 +34,14 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import rotp.model.combat.CombatStack;
 import rotp.ui.combat.ShipBattleUI;
 
-public class MapOverlayShipCombatPrompt extends MapOverlay {
+public class MapOverlayShipCombatPrompt extends MapOverlay implements IConsoleListener {
     static final Color destroyedTextC = new Color(255,32,32,192);
     static final Color destroyedMaskC = new Color(0,0,0,160);
     Color maskC  = new Color(40,40,40,160);
@@ -77,6 +81,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay {
         parent.mapFocus(sys);
         parent.clickedSprite(sys);
         parent.repaint();
+        initConsoleSelection();
     }
     public void startCombat(int combatFlag) {
         drawSprites = false;
@@ -427,7 +432,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay {
                 toggleFlagColor(shift);
                 break;
             default:
-            	if (!shift) // BR to avoid noise when changing flag color
+            	if (!shift) // BR: to avoid noise when changing flag color
             		misClick();
                 break;
         }
@@ -818,4 +823,91 @@ public class MapOverlayShipCombatPrompt extends MapOverlay {
                 parent.toggleFlagColor(false);
         };
     }
+
+    // ##### Console Tools
+    public boolean consoleResponse(String entry)	{
+    	Empire aiEmpire = mgr.results().aiEmpire();
+    	switch (entry.toUpperCase()) {
+    	case "A":
+    		if (aiEmpire != null)
+                startCombat(ShipBattleUI.AUTO_RESOLVE);
+    		return true;
+    	case "S":
+    		if (aiEmpire != null)
+                startCombat(ShipBattleUI.SMART_RESOLVE);
+    		return true;
+    	case "R":
+    		if (aiEmpire != null)
+                startCombat(ShipBattleUI.RETREAT_ALL);
+    		return true;
+    	default:
+       		misClick();
+       		return false;
+    	}
+    }
+	@Override public List<ConsoleOptions> getOptions() {
+		List<ConsoleOptions> options = new ArrayList<>();
+		options.add(new ConsoleOptions(KeyEvent.VK_A, "A", "Auto Resolve combat."));
+		options.add(new ConsoleOptions(KeyEvent.VK_S, "S", "Smart Resolve combat, retreat if overwhelmed."));
+		if(options().selectedRetreatRestrictions() < 2 || options().selectedRetreatRestrictionTurns() == 0)
+			options.add(new ConsoleOptions(KeyEvent.VK_R, "R", "Retreat Fleet."));
+		return options;
+	}
+	@Override public String getMessage() {
+    	Empire aiEmpire	= mgr.results().aiEmpire();
+    	Empire pllayer	= player();
+        StarSystem sys	= galaxy().system(sysId);
+    	String message	= displayYearOrTurn();
+    	String titleStr;
+        if (aiEmpire == null)
+            titleStr = text("SHIP_COMBAT_TITLE_MONSTER_DESC", mgr.results().aiRaceName());
+        else {
+            titleStr = text("SHIP_COMBAT_TITLE_DESC");
+            titleStr = aiEmpire.replaceTokens(titleStr, "alien");
+        }
+        message += ", " + titleStr;
+ 
+        HashMap<String, Integer> mySizes = new HashMap<>();
+        HashMap<String, Integer> aiSizes = new HashMap<>();
+        for(CombatStack st : mgr.activeStacks()) {
+            int putVal = st.num;
+            if (st.isShip()) {
+                if (st.empire == pllayer) {
+                    if (mySizes.containsKey(st.design().sizeDesc()))
+                        putVal += mySizes.get(st.design().sizeDesc());
+                    mySizes.put(st.design().sizeDesc(), putVal);
+                }
+                else {
+                    if (aiSizes.containsKey(st.design().sizeDesc()))
+                        putVal += aiSizes.get(st.design().sizeDesc());
+                    aiSizes.put(st.design().sizeDesc(), putVal);
+                }
+            }
+            else if (st.isColony() && st.isArmed()) {
+                if (st.empire == pllayer)
+                    mySizes.put(text("MAIN_COLONY_BASES"), putVal);
+                else
+                    aiSizes.put(text("MAIN_COLONY_BASES"), putVal);
+            }
+        }
+        message += lineSplit + "My fleet consist of:";
+        for (Entry<String, Integer> entry : mySizes.entrySet())
+        	message += lineSplit + entry.getValue() + " " + entry.getKey();
+        message += lineSplit + "Opponent fleet consist of:";
+        for (Entry<String, Integer> entry : aiSizes.entrySet())
+        	message += lineSplit + entry.getValue() + " " + entry.getKey();
+       
+        // if unscouted, no planet info
+        message += lineSplit + "System Info:";
+        boolean scouted = pllayer.sv.isScouted(sys.id);
+        if (scouted) {
+        	//message += lineSplit + CommandConsole.cc().viewSystemInfo(sys, false);
+        	message += lineSplit + CommandConsole.systemInfo(sys);
+        }
+        else
+        	message += lineSplit + text("SHIP_COMBAT_TITLE_UNSCOUTED");
+
+        message += lineSplit + getMessageOption();
+		return message;
+	}
 }

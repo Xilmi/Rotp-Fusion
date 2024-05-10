@@ -33,13 +33,14 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.*;
 import rotp.ui.FadeInPanel;
+import rotp.ui.console.IConsoleListener;
 import rotp.ui.main.SystemPanel;
 import javax.swing.*;
 import javax.swing.border.Border;
 import rotp.model.colony.Colony;
 import rotp.model.galaxy.SpaceMonster;
 
-public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMotionListener {
+public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMotionListener, IConsoleListener {
     private static final long serialVersionUID = 1L;
     public static final int ENTER_COMBAT = 0;
     public static final int AUTO_RESOLVE = 1;
@@ -2130,8 +2131,6 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             g.fill(rightArrow);
             drawString(g,str(currBase), baseX+sw+s22, dataY);
         }
-        
-        
     }
     private void drawShipResult(Graphics2D g, int x, int y, int w, int h, ShipDesign d, int start, int dead, int retreat, boolean reversed) {
         Image img = d.image();
@@ -2255,6 +2254,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             mgr.resolveAllCombat();
             mode = Display.RESULT;
             repaint();
+            initConsoleReport();
         }
     }
     private void newTargetGridCell() {
@@ -2949,4 +2949,103 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     public void newAnimationStarted() { animationCompleted = false; }
     public boolean waitingToShowResult() { return mode == Display.RESULT; }
     private boolean readyToShowResult() { return mode == Display.RESULT && animationCompleted; }
+
+    // ##### Console Tools
+    @Override public void consoleEntry() {
+    	finishAndResume();
+	}
+	@Override public List<ConsoleOptions> getOptions() { return null; }
+	@Override public String getMessage() {
+		String sysName =  player().sv.name(mgr.system().id);
+        Map<ShipDesign,Integer> destroyed = mgr.results().shipsDestroyed();
+        Map<ShipDesign,Integer> retreated = mgr.results().shipsRetreated();
+        Empire victor	 = mgr.results().victor();
+        Empire colonyEmp = mgr.results().colonyStack == null ? null : mgr.results().colonyStack.empire;
+
+        String message;
+        if (sysName.isEmpty()) 
+        	message = text("SHIP_COMBAT_TITLE_UNNAMED");
+        else
+        	message = text("SHIP_COMBAT_TITLE", sysName);
+
+        // left empire
+        String empName = leftEmpire.name();
+        message += lineSplit + "Player: " + empName;
+        if (leftEmpire == victor)
+            message += " " + text("SHIP_COMBAT_TITLE_VICTORIOUS");
+        
+        message += lineSplit + "Fleet Results:";
+        List<ShipDesign> ships = new ArrayList<>(leftFleet.keySet());
+        for (int i=0;i<ships.size();i++) {
+            ShipDesign design = ships.get(i);
+            int retr = retreated.containsKey(design) ? retreated.get(design): 0;
+            int start = leftFleet.containsKey(design) ? leftFleet.get(design): 0;
+            int dead = destroyed.containsKey(design) ? destroyed.get(design): 0;
+            message += lineSplit + drawShipResult(design, start, dead, retr);
+        }  
+        if (colonyEmp == leftEmpire)
+            message += lineSplit + drawPlanetResult(sysName);
+        
+        // right empire
+        if (monster != null)
+            empName = monster.name();
+        else
+            empName = rightEmpire.name();
+        message += lineSplit + "Opponent: "+ empName;
+        if (mgr.results().isMonsterVictory() || (rightEmpire == victor))
+        	message += " " + text("SHIP_COMBAT_TITLE_VICTORIOUS");
+
+        if (monster == null) {
+            message += lineSplit + "Fleet Results:";
+            ships = new ArrayList<>(rightFleet.keySet());
+            for (int i=0;i<ships.size();i++) {
+                ShipDesign design = ships.get(i);
+                int retr = retreated.containsKey(design) ? retreated.get(design): 0;
+                int start = rightFleet.containsKey(design) ? rightFleet.get(design): 0;
+                int dead = destroyed.containsKey(design) ? destroyed.get(design): 0;
+                message += lineSplit + drawShipResult(design, start, dead, retr);
+            }
+            if (colonyEmp == rightEmpire)
+            	message += lineSplit + drawPlanetResult(sysName);
+        }
+        message += lineSplit + "Enter any command to continue";
+		return message;
+	}
+    private String drawShipResult(ShipDesign d, int start, int dead, int retreat) {
+	    String out = d.sizeDesc() + ":";
+        out += " " + d.name();
+        out += " from " + start;
+        out += " to " + (start-dead);
+        if (retreat > 0)
+            out += ", " + text("SHIP_COMBAT_RESULTS_RETREATED");
+        else if (start == dead)
+        	out += ", " + text("SHIP_COMBAT_RESULTS_DESTROYED");
+        
+        return out;
+    }
+    private String drawPlanetResult( String name) {
+        if (renderedPlanetImage == null)
+            return "";
+        
+        Colony col = mgr.system().colony();
+        int popLost = mgr.results().popDestroyed();
+        int factLost = mgr.results().factoriesDestroyed();
+        int baseLost = mgr.results().basesDestroyed();
+        int currPop = col == null ? 0 : (int) Math.ceil(col.population());
+        int currFact = (col == null) || (currPop == 0) ? 0 : (int) col.industry().factories();
+        int currBase = (col == null) || (currPop == 0) ? 0 : (int) col.defense().bases();
+        String out = "Planet Results";
+        out += lineSplit + text("SHIP_COMBAT_SYSTEM_POP");
+        out += " from " + str(currPop+popLost);
+        out += " to " +  str(currPop);
+        out += lineSplit + text("SHIP_COMBAT_SYSTEM_FACT");
+        out += " from " + str(currFact+factLost);
+        out += " to " +  str(currFact);
+        if ((currBase+baseLost) > 0) {
+            out += lineSplit + text("SHIP_COMBAT_SYSTEM_BASE");
+            out += " from " + str(currBase+baseLost);
+            out += " to " +  str(currBase);
+        }
+        return out;
+    }
 }
