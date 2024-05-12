@@ -510,6 +510,7 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
         int y2 = y+h1;
         
         Empire pl = player();
+        // pl.viewForEmpire(emp).spies().updateTechList(); // TO DO BR: COMMENT
         TechTree tree = emp == pl ? pl.tech() : pl.viewForEmpire(emp).spies().tech();
         drawTechCategory(g, emp, tree.computer(),    0, x1, y1, w1, h1);
         drawTechCategory(g, emp, tree.construction(),1, x2, y1, w1, h1);

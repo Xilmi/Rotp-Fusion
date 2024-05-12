@@ -13,7 +13,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option to never let a nebula be too close to an empire's neighborhood.
 - New option for improving the planet in the center of the nebulae:
   - None, Less, Normal, More, Always.
-
+- Added Last spy report age in contact panel.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -102,6 +102,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option to never let a nebula be too close to an empire's neighborhood.
 - New option for improving the planet in the center of the nebulae:
   - None, Less, Normal, More, Always.
+- Added Last spy report age in contact panel.
+
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.

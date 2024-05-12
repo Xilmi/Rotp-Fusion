@@ -3748,6 +3748,7 @@ RACES_HELP_0D                     | Military - Display fleet and ship designs.
 RACES_HELP_0E                     | Status - Comparison across several categories.
 RACES_HELP_0F                     | Selecting your empire allows you to manage information for all contacted empires on each tab.
 RACES_HELP_0G                     | Selecting an alien empire shows more detailed information for that empire on each tab.
+RACES_HELP_0H                     | When not up to date:<br> Last spy report age.<br> ("-" for never)
 RACES_HELP_1A                     | General information for selected empire.
 RACES_HELP_1B                     | Provides direct access to diplomats for all contacted empires.
 RACES_HELP_1C                     | Increase the security tax to improve your chances of thwarting enemy spies.

@@ -215,6 +215,14 @@ public class RacesUI extends BasePanel {
             int y7 = scaled(290);
             HelpUI.HelpSpec sp7 = helpUI.addBrownHelpText(x6,y7,w6, 4, text("RACES_HELP_0G"));
             sp7.setLine(x6+w6, y7, x6a, scaled(240));
+
+            int x8 = x6 + w6 + s36;
+            int y8 = y7;
+            int w8 = scaled(210);
+            int x8a = w-scaled(38);
+            int y8a = scaled(190);
+            HelpUI.HelpSpec sp8 = helpUI.addBrownHelpText(x8, y8, w8, 4, text("RACES_HELP_0H"));
+            sp8.setLine(x8 + w6*3/4, y8, x8a, y8a);
         }
     }
     private void loadHelpUI1() {
@@ -1011,7 +1019,32 @@ public class RacesUI extends BasePanel {
             int y1 = y0+s25;
             g.setFont(narrowFont(22));
             drawShadowedString(g, emp.raceName(), 1, x1, y1, blackC, whiteC);
-            Shape sh = emp.drawShape(g,x+w-s30,y0+s10,s20,s20);
+            int xSh = x+w-s30;
+            int ySh = y0+s10;
+            int sSh = s20;
+            Shape sh = emp.drawShape(g, xSh, ySh, sSh, sSh);
+
+            // Add spy report age
+            int lastViewAge  = emp.status().age(player());
+            if (lastViewAge > 0) {
+            	int lastViewTurn = emp.status().lastViewTurn(player());
+            	String age;
+            	int yAge;
+            	if (lastViewTurn < 0) {
+            		age  = str("-");
+            		yAge = ySh + s15;
+            		g.setFont(narrowFont(16));
+            	}
+            	else {
+            		age  = str(lastViewAge);
+            		yAge = ySh + s15;
+            		g.setFont(narrowFont(14));
+            	}
+            	int swa = g.getFontMetrics().stringWidth(age);
+            	int xAge = xSh + (sSh-swa)/2;
+            	drawBorderedString(g, age, xAge, yAge, Color.black, Color.white);
+            }
+            	
             setColorIcon(emp, sh);
             if ((hoverEmp == emp) && hoveringIcon) {
                 Stroke prev = g.getStroke();

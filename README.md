@@ -64,6 +64,9 @@ Later:
 ## What's New
 
 2024.05.11 (BR)
+- Added Last spy report age in contact panel.
+
+2024.05.11 (BR)
 - New option for nebulae placement:
   - The location of the nebula now begins by being centered on a random star system.
     - For a more even distribution among galaxy shapes.
