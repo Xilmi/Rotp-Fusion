@@ -22,7 +22,7 @@ import static rotp.ui.util.IParam.langDesc;
 import static rotp.ui.util.IParam.langHelp;
 import static rotp.ui.util.IParam.langName;
 import static rotp.ui.util.IParam.realLangLabel;
-import static rotp.util.Base.lineSplit;
+import static rotp.util.Base.NEWLINE;
 
 import java.util.EnumMap;
 
@@ -69,12 +69,12 @@ public class ParamButtonHelp implements IParam {
 		if (html == 0) {
 			line = state.helpLine;
 			line += "[" + langName(label) + "]";
-			line += lineSplit + help;
+			line += NEWLINE + help;
 			return line;
 		}
 		line = htmlTuneFont(-2, state.helpLine);
 		line += "&nbsp <b>( "+ langName(label) + " )</b>";
-		line += lineSplit + help;
+		line += NEWLINE + help;
 		return line;
 	}
 	private String buildHelp(int html) {
@@ -86,7 +86,7 @@ public class ParamButtonHelp implements IParam {
 				if (result.isEmpty())
 					result = help;
 				else if (html == 0)
-					result += lineSplit + lineSplit + help;
+					result += NEWLINE + NEWLINE + help;
 				else
 					result += baseSeparator() + help;
 		}

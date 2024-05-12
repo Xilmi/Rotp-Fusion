@@ -110,8 +110,7 @@ public interface Base {
     public static DecimalFormat sf7 = new DecimalFormat("0.0000000E00");
     public static DecimalFormat sf8 = new DecimalFormat("0.00000000E00");
     public static DecimalFormat pad4 = new DecimalFormat("0000");
-    public static String lineSplit		= "<br>"; 	// BR: for descriptions and Help. System independent .
-    public static String lineSplitRegex = "<br>";	// BR: for descriptions and Help. System independent .
+    public static String NEWLINE		= "<br>"; 	// BR: for descriptions and Help. System independent .
     public static int MB = 1048576;
     public static ImageColorizer colorizer = new ImageColorizer();
     public static String[] textSubs = { "%1", "%2", "%3", "%4", "%5", "%6", "%7", "%8", "%9", "%0" };
@@ -1094,7 +1093,7 @@ public interface Base {
             }
         }
         else { // BR: added forced lines '\n' management 
-            String[] forcedLines = text.split(lineSplitRegex);
+            String[] forcedLines = text.split(NEWLINE);
         	for (String forcedLine : forcedLines) {
                 List<String> words = substrings(forcedLine, ' ');
                 if (!currentLine.isEmpty())

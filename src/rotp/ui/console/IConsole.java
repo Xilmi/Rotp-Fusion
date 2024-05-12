@@ -21,7 +21,6 @@ public interface IConsole extends Base {
 	int OPTION_ID	= 0;
 	int SETTING_ID	= 1;
 	int MENU_ID		= 2;
-	String NEWLINE	= "<br>";
 	String SPACER	= ", ";
 	String OR_SEP	= "|";	// " or " may be better?
 	String EQUAL_SEP	= " = ";

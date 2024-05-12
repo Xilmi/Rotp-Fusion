@@ -2,12 +2,17 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Fixed Rally right click:
-  - Right clicking the origin system will now correctly cancel the rally.
-- Fixed War View showing invisible ship:
-  - Fleet with both visible and invisible ship will only show the visible one.
-- Fixed Military panel not properly initialised when reloading a game.
-- Console: added empire reports and commands.
+- New option for nebulae placement:
+  - The location of the nebula now begins by being centered on a random star system.
+    - For a more even distribution among galaxy shapes.
+    - Galaxies with void will reject nebulae due to an invalid starting point.
+    - Nebulae won't be rejected due to not containing stars.
+  - Added an option to retry placement of rejected nebulae.
+  - Added an option to allow nebulae to extend a little beyond the galaxy.
+    - Galaxies with fine shapes will no longer reject all nebulae.
+- New option to never let a nebula be too close to an empire's neighborhood.
+- New option for improving the planet in the center of the nebulae:
+  - None, Less, Normal, More, Always.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -86,7 +91,17 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Peace: as before.
   - Armistice: Peace Treaty duration = 0 years.
   - ColdWar: No colonisation when non allied alien fleets are orbiting.
-
+- New option for nebulae placement:
+  - The location of the nebula now begins by being centered on a random star system.
+    - For a more even distribution among galaxy shapes.
+    - Galaxies with void will reject nebulae due to an invalid starting point.
+    - Nebulae won't be rejected due to not containing stars.
+  - Added an option to retry placement of rejected nebulae.
+  - Added an option to allow nebulae to extend a little beyond the galaxy.
+    - Galaxies with fine shapes will no longer reject all nebulae.
+- New option to never let a nebula be too close to an empire's neighborhood.
+- New option for improving the planet in the center of the nebulae:
+  - None, Less, Normal, More, Always.
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.

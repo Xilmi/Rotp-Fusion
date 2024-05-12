@@ -963,7 +963,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			return out;
 		}
 		@Override protected void newEntry(String entry)	{
-			if (entry.equalsIgnoreCase("x")) { // TODO BR: COMMENT
+			if (entry.equalsIgnoreCase("x") && Rotp.isIDE()) { // TODO BR: COMMENT
 				commandField.setText("");
 				resultPane.setText(parentUI.getMessage());
 				return;
@@ -1802,13 +1802,4 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			}
 		}
 	}
-
-class Test extends KeyEvent {
-
-	public Test(Component source, int id, long when, int modifiers, int keyCode, char keyChar) {
-		super(source, id, when, modifiers, keyCode, keyChar);
-		// TODO Auto-generated constructor stub
-	}
-	
-}
 }

@@ -825,26 +825,6 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IConsoleLi
     }
 
     // ##### Console Tools
-    public boolean consoleResponse(String entry)	{
-    	Empire aiEmpire = mgr.results().aiEmpire();
-    	switch (entry.toUpperCase()) {
-    	case "A":
-    		if (aiEmpire != null)
-                startCombat(ShipBattleUI.AUTO_RESOLVE);
-    		return true;
-    	case "S":
-    		if (aiEmpire != null)
-                startCombat(ShipBattleUI.SMART_RESOLVE);
-    		return true;
-    	case "R":
-    		if (aiEmpire != null)
-                startCombat(ShipBattleUI.RETREAT_ALL);
-    		return true;
-    	default:
-       		misClick();
-       		return false;
-    	}
-    }
 	@Override public List<ConsoleOptions> getOptions() {
 		List<ConsoleOptions> options = new ArrayList<>();
 		options.add(new ConsoleOptions(KeyEvent.VK_A, "A", "Auto Resolve combat."));
@@ -890,24 +870,24 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IConsoleLi
                     aiSizes.put(text("MAIN_COLONY_BASES"), putVal);
             }
         }
-        message += lineSplit + "My fleet consist of:";
+        message += NEWLINE + "My fleet consist of:";
         for (Entry<String, Integer> entry : mySizes.entrySet())
-        	message += lineSplit + entry.getValue() + " " + entry.getKey();
-        message += lineSplit + "Opponent fleet consist of:";
+        	message += NEWLINE + entry.getValue() + " " + entry.getKey();
+        message += NEWLINE + "Opponent fleet consist of:";
         for (Entry<String, Integer> entry : aiSizes.entrySet())
-        	message += lineSplit + entry.getValue() + " " + entry.getKey();
+        	message += NEWLINE + entry.getValue() + " " + entry.getKey();
        
         // if unscouted, no planet info
-        message += lineSplit + "System Info:";
+        message += NEWLINE + "System Info:";
         boolean scouted = pllayer.sv.isScouted(sys.id);
         if (scouted) {
         	//message += lineSplit + CommandConsole.cc().viewSystemInfo(sys, false);
-        	message += lineSplit + CommandConsole.systemInfo(sys);
+        	message += NEWLINE + CommandConsole.systemInfo(sys);
         }
         else
-        	message += lineSplit + text("SHIP_COMBAT_TITLE_UNSCOUTED");
+        	message += NEWLINE + text("SHIP_COMBAT_TITLE_UNSCOUTED");
 
-        message += lineSplit + getMessageOption();
+        message += NEWLINE + getMessageOption();
 		return message;
 	}
 }

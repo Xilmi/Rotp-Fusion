@@ -117,7 +117,31 @@ public abstract class GalaxyShape implements Base, Serializable {
 	protected abstract int galaxyWidthLY();
 	protected abstract int galaxyHeightLY();
 	protected abstract float sizeFactor(String size);
-	public void setRandom(Point.Float pt) {
+	//	public boolean nebulaeHasStar(float x, float y, float buffer) {
+	//		return isTooNearExistingSystem(x, y, buffer);
+	//	}
+	public void getPointFromRandomStarSystem(Point.Float pt) {
+		int numSysPerEmpire	 = empSystems.get(0).numSystems();
+		int numEmpireSystems = numEmpires * numSysPerEmpire;
+		if (options().neverNebulaHomeworld()) {
+			numEmpireSystems = 0; // Don't even think to start over one!
+		}
+		int numUnsettledSys	 = numberStarSystems();
+		int totalSystems	 = numEmpireSystems + numUnsettledSys;
+		int starId = rand.nextInt(totalSystems);
+		if (starId < numEmpireSystems) {
+			int empireId = starId/numSysPerEmpire;
+			int systemId = starId - empireId*numSysPerEmpire;
+			EmpireSystem empSys = empSystems.get(empireId);
+			pt.x = empSys.x(systemId);
+			pt.y = empSys.y(systemId);
+		}
+		else {
+			int systemId = starId - numEmpireSystems;
+			coords(systemId, pt);
+		}
+	}
+	protected void setRandom(Point.Float pt) {
         pt.x = galaxyEdgeBuffer() + (fullWidth  - 2*galaxyEdgeBuffer()) * randX.nextFloat();
         pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * randY.nextFloat();
 	}
@@ -658,24 +682,45 @@ public abstract class GalaxyShape implements Base, Serializable {
 		}
 		// float buffer = systemBuffer(); // BR: made global
 		// not too close to other systems in galaxy
+		return isTooNearExistingSystem(x0, y0, sysBuffer);
+//		if (usingRegions) {
+//			if (isTooNearSystemsInNeighboringRegions(x0, y0, sysBuffer))
+//				return true;
+//		}
+//		else {
+//			if (isTooNearSystemsInEntireGalaxy(x0, y0, sysBuffer)) // BR: global
+//				return true;
+//		}
+//		// not too close to other systems in any empire system
+//		for (EmpireSystem emp: empSystems) {
+//			for (int i=0;i<emp.num;i++) {
+//				if (distance(x0,y0,emp.x(i),emp.y(i)) <= sysBuffer) // BR: global
+//					return true;
+//			}
+//		}
+//		return false;
+	}
+	private boolean isTooNearExistingSystem(float x0, float y0, float buffer) {
+		// float buffer = systemBuffer(); // BR: made global
+		// not too close to other systems in galaxy
 		if (usingRegions) {
-			if (isTooNearSystemsInNeighboringRegions(x0,y0))
+			if (isTooNearSystemsInNeighboringRegions(x0, y0, buffer))
 				return true;
 		}
 		else {
-			if (isTooNearSystemsInEntireGalaxy(x0,y0, sysBuffer)) // BR: global
+			if (isTooNearSystemsInEntireGalaxy(x0, y0, buffer)) // BR: global
 				return true;
 		}
 		// not too close to other systems in any empire system
 		for (EmpireSystem emp: empSystems) {
 			for (int i=0;i<emp.num;i++) {
-				if (distance(x0,y0,emp.x(i),emp.y(i)) <= sysBuffer) // BR: global
+				if (distance(x0,y0,emp.x(i),emp.y(i)) <= buffer) // BR: global
 					return true;
 			}
 		}
 		return false;
 	}
-	private boolean isTooNearSystemsInNeighboringRegions(float x0, float y0) {
+	private boolean isTooNearSystemsInNeighboringRegions(float x0, float y0, float buffer) {
 		int xRgn = (int)(x0*regionScale/fullWidth);
 		int yRgn = (int)(y0*regionScale/fullHeight);
 		int yMin = max(0,yRgn-1);
@@ -685,7 +730,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 
 		for (int x1=xMin;x1<=xMax;x1++) {
 			for (int y1=yMin;y1<=yMax;y1++) {
-				if (regions[x1][y1].isTooNearSystems(x0,y0))
+				if (regions[x1][y1].isTooNearSystems(x0, y0, buffer))
 					return true;
 			}
 		}
@@ -712,8 +757,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 			x = new float[size];
 			y = new float[size];
 		}
-		public boolean isTooNearSystems(float x0, float y0) {
-			float buffer = systemBuffer();
+		public boolean isTooNearSystems(float x0, float y0, float buffer) {
+			// float buffer = systemBuffer();
 			for (int i=0;i<num;i++) {
 				if (distance(x0,y0,x[i],y[i]) <= buffer)
 					return true;
@@ -769,19 +814,19 @@ public abstract class GalaxyShape implements Base, Serializable {
 			return valid;
 		}
  
-		public int numSystems()   { return num; }
+		public int numSystems() { return num; }
 		public float x(int i)	{ return x[i]; }
 		public float y(int i)	{ return y[i]; }
 		float colonyX()   { return x[0]; }
 		float colonyY()   { return y[0]; }
 
-//		private boolean inNebula(Nebula neb) {
-//			for (int i=0;i<num;i++) {
-//				if (neb.contains(x[i], y[i]))
-//					return true;
-//			}
-//			return false;
-//		}
+		public boolean inNebula(Nebula neb) {
+			for (int i=0;i<num;i++) {
+				if (neb.contains(x[i], y[i]))
+					return true;
+			}
+			return false;
+		}
 
 		private boolean addNewHomeSystem(GalaxyShape sp) {
 			int attempts = 0;

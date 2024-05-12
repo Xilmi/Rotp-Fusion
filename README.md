@@ -63,6 +63,20 @@ Later:
 
 ## What's New
 
+2024.05.11 (BR)
+- New option for nebulae placement:
+  - The location of the nebula now begins by being centered on a random star system.
+    - For a more even distribution among galaxy shapes.
+    - Galaxies with void will reject nebulae due to an invalid starting point.
+    - Nebulae won't be rejected due to not containing stars.
+  - Added an option to retry placement of rejected nebulae.
+  - Added an option to allow nebulae to extend a little beyond the galaxy.
+    - Galaxies with fine shapes will no longer reject all nebulae.
+- New option to never let a nebula be too close to an empire's neighborhood.
+- New option for improving the planet in the center of the nebulae:
+  - None, Less, Normal, More, Always.
+ 
+
 2024.05.09 (BR)
 - Console:
   - Temporary no council is allowed!

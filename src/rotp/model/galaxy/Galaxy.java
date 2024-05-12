@@ -38,6 +38,7 @@ import rotp.model.events.RandomEventSpaceAmoeba;
 import rotp.model.events.RandomEventSpaceCrystal;
 import rotp.model.events.RandomEventSpacePirates;
 import rotp.model.events.RandomEvents;
+import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
@@ -207,77 +208,74 @@ public class Galaxy implements Base, Serializable {
         nebulas.add(neb);    	
     }
     public boolean addNebula(GalaxyShape shape, float nebSize) {
+    	return addNebula(shape, nebSize, nebulas);
+    }
+    // BR: may be used later for a preview
+    private boolean addNebula(GalaxyShape shape, float nebSize, List<Nebula> nebulas) {
+    	int numTentatives = options().nebulaCallsBeforeShrink();
+    	for (int i=0; i<numTentatives; i++) {
+    		Nebula neb = tryAddNebula(shape, nebSize, nebulas);
+    		if ( neb != null) {
+    			nebulas.add(neb);
+    			return true;    			
+    		}
+    	}
+    	return false;
+    }
+    private Nebula tryAddNebula(GalaxyShape shape, float nebSize, List<Nebula> nebulas) {
         // each nebula creates a buffered image for display
         // after we have created 5 nebulae, start cloning
         // existing nebulae (add their images) when making
         // new nebulae
         int MAX_UNIQUE_NEBULAS = 16;
-        boolean centered = true; // BR: Needed by Bitmap Galaxies
-
-        Point.Float pt = new Point.Float();
-        shape.setRandom(pt);
-        
-        if (!shape.valid(pt))
-            return false;
+        boolean anywhere = options().anywhereNebula();
+        Point.Float pt	 = new Point.Float();
+        shape.getPointFromRandomStarSystem(pt);
         
         Nebula neb;
         if (nebulas.size() < MAX_UNIQUE_NEBULAS)
-            //neb = new Nebula(true, nebSize);
-            neb = new Nebula(nebSize);
+            neb = new Nebula(true, nebSize);
         else
             neb = random(nebulas).copy();
-        if (centered) {
-        	pt.x -= neb.adjWidth()/2;
-        	pt.y -= neb.adjWidth()/2;
-            if (!shape.valid(pt)) {
-            	neb.cancel();
-            	return false;
-            }
-               
-        }
-        neb.setXY(pt.x, pt.y);
         
-        float x = pt.x;
-        float y = pt.y;
         float w = neb.adjWidth();
         float h = neb.adjHeight();
-        
-        if (!shape.valid(x+w,y)) {
-        	neb.cancel();
-        	return false;
+        // BR: Needed by Bitmap Galaxies
+        // Center the nebula on the star
+    	pt.x -= w/2;
+    	pt.y -= h/2;
+        if (!anywhere && !shape.valid(pt))
+        	return neb.cancel();
+
+        neb.setXY(pt.x, pt.y);
+        if (!anywhere) {
+            float x = pt.x;
+            float y = pt.y;
+            if (!shape.valid(x+w, y))
+            	return neb.cancel();
+            if (!shape.valid(x+w, y+h))
+            	return neb.cancel();
+            if (!shape.valid(x, y+h))
+            	return neb.cancel();
         }
-        if (!shape.valid(x+w,y+h)) {
-        	neb.cancel();
-        	return false;
-        }
-        if (!shape.valid(x,y+h)) {
-        	neb.cancel();
-        	return false;
-        }
+        if (options().neverNebulaHomeworld())
+	        for (EmpireSystem sys : shape.empSystems)
+	            if (sys.inNebula(neb))
+	            	return neb.cancel();
+
         if (options().selectedRealNebulae()) {
             // don't add nebulae to close to an existing nebula
-            for (Nebula existingNeb: nebulas) {
-                if (existingNeb.isToClose(neb)) {
-                	neb.cancel();
-                	return false;
-                }
-            }
+            for (Nebula existingNeb: nebulas)
+                if (existingNeb.isToClose(neb))
+                	return neb.cancel();
         }
         else {
             // don't add classic nebulae whose center point is in an existing nebula
             for (Nebula existingNeb: nebulas)
                 if (existingNeb.contains(neb.centerX(), neb.centerY()))
-                	return false;
-        }
-          
-        /*
-        for (EmpireSystem sys : shape.empSystems) {
-            if (sys.inNebula(neb))
-                return false;
-        }
-        */
-        nebulas.add(neb);
-        return true;
+                	return neb.cancel();
+        }    	
+        return neb;
     }
     public List<StarSystem> systemsNamed(String name) {
         List<StarSystem> systems = new ArrayList<>();

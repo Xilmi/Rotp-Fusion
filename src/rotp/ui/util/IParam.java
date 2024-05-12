@@ -18,7 +18,7 @@ package rotp.ui.util;
 
 import static rotp.model.game.IDebugOptions.showConsolePanel;
 import static rotp.ui.game.BaseModPanel.guideFontSize;
-import static rotp.util.Base.lineSplit;
+import static rotp.util.Base.NEWLINE;
 import static rotp.util.Base.textSubs;
 
 import java.awt.Graphics2D;
@@ -104,7 +104,7 @@ public interface IParam extends InterfaceOptions{
 		String help  = langHelp(label);
 		if (help.isEmpty())
 			help = "<b><i>Sorry, no help available yet.<i/></b>";
-		help = "<u><b>" + name + "</b></u>" + lineSplit + help;
+		help = "<u><b>" + name + "</b></u>" + NEWLINE + help;
 		if (sep)
 			return help + baseSeparator();
 		else
@@ -151,7 +151,7 @@ public interface IParam extends InterfaceOptions{
 		String[] mod = getModifiers();
 		if (mod == null)
 			return "";
-		String help = labelFormat("Key Modifiers")	+ lineSplit
+		String help = labelFormat("Key Modifiers")	+ NEWLINE
 					+ "None "		 + mod[0] + " &nbsp : &nbsp"
 					+ " Shift "		 + mod[1] + " &nbsp : &nbsp"
 					+ " Ctrl "		 + mod[2] + " &nbsp : &nbsp"

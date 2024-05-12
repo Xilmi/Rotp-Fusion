@@ -12,8 +12,9 @@ public interface IConsoleListener {
 
 	String getMessage();
 
-	default boolean handleKeyPress(KeyEvent e)	{ return false; }
-	default List<ConsoleOptions> getOptions()	{ return null; }
+	default boolean handleKeyPress(KeyEvent e)	{ return false; } // Override for non MapOverlay Selection
+	default List<ConsoleOptions> getOptions()	{ return null; } // Override for Console Selection!
+	default void consoleEntry()					{ } // Override for Console Report!
 	default String getMessageOption()			{
 		List<ConsoleOptions> options = getOptions();
 		if (options == null)
@@ -36,7 +37,6 @@ public interface IConsoleListener {
 		}
 		return INVALID_ENTRY;
 	}
-	default void consoleEntry()					{ }
 	default void initConsoleSelection()			{
 		if (!RotPUI.isConsole)
     		return;

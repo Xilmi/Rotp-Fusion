@@ -197,6 +197,81 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 		return 0;
 	}
 
+	String NEBULA_POS_NORMAL	= "NORMAL";
+	String NEBULA_POS_INSIST	= "INSIST";
+	String NEBULA_POS_EXTEND	= "EXTEND";
+	ParamList nebulaEmpty		= new ParamList( MOD_UI, "NEBULA_POS", NEBULA_POS_NORMAL) {
+		{
+			isDuplicate(false);
+			isCfgFile(true);
+			showFullGuide(true);
+			put(NEBULA_POS_NORMAL,	MOD_UI + "NEBULA_POS_NORMAL");
+			put(NEBULA_POS_INSIST,	MOD_UI + "NEBULA_POS_INSIST");
+			put(NEBULA_POS_EXTEND,	MOD_UI + "NEBULA_POS_EXTEND");
+		}
+	};
+	default boolean anywhereNebula()	{ return nebulaEmpty.get().equalsIgnoreCase(NEBULA_POS_EXTEND); }
+	default int nebulaCallsBeforeShrink()	{
+		switch (nebulaEmpty.get().toUpperCase()) {
+		case NEBULA_POS_NORMAL:	return 1;
+		case NEBULA_POS_INSIST:	return 5;
+		case NEBULA_POS_EXTEND:	return 10;
+		}
+		return 1;
+	}
+
+	String NEBULA_ENRICHMENT_NONE	= "NONE";
+	String NEBULA_ENRICHMENT_LESS	= "LESS";
+	String NEBULA_ENRICHMENT_NORMAL	= "NORMAL";
+	String NEBULA_ENRICHMENT_MORE	= "MORE";
+	String NEBULA_ENRICHMENT_ALWAYS	= "ALWAYS";
+	ParamList nebulaEnrichment		= new ParamList( MOD_UI, "NEBULA_ENRICHMENT", NEBULA_ENRICHMENT_NORMAL) {
+		{
+			isDuplicate(false);
+			isCfgFile(true);
+			showFullGuide(true);
+			put(NEBULA_ENRICHMENT_NONE,		MOD_UI + "NEBULA_ENRICHMENT_NONE");
+			put(NEBULA_ENRICHMENT_LESS,		MOD_UI + "NEBULA_ENRICHMENT_LESS");
+			put(NEBULA_ENRICHMENT_NORMAL,	MOD_UI + "NEBULA_ENRICHMENT_NORMAL");
+			put(NEBULA_ENRICHMENT_MORE,		MOD_UI + "NEBULA_ENRICHMENT_MORE");
+			put(NEBULA_ENRICHMENT_ALWAYS,	MOD_UI + "NEBULA_ENRICHMENT_ALWAYS");
+		}
+	};
+	default boolean noNebulaEnrichment()		{ return nebulaEnrichment.get().equalsIgnoreCase(NEBULA_ENRICHMENT_NONE); }
+	default boolean alwaysNebulaEnrichment()	{ return nebulaEnrichment.get().equalsIgnoreCase(NEBULA_ENRICHMENT_ALWAYS); }
+	default int nebulaEnrichmentInsideStar()	{
+		switch (nebulaEnrichment.get().toUpperCase()) {
+		case NEBULA_ENRICHMENT_NONE:	return Integer.MAX_VALUE;
+		case NEBULA_ENRICHMENT_LESS:	return 4;
+		case NEBULA_ENRICHMENT_NORMAL:	return 3;
+		case NEBULA_ENRICHMENT_MORE:	return 2;
+		case NEBULA_ENRICHMENT_ALWAYS:	return 1;
+		}
+		return 3;
+	}
+	default int nebulaEnrichmentGalaxySize()	{
+		switch (nebulaEnrichment.get().toUpperCase()) {
+		case NEBULA_ENRICHMENT_NONE:	return Integer.MAX_VALUE;
+		case NEBULA_ENRICHMENT_LESS:	return 200;
+		case NEBULA_ENRICHMENT_NORMAL:	return 100;
+		case NEBULA_ENRICHMENT_MORE:	return 50;
+		case NEBULA_ENRICHMENT_ALWAYS:	return 1;
+		}
+		return 100;
+	}
+	String NEBULA_HOMEWORLD_ALLOW	= "ALLOW";
+	String NEBULA_HOMEWORLD_NEVER	= "NEVER";
+	ParamList nebulaHomeworld		= new ParamList( MOD_UI, "NEBULA_HOMEWORLD", NEBULA_HOMEWORLD_ALLOW) {
+		{
+			isDuplicate(false);
+			isCfgFile(true);
+			showFullGuide(true);
+			put(NEBULA_HOMEWORLD_ALLOW,	MOD_UI + "NEBULA_HOMEWORLD_ALLOW");
+			put(NEBULA_HOMEWORLD_NEVER,	MOD_UI + "NEBULA_HOMEWORLD_NEVER");
+		}
+	};
+	default boolean neverNebulaHomeworld()	{ return nebulaHomeworld.get().equalsIgnoreCase(NEBULA_HOMEWORLD_NEVER); }
+
 	// ==================== GUI List Declarations ====================
 	//
 	static LinkedList<IParam> modStaticAOptions() {
@@ -245,19 +320,17 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_GALAXY_OPTIONS"),
-				galaxyAge, starDensity, nebulae,
-				IMainOptions.realNebulaeOpacity, empiresSpreadingFactor,
+				galaxyAge, starDensity,
+				empiresSpreadingFactor,
 				minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
 
 				headerSpacer,
-				new ParamTitle("START_PLANET_OPTIONS"),
-				planetQuality, minDistArtifactPlanet,
-				guardianMonsters, guardianMonstersLevel, guardianMonstersProbability,
-
-				headerSpacer,
-				new ParamTitle("GAME_OTHER"),
-				IMainOptions.showAllAI,
-				autoplay
+				new ParamTitle("NEBULAE_OPTION"),
+				nebulae, nebulaEmpty,
+				nebulaEnrichment, nebulaHomeworld,
+				IMainOptions.realNebulaeSize,
+				IMainOptions.realNebulaShape,
+				IMainOptions.realNebulaeOpacity
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_EMPIRE_OPTIONS"),
@@ -265,11 +338,15 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 				richHomeworld, ultraRichHomeworld,
 				companionWorlds, battleScout, randomTechStart, randomizeAI,
 
-				// headerSpacer,
-				// new ParamTitle("MENU_OPTIONS"),
 				headerSpacer,
-				new ParamTitle("BETA_TEST"),
-				ironmanMode, ironmanOptionsUI
+				new ParamTitle("START_PLANET_OPTIONS"),
+				planetQuality, minDistArtifactPlanet,
+				guardianMonsters, guardianMonstersLevel,
+				guardianMonstersProbability,
+
+				// headerSpacer,
+				// new ParamTitle("SUB_PANEL_OPTIONS"),
+				ISystemsOptions.systemsOptionsUI()
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_TECH_CONTROL"),
@@ -291,9 +368,16 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 				new ParamTitle("MENU_OPTIONS"),
 				IMainOptions.useFusionFont, IMainOptions.compactOptionOnly,
 				
+				// headerSpacer,
+				// new ParamTitle("MENU_OPTIONS"),
 				headerSpacer,
-				new ParamTitle("SUB_PANEL_OPTIONS"),
-				ISystemsOptions.systemsOptionsUI()
+				new ParamTitle("BETA_TEST"),
+				ironmanMode, ironmanOptionsUI,
+
+				headerSpacer,
+				new ParamTitle("GAME_OTHER"),
+				IMainOptions.showAllAI,
+				autoplay
 				)));
 
 		return map;

@@ -135,9 +135,11 @@ public class GalaxyFactory implements Base {
 		// remove empty nebula
 		List<Nebula> allNebula = new ArrayList<>(g.nebulas());
 		for (Nebula neb: allNebula) {
-			if (neb.noStars())
+			if (neb.noStars()) {
 				g.nebulas().remove(neb);
-		}
+				System.err.println("g.nebulas().remove(neb);");
+			}
+		}			
 		
 		// for larger nebula (>= 3 contained stars), enrich the center-most system
 		// typical need larger maps (>200 stars) for this to happen

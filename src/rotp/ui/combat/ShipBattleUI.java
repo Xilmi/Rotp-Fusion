@@ -2951,10 +2951,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     private boolean readyToShowResult() { return mode == Display.RESULT && animationCompleted; }
 
     // ##### Console Tools
-    @Override public void consoleEntry() {
-    	finishAndResume();
-	}
-	@Override public List<ConsoleOptions> getOptions() { return null; }
+    @Override public void consoleEntry() { finishAndResume(); }
 	@Override public String getMessage() {
 		String sysName =  player().sv.name(mgr.system().id);
         Map<ShipDesign,Integer> destroyed = mgr.results().shipsDestroyed();
@@ -2970,45 +2967,45 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
 
         // left empire
         String empName = leftEmpire.name();
-        message += lineSplit + "Player: " + empName;
+        message += NEWLINE + "Player: " + empName;
         if (leftEmpire == victor)
             message += " " + text("SHIP_COMBAT_TITLE_VICTORIOUS");
         
-        message += lineSplit + "Fleet Results:";
+        message += NEWLINE + "Fleet Results:";
         List<ShipDesign> ships = new ArrayList<>(leftFleet.keySet());
         for (int i=0;i<ships.size();i++) {
             ShipDesign design = ships.get(i);
             int retr = retreated.containsKey(design) ? retreated.get(design): 0;
             int start = leftFleet.containsKey(design) ? leftFleet.get(design): 0;
             int dead = destroyed.containsKey(design) ? destroyed.get(design): 0;
-            message += lineSplit + drawShipResult(design, start, dead, retr);
+            message += NEWLINE + drawShipResult(design, start, dead, retr);
         }  
         if (colonyEmp == leftEmpire)
-            message += lineSplit + drawPlanetResult(sysName);
+            message += NEWLINE + drawPlanetResult(sysName);
         
         // right empire
         if (monster != null)
             empName = monster.name();
         else
             empName = rightEmpire.name();
-        message += lineSplit + "Opponent: "+ empName;
+        message += NEWLINE + "Opponent: "+ empName;
         if (mgr.results().isMonsterVictory() || (rightEmpire == victor))
         	message += " " + text("SHIP_COMBAT_TITLE_VICTORIOUS");
 
         if (monster == null) {
-            message += lineSplit + "Fleet Results:";
+            message += NEWLINE + "Fleet Results:";
             ships = new ArrayList<>(rightFleet.keySet());
             for (int i=0;i<ships.size();i++) {
                 ShipDesign design = ships.get(i);
                 int retr = retreated.containsKey(design) ? retreated.get(design): 0;
                 int start = rightFleet.containsKey(design) ? rightFleet.get(design): 0;
                 int dead = destroyed.containsKey(design) ? destroyed.get(design): 0;
-                message += lineSplit + drawShipResult(design, start, dead, retr);
+                message += NEWLINE + drawShipResult(design, start, dead, retr);
             }
             if (colonyEmp == rightEmpire)
-            	message += lineSplit + drawPlanetResult(sysName);
+            	message += NEWLINE + drawPlanetResult(sysName);
         }
-        message += lineSplit + "Enter any command to continue";
+        message += NEWLINE + "Enter any command to continue";
 		return message;
 	}
     private String drawShipResult(ShipDesign d, int start, int dead, int retreat) {
@@ -3020,13 +3017,9 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             out += ", " + text("SHIP_COMBAT_RESULTS_RETREATED");
         else if (start == dead)
         	out += ", " + text("SHIP_COMBAT_RESULTS_DESTROYED");
-        
         return out;
     }
     private String drawPlanetResult( String name) {
-        if (renderedPlanetImage == null)
-            return "";
-        
         Colony col = mgr.system().colony();
         int popLost = mgr.results().popDestroyed();
         int factLost = mgr.results().factoriesDestroyed();
@@ -3035,14 +3028,14 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         int currFact = (col == null) || (currPop == 0) ? 0 : (int) col.industry().factories();
         int currBase = (col == null) || (currPop == 0) ? 0 : (int) col.defense().bases();
         String out = "Planet Results";
-        out += lineSplit + text("SHIP_COMBAT_SYSTEM_POP");
+        out += NEWLINE + text("SHIP_COMBAT_SYSTEM_POP");
         out += " from " + str(currPop+popLost);
         out += " to " +  str(currPop);
-        out += lineSplit + text("SHIP_COMBAT_SYSTEM_FACT");
+        out += NEWLINE + text("SHIP_COMBAT_SYSTEM_FACT");
         out += " from " + str(currFact+factLost);
         out += " to " +  str(currFact);
         if ((currBase+baseLost) > 0) {
-            out += lineSplit + text("SHIP_COMBAT_SYSTEM_BASE");
+            out += NEWLINE + text("SHIP_COMBAT_SYSTEM_BASE");
             out += " from " + str(currBase+baseLost);
             out += " to " +  str(currBase);
         }

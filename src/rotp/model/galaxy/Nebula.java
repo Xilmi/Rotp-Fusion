@@ -36,6 +36,8 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import rotp.model.game.IGameOptions;
+import rotp.model.planet.Planet;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.sprites.MapSprite;
 import rotp.ui.util.planets.PlanetImager;
@@ -124,36 +126,25 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         }
     }
     public Nebula() { }
-//    Nebula(boolean buildImage, float sizeMult) {
-//    	requestedQuality = options().selectedRealNebulaeSize();
-//    	currentQuality	 = requestedQuality;
-//    	if (isRealNebula()) {
-//    		newRealNebula(buildImage, sizeMult);
-//    		return;
-//    	}
-//        size = max(1, sizeMult);
-//        width = random(8,14);
-//        height = random(8,14);
-//        if (buildImage)
-//            image = buildImage();
-//    }
-    Nebula(float sizeMult) {
+    Nebula(boolean buildImage, float sizeMult) {
     	requestedQuality = options().selectedRealNebulaeSize();
     	currentQuality	 = requestedQuality;
         size = max(1, sizeMult);
     	if (isRealNebula()) {
-    		newRealNebula();
+    		newRealNebula(buildImage);
     		return;
     	}
         width = random(8f,14f);
         height = random(8f,14f);
-        image  = buildImage();
+        if (buildImage) // BR: to allow a preview later...
+        	image  = buildImage();
     }
-    void cancel()	{
+    Nebula cancel()	{
     	if (isRealNebula())
     		randomFiles.add(nebulaFile);
+    	return null;
     }
-    private void newRealNebula() {
+    private void newRealNebula(boolean buildImage) {
     	int wF = 12; // 19
     	int hF = 19; // 12
     	float area	= random(8f,14f) * wF * random(8f,14f) * hF;
@@ -163,7 +154,8 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         float scale	= sqrt(area / (imgW * imgH));
         width		= (int) Math.round(wF);
         height		= (int) Math.round(scale * imgH / hF);
-        buildNebulaImage(image);
+        if (buildImage) // BR: to allow a preview later...
+        	buildNebulaImage(image);
     }
     private void buildNebulaImage(BufferedImage img) {
         int w = (int) width()  * 19 * currentQuality;
@@ -190,21 +182,22 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
             sysId = sys.id;
     }
     void enrichCentralSystem() {
-        if (numStars < 3)
+    	IGameOptions opts = options();
+        if (numStars < opts.nebulaEnrichmentInsideStar())
             return;
-        if (galaxy().numStarSystems() <= 100)
+        if (galaxy().numStarSystems() <= opts.nebulaEnrichmentGalaxySize())
             return;
         
-        StarSystem sys = galaxy().system(sysId);
-        if (sys.planet().isEnvironmentNone())
+        Planet planet = galaxy().system(sysId).planet();
+        if (planet.isEnvironmentNone())
             return;
-        if (sys.planet().isArtifact()) // BR: Not both!
+        if (planet.isArtifact()) // BR: Not both!
         	return;
         float ultraPct = numStars * .07f;
         if (random() < ultraPct)
-            sys.planet().setResourceUltraRich();
-        else if (!sys.planet().isResourceUltraRich())
-            sys.planet().setResourceRich();
+        	planet.setResourceUltraRich();
+        else if (!planet.isResourceUltraRich())
+        	planet.setResourceRich();
     }
     boolean isToClose(Nebula neb) {
     	Rectangle2D intersect;
