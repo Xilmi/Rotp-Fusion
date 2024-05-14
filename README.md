@@ -67,6 +67,7 @@ Later:
 - Empire Intelligence Panel
   - Added Latest reported spy bonuses for related missions.
   - Based on the latest reported technology and security levels.
+  - Added distinction between (Likelihood / Impact)
 
 2024.05.13 (BR)
 - Nebulae are shown in preview panel.

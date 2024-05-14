@@ -781,8 +781,15 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
         if (lastBonus==null)
         	bonusStr = text("RACES_INTEL_NO_DATA");
         else {
-        	int pct = (int) (100 * lastBonus);
-        	bonusStr = pct + "%";
+        	if (spies.isEspionage()) {
+        		int pct1 = (int) (100 * lastMissionBonus);
+        		int pct2 = (int) (100 * lastSpyBonus);
+               	bonusStr = pct1 + "% / " + pct2 + "%";
+        	}
+        	else {
+        		int pct = (int) (100 * lastBonus);
+               	bonusStr = pct + "%";
+        	}
         }
         sw = g.getFontMetrics().stringWidth(bonusStr);
         g.setColor(SystemPanel.blackText);

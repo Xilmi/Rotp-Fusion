@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Empire Intelligence Panel
   - Added Latest reported spy bonuses for related missions.
   - Based on the latest reported technology and security levels.
+  - Added distinction between (Likelihood / Impact)
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
