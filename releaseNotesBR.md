@@ -2,23 +2,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- New option for nebulae placement:
-  - The location of the nebula now begins by being centered on a random star system.
-    - For a more even distribution among galaxy shapes.
-    - Galaxies with void will reject nebulae due to an invalid starting point.
-    - Nebulae won't be rejected due to not containing stars.
-  - Added an option to retry placement of rejected nebulae.
-  - Added an option to allow nebulae to extend a little beyond the galaxy.
-    - Galaxies with fine shapes will no longer reject all nebulae.
-- New option to never let a nebula be too close to an empire's neighborhood.
-- New option for improving the planet in the center of the nebulae:
-  - None, Less, Normal, More, Always.
-- Added Last spy report age in contact panel.
-- Nebulae are shown in preview panel.
-- Nebulae follow the wysiwyg rule.
-- Empire status bar graph shows Max Tech when absolute value is selected, average otherwise. (As before)
-- Empire status line graph shows both max tech and average tech values.
-- Spending Panel shows when there is unused factories, and how many are missing.
+- Empire Intelligence Panel
+  - Added Latest reported spy bonuses for related missions.
+  - Based on the latest reported technology and security levels.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -114,6 +100,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Empire status bar graph shows Max Tech when absolute value is selected, average otherwise. (As before)
 - Empire status line graph shows both max tech and average tech values.
 - Spending Panel shows when there is unused factories, and how many are missing.
+- Empire Intelligence Panel
+  - Added Latest reported spy bonuses for related missions.
+  - Based on the latest reported technology and security levels.
+
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.

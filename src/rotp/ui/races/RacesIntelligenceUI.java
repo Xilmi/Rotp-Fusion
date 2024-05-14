@@ -39,6 +39,7 @@ import java.util.List;
 import rotp.model.empires.DiplomaticEmbassy;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
+import rotp.model.empires.SpyNetwork;
 import rotp.model.game.GovernorOptions;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
@@ -174,7 +175,7 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
         drawRaceIconBase(g, emp, s55, s25, s210, s210);
         drawAIBaseInfo(g, emp, s260, s80, s370, scaled(130));
         drawTechnologyLists(g, emp, s20, s310, w-s40, h-s310-s10);
-        drawAISpyOrders(g, emp, w-scaled(299), s30, scaled(279), s200);
+        drawAISpyOrders(g, emp, w-scaled(299), s30, scaled(279), scaled(205));
         drawTechnologyTitle(g, emp, s80, s260, w-s80-s90, s40);
         if (UserPreferences.texturesInterface()) 
             drawTexture(g,0,0,w,h);
@@ -729,23 +730,22 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
     private void drawAISpyOrders(Graphics2D g, Empire emp, int x, int y, int w, int h) {
         Empire pl = player();
         EmpireView view = pl.viewForEmpire(emp);
-        
         // no spy orders for new republic allies
         if (view.embassy().unity())
             return;
-        
+        SpyNetwork spies = view.spies();
         boolean treatyBreak = false;
         boolean triggerWar = false;
-        if (view.spies().maxSpies() > 0) {
-            if (!view.spies().isHide() && pl.alliedWith(emp.id))
+        if (spies.maxSpies() > 0) {
+            if (!spies.isHide() && pl.alliedWith(emp.id))
                 treatyBreak = true;
-            else if (view.spies().isSabotage() && pl.pactWith(emp.id))
+            else if (spies.isSabotage() && pl.pactWith(emp.id))
                 treatyBreak = true;  
         }
         
-        if (!view.embassy().anyWar() && (view.spies().maxSpies() > 0)
+        if (!view.embassy().anyWar() && (spies.maxSpies() > 0)
         && view.otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING)) {
-            if (!view.spies().isHide()
+            if (!spies.isHide()
             || (view.empire().leader().isXenophobic())) {
                 triggerWar = true;
             }
@@ -761,12 +761,36 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
         int x0 = x+((w-sw)/2);
         int y0 = y+s25;
         drawShadowedString(g, title, 1, x0, y0, SystemPanel.blackText, SystemPanel.whiteText);
-       
+
+        // Draw slider
         int y1 = y0+s10;
         int sliderH = s20;
         drawSpiesMissionButton(g, emp, treatyBreak || triggerWar, x+s40,y1,w-s80,sliderH);
+
+        // Draw Spy Bonus
+        Float lastSpyBonus		= spies.lastSpyBonus();
+        Float lastMissionBonus	= spies.lastMissionBonus();
+       	Float lastBonus = spies.isSabotage()? lastMissionBonus:lastSpyBonus;
         
-        int y2 = y1+sliderH+s10;
+        int yb = y1+sliderH+s20;
+        String bonusStr = text("RACES_INTEL_SPY_EFFICIENCY");
+        g.setColor(SystemPanel.whiteText);
+        g.setFont(narrowFont(15));
+        drawString(g, bonusStr, x+s60, yb);
+        
+        if (lastBonus==null)
+        	bonusStr = text("RACES_INTEL_NO_DATA");
+        else {
+        	int pct = (int) (100 * lastBonus);
+        	bonusStr = pct + "%";
+        }
+        sw = g.getFontMetrics().stringWidth(bonusStr);
+        g.setColor(SystemPanel.blackText);
+        drawString(g, bonusStr, x+w-sw-s60, yb);
+
+        // Draw Order description
+        // int y2 = y1+sliderH+s10;
+        int y2 = yb+s5;
 
         g.setColor(SystemPanel.blackText);
         g.setFont(narrowFont(15));
@@ -778,6 +802,7 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
             drawString(g,line, x+s15, y2);
         }
         
+        // Draw Warnings
         String desc2 = "";
         if (triggerWar) 
             desc2 = text("RACES_INTEL_SPY_WARNING_WAR");

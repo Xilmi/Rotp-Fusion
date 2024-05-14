@@ -73,6 +73,8 @@ public final class SpyNetwork implements Base, Serializable {
     private int threatened = 0;
     private SpyReport report = new SpyReport();
     private Integer lastSpyThreatReply; // BR: For the governor to know
+    private Float   lastSpyBonus;
+    private Float   lastMissionBonus;
     private transient List<StarSystem> baseTargets;
     private transient List<StarSystem> factoryTargets;
     private transient List<StarSystem> rebellionTargets;
@@ -112,12 +114,14 @@ public final class SpyNetwork implements Base, Serializable {
     		break;
     	}
     }
-    public void lastSpyThreatReply(int r) {  lastSpyThreatReply = r; }
+    public void lastSpyThreatReply(int r) { lastSpyThreatReply = r; }
     public int  lastSpyThreatReply()      {
     	if (lastSpyThreatReply == null)
     		lastSpyThreatReply = GOV_SPY_SHUTDOWN;
     	return lastSpyThreatReply;
     }
+    public Float lastSpyBonus()		 { return lastSpyBonus; }
+    public Float lastMissionBonus()	 { return lastMissionBonus; }
     public boolean govIgnoreThreat() { return lastSpyThreatReply() == GOV_SPY_IGNORE; }
     public boolean govHideSpy()      { return lastSpyThreatReply() == GOV_SPY_HIDE; }
     public boolean govShutdownSpy()  { return lastSpyThreatReply() == GOV_SPY_SHUTDOWN; }
@@ -324,6 +328,9 @@ public final class SpyNetwork implements Base, Serializable {
 
         lastSpyDate = galaxy().currentYear();
         updateTechList();
+        lastSpyBonus	 = -overallSecurityAdj(true); // Hiding and spying // smaller modifier = better
+        lastMissionBonus = spyInfiltrationAdj(); // bigger modifier = better
+
 
         boolean spyConfessed = sendSpiesToInfiltrate();
         
@@ -395,7 +402,7 @@ public final class SpyNetwork implements Base, Serializable {
     }
     private boolean sendSpiesToInfiltrate() {
         boolean confession = false;
-        float adj = overallSecurityAdj(false);
+        float adj = overallSecurityAdj(false); // Smaller is better
         List<Spy> spiesAttempting = new ArrayList<>(activeSpies());
         for (Spy spy: spiesAttempting) {
             spy.attemptInfiltration(adj);
@@ -410,7 +417,7 @@ public final class SpyNetwork implements Base, Serializable {
         return confession;
     }
     private void sendSpiesToAttemptMission() {
-        float adj = spyInfiltrationAdj();
+        float adj = spyInfiltrationAdj(); // bigger = better
         for (Spy spy: activeSpies)
             spy.attemptMission(adj);
     }

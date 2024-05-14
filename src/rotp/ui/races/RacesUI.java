@@ -329,16 +329,24 @@ public class RacesUI extends BasePanel {
         HelpUI.HelpSpec sp2 = helpUI.addBrownHelpText(x2, y2, w2, 4, text("RACES_HELP_4A"));
         sp2.setLine(x2+w2, y2+(sp2.height()/2), scaled(390), y2+(sp2.height()/2), scaled(450), scaled(220));
         
-        int x3 = w-scaled(525);
+        int x3 = w-scaled(650);
         int w3 = scaled(220);
         int y3 = scaled(250);
+        int x3a = x3+(w3/2);
         HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 7, text("RACES_HELP_4B"));
-        sp3.setLine(x3+(w3/2), y3, x3+(w3/2), scaled(150));
+        sp3.setLine(x3a, y3, x3a+s80, scaled(145));
         
         int x4 = scaled(255);
         int w4 = scaled(360);
         int y4 = scaled(445);
         helpUI.addBrownHelpText(x4, y4, w4, 3, text("RACES_HELP_4C"));
+
+        int x5 = x3 + w3 + s20;
+        int w5 = w3;
+        int y5 = y3;
+        int y5a = x5+(w5/2);
+        HelpUI.HelpSpec sp5 = helpUI.addBrownHelpText(x5, y5, w5, 5, text("RACES_HELP_4D"));
+        sp5.setLine(y5a, y5, y5a-s60, scaled(165));
     }
     private void loadHelpUI5() {
         int w = getWidth();
