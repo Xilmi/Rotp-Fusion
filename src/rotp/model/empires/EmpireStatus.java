@@ -43,6 +43,8 @@ public class EmpireStatus implements Base, Serializable {
     private float[] planetsF       = new float[TURNS];
     private float[] productionF    = new float[TURNS];
     private float[] powerF         = new float[TURNS];
+    private float[] technologyMaxF = new float[TURNS];
+
     public EmpireStatus (Empire e) {
         empire = e;
     }
@@ -94,6 +96,11 @@ public class EmpireStatus implements Base, Serializable {
     	}
     	return powerF;
     }
+    private float[] technologyMax() {
+    	if (technologyMaxF == null)
+    		technologyMaxF = technology().clone();
+    	return technologyMaxF;
+    }
     public String title(int cat) {
         switch (cat) {
             case EmpireStatus.FLEET      : return text("RACES_STATUS_FLEET_STRENGTH");
@@ -116,6 +123,7 @@ public class EmpireStatus implements Base, Serializable {
         planets()[turn] = currentPlanetsValue();
         production()[turn] = currentProductionValue();
         power()[turn] = currentPowerValue();
+        technologyMax()[turn] = currentMaxTechnologyValue();
     }
     public float[] values(int cat) {
         switch (cat) {
@@ -126,7 +134,7 @@ public class EmpireStatus implements Base, Serializable {
             case EmpireStatus.PRODUCTION : return production();
             case EmpireStatus.POWER      : return power();
         }
-        return null;
+        return technologyMax();
     }
     public int age(Empire viewer) {
             return galaxy().numberTurns() - lastViewTurn(viewer);
@@ -140,7 +148,7 @@ public class EmpireStatus implements Base, Serializable {
             case PRODUCTION: return valueFor(production(), lastViewTurn(viewer));
             case POWER:      return valueFor(power(), lastViewTurn(viewer));
         }
-        return 0;
+        return valueFor(technologyMax(), lastViewTurn(viewer));
     }
     public int lastTurnAlive() {
     		for (int i=1; i<populationF.length; i++)
@@ -170,6 +178,7 @@ public class EmpireStatus implements Base, Serializable {
         planetsF = larger(planets());
         productionF = larger(production());
         powerF = larger(power());
+        technologyMaxF = larger(technologyMax());
     }
     private float[] larger(float[] list) {
         float[] newList = new float[list.length+100];
@@ -190,6 +199,9 @@ public class EmpireStatus implements Base, Serializable {
     }
     private float currentTechnologyValue() {
         return (float)Math.ceil(empire.tech().avgTechLevel()); // BR: kept ceil to avoid compatibility issues
+    }
+    private float currentMaxTechnologyValue() {
+        return empire.tech().maxTechLevel();
     }
     public float currentPowerValue() {
         float tech = (float)Math.pow(1 / miniFastRate, empire.tech().avgTechLevel());

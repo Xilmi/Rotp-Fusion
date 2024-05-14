@@ -33,6 +33,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -42,13 +43,13 @@ import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.sprites.MapSprite;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.FastImage;
+import rotp.util.Rand;
 
 public class Nebula extends MapSprite implements IMappedObject, Serializable {
     private static final long serialVersionUID = 1L;
     private static final Color labelColor = new Color(255,255,255,64);
     private static final int shapeQuality = 10;
-    private	static int requestedQuality = 0;
-    private static List<String> nebulaeFiles = new ArrayList<>();
+    private static final List<String> nebulaeFiles = new ArrayList<>();
     private static List<String> randomFiles	 = new ArrayList<>();
     static {
     	nebulaeFiles.add("images/nebulae/the_lagoon_nebula.png");
@@ -62,6 +63,9 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     	nebulaeFiles.add("images/nebulae/cartwheel.png");
     	nebulaeFiles.add("images/nebulae/wr124_nebula.png");
     }
+    private	static int requestedQuality = 0;
+    private static Rand randNeb;
+    
     private Rectangle.Float shape;
     private Rectangle.Float innerShape;
     private int sysId = -1;
@@ -75,12 +79,17 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     private transient BufferedImage image;
     private transient int currentQuality;
 
-    public static void requestedQuality(int val) { requestedQuality = val; }
-    private boolean	isRealNebula()	       { return currentQuality > 0;}
+    static void reinit(double source)		{
+    	randomFiles.clear();
+    	randNeb = new Rand(source);
+    }
+    public static void requestedQuality(int val)	{ requestedQuality = val; }
 
-    private float width()                  { return width; }
-    private float height()                 { return height; }
-    public Rectangle.Float shape()         { return shape; }
+    @Override public Random rng()		{ return randNeb==null? super.rng(): randNeb;}
+    private boolean	isRealNebula()		{ return currentQuality > 0;}
+    private float width()				{ return width; }
+    private float height()				{ return height; }
+    //public Rectangle.Float shape()		{ return shape; }
     private String name() {
         if (sysId < 1)
             return "";
@@ -126,7 +135,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         }
     }
     public Nebula() { }
-    Nebula(boolean buildImage, float sizeMult) {
+    Nebula(float sizeMult, boolean buildImage) {
     	requestedQuality = options().selectedRealNebulaeSize();
     	currentQuality	 = requestedQuality;
         size = max(1, sizeMult);
@@ -402,7 +411,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
 	private String nextNebulaFile() {
 		if (randomFiles.isEmpty()) {
 			randomFiles.addAll(nebulaeFiles);
-	        Collections.shuffle(randomFiles);
+	        Collections.shuffle(randomFiles, rng());
 		}
 		return randomFiles.remove(0);
 	}
@@ -410,5 +419,29 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
 		nebulaFile	  = nextNebulaFile();
 		ImageIcon img = icon(nebulaFile);
 		return newBufferedImage(img.getImage());
+	}
+
+	public void drawNebula(Graphics2D g2, int xP, int yP, float factor)	{
+		int x0 = (int) (xP + x * factor);
+		int y0 = (int) (yP + y * factor);
+        int x1 = (int) (x0 + width * factor);
+        int y1 = (int) (y0 + height * factor);
+        if (isRealNebula()) {
+        	float opacity = options().realNebulaeOpacity();
+            Composite prevComp = g2.getComposite();
+            Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , opacity);
+            g2.setComposite(comp );
+            RenderingHints prevRender = g2.getRenderingHints();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+            g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+    		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+    		g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        	g2.drawImage(image(), x0, y0, x1, y1, 0, 0, image().getWidth(), image().getHeight(), null);
+            g2.setRenderingHints(prevRender);
+            g2.setComposite(prevComp);
+        }
+        else
+        	g2.drawImage(image(), x0, y0, x1, y1, 0, 0, image().getWidth(), image().getHeight(), null);
 	}
 }

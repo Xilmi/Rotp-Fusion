@@ -63,8 +63,16 @@ Later:
 
 ## What's New
 
-2024.05.11 (BR)
+2024.05.13 (BR)
+- Nebulae are shown in preview panel.
+- Nebulae follow the wysiwyg rule.
+- Empire status bar graph shows Max Tech when absolute value is selected, average otherwise. (As before)
+- Empire status line graph shows both max tech and average tech values.
+- Spending Panel shows when there is unused factories, and how many are missing.
+
+2024.05.12 (BR)
 - Added Last spy report age in contact panel.
+- Fixed nebula type wrongly saved globally. Now saved in game file. 
 
 2024.05.11 (BR)
 - New option for nebulae placement:

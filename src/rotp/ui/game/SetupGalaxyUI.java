@@ -79,6 +79,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -101,6 +102,7 @@ import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
+import rotp.model.galaxy.Nebula;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
@@ -394,6 +396,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private BufferedImage bigNullMug;
 
 	private boolean forceUpdate = true;
+//	private boolean showNebulae = true; // BR: ready for an option to disable
+	private List<Nebula> nebulas;
 
     // Local copy of the good sized race Mug, to avoid depending SetupRaceUI
     private BufferedImage[] bigOppMugs;
@@ -513,6 +517,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
         guiOptions().setAndGenerateGalaxy();
         clearMugs();
         backImg = null;
+        nebulas = null;
         repaint();
 	}
 	@Override public void clearImages() {
@@ -521,6 +526,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		boxMonoFont		= null;
 		dialogMonoFont	= null;
 		galaxyTextArray	= null;
+      	nebulas 		= null;
       	clearMugs();
     }
     private void clearMugs() {
@@ -1619,9 +1625,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		
 		String wysiwygLbl;
 		if (galaxyRandSource.get() == 0)
-			wysiwygLbl = "Random";
+			wysiwygLbl = text("SETTINGS_MOD_GALAXY_RAND_RANDOM");
 		else
-			wysiwygLbl = "Wysiwyg " + galaxyRandSource.guideValue();
+			wysiwygLbl = text("SETTINGS_MOD_GALAXY_RAND_WYSIWYG", galaxyRandSource.guideValue());
 		int wysiwygSW = g.getFontMetrics().stringWidth(wysiwygLbl);
 		if (wysiwygSW > wysiwygBox.width) {
 			wysiwygLbl = galaxyRandSource.guideValue();
@@ -2113,6 +2119,17 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			int yt = galaxyBox.y + s15;
 			drawString(g, spStr, xt, yt);
 		}
+		// BR: Add Nebulae
+		if (colored)
+			for (Nebula neb : nebulas())
+				neb.drawNebula(g, xOff, yOff, factor);
+	}
+	private List<Nebula> nebulas() {
+		if (nebulas == null) {
+			nebulas = new ArrayList<>(newGameOptions().numberNebula());
+			newGameOptions().galaxyShape().addNebulas(nebulas);
+		}
+		return nebulas;
 	}
 	private Color starColor(int i) {
 		switch(i % 4) {
@@ -2167,17 +2184,20 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			newGameOptions().selectedGalaxyShape(shapeSelection.get());
 		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
 		backImg = null; // BR: to show/hide system per empire
+		nebulas = null;
 		postSelectionLight(false);
 	}
 	public	void postSelectionFull(boolean click) {
 		if (click) softClick();
 		newGameOptions().galaxyShape().quickGenerate();
 		backImg = null;
+		nebulas = null;
 		postSelectionLight(false);
 	}
 	public	void postSelectionMedium(boolean click) {
 		if (click) softClick();
 		newGameOptions().galaxyShape().quickGenerate();
+		nebulas = null;
 		postSelectionLight(false);
 	}
 	public	void postSelectionLight(boolean click) {
@@ -2371,6 +2391,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (SwingUtilities.isMiddleMouseButton(e)) {
 			guiOptions().resetEmpireSpreadingFactor();
 			backImg = null;
+			nebulas = null;
 			postSelectionMedium(false);
 			//repaint(galaxyBox);
 			//refreshGui();
@@ -2488,6 +2509,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			log("Game Name; "+GameUI.gameName);
 			starting = false;
 			backImg = null;
+			nebulas = null;
 			playerMug  = null;
 			boxMonoFont    = null;
 			dialogMonoFont = null;
@@ -3214,7 +3236,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == wysiwygBoxL) {
 			galaxyRandSource.prev();
-			// postSelectionMedium(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverBox == wysiwygBox) {
 			galaxyRandSource.toggle(e, this);
@@ -3222,7 +3244,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == wysiwygBoxR) {
 			galaxyRandSource.next();
-			// postSelectionMedium(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == oppBoxU) {
 			aliensNumber.next();

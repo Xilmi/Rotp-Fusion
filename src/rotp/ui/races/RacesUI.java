@@ -391,7 +391,13 @@ public class RacesUI extends BasePanel {
         helpUI.addBrownHelpText(x4, y3, w3, 3, text("RACES_HELP_6C"));
         
         int x5 = x4+barW;
-        helpUI.addBrownHelpText(x5, y3, w3, 3, text("RACES_HELP_6D"));
+        int y5 = y3 - 3*s18;
+        if (selectedEmpire().isPlayer()) {
+            helpUI.addBrownHelpText(x5, y5, w3, 6, text("RACES_HELP_6D"));
+        }
+        else {
+            helpUI.addBrownHelpText(x5, y5, w3, 6, text("RACES_HELP_6Dg"));
+        }
         
         int y6 = y3+barH;
         helpUI.addBrownHelpText(x3, y6, w3, 3, text("RACES_HELP_6E"));

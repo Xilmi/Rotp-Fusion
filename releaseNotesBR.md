@@ -14,6 +14,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option for improving the planet in the center of the nebulae:
   - None, Less, Normal, More, Always.
 - Added Last spy report age in contact panel.
+- Nebulae are shown in preview panel.
+- Nebulae follow the wysiwyg rule.
+- Empire status bar graph shows Max Tech when absolute value is selected, average otherwise. (As before)
+- Empire status line graph shows both max tech and average tech values.
+- Spending Panel shows when there is unused factories, and how many are missing.
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -103,7 +109,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option for improving the planet in the center of the nebulae:
   - None, Less, Normal, More, Always.
 - Added Last spy report age in contact panel.
-
+- Nebulae are shown in preview panel.
+- Nebulae follow the wysiwyg rule.
+- Empire status bar graph shows Max Tech when absolute value is selected, average otherwise. (As before)
+- Empire status line graph shows both max tech and average tech values.
+- Spending Panel shows when there is unused factories, and how many are missing.
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.

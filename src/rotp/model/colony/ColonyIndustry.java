@@ -366,9 +366,90 @@ public class ColonyIndustry extends ColonySpendingCategory {
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }   
+    public float[] factoryBalance()	 {
+       	float workingPopulation  = colony().workingPopulation();
+       	float upcomingPopGrowth  = colony().ecology().upcomingPopGrowth();
+       	float incomingTransports = colony().incomingTransports();
+    	float expectedPopulation = workingPopulation + upcomingPopGrowth + incomingTransports;
+    	float neededFactories	 = effectiveRobotControls() * expectedPopulation;
+    	float upcomingFactories	 = upcomingFactories();
+    	float expectedFactories	 = upcomingFactories + factories;
+    	float factoryBalance	 = expectedFactories - neededFactories;
+    	float maxFactories		 = maxBuildableFactories();
+    	return new float[] {factoryBalance, upcomingFactories, factories, maxFactories};
+    }
     //
     // PRIVATE METHODS
     //
+    private float upcomingFactories() {
+        if (colony().allocation(categoryType()) == 0)
+            return 0;
+
+        float prodBC = pct()* colony().totalProductionIncome() * planet().productionAdj();
+        float rsvBC = pct() * colony().maxReserveIncome();
+        float newBC = prodBC+rsvBC+industryReserveBC;
+        int colonyControls = min(robotControls, tech().baseRobotControls());
+        float builtFactories = factories;
+
+        if (newBC <= 0)
+            return 0;
+ 
+        // cost to build up to max usable factories
+        float possibleNewFactories = 0;
+ 
+        int previouslyConvertedFactories = 0;
+        
+        while ((newBC > 0) && (colonyControls <= tech().baseRobotControls())) {
+            // how many total factories can we have at current controls?
+            float buildableFactories = maxBuildableFactories(colonyControls);
+            
+            // if we already have that many factories, then upgrade robotic controls if possible 
+            if (buildableFactories <= builtFactories) {
+                if (colonyControls == tech().baseRobotControls())
+                    break; // no more robotic control upgrades, so quit
+                if (newBC > 0) {
+                    float upgradeCost = 0;
+                    float factoriesToRefit = buildableFactories;
+                    if (!empire().ignoresFactoryRefit())
+                        upgradeCost = factoriesToRefit * tech().baseFactoryCost() / 2;
+                    // not enough to upgrade? save off BC for next turn and exit
+                    if (upgradeCost > newBC) 
+                        return possibleNewFactories;
+                    else {
+                        // pay to upgrade all factories to new RC at once
+                        newBC -= upgradeCost;
+                        colonyControls++;
+                        buildableFactories = maxBuildableFactories(colonyControls);
+                    }
+                }
+            }          
+            // first, try to convert existing alien factories to our max build limit
+            if (builtFactories < buildableFactories) {
+                int convertableFactories = convertableAlienFactories(colonyControls)-previouslyConvertedFactories;
+                if (convertableFactories > 0) {
+                    float totalConvertCost = convertableFactories * factoryConversionCost();
+                    float convertCost = min(newBC, totalConvertCost);
+                    float delta = convertCost/factoryConversionCost();
+                    newBC -= convertCost;
+                    possibleNewFactories += delta;
+                    builtFactories += delta;
+                    previouslyConvertedFactories += delta;
+                }
+            }
+            // second, try to build new factories at current controls
+            if (builtFactories < buildableFactories) {
+                float costPerFactory = tech().newFactoryCost(colonyControls);
+                float factoriesToBuild = buildableFactories-builtFactories;
+                float totalBuildCost = factoriesToBuild * costPerFactory;
+                float buildCost = min(newBC, totalBuildCost);
+                float delta = buildCost/costPerFactory;
+                possibleNewFactories += delta;
+                builtFactories += delta;
+                newBC -= buildCost;             
+            }
+        }
+        return possibleNewFactories;
+    }
     private float factoryConversionCost()    { return 2; }
     // private boolean hasAlienFactories()       { return planet().numAlienFactories() > 0; }
     private float totalAlienConversionCost() { 

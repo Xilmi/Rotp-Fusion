@@ -50,6 +50,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
     static Color sliderButtonHiC = new Color(199,199,11);
     static final Color sliderBoxBlue = new Color(34,140,142);
     static Stroke dashedLineStroke;
+    static Stroke dotedLineStroke;
 
     private final RacesUI parent;
     Shape hoverShape;
@@ -70,6 +71,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
     public RacesStatusUI(RacesUI p) {
         parent = p;
         dashedLineStroke = new BasicStroke(s2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{3}, 0);
+        dotedLineStroke = new BasicStroke(s1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{s2, s4}, 0);
         initModel();
     }
     public void init() {
@@ -404,8 +406,12 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
             g.draw(dataBoxes[num]);
             g.setStroke(prev);
         }
-             
-        getEmpireListing(num);
+        boolean absolute = options().raceStatusViewValue();
+        boolean maxTech  = num == EmpireStatus.TECHNOLOGY && absolute;
+        if (maxTech)
+            getEmpireListing(99);
+        else
+        	getEmpireListing(num);
         
         float maxValue	= vals.get(0).value;
         float minValue	= maxValue;
@@ -436,13 +442,10 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
 
         float playerVal	= player().status().lastViewValue(player(), num);
         float norm = 1;
-        boolean absolute = false;
         if (opts.raceStatusViewPlayer())
         	norm = 100/playerVal;
         else if (opts.raceStatusViewTotal())
         	norm = 100/sumValues;
-        else
-        	absolute = true;
 
         for (RaceValue rv: vals) {
             if (rv.value < 0) {
@@ -467,7 +470,10 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
                 float pct = rv.value * norm;
                 String val = "";
                 if (absolute)
-                	val = str(Math.round(pct));
+                	if (maxTech)
+                		val= df1.format(pct);
+                	else
+                		val = str(Math.round(pct));
                 else if (pct >= 10)
                 	val = str(Math.round(pct));
                 else
@@ -598,8 +604,19 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         g.setColor(RacesUI.darkerBrown);
         g.fillRect(x1, y1, w1, h1);
 
-        float[] playerVals = scaleVal(player().status().values(cat));
-        float[] empireVals = scaleVal(parent.selectedEmpire().status().values(cat));
+        boolean dualView = cat == EmpireStatus.TECHNOLOGY;
+        float[] playerVals, empireVals, playerHigh, empireHigh;
+        playerVals = scaleVal(player().status().values(cat));
+        empireVals = scaleVal(parent.selectedEmpire().status().values(cat));
+        if (dualView) {
+            playerHigh = scaleVal(player().status().values(99));
+            empireHigh = scaleVal(parent.selectedEmpire().status().values(99));        	
+        }
+        else {
+            playerHigh = playerVals;
+            empireHigh = empireVals;        	
+        }
+
         int totalTurns = galaxy().numberTurns();
         int empireTurns = parent.selectedEmpire().status().lastViewTurn(player());
         int displayW = w1-rSpacing-lSpacing;
@@ -609,19 +626,31 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         float maxYValue = 0;
         float minYValue = Float.MAX_VALUE;
         for (int i=1;i<=totalTurns;i++) {
-        	maxYValue = Math.max(playerVals[i], maxYValue);
+        	maxYValue = Math.max(playerHigh[i], maxYValue);
         	minYValue = Math.min(playerVals[i], minYValue);
         }
         for (int i=1;i<=empireTurns;i++) {
-        	maxYValue = Math.max(empireVals[i], maxYValue);
+        	maxYValue = Math.max(empireHigh[i], maxYValue);
         	if (empireVals[i] > 0)
         		minYValue = Math.min(empireVals[i], minYValue);
         }
         if (options().selectedRaceStatusLog()) {
-            for (int i=1;i<=totalTurns;i++)
-            	playerVals[i] -= minYValue;
-            for (int i=1;i<=empireTurns;i++)
-            	empireVals[i] -= minYValue;
+        	if (dualView) {
+                for (int i=1;i<=totalTurns;i++) {
+                	playerVals[i] -= minYValue;
+                	playerHigh[i] -= minYValue;
+                }
+                for (int i=1;i<=empireTurns;i++) {
+                	empireVals[i] -= minYValue;
+                	empireHigh[i] -= minYValue;
+                }
+        	}
+        	else {
+                for (int i=1;i<=totalTurns;i++)
+                	playerVals[i] -= minYValue;
+                for (int i=1;i<=empireTurns;i++)
+                	empireVals[i] -= minYValue;
+        	}
         	maxYValue -= minYValue;
         }
         
@@ -629,9 +658,42 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         int startY = y1+h1-bSpacing; // y-location for pt values = 0
         int maxPtSpacing = s20;
         Stroke prevStroke = g.getStroke();
-        g.setStroke(stroke2);
         g.setFont(font(18));
 
+        if (dualView) {
+        	g.setStroke(dotedLineStroke);
+            // DRAW SELECTED EMPIRE
+            g.setColor(parent.selectedEmpire().color());
+            int prevX = startX;
+            int prevY = -1;
+            for (int i=1;i<=empireTurns;i++) {
+                int ptX = startX+(displayW*i/totalTurns);
+                if ((ptX - prevX) > maxPtSpacing)
+                    ptX = prevX + maxPtSpacing;
+                int ptY = maxYValue == 0 ? 0 : startY-(int)(displayH*empireHigh[i]/maxYValue);
+                if (prevY >= 0)
+                    g.drawLine(prevX, prevY, ptX, ptY);
+                prevX = ptX;
+                prevY = ptY;
+            }
+            	
+            // DRAW PLAYER
+            g.setColor(player().color());
+            prevX = startX;
+            prevY = -1;
+            for (int i=1;i<=totalTurns;i++) {
+                int ptX = startX+(displayW*i/totalTurns);
+                if ((ptX - prevX) > maxPtSpacing)
+                    ptX = prevX + maxPtSpacing;
+                int ptY = maxYValue == 0 ? 0 : startY-(int)((float)displayH*playerHigh[i]/maxYValue);
+                if (prevY >= 0)
+                    g.drawLine(prevX, prevY, ptX, ptY);
+                prevX = ptX;
+                prevY = ptY;
+            }        	
+        }
+
+        g.setStroke(stroke2);
         // DRAW SELECTED EMPIRE
         g.setColor(parent.selectedEmpire().color());
         String name = parent.selectedEmpire().raceName();
@@ -649,7 +711,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
             prevX = ptX;
             prevY = ptY;
         }
-
+        	
         // DRAW PLAYER
         g.setColor(player().color());
         drawString(g,player().raceName(), startX, startY-displayH);

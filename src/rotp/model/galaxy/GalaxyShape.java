@@ -63,7 +63,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private float sysBuffer = 1.9f;
 	int numEmpires;
 	private int numOpponents;
-	Rand randRnd = new Rand(random()); // For random option selection purpose
+	private Rand randRnd = new Rand(random()); // For random option selection purpose
 	Rand rand	 = new Rand(random()); // For other than location purpose
 	Rand randX	 = new Rand.RandX(random()); // For X and R
 	Rand randY	 = new Rand.RandY(random());  // for Y and Angle
@@ -108,7 +108,6 @@ public abstract class GalaxyShape implements Base, Serializable {
         isSymmetric = (finalOption1 != null && finalOption1.contains("SYMMETRIC"))
         		|| (finalOption2 != null && finalOption2.contains("SYMMETRIC"));		
 	}
-
 	public String randomOption()	{ return RANDOM_OPTION; }
 	public int width()	{ return fullWidth; }
 	public int height() { return fullHeight; }
@@ -486,7 +485,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		clean();
 	}
 	public void quickGenerate() {
-		if (options().selectedGalaxyRandSource() == 0 || !allowExtendedPreview())
+		if (opts.selectedGalaxyRandSource() == 0 || !allowExtendedPreview())
 			generate(false);
 		else
 			generate(true);
@@ -743,6 +742,95 @@ public abstract class GalaxyShape implements Base, Serializable {
 		}
 		return false;
 	}
+	// ##### Nebulae Management
+	// BR: Moved here from galaxy, for preview purpose
+	public void addNebulas(List<Nebula> nebulas) {
+		int numNebula = opts.numberNebula();
+		float nebSize = opts.nebulaSizeMult();
+		Nebula.reinit(opts.selectedGalaxyRandSource());
+		// add the nebulae
+		// for each nebula, try to create it at the options size
+		// in unsuccessful, decrease option size until it is
+		// less than 1 or less than half of the option size
+		for (int i=0; i<numNebula; i++) {
+			float size = nebSize;
+			boolean added = false;
+			while(!added) {
+				added = addNebula(size, nebulas);
+				if (!added) {
+					size--;
+					added = size < 1;
+				}
+			}
+		}
+	}
+    // BR: may be used later for a preview
+    private boolean addNebula(float nebSize, List<Nebula> nebulas) {
+    	int numTentatives = opts.nebulaCallsBeforeShrink();
+    	for (int i=0; i<numTentatives; i++) {
+    		Nebula neb = tryAddNebula(nebSize, nebulas);
+    		if ( neb != null) {
+    			nebulas.add(neb);
+    			return true;    			
+    		}
+    	}
+    	return false;
+    }
+	private Nebula tryAddNebula(float nebSize, List<Nebula> nebulas) {
+        // each nebula creates a buffered image for display
+        // after we have created 5 nebulae, start cloning
+        // existing nebulae (add their images) when making
+        // new nebulae
+        int MAX_UNIQUE_NEBULAS = 16;
+        boolean anywhere = options().anywhereNebula();
+        Point.Float pt	 = new Point.Float();
+        getPointFromRandomStarSystem(pt);
+        
+        Nebula neb;
+        if (nebulas.size() < MAX_UNIQUE_NEBULAS)
+            neb = new Nebula(nebSize, true);
+        else
+            neb = random(nebulas).copy();
+        
+        float w = neb.adjWidth();
+        float h = neb.adjHeight();
+        // BR: Needed by Bitmap Galaxies
+        // Center the nebula on the star
+    	pt.x -= w/2;
+    	pt.y -= h/2;
+        if (!anywhere && !valid(pt))
+        	return neb.cancel();
+
+        neb.setXY(pt.x, pt.y);
+        if (!anywhere) {
+            float x = pt.x;
+            float y = pt.y;
+            if (!valid(x+w, y))
+            	return neb.cancel();
+            if (!valid(x+w, y+h))
+            	return neb.cancel();
+            if (!valid(x, y+h))
+            	return neb.cancel();
+        }
+        if (options().neverNebulaHomeworld())
+	        for (EmpireSystem sys : empSystems)
+	            if (sys.inNebula(neb))
+	            	return neb.cancel();
+
+        if (options().selectedRealNebulae()) {
+            // don't add nebulae to close to an existing nebula
+            for (Nebula existingNeb: nebulas)
+                if (existingNeb.isToClose(neb))
+                	return neb.cancel();
+        }
+        else {
+            // don't add classic nebulae whose center point is in an existing nebula
+            for (Nebula existingNeb: nebulas)
+                if (existingNeb.contains(neb.centerX(), neb.centerY()))
+                	return neb.cancel();
+        }    	
+        return neb;
+    }
 	// ========================================================================
 	// Nested Classes
 	//

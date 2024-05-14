@@ -327,13 +327,12 @@ public class EmpireColonySpendingPane extends BasePanel {
             g.setColor(c2);
             g.fillRect(boxL+boxBorderW(), boxTopY, boxW-(2*boxBorderW()), boxH);
 
-            if (colony.warning(category))  
-                g.setColor(c1a);
+            if (colony.warning(category))
+           		g.setColor(c1a);
             else
                 g.setColor(c1);
             
             Rectangle fillRect;
-            
             
             if (pct == 1)           
                 fillRect = new Rectangle(boxL+boxBorderW(), boxTopY+s2, boxW-(2*boxBorderW()), boxH-s3);
@@ -342,6 +341,33 @@ public class EmpireColonySpendingPane extends BasePanel {
                 
             g.fill(fillRect);
 
+            if (category == Colony.INDUSTRY)  {
+            	float[] factoryBalance = colony.industry().factoryBalance();
+            	float balance	= factoryBalance[0];
+            	float upcoming	= factoryBalance[1];
+            	float factories	= factoryBalance[2];
+            	float max		= factoryBalance[3];
+            	String indStr = df1.format(Math.abs(balance));
+            	boolean warning = factories == max && upcoming > 0;
+            	warning |= factories != max && balance > 0;
+            	if (warning && !colony.isGovernor()) {
+                	if (balance > 0) {
+                		indStr = text("MAIN_COLONY_SPENDING_UNUSED_FACT", df1.format(balance));
+                		g.setColor(Color.ORANGE);
+                		g.fill(fillRect);
+    	            	g.setColor(Color.GRAY);
+                	}
+                	else {
+                		indStr = text("MAIN_COLONY_SPENDING_NEEDED_FACT", df1.format(-balance));
+    	            	g.setColor(Color.LIGHT_GRAY);
+                	}
+	            	g.setFont(narrowFont(14));
+	            	int sw1 = g.getFontMetrics().stringWidth(indStr);
+	            	int x1 = (boxW-sw1)/2;
+	            	drawString(g, indStr, boxL+x1, boxTopY+boxH-s4);
+            	}
+            }
+            
             if (category == Colony.ECOLOGY)  {
                 int popGrowth = colony.ecology().upcomingPopGrowth();
                 g.setFont(narrowFont(14));

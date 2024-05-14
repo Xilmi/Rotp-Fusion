@@ -835,6 +835,8 @@ MAIN_COLONY_SPENDING_TECH         | Tech
 MAIN_COLONY_SPENDING_CONVERT      | Convert
 MAIN_COLONY_SPENDING_REFIT        | Refit
 MAIN_COLONY_SPENDING_MAX_FACT     | Max
+MAIN_COLONY_SPENDING_UNUSED_FACT  | %1 over
+MAIN_COLONY_SPENDING_NEEDED_FACT  | Need %1
 MAIN_COLONY_SPENDING_WASTE        | Waste
 MAIN_COLONY_SPENDING_ECO_GROWTH   | Growth %1
 MAIN_COLONY_SPENDING_ATMOSPHERE   | Atmo
@@ -2927,6 +2929,8 @@ SETTINGS_MOD_AUTO_FLAG_VESTIGES_NONE     | None Color: %1
 SETTINGS_MOD_GALAXY_RAND_SOURCE_HELP     | By default, the preview gives only an global idea of the galaxy you will get. By setting a value other than "Random", the preview will display the final galaxy. Use this to avoid configurations you won't like... To far from Orion... To close to the center... or tor far! etc...
 SETTINGS_MOD_GALAXY_RAND_SOURCE_DESC     | if <> 0, this number will be used as source for the galaxy random generator. The final galaxy will be the preview one.<br>This option will unlock the galaxy preview size limitation (5000). Be ready for long generation time with "Insane" and above galaxies!
 SETTINGS_MOD_GALAXY_RAND_SOURCE          | Random or Wysiwyg: %1
+SETTINGS_MOD_GALAXY_RAND_RANDOM          | Random
+SETTINGS_MOD_GALAXY_RAND_WYSIWYG         | Wysiwyg %1
 
 SETTINGS_MOD_AUTO_TERRAFORM_ENDING_DESC  | When in terraforming mode, what will trigger the end of the Eco boost?
 SETTINGS_MOD_AUTO_TERRAFORM_ENDING       | Terraform End: %1
@@ -3774,7 +3778,8 @@ RACES_HELP_6A                     | This screen provides a current ranking, in v
 RACES_HELP_6A2                    | This screen provides a historical comparison, in various categories, of our empire to a selected empire. This data is gathered from our spy networks within those empires.
 RACES_HELP_6B                     | Fleet Strength - combines number and size of ships.
 RACES_HELP_6C                     | Population - total population of all colonized systems.
-RACES_HELP_6D                     | Technology - average level of technology in all areas of research.
+RACES_HELP_6D                     | Technology - average level of technology in all areas of research.<br>The maximum level of technology is shown when "Absolute" value is secleted.
+RACES_HELP_6Dg                    | Technology - average level of technology in all areas of research.<br> The dotted line shows the maximum level of technology.
 RACES_HELP_6E                     | Planets - the number of colonized systems.
 RACES_HELP_6F                     | Production - total industrial production for the empire.
 RACES_HELP_6G                     | Total Power - a combination of fleet strength, technology and production levels.

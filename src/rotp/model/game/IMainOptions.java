@@ -416,7 +416,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 
 	ParamInteger realNebulaeSize	= new ParamInteger(MOD_UI, "REAL_NEBULAE_SIZE", 0, 0, 5, 1, 1, 1) {
 		{
-			isCfgFile(true);
+			isCfgFile(false);
 			specialZero(MOD_UI + "REAL_NEBULAE_NO");
 			loop(true);
 		}
@@ -431,7 +431,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default boolean selectedRealNebulae()	{ return realNebulaeSize.get() != 0; }
 
 	ParamBoolean realNebulaShape	= new ParamBoolean(MOD_UI, "REAL_NEBULAE_SHAPE", true)
-	{	{ isCfgFile(true); } };
+	{	{ isCfgFile(false); } };
 	default boolean realNebulaShape()	{ return realNebulaShape.get(); }
 
 	ParamInteger realNebulaeOpacity	= new ParamInteger(MOD_UI, "REAL_NEBULAE_OPACITY", 60, 10, 100, 1, 5, 20)
