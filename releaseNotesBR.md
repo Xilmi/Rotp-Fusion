@@ -2,10 +2,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Empire Intelligence Panel
-  - Added Latest reported spy bonuses for related missions.
-  - Based on the latest reported technology and security levels.
-  - Added distinction between (Likelihood / Impact)
+- Console:
+  - Intercepted Bombard pop-up.
+- Fixed Spending panel unused factories wrong value when refitting.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -196,4 +195,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed War View showing invisible ship:
   - Fleet with both visible and invisible ship will only show the visible one.
 - Fixed Military panel not properly initialised when reloading a game.
+- Fixed Spending panel unused factories wrong value when refitting.
 - minor fixes...

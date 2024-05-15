@@ -24,12 +24,18 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
+import rotp.ui.console.CommandConsole;
+import rotp.ui.console.IConsole;
+import rotp.ui.console.IConsoleListener;
+import rotp.ui.console.IConsoleListener.ConsoleOptions;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
@@ -39,7 +45,7 @@ import rotp.ui.sprites.BombardYesSprite;
 import rotp.ui.sprites.ClickToContinueSprite;
 import rotp.ui.sprites.MapSprite;
 
-public class MapOverlayBombardPrompt extends MapOverlay {
+public class MapOverlayBombardPrompt extends MapOverlay implements IConsoleListener {
     static final Color destroyedTextC = new Color(255,32,32,192);
     static final Color destroyedMaskC = new Color(0,0,0,160);
     Color maskC  = new Color(40,40,40,160);
@@ -86,6 +92,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         parent.repaint();
         estKills = Math.round(fl.expectedBombardDamage(false) / 200f);
         estFactoryKills = Math.round(fl.expectedBombardDamage(true) / 50f);
+        initConsoleSelection();
     }
     private StarSystem starSystem() {
         return galaxy().system(sysId);
@@ -133,6 +140,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             endPop = pl.sv.population(sysId);
             endBases = pl.sv.bases(sysId);
             endFact = pl.sv.factories(sysId);
+            initConsoleReport();
         }
     }
     private void bombard() {
@@ -145,6 +153,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             endPop = pl.sv.population(sysId);
             endBases = pl.sv.bases(sysId);
             endFact = pl.sv.factories(sysId);
+            initConsoleReport();
         }
     }
     @Override
@@ -626,4 +635,128 @@ public class MapOverlayBombardPrompt extends MapOverlay {
                 parent.toggleFlagColor(false);
         };
     }
+
+    // ##### Console Tools
+    @Override public void consoleEntry()				{ advanceMap(); }
+    @Override public List<ConsoleOptions> getOptions()	{
+		List<ConsoleOptions> options = new ArrayList<>();
+        boolean targetOK = options().targetBombardAllowedForPlayer();
+		if (bombarded)
+			options.add(new ConsoleOptions(KeyEvent.VK_ESCAPE, "C", "Continue"));
+		else {
+			if (targetOK) {
+				options.add(new ConsoleOptions(KeyEvent.VK_Y, "Y", "Yes, Drop all the bombs."));
+				String targetStr = text("MAIN_BOMBARD_TARGET", options().selectedBombingTarget());
+				options.add(new ConsoleOptions(KeyEvent.VK_L, "L", "Limited, " + targetStr));
+			}
+			else
+				options.add(new ConsoleOptions(KeyEvent.VK_Y, "Y", "Yes, Drop the bombs."));
+			options.add(new ConsoleOptions(KeyEvent.VK_N, "N", "No, do not bombard the planet."));
+		}
+		
+		return options;
+	}
+	@Override public String getMessage()				{
+        StarSystem sys = galaxy().system(sysId);
+        Empire player = player();
+
+        //boolean targetOK = options().targetBombardAllowedForPlayer();
+        String sysName = player().sv.name(sys.id);
+
+        // draw header info
+        String message = displayYearOrTurn();
+        message += IConsole.SPACER + sysName;
+
+        if (bombarded) {
+        	message += IConsole.SPACER + text("MAIN_BOMBARD_COMPLETE");
+        }
+        else {
+	    	String titleStr = text("MAIN_BOMBARD_TITLE", sysName);
+	        if(!fleet.empire().atWarWith(sys.empId()))
+	            titleStr = text("NEUTRAL_BOMBARD_TITLE", sysName);
+	        titleStr = sys.empire().replaceTokens(titleStr, "alien");
+	        message += IConsole.SPACER + titleStr;
+	        if (transports > 0) {
+	            String subtitleStr = text("MAIN_BOMBARD_TROOPS", str(transports));
+	            subtitleStr = player().replaceTokens(subtitleStr, "alien");
+	            message += subtitleStr;
+	        }
+        }
+        // planet name
+        message += NEWLINE + sysName;
+
+        // draw planet info, from bottom up
+        message += NEWLINE;
+        if (player.sv.isUltraPoor(sys.id))
+        	message += " " + text("MAIN_SCOUT_ULTRA_POOR_DESC");
+        else if (player.sv.isPoor(sys.id))
+        	message += " " + text("MAIN_SCOUT_POOR_DESC");
+        else if (player.sv.isRich(sys.id))
+        	message += " " + text("MAIN_SCOUT_RICH_DESC");
+        else if (player.sv.isUltraRich(sys.id))
+        	message += " " + text("MAIN_SCOUT_ULTRA_RICH_DESC");
+
+        if (player.sv.isOrionArtifact(sys.id))
+        	message += " " + text("MAIN_SCOUT_ANCIENTS_DESC");
+        else if (player.sv.isArtifact(sys.id))
+        	message += " " + text("MAIN_SCOUT_ARTIFACTS_DESC");
+
+        if (player.isEnvironmentHostile(sys)) 
+        	message += " " + text("MAIN_SCOUT_HOSTILE_DESC");
+        else if (player.isEnvironmentFertile(sys))
+        	message += " " + text("MAIN_SCOUT_FERTILE_DESC");
+        else if (player.isEnvironmentGaia(sys))
+        	message += " " + text("MAIN_SCOUT_GAIA_DESC");
+
+        // classification line
+        if (sys.planet().type().isAsteroids())
+        	message += " " + text("MAIN_SCOUT_NO_PLANET");
+        else
+        	message += " " + text("MAIN_SCOUT_TYPE", text(sys.planet().type().key()), (int)sys.planet().maxSize());
+
+    	// draw top data line
+        String dmgStr = text("MAIN_BOMBARD_DMG", "-99");
+        String popStr = text("MAIN_BOMBARD_POPULATION", endPop);
+        String factStr = text("MAIN_BOMBARD_FACTORIES", endFact);
+        String baseStr = text("MAIN_BOMBARD_BASES", endBases);
+        String shieldStr = text("MAIN_BOMBARD_SHIELD", shield);
+
+        message += NEWLINE + popStr;
+        if (endPop < pop)
+        	 message += " Casualties " + text("MAIN_BOMBARD_DMG", str(pop-endPop));
+        else if (!bombarded)
+        	 message += " Estimated kill " + text("MAIN_BOMBARD_DMG", estKills);
+
+        message += NEWLINE + factStr + " ";
+        if (endFact < fact)
+        	message += " Damage " + text("MAIN_BOMBARD_DMG", str(fact-endFact));
+        else if(!bombarded)
+        	message += " Estimated Damage " + text("MAIN_BOMBARD_DMG", estFactoryKills);
+
+        message += NEWLINE + baseStr + " ";
+        if (endBases < bases)
+        	message += " Damage " + text("MAIN_BOMBARD_DMG", str(bases-endBases));
+        message += NEWLINE + shieldStr + " ";
+
+        // print prompt string
+    	if (sys.empire() == null)
+            message += NEWLINE + text("MAIN_BOMBARD_DESTROYED");
+
+        if (bombarded) {
+        	if (sys.empire() == null)
+                message += NEWLINE + text("MAIN_BOMBARD_DESTROYED");
+        	message += NEWLINE + "Enter any command to continue";
+        }
+        else {
+            String promptStr = text("MAIN_BOMBARD_PROMPT");
+            if(fleet.empire().atWarWith(sys.empId()))
+            	message += NEWLINE + "We are at war with this empire";
+            else
+            	message += NEWLINE + "We are not at war with this empire";
+        	message += NEWLINE + promptStr;
+        	message += NEWLINE + getMessageOption();
+        }
+ 
+		return message;
+	}
 }

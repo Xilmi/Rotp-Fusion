@@ -34,6 +34,7 @@ public interface IConsole extends Base {
 	String MENU_KEY			= "M";
 	String OPTION_KEY		= "O";
 	String SETTING_KEY		= "S";
+	String TECHNOLOGY_KEY	= "TECH";
 
 	String COL_TOGGLE_GOV		= "TG";
 	String COL_SHIP_SPENDING	= "S";
@@ -77,6 +78,13 @@ public interface IConsole extends Base {
 	String EMP_FINANCES		= "F";
 	String EMP_DEV_COLONIES	= "D";
 	String EMP_ALL_COLONIES	= "A";
+	// TECH
+	String TECH_COMPUTER	= "CPU";
+	String TECH_CONSTRUCTION= "CONST";
+	String TECH_FORCE_FIELDS= "FF";
+	String TECH_PLANETOLOGY	= "ECO";
+	String TECH_PROPULSION	= "PROP";
+	String TECH_WEAPON		= "W";
 	
 
 //	##### TOOLS #####

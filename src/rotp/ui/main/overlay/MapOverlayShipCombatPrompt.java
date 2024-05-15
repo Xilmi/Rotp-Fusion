@@ -835,7 +835,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IConsoleLi
 	}
 	@Override public String getMessage() {
     	Empire aiEmpire	= mgr.results().aiEmpire();
-    	Empire pllayer	= player();
+    	Empire player	= player();
         StarSystem sys	= galaxy().system(sysId);
     	String message	= displayYearOrTurn();
     	String titleStr;
@@ -852,7 +852,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IConsoleLi
         for(CombatStack st : mgr.activeStacks()) {
             int putVal = st.num;
             if (st.isShip()) {
-                if (st.empire == pllayer) {
+                if (st.empire == player) {
                     if (mySizes.containsKey(st.design().sizeDesc()))
                         putVal += mySizes.get(st.design().sizeDesc());
                     mySizes.put(st.design().sizeDesc(), putVal);
@@ -864,7 +864,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IConsoleLi
                 }
             }
             else if (st.isColony() && st.isArmed()) {
-                if (st.empire == pllayer)
+                if (st.empire == player)
                     mySizes.put(text("MAIN_COLONY_BASES"), putVal);
                 else
                     aiSizes.put(text("MAIN_COLONY_BASES"), putVal);
@@ -879,7 +879,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IConsoleLi
        
         // if unscouted, no planet info
         message += NEWLINE + "System Info:";
-        boolean scouted = pllayer.sv.isScouted(sys.id);
+        boolean scouted = player.sv.isScouted(sys.id);
         if (scouted) {
         	//message += lineSplit + CommandConsole.cc().viewSystemInfo(sys, false);
         	message += NEWLINE + CommandConsole.systemInfo(sys);

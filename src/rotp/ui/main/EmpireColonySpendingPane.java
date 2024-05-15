@@ -43,6 +43,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import rotp.model.colony.Colony;
+import rotp.model.colony.ColonyIndustry;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GovernorOptions;
 import rotp.ui.BasePanel;
@@ -342,15 +343,20 @@ public class EmpireColonySpendingPane extends BasePanel {
             g.fill(fillRect);
 
             if (category == Colony.INDUSTRY)  {
-            	float[] factoryBalance = colony.industry().factoryBalance();
+            	ColonyIndustry industry = colony.industry();
+            	float[] factoryBalance = industry.factoryBalance();
             	float balance	= factoryBalance[0];
-            	float upcoming	= factoryBalance[1];
-            	float factories	= factoryBalance[2];
-            	float max		= factoryBalance[3];
-            	String indStr = df1.format(Math.abs(balance));
-            	boolean warning = factories == max && upcoming > 0;
-            	warning |= factories != max && balance > 0;
-            	if (warning && !colony.isGovernor()) {
+            	// float upcoming	= factoryBalance[1];
+            	// float needed	= factoryBalance[2];
+            	// float factories	= factoryBalance[3];
+            	// float max		= factoryBalance[4];
+            	String indStr	= df1.format(Math.abs(balance));
+            	// boolean overTheMax	= factories == max && upcoming > 0;
+            	boolean rightAmount	= balance == 0;
+            	// boolean overTheNeed	= factories != max && balance > 0;
+            	
+            	boolean warning = !rightAmount && !colony.isGovernor();
+            	if (warning) {
                 	if (balance > 0) {
                 		indStr = text("MAIN_COLONY_SPENDING_UNUSED_FACT", df1.format(balance));
                 		g.setColor(Color.ORANGE);

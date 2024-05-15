@@ -371,12 +371,12 @@ public class ColonyIndustry extends ColonySpendingCategory {
        	float upcomingPopGrowth  = colony().ecology().upcomingPopGrowth();
        	float incomingTransports = colony().incomingTransports();
     	float expectedPopulation = workingPopulation + upcomingPopGrowth + incomingTransports;
-    	float neededFactories	 = effectiveRobotControls() * expectedPopulation;
+    	float neededFactories	 = maxRobotControls() * expectedPopulation;
     	float upcomingFactories	 = upcomingFactories();
     	float expectedFactories	 = upcomingFactories + factories;
-    	float factoryBalance	 = expectedFactories - neededFactories;
     	float maxFactories		 = maxBuildableFactories();
-    	return new float[] {factoryBalance, upcomingFactories, factories, maxFactories};
+    	float factoryBalance	 = expectedFactories - neededFactories;
+    	return new float[] {factoryBalance, upcomingFactories, neededFactories, factories, maxFactories};
     }
     //
     // PRIVATE METHODS

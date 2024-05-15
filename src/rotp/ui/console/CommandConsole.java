@@ -627,6 +627,90 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				);
 		return cmd;		
 	}
+	private Command initSelectTech()		{
+		Command cmd = new Command("select Technology Category and gives Info", TECHNOLOGY_KEY) {
+			@Override protected String execute(List<String> param) {
+				String out = getShortGuide() + NEWLINE;
+				// If no parameters, then return player contact info
+				if (param.isEmpty()) {
+					out += empireContactInfo(player(), NEWLINE);
+					out += NEWLINE + viewEmpiresContactInfo();
+					return out;
+				}
+				// Empire selection
+				String str = param.get(0);
+				Integer empId = getInteger(str);
+				if (empId == null)
+					selectedEmpire = player().id;
+				else {
+					selectedEmpire = bounds(0, empId, galaxy().numEmpires()-1);
+					param.remove(0);
+				}
+				//empireView.initId(selectedEmpire);
+				Empire empire = galaxy().empire(selectedEmpire);
+				
+				// Info selection
+				if (param.isEmpty()) // No param, then basic contact info
+					return empireView.contactInfo(empire, true);
+
+				str = param.remove(0);
+				switch (str) {
+					case EMP_DIPLOMACY:
+						return empireView.diplomacyInfo(empire, true);
+					case EMP_INTELLIGENCE:
+						return empireView.intelligenceInfo(empire, true);
+					case EMP_MILITARY:
+						return empireView.militaryInfo(empire, true);
+					case EMP_STATUS:
+						return empireView.statusInfo(empire, true);
+					case EMP_REPORT:
+						return empireView.reportInfo(empire, false);
+					case EMP_DEF_BASES:
+						return empireView.defaultBases(empire, param, false);
+					case EMP_INTEL_TAXES:
+						return empireView.intelTaxes(empire, param, false);
+					case EMP_SPY_NETWORK:
+						return empireView.spiesNumber(empire, param, false);
+					case EMP_SPY_ORDER:
+						return empireView.spiesOrders(empire, param, false);
+					case EMP_AUDIENCE:
+						empireView.audience(empire, true);
+						return diplomaticMessages.lastMessage();
+					case EMP_FINANCES:
+						return empireView.finances(empire, param, true);
+				}
+				return out + " Unknown Parameter " + str;
+			}
+		};
+		cmd.cmdParam(" " + optional("Index")
+				+ optional(EMP_DIPLOMACY, EMP_INTELLIGENCE, EMP_MILITARY, EMP_STATUS, EMP_REPORT, EMP_FINANCES,
+						EMP_DEF_BASES + " num", EMP_INTEL_TAXES + " %", EMP_SPY_NETWORK + " num",
+						EMP_SPY_ORDER + " order", EMP_AUDIENCE)
+				);
+		cmd.cmdHelp("Select Empire from index, and gives Empire contact info; Player empire will be selected when no index is given."
+				+ NEWLINE + optional(EMP_DIPLOMACY)		+ " To get Empire diplomatic info"
+				+ NEWLINE + optional(EMP_INTELLIGENCE)	+ " To get Empire intelligence info"
+				+ NEWLINE + optional(EMP_MILITARY)		+ " To get Empire military info"
+				+ NEWLINE + optional(EMP_STATUS)		+ " To get Empire status info"
+				+ NEWLINE + optional(EMP_REPORT)		+ " To get Empire compact report info"
+				+ NEWLINE + optional(EMP_FINANCES)		+ " "
+							+ optional("percentage", EMP_DEV_COLONIES, EMP_ALL_COLONIES)
+														+ " To get or set Empire Fiscality"
+														+ SPACER + EMP_DEV_COLONIES + " To only taxes developed colonies"
+														+ SPACER + EMP_ALL_COLONIES + " To taxes all colonies"
+				+ NEWLINE + optional(EMP_DEF_BASES)		
+							+ optional("num")			+ " To get or set player default maximum missile bases"
+				+ NEWLINE + optional(EMP_INTEL_TAXES)
+							+ optional("percentage")	+ " To get or set Empire security taxes or spies spending"
+				+ NEWLINE + optional(EMP_SPY_NETWORK)	+ " "
+							+ optional("num")			+ " To get or set number of spies to keep in this Empire"
+				+ NEWLINE + optional(EMP_SPY_ORDER)		+ " "
+							+ optional(EMP_SPY_HIDE, EMP_SPY_ESPION, EMP_SPY_SABOTAGE)
+														+ " To give orders to spies in this empire"
+				+ NEWLINE + optional(EMP_AUDIENCE)		+ " To get an audience with this empire"
+				);
+		return cmd;		
+	}
 
 	private void initAltIndex()		{
 		// Alternative index built from distance to the original player homeworld.

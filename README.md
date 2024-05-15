@@ -63,11 +63,16 @@ Later:
 
 ## What's New
 
+2024.05.15 (BR)
+- Fixed Spending panel unused factories wrong value when refitting.
+
 2024.05.14 (BR)
 - Empire Intelligence Panel
   - Added Latest reported spy bonuses for related missions.
   - Based on the latest reported technology and security levels.
   - Added distinction between (Likelihood / Impact)
+- Console:
+  - Intercepted Bombard pop-up.
 
 2024.05.13 (BR)
 - Nebulae are shown in preview panel.
@@ -93,7 +98,6 @@ Later:
 - New option for improving the planet in the center of the nebulae:
   - None, Less, Normal, More, Always.
  
-
 2024.05.09 (BR)
 - Console:
   - Temporary no council is allowed!
