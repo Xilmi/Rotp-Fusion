@@ -93,7 +93,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
             factories = 0;
         
         // correct for any captured errors in existing saves where a
-        // captured colony had higher controlss
+        // captured colony had higher controls
         robotControls = min(robotControls, tech().baseRobotControls());
         
         previousFactories = factories;
@@ -371,7 +371,8 @@ public class ColonyIndustry extends ColonySpendingCategory {
        	float upcomingPopGrowth  = colony().ecology().upcomingPopGrowth();
        	float incomingTransports = colony().incomingTransports();
     	float expectedPopulation = workingPopulation + upcomingPopGrowth + incomingTransports;
-    	float neededFactories	 = maxRobotControls() * expectedPopulation;
+    	float lowerRefitNeeds	 = max(0, maxRobotControls() - 2) * planet().currentSize();
+    	float neededFactories	 = lowerRefitNeeds + 2 * expectedPopulation;
     	float upcomingFactories	 = upcomingFactories();
     	float expectedFactories	 = upcomingFactories + factories;
     	float maxFactories		 = maxBuildableFactories();

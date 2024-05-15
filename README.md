@@ -65,6 +65,7 @@ Later:
 
 2024.05.15 (BR)
 - Fixed Spending panel unused factories wrong value when refitting.
+- Fixed Spending panel unused factories wrong value when partial pop and partial refit.
 
 2024.05.14 (BR)
 - Empire Intelligence Panel

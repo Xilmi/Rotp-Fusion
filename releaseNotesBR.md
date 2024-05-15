@@ -5,6 +5,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Console:
   - Intercepted Bombard pop-up.
 - Fixed Spending panel unused factories wrong value when refitting.
+- Fixed Spending panel unused factories wrong value when partial pop and partial refit.
+
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
