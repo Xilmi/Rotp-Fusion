@@ -842,12 +842,13 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
                 return;
             String val = sys.getAttribute(attributeKey);
             int sw = g.getFontMetrics().stringWidth(val);
-            if (sw > w) 
-                scaledFont(g, val, w, dataFontSize()-1, 8);
+            int w0 = w-s10;
+            if (sw > w0) 
+                scaledFont(g, val, w0, dataFontSize()-1, 8);
             g.setColor(color(sys));
             switch(align) {
                 case LEFT:    drawString(g,val, x+s5, y-s5); break;
-                case RIGHT:   drawString(g,val, x+w-s10-sw, y-s5); break;
+                case RIGHT:   drawString(g,val, x+w-s5-sw, y-s5); break;
                 case CENTER:  drawString(g,val, x+((w-sw)/2), y-s5); break;
             }
         }

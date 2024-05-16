@@ -66,6 +66,8 @@ Later:
 2024.05.15 (BR)
 - Fixed Spending panel unused factories wrong value when refitting.
 - Fixed Spending panel unused factories wrong value when partial pop and partial refit.
+- Fixed possible misalignment of notes.
+- Added access to explorer window from Main Menu, with "HOME" key (For old computers in full screen mode, alt-Tab don't work if no other windows are opened)
 
 2024.05.14 (BR)
 - Empire Intelligence Panel

@@ -6,7 +6,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Intercepted Bombard pop-up.
 - Fixed Spending panel unused factories wrong value when refitting.
 - Fixed Spending panel unused factories wrong value when partial pop and partial refit.
-
+- Fixed possible misalignment of notes.
+- Added access to explorer window from Main Menu, with "HOME" key (For old computers in full screen mode, alt-Tab don't work if no other windows are opened)
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -158,6 +159,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Press "R" to Replay last Turn.
   - "Ctrl" will replace "Continue" with "Replay Last Turn"
   - May be useful for non developer too...
+- Added access to explorer window from Main Menu, with "HOME" key (For old computers in full screen mode, alt-Tab don't work if no other windows are opened)
+
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.
@@ -198,4 +201,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Fleet with both visible and invisible ship will only show the visible one.
 - Fixed Military panel not properly initialised when reloading a game.
 - Fixed Spending panel unused factories wrong value when refitting.
+- Fixed possible misalignment of notes.
 - minor fixes...

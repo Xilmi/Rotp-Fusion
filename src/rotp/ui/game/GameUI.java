@@ -736,6 +736,15 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             case KeyEvent.VK_ESCAPE:
                 if (canContinue())
                     continueGame(); return;
+            case KeyEvent.VK_HOME:
+            	File file = new File (Rotp.jarPath());
+            	Desktop desktop = Desktop.getDesktop();
+				try {
+					desktop.open(file);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         }
     }
     private void shrinkFrame() {
