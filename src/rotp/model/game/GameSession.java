@@ -36,6 +36,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -74,6 +75,7 @@ import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
+import rotp.ui.game.LoadGameUI;
 import rotp.ui.console.CommandConsole;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.GNNExpansionEvent;
@@ -88,6 +90,7 @@ import rotp.ui.notifications.TurnNotification;
 import rotp.ui.races.RacesUI;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.util.Base;
+import rotp.util.MoveToTrash;
 
 public final class GameSession implements Base, Serializable {
     private static final long serialVersionUID = 1L;
@@ -993,6 +996,22 @@ public final class GameSession implements Base, Serializable {
         else
             return text("MAIN_ADVANCING_TURN", galaxy().currentTurn()+1);
     }
+    private boolean deleteBackupFiles(int keep)	{
+        log("Deleting backup files, keep " + keep + " most recent backup");
+    	File backupDir	= new File(backupDir());
+        boolean hasBackupDir = backupDir.exists() && backupDir.isDirectory();
+    	if (!hasBackupDir)
+    		return false;
+        String ext	= GameSession.SAVEFILE_EXTENSION;
+        FilenameFilter filter = (File dir, String name1) -> name1.toLowerCase().endsWith(ext);
+        File[] fileList = backupDir.listFiles(filter);
+        if (fileList == null || fileList.length <= keep)
+        	return false;
+        Arrays.sort(fileList, LoadGameUI.FILE_DATE);
+        
+        File[] toRecycle = Arrays.copyOfRange(fileList, keep, fileList.length);
+    	return MoveToTrash.moveToTrash(toRecycle);
+    }
     public long saveSession(String filename, boolean backup) throws Exception {
         log("Saving game as file: ", filename, "  backup: "+backup);
         GameSession currSession = GameSession.instance();
@@ -1166,6 +1185,10 @@ public final class GameSession implements Base, Serializable {
                 if ((turn == 1) || (turn % backupTurns == 0)) {
                     filename = backupFileName(turn);
                     saveSession(filename, true);
+                    if (options.deleteBackup()) {
+                    	int keep = options.backupKeep();
+                    	deleteBackupFiles(keep);
+                    }
                 }
             }
         }

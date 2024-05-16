@@ -63,6 +63,11 @@ Later:
 
 ## What's New
 
+2024.05.16 (BR)
+- Fixed trade report display on Empire events.
+- Added Option to auto delete backup files... (Not final; sent to recycle bin)
+- Console reorganization...
+
 2024.05.15 (BR)
 - Fixed Spending panel unused factories wrong value when refitting.
 - Fixed Spending panel unused factories wrong value when partial pop and partial refit.

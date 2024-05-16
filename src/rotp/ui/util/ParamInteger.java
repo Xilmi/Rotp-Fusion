@@ -112,7 +112,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public String[] getModifiers() {
+	@Override public String[] getModifiers()	{
 		if (baseInc().equals(shiftInc()))
 			return null;
 		return new String[] {baseInc().toString(),
@@ -120,15 +120,8 @@ public class ParamInteger extends AbstractParam<Integer> {
 							ctrlInc().toString(),
 							shiftCtrlInc().toString()};
 	}
-	@Override public String guideValue() {
-		if (isSpecialNegative())
-			return langLabel(negativeLabel);
-		if (isSpecialZero())
-			return langLabel(zeroLabel);
-		if (isSpecial())
-			return langLabel(specialMap.get(get()));
-		return super.guideValue();
-	}
+	@Override public String guideValue()		{ return guideValue(get()); }
+	@Override public String guideDefaultValue()	{ return guideValue(defaultValue()); }
 	@Override public void setFromCfgValue(String newValue) {
 		if (!isDuplicate())
 			setFromCfg(stringToInteger(newValue));
@@ -161,6 +154,18 @@ public class ParamInteger extends AbstractParam<Integer> {
 	public String  negativeLabel()		{ return negativeLabel; }
 	// ===== Other Private Methods =====
 	//
+	private boolean isSpecial(Integer val)			{ return specialMap.containsKey(val); }
+	private boolean isSpecialZero(Integer val)		{ return specialZero && (val.equals(0)); }
+	private boolean isSpecialNegative(Integer val)	{ return specialNegative && (val < 0); }
+	private String guideValue(Integer val) {
+		if (isSpecialNegative(val))
+			return langLabel(negativeLabel);
+		if (isSpecialZero(val))
+			return langLabel(zeroLabel);
+		if (isSpecial(val))
+			return langLabel(specialMap.get(get()));
+		return String.valueOf(val);
+	}
 	private void next(int i) {
 		if (i == 0) {
 			setFromDefault(false, true);

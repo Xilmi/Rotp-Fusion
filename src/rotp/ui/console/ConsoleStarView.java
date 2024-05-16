@@ -13,6 +13,7 @@ import rotp.model.planet.PlanetType;
 import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesignLab;
 import rotp.ui.RotPUI;
+import rotp.ui.console.CommandConsole.Command;
 import rotp.ui.sprites.SystemTransportSprite;
 
 public class ConsoleStarView implements IConsole {
@@ -22,6 +23,7 @@ public class ConsoleStarView implements IConsole {
 	private Colony colony;
 	private int id;
 	private boolean isPlayer, isScouted, isColony;
+	int selectedStar, aimedStar;
 	
 	void initId(int sysId)		{
 		sv	= player().sv.view(sysId);
@@ -540,7 +542,7 @@ public class ConsoleStarView implements IConsole {
 			return out;
 		}
 		amount = min(amount, (int)(sys.population()/2));
-		StarSystem dest = console().aimedSystem();
+		StarSystem dest = aimedSystem();
 		String destError = validTransportDestination(dest);
 		if (!destError.isEmpty()) {
 			out += NEWLINE + destError;
@@ -564,7 +566,7 @@ public class ConsoleStarView implements IConsole {
 		// System.out.println("Abandon Planet" + param);
 		// Check for destination
 		out = setDest(param, out);
-		StarSystem dest = console().aimedSystem();
+		StarSystem dest = aimedSystem();
 		String destError = validTransportDestination(dest);
 		if (!destError.isEmpty()) {
 			out += NEWLINE + destError;
@@ -591,4 +593,145 @@ public class ConsoleStarView implements IConsole {
 
 		return out;
 	}
+
+	// ##### StarView Command
+	StarSystem aimedSystem()		{
+		if (aimedStar < 0 || aimedStar >= galaxy().systemCount)
+			return null;
+		return console().getSys(aimedStar);
+	}
+	Command initSelectPlanet()		{
+		Command cmd = new Command("Select Planet from index and gives Info", SYSTEM_KEY) {
+			@Override protected String execute(List<String> param) {
+				if (param.isEmpty())
+					return getShortGuide();
+				String s = param.remove(0);
+				Integer p = getInteger(s);
+				if (p == null)
+					return getShortGuide();
+
+				String out	= "";
+				selectedStar	= validPlanet(p);
+				StarSystem sys	= console().getSys(selectedStar);
+				mainUI().selectSystem(sys);
+				initAltId(selectedStar);
+
+				// Action are reserved to player colonies
+				if (!isPlayer(sys.empire()))
+					return getInfo(out);
+
+				while (!param.isEmpty()) {
+					s = param.remove(0);
+					switch (s.toUpperCase()) {
+					case COL_TOGGLE_GOV:
+						out = toggleGovernor(out) + NEWLINE;
+						break;
+					case COL_SHIP_SPENDING:
+						out = shipSpending(param, out) + NEWLINE;
+						break;
+					case COL_IND_SPENDING:
+						out = indSpending(param, out) + NEWLINE;
+						break;
+					case COL_DEF_SPENDING:
+						out = defSpending(param, out) + NEWLINE;
+						break;
+					case COL_ECO_SPENDING:
+						out = ecoSpending(param, out) + NEWLINE;
+						break;
+					case COL_TECH_SPENDING:
+						out = techSpending(param, out) + NEWLINE;
+						break;
+					case COL_SHIP_BUILDING:
+						out = shipBuilding(param, out) + NEWLINE;
+						break;
+					case COL_SHIP_LIMIT:
+						out = shipLimit(param, out) + NEWLINE;
+						break;
+					case COL_BASE_LIMIT:
+						out = missBuilding(param, out) + NEWLINE;
+						break;
+					case COL_TROOP_SEND:
+						out = sendPopulation(param, out) + NEWLINE;
+						break;
+					case COL_ABANDON:
+						out = abandonColony(param, out) + NEWLINE;
+						break;
+					case COL_CANCEL_SEND:
+						out = cancelSend(param, out) + NEWLINE;
+						break;
+					case COL_GET_FUND:
+						out = getFunds(param, out) + NEWLINE;
+						break;
+					default:
+						out += "Don't understand parameter " + s;
+						break;
+					}
+				}
+				return getInfo(out);
+			}
+		};
+		cmd.cmdParam(" Index " + optional(COL_TOGGLE_GOV)
+						+ optional(COL_SHIP_SPENDING + " %")
+						+ optional(COL_DEF_SPENDING + " %")
+						+ optional(COL_IND_SPENDING + " %")
+						+ optional(COL_ECO_SPENDING + " %")
+						+ optional(COL_TECH_SPENDING + " %")
+						+ optional(COL_SHIP_BUILDING + " val")
+						+ optional(COL_SHIP_LIMIT + " max")
+						+ optional(COL_BASE_LIMIT + " max")
+						);
+		cmd.cmdHelp("Additionnal sequentially processed requests:"
+				+ NEWLINE + optional(COL_TOGGLE_GOV) + " To Toggle Governo on/off"
+				+ NEWLINE + optional(COL_SHIP_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Ship spending"
+				+ NEWLINE + optional(COL_SHIP_SPENDING + " %") + " To set Ship spending percentage"
+				+ NEWLINE + optional(COL_SHIP_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Ship spending, while keeping ECO clean"
+				+ NEWLINE + optional(COL_SHIP_SPENDING + " " + COL_SMOOTH_MAX) + " To smart maximize Ship spending to reach target, while keeping ECO clean"
+				+ NEWLINE + optional(COL_DEF_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Defense spending"
+				+ NEWLINE + optional(COL_DEF_SPENDING + " %") + " To set Defense spending percentage"
+				+ NEWLINE + optional(COL_DEF_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Defense spending, while keeping ECO clean"
+				+ NEWLINE + optional(COL_DEF_SPENDING + " " + COL_SMOOTH_MAX) + " To smart maximize Defense spending to reach target, while keeping ECO clean"
+				+ NEWLINE + optional(COL_IND_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Industry spending"
+				+ NEWLINE + optional(COL_IND_SPENDING + " %") + " To set Industry spending percentage"
+				+ NEWLINE + optional(COL_IND_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Industry spending, while keeping ECO clean"
+				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Ecology spending"
+				+ NEWLINE + optional(COL_ECO_SPENDING + " %") + " To set Ecology spending percentage"
+				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_ECO_CLEAN) + " To set Ecology spending to clean"
+				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_ECO_GROWTH) + " To set Ecology spending to grow population"
+				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_ECO_TERRAFORM) + " To set Ecology spending to terraform planet"
+				+ NEWLINE + optional(COL_TECH_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Research spending"
+				+ NEWLINE + optional(COL_TECH_SPENDING + " %") + " To set Research spending percentage"
+				+ NEWLINE + optional(COL_TECH_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Research spending, while keeping ECO clean"
+				+ NEWLINE + optional(COL_GET_FUND + " amount") + " To transfert funds from the empire to this colony"
+				+ NEWLINE + optional(COL_TROOP_SEND + " " + SYSTEM_KEY) + " destId amount : To send transport to another planet"
+				+ NEWLINE + optional(COL_ABANDON + " " + SYSTEM_KEY) + " destId amount : To abandon the planet"
+				+ NEWLINE + optional(COL_CANCEL_SEND) + " To cancel all transports from this planet"
+				);
+		return cmd;		
+	}
+	Command initAimedPlanet()		{
+		Command cmd = new Command("select Aimed planet from index, or Selected planet", AIMED_KEY) {
+			@Override protected String execute(List<String> param) {
+				String out = getShortGuide() + NEWLINE;
+				if (!param.isEmpty()) {
+					String s = param.get(0);
+					if (s.equalsIgnoreCase("S"))
+						aimedStar = selectedStar;
+					else {
+						Integer p = getInteger(s);
+						if (p != null) {
+							aimedStar = p;
+							out = "";
+						}
+					}
+				}
+				StarSystem sys	= console().getSys(aimedStar);
+				out += viewTargetSystemInfo(sys, true);
+				return out;
+			}
+		};
+		cmd.cmdParam(" " + optional("Index", "S"));
+		cmd.cmdHelp("select Aimed planet from planet index, or from Selected planet if \"S\", and gives Destination info");
+		return cmd;		
+	}
+
 }

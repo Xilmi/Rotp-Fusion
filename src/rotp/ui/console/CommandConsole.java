@@ -49,8 +49,6 @@ import rotp.model.game.IMainOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
-import rotp.ui.main.FleetPanel;
-import rotp.ui.main.MainUI;
 import rotp.ui.tech.DiplomaticMessageUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
@@ -82,14 +80,15 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private final List<StarSystem>	systems		= new ArrayList<>();
 	private final LinkedList<String> lastCmd	= new LinkedList<>();
 	private CommandMenu liveMenu;
-	private CommandMenu mainMenu, setupMenu, gameMenu, speciesMenu;
-	private int selectedStar, aimedStar, selectedFleet, selectedTransport, selectedEmpire; // ,, selectedDesign;
+	private CommandMenu mainMenu, setupMenu, gameMenu, speciesMenu, researchMenu;
+	private int selectedTransport, selectedEmpire; // ,, selectedDesign;selectedStar, aimedStar, 
 	private HashMap<Integer, Integer> altIndex2SystemIndex = new HashMap<>();
 //	private Menu stars, fleet, ships, opponents;
 //	private final List<SystemView> starList = new ArrayList<>();
 	private ConsoleStarView		starView;
 	private ConsoleFleetView	fleetView;
 	private ConsoleEmpireView	empireView;
+	private ConsoleResearchView	researchView;
 	
 	// ##### STATIC METHODS #####
 	public static CommandConsole cc()				{ return instance; }
@@ -131,14 +130,10 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	// variables control
 	void liveMenu(CommandMenu menu)	{ liveMenu = menu; }
 	CommandMenu liveMenu()			{ return liveMenu; }
-	int selectedStar()				{ return selectedStar; }
-	int aimedStar()					{ return aimedStar; }
-	void aimedStar(int id)			{ aimedStar = id; }
-	StarSystem aimedSystem()		{
-		if (aimedStar() < 0 || aimedStar() >= galaxy().systemCount)
-			return null;
-		return console().getSys(aimedStar());
-	}
+	int selectedStar()				{ return starView.selectedStar; }
+	int aimedStar()					{ return starView.aimedStar; }
+	void aimedStar(int id)			{ starView.aimedStar = id; }
+	StarSystem aimedSystem()		{ return starView.aimedSystem(); }
 	public static void throwError(Throwable e) {
 		StackTraceElement[] trace = e.getStackTrace();
 		String out = e.toString();
@@ -238,9 +233,10 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		initMenus();
 		resultPane.setText(liveMenu().menuGuide(""));
 
-		starView	= new ConsoleStarView();
-		fleetView	= new ConsoleFleetView();
-		empireView	= new ConsoleEmpireView();
+		starView		= new ConsoleStarView();
+		fleetView		= new ConsoleFleetView();
+		empireView		= new ConsoleEmpireView();
+		researchView	= new ConsoleResearchView();
 		instance	= this;
 		if(!Rotp.isIDE())
 			IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
@@ -335,190 +331,6 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				+ NEWLINE + optional(EMPIRE_KEY)	+ " : add Empire list"
 				);
 		return cmd;
-	}
-	private Command initSelectPlanet()		{
-		Command cmd = new Command("Select Planet from index and gives Info", SYSTEM_KEY) {
-			@Override protected String execute(List<String> param) {
-				if (param.isEmpty())
-					return getShortGuide();
-				String s = param.remove(0);
-				Integer p = getInteger(s);
-				if (p == null)
-					return getShortGuide();
-
-				String out	= "";
-				selectedStar	= validPlanet(p);
-				StarSystem sys	= getSys(selectedStar);
-				mainUI().selectSystem(sys);
-				starView.initAltId(selectedStar);
-
-				// Action are reserved to player colonies
-				if (!isPlayer(sys.empire()))
-					return starView.getInfo(out);
-
-				while (!param.isEmpty()) {
-					s = param.remove(0);
-					switch (s.toUpperCase()) {
-					case COL_TOGGLE_GOV:
-						out = starView.toggleGovernor(out) + NEWLINE;
-						break;
-					case COL_SHIP_SPENDING:
-						out = starView.shipSpending(param, out) + NEWLINE;
-						break;
-					case COL_IND_SPENDING:
-						out = starView.indSpending(param, out) + NEWLINE;
-						break;
-					case COL_DEF_SPENDING:
-						out = starView.defSpending(param, out) + NEWLINE;
-						break;
-					case COL_ECO_SPENDING:
-						out = starView.ecoSpending(param, out) + NEWLINE;
-						break;
-					case COL_TECH_SPENDING:
-						out = starView.techSpending(param, out) + NEWLINE;
-						break;
-					case COL_SHIP_BUILDING:
-						out = starView.shipBuilding(param, out) + NEWLINE;
-						break;
-					case COL_SHIP_LIMIT:
-						out = starView.shipLimit(param, out) + NEWLINE;
-						break;
-					case COL_BASE_LIMIT:
-						out = starView.missBuilding(param, out) + NEWLINE;
-						break;
-					case COL_TROOP_SEND:
-						out = starView.sendPopulation(param, out) + NEWLINE;
-						break;
-					case COL_ABANDON:
-						out = starView.abandonColony(param, out) + NEWLINE;
-						break;
-					case COL_CANCEL_SEND:
-						out = starView.cancelSend(param, out) + NEWLINE;
-						break;
-					case COL_GET_FUND:
-						out = starView.getFunds(param, out) + NEWLINE;
-						break;
-					default:
-						out += "Don't understand parameter " + s;
-						break;
-					}
-				}
-				return starView.getInfo(out);
-			}
-		};
-		cmd.cmdParam(" Index " + optional(COL_TOGGLE_GOV)
-						+ optional(COL_SHIP_SPENDING + " %")
-						+ optional(COL_DEF_SPENDING + " %")
-						+ optional(COL_IND_SPENDING + " %")
-						+ optional(COL_ECO_SPENDING + " %")
-						+ optional(COL_TECH_SPENDING + " %")
-						+ optional(COL_SHIP_BUILDING + " val")
-						+ optional(COL_SHIP_LIMIT + " max")
-						+ optional(COL_BASE_LIMIT + " max")
-						);
-		cmd.cmdHelp("Additionnal sequentially processed requests:"
-				+ NEWLINE + optional(COL_TOGGLE_GOV) + " To Toggle Governo on/off"
-				+ NEWLINE + optional(COL_SHIP_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Ship spending"
-				+ NEWLINE + optional(COL_SHIP_SPENDING + " %") + " To set Ship spending percentage"
-				+ NEWLINE + optional(COL_SHIP_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Ship spending, while keeping ECO clean"
-				+ NEWLINE + optional(COL_SHIP_SPENDING + " " + COL_SMOOTH_MAX) + " To smart maximize Ship spending to reach target, while keeping ECO clean"
-				+ NEWLINE + optional(COL_DEF_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Defense spending"
-				+ NEWLINE + optional(COL_DEF_SPENDING + " %") + " To set Defense spending percentage"
-				+ NEWLINE + optional(COL_DEF_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Defense spending, while keeping ECO clean"
-				+ NEWLINE + optional(COL_DEF_SPENDING + " " + COL_SMOOTH_MAX) + " To smart maximize Defense spending to reach target, while keeping ECO clean"
-				+ NEWLINE + optional(COL_IND_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Industry spending"
-				+ NEWLINE + optional(COL_IND_SPENDING + " %") + " To set Industry spending percentage"
-				+ NEWLINE + optional(COL_IND_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Industry spending, while keeping ECO clean"
-				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Ecology spending"
-				+ NEWLINE + optional(COL_ECO_SPENDING + " %") + " To set Ecology spending percentage"
-				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_ECO_CLEAN) + " To set Ecology spending to clean"
-				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_ECO_GROWTH) + " To set Ecology spending to grow population"
-				+ NEWLINE + optional(COL_ECO_SPENDING + " " + COL_ECO_TERRAFORM) + " To set Ecology spending to terraform planet"
-				+ NEWLINE + optional(COL_TECH_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Research spending"
-				+ NEWLINE + optional(COL_TECH_SPENDING + " %") + " To set Research spending percentage"
-				+ NEWLINE + optional(COL_TECH_SPENDING + " " + COL_SMART_ECO_MAX) + " To maximize Research spending, while keeping ECO clean"
-				+ NEWLINE + optional(COL_GET_FUND + " amount") + " To transfert funds from the empire to this colony"
-				+ NEWLINE + optional(COL_TROOP_SEND + " " + SYSTEM_KEY) + " destId amount : To send transport to another planet"
-				+ NEWLINE + optional(COL_ABANDON + " " + SYSTEM_KEY) + " destId amount : To abandon the planet"
-				+ NEWLINE + optional(COL_CANCEL_SEND) + " To cancel all transports from this planet"
-				);
-		return cmd;		
-	}
-	private Command initAimedPlanet()		{
-		Command cmd = new Command("select Aimed planet from index, or Selected planet", AIMED_KEY) {
-			@Override protected String execute(List<String> param) {
-				String out = getShortGuide() + NEWLINE;
-				if (!param.isEmpty()) {
-					String s = param.get(0);
-					if (s.equalsIgnoreCase("S"))
-						aimedStar(selectedStar);
-					else {
-						Integer p = getInteger(s);
-						if (p != null) {
-							aimedStar(p);
-							out = "";
-						}
-					}
-				}
-				StarSystem sys	= getSys(aimedStar());
-				out += viewTargetSystemInfo(sys, true);
-				return out;
-			}
-		};
-		cmd.cmdParam(" " + optional("Index", "S"));
-		cmd.cmdHelp("select Aimed planet from planet index, or from Selected planet if \"S\", and gives Destination info");
-		return cmd;		
-	}
-	private Command initSelectFleet()		{
-		Command cmd = new Command("select Fleet from index and gives fleet info", FLEET_KEY) {
-			@Override protected String execute(List<String> param) {
-				if (param.isEmpty())
-					return cmdHelp();
-
-				String  str  = param.remove(0);
-				Integer flId = getInteger(str);
-				ShipFleet fleet;
-				if (flId == null) { // select a new fleet
-					return "??? parameter " + str + NEWLINE + cmdHelp();
-				}
-
-				FleetPanel panel = RotPUI.instance().mainUI().displayPanel().fleetPane();
-				String out = getShortGuide() + NEWLINE;
-				// select a new fleet
-				selectedFleet = validFleet(flId);
-				if (selectedFleet == flId)
-					out = "";
-				else
-					return "Invalid Fleet selection";
-				fleet = fleets.get(selectedFleet);
-				mainUI().selectSprite(fleet, 1, false, true, false);
-				mainUI().map().recenterMapOn(fleet);
-				mainUI().repaint();
-				fleetView.init(selectedFleet);
-				out = fleetView.getInfo(out);
-
-				if (!param.isEmpty()) { // Do something with selected fleet
-					str = param.remove(0);
-					if (str.equalsIgnoreCase(FLEET_SEND)) { // Send Fleet
-						out = fleetView.sendFleet(param, out);
-					}
-					else if (str.equalsIgnoreCase(FLEET_UNDEPLOY)) {
-						panel.undeployFleet();
-					}
-					else
-						out += NEWLINE + "Wrong parameter " + str;
-				}
-				return out;
-			}
-		};
-		cmd.cmdParam(" Index " + optional(FLEET_UNDEPLOY) + OR_SEP
-					+ optional(FLEET_SEND + " " + SYSTEM_KEY + " destId [n] [n] [n] [n] [n]"));
-
-		cmd.cmdHelp("Additionnal requests:"
-				 + NEWLINE + "Optional "+ optional(FLEET_UNDEPLOY) + " to Undeploy fleet"
-				 + NEWLINE + "Optional "+ optional(FLEET_SEND) + " to Star System " + SYSTEM_KEY + "x"
-				 + NEWLINE + "Optional select sub fleet by adding the number of each listed design");
-		return cmd;		
 	}
 	private Command initSelectTransport()	{
 		Command cmd = new Command("select Transport and gives Transport info", TRANSPORT_KEY) {
@@ -627,88 +439,11 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				);
 		return cmd;		
 	}
-	private Command initSelectTech()		{
+	private Command initSelectTechMenu()	{
 		Command cmd = new Command("select Technology Category and gives Info", TECHNOLOGY_KEY) {
-			@Override protected String execute(List<String> param) {
-				String out = getShortGuide() + NEWLINE;
-				// If no parameters, then return player contact info
-				if (param.isEmpty()) {
-					out += empireContactInfo(player(), NEWLINE);
-					out += NEWLINE + viewEmpiresContactInfo();
-					return out;
-				}
-				// Empire selection
-				String str = param.get(0);
-				Integer empId = getInteger(str);
-				if (empId == null)
-					selectedEmpire = player().id;
-				else {
-					selectedEmpire = bounds(0, empId, galaxy().numEmpires()-1);
-					param.remove(0);
-				}
-				//empireView.initId(selectedEmpire);
-				Empire empire = galaxy().empire(selectedEmpire);
-				
-				// Info selection
-				if (param.isEmpty()) // No param, then basic contact info
-					return empireView.contactInfo(empire, true);
-
-				str = param.remove(0);
-				switch (str) {
-					case EMP_DIPLOMACY:
-						return empireView.diplomacyInfo(empire, true);
-					case EMP_INTELLIGENCE:
-						return empireView.intelligenceInfo(empire, true);
-					case EMP_MILITARY:
-						return empireView.militaryInfo(empire, true);
-					case EMP_STATUS:
-						return empireView.statusInfo(empire, true);
-					case EMP_REPORT:
-						return empireView.reportInfo(empire, false);
-					case EMP_DEF_BASES:
-						return empireView.defaultBases(empire, param, false);
-					case EMP_INTEL_TAXES:
-						return empireView.intelTaxes(empire, param, false);
-					case EMP_SPY_NETWORK:
-						return empireView.spiesNumber(empire, param, false);
-					case EMP_SPY_ORDER:
-						return empireView.spiesOrders(empire, param, false);
-					case EMP_AUDIENCE:
-						empireView.audience(empire, true);
-						return diplomaticMessages.lastMessage();
-					case EMP_FINANCES:
-						return empireView.finances(empire, param, true);
-				}
-				return out + " Unknown Parameter " + str;
-			}
+			@Override protected String execute(List<String> param) { return researchMenu.open(""); }
 		};
-		cmd.cmdParam(" " + optional("Index")
-				+ optional(EMP_DIPLOMACY, EMP_INTELLIGENCE, EMP_MILITARY, EMP_STATUS, EMP_REPORT, EMP_FINANCES,
-						EMP_DEF_BASES + " num", EMP_INTEL_TAXES + " %", EMP_SPY_NETWORK + " num",
-						EMP_SPY_ORDER + " order", EMP_AUDIENCE)
-				);
-		cmd.cmdHelp("Select Empire from index, and gives Empire contact info; Player empire will be selected when no index is given."
-				+ NEWLINE + optional(EMP_DIPLOMACY)		+ " To get Empire diplomatic info"
-				+ NEWLINE + optional(EMP_INTELLIGENCE)	+ " To get Empire intelligence info"
-				+ NEWLINE + optional(EMP_MILITARY)		+ " To get Empire military info"
-				+ NEWLINE + optional(EMP_STATUS)		+ " To get Empire status info"
-				+ NEWLINE + optional(EMP_REPORT)		+ " To get Empire compact report info"
-				+ NEWLINE + optional(EMP_FINANCES)		+ " "
-							+ optional("percentage", EMP_DEV_COLONIES, EMP_ALL_COLONIES)
-														+ " To get or set Empire Fiscality"
-														+ SPACER + EMP_DEV_COLONIES + " To only taxes developed colonies"
-														+ SPACER + EMP_ALL_COLONIES + " To taxes all colonies"
-				+ NEWLINE + optional(EMP_DEF_BASES)		
-							+ optional("num")			+ " To get or set player default maximum missile bases"
-				+ NEWLINE + optional(EMP_INTEL_TAXES)
-							+ optional("percentage")	+ " To get or set Empire security taxes or spies spending"
-				+ NEWLINE + optional(EMP_SPY_NETWORK)	+ " "
-							+ optional("num")			+ " To get or set number of spies to keep in this Empire"
-				+ NEWLINE + optional(EMP_SPY_ORDER)		+ " "
-							+ optional(EMP_SPY_HIDE, EMP_SPY_ESPION, EMP_SPY_SABOTAGE)
-														+ " To give orders to spies in this empire"
-				+ NEWLINE + optional(EMP_AUDIENCE)		+ " To get an audience with this empire"
-				);
+		cmd.cmdHelp("Open Research Menu");
 		return cmd;		
 	}
 
@@ -870,15 +605,18 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	}
 	private CommandMenu initGameMenus(CommandMenu parent)	{
 		CommandMenu menu = new CommandMenu("Game Menu", parent);
+		researchMenu	 = researchView.initTechMenu(menu);
 		menu.addMenu(new CommandMenu("In Game Settings Menu", menu, IInGameOptions.inGameOptions()));
 		menu.addMenu(new CommandMenu("Governor Menu", menu, GovernorOptions.governorOptionsUI));
-		menu.addCommand(initNextTurn());		// N
-		menu.addCommand(initView());			// V
-		menu.addCommand(initSelectPlanet());	// P
-		menu.addCommand(initAimedPlanet());		// A
-		menu.addCommand(initSelectFleet());		// F
-		menu.addCommand(initSelectTransport());	// T
-		menu.addCommand(initSelectEmpire());	// E
+		menu.addMenu(researchMenu);
+		menu.addCommand(initSelectTechMenu());			// TECH
+		menu.addCommand(initNextTurn());				// N
+		menu.addCommand(initView());					// V
+		menu.addCommand(starView.initSelectPlanet());	// P
+		menu.addCommand(starView.initAimedPlanet());	// A
+		menu.addCommand(fleetView.initSelectFleet());	// F
+		menu.addCommand(initSelectTransport());			// T
+		menu.addCommand(initSelectEmpire());			// E
 		introMenu			= initIntroMenu(menu);
 		reportMenu			= new ReportMenu("Report Menu", menu);
 		colonizeMenu		= new ColonizeMenu("Colonize Menu", menu);
@@ -968,7 +706,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		commandField.setText(lastCmd.get(idx));
 	}
 
-	private MainUI mainUI()	  { return RotPUI.instance().mainUI(); }
+	// private MainUI mainUI()	  { return RotPUI.instance().mainUI(); }
 	// ##### EVENTS METHODES #####
 	@Override public void actionPerformed(ActionEvent evt)	{ }
 	private void commandEntry(ActionEvent evt)	{ liveMenu().newEntry(((JTextField) evt.getSource()).getText()); }
@@ -991,7 +729,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		return out;
 	}
 	// ##### Tools
-	private int validFleet(int idx)		{ return bounds(0, idx, fleets.size()-1); }
+	int validFleet(int idx)		{ return bounds(0, idx, fleets.size()-1); }
 	private int validTransport(int idx)	{ return bounds(0, idx, transports.size()-1); }
 	private void sortSystems()			{ systems.sort((s1, s2) -> s1.altId-s2.altId); }
 	private void resetSystems()			{
@@ -1271,7 +1009,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		}
 	}
 	// ################### SUB CLASS COMMAND MENU ######################
-	public class CommandMenu {
+	public static class CommandMenu implements IConsole{
 		protected final String menuName;
 		private final CommandMenu parent;
 		private final List<IParam>		settings = new ArrayList<>();
@@ -1307,7 +1045,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		}
 		// #####  #####
 		public String open(String out)		{
-			liveMenu(this);
+			cc().liveMenu(this);
 			return menuGuide(out);
 		}
 		protected String close(String out)		{ return parent.open(out); }
@@ -1329,10 +1067,10 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				return;
 			}
 			// \debug
-			lastCmd.remove(txt); // To keep unique and at last position
+			cc().lastCmd.remove(txt); // To keep unique and at last position
 			if (!txt.isEmpty())
-				lastCmd.add(txt);
-			String cmd = getParam(txt, param); // this will remove the cmd from param list
+				cc().lastCmd.add(txt);
+			String cmd = cc().getParam(txt, param); // this will remove the cmd from param list
 			String out = "Command = " + txt + NEWLINE;
 			boolean hasDigit = cmd.matches(".*\\d.*");
 			String cmd0 = "";
@@ -1347,8 +1085,8 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 						out += c.cmdHelp();
 					else
 						out += c.execute(param);
-					commandField.setText("");
-					resultPane.setText(out);
+					cc().commandField.setText("");
+					cc().resultPane.setText(out);
 					return;
 				}
 				else if (hasDigit && c.isKey(cmd0)) {
@@ -1357,8 +1095,8 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 						out += c.cmdHelp();
 					else
 						out += c.execute(param);
-					commandField.setText("");
-					resultPane.setText(out);
+					cc().commandField.setText("");
+					cc().resultPane.setText(out);
 					return;
 				}
 			}
@@ -1374,11 +1112,11 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		private void otherCase(String cmd, String out, List<String> param,
 								boolean hasDigit, String cmd0, String cmd1) {
 			switch (cmd) {
-				case ""		: out = menuGuide(out);	break;
-				case "?"	: out = optsGuide();	break;
-				case "CLS"	: out = "";				break;
+				case ""		: out = menuGuide(out);		break;
+				case "?"	: out = cc().optsGuide();	break;
+				case "CLS"	: out = "";					break;
 				case "UP"	:
-					commandField.setText("");
+					cc().commandField.setText("");
 					close(out);
 					return;
 				case OPTION_KEY			: out = optionEntry(out, safeRemove(param, 0), param);	break;
@@ -1410,13 +1148,13 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 							case NULL_ID	:
 							default	:
 								out += "? unrecognised command";
-								resultPane.setText(out);
+								cc().resultPane.setText(out);
 								return;
 						}
 					}
 			}
-			commandField.setText("");
-			resultPane.setText(out);
+			cc().commandField.setText("");
+			cc().resultPane.setText(out);
 		}
 		private String menuEntry(String out, String cmd, List<String> p) {
 			switch (cmd) {
@@ -1615,20 +1353,20 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		}
 	}
 	// ################### SUB CLASS COMMAND ######################
-	class Command {
+	public static class Command {
 		private final List <String> keyList = new ArrayList<>();
 		private final String description;
 		private String cmdHelp	= "";
 		private String cmdParam	= "";
 		protected String execute(List<String> param) { return "Unimplemented command!" + NEWLINE; }
-		Command(String descr, String... keys) {
+		public Command(String descr, String... keys) {
 			description = descr;
 			for (String key : keys)
 				keyList.add(key.toUpperCase());
 		}
 		private boolean isKey(String str)	{ return keyList.contains(str); }
-		private void cmdHelp(String help)	{ cmdHelp = help;}
-		private void cmdParam(String p)		{ cmdParam = p;}
+		void cmdHelp(String help)	{ cmdHelp = help;}
+		void cmdParam(String p)		{ cmdParam = p;}
 		protected String cmdHelp()			{ return getShortGuide() + NEWLINE + cmdHelp;}
 		private String getKey()				{ return keyList.get(0);}
 		protected String getShortGuide()		{
@@ -1818,7 +1556,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 						empires.remove(emp);
 			}
 			if (dist != null) {
-				StarSystem ref = getSys(selectedStar);
+				StarSystem ref = getSys(selectedStar());
 				List<Empire> copy = new ArrayList<>(empires);
 				for (Empire emp : copy)
 					if (emp.distanceTo(ref) > dist)
@@ -1878,7 +1616,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 						list.remove(imo);
 			}
 			if (dist != null) {
-				StarSystem ref = getSys(selectedStar);
+				StarSystem ref = getSys(selectedStar());
 				List<? extends IMappedObject> copy = new ArrayList<>(list);
 				for (IMappedObject imo : copy)
 					if (ref.distanceTo(imo) > dist)

@@ -44,7 +44,7 @@ public class SignPeaceIncident extends DiplomaticIncident {
     @Override
     public String description()    {
     	if (options().allowPeaceTreaty())
-    		return text("INC_SIGNED_PEACE_DESC");
+    		return decode(text("INC_SIGNED_PEACE_DESC"));
     	return decode(text("INC_SIGNED_ARMISTICE_DESC"));
     }
     @Override

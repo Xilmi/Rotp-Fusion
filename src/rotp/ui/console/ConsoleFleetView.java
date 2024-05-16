@@ -7,6 +7,7 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.RotPUI;
+import rotp.ui.console.CommandConsole.Command;
 import rotp.ui.main.FleetPanel;
 
 public class ConsoleFleetView implements IConsole {
@@ -17,6 +18,7 @@ public class ConsoleFleetView implements IConsole {
 	private int fleetId;
 	private String nebulaText;
 	// private boolean isPlayer, contact;
+	private int selectedFleet;
 	
 	void init(int flId)	{
 		fleet	= console().getFleet(flId);
@@ -233,4 +235,58 @@ public class ConsoleFleetView implements IConsole {
 
 		return out;
 	}
+
+	// ##### FleetView Command
+	Command initSelectFleet()	{
+		Command cmd = new Command("select Fleet from index and gives fleet info", FLEET_KEY) {
+			@Override protected String execute(List<String> param) {
+				if (param.isEmpty())
+					return cmdHelp();
+
+				String  str  = param.remove(0);
+				Integer flId = getInteger(str);
+				ShipFleet fleet;
+				if (flId == null) { // select a new fleet
+					return "??? parameter " + str + NEWLINE + cmdHelp();
+				}
+
+				FleetPanel panel = RotPUI.instance().mainUI().displayPanel().fleetPane();
+				String out = getShortGuide() + NEWLINE;
+				// select a new fleet
+				selectedFleet = console().validFleet(flId);
+				if (selectedFleet == flId)
+					out = "";
+				else
+					return "Invalid Fleet selection";
+				fleet = console().getFleet(selectedFleet);
+				mainUI().selectSprite(fleet, 1, false, true, false);
+				mainUI().map().recenterMapOn(fleet);
+				mainUI().repaint();
+				init(selectedFleet);
+				out = getInfo(out);
+
+				if (!param.isEmpty()) { // Do something with selected fleet
+					str = param.remove(0);
+					if (str.equalsIgnoreCase(FLEET_SEND)) { // Send Fleet
+						out = sendFleet(param, out);
+					}
+					else if (str.equalsIgnoreCase(FLEET_UNDEPLOY)) {
+						panel.undeployFleet();
+					}
+					else
+						out += NEWLINE + "Wrong parameter " + str;
+				}
+				return out;
+			}
+		};
+		cmd.cmdParam(" Index " + optional(FLEET_UNDEPLOY) + OR_SEP
+					+ optional(FLEET_SEND + " " + SYSTEM_KEY + " destId [n] [n] [n] [n] [n]"));
+
+		cmd.cmdHelp("Additionnal requests:"
+				 + NEWLINE + "Optional "+ optional(FLEET_UNDEPLOY) + " to Undeploy fleet"
+				 + NEWLINE + "Optional "+ optional(FLEET_SEND) + " to Star System " + SYSTEM_KEY + "x"
+				 + NEWLINE + "Optional select sub fleet by adding the number of each listed design");
+		return cmd;		
+	}
+
 }

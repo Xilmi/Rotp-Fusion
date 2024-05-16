@@ -133,6 +133,12 @@
 			<version>21.1.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Java Native Access Platform -->
+		<dependency>
+			<groupId>net.java.dev.jna</groupId>
+			<artifactId>jna-platform</artifactId>
+			<version>5.14.0</version>
+		</dependency>
 	</dependencies>
 
 	<!-- Files generation -->

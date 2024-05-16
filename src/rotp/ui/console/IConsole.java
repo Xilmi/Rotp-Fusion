@@ -14,6 +14,8 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.model.ships.ShipDesign;
+import rotp.ui.RotPUI;
+import rotp.ui.main.MainUI;
 import rotp.util.Base;
 
 public interface IConsole extends Base {
@@ -88,6 +90,7 @@ public interface IConsole extends Base {
 	
 
 //	##### TOOLS #####
+	default MainUI mainUI()	  			{ return RotPUI.instance().mainUI(); }
 	default CommandConsole console()	{ return cc(); }
 	default Empire empire(int empId)	{ return galaxy().empire(empId); }
 	default int validPlanet(int p)		{ return bounds(0, p, galaxy().systemCount-1); }

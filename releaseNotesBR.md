@@ -8,6 +8,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Spending panel unused factories wrong value when partial pop and partial refit.
 - Fixed possible misalignment of notes.
 - Added access to explorer window from Main Menu, with "HOME" key (For old computers in full screen mode, alt-Tab don't work if no other windows are opened)
+- Fixed trade report display on Empire events.
+- Added Option to auto delete backup files... (Not final; sent to recycle bin) 
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -106,6 +108,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Empire Intelligence Panel
   - Added Latest reported spy bonuses for related missions.
   - Based on the latest reported technology and security levels.
+- Added Option to auto delete backup files... (Not final; sent to recycle bin) 
 
 
 <b><ins>Optimisation:</ins></b>
@@ -202,4 +205,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Military panel not properly initialised when reloading a game.
 - Fixed Spending panel unused factories wrong value when refitting.
 - Fixed possible misalignment of notes.
+- Fixed trade report display on Empire events.
 - minor fixes...

@@ -551,6 +551,11 @@ GAME_SETTINGS_BACKUP_OFF          | Off
 GAME_SETTINGS_BACKUP_ON           | Every %1 turns
 GAME_SETTINGS_BACKUP              | Backup: %1
 GAME_SETTINGS_BACKUP_DESC         | Enable to have your current game periodically saved in the backup folder with a unique name, allowing you to reload from previous turns.
+GAME_SETTINGS_BACKUP_KEEP          | Auto Delete: Keep %1
+GAME_SETTINGS_BACKUP_KEEP_DESC     | When automatic backup deletion is enabled, the oldest backup files will be sent to the recycle bin.<br> -1 = Keep All; automatic backup deletion is disabled.
+GAME_SETTINGS_BACKUP_KEEP_ALL      | All
+GAME_SETTINGS_BACKUP_KEEP_ALL_DESC | Disable automatic backup deletion.
+
 GAME_SETTINGS_SAVEDIR             | Save Directory: %1
 GAME_SETTINGS_SAVEDIR_DEFAULT     | Default
 GAME_SETTINGS_SAVEDIR_CUSTOM      | Custom

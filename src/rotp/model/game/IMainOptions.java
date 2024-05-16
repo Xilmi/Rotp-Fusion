@@ -197,7 +197,6 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	};
 //	default int selectedScreen()		{ return selectedScreen.get(); }
 
-
 	ParamInteger backupTurns	= new ParamInteger(GAME_UI, "BACKUP", 5, 0, MAX_BACKUP_TURNS, 1, 5, 10) {
 		{ isDuplicate(true); isCfgFile(true); specialZero(GAME_UI + "BACKUP_OFF"); }
 		@Override public String getCfgLabel()		{ return "BACKUP_TURNS"; }
@@ -205,6 +204,16 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		@Override public void setOption(Integer i)	{ backupTurns(i); }
 	};
 //	default int backupTurns()		{ return backupTurns.get(); }
+	ParamInteger backupKeep	= new ParamInteger(GAME_UI, "BACKUP_KEEP", -1, -1, 100, 1, 5, 10) {
+		{
+			isDuplicate(false);
+			isCfgFile(true);
+			specialNegative(GAME_UI + "BACKUP_KEEP_ALL");
+			loop(true);
+		}
+	};
+	default int backupKeep()		{ return backupKeep.get(); }
+	default boolean deleteBackup()	{ return !backupKeep.isSpecialNegative(); }
 
 	ParamString saveDirectory	= new ParamString(GAME_UI, "SAVEDIR", "") {
 		{ isDuplicate(true); isCfgFile(true); }
@@ -479,14 +488,15 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 						displayMode, graphicsMode,
 						texturesMode, sensitivityMode,
 						selectedScreen,
+
 						null,
 						soundVolume, musicVolume,
-						debugShowMemory, colorSet,
+						debugShowMemory, colorSet, gameOverTitles,
 						
 						null,
 						// IConvenienceOptions.autoColonize_, IConvenienceOptions.autoBombard_,
-						backupTurns, saveDirectory,
-						originalSpeciesOnly, showAllAI, gameOverTitles,
+						backupTurns, backupKeep, saveDirectory,
+						originalSpeciesOnly, showAllAI,
 
 						null,
 						disableAutoHelp, disableAdvisor,
@@ -549,7 +559,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("BACKUP_OPTIONS"),
-				backupTurns, saveDirectory,
+				backupTurns, backupKeep, saveDirectory,
 
 				headerSpacer,
 				new ParamTitle("GAME_UI_PREFERENCES"),
@@ -605,7 +615,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("BACKUP_OPTIONS"),
-				backupTurns, saveDirectory,
+				backupTurns, backupKeep, saveDirectory,
 
 				headerSpacer,
 				new ParamTitle("GAME_UI_PREFERENCES"),
