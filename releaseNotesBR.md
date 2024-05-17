@@ -2,14 +2,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Console:
-  - Intercepted Bombard pop-up.
-- Fixed Spending panel unused factories wrong value when refitting.
-- Fixed Spending panel unused factories wrong value when partial pop and partial refit.
-- Fixed possible misalignment of notes.
-- Added access to explorer window from Main Menu, with "HOME" key (For old computers in full screen mode, alt-Tab don't work if no other windows are opened)
-- Fixed trade report display on Empire events.
-- Added Option to auto delete backup files... (Not final; sent to recycle bin) 
+- Main menu panel:
+  - Added Load and Save Options, with the "CTRL" key modifier.
+  - Added Help screen.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -109,7 +104,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Added Latest reported spy bonuses for related missions.
   - Based on the latest reported technology and security levels.
 - Added Option to auto delete backup files... (Not final; sent to recycle bin) 
-
+- Load and Save Options Now available on the main Menu with the "CTRL" key modifier.
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
@@ -163,7 +158,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - "Ctrl" will replace "Continue" with "Replay Last Turn"
   - May be useful for non developer too...
 - Added access to explorer window from Main Menu, with "HOME" key (For old computers in full screen mode, alt-Tab don't work if no other windows are opened)
-
+- Added Help screen on the Main Menu.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.

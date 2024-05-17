@@ -41,10 +41,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+
+import javax.swing.JFileChooser;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import rotp.Rotp;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
+import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
@@ -428,8 +433,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         discussText.displayText(text("GAME_DISCUSS_ONLINE"));
         // continueText.displayText(text("GAME_MENU_CONTINUE"));
         newGameText.displayText(text("GAME_MENU_NEW_GAME"));
-        loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
-        saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
+        // loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
+        // saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
         settingsText.displayText(text("GAME_MENU_SETTINGS"));
         manualText.displayText(text("GAME_MENU_OPEN_MANUAL"));
         exitText.displayText(text("GAME_MENU_EXIT"));
@@ -454,10 +459,14 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 		case CTRL_SHIFT:
 	        // settingsText.displayText(text("GAME_MENU_GLOBAL_MOD_SETTINGS"));
 	        continueText.displayText(text("GAME_MENU_REPLAY_LAST_TURN"));
+	        loadGameText.displayText(text("GAME_MENU_LOAD_OPTIONS"));
+	        saveGameText.displayText(text("GAME_MENU_SAVE_OPTIONS"));
 	        break;
 		default:
 	        // settingsText.displayText(text("GAME_MENU_SETTINGS"));
 	        continueText.displayText(text("GAME_MENU_CONTINUE"));
+	        loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
+	        saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
 		}
 	}
 
@@ -673,7 +682,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     public	boolean canRecenStart()  { return session().hasRecentStartSession(); }
     private boolean canNewGame()     { return true; }
     private boolean canLoadGame()    { return true; }
-    private boolean canSaveGame()    { return session().status().inProgress(); }
+    private boolean canSaveGame()    { return session().status().inProgress() || isCtrlDown(); }
     private boolean canOpenManual()  { return manualExists(); }
     private boolean canExit()        { return true; }
     private boolean canRestart()     { 
@@ -698,16 +707,29 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             repaint();
         }
     }
-    @Override
-    public void keyReleased(KeyEvent e) {
+    protected void loadHotKeysUI()		{
+    	HelpUI helpUI = RotPUI.helpUI();
+        helpUI.clear();
+        int xHK = scaled(80);
+        int yHK = scaled(280);
+        int wHK = scaled(360);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 18, text("SETUP_GAME_HELP_HK"));
+        helpUI.open(this);
+	}
+	@Override public void showHotKeys()	{
+		loadHotKeysUI();
+		repaint();   
+	}
+    @Override public void advanceHelp()	{ cancelHelp(); }
+    @Override public void cancelHelp()	{ RotPUI.helpUI().close(); }
+    @Override public void keyReleased(KeyEvent e) {
     	checkModifierKey(e);
         int k = e.getKeyCode();
         switch (k) {
             case KeyEvent.VK_Z:  hideText = false; repaint(); return;
         }
     }
-    @Override
-    public void keyPressed(KeyEvent e) {
+    @Override public void keyPressed(KeyEvent e) {
         resetSlideshowTimer();
     	checkModifierKey(e);
         int k = e.getKeyCode();
@@ -720,31 +742,41 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
                 if ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) // BR: updated deprecated
                     expandFrame(); 
                 return;
-            case KeyEvent.VK_Z:  hideText = true; repaint(); return;
-            case KeyEvent.VK_C:  continueGame(); return;
-            case KeyEvent.VK_N:  newGame();      return;
-            case KeyEvent.VK_L:  loadGame();     return;
-            case KeyEvent.VK_O:  openManual();   return;
-            case KeyEvent.VK_R:  replayLastTurn(); return;
-            case KeyEvent.VK_S:  saveGame();     return;
-            case KeyEvent.VK_T:  goToSettings(); return;
-            case KeyEvent.VK_E:
-            case KeyEvent.VK_X:
-                exitGame();     return;
-            case KeyEvent.VK_PAGE_UP:	options().showConsolePanel(true); return;
-            case KeyEvent.VK_PAGE_DOWN:	options().showConsolePanel(false); return;
+            case KeyEvent.VK_H:
+		    case KeyEvent.VK_F1: showHotKeys();		return;
             case KeyEvent.VK_ESCAPE:
-                if (canContinue())
-                    continueGame(); return;
+            case KeyEvent.VK_C:  continueGame();	return;
+            case KeyEvent.VK_N:  newGame();			return;
+            case KeyEvent.VK_L:
+            	if (e.isControlDown())
+            		loadOptions();
+            	else
+            		loadGame();
+            	return;
+            case KeyEvent.VK_M:
+            case KeyEvent.VK_O:  openManual();		return;
+            case KeyEvent.VK_R:  replayLastTurn();	return;
+            case KeyEvent.VK_S:
+            	if (e.isControlDown())
+            		saveOptions();
+            	else
+            		saveGame();
+            	return;
+            case KeyEvent.VK_T:  goToSettings();	return;
+            case KeyEvent.VK_E:
+            case KeyEvent.VK_X:  exitGame();		return;
+            case KeyEvent.VK_Z:  hideText = true;	repaint();	return;
+            case KeyEvent.VK_PAGE_UP:	options().showConsolePanel(true);  return;
+            case KeyEvent.VK_PAGE_DOWN:	options().showConsolePanel(false); return;
             case KeyEvent.VK_HOME:
             	File file = new File (Rotp.jarPath());
             	Desktop desktop = Desktop.getDesktop();
 				try {
 					desktop.open(file);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				return;
         }
     }
     private void shrinkFrame() {
@@ -789,6 +821,47 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             if (userManual.exists()) 
                 Desktop.getDesktop().open(userManual);
         } catch (IOException e) {}
+    }
+    private void loadOptions()	{
+    	String dirPath = Rotp.jarPath();
+    	String ext = IGameOptions.OPTIONFILE_EXTENSION;
+    	ext = ext.replace(".", "");
+    	JFileChooser chooser = new JFileChooser();
+    	chooser.setCurrentDirectory(new File(dirPath));
+    	chooser.setAcceptAllFileFilterUsed(false);
+    	chooser.addChoosableFileFilter(new FileNameExtensionFilter("Options", ext));
+    	int status = chooser.showOpenDialog(this);
+    	if (status == JFileChooser.APPROVE_OPTION) {
+    		File file = chooser.getSelectedFile();
+    		if (file != null) {
+    			buttonClick();
+    			newGameOptions().updateAllNonCfgFromFile(file.getName());
+    			return;
+    		}
+    	}
+		misClick();
+    }
+    private void saveOptions()	{
+    	String dirPath = Rotp.jarPath();
+    	String ext = IGameOptions.OPTIONFILE_EXTENSION;
+    	//ext = ext.replace(".", "");
+    	JFileChooser chooser = new JFileChooser();
+    	chooser.setCurrentDirectory(new File(dirPath));
+    	chooser.setAcceptAllFileFilterUsed(false);
+    	chooser.addChoosableFileFilter(new FileNameExtensionFilter("Options", ext.replace(".", "")));
+    	int status = chooser.showSaveDialog(this);
+    	if (status == JFileChooser.APPROVE_OPTION) {
+    		File file = chooser.getSelectedFile();
+	  		if (file != null) {
+				buttonClick();
+				String name = file.getName();
+				if (!name.toUpperCase().endsWith(ext.toUpperCase()))
+					name += ext;
+				newGameOptions().saveOptionsToFile(name);
+				return;
+			}
+    	}
+		misClick();
     }
     public void replayLastTurn() { // BR:
         if (canRecenStart()) {
@@ -913,9 +986,15 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         else if (newGameText.contains(x,y))
             newGame();
         else if (loadGameText.contains(x,y))
-            loadGame();
+        	if (e.isControlDown())
+        		loadOptions();
+        	else
+        		loadGame();
         else if (saveGameText.contains(x,y))
-            saveGame();
+        	if (e.isControlDown())
+        		saveOptions();
+        	else
+        		saveGame();
         else if (settingsText.contains(x,y))
             goToSettings();
         else if (exitText.contains(x,y))

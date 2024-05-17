@@ -398,7 +398,9 @@ GAME_DISCUSS_ONLINE               | Discuss Online
 GAME_MENU_CONTINUE                | Continue Game
 GAME_MENU_NEW_GAME                | New Game
 GAME_MENU_LOAD_GAME               | Load Game
+GAME_MENU_LOAD_OPTIONS            | Load Options
 GAME_MENU_SAVE_GAME               | Save Game
+GAME_MENU_SAVE_OPTIONS            | Save Options
 GAME_MENU_SETTINGS                | Settings
 GAME_MENU_OPEN_MANUAL             | Open Manual
 GAME_MENU_EXIT                    | Exit
@@ -4495,3 +4497,5 @@ SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_GUIDE← <br>B : Toggle
 SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>R : Random Species. <br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
 
 MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. →HK_GUIDE← <br>→HK_ESCAPE←
+
+SETUP_GAME_HELP_HK   | H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N : New Game.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.<br><br>PAGE_UP / PAGE_DOWN: (Work in progress)<br>      Open / Close Console for the visually impaired people.
