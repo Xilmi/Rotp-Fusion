@@ -45,6 +45,14 @@ Very soon:
 - Add option to limit random event tech generosity... (For slow research, etc...)
 - Option to continue game after victory!
 
+Console Next steps: (Sequence probably not definitive)
+- Research: Display, Control, Interception of announce pop-up.
+- Ship design: Display, Design.
+- Interception of victory or defeat panels.
+- Council: Interception of announcements pop-up and Voting panels.
+- Spies: Intercept sabotage pop-up, and espionage pop-up!
+- Access optional turn reports and spy reports.
+
 Later:
 - Color List for opponents...
 - Some kind of positive monster like instead of attacking strong empires it defends weak empires
@@ -62,6 +70,12 @@ Later:
 
 
 ## What's New
+
+2024.05.20 (BR)
+- Empty string are read and set from remnant.cfg.
+- Settings can now force refresh their GUI Panel.
+- Settings have a function to tell if the value is valid (mainly for strings), display wrong in red.
+- New Option panel to set default Nominal Species Names.
 
 2024.05.16 (BR)
 - Load and Save Options Now available on the main Menu with the "CTRL" key modifier.

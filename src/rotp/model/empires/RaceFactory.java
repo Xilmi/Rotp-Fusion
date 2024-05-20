@@ -18,11 +18,15 @@ package rotp.model.empires;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import rotp.Rotp;
+import rotp.model.game.IGameOptions;
+import rotp.ui.util.ParamSpeciesName;
 import rotp.util.AnimationManager;
 import rotp.util.Base;
 import rotp.util.ImageManager;
+import rotp.util.LabelManager;
 import rotp.util.PixelShifter;
 
 public enum RaceFactory implements Base {
@@ -237,17 +241,27 @@ public enum RaceFactory implements Base {
         for (Race r : Race.races())
             loadRaceLangFiles(r, langDir);
     }
-    private void loadRaceLangFiles(Race r, String langDir) {
+    public void loadRaceLangFiles(Race r, String langDir) {
         String dir = concat("lang/", langDir, "/races/");
         List<String> sNames = readSystemNames(dir+r.langKey+".systems.txt");
         if (sNames != null)
             r.systemNames = sNames;
-        r.raceLabels().labelFile(r.langKey+".labels.txt");
-        r.raceLabels().dialogueFile(r.langKey+".dialogue.txt");
-        r.raceLabels().introFile(r.langKey+".intro.txt");
-        r.raceLabels().loadIntroFile(dir);
-        r.raceLabels().loadDialogueFile(dir);
-        r.raceLabels().loadLabelFile(dir);
+        LabelManager labels = r.raceLabels();
+        labels.labelFile(r.langKey+".labels.txt");
+        labels.dialogueFile(r.langKey+".dialogue.txt");
+        labels.introFile(r.langKey+".intro.txt");
+        labels.loadIntroFile(dir);
+        labels.loadDialogueFile(dir);
+        labels.loadLabelFile(dir);
+        // Update Species names if required.
+        HashMap<String, ParamSpeciesName> map = IGameOptions.speciesNameMap;
+        ParamSpeciesName param = map.get(r.id);
+        String[] speciesNames = param==null? null : param.getValid();
+        if (speciesNames != null) {
+        	labels.replaceFirstVal("_empire",		speciesNames[0]);
+        	labels.replaceFirstVal("_race",			speciesNames[1]);
+        	labels.replaceFirstVal("_race_plural",	speciesNames[2]);
+        }
         String filename = dir+r.langKey+".names.txt";
         BufferedReader in = reader(filename);
         if (in == null)
@@ -263,7 +277,10 @@ public enum RaceFactory implements Base {
         catch (IOException e) {
             err("RaceFactory.loadRaceLangFile(", r.directoryName+") -- IOException: ", e.toString());
         }
-        
+        if (speciesNames != null) { // Update Species names if required.
+        	String input = labels.label("_race");
+        	r.parseRaceNames(input);
+        }
         if (Rotp.countWords)
             log("WORDS - "+filename+": "+wc);
     }
@@ -410,7 +427,7 @@ public enum RaceFactory implements Base {
         if (Rotp.countWords)
             wc = substrings(value,',').size();  // uncomment 
         
-        if (key.equalsIgnoreCase("name"))          { r.parseRaceNames(value, langDir); return wc; }
+        if (key.equalsIgnoreCase("name"))          { r.parseRaceNames(value); return wc; }
         if (key.equalsIgnoreCase("desc1"))         { r.description1 = value; return wc; }
         if (key.equalsIgnoreCase("desc2"))         { r.description2 = value; return wc; }
         if (key.equalsIgnoreCase("desc3"))         { r.description3 = value; return wc; }

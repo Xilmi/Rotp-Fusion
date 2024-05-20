@@ -189,25 +189,27 @@ public class SettingFloat extends SettingBase<Float> {
 	@Override public void setFromCfgValue(String newValue) {
 		set(stringToFloat(newValue));
 	}	
-	@Override public void next() {
-		next(baseInc);
+	@Override public boolean next() {
+		return next(baseInc);
 	}
-	@Override public void prev() {
-		 next(-baseInc);
+	@Override public boolean prev() {
+		 return next(-baseInc);
 	}
-	@Override public void toggle(MouseEvent e, BaseModPanel frame) {
+	@Override public boolean toggle(MouseEvent e, BaseModPanel frame) {
 		Float inc = getInc(e) * getDir(e);
 		if (inc == 0)
 			setFromDefault(false, true);
 		else
-			next(getInc(e) * getDir(e));
+			return next(getInc(e) * getDir(e));
+		return false;
 	}
-	@Override public void toggle(MouseWheelEvent e) {
+	@Override public boolean toggle(MouseWheelEvent e) {
 		Float inc = getInc(e) * getDir(e);
 		if (inc == 0)
 			setFromDefault(false, true);
 		else
-			next(getInc(e) * getDir(e));
+			return next(getInc(e) * getDir(e));
+		return false;
 	}
 	@Override public float settingCost() {
 		if (isSpacer() || hasNoCost())
@@ -236,10 +238,10 @@ public class SettingFloat extends SettingBase<Float> {
 	//
 	protected void cfgFormat(String format)	{ cfgFormat = format; }
 	private boolean isCfgPercent()			{ return cfgFormat.equals("%"); }
-	private void next(Float i) {
+	private boolean next(Float i) {
 		if (i == 0) {
 			setFromDefault(false, true);
-			return;
+			return false;
 		}
 		Float value = settingValue() + i;
 		if (maxValue != null && value > maxValue) {
@@ -247,16 +249,17 @@ public class SettingFloat extends SettingBase<Float> {
 				set(minValue);
 			else
 				set(maxValue);
-			return;
+			return false;
 		}
 		else if (minValue != null && value < minValue) {
 			if (loop && maxValue != null)
 				set(maxValue);
 			else
 				set(minValue);
-			return;
+			return false;
 		}
 		set(value);
+		return false;
 	}
 	private float settingCost(Float value) {
 		float baseCost = getBaseCost(value);

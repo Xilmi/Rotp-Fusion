@@ -139,40 +139,43 @@ public class SettingBase<T> implements IParam {
 		int index = cfgValidIndex(indexOfIgnoreCase(cfgValue, cfgValueList));
 		selectedValue(valueList.get(index));
 	}
-	@Override public void next() {
+	@Override public boolean next() {
 		int selectedIndex = cfgValidIndex()+1;
 		if (selectedIndex >= cfgValueList.size())
 			selectedIndex = 0;
-		selectedValue(valueList.get(selectedIndex));		
+		selectedValue(valueList.get(selectedIndex));
+		return false;
 	}
-	@Override public void prev() {
+	@Override public boolean prev() {
 		int selectedIndex = cfgValidIndex()-1;
 		if (selectedIndex < 0)
 			selectedIndex = cfgValueList.size()-1;
-		selectedValue(valueList.get(selectedIndex));		
+		selectedValue(valueList.get(selectedIndex));	
+		return false;
 	}
-	@Override public void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
+	@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
 		if (e == null)
-			toggle(w);
+			return toggle(w);
 		else
-			toggle(e, frame);
+			return toggle(e, frame);
 	}
-	@Override public void toggle(MouseWheelEvent w) {
+	@Override public boolean toggle(MouseWheelEvent w) {
 		if (getDir(w) > 0)
-			next();
+			return next();
 		else 
-			prev();
+			return prev();
 	}
-	@Override public void toggle(MouseEvent e, BaseModPanel frame) {
+	@Override public boolean toggle(MouseEvent e, BaseModPanel frame) {
 		if (getDir(e) == 0) 
 			setFromDefault(true, true);
 		else if (allowListSelect && frame != null && 
 				(e.isControlDown() || listSize() >= minListSizePopUp.get()))
 			setFromList(frame);
 		else if (getDir(e) > 0)
-			next();
+			return next();
 		else 
-			prev();
+			return prev();
+		return false;
 	}
 	@Override public void setFromDefault(boolean excludeCfg, boolean excludeSubMenu) {
 		selectedValue(defaultValue);

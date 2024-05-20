@@ -42,6 +42,21 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 	 * @param optionsMap Full map of options
 	 * @param guiTitleID Label for the GUI Title
 	 * @param guiID Unique GUI ID for load and save
+	 * @param isCfgFile Parameter written in remnant.cfg
+	 */
+	public ParamSubUI(String gui, String name,
+			LinkedList<LinkedList<IParam>> optionsMap,
+			String guiTitleID, String guiID, boolean isCfgFile)
+	{
+		this(gui, name, optionsMap, guiTitleID, guiID);
+		isCfgFile(isCfgFile);
+	}
+	/**
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param optionsMap Full map of options
+	 * @param guiTitleID Label for the GUI Title
+	 * @param guiID Unique GUI ID for load and save
 	 */
 	public ParamSubUI(String gui, String name,
 			LinkedList<LinkedList<IParam>> optionsMap,
@@ -98,12 +113,6 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 						&& !(excludeSubMenu && param.isSubMenu()))
 					param.setFromDefault(excludeCfg, excludeSubMenu);
 	}
-//	@Override public void setFromDefault() {
-//		super.setFromDefault();
-//		for (IParam param : optionsList)
-//			if (param != null)
-//				param.setFromDefault();
-//	}
 	@Override protected LinkedList<LinkedList<IParam>> getOptionValue(
 			IGameOptions options) {
 		return last();
@@ -115,14 +124,15 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 			if (param != null && !param.isCfgFile())
 				param.setFromCfgValue(val);
 	}
-	@Override public void next() {  }
-	@Override public void prev() {  }
-	@Override public void toggle(MouseWheelEvent e) { }
-	@Override public void toggle(MouseEvent e, BaseModPanel frame) { }
-	@Override public void toggle(MouseEvent e, String p, BaseModPanel pUI) {
+	@Override public boolean next() { return false; }
+	@Override public boolean prev() { return false; }
+	@Override public boolean toggle(MouseWheelEvent e) { return false; }
+	@Override public boolean toggle(MouseEvent e, BaseModPanel frame) { return false; }
+	@Override public boolean toggle(MouseEvent e, String p, BaseModPanel pUI) {
 		updated(true);
 		CompactOptionsUI ui = new CompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);
 		ui.start(p, pUI);
+		return false;
 	};
 	@Override public String guideValue()	{
 		String label = isDefaultValue()? "SUB_UI_DEFAULT_YES" : "SUB_UI_DEFAULT_NO";

@@ -427,8 +427,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	};
 	String BASE_MOD_GUI_ID	= "BASE_MOD_OPTIONS";
 	static ParamSubUI baseModOptionsUI() {
-		return new ParamSubUI( MOD_UI, BASE_MOD_GUI_ID, baseModOptionsMap())
-		{ { isCfgFile(false); } };
+		return new ParamSubUI( MOD_UI, BASE_MOD_GUI_ID, baseModOptionsMap());
 	}
 	ParamSubUI baseModOptionsUI	= baseModOptionsUI();
 

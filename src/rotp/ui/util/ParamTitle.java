@@ -38,10 +38,10 @@ public class ParamTitle extends AbstractParam<String> {
 	// ===== Overriders =====
 	//
 	@Override public void setFromCfgValue(String newValue) { setFromCfg(newValue); }	
-	@Override public void prev() {}
-	@Override public void next() {}
-	@Override public void toggle(MouseWheelEvent e)	{}
-	@Override public void toggle(MouseEvent e, BaseModPanel frame)	 {}
+	@Override public boolean prev() { return false; }
+	@Override public boolean next() { return false; }
+	@Override public boolean toggle(MouseWheelEvent e)	{ return false; }
+	@Override public boolean toggle(MouseEvent e, BaseModPanel frame)	 { return false; }
 	@Override public void updateOptionTool() {}
 	@Override protected String getOptionValue(IGameOptions options) { return ""; }
 	@Override protected void setOptionValue(IGameOptions options, String value) {}

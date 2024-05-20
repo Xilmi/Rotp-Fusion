@@ -2,6 +2,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
+- New Option panel to set default Nominal Species Names.
 - Main menu panel:
   - Added Load and Save Options, with the "CTRL" key modifier.
   - Added Help screen.
@@ -105,6 +106,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Based on the latest reported technology and security levels.
 - Added Option to auto delete backup files... (Not final; sent to recycle bin) 
 - Load and Save Options Now available on the main Menu with the "CTRL" key modifier.
+- New Option panel to set default Nominal Species Names.
+
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.

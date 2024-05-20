@@ -173,11 +173,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			newGameOptions().selectedOpponentAIOption(value);
 			return value;
 		}
-		@Override public void prev() {
+		@Override public boolean prev() {
 			prevOpponentAI(true);
+			return false;
 		}
-		@Override public void next() {
+		@Override public boolean next() {
 			nextOpponentAI(true);
+			return false;
 		}
 	};
 	private final ParamList specificAI			= new ParamList( // For Guide
@@ -284,11 +286,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			globalCROptions.set(value);
 			return value;
 		}
-		@Override public void prev() {
+		@Override public boolean prev() {
 			prevGlobalAbilities(true);
+			return false;
 		}
-		@Override public void next() {
+		@Override public boolean next() {
 			nextGlobalAbilities(true);
+			return false;
 		}
 	};
 	private final ParamList specificAbilities	= new ParamList( // For Guide

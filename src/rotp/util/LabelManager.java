@@ -21,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -46,7 +47,17 @@ public class LabelManager implements Base {
     public void dialogueFile(String s)    { dialogueFile = s; }
     public void labelFile(String s)       { labelFile = s; }
     public void introFile(String s)       { introFile = s; }
-    
+    public void copy(LabelManager src, LabelManager dest)	{
+    	dest.labelFile	  = src.labelFile;
+    	dest.dialogueFile = src.dialogueFile;
+    	dest.introFile	  = src.introFile;
+    	dest.introLines.addAll(src.introLines);
+    	for (Entry<String, byte[]> entry : src.labelMap.entrySet())
+    		dest.labelMap.put(entry.getKey(), entry.getValue().clone());
+    	for (Entry<String, List<String>> entry : src.dialogueMap.entrySet())
+    		dest.dialogueMap.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
+    }
+
     public String label(String key) {
         byte[] value = labelMap.get(key);
         if (value == null)
@@ -214,7 +225,7 @@ public class LabelManager implements Base {
             return 0;
         
         int wc = 0;
-        try {      
+        try {
             labelMap.put(vals.get(0), vals.get(1).getBytes("UTF-8"));
             if (Rotp.countWords)
                 wc = substrings(vals.get(1), ' ').size();
@@ -262,5 +273,15 @@ public class LabelManager implements Base {
     		result = result.replace(leftId+key+rightId, replacement);
     	}
 		return result;
+    }
+    public void replaceFirstVal(String key, String newVal) {
+    	String oldList = label(key);
+    	String[] valArray = oldList.split(",");
+    	valArray[0] = newVal;
+    	String newList = String.join(",", valArray);
+        try {
+            labelMap.put(key, newList.getBytes("UTF-8"));
+        }
+        catch(UnsupportedEncodingException e) { }
     }
 }

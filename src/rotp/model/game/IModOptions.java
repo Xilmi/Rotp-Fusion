@@ -107,6 +107,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(IDebugOptions.debugOptions());
 		allModOptions.addAll(ICombatOptions.combatOptions());
 		allModOptions.addAll(IIronmanOptions.ironmanOptions());
+		allModOptions.addAll(IMainOptions.specieNameOptions());
 		allModOptions.remove(null);
 		// Then create the final list (LinkedHashSet don't offer the .get(index) method)
 		LinkedList<IParam> options = new LinkedList<>();

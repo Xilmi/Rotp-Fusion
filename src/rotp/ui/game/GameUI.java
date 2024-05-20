@@ -49,7 +49,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import rotp.Rotp;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
-import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
@@ -928,21 +927,10 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         repaint();
     }
     public void goToSettings() {
-//    	if (isCtrlDown()) {
-//            buttonClick();
-//    		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
-//    		modGlobalOptionsUI.init();
-//    		return;
-//    	}
-//	if (isShiftDown()) {
 		buttonClick();
 		MainOptionsUI mainOptionsUI = RotPUI.mainOptionsUI();
 		mainOptionsUI.init();
 		return;
-//	}
-//        buttonClick();
-//        GameSettingsUI settingsUI = RotPUI.gameSettingsUI();
-//        settingsUI.open(this);
     }
     @Override
     public void playAmbience() {

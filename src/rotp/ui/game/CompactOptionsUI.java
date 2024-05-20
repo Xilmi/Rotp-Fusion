@@ -224,16 +224,20 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			gi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			gi.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
 			ModText txtLeft	 = btListLeft.get(index);
+			txtLeft.repaint(activeList.get(index).getGuiDisplay(0));
 			ModText txtRight = btListRight.get(index);
+			txtRight.repaint(activeList.get(index).getGuiDisplay(1));
 			if ((txtLeft.box() == hoverBox) || (txtRight.box() == hoverBox)) {
 				txtLeft.forceHover  = true;
 				txtRight.forceHover = true;
 			}
 			if (param.isDefaultValue())
 				txtRight.enabledC(defaultValuesColor);
-			else
+			else if (param.isValidValue())
 				txtRight.enabledC(customValuesColor);
-
+			else
+				txtRight.enabledC(Color.red);
+			
 			if (retina) {
 				txtLeft.fontMult(retinaFactor);
 				txtRight.fontMult(retinaFactor);
@@ -328,7 +332,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			        param.toggle(e, GUI_ID, this);
 					return;
 				}			
-				param.toggle(e, w, this);
+				forceUpdate |= param.toggle(e, w, this);
 				param.updated(true);
 				setValueColor(i);
 				btListLeft.get(i).repaint(activeList.get(i).getGuiDisplay(0));

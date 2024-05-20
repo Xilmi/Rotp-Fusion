@@ -1814,7 +1814,6 @@ CUSTOM_RACE_HOME_ENVIRONMENT_DESC | This selection will affect the growth rate o
 CUSTOM_RACE_HOME_ENVIRONMENT      | Planet Environment
 CUSTOM_RACE_RACE_KEY              | File Name
 CUSTOM_RACE_RACE_KEY_DESC         | This is the place to enter the filename, it's also used as the key for the standard species... Don't use them, or keep the default "SPECIES_xxx" to set the "Reworked"-Abilities.
-CUSTOM_RACE_RACE_NAME             | Species Name
 CUSTOM_RACE_RACE_TYPE             | Species Type
 CUSTOM_RACE_RACE_TERRAN           | Terran
 CUSTOM_RACE_RACE_AQUATIC          | Aquatic
@@ -1882,23 +1881,53 @@ CUSTOM_RACE_DISCOVERY_FORCEFIELD_DESC   | Probability offset of getting Force Fi
 CUSTOM_RACE_DISCOVERY_PLANET_DESC       | Probability offset of getting Planet tech available. Display: Offset -> Sum (Cost)
 CUSTOM_RACE_DISCOVERY_PROPULSION_DESC   | Probability offset of getting Propulsion tech available. Display: Offset -> Sum (Cost)
 CUSTOM_RACE_DISCOVERY_WEAPON_DESC       | Probability offset of getting Weapon tech available. Display: Offset -> Sum (Cost)
-CUSTOM_RACE_RESEARCH_COMPUTER     | Cost Computer
-CUSTOM_RACE_RESEARCH_CONSTRUCTION | Cost Construction
-CUSTOM_RACE_RESEARCH_FORCEFIELD   | Cost Force Field
-CUSTOM_RACE_RESEARCH_PLANET       | Cost Planet
-CUSTOM_RACE_RESEARCH_PROPULSION   | Cost Propulsion
-CUSTOM_RACE_RESEARCH_WEAPON       | Cost Weapon
+CUSTOM_RACE_RESEARCH_COMPUTER          | Cost Computer
+CUSTOM_RACE_RESEARCH_CONSTRUCTION      | Cost Construction
+CUSTOM_RACE_RESEARCH_FORCEFIELD        | Cost Force Field
+CUSTOM_RACE_RESEARCH_PLANET            | Cost Planet
+CUSTOM_RACE_RESEARCH_PROPULSION        | Cost Propulsion
+CUSTOM_RACE_RESEARCH_WEAPON            | Cost Weapon
 CUSTOM_RACE_RESEARCH_COMPUTER_DESC     | Cost multiplier for reseaching Computer tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
 CUSTOM_RACE_RESEARCH_CONSTRUCTION_DESC | Cost multiplier for reseaching Construction tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
 CUSTOM_RACE_RESEARCH_FORCEFIELD_DESC   | Cost multiplier for reseaching Force Field tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
 CUSTOM_RACE_RESEARCH_PLANET_DESC       | Cost multiplier for reseaching Planet tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
 CUSTOM_RACE_RESEARCH_PROPULSION_DESC   | Cost multiplier for reseaching Propulsion tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
 CUSTOM_RACE_RESEARCH_WEAPON_DESC       | Cost multiplier for reseaching Weapon tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RACE_NAME             | Species Name
+CUSTOM_RACE_RACE_NAME_DESC        | All possible names<br>The counterpart of the "_race" parameter in Species.labels.txt files, and the "name" parameter in Species.names.txt files.
+CUSTOM_RACE_RACE_NAME_PLURAL      | Plural Species Name
+CUSTOM_RACE_RACE_NAME_PLURAL_DESC | The plural of all the possible names<br>The counterpart of the "_race_plural" parameter in Species.labels.txt files
+CUSTOM_RACE_LEADER_TITLE          | Leader Title
+CUSTOM_RACE_LEADER_TITLE_DESC     | The counterpart of the "title" parameter in Species.names.txt files.
+CUSTOM_RACE_LABEL_TITLE           | Leader Title 2
+CUSTOM_RACE_LABEL_TITLE_DESC      | The counterpart of the "_title" parameter in Species.labels.txt files.
+CUSTOM_RACE_LEADER_FULLTITLE      | Full Leader Title
+CUSTOM_RACE_LEADER_FULLTITLE_DESC | The counterpart of the "fulltitle" parameter in Species.names.txt files.
+CUSTOM_RACE_LEADER_NAMETITLE      | Full Leader Title 2
+CUSTOM_RACE_LEADER_NAMETITLE_DESC | The counterpart of the "_nametitle" parameter in Species.labels.txt files.
 CUSTOM_RACE_RACE_EMPIRE_NAME      | Empire Designation
+CUSTOM_RACE_RACE_EMPIRE_NAME_DESC | The counterpart of the "_empire" parameter in Species.labels.txt files.
+CUSTOM_RACE_HOME_WORLDS           | Homes worlds
+CUSTOM_RACE_HOME_WORLDS_DESC      | Possible home system names.<br>The counterpart of the "home" parameter in Species.names.txt files
+CUSTOM_RACE_LEADER_NAMES          | Leader Names
+CUSTOM_RACE_LEADER_NAMES_DESC     | Possible leader names.<br>The counterpart of the "leader" parameter in Species.names.txt files
+CUSTOM_RACE_SHIP_NAME_1           | Small Ships Names
+CUSTOM_RACE_SHIP_NAME_1_DESC      | All possible small ships name.<br>The counterpart of the "ship1" parameter in Species.names.txt files
+CUSTOM_RACE_SHIP_NAME_2           | Medium Ships Names
+CUSTOM_RACE_SHIP_NAME_2_DESC      | All possible medium ships name.<br>The counterpart of the "ship2" parameter in Species.names.txt files
+CUSTOM_RACE_SHIP_NAME_3           | Large Ships Names
+CUSTOM_RACE_SHIP_NAME_3_DESC      | All possible large ships name.<br>The counterpart of the "ship3" parameter in Species.names.txt files
+CUSTOM_RACE_SHIP_NAME_4           | Huge Ships Names
+CUSTOM_RACE_SHIP_NAME_4_DESC      | All possible huge ships name.<br>The counterpart of the "ship4" parameter in Species.names.txt files
+
 CUSTOM_RACE_RACE_DESC_1           | Species mood description
+CUSTOM_RACE_RACE_DESC_1_DESC      | The counterpart of the "desc1" parameter in Species.names.txt files
 CUSTOM_RACE_RACE_DESC_2           | Species abilities description
+CUSTOM_RACE_RACE_DESC_2_DESC      | The counterpart of the "desc2" parameter in Species.names.txt files
 CUSTOM_RACE_RACE_DESC_3           | Species global description
+CUSTOM_RACE_RACE_DESC_3_DESC      | The counterpart of the "desc3" parameter in Species.names.txt files
 CUSTOM_RACE_RACE_DESC_4           | Species specific description
+CUSTOM_RACE_RACE_DESC_4_DESC      | The counterpart of the "desc4" parameter in Species.names.txt files
 CUSTOM_RACE_RACE_PREFIX           | Species Prefix
 CUSTOM_RACE_RACE_SUFFIX           | Species Suffix
 CUSTOM_RACE_LEADER_PREFIX         | Leader Prefix
@@ -2796,6 +2825,54 @@ SETTINGS_MOD_BASE_MOD_OPTIONS_UI_DESC    | Opens a submenu containing Base mod o
 SETTINGS_MOD_COMMON_OPTIONS_TITLE        | Extended Settings
 SETTINGS_MOD_COMMON_OPTIONS_UI           | - Extended remnant.cfg Settings Menu -
 SETTINGS_MOD_COMMON_OPTIONS_UI_DESC      | Opens a submenu containing remnant.cfg settings and some other performance and presentation settings common to all gameplay.
+
+SETTINGS_MOD_NAME_OPTIONS_TITLE          | Base Species Nominal Names
+SETTINGS_MOD_NAME_OPTIONS_UI             | - Base Species Names -
+SETTINGS_MOD_NAME_OPTIONS_UI_DESC        | Open Sub Menu to view base species nominal names.
+
+SETTINGS_MOD_MOO1_SPECIES_NAME           | Original MoO1 Species Names
+SETTINGS_MOD_MOO1_SPECIES_NAME_DESC      | To set the original names from Master of Orion
+SETTINGS_MOD_CLEAR_SPECIES_NAME          | Clear All
+SETTINGS_MOD_CLEAR_SPECIES_NAME_DESC     | To clear all the list above
+SETTINGS_MOD_ACTIVATE_SPECIES_NAME       | Force Activate
+SETTINGS_MOD_ACTIVATE_SPECIES_NAME_DESC  | To update the current Species with the new settings above.
+
+
+NAME_RACE_ALKARI          | Altairi: %1
+NAME_RACE_BULRATHI        | Ursinathi: %1
+NAME_RACE_DARLOK          | Nazlok: %1
+NAME_RACE_HUMAN           | Human: %1
+NAME_RACE_KLACKON         | Kholdan: %1
+NAME_RACE_MEKLAR          | Meklonar: %1
+NAME_RACE_MRRSHAN         | Fiershan: %1
+NAME_RACE_PSILON          | Mentaran: %1
+NAME_RACE_SAKKRA          | Ssslaura: %1
+NAME_RACE_SILICOID        | Cryslonoid: %1
+NAME_DESC0                 | Enter the new "Empire name, Species name, Species Plural Name" for this species. Leave blank to keep the current name.<br>Example: Human Triumvirate, Human, Humans.
+NAME_DESC                 | →NAME_DESC0← (Invalid settings are displayed in red)
+NAME_RACE_ALKARI_DESC     | →NAME_DESC←
+NAME_RACE_BULRATHI_DESC   | →NAME_DESC←
+NAME_RACE_DARLOK_DESC     | →NAME_DESC←
+NAME_RACE_HUMAN_DESC      | →NAME_DESC←
+NAME_RACE_KLACKON_DESC    | →NAME_DESC←
+NAME_RACE_MEKLAR_DESC     | →NAME_DESC←
+NAME_RACE_MRRSHAN_DESC    | →NAME_DESC←
+NAME_RACE_PSILON_DESC     | →NAME_DESC←
+NAME_RACE_SAKKRA_DESC     | →NAME_DESC←
+NAME_RACE_SILICOID_DESC   | →NAME_DESC←
+NAME_HELP                 | →NAME_DESC0←<br>Invalid settings are displayed in red.
+NAME_RACE_ALKARI_HELP     | →NAME_HELP←
+NAME_RACE_BULRATHI_HELP   | →NAME_HELP←
+NAME_RACE_DARLOK_HELP     | →NAME_HELP←
+NAME_RACE_HUMAN_HELP      | →NAME_HELP←
+NAME_RACE_KLACKON_HELP    | →NAME_HELP←
+NAME_RACE_MEKLAR_HELP     | →NAME_HELP←
+NAME_RACE_MRRSHAN_HELP    | →NAME_HELP←
+NAME_RACE_PSILON_HELP     | →NAME_HELP←
+NAME_RACE_SAKKRA_HELP     | →NAME_HELP←
+NAME_RACE_SILICOID_HELP   | →NAME_HELP←
+
+
 
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developper's Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | - Debug Options Menu -
@@ -4494,7 +4571,7 @@ SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →
 
 SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_GUIDE← <br>B : Toggle submenus call buttons.<br> →HK_FOG← <br>M : Go to Main Menu.<br>Enter : Start a new Game. <br><br>Escape : Go to Player Setup Panel.
 
-SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>R : Random Species. <br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
+SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>N : Open Name Player Species Sub Menu. <br>R : Random Species. <br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
 
 MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. →HK_GUIDE← <br>→HK_ESCAPE←
 

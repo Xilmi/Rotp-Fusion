@@ -128,10 +128,10 @@ public class ParamFloat extends AbstractParam<Float> {
 		} else
 			setFromCfg(stringToFloat(newValue));
 	}	
-	@Override public void next() { next(baseInc()); }
-	@Override public void prev() { next(-baseInc()); }
-	@Override public void toggle(MouseEvent e, BaseModPanel frame)		{ next(getInc(e) * getDir(e)); }
-	@Override public void toggle(MouseWheelEvent e) { next(getInc(e) * getDir(e)); }
+	@Override public boolean next() { return next(baseInc()); }
+	@Override public boolean prev() { return next(-baseInc()); }
+	@Override public boolean toggle(MouseEvent e, BaseModPanel frame)		{ return next(getInc(e) * getDir(e)); }
+	@Override public boolean toggle(MouseWheelEvent e) { return next(getInc(e) * getDir(e)); }
 	@Override protected Float getOptionValue(IGameOptions options) {
 		return options.dynOpts().getFloat(getLangLabel(), creationValue());
 	}
@@ -140,8 +140,8 @@ public class ParamFloat extends AbstractParam<Float> {
 	}
 	// ========== Other Methods ==========
 	//
-	public void next(MouseEvent e) { next(Math.abs(getInc(e))); }
-	public void prev(MouseEvent e) { next(-Math.abs(getInc(e))); }
+	public boolean next(MouseEvent e) { return next(Math.abs(getInc(e))); }
+	public boolean prev(MouseEvent e) { return next(-Math.abs(getInc(e))); }
 	private String getString(float value) {
 		if (isGuiPercent()) {
 			return String.format("%d", Math.round(value * 100f)) + "%";
@@ -152,30 +152,31 @@ public class ParamFloat extends AbstractParam<Float> {
 		}
 		return new DecimalFormat(guiFormat).format(value);
 	}
-	private void next(float i) {
+	private boolean next(float i) {
 		if (i == 0) {
 			setFromDefault(false, true);
-			return;
+			return false;
 		}
 		Float value = get() + i;
 		if (maxValue() != null && value > maxValue()) {
 			if (loop && minValue() != null) {
 				set(minValue());
-				return;
+				return false;
 			} else {
 				set(maxValue());
-				return;
+				return false;
 			}
 		} else if (minValue() != null && value < minValue()) {
 			if (loop && maxValue() != null) {
 				set(maxValue());
-				return;
+				return false;
 			} else {
 				set(minValue());
-				return;
+				return false;
 			}
 		}
 		set(value);
+		return false;
 	}
 	private boolean isGuiPercent() { return guiFormat.equals("%"); }
 	private boolean isCfgPercent() { return cfgFormat.equals("%"); }

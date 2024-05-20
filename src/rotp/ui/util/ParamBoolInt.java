@@ -58,17 +58,20 @@ public class ParamBoolInt extends ParamInteger {
 		boolParam.set(isEnabled());
 		return val;
 	}
-	@Override public void prev() {
+	@Override public boolean prev() {
 		if (isEnabled())
-			super.prev(); 
+			return super.prev();
+		return false;
 	}
-	@Override public void next() {
+	@Override public boolean next() {
 		if (isEnabled())
-			super.next(); 
+			return super.next();
+		return false;
 	}
-	@Override public void toggle(MouseEvent e, BaseModPanel frame)	{
+	@Override public boolean toggle(MouseEvent e, BaseModPanel frame)	{
 		set(-last());
 		boolParam.set(isEnabled());
+		return false;
 	}
 	// ===== Other Public Methods =====
 	//

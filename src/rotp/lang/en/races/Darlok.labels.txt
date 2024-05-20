@@ -1,7 +1,7 @@
 // race-specific variables (must start with _)
-_empire                           | Darloks, Sarloks, Spyloks, Shadeloks, Draloks
-_race                             | Darlok, Sarlok, Spylok, Shadelok, Dralok
-_race_plural                      | Darloks, Sarloks, Spyloks, Shadeloks, Draloks
+_empire                           | Nazloks, Sarloks, Spyloks, Shadeloks, Draloks
+_race                             | Nazlok, Sarlok, Spylok, Shadelok, Dralok
+_race_plural                      | Nazloks, Sarloks, Spyloks, Shadeloks, Draloks
 _title                            | ruler
 _nameTitle                        | 
 
@@ -24,7 +24,7 @@ _nameTitle                        |
 // BR: added %0 option for _title
 
 // Advisor text
-MAIN_ADVISOR_TITLE                | Darlok Advisor
+MAIN_ADVISOR_TITLE                | %1 Advisor
 MAIN_ADVISOR_BUTTON_OK            | Dismiss
 MAIN_ADVISOR_SCOUT                | We have finished construction on a pair of scouts and a colony ship. Let us hope the answers we seek present themselves on a nearby world.
 MAIN_ADVISOR_TRANSPORT            | No answers found on the planet %1. We should still grow our numbers there by sending any transports we can spare.

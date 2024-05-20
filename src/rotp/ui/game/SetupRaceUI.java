@@ -46,6 +46,7 @@ import javax.swing.SwingUtilities;
 
 import rotp.model.empires.Race;
 import rotp.model.game.IGameOptions;
+import rotp.model.game.IMainOptions;
 import rotp.model.game.IRaceOptions;
 import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
@@ -1276,6 +1277,11 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         EditCustomRaceUI.instance().open(this);
 		setVisible(false);      
     }
+    private void goToRenameSpecies() {
+        buttonClick();
+        IMainOptions.specieNameOptionsUI().toggle(null, GUI_ID, this);
+		setVisible(false);      
+    }
     @Override
     public String ambienceSoundKey() { 
         return GameUI.AMBIENCE_KEY;
@@ -1289,6 +1295,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	    	case KeyEvent.VK_F:
 	        	noFogChanged();
 	            return;
+	    	case KeyEvent.VK_N:
+	    		goToRenameSpecies();
+				return;
 	    	case KeyEvent.VK_R:
 	    		playerIsCustom.set(false);
 	        	newGameOptions().setRandomPlayerRace();

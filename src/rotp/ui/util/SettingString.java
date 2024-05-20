@@ -80,17 +80,18 @@ public class SettingString extends SettingBase<String> implements Base{
 		if (!isSpacer() && srcOptions != null)
 			set(srcOptions.getString(getLangLabel(), defaultValue()));
 	}
-	@Override public void next() {
+	@Override public boolean next() {
 		Object prev = UIManager.get("OptionPane.minimumSize");
 		UIManager.put("OptionPane.minimumSize", new Dimension(800,90)); 
 		String input;
 		input = JOptionPane.showInputDialog(settingText().panel() ,inputMessage, settingValue());
 		UIManager.put("OptionPane.minimumSize", prev); 
 		if (input == null)
-			return; // cancelled
+			return false; // cancelled
 		set(input);
 		pushSetting();
 		updateGui();
+		return false;
 	}
 	@Override public void setRandom(float min, float max, boolean gaussian) {
 		set(randomStr);
@@ -102,7 +103,7 @@ public class SettingString extends SettingBase<String> implements Base{
 			return;
 		set(defaultValue());
 	}
-	@Override public void prev()			{ next(); }
+	@Override public boolean prev()			{ return next(); }
 	@Override public void optionalInput()	{ next(); }
 	@Override public String getGuiDisplay()	{ return getLabel() + END; }
 	@Override public String guiCostOptionStr(int idx) {

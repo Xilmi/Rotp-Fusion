@@ -31,16 +31,13 @@ public interface IDebugOptions extends IBaseOptsTools {
 	};
 	default boolean debugShowMemory()		{ return debugShowMemory.get(); }
 
-    ParamBoolean debugShowMoreMemory	= new ParamBoolean(GAME_UI, "MORE_MEMORY", false)
-  	{ { isDuplicate(false); isCfgFile(true); } };
+    ParamBoolean debugShowMoreMemory	= new ParamBoolean(GAME_UI, "MORE_MEMORY", false, true, true);
 	default boolean debugShowMoreMemory()	{ return debugShowMoreMemory.get(); }
 
-	ParamBoolean debugConsoleMemory	= new ParamBoolean(GAME_UI, "MEMORY_CONSOLE", false)
-	{ { isDuplicate(false); isCfgFile(true); } };
+	ParamBoolean debugConsoleMemory	= new ParamBoolean(GAME_UI, "MEMORY_CONSOLE", false, true, true);
 	default boolean debugConsoleMemory()	{ return debugConsoleMemory.get(); }
 
-	ParamBoolean debugFileMemory	= new ParamBoolean(GAME_UI, "MEMORY_FILE", false)
-	{ { isDuplicate(false); isCfgFile(true); } };
+	ParamBoolean debugFileMemory	= new ParamBoolean(GAME_UI, "MEMORY_FILE", false, true, true);
 	default boolean debugFileMemory()		{ return debugFileMemory.get(); }
 
 	ParamList debugAutoRun		= new ParamList( MOD_UI, "DEBUG_AUTO_RUN", "Off") {
@@ -109,24 +106,19 @@ public interface IDebugOptions extends IBaseOptsTools {
 									-1, -1, null, 1, 10, 100).specialNegative(NEGATIVE_DISABLED);
 	default int debugBMLostTurns()			{ return debugBMLostTurns.get(); }
 
-	ParamBoolean debugBMZoomOut		= new ParamBoolean(MOD_UI, "DEBUG_BM_ZOOM_OUT", false)
-	{ { isDuplicate(false); isCfgFile(true); } };
-	default boolean debugBMZoomOut()			{ return debugBMZoomOut.get(); }
+	ParamBoolean debugBMZoomOut		= new ParamBoolean(MOD_UI, "DEBUG_BM_ZOOM_OUT", false, true, true);
+	default boolean debugBMZoomOut()		{ return debugBMZoomOut.get(); }
 
-	ParamBoolean debugNoAutoSave	= new ParamBoolean(MOD_UI, "DEBUG_NO_AUTOSAVE", false)
-	{ { isDuplicate(false); isCfgFile(true); } };
-	default boolean debugNoAutoSave()			{ return debugNoAutoSave.get(); }
+	ParamBoolean debugNoAutoSave	= new ParamBoolean(MOD_UI, "DEBUG_NO_AUTOSAVE", false, true, true);
+	default boolean debugNoAutoSave()		{ return debugNoAutoSave.get(); }
 
-	ParamBoolean consoleAutoRun		= new ParamBoolean(GAME_UI, "CONSOLE_AUTO_PLAY", false)
-	{ { isDuplicate(false); isCfgFile(true); } };
+	ParamBoolean consoleAutoRun		= new ParamBoolean(GAME_UI, "CONSOLE_AUTO_PLAY", false, true, true);
 	default boolean consoleAutoRun()		{ return consoleAutoRun.get(); }
 
-	ParamBoolean debugLogNotif		= new ParamBoolean(GAME_UI, "DEBUG_LOG_NOTIF", true)
-	{ { isDuplicate(false); isCfgFile(true); } };
+	ParamBoolean debugLogNotif		= new ParamBoolean(GAME_UI, "DEBUG_LOG_NOTIF", true, true, true);
 	default boolean debugLogNotif()			{ return debugLogNotif.get(); }
 
-	ParamBoolean debugLogEvents		= new ParamBoolean(GAME_UI, "DEBUG_LOG_EVENTS", true)
-	{ { isDuplicate(false); isCfgFile(true); } };
+	ParamBoolean debugLogEvents		= new ParamBoolean(GAME_UI, "DEBUG_LOG_EVENTS", true, true, true);
 	default boolean debugLogEvents()		{ return debugLogEvents.get(); }
 
 	ParamBoolean showConsolePanel	= new ParamBoolean(GAME_UI, "SHOW_CONSOLE_PANEL", false)
@@ -147,8 +139,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 		showConsolePanel();
 	}
 
-	ParamBoolean continueAnyway		= new ParamBoolean(GAME_UI, "CONTINUE_ANYWAY", false)
-	{ { isValueInit(false); } };
+	ParamBoolean continueAnyway		= new ParamBoolean(GAME_UI, "CONTINUE_ANYWAY", false, false);
 	default void continueAnyway(boolean b)	{ continueAnyway.set(b); }
 	default boolean continueAnyway()		{ return continueAnyway.get(); }
 
@@ -185,8 +176,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 
 	static ParamSubUI debugOptionsUI() {
 		return new ParamSubUI( MOD_UI, "DEBUG_OPTIONS_UI", IDebugOptions.debugOptionsMap(),
-				"DEBUG_OPTIONS_TITLE", DEBUG_GUI_ID)
-		{ { isCfgFile(true); } };
+				"DEBUG_OPTIONS_TITLE", DEBUG_GUI_ID, true);
 	}
 	static LinkedList<IParam> debugOptions() {
 		return IBaseOptsTools.getSingleList(IDebugOptions.debugOptionsMap());

@@ -35,13 +35,13 @@ public interface IParam extends InterfaceOptions{
 	public static final String END				 = "   ";
 	
 	// user input
-	public default void next() {}
-	public default void prev() {}
-	public default void toggle(MouseWheelEvent e) {}
-	public default void toggle(MouseEvent e, BaseModPanel frame) {}
-	public default void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {}
-	public default void toggle(MouseEvent e, String p, BaseModPanel frame) {}
-	public default void toggle(MouseEvent e, String p, BaseModPanel pUI, BaseModPanel frame) {}
+	public default boolean next() { return false; } // Return forceUpdate
+	public default boolean prev() { return false; } // Return forceUpdate
+	public default boolean toggle(MouseWheelEvent e) { return false; } // Return forceUpdate
+	public default boolean toggle(MouseEvent e, BaseModPanel frame) { return false; } // Return forceUpdate
+	public default boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) { return false; } // Return forceUpdate
+	public default boolean toggle(MouseEvent e, String p, BaseModPanel frame) { return false; } // Return forceUpdate
+	public default boolean toggle(MouseEvent e, String p, BaseModPanel pUI, BaseModPanel frame) { return false; } // Return forceUpdate
 	public default void	updated(boolean updated)	{}
 	// State
 	public default boolean	isDuplicate()			{ return false; }
@@ -49,6 +49,7 @@ public interface IParam extends InterfaceOptions{
 	public default boolean	isTitle()				{ return false; }
 	public default boolean	isSubMenu()				{ return false; }
 	public default boolean	isDefaultValue()		{ return false; }
+	public default boolean	isValidValue()			{ return true; }
 	public default boolean	isActive()				{ return true; }
 	public default boolean	updated()				{ return true; }
 	// Display

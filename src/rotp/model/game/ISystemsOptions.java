@@ -105,8 +105,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	};
 	String SYSTEMS_GUI_ID	= "SYSTEMS_OPTIONS";
 	static ParamSubUI systemsOptionsUI() {
-		return new ParamSubUI( MOD_UI, SYSTEMS_GUI_ID, systemsOptionsMap())
-		{ { isCfgFile(false); } };
+		return new ParamSubUI( MOD_UI, SYSTEMS_GUI_ID, systemsOptionsMap());
 	}
 	ParamSubUI systemsOptionsUI	= systemsOptionsUI();
 }

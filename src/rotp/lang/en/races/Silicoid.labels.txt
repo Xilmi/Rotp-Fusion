@@ -1,7 +1,7 @@
 // race-specific variables (must start with _)
-_empire                    | Silicoid Imperium, Igneoid Imperium, Sedimoid Imperium, Granitoid Imperium, Magmoid Imperium
-_race                      | Silicoid, Igneoid, Sedimoid, Granitoid, Magmoid
-_race_plural               | Silicoids, Igneoids, Sedimoids, Granitoids, Magmoids
+_empire                    | Cryslonoid Imperium, Igneoid Imperium, Sedimoid Imperium, Granitoid Imperium, Magmoid Imperium
+_race                      | Cryslonoid, Igneoid, Sedimoid, Granitoid, Magmoid
+_race_plural               | Cryslonoids, Igneoids, Sedimoids, Granitoids, Magmoids
 _title                     | Crystal Emperor
 _nameTitle                 | Crystal Emperor 
 
@@ -24,7 +24,7 @@ _nameTitle                 | Crystal Emperor
 // BR: added %0 option for _title
 
 // Advisor text
-MAIN_ADVISOR_TITLE         | Silicoid Advisor
+MAIN_ADVISOR_TITLE         | %1 Advisor
 MAIN_ADVISOR_BUTTON_OK     | Dismiss
 MAIN_ADVISOR_SCOUT         | God-Emperor, your scouts stand prepared to escort the first colony ship to any world you desire! Give the order and see your will be done!
 MAIN_ADVISOR_TRANSPORT     | The colony on %1 has been founded in your name, mighty Emperor! If you desire us to send more transports to support your new dominion, say the word and we shall comply!
@@ -36,7 +36,7 @@ MAIN_ADVISOR_SHIP_WEAPON   | God-Emperor! Your scientists present their latest a
 MAIN_ADVISOR_COUNCIL       | A meeting of lords known as the Galactic Council will soon be upon us! Our ancient enemy must be concealed among those who gather there! We must expose them so that our noble crusade can truly begin!
 MAIN_ADVISOR_REBELLION     | Mighty Emperor! The unthinkable occurs. Our people, doubtless infected by our nefarious Ancient Enemy, rebel against you on %1. We must put an end to this corruption at once!
 MAIN_ADVISOR_RESIST_COUNCIL   | The temerity of these fools! God-Emperor, our fleets stand ready! Lead us to victory in this fated battle!
-MAIN_ADVISOR_COUNCIL_RESISTED | Of course the children of our enemy could not accept Silicoid dominance! Our people are in a frenzy: at last the prophecy will be fulfilled!
+MAIN_ADVISOR_COUNCIL_RESISTED | Of course the children of our enemy could not accept %3 dominance! Our people are in a frenzy: at last the prophecy will be fulfilled!
 
 // text for endings... '#' represents a paragraph break
 // variables: %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 is special race-specific text described below

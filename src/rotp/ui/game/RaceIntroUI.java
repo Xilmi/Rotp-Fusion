@@ -153,6 +153,9 @@ public class RaceIntroUI extends BasePanel implements MouseListener {
         for (int i=0;i<text.size();i++)  {
             if (i > 0) {
                 String paragraph = text.get(i).replace("[race]", pl.raceName());
+                paragraph = paragraph.replace("[title]", pl.race().title());
+                paragraph = paragraph.replace("[fulltitle]", pl.race().fullTitle());
+                paragraph = paragraph.replace("[home]", pl.getHomeWorldName());
                 List<String> lines = scaledWrappedLines(g, paragraph, lineW, 30, 16, 12);
                 for (String line: lines) {
                     drawString(g,line, x0, y0);

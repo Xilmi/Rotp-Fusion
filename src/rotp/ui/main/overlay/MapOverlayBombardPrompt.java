@@ -32,15 +32,13 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
-import rotp.ui.console.CommandConsole;
 import rotp.ui.console.IConsole;
 import rotp.ui.console.IConsoleListener;
-import rotp.ui.console.IConsoleListener.ConsoleOptions;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.sprites.BombardTargetSprite;
 import rotp.ui.sprites.BombardNoSprite;
+import rotp.ui.sprites.BombardTargetSprite;
 import rotp.ui.sprites.BombardYesSprite;
 import rotp.ui.sprites.ClickToContinueSprite;
 import rotp.ui.sprites.MapSprite;
@@ -715,7 +713,6 @@ public class MapOverlayBombardPrompt extends MapOverlay implements IConsoleListe
         	message += " " + text("MAIN_SCOUT_TYPE", text(sys.planet().type().key()), (int)sys.planet().maxSize());
 
     	// draw top data line
-        String dmgStr = text("MAIN_BOMBARD_DMG", "-99");
         String popStr = text("MAIN_BOMBARD_POPULATION", endPop);
         String factStr = text("MAIN_BOMBARD_FACTORIES", endFact);
         String baseStr = text("MAIN_BOMBARD_BASES", endBases);

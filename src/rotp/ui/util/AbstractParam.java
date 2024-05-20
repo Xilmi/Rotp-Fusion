@@ -185,11 +185,11 @@ public abstract class AbstractParam <T> implements IParam{
 			return;
 		set(defaultValue());
 	}
-	@Override public void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
+	@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
 		if (e == null)
-			toggle(w);
+			return toggle(w);
 		else
-			toggle(e, frame);
+			return toggle(e, frame);
 	}
 	@Override public String getGuiValue(int idx){ return guideValue(); } // For List
 	// ========== Tools for overriders ==========

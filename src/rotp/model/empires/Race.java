@@ -233,7 +233,11 @@ public class Race implements Base, Serializable {
     private transient Image transportImg;
     private transient BufferedImage diploMug, wideDiploMug;
 
-    public String defaultHomeworldName()   { return homeSystemNames.get(0); }
+    public String defaultHomeworldName()   {
+    	if (homeSystemNames.isEmpty())
+    		return "Empty";
+    	return homeSystemNames.get(0);
+    }
 
     public int colonistDelay()             { return colonistDelay; }
     public int colonistStartX()            { return colonistX1; }
@@ -274,27 +278,34 @@ public class Race implements Base, Serializable {
     // BR: for race customization
     // Get a Copy the current race
     protected Race copy() {
-    	Race race = RaceFactory.current().reloadRaceDataFile(directoryName);
-    	race.labels	= labels;
-    	race.setupName	 = setupName();
-    	race.empireTitle = empireTitle();
-    	race.description1 = description1;
-    	race.description2 = description2;
-    	race.description3 = description3;
-    	race.description4 = description4;
-
+    	Race copy = RaceFactory.current().reloadRaceDataFile(directoryName);
+    	labels.copy(labels, copy.labels);
+    	copy.setupName	  = setupName();
+    	copy.empireTitle  = empireTitle();
+    	copy.description1 = description1;
+    	copy.description2 = description2;
+    	copy.description3 = description3;
+    	copy.description4 = description4;
+    	copy.raceNames.addAll(raceNames);
+    	copy.homeSystemNames.addAll(homeSystemNames);
+    	copy.leaderNames.addAll(leaderNames);
+    	copy.shipNamesSmall.addAll(shipNamesSmall);
+    	copy.shipNamesMedium.addAll(shipNamesMedium);
+     	copy.shipNamesLarge.addAll(shipNamesLarge);
+    	copy.shipNamesHuge.addAll(shipNamesHuge);
+   	
     	// useless for abilities
-    	race.troopNormal  = null;
-    	race.troopHostile = null;
-    	race.troopDeath1  = null;
-    	race.troopDeath2  = null;
-    	race.troopDeath3  = null;
-    	race.troopDeath4  = null;
-    	race.troopDeath1H = null;
-    	race.troopDeath2H = null;
-    	race.troopDeath3H = null;
-    	race.troopDeath4H = null;
-    	return race;
+    	copy.troopNormal  = null;
+    	copy.troopHostile = null;
+    	copy.troopDeath1  = null;
+    	copy.troopDeath2  = null;
+    	copy.troopDeath3  = null;
+    	copy.troopDeath4  = null;
+    	copy.troopDeath1H = null;
+    	copy.troopDeath2H = null;
+    	copy.troopDeath3H = null;
+    	copy.troopDeath4H = null;
+    	return copy;
     }
     public void loadNameList()  {
         List<String> secondaryNames =  new ArrayList<>(raceNames);
@@ -412,7 +423,7 @@ public class Race implements Base, Serializable {
     public void fullTitle(String s)           { fullTitle = s; }
     // BR: Custom Races
     public String  description4()             { return description4; }
-    public boolean isCustomRace()             { return isCustomRace; }
+    boolean isCustomRace()                    { return isCustomRace; }
     Race   isCustomRace(boolean val)          { isCustomRace = val; return this;}
     public boolean isRandomized() { return crEmpireNameRandom.equalsIgnoreCase(empireTitle); }
     DynOptions raceOptions()           	      { return raceOptions; }
@@ -817,7 +828,7 @@ public class Race implements Base, Serializable {
         diploYOffset = parseInt(vals.get(2).trim());
         diploOpacity = parseFloat(vals.get(3).trim());
     }
-    public void parseRaceNames(String names, String langId) {
+    public void parseRaceNames(String names) { //, String langId) {
         raceNames.clear();
         raceNames.addAll(substrings(names, ','));
     }

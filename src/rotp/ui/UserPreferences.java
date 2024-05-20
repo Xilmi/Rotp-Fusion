@@ -325,8 +325,13 @@ public class UserPreferences implements IMainOptions {
 				if (param != null
 						&& !param.isDuplicate()
 						&& param.isCfgFile()
-						&& !param.isSubMenu())
+						&& !param.isSubMenu()) {
+//					if (param instanceof ParamSpeciesName) {
+//						System.out.print(param.getCfgLabel());
+//						System.out.println(param.getCfgValue());
+//					}
 					out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
+				}
 			}
 			return 0;
 		}
@@ -341,19 +346,23 @@ public class UserPreferences implements IMainOptions {
 	private static void loadPreferenceLine(String line) {
 		if (line.isEmpty())
 			return;
-
-		String[] args = line.split(":");
-		if (args.length < 2)
+		if (!line.contains(":"))
 			return;
 
+		String[] args = line.split(":");
 		String key = args[0].toUpperCase().trim();
-		String val = args[1].trim();
+		if (key.isEmpty())
+			return;
+		
+		// BR: this to allows empty strings
+		String val = "";
+		if (args.length >1)
+			val = args[1].trim();
+
 		// for values that may have embedded :, like the save dir path
 		String fullVal = val;
 		for (int i=2;i<args.length;i++)
 			fullVal = fullVal+":"+args[i];
-		if (key.isEmpty() || val.isEmpty())
-				return;
 
 		if (Rotp.logging)
 			System.out.println("Key:"+key+"  value:"+val);
@@ -386,8 +395,11 @@ public class UserPreferences implements IMainOptions {
 			default:
 			// BR: Global Mod GUI
 				for (IParam param : optionList()) {
-					if (param != null 
-							&& key.equalsIgnoreCase(param.getCfgLabel())) {
+					if (param != null && key.equalsIgnoreCase(param.getCfgLabel())) {
+//						if (param instanceof ParamSpeciesName) {
+//							System.out.print(param.getCfgLabel());
+//							System.out.println(param.getCfgValue());
+//						}
 						if (param instanceof ParamString)
 							param.setFromCfgValue(fullVal.trim());
 						else

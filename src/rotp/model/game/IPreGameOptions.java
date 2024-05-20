@@ -77,13 +77,15 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 				RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
 			return value;
 		}
-		@Override public void prev() {
+		@Override public boolean prev() {
 			super.prev();
 			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+			return false;
 		}
-		@Override public void next() {
+		@Override public boolean next() {
 			super.next();
 			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+			return false;
 		}
 	};
 	default int selectedDynStarsPerEmpire()		{ return Math.abs(dynStarsPerEmpire.get()); }
@@ -384,8 +386,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	};
 	String PRE_GAME_GUI_ID	= "PRE_GAME_OPTIONS";
 	static ParamSubUI preGameOptionsUI() {
-		return new ParamSubUI( MOD_UI, PRE_GAME_GUI_ID, preGameOptionsMap())
-		{ { isCfgFile(false); } };
+		return new ParamSubUI( MOD_UI, PRE_GAME_GUI_ID, preGameOptionsMap());
 	}
 	ParamSubUI preGameOptionsUI	= preGameOptionsUI();
 }

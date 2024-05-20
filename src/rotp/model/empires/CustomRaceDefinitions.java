@@ -676,13 +676,17 @@ public class CustomRaceDefinitions  {
 			randomStr("Random Race");
 		}
 		@Override public void pushSetting() {
-			race.setupName = settingValue();
+			race.parseRaceNames(settingValue());
+			race.setupName = race.setupName();
+//			race.setupName = settingValue();
 		}
 		@Override public void pullSetting() {
-			if (race.setupName == null)
-				set(race.setupName());
-			else
-				set(race.setupName);				
+			String raceNames = String.join(",", race.raceNames); // TODO BR: Validate
+			set(raceNames);
+//			if (race.setupName == null)
+//				set(race.setupName());
+//			else
+//				set(race.setupName);				
 		}
 	}
 	// ==================== EmpireName ====================
@@ -1672,7 +1676,7 @@ public class CustomRaceDefinitions  {
 		@Override public String guiSettingDisplayStr() {
 			return getLabel() + ": " + guideValue() + " " + costString(cost());
 		}
-		@Override protected void next(Integer i) {
+		@Override protected boolean next(Integer i) {
 			super.next(i);
 			computer.settingText().repaint(computer.guiSettingDisplayStr());
 			construction.settingText().repaint(construction.guiSettingDisplayStr());
@@ -1680,6 +1684,7 @@ public class CustomRaceDefinitions  {
 			planet.settingText().repaint(planet.guiSettingDisplayStr());
 			propulsion.settingText().repaint(propulsion.guiSettingDisplayStr());
 			weapon.settingText().repaint(weapon.guiSettingDisplayStr());
+			return false;
 		}
 		@Override public void enabledColor(float cost) {
 			super.enabledColor(cost());
@@ -1861,7 +1866,7 @@ public class CustomRaceDefinitions  {
 		@Override public String guiSettingDisplayStr() {
 			return getLabel() + ": " + guideValue() + " " + costString(cost());
 		}
-		@Override protected void next(Integer i) {
+		@Override protected boolean next(Integer i) {
 			super.next(i);
 			computer.settingText().repaint(computer.guiSettingDisplayStr());
 			construction.settingText().repaint(construction.guiSettingDisplayStr());
@@ -1869,6 +1874,7 @@ public class CustomRaceDefinitions  {
 			planet.settingText().repaint(planet.guiSettingDisplayStr());
 			propulsion.settingText().repaint(propulsion.guiSettingDisplayStr());
 			weapon.settingText().repaint(weapon.guiSettingDisplayStr());
+			return false;
 		}
 		@Override public void enabledColor(float cost) {
 			super.enabledColor(cost());

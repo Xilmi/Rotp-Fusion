@@ -143,25 +143,27 @@ public class SettingInteger extends SettingBase<Integer> {
 	@Override public void setFromCfgValue(String newValue) {
 		set(stringToInteger(newValue));
 	}	
-	@Override public void next() {
-		next(baseInc);
+	@Override public boolean next() {
+		return next(baseInc);
 	}
-	@Override public void prev() {
-		next(-baseInc);
+	@Override public boolean prev() {
+		return next(-baseInc);
 	}
-	@Override public void toggle(MouseEvent e, BaseModPanel frame) {
+	@Override public boolean toggle(MouseEvent e, BaseModPanel frame) {
 		Integer inc = getInc(e) * getDir(e);
 		if (inc == 0)
 			setFromDefault(false, true);
 		else
-			next(getInc(e) * getDir(e));
+			return next(getInc(e) * getDir(e));
+		return false;
 	}
-	@Override public void toggle(MouseWheelEvent e) {
+	@Override public boolean toggle(MouseWheelEvent e) {
 		Integer inc = getInc(e) * getDir(e);
 		if (inc == 0)
 			setFromDefault(false, true);
 		else
-			next(getInc(e) * getDir(e));
+			return next(getInc(e) * getDir(e));
+		return false;
 	}
 	@Override public float settingCost() {
 		if (isSpacer() || hasNoCost())
@@ -187,10 +189,10 @@ public class SettingInteger extends SettingBase<Integer> {
 	}
 	// ===== Other Methods =====
 	//
-	protected void next(Integer i) {
+	protected boolean next(Integer i) {
 		if (i == 0) {
 			setFromDefault(false, true);
-			return;
+			return false;
 		}
 		Integer value = settingValue() + i;
 		if (maxValue != null && value > maxValue) {
@@ -198,16 +200,17 @@ public class SettingInteger extends SettingBase<Integer> {
 				set(minValue);
 			else
 				set(maxValue);
-			return;
+			return false;
 		}
 		else if (minValue != null && value < minValue) {
 			if (loop && maxValue != null)
 				set(maxValue);
 			else
 				set(minValue);
-			return;
+			return false;
 		}
 		set(value);
+		return false;
 	}
 	protected float settingCost(Integer value) {
 		float baseCost = getBaseCost(value);

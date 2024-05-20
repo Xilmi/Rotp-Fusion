@@ -16,13 +16,19 @@
 
 package rotp.ui.util;
 
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 import rotp.model.game.IGameOptions;
 import rotp.ui.game.BaseModPanel;
 
 public class ParamString extends AbstractParam<String> {
+	
+	private String inputMessage = "Enter the new name";
 	
 	// ===== Constructors =====
 	//
@@ -37,14 +43,24 @@ public class ParamString extends AbstractParam<String> {
 	// ===== Overriders =====
 	//
 	@Override public void setFromCfgValue(String newValue)	{ setFromCfg(newValue); }	
-	@Override public void prev() {}
-	@Override public void next() {}
-	@Override public void toggle(MouseWheelEvent e)	{}
-	@Override public void toggle(MouseEvent e, BaseModPanel frame) {}
+	@Override public boolean prev() { return false; }
+	@Override public boolean next() { return false; }
+	@Override public boolean toggle(MouseWheelEvent e)	{ return false; }
 	@Override protected String getOptionValue(IGameOptions options) {
 		return options.dynOpts().getString(getLangLabel(), creationValue());
 	}
 	@Override protected void setOptionValue(IGameOptions options, String value) {
 		options.dynOpts().setString(getLangLabel(), value);
+	}
+	@Override public boolean toggle(MouseEvent e, BaseModPanel frame) {
+		Object prev = UIManager.get("OptionPane.minimumSize");
+		UIManager.put("OptionPane.minimumSize", new Dimension(200,90)); 
+		String input;
+		input = JOptionPane.showInputDialog(frame ,inputMessage, get());
+		UIManager.put("OptionPane.minimumSize", prev); 
+		if (input == null)
+			return false; // cancelled
+		set(input);
+		return false;
 	}
 }

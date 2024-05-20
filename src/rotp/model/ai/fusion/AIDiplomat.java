@@ -2038,18 +2038,22 @@ public class AIDiplomat implements Base, Diplomat {
     public float aggressiveness(Empire victim) {
         float aggressiveness = empire.generalAI().facCapPct(empire, false);
         float racialMod = 1.0f;
-        if(!empire.race().isCustomRace()) { //Xilmi: For custom-races we need something better than this
-            if(empire.tradePctBonus() > 0)
-                racialMod *= 2f / 3f;
-            if(empire.researchBonusPct() > 1.0f)
-                racialMod *= 5f / 6f;
-            if(empire.groundAttackBonus() > 0 || empire.shipAttackBonus() > 0 || empire.shipDefenseBonus() > 0)
-                racialMod *= 3f / 2f;
-            if(empire.growthRateMod() > 1.0f)
-                racialMod *= 5f / 4f;
-            if(empire.groundAttackBonus() > 0 || empire.growthRateMod() > 1.0f)
-                aggressiveness = empire.totalPlanetaryPopulation() / empire.generalAI().totalEmpirePopulationCapacity(empire);
-        }
+//        if(!empire.race().isCustomRace()) { //Xilmi: For custom-races we need something better than this
+        if(empire.tradePctBonus() > 0)
+            racialMod *= 2f / 3f;
+        if(empire.researchBonusPct() > 1.0f)
+            racialMod *= 5f / 6f;
+        if(empire.groundAttackBonus() > 0 || empire.shipAttackBonus() > 0 || empire.shipDefenseBonus() > 0)
+            racialMod *= 3f / 2f;
+        if(empire.growthRateMod() > 1.0f)
+            racialMod *= 5f / 4f;
+        if(empire.groundAttackBonus() > 0 || empire.growthRateMod() > 1.0f)
+            aggressiveness = empire.totalPlanetaryPopulation() / empire.generalAI().totalEmpirePopulationCapacity(empire);
+//        }
+        // BR: Trade-off between what was intended and what was implemented:
+        // Mitigation for custom species
+        if (empire.isCustomRace())
+        	racialMod = (float) Math.sqrt(racialMod);
         float personalityMod = 1.0f;
         if(variant == 1) {
             if(empire.leader().isAggressive())

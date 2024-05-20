@@ -156,28 +156,31 @@ public class ParamList extends AbstractParam<String> {
 			return "";
 		return name(index);
 	}
-	@Override public void	next()						{
+	@Override public boolean next()						{
 		set(valueLabelMap.getNextLangLabelIgnoreCase(get()));
+		return false;
 	}
-	@Override public void	prev()						{
+	@Override public boolean prev()						{
 		set(valueLabelMap.getPrevValueIgnoreCase(get())); 
+		return false;
 	}
-	@Override public void	toggle(MouseWheelEvent e)	{
+	@Override public boolean toggle(MouseWheelEvent e)	{
 		if (getDir(e) > 0)
-			next();
+			return next();
 		else 
-			prev();
+			return prev();
 	}
-	@Override public void	toggle(MouseEvent e, BaseModPanel frame){
+	@Override public boolean toggle(MouseEvent e, BaseModPanel frame){
 		if (getDir(e) == 0)
 			setFromDefault(false, true);
 		else if (frame != null && 
 				(e.isControlDown() || listSize() >= minListSizePopUp.get()))
 			setFromList(frame);
 		else if (getDir(e) > 0)
-			next();
+			return next();
 		else 
-			prev();
+			return prev();
+		return false;
 	}
 	@Override public void	setFromCfgValue(String newCfgValue)	{
 		setFromCfg(validateValue(newCfgValue));

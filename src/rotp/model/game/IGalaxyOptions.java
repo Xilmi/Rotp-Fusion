@@ -36,13 +36,15 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				RotPUI.setupGalaxyUI().postSelectionMedium(true);
 			return value;
 		}
-		@Override public void	next()	{
+		@Override public boolean next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return false;
 		}
-		@Override public void	prev()	{
+		@Override public boolean prev()	{
 			super.prev();
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return false;
 		}
 
 	};
@@ -55,13 +57,15 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				RotPUI.setupGalaxyUI().postSelectionLight(true);
 			}
 		}
-		@Override public void	next()	{
+		@Override public boolean next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postSelectionLight(true);
+			return false;
 		}
-		@Override public void	prev()	{
+		@Override public boolean prev()	{
 			super.prev();
 			RotPUI.setupGalaxyUI().postSelectionLight(true);
+			return false;
 		}
 	};
 	default boolean selectedShowNewRaces()		{ return showNewRaces.get(); }
@@ -115,13 +119,15 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				RotPUI.setupGalaxyUI().postSelectionMedium(true);
 			return get();
 		}
-		@Override public void	next()	{
+		@Override public boolean next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return false;
 		}
-		@Override public void	prev()	{
+		@Override public boolean prev()	{
 			super.prev();
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return false;
 		}
 	};
 	ParamList    shapeOption1   		= new ParamList( // Duplicate Do not add the list
@@ -149,13 +155,15 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				RotPUI.setupGalaxyUI().postSelectionMedium(true);
 			return get();
 		}
-		@Override public void	next()	{
+		@Override public boolean next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return false;
 		}
-		@Override public void	prev()	{
+		@Override public boolean prev()	{
 			super.prev();
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return false;
 		}
 	};
 	ParamList    shapeSelection			= new ParamList( // Duplicate Do not add the list
@@ -178,13 +186,15 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				RotPUI.setupGalaxyUI().postSelectionFull(true);
 			return get();
 		}
-		@Override public void	next()	{
+		@Override public boolean next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postSelectionFull(true);
+			return false;
 		}
-		@Override public void	prev()	{
+		@Override public boolean prev()	{
 			super.prev();
 			RotPUI.setupGalaxyUI().postSelectionFull(true);
+			return false;
 		}
 	};
 	ParamList    sizeSelection 			= new ParamList( // Duplicate Do not add the list
@@ -231,13 +241,15 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
 			return get();
 		}
-		@Override public void	next()	{
+		@Override public boolean next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+			return false;
 		}
-		@Override public void	prev()	{
+		@Override public boolean prev()	{
 			super.prev();
 			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+			return false;
 		}
 	};
 	ParamList    difficultySelection	= new ParamList( // Duplicate Do not add the list
@@ -272,13 +284,15 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				RotPUI.setupGalaxyUI().postSelectionLight(true);
 			return get();
 		}
-		@Override public void	next()	{
+		@Override public boolean next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postSelectionLight(true);
+			return false;
 		}
-		@Override public void	prev()	{
+		@Override public boolean prev()	{
 			super.prev();
 			RotPUI.setupGalaxyUI().postSelectionLight(true);
+			return false;
 		}
 	};
 	ParamInteger aliensNumber 			= new ParamInteger( // Duplicate Do not add the list
@@ -301,13 +315,15 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				RotPUI.setupGalaxyUI().postSelectionMedium(true);
 			return value;
 		}
-		@Override public void	next()	{
+		@Override public boolean next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return false;
 		}
-		@Override public void	prev()	{
+		@Override public boolean prev()	{
 			super.prev();
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return false;
 		}
 	};
 	ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath())

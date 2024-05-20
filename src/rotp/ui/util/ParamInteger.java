@@ -126,10 +126,10 @@ public class ParamInteger extends AbstractParam<Integer> {
 		if (!isDuplicate())
 			setFromCfg(stringToInteger(newValue));
 	}	
-	@Override public void prev() { next(-baseInc()); }
-	@Override public void next() { next(baseInc()); }
-	@Override public void toggle(MouseEvent e, BaseModPanel frame)	{ next(getInc(e) * getDir(e)); }
-	@Override public void toggle(MouseWheelEvent e)	{ next(getInc(e) * getDir(e)); }
+	@Override public boolean prev() { return next(-baseInc()); }
+	@Override public boolean next() { return next(baseInc()); }
+	@Override public boolean toggle(MouseEvent e, BaseModPanel frame)	{ return next(getInc(e) * getDir(e)); }
+	@Override public boolean toggle(MouseWheelEvent e)	{ return next(getInc(e) * getDir(e)); }
 	@Override protected Integer getOptionValue(IGameOptions options) {
 		return options.dynOpts().getInteger(getLangLabel(), creationValue());
 	}
@@ -146,8 +146,8 @@ public class ParamInteger extends AbstractParam<Integer> {
 			set((int) Math.ceil(f));
 		next(inc);
 	}
-	public void next(MouseEvent e)		{ next(Math.abs(getInc(e))); }
-	public void prev(MouseEvent e)		{ next(-Math.abs(getInc(e))); }
+	public boolean next(MouseEvent e)		{ return next(Math.abs(getInc(e))); }
+	public boolean prev(MouseEvent e)		{ return next(-Math.abs(getInc(e))); }
 	public boolean isSpecial()			{ return specialMap.containsKey(get()); }
 	public boolean isSpecialZero()		{ return specialZero && (get().equals(0)); }
 	public boolean isSpecialNegative()	{ return specialNegative && (get() < 0); }
@@ -166,30 +166,31 @@ public class ParamInteger extends AbstractParam<Integer> {
 			return langLabel(specialMap.get(get()));
 		return String.valueOf(val);
 	}
-	private void next(int i) {
+	private boolean next(int i) {
 		if (i == 0) {
 			setFromDefault(false, true);
-			return;
+			return false;
 		}
 		Long value = (long) get() + i;
 		if (maxValue() != null && value > maxValue()) {
 			if (loop && minValue() != null) {
 				set(minValue());
-				return;
+				return false;
 			} else {
 				set(maxValue());
-				return;
+				return false;
 			}
 		}
 		else if (minValue() != null && value < minValue()) {
 			if (loop && maxValue() != null) {
 				set(maxValue());
-				return;
+				return false;
 			} else {
 				set(minValue());
-				return;
+				return false;
 			}
 		}
 		set(value.intValue());
+		return false;
 	}
 }

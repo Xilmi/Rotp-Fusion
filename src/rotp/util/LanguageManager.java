@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import rotp.Rotp;
+import rotp.model.empires.Race;
 import rotp.model.empires.RaceFactory;
 import rotp.ui.UserPreferences;
 
@@ -122,6 +123,10 @@ public class LanguageManager implements Base {
         loadLanguage(i);
     }
     public void reloadLanguage()      { loadLanguage(selectedLanguage()); } // BR: to reload labels without having to restart
+    public void reloadRace(Race race) { // BR: to reload Selected race labels
+    	Language newLang = languages().get(selectedLanguage);
+    	RaceFactory.current().loadRaceLangFiles(race, newLang.directory);
+    }
     public void loadLanguage(int i)   {
         Language defLang = languages().get(DEFAULT_LANGUAGE); // BR: Uncommented
         Language newLang = languages().get(i);

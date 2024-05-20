@@ -32,8 +32,10 @@ import static rotp.ui.main.GalaxyMapPanel.maxStargateScale;
 import static rotp.ui.util.IParam.langLabel;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.swing.JFileChooser;
@@ -51,10 +53,12 @@ import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamOptions;
+import rotp.ui.util.ParamSpeciesName;
 import rotp.ui.util.ParamString;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 import rotp.util.FontManager;
+import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
 
 public interface IMainOptions extends IDebugOptions, ICombatOptions {
@@ -228,10 +232,10 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			String label = getLangLabel() + es;
 			return langLabel(label);
 		}
-		@Override public void toggle(MouseEvent e, BaseModPanel frame)	{
+		@Override public boolean toggle(MouseEvent e, BaseModPanel frame)	{
 			if (getDir(e) == 0) {
 				set("");
-				return;
+				return false;
 			}
 	        final JFileChooser fc = new JFileChooser();
 	        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -242,6 +246,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	            String path = fc.getSelectedFile().getAbsolutePath();
 	            set(path);
 	        }
+			return false;
 	    }
 		@Override public String	getCfgLabel()		{ return "SAVE_DIR"; }
 		@Override public String	getOption()			{ return saveDir(); }
@@ -461,27 +466,105 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		}
 	};
 	default boolean selectedShowAllAI()			{ return showAllAI.get(); }
+	String NAME_UI		= "NAME_";
+	// Customized nominal names
+	ParamSpeciesName altairi	= new ParamSpeciesName(NAME_UI, "RACE_ALKARI",	 "Alkari Sovereignty, Alkari, Alkaris");
+	ParamSpeciesName ursinathi	= new ParamSpeciesName(NAME_UI, "RACE_BULRATHI", "Bulrathi Empire, Bulrathi, Bulrathis");
+	ParamSpeciesName nazlok		= new ParamSpeciesName(NAME_UI, "RACE_DARLOK",	 "Darloks, Darlok, Darloks");
+	ParamSpeciesName human		= new ParamSpeciesName(NAME_UI, "RACE_HUMAN",	 "Human Triumvirate, Human, Humans");
+	ParamSpeciesName kholdan	= new ParamSpeciesName(NAME_UI, "RACE_KLACKON",	 "Klackon Hive, Klackon, Klackons");
+	ParamSpeciesName meklonar	= new ParamSpeciesName(NAME_UI, "RACE_MEKLAR",	 "Meklar Dominion, Meklar, Meklars");
+	ParamSpeciesName fiershan	= new ParamSpeciesName(NAME_UI, "RACE_MRRSHAN",	 "Mrrshan Clan, Mrrshan, Mrrshan");
+	ParamSpeciesName mentaran	= new ParamSpeciesName(NAME_UI, "RACE_PSILON",	 "Psilon Republic, Psilon, Psilons");
+	ParamSpeciesName ssslaura	= new ParamSpeciesName(NAME_UI, "RACE_SAKKRA",	 "Sakkra Conclave, Sakkra, Sakkras");
+	ParamSpeciesName cryslonoid	= new ParamSpeciesName(NAME_UI, "RACE_SILICOID", "Silicoid Imperium, Silicoid, Silicoids");
+
+	HashMap<String, ParamSpeciesName> speciesNameMap = speciesNameMap();
+	static HashMap<String, ParamSpeciesName> speciesNameMap() {
+		HashMap<String, ParamSpeciesName> map= new HashMap<>();
+		map.put(human.getCfgLabel(),		human);
+		map.put(altairi.getCfgLabel(),		altairi);
+		map.put(cryslonoid.getCfgLabel(),	cryslonoid);
+		map.put(fiershan.getCfgLabel(),		fiershan);
+		map.put(kholdan.getCfgLabel(),		kholdan);
+		map.put(meklonar.getCfgLabel(),		meklonar);
+		map.put(mentaran.getCfgLabel(),		mentaran);
+		map.put(nazlok.getCfgLabel(),		nazlok);
+		map.put(ssslaura.getCfgLabel(),		ssslaura);
+		map.put(ursinathi.getCfgLabel(),	ursinathi);
+		return map;
+	}
+	ParamBoolean moo1SpeciesName		= new ParamBoolean(MOD_UI, "MOO1_SPECIES_NAME", false) {
+		{ isCfgFile(false); isDuplicate(false); }
+		@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
+			human.set("Human Triumvirate, Human, Humans");
+			altairi.set("Alkari Sovereignty, Alkari, Alkaris");
+			cryslonoid.set("Silicoid Imperium, Silicoid, Silicoids");
+			fiershan.set("Mrrshan Clan, Mrrshan, Mrrshan");
+			kholdan.set("Klackon Hive, Klackon, Klackons");
+			meklonar.set("Meklar Dominion, Meklar, Meklars");
+			mentaran.set("Psilon Republic, Psilon, Psilons");
+			nazlok.set("Darloks, Darlok, Darloks");
+			ssslaura.set("Sakkra Conclave, Sakkra, Sakkras");
+			ursinathi.set("Bulrathi Empire, Bulrathi, Bulrathis");
+			next();
+			LanguageManager.current().reloadLanguage();
+			return true;
+		}
+		@Override public String	guideValue()			{ return ""; }
+	};
+	ParamBoolean clearSpeciesName		= new ParamBoolean(MOD_UI, "CLEAR_SPECIES_NAME", false) {
+		{ isCfgFile(false); isDuplicate(false); }
+		@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
+			for (ParamSpeciesName param : speciesNameMap.values()) {
+				param.set("");
+				param.updated(true);
+			}
+			next();
+			LanguageManager.current().reloadLanguage();
+			return true;
+		}
+		@Override public String	guideValue()			{ return ""; }
+	};
+	ParamBoolean activateSpeciesName	= new ParamBoolean(MOD_UI, "ACTIVATE_SPECIES_NAME", false) {
+		{ isCfgFile(false); isDuplicate(false); }
+		@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
+			next();
+			LanguageManager.current().reloadLanguage();
+			return false;
+		}
+		@Override public String	guideValue()			{ return ""; }
+	};
 
 	// ==================== GUI List Declarations ====================
 	//
-//	LinkedList<IParam> mainOptionsUI  = new LinkedList<>(
-//			Arrays.asList(
-//					displayMode, graphicsMode,
-//					texturesMode, sensitivityMode,
-//					selectedScreen,
-//					null,
-//					soundVolume, musicVolume,
-//					backupTurns, saveDirectory,
-//					showAlternateAnimation,
-//					null,
-//					useFusionFont, disableAdvisor,
-//					originalSpeciesOnly, noFogOnIcons,
-//					null,
-//					menuStartup,
-//					compactOptionOnly, debugOptionsUI,
-//					zoomOptionsUI
-//					));
+	String NAME_GUI_ID	= "NAME_OPTIONS";
+	static ParamSubUI specieNameOptionsUI() {
+		return new ParamSubUI( MOD_UI, "NAME_OPTIONS_UI", specieNameOptionsMap(),
+				"NAME_OPTIONS_TITLE", NAME_GUI_ID, true);
+		//return new ParamSubUI( MOD_UI, NAME_GUI_ID, specieNameOptionsMap());
+	}
+	static LinkedList<IParam> specieNameOptions() {
+		return IBaseOptsTools.getSingleList(specieNameOptionsMap());
+	}
+	static LinkedList<LinkedList<IParam>> specieNameOptionsMap()	{
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
+				altairi, ursinathi,
+				nazlok, human,
+				kholdan, meklonar,
+				fiershan, mentaran,
+				ssslaura, cryslonoid,
 
+				headerSpacer,
+				moo1SpeciesName,
+				clearSpeciesName,
+
+				headerSpacer,
+				activateSpeciesName
+				)));
+		return map;
+	}
 	static LinkedList<IParam> vanillaSettingsUI() {
 		LinkedList<IParam> options  = new LinkedList<>(
 				Arrays.asList(
@@ -506,30 +589,6 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 						));
 		return options;
 	}
-
-//	static LinkedList<IParam> mainOptionsUI() {
-//		LinkedList<IParam> options  = new LinkedList<>(
-//				Arrays.asList(
-//						displayMode, graphicsMode,
-//						texturesMode, sensitivityMode,
-//						selectedScreen,
-//						null,
-//						soundVolume, musicVolume,
-//						backupTurns, saveDirectory,
-//						showAlternateAnimation,
-//						null,
-//						useFusionFont, disableAdvisor,
-//						originalSpeciesOnly, noFogOnIcons,
-//						colorSet,
-//						null,
-//						compactOptionOnly,
-//						commonOptionsUI(),
-//						ICombatOptions.combatOptionsUI(),
-//						IDebugOptions.debugOptionsUI()
-//						));
-//		return options;
-//	}
-
 	static LinkedList<LinkedList<IParam>> commonOptionsMap()	{
 		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
@@ -571,7 +630,8 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				headerSpacer,
 				new ParamTitle("SUB_PANEL_OPTIONS"),
 				IDebugOptions.debugOptionsUI(),
-				ICombatOptions.combatOptionsUI()
+				ICombatOptions.combatOptionsUI(),
+				specieNameOptionsUI()
 				)));
 		return map;
 	};
@@ -580,56 +640,8 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		return new ParamSubUI( MOD_UI, COMMON_GUI_ID, commonOptionsMap())
 		{ { isCfgFile(false); } };
 	}
-//	ParamSubUI commonOptionsUI	= commonOptionsUI();
 
 	static LinkedList<IParam> commonOptions() {
 		return IBaseOptsTools.getSingleList(commonOptionsMap());
 	}
-
-	static LinkedList<LinkedList<IParam>> cfgOptionsMap()	{
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("COMPUTER_OPTIONS"),
-				graphicsMode, texturesMode, sensitivityMode,
-				soundVolume, musicVolume,
-
-				headerSpacer,
-				new ParamTitle("MENU_APPEARANCE"),
-				galaxyPreviewColorStarsSize, minListSizePopUp,
-				menuStartup, noFogOnIcons,
-				showAlternateAnimation, useFusionFont,
-				compactOptionOnly
-				)));
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("ZOOM_FONT"),
-				mapFontFactor, showNameMinFont, showInfoFontRatio,
-				showPendingOrders,
-				
-				headerSpacer,
-				new ParamTitle("ZOOM_FLEET"),
-				showFleetFactor, showFlagFactor, showPathFactor,
-				
-				headerSpacer,
-				new ParamTitle("ZOOM_REPLAY"),
-				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
-				)));
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("BACKUP_OPTIONS"),
-				backupTurns, backupKeep, saveDirectory,
-
-				headerSpacer,
-				new ParamTitle("GAME_UI_PREFERENCES"),
-				raceStatusLog, disableAdvisor,
-				originalSpeciesOnly,
-
-				// headerSpacer,
-				// new ParamTitle("GAME_VARIOUS"),
-				headerSpacer,
-				new ParamTitle("SUB_PANEL_OPTIONS"),
-				IDebugOptions.debugOptionsUI(),
-				ICombatOptions.combatOptionsUI()
-				)));
-		return map;
-	};
-
 }

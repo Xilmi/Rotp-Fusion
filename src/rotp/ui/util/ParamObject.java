@@ -38,10 +38,10 @@ class ParamObject extends AbstractParam<Serializable> {
 	// ===== Overriders =====
 	//
 	@Override public void setFromCfgValue(String newValue)	{ setFromCfg(newValue); }	
-	@Override public void prev() {}
-	@Override public void next() {}
-	@Override public void toggle(MouseWheelEvent e)	{}
-	@Override public void toggle(MouseEvent e, BaseModPanel frame) {}
+	@Override public boolean prev() { return false; }
+	@Override public boolean next() { return false; }
+	@Override public boolean toggle(MouseWheelEvent e)	{ return false; }
+	@Override public boolean toggle(MouseEvent e, BaseModPanel frame) { return false; }
 	@Override protected Serializable getOptionValue(IGameOptions options) {
 		return options.dynOpts().getObject(getLangLabel(), creationValue());
 	}

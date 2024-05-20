@@ -1,7 +1,7 @@
 // race-specific variables (must start with _)
-_empire                           | Bulrathi Empire, Bearathi Empire, Burlathi Empire, Pawrathi Empire, Grizzlathi Empire
-_race                             | Bulrathi, Bearathi, Burlathi, Pawrathi, Grizzlathi
-_race_plural                      | Bulrathis, Bearathis, Burlathis, Pawrathis, Grizzlathis
+_empire                           | Ursinathi Empire, Bearathi Empire, Burlathi Empire, Pawrathi Empire, Grizzlathi Empire
+_race                             | Ursinathi, Bearathi, Burlathi, Pawrathi, Grizzlathi
+_race_plural                      | Ursinathis, Bearathis, Burlathis, Pawrathis, Grizzlathis
 _title                            | Grand Hierarch
 _nameTitle                        | Grand Hierarch
 
@@ -25,7 +25,7 @@ _nameTitle                        | Grand Hierarch
 // BR: added %0 option for _title
 
 // Advisor text
-MAIN_ADVISOR_TITLE                | Bulrathi Advisor
+MAIN_ADVISOR_TITLE                | %1 Advisor
 MAIN_ADVISOR_BUTTON_OK            | Dismiss
 MAIN_ADVISOR_SCOUT                | Master, we've prepared both scouts and a colony ship for departure. We'll begin exploring and colonizing a nearby system at your command.
 MAIN_ADVISOR_TRANSPORT            | The world of %1, added to our empire! Give the order and we shall begin sending transports immediately!
