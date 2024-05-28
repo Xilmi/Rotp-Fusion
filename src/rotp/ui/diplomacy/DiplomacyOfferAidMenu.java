@@ -28,7 +28,8 @@ public class DiplomacyOfferAidMenu extends DiplomaticMessage {
     public DiplomacyOfferAidMenu(String  s) {
         messageType = s;
     }
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     public void diplomat(Empire emp) { 
         super.diplomat(emp); 
         

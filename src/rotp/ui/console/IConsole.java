@@ -17,6 +17,7 @@ import rotp.model.ships.ShipDesign;
 import rotp.ui.RotPUI;
 import rotp.ui.main.MainUI;
 import rotp.util.Base;
+import rotp.util.Basket;
 
 public interface IConsole extends Base {
 	int NULL_ID		= -1;
@@ -96,7 +97,8 @@ public interface IConsole extends Base {
 	default int validPlanet(int p)		{ return bounds(0, p, galaxy().systemCount-1); }
 	default String cLn(String s)		{ return s.isEmpty() ? "" : (NEWLINE + s); }
 	default String ly(float dist)		{ return text("SYSTEMS_RANGE", df1.format(Math.ceil(10*dist)/10)); }
-	default String bracketed(String key, int index)	{ return "(" + key + " " +index + ")"; }
+	default String bracketed(String key, int index)	{ return "(" + key + " " + index + ")"; }
+	default String bracketed(String key, String s)	{ return "(" + key + " " + s + ")"; }
 	default String optional(String... keys)			{ return "[" + either(keys) + "]"; }
 	default String either(String... keys)			{
 		String sep = "";
@@ -163,6 +165,17 @@ public interface IConsole extends Base {
 	}
 	default String viewTargetSystemInfo(StarSystem sys, boolean local)	{
 		return "Aimed System = " + viewSystemInfo(sys, local);
+	}
+	default Basket getIndex(List<String> param, String str, String key)	{
+		Basket res = new Basket("");
+		if (str.equals(key))
+			str = param.remove(0).toUpperCase();
+		else
+			str = str.replace(key, "");
+		res.integerValue = getInteger(str);
+		if (res.integerValue == null)
+			res.stringValue = "Error: Missing Integer value " + str + "?";
+		return res;
 	}
 	//	##### FLEETS #####
 	default String fleetDesignInfo(ShipFleet fl, String sep)	{

@@ -230,13 +230,15 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		setPreferredSize(new Dimension(800, 600));
 		resultPane.setContentType("text/html");
 		resultPane.setText("<html>");
-		initMenus();
-		resultPane.setText(liveMenu().menuGuide(""));
-
+		
 		starView		= new ConsoleStarView();
 		fleetView		= new ConsoleFleetView();
 		empireView		= new ConsoleEmpireView();
 		researchView	= new ConsoleResearchView();
+
+		initMenus();
+		resultPane.setText(liveMenu().menuGuide(""));
+
 		instance	= this;
 		if(!Rotp.isIDE())
 			IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
@@ -1051,7 +1053,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		protected String close(String out)		{ return parent.open(out); }
 		private void addMenu(CommandMenu menu)	{ subMenus.add(menu); }
 		private void addSetting(IParam setting)	{ settings.add(setting); }
-		private void addCommand(Command cmd)	{ commands.add(cmd); }
+		void addCommand(Command cmd)	{ commands.add(cmd); }
 		protected void newEntry(String entry)	{
 			List<String> param = new ArrayList<>();
 			String txt = entry.trim().toUpperCase();

@@ -6,6 +6,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Main menu panel:
   - Added Load and Save Options, with the "CTRL" key modifier.
   - Added Help screen.
+- Console:
+  - Tech panel management.
+  - Select tech pop-up interception.
+  - Announce tech pop-up interception.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

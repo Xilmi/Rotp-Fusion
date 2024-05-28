@@ -46,11 +46,10 @@ Very soon:
 - Option to continue game after victory!
 
 Console Next steps: (Sequence probably not definitive)
-- Research: Display, Control, Interception of announce pop-up.
 - Ship design: Display, Design.
+- Spies: Intercept sabotage pop-up, and espionage pop-up!
 - Interception of victory or defeat panels.
 - Council: Interception of announcements pop-up and Voting panels.
-- Spies: Intercept sabotage pop-up, and espionage pop-up!
 - Access optional turn reports and spy reports.
 
 Later:
@@ -70,6 +69,12 @@ Later:
 
 
 ## What's New
+
+2024.05.27 (BR)
+- Console:
+  - Tech panel management.
+  - Select tech pop-up interception.
+  - Announce tech pop-up interception.
 
 2024.05.20 (BR)
 - Empty string are read and set from remnant.cfg.

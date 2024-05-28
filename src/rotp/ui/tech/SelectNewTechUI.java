@@ -33,13 +33,16 @@ import java.awt.image.BufferedImage;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
+import rotp.ui.console.IConsoleListener;
 import rotp.ui.main.SystemPanel;
 
-public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListener {
+public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMotionListener,
+												MouseWheelListener, ActionListener, IConsoleListener {
     private static final long serialVersionUID = 1L;
     private static final Color darkBrown = new Color(112,85,68);
     private static final Color darkBrownShade = new Color(112,85,68,128);
@@ -109,6 +112,7 @@ public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMo
         techsY = 0;
         finished = false;
         repaint();
+        initConsoleSelection();
     }
     public TechCategory category()        { return category; }
 
@@ -430,4 +434,57 @@ public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMo
         if (techsY != prevY) 
             repaint(techListBox);
     }
+
+    // ##### Console Tools
+	@Override public int consoleEntry(String entry)	{
+		Integer index = getInteger(entry);
+		if (index == null)
+			return INVALID_ENTRY;
+		if (index < 1)
+			return INVALID_ENTRY;
+		if (index > availableTechs.size())
+			return INVALID_ENTRY;
+
+		String selectedTech = availableTechs.get(index-1);
+		selectTech(selectedTech);
+		return VALID_ENTRY;
+	}
+	@Override public String getMessage() {
+		String message	= "";
+		talkTimeMs		= 10;
+        Empire player	= player();
+        String addlDesc	= text("TECH_TOP_TIER_DETAIL");
+        String obsDesc	= text("TECH_OBSOLETE_DETAIL");
+        String title	= text(category.researchKey());
+
+        int techDisplaySize = availableTechs.size();
+
+        // draw title for main box
+        message += title;
+        if (techDisplaySize > 1)
+            message += NEWLINE + text("TECH_CAN_CHANGE");
+        message += NEWLINE + "The options are:";
+
+        for (int idx=0; idx<techDisplaySize; idx++) {
+            String id = availableTechs.get(idx+techIndex);
+            Tech tech = tech(id);
+            message += NEWLINE + (idx+1) + " for " + tech.name();
+
+            float techCost = category.costForTech(tech);
+            String cost = text("TECH_CHOOSE_RESEARCH_COST", shortFmt(techCost));
+            message += " " + cost; 
+
+            boolean topTier = tech.quintile() == category.maxResearchableQuintile();
+            boolean obsolete = tech.isObsolete(player);
+            String detail = tech.detail();
+            if (topTier)
+                detail += " "+ addlDesc;
+            else if (obsolete)
+            	message += ". "+ obsDesc;
+
+            message += NEWLINE + detail; 
+        }
+		return message;
+	}
+
 }

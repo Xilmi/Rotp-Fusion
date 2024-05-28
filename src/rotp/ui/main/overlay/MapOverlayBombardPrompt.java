@@ -651,7 +651,6 @@ public class MapOverlayBombardPrompt extends MapOverlay implements IConsoleListe
 				options.add(new ConsoleOptions(KeyEvent.VK_Y, "Y", "Yes, Drop the bombs."));
 			options.add(new ConsoleOptions(KeyEvent.VK_N, "N", "No, do not bombard the planet."));
 		}
-		
 		return options;
 	}
 	@Override public String getMessage()				{

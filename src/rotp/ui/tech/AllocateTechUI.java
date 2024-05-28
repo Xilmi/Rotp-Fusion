@@ -91,7 +91,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     int treeX, treeY;
     int dragX, dragY;
     float totalPlanetaryResearch = -1;
-    float totalPlanetaryResearchSpending = 0;
+    public float totalPlanetaryResearchSpending = 0;
     private int altReturn = -1;
     
     public AllocateTechUI() {
@@ -893,6 +893,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
             drawString(g,select, x1+s10, y+hdr1+s60);
         }
     }
+    public int selectedTechCategory()	  { return selectedCategory; }
     public void selectTechCategory(int i) {
         if ((i < 0) || (i >= catBox.length))
             return;
@@ -902,6 +903,14 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         resetData();
         repaint();
     }
+    public void refreshTechCategory(int i) {
+        if ((i < 0) || (i >= catBox.length))
+            return;
+        selectedCategory = i;
+        resetData();
+        repaint();
+    }
+
     private void resetData() {
         currentTechs = new Point2D.Float[TechTree.NUM_CATEGORIES];
         visualTree = null;
@@ -918,12 +927,12 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         if (quintile > 1) 
             treeX = scaled((400*quintile)-600);
     }
-    private void equalize() {
+    public void equalize() {
         softClick();
         player().tech().equalizeAllocations();
         repaint();
     }
-    private void toggleOverflowSpending() {
+    public void toggleOverflowSpending() {
         softClick();
         player().toggleColonyExcessToResearch();
         totalPlanetaryResearch = player().totalPlanetaryResearch();

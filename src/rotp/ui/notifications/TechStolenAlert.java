@@ -19,7 +19,8 @@ import rotp.model.game.GameSession;
 
 public class TechStolenAlert extends GameAlert {
     private final int empSpy;
-    private final String techId;
+    @SuppressWarnings("unused")
+	private final String techId;
     public static void create(int emp, String t) {
         GameSession.instance().addAlert(new TechStolenAlert(emp,t));
     }

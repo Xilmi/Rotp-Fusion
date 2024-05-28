@@ -33,6 +33,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.empires.EspionageMission;
 import rotp.model.galaxy.Galaxy;
@@ -41,10 +42,12 @@ import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
+import rotp.ui.console.IConsoleListener;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.notifications.TradeTechNotification;
 
-public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseMotionListener, ActionListener {
+public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseMotionListener,
+															ActionListener, IConsoleListener {
     private static final long serialVersionUID = 1L;    
     static final int SCIENTIST_VIEW = 0;
     static final int SPY_VIEW = 1;
@@ -140,6 +143,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         mission = null;
         frameEmpire1 = null;
         frameEmpire2 = null;
+        initConsoleSelection();
     }
     public void tradeTech(String techId, int empId) {
         Galaxy gal = galaxy();
@@ -828,5 +832,70 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
                     handleReallocateSystemsAction(4);
                 return;
         }
+    }
+    // ##### Console Tools
+    @Override public boolean handleKeyPress(KeyEvent e)	{
+    	keyPressed(e);
+    	return true;
+    }
+    @Override public List<ConsoleOptions> getOptions()	{
+    	List<ConsoleOptions> options = new ArrayList<>();
+    	
+        if (mode == MODE_REALLOCATE) {
+        	int amt = (int) (tech().baseReallocateAmount() * 100);
+        	options.add(new ConsoleOptions(KeyEvent.VK_1, "1", text("TECH_ALLOCATE_NO")));
+        	options.add(new ConsoleOptions(KeyEvent.VK_2, "2", text("TECH_ALLOCATE_PCT", str(amt))));
+        	options.add(new ConsoleOptions(KeyEvent.VK_3, "3", text("TECH_ALLOCATE_PCT", str(2*amt))));
+        	options.add(new ConsoleOptions(KeyEvent.VK_4, "4", text("TECH_ALLOCATE_PCT", str(3*amt))));
+        }
+        else if (mode == MODE_FRAME_EMPIRE) {
+        	if (frameEmpire1 != null)
+        		options.add(new ConsoleOptions(KeyEvent.VK_ESCAPE, "1", frameEmpire1.name()));
+        	if (frameEmpire2 != null)
+        		options.add(new ConsoleOptions(KeyEvent.VK_ESCAPE, "2", frameEmpire2.name()));
+        } else
+        	options.add(new ConsoleOptions(KeyEvent.VK_ESCAPE, "C", "Continue"));
+
+		return options;
+    }
+    @Override public String getMessage() {
+		String message	= "";
+		talkTimeMs = 10;
+        Empire player = player();
+        
+        if (mode == MODE_REALLOCATE)
+            sourceEmpire = player;
+
+        if (mode == MODE_SHOW_TECH) {
+        	message += title;
+        	message += NEWLINE + tech.name();
+        	message += NEWLINE + tech.detail();
+        }
+        else if (mode == MODE_REALLOCATE) {
+        	message += text(tech().followup().toString());
+        }
+        else if (mode == MODE_COMPLETED) {
+        	message += text("TECH_COMPLETED_TITLE");
+            if (player().tech().researchCompleted())
+            	message += NEWLINE + text("TECH_COMPLETED_ALL");
+            else {
+               switch (tech.cat.index()) {
+                   case 0: message += NEWLINE + text("TECH_COMPLETED_COMPUTER"); break;
+                   case 1: message += NEWLINE + text("TECH_COMPLETED_CONSTRUCTION"); break;
+                   case 2: message += NEWLINE + text("TECH_COMPLETED_FORCE_FIELD"); break;
+                   case 3: message += NEWLINE + text("TECH_COMPLETED_PLANETOLOGY"); break;
+                   case 4: message += NEWLINE + text("TECH_COMPLETED_PROPULSION"); break;
+                   case 5: message += NEWLINE + text("TECH_COMPLETED_WEAPON"); break;
+                   default: message += NEWLINE + "Unknown tech category: " + tech.cat.index(); break;
+               }
+               message += NEWLINE + text("TECH_COMPLETED_VERIFY"); 
+            }
+        }
+        else if (mode == MODE_FRAME_EMPIRE) {
+            message += text("NOTICE_ESPIONAGE_FRAME_TITLE");
+            message += NEWLINE + text("NOTICE_ESPIONAGE_FRAME_SUBTITLE");
+        }
+        message += NEWLINE + getMessageOption();
+		return message;
     }
 }
