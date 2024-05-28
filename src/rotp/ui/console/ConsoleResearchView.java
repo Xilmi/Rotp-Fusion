@@ -18,6 +18,7 @@ import rotp.util.Basket;
 
 public class ConsoleResearchView implements IConsole {
 	private static final String TECH_CATEGORY	= "C";
+	private static final String TECH_UNKNOWN	= "U";
 	private static final String TECH_SPENDING	= "S";
 	private static final String TECH_SELECT		= "T";
 	private static final String TECH_INFO		= "I";
@@ -31,8 +32,8 @@ public class ConsoleResearchView implements IConsole {
 	private void selectCategory(int i)	{ techUI().selectTechCategory(i); }
 	private void refreshCategory(int i)	{ techUI().refreshTechCategory(i); }
 
-	private Command initSelectCategory()	{
-		Command cmd = new Command("select Category and gives info", TECH_CATEGORY) {
+	private Command initShowUnknownTechInCategory()	{
+		Command cmd = new Command("select Category and list unknown technologies", TECH_UNKNOWN) {
 			@Override protected String execute(List<String> param) {
 				String out = "";
 				if (!param.isEmpty()) {
@@ -40,7 +41,26 @@ public class ConsoleResearchView implements IConsole {
 					Integer tag = getInteger(s);
 					if (tag != null) {
 						selectCategory(getCatNumFromTag(tag));
-						out += showCategoryTree();
+						out += showCategoryTree(true);
+					}
+				}
+				return out;
+			}
+		};
+		cmd.cmdParam(" Index");
+		cmd.cmdHelp("No secondary options");
+		return cmd;		
+	}
+	private Command initSelectCategory()	{
+		Command cmd = new Command("select Category and list technologies", TECH_CATEGORY) {
+			@Override protected String execute(List<String> param) {
+				String out = "";
+				if (!param.isEmpty()) {
+					String s = param.get(0);
+					Integer tag = getInteger(s);
+					if (tag != null) {
+						selectCategory(getCatNumFromTag(tag));
+						out += showCategoryTree(false);
 					}
 				}
 				return out;
@@ -109,10 +129,11 @@ public class ConsoleResearchView implements IConsole {
 				return out;
 			}
 		};
-		menu.addCommand(initSelectCategory());
-		menu.addCommand(initSpending());
-		menu.addCommand(initSelectTechnology());
 		menu.addCommand(initGlobalInfo());
+		menu.addCommand(initSpending());
+		menu.addCommand(initSelectCategory());
+		menu.addCommand(initShowUnknownTechInCategory());
+		menu.addCommand(initSelectTechnology());
 		
 		return menu;
 	}
@@ -304,7 +325,7 @@ public class ConsoleResearchView implements IConsole {
 		return out;
 	}
 
-	private String showCategoryTree()	{
+	private String showCategoryTree(boolean onlyUnknownTech)	{
 		int catNum = selectedCategory();
 		String out = getTagFromNum(catNum);
 		String title = text(TechCategory.id(catNum));
@@ -323,11 +344,18 @@ public class ConsoleResearchView implements IConsole {
 		int maxTechLvl = maxQ*5;
 		List<String> knownT = cat.knownTechs();
 		List<String> allT = new ArrayList<>(cat.possibleTechs());
-		for (String techId: knownT) {
-			if (!tech(techId).free)
-				allT.add(techId);
+		if (onlyUnknownTech) {
+			for (String techId: knownT) {
+				if (!tech(techId).free && !player().tech().knows(techId))
+					allT.add(techId);
+			}
 		}
-
+		else {
+			for (String techId: knownT) {
+				if (!tech(techId).free)
+					allT.add(techId);
+			}
+		}
 		Tech[] techs = new Tech[maxTechLvl+1];
 		for (String techId: allT) {
 			Tech tech = tech(techId);
@@ -336,20 +364,21 @@ public class ConsoleResearchView implements IConsole {
 		}
 		// draw quintiles from 1 to maxQ
 		for (int tierNum = maxQ; tierNum >= 0; tierNum--) {
-			out += NEWLINE +"tier " + (tierNum+1);
+			String tier = "";
 			int minLevel = (5 * tierNum) + 1;
 			int maxLevel = minLevel + 4;
 			if (tierNum == maxQ) {
-				title = text("TECH_NEXT_TIER_TITLE");
-				String desc;
-				if (currentT == null)
-					desc = text("TECH_FIRST_TIER_DESC");
-				else if (tierNum < 10)
-					desc = text("TECH_NEXT_TIER_DESC");
-				else 
-					desc = text("TECH_FUTURE_TIER_DESC");
-
-				out += NEWLINE + title + SPACER + desc;
+				if (!onlyUnknownTech) {
+					title = text("TECH_NEXT_TIER_TITLE");
+					String desc;
+					if (currentT == null)
+						desc = text("TECH_FIRST_TIER_DESC");
+					else if (tierNum < 10)
+						desc = text("TECH_NEXT_TIER_DESC");
+					else 
+						desc = text("TECH_FUTURE_TIER_DESC");
+					tier += NEWLINE + title + SPACER + desc;
+				}
 			}
 			else {
 				// get available techs in this tier
@@ -359,9 +388,11 @@ public class ConsoleResearchView implements IConsole {
 						displayT.add(techs[j]);
 				for (Tech tech: displayT) {
 					boolean isKnown	= knownT.contains(tech.id);
-					out += NEWLINE + techBoxString(tech, newResearch, isKnown, currentT);
+					tier += NEWLINE + techBoxString(tech, newResearch, isKnown, currentT);
 				}
 			}
+			if (!tier.isEmpty())
+				out += NEWLINE +"Tier " + (tierNum+1) + tier;
 		}
 		return out;
 	}

@@ -70,6 +70,9 @@ Later:
 
 ## What's New
 
+2024.05.28 (BR)
+- Console tech panel: new option to show only unknown technologies.
+
 2024.05.27 (BR)
 - Console:
   - Tech panel management.
