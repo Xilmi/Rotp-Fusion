@@ -48,6 +48,7 @@ import rotp.model.game.IInGameOptions;
 import rotp.model.game.IMainOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.design.ConsoleDesignView;
 import rotp.ui.game.GameUI;
 import rotp.ui.tech.DiplomaticMessageUI;
 import rotp.ui.util.IParam;
@@ -80,7 +81,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private final List<StarSystem>	systems		= new ArrayList<>();
 	private final LinkedList<String> lastCmd	= new LinkedList<>();
 	private CommandMenu liveMenu;
-	private CommandMenu mainMenu, setupMenu, gameMenu, speciesMenu, researchMenu;
+	private CommandMenu mainMenu, setupMenu, gameMenu, speciesMenu, researchMenu, designMenu;
 	private int selectedTransport, selectedEmpire; // ,, selectedDesign;selectedStar, aimedStar, 
 	private HashMap<Integer, Integer> altIndex2SystemIndex = new HashMap<>();
 //	private Menu stars, fleet, ships, opponents;
@@ -89,6 +90,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private ConsoleFleetView	fleetView;
 	private ConsoleEmpireView	empireView;
 	private ConsoleResearchView	researchView;
+	private ConsoleDesignView	designView;
 	
 	// ##### STATIC METHODS #####
 	public static CommandConsole cc()				{ return instance; }
@@ -142,17 +144,18 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		instance.resultPane.setText(out);
 		errorDisplayed = true;
 	}
-//	private void testError() {
-//		boolean allowTest = false;
-//		int location = allowTest? -2 : 0;
-//		String test = "Test";
-//		test.charAt(location);
-//		try {
-//			test.charAt(location);
-//		} catch (Exception e) {
-//			throwError(e);
-//		}
-//	}
+/*	private void testError() {
+		boolean allowTest = false;
+		int location = allowTest? -2 : 0;
+		String test = "Test";
+		test.charAt(location);
+		try {
+			test.charAt(location);
+		} catch (Exception e) {
+			throwError(e);
+		}
+	}
+*/
 	// ##### CONSTRUCTOR #####
 	private static void createAndShowGUI(boolean show)	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -235,6 +238,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		fleetView		= new ConsoleFleetView();
 		empireView		= new ConsoleEmpireView();
 		researchView	= new ConsoleResearchView();
+		designView		= new ConsoleDesignView();
 
 		initMenus();
 		resultPane.setText(liveMenu().menuGuide(""));
@@ -442,10 +446,17 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		return cmd;		
 	}
 	private Command initSelectTechMenu()	{
-		Command cmd = new Command("select Technology Category and gives Info", TECHNOLOGY_KEY) {
+		Command cmd = new Command("Open Research Technology Menu", TECHNOLOGY_KEY) {
 			@Override protected String execute(List<String> param) { return researchMenu.open(""); }
 		};
 		cmd.cmdHelp("Open Research Menu");
+		return cmd;		
+	}
+	private Command initSelectDesignMenu()	{
+		Command cmd = new Command("Open Ship Design Menu", DESIGN_MENU_KEY) {
+			@Override protected String execute(List<String> param) { return designMenu.open(""); }
+		};
+		cmd.cmdHelp("Open Ship Design Menu");
 		return cmd;		
 	}
 
@@ -608,10 +619,13 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private CommandMenu initGameMenus(CommandMenu parent)	{
 		CommandMenu menu = new CommandMenu("Game Menu", parent);
 		researchMenu	 = researchView.initTechMenu(menu);
+		designMenu		 = designView.initDesignMenu(menu);
 		menu.addMenu(new CommandMenu("In Game Settings Menu", menu, IInGameOptions.inGameOptions()));
 		menu.addMenu(new CommandMenu("Governor Menu", menu, GovernorOptions.governorOptionsUI));
 		menu.addMenu(researchMenu);
+		menu.addMenu(designMenu);
 		menu.addCommand(initSelectTechMenu());			// TECH
+		menu.addCommand(initSelectDesignMenu());		// DESIGN
 		menu.addCommand(initNextTurn());				// N
 		menu.addCommand(initView());					// V
 		menu.addCommand(starView.initSelectPlanet());	// P
@@ -1050,29 +1064,31 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			cc().liveMenu(this);
 			return menuGuide(out);
 		}
+		protected String exitPanel()			{ return ""; }
 		protected String close(String out)		{ return parent.open(out); }
 		private void addMenu(CommandMenu menu)	{ subMenus.add(menu); }
 		private void addSetting(IParam setting)	{ settings.add(setting); }
-		void addCommand(Command cmd)	{ commands.add(cmd); }
+		public void addCommand(Command cmd)	{ commands.add(cmd); }
 		protected void newEntry(String entry)	{
 			List<String> param = new ArrayList<>();
-			String txt = entry.trim().toUpperCase();
+			String txt = entry.trim();
+			String txtU = txt.toUpperCase();
 			err("Console Command = " + txt);
 			// For debug purpose only
-			if (txt.equals("SHOW MAIN")) {
+			if (txt.equalsIgnoreCase("SHOW MAIN")) {
 				Rotp.setVisible(true);
 				frame.setVisible(true);
 				return;
 			}
-			if (txt.equals("HIDE MAIN")) {
+			if (txt.equalsIgnoreCase("HIDE MAIN")) {
 				Rotp.setVisible(false);
 				return;
 			}
 			// \debug
-			cc().lastCmd.remove(txt); // To keep unique and at last position
-			if (!txt.isEmpty())
-				cc().lastCmd.add(txt);
-			String cmd = cc().getParam(txt, param); // this will remove the cmd from param list
+			cc().lastCmd.remove(txtU); // To keep unique and at last position
+			if (!txtU.isEmpty())
+				cc().lastCmd.add(txtU);
+			String cmd = cc().getParam(txt, param).toUpperCase(); // this will remove the cmd from param list
 			String out = "Command = " + txt + NEWLINE;
 			boolean hasDigit = cmd.matches(".*\\d.*");
 			String cmd0 = "";
@@ -1083,7 +1099,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			}
 			for (Command c : commands) {
 				if (c.isKey(cmd)) {
-					if (param.contains("?"))
+					if (param.contains(HELP))
 						out += c.cmdHelp();
 					else
 						out += c.execute(param);
@@ -1208,6 +1224,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				return out + " ? Should not be negative";
 			if (index >= subMenus.size())
 				return out + " ? Index to high! max = " + (subMenus.size()-1);
+			out += exitPanel();
 			return subMenus.get(index).open(out);
 		}
 		private String menuSelect(String out, String param) {
@@ -1270,6 +1287,10 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			return settingSel(out, settings.get(index));
 		}
 		private String settingList(String out) {
+			if (settings.size() == 0) {
+				lastList = SETTING_ID;
+				return out;
+			}
 			out +=  "Setting list:";
 			for (int i=0; i<settings.size(); i++) {
 				IParam setting = settings.get(i);
@@ -1367,8 +1388,8 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 				keyList.add(key.toUpperCase());
 		}
 		private boolean isKey(String str)	{ return keyList.contains(str); }
-		void cmdHelp(String help)	{ cmdHelp = help;}
-		void cmdParam(String p)		{ cmdParam = p;}
+		public void cmdHelp(String help)	{ cmdHelp = help;}
+		public void cmdParam(String p)		{ cmdParam = p;}
 		protected String cmdHelp()			{ return getShortGuide() + NEWLINE + cmdHelp;}
 		private String getKey()				{ return keyList.get(0);}
 		protected String getShortGuide()		{

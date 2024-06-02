@@ -15,6 +15,9 @@
  */
 package rotp.ui.design;
 
+import static rotp.ui.console.IConsole.EQUAL_SEP;
+import static rotp.ui.console.IConsole.SPACER;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -443,5 +446,26 @@ public abstract class DesignSelectionUI extends BasePanel implements MouseListen
                     scrollDown();
                 break;
         }
+    }
+
+    // BR: For VIP Console
+    String getOptions(String tag, String key) {
+    	String out = title();
+		int numCol = numColumns();
+		int numRow = numComponents();
+		
+		for (int compNum=0; compNum<numRow; compNum++) {
+			out += NEWLINE;
+			if (isSelected(compNum)) {
+				out += "Current: ";
+			}
+			out += tag.replace(key, str(compNum + 1)) + " ";
+			for (int fieldNum=0; fieldNum<numCol; fieldNum++) {
+				if (fieldNum != 0)
+					out += SPACER + header(fieldNum) + EQUAL_SEP;
+				out += value(compNum, fieldNum, bank());
+			}
+		}
+		return out;
     }
 }

@@ -3556,8 +3556,11 @@ SHIP_DESIGN_HELP_4B               | Scrap Design - scraps an existing design. Sc
 SHIP_DESIGN_HELP_4C               | Deployed ship designs can be constructed on any of your colonies.
 SHIP_DESIGN_HELP_4D               | Available ship design slots can be selected in order to create a new design.
 SHIP_DESIGN_HELP_4E               | Copy - copy an existing design to serve as a starting point for a new design.
-SHIP_DESIGN_HELP_4F               | Clear - resets all of the selected components.
+SHIP_DESIGN_HELP_4F               | Clear - resets all of the selected components.<br>Ctrl-Clear to reset weapons only.
 SHIP_DESIGN_HELP_4G               | Deploy Design - when your new design is complete, deploying it allows you to name it and makes it available for construction.
+SHIP_DESIGN_HELP_4H               | Auto Scout - →GOVERNOR_AUTO_SCOUT_DESC← 
+SHIP_DESIGN_HELP_4I               | Auto Attack - →GOVERNOR_AUTO_ATTACK_DESC← 
+SHIP_DESIGN_HELP_4J               | Auto Colonize - →GOVERNOR_AUTO_COLONIZE_DESC← 
 
 // Ship Combat UI
 SHIP_COMBAT_TITLE_SYSTEM          | Ship Combat at %1!
@@ -4242,11 +4245,11 @@ GOVERNOR_SPARE_XENOPHOBES            | Respect promises: %1
 
 HEADERS_GOVERNOR_FLEET_OPTIONS_DESC  | Fleet Options.
 HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~%1
-GOVERNOR_AUTO_SCOUT_DESC             | if true, automatically scout new planets.
+GOVERNOR_AUTO_SCOUT_DESC             | When enabled, the Governor will automatically send ships to scout new planets.
 GOVERNOR_AUTO_SCOUT                  | Auto Scout: %1
-GOVERNOR_AUTO_COLONIZE_DESC          | if true, automatically colonize new planets.
+GOVERNOR_AUTO_COLONIZE_DESC          | When enabled, the Governor will automatically send ships to colonize new planets.
 GOVERNOR_AUTO_COLONIZE               | Auto Colonize: %1
-GOVERNOR_AUTO_ATTACK_DESC            | if true, send ships to enemy colonies.
+GOVERNOR_AUTO_ATTACK_DESC            | When enabled, the Governor will automatically send ships to enemy colonies.
 GOVERNOR_AUTO_ATTACK                 | Auto Attack: %1
 GOVERNOR_AUTO_SCOUT_COUNT_DESC       | Number of scout ships to send.
 GOVERNOR_AUTO_SCOUT_COUNT            | Scout Count: %1
@@ -4255,7 +4258,7 @@ GOVERNOR_AUTO_COLONY_COUNT           | Colony Count: %1
 GOVERNOR_AUTO_ATTACK_COUNT_DESC      | Number of Attack ships to send.
 GOVERNOR_AUTO_ATTACK_COUNT           | Attack Count: %1
 GOVERNOR_AUTOSHIPS_BY_DEFAULT_DESC   | AutoShips is set to "On" by Default: If true, new colonies will have auto ship building set to "on".
-GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset autoShipst: %1
+GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset autoShips: %1
 
 HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Appearance related Options.
 HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~%1
@@ -4563,7 +4566,7 @@ FLEETS_HELP_HK       | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →
 
 TECH_HELP_HK         | →HK_HEADER← →HK_F1_?← <br><br>1-6/+SHIFT : Increment/Decrement categories.<br>CTRL+1-6 : Lock sliders.<br>Arrows : Move Tree / Categories<br>= : Equalize<br>mousewheel : Increment quantities/moves slider. <br>→HK_ESCAPE←
 
-SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1_?← <br><br>Arrows Down/Up : Next/Previous Slot.<br><br>S : Scrap Design.<br>R : Rename Design.<br>D : Create Design.<br>C / (+CTRL) : Clear Design / (Only Weapons) <br>→HK_ESCAPE←
+SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1_?← <br><br>Arrows Down/Up : Next/Previous Slot.<br><br>S : Scrap Design.<br>R : Rename Design.<br>D : Create Design.<br>C / (+CTRL) : Clear Design / (Only Weapons)<br><br>ALT-A : Auto build.<br>ALT-B : Auto build Bomber.<br>ALT-F : Auto build Fighter.<br>ALT-E : Auto build Scout (Explorer).<br>ALT-P : Auto build Colony (Pioneer). <br>→HK_ESCAPE←
 
 RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Empire. →HK_TAB←<br><br>A : Select Embassy Panel.<br>D : Select Diplomat Panel.<br>S : Select Spies Panel. <br>→HK_ESCAPE←
 

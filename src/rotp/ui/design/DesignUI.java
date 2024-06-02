@@ -65,7 +65,7 @@ public class DesignUI extends BasePanel {
 
     private DesignSlotsPanel designSlotsPanel;
     DesignSlotPanel[] designPanels = new DesignSlotPanel[ShipDesignLab.MAX_DESIGNS];
-    DesignConfigPanel configPanel;
+    public DesignConfigPanel configPanel;
 
     private int pad = 10;
     private LinearGradientPaint backGradient;
@@ -81,7 +81,7 @@ public class DesignUI extends BasePanel {
     private LinearGradientPaint attackBackgroundOff;
     private LinearGradientPaint createBackground;
     private LinearGradientPaint copyBackground;
-    List<BufferedImage> shipImages = new ArrayList<>();
+    private List<BufferedImage> shipImages = new ArrayList<>();
 
     private Shape hoverTarget;
     private final Rectangle autoButtonArea = new Rectangle();
@@ -130,27 +130,40 @@ public class DesignUI extends BasePanel {
     private final Polygon[] specialsFieldIncr = new Polygon[ShipDesign.maxSpecials];
     private final Rectangle[] shipColorArea = new Rectangle[12];
 
-    private final DesignComputerSelectionUI computerSelectionUI;
-    private final DesignShieldSelectionUI shieldSelectionUI;
-    private final DesignEcmSelectionUI ecmSelectionUI;
-    private final DesignArmorSelectionUI armorSelectionUI;
-    private final DesignEngineSelectionUI engineSelectionUI;
-    private final DesignManeuverSelectionUI maneuverSelectionUI;
-    private final DesignWeaponSelectionUI weaponSelectionUI;
-    private final DesignSpecialSelectionUI specialSelectionUI;
+    final DesignComputerSelectionUI	computerSelectionUI;
+    final DesignShieldSelectionUI	shieldSelectionUI;
+    final DesignEcmSelectionUI		ecmSelectionUI;
+    final DesignArmorSelectionUI	armorSelectionUI;
+    final DesignEngineSelectionUI	engineSelectionUI;
+    final DesignManeuverSelectionUI	maneuverSelectionUI;
+    final DesignWeaponSelectionUI	weaponSelectionUI;
+    final DesignSpecialSelectionUI	specialSelectionUI;
     private final ConfirmScrapUI confirmScrapUI;
     private final ConfirmCreateUI confirmCreateUI;
     
     BufferedImage shipPaneImg;
 
-    int[] shipCounts;
-    int[] orbitCounts;
-    int[] inTransitCounts;
-    int[] constructionCounts;
-    int displayShipW = -1;
-    int displayShipH = -1;
-    int shipSlotW = -1;
+    private int[] shipCounts;
+    private int[] orbitCounts;
+    private int[] inTransitCounts;
+    private int[] constructionCounts;
+//    private int displayShipW = -1;
+//    private int displayShipH = -1;
+    private int shipSlotW = -1;
 
+    // BR: for VIP Console
+    void selectSlot(int designNum)	{
+        softClick();
+        selectedSlot = designNum;
+        configPanel.loadShipImages();
+        instance.repaint();
+    }
+    int selectedSlot()				{ return selectedSlot; }
+    int shipCount(int id)			{ return shipCounts[id]; }
+    int orbitCount(int id)			{ return orbitCounts[id]; }
+    int inTransitCount(int id)		{ return inTransitCounts[id]; }
+    int constructionCount(int id)	{ return constructionCounts[id]; }
+    
     public DesignUI() {
         instance = this;
         pad = s10;
@@ -280,7 +293,7 @@ public class DesignUI extends BasePanel {
         int xHK = scaled(100);
         int yHK = scaled(70);
         int wHK = scaled(360);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 14, text("SHIP_DESIGN_HELP_HK"));
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 19, text("SHIP_DESIGN_HELP_HK"));
         helpUI.open(this);
     }
     private void loadHelpUI() {
@@ -516,9 +529,9 @@ public class DesignUI extends BasePanel {
         HelpUI helpUI = RotPUI.helpUI();
 
         helpUI.clear();
-        int x1 = scaled(50);
+        int x1 = scaled(230);
         int w1 = scaled(430);
-        int y1 = scaled(80);
+        int y1 = scaled(470);
         helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
 
         int x2 = scaled(30);
@@ -533,6 +546,24 @@ public class DesignUI extends BasePanel {
         HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 3, text("SHIP_DESIGN_HELP_4B"));
         sp3.setLine(x3+(w3*2/3), y3, scaled(580), scaled(320));
         
+        int x6 = x2;
+        int w6 = scaled(280);
+        int y6 = scaled(225);
+        HelpUI.HelpSpec sp6 = helpUI.addBrownHelpText(x6, y6, w6, 3, text("SHIP_DESIGN_HELP_4H"));
+        sp6.setLine(x6+w6, y6+sp6.height()/2, scaled(342), scaled(271));
+
+        int x7 = x6;
+        int w7 = w6;
+        int y7 = scaled(100);
+        HelpUI.HelpSpec sp7 = helpUI.addBrownHelpText(x7, y7, w7, 3, text("SHIP_DESIGN_HELP_4I"));
+        sp7.setLine(x7+w7, y7+sp7.height(), scaled(443), scaled(261));
+
+        int x8 = scaled(350);
+        int w8 = w6;
+        int y8 = y7;
+        HelpUI.HelpSpec sp8 = helpUI.addBrownHelpText(x8, y8, w8, 3, text("SHIP_DESIGN_HELP_4J"));
+        sp8.setLine(x8+w8*3/4, y8+sp8.height(), scaled(600), scaled(261));
+
         int y[] = { 60, 168, 276, 384, 492, 600 };
         int firstActive = -1;
         int firstAvailable = -1;
@@ -574,7 +605,7 @@ public class DesignUI extends BasePanel {
         int x2 = scaled(30);
         int w2 = scaled(280);
         int y2 = scaled(350);
-        HelpUI.HelpSpec sp2 = helpUI.addBrownHelpText(x2, y2, w2, 3, text("SHIP_DESIGN_HELP_4F"));
+        HelpUI.HelpSpec sp2 = helpUI.addBrownHelpText(x2, y2, w2, 4, text("SHIP_DESIGN_HELP_4F"));
         sp2.setLine(x2+w2, y2, scaled(342), scaled(320));
         
         int x3 = scaled(380);
@@ -700,10 +731,42 @@ public class DesignUI extends BasePanel {
                 else
                     configPanel.clearDesign(false);
                 return;
-            }            
+            }
+            else if (e.isAltDown()) {
+            	if (k == KeyEvent.VK_A) {
+            		softClick();
+            		configPanel.autoDesign();
+            		repaint();
+            		return;
+            	}
+            	if (k == KeyEvent.VK_B) {
+            		softClick();
+            		configPanel.autoDesignBomber();
+            		repaint();
+            		return;
+            	}
+            	else if (k == KeyEvent.VK_E) { // Explorer for Scout
+            		softClick();
+            		configPanel.autoDesignScout();
+            		repaint();
+            		return;
+            	}
+            	else if (k == KeyEvent.VK_F) {
+            		softClick();
+            		configPanel.autoDesignFighter();
+            		repaint();
+            		return;
+            	}
+            	else if (k == KeyEvent.VK_P) { // Pioneer for colony
+            		softClick();
+            		configPanel.autoDesignColony();
+            		repaint();
+            		return;
+            	}
+           }
         }
     }
-    private void exit(boolean pauseNextTurn) {
+    public void exit(boolean pauseNextTurn) {
         configPanel.shipImageIndex = -1;
         shipImages.clear();
         buttonClick();
@@ -711,11 +774,11 @@ public class DesignUI extends BasePanel {
     }
     class DesignTitlePanel extends BasePanel implements MouseMotionListener, MouseListener {
         private static final long serialVersionUID = 1L;
-        String titleKey;
-        Rectangle hoverBox;
-        Rectangle helpBox = new Rectangle();
-        DesignUI parent;
-        public DesignTitlePanel(DesignUI p, String s) {
+        private String titleKey;
+        private Rectangle hoverBox;
+        private Rectangle helpBox = new Rectangle();
+        private DesignUI parent;
+        private DesignTitlePanel(DesignUI p, String s) {
             parent = p;
             titleKey = s;
             init();
@@ -738,7 +801,7 @@ public class DesignUI extends BasePanel {
             g.setColor(SystemPanel.orangeText);
             drawString(g,title, helpW+s10, s32);
         }
-        public void drawHelpButton(Graphics2D g) {
+        private void drawHelpButton(Graphics2D g) {
             helpBox.setBounds(s10,s10,s20,s25);
             g.setColor(darkBrown);
             g.fillOval(s10, s10, s20, s25);
@@ -795,11 +858,11 @@ public class DesignUI extends BasePanel {
     }
     class SlotTitlePanel extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
-        String titleKey;
-        Rectangle hoverBox;
-        Rectangle prototypeBox = new Rectangle();
-        Rectangle copyButton= new Rectangle();
-        public SlotTitlePanel(String s) {
+        private String titleKey;
+        private Rectangle hoverBox;
+        private Rectangle prototypeBox = new Rectangle();
+        private Rectangle copyButton= new Rectangle();
+        private SlotTitlePanel(String s) {
             titleKey = s;
             init();
         }
@@ -923,7 +986,7 @@ public class DesignUI extends BasePanel {
     }
     final class DesignSlotPanel extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
-        int designNum = 0;
+        private int designNum = 0;
         public DesignSlotPanel(int i) {
             designNum = i;
             init();
@@ -1170,11 +1233,11 @@ public class DesignUI extends BasePanel {
             exit(true);
         }
     }
-    final class DesignConfigPanel extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+    public final class DesignConfigPanel extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
-        int shipW = 0;
-        int shipH = 0;
-        int shipImageIndex = -1;
+        private int shipW = 0;
+        private int shipH = 0;
+        private int shipImageIndex = -1;
         public DesignConfigPanel() {
             init();
         }
@@ -1185,34 +1248,96 @@ public class DesignUI extends BasePanel {
             addMouseListener(this);
             addMouseWheelListener(this);
         }
-        public void autoDesign() {
-        if(shipDesign() != null) {
-            rotp.model.ai.xilmi.NewShipTemplate nst = new rotp.model.ai.xilmi.NewShipTemplate();
-            ShipDesign auto ;
-            if(!shipDesign().hasColonySpecial() && shipDesign().range() == player().tech().scoutRange())
-                auto = player().shipDesignerAI().newScoutDesign();
-            else if(shipDesign().hasColonySpecial())
-                auto = player().shipDesignerAI().newColonyDesign();
-            else if(player().shipDesignerAI().bombingAdapted(shipDesign()) > 0.5f)
-                auto = nst.autoBomberDesign(player().shipDesignerAI(), shipDesign().size());
-            else {
-                auto = nst.autoFighterDesign(player().shipDesignerAI(), shipDesign().size());
-                if(!auto.isArmed())
-                    auto = nst.autoDestroyerDesign(player().shipDesignerAI(), shipDesign().size()); //will not use shields or computer if no weapon fits
-            }
-            String name = shipDesign().name();
-            int seq = shipDesign().seq();
-            int color = shipDesign().shipColor();
-            shipDesign().copyFrom(auto);
-            shipDesign().name(name);
-            shipDesign().seq(seq);
-            shipDesign().setIconKey();
-            shipDesign().shipColor(color);
+        void autoDesignBomber() {
+        	if(shipDesign() != null) {
+                rotp.model.ai.xilmi.NewShipTemplate nst = new rotp.model.ai.xilmi.NewShipTemplate();
+	            ShipDesign auto = nst.autoBomberDesign(player().shipDesignerAI(), shipDesign().size());
+	            String name = shipDesign().name();
+	            int seq = shipDesign().seq();
+	            int color = shipDesign().shipColor();
+	            shipDesign().copyFrom(auto);
+	            shipDesign().name(name);
+	            shipDesign().seq(seq);
+	            shipDesign().setIconKey();
+	            shipDesign().shipColor(color);
+        	}
         }
-    }
-        private ShipDesign shipDesign()   { 
+        void autoDesignColony() {
+        	if(shipDesign() != null) {
+	            ShipDesign auto = player().shipDesignerAI().newColonyDesign();
+	            String name = shipDesign().name();
+	            int seq = shipDesign().seq();
+	            int color = shipDesign().shipColor();
+	            shipDesign().copyFrom(auto);
+	            shipDesign().name(name);
+	            shipDesign().seq(seq);
+	            shipDesign().setIconKey();
+	            shipDesign().shipColor(color);
+        	}
+        }
+        void autoDesignFighter() {
+        	if(shipDesign() != null) {
+                rotp.model.ai.xilmi.NewShipTemplate nst = new rotp.model.ai.xilmi.NewShipTemplate();
+	            ShipDesign auto = nst.autoFighterDesign(player().shipDesignerAI(), shipDesign().size());
+                if(!auto.isArmed()) //will not use shields or computer if no weapon fits
+                    auto = nst.autoDestroyerDesign(player().shipDesignerAI(), shipDesign().size());
+	            String name = shipDesign().name();
+	            int seq = shipDesign().seq();
+	            int color = shipDesign().shipColor();
+	            shipDesign().copyFrom(auto);
+	            shipDesign().name(name);
+	            shipDesign().seq(seq);
+	            shipDesign().setIconKey();
+	            shipDesign().shipColor(color);
+        	}
+        }
+        void autoDesignScout() {
+        	if(shipDesign() != null) {
+	            ShipDesign auto = player().shipDesignerAI().newScoutDesign();
+	            String name = shipDesign().name();
+	            int seq = shipDesign().seq();
+	            int color = shipDesign().shipColor();
+	            shipDesign().copyFrom(auto);
+	            shipDesign().name(name);
+	            shipDesign().seq(seq);
+	            shipDesign().setIconKey();
+	            shipDesign().shipColor(color);
+        	}
+        }
+        void autoDesign() {
+	        if(shipDesign() != null) {
+	            rotp.model.ai.xilmi.NewShipTemplate nst = new rotp.model.ai.xilmi.NewShipTemplate();
+	            ShipDesign auto ;
+	            if(!shipDesign().hasColonySpecial() && shipDesign().range() == player().tech().scoutRange())
+	                auto = player().shipDesignerAI().newScoutDesign();
+	            else if(shipDesign().hasColonySpecial())
+	                auto = player().shipDesignerAI().newColonyDesign();
+	            else if(player().shipDesignerAI().bombingAdapted(shipDesign()) > 0.5f)
+	                auto = nst.autoBomberDesign(player().shipDesignerAI(), shipDesign().size());
+	            else {
+	                auto = nst.autoFighterDesign(player().shipDesignerAI(), shipDesign().size());
+	                if(!auto.isArmed()) //will not use shields or computer if no weapon fits
+	                    auto = nst.autoDestroyerDesign(player().shipDesignerAI(), shipDesign().size());
+	            }
+	            String name = shipDesign().name();
+	            int seq = shipDesign().seq();
+	            int color = shipDesign().shipColor();
+	            shipDesign().copyFrom(auto);
+	            shipDesign().name(name);
+	            shipDesign().seq(seq);
+	            shipDesign().setIconKey();
+	            shipDesign().shipColor(color);
+	        }
+	    }
+        ShipDesign shipDesign()   { 
             ShipDesignLab lab = player().shipLab();
             return selectedSlot < 0 ? lab.prototypeDesign() : lab.design(selectedSlot); 
+        }
+        void selectHull(int hullNum)	{
+            softClick();
+            shipDesign().size(hullNum);
+            loadShipImages();
+            repaint();
         }
         private void loadShipImages() {
             if (shipDesign() == null)

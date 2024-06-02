@@ -1070,7 +1070,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         g.drawImage(img, treeBox.x-treeX,treeBox.y-treeY,treeBox.x-treeX+w,treeBox.y-treeY+h, 0,0,w,h, null);
         g.setClip(null);
     }
-    private void exit(boolean disableNextTurn) {
+    public void exit(boolean disableNextTurn) {
         resetData();
         buttonClick();
         if (altReturn == 1) // BR: Return from help

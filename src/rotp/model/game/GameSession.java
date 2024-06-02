@@ -1265,6 +1265,12 @@ public final class GameSession implements Base, Serializable {
             }
 
             GameSession.instance = newSession;
+            if (Rotp.isIDE()) {
+            	if (newSession.governorOptions == null)
+            		System.out.println("newSession.governorOptions == null");
+            	if (newSession.options.dynOpts() == null)
+            		System.out.println("newSession.options.dynOpts() == null");
+            }
             newSession.validate();
             newSession.validateOnLoadOnly();
 

@@ -485,7 +485,10 @@ public class ColonyShipyard extends ColonySpendingCategory {
     } 
     public int smoothMaxAllocationNeeded() {
     	int buildTarget = buildTarget();
-    	for (int tick=0; tick<=MAX_TICKS; tick++) {
+    	if (buildTarget <= 0)
+    		return 0;
+    	// Start at 1 tick, as even if 0BC are needed, no tick = no ship
+    	for (int tick=1; tick<=MAX_TICKS; tick++) {
     		if (upcomingShipCount((float) tick / MAX_TICKS) >= buildTarget)
     			return tick;
     	}

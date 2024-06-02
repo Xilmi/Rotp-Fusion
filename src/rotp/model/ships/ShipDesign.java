@@ -147,12 +147,13 @@ public final class ShipDesign extends Design {
         }
         return image;
     }  
-    public String sizeDesc() {
-        switch (size()) {
+    public String sizeDesc()		{ return sizeDesc(size()); }
+    public String sizeDesc(int idx)	{
+        switch (idx) {
             case ShipDesign.SMALL:  return text("SHIP_DESIGN_SIZE_SMALL");
             case ShipDesign.MEDIUM: return  text("SHIP_DESIGN_SIZE_MEDIUM");
             case ShipDesign.LARGE:  return  text("SHIP_DESIGN_SIZE_LARGE");
-            case ShipDesign.HUGE:  return  text("SHIP_DESIGN_SIZE_HUGE");
+            case ShipDesign.HUGE:   return  text("SHIP_DESIGN_SIZE_HUGE");
         }
         return "";
     }
@@ -545,13 +546,14 @@ public final class ShipDesign extends Design {
                 return;
         }
     }
-    public int weaponMax(int i) { return (int)Math.max(0, weapon(i).max(this, i));  }
-    public int baseHits() {
+    public int weaponMax(int i)     { return (int)Math.max(0, weapon(i).max(this, i));  }
+    public int baseHits()           { return  baseHits(size()); }
+    public int baseHits(int sizeId) {
     	// modnar: change base ship HP for new races
     	// modnar: NeoHumans, 66.6% HP
     	// BR: put the method in Race
         float raceHPBonus = empire().hPFactor();
-        switch(size()) {
+        switch(sizeId) {
             case SMALL  : return (int) Math.round(3 * raceHPBonus);
             case MEDIUM : return (int) Math.round(18 * raceHPBonus);
             case LARGE  : return (int) Math.round(100 * raceHPBonus);
@@ -559,8 +561,9 @@ public final class ShipDesign extends Design {
             default     : return 0;
         }
     }
-    public int baseCost() {
-        switch(size()) {
+    public int baseCost()           { return  baseCost(size()); }
+    public int baseCost(int sizeId) {
+        switch(sizeId) {
             case SMALL  : return 6;
             case MEDIUM : return 36;
             case LARGE  : return 200;

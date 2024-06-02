@@ -26,6 +26,7 @@ public interface IConsole extends Base {
 	int MENU_ID		= 2;
 	String SPACER	= ", ";
 	String OR_SEP	= "|";	// " or " may be better?
+	String HELP		= "?";
 	String EQUAL_SEP	= " = ";
 
 	String AIMED_KEY		= "A";
@@ -38,6 +39,7 @@ public interface IConsole extends Base {
 	String OPTION_KEY		= "O";
 	String SETTING_KEY		= "S";
 	String TECHNOLOGY_KEY	= "TECH";
+	String DESIGN_MENU_KEY	= "DESIGN";
 
 	String COL_TOGGLE_GOV		= "TG";
 	String COL_SHIP_SPENDING	= "S";
@@ -89,6 +91,18 @@ public interface IConsole extends Base {
 	String TECH_PROPULSION	= "PROP";
 	String TECH_WEAPON		= "W";
 	
+	Boolean verboseGlobal	= null;
+	default Boolean verboseLocal()	{ return null; }
+	default boolean verbose()	{
+		Boolean verboseLocal = verboseLocal();
+		if (verboseLocal == null)	// No local then global or default
+			if (verboseGlobal == null)
+				return true;
+			else
+				return verboseGlobal;
+		else
+			return verboseLocal;
+	}
 
 //	##### TOOLS #####
 	default MainUI mainUI()	  			{ return RotPUI.instance().mainUI(); }

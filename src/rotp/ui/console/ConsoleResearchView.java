@@ -128,13 +128,17 @@ public class ConsoleResearchView implements IConsole {
 				out += showGlobalInfo();
 				return out;
 			}
+			@Override public String exitPanel()	{
+				techUI().exit(false);
+				return super.exitPanel();
+			}
 		};
 		menu.addCommand(initGlobalInfo());
 		menu.addCommand(initSpending());
 		menu.addCommand(initSelectCategory());
 		menu.addCommand(initShowUnknownTechInCategory());
 		menu.addCommand(initSelectTechnology());
-		
+
 		return menu;
 	}
 	private String processSpending(List<String> param)	{
@@ -142,7 +146,7 @@ public class ConsoleResearchView implements IConsole {
 		if (param.isEmpty())
 			return out;
 		
-		int catNum = this.selectedCategory();
+		int catNum = selectedCategory();
 		while (!param.isEmpty()) {
 			String str = param.remove(0).toUpperCase();
 			switch (str) {
@@ -169,7 +173,6 @@ public class ConsoleResearchView implements IConsole {
 				Integer points = getInteger(str);
 				if (points == null)
 					return out + NEWLINE + "Error: Wrong or misplaced parameter " + str;
-				//String out = "";
 				if (isValidPointTag(points))
 					out += NEWLINE + setSpending(catNum, points);
 				else

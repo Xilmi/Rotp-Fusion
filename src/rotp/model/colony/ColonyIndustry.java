@@ -371,6 +371,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
        	float upcomingPopGrowth  = colony().ecology().upcomingPopGrowth();
        	float incomingTransports = colony().incomingTransports();
     	float expectedPopulation = workingPopulation + upcomingPopGrowth + incomingTransports;
+    	expectedPopulation		 = min(expectedPopulation, colony().maxSize());
     	float lowerRefitNeeds	 = max(0, maxRobotControls() - 2) * planet().currentSize();
     	float neededFactories	 = lowerRefitNeeds + 2 * expectedPopulation;
     	float upcomingFactories	 = upcomingFactories();

@@ -2,15 +2,20 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- New Option panel to set default Nominal Species Names.
-- Main menu panel:
-  - Added Load and Save Options, with the "CTRL" key modifier.
-  - Added Help screen.
-- Console:
-  - Tech panel management.
-  - Select tech pop-up interception.
-  - Announce tech pop-up interception.
+- Ship design panel:
+  - Added Help for Governor buttons.
+  - New control key for auto build selection
+    - Alt-A : Auto Build best design (Same as the button)
+    - Alt-B : Auto Build Bomber
+    - Alt-F : Auto Build Fighter
+    - Alt-P : Auto Build Colony (Pioneer)
+    - Alt-E : Auto Build Scout (Explorer)
+- Fixed wrong factory estimation.
+- Fixed smartmax when reserve are greater than ship cost. Will be set to 1 tick to release the ship.
 
+- VIP Console:
+  - New option to show only unknown technologies.
+  - Implemented Ship Design
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -166,6 +171,16 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - May be useful for non developer too...
 - Added access to explorer window from Main Menu, with "HOME" key (For old computers in full screen mode, alt-Tab don't work if no other windows are opened)
 - Added Help screen on the Main Menu.
+- Ship design panel:
+  - Added Help for Governor buttons.
+  - Added Help for Governor buttons.
+  - New control key for auto build selection
+    - Alt-A : Auto Build best design (Same as the button)
+    - Alt-B : Auto Build Bomber
+    - Alt-F : Auto Build Fighter
+    - Alt-P : Auto Build Colony (Pioneer)
+    - Alt-E : Auto Build Scout (Explorer)
+
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.
@@ -208,4 +223,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Spending panel unused factories wrong value when refitting.
 - Fixed possible misalignment of notes.
 - Fixed trade report display on Empire events.
+- Fixed wrong factory estimation.
+- Fixed smartmax when reserve are greater than ship cost. Will be set to 1 tick to release the ship.
 - minor fixes...

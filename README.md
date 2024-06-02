@@ -70,6 +70,23 @@ Later:
 
 ## What's New
 
+2024.06.02 (BR)
+- Fixed smartmax when reserve are greater than ship cost. Will be set to 1 tick to release the ship.
+- VIP Console: Implemented Ship Design
+
+2024.06.01 (BR)
+- Fixed wrong factory estimation.
+- Ship Design UI: Added Help for Governor buttons.
+- Display warning in IDE console when not a Fusion save.
+
+2024.05.29 (BR)
+- Ship design: New control key for auto build selection
+  - Alt-A : Auto Build best design (Same as the button)
+  - Alt-B : Auto Build Bomber
+  - Alt-F : Auto Build Fighter
+  - Alt-P : Auto Build Colony (Pioneer)
+  - Alt-E : Auto Build Scout (Explorer)
+
 2024.05.28 (BR)
 - Console tech panel: new option to show only unknown technologies.
 
