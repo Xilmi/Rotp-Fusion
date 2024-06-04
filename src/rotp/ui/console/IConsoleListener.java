@@ -12,8 +12,9 @@ public interface IConsoleListener {
 
 	String getMessage();
 
-	default boolean handleKeyPress(KeyEvent e)	{ return false; } // Override for non MapOverlay Selection
-	default List<ConsoleOptions> getOptions()	{ return null; } // Override for Console Selection!
+	default boolean exited()					{ return true; }	// Override when followed by reports
+	default boolean handleKeyPress(KeyEvent e)	{ return false; }	// Override for non MapOverlay Selection
+	default List<ConsoleOptions> getOptions()	{ return null; }	// Override for Console Selection!
 	default void consoleEntry()					{ } // Override for Console Report!
 	default String getMessageOption()			{
 		List<ConsoleOptions> options = getOptions();
@@ -31,21 +32,25 @@ public interface IConsoleListener {
 			return UNPROCESSED_ENTRY;
 		for (ConsoleOptions option : options) {
 			if (option.isValid(entry)) {
-				handleKeyPress(option.getKeyEvent());
-				return VALID_ENTRY;
+				if (handleKeyPress(option.getKeyEvent()))
+					return VALID_ENTRY;
+				else
+					return UNPROCESSED_ENTRY;
 			}
 		}
 		return INVALID_ENTRY;
 	}
-	default void initConsoleSelection()			{
+	default void initConsoleSelection(String title, boolean wait)	{
 		if (!RotPUI.isConsole)
     		return;
-		CommandConsole.guiPromptMenu.openConsolePrompt(this);
+		VIPConsole.guiPromptMessages.newMenu(title, this, false, wait);
+		//CommandConsole.guiPromptMenu.openConsolePrompt(this);
 	};
-	default void initConsoleReport()			{
+	default void initConsoleReport(String title, boolean wait)	{
 		if (!RotPUI.isConsole)
     		return;
-		CommandConsole.reportPromptMenu.openConsolePrompt(this);
+		VIPConsole.guiPromptMessages.newMenu(title, this, true, wait);
+		//CommandConsole.reportPromptMenu.openConsolePrompt(this);
 	};
 	class ConsoleOptions {
 		private final String key;
@@ -74,6 +79,6 @@ public interface IConsoleListener {
 		public String	description()		{ return description; }
 		public int		keyCode()			{ return keyCode; }
 		public String	messageOption()		{ return key + " for " + description; }
-		public KeyEvent	getKeyEvent()		{ return CommandConsole.getKeyEvent(keyCode, keyChar); }
+		public KeyEvent	getKeyEvent()		{ return VIPConsole.getKeyEvent(keyCode, keyChar); }
 	}
 }

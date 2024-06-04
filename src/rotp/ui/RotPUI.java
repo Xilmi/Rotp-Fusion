@@ -58,7 +58,7 @@ import rotp.model.ships.ShipLibrary;
 import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechLibrary;
 import rotp.ui.combat.ShipBattleUI;
-import rotp.ui.console.CommandConsole;
+import rotp.ui.console.VIPConsole;
 import rotp.ui.design.DesignUI;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
@@ -424,7 +424,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     }
     public void selectLoadGamePanel() {
 		if (guiOptions().selectedShowConsolePanel() && !Rotp.isIDE()) {
-			CommandConsole.loadMenu.open("");
+			VIPConsole.loadMenu.open("");
 		}
 		else {
 			loadGameUI.init();
@@ -444,7 +444,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         repaint();
         GovernorOptions.callForReset();
 		if (guiOptions().selectedShowConsolePanel())
-			CommandConsole.introMenu.open("");
+			VIPConsole.introMenu.open("");
 
 		else if (options().debugBenchmark()) {
     		raceIntroUI.finish();
@@ -603,7 +603,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         }
         //e.printStackTrace();
         if (isConsole) {
-        	CommandConsole.throwError(e);
+        	VIPConsole.throwError(e);
         }
         else {
         	errorUI.init(e);

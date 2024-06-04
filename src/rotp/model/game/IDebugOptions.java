@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.ui.RotPUI;
-import rotp.ui.console.CommandConsole;
+import rotp.ui.console.VIPConsole;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
@@ -128,12 +128,12 @@ public interface IDebugOptions extends IBaseOptsTools {
 			super.set(newValue);
 			RotPUI.useDebugFile = newValue;
 			RotPUI.isConsole = newValue;
-			CommandConsole.showConsole(newValue);
+			VIPConsole.showConsole(newValue);
 			return newValue;
 		}
 	};
 	default boolean selectedShowConsolePanel()	{ return showConsolePanel.get(); }
-	default void showConsolePanel()				{ CommandConsole.showConsole(selectedShowConsolePanel()); }
+	default void showConsolePanel()				{ VIPConsole.showConsole(selectedShowConsolePanel()); }
 	default void showConsolePanel(boolean b)	{
 		showConsolePanel.set(b);
 		showConsolePanel();

@@ -46,8 +46,7 @@ Very soon:
 - Option to continue game after victory!
 
 Console Next steps: (Sequence probably not definitive)
-- Ship design: Display, Design.
-- Spies: Intercept sabotage pop-up, and espionage pop-up!
+- Spies: Intercept sabotage pop-up.
 - Interception of victory or defeat panels.
 - Council: Interception of announcements pop-up and Voting panels.
 - Access optional turn reports and spy reports.
@@ -69,6 +68,13 @@ Later:
 
 
 ## What's New
+
+2024.06.04 (BR)
+- Renamed Console VIPConsole to avoid confusion with other console. (VIP for Visually Impaired Person) 
+- VIP Console:
+  - Espionage mission management. (Mission, report and framing)
+- Fixed old bug where your spy are good enough to frame but have no one to frame... You framed your-self!
+
 
 2024.06.02 (BR)
 - Fixed smartmax when reserve are greater than ship cost. Will be set to 1 tick to release the ship.

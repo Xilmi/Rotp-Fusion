@@ -26,7 +26,9 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
+
 import rotp.Rotp;
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
@@ -36,12 +38,13 @@ import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.console.IConsoleListener;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.sprites.TechCategorySprite;
 
-public class MapOverlayEspionageMission extends MapOverlay {
+public class MapOverlayEspionageMission extends MapOverlay implements IConsoleListener {
     Color maskC  = new Color(40,40,40,160);
     Area mask;
     MainUI parent;
@@ -81,6 +84,7 @@ public class MapOverlayEspionageMission extends MapOverlay {
         empId = id;
         techCategoryHoverButton = -1;
         drawSprites = true;
+        initConsoleSelection("Espionage Mission", false);
     }
     @Override
     public boolean drawSprites()   { return drawSprites; }
@@ -375,5 +379,52 @@ public class MapOverlayEspionageMission extends MapOverlay {
                 drawShadowedString(g, t.name(), 1, x+BasePanel.s10, y1, MainUI.darkShadowC, c0);
             }
         }  
+    }
+
+    // ##### Console Tools
+	@Override public List<ConsoleOptions> getOptions() {
+		List<ConsoleOptions> options = new ArrayList<>();
+        // draw all 6 category boxes
+        for (int cat=0; cat<6; cat++) {
+        	String techs = techCategoryButton(cat);
+        	if (!techs.isEmpty()) {
+        		int keyCode	= KeyEvent.VK_1 + cat;
+        		String key	= Character.toString ((char) keyCode);
+        		options.add(new ConsoleOptions(keyCode, key, techs));
+        	}
+        }
+		return options;
+	}
+	@Override public String getMessage() {
+        Galaxy gal = galaxy();
+        Empire emp = gal.empire(empId);
+        
+        // draw year/turn info
+    	String message = displayYearOrTurn();
+        // draw title
+        String title = text("NOTICE_ESPIONAGE_TITLE");
+        title = emp.replaceTokens(title, "alien");
+        message += ", " + title;
+        // draw subtitle
+        message += NEWLINE + text("NOTICE_ESPIONAGE_SUBTITLE");
+        // draw footer
+        message += NEWLINE + text("NOTICE_ESPIONAGE_FOOTER");
+
+        message += NEWLINE + getMessageOption();
+		return message;
+	}
+    private String techCategoryButton(int catNum) {
+        List<String> techList = mission.possibleTechs(TechCategory.id(catNum));
+        if (techList.isEmpty()) 
+            return "";
+        String out = text(TechCategory.id(catNum)) + ": ";
+        int last = techList.size()-1;
+        for (int i=0; i<=last; i++) {
+        	String tId = techList.get(i);
+        	out += tech(tId).name();
+        	if(i<last)
+        		out += " or ";
+        }
+        return out;
     }
 }

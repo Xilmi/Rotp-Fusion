@@ -156,7 +156,7 @@ public class ConsoleEmpireView implements IConsole {
 			out = "Missing new spies orders" + NEWLINE;
 		else {
 			String str = param.get(0);
-			switch (str) {
+			switch (str.toUpperCase()) {
 				case EMP_SPY_HIDE:
 					param.remove(0);
 					view.spies().beginHide();
@@ -275,7 +275,7 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		else {
 			String str = param.get(0);
-			switch (str) {
+			switch (str.toUpperCase()) {
 				case EMP_DEV_COLONIES:
 					param.remove(0);
 					if (!player.empireTaxOnlyDeveloped())
@@ -371,7 +371,7 @@ public class ConsoleEmpireView implements IConsole {
 	}
 	
 	// DIPLOMATIC PANEL
-	private void openEmbassy(Empire empire) { // TODO BR: void openEmbassy(Empire empire)
+	private void openEmbassy(Empire empire) {
         EmpireView view = player().viewForEmpire(empire);
         if (view == null)
             return;

@@ -76,7 +76,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.LoadGameUI;
-import rotp.ui.console.CommandConsole;
+import rotp.ui.console.VIPConsole;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.GNNExpansionEvent;
 import rotp.ui.notifications.GNNRankingNoticeCheck;
@@ -136,6 +136,7 @@ public final class GameSession implements Base, Serializable {
     public ExecutorService smallSphereService()  { return smallSphereService; }
 
     public static boolean ironmanLocked() 		 { return ironmanLocked; }
+    public static boolean isSuspended() 		 { return suspendNextTurn; }
 
     public void pauseNextTurnProcessing(String s)   {
         if (performingTurn) {
@@ -672,7 +673,7 @@ public final class GameSession implements Base, Serializable {
                 }
                 performingTurn = false;
                 if (options.selectedShowConsolePanel())
-                	CommandConsole.turnCompleted(galaxy().currentTurn());
+                	VIPConsole.turnCompleted(galaxy().currentTurn());
             }
         };
     }
@@ -1091,7 +1092,7 @@ public final class GameSession implements Base, Serializable {
         }
         instance.getGovernorOptions().gameLoaded();
         if (options.selectedShowConsolePanel())
-        	CommandConsole.updateConsole();
+        	VIPConsole.updateConsole();
     }
 	private void showInfo(Galaxy g) { // BR: for debug
 		System.out.println("GameSession.showInfo = true ===========================================");
@@ -1368,7 +1369,7 @@ public final class GameSession implements Base, Serializable {
         galaxy().validateOnLoad();
         ((MOO1GameOptions) options).validateOnLoad();
         if (options.selectedShowConsolePanel())
-        	CommandConsole.updateConsole();
+        	VIPConsole.updateConsole();
         if (options.debugShowMoreMemory()) {
             memLog();
             // RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment

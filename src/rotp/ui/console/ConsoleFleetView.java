@@ -7,7 +7,7 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.RotPUI;
-import rotp.ui.console.CommandConsole.Command;
+import rotp.ui.console.VIPConsole.Command;
 import rotp.ui.main.FleetPanel;
 
 public class ConsoleFleetView implements IConsole {

@@ -59,15 +59,16 @@ import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamString;
 import rotp.ui.util.ParamSubUI;
 
-public class CommandConsole extends JPanel  implements IConsole, ActionListener {
+public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 	private static JFrame frame;
-	private static CommandConsole instance;
+	private static VIPConsole instance;
 	private static boolean errorDisplayed = false;
 	public	static CommandMenu introMenu, loadMenu, saveMenu;
 	public	static ReportMenu reportMenu;
 	public	static ColonizeMenu		colonizeMenu;
 	public	static GuiPromptMenu	guiPromptMenu;
 	public	static ReportPromptMenu	reportPromptMenu;
+	public	static GuiPromptMessages  guiPromptMessages;
 	public	static DiplomaticMessages diplomaticMessages;
 
 	private final JLabel commandLabel, resultLabel;
@@ -93,7 +94,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 	private ConsoleDesignView	designView;
 	
 	// ##### STATIC METHODS #####
-	public static CommandConsole cc()				{ return instance; }
+	public static VIPConsole cc()					{ return instance; }
 	public static void updateConsole()				{ instance.reInit(); }
 	public static void turnCompleted(int turn)		{
 		instance.resultPane.setText("Current turn: " + turn + NEWLINE);
@@ -167,7 +168,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					//frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 					//Add contents to the window.
-					frame.add(new CommandConsole());
+					frame.add(new VIPConsole());
 
 					//Display the window.
 					frame.pack();
@@ -176,7 +177,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			}
 		});
 	}
-	public CommandConsole()			{
+	public VIPConsole()			{
 		super(new GridBagLayout());
 		commandLabel = new JLabel("Options: ");
 		commandField = new JTextField(80);
@@ -388,7 +389,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 					return empireView.contactInfo(empire, true);
 
 				str = param.remove(0);
-				switch (str) {
+				switch (str.toUpperCase()) {
 					case EMP_DIPLOMACY:
 						return empireView.diplomacyInfo(empire, true);
 					case EMP_INTELLIGENCE:
@@ -637,8 +638,9 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		reportMenu			= new ReportMenu("Report Menu", menu);
 		colonizeMenu		= new ColonizeMenu("Colonize Menu", menu);
 		diplomaticMessages	= new DiplomaticMessages(menu);
+		guiPromptMessages	= new GuiPromptMessages(menu);
 		reportPromptMenu	= new ReportPromptMenu("Report Prompt Menu", menu);
-		guiPromptMenu		= new GuiPromptMenu("Gui Prompt Menu", menu);
+		guiPromptMenu		= new GuiPromptMenu("Gui Prompt Menu", menu, false);
 		return menu;
 	}
 	private CommandMenu initSpecieMenu(CommandMenu parent)	{
@@ -762,7 +764,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		transports.clear();
 		transports.addAll(player().opponentsTransports());
 	}
-	private void resetFleets()			{
+	private void resetFleets()			{ 
 		fleets.clear();
 		fleets.addAll(player().getVisibleFleets());
 	}
@@ -817,26 +819,129 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		}
 		boolean isActive()	{ return parentUI != null; }
 		String getMessage()	{ return parentUI.getMessage(); }
+
 	}
 	// ################### SUB CLASS GUI PROMPT MENU ######################
-	public class GuiPromptMenu extends ReportPromptMenu {
-		GuiPromptMenu(String name, CommandMenu parent)	{ super(name, parent); }
+	public class GuiPromptMenu extends CommandMenu {
+		private IConsoleListener parentUI;
+		private String message;
+		private boolean isReply;
+		GuiPromptMenu(String name, CommandMenu parent, boolean reply)	{
+			super(name, parent);
+			isReply = reply;
+		}
+		@Override protected String close(String out) {
+			parentUI = null;
+			message	 = null;
+			liveMenu(gameMenu);
+			return out;
+		}
 		@Override protected void newEntry(String entry)	{
-			int validation = parentUI.consoleEntry(entry);
-			if (validation == IConsoleListener.VALID_ENTRY) {
+			if (isReply)
+				newEntryReply(entry);
+			else
+				newEntryRequest(entry);
+		}
+		private void newEntryReply(String entry)	{
+			if (entry.equalsIgnoreCase("x") && Rotp.isIDE()) { // TODO BR: COMMENT
 				commandField.setText("");
-				resultPane.setText(close(""));
+				resultPane.setText(parentUI.getMessage());
+				return;
+			}
+			parentUI.consoleEntry();
+			boolean exited = parentUI.exited();
+			System.out.println("newEntryReply exited = " + exited);
+			if (exited) {
+				commandField.setText("");
+				guiPromptMessages.close(this);
+			}
+			else {
+				commandField.setText("");
+				guiPromptMessages.close(this);				
+			}
+			commandField.setText("");
+			//resultPane.setText(close(""));
+			guiPromptMessages.close(this);
+			System.out.println("newEntryReply Messages count = " + guiPromptMessages.size());
+		}
+		private void newEntryRequest(String entry)	{
+			int validation = parentUI.consoleEntry(entry);
+			boolean exited = parentUI.exited();
+			System.out.println("newEntryMain exited = " + exited);
+			boolean validResponse = validation >= IConsoleListener.VALID_ENTRY;;
+			commandField.setText("");
+			if (validResponse) {
+				commandField.setText("");
+				guiPromptMessages.close(this);
 			}
 			else {
 				misClick();
 				String out = "Invalid Answer: " + entry + NEWLINE;
-				out += NEWLINE + parentUI.getMessage();
+				out += NEWLINE + message;
 				resultPane.setText(out);
 				commandField.setText("");
 			}
+			System.out.println("newEntryRequest Messages count = " + guiPromptMessages.size());
+		}
+		public String openGuiMessagePrompt(IConsoleListener ui) {
+			parentUI = ui;
+			message = menuName + NEWLINE + parentUI.getMessage();
+			liveMenu(this);
+			resultPane.setText(message);
+			return "";
+		}
+		public void openConsolePrompt(IConsoleListener ui) {
+			parentUI	= ui;
+			liveMenu(this);
+			resultPane.setText(parentUI.getMessage());
+		}
+		boolean isActive()	{ return parentUI != null; }
+		String getMessage()	{ return parentUI.getMessage(); }
+	}
+	// ################### SUB CLASS GUI PROMPT MESSAGE MENU ######################
+	public class GuiPromptMessages extends LinkedList<GuiPromptMenu> {
+		private final CommandMenu topMenu;
+		private int waitCounter = 0;
+		GuiPromptMessages(CommandMenu menu)	{ topMenu = menu; }
+		public void newMenu(String name, IConsoleListener ui, boolean isReply, boolean wait)	{
+			if (wait)
+				waitCounter++;
+			if (isReply)
+				System.out.println("new Reply Prompt Menu: " + name);
+			else
+				System.out.println("new Request Prompt Menu: " + name);
+
+			GuiPromptMenu menu = new GuiPromptMenu(name, topMenu, isReply);
+			add(menu);
+			menu.openGuiMessagePrompt(ui);
+		}
+		public void updateResultPane()	{ resultPane.setText(lastMessage()); }
+		public String lastMessage()		{ return getLast().getMessage(); }
+		public void closeLast()			{
+			GuiPromptMenu menu = removeLast();
+			menu.close("");
+			next();
+		}
+		public void close(GuiPromptMenu menu)	{
+			remove(menu);
+			menu.close("");
+			next();
+		}
+		private void next()	{
+			if (isEmpty()) {
+				waitCounter = 0;
+				liveMenu(topMenu);
+				session().resumeNextTurnProcessing();
+			}
+			else {
+				liveMenu(getLast());
+				if (waitCounter == 0)
+					session().resumeNextTurnProcessing();
+				else
+					waitCounter--;
+			}
 		}
 	}
-
 	// ################### SUB CLASS DIPLOMATIC MESSAGE MENU ######################
 	public class DiplomaticMessages extends LinkedList<DiplomaticMessageMenu> {
 		private final CommandMenu topMenu;
@@ -846,7 +951,7 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			DiplomaticMessageMenu menu = new DiplomaticMessageMenu(name, topMenu);
 			add(menu);
 			hasReply |= isReply;
-			menu.openDiplomaticMessagPrompt(ui);
+			menu.openDiplomaticMessagePrompt(ui);
 		}
 		public void updateResultPane()	{ resultPane.setText(lastMessage()); }
 		public String lastMessage()		{ return getLast().getMessage(); }
@@ -879,7 +984,6 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 		private String message;
 		DiplomaticMessageMenu(String name, CommandMenu parent)	{ super(name, parent); }
 		@Override protected String close(String out) {
-			// session().resumeNextTurnProcessing();
 			parentUI = null;
 			message	 = null;
 			liveMenu(gameMenu);
@@ -893,18 +997,18 @@ public class CommandConsole extends JPanel  implements IConsole, ActionListener 
 			if (exited) {
 				diplomaticMessages.close(this);
 			}
-			else if (!validResponse) {
+			else if (validResponse) {
+				diplomaticMessages.close(this);
+			}
+			else { // Not valid response
 				misClick();
 				String out = "Invalid Answer: " + entry + NEWLINE;
 				out += NEWLINE + message;
 				resultPane.setText(out);
 			}
-			else { // Valid response
-				diplomaticMessages.close(this);
-			}
-			System.out.println("Messages count = " + diplomaticMessages.size());
+			System.out.println("DiplomaticMessageMenu Messages count = " + diplomaticMessages.size());
 		}
-		public String openDiplomaticMessagPrompt(DiplomaticMessageUI ui) {
+		public String openDiplomaticMessagePrompt(DiplomaticMessageUI ui) {
 			parentUI = ui;
 			message = menuName + NEWLINE + parentUI.getConsoleMessage(NEWLINE);
 			liveMenu(this);

@@ -13,7 +13,7 @@ import rotp.model.planet.PlanetType;
 import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesignLab;
 import rotp.ui.RotPUI;
-import rotp.ui.console.CommandConsole.Command;
+import rotp.ui.console.VIPConsole.Command;
 import rotp.ui.sprites.SystemTransportSprite;
 
 public class ConsoleStarView implements IConsole {

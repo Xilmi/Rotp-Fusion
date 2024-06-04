@@ -15,7 +15,7 @@
  */
 package rotp.ui.main.overlay;
 
-import rotp.ui.console.CommandConsole;
+import rotp.ui.console.VIPConsole;
 import rotp.ui.console.IConsoleListener;
 import rotp.model.Sprite;
 import rotp.model.combat.ShipCombatManager;
@@ -81,7 +81,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IConsoleLi
         parent.mapFocus(sys);
         parent.clickedSprite(sys);
         parent.repaint();
-        initConsoleSelection();
+        initConsoleSelection("Ship Combat", false);
     }
     public void startCombat(int combatFlag) {
         drawSprites = false;
@@ -882,7 +882,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IConsoleLi
         boolean scouted = player.sv.isScouted(sys.id);
         if (scouted) {
         	//message += lineSplit + CommandConsole.cc().viewSystemInfo(sys, false);
-        	message += NEWLINE + CommandConsole.systemInfo(sys);
+        	message += NEWLINE + VIPConsole.systemInfo(sys);
         }
         else
         	message += NEWLINE + text("SHIP_COMBAT_TITLE_UNSCOUTED");

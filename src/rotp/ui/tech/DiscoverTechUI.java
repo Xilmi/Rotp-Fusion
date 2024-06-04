@@ -143,7 +143,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         mission = null;
         frameEmpire1 = null;
         frameEmpire2 = null;
-        initConsoleSelection();
+        initConsoleSelection("Discover Technology", false);
     }
     public void tradeTech(String techId, int empId) {
         Galaxy gal = galaxy();
@@ -165,6 +165,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         mission = null;
         frameEmpire1 = null;
         frameEmpire2 = null;
+        initConsoleSelection("Trade Technology", true);
     }
     public void plunderTech(String techId, int sysId, int empId) {
         Galaxy gal = galaxy();
@@ -188,6 +189,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         mission = null;
         frameEmpire1 = null;
         frameEmpire2 = null;
+        initConsoleSelection("Plunder Technology", true);
     }
     public void plunderShipTech(String techId, int empId) {
         // if emp <0, then this is a precursor ship (e.g. Derelict Random Event)
@@ -208,6 +210,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         finished = false;
         frameEmpire1 = null;
         frameEmpire2 = null;
+        initConsoleSelection("Plunder Ship Technology", true);
     }
     public void stealTech(EspionageMission m, int empId) {
         Galaxy gal = galaxy();
@@ -229,6 +232,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         finished = false;
         frameEmpire1 = mission.canFrame() ? mission.empiresToFrame().get(0) : null;
         frameEmpire2 = mission.canFrame() ? mission.empiresToFrame().get(1) : null;
+        initConsoleSelection("Steal Technology", true);
     }
 
     @Override
@@ -656,16 +660,19 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         if (shouldFrameEmpire()) {
             mode = MODE_FRAME_EMPIRE;
             repaint();
+            initConsoleSelection("Frame Empire", true);
             return;
         }
         else if (shouldReallocate()) {
             mode = MODE_REALLOCATE;
             repaint();
+            initConsoleSelection("Should Reallocate", true);
             return;
         }
         else if (showCompletion()) {
             mode = MODE_COMPLETED;
             repaint();
+            initConsoleSelection("Show Completion", true);
             return;
         }
         finish();
@@ -681,6 +688,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
             if (shouldReallocate()) {
                 mode = MODE_REALLOCATE;
                 repaint();
+                initConsoleSelection("Should Reallocate", true);
                 return;
             }
             finish();
@@ -703,6 +711,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         if (showCompletion()) {
             mode = MODE_COMPLETED;
             repaint();
+            initConsoleSelection("Show Completion", true);
             return;
         }
         finish();
@@ -850,9 +859,9 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         }
         else if (mode == MODE_FRAME_EMPIRE) {
         	if (frameEmpire1 != null)
-        		options.add(new ConsoleOptions(KeyEvent.VK_ESCAPE, "1", frameEmpire1.name()));
+        		options.add(new ConsoleOptions(KeyEvent.VK_1, "1", frameEmpire1.name()));
         	if (frameEmpire2 != null)
-        		options.add(new ConsoleOptions(KeyEvent.VK_ESCAPE, "2", frameEmpire2.name()));
+        		options.add(new ConsoleOptions(KeyEvent.VK_2, "2", frameEmpire2.name()));
         } else
         	options.add(new ConsoleOptions(KeyEvent.VK_ESCAPE, "C", "Continue"));
 

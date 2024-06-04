@@ -112,7 +112,7 @@ public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMo
         techsY = 0;
         finished = false;
         repaint();
-        initConsoleSelection();
+        initConsoleSelection("Select New Technology", false);
     }
     public TechCategory category()        { return category; }
 

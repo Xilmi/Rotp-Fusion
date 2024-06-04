@@ -11,8 +11,8 @@ import rotp.model.ships.ShipComponent;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipEngine;
 import rotp.ui.RotPUI;
-import rotp.ui.console.CommandConsole.Command;
-import rotp.ui.console.CommandConsole.CommandMenu;
+import rotp.ui.console.VIPConsole.Command;
+import rotp.ui.console.VIPConsole.CommandMenu;
 import rotp.ui.console.IConsole;
 import rotp.ui.design.DesignUI.DesignConfigPanel;
 
@@ -694,13 +694,13 @@ public class ConsoleDesignView implements IConsole {
 	private String designComponents(int desNum)	{
 		ShipDesign design = slotDesign(desNum);
 		String out = designLabel(desNum);
-		String name;
-		if (selectedSlot() < 0) 
-			name = text("SHIP_DESIGN_PROTOTYPE_TITLE");
-		else if (design.active())
-			name = design.name();
-		else
-			name = text("SHIP_DESIGN_NEW");
+//		String name;
+//		if (selectedSlot() < 0) 
+//			name = text("SHIP_DESIGN_PROTOTYPE_TITLE");
+//		else if (design.active())
+//			name = design.name();
+//		else
+//			name = text("SHIP_DESIGN_NEW");
 
 		if (desNum == selectedSlot())
 			out += SPACER + "Selected Design ";

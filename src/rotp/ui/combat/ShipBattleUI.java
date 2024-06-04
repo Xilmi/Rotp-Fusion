@@ -2254,7 +2254,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             mgr.resolveAllCombat();
             mode = Display.RESULT;
             repaint();
-            initConsoleReport();
+            initConsoleReport("Ship Battle Report", true);
         }
     }
     private void newTargetGridCell() {

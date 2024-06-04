@@ -1,6 +1,6 @@
 package rotp.ui.console;
 
-import static rotp.ui.console.CommandConsole.cc;
+import static rotp.ui.console.VIPConsole.cc;
 
 import java.util.List;
 
@@ -106,7 +106,7 @@ public interface IConsole extends Base {
 
 //	##### TOOLS #####
 	default MainUI mainUI()	  			{ return RotPUI.instance().mainUI(); }
-	default CommandConsole console()	{ return cc(); }
+	default VIPConsole console()	{ return cc(); }
 	default Empire empire(int empId)	{ return galaxy().empire(empId); }
 	default int validPlanet(int p)		{ return bounds(0, p, galaxy().systemCount-1); }
 	default String cLn(String s)		{ return s.isEmpty() ? "" : (NEWLINE + s); }

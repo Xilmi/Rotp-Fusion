@@ -90,7 +90,7 @@ public class MapOverlayBombardPrompt extends MapOverlay implements IConsoleListe
         parent.repaint();
         estKills = Math.round(fl.expectedBombardDamage(false) / 200f);
         estFactoryKills = Math.round(fl.expectedBombardDamage(true) / 50f);
-        initConsoleSelection();
+        initConsoleSelection("Bombard Planet", false);
     }
     private StarSystem starSystem() {
         return galaxy().system(sysId);
@@ -138,7 +138,7 @@ public class MapOverlayBombardPrompt extends MapOverlay implements IConsoleListe
             endPop = pl.sv.population(sysId);
             endBases = pl.sv.bases(sysId);
             endFact = pl.sv.factories(sysId);
-            initConsoleReport();
+            initConsoleReport("Bombardement Report", true);
         }
     }
     private void bombard() {
@@ -151,7 +151,7 @@ public class MapOverlayBombardPrompt extends MapOverlay implements IConsoleListe
             endPop = pl.sv.population(sysId);
             endBases = pl.sv.bases(sysId);
             endFact = pl.sv.factories(sysId);
-            initConsoleReport();
+            initConsoleReport("Bombardement Report", true);
         }
     }
     @Override

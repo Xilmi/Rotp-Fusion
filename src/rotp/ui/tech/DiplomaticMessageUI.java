@@ -41,7 +41,7 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
-import rotp.ui.console.CommandConsole;
+import rotp.ui.console.VIPConsole;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.diplomacy.DiplomaticMessage;
@@ -640,14 +640,13 @@ public class DiplomaticMessageUI extends FadeInPanel
     		return;
     	String title = "Dialogue with " + diplomatEmpire.name();
     	talkTimeMs = 10;
-    	CommandConsole.diplomaticMessages.newMenu(title, this, false);
+    	VIPConsole.diplomaticMessages.newMenu(title, this, false);
     }
     private void initReplyForConsole()			{
     	if (!RotPUI.isConsole)
     		return;
     	String title = "Final reply from " + diplomatEmpire.name();
     	talkTimeMs = 10;
-    	CommandConsole.diplomaticMessages.newMenu(title, this, true);
+    	VIPConsole.diplomaticMessages.newMenu(title, this, true);
     }
-   
 }

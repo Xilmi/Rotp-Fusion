@@ -11,8 +11,8 @@ import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechLibrary;
 import rotp.model.tech.TechTree;
 import rotp.ui.RotPUI;
-import rotp.ui.console.CommandConsole.Command;
-import rotp.ui.console.CommandConsole.CommandMenu;
+import rotp.ui.console.VIPConsole.Command;
+import rotp.ui.console.VIPConsole.CommandMenu;
 import rotp.ui.tech.AllocateTechUI;
 import rotp.util.Basket;
 

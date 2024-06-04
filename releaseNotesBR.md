@@ -2,20 +2,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Ship design panel:
-  - Added Help for Governor buttons.
-  - New control key for auto build selection
-    - Alt-A : Auto Build best design (Same as the button)
-    - Alt-B : Auto Build Bomber
-    - Alt-F : Auto Build Fighter
-    - Alt-P : Auto Build Colony (Pioneer)
-    - Alt-E : Auto Build Scout (Explorer)
-- Fixed wrong factory estimation.
-- Fixed smartmax when reserve are greater than ship cost. Will be set to 1 tick to release the ship.
-
 - VIP Console:
-  - New option to show only unknown technologies.
-  - Implemented Ship Design
+  - Espionage mission management. (Mission, report and framing)
+- Fixed old bug where your spy are good enough to frame but have no one to frame... You framed your-self!
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -225,4 +214,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed trade report display on Empire events.
 - Fixed wrong factory estimation.
 - Fixed smartmax when reserve are greater than ship cost. Will be set to 1 tick to release the ship.
+- Fixed old bug where your spy are good enough to frame but have no one to frame... You framed your-self!
 - minor fixes...

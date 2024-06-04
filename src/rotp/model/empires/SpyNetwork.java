@@ -403,6 +403,11 @@ public final class SpyNetwork implements Base, Serializable {
     private boolean sendSpiesToInfiltrate() {
         boolean confession = false;
         float adj = overallSecurityAdj(false); // Smaller is better
+//        if (view.owner().isPlayer()) {
+//        	System.out.println("Player send Spies To Infiltrate");
+//        	adj = -1; // TO DO BR: REMOVE
+//        }
+        	
         List<Spy> spiesAttempting = new ArrayList<>(activeSpies());
         for (Spy spy: spiesAttempting) {
             spy.attemptInfiltration(adj);
@@ -418,6 +423,11 @@ public final class SpyNetwork implements Base, Serializable {
     }
     private void sendSpiesToAttemptMission() {
         float adj = spyInfiltrationAdj(); // bigger = better
+//        if (view.owner().isPlayer()) {
+//        	System.out.println("Player send Spies To Attempt Mission");
+//        	adj = 1; // TO DO BR: REMOVE
+//        }
+        
         for (Spy spy: activeSpies)
             spy.attemptMission(adj);
     }
@@ -478,7 +488,8 @@ public final class SpyNetwork implements Base, Serializable {
         }
 
         // if spy caught or is going to frame an empire, create incident
-        if (bestSpy.caught() || bestSpy.canFrame()) {
+        // BR: Fixed when you are good enough to frame but have no one to frame!
+        if (bestSpy.caught() || (bestSpy.canFrame() && framedEmpire != null)) {
             Empire victim = view.empire();
             Empire thief = eMission.thief();
             EmpireView victimView = victim.viewForEmpire(thief);
