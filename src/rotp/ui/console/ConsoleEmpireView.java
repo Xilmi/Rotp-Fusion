@@ -132,7 +132,7 @@ public class ConsoleEmpireView implements IConsole {
 		}
 		return out;
 	}
-	String audience(Empire empire, boolean verbose)			{ // TODO BR: audience(Empire empire, boolean verbose)
+	String audience(Empire empire, boolean verbose)			{
 		String out = "";
 		if (empire.isPlayer()) {
 			return "Error: Invalid parameter for player empire";

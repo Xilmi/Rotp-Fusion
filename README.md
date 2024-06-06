@@ -69,6 +69,12 @@ Later:
 
 ## What's New
 
+2024.06.06 (BR)
+- VIP Console: added Sabotage mission management.
+- Fixed some spelling errors.
+- Fixed factory prediction when transports are sent or incoming.
+- Fixed confusing max/average tech status display.
+
 2024.06.04 (BR)
 - Renamed Console VIPConsole to avoid confusion with other console. (VIP for Visually Impaired Person) 
 - VIP Console:

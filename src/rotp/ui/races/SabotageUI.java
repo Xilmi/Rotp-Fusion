@@ -15,6 +15,8 @@
  */
 package rotp.ui.races;
 
+import static rotp.ui.console.IConsole.SYSTEM_KEY;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -36,26 +38,32 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.border.Border;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Leader;
 import rotp.model.empires.Race;
 import rotp.model.empires.SabotageMission;
+import rotp.model.empires.SystemView;
 import rotp.model.galaxy.Location;
 import rotp.model.galaxy.Nebula;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
-import rotp.ui.main.SystemGraphicPane;
+import rotp.ui.RotPUI;
+import rotp.ui.console.IConsoleListener;
+import rotp.ui.console.VIPConsole;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
+import rotp.ui.main.SystemGraphicPane;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.main.SystemViewInfoPane;
 import rotp.ui.main.UnexploredGraphicInfoPane;
 import rotp.ui.map.IMapHandler;
 import rotp.util.sound.SoundClip;
 
-public final class SabotageUI extends BasePanel implements MouseListener {
+public final class SabotageUI extends BasePanel implements MouseListener, IConsoleListener {
     private static final long serialVersionUID = 1L;
     private static final String MAP_PANEL = "Map";
     private static final String RESULT_PANEL = "Result";
@@ -92,7 +100,7 @@ public final class SabotageUI extends BasePanel implements MouseListener {
     BasePanel titlePanel;
     BasePanel promptPanel;
     SabotageResultPanel resultPanel;
-    private final List<Sprite> controls = new ArrayList<>();
+    private final List<Sprite> controls = new ArrayList<>(); // BR: Always empty !?
     int animationIndex = 0;
     int currentState;
     int destroyCount = 0;
@@ -102,6 +110,7 @@ public final class SabotageUI extends BasePanel implements MouseListener {
     boolean exited = false;
     SoundClip audioClip = null;
     int repaintCount = 0;
+    private String entryComment = ""; // BR: for VIP Console
 
     @Override
     public boolean drawMemory()            { return true; }
@@ -121,6 +130,7 @@ public final class SabotageUI extends BasePanel implements MouseListener {
         audioClip = null;
         repaintCount = 3;
         selectMapPanel();
+        initConsoleSelection("Sabotage Mission", false);
     }
     public StarSystem systemToDisplay() {
         if (mapPane.clickedSprite() instanceof StarSystem)
@@ -165,7 +175,7 @@ public final class SabotageUI extends BasePanel implements MouseListener {
                 stopAmbience();
                 resultPanel.init();
                 currentState = SHOW_ANIMATION;
-                if (!playAnimations()) {
+                if (!playAnimations() || RotPUI.isConsole) {
                     advanceToNextState();
                     return;
                 }
@@ -182,11 +192,14 @@ public final class SabotageUI extends BasePanel implements MouseListener {
                 session().resumeNextTurnProcessing();
                 return;
         }
-        if ((currentState == REQUEST_MISSION))
-            selectMapPanel();
-        else
-            selectResultPanel();
-
+        if ((currentState == REQUEST_MISSION)) {
+        	selectMapPanel();
+        	initConsoleSelection("Sabotage Map", true);
+        }
+        else {
+        	selectResultPanel();
+        	initConsoleSelection("Sabotage Result", true);
+        }
         repaint();
     }
     private void initModel() {
@@ -669,7 +682,8 @@ public final class SabotageUI extends BasePanel implements MouseListener {
         public void mousePressed(MouseEvent e) { }
         @Override
         public void mouseReleased(MouseEvent e) {
-           if ((hoverTarget == factoriesBox) && canSabotageFactories()) {
+            if ((hoverTarget == factoriesBox) && canSabotageFactories()) {
+                softClick(); 
                 destroyFactories();
                 return;
             }
@@ -990,4 +1004,99 @@ public final class SabotageUI extends BasePanel implements MouseListener {
             g.fillRect(0,h/2,w, h/2);
         }
     }
+    
+    // ##### Console Tools
+    @Override public String getEntryComments()			{ return entryComment; }
+    @Override public int consoleEntry(String entry)		{
+    	entryComment = "";
+    	String str = entry.toUpperCase();
+    	if (str.startsWith(SYSTEM_KEY)) {
+    		str = str.replace(SYSTEM_KEY, "").trim();
+    		Integer altId = getInteger(str);
+    		if (altId == null)
+    			return INVALID_ENTRY;
+    		SystemView view = VIPConsole.cc().getView(altId);
+    		if (view.empId() != mission.target().id)
+    			return INVALID_ENTRY;
+    		if (view.population() == 0)
+    			return INVALID_ENTRY;
+    		StarSystem sys = view.system();
+    		mapPane.clickedSprite(sys);
+    		entryComment = "New Target selected: " + VIPConsole.cc().getSystemSpyView(sys);
+    		return VALID_ENTRY_NO_EXIT;
+    	}
+		List<ConsoleOptions> options = getOptions();
+		if (options.isEmpty())
+			return UNPROCESSED_ENTRY;
+		for (ConsoleOptions option : options) {
+			if (option.isValid(entry)) {
+				keyPressed(option.getKeyEvent());
+				return VALID_ENTRY;
+			}
+		}
+		return INVALID_ENTRY;
+	}
+	@Override public List<ConsoleOptions> getOptions()	{
+		List<ConsoleOptions> options = new ArrayList<>();
+		if (currentState == REQUEST_MISSION) {
+			if (spyButtonsPanel.canSabotageFactories())
+				options.add(new ConsoleOptions(KeyEvent.VK_1, "1", text("SABOTAGE_BUTTON_FACTORIES")));
+			if (spyButtonsPanel.canSabotageBases())
+				options.add(new ConsoleOptions(KeyEvent.VK_2, "2", text("SABOTAGE_BUTTON_BASES")));
+			if (spyButtonsPanel.canInciteRebellion())
+				options.add(new ConsoleOptions(KeyEvent.VK_3, "3", text("SABOTAGE_BUTTON_REBELLION")));
+        	options.add(new ConsoleOptions(KeyEvent.VK_4, "4", text("SABOTAGE_BUTTON_NO_ACTION")));			
+		}
+		else {
+			options.add(new ConsoleOptions(KeyEvent.VK_ESCAPE, "C", "Continue"));
+		}
+		return options;
+	}
+	@Override public String getMessage() {
+        String message = text("SABOTAGE_TITLE");
+        message = mission.target().replaceTokens(message, "alien");
+        switch(currentState) {
+        case REQUEST_MISSION:
+        		return NEWLINE + missionMessage();
+        case SHOW_RESULTS:
+        	message += NEWLINE + resultMessage();
+        	break;
+        }
+        message += NEWLINE + getMessageOption();
+		return message;
+	}
+	private String missionMessage()	{
+		Empire player  = player();
+        StarSystem sys = instance.systemToDisplay();
+        String prompt  = text("SABOTAGE_PROMPT", sys.name());
+        boolean treatyBreak = player.pactWith(mission.target().id) || player.alliedWith(mission.target().id);
+        if(treatyBreak)
+        	prompt += NEWLINE + text("SABOTAGE_WARNING");
+        String msg = mission.target().replaceTokens(prompt, "alien");
+        msg += NEWLINE + getMessageOption();
+        msg += NEWLINE + targetOptions();
+		return msg;
+	}
+	private String resultMessage()	{
+		String msg = "";
+        if (mission.isDestroyFactories()) 
+            msg = text("SABOTAGE_FACTORIES_RESULT", mission.factoriesDestroyed());
+        else if (mission.isDestroyBases()) 
+            msg = text("SABOTAGE_BASES_RESULT", mission.missileBasesDestroyed());
+        else {
+            if (inRebellion)
+                msg = text("SABOTAGE_REBELS_REVOLT");
+            else {
+                int pct = (int) (systemToDisplay().colony().rebellionPct()*100);
+                msg = text("SABOTAGE_REBELS_TOTAL", mission.rebelsIncited(), pct);
+            }
+        }
+		return msg;
+	}
+	private String targetOptions()	{
+		String msg = "Or select a new planet from the list:";
+		String planets = VIPConsole.cc().getEmpirePlanets(mission.target());
+        msg += planets;	
+		return msg;
+	}
 }

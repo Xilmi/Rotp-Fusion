@@ -2,9 +2,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- VIP Console:
-  - Espionage mission management. (Mission, report and framing)
-- Fixed old bug where your spy are good enough to frame but have no one to frame... You framed your-self!
+- VIP Console: added Sabotage mission management.
+- Fixed some spelling errors.
+- Fixed factory prediction when transports are sent or incoming.
+- Fixed confusing max/average tech status display.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -215,4 +216,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed wrong factory estimation.
 - Fixed smartmax when reserve are greater than ship cost. Will be set to 1 tick to release the ship.
 - Fixed old bug where your spy are good enough to frame but have no one to frame... You framed your-self!
+- Fixed factory prediction when transports are sent or incoming.
+- Fixed confusing max/average tech status display.
 - minor fixes...

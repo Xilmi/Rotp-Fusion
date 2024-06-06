@@ -87,7 +87,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 	private HashMap<Integer, Integer> altIndex2SystemIndex = new HashMap<>();
 //	private Menu stars, fleet, ships, opponents;
 //	private final List<SystemView> starList = new ArrayList<>();
-	private ConsoleStarView		starView;
+	private VIPStarView		starView;
 	private ConsoleFleetView	fleetView;
 	private ConsoleEmpireView	empireView;
 	private ConsoleResearchView	researchView;
@@ -235,7 +235,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		resultPane.setContentType("text/html");
 		resultPane.setText("<html>");
 		
-		starView		= new ConsoleStarView();
+		starView		= new VIPStarView();
 		fleetView		= new ConsoleFleetView();
 		empireView		= new ConsoleEmpireView();
 		researchView	= new ConsoleResearchView();
@@ -776,7 +776,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		return text[0];
 	}
 	StarSystem getSys(int altIdx)		{ return galaxy().system(altIndex2SystemIndex.get(altIdx)); }
-	SystemView getView(int altIdx)		{ return player().sv.view(altIndex2SystemIndex.get(altIdx)); }
+	public SystemView getView(int altId){ return player().sv.view(altIndex2SystemIndex.get(altId)); }
 	ShipFleet  getFleet(int idx)		{
 		int validIdx = validFleet(idx);
 		if (idx == validIdx)
@@ -787,6 +787,42 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 	int getSysId(int altIdx)			{ return altIndex2SystemIndex.get(altIdx); }
 	int getFleetIndex(ShipFleet fl)		{ return fleets.indexOf(fl); }
 	int getTransportIndex(Transport tr)	{ return transports.indexOf(tr); }
+
+	public String getEmpirePlanets(Empire target)	{
+		String flt = "O" + target.id;
+		List<String> param = new ArrayList<>();
+		param.add("P");
+		param.add(flt);
+		new ViewFilter(null, param);
+		String out = getSystemsSpyView();
+		return out;
+	}
+	private String getSystemsSpyView()	{
+		String out	= "";
+		if (systems.isEmpty())
+			return out + "Empty Star System List" + NEWLINE;
+		for (StarSystem sys : systems) {
+			String spyView = getSystemSpyView(sys);
+			if (!spyView.isEmpty())
+				out += NEWLINE + spyView;
+		}
+		return out;
+	}
+	public String getSystemSpyView(StarSystem sys)	{
+		SystemView view	= player().sv.view(sys.id);
+		int pop	= view.population();
+		if (pop <= 0)
+			return "";
+		Empire emp = sys.empire();
+		String out = bracketed(SYSTEM_KEY, sys.altId);
+		out += " " + view.name();
+		if (emp.isCapital(sys))
+			out += SPACER + "Empire Capital";
+		out += SPACER + "Population = " + pop;
+		out += SPACER + "Factories = " + view.factories();
+		out += SPACER + "Bases = " + view.bases();
+		return out;
+	}
 
 	// ################### SUB CLASS REPORT PROMPT MENU ######################
 	public class ReportPromptMenu extends CommandMenu {
@@ -850,7 +886,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 			}
 			parentUI.consoleEntry();
 			boolean exited = parentUI.exited();
-			System.out.println("newEntryReply exited = " + exited);
+			// System.out.println("newEntryReply exited = " + exited);
 			if (exited) {
 				commandField.setText("");
 				guiPromptMessages.close(this);
@@ -862,26 +898,36 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 			commandField.setText("");
 			//resultPane.setText(close(""));
 			guiPromptMessages.close(this);
-			System.out.println("newEntryReply Messages count = " + guiPromptMessages.size());
+			// System.out.println("newEntryReply Messages count = " + guiPromptMessages.size());
 		}
 		private void newEntryRequest(String entry)	{
 			int validation = parentUI.consoleEntry(entry);
-			boolean exited = parentUI.exited();
-			System.out.println("newEntryMain exited = " + exited);
-			boolean validResponse = validation >= IConsoleListener.VALID_ENTRY;;
+			//boolean exited = parentUI.exited();
+			//System.out.println("newEntryMain exited = " + exited);
+			//boolean validResponse = validation >= IConsoleListener.VALID_ENTRY;;
 			commandField.setText("");
-			if (validResponse) {
-				commandField.setText("");
+			String out;
+			switch (validation) {
+			case IConsoleListener.VALID_ENTRY:
 				guiPromptMessages.close(this);
-			}
-			else {
-				misClick();
-				String out = "Invalid Answer: " + entry + NEWLINE;
-				out += NEWLINE + message;
+				break;
+			case IConsoleListener.VALID_ENTRY_NO_EXIT:
+				out = parentUI.getEntryComments();
+				if (!out.isEmpty())
+					out += NEWLINE;
+				out += menuName + NEWLINE + parentUI.getMessage();
 				resultPane.setText(out);
 				commandField.setText("");
+				break;
+			default:
+				misClick();
+				out = "Invalid Answer: " + entry + NEWLINE;
+				out += NEWLINE + menuName + NEWLINE + parentUI.getMessage();
+				resultPane.setText(out);
+				commandField.setText("");
+				
 			}
-			System.out.println("newEntryRequest Messages count = " + guiPromptMessages.size());
+			// System.out.println("newEntryRequest Messages count = " + guiPromptMessages.size());
 		}
 		public String openGuiMessagePrompt(IConsoleListener ui) {
 			parentUI = ui;
@@ -906,10 +952,10 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		public void newMenu(String name, IConsoleListener ui, boolean isReply, boolean wait)	{
 			if (wait)
 				waitCounter++;
-			if (isReply)
-				System.out.println("new Reply Prompt Menu: " + name);
-			else
-				System.out.println("new Request Prompt Menu: " + name);
+//			if (isReply)
+//				System.out.println("new Reply Prompt Menu: " + name);
+//			else
+//				System.out.println("new Request Prompt Menu: " + name);
 
 			GuiPromptMenu menu = new GuiPromptMenu(name, topMenu, isReply);
 			add(menu);
@@ -1006,7 +1052,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 				out += NEWLINE + message;
 				resultPane.setText(out);
 			}
-			System.out.println("DiplomaticMessageMenu Messages count = " + diplomaticMessages.size());
+			// System.out.println("DiplomaticMessageMenu Messages count = " + diplomaticMessages.size());
 		}
 		public String openDiplomaticMessagePrompt(DiplomaticMessageUI ui) {
 			parentUI = ui;

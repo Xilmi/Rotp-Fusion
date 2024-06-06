@@ -9,9 +9,11 @@ public interface IConsoleListener {
 	int UNPROCESSED_ENTRY	= -1;
 	int INVALID_ENTRY		= 0;
 	int VALID_ENTRY			= 1;
+	int VALID_ENTRY_NO_EXIT	= 2;
 
 	String getMessage();
 
+	default String getEntryComments()			{ return ""; }
 	default boolean exited()					{ return true; }	// Override when followed by reports
 	default boolean handleKeyPress(KeyEvent e)	{ return false; }	// Override for non MapOverlay Selection
 	default List<ConsoleOptions> getOptions()	{ return null; }	// Override for Console Selection!

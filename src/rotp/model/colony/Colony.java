@@ -1127,7 +1127,9 @@ public final class Colony implements Base, IMappedObject, Serializable {
         return planet.normalPopGrowth(workingPopulation());
     }
     public float normalPopGrowthAfterNextTurnTransports() {
-        return planet.normalPopGrowth(populationAfterNextTurnTransports());
+    	// BR: Do not include incoming troop on normal growth factor.
+        // return planet.normalPopGrowth(populationAfterNextTurnTransports());
+        return planet.normalPopGrowth(workingPopulation());
     }
     public ShipFleet homeFleet() {
         return starSystem().orbitingFleetForEmpire(empire());

@@ -301,7 +301,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         float workingPop = c.populationAfterNextTurnTransports();
         float expGrowth = c.normalPopGrowthAfterNextTurnTransports();
         expectedPopGrowth = (int) (workingPop+expGrowth) - (int) currentPop;
-
+       
         // check for waste cleanup
         cost = c.wasteCleanupCost();
         if (newBC < cost) 
@@ -434,7 +434,8 @@ public class ColonyEcology extends ColonySpendingCategory {
     // get how many pops purchasable
     private float getNewPopPurchasable() {
         float maxPopSize = colony().maxSize();
-        float newPopPurchaseable = maxPopSize - colony().workingPopulation() - colony().normalPopGrowth();
+        float newPopPurchaseable = maxPopSize - colony().expectedPopulation();
+//        float newPopPurchaseable = maxPopSize - colony().workingPopulation() - colony().normalPopGrowth();
         switch (options().selectedPopGrowthFactor()) {
             case "Reduced":
                 newPopPurchaseable = min(newPopPurchaseable, maxPopSize/tech().populationCost());

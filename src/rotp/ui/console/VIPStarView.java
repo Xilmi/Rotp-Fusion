@@ -16,7 +16,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.console.VIPConsole.Command;
 import rotp.ui.sprites.SystemTransportSprite;
 
-public class ConsoleStarView implements IConsole {
+public class VIPStarView implements IConsole {
 	private Empire empire;
 	private StarSystem sys;
 	private SystemView sv;

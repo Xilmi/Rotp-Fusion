@@ -373,8 +373,14 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         int mgnT = s35;
         int mgnB = s10;
 
+        boolean absolute = options().raceStatusViewValue();
         g.setFont(font(20));
         String title = player().status().title(num);
+        if (num == EmpireStatus.TECHNOLOGY)
+        	if (absolute)
+        		title = ("Max " + title);
+        	else
+        		title = ("Avg " + title);
         int sw = g.getFontMetrics().stringWidth(title);
         int x0 = x+mgnL+(w-sw-mgnL)/2;
         int y0 = y+s30;
@@ -406,8 +412,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
             g.draw(dataBoxes[num]);
             g.setStroke(prev);
         }
-        boolean absolute = options().raceStatusViewValue();
-        boolean maxTech  = num == EmpireStatus.TECHNOLOGY && absolute;
+        boolean maxTech = absolute && (num == EmpireStatus.TECHNOLOGY);
         if (maxTech)
             getEmpireListing(99);
         else

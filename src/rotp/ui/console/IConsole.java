@@ -173,7 +173,7 @@ public interface IConsole extends Base {
 			out +=  SPACER + "Distance " + bracketed(SYSTEM_KEY, cc().selectedStar()) + "s = " + ly(ref.distanceTo(sys));
 		}
 		else if (pl != emp){
-			out += SPACER + "Distance to player = " + ly( pl.distanceTo(sys));
+			out += SPACER + "Distance to player = " + ly(pl.distanceTo(sys));
 		}
 		return out;
 	}

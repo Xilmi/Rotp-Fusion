@@ -2342,11 +2342,11 @@ SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Council Requirement: %1%
 
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_DESC       | During councils, when should the player cast his vote.
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE            | Player vote: %1
-SETTINGS_MOD_COUNCIL_PLAYER_VOTE_FIRST_DESC | The player will always be the last to vote.
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_FIRST_DESC | The player will always vote first.
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_FIRST      | First
-SETTINGS_MOD_COUNCIL_PLAYER_VOTE_SIZE_DESC  | The player will vote after the more populous empires.
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_SIZE_DESC  | The player will vote after the most populated empires.
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_SIZE       | by Size
-SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST_DESC  | The player will always be the last to vote.
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST_DESC  | The player will always vote last.
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST       | Last
 
 //SETTINGS_MOD_EMPIRES_SPACING_HELP        | Minimum distance between Empire Homeworlds in light-years.<br>A small value will allow a great variety of distances between Empire homeworlds.<br>Increasing this value will uniformize these distances.<br>The absolute minimum distance is: 3.8 light-years.
@@ -2540,7 +2540,7 @@ SETTINGS_MOD_RACE_STATUS_LOG             | Empire status graph log: %1
 SETTINGS_MOD_RACE_STATUS_LOG_YES         | Logarithmic Scale
 SETTINGS_MOD_RACE_STATUS_LOG_NO          | Linear Scale
 
-SETTINGS_MOD_RACE_STATUS_VIEW_HELP       | TThe Empire status values can be displayed as absolute, or relative.<br> Relative to the known total or to the player.
+SETTINGS_MOD_RACE_STATUS_VIEW_HELP       | The Empire status values can be displayed as absolute, or relative.<br> Relative to the known total or to the player.
 SETTINGS_MOD_RACE_STATUS_VIEW_DESC       | The Empire status values can be displayed as absolute, or relative.<br> Relative to the known total or to the player.
 SETTINGS_MOD_RACE_STATUS_VIEW            | Empire status value: %1
 SETTINGS_MOD_RACE_STATUS_VIEW_PCT_TOTAL  | % to Total
@@ -2874,7 +2874,7 @@ NAME_RACE_SILICOID_HELP   | →NAME_HELP←
 
 
 
-SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developper's Options
+SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developer's Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | - Debug Options Menu -
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
 
