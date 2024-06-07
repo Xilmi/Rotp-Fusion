@@ -16,12 +16,16 @@
 package rotp.ui.notifications;
 
 import rotp.ui.RotPUI;
+import rotp.ui.vipconsole.VIPConsole;
 
 public class ShipConstructionNotification implements TurnNotification {
     @Override
     public String displayOrder() { return CONSTRUCT_SHIP; }
     @Override
     public void notifyPlayer() {
+    	if (RotPUI.isVIPConsole)
+    		VIPConsole.instance().showShipConstruction();
+    	else
             RotPUI.instance().showShipConstruction();
     }
 }

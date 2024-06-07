@@ -43,9 +43,9 @@ import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.ui.NoticeMessage;
 import rotp.ui.UserPreferences;
-import rotp.ui.console.VIPConsole;
 import rotp.ui.notifications.AdviceNotification;
 import rotp.ui.notifications.BombardSystemNotification;
+import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.Base;
 
 public class Galaxy implements Base, Serializable {
@@ -531,7 +531,7 @@ public class Galaxy implements Base, Serializable {
             memLog();
             // RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment
         }
-        if (options().selectedShowConsolePanel())
+        if (options().selectedShowVIPPanel())
         	VIPConsole.updateConsole();
         giveAdvice("MAIN_ADVISOR_SCOUT");
         session().processNotifications();

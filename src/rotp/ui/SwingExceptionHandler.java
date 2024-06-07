@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.SwingUtilities;
 import rotp.Rotp;
-import rotp.ui.console.VIPConsole;
+import rotp.ui.vipconsole.VIPConsole;
 
 public class SwingExceptionHandler implements Thread.UncaughtExceptionHandler {
     @Override
@@ -41,7 +41,7 @@ public class SwingExceptionHandler implements Thread.UncaughtExceptionHandler {
         }
     }
     private void showError(Throwable e) {
-    	if (RotPUI.isConsole) {
+    	if (RotPUI.isVIPConsole) {
     		VIPConsole.throwError(e);
     	} else {
             RotPUI.instance().selectErrorPanel(e);

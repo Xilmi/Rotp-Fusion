@@ -308,7 +308,7 @@ public class ParamList extends AbstractParam<String> {
 		int size = listSize();
 		String rows = "";
 		if (size>0) {
-			if (IDebugOptions.showConsolePanel.get()) {
+			if (IDebugOptions.showVIPPanel.get()) {
 				rows = "(0) " + getRowGuide(0);
 				for (int i=1; i<size; i++)
 					rows += rowsSeparator() + "(" + i + ") " + getRowGuide(i);

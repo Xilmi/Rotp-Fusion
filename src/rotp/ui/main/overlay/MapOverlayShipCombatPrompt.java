@@ -15,8 +15,6 @@
  */
 package rotp.ui.main.overlay;
 
-import rotp.ui.console.VIPConsole;
-import rotp.ui.console.IConsoleListener;
 import rotp.model.Sprite;
 import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
@@ -28,6 +26,9 @@ import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.sprites.*;
+import rotp.ui.vipconsole.IVIPListener;
+import rotp.ui.vipconsole.VIPConsole;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
@@ -41,7 +42,7 @@ import java.util.Map.Entry;
 import rotp.model.combat.CombatStack;
 import rotp.ui.combat.ShipBattleUI;
 
-public class MapOverlayShipCombatPrompt extends MapOverlay implements IConsoleListener {
+public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListener {
     static final Color destroyedTextC = new Color(255,32,32,192);
     static final Color destroyedMaskC = new Color(0,0,0,160);
     Color maskC  = new Color(40,40,40,160);

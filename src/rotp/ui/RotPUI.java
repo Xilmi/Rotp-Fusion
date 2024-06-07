@@ -58,7 +58,6 @@ import rotp.model.ships.ShipLibrary;
 import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechLibrary;
 import rotp.ui.combat.ShipBattleUI;
-import rotp.ui.console.VIPConsole;
 import rotp.ui.design.DesignUI;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
@@ -96,6 +95,7 @@ import rotp.ui.tech.DiscoverTechUI;
 import rotp.ui.tech.SelectNewTechUI;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.planets.PlanetImager;
+import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.AnimationManager;
 import rotp.util.ImageManager;
 import rotp.util.LanguageManager;
@@ -145,7 +145,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         catch (Throwable t) { startupException = t; System.out.println("Err: UserPreferences init: "+t.getMessage()); }
     }
 
-    public static boolean isConsole = false; // BR: to avoid complex call on error!
+    public static boolean isVIPConsole = false; // BR: to avoid complex call on error!
     public static boolean useDebugFile = false;
     public static IGameOptions newGameOptions;
 
@@ -423,7 +423,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     	selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);
     }
     public void selectLoadGamePanel() {
-		if (guiOptions().selectedShowConsolePanel() && !Rotp.isIDE()) {
+		if (guiOptions().selectedShowVIPPanel() && !Rotp.isIDE()) {
 			VIPConsole.loadMenu.open("");
 		}
 		else {
@@ -443,7 +443,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         enableGlassPane(raceIntroUI);
         repaint();
         GovernorOptions.callForReset();
-		if (guiOptions().selectedShowConsolePanel())
+		if (guiOptions().selectedShowVIPPanel())
 			VIPConsole.introMenu.open("");
 
 		else if (options().debugBenchmark()) {
@@ -602,7 +602,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             }
         }
         //e.printStackTrace();
-        if (isConsole) {
+        if (isVIPConsole) {
         	VIPConsole.throwError(e);
         }
         else {

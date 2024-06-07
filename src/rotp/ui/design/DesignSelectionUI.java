@@ -15,8 +15,8 @@
  */
 package rotp.ui.design;
 
-import static rotp.ui.console.IConsole.EQUAL_SEP;
-import static rotp.ui.console.IConsole.SPACER;
+import static rotp.ui.vipconsole.IVIPConsole.EQUAL_SEP;
+import static rotp.ui.vipconsole.IVIPConsole.SPACER;
 
 import java.awt.Color;
 import java.awt.Font;

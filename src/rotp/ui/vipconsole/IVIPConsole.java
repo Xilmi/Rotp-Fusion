@@ -1,6 +1,6 @@
-package rotp.ui.console;
+package rotp.ui.vipconsole;
 
-import static rotp.ui.console.VIPConsole.cc;
+import static rotp.ui.vipconsole.VIPConsole.instance;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import rotp.ui.main.MainUI;
 import rotp.util.Base;
 import rotp.util.Basket;
 
-public interface IConsole extends Base {
+public interface IVIPConsole extends Base {
 	int NULL_ID		= -1;
 	int OPTION_ID	= 0;
 	int SETTING_ID	= 1;
@@ -106,7 +106,7 @@ public interface IConsole extends Base {
 
 //	##### TOOLS #####
 	default MainUI mainUI()	  			{ return RotPUI.instance().mainUI(); }
-	default VIPConsole console()	{ return cc(); }
+	default VIPConsole console()		{ return instance(); }
 	default Empire empire(int empId)	{ return galaxy().empire(empId); }
 	default int validPlanet(int p)		{ return bounds(0, p, galaxy().systemCount-1); }
 	default String cLn(String s)		{ return s.isEmpty() ? "" : (NEWLINE + s); }
@@ -169,8 +169,8 @@ public interface IConsole extends Base {
 		out += SPACER + shortSystemInfo(view);
 		// Planet Distance
 		if (local) {
-			StarSystem ref = cc().getSys(cc().selectedStar());
-			out +=  SPACER + "Distance " + bracketed(SYSTEM_KEY, cc().selectedStar()) + "s = " + ly(ref.distanceTo(sys));
+			StarSystem ref = instance().getSys(instance().selectedStar());
+			out +=  SPACER + "Distance " + bracketed(SYSTEM_KEY, instance().selectedStar()) + "s = " + ly(ref.distanceTo(sys));
 		}
 		else if (pl != emp){
 			out += SPACER + "Distance to player = " + ly(pl.distanceTo(sys));
@@ -254,13 +254,13 @@ public interface IConsole extends Base {
 	default String transportInfo(Transport transport, String sep)	{
 		Empire pl  = player();
 		Empire emp = transport.empire();
-		String out = bracketed(TRANSPORT_KEY, cc().getTransportIndex(transport));
+		String out = bracketed(TRANSPORT_KEY, instance().getTransportIndex(transport));
 		out += " Size = " + transport.launchSize();
 		out += sep + "Owner = " + longEmpireInfo(emp);
 		if (pl.knowETA(transport)) {
-			SystemView sv = cc().getView(transport.from().altId);
+			SystemView sv = instance().getView(transport.from().altId);
 			out += sep + "From " + planetName(sv, sep);
-			sv = cc().getView(transport.destination().altId);
+			sv = instance().getView(transport.destination().altId);
 			out += sep + "To " + planetName(sv, sep);
 			int eta = transport.travelTurnsRemainingAdjusted();
 			out += sep + "ETA = " + eta + " year";
@@ -272,9 +272,9 @@ public interface IConsole extends Base {
 		return out;
 	}
 //	##### SYSTEMS #####
-	default String planetName(int altId)	{ return planetName(cc().getView(altId), SPACER); }
-	default String planetNameCR(int altId)	{ return planetName(cc().getView(altId), NEWLINE); }
-	default String planetName(int altId, String sep)	{ return planetName(cc().getView(altId), sep); }
+	default String planetName(int altId)	{ return planetName(instance().getView(altId), SPACER); }
+	default String planetNameCR(int altId)	{ return planetName(instance().getView(altId), NEWLINE); }
+	default String planetName(int altId, String sep)	{ return planetName(instance().getView(altId), sep); }
 	default String planetName(SystemView sv, String sp)	{
 		String out = bracketed(SYSTEM_KEY, sv.system().altId) + " ";
 		String name = sv.name();

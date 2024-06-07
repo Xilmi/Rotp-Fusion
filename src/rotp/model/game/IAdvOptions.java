@@ -117,7 +117,7 @@ public interface IAdvOptions extends IBaseOptsTools {
 			ADV_UI, "COUNCIL_WIN", getCouncilWinOptions(), COUNCIL_REBELS) {
 		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
-			if (IDebugOptions.showConsolePanel.get())
+			if (IDebugOptions.showVIPPanel.get())
 				return IGameOptions.COUNCIL_NONE; // TODO BR: REMOVE when council is ready
 			return options.selectedCouncilWinOption();
 		}

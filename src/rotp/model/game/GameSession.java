@@ -76,7 +76,6 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.LoadGameUI;
-import rotp.ui.console.VIPConsole;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.GNNExpansionEvent;
 import rotp.ui.notifications.GNNRankingNoticeCheck;
@@ -89,6 +88,7 @@ import rotp.ui.notifications.SystemsScoutedNotification;
 import rotp.ui.notifications.TurnNotification;
 import rotp.ui.races.RacesUI;
 import rotp.ui.sprites.FlightPathSprite;
+import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.Base;
 import rotp.util.MoveToTrash;
 
@@ -672,7 +672,7 @@ public final class GameSession implements Base, Serializable {
                         RotPUI.instance().selectGameOverPanel();                	
                 }
                 performingTurn = false;
-                if (options.selectedShowConsolePanel())
+                if (options.selectedShowVIPPanel() && status().inProgress())
                 	VIPConsole.turnCompleted(galaxy().currentTurn());
             }
         };
@@ -1091,7 +1091,7 @@ public final class GameSession implements Base, Serializable {
             RotPUI.instance().selectMainPanelLoadGame();
         }
         instance.getGovernorOptions().gameLoaded();
-        if (options.selectedShowConsolePanel())
+        if (options.selectedShowVIPPanel())
         	VIPConsole.updateConsole();
     }
 	private void showInfo(Galaxy g) { // BR: for debug
@@ -1368,7 +1368,7 @@ public final class GameSession implements Base, Serializable {
         // BR: Backward compatibility tentative
         galaxy().validateOnLoad();
         ((MOO1GameOptions) options).validateOnLoad();
-        if (options.selectedShowConsolePanel())
+        if (options.selectedShowVIPPanel())
         	VIPConsole.updateConsole();
         if (options.debugShowMoreMemory()) {
             memLog();

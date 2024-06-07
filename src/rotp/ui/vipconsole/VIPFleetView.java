@@ -1,4 +1,4 @@
-package rotp.ui.console;
+package rotp.ui.vipconsole;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,10 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.RotPUI;
-import rotp.ui.console.VIPConsole.Command;
 import rotp.ui.main.FleetPanel;
+import rotp.ui.vipconsole.VIPConsole.Command;
 
-public class ConsoleFleetView implements IConsole {
+public class VIPFleetView implements IVIPConsole {
 	//private final CommandConsole console;
 	private Empire empire;
 	private StarSystem dest;

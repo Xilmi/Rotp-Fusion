@@ -42,12 +42,12 @@ import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
-import rotp.ui.console.IConsoleListener;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.notifications.TradeTechNotification;
+import rotp.ui.vipconsole.IVIPListener;
 
 public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseMotionListener,
-															ActionListener, IConsoleListener {
+															ActionListener, IVIPListener {
     private static final long serialVersionUID = 1L;    
     static final int SCIENTIST_VIEW = 0;
     static final int SPY_VIEW = 1;

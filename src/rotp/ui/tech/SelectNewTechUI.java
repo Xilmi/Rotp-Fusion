@@ -38,11 +38,11 @@ import rotp.model.empires.Empire;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
-import rotp.ui.console.IConsoleListener;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.vipconsole.IVIPListener;
 
 public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMotionListener,
-												MouseWheelListener, ActionListener, IConsoleListener {
+												MouseWheelListener, ActionListener, IVIPListener {
     private static final long serialVersionUID = 1L;
     private static final Color darkBrown = new Color(112,85,68);
     private static final Color darkBrownShade = new Color(112,85,68,128);

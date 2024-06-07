@@ -68,6 +68,12 @@ Later:
 
 ## What's New
 
+2024.06.07 (BR)
+- New option for "Tax only fully developed colonies", that define what should be completed to be identified as developed!
+- VIP Console:
+  - Game Over management.
+  - Ship construction pop-up interception.
+
 2024.06.06 (BR)
 - VIP Console: added Sabotage mission management.
 - Fixed some spelling errors.

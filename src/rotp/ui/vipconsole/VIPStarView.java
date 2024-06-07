@@ -1,4 +1,4 @@
-package rotp.ui.console;
+package rotp.ui.vipconsole;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ import rotp.model.planet.PlanetType;
 import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesignLab;
 import rotp.ui.RotPUI;
-import rotp.ui.console.VIPConsole.Command;
 import rotp.ui.sprites.SystemTransportSprite;
+import rotp.ui.vipconsole.VIPConsole.Command;
 
-public class VIPStarView implements IConsole {
+public class VIPStarView implements IVIPConsole {
 	private Empire empire;
 	private StarSystem sys;
 	private SystemView sv;

@@ -1,4 +1,4 @@
-package rotp.ui.console;
+package rotp.ui.vipconsole;
 
 import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
@@ -46,9 +46,10 @@ import rotp.model.game.IAdvOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IInGameOptions;
 import rotp.model.game.IMainOptions;
+import rotp.model.ships.ShipDesign;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
-import rotp.ui.design.ConsoleDesignView;
+import rotp.ui.design.VIPDesignView;
 import rotp.ui.game.GameUI;
 import rotp.ui.tech.DiplomaticMessageUI;
 import rotp.ui.util.IParam;
@@ -59,15 +60,20 @@ import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamString;
 import rotp.ui.util.ParamSubUI;
 
-public class VIPConsole extends JPanel  implements IConsole, ActionListener {
+public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
+	private static final String GAME_NEXT_TURN	= "N";
+	private static final String GAME_VIEW		= "V";
+	
 	private static JFrame frame;
 	private static VIPConsole instance;
 	private static boolean errorDisplayed = false;
+	private static String turnReport = "";
+
 	public	static CommandMenu introMenu, loadMenu, saveMenu;
-	public	static ReportMenu reportMenu;
+	public	static ReportMenu  reportMenu;
 	public	static ColonizeMenu		colonizeMenu;
 	public	static GuiPromptMenu	guiPromptMenu;
-	public	static ReportPromptMenu	reportPromptMenu;
+//	public	static ReportPromptMenu	reportPromptMenu;
 	public	static GuiPromptMessages  guiPromptMessages;
 	public	static DiplomaticMessages diplomaticMessages;
 
@@ -88,16 +94,17 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 //	private Menu stars, fleet, ships, opponents;
 //	private final List<SystemView> starList = new ArrayList<>();
 	private VIPStarView		starView;
-	private ConsoleFleetView	fleetView;
-	private ConsoleEmpireView	empireView;
-	private ConsoleResearchView	researchView;
-	private ConsoleDesignView	designView;
+	private VIPFleetView	fleetView;
+	private VIPEmpireView	empireView;
+	private VIPResearchView	researchView;
+	private VIPDesignView	designView;
 	
 	// ##### STATIC METHODS #####
-	public static VIPConsole cc()					{ return instance; }
+	public static VIPConsole instance()				{ return instance; }
 	public static void updateConsole()				{ instance.reInit(); }
+	public static void turnReport(String report)	{ turnReport += NEWLINE + report;}
 	public static void turnCompleted(int turn)		{
-		instance.resultPane.setText("Current turn: " + turn + NEWLINE);
+		instance.resultPane.setText("Current turn: " + turn + turnReport);
 	}
 	public static void showConsole(boolean show)	{
 		if(!Rotp.isIDE())
@@ -177,7 +184,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 			}
 		});
 	}
-	public VIPConsole()			{
+	public VIPConsole()				{
 		super(new GridBagLayout());
 		commandLabel = new JLabel("Options: ");
 		commandField = new JTextField(80);
@@ -236,10 +243,10 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		resultPane.setText("<html>");
 		
 		starView		= new VIPStarView();
-		fleetView		= new ConsoleFleetView();
-		empireView		= new ConsoleEmpireView();
-		researchView	= new ConsoleResearchView();
-		designView		= new ConsoleDesignView();
+		fleetView		= new VIPFleetView();
+		empireView		= new VIPEmpireView();
+		researchView	= new VIPResearchView();
+		designView		= new VIPDesignView();
 
 		initMenus();
 		resultPane.setText(liveMenu().menuGuide(""));
@@ -293,8 +300,9 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		return cmd;
 	}
 	private Command initNextTurn()	{
-		Command cmd = new Command("Next Turn", "N") {
+		Command cmd = new Command("Next Turn", GAME_NEXT_TURN) {
 			@Override protected String execute(List<String> param) {
+				turnReport = "";
 				session().nextTurn();
 				return "Performing Next Turn...";
 			}
@@ -303,7 +311,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		return cmd;
 	}
 	private Command initView()		{
-		Command cmd = new Command("View planets & fleets", "V") {
+		Command cmd = new Command("View planets & fleets", GAME_VIEW) {
 			@Override protected String execute(List<String> param) {
 				ViewFilter filter = new ViewFilter(this, param);
 				return filter.getResult("");
@@ -461,7 +469,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		return cmd;		
 	}
 
-	private void initAltIndex()		{
+	private void initAltIndex()			{
 		// Alternative index built from distance to the original player homeworld.
 		// The original index gives too much info on opponents home world and is too random for other systems.
 		HashMap<Integer, Float> homeDistances = new HashMap<>();
@@ -480,7 +488,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 			altId++;
 		}
 	}
-	private void initMenus()		{
+	private void initMenus()			{
 		mainMenu = initMainMenu();
 		liveMenu(mainMenu);
 		menus.clear();
@@ -488,7 +496,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		loadMenu = initLoadMenu();
 		saveMenu = initSaveMenu();
 	}
-	private CommandMenu initSaveMenu()		{
+	private CommandMenu initSaveMenu()	{
 		CommandMenu menu = new CommandMenu("Save Menu") {
 			private String fileBaseName(String fn)		{
 				String ext = GameSession.SAVEFILE_EXTENSION;
@@ -550,7 +558,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		};
 		return menu;
 	}
-	private CommandMenu initLoadMenu()		{
+	private CommandMenu initLoadMenu()	{
 		CommandMenu menu = new CommandMenu("Load Menu") {
 			private String fileBaseName(String fn) {
 				String ext = GameSession.SAVEFILE_EXTENSION;
@@ -590,7 +598,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		};
 		return menu;
 	}
-	private CommandMenu initMainMenu()		{
+	private CommandMenu initMainMenu()	{
 		CommandMenu main = new CommandMenu("Main Menu") {
 			@Override public String open(String out) {
 				RotPUI.instance().selectGamePanel();
@@ -639,7 +647,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		colonizeMenu		= new ColonizeMenu("Colonize Menu", menu);
 		diplomaticMessages	= new DiplomaticMessages(menu);
 		guiPromptMessages	= new GuiPromptMessages(menu);
-		reportPromptMenu	= new ReportPromptMenu("Report Prompt Menu", menu);
+//		reportPromptMenu	= new ReportPromptMenu("Report Prompt Menu", menu);
 		guiPromptMenu		= new GuiPromptMenu("Gui Prompt Menu", menu, false);
 		return menu;
 	}
@@ -788,6 +796,21 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 	int getFleetIndex(ShipFleet fl)		{ return fleets.indexOf(fl); }
 	int getTransportIndex(Transport tr)	{ return transports.indexOf(tr); }
 
+	public void showShipConstruction()	{
+		String msg = text("MAIN_FLEET_PRODUCTION_TITLE");
+		HashMap<ShipDesign, Integer> ships = session().shipsConstructed();
+		for (ShipDesign d: player().shipLab().designs())
+			if (d != null && ships.containsKey(d)) {
+				msg += NEWLINE + ships.get(d) + " "+ d.name();
+			}
+		turnReport += NEWLINE + msg;
+	}
+	public void goToMainMenu()	{
+		liveMenu(mainMenu);
+		commandField.setText("");
+		resultPane.setText(mainMenu.open(""));
+		//mainMenu.open("");
+	}
 	public String getEmpirePlanets(Empire target)	{
 		String flt = "O" + target.id;
 		List<String> param = new ArrayList<>();
@@ -825,7 +848,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 	}
 
 	// ################### SUB CLASS REPORT PROMPT MENU ######################
-	public class ReportPromptMenu extends CommandMenu {
+/*	public class ReportPromptMenu extends CommandMenu {
 		protected IConsoleListener parentUI;
 		ReportPromptMenu(String name, CommandMenu parent)	{ super(name, parent); }
 		@Override protected String close(String out)	{
@@ -857,10 +880,10 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		String getMessage()	{ return parentUI.getMessage(); }
 
 	}
+*/
 	// ################### SUB CLASS GUI PROMPT MENU ######################
 	public class GuiPromptMenu extends CommandMenu {
-		private IConsoleListener parentUI;
-		private String message;
+		private IVIPListener parentUI;
 		private boolean isReply;
 		GuiPromptMenu(String name, CommandMenu parent, boolean reply)	{
 			super(name, parent);
@@ -868,7 +891,6 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		}
 		@Override protected String close(String out) {
 			parentUI = null;
-			message	 = null;
 			liveMenu(gameMenu);
 			return out;
 		}
@@ -908,17 +930,20 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 			commandField.setText("");
 			String out;
 			switch (validation) {
-			case IConsoleListener.VALID_ENTRY:
+			case IVIPListener.VALID_ENTRY:
 				guiPromptMessages.close(this);
 				break;
-			case IConsoleListener.VALID_ENTRY_NO_EXIT:
+			case IVIPListener.VALID_ENTRY_NO_EXIT:
 				out = parentUI.getEntryComments();
 				if (!out.isEmpty())
 					out += NEWLINE;
 				out += menuName + NEWLINE + parentUI.getMessage();
 				resultPane.setText(out);
-				commandField.setText("");
 				break;
+			case IVIPListener.VALID_GAME_OVER:
+				guiPromptMessages.closeAll();
+				resultPane.setText(mainMenu.open(""));
+				return;
 			default:
 				misClick();
 				out = "Invalid Answer: " + entry + NEWLINE;
@@ -929,14 +954,14 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 			}
 			// System.out.println("newEntryRequest Messages count = " + guiPromptMessages.size());
 		}
-		public String openGuiMessagePrompt(IConsoleListener ui) {
+		public String openGuiMessagePrompt(IVIPListener ui) {
 			parentUI = ui;
-			message = menuName + NEWLINE + parentUI.getMessage();
+			String message = menuName + NEWLINE + parentUI.getMessage();
 			liveMenu(this);
 			resultPane.setText(message);
 			return "";
 		}
-		public void openConsolePrompt(IConsoleListener ui) {
+		public void openConsolePrompt(IVIPListener ui) {
 			parentUI	= ui;
 			liveMenu(this);
 			resultPane.setText(parentUI.getMessage());
@@ -949,7 +974,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		private final CommandMenu topMenu;
 		private int waitCounter = 0;
 		GuiPromptMessages(CommandMenu menu)	{ topMenu = menu; }
-		public void newMenu(String name, IConsoleListener ui, boolean isReply, boolean wait)	{
+		public void newMenu(String name, IVIPListener ui, boolean isReply, boolean wait)	{
 			if (wait)
 				waitCounter++;
 //			if (isReply)
@@ -972,6 +997,11 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 			remove(menu);
 			menu.close("");
 			next();
+		}
+		private void closeAll()	{
+			waitCounter = 0;
+			clear();
+			return;
 		}
 		private void next()	{
 			if (isEmpty()) {
@@ -1175,7 +1205,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		}
 	}
 	// ################### SUB CLASS COMMAND MENU ######################
-	public static class CommandMenu implements IConsole{
+	public static class CommandMenu implements IVIPConsole{
 		protected final String menuName;
 		private final CommandMenu parent;
 		private final List<IParam>		settings = new ArrayList<>();
@@ -1211,7 +1241,7 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 		}
 		// #####  #####
 		public String open(String out)		{
-			cc().liveMenu(this);
+			instance().liveMenu(this);
 			return menuGuide(out);
 		}
 		protected String exitPanel()			{ return ""; }
@@ -1235,10 +1265,10 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 				return;
 			}
 			// \debug
-			cc().lastCmd.remove(txtU); // To keep unique and at last position
+			instance().lastCmd.remove(txtU); // To keep unique and at last position
 			if (!txtU.isEmpty())
-				cc().lastCmd.add(txtU);
-			String cmd = cc().getParam(txt, param).toUpperCase(); // this will remove the cmd from param list
+				instance().lastCmd.add(txtU);
+			String cmd = instance().getParam(txt, param).toUpperCase(); // this will remove the cmd from param list
 			String out = "Command = " + txt + NEWLINE;
 			boolean hasDigit = cmd.matches(".*\\d.*");
 			String cmd0 = "";
@@ -1253,8 +1283,8 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 						out += c.cmdHelp();
 					else
 						out += c.execute(param);
-					cc().commandField.setText("");
-					cc().resultPane.setText(out);
+					instance().commandField.setText("");
+					instance().resultPane.setText(out);
 					return;
 				}
 				else if (hasDigit && c.isKey(cmd0)) {
@@ -1263,8 +1293,8 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 						out += c.cmdHelp();
 					else
 						out += c.execute(param);
-					cc().commandField.setText("");
-					cc().resultPane.setText(out);
+					instance().commandField.setText("");
+					instance().resultPane.setText(out);
 					return;
 				}
 			}
@@ -1281,10 +1311,10 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 								boolean hasDigit, String cmd0, String cmd1) {
 			switch (cmd) {
 				case ""		: out = menuGuide(out);		break;
-				case "?"	: out = cc().optsGuide();	break;
+				case "?"	: out = instance().optsGuide();	break;
 				case "CLS"	: out = "";					break;
 				case "UP"	:
-					cc().commandField.setText("");
+					instance().commandField.setText("");
 					close(out);
 					return;
 				case OPTION_KEY			: out = optionEntry(out, safeRemove(param, 0), param);	break;
@@ -1316,13 +1346,13 @@ public class VIPConsole extends JPanel  implements IConsole, ActionListener {
 							case NULL_ID	:
 							default	:
 								out += "? unrecognised command";
-								cc().resultPane.setText(out);
+								instance().resultPane.setText(out);
 								return;
 						}
 					}
 			}
-			cc().commandField.setText("");
-			cc().resultPane.setText(out);
+			instance().commandField.setText("");
+			instance().resultPane.setText(out);
 		}
 		private String menuEntry(String out, String cmd, List<String> p) {
 			switch (cmd) {

@@ -15,7 +15,7 @@
  */
 package rotp.ui.races;
 
-import static rotp.ui.console.IConsole.SYSTEM_KEY;
+import static rotp.ui.vipconsole.IVIPConsole.SYSTEM_KEY;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -52,8 +52,6 @@ import rotp.model.galaxy.Nebula;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.console.IConsoleListener;
-import rotp.ui.console.VIPConsole;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemGraphicPane;
@@ -61,9 +59,11 @@ import rotp.ui.main.SystemPanel;
 import rotp.ui.main.SystemViewInfoPane;
 import rotp.ui.main.UnexploredGraphicInfoPane;
 import rotp.ui.map.IMapHandler;
+import rotp.ui.vipconsole.IVIPListener;
+import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.sound.SoundClip;
 
-public final class SabotageUI extends BasePanel implements MouseListener, IConsoleListener {
+public final class SabotageUI extends BasePanel implements MouseListener, IVIPListener {
     private static final long serialVersionUID = 1L;
     private static final String MAP_PANEL = "Map";
     private static final String RESULT_PANEL = "Result";
@@ -175,7 +175,7 @@ public final class SabotageUI extends BasePanel implements MouseListener, IConso
                 stopAmbience();
                 resultPanel.init();
                 currentState = SHOW_ANIMATION;
-                if (!playAnimations() || RotPUI.isConsole) {
+                if (!playAnimations() || RotPUI.isVIPConsole) {
                     advanceToNextState();
                     return;
                 }
@@ -1015,14 +1015,14 @@ public final class SabotageUI extends BasePanel implements MouseListener, IConso
     		Integer altId = getInteger(str);
     		if (altId == null)
     			return INVALID_ENTRY;
-    		SystemView view = VIPConsole.cc().getView(altId);
+    		SystemView view = VIPConsole.instance().getView(altId);
     		if (view.empId() != mission.target().id)
     			return INVALID_ENTRY;
     		if (view.population() == 0)
     			return INVALID_ENTRY;
     		StarSystem sys = view.system();
     		mapPane.clickedSprite(sys);
-    		entryComment = "New Target selected: " + VIPConsole.cc().getSystemSpyView(sys);
+    		entryComment = "New Target selected: " + VIPConsole.instance().getSystemSpyView(sys);
     		return VALID_ENTRY_NO_EXIT;
     	}
 		List<ConsoleOptions> options = getOptions();
@@ -1095,7 +1095,7 @@ public final class SabotageUI extends BasePanel implements MouseListener, IConso
 	}
 	private String targetOptions()	{
 		String msg = "Or select a new planet from the list:";
-		String planets = VIPConsole.cc().getEmpirePlanets(mission.target());
+		String planets = VIPConsole.instance().getEmpirePlanets(mission.target());
         msg += planets;	
 		return msg;
 	}

@@ -6,13 +6,13 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.ui.RotPUI;
-import rotp.ui.console.VIPConsole;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
+import rotp.ui.vipconsole.VIPConsole;
 
 public interface IDebugOptions extends IBaseOptsTools {
 	String DEBUG_GUI_ID		 = "DEBUG_OPTIONS";
@@ -121,22 +121,22 @@ public interface IDebugOptions extends IBaseOptsTools {
 	ParamBoolean debugLogEvents		= new ParamBoolean(GAME_UI, "DEBUG_LOG_EVENTS", true, true, true);
 	default boolean debugLogEvents()		{ return debugLogEvents.get(); }
 
-	ParamBoolean showConsolePanel	= new ParamBoolean(GAME_UI, "SHOW_CONSOLE_PANEL", false)
+	ParamBoolean showVIPPanel	= new ParamBoolean(GAME_UI, "SHOW_CONSOLE_PANEL", false)
 	{
 		{ isDuplicate(false); isCfgFile(true); }
 		@Override public Boolean set(Boolean newValue) {
 			super.set(newValue);
 			RotPUI.useDebugFile = newValue;
-			RotPUI.isConsole = newValue;
+			RotPUI.isVIPConsole = newValue;
 			VIPConsole.showConsole(newValue);
 			return newValue;
 		}
 	};
-	default boolean selectedShowConsolePanel()	{ return showConsolePanel.get(); }
-	default void showConsolePanel()				{ VIPConsole.showConsole(selectedShowConsolePanel()); }
-	default void showConsolePanel(boolean b)	{
-		showConsolePanel.set(b);
-		showConsolePanel();
+	default boolean selectedShowVIPPanel()	{ return showVIPPanel.get(); }
+	default void showVIPPanel()				{ VIPConsole.showConsole(selectedShowVIPPanel()); }
+	default void showVIPPanel(boolean b)	{
+		showVIPPanel.set(b);
+		showVIPPanel();
 	}
 
 	ParamBoolean continueAnyway		= new ParamBoolean(GAME_UI, "CONTINUE_ANYWAY", false, false);

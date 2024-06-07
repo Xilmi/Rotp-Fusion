@@ -1,4 +1,4 @@
-package rotp.ui.console;
+package rotp.ui.vipconsole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +25,7 @@ import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomaticMessage;
 import rotp.ui.races.RacesStatusUI.RaceValue;
 
-public class ConsoleEmpireView implements IConsole {
+public class VIPEmpireView implements IVIPConsole {
 	private static final String INCIDENT_SEP = ", ";
 	private static final String EMPIRE_SEP	 = ", ";
 	private static final String OBSOLETE	 = "~ ";

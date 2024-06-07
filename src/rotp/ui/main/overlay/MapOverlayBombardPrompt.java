@@ -32,8 +32,6 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
-import rotp.ui.console.IConsole;
-import rotp.ui.console.IConsoleListener;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
@@ -42,8 +40,10 @@ import rotp.ui.sprites.BombardTargetSprite;
 import rotp.ui.sprites.BombardYesSprite;
 import rotp.ui.sprites.ClickToContinueSprite;
 import rotp.ui.sprites.MapSprite;
+import rotp.ui.vipconsole.IVIPConsole;
+import rotp.ui.vipconsole.IVIPListener;
 
-public class MapOverlayBombardPrompt extends MapOverlay implements IConsoleListener {
+public class MapOverlayBombardPrompt extends MapOverlay implements IVIPListener {
     static final Color destroyedTextC = new Color(255,32,32,192);
     static final Color destroyedMaskC = new Color(0,0,0,160);
     Color maskC  = new Color(40,40,40,160);
@@ -662,17 +662,17 @@ public class MapOverlayBombardPrompt extends MapOverlay implements IConsoleListe
 
         // draw header info
         String message = displayYearOrTurn();
-        message += IConsole.SPACER + sysName;
+        message += IVIPConsole.SPACER + sysName;
 
         if (bombarded) {
-        	message += IConsole.SPACER + text("MAIN_BOMBARD_COMPLETE");
+        	message += IVIPConsole.SPACER + text("MAIN_BOMBARD_COMPLETE");
         }
         else {
 	    	String titleStr = text("MAIN_BOMBARD_TITLE", sysName);
 	        if(!fleet.empire().atWarWith(sys.empId()))
 	            titleStr = text("NEUTRAL_BOMBARD_TITLE", sysName);
 	        titleStr = sys.empire().replaceTokens(titleStr, "alien");
-	        message += IConsole.SPACER + titleStr;
+	        message += IVIPConsole.SPACER + titleStr;
 	        if (transports > 0) {
 	            String subtitleStr = text("MAIN_BOMBARD_TROOPS", str(transports));
 	            subtitleStr = player().replaceTokens(subtitleStr, "alien");

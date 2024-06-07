@@ -1,15 +1,16 @@
-package rotp.ui.console;
+package rotp.ui.vipconsole;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
 
 import rotp.ui.RotPUI;
 
-public interface IConsoleListener {
+public interface IVIPListener {
 	int UNPROCESSED_ENTRY	= -1;
 	int INVALID_ENTRY		= 0;
 	int VALID_ENTRY			= 1;
 	int VALID_ENTRY_NO_EXIT	= 2;
+	int VALID_GAME_OVER		= 3;
 
 	String getMessage();
 
@@ -24,7 +25,7 @@ public interface IConsoleListener {
 			return "Enter any command to continue";
 		String messageOption = "The options are:";
 		for (ConsoleOptions option : options) 
-			messageOption += IConsole.NEWLINE + option.messageOption();
+			messageOption += IVIPConsole.NEWLINE + option.messageOption();
 		
 		return messageOption;
 	}
@@ -43,13 +44,13 @@ public interface IConsoleListener {
 		return INVALID_ENTRY;
 	}
 	default void initConsoleSelection(String title, boolean wait)	{
-		if (!RotPUI.isConsole)
+		if (!RotPUI.isVIPConsole)
     		return;
 		VIPConsole.guiPromptMessages.newMenu(title, this, false, wait);
 		//CommandConsole.guiPromptMenu.openConsolePrompt(this);
 	};
 	default void initConsoleReport(String title, boolean wait)	{
-		if (!RotPUI.isConsole)
+		if (!RotPUI.isVIPConsole)
     		return;
 		VIPConsole.guiPromptMessages.newMenu(title, this, true, wait);
 		//CommandConsole.reportPromptMenu.openConsolePrompt(this);

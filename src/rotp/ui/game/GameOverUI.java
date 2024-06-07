@@ -23,6 +23,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.ActionListener;
@@ -32,9 +33,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.game.GameSession;
@@ -44,8 +45,10 @@ import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.vipconsole.IVIPListener;
 
-public final class GameOverUI extends FadeInPanel implements MouseListener, MouseMotionListener, ActionListener {
+public final class GameOverUI extends FadeInPanel
+		implements MouseListener, MouseMotionListener, ActionListener, IVIPListener {
     private static final long serialVersionUID = 1L;
     private static Composite[] trans;
     private final Color greenEdgeC = new Color(44,59,30);
@@ -90,6 +93,7 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
                 trans[i]  = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)i/trans.length);
         }
         transIndex = -1;
+        initConsoleSelection(gameOverTitle(), true);
     }
     @Override
     public void paintComponent(Graphics g) {
@@ -334,35 +338,36 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         return "";
     }
 
-//    private String gameOverTitleCommon() {
-//        if (session().status().lostOverthrown())
-//            return text("GAME_OVER_OVERTHROWN_LOSS");
-//        else if (session().status().lostMilitary())
-//            return text("GAME_OVER_MILITARY_LOSS");
-//        else if (session().status().lostDiplomatic())
-//            return text("GAME_OVER_DIPLOMATIC_LOSS");
-//        else if (session().status().lostNewRepublic())
-//            return text("GAME_OVER_NEW_REPUBLIC_LOSS");
-//        else if (session().status().lostRebellion())
-//            return text("GAME_OVER_REBELLION_LOSS");
-//        else if (session().status().lostNoColonies())
-//            return text("GAME_OVER_NO_COLONIES_LOSS");
-//        else if (session().status().wonDiplomatic())
-//            return text("GAME_OVER_DIPLOMATIC_WIN");
-//        else if (session().status().wonMilitary())
-//            return text("GAME_OVER_MILITARY_WIN");
-//        else if (session().status().wonMilitaryAlliance())
-//            return text("GAME_OVER_MILITARY_ALLIANCE_WIN");
-//        else if (session().status().wonNewRepublic())
-//            return text("GAME_OVER_NEW_REPUBLIC_WIN");
-//        else if (session().status().wonRebellion())
-//            return text("GAME_OVER_REBELLION_WIN");
-//        else if (session().status().wonCouncilAlliance())
-//            return text("GAME_OVER_ALLIANCE_WIN");
-//        else if (session().status().wonRebellionAlliance())
-//            return text("GAME_OVER_REBEL_ALLIANCE_WIN");
-//        return "";
-//    }
+/*    private String gameOverTitleCommon() {
+        if (session().status().lostOverthrown())
+            return text("GAME_OVER_OVERTHROWN_LOSS");
+        else if (session().status().lostMilitary())
+            return text("GAME_OVER_MILITARY_LOSS");
+        else if (session().status().lostDiplomatic())
+            return text("GAME_OVER_DIPLOMATIC_LOSS");
+        else if (session().status().lostNewRepublic())
+            return text("GAME_OVER_NEW_REPUBLIC_LOSS");
+        else if (session().status().lostRebellion())
+            return text("GAME_OVER_REBELLION_LOSS");
+        else if (session().status().lostNoColonies())
+            return text("GAME_OVER_NO_COLONIES_LOSS");
+        else if (session().status().wonDiplomatic())
+            return text("GAME_OVER_DIPLOMATIC_WIN");
+        else if (session().status().wonMilitary())
+            return text("GAME_OVER_MILITARY_WIN");
+        else if (session().status().wonMilitaryAlliance())
+            return text("GAME_OVER_MILITARY_ALLIANCE_WIN");
+        else if (session().status().wonNewRepublic())
+            return text("GAME_OVER_NEW_REPUBLIC_WIN");
+        else if (session().status().wonRebellion())
+            return text("GAME_OVER_REBELLION_WIN");
+        else if (session().status().wonCouncilAlliance())
+            return text("GAME_OVER_ALLIANCE_WIN");
+        else if (session().status().wonRebellionAlliance())
+            return text("GAME_OVER_REBEL_ALLIANCE_WIN");
+        return "";
+    }
+*/
     private String gameOverText() {
         Empire pl = player();
         String year = str(galaxy().currentYear());
@@ -509,4 +514,25 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
                 return;
         }
     }
+
+    // ##### Console Tools
+    @Override public  int consoleEntry(String entry)	{
+    	advanceMode();
+    	return VALID_GAME_OVER;
+	}
+    @Override public String getMessage() {
+    	fadeDelay = 0;
+        String message = "";
+        List<String> paragraphs = substrings(gameOverText(), '#');
+        boolean first = true;
+        for (String para : paragraphs)
+        	if (first) {
+        		message += NEWLINE + para;
+        		first = false;
+        	}
+        	else
+        		message += NEWLINE + NEWLINE + para;
+        message += NEWLINE + NEWLINE + "Enter any command to continue";
+		return message;
+	}
 }

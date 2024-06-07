@@ -765,8 +765,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             case KeyEvent.VK_E:
             case KeyEvent.VK_X:  exitGame();		return;
             case KeyEvent.VK_Z:  hideText = true;	repaint();	return;
-            case KeyEvent.VK_PAGE_UP:	options().showConsolePanel(true);  return;
-            case KeyEvent.VK_PAGE_DOWN:	options().showConsolePanel(false); return;
+            case KeyEvent.VK_PAGE_UP:	options().showVIPPanel(true);  return;
+            case KeyEvent.VK_PAGE_DOWN:	options().showVIPPanel(false); return;
             case KeyEvent.VK_HOME:
             	File file = new File (Rotp.jarPath());
             	Desktop desktop = Desktop.getDesktop();

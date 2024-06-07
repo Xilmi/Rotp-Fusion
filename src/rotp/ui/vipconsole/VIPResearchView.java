@@ -1,4 +1,4 @@
-package rotp.ui.console;
+package rotp.ui.vipconsole;
 
 import static rotp.model.tech.TechCategory.MAX_ALLOCATION_TICKS;
 import static rotp.model.tech.TechTree.NUM_CATEGORIES;
@@ -11,12 +11,12 @@ import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechLibrary;
 import rotp.model.tech.TechTree;
 import rotp.ui.RotPUI;
-import rotp.ui.console.VIPConsole.Command;
-import rotp.ui.console.VIPConsole.CommandMenu;
 import rotp.ui.tech.AllocateTechUI;
+import rotp.ui.vipconsole.VIPConsole.Command;
+import rotp.ui.vipconsole.VIPConsole.CommandMenu;
 import rotp.util.Basket;
 
-public class ConsoleResearchView implements IConsole {
+public class VIPResearchView implements IVIPConsole {
 	private static final String TECH_CATEGORY	= "C";
 	private static final String TECH_UNKNOWN	= "U";
 	private static final String TECH_SPENDING	= "S";

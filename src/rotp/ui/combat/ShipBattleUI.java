@@ -33,14 +33,15 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.*;
 import rotp.ui.FadeInPanel;
-import rotp.ui.console.IConsoleListener;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.vipconsole.IVIPListener;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import rotp.model.colony.Colony;
 import rotp.model.galaxy.SpaceMonster;
 
-public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMotionListener, IConsoleListener {
+public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMotionListener, IVIPListener {
     private static final long serialVersionUID = 1L;
     public static final int ENTER_COMBAT = 0;
     public static final int AUTO_RESOLVE = 1;

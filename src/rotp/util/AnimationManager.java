@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import rotp.Rotp;
 import rotp.model.game.IGameOptions;
+import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 
 public enum AnimationManager implements Base {
@@ -61,9 +62,9 @@ public enum AnimationManager implements Base {
     	else
     		return key;
     }
-    public boolean animationsDisabled()  { return lowMemory(); }
+    public boolean animationsDisabled()  { return RotPUI.isVIPConsole || lowMemory(); }
     @Override
-    public boolean playAnimations()   { return UserPreferences.playAnimations() && !animationsDisabled(); }
+    public boolean playAnimations() { return UserPreferences.playAnimations() && !animationsDisabled(); }
     public void addAnimation(String key, Animation anim) {
         animations.put(key, anim);
     }

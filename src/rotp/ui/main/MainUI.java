@@ -42,7 +42,6 @@ import rotp.model.ships.ShipDesign;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
-import rotp.ui.console.VIPConsole;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.overlay.*;
@@ -53,6 +52,7 @@ import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.HelpSprite;
 import rotp.ui.sprites.SystemTransportSprite;
 import rotp.ui.sprites.YearDisplaySprite;
+import rotp.ui.vipconsole.VIPConsole;
 
 public class MainUI extends BasePanel implements IMapHandler {
     private static final long serialVersionUID = 1L;
@@ -300,7 +300,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         repaint();
     }
     public void showColonizationPrompt(int sysId, ShipFleet fl, ShipDesign d) {
-    	if (options().selectedShowConsolePanel()) {
+    	if (options().selectedShowVIPPanel()) {
     		VIPConsole.colonizeMenu.openColonyPrompt(sysId, fl);
     		return;
     	}
@@ -327,7 +327,7 @@ public class MainUI extends BasePanel implements IMapHandler {
             repaint();
     }
     public void showSystemsScouted(HashMap<String, List<StarSystem>> newSystems) {
-    	if (options().selectedShowConsolePanel()) {
+    	if (options().selectedShowVIPPanel()) {
     		VIPConsole.reportMenu.openScoutReport(newSystems);
     		return;
     	}
@@ -335,7 +335,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         overlaySystemsScouted.init(newSystems);
     }
     public void allocateSystems(HashMap<StarSystem,List<String>> newSystems) {
-    	if (options().selectedShowConsolePanel()) {
+    	if (options().selectedShowVIPPanel()) {
     		session().resumeNextTurnProcessing();
     		return;
     	}

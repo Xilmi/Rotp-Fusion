@@ -38,13 +38,13 @@ import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.console.IConsoleListener;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.sprites.TechCategorySprite;
+import rotp.ui.vipconsole.IVIPListener;
 
-public class MapOverlayEspionageMission extends MapOverlay implements IConsoleListener {
+public class MapOverlayEspionageMission extends MapOverlay implements IVIPListener {
     Color maskC  = new Color(40,40,40,160);
     Area mask;
     MainUI parent;

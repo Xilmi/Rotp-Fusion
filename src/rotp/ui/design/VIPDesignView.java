@@ -11,12 +11,12 @@ import rotp.model.ships.ShipComponent;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipEngine;
 import rotp.ui.RotPUI;
-import rotp.ui.console.VIPConsole.Command;
-import rotp.ui.console.VIPConsole.CommandMenu;
-import rotp.ui.console.IConsole;
 import rotp.ui.design.DesignUI.DesignConfigPanel;
+import rotp.ui.vipconsole.IVIPConsole;
+import rotp.ui.vipconsole.VIPConsole.Command;
+import rotp.ui.vipconsole.VIPConsole.CommandMenu;
 
-public class ConsoleDesignView implements IConsole {
+public class VIPDesignView implements IVIPConsole {
 	private static final String DESIGN_INFO			= "I";
 	private static final String DESIGN_SELECT		= "D";
 	private static final String DESIGN_HULL			= "H";
