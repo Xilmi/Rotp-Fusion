@@ -1104,7 +1104,33 @@ public class AIShipCaptain implements Base, ShipCaptain {
             else
                 return true;
         }
-        else if (!enemyHasWarpDissipator)
+        if(stack.empire.isPlayer())
+        {
+            if(col != null && col.empire == empire)
+            {
+                enemyKillTime *= options().playerDefenseConfidence();
+                enemyKillTimeWithoutHeal *= options().playerDefenseConfidence();
+            }
+            else
+            {
+                enemyKillTime *= options().playerAttackConfidence();
+                enemyKillTimeWithoutHeal *= options().playerAttackConfidence();
+            }
+        }
+        else
+        {
+            if(col != null && col.empire == empire)
+            {
+                enemyKillTime *= options().aiDefenseConfidence();
+                enemyKillTimeWithoutHeal *= options().aiDefenseConfidence();
+            }
+            else
+            {
+                enemyKillTime *= options().aiAttackConfidence();
+                enemyKillTimeWithoutHeal *= options().aiAttackConfidence();
+            }
+        }
+        if (!enemyHasWarpDissipator)
             if(enemyKillTimeWithoutHeal < 2)
                 return allyKillTime > enemyKillTime;
             else
