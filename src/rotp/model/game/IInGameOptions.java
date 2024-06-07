@@ -310,6 +310,15 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		}
 	}
 
+	ParamInteger playerAttackConfidence  = new ParamInteger(MOD_UI, "PLAYER_ATTACK_CONFIDENCE", 100, 100, 500, 1, 5, 20);
+	ParamInteger playerDefenseConfidence = new ParamInteger(MOD_UI, "PLAYER_DEFENSE_CONFIDENCE", 100, 100, 500, 1, 5, 20);
+	ParamInteger aiAttackConfidence		 = new ParamInteger(MOD_UI, "AI_ATTACK_CONFIDENCE", 100, 100, 500, 1, 5, 20);
+	ParamInteger aiDefenseConfidence	 = new ParamInteger(MOD_UI, "AI_DEFENSE_CONFIDENCE", 100, 100, 500, 1, 5, 20);
+	default float playerAttackConfidence()	{ return playerAttackConfidence.get()/100f; }
+	default float playerDefenseConfidence()	{ return playerDefenseConfidence.get()/100f; }
+	default float aiAttackConfidence()		{ return aiAttackConfidence.get()/100f; }
+	default float aiDefenseConfidence()		{ return aiDefenseConfidence.get()/100f; }
+
 	// ==================== GUI List Declarations ====================
 	static LinkedList<IParam> modDynamicAOptions() {
 		return new LinkedList<>(
@@ -419,10 +428,13 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				raceStatusLog, compactOptionOnly,
 				
 				headerSpacer,
+				new ParamTitle("XILMI_AI_OPTIONS"),
+				playerAttackConfidence, playerDefenseConfidence,
+				aiAttackConfidence, aiDefenseConfidence,
+
 				headerSpacer,
 				new ParamTitle("ENOUGH_IS_ENOUGH"),
-				IMainOptions.disableAutoHelp, IMainOptions.disableAdvisor,
-				new ParamTitle("ENOUGH_IS_ENOUGH")
+				IMainOptions.disableAutoHelp, IMainOptions.disableAdvisor
 				)));
 		return map;
 	};

@@ -2233,6 +2233,18 @@ SETTINGS_MOD_NEBULA_HOMEWORLD_ALLOW        | Allow
 SETTINGS_MOD_NEBULA_HOMEWORLD_NEVER_DESC   | Never let a nebula be too close to an empire's neighborhood.
 SETTINGS_MOD_NEBULA_HOMEWORLD_NEVER        | Never
 
+// Xilmi-AI-options
+HEADERS_XILMI_AI_OPTIONS_DESC               | Options affecting AI decisions.
+HEADERS_XILMI_AI_OPTIONS                    | ~~~ XILMI AI OPTIONS ~~~%1
+SETTINGS_MOD_PLAYER_ATTACK_CONFIDENCE       | Player Attack Confidence: %1%
+SETTINGS_MOD_PLAYER_ATTACK_CONFIDENCE_DESC  | In Auto-Combat, determines how confident the AI is in their ships' combat-ability compared to their actual strength.<br>Increasing this value makes the AI more likely to accept losses in combat before retreating.
+SETTINGS_MOD_PLAYER_DEFENSE_CONFIDENCE      | Player Defense Confidence: %1%
+SETTINGS_MOD_PLAYER_DEFENSE_CONFIDENCE_DESC | In Auto-Combat, determines how confident the AI is in their ships' combat-ability compared to their actual strength.<br>Increasing this value makes the AI more likely to accept losses in combat before retreating.
+SETTINGS_MOD_AI_ATTACK_CONFIDENCE           | AI Attack Confidence: %1%
+SETTINGS_MOD_AI_ATTACK_CONFIDENCE_DESC      | Determines how confident the AI is in their ships' combat-ability compared to their actual strength.<br>Increasing this value makes the AI more likely to accept losses in combat before retreating.
+SETTINGS_MOD_AI_DEFENSE_CONFIDENCE          | AI Defense Confidence: %1%
+SETTINGS_MOD_AI_DEFENSE_CONFIDENCE_DESC     | Determines how confident the AI is in their ships' combat-ability compared to their actual strength.<br>Increasing this value makes the AI more likely to accept losses in combat before retreating.
+
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
 SETTINGS_MOD_STATIC_TITLE            | Pregame Options

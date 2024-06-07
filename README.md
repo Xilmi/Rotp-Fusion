@@ -73,6 +73,7 @@ Later:
 - VIP Console:
   - Game Over management.
   - Ship construction pop-up interception.
+- Added AI confidense options tooling.
 
 2024.06.06 (BR)
 - VIP Console: added Sabotage mission management.
