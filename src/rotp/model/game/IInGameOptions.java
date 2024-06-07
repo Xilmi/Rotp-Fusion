@@ -25,6 +25,7 @@ import static rotp.model.game.IMainOptions.raceStatusLog;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.ships.ShipDesign;
@@ -289,6 +290,26 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default boolean allowPeaceTreaty()	{ return !specialPeaceTreaty.get().equalsIgnoreCase(PEACE_TREATY_ARMISTICE) ;}
 	default boolean isColdWarMode()		{ return specialPeaceTreaty.get().equalsIgnoreCase(PEACE_TREATY_COLD_WAR) ;}
 
+	String DEVELOPED_ALL		= "ALL";
+	String DEVELOPED_NO_BASE	= "NO_BASES";
+	String DEVELOPED_INDUSTRY	= "INDUSTRY";
+	ParamList developedDefinition	= new ParamList(MOD_UI, "DEVELOPED_DEFINITION", DEVELOPED_ALL)
+			.showFullGuide(true)
+			.put(DEVELOPED_ALL, 	 MOD_UI + "DEVELOPED_ALL")
+			.put(DEVELOPED_NO_BASE,  MOD_UI + "DEVELOPED_NO_BASE")
+			.put(DEVELOPED_INDUSTRY, MOD_UI + "DEVELOPED_INDUSTRY");
+	default boolean isDeveloped(Colony col)	{
+		switch (developedDefinition.get()) {
+		case DEVELOPED_NO_BASE:
+			return col.industry().isCompleted() && col.ecology().isCompleted();
+		case DEVELOPED_INDUSTRY:
+			return col.industry().isCompleted();
+		case DEVELOPED_ALL:
+		default:
+			return col.defense().isCompleted() && col.industry().isCompleted() && col.ecology().isCompleted();
+		}
+	}
+
 	// ==================== GUI List Declarations ====================
 	static LinkedList<IParam> modDynamicAOptions() {
 		return new LinkedList<>(
@@ -346,6 +367,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				warpSpeed, fuelRange, popGrowthFactor,
 				IMainOptions.realNebulaeSize, IMainOptions.realNebulaShape,
 				IMainOptions.realNebulaeOpacity,
+				developedDefinition,
 
 				headerSpacer,
 				new ParamTitle("IRONMAN_BASIC"),

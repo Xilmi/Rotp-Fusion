@@ -319,7 +319,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
 
     public boolean isDeveloped()  {
-        return defense().isCompleted() && industry().isCompleted() && ecology().isCompleted(); 
+    	return options().isDeveloped(this);
+        // return defense().isCompleted() && industry().isCompleted() && ecology().isCompleted(); 
     }
     public float orderAmount(Colony.Orders order) {
         Colony.Orders priorityOrder = empire.priorityOrders();

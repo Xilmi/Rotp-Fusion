@@ -46,7 +46,6 @@ Very soon:
 - Option to continue game after victory!
 
 Console Next steps: (Sequence probably not definitive)
-- Spies: Intercept sabotage pop-up.
 - Interception of victory or defeat panels.
 - Council: Interception of announcements pop-up and Voting panels.
 - Access optional turn reports and spy reports.

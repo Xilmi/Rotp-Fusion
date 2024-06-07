@@ -139,7 +139,7 @@ public class ParamList extends AbstractParam<String> {
 	
 	// ===== Initializers =====
 	//
-	public void showFullGuide(boolean show) { showFullGuide = show; }
+	public ParamList showFullGuide(boolean show) { showFullGuide = show; return this; }
  	public void reInit(List<String> list) {
 		valueLabelMap.clear();
 		for (String element : list)

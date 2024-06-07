@@ -6,6 +6,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed some spelling errors.
 - Fixed factory prediction when transports are sent or incoming.
 - Fixed confusing max/average tech status display.
+- New option for "Tax only fully developed colonies", that define what should be completed to be identified as developed!
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -106,6 +108,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Added Option to auto delete backup files... (Not final; sent to recycle bin) 
 - Load and Save Options Now available on the main Menu with the "CTRL" key modifier.
 - New Option panel to set default Nominal Species Names.
+- New option for "Tax only fully developed colonies", that define what should be completed to be identified as developed!
 
 
 <b><ins>Optimisation:</ins></b>

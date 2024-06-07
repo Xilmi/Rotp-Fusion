@@ -2613,8 +2613,14 @@ SETTINGS_MOD_ALLOW_TECH_STEALING_HELP    | To enable or disable technology steal
 SETTINGS_MOD_ALLOW_TECH_STEALING_DESC    | To enable or disable technology stealing activities.<br> If disabled, half of the infiltration bonus will be given to Research bonus. (Never removed)
 SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
 
-// SETTINGS_MOD_TRANSPORT_AUTO_REFILL_DESC  | Ungoverned colony will have their Eco sliders set to "Growth" after Transports are sent.
-//SETTINGS_MOD_TRANSPORT_AUTO_REFILL       | Transport Refill: %1
+SETTINGS_MOD_DEVELOPED_DEFINITION_DESC   | When "→PLANETS_RESERVE_ONLY_DEVELOPED←" is selected, what should be completed?
+SETTINGS_MOD_DEVELOPED_DEFINITION        | Developed = %1
+SETTINGS_MOD_DEVELOPED_ALL_DESC          | Best shields + Bases have the best missiles (if > 0) + Planet is full of factories + Population is at maximum + Fully terraformed planet+ No waste.
+SETTINGS_MOD_DEVELOPED_ALL               | {→MAIN_COLONY_DEFENSE←, →MAIN_COLONY_INDUSTRY←, →MAIN_COLONY_ECOLOGY←}
+SETTINGS_MOD_DEVELOPED_NO_BASE_DESC      | Planet is full of factories + Population is at maximum + Fully terraformed planet+ No waste.
+SETTINGS_MOD_DEVELOPED_NO_BASE           | {→MAIN_COLONY_INDUSTRY←, →MAIN_COLONY_ECOLOGY←}
+SETTINGS_MOD_DEVELOPED_INDUSTRY_DESC     | Planet is full of factories.
+SETTINGS_MOD_DEVELOPED_INDUSTRY          | {→MAIN_COLONY_INDUSTRY←}
 
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_Help     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the Mass Transport Panel.<br>The slider will be set to green to confirm the auto refill status.<br> Ctrl+Click on sliders to toggle.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_DESC     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the transport panel.
@@ -2654,7 +2660,6 @@ SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR_DESC  | This will end the war and go to 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR       | Armistice*
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE_DESC  | This is still a peace treaty with a standard duration of 10-15 years.<br>But you will not allow this empire to colonize a planet you protect with an armed fleet stationed in orbit. And of course they won't allow you to do this either.<br>The AIs are not aware of this limitation, so this option could disrupt their fleet's plans. (*Beta Test)
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE       | Cold War*
-
 
 SETTINGS_MOD_RESEARCH_MOO1_DESC          | YES: Reload won't change research probability<br>NO: You may try to reload to get a new dice roll! (RotP default)
 SETTINGS_MOD_RESEARCH_MOO1               | Research Moo1: %1
