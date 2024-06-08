@@ -1356,8 +1356,10 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         sendFleet();
         return "Fleet sent successfully";
     }
-    public void newAdjustedFleet(List<Integer> counts) {
+    public boolean newAdjustedFleet(List<Integer> counts) { // For VIP Console
     	ShipFleet selectedFleet = selectedFleet();
+    	if (selectedFleet == null)
+    		return false;
     	for (int i=0; i<ShipDesignLab.MAX_DESIGNS; i++) {
     		int stackNum = selectedFleet.num(i);
             stackAdjustment[i] = 0-stackNum;
@@ -1365,6 +1367,8 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
     	// Update the stackAdjustment
     	for (int i=0; i<counts.size(); i++) {
     		ShipDesign d = selectedFleet.visibleDesign(player().id, i);
+    		if (d == null)
+    			break;
             int index    = d.id();
             int stackNum = selectedFleet.num(index);
             int toSend   = counts.get(i);
@@ -1374,6 +1378,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
     	}
     	// Build the temporary fleet
     	adjustedFleet(newAdjustedFleet());
+    	return true;
     }
     public class FleetButtonPane extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;

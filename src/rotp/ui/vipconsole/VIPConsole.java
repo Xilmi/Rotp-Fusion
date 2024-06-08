@@ -730,7 +730,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	@Override public void actionPerformed(ActionEvent evt)	{ }
 	private void commandEntry(ActionEvent evt)	{ liveMenu().newEntry(((JTextField) evt.getSource()).getText().toUpperCase()); }
 
-	private String optsGuide()	{
+	private String optsGuide()			{
 		String out = "";
 		out += NEWLINE + "Empty: list availble settings";
 		out += NEWLINE + "O: list all available options";
@@ -748,7 +748,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		return out;
 	}
 	// ##### Tools
-	int validFleet(int idx)		{ return bounds(0, idx, fleets.size()-1); }
+	int validFleet(int idx)				{ return bounds(0, idx, fleets.size()-1); }
 	private int validTransport(int idx)	{ return bounds(0, idx, transports.size()-1); }
 	private void sortSystems()			{ systems.sort((s1, s2) -> s1.altId-s2.altId); }
 	private void resetSystems()			{

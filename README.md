@@ -37,6 +37,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
+- For the military view tab in the colonies screen, would it be possible to make the "Shield" column display as "N" (or "Nebula") when the planet is in a nebula?
 - Monsters:
   - Option to change their travel time.
   - More Planet Monsters Guardian.
@@ -74,6 +75,8 @@ Later:
   - Graphics mode will be set to low when the VIP console is active.
   - Fixed missing initialization when main window stay hidden.
   - Temporary fix to capitalization issue.
+  - Fixed crash when trying to send non player fleet.
+  - Fixed crash when trying to include to many designs.
 
 2024.06.08 (Xilmi)
 - Fixed an issue where the AI didn't consider that missile-bases stop dealing damage when all population of a planet is killed. This lead to the AI not daring to attack planets with missile-bases when they only had biological weapons.

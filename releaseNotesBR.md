@@ -6,6 +6,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Added Council management.
   - Fixed missing initialization when main window stay hidden.
   - Temporary fix to capitalization issue.
+    - Fixed crash when trying to send non player fleet.
+  - Fixed crash when trying to include to many designs.
 
 - Xilmi new additions
   - Implemented AI-confidence-feature.

@@ -219,7 +219,8 @@ public class VIPFleetView implements IVIPConsole {
 				counts.add(amt);
 			}
 			// activate adjustment
-			panel.newAdjustedFleet(counts);
+			if (!panel.newAdjustedFleet(counts))
+				return out + NEWLINE + "Error: Fleet can not be selected.";
 		}
 
 		// All parameters are set: Process command
@@ -268,10 +269,16 @@ public class VIPFleetView implements IVIPConsole {
 				if (!param.isEmpty()) { // Do something with selected fleet
 					str = param.remove(0);
 					if (str.equalsIgnoreCase(FLEET_SEND)) { // Send Fleet
-						out = sendFleet(param, out);
+						if (fleet.empire().isPlayer())
+							out = sendFleet(param, out);
+						else
+							out = "Error: You do not own this fleet. Only player fleets can be sent"; 
 					}
 					else if (str.equalsIgnoreCase(FLEET_UNDEPLOY)) {
-						panel.undeployFleet();
+						if (fleet.empire().isPlayer())
+							panel.undeployFleet();
+						else
+							out = "Error: You do not own this fleet. Only player fleets can be undeployed"; 
 					}
 					else
 						out += NEWLINE + "Wrong parameter " + str;
