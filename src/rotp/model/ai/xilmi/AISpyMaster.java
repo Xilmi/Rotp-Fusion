@@ -40,7 +40,8 @@ public class AISpyMaster implements Base, SpyMaster {
         //
         // modnar: is it not 0% to 10% of total prod, for a max of +20% security bonus, with 0 to 10 ticks/clicks?
         // MAX_SECURITY_TICKS = 10 in model/empires/Empire.java
-
+        if(options().forbidTechStealing())
+            return 0;
         float paranoia = 0;
         float avgOpponentTechLevel = 0;
         float opponentCount = 0;
