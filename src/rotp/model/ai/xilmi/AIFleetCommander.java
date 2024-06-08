@@ -1003,14 +1003,15 @@ public class AIFleetCommander implements Base, FleetCommander {
                                 if(ev != null)
                                 {
                                     enemyBaseHP = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().maxHits();
+                                    enemyPop = empire.sv.population(target.id);
                                     float ourShield = avgFleetShield(fleet);
                                     float timeToReachColony = (float) Math.ceil(8.0 / getFleetStats(fleet).avgCombatSpeed);
                                     float timeToKillBases = (float) Math.ceil(enemyBaseHP / bombardDamage); 
+                                    float timeToKillPop = (float) Math.ceil(enemyPop / killPower);
                                     if(target.inNebula())
                                         ourShield = 0;
-                                    enemyBaseDamage = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().firepower(ourShield) * (timeToReachColony + timeToKillBases);
+                                    enemyBaseDamage = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().firepower(ourShield) * (timeToReachColony + Math.min(timeToKillBases, timeToKillPop));
                                     //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+fleet.system().name()+" => "+empire.sv.name(target.id)+" avgShield: "+avgFleetShield(fleet)+" missile-bases at target deal damage: "+enemyBaseDamage+" Fleet-Health: "+totalFleetHealth(fleet)+ " Time to kill bases: "+(timeToReachColony + timeToKillBases)+" move: "+timeToReachColony+" kill: "+timeToKillBases);
-                                    enemyPop = empire.sv.population(target.id);
                                 }
                             }
                             //System.out.print("\n"+fleet.empire().name()+" Fleet at "+fleet.system().name()+" => "+target.name()+" ourEffectiveBC: "+ourEffectiveBC+" ourEffectiveBombBC: "+ourEffectiveBombBC+" ourColonizerBC: "+ourColonizerBC+" keepBc: "+keepBc+" col-adpt: "+empire.shipDesignerAI().fightingAdapted(empire.shipLab().colonyDesign()));
@@ -1049,7 +1050,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         {
                             allowBombers = false;
                         }
-                        //System.out.print("\n"+fleet.empire().name()+" Fleet at "+fleet.system().name()+" should attack "+empire.sv.name(target.id)+" "+bcValue(fleet, false, allowFighters, allowBombers, allowColonizers)+":"+enemyFightingBC+" sendAmount: "+sendAmount+" sendBombAmount: "+sendBombAmount);
+                        //System.out.print("\n"+fleet.empire().name()+" Fleet at "+fleet.system().name()+" should attack "+empire.sv.name(target.id)+" "+ourFleetPower * sendAmount+":"+enemyFleetPower+" sendAmount: "+sendAmount+" sendBombAmount: "+sendBombAmount+" killPower: "+killPower+" enemyPop: "+enemyPop+" enemyBaseDamage: "+enemyBaseDamage+":"+totalFleetHealth(fleet));
                         //ail: if we have Hyperspace-communications, we can't split
                         if(targetIsPreviousBest)
                         {
