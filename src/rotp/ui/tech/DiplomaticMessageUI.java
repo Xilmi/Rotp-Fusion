@@ -35,7 +35,9 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
@@ -46,10 +48,10 @@ import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.diplomacy.DiplomaticMessage;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.notifications.DiplomaticNotification;
-import rotp.ui.vipconsole.VIPConsole;
+import rotp.ui.vipconsole.IVIPListener;
 
 public class DiplomaticMessageUI extends FadeInPanel 
-		implements MouseListener, MouseMotionListener, ActionListener {
+		implements MouseListener, MouseMotionListener, ActionListener, IVIPListener {
     private static final long serialVersionUID = 1L;
     // static Color innerTextBackC = new Color(73,163,163);
     // static Color outerTextAreaC = new Color(92,208,208);
@@ -121,7 +123,6 @@ public class DiplomaticMessageUI extends FadeInPanel
             messageRemark = diplomatEmpire.decode(message.remark(notif.otherEmpire()), player());
 
         commonInit();
-//        initForConsole("Incoming Diplomatic Message");
         initForConsole();
 
         if (!diplomatEmpire.isPlayer()
@@ -552,34 +553,8 @@ public class DiplomaticMessageUI extends FadeInPanel
     }
 
     // ##### Console Tools
-    public String getConsoleMessage(String sep)	{
-//		String out = "New incoming Message from";
-//		out += sep + getEmpireInfo(sep);
-		String out = getEmpireInfo(sep);
-		out += sep + "Translated Message = ";
-		out += sep + messageRemark;
-		String remarkDetails = messageRemarkDetail;
-		if (!remarkDetails.isEmpty())
-			out += sep + remarkDetails;
-		String[][] options = getOptions();
-		if (options != null) {
-			out += sep + "Available options";
-        	String[] replies = options[0];
-        	String[] details = options[1];
-        	String[] enabled = options[2];
-			int optSize = options[0].length;
-			for (int i=0; i<optSize; i++)
-				if (enabled[i].equals("Y"))
-					out += sep + (i+1) + " - " + replies[i] + " " + details[i];
-		}
-		return out;
-    }
     private String getEmpireInfo(String sep)	{
-//    	if (diplomatEmpire.isPlayer())
-//    		return "";
     	DiplomaticTreaty treaty = player().treatyWithEmpire(diplomatEmpire.id);
-//    	String info = diplomatEmpire.name();
-//    	info += sep + text("LEADER_PERSONALITY_FORMAT",
     	String info = text("LEADER_PERSONALITY_FORMAT",
     						diplomatEmpire.leader().personality(),
     						diplomatEmpire.leader().objective());
@@ -587,32 +562,6 @@ public class DiplomaticMessageUI extends FadeInPanel
         if (treaty.isPeace() && options().isColdWarMode())
         	info += " " + text("RACES_COLD_WAR");
     	return info;
-    }
-    public String[] getDataLines()				{
-        int dataLines = message.numDataLines();
-        if (dataLines > 0) {
-        	String[] lines = new String[dataLines];
-            for (int i=0; i<dataLines; i++)
-                 lines[i] = message.dataLine(i);
-            return lines;
-        }
-    	return null;
-    }
-    private String[][] getOptions()				{
-    	int numReplies = message.numReplies();
-    	if (numReplies > 0) {
-        	String[] replies = new String[numReplies];
-        	String[] details = new String[numReplies];
-        	String[] enabled = new String[numReplies];
-            for (int i=0; i<numReplies; i++) {
-            	enabled[i] = message.enabled(i)? "Y" : "N";
-                replies[i] = message.reply(i);
-                details[i] = message.replyDetail(i);
-            }
-            String[][] options = new String[][] {replies, details, enabled};
-            return options;
-    	}
-    	return null;
     }
     public boolean[] consoleResponse(String s)	{
     	boolean validResponse = false;
@@ -640,13 +589,46 @@ public class DiplomaticMessageUI extends FadeInPanel
     		return;
     	String title = "Dialogue with " + diplomatEmpire.name();
     	talkTimeMs = 10;
-    	VIPConsole.diplomaticMessages.newMenu(title, this, false);
+    	initConsoleSelection(title, true);
     }
     private void initReplyForConsole()			{
     	if (!RotPUI.isVIPConsole)
     		return;
     	String title = "Final reply from " + diplomatEmpire.name();
     	talkTimeMs = 10;
-    	VIPConsole.diplomaticMessages.newMenu(title, this, true);
+    	initConsoleSelection(title, true);
     }
+    @Override public boolean handleKeyPress(KeyEvent e)	{
+    	keyPressed(e);
+    	repaint();
+    	return true;
+    }
+	@Override public List<ConsoleOptions> getOptions()	{
+		List<ConsoleOptions> options = new ArrayList<>();
+		int numReplies = message.numReplies();
+		//options.add(new ConsoleOptions(KeyEvent.VK_0, "0", "Continue"));
+		if (numReplies > 0) {
+			for (int i=0; i<numReplies; i++) {
+				if (message.enabled(i) ) {
+					int keyCode	= KeyEvent.VK_1 + i;
+	        		String key	= Character.toString ((char) keyCode);
+	        		String txt	= message.reply(i) + " " + message.replyDetail(i);
+					options.add(new ConsoleOptions(keyCode, key, txt));
+				}
+			}
+		}
+		return options;
+	}
+	@Override public String getMessage() {
+		String msg = getEmpireInfo(NEWLINE);
+		msg += NEWLINE + "Translated Message = ";
+		msg += NEWLINE + messageRemark;
+		String remarkDetails = messageRemarkDetail;
+		if (!remarkDetails.isEmpty())
+			msg += NEWLINE + remarkDetails;
+		msg += NEWLINE + getMessageOption();
+		repaint();
+		return msg;
+	}
+	@Override public boolean exited()	{ return exited; }
 }

@@ -46,11 +46,11 @@ Very soon:
 - Option to continue game after victory!
 
 Console Next steps: (Sequence probably not definitive)
-- Interception of victory or defeat panels.
 - Council: Interception of announcements pop-up and Voting panels.
 - Access optional turn reports and spy reports.
 
 Later:
+- Add a temerity setting to custom species.
 - Color List for opponents...
 - Some kind of positive monster like instead of attacking strong empires it defends weak empires
 - Stronger GNN filters
@@ -67,6 +67,18 @@ Later:
 
 
 ## What's New
+
+2024.06.08 (BR)
+- VIP Console:
+  - Added Council management.
+  - Graphics mode will be set to low when the VIP console is active.
+  - Fixed missing initialization when main window stay hidden.
+
+2024.06.08 (Xilmi)
+- Fixed an issue where the AI didn't consider that missile-bases stop dealing damage when all population of a planet is killed. This lead to the AI not daring to attack planets with missile-bases when they only had biological weapons.
+
+2024.06.07 (Xilmi)
+- Implemented AI-confidence-feature.
 
 2024.06.07 (BR)
 - New option for "Tax only fully developed colonies", that define what should be completed to be identified as developed!

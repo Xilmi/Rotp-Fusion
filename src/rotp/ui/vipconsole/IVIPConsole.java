@@ -90,6 +90,7 @@ public interface IVIPConsole extends Base {
 	String TECH_PLANETOLOGY	= "ECO";
 	String TECH_PROPULSION	= "PROP";
 	String TECH_WEAPON		= "W";
+	String PRESS_ANY_KEY	= "Enter any command to continue";
 	
 	Boolean verboseGlobal	= null;
 	default Boolean verboseLocal()	{ return null; }

@@ -741,7 +741,7 @@ public class MapOverlayBombardPrompt extends MapOverlay implements IVIPListener 
         if (bombarded) {
         	if (sys.empire() == null)
                 message += NEWLINE + text("MAIN_BOMBARD_DESTROYED");
-        	message += NEWLINE + "Enter any command to continue";
+        	message += NEWLINE + IVIPConsole.PRESS_ANY_KEY;
         }
         else {
             String promptStr = text("MAIN_BOMBARD_PROMPT");

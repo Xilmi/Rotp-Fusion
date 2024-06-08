@@ -2,11 +2,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- VIP Console: added Sabotage mission management.
-- Fixed some spelling errors.
-- Fixed factory prediction when transports are sent or incoming.
-- Fixed confusing max/average tech status display.
-- New option for "Tax only fully developed colonies", that define what should be completed to be identified as developed!
+- VIP Console: Should be fully playable now... (Not fully tested with main window hidden)
+  - Added Council management.
+  - Fixed missing initialization when main window stay hidden.
+
+- Xilmi new additions
+  - Implemented AI-confidence-feature.
+  - Fixed an issue where the AI didn't consider that missile-bases stop dealing damage when all population of a planet is killed. This lead to the AI not daring to attack planets with missile-bases when they only had biological weapons.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -109,7 +111,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Load and Save Options Now available on the main Menu with the "CTRL" key modifier.
 - New Option panel to set default Nominal Species Names.
 - New option for "Tax only fully developed colonies", that define what should be completed to be identified as developed!
-
+- (Xilmi) Implemented AI-confidence-feature.
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
@@ -184,7 +186,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed "Continue" on startup will suggest a name based on the loaded game.
 - Fixed some display options not being saved!
 - Fixed some Fullscreen crash on startup
-- Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners. (Xilmi)
+- (Xilmi) Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners. 
 - Fixed Orion Guardian auto-repair not working.
 - Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
 - Fixed a bug where AI:Rookie was listed twice in AI:Random
@@ -197,7 +199,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Fixed wrong ship building time estimation when interrupting stargate build.
   - Fixed ship building time estimation not using reserves.
 - Fixed possible crash with random Galaxies.
-- Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion. (Xilmi)
+- (Xilmi) Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion. 
   - It usually would vastly underestimate the enemie's chances to repel the invasion and thus very often invaded when this was too risky of an endeavour.
 - Fixed Save Notification Text.
 - Fixed Bombard notification not showing when occuring at the same time of a war declaration.
@@ -221,4 +223,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed old bug where your spy are good enough to frame but have no one to frame... You framed your-self!
 - Fixed factory prediction when transports are sent or incoming.
 - Fixed confusing max/average tech status display.
+- (Xilmi) Fixed an issue where the AI didn't consider that missile-bases stop dealing damage when all population of a planet is killed. This lead to the AI not daring to attack planets with missile-bases when they only had biological weapons.
 - minor fixes...

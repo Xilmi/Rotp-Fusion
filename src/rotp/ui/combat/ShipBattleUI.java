@@ -34,6 +34,7 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.*;
 import rotp.ui.FadeInPanel;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.vipconsole.IVIPConsole;
 import rotp.ui.vipconsole.IVIPListener;
 
 import javax.swing.*;
@@ -3006,7 +3007,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             if (colonyEmp == rightEmpire)
             	message += NEWLINE + drawPlanetResult(sysName);
         }
-        message += NEWLINE + "Enter any command to continue";
+        message += NEWLINE + IVIPConsole.PRESS_ANY_KEY;
 		return message;
 	}
     private String drawShipResult(ShipDesign d, int start, int dead, int retreat) {

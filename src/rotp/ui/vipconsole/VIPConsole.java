@@ -51,7 +51,6 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.design.VIPDesignView;
 import rotp.ui.game.GameUI;
-import rotp.ui.tech.DiplomaticMessageUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -66,16 +65,14 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	
 	private static JFrame frame;
 	private static VIPConsole instance;
-	private static boolean errorDisplayed = false;
-	private static String turnReport = "";
+	private static boolean errorDisplayed	= false;
+	private static String  turnReport		= "";
 
-	public	static CommandMenu introMenu, loadMenu, saveMenu;
-	public	static ReportMenu  reportMenu;
-	public	static ColonizeMenu		colonizeMenu;
-	public	static GuiPromptMenu	guiPromptMenu;
-//	public	static ReportPromptMenu	reportPromptMenu;
-	public	static GuiPromptMessages  guiPromptMessages;
-	public	static DiplomaticMessages diplomaticMessages;
+	public static CommandMenu	introMenu, loadMenu, saveMenu;
+	public static ReportMenu	reportMenu;
+	public static ColonizeMenu	colonizeMenu;
+	public static GuiPromptMenu	guiPromptMenu;
+	public static GuiPromptMessages  guiPromptMessages;
 
 	private final JLabel commandLabel, resultLabel;
 	private final JTextField commandField;
@@ -91,8 +88,6 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	private CommandMenu mainMenu, setupMenu, gameMenu, speciesMenu, researchMenu, designMenu;
 	private int selectedTransport, selectedEmpire; // ,, selectedDesign;selectedStar, aimedStar, 
 	private HashMap<Integer, Integer> altIndex2SystemIndex = new HashMap<>();
-//	private Menu stars, fleet, ships, opponents;
-//	private final List<SystemView> starList = new ArrayList<>();
 	private VIPStarView		starView;
 	private VIPFleetView	fleetView;
 	private VIPEmpireView	empireView;
@@ -252,8 +247,8 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		resultPane.setText(liveMenu().menuGuide(""));
 
 		instance	= this;
-		if(!Rotp.isIDE())
-			IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
+//		if(!Rotp.isIDE())
+//			IMainOptions.graphicsMode.set(IMainOptions.GRAPHICS_LOW);
 	}
 	// ##### INITIALIZERS #####
 	private	void reInit()			{ initAltIndex(); }
@@ -418,7 +413,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 						return empireView.spiesOrders(empire, param, false);
 					case EMP_AUDIENCE:
 						empireView.audience(empire, true);
-						return diplomaticMessages.lastMessage();
+						return guiPromptMessages.lastMessage();
 					case EMP_FINANCES:
 						return empireView.finances(empire, param, true);
 				}
@@ -645,9 +640,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		introMenu			= initIntroMenu(menu);
 		reportMenu			= new ReportMenu("Report Menu", menu);
 		colonizeMenu		= new ColonizeMenu("Colonize Menu", menu);
-		diplomaticMessages	= new DiplomaticMessages(menu);
 		guiPromptMessages	= new GuiPromptMessages(menu);
-//		reportPromptMenu	= new ReportPromptMenu("Report Prompt Menu", menu);
 		guiPromptMenu		= new GuiPromptMenu("Gui Prompt Menu", menu, false);
 		return menu;
 	}
@@ -697,7 +690,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 					String paragraph = text.get(i).replace("[race]", pl.raceName());
 					out += paragraph + NEWLINE;
 				}
-				out += NEWLINE + "Enter any command to continue";
+				out += NEWLINE + PRESS_ANY_KEY;
 				liveMenu(this);
 				resultPane.setText(out);
 				return "";
@@ -780,7 +773,6 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		String[] text = input.trim().split("\\s+");
 		for (int i=1; i<text.length; i++)
 			param.add(text[i]);
-		//param.add(""); // to avoid empty list!
 		return text[0];
 	}
 	StarSystem getSys(int altIdx)		{ return galaxy().system(altIndex2SystemIndex.get(altIdx)); }
@@ -804,12 +796,6 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 				msg += NEWLINE + ships.get(d) + " "+ d.name();
 			}
 		turnReport += NEWLINE + msg;
-	}
-	public void goToMainMenu()	{
-		liveMenu(mainMenu);
-		commandField.setText("");
-		resultPane.setText(mainMenu.open(""));
-		//mainMenu.open("");
 	}
 	public String getEmpirePlanets(Empire target)	{
 		String flt = "O" + target.id;
@@ -846,41 +832,6 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		out += SPACER + "Bases = " + view.bases();
 		return out;
 	}
-
-	// ################### SUB CLASS REPORT PROMPT MENU ######################
-/*	public class ReportPromptMenu extends CommandMenu {
-		protected IConsoleListener parentUI;
-		ReportPromptMenu(String name, CommandMenu parent)	{ super(name, parent); }
-		@Override protected String close(String out)	{
-			parentUI = null;
-			if (reportPromptMenu.isActive()) {
-				liveMenu(reportPromptMenu);
-				out += reportPromptMenu.getMessage();
-			}
-			else
-				liveMenu(gameMenu);
-			return out;
-		}
-		@Override protected void newEntry(String entry)	{
-			if (entry.equalsIgnoreCase("x") && Rotp.isIDE()) { // TODO BR: COMMENT
-				commandField.setText("");
-				resultPane.setText(parentUI.getMessage());
-				return;
-			}
-			parentUI.consoleEntry();
-			commandField.setText("");
-			resultPane.setText(close(""));
-		}
-		public void openConsolePrompt(IConsoleListener ui) {
-			parentUI	= ui;
-			liveMenu(this);
-			resultPane.setText(parentUI.getMessage());
-		}
-		boolean isActive()	{ return parentUI != null; }
-		String getMessage()	{ return parentUI.getMessage(); }
-
-	}
-*/
 	// ################### SUB CLASS GUI PROMPT MENU ######################
 	public class GuiPromptMenu extends CommandMenu {
 		private IVIPListener parentUI;
@@ -908,7 +859,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 			}
 			parentUI.consoleEntry();
 			boolean exited = parentUI.exited();
-			// System.out.println("newEntryReply exited = " + exited);
+			System.out.println("newEntryReply exited = " + exited);
 			if (exited) {
 				commandField.setText("");
 				guiPromptMessages.close(this);
@@ -920,7 +871,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 			commandField.setText("");
 			//resultPane.setText(close(""));
 			guiPromptMessages.close(this);
-			// System.out.println("newEntryReply Messages count = " + guiPromptMessages.size());
+			System.out.println("newEntryReply Messages count = " + guiPromptMessages.size());
 		}
 		private void newEntryRequest(String entry)	{
 			int validation = parentUI.consoleEntry(entry);
@@ -952,7 +903,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 				commandField.setText("");
 				
 			}
-			// System.out.println("newEntryRequest Messages count = " + guiPromptMessages.size());
+			System.out.println("newEntryRequest Messages count = " + guiPromptMessages.size());
 		}
 		public String openGuiMessagePrompt(IVIPListener ui) {
 			parentUI = ui;
@@ -977,10 +928,10 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		public void newMenu(String name, IVIPListener ui, boolean isReply, boolean wait)	{
 			if (wait)
 				waitCounter++;
-//			if (isReply)
-//				System.out.println("new Reply Prompt Menu: " + name);
-//			else
-//				System.out.println("new Request Prompt Menu: " + name);
+			if (isReply)
+				System.out.println("new Reply Prompt Menu: " + name);
+			else
+				System.out.println("new Request Prompt Menu: " + name);
 
 			GuiPromptMenu menu = new GuiPromptMenu(name, topMenu, isReply);
 			add(menu);
@@ -1011,87 +962,10 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 			}
 			else {
 				liveMenu(getLast());
-				if (waitCounter == 0)
-					session().resumeNextTurnProcessing();
-				else
+				if (waitCounter > 0)
 					waitCounter--;
 			}
 		}
-	}
-	// ################### SUB CLASS DIPLOMATIC MESSAGE MENU ######################
-	public class DiplomaticMessages extends LinkedList<DiplomaticMessageMenu> {
-		private final CommandMenu topMenu;
-		private boolean hasReply;
-		DiplomaticMessages(CommandMenu menu)	{ topMenu = menu; }
-		public void newMenu(String name, DiplomaticMessageUI ui, boolean isReply)	{
-			DiplomaticMessageMenu menu = new DiplomaticMessageMenu(name, topMenu);
-			add(menu);
-			hasReply |= isReply;
-			menu.openDiplomaticMessagePrompt(ui);
-		}
-		public void updateResultPane()	{ resultPane.setText(lastMessage()); }
-		public String lastMessage()		{ return getLast().getMessage(); }
-		public void closeLast()			{
-			DiplomaticMessageMenu menu = removeLast();
-			menu.close("");
-			next();
-		}
-		public void close(DiplomaticMessageMenu menu)	{
-			remove(menu);
-			menu.close("");
-			next();
-		}
-		private void next()	{
-			if (isEmpty()) {
-				hasReply = false;
-				liveMenu(topMenu);
-				session().resumeNextTurnProcessing();
-			}
-			else {
-				liveMenu(getLast());
-				if (!hasReply)
-					session().resumeNextTurnProcessing();
-			}
-		}
-	}
-	// ################### SUB CLASS DIPLOMATIC MESSAGE MENU ######################
-	public class DiplomaticMessageMenu extends CommandMenu {
-		private DiplomaticMessageUI parentUI;
-		private String message;
-		DiplomaticMessageMenu(String name, CommandMenu parent)	{ super(name, parent); }
-		@Override protected String close(String out) {
-			parentUI = null;
-			message	 = null;
-			liveMenu(gameMenu);
-			return out;
-		}
-		@Override protected void newEntry(String entry)	{
-			boolean state[] = parentUI.consoleResponse(entry);
-			boolean exited = state[0];
-			boolean validResponse = state[1];
-			commandField.setText("");
-			if (exited) {
-				diplomaticMessages.close(this);
-			}
-			else if (validResponse) {
-				diplomaticMessages.close(this);
-			}
-			else { // Not valid response
-				misClick();
-				String out = "Invalid Answer: " + entry + NEWLINE;
-				out += NEWLINE + message;
-				resultPane.setText(out);
-			}
-			// System.out.println("DiplomaticMessageMenu Messages count = " + diplomaticMessages.size());
-		}
-		public String openDiplomaticMessagePrompt(DiplomaticMessageUI ui) {
-			parentUI = ui;
-			message = menuName + NEWLINE + parentUI.getConsoleMessage(NEWLINE);
-			liveMenu(this);
-			resultPane.setText(message);
-			return "";
-		}
-		public String getMessage()	{ return message; }
 	}
 	// ################### SUB CLASS REPORT MENU ######################
 	public class ReportMenu extends CommandMenu {
@@ -1134,13 +1008,13 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 					out += viewSystemInfo(sys, true) + NEWLINE;
 			}
 
-			out += NEWLINE + "Enter any command to continue";
+			out += NEWLINE + PRESS_ANY_KEY;
 			liveMenu(this);
 			resultPane.setText(out);
 			return "";
 		}
 		public String acknowledgeMessage(String message) {
-			String out = message + NEWLINE + NEWLINE + "Enter any command to continue";
+			String out = message + NEWLINE + NEWLINE + PRESS_ANY_KEY;
 			liveMenu(this);
 			resultPane.setText(out);
 			return "";

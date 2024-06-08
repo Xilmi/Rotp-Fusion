@@ -21,19 +21,23 @@ import java.awt.Composite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.List;
+
 import javax.swing.border.Border;
+
 import rotp.model.empires.Empire;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.vipconsole.IVIPConsole;
+import rotp.ui.vipconsole.IVIPListener;
 import rotp.util.ThickBevelBorder;
 
-public class GNNUI extends FadeInPanel implements MouseListener, MouseMotionListener {
+public class GNNUI extends FadeInPanel implements MouseListener, MouseMotionListener, IVIPListener {
     private static final long serialVersionUID = 1L;
     static final Color innerTextBackC = new Color(73,163,163);
     static final Color outerTextAreaC = new Color(92,208,208);
@@ -77,6 +81,7 @@ public class GNNUI extends FadeInPanel implements MouseListener, MouseMotionList
         startFadeTimer();
         if (!playAnimations())
             frameCtr = EVENT_FADE_IN_FRAME + NUM_EVENT_FADE_FRAMES + 1;
+        initConsoleSelection(player().replaceTokens(text("GNN_TITLE"), "player"), true);
     }
     @Override
     public String ambienceSoundKey() { return "NewsAmbience"; }
@@ -214,4 +219,26 @@ public class GNNUI extends FadeInPanel implements MouseListener, MouseMotionList
         advanceFade();
         repaint();
     }
+
+    // ##### Console Tools
+    @Override public int consoleEntry(String entry)	{
+    	advance();
+    	return VALID_ENTRY;
+    }
+    @Override public String getMessage()	{
+    	String msg =  NEWLINE + messageText;
+    	if (empires != null) {
+    		msg += NEWLINE;
+    		int rows = min(5, empires.size());
+    		for (int i=0; i<rows; i++) {
+                Empire e = empires.get(i);
+                String line = text("GNN_EMPIRE_RANKING", str(i+1));
+                line = e.replaceTokens(line, "empire");
+                msg += NEWLINE + line;
+            }
+    	}
+    	msg += NEWLINE + NEWLINE + IVIPConsole.PRESS_ANY_KEY;
+    	return msg;
+    }
+
 }

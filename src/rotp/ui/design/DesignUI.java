@@ -1235,8 +1235,8 @@ public class DesignUI extends BasePanel {
     }
     public final class DesignConfigPanel extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
-        private int shipW = 0;
-        private int shipH = 0;
+        private int shipW = scaled(315);
+        private int shipH = scaled(255);
         private int shipImageIndex = -1;
         public DesignConfigPanel() {
             init();

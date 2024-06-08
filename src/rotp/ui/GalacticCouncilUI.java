@@ -16,6 +16,7 @@
 package rotp.ui;
 
 import static rotp.model.game.IDebugOptions.AUTORUN_OTHERFILE;
+import static rotp.ui.vipconsole.IVIPConsole.SPACER;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -26,6 +27,7 @@ import java.awt.Image;
 import java.awt.LinearGradientPaint;
 import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
@@ -36,14 +38,17 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
+import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.empires.GalacticCouncil;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.vipconsole.IVIPListener;
 
-public final class GalacticCouncilUI extends FadeInPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+public final class GalacticCouncilUI extends FadeInPanel
+		implements MouseListener, MouseMotionListener, MouseWheelListener, IVIPListener {
     private static final long serialVersionUID = 1L;
     private enum Display { ANNOUNCE, SHOW_VOTE_RESULT, ASK_PLAYER_VOTE, NO_WINNER, ACCEPT_RULING }
     private Display displayMode;
@@ -97,6 +102,7 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
         displayMode = Display.ANNOUNCE;
         background = player().race().council();
         startFadeTimer();
+        initConsole();
     }
     public void autoRun() {
     	GalacticCouncil council = galaxy().council();
@@ -147,7 +153,7 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
                 case ANNOUNCE:          paintStartMessage(g2);        break;
                 case SHOW_VOTE_RESULT:  paintAIVoteMessage(g2);       break;
                 case ASK_PLAYER_VOTE:   paintPlayerVoteMessage(g2);   break;
-                case NO_WINNER:         paintNoWinnerMessage(g2);  break;
+                case NO_WINNER:         paintNoWinnerMessage(g2);     break;
                 case ACCEPT_RULING:     paintAcceptRulingMessage(g2); break;
             }
         }
@@ -515,8 +521,6 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
         drawBorderedString(g, button4Text, x4b, button4Y + buttonH - s9, SystemPanel.textShadowC, c0);  
     }
     private void paintNoWinnerMessage(Graphics2D g) {
-        //GalacticCouncil c = galaxy().council();
-
         int w = getWidth();
         int h = getHeight();
 		// modnar: use (slightly) better sampling
@@ -1128,6 +1132,7 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
                 exit();
                 break;
         }
+        initConsole();
         repaint();
     }
     private void exit() {
@@ -1348,5 +1353,301 @@ public final class GalacticCouncilUI extends FadeInPanel implements MouseListene
                 repaint();
             return;
         }
+    }
+
+    // ##### Console Tools
+    @Override public boolean handleKeyPress(KeyEvent e)	{
+    	GalacticCouncil c = galaxy().council();
+    	int k = e.getKeyCode();
+    	if (showVoterSummary) {
+            switch(k) {
+            case KeyEvent.VK_ESCAPE:
+            case KeyEvent.VK_1:
+            	showVoterSummary = false;
+                if (!c.votingInProgress()) {
+                    displayMode = Display.SHOW_VOTE_RESULT;
+                    advanceScreen();
+                }
+                else if (displayMode == Display.ANNOUNCE) {
+                	displayMode = nextVotingMode();
+                    initConsole();
+                }
+                initConsole();
+
+                repaint();
+                return true;
+            case KeyEvent.VK_2:
+            	 c.continueNonPlayerVoting();
+                 if (displayMode == Display.ANNOUNCE)
+                     displayMode = nextVotingMode();
+                 if (displayMode == Display.ASK_PLAYER_VOTE)
+                     showVoterSummary = false;
+                 initConsole();
+                 repaint();
+                 return true;
+            default:
+            	return false; // don't advance screen if no vote
+            }
+        }
+        else if (displayMode == Display.ASK_PLAYER_VOTE && k == KeyEvent.VK_4) {
+            scrollbarY = 0;
+            showVoterSummary = true;
+            initConsole();
+            repaint();
+            return true;
+        }
+    	else if (displayMode == Display.ANNOUNCE) {
+            switch(k) {
+            case KeyEvent.VK_ESCAPE:
+            case KeyEvent.VK_1:
+            	scrollbarY = 0;
+                showVoterSummary = true;
+                initConsole();
+                repaint();
+            	return true;
+            case KeyEvent.VK_2:
+            	c.continueNonPlayerVoting();
+            	advanceScreen();
+            	return true;
+            default:
+            	return false; // don't advance screen if no vote
+            }
+    	}
+    	else if (displayMode == Display.SHOW_VOTE_RESULT) {
+            switch(k) {
+            case KeyEvent.VK_ESCAPE:
+            case KeyEvent.VK_1:
+            	advanceScreen();
+                return true;
+            case KeyEvent.VK_2:
+            	c.continueNonPlayerVoting();
+            	advanceScreen();
+            	return true;
+             case KeyEvent.VK_4:
+            	 scrollbarY = 0;
+                 showVoterSummary = true;
+                 initConsole();
+                 repaint();
+                 return true;
+           default:
+            	return false; // don't advance screen if no vote
+            }
+    	}
+    	else {
+    		keyPressed(e);
+    		return true;
+    	}
+    }
+	@Override public List<ConsoleOptions> getOptions() {
+		GalacticCouncil c = galaxy().council();
+		List<ConsoleOptions> options = new ArrayList<>();
+        if (showVoterSummary) {
+        	Empire pl = player();
+        	String buttonText;
+        	// Option 1
+        	if (c.votingInProgress())
+        		buttonText = text("COUNCIL_SHOW_VOTING");
+        	else
+        		buttonText = text("COUNCIL_SHOW_RESULTS");
+			options.add(new ConsoleOptions(KeyEvent.VK_1, "1", buttonText));
+        	// Option 2
+        	if  (c.votingInProgress()) {
+                if (c.hasVoted(pl) || options().isAutoPlay())
+                	buttonText = text("COUNCIL_COMPLETE_VOTING");
+                else {
+                    buttonText = text("COUNCIL_SKIP_TO_PLAYER");
+                    buttonText = pl.replaceTokens(buttonText, "player");
+                }
+                options.add(new ConsoleOptions(KeyEvent.VK_2, "2", buttonText));
+            }
+        }
+        else
+	    	switch (displayMode) {
+				case ANNOUNCE:
+					options.add(new ConsoleOptions(KeyEvent.VK_1, "1", text("COUNCIL_VIEW_SUMMARY")));
+					options.add(new ConsoleOptions(KeyEvent.VK_2, "2", text("COUNCIL_BEGIN_VOTING")));
+					break;
+				case ACCEPT_RULING:
+					options.add(new ConsoleOptions(KeyEvent.VK_1, "1", text("COUNCIL_ACCEPT_RULING")));
+					if (!options().realmsBeyondCouncil())
+						options.add(new ConsoleOptions(KeyEvent.VK_2, "2", text("COUNCIL_REJECT_RULING")));
+					break;
+				case ASK_PLAYER_VOTE:
+					options.add(new ConsoleOptions(KeyEvent.VK_1, "1", "Vote " + c.candidate1().name()));
+					options.add(new ConsoleOptions(KeyEvent.VK_2, "2", "Vote " + c.candidate2().name()));
+					options.add(new ConsoleOptions(KeyEvent.VK_3, "3", text("COUNCIL_CHOICE_ABSTAIN")));
+					options.add(new ConsoleOptions(KeyEvent.VK_4, "4", text("COUNCIL_VIEW_SUMMARY")));
+					break;
+				case NO_WINNER:
+					options.add(new ConsoleOptions(KeyEvent.VK_ESCAPE, "C", text("COUNCIL_CONTINUE")));
+					break;
+				case SHOW_VOTE_RESULT:
+					options.add(new ConsoleOptions(KeyEvent.VK_1, "1", text("COUNCIL_CONTINUE")));
+		        	if  (c.votingInProgress()) {
+		        		String buttonText;
+		                if (c.hasVoted(player()) || options().isAutoPlay())
+		                	buttonText = text("COUNCIL_COMPLETE_VOTING");
+		                else {
+		                    buttonText = text("COUNCIL_SKIP_TO_PLAYER");
+		                    buttonText = player().replaceTokens(buttonText, "player");
+		                }
+		                options.add(new ConsoleOptions(KeyEvent.VK_2, "2", buttonText));
+		            }
+					options.add(new ConsoleOptions(KeyEvent.VK_4, "4", text("COUNCIL_VIEW_SUMMARY")));
+					break;
+				default:
+					options.add(new ConsoleOptions(KeyEvent.VK_ESCAPE, "C", text("COUNCIL_CONTINUE")));
+					break;
+	        }
+		return options;
+	}
+	@Override public String getMessage()	{
+    	String msg = "";
+        if (showVoterSummary)
+        	msg += voterSummary();
+        else
+	    	switch (displayMode) {
+				case ACCEPT_RULING:
+					msg += acceptRulingMessage();
+					break;
+				case ANNOUNCE:
+					msg += announceMessage();
+					break;
+				case ASK_PLAYER_VOTE:
+					msg += askPlayerVoteMessage();
+					break;
+				case NO_WINNER:
+					msg += noWinnerMessage();
+					break;
+				case SHOW_VOTE_RESULT:
+					msg += showVoteResultMessage();
+					break;
+				default:
+					break;
+	        }
+        msg += NEWLINE + NEWLINE + getMessageOption();
+		return msg;
+	}
+	private String acceptRulingMessage()	{
+        GalacticCouncil c = galaxy().council();
+		String msg = text("COUNCIL_ELECTED_TITLE");
+        msg += NEWLINE + voteTotals();
+        msg += NEWLINE + "The winner is: " + c.leader().race().name();
+		return msg;
+	}
+	private String announceMessage()		{
+        GalacticCouncil c = galaxy().council();
+        Empire emp1 = c.candidate1();
+        Empire emp2 = c.candidate2();
+        String text1 = text("COUNCIL_CONVENE");
+        String text2 = text("COUNCIL_CONVENE2");
+        text2 = emp1.replaceTokens(text2, "first");
+        text2 = emp2.replaceTokens(text2, "second");
+
+        String msg = text("COUNCIL_CONVENE_TITLE");
+        msg += NEWLINE + text1;
+        msg += NEWLINE + text2;
+		return msg;
+	}
+	private String askPlayerVoteMessage() {
+        GalacticCouncil c = galaxy().council();
+        String msg = NEWLINE + voteTotals();
+		msg += NEWLINE + NEWLINE + text("COUNCIL_CAST_PROMPT", str(c.nextVotes()));
+        msg += NEWLINE + text("COUNCIL_CAST_PROMPT_TITLE");
+		return msg;
+	}
+	private String noWinnerMessage() {
+		String msg = NEWLINE + text("COUNCIL_ADJOURN_TITLE");
+		msg += NEWLINE + voteTotals();
+		msg += NEWLINE + text("COUNCIL_ADJOURN");
+		return msg;
+	}
+	private String showVoteResultMessage() {
+        GalacticCouncil c = galaxy().council();
+        String msg = NEWLINE;
+        msg += NEWLINE + NEWLINE + voteTotals();
+        if (c.lastVoted() == null) {
+            String voteStr = text("COUNCIL_CAST_ABSTAIN", c.lastVotes());
+            msg += c.lastVoter().replaceTokens(voteStr, "voter");
+        }
+        else {
+        	String voteStr = text("COUNCIL_CAST_VOTE", str(c.lastVotes()));
+        	voteStr = c.lastVoter().replaceTokens(voteStr, "voter");
+            msg += c.lastVoted().replaceTokens(voteStr, "candidate");
+        }
+		return msg;
+	}
+    private String voteTotals() {
+    	String msg = "";
+        GalacticCouncil c = galaxy().council();
+        msg += text("COUNCIL_VOTE_COUNT", str(c.votes1()));
+        msg += " for " + c.candidate1().name();
+        msg += " and " + text("COUNCIL_VOTE_COUNT", str(c.votes2()));
+        msg += " for " + c.candidate2().name();
+        return msg;
+    }
+    private String voterSummary() {
+        GalacticCouncil c = galaxy().council();
+        String msg = "";
+		msg += NEWLINE + voteTotals();
+        msg += NEWLINE + NEWLINE + text("COUNCIL_SUMMARY", str(c.votesToElect()));
+        msg += NEWLINE;
+        List<Empire> voters = c.voters();
+		for (Empire voter : voters) {
+			msg += NEWLINE + voterSummary(voter);
+		}
+        return msg;
+    }
+    private String voterSummary(Empire e)	{
+        GalacticCouncil c = galaxy().council();
+        boolean voted = c.hasVoted(e);
+        int votes = c.votes(e);
+        String voteStr;
+        if (voted) {
+            Empire votee = galaxy().empire(e.lastCouncilVoteEmpId());
+            if (votee == null)
+                voteStr = text("COUNCIL_VOTE_ABSTAINED", str(votes));
+            else {
+                voteStr = text("COUNCIL_VOTE_CAST", str(votes));
+                voteStr = votee.replaceTokens(voteStr, "alien");
+            }
+        }
+        else
+            voteStr = text("COUNCIL_VOTE_COUNT", str(votes));
+        String cand1Str = treatyString(e, c.candidate1());
+        String cand2Str = treatyString(e, c.candidate2());
+        
+        String msg = e.raceName();
+        msg += SPACER + voteStr;
+        msg += SPACER + cand1Str;
+        msg += SPACER + cand2Str;
+        return msg;
+    }
+    private void initConsole()	{
+    	if (!RotPUI.isVIPConsole)
+    		return;
+    	String year = displayYearOrTurn() + SPACER;
+        if (showVoterSummary)
+        	initConsoleSelection(year + "Voter Summary", true);
+        else
+	    	switch (displayMode) {
+				case ACCEPT_RULING:
+					initConsoleSelection(year + "Voter Summary", true);
+					break;
+				case ANNOUNCE:
+					initConsoleSelection(year + "Council Opening", true);
+					break;
+				case ASK_PLAYER_VOTE:
+					initConsoleSelection(year + "Player Vote", true);
+					break;
+				case NO_WINNER:
+					initConsoleSelection(year + "No Winner", true);
+					break;
+				case SHOW_VOTE_RESULT:
+					initConsoleSelection(year + "Vote Result", true);
+					break;
+				default:
+					break;
+	        }
     }
 }

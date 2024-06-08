@@ -22,7 +22,7 @@ public interface IVIPListener {
 	default String getMessageOption()			{
 		List<ConsoleOptions> options = getOptions();
 		if (options == null)
-			return "Enter any command to continue";
+			return IVIPConsole.PRESS_ANY_KEY;
 		String messageOption = "The options are:";
 		for (ConsoleOptions option : options) 
 			messageOption += IVIPConsole.NEWLINE + option.messageOption();
@@ -47,13 +47,11 @@ public interface IVIPListener {
 		if (!RotPUI.isVIPConsole)
     		return;
 		VIPConsole.guiPromptMessages.newMenu(title, this, false, wait);
-		//CommandConsole.guiPromptMenu.openConsolePrompt(this);
 	};
 	default void initConsoleReport(String title, boolean wait)	{
 		if (!RotPUI.isVIPConsole)
     		return;
 		VIPConsole.guiPromptMessages.newMenu(title, this, true, wait);
-		//CommandConsole.reportPromptMenu.openConsolePrompt(this);
 	};
 	class ConsoleOptions {
 		private final String key;

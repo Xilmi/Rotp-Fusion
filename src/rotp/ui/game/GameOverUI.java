@@ -45,6 +45,7 @@ import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.vipconsole.IVIPConsole;
 import rotp.ui.vipconsole.IVIPListener;
 
 public final class GameOverUI extends FadeInPanel
@@ -532,7 +533,7 @@ public final class GameOverUI extends FadeInPanel
         	}
         	else
         		message += NEWLINE + NEWLINE + para;
-        message += NEWLINE + NEWLINE + "Enter any command to continue";
+        message += NEWLINE + NEWLINE + IVIPConsole.PRESS_ANY_KEY;
 		return message;
 	}
 }

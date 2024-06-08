@@ -141,7 +141,11 @@ public class UserPreferences implements IMainOptions {
 //		save();
 //	}
 	public static void graphicsMode(String s) { graphicsMode = s; save();}
-	public static String graphicsMode()	      { return graphicsMode; }
+	public static String graphicsMode()	      {
+		if(showVIPPanel.get())
+			return GRAPHICS_LOW;
+		return graphicsMode;
+	}
 //	public static void toggleGraphicsMode()   {
 //		switch(graphicsMode) {
 //			case GRAPHICS_HIGH:   graphicsMode = GRAPHICS_MEDIUM; break;
@@ -205,9 +209,9 @@ public class UserPreferences implements IMainOptions {
 //	public static boolean autoBombardInvading() { return autoBombardMode.equals(AUTOBOMBARD_INVADE); }
 //	public static String autoBombardMode()	{ return autoBombardMode; }
 
-	public static boolean graphicLow()		{ return graphicsMode.equals(GRAPHICS_LOW); }
-	public static boolean graphicHigh()		{ return graphicsMode.equals(GRAPHICS_HIGH); }
-	public static boolean graphicRetina()	{ return graphicsMode.equals(GRAPHICS_RETINA); }
+	public static boolean graphicLow()		{ return graphicsMode().equals(GRAPHICS_LOW); }
+	public static boolean graphicHigh()		{ return graphicsMode().equals(GRAPHICS_HIGH); }
+	public static boolean graphicRetina()	{ return graphicsMode().equals(GRAPHICS_RETINA); }
 	public static boolean playAnimations()  { return !graphicLow(); }
 	public static boolean antialiasing()	{ return graphicHigh() || graphicRetina(); }
 	public static boolean playSounds()      { return playSounds; }
