@@ -76,7 +76,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     int ptY[] = new int[GRID_COUNT_Y+1];
     public int boxH = -1;
     public int boxW = -1;
-
+    
     private int mouseGridX = 0;
     private int mouseGridY = 0;
     int planetX = 250;
@@ -146,7 +146,16 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     Color[] yellowColors = new Color[3];
     Color[] grayColors = new Color[3];
     BufferedImage combatBackground;
-
+    public int boxH() {
+    	if (boxH < 0)
+            boxH = (getHeight()-pad-pad-barH) / GRID_COUNT_Y;
+    	return boxH;
+    }
+    public int boxW() {
+    	if (boxW < 0)
+            boxW = (getWidth()-pad-pad) / GRID_COUNT_X;
+    	return boxW;
+    }
     public ShipBattleUI() {
         init();
     }

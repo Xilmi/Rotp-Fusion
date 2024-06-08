@@ -728,7 +728,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	// private MainUI mainUI()	  { return RotPUI.instance().mainUI(); }
 	// ##### EVENTS METHODES #####
 	@Override public void actionPerformed(ActionEvent evt)	{ }
-	private void commandEntry(ActionEvent evt)	{ liveMenu().newEntry(((JTextField) evt.getSource()).getText()); }
+	private void commandEntry(ActionEvent evt)	{ liveMenu().newEntry(((JTextField) evt.getSource()).getText().toUpperCase()); }
 
 	private String optsGuide()	{
 		String out = "";

@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - VIP Console: Should be fully playable now... (Not fully tested with main window hidden)
   - Added Council management.
   - Fixed missing initialization when main window stay hidden.
+  - Temporary fix to capitalization issue.
 
 - Xilmi new additions
   - Implemented AI-confidence-feature.
