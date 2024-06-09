@@ -162,7 +162,9 @@ public class CombatStackColony extends CombatStack {
         mgr.results().basesDestroyed = origNum - num;
     }
     @Override
-    public float estimatedKills(CombatStack target) {
+    public float estimatedKills(CombatStack target, boolean ignoreMissiles) {
+        if(ignoreMissiles)
+            return 0;
         //ail: take attack and defense into account
         float hitPct = (5 + attackLevel - target.missileDefense) / 10;
         hitPct = max(.05f, hitPct);

@@ -133,7 +133,7 @@ public class CombatStackShip extends CombatStack {
     @Override
     public ShipComponent selectedWeapon() { return weapons.get(selectedWeaponIndex); }
     @Override
-    public boolean canDamage(CombatStack target) { return estimatedKills(target) > 0; }
+    public boolean canDamage(CombatStack target) { return estimatedKills(target, false) > 0; }
     @Override
     public float bombDamageMod()   { return 0; }
     @Override
@@ -473,7 +473,7 @@ public class CombatStackShip extends CombatStack {
         return false;
     }
     @Override
-    public float estimatedKills(CombatStack target) {
+    public float estimatedKills(CombatStack target, boolean ignoreMissiles) {
         float kills = 0;
         for (int i=0;i<weapons.size();i++) {
             ShipComponent comp = weapons.get(i);
@@ -484,7 +484,11 @@ public class CombatStackShip extends CombatStack {
                 if(comp.isBeamWeapon())
                     hitPct = (5 + attackLevel - target.beamDefense()) / 10;
                 if(comp.isMissileWeapon())
+                {
+                    if(ignoreMissiles)
+                        continue;
                     hitPct = (5 + attackLevel - target.missileDefense()) / 10;
+                }
                 hitPct = max(.05f, hitPct);
                 hitPct = min(hitPct, 1.0f);
                 //ail: we totally have to consider the weapon-count too!

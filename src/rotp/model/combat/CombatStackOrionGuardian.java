@@ -298,7 +298,7 @@ public class CombatStackOrionGuardian extends CombatStack {
         return weaponCount[i];
     }
     @Override
-    public float estimatedKills(CombatStack target) {
+    public float estimatedKills(CombatStack target, boolean ignoreMissiles) {
         float kills = 0;
         for (int i=0;i<weapons.size();i++) {
             ShipComponent comp = weapons.get(i);
@@ -309,7 +309,11 @@ public class CombatStackOrionGuardian extends CombatStack {
                 if(comp.isBeamWeapon())
                     hitPct = (5 + attackLevel - target.beamDefense()) / 10;
                 if(comp.isMissileWeapon())
+                {
+                    if(ignoreMissiles)
+                        continue;
                     hitPct = (5 + attackLevel - target.missileDefense()) / 10;
+                }
                 hitPct = max(.05f, hitPct);
                 hitPct = min(hitPct, 1.0f);
                 //ail: we totally have to consider the weapon-count too!

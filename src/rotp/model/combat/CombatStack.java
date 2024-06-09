@@ -190,8 +190,8 @@ public class CombatStack implements Base {
     public boolean canAttack(CombatStack target)              { return false; }
     public boolean canPotentiallyAttack(CombatStack target)   { return false; }
     public boolean canDamage(CombatStack target)              { return maxDamage() > target.shieldLevel(); }
-    public float estimatedKills(CombatStack target)           { return 0; }
-    public float estimatedKillPct(CombatStack target)         { return target.num == 0 ? 0 : estimatedKills(target) / target.num; }
+    public float estimatedKills(CombatStack target, boolean ignoreMissiles)           { return 0; }
+    public float estimatedKillPct(CombatStack target, boolean ignoreMissiles)         { return target.num == 0 ? 0 : estimatedKills(target, ignoreMissiles) / target.num; }
     public void rotateToUsableWeapon(CombatStack target)      {  }
     public void fireWeapon(CombatStack target, int i, boolean shots) { }
     public void fireWeapon(CombatStack target, int i) { fireWeapon(target,i,false); }

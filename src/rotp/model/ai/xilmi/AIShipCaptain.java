@@ -419,7 +419,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             if(target.cloaked && (!allTargetsCloaked || stack.hasWard()) && stack.isShip())
                 continue;
             // pct of target that this stack thinks it can kill
-            float killPct = max(stack.estimatedKillPct(target), expectedPopLossPct(stack, target)); 
+            float killPct = max(stack.estimatedKillPct(target, false), expectedPopLossPct(stack, target)); 
             //reduce attractiveness of target depending on how much damage it already has incoming from missiles
             // threat level target poses to this stack (or its ward if applicable)
             CombatStack ward = stack.hasWard() ? stack.ward() : stack;
@@ -483,7 +483,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 else
                     desirability = killPct * max(1, target.num) * valueMod * rangeAdj / 100;
                 if(stack.isColony())
-                    desirability *= 1 + target.estimatedKillPct(stack) * stack.designCost();
+                    desirability *= 1 + target.estimatedKillPct(stack, false) * stack.designCost();
                 if(target.totalHits() > 0 && killPct > target.hits() / target.totalHits())
                     desirability *= 2;
                 //System.out.print("\n"+stack.fullName()+" onlyships: "+onlyShips+" onlyInAttackRange: "+onlyInAttackRange+" looking at "+target.fullName()+" killPct: "+killPct+"target.hits / target.totalHits(): "+target.hits / target.totalHits()+" rangeAdj: "+rangeAdj+" cnt: "+target.num+" target.designCost(): "+target.designCost()+" desirability: "+desirability);
@@ -978,7 +978,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             for (CombatStack st2: friends) {
                 if(st2.inStasis)
                     continue;
-                float killPct = max(st2.estimatedKillPct(st1), expectedPopLossPct(st2, st1));
+                float killPct = max(st2.estimatedKillPct(st1, st2.isShip()), expectedPopLossPct(st2, st1));
                 if(st2.maxFiringRange(st1) <= st1.repulsorRange() && st1.maxFiringRange(st2) > 1 && !st2.canCloak && !st2.canTeleport())
                 {
                     killPct = 0;
@@ -1033,7 +1033,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             for (CombatStack st2: foes) {
                 if(st2.inStasis)
                     continue;
-                float killPct = max(st2.estimatedKillPct(st1), expectedPopLossPct(st2, st1));
+                float killPct = max(st2.estimatedKillPct(st1, st2.isShip()), expectedPopLossPct(st2, st1));
                 //System.out.println(stack.mgr.system().name()+" "+stack.fullName()+" raw killpct: "+killPct);
                 if(st2.maxFiringRange(st1) <= st1.repulsorRange() && st1.maxFiringRange(st2) > 1 && !st2.canCloak && !st2.canTeleport())
                 {

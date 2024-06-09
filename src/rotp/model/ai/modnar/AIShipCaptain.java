@@ -130,7 +130,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         boolean currentCanBomb = false;
         for (CombatStack target : potentialTargets) {
             // pct of target that this stack thinks it can kill
-            float killPct = max(stack.estimatedKillPct(target), expectedPopLossPct(stack, target)); 
+            float killPct = max(stack.estimatedKillPct(target, false), expectedPopLossPct(stack, target)); 
             // threat level target poses to this stack (or its ward if applicable)
             CombatStack ward = stack.hasWard() ? stack.ward() : stack;
             // want to adjust threat upward as target gets closer to ward
@@ -139,7 +139,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             if (ward.isColony()) {
                 CombatStackColony colony = (CombatStackColony) ward;
                 float popLossPct  =  expectedPopLossPct(target, colony); 
-                float baseLossPct = target.estimatedKillPct(colony);
+                float baseLossPct = target.estimatedKillPct(colony, false);
                 float maxLossPct = max(popLossPct,baseLossPct);
                 // if this is the first potential target that can reach and damage the colony, 
                 // ignore any previous selected targets
@@ -163,7 +163,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             }
             else {
                 float rangeAdj = 10.0f/distAfterMove;
-                threatLevel = rangeAdj * target.estimatedKillPct(ward);  
+                threatLevel = rangeAdj * target.estimatedKillPct(ward, false);  
             }
             if (killPct > 0) {
                 killPct = min(1,killPct);
@@ -404,7 +404,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         for (CombatStack st1 : friends) {
             float maxKillValue = -1;
             for (CombatStack st2: foes) {
-                float killPct = min(1.0f,st1.estimatedKillPct(st2)); // modnar: killPct should have max of 1.00 instead of 100?
+                float killPct = min(1.0f,st1.estimatedKillPct(st2, false)); // modnar: killPct should have max of 1.00 instead of 100?
                 float killValue = killPct*st2.num*st2.designCost();
 //                log(st1.name()+"="+killPct+"    "+st2.name());
                 if (killValue > maxKillValue)
@@ -415,7 +415,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
        for (CombatStack st1 : foes) {
             float maxKillValue = -1;
             for (CombatStack st2: friends) {
-                float killPct = min(1.0f,st1.estimatedKillPct(st2)); // modnar: killPct should have max of 1.00 instead of 100?
+                float killPct = min(1.0f,st1.estimatedKillPct(st2, false)); // modnar: killPct should have max of 1.00 instead of 100?
                 float killValue = killPct*st2.num*st2.designCost();
 //                log(st1.name()+"="+killPct+"    "+st2.name());
                 if (killValue > maxKillValue)
