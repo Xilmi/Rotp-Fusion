@@ -120,6 +120,8 @@ public class AIGeneral implements Base, General {
         for (int id=0;id<empire.sv.count();id++) 
             reviseFleetPlan(gal.system(id));
         additionalColonizersToBuild = additionalColonizersToBuild(false);
+        if(myFighterCost() < visibleEnemyFighterCost())
+            additionalColonizersToBuild = 0;
         ShipDesign design = empire.shipDesignerAI().BestDesignToColonize();
         Location colonyShipGoalCenter = uncolonizedCenter(empire);
         while (additionalColonizersToBuild > 0)
@@ -973,7 +975,7 @@ public class AIGeneral implements Base, General {
             if(empire.enemies().contains(fl.empire()))
             {
                 //System.out.print("\n"+empire.name()+" see fleet of "+fl.empire().name()+" with Fgtr-value: "+empire.fleetCommanderAI().bcValue(fl, false, true, false, false));
-                cost += empire.fleetCommanderAI().bcValue(fl, false, true, false, false);
+                cost += empire.fleetCommanderAI().bcValue(fl, false, true, true, false);
             }
         }
         visibleEnemyFighterCost = cost;

@@ -308,8 +308,13 @@ public class AIGovernor implements Base, Governor {
         {
             if(col.shipyard().design() == empire.shipDesignerAI().BestDesignToColonize())
                 netProd -= col.shipyard().design().cost();
-            else
-                netProd -= min(col.shipyard().maxSpendingNeeded(), col.shipyard().design().cost());
+            else if(empire.shipMaintCostPerBC() < 0.05)
+            {
+                if(col.currentProductionCapacity() > 0.5f)
+                    netProd -= col.shipyard().maxSpendingNeeded();
+                else
+                    netProd -= col.shipyard().design().cost();
+            }
         }
         
         // prod spending gets up to 100% of planet's remaining net prod
@@ -577,18 +582,6 @@ public class AIGovernor implements Base, Governor {
             float currentPercentage = tgtPercentage;
             if(sv.system().colony() != null)
                 currentPercentage = sv.system().colony().populationPct();
-            if(!empire.warEnemies().isEmpty())
-            {
-                for(Empire warEnemy : empire.warEnemies())
-                {
-                    if(warEnemy.sv.inShipRange(sysId))
-                    {
-                        float adjPct = min(tgtPercentage, currentPercentage) + (tgtPercentage - min(tgtPercentage, currentPercentage)) * empire.fleetCommanderAI().bridgeHeadConfidence(sv.system());
-                        //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+sv.system().name()+" pop-target %: "+tgtPercentage+" adjusted: "+adjPct);
-                        return adjPct;
-                    }
-                }
-            }
             for(ShipFleet fl : sv.system().orbitingFleets())
             {
                 if(fl.isArmed() && fl.empire().aggressiveWith(empire.id))

@@ -133,6 +133,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             handleMilitary();
             buildFleetPlans();
             fillFleetPlans();
+            empire.generalAI().nextTurn();
         }
     }
     public void UpdateSystemInfo(int id)
@@ -569,9 +570,6 @@ public class AIFleetCommander implements Base, FleetCommander {
                     systems.add(id);
             }
         }
-
-        // allow AIGeneral to determine war plans first
-        empire.generalAI().nextTurn();
 
         // make fleet plans for each unplanned system
         for (int id=0; id<empire.sv.count();id++) {
