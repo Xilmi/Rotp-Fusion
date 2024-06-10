@@ -4,7 +4,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Very last changes:</ins></b>
 - VIP Console:
   - Fixed lower / upper case issue.
-  - Ship's name can contains spaces, upper and lower cases.
+  - The ship name may contain spaces, upper and lower case letters.
+- Military view tab in the colonies screen: "Shield" column display as "Nebula" when the planet is in a nebula.
 
 - Xilmi new additions
 - Missiles are no longer taken into consideration in the facingOverwhelmingForce-check of the retreat-logic. This prevents stacks from retreating when their opponents would run out of missiles due to firing them at other stacks.
@@ -111,6 +112,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New Option panel to set default Nominal Species Names.
 - New option for "Tax only fully developed colonies", that define what should be completed to be identified as developed!
 - (Xilmi) Implemented AI-confidence-feature.
+- Military view tab in the colonies screen: "Shield" column display as "Nebula" when the planet is in a nebula.
+
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.

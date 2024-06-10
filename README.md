@@ -72,7 +72,8 @@ Later:
 2024.06.08 (BR)
 - VIP Console:
   - Fixed lower / upper case issue.
-  - Ship's name can contains spaces, upper and lower cases.
+  - The ship name may contain spaces, upper and lower case letters.
+- Military view tab in the colonies screen: "Shield" column display as "Nebula" when the planet is in a nebula.
 
 2024.06.09 (Xilmi)
 - Missiles are no longer taken into consideration in the facingOverwhelmingForce-check of the retreat-logic. This prevents stacks from retreating when their opponents would run out of missiles due to firing them at other stacks.

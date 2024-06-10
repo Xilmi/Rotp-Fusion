@@ -236,6 +236,7 @@ public class ColonyDefense extends ColonySpendingCategory {
     }
     public boolean isArmed()             { return missileBases() >= 1; }
     public int shieldLevel()             { return (int) (shield / 5) * 5; }
+    public int shieldLevelComp()         { return planet().starSystem().inNebula()? -1 : shieldLevel(); }
     public int missileBases()            { return (int) bases; }
     public int defenders()               { return (int) colony().population(); }
     @Override

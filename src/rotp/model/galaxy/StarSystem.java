@@ -510,7 +510,10 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
             case "BASES":            return str(empire().sv.bases(id));
             case "SHIPYARD":         return colony().shipyardProject();
             case "DELTA_BASES":      return str(empire().sv.deltaBases(id));
-            case "SHIELD":           return str(colony().defense().shieldLevel());
+            case "SHIELD":
+            	if (inNebula())
+            		return text("MAIN_COLONY_NO_SHIELD");
+            	return str(colony().defense().shieldLevel());
             case "TRANSPORT_TURNS":  return str((int)Math.ceil(transportTimeTo(TARGET_SYSTEM)));
             case "RESOURCES":        return text(empire().sv.view(id).resourceType());
             case "TO_FILL":          return str(empire().sv.view(id).maxTransToFill());
@@ -530,7 +533,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     public static Comparator<StarSystem> INCOME             = (StarSystem sys1, StarSystem sys2) -> Base.compare(sys1.colony().totalIncome(),sys2.colony().totalIncome());
     public static Comparator<StarSystem> CAPACITY           = (StarSystem sys1, StarSystem sys2) -> Base.compare(sys1.colony().currentProductionCapacity(),sys2.colony().currentProductionCapacity());
     public static Comparator<StarSystem> BASES              = (StarSystem sys1, StarSystem sys2) -> Base.compare(sys1.colony().defense().bases(),sys2.colony().defense().bases());
-    public static Comparator<StarSystem> SHIELD             = (StarSystem sys1, StarSystem sys2) -> Base.compare(sys1.colony().defense().shieldLevel(),sys2.colony().defense().shieldLevel());
+    public static Comparator<StarSystem> SHIELD             = (StarSystem sys1, StarSystem sys2) -> Base.compare(sys1.colony().defense().shieldLevelComp(),sys2.colony().defense().shieldLevelComp());
     public static Comparator<StarSystem> INVASION_PRIORITY  = (StarSystem sys1, StarSystem sys2) -> Base.compare(sys1.empire().generalAI().invasionPriority(sys1),sys2.empire().generalAI().invasionPriority(sys2));
     public static Comparator<StarSystem> TRANSPORT_PRIORITY = (StarSystem sys1, StarSystem sys2) -> Base.compare(sys1.empire().fleetCommanderAI().transportPriority(sys1),sys2.empire().fleetCommanderAI().transportPriority(sys2));
     public static Comparator<StarSystem> VFLAG = (StarSystem sys1, StarSystem sys2) -> {

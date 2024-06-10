@@ -840,6 +840,7 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             super.draw(g, row, sys, x, y, w);
             if (attributeKey.isEmpty())
                 return;
+            	
             String val = sys.getAttribute(attributeKey);
             int sw = g.getFontMetrics().stringWidth(val);
             int w0 = w-s10;
