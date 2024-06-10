@@ -110,7 +110,7 @@ public class ManageDiplomatsUI  extends BasePanel implements MouseListener, Mous
             g.setFont(narrowFont(20));
             maxNameW = s60;
             for (EmpireView view: player().contacts()) 
-                maxNameW = max(maxNameW, s30+g.getFontMetrics().stringWidth(view.empire().raceName()));       
+                maxNameW = max(maxNameW, s30+g.getFontMetrics().stringWidth(view.raceName()));       
             g.setFont(narrowFont(18));
             button1W = max(s80, s30+g.getFontMetrics().stringWidth(button1A));
             button2W = galaxy().council().finalWar() ? 0 : max(s80, s30+g.getFontMetrics().stringWidth(button2A), s20+g.getFontMetrics().stringWidth(button2B));
@@ -263,7 +263,7 @@ public class ManageDiplomatsUI  extends BasePanel implements MouseListener, Mous
         
         // race name in column 1
         g.setFont(narrowFont(20));
-        String s = view.empire().raceName();
+        String s = view.raceName();
         int w1 = x2-x;
         int sw = g.getFontMetrics().stringWidth(s);
         drawString(g,s, x+(w1-sw)/2, y1);

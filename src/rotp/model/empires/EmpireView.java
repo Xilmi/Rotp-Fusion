@@ -46,6 +46,14 @@ public final class EmpireView implements Base, Serializable {
     public DiplomaticEmbassy embassy()    { return embassy; }
     public SpyNetwork spies()             { return spies; }
     public TradeRoute trade()             { return trade; }
+    public EmpireStatus status()          { return empire().status(); }
+    public String raceName()              { return empire().raceName(); }
+    public Leader leader()                { return empire().leader(); }
+    public boolean extinct()              { return empire().extinct(); }
+    public int homeSysId()                { return empire().homeSysId(); }
+    public boolean isPlayer()             { return empire().isPlayer(); }
+    public boolean isPlayerControlled()   { return empire().isPlayerControlled(); }
+
     public EmpireView otherView() {
         if (otherView == null)
             otherView = empire.viewForEmpire(owner);
@@ -62,7 +70,7 @@ public final class EmpireView implements Base, Serializable {
     }
     @Override
     public String toString()   { return concat(owner.raceName(), " View of: ", empire.raceName()); }
-
+    
     public Integer listOrder() {
         int rangeMod = this.inEconomicRange() ? 0 : 100;
         return rangeMod + embassy().treaty().listOrder();

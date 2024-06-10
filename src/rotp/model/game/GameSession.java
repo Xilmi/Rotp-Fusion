@@ -949,7 +949,7 @@ public final class GameSession implements Base, Serializable {
     public void randomlyStealATech() {
         EmpireView view = random(player().empireViews());
         if (view != null) {
-            StarSystem espionageSystem = galaxy().system(view.empire().homeSysId());
+            StarSystem espionageSystem = galaxy().system(view.homeSysId());
             Empire espionageEmpire = view.empire();
 
             List<Tech> techs = new ArrayList<>();

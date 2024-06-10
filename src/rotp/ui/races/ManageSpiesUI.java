@@ -120,7 +120,7 @@ public class ManageSpiesUI extends BasePanel implements MouseListener, MouseWhee
             g.setFont(narrowFont(20));
             col1W = s60;
             for (EmpireView view: player().contacts()) 
-                col1W = max(col1W, s30+g.getFontMetrics().stringWidth(view.empire().raceName()));       
+                col1W = max(col1W, s30+g.getFontMetrics().stringWidth(view.raceName()));       
             col2W = scaled(180);
             col3W = s70;
             col4W = scaled(120);
@@ -272,7 +272,7 @@ public class ManageSpiesUI extends BasePanel implements MouseListener, MouseWhee
         
         // race name in column 1
         g.setFont(narrowFont(20));
-        String s = view.empire().raceName();
+        String s = view.raceName();
         int w1 = x2-x;
         int sw = g.getFontMetrics().stringWidth(s);
         drawString(g,s, x+(w1-sw)/2, y1);

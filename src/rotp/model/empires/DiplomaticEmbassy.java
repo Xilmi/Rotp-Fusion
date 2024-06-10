@@ -486,7 +486,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
         // if we're not at war yet, start it and inform player if he is involved
         if (!anyWar()) {
             setTreaty(new TreatyWar(view.owner(), view.empire()));
-            if (view.empire().isPlayerControlled()) {
+            if (view.isPlayerControlled()) {
                 if ((casusBelli == null) || casusBelli.isEmpty())
                     DiplomaticNotification.createAndNotify(view, DialogueManager.DECLARE_HATE_WAR);
                 else
@@ -621,7 +621,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
         otherEmbassy().addIncident(SignAllianceIncident.create(empire(), owner()));
         GNNAllianceFormedNotice.create(owner(), empire());
         // check for military alliance win
-        if (view.owner().isPlayer() || view.empire().isPlayer()) {
+        if (view.owner().isPlayer() || view.isPlayer()) {
             if (galaxy().allAlliedWithPlayer())
                 session().status().winMilitaryAlliance();
         }

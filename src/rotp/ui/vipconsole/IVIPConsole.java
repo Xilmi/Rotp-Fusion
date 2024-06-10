@@ -477,6 +477,7 @@ public interface IVIPConsole extends Base {
 			if (isEmpty())
 				return "";
 			String[] par = entry.split("\\s+", index+1);
+			clear();
 			return par[index];
 		}
 		public boolean hasDigit()	{ return get().matches(".*\\d.*"); }

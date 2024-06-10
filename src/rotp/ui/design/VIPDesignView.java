@@ -448,8 +448,6 @@ public class VIPDesignView implements IVIPConsole {
 			design.copyFrom(player().shipLab().prototypeDesign());
 		}
 		String name = param.remains();
-		String name2 = param.remove(0);
-//		String name = param.remove(0);
 		ShipDesign targetDesign = design;
 		targetDesign.active(true);
 		targetDesign.setIconKey();

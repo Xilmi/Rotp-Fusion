@@ -3154,7 +3154,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public boolean atWar() {
         for (EmpireView v: empireViews()) {
-            if ((v != null) && !v.empire().extinct() && v.embassy().anyWar())
+            if ((v != null) && !v.extinct() && v.embassy().anyWar())
                 return true;
         }
         return false;
@@ -3338,7 +3338,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public List<EmpireView> contacts() {
         List<EmpireView> r = new ArrayList<>();
         for (EmpireView v : empireViews()) {
-            if ((v!= null) && !v.empire().extinct && v.embassy().contact())
+            if ((v!= null) && !v.extinct() && v.embassy().contact())
                 r.add(v);
         }
         return r;
@@ -3346,7 +3346,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public int numContacts() {
         int n = 0;
         for (EmpireView v : empireViews()) {
-        	if ((v!= null) && !v.empire().extinct && v.embassy().contact())
+        	if ((v!= null) && !v.extinct() && v.embassy().contact())
                 n++;
         }
         return n;
@@ -3356,7 +3356,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (emp2.extinct)
             return r;
         for (EmpireView v : empireViews()) {
-            if ((v!= null) && !v.empire().extinct && v.embassy().contact()) {
+            if ((v!= null) && !v.extinct() && v.embassy().contact()) {
                 if (v.empire() == emp2)
                     r.add(v);
                 else {
@@ -3402,7 +3402,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         boolean[] map = new boolean[empViews.length];
         for (int i=0;i<map.length;i++) {
             EmpireView v = empViews[i];
-            map[i] = (v != null) && !v.empire().extinct
+            map[i] = (v != null) && !v.extinct()
                         && (v.embassy().anyWar() || v.embassy().onWarFooting());
         }
         return map;
@@ -3410,7 +3410,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public List<EmpireView> enemyViews() {
         List<EmpireView> r = new ArrayList<>();
         for (EmpireView v : empireViews()) {
-            if ((v!= null) && !v.empire().extinct
+            if ((v!= null) && !v.extinct()
             && (v.embassy().anyWar() || v.embassy().onWarFooting()))
                 r.add(v);
         }
@@ -3419,7 +3419,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public List<EmpireView> hostiles() {
         List<EmpireView> r = new ArrayList<>();
         for (EmpireView v : empireViews()) {
-            if ((v!= null) && !v.empire().extinct && !v.embassy().isFriend())
+            if ((v!= null) && !v.extinct() && !v.embassy().isFriend())
                 r.add(v);
         }
         return r;
@@ -3446,14 +3446,14 @@ public final class Empire implements Base, NamedObject, Serializable {
     public List<Empire> allies() {
         List<Empire> r = new ArrayList<>();
         for (EmpireView v : empireViews()) {
-            if ((v!= null) && !v.empire().extinct && v.embassy().isAlly())
+            if ((v!= null) && !v.extinct() && v.embassy().isAlly())
                 r.add(v.empire());
         }
         return r;
     }
     public boolean hasAlliesKnownBy(Empire emp1) {
         for (EmpireView v : empireViews()) {
-            if ((v!= null) && !v.empire().extinct && (v.empire() != emp1) && v.embassy().isAlly() && emp1.hasContact(v.empire()))
+            if ((v!= null) && !v.extinct() && (v.empire() != emp1) && v.embassy().isAlly() && emp1.hasContact(v.empire()))
                 return true;
         }
         return false;
@@ -3461,7 +3461,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public List<Empire> alliesKnownBy(Empire emp1) {
         List<Empire> allies = new ArrayList<>();
         for (EmpireView v : empireViews()) {
-            if ((v!= null) && !v.empire().extinct && (v.empire() != emp1) && v.embassy().isAlly() && emp1.hasContact(v.empire()))
+            if ((v!= null) && !v.extinct() && (v.empire() != emp1) && v.embassy().isAlly() && emp1.hasContact(v.empire()))
                 allies.add(v.empire());
         }
         return allies;

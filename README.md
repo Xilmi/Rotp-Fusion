@@ -69,7 +69,10 @@ Later:
 
 ## What's New
 
-2024.06.08 (BR)
+2024.06.10 (BR)
+- EmpireView: added some allowed direct calls through empires() to avoid this mainly forbidden call.
+
+2024.06.09 (BR)
 - VIP Console:
   - Fixed lower / upper case issue.
   - The ship name may contain spaces, upper and lower case letters.

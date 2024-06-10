@@ -1186,7 +1186,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
             if (contact.inEconomicRange()) {
                 y3 += rowH;
                 g.setFont(narrowFont(18));
-                drawString(g,contact.empire().raceName(), x3, y3);
+                drawString(g,contact.raceName(), x3, y3);
                 g.setFont(narrowFont(15));
                 DiplomaticTreaty treaty = contact.embassy().treaty();
                 String str = treaty.status(player());
