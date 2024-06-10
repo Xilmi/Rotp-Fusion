@@ -414,7 +414,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         }
         boolean maxTech = absolute && (num == EmpireStatus.TECHNOLOGY);
         if (maxTech)
-            getEmpireListing(99);
+            getEmpireListing(EmpireStatus.TECHNOLOGY_MAX);
         else
         	getEmpireListing(num);
         
@@ -614,8 +614,8 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         playerVals = scaleVal(player().status().values(cat));
         empireVals = scaleVal(parent.selectedEmpire().status().values(cat));
         if (dualView) {
-            playerHigh = scaleVal(player().status().values(99));
-            empireHigh = scaleVal(parent.selectedEmpire().status().values(99));        	
+            playerHigh = scaleVal(player().status().values(EmpireStatus.TECHNOLOGY_MAX));
+            empireHigh = scaleVal(parent.selectedEmpire().status().values(EmpireStatus.TECHNOLOGY_MAX));        	
         }
         else {
             playerHigh = playerVals;
