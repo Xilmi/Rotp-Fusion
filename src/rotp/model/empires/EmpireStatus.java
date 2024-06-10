@@ -28,6 +28,7 @@ public class EmpireStatus implements Base, Serializable {
     final public static int PLANETS = 3;
     final public static int PRODUCTION = 4;
     final public static int POWER = 5;
+    final public static int TECHNOLOGY_MAX = 6;
 
     private final Empire empire;
     // BR: converted to float to avoid power overload!
@@ -109,7 +110,8 @@ public class EmpireStatus implements Base, Serializable {
             case EmpireStatus.PLANETS    : return text("RACES_STATUS_PLANETS");
             case EmpireStatus.PRODUCTION : return text("RACES_STATUS_PRODUCTION");
             case EmpireStatus.POWER      : return text("RACES_STATUS_TOTAL_POWER");
-        }
+            case EmpireStatus.TECHNOLOGY_MAX : return text("RACES_STATUS_TECHNOLOGY_MAX");
+       }
         return "";
     }
     public void assessTurn() {
@@ -133,8 +135,9 @@ public class EmpireStatus implements Base, Serializable {
             case EmpireStatus.PLANETS    : return planets();
             case EmpireStatus.PRODUCTION : return production();
             case EmpireStatus.POWER      : return power();
+            case EmpireStatus.TECHNOLOGY_MAX : return technologyMax();
         }
-        return technologyMax();
+        return null;
     }
     public int age(Empire viewer) {
             return galaxy().numberTurns() - lastViewTurn(viewer);
@@ -147,8 +150,9 @@ public class EmpireStatus implements Base, Serializable {
             case PLANETS:    return valueFor(planets(), lastViewTurn(viewer));
             case PRODUCTION: return valueFor(production(), lastViewTurn(viewer));
             case POWER:      return valueFor(power(), lastViewTurn(viewer));
+            case TECHNOLOGY_MAX: return valueFor(technologyMax(), lastViewTurn(viewer));
         }
-        return valueFor(technologyMax(), lastViewTurn(viewer));
+        return 0;
     }
     public int lastTurnAlive() {
     		for (int i=1; i<populationF.length; i++)

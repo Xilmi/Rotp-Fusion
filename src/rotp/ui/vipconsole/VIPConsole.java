@@ -254,7 +254,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	private	void reInit()			{ initAltIndex(); }
 	private Command initContinue()	{
 		Command cmd = new Command("Continue", "C") {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				if (RotPUI.gameUI().canContinue()) {
 					RotPUI.gameUI().continueGame();
 					return gameMenu.open("");
@@ -268,25 +268,21 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	}
 	private Command initLoadFile()	{
 		Command cmd = new Command("Load File", "L") {
-			@Override protected String execute(List<String> param) {
-				return loadMenu.open("");
-			}
+			@Override protected String execute(Entries param) { return loadMenu.open(""); }
 		};
 		cmd.cmdHelp("Open a standard file chooser to load a previously saved game.");
 		return cmd;
 	}
 	private Command initSaveFile()	{
 		Command cmd = new Command("Save File", "S") {
-			@Override protected String execute(List<String> param) {
-				return saveMenu.open("");
-			}
+			@Override protected String execute(Entries param) { return saveMenu.open(""); }
 		};
 		cmd.cmdHelp("Open a standard file chooser to save the current game.");
 		return cmd;
 	}
 	private Command initStartGame()	{
 		Command cmd = new Command("Start Game", "go", "start") {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				RotPUI.setupGalaxyUI().startGame();
 				return "";
 			}
@@ -296,7 +292,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	}
 	private Command initNextTurn()	{
 		Command cmd = new Command("Next Turn", GAME_NEXT_TURN) {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				turnReport = "";
 				session().nextTurn();
 				return "Performing Next Turn...";
@@ -307,7 +303,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	}
 	private Command initView()		{
 		Command cmd = new Command("View planets & fleets", GAME_VIEW) {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				ViewFilter filter = new ViewFilter(this, param);
 				return filter.getResult("");
 			}
@@ -344,7 +340,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	}
 	private Command initSelectTransport()	{
 		Command cmd = new Command("select Transport and gives Transport info", TRANSPORT_KEY) {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				String out = getShortGuide() + NEWLINE;
 				if (!param.isEmpty()) {
 					String s = param.get(0);
@@ -367,7 +363,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	}
 	private Command initSelectEmpire()		{
 		Command cmd = new Command("select Empire from index and gives Info", EMPIRE_KEY) {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				String out = getShortGuide() + NEWLINE;
 				// If no parameters, then return player contact info
 				if (param.isEmpty()) {
@@ -451,14 +447,14 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	}
 	private Command initSelectTechMenu()	{
 		Command cmd = new Command("Open Research Technology Menu", TECHNOLOGY_KEY) {
-			@Override protected String execute(List<String> param) { return researchMenu.open(""); }
+			@Override protected String execute(Entries param) { return researchMenu.open(""); }
 		};
 		cmd.cmdHelp("Open Research Menu");
 		return cmd;		
 	}
 	private Command initSelectDesignMenu()	{
 		Command cmd = new Command("Open Ship Design Menu", DESIGN_MENU_KEY) {
-			@Override protected String execute(List<String> param) { return designMenu.open(""); }
+			@Override protected String execute(Entries param) { return designMenu.open(""); }
 		};
 		cmd.cmdHelp("Open Ship Design Menu");
 		return cmd;		
@@ -728,7 +724,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	// private MainUI mainUI()	  { return RotPUI.instance().mainUI(); }
 	// ##### EVENTS METHODES #####
 	@Override public void actionPerformed(ActionEvent evt)	{ }
-	private void commandEntry(ActionEvent evt)	{ liveMenu().newEntry(((JTextField) evt.getSource()).getText().toUpperCase()); }
+	private void commandEntry(ActionEvent evt)	{ liveMenu().newEntry(((JTextField) evt.getSource()).getText()); }
 
 	private String optsGuide()			{
 		String out = "";
@@ -769,12 +765,12 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		fleets.clear();
 		fleets.addAll(player().getVisibleFleets());
 	}
-	private String getParam (String input, List<String> param) {
-		String[] text = input.trim().split("\\s+");
-		for (int i=1; i<text.length; i++)
-			param.add(text[i]);
-		return text[0];
-	}
+//	private String getParam (String input, List<String> param) {
+//		String[] text = input.trim().split("\\s+");
+//		for (int i=1; i<text.length; i++)
+//			param.add(text[i]);
+//		return text[0];
+//	}
 	StarSystem getSys(int altIdx)		{ return galaxy().system(altIndex2SystemIndex.get(altIdx)); }
 	public SystemView getView(int altId){ return player().sv.view(altIndex2SystemIndex.get(altId)); }
 	ShipFleet  getFleet(int idx)		{
@@ -798,10 +794,8 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		turnReport += NEWLINE + msg;
 	}
 	public String getEmpirePlanets(Empire target)	{
-		String flt = "O" + target.id;
-		List<String> param = new ArrayList<>();
-		param.add("P");
-		param.add(flt);
+		String flt = "P O" + target.id;
+		Entries param = new Entries(flt);
 		new ViewFilter(null, param);
 		String out = getSystemsSpyView();
 		return out;
@@ -1034,7 +1028,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		
 		ColonizeMenu(String name)	{ super(name); }
 		ColonizeMenu(String name, CommandMenu parent)	{ super(name, parent); }
-		@Override protected String close(String out) {
+		@Override protected String close(String out)	{
 			session().resumeNextTurnProcessing();
 			fleet  = null;
 			liveMenu(gameMenu);
@@ -1114,7 +1108,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 						settings.add(p);
 		}
 		// #####  #####
-		public String open(String out)		{
+		public String open(String out)			{
 			instance().liveMenu(this);
 			return menuGuide(out);
 		}
@@ -1123,27 +1117,76 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		private void addMenu(CommandMenu menu)	{ subMenus.add(menu); }
 		private void addSetting(IParam setting)	{ settings.add(setting); }
 		public void addCommand(Command cmd)	{ commands.add(cmd); }
+//		protected void newEntry(String entry)	{
+//			List<String> param = new ArrayList<>();
+//			String txt = entry.trim();
+//			String txtU = txt.toUpperCase();
+//			err("Console Command = " + txt);
+//			// For debug purpose only
+//			if (txt.equalsIgnoreCase("SHOW MAIN")) {
+//				Rotp.setVisible(true);
+//				frame.setVisible(true);
+//				return;
+//			}
+//			if (txt.equalsIgnoreCase("HIDE MAIN")) {
+//				Rotp.setVisible(false);
+//				return;
+//			}
+//			// \debug
+//			instance().lastCmd.remove(txtU); // To keep unique and at last position
+//			if (!txtU.isEmpty())
+//				instance().lastCmd.add(txtU);
+//			String cmd = instance().getParam(txt, param).toUpperCase(); // this will remove the cmd from param list
+//			String out = "Command = " + txt + NEWLINE;
+//			boolean hasDigit = cmd.matches(".*\\d.*");
+//			String cmd0 = "";
+//			String cmd1 = "";
+//			if (hasDigit) {
+//				cmd0 = cmd.replaceAll("[^a-zA-Z]", "");
+//				cmd1 = cmd.replaceAll("[*a-zA-Z]", "");
+//			}
+//			for (Command c : commands) {
+//				if (c.isKey(cmd)) {
+//					if (param.contains(HELP))
+//						out += c.cmdHelp();
+//					else
+//						out += c.execute(param);
+//					instance().commandField.setText("");
+//					instance().resultPane.setText(out);
+//					return;
+//				}
+//				else if (hasDigit && c.isKey(cmd0)) {
+//					param.add(0, cmd1);
+//					if (param.contains(HELP))
+//						out += c.cmdHelp();
+//					else
+//						out += c.execute(param);
+//					instance().commandField.setText("");
+//					instance().resultPane.setText(out);
+//					return;
+//				}
+//			}
+//			otherCase(cmd, out, param, hasDigit, cmd0, cmd1);
+//		}
 		protected void newEntry(String entry)	{
-			List<String> param = new ArrayList<>();
-			String txt = entry.trim();
-			String txtU = txt.toUpperCase();
-			err("Console Command = " + txt);
+			Entries param = new Entries(entry);
+			err("Console Command = " + param.rawEntry());
 			// For debug purpose only
-			if (txt.equalsIgnoreCase("SHOW MAIN")) {
+			if (param.rawEntry().equalsIgnoreCase("SHOW MAIN")) {
 				Rotp.setVisible(true);
 				frame.setVisible(true);
 				return;
 			}
-			if (txt.equalsIgnoreCase("HIDE MAIN")) {
+			if (param.rawEntry().equalsIgnoreCase("HIDE MAIN")) {
 				Rotp.setVisible(false);
 				return;
 			}
 			// \debug
-			instance().lastCmd.remove(txtU); // To keep unique and at last position
-			if (!txtU.isEmpty())
-				instance().lastCmd.add(txtU);
-			String cmd = instance().getParam(txt, param).toUpperCase(); // this will remove the cmd from param list
-			String out = "Command = " + txt + NEWLINE;
+			instance().lastCmd.remove(param.entry()); // To keep unique and at last position
+			if (!param.isEmpty())
+				instance().lastCmd.add(param.entry());
+			String cmd = param.remove();
+			String out = "Command = " + param.rawEntry() + NEWLINE;
 			boolean hasDigit = cmd.matches(".*\\d.*");
 			String cmd0 = "";
 			String cmd1 = "";
@@ -1163,7 +1206,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 				}
 				else if (hasDigit && c.isKey(cmd0)) {
 					param.add(0, cmd1);
-					if (param.contains("?"))
+					if (param.contains(HELP))
 						out += c.cmdHelp();
 					else
 						out += c.execute(param);
@@ -1174,14 +1217,14 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 			}
 			otherCase(cmd, out, param, hasDigit, cmd0, cmd1);
 		}
-		private String safeRemove(List<String> param, int id) {
-			if (param == null)
-				return "";
-			if (param.size() <= id)
-				return "";
-			return param.remove(id);
-		}
-		private void otherCase(String cmd, String out, List<String> param,
+//		private String safeRemove(List<String> param, int id) {
+//			if (param == null)
+//				return "";
+//			if (param.size() <= id)
+//				return "";
+//			return param.remove(id);
+//		}
+		private void otherCase(String cmd, String out, Entries param,
 								boolean hasDigit, String cmd0, String cmd1) {
 			switch (cmd) {
 				case ""		: out = menuGuide(out);		break;
@@ -1191,17 +1234,17 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 					instance().commandField.setText("");
 					close(out);
 					return;
-				case OPTION_KEY			: out = optionEntry(out, safeRemove(param, 0), param);	break;
+				case OPTION_KEY			: out = optionEntry(out, param.next(), param);	break;
 				case OPTION_KEY + "+"	: out = optionEntry(out, "+", param);	break;
 				case OPTION_KEY + "-"	: out = optionEntry(out, "-", param);	break;
 				case OPTION_KEY + "*"	: out = optionEntry(out, "*", param);	break;
 				case OPTION_KEY + "="	: out = optionEntry(out, "=", param);	break;
-				case SETTING_KEY		: out = settingEntry(out, safeRemove(param, 0), param);	break;
+				case SETTING_KEY		: out = settingEntry(out, param.next(), param);	break;
 				case SETTING_KEY + "+"	: out = settingEntry(out, "+", param);	break;
 				case SETTING_KEY + "-"	: out = settingEntry(out, "-", param);	break;
 				case SETTING_KEY + "*"	: out = settingEntry(out, "*", param);	break;
 				case SETTING_KEY + "="	: out = settingEntry(out, "=", param);	break;
-				case MENU_KEY			: out = menuEntry(out, safeRemove(param, 0), param);	break;
+				case MENU_KEY			: out = menuEntry(out, param.next(), param);	break;
 				case MENU_KEY + "+"		: out = menuEntry(out, "+", param);	break;
 				case MENU_KEY + "-"		: out = menuEntry(out, "-", param);	break;
 				case MENU_KEY + "*"		: out = menuEntry(out, "*", param);	break;
@@ -1228,38 +1271,38 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 			instance().commandField.setText("");
 			instance().resultPane.setText(out);
 		}
-		private String menuEntry(String out, String cmd, List<String> p) {
+		private String menuEntry(String out, String cmd, Entries param) {
 			switch (cmd) {
 				case ""	:
 				case "?":
 				case "*": return menuList(out);
 				case "+": return menuNext(out);
 				case "-": return menuPrev(out);
-				case "=": return menuSelect(out, p.get(0));
+				case "=": return menuSelect(out, param.get(0));
 				default	:
 					return menuSelect(out, cmd);
 			}
 		}
-		private String settingEntry(String out, String cmd, List<String> p) {
+		private String settingEntry(String out, String cmd, Entries param) {
 			switch (cmd	) {
 				case ""	:
 				case "?":
 				case "*": return settingList(out);
 				case "+": return settingNext(out);
 				case "-": return settingPrev(out);
-				case "=": return settingSelect(out, p.get(0));
+				case "=": return settingSelect(out, param.get(0));
 				default	:
 					return settingSelect(out, cmd);
 			}
 		}
-		private String optionEntry(String out, String cmd, List<String> p) {
+		private String optionEntry(String out, String cmd, Entries param) {
 			switch (cmd	) {
 				case ""	:
 				case "?":
 				case "*": return optionList(out);
 				case "+": return optionNext(out);
 				case "-": return optionPrev(out);
-				case "=": return optionSelect(out, p.get(0));
+				case "=": return optionSelect(out, param.get(0));
 				default	:
 					return optionSelect(out, cmd);
 			}
@@ -1435,7 +1478,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		private final String description;
 		private String cmdHelp	= "";
 		private String cmdParam	= "";
-		protected String execute(List<String> param) { return "Unimplemented command!" + NEWLINE; }
+		protected String execute(Entries param) { return "Unimplemented command!" + NEWLINE; }
 		public Command(String descr, String... keys) {
 			description = descr;
 			for (String key : keys)
@@ -1472,7 +1515,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 
 		String getResult(String out)	{ return out + result; } 
 
-		ViewFilter(Command cmd, List<String> filters)	{
+		ViewFilter(Command cmd, Entries filters)	{
 			if (filters.contains("?")) {
 				result = cmd.description + NEWLINE + cmd.cmdHelp();
 				return;
@@ -1701,4 +1744,5 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 			}
 		}
 	}
+	// ################### SUB CLASS VIEW FILTER ######################
 }

@@ -5,8 +5,6 @@ import static rotp.model.ships.ShipDesign.maxSpecials;
 import static rotp.model.ships.ShipDesign.maxWeapons;
 import static rotp.model.ships.ShipDesignLab.MAX_DESIGNS;
 
-import java.util.List;
-
 import rotp.model.ships.ShipComponent;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipEngine;
@@ -73,21 +71,21 @@ public class VIPDesignView implements IVIPConsole {
 
 	private Command initAutoScout()			{
 		Command cmd = new Command("Toggle auto Scout", DESIGN_AUTO_SCOUT) {
-			@Override protected String execute(List<String> param) { return processAutoScout(param); }
+			@Override protected String execute(Entries param) { return processAutoScout(param); }
 		};
 		cmd.cmdHelp(text("GOVERNOR_AUTO_SCOUT_DESC"));
 		return cmd;		
 	}
 	private Command initAutoAttack()		{
 		Command cmd = new Command("Toggle auto Attack", DESIGN_AUTO_ATTACK) {
-			@Override protected String execute(List<String> param) { return processAutoAttack(param); }
+			@Override protected String execute(Entries param) { return processAutoAttack(param); }
 		};
 		cmd.cmdHelp(text("GOVERNOR_AUTO_SCOUT_DESC"));
 		return cmd;		
 	}
 	private Command initAutoColonize()		{
 		Command cmd = new Command("Toggle auto Colonize", DESIGN_AUTO_COLONY) {
-			@Override protected String execute(List<String> param) { return processAutoColonize(param); }
+			@Override protected String execute(Entries param) { return processAutoColonize(param); }
 		};
 		cmd.cmdHelp(text("GOVERNOR_AUTO_SCOUT_DESC"));
 		return cmd;		
@@ -95,42 +93,42 @@ public class VIPDesignView implements IVIPConsole {
 
 	private Command initAutoBuild()			{
 		Command cmd = new Command("Automatically design the most suitable ship", DESIGN_AUTO_BUILD) {
-			@Override protected String execute(List<String> param) { return processAutoBuild(param); }
+			@Override protected String execute(Entries param) { return processAutoBuild(param); }
 		};
 		cmd.cmdHelp("No secondary options");
 		return cmd;		
 	}
 	private Command initDesignFighter()		{
 		Command cmd = new Command("Automatically design a Fighter ship", DESIGN_FIGHTER) {
-			@Override protected String execute(List<String> param) { return processFighter(param); }
+			@Override protected String execute(Entries param) { return processFighter(param); }
 		};
 		cmd.cmdHelp("No secondary options");
 		return cmd;		
 	}
 	private Command initDesignColony()		{
 		Command cmd = new Command("Automatically design a Colony ship", DESIGN_COLONY) {
-			@Override protected String execute(List<String> param) { return processColony(param); }
+			@Override protected String execute(Entries param) { return processColony(param); }
 		};
 		cmd.cmdHelp("No secondary options");
 		return cmd;		
 	}
 	private Command initDesignScout()		{
 		Command cmd = new Command("Automatically design a Scout ship", DESIGN_SCOUT) {
-			@Override protected String execute(List<String> param) { return processScout(param); }
+			@Override protected String execute(Entries param) { return processScout(param); }
 		};
 		cmd.cmdHelp("No secondary options");
 		return cmd;		
 	}
 	private Command initDesignBomber()		{
 		Command cmd = new Command("Automatically design a Bomber ship", DESIGN_BOMBER) {
-			@Override protected String execute(List<String> param) { return processBomber(param); }
+			@Override protected String execute(Entries param) { return processBomber(param); }
 		};
 		cmd.cmdHelp("No secondary options");
 		return cmd;		
 	}
 	private Command initSelectSpecialSlot()	{
 		Command cmd = new Command("Select Special Device Slot", DESIGN_SPECIAL_SLOT) {
-			@Override protected String execute(List<String> param) { return processSpecialSlot(param); }
+			@Override protected String execute(Entries param) { return processSpecialSlot(param); }
 		};
 		cmd.cmdParam(" SlotId");
 		cmd.cmdHelp("No secondary options");
@@ -138,7 +136,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initSelectSpecialType()	{
 		Command cmd = new Command("Select Special Device Type", DESIGN_SPECIAL_TYPE) {
-			@Override protected String execute(List<String> param) { return processSpecialType(param); }
+			@Override protected String execute(Entries param) { return processSpecialType(param); }
 		};
 		cmd.cmdParam(" TypeId");
 		cmd.cmdHelp("No secondary options");
@@ -146,7 +144,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initSelectWeaponSlot()	{
 		Command cmd = new Command("Select Weapon Slot", DESIGN_WEAPON_SLOT) {
-			@Override protected String execute(List<String> param) { return processWeaponSlot(param); }
+			@Override protected String execute(Entries param) { return processWeaponSlot(param); }
 		};
 		cmd.cmdParam(" SlotId");
 		cmd.cmdHelp("No secondary options");
@@ -154,7 +152,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initSelectWeaponType()	{
 		Command cmd = new Command("Select Weapon", DESIGN_WEAPON_TYPE) {
-			@Override protected String execute(List<String> param) { return processWeaponType(param); }
+			@Override protected String execute(Entries param) { return processWeaponType(param); }
 		};
 		cmd.cmdParam(" TypeId");
 		cmd.cmdHelp("No secondary options");
@@ -162,7 +160,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initSelectWeaponCount()	{
 		Command cmd = new Command("Select Weapon", DESIGN_WEAPON_COUNT) {
-			@Override protected String execute(List<String> param) { return processWeaponCount(param); }
+			@Override protected String execute(Entries param) { return processWeaponCount(param); }
 		};
 		cmd.cmdParam(" Count");
 		cmd.cmdHelp("No secondary options");
@@ -170,7 +168,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initSelectEcm()			{
 		Command cmd = new Command("Select Ecm", DESIGN_ECM) {
-			@Override protected String execute(List<String> param) { return processEcm(param); }
+			@Override protected String execute(Entries param) { return processEcm(param); }
 		};
 		cmd.cmdParam(" Index");
 		cmd.cmdHelp("No secondary options");
@@ -178,7 +176,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initSelectShield()		{
 		Command cmd = new Command("Select Shield", DESIGN_SHIELD) {
-			@Override protected String execute(List<String> param) { return processShield(param); }
+			@Override protected String execute(Entries param) { return processShield(param); }
 		};
 		cmd.cmdParam(" Index");
 		cmd.cmdHelp("No secondary options");
@@ -186,7 +184,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initSelectArmor()		{
 		Command cmd = new Command("Select Design", DESIGN_ARMOR) {
-			@Override protected String execute(List<String> param) { return processArmor(param); }
+			@Override protected String execute(Entries param) { return processArmor(param); }
 		};
 		cmd.cmdParam(" Index");
 		cmd.cmdHelp("No secondary options");
@@ -194,7 +192,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initSelectComputer()	{
 		Command cmd = new Command("Select Computer", DESIGN_COMPUTER) {
-			@Override protected String execute(List<String> param) { return processComputer(param); }
+			@Override protected String execute(Entries param) { return processComputer(param); }
 		};
 		cmd.cmdParam(" Index");
 		cmd.cmdHelp("No secondary options");
@@ -202,7 +200,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initSelectManeuver()	{
 		Command cmd = new Command("Select Combat Speed", DESIGN_MANEUVER) {
-			@Override protected String execute(List<String> param) { return processManeuver(param); }
+			@Override protected String execute(Entries param) { return processManeuver(param); }
 		};
 		cmd.cmdParam(" Index");
 		cmd.cmdHelp("No secondary options");
@@ -210,7 +208,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initSelectEngine()		{
 		Command cmd = new Command("Select Engine", DESIGN_ENGINE) {
-			@Override protected String execute(List<String> param) { return processEngine(param); }
+			@Override protected String execute(Entries param) { return processEngine(param); }
 		};
 		cmd.cmdParam(" Index");
 		cmd.cmdHelp("No secondary options");
@@ -218,7 +216,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initSelectHull()		{
 		Command cmd = new Command("Select Hull size", DESIGN_HULL) {
-			@Override protected String execute(List<String> param) { return processHull(param); }
+			@Override protected String execute(Entries param) { return processHull(param); }
 		};
 		cmd.cmdParam(" Index");
 		cmd.cmdHelp("No secondary options");
@@ -226,7 +224,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private Command initCopyDesign()		{
 		Command cmd = new Command("Copy Design", DESIGN_COPY) {
-			@Override protected String execute(List<String> param) { return processCopy(param); }
+			@Override protected String execute(Entries param) { return processCopy(param); }
 		};
 		cmd.cmdParam(" DesignId");
 		cmd.cmdHelp("Copy from DesignId");
@@ -234,14 +232,14 @@ public class VIPDesignView implements IVIPConsole {
 	}	
 	private Command initScrapDesign()		{
 		Command cmd = new Command("Scrap Design", DESIGN_SCRAP) {
-			@Override protected String execute(List<String> param) { return processScrap(param); }
+			@Override protected String execute(Entries param) { return processScrap(param); }
 		};
 		cmd.cmdHelp(text("SHIP_DESIGN_HELP_4B"));
 		return cmd;		
 	}	
 	private Command initClearDesign()		{
 		Command cmd = new Command("Copy Design", DESIGN_CLEAR) {
-			@Override protected String execute(List<String> param) { return processClear(param); }
+			@Override protected String execute(Entries param) { return processClear(param); }
 		};
 		cmd.cmdParam(optional(CLEAR_WEAPONS_ONLY));
 		cmd.cmdHelp("Resets all of the selected components, for undeployed design only"
@@ -250,7 +248,7 @@ public class VIPDesignView implements IVIPConsole {
 	}	
 	private Command initDeployDesign()		{
 		Command cmd = new Command("Deploy Design", DESIGN_DEPLOY) {
-			@Override protected String execute(List<String> param) { return processDeploy(param); }
+			@Override protected String execute(Entries param) { return processDeploy(param); }
 		};
 		cmd.cmdParam(" ShipName");
 		cmd.cmdHelp(text("SHIP_DESIGN_HELP_4G")
@@ -259,7 +257,7 @@ public class VIPDesignView implements IVIPConsole {
 	}	
 	private Command initSelectDesign()		{
 		Command cmd = new Command("Select Design", DESIGN_SELECT) {
-			@Override protected String execute(List<String> param) { return processDesign(param); }
+			@Override protected String execute(Entries param) { return processDesign(param); }
 		};
 		cmd.cmdParam(" Index");
 		cmd.cmdHelp("No secondary options");
@@ -267,7 +265,7 @@ public class VIPDesignView implements IVIPConsole {
 	}	
 	private Command initGlobalInfo()		{
 		Command cmd = new Command("Show Global Info", DESIGN_INFO) {
-			@Override protected String execute(List<String> param) { return designSlotsOptions(); }
+			@Override protected String execute(Entries param) { return designSlotsOptions(); }
 		};
 		//cmd.cmdParam(" Index");
 		cmd.cmdHelp("No secondary options");
@@ -317,7 +315,7 @@ public class VIPDesignView implements IVIPConsole {
 		return menu;
 	}
 
-	private String processAutoScout(List<String> param)		{
+	private String processAutoScout(Entries param)		{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
 		ShipDesign shipDesign = shipDesign();
@@ -329,7 +327,7 @@ public class VIPDesignView implements IVIPConsole {
 		String out = "Auto Scout has been set to " + shipDesign.isAutoScout();
 		return out;
 	}
-	private String processAutoColonize(List<String> param)	{
+	private String processAutoColonize(Entries param)	{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
 		ShipDesign shipDesign = shipDesign();
@@ -352,7 +350,7 @@ public class VIPDesignView implements IVIPConsole {
 				return "This ship has no colony ability";
 		}
 	}
-	private String processAutoAttack(List<String> param)	{
+	private String processAutoAttack(Entries param)	{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
 		ShipDesign shipDesign = shipDesign();
@@ -375,7 +373,7 @@ public class VIPDesignView implements IVIPConsole {
 				return "This ship is unarmed";
 		}
 	}
-	private String processAutoBuild(List<String> param)	{
+	private String processAutoBuild(Entries param)	{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
 		configPanel().autoDesign();
@@ -385,7 +383,7 @@ public class VIPDesignView implements IVIPConsole {
 		out += NEWLINE + summaryInfo();
 		return out;
 	}
-	private String processFighter(List<String> param)	{
+	private String processFighter(Entries param)	{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
 		configPanel().autoDesignFighter();
@@ -395,7 +393,7 @@ public class VIPDesignView implements IVIPConsole {
 		out += NEWLINE + summaryInfo();
 		return out;
 	}
-	private String processColony(List<String> param)	{
+	private String processColony(Entries param)		{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
 		configPanel().autoDesignColony();
@@ -405,7 +403,7 @@ public class VIPDesignView implements IVIPConsole {
 		out += NEWLINE + summaryInfo();
 		return out;
 	}
-	private String processScout(List<String> param)		{
+	private String processScout(Entries param)		{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
 		configPanel().autoDesignScout();
@@ -415,7 +413,7 @@ public class VIPDesignView implements IVIPConsole {
 		out += NEWLINE + summaryInfo();
 		return out;
 	}
-	private String processBomber(List<String> param)	{
+	private String processBomber(Entries param)		{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
 		configPanel().autoDesignBomber();
@@ -426,7 +424,7 @@ public class VIPDesignView implements IVIPConsole {
 		return out;
 	}
 
-	private String processDeploy(List<String> param)	{
+	private String processDeploy(Entries param)		{
 		ShipDesign design = shipDesign();
 		if (design.active())
 			return "Error: Design is already deployed";
@@ -449,7 +447,9 @@ public class VIPDesignView implements IVIPConsole {
 			selectSlot(firstAvailable);
 			design.copyFrom(player().shipLab().prototypeDesign());
 		}
-		String name = param.remove(0);
+		String name = param.remains();
+		String name2 = param.remove(0);
+//		String name = param.remove(0);
 		ShipDesign targetDesign = design;
 		targetDesign.active(true);
 		targetDesign.setIconKey();
@@ -460,7 +460,7 @@ public class VIPDesignView implements IVIPConsole {
 		String out = name + " has been deployed";
 		return out;
 	}
-	private String processCopy(List<String> param)		{
+	private String processCopy(Entries param)		{
 		String out = "";
 		if (param.isEmpty())
 			return "Missing parameter: Source design";
@@ -486,7 +486,7 @@ public class VIPDesignView implements IVIPConsole {
 		out += NEWLINE + summaryInfo();
 		return out;
 	}
-	private String processClear(List<String> param)		{
+	private String processClear(Entries param)		{
 		ShipDesign design = shipDesign();
 		if (design.active())
 			return "Deployed design can not be cleared";
@@ -506,7 +506,7 @@ public class VIPDesignView implements IVIPConsole {
 		else
 			return "error: invalid parameter " + str;
 	}
-	private String processScrap(List<String> param)		{
+	private String processScrap(Entries param)		{
 		if (!param.isEmpty()) {
 			return "error: No parameters expected." + param.toString();
 		}
@@ -539,7 +539,7 @@ public class VIPDesignView implements IVIPConsole {
 		return out;
 	}
 	
-	private String processDesign(List<String> param)	{
+	private String processDesign(Entries param)	{
 		if (param.isEmpty())
 			return designSlotsOptions();
 
@@ -724,7 +724,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private String designComponents()			{ return designComponents(selectedSlot()); }
 
-	private String processHull(List<String> param)		{
+	private String processHull(Entries param)		{
 		String out = "Selected ";
 		if (param.isEmpty()) {
 			out += hullInfo();
@@ -777,7 +777,7 @@ public class VIPDesignView implements IVIPConsole {
 	private void setHull(int tag)				{ selectHull(tag-1); }
 	private String hullComponent(ShipDesign design)	{ return hullInfo(design.size()); }
 
-	private String processEngine(List<String> param)	{
+	private String processEngine(Entries param)	{
 		String out = "";
 		if (param.isEmpty())
 			return engineOptions();
@@ -850,7 +850,7 @@ public class VIPDesignView implements IVIPConsole {
 		return out;
 	}
 
-	private String processWeaponSlot(List<String> param)	{
+	private String processWeaponSlot(Entries param)	{
 		String out = "";
 		if (param.isEmpty()) {
 			out += weaponsInfo();
@@ -871,7 +871,7 @@ public class VIPDesignView implements IVIPConsole {
 		out += NEWLINE + costAndSpaceInfo();
 		return out;
 	}
-	private String processWeaponType(List<String> param)	{
+	private String processWeaponType(Entries param)	{
 		String out = "";
 		if (param.isEmpty()) {
 			out += weaponsInfo();
@@ -894,7 +894,7 @@ public class VIPDesignView implements IVIPConsole {
 		out += NEWLINE + costAndSpaceInfo();
 		return out;
 	}
-	private String processWeaponCount(List<String> param)	{
+	private String processWeaponCount(Entries param)	{
 		String out = "";
 		if (param.isEmpty()) {
 			out += weaponsInfo();
@@ -961,7 +961,7 @@ public class VIPDesignView implements IVIPConsole {
 		return out;
 	}
 
-	private String processSpecialSlot(List<String> param)	{
+	private String processSpecialSlot(Entries param)	{
 		String out = "";
 		if (param.isEmpty()) {
 			out += specialInfo();
@@ -982,7 +982,7 @@ public class VIPDesignView implements IVIPConsole {
 		out += NEWLINE + costAndSpaceInfo();
 		return out;
 	}
-	private String processSpecialType(List<String> param)	{
+	private String processSpecialType(Entries param)	{
 		String out = "";
 		if (param.isEmpty()) {
 			out += specialInfo();
@@ -1045,7 +1045,7 @@ public class VIPDesignView implements IVIPConsole {
 		return out;
 	}
 
-	private String processComputer(List<String> param)	{
+	private String processComputer(Entries param)	{
 		String out = "";
 		if (param.isEmpty())
 			return computerOptions();
@@ -1086,7 +1086,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private String computerComponent(ShipDesign design)	{ return computerInfo(design); }
 
-	private String processArmor(List<String> param)		{
+	private String processArmor(Entries param)		{
 		String out = "";
 		if (param.isEmpty())
 			return armorOptions();
@@ -1127,7 +1127,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private String armorComponent(ShipDesign design)	{ return armorInfo(design); }
 
-	private String processShield(List<String> param)	{
+	private String processShield(Entries param)	{
 		String out = "";
 		if (param.isEmpty())
 			return shieldOptions();
@@ -1168,7 +1168,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private String shieldComponent(ShipDesign design)	{ return shieldInfo(design); }
 
-	private String processEcm(List<String> param)		{
+	private String processEcm(Entries param)		{
 		String out = "";
 		if (param.isEmpty())
 			return ecmOptions();
@@ -1209,7 +1209,7 @@ public class VIPDesignView implements IVIPConsole {
 	}
 	private String ecmComponent(ShipDesign design)	{ return ecmInfo(design); }
 
-	private String processManeuver(List<String> param)	{
+	private String processManeuver(Entries param)	{
 		String out = "";
 		if (param.isEmpty())
 			return maneuverOptions();

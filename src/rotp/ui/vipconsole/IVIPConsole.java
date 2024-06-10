@@ -2,7 +2,10 @@ package rotp.ui.vipconsole;
 
 import static rotp.ui.vipconsole.VIPConsole.instance;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
@@ -410,4 +413,72 @@ public interface IVIPConsole extends Base {
 		return out;
 	}
 	default String viewEmpiresContactInfo()	{ return viewEmpiresContactInfo(player().contactedEmpires()); }
+
+	public class Entries extends ArrayList<String> {
+		private final String entry;
+		private int	index;
+		Entries(String str)			{
+			entry = str.trim();
+			String[] text = entry.split("\\s+");
+			for (int i=0; i<text.length; i++)
+				add(text[i]);
+			index = 0;
+		}
+		@Override public String get(int idx)		{ return super.get(idx).toUpperCase(); }
+		@Override public String remove(int idx)		{ return rawRemove(idx).toUpperCase(); }
+		@Override public boolean remove(Object o)	{
+			if (super.remove(o)) {
+				index ++;
+				return true;
+			}
+			return false;
+		}
+		@Override public void add(int id, String s)	{
+			index --;
+			super.add(id, s);
+		}
+		@Override public boolean add(String s)		{
+			index --;
+			return super.add(s);
+		}
+	    @Override public Iterator<String> iterator()				{ return ucL().iterator(); }
+	    @Override public ListIterator<String> listIterator()		{ return ucL().listIterator(); }
+	    @Override public ListIterator<String> listIterator(int idx)	{ return ucL().listIterator(idx); }
+
+	    private ArrayList<String> ucL()	{
+	    	ArrayList<String> src = new ArrayList<>((ArrayList<String>) this);
+	    	ArrayList<String> ucL = new ArrayList<>();
+	    	for (String s : src)
+	    		ucL.add(s.toUpperCase());
+	    	return ucL;
+	    }
+//		public boolean contains(String s)		{
+//			for (String str : this) {
+//				if (str.equalsIgnoreCase(s))
+//					return true;
+//			}
+//			return false;
+//		}
+		public boolean rawContains(String s)	{ return super.contains(s); }
+		public String rawRemove(int idx)		{
+			if (idx >= size())
+				return "";
+			index++;
+			return super.remove(idx);
+		}
+		public String remove()					{ return remove(0); }
+		public String next()					{ return remove(0); }
+		public String get()						{ return get(0); }
+		public String rawRemove()				{ return rawRemove(0); }
+		public String rawGet(int idx)			{ return super.get(idx); }
+		public String rawEntry()				{ return entry; }
+		public String entry()					{ return rawEntry().toUpperCase(); }
+		public String remains()					{
+			if (isEmpty())
+				return "";
+			String[] par = entry.split("\\s+", index+1);
+			return par[index];
+		}
+		public boolean hasDigit()	{ return get().matches(".*\\d.*"); }
+	}
 }

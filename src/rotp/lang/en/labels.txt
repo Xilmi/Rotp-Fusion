@@ -3841,6 +3841,7 @@ RACES_STATUS_OLD_DATA             | Old Data
 RACES_STATUS_FLEET_STRENGTH       | Fleet Strength
 RACES_STATUS_POPULATION           | Population
 RACES_STATUS_TECHNOLOGY           | Technology
+RACES_STATUS_TECHNOLOGY_MAX       | Technology Max
 RACES_STATUS_PLANETS              | Planets
 RACES_STATUS_PRODUCTION           | Production
 RACES_STATUS_TOTAL_POWER          | Total Power

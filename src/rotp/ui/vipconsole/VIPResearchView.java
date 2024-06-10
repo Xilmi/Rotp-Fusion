@@ -34,7 +34,7 @@ public class VIPResearchView implements IVIPConsole {
 
 	private Command initShowUnknownTechInCategory()	{
 		Command cmd = new Command("select Category and list unknown technologies", TECH_UNKNOWN) {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				String out = "";
 				if (!param.isEmpty()) {
 					String s = param.get(0);
@@ -53,7 +53,7 @@ public class VIPResearchView implements IVIPConsole {
 	}
 	private Command initSelectCategory()	{
 		Command cmd = new Command("select Category and list technologies", TECH_CATEGORY) {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				String out = "";
 				if (!param.isEmpty()) {
 					String s = param.get(0);
@@ -72,7 +72,7 @@ public class VIPResearchView implements IVIPConsole {
 	}
 	private Command initSpending()			{
 		Command cmd = new Command("Show and Change spendings", TECH_SPENDING) {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				String out = processSpending(param);
 				out += NEWLINE + showSpending();
 				return out;
@@ -95,7 +95,7 @@ public class VIPResearchView implements IVIPConsole {
 	}
 	private Command initSelectTechnology()	{
 		Command cmd = new Command("select Category to be researched", TECH_SELECT) {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				String out = "";
 				if (!param.isEmpty()) {
 					String s = param.get(0);
@@ -113,7 +113,7 @@ public class VIPResearchView implements IVIPConsole {
 	}
 	private Command initGlobalInfo()		{
 		Command cmd = new Command("Show Global Info", TECH_INFO) {
-			@Override protected String execute(List<String> param) { return showGlobalInfo(); }
+			@Override protected String execute(Entries param) { return showGlobalInfo(); }
 		};
 		//cmd.cmdParam(" Index");
 		cmd.cmdHelp("No secondary options");
@@ -141,7 +141,7 @@ public class VIPResearchView implements IVIPConsole {
 
 		return menu;
 	}
-	private String processSpending(List<String> param)	{
+	private String processSpending(Entries param)	{
 		String out = "";
 		if (param.isEmpty())
 			return out;

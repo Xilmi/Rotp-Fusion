@@ -71,6 +71,14 @@ Later:
 
 2024.06.08 (BR)
 - VIP Console:
+  - Fixed lower / upper case issue.
+  - Ship's name can contains spaces, upper and lower cases.
+
+2024.06.09 (Xilmi)
+- Missiles are no longer taken into consideration in the facingOverwhelmingForce-check of the retreat-logic. This prevents stacks from retreating when their opponents would run out of missiles due to firing them at other stacks.
+
+2024.06.08 (BR)
+- VIP Console:
   - Added Council management.
   - Graphics mode will be set to low when the VIP console is active.
   - Fixed missing initialization when main window stay hidden.
@@ -80,6 +88,8 @@ Later:
 
 2024.06.08 (Xilmi)
 - Fixed an issue where the AI didn't consider that missile-bases stop dealing damage when all population of a planet is killed. This lead to the AI not daring to attack planets with missile-bases when they only had biological weapons.
+- When tech-stealing is disabled, the AI will no longer consider using a security-tax.
+- Removed the "smart" logic that handles pop-transportation differently based on richness. Tests showed that treating each planet the same in this regard leads to an overall faster empire-growth of 25% for a rich-homeworld-start.
 
 2024.06.07 (Xilmi)
 - Implemented AI-confidence-feature.

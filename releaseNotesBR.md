@@ -2,16 +2,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- VIP Console: Should be fully playable now... (Not fully tested with main window hidden)
-  - Added Council management.
-  - Fixed missing initialization when main window stay hidden.
-  - Temporary fix to capitalization issue.
-    - Fixed crash when trying to send non player fleet.
-  - Fixed crash when trying to include to many designs.
+- VIP Console:
+  - Fixed lower / upper case issue.
+  - Ship's name can contains spaces, upper and lower cases.
 
 - Xilmi new additions
-  - Implemented AI-confidence-feature.
-  - Fixed an issue where the AI didn't consider that missile-bases stop dealing damage when all population of a planet is killed. This lead to the AI not daring to attack planets with missile-bases when they only had biological weapons.
+- Missiles are no longer taken into consideration in the facingOverwhelmingForce-check of the retreat-logic. This prevents stacks from retreating when their opponents would run out of missiles due to firing them at other stacks.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -178,7 +174,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - Alt-F : Auto Build Fighter
     - Alt-P : Auto Build Colony (Pioneer)
     - Alt-E : Auto Build Scout (Explorer)
-
+- (Xilmi) Missiles are no longer taken into consideration in the facingOverwhelmingForce-check of the retreat-logic. This prevents stacks from retreating when their opponents would run out of missiles due to firing them at other stacks.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.

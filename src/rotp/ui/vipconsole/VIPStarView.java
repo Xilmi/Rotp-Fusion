@@ -1,7 +1,5 @@
 package rotp.ui.vipconsole;
 
-import java.util.List;
-
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemInfo;
@@ -325,7 +323,7 @@ public class VIPStarView implements IVIPConsole {
 		}
 		return out;		
 	}
-	private String spending(int category, List<String> param, String out)	{
+	private String spending(int category, Entries param, String out)	{
 		if (param.isEmpty()) {
 			return out + "Error: Missing parameter ";
 		}
@@ -376,19 +374,19 @@ public class VIPStarView implements IVIPConsole {
         	out += "Governor is disabled";
 		return out;
 	}
-	String shipSpending(List<String> param, String out)	{
+	String shipSpending(Entries param, String out)	{
 		out += "Ship spending: ";
 		return spending(Colony.SHIP, param, out);
 	}
-	String defSpending(List<String> param, String out)	{
+	String defSpending(Entries param, String out)	{
 		out += "Defense spending: ";
 		return spending(Colony.DEFENSE, param, out);
 	}
-	String indSpending(List<String> param, String out)	{
+	String indSpending(Entries param, String out)	{
 		out += "Industry spending: ";
 		return spending(Colony.INDUSTRY, param, out);
 	}
-	String ecoSpending(List<String> param, String out)	{
+	String ecoSpending(Entries param, String out)	{
 		int category = Colony.ECOLOGY;
 		out += "Ecology spending: ";
 		if (param.isEmpty()) {
@@ -431,11 +429,11 @@ public class VIPStarView implements IVIPConsole {
 				return out + "Set to " + (int)(pct*100) + "%";
 		}
 	}
-	String techSpending(List<String> param, String out)	{
+	String techSpending(Entries param, String out)	{
 		out += "Technology spending: ";
 		return spending(Colony.RESEARCH, param, out);
 	}
-	String shipBuilding(List<String> param, String out)	{
+	String shipBuilding(Entries param, String out)	{
 		out += "Ship Building ";
 		if (param.isEmpty()) {
 			return out + "Error: Missing parameter ";
@@ -463,7 +461,7 @@ public class VIPStarView implements IVIPConsole {
 		colony.shipyard().design(d);
 		return out;
 	}
-	String shipLimit(List<String> param, String out)	{
+	String shipLimit(Entries param, String out)	{
 		out += "Ship Limit ";
 		if (param.isEmpty()) {
 			return out + "Error: Missing parameter ";
@@ -476,7 +474,7 @@ public class VIPStarView implements IVIPConsole {
 		out += "Set to " + colony.shipyard().buildLimitStr();
 		return out;
 	}
-	String missBuilding(List<String> param, String out)	{
+	String missBuilding(Entries param, String out)	{
 		out += "Missiles Limit ";
 		if (param.isEmpty()) {
 			return out + "Error: Missing parameter ";
@@ -490,7 +488,7 @@ public class VIPStarView implements IVIPConsole {
 		out += "Set to " + colony.defense().maxBases();
 		return out;
 	}
-	String getFunds(List<String> param, String out)	{
+	String getFunds(Entries param, String out)	{
 		if (param.isEmpty())
 			return out + "Error: Amount parameter is missing";
 		String str = param.get(0);
@@ -526,7 +524,7 @@ public class VIPStarView implements IVIPConsole {
 		}
 		return "";
 	}
-	String sendPopulation(List<String> param, String out)	{
+	String sendPopulation(Entries param, String out)	{
 		// System.out.println("Send Transport " + param);
 		// Check for destination
 		out = setDest(param, out);
@@ -562,7 +560,7 @@ public class VIPStarView implements IVIPConsole {
 
 		return out;
 	}
-	String abandonColony(List<String> param, String out)	{
+	String abandonColony(Entries param, String out)	{
 		// System.out.println("Abandon Planet" + param);
 		// Check for destination
 		out = setDest(param, out);
@@ -583,7 +581,7 @@ public class VIPStarView implements IVIPConsole {
 
 		return out;
 	}
-	String cancelSend(List<String> param, String out)	{
+	String cancelSend(Entries param, String out)	{
 		System.out.println("Cancel Transport" + param);
 
 		SystemTransportSprite transportSprite = sys.transportSprite();
@@ -602,7 +600,7 @@ public class VIPStarView implements IVIPConsole {
 	}
 	Command initSelectPlanet()		{
 		Command cmd = new Command("Select Planet from index and gives Info", SYSTEM_KEY) {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				if (param.isEmpty())
 					return getShortGuide();
 				String s = param.remove(0);
@@ -710,7 +708,7 @@ public class VIPStarView implements IVIPConsole {
 	}
 	Command initAimedPlanet()		{
 		Command cmd = new Command("select Aimed planet from index, or Selected planet", AIMED_KEY) {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				String out = getShortGuide() + NEWLINE;
 				if (!param.isEmpty()) {
 					String s = param.get(0);

@@ -200,7 +200,7 @@ public class VIPFleetView implements IVIPConsole {
 	}
 
 	// ##### SEND FLEET
-	String sendFleet(List<String> param, String out)	{
+	String sendFleet(Entries param, String out)	{
 		// System.out.println("Select Fleet Send " + param);
 		FleetPanel panel = RotPUI.instance().mainUI().displayPanel().fleetPane();
 		// Check for destination
@@ -240,7 +240,7 @@ public class VIPFleetView implements IVIPConsole {
 	// ##### FleetView Command
 	Command initSelectFleet()	{
 		Command cmd = new Command("select Fleet from index and gives fleet info", FLEET_KEY) {
-			@Override protected String execute(List<String> param) {
+			@Override protected String execute(Entries param) {
 				if (param.isEmpty())
 					return cmdHelp();
 
