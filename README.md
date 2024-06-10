@@ -71,6 +71,8 @@ Later:
 
 2024.06.10 (BR)
 - EmpireView: added some allowed direct calls through empires() to avoid this mainly forbidden call.
+- Fixed growth expectations display when there are too many incoming transports.
+- The display of alien factories is now more explicit.
 
 2024.06.09 (BR)
 - VIP Console:

@@ -287,7 +287,9 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             // just as we show the player the planet's current terraformed size.
             for (int empId=0; empId<sys.galaxy().numEmpires(); empId++)
                 if (sys.planet().alienFactories(empId) > 0) {
-                    String str = String.valueOf(sys.planet().alienFactories(empId)) + ' ' + sys.galaxy().empire(empId).name();
+                    String str = String.valueOf(sys.planet().alienFactories(empId));
+                    str += " " + sys.galaxy().empire(empId).raceName();
+                    str += " " + text("MAIN_COLONY_FACTORIES");
                     g.setColor(sys.galaxy().empire(empId).nameColor());
                     drawString(g, str, x0, y0);
                     int sw = g.getFontMetrics().stringWidth(str);

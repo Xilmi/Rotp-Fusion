@@ -1076,7 +1076,9 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
     // GameSession.nextTurnProcess() processes transports before normal population growth.
     public float populationAfterNextTurnTransports() {
-        return population() - inTransport() + incomingTransportsNextTurn();
+    	float pop = population() - inTransport() + incomingTransportsNextTurn();
+    	pop = min(pop, planet.currentSize()); // TODO BR: implement expected size
+        return pop;
     }
     public int incomingTransports() {
         return galaxy().friendlyPopApproachingSystem(starSystem());
