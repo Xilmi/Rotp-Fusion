@@ -1499,7 +1499,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             if (this.sv.empire(i) == this && this.sv.isColonized(i)) {
                 Colony c = this.sv.colony(i);
                 // don't transport to populations that are missing less than 4 population
-                if (c.planet().currentSize() - c.expectedPopulation() > 4 ) {
+                if (c.planet().currentSize() - c.expectedPopulationLongTerm() > 4 ) {
                     colonies.add(c);
                 }
             }
@@ -1531,7 +1531,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                     continue;
                 }
                 // we don't have excess population. Allow transporting 1 pop to stabilize planet ant max-1
-                if (c.expectedPopulation() < (c.planet().currentSize() - 2)) {
+                if (c.expectedPopulationLongTerm() < (c.planet().currentSize() - 2)) {
                     continue;
                 }
                 // if this option is checked, don't send out population out of planets which are Rich or Artefacts
@@ -1557,7 +1557,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         // population is more evenly distributed when there are many colonies that need population transported
         while (!colonies.isEmpty() && !donors.isEmpty()) {
             Colony c = colonies.get(0);
-            float neededPopulation = (int) (c.planet().currentSize() - c.expectedPopulation());
+            float neededPopulation = (int) (c.planet().currentSize() - c.expectedPopulationLongTerm());
             // Sort donors by distance
             Colony donor = Collections.min(donors, (Colony o1, Colony o2) -> (int) Math.signum(
                     o1.travelTimeAdjusted(o1, c, this.tech().transportTravelSpeed()) -
@@ -1587,7 +1587,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 //                System.out.println("Will transport from "+donor.name()+" to "+c.name());
 //                System.out.println("Before transport expectedPopulation= "+c.expectedPopulation());
                 // if we expect transports in excess of maximum population, ship that away too.
-                int expectedOverPopulation = Math.round(donor.expectedPopulation() - donor.planet().currentSize());
+                int expectedOverPopulation = Math.round(donor.expectedPopulationLongTerm() - donor.planet().currentSize());
                 int growth = Math.max(1, Math.round(donor.unrestrictedPopGrowth()));
                 //System.out.println("Donor "+donor.name()+" overPopulation="+expectedOverPopulation+" growth="+growth);
                 int populationToTransport = Math.max(expectedOverPopulation, growth);
