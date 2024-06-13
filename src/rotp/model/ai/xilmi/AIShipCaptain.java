@@ -523,6 +523,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                             int turnsToReachTarget = stack.canTeleport ? 1 : (int) Math.ceil(path.size() / stack.maxMove());
                             if (turnsToReachTarget > 0 && onlyInAttackRange)
                                 desirability = desirability / turnsToReachTarget; // lower-value targets that can be attacked right away may be more desirable
+                            desirability *= checkPathSafety(stack, path);
                             if (desirability > maxDesirability) {
                                 bestPath = path;
                                 bestTarget = target;
@@ -535,6 +536,28 @@ public class AIShipCaptain implements Base, ShipCaptain {
         }
         currentTarget = bestTarget;
         return bestPath;
+    }
+    public float checkPathSafety(CombatStack stack, FlightPath path)
+    {
+        if(path == null)
+            return 0;
+        float pathSafety = 1;
+        float threatValue = 0;
+        float totalValue = 0;
+        for (int i=0;i<path.size();i++) 
+        {
+            Point coord = new Point(path.mapX(i), path.mapY(i));
+            for (CombatStack st : combat().activeStacks()) {
+                if (st.isMonster() || stack.empire.aggressiveWith(st.empire, combat().system())) 
+                {
+                    if(st.movePointsTo(coord.x, coord.y) <= st.maxFiringRange(stack))
+                    {
+                        pathSafety -= st.estimatedKillPct(stack, true);
+                    }
+                }
+            }
+        }
+        return pathSafety;
     }
     public Point findClosestPoint(CombatStack st, CombatStack tgt) {
         if (!st.canMove())
