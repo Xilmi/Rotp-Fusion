@@ -350,7 +350,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         }
 
         // check for purchasing new pop
-        float newPopPurchaseable = getNewPopPurchasable();
+        float newPopPurchaseable = getNewPopPurchasableShortTerm();
         if (newPopPurchaseable > 0) {
             float newPopCost = tr.populationCost();
             cost = newPopPurchaseable * newPopCost;
@@ -386,7 +386,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         Planet p = c.planet();
         Empire emp = c.empire();
         boolean canTerraformAtmosphere = p.canTerraformAtmosphere(emp);
-        // deduct cost for atmospheric terraforing
+        // deduct cost for atmospheric terraforming
         if (canTerraformAtmosphere) {
             float atmoCost = atmosphereTerraformCost() - hostileBC;
             if (totalBC <= atmoCost)
@@ -421,7 +421,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         }
         
         // deduct cost for purchasing new pop
-        float newPopPurchaseable = getNewPopPurchasable();
+        float newPopPurchaseable = getNewPopPurchasableShortTerm();
         if (newPopPurchaseable > 0) {
             float growthCost = newPopPurchaseable * tr.populationCost();
             if (totalBC < growthCost)
@@ -433,10 +433,21 @@ public class ColonyEcology extends ColonySpendingCategory {
     }
 
     // get how many pops purchasable
-    private float getNewPopPurchasable() {
+    private float getNewPopPurchasableShortTerm() {
         float maxPopSize = colony().maxSize();
-        float newPopPurchaseable = maxPopSize - colony().expectedPopulation();
-//        float newPopPurchaseable = maxPopSize - colony().workingPopulation() - colony().normalPopGrowth();
+        float newPopPurchaseable = maxPopSize - colony().workingPopulation() - colony().normalPopGrowth();
+        switch (options().selectedPopGrowthFactor()) {
+            case "Reduced":
+                newPopPurchaseable = min(newPopPurchaseable, maxPopSize/tech().populationCost());
+        }
+        if (newPopPurchaseable < 0) {
+            return 0;
+        }
+        return newPopPurchaseable;
+    }
+    private float getNewPopPurchasableLongTerm() {
+        float maxPopSize = colony().maxSize();
+        float newPopPurchaseable = maxPopSize - colony().expectedPopulationLongTerm();
         switch (options().selectedPopGrowthFactor()) {
             case "Reduced":
                 newPopPurchaseable = min(newPopPurchaseable, maxPopSize/tech().populationCost());
@@ -451,7 +462,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         // cost to terraform planet
         float tform = terraformSpendingNeeded();
         // try to buy new population
-        float newPopCost = getNewPopPurchasable() * tech().populationCost();
+        float newPopCost = getNewPopPurchasableLongTerm() * tech().populationCost();
         newPopCost = max(0,newPopCost);
         return tform + newPopCost;
     }

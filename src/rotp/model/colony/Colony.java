@@ -924,7 +924,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         if (inRebellion())
             pr = planet.currentSize() + rebels;
         else
-            pr = (planet.currentSize() - expectedPopulation()) / expectedPopPct();
+            pr = (planet.currentSize() - expectedPopulationLongTerm()) / expectedPopPct();
 
         pr *= planet.productionAdj();
         if (planet.isOrionArtifact())
@@ -1071,7 +1071,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
         return max(0, prod - reserveCost - securityCost - defenseCost - shipyardCost + tradeIncome - shipCost - stargateCost);
     }
-    public float expectedPopulation() {
+    public float expectedPopulationLongTerm() {
         return workingPopulation() + normalPopGrowth() + incomingTransports();
     }
     // GameSession.nextTurnProcess() processes transports before normal population growth.
@@ -1087,10 +1087,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
         return (population() / planet.currentSize());
     }
     public float expectedPopPct() {
-        return (expectedPopulation() / planet.currentSize());
+        return (expectedPopulationLongTerm() / planet.currentSize());
     }
     public int calcPopNeeded(float desiredPct) {
-        return (int) ((planet.currentSize() * desiredPct) - expectedPopulation());
+        return (int) ((planet.currentSize() * desiredPct) - expectedPopulationLongTerm());
     }
     public int calcPopToGive(float retainPct) {
         if (!canTransport())

@@ -37,7 +37,6 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-- For the military view tab in the colonies screen, would it be possible to make the "Shield" column display as "N" (or "Nebula") when the planet is in a nebula?
 - Monsters:
   - Option to change their travel time.
   - More Planet Monsters Guardian.
@@ -47,7 +46,6 @@ Very soon:
 - Option to continue game after victory!
 
 Console Next steps: (Sequence probably not definitive)
-- Council: Interception of announcements pop-up and Voting panels.
 - Access optional turn reports and spy reports.
 
 Later:
@@ -68,6 +66,9 @@ Later:
 
 
 ## What's New
+
+2024.06.13 (BR)
+- Fixed growth expectations display when terraforming and too many incoming transports in few days.
 
 2024.06.10 (BR)
 - EmpireView: added some allowed direct calls through empires() to avoid this mainly forbidden call.
