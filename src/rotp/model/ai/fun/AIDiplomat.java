@@ -122,7 +122,7 @@ public class AIDiplomat implements Base, Diplomat {
             if(willingToTradeTech(tech(id), e))
                 allTechs.add(tech(id));
         }
-        allTechs.removeAll(e.tech().tradedTechs());
+        //allTechs.removeAll(e.tech().tradedTechs()); // BR: Wrong type => useless
         
         int maxTechs = 5;
         // sort unknown techs by our research value 

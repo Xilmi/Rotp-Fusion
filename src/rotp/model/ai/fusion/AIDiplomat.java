@@ -132,7 +132,7 @@ public class AIDiplomat implements Base, Diplomat {
             if(willingToTradeTech(tech(id), e))
                 allTechs.add(tech(id));
         }
-        allTechs.removeAll(e.tech().tradedTechs());
+        //allTechs.removeAll(e.tech().tradedTechs()); // BR: Wrong type => useless
         
         int maxTechs = 5;
         // sort unknown techs by our research value 
@@ -2141,7 +2141,8 @@ public class AIDiplomat implements Base, Diplomat {
             score /= fleet.distanceTo(sys);
             float contactMod = 1.0f;
             for(Empire ownerContact : owner.contactedEmpires()) {
-                if(ownerContact != empire && !empire.contacts().contains(ownerContact))
+                //if(ownerContact != empire && !empire.contacts().contains(ownerContact)) // BR: contains oddity
+                if(ownerContact != empire && !empire.contactedEmpires().contains(ownerContact)) // BR: Suggested fix
                     contactMod++;
             }
             score /= contactMod; //this shall help wanting to fight isolated empires
