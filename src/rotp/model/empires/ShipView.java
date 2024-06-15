@@ -134,19 +134,7 @@ public class ShipView implements Base,Serializable {
     }
 
     public static Comparator<ShipView> VIEW_DATE = (ShipView o1, ShipView o2) -> o2.lastViewDate().compareTo(o1.lastViewDate());
-    public static Comparator<ShipView> VIEW_ACTIVE = new Comparator<ShipView>() {
-        @Override
-        public int compare(ShipView o1, ShipView o2) {
-            ShipDesign d1 = o1.design;
-            ShipDesign d2 = o2.design;
-            if (d1.active() && !d2.active())
-                return -1;
-            else if (d2.active() && !d1.active())
-                return 1;
-            else
-                return d1.name().compareTo(d2.name());
-        }
-    };
+    public static Comparator<ShipView> VIEW_ACTIVE = new ViewActiveComparator();
     public ShipView(Empire o, ShipDesign d) {
         owner = o;
         design = d;
@@ -285,4 +273,17 @@ public class ShipView implements Base,Serializable {
     public int beamDefense()         { return beamDefense; }
     public int combatSpeed()         { return combatSpeed; }
     public int wpnCount(int i)       { return wpnCount[i]; }
+
+    private static class ViewActiveComparator implements Comparator<ShipView> {
+    	@Override public int compare(ShipView o1, ShipView o2) {
+            ShipDesign d1 = o1.design;
+            ShipDesign d2 = o2.design;
+            if (d1.active() && !d2.active())
+                return -1;
+            else if (d2.active() && !d1.active())
+                return 1;
+            else
+                return d1.name().compareTo(d2.name());
+        }
+    }
 }

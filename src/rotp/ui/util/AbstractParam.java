@@ -256,9 +256,9 @@ public abstract class AbstractParam <T> implements IParam{
 	//
 	// ========== Protected Methods ==========
 	//
-	protected void isValueInit(boolean is)	{ isValueInit = is ; }
-	protected void isDuplicate(boolean is)	{ isDuplicate = is ; }
-	protected void isCfgFile(boolean is)	{ isCfgFile   = is ; }
+	public AbstractParam <T> isValueInit(boolean is) { isValueInit = is ; return this; }
+	public AbstractParam <T> isDuplicate(boolean is) { isDuplicate = is ; return this; }
+	public AbstractParam <T> isCfgFile(boolean is)	 { isCfgFile   = is ; return this; }
 	protected String descriptionId()		{ return getLangLabel() + LABEL_DESCRIPTION; }
 	protected T getInc(InputEvent e)		{
 		if (e.isShiftDown())

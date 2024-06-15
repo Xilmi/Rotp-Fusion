@@ -178,8 +178,8 @@ public class ColonyShipyard extends ColonySpendingCategory {
         if (colony().allocation(categoryType()) == 0)
             return;
 
-        if ((int)cost == 592)
-        	System.out.println("(int)cost == 592");
+//        if ((int)cost == 592)
+//        	System.out.println("(int)cost == 592");
         
         // should never happen anymore, but hey
         if (buildingObsoleteDesign()) {

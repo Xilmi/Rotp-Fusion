@@ -97,15 +97,12 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default boolean selectedRestartChangesPlayerAI()	{ return restartChangesPlayerAI.get(); }
 	ParamBoolean restartAppliesSettings		= new ParamBoolean( MOD_UI, "RESTART_APPLY_SETTINGS",false);
 	default boolean selectedRestartAppliesSettings()	{ return restartAppliesSettings.get(); }
-	ParamList    restartChangesPlayerRace	= new ParamList( MOD_UI, "RESTART_PLAYER_RACE", "Swap") {
-		{
-			showFullGuide(true);
-			put("Last", 	MOD_UI + "RESTART_PLAYER_RACE_LAST");
-			put("Swap",		MOD_UI + "RESTART_PLAYER_RACE_SWAP");
-			put("GuiSwap",	MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP");
-			put("GuiLast",	MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
-		}
-	};
+	ParamList    restartChangesPlayerRace	= new ParamList( MOD_UI, "RESTART_PLAYER_RACE", "Swap")
+		.showFullGuide(true)
+		.put("Last", 	MOD_UI + "RESTART_PLAYER_RACE_LAST")
+		.put("Swap",		MOD_UI + "RESTART_PLAYER_RACE_SWAP")
+		.put("GuiSwap",	MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP")
+		.put("GuiLast",	MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
 	default String selectedRestartChangesPlayerRace()	{ return restartChangesPlayerRace.get(); }
 
 	ParamTech techIrradiated	= new ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
@@ -152,15 +149,12 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	RandomAlienRaces randomAlienRaces		 = new RandomAlienRaces(MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
 	default String selectedRandomAlienRaces()	{ return randomAlienRaces.get(); }
 
-	ParamList    guardianMonsters			 = new ParamList( MOD_UI, "GUARDIAN_MONSTERS", "None") {
-		{
-			showFullGuide(true);
-			put("None", 	MOD_UI + "GUARDIAN_MONSTERS_NONE");
-//			put("Rich",		MOD_UI + "GUARDIAN_MONSTERS_RICH");
-//			put("Artefact",	MOD_UI + "GUARDIAN_MONSTERS_RUIN");
-			put("All",		MOD_UI + "GUARDIAN_MONSTERS_ALL");
-		}
-	};
+	ParamList    guardianMonsters			 = new ParamList( MOD_UI, "GUARDIAN_MONSTERS", "None")
+		.showFullGuide(true)
+		.put("None", 	MOD_UI + "GUARDIAN_MONSTERS_NONE")
+//		.put("Rich",		MOD_UI + "GUARDIAN_MONSTERS_RICH")
+//		.put("Artefact",	MOD_UI + "GUARDIAN_MONSTERS_RUIN")
+		.put("All",		MOD_UI + "GUARDIAN_MONSTERS_ALL");
 	default boolean noPlanetHaveMonster()		{ return guardianMonsters.get().equals("None"); }
 	default boolean richPlanetHaveMonster()		{
 		return guardianMonsters.get().equals("All") || guardianMonsters.get().equals("Rich");
@@ -202,16 +196,13 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	String NEBULA_POS_NORMAL	= "NORMAL";
 	String NEBULA_POS_INSIST	= "INSIST";
 	String NEBULA_POS_EXTEND	= "EXTEND";
-	ParamList nebulaEmpty		= new ParamList( MOD_UI, "NEBULA_POS", NEBULA_POS_NORMAL) {
-		{
-			isDuplicate(false);
-			isCfgFile(true);
-			showFullGuide(true);
-			put(NEBULA_POS_NORMAL,	MOD_UI + "NEBULA_POS_NORMAL");
-			put(NEBULA_POS_INSIST,	MOD_UI + "NEBULA_POS_INSIST");
-			put(NEBULA_POS_EXTEND,	MOD_UI + "NEBULA_POS_EXTEND");
-		}
-	};
+	ParamList nebulaEmpty		= new ParamList( MOD_UI, "NEBULA_POS", NEBULA_POS_NORMAL)
+		.isDuplicate(false)
+		.isCfgFile(true)
+		.showFullGuide(true)
+		.put(NEBULA_POS_NORMAL,	MOD_UI + "NEBULA_POS_NORMAL")
+		.put(NEBULA_POS_INSIST,	MOD_UI + "NEBULA_POS_INSIST")
+		.put(NEBULA_POS_EXTEND,	MOD_UI + "NEBULA_POS_EXTEND");
 	default boolean anywhereNebula()	{ return nebulaEmpty.get().equalsIgnoreCase(NEBULA_POS_EXTEND); }
 	default int nebulaCallsBeforeShrink()	{
 		switch (nebulaEmpty.get().toUpperCase()) {
@@ -227,18 +218,15 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	String NEBULA_ENRICHMENT_NORMAL	= "NORMAL";
 	String NEBULA_ENRICHMENT_MORE	= "MORE";
 	String NEBULA_ENRICHMENT_ALWAYS	= "ALWAYS";
-	ParamList nebulaEnrichment		= new ParamList( MOD_UI, "NEBULA_ENRICHMENT", NEBULA_ENRICHMENT_NORMAL) {
-		{
-			isDuplicate(false);
-			isCfgFile(true);
-			showFullGuide(true);
-			put(NEBULA_ENRICHMENT_NONE,		MOD_UI + "NEBULA_ENRICHMENT_NONE");
-			put(NEBULA_ENRICHMENT_LESS,		MOD_UI + "NEBULA_ENRICHMENT_LESS");
-			put(NEBULA_ENRICHMENT_NORMAL,	MOD_UI + "NEBULA_ENRICHMENT_NORMAL");
-			put(NEBULA_ENRICHMENT_MORE,		MOD_UI + "NEBULA_ENRICHMENT_MORE");
-			put(NEBULA_ENRICHMENT_ALWAYS,	MOD_UI + "NEBULA_ENRICHMENT_ALWAYS");
-		}
-	};
+	ParamList nebulaEnrichment		= new ParamList( MOD_UI, "NEBULA_ENRICHMENT", NEBULA_ENRICHMENT_NORMAL)
+		.isDuplicate(false)
+		.isCfgFile(true)
+		.showFullGuide(true)
+		.put(NEBULA_ENRICHMENT_NONE,	MOD_UI + "NEBULA_ENRICHMENT_NONE")
+		.put(NEBULA_ENRICHMENT_LESS,	MOD_UI + "NEBULA_ENRICHMENT_LESS")
+		.put(NEBULA_ENRICHMENT_NORMAL,	MOD_UI + "NEBULA_ENRICHMENT_NORMAL")
+		.put(NEBULA_ENRICHMENT_MORE,	MOD_UI + "NEBULA_ENRICHMENT_MORE")
+		.put(NEBULA_ENRICHMENT_ALWAYS,	MOD_UI + "NEBULA_ENRICHMENT_ALWAYS");
 	default boolean noNebulaEnrichment()		{ return nebulaEnrichment.get().equalsIgnoreCase(NEBULA_ENRICHMENT_NONE); }
 	default boolean alwaysNebulaEnrichment()	{ return nebulaEnrichment.get().equalsIgnoreCase(NEBULA_ENRICHMENT_ALWAYS); }
 	default int nebulaEnrichmentInsideStar()	{
@@ -263,15 +251,12 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	}
 	String NEBULA_HOMEWORLD_ALLOW	= "ALLOW";
 	String NEBULA_HOMEWORLD_NEVER	= "NEVER";
-	ParamList nebulaHomeworld		= new ParamList( MOD_UI, "NEBULA_HOMEWORLD", NEBULA_HOMEWORLD_ALLOW) {
-		{
-			isDuplicate(false);
-			isCfgFile(true);
-			showFullGuide(true);
-			put(NEBULA_HOMEWORLD_ALLOW,	MOD_UI + "NEBULA_HOMEWORLD_ALLOW");
-			put(NEBULA_HOMEWORLD_NEVER,	MOD_UI + "NEBULA_HOMEWORLD_NEVER");
-		}
-	};
+	ParamList nebulaHomeworld		= new ParamList( MOD_UI, "NEBULA_HOMEWORLD", NEBULA_HOMEWORLD_ALLOW)
+		.isDuplicate(false)
+		.isCfgFile(true)
+		.showFullGuide(true)
+		.put(NEBULA_HOMEWORLD_ALLOW,	MOD_UI + "NEBULA_HOMEWORLD_ALLOW")
+		.put(NEBULA_HOMEWORLD_NEVER,	MOD_UI + "NEBULA_HOMEWORLD_NEVER");
 	default boolean neverNebulaHomeworld()	{ return nebulaHomeworld.get().equalsIgnoreCase(NEBULA_HOMEWORLD_NEVER); }
 
 	// ==================== GUI List Declarations ====================

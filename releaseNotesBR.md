@@ -2,17 +2,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- VIP Console:
-  - Fixed lower / upper case issue.
-  - The ship name may contain spaces, upper and lower case letters.
-- Military view tab in the colonies screen: "Shield" column display as "Nebula" when the planet is in a nebula.
-- The display of alien factories is now more explicit.
-- Fixed growth expectations display when there are too many incoming transports.
-- Fixed growth expectations display when terraforming and too many incoming transports in few days.
-
-
-- Xilmi new additions
-- Missiles are no longer taken into consideration in the facingOverwhelmingForce-check of the retreat-logic. This prevents stacks from retreating when their opponents would run out of missiles due to firing them at other stacks.
+- Reduced and stabilized memory consumption.
+  - Replaced some "on the fly" method Override by more conventional classes declarations, this because it may confuse Java memory management...
+- Merged Xilmi new improvement
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

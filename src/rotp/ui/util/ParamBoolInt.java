@@ -44,6 +44,10 @@ public class ParamBoolInt extends ParamInteger {
 
 	// ===== Overriders =====
 	//
+	@Override public ParamBoolInt isValueInit(boolean is) { super.isValueInit(is) ; return this; }
+	@Override public ParamBoolInt isDuplicate(boolean is) { super.isDuplicate(is) ; return this; }
+	@Override public ParamBoolInt isCfgFile(boolean is)	  { super.isCfgFile(is)   ; return this; }
+
 	@Override public String getGuiDisplay()		{
 	    String val;
 	    if (isEnabled())

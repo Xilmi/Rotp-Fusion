@@ -89,6 +89,9 @@ public class ParamFloat extends AbstractParam<Float> {
 	}
 	// ========== Overriders ==========
 	//
+	@Override public ParamFloat isValueInit(boolean is) { super.isValueInit(is) ; return this; }
+	@Override public ParamFloat isDuplicate(boolean is) { super.isDuplicate(is) ; return this; }
+	@Override public ParamFloat isCfgFile(boolean is)	{ super.isCfgFile(is)   ; return this; }
 	@Override public String guideDefaultValue()	{ return getString(defaultValue()); }
 	@Override public String[] getModifiers()	{
 		if (baseInc().equals(shiftInc()))

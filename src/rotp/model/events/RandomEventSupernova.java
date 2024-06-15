@@ -42,9 +42,11 @@ public class RandomEventSupernova extends AbstractRandomEvent implements ColonyR
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_SUPERNOVA");
-        s1 = s1.replace("[system]", galaxy().empire(empId).sv.name(sysId));
+        if (empId > Empire.NULL_ID )
+            s1 = s1.replace("[system]", galaxy().empire(empId).sv.name(sysId));
         s1 = s1.replace("[years]", str((int)Math.ceil(1+turnsNeeded-turnCount)));
-        s1 = galaxy().empire(empId).replaceTokens(s1, "target");
+        if (empId > Empire.NULL_ID )
+        	s1 = galaxy().empire(empId).replaceTokens(s1, "target");
         return s1;
     }
     @Override

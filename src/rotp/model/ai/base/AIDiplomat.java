@@ -116,7 +116,7 @@ public class AIDiplomat implements Base, Diplomat {
         List<Tech> allTechs = new ArrayList<>();
         for (String id: allMyTechIds)
             allTechs.add(tech(id));
-        allTechs.removeAll(e.tech().tradedTechs());
+        //allTechs.removeAll(e.tech().tradedTechs()); // BR: Wrong type => useless
         
         int maxTechs = 5;
         // sort unknown techs by our research value 
@@ -1583,17 +1583,17 @@ public class AIDiplomat implements Base, Diplomat {
         return random() < 0.90f + powerBonus; // modnar: add powerBonus
     }
     // ----------------------------------------------------------
-// PRIVATE METHODS
-// ----------------------------------------------------------
+    // PRIVATE METHODS
+    // ----------------------------------------------------------
     private float previousVoteBonus(Empire c) {
         return c.id == empire.lastCouncilVoteEmpId() ? 0.6f : 0;
     }
-    private Empire conditionallyCastVoteFor(EmpireView ev) {
+/*    private Empire conditionallyCastVoteFor(EmpireView ev) {
         if (ev.embassy().noTreaty() && galaxy().council().nextVoteWouldElect(ev.empire()))
             return castVoteFor(null);
         else
             return castVoteFor(ev.empire());
-    }
+    } */
     private Empire castVoteFor(Empire c) {
         if (c == null)
             empire.lastCouncilVoteEmpId(Empire.ABSTAIN_ID);

@@ -36,22 +36,16 @@ public interface IRandomEvents extends IBaseOptsTools {
 	ParamBoolean fixedEventsMode	= new ParamBoolean(MOD_UI, "FIXED_EVENTS_MODE", false);
 	default boolean selectedFixedEventsMode()	{ return fixedEventsMode.get(); }
 	
-	ParamList    monstersGiveLoots	= new ParamList( MOD_UI, "MONSTERS_GIVE_LOOTS", "No") {
-		{
-			showFullGuide(true);
-			put("No", 	MOD_UI + "MONSTERS_GIVE_LOOTS_NO");
-			put("Yes",	MOD_UI + "MONSTERS_GIVE_LOOTS_YES");
-		}
-	};
+	ParamList    monstersGiveLoots	= new ParamList( MOD_UI, "MONSTERS_GIVE_LOOTS", "No")
+		.showFullGuide(true)
+		.put("No", 	MOD_UI + "MONSTERS_GIVE_LOOTS_NO")
+		.put("Yes",	MOD_UI + "MONSTERS_GIVE_LOOTS_YES");
 	default boolean monstersGiveLoot()			{ return monstersGiveLoots.get().equalsIgnoreCase("Yes"); }
 
-	ParamList    monstersLevel	= new ParamList( MOD_UI, "MONSTERS_LEVEL", "Normal") {
-		{
-			showFullGuide(true);
-			put("Normal", 	MOD_UI + "MONSTERS_LEVEL_NORMAL");
-			put("Easy",		MOD_UI + "MONSTERS_LEVEL_EASY");
-		}
-	};
+	ParamList    monstersLevel	= new ParamList( MOD_UI, "MONSTERS_LEVEL", "Normal")
+		.showFullGuide(true)
+		.put("Normal", 	MOD_UI + "MONSTERS_LEVEL_NORMAL")
+		.put("Easy",		MOD_UI + "MONSTERS_LEVEL_EASY");
 	default String	monstersLevelKey()			{ return monstersLevel.get(); }
 	default float	monstersLevel()				{
 		switch (monstersLevel.get()) {
@@ -60,14 +54,11 @@ public interface IRandomEvents extends IBaseOptsTools {
 			default:		return 1.0f;
 		}
 	}
-	ParamList    monstersGNNNotification	= new ParamList( MOD_UI, "MONSTERS_GNN", "All") {
-		{
-			showFullGuide(true);
-			put("All", 		MOD_UI + "MONSTERS_GNN_ALL");
-			put("New",		MOD_UI + "MONSTERS_GNN_NEW");
-			put("First",	MOD_UI + "MONSTERS_GNN_FIRST");
-		}
-	};
+	ParamList    monstersGNNNotification	= new ParamList( MOD_UI, "MONSTERS_GNN", "All")
+		.showFullGuide(true)
+		.put("All", 		MOD_UI + "MONSTERS_GNN_ALL")
+		.put("New",		MOD_UI + "MONSTERS_GNN_NEW")
+		.put("First",	MOD_UI + "MONSTERS_GNN_FIRST");
 	default String	monstersGNNNotification()	{ return monstersGNNNotification.get(); }
 	
 	// ========================================================================

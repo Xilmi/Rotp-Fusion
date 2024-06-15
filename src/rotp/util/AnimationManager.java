@@ -495,17 +495,26 @@ public enum AnimationManager implements Base {
         BufferedImage newImg = newBufferedImage(w, h);
         // copy srcIMg into it
         if (srcImg != null) {
-            final Runnable copyImgThread = new Runnable() {
-                @Override
-                public void run() {
-                    Graphics2D g = (Graphics2D) newImg.getGraphics();
-                    setFontHints(g);
-                    g.drawImage(srcImg, 0, 0, w, h, 0, 0, srcImg.getWidth(null), srcImg.getHeight(null), null);
-                    g.dispose();
-                }
-            };
+            final Runnable copyImgThread = new FullScreenImageRunnable(newImg, srcImg, w, h);
             invokeAndWait(copyImgThread);
         }
         return newImg;
+    }
+    private class FullScreenImageRunnable implements Runnable {
+    	private final BufferedImage newImg;
+    	private final Image srcImg;
+    	private final int w, h;
+    	private FullScreenImageRunnable(BufferedImage newImg, Image srcImg, int w, int h) {
+    		this.newImg = newImg;
+    		this.srcImg = srcImg;
+    		this.w = w;
+    		this.h = h;
+    	}
+    	@Override public void run() {
+            Graphics2D g = (Graphics2D) newImg.getGraphics();
+            setFontHints(g);
+            g.drawImage(srcImg, 0, 0, w, h, 0, 0, srcImg.getWidth(null), srcImg.getHeight(null), null);
+            g.dispose();
+        }
     }
 }

@@ -157,88 +157,14 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     private Box	cancelBox	= new Box("SETUP_RACE_CANCEL");
 //    private boolean drawAllButtons = true;
 	public ParamList playerSpecies() {
-		ParamList species =	new ParamList( // For Guide
-				BASE_UI, "PLAYER_SPECIES", guiOptions().getNewRacesOnOffList(), IRaceOptions.defaultRace) {
-			{ isDuplicate(true);}
-			@Override public String	getOptionValue(IGameOptions options)	{
-				return options.selectedPlayerRace();
-			}
-			@Override protected void setOptionValue(IGameOptions options, String value)	{
-		        String selRace = newGameOptions().selectedPlayerRace();
-	            if (!selRace.equals(value)) {
-	                newGameOptions().selectedPlayerRace(value);
-	                raceChanged();
-	                repaint();
-	            }
-			}
-			@Override public String guideDefaultValue()	{
-				return getRowGuide(defaultValueIndex());
-			}
-			@Override public String getRowGuide(int id)	{
-				String key  = getGuiValue(id);
-				String help = realLangLabel(key+LABEL_DESCRIPTION);
-				if (help != null)
-					return rowFormat(labelFormat(name(id)), help);
-
-				Race   race		= Race.keyed(key);
-				String raceName = race.setupName();
-				if (key.startsWith(BASE_RACE_MARKER))
-					help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
-				else
-					help = labelFormat(raceName) + race.description1;
-				help += "<br>" + race.description2
-					 +  "<br>" + race.description3.replace("[race]", raceName)
-					 +  "<br>" + race.description4;
-				return help;
-			}
-			@Override public String	guideValue()	{ return text(get()); }
-			@Override public void reInit(List<String> list) {
-				if (list == null)
-					super.reInit(guiOptions().getNewRacesOnOffList());
-				else
-					super.reInit(list);
-			}
-		};
-		return species;
+		return new ParamListPlayerSpecies( // For Guide
+				BASE_UI, "PLAYER_SPECIES", guiOptions().getNewRacesOnOffList(), IRaceOptions.defaultRace);
 	}
 	public ParamString playerHomeWorld() {
-		ParamString homeWorld = new ParamString(BASE_UI, "PLAYER_HOMEWORLD", "") {
-			{ isDuplicate(true);}
-			@Override public String	getOptionValue(IGameOptions options)	{
-				return options.selectedHomeWorldName();
-			}
-			@Override protected void setOptionValue(IGameOptions options, String value)	{
-				options.selectedHomeWorldName(value);
-                repaint();
-			}
-			@Override public String	guideValue()	{ return text(get()); }
-//			@Override public String guideDefaultValue()	{
-//				return defaultValue();
-//			}
-			@Override public String	defaultValue()	{
-		        Race r = Race.keyed(newGameOptions().selectedPlayerRace());
-				return r.defaultHomeworldName();
-			}
-		};
-		return homeWorld;
+		return new ParamStringPlayerHomeWorld(BASE_UI, "PLAYER_HOMEWORLD", "");
 	}
-	public ParamString playerLeader() {
-		ParamString leader = new ParamString(BASE_UI, "PLAYER_LEADER", "") {
-			{ isDuplicate(true);}
-			@Override public String	getOptionValue(IGameOptions options)	{
-				return options.selectedLeaderName();
-			}
-			@Override protected void setOptionValue(IGameOptions options, String value)	{
-				options.selectedLeaderName(value);
-                repaint();
-			}
-			@Override public String	guideValue()	{ return text(get()); }
-			@Override public String	defaultValue()	{
-		        Race r = Race.keyed(newGameOptions().selectedPlayerRace());
-				return r.randomLeaderName();
-			}
-		};
-		return leader;
+	public ParamStringPlayerLeader playerLeader() {
+		return new ParamStringPlayerLeader(BASE_UI, "PLAYER_LEADER", "");
 	}
 
 	@Override protected Box newExitBox()		{ return new Box("SETUP_RACE_NEXT"); }
@@ -258,7 +184,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		g.setPaint(GameUI.buttonLeftBackground());
 	}
 
-    private boolean isOS() { return newGameOptions().originalSpeciesOnly(); }
+	private boolean isOS() { return newGameOptions().originalSpeciesOnly(); }
     public SetupRaceUI() {
         init0();
     }
@@ -1414,4 +1340,84 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
             checkBoxChanged();
         }
     }
+	private class ParamListPlayerSpecies extends ParamList {
+		private ParamListPlayerSpecies(String gui, String name, List<String> list, String defaultValue) {
+			super(gui, name, list, defaultValue);
+			isDuplicate(true);
+		}
+		@Override public String	getOptionValue(IGameOptions options)	{
+			return options.selectedPlayerRace();
+		}
+		@Override protected void setOptionValue(IGameOptions options, String value)	{
+	        String selRace = newGameOptions().selectedPlayerRace();
+            if (!selRace.equals(value)) {
+                newGameOptions().selectedPlayerRace(value);
+                raceChanged();
+                repaint();
+            }
+		}
+		@Override public String guideDefaultValue()	{
+			return getRowGuide(defaultValueIndex());
+		}
+		@Override public String getRowGuide(int id)	{
+			String key  = getGuiValue(id);
+			String help = realLangLabel(key+LABEL_DESCRIPTION);
+			if (help != null)
+				return rowFormat(labelFormat(name(id)), help);
+
+			Race   race		= Race.keyed(key);
+			String raceName = race.setupName();
+			if (key.startsWith(BASE_RACE_MARKER))
+				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
+			else
+				help = labelFormat(raceName) + race.description1;
+			help += "<br>" + race.description2
+				 +  "<br>" + race.description3.replace("[race]", raceName)
+				 +  "<br>" + race.description4;
+			return help;
+		}
+		@Override public String	guideValue()	{ return text(get()); }
+		@Override public void reInit(List<String> list) {
+			if (list == null)
+				super.reInit(guiOptions().getNewRacesOnOffList());
+			else
+				super.reInit(list);
+		}
+	}
+	private class ParamStringPlayerHomeWorld extends ParamString {
+		private ParamStringPlayerHomeWorld(String gui, String name, String defaultValue) {
+			super(gui, name, defaultValue);
+			isDuplicate(true);
+		}
+		@Override public String	getOptionValue(IGameOptions options)	{
+			return options.selectedHomeWorldName();
+		}
+		@Override protected void setOptionValue(IGameOptions options, String value)	{
+			options.selectedHomeWorldName(value);
+            repaint();
+		}
+		@Override public String	guideValue()	{ return text(get()); }
+		@Override public String	defaultValue()	{
+	        Race r = Race.keyed(newGameOptions().selectedPlayerRace());
+			return r.defaultHomeworldName();
+		}
+	}
+	private class ParamStringPlayerLeader extends ParamString {
+		private ParamStringPlayerLeader(String gui, String name, String defaultValue) {
+			super(gui, name, defaultValue);
+			isDuplicate(true);
+		}
+		@Override public String	getOptionValue(IGameOptions options)	{
+			return options.selectedLeaderName();
+		}
+		@Override protected void setOptionValue(IGameOptions options, String value)	{
+			options.selectedLeaderName(value);
+            repaint();
+		}
+		@Override public String	guideValue()	{ return text(get()); }
+		@Override public String	defaultValue()	{
+	        Race r = Race.keyed(newGameOptions().selectedPlayerRace());
+			return r.randomLeaderName();
+		}
+	}
 }

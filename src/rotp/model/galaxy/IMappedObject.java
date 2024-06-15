@@ -36,14 +36,7 @@ public interface IMappedObject {
 //    default float squaredDistanceTo (IMappedObject point) {
 //        return distanceTo(point.x(), point.y());
 //    }
-    public static Comparator<IMappedObject> MAP_ORDER = new Comparator<IMappedObject>() {
-        @Override
-        public int compare(IMappedObject o1, IMappedObject o2) {
-            float x1 = (o1.y() * Galaxy.current().width()) + o1.x();
-            float x2 = (o2.y() * Galaxy.current().width()) + o2.x();
-            return  (x1 < x2) ? -1 : 1;
-        }
-    };
+    public static Comparator<IMappedObject> MAP_ORDER = new MapOrderComparator();
     default public boolean passesThroughNebula(IMappedObject fr, IMappedObject to) {
         Line2D.Float path = new Line2D.Float(fr.x(), fr.y(), to.x(), to.y());
         for (Nebula neb: Galaxy.current().nebulas()) {
@@ -112,5 +105,13 @@ public interface IMappedObject {
             y0 = y1;
         }
         return travelTime;
+    }
+
+    class MapOrderComparator implements Comparator<IMappedObject> {
+    	@Override public int compare(IMappedObject o1, IMappedObject o2) {
+            float x1 = (o1.y() * Galaxy.current().width()) + o1.x();
+            float x2 = (o2.y() * Galaxy.current().width()) + o2.x();
+            return  (x1 < x2) ? -1 : 1;
+        }
     }
 }

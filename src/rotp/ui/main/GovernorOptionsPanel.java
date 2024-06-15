@@ -89,36 +89,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 
     private ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(15); // no
     private ScheduledFuture<?> anim;
-	private Runnable timedRefresh = new Runnable() {
-	    @Override public void run() {
-	    	if (horlogeOngoing)
-	    		return;
-	    	horlogeOngoing	= true;
-	    	if (options().resetRequested() && frame.isFocused()) {
-	    		if (!updateOngoing) {
-		    		optionUpdate();
-		    		animate();
-		    		// System.out.println("resetRequested() and executed (isFocused)");
-	    		} else
-	    			animate();
-	    		horlogeOngoing	= false;
-	    		return;
-	    	}
-	    	if (options().refreshRequested()) {
-	    		if (!updateOngoing) {
-		    		loadDisplayValues();
-		    		loadValues();
-					options().clearRefresh();
-		    		//System.out.println("refreshRequested() and executed");
-	    		}
-	    	} else if (frame.isFocused()) {
-	    		animate();
-	    	}
-	    	horlogeOngoing	= false;
-	    }
-	};
+	private Runnable timedRefresh = new TimeRefreshRunable();
 	private static JFrame frame;
-	
 	// ========== Public Method and Overrider ==========
 	//
 	private void optionUpdate() {
@@ -1884,6 +1856,35 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 	
 	// ========== Nested Class ==========
 	//
+	private class TimeRefreshRunable implements Runnable {
+		@Override public void run() {
+	    	if (horlogeOngoing)
+	    		return;
+	    	horlogeOngoing	= true;
+	    	if (options().resetRequested() && frame.isFocused()) {
+	    		if (!updateOngoing) {
+		    		optionUpdate();
+		    		animate();
+		    		// System.out.println("resetRequested() and executed (isFocused)");
+	    		} else
+	    			animate();
+	    		horlogeOngoing	= false;
+	    		return;
+	    	}
+	    	if (options().refreshRequested()) {
+	    		if (!updateOngoing) {
+		    		loadDisplayValues();
+		    		loadValues();
+					options().clearRefresh();
+		    		//System.out.println("refreshRequested() and executed");
+	    		}
+	    	} else if (frame.isFocused()) {
+	    		animate();
+	    	}
+	    	horlogeOngoing	= false;
+	    }
+	}
+
 	// =============== Check Box and Radio Button ===============
 	//
 	private class ScalableCheckBoxAndRadioButtonIcon implements Icon {

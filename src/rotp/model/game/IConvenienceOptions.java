@@ -19,12 +19,12 @@ public interface IConvenienceOptions extends IMapOptions {
 	String AUTOBOMBARD_INVADE	= "GAME_SETTINGS_AUTOBOMBARD_INVADE";
 
 	ParamBoolean showNextCouncil		= new ParamBoolean(MOD_UI, "SHOW_NEXT_COUNCIL", false) // Show years left until next council
-	{	{ isCfgFile(true); }	};
+			.isCfgFile(true);
 
 	ParamInteger showLimitedWarnings	= new ParamInteger(MOD_UI, "SHOW_LIMITED_WARNINGS" , -1, -1, 49, 1, 2, 5)
-	{	{ isCfgFile(false); }	}
-		.loop(true)
-		.specialNegative(MOD_UI + "SHOW_LIMITED_WARNINGS_ALL");
+			.isCfgFile(false)
+			.loop(true)
+			.specialNegative(MOD_UI + "SHOW_LIMITED_WARNINGS_ALL");
 	default int selectedMaxWarnings()				{
 		int max = showLimitedWarnings.get();
 		if (max < 0)
@@ -33,19 +33,19 @@ public interface IConvenienceOptions extends IMapOptions {
 	}
 
 	ParamBoolean showAlliancesGNN	= new ParamBoolean(MOD_UI, "SHOW_ALLIANCES_GNN", true)
-	{	{ isCfgFile(false); }	};
+			.isCfgFile(false);
 	default boolean hideAlliancesGNN()		{ return !showAlliancesGNN.get(); }
 
 	ParamBoolean hideMinorReports	= new ParamBoolean(MOD_UI, "HIDE_MINOR_REPORTS", false)
-	{	{ isCfgFile(false); }	};
+			.isCfgFile(false);
 	default boolean hideMinorReports()		{ return hideMinorReports.get(); }
 
 	ParamBoolean showAllocatePopUp	= new ParamBoolean(MOD_UI, "SHOW_ALLOCATE_POPUP", true)
-	{	{ isCfgFile(false); }	};
+			.isCfgFile(false);
 	default boolean showAllocatePopUp()		{ return showAllocatePopUp.get(); }
 
 	ParamBoolean techExchangeAutoRefuse = new ParamBoolean(MOD_UI, "TECH_EXCHANGE_AUTO_NO", false)
-	{	{ isCfgFile(false); }	};
+			.isCfgFile(false);
 
 	ParamBoolean autoColonize_	= new ParamBoolean( GAME_UI, "AUTOCOLONIZE", false);
 	default boolean autoColonize()			{ return autoColonize_.get(); }
@@ -59,14 +59,10 @@ public interface IConvenienceOptions extends IMapOptions {
 					AUTOBOMBARD_INVADE
 					),
 			AUTOBOMBARD_NO) {
-		{
-//			isDuplicate(true); isCfgFile(true);
-			showFullGuide(true);
-		}
 		@Override public String getCfgValue() { return UserPreferences.autoBombardToSettingName(get()); }
 //		@Override public String getOption()			{ return autoBombardMode(); }
 //		@Override public void setOption(String s)	{ autoBombardMode(s); }
-	};
+	}.showFullGuide(true);
 	default boolean autoBombardNever()		{ return autoBombard_.get().equals(AUTOBOMBARD_NEVER); }
 	default boolean autoBombardYes()		{ return autoBombard_.get().equals(AUTOBOMBARD_YES); }
 	default boolean autoBombardWar()		{ return autoBombard_.get().equals(AUTOBOMBARD_WAR); }

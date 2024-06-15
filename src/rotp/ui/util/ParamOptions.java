@@ -61,6 +61,10 @@ public class ParamOptions extends ParamList {
 	public ParamOptions(String name) {
 		this(MOD_UI, name, LAST);
 	}
+	@Override public ParamOptions isValueInit(boolean is) { super.isValueInit(is) ; return this; }
+	@Override public ParamOptions isDuplicate(boolean is) { super.isDuplicate(is) ; return this; }
+	@Override public ParamOptions isCfgFile(boolean is)	  { super.isCfgFile(is)   ; return this; }
+
 	// ===== Specific Public Methods =====
 	//
 	public boolean isDefault()	{ return get().equalsIgnoreCase(DEFAULT); }

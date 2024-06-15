@@ -192,10 +192,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         nameField.putClientProperty("caretWidth", s3);
         nameField.setFocusTraversalKeysEnabled(false);
         nameField.setVisible(false);
-        nameField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) { setFieldValues(lastSelectedSystem()); }
-        });
+        nameField.addKeyListener(new LastKeyAdapter());
 
         InputMap im0 = nameField.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap am0 = nameField.getActionMap();
@@ -217,10 +214,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         notesField.putClientProperty("caretWidth", s3);
         notesField.setFocusTraversalKeysEnabled(false);
         notesField.setVisible(false);
-        notesField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) { setFieldValues(lastSelectedSystem()); }
-        });
+        notesField.addKeyListener(new LastKeyAdapter());
 
         InputMap im = notesField.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap am = notesField.getActionMap();
@@ -250,7 +244,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         helpFrame = 0;
         RotPUI.helpUI().close();
     }
-    @Override  public void showHotKeys() {
+    @Override public void showHotKeys() {
         helpFrame = 2;
         loadHotKeysUI();
         repaint();   
@@ -2576,5 +2570,8 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             setFieldValues(lastSelectedSystem());
             finish(false);
         }
+    }
+    private class LastKeyAdapter extends KeyAdapter {
+    	@Override public void keyReleased(KeyEvent e) { setFieldValues(lastSelectedSystem()); }
     }
 }

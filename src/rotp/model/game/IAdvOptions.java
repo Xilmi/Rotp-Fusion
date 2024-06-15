@@ -45,77 +45,69 @@ public interface IAdvOptions extends IBaseOptsTools {
 	//
 	ParamList galaxyAge			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "GALAXY_AGE", getGalaxyAgeOptions(), GALAXY_AGE_NORMAL) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedGalaxyAge();
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedGalaxyAge(newValue);
 		}
-	};
+	}.showFullGuide(true);
 	ParamList starDensity		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "STAR_DENSITY", getStarDensityOptions(), STAR_DENSITY_NORMAL) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedStarDensityOption();
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedStarDensityOption(newValue);
 		}
-	};
+	}.showFullGuide(true);
 	ParamList nebulae			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "NEBULAE", getNebulaeOptions(), NEBULAE_NORMAL) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedNebulaeOption();
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedNebulaeOption(newValue);
 		}
-	};
+	}.showFullGuide(true);
 	ParamList randomEvents		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RANDOM_EVENTS", getRandomEventOptions(), RANDOM_EVENTS_NO_MONSTERS) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedRandomEventOption();
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedRandomEventOption(newValue);
 		}
-	};
+	}.showFullGuide(true);;
 	ParamList planetQuality	= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "PLANET_QUALITY", getPlanetQualityOptions(), PLANET_QUALITY_NORMAL) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedPlanetQualityOption();
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedPlanetQualityOption(newValue);
 		}
-	};
+	}.showFullGuide(true);
 	ParamList terraforming		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "TERRAFORMING", getTerraformingOptions(), TERRAFORMING_NORMAL) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedTerraformingOption();
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedTerraformingOption(newValue);
 		}
-	};
+	}.showFullGuide(true);
 	ParamList colonizing		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "COLONIZING", getColonizingOptions(), COLONIZING_NORMAL) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedColonizingOption();
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedColonizingOption(newValue);
 		}
-	};
+	}.showFullGuide(true);
 	ParamList councilWin		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "COUNCIL_WIN", getCouncilWinOptions(), COUNCIL_REBELS) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedCouncilWinOption();
 		}
@@ -125,7 +117,7 @@ public interface IAdvOptions extends IBaseOptsTools {
 		@Override protected String descriptionId() {
 			return "SETTINGS_COUNCIL_DESC";
 		}
-	};
+	}.showFullGuide(true);
 	ParamList randomizeAI	 	= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RANDOMIZE_AI", getRandomizeAIOptions(), RANDOMIZE_AI_NONE) {
 		@Override public String getOptionValue(IGameOptions options) {
@@ -138,7 +130,6 @@ public interface IAdvOptions extends IBaseOptsTools {
 	ParamList autoplay			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AUTOPLAY",
 			IGameOptions.autoPlayAIset().getAutoPlay(), AUTOPLAY_OFF) {
-		{ showFullGuide(false); }
 		@Override public void reInit(List<String> list) {
 			if (list == null)
 				super.reInit(IGameOptions.autoPlayAIset().getAutoPlay());
@@ -151,31 +142,28 @@ public interface IAdvOptions extends IBaseOptsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedAutoplayOption(newValue);
 		}
-	};
+	}.showFullGuide(false);
 	default ParamList autoplay()	{ return autoplay; }
 	ParamList researchRate		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RESEARCH_RATE", getResearchRateOptions(), RESEARCH_NORMAL) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedResearchRate();
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedResearchRate(newValue);
 		}
-	};
+	}.showFullGuide(true);
 	ParamList warpSpeed		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "WARP_SPEED", getWarpSpeedOptions(), WARP_SPEED_NORMAL) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedWarpSpeedOption();
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedWarpSpeedOption(newValue);
 		}
-	};
+	}.showFullGuide(true);
 	ParamList fuelRange		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "FUEL_RANGE", getFuelRangeOptions(), FUEL_RANGE_NORMAL) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedFuelRangeOption();
 		}
@@ -184,7 +172,7 @@ public interface IAdvOptions extends IBaseOptsTools {
 			if (GameSession.instance().status().inProgress())
 				GameSession.instance().galaxy().resetAllAI();
 		}
-	};
+	}.showFullGuide(true);
 	ParamList techTrading		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "TECH_TRADING", getTechTradingOptions(), TECH_TRADING_YES) {
 		{ showFullGuide(true); }
@@ -197,14 +185,13 @@ public interface IAdvOptions extends IBaseOptsTools {
 	};
 	ParamList aiHostility		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AI_HOSTILITY", getAiHostilityOptions(), AI_HOSTILITY_NORMAL) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedAIHostilityOption();
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedAIHostilityOption(newValue);
 		}
-	};
+	}.showFullGuide(true);
 	// ==================== GUI List Declarations ====================
 	//
 //	LinkedList<IParam> advancedOptions	  = new LinkedList<>(

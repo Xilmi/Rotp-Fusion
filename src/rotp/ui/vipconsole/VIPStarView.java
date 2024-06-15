@@ -599,86 +599,26 @@ public class VIPStarView implements IVIPConsole {
 		return console().getSys(aimedStar);
 	}
 	Command initSelectPlanet()		{
-		Command cmd = new Command("Select Planet from index and gives Info", SYSTEM_KEY) {
-			@Override protected String execute(Entries param) {
-				if (param.isEmpty())
-					return getShortGuide();
-				String s = param.remove(0);
-				Integer p = getInteger(s);
-				if (p == null)
-					return getShortGuide();
-
-				String out	= "";
-				selectedStar	= validPlanet(p);
-				StarSystem sys	= console().getSys(selectedStar);
-				mainUI().selectSystem(sys);
-				initAltId(selectedStar);
-
-				// Action are reserved to player colonies
-				if (!isPlayer(sys.empire()))
-					return getInfo(out);
-
-				while (!param.isEmpty()) {
-					s = param.remove(0);
-					switch (s.toUpperCase()) {
-					case COL_TOGGLE_GOV:
-						out = toggleGovernor(out) + NEWLINE;
-						break;
-					case COL_SHIP_SPENDING:
-						out = shipSpending(param, out) + NEWLINE;
-						break;
-					case COL_IND_SPENDING:
-						out = indSpending(param, out) + NEWLINE;
-						break;
-					case COL_DEF_SPENDING:
-						out = defSpending(param, out) + NEWLINE;
-						break;
-					case COL_ECO_SPENDING:
-						out = ecoSpending(param, out) + NEWLINE;
-						break;
-					case COL_TECH_SPENDING:
-						out = techSpending(param, out) + NEWLINE;
-						break;
-					case COL_SHIP_BUILDING:
-						out = shipBuilding(param, out) + NEWLINE;
-						break;
-					case COL_SHIP_LIMIT:
-						out = shipLimit(param, out) + NEWLINE;
-						break;
-					case COL_BASE_LIMIT:
-						out = missBuilding(param, out) + NEWLINE;
-						break;
-					case COL_TROOP_SEND:
-						out = sendPopulation(param, out) + NEWLINE;
-						break;
-					case COL_ABANDON:
-						out = abandonColony(param, out) + NEWLINE;
-						break;
-					case COL_CANCEL_SEND:
-						out = cancelSend(param, out) + NEWLINE;
-						break;
-					case COL_GET_FUND:
-						out = getFunds(param, out) + NEWLINE;
-						break;
-					default:
-						out += "Don't understand parameter " + s;
-						break;
-					}
-				}
-				return getInfo(out);
-			}
-		};
-		cmd.cmdParam(" Index " + optional(COL_TOGGLE_GOV)
-						+ optional(COL_SHIP_SPENDING + " %")
-						+ optional(COL_DEF_SPENDING + " %")
-						+ optional(COL_IND_SPENDING + " %")
-						+ optional(COL_ECO_SPENDING + " %")
-						+ optional(COL_TECH_SPENDING + " %")
-						+ optional(COL_SHIP_BUILDING + " val")
-						+ optional(COL_SHIP_LIMIT + " max")
-						+ optional(COL_BASE_LIMIT + " max")
-						);
-		cmd.cmdHelp("Additionnal sequentially processed requests:"
+		return new CmdSelectPlanet("Select Planet from index and gives Info", SYSTEM_KEY);		
+	}
+	Command initAimedPlanet()		{
+		return new CmdAimedPlanet("select Aimed planet from index, or Selected planet", AIMED_KEY);		
+	}
+	// ################### SUB COMMAND CLASSES ######################
+	private class CmdSelectPlanet extends Command {
+		CmdSelectPlanet  (String descr, String... keys) {
+		super(descr, keys);
+		cmdParam(" Index " + optional(COL_TOGGLE_GOV)
+				+ optional(COL_SHIP_SPENDING + " %")
+				+ optional(COL_DEF_SPENDING + " %")
+				+ optional(COL_IND_SPENDING + " %")
+				+ optional(COL_ECO_SPENDING + " %")
+				+ optional(COL_TECH_SPENDING + " %")
+				+ optional(COL_SHIP_BUILDING + " val")
+				+ optional(COL_SHIP_LIMIT + " max")
+				+ optional(COL_BASE_LIMIT + " max")
+				);
+		cmdHelp("Additionnal sequentially processed requests:"
 				+ NEWLINE + optional(COL_TOGGLE_GOV) + " To Toggle Governo on/off"
 				+ NEWLINE + optional(COL_SHIP_SPENDING + " " + COL_TOGGLE_LOCK) + " To lock/unlock Ship spending"
 				+ NEWLINE + optional(COL_SHIP_SPENDING + " %") + " To set Ship spending percentage"
@@ -704,32 +644,98 @@ public class VIPStarView implements IVIPConsole {
 				+ NEWLINE + optional(COL_ABANDON + " " + SYSTEM_KEY) + " destId amount : To abandon the planet"
 				+ NEWLINE + optional(COL_CANCEL_SEND) + " To cancel all transports from this planet"
 				);
-		return cmd;		
+		}
+		@Override protected String execute(Entries param) {
+			if (param.isEmpty())
+				return getShortGuide();
+			String s = param.remove(0);
+			Integer p = getInteger(s);
+			if (p == null)
+				return getShortGuide();
+
+			String out	= "";
+			selectedStar	= validPlanet(p);
+			StarSystem sys	= console().getSys(selectedStar);
+			mainUI().selectSystem(sys);
+			initAltId(selectedStar);
+
+			// Action are reserved to player colonies
+			if (!isPlayer(sys.empire()))
+				return getInfo(out);
+
+			while (!param.isEmpty()) {
+				s = param.remove(0);
+				switch (s.toUpperCase()) {
+				case COL_TOGGLE_GOV:
+					out = toggleGovernor(out) + NEWLINE;
+					break;
+				case COL_SHIP_SPENDING:
+					out = shipSpending(param, out) + NEWLINE;
+					break;
+				case COL_IND_SPENDING:
+					out = indSpending(param, out) + NEWLINE;
+					break;
+				case COL_DEF_SPENDING:
+					out = defSpending(param, out) + NEWLINE;
+					break;
+				case COL_ECO_SPENDING:
+					out = ecoSpending(param, out) + NEWLINE;
+					break;
+				case COL_TECH_SPENDING:
+					out = techSpending(param, out) + NEWLINE;
+					break;
+				case COL_SHIP_BUILDING:
+					out = shipBuilding(param, out) + NEWLINE;
+					break;
+				case COL_SHIP_LIMIT:
+					out = shipLimit(param, out) + NEWLINE;
+					break;
+				case COL_BASE_LIMIT:
+					out = missBuilding(param, out) + NEWLINE;
+					break;
+				case COL_TROOP_SEND:
+					out = sendPopulation(param, out) + NEWLINE;
+					break;
+				case COL_ABANDON:
+					out = abandonColony(param, out) + NEWLINE;
+					break;
+				case COL_CANCEL_SEND:
+					out = cancelSend(param, out) + NEWLINE;
+					break;
+				case COL_GET_FUND:
+					out = getFunds(param, out) + NEWLINE;
+					break;
+				default:
+					out += "Don't understand parameter " + s;
+					break;
+				}
+			}
+			return getInfo(out);
+		}
 	}
-	Command initAimedPlanet()		{
-		Command cmd = new Command("select Aimed planet from index, or Selected planet", AIMED_KEY) {
-			@Override protected String execute(Entries param) {
-				String out = getShortGuide() + NEWLINE;
-				if (!param.isEmpty()) {
-					String s = param.get(0);
-					if (s.equalsIgnoreCase("S"))
-						aimedStar = selectedStar;
-					else {
-						Integer p = getInteger(s);
-						if (p != null) {
-							aimedStar = p;
-							out = "";
-						}
+	private class CmdAimedPlanet extends Command {
+		CmdAimedPlanet  (String descr, String... keys) {
+		super(descr, keys);
+		cmdParam(" " + optional("Index", "S"));
+		cmdHelp("select Aimed planet from planet index, or from Selected planet if \"S\", and gives Destination info");
+		}
+		@Override protected String execute(Entries param) {
+			String out = getShortGuide() + NEWLINE;
+			if (!param.isEmpty()) {
+				String s = param.get(0);
+				if (s.equalsIgnoreCase("S"))
+					aimedStar = selectedStar;
+				else {
+					Integer p = getInteger(s);
+					if (p != null) {
+						aimedStar = p;
+						out = "";
 					}
 				}
-				StarSystem sys	= console().getSys(aimedStar);
-				out += viewTargetSystemInfo(sys, true);
-				return out;
 			}
-		};
-		cmd.cmdParam(" " + optional("Index", "S"));
-		cmd.cmdHelp("select Aimed planet from planet index, or from Selected planet if \"S\", and gives Destination info");
-		return cmd;		
+			StarSystem sys	= console().getSys(aimedStar);
+			out += viewTargetSystemInfo(sys, true);
+			return out;
+		}
 	}
-
 }

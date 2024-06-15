@@ -89,6 +89,7 @@ public class Rotp {
     		System.out.println("### noOptions() usefully called from " + id + " ###");
     	return noOptions;
     }
+
     public static void main(String[] args) {
         frame = new JFrame("Remnants of the Precursors");
         String loadSaveFile = "";
@@ -106,12 +107,7 @@ public class Rotp {
         logging = containsArg(args, "log");
         stopIfInsufficientMemory(frame, (int)maxHeapMemory);
         Thread.setDefaultUncaughtExceptionHandler(new SwingExceptionHandler());
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        frame.addWindowListener(new ExitCloseWindowAdapter());
 
         // BR: To initialize all mod static parameters in a controlled order
         ModOptions modStaticInit = new ModOptions();
@@ -341,5 +337,8 @@ public class Rotp {
         }
         return false;
     }
-
+ 
+	private static class ExitCloseWindowAdapter extends WindowAdapter {
+    	@Override public void windowClosing(WindowEvent e) { System.exit(0); }
+    }
 }

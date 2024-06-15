@@ -69,250 +69,9 @@ public class VIPDesignView implements IVIPConsole {
 			return player().shipLab().design(slot);
 	}
 
-	private Command initAutoScout()			{
-		Command cmd = new Command("Toggle auto Scout", DESIGN_AUTO_SCOUT) {
-			@Override protected String execute(Entries param) { return processAutoScout(param); }
-		};
-		cmd.cmdHelp(text("GOVERNOR_AUTO_SCOUT_DESC"));
-		return cmd;		
-	}
-	private Command initAutoAttack()		{
-		Command cmd = new Command("Toggle auto Attack", DESIGN_AUTO_ATTACK) {
-			@Override protected String execute(Entries param) { return processAutoAttack(param); }
-		};
-		cmd.cmdHelp(text("GOVERNOR_AUTO_SCOUT_DESC"));
-		return cmd;		
-	}
-	private Command initAutoColonize()		{
-		Command cmd = new Command("Toggle auto Colonize", DESIGN_AUTO_COLONY) {
-			@Override protected String execute(Entries param) { return processAutoColonize(param); }
-		};
-		cmd.cmdHelp(text("GOVERNOR_AUTO_SCOUT_DESC"));
-		return cmd;		
-	}
-
-	private Command initAutoBuild()			{
-		Command cmd = new Command("Automatically design the most suitable ship", DESIGN_AUTO_BUILD) {
-			@Override protected String execute(Entries param) { return processAutoBuild(param); }
-		};
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initDesignFighter()		{
-		Command cmd = new Command("Automatically design a Fighter ship", DESIGN_FIGHTER) {
-			@Override protected String execute(Entries param) { return processFighter(param); }
-		};
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initDesignColony()		{
-		Command cmd = new Command("Automatically design a Colony ship", DESIGN_COLONY) {
-			@Override protected String execute(Entries param) { return processColony(param); }
-		};
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initDesignScout()		{
-		Command cmd = new Command("Automatically design a Scout ship", DESIGN_SCOUT) {
-			@Override protected String execute(Entries param) { return processScout(param); }
-		};
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initDesignBomber()		{
-		Command cmd = new Command("Automatically design a Bomber ship", DESIGN_BOMBER) {
-			@Override protected String execute(Entries param) { return processBomber(param); }
-		};
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectSpecialSlot()	{
-		Command cmd = new Command("Select Special Device Slot", DESIGN_SPECIAL_SLOT) {
-			@Override protected String execute(Entries param) { return processSpecialSlot(param); }
-		};
-		cmd.cmdParam(" SlotId");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectSpecialType()	{
-		Command cmd = new Command("Select Special Device Type", DESIGN_SPECIAL_TYPE) {
-			@Override protected String execute(Entries param) { return processSpecialType(param); }
-		};
-		cmd.cmdParam(" TypeId");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectWeaponSlot()	{
-		Command cmd = new Command("Select Weapon Slot", DESIGN_WEAPON_SLOT) {
-			@Override protected String execute(Entries param) { return processWeaponSlot(param); }
-		};
-		cmd.cmdParam(" SlotId");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectWeaponType()	{
-		Command cmd = new Command("Select Weapon", DESIGN_WEAPON_TYPE) {
-			@Override protected String execute(Entries param) { return processWeaponType(param); }
-		};
-		cmd.cmdParam(" TypeId");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectWeaponCount()	{
-		Command cmd = new Command("Select Weapon", DESIGN_WEAPON_COUNT) {
-			@Override protected String execute(Entries param) { return processWeaponCount(param); }
-		};
-		cmd.cmdParam(" Count");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectEcm()			{
-		Command cmd = new Command("Select Ecm", DESIGN_ECM) {
-			@Override protected String execute(Entries param) { return processEcm(param); }
-		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectShield()		{
-		Command cmd = new Command("Select Shield", DESIGN_SHIELD) {
-			@Override protected String execute(Entries param) { return processShield(param); }
-		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectArmor()		{
-		Command cmd = new Command("Select Design", DESIGN_ARMOR) {
-			@Override protected String execute(Entries param) { return processArmor(param); }
-		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectComputer()	{
-		Command cmd = new Command("Select Computer", DESIGN_COMPUTER) {
-			@Override protected String execute(Entries param) { return processComputer(param); }
-		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectManeuver()	{
-		Command cmd = new Command("Select Combat Speed", DESIGN_MANEUVER) {
-			@Override protected String execute(Entries param) { return processManeuver(param); }
-		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectEngine()		{
-		Command cmd = new Command("Select Engine", DESIGN_ENGINE) {
-			@Override protected String execute(Entries param) { return processEngine(param); }
-		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectHull()		{
-		Command cmd = new Command("Select Hull size", DESIGN_HULL) {
-			@Override protected String execute(Entries param) { return processHull(param); }
-		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initCopyDesign()		{
-		Command cmd = new Command("Copy Design", DESIGN_COPY) {
-			@Override protected String execute(Entries param) { return processCopy(param); }
-		};
-		cmd.cmdParam(" DesignId");
-		cmd.cmdHelp("Copy from DesignId");
-		return cmd;		
-	}	
-	private Command initScrapDesign()		{
-		Command cmd = new Command("Scrap Design", DESIGN_SCRAP) {
-			@Override protected String execute(Entries param) { return processScrap(param); }
-		};
-		cmd.cmdHelp(text("SHIP_DESIGN_HELP_4B"));
-		return cmd;		
-	}	
-	private Command initClearDesign()		{
-		Command cmd = new Command("Copy Design", DESIGN_CLEAR) {
-			@Override protected String execute(Entries param) { return processClear(param); }
-		};
-		cmd.cmdParam(optional(CLEAR_WEAPONS_ONLY));
-		cmd.cmdHelp("Resets all of the selected components, for undeployed design only"
-				+ NEWLINE + optional(CLEAR_WEAPONS_ONLY) + " : Resets Weapons only");
-		return cmd;		
-	}	
-	private Command initDeployDesign()		{
-		Command cmd = new Command("Deploy Design", DESIGN_DEPLOY) {
-			@Override protected String execute(Entries param) { return processDeploy(param); }
-		};
-		cmd.cmdParam(" ShipName");
-		cmd.cmdHelp(text("SHIP_DESIGN_HELP_4G")
-				+ NEWLINE + "ShipName" + " : Mandatory parameter");
-		return cmd;		
-	}	
-	private Command initSelectDesign()		{
-		Command cmd = new Command("Select Design", DESIGN_SELECT) {
-			@Override protected String execute(Entries param) { return processDesign(param); }
-		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}	
-	private Command initGlobalInfo()		{
-		Command cmd = new Command("Show Global Info", DESIGN_INFO) {
-			@Override protected String execute(Entries param) { return designSlotsOptions(); }
-		};
-		//cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-
 	// ##### DesignView Command
 	public CommandMenu initDesignMenu(CommandMenu parent)	{
-		CommandMenu menu = new CommandMenu("Ship Design Menu", parent) {
-			@Override public String open(String out)	{
-				out = super.open(out);
-				RotPUI.instance().selectDesignPanel();
-				out += designSlotInfo();
-				return out;
-			}
-			@Override public String exitPanel()	{
-				designUI().exit(false);
-				return super.exitPanel();
-			}
-		};
-		menu.addCommand(initGlobalInfo());
-		menu.addCommand(initSelectDesign());
-		menu.addCommand(initSelectHull());
-		menu.addCommand(initSelectEngine());
-		menu.addCommand(initSelectComputer());
-		menu.addCommand(initSelectManeuver());
-		menu.addCommand(initSelectArmor());
-		menu.addCommand(initSelectShield());
-		menu.addCommand(initSelectEcm());
-		menu.addCommand(initSelectWeaponSlot());
-		menu.addCommand(initSelectWeaponType());
-		menu.addCommand(initSelectWeaponCount());
-		menu.addCommand(initSelectSpecialSlot());
-		menu.addCommand(initSelectSpecialType());
-		menu.addCommand(initDeployDesign());
-		menu.addCommand(initCopyDesign());
-		menu.addCommand(initClearDesign());
-		menu.addCommand(initScrapDesign());
-		menu.addCommand(initAutoBuild());
-		menu.addCommand(initDesignFighter());
-		menu.addCommand(initDesignColony());
-		menu.addCommand(initDesignScout());
-		menu.addCommand(initDesignBomber());
-		menu.addCommand(initAutoScout());
-		menu.addCommand(initAutoColonize());
-		menu.addCommand(initAutoAttack());
-		return menu;
+		return new DesignMenu("Ship Design Menu", parent);
 	}
 
 	private String processAutoScout(Entries param)		{
@@ -1247,4 +1006,248 @@ public class VIPDesignView implements IVIPConsole {
 		designUI().repaint();
 	}
 	private String maneuverComponent(ShipDesign design)	{ return maneuverInfo(design); }
+
+	// ################### SUB COMMAND CLASSES ######################
+	private class CmdAutoScout extends Command {
+		CmdAutoScout  (String descr, String... keys) {
+			super(descr, keys);
+			cmdHelp(text("GOVERNOR_AUTO_SCOUT_DESC"));
+		}
+		@Override protected String execute(Entries param) { return processAutoScout(param); }
+	}
+	private class CmdAutoAttack extends Command {
+		CmdAutoAttack  (String descr, String... keys) {
+			super(descr, keys);
+			cmdHelp(text("GOVERNOR_AUTO_SCOUT_DESC"));
+		}
+		@Override protected String execute(Entries param) { return processAutoAttack(param); }
+	}
+	private class CmdAutoColonize extends Command {
+		CmdAutoColonize  (String descr, String... keys) {
+			super(descr, keys);
+			cmdHelp(text("GOVERNOR_AUTO_SCOUT_DESC"));
+		}
+		@Override protected String execute(Entries param) { return processAutoColonize(param); }
+	}
+	private class CmdAutoBuild extends Command {
+		CmdAutoBuild  (String descr, String... keys) {
+			super(descr, keys);
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processAutoBuild(param); }
+	}
+	private class CmdDesignFighter extends Command {
+		CmdDesignFighter  (String descr, String... keys) {
+			super(descr, keys);
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processFighter(param); }
+	}
+	private class CmdDesignColony extends Command {
+		CmdDesignColony  (String descr, String... keys) {
+			super(descr, keys);
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processColony(param); }
+	}
+	private class CmdDesignScout extends Command {
+		CmdDesignScout  (String descr, String... keys) {
+			super(descr, keys);
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processScout(param); }
+	}
+	private class CmdDesignBomber extends Command {
+		CmdDesignBomber  (String descr, String... keys) {
+			super(descr, keys);
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processBomber(param); }
+	}
+	private class CmdSelectSpecialSlot extends Command {
+		CmdSelectSpecialSlot  (String descr, String... keys) {
+			super(descr, keys);
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processSpecialSlot(param); }
+	}
+	private class CmdSelectSpecialType extends Command {
+		CmdSelectSpecialType  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" TypeId");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processSpecialType(param); }
+	}
+	private class CmdSelectWeaponSlot extends Command {
+		CmdSelectWeaponSlot  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" SlotId");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processWeaponSlot(param); }
+	}
+	private class CmdSelectWeaponType extends Command {
+		CmdSelectWeaponType  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" TypeId");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processWeaponType(param); }
+	}
+	private class CmdSelectWeaponCount extends Command {
+		CmdSelectWeaponCount  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" Count");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processWeaponCount(param); }
+	}
+	private class CmdSelectEcm extends Command {
+		CmdSelectEcm  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" Index");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processEcm(param); }
+	}
+	private class CmdSelectShield extends Command {
+		CmdSelectShield  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" Index");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processShield(param); }
+	}
+	private class CmdSelectArmor extends Command {
+		CmdSelectArmor  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" Index");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processArmor(param); }
+	}
+	private class CmdSelectComputer extends Command {
+		CmdSelectComputer  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" Index");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processComputer(param); }
+	}
+	private class CmdSelectManeuver extends Command {
+		CmdSelectManeuver  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" Index");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processManeuver(param); }
+	}
+	private class CmdSelectEngine extends Command {
+		CmdSelectEngine  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" Index");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processEngine(param); }
+	}
+	private class CmdSelectHull extends Command {
+		CmdSelectHull  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" Index");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processHull(param); }
+	}
+	private class CmdCopyDesign extends Command {
+		CmdCopyDesign  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" DesignId");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processCopy(param); }
+	}
+	private class CmdScrapDesign extends Command {
+		CmdScrapDesign  (String descr, String... keys) {
+			super(descr, keys);
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processScrap(param); }
+	}
+	private class CmdClearDesign extends Command {
+		CmdClearDesign  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(optional(CLEAR_WEAPONS_ONLY));
+			cmdHelp("Resets all of the selected components, for undeployed design only"
+					+ NEWLINE + optional(CLEAR_WEAPONS_ONLY) + " : Resets Weapons only");
+		}
+		@Override protected String execute(Entries param) { return processClear(param); }
+	}
+	private class CmdDeployDesign extends Command {
+		CmdDeployDesign  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" ShipName");
+			cmdHelp(text("SHIP_DESIGN_HELP_4G")
+					+ NEWLINE + "ShipName" + " : Mandatory parameter");
+		}
+		@Override protected String execute(Entries param) { return processDeploy(param); }
+	}
+	private class CmdSelectDesign extends Command {
+		CmdSelectDesign  (String descr, String... keys) {
+			super(descr, keys);
+			cmdParam(" Index");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return processDesign(param); }
+	}
+	private class CmdGlobalInfo extends Command {
+		CmdGlobalInfo  (String descr, String... keys) {
+			super(descr, keys);
+			//cmdParam(" Index");
+			cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return designSlotsOptions(); }
+	}
+	// ################### SUB COMMAND MENU CLASSES ######################
+	private class DesignMenu extends CommandMenu {
+		DesignMenu  (String name, CommandMenu parent) {
+			super(name, parent);
+			addCmd(new CmdGlobalInfo("Show Global Info", DESIGN_INFO));
+			addCmd(new CmdSelectDesign("Select Design", DESIGN_SELECT));
+			addCmd(new CmdSelectHull("Select Hull size", DESIGN_HULL));
+			addCmd(new CmdSelectEngine("Select Engine", DESIGN_ENGINE));
+			addCmd(new CmdSelectComputer("Select Computer", DESIGN_COMPUTER));
+			addCmd(new CmdSelectManeuver("Select Combat Speed", DESIGN_MANEUVER));
+			addCmd(new CmdSelectArmor("Select Design", DESIGN_ARMOR));
+			addCmd(new CmdSelectShield("Select Shield", DESIGN_SHIELD));
+			addCmd(new CmdSelectEcm("Select Ecm", DESIGN_ECM));
+			addCmd(new CmdSelectWeaponSlot("Select Weapon Slot", DESIGN_WEAPON_SLOT));
+			addCmd(new CmdSelectWeaponType("Select Weapon", DESIGN_WEAPON_TYPE));
+			addCmd(new CmdSelectWeaponCount("Select Weapon", DESIGN_WEAPON_COUNT));
+			addCmd(new CmdSelectSpecialSlot("Select Special Device Slot", DESIGN_SPECIAL_SLOT));
+			addCmd(new CmdSelectSpecialType("Select Special Device Type", DESIGN_SPECIAL_TYPE));
+			addCmd(new CmdDeployDesign("Deploy Design", DESIGN_DEPLOY));
+			addCmd(new CmdCopyDesign("Copy Design", DESIGN_COPY));
+			addCmd(new CmdClearDesign("Copy Design", DESIGN_CLEAR));
+			addCmd(new CmdScrapDesign("Scrap Design", DESIGN_SCRAP));
+			addCmd(new CmdAutoBuild("Automatically design the most suitable ship", DESIGN_AUTO_BUILD));
+			addCmd(new CmdDesignFighter("Automatically design a Fighter ship", DESIGN_FIGHTER));
+			addCmd(new CmdDesignColony("Automatically design a Colony ship", DESIGN_COLONY));
+			addCmd(new CmdDesignScout("Automatically design a Scout ship", DESIGN_SCOUT));
+			addCmd(new CmdDesignBomber("Automatically design a Bomber ship", DESIGN_BOMBER));
+			addCmd(new CmdAutoScout("Toggle auto Scout", DESIGN_AUTO_SCOUT));
+			addCmd(new CmdAutoColonize("Toggle auto Colonize", DESIGN_AUTO_COLONY));
+			addCmd(new CmdAutoAttack("Toggle auto Attack", DESIGN_AUTO_ATTACK));
+		}
+		@Override public String open(String out)	{
+			out = super.open(out);
+			RotPUI.instance().selectDesignPanel();
+			out += designSlotInfo();
+			return out;
+		}
+		@Override public String exitPanel()	{
+			designUI().exit(false);
+			return super.exitPanel();
+		}
+	}
 }

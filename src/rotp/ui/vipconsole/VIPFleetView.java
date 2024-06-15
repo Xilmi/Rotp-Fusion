@@ -239,61 +239,64 @@ public class VIPFleetView implements IVIPConsole {
 
 	// ##### FleetView Command
 	Command initSelectFleet()	{
-		Command cmd = new Command("select Fleet from index and gives fleet info", FLEET_KEY) {
-			@Override protected String execute(Entries param) {
-				if (param.isEmpty())
-					return cmdHelp();
+		return new CmdSelectFleet("select Fleet from index and gives fleet info", FLEET_KEY);		
+	}
 
-				String  str  = param.remove(0);
-				Integer flId = getInteger(str);
-				ShipFleet fleet;
-				if (flId == null) { // select a new fleet
-					return "??? parameter " + str + NEWLINE + cmdHelp();
-				}
-
-				FleetPanel panel = RotPUI.instance().mainUI().displayPanel().fleetPane();
-				String out = getShortGuide() + NEWLINE;
-				// select a new fleet
-				selectedFleet = console().validFleet(flId);
-				if (selectedFleet == flId)
-					out = "";
-				else
-					return "Invalid Fleet selection";
-				fleet = console().getFleet(selectedFleet);
-				mainUI().selectSprite(fleet, 1, false, true, false);
-				mainUI().map().recenterMapOn(fleet);
-				mainUI().repaint();
-				init(selectedFleet);
-				out = getInfo(out);
-
-				if (!param.isEmpty()) { // Do something with selected fleet
-					str = param.remove(0);
-					if (str.equalsIgnoreCase(FLEET_SEND)) { // Send Fleet
-						if (fleet.empire().isPlayer())
-							out = sendFleet(param, out);
-						else
-							out = "Error: You do not own this fleet. Only player fleets can be sent"; 
-					}
-					else if (str.equalsIgnoreCase(FLEET_UNDEPLOY)) {
-						if (fleet.empire().isPlayer())
-							panel.undeployFleet();
-						else
-							out = "Error: You do not own this fleet. Only player fleets can be undeployed"; 
-					}
-					else
-						out += NEWLINE + "Wrong parameter " + str;
-				}
-				return out;
-			}
-		};
-		cmd.cmdParam(" Index " + optional(FLEET_UNDEPLOY) + OR_SEP
-					+ optional(FLEET_SEND + " " + SYSTEM_KEY + " destId [n] [n] [n] [n] [n]"));
-
-		cmd.cmdHelp("Additionnal requests:"
+	// ################### SUB COMMAND CLASSES ######################
+	private class CmdSelectFleet extends Command {
+		CmdSelectFleet  (String descr, String... keys) {
+		super(descr, keys);
+		cmdParam(" Index " + optional(FLEET_UNDEPLOY) + OR_SEP
+				+ optional(FLEET_SEND + " " + SYSTEM_KEY + " destId [n] [n] [n] [n] [n]"));
+		cmdHelp("Additionnal requests:"
 				 + NEWLINE + "Optional "+ optional(FLEET_UNDEPLOY) + " to Undeploy fleet"
 				 + NEWLINE + "Optional "+ optional(FLEET_SEND) + " to Star System " + SYSTEM_KEY + "x"
 				 + NEWLINE + "Optional select sub fleet by adding the number of each listed design");
-		return cmd;		
-	}
+		}
+		@Override protected String execute(Entries param) {
+			if (param.isEmpty())
+				return cmdHelp();
 
+			String  str  = param.remove(0);
+			Integer flId = getInteger(str);
+			ShipFleet fleet;
+			if (flId == null) { // select a new fleet
+				return "??? parameter " + str + NEWLINE + cmdHelp();
+			}
+
+			FleetPanel panel = RotPUI.instance().mainUI().displayPanel().fleetPane();
+			String out = getShortGuide() + NEWLINE;
+			// select a new fleet
+			selectedFleet = console().validFleet(flId);
+			if (selectedFleet == flId)
+				out = "";
+			else
+				return "Invalid Fleet selection";
+			fleet = console().getFleet(selectedFleet);
+			mainUI().selectSprite(fleet, 1, false, true, false);
+			mainUI().map().recenterMapOn(fleet);
+			mainUI().repaint();
+			init(selectedFleet);
+			out = getInfo(out);
+
+			if (!param.isEmpty()) { // Do something with selected fleet
+				str = param.remove(0);
+				if (str.equalsIgnoreCase(FLEET_SEND)) { // Send Fleet
+					if (fleet.empire().isPlayer())
+						out = sendFleet(param, out);
+					else
+						out = "Error: You do not own this fleet. Only player fleets can be sent"; 
+				}
+				else if (str.equalsIgnoreCase(FLEET_UNDEPLOY)) {
+					if (fleet.empire().isPlayer())
+						panel.undeployFleet();
+					else
+						out = "Error: You do not own this fleet. Only player fleets can be undeployed"; 
+				}
+				else
+					out += NEWLINE + "Wrong parameter " + str;
+			}
+			return out;
+		}
+	}
 }

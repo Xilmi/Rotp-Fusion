@@ -30,6 +30,7 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -763,22 +764,25 @@ public class EmpireColonySpendingPane extends BasePanel {
     }
 
     JFrame governorOptionsFrame = null;
+    private class GovernorComponentAdapter extends ComponentAdapter {
+    	@Override public void componentMoved(java.awt.event.ComponentEvent evt) {
+        	GovernorOptions options = govOptions();
+			options.setPosition(getLocation());
+        }
+    }
     private void governorOptions() {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
 			public void run() {
                 if (governorOptionsFrame == null) {
-                    governorOptionsFrame = new JFrame("GovernorOptions") {
-                    	{
-                    		addComponentListener(new java.awt.event.ComponentAdapter() {
-                                @Override
-                    			public void componentMoved(java.awt.event.ComponentEvent evt) {
-                                	GovernorOptions options = govOptions();
-                        			options.setPosition(getLocation());
-                                }
-                            });
-                    	}
-                    };
+                    governorOptionsFrame = new JFrame("GovernorOptions")
+//                    {
+//                    	{
+//                    		addComponentListener(new GovernorComponentAdapter());
+//                    	}
+//                    }
+                    ;
+                    governorOptionsFrame.addComponentListener(new GovernorComponentAdapter());
                     // make this window have an icon, same as main window
                     // modnar: change to cleaner icon set
                     List<Image> iconImages = new ArrayList<Image>();

@@ -120,9 +120,10 @@ public class ShipComponent implements Base, Serializable {
     public static int FLD_NUM = 0;
     public static ShipDesign FLD_DESIGN = null;
     public static int FLD_BANK = 0;
-    public static Comparator<ShipComponent> FIELD_VALUE = new Comparator<ShipComponent>() {
-        @Override
-        public int compare(ShipComponent o1, ShipComponent o2) {
+    public static Comparator<ShipComponent> FIELD_VALUE = new FieldValueComparator();
+
+    private static class FieldValueComparator implements Comparator<ShipComponent> {
+    	@Override public int compare(ShipComponent o1, ShipComponent o2) {
             String s1 = o1.fieldValue(FLD_NUM, FLD_DESIGN, FLD_BANK);
             String s2 = o2.fieldValue(FLD_NUM, FLD_DESIGN, FLD_BANK);
             Integer i1 = 0; try { i1 = Integer.valueOf(s1); } catch(NumberFormatException e) {}
@@ -132,5 +133,5 @@ public class ShipComponent implements Base, Serializable {
             else
                 return i1.compareTo(i2);
         }
-    };
+    }
 }

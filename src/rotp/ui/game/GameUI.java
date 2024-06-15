@@ -1084,12 +1084,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
                 return;
             
             fontsInitialized = true;
-            Thread r1 = new Thread(){
-                @Override
-                public void run(){
-                    renderFonts();
-                }
-            };
+            Thread r1 = new RenderFontsThread();
             r1.start();
         }
         private void renderFonts() {
@@ -1173,6 +1168,10 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 
             if (hoverBox != prevHover)
                 repaint();
+        }
+
+        private class RenderFontsThread extends Thread {
+        	@Override public void run() { renderFonts(); }
         }
     }
 }

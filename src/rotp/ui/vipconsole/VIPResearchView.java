@@ -32,115 +32,11 @@ public class VIPResearchView implements IVIPConsole {
 	private void selectCategory(int i)	{ techUI().selectTechCategory(i); }
 	private void refreshCategory(int i)	{ techUI().refreshTechCategory(i); }
 
-	private Command initShowUnknownTechInCategory()	{
-		Command cmd = new Command("select Category and list unknown technologies", TECH_UNKNOWN) {
-			@Override protected String execute(Entries param) {
-				String out = "";
-				if (!param.isEmpty()) {
-					String s = param.get(0);
-					Integer tag = getInteger(s);
-					if (tag != null) {
-						selectCategory(getCatNumFromTag(tag));
-						out += showCategoryTree(true);
-					}
-				}
-				return out;
-			}
-		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSelectCategory()	{
-		Command cmd = new Command("select Category and list technologies", TECH_CATEGORY) {
-			@Override protected String execute(Entries param) {
-				String out = "";
-				if (!param.isEmpty()) {
-					String s = param.get(0);
-					Integer tag = getInteger(s);
-					if (tag != null) {
-						selectCategory(getCatNumFromTag(tag));
-						out += showCategoryTree(false);
-					}
-				}
-				return out;
-			}
-		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initSpending()			{
-		Command cmd = new Command("Show and Change spendings", TECH_SPENDING) {
-			@Override protected String execute(Entries param) {
-				String out = processSpending(param);
-				out += NEWLINE + showSpending();
-				return out;
-			}
-		};
-		String tag = bracketed(TECH_CATEGORY, "idx");
-		cmd.cmdParam(" " + optional("Points", TECH_LOCK, TECH_EQUALIZE, TECH_DIVERT,
-				tag + " Points", tag + TECH_LOCK));
-		cmd.cmdHelp("Change spendings and show results"
-				+ NEWLINE + "A total of 60 points can be distributed between categories."
-				+ NEWLINE + "Points are taken or given back to the category with the highest index."
-				+ NEWLINE + optional("Points")			+ " : Points between 0 an 60 to last used category"
-				+ NEWLINE + optional(TECH_LOCK)			+ " : Toggle Lock the last used category"
-				+ NEWLINE + optional(TECH_EQUALIZE)		+ " : Equalize the unlocked categories"
-				+ NEWLINE + optional(TECH_DIVERT)		+ " : Toggle " + text("TECH_EMPIRE_TECH_RESERVE_OPT")
-				+ NEWLINE + optional(tag + " Points")	+ " : Points between 0 an 60 to category index"
-				+ NEWLINE + optional(tag + TECH_LOCK)	+ " : Toggle Lock the category index"
-				);
-		return cmd;		
-	}
-	private Command initSelectTechnology()	{
-		Command cmd = new Command("select Category to be researched", TECH_SELECT) {
-			@Override protected String execute(Entries param) {
-				String out = "";
-				if (!param.isEmpty()) {
-					String s = param.get(0);
-					Integer tag = getInteger(s);
-					if (tag != null) {
-						out += selectTechToResearch(tag);
-					}
-				}
-				return out;
-			}
-		};
-		cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
-	private Command initGlobalInfo()		{
-		Command cmd = new Command("Show Global Info", TECH_INFO) {
-			@Override protected String execute(Entries param) { return showGlobalInfo(); }
-		};
-		//cmd.cmdParam(" Index");
-		cmd.cmdHelp("No secondary options");
-		return cmd;		
-	}
 	// ##### ResearchView Command
 	CommandMenu initTechMenu(CommandMenu parent)	{
-		CommandMenu menu = new CommandMenu("Research Technologies Menu", parent) {
-			@Override public String open(String out)	{
-				out = super.open(out);
-				RotPUI.instance().selectTechPanel();
-				out += showGlobalInfo();
-				return out;
-			}
-			@Override public String exitPanel()	{
-				techUI().exit(false);
-				return super.exitPanel();
-			}
-		};
-		menu.addCommand(initGlobalInfo());
-		menu.addCommand(initSpending());
-		menu.addCommand(initSelectCategory());
-		menu.addCommand(initShowUnknownTechInCategory());
-		menu.addCommand(initSelectTechnology());
-
-		return menu;
+		return new TechMenu("Research Technologies Menu", parent);
 	}
+
 	private String processSpending(Entries param)	{
 		String out = "";
 		if (param.isEmpty())
@@ -463,4 +359,114 @@ public class VIPResearchView implements IVIPConsole {
 	}
 	private boolean isValidCatTag(int tag)		{ return tag>0 && tag <NUM_CATEGORIES; }
 	private boolean isValidPointTag(int tag)	{ return tag>=0 && tag <=MAX_ALLOCATION_TICKS; }
+	// ################### SUB COMMAND CLASSES ######################
+	private class CmdShowUnknownTechInCategory extends Command {
+		CmdShowUnknownTechInCategory  (String descr, String... keys) {
+		super(descr, keys);
+		cmdParam(" Index");
+		cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) {
+			String out = "";
+			if (!param.isEmpty()) {
+				String s = param.get(0);
+				Integer tag = getInteger(s);
+				if (tag != null) {
+					selectCategory(getCatNumFromTag(tag));
+					out += showCategoryTree(true);
+				}
+			}
+			return out;
+		}
+	}
+	private class CmdSelectCategory extends Command {
+		CmdSelectCategory  (String descr, String... keys) {
+		super(descr, keys);
+		cmdParam(" Index");
+		cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) {
+			String out = "";
+			if (!param.isEmpty()) {
+				String s = param.get(0);
+				Integer tag = getInteger(s);
+				if (tag != null) {
+					selectCategory(getCatNumFromTag(tag));
+					out += showCategoryTree(false);
+				}
+			}
+			return out;
+		}
+	}
+	private class CmdSpending extends Command {
+		CmdSpending  (String descr, String... keys) {
+		super(descr, keys);
+		String tag = bracketed(TECH_CATEGORY, "idx");
+		cmdParam(" " + optional("Points", TECH_LOCK, TECH_EQUALIZE, TECH_DIVERT,
+				tag + " Points", tag + TECH_LOCK));
+		cmdHelp("Change spendings and show results"
+				+ NEWLINE + "A total of 60 points can be distributed between categories."
+				+ NEWLINE + "Points are taken or given back to the category with the highest index."
+				+ NEWLINE + optional("Points")			+ " : Points between 0 an 60 to last used category"
+				+ NEWLINE + optional(TECH_LOCK)			+ " : Toggle Lock the last used category"
+				+ NEWLINE + optional(TECH_EQUALIZE)		+ " : Equalize the unlocked categories"
+				+ NEWLINE + optional(TECH_DIVERT)		+ " : Toggle " + text("TECH_EMPIRE_TECH_RESERVE_OPT")
+				+ NEWLINE + optional(tag + " Points")	+ " : Points between 0 an 60 to category index"
+				+ NEWLINE + optional(tag + TECH_LOCK)	+ " : Toggle Lock the category index"
+				);
+		}
+		@Override protected String execute(Entries param) {
+			String out = processSpending(param);
+			out += NEWLINE + showSpending();
+			return out;
+		}
+	}
+	private class CmdSelectTechnology extends Command {
+		CmdSelectTechnology  (String descr, String... keys) {
+		super(descr, keys);
+		cmdParam(" Index");
+		cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) {
+			String out = "";
+			if (!param.isEmpty()) {
+				String s = param.get(0);
+				Integer tag = getInteger(s);
+				if (tag != null) {
+					out += selectTechToResearch(tag);
+				}
+			}
+			return out;
+		}
+	}
+	private class CmdGlobalInfo extends Command {
+		CmdGlobalInfo  (String descr, String... keys) {
+		super(descr, keys);
+		//cmdParam(" Index");
+		cmdHelp("No secondary options");
+		}
+		@Override protected String execute(Entries param) { return showGlobalInfo(); }
+	}
+	// ################### SUB COMMAND MENU CLASSES ######################
+	private class TechMenu extends CommandMenu {
+		TechMenu  (String name, CommandMenu parent) {
+			super(name, parent);
+			addCmd(new CmdGlobalInfo("Show Global Info", TECH_INFO));
+			addCmd(new CmdSpending("Show and Change spendings", TECH_SPENDING));
+			addCmd(new CmdSelectCategory("select Category and list technologies", TECH_CATEGORY));
+			addCmd(new CmdShowUnknownTechInCategory("select Category and list unknown technologies", TECH_UNKNOWN));
+			addCmd(new CmdSelectTechnology("select Category to be researched", TECH_SELECT));
+
+		}
+		@Override public String open(String out)	{
+			out = super.open(out);
+			RotPUI.instance().selectTechPanel();
+			out += showGlobalInfo();
+			return out;
+		}
+		@Override public String exitPanel()	{
+			techUI().exit(false);
+			return super.exitPanel();
+		}
+	}
 }

@@ -24,11 +24,12 @@ public interface IDebugOptions extends IBaseOptsTools {
     String AUTORUN_BENCHMARK = "AutoRunBenchmark.txt";
 
 	ParamBoolean debugShowMemory	= new ParamBoolean(GAME_UI, "MEMORY", false) {
-		{ isDuplicate(true); isCfgFile(true); }
 		@Override public String getCfgLabel()		{ return "SHOW_MEMORY"; }
 		@Override public Boolean getOption()		{ return showMemory(); }
 		@Override public void setOption(Boolean b)	{ showMemory(b); }
-	};
+	}
+		.isDuplicate(true)
+		.isCfgFile(true);
 	default boolean debugShowMemory()		{ return debugShowMemory.get(); }
 
     ParamBoolean debugShowMoreMemory	= new ParamBoolean(GAME_UI, "MORE_MEMORY", false, true, true);
@@ -40,32 +41,27 @@ public interface IDebugOptions extends IBaseOptsTools {
 	ParamBoolean debugFileMemory	= new ParamBoolean(GAME_UI, "MEMORY_FILE", false, true, true);
 	default boolean debugFileMemory()		{ return debugFileMemory.get(); }
 
-	ParamList debugAutoRun		= new ParamList( MOD_UI, "DEBUG_AUTO_RUN", "Off") {
-		{
-			isDuplicate(false);
-			isCfgFile(true);
-			showFullGuide(true);
-			put("Off",		MOD_UI + "DEBUG_AUTO_RUN_OFF");
-			put("On",		MOD_UI + "DEBUG_AUTO_RUN_ON");
-			put("Bench",	MOD_UI + "DEBUG_AUTO_RUN_BENCH");
-			put("End",		MOD_UI + "DEBUG_AUTO_RUN_END");
-		}
-	};
+	ParamList debugAutoRun			= new ParamList( MOD_UI, "DEBUG_AUTO_RUN", "Off")
+		.isDuplicate(false)
+		.isCfgFile(true)
+		.showFullGuide(true)
+		.put("Off",		MOD_UI + "DEBUG_AUTO_RUN_OFF")
+		.put("On",		MOD_UI + "DEBUG_AUTO_RUN_ON")
+		.put("Bench",	MOD_UI + "DEBUG_AUTO_RUN_BENCH")
+		.put("End",		MOD_UI + "DEBUG_AUTO_RUN_END");
 	default boolean debugAutoRun()		{ return !debugAutoRun.get().equalsIgnoreCase("Off"); }
 	default boolean debugBenchmark()	{ return debugAutoRun.get().equalsIgnoreCase("Bench"); }
 	default void	debugBMContinue()	{ debugAutoRun.set("Bench"); }
 	default boolean debugBMBreak()		{ return debugAutoRun.get().equalsIgnoreCase("End"); }
 
-	ParamList debugARContinueOnLoss		= new ParamList( MOD_UI, "DEBUG_AR_CONTINUE_ON_LOSS", "BMOnly") {
-		{
-			isDuplicate(false);
-			isCfgFile(true);
-			showFullGuide(true);
-			put("Always",	MOD_UI + "DEBUG_AR_CONTINUE_ON_LOSS_ALWAYS");
-			put("Never",	MOD_UI + "DEBUG_AR_CONTINUE_ON_LOSS_NEVER");
-			put("BMOnly",	MOD_UI + "DEBUG_AR_CONTINUE_ON_LOSS_BM_ONLY");
-		}
-	};
+	ParamList debugARContinueOnLoss	= new ParamList( MOD_UI, "DEBUG_AR_CONTINUE_ON_LOSS", "BMOnly")
+		.isDuplicate(false)
+		.isCfgFile(true)
+		.showFullGuide(true)
+		.put("Always",	MOD_UI + "DEBUG_AR_CONTINUE_ON_LOSS_ALWAYS")
+		.put("Never",	MOD_UI + "DEBUG_AR_CONTINUE_ON_LOSS_NEVER")
+		.put("BMOnly",	MOD_UI + "DEBUG_AR_CONTINUE_ON_LOSS_BM_ONLY");
+
 	default boolean debugARStopOnLoss()	{
 		switch (debugARContinueOnLoss.get()) {
 		case "Never":
@@ -77,16 +73,13 @@ public interface IDebugOptions extends IBaseOptsTools {
 		}
 		return true;
 	}
-	ParamList debugBMShowAll		= new ParamList( MOD_UI, "DEBUG_BM_SHOW_ALL", "Off") {
-		{
-			isDuplicate(false);
-			isCfgFile(true);
-			showFullGuide(true);
-			put("Off",		MOD_UI + "DEBUG_BM_SHOW_ALL_OFF");
-			put("Alway",	MOD_UI + "DEBUG_BM_SHOW_ALL_ALWAY");
-			put("Lost",		MOD_UI + "DEBUG_BM_SHOW_ALL_LOSS");
-		}
-	};
+	ParamList debugBMShowAll		= new ParamList( MOD_UI, "DEBUG_BM_SHOW_ALL", "Off")
+		.isDuplicate(false)
+		.isCfgFile(true)
+		.showFullGuide(true)
+		.put("Off",		MOD_UI + "DEBUG_BM_SHOW_ALL_OFF")
+		.put("Alway",	MOD_UI + "DEBUG_BM_SHOW_ALL_ALWAY")
+		.put("Lost",		MOD_UI + "DEBUG_BM_SHOW_ALL_LOSS");
 	default boolean debugBMShowAll()	{
 		switch (debugBMShowAll.get()) {
 		case "Off":
@@ -121,9 +114,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 	ParamBoolean debugLogEvents		= new ParamBoolean(GAME_UI, "DEBUG_LOG_EVENTS", true, true, true);
 	default boolean debugLogEvents()		{ return debugLogEvents.get(); }
 
-	ParamBoolean showVIPPanel	= new ParamBoolean(GAME_UI, "SHOW_CONSOLE_PANEL", false)
-	{
-		{ isDuplicate(false); isCfgFile(true); }
+	ParamBoolean showVIPPanel	= new ParamBoolean(GAME_UI, "SHOW_CONSOLE_PANEL", false) {
 		@Override public Boolean set(Boolean newValue) {
 			super.set(newValue);
 			RotPUI.useDebugFile = newValue;
@@ -131,7 +122,9 @@ public interface IDebugOptions extends IBaseOptsTools {
 			VIPConsole.showConsole(newValue);
 			return newValue;
 		}
-	};
+	}
+		.isDuplicate(false)
+		.isCfgFile(true);
 	default boolean selectedShowVIPPanel()	{ return showVIPPanel.get(); }
 	default void showVIPPanel()				{ VIPConsole.showConsole(selectedShowVIPPanel()); }
 	default void showVIPPanel(boolean b)	{

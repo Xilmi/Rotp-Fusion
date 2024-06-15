@@ -149,177 +149,22 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			RESTART_KEY,
 			"");
 	}
-	public final ParamList opponentAI			= new ParamList( // For Guide
+	public final ParamListOpponentAI opponentAI		= new ParamListOpponentAI( // For Guide
 			BASE_UI, "OPPONENT_AI",
 			IGameOptions.globalAIset().getAliens(),
-			IGameOptions.defaultAI.aliensKey) {
-		@Override public String	getOptionValue(IGameOptions options)	{
-			return options.selectedOpponentAIOption();
-		}
-		@Override public String	guideValue()	{ return langLabel(get()); }
-		@Override public void reInit(List<String> list) {
-			if (list == null)
-				super.reInit(IGameOptions.globalAIset().getAliens());
-			else
-				super.reInit(list);
-		}
-		@Override public String setFromIndex(int index) {
-			String value = super.setFromIndex(index);
-			newGameOptions().selectedOpponentAIOption(value);
-			return value;
-		}
-		@Override public String set(String value) {
-			super.set(value);
-			newGameOptions().selectedOpponentAIOption(value);
-			return value;
-		}
-		@Override public boolean prev() {
-			prevOpponentAI(true);
-			return false;
-		}
-		@Override public boolean next() {
-			nextOpponentAI(true);
-			return false;
-		}
-	};
-	private final ParamList specificAI			= new ParamList( // For Guide
+			IGameOptions.defaultAI.aliensKey);
+	private final ParamListSpecificAI specificAI	= new ParamListSpecificAI( // For Guide
 			BASE_UI, "SPECIFIC_AI",
 			IGameOptions.specificAIset().getAliens(),
-			IGameOptions.defaultAI.aliensKey) {
-		@Override public String	getOptionValue(IGameOptions options)	{
-			return options.specificOpponentAIOption(mouseBoxIndex()+1);
-		}
-		@Override public String	guideValue()	{ return langLabel(get()); }
-		@Override public void reInit(List<String> list) {
-			if (list == null)
-				super.reInit(IGameOptions.specificAIset().getAliens());
-			else
-				super.reInit(list);
-		}
-	};
-	private final ParamList specificOpponent	= new ParamList( // For Guide
-			BASE_UI, "SPECIFIC_OPPONENT", guiOptions().allRaceOptions(), opponentRandom) {
-		@Override public void reInit(List<String> list) {
-			if (list == null)
-				super.reInit(guiOptions().allRaceOptions());
-			else
-				super.reInit(list);
-		}
-		@Override public String	getOptionValue(IGameOptions options)	{
-			String val = options.selectedOpponentRace(mouseBoxIndex());
-			if (val == null)
-				return opponentRandom;
-			return val;
-		}
-		@Override public String	guideValue()	{
-			String key = get();
-			if (key == null || key.equals(opponentRandom))
-				return "Random";
-			Race race = Race.keyed(key);
-			String name = race.setupName();
-			return name; 
-		}
-		@Override public String getRowGuide(int id)	{
-			// System.out.println("id = " + id + " " + this.getGuiValue(id));
-			String key, help;
-			key = getGuiValue(id);
-			if (key == null || key.equals(opponentRandom))
-				help = labelFormat(opponentRandom) + "Surprise me!";
-			else {
-				Race   race		= Race.keyed(key);
-				String raceName = race.setupName();
-				help = labelFormat(raceName) + race.description1
-						+ "<br>" + race.description2
-						+ "&ensp /&ensp " + race.description3.replace("[race]", raceName)
-						+ "&ensp /&ensp " + race.description4;
-			}
-			return help;
-		}
-		@Override public String valueGuide(int id)	{
-			// System.out.println("id = " + id + " " + this.getGuiValue(id));
-			String key, help;
-			key = getGuiValue(id);
-			if (key == null || key.equals(opponentRandom))
-				help = "Surprise me!";
-			else {
-				Race   race		= Race.keyed(key);
-				String raceName = race.setupName();
-				help = labelFormat(raceName) + race.description1
-						+ "<br>" + race.description2
-						+ "<br>" + race.description3.replace("[race]", raceName)
-						+ "<br>" + race.description4;
-			}
-			return tableFormat(help);
-		}
-	};
-    public final ParamList globalAbilities		= new ParamList( // For Guide
+			IGameOptions.defaultAI.aliensKey);
+	private final ParamListSpecificOpponent specificOpponent	= new ParamListSpecificOpponent( // For Guide
+			BASE_UI, "SPECIFIC_OPPONENT", guiOptions().allRaceOptions(), opponentRandom);
+    public final ParamListGlobalAbilities globalAbilities		= new ParamListGlobalAbilities( // For Guide
 			BASE_UI, "GLOBAL_ABILITY", globalAbilitiesList,
-			SpecificCROption.BASE_RACE.value)	{
-		@Override public String	getOptionValue(IGameOptions options) {
-			return globalCROptions.get();
-		}
-		@Override public String	guideValue()	{ return text(get()); }
-		@Override public String getRowGuide(int id)	{
-			String key  = getGuiValue(id);
-			String help = realLangLabel(key+LABEL_DESCRIPTION);
-			if (help != null)
-				return rowFormat(labelFormat(name(id)), help);
-
-			Race   race		= fileToAlienRace(key);
-			String raceName = race.setupName;
-			if (key.startsWith(BASE_RACE_MARKER))
-				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
-			else
-				help = labelFormat(raceName) + race.description1;
-			help += "<br>" + race.description2
-					+ "&ensp /&ensp " + race.description3.replace("[race]", raceName)
-					+ "&ensp /&ensp " + race.description4;
-			return help;
-		}
-		@Override public String setFromIndex(int index) {
-			String value = super.setFromIndex(index);
-			globalCROptions.set(value);
-			return value;
-		}
-		@Override public String set(String value) {
-			super.set(value);
-			globalCROptions.set(value);
-			return value;
-		}
-		@Override public boolean prev() {
-			prevGlobalAbilities(true);
-			return false;
-		}
-		@Override public boolean next() {
-			nextGlobalAbilities(true);
-			return false;
-		}
-	};
-	private final ParamList specificAbilities	= new ParamList( // For Guide
+			SpecificCROption.BASE_RACE.value);
+	private final ParamListSpecificAbilities specificAbilities	= new ParamListSpecificAbilities( // For Guide
 			BASE_UI, "SPECIFIC_ABILITY", specificAbilitiesList,
-			SpecificCROption.defaultSpecificValue().value) {
-		@Override public String	getOptionValue(IGameOptions options)	{
-			return options.specificOpponentCROption(mouseBoxIndex()+1);
-		}
-		@Override public String	guideValue()	{ return text(get()); }
-		@Override public String getRowGuide(int id)	{
-			String key  = getGuiValue(id);
-			String help = realLangLabel(key+LABEL_DESCRIPTION);
-			if (help != null)
-				return rowFormat(labelFormat(name(id)), help);
-
-			Race   race		= fileToAlienRace(key);
-			String raceName = race.setupName;
-			if (key.startsWith(BASE_RACE_MARKER))
-				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
-			else
-				help = labelFormat(raceName) + race.description1;
-			help += "<br>" + race.description2
-					+ "&ensp /&ensp " + race.description3.replace("[race]", raceName)
-					+ "&ensp /&ensp " + race.description4;
-			return help;
-		}
-	};
+			SpecificCROption.defaultSpecificValue().value);
 
 	private Box mergedStaticBox		= new Box("SETUP_GALAXY_COMPACT_OPTIONS"); // BR add UI panel for MOD game options
 	private Box mergedDynamicBox	= new Box("SETUP_GALAXY_COMPACT_OPTIONS"); // BR add UI panel for MOD game options
@@ -1010,6 +855,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	        catch(Exception e){}//do nothing
 	    }
 	}
+
 	private String getBitmapFile() {
         String dirPath = bitmapGalaxyLastFolder.get();
         File selectedFile = new File(shapeOption3.get());
@@ -1018,17 +864,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
         	bitmapGalaxyLastFolder.set(dirPath);
         	UserPreferences.save();
         }
-		JFileChooser fileChooser = new JFileChooser() {
-			@Override
-			protected JDialog createDialog(Component parent)
-	                throws HeadlessException {
-	            JDialog dlg = super.createDialog(parent);
-	            dlg.setLocation(scaled(300), scaled(200));
-	            dlg.setSize(scaled(420), scaled(470));
-	            dlg.getContentPane().setBackground(GameUI.borderMidColor());
-	            return dlg;
-	        }
-	    };
+        BitmapFileChooser fileChooser = new BitmapFileChooser();
 	    setFileChooserFont(fileChooser.getComponents());
 		fileChooser.setCurrentDirectory(new File(dirPath));
 		fileChooser.setAcceptAllFileFilterUsed(false);
@@ -1047,14 +883,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
 				"All files (*.*", "*"));
 		// Add listener to file picking
-		fileChooser.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-				if (fileChooser.getSelectedFile() != null) {
-					preview(fileChooser.getSelectedFile().getPath());
-				}
-            }
-        });
+		fileChooser.addPropertyChangeListener(new BMPropertyChangeListener(fileChooser));
 		int result = fileChooser.showOpenDialog(getParent());
 		if (result == JFileChooser.APPROVE_OPTION) {
 		    // user selects a file
@@ -3358,5 +3187,205 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				}
 			}
 		}
+	}
+
+	// ########## SUB-CLASSES ##########
+	private class ParamListOpponentAI extends ParamList { // For Guide
+		private ParamListOpponentAI(String gui, String name, List<String> list, String defaultValue) {
+			super(gui, name, list, defaultValue);
+		}
+		@Override public String	getOptionValue(IGameOptions options)	{
+			return options.selectedOpponentAIOption();
+		}
+		@Override public String	guideValue()	{ return langLabel(get()); }
+		@Override public void reInit(List<String> list) {
+			if (list == null)
+				super.reInit(IGameOptions.globalAIset().getAliens());
+			else
+				super.reInit(list);
+		}
+		@Override public String setFromIndex(int index) {
+			String value = super.setFromIndex(index);
+			newGameOptions().selectedOpponentAIOption(value);
+			return value;
+		}
+		@Override public String set(String value) {
+			super.set(value);
+			newGameOptions().selectedOpponentAIOption(value);
+			return value;
+		}
+		@Override public boolean prev() {
+			prevOpponentAI(true);
+			return false;
+		}
+		@Override public boolean next() {
+			nextOpponentAI(true);
+			return false;
+		}
+	};
+	private class ParamListSpecificAI extends ParamList { // For Guide
+		ParamListSpecificAI(String gui, String name, List<String> list, String defaultValue) {
+			super(gui, name, list, defaultValue);
+		}
+		@Override public String	getOptionValue(IGameOptions options)	{
+			return options.specificOpponentAIOption(mouseBoxIndex()+1);
+		}
+		@Override public String	guideValue()	{ return langLabel(get()); }
+		@Override public void reInit(List<String> list) {
+			if (list == null)
+				super.reInit(IGameOptions.specificAIset().getAliens());
+			else
+				super.reInit(list);
+		}
+	};
+	private class ParamListSpecificOpponent extends ParamList { // For Guide
+		ParamListSpecificOpponent(String gui, String name, List<String> list, String defaultValue) {
+			super(gui, name, list, defaultValue);
+		}
+		@Override public void reInit(List<String> list) {
+			if (list == null)
+				super.reInit(guiOptions().allRaceOptions());
+			else
+				super.reInit(list);
+		}
+		@Override public String	getOptionValue(IGameOptions options)	{
+			String val = options.selectedOpponentRace(mouseBoxIndex());
+			if (val == null)
+				return opponentRandom;
+			return val;
+		}
+		@Override public String	guideValue()	{
+			String key = get();
+			if (key == null || key.equals(opponentRandom))
+				return "Random";
+			Race race = Race.keyed(key);
+			String name = race.setupName();
+			return name; 
+		}
+		@Override public String getRowGuide(int id)	{
+			// System.out.println("id = " + id + " " + this.getGuiValue(id));
+			String key, help;
+			key = getGuiValue(id);
+			if (key == null || key.equals(opponentRandom))
+				help = labelFormat(opponentRandom) + "Surprise me!";
+			else {
+				Race   race		= Race.keyed(key);
+				String raceName = race.setupName();
+				help = labelFormat(raceName) + race.description1
+						+ "<br>" + race.description2
+						+ "&ensp /&ensp " + race.description3.replace("[race]", raceName)
+						+ "&ensp /&ensp " + race.description4;
+			}
+			return help;
+		}
+		@Override public String valueGuide(int id)	{
+			// System.out.println("id = " + id + " " + this.getGuiValue(id));
+			String key, help;
+			key = getGuiValue(id);
+			if (key == null || key.equals(opponentRandom))
+				help = "Surprise me!";
+			else {
+				Race   race		= Race.keyed(key);
+				String raceName = race.setupName();
+				help = labelFormat(raceName) + race.description1
+						+ "<br>" + race.description2
+						+ "<br>" + race.description3.replace("[race]", raceName)
+						+ "<br>" + race.description4;
+			}
+			return tableFormat(help);
+		}
+	};
+    private class ParamListGlobalAbilities extends ParamList { // For Guide
+    	private ParamListGlobalAbilities(String gui, String name, List<String> list, String defaultValue) {
+			super(gui, name, list, defaultValue);
+		}
+		@Override public String	getOptionValue(IGameOptions options) {
+			return globalCROptions.get();
+		}
+		@Override public String	guideValue()	{ return text(get()); }
+		@Override public String getRowGuide(int id)	{
+			String key  = getGuiValue(id);
+			String help = realLangLabel(key+LABEL_DESCRIPTION);
+			if (help != null)
+				return rowFormat(labelFormat(name(id)), help);
+
+			Race   race		= fileToAlienRace(key);
+			String raceName = race.setupName;
+			if (key.startsWith(BASE_RACE_MARKER))
+				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
+			else
+				help = labelFormat(raceName) + race.description1;
+			help += "<br>" + race.description2
+					+ "&ensp /&ensp " + race.description3.replace("[race]", raceName)
+					+ "&ensp /&ensp " + race.description4;
+			return help;
+		}
+		@Override public String setFromIndex(int index) {
+			String value = super.setFromIndex(index);
+			globalCROptions.set(value);
+			return value;
+		}
+		@Override public String set(String value) {
+			super.set(value);
+			globalCROptions.set(value);
+			return value;
+		}
+		@Override public boolean prev() {
+			prevGlobalAbilities(true);
+			return false;
+		}
+		@Override public boolean next() {
+			nextGlobalAbilities(true);
+			return false;
+		}
+	};
+	private class ParamListSpecificAbilities extends ParamList { // For Guide
+		ParamListSpecificAbilities(String gui, String name, List<String> list, String defaultValue) {
+			super(gui, name, list, defaultValue);
+		}
+		@Override public String	getOptionValue(IGameOptions options)	{
+			return options.specificOpponentCROption(mouseBoxIndex()+1);
+		}
+		@Override public String	guideValue()	{ return text(get()); }
+		@Override public String getRowGuide(int id)	{
+			String key  = getGuiValue(id);
+			String help = realLangLabel(key+LABEL_DESCRIPTION);
+			if (help != null)
+				return rowFormat(labelFormat(name(id)), help);
+
+			Race   race		= fileToAlienRace(key);
+			String raceName = race.setupName;
+			if (key.startsWith(BASE_RACE_MARKER))
+				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
+			else
+				help = labelFormat(raceName) + race.description1;
+			help += "<br>" + race.description2
+					+ "&ensp /&ensp " + race.description3.replace("[race]", raceName)
+					+ "&ensp /&ensp " + race.description4;
+			return help;
+		}
+	};
+	private class BitmapFileChooser extends JFileChooser {
+		@Override
+		protected JDialog createDialog(Component parent)
+                throws HeadlessException {
+            JDialog dlg = super.createDialog(parent);
+            dlg.setLocation(scaled(300), scaled(200));
+            dlg.setSize(scaled(420), scaled(470));
+            dlg.getContentPane().setBackground(GameUI.borderMidColor());
+            return dlg;
+        }
+	}
+	private class BMPropertyChangeListener implements PropertyChangeListener {
+		private final JFileChooser bmFileChooser;
+		private BMPropertyChangeListener(JFileChooser fileChooser) {
+			bmFileChooser = fileChooser;
+		}
+		@Override
+        public void propertyChange(PropertyChangeEvent evt) {
+			if (bmFileChooser.getSelectedFile() != null) {
+				preview(bmFileChooser.getSelectedFile().getPath());
+			}
+        }
 	}
 }

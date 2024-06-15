@@ -239,47 +239,10 @@ public class Tech implements Base {
         Tech t2 = TechLibrary.current().tech(o2);
         return t2.level().compareTo(t1.level());
     };
-    public static Comparator<Tech> RESEARCH_PRIORITY = new Comparator<Tech>() {
-        @Override
-        public int compare(Tech o1, Tech o2) {
-            float pr1 = comparatorCiv.ai().scientist().researchPriority(o1);
-            float pr2 = comparatorCiv.ai().scientist().researchPriority(o2);
-            if (pr1 != pr2)
-                return Base.compare(pr2, pr1);
-            else
-                return Base.compare(o1.level, o2.level);
-        }
-    };
-    public static Comparator<Tech> RESEARCH_VALUE = new Comparator<Tech>() {
-        @Override
-        public int compare(Tech o1, Tech o2) {
-            float pr1 = comparatorCiv.ai().scientist().researchValue(o1);
-            float pr2 = comparatorCiv.ai().scientist().researchValue(o2);
-            if (pr1 != pr2)
-                return Base.compare(pr2, pr1);
-            else
-                return Base.compare(o2.level, o1.level);
-        }
-    };
-    public static Comparator<Tech> BASE_VALUE = new Comparator<Tech>() {
-        @Override
-        public int compare(Tech o1, Tech o2) {
-            float pr1 = o1.baseValue(comparatorCiv);
-            float pr2 = o2.baseValue(comparatorCiv);
-            if (pr1 != pr2)
-                return Base.compare(pr2, pr1);
-            else
-                return Base.compare(o2.level, o1.level);
-        }
-    };
-    public static Comparator<Tech> WAR_TRADE_VALUE = new Comparator<Tech>() {
-        @Override
-        public int compare(Tech o1, Tech o2) {
-            float pr1 = comparatorCiv.ai().scientist().warTradeValue(o1);
-            float pr2 = comparatorCiv.ai().scientist().warTradeValue(o2);
-            return Base.compare(pr2, pr1);
-        }
-    };
+    public static Comparator<Tech> RESEARCH_PRIORITY = new ResearchPriorityComparator();
+    public static Comparator<Tech> RESEARCH_VALUE    = new ResearchValueComparator();
+    public static Comparator<Tech> BASE_VALUE        = new BaseValueComparator();
+    public static Comparator<Tech> WAR_TRADE_VALUE   = new WarTradeComparator();
     public Comparator<Tech> OBJECT_TRADE_PRIORITY = (Tech o1, Tech o2) -> {
         float pr1 = this.level() - o1.level();
         if(pr1 < 0)
@@ -334,5 +297,43 @@ public class Tech implements Base {
         sleep(250);
         ui.paintAllImmediately();
         sleep(250);
+    }
+    private static class ResearchPriorityComparator implements Comparator<Tech> {
+    	@Override public int compare(Tech o1, Tech o2) {
+            float pr1 = comparatorCiv.ai().scientist().researchPriority(o1);
+            float pr2 = comparatorCiv.ai().scientist().researchPriority(o2);
+            if (pr1 != pr2)
+                return Base.compare(pr2, pr1);
+            else
+                return Base.compare(o1.level, o2.level);
+        }
+    }
+    private static class ResearchValueComparator implements Comparator<Tech> {
+    	@Override
+        public int compare(Tech o1, Tech o2) {
+            float pr1 = comparatorCiv.ai().scientist().researchValue(o1);
+            float pr2 = comparatorCiv.ai().scientist().researchValue(o2);
+            if (pr1 != pr2)
+                return Base.compare(pr2, pr1);
+            else
+                return Base.compare(o2.level, o1.level);
+        }
+    }
+    private static class BaseValueComparator implements Comparator<Tech> {
+    	@Override public int compare(Tech o1, Tech o2) {
+            float pr1 = o1.baseValue(comparatorCiv);
+            float pr2 = o2.baseValue(comparatorCiv);
+            if (pr1 != pr2)
+                return Base.compare(pr2, pr1);
+            else
+                return Base.compare(o2.level, o1.level);
+        }
+    }
+    private static class WarTradeComparator implements Comparator<Tech> {
+    	@Override public int compare(Tech o1, Tech o2) {
+            float pr1 = comparatorCiv.ai().scientist().warTradeValue(o1);
+            float pr2 = comparatorCiv.ai().scientist().warTradeValue(o2);
+            return Base.compare(pr2, pr1);
+        }
     }
 }

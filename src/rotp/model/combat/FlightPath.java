@@ -84,10 +84,10 @@ public class FlightPath implements Base {
             prevY = y0;
         }
     }
-    public static Comparator<FlightPath> SORT = new Comparator<FlightPath>() {
-        @Override
-        public int compare(FlightPath col1, FlightPath col2) {
+    public static Comparator<FlightPath> SORT = new FlightPathSortComparator();
+    private static class FlightPathSortComparator implements Comparator<FlightPath> {
+    	@Override public int compare(FlightPath col1, FlightPath col2) {
             return Base.compare(col1.sortValue(),col2.sortValue());
         }
-    };
+    }
 }

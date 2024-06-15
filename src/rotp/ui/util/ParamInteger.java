@@ -36,14 +36,14 @@ public class ParamInteger extends AbstractParam<Integer> {
 
 	// ========== constructors ==========
 	//
-//	/**
-//	 * @param gui  The label header
-//	 * @param name The name
-//	 * @param defaultvalue The default value
-//	 */
-//	public ParamInteger(String gui, String name, Integer defaultValue) {
-//		super(gui, name, defaultValue, null, null, 1, 1, 1, 1);
-//	}
+	/**
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param defaultvalue The default value
+	 */
+/*	public ParamInteger(String gui, String name, Integer defaultValue) {
+		super(gui, name, defaultValue, null, null, 1, 1, 1, 1);
+	} */
 	/**
 	 * @param gui  The label header
 	 * @param name The name
@@ -112,6 +112,10 @@ public class ParamInteger extends AbstractParam<Integer> {
 	}
 	// ===== Overriders =====
 	//
+	@Override public ParamInteger isValueInit(boolean is) { super.isValueInit(is) ; return this; }
+	@Override public ParamInteger isDuplicate(boolean is) { super.isDuplicate(is) ; return this; }
+	@Override public ParamInteger isCfgFile(boolean is)	  { super.isCfgFile(is)   ; return this; }
+
 	@Override public String[] getModifiers()	{
 		if (baseInc().equals(shiftInc()))
 			return null;

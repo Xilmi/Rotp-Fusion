@@ -563,31 +563,10 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         return Base.compare(emp.sv.maxTransNoLoss(sys1.id),emp.sv.maxTransNoLoss(sys2.id));
     };
     public static StarSystem TARGET_SYSTEM;
-    public static Comparator<StarSystem> DISTANCE_TO_TARGET_SYSTEM = new Comparator<StarSystem>() {
-        @Override
-        public int compare(StarSystem sys1, StarSystem sys2) {
-            float pr1 = sys1.distanceTo(TARGET_SYSTEM);
-            float pr2 = sys2.distanceTo(TARGET_SYSTEM);
-            return Base.compare(pr1, pr2);
-        }
-    };
-    public static Comparator<StarSystem> TRANSPORT_TIME_TO_TARGET_SYSTEM = new Comparator<StarSystem>() {
-        @Override
-        public int compare(StarSystem sys1, StarSystem sys2) {
-            float pr1 = sys1.transportTimeTo(TARGET_SYSTEM);
-            float pr2 = sys2.transportTimeTo(TARGET_SYSTEM);
-            return Base.compare(pr1, pr2);
-        }
-    };
+    public static Comparator<StarSystem> DISTANCE_TO_TARGET_SYSTEM = new DistanceToTargetSystemComparator();
+    public static Comparator<StarSystem> TRANSPORT_TIME_TO_TARGET_SYSTEM = new TransportTimeToTargetSystemComparator();
     public static Empire TARGET_EMPIRE;
-    public static Comparator<StarSystem> DISTANCE_TO_TARGET_EMPIRE = new Comparator<StarSystem>() {
-        @Override
-        public int compare(StarSystem sys1, StarSystem sys2) {
-            float pr1 = TARGET_EMPIRE.sv.distance(sys1.id);
-            float pr2 = TARGET_EMPIRE.sv.distance(sys2.id);
-            return Base.compare(pr1, pr2);
-        }
-    };
+    public static Comparator<StarSystem> DISTANCE_TO_TARGET_EMPIRE = new DistanceToTargetEmpireComparator();
     //
     // SUPPORTING BEHAVIOR FOR SPRITES
     //
@@ -1063,6 +1042,27 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         int maxFont = 72;
         int minFont = 4;
         return bounds(minFont, (int)(maxFont * 10 / map.scaleX()), maxFont);
+    }
+    private static class DistanceToTargetSystemComparator implements Comparator<StarSystem> {
+    	@Override public int compare(StarSystem sys1, StarSystem sys2) {
+            float pr1 = sys1.distanceTo(TARGET_SYSTEM);
+            float pr2 = sys2.distanceTo(TARGET_SYSTEM);
+            return Base.compare(pr1, pr2);
+        }
+    }
+    private static class TransportTimeToTargetSystemComparator implements Comparator<StarSystem> {
+    	@Override public int compare(StarSystem sys1, StarSystem sys2) {
+            float pr1 = sys1.transportTimeTo(TARGET_SYSTEM);
+            float pr2 = sys2.transportTimeTo(TARGET_SYSTEM);
+            return Base.compare(pr1, pr2);
+        }
+    }
+    private static class DistanceToTargetEmpireComparator implements Comparator<StarSystem> {
+    	@Override public int compare(StarSystem sys1, StarSystem sys2) {
+            float pr1 = TARGET_EMPIRE.sv.distance(sys1.id);
+            float pr2 = TARGET_EMPIRE.sv.distance(sys2.id);
+            return Base.compare(pr1, pr2);
+        }
     }
 	// ==================== SystemBaseData ====================
 	//

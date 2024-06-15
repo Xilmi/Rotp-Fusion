@@ -336,14 +336,14 @@ public final class SabotageUI extends BasePanel implements MouseListener, IVIPLi
         public StarSystem systemViewToDisplay() {
             return instance.systemToDisplay();
         }
-	@Override
-	protected BasePanel topPane()    { return new SystemViewInfoPane(this); }
-	@Override
-	protected BasePanel bottomPane()    { return null; }
-	@Override
-	protected BasePanel detailPane() { return null; }
-        protected void showExplored()     { detailLayout.show(cardPanel, EXPLORED); }
-        protected void showUnexplored()   { detailLayout.show(cardPanel, UNEXPLORED); }
+		@Override
+		protected BasePanel topPane()    { return new SystemViewInfoPane(this); }
+		@Override
+		protected BasePanel bottomPane()    { return null; }
+		@Override
+		protected BasePanel detailPane() { return null; }
+	    protected void showExplored()     { detailLayout.show(cardPanel, EXPLORED); }
+	    protected void showUnexplored()   { detailLayout.show(cardPanel, UNEXPLORED); }
     }
 
     final class SpyDetailPane extends BasePanel {

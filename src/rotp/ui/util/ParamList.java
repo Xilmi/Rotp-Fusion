@@ -47,19 +47,19 @@ public class ParamList extends AbstractParam<String> {
 		super(gui, name, defaultCfgLabel);
 		valueLabelMap = new IndexableMap();
 	}
-//	/**
-//	 * @param gui  The label header
-//	 * @param name The name
-//	 * @param defaultCfgLabel The default CfgLabel
-//	 * @param list keys for map table
-//	 * @param header The label Header
-//	 */
-//	public ParamList(String gui, String name, String defaultCfgLabel, LinkedList<String> list, String mid) {
-//		super(gui, name, defaultCfgLabel);
-//		valueLabelMap = new IndexableMap();
-//		for (String element : list)
-//			put(element, mid + element.toUpperCase());
-//	}
+	/**
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param defaultCfgLabel The default CfgLabel
+	 * @param list keys for map table
+	 * @param header The label Header
+	 */
+/*	public ParamList(String gui, String name, String defaultCfgLabel, LinkedList<String> list, String mid) {
+		super(gui, name, defaultCfgLabel);
+		valueLabelMap = new IndexableMap();
+		for (String element : list)
+			put(element, mid + element.toUpperCase());
+	} */
 	/**
 	 * @param gui  The label header
 	 * @param name The name
@@ -70,48 +70,48 @@ public class ParamList extends AbstractParam<String> {
 		super(gui, name, defaultCfgLabel);
 		this.valueLabelMap = optionLabelMap;
 	}
-//	/**
-//	 * @param gui  The label header
-//	 * @param name The name
-//	 * @param list keys for map table
-//	 * @param defaultIndex index to the default value
-//	 * @param isDuplicate if true the option already exist 
-//	 */
-//	public ParamList(String gui, String name, List<String> list, int defaultIndex, boolean isDuplicate) {
-//		super(gui, name, list.get(defaultIndex));
-//		isDuplicate(isDuplicate);
-//		valueLabelMap = new IndexableMap();
-//		for (String element : list)
-//			put(element, element); // Temporary; needs to be further initialized
-//	}
-//	/**
-//	 * Initializer for Duplicate
-//	 * @param gui  The label header
-//	 * @param name The name
-//	 * @param list keys for map table
-//	 * @param defaultIndex index to the default value
-//	 */
-//	public ParamList(String gui, String name, List<String> list, int defaultIndex) {
-//		super(gui, name, list.get(defaultIndex));
-//		isDuplicate(true);
-//		valueLabelMap = new IndexableMap();
-//		for (String element : list)
-//			put(element, element); // Temporary; needs to be further initialized
-//	}
-//	/**
-//	 * @param gui  The label header
-//	 * @param name The name
-//	 * @param list keys for map table
-//	 * @param defaultIndex index to the default value
-//	 * @param isDuplicate if true the option already exist 
-//	 */
-//	public ParamList(String gui, String name, List<String> list, String defaultValue, boolean isDuplicate) {
-//		super(gui, name, defaultValue);
-//		isDuplicate(isDuplicate);
-//		valueLabelMap = new IndexableMap();
-//		for (String element : list)
-//			put(element, element); // Temporary; needs to be further initialized
-//	}
+	/**
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param list keys for map table
+	 * @param defaultIndex index to the default value
+	 * @param isDuplicate if true the option already exist 
+	 */
+/*	public ParamList(String gui, String name, List<String> list, int defaultIndex, boolean isDuplicate) {
+		super(gui, name, list.get(defaultIndex));
+		isDuplicate(isDuplicate);
+		valueLabelMap = new IndexableMap();
+		for (String element : list)
+			put(element, element); // Temporary; needs to be further initialized
+	} */
+	/**
+	 * Initializer for Duplicate
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param list keys for map table
+	 * @param defaultIndex index to the default value
+	 */
+/*	public ParamList(String gui, String name, List<String> list, int defaultIndex) {
+		super(gui, name, list.get(defaultIndex));
+		isDuplicate(true);
+		valueLabelMap = new IndexableMap();
+		for (String element : list)
+			put(element, element); // Temporary; needs to be further initialized
+	} */
+	/**
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param list keys for map table
+	 * @param defaultIndex index to the default value
+	 * @param isDuplicate if true the option already exist 
+	 */
+/*	public ParamList(String gui, String name, List<String> list, String defaultValue, boolean isDuplicate) {
+		super(gui, name, defaultValue);
+		isDuplicate(isDuplicate);
+		valueLabelMap = new IndexableMap();
+		for (String element : list)
+			put(element, element); // Temporary; needs to be further initialized
+	} */
 	/**
 	 * Initializer for Duplicate
 	 * @param gui  The label header
@@ -147,6 +147,10 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
+	@Override public ParamList isValueInit(boolean is)	{ super.isValueInit(is) ; return this; }
+	@Override public ParamList isDuplicate(boolean is)	{ super.isDuplicate(is) ; return this; }
+	@Override public ParamList isCfgFile(boolean is)	{ super.isCfgFile(is)   ; return this; }
+
  	@Override public boolean isActive()					{ return listSize()>0; }
 	@Override public String guideDefaultValue()			{ return name(defaultValueIndex()); }
 	@Override public String getCfgValue(String value)	{ return validateValue(value); }

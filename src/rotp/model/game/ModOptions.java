@@ -19,7 +19,7 @@ public class ModOptions implements IModOptions {
 	@Override public void saveOptionsToFile(String s, LinkedList<IParam> p)	{ }
 	@Override public void updateFromFile(String s, LinkedList<IParam> p)	{ }
 	@Override public void resetPanelSettingsToDefault(LinkedList<IParam> p,
-			boolean excludeCfg, boolean excludeSubMenu)	{ }
+								boolean excludeCfg, boolean excludeSubMenu)	{ }
 	@Override public void copyAliensAISettings(IGameOptions dest)			{ }
-	@Override public void updateAllNonCfgFromFile(String fileName)				{ }
+	@Override public void updateAllNonCfgFromFile(String fileName)			{ }
 }
