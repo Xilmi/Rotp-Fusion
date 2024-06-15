@@ -83,122 +83,194 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	
 	// ==================== Duplicates for Base Main Settings Options ====================
 	//
-	ParamList displayMode		= new ParamList( GAME_UI, "DISPLAY_MODE",
-			Arrays.asList(
-					WINDOW_MODE,
-					BORDERLESS_MODE,
-					FULLSCREEN_MODE
-					),
-			WINDOW_MODE) {
+	ParamList displayMode = new DisplayMode();
+	class DisplayMode extends ParamList {
+		DisplayMode() {
+			super( GAME_UI, "DISPLAY_MODE",
+					Arrays.asList(
+							WINDOW_MODE,
+							BORDERLESS_MODE,
+							FULLSCREEN_MODE
+							),
+					WINDOW_MODE);
+			isDuplicate(true);
+			isCfgFile(true);
+			showFullGuide(true);
+		}
 		@Override public String getCfgValue()		{ return displayModeToSettingName(get()); }
 		@Override public String getOption()			{ return displayMode(); }
 		@Override public void setOption(String s)	{ displayMode(s); }
-	}.isDuplicate(true).isCfgFile(true).showFullGuide(true);
+	}
 //	default boolean fullScreen()	{ return displayMode().equals(FULLSCREEN_MODE); }
 //	default boolean windowed()		{ return displayMode().equals(WINDOW_MODE); }
 //	default boolean borderless()	{ return displayMode().equals(BORDERLESS_MODE); }
 //	default String displayMode()	{ return displayMode.get(); }
 	
-	ParamList graphicsMode		= new ParamList( GAME_UI, "GRAPHICS",
-			Arrays.asList(
-					GRAPHICS_HIGH,
-					GRAPHICS_MEDIUM,
-					GRAPHICS_LOW,
-					GRAPHICS_RETINA
-					),
-			GRAPHICS_HIGH) {
+	ParamList graphicsMode = new GraphicsMode();
+	class GraphicsMode extends ParamList {
+		GraphicsMode() {
+			super(GAME_UI, "GRAPHICS",
+					Arrays.asList(
+							GRAPHICS_HIGH,
+							GRAPHICS_MEDIUM,
+							GRAPHICS_LOW,
+							GRAPHICS_RETINA
+							),
+					GRAPHICS_HIGH);
+			isDuplicate(true);
+			isCfgFile(true);
+			showFullGuide(true);
+		}
 		@Override public String getCfgValue()		{ return graphicsModeToSettingName(get()); }
 		@Override public String getOption()			{ return graphicsMode(); }
 		@Override public void setOption(String s)	{ graphicsMode(s); }
-	}.isDuplicate(true).isCfgFile(true).showFullGuide(true);
+	}
 //	default boolean playAnimations()	{ return !graphicsMode.get().equals(GRAPHICS_LOW); }
 //	default boolean antiAliasing()		{ return graphicsMode.get().equals(GRAPHICS_HIGH); }
 
-	ParamList texturesMode		= new ParamList( GAME_UI, "TEXTURES",
-			Arrays.asList(
-					TEXTURES_NO,
-					TEXTURES_INTERFACE,
-					TEXTURES_MAP,
-					TEXTURES_BOTH
-					),
-			TEXTURES_BOTH) {
+	ParamList texturesMode = new TexturesMode();
+	class TexturesMode extends ParamList {
+		TexturesMode() {
+			super(GAME_UI, "TEXTURES",
+					Arrays.asList(
+							TEXTURES_NO,
+							TEXTURES_INTERFACE,
+							TEXTURES_MAP,
+							TEXTURES_BOTH
+							),
+					TEXTURES_BOTH);
+			isDuplicate(true);
+			isCfgFile(true);
+			showFullGuide(true);
+		}
 		@Override public String getCfgValue()		{ return texturesToSettingName(get()); }
 		@Override public String getOption()			{ return texturesMode(); }
 		@Override public void setOption(String s)	{ texturesMode(s); }
-	}.isDuplicate(true).isCfgFile(true).showFullGuide(true);
+	}
 //	default boolean texturesInterface()		{ return texturesInterface(); }
 //	default boolean texturesMap()			{ return texturesMap(); }
 
-	ParamList sensitivityMode		= new ParamList( GAME_UI, "SENSITIVITY",
-			Arrays.asList(
-					SENSITIVITY_LOW,
-					SENSITIVITY_MEDIUM,
-					SENSITIVITY_HIGH
-					),
-			SENSITIVITY_MEDIUM) {
+	ParamList sensitivityMode = new SensitivityMode();
+	class SensitivityMode extends ParamList {
+		SensitivityMode() {
+			super(GAME_UI, "SENSITIVITY",
+					Arrays.asList(
+							SENSITIVITY_LOW,
+							SENSITIVITY_MEDIUM,
+							SENSITIVITY_HIGH
+							),
+					SENSITIVITY_MEDIUM);
+			isDuplicate(true);
+			isCfgFile(true);
+			showFullGuide(true);
+		}
 		@Override public String getCfgValue()		{ return sensitivityToSettingName(get()); }
 		@Override public String getOption()			{ return sensitivityMode(); }
 		@Override public void setOption(String s)	{ sensitivityMode(s); }
-	}.isDuplicate(true).isCfgFile(true).showFullGuide(true);
+	}
 //	default boolean sensitivityMedium()		{ return sensitivityMedium(); }
 //	default boolean sensitivityLow()		{ return sensitivityLow(); }
 
 	// Do no use alone, Go through soundVolume
-	ParamBoolean playSounds		= new ParamBoolean(GAME_UI, "SOUNDS", true) {
+	ParamBoolean playSounds = new PlaySounds();
+	class PlaySounds extends ParamBoolean {
+		PlaySounds() {
+			super(GAME_UI, "SOUNDS", true);
+			isDuplicate(true);
+			isCfgFile(true);
+		}
 		@Override public Boolean getOption()		{ return playSounds(); }
 		@Override public void setOption(Boolean b)	{
 			if(playSounds() != b)
 				//playSounds(!s); // ! because following line will toggle!
 				SoundManager.current().toggleSounds();
 		}
-	}.isDuplicate(true).isCfgFile(true);
-	ParamBoolInt soundVolume	= new ParamBoolInt(GAME_UI, playSounds,
-			"SOUNDS_ON", "SOUNDS_OFF", 10, 0, 10) {
+	}
+
+	ParamBoolInt soundVolume = new SoundVolume();
+	class SoundVolume extends ParamBoolInt {
+		SoundVolume() {
+			super(GAME_UI, playSounds,
+					"SOUNDS_ON", "SOUNDS_OFF", 10, 0, 10);
+			isDuplicate(true);
+			isCfgFile(true);
+		}
 		@Override public String getCfgLabel()		{ return "SOUND_VOLUME"; }
 		@Override public Integer getOption()		{ return soundVolume(); }
 		@Override public void setOption(Integer i)	{
 			soundVolume(Math.abs(i));
 			SoundManager.current().resetSoundVolumes();
 		}
-	}.isDuplicate(true).isCfgFile(true);
+	}
 //	default int soundVolume()		{ return soundVolume.get(); }
 //	default boolean playSounds()	{ return playSounds.get(); }
 	
 	// Do no use alone, Go through musicVolume
-	ParamBoolean playMusic		= new ParamBoolean(GAME_UI, "MUSIC", true) {
+	ParamBoolean playMusic = new PlayMusic();
+	class PlayMusic extends ParamBoolean {
+		PlayMusic() {
+			super(GAME_UI, "MUSIC", true);
+			isDuplicate(true);
+			isCfgFile(true);
+		}
 		@Override public Boolean getOption()		{ return playMusic(); }
 		@Override public void setOption(Boolean b)	{
 			if(playMusic() != b)
 				//playMusic(!s); // ! because following line will toggle!
 				SoundManager.current().toggleMusic();
 		}
-	}.isDuplicate(true).isCfgFile(true);
-	ParamBoolInt musicVolume	= new ParamBoolInt(GAME_UI, playMusic,
-			"MUSIC_ON", "MUSIC_OFF", 10, 0, 10) {
+	}
+
+	ParamBoolInt musicVolume = new MusicVolume();
+	class MusicVolume extends ParamBoolInt {
+		MusicVolume() {
+			super(GAME_UI, playMusic, "MUSIC_ON", "MUSIC_OFF", 10, 0, 10);
+			isDuplicate(true);
+			isCfgFile(true);
+		}
 		@Override public String getCfgLabel()		{ return "MUSIC_VOLUME"; }
 		@Override public Integer getOption()		{ return musicVolume(); }
 		@Override public void setOption(Integer i)	{
 			musicVolume(Math.abs(i));
 			SoundManager.current().resetMusicVolumes();
 		}
-	}.isDuplicate(true).isCfgFile(true);
+	}
 //	default int musicVolume()		{ return musicVolume.get(); }
 //	default boolean playMusic()		{ return playMusic.get(); }
 
-	ParamInteger selectedScreen		= new ParamInteger(GAME_UI, "SELECTED_SCREEN",
-			-1, -1, Rotp.maxScreenIndex(), true) {
+	ParamInteger selectedScreen = new SelectedScreen();
+	class SelectedScreen extends ParamInteger {
+		SelectedScreen() {
+			super(GAME_UI, "SELECTED_SCREEN", -1);
+			setLimits(-1, Rotp.maxScreenIndex());
+			loop(true);
+			isDuplicate(true);
+			isCfgFile(true);
+		}
 		@Override public Integer getOption()		{ return selectedScreen(); }
 		@Override public void setOption(Integer i)	{ selectedScreen(i); }
-	}.isDuplicate(true).isCfgFile(true);
+	}
 //	default int selectedScreen()		{ return selectedScreen.get(); }
 
-	ParamInteger backupTurns	= new ParamInteger(GAME_UI, "BACKUP", 5, 0, MAX_BACKUP_TURNS, 1, 5, 10) {
+	ParamInteger backupTurns = new BackupTurns();
+	class BackupTurns extends ParamInteger {
+		BackupTurns() {
+			super(GAME_UI, "BACKUP", 5);
+			setLimits(0, MAX_BACKUP_TURNS);
+			setIncrements(1, 5, 10);
+			isDuplicate(true);
+			isCfgFile(true);
+			specialZero(GAME_UI + "BACKUP_OFF");
+		}
 		@Override public String getCfgLabel()		{ return "BACKUP_TURNS"; }
 		@Override public Integer getOption()		{ return backupTurns(); }
 		@Override public void setOption(Integer i)	{ backupTurns(i); }
-	}.isDuplicate(true).isCfgFile(true).specialZero(GAME_UI + "BACKUP_OFF");
-//	default int backupTurns()		{ return backupTurns.get(); }
-	ParamInteger backupKeep	= new ParamInteger(GAME_UI, "BACKUP_KEEP", -1, -1, 100, 1, 5, 10)
+	}
+
+	//	default int backupTurns()		{ return backupTurns.get(); }
+	ParamInteger backupKeep	= new ParamInteger(GAME_UI, "BACKUP_KEEP", -1)
+			.setLimits(-1, 100)
+			.setIncrements(1, 5, 10)
 			.isDuplicate(false)
 			.isCfgFile(true)
 			.specialNegative(GAME_UI + "BACKUP_KEEP_ALL")
@@ -206,7 +278,13 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default int backupKeep()		{ return backupKeep.get(); }
 	default boolean deleteBackup()	{ return !backupKeep.isSpecialNegative(); }
 
-	ParamString saveDirectory	= new ParamString(GAME_UI, "SAVEDIR", "") {
+	ParamString saveDirectory = new SaveDirectory();
+	class SaveDirectory extends ParamString {
+		SaveDirectory() {
+			super(GAME_UI, "SAVEDIR", "");
+			isDuplicate(true);
+			isCfgFile(true);
+		}
 		@Override protected String descriptionId()	{
 			String es = get().isEmpty()? "1" : "2";
 			String label = super.descriptionId() + es;
@@ -237,13 +315,21 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		@Override public String	getCfgLabel()		{ return "SAVE_DIR"; }
 		@Override public String	getOption()			{ return saveDir(); }
 		@Override public void	setOption(String s)	{ saveDir(s); }
-	}.isDuplicate(true).isCfgFile(true);
-//	default int saveDir()		{ return saveDirectory.get(); }
-	ParamBoolean disableAdvisor		= new ParamBoolean(MOD_UI, "DISABLE_ADVISOR", false)	{
+	}
+	//	default int saveDir()		{ return saveDirectory.get(); }
+
+	ParamBoolean disableAdvisor = new DisableAdvisor();
+	class DisableAdvisor extends ParamBoolean {
+		DisableAdvisor() {
+			super(MOD_UI, "DISABLE_ADVISOR", false);
+			isDuplicate(true);
+			isCfgFile(true);
+		}
 		@Override public Boolean getOption()		{ return disableAdvisor(); }
 		@Override public void setOption(Boolean b)	{ disableAdvisor(b); }
-	}.isDuplicate(true).isCfgFile(true);
-	ParamList disableAutoHelp		= new ParamList( MOD_UI, "DISABLE_AUTO_HELP", "Yes")
+	}
+
+	ParamList disableAutoHelp = new ParamList( MOD_UI, "DISABLE_AUTO_HELP", "Yes")
 			.isCfgFile(true)
 			.showFullGuide(true)
 			.put("Yes",		MOD_UI + "DISABLE_AUTO_HELP_YES")
@@ -255,22 +341,29 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			disableAutoHelp.set("Yes");
 	}
 
-	ParamBoolean showGuide			= new ParamBoolean(MOD_UI, "SHOW_GUIDE", true).isCfgFile(true);
+	ParamBoolean showGuide = new ParamBoolean(MOD_UI, "SHOW_GUIDE", true).isCfgFile(true);
 	default boolean showGuide()			{ return showGuide.get(); }
 	
 	// ==================== Mod Options ====================
 	//
-	ParamOptions menuStartup		= new ParamOptions(MOD_UI, "MENU_STARTUP", ParamOptions.LAST).isCfgFile(true);
-	ParamBoolean useFusionFont		= new ParamBoolean(MOD_UI, "USE_FUSION_FONT", false) {
+	ParamOptions menuStartup	= new ParamOptions(MOD_UI, "MENU_STARTUP", ParamOptions.LAST).isCfgFile(true);
+	ParamBoolean useFusionFont	= new UseFusionFont();
+	class UseFusionFont extends ParamBoolean {
+		UseFusionFont() {
+			super(MOD_UI, "USE_FUSION_FONT", false);
+			isCfgFile(true);
+		}
 		@Override public void setOption(Boolean val) { FontManager.INSTANCE.resetGalaxyFont(); }
-	}.isCfgFile(true);
-	ParamList compactOptionOnly		= new ParamList( MOD_UI, "COMPACT_OPTION_ONLY", "Yes")
+	}
+
+	ParamList compactOptionOnly = new ParamList( MOD_UI, "COMPACT_OPTION_ONLY", "Yes")
 			.isCfgFile(true)
 			.showFullGuide(true)
 			.put("Yes",	MOD_UI + "COMPACT_OPTION_ONLY_YES")
 			.put("No",	MOD_UI + "COMPACT_OPTION_ONLY_NO")
 			.put("6",	MOD_UI + "COMPACT_OPTION_ONLY_6");
-	ParamList gameOverTitles		= new ParamList( MOD_UI, "GAME_OVER_TITLE", "Original")
+
+	ParamList gameOverTitles	= new ParamList( MOD_UI, "GAME_OVER_TITLE", "Original")
 			.isCfgFile(true)
 			.isDuplicate(false)
 			.showFullGuide(true)
@@ -292,34 +385,85 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	ParamBoolean originalSpeciesOnly	= new ParamBoolean(MOD_UI, "ORIGINAL_SPECIES_ONLY", true).isCfgFile(true);
 	default boolean originalSpeciesOnly()	{ return originalSpeciesOnly.get(); }
 
-	ParamBoolean  noFogOnIcons		= new ParamBoolean( BASE_UI, "NO_FOG_ON_ICONS", false).isCfgFile(true);
+	ParamBoolean  noFogOnIcons	= new ParamBoolean( BASE_UI, "NO_FOG_ON_ICONS", false).isCfgFile(true);
 	default boolean noFogOnIcons()	{ return noFogOnIcons.get(); }
 
-	ParamFloat   showFlagFactor		= new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+	ParamFloat   showFlagFactor	= new ShowFlagFactor();
+	class ShowFlagFactor extends ParamFloat {
+		ShowFlagFactor() {
+			super(MOD_UI, "SHOW_FLAG_FACTOR", 1.0f);
+			setLimits(0.3f, 3f);
+			setIncrements(0.01f, 0.05f, 0.2f);
+			cfgFormat("%");
+			guiFormat("%");
+			isCfgFile(true);
+		}
 		@Override public void setOption(Float val) { maxFlagScale((int) (80 * val)); }
-	}.isCfgFile(true);
-	ParamFloat   showPathFactor		= new ParamFloat(MOD_UI, "SHOW_PATH_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+	}
+
+	ParamFloat   showPathFactor	= new ShowPathFactor();
+	class ShowPathFactor extends ParamFloat {
+		ShowPathFactor() {
+			super(MOD_UI, "SHOW_PATH_FACTOR", 1.0f);
+			setLimits(0.3f, 3f);
+			setIncrements(0.01f, 0.05f, 0.2f);
+			cfgFormat("%");
+			guiFormat("%");
+			isCfgFile(true);
+		}
 		@Override public void setOption(Float val) { maxRallyScale((int) (100 * val)); }
-	}.isCfgFile(true);
-	ParamInteger showNameMinFont	= new ParamInteger(MOD_UI, "SHOW_NAME_MIN_FONT", 8, 2, 24, 1, 2, 5) {
+	}
+
+	ParamInteger showNameMinFont	= new ShowNameMinFont();
+	class ShowNameMinFont extends ParamInteger {
+		ShowNameMinFont() {
+			super(MOD_UI, "SHOW_NAME_MIN_FONT", 8);
+			setLimits(2, 24);
+			setIncrements(1, 2, 5);
+			isCfgFile(true);
+		}
 		@Override public void setOption(Integer val) {
 			setMinFont(val);
 			setMinFont2(Math.round(val/showInfoFontRatio.get()));
 		}
-	}.isCfgFile(true);
-	ParamFloat   showInfoFontRatio	= new ParamFloat(MOD_UI, "SHOW_INFO_FONT_RATIO"
-			, 0.7f, 0.2f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
-		@Override public void setOption(Float val) { setMinFont2(Math.round(getMinFont()/val));
+	}
+
+	ParamFloat showInfoFontRatio	= new ShowInfoFontRatio();
+	class ShowInfoFontRatio extends ParamFloat {
+		ShowInfoFontRatio() {
+			super(MOD_UI, "SHOW_INFO_FONT_RATIO", 0.7f);
+			setLimits(0.2f, 3f);
+			setIncrements(0.01f, 0.05f, 0.2f);
+			cfgFormat("%");
+			guiFormat("%");
+			isCfgFile(true);
 		}
-	}.isCfgFile(true);
-	ParamFloat   mapFontFactor		= new ParamFloat(MOD_UI, "MAP_FONT_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		@Override public void setOption(Float val) { setMinFont2(Math.round(getMinFont()/val)); }
+	}
+
+	ParamFloat mapFontFactor	= new MapFontFactor();
+	class MapFontFactor extends ParamFloat {
+		MapFontFactor() {
+			super(MOD_UI, "MAP_FONT_FACTOR", 1.0f);
+			setLimits(0.3f, 3f);
+			setIncrements(0.01f, 0.05f, 0.2f);
+			cfgFormat("%");
+			guiFormat("%");
+			isCfgFile(true);
+		}
 		@Override public void setOption(Float val) { setFontPct(Math.round(val * 100)); }
-	}.isCfgFile(true);
-	ParamFloat   showFleetFactor	= new ParamFloat( MOD_UI, "SHOW_FLEET_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+	}
+
+	ParamFloat showFleetFactor	= new ShowFleetFactor();
+	class ShowFleetFactor extends ParamFloat {
+		ShowFleetFactor() {
+			super(MOD_UI, "SHOW_FLEET_FACTOR", 1.0f);
+			setLimits(0.3f, 3f);
+			setIncrements(0.01f, 0.05f, 0.2f);
+			cfgFormat("%");
+			guiFormat("%");
+			isCfgFile(true);
+		}
 		@Override public void setOption(Float val) {
 			maxStargateScale		((int) (40 * val));
 			maxFleetUnarmedScale	((int) (40 * val));
@@ -328,7 +472,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			maxFleetLargeScale		((int) (80 * val));
 			maxFleetHugeScale		((int) (100 * val));	
 		}
-	}.isCfgFile(true);
+	}
 
 	ParamBoolean showPendingOrders	= new ParamBoolean(MOD_UI, "SHOW_PENDING_ORDERS", false);
 	default boolean showPendingOrders()		{ return showPendingOrders.get(); }
@@ -337,13 +481,30 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default boolean selectedRaceStatusLog()	{ return raceStatusLog.get(); }
 	default void	toggleRaceStatusLog()	{ raceStatusLog.toggle(); }
 
-	ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5)
+	ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE", 5)
+			.setLimits(0, 20)
+			.setIncrements(1, 2, 5)
 			.isCfgFile(true);
-	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 8, 0, 10, true)
-		.isCfgFile(true)
-		.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
 
-	ParamList colorSet				= new ParamList( MOD_UI, "COLOR_SET", "Brown") {
+	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 8)
+			.setLimits(0, 10)
+			.loop(true)
+			.isCfgFile(true)
+			.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
+
+	ParamList colorSet = new ColorSet() {
+	}		.isCfgFile(true)
+			.showFullGuide(true)
+			.put("Brown",	MOD_UI + "COLOR_SET_BROWN")
+			.put("Grey",		MOD_UI + "COLOR_SET_GREY");
+	class ColorSet extends ParamList {
+		ColorSet() {
+			super(MOD_UI, "COLOR_SET", "Brown");
+			isCfgFile(true);
+			showFullGuide(true);
+			put("Brown",	MOD_UI + "COLOR_SET_BROWN");
+			put("Grey",		MOD_UI + "COLOR_SET_GREY");
+		}
 		@Override public void setFromCfgValue(String val) {
 			super.setFromCfgValue(val);
 			GameUI.colorSet(selectedColorSet());
@@ -359,10 +520,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			mo.clearImages();
 			mo.refreshGui();
 		}
-	}		.isCfgFile(true)
-			.showFullGuide(true)
-			.put("Brown",	MOD_UI + "COLOR_SET_BROWN")
-			.put("Grey",		MOD_UI + "COLOR_SET_GREY");
+	}
 	static int selectedColorSet()	{
 		switch (colorSet.get().toUpperCase()) {
 			case "BROWN":	return 0;
@@ -383,26 +541,43 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default boolean raceStatusViewPlayer()	{ return raceStatusView.get().equals("PctPlayer"); }
 	default boolean raceStatusViewValue()	{ return raceStatusView.get().equals("Value"); }
 
-	ParamInteger realNebulaeSize	= new ParamInteger(MOD_UI, "REAL_NEBULAE_SIZE", 0, 0, 5, 1, 1, 1) {
+	ParamInteger realNebulaeSize	= new RealNebulaeSize();
+	class RealNebulaeSize extends ParamInteger {
+		RealNebulaeSize() {
+			super(MOD_UI, "REAL_NEBULAE_SIZE", 0);
+			setLimits(0, 5);
+			setIncrements(1, 1, 1);
+			isCfgFile(false);
+			specialZero(MOD_UI + "REAL_NEBULAE_NO");
+			loop(true);
+		}
 		@Override public Integer set(Integer i)	{
 			rotp.model.galaxy.Nebula.requestedQuality(i);
 			super.set(i);
 			UserPreferences.save();
 			return get();
 		}
-	}		.isCfgFile(false)
-			.specialZero(MOD_UI + "REAL_NEBULAE_NO")
-			.loop(true);
+	}
+
 	default int selectedRealNebulaeSize()	{ return realNebulaeSize.get(); }
 	default boolean selectedRealNebulae()	{ return realNebulaeSize.get() != 0; }
 
 	ParamBoolean realNebulaShape	= new ParamBoolean(MOD_UI, "REAL_NEBULAE_SHAPE", true).isCfgFile(false);
 	default boolean realNebulaShape()	{ return realNebulaShape.get(); }
 
-	ParamInteger realNebulaeOpacity	= new ParamInteger(MOD_UI, "REAL_NEBULAE_OPACITY", 60, 10, 100, 1, 5, 20).isCfgFile(true);
+	ParamInteger realNebulaeOpacity	= new ParamInteger(MOD_UI, "REAL_NEBULAE_OPACITY", 60)
+			.setLimits(10, 100)
+			.setIncrements(1, 5, 20)
+			.isCfgFile(true);
 	default float realNebulaeOpacity()	{ return realNebulaeOpacity.get()/100f; }
 
-	ParamBoolean showAllAI			= new ParamBoolean(MOD_UI, "SHOW_ALL_AI", true) {
+	ParamBoolean showAllAI	= new ShowAllAI();
+	class ShowAllAI extends ParamBoolean {
+		ShowAllAI() {
+			super(MOD_UI, "SHOW_ALL_AI", true);
+			isCfgFile(true);
+			isDuplicate(false);
+		}
 		@Override public Boolean set(Boolean newValue) {
 			super.set(newValue);
 			rotp.ui.game.SetupGalaxyUI.specificAI().reInit(null);
@@ -410,8 +585,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			rotp.model.game.IAdvOptions.autoplay.reInit(null);
 			return get();
 		}
-	}		.isCfgFile(true)
-			.isDuplicate(false);
+	}
 
 	default boolean selectedShowAllAI()			{ return showAllAI.get(); }
 	String NAME_UI		= "NAME_";
@@ -442,7 +616,14 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		map.put(ursinathi.getCfgLabel(),	ursinathi);
 		return map;
 	}
-	ParamBoolean moo1SpeciesName		= new ParamBoolean(MOD_UI, "MOO1_SPECIES_NAME", false) {
+
+	ParamBoolean moo1SpeciesName = new Moo1SpeciesName();
+	class Moo1SpeciesName extends ParamBoolean {
+		Moo1SpeciesName() {
+			super(MOD_UI, "MOO1_SPECIES_NAME", false);
+			isCfgFile(false);
+			isDuplicate(false);
+		}
 		@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
 			human.set("Human Triumvirate, Human, Humans");
 			altairi.set("Alkari Sovereignty, Alkari, Alkaris");
@@ -458,9 +639,16 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			LanguageManager.current().reloadLanguage();
 			return true;
 		}
-		@Override public String	guideValue()			{ return ""; }
-	}.isCfgFile(false).isDuplicate(false);
-	ParamBoolean clearSpeciesName		= new ParamBoolean(MOD_UI, "CLEAR_SPECIES_NAME", false) {
+		@Override public String	guideValue() { return ""; }
+	}
+
+	ParamBoolean clearSpeciesName	= new ClearSpeciesName();
+	class ClearSpeciesName extends ParamBoolean {
+		ClearSpeciesName() {
+			super(MOD_UI, "CLEAR_SPECIES_NAME", false);
+			isCfgFile(false);
+			isDuplicate(false);
+		}
 		@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
 			for (ParamSpeciesName param : speciesNameMap.values()) {
 				param.set("");
@@ -470,24 +658,29 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			LanguageManager.current().reloadLanguage();
 			return true;
 		}
-		@Override public String	guideValue()			{ return ""; }
-	}.isCfgFile(false).isDuplicate(false);
-	ParamBoolean activateSpeciesName	= new ParamBoolean(MOD_UI, "ACTIVATE_SPECIES_NAME", false) {
+		@Override public String	guideValue() { return ""; }
+	}
+
+	ParamBoolean activateSpeciesName	= new ActivateSpeciesName();
+	class ActivateSpeciesName extends ParamBoolean {
+		ActivateSpeciesName() {
+			super(MOD_UI, "ACTIVATE_SPECIES_NAME", false);
+			isCfgFile(false);
+			isDuplicate(false);
+		}
 		@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
 			next();
 			LanguageManager.current().reloadLanguage();
 			return false;
 		}
-		@Override public String	guideValue()			{ return ""; }
-	}.isCfgFile(false).isDuplicate(false);
-
+		@Override public String	guideValue() { return ""; }
+	}
 	// ==================== GUI List Declarations ====================
 	//
 	String NAME_GUI_ID	= "NAME_OPTIONS";
 	static ParamSubUI specieNameOptionsUI() {
 		return new ParamSubUI( MOD_UI, "NAME_OPTIONS_UI", specieNameOptionsMap(),
-				"NAME_OPTIONS_TITLE", NAME_GUI_ID, true);
-		//return new ParamSubUI( MOD_UI, NAME_GUI_ID, specieNameOptionsMap());
+				"NAME_OPTIONS_TITLE", NAME_GUI_ID).isCfgFile(true);
 	}
 	static LinkedList<IParam> specieNameOptions() {
 		return IBaseOptsTools.getSingleList(specieNameOptionsMap());
@@ -583,7 +776,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	String COMMON_GUI_ID	= "COMMON_OPTIONS";
 	static ParamSubUI commonOptionsUI() {
 		return new ParamSubUI( MOD_UI, COMMON_GUI_ID, commonOptionsMap())
-		.isCfgFile(false);
+				.isCfgFile(false);
 	}
 
 	static LinkedList<IParam> commonOptions() {

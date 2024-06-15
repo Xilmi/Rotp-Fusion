@@ -71,8 +71,9 @@ public interface IMapOptions extends IBaseOptsTools {
 				|| (showShipRanges.get().equals("SR"));
 	}
 	
-	ParamInteger defaultMaxBases	= new ParamInteger( GAME_UI, "DEFAULT_MAX_BASES",
-			0, 0, 5000, 1, 5, 20);
+	ParamInteger defaultMaxBases	= new ParamInteger( GAME_UI, "DEFAULT_MAX_BASES", 0)
+			.setLimits(0, 5000)
+			.setIncrements(1, 5, 20);
 	default int	defaultMaxBases() { return defaultMaxBases.get(); }
 
 	ParamBoolean divertExcessToResearch	= new ParamBoolean( GAME_UI, "DIVERT_EXCESS_TO_RESEARCH", true);

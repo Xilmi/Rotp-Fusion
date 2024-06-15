@@ -43,7 +43,13 @@ class ParamObject extends AbstractParam<Serializable> {
 	@Override public boolean toggle(MouseWheelEvent e)	{ return false; }
 	@Override public boolean toggle(MouseEvent e, BaseModPanel frame) { return false; }
 	@Override protected Serializable getOptionValue(IGameOptions options) {
-		return options.dynOpts().getObject(getLangLabel(), creationValue());
+		Serializable value = options.dynOpts().getObject(getLangLabel());
+		if (value == null)
+			if (formerName() == null)
+				value = creationValue();
+			else
+				value = options.dynOpts().getObject(formerName(), creationValue());
+		return value;
 	}
 	@Override protected void setOptionValue(IGameOptions options, Serializable value) {
 		options.dynOpts().setObject(getLangLabel(), value);

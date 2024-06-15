@@ -37,7 +37,8 @@ public class ParamBoolInt extends ParamInteger {
 	 */
 	public ParamBoolInt(String gui, ParamBoolean bool, String enabled, String disabled,
 			Integer defaultValue, Integer minValue, Integer maxValue) {
-		super(gui, enabled, defaultValue, minValue, maxValue);
+		super(gui, enabled, defaultValue);
+		setLimits(minValue, maxValue);
 		boolParam = bool;
 		specialNegative(gui+disabled);
 	}

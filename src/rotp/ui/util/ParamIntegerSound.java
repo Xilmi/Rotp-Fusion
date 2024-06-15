@@ -14,7 +14,9 @@ public class ParamIntegerSound extends ParamInteger{
 	public ParamIntegerSound(String gui, String name, Integer defaultValue
 			, Integer minValue, Integer maxValue
 			, Integer baseInc, Integer shiftInc, Integer ctrlInc) {
-		super(gui, name, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc);
+		super(gui, name, defaultValue);
+		setLimits(minValue, maxValue);
+		setIncrements(baseInc, shiftInc, ctrlInc);
 		isCfgFile(true);
 	}
 	@Override public Integer set(Integer val) {

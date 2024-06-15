@@ -41,49 +41,49 @@ public class ParamInteger extends AbstractParam<Integer> {
 	 * @param name The name
 	 * @param defaultvalue The default value
 	 */
-/*	public ParamInteger(String gui, String name, Integer defaultValue) {
-		super(gui, name, defaultValue, null, null, 1, 1, 1, 1);
-	} */
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultvalue The default value
-	 * @param minValue The minimum value (null = none)
-	 * @param maxValue The maximum value (null = none)
-	 */
-	public ParamInteger(String gui, String name, Integer defaultValue
-			, Integer minValue, Integer maxValue) {
-		super(gui, name, defaultValue, minValue, maxValue, 1, 1, 1, 1);
+	public ParamInteger(String gui, String name, Integer defaultValue) {
+		super(gui, name, defaultValue);
+		setLimits(null, null);
+		setIncrements(1, 1, 1, 1);
 	}
 	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultvalue The default value
-	 * @param minValue The minimum value (null = none)
-	 * @param maxValue The maximum value (null = none)
-	 * @param loop Once an end is reached, go to the other end
+	 * To set the increment based on key modifiers
+	 * 
+	 * @param baseInc  The base incrementThe lower limit, 
+	 * @param shiftInc The increment when Shift is hold
+	 * @param ctrlInc  The increment when Ctrl is hold
+	 * @param shiftCtrlInc  The increment when Ctrl and Shift are hold
+	 * @return this for chaining purpose
 	 */
-	public ParamInteger(String gui, String name, Integer defaultValue
-			, Integer minValue, Integer maxValue, boolean loop) {
-		super(gui, name, defaultValue, minValue, maxValue, 1, 2, 5, 10);
-		this.loop = loop;
+	@Override public ParamInteger setIncrements(Integer baseInc, Integer shiftInc,
+											Integer ctrlInc, Integer shiftCtrlInc) {
+		super.setIncrements(baseInc, shiftInc, ctrlInc, shiftCtrlInc);
+		return this;
 	}
 	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultvalue The default value
-	 * @param minValue The minimum value (null = none)
-	 * @param maxValue The maximum value (null = none)
+	 * To set the increment based on key modifiers
+	 * 
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
+	 * @return this for chaining purpose
 	 */
-	public ParamInteger(String gui, String name, Integer defaultValue
-			, Integer minValue, Integer maxValue
-			, Integer baseInc, Integer shiftInc, Integer ctrlInc) {
-		super(gui, name, defaultValue, minValue, maxValue,
-				baseInc, shiftInc, ctrlInc, shiftInc*ctrlInc/baseInc);
+	public ParamInteger setIncrements(Integer baseInc, Integer shiftInc, Integer ctrlInc) {
+		super.setIncrements(baseInc, shiftInc, ctrlInc, shiftInc*ctrlInc/baseInc);
+		return this;
 	}
+	/**
+	 * To set the parameter limits
+	 * 
+	 * @param min The lower limit, no limit if the value is null
+	 * @param max The upper limit, no limit if the value is null
+	 * @return this for chaining purpose
+	 */
+	@Override public ParamInteger setLimits(Integer min, Integer max) {
+		super.setLimits(min, max);
+		return this;
+	}
+
 	public ParamInteger loop(boolean loop) {
 		this.loop = loop;
 		return this;
@@ -112,9 +112,10 @@ public class ParamInteger extends AbstractParam<Integer> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public ParamInteger isValueInit(boolean is) { super.isValueInit(is) ; return this; }
-	@Override public ParamInteger isDuplicate(boolean is) { super.isDuplicate(is) ; return this; }
-	@Override public ParamInteger isCfgFile(boolean is)	  { super.isCfgFile(is)   ; return this; }
+	@Override public ParamInteger isValueInit(boolean is) { super.isValueInit(is)  ; return this; }
+	@Override public ParamInteger isDuplicate(boolean is) { super.isDuplicate(is)  ; return this; }
+	@Override public ParamInteger isCfgFile(boolean is)	  { super.isCfgFile(is)    ; return this; }
+	@Override public ParamInteger formerName(String link) { super.formerName(link) ; return this; }
 
 	@Override public String[] getModifiers()	{
 		if (baseInc().equals(shiftInc()))
@@ -135,7 +136,13 @@ public class ParamInteger extends AbstractParam<Integer> {
 	@Override public boolean toggle(MouseEvent e, BaseModPanel frame)	{ return next(getInc(e) * getDir(e)); }
 	@Override public boolean toggle(MouseWheelEvent e)	{ return next(getInc(e) * getDir(e)); }
 	@Override protected Integer getOptionValue(IGameOptions options) {
-		return options.dynOpts().getInteger(getLangLabel(), creationValue());
+		Integer value = options.dynOpts().getInteger(getLangLabel());
+		if (value == null)
+			if (formerName() == null)
+				value = creationValue();
+			else
+				value = options.dynOpts().getInteger(formerName(), creationValue());
+		return value;
 	}
 	@Override protected void setOptionValue(IGameOptions options, Integer value) {
 		options.dynOpts().setInteger(getLangLabel(), value);

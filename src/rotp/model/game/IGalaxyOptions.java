@@ -27,8 +27,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 
 	// ==================== Galaxy Menu addition ====================
 	//
-	ParamInteger galaxyRandSource		= new ParamInteger(MOD_UI, "GALAXY_RAND_SOURCE",
-			0, 0, Integer.MAX_VALUE, 1, 100, 10000) {
+	ParamInteger galaxyRandSource		= new ParamInteger(MOD_UI, "GALAXY_RAND_SOURCE", 0) {
 		{ loop(true); }
 		@Override public Integer	set(Integer value)	{
 			super.set(value);
@@ -46,8 +45,8 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
 			return false;
 		}
-
-	};
+	}		.setLimits(0, Integer.MAX_VALUE)
+			.setIncrements(1, 100, 10000);
 	default int selectedGalaxyRandSource()		{ return galaxyRandSource.get(); }
 	ParamBoolean showNewRaces 			= new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false) {
 		@Override public void	setFromCfgValue(String value)	{
@@ -84,7 +83,6 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 
 	ParamList    shapeOption2   		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_2")	{
-		{ showFullGuide(true); }
 		@Override public String	getOptionValue(IGameOptions options)	{
 			return options.selectedGalaxyShapeOption2();
 		}
@@ -129,10 +127,9 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
 			return false;
 		}
-	};
+	}		.showFullGuide(true);
 	ParamList    shapeOption1   		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_1")	{
-		{ showFullGuide(true); }
 		@Override public String	getOptionValue(IGameOptions options)	{
 			return options.selectedGalaxyShapeOption1();
 		}
@@ -165,7 +162,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
 			return false;
 		}
-	};
+	}		.showFullGuide(true);
 	ParamList    shapeSelection			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE) {
 		@Override public String getOptionValue(IGameOptions options) {
@@ -199,7 +196,6 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	};
 	ParamList    sizeSelection 			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SIZE", getGalaxySizeOptions(), SIZE_SMALL) {
-		{ showFullGuide(false); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedGalaxySize();
 		}
@@ -251,10 +247,9 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
 			return false;
 		}
-	};
+	}		.showFullGuide(false);
 	ParamList    difficultySelection	= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
-		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedGameDifficulty();
 		}
@@ -294,10 +289,9 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			RotPUI.setupGalaxyUI().postSelectionLight(true);
 			return false;
 		}
-	};
+	}		.showFullGuide(true);
 	ParamInteger aliensNumber 			= new ParamInteger( // Duplicate Do not add the list
-			BASE_UI, "ALIENS_NUMBER", 1, 0, 49, 1, 5, 20) {
-		{ isDuplicate(true); }
+			BASE_UI, "ALIENS_NUMBER", 1) {
 		@Override public Integer getOptionValue(IGameOptions options) {
 			maxValue(options.maximumOpponentsOptions());
 			return options.selectedNumberOpponents();
@@ -325,9 +319,11 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
 			return false;
 		}
-	};
+	}		.setLimits(0, 49)
+			.setIncrements(1, 5, 20)
+			.isDuplicate(true);
 	ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath())
-	{	{ isCfgFile(true); }	};
+			.isCfgFile(true);
 
 	// ==================== GUI List Declarations ====================
 	//

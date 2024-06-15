@@ -49,9 +49,10 @@ public abstract class AbstractParam <T> implements IParam{
 	private int	isGovernor	= NOT_GOVERNOR;
 	private boolean isDuplicate	= false;
 	private boolean isCfgFile	= false;
-	private boolean isValueInit	= true; // default values are initialized with current value.
-	
-	private boolean  updated = true;
+	private boolean isValueInit	= true; // default values are initialized with current value.	
+	private boolean	updated		= true;
+	private String	formerName;	// Link to another option for initialization (when upgrading)
+
 	@Override public void updated(boolean val)	{ updated = val; }
 	@Override public boolean updated()			{ return updated; }
 
@@ -68,37 +69,34 @@ public abstract class AbstractParam <T> implements IParam{
 		this.defaultValue = defaultValue;
 		value = defaultValue;
 	}
+
 	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultValue The default value
-	 * @param minValue The minimum value
-	 * @param maxValue The maximum value
-	 */
-	private AbstractParam(String gui, String name, T defaultValue
-			, T minValue, T maxValue) {
-		this(gui, name, defaultValue);
-		this.minValue = minValue;
-		this.maxValue = maxValue;
-	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultValue The default value
-	 * @param minValue The minimum value
-	 * @param maxValue The maximum value
+	 * To set the increment based on key modifiers
+	 * 
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
+	 * @param shiftCtrlInc  The increment when Ctrl and Shift are hold
+	 * @return this for chaining purpose
 	 */
-	AbstractParam(String gui, String name, T defaultValue
-			, T minValue, T maxValue
-			, T baseInc, T shiftInc, T ctrlInc, T shiftCtrlInc) {
-		this(gui, name, defaultValue, minValue, maxValue);
+	protected AbstractParam <T> setIncrements(T baseInc, T shiftInc, T ctrlInc, T shiftCtrlInc) {
 		this.baseInc	  = baseInc;
 		this.shiftInc	  = shiftInc;
 		this.ctrlInc	  = ctrlInc;
-		this.shiftCtrlInc = shiftCtrlInc;
+		this.shiftCtrlInc = shiftCtrlInc;	
+		return this;
+	}
+	/**
+	 * To set the parameter limits
+	 * 
+	 * @param min The lower limit, no limit if the value is null
+	 * @param max The upper limit, no limit if the value is null
+	 * @return this for chaining purpose
+	 */
+	protected AbstractParam <T> setLimits(T min, T max) {
+		minValue = min;
+		maxValue = max;
+		return this;
 	}
 	// ===== For duplicates to be overridden =====
 	// For internal use only! Do not call from outside AbstracParam
@@ -115,7 +113,7 @@ public abstract class AbstractParam <T> implements IParam{
 			System.err.println("getFromOption() not updated to getOptionValue: " + name);
 		}		
 	}
-	public void transfert (IGameOptions opts, boolean set) {}
+	// public void transfert (IGameOptions opts, boolean set) {}
 	// ========== Public Interfaces ==========
 	//
 	//	public abstract void setFromCfgValue(String val);
@@ -199,6 +197,10 @@ public abstract class AbstractParam <T> implements IParam{
 	protected T last()					{ return value; }
 	// ========== Methods to be overridden ==========
 	//
+	protected AbstractParam <T> formerName(String link)	{
+		formerName = link;
+		return this;
+	}
 	public T defaultValue()				{ return defaultValue; }
 	public T get()						{
 		if (isCfgFile) {
@@ -213,7 +215,8 @@ public abstract class AbstractParam <T> implements IParam{
 	public String getCfgValue(T value)	{ return String.valueOf(value); }
 	// ========== Public Getters ==========
 	//
-	public String getLabel()	{ return langLabel(getLangLabel()); }
+	public String getLabel()		{ return langLabel(getLangLabel()); }
+	protected String formerName()	{ return formerName; }
 	protected T creationValue()	{ return isValueInit? value : defaultValue(); }
 	T minValue()	{ return minValue; }	
 	T maxValue()	{ return maxValue; }	

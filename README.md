@@ -71,6 +71,7 @@ Later:
 - Reduced and stabilized memory consumption.
   - Replaced some "on the fly" method Override by more conventional classes declarations, this because it may confuse Java memory management...
 - Little fix for expansionist AI.
+- Replaced all "on the fly" method Override.
 
 2024.06.14 (Xilmi)
 - Combat-AI now checks the safety of a path towards enemy ships and will avoid moving through the attack-range of enemies that would destroy them.

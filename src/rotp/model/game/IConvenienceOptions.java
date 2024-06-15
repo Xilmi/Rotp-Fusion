@@ -21,7 +21,9 @@ public interface IConvenienceOptions extends IMapOptions {
 	ParamBoolean showNextCouncil		= new ParamBoolean(MOD_UI, "SHOW_NEXT_COUNCIL", false) // Show years left until next council
 			.isCfgFile(true);
 
-	ParamInteger showLimitedWarnings	= new ParamInteger(MOD_UI, "SHOW_LIMITED_WARNINGS" , -1, -1, 49, 1, 2, 5)
+	ParamInteger showLimitedWarnings	= new ParamInteger(MOD_UI, "SHOW_LIMITED_WARNINGS" , -1)
+			.setLimits(-1, 49)
+			.setIncrements(1, 2, 5)
 			.isCfgFile(false)
 			.loop(true)
 			.specialNegative(MOD_UI + "SHOW_LIMITED_WARNINGS_ALL");
@@ -50,19 +52,24 @@ public interface IConvenienceOptions extends IMapOptions {
 	ParamBoolean autoColonize_	= new ParamBoolean( GAME_UI, "AUTOCOLONIZE", false);
 	default boolean autoColonize()			{ return autoColonize_.get(); }
 
-	ParamList autoBombard_		= new ParamList( GAME_UI, "AUTOBOMBARD",
-			Arrays.asList(
-					AUTOBOMBARD_NO,
-					AUTOBOMBARD_NEVER,
-					AUTOBOMBARD_YES,
-					AUTOBOMBARD_WAR,
-					AUTOBOMBARD_INVADE
-					),
-			AUTOBOMBARD_NO) {
+	ParamList autoBombard_		= new AutoBombard_();
+	class AutoBombard_ extends ParamList {
+		AutoBombard_() {
+			super(GAME_UI, "AUTOBOMBARD",
+				Arrays.asList(
+						AUTOBOMBARD_NO,
+						AUTOBOMBARD_NEVER,
+						AUTOBOMBARD_YES,
+						AUTOBOMBARD_WAR,
+						AUTOBOMBARD_INVADE
+						),
+				AUTOBOMBARD_NO);
+			showFullGuide(true);
+		}
 		@Override public String getCfgValue() { return UserPreferences.autoBombardToSettingName(get()); }
 //		@Override public String getOption()			{ return autoBombardMode(); }
 //		@Override public void setOption(String s)	{ autoBombardMode(s); }
-	}.showFullGuide(true);
+	}
 	default boolean autoBombardNever()		{ return autoBombard_.get().equals(AUTOBOMBARD_NEVER); }
 	default boolean autoBombardYes()		{ return autoBombard_.get().equals(AUTOBOMBARD_YES); }
 	default boolean autoBombardWar()		{ return autoBombard_.get().equals(AUTOBOMBARD_WAR); }

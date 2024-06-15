@@ -22,7 +22,9 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.isCfgFile(true);
 	default boolean empireReplayZoomOut()	{ return empireReplayZoomOut.get(); }
 
-	ParamInteger replayTurnPace		 = new ParamInteger(MOD_UI, "REPLAY_TURN_PACE" , 1, 1, 100, 1, 5, 20)
+	ParamInteger replayTurnPace		 = new ParamInteger(MOD_UI, "REPLAY_TURN_PACE" , 1)
+			.setLimits(1, 100)
+			.setIncrements(1, 5, 20)
 			.isCfgFile(true);
 	default int replayTurnPace()			{ return replayTurnPace.get(); }
 	default void replayTurnPace(int div)	{ replayTurnPace.set(div); }
@@ -39,15 +41,21 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.isCfgFile(true);
 	default boolean alwaysShowsShield()		{ return alwaysShowsShield.get(); }
 
-	ParamInteger beamWindupFrames	= new ParamInteger(MOD_UI, "BEAM_WINDUP_FRAMES" , 6, 1, 20, 1, 5, 20)
+	ParamInteger beamWindupFrames	= new ParamInteger(MOD_UI, "BEAM_WINDUP_FRAMES" , 6)
+			.setLimits(1, 20)
+			.setIncrements(1, 5, 20)
 			.isCfgFile(true);
 	default int beamWindupFrames()			{ return beamWindupFrames.get(); }
 
-	ParamInteger beamHoldFrames		= new ParamInteger(MOD_UI, "BEAM_HOLD_FRAMES" , 0, -6, 20, 1, 5, 20)
+	ParamInteger beamHoldFrames		= new ParamInteger(MOD_UI, "BEAM_HOLD_FRAMES" , 0)
+			.setLimits(-6, 20)
+			.setIncrements(1, 5, 20)
 			.isCfgFile(true);
 	default int beamHoldFrames()			{ return beamHoldFrames.get(); }
 	
-	ParamInteger heavyBeamHoldFrames= new ParamInteger(MOD_UI, "HEAVY_BEAM_HOLD_FRAMES" , 6, 0, 20, 1, 5, 20)
+	ParamInteger heavyBeamHoldFrames= new ParamInteger(MOD_UI, "HEAVY_BEAM_HOLD_FRAMES" , 6)
+			.setLimits(0, 20)
+			.setIncrements(1, 5, 20)
 			.isCfgFile(true);
 	default int heavyBeamHoldFrames()		{ return heavyBeamHoldFrames.get(); }
 	
@@ -59,28 +67,40 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.isCfgFile(true);
 	default boolean shieldEnveloping()		{ return shieldEnveloping.get(); }
 
-	ParamInteger beamAnimationFPS	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_FPS" , 15, 5, 100, 1, 5, 20)
+	ParamInteger beamAnimationFPS	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_FPS" , 15)
+			.setLimits(5, 100)
+			.setIncrements(1, 5, 20)
 			.isCfgFile(true);
 	default int beamAnimationFPS()			{ return beamAnimationFPS.get(); }
 	default int beamAnimationDelay()		{ return 1000/beamAnimationFPS.get(); }
 
-	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 2000, 0, 5000, 100, 500, 2000)
+	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 2000)
+			.setLimits(0, 5000)
+			.setIncrements(100, 500, 2000)
 			.isCfgFile(true);
 	default int showResultDelay()			{ return showResultDelay.get(); }
 
-	ParamInteger shieldNoisePct		= new ParamInteger(MOD_UI, "SHIELD_NOISE_PCT" , 30, 0, 200, 1, 5, 20)
+	ParamInteger shieldNoisePct		= new ParamInteger(MOD_UI, "SHIELD_NOISE_PCT" , 30)
+			.setLimits(0, 200)
+			.setIncrements(1, 5, 20)
 			.isCfgFile(true);
 	default int shieldNoisePct()			{ return shieldNoisePct.get(); }
 
-	ParamInteger shieldTransparency	= new ParamInteger(MOD_UI, "SHIELD_TRANSPARENCY" , 20, 0, 100, 1, 5, 20)
+	ParamInteger shieldTransparency	= new ParamInteger(MOD_UI, "SHIELD_TRANSPARENCY" , 20)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20)
 			.isCfgFile(true);
 	default int shieldTransparency()		{ return shieldTransparency.get(); }
 
-	ParamInteger shieldFlickering	= new ParamInteger(MOD_UI, "SHIELD_FLICKERING" , 20, 0, 100, 1, 5, 20)
+	ParamInteger shieldFlickering	= new ParamInteger(MOD_UI, "SHIELD_FLICKERING" , 20)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20)
 			.isCfgFile(true);
 	default int shieldFlickering()			{ return shieldFlickering.get(); }
 
-	ParamInteger shieldBorder		= new ParamInteger(MOD_UI, "SHIELD_BORDER" , 0, -1, 5, 1, 1, 1)
+	ParamInteger shieldBorder		= new ParamInteger(MOD_UI, "SHIELD_BORDER" , 0)
+			.setLimits(-1, 5)
+			.setIncrements(1, 1, 1)
 			.isCfgFile(true)
 			.loop(true)
 			.specialZero(MOD_UI + "SHIELD_BORDER_SIZE")
@@ -93,27 +113,34 @@ public interface ICombatOptions extends IBaseOptsTools {
 			return 2* (hullSize+1);
 		return shieldBorder.get();
 	}
-	ParamInteger weaponZposition	= new ParamInteger(MOD_UI, "WEAPON_Z_POS" , 100, -1000, 1000, 10, 50, 200)
+	ParamInteger weaponZposition	= new ParamInteger(MOD_UI, "WEAPON_Z_POS" , 100)
+			.setLimits(-1000, 1000)
+			.setIncrements(10, 50, 200)
 			.isCfgFile(true);
 	default int weaponZposition()			{ return weaponZposition.get(); }
 
-	ParamInteger weaponZRandom		= new ParamInteger(MOD_UI, "WEAPON_Z_RANDOM" , 50, 0, 500, 5, 20, 100)
+	ParamInteger weaponZRandom		= new ParamInteger(MOD_UI, "WEAPON_Z_RANDOM" , 50)
+			.setLimits(0, 500)
+			.setIncrements(5, 20, 100)
 			.isCfgFile(true);
 	default int weaponZRandom()				{ return weaponZRandom.get(); }
 	
-	ParamBoolean startShieldDemo	= new ParamBoolean(MOD_UI, "START_SHIELD_DEMO", false)
-	{
+	ParamBoolean startShieldDemo	= new StartShieldDemo();
+	class StartShieldDemo extends ParamBoolean {
+		StartShieldDemo() {
+			super(MOD_UI, "START_SHIELD_DEMO", false);
+		}
 		@Override public Boolean set(Boolean val) {
-			if (val) {
-				javax.swing.SwingUtilities.invokeLater(new Runnable() {
-					@Override public void run(){
-						rotp.model.combat.DemoShields.main(null);
-					}
-				});
-			}
+			if (val)
+				javax.swing.SwingUtilities.invokeLater(demo());
 			return super.set(false);
 		}
-	};
+		private Runnable demo() {
+	        return () -> {
+	        	rotp.model.combat.DemoShields.main(null);
+	        };
+		}
+	}
 	default boolean startShieldDemo()		{ return startShieldDemo.get(); }
 	
 	ParamIntegerSound echoSoundDelay		= new ParamIntegerSound(MOD_UI, "ECHO_SOUND_DELAY" , 90, 10, 500, 5, 20, 50);
@@ -172,8 +199,7 @@ public interface ICombatOptions extends IBaseOptsTools {
 	};
 	static ParamSubUI combatOptionsUI() {
 		return new ParamSubUI( MOD_UI, "ZOOM_OPTIONS_UI", combatOptionsMap(),
-				"ZOOM_OPTIONS_TITLE", ZOOM_GUI_ID)
-		{ { isCfgFile(true); } };
+				"ZOOM_OPTIONS_TITLE", ZOOM_GUI_ID).isCfgFile(true);
 	}
 	static LinkedList<IParam> combatOptions() {
 		return IBaseOptsTools.getSingleList(combatOptionsMap());

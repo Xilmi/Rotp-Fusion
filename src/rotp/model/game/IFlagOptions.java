@@ -133,7 +133,10 @@ public interface IFlagOptions extends IBaseOptsTools {
 	ParamFlagColor flagRuinsAntaranColor= new ParamFlagColor("AUTO_FLAG_VESTIGES_ANTARAN", FLAG_COLOR_LTBLUE);
 	ParamFlagColor flagRuinsNoneColor 	= new ParamFlagColor("AUTO_FLAG_VESTIGES_NONE",	FLAG_COLOR_NONE);
 
-	ParamInteger flagColorCount = new ParamInteger(MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 4);
+	ParamInteger flagColorCount = new ParamInteger(MOD_UI, "FLAG_COLOR_COUNT", 1)
+			.setLimits(1, 4)
+			.setIncrements(1, 1, 1)
+			.loop(true);
 	default int	 selectedFlagColorCount() { return flagColorCount.get(); }
 
 	// ==================== GUI List Declarations ====================

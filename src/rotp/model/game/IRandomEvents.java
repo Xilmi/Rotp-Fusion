@@ -25,9 +25,13 @@ public interface IRandomEvents extends IBaseOptsTools {
 
 	// ========================================================================
 	// BR: RANDOM EVENT GLOBAL PARAMETERS
-	ParamInteger eventsStartTurn	= new ParamInteger(MOD_UI, "EVENTS_START_TURN", 50, 1, MAX_DELAY_TURN, 1, 5, 20);
+	ParamInteger eventsStartTurn	= new ParamInteger(MOD_UI, "EVENTS_START_TURN", 50)
+			.setLimits(1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20);
 
-	ParamInteger eventsPace			= new ParamInteger(MOD_UI, "EVENTS_PACE", 100, 20, 500, 1, 5, 20);
+	ParamInteger eventsPace			= new ParamInteger(MOD_UI, "EVENTS_PACE", 100)
+			.setLimits(20, 500)
+			.setIncrements(1, 5, 20);
 	default float selectedEventsPace()			{ return (float)eventsPace.get()/100f; }
 
 	ParamBoolean eventsFavorWeak	= new ParamBoolean(MOD_UI, "EVENTS_FAVOR_WEAK", true);
@@ -63,105 +67,191 @@ public interface IRandomEvents extends IBaseOptsTools {
 	
 	// ========================================================================
 	// BR: RANDOM EVENT MONSTERS PARAMETERS
-	ParamInteger piratesDelayTurn	= new ParamInteger(MOD_UI, "PIRATES_DELAY_TURN",  25, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger piratesDelayTurn	= new ParamInteger(MOD_UI, "PIRATES_DELAY_TURN",  25)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger amoebaDelayTurn	= new ParamInteger(MOD_UI, "AMOEBA_DELAY_TURN",  100, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger amoebaDelayTurn	= new ParamInteger(MOD_UI, "AMOEBA_DELAY_TURN",  100)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger crystalDelayTurn	= new ParamInteger(MOD_UI, "CRYSTAL_DELAY_TURN", 100, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger crystalDelayTurn	= new ParamInteger(MOD_UI, "CRYSTAL_DELAY_TURN", 100)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
 
-	ParamInteger piratesReturnTurn	= new ParamInteger(MOD_UI, "PIRATES_RETURN_TURN", 0, -1, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger piratesReturnTurn	= new ParamInteger(MOD_UI, "PIRATES_RETURN_TURN", 0)
+			.setLimits(-1, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE)
 			.specialNegative(SPECIAL_MULTIPLE);
-	ParamInteger amoebaReturnTurn	= new ParamInteger(MOD_UI, "AMOEBA_RETURN_TURN",  0, -1, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger amoebaReturnTurn	= new ParamInteger(MOD_UI, "AMOEBA_RETURN_TURN",  0)
+			.setLimits(-1, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE)
 			.specialNegative(SPECIAL_MULTIPLE);
-	ParamInteger crystalReturnTurn	= new ParamInteger(MOD_UI, "CRYSTAL_RETURN_TURN", 0, -1, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger crystalReturnTurn	= new ParamInteger(MOD_UI, "CRYSTAL_RETURN_TURN", 0)
+			.setLimits(-1, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE)
 			.specialNegative(SPECIAL_MULTIPLE);
 
-	ParamInteger piratesMaxSystems	= new ParamInteger(MOD_UI, "PIRATES_MAX_SYSTEMS", 0, 0, MAX_SYSTEMS, 1, 5, 20)
+	ParamInteger piratesMaxSystems	= new ParamInteger(MOD_UI, "PIRATES_MAX_SYSTEMS", 0)
+			.setLimits(0, MAX_SYSTEMS)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNLIMITED);
 	default int selectedPiratesMaxSystems()		{ return piratesMaxSystems.get(); }
-	ParamInteger amoebaMaxSystems	= new ParamInteger(MOD_UI, "AMOEBA_MAX_SYSTEMS",  0, 0, MAX_SYSTEMS, 1, 5, 20)
+	ParamInteger amoebaMaxSystems	= new ParamInteger(MOD_UI, "AMOEBA_MAX_SYSTEMS",  0)
+			.setLimits(0, MAX_SYSTEMS)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNLIMITED);
 	default int selectedAmoebaMaxSystems()		{ return amoebaMaxSystems.get(); }
-	ParamInteger crystalMaxSystems	= new ParamInteger(MOD_UI, "CRYSTAL_MAX_SYSTEMS", 0, 0, MAX_SYSTEMS, 1, 5, 20)
+	ParamInteger crystalMaxSystems	= new ParamInteger(MOD_UI, "CRYSTAL_MAX_SYSTEMS", 0)
+			.setLimits(0, MAX_SYSTEMS)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNLIMITED);
 	default int selectedCrystalMaxSystems()		{ return crystalMaxSystems.get(); }
 
 	// ========================================================================
 	// BR: RANDOM EVENT OTHER DELAY PARAMETERS
-	ParamInteger donationDelayTurn	= new ParamInteger(MOD_UI, "DONATION_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger donationDelayTurn	= new ParamInteger(MOD_UI, "DONATION_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger depletedDelayTurn	= new ParamInteger(MOD_UI, "DEPLETED_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger depletedDelayTurn	= new ParamInteger(MOD_UI, "DEPLETED_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger enrichedDelayTurn	= new ParamInteger(MOD_UI, "ENRICHED_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger enrichedDelayTurn	= new ParamInteger(MOD_UI, "ENRICHED_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger fertileDelayTurn	= new ParamInteger(MOD_UI, "FERTILE_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger fertileDelayTurn	= new ParamInteger(MOD_UI, "FERTILE_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger virusDelayTurn		= new ParamInteger(MOD_UI, "VIRUS_DELAY_TURN",		0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger virusDelayTurn		= new ParamInteger(MOD_UI, "VIRUS_DELAY_TURN",		0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger earthquakeDelayTurn= new ParamInteger(MOD_UI, "EARTHQUAKE_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger earthquakeDelayTurn= new ParamInteger(MOD_UI, "EARTHQUAKE_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger accidentDelayTurn	= new ParamInteger(MOD_UI, "ACCIDENT_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger accidentDelayTurn	= new ParamInteger(MOD_UI, "ACCIDENT_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger rebellionDelayTurn	= new ParamInteger(MOD_UI, "REBELLION_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger rebellionDelayTurn	= new ParamInteger(MOD_UI, "REBELLION_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger derelictDelayTurn	= new ParamInteger(MOD_UI, "DERELICT_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger derelictDelayTurn	= new ParamInteger(MOD_UI, "DERELICT_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger assassinDelayTurn	= new ParamInteger(MOD_UI, "ASSASSIN_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger assassinDelayTurn	= new ParamInteger(MOD_UI, "ASSASSIN_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger plagueDelayTurn	= new ParamInteger(MOD_UI, "PLAGUE_DELAY_TURN",		0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger plagueDelayTurn	= new ParamInteger(MOD_UI, "PLAGUE_DELAY_TURN",		0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger supernovaDelayTurn	= new ParamInteger(MOD_UI, "SUPERNOVA_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger supernovaDelayTurn	= new ParamInteger(MOD_UI, "SUPERNOVA_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger piracyDelayTurn	= new ParamInteger(MOD_UI, "PIRACY_DELAY_TURN",		0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger piracyDelayTurn	= new ParamInteger(MOD_UI, "PIRACY_DELAY_TURN",		0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger cometDelayTurn		= new ParamInteger(MOD_UI, "COMET_DELAY_TURN",		0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger cometDelayTurn		= new ParamInteger(MOD_UI, "COMET_DELAY_TURN",		0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger relicDelayTurn		= new ParamInteger(MOD_UI, "RELIC_DELAY_TURN",		0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger relicDelayTurn		= new ParamInteger(MOD_UI, "RELIC_DELAY_TURN",		0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger sizeBoostDelayTurn	= new ParamInteger(MOD_UI, "SIZEBOOST_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger sizeBoostDelayTurn	= new ParamInteger(MOD_UI, "SIZEBOOST_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	ParamInteger gauntletDelayTurn	= new ParamInteger(MOD_UI, "GAUNTLET_DELAY_TURN",	0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger gauntletDelayTurn	= new ParamInteger(MOD_UI, "GAUNTLET_DELAY_TURN",	0)
+			.setLimits(-1, MAX_DELAY_TURN)
+			.setIncrements(1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
 
 	// ========================================================================
 	// BR: RANDOM EVENT OTHER RETURN PARAMETERS
-	ParamInteger donationReturnTurn	= new ParamInteger(MOD_UI, "DONATION_RETURN_TURN",	1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger donationReturnTurn	= new ParamInteger(MOD_UI, "DONATION_RETURN_TURN",	1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger depletedReturnTurn	= new ParamInteger(MOD_UI, "DEPLETED_RETURN_TURN",	1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger depletedReturnTurn	= new ParamInteger(MOD_UI, "DEPLETED_RETURN_TURN",	1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger enrichedReturnTurn	= new ParamInteger(MOD_UI, "ENRICHED_RETURN_TURN",	1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger enrichedReturnTurn	= new ParamInteger(MOD_UI, "ENRICHED_RETURN_TURN",	1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger fertileReturnTurn	= new ParamInteger(MOD_UI, "FERTILE_RETURN_TURN",	1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger fertileReturnTurn	= new ParamInteger(MOD_UI, "FERTILE_RETURN_TURN",	1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger virusReturnTurn	= new ParamInteger(MOD_UI, "VIRUS_RETURN_TURN",		1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger virusReturnTurn	= new ParamInteger(MOD_UI, "VIRUS_RETURN_TURN",		1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger earthquakeReturnTurn= new ParamInteger(MOD_UI, "EARTHQUAKE_RETURN_TURN", 1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger earthquakeReturnTurn= new ParamInteger(MOD_UI, "EARTHQUAKE_RETURN_TURN", 1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger accidentReturnTurn	= new ParamInteger(MOD_UI, "ACCIDENT_RETURN_TURN",	1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger accidentReturnTurn	= new ParamInteger(MOD_UI, "ACCIDENT_RETURN_TURN",	1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger rebellionReturnTurn= new ParamInteger(MOD_UI, "REBELLION_RETURN_TURN",	1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger rebellionReturnTurn= new ParamInteger(MOD_UI, "REBELLION_RETURN_TURN",	1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger derelictReturnTurn	= new ParamInteger(MOD_UI, "DERELICT_RETURN_TURN",	0, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger derelictReturnTurn	= new ParamInteger(MOD_UI, "DERELICT_RETURN_TURN",	0)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger assassinReturnTurn	= new ParamInteger(MOD_UI, "ASSASSIN_RETURN_TURN",	1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger assassinReturnTurn	= new ParamInteger(MOD_UI, "ASSASSIN_RETURN_TURN",	1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger plagueReturnTurn	= new ParamInteger(MOD_UI, "PLAGUE_RETURN_TURN",	1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger plagueReturnTurn	= new ParamInteger(MOD_UI, "PLAGUE_RETURN_TURN",	1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger supernovaReturnTurn= new ParamInteger(MOD_UI, "SUPERNOVA_RETURN_TURN",	0, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger supernovaReturnTurn= new ParamInteger(MOD_UI, "SUPERNOVA_RETURN_TURN",	0)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger piracyReturnTurn	= new ParamInteger(MOD_UI, "PIRACY_RETURN_TURN",	1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger piracyReturnTurn	= new ParamInteger(MOD_UI, "PIRACY_RETURN_TURN",	1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger cometReturnTurn	= new ParamInteger(MOD_UI, "COMET_RETURN_TURN",		1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger cometReturnTurn	= new ParamInteger(MOD_UI, "COMET_RETURN_TURN",		1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger relicReturnTurn 	= new ParamInteger(MOD_UI, "RELIC_RETURN_TURN",		0, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger relicReturnTurn 	= new ParamInteger(MOD_UI, "RELIC_RETURN_TURN",		0)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger sizeBoostReturnTurn= new ParamInteger(MOD_UI, "SIZEBOOST_RETURN_TURN",	1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger sizeBoostReturnTurn= new ParamInteger(MOD_UI, "SIZEBOOST_RETURN_TURN",	1)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger gauntletReturnTurn	= new ParamInteger(MOD_UI, "GAUNTLET_RETURN_TURN",	0, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger gauntletReturnTurn	= new ParamInteger(MOD_UI, "GAUNTLET_RETURN_TURN",	0)
+			.setLimits(0, MAX_RETURN_TURN)
+			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
 	
 	// ==================== GUI List Declarations ====================

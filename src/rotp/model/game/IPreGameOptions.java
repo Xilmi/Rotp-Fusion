@@ -35,8 +35,11 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	ParamAAN2 ultraRichHomeworld		= new ParamAAN2("HOME_ULTRA_RICH");
 	default ParamAAN2 selectedUltraRichHomeworld()	{ return ultraRichHomeworld; }
 
-	ParamFloat minDistArtifactPlanet	= new ParamFloat( MOD_UI, "DIST_ARTIFACT_PLANET",
-			0.0f, 0.0f, null, 0.2f, 1f, 5f, "0.0##", "0.0");
+	ParamFloat minDistArtifactPlanet	= new ParamFloat( MOD_UI, "DIST_ARTIFACT_PLANET", 0.0f)
+			.setLimits(0.0f, null)
+			.setIncrements(0.2f, 1f, 5f)
+			.cfgFormat("0.##")
+			.guiFormat("0.0");
 	default float selectedMinDistArtifactPlanet() { return minDistArtifactPlanet.get(); }
 
 	ParamBoolean battleScout		= new ParamBoolean( MOD_UI, "BATTLE_SCOUT", false);
@@ -45,12 +48,16 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	ParamBoolean randomTechStart	= new ParamBoolean( MOD_UI, "RANDOM_TECH_START", false);
 	default boolean selectedRandomTechStart()	{ return randomTechStart.get(); }
 
-	ParamInteger companionWorlds	= new ParamInteger( MOD_UI, "COMPANION_WORLDS" , 0, -4, 6, true);
+	ParamInteger companionWorlds	= new ParamInteger( MOD_UI, "COMPANION_WORLDS" , 0)
+			.setLimits(-4, 6)
+			.setIncrements(1, 1, 1)
+			.loop(true);
 	default int selectedCompanionWorlds() 		{ return Math.abs(companionWorlds.get()); }
 	default int signedCompanionWorlds() 		{ return companionWorlds.get(); }
 
-	ParamInteger empiresSpreadingFactor	= new ParamInteger( MOD_UI, "EMPIRES_SPREADING_FACTOR",
-			100, 10, 1000, 1, 5, 20);
+	ParamInteger empiresSpreadingFactor	= new ParamInteger( MOD_UI, "EMPIRES_SPREADING_FACTOR", 100)
+			.setLimits(10, 1000)
+			.setIncrements(1, 5, 20);
 	default int		selectedEmpireSpreadingPct()	{ return empiresSpreadingFactor.get(); }
 	default float	selectedEmpireSpreadingFactor()	{ return 0.01f * empiresSpreadingFactor.get(); }
 	default boolean	isCustomEmpireSpreadingFactor()	{ return !empiresSpreadingFactor.isDefaultValue(); }
@@ -58,16 +65,23 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default void	toggleEmpireSpreadingFactor(MouseWheelEvent e)	{ empiresSpreadingFactor.toggle(e); }
 	default String	empireSpreadingFactorMapKey()	{ return  MOD_UI + "EMPIRES_SPREADING_FACTOR_MAP"; }
 
-	ParamInteger minStarsPerEmpire	= new ParamInteger( MOD_UI, "MIN_STARS_PER_EMPIRE"
-			, 3, 3, Rotp.maximumSystems-1, 1, 5, 20);
+	ParamInteger minStarsPerEmpire	= new ParamInteger( MOD_UI, "MIN_STARS_PER_EMPIRE", 3)
+			.setLimits(3, Rotp.maximumSystems-1)
+			.setIncrements(1, 5, 20);
 	default int selectedMinStarsPerEmpire()		{ return minStarsPerEmpire.get(); }
 
-	ParamInteger prefStarsPerEmpire	= new ParamInteger( MOD_UI, "PREF_STARS_PER_EMPIRE"
-			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100);
+	ParamInteger prefStarsPerEmpire	= new ParamInteger( MOD_UI, "PREF_STARS_PER_EMPIRE", 10)
+			.setLimits(3, Rotp.maximumSystems-1)
+			.setIncrements(1, 10, 100);
 	default int selectedPrefStarsPerEmpire()	{ return prefStarsPerEmpire.get(); }
 
-	ParamInteger dynStarsPerEmpire	= new ParamInteger( MOD_UI, "DYN_STARS_PER_EMPIRE"
-			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100) {
+	ParamInteger dynStarsPerEmpire	= new DynStarsPerEmpire();
+	class DynStarsPerEmpire extends ParamInteger {
+		DynStarsPerEmpire() {
+			super(MOD_UI, "DYN_STARS_PER_EMPIRE", 10);
+			setLimits(3, Rotp.maximumSystems-1);
+			setIncrements(1, 10, 100);
+		}
 		@Override public Integer defaultValue() {
 			return prefStarsPerEmpire.get();
 		}
@@ -87,7 +101,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
 			return false;
 		}
-	};
+	}
 	default int selectedDynStarsPerEmpire()		{ return Math.abs(dynStarsPerEmpire.get()); }
 
 	// Restart Always looks for setup options!
@@ -140,10 +154,18 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 		return forbidden;
 	}
 
-	ParamInteger randomAlienRacesMin		 = new ParamInteger(MOD_UI, "RACES_RAND_MIN", -50, -100, 100, 1, 5, 20);
-	ParamInteger randomAlienRacesMax		 = new ParamInteger(MOD_UI, "RACES_RAND_MAX", 50, -100, 100, 1, 5, 20);
-	ParamInteger randomAlienRacesTargetMax	 = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MAX", 75, null, null, 1, 10, 100);
-	ParamInteger randomAlienRacesTargetMin	 = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MIN", 0, null, null, 1, 10, 100);
+	ParamInteger randomAlienRacesMin		 = new ParamInteger(MOD_UI, "RACES_RAND_MIN", -50)
+			.setLimits(-100, 100)
+			.setIncrements(1, 5, 20);
+	ParamInteger randomAlienRacesMax		 = new ParamInteger(MOD_UI, "RACES_RAND_MAX", 50)
+			.setLimits(-100, 100)
+			.setIncrements(1, 5, 20);
+	ParamInteger randomAlienRacesTargetMax	 = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MAX", 75)
+			.setLimits(null, null)
+			.setIncrements(1, 10, 100);
+	ParamInteger randomAlienRacesTargetMin	 = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MIN", 0)
+			.setLimits(null, null)
+			.setIncrements(1, 10, 100);
 	ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", true);
 
 	RandomAlienRaces randomAlienRaces		 = new RandomAlienRaces(MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
@@ -163,13 +185,17 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 		return guardianMonsters.get().equals("All") || guardianMonsters.get().equals("Artefact");
 	}
 
-	ParamInteger guardianMonstersProbability = new ParamInteger(MOD_UI, "GUARDIAN_MONSTERS_PCT", 50, 0, 500, 1, 5, 20);
+	ParamInteger guardianMonstersProbability = new ParamInteger(MOD_UI, "GUARDIAN_MONSTERS_PCT", 50)
+			.setLimits(0, 500)
+			.setIncrements(1, 5, 20);
 	default float guardianMonstersProbability()	{
 		if (noPlanetHaveMonster())
 			return 0;
 		return guardianMonstersProbability.get()/100f;
 	}
-	ParamInteger guardianMonstersLevel = new ParamInteger(MOD_UI, "GUARDIAN_MONSTERS_LEVEL", 100, 10, 1000, 5, 20, 100);
+	ParamInteger guardianMonstersLevel = new ParamInteger(MOD_UI, "GUARDIAN_MONSTERS_LEVEL", 100)
+			.setLimits(10, 1000)
+			.setIncrements(5, 20, 100);
 	default float guardianMonstersLevel()		{ return guardianMonstersLevel.get()/100f; }
 	
 	default float guardianMonstersProbability(Planet planet) {

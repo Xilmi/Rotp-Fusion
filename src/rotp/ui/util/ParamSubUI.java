@@ -42,21 +42,6 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 	 * @param optionsMap Full map of options
 	 * @param guiTitleID Label for the GUI Title
 	 * @param guiID Unique GUI ID for load and save
-	 * @param isCfgFile Parameter written in remnant.cfg
-	 */
-	public ParamSubUI(String gui, String name,
-			LinkedList<LinkedList<IParam>> optionsMap,
-			String guiTitleID, String guiID, boolean isCfgFile)
-	{
-		this(gui, name, optionsMap, guiTitleID, guiID);
-		isCfgFile(isCfgFile);
-	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param optionsMap Full map of options
-	 * @param guiTitleID Label for the GUI Title
-	 * @param guiID Unique GUI ID for load and save
 	 */
 	public ParamSubUI(String gui, String name,
 			LinkedList<LinkedList<IParam>> optionsMap,

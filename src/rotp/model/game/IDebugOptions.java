@@ -23,13 +23,17 @@ public interface IDebugOptions extends IBaseOptsTools {
     String AUTORUN_EVENTS	 = "AutoRunEvents.txt";
     String AUTORUN_BENCHMARK = "AutoRunBenchmark.txt";
 
-	ParamBoolean debugShowMemory	= new ParamBoolean(GAME_UI, "MEMORY", false) {
+	ParamBoolean debugShowMemory	= new DebugShowMemory();
+	class DebugShowMemory extends ParamBoolean {
+		DebugShowMemory() {
+			super(GAME_UI, "MEMORY", false);
+			isDuplicate(true);
+			isCfgFile(true);
+		}
 		@Override public String getCfgLabel()		{ return "SHOW_MEMORY"; }
 		@Override public Boolean getOption()		{ return showMemory(); }
 		@Override public void setOption(Boolean b)	{ showMemory(b); }
 	}
-		.isDuplicate(true)
-		.isCfgFile(true);
 	default boolean debugShowMemory()		{ return debugShowMemory.get(); }
 
     ParamBoolean debugShowMoreMemory	= new ParamBoolean(GAME_UI, "MORE_MEMORY", false, true, true);
@@ -91,12 +95,16 @@ public interface IDebugOptions extends IBaseOptsTools {
 		}
 		return false;
 	}
-	ParamInteger debugBMMaxTurns	= new ParamInteger(MOD_UI, "DEBUG_BM_MAX_TURNS",
-									-1, -1, null, 1, 10, 100).specialNegative(NEGATIVE_DISABLED);
+	ParamInteger debugBMMaxTurns	= new ParamInteger(MOD_UI, "DEBUG_BM_MAX_TURNS", -1)
+			.setLimits(-1, null)
+			.setIncrements(1, 10, 100)
+			.specialNegative(NEGATIVE_DISABLED);
 	default int debugBMMaxTurns()			{ return debugBMMaxTurns.get(); }
 	
-	ParamInteger debugBMLostTurns	= new ParamInteger(MOD_UI, "DEBUG_BM_LOST_TURNS",
-									-1, -1, null, 1, 10, 100).specialNegative(NEGATIVE_DISABLED);
+	ParamInteger debugBMLostTurns	= new ParamInteger(MOD_UI, "DEBUG_BM_LOST_TURNS", -1)
+			.setLimits(-1, null)
+			.setIncrements(1, 10, 100)
+			.specialNegative(NEGATIVE_DISABLED);
 	default int debugBMLostTurns()			{ return debugBMLostTurns.get(); }
 
 	ParamBoolean debugBMZoomOut		= new ParamBoolean(MOD_UI, "DEBUG_BM_ZOOM_OUT", false, true, true);
@@ -114,7 +122,13 @@ public interface IDebugOptions extends IBaseOptsTools {
 	ParamBoolean debugLogEvents		= new ParamBoolean(GAME_UI, "DEBUG_LOG_EVENTS", true, true, true);
 	default boolean debugLogEvents()		{ return debugLogEvents.get(); }
 
-	ParamBoolean showVIPPanel	= new ParamBoolean(GAME_UI, "SHOW_CONSOLE_PANEL", false) {
+	ParamBoolean showVIPPanel		= new ShowVIPPanel();
+	class ShowVIPPanel extends ParamBoolean {
+		ShowVIPPanel() {
+			super(GAME_UI, "SHOW_CONSOLE_PANEL", false);
+			isDuplicate(false);
+			isCfgFile(true);
+		}
 		@Override public Boolean set(Boolean newValue) {
 			super.set(newValue);
 			RotPUI.useDebugFile = newValue;
@@ -123,8 +137,6 @@ public interface IDebugOptions extends IBaseOptsTools {
 			return newValue;
 		}
 	}
-		.isDuplicate(false)
-		.isCfgFile(true);
 	default boolean selectedShowVIPPanel()	{ return showVIPPanel.get(); }
 	default void showVIPPanel()				{ VIPConsole.showConsole(selectedShowVIPPanel()); }
 	default void showVIPPanel(boolean b)	{
@@ -169,9 +181,9 @@ public interface IDebugOptions extends IBaseOptsTools {
 
 	static ParamSubUI debugOptionsUI() {
 		return new ParamSubUI( MOD_UI, "DEBUG_OPTIONS_UI", IDebugOptions.debugOptionsMap(),
-				"DEBUG_OPTIONS_TITLE", DEBUG_GUI_ID, true);
+				"DEBUG_OPTIONS_TITLE", DEBUG_GUI_ID).isCfgFile(true);
 	}
 	static LinkedList<IParam> debugOptions() {
 		return IBaseOptsTools.getSingleList(IDebugOptions.debugOptionsMap());
-	}	
+	}
 }

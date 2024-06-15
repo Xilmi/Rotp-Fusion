@@ -37,61 +37,56 @@ public class ParamFloat extends AbstractParam<Float> {
 	 * @param defaultValue The default value
 	 */
 	public ParamFloat(String gui, String name, Float defaultValue) {
-		super(gui, name, defaultValue, null, null, 1.0f, 1.0f, 1.0f, 1.0f);
+		super(gui, name, defaultValue);
+		setLimits(null, null);
+		setIncrements(1.0f, 1.0f, 1.0f, 1.0f);
 	}
+
 	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultValue The default value
-	 * @param minValue The minimum value (null = none)
-	 * @param maxValue The maximum value (null = none)
+	 * To set the increment based on key modifiers
+	 * 
+	 * @param baseInc  The base incrementThe lower limit, 
+	 * @param shiftInc The increment when Shift is hold
+	 * @param ctrlInc  The increment when Ctrl is hold
+	 * @param shiftCtrlInc  The increment when Ctrl and Shift are hold
+	 * @return this for chaining purpose
 	 */
-	public ParamFloat(String gui, String name, Float defaultValue
-			, Float minValue, Float maxValue) {
-		super(gui, name, defaultValue, minValue, maxValue, 1.0f, 1.0f, 1.0f, 1.0f);
+	@Override public ParamFloat setIncrements(Float baseInc, Float shiftInc,
+			Float ctrlInc, Float shiftCtrlInc) {
+		super.setIncrements(baseInc, shiftInc, ctrlInc, shiftCtrlInc);
+		return this;
 	}
 	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultValue The default value
-	 * @param minValue The minimum value (null = none)
-	 * @param maxValue The maximum value (null = none)
+	 * To set the increment based on key modifiers
+	 * 
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
+	 * @return this for chaining purpose
 	 */
-	public ParamFloat(String gui, String name, Float defaultValue
-			, Float minValue, Float maxValue
-			, Float baseInc, Float shiftInc, Float ctrlInc) {
-		super(gui, name, defaultValue, minValue, maxValue,
-				baseInc, shiftInc, ctrlInc, shiftInc*ctrlInc/baseInc);
+	public ParamFloat setIncrements(Float baseInc, Float shiftInc, Float ctrlInc) {
+		super.setIncrements(baseInc, shiftInc, ctrlInc, shiftInc*ctrlInc/baseInc);
+		return this;
 	}
 	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultValue The default value
-	 * @param minValue The minimum value (null = none)
-	 * @param maxValue The maximum value (null = none)
-	 * @param baseInc  The base increment
-	 * @param shiftInc The increment when Shift is hold
-	 * @param ctrlInc  The increment when Ctrl is hold
-	 * @param cfgFormat String decimal formating for Remnant.cfg: default value = "%"
-	 * @param guiFormat String decimal formating for GUI display: default value = "0.0##"
+	 * To set the parameter limits
+	 * 
+	 * @param min The lower limit, no limit if the value is null
+	 * @param max The upper limit, no limit if the value is null
+	 * @return this for chaining purpose
 	 */
-	public ParamFloat(String gui, String name, Float defaultValue
-			, Float minValue, Float maxValue
-			, Float baseInc, Float shiftInc, Float ctrlInc
-			, String cfgFormat, String guiFormat) {
-		super(gui, name, defaultValue, minValue, maxValue,
-				baseInc, shiftInc, ctrlInc, shiftInc*ctrlInc/baseInc);
-		this.cfgFormat = cfgFormat;
-		this.guiFormat = guiFormat;
+	@Override public ParamFloat setLimits(Float min, Float max) {
+		super.setLimits(min, max);
+		return this;
 	}
+	public ParamFloat cfgFormat(String format) { cfgFormat = format; return this; }
+	public ParamFloat guiFormat(String format) { guiFormat = format; return this; }
 	// ========== Overriders ==========
 	//
-	@Override public ParamFloat isValueInit(boolean is) { super.isValueInit(is) ; return this; }
-	@Override public ParamFloat isDuplicate(boolean is) { super.isDuplicate(is) ; return this; }
-	@Override public ParamFloat isCfgFile(boolean is)	{ super.isCfgFile(is)   ; return this; }
+	@Override public ParamFloat isValueInit(boolean is) { super.isValueInit(is)  ; return this; }
+	@Override public ParamFloat isDuplicate(boolean is) { super.isDuplicate(is)  ; return this; }
+	@Override public ParamFloat isCfgFile(boolean is)	{ super.isCfgFile(is)    ; return this; }
+	@Override public ParamFloat formerName(String link)	{ super.formerName(link) ; return this; }
 	@Override public String guideDefaultValue()	{ return getString(defaultValue()); }
 	@Override public String[] getModifiers()	{
 		if (baseInc().equals(shiftInc()))
@@ -136,7 +131,13 @@ public class ParamFloat extends AbstractParam<Float> {
 	@Override public boolean toggle(MouseEvent e, BaseModPanel frame)		{ return next(getInc(e) * getDir(e)); }
 	@Override public boolean toggle(MouseWheelEvent e) { return next(getInc(e) * getDir(e)); }
 	@Override protected Float getOptionValue(IGameOptions options) {
-		return options.dynOpts().getFloat(getLangLabel(), creationValue());
+		Float value = options.dynOpts().getFloat(getLangLabel());
+		if (value == null)
+			if (formerName() == null)
+				value = creationValue();
+			else
+				value = options.dynOpts().getFloat(formerName(), creationValue());
+		return value;
 	}
 	@Override protected void setOptionValue(IGameOptions options, Float value) {
 		options.dynOpts().setFloat(getLangLabel(), value);

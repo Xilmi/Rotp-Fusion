@@ -6,7 +6,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Replaced some "on the fly" method Override by more conventional classes declarations, this because it may confuse Java memory management...
 - Merged Xilmi new improvement
 - Little fix for expansionist AI.
-
+- Replaced all "on the fly" method Override.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

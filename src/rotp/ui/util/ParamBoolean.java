@@ -68,6 +68,7 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	@Override public ParamBoolean isValueInit(boolean is) { super.isValueInit(is) ; return this; }
 	@Override public ParamBoolean isDuplicate(boolean is) { super.isDuplicate(is) ; return this; }
 	@Override public ParamBoolean isCfgFile(boolean is)	  { super.isCfgFile(is)   ; return this; }
+	@Override public ParamBoolean formerName(String link)	  { super.formerName(link)   ; return this; }
 	
 	@Override public String	getFullHelp()		{ return getHeadGuide() + getTableHelp(); }
 	@Override public String	valueGuide(int id)	{ return getTableHelp(); }
@@ -87,7 +88,13 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 		return false;
 	}
 	@Override protected Boolean getOptionValue(IGameOptions options) {
-		return options.dynOpts().getBoolean(getLangLabel(), creationValue());
+		Boolean value = options.dynOpts().getBoolean(getLangLabel());
+		if (value == null)
+			if (formerName() == null)
+				value = creationValue();
+			else
+				value = options.dynOpts().getBoolean(formerName(), creationValue());
+		return value;
 	}
 	@Override protected void setOptionValue(IGameOptions options, Boolean value) {
 		options.dynOpts().setBoolean(getLangLabel(), value);

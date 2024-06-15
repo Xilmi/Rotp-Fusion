@@ -30,23 +30,30 @@ public interface IGovOptions {
 	ParamBoolean autotransportAll	= new ParamBoolean(GOV_UI, "TRANSPORT_UNGOVERNED", false);
 	ParamBoolean transportNoRich	= new ParamBoolean(GOV_UI, "TRANSPORT_RICH_OFF", true);
 	ParamBoolean transportPoorX2	= new ParamBoolean(GOV_UI, "TRANSPORT_POOR_DBL", true);
-	ParamInteger transportMaxDist	= new ParamInteger(GOV_UI, "TRANSPORT_MAX_TURNS", 5, 1, 15, 1, 3, 5);
+	ParamInteger transportMaxDist	= new ParamInteger(GOV_UI, "TRANSPORT_MAX_TURNS", 5)
+			.setLimits(1, 15)
+			.setIncrements(1, 3, 5);
 
 	// StarGates Options
 	// Using an Enum object instead of a list will break the game save if the enum is changed! 
-	ParamList	 starGateOption		= new ParamList(GOV_UI, "STARGATES_OPTIONS", GatesGovernor.Rich.name()) {
-		{
-			showFullGuide(true);
-			for (GatesGovernor value: GatesGovernor.values())
-				put(value.name(), GOV_UI + "STARGATES_" + value.name().toUpperCase());
-		}
-	};
+	ParamList	 starGateOption		= initStarGateOption();
+	static ParamList initStarGateOption() {
+		ParamList list = new ParamList(GOV_UI, "STARGATES_OPTIONS", GatesGovernor.Rich.name());
+		list.showFullGuide(true);
+		for (GatesGovernor value: GatesGovernor.values())
+			list.put(value.name(), GOV_UI + "STARGATES_" + value.name().toUpperCase());
+		return list;
+	}
 
 	// Colony Options
-	ParamInteger missileBasesMin	= new ParamInteger(GOV_UI, "MIN_MISSILE_BASES", 0, 0, 1000, 1, 5, 20);
+	ParamInteger missileBasesMin	= new ParamInteger(GOV_UI, "MIN_MISSILE_BASES", 0)
+			.setLimits(0, 1000)
+			.setIncrements(1, 5, 20);
 	ParamBoolean shieldAlones		= new ParamBoolean(GOV_UI, "SHIELD_WITHOUT_BASES", false);
 	ParamBoolean autoSpend			= new ParamBoolean(GOV_UI, "AUTOSPEND", false);
-	ParamInteger reserveForSlow		= new ParamInteger(GOV_UI, "RESERVE", 0, 0, 100000, 10, 50, 200);
+	ParamInteger reserveForSlow		= new ParamInteger(GOV_UI, "RESERVE", 0)
+			.setLimits(0, 100000)
+			.setIncrements(10, 50, 200);
 	ParamBoolean shipBuilding		= new ParamBoolean(GOV_UI, "SHIP_BUILDING", true);
 	ParamBoolean maxGrowthMode		= new ParamBoolean(GOV_UI, "LEGACY_GROWTH_MODE", true);
 
@@ -58,18 +65,32 @@ public interface IGovOptions {
 	// Aspect Options
 	ParamBoolean originalPanel		= new ParamBoolean(GOV_UI, "ORIGINAL_PANEL", false);
 	ParamBoolean customSize			= new ParamBoolean(GOV_UI, "CUSTOM_SIZE", true);
-	ParamInteger brightnessPct		= new ParamInteger(GOV_UI, "BRIGHTNESS",	100, 20, 300, 1, 5, 20);
-	ParamInteger sizeFactorPct		= new ParamInteger(GOV_UI, "SIZE_FACTOR",	100, 20, 200, 1, 5, 20);
-	ParamInteger horizontalPosition	= new ParamInteger(GOV_UI, "POSITION_X",	0, null, null, 1, 5, 20);
-	ParamInteger verticalPosition	= new ParamInteger(GOV_UI, "POSITION_Y",	0, null, null, 1, 5, 20);
+	ParamInteger brightnessPct		= new ParamInteger(GOV_UI, "BRIGHTNESS", 100)
+			.setLimits(20, 300)
+			.setIncrements(1, 5, 20);
+	ParamInteger sizeFactorPct		= new ParamInteger(GOV_UI, "SIZE_FACTOR", 100)
+			.setLimits(20, 200)
+			.setIncrements(1, 5, 20);
+	ParamInteger horizontalPosition	= new ParamInteger(GOV_UI, "POSITION_X", 0)
+			.setLimits(null, null)
+			.setIncrements(1, 5, 20);
+	ParamInteger verticalPosition	= new ParamInteger(GOV_UI, "POSITION_Y", 0)
+			.setLimits(null, null)
+			.setIncrements(1, 5, 20);
 
 	// Fleet Options
 	ParamBoolean auto_Scout			= new ParamBoolean(GOV_UI, "AUTO_SCOUT", true);
-	ParamInteger autoScoutCount		= new ParamInteger(GOV_UI, "AUTO_SCOUT_COUNT",	1, 1, 9999, 1, 5, 20);
+	ParamInteger autoScoutCount		= new ParamInteger(GOV_UI, "AUTO_SCOUT_COUNT",	1)
+			.setLimits(1, 9999)
+			.setIncrements(1, 5, 20);
 	ParamBoolean govAutoColonize	= new ParamBoolean(GOV_UI, "AUTO_COLONIZE", true);
-	ParamInteger autoColonyCount	= new ParamInteger(GOV_UI, "AUTO_COLONY_COUNT", 1, 1, 9999, 1, 5, 20);
+	ParamInteger autoColonyCount	= new ParamInteger(GOV_UI, "AUTO_COLONY_COUNT", 1)
+			.setLimits(1, 9999)
+			.setIncrements(1, 5, 20);
 	ParamBoolean auto_Attack		= new ParamBoolean(GOV_UI, "AUTO_ATTACK", false);
-	ParamInteger autoAttackCount	= new ParamInteger(GOV_UI, "AUTO_ATTACK_COUNT", 1, 1, 9999, 1, 5, 20);
+	ParamInteger autoAttackCount	= new ParamInteger(GOV_UI, "AUTO_ATTACK_COUNT", 1)
+			.setLimits(1, 9999)
+			.setIncrements(1, 5, 20);
     // if true, new colonies will have auto ship building set to "on"
 	ParamBoolean autoShipsDefault	= new ParamBoolean(GOV_UI, "AUTOSHIPS_BY_DEFAULT", true);
 

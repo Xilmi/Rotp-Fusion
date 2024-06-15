@@ -51,7 +51,13 @@ public class ParamString extends AbstractParam<String> {
 	@Override public boolean next() { return false; }
 	@Override public boolean toggle(MouseWheelEvent e)	{ return false; }
 	@Override protected String getOptionValue(IGameOptions options) {
-		return options.dynOpts().getString(getLangLabel(), creationValue());
+		String value = options.dynOpts().getString(getLangLabel());
+		if (value == null)
+			if (formerName() == null)
+				value = creationValue();
+			else
+				value = options.dynOpts().getString(formerName(), creationValue());
+		return value;
 	}
 	@Override protected void setOptionValue(IGameOptions options, String value) {
 		options.dynOpts().setString(getLangLabel(), value);
