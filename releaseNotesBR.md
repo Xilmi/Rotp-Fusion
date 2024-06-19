@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Merged Xilmi new improvement
 - Little fix for expansionist AI.
 - Replaced all "on the fly" method Override.
+- Fixed "cold war" Colony ship being afraid of its own weapons...
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -228,4 +229,5 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - (Xilmi) Fixed an issue where the AI didn't consider that missile-bases stop dealing damage when all population of a planet is killed. This lead to the AI not daring to attack planets with missile-bases when they only had biological weapons.
 - Fixed growth expectations display when there are too many incoming transports.
 - Fixed growth expectations display when terraforming and too many incoming transports in few days.
+- Fixed "cold war" Colony ship being afraid of its own weapons...
 - minor fixes...
