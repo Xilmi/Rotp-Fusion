@@ -67,6 +67,9 @@ Later:
 
 ## What's New
 
+2024.06.19 (BR)
+- Fixed "cold war" Colony ship being afraid of its own weapons...
+
 2024.06.15 (BR)
 - Reduced and stabilized memory consumption.
   - Replaced some "on the fly" method Override by more conventional classes declarations, this because it may confuse Java memory management...
