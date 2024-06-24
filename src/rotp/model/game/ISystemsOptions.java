@@ -101,7 +101,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		FirstRingRadius() {
 			super(MOD_UI, "FIRST_RING_RADIUS", 3.0f);
 			setDefaultValue(MOO1_DEFAULT, 4.0f);
-			setLimits(2f, 6f);
+			setLimits(2f, 10f);
 			setIncrements(0.1f, 0.5f, 1f);
 			isValueInit(false);
 			guiFormat("0.0");
@@ -135,8 +135,8 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	class SecondRingRadius extends ParamFloat {
 		SecondRingRadius() {
 			super(MOD_UI, "SECOND_RING_RADIUS", 6.0f);
-			setLimits(2f, 20f);
-			setIncrements(0.1f, 0.5f, 1f);
+			setLimits(2f, 50f);
+			setIncrements(0.1f, 0.5f, 2f);
 			isValueInit(false);
 			guiFormat("0.0");
 		}
@@ -192,8 +192,8 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		FirstRingSystemNumber() {
 			super(MOD_UI, "FIRST_RING_SYS_NUM",2);
 			setDefaultValue(MOO1_DEFAULT, 1);
-			setLimits(0, 10);
-			setIncrements(1, 2, 5);
+			setLimits(0, 50);
+			setIncrements(1, 5, 10);
 			isValueInit(false);
 		}
 		@Override public void lateInit(int level)	{
@@ -227,7 +227,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	class SecondRingSystemNumber extends ParamInteger {
 		SecondRingSystemNumber() {
 			super(MOD_UI, "SECOND_RING_SYS_NUM", 2);
-			setLimits(0, 100);
+			setLimits(0, 200);
 			setIncrements(1, 5, 20);
 			isValueInit(false);
 		}
@@ -254,7 +254,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 				case "Size":
 					int size = rec.srcValue.intValue()+2;
 					rec.aimValue = new LinkValue(opts().getGalaxyKey(size));
-					System.out.println("Convert Size = "+(size-2)+"->"+size+"->"+rec.aimValue.stringValue());
+					//System.out.println("Convert Size = "+(size-2)+"->"+size+"->"+rec.aimValue.stringValue());
 					return;
 				case "Dyn":
 					rec.aimValue = new LinkValue((rec.srcValue.intValue()+1));
@@ -274,8 +274,8 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		FirstRingHabitable() {
 			super(MOD_UI, "FIRST_RING_HABITABLE", 1);
 			setDefaultValue(MOO1_DEFAULT, 0);
-			setLimits(0, 4);
-			setIncrements(1, 2, 5);
+			setLimits(0, 50);
+			setIncrements(1, 5, 10);
 			isValueInit(false);
 		}
 		@Override public void lateInit(int level)	{
@@ -306,8 +306,8 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		SecondRingHabitable() {
 			super(MOD_UI, "SECOND_RING_HABITABLE", 1);
 			setDefaultValue(MOO1_DEFAULT, 0);
-			setLimits(0, 10);
-			setIncrements(1, 2, 5);
+			setLimits(0, 200);
+			setIncrements(1, 5, 20);
 			isValueInit(false);
 		}
 		@Override public void lateInit(int level)	{

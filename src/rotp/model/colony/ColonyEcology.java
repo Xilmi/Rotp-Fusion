@@ -300,7 +300,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         // Currently, this assumes that all incoming transports will not be shot down.
         float workingPop = c.populationAfterNextTurnTransports();
         float expGrowth = c.normalPopGrowthAfterNextTurnTransports();
-        float expPop = min(workingPop+expGrowth, planet().currentSize());  // TODO BR: implement expected size
+        float expPop = min(workingPop+expGrowth, planet().currentSize());
         expectedPopGrowth = (int) (expPop) - (int) currentPop;
        
         // check for waste cleanup

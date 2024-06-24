@@ -353,7 +353,7 @@ public class ParamList extends AbstractParam<String> {
 			valueLabelMap.guiTextList.add(langLabel(label));
 	}
 	protected int defaultValueIndex()			{
-		return getIndex(defaultValue());
+		return getValidIndex(getIndex(defaultValue()));
 	}
 	public int	getRawIndex()					{
 		String value = get();

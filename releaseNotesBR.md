@@ -20,6 +20,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Galaxy size
 - Option to allow nearby stars to be out of the galaxy limits.
 - Fixed "cold war" Colony ship being afraid of its own weapons...
+- New limits and minor fixes.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

@@ -528,7 +528,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 					int minSize = size+2;
 					reInit(getGalaxySizeOptions(minSize));
 					boolean updateNeeded = updateNeeded(rec.aimValue, up);
-					System.out.println("followValue size "+size+"->"+minSize+" updateNeeded="+updateNeeded);
+					//System.out.println("followValue size "+size+"->"+minSize+" updateNeeded="+updateNeeded);
 					if (updateNeeded)
 						set(rec.aimValue.stringValue());
 					return true; // To allow standard follow

@@ -1077,7 +1077,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     // GameSession.nextTurnProcess() processes transports before normal population growth.
     public float populationAfterNextTurnTransports() {
     	float pop = population() - inTransport() + incomingTransportsNextTurn();
-    	pop = min(pop, planet.currentSize()); // TODO BR: implement expected size
+    	pop = min(pop, planet.currentSize());
         return pop;
     }
     public int incomingTransports() {
