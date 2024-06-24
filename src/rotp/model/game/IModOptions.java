@@ -87,10 +87,11 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(IPreGameOptions.modStaticAOptions());
 		allModOptions.addAll(IPreGameOptions.modStaticBOptions());
 		allModOptions.addAll(IPreGameOptions.preGameOptions());
+		allModOptions.addAll(ISystemsOptions.systemsOptions());
 		allModOptions.addAll(IInGameOptions.modDynamicAOptions());
 		allModOptions.addAll(IInGameOptions.modDynamicBOptions());
 		allModOptions.addAll(IInGameOptions.inGameOptions());
-		allModOptions.addAll(optionsGalaxy);
+		allModOptions.addAll(IGalaxyOptions.getOptionsGalaxy());
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
 		allModOptions.addAll(IFlagOptions.autoFlagOptions());
@@ -104,6 +105,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.add(IMainOptions.realNebulaeOpacity);
 		allModOptions.add(IMainOptions.showGuide);
 		allModOptions.add(IMainOptions.disableAutoHelp);
+		allModOptions.add(IMainOptions.defaultSettings);
 		allModOptions.addAll(IDebugOptions.debugOptions());
 		allModOptions.addAll(ICombatOptions.combatOptions());
 		allModOptions.addAll(IIronmanOptions.ironmanOptions());

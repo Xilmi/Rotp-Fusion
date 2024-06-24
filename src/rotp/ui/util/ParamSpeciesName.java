@@ -22,7 +22,7 @@ import rotp.util.sound.SoundManager;
 
 public class ParamSpeciesName extends ParamString {
 	
-	boolean isValidValue = false;
+	private boolean isValidValue = false;
 	
 	// ===== Constructors =====
 	//

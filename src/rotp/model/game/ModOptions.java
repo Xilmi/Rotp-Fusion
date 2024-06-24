@@ -22,4 +22,5 @@ public class ModOptions implements IModOptions {
 								boolean excludeCfg, boolean excludeSubMenu)	{ }
 	@Override public void copyAliensAISettings(IGameOptions dest)			{ }
 	@Override public void updateAllNonCfgFromFile(String fileName)			{ }
+	@Override public float densitySizeFactor()			{ return 0; }
 }

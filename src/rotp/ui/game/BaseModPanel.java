@@ -16,6 +16,9 @@
 package rotp.ui.game;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static rotp.model.game.DefaultValues.FUSION_DEFAULT;
+import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
+import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
 import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.LAST_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
@@ -45,6 +48,7 @@ import javax.swing.JTextPane;
 
 import rotp.Rotp;
 import rotp.model.game.IConvenienceOptions;
+import rotp.model.game.IMainOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
@@ -701,7 +705,19 @@ public abstract class BaseModPanel extends BasePanel
 				return;
 			case KeyEvent.VK_L:
 				if (e.isAltDown())
-				reloadLabels();
+					reloadLabels();
+				return;
+			case KeyEvent.VK_F:
+				if (e.isAltDown())
+					IMainOptions.defaultSettings.set(FUSION_DEFAULT);
+				return;
+			case KeyEvent.VK_M:
+				if (e.isAltDown())
+					IMainOptions.defaultSettings.set(MOO1_DEFAULT);
+				return;
+			case KeyEvent.VK_R:
+				if (e.isAltDown())
+					IMainOptions.defaultSettings.set(ROTP_DEFAULT);
 				return;
 		}
 	}

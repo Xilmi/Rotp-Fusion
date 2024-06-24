@@ -2,13 +2,24 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- Reduced and stabilized memory consumption.
-  - Replaced some "on the fly" method Override by more conventional classes declarations, this because it may confuse Java memory management...
-- Merged Xilmi new improvement
-- Little fix for expansionist AI.
-- Replaced all "on the fly" method Override.
+- New option to select the default values:
+  - RotP-Fustion
+  - RotP-Original
+  - MoO1
+- New option to set the number of nearby and midrange stars.
+  - How many must have habitable planet.
+  - The nearby and midrange circle radius.
+  - The number of star per empire can now be lowered to 1.
+- New Tools to create dependencies between options.
+- Created option dependencies for
+  - Neighboor circles size
+  - Minimum Number of star per circle
+  - Minimum Number of habitable planet per circle
+  - Star density
+  - Number of star per empire
+  - Galaxy size
+- Option to allow nearby stars to be out of the galaxy limits.
 - Fixed "cold war" Colony ship being afraid of its own weapons...
-
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -112,6 +123,23 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option for "Tax only fully developed colonies", that define what should be completed to be identified as developed!
 - (Xilmi) Implemented AI-confidence-feature.
 - Military view tab in the colonies screen: "Shield" column display as "Nebula" when the planet is in a nebula.
+- New option to select the default values:
+  - RotP-Fustion
+  - RotP-Original
+  - MoO1
+- New option to set the number of nearby and midrange stars.
+  - How many must have habitable planet.
+  - The nearby and midrange circle radius.
+  - The number of star per empire can now be lowered to 1.
+- New Tools to create dependencies between options.
+- Created option dependencies for
+  - Neighboor circles size
+  - Minimum Number of star per circle
+  - Minimum Number of habitable planet per circle
+  - Star density
+  - Number of star per empire
+  - Galaxy size
+- Option to allow nearby stars to be out of the galaxy limits.
 
 
 <b><ins>Optimisation:</ins></b>

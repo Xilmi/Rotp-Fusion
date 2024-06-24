@@ -1,5 +1,7 @@
 package rotp.model.game;
 
+import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
+import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
 import static rotp.model.game.IAdvOptions.aiHostility;
 import static rotp.model.game.IAdvOptions.colonizing;
 import static rotp.model.game.IAdvOptions.councilWin;
@@ -13,7 +15,6 @@ import static rotp.model.game.ICombatOptions.combatOptionsUI;
 import static rotp.model.game.IDebugOptions.debugAutoRun;
 import static rotp.model.game.IFlagOptions.autoFlagOptionsUI;
 import static rotp.model.game.IFlagOptions.flagColorCount;
-import static rotp.model.game.IGalaxyOptions.difficultySelection;
 import static rotp.model.game.IIronmanOptions.allowSpeciesDetails;
 import static rotp.model.game.IIronmanOptions.ironmanLoadDelay;
 import static rotp.model.game.IIronmanOptions.ironmanNoLoad;
@@ -48,11 +49,13 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default String selectedPopGrowthFactor()	{ return popGrowthFactor.get(); }
 
 	ParamInteger retreatRestrictionTurns	= new ParamInteger(MOD_UI, "RETREAT_RESTRICTION_TURNS", 100)
+			.setDefaultValue(MOO1_DEFAULT, 1)
 			.setLimits(0, 100)
 			.setIncrements(1, 5, 20);
 	default int selectedRetreatRestrictionTurns()	{ return retreatRestrictionTurns.get(); }
 
-	ParamList retreatRestrictions			= new ParamList(MOD_UI, "RETREAT_RESTRICTIONS", "None") 
+	ParamList retreatRestrictions			= new ParamList(MOD_UI, "RETREAT_RESTRICTIONS", "None")
+			.setDefaultValue(MOO1_DEFAULT, "Both")
 			.showFullGuide(true)
 			.put("None",	MOD_UI + "RETREAT_NONE")
 			.put("AI",		MOD_UI + "RETREAT_AI")
@@ -109,6 +112,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default float selectedScrapRefundFactor()	{ return scrapRefundFactor.get(); }
 
 	ParamFloat missileBaseModifier	= new ParamFloat(MOD_UI, "MISSILE_BASE_MODIFIER", 2f/3f)
+			.setDefaultValue(MOO1_DEFAULT, 1f)
+			.setDefaultValue(ROTP_DEFAULT, 1f)
 			.setLimits(0.1f, 2f)
 			.setIncrements(0.01f, 0.05f, 0.2f)
 			.cfgFormat("0.##")
@@ -117,6 +122,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default float selectedMissileBaseModifier()	{ return missileBaseModifier.get(); }
 
 	ParamFloat missileShipModifier	= new ParamFloat(MOD_UI, "MISSILE_SHIP_MODIFIER", 2f/3f)
+			.setDefaultValue(MOO1_DEFAULT, 1f)
+			.setDefaultValue(ROTP_DEFAULT, 1f)
 			.setLimits(0.1f, 2f)
 			.setIncrements(0.01f, 0.05f, 0.2f)
 			.cfgFormat("0.##")
@@ -343,7 +350,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_DIFFICULTY"),
-				difficultySelection, customDifficulty,
+				IGalaxyOptions.getDifficultySelection(), customDifficulty,
 				dynamicDifficulty, challengeMode,
 
 				headerSpacer,

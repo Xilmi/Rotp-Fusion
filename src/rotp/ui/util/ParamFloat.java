@@ -87,6 +87,10 @@ public class ParamFloat extends AbstractParam<Float> {
 	@Override public ParamFloat isDuplicate(boolean is) { super.isDuplicate(is)  ; return this; }
 	@Override public ParamFloat isCfgFile(boolean is)	{ super.isCfgFile(is)    ; return this; }
 	@Override public ParamFloat formerName(String link)	{ super.formerName(link) ; return this; }
+	@Override public ParamFloat setDefaultValue(String key, Float value) {
+		super.setDefaultValue(key, value);
+		return this;
+	}
 	@Override public String guideDefaultValue()	{ return getString(defaultValue()); }
 	@Override public String[] getModifiers()	{
 		if (baseInc().equals(shiftInc()))
@@ -142,10 +146,60 @@ public class ParamFloat extends AbstractParam<Float> {
 	@Override protected void setOptionValue(IGameOptions options, Float value) {
 		options.dynOpts().setFloat(getLangLabel(), value);
 	}
+	@Override protected Boolean getDirectionOfChange(Float before, Float after) {
+		if (after > before)
+			return GO_UP;
+		if (after < before)
+			return GO_DOWN;
+		return null;
+	}
+	// ========== Overridable Methods ==========
+	//
+	protected Float dynMinValue()	{ return minValue(); }
+	protected Float dynMaxValue()	{ return maxValue(); }
 	// ========== Other Methods ==========
 	//
-	public boolean next(MouseEvent e) { return next(Math.abs(getInc(e))); }
-	public boolean prev(MouseEvent e) { return next(-Math.abs(getInc(e))); }
+	@Override protected LinkValue linkValue(Float val) { return new LinkValue(val); } 
+	@Override protected Float linkValue(LinkValue val) { return val.floatValue(); }
+	@Override public boolean isInvalidLocalMin(Float value)	{
+		if (value == null)
+			return true;
+		if (minValue() != null && value < minValue())
+			return true;
+		return false;
+	}
+	@Override public boolean isInvalidLocalMax(Float value)	{
+		if (value == null)
+			return true;
+		if (maxValue() != null && value > maxValue())
+			return true;
+		return false;
+	}
+	public Float getValidMax() { return Math.min(get(), dynMaxValue()); }
+	public Float getValidMin() { return Math.max(get(), dynMinValue()); }
+	public Float getValidValue()		{
+		Float value = get();
+		Float min = minValue();
+		Float max = maxValue();
+		if (value == null) {
+			value = defaultValue();
+			if (value == null) {
+				if (min != null)
+					return min;		
+				if (max != null)
+					return max;
+				System.err.println(this.getLabel() + " getValidValue() had no valid value to return! null was returned.");
+				return null;
+			}
+		}
+		if(min != null)
+			value = Math.max(value, min);
+		if(max != null)		
+			value = Math.min(value, max);
+		return value;
+	}
+	public boolean next(MouseEvent e)	{ return next(Math.abs(getInc(e))); }
+	public boolean prev(MouseEvent e)	{ return next(-Math.abs(getInc(e))); }
 	private String getString(float value) {
 		if (isGuiPercent()) {
 			return String.format("%d", Math.round(value * 100f)) + "%";
@@ -156,7 +210,7 @@ public class ParamFloat extends AbstractParam<Float> {
 		}
 		return new DecimalFormat(guiFormat).format(value);
 	}
-	private boolean next(float i) {
+	private boolean next(float i)		{
 		if (i == 0) {
 			setFromDefault(false, true);
 			return false;
@@ -182,8 +236,8 @@ public class ParamFloat extends AbstractParam<Float> {
 		set(value);
 		return false;
 	}
-	private boolean isGuiPercent() { return guiFormat.equals("%"); }
-	private boolean isCfgPercent() { return cfgFormat.equals("%"); }
-	private boolean isGuiPerThousand() { return guiFormat.equals("‰"); }
-	private boolean isCfgPerThousand() { return cfgFormat.equals("‰"); }
+	private boolean isGuiPercent()		{ return guiFormat.equals("%"); }
+	private boolean isCfgPercent()		{ return cfgFormat.equals("%"); }
+	private boolean isGuiPerThousand()	{ return guiFormat.equals("‰"); }
+	private boolean isCfgPerThousand()	{ return cfgFormat.equals("‰"); }
 }

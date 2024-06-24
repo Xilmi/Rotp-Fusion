@@ -254,7 +254,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override 
     public String specificOpponentCROption(int n)  {
             if ((specificOpponentCROption == null) || (specificOpponentCROption.length < n))
-                return globalCROptions.get();
+                return selectedUseGlobalCROptions();
             else
                 return specificOpponentCROption[n];
     }
@@ -313,10 +313,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	// BR: customize min Star per empire
     	int maxEmpires;
         if (selectedGalaxySize.equals(SIZE_DYNAMIC))
-        	maxEmpires = (int) ((maximumSystems()-1) / dynStarsPerEmpire.get());
-        else
-        	maxEmpires = min(numberStarSystems() / minStarsPerEmpire.get()
+        	maxEmpires = (int) ((maximumSystems()-1) / selectedDynStarsPerEmpire());
+        else {
+        	maxEmpires = min((numberStarSystems()-1) / selectedMinStarsPerEmpire()
         		, colors.size(), MAX_OPPONENT_TYPE * startingRaceOptions().size());
+        	maxEmpires = max(0, maxEmpires);
+        }
         // \BR:
         int maxOpponents = SetupGalaxyUI.MAX_DISPLAY_OPPS;
        	return min(maxOpponents, maxEmpires-1);
@@ -326,9 +328,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	// BR: customize preferred Star per empire
     	int maxEmpires;
         if (selectedGalaxySize.equals(SIZE_DYNAMIC))
-        	maxEmpires = (int) ((maximumSystems()-1) / dynStarsPerEmpire.get());
+        	maxEmpires = (int) ((maximumSystems()-1) / selectedDynStarsPerEmpire());
         else
-        	maxEmpires = min((int)Math.ceil(numberStarSystems()/prefStarsPerEmpire.get())
+        	maxEmpires = min((int)Math.ceil((numberStarSystems()-1)/selectedPrefStarsPerEmpire())
         		, colors.size(), MAX_OPPONENT_TYPE*startingRaceOptions().size());
         // \BR:
         int maxOpponents = SetupGalaxyUI.MAX_DISPLAY_OPPS;
@@ -347,6 +349,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxyShapeOption2	= opt.selectedGalaxyShapeOption2;
         selectedNebulaeOption		= opt.selectedNebulaeOption;
         selectedNumberOpponents		= opt.selectedNumberOpponents;
+        
+        LinkedList<IParam> list = systemsOptionsUI.optionsList;
+        for (IParam param : list)
+        	param.copyOption(oldOpt, this, true);
+
         setGalaxyShape(); 
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
         selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
@@ -377,6 +384,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	setBaseGalaxyShape();
         selectedGalaxyShapeOption1 = galaxyShape.defaultOption1();
         selectedGalaxyShapeOption2 = galaxyShape.defaultOption2();
+    }
+    @Override public float densitySizeFactor() {
+    	return densitySizeFactor(selectedStarDensityOption());
     }
     @Override public boolean isRandomGalaxy() {
     	return selectedGalaxyShape.equals(SHAPE_RANDOM)
@@ -427,10 +437,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	}
         if (rotp.Rotp.noOptions("setRandomGalaxyShape()"))
         	return;
-		shapeOption1.reInit(new ArrayList<>()); // New shape -> Reset the list
-		shapeOption1.defaultValue(galaxyShape.randomOption());
-		shapeOption2.reInit(new ArrayList<>()); // New shape -> Reset the list
-		shapeOption2.defaultValue(galaxyShape.randomOption());
+		shapeOption1().reInit(new ArrayList<>()); // New shape -> Reset the list
+		shapeOption1().defaultValue(galaxyShape.randomOption());
+		shapeOption2().reInit(new ArrayList<>()); // New shape -> Reset the list
+		shapeOption2().defaultValue(galaxyShape.randomOption());
 //        selectedGalaxyShapeOption1 = galaxyShape.randomOption();
 //        selectedGalaxyShapeOption2 = galaxyShape.randomOption();
     }
@@ -470,10 +480,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
         if (rotp.Rotp.noOptions("setBaseGalaxyShape()"))
         	return;
-		shapeOption1.reInit(galaxyShapeOptions1()); // New shape -> Reset the list
-		shapeOption1.defaultValue(galaxyShape.defaultOption1());
-		shapeOption2.reInit(galaxyShapeOptions2()); // New shape -> Reset the list
-		shapeOption2.defaultValue(galaxyShape.defaultOption2());
+		shapeOption1().reInit(galaxyShapeOptions1()); // New shape -> Reset the list
+		shapeOption1().defaultValue(galaxyShape.defaultOption1());
+		shapeOption2().reInit(galaxyShapeOptions2()); // New shape -> Reset the list
+		shapeOption2().defaultValue(galaxyShape.defaultOption2());
     }
     @Override
     public int numGalaxyShapeOption1() {
@@ -492,43 +502,46 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	return numberStarSystems(selectedGalaxySize());
     }
     @Override
-    public int numberStarSystems(String size) { // BR: For Profile Manager comments
-        // MOO Strategy Guide, Table 3-2, p.50
-    /*
-    switch (selectedGalaxySize()) {
-            case SIZE_SMALL:  return 24;
-            case SIZE_MEDIUM: return 48;
-            case SIZE_LARGE1:  return 70;
-            case SIZE_HUGE:   return 108;
-            default: return 48;
-    }
-    */
-    switch (size) {
-        case SIZE_MICRO:      return 24; // BR: added original moo small size
-        case SIZE_TINY:       return 33;
-        case SIZE_SMALL:      return 50;
-        case SIZE_SMALL2:     return 70;
-        case SIZE_MEDIUM:     return 100;
-        case SIZE_MEDIUM2:    return 150;
-        case SIZE_LARGE:      return 225;
-        case SIZE_LARGE2:     return 333;
-        case SIZE_HUGE:       return 500;
-        case SIZE_HUGE2:      return 700;
-        case SIZE_MASSIVE:    return 1000;
-        case SIZE_MASSIVE2:   return 1500;
-        case SIZE_MASSIVE3:   return 2250;
-        case SIZE_MASSIVE4:   return 3333;
-        case SIZE_MASSIVE5:   return 5000;
-        case SIZE_INSANE:     return 10000;
-        case SIZE_LUDICROUS:  return 100000;
-        case SIZE_MAXIMUM:    return maximumSystems();
-        case SIZE_DYNAMIC: // BR: Added an option to select from the opponents number
-        default:
-        	return min(maximumSystems(), 
-        			1 + Math.round(selectedDynStarsPerEmpire() // +1 for Orion
-        					* (selectedNumberOpponents()+1))); // +1 for player
-    }
-}
+    public int numberStarSystems(String size) { return galaxySizeMap(true, this).get(size); }
+
+//    @Override
+//    public int numberStarSystems(String size) { // BR: For Profile Manager comments
+//        // MOO Strategy Guide, Table 3-2, p.50
+//	    /*
+//	    switch (selectedGalaxySize()) {
+//	            case SIZE_SMALL:  return 24;
+//	            case SIZE_MEDIUM: return 48;
+//	            case SIZE_LARGE1:  return 70;
+//	            case SIZE_HUGE:   return 108;
+//	            default: return 48;
+//	    }
+//	    */
+//	    switch (size) {
+//	        case SIZE_MICRO:      return 24; // BR: added original moo small size
+//	        case SIZE_TINY:       return 33;
+//	        case SIZE_SMALL:      return 50;
+//	        case SIZE_SMALL2:     return 70;
+//	        case SIZE_MEDIUM:     return 100;
+//	        case SIZE_MEDIUM2:    return 150;
+//	        case SIZE_LARGE:      return 225;
+//	        case SIZE_LARGE2:     return 333;
+//	        case SIZE_HUGE:       return 500;
+//	        case SIZE_HUGE2:      return 700;
+//	        case SIZE_MASSIVE:    return 1000;
+//	        case SIZE_MASSIVE2:   return 1500;
+//	        case SIZE_MASSIVE3:   return 2250;
+//	        case SIZE_MASSIVE4:   return 3333;
+//	        case SIZE_MASSIVE5:   return 5000;
+//	        case SIZE_INSANE:     return 10000;
+//	        case SIZE_LUDICROUS:  return 100000;
+//	        case SIZE_MAXIMUM:    return maximumSystems();
+//	        case SIZE_DYNAMIC: // BR: Added an option to select from the opponents number
+//	        default:
+//	        	return min(maximumSystems(), 
+//	        			1 + Math.round(selectedDynStarsPerEmpire() // +1 for Orion
+//	        					* (selectedNumberOpponents()+1))); // +1 for player
+//	    }
+//	}
     @Override
     public int numberNebula() {
         if (selectedNebulaeOption().equals(NEBULAE_NONE))
@@ -841,8 +854,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         p.initPlanetType(r.homeworldPlanetType);
         return p;
     }
-    @Override public List<String> galaxySizeOptions()     { return IGameOptions.getGalaxySizeOptions(); }
-    @Override public List<String> galaxyShapeOptions()    { return IGameOptions.getGalaxyShapeOptions(); }
+    // @Override public List<String> galaxySizeOptions()     { return IGameOptions.getGalaxySizeOptions(); }
+    // @Override public List<String> galaxyShapeOptions()    { return IGameOptions.getGalaxyShapeOptions(); }
     @Override public List<String> galaxyShapeOptions1()   { return galaxyShape.options1(); }
     @Override public List<String> galaxyShapeOptions2()   { return galaxyShape.options2(); }
     @Override public List<String> galaxyAgeOptions()      { return IGameOptions.getGalaxyAgeOptions(); }
@@ -1431,7 +1444,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (secure) {
     		// No computer info in game files... Folder path may contains player name!
     		dynOpts().setString(saveDirectory.getLangLabel(), "");
-    		dynOpts().setString(bitmapGalaxyLastFolder.getLangLabel(), "");
+    		dynOpts().setString(bitmapGalaxyLastFolder().getLangLabel(), "");
     	}
     }
     @Override public void UpdateOptionsTools() {

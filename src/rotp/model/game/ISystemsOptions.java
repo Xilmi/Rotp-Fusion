@@ -1,13 +1,22 @@
 package rotp.model.game;
 
+import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
+import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import rotp.Rotp;
+import rotp.ui.RotPUI;
 import rotp.ui.util.IParam;
+import rotp.ui.util.LinkData;
+import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamBoolean;
+import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
+import rotp.util.sound.SoundManager;
 
 public interface ISystemsOptions extends IBaseOptsTools {
 
@@ -80,10 +89,250 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	default boolean allowRichPoorArtifact()		{ return allowRichPoorArtifact.get(); }
 
 	ParamInteger orionToEmpireModifier	= new ParamInteger( MOD_UI, "ORION_TO_EMPIRE_MODIFIER", 100)
+			.setDefaultValue(MOO1_DEFAULT, 0)
 			.setLimits(0, 1000)
 			.setIncrements(1, 10, 100);
 	default float	orionToEmpireModifier()	{ return (float) (0.01 * orionToEmpireModifier.get()); }
-	
+
+	static void badClick() { SoundManager.current().playAudioClip("MisClick"); }
+
+	ParamFloat firstRingRadius = new FirstRingRadius();
+	class FirstRingRadius extends ParamFloat {
+		FirstRingRadius() {
+			super(MOD_UI, "FIRST_RING_RADIUS", 3.0f);
+			setDefaultValue(MOO1_DEFAULT, 4.0f);
+			setLimits(2f, 6f);
+			setIncrements(0.1f, 0.5f, 1f);
+			isValueInit(false);
+			guiFormat("0.0");
+		}
+		@Override public void lateInit(int level)	{
+			if (level == 0) {
+				resetLinks();
+				addLink(secondRingRadius,	   DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
+				addLink(firstRingSystemNumber, DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
+			}
+			else
+				super.lateInit(level);
+		}
+		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
+		@Override protected void convertValueToLink(LinkData rec)	{
+			switch (rec.key) {
+				case "Number":
+					rec.aimValue = new LinkValue(radiusToNumStars(rec.srcValue.floatValue()));
+					return;
+				case "Radius":
+					rec.aimValue = rec.srcValue;
+					return;
+				default:
+					super.convertValueToLink(rec);
+			}
+		}
+	}
+	default float firstRingRadius() { return firstRingRadius.getValidValue(); }
+
+	ParamFloat secondRingRadius = new SecondRingRadius();
+	class SecondRingRadius extends ParamFloat {
+		SecondRingRadius() {
+			super(MOD_UI, "SECOND_RING_RADIUS", 6.0f);
+			setLimits(2f, 20f);
+			setIncrements(0.1f, 0.5f, 1f);
+			isValueInit(false);
+			guiFormat("0.0");
+		}
+		@Override public void lateInit(int level)	{
+			if (level == 0) {
+				resetLinks();
+				addLink(firstRingRadius,		DO_FOLLOW, GO_DOWN, GO_DOWN, "Radius");
+				addLink(secondRingSystemNumber,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
+			}
+			else
+				super.lateInit(level);
+		}
+		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
+		@Override protected void convertValueToLink(LinkData rec)	{
+			switch (rec.key) {
+				case "Number":
+					rec.aimValue = new LinkValue(radiusToNumStars(rec.srcValue.floatValue()));
+					return;
+				case "Radius":
+					rec.aimValue = rec.srcValue;
+					return;
+				default:
+					super.convertValueToLink(rec);
+			}
+		}
+	}
+	default float secondRingRadius() { return secondRingRadius.getValidValue(); }
+
+	float surfaceSecurityFactor = 1f; // TODO BR: Tune
+
+	static Integer radiusToNumStars(float radius) {
+		float systemBuffer = 1.9f;
+		if (!Rotp.noOptions) {
+			IGameOptions opts = RotPUI.currentOptions();
+			systemBuffer = opts.systemBuffer(opts.selectedStarDensityOption());
+		}
+		float root = radius / (systemBuffer * surfaceSecurityFactor);
+		int numStars = (int) (root*root);
+		return numStars;
+	}
+	static Float numStarsToRadius(int num) {
+		float systemBuffer = 1.9f;
+		if (!Rotp.noOptions) {
+			IGameOptions opts = RotPUI.currentOptions();
+			systemBuffer = opts.systemBuffer(opts.selectedStarDensityOption());
+		}
+		float radius = (float) (systemBuffer * Math.sqrt(num) * surfaceSecurityFactor);
+		return radius;
+	}
+
+	ParamInteger firstRingSystemNumber = new FirstRingSystemNumber();
+	class FirstRingSystemNumber extends ParamInteger {
+		FirstRingSystemNumber() {
+			super(MOD_UI, "FIRST_RING_SYS_NUM",2);
+			setDefaultValue(MOO1_DEFAULT, 1);
+			setLimits(0, 10);
+			setIncrements(1, 2, 5);
+			isValueInit(false);
+		}
+		@Override public void lateInit(int level)	{
+			if (level == 0) {
+				resetLinks();
+				addLink(secondRingSystemNumber,	DO_FOLLOW, GO_UP,   GO_UP,   "Number");
+				addLink(firstRingRadius,		DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
+				addLink(firstRingHabitable,		DO_FOLLOW, GO_DOWN, GO_DOWN, "Habitable");			
+			}
+			else
+				super.lateInit(level);
+		}
+		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
+		@Override protected void convertValueToLink(LinkData rec)	{
+			switch (rec.key) {
+				case "Number":
+				case "Habitable":
+					rec.aimValue = rec.srcValue;
+					return;
+				case "Radius":
+					rec.aimValue = new LinkValue(numStarsToRadius(rec.srcValue.intValue()));
+					return;
+				default:
+					super.convertValueToLink(rec);
+			}
+		}
+	}
+	default int firstRingSystemNumber()	{ return firstRingSystemNumber.getValidValue(); }
+
+	ParamInteger secondRingSystemNumber = new SecondRingSystemNumber();
+	class SecondRingSystemNumber extends ParamInteger {
+		SecondRingSystemNumber() {
+			super(MOD_UI, "SECOND_RING_SYS_NUM", 2);
+			setLimits(0, 100);
+			setIncrements(1, 5, 20);
+			isValueInit(false);
+		}
+		@Override public void lateInit(int level)	{
+			if (level == 0) {
+				resetLinks();
+				addLink(secondRingRadius,		DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
+				addLink(opts().sizeSelection(),	DO_FOLLOW, GO_UP,   GO_UP,   "Size");
+				addLink(dynStarsPerEmpire,		DO_FOLLOW, GO_UP,   GO_UP,   "Dyn");
+				addLink(secondRingHabitable,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Habitable");
+				addLink(firstRingSystemNumber,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
+				addLink(opts().sizeSelection(),	DO_FOLLOW, GO_DOWN, GO_DOWN, "Size");
+			}
+			else
+				super.lateInit(level);
+		}
+		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
+		@Override protected void convertValueToLink(LinkData rec)	{
+			switch (rec.key) {
+				case "Number":
+				case "Habitable":
+					rec.aimValue = rec.srcValue;
+					return;
+				case "Size":
+					int size = rec.srcValue.intValue()+2;
+					rec.aimValue = new LinkValue(opts().getGalaxyKey(size));
+					System.out.println("Convert Size = "+(size-2)+"->"+size+"->"+rec.aimValue.stringValue());
+					return;
+				case "Dyn":
+					rec.aimValue = new LinkValue((rec.srcValue.intValue()+1));
+					return;
+				case "Radius":
+					rec.aimValue = new LinkValue(numStarsToRadius(rec.srcValue.intValue()));
+					return;
+				default:
+					super.convertValueToLink(rec);
+			}
+		}
+	}
+	default int secondRingSystemNumber() { return secondRingSystemNumber.getValidValue(); }
+
+	ParamInteger firstRingHabitable = new FirstRingHabitable();
+	class FirstRingHabitable extends ParamInteger {
+		FirstRingHabitable() {
+			super(MOD_UI, "FIRST_RING_HABITABLE", 1);
+			setDefaultValue(MOO1_DEFAULT, 0);
+			setLimits(0, 4);
+			setIncrements(1, 2, 5);
+			isValueInit(false);
+		}
+		@Override public void lateInit(int level)	{
+			if (level == 0) {
+				resetLinks();
+				addLink(secondRingHabitable,   DO_FOLLOW, GO_UP, GO_UP, "Habitable");
+				addLink(firstRingSystemNumber, DO_FOLLOW, GO_UP, GO_UP, "Number");
+			}
+			else
+				super.lateInit(level);
+		}
+		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
+		@Override protected void convertValueToLink(LinkData rec)	{
+			switch (rec.key) {
+				case "Number":
+				case "Habitable":
+					rec.aimValue = rec.srcValue;
+					return;
+				default:
+					super.convertValueToLink(rec);
+			}
+		}
+	}
+	default int firstRingHabitable() { return firstRingHabitable.getValidValue(); }
+
+	ParamInteger secondRingHabitable = new SecondRingHabitable();
+	class SecondRingHabitable extends ParamInteger {
+		SecondRingHabitable() {
+			super(MOD_UI, "SECOND_RING_HABITABLE", 1);
+			setDefaultValue(MOO1_DEFAULT, 0);
+			setLimits(0, 10);
+			setIncrements(1, 2, 5);
+			isValueInit(false);
+		}
+		@Override public void lateInit(int level)	{
+			if (level == 0) {
+				resetLinks();
+				addLink(secondRingSystemNumber,	DO_FOLLOW, GO_UP,   GO_UP,   "Number");
+				addLink(firstRingHabitable,		DO_FOLLOW, GO_DOWN, GO_DOWN, "Habitable");
+			}
+			else
+				super.lateInit(level);
+		}
+		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
+		@Override protected void convertValueToLink(LinkData rec)	{
+			switch (rec.key) {
+				case "Number":
+				case "Habitable":
+					rec.aimValue = rec.srcValue;
+					return;
+				default:
+					super.convertValueToLink(rec);
+			}
+		}
+	}
+	default int secondRingHabitable() { return secondRingHabitable.getValidValue(); }
+
 	// ==================== GUI List Declarations ====================
 	//
 
@@ -98,7 +347,11 @@ public interface ISystemsOptions extends IBaseOptsTools {
 				headerSpacer,
 				orionPlanetProb,
 				headerSpacer,
-				allowRichPoorArtifact
+				allowRichPoorArtifact,
+				
+				headerSpacer,
+				new ParamTitle("GAME_OTHER"),
+				orionToEmpireModifier
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RICH_OPTIONS"),
@@ -109,8 +362,19 @@ public interface ISystemsOptions extends IBaseOptsTools {
 				ultraRichPlanetMult, ultraRichPlanetOffset
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("GAME_OTHER"),
-				orionToEmpireModifier
+				new ParamTitle("HOMEWORLD_NEIGHBORHOOD"),
+				firstRingSystemNumber,
+				firstRingHabitable,
+				firstRingRadius,
+				secondRingSystemNumber,
+				secondRingHabitable,
+				secondRingRadius,
+
+				headerSpacer,
+				new ParamTitle("LINKED_OPTIONS"),
+				IPreGameOptions.starDensity,
+				IGalaxyOptions.getSizeSelection(),
+				IPreGameOptions.dynStarsPerEmpire
 				)));
 		return map;
 	};

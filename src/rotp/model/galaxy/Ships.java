@@ -82,73 +82,73 @@ public class Ships implements Base, Serializable {
         }        
         existingFleet.addShips(designId, count);
     }
-//    public void deployShips(int empId, int sysId, int[] counts, int destSysId) {    
-//        // get orbiting fleet to pull ships from
-//        ShipFleet orbitingFleet = orbitingFleet(empId, sysId);
-//        if (orbitingFleet == null) {
-//            err("Attempting to deploy fleet from a system that has no orbiting fleet");
-//            return;
-//        }
-//        
-//        // adjust ship counts
-//        int[] actual = new int[counts.length];
-//        int totalDeployed = 0;
-//        int totalOrbiting = 0;
-//        for (int i=0;i<actual.length;i++) {
-//            actual[i] = min(counts[i], orbitingFleet.num(i));
-//            totalOrbiting += orbitingFleet.num(i);
-//            totalDeployed += actual[i];
-//        }
-//        if (totalDeployed == 0) {
-//            // err("Unable to deploy.. actual ships deployed = 0");
-//            log("Unable to deploy.. actual ships deployed = 0");
-//            return;
-//        }
-//
-//        // if entire orbiting fleet is being deployed just use it
-//        if (totalOrbiting == totalDeployed) {
-//            orbitingFleet.destSysId(destSysId);
-//            orbitingFleet.makeDeployed();
-//            return;
-//        }
-//            
-//        // else we create a new deployed fleet 
-//        // else we create a new deployed subfleet from the source 
-//        StarSystem sys = galaxy().system(sysId);
-//        StarSystem destSys = galaxy().system(destSysId);
-//        
-//        // calculate warp speed of new fleet and travel turns to the destination
-//        int minSpeed = 9;
-//        Empire sourceEmp = orbitingFleet.empire();
-//        for (int i=0; i<actual.length; i++) {
-//            if (counts[i] > 0) 
-//                minSpeed = min(minSpeed, sourceEmp.shipLab().design(i).warpSpeed());
-//        }   
-//        int turns = sourceEmp.travelTurnsAdjusted(sys, destSys, minSpeed);
-//        // find any existing deployed fleets to that dest with the same travel turns
-//        ShipFleet deployedFleet = deployedFleet(empId, sysId, destSysId, turns);    
-//        
-//        if (deployedFleet == null) {
-//            deployedFleet = new ShipFleet(empId, sys);
-//            deployedFleet.destSysId(destSysId);
-//            deployedFleet.makeDeployed();
-//            allFleets.add(deployedFleet);            
-//            galaxy().empire(empId).addVisibleShip(deployedFleet);
-//        }
-//        
-//        // transfer ships from orbiting to deplooyed fleet
-//        for (int i=0; i<actual.length; i++) {
-//            int startCount = orbitingFleet.num(i);
-//            deployedFleet.num(i, actual[i]);
-//            orbitingFleet.num(i, startCount-actual[i]);
-//        }        
-//        deployedFleet.setArrivalTimeAdjusted();
-//        // if source fleet is gone, remove it and subst session vars
-//        if (orbitingFleet.isEmpty()) {
-//            deleteFleet(orbitingFleet);
-//            session().replaceVarValue(orbitingFleet, deployedFleet);
-//        }
-//    }
+ /*   public void deployShips(int empId, int sysId, int[] counts, int destSysId) {    
+        // get orbiting fleet to pull ships from
+        ShipFleet orbitingFleet = orbitingFleet(empId, sysId);
+        if (orbitingFleet == null) {
+            err("Attempting to deploy fleet from a system that has no orbiting fleet");
+            return;
+        }
+        
+        // adjust ship counts
+        int[] actual = new int[counts.length];
+        int totalDeployed = 0;
+        int totalOrbiting = 0;
+        for (int i=0;i<actual.length;i++) {
+            actual[i] = min(counts[i], orbitingFleet.num(i));
+            totalOrbiting += orbitingFleet.num(i);
+            totalDeployed += actual[i];
+        }
+        if (totalDeployed == 0) {
+            // err("Unable to deploy.. actual ships deployed = 0");
+            log("Unable to deploy.. actual ships deployed = 0");
+            return;
+        }
+
+        // if entire orbiting fleet is being deployed just use it
+        if (totalOrbiting == totalDeployed) {
+            orbitingFleet.destSysId(destSysId);
+            orbitingFleet.makeDeployed();
+            return;
+        }
+            
+        // else we create a new deployed fleet 
+        // else we create a new deployed subfleet from the source 
+        StarSystem sys = galaxy().system(sysId);
+        StarSystem destSys = galaxy().system(destSysId);
+        
+        // calculate warp speed of new fleet and travel turns to the destination
+        int minSpeed = 9;
+        Empire sourceEmp = orbitingFleet.empire();
+        for (int i=0; i<actual.length; i++) {
+            if (counts[i] > 0) 
+                minSpeed = min(minSpeed, sourceEmp.shipLab().design(i).warpSpeed());
+        }   
+        int turns = sourceEmp.travelTurnsAdjusted(sys, destSys, minSpeed);
+        // find any existing deployed fleets to that dest with the same travel turns
+        ShipFleet deployedFleet = deployedFleet(empId, sysId, destSysId, turns);    
+        
+        if (deployedFleet == null) {
+            deployedFleet = new ShipFleet(empId, sys);
+            deployedFleet.destSysId(destSysId);
+            deployedFleet.makeDeployed();
+            allFleets.add(deployedFleet);            
+            galaxy().empire(empId).addVisibleShip(deployedFleet);
+        }
+        
+        // transfer ships from orbiting to deplooyed fleet
+        for (int i=0; i<actual.length; i++) {
+            int startCount = orbitingFleet.num(i);
+            deployedFleet.num(i, actual[i]);
+            orbitingFleet.num(i, startCount-actual[i]);
+        }        
+        deployedFleet.setArrivalTimeAdjusted();
+        // if source fleet is gone, remove it and subst session vars
+        if (orbitingFleet.isEmpty()) {
+            deleteFleet(orbitingFleet);
+            session().replaceVarValue(orbitingFleet, deployedFleet);
+        }
+    } */
     public ShipFleet deployFleet(ShipFleet sourceFleet, int destSysId) {
         if (sourceFleet.inTransit()) {
             if (sourceFleet.canSend())
@@ -258,7 +258,7 @@ public class Ships implements Base, Serializable {
             galaxy().empire(empId).addVisibleShip(deployedFleet);
         }
         
-        // transfer ships from orbiting to deplooyed fleet
+        // transfer ships from orbiting to deployed fleet
         for (int i=0; i<actual.length; i++) {
             int srcCount = sourceFleet.num(i);
             int destCount = deployedFleet.num(i);

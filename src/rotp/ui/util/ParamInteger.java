@@ -116,6 +116,10 @@ public class ParamInteger extends AbstractParam<Integer> {
 	@Override public ParamInteger isDuplicate(boolean is) { super.isDuplicate(is)  ; return this; }
 	@Override public ParamInteger isCfgFile(boolean is)	  { super.isCfgFile(is)    ; return this; }
 	@Override public ParamInteger formerName(String link) { super.formerName(link) ; return this; }
+	@Override public ParamInteger setDefaultValue(String key, Integer value) {
+		super.setDefaultValue(key, value);
+		return this;
+	}
 
 	@Override public String[] getModifiers()	{
 		if (baseInc().equals(shiftInc()))
@@ -131,8 +135,8 @@ public class ParamInteger extends AbstractParam<Integer> {
 		if (!isDuplicate())
 			setFromCfg(stringToInteger(newValue));
 	}	
-	@Override public boolean prev() { return next(-baseInc()); }
-	@Override public boolean next() { return next(baseInc()); }
+	@Override public boolean prev()				{ return next(-baseInc()); }
+	@Override public boolean next()				{ return next(baseInc()); }
 	@Override public boolean toggle(MouseEvent e, BaseModPanel frame)	{ return next(getInc(e) * getDir(e)); }
 	@Override public boolean toggle(MouseWheelEvent e)	{ return next(getInc(e) * getDir(e)); }
 	@Override protected Integer getOptionValue(IGameOptions options) {
@@ -147,8 +151,58 @@ public class ParamInteger extends AbstractParam<Integer> {
 	@Override protected void setOptionValue(IGameOptions options, Integer value) {
 		options.dynOpts().setInteger(getLangLabel(), value);
 	}
+	@Override protected Boolean getDirectionOfChange(Integer before, Integer after) {
+		if (after > before)
+			return GO_UP;
+		if (after < before)
+			return GO_DOWN;
+		return null;
+	}
+	@Override public LinkValue linkValue(Integer val) { return new LinkValue(val); } 
+	@Override protected Integer linkValue(LinkValue val) { return val.intValue(); }
+	@Override public boolean isInvalidLocalMin(Integer value)	{
+		if (value == null)
+			return true;
+		if (minValue() != null && value < minValue())
+			return true;
+		return false;
+	}
+	@Override public boolean isInvalidLocalMax(Integer value)	{
+		if (value == null)
+			return true;
+		if (maxValue() != null && value > maxValue())
+			return true;
+		return false;
+	}
+	// ========== Overridable Methods ==========
+	//
+	public Integer dynMinValue()		{ return minValue(); }
+	private Integer dynMaxValue()		{ return maxValue(); }
 	// ===== Other Public Methods =====
 	//
+	public Integer getValidMax() 	{ return Math.min(get(), dynMaxValue()); }
+	public Integer getValidMin() 	{ return Math.max(get(), dynMinValue()); }
+	public Integer getValidValue()	{
+		Integer value = get();
+		Integer min = dynMinValue();
+		Integer max = dynMaxValue();
+		if (value == null) {
+			value = defaultValue();
+			if (value == null) {
+				if (min != null)
+					return min;		
+				if (max != null)
+					return max;
+				System.err.println(this.getLabel() + " getValidValue() had no valid value to return! null was returned.");
+				return null;
+			}
+		}
+		if(min != null)
+			value = Math.max(value, min);
+		if(max != null)		
+			value = Math.min(value, max);
+		return value;
+	}
 	public void next(MouseEvent e, float f)	{
 		int inc = getInc(e);
 		if (inc > 0)
@@ -157,12 +211,12 @@ public class ParamInteger extends AbstractParam<Integer> {
 			set((int) Math.ceil(f));
 		next(inc);
 	}
-	public boolean next(MouseEvent e)		{ return next(Math.abs(getInc(e))); }
-	public boolean prev(MouseEvent e)		{ return next(-Math.abs(getInc(e))); }
+	public boolean next(MouseEvent e)	{ return next(Math.abs(getInc(e))); }
+	public boolean prev(MouseEvent e)	{ return next(-Math.abs(getInc(e))); }
 	public boolean isSpecial()			{ return specialMap.containsKey(get()); }
 	public boolean isSpecialZero()		{ return specialZero && (get().equals(0)); }
 	public boolean isSpecialNegative()	{ return specialNegative && (get() < 0); }
-	public String  negativeLabel()		{ return negativeLabel; }
+	String  negativeLabel()				{ return negativeLabel; }
 	// ===== Other Private Methods =====
 	//
 	private boolean isSpecial(Integer val)			{ return specialMap.containsKey(val); }

@@ -1,5 +1,7 @@
 package rotp.model.game;
 
+import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
+
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -72,6 +74,7 @@ public interface IMapOptions extends IBaseOptsTools {
 	}
 	
 	ParamInteger defaultMaxBases	= new ParamInteger( GAME_UI, "DEFAULT_MAX_BASES", 0)
+			.setDefaultValue(ROTP_DEFAULT, 1)
 			.setLimits(0, 5000)
 			.setIncrements(1, 5, 20);
 	default int	defaultMaxBases() { return defaultMaxBases.get(); }

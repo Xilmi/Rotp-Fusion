@@ -136,7 +136,7 @@ public class Galaxy implements Base, Serializable {
     	IGameOptions opts = options();
     	int numEmpire = opts.selectedNumberOpponents() + 1;
     	int numCompWorlds = opts.selectedCompanionWorlds();
-    	int numNearbySys  = 2;
+    	int numNearbySys  = opts.secondRingSystemNumber();
     	int orionId = numEmpire * (1 + numCompWorlds + numNearbySys);
     	return orionId;
     }

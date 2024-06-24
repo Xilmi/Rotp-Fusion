@@ -588,6 +588,15 @@ SETTINGS_MOD_DISABLE_AUTO_HELP_YES_DESC   | Yes (But will be shown again if you 
 SETTINGS_MOD_DISABLE_AUTO_HELP_NO_DESC    | No (But will only be displayed once)
 SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER_DESC | I'm a fan of these pop-ups, keep them!
 
+SETTINGS_MOD_DEFAULT_SETTINGS       | Default Settings: %1
+SETTINGS_MOD_DEFAULT_IS_FUSION      | Fusion
+SETTINGS_MOD_DEFAULT_IS_MOO1        | MoO1
+SETTINGS_MOD_DEFAULT_IS_ROTP        | RotP
+SETTINGS_MOD_DEFAULT_SETTINGS_DESC  | Select the default settings to be applied with mouse mid button click and "Default" buttons.
+SETTINGS_MOD_DEFAULT_IS_FUSION_DESC | Recommended by RotP-Fusion players
+SETTINGS_MOD_DEFAULT_IS_MOO1_DESC   | As close to MoO1 as possible.
+SETTINGS_MOD_DEFAULT_IS_ROTP_DESC   | As close to original RotP as possible.
+
 // Load Game UI
 LOAD_GAME_TITLE                   | Load Game
 LOAD_GAME_AUTOSAVE                | Most Recent Autosave
@@ -1330,7 +1339,7 @@ SETUP_GALAXY_SHAPE_LABEL          | Shape
 SETUP_GALAXY_SIZE_HELP            | The galaxy size will determine the number of stars and therefore the maximum player count.<br>Note that there are multiple star counts for some size settings. For instance, an average sized galaxy can have 100 or 150 stars. A large galaxy can have 225 or 333 stars.<br> Each selection will change the number of opponents to its default setting, which can then be adjusted on the Select
 Opponents panel.
 SETUP_GALAXY_SIZE_DESC            | Select the Galaxy Size
-SETUP_GALAXY_SIZE                 | Galaxy Size Selection %1
+SETUP_GALAXY_SIZE                 | Galaxy Size: %1
 SETUP_GALAXY_SIZE_STAR_PER_EMPIRE | %1 s/e
 SETUP_GALAXY_SIZE_DYNAMIC_DESC    | The galaxy size is function of the number of empires and the selected number of stars per empire.
 SETUP_GALAXY_SIZE_MAXIMUM_DESC    | This galaxy size is function of the computer memory size.
@@ -1535,13 +1544,24 @@ SETUP_COUNCIL_IMMEDIATE_HELP      | Once two-thirds of the galaxy has been colon
 SETUP_COUNCIL_REBELS_HELP         | Once two-thirds of the galaxy has been colonized, councils will pop up every 25 years to hold elections. If you win, some of your worst enemies may refuse to follow you, and will start a rebellion: The final War!!!
 SETUP_COUNCIL_NO_ALLIANCES_HELP   | No half victory... ==> No Alliance victory (Neither Council nor Military)
 SETUP_COUNCIL_REALMS_BEYOND_HELP  | No second chances, no half win... ==> No Alliance victory (Neither Council nor Military) & No rebellion! (Including player)
-SETUP_STAR_DENSITY_LOWEST         | Lowest
+SETUP_STAR_DENSITY_LONELY         | Lonely
+SETUP_STAR_DENSITY_U_WIDE         | Ultra wide
+SETUP_STAR_DENSITY_V_WIDE         | Very wide
+SETUP_STAR_DENSITY_WIDER          | Wider
+SETUP_STAR_DENSITY_WIDE           | Wide
+SETUP_STAR_DENSITY_LOWEST         | Very low
+//SETUP_STAR_DENSITY_LOWEST         | Lowest
 SETUP_STAR_DENSITY_LOWER          | Lower
 SETUP_STAR_DENSITY_LOW            | Low
 SETUP_STAR_DENSITY_NORMAL         | Normal
 SETUP_STAR_DENSITY_HIGH           | High
 SETUP_STAR_DENSITY_HIGHER         | Higher
 SETUP_STAR_DENSITY_HIGHEST        | Highest
+SETUP_STAR_DENSITY_LONELY         | Increase the star spreading by 300% (At your own risk)
+SETUP_STAR_DENSITY_U_WIDE_HELP    | Increase the star spreading by 200% (At your own risk)
+SETUP_STAR_DENSITY_V_WIDE_HELP    | Increase the star spreading by 130% (At your own risk)
+SETUP_STAR_DENSITY_WIDER_HELP     | Increase the star spreading by 80% (At your own risk)
+SETUP_STAR_DENSITY_WIDE_HELP      | Increase the star spreading by 50%
 SETUP_STAR_DENSITY_LOWEST_HELP    | Increase the star spreading by 30%
 SETUP_STAR_DENSITY_LOWER_HELP     | Increase the star spreading by 20%
 SETUP_STAR_DENSITY_LOW_HELP       | Increase the star spreading by 10%
@@ -2170,6 +2190,10 @@ HEADERS_RICH_OPTIONS_DESC            | To customize Utra-Poor, Poor, Rich, and U
 HEADERS_RICH_OPTIONS                 | §§~~~ RESSOURCES ~~~§§%1
 HEADERS_NEBULAE_OPTION_DESC          | To customize nebulae placement and impact on planets.
 HEADERS_NEBULAE_OPTION               | §§~~~ NEBULAE ~~~§§%1
+HEADERS_HOMEWORLD_NEIGHBORHOOD_DESC  | To customize distances and contents of homeworld neighborhood.
+HEADERS_HOMEWORLD_NEIGHBORHOOD       | §§~~~ NEIGHBORHOOD ~~~§§%1
+HEADERS_LINKED_OPTIONS_DESC          | These options are linked to the ones above
+HEADERS_LINKED_OPTIONS               | §§~~~ LINKED OPTIONS ~~~§§%1
 
 SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | To allow a planet Utra-poor, Poor, Rich ,or Utra-rich to also have artifacts.
 SETTINGS_MOD_RICH_POOR_ARTIFACT      | Rich/Poor & Artifacts: %1
@@ -2199,6 +2223,30 @@ SETTINGS_MOD_ULTRA_RICH_MULT_DESC    | Ultra-Rich planet probability multiplier.
 SETTINGS_MOD_ULTRA_RICH_MULT         | Ultra-Rich Multiplier: %1%
 SETTINGS_MOD_ULTRA_RICH_OFFSET_DESC  | Ultra-Rich planet probability offset.
 SETTINGS_MOD_ULTRA_RICH_OFFSET       | Ultra-Rich Offset: %1%
+
+TAG_RED_DISPLAY  | Red display means incompatibility with other red options.
+SETTINGS_MOD_FIRST_RING_SYS_NUM_HELP    | Minimum number of star systems to be found in the immediate vicinity.<br>→TAG_RED_DISPLAY←<br>This value must be >= than the Min Nearby Livable.<br>This value must be <= than the Min MidRange Stars.
+SETTINGS_MOD_FIRST_RING_SYS_NUM_DESC    | Minimum number of star systems to be found in the immediate vicinity.<br>→TAG_RED_DISPLAY←
+SETTINGS_MOD_FIRST_RING_SYS_NUM         | Min Nearby Stars: %1
+
+SETTINGS_MOD_SECOND_RING_SYS_NUM_HELP   | Minimum number of star systems to be found in the extended neighborhood.<br>→TAG_RED_DISPLAY←<br>This value must be >= than the Min Midrange Livable<br>This value must be >= than the Min Nearby Star<br>This value must be lower than the number of stars per empire.
+SETTINGS_MOD_SECOND_RING_SYS_NUM_DESC   | Minimum number of star systems to be found in the extended neighborhood.<br>→TAG_RED_DISPLAY←
+SETTINGS_MOD_SECOND_RING_SYS_NUM        | Min Midrange Stars: %1
+
+SETTINGS_MOD_FIRST_RING_HABITABLE_HELP  | Minimum number of habitable planets to be found in the immediate vicinity.<br>→TAG_RED_DISPLAY←<br>This value must be <= than the Min Nearby Stars.<br>This value must be <= than Min Midrange Livable.
+SETTINGS_MOD_FIRST_RING_HABITABLE_DESC  | Minimum number of habitable planets to be found in the immediate vicinity.<br>→TAG_RED_DISPLAY←
+SETTINGS_MOD_FIRST_RING_HABITABLE       | Min Nearby Livable: %1
+
+SETTINGS_MOD_SECOND_RING_HABITABLE_HELP | Minimum habitable planets to be found in the extended neighborhood.<br>→TAG_RED_DISPLAY←<br>This value must be <= than Min Midrange Stars.<br>This value must be >= Nearby Habitable.
+SETTINGS_MOD_SECOND_RING_HABITABLE_DESC | Minimum habitable planets to be found in the extended neighborhood.<br>→TAG_RED_DISPLAY←
+SETTINGS_MOD_SECOND_RING_HABITABLE      | Min Midrange Livable: %1
+
+SETTINGS_MOD_FIRST_RING_RADIUS_DESC     | Radius of the immediate vicinity. (→TAG_RED_DISPLAY←)<br>Should be <= than the Midrange radius.
+SETTINGS_MOD_FIRST_RING_RADIUS          | Nearby Radius: %1 ly
+SETTINGS_MOD_SECOND_RING_RADIUS_DESC    | Radius of the extended neighborhood circle.(→TAG_RED_DISPLAY←)<br>This radius must be >= than the nearby radius.
+SETTINGS_MOD_SECOND_RING_RADIUS         | Midrange Radius: %1 ly
+
+
 
 SETTINGS_MOD_ORION_TO_EMPIRE_MODIFIER_HELP | Minimum distance modifier between Orion and Empires:<br>Original Distance = 150% of minimum distance between two Empires, but never below 400% of minimum distance between two star systems.<br> - 100% = Original Distance.<br> - 67% = Minimum distance between two Empires.<br> - 0% = Minimum distance between two star systems. (MoO1 distance)
 SETTINGS_MOD_ORION_TO_EMPIRE_MODIFIER_DESC | Minimum distance modifier between Orion and Empires.
@@ -2232,6 +2280,10 @@ SETTINGS_MOD_NEBULA_HOMEWORLD_ALLOW_DESC   | No restrictions on a nebula being a
 SETTINGS_MOD_NEBULA_HOMEWORLD_ALLOW        | Allow
 SETTINGS_MOD_NEBULA_HOMEWORLD_NEVER_DESC   | Never let a nebula be too close to an empire's neighborhood.
 SETTINGS_MOD_NEBULA_HOMEWORLD_NEVER        | Never
+
+SETTINGS_MOD_LOOSE_NEIGHBORHOOD_DESC       | To allow neighboring stars getting out of the galaxy limits.
+SETTINGS_MOD_LOOSE_NEIGHBORHOOD            | Loose Limits: %1
+
 
 // Xilmi-AI-options
 HEADERS_XILMI_AI_OPTIONS_DESC               | Options affecting AI decisions.
@@ -2388,7 +2440,7 @@ SETTINGS_MOD_PREF_STARS_PER_EMPIRE_HELP  | When setting the galaxy size, the def
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE_DESC  | To help defining the default opponent number from the size of the galaxy.
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE       | Favored Stars Number: %1
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE_DESC   | Number of Stars per Empire for dynamic galaxy size.
-SETTINGS_MOD_DYN_STARS_PER_EMPIRE        | Dynamic Stars Number: %1
+SETTINGS_MOD_DYN_STARS_PER_EMPIRE        | Stars per empire: %1
 
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_HELP | When starting a new game based on a previously played game, the opponents can either keep their previous AI or change to the new GUI global one.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | Should "Restart" Change the Aliens AI? 
@@ -4594,6 +4646,6 @@ SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_GUIDE← <br>B : Toggle
 
 SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>N : Open Name Player Species Sub Menu. <br>R : Random Species. <br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
 
-MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. →HK_GUIDE← <br>→HK_ESCAPE←
+MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. <br><br>ALT-F : Set Default Values to RotP-Fusion. <br>ALT-M : Set Default Values to MoO1. <br>ALT-R : Set Default Values to original RotP. <br>→HK_GUIDE← <br>→HK_ESCAPE←
 
 SETUP_GAME_HELP_HK   | H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N : New Game.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.<br><br>PAGE_UP / PAGE_DOWN: (Work in progress)<br>      Open / Close Console for the visually impaired people.

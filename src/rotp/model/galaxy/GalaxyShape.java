@@ -34,6 +34,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private static final float maxMinEmpireFactor = 15f;
 	private static final float absMinEmpireBuffer = 3.8f;
 	private static final int   MaxPreviewSystems  = 5000;
+	private static final int   MaxEmpireTentative = 100;
     protected static final String RANDOM_OPTION   = "SETUP_RANDOM_OPTION";
 
 	static final double twoPI = Math.PI * 2.0; // BR:
@@ -73,12 +74,14 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private float dynamicGrowth = 1f;
 	private int   currentEmpire = 0;
 	private int   loopReserve   = 0;
+	private int	  homeStarNum	= 3;
 	
 	protected String finalOption1;
 	protected String finalOption2;
 	protected int option1;
 	protected int option2;
 	protected boolean isSymmetric;
+	private boolean looseLimits;
 	
 	GalaxyShape (IGameOptions options) {
 		opts = options;
@@ -106,7 +109,8 @@ public abstract class GalaxyShape implements Base, Serializable {
         option1 = max(0, options1().indexOf(finalOption1));
         option2 = max(0, options2().indexOf(finalOption2));
         isSymmetric = (finalOption1 != null && finalOption1.contains("SYMMETRIC"))
-        		|| (finalOption2 != null && finalOption2.contains("SYMMETRIC"));		
+        		|| (finalOption2 != null && finalOption2.contains("SYMMETRIC"));
+        homeStarNum = opts.secondRingSystemNumber()+1;
 	}
 	public String randomOption()	{ return RANDOM_OPTION; }
 	public int width()	{ return fullWidth; }
@@ -160,7 +164,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 		float selected = max(4f, min(largeGal, smallGal));
 		return adjDensity * selected * shapeFactor;
 	}
-    protected float densitySizeFactor() {
+    protected float densitySizeFactor() { return opts.densitySizeFactor(); }
+/*    protected float densitySizeFactor() {
         float adj = 1.0f;
         switch (opts.selectedStarDensityOption()) {
             case IGameOptions.STAR_DENSITY_LOWEST:  adj = 1.3f; break;
@@ -171,7 +176,7 @@ public abstract class GalaxyShape implements Base, Serializable {
             case IGameOptions.STAR_DENSITY_HIGHEST: adj = 0.7f; break;
         }
         return adj;
-    }
+    } */
 	// modnar: add possibility for specific placement of homeworld/orion locations
 	// indexWorld variable will be used by setSpecific in each Map Shape for locations
 	public abstract void setSpecific(Point.Float p);
@@ -219,8 +224,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 	public String defaultOption1()	{ return ""; }
 	public String defaultOption2()	{ return ""; }
 
-	float systemBuffer() {
-		switch (opts.selectedStarDensityOption()) {
+	float systemBuffer() { return opts.systemBuffer(opts.selectedStarDensityOption()); }
+/*	public static float systemBuffer(String StarDensityOption) {
+		switch (StarDensityOption) {
 			case IGameOptions.STAR_DENSITY_LOWEST:  return 2.5f;
 			case IGameOptions.STAR_DENSITY_LOWER:   return 2.3f;
 			case IGameOptions.STAR_DENSITY_LOW:		return 2.1f;
@@ -229,7 +235,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			case IGameOptions.STAR_DENSITY_HIGHEST: return 1.3f;
 		}
 		return 1.9f;
-	}
+	} */
 	public Point.Float getCompanion(int empId, int compId) {
 		return this.companionWorlds[empId].cW[compId].get();
 	}
@@ -255,7 +261,9 @@ public abstract class GalaxyShape implements Base, Serializable {
     protected double galaxyRay() {
     	return cx - galaxyEdgeBuffer();
     }
-	private void generateSymmetric(boolean full) {
+	private boolean generateSymmetric(boolean full) {
+		int num1 = opts.firstRingSystemNumber();
+		int num2 = opts.secondRingSystemNumber();
 		genAttempt    = 0;
 		dynamicGrowth = 1f;
 		loopReserve   = 0;
@@ -266,7 +274,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 			else
 				quickInit();
 			genAttempt++;
-			
+			if (genAttempt >= MaxEmpireTentative)
+				return false; // Failed
+
 			empSystems.clear();
 			homeStars = 0;
 			num = 0;
@@ -281,7 +291,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			if (valid(pt) && !isTooNearExistingSystem(pt.x, pt.y, true)) {
 				EmpireSystem sys = new EmpireSystem(this, pt);
 				empSystems.add(sys);
-				homeStars++; // the two nearby system will be set later
+				homeStars++; // the nearby system will be set later
 			} else {
 				dynamicGrowth += 0.01f;
 				continue; // Fail... Retry					
@@ -293,31 +303,55 @@ public abstract class GalaxyShape implements Base, Serializable {
 			for ( CtrPoint p : opp) {
 				EmpireSystem sys = new EmpireSystem(this, p.get());
 				empSystems.add(sys);
-				homeStars++; // the two nearby system will be set later
+				homeStars++; // the nearby system will be set later
 		   	}
+			
 			// ===== Then the nearby systems
 			boolean valid = true;
-			for (int i=1; i<3; i++) { // 2 nearby systems
+			EmpireSystem player = empSystems.get(0);
+			float buffer = systemBuffer();
+
+			float radius = opts.firstRingRadius();
+			float minRel = buffer/radius;
+			for (int nbSys=0; nbSys<num1; nbSys++) { // variable nearby systems
 				// get player nearby system
-				EmpireSystem player = empSystems.get(0);
-				if (player.addNearbySystems(this, null)) {
+				if (player.addNearbySystemsSym(this, null, radius, buffer, minRel))
 					homeStars++;
-				} else {
+				else {
 					valid = false;
 					break; // Fail... Retry
 				}
 				// ----- now the opponents
 				// get the stars
-				opp = getSymmetricSystems(new CtrPoint(player.x[i], player.y[i]));
+				opp = getSymmetricSystems(new CtrPoint(player.x[nbSys], player.y[nbSys]));
 				//  no test needed, they are valid by symmetry.
 				for (int k=0; k<numOpponents; k++) {
-			   		empSystems.get(k+1).addNearbySystems(this, opp[k].get());
+			   		empSystems.get(k+1).addNearbySystemsSym(this, opp[k].get(), 0, 0, 0);
 			   		homeStars++;
 			   	}
 			}
-			if (!valid) {
-				continue; // something was wrong!
+				
+			radius = opts.secondRingRadius();
+			minRel = buffer/radius;
+			for (int nbSys=num1; nbSys<num2; nbSys++) { // variable nearby systems
+				// get player nearby system
+				if (player.addNearbySystemsSym(this, null, radius, buffer, minRel))
+					homeStars++;
+				else {
+					valid = false;
+					break; // Fail... Retry
+				}
+				// ----- now the opponents
+				// get the stars
+				opp = getSymmetricSystems(new CtrPoint(player.x[nbSys], player.y[nbSys]));
+				//  no test needed, they are valid by symmetry.
+				for (int k=0; k<numOpponents; k++) {
+			   		empSystems.get(k+1).addNearbySystemsSym(this, opp[k].get(), radius, buffer, minRel);
+			   		homeStars++;
+			   	}
 			}
+			if (!valid)
+				continue; // something was wrong!
 		} // The empires are set
 
 		// ===== add other systems to fill out galaxy
@@ -325,12 +359,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 		companionWorlds = new CompanionWorld(empSystems.get(0), numCompanions).symmetric();
 		long tm1 = System.currentTimeMillis();
 		log("Galaxy generation: "+(tm1-tm0)+"ms  Regions: " + usingRegions+"  Attempts: ", str(attempts), "  stars:", str(num), "/", str(maxStars));
+		return true;
 	}
 	private int addUncolonizedSystemsSymmetric() {
 		int maxAttempts = maxStars * 10;
-		// we've already generated 3 stars for every empire so reduce their
+		// we've already generated 3(or more) stars for every empire so reduce their
 		// total from the count of remaining stars to create ("too many stars" bug)
-		int nonEmpireStars = maxStars - (empSystems.size() *3);
+		int nonEmpireStars = maxStars - (empSystems.size() * homeStarNum);
 		// Adjust for compatibility with symmetric galaxy 
 		// Remove Orion, modulo number of Empires, then add Orion
 		nonEmpireStars = 1 + Math.floorDiv(nonEmpireStars-1, numEmpires) * numEmpires;
@@ -433,6 +468,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		// BR: Player customization
 		orionBuffer  = max(sysBuffer, orionBuffer * opts.orionToEmpireModifier());
 		
+		looseLimits = opts.LooseNeighborhood();
 	}
 	private void fullInit() {
 		fullyInit = true;
@@ -480,31 +516,34 @@ public abstract class GalaxyShape implements Base, Serializable {
 		cx = fullWidth  / 2.0f;
 		cy = fullHeight / 2.0f;
 	}
-	void fullGenerate() {
-		generate(true);
+	boolean fullGenerate() {
+		boolean valid = generateValid(true);
 		clean();
+		return valid;
 	}
-	public void quickGenerate() {
+	public boolean quickGenerate() {
+		boolean valid;
 		if (opts.selectedGalaxyRandSource() == 0 || !allowExtendedPreview())
-			generate(false);
+			valid = generateValid(false);
 		else
-			generate(true);
+			valid = generateValid(true);
 		clean();
+		return valid;
 	}
-//	private void displayDebug() {
-//		int nbSys = opts.numberStarSystems();
-//		String size = opts.selectedGalaxySize();
-//		float dynFactor  = settingsFactor(1);
-//		float baseFactor = sizeFactor(size);
-//		System.out.format("Nb Stars = %6d; Spreading = %3d; factorRatio = %4.2f; genAttempt = %5d; corrFactor = %4.2f",
-//				nbSys,
-//				opts.selectedEmpireSpreadingPct(),
-//				dynFactor/baseFactor,
-//				genAttempt,
-//				dynamicGrowth
-//				);
-//		System.out.println("  Shape = " + opts.selectedGalaxyShape());
-//	}
+/*	private void displayDebug() {
+		int nbSys = opts.numberStarSystems();
+		String size = opts.selectedGalaxySize();
+		float dynFactor  = settingsFactor(1);
+		float baseFactor = sizeFactor(size);
+		System.out.format("Nb Stars = %6d; Spreading = %3d; factorRatio = %4.2f; genAttempt = %5d; corrFactor = %4.2f",
+				nbSys,
+				opts.selectedEmpireSpreadingPct(),
+				dynFactor/baseFactor,
+				genAttempt,
+				dynamicGrowth
+				);
+		System.out.println("  Shape = " + opts.selectedGalaxyShape());
+	} */
 	private float growthFactor() {
 		if (currentEmpire == 0)
 			return 2f;
@@ -518,17 +557,30 @@ public abstract class GalaxyShape implements Base, Serializable {
 //				);
 		return growthFactor;
 	}
-	private void generate(boolean full) {
-		init0();
-//		randRand = new Rand(options().selectedGalaxyRandSource() + 1.0);
-//		rand = new Rand(options().selectedGalaxyRandSource());
-//		randX = new Rand.RandX(options().selectedGalaxyRandSource());
-//		randY = new Rand.RandY(options().selectedGalaxyRandSource());
-		singleInit(full);
-		if (isSymmetric()) {
-			generateSymmetric(full);
-			return;
+	private boolean generateValid(boolean full) {
+		if (generate(full)) {
+			//System.out.println("generateValid(" + full + ") " + genAttempt + " tentatives");
+			return true;
 		}
+		// Some issues... Switch to an easy shape
+		System.err.println("Failed generateValid(" + full + ") " + genAttempt + " tentatives");
+		clean();
+		opts.shapeSelection().setFromDefault(false, false);
+		if (generate(full)) {
+			System.out.println("default generateValid(" + full + ") " + genAttempt + " tentatives");
+			return true;
+		}
+		// more issues...
+		System.err.println("Failed default generateValid(" + full + ") " + genAttempt + " entatives");
+		clean();
+		return false;
+	}
+	private boolean generate(boolean full) {
+		init0();
+		singleInit(full);
+		if (isSymmetric())
+			return generateSymmetric(full);
+
 		genAttempt = 0;
 		dynamicGrowth = 1f;
 		// add systems needed for empires
@@ -538,6 +590,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 			else
 				quickInit();
 			genAttempt++;
+			if (genAttempt >= MaxEmpireTentative)
+				return false; // Failed
 			empSystems.clear();
 			homeStars = 0;
 			num = 0;
@@ -568,6 +622,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		addCompanionsWorld();
 		long tm1 = System.currentTimeMillis();
 		log("Galaxy generation: "+(tm1-tm0)+"ms  Regions: " + usingRegions+"  Attempts: ", str(attempts), "  stars:", str(num), "/", str(maxStars));
+		return true;
 	}
 	protected int galaxyEdgeBuffer() {
 		switch(opts.selectedGalaxySize()) {
@@ -609,9 +664,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private int addUncolonizedSystems() {
 		int maxAttempts = maxStars * 10;
 
-		// we've already generated 3 stars for every empire so reduce their
+		// we've already generated 3(or more) stars for every empire so reduce their
 		// total from the count of remaining stars to create ("too many stars" bug)
-		int nonEmpireStars = maxStars - (empSystems.size() *3);
+		int nonEmpireStars = maxStars - (empSystems.size() * homeStarNum);
 		int attempts = 0;
 		Point.Float pt = new Point.Float();
 		while ((num < nonEmpireStars) && (attempts++ < maxAttempts)) {
@@ -682,22 +737,6 @@ public abstract class GalaxyShape implements Base, Serializable {
 		// float buffer = systemBuffer(); // BR: made global
 		// not too close to other systems in galaxy
 		return isTooNearExistingSystem(x0, y0, sysBuffer);
-//		if (usingRegions) {
-//			if (isTooNearSystemsInNeighboringRegions(x0, y0, sysBuffer))
-//				return true;
-//		}
-//		else {
-//			if (isTooNearSystemsInEntireGalaxy(x0, y0, sysBuffer)) // BR: global
-//				return true;
-//		}
-//		// not too close to other systems in any empire system
-//		for (EmpireSystem emp: empSystems) {
-//			for (int i=0;i<emp.num;i++) {
-//				if (distance(x0,y0,emp.x(i),emp.y(i)) <= sysBuffer) // BR: global
-//					return true;
-//			}
-//		}
-//		return false;
 	}
 	private boolean isTooNearExistingSystem(float x0, float y0, float buffer) {
 		// float buffer = systemBuffer(); // BR: made global
@@ -869,17 +908,35 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	@SuppressWarnings("serial")
 	public final class EmpireSystem implements Serializable {
-		private float[] x = new float[3];
-		private float[] y = new float[3];
+		private final float[] x = new float[homeStarNum];
+		private final float[] y = new float[homeStarNum];
 		private int num = 0;
 		private boolean valid = false;
 
 		private EmpireSystem(GalaxyShape sp) {
 			// empire is valid if it can create a valid home system
-			// and two valid nearby stars
+			// and variable valid nearby stars
 			valid = addNewHomeSystem(sp);
-			valid = valid && addNearbySystem(sp, colonyX(), colonyY(), 3.0f);
-			valid = valid && addNearbySystem(sp, colonyX(), colonyY(), 3.0f);
+
+			float buffer = systemBuffer();
+
+			int num2 = opts.secondRingSystemNumber();
+			int num1 = opts.firstRingSystemNumber();
+			float radius = opts.firstRingRadius();
+			float minRel = buffer/radius;
+			for (int nbSys=0; nbSys<num1; nbSys++)
+				if (looseLimits)
+					valid = valid && addNearbySystem(sp, colonyX(), colonyY(), radius, buffer, minRel);
+				else
+					valid = valid && addNearbySystem(sp, colonyX(), colonyY(), radius, buffer);
+
+			radius = opts.secondRingRadius();
+			minRel = buffer/radius;
+			for (int nbSys=num1; nbSys<num2; nbSys++)
+				if (looseLimits)
+					valid = valid && addNearbySystem(sp, colonyX(), colonyY(), radius, buffer, minRel);
+				else
+					valid = valid && addNearbySystem(sp, colonyX(), colonyY(), radius, buffer);
 		}
 		// BR: for symmetric galaxy
 		private EmpireSystem(GalaxyShape sp, Point.Float pt) {
@@ -889,19 +946,22 @@ public abstract class GalaxyShape implements Base, Serializable {
 		 	valid = true;
 		}
 		// BR: for symmetric galaxy
-		private boolean addNearbySystems(GalaxyShape sp, Point.Float pt) {
+		private boolean addNearbySystemsSym(GalaxyShape sp, Point.Float pt
+							, float maxDistance, float buffer, float minRel) {
 			// if pt = null then search for a nearby system
 			// else the system is already validated... add it
 			boolean valid = false;
 			if (pt == null) { // player world, search for one
-				valid = addNearbySystem(sp, colonyX(), colonyY(), 3.0f);
+				if (looseLimits)
+					valid = addNearbySystem(sp, colonyX(), colonyY(), maxDistance, buffer, minRel);
+				else
+					valid = addNearbySystem(sp, colonyX(), colonyY(), maxDistance, buffer);
 				return valid;
 			}
-			addSystem(pt.x,pt.y);
+			addSystem(pt.x,pt.y); // Other empires
 			valid = true;
 			return valid;
 		}
- 
 		public int numSystems() { return num; }
 		public float x(int i)	{ return x[i]; }
 		public float y(int i)	{ return y[i]; }
@@ -929,14 +989,14 @@ public abstract class GalaxyShape implements Base, Serializable {
 			}
 			return false;
 		}
-		private boolean addNearbySystem(GalaxyShape sh, float x0, float y0, float maxDistance) {
+		private boolean addNearbySystem(GalaxyShape sh, float x0, float y0,
+										float maxDistance, float buffer) {
 			float x1 = x0-maxDistance;
 			float x2 = x0+maxDistance;
 			float y1 = y0-maxDistance;
 			float y2 = y0+maxDistance;
 			int attempts = 0;
 			Point.Float pt = new Point.Float();
-			float buffer = systemBuffer();
 			while (attempts < 100) {
 				attempts++;
 				pt.x = randX.nextFloat(x1, x2);
@@ -948,6 +1008,23 @@ public abstract class GalaxyShape implements Base, Serializable {
 						addSystem(pt.x,pt.y);
 						return true;
 					}
+				}
+			}
+			return false;
+		}
+		private boolean addNearbySystem(GalaxyShape sh, float x0, float y0,
+										float maxDistance, float buffer, float minRel) {
+			int attempts = 0;
+			while (attempts < 100) {
+				attempts++;
+				double r = maxDistance * Math.sqrt(randX.nextDouble(minRel, 1));
+				double a = randX.nextDouble() * twoPI;
+				float x = x0 + (float) (r * Math.cos(a));
+				float y = y0 + (float) (r * Math.sin(a));
+				boolean tooCloseToAny = isTooNearExistingSystem(sh, x, y, buffer);
+				if (!tooCloseToAny) {
+					addSystem(x, y);
+					return true;
 				}
 			}
 			return false;

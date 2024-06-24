@@ -33,7 +33,8 @@ public interface IParam extends InterfaceOptions{
 	public static final String LABEL_DESCRIPTION = "_DESC";
 	public static final String LABEL_HELP		 = "_HELP";
 	public static final String END				 = "   ";
-	
+
+	public default void lateInit(int level)	{}
 	// user input
 	public default boolean next() { return false; } // Return forceUpdate
 	public default boolean prev() { return false; } // Return forceUpdate
@@ -49,6 +50,9 @@ public interface IParam extends InterfaceOptions{
 	public default boolean	isTitle()				{ return false; }
 	public default boolean	isSubMenu()				{ return false; }
 	public default boolean	isDefaultValue()		{ return false; }
+	/**
+	 * To check if the currently set value is still locally valid
+	 */
 	public default boolean	isValidValue()			{ return true; }
 	public default boolean	isActive()				{ return true; }
 	public default boolean	updated()				{ return true; }

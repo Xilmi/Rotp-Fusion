@@ -16,6 +16,10 @@
 
 package rotp.ui.util;
 
+import static rotp.model.game.DefaultValues.FUSION_DEFAULT;
+import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
+import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
+import static rotp.model.game.DefaultValues.DEF_VAL;
 import static rotp.model.game.IGovOptions.NOT_GOVERNOR;
 import static rotp.ui.util.IParam.langLabel;
 import static rotp.util.Base.textSubs;
@@ -23,6 +27,10 @@ import static rotp.util.Base.textSubs;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.SwingUtilities;
 
@@ -32,14 +40,19 @@ import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.BaseModPanel;
+import rotp.util.sound.SoundManager;
 
 public abstract class AbstractParam <T> implements IParam{
 	// Ignore UCDetector public warning!
-	
+	protected static final boolean GO_UP	= true;
+	protected static final boolean GO_DOWN	= false;
+	protected static final int DO_FOLLOW	= 0;
+	protected static final int DO_LOCK		= 1;
+	protected static final int DO_REFRESH	= 2;
 	private final String name; // 
 	private final String gui;  // The label header
 	private T value;
-	private T defaultValue;
+	private Map<String, T> defaultValue = new HashMap<>();
 	private T minValue		= null;
 	private T maxValue		= null;
 	private T baseInc		= null;
@@ -52,6 +65,8 @@ public abstract class AbstractParam <T> implements IParam{
 	private boolean isValueInit	= true; // default values are initialized with current value.	
 	private boolean	updated		= true;
 	private String	formerName;	// Link to another option for initialization (when upgrading)
+	private List<LinkData> linkList;
+	private boolean processingToggle = false;
 
 	@Override public void updated(boolean val)	{ updated = val; }
 	@Override public boolean updated()			{ return updated; }
@@ -61,13 +76,13 @@ public abstract class AbstractParam <T> implements IParam{
 	/**
 	 * @param gui  The label headerTechLibrary
 	 * @param name The name
-	 * @param defaultValue The default value
+	 * @param commonDefault The common default value
 	 */
-	AbstractParam(String gui, String name, T defaultValue) {
+	AbstractParam(String gui, String name, T commonDefault) {
 		this.gui = gui;
 		this.name = name;
-		this.defaultValue = defaultValue;
-		value = defaultValue;
+		defaultValue(commonDefault);
+		value = defaultValue.get(DEF_VAL.defVal());
 	}
 
 	/**
@@ -113,7 +128,7 @@ public abstract class AbstractParam <T> implements IParam{
 			System.err.println("getFromOption() not updated to getOptionValue: " + name);
 		}		
 	}
-	// public void transfert (IGameOptions opts, boolean set) {}
+	// public void transfer (IGameOptions opts, boolean set) {}
 	// ========== Public Interfaces ==========
 	//
 	//	public abstract void setFromCfgValue(String val);
@@ -172,10 +187,10 @@ public abstract class AbstractParam <T> implements IParam{
 		}
 	}
 	@Override public String guideDefaultValue()	{ return defaultValue().toString(); }
-	@Override public boolean isDefaultValue()	{ return defaultValue.equals(get()); }
+	@Override public boolean isDefaultValue()	{ return defaultValue().equals(get()); }
 	@Override public boolean isDuplicate()		{ return isDuplicate; }
 	@Override public boolean isCfgFile()		{ return isCfgFile; }
-//	@Override public void setFromDefault()		{ set(defaultValue()); }
+	@Override public String getGuiValue(int idx){ return guideValue(); } // For List
 	@Override public void setFromDefault(boolean excludeCfg, boolean excludeSubMenu)	{
 		if (excludeCfg && isCfgFile())
 			return;
@@ -184,24 +199,85 @@ public abstract class AbstractParam <T> implements IParam{
 		set(defaultValue());
 	}
 	@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
+		if (processingToggle)
+			return false;
+		processingToggle = true;
+
+		LinkValue lastValue = linkValue(get());
+		boolean forceUpdate = !isValidValue(); // To refresh display if become valid.
+
+		// Set the new value for testing purpose
 		if (e == null)
-			return toggle(w);
+			forceUpdate |= toggle(w);
 		else
-			return toggle(e, frame);
+			forceUpdate |= toggle(e, frame);
+		forceUpdate |= !isValidValue();
+
+		// Should be locally valid
+		// Stop here if no dependencies
+		if (linkList == null) {
+			processingToggle = false;
+			return forceUpdate;
+		}
+
+		// Stop Here if the value has not been changed
+		LinkValue newValue = linkValue(get());
+		if (newValue.equals(lastValue)) {
+			processingToggle = false;
+			return forceUpdate;
+		}
+
+		// The value has changed, test for dependencies
+		boolean up = getDirectionOfChange(lastValue, newValue);
+
+		// Test if Locked by dependencies
+		// They can not be changed, so local test is enough
+		for (LinkData entry : linkList) {
+			if (entry.locked(up))
+				if (entry.copy().isUpdateNeeded(newValue)) {
+					set(lastValue);
+					badClick();
+					processingToggle = false;
+					return true;
+				}
+		}
+
+		// Test if dependencies and their dependencies can follow 
+		for (LinkData entry : linkList) {
+			if (entry.follow(up))
+				if (entry.isInvalidLinkedValue(newValue)) {
+					set(lastValue);
+					badClick();
+					processingToggle = false;
+					return true;
+				}
+		}
+
+		// All dependencies and their dependencies are valid.
+		// Apply changes now
+		for (LinkData entry : linkList) {
+			if (entry.follow(up))
+				entry.followValue(newValue);
+		}
+		processingToggle = false;
+		return true;
 	}
-	@Override public String getGuiValue(int idx){ return guideValue(); } // For List
 	// ========== Tools for overriders ==========
 	//
+	protected boolean updateNeeded(LinkValue value, boolean up) {
+		if (up)
+			return value.isPositiveDiff(linkValue(get()));
+		else
+			return linkValue(get()).isPositiveDiff(value);
+	}
 	protected IGameOptions   opts()		{ return RotPUI.currentOptions(); }
 	private	  DynamicOptions dynOpts()	{ return opts().dynOpts(); }
 	protected T last()					{ return value; }
-	// ========== Methods to be overridden ==========
-	//
-	protected AbstractParam <T> formerName(String link)	{
+	protected AbstractParam<T> formerName(String link)	{
 		formerName = link;
 		return this;
 	}
-	public T defaultValue()				{ return defaultValue; }
+	public T defaultValue()				{ return defaultValue.get(DEF_VAL.defVal()); }
 	public T get()						{
 		if (isCfgFile) {
 			value = getOption();
@@ -217,28 +293,28 @@ public abstract class AbstractParam <T> implements IParam{
 	//
 	public String getLabel()		{ return langLabel(getLangLabel()); }
 	protected String formerName()	{ return formerName; }
-	protected T creationValue()	{ return isValueInit? value : defaultValue(); }
-	T minValue()	{ return minValue; }	
-	T maxValue()	{ return maxValue; }	
-	T baseInc()		{ return baseInc; }	
-	T shiftInc()	{ return shiftInc; }	
-	T ctrlInc()		{ return ctrlInc; }	
-	T shiftCtrlInc(){ return shiftCtrlInc; }	
+	protected T creationValue()		{ return isValueInit? value : defaultValue(); }
+	protected T minValue()			{ return minValue; }
+	protected T maxValue()			{ return maxValue; }
+	T baseInc()		{ return baseInc; }
+	T shiftInc()	{ return shiftInc; }
+	T ctrlInc()		{ return ctrlInc; }
+	T shiftCtrlInc(){ return shiftCtrlInc; }
 	// ========== Public Setters ==========
 	//
-	public void toggle(boolean reverse)	{ if (reverse) prev(); else next(); }
-	protected void setFromCfg(T newValue) {
+	public void toggle(boolean reverse)		{ if (reverse) prev(); else next(); }
+	protected void setFromCfg(T newValue)	{
 		updated = true;
 		value = newValue;
 		updateOption(dynOpts());
 	}
-	public T silentSet(T newValue) { // Reserved call from governor class
+	public T silentSet(T newValue) 			{ // Reserved call from governor class
 		updated = true;
 		value = newValue;
 		setOption(newValue); // For overrider
 		return value;
 	}
-	public T set(T newValue) {
+	public T set(T newValue)				{
 		updated = true;
 		boolean trueChange = false;
 		if(value != null && newValue != null)
@@ -253,15 +329,29 @@ public abstract class AbstractParam <T> implements IParam{
 	}
 	public void maxValue (T newValue)		{ maxValue = newValue;}
 	public void minValue (T newValue)		{ minValue = newValue;}
-	public void defaultValue(T newValue)	{ defaultValue = newValue; }
 	public void isGovernor(int val)			{ isGovernor  = val ; }
+	public void defaultValue(T commonValue)	{
+		defaultValue.put(FUSION_DEFAULT, commonValue);
+		defaultValue.put(MOO1_DEFAULT, commonValue);
+		defaultValue.put(ROTP_DEFAULT, commonValue);
+	}
+	public AbstractParam<T> setDefaultValue(String key, T value)	{
+		defaultValue.put(key, value);
+		value = defaultValue();
+		return this;
+	}
+	/**
+	 * true by default.
+	 * Should be set to false if this parameter change a previously constant value.
+	 */
+	public AbstractParam<T> isValueInit(boolean is)	{ isValueInit = is ; return this; }
+	public AbstractParam<T> isDuplicate(boolean is)	{ isDuplicate = is ; return this; }
+	public AbstractParam<T> isCfgFile(boolean is)	{ isCfgFile   = is ; return this; }
 	// ========== Private Methods ==========
 	//
+	private void badClick() { SoundManager.current().playAudioClip("MisClick"); }
 	// ========== Protected Methods ==========
 	//
-	public AbstractParam <T> isValueInit(boolean is) { isValueInit = is ; return this; }
-	public AbstractParam <T> isDuplicate(boolean is) { isDuplicate = is ; return this; }
-	public AbstractParam <T> isCfgFile(boolean is)	 { isCfgFile   = is ; return this; }
 	protected String descriptionId()		{ return getLangLabel() + LABEL_DESCRIPTION; }
 	protected T getInc(InputEvent e)		{
 		if (e.isShiftDown())
@@ -285,6 +375,8 @@ public abstract class AbstractParam <T> implements IParam{
 	}
 	//========== Static Methods ==========
 	//
+	static String yesOrNo(boolean b) { return b ? "Yes" : "No"; }
+	static boolean yesOrNo(String s) { return s.equalsIgnoreCase("YES") || s.equalsIgnoreCase("TRUE"); }
 	/**
 	 * Convert String to Float and manage errors
 	 * @param string Source of Float
@@ -311,10 +403,47 @@ public abstract class AbstractParam <T> implements IParam{
 			return null; // silent error!
 		}
 	}
-	static String yesOrNo(boolean b) { // BR it's already used everywhere!!!
-		return b ? "Yes" : "No";
+	// ========== Parameters dependencies methods ==========
+	protected boolean isInvalidLocalMax(LinkData rec)	{
+		return isInvalidLocalMax(linkValue(rec.aimValue));
 	}
-	static boolean yesOrNo(String s) {
-		return s.equalsIgnoreCase("YES") || s.equalsIgnoreCase("TRUE");
+	protected boolean isInvalidLocalMin(LinkData rec)	{
+		return isInvalidLocalMin(linkValue(rec.aimValue));
+	}
+	protected boolean isInvalidLocalValue(LinkData rec)	{
+		return isInvalidLocalValue(linkValue(rec.aimValue));
+	}
+	protected boolean isInvalidLocalMax(T value)	{ return true; }
+	protected boolean isInvalidLocalMin(T value)	{ return true; }
+	protected boolean isInvalidLocalValue(T value)	{
+		return isInvalidLocalMin(value) && isInvalidLocalMax(value);
+	}
+	LinkValue linkValue(T val)	{ return new LinkValue(); } 
+	T linkValue(LinkValue val)	{ return null; }
+	private void set(LinkValue val)	{ set(linkValue(val)); }
+	protected void set(LinkData rec)	{ set(rec.aimValue); }
+	public boolean followValue(LinkData rec)	{ return false; }
+	/**
+	 * Used as standard Override by options with dependencies
+	 */
+	protected boolean isValidDoubleCheck()	{ return !isInvalidLocalValue(get()); }
+	
+	protected List<LinkData> linkList()	{ return linkList; }
+	protected void resetLinks()	{ linkList = null; }
+	private void addLink(LinkData data)	{
+		if (linkList == null)
+			linkList = new ArrayList<>();
+		linkList.add(data);
+	}
+	protected void addLink(AbstractParam<?> aim, int action, boolean srcUp, boolean aimUp, String key) {
+		addLink(new LinkData(aim, action, srcUp, aimUp, key, this));
+	}
+	protected void convertValueToLink(LinkData rec) 		  {
+		System.err.println("convertValueToLink request is not implemented:");
+		System.err.println("Called by: " + name);
+	}
+	protected Boolean getDirectionOfChange(T before, T after) { return null; }
+	private Boolean getDirectionOfChange(LinkValue before, LinkValue after) {
+		return getDirectionOfChange(linkValue(before), linkValue(after));
 	}
 }

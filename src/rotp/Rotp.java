@@ -64,11 +64,11 @@ public class Rotp {
     public static String releaseId = version;
     public static long startMs = System.currentTimeMillis();
     public static long maxHeapMemory = Runtime.getRuntime().maxMemory() / MB;
-    // BR: needs static access;
-    // BR: Adjusted the values for new options
-    // BR: Adjusted margin values because memory size grow as we play (events memorization)
-    // BR: Small memory seems to consumes less memory!
-    // BR: tested: 8GB => 75 stars/MB; 3.5GB => 100 stars/MB
+    /*  BR: needs static access;
+     	BR: Adjusted the values for new options
+     	BR: Adjusted margin values because memory size grow as we play (events memorization)
+     	BR: Small memory seems to consumes less memory!
+     	BR: tested: 8GB => 75 stars/MB; 3.5GB => 100 stars/MB */
     public static int maximumSystems = (maxHeapMemory > 4096 ?  75 : 100) * (int)(maxHeapMemory-600);
     public static long maxUsedMemory;
     //public static long maxAllocatedMemory;

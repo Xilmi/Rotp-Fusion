@@ -233,9 +233,9 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			}
 			if (param.isDefaultValue())
 				txtRight.enabledC(defaultValuesColor);
-			else if (param.isValidValue())
-				txtRight.enabledC(customValuesColor);
 			else
+				txtRight.enabledC(customValuesColor);
+			if (!param.isValidValue())
 				txtRight.enabledC(Color.red);
 			
 			if (retina) {

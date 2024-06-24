@@ -1699,16 +1699,17 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	private class GalaxyMenu extends CommandMenu {
 		GalaxyMenu  (String name, CommandMenu parent) {
 			super(name, parent);
+			IGameOptions opts = options();
 			addMenu(new CommandMenu("Advanced Options Menu", this, IAdvOptions.advancedOptions()));
-			addSetting(rotp.model.game.IGalaxyOptions.sizeSelection);
+			addSetting(opts.sizeSelection());
 			addSetting(rotp.model.game.IPreGameOptions.dynStarsPerEmpire);
-			addSetting(rotp.model.game.IGalaxyOptions.shapeSelection);
-			addSetting(rotp.model.game.IGalaxyOptions.shapeOption1);
-			addSetting(rotp.model.game.IGalaxyOptions.shapeOption2);
-			addSetting(rotp.model.game.IGalaxyOptions.difficultySelection);
+			addSetting(opts.shapeSelection());
+			addSetting(opts.shapeOption1());
+			addSetting(opts.shapeOption2());
+			addSetting(opts.difficultySelection());
 			addSetting(rotp.model.game.IInGameOptions.customDifficulty);
-			addSetting(rotp.model.game.IGalaxyOptions.aliensNumber);
-			addSetting(rotp.model.game.IGalaxyOptions.showNewRaces);
+			addSetting(opts.aliensNumber());
+			addSetting(opts.showNewRaces());
 			addSetting(RotPUI.setupGalaxyUI().opponentAI);
 			addSetting(RotPUI.setupGalaxyUI().globalAbilities);
 			addCmd(new CmdStartGame("Start Game", GAME_START, "start"));

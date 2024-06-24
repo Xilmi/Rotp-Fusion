@@ -459,23 +459,37 @@ public class GalaxyFactory implements Base {
 		// add other systems in this EmpireSystem
 		// ensure 1st nearby system is colonizable
 		if (src == null) { // Start
-			boolean needHabitable = true;
+			boolean needHabitable;
+			int num1 = opts.firstRingSystemNumber();
+			int num2 = opts.secondRingSystemNumber();
+			int need1 = opts.firstRingHabitable();
+			int need2 = opts.secondRingHabitable();
+
 			for (int i=1;i<empSystem.numSystems();i++) {
+				boolean needHabitable1 = (need1>0) && (need1==num1);
+				boolean needHabitable2 = (need2>0) && (need2==num2);
+				needHabitable = needHabitable1 || needHabitable2;
 				StarSystem sys0 = StarSystemFactory.current().newSystem(g);
-				if (needHabitable) {
+				if (needHabitable)
 					while ((sys0 == null) || !sys0.planet().isEnvironmentFriendly())
 						sys0 = StarSystemFactory.current().newSystem(g);
-					needHabitable = false;
-				}
 				sys0.setXY(empSystem.x(i), empSystem.y(i));
 				if (sys0.planet().isAntaran()
 						&& opts.selectedMinDistArtifactPlanet() > 0.0f
 						&& galaxy().tooCloseToHomeWorld(sys0, opts.selectedMinDistArtifactPlanet()))
 					sys0.planet().removeArtifact();
 				g.addStarSystem(sys0);
+				num1--;
+				num2--;
+				if (sys0.planet().isEnvironmentFriendly()) {
+					need1--;
+					need2--;
+				}
 			}
-		} else { // Restart
-			for (int i=1;i<=src.numNearBySystem();i++) {
+		}
+		else { // Restart
+			int nearbyNum = src.numNearBySystem();
+			for (int i=1; i<=nearbyNum; i++) {
 				SystemBaseData ref = galSrc.starSystems[g.numStarSystems()];
 				StarSystem sys0	= StarSystemFactory.current().copySystem(g, ref);
 				sys0.setXY(ref.x, ref.y);
@@ -678,19 +692,26 @@ public class GalaxyFactory implements Base {
 			
 			// create two nearby system within 3 light-years (required to be at least 1 habitable)
 			if (src == null) { // Start
-				boolean needHabitable = true;
+				boolean needHabitable;
+				int num1 = opts.firstRingSystemNumber();
+				int num2 = opts.secondRingSystemNumber();
+				int need1 = opts.firstRingHabitable();
+				int need2 = opts.secondRingHabitable();
+
 				for (int i=1;i<empSystem.numSystems();i++) {
+					boolean needHabitable1 = (need1>0) && (need1==num1);
+					boolean needHabitable2 = (need2>0) && (need2==num2);
+					needHabitable = needHabitable1 || needHabitable2;
+
 					StarSystem sys0 = StarSystemFactory.current().newSystem(g);
 					if (opts.galaxyShape().isSymmetric()) { // BR: Symmetry management
 						// BR: Symmetric Galaxy: copy Player nearby systems
 						StarSystem refStar = g.starSystems()[numCompWorlds + i];
 						sys0 = StarSystemFactory.current().copySystem(g, refStar);
 					} else {
-						if (needHabitable) {
+						if (needHabitable)
 							while ((sys0 == null) || !sys0.planet().isEnvironmentFriendly())
 								sys0 = StarSystemFactory.current().newSystem(g);
-							needHabitable = false;
-						}
 					}
 					sys0.setXY(empSystem.x(i), empSystem.y(i));
 					if (sys0.planet().isAntaran()
@@ -698,9 +719,17 @@ public class GalaxyFactory implements Base {
 							&& galaxy().tooCloseToHomeWorld(sys0, opts.selectedMinDistArtifactPlanet()))
 						sys0.planet().removeArtifact();
 					g.addStarSystem(sys0);
+					num1--;
+					num2--;
+					if (sys0.planet().isEnvironmentFriendly()) {
+						need1--;
+						need2--;
+					}
 				}
-			} else { // Restart
-				for (int i=1; i<=src.numNearBySystem(); i++) {
+			}
+			else { // Restart
+				int nearbyNum = src.numNearBySystem();
+				for (int i=1; i<=nearbyNum; i++) {
 					SystemBaseData ref = galSrc.starSystems[g.numStarSystems()];
 					StarSystem sys0 = StarSystemFactory.current().copySystem(g, ref);
 					sys0.setXY(ref.x, ref.y);
@@ -886,7 +915,7 @@ public class GalaxyFactory implements Base {
 			}
 		}
 		public	IGameOptions options()			{ return newOptions; }
-		private	int numNearBySystem()			{ return 2; }
+		private	int numNearBySystem()			{ return oldOptions.secondRingSystemNumber(); }
 		public	EmpireBaseData[] empires()		{ return galSrc.empires; }
 		private	EmpireBaseData empires(int id)	{ return galSrc.empires[id]; }
 	}

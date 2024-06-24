@@ -1,5 +1,9 @@
 package rotp.model.game;
 
+import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
+import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
+
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +13,10 @@ import java.util.List;
 import rotp.Rotp;
 import rotp.model.planet.Planet;
 import rotp.ui.RotPUI;
+import rotp.ui.game.BaseModPanel;
 import rotp.ui.util.IParam;
+import rotp.ui.util.LinkData;
+import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -56,6 +63,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default int signedCompanionWorlds() 		{ return companionWorlds.get(); }
 
 	ParamInteger empiresSpreadingFactor	= new ParamInteger( MOD_UI, "EMPIRES_SPREADING_FACTOR", 100)
+			.setDefaultValue(MOO1_DEFAULT, 125)
 			.setLimits(10, 1000)
 			.setIncrements(1, 5, 20);
 	default int		selectedEmpireSpreadingPct()	{ return empiresSpreadingFactor.get(); }
@@ -65,27 +73,72 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default void	toggleEmpireSpreadingFactor(MouseWheelEvent e)	{ empiresSpreadingFactor.toggle(e); }
 	default String	empireSpreadingFactorMapKey()	{ return  MOD_UI + "EMPIRES_SPREADING_FACTOR_MAP"; }
 
-	ParamInteger minStarsPerEmpire	= new ParamInteger( MOD_UI, "MIN_STARS_PER_EMPIRE", 3)
-			.setLimits(3, Rotp.maximumSystems-1)
-			.setIncrements(1, 5, 20);
-	default int selectedMinStarsPerEmpire()		{ return minStarsPerEmpire.get(); }
+	ParamInteger minStarsPerEmpire	= new MinStarsPerEmpire();
+	class MinStarsPerEmpire extends ParamInteger {
+		MinStarsPerEmpire() {
+			super(MOD_UI, "MIN_STARS_PER_EMPIRE", 3);
+			setDefaultValue(MOO1_DEFAULT, 4);
+			setDefaultValue(ROTP_DEFAULT, 8);
+			setLimits(1, Rotp.maximumSystems-1);
+			setIncrements(1, 5, 20);
+		}
+		@Override public Integer dynMinValue()	{
+			int min = minValue();
+			int otherMin = secondRingSystemNumber.getValidMin()+1;
+			min = Math.max(min, otherMin);
+			return min;
+		}
+	}
+	default int selectedMinStarsPerEmpire()		{ return minStarsPerEmpire.getValidValue(); }
 
-	ParamInteger prefStarsPerEmpire	= new ParamInteger( MOD_UI, "PREF_STARS_PER_EMPIRE", 10)
-			.setLimits(3, Rotp.maximumSystems-1)
-			.setIncrements(1, 10, 100);
-	default int selectedPrefStarsPerEmpire()	{ return prefStarsPerEmpire.get(); }
+	ParamInteger prefStarsPerEmpire	= new PrefStarsPerEmpire();
+	class PrefStarsPerEmpire extends ParamInteger {
+		PrefStarsPerEmpire() {
+			super(MOD_UI, "PREF_STARS_PER_EMPIRE", 10);
+			setDefaultValue(MOO1_DEFAULT, 5);
+			setDefaultValue(ROTP_DEFAULT, 16);
+			setLimits(3, Rotp.maximumSystems-1);
+			setIncrements(1, 10, 100);
+		}
+		@Override public Integer dynMinValue()	{
+			int min = minValue();
+			int otherMin = secondRingSystemNumber.getValidMin()+1;
+			min = Math.max(min, otherMin);
+			return min;
+		}
+	}
+	default int selectedPrefStarsPerEmpire()	{ return prefStarsPerEmpire.getValidValue(); }
 
 	ParamInteger dynStarsPerEmpire	= new DynStarsPerEmpire();
 	class DynStarsPerEmpire extends ParamInteger {
 		DynStarsPerEmpire() {
 			super(MOD_UI, "DYN_STARS_PER_EMPIRE", 10);
-			setLimits(3, Rotp.maximumSystems-1);
+			setLimits(1, Rotp.maximumSystems-1);
 			setIncrements(1, 10, 100);
+		}
+		@Override public void lateInit(int level)	{
+			if (level == 0) {
+				resetLinks();
+				//addLink(secondRingSystemNumber, DO_FOLLOW, GO_DOWN, GO_DOWN, "Ring 2");
+				addLink(secondRingSystemNumber, DO_LOCK, GO_DOWN, GO_DOWN, "Ring 2");
+			}
+			else
+				super.lateInit(level);
+		}
+		@Override protected void convertValueToLink(LinkData rec)	{
+			// Convert the current state
+			switch (rec.key) {
+				case "Ring 2":
+					rec.aimValue = new LinkValue((rec.srcValue.intValue()-1));
+					return;
+				default:
+					super.convertValueToLink(rec);
+			}
 		}
 		@Override public Integer defaultValue() {
 			return prefStarsPerEmpire.get();
 		}
-		@Override public Integer	set(Integer value)	{
+		@Override public Integer set(Integer value)	{
 			super.set(value);
 			if (RotPUI.instance() != null)
 				RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
@@ -101,8 +154,24 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
 			return false;
 		}
+		@Override public Integer dynMinValue()	{
+			int min = minValue();
+			int otherMin = secondRingSystemNumber.getValidMin()+1;
+			min = Math.max(min, otherMin);
+			return min;
+		}
+		
+		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
+		@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
+			boolean forceUpdate = super.toggle(e, w, frame);
+			Integer value = get();
+			int min	= dynMinValue();
+			if (value < min)
+				set(min);
+			return forceUpdate;
+		}
 	}
-	default int selectedDynStarsPerEmpire()		{ return Math.abs(dynStarsPerEmpire.get()); }
+	default int selectedDynStarsPerEmpire()	{ return Math.abs(dynStarsPerEmpire.getValidValue()); }
 
 	// Restart Always looks for setup options!
 	ParamBoolean restartChangesAliensAI		= new ParamBoolean( MOD_UI, "RESTART_CHANGES_ALIENS_AI", false);
@@ -285,6 +354,9 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 		.put(NEBULA_HOMEWORLD_NEVER,	MOD_UI + "NEBULA_HOMEWORLD_NEVER");
 	default boolean neverNebulaHomeworld()	{ return nebulaHomeworld.get().equalsIgnoreCase(NEBULA_HOMEWORLD_NEVER); }
 
+	ParamBoolean LooseNeighborhood	= new ParamBoolean( MOD_UI, "LOOSE_NEIGHBORHOOD", false);
+	default boolean LooseNeighborhood()	{ return LooseNeighborhood.get(); }
+
 	// ==================== GUI List Declarations ====================
 	//
 	static LinkedList<IParam> modStaticAOptions() {
@@ -305,7 +377,6 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 				techIndustry2, techThorium,
 				techTransport
 				));
-
 	}
 	static LinkedList<IParam> modStaticBOptions() {
 		return new LinkedList<>(
@@ -335,6 +406,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 				new ParamTitle("START_GALAXY_OPTIONS"),
 				galaxyAge, starDensity,
 				empiresSpreadingFactor,
+				LooseNeighborhood,
 				minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
 
 				headerSpacer,

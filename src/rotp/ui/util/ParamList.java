@@ -150,6 +150,10 @@ public class ParamList extends AbstractParam<String> {
 	@Override public ParamList isValueInit(boolean is)	{ super.isValueInit(is) ; return this; }
 	@Override public ParamList isDuplicate(boolean is)	{ super.isDuplicate(is) ; return this; }
 	@Override public ParamList isCfgFile(boolean is)	{ super.isCfgFile(is)   ; return this; }
+	@Override public ParamList setDefaultValue(String key, String value) {
+		super.setDefaultValue(key, value);
+		return this;
+	}
 
  	@Override public boolean isActive()					{ return listSize()>0; }
 	@Override public String guideDefaultValue()			{ return name(defaultValueIndex()); }
@@ -160,6 +164,11 @@ public class ParamList extends AbstractParam<String> {
 			return "";
 		return name(index);
 	}
+	@Override public LinkValue linkValue(String val) { return new LinkValue(val); } 
+	@Override protected String linkValue(LinkValue val) { return val.stringValue(); }
+	@Override public boolean isInvalidLocalValue(String value)	{ return !valueLabelMap.isValid(value); }
+	@Override protected boolean isInvalidLocalMax(String value)	{ return isInvalidLocalValue(value); }
+	@Override protected boolean isInvalidLocalMin(String value)	{ return isInvalidLocalValue(value); }
 	@Override public boolean next()						{
 		set(valueLabelMap.getNextLangLabelIgnoreCase(get()));
 		return false;
@@ -228,6 +237,15 @@ public class ParamList extends AbstractParam<String> {
 	}
 	@Override protected void setOptionValue(IGameOptions options, String value) {
 		options.dynOpts().setString(getLangLabel(), value);
+	}
+	@Override protected Boolean getDirectionOfChange(String before, String after) {
+		float valBefore	= getIndex(before);
+		float valAfter	= getIndex(after);
+		if (valAfter > valBefore)
+			return GO_UP;
+		if (valAfter < valBefore)
+			return GO_DOWN;
+		return null;
 	}
 	// ===== Other Protected Methods =====
 	//
@@ -311,8 +329,6 @@ public class ParamList extends AbstractParam<String> {
 		String input = (String) dialog.showDialog();
 		if (input != null && valueLabelMap.getValueIndexIgnoreCase(input) >= 0)
 			set(input);
-//        ModifierKeysState.reset();
-//        frame.refreshGui();
 	}
 	private String getTableHelp()				{
 		int size = listSize();
@@ -376,12 +392,6 @@ public class ParamList extends AbstractParam<String> {
 		// ========== Constructors and Initializers ==========
 		//
 		public IndexableMap() {}
-		
-//		public IndexableMap(IndexableMap map) {
-//			cfgValueList.addAll(map.cfgValueList);
-//			langLabelList.addAll(map.langLabelList);
-//		}
-		
 		private void clear () {
 			cfgValueList.clear();
 			langLabelList.clear();
@@ -394,6 +404,7 @@ public class ParamList extends AbstractParam<String> {
 		}
 		// ========== Getters ==========
 		//
+		private boolean isValid(String option)	{ return cfgValueList.contains(option); }
 		private int	   validId(int id)	{
 			if (id < 0)
 				return 0;

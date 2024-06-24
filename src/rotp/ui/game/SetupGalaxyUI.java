@@ -20,21 +20,10 @@ import static rotp.model.empires.CustomRaceDefinitions.BASE_RACE_MARKER;
 import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRaceList;
+import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
+import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
 import static rotp.model.game.IBaseOptsTools.BASE_UI;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
-import static rotp.model.game.IGalaxyOptions.aliensNumber;
-import static rotp.model.game.IGalaxyOptions.bitmapGalaxyLastFolder;
-import static rotp.model.game.IGalaxyOptions.difficultySelection;
-import static rotp.model.game.IGalaxyOptions.galaxyRandSource;
-import static rotp.model.game.IGalaxyOptions.globalCROptions;
-import static rotp.model.game.IGalaxyOptions.optionsGalaxy;
-import static rotp.model.game.IGalaxyOptions.shapeOption1;
-import static rotp.model.game.IGalaxyOptions.shapeOption2;
-import static rotp.model.game.IGalaxyOptions.shapeOption3;
-import static rotp.model.game.IGalaxyOptions.shapeSelection;
-import static rotp.model.game.IGalaxyOptions.showNewRaces;
-import static rotp.model.game.IGalaxyOptions.sizeSelection;
-import static rotp.model.game.IGalaxyOptions.useSelectableAbilities;
 import static rotp.model.game.IMainOptions.compactOptionOnly;
 import static rotp.model.game.IMainOptions.galaxyPreviewColorStarsSize;
 import static rotp.model.game.IMainOptions.minListSizePopUp;
@@ -102,8 +91,8 @@ import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
-import rotp.model.galaxy.Nebula;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
+import rotp.model.galaxy.Nebula;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IInGameOptions;
@@ -244,6 +233,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private BufferedImage smallNullMug;
 	private BufferedImage bigNullMug;
 
+	private IGameOptions opts;
 	private boolean forceUpdate = true;
 //	private boolean showNebulae = true; // BR: ready for an option to disable
 	private List<Nebula> nebulas;
@@ -300,7 +290,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     public void initOpponentGuide() {
 		opponentRandom = text(OPPONENT_RANDOM);
 		LinkedList<String> list = new LinkedList<>();
-		list.addAll(guiOptions().getNewRacesOnOffList());
+		list.addAll(opts.getNewRacesOnOffList());
 		list.add(opponentRandom); // For Random (???)
 		specificOpponent.reInit(list);
 		specificOpponent.defaultValue(opponentRandom);
@@ -317,7 +307,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		specificAbilitiesArray = specificAbilitiesList.toArray(new String[specificAbilitiesList.size()]);
 		// global Abilities
 		globalAbilitiesList.clear();
-		globalAbilitiesList.addAll(globalCROptions.getBaseOptions());
+		globalAbilitiesList.addAll(opts.globalCROptions().getBaseOptions());
 		globalAbilitiesList.addAll(getAllowedAlienRaces());
 		globalAbilitiesList.addAll(getBaseRaceList());
 		globalAbilities.reInit(globalAbilitiesList);
@@ -325,18 +315,18 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	@Override protected void singleInit() {
 		//startBox			= new Box(startButtonHelp);
-		showAbilitiesBox	= new Box(useSelectableAbilities);
-		shapeBox			= new Box(shapeSelection);
-		mapOption1Box		= new Box(shapeOption1);
-		mapOption2Box		= new Box(shapeOption2);
-		mapOption3Box		= new Box(shapeOption3);
+		showAbilitiesBox	= new Box(opts.useSelectableAbilities());
+		shapeBox			= new Box(opts.shapeSelection());
+		mapOption1Box		= new Box(opts.shapeOption1());
+		mapOption2Box		= new Box(opts.shapeOption2());
+		mapOption3Box		= new Box(opts.shapeOption3());
 		sizeOptionBox		= new Box(dynStarsPerEmpire);
-		sizeBox				= new Box(sizeSelection);
-		diffBox				= new Box(difficultySelection);
-		wysiwygBox			= new Box(galaxyRandSource);
-		oppBox				= new Box(aliensNumber);
+		sizeBox				= new Box(opts.sizeSelection());
+		diffBox				= new Box(opts.difficultySelection());
+		wysiwygBox			= new Box(opts.galaxyRandSource());
+		oppBox				= new Box(opts.aliensNumber());
 		
-		paramList = optionsGalaxy;
+		paramList = opts.optionsGalaxy();
 		for (int i=0;i<oppSet.length;i++)
 			oppSet[i] = new Box(specificOpponent, i);
 		for (int i=0;i<oppAbilities.length;i++)
@@ -344,26 +334,27 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		for (int i=0;i<oppAI.length;i++)
 			oppAI[i] = new Box(specificAI, i);
 		duplicateList = new LinkedList<>();
-		duplicateList.add(difficultySelection);
-		duplicateList.add(shapeSelection);
-		duplicateList.add(sizeSelection);
-		duplicateList.add(shapeOption1);
-		duplicateList.add(shapeOption2);
-		duplicateList.add(aliensNumber);
+		duplicateList.add(opts.difficultySelection());
+		duplicateList.add(opts.shapeSelection());
+		duplicateList.add(opts.sizeSelection());
+		duplicateList.add(opts.shapeOption1());
+		duplicateList.add(opts.shapeOption2());
+		duplicateList.add(opts.aliensNumber());
 	}
 	@Override public void init() {
+		opts = guiOptions();
 		isOnTop = true;
 		super.init();
 		boxMonoFont    = null;
 		dialogMonoFont = null;
 		playerMug  = null;
         initAIandAbilitiesList();
-        guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
+        opts.saveOptionsToFile(LIVE_OPTIONS_FILE);
 		refreshGui();
 	}
 	@Override protected String GUI_ID() { return GUI_ID; }
 	@Override public void refreshGui() {
-        guiOptions().setAndGenerateGalaxy();
+        opts.setAndGenerateGalaxy();
         clearMugs();
         backImg = null;
         nebulas = null;
@@ -400,7 +391,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		BufferedImage mug = new BufferedImage(bw, bh, TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) mug.getGraphics();
 
-		float fog = newGameOptions().noFogOnIcons()? 1.0f : 0.5f;
+		float fog = opts.noFogOnIcons()? 1.0f : 0.5f;
         Composite raceComp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , fog);
 		g.setComposite(raceComp);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -429,7 +420,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     		initOppMugs();
     		return;
     	}
-		String selOpp = newGameOptions().selectedOpponentRace(i);
+		String selOpp = opts.selectedOpponentRace(i);
 		if (selOpp == null) {
     		smallOppMugs[i] = smallNullMug();
     		bigOppMugs[i]   = bigNullMug();
@@ -467,8 +458,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		return bigNullMug;
 	}
 	private void initBackMugs() {
-		smallBackMug = newGameOptions().getMugBackImg(wSmallMug, hSmallMug, rShSmallMug);
-		bigBackMug   = newGameOptions().getMugBackImg(wBigMug,   hBigMug,   rShBigMug);
+		smallBackMug = opts.getMugBackImg(wSmallMug, hSmallMug, rShSmallMug);
+		bigBackMug   = opts.getMugBackImg(wBigMug,   hBigMug,   rShBigMug);
 		String label = text("SETUP_OPPONENT_RANDOM");
 		smallNullMug = getNullMug(label, true);
 		bigNullMug   = getNullMug(label, false);
@@ -780,10 +771,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			// loadAndUpdateFromFileName(opts, LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			// break;
 		default: // Save
-			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
+			opts.saveOptionsToFile(LIVE_OPTIONS_FILE);
 			break; 
 		}
 		// Go back to Race Panel
@@ -857,11 +848,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 
 	private String getBitmapFile() {
-        String dirPath = bitmapGalaxyLastFolder.get();
-        File selectedFile = new File(shapeOption3.get());
+        String dirPath = opts.bitmapGalaxyLastFolder().get();
+        File selectedFile = new File(opts.selectedGalaxyShapeOption3());
         if (selectedFile.exists()) {
         	dirPath = selectedFile.getParentFile().getAbsolutePath();
-        	bitmapGalaxyLastFolder.set(dirPath);
+        	opts.bitmapGalaxyLastFolder().set(dirPath);
         	UserPreferences.save();
         }
         BitmapFileChooser fileChooser = new BitmapFileChooser();
@@ -889,16 +880,16 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		    // user selects a file
 			selectedFile = fileChooser.getSelectedFile();
 			dirPath = selectedFile.getParentFile().getAbsolutePath();
-        	bitmapGalaxyLastFolder.set(dirPath);
+        	opts.bitmapGalaxyLastFolder().set(dirPath);
         	UserPreferences.save();
 			return selectedFile.getPath();
 		}
-		return shapeOption3.defaultValue();
+		return opts.shapeOption3().defaultValue();
 	}
 	private void selectBitmapFromList() {
 		String filePath = getBitmapFile();
-		shapeOption3.set(filePath);
-		newGameOptions().galaxyShape().quickGenerate();
+		opts.shapeOption3().set(filePath);
+		opts.galaxyShape().quickGenerate();
 		repaint();
 	}
 	private int currentGalaxyTextIndex(String s) {
@@ -980,7 +971,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (galaxyTextArray != null)
 			return galaxyTextArray;
 		LinkedList<String> list = new LinkedList<>();
-		// list.add(newGameOptions().selectedHomeWorldName());
+		// list.add(opts.selectedHomeWorldName());
 		String path = Rotp.jarPath();
 		String galaxyfile = GALAXY_TEXT_FILE;
 		File file = new File(path, galaxyfile);
@@ -1007,7 +998,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		return galaxyTextArray;
 	}
 	private String selectGalaxyTextFromList() {
-		String initialChoice = newGameOptions().selectedGalaxyShapeOption1();
+		String initialChoice = opts.selectedGalaxyShapeOption1();
 		String message = "Make your choice, (This list can be edited in the file) " + GALAXY_TEXT_FILE;
 		ListDialog dialog = new ListDialog(
 		    	this,							// Frame component
@@ -1027,8 +1018,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		String input = (String) dialog.showDialog();
 	    if (input == null)
 	    	return initialChoice;
-	    newGameOptions().selectedGalaxyShapeOption1(input);
-	    newGameOptions().galaxyShape().quickGenerate();
+	    opts.selectedGalaxyShapeOption1(input);
+	    opts.galaxyShape().quickGenerate();
 		repaint();
 	    return input;
 	}
@@ -1036,17 +1027,17 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (s == null)
 			return;
 		if (this.isShapeTextGalaxy())
-			newGameOptions().selectedGalaxyShapeOption1(s);
+			opts.selectedGalaxyShapeOption1(s);
 		else if (this.isShapeBitmapGalaxy()){
-			shapeOption3.set(s);
+			opts.shapeOption3().set(s);
 		}
-	    newGameOptions().galaxyShape().quickGenerate(); 
+	    opts.galaxyShape().quickGenerate(); 
 		repaint();
 	}	
 	private String selectSpecificAIFromList(int i) {
 		String title			= text(SPECIFIC_AI);
 		String message			= text(SPECIFIC_AI + LABEL_DESCRIPTION);
-		String initialChoice	= text(newGameOptions().specificOpponentAIOption(i+1));
+		String initialChoice	= text(opts.specificOpponentAIOption(i+1));
 		AIList list				= IGameOptions.specificAIset();
 		List<String> returnList = list.getAliens();
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
@@ -1067,13 +1058,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	    if (input == null)
 	    	return initialChoice;
 
-	    newGameOptions().specificOpponentAIOption(input, i+1);
+	    opts.specificOpponentAIOption(input, i+1);
 	    return input;
 	}
 	private String selectGlobalAIFromList() {
 		String title			= text(GLOBAL_AI);
 		String message			= text(GLOBAL_AI + LABEL_DESCRIPTION);
-		String initialChoice	= text(newGameOptions().selectedOpponentAIOption());
+		String initialChoice	= text(opts.selectedOpponentAIOption());
 		AIList list				= IGameOptions.globalAIset();
 		List<String> returnList = list.getAliens();
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
@@ -1095,13 +1086,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	    if (input == null)
 	    	return initialChoice;
 
-	    newGameOptions().selectedOpponentAIOption(input);
+	    opts.selectedOpponentAIOption(input);
 	    return input;
 	}
 	private String selectSpecificAbilityFromList(int i) {
 		String title   = text(SPECIFIC_ABILITY);
 		String message = text(SPECIFIC_ABILITY + LABEL_DESCRIPTION);
-		String initialChoice = newGameOptions().specificOpponentCROption(i);
+		String initialChoice = opts.specificOpponentCROption(i);
 		ListDialog dialog = new ListDialog(
 		    	this, getParent(),	// Frame & Location component
 		    	message, title,				// Message, Title
@@ -1118,13 +1109,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		repaint();
 	    if (input == null)
 	    	return initialChoice;
-	    newGameOptions().specificOpponentCROption(input, i);
+	    opts.specificOpponentCROption(input, i);
 	    return input;
 	}
 	private String selectAlienAbilityFromList() {
 		String title   = text(GLOBAL_ABILITIES);
 		String message = text(GLOBAL_ABILITIES + LABEL_DESCRIPTION);
-		String initialChoice = globalCROptions.get();
+		String initialChoice = opts.selectedUseGlobalCROptions();
 		ListDialog dialog = new ListDialog(
 			    this, getParent(),	// Frame & Location component
 		    	message, title,				// Message, Title
@@ -1142,7 +1133,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		repaint();
 	    if (input == null)
 	    	return initialChoice;
-	    globalCROptions.set(input);
+	    opts.globalCROptions().set(input);
 	    return input;
 	}
 	@Override public void paintComponent(Graphics g0) {
@@ -1177,8 +1168,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
         drawButtons(g);
 
 		// draw number of opponents
-		int maxOpp = newGameOptions().maximumOpponentsOptions();
-		int numOpp = newGameOptions().selectedNumberOpponents();
+		int maxOpp = opts.maximumOpponentsOptions();
+		int numOpp = opts.selectedNumberOpponents();
 		
 		boolean smallImages = maxOpp > 25;
 		int mugW = smallImages? wSmallMug : wBigMug;
@@ -1203,8 +1194,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// draw opponent boxes
 		Stroke prevStroke = g.getStroke();
 		Color borderC = GameUI.setupFrame();
-		boolean selectableAI = newGameOptions().selectableAI();
-		boolean selectableCR = useSelectableAbilities.get();
+		boolean selectableAI = opts.selectableAI();
+		boolean selectableCR = opts.selectedUseSelectableAbilities();
 		int maxDraw = min((numRows*numCols), numOpp, MAX_DISPLAY_OPPS);
 		for (int i=0;i<maxDraw;i++) {
 			int row = i/numCols;
@@ -1228,7 +1219,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 			if (selectableAI) {
 				g.setColor(SystemPanel.whiteText);
-				String aiText = text(newGameOptions().specificOpponentAIOption(i+1));
+				String aiText = text(opts.specificOpponentAIOption(i+1));
 				g.setFont(narrowFont(fSize)); // BR: Adjusted to fit the box
 				int aiSW = g.getFontMetrics().stringWidth(aiText);
 				int x2b = x2+(mugW-aiSW)/2;
@@ -1236,7 +1227,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			}
 			if (selectableCR) {
 				g.setColor(SystemPanel.whiteText);
-				String crText = text(newGameOptions().specificOpponentCROption(i+1));
+				String crText = text(opts.specificOpponentCROption(i+1));
 				g.setFont(narrowFont(fSize));
 				int crSW = g.getFontMetrics().stringWidth(crText);
 				int x2b = x2+(mugW-crSW)/2;
@@ -1249,19 +1240,19 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		}
 		// draw galaxy
-		drawGalaxyShape(g, newGameOptions().galaxyShape(), galaxyX, galaxyY, galaxyW, galaxyH);
+		drawGalaxyShape(g, opts.galaxyShape(), galaxyX, galaxyY, galaxyW, galaxyH);
 
 		// draw info under galaxy map
 		g.setColor(Color.black);
 		g.setFont(narrowFont(16));
 		int galaxyBoxW = boxW-s40;
 		int y3 = galaxyY+galaxyH+s16;
-		String systemsLbl = text("SETUP_GALAXY_NUMBER_SYSTEMS", newGameOptions().numberStarSystems());
+		String systemsLbl = text("SETUP_GALAXY_NUMBER_SYSTEMS", opts.numberStarSystems());
 		int sw3 = g.getFontMetrics().stringWidth(systemsLbl);
 		int x3 = rightBoxX+s20+((galaxyBoxW/2)-sw3)/2;
 		drawString(g,systemsLbl, x3,y3);
 
-		String maxOppsLbl = text("SETUP_GALAXY_MAX_OPPONENTS", newGameOptions().maximumOpponentsOptions());
+		String maxOppsLbl = text("SETUP_GALAXY_MAX_OPPONENTS", opts.maximumOpponentsOptions());
 		int sw4 = g.getFontMetrics().stringWidth(maxOppsLbl);
 		int x4 = rightBoxX+s20+(galaxyBoxW/2)+((galaxyBoxW/2)-sw4)/2;
 		drawString(g,maxOppsLbl, x4,y3);
@@ -1302,7 +1293,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			g.setStroke(prev);
 		}
 		else {
-			if (newGameOptions().selectableAI()) {
+			if (opts.selectableAI()) {
 				for (int i=0;i<oppAI.length;i++) {
 					if (hoverBox == oppAI[i]) {
 						Stroke prev = g.getStroke();
@@ -1314,7 +1305,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 					}
 				}
 			}
-			if (useSelectableAbilities.get()) {
+			if (opts.selectedUseSelectableAbilities()) {
 				for (int i=0;i<oppAbilities.length;i++) {
 					if (hoverBox == oppAbilities[i]) {
 						Stroke prev = g.getStroke();
@@ -1343,9 +1334,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.setFont(narrowFont(15));
 
 		// draw Opponent CR text
-		if (globalCROptions.isBaseRace()) // for backward compatibility
-			globalCROptions.setFromDefault(false, true);
-		String crLbl = text(globalCROptions.get());
+		if (opts.globalCROptions().isBaseRace()) // for backward compatibility
+			opts.globalCROptions().setFromDefault(false, true);
+		String crLbl = text(opts.selectedUseGlobalCROptions());
 		int crSW = g.getFontMetrics().stringWidth(crLbl);
 		int x4cr = abilitiesBox.x+((aiBox.width-crSW)/2);
 		int y4cr = abilitiesBox.y+abilitiesBox.height-s3;
@@ -1359,7 +1350,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		drawString(g, showAbilityLbl, x4d, y4d);
 
 		// draw Opponent AI text
-		String aiLbl = text(newGameOptions().selectedOpponentAIOption());
+		String aiLbl = text(opts.selectedOpponentAIOption());
 		int aiSW = g.getFontMetrics().stringWidth(aiLbl);
 		int x4b = aiBox.x+((aiBox.width-aiSW)/2);
 		int y4b = aiBox.y+aiBox.height-s3;
@@ -1374,14 +1365,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		// draw galaxy options text
 		int y5 = shapeBox.y+shapeBox.height-s4;
-		String shapeLbl = text(newGameOptions().selectedGalaxyShape());
+		String shapeLbl = text(opts.selectedGalaxyShape());
 		int shapeSW = g.getFontMetrics().stringWidth(shapeLbl);
 		int x5a =shapeBox.x+((shapeBox.width-shapeSW)/2);
 		drawString(g,shapeLbl, x5a, y5);
 		
-		if (newGameOptions().numGalaxyShapeOption1() > 0) {
+		if (opts.numGalaxyShapeOption1() > 0) {
 			if (isShapeTextGalaxy()) {
-				String label1 = newGameOptions().selectedGalaxyShapeOption1();
+				String label1 = opts.selectedGalaxyShapeOption1();
 				Font prevFont = g.getFont();
 				g.setFont(boxMonoFont());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
@@ -1390,16 +1381,16 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				g.setFont(prevFont);
 			}
 			else {
-				String label1 = text(newGameOptions().selectedGalaxyShapeOption1());
+				String label1 = text(opts.selectedGalaxyShapeOption1());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
 				int x5d = mapOption1Box.x+((mapOption1Box.width-sw1)/2);
 				drawString(g,label1, x5d, y5+s20);
 			}
-			if (newGameOptions().numGalaxyShapeOption2() > 0) {
+			if (opts.numGalaxyShapeOption2() > 0) {
 				if (isShapeBitmapGalaxy()) {
 					Font prevFont = g.getFont();
-					String label3 = getNameFromPath(shapeOption3.get());
-					if (label3.equals(shapeOption3.defaultValue()))
+					String label3 = getNameFromPath(opts.selectedGalaxyShapeOption3());
+					if (label3.equals(opts.shapeOption3().defaultValue()))
 						label3 = text(NO_SELECTION);
 			        int fs  = scaledFont(g, label3, mapOption3Box.width, 15, 10);
 					int sw2 = g.getFontMetrics().stringWidth(label3);
@@ -1424,14 +1415,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 //						drawString(g,label3, x5e, y5+s40);
 					g.setFont(prevFont);
 				}
-				String label2 = text(newGameOptions().selectedGalaxyShapeOption2());
+				String label2 = text(opts.selectedGalaxyShapeOption2());
 				int sw2 = g.getFontMetrics().stringWidth(label2);
 				int x5e =mapOption2Box.x+((mapOption2Box.width-sw2)/2);
 				drawString(g,label2, x5e, y5+s40);	
 			}		 
 		}
 		
-		String sizeLbl = text(newGameOptions().selectedGalaxySize());
+		String sizeLbl = text(opts.selectedGalaxySize());
 		int sizeSW = g.getFontMetrics().stringWidth(sizeLbl);
 		int x5b =sizeBox.x+((sizeBox.width-sizeSW)/2);
 		drawString(g,sizeLbl, x5b, y5);
@@ -1443,13 +1434,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			drawString(g,label, x5b1, y5+s20);		   
 		}
 		
-		String diffLbl = text(newGameOptions().selectedGameDifficulty());
+		String diffLbl = text(opts.selectedGameDifficulty());
 		// modnar: add custom difficulty level option, set in Remnants.cfg
 		// append this custom difficulty percentage to diffLbl if selected
 		if (diffLbl.equals("Custom")) {
 			diffLbl = diffLbl + " (" + Integer.toString(IInGameOptions.customDifficulty.get()) + "%)";
 		} else {
-			diffLbl = diffLbl + " (" + Integer.toString(Math.round(100 * newGameOptions().aiProductionModifier())) + "%)";
+			diffLbl = diffLbl + " (" + Integer.toString(Math.round(100 * opts.aiProductionModifier())) + "%)";
 		}
 		
 		int diffSW = g.getFontMetrics().stringWidth(diffLbl);
@@ -1457,20 +1448,20 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		drawString(g,diffLbl, x5c, y5);
 		
 		String wysiwygLbl;
-		if (galaxyRandSource.get() == 0)
+		if (opts.selectedGalaxyRandSource() == 0)
 			wysiwygLbl = text("SETTINGS_MOD_GALAXY_RAND_RANDOM");
 		else
-			wysiwygLbl = text("SETTINGS_MOD_GALAXY_RAND_WYSIWYG", galaxyRandSource.guideValue());
+			wysiwygLbl = text("SETTINGS_MOD_GALAXY_RAND_WYSIWYG", opts.galaxyRandSource().guideValue());
 		int wysiwygSW = g.getFontMetrics().stringWidth(wysiwygLbl);
 		if (wysiwygSW > wysiwygBox.width) {
-			wysiwygLbl = galaxyRandSource.guideValue();
+			wysiwygLbl = opts.galaxyRandSource().guideValue();
 			wysiwygSW  = g.getFontMetrics().stringWidth(wysiwygLbl);
 		}
 		int x5d =wysiwygBox.x+((wysiwygBox.width-wysiwygSW)/2);
 		drawString(g,wysiwygLbl, x5d, y5+s20);
 		
 		// draw autoplay warning
-		if (newGameOptions().isAutoPlay()) {
+		if (opts.isAutoPlay()) {
 			g.setFont(narrowFont(16));
 			String warning = text("SETTINGS_AUTOPLAY_WARNING");
 			List<String> warnLines = this.wrappedLines(g, warning, galaxyW);
@@ -1795,14 +1786,20 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 	}
 	private String newRacesOnStr() {
-		if (showNewRaces.get()) return text("SETUP_NEW_RACES_ON");
+		if (opts.selectedShowNewRaces()) return text("SETUP_NEW_RACES_ON");
 		else return text("SETUP_NEW_RACES_OFF");
 	}
 	private String showAbilityStr() {
-		return useSelectableAbilities.guideValue();
+		return opts.useSelectableAbilities().guideValue();
 	}
 	private void drawGalaxyShape(Graphics2D g, GalaxyShape sh, int x, int y, int w, int h) {
-		float factor = min((float)h/sh.height(), (float)w/sh.width());
+		int looseOffset = 0;
+			if (opts.LooseNeighborhood())
+				looseOffset=(int) (2*opts.secondRingRadius());
+		int gw = sh.width() + looseOffset;
+		int gh = sh.height() + looseOffset;
+		
+		float factor = min((float)h/gh, (float)w/gw);
 		int dispH = (int) (sh.height()*factor);
 		int dispW = (int) (sh.width()*factor);
 		int xOff = x+(w-dispW)/2;
@@ -1828,8 +1825,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		// Start with grid
 		if (showGrid) {
-			int gw = sh.width();
-			int gh = sh.height();
 			int xEnd = xOff + Math.round(gw*factor);
 			int yEnd = yOff + Math.round(gh*factor);
 			int lim = gw/(2*galaxyGrid);
@@ -1917,7 +1912,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		// BR: Add Empire distance
 		if (showGrid || (hoverBox == galaxyBox)) {
-			IGameOptions opts = newGameOptions();
 			float  spacing    = opts.galaxyShape().empireBuffer();
 			String spacingStr = String.format("%.01f", spacing);
 			int    spacingPct = opts.selectedEmpireSpreadingPct();
@@ -1941,7 +1935,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		// BR: Add Galaxy Size
 		if (showGrid || (hoverBox == galaxyBox)) {
-			IGameOptions opts = newGameOptions();
 			String key   = "SETTINGS_MOD_GALAXY_SIZE";
 			String gwStr = str(opts.galaxyShape().width());
 			String ghStr = str(opts.galaxyShape().height());
@@ -1959,16 +1952,15 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private List<Nebula> nebulas() {
 		if (nebulas == null) {
-			nebulas = new ArrayList<>(newGameOptions().numberNebula());
-			newGameOptions().galaxyShape().addNebulas(nebulas);
+			nebulas = new ArrayList<>(opts.numberNebula());
+			opts.galaxyShape().addNebulas(nebulas);
 		}
 		return nebulas;
 	}
 	private Color starColor(int i) {
 		switch(i % 4) {
 			case 0:
-			case 1:
-					return Color.lightGray;
+			case 1: return Color.lightGray;
 			case 2: return Color.gray;
 			case 3: return Color.white;
 		}
@@ -1976,19 +1968,19 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private BufferedImage playerRaceImg() {
 		if (playerMug == null) {
-			String selRace = newGameOptions().selectedPlayerRace();
+			String selRace = opts.selectedPlayerRace();
 			playerMug = newBufferedImage(Race.keyed(selRace).diploMug());
 		}
 		return playerMug;
 	}
 	private boolean isDynamic() {
-		return newGameOptions().selectedGalaxySize().equals(IGameOptions.SIZE_DYNAMIC);
+		return opts.selectedGalaxySize().equals(IGameOptions.SIZE_DYNAMIC);
 	}
 	private boolean isShapeTextGalaxy() {
-		return newGameOptions().selectedGalaxyShape().equals(IGameOptions.SHAPE_TEXT);
+		return opts.selectedGalaxyShape().equals(IGameOptions.SHAPE_TEXT);
 	}
 	private boolean isShapeBitmapGalaxy() {
-		return newGameOptions().selectedGalaxyShape().equals(IGameOptions.SHAPE_BITMAP);
+		return opts.selectedGalaxyShape().equals(IGameOptions.SHAPE_BITMAP);
 	}
 	private String getNameFromPath(String path) {
 		File file = new File(path);
@@ -2002,34 +1994,35 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     }
  	public	void postGalaxySizeSelection(boolean click) {
 		if (click) softClick();
-		int numOpps = newGameOptions().selectedNumberOpponents();
+		int numOpps = opts.selectedNumberOpponents();
 		if(numOpps<0) {
-			newGameOptions().selectedNumberOpponents(0);
+			opts.selectedNumberOpponents(0);
 			numOpps = 0;
 		}
-		int maxOpps = newGameOptions().maximumOpponentsOptions();
+		int maxOpps = opts.maximumOpponentsOptions();
 		if (maxOpps < numOpps) {
 			for (int i=maxOpps;i<numOpps;i++)
-				newGameOptions().selectedOpponentRace(i,null);
-			newGameOptions().selectedNumberOpponents(maxOpps);
+				opts.selectedOpponentRace(i,null);
+			opts.selectedNumberOpponents(maxOpps);
 		}
-		if (isRandomGalaxy(shapeSelection.get()))
-			newGameOptions().selectedGalaxyShape(shapeSelection.get());
-		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
+		String sss = opts.selectedShapeSelection();
+		if (isRandomGalaxy(sss))
+			opts.selectedGalaxyShape(sss);
+		opts.galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
 		backImg = null; // BR: to show/hide system per empire
 		nebulas = null;
 		postSelectionLight(false);
 	}
 	public	void postSelectionFull(boolean click) {
 		if (click) softClick();
-		newGameOptions().galaxyShape().quickGenerate();
+		opts.galaxyShape().quickGenerate();
 		backImg = null;
 		nebulas = null;
 		postSelectionLight(false);
 	}
 	public	void postSelectionMedium(boolean click) {
 		if (click) softClick();
-		newGameOptions().galaxyShape().quickGenerate();
+		opts.galaxyShape().quickGenerate();
 		nebulas = null;
 		postSelectionLight(false);
 	}
@@ -2040,38 +2033,38 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private void nextMapOption1(boolean click) {
 		if (isShapeTextGalaxy()) {
-			String currText = newGameOptions().selectedGalaxyShapeOption1();
+			String currText = opts.selectedGalaxyShapeOption1();
 			int nextIndex = 0;
 			if (currText != null)
 				nextIndex = currentGalaxyTextIndex(currText)+1;
 			if (nextIndex >= getGalaxyTextList().length)
 				nextIndex = 0;
 			String nextText = (String) getGalaxyTextList()[nextIndex];
-			newGameOptions().selectedGalaxyShapeOption1(nextText);
+			opts.selectedGalaxyShapeOption1(nextText);
 		} else
-			shapeOption1.next();
+			opts.shapeOption1().next();
 		postSelectionMedium(click);
 	}
 	private void prevMapOption1(boolean click) {
 		if (isShapeTextGalaxy()) {
-			String currText = newGameOptions().selectedGalaxyShapeOption1();
+			String currText = opts.selectedGalaxyShapeOption1();
 			int prevIndex = 0;
 			if (currText != null)
 				prevIndex = currentGalaxyTextIndex(currText)-1;
 			if (prevIndex < 0)
 				prevIndex = getGalaxyTextList().length-1;
 			String prevText = (String) getGalaxyTextList()[prevIndex];
-			newGameOptions().selectedGalaxyShapeOption1(prevText);
+			opts.selectedGalaxyShapeOption1(prevText);
 		} else
-			shapeOption1.prev();
+			opts.shapeOption1().prev();
 		postSelectionMedium(click);
 	}
 	private void nextOpponentAI(boolean click) {
-		newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
+		opts.selectedOpponentAIOption(opts.nextOpponentAI());
 		postSelectionLight(click);
 	}
 	private void prevOpponentAI(boolean click) {
-		newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
+		opts.selectedOpponentAIOption(opts.prevOpponentAI());
 		postSelectionLight(click);
 	}
 	private void toggleOpponentAI(MouseEvent e) {
@@ -2079,38 +2072,38 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		boolean up  = !SwingUtilities.isRightMouseButton(e);
 		boolean mid = SwingUtilities.isMiddleMouseButton(e);
 		if (mid)
-			newGameOptions().selectedOpponentAIOption(opponentAI.defaultValue());
-		else if (newGameOptions().opponentAIOptions().size() >= minListSizePopUp.get()
+			opts.selectedOpponentAIOption(opponentAI.defaultValue());
+		else if (opts.opponentAIOptions().size() >= minListSizePopUp.get()
 					|| ModifierKeysState.isCtrlDown())
 			selectGlobalAIFromList();
 		else if (up)
-			newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
+			opts.selectedOpponentAIOption(opts.nextOpponentAI());
 		else
-			newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
+			opts.selectedOpponentAIOption(opts.prevOpponentAI());
 		postSelectionLight(false);
 	}
 	private void nextGlobalAbilities(boolean click) {
 		if (click) softClick();
-			String currCR = globalCROptions.get();
+			String currCR = opts.selectedUseGlobalCROptions();
 		int nextIndex = 0;
 		if (currCR != null)
 			nextIndex = currentGlobalAbilityIndex(currCR)+1;
 		if (nextIndex >= globalAbilitiesArray.length)
 			nextIndex = 0;
 		String nextCR = (String) globalAbilitiesArray[nextIndex];
-		globalCROptions.set(nextCR);
+		opts.globalCROptions().set(nextCR);
 		postSelectionLight(false);
 	}
 	private void prevGlobalAbilities(boolean click) {
 		if (click) softClick();
-			String currCR = globalCROptions.get();
+			String currCR = opts.selectedUseGlobalCROptions();
 		int prevIndex = 0;
 		if (currCR != null)
 			prevIndex = currentGlobalAbilityIndex(currCR)-1;
 		if (prevIndex < 0)
 			prevIndex = globalAbilitiesArray.length-1;
 		String prevCR = (String) globalAbilitiesArray[prevIndex];
-		globalCROptions.set(prevCR);
+		opts.globalCROptions().set(prevCR);
 		postSelectionLight(false);
 	}
 	private void toggleGlobalAbilities(MouseEvent e) {
@@ -2118,7 +2111,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		boolean up  = !SwingUtilities.isRightMouseButton(e);
 		boolean mid = SwingUtilities.isMiddleMouseButton(e);
 		if (mid)
-			globalCROptions.setFromDefault(false, true);
+			opts.globalCROptions().setFromDefault(false, true);
 		else if (globalAbilitiesArray.length >= minListSizePopUp.get()
 				|| ModifierKeysState.isCtrlDown())
 			selectAlienAbilityFromList();
@@ -2130,7 +2123,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private void toggleNewRaces(boolean click) {
 		if (click) softClick();
-		showNewRaces.toggle();
+		opts.showNewRaces().toggle();
 		initOpponentGuide();
 		postSelectionLight(false);
 	}
@@ -2139,19 +2132,19 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (click || ModifierKeysState.isCtrlDown())
 			selectSpecificAIFromList(i);
 		else
-			newGameOptions().nextSpecificOpponentAI(i+1);
+			opts.nextSpecificOpponentAI(i+1);
 	}
 	private void prevSpecificOpponentAI(int i, boolean click) {
 		if (click) softClick();
 		if (click || ModifierKeysState.isCtrlDown())
 			selectSpecificAIFromList(i);
 		else
-			newGameOptions().prevSpecificOpponentAI(i+1);
+			opts.prevSpecificOpponentAI(i+1);
 	}
 	private void toggleSpecificOpponentAI(int i, boolean click, boolean up, boolean mid) {
 		if (click) softClick();
 		if (mid)
-			newGameOptions().specificOpponentAIOption(specificAI.defaultValue(), i+1);
+			opts.specificOpponentAIOption(specificAI.defaultValue(), i+1);
 		else if (up)
 			nextSpecificOpponentAI(i, false);
 		else
@@ -2163,10 +2156,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (click && ModifierKeysState.isCtrlDown()) {
 			String defVal = SpecificCROption.defaultSpecificValue().value;
             for (int i=0;i<oppAbilities.length;i++)
-            	newGameOptions().specificOpponentCROption(defVal,i+1);
+            	opts.specificOpponentCROption(defVal,i+1);
 		}
 		else
-			useSelectableAbilities.toggle();
+			opts.useSelectableAbilities().toggle();
 		postSelectionLight(false);
 	}
 	private void nextSpecificOpponentAbilities(int i, boolean click) {
@@ -2174,14 +2167,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (click || ModifierKeysState.isCtrlDown())
 			selectSpecificAbilityFromList(i+1);
 		else {
-			String currCR = newGameOptions().specificOpponentCROption(i+1);
+			String currCR = opts.specificOpponentCROption(i+1);
 			int nextIndex = 0;
 			if (currCR != null)
 				nextIndex = currentSpecificAbilityIndex(currCR)+1;
 			if (nextIndex >= specificAbilitiesArray.length)
 				nextIndex = 0;
 			String nextCR = (String) specificAbilitiesArray[nextIndex];
-			newGameOptions().specificOpponentCROption(nextCR, i+1);
+			opts.specificOpponentCROption(nextCR, i+1);
 		}
 	}
 	private void prevSpecificOpponentAbilities(int i, boolean click) {
@@ -2189,20 +2182,20 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (click || ModifierKeysState.isCtrlDown())
 			selectSpecificAbilityFromList(i+1);
 		else {
-			String currCR = newGameOptions().specificOpponentCROption(i+1);
+			String currCR = opts.specificOpponentCROption(i+1);
 			int prevIndex = 0;
 			if (currCR != null)
 				prevIndex = currentSpecificAbilityIndex(currCR)-1;
 	        if (prevIndex < 0)
 	        	prevIndex = specificAbilitiesArray.length-1;
 	        String prevCR = (String) specificAbilitiesArray[prevIndex];
-	        newGameOptions().specificOpponentCROption(prevCR, i+1);
+	        opts.specificOpponentCROption(prevCR, i+1);
 		}
 	}
 	private void toggleSpecificOpponentAbilities(int i, boolean click, boolean up, boolean mid) {
 		if (click) softClick();
 		if (mid)
-			newGameOptions().specificOpponentCROption(specificAbilities.defaultValue(), i+1);
+			opts.specificOpponentCROption(specificAbilities.defaultValue(), i+1);
 		else if (up)
 			nextSpecificOpponentAbilities(i, false);
 		else
@@ -2212,17 +2205,17 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private void toggleOpponent(int i, boolean click, boolean up, boolean mid) {
 		if (click) softClick();
 		if (mid)
-			newGameOptions().selectedOpponentRace(i, null);
+			opts.selectedOpponentRace(i, null);
 		else if (up)
-			newGameOptions().nextOpponent(i);
+			opts.nextOpponent(i);
 		else
-			newGameOptions().prevOpponent(i);
+			opts.prevOpponent(i);
 		updateOppMugs(i);
 		postSelectionLight(false);
 	}
 	private void toggleGalaxyGrid(MouseEvent e) {
 		if (SwingUtilities.isMiddleMouseButton(e)) {
-			guiOptions().resetEmpireSpreadingFactor();
+			opts.resetEmpireSpreadingFactor();
 			backImg = null;
 			nebulas = null;
 			postSelectionMedium(false);
@@ -2234,7 +2227,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		repaint(galaxyBox);
 	}
 	private void toggleEmpireSpacing(MouseWheelEvent e) {
-		guiOptions().toggleEmpireSpreadingFactor(e);
+		opts.toggleEmpireSpreadingFactor(e);
 		postSelectionMedium(false);
 	}
 	private void goToOptions() {
@@ -2303,10 +2296,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			guiOptions().updateAllNonCfgFromFile(LIVE_OPTIONS_FILE);	
+			opts.updateAllNonCfgFromFile(LIVE_OPTIONS_FILE);	
 			break;
 		default:
-			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
+			opts.saveOptionsToFile(LIVE_OPTIONS_FILE);
 			break;
 		}
 		close();
@@ -2314,11 +2307,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	// BR: For restarting with new options
 	private void restartGame() { 
-		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
+		opts.saveOptionsToFile(LIVE_OPTIONS_FILE);
 		starting = true;
 		buttonClick();
 		repaint();
-		GalaxyCopy oldGalaxy = new GalaxyCopy(newGameOptions());
+		GalaxyCopy oldGalaxy = new GalaxyCopy(opts);
 		UserPreferences.setForNewGame();
 		// Get the old galaxy parameters
 		close();
@@ -2326,7 +2319,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		starting = false;
 	}
 	public	void startGame() {
-		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
+		opts.saveOptionsToFile(LIVE_OPTIONS_FILE);
 		starting = true;
 		// repaint();
 		buttonClick();
@@ -2335,7 +2328,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		close();
 		final Runnable save = () -> {
 			long start = System.currentTimeMillis();
-			GameSession.instance().startGame(newGameOptions());
+			GameSession.instance().startGame(opts);
 			RotPUI.instance().mainUI().checkMapInitialized();
 			RotPUI.instance().selectIntroPanel();
 			log("TOTAL GAME START TIME:" +(System.currentTimeMillis()-start));
@@ -2364,12 +2357,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		Race race;
 		String setupName;
-		if (newGameOptions().selectedPlayerIsCustom()) {
+		if (opts.selectedPlayerIsCustom()) {
 			race = Race.keyed(CustomRaceDefinitions.CUSTOM_RACE_KEY, null);
 			setupName = race.setupName;
 		}
 		else {
-			race = Race.keyed(newGameOptions().selectedPlayerRace());
+			race = Race.keyed(opts.selectedPlayerRace());
 			setupName = race.setupName();
 		}
 		
@@ -2593,7 +2586,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	mapOption1BoxL.reset();
 		mapOption1BoxR.reset();
 		mapOption1Box.setBounds(0,0,0,0);
-		if (newGameOptions().numGalaxyShapeOption1() > 0) {
+		if (opts.numGalaxyShapeOption1() > 0) {
 			mapOption1BoxL.addPoint(sliderX-s4,sliderYAI+s1+s20);
 			mapOption1BoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2+s20);
 			mapOption1BoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2)+s20);
@@ -2610,7 +2603,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		mapOption2BoxR.reset();
 		mapOption2Box.setBounds(0,0,0,0);
 		mapOption3Box.setBounds(0,0,0,0);
-		if (newGameOptions().numGalaxyShapeOption2() > 0) {
+		if (opts.numGalaxyShapeOption2() > 0) {
 			if (this.isShapeBitmapGalaxy()) {
 				switch (compactOptionOnly.get().toUpperCase()) {
 					case "NO":
@@ -2745,31 +2738,31 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				g.fillRoundRect(settingsBox.x, settingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
 				// modnar: add UI panel for modnar MOD game options // BR: Squeezed a little
 				// draw MOD settings button
-//				modStaticABox.setBounds(scaled(xb-dx), scaled(yb), smallButton2W, smallButtonH);
-//				g.setPaint(GameUI.buttonRightBackground());
-//				g.fillRoundRect(modStaticABox.x, modStaticABox.y, smallButton2W, smallButtonH, cnr, cnr);
-//				// BR: second UI panel for MOD game options
-//				// draw MOD settings button
-//				modStaticBBox.setBounds(scaled(xb-2*dx), scaled(yb), smallButton2W, smallButtonH);
-//				g.setPaint(GameUI.buttonRightBackground());
-//				g.fillRoundRect(modStaticBBox.x, modStaticBBox.y, smallButton2W, smallButtonH, cnr, cnr);
-//				// BR: second UI panel for MOD game options
-//				// draw MOD settings button
-//				modDynamicABox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButton2W, smallButtonH);
-//				g.setPaint(GameUI.buttonRightBackground());
-//				g.fillRoundRect(modDynamicABox.x, modDynamicABox.y, smallButton2W, smallButtonH, cnr, cnr);
-//				// BR: second UI panel for MOD game options
-//				// draw MOD settings button
-//				modDynamicBBox.setBounds(scaled(xb-2*dx), scaled(yb+dy), smallButton2W, smallButtonH);
-//				g.setPaint(GameUI.buttonRightBackground());
-//				g.fillRoundRect(modDynamicBBox.x, modDynamicBBox.y, smallButton2W, smallButtonH, cnr, cnr);
-//				// BR: Display Settings UI panel for MOD game options
-//				// draw MOD settings button
-//				globalModSettingsBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
-//				g.setPaint(GameUI.buttonLeftBackground());
-//				g.fillRoundRect(globalModSettingsBox.x, globalModSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);			
-//				mergedStaticBox.setBounds(0, 0, 0, 0);
-//				mergedDynamicBox.setBounds(0, 0, 0, 0);
+/*				modStaticABox.setBounds(scaled(xb-dx), scaled(yb), smallButton2W, smallButtonH);
+				g.setPaint(GameUI.buttonRightBackground());
+				g.fillRoundRect(modStaticABox.x, modStaticABox.y, smallButton2W, smallButtonH, cnr, cnr);
+				// BR: second UI panel for MOD game options
+				// draw MOD settings button
+				modStaticBBox.setBounds(scaled(xb-2*dx), scaled(yb), smallButton2W, smallButtonH);
+				g.setPaint(GameUI.buttonRightBackground());
+				g.fillRoundRect(modStaticBBox.x, modStaticBBox.y, smallButton2W, smallButtonH, cnr, cnr);
+				// BR: second UI panel for MOD game options
+				// draw MOD settings button
+				modDynamicABox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButton2W, smallButtonH);
+				g.setPaint(GameUI.buttonRightBackground());
+				g.fillRoundRect(modDynamicABox.x, modDynamicABox.y, smallButton2W, smallButtonH, cnr, cnr);
+				// BR: second UI panel for MOD game options
+				// draw MOD settings button
+				modDynamicBBox.setBounds(scaled(xb-2*dx), scaled(yb+dy), smallButton2W, smallButtonH);
+				g.setPaint(GameUI.buttonRightBackground());
+				g.fillRoundRect(modDynamicBBox.x, modDynamicBBox.y, smallButton2W, smallButtonH, cnr, cnr);
+				// BR: Display Settings UI panel for MOD game options
+				// draw MOD settings button
+				globalModSettingsBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
+				g.setPaint(GameUI.buttonLeftBackground());
+				g.fillRoundRect(globalModSettingsBox.x, globalModSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);			
+				mergedStaticBox.setBounds(0, 0, 0, 0);
+				mergedDynamicBox.setBounds(0, 0, 0, 0); */
 				break;
 				}
 			case "6":
@@ -2807,59 +2800,59 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				break;
 				}
 		}
-//		if (!compactOptionOnly.get()) {
-//			settingsBox.setBounds(scaled(xb), scaled(yb), smallButtonW, smallButtonH);
-//			g.setPaint(GameUI.buttonLeftBackground());
-//			g.fillRoundRect(settingsBox.x, settingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
-//			// modnar: add UI panel for modnar MOD game options // BR: Squeezed a little
-//			// draw MOD settings button
-//			modStaticABox.setBounds(scaled(xb-dx), scaled(yb), smallButton2W, smallButtonH);
-//			g.setPaint(GameUI.buttonRightBackground());
-//			g.fillRoundRect(modStaticABox.x, modStaticABox.y, smallButton2W, smallButtonH, cnr, cnr);
-//			// BR: second UI panel for MOD game options
-//			// draw MOD settings button
-//			modStaticBBox.setBounds(scaled(xb-2*dx), scaled(yb), smallButton2W, smallButtonH);
-//			g.setPaint(GameUI.buttonRightBackground());
-//			g.fillRoundRect(modStaticBBox.x, modStaticBBox.y, smallButton2W, smallButtonH, cnr, cnr);
-//			// BR: second UI panel for MOD game options
-//			// draw MOD settings button
-//			modDynamicABox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButton2W, smallButtonH);
-//			g.setPaint(GameUI.buttonRightBackground());
-//			g.fillRoundRect(modDynamicABox.x, modDynamicABox.y, smallButton2W, smallButtonH, cnr, cnr);
-//			// BR: second UI panel for MOD game options
-//			// draw MOD settings button
-//			modDynamicBBox.setBounds(scaled(xb-2*dx), scaled(yb+dy), smallButton2W, smallButtonH);
-//			g.setPaint(GameUI.buttonRightBackground());
-//			g.fillRoundRect(modDynamicBBox.x, modDynamicBBox.y, smallButton2W, smallButtonH, cnr, cnr);
-//			// BR: Display Settings UI panel for MOD game options
-//			// draw MOD settings button
-//			globalModSettingsBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
-//			g.setPaint(GameUI.buttonLeftBackground());
-//			g.fillRoundRect(globalModSettingsBox.x, globalModSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);			
-//			mergedStaticBox.setBounds(0, 0, 0, 0);
-//			mergedDynamicBox.setBounds(0, 0, 0, 0);
-//		} else {
-//			yb = 610; // 615 for 3 buttons (1 row) // 610 for 2 buttons
-//			xb = 960; // 984 for 3 buttons // 960 for 2 buttons 1 row // 948 for centered
-//			dx = 200; // 145 for 3 buttons // 200 for 2 buttons 1 row // 241 for centered
-//			dy = 30; // for 1 row
-//			smallButtonW = scaled(180); // 150 for 3 buttons // 180 for 2 buttons
-//			smallButtonH = s30; // 27 for 3 buttons // 30 for 2 buttons
-//			// draw Merged settings button
-//			mergedStaticBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
-//			g.setPaint(GameUI.buttonLeftBackground());
-//			g.fillRoundRect(mergedStaticBox.x, mergedStaticBox.y, smallButtonW, smallButtonH, cnr, cnr);
-//			// draw Merged settings button
-//			mergedDynamicBox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButtonW, smallButtonH);
-//			g.setPaint(GameUI.buttonLeftBackground());
-//			g.fillRoundRect(mergedDynamicBox.x, mergedDynamicBox.y, smallButtonW, smallButtonH, cnr, cnr);
-//			settingsBox.setBounds(0, 0, 0, 0);
-//			modStaticABox.setBounds(0, 0, 0, 0);
-//			modStaticBBox.setBounds(0, 0, 0, 0);
-//			modDynamicABox.setBounds(0, 0, 0, 0);
-//			modDynamicBBox.setBounds(0, 0, 0, 0);
-//			globalModSettingsBox.setBounds(0, 0, 0, 0);
-//		}
+/*		if (!compactOptionOnly.get()) {
+			settingsBox.setBounds(scaled(xb), scaled(yb), smallButtonW, smallButtonH);
+			g.setPaint(GameUI.buttonLeftBackground());
+			g.fillRoundRect(settingsBox.x, settingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
+			// modnar: add UI panel for modnar MOD game options // BR: Squeezed a little
+			// draw MOD settings button
+			modStaticABox.setBounds(scaled(xb-dx), scaled(yb), smallButton2W, smallButtonH);
+			g.setPaint(GameUI.buttonRightBackground());
+			g.fillRoundRect(modStaticABox.x, modStaticABox.y, smallButton2W, smallButtonH, cnr, cnr);
+			// BR: second UI panel for MOD game options
+			// draw MOD settings button
+			modStaticBBox.setBounds(scaled(xb-2*dx), scaled(yb), smallButton2W, smallButtonH);
+			g.setPaint(GameUI.buttonRightBackground());
+			g.fillRoundRect(modStaticBBox.x, modStaticBBox.y, smallButton2W, smallButtonH, cnr, cnr);
+			// BR: second UI panel for MOD game options
+			// draw MOD settings button
+			modDynamicABox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButton2W, smallButtonH);
+			g.setPaint(GameUI.buttonRightBackground());
+			g.fillRoundRect(modDynamicABox.x, modDynamicABox.y, smallButton2W, smallButtonH, cnr, cnr);
+			// BR: second UI panel for MOD game options
+			// draw MOD settings button
+			modDynamicBBox.setBounds(scaled(xb-2*dx), scaled(yb+dy), smallButton2W, smallButtonH);
+			g.setPaint(GameUI.buttonRightBackground());
+			g.fillRoundRect(modDynamicBBox.x, modDynamicBBox.y, smallButton2W, smallButtonH, cnr, cnr);
+			// BR: Display Settings UI panel for MOD game options
+			// draw MOD settings button
+			globalModSettingsBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
+			g.setPaint(GameUI.buttonLeftBackground());
+			g.fillRoundRect(globalModSettingsBox.x, globalModSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);			
+			mergedStaticBox.setBounds(0, 0, 0, 0);
+			mergedDynamicBox.setBounds(0, 0, 0, 0);
+		} else {
+			yb = 610; // 615 for 3 buttons (1 row) // 610 for 2 buttons
+			xb = 960; // 984 for 3 buttons // 960 for 2 buttons 1 row // 948 for centered
+			dx = 200; // 145 for 3 buttons // 200 for 2 buttons 1 row // 241 for centered
+			dy = 30; // for 1 row
+			smallButtonW = scaled(180); // 150 for 3 buttons // 180 for 2 buttons
+			smallButtonH = s30; // 27 for 3 buttons // 30 for 2 buttons
+			// draw Merged settings button
+			mergedStaticBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
+			g.setPaint(GameUI.buttonLeftBackground());
+			g.fillRoundRect(mergedStaticBox.x, mergedStaticBox.y, smallButtonW, smallButtonH, cnr, cnr);
+			// draw Merged settings button
+			mergedDynamicBox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButtonW, smallButtonH);
+			g.setPaint(GameUI.buttonLeftBackground());
+			g.fillRoundRect(mergedDynamicBox.x, mergedDynamicBox.y, smallButtonW, smallButtonH, cnr, cnr);
+			settingsBox.setBounds(0, 0, 0, 0);
+			modStaticABox.setBounds(0, 0, 0, 0);
+			modStaticBBox.setBounds(0, 0, 0, 0);
+			modDynamicABox.setBounds(0, 0, 0, 0);
+			modDynamicBBox.setBounds(0, 0, 0, 0);
+			globalModSettingsBox.setBounds(0, 0, 0, 0);
+		} */
 
 		int buttonH = s45;
 		int buttonW = scaled(220);
@@ -2979,15 +2972,15 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		else if (hoverBox == exitBox)
 			doStartBoxAction();
 		else if (hoverPolyBox == shapeBoxL) {
-			shapeSelection.prev();
+			opts.shapeSelection().prev();
 			//postSelectionFull(true);
 		}
 		else if (hoverBox == shapeBox) {
-			shapeSelection.toggle(e,  this);
+			opts.shapeSelection().toggle(e,  this);
 			postSelectionFull(true);
 		}
 		else if (hoverPolyBox == shapeBoxR) {
-			shapeSelection.next();
+			opts.shapeSelection().next();
 			//postSelectionFull(true);
 		}
 		else if (hoverPolyBox == mapOption1BoxL)
@@ -2996,48 +2989,50 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			if (isShapeTextGalaxy())
 				selectGalaxyTextFromList();
 			else {
-				shapeOption1.toggle(e, this);
+				opts.shapeOption1().toggle(e, this);
 				postSelectionMedium(true);
 			}
 		else if (hoverPolyBox == mapOption1BoxR)
 			nextMapOption1(true);
 		else if (hoverPolyBox == mapOption2BoxL) {
-			shapeOption2.prev();
+			opts.shapeOption2().prev();
 			//postSelectionMedium(true);
 		}
 		else if (hoverBox == mapOption2Box) {
-			shapeOption2.toggle(e, this);
+			opts.shapeOption2().toggle(e, this);
 			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == mapOption2BoxR) {
-			shapeOption2.next();
+			opts.shapeOption2().next();
 			//postSelectionMedium(true);
 		}
 		else if (hoverBox == mapOption3Box)
 			selectBitmapFromList();
 		else if (hoverPolyBox == sizeBoxL) {
-			sizeSelection.prev();
+			opts.sizeSelection().prev();
 			// postGalaxySizeSelection(true);
 		}
 		else if (hoverBox == sizeBox) {
-			sizeSelection.toggle(e, this);
+			opts.sizeSelection().toggle(e, this);
 			postGalaxySizeSelection(true);
 		}
 		else if (hoverPolyBox == sizeBoxR) {
-			sizeSelection.next();
+			opts.sizeSelection().next();
 			// postGalaxySizeSelection(true);
 		}
 		else if (hoverPolyBox == sizeOptionBoxL) {
 			dynStarsPerEmpire.prev(e);
+			dynStarsPerEmpire.set(dynStarsPerEmpire.getValidValue());
 			// postGalaxySizeSelection(true);
 		}
 		else if (hoverBox == sizeOptionBox) {
-			dynStarsPerEmpire.toggle(e, this);
+			dynStarsPerEmpire.toggle(e, (MouseWheelEvent)null, this);
 			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == sizeOptionBoxR) {
 			dynStarsPerEmpire.next(e);
-			// postGalaxySizeSelection(true);
+			dynStarsPerEmpire.set(dynStarsPerEmpire.getValidValue());
+			//postGalaxySizeSelection(true);
 		}
 		else if (hoverPolyBox == aiBoxL)
 			prevOpponentAI(true);
@@ -3056,41 +3051,41 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		else if (hoverBox == showAbilitiesBox)
 			toggleShowAbility(true);
 		else if (hoverPolyBox == diffBoxL) {
-			difficultySelection.prev();
+			opts.difficultySelection().prev();
 			// postSelectionLight(true);
 		}
 		else if (hoverBox == diffBox) {
-			difficultySelection.toggle(e, this);
+			opts.difficultySelection().toggle(e, this);
 			postSelectionLight(true);
 		}
 		else if (hoverPolyBox == diffBoxR) {
-			difficultySelection.next();
+			opts.difficultySelection().next();
 			// postSelectionLight(true);
 		}
 		else if (hoverPolyBox == wysiwygBoxL) {
-			galaxyRandSource.prev();
+			opts.galaxyRandSource().prev();
 			postSelectionMedium(true);
 		}
 		else if (hoverBox == wysiwygBox) {
-			galaxyRandSource.toggle(e, this);
+			opts.galaxyRandSource().toggle(e, this);
 			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == wysiwygBoxR) {
-			galaxyRandSource.next();
+			opts.galaxyRandSource().next();
 			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == oppBoxU) {
-			aliensNumber.next();
+			opts.aliensNumber().next();
 			// postSelectionMedium(true);
 		}
 		else if (hoverBox == oppBox)
 		 {
-			aliensNumber.toggle(e, this);
+			opts.aliensNumber().toggle(e, this);
 			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == oppBoxD)
 		 {
-			aliensNumber.prev();
+			opts.aliensNumber().prev();
 			//postSelectionMedium(true);
 		}
 		else {
@@ -3113,26 +3108,26 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	@Override public void mouseWheelMoved(MouseWheelEvent e) {
 		boolean up = e.getWheelRotation() > 0;
 		if (hoverBox == shapeBox)  {
-			shapeSelection.toggle(e);
+			opts.shapeSelection().toggle(e);
 			postSelectionFull(false);
 		}
 		else if (hoverBox == galaxyBox) {
 			toggleEmpireSpacing(e);
 		}
 		else if (hoverBox == mapOption1Box) {
-			shapeOption1.toggle(e);
+			opts.shapeOption1().toggle(e);
 			postSelectionMedium(false);
 		}
 		else if (hoverBox == mapOption2Box) {
-			shapeOption2.toggle(e);
+			opts.shapeOption2().toggle(e);
 			postSelectionMedium(false);
 		}
 		else if (hoverBox == sizeBox) {
-			sizeSelection.toggle(e);
+			opts.sizeSelection().toggle(e);
 			postGalaxySizeSelection(false);
 		}
 		else if (hoverBox == sizeOptionBox) {
-			dynStarsPerEmpire.toggle(e);
+			dynStarsPerEmpire.toggle((MouseEvent)null, e, this);
 			postSelectionMedium(false);
 		}
 		else if (hoverBox == aiBox) {
@@ -3155,16 +3150,16 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverBox == diffBox)
 		 {
-			difficultySelection.toggle(e);
+			opts.difficultySelection().toggle(e);
 			postSelectionLight(false);
 		}
 		else if (hoverBox == wysiwygBox)
 		 {
-			galaxyRandSource.toggle(e);
+			opts.galaxyRandSource().toggle(e);
 			postSelectionMedium(false);
 		}
 		else if (hoverBox == oppBox) {
-			aliensNumber.toggle(e);
+			opts.aliensNumber().toggle(e);
 			postSelectionMedium(false);
 		}
 		else {
@@ -3193,6 +3188,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private class ParamListOpponentAI extends ParamList { // For Guide
 		private ParamListOpponentAI(String gui, String name, List<String> list, String defaultValue) {
 			super(gui, name, list, defaultValue);
+			this.setDefaultValue(MOO1_DEFAULT, IGameOptions.baseAI.aliensKey);
+			this.setDefaultValue(ROTP_DEFAULT, IGameOptions.baseAI.aliensKey);
 		}
 		@Override public String	getOptionValue(IGameOptions options)	{
 			return options.selectedOpponentAIOption();
@@ -3206,12 +3203,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		@Override public String setFromIndex(int index) {
 			String value = super.setFromIndex(index);
-			newGameOptions().selectedOpponentAIOption(value);
+			opts.selectedOpponentAIOption(value);
 			return value;
 		}
 		@Override public String set(String value) {
 			super.set(value);
-			newGameOptions().selectedOpponentAIOption(value);
+			opts.selectedOpponentAIOption(value);
 			return value;
 		}
 		@Override public boolean prev() {
@@ -3300,7 +3297,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			super(gui, name, list, defaultValue);
 		}
 		@Override public String	getOptionValue(IGameOptions options) {
-			return globalCROptions.get();
+			return guiOptions().selectedUseGlobalCROptions();
 		}
 		@Override public String	guideValue()	{ return text(get()); }
 		@Override public String getRowGuide(int id)	{
@@ -3322,12 +3319,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		@Override public String setFromIndex(int index) {
 			String value = super.setFromIndex(index);
-			globalCROptions.set(value);
+			guiOptions().globalCROptions().set(value);
 			return value;
 		}
 		@Override public String set(String value) {
 			super.set(value);
-			globalCROptions.set(value);
+			guiOptions().globalCROptions().set(value);
 			return value;
 		}
 		@Override public boolean prev() {

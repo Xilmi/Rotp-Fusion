@@ -4,6 +4,10 @@ import static rotp.model.galaxy.StarSystem.getMinFont;
 import static rotp.model.galaxy.StarSystem.setFontPct;
 import static rotp.model.galaxy.StarSystem.setMinFont;
 import static rotp.model.galaxy.StarSystem.setMinFont2;
+import static rotp.model.game.DefaultValues.FUSION_DEFAULT;
+import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
+import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
+import static rotp.model.game.DefaultValues.DEF_VAL;
 import static rotp.ui.UserPreferences.backupTurns;
 import static rotp.ui.UserPreferences.disableAdvisor;
 import static rotp.ui.UserPreferences.displayMode;
@@ -675,6 +679,27 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		}
 		@Override public String	guideValue() { return ""; }
 	}
+
+	ParamList defaultSettings	= new DefaultSettings();
+	class DefaultSettings extends ParamList {
+		DefaultSettings() {
+			super(MOD_UI, "DEFAULT_SETTINGS",
+					Arrays.asList(
+							FUSION_DEFAULT,
+							MOO1_DEFAULT,
+							ROTP_DEFAULT
+							),
+					FUSION_DEFAULT);
+			setDefaultValue(MOO1_DEFAULT, MOO1_DEFAULT);
+			setDefaultValue(ROTP_DEFAULT, ROTP_DEFAULT);
+			isDuplicate(true);
+			isCfgFile(true);
+			showFullGuide(true);
+		}
+		@Override public String getCfgValue()		{ return DEF_VAL.getSettingName(); }
+		@Override public String getOption()			{ return DEF_VAL.defVal(); }
+		@Override public void setOption(String s)	{ DEF_VAL.selectedDefault(s); }
+	}
 	// ==================== GUI List Declarations ====================
 	//
 	String NAME_GUI_ID	= "NAME_OPTIONS";
@@ -712,7 +737,9 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 
 						null,
 						soundVolume, musicVolume,
-						debugShowMemory, colorSet, gameOverTitles,
+						//debugShowMemory,
+						colorSet, gameOverTitles,
+						defaultSettings,
 						
 						null,
 						// IConvenienceOptions.autoColonize_, IConvenienceOptions.autoBombard_,

@@ -1,5 +1,7 @@
 package rotp.model.game;
 
+import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
+import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
 import static rotp.model.game.IBaseOptsTools.headerSpacer;
 
 import java.util.Arrays;
@@ -97,7 +99,9 @@ public interface IGovOptions {
 	// Other Options
 	ParamBoolean animatedImage		= new ParamBoolean(GOV_UI, "ANIMATED_IMAGE", true);
 	ParamBoolean auto_Apply			= new ParamBoolean(GOV_UI, "AUTO_APPLY", true);
-	ParamBoolean governorByDefault	= new ParamBoolean(GOV_UI, "ON_BY_DEFAULT", true);
+	ParamBoolean governorByDefault	= new ParamBoolean(GOV_UI, "ON_BY_DEFAULT", true)
+			.setDefaultValue(MOO1_DEFAULT, false)
+			.setDefaultValue(ROTP_DEFAULT, false);
 
 	// ==================== GUI List Declarations ====================
 	//

@@ -67,8 +67,32 @@ Later:
 
 ## What's New
 
+2024.06.24 (BR)
+- New option to select the default values:
+  - RotP-Fustion
+  - RotP-Original
+  - MoO1
+- Created option link for
+  - Neighboor circles size
+  - Minimum Number of star per circle
+  - Minimum Number of habitable planet per circle
+  - Star density
+  - Number of star per empire
+  - Galaxy size
+- Option to allow nearby stars to be out of the galaxy limits.
+
+2024.06.20 (BR)
+- New dynamic limits tools for linked options.
+- Adapted the option to set the number of nearby and midrange stars to the new tools.
+
 2024.06.19 (BR)
 - Fixed "cold war" Colony ship being afraid of its own weapons...
+
+2024.06.18 (BR)
+- New option to set the number of nearby and midrange stars.
+  - How many must have habitable planet.
+  - The nearby and midrange circle radius.
+- The number of star per empire can now be lowered to 1.
 
 2024.06.15 (BR)
 - Reduced and stabilized memory consumption.
@@ -134,7 +158,7 @@ Later:
 - Fixed confusing max/average tech status display.
 
 2024.06.04 (BR)
-- Renamed Console VIPConsole to avoid confusion with other console. (VIP for Visually Impaired Person) 
+- Renamed Console VIPConsole to avoid confusion with other console. (VIP for Visually Impaired Person)
 - VIP Console:
   - Espionage mission management. (Mission, report and framing)
 - Fixed old bug where your spy are good enough to frame but have no one to frame... You framed your-self!
@@ -204,7 +228,7 @@ Later:
 
 2024.05.12 (BR)
 - Added Last spy report age in contact panel.
-- Fixed nebula type wrongly saved globally. Now saved in game file. 
+- Fixed nebula type wrongly saved globally. Now saved in game file.
 
 2024.05.11 (BR)
 - New option for nebulae placement:
@@ -218,7 +242,7 @@ Later:
 - New option to never let a nebula be too close to an empire's neighborhood.
 - New option for improving the planet in the center of the nebulae:
   - None, Less, Normal, More, Always.
- 
+
 2024.05.09 (BR)
 - Console:
   - Temporary no council is allowed!
@@ -486,7 +510,7 @@ Later:
   - 1 => 15, 2 => 30, 3 => 45, 4 => 60
 - Galaxy setup panel: Player custom species name correctly displayed.
 - Auto-Run works with council.
-- New Auto-Run Benchmark. 
+- New Auto-Run Benchmark.
 - Fixed shift b adding 5 bases instead of removing one!
 
 2024.03.06 (BR)
@@ -511,7 +535,7 @@ Later:
     - there was a lot of unused methods that disrupt readability, and may be not fully debugged!
     - commented them as a warning to not be used trustfully!
   - Renamed the travelTime dependent methods, adding "Adjusted" when accurate to improve readabilty!
-- Ship Display position will be rounded in fraction of total travel time. 
+- Ship Display position will be rounded in fraction of total travel time.
 
 2024.03.03 (BR)
 - Changed how the memory is monitored.

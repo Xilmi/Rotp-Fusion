@@ -185,15 +185,15 @@ public class GalaxySpiralShape extends GalaxyShape {
 		return adjDensity * selected;
     }
     @Override protected float sizeFactor(String size) {
-        float adj = 1.0f;
-        switch (opts.selectedStarDensityOption()) {
-            case IGameOptions.STAR_DENSITY_LOWEST:  adj = 1.3f; break;
-            case IGameOptions.STAR_DENSITY_LOWER:   adj = 1.2f; break;
-            case IGameOptions.STAR_DENSITY_LOW:     adj = 1.1f; break;
-            case IGameOptions.STAR_DENSITY_HIGH:    adj = 0.9f; break;
-            case IGameOptions.STAR_DENSITY_HIGHER:  adj = 0.8f; break;
-            case IGameOptions.STAR_DENSITY_HIGHEST: adj = 0.7f; break;
-        }
+        float adj = densitySizeFactor();
+//        switch (opts.selectedStarDensityOption()) {
+//            case IGameOptions.STAR_DENSITY_LOWEST:  adj = 1.3f; break;
+//            case IGameOptions.STAR_DENSITY_LOWER:   adj = 1.2f; break;
+//            case IGameOptions.STAR_DENSITY_LOW:     adj = 1.1f; break;
+//            case IGameOptions.STAR_DENSITY_HIGH:    adj = 0.9f; break;
+//            case IGameOptions.STAR_DENSITY_HIGHER:  adj = 0.8f; break;
+//            case IGameOptions.STAR_DENSITY_HIGHEST: adj = 0.7f; break;
+//        }
         switch (opts.selectedGalaxySize()) {
             case IGameOptions.SIZE_TINY:      return adj*24; 
             case IGameOptions.SIZE_SMALL:     return adj*24; 

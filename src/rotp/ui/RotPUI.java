@@ -51,6 +51,7 @@ import rotp.model.galaxy.Transport;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGameOptions;
+import rotp.model.game.IModOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetFactory;
 import rotp.model.ships.ShipDesign;
@@ -93,6 +94,7 @@ import rotp.ui.tech.AllocateTechUI;
 import rotp.ui.tech.DiplomaticMessageUI;
 import rotp.ui.tech.DiscoverTechUI;
 import rotp.ui.tech.SelectNewTechUI;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.ui.vipconsole.VIPConsole;
@@ -901,6 +903,9 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             add(galacticCouncilUI, COUNCIL_PANEL);
             add(gameOverUI, GAME_OVER_PANEL);
         }
+        for (int level=0; level<2; level++)
+        	for (IParam param : IModOptions.allModOptions)
+        		param.lateInit(level);
         selectGamePanel();
     }
     private void selectDialogPanel(String panelName, BasePanel panel)   {

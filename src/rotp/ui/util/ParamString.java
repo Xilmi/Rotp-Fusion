@@ -73,4 +73,6 @@ public class ParamString extends AbstractParam<String> {
 		set(input);
 		return false;
 	}
+	@Override public LinkValue linkValue(String val)	{ return new LinkValue(val); } 
+	@Override protected String linkValue(LinkValue val)	{ return val.stringValue(); }
 }

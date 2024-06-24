@@ -19,7 +19,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import rotp.Rotp;
 import rotp.model.ai.AIEntry;
 import rotp.model.ai.AIList;
 import rotp.model.empires.Empire;
@@ -34,43 +33,43 @@ import rotp.ui.game.SetupGalaxyUI;
 public interface IGameOptions extends IModOptions {
     public static final int MAX_OPPONENTS = SetupGalaxyUI.MAX_DISPLAY_OPPS;
     public static final int MAX_OPPONENT_TYPE = 5;
-    public static final String SIZE_DYNAMIC = "SETUP_GALAXY_SIZE_DYNAMIC";
-    public static final String SIZE_MICRO = "SETUP_GALAXY_SIZE_MICRO";
-    public static final String SIZE_TINY = "SETUP_GALAXY_SIZE_TINY";
-    public static final String SIZE_SMALL = "SETUP_GALAXY_SIZE_SMALL";
-    public static final String SIZE_SMALL2 = "SETUP_GALAXY_SIZE_SMALL2";
-    public static final String SIZE_MEDIUM = "SETUP_GALAXY_SIZE_AVERAGE";
-    public static final String SIZE_MEDIUM2 = "SETUP_GALAXY_SIZE_AVERAGE2";
-    public static final String SIZE_LARGE = "SETUP_GALAXY_SIZE_LARGE";
-    public static final String SIZE_LARGE2 = "SETUP_GALAXY_SIZE_LARGE2";
-    public static final String SIZE_HUGE = "SETUP_GALAXY_SIZE_HUGE";
-    public static final String SIZE_HUGE2 = "SETUP_GALAXY_SIZE_HUGE2";
-    public static final String SIZE_MASSIVE = "SETUP_GALAXY_SIZE_MASSIVE";
-    public static final String SIZE_MASSIVE2 = "SETUP_GALAXY_SIZE_MASSIVE2";
-    public static final String SIZE_MASSIVE3 = "SETUP_GALAXY_SIZE_MASSIVE3";
-    public static final String SIZE_MASSIVE4 = "SETUP_GALAXY_SIZE_MASSIVE4";
-    public static final String SIZE_MASSIVE5 = "SETUP_GALAXY_SIZE_MASSIVE5";
-    public static final String SIZE_INSANE = "SETUP_GALAXY_SIZE_INSANE";
-    public static final String SIZE_LUDICROUS = "SETUP_GALAXY_SIZE_LUDICROUS";
-    public static final String SIZE_MAXIMUM = "SETUP_GALAXY_SIZE_MAXIMUM";
-
-    public static final String SHAPE_RECTANGLE = "SETUP_GALAXY_SHAPE_RECTANGLE";
-    public static final String SHAPE_ELLIPTICAL = "SETUP_GALAXY_SHAPE_ELLIPSE";
-    public static final String SHAPE_SPIRAL = "SETUP_GALAXY_SHAPE_SPIRAL";
-    // modnar: add new map shapes
-    public static final String SHAPE_TEXT = "SETUP_GALAXY_SHAPE_TEXT";
-    public static final String SHAPE_LORENZ = "SETUP_GALAXY_SHAPE_LORENZ";
-    public static final String SHAPE_FRACTAL = "SETUP_GALAXY_SHAPE_FRACTAL";
-    public static final String SHAPE_MAZE = "SETUP_GALAXY_SHAPE_MAZE";
-    public static final String SHAPE_SHURIKEN = "SETUP_GALAXY_SHAPE_SHURIKEN";
-    public static final String SHAPE_BULLSEYE = "SETUP_GALAXY_SHAPE_BULLSEYE";
-    public static final String SHAPE_GRID = "SETUP_GALAXY_SHAPE_GRID";
-    public static final String SHAPE_CLUSTER = "SETUP_GALAXY_SHAPE_CLUSTER";
-    public static final String SHAPE_SWIRLCLUSTERS = "SETUP_GALAXY_SHAPE_SWIRLCLUSTERS";
-    public static final String SHAPE_SPIRALARMS = "SETUP_GALAXY_SHAPE_SPIRALARMS";
-    public static final String SHAPE_BITMAP     = "SETUP_GALAXY_SHAPE_BITMAP";
-    public static final String SHAPE_RANDOM     = "SETUP_GALAXY_SHAPE_RANDOM";
-    public static final String SHAPE_RANDOM_2   = "SETUP_GALAXY_SHAPE_RANDOM_2";
+//    public static final String SIZE_DYNAMIC = "SETUP_GALAXY_SIZE_DYNAMIC";
+//    public static final String SIZE_MICRO = "SETUP_GALAXY_SIZE_MICRO";
+//    public static final String SIZE_TINY = "SETUP_GALAXY_SIZE_TINY";
+//    public static final String SIZE_SMALL = "SETUP_GALAXY_SIZE_SMALL";
+//    public static final String SIZE_SMALL2 = "SETUP_GALAXY_SIZE_SMALL2";
+//    public static final String SIZE_MEDIUM = "SETUP_GALAXY_SIZE_AVERAGE";
+//    public static final String SIZE_MEDIUM2 = "SETUP_GALAXY_SIZE_AVERAGE2";
+//    public static final String SIZE_LARGE = "SETUP_GALAXY_SIZE_LARGE";
+//    public static final String SIZE_LARGE2 = "SETUP_GALAXY_SIZE_LARGE2";
+//    public static final String SIZE_HUGE = "SETUP_GALAXY_SIZE_HUGE";
+//    public static final String SIZE_HUGE2 = "SETUP_GALAXY_SIZE_HUGE2";
+//    public static final String SIZE_MASSIVE = "SETUP_GALAXY_SIZE_MASSIVE";
+//    public static final String SIZE_MASSIVE2 = "SETUP_GALAXY_SIZE_MASSIVE2";
+//    public static final String SIZE_MASSIVE3 = "SETUP_GALAXY_SIZE_MASSIVE3";
+//    public static final String SIZE_MASSIVE4 = "SETUP_GALAXY_SIZE_MASSIVE4";
+//    public static final String SIZE_MASSIVE5 = "SETUP_GALAXY_SIZE_MASSIVE5";
+//    public static final String SIZE_INSANE = "SETUP_GALAXY_SIZE_INSANE";
+//    public static final String SIZE_LUDICROUS = "SETUP_GALAXY_SIZE_LUDICROUS";
+//    public static final String SIZE_MAXIMUM = "SETUP_GALAXY_SIZE_MAXIMUM";
+//
+//    public static final String SHAPE_RECTANGLE = "SETUP_GALAXY_SHAPE_RECTANGLE";
+//    public static final String SHAPE_ELLIPTICAL = "SETUP_GALAXY_SHAPE_ELLIPSE";
+//    public static final String SHAPE_SPIRAL = "SETUP_GALAXY_SHAPE_SPIRAL";
+//    // modnar: add new map shapes
+//    public static final String SHAPE_TEXT = "SETUP_GALAXY_SHAPE_TEXT";
+//    public static final String SHAPE_LORENZ = "SETUP_GALAXY_SHAPE_LORENZ";
+//    public static final String SHAPE_FRACTAL = "SETUP_GALAXY_SHAPE_FRACTAL";
+//    public static final String SHAPE_MAZE = "SETUP_GALAXY_SHAPE_MAZE";
+//    public static final String SHAPE_SHURIKEN = "SETUP_GALAXY_SHAPE_SHURIKEN";
+//    public static final String SHAPE_BULLSEYE = "SETUP_GALAXY_SHAPE_BULLSEYE";
+//    public static final String SHAPE_GRID = "SETUP_GALAXY_SHAPE_GRID";
+//    public static final String SHAPE_CLUSTER = "SETUP_GALAXY_SHAPE_CLUSTER";
+//    public static final String SHAPE_SWIRLCLUSTERS = "SETUP_GALAXY_SHAPE_SWIRLCLUSTERS";
+//    public static final String SHAPE_SPIRALARMS = "SETUP_GALAXY_SHAPE_SPIRALARMS";
+//    public static final String SHAPE_BITMAP     = "SETUP_GALAXY_SHAPE_BITMAP";
+//    public static final String SHAPE_RANDOM     = "SETUP_GALAXY_SHAPE_RANDOM";
+//    public static final String SHAPE_RANDOM_2   = "SETUP_GALAXY_SHAPE_RANDOM_2";
 
     public static final String DIFFICULTY_EASIEST = "SETUP_DIFFICULTY_EASIEST";
     public static final String DIFFICULTY_EASIER  = "SETUP_DIFFICULTY_EASIER";
@@ -164,6 +163,11 @@ public interface IGameOptions extends IModOptions {
     public static final String COUNCIL_NO_ALLIANCES  = "SETUP_COUNCIL_NO_ALLIANCES";
     public static final String COUNCIL_REALMS_BEYOND = "SETUP_COUNCIL_REALMS_BEYOND";
 
+    public static final String STAR_DENSITY_LONELY   = "SETUP_STAR_DENSITY_LONELY";
+    public static final String STAR_DENSITY_U_WIDE   = "SETUP_STAR_DENSITY_U_WIDE";
+    public static final String STAR_DENSITY_V_WIDE   = "SETUP_STAR_DENSITY_V_WIDE";
+    public static final String STAR_DENSITY_WIDER    = "SETUP_STAR_DENSITY_WIDER";
+    public static final String STAR_DENSITY_WIDE     = "SETUP_STAR_DENSITY_WIDE";
     public static final String STAR_DENSITY_LOWEST   = "SETUP_STAR_DENSITY_LOWEST";
     public static final String STAR_DENSITY_LOWER    = "SETUP_STAR_DENSITY_LOWER";
     public static final String STAR_DENSITY_LOW      = "SETUP_STAR_DENSITY_LOW";
@@ -377,7 +381,7 @@ public interface IGameOptions extends IModOptions {
     public void setAdvancedOptionsToDefault();
 
     public int numberStarSystems();
-    public int numberStarSystems(String size); // BR: For Profile Manager comments
+	public int numberStarSystems(String size);
     public int numberNebula();
     public default float nebulaSizeMult()                { return 1.0f; }
     public List<Integer> possibleColors();
@@ -401,8 +405,8 @@ public interface IGameOptions extends IModOptions {
     public Color color(int i);
 
     // selectable options
-    public List<String> galaxySizeOptions();
-    public List<String> galaxyShapeOptions();
+    // public List<String> galaxySizeOptions(); // BR:Moved to IGalaxyOptions
+    // public List<String> galaxyShapeOptions();
     public List<String> galaxyShapeOptions1();
     public List<String> galaxyShapeOptions2();
     public List<String> galaxyAgeOptions();
@@ -654,7 +658,7 @@ public interface IGameOptions extends IModOptions {
         }
     }
     default List<String> getNewRacesOnOffList() {
-		if (showNewRaces.get()) {
+		if (showNewRaces().get()) {
 			return allRaceOptions();
 		}
 		return baseRaceOptions();
@@ -761,6 +765,11 @@ public interface IGameOptions extends IModOptions {
     }
     public static List<String> getStarDensityOptions() {
         List<String> list = new ArrayList<>();
+        list.add(STAR_DENSITY_LONELY);
+        list.add(STAR_DENSITY_U_WIDE);
+        list.add(STAR_DENSITY_V_WIDE);
+        list.add(STAR_DENSITY_WIDER);
+        list.add(STAR_DENSITY_WIDE);
         list.add(STAR_DENSITY_LOWEST);
         list.add(STAR_DENSITY_LOWER);
         list.add(STAR_DENSITY_LOW);
@@ -804,67 +813,66 @@ public interface IGameOptions extends IModOptions {
         list.add(DIFFICULTY_CUSTOM);
         return list;
     }
-    public static List<String> getGalaxySizeOptions() {
-        int max = Rotp.maximumSystems;
-        List<String> list = new ArrayList<>();
-        list.add(SIZE_DYNAMIC);
-        if (max > 24)
-        list.add(SIZE_MICRO);
-        if (max > 33)
-        list.add(SIZE_TINY);
-        if (max > 50)
-            list.add(SIZE_SMALL);
-        if (max > 70)
-            list.add(SIZE_SMALL2);
-        if (max > 100)
-            list.add(SIZE_MEDIUM);
-        if (max > 150)
-            list.add(SIZE_MEDIUM2);
-        if (max > 225)
-            list.add(SIZE_LARGE);
-        if (max > 333)
-            list.add(SIZE_LARGE2);
-        if (max > 500)
-            list.add(SIZE_HUGE);
-        if (max > 700)
-            list.add(SIZE_HUGE2);
-        if (max > 1000)
-            list.add(SIZE_MASSIVE);
-        if (max > 1500)
-            list.add(SIZE_MASSIVE2);
-        if (max > 2250)
-            list.add(SIZE_MASSIVE3);
-        if (max > 3333)
-            list.add(SIZE_MASSIVE4);
-        if (max > 5000)
-            list.add(SIZE_MASSIVE5);
-        if (max > 10000)
-            list.add(SIZE_INSANE);
-        if (max > 100000)
-            list.add(SIZE_LUDICROUS);
-        list.add(SIZE_MAXIMUM);
-        return list;
-    }
-    public static List<String> getGalaxyShapeOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(SHAPE_RECTANGLE);
-        list.add(SHAPE_ELLIPTICAL);
-        list.add(SHAPE_SPIRAL);
-        // mondar: add new map shapes
-        list.add(SHAPE_TEXT);
-        list.add(SHAPE_CLUSTER);
-		list.add(SHAPE_SWIRLCLUSTERS);
-		list.add(SHAPE_GRID);
-		list.add(SHAPE_SPIRALARMS);
-		list.add(SHAPE_MAZE);
-		list.add(SHAPE_SHURIKEN);
-		list.add(SHAPE_BULLSEYE);
-		list.add(SHAPE_LORENZ);
-		list.add(SHAPE_FRACTAL);
-		list.add(SHAPE_BITMAP);
-		list.add(SHAPE_RANDOM);
-		list.add(SHAPE_RANDOM_2);
-        return list;
-    }    
-
+//    public static List<String> getGalaxySizeOptions() {
+//        int max = Rotp.maximumSystems;
+//        List<String> list = new ArrayList<>();
+//        list.add(SIZE_DYNAMIC);
+//        if (max > 24)
+//        list.add(SIZE_MICRO);
+//        if (max > 33)
+//        list.add(SIZE_TINY);
+//        if (max > 50)
+//            list.add(SIZE_SMALL);
+//        if (max > 70)
+//            list.add(SIZE_SMALL2);
+//        if (max > 100)
+//            list.add(SIZE_MEDIUM);
+//        if (max > 150)
+//            list.add(SIZE_MEDIUM2);
+//        if (max > 225)
+//            list.add(SIZE_LARGE);
+//        if (max > 333)
+//            list.add(SIZE_LARGE2);
+//        if (max > 500)
+//            list.add(SIZE_HUGE);
+//        if (max > 700)
+//            list.add(SIZE_HUGE2);
+//        if (max > 1000)
+//            list.add(SIZE_MASSIVE);
+//        if (max > 1500)
+//            list.add(SIZE_MASSIVE2);
+//        if (max > 2250)
+//            list.add(SIZE_MASSIVE3);
+//        if (max > 3333)
+//            list.add(SIZE_MASSIVE4);
+//        if (max > 5000)
+//            list.add(SIZE_MASSIVE5);
+//        if (max > 10000)
+//            list.add(SIZE_INSANE);
+//        if (max > 100000)
+//            list.add(SIZE_LUDICROUS);
+//        list.add(SIZE_MAXIMUM);
+//        return list;
+//    }
+//    public static List<String> getGalaxyShapeOptions() {
+//        List<String> list = new ArrayList<>();
+//        list.add(SHAPE_RECTANGLE);
+//        list.add(SHAPE_ELLIPTICAL);
+//        list.add(SHAPE_SPIRAL);
+//        // modnar: add new map shapes
+//        list.add(SHAPE_TEXT);
+//        list.add(SHAPE_CLUSTER);
+//		list.add(SHAPE_SWIRLCLUSTERS);
+//		list.add(SHAPE_GRID);
+//		list.add(SHAPE_SPIRALARMS);
+//		list.add(SHAPE_MAZE);
+//		list.add(SHAPE_SHURIKEN);
+//		list.add(SHAPE_BULLSEYE);
+//		list.add(SHAPE_LORENZ);
+//		list.add(SHAPE_FRACTAL);
+//		list.add(SHAPE_BITMAP);
+//		list.add(SHAPE_RANDOM);
+//		list.add(SHAPE_RANDOM_2);
+//        return list;
+//    }    
 }

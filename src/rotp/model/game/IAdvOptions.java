@@ -1,8 +1,10 @@
 package rotp.model.game;
 
-import static rotp.model.game.IGameOptions.AI_HOSTILITY_NORMAL;
+import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.IGameOptions.AUTOPLAY_OFF;
+import static rotp.model.game.IGameOptions.AI_HOSTILITY_NORMAL;
 import static rotp.model.game.IGameOptions.COLONIZING_NORMAL;
+import static rotp.model.game.IGameOptions.COUNCIL_IMMEDIATE;
 import static rotp.model.game.IGameOptions.COUNCIL_REBELS;
 import static rotp.model.game.IGameOptions.FUEL_RANGE_NORMAL;
 import static rotp.model.game.IGameOptions.GALAXY_AGE_NORMAL;
@@ -29,12 +31,19 @@ import static rotp.model.game.IGameOptions.getStarDensityOptions;
 import static rotp.model.game.IGameOptions.getTechTradingOptions;
 import static rotp.model.game.IGameOptions.getTerraformingOptions;
 import static rotp.model.game.IGameOptions.getWarpSpeedOptions;
+import static rotp.model.game.ISystemsOptions.firstRingRadius;
+import static rotp.model.game.ISystemsOptions.firstRingSystemNumber;
+import static rotp.model.game.ISystemsOptions.radiusToNumStars;
+import static rotp.model.game.ISystemsOptions.secondRingRadius;
+import static rotp.model.game.ISystemsOptions.secondRingSystemNumber;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import rotp.ui.util.IParam;
+import rotp.ui.util.LinkData;
+import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamList;
 
 // Duplicates Options, Race Menu Options and Galaxy Options
@@ -57,11 +66,76 @@ public interface IAdvOptions extends IBaseOptsTools {
 		}
 	}
 
+	default float densitySizeFactor(String density)	{ return getDensitySizeFactor(density); }
+	static  float getDensitySizeFactor(String densityOption) {
+        switch (densityOption) {
+	        case IGameOptions.STAR_DENSITY_LONELY:  return 1.3f;
+	        case IGameOptions.STAR_DENSITY_U_WIDE:  return 1.3f;
+	        case IGameOptions.STAR_DENSITY_V_WIDE:  return 1.3f;
+	        case IGameOptions.STAR_DENSITY_WIDER:   return 1.3f;
+	        case IGameOptions.STAR_DENSITY_WIDE:    return 1.3f;
+	        case IGameOptions.STAR_DENSITY_LOWEST:  return 1.3f;
+            case IGameOptions.STAR_DENSITY_LOWER:   return 1.2f;
+            case IGameOptions.STAR_DENSITY_LOW:     return 1.1f;
+            case IGameOptions.STAR_DENSITY_HIGH:    return 0.9f;
+            case IGameOptions.STAR_DENSITY_HIGHER:  return 0.8f;
+            case IGameOptions.STAR_DENSITY_HIGHEST: return 0.7f;
+        }
+        return 1.0f;
+    }
+	default float systemBuffer(String density)	{ return getSystemBuffer(density); }
+	public static float getSystemBuffer(String densityOption) { 
+//		switch (densityOption) {
+//			case IGameOptions.STAR_DENSITY_LOWEST:  return 2.5f;
+//			case IGameOptions.STAR_DENSITY_LOWER:   return 2.3f;
+//			case IGameOptions.STAR_DENSITY_LOW:		return 2.1f;
+//			case IGameOptions.STAR_DENSITY_HIGH:	return 1.7f;
+//			case IGameOptions.STAR_DENSITY_HIGHER:  return 1.5f;
+//			case IGameOptions.STAR_DENSITY_HIGHEST: return 1.3f;
+//		}
+		return 1.9f * getDensitySizeFactor(densityOption);
+	}
+	float densitySizeFactor();
+	default ParamList starDensity()	{ return starDensity; }
 	ParamList starDensity = new StarDensity(); // Duplicate Do not add the list
 	class StarDensity extends ParamList {
 		StarDensity() {
 			super(ADV_UI, "STAR_DENSITY", getStarDensityOptions(), STAR_DENSITY_NORMAL);
 			showFullGuide(true);
+		}
+		@Override public void lateInit(int level)	{
+			if (level == 0) {
+				resetLinks();
+				// Density numerical value = spreading
+				// When spreading goes system number should go down.
+				addLink(firstRingSystemNumber,  DO_LOCK, GO_UP, GO_DOWN, "Ring 1");
+				addLink(secondRingSystemNumber, DO_LOCK, GO_UP, GO_DOWN, "Ring 2");
+			}
+			else
+				super.lateInit(level);
+		}
+		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
+		@Override protected void convertValueToLink(LinkData rec)	{
+			// Convert the current state
+			switch (rec.key) {
+				case "Ring 1":
+					rec.aimValue = new LinkValue(radiusToNumStars(firstRingRadius.get()));
+					return;
+				case "Ring 2":
+					rec.aimValue = new LinkValue(radiusToNumStars(secondRingRadius.get()));
+					return;
+				default:
+					super.convertValueToLink(rec);
+			}
+		}
+		@Override protected Boolean getDirectionOfChange(String before, String after) {
+			float valBefore	= getDensitySizeFactor(before);
+			float valAfter	= getDensitySizeFactor(after);
+			if (valAfter > valBefore)
+				return GO_UP;
+			if (valAfter < valBefore)
+				return GO_DOWN;
+			return null;
 		}
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedStarDensityOption();
@@ -112,6 +186,7 @@ public interface IAdvOptions extends IBaseOptsTools {
 			options.selectedPlanetQualityOption(newValue);
 		}
 	}
+
 	ParamList terraforming		= new Terraforming(); // Duplicate Do not add the list
 	class Terraforming extends ParamList {
 		Terraforming() {
@@ -144,6 +219,7 @@ public interface IAdvOptions extends IBaseOptsTools {
 	class CouncilWin extends ParamList {
 		CouncilWin() {
 			super(ADV_UI, "COUNCIL_WIN", getCouncilWinOptions(), COUNCIL_REBELS);
+			this.setDefaultValue(MOO1_DEFAULT, COUNCIL_IMMEDIATE);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
