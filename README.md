@@ -67,9 +67,12 @@ Later:
 
 ## What's New
 
+2024.06.25 (BR)
+- Fixed possible crash when loading an old game.
+
 2024.06.24 (BR)
 - New option to select the default values:
-  - RotP-Fustion
+  - RotP-Fusion
   - RotP-Original
   - MoO1
 - Created option link for

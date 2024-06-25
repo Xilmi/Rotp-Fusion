@@ -1993,6 +1993,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     			|| galaxyShape.equals(IGameOptions.SHAPE_RANDOM_2);
     }
  	public	void postGalaxySizeSelection(boolean click) {
+ 		opts = guiOptions();
 		if (click) softClick();
 		int numOpps = opts.selectedNumberOpponents();
 		if(numOpps<0) {
@@ -2014,6 +2015,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		postSelectionLight(false);
 	}
 	public	void postSelectionFull(boolean click) {
+		opts = guiOptions();
 		if (click) softClick();
 		opts.galaxyShape().quickGenerate();
 		backImg = null;
@@ -2021,6 +2023,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		postSelectionLight(false);
 	}
 	public	void postSelectionMedium(boolean click) {
+		opts = guiOptions();
 		if (click) softClick();
 		opts.galaxyShape().quickGenerate();
 		nebulas = null;

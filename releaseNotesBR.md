@@ -3,7 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 - New option to select the default values:
-  - RotP-Fustion
+  - RotP-Fusion
   - RotP-Original
   - MoO1
 - New option to set the number of nearby and midrange stars.
@@ -21,6 +21,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Option to allow nearby stars to be out of the galaxy limits.
 - Fixed "cold war" Colony ship being afraid of its own weapons...
 - New limits and minor fixes.
+- Fixed possible crash when loading an old game.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -125,7 +126,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - (Xilmi) Implemented AI-confidence-feature.
 - Military view tab in the colonies screen: "Shield" column display as "Nebula" when the planet is in a nebula.
 - New option to select the default values:
-  - RotP-Fustion
+  - RotP-Fusion
   - RotP-Original
   - MoO1
 - New option to set the number of nearby and midrange stars.
