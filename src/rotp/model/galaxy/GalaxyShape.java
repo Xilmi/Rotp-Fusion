@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import rotp.model.game.IGameOptions;
 import rotp.util.Base;
 import rotp.util.Rand;
@@ -63,14 +64,10 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private float sysBuffer = 1.9f;
 	int numEmpires;
 	private int numOpponents;
-//	private Rand randRnd = new Rand(random()); // For random option selection purpose
-//	Rand rand	 = new Rand(random()); // For other than location purpose
-//	Rand randX	 = new Rand.RandX(random()); // For X and R
-//	Rand randY	 = new Rand.RandY(random());  // for Y and Angle
-	private Rand randRnd = new Rand(rng().nextLong()); // For random option selection purpose
-	Rand rand	 = new Rand(randRnd.nextLong()); // For other than location purpose
-	Rand randX	 = new Rand(randRnd.nextLong()); // For X and R
-	Rand randY	 = new Rand(randRnd.nextLong());  // for Y and Angle
+	private Rand randRnd = new Rand(random()); // For random option selection purpose
+	Rand rand	 = new Rand(random()); // For other than location purpose
+	Rand randX	 = new Rand.RandX(random()); // For X and R
+	Rand randY	 = new Rand.RandY(random());  // for Y and Angle
 	private long tm0; // for timing computation
 	// \BR
 	
@@ -91,14 +88,10 @@ public abstract class GalaxyShape implements Base, Serializable {
 		init0();
 	}
 	private void init0() {
-//		randRnd = new Rand(opts.selectedGalaxyRandSource());
-//		rand	= new Rand(opts.selectedGalaxyRandSource());
-//		randX	= new Rand.RandX(opts.selectedGalaxyRandSource());
-//		randY	= new Rand.RandY(opts.selectedGalaxyRandSource());
 		randRnd = new Rand(opts.selectedGalaxyRandSource());
-		rand	= new Rand(randRnd.nextLong());
-		randX	= new Rand(randRnd.nextLong());
-		randY	= new Rand(randRnd.nextLong());
+		rand	= new Rand(opts.selectedGalaxyRandSource());
+		randX	= new Rand.RandX(opts.selectedGalaxyRandSource());
+		randY	= new Rand.RandY(opts.selectedGalaxyRandSource());
 
 		finalOption1 = opts.selectedGalaxyShapeOption1();
 		finalOption2 = opts.selectedGalaxyShapeOption2();

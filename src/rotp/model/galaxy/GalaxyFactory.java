@@ -21,7 +21,7 @@ import static rotp.model.empires.CustomRaceDefinitions.getAllAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.optionToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.raceFileExist;
-import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.GAME_OPTIONS_FILE;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class GalaxyFactory implements Base {
 		Race playerRace = Race.keyed(gc.empires[0].raceKey, gc.empires[0].raceOptions);
 		addNebulas(g, src);
 		List<String> systemNames = playerRace.systemNames;
-		shuffle(systemNames);
+		Collections.shuffle(systemNames, rng());
 		
 		addPlayerSystemForGalaxy(g, 0, null, src);
 		addAlienRaceSystemsForGalaxy(g, 1, null, src, alienRaces);
@@ -124,7 +124,7 @@ public class GalaxyFactory implements Base {
 		log(str(g.nebulas().size()) +" Nebulas: "+(tm1-tm0)+"ms");
 
 		List<String> systemNames = playerRace.systemNames;
-		shuffle(systemNames);
+		Collections.shuffle(systemNames, rng());
 
 		List<EmpireSystem> empires = shape.empireSystems();
 		addPlayerSystemForGalaxy(g, 0, empires, null);
@@ -268,7 +268,7 @@ public class GalaxyFactory implements Base {
 						firstTierTechs.add(id);
 				}
 				// shuffle for randomness
-				shuffle(firstTierTechs);
+				Collections.shuffle(firstTierTechs, rng());
 				e.tech().learnTech(firstTierTechs.get(0));
 				e.tech().learnTech(firstTierTechs.get(1));
 			}
@@ -341,7 +341,7 @@ public class GalaxyFactory implements Base {
 
 		// first, build randomized list of opponent races
 		for (int i=0;i<mult;i++) {
-			shuffle(options);
+			Collections.shuffle(options, rng());
 			allRaceOptions.addAll(options);
 		}
 

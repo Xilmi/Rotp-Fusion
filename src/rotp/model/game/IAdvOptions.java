@@ -1,8 +1,8 @@
 package rotp.model.game;
 
 import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
-import static rotp.model.game.IGameOptions.AI_HOSTILITY_NORMAL;
 import static rotp.model.game.IGameOptions.AUTOPLAY_OFF;
+import static rotp.model.game.IGameOptions.AI_HOSTILITY_NORMAL;
 import static rotp.model.game.IGameOptions.COLONIZING_NORMAL;
 import static rotp.model.game.IGameOptions.COUNCIL_IMMEDIATE;
 import static rotp.model.game.IGameOptions.COUNCIL_REBELS;
@@ -13,6 +13,7 @@ import static rotp.model.game.IGameOptions.PLANET_QUALITY_NORMAL;
 import static rotp.model.game.IGameOptions.RANDOMIZE_AI_NONE;
 import static rotp.model.game.IGameOptions.RANDOM_EVENTS_NO_MONSTERS;
 import static rotp.model.game.IGameOptions.RESEARCH_NORMAL;
+import static rotp.model.game.IGameOptions.STAR_DENSITY_NORMAL;
 import static rotp.model.game.IGameOptions.TECH_TRADING_YES;
 import static rotp.model.game.IGameOptions.TERRAFORMING_NORMAL;
 import static rotp.model.game.IGameOptions.WARP_SPEED_NORMAL;
@@ -26,6 +27,7 @@ import static rotp.model.game.IGameOptions.getPlanetQualityOptions;
 import static rotp.model.game.IGameOptions.getRandomEventOptions;
 import static rotp.model.game.IGameOptions.getRandomizeAIOptions;
 import static rotp.model.game.IGameOptions.getResearchRateOptions;
+import static rotp.model.game.IGameOptions.getStarDensityOptions;
 import static rotp.model.game.IGameOptions.getTechTradingOptions;
 import static rotp.model.game.IGameOptions.getTerraformingOptions;
 import static rotp.model.game.IGameOptions.getWarpSpeedOptions;
@@ -34,14 +36,10 @@ import static rotp.model.game.ISystemsOptions.firstRingSystemNumber;
 import static rotp.model.game.ISystemsOptions.radiusToNumStars;
 import static rotp.model.game.ISystemsOptions.secondRingRadius;
 import static rotp.model.game.ISystemsOptions.secondRingSystemNumber;
-import static rotp.model.game.ISystemsOptions.surfaceSecurityFactor;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import rotp.ui.util.IParam;
 import rotp.ui.util.LinkData;
@@ -51,78 +49,7 @@ import rotp.ui.util.ParamList;
 // Duplicates Options, Race Menu Options and Galaxy Options
 //
 public interface IAdvOptions extends IBaseOptsTools {
-
-	String STAR_DENSITY_LONELY   = "SETUP_STAR_DENSITY_LONELY";
-	String STAR_DENSITY_U_WIDE   = "SETUP_STAR_DENSITY_U_WIDE";
-	String STAR_DENSITY_V_WIDE   = "SETUP_STAR_DENSITY_V_WIDE";
-	String STAR_DENSITY_WIDER    = "SETUP_STAR_DENSITY_WIDER";
-	String STAR_DENSITY_WIDE     = "SETUP_STAR_DENSITY_WIDE";
-	String STAR_DENSITY_LOWEST   = "SETUP_STAR_DENSITY_LOWEST";
-	String STAR_DENSITY_LOWER    = "SETUP_STAR_DENSITY_LOWER";
-	String STAR_DENSITY_LOW      = "SETUP_STAR_DENSITY_LOW";
-	String STAR_DENSITY_NORMAL   = "SETUP_STAR_DENSITY_NORMAL";
-	String STAR_DENSITY_HIGH     = "SETUP_STAR_DENSITY_HIGH";
-	String STAR_DENSITY_HIGHER   = "SETUP_STAR_DENSITY_HIGHER";
-	String STAR_DENSITY_HIGHEST  = "SETUP_STAR_DENSITY_HIGHEST";
-
-    public static List<String> getStarDensityOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(STAR_DENSITY_LONELY);
-        list.add(STAR_DENSITY_U_WIDE);
-        list.add(STAR_DENSITY_V_WIDE);
-        list.add(STAR_DENSITY_WIDER);
-        list.add(STAR_DENSITY_WIDE);
-        list.add(STAR_DENSITY_LOWEST);
-        list.add(STAR_DENSITY_LOWER);
-        list.add(STAR_DENSITY_LOW);
-        list.add(STAR_DENSITY_NORMAL);
-        list.add(STAR_DENSITY_HIGH);
-        list.add(STAR_DENSITY_HIGHER);
-        list.add(STAR_DENSITY_HIGHEST);
-        return list;
-    }
-	static LinkedHashMap<String, Float> densityMap() {
-		LinkedHashMap<String, Float> map = new LinkedHashMap<>();
-	    map.put(STAR_DENSITY_LONELY,	4f);
-	    map.put(STAR_DENSITY_U_WIDE,	3f);
-	    map.put(STAR_DENSITY_V_WIDE,	2.3f);
-	    map.put(STAR_DENSITY_WIDER,		1.8f);
-	    map.put(STAR_DENSITY_WIDE,		1.5f);
-	    map.put(STAR_DENSITY_LOWEST,	1.3f);
-	    map.put(STAR_DENSITY_LOWER,		1.2f);
-	    map.put(STAR_DENSITY_LOW,		1.1f);
-	    map.put(STAR_DENSITY_NORMAL,	1f);
-	    map.put(STAR_DENSITY_HIGH,		0.9f);
-	    map.put(STAR_DENSITY_HIGHER,	0.8f);
-	    map.put(STAR_DENSITY_HIGHEST,	0.7f);
-		return map;
-	}
-	static List<String> getGalaxyDensityOptions(float maxDensity) {
-		LinkedHashMap<String, Float> map = densityMap();
-		List<String> list = new ArrayList<>();
-		for (Entry<String, Float> entry : map.entrySet())
-			if (maxDensity >= entry.getValue())
-				list.add(entry.getKey());
-		if (list.isEmpty())
-			list.add(STAR_DENSITY_HIGHEST);
-		return list;
-	}
-	static String getDensityKey(float minDensity) {
-		LinkedHashMap<String, Float> map = densityMap();
-		for (Entry<String, Float> entry : map.entrySet())
-			if (minDensity >= entry.getValue())
-				return entry.getKey();
-		return null;
-	}
-	static float getDensitySizeFactor(String density)	{ return densityMap().get(density); }
-	default float densitySizeFactor(String density)	{ return getDensitySizeFactor(density); }
-	float densitySizeFactor();
-	default float systemBuffer(String density)	{  return 1.9f * getDensitySizeFactor(density); }
-
-//	static float getSystemBuffer(String densityOption)	{ 
-//		return 1.9f * getDensitySizeFactor(densityOption);
-//	}
-
+	
 	// ==================== Duplicates for Base Advanced Options ====================
 	//
 	ParamList galaxyAge = new GalaxyAge(); // Duplicate Do not add the list
@@ -138,7 +65,37 @@ public interface IAdvOptions extends IBaseOptsTools {
 			options.selectedGalaxyAge(newValue);
 		}
 	}
-	
+
+	default float densitySizeFactor(String density)	{ return getDensitySizeFactor(density); }
+	static  float getDensitySizeFactor(String densityOption) {
+        switch (densityOption) {
+	        case IGameOptions.STAR_DENSITY_LONELY:  return 1.3f;
+	        case IGameOptions.STAR_DENSITY_U_WIDE:  return 1.3f;
+	        case IGameOptions.STAR_DENSITY_V_WIDE:  return 1.3f;
+	        case IGameOptions.STAR_DENSITY_WIDER:   return 1.3f;
+	        case IGameOptions.STAR_DENSITY_WIDE:    return 1.3f;
+	        case IGameOptions.STAR_DENSITY_LOWEST:  return 1.3f;
+            case IGameOptions.STAR_DENSITY_LOWER:   return 1.2f;
+            case IGameOptions.STAR_DENSITY_LOW:     return 1.1f;
+            case IGameOptions.STAR_DENSITY_HIGH:    return 0.9f;
+            case IGameOptions.STAR_DENSITY_HIGHER:  return 0.8f;
+            case IGameOptions.STAR_DENSITY_HIGHEST: return 0.7f;
+        }
+        return 1.0f;
+    }
+	default float systemBuffer(String density)	{ return getSystemBuffer(density); }
+	public static float getSystemBuffer(String densityOption) { 
+//		switch (densityOption) {
+//			case IGameOptions.STAR_DENSITY_LOWEST:  return 2.5f;
+//			case IGameOptions.STAR_DENSITY_LOWER:   return 2.3f;
+//			case IGameOptions.STAR_DENSITY_LOW:		return 2.1f;
+//			case IGameOptions.STAR_DENSITY_HIGH:	return 1.7f;
+//			case IGameOptions.STAR_DENSITY_HIGHER:  return 1.5f;
+//			case IGameOptions.STAR_DENSITY_HIGHEST: return 1.3f;
+//		}
+		return 1.9f * getDensitySizeFactor(densityOption);
+	}
+	float densitySizeFactor();
 	default ParamList starDensity()	{ return starDensity; }
 	ParamList starDensity = new StarDensity(); // Duplicate Do not add the list
 	class StarDensity extends ParamList {
@@ -146,7 +103,7 @@ public interface IAdvOptions extends IBaseOptsTools {
 			super(ADV_UI, "STAR_DENSITY", getStarDensityOptions(), STAR_DENSITY_NORMAL);
 			showFullGuide(true);
 		}
-		@Override public void initDependencies(int level)	{
+		@Override public void lateInit(int level)	{
 			if (level == 0) {
 				resetLinks();
 				// Density numerical value = spreading
@@ -154,22 +111,9 @@ public interface IAdvOptions extends IBaseOptsTools {
 				addLink(firstRingSystemNumber,  DO_LOCK, GO_UP, GO_DOWN, "Ring 1");
 				addLink(secondRingSystemNumber, DO_LOCK, GO_UP, GO_DOWN, "Ring 2");
 			}
-			else {
-				IGameOptions opts = opts();
-				float density1 = density(opts.firstRingRadius(), opts.firstRingSystemNumber());
-				float density2 = density(opts.secondRingRadius(), opts.secondRingSystemNumber());
-				float maxDensity = Math.min(density1, density2);
-				reInit(getGalaxyDensityOptions(maxDensity));
-				boolean invalid = isInvalidLocalValue(get());
-				if (invalid) {
-					invalid = isInvalidLocalValue(get());
-					if (invalid) {
-						set(STAR_DENSITY_HIGHEST);
-					}
-				}
-				super.initDependencies(level);
-			}
-       		}
+			else
+				super.lateInit(level);
+		}
 		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
 		@Override protected void convertValueToLink(LinkData rec)	{
 			// Convert the current state
@@ -198,12 +142,6 @@ public interface IAdvOptions extends IBaseOptsTools {
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedStarDensityOption(newValue);
-		}
-		private float density(float radius, int NumStar)	{
-			float systemBuffer = (float) (radius / (Math.sqrt(NumStar) * surfaceSecurityFactor));
-			float density = systemBuffer / 1.9f;
-			System.out.println("density = " + density);
-			return density;
 		}
 	}
 
@@ -438,8 +376,8 @@ public interface IAdvOptions extends IBaseOptsTools {
 						IPreGameOptions.preGameOptionsUI(),
 						IInGameOptions.inGameOptionsUI(),
 						IMainOptions.commonOptionsUI(),
-						ICombatOptions.combatOptionsUI()
-						//IInGameOptions.baseModOptionsUI()
+						ICombatOptions.combatOptionsUI(),
+						IInGameOptions.baseModOptionsUI()
 						));
 		return options;
 	}

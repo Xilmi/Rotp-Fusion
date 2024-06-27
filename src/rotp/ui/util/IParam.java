@@ -33,14 +33,8 @@ public interface IParam extends InterfaceOptions{
 	public static final String LABEL_DESCRIPTION = "_DESC";
 	public static final String LABEL_HELP		 = "_HELP";
 	public static final String END				 = "   ";
-	public static final int INIT_DEPENDENCIES	 = 0;
-	public static final int VALID_DEPENDENCIES	 = 1;
 
-	/**
-	 * To be used after starting RotP or loading options
-	 * @param level: "0" for list initialization, "1" for value validation
-	 */
-	public default void initDependencies(int level)	{}
+	public default void lateInit(int level)	{}
 	// user input
 	public default boolean next() { return false; } // Return forceUpdate
 	public default boolean prev() { return false; } // Return forceUpdate

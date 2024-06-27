@@ -57,7 +57,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -95,7 +94,7 @@ public interface Base {
     public static String[] monthName = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
     public static String[] letter = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N" };
     //public static Random random = new Random(); // Moved to Rotp for reset purpose
-    public default Rand rng() { return Rotp.random; }
+    public default Random rng() { return Rotp.random; }
     public static DecimalFormat df1 = new DecimalFormat("0.0");
     public static DecimalFormat df2 = new DecimalFormat("0.00");
     public static DecimalFormat df3 = new DecimalFormat("0.000");
@@ -299,7 +298,7 @@ public interface Base {
     public default float distance(float x0, float y0, float x1, float y1) {
         return (float) Math.sqrt( ((x1-x0)*(x1-x0)) + ((y1-y0)*(y1-y0)) );
     }
-    public default float random()              { return rng().nextFloat(); }
+    public default float random()               { return rng().nextFloat(); }
     public default float random(float d)       { return d * random(); }
     public default float random(float low, float hi) { return low + ((hi-low)*random()); }
     public default <T> T random(T[] array) {
@@ -325,12 +324,7 @@ public interface Base {
     public default <T> T random(Set<T> list) {
         return random(new ArrayList<>(list));
     }
-    public default void shuffle(List<?> list, Rand rand)	{
-    	Collections.shuffle(list, new Random(rand.nextLong()));
-    }
-    public default void shuffle(List<?> list)	{
-    	Collections.shuffle(list, new Random(rng().nextLong()));
-    }    public default float asin(float d)  { return (float) FastMath.asin(d); }
+    public default float asin(float d)  { return (float) FastMath.asin(d); }
     public default int bounds(int low, int val, int hi) {
         return Math.min(Math.max(low, val), hi);
     }

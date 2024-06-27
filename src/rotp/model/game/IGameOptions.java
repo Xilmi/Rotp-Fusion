@@ -163,6 +163,19 @@ public interface IGameOptions extends IModOptions {
     public static final String COUNCIL_NO_ALLIANCES  = "SETUP_COUNCIL_NO_ALLIANCES";
     public static final String COUNCIL_REALMS_BEYOND = "SETUP_COUNCIL_REALMS_BEYOND";
 
+    public static final String STAR_DENSITY_LONELY   = "SETUP_STAR_DENSITY_LONELY";
+    public static final String STAR_DENSITY_U_WIDE   = "SETUP_STAR_DENSITY_U_WIDE";
+    public static final String STAR_DENSITY_V_WIDE   = "SETUP_STAR_DENSITY_V_WIDE";
+    public static final String STAR_DENSITY_WIDER    = "SETUP_STAR_DENSITY_WIDER";
+    public static final String STAR_DENSITY_WIDE     = "SETUP_STAR_DENSITY_WIDE";
+    public static final String STAR_DENSITY_LOWEST   = "SETUP_STAR_DENSITY_LOWEST";
+    public static final String STAR_DENSITY_LOWER    = "SETUP_STAR_DENSITY_LOWER";
+    public static final String STAR_DENSITY_LOW      = "SETUP_STAR_DENSITY_LOW";
+    public static final String STAR_DENSITY_NORMAL   = "SETUP_STAR_DENSITY_NORMAL";
+    public static final String STAR_DENSITY_HIGH     = "SETUP_STAR_DENSITY_HIGH";
+    public static final String STAR_DENSITY_HIGHER   = "SETUP_STAR_DENSITY_HIGHER";
+    public static final String STAR_DENSITY_HIGHEST  = "SETUP_STAR_DENSITY_HIGHEST";
+
     // modnar: change PLANET_QUALITY settings, add larger and richer
     public static final String PLANET_QUALITY_LARGER = "SETUP_PLANET_QUALITY_LARGER";
     public static final String PLANET_QUALITY_RICHER = "SETUP_PLANET_QUALITY_RICHER";
@@ -750,6 +763,22 @@ public interface IGameOptions extends IModOptions {
         list.add(RESEARCH_IMPEDED);
         return list;
     }
+    public static List<String> getStarDensityOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(STAR_DENSITY_LONELY);
+        list.add(STAR_DENSITY_U_WIDE);
+        list.add(STAR_DENSITY_V_WIDE);
+        list.add(STAR_DENSITY_WIDER);
+        list.add(STAR_DENSITY_WIDE);
+        list.add(STAR_DENSITY_LOWEST);
+        list.add(STAR_DENSITY_LOWER);
+        list.add(STAR_DENSITY_LOW);
+        list.add(STAR_DENSITY_NORMAL);
+        list.add(STAR_DENSITY_HIGH);
+        list.add(STAR_DENSITY_HIGHER);
+        list.add(STAR_DENSITY_HIGHEST);
+        return list;
+    }
     public static List<String> getTechTradingOptions() {
         List<String> list = new ArrayList<>();
         list.add(TECH_TRADING_YES);
@@ -784,4 +813,66 @@ public interface IGameOptions extends IModOptions {
         list.add(DIFFICULTY_CUSTOM);
         return list;
     }
+//    public static List<String> getGalaxySizeOptions() {
+//        int max = Rotp.maximumSystems;
+//        List<String> list = new ArrayList<>();
+//        list.add(SIZE_DYNAMIC);
+//        if (max > 24)
+//        list.add(SIZE_MICRO);
+//        if (max > 33)
+//        list.add(SIZE_TINY);
+//        if (max > 50)
+//            list.add(SIZE_SMALL);
+//        if (max > 70)
+//            list.add(SIZE_SMALL2);
+//        if (max > 100)
+//            list.add(SIZE_MEDIUM);
+//        if (max > 150)
+//            list.add(SIZE_MEDIUM2);
+//        if (max > 225)
+//            list.add(SIZE_LARGE);
+//        if (max > 333)
+//            list.add(SIZE_LARGE2);
+//        if (max > 500)
+//            list.add(SIZE_HUGE);
+//        if (max > 700)
+//            list.add(SIZE_HUGE2);
+//        if (max > 1000)
+//            list.add(SIZE_MASSIVE);
+//        if (max > 1500)
+//            list.add(SIZE_MASSIVE2);
+//        if (max > 2250)
+//            list.add(SIZE_MASSIVE3);
+//        if (max > 3333)
+//            list.add(SIZE_MASSIVE4);
+//        if (max > 5000)
+//            list.add(SIZE_MASSIVE5);
+//        if (max > 10000)
+//            list.add(SIZE_INSANE);
+//        if (max > 100000)
+//            list.add(SIZE_LUDICROUS);
+//        list.add(SIZE_MAXIMUM);
+//        return list;
+//    }
+//    public static List<String> getGalaxyShapeOptions() {
+//        List<String> list = new ArrayList<>();
+//        list.add(SHAPE_RECTANGLE);
+//        list.add(SHAPE_ELLIPTICAL);
+//        list.add(SHAPE_SPIRAL);
+//        // modnar: add new map shapes
+//        list.add(SHAPE_TEXT);
+//        list.add(SHAPE_CLUSTER);
+//		list.add(SHAPE_SWIRLCLUSTERS);
+//		list.add(SHAPE_GRID);
+//		list.add(SHAPE_SPIRALARMS);
+//		list.add(SHAPE_MAZE);
+//		list.add(SHAPE_SHURIKEN);
+//		list.add(SHAPE_BULLSEYE);
+//		list.add(SHAPE_LORENZ);
+//		list.add(SHAPE_FRACTAL);
+//		list.add(SHAPE_BITMAP);
+//		list.add(SHAPE_RANDOM);
+//		list.add(SHAPE_RANDOM_2);
+//        return list;
+//    }    
 }

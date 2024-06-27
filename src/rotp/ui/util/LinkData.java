@@ -2,14 +2,13 @@ package rotp.ui.util;
 
 import static rotp.ui.util.AbstractParam.DO_FOLLOW;
 import static rotp.ui.util.AbstractParam.DO_LOCK;
-import static rotp.ui.util.AbstractParam.DO_REFRESH;
 
 import java.util.List;
 
 public class LinkData {
 	final AbstractParam<?> src;
 	final AbstractParam<?> aim;
-	public final int action;
+	private final int action;
 	final boolean srcUp;	// Source evolution trigger
 	public final boolean aimUp;	// Link evolution effect
 	public final String key;
@@ -91,12 +90,6 @@ public class LinkData {
 			if (entry.follow(aimUp))
 				entry.copy().followValue(aimValue);
 		}
-		// update the dependencies list
-		for (LinkData entry : linkList) {
-			if (entry.action == DO_REFRESH)
-				entry.aim.initDependencies(IParam.VALID_DEPENDENCIES);
-		}
-
 	}
 	boolean follow(boolean dir)		{ return dir == srcUp && action == DO_FOLLOW; }
 	boolean locked(boolean dir)		{ return dir == srcUp && action == DO_LOCK; }

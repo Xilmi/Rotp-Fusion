@@ -30,6 +30,7 @@ import java.lang.management.ManagementFactory;
 import java.net.URISyntaxException;
 import java.util.ArrayList; // modnar: change to cleaner icon set
 import java.util.List; // modnar: change to cleaner icon set
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -43,7 +44,6 @@ import rotp.ui.SwingExceptionHandler;
 import rotp.ui.UserPreferences;
 import rotp.util.FontManager;
 import rotp.util.ImageManager;
-import rotp.util.Rand;
 
 public class Rotp {
     private static final int MB = 1048576;
@@ -52,7 +52,7 @@ public class Rotp {
     public static final int IMG_W = 1229;
     public static final int IMG_H = 768;
     public static boolean noOptions = true; // BR: Options are not ready to be called
-    public static Rand random = new Rand(); // BR: to allow RNG reset
+    public static Random random = new Random(); // BR: to allow RNG reset
 
     public static String jarFileName = "rotp-" + version + RotpGovernor.miniSuffix() + ".jar";
     public static String exeFileName = "rotp-" + version + ".exe";

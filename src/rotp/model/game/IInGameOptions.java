@@ -442,9 +442,10 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				)));
 		return map;
 	};
-//	String BASE_MOD_GUI_ID	= "BASE_MOD_OPTIONS";
-//	static ParamSubUI baseModOptionsUI() {
-//		return new ParamSubUI( MOD_UI, BASE_MOD_GUI_ID, baseModOptionsMap());
-//	}
-//	ParamSubUI baseModOptionsUI	= baseModOptionsUI();
+	String BASE_MOD_GUI_ID	= "BASE_MOD_OPTIONS";
+	static ParamSubUI baseModOptionsUI() {
+		return new ParamSubUI( MOD_UI, BASE_MOD_GUI_ID, baseModOptionsMap());
+	}
+	ParamSubUI baseModOptionsUI	= baseModOptionsUI();
+
 }

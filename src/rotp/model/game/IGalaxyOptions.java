@@ -68,6 +68,49 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	String SHAPE_RANDOM		= "SETUP_GALAXY_SHAPE_RANDOM";
 	String SHAPE_RANDOM_2	= "SETUP_GALAXY_SHAPE_RANDOM_2";
 
+/*	static List<String> getGalaxySizeOptions() {
+		int max = Rotp.maximumSystems;
+		List<String> list = new ArrayList<>();
+		list.add(SIZE_DYNAMIC);
+		if (max > 24)
+		list.add(SIZE_MICRO);
+		if (max > 33)
+		list.add(SIZE_TINY);
+		if (max > 50)
+			list.add(SIZE_SMALL);
+		if (max > 70)
+			list.add(SIZE_SMALL2);
+		if (max > 100)
+			list.add(SIZE_MEDIUM);
+		if (max > 150)
+			list.add(SIZE_MEDIUM2);
+		if (max > 225)
+			list.add(SIZE_LARGE);
+		if (max > 333)
+			list.add(SIZE_LARGE2);
+		if (max > 500)
+			list.add(SIZE_HUGE);
+		if (max > 700)
+			list.add(SIZE_HUGE2);
+		if (max > 1000)
+			list.add(SIZE_MASSIVE);
+		if (max > 1500)
+			list.add(SIZE_MASSIVE2);
+		if (max > 2250)
+			list.add(SIZE_MASSIVE3);
+		if (max > 3333)
+			list.add(SIZE_MASSIVE4);
+		if (max > 5000)
+			list.add(SIZE_MASSIVE5);
+		if (max > 10000)
+			list.add(SIZE_INSANE);
+		if (max > 100000)
+			list.add(SIZE_LUDICROUS);
+		list.add(SIZE_MAXIMUM);
+		return list;
+	} */
+	//	default List<String> galaxySizeOptions()	{ return getGalaxySizeOptions(); }
+
 	// ==================== Galaxy Menu addition ====================
 	//
 	default int		selectedGalaxyRandSource()			{ return GOI().galaxyRandSource.get(); }
@@ -383,7 +426,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				setDefaultValue(MOO1_DEFAULT, SIZE_MICRO);
 				showFullGuide(false);
 			}
-			@Override public void initDependencies(int level)	{
+			@Override public void lateInit(int level)	{
 				if (level == 0) {
 					//resetLinks();
 					//addFollower(IPreGameOptions.dynStarsPerEmpire, FOLLOW_DOWN);
@@ -391,20 +434,12 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 					//addFollower(secondRingSystemNumber, FOLLOW_DOWN);
 				}
 				else {
-					IGameOptions opts = opts();
-					int minSize = Math.max(opts.selectedMinStarsPerEmpire()+1,
-											opts.secondRingSystemNumber()+2);
+					int minSize = opts().secondRingSystemNumber();
 					reInit(getGalaxySizeOptions(minSize));
-					boolean invalid = isInvalidLocalValue(get());
-					if (invalid) {
-						invalid = isInvalidLocalValue(get());
-						if (invalid) {
-							set(SIZE_DYNAMIC);
-						}
-					}
-					super.initDependencies(level);
+					super.lateInit(level);
 				}
 			}
+	
 			@Override public String getOptionValue(IGameOptions options) {
 				return options.selectedGalaxySize();
 			}
@@ -458,16 +493,16 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			}
 			@Override public boolean isValidValue()	{
 				boolean invalid = isInvalidLocalValue(get());
-//				if (invalid) {
-//					IGameOptions opts = opts();
-//					int minSize = Math.max(opts.selectedMinStarsPerEmpire()+1,
-//											opts.secondRingSystemNumber()+2);
-//					reInit(getGalaxySizeOptions(minSize));
-//					invalid = isInvalidLocalValue(get());
-//					if (invalid) {
-//						set(SIZE_DYNAMIC);
-//					}
-//				}
+				if (invalid) {
+					IGameOptions opts = opts();
+					int minSize = Math.max(opts.selectedMinStarsPerEmpire()+1,
+											opts.secondRingSystemNumber()+2);
+					reInit(getGalaxySizeOptions(minSize));
+					invalid = isInvalidLocalValue(get());
+					if (invalid) {
+						set(SIZE_DYNAMIC);
+					}
+				}
 				return !invalid;
 			}
 			@Override public boolean isInvalidLocalValue(LinkData rec)	{ return super.isInvalidLocalValue(rec); }

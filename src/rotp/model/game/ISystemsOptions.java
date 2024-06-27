@@ -106,15 +106,14 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			isValueInit(false);
 			guiFormat("0.0");
 		}
-		@Override public void initDependencies(int level)	{
+		@Override public void lateInit(int level)	{
 			if (level == 0) {
 				resetLinks();
 				addLink(secondRingRadius,	   DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
 				addLink(firstRingSystemNumber, DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
-				addLink(opts().starDensity(),	DO_REFRESH);
 			}
 			else
-				super.initDependencies(level);
+				super.lateInit(level);
 		}
 		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
 		@Override protected void convertValueToLink(LinkData rec)	{
@@ -141,15 +140,14 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			isValueInit(false);
 			guiFormat("0.0");
 		}
-		@Override public void initDependencies(int level)	{
+		@Override public void lateInit(int level)	{
 			if (level == 0) {
 				resetLinks();
 				addLink(firstRingRadius,		DO_FOLLOW, GO_DOWN, GO_DOWN, "Radius");
 				addLink(secondRingSystemNumber,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
-				addLink(opts().starDensity(),	DO_REFRESH);
 			}
 			else
-				super.initDependencies(level);
+				super.lateInit(level);
 		}
 		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
 		@Override protected void convertValueToLink(LinkData rec)	{
@@ -167,7 +165,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	}
 	default float secondRingRadius() { return secondRingRadius.getValidValue(); }
 
-	float surfaceSecurityFactor = 0.855f; // TODO BR: Tune
+	float surfaceSecurityFactor = 1f; // TODO BR: Tune
 
 	static Integer radiusToNumStars(float radius) {
 		float systemBuffer = 1.9f;
@@ -198,16 +196,15 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			setIncrements(1, 5, 10);
 			isValueInit(false);
 		}
-		@Override public void initDependencies(int level)	{
+		@Override public void lateInit(int level)	{
 			if (level == 0) {
 				resetLinks();
 				addLink(secondRingSystemNumber,	DO_FOLLOW, GO_UP,   GO_UP,   "Number");
 				addLink(firstRingRadius,		DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
 				addLink(firstRingHabitable,		DO_FOLLOW, GO_DOWN, GO_DOWN, "Habitable");			
-				addLink(opts().starDensity(),	DO_REFRESH);
 			}
 			else
-				super.initDependencies(level);
+				super.lateInit(level);
 		}
 		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
 		@Override protected void convertValueToLink(LinkData rec)	{
@@ -234,7 +231,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			setIncrements(1, 5, 20);
 			isValueInit(false);
 		}
-		@Override public void initDependencies(int level)	{
+		@Override public void lateInit(int level)	{
 			if (level == 0) {
 				resetLinks();
 				addLink(secondRingRadius,		DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
@@ -243,10 +240,9 @@ public interface ISystemsOptions extends IBaseOptsTools {
 				addLink(secondRingHabitable,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Habitable");
 				addLink(firstRingSystemNumber,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
 				addLink(opts().sizeSelection(),	DO_FOLLOW, GO_DOWN, GO_DOWN, "Size");
-				addLink(opts().starDensity(),	DO_REFRESH);
 			}
 			else
-				super.initDependencies(level);
+				super.lateInit(level);
 		}
 		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
 		@Override protected void convertValueToLink(LinkData rec)	{
@@ -282,14 +278,14 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			setIncrements(1, 5, 10);
 			isValueInit(false);
 		}
-		@Override public void initDependencies(int level)	{
+		@Override public void lateInit(int level)	{
 			if (level == 0) {
 				resetLinks();
 				addLink(secondRingHabitable,   DO_FOLLOW, GO_UP, GO_UP, "Habitable");
 				addLink(firstRingSystemNumber, DO_FOLLOW, GO_UP, GO_UP, "Number");
 			}
 			else
-				super.initDependencies(level);
+				super.lateInit(level);
 		}
 		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
 		@Override protected void convertValueToLink(LinkData rec)	{
@@ -314,14 +310,14 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			setIncrements(1, 5, 20);
 			isValueInit(false);
 		}
-		@Override public void initDependencies(int level)	{
+		@Override public void lateInit(int level)	{
 			if (level == 0) {
 				resetLinks();
 				addLink(secondRingSystemNumber,	DO_FOLLOW, GO_UP,   GO_UP,   "Number");
 				addLink(firstRingHabitable,		DO_FOLLOW, GO_DOWN, GO_DOWN, "Habitable");
 			}
 			else
-				super.initDependencies(level);
+				super.lateInit(level);
 		}
 		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
 		@Override protected void convertValueToLink(LinkData rec)	{

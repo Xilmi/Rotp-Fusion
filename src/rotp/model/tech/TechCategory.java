@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import rotp.model.empires.Empire;
 import rotp.model.events.RandomEventSpaceAmoeba;
@@ -27,7 +28,6 @@ import rotp.model.events.RandomEventSpacePirates;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamTech;
 import rotp.util.Base;
-import rotp.util.Rand;
 
 public final class TechCategory implements Base, Serializable {
     private static final long serialVersionUID = 1L;
@@ -249,7 +249,7 @@ public final class TechCategory implements Base, Serializable {
         }
     	return allowed;
     }
-    public Rand techRandom()		{ return tree.empire().techRandom(); }
+    public Random techRandom()		{ return tree.empire().techRandom(); }
     @Override public float random() { return techRandom().nextFloat(); }
     @Override public <T> T random(List<T> list) {
         return (list == null || list.isEmpty()) ? null : list.get(techRandom().nextInt(list.size()));

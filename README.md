@@ -67,11 +67,6 @@ Later:
 
 ## What's New
 
-2024.06.26 (BR)
-- Following a suggestion from Roland Johansoen: Renamed "Pregame" to "Setup" and "In-Game" to "Options" and updated guide and help texts consequently.
-- Switched the default random generator to a better one. (Java has two)
-- Fixed Star density list not always following as dependencies.
-
 2024.06.25 (BR)
 - Fixed possible crash when loading an old game.
 

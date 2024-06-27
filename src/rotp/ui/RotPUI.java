@@ -905,7 +905,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         }
         for (int level=0; level<2; level++)
         	for (IParam param : IModOptions.allModOptions)
-        		param.initDependencies(level);
+        		param.lateInit(level);
         selectGamePanel();
     }
     private void selectDialogPanel(String panelName, BasePanel panel)   {

@@ -22,10 +22,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed "cold war" Colony ship being afraid of its own weapons...
 - New limits and minor fixes.
 - Fixed possible crash when loading an old game.
-- Following a suggestion from Roland Johansoen: Renamed "Pregame" to "Setup" and "In-Game" to "Options" and updated guide and help texts consequently.
-- Switched the default random generator to a better one. (Java has two)
-- Fixed Star density list not always following as dependencies.
-
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -212,9 +208,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - Alt-E : Auto Build Scout (Explorer)
 - (Xilmi) Missiles are no longer taken into consideration in the facingOverwhelmingForce-check of the retreat-logic. This prevents stacks from retreating when their opponents would run out of missiles due to firing them at other stacks.
 - The display of alien factories is now more explicit.
-- Following a suggestion from Roland Johansoen: Renamed "Pregame" to "Setup" and "In-Game" to "Options" and updated guide and help texts consequently.
-- Switched the default random generator to a better one. (Java has two)
-
 
 
 <b><ins>Bug Fixes:</ins></b>
