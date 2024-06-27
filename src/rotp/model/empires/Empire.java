@@ -37,7 +37,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Random;
 import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -97,6 +96,7 @@ import rotp.ui.notifications.PlunderShipTechNotification;
 import rotp.ui.notifications.PlunderTechNotification;
 import rotp.util.Base;
 import rotp.util.ModifierKeysState;
+import rotp.util.Rand;
 
 public final class Empire implements Base, NamedObject, Serializable {
     private static final long serialVersionUID = 1L;
@@ -164,7 +164,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private DynOptions raceOptions;
 
     private Long randomSource; // for more repeatable restart
-    private Random techRandom;
+    private Rand techRandom;
 
     private transient float avgX, avgY, nameX1, nameX2; // Names position
     private transient float avgXd, avgYd, nameX1d, nameX2d; // Names position for dark Galaxies
@@ -205,12 +205,12 @@ public final class Empire implements Base, NamedObject, Serializable {
     		benchmark = status.currentPowerValue();
     	}
     }
-    public Random techRandom() { // for more repeatable restart
+    public Rand techRandom() { // for more repeatable restart
     	if (options().researchMoo1() || galaxy().numberTurns() < 1) {
         	if (techRandom == null) {
         		if (randomSource == null)
         			randomSource = rng().nextLong();
-        		techRandom = new Random(randomSource);
+        		techRandom = new Rand(randomSource);
         	}
         	return techRandom;
     	}

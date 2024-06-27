@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import rotp.Rotp;
 import rotp.model.colony.Colony;
@@ -47,6 +46,7 @@ import rotp.ui.notifications.AdviceNotification;
 import rotp.ui.notifications.BombardSystemNotification;
 import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.Base;
+import rotp.util.Rand;
 
 public class Galaxy implements Base, Serializable {
     private static final long serialVersionUID = 1L;
@@ -81,7 +81,7 @@ public class Galaxy implements Base, Serializable {
     private Integer lastHashCodeShipDesign			= 0;
     private Integer lastHashCodeDesign				= 0;
     private Integer lastHashCodeShip				= 0;
-    private Random	permRandom = rng(); // BR: to memorize RNG state
+    private Rand	permRandom = rng(); // BR: to memorize RNG state
 
     public	Integer nextHashCodeDiplomaticIncident() {
     	if (lastHashCodeDiplomaticIncident!=null)
@@ -759,7 +759,7 @@ public class Galaxy implements Base, Serializable {
     private void loadRaceNames(String rId, int i) {
         Race r = Race.keyed(rId);
         List<String> names = new ArrayList<>(r.systemNames);
-        Collections.shuffle(names, rng());
+        shuffle(names);
         raceSystemNames().put(rId, names);
         raceSystemCtr().put(rId, i);
     }

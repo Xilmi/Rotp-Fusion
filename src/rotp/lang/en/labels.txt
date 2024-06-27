@@ -583,7 +583,6 @@ SETTINGS_MOD_DISABLE_AUTO_HELP_NO         | No
 SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER      | Never
 SETTINGS_MOD_DISABLE_AUTO_HELP            | Disable Auto Help: %1
 SETTINGS_MOD_DISABLE_AUTO_HELP_DESC       | To Enable / Disable to automatics display of Galaxy Panel Help when starting a new Game.
-for the mod's In-game Options, and one for display settings (not affecting game play).
 SETTINGS_MOD_DISABLE_AUTO_HELP_YES_DESC   | Yes (But will be shown again if you delete Remnant.cfg)
 SETTINGS_MOD_DISABLE_AUTO_HELP_NO_DESC    | No (But will only be displayed once)
 SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER_DESC | I'm a fan of these pop-ups, keep them!
@@ -656,7 +655,7 @@ MAIN_HELP_MOD                     | Mod Help - "O" to bring the Game options Men
 MAIN_HELP_MOD_1A                  | To enable or disable the Governor for this star system.
 MAIN_HELP_MOD_1B                  | To access Governor's Options Menu.
 MAIN_HELP_MOD_1F                  | Turn alerts may appear there: Right click on them to center the map on the system. Left click to show the next alert.
-MAIN_HELP_MOD_1I                  | To access "In-game Options" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
+MAIN_HELP_MOD_1I                  | To access "Options" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
 MAIN_HELP_1A                      | Each star system divides its production into five areas. Grayed bars indicate that the production bar has been locked and will not change. Click on the name to lock/unlock.
 MAIN_HELP_1B                      | Shipyard - constructs the selected ship design. Large ships may take multiple turns.
 MAIN_HELP_1C                      | Defenses - builds and upgrades missile bases up to the specified limit and planetary shields when available.
@@ -1491,7 +1490,7 @@ SETUP_DIFFICULTY_NORMAL_HELP      | Normal (100%)
 SETUP_DIFFICULTY_HARD_HELP        | Hard (110%)
 SETUP_DIFFICULTY_HARDER_HELP      | Harder (125%)
 SETUP_DIFFICULTY_HARDEST_HELP     | Hardest (145%)
-SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found either:<br>&ensp - at the top left of "In-game A" (6 option buttons)<br>&ensp - or at the top Left of "In-game Options" (2 option buttons)
+SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found either:<br>&ensp - at the top left of "Options A" (6 option buttons)<br>&ensp - or at the top Left of "Options" (2 option buttons)
 
 SETUP_RESEARCH_RATE_NORMAL_HELP   | Research costs factors = 1.
 SETUP_RESEARCH_RATE_NORMAL        | Normal
@@ -1557,7 +1556,7 @@ SETUP_STAR_DENSITY_NORMAL         | Normal
 SETUP_STAR_DENSITY_HIGH           | High
 SETUP_STAR_DENSITY_HIGHER         | Higher
 SETUP_STAR_DENSITY_HIGHEST        | Highest
-SETUP_STAR_DENSITY_LONELY         | Increase the star spreading by 300% (At your own risk)
+SETUP_STAR_DENSITY_LONELY_HELP    | Increase the star spreading by 300% (At your own risk)
 SETUP_STAR_DENSITY_U_WIDE_HELP    | Increase the star spreading by 200% (At your own risk)
 SETUP_STAR_DENSITY_V_WIDE_HELP    | Increase the star spreading by 130% (At your own risk)
 SETUP_STAR_DENSITY_WIDER_HELP     | Increase the star spreading by 80% (At your own risk)
@@ -1652,26 +1651,14 @@ SETUP_BUTTON_START                | Start
 SETUP_BUTTON_RESTART              | Restart
 SETUP_BUTTON_SETTINGS             | Advanced Options
 // BR: add UI panel for modnar MOD game options
-// REF_PREGAME        | Pregame
-// REF_INGAME         | In-game
-// REF_PREGAME_C      | Pregame Options
-// REF_INGAME_C       | In-game Options
-// REF_PREGAME_PANEL  | Setup
-// REF_INGAME_PANEL   | Options
-REF_PREGAME           | Setup
-REF_INGAME            | Options
-REF_PREGAME_C         | Setup
-REF_INGAME_C          | Options
-REF_PREGAME_PANEL     | Setup
-REF_INGAME_PANEL      | Options
-// →REF_PREGAME←
-SETUP_BUTTON_STATIC_A_SETTINGS    | Pregame A
-SETUP_BUTTON_STATIC_B_SETTINGS    | Pregame B
-SETUP_BUTTON_DYNAMIC_A_SETTINGS   | In-game A
-SETUP_BUTTON_DYNAMIC_B_SETTINGS   | In-game B
-SETUP_BUTTON_MOD_GLOBAL_SETTINGS  | Menu Options
-SETUP_BUTTON_MERGED_STATIC_SETTINGS  | Pregame Options
-SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS | In-game Options
+
+SETUP_BUTTON_STATIC_A_SETTINGS       | Setup A
+SETUP_BUTTON_STATIC_B_SETTINGS       | Setup B
+SETUP_BUTTON_DYNAMIC_A_SETTINGS      | Options A
+SETUP_BUTTON_DYNAMIC_B_SETTINGS      | Options B
+SETUP_BUTTON_MOD_GLOBAL_SETTINGS     | Menu Options
+SETUP_BUTTON_MERGED_STATIC_SETTINGS  | Setup
+SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS | Options
 // BR: Restart swap empire
 SETUP_SELECT_EMPIRE_TITLE         | Select Player Empire
 SETUP_SELECT_EMPIRE_SELECT_BUTTON | Select
@@ -2177,7 +2164,7 @@ HEADERS_SPACER_DESC                  |
 HEADERS_SPACER                       |  %1
 
 // BR: add UI panel for Systems options
-SETTINGS_MOD_SYSTEMS_OPTIONS_TITLE   | Advanced Planet Options
+SETTINGS_MOD_SYSTEMS_OPTIONS_TITLE   | Advanced Stars and Planets Configuration
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI      | - Advanced Planet Options Menu -
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI_DESC | Opens a submenu containing more advanced Planetary settings.
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI_HELP | Opens a submenu containing more advanced Planetary settings.<br>These settings are finals.<br>These settings are saved with the game.
@@ -2299,8 +2286,8 @@ SETTINGS_MOD_AI_DEFENSE_CONFIDENCE_DESC     | Determines how confident the AI is
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
-SETTINGS_MOD_STATIC_TITLE            | Pregame Options
-SETTINGS_MOD_DYNAMIC_TITLE           | In-game Options
+SETTINGS_MOD_STATIC_TITLE            | Galaxy Build Setup
+SETTINGS_MOD_DYNAMIC_TITLE           | Game Rules and Settings
 SETTINGS_MOD_DIST_ARTIFACT_PLANET    | Min Artifact distance: %1
 SETTINGS_MOD_NEW_RACES_ON            | Include New Species: %1
 SETTINGS_MOD_CHALLENGE_MODE          | Challenge Mode: %1
@@ -2448,7 +2435,7 @@ SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI      | Restart Changes Aliens AI: %1
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_YES  | Opponent empires will use the current GUI Opponent AI (Play against) on Restart.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_NO   | Opponent empires will use keep their former AI on Restart.
 
-SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_HELP | When starting a new game based on a previously played game, you can either keep the previous auto-play option, or use the current GUI one. This option is not very usefull anymore, since it's now easy to change this setting in game (Ctrl-o)
+SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_HELP | When starting a new game based on a previously played game, you can either keep the previous auto-play option, or use the current GUI one. This option is not very usefull anymore, since it's now easy to change this setting while playing the game (Ctrl-o)
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_DESC | Should "Restart" Change the Player AI? 
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI      | Restart Changes AutoPlay: %1 
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_YES  | Use the current GUI Auto-play setting on Restart.
@@ -2579,12 +2566,14 @@ SETTINGS_MOD_MENU_STARTUP                | Launch Settings: %1
 // SETTINGS_MOD_MENU_AFTER_GAME             | GUI after Game: %1
 // SETTINGS_MOD_MENU_LOADING_GAME_DESC      | What options should be used when loading a game?
 // SETTINGS_MOD_MENU_LOADING_GAME           | Loading Game: %1
-SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic option menus (six menus) and Compact option menus (2 menus). Both provide a distinction between:<br><b>Pregame Options:</b>&nbsp which are only read once, when a game starts (or restarts).<br><b>In-game Options:</b>&nbsp which can be changed while playing a game. (Ctrl-o) to call the option menu.
-SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC     | Show multiple Options Menus at standard size, or only one compacted options menu?
-SETTINGS_MOD_COMPACT_OPTION_ONLY          | Options Buttons: %1
-SETTINGS_MOD_COMPACT_OPTION_ONLY_YES_DESC | Display the two buttons for accessing the compact options menus (which share a descripion space), allowing more options per menu.<br>One for the Pregame Options, the other for the In-game Options.
-SETTINGS_MOD_COMPACT_OPTION_ONLY_NO_DESC  | Display the vanilla Advanced Options Button which includes all the mod options.
-SETTINGS_MOD_COMPACT_OPTION_ONLY_6_DESC   | Display six buttons for accessing the classic options menus (which simultaneously display a small description of each option).<br>One for the original <b>Advanced Options</b>&nbsp containing both Pregame and In-game Options, two for the mod's Pregame Options, two for the mod's In-game Options, and one for display settings (not affecting game play).
+//***
+SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic configuration menus (six menus) and Compact configuration menus (2 menus). Both provide a distinction between:<br><b>Setup Settings:</b>&nbsp which are only read once, when a game starts (or restarts).<br><b>Rules and gameplay settings:</b>&nbsp which can be changed while playing a game. (Ctrl-o) to call the rules and gameplay configuration menu.
+SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC     | Show multiple configuration Menus at standard size, or only one compacted configuration menu?
+//*** -> configuration
+SETTINGS_MOD_COMPACT_OPTION_ONLY          | Settings Buttons: %1
+SETTINGS_MOD_COMPACT_OPTION_ONLY_YES_DESC | Display the two buttons for accessing the compact configuration menus (which share a description space), allowing more settings per menu.<br>One for the Galaxy building parameters, the other for the rules and gameplay parameters.
+SETTINGS_MOD_COMPACT_OPTION_ONLY_NO_DESC  | Display the vanilla Advanced Options Button which includes both vanilla and mod options.
+SETTINGS_MOD_COMPACT_OPTION_ONLY_6_DESC   | Display six buttons for accessing the classic configurations menus (which simultaneously display a small description of each setting).<br>One for the original <b>Advanced Options</b>&nbsp containing both Setup and game parameters, two for the mod's Setup parameters, two for the mod's rules and gameplay parameters, and one for display settings (not affecting gameplay).
 SETTINGS_MOD_COMPACT_OPTION_ONLY_YES      | Compact
 SETTINGS_MOD_COMPACT_OPTION_ONLY_NO       | Vanilla
 SETTINGS_MOD_COMPACT_OPTION_ONLY_6        | Classic x 6
@@ -2592,7 +2581,7 @@ SETTINGS_MOD_COMPACT_OPTION_ONLY_6        | Classic x 6
 SETTINGS_MOD_GAME_OVER_TITLE_DESC          | To switch between original Game Over panels Titles, extended ones (more specific), or the Realms Beyond community ones
 SETTINGS_MOD_GAME_OVER_TITLE               | Game Over Titles: %1
 SETTINGS_MOD_GAME_OVER_TITLE_ORIGINAL_DESC | Original Game Over panels Titles.
-SETTINGS_MOD_GAME_OVER_TITLE_EXTENDED_DESC | Extended Game Over panels Titles. More detailled info on victory conditions
+SETTINGS_MOD_GAME_OVER_TITLE_EXTENDED_DESC | Extended Game Over panels Titles. More detailed info on victory conditions
 SETTINGS_MOD_GAME_OVER_TITLE_RB_DESC       | Realms Beyond community inspired titles.
 SETTINGS_MOD_GAME_OVER_TITLE_ORIGINAL      | Originals
 SETTINGS_MOD_GAME_OVER_TITLE_EXTENDED      | Extended
@@ -2818,13 +2807,13 @@ SETTINGS_MOD_COLOR_SET              | UI Color Set: %1
 SETTINGS_MOD_COLOR_SET_BROWN        | Brown
 SETTINGS_MOD_COLOR_SET_GREY         | Grey
 SETTINGS_MOD_COLOR_SET_BROWN_DESC   | Default vanilla Brown color set.
-SETTINGS_MOD_COLOR_SET_GREY_DESC    | Alternate Grey color set, already in game, but not used!
+SETTINGS_MOD_COLOR_SET_GREY_DESC    | Alternate Dark color set.
 
 SETTINGS_MOD_REAL_NEBULAE_SIZE_DESC | Use Real Nebulae images with the this resolution factor.<br>Real Nebula distribution is non-overlapping.
 SETTINGS_MOD_REAL_NEBULAE_SIZE      | Real Nebula: %1
 SETTINGS_MOD_REAL_NEBULAE_NO        | No
 SETTINGS_MOD_REAL_NEBULAE_SHAPE_HELP | Flight path analysis will replace rectangular shape with a better approximation of the nebula shape?<br>Changing this parameter may affect the duration already sent fleet!
-SETTINGS_MOD_REAL_NEBULAE_SHAPE_HELP | To replace rectangular shape with a better approximation of the nebula shape.<br>This will impact the flight path analysis. Changing this parameter in game may impact travelling fleets arrival time. 
+SETTINGS_MOD_REAL_NEBULAE_SHAPE_HELP | To replace rectangular shape with a better approximation of the nebula shape.<br>This will impact the flight path analysis. Changing this parameter during a game may impact travelling fleets arrival time. 
 SETTINGS_MOD_REAL_NEBULAE_SHAPE_DESC | To replace rectangular shape with a better approximation of the nebula shape.
 SETTINGS_MOD_REAL_NEBULAE_SHAPE      | Real Nebula Shape: %1
 SETTINGS_MOD_REAL_NEBULAE_OPACITY_DESC | Opacity of the new real image based nebulae. 100% = No transparency.
@@ -2877,15 +2866,15 @@ SETTINGS_MOD_TARGET_BOMBARD_AI_HELP      | AI is smart enough to control its bom
 SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Player is smart enough to control its bombing, but AI is not allowed to do so!
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Everyone is able to control their bombing.
 
-SETTINGS_MOD_PRE_GAME_OPTIONS_TITLE      | Pregame Options
-SETTINGS_MOD_PRE_GAME_OPTIONS_UI         | - Pregame Options Menu -
-SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC    | Opens a submenu containing more game definer settings, they are only used once, when starting or restarting a game.
-SETTINGS_MOD_PRE_GAME_OPTIONS_UI_HELP    | Opens a submenu containing more game definer settings, they are only used once, when starting or restarting a game.
+SETTINGS_MOD_PRE_GAME_OPTIONS_TITLE      | Galaxy Set Up Parameters
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI         | - Setup Menu -
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC    | Opens a submenu containing advanced galaxy building settings, these parameters are only used once, when starting or restarting a game.
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI_HELP    | →SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC←
 
-SETTINGS_MOD_IN_GAME_OPTIONS_TITLE       | Gameplay Options
+SETTINGS_MOD_IN_GAME_OPTIONS_TITLE       | Rules and Gameplay Settings
 SETTINGS_MOD_IN_GAME_OPTIONS_UI          | - Gameplay Options Menu -
-SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC     | Opens a submenu containing more gameplay-related settings.
-SETTINGS_MOD_IN_GAME_OPTIONS_UI_HELP     | Opens a submenu containing more gameplay-related settings. These settings are saved with the game. This submenu is also available during gameplay.
+SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC     | Opens a submenu containing advanced rules and gameplay settings.
+SETTINGS_MOD_IN_GAME_OPTIONS_UI_HELP     | →SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC← These settings are saved with the game. This submenu is also available during gameplay.
 
 SETTINGS_MOD_BASE_MOD_OPTIONS_TITLE      | Base Mod Settings
 SETTINGS_MOD_BASE_MOD_OPTIONS_UI         | - Base Mod Settings Menu -
@@ -4416,9 +4405,9 @@ SETUP_START_DESC                  | Save options and Start the Game.<br> "Ctrl" 
 SETUP_BUTTON_START_DESC           | Save the current options and Start the Game.
 SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.
 SETUP_GALAXY_BACK_DESC            | Cancel options and go back to the Player options menu.
-SETUP_GALAXY_CLASSIC_OPTIONS_HELP | These buttons open Advanced option Menus.<br> "Pregame" contains parameters being set once when starting or restarting a game.<br> "In-game" contains parameters adjustable in game.<br>To switch to 2 compact option menus:<br> - Go to "Menus Options" and set "Show Compact Options" to "Yes".  (at the bottom right)<br>Compact option menus have the same appearence as the one showing in-game, following "Ctrl-o". 
-SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "Pregame" contains parameters being set once when starting or restarting a game.<br> "In-game" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Go to "Pregame Options" and set "Show Compact Options" to "No". (at the bottom right)
-SETUP_GALAXY_VANILLA_OPTIONS_HELP | This button open Advanced options Menu.<br> Press "B" to toggle the submenus call buttons.
+SETUP_GALAXY_CLASSIC_OPTIONS_HELP | These buttons open Advanced configuration Menus.<br> "Setup" contains parameters being set once when starting or restarting a game.<br> "Options" contains parameters adjustable while playing the game.<br>To switch to 2 compact option menus:<br> - Press "B" or go to "Menus Options" and set "Show Compact Options" to "Yes". <br>Compact option menus have the same appearance as the one showing while playing the game, following "Ctrl-o". 
+SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "Setup" contains parameters being set once when starting or restarting a game.<br> "Options" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Press "B" or go to "Setup" and set "Show Compact Options" to "No".
+SETUP_GALAXY_VANILLA_OPTIONS_HELP | This button open Advanced options configutation Menu.<br> Press "B" to toggle the submenus call buttons.
 SETUP_GALAXY_ABILITIES_DESC       | Default abilities for alien Empires:<br> 'Original Species' = Original abilities of the selected Species (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the original species name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Species = specific Original Species; or any other customized species you have built.
 SETUP_GALAXY_SELECTABLE_DESC      | "Yes" => A selection line will appear at the top of the boxes below, allowing the selection of individual ability.
 SETUP_GALAXY_SELECTABLE		      | Selectable Abilities
@@ -4438,7 +4427,7 @@ SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 'Original Species'_DESC | Original abilities of the selected species (the one on the icon)
 'Reworked'_DESC         | Reworked abilities of the selected species (the one on the icon), modified and saved by the player (in the Species Customization Panel) with the respectively named species files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
 'Player'_DESC           | Same abilities as the selected player race.
-'Random'_DESC           | Abilities will be randomly generated using the pregame parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
+'Random'_DESC           | Abilities will be randomly generated using the "Setup" parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
 'Random 10'_DESC        | Abilities randomly selected within the ten original species abilities.
 'Random 16'_DESC        | Abilities randomly selected within the sixteen species abilities. <i>(The ten original species and the six Modnar species)</i>
 'Files'_DESC            | Abilities randomly selected within customized species files, having the "Available to AI" option enabled. If this list is empty the selection will be made within the original species abilities.

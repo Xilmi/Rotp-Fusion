@@ -866,7 +866,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override public List<String> warpSpeedOptions()      { return IGameOptions.getWarpSpeedOptions(); }
     @Override public List<String> nebulaeOptions()        { return IGameOptions.getNebulaeOptions(); }
     @Override public List<String> councilWinOptions()     { return IGameOptions.getCouncilWinOptions(); }
-    @Override public List<String> starDensityOptions()    { return IGameOptions.getStarDensityOptions(); }
+    @Override public List<String> starDensityOptions()    { return IAdvOptions.getStarDensityOptions(); }
     @Override public List<String> aiHostilityOptions()    { return IGameOptions.getAiHostilityOptions(); }
     @Override public List<String> planetQualityOptions()  { return IGameOptions.getPlanetQualityOptions(); }
     @Override public List<String> terraformingOptions()   { return IGameOptions.getTerraformingOptions(); }
@@ -1373,19 +1373,28 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override public void resetAllNonCfgSettingsToDefault() {
     	setAllNonCfgGameSettingsToDefault();
     	setAllNonCfgBaseSettingsToDefault();
+       	if (!Rotp.noOptions) // Better safe than sorry
+       		for (IParam param : allModOptions())
+        		param.initDependencies(IParam.VALID_DEPENDENCIES);
     }
     @Override public void resetPanelSettingsToDefault(LinkedList<IParam> pList,
     		boolean excludeCfg, boolean excludeSubMenu) {
     	setPanelGameSettingsToDefault(pList, excludeCfg, excludeSubMenu);
     	setPanelBaseSettingsToDefault(pList);
+       	if (!Rotp.noOptions) // Better safe than sorry
+       		for (IParam param : allModOptions())
+        		param.initDependencies(IParam.VALID_DEPENDENCIES);
     }
     @Override public void saveOptionsToFile(String fileName) {
     	saveOptions(this, fileName);
     }
     @Override public void saveOptionsToFile(String fileName, LinkedList<IParam> pList) {
+    	// No dependencies update on load... this will on final load.
     	if (pList == null)
     		return;
+    	// Load the previous state
     	MOO1GameOptions fileOptions = loadOptions(fileName);
+    	// Then merge with the listed options
        	for (IParam param : pList)
        		if (param != null) {
        			param.copyOption(this, fileOptions, false); // don't update tool
@@ -1404,6 +1413,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	       		}
        		}
        	}
+       	if (!Rotp.noOptions) // Better safe than sorry
+       		for (IParam param : allModOptions())
+        		param.initDependencies(IParam.VALID_DEPENDENCIES);
         source.copyAllBaseSettings(this);
     }
     @Override public void updateFromFile(String fileName, LinkedList<IParam> pList) {
@@ -1431,6 +1443,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	       		}
 	       	}
     	}
+       	if (!Rotp.noOptions) // Better safe than sorry
+       		for (IParam param : allModOptions())
+        		param.initDependencies(IParam.VALID_DEPENDENCIES);
+
         source.copyPanelBaseSettings(this, pList);
     }
     @Override public void prepareToSave(boolean secure) {
@@ -1475,6 +1491,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     // !!! Must remain static: Called before option are fully initialized.
     //
     public static void copyOptionsFromLiveToLast() {
+    	// No dependencies update yet... This will be done later
     	MOO1GameOptions live = loadOptions(LIVE_OPTIONS_FILE);
     	saveOptions(live, Rotp.jarPath(), LAST_OPTIONS_FILE);
     }

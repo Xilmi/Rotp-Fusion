@@ -18,134 +18,59 @@
 package rotp.util;
 
 import java.util.List;
-import java.util.Random;
+import java.util.SplittableRandom;
 
-public class Rand extends Random{
-	// BR: To avoid structure in multi dimensional random Multiple random generators will be used randomly.
-	// BR: Trying to be more slowly uniform!
-
-	// Based on golden ratio: (The positive solution of x^2 = x + 1)
-	// https://en.wikipedia.org/wiki/Golden_ratio
-	private static final double IGR  = 0.6180339887498948482046; // Inverse of golden ratio
-	private static final double SIGR = 0.3819660112501051517954; // Square of the inverse of golden ratio
-
-	// Based on plastic number: (The real solution of x^3 = x + 1)
-	// https://en.wikipedia.org/wiki/Plastic_number
-	// Inverse of golden ratio: 2 / (sqrt(5) + 1)
-	private static final double IPR  = 0.7548776662466927600495; // Inverse of plastic number
-	private static final double SIPR = 0.5698402909980532659114; // Square of the inverse of plastic number
-
-	// Based on super golden ratio: (The real solution of x^3 = x^2 + 1)
-	// https://en.wikipedia.org/wiki/Supergolden_ratio
-	private static final double ISGR  = 0.68232780382801932736948; // Inverse of super golden ratio
-	private static final double SSIGR = 0.4655712318767680266567; // Square of the inverse of super golden ratio
-
-	// Based on silver ratio: (1 + sqrt(2))
-	// https://en.wikipedia.org/wiki/Golden_ratio
-	private static final double ISR  = 0.4142135623730950488017; // Inverse of silver ratio
-	private static final double SISR = 0.1715728752538099023966; // Square of the inverse of silver ratio
-
-	private double[] CRND;
-
-	private double[] lasts;
-	private int lastId = 0;
-
+public class Rand{
+	private SplittableRandom rng;
 	
-	public static class RandX extends Rand{
-		public RandX(double source)	{
-			super(new double[] { IGR, IPR, ISGR, ISR }, source);
-		}
-	}
-	public static class RandY extends Rand{
-		public RandY(double source)	{
-			super(new double[] { SIGR, SIPR, SSIGR, SISR }, source);
-		}
+    private double nextNextGaussian;
+    private boolean haveNextNextGaussian = false;
+
+	public Rand()			{ rng = new SplittableRandom(); }
+    public Rand(int src)	{ this((long) src); }
+	public Rand(long src)	{
+		if (src<=0)
+			rng = new SplittableRandom();
+		else
+			rng = new SplittableRandom(src);
 	}
 
-	// ===== Constructors  and Initializers =====
-	//
-	public Rand(double[] crnd, double source)	{
-		CRND = crnd;
-		init(source);
-	}
-	public Rand(double source)	{
-		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
-		init(source);
-	}
-	/**
-	 * Initialize or reinitialize the randomizer
-	 */
-	@Override public void setSeed(long seed) { init(seed); }
-	public void init(double source) {
-		if (CRND == null)
-			return;
-		lasts = new double[CRND.length];
-		if (source > 1.0)
-			source = 1/source;
-		if (source <= 0)
-			source = Math.random();
-		else if (source == 1.0)
-			source = IGR;
-		// Some chaotic function to scramble the source
-		// Required for Orion position to be very random
-		source = Math.abs(Math.sin( 1/(source*(1-source)) ));
-			
-		for (int i=0; i<lasts.length; i++) {
-			lasts[i] = source;
-			for (int k=0; k<100; k++)
-				rand(i);
-			source = rand(i);
-		}
-		lastId = (int) (source * CRND.length);
-	}
-	// ========== Private and protected Methods ==========
-	//
-	private double rand(int i) { return lasts[i] = (lasts[i]  + CRND[i])%1; }
-	private double next() {
-			lastId = (int) (rand(lastId) * CRND.length);
-		return rand(lastId);
-	}
-	@Override protected int next(int bits) { return nextInt(); }
-
-	// ========== Public getter Methods ==========
-	//
-
-	// ===== Basic getters
-	/**
-	 * @return  double: 0 <= random double < 1
-	 */
-	@Override public double nextDouble() { return next(); }
-	/**
-	 * @return  float 0 <= random float < 1
-	 */
-	@Override public float nextFloat() { return (float) next(); }
-	/**
-	 * @return  int: 0 <= random int < 2147483647
-	 */
-	@Override public int nextInt() { return (int) (next() * Integer.MAX_VALUE); }
-	/**
-	 * @return  int: 0 <= random int < 2147483647
-	 */
-	@Override public long nextLong() { return (long) (next() * Long.MAX_VALUE); }
-	/**
-	 * @return  random boolean
-	 */
-	@Override public boolean nextBoolean() { return next() < 0.5; }
-
+	public boolean nextBoolean()	{ return rng.nextBoolean(); }
+	public double  nextDouble()		{ return rng.nextDouble(); }
+	public float   nextFloat()		{ return (float) rng.nextDouble(); }
+	public int	   nextInt()		{ return rng.nextInt(); }
+	public long	   nextLong()		{ return rng.nextLong(); }
+	
+    synchronized public double nextGaussian() { // Copied from java.util.Random
+        if (haveNextNextGaussian) {
+            haveNextNextGaussian = false;
+            return nextNextGaussian;
+        } else {
+            double v1, v2, s;
+            do {
+                v1 = 2 * rng.nextDouble() - 1; // between -1 and 1
+                v2 = 2 * rng.nextDouble() - 1; // between -1 and 1
+                s = v1 * v1 + v2 * v2;
+            } while (s >= 1 || s == 0);
+            double multiplier = StrictMath.sqrt(-2 * StrictMath.log(s)/s);
+            nextNextGaussian = v2 * multiplier;
+            haveNextNextGaussian = true;
+            return v1 * multiplier;
+        }
+    }
 	// ===== Getters with max =====
 	/**
 	 * @return  double: 0 <= random value < max
 	 */
-	public double nextDouble (double max) { return max * next();  }
+	public double nextDouble (double max) { return rng.nextDouble(max);  }
 	/**
 	 * @return  float: 0 <= random value < max
 	 */
-	public float nextFloat (float max) { return (float) (max * next());  }
+	public float nextFloat (float max) { return (float) rng.nextDouble(max);  }
 	/**
 	 * @return  int: 0 <= random value < max
 	 */
-	@Override public int nextInt (int max) { return (int) (max * next());  }
-
+	public int nextInt(int max)	{ return rng.nextInt(max); }
 	// ===== Getters with limits =====
 	/**
 	 * @return  min(lim1, lim2) <= random double < max(lim1, lim2)
@@ -170,7 +95,7 @@ public class Rand extends Random{
 	/**
 	 * @return  -1 <= random double < 1
 	 */
-	public double sym() { return next() * 2.0 - 1.0; }
+	public double sym() { return nextDouble() * 2.0 - 1.0; }
 	/**
 	 * @return  -1 <= random float < 1
 	 */
@@ -196,22 +121,22 @@ public class Rand extends Random{
 
 	// ===== Symmetric Getters with Limits =====
 	/**
-	 * @return  ctr-width/2 <= random double < ctr+width/2
+	 * @return  center-width/2 <= random double < center+width/2
 	 */
-	public double sym(double ctr, double width) {
-		return (next() - 0.5) * width + ctr;
+	public double sym(double center, double width) {
+		return (nextDouble() - 0.5) * width + center;
 	}
 	/**
-	 * @return  ctr-width/2 <= random float < ctr+width/2
+	 * @return  center-width/2 <= random float < center+width/2
 	 */
-	public float sym(float ctr, float width) {
-		return (nextFloat() - 0.5f) * width + ctr;
+	public float sym(float center, float width) {
+		return (nextFloat() - 0.5f) * width + center;
 	}
 	/**
-	 * @return  ctr-width/2 <= random int < ctr+width/2
+	 * @return  center-width/2 <= random int < center+width/2
 	 */
-	public int sym(int ctr, int width) {
-		return (int) ((nextFloat() - 0.5f) * width + ctr);
+	public int sym(int center, int width) {
+		return (int) ((nextFloat() - 0.5f) * width + center);
 	}
     public <T> T random(List<T> list) {
         return (list == null || list.isEmpty()) ? null : list.get(nextInt(list.size()));

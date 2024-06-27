@@ -31,9 +31,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -79,17 +77,17 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     private transient BufferedImage image;
     private transient int currentQuality;
 
-    static void reinit(double source)		{
+    static void reinit(int source)		{
     	randomFiles.clear();
     	randNeb = new Rand(source);
     }
     public static void requestedQuality(int val)	{ requestedQuality = val; }
 
-    @Override public Random rng()		{ return randNeb==null? super.rng(): randNeb;}
-    private boolean	isRealNebula()		{ return currentQuality > 0;}
-    private float width()				{ return width; }
-    private float height()				{ return height; }
-    //public Rectangle.Float shape()		{ return shape; }
+    @Override public Rand rng()		{ return randNeb==null? super.rng(): randNeb;}
+    private boolean	isRealNebula()	{ return currentQuality > 0;}
+    private float width()			{ return width; }
+    private float height()			{ return height; }
+    //public Rectangle.Float shape()	{ return shape; }
     private String name() {
         if (sysId < 1)
             return "";
@@ -411,7 +409,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
 	private String nextNebulaFile() {
 		if (randomFiles.isEmpty()) {
 			randomFiles.addAll(nebulaeFiles);
-	        Collections.shuffle(randomFiles, rng());
+	        shuffle(randomFiles);
 		}
 		return randomFiles.remove(0);
 	}

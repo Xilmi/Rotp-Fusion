@@ -17,8 +17,8 @@ package rotp.model.galaxy;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 import rotp.model.game.IGameOptions;
 
 // modnar: custom map shape, Grid
@@ -109,7 +109,7 @@ public class GalaxyGridShape extends GalaxyShape {
 		for(int i = 0; i < maxClusters; i++){
 			tempList.add(i);
 		}
-		Collections.shuffle(tempList, rand);
+		shuffle(tempList, rand);
 		clusterList = new ArrayList<Integer>(tempList.subList(0, (int)nClusters));
 		// System.out.println("maxClusters = " + maxClusters + "  nClusters = " + nClusters);
     }
