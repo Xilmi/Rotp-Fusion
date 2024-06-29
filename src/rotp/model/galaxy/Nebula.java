@@ -1,12 +1,12 @@
 /*
  * Copyright 2015-2020 Ray Fowler
- * 
+ *
  * Licensed under the GNU General Public License, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     https://www.gnu.org/licenses/gpl-3.0.html
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -65,7 +65,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     }
     private	static int requestedQuality = 0;
     private static Rand randNeb;
-    
+
     private Rectangle.Float shape;
     private Rectangle.Float innerShape;
     private int sysId = -1;
@@ -79,7 +79,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     private transient BufferedImage image;
     private transient int currentQuality;
 
-    static void reinit(double source)		{
+    static void reinit(long source)		{
     	randomFiles.clear();
     	randNeb = new Rand(source);
     }
@@ -93,7 +93,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     private String name() {
         if (sysId < 1)
             return "";
-        
+
         String sysName = player().sv.name(sysId);
         if (sysName.isEmpty())
             return text("NEBULA_ID", sysId);
@@ -114,15 +114,15 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     public float x()               { return x; }
     @Override
     public float y()               { return y; }
-    
+
     float adjWidth()               { return size == 0 ? width : size*width; }
     float adjHeight()              { return size == 0 ? height : size*height; }
-    
+
     float centerX()                { return x+(adjWidth()/2); }
     float centerY()                { return y+(adjHeight()/2); }
-    
+
     boolean noStars()              { return numStars == 0; }
-    
+
     void setXY(float x1, float y1) {
         x = x1;
         y = y1;
@@ -136,7 +136,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     }
     public Nebula() { }
     Nebula(float sizeMult, boolean buildImage) {
-    	requestedQuality = options().selectedRealNebulaeSize();
+    	requestedQuality = options().selectedRealNebulaSize();
     	currentQuality	 = requestedQuality;
         size = max(1, sizeMult);
     	if (isRealNebula()) {
@@ -186,7 +186,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         StarSystem currSys = galaxy().system(sysId);
         float currDist = distance(currSys.x(), currSys.y(), centerX, centerY);
         float newDist = distance(sys.x(), sys.y(), centerX, centerY);
-        
+
         if (newDist < currDist)
             sysId = sys.id;
     }
@@ -196,7 +196,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
             return;
         if (galaxy().numStarSystems() <= opts.nebulaEnrichmentGalaxySize())
             return;
-        
+
         Planet planet = galaxy().system(sysId).planet();
         if (planet.isEnvironmentNone())
             return;
@@ -216,7 +216,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     		intersect = copy.getBounds2D();
     	}
     	else
-     		intersect = shape.createIntersection(innerShape); 
+     		intersect = shape.createIntersection(innerShape);
 
     	float limit = 0 * size;
  		double area = intersect.getWidth() * intersect.getHeight();
@@ -229,7 +229,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     		return !copy.isEmpty();
     	}
     	else
-    		return shape.intersects(neb.shape); 
+    		return shape.intersects(neb.shape);
     }
     boolean intersects(Line2D path) {
     	if (isRealNebula()) {
@@ -285,11 +285,11 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         return image;
     }
     private BufferedImage buildImage() {
-    	requestedQuality = options().selectedRealNebulaeSize();
+    	requestedQuality = options().selectedRealNebulaSize();
     	currentQuality	 = requestedQuality;
     	if (requestedQuality > 0)
     		return buildNebulaImage();
-    	
+
         int w = (int) width()*19;
         int h = (int) height()*12;
 
@@ -332,7 +332,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     @Override
     public void draw(GalaxyMapPanel map, Graphics2D g2) {
         Rectangle mShape = mapShape(map);
-        
+
         if (isRealNebula()) {
         	float opacity = options().realNebulaeOpacity();
             Composite prevComp = g2.getComposite();
@@ -340,7 +340,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
             g2.setComposite(comp );
             RenderingHints prevRender = g2.getRenderingHints();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+            g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
             g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
     		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
     		g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
@@ -369,7 +369,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         }
         if (map.hideSystemNames())
             return;
-        
+
         // use smaller font when we have the full name
         float scale = map.scaleX();
         int fontSize = sysId <= 0 ? (int) (size*1800/scale) : (int) (size*1200/scale);
@@ -397,10 +397,10 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     		image = nextNebula();
     	else
     		image = newBufferedImage(icon(nebulaFile).getImage());
-    	
+
         int w = (int) width()  *19 *currentQuality;
         int h = (int) height() *12 *currentQuality;
-        
+
 		image = newBufferedImage(image.getScaledInstance(w, h, Image.SCALE_SMOOTH));
 		baseRNShape = FastImage.from((Image)image).getImageOutline(shapeQuality, adjWidth(), adjHeight(), currentQuality);
     	AffineTransform at=new AffineTransform();
@@ -415,17 +415,18 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
 		}
 		return randomFiles.remove(0);
 	}
-	private BufferedImage nextNebula() {	
+	private BufferedImage nextNebula() {
 		nebulaFile	  = nextNebulaFile();
 		ImageIcon img = icon(nebulaFile);
 		return newBufferedImage(img.getImage());
 	}
 
-	public void drawNebula(Graphics2D g2, int xP, int yP, float factor)	{
+	public void drawNebulaPreview(Graphics2D g2, int xP, int yP, float factor)	{
 		int x0 = (int) (xP + x * factor);
 		int y0 = (int) (yP + y * factor);
         int x1 = (int) (x0 + width * factor);
         int y1 = (int) (y0 + height * factor);
+        //System.out.println("Nebula x=" + fmt(x, 1) + " y=" + fmt(y, 1));
         if (isRealNebula()) {
         	float opacity = options().realNebulaeOpacity();
             Composite prevComp = g2.getComposite();
@@ -433,7 +434,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
             g2.setComposite(comp );
             RenderingHints prevRender = g2.getRenderingHints();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+            g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
             g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
     		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
     		g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);

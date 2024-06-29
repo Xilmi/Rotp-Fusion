@@ -84,23 +84,18 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	static LinkedList<IParam> getAllModOptions() {
 		// Start with a set to filter duplicates
 		LinkedHashSet<IParam> allModOptions = new LinkedHashSet<>();
-		allModOptions.addAll(IPreGameOptions.modStaticAOptions());
-		allModOptions.addAll(IPreGameOptions.modStaticBOptions());
 		allModOptions.addAll(IPreGameOptions.preGameOptions());
 		allModOptions.addAll(ISystemsOptions.systemsOptions());
-		allModOptions.addAll(IInGameOptions.modDynamicAOptions());
-		allModOptions.addAll(IInGameOptions.modDynamicBOptions());
 		allModOptions.addAll(IInGameOptions.inGameOptions());
 		allModOptions.addAll(IGalaxyOptions.getOptionsGalaxy());
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
 		allModOptions.addAll(IFlagOptions.autoFlagOptions());
-		allModOptions.addAll(convenienceOptions); // Keep as variable
 		allModOptions.addAll(governorOptions);
 		allModOptions.addAll(IMainOptions.vanillaSettingsUI());
 //		allModOptions.addAll(IMainOptions.mainOptionsUI());
 		allModOptions.addAll(IMainOptions.commonOptions());
-		allModOptions.add(IMainOptions.realNebulaeSize);
+		allModOptions.add(IMainOptions.realNebulaSize);
 		allModOptions.add(IMainOptions.realNebulaShape);
 		allModOptions.add(IMainOptions.realNebulaeOpacity);
 		allModOptions.add(IMainOptions.showGuide);

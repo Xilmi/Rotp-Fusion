@@ -16,7 +16,7 @@
 
 package rotp.model.empires;
 
-import static rotp.Rotp.random;
+import static rotp.Rotp.rand;
 import static rotp.model.empires.Race.crEmpireNameRandom;
 import static rotp.model.game.IPreGameOptions.randomAlienRaces;
 import static rotp.model.game.IPreGameOptions.randomAlienRacesMax;
@@ -313,7 +313,7 @@ public class CustomRaceDefinitions  {
 							minRequest = Math.min(maxChange, minRequest);
 						else
 							minRequest =  Math.max(-maxChange, minRequest);
-						float request = minRequest + random.nextFloat() * (maxRequest-minRequest);
+						float request = minRequest + rand().nextFloat() * (maxRequest-minRequest);
 
 						setting.setValueFromCost(setting.settingCost()+request*costFactor);
 					} else {

@@ -328,6 +328,10 @@ public class UserPreferences implements IMainOptions {
 		selectedScreen = Math.max(-1, Math.min(i, Rotp.maxScreenIndex()));
 	}
 	private static void setScreenSizePct(int i) {
+		if (i==-1) {
+			screenSizePct = i;
+			return;
+		}
 		screenSizePct = Math.max(25,Math.min(i,200));
 	}
 	public static boolean shrinkFrame() {

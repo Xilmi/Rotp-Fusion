@@ -64,12 +64,19 @@ public abstract class AbstractParam <T> implements IParam{
 	private boolean isCfgFile	= false;
 	private boolean isValueInit	= true; // default values are initialized with current value.	
 	private boolean	updated		= true;
+	private boolean	trueChange	= true;
 	private String	formerName;	// Link to another option for initialization (when upgrading)
 	private List<LinkData> linkList;
 	private boolean processingToggle = false;
 
 	@Override public void updated(boolean val)	{ updated = val; }
 	@Override public boolean updated()			{ return updated; }
+	@Override public boolean trueChange()		{
+		boolean mem = trueChange;
+		trueChange = false;
+		return mem;
+	}
+	public void trueChange(boolean val)			{ trueChange = val; }
 
 	// ========== constructors ==========
 	//
@@ -304,21 +311,21 @@ public abstract class AbstractParam <T> implements IParam{
 	//
 	public void toggle(boolean reverse)		{ if (reverse) prev(); else next(); }
 	protected void setFromCfg(T newValue)	{
-		updated = true;
+		updated(true);
 		value = newValue;
 		updateOption(dynOpts());
 	}
 	public T silentSet(T newValue) 			{ // Reserved call from governor class
-		updated = true;
+		updated(true);;
 		value = newValue;
 		setOption(newValue); // For overrider
 		return value;
 	}
 	public T set(T newValue)				{
-		updated = true;
-		boolean trueChange = false;
-		if(value != null && newValue != null)
-			trueChange = !value.equals(newValue);
+		updated(true);;
+		trueChange(false);
+		if(updated() && value != null && newValue != null)
+			trueChange(!value.equals(newValue));
 		value = newValue;
 		setOption(newValue); // For overrider
 		if (trueChange && (isGovernor != NOT_GOVERNOR))

@@ -133,7 +133,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 	ParamBoolean challengeMode		= new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
 	default boolean selectedChallengeMode()		{ return challengeMode.get(); }
-	
+
 	ParamFloat counciRequiredPct	= new ParamFloat(MOD_UI, "COUNCIL_REQUIRED_PCT", 2f/3f)
 			.setLimits(0f, 0.99f)
 			.setIncrements(0.01f/3f, 0.02f, 0.1f)
@@ -176,13 +176,13 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 			.put("NoSpy",	MOD_UI + "DARK_GALAXY_NO_SPY")
 			.put("Spy",		MOD_UI + "DARK_GALAXY_SPY");
 	default boolean selectedDarkGalaxy()	{
-		return !darkGalaxy.get().equalsIgnoreCase("No") 
+		return !darkGalaxy.get().equalsIgnoreCase("No")
 				&& GameSession.instance().inProgress(); // for the final replay
 	}
 	default boolean darkGalaxySpy()			{ return darkGalaxy.get().equalsIgnoreCase("Spy"); }
 	default boolean darkGalaxyNoSpy()		{ return darkGalaxy.get().equalsIgnoreCase("NoSpy"); }
 	default boolean darkGalaxyDark()		{ return darkGalaxy.get().equalsIgnoreCase("Shrink"); }
-	
+
 	ParamList transportAutoEco			= new ParamList( MOD_UI, "TRANSPORT_AUTO_ECO", "No")
 			.showFullGuide(true)
 			.isValueInit(false)
@@ -209,7 +209,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 	ParamBoolean defaultChainRally		= new ParamBoolean(MOD_UI, "DEFAULT_CHAIN_RALLY", true);
 	default boolean defaultChainRally()		{ return defaultChainRally.get(); }
-	
+
 	String CHAIN_RALLY_SPEED_FLEET	= "FLEET";
 	String CHAIN_RALLY_SPEED_MIN	= "MIN";
 	String CHAIN_RALLY_SPEED_TOP	= "TOP";
@@ -305,42 +305,6 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default float aiDefenseConfidence()		{ return aiDefenseConfidence.get()/100f; }
 
 	// ==================== GUI List Declarations ====================
-	static LinkedList<IParam> modDynamicAOptions() {
-		return new LinkedList<>(
-				Arrays.asList(
-						customDifficulty, dynamicDifficulty,
-						challengeMode, trackUFOsAcrossTurns,
-						null,
-						missileBaseModifier, missileShipModifier,
-						retreatRestrictions, retreatRestrictionTurns,
-						popGrowthFactor,
-						null,
-						bombingTarget, targetBombard,
-						flagColorCount, allowTechStealing,
-						autoFlagOptionsUI,
-						null,
-						scrapRefundFactor, scrapRefundOption,
-						autoTerraformEnding, maxSecurityPct
-				));
-
-	}
-	static LinkedList<IParam> modDynamicBOptions() {
-		return new LinkedList<>(
-				Arrays.asList(
-						counciRequiredPct, darkGalaxy,
-						transportAutoEco, defaultForwardRally,
-
-						GovernorOptions.governorOptionsUI,
-						null,
-						eventsStartTurn, eventsPace,
-						spyOverSpend,
-						ICombatOptions.combatOptionsUI,
-						null,
-						fixedEventsMode, eventsFavorWeak,
-						IRandomEvents.customRandomEventUI
-						));
-	}
-	// ==================== GUI List Declarations ====================
 	LinkedList<IParam> inGameOptions	= inGameOptions();
 	static LinkedList<IParam> inGameOptions() {
 		return IBaseOptsTools.getSingleList(inGameOptionsMap());
@@ -358,7 +322,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				terraforming,
 				colonizing, researchRate,
 				warpSpeed, fuelRange, popGrowthFactor,
-				IMainOptions.realNebulaeSize, IMainOptions.realNebulaShape,
+				IMainOptions.realNebulaSize, IMainOptions.realNebulaShape,
 				IMainOptions.realNebulaeOpacity,
 				developedDefinition,
 
@@ -410,7 +374,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
 				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
 				raceStatusLog, compactOptionOnly,
-				
+
 				headerSpacer,
 				new ParamTitle("XILMI_AI_OPTIONS"),
 				playerAttackConfidence, playerDefenseConfidence,
@@ -427,25 +391,4 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		return new ParamSubUI( MOD_UI, IN_GAME_GUI_ID, inGameOptionsMap()).isCfgFile(false);
 	}
 	ParamSubUI inGameOptionsUI	= inGameOptionsUI();
-
-	static LinkedList<LinkedList<IParam>> baseModOptionsMap()	{
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("GAME_VARIOUS"),
-				headerSpacer,
-				headerSpacer
-				)));
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("GAME_OTHER"),
-				headerSpacer,
-				headerSpacer
-				)));
-		return map;
-	};
-	String BASE_MOD_GUI_ID	= "BASE_MOD_OPTIONS";
-	static ParamSubUI baseModOptionsUI() {
-		return new ParamSubUI( MOD_UI, BASE_MOD_GUI_ID, baseModOptionsMap());
-	}
-	ParamSubUI baseModOptionsUI	= baseModOptionsUI();
-
 }

@@ -364,9 +364,9 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			.isCfgFile(true)
 			.showFullGuide(true)
 			.put("Yes",	MOD_UI + "COMPACT_OPTION_ONLY_YES")
-			.put("No",	MOD_UI + "COMPACT_OPTION_ONLY_NO")
-			.put("6",	MOD_UI + "COMPACT_OPTION_ONLY_6");
-
+			.put("No",	MOD_UI + "COMPACT_OPTION_ONLY_NO");
+	default ParamList compactOptionOnly()	{ return compactOptionOnly; }
+	
 	ParamList gameOverTitles	= new ParamList( MOD_UI, "GAME_OVER_TITLE", "Original")
 			.isCfgFile(true)
 			.isDuplicate(false)
@@ -489,12 +489,14 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			.setLimits(0, 20)
 			.setIncrements(1, 2, 5)
 			.isCfgFile(true);
+	default ParamInteger galaxyPreviewColorStarsSize()	{ return galaxyPreviewColorStarsSize; }
 
 	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 8)
 			.setLimits(0, 10)
 			.loop(true)
 			.isCfgFile(true)
 			.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
+	default ParamInteger minListSizePopUp()	{ return minListSizePopUp; }
 
 	ParamList colorSet = new ColorSet() {
 	}		.isCfgFile(true)
@@ -545,7 +547,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default boolean raceStatusViewPlayer()	{ return raceStatusView.get().equals("PctPlayer"); }
 	default boolean raceStatusViewValue()	{ return raceStatusView.get().equals("Value"); }
 
-	ParamInteger realNebulaeSize	= new RealNebulaeSize();
+	ParamInteger realNebulaSize	= new RealNebulaeSize();
 	class RealNebulaeSize extends ParamInteger {
 		RealNebulaeSize() {
 			super(MOD_UI, "REAL_NEBULAE_SIZE", 0);
@@ -562,12 +564,13 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			return get();
 		}
 	}
-
-	default int selectedRealNebulaeSize()	{ return realNebulaeSize.get(); }
-	default boolean selectedRealNebulae()	{ return realNebulaeSize.get() != 0; }
+	default int selectedRealNebulaSize()	{ return realNebulaSize.get(); }
+	default boolean selectedRealNebula()	{ return realNebulaSize.get() != 0; }
+	default ParamInteger getRealNebulaSize()	{ return realNebulaSize; }
 
 	ParamBoolean realNebulaShape	= new ParamBoolean(MOD_UI, "REAL_NEBULAE_SHAPE", true).isCfgFile(false);
 	default boolean realNebulaShape()	{ return realNebulaShape.get(); }
+	default ParamBoolean getRealNebulaShape()	{ return realNebulaShape; }
 
 	ParamInteger realNebulaeOpacity	= new ParamInteger(MOD_UI, "REAL_NEBULAE_OPACITY", 60)
 			.setLimits(10, 100)

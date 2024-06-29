@@ -49,7 +49,7 @@ import rotp.ui.util.ParamList;
 // Duplicates Options, Race Menu Options and Galaxy Options
 //
 public interface IAdvOptions extends IBaseOptsTools {
-	
+
 	// ==================== Duplicates for Base Advanced Options ====================
 	//
 	ParamList galaxyAge = new GalaxyAge(); // Duplicate Do not add the list
@@ -84,7 +84,7 @@ public interface IAdvOptions extends IBaseOptsTools {
         return 1.0f;
     }
 	default float systemBuffer(String density)	{ return getSystemBuffer(density); }
-	public static float getSystemBuffer(String densityOption) { 
+	public static float getSystemBuffer(String densityOption) {
 //		switch (densityOption) {
 //			case IGameOptions.STAR_DENSITY_LOWEST:  return 2.5f;
 //			case IGameOptions.STAR_DENSITY_LOWER:   return 2.3f;
@@ -143,6 +143,11 @@ public interface IAdvOptions extends IBaseOptsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedStarDensityOption(newValue);
 		}
+		private float density(float radius, int NumStar)	{
+			float systemBuffer = (float) (radius / (Math.sqrt(NumStar) * surfaceSecurityFactor));
+			float density = systemBuffer / 1.9f;
+			return density;
+		}
 	}
 
 	ParamList nebulae = new Nebulae(); // Duplicate Do not add the list
@@ -158,6 +163,7 @@ public interface IAdvOptions extends IBaseOptsTools {
 			options.selectedNebulaeOption(newValue);
 		}
 	}
+	default ParamList getNebula()	{ return nebulae; }
 
 	ParamList randomEvents = new RandomEvents(); // Duplicate Do not add the list
 	class RandomEvents extends ParamList {

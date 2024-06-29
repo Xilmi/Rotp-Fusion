@@ -247,7 +247,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         int xHK = scaled(100);
         int yHK = scaled(70);
         int wHK = scaled(360);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 10, text("SETUP_RACE_HELP_HK"));
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 17, text("SETUP_RACE_HELP_HK"));
         helpUI.open(this);
 	}
 	private void loadHelpUI() {
@@ -564,7 +564,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 
         // background image
 		if (retina)
-			g.drawImage(backImg(), 0, 0, w, h, 0, 0, w, h, this);
+			g.drawImage(backImg(), 0, 0, wFull, hFull, 0, 0, wFull, hFull, this);
 		else
 			g.drawImage(backImg(), 0, 0, this);
 
@@ -1053,14 +1053,14 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         g.fillOval(helpBox.x, helpBox.y, helpBox.width, helpBox.height);
         
         // draw left button
-        cancelBox.setBounds(scaled(710), scaled(685+10), buttonW, buttonH);
         g.setPaint(GameUI.buttonLeftBackground());
-        g.fillRoundRect(cancelBox.x, cancelBox.y, buttonW, buttonH, cnr, cnr);
+        cancelBox.setBounds(scaled(710), scaled(685+10), buttonW, buttonH);
+        cancelBox.fillButtonFullImg(g);
 
         // draw right button
-        exitBox.setBounds(scaled(950), scaled(685+10), buttonW, buttonH);
         g.setPaint(GameUI.buttonRightBackground());
-        g.fillRoundRect(exitBox.x, exitBox.y, buttonW, buttonH, cnr, cnr);
+        exitBox.setBounds(scaled(950), scaled(685+10), buttonW, buttonH);
+        exitBox.fillButtonFullImg(g);
 
 		// setBounds DEFAULT button
 		buttonH = s30;
@@ -1092,9 +1092,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         int smallButtonW = g.getFontMetrics().stringWidth(text(customRaceKey)) + smallButtonMargin;
         xB = xLeftFrame();;
         yB = yCtrFrame + hCtrFrame + s10;
-        playerRaceSettingBox.setBounds(xB, yB, smallButtonW, smallButtonH);
         g.setPaint(GameUI.buttonLeftBackground());
-        g.fillRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y, smallButtonW, smallButtonH, cnr, cnr);
+        playerRaceSettingBox.setBounds(xB, yB, smallButtonW, smallButtonH);
+		playerRaceSettingBox.fillButtonFullImg(g);
 
         drawFixButtons(g, true);
         initButtonBackImg();

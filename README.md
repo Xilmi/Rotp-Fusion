@@ -37,6 +37,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
+- soil enrichment, show impact on future pop pop/max pop
 - Monsters:
   - Option to change their travel time.
   - More Planet Monsters Guardian.
@@ -66,6 +67,21 @@ Later:
 
 
 ## What's New
+
+2024.06.29 (BR)
+- The guide now follow the color theme.
+- Tentative to add column dividers in compact panels.
+- updated Hotkey help
+
+2024.06.28 (BR)
+- Galaxy setup Panel:
+  - Removed the 6 buttons option, as their contents was no longer updated...
+  - Added the Tune Galaxy button, which opens a new settings panel on the side of the galaxy map, allowing you to see the effects of changes.
+
+2024.06.26 (BR)
+- Following a suggestion from Roland Johansoen: Renamed "Pregame" to "Setup" and "In-Game" to "Options" and updated guide and help texts consequently.
+- Switched the default random generator to a better one. (Java has two)
+- Fixed Star density list not always following as dependencies.
 
 2024.06.25 (BR)
 - Fixed possible crash when loading an old game.

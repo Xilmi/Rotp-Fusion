@@ -23,7 +23,7 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.game.MergedDynamicOptionsUI;
+import rotp.ui.game.CompactOptionsUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.TransportDeploymentPanel;
@@ -236,7 +236,7 @@ public class MapOverlayNone extends MapOverlay {
                 break;
             case KeyEvent.VK_O: // BR:
             	if (options().isGameOptionsAllowed()) {
-            		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
+            		CompactOptionsUI optionsUI = RotPUI.compactOptionsUI();
         			optionsUI.start("", null);
             	}
             	break;

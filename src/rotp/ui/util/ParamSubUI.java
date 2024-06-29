@@ -18,13 +18,14 @@ package rotp.ui.util;
 
 import static rotp.ui.util.IParam.langLabel;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 
 import rotp.model.game.IGameOptions;
 import rotp.ui.game.BaseModPanel;
-import rotp.ui.game.CompactOptionsUI;
+import rotp.ui.game.BaseCompactOptionsUI;
 
 
 public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
@@ -118,7 +119,7 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 	@Override public boolean toggle(MouseEvent e, BaseModPanel frame) { return false; }
 	@Override public boolean toggle(MouseEvent e, String p, BaseModPanel pUI) {
 		updated(true);
-		CompactOptionsUI ui = new CompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);
+		BaseCompactOptionsUI ui = new BaseCompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);
 		ui.start(p, pUI);
 		return false;
 	};
@@ -133,6 +134,12 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 
 	// ===== Other Methods =====
 	//
+	public void hovering(BaseModPanel pUI, Rectangle location)	{
+		updated(true);
+		BaseCompactOptionsUI ui;
+		ui = new BaseCompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap, true, location);
+		ui.start("", pUI);
+	}
 	public String titleId() { return GUI_TITLE_ID; }
 	public LinkedList<IParam> optionsList() { return optionsList; }
 	public void updateList() {

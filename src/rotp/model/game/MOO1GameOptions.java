@@ -1411,8 +1411,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		return;
     	MOO1GameOptions source = loadOptions(fileName);
     	
-    	if (pList == convenienceOptions // mainOptionsUI
-    			|| pList == RotPUI.mainOptionsUI().activeList()) {
+    	if (pList == RotPUI.mainOptionsUI().activeList()) {
            	for (IParam param : pList) {
            		if (param != null) {
            			param.copyOption(source, this, true); // update tool

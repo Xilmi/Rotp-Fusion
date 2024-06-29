@@ -2,26 +2,16 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- New option to select the default values:
-  - RotP-Fusion
-  - RotP-Original
-  - MoO1
-- New option to set the number of nearby and midrange stars.
-  - How many must have habitable planet.
-  - The nearby and midrange circle radius.
-  - The number of star per empire can now be lowered to 1.
-- New Tools to create dependencies between options.
-- Created option dependencies for
-  - Neighboor circles size
-  - Minimum Number of star per circle
-  - Minimum Number of habitable planet per circle
-  - Star density
-  - Number of star per empire
-  - Galaxy size
-- Option to allow nearby stars to be out of the galaxy limits.
-- Fixed "cold war" Colony ship being afraid of its own weapons...
-- New limits and minor fixes.
 - Fixed possible crash when loading an old game.
+- Following a suggestion from Roland Johansoen: Renamed "Pregame" to "Setup" and "In-Game" to "Options" and updated guide and help texts consequently.
+- Switched the default random generator to a better one.
+- Fixed Star density list not always following as dependencies.
+- Galaxy setup Panel:
+  - Removed the 6 buttons option, as their contents was no longer updated...
+  - Added the Tune Galaxy button, which opens a new settings panel on the side of the galaxy map, allowing you to see the effects of changes.
+- The guide now follow the color theme.
+- Tentative to add column dividers in compact panels.
+- updated Hotkey help
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -119,7 +109,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Empire Intelligence Panel
   - Added Latest reported spy bonuses for related missions.
   - Based on the latest reported technology and security levels.
-- Added Option to auto delete backup files... (Not final; sent to recycle bin) 
+- Added Option to auto delete backup files... (Not final; sent to recycle bin)
 - Load and Save Options Now available on the main Menu with the "CTRL" key modifier.
 - New Option panel to set default Nominal Species Names.
 - New option for "Tax only fully developed colonies", that define what should be completed to be identified as developed!
@@ -147,7 +137,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
 - Added Base Mod Options SubMenu. (now Empty)
-- Restored vanilla galaxy setup panel advanced options. 
+- Restored vanilla galaxy setup panel advanced options.
 - Restart will now gives the same research tech list.
   - This accidentally removed the "new dice roll" when reloading a game! To fix this:
     - New option: Research Moo1 style vs vanilla RotP. (Ironman Panel)
@@ -219,7 +209,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed "Continue" on startup will suggest a name based on the loaded game.
 - Fixed some display options not being saved!
 - Fixed some Fullscreen crash on startup
-- (Xilmi) Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners. 
+- (Xilmi) Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners.
 - Fixed Orion Guardian auto-repair not working.
 - Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
 - Fixed a bug where AI:Rookie was listed twice in AI:Random
@@ -232,7 +222,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Fixed wrong ship building time estimation when interrupting stargate build.
   - Fixed ship building time estimation not using reserves.
 - Fixed possible crash with random Galaxies.
-- (Xilmi) Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion. 
+- (Xilmi) Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion.
   - It usually would vastly underestimate the enemie's chances to repel the invasion and thus very often invaded when this was too risky of an endeavour.
 - Fixed Save Notification Text.
 - Fixed Bombard notification not showing when occuring at the same time of a war declaration.

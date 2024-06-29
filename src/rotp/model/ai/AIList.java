@@ -21,7 +21,7 @@ import java.util.List;
 
 import rotp.model.game.IGameOptions;
 
-import static rotp.Rotp.random;
+import static rotp.Rotp.rand;
 
 public class AIList extends LinkedList<AIEntry>{
 	public AIEntry entry(int id)		{
@@ -60,5 +60,5 @@ public class AIList extends LinkedList<AIEntry>{
 			list.add(entry.name());
 		return list;
 	}
-	public int random()					{ return get(random.nextInt(size())).id; }
+	public int random()					{ return get(rand().nextInt(size())).id; }
 }

@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.Rotp.random;
+import static rotp.Rotp.rand;
 import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
 
 import java.awt.event.InputEvent;
@@ -157,7 +157,7 @@ public class SettingFloat extends SettingBase<Float> {
 	}
 	@Override protected Float randomize(float rand) {
 		if (hasNoCost())
-			return random.nextFloat()*(maxValue-minValue) + minValue;
+			return rand().nextFloat()*(maxValue-minValue) + minValue;
 		float lim1 = settingCost(maxValue);
 		float lim2 = settingCost(minValue);
 		if (rand > 0)

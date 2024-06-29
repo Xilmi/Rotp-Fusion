@@ -15,17 +15,17 @@
  */
 package rotp.ui.game;
 
-public class ModGlobalOptionsUI extends AbstractOptionsUI {
+import java.util.LinkedList;
+
+import rotp.ui.util.IParam;
+
+public class CompactSetupUI extends BaseCompactOptionsUI {
 	private static final long serialVersionUID = 1L;
-	public  static final String guiTitleID = "SETTINGS_MOD_TITLE_GLOBAL";
-	public  static final String GUI_ID     = "START_MOD_GLOBAL";
-
-	public ModGlobalOptionsUI() {
-		super(guiTitleID, GUI_ID);
-	}
-
-	@Override protected void init0() {
-		//globalOptions = true; // No preferred button
-		paramList	  = rotp.model.game.IConvenienceOptions.convenienceOptions;
+	public static final String guiTitleID = "SETTINGS_MOD_STATIC_TITLE";
+	public static final String GUI_ID     = "MERGED_STATIC_OPTIONS";
+	
+	public CompactSetupUI() { super(guiTitleID, GUI_ID); }
+	@Override protected LinkedList<LinkedList<IParam>> getList() {
+		return rotp.model.game.IPreGameOptions.preGameOptionsMap();
 	}
 }
