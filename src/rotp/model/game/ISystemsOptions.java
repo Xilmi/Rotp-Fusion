@@ -93,6 +93,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			.setLimits(0, 1000)
 			.setIncrements(1, 10, 100);
 	default float	orionToEmpireModifier()	{ return (float) (0.01 * orionToEmpireModifier.get()); }
+	default ParamInteger getOrionToEmpireModifier()	{ return orionToEmpireModifier; }
 
 	static void badClick() { SoundManager.current().playAudioClip("MisClick"); }
 
@@ -131,6 +132,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default float firstRingRadius() { return firstRingRadius.getValidValue(); }
+	default ParamFloat getFirstRingRadius()	{ return firstRingRadius; }
 
 	ParamFloat secondRingRadius = new SecondRingRadius();
 	class SecondRingRadius extends ParamFloat {
@@ -166,6 +168,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default float secondRingRadius() { return secondRingRadius.getValidValue(); }
+	default ParamFloat getSecondRingRadius()	{ return secondRingRadius; }
 
 	float surfaceSecurityFactor = 0.855f; // TODO BR: Tune
 
@@ -225,6 +228,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default int firstRingSystemNumber()	{ return firstRingSystemNumber.getValidValue(); }
+	default ParamInteger getFirstRingSystemNumber()	{ return firstRingSystemNumber; }
 
 	ParamInteger secondRingSystemNumber = new SecondRingSystemNumber();
 	class SecondRingSystemNumber extends ParamInteger {
@@ -272,6 +276,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default int secondRingSystemNumber() { return secondRingSystemNumber.getValidValue(); }
+	default ParamInteger getSecondRingSystemNumber()	{ return secondRingSystemNumber; }
 
 	ParamInteger firstRingHabitable = new FirstRingHabitable();
 	class FirstRingHabitable extends ParamInteger {
@@ -304,6 +309,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default int firstRingHabitable() { return firstRingHabitable.getValidValue(); }
+	default ParamInteger getFirstRingHabitable()	{ return firstRingHabitable; }
 
 	ParamInteger secondRingHabitable = new SecondRingHabitable();
 	class SecondRingHabitable extends ParamInteger {
@@ -336,10 +342,10 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default int secondRingHabitable() { return secondRingHabitable.getValidValue(); }
+	default ParamInteger getSecondRingHabitable()	{ return secondRingHabitable; }
 
 	// ==================== GUI List Declarations ====================
 	//
-
 	static LinkedList<IParam> systemsOptions() {
 		return IBaseOptsTools.getSingleList(systemsOptionsMap());
 	}

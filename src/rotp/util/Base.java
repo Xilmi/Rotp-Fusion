@@ -95,7 +95,7 @@ public interface Base {
     public static String[] monthName = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
     public static String[] letter = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N" };
     //public static Random random = new Random(); // Moved to Rotp for reset purpose
-    public default Rand rng() { return Rotp.random; }
+    public default Rand rng() { return Rotp.rand(); }
     public static DecimalFormat df1 = new DecimalFormat("0.0");
     public static DecimalFormat df2 = new DecimalFormat("0.00");
     public static DecimalFormat df3 = new DecimalFormat("0.000");

@@ -24,10 +24,7 @@ import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
 import static rotp.model.game.IBaseOptsTools.BASE_UI;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
-import static rotp.model.game.IMainOptions.compactOptionOnly;
-import static rotp.model.game.IMainOptions.galaxyPreviewColorStarsSize;
-import static rotp.model.game.IMainOptions.minListSizePopUp;
-import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
+import static rotp.model.game.IBaseOptsTools.MOD_UI;
 import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
 import static rotp.ui.util.IParam.LABEL_DESCRIPTION;
 import static rotp.ui.util.IParam.labelFormat;
@@ -50,6 +47,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
@@ -69,6 +67,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -101,9 +100,12 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.ParamButtonHelp;
 import rotp.ui.util.ParamList;
+import rotp.ui.util.ParamSubUI;
+import rotp.ui.util.ParamTitle;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
@@ -122,6 +124,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private static final String SPECIFIC_ABILITY = "SETUP_SPECIFIC_ABILITY";
 	private static final String GLOBAL_ABILITIES = "SETUP_GLOBAL_ABILITY";
 	private static final String OPPONENT_RANDOM	 = "SETUP_OPPONENT_RANDOM";
+	private static final String ADVANCED_SYSTEMS_GUI_ID	= "ADVANCED_SYSTEMS_OPTIONS";
  	private static final int    buttonFont		= 30;
 	private	static final Font   bigButtonFont	= FontManager.current().narrowFont(buttonFont);
 	public  static final int	MAX_DISPLAY_OPPS = 49;
@@ -138,7 +141,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			RESTART_KEY,
 			"");
 	}
-	public final ParamListOpponentAI opponentAI		= new ParamListOpponentAI( // For Guide
+	public final  ParamListOpponentAI opponentAI		= new ParamListOpponentAI( // For Guide
 			BASE_UI, "OPPONENT_AI",
 			IGameOptions.globalAIset().getAliens(),
 			IGameOptions.defaultAI.aliensKey);
@@ -148,20 +151,17 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			IGameOptions.defaultAI.aliensKey);
 	private final ParamListSpecificOpponent specificOpponent	= new ParamListSpecificOpponent( // For Guide
 			BASE_UI, "SPECIFIC_OPPONENT", guiOptions().allRaceOptions(), opponentRandom);
-    public final ParamListGlobalAbilities globalAbilities		= new ParamListGlobalAbilities( // For Guide
+    public final  ParamListGlobalAbilities globalAbilities		= new ParamListGlobalAbilities( // For Guide
 			BASE_UI, "GLOBAL_ABILITY", globalAbilitiesList,
 			SpecificCROption.BASE_RACE.value);
 	private final ParamListSpecificAbilities specificAbilities	= new ParamListSpecificAbilities( // For Guide
 			BASE_UI, "SPECIFIC_ABILITY", specificAbilitiesList,
 			SpecificCROption.defaultSpecificValue().value);
+	private ParamSubUI    advancedSystemOptionsUI;
 
-	private Box mergedStaticBox		= new Box("SETUP_GALAXY_COMPACT_OPTIONS"); // BR add UI panel for MOD game options
-	private Box mergedDynamicBox	= new Box("SETUP_GALAXY_COMPACT_OPTIONS"); // BR add UI panel for MOD game options
-	private Box modStaticABox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
-	private Box modStaticBBox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
-	private Box modDynamicABox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
-	private Box modDynamicBBox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
-	private Box globalModSettingsBox= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
+	private Box tuneGalaxyBox		= new Box("SETUP_TUNE_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Box compactSetupBox		= new Box("SETUP_GALAXY_COMPACT_OPTIONS"); // BR add UI panel for MOD game options
+	private Box compactOptionBox	= new Box("SETUP_GALAXY_COMPACT_OPTIONS"); // BR add UI panel for MOD game options
 	private Box	settingsBox			= new Box("SETUP_GALAXY_CLASSIC_OPTIONS");
 	private Box	backBox				= new Box("SETUP_GALAXY_BACK");
 	private Box	galaxyBox			= new Box("SETUP_GALAXY_PREVIEW");
@@ -218,6 +218,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     
     private int  galaxyGrid  = 10;
     private boolean showGrid = false;
+    private boolean prevShowGrid = false;
     
     private int wSmallMug	= s54;
     private int hSmallMug 	= s58;
@@ -235,7 +236,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 	private IGameOptions opts;
 	private boolean forceUpdate = true;
-//	private boolean showNebulae = true; // BR: ready for an option to disable
 	private List<Nebula> nebulas;
 
     // Local copy of the good sized race Mug, to avoid depending SetupRaceUI
@@ -313,6 +313,41 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		globalAbilities.reInit(globalAbilitiesList);
 		globalAbilitiesArray = globalAbilitiesList.toArray(new String[globalAbilitiesList.size()]);
 	}
+	private LinkedList<LinkedList<IParam>> advancedSystemMap()	{
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("NEBULAE_OPTION"),
+				opts.getNebula(),
+				opts.getNebulaPlacing(),
+				opts.getRealNebulaSize(),
+				opts.getRealNebulaShape(),
+				opts.previewNebula(),
+
+				opts.headerSpacer(),
+				new ParamTitle("GAME_OTHER"),
+				opts.getLooseNeighborhood(),
+				opts.getOrionToEmpireModifier(),
+				opts.getEmpiresSpreadingFactor(),
+				opts.galaxyRandSource()
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("HOMEWORLD_NEIGHBORHOOD"),
+				opts.getFirstRingSystemNumber(),
+				opts.getFirstRingHabitable(),
+				opts.getFirstRingRadius(),
+				opts.getSecondRingSystemNumber(),
+				opts.getSecondRingHabitable(),
+				opts.getSecondRingRadius(),
+
+				opts.headerSpacer(),
+				new ParamTitle("LINKED_OPTIONS"),
+				opts.starDensity(),
+				opts.sizeSelection(),
+				opts.dynStarsPerEmpire(),
+				opts.aliensNumber()
+				)));
+		return map;
+	};	
 	@Override protected void singleInit() {
 		//startBox			= new Box(startButtonHelp);
 		showAbilitiesBox	= new Box(opts.useSelectableAbilities());
@@ -320,7 +355,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		mapOption1Box		= new Box(opts.shapeOption1());
 		mapOption2Box		= new Box(opts.shapeOption2());
 		mapOption3Box		= new Box(opts.shapeOption3());
-		sizeOptionBox		= new Box(dynStarsPerEmpire);
+		sizeOptionBox		= new Box(opts.dynStarsPerEmpire());
 		sizeBox				= new Box(opts.sizeSelection());
 		diffBox				= new Box(opts.difficultySelection());
 		wysiwygBox			= new Box(opts.galaxyRandSource());
@@ -340,8 +375,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		duplicateList.add(opts.shapeOption1());
 		duplicateList.add(opts.shapeOption2());
 		duplicateList.add(opts.aliensNumber());
+
+		advancedSystemOptionsUI	= new ParamSubUI( MOD_UI, ADVANCED_SYSTEMS_GUI_ID, advancedSystemMap());
 	}
 	@Override public void init() {
+		showGrid = prevShowGrid;
 		opts = guiOptions();
 		isOnTop = true;
 		super.init();
@@ -362,7 +400,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	@Override public void clearImages() {
 		super.clearImages();
-//        backImg			= null;
 		boxMonoFont		= null;
 		dialogMonoFont	= null;
 		galaxyTextArray	= null;
@@ -499,7 +536,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
         int xHK = scaled(100);
         int yHK = scaled(70);
         int wHK = scaled(360);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 11, text("SETUP_GALAXY_HELP_HK"));
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 18, text("SETUP_GALAXY_HELP_HK"));
         helpUI.open(this);
 	}
 	private void loadHelpUI() {
@@ -522,7 +559,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		xBox = rightBoxX;
 		yBox = s10;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-		int hShift = s20;
+		int hShift = s15;
 		int xTab   = s15;
 
 		// Small Buttons at the bottom
@@ -616,11 +653,27 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		xe   = dest.x + dest.width - s5;
 		ye   = dest.y;
 		sp.setLine(xb, yb, xe, ye);
+
+		// Tune Galaxy button;
+		int margin = s3;
+		dest = tuneGalaxyBox;
+		txt  = dest.getHelp();
+		nL   = 2;
+		wBox = scaled(400);
+		hBox = HelpUI.height(nL);
+		xBox = rightBoxX - scaled(270);
+		yBox = y2 - hBox - hShift;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox*6/7;
+		yb   = yBox + sp.height();
+		xe   = dest.x + dest.width/2;
+		ye   = dest.y;
+		sp.setLine(xb, yb, xe, ye);
+		int y3 = yBox;
 		
 		// Options Buttons
 		txt  = text("");
-		int margin = s3;
-		switch (compactOptionOnly.get().toUpperCase()) {
+		switch (opts.compactOptionOnly().get().toUpperCase()) {
 			case "NO": {
 				hBox = settingsBox.height + 2*margin;
 				wBox = settingsBox.width + 2*margin;
@@ -630,23 +683,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				txt  = text("SETUP_GALAXY_VANILLA_OPTIONS_HELP");
 				break;
 			}
-			case "YES": {
-				hBox = mergedStaticBox.height + 2*margin;
-				wBox = mergedStaticBox.x + mergedDynamicBox.width - mergedDynamicBox.x + 2*margin;
-				xBox = mergedDynamicBox.x - margin;
-				yBox = mergedStaticBox.y - margin;
-				nL   = 7;
-				txt  = text("SETUP_GALAXY_COMPACT_OPTIONS_HELP");
-				break;
-			}
-			case "6":
+			case "YES":
 			default: {
-	 			hBox = modDynamicBBox.y + modDynamicBBox.height - modStaticBBox.y + 2*margin;
-				wBox = settingsBox.x + settingsBox.width - modStaticBBox.x + 2*margin;
-				xBox = modStaticBBox.x - margin;
-				yBox = modStaticBBox.y - margin;
-				nL   = 9;
-				txt  = text("SETUP_GALAXY_CLASSIC_OPTIONS_HELP");
+				hBox = compactSetupBox.height + 2*margin;
+				wBox = compactSetupBox.x + compactOptionBox.width - compactOptionBox.x + 2*margin;
+				xBox = compactOptionBox.x - margin;
+				yBox = compactSetupBox.y - margin;
+				nL   = 6;
+				txt  = text("SETUP_GALAXY_COMPACT_OPTIONS_HELP");
 				break;
 			}
 		}
@@ -657,28 +701,21 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		yb = yBox - s80;
 	   
 		hBox = HelpUI.height(nL);
-		wBox = scaled(360);
-		//xBox = rightBoxX + xTab;
-		//yBox = boxY + rightBoxH - hBox - scaled(170);
-		xBox = rightBoxX - scaled(130);
-		yBox = y2 - hBox - hShift;
+		wBox = scaled(400);
+		xBox = rightBoxX - scaled(170);
+		yBox = y3 - hBox - hShift;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-		xb   = xBox + wBox*5/6;
+		xb   = xBox + wBox*6/7;
 		yb   = yBox + sp.height();
 		
-		switch (compactOptionOnly.get().toUpperCase()) {
+		switch (opts.compactOptionOnly().get().toUpperCase()) {
 			case "NO": {
 				xe = settingsBox.x;
 				ye = settingsBox.y;
 				break;
 			}
-			case "YES": {
-				sp.setLineArr(lineArr);
-				break;
-			}
-			case "6":
+			case "YES":
 			default: {
-				xe   = xb+s10;
 				sp.setLineArr(lineArr);
 				break;
 			}
@@ -708,7 +745,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		nL   = 3;
 		hBox = HelpUI.height(nL);
 		xBox = dest.x + dest.width/2 - wBox/4;
-		yBox = dest.y + hShift-s10;
+		yBox = dest.y + hShift-s15;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox+s55, nL, txt);
 		xb   = xBox + wBox/4;
 		yb   = yBox;
@@ -1019,12 +1056,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	@Override public void preview(String s) {
 		if (s == null)
 			return;
-		if (this.isShapeTextGalaxy())
-			opts.selectedGalaxyShapeOption1(s);
-		else if (this.isShapeBitmapGalaxy()){
-			opts.shapeOption3().set(s);
+		if (!s.equalsIgnoreCase("quickGenerate")) {
+			if (isShapeTextGalaxy())
+				opts.selectedGalaxyShapeOption1(s);
+			else if (isShapeBitmapGalaxy()){
+				opts.shapeOption3().set(s);
+			}			
 		}
-	    opts.galaxyShape().quickGenerate(); 
+		postSelectionMedium(false);
 		repaint();
 	}	
 	private String selectSpecificAIFromList(int i) {
@@ -1154,6 +1193,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		for (Box box: oppAbilities)
 			box.setBounds(0,0,0,0);
 		// background image
+		// this.backImg = null; // TO DO BR: Remove
 		g.drawImage(backImg(), 0, 0, w, h, this);
 //		drawFixButtons(g, false);
 		drawFixButtons(g, forceUpdate);
@@ -1389,23 +1429,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 					int sw2 = g.getFontMetrics().stringWidth(label3);
 					g.setFont(narrowFont(fs));
 					int x5e =mapOption3Box.x+((mapOption3Box.width-sw2)/2);
-					switch (compactOptionOnly.get().toUpperCase()) {
+					switch (opts.compactOptionOnly().get().toUpperCase()) {
 						case "NO":
-						case "YES": {
+						case "YES":
+						default:
 							drawString(g,label3, x5e, y5+s60);
 							break;
-						}
-						case "6":
-						default: {
-							drawString(g,label3, x5e, y5+s40);
-							break;
-						}
 					}
-
-//					if (compactOptionOnly.get())
-//						drawString(g,label3, x5e, y5+s60);
-//					else
-//						drawString(g,label3, x5e, y5+s40);
 					g.setFont(prevFont);
 				}
 				String label2 = text(opts.selectedGalaxyShapeOption2());
@@ -1421,7 +1451,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		drawString(g,sizeLbl, x5b, y5);
 
 		if (isDynamic()) { // BR:
-			String label = text(SIZE_OPT_KEY, dynStarsPerEmpire.guideValue());
+			String label = text(SIZE_OPT_KEY, opts.dynStarsPerEmpire().guideValue());
 			int sw2 = g.getFontMetrics().stringWidth(label);
 			int x5b1 =sizeOptionBox.x+((sizeOptionBox.width-sw2)/2);
 			drawString(g,label, x5b1, y5+s20);		   
@@ -1460,21 +1490,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			List<String> warnLines = this.wrappedLines(g, warning, galaxyW);
 			g.setColor(Color.white);
 			int warnY = y5+s60;
-			switch (compactOptionOnly.get().toUpperCase()) {
+			switch (opts.compactOptionOnly().get().toUpperCase()) {
 				case "NO":
-				case "YES": {
+				case "YES":
+				default:
 					warnY += s25;
-					break;
-				}
-				case "6":
-				default: {
-					break;
-				}
 			}
-
-//			if (compactOptionOnly.get())
-//				warnY += s25;
-
 			for (String line: warnLines) {
 				drawString(g,line, galaxyX, warnY);
 				warnY += s18;
@@ -1504,59 +1525,42 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     }
 	private void drawFixButtons(Graphics2D g, boolean all) {
 		Stroke prev;
-		switch (compactOptionOnly.get().toUpperCase()) {
+		switch (opts.compactOptionOnly().get().toUpperCase()) {
 			case "YES": {
 				g.setFont(narrowFont(20)); // 18 for 3 buttons// 20 for 2 buttons
 				// BR: second UI panel for MOD game options
 				// MOD settings button
-				if (hoverBox == mergedStaticBox || all) {
+				if (hoverBox == compactSetupBox || all) {
 					String textMOD = text("SETUP_BUTTON_MERGED_STATIC_SETTINGS");
 					int swMOD = g.getFontMetrics().stringWidth(textMOD);
-					int xMOD = mergedStaticBox.x+((mergedStaticBox.width-swMOD)/2);
-					int yMOD = mergedStaticBox.y+mergedStaticBox.height-s8;
+					int xMOD = compactSetupBox.x+((compactSetupBox.width-swMOD)/2);
+					int yMOD = compactSetupBox.y+compactSetupBox.height-s8;
 					Color color = all ? GameUI.borderBrightColor() : Color.yellow;
 					drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
 					prev = g.getStroke();
 					g.setStroke(stroke1);
-					g.drawRoundRect(mergedStaticBox.x, mergedStaticBox.y, mergedStaticBox.width, mergedStaticBox.height, cnr, cnr);
+					g.drawRoundRect(compactSetupBox.x, compactSetupBox.y, compactSetupBox.width, compactSetupBox.height, cnr, cnr);
 					g.setStroke(prev);
 				}
 				// BR: second UI panel for MOD game options
 				// MOD settings button
-				if (hoverBox == mergedDynamicBox || all) {
+				if (hoverBox == compactOptionBox || all) {
 					String textMOD = text("SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS");
 					int swMOD = g.getFontMetrics().stringWidth(textMOD);
-					int xMOD = mergedDynamicBox.x+((mergedDynamicBox.width-swMOD)/2);
-					int yMOD = mergedDynamicBox.y+mergedDynamicBox.height-s8;
+					int xMOD = compactOptionBox.x+((compactOptionBox.width-swMOD)/2);
+					int yMOD = compactOptionBox.y+compactOptionBox.height-s8;
 					Color color = all ? GameUI.borderBrightColor() : Color.yellow;
 					drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
 					prev = g.getStroke();
 					g.setStroke(stroke1);
-					g.drawRoundRect(mergedDynamicBox.x, mergedDynamicBox.y, mergedDynamicBox.width, mergedDynamicBox.height, cnr, cnr);
+					g.drawRoundRect(compactOptionBox.x, compactOptionBox.y, compactOptionBox.width, compactOptionBox.height, cnr, cnr);
 					g.setStroke(prev);
 				}
 				break;
 			}
-			case "NO": {
-				g.setFont(narrowFont(18)); // 18 for 3 buttons// 20 for 2 buttons
-				// Advanced settings button
-				if (hoverBox == settingsBox || all) {
-					String text6 = text("SETUP_BUTTON_SETTINGS");
-					int sw6 = g.getFontMetrics().stringWidth(text6);
-					int x6 = settingsBox.x+((settingsBox.width-sw6)/2);
-					int y6 = settingsBox.y+settingsBox.height-s8;
-					Color color = all ? GameUI.borderBrightColor() : Color.yellow;
-					drawShadowedString(g, text6, 2, x6, y6, GameUI.borderDarkColor(), color);
-					prev = g.getStroke();
-					g.setStroke(stroke1);
-					g.drawRoundRect(settingsBox.x, settingsBox.y, settingsBox.width, settingsBox.height, cnr, cnr);
-					g.setStroke(prev);
-				}
-				break;
-			}
-			case "6":
+			case "NO":
 			default: {
-				g.setFont(narrowFont(18)); // 18 for 3 buttons// 20 for 2 buttons
+				g.setFont(narrowFont(20)); // 18 for 3 buttons// 20 for 2 buttons
 				// Advanced settings button
 				if (hoverBox == settingsBox || all) {
 					String text6 = text("SETUP_BUTTON_SETTINGS");
@@ -1570,79 +1574,23 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 					g.drawRoundRect(settingsBox.x, settingsBox.y, settingsBox.width, settingsBox.height, cnr, cnr);
 					g.setStroke(prev);
 				}
-				// modnar: add UI panel for modnar MOD game options
-				// MOD settings button
-				if (hoverBox == modStaticABox || all) {
-					String textMOD = text("SETUP_BUTTON_STATIC_A_SETTINGS");
-					int swMOD = g.getFontMetrics().stringWidth(textMOD);
-					int xMOD = modStaticABox.x+((modStaticABox.width-swMOD)/2);
-					int yMOD = modStaticABox.y+modStaticABox.height-s8;
-					Color color = all ? GameUI.borderBrightColor() : Color.yellow;
-					drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
-					prev = g.getStroke();
-					g.setStroke(stroke1);
-					g.drawRoundRect(modStaticABox.x, modStaticABox.y, modStaticABox.width, modStaticABox.height, cnr, cnr);
-					g.setStroke(prev);
-				}
-				// BR: second UI panel for MOD game options
-				// MOD settings button
-				if (hoverBox == modStaticBBox || all) {
-					String textMOD = text("SETUP_BUTTON_STATIC_B_SETTINGS");
-					int swMOD = g.getFontMetrics().stringWidth(textMOD);
-					int xMOD = modStaticBBox.x+((modStaticBBox.width-swMOD)/2);
-					int yMOD = modStaticBBox.y+modStaticBBox.height-s8;
-					Color color = all ? GameUI.borderBrightColor() : Color.yellow;
-					drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
-					prev = g.getStroke();
-					g.setStroke(stroke1);
-					g.drawRoundRect(modStaticBBox.x, modStaticBBox.y, modStaticBBox.width, modStaticBBox.height, cnr, cnr);
-					g.setStroke(prev);
-				}
-				// BR: second UI panel for MOD game options
-				// MOD settings button
-				if (hoverBox == modDynamicABox || all) {
-					String textMOD = text("SETUP_BUTTON_DYNAMIC_A_SETTINGS");
-					int swMOD = g.getFontMetrics().stringWidth(textMOD);
-					int xMOD = modDynamicABox.x+((modDynamicABox.width-swMOD)/2);
-					int yMOD = modDynamicABox.y+modDynamicABox.height-s8;
-					Color color = all ? GameUI.borderBrightColor() : Color.yellow;
-					drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
-					prev = g.getStroke();
-					g.setStroke(stroke1);
-					g.drawRoundRect(modDynamicABox.x, modDynamicABox.y, modDynamicABox.width, modDynamicABox.height, cnr, cnr);
-					g.setStroke(prev);
-				}
-				// BR: second UI panel for MOD game options
-				// MOD settings button
-				if (hoverBox == modDynamicBBox || all) {
-					String textMOD = text("SETUP_BUTTON_DYNAMIC_B_SETTINGS");
-					int swMOD = g.getFontMetrics().stringWidth(textMOD);
-					int xMOD = modDynamicBBox.x+((modDynamicBBox.width-swMOD)/2);
-					int yMOD = modDynamicBBox.y+modDynamicBBox.height-s8;
-					Color color = all ? GameUI.borderBrightColor() : Color.yellow;
-					drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
-					prev = g.getStroke();
-					g.setStroke(stroke1);
-					g.drawRoundRect(modDynamicBBox.x, modDynamicBBox.y, modDynamicBBox.width, modDynamicBBox.height, cnr, cnr);
-					g.setStroke(prev);
-				}
-				// BR: Display settings UI panel for MOD game options
-				// MOD settings button
-				if (hoverBox == globalModSettingsBox || all) {
-					String textModView = text("SETUP_BUTTON_MOD_GLOBAL_SETTINGS");
-					int swModView = g.getFontMetrics().stringWidth(textModView);
-					int xModView = globalModSettingsBox.x+((globalModSettingsBox.width-swModView)/2);
-					int yModView = globalModSettingsBox.y+globalModSettingsBox.height-s8;
-					Color color = all ? GameUI.borderBrightColor() : Color.yellow;
-					drawShadowedString(g, textModView, 2, xModView, yModView, GameUI.borderDarkColor(), color);
-					prev = g.getStroke();
-					g.setStroke(stroke1);
-					g.drawRoundRect(globalModSettingsBox.x, globalModSettingsBox.y,
-							globalModSettingsBox.width, globalModSettingsBox.height, cnr, cnr);
-					g.setStroke(prev);
-				}
 				break;
 			}
+		}
+
+		// Tune Galaxy button
+		g.setFont(narrowFont(20)); // 18 for 3 buttons// 20 for 2 buttons
+		if (hoverBox == tuneGalaxyBox || all) {
+			String text = text("SETUP_BUTTON_TUNE_GALAXY");
+			int sw = g.getFontMetrics().stringWidth(text);
+			int x = tuneGalaxyBox.x+((tuneGalaxyBox.width-sw)/2);
+			int y = tuneGalaxyBox.y+tuneGalaxyBox.height*75/100;
+			Color color = all ? GameUI.borderBrightColor() : Color.yellow;
+			drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), color);
+			prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.drawRoundRect(tuneGalaxyBox.x, tuneGalaxyBox.y, tuneGalaxyBox.width, tuneGalaxyBox.height, cnr, cnr);
+			g.setStroke(prev);
 		}
 
 		g.setFont(bigButtonFont());
@@ -1668,17 +1616,22 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		return opts.useSelectableAbilities().guideValue();
 	}
 	private void drawGalaxyShape(Graphics2D g, GalaxyShape sh, int x, int y, int w, int h) {
-		int looseOffset = 0;
-			if (opts.LooseNeighborhood())
-				looseOffset=(int) (2*opts.secondRingRadius());
-		int gw = sh.width() + looseOffset;
-		int gh = sh.height() + looseOffset;
+		// Value in ly
+		float radius = 0;
+			if (opts.looseNeighborhood())
+				radius = opts.secondRingRadius();
+		float fullGw = sh.width()  + 2*radius;
+		float fullGh = sh.height() + 2*radius;
+		float factor = min(w/fullGw, h/fullGh);
 		
-		float factor = min((float)h/gh, (float)w/gw);
-		int dispH = (int) (sh.height()*factor);
-		int dispW = (int) (sh.width()*factor);
-		int xOff = x+(w-dispW)/2;
-		int yOff = y+(h-dispH)/2;
+		// Conversion in pixels
+		int dispNomW = Math.round(sh.width() * factor);
+		int dispNomH = Math.round(sh.height() * factor);
+		int xOff = x + Math.round((w - sh.width()*factor) / 2f);
+		int yOff = y + Math.round((h - sh.height()*factor) / 2f);
+		int grid = Math.round(galaxyGrid * factor);
+		
+		// Work in pixel
 		int starSize    = s2;
 		int worldsSize  = 0;
 		int nearSize    = 0;
@@ -1687,11 +1640,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int worldsShift = 0;
 		int nearShift   = 0;
 		int compShift   = 0;
-		boolean colored = galaxyPreviewColorStarsSize.get() != 0;
+		boolean colored = opts.galaxyPreviewColorStarsSize().get() != 0;
 		if (colored) {
 			xOff += starShift;
 			yOff += starShift;
-			worldsSize  = scaled(galaxyPreviewColorStarsSize.get());
+			worldsSize  = scaled(opts.galaxyPreviewColorStarsSize().get());
 			nearSize    = worldsSize * 3/4;
 			compSize    = worldsSize/2;
 			worldsShift = worldsSize/2;
@@ -1700,22 +1653,28 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		// Start with grid
 		if (showGrid) {
-			int xEnd = xOff + Math.round(gw*factor);
-			int yEnd = yOff + Math.round(gh*factor);
-			int lim = gw/(2*galaxyGrid);
+			int xEnd = xOff + dispNomW;
+			int yEnd = yOff + dispNomH;
+			int lim = dispNomW/(2*grid);
 			int ctr = (xOff+xEnd)/2;
 			g.setColor(Color.darkGray);
 			for (int i=-lim; i<=lim; i++) {
-				int xG = ctr + Math.round(i*galaxyGrid*factor);
+				int xG = ctr + Math.round(i*grid);
 				g.drawLine(xG, yOff, xG, yEnd);
 			}
-			lim = gh/(2*galaxyGrid);
+			lim = dispNomH/(2*grid);
 			ctr = (yOff+yEnd)/2;			
 			for (int i=-lim; i<=lim; i++) {
-				int yG = ctr + Math.round(i*galaxyGrid*factor);
+				int yG = ctr + Math.round(i*grid);
 				g.drawLine(xOff, yG, xEnd, yG);
 			}
 		}
+		// BR: Add Nebulae
+//		System.out.println("Galaxy size x=" + fmt(sh.width(), 1) + " y=" + fmt(sh.height(), 1)
+//											+ " x+=" + fmt(fullGw, 1) + " y+=" + fmt(fullGh, 1));
+		if (colored && opts.previewNebula().get())
+			for (Nebula neb : nebulas())
+				neb.drawNebulaPreview(g, xOff, yOff, factor);
 		// Add with lone stars
 		Point.Float pt = new Point.Float();
 		for (int i=0; i<sh.numberStarSystems();i++) {
@@ -1820,15 +1779,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			int yt = galaxyBox.y + s15;
 			drawString(g, spStr, xt, yt);
 		}
-		// BR: Add Nebulae
-		if (colored)
-			for (Nebula neb : nebulas())
-				neb.drawNebula(g, xOff, yOff, factor);
 	}
 	private List<Nebula> nebulas() {
 		if (nebulas == null) {
 			nebulas = new ArrayList<>(opts.numberNebula());
-			opts.galaxyShape().addNebulas(nebulas);
+			opts.galaxyShape().createNebulas(nebulas);
 		}
 		return nebulas;
 	}
@@ -1951,7 +1906,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		boolean mid = SwingUtilities.isMiddleMouseButton(e);
 		if (mid)
 			opts.selectedOpponentAIOption(opponentAI.defaultValue());
-		else if (opts.opponentAIOptions().size() >= minListSizePopUp.get()
+		else if (opts.opponentAIOptions().size() >= opts.minListSizePopUp().get()
 					|| ModifierKeysState.isCtrlDown())
 			selectGlobalAIFromList();
 		else if (up)
@@ -1990,7 +1945,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		boolean mid = SwingUtilities.isMiddleMouseButton(e);
 		if (mid)
 			opts.globalCROptions().setFromDefault(false, true);
-		else if (globalAbilitiesArray.length >= minListSizePopUp.get()
+		else if (globalAbilitiesArray.length >= opts.minListSizePopUp().get()
 				|| ModifierKeysState.isCtrlDown())
 			selectAlienAbilityFromList();
 		else if (up)
@@ -2097,8 +2052,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			backImg = null;
 			nebulas = null;
 			postSelectionMedium(false);
-			//repaint(galaxyBox);
-			//refreshGui();
 			return;
 		}
 		showGrid = !showGrid;
@@ -2123,50 +2076,16 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private void goToMergedStatic() {
 		buttonClick();
 		isOnTop = false;
-		MergedStaticOptionsUI modOptionsUI = RotPUI.mergedStaticOptionsUI();
+		CompactSetupUI modOptionsUI = RotPUI.compactSetupUI();
 		close();
 		modOptionsUI.start(GUI_ID, this);
 	}
 	private void goToMergedDynamic() {
 		buttonClick();
 		isOnTop = false;
-		MergedDynamicOptionsUI modOptionsUI = RotPUI.mergedDynamicOptionsUI();
+		CompactOptionsUI modOptionsUI = RotPUI.compactOptionsUI();
 		close();
 		modOptionsUI.start(GUI_ID, this);
-	}
-	private void goToModStaticA() {
-		buttonClick();
-		isOnTop = false;
-		StaticAOptionsUI modOptionsUI = RotPUI.modOptionsStaticA();
-		close();
-		modOptionsUI.init();
-	}
-	private void goToModStaticB() {
-		buttonClick();
-		isOnTop = false;
-		StaticBOptionsUI modBOptionsUI = RotPUI.modOptionsStaticB();
-		close();
-		modBOptionsUI.init();
-	}
-	private void goToModDynamicA() {
-		buttonClick();
-		isOnTop = false;
-		DynamicAOptionsUI modOptionsUI = RotPUI.modOptionsDynamicA();
-		close();
-		modOptionsUI.init();
-	}
-	private void goToModDynamicB() {
-		buttonClick();
-		DynamicBOptionsUI modBOptionsUI = RotPUI.modOptionsDynamicB();
-		close();
-		modBOptionsUI.init();
-	}
-	// BR: Display UI panel for MOD game options
-	private void goToModGlobalOptions() {
-		buttonClick();
-		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
-		close();
-		modGlobalOptionsUI.init();
 	}
 	// BR: Add option to return to the main menu
 	private void goToMainMenu() {
@@ -2199,7 +2118,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	public	void startGame() {
 		opts.saveOptionsToFile(LIVE_OPTIONS_FILE);
 		starting = true;
-		// repaint();
 		buttonClick();
 		GameUI.gameName = generateGameName();
 		UserPreferences.setForNewGame();
@@ -2220,6 +2138,17 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			galaxyTextArray = null;
 		};
 		SwingUtilities.invokeLater(save);
+	}
+	private void goToTuneGalaxyOptions() {
+		prevShowGrid = showGrid;
+		showGrid = true;
+		ParamSubUI subUI = advancedSystemOptionsUI;
+		int x = scaled(20);
+		int y = scaled(80);
+		int w = scaled(660);
+		int h = scaled(530);
+		Rectangle rec = new Rectangle(x, y, w, h);
+		subUI.hovering(this, rec);
 	}
 	@Override protected void initBackImg() {
 		int w = getWidth();
@@ -2329,8 +2258,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		// draw AI selection
 		g.setColor(SystemPanel.blackText);
-		// int x3 = x2+s20;
-		// int y3 = y2+s32;
 		int y3 = y2+s47; // BR: up a little
 		int x3 = x2;
 		drawString(g,header3, x3, y3);
@@ -2483,7 +2410,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		mapOption3Box.setBounds(0,0,0,0);
 		if (opts.numGalaxyShapeOption2() > 0) {
 			if (this.isShapeBitmapGalaxy()) {
-				switch (compactOptionOnly.get().toUpperCase()) {
+				switch (opts.compactOptionOnly().get().toUpperCase()) {
 					case "NO":
 					case "YES": {
 						mapOption3Box.setBounds(sliderX, sliderYAI+s60, sliderW+2*sectionW, sliderH);
@@ -2568,14 +2495,19 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// draw settings button
 		int smallButtonH = s27; // 27 for 3 buttons // 30 for 2 buttons
 		int smallButtonW = scaled(150); // 150 for 3 buttons // 180 for 2 buttons
-		int smallButton2W = scaled(135); // for the two smaller buttons when 3 buttons
 		// BR: buttons positioning
-		int yb = 615; // 615 for 3 buttons (1 row) // 610 for 2 buttons
-		int xb = 989; // 989 for 3 buttons // 960 for 2 buttons 1 row // 948 for centered
-		int dx = 145; // 145 for 3 buttons // 200 for 2 buttons 1 row // 241 for centered
-		int dy = 30; // 30 for 3 buttons // 35 for 2 buttons
+		// Tune galaxy button
+		int yb = 610;
+		int xb = 700;
+		int dx = 145;
+		int dy = 30;
+		smallButtonW = scaled(180);
+		smallButtonH = s30;
+		g.setPaint(GameUI.buttonBackgroundColor());
+		tuneGalaxyBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
+		tuneGalaxyBox.fillButtonFullImg(g);
 		
-		switch (compactOptionOnly.get().toUpperCase()) {
+		switch (opts.compactOptionOnly().get().toUpperCase()) {
 			case "YES": {
 				int bw = 100;
 				yb = 610; // 615 for 3 buttons (1 row) // 610 for 2 buttons
@@ -2585,65 +2517,28 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				smallButtonW = scaled(bw); // 150 for 3 buttons // 180 for 2 buttons
 				smallButtonH = s30; // 27 for 3 buttons // 30 for 2 buttons
 				// draw Merged settings button
-				mergedStaticBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
-				g.setPaint(GameUI.buttonLeftBackground());
-				g.fillRoundRect(mergedStaticBox.x, mergedStaticBox.y, smallButtonW, smallButtonH, cnr, cnr);
+				g.setPaint(GameUI.buttonBackgroundColor());
+				compactSetupBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
+				compactSetupBox.fillButtonFullImg(g);
 				// draw Merged settings button
-				mergedDynamicBox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButtonW, smallButtonH);
-				g.setPaint(GameUI.buttonLeftBackground());
-				g.fillRoundRect(mergedDynamicBox.x, mergedDynamicBox.y, smallButtonW, smallButtonH, cnr, cnr);
+				compactOptionBox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButtonW, smallButtonH);
+				compactOptionBox.fillButtonFullImg(g);
 				settingsBox.setBounds(0, 0, 0, 0);
-				modStaticABox.setBounds(0, 0, 0, 0);
-				modStaticBBox.setBounds(0, 0, 0, 0);
-				modDynamicABox.setBounds(0, 0, 0, 0);
-				modDynamicBBox.setBounds(0, 0, 0, 0);
-				globalModSettingsBox.setBounds(0, 0, 0, 0);
 				break;
 				}
-			case "NO": {
+			case "NO":
+			default: {
 				yb = 610; // 615 for 3 buttons (1 row) // 610 for 2 buttons
 				xb = 960; // 984 for 3 buttons // 960 for 2 buttons 1 row // 948 for centered
 				dx = 200; // 145 for 3 buttons // 200 for 2 buttons 1 row // 241 for centered
 				dy = 30; // for 1 row
 				smallButtonW = scaled(180); // 150 for 3 buttons // 180 for 2 buttons
 				smallButtonH = s30; // 27 for 3 buttons // 30 for 2 buttons
+				g.setPaint(GameUI.buttonLeftBackground());
 				settingsBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
-				g.setPaint(GameUI.buttonLeftBackground());
-				g.fillRoundRect(settingsBox.x, settingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
-				break;
-				}
-			case "6":
-			default: {
-				settingsBox.setBounds(scaled(xb), scaled(yb), smallButtonW, smallButtonH);
-				g.setPaint(GameUI.buttonLeftBackground());
-				g.fillRoundRect(settingsBox.x, settingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
-				// modnar: add UI panel for modnar MOD game options // BR: Squeezed a little
-				// draw MOD settings button
-				modStaticABox.setBounds(scaled(xb-dx), scaled(yb), smallButton2W, smallButtonH);
-				g.setPaint(GameUI.buttonRightBackground());
-				g.fillRoundRect(modStaticABox.x, modStaticABox.y, smallButton2W, smallButtonH, cnr, cnr);
-				// BR: second UI panel for MOD game options
-				// draw MOD settings button
-				modStaticBBox.setBounds(scaled(xb-2*dx), scaled(yb), smallButton2W, smallButtonH);
-				g.setPaint(GameUI.buttonRightBackground());
-				g.fillRoundRect(modStaticBBox.x, modStaticBBox.y, smallButton2W, smallButtonH, cnr, cnr);
-				// BR: second UI panel for MOD game options
-				// draw MOD settings button
-				modDynamicABox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButton2W, smallButtonH);
-				g.setPaint(GameUI.buttonRightBackground());
-				g.fillRoundRect(modDynamicABox.x, modDynamicABox.y, smallButton2W, smallButtonH, cnr, cnr);
-				// BR: second UI panel for MOD game options
-				// draw MOD settings button
-				modDynamicBBox.setBounds(scaled(xb-2*dx), scaled(yb+dy), smallButton2W, smallButtonH);
-				g.setPaint(GameUI.buttonRightBackground());
-				g.fillRoundRect(modDynamicBBox.x, modDynamicBBox.y, smallButton2W, smallButtonH, cnr, cnr);
-				// BR: Display Settings UI panel for MOD game options
-				// draw MOD settings button
-				globalModSettingsBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
-				g.setPaint(GameUI.buttonLeftBackground());
-				g.fillRoundRect(globalModSettingsBox.x, globalModSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);			
-				mergedStaticBox.setBounds(0, 0, 0, 0);
-				mergedDynamicBox.setBounds(0, 0, 0, 0);
+				settingsBox.fillButtonFullImg(g);
+				compactSetupBox.setBounds(0, 0, 0, 0);
+				compactOptionBox.setBounds(0, 0, 0, 0);
 				break;
 				}
 		}
@@ -2658,18 +2553,18 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		// draw BACK button
 		xb -= dx;
-		backBox.setBounds(scaled(xb), scaled(yB), buttonW, buttonH);
 		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(backBox.x, backBox.y, buttonW, buttonH, cnr, cnr);
+		backBox.setBounds(scaled(xb), scaled(yB), buttonW, buttonH);
+		backBox.fillButtonFullImg(g);
 
 		// draw DEFAULT button
 		buttonH = s30;
 		buttonW = defaultButtonWidth(g);
 		yb = scaled(yB+15);
 		xb = scaled(xb)-buttonW-buttonSep;
-		defaultBox.setBounds(xb, yb, buttonW, buttonH);
 		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(defaultBox.x, defaultBox.y, buttonW, buttonH, cnr, cnr);
+		defaultBox.setBounds(xb, yb, buttonW, buttonH);
+		defaultBox.fillButtonFullImg(g);
 
 		// draw LAST button
 		buttonW = lastButtonWidth(g);
@@ -2702,7 +2597,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			doStartBoxAction();
 			return;
     	case KeyEvent.VK_B:
-    		compactOptionOnly.next();
+    		opts.compactOptionOnly().next();
     		clearImages();
     		initBackImg();
     		repaint();
@@ -2712,6 +2607,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
             return;
 		case KeyEvent.VK_M: // BR: "M" = Go to Main Menu
 			goToMainMenu();
+			return;
+		case KeyEvent.VK_T:
+			goToTuneGalaxyOptions();
 			return;
 		default:
 			return;
@@ -2743,24 +2641,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			doLastBoxAction();
 		else if (hoverBox == settingsBox)
 			goToOptions();
-		// modnar: add UI panel for modnar MOD game options
-		else if (hoverBox == modStaticABox)
-			goToModStaticA();
+		else if (hoverBox == tuneGalaxyBox)
+			goToTuneGalaxyOptions();
 		// BR: Merged UI panel for MOD game options
-		else if (hoverBox == mergedStaticBox)
+		else if (hoverBox == compactSetupBox)
 			goToMergedStatic();
-		else if (hoverBox == mergedDynamicBox)
+		else if (hoverBox == compactOptionBox)
 			goToMergedDynamic();
-		// BR: second UI panel for MOD game options
-		else if (hoverBox == modStaticBBox)
-			goToModStaticB();
-		else if (hoverBox == modDynamicABox)
-			goToModDynamicA();
-		else if (hoverBox == modDynamicBBox)
-			goToModDynamicB();
-		// BR: Display UI panel for MOD game options
-		else if (hoverBox == globalModSettingsBox)
-			goToModGlobalOptions();
 		else if (hoverBox == galaxyBox)
 			toggleGalaxyGrid(e);
 		else if (hoverBox == exitBox)
@@ -2815,17 +2702,17 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			// postGalaxySizeSelection(true);
 		}
 		else if (hoverPolyBox == sizeOptionBoxL) {
-			dynStarsPerEmpire.prev(e);
-			dynStarsPerEmpire.set(dynStarsPerEmpire.getValidValue());
+			opts.dynStarsPerEmpire().prev(e);
+			opts.dynStarsPerEmpire().set(opts.dynStarsPerEmpire().getValidValue());
 			// postGalaxySizeSelection(true);
 		}
 		else if (hoverBox == sizeOptionBox) {
-			dynStarsPerEmpire.toggle(e, (MouseWheelEvent)null, this);
+			opts.dynStarsPerEmpire().toggle(e, (MouseWheelEvent)null, this);
 			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == sizeOptionBoxR) {
-			dynStarsPerEmpire.next(e);
-			dynStarsPerEmpire.set(dynStarsPerEmpire.getValidValue());
+			opts.dynStarsPerEmpire().next(e);
+			opts.dynStarsPerEmpire().set(opts.dynStarsPerEmpire().getValidValue());
 			//postGalaxySizeSelection(true);
 		}
 		else if (hoverPolyBox == aiBoxL)
@@ -2921,7 +2808,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			postGalaxySizeSelection(false);
 		}
 		else if (hoverBox == sizeOptionBox) {
-			dynStarsPerEmpire.toggle((MouseEvent)null, e, this);
+			opts.dynStarsPerEmpire().toggle((MouseEvent)null, e, this);
 			postSelectionMedium(false);
 		}
 		else if (hoverBox == aiBox) {

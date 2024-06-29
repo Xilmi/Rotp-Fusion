@@ -119,7 +119,7 @@ public class GalaxyFactory implements Base {
 		log("Creating Galaxy size: ", fmt(g.width(),2), "@", fmt(g.height(),2));
 		long tm0 = System.currentTimeMillis();
 
-		addNebulas(g, shape);
+		createNebulas(g, shape);
 		long tm1 = System.currentTimeMillis();
 		log(str(g.nebulas().size()) +" Nebulas: "+(tm1-tm0)+"ms");
 
@@ -824,30 +824,11 @@ public class GalaxyFactory implements Base {
 			g.addNebula(nebula, nebSize);
 		}
 	}
-	private void addNebulas(Galaxy g, GalaxyShape shape) {
+	private void createNebulas(Galaxy g, GalaxyShape shape) {
 		IGameOptions opts = GameSession.instance().options();
-		// creates a star system for each race, and then additional star
-		// systems based on the galaxy size selected at startup
 		int numNebula= opts.numberNebula();
-//		float nebSize = options().nebulaSizeMult();
-		g.initNebulas(numNebula);
-		shape.addNebulas(g.nebulas());
-//		// add the nebulae
-//		// for each nebula, try to create it at the options size
-//		// in unsuccessful, decrease option size until it is
-//		// less than 1 or less than half of the option size
-//		for (int i=0;i<numNebula;i++) {
-//			float size = nebSize;
-//			boolean added = false;
-//			while(!added) {
-//				added = shape.addNebula(size, g.nebulas());
-//				// added = g.addNebula(shape,size);
-//				if (!added) {
-//					size--;
-//					added = size < 1;
-//				}
-//			}
-//		}
+		g.initNebulas(numNebula); // empty array creation
+		shape.createNebulas(g.nebulas());
 	}
 	public static class GalaxyCopy {
 		private IGameOptions newOptions;

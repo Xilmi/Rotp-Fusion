@@ -380,7 +380,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		String text = text(exitButtonKey());
 		int sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
-		xButton = leftM + wBG - buttonW - buttonPad;
+		xButton = leftM + wGist - buttonW - buttonPad;
 //		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, smallButtonH, cnr, cnr);
@@ -416,7 +416,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		// Exit Button
 		String text = text(exitButtonKey());
 		int buttonW	= exitButtonWidth(g);
-		xButton = leftM + wBG - buttonW - buttonPad;
+		xButton = leftM + wGist - buttonW - buttonPad;
 		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
 
 		// Guide Button
@@ -429,7 +429,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		text = "AI: Character";
 		int sw = g.getFontMetrics().stringWidth(text);
 		buttonW	= sw + smallButtonMargin;
-		int xAI = leftM + wBG - columnPad - buttonW;
+		int xAI = leftM + wGist - columnPad - buttonW;
 		int yAI	= yCost - raceAIH - s10;
 		raceAIBox.setBounds(xAI, yAI, buttonW, smallButtonH);
 	}
@@ -493,12 +493,12 @@ public class ShowCustomRaceUI extends BaseModPanel {
 
 		setBigButtonGraphics(g);
 		// draw EXIT button
-		exitBox.fillRoundRect(g);
+		exitBox.fillButtonBackImg(g);
 //		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
 
 		setSmallButtonGraphics(g);
 		// draw GUIDE button
-		guideBox.fillRoundRect(g);
+		guideBox.fillButtonBackImg(g);
 //		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
 		
 		drawButtons(g, true); // init = true; local = true
@@ -508,18 +508,18 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		long timeStart = System.currentTimeMillis();
 		w	= getWidth();
 		h	= getHeight();
-		wBG	= getBackGroundWidth();
-		hBG		= titlePad + columnsMaxH + tooltipPadV + descHeigh + buttonPadV + smallButtonH + buttonPadV;
+		wGist	= getBackGroundWidth();
+		hGist		= titlePad + columnsMaxH + tooltipPadV + descHeigh + buttonPadV + smallButtonH + buttonPadV;
 //		currentWith	 = wFirstColumn;
 //		descWidth = wBG - 2 * columnPad;
 
 		// Set the base top Margin
 		// Set the final High
-		topM	= (h - hBG)/2;
-		yButton	= topM + hBG - buttonPadV - smallButtonH;
+		topM	= (h - hGist)/2;
+		yButton	= topM + hGist - buttonPadV - smallButtonH;
 		
 		yTop	= topM + titlePad; // First setting top position
-		leftM	= Math.min((w - wBG)/2, maxLeftM);
+		leftM	= Math.min((w - wGist)/2, maxLeftM);
 		yTitle	= topM + titleOffset;
 		yDesc	= yButton - buttonPadV - descHeigh;
 		yCost 	= yTitle + costOffset;
@@ -545,13 +545,13 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		g.drawImage(back, 0, 0, w, h, 0, 0, imgW, imgH, this);
 
 		g.setPaint(bg());
-		g.fillRect(leftM, topM, wBG, hBG);
+		g.fillRect(leftM, topM, wGist, hGist);
 
 		// Title
 		g.setFont(titleFont);
 		String title = text(guiTitleID);
 		int sw = g.getFontMetrics().stringWidth(title);
-		int xTitle = leftM +(wBG-sw)/2;
+		int xTitle = leftM +(wGist-sw)/2;
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
 		initButtonsBounds(g);
@@ -620,7 +620,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		xLine = leftM+s10;
 		yLine = yTop;
 		currentWidth	= wFirstColumn;
-		descWidth	= wBG - 2 * columnPad;
+		descWidth	= wGist - 2 * columnPad;
 
 
 		// First column (left)

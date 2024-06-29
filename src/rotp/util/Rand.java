@@ -18,38 +18,52 @@
 package rotp.util;
 
 import java.util.List;
-import java.util.SplittableRandom;
+import java.util.Random;
 
-public class Rand{
-	private SplittableRandom rng;
+public class Rand extends Random {
+	// Kept for backward compatibility
+	@SuppressWarnings("unused")
+	private double[] CRND;
+	@SuppressWarnings("unused")
+	private double[] lasts;
+	@SuppressWarnings("unused")
+	private int lastId = 0;
+
+	private SerialRandom rng;
 	
     private double nextNextGaussian;
     private boolean haveNextNextGaussian = false;
 
-	public Rand()			{ rng = new SplittableRandom(); }
+    private SerialRandom rng() {
+    	if (rng==null)
+    		rng = new SerialRandom();
+    	return rng;
+    }
+    
+	public Rand()			{ rng = new SerialRandom(); }
     public Rand(int src)	{ this((long) src); }
 	public Rand(long src)	{
 		if (src<=0)
-			rng = new SplittableRandom();
+			rng = new SerialRandom(System.currentTimeMillis());
 		else
-			rng = new SplittableRandom(src);
+			rng = new SerialRandom(src);
 	}
 
-	public boolean nextBoolean()	{ return rng.nextBoolean(); }
-	public double  nextDouble()		{ return rng.nextDouble(); }
-	public float   nextFloat()		{ return (float) rng.nextDouble(); }
-	public int	   nextInt()		{ return rng.nextInt(); }
-	public long	   nextLong()		{ return rng.nextLong(); }
+	@Override public boolean nextBoolean()	{ return rng().nextBoolean(); }
+	@Override public double  nextDouble()	{ return rng().nextDouble(); }
+	@Override public float   nextFloat()	{ return (float) rng().nextDouble(); }
+	@Override public int	 nextInt()		{ return rng().nextInt(); }
+	@Override public long	 nextLong()		{ return rng().nextLong(); }
 	
-    synchronized public double nextGaussian() { // Copied from java.util.Random
+    @Override synchronized public double nextGaussian() { // Copied from java.util.Random
         if (haveNextNextGaussian) {
             haveNextNextGaussian = false;
             return nextNextGaussian;
         } else {
             double v1, v2, s;
             do {
-                v1 = 2 * rng.nextDouble() - 1; // between -1 and 1
-                v2 = 2 * rng.nextDouble() - 1; // between -1 and 1
+                v1 = 2 * rng().nextDouble() - 1; // between -1 and 1
+                v2 = 2 * rng().nextDouble() - 1; // between -1 and 1
                 s = v1 * v1 + v2 * v2;
             } while (s >= 1 || s == 0);
             double multiplier = StrictMath.sqrt(-2 * StrictMath.log(s)/s);
@@ -60,17 +74,17 @@ public class Rand{
     }
 	// ===== Getters with max =====
 	/**
+	 * @return  int: 0 <= random value < max
+	 */
+	@Override public int nextInt(int max)	{ return rng().nextInt(max); }
+	/**
 	 * @return  double: 0 <= random value < max
 	 */
-	public double nextDouble (double max) { return rng.nextDouble(max);  }
+	public double nextDouble (double max) { return rng().nextDouble(max);  }
 	/**
 	 * @return  float: 0 <= random value < max
 	 */
-	public float nextFloat (float max) { return (float) rng.nextDouble(max);  }
-	/**
-	 * @return  int: 0 <= random value < max
-	 */
-	public int nextInt(int max)	{ return rng.nextInt(max); }
+	public float nextFloat (float max) { return (float) rng().nextDouble(max);  }
 	// ===== Getters with limits =====
 	/**
 	 * @return  min(lim1, lim2) <= random double < max(lim1, lim2)

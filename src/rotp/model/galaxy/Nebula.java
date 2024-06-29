@@ -77,7 +77,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     private transient BufferedImage image;
     private transient int currentQuality;
 
-    static void reinit(int source)		{
+    static void reinit(long source)		{
     	randomFiles.clear();
     	randNeb = new Rand(source);
     }
@@ -134,7 +134,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     }
     public Nebula() { }
     Nebula(float sizeMult, boolean buildImage) {
-    	requestedQuality = options().selectedRealNebulaeSize();
+    	requestedQuality = options().selectedRealNebulaSize();
     	currentQuality	 = requestedQuality;
         size = max(1, sizeMult);
     	if (isRealNebula()) {
@@ -283,7 +283,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         return image;
     }
     private BufferedImage buildImage() {
-    	requestedQuality = options().selectedRealNebulaeSize();
+    	requestedQuality = options().selectedRealNebulaSize();
     	currentQuality	 = requestedQuality;
     	if (requestedQuality > 0)
     		return buildNebulaImage();
@@ -419,11 +419,12 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
 		return newBufferedImage(img.getImage());
 	}
 
-	public void drawNebula(Graphics2D g2, int xP, int yP, float factor)	{
+	public void drawNebulaPreview(Graphics2D g2, int xP, int yP, float factor)	{
 		int x0 = (int) (xP + x * factor);
 		int y0 = (int) (yP + y * factor);
         int x1 = (int) (x0 + width * factor);
         int y1 = (int) (y0 + height * factor);
+        //System.out.println("Nebula x=" + fmt(x, 1) + " y=" + fmt(y, 1));
         if (isRealNebula()) {
         	float opacity = options().realNebulaeOpacity();
             Composite prevComp = g2.getComposite();

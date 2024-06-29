@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.LinearGradientPaint;
+import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -168,7 +169,28 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     public static Color loadListMask()            { return loadListMask[opt()]; }
     public static Color sortLabelBackColor()      { return sortLabelBackColor[opt()]; }
 
-    public static LinearGradientPaint loadBackground() {
+    public static LinearGradientPaint modBackground(float x0, float x1) {
+          Point2D start = new Point2D.Float(x0, 0); // BR adjustable for 10 or 16 species
+          Point2D end = new Point2D.Float(x1, 0);
+          float[] dist = {0.0f, 0.1f, 0.9f, 1.0f};
+          
+          Color edge0 = opt()==0? new Color(147,96, 61) : new Color(65,72,71);
+          Color mid0 = raceCenterColor();
+//          Color edge0 = raceCenterColor();
+//          Color mid0 = loadHiBackground();
+          Color[] colors0 = {edge0, mid0,  mid0, edge0 };
+          return new LinearGradientPaint(start, end, dist, colors0, CycleMethod.REPEAT);
+    }
+    public static LinearGradientPaint buttonBackground(int x0, int x1) {
+        Point2D start = new Point2D.Float(x0, 0); // BR adjustable for 10 or 16 species
+        Point2D end = new Point2D.Float(x1, 0);
+        float[] dist = {0.0f, 0.5f, 0.51f, 1.0f};
+        Color edge0 = raceEdgeColor();
+        Color mid0 = loadHiBackground();
+        Color[] colors0 = {edge0, mid0,  mid0, edge0 };
+        return new LinearGradientPaint(start, end, dist, colors0);
+  }
+   public static LinearGradientPaint loadBackground() {
         if (loadBackground == null) {
             loadBackground = new LinearGradientPaint[2];
             Point2D start = new Point2D.Float(RotPUI.scaledSize(350), 0);
@@ -207,7 +229,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             buttonRightBackground = new LinearGradientPaint[2];
             Point2D start = new Point2D.Float(RotPUI.scaledSize(950), 0);
             Point2D end = new Point2D.Float(RotPUI.scaledSize(1170), 0);
-            float[] dist = {0.0f, 0.3f, 0.7f, 1.0f};
+            float[] dist = {0.0f, 0.3f, 0.65f, 1.0f};
+//            float[] dist = {0.0f, 0.3f, 0.7f, 1.0f};
             Color edge0 = new Color(113,74,49);
             Color mid0 = new Color(188,123,81);
             Color[] colors0 = {edge0, mid0,  mid0, edge0 };

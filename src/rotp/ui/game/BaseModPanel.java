@@ -47,7 +47,6 @@ import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
 import rotp.Rotp;
-import rotp.model.game.IConvenienceOptions;
 import rotp.model.game.IMainOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
@@ -80,7 +79,8 @@ public abstract class BaseModPanel extends BasePanel
 	
 	private	  static int	 exitButtonWidth, guideButtonWidth,
 							 userButtonWidth, defaultButtonWidth, lastButtonWidth;
-	protected static int	 mX, mY, w, h;
+	protected static int	 mX, mY;
+//	protected static int	 w, h;
 	protected static int	 smallButtonMargin;
 	protected static int	 smallButtonH;
 	protected static int	 cnr;
@@ -103,6 +103,7 @@ public abstract class BaseModPanel extends BasePanel
 	protected boolean isSubMenu = true; // Not (Race or Galaxy)
 	protected boolean isOnTop	= true;
 	protected boolean retina	= false;
+	protected boolean hovering	= false;
 	protected int retinaFactor	= 1;
 	private   int baseRF		= 2;
 	protected int cnrR			= cnr;
@@ -115,14 +116,21 @@ public abstract class BaseModPanel extends BasePanel
 	LinkedList<IParam> duplicateList;
 	LinkedList<IParam> activeList;
 
-	protected int xButton, yButton, wButton, hButton;
-	protected int wBG, hBG;
+	protected int xButton, yButton, wButton, hButton; // absolute button position.
+	protected int xFull, yFull, wFull, hFull, rFull, bFull; // absolute panel window size and position (right, bottom)
+	protected int xGist, yGist, wGist, hGist, rGist, bGist; // relative Content size and position (right, bottom)
 	protected BufferedImage buttonBackImg;
-	private	  LinearGradientPaint bg;
+	private	  LinearGradientPaint bg, bg2;
 	protected LinearGradientPaint bg() {
 		if (bg == null)
-			bg = GameUI.settingsSetupBackgroundW(w, wBG);
+			bg = GameUI.modBackground(xGist, rGist);
 		return bg;
+	}
+	protected LinearGradientPaint bg(float n) {
+		if (bg2 == null) {
+			bg2 = GameUI.modBackground(xGist, xGist + wGist/n);
+		}
+		return bg2;
 	}
 	
 	protected BufferedImage backImg; // the full background
@@ -208,8 +216,20 @@ public abstract class BaseModPanel extends BasePanel
 
 	protected void init() {
 		//ModifierKeysState.reset();
-		w = RotPUI.setupRaceUI().getWidth();
-		h = RotPUI.setupRaceUI().getHeight();
+		if (!hovering) {
+			xFull = 0;
+			yFull = 0;
+			wFull = RotPUI.setupRaceUI().getWidth();
+			hFull = RotPUI.setupRaceUI().getHeight();
+			rFull = xFull + wFull;
+			bFull = yFull + hFull;
+			xGist = 0;
+			yGist = 0;
+			wGist = wFull;
+			hGist = hFull;
+			rGist = xGist + wGist;
+			bGist = yGist + hGist;
+		}
 		smallButtonMargin = s30;
 		smallButtonH	  = s30;
 		cnr				  = s5;
@@ -279,7 +299,6 @@ public abstract class BaseModPanel extends BasePanel
 	        drawShadowedString(g, str, 2, x, y, GameUI.borderDarkColor(), c1);
 	        if (retina) {
 	        	g.setStroke(stroke2);
-//		        g.drawRoundRect(box.x, box.y, box.width, box.height, cnr, cnr);    		
 	        	g.drawRoundRect(retina(box.x), retina(box.y), retina(box.width), retina(box.height), cnrR, cnrR);    		
 	        }
 	        else {
@@ -320,8 +339,10 @@ public abstract class BaseModPanel extends BasePanel
         g.setStroke(prev);
 	}
     protected void initButtonPosition() {
-		int xMin = guideBox.x;
+		int xMin = guideBox.x;		
 		int yMin = exitBox.y;
+		if (hovering)
+			yMin = min(yMin, defaultBox.y);
 		int xMax = exitBox.x + exitBox.width;
 		int yMax = exitBox.y + exitBox.height;
 		xButton = xMin-retina(s2);
@@ -349,16 +370,16 @@ public abstract class BaseModPanel extends BasePanel
 
 		setBigButtonGraphics(g);
 		// draw EXIT button
-		exitBox.fillRoundRect(g);
+		exitBox.fillButtonBackImg(g);
 		setSmallButtonGraphics(g);
 		// draw DEFAULT button
-		defaultBox.fillRoundRect(g);
+		defaultBox.fillButtonBackImg(g);
 		// draw LAST button
-		lastBox.fillRoundRect(g);
+		lastBox.fillButtonBackImg(g);
 		// draw USER button
-		userBox.fillRoundRect(g);
+		userBox.fillButtonBackImg(g);
 		// draw GUIDE button
-		guideBox.fillRoundRect(g);
+		guideBox.fillButtonBackImg(g);
 
 		drawButtons(g, true); // init = true; local = true
 		return buttonBackImg;
@@ -494,7 +515,6 @@ public abstract class BaseModPanel extends BasePanel
 			default: // setGlobalUserKey
 				if (globalOptions) {
 					guiOptions().updateFromFile(USER_OPTIONS_FILE, localOptions());
-					guiOptions().updateFromFile(USER_OPTIONS_FILE, IConvenienceOptions.convenienceOptions);
 				}
 				else
 					guiOptions().updateAllNonCfgFromFile(USER_OPTIONS_FILE);
@@ -757,6 +777,8 @@ public abstract class BaseModPanel extends BasePanel
 		private String	label;
 		private ModText modText;
 		private int 	mouseBoxIndex;
+		private LinearGradientPaint lbg;
+
 		// ========== Constructors ==========
 		//
 		public Box()				{ addToList(); }
@@ -784,6 +806,14 @@ public abstract class BaseModPanel extends BasePanel
 		private void initGuide(String label) { this.label = label; }
 		private void initGuide(IParam param) { this.param = param; }
 		private void mouseBoxIndex(int idx)	 { mouseBoxIndex = idx; }
+		protected LinearGradientPaint lbg() {
+			if (lbg == null) {
+				int xRel = x-xButton;
+				lbg = GameUI.buttonBackground(xRel, xRel+width);
+			}
+			return lbg;
+		}
+
 		// ========== Doers ==========
 		//
 		boolean checkIfHovered() { return checkIfHovered(null); }
@@ -822,11 +852,18 @@ public abstract class BaseModPanel extends BasePanel
 				modText.mouseExit();
 			}
 		}
-		void fillRoundRect(Graphics2D g) {
+		void fillButtonBackImg(Graphics2D g) { // TODO BR: Validate
+			//g.setPaint(lbg());
 			if (retina)
 				g.fillRoundRect(retina(x-xButton), retina(y-yButton), retina(width), retina(height), cnrR, cnrR);
 			else
 				g.fillRoundRect(x-xButton, y-yButton, width, height, cnr, cnr);
+		}
+		void fillButtonFullImg(Graphics2D g) {
+			if (retina)
+				g.fillRoundRect(retina(x), retina(y), retina(width), retina(height), cnrR, cnrR);
+			else
+				g.fillRoundRect(x, y, width, height, cnr, cnr);
 		}
 		// ========== Getters ==========
 		//
@@ -857,7 +894,7 @@ public abstract class BaseModPanel extends BasePanel
 			}
 			return help;
 		}
-		private String getGuide()					 {
+		private String getGuide()			 {
 			String guide = getParamGuide();
 			if (guide == null || guide.isEmpty()) {
 				guide = getLabelHelp();
@@ -877,7 +914,7 @@ public abstract class BaseModPanel extends BasePanel
 				return param.getToolTip();
 			return desc;
 		}
-		private String getParamHelp()	 {
+		private String getParamHelp()	 	 {
 			if (param == null)
 				return "";
 			return param.getHelp();
@@ -893,6 +930,7 @@ public abstract class BaseModPanel extends BasePanel
 			return param.getGuide();
 		}
 	}
+
 	class PolyBox extends Polygon {
 		// ========== Constructors ==========
 		//
@@ -937,7 +975,7 @@ public abstract class BaseModPanel extends BasePanel
 	public class GuidePopUp {
 		private static final int FONT_SIZE	= 16;
 		private final int maxWidth      = scaled(400);
-		private final Color guideColor	= GameUI.setupFrame();
+//		private final Color guideColor	= GameUI.setupFrame();
 		private final Color helpColor	= new Color(240,240,240);
 		private final Color lineColor	= Color.white;
 		private final JTextPane border	= new JTextPane();
@@ -948,7 +986,7 @@ public abstract class BaseModPanel extends BasePanel
 		private int x, y, w, h;
 		private int[] lineArr;
 		private boolean fullHelp;
-		private Color bgC  = guideColor;
+		private Color bgC  = GameUI.setupFrame();;
 		private Color bdrC = new Color(bgC.getRed(), bgC.getGreen(), bgC.getBlue(), 160);
 
 		// ========== Constructors and initializers ==========
@@ -1045,7 +1083,7 @@ public abstract class BaseModPanel extends BasePanel
     		int iW = scaled(Rotp.IMG_W - 20);
     		int iH = scaled(Rotp.IMG_H - 20);
     		int testW, preTest;
-			bgC  = fullHelp ? helpColor : guideColor;
+			bgC  = fullHelp ? helpColor : GameUI.setupFrame();
 			bdrC = new Color(bgC.getRed(), bgC.getGreen(), bgC.getBlue(), 160);
 			w = Short.MAX_VALUE;
 			guideFontSize = FONT_SIZE+1;

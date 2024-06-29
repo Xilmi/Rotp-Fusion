@@ -1,10 +1,8 @@
 package rotp.model.game;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import rotp.ui.UserPreferences;
-import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -67,29 +65,9 @@ public interface IConvenienceOptions extends IMapOptions {
 			showFullGuide(true);
 		}
 		@Override public String getCfgValue() { return UserPreferences.autoBombardToSettingName(get()); }
-//		@Override public String getOption()			{ return autoBombardMode(); }
-//		@Override public void setOption(String s)	{ autoBombardMode(s); }
 	}
 	default boolean autoBombardNever()		{ return autoBombard_.get().equals(AUTOBOMBARD_NEVER); }
 	default boolean autoBombardYes()		{ return autoBombard_.get().equals(AUTOBOMBARD_YES); }
 	default boolean autoBombardWar()		{ return autoBombard_.get().equals(AUTOBOMBARD_WAR); }
 	default boolean autoBombardInvading()	{ return autoBombard_.get().equals(AUTOBOMBARD_INVADE); }
-
-	// ==================== GUI List Declarations ====================
-	LinkedList<IParam> convenienceOptions = new LinkedList<>(
-			Arrays.asList(
-				systemNameDisplay, shipDisplay,
-				flightPathDisplay, showGridCircular,
-				showShipRanges,
-				null,
-				autoColonize_, autoBombard_,
-				divertExcessToResearch, defaultMaxBases,
-				IMainOptions.compactOptionOnly,
-				null,
-				displayYear, showNextCouncil,
-				showAlliancesGNN, showLimitedWarnings,
-				techExchangeAutoRefuse,
-				null,
-				hideMinorReports, showAllocatePopUp
-			));
 }

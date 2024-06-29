@@ -37,6 +37,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -164,7 +165,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     private DynOptions raceOptions;
 
     private Long randomSource; // for more repeatable restart
-    private Rand techRandom;
+    private Random techRandom; // Do not use: for backward compatibility
+    private Rand   memRandom; // for backward compatibility
 
     private transient float avgX, avgY, nameX1, nameX2; // Names position
     private transient float avgXd, avgYd, nameX1d, nameX2d; // Names position for dark Galaxies
@@ -207,16 +209,18 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public Rand techRandom() { // for more repeatable restart
     	if (options().researchMoo1() || galaxy().numberTurns() < 1) {
-        	if (techRandom == null) {
+        	if (memRandom == null) {
         		if (randomSource == null)
-        			randomSource = rng().nextLong();
-        		techRandom = new Rand(randomSource);
+        			if (techRandom == null)
+        				randomSource = rng().nextLong();
+        			else
+        				randomSource = techRandom.nextLong();
+        		memRandom = new Rand(randomSource);
         	}
-        	return techRandom;
+        	return memRandom;
     	}
     	return rng();
     }
-
     public void resetAI() { ai = null; } // BR:
     public void changePlayerAI(String newAI) { // BR:
     	selectedAI = IGameOptions.autoPlayAIset().id(newAI);
@@ -4936,7 +4940,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 		}
 		public void raceAI(int ai)	{ raceAI = ai; }
 		public int  raceAI()		{ return raceAI; }
-		public Long randomSource()	{ return randomSource == null? Rotp.random.nextLong() : randomSource; }
+		public Long randomSource()	{ return randomSource == null? Rotp.rand().nextLong() : randomSource; }
 		
 	}
 }

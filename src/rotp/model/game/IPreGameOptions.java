@@ -71,7 +71,8 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default boolean	isCustomEmpireSpreadingFactor()	{ return !empiresSpreadingFactor.isDefaultValue(); }
 	default void	resetEmpireSpreadingFactor()	{ empiresSpreadingFactor.setFromDefault(false, false); }
 	default void	toggleEmpireSpreadingFactor(MouseWheelEvent e)	{ empiresSpreadingFactor.toggle(e); }
-	default String	empireSpreadingFactorMapKey()	{ return  MOD_UI + "EMPIRES_SPREADING_FACTOR_MAP"; }
+	default String	empireSpreadingFactorMapKey()	{ return MOD_UI + "EMPIRES_SPREADING_FACTOR_MAP"; }
+	default ParamInteger getEmpiresSpreadingFactor()	{ return empiresSpreadingFactor; }
 
 	ParamInteger minStarsPerEmpire	= new MinStarsPerEmpire();
 	class MinStarsPerEmpire extends ParamInteger {
@@ -172,6 +173,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 		}
 	}
 	default int selectedDynStarsPerEmpire()	{ return Math.abs(dynStarsPerEmpire.getValidValue()); }
+	default ParamInteger dynStarsPerEmpire() { return dynStarsPerEmpire; }
 
 	// Restart Always looks for setup options!
 	ParamBoolean restartChangesAliensAI		= new ParamBoolean( MOD_UI, "RESTART_CHANGES_ALIENS_AI", false);
@@ -291,16 +293,18 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	String NEBULA_POS_NORMAL	= "NORMAL";
 	String NEBULA_POS_INSIST	= "INSIST";
 	String NEBULA_POS_EXTEND	= "EXTEND";
-	ParamList nebulaEmpty		= new ParamList( MOD_UI, "NEBULA_POS", NEBULA_POS_NORMAL)
+	ParamList nebulaPlacing		= new ParamList( MOD_UI, "NEBULA_POS", NEBULA_POS_NORMAL)
 		.isDuplicate(false)
 		.isCfgFile(true)
 		.showFullGuide(true)
 		.put(NEBULA_POS_NORMAL,	MOD_UI + "NEBULA_POS_NORMAL")
 		.put(NEBULA_POS_INSIST,	MOD_UI + "NEBULA_POS_INSIST")
 		.put(NEBULA_POS_EXTEND,	MOD_UI + "NEBULA_POS_EXTEND");
-	default boolean anywhereNebula()	{ return nebulaEmpty.get().equalsIgnoreCase(NEBULA_POS_EXTEND); }
+	default ParamList getNebulaPlacing()	{ return nebulaPlacing; }
+
+	default boolean looseNebula()	{ return nebulaPlacing.get().equalsIgnoreCase(NEBULA_POS_EXTEND); }
 	default int nebulaCallsBeforeShrink()	{
-		switch (nebulaEmpty.get().toUpperCase()) {
+		switch (nebulaPlacing.get().toUpperCase()) {
 		case NEBULA_POS_NORMAL:	return 1;
 		case NEBULA_POS_INSIST:	return 5;
 		case NEBULA_POS_EXTEND:	return 10;
@@ -354,49 +358,11 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 		.put(NEBULA_HOMEWORLD_NEVER,	MOD_UI + "NEBULA_HOMEWORLD_NEVER");
 	default boolean neverNebulaHomeworld()	{ return nebulaHomeworld.get().equalsIgnoreCase(NEBULA_HOMEWORLD_NEVER); }
 
-	ParamBoolean LooseNeighborhood	= new ParamBoolean( MOD_UI, "LOOSE_NEIGHBORHOOD", false);
-	default boolean LooseNeighborhood()	{ return LooseNeighborhood.get(); }
-
+	ParamBoolean looseNeighborhood	= new ParamBoolean( MOD_UI, "LOOSE_NEIGHBORHOOD", false);
+	default boolean looseNeighborhood()			{ return looseNeighborhood.get(); }
+	default ParamBoolean getLooseNeighborhood()	{ return looseNeighborhood; }
 	// ==================== GUI List Declarations ====================
 	//
-	static LinkedList<IParam> modStaticAOptions() {
-		return new LinkedList<>(
-			Arrays.asList(
-				artifactsHomeworld, fertileHomeworld,
-				richHomeworld, ultraRichHomeworld,
-				null,
-				orionLikeHomeworld, companionWorlds,
-				battleScout, ironmanMode,
-				randomTechStart,
-				null,
-				techIrradiated, techCloning,
-				techAtmospheric, techCloaking,
-				techStargate,
-				null,
-				techGaia, techHyperspace,
-				techIndustry2, techThorium,
-				techTransport
-				));
-	}
-	static LinkedList<IParam> modStaticBOptions() {
-		return new LinkedList<>(
-			Arrays.asList(
-				minStarsPerEmpire, prefStarsPerEmpire,
-				empiresSpreadingFactor, minDistArtifactPlanet,
-				IMainOptions.realNebulaeOpacity,
-				null,
-				randomAlienRacesTargetMax, randomAlienRacesTargetMin,
-				randomAlienRaces, guardianMonsters,
-				null,
-				randomAlienRacesMax, randomAlienRacesMin,
-				randomAlienRacesSmoothEdges, guardianMonstersProbability,
-				guardianMonstersLevel,
-				null,
-				restartChangesPlayerAI, restartChangesAliensAI,
-				restartAppliesSettings, restartChangesPlayerRace
-				));
-	}
-
 	static LinkedList<IParam> preGameOptions() {
 		return IBaseOptsTools.getSingleList(preGameOptionsMap());
 	}
@@ -406,14 +372,14 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 				new ParamTitle("START_GALAXY_OPTIONS"),
 				galaxyAge, starDensity,
 				empiresSpreadingFactor,
-				LooseNeighborhood,
+				looseNeighborhood,
 				minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
 
 				headerSpacer,
 				new ParamTitle("NEBULAE_OPTION"),
-				nebulae, nebulaEmpty,
+				nebulae, nebulaPlacing,
 				nebulaEnrichment, nebulaHomeworld,
-				IMainOptions.realNebulaeSize,
+				IMainOptions.realNebulaSize,
 				IMainOptions.realNebulaShape,
 				IMainOptions.realNebulaeOpacity
 				)));

@@ -20,7 +20,7 @@ import java.awt.Graphics2D;
 
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.game.MergedDynamicOptionsUI;
+import rotp.ui.game.CompactOptionsUI;
 import rotp.ui.main.GalaxyMapPanel;
 
 public class OptionsWidgetSprite extends MapControlSprite {
@@ -35,7 +35,7 @@ public class OptionsWidgetSprite extends MapControlSprite {
     @Override
     public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
     	if (options().isGameOptionsAllowed()) {
-    		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
+    		CompactOptionsUI optionsUI = RotPUI.compactOptionsUI();
 			optionsUI.start("", null);
     	}
     }

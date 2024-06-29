@@ -22,6 +22,7 @@ public interface IBaseOptsTools {
 	int SETUP_ID = 2;
 
 	ParamTitle headerSpacer = new ParamTitle("SPACER");
+	default ParamTitle headerSpacer()	{return headerSpacer; }
 
 	static LinkedList<IParam> getSingleList(LinkedList<LinkedList<IParam>> listList) {
 		LinkedList<IParam> paramList = new LinkedList<>();

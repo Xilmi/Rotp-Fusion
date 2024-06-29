@@ -63,10 +63,6 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private float sysBuffer = 1.9f;
 	int numEmpires;
 	private int numOpponents;
-//	private Rand randRnd = new Rand(random()); // For random option selection purpose
-//	Rand rand	 = new Rand(random()); // For other than location purpose
-//	Rand randX	 = new Rand.RandX(random()); // For X and R
-//	Rand randY	 = new Rand.RandY(random());  // for Y and Angle
 	private Rand randRnd = new Rand(rng().nextLong()); // For random option selection purpose
 	Rand rand	 = new Rand(randRnd.nextLong()); // For other than location purpose
 	Rand randX	 = new Rand(randRnd.nextLong()); // For X and R
@@ -96,9 +92,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 //		randX	= new Rand.RandX(opts.selectedGalaxyRandSource());
 //		randY	= new Rand.RandY(opts.selectedGalaxyRandSource());
 		randRnd = new Rand(opts.selectedGalaxyRandSource());
-		rand	= new Rand(randRnd.nextLong());
-		randX	= new Rand(randRnd.nextLong());
-		randY	= new Rand(randRnd.nextLong());
+		rand	= randRnd;
+		randX	= randRnd;
+		randY	= randRnd;
+
+//		rand	= new Rand(randRnd.nextLong());
+//		randX	= new Rand(randRnd.nextLong());
+//		randY	= new Rand(randRnd.nextLong());
 
 		finalOption1 = opts.selectedGalaxyShapeOption1();
 		finalOption2 = opts.selectedGalaxyShapeOption2();
@@ -320,6 +320,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 
 			float radius = opts.firstRingRadius();
 			float minRel = buffer/radius;
+			minRel *= minRel;
 			for (int nbSys=0; nbSys<num1; nbSys++) { // variable nearby systems
 				// get player nearby system
 				if (player.addNearbySystemsSym(this, null, radius, buffer, minRel))
@@ -340,6 +341,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 				
 			radius = opts.secondRingRadius();
 			minRel = buffer/radius;
+			minRel *= minRel;
 			for (int nbSys=num1; nbSys<num2; nbSys++) { // variable nearby systems
 				// get player nearby system
 				if (player.addNearbySystemsSym(this, null, radius, buffer, minRel))
@@ -475,7 +477,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		// BR: Player customization
 		orionBuffer  = max(sysBuffer, orionBuffer * opts.orionToEmpireModifier());
 		
-		looseLimits = opts.LooseNeighborhood();
+		looseLimits = opts.looseNeighborhood();
 	}
 	private void fullInit() {
 		fullyInit = true;
@@ -519,6 +521,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 		height = galaxyHeightLY();
 		fullWidth  = width  + (2 * galaxyEdgeBuffer());
 		fullHeight = height + (2 * galaxyEdgeBuffer());
+		if (opts.looseNeighborhood()) {
+			float radius2 = opts.secondRingRadius();
+			int shrink	= (int) (2*radius2);
+			int minSize	= (int) Math.ceil(empireBuffer);
+			fullWidth	= max(minSize, fullWidth-shrink);
+			fullHeight	= max(minSize, fullHeight-shrink);
+		}
 		// BR: for symmetric galaxy
 		cx = fullWidth  / 2.0f;
 		cy = fullHeight / 2.0f;
@@ -790,10 +799,10 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	// ##### Nebulae Management
 	// BR: Moved here from galaxy, for preview purpose
-	public void addNebulas(List<Nebula> nebulas) {
+	public void createNebulas(List<Nebula> nebulas) {
 		int numNebula = opts.numberNebula();
 		float nebSize = opts.nebulaSizeMult();
-		Nebula.reinit(opts.selectedGalaxyRandSource());
+		Nebula.reinit(rand.nextLong());
 		// add the nebulae
 		// for each nebula, try to create it at the options size
 		// in unsuccessful, decrease option size until it is
@@ -828,7 +837,7 @@ public abstract class GalaxyShape implements Base, Serializable {
         // existing nebulae (add their images) when making
         // new nebulae
         int MAX_UNIQUE_NEBULAS = 16;
-        boolean anywhere = options().anywhereNebula();
+        boolean looseNebula = options().looseNebula();
         Point.Float pt	 = new Point.Float();
         getPointFromRandomStarSystem(pt);
         
@@ -844,11 +853,11 @@ public abstract class GalaxyShape implements Base, Serializable {
         // Center the nebula on the star
     	pt.x -= w/2;
     	pt.y -= h/2;
-        if (!anywhere && !valid(pt))
+        if (!looseNebula && !valid(pt))
         	return neb.cancel();
 
         neb.setXY(pt.x, pt.y);
-        if (!anywhere) {
+        if (!looseNebula) {
             float x = pt.x;
             float y = pt.y;
             if (!valid(x+w, y))
@@ -863,7 +872,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	            if (sys.inNebula(neb))
 	            	return neb.cancel();
 
-        if (options().selectedRealNebulae()) {
+        if (options().selectedRealNebula()) {
             // don't add nebulae to close to an existing nebula
             for (Nebula existingNeb: nebulas)
                 if (existingNeb.isToClose(neb))
@@ -931,6 +940,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			int num1 = opts.firstRingSystemNumber();
 			float radius = opts.firstRingRadius();
 			float minRel = buffer/radius;
+			minRel *= minRel;
 			for (int nbSys=0; nbSys<num1; nbSys++)
 				if (looseLimits)
 					valid = valid && addNearbySystem(sp, colonyX(), colonyY(), radius, buffer, minRel);
@@ -939,6 +949,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 
 			radius = opts.secondRingRadius();
 			minRel = buffer/radius;
+			minRel *= minRel;
 			for (int nbSys=num1; nbSys<num2; nbSys++)
 				if (looseLimits)
 					valid = valid && addNearbySystem(sp, colonyX(), colonyY(), radius, buffer, minRel);

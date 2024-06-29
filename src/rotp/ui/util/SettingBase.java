@@ -18,7 +18,7 @@ package rotp.ui.util;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.game.IMainOptions.minListSizePopUp;
-import static rotp.Rotp.random;
+import static rotp.Rotp.rand;
 import static rotp.ui.util.IParam.langHelp;
 import static rotp.ui.util.IParam.langLabel;
 import static rotp.ui.util.IParam.rowsSeparator;
@@ -686,16 +686,16 @@ public class SettingBase<T> implements IParam {
 		if (this.isSpacer)
 			return null;
 		if (hasNoCost && isList && !valueList.isEmpty()) {
-			int rand = random.nextInt(valueList.size());
+			int rand = rand().nextInt(valueList.size());
 			return valueList.get(rand);
 		}
 		float rand;
 		float mini = Math.min(min, max)/100;
 		float maxi = Math.max(min, max)/100;
 		if (gaussian)
-			rand = (maxi + mini + (maxi-mini) * (float) random.nextGaussian())/2;
+			rand = (maxi + mini + (maxi-mini) * (float) rand().nextGaussian())/2;
 		else
-			rand = mini + (maxi-mini) * (float) random.nextFloat();
+			rand = mini + (maxi-mini) * (float) rand().nextFloat();
 		lastRandomSource = rand;
 		return randomize(rand);
 	}

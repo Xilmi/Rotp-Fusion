@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import rotp.Rotp;
 import rotp.model.colony.Colony;
@@ -81,7 +82,8 @@ public class Galaxy implements Base, Serializable {
     private Integer lastHashCodeShipDesign			= 0;
     private Integer lastHashCodeDesign				= 0;
     private Integer lastHashCodeShip				= 0;
-    private Rand	permRandom = rng(); // BR: to memorize RNG state
+    private Random	permRandom; // BR: for backward compatibility
+    private Rand	galRandom  = rng(); // BR: to memorize RNG state
 
     public	Integer nextHashCodeDiplomaticIncident() {
     	if (lastHashCodeDiplomaticIncident!=null)
@@ -205,76 +207,6 @@ public class Galaxy implements Base, Serializable {
         neb.setXY(nebula.x(), nebula.y());
         nebulas.add(neb);    	
     }
-//    public boolean addNebula(GalaxyShape shape, float nebSize) {
-//    	return addNebula(shape, nebSize, nebulas);
-//    }
-//    // BR: may be used later for a preview
-//    private boolean addNebula(GalaxyShape shape, float nebSize, List<Nebula> nebulas) {
-//    	int numTentatives = options().nebulaCallsBeforeShrink();
-//    	for (int i=0; i<numTentatives; i++) {
-//    		Nebula neb = tryAddNebula(shape, nebSize, nebulas);
-//    		if ( neb != null) {
-//    			nebulas.add(neb);
-//    			return true;    			
-//    		}
-//    	}
-//    	return false;
-//    }
-//    private Nebula tryAddNebula(GalaxyShape shape, float nebSize, List<Nebula> nebulas) {
-//        // each nebula creates a buffered image for display
-//        // after we have created 5 nebulae, start cloning
-//        // existing nebulae (add their images) when making
-//        // new nebulae
-//        int MAX_UNIQUE_NEBULAS = 16;
-//        boolean anywhere = options().anywhereNebula();
-//        Point.Float pt	 = new Point.Float();
-//        shape.getPointFromRandomStarSystem(pt);
-//        
-//        Nebula neb;
-//        if (nebulas.size() < MAX_UNIQUE_NEBULAS)
-//            neb = new Nebula(nebSize, shape , true);
-//        else
-//            neb = random(nebulas).copy();
-//        
-//        float w = neb.adjWidth();
-//        float h = neb.adjHeight();
-//        // BR: Needed by Bitmap Galaxies
-//        // Center the nebula on the star
-//    	pt.x -= w/2;
-//    	pt.y -= h/2;
-//        if (!anywhere && !shape.valid(pt))
-//        	return neb.cancel();
-//
-//        neb.setXY(pt.x, pt.y);
-//        if (!anywhere) {
-//            float x = pt.x;
-//            float y = pt.y;
-//            if (!shape.valid(x+w, y))
-//            	return neb.cancel();
-//            if (!shape.valid(x+w, y+h))
-//            	return neb.cancel();
-//            if (!shape.valid(x, y+h))
-//            	return neb.cancel();
-//        }
-//        if (options().neverNebulaHomeworld())
-//	        for (EmpireSystem sys : shape.empSystems)
-//	            if (sys.inNebula(neb))
-//	            	return neb.cancel();
-//
-//        if (options().selectedRealNebulae()) {
-//            // don't add nebulae to close to an existing nebula
-//            for (Nebula existingNeb: nebulas)
-//                if (existingNeb.isToClose(neb))
-//                	return neb.cancel();
-//        }
-//        else {
-//            // don't add classic nebulae whose center point is in an existing nebula
-//            for (Nebula existingNeb: nebulas)
-//                if (existingNeb.contains(neb.centerX(), neb.centerY()))
-//                	return neb.cancel();
-//        }    	
-//        return neb;
-//    }
     public List<StarSystem> systemsNamed(String name) {
         List<StarSystem> systems = new ArrayList<>();
         for (StarSystem sys: starSystems) {
@@ -475,10 +407,14 @@ public class Galaxy implements Base, Serializable {
     public void validateOnLoad() {
     	if (dynamicOptions == null)
     		dynamicOptions = new DynOptions();
-    	if (permRandom == null) // For backward compatibility
-    		permRandom = rng();
+    	if (galRandom == null) // For backward compatibility
+    		if (permRandom == null)
+    			galRandom = rng();
+    		else
+    			galRandom = new Rand(permRandom.nextLong());
+    	
     	if (options().persistentRNG())
-    		Rotp.random = permRandom;
+    		Rotp.rand(galRandom);
         for (Empire emp: empires())
              emp.validateOnLoad();
         RandomEventSpacePirates.triggerEmpire = isTechDiscovered(RandomEventSpacePirates.TRIGGER_TECH);

@@ -2,30 +2,16 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
-- New option to select the default values:
-  - RotP-Fusion
-  - RotP-Original
-  - MoO1
-- New option to set the number of nearby and midrange stars.
-  - How many must have habitable planet.
-  - The nearby and midrange circle radius.
-  - The number of star per empire can now be lowered to 1.
-- New Tools to create dependencies between options.
-- Created option dependencies for
-  - Neighboor circles size
-  - Minimum Number of star per circle
-  - Minimum Number of habitable planet per circle
-  - Star density
-  - Number of star per empire
-  - Galaxy size
-- Option to allow nearby stars to be out of the galaxy limits.
-- Fixed "cold war" Colony ship being afraid of its own weapons...
-- New limits and minor fixes.
 - Fixed possible crash when loading an old game.
 - Following a suggestion from Roland Johansoen: Renamed "Pregame" to "Setup" and "In-Game" to "Options" and updated guide and help texts consequently.
-- Switched the default random generator to a better one. (Java has two)
+- Switched the default random generator to a better one.
 - Fixed Star density list not always following as dependencies.
-
+- Galaxy setup Panel:
+  - Removed the 6 buttons option, as their contents was no longer updated...
+  - Added the Tune Galaxy button, which opens a new settings panel on the side of the galaxy map, allowing you to see the effects of changes.
+- The guide now follow the color theme.
+- Tentative to add column dividers in compact panels.
+- updated Hotkey help
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

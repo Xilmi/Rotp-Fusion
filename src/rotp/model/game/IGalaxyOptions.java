@@ -78,6 +78,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	default String	selectedShapeSelection()			{ return GOI().shapeSelection.get(); }
 	default	String	getGalaxyKey(int size)				{ return GOI().getGalaxyKey(size); }
 	
+	default ParamBoolean	previewNebula()				{ return GOI().previewNebula; }
 	default ParamBoolean	showNewRaces()				{ return GOI().showNewRaces; }
 	default List<String>	galaxyShapeOptions()		{ return GOI().getGalaxyShapeOptions(); }
 	default GlobalCROptions	globalCROptions()			{ return GOI().globalCROptions; }
@@ -100,9 +101,11 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	}
 	default LinkedList<IParam>	optionsGalaxy()			{ return GOI().optionsGalaxy; }
 
-	static  LinkedList<IParam> getOptionsGalaxy()		{ return GOI().optionsGalaxy; }
-	static  ParamList		   getSizeSelection()		{ return GOI().sizeSelection; }
-	static	ParamList		   getDifficultySelection()	{ return GOI().difficultySelection; }
+	static LinkedList<IParam> getOptionsGalaxy()		{ return GOI().optionsGalaxy; }
+	static ParamList		  getSizeSelection()		{ return GOI().sizeSelection; }
+	static ParamList		  getDifficultySelection()	{ return GOI().difficultySelection; }
+	static ParamInteger		  getAliensNumber()			{ return GOI().aliensNumber; }
+	static ParamInteger		  getGalaxyRandSource()		{ return GOI().galaxyRandSource; }
 
 	class GalaxyOption {
 		private static GalaxyOption instance;
@@ -112,7 +115,6 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				instance = new GalaxyOption();
 			return instance;
 		}
-	
 		private final LinkedHashMap<String, Integer> sizeMap(boolean dynamic, IGameOptions opts) {
 			LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
 			if (dynamic) 
@@ -193,6 +195,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 		}	
 		// ==================== Galaxy Menu addition ====================
 		//
+		private final ParamBoolean previewNebula = new ParamBoolean(MOD_UI, "PREVIEW_NEBULA", true);
 		private final ParamInteger galaxyRandSource	= new GalaxyRandSource() ;
 		private final class GalaxyRandSource extends ParamInteger {
 			GalaxyRandSource() {
@@ -385,10 +388,8 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			}
 			@Override public void initDependencies(int level)	{
 				if (level == 0) {
-					//resetLinks();
-					//addFollower(IPreGameOptions.dynStarsPerEmpire, FOLLOW_DOWN);
-					// Uncomment to allow the map size to change the neighborhood settings
-					//addFollower(secondRingSystemNumber, FOLLOW_DOWN);
+					resetLinks();
+					addLink(aliensNumber, DO_REFRESH);
 				}
 				else {
 					IGameOptions opts = opts();
@@ -567,6 +568,14 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				setIncrements(1, 5, 20);
 				isDuplicate(true);
 			}
+			@Override public void initDependencies(int level)	{
+				if (level == 0) {
+					//resetLinks();
+				}
+				else {
+					updated(true);
+				}
+			}
 			@Override public Integer getOptionValue(IGameOptions options) {
 				maxValue(options.maximumOpponentsOptions());
 				return options.selectedNumberOpponents();
@@ -604,7 +613,8 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 		private final LinkedList<IParam> optionsGalaxy = new LinkedList<>(
 				Arrays.asList(
 						showNewRaces, globalCROptions, useSelectableAbilities, shapeOption3,
-						galaxyRandSource, empiresSpreadingFactor,
+						galaxyRandSource, previewNebula,
+						empiresSpreadingFactor,
 						dynStarsPerEmpire // This one is a duplicate, but it helps readability
 						));
 	}

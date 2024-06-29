@@ -64,22 +64,17 @@ import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.fleets.FleetUI;
 import rotp.ui.game.AdvancedOptionsUI;
-import rotp.ui.game.DynamicAOptionsUI;
-import rotp.ui.game.DynamicBOptionsUI;
 import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.LoadGameUI;
 import rotp.ui.game.MainOptionsUI;
-import rotp.ui.game.MergedDynamicOptionsUI;
-import rotp.ui.game.MergedStaticOptionsUI;
-import rotp.ui.game.ModGlobalOptionsUI;
+import rotp.ui.game.CompactOptionsUI;
+import rotp.ui.game.CompactSetupUI;
 import rotp.ui.game.RaceIntroUI;
 import rotp.ui.game.SaveGameUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.SetupRaceUI;
-import rotp.ui.game.StaticAOptionsUI;
-import rotp.ui.game.StaticBOptionsUI;
 import rotp.ui.history.HistoryUI;
 import rotp.ui.main.MainUI;
 import rotp.ui.map.SystemsUI;
@@ -271,18 +266,10 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 
     private final AdvancedOptionsUI advancedOptionsUI = new AdvancedOptionsUI();
     // BR: Compact Mod Game options
-    private final MergedStaticOptionsUI  mergedStaticOptionsUI  = new MergedStaticOptionsUI();
-    private final MergedDynamicOptionsUI mergedDynamicOptionsUI = new MergedDynamicOptionsUI();
-    // BR: Standard Mod Game Options
-    
-    private final StaticAOptionsUI   staticAOptionsUI   = new StaticAOptionsUI();
-    private final StaticBOptionsUI   staticBOptionsUI   = new StaticBOptionsUI();
-    private final DynamicAOptionsUI  dynamicAOptionsUI  = new DynamicAOptionsUI();
-    private final DynamicBOptionsUI  dynamicBOptionsUI  = new DynamicBOptionsUI();
-    private final ModGlobalOptionsUI modGlobalOptionsUI = new ModGlobalOptionsUI();
-//    private final GameSettingsUI     gameSettingsUI     = new GameSettingsUI();
-    private final MainOptionsUI      mainOptionsUI      = new MainOptionsUI();
-    private final LargeDialogPane    dialogPane         = new LargeDialogPane();
+    private final CompactSetupUI   compactSetupUI   = new CompactSetupUI();
+    private final CompactOptionsUI compactOptionsUI = new CompactOptionsUI();
+    private final MainOptionsUI    mainOptionsUI    = new MainOptionsUI();
+    private final LargeDialogPane  dialogPane       = new LargeDialogPane();
 
     private final CardLayout layout = new CardLayout();
     private String currentPane = GAME_PANEL;
@@ -383,20 +370,12 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static RotPUI instance() { return instance; }
     public static HelpUI helpUI()   { return instance.helpUI; }
 
-    public static AdvancedOptionsUI      advancedOptionsUI()      { return instance.advancedOptionsUI; }
-    public static MergedStaticOptionsUI  mergedStaticOptionsUI()  { return instance.mergedStaticOptionsUI; }
-    public static MergedDynamicOptionsUI mergedDynamicOptionsUI() { return instance.mergedDynamicOptionsUI; }
-//    public static GameSettingsUI gameSettingsUI() { return instance.gameSettingsUI; }
-    public static MainOptionsUI  mainOptionsUI() { return instance.mainOptionsUI; }
-    // BR: Standard Mod Game Options
-    public static StaticAOptionsUI   modOptionsStaticA()  { return instance.staticAOptionsUI; }
-    public static StaticBOptionsUI   modOptionsStaticB()  { return instance.staticBOptionsUI; }
-    public static DynamicAOptionsUI  modOptionsDynamicA() { return instance.dynamicAOptionsUI; }
-    public static DynamicBOptionsUI  modOptionsDynamicB() { return instance.dynamicBOptionsUI; }
-    public static ModGlobalOptionsUI modGlobalOptionsUI() { return instance.modGlobalOptionsUI; }
-    // BR: Display UI panel for Race options
-    public static SetupRaceUI   setupRaceUI()   { return instance.setupRaceUI; }
-    public static SetupGalaxyUI setupGalaxyUI() { return instance.setupGalaxyUI; }
+    public static AdvancedOptionsUI advancedOptionsUI() { return instance.advancedOptionsUI; }
+    public static CompactSetupUI    compactSetupUI()    { return instance.compactSetupUI; }
+    public static CompactOptionsUI  compactOptionsUI()  { return instance.compactOptionsUI; }
+    public static MainOptionsUI     mainOptionsUI()     { return instance.mainOptionsUI; }
+    public static SetupRaceUI       setupRaceUI()       { return instance.setupRaceUI; }
+    public static SetupGalaxyUI     setupGalaxyUI()     { return instance.setupGalaxyUI; }
 
     @Override
     public void paint(Graphics g) {

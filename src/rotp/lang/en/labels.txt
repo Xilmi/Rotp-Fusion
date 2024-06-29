@@ -878,7 +878,7 @@ MAIN_COLONY_ABANDON_LABEL         | Abandon
 MAIN_COLONY_SHIP_SCRAPPED         | Scrapped
 MAIN_COLONY_NO_SHIELD             | Nebula
 
-// modnar: keep generic advisor text for newRaces
+// modnar: keep generic advisor text for new Races
 // Advisor text
 MAIN_ADVISOR_TITLE                | %1 Advisor
 MAIN_ADVISOR_BUTTON_OK            | Dismiss
@@ -1199,7 +1199,6 @@ FLEETS_HELP_2E                    | Deploy Fleets - deploy the selected fleets t
 FLEETS_HELP_3A                    | Stable:<br>The maximum number of population you can send from this planet while being able to regrowth to the same level, with ECO bar set to max.<br>It's up to the player or the governor to adjust the ECO bar.
 FLEETS_HELP_3B                    | Fill:<br>The maximum number of population you can send from this planet while being able to regrowth to fill the planet, with ECO bar set to max.<br>It's up to the player or the governor to adjust the ECO bar.
 FLEETS_HELP_3C                    | Population to send selection bars:<br>- Left click on slider = Normal percentage selection.<br>- Middle click on slider = "Stable"-value selection.<br>- Right click on slider = "Fill"-value selection.<br>Ctrl+Click to toggle auto-refill (Ungoverned only) shown as Green over Grey.<br>Default auto-refill state is set by option "→TRANSPORT_AUTO_ECO_HK←".
-// FLEETS_HELP_3D                    | Ungoverned colony will have their Eco sliders set to "Growth" after Transports are sent.<br>(Green = On; Dark = Off)
 FLEETS_HELP_3MAIN                 | OVERVIEW:<br> This screen allows the management of population and troops transport.<br>Select the destination colony and transport size.<br>Destination colony can be changed at will.
 
 // Select Next Tech to Research UI
@@ -1490,7 +1489,9 @@ SETUP_DIFFICULTY_NORMAL_HELP      | Normal (100%)
 SETUP_DIFFICULTY_HARD_HELP        | Hard (110%)
 SETUP_DIFFICULTY_HARDER_HELP      | Harder (125%)
 SETUP_DIFFICULTY_HARDEST_HELP     | Hardest (145%)
-SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found either:<br>&ensp - at the top left of "Options A" (6 option buttons)<br>&ensp - or at the top Left of "Options" (2 option buttons)
+SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found at the top Left of "Options" panel
+// SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found either:<br>&ensp - at the top left of "Options A" (6 option buttons)<br>&ensp - or at the top Left of "Options" (2 option buttons)
+
 
 SETUP_RESEARCH_RATE_NORMAL_HELP   | Research costs factors = 1.
 SETUP_RESEARCH_RATE_NORMAL        | Normal
@@ -1549,7 +1550,7 @@ SETUP_STAR_DENSITY_V_WIDE         | Very wide
 SETUP_STAR_DENSITY_WIDER          | Wider
 SETUP_STAR_DENSITY_WIDE           | Wide
 SETUP_STAR_DENSITY_LOWEST         | Very low
-//SETUP_STAR_DENSITY_LOWEST         | Lowest
+//-SETUP_STAR_DENSITY_LOWEST         | Lowest
 SETUP_STAR_DENSITY_LOWER          | Lower
 SETUP_STAR_DENSITY_LOW            | Low
 SETUP_STAR_DENSITY_NORMAL         | Normal
@@ -1652,11 +1653,7 @@ SETUP_BUTTON_RESTART              | Restart
 SETUP_BUTTON_SETTINGS             | Advanced Options
 // BR: add UI panel for modnar MOD game options
 
-SETUP_BUTTON_STATIC_A_SETTINGS       | Setup A
-SETUP_BUTTON_STATIC_B_SETTINGS       | Setup B
-SETUP_BUTTON_DYNAMIC_A_SETTINGS      | Options A
-SETUP_BUTTON_DYNAMIC_B_SETTINGS      | Options B
-SETUP_BUTTON_MOD_GLOBAL_SETTINGS     | Menu Options
+SETUP_BUTTON_TUNE_GALAXY             | Tune Galaxy
 SETUP_BUTTON_MERGED_STATIC_SETTINGS  | Setup
 SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS | Options
 // BR: Restart swap empire
@@ -1769,7 +1766,7 @@ SETUP_SPECIFIC_OPPONENT_DESC      | You can select your opponents individually, 
 SETUP_SPECIFIC_OPPONENT           | Specific Opponent
 SETUP_NOT_AVAILABLE               | N/A
 SETUP_ALIENS_NUMBER_DESC          | Select the number of opponents (between 0 an 49), which will be limited by your map size. Then select the setting for base AI (the default), the Modnar AI (a stronger AI that retains a sense of personality sometimes at the expense of efficiency), the Xilmi AI (a ruthless AI that prioritizes efficiency), or individual settings for each opponent. 
-SETUP_ALIENS_NUMBER               | Select Opponents Number.
+SETUP_ALIENS_NUMBER               | Opponents Number: %1
 
 SETUP_PLAYER_SPECIES_DESC         | Select your Species
 SETUP_PLAYER_SPECIES              | Player Species
@@ -2046,7 +2043,7 @@ SETTINGS_RESEARCH_RATE_HELP       | If you like savoring your new technologies, 
 SETTINGS_RESEARCH_RATE_DESC       | Slow the research rate of new technologies, lengthening the useful life of current technologies.<br> [Asymptotic in modnar MOD]
 SETTINGS_NEBULAE_DESC             | Nebulae slow down ship travel and render shields useless. Increase or decrease their frequency.
 // modnar: change PLANET_QUALITY settings, only Normal, Larger, and Richer
-//SETTINGS_PLANET_QUALITY_DESC    | [modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich;<br> "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
+//-SETTINGS_PLANET_QUALITY_DESC    | [modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich;<br> "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
 SETTINGS_PLANET_QUALITY_HELP      |  Do you want your galaxy to lean more terran or more barren?<br>After the stars have been placed, each star has a percentage chance based on its type of getting a single planet. The star type then determines the environment of its planet. The environment sets the range of sizes available for a planet, with unfriendly environments tending to smaller planets. However, the formula allows planets to sometimes stray dramatically from their default ranges. It's possible, but unlikely, to find massive barren planets and tiny fertile planets. Finally, the star type determines the chance that its planet will have a special trait like poor, rich, or artifact.
 SETTINGS_PLANET_QUALITY_DESC      | Increases or decreases the frequency of higher quality planets.
 SETTINGS_TERRAFORMING_HELP        | When this is set to Normal, once you've colonized a Hostile planet with the required colony base, the only difference from non-Hostile planets is a 50% penalty to population growth. This can be removed with Atmospheric Terraforming, at which points the Hostile trait is removed and the colony is like any other environment. But if you'd like your Hostile planets to have more bite, put this setting on Reduced. Now the Improved Terraforming
@@ -2168,6 +2165,11 @@ SETTINGS_MOD_SYSTEMS_OPTIONS_TITLE   | Advanced Stars and Planets Configuration
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI      | - Advanced Planet Options Menu -
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI_DESC | Opens a submenu containing more advanced Planetary settings.
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI_HELP | Opens a submenu containing more advanced Planetary settings.<br>These settings are finals.<br>These settings are saved with the game.
+
+SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_TITLE   | Advanced Galaxy Configuration
+SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI      | - Advanced Galaxy Menu -
+SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_DESC | Opens a submenu containing advanced Galaxy settings.
+SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_HELP | Opens a submenu containing advanced Galaxy settings.<br>These settings are finals.<br>These settings are saved with the game.
 
 HEADERS_ARTIFACT_OPTIONS_HELP        | To customize Antaran and Orion Artefact probablilites.<br>The first artifact to be set win! (Antaran First). The default probability is first multiplied by the modifier, then the offset is added.
 HEADERS_ARTIFACT_OPTIONS_DESC        | To customize Antaran and Orion Artefact probablilites.
@@ -2400,26 +2402,12 @@ SETTINGS_MOD_COUNCIL_PLAYER_VOTE_SIZE       | by Size
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST_DESC  | The player will always vote last.
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST       | Last
 
-//SETTINGS_MOD_EMPIRES_SPACING_HELP        | Minimum distance between Empire Homeworlds in light-years.<br>A small value will allow a great variety of distances between Empire homeworlds.<br>Increasing this value will uniformize these distances.<br>The absolute minimum distance is: 3.8 light-years.
-//SETTINGS_MOD_EMPIRES_SPACING_DESC        | Minimum distance between Empire Homeworlds in light-years.
-//SETTINGS_MOD_EMPIRES_SPACING             | Empires Spacing: %1 ly
-//SETTINGS_MOD_EMPIRES_SPACING_AUTO        | Auto
-//SETTINGS_MOD_EMPIRES_SPACING_MAP         | Minimum Empires Spacing: %1 ly
-
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_HELP | To adjust the Empire Homeworlds spreading; (Vanilla value is 100%).<br>A small value will allow homeworlds to be closer, resulting in a great variety of distances.<br>Increasing this value will push aways the homeworlds, resulting in more uniformized distances.<br>This parameter can be adjusted on the Galaxy map preview.
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_DESC | Minimum distance between Empire Homeworlds Factor in %.(Not allowed on "complex galaxies")
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR      | Empires Spreading: %1%
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_MAP  | Minimum Empires Spacing: %1% (%2 ly)
 
 SETTINGS_MOD_GALAXY_SIZE                   | Galaxy size: %1 ly x %2 ly
-
-
-// SETTINGS_MOD_MAX_SPACINGS_HELP           | If you don't like starting too close to a neighbor, this option will reduce diversity of distances between homeworlds, and push closer empires away. If that's not enough, you may try to unlock the security factor below...
-// SETTINGS_MOD_MAX_SPACINGS_DESC           | Attempts to maximize the distance between empires, but always randomly.
-// SETTINGS_MOD_MAX_SPACINGS                | Maximize Spacing: %1
-// SETTINGS_MOD_MAX_SPACINGS_LIM_HELP       | A safety prohibits setting a minimum distance between homeworlds below 15 minimum star distances.<br>For massive galaxies, you may want to relax this limit. It works quite well with standard galaxies, but very massive special galaxies may take a while to generate (Text, fractal, etc...).<br>You can also reduce this value for greater variety of distances between Homeworlds.
-// SETTINGS_MOD_MAX_SPACINGS_LIM_DESC       | (Maximal minimum distance between homeworlds) / (minimum star spacing). Massive special galaxies may take a while to generate...
-// SETTINGS_MOD_MAX_SPACINGS_LIM            | Max Spacing Multiplier: %1
 
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | To help defining the maximun opponent number from the size of the galaxy.
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE        | Min Stars per Empire: %1
@@ -2562,21 +2550,13 @@ SETTINGS_MOD_MAP_FONT_FACTOR_DESC        | To adjust the galaxy map font size. B
 SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1
 SETTINGS_MOD_MENU_STARTUP_DESC           | How should the Game Settings be initialized when Launching RotP?
 SETTINGS_MOD_MENU_STARTUP                | Launch Settings: %1
-// SETTINGS_MOD_MENU_AFTER_GAME_DESC        | How should the GUI be initialized after a game was played?
-// SETTINGS_MOD_MENU_AFTER_GAME             | GUI after Game: %1
-// SETTINGS_MOD_MENU_LOADING_GAME_DESC      | What options should be used when loading a game?
-// SETTINGS_MOD_MENU_LOADING_GAME           | Loading Game: %1
-//***
 SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic configuration menus (six menus) and Compact configuration menus (2 menus). Both provide a distinction between:<br><b>Setup Settings:</b>&nbsp which are only read once, when a game starts (or restarts).<br><b>Rules and gameplay settings:</b>&nbsp which can be changed while playing a game. (Ctrl-o) to call the rules and gameplay configuration menu.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC     | Show multiple configuration Menus at standard size, or only one compacted configuration menu?
-//*** -> configuration
 SETTINGS_MOD_COMPACT_OPTION_ONLY          | Settings Buttons: %1
 SETTINGS_MOD_COMPACT_OPTION_ONLY_YES_DESC | Display the two buttons for accessing the compact configuration menus (which share a description space), allowing more settings per menu.<br>One for the Galaxy building parameters, the other for the rules and gameplay parameters.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_NO_DESC  | Display the vanilla Advanced Options Button which includes both vanilla and mod options.
-SETTINGS_MOD_COMPACT_OPTION_ONLY_6_DESC   | Display six buttons for accessing the classic configurations menus (which simultaneously display a small description of each setting).<br>One for the original <b>Advanced Options</b>&nbsp containing both Setup and game parameters, two for the mod's Setup parameters, two for the mod's rules and gameplay parameters, and one for display settings (not affecting gameplay).
 SETTINGS_MOD_COMPACT_OPTION_ONLY_YES      | Compact
 SETTINGS_MOD_COMPACT_OPTION_ONLY_NO       | Vanilla
-SETTINGS_MOD_COMPACT_OPTION_ONLY_6        | Classic x 6
 
 SETTINGS_MOD_GAME_OVER_TITLE_DESC          | To switch between original Game Over panels Titles, extended ones (more specific), or the Realms Beyond community ones
 SETTINGS_MOD_GAME_OVER_TITLE               | Game Over Titles: %1
@@ -2607,17 +2587,13 @@ SETTINGS_MOD_OPTIONS_DEFAULT             | Default Settings
 SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings
 SETTINGS_MOD_OPTIONS_USER                | User's Settings
-// SETTINGS_MOD_OPTIONS_VANILLA             | Old Way
 SETTINGS_MOD_OPTIONS_DEFAULT_HELP        | The options will be reset to their default values.
 SETTINGS_MOD_OPTIONS_LAST_HELP           | The options will be in the same state as the last time you exited ROTP.
 SETTINGS_MOD_OPTIONS_GAME_HELP           | The options will be in the same state as the last game played.
 SETTINGS_MOD_OPTIONS_USER_HELP           | The options will be in the same state as the User's preferred settings.
-// SETTINGS_MOD_OPTIONS_VANILLA_HELP        | The options will be set as if it was no mods... a mixt of default, last state and last played game...
 
 SETTINGS_MOD_SHOW_ALL_AI_DESC            | AI:Base, AI:Modnar, and AI:Rookies are quite similar. AI:Rookie is based on the other two, with some important bug fixed. You may want to hide unfixed AI.
 SETTINGS_MOD_SHOW_ALL_AI                 | Show all AIs: %1
-// SETTINGS_MOD_SHOW_ALL_AI_YES             | All.
-// SETTINGS_MOD_SHOW_ALL_AI_NO	            | Hide some.
 SETTINGS_MOD_SHOW_ALL_AI_YES             | All AIs are available for the player and the opponents.
 SETTINGS_MOD_SHOW_ALL_AI_NO              | AI:Base and AI:Modnar won't be available.
 
@@ -2819,6 +2795,8 @@ SETTINGS_MOD_REAL_NEBULAE_SHAPE      | Real Nebula Shape: %1
 SETTINGS_MOD_REAL_NEBULAE_OPACITY_DESC | Opacity of the new real image based nebulae. 100% = No transparency.
 SETTINGS_MOD_REAL_NEBULAE_OPACITY      | Real Nebula Opacity: %1%
 
+SETTINGS_MOD_PREVIEW_NEBULA_DESC         | Show the nebulas in the galaxy map preview? (Can slow refresh, especially with the real nebulae option.)
+SETTINGS_MOD_PREVIEW_NEBULA              | Preview nebulae: %1
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new species in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new species: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)
@@ -2930,16 +2908,10 @@ NAME_RACE_PSILON_HELP     | →NAME_HELP←
 NAME_RACE_SAKKRA_HELP     | →NAME_HELP←
 NAME_RACE_SILICOID_HELP   | →NAME_HELP←
 
-
-
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developer's Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | - Debug Options Menu -
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
 
-//SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | In-Game Display Preferences
-// SETTINGS_MOD_ZOOM_OPTIONS_UI             | §~ Display Preferences: %1
-// SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse map zooming factors, // replay speed, Combat Shield Effects.
-// SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: // Map zooming factors, Replay speed, Combat Shield Effects.
 SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Combat Options Menu
 SETTINGS_MOD_ZOOM_OPTIONS_UI             | - Combat Options Menu -
 SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse graphic combat options settings.
@@ -2947,14 +2919,6 @@ SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game 
 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
-
-// SETTINGS_MOD_LOOP_FLAG_DESC              | Flag to be used to loop thru preferred star systems?
-// SETTINGS_MOD_LOOP_FLAG                   | Loop Flag: %1
-// SETTINGS_MOD_LOOP_NONE                   | None
-// SETTINGS_MOD_LOOP_TOP_LEFT               | Top Left
-// SETTINGS_MOD_LOOP_TOP_RIGHT              | Top Right
-// SETTINGS_MOD_LOOP_BOTTOM_RIGHT           | Bottom Right
-// SETTINGS_MOD_LOOP_BOTTOM_LEFT            | Bottom Left
 
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the Top Left flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Auto-Flag 1: %1
@@ -3190,7 +3154,7 @@ SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS         | Max →REF_CRYSTAL← Attack: %1
 SETTINGS_MOD_ALT_MONSTER_MESSAGES_DESC   | Randomly displays standard or alternate messages for Monster events.
 SETTINGS_MOD_ALT_MONSTER_MESSAGES        | Alternate Monster Messages: %1
 
-//========== RANDOM EVENT OTHER PARAMETERS →←
+// ========== RANDOM EVENT OTHER PARAMETERS →←
 REF_DONATION                             | Donation
 REF_DONATION_2                           | wealthy merchant donation
 SETTINGS_MOD_DONATION_DELAY_TURN_HELP    | →SETTINGS_MOD_DONATION_DELAY_TURN_DESC← →REF_INTRO← →EVENT_DONATION←
@@ -3378,7 +3342,6 @@ SETTINGS_MOD_IRONMAN_LOAD_DELAY          | Reload turn divider: %1
 
 SETTINGS_MOD_REPEATABLE_ARTIFACT_DESC    | Arfifacts planets will constantly give the same tech on reload.
 SETTINGS_MOD_REPEATABLE_ARTIFACT         | Deterministic Artifacts: %1
-
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research
@@ -4323,8 +4286,6 @@ HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Appearance related Options.
 HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~%1
 GOVERNOR_ORIGINAL_PANEL_DESC         | How the panel should be displayed? Old ways or Rotp like?
 GOVERNOR_ORIGINAL_PANEL              | Original View: %1
-// GOVERNOR_ORIGINAL_PANEL_YES       | Grey
-// GOVERNOR_ORIGINAL_PANEL_NO        | Rotp Colors
 GOVERNOR_ORIGINAL_PANEL_YES          | The panel will be displayed in its gray color as originally designed.<br>No size or brightness control.
 GOVERNOR_ORIGINAL_PANEL_NO           | The panel will copy the Rotp fonts, colors and icons.<br>It will be resizable, and the brightnes can be adjusted.
 GOVERNOR_CUSTOM_SIZE_DESC            | Quick way to activate or deactivate the resizing.  (Available for the new design only)
@@ -4405,9 +4366,9 @@ SETUP_START_DESC                  | Save options and Start the Game.<br> "Ctrl" 
 SETUP_BUTTON_START_DESC           | Save the current options and Start the Game.
 SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.
 SETUP_GALAXY_BACK_DESC            | Cancel options and go back to the Player options menu.
-SETUP_GALAXY_CLASSIC_OPTIONS_HELP | These buttons open Advanced configuration Menus.<br> "Setup" contains parameters being set once when starting or restarting a game.<br> "Options" contains parameters adjustable while playing the game.<br>To switch to 2 compact option menus:<br> - Press "B" or go to "Menus Options" and set "Show Compact Options" to "Yes". <br>Compact option menus have the same appearance as the one showing while playing the game, following "Ctrl-o". 
 SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "Setup" contains parameters being set once when starting or restarting a game.<br> "Options" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Press "B" or go to "Setup" and set "Show Compact Options" to "No".
 SETUP_GALAXY_VANILLA_OPTIONS_HELP | This button open Advanced options configutation Menu.<br> Press "B" to toggle the submenus call buttons.
+SETUP_TUNE_GALAXY_OPTIONS_HELP    | This button opens a hover control panel to fine-tune galaxy settings. <br>The galaxy map preview will update live.
 SETUP_GALAXY_ABILITIES_DESC       | Default abilities for alien Empires:<br> 'Original Species' = Original abilities of the selected Species (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the original species name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Species = specific Original Species; or any other customized species you have built.
 SETUP_GALAXY_SELECTABLE_DESC      | "Yes" => A selection line will appear at the top of the boxes below, allowing the selection of individual ability.
 SETUP_GALAXY_SELECTABLE		      | Selectable Abilities
@@ -4593,28 +4554,29 @@ SETUP_GALAXY_SHAPE_RANDOM_2_HELP | Galaxy randomly selected from almost all gala
 
 // Shortcuts / HotKeys list  (use crossreferences →←) →HK_←
 // Shortcuts Cross referenced
-HK_HEADER     | HOTKEYS: (Available by right-clicking the Help button)<br>→HK_SHIFT_F1←
-HK_SHIFT_F1   | <br>SHIFT+F1 : Show Hotkeys List (This)
-HK_F1         | <br>F1 : Show Help.
-HK_F1_?       | <br>F1, ? : Show Help.
-HK_ESCAPE     | <br>Escape : Exit this panel.
-HK_FLAG       | <br>F : Toggle Flag Color.
-HK_HOME       | <br>Home : Set Auto-Flag Color.
-HK_ALT_HOME   | <br>ALT-Home : Set Auto-Flag Color to all scouted systems.
-HK_B_SHIFT_B  | <br>B/SHIFT-B : Increment/Decrement Max Bases.
-HK_1_5        | <br>1-5/+SHIFT : Increment/Decrement spending to ship, def, ind, eco, tech
-HK_CTRL_1_5   | <br>CTRL+1-5 : Lock spending slider.
-HK_ALT_1_5    | <br>ALT+1-5 : Smart-Max spending.
-HK_MAP_ARROWS | <br>Arrows : Move Map.
-HK_MAP_ZOOM   | <br>+/- : Zoom Map. ("ALT-" : Full view of the galaxy) <br>Mousewheel : Zoom Map.
-HK_TAB        | <br>Tab/+SHIFT : Next/Previous Tab.
-HK_YEAR       | <br>Y : Toggle Year Display.
-HK_FLAG_LOOP  | <br>(Num) * - 9 + : Loop thru Flags ("SHIFT-" Reverse) ("CTRL-" Same Flag Color)
+HK_HEADER      | HOTKEYS: (Available by right-clicking the Help button)<br>→HK_SHIFT_F1←
+HK_SHIFT_F1    | <br>SHIFT+F1 : Show Hotkeys List (This)
+HK_F1          | <br>F1 : Show Help.
+HK_F1_?        | <br>F1, ? : Show Help.
+HK_ESCAPE      | <br>Escape : Exit this panel.
+HK_FLAG        | <br>F : Toggle Flag Color.
+HK_HOME        | <br>Home : Set Auto-Flag Color.
+HK_ALT_HOME    | <br>ALT-Home : Set Auto-Flag Color to all scouted systems.
+HK_B_SHIFT_B   | <br>B/SHIFT-B : Increment/Decrement Max Bases.
+HK_1_5         | <br>1-5/+SHIFT : Increment/Decrement spending to ship, def, ind, eco, tech
+HK_CTRL_1_5    | <br>CTRL+1-5 : Lock spending slider.
+HK_ALT_1_5     | <br>ALT+1-5 : Smart-Max spending.
+HK_MAP_ARROWS  | <br>Arrows : Move Map.
+HK_MAP_ZOOM    | <br>+/- : Zoom Map. ("ALT-" : Full view of the galaxy) <br>Mousewheel : Zoom Map.
+HK_TAB         | <br>Tab/+SHIFT : Next/Previous Tab.
+HK_YEAR        | <br>Y : Toggle Year Display.
+HK_FLAG_LOOP   | <br>(Num) * - 9 + : Loop thru Flags ("SHIFT-" Reverse) ("CTRL-" Same Flag Color)
 
-HK_FOG        | <br>F : Show / Hide Fog on Diplomat Icons. 
-HK_GUIDE      | <br>G : Toggle Guide.
-HK_SEL_B      | /+ALT/+CTRL/+SHIFT : Current Selection
-HK_SEL_E      | Spending to 100% / Smart Max / Lock / Unlock
+HK_FOG         | <br>F : Show / Hide Fog on Diplomat Icons. 
+HK_GUIDE       | <br>G : Toggle Guide.
+HK_SEL_B       | /+ALT/+CTRL/+SHIFT : Current Selection
+HK_SEL_E       | Spending to 100% / Smart Max / Lock / Unlock
+HK_SET_DEFAULT | <br>ALT-F : Set Default Values to RotP-Fusion.<br>ALT-M : Set Default Values to MoO1.<br>ALT-R : Set Default Values to original RotP.
 
 // Shortcuts Full lists*
 MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>W : Toggle war view mode showing only the fleets targeting the planet in danger.<br>        (Auto off when selected planet is not in danger)<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet →HK_FLAG_LOOP←<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mousewheel : Increment quantities/moves slider<br>→HK_ESCAPE←
@@ -4631,10 +4593,11 @@ RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next
 
 SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_YEAR← →HK_FLAG← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
 
-SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_GUIDE← <br>B : Toggle submenus call buttons.<br> →HK_FOG← <br>M : Go to Main Menu.<br>Enter : Start a new Game. <br><br>Escape : Go to Player Setup Panel.
+SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_GUIDE← <br><br>B : Toggle submenus call buttons. →HK_FOG← <br>T : Go to Tune Galaxy Menu. <br>→HK_SET_DEFAULT← <br><br>Enter : Start a new Game. <br><br>M : Go to Main Menu.<br>Escape : Go to Player Setup Panel.
 
-SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>N : Open Name Player Species Sub Menu. <br>R : Random Species. <br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
+SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>N : Open Name Player Species Sub Menu. <br>R : Random Species.<br>→HK_SET_DEFAULT← <br><br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
 
-MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. <br><br>ALT-F : Set Default Values to RotP-Fusion. <br>ALT-M : Set Default Values to MoO1. <br>ALT-R : Set Default Values to original RotP. <br>→HK_GUIDE← <br>→HK_ESCAPE←
+MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. <br>→HK_SET_DEFAULT←<br>→HK_GUIDE← <br>→HK_ESCAPE←
 
 SETUP_GAME_HELP_HK   | H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N : New Game.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.<br><br>PAGE_UP / PAGE_DOWN: (Work in progress)<br>      Open / Close Console for the visually impaired people.
+

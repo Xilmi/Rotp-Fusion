@@ -117,8 +117,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			topPad		-= s40; // Push the settings up			
 			shiftTitle	-= s10; // Shift the title a little
 		}	
-		hBG		= topPad + hSettings + smallButtonH + s10;
-		topM	= (h - hBG)/2;
+		hGist		= topPad + hSettings + smallButtonH + s10;
+		topM	= (hFull - hGist)/2;
 		yTop	= topM + topPad; // First setting top position
 		yButton	= yTop + hSettings - shiftButton + s13;
 		yTitle	= topM + shiftTitle;
@@ -156,7 +156,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	@Override protected void initBackImg() {
 		long timeStart = System.currentTimeMillis();
 		forceUpdate = true;
-		backImg = newOpaqueImage(w, h);
+		backImg = newOpaqueImage(wFull, hFull);
 		Graphics2D g = (Graphics2D) backImg.getGraphics();
 		// modnar: use (slightly) better upsampling
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -169,18 +169,18 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		Image back = GameUI.defaultBackground;
 		int imgW = back.getWidth(null);
 		int imgH = back.getHeight(null);
-		g.drawImage(back, 0, 0, w, h, 0, 0, imgW, imgH, this);
+		g.drawImage(back, 0, 0, wFull, hFull, 0, 0, imgW, imgH, this);
 
 		g.setPaint(bg());
-		g.fillRect(leftM, topM, wBG, hBG);
+		g.fillRect(leftM, topM, wGist, hGist);
 
 		// Title
 		g.setFont(narrowFont(30));
 		String title = text(guiTitleID);
 		int sw = g.getFontMetrics().stringWidth(title);
-		int xTitle = (w-sw)/2;
+		int xTitle = (wFull-sw)/2;
 		if (numRows == 6) {
-			xTitle = w -rightM - sw - 2*columnPad;
+			xTitle = wFull -rightM - sw - 2*columnPad;
 		}
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 
@@ -192,7 +192,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		
 		// buttons location
 		int smallButtonW = scaled(180);
-		exitBox.setBounds(w-scaled(189)-rightM, yButton+s2, smallButtonW, smallButtonH);
+		exitBox.setBounds(wFull-scaled(189)-rightM, yButton+s2, smallButtonW, smallButtonH);
 		smallButtonW = defaultButtonWidth(g);
 		defaultBox.setBounds(exitBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		smallButtonW = defaultButtonWidth(g);
@@ -344,10 +344,10 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	//
 	@Override public void init()	 {
 		super.init();
-		w	= RotPUI.setupRaceUI().getWidth();
-		h	= RotPUI.setupRaceUI().getHeight();
-		wBG	= w - (leftM + rightM);
-		wSetting = (wBG/numColumns)-columnPad;
+		wFull	= RotPUI.setupRaceUI().getWidth();
+		hFull	= RotPUI.setupRaceUI().getHeight();
+		wGist	= wFull - (leftM + rightM);
+		wSetting = (wGist/numColumns)-columnPad;
 		if (!globalOptions) // The new ways
 			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		forceUpdate = true;

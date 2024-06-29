@@ -52,7 +52,9 @@ public class Rotp {
     public static final int IMG_W = 1229;
     public static final int IMG_H = 768;
     public static boolean noOptions = true; // BR: Options are not ready to be called
-    public static Rand random = new Rand(); // BR: to allow RNG reset
+    private static Rand random = new Rand(); // BR: to allow RNG reset
+    public static Rand rand()		{ return random; }
+    public static void rand(Rand r)	{ random = r; }
 
     public static String jarFileName = "rotp-" + version + RotpGovernor.miniSuffix() + ".jar";
     public static String exeFileName = "rotp-" + version + ".exe";
@@ -223,17 +225,18 @@ public class Rotp {
         int pct = UserPreferences.windowed() ? UserPreferences.screenSizePct() : 100;
         float sizeAdj = (float) pct / 100.0f;
         if (resizeAmt < 0) {
-        	
-            Dimension size = getSize();
-
-            int sizeW = (int) (sizeAdj*size.width);
-            int sizeH = (int) (sizeAdj*size.height);
-            int maxX = sizeH*8/5;
-            int maxY = sizeW*5/8;
-            if (maxY > sizeH)
-                maxY = maxX*5/8;
-
-            resizeAmt = (float) maxY/768;
+            if (pct==-1)
+            	resizeAmt = 1f;
+            else {
+                Dimension size = getSize();
+                int sizeW = (int) (sizeAdj*size.width);
+                int sizeH = (int) (sizeAdj*size.height);
+                int maxX = sizeH*8/5;
+                int maxY = sizeW*5/8;
+                if (maxY > sizeH)
+                    maxY = maxX*5/8;
+                resizeAmt = (float) maxY/768;
+            }
             (new BasePanel()).loadScaledIntegers();
             if (logging)
                 System.out.println("resize amt:"+resizeAmt);

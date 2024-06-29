@@ -62,6 +62,7 @@ public interface IParam extends InterfaceOptions{
 	public default boolean	isValidValue()			{ return true; }
 	public default boolean	isActive()				{ return true; }
 	public default boolean	updated()				{ return true; }
+	public default boolean	trueChange()			{ return true;}
 	// Display
 	public default void setFromCfgValue(String val) {}
 	public default String	getCfgValue()			{ return ""; }

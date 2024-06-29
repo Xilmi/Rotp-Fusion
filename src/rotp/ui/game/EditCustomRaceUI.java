@@ -245,7 +245,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 
 		// Exit Button
 		int buttonW	= exitButtonWidth(g);
-		xButton = leftM + wBG - buttonW - buttonPad;
+		xButton = leftM + wGist - buttonW - buttonPad;
 		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
 
 		// Select Button
@@ -328,21 +328,21 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 
 		setBigButtonGraphics(g);
 		// draw EXIT button
-		exitBox.fillRoundRect(g);
+		exitBox.fillButtonBackImg(g);
 
 		setSmallButtonGraphics(g);
 		// Select Button
-		selectBox.fillRoundRect(g);
+		selectBox.fillButtonBackImg(g);
 		// Default Button
-		defaultBox.fillRoundRect(g);
+		defaultBox.fillButtonBackImg(g);
 		// Last Button
-		lastBox.fillRoundRect(g);
+		lastBox.fillButtonBackImg(g);
 		// User Button
-		userBox.fillRoundRect(g);
+		userBox.fillButtonBackImg(g);
 		// Load / Save Button
-		loadBox.fillRoundRect(g);
+		loadBox.fillButtonBackImg(g);
 		// draw GUIDE button
-		guideBox.fillRoundRect(g);
+		guideBox.fillButtonBackImg(g);
 		
 		drawButtons(g, true); // init = true; local = true
 		return buttonBackImg;
@@ -400,7 +400,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		String text = text(exitButtonKey());
 		int sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
-		xButton = leftM + wBG - buttonW - buttonPad;
+		xButton = leftM + wGist - buttonW - buttonPad;
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, smallButtonH, cnr, cnr);
 		int xT = exitBox.x+((exitBox.width-sw)/2);

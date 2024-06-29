@@ -202,7 +202,6 @@ public interface IAdvOptions extends IBaseOptsTools {
 		private float density(float radius, int NumStar)	{
 			float systemBuffer = (float) (radius / (Math.sqrt(NumStar) * surfaceSecurityFactor));
 			float density = systemBuffer / 1.9f;
-			System.out.println("density = " + density);
 			return density;
 		}
 	}
@@ -220,6 +219,7 @@ public interface IAdvOptions extends IBaseOptsTools {
 			options.selectedNebulaeOption(newValue);
 		}
 	}
+	default ParamList getNebula()	{ return nebulae; }
 
 	ParamList randomEvents = new RandomEvents(); // Duplicate Do not add the list
 	class RandomEvents extends ParamList {
