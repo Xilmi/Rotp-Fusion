@@ -120,19 +120,12 @@ public abstract class BaseModPanel extends BasePanel
 	protected int xFull, yFull, wFull, hFull, rFull, bFull; // absolute panel window size and position (right, bottom)
 	protected int xGist, yGist, wGist, hGist, rGist, bGist; // relative Content size and position (right, bottom)
 	protected BufferedImage buttonBackImg;
-	private	  LinearGradientPaint bg, bg2;
+	private	  LinearGradientPaint bg;
 	protected LinearGradientPaint bg() {
 		if (bg == null)
 			bg = GameUI.modBackground(xGist, rGist);
 		return bg;
 	}
-//	protected LinearGradientPaint bg(float n) {
-//		if (bg2 == null) {
-//			bg2 = GameUI.modBackground(xGist, xGist + wGist/n);
-//		}
-//		return bg2;
-//	}
-	
 	protected BufferedImage backImg; // the full background
 	protected void initBackImg() {  }
 	protected BufferedImage backImg() {

@@ -15,243 +15,53 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
 <b><ins>New Features:</ins></b>
-- New Random Galaxy selection. (Pairs well with the dark galaxy!)
+- Galaxy setup:
+  - New Side panel with all galaxy option to tune and preview.
+    - New nearby stars options.
+    - Loose galaxy limits.
+    - The number of star per empire can now be lowered to 1.
+    - Nebulae placement, global and relaive to empire. Their effects on planets.
   - Most galaxy type can now have their options set to "Random".
-  - Galaxy type can be also be randomly selected from any (except Text and Bitmap):
-    - Or Galaxy type can be randomly selected from a reduced set:
-      - Star Field, Ellipse, Spiral, Spiral Arm, Shuriken, Cluster.
-    - Random Galaxy type will also have their options set to "Random".
-- New option: Reduced population growth: (by Practical-Incarnation)
-  - The goal of this new setting is to make pops a more valuable resource. Losing pops and mass transporting them will have higher costs to your economy. It will slow down conquests from transports and development of newly conquered worlds. There may be a different meta.
-  - The pop purchase cap in particular mainly affects highly developed colonies in the mid to late game. It means colonies cannot instantly regrow their pops after sending transports.
-    - Reduces natural pop growth by 0.5x
-    - Increases the cost to purchase pops with the eco slider by 2x
-    - Adds a maximum cap on how much pops you can purchase per turn, proportionally to the size of the planet. The spending cap is set initially to 2.5% of the planet size, and increases with cloning techs.
-- New Limited Ignores Eco, a new custom race option: (by Practical-Incarnation)
-  - In addition to No, which is the default for all races, and All, which is what Silicoids have, there's a new setting Limited. Limited ignores Waste and Hostile environments like All, but only Barren, Tundra, and Dead hostile planets can be immediately colonized in addition to the normal environments. Inferno, Toxic, and Radiated environments still needs to be researched first.
-  - The goal of this new option is to provide a new option to create Silicoid-like races, that are not too overpowered on certain galaxy settings such as larger Hellish galaxies.
-- New Ironman option:
-  - In the Empire Diplomacy panel, allows or prohibits calling for more detailed species information.
-- New option for the player to vote first or Last.
-- Successfull execution of a sabotage-mission will now also provide a full scan of the target-system and thus allow the system to be invaded. (Xilmi)
-- Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"
-  - Once framed by an alien empire, the Governor will follow the player's choice for the time necessary for the empire to calm down.
-  - Players who had checked "Spare Xenophobes" will now have to also give the right answers when warned!
-  - Players who had not checked "Spare Xenophobes" will not be impacted!
-  - Defaut value will be "On"
-- The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.
-  - Named "Governor instructions", this value can be toggled by clicking on it.
-- Added option to remove the colony notification messages requesting new allocations.
-- Changed how the memory is monitored.
-  - Now based on Garbage collection.
-  - Based on min of 10 poll if GC does not work.
-  - Changed Low Memory tracker!
-- The state of the guide is now remembered from session to session. Default = Enabled.
-- The advisor has been restored... Easy to switch off in In-Game Options.
-- The Auto help at start has been restored... Easy to switch off in In-Game Options.
-- Species Customization:
-  - Added malus value in Species customization panel.
+  - Galaxy type can be set randomly.
+  - Removed the 6 buttons options, as their contents was no longer updated...
+- New game options:
+  - Reduced population growth: (by Practical-Incarnation)
+  - Implemented AI-confidence-feature. (Xilmi)
+  - Option to customize peace treaties: Peace / Armistice / ColdWar.
+  - Iron man panel: a few more options.
+  - Improved and persistent (optional) random generator.
+  - Council options:
+    - The player to vote first or Last.
+    - Realms Beyond: No second chances, no half win... ==> No Alliance victory (Neither Council nor Military) & No rebellion! (Including player)
+    - No Alliances: No half win... ==> No Alliance victory (Neither Council nor Military)
+- Custom Species Panel:
+  - New Limited Ignores Eco, a new custom race option: (by Practical-Incarnation)
+  - Display malus value in Species customization panel.
   - New values for Worker Production and Factory Control.
-- Auto-Run manage council
-  - New Benchmark tester
-- Game Over panel: Option to get more diversified titles.
-- Added a new option in the council setting:
-  - Realms Beyond: No second chances, no half win... ==> No Alliance victory (Neither Council nor Military) & No rebellion! (Including player)
-  - No Alliances: No half win... ==> No Alliance victory (Neither Council nor Military)
-- New sub panel to customize Artifact and resources probabilities.
-- New option to set the minimal distance Between Orion and Empires
-- New Option: Max combat turns from 10 to 1000
-- New option to contine after gameover panel!
-  - Only if the player is still alive.
-  - Not tested extensively... Consider this an alpha feature.
-- New Option: Default Forward Rally.
-  - To set the default action when setting up a fleet rally.
-- New "war view" mode:
-  - Toggled with "W" Key (Good companion of "F7"/"F8")
-  - Auto off when selected planet is not in danger.
-  - War view mode show only the fleets targeting the planet in danger.
-  - Incoming Fleets are listed in the Right Panel (Scrollable).
-- New Buttons "Rally to nearest sargate"
-  - In the right panel. (When stargate are available)
-  - In mass rally panel.
-  - With preview.
-- New Option: Chain Rally that select the quickest way through stargate to go to destination.
-  - Disabled by default, but can be set in "In Game Option" panel.
-  - Can be temporary changed in the "Set Rally Point" panel.
-  - Works with the right click on star systems (Inverted if Shift key is down)
-  - Can be used in Mass Rally Panel too.
-- New option to select the fleet speed to use when building a chain rally through stargate.
-  - Fleet: Based on the speed of the ship under construction or the slowest ship in the selected fleet.
-  - Min: Based on the speed of the slowest active ship design.
-  - Top: Based on the top speed allowed by currently known technologies.
-- New Option to customise peace treaties.
-  - Peace: as before.
-  - Armistice: Peace Treaty duration = 0 years.
-  - ColdWar: No colonisation when non allied alien fleets are orbiting.
-- New option for nebulae placement:
-  - The location of the nebula now begins by being centered on a random star system.
-    - For a more even distribution among galaxy shapes.
-    - Galaxies with void will reject nebulae due to an invalid starting point.
-    - Nebulae won't be rejected due to not containing stars.
-  - Added an option to retry placement of rejected nebulae.
-  - Added an option to allow nebulae to extend a little beyond the galaxy.
-    - Galaxies with fine shapes will no longer reject all nebulae.
-- New option to never let a nebula be too close to an empire's neighborhood.
-- New option for improving the planet in the center of the nebulae:
-  - None, Less, Normal, More, Always.
-- Added Last spy report age in contact panel.
-- Nebulae are shown in preview panel.
-- Nebulae follow the wysiwyg rule.
-- Empire status bar graph shows Max Tech when absolute value is selected, average otherwise. (As before)
-- Empire status line graph shows both max tech and average tech values.
-- Spending Panel shows when there is unused factories, and how many are missing.
-- Empire Intelligence Panel
-  - Added Latest reported spy bonuses for related missions.
-  - Based on the latest reported technology and security levels.
-- Added Option to auto delete backup files... (Not final; sent to recycle bin)
-- Load and Save Options Now available on the main Menu with the "CTRL" key modifier.
 - New Option panel to set default Nominal Species Names.
-- New option for "Tax only fully developed colonies", that define what should be completed to be identified as developed!
-- (Xilmi) Implemented AI-confidence-feature.
-- Military view tab in the colonies screen: "Shield" column display as "Nebula" when the planet is in a nebula.
-- New option to select the default values:
-  - RotP-Fusion
-  - RotP-Original
-  - MoO1
-- New option to set the number of nearby and midrange stars.
-  - How many must have habitable planet.
-  - The nearby and midrange circle radius.
-  - The number of star per empire can now be lowered to 1.
-- New Tools to create dependencies between options.
-- Created option dependencies for
-  - Neighboor circles size
-  - Minimum Number of star per circle
-  - Minimum Number of habitable planet per circle
-  - Star density
-  - Number of star per empire
-  - Galaxy size
-- Option to allow nearby stars to be out of the galaxy limits.
-- Galaxy setup Panel:
-  - Removed the 6 buttons option, as their contents was no longer updated...
-  - Added the Tune Galaxy button, which opens a new settings panel on the side of the galaxy map, allowing you to see the effects of changes.
-
-<b><ins>Optimisation:</ins></b>
-- Added a little transparency to the cuttlefish to reduce its brightness.
-- Added Base Mod Options SubMenu. (now Empty)
-- Restored vanilla galaxy setup panel advanced options.
-- Restart will now gives the same research tech list.
-  - This accidentally removed the "new dice roll" when reloading a game! To fix this:
-    - New option: Research Moo1 style vs vanilla RotP. (Ironman Panel)
-    - YES: Reload won't change research probability (Moo1 style)
-    - NO: You may try to reload to get a new dice roll! (RotP default)
-- Added Persistent Random Generator option to to Ironman Panel.
-- Right click on spending result will maximize the spending (even if not needed).
-- Missile base settings: Improved controls
-  - Shift = +/- 5;
-  - Control = +/- 20;
-  - Shift Control = +/- 100;
-  - Max value = 9999; (default max still limited to 999)
-  - Loop at Max and Min
-- The AI will now try to get a spy-network up and running as quickly as possible with empires that it never had infiltrated before. This also applies to the governor, when "Let AI handle spies" is enabled. (Xilmi)
-- Increased Governor Max Bases value to 1000.
-- Ship Display position will be rounded in fraction of total travel time.
-- Auto-Run:
-  - Manage council
-  - New Benchmark tester
-  - Benchmark "Continue" option to Stop the current game, log results, then Continue the tests.
-  - Notice will be shown at the bottom of the screen.
-  - Option to show the full galaxy when Benchmarking.
-  - New option to choose if the autorun should continue after the player lost!
-- Moved "Show all AI" in Remnant.cfg
-  - Added it to "Main Menu -> Settings"
-  - Added it to Pre Game Options (above autoplay setting)
-- Little reorganisation in "In-Game Options" Panel for more clarity... I hope!
-- Renamed some remaining Nazloks, Fiershan, Ssslauran, and Cryslonoids.
-- New Hotkey: Alt 1~5 to smartmax spendings.
-- Hotkey: Alt 1~5 smartmax spendings works on Multi selection too.
-- Hotkey: Alt S/D/W/E/R smartmax spendings on Multi selection.
-- Fleet-commander-improvements (Xilmi)
-  - For the estimate how many losses will be endured by enemy missile-bases the AI now calculates the amount of turns to move to the planet plus the amount of turns it takes to take the missile-bases out instead of always using a fixed amount of ten turns.
-  - Estimating a high amount of losses can reduce the willingness to split the fleet in several smaller ones.
-  - The AI will no longer just send a scouting-fleet to a system that has a space-monster but instead a fleet that is believed to beat the monster.
-- Transport Panel:
-  - Auto-refill can be toggled at the same time as setting a value.
-  - Completed Help panel with info about default auto-refill state.
-- Added Scrolling in System History pane.
-  - Left / Right Click to scroll up / down
-  - Mid Click to restore view.
-  - scroll to scroll...
-- Restored Original vanilla "fast speed" as Fastest.
-- Developer tool on main panel:
-  - Press "R" to Replay last Turn.
-  - "Ctrl" will replace "Continue" with "Replay Last Turn"
-  - May be useful for non developer too...
-- Added access to explorer window from Main Menu, with "HOME" key (For old computers in full screen mode, alt-Tab don't work if no other windows are opened)
-- Added Help screen on the Main Menu.
-- Ship design panel:
-  - Added Help for Governor buttons.
-  - Added Help for Governor buttons.
-  - New control key for auto build selection
-    - Alt-A : Auto Build best design (Same as the button)
-    - Alt-B : Auto Build Bomber
-    - Alt-F : Auto Build Fighter
-    - Alt-P : Auto Build Colony (Pioneer)
-    - Alt-E : Auto Build Scout (Explorer)
-- (Xilmi) Missiles are no longer taken into consideration in the facingOverwhelmingForce-check of the retreat-logic. This prevents stacks from retreating when their opponents would run out of missiles due to firing them at other stacks.
-- The display of alien factories is now more explicit.
-- The guide now follow the color theme.
-- Following a suggestion from Roland Johansoen: Renamed "Pregame" to "Setup" and "In-Game" to "Options" and updated guide and help texts consequently.
-- Switched the default random generator to a better one.
-
-
-<b><ins>Bug Fixes:</ins></b>
-- Fixed multiple star systems sharing the same name.
-- Fixed Tech Monsters triggering on reload!
-- Fixed occasional crash when fighting Monster.
-- Fixed some low occurences crash vulnerabilities. (Thanks for reporting them)
-- Fixed wrong button display after Ctrl-option Pop-up panel.
-- Fixed "Continue" on startup will suggest a name based on the loaded game.
-- Fixed some display options not being saved!
-- Fixed some Fullscreen crash on startup
-- (Xilmi) Fixed an issue that prevented the AI from attacking systems guarded by monsters such as the Orion-guardian when they had previously explored the system with scanners.
-- Fixed Orion Guardian auto-repair not working.
-- Fixed Silicoid + Cloning = Never + Atmospheric Terraforming = Never leading to Crash!
-- Fixed a bug where AI:Rookie was listed twice in AI:Random
-- Fixed an old bug when loosing as "non leader ally" will pop up the lost as rebel screen! Changed to military loss instead!
-- Fixed some null pointer exception in for loops when list content may not be up to date.
-- Removed autoBombard and autocolonize from "Main Menu -> Settings", as they are no more stored in Remnant.cfg, and it could be confusing!
-- Fixed relocating ship pathSprite bug
-- Fixed crash due to monster checking to colonize planet!
-- Spending Pane:
-  - Fixed wrong ship building time estimation when interrupting stargate build.
-  - Fixed ship building time estimation not using reserves.
-- Fixed possible crash with random Galaxies.
-- (Xilmi) Fixed an issue where the AI used two very different stats for the comparison of fleet-strength when calculating the confidence for a successful invasion.
-  - It usually would vastly underestimate the enemie's chances to repel the invasion and thus very often invaded when this was too risky of an endeavour.
-- Fixed Save Notification Text.
-- Fixed Bombard notification not showing when occuring at the same time of a war declaration.
-- The AI will no longer retreat stacks that aren't threatened from losing at least one ship. (Xilmi)
-- Fixed completly wrong estimate for stream-projector-damage used in AI-calculations. (Xilmi)
-- Fixed stream-projectors not working against space-monsters. (Xilmi)
-- Added a necessary method for the AI to be able to estimate the damage-output of the orion-guardian. (Xilmi)
-- Fixed Redirect Ship Path Glitch
-- Fixed Ship Combat when player ship turn may be skipped! this when following another ship destruction!
-- Fixed aliens offering Trade treaties while at war.
-- Fixed Rally right click:
-  - Right clicking the origin system will now correctly cancel the rally.
-- Fixed War View showing invisible ship:
-  - Fleet with both visible and invisible ship will only show the visible one.
-- Fixed Military panel not properly initialised when reloading a game.
-- Fixed Spending panel unused factories wrong value when refitting.
-- Fixed possible misalignment of notes.
-- Fixed trade report display on Empire events.
-- Fixed wrong factory estimation.
-- Fixed smartmax when reserve are greater than ship cost. Will be set to 1 tick to release the ship.
-- Fixed old bug where your spy are good enough to frame but have no one to frame... You framed your-self!
-- Fixed factory prediction when transports are sent or incoming.
-- Fixed confusing max/average tech status display.
-- (Xilmi) Fixed an issue where the AI didn't consider that missile-bases stop dealing damage when all population of a planet is killed. This lead to the AI not daring to attack planets with missile-bases when they only had biological weapons.
-- Fixed growth expectations display when there are too many incoming transports.
-- Fixed growth expectations display when terraforming and too many incoming transports in few days.
-- Fixed "cold war" Colony ship being afraid of its own weapons...
-- minor fixes...
+- New rules:
+  - Successful execution of a sabotage-mission will now also provide a full scan of the target-system and thus allow the system to be invaded. (Xilmi)
+- Governor Options:
+  - Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"
+  - The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.
+- GUI Improvement:
+  - Load and Save Options Now available on the main Menu with the "CTRL" key modifier.
+  - New option to select the default values: RotP-Fusion / RotP-Original / MoO1
+  - Option to remove the colony notification messages requesting new allocations.
+  - The state of the guide is now remembered from session to session. Default = Enabled.
+  - The advisor has been restored... Easy to switch off in In-Game Options.
+  - The Auto help at start has been restored... Easy to switch off in In-Game Options.
+  - Game Over panel: Option to get more diversified titles.
+  - Max combat turns from 10 to 1000.
+  - Option to continue after game over panel! (At your own risk)
+  - New "war view" mode, toggled with "W" Key (Good companion of "F7"/"F8")
+  - Option to Default Forward Rallya and help to select the quickest way through stargates
+  - Added Last spy report age in contact panel, and their last efficiencies.
+  - Empire status can show max tech level.
+  - Restart will now gives the same research tech list.
+  - Auto-Run now manage council and has a new Benchmark tester, and more.
+  - Transport Panel: auto refill option improvement.
+  - Plenty of new Hotkeys: (Shift-F1 to reveal them)
+  - Plenty of minor improvements.
+- AI: Stronger than ever.
+- Plenty of little bug fixes.

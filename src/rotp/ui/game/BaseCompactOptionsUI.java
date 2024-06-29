@@ -184,17 +184,6 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			int imgH = back.getHeight(null);
 			g.drawImage(back, 0, 0, wFull, hFull, 0, 0, imgW, imgH, this);
 		}
-		
-//		if (hovering)
-//			g.setPaint(GameUI.loadHiBackground());
-//		else
-//			g.setPaint(bg());
-		int left = xGist+wGist/5;
-		int mid  = 3*wGist/5;
-//		g.setPaint(bg(numColumns));
-//		g.fillRect(xGist, yGist, wGist, hGist);
-//		g.setPaint(bg());
-//		g.fillRect(left, yGist, mid, titlePad-rowPad);
 		g.setPaint(bg());
 		g.fillRect(xGist, yGist, wGist, hGist);
 
@@ -235,8 +224,6 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		userBox.setBounds(lastBox.x-smallButtonW-sep2, defaultBox.y, smallButtonW, smallButtonH);
 
 		yDesc = defaultBox.y - ( descHeigh + buttonPadV);
-//		g.setPaint(bg());
-//		g.fillRect(left, yDesc-yFull, mid, bGist-yDesc);
 		
         initButtonBackImg();
         g.dispose();

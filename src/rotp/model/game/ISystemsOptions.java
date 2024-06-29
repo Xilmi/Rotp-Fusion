@@ -91,7 +91,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	ParamInteger orionToEmpireModifier	= new ParamInteger( MOD_UI, "ORION_TO_EMPIRE_MODIFIER", 100)
 			.setDefaultValue(MOO1_DEFAULT, 0)
 			.setLimits(0, 1000)
-			.setIncrements(1, 10, 100);
+			.setIncrements(1, 5, 20);
 	default float	orionToEmpireModifier()	{ return (float) (0.01 * orionToEmpireModifier.get()); }
 	default ParamInteger getOrionToEmpireModifier()	{ return orionToEmpireModifier; }
 
