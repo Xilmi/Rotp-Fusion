@@ -30,7 +30,6 @@ import java.lang.management.ManagementFactory;
 import java.net.URISyntaxException;
 import java.util.ArrayList; // modnar: change to cleaner icon set
 import java.util.List; // modnar: change to cleaner icon set
-import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -44,6 +43,7 @@ import rotp.ui.SwingExceptionHandler;
 import rotp.ui.UserPreferences;
 import rotp.util.FontManager;
 import rotp.util.ImageManager;
+import rotp.util.Rand;
 
 public class Rotp {
     private static final int MB = 1048576;
@@ -83,7 +83,7 @@ public class Rotp {
     public static MemoryTracker memoryTracker;
 
     private static GraphicsDevice device;
-
+    
     public static boolean memoryLow() { return memoryTracker.memoryLow(); }
     public static String getMemoryInfo(boolean screen) { return(memoryTracker.getMemoryInfo(screen)); }
     public static boolean noOptions(String id) {
@@ -118,7 +118,7 @@ public class Rotp {
         MOO1GameOptions optionsStaticInit = new MOO1GameOptions(false);
         optionsStaticInit.allModOptions();
         optionsStaticInit = null;
-
+        
         // note: referencing the RotPUI class executes its static block
         // which loads in sounds, images, etc
         frame.setLayout(new BorderLayout());
@@ -196,7 +196,7 @@ public class Rotp {
     }
     public static void becomeVisible() { frame.setVisible(true); }
     public static void setVisible(boolean b) { frame.setVisible(b); } // BR: used by command console only
-
+   
     public static boolean containsArg(String[] argList, String key) {
         for (String s: argList) {
             if (s.equalsIgnoreCase(key))
@@ -288,7 +288,7 @@ public class Rotp {
     public static void restartFromLowMemory() {
         restartWithMoreMemory(frame, true);
     }
-
+  
 	@SuppressWarnings("deprecation")
 	private static boolean restartWithMoreMemory(JFrame frame, boolean reload) {
         // MXBeans are not supported by GraalVM Native, so skip this part
@@ -340,7 +340,7 @@ public class Rotp {
         }
         return false;
     }
-
+ 
 	private static class ExitCloseWindowAdapter extends WindowAdapter {
     	@Override public void windowClosing(WindowEvent e) { System.exit(0); }
     }

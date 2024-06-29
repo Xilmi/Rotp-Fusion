@@ -126,12 +126,12 @@ public abstract class BaseModPanel extends BasePanel
 			bg = GameUI.modBackground(xGist, rGist);
 		return bg;
 	}
-	protected LinearGradientPaint bg(float n) {
-		if (bg2 == null) {
-			bg2 = GameUI.modBackground(xGist, xGist + wGist/n);
-		}
-		return bg2;
-	}
+//	protected LinearGradientPaint bg(float n) {
+//		if (bg2 == null) {
+//			bg2 = GameUI.modBackground(xGist, xGist + wGist/n);
+//		}
+//		return bg2;
+//	}
 	
 	protected BufferedImage backImg; // the full background
 	protected void initBackImg() {  }

@@ -1,12 +1,12 @@
 /*
  * Copyright 2015-2020 Ray Fowler
- *
+ * 
  * Licensed under the GNU General Public License, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *     https://www.gnu.org/licenses/gpl-3.0.html
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -57,6 +57,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -298,7 +299,7 @@ public interface Base {
     public default float distance(float x0, float y0, float x1, float y1) {
         return (float) Math.sqrt( ((x1-x0)*(x1-x0)) + ((y1-y0)*(y1-y0)) );
     }
-    public default float random()               { return rng().nextFloat(); }
+    public default float random()              { return rng().nextFloat(); }
     public default float random(float d)       { return d * random(); }
     public default float random(float low, float hi) { return low + ((hi-low)*random()); }
     public default <T> T random(T[] array) {
@@ -324,7 +325,12 @@ public interface Base {
     public default <T> T random(Set<T> list) {
         return random(new ArrayList<>(list));
     }
-    public default float asin(float d)  { return (float) FastMath.asin(d); }
+    public default void shuffle(List<?> list, Rand rand)	{
+    	Collections.shuffle(list, new Random(rand.nextLong()));
+    }
+    public default void shuffle(List<?> list)	{
+    	Collections.shuffle(list, new Random(rng().nextLong()));
+    }    public default float asin(float d)  { return (float) FastMath.asin(d); }
     public default int bounds(int low, int val, int hi) {
         return Math.min(Math.max(low, val), hi);
     }
@@ -488,20 +494,20 @@ public interface Base {
         // using K/M/B for thousands, millions and billions
         if (amt < 1e4)
             return str(amt);
-        else if (amt < 1e5)
-            return text("NUM_FORMAT_THOUSANDS", df1.format(amt/1000f));
+        else if (amt < 1e5) 
+            return text("NUM_FORMAT_THOUSANDS", df1.format(amt/1000f));       
         else if (amt < 1e6) {
             amt = amt/1000;
-            return text("NUM_FORMAT_THOUSANDS", amt);
+            return text("NUM_FORMAT_THOUSANDS", amt);            
         }
         else if (amt < 1e7) {
             String amtStr =df2.format(amt/1000000f);
             return text("NUM_FORMAT_MILLIONS", amtStr);
-        }
+        }   
         else if (amt < 1e8) {
             String amtStr =df1.format(amt/1000000f);
             return text("NUM_FORMAT_MILLIONS", amtStr);
-        }
+        }   
         else if (amt < 1e9) {
             amt = amt / 1000000;
             return text("NUM_FORMAT_MILLIONS", amt);
@@ -518,7 +524,7 @@ public interface Base {
             amt = amt/1000000000;
             return text("NUM_FORMAT_BILLIONS", amt);
         }
-    }
+    } 
     public default float round(float val, float precision) {
         return ((int)((val+(precision/2.0))/precision)) * precision;
     }
@@ -529,7 +535,7 @@ public interface Base {
     public default int getRed(int pixel)   { return (pixel >> 16) & 0xFF; }
     public default int getGreen(int pixel) { return (pixel >> 8) & 0xFF; }
     public default int getBlue(int pixel)  { return (pixel >> 0) & 0xFF; }
-    public default Tech tech(String id)    {
+    public default Tech tech(String id)    { 
     	return TechLibrary.current().tech(id);
     }
 
@@ -581,7 +587,7 @@ public interface Base {
                 res *= d;
         }
         else if (e < 0) {
-            for (int i=-1;i>=e;i--)
+            for (int i=-1;i>=e;i--) 
                 res /= d;
                 }
         return res;
@@ -735,11 +741,11 @@ public interface Base {
             return null;
         }
         if (resource == null) {
-            if (logError)
+            if (logError) 
                 err("Base.icon() -- Resource not found:", n);
             return null;
         }
-        else
+        else 
             return new ImageIcon(resource);
     }
     public default File file(String n) {
@@ -748,9 +754,9 @@ public interface Base {
     public default InputStream fileInputStream(String n) {
         String fullString = "../rotp/" +n;
 
-        try { return new FileInputStream(new File(Rotp.jarPath(), n)); }
+        try { return new FileInputStream(new File(Rotp.jarPath(), n)); } 
         catch (FileNotFoundException e) {
-            try { return new FileInputStream(fullString); }
+            try { return new FileInputStream(fullString); } 
             catch (FileNotFoundException ex) {
                 return Rotp.class.getResourceAsStream(n);
             }
@@ -773,15 +779,15 @@ public interface Base {
         }
 
         boolean exists = (fis != null) || (zipStream != null);
-
+        
         try {
-            if (fis != null)
-                fis.close();
+            if (fis != null) 
+                fis.close();    
             else if (zipStream != null)
                 zipStream.close();
         }
         catch(IOException e) {};
-
+        
         return exists;
     }
     public default BufferedReader reader(String n) {
@@ -931,9 +937,9 @@ public interface Base {
             char[] oldDigits = LanguageManager.latinDigits;
             char[] newDigits = LanguageManager.customDigits;
             int n = min(oldDigits.length, newDigits.length);
-            for (int j=0;j<n;j++)
-                s = s.replace(oldDigits[j], newDigits[j]);
-        }
+            for (int j=0;j<n;j++) 
+                s = s.replace(oldDigits[j], newDigits[j]);           
+        }           
         return s;
     }
     public default String strFormat(String fmt, int n) { return String.format(fmt, n);  }
@@ -1069,14 +1075,14 @@ public interface Base {
         return wrappedLines(g, text, maxWidth, 0);
     }
     public default List<String> wrappedLines(Graphics g, String text, int maxWidth, int line1Indent) {
-
+        
         List<String> lines = new ArrayList<>();
 
         FontMetrics fm = g.getFontMetrics();
         int indent = line1Indent;
         String currentLine = "";
 
-
+        
         if (LanguageManager.current().currentLogographic()) {
             for (int i=0;i<text.length();i++) {
                 String newLine = currentLine;
@@ -1089,10 +1095,10 @@ public interface Base {
                     currentLine = word;
                 }
                 else
-                    currentLine = newLine;
+                    currentLine = newLine;                
             }
         }
-        else { // BR: added forced lines '\n' management
+        else { // BR: added forced lines '\n' management 
             String[] forcedLines = text.split(NEWLINE);
         	for (String forcedLine : forcedLines) {
                 List<String> words = substrings(forcedLine, ' ');
@@ -1309,7 +1315,7 @@ public interface Base {
                 g.setColor(brighter);
             else
                 g.setColor(brightest);
-
+			
             if ((roll > 95) && (random() < .2))
                 g.fillRoundRect(x1, y1, s2, s2, s2, s2);
             else if (random() < .1)
@@ -1391,18 +1397,18 @@ public interface Base {
     public default void drawBackgroundNebula(BufferedImage img) {
         int imgW = img.getWidth();
         int imgH = img.getHeight();
-
+        
         int nebR = 0;
         int nebG = 0;
         int nebB = roll(160,255);
 
         //int centerX = w/2;
         //int centerY = h/2;
-
+        
         FastImage fImg = PlanetImager.current().terrainBase().copy();
         int w = fImg.getWidth();
         int h = fImg.getHeight();
-
+        
         int floor = 255;
         int ceiling = 0;
         for (int y=0;y<h;y++)    for (int x=0;x<w;x++) {
@@ -1427,9 +1433,9 @@ public interface Base {
             int newPixel = (alpha << 24) | (nebR << 16) | (nebG << 8) | nebB;
             fImg.setRGB(x, y, newPixel);
         }
-
+        
         BufferedImage back = fImg.image();
-
+        
         Graphics g = img.getGraphics();
         g.drawImage(back, 0, 0, imgW, imgH, null);
     }
@@ -1472,21 +1478,21 @@ public interface Base {
     /**
      * Only valid if previously initialized in the panel or parent panel
      * with setModifierKeysState(InputEvent e)
-     *
+     * 
      * @return true if Shift Key is down
      */
     public default boolean isShiftDown() { return ModifierKeysState.isShiftDown(); }
     /**
      * Only valid if previously initialized in the panel or parent panel
      * with setModifierKeysState(InputEvent e)
-     *
+     * 
      * @return true if Ctrl Key is down
      */
     public default boolean isCtrlDown()  { return ModifierKeysState.isCtrlDown(); }
     /**
      * Only valid if previously initialized in the panel or parent panel
      * with setModifierKeysState(InputEvent e)
-     *
+     * 
      * @return true if Alt Key is down
      */
     public default boolean isAltDown()   { return ModifierKeysState.isAltDown(); }
@@ -1498,7 +1504,7 @@ public interface Base {
     public default void writeToFile(String fileName, String s, boolean newLine, boolean append) {
         File saveFile = file(fileName);
         FileWriter fw = null;
-
+        
 		try {
 			fw = new FileWriter(saveFile, append);
 			fw.write(s);
@@ -1511,7 +1517,7 @@ public interface Base {
             	fw.close();
             }
             catch(IOException ex) {}
-        }
+        }        
     }
     public default String getTurn() {
     	return concat("Turn:", String.format("% 4d", galaxy().currentTurn()));

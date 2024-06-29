@@ -1,12 +1,12 @@
 /*
  * Copyright 2015-2020 Ray Fowler
- *
+ * 
  * Licensed under the GNU General Public License, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *     https://www.gnu.org/licenses/gpl-3.0.html
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,6 +47,7 @@ import rotp.ui.notifications.AdviceNotification;
 import rotp.ui.notifications.BombardSystemNotification;
 import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.Base;
+import rotp.util.Rand;
 
 public class Galaxy implements Base, Serializable {
     private static final long serialVersionUID = 1L;
@@ -57,7 +58,7 @@ public class Galaxy implements Base, Serializable {
 //    public	static final List<SpaceMonster> MONSTERS = new ArrayList<>();
 //    public	static final int	NUM_MONSTER	= 4;
 //    public	static final Empire[] MONSTERS	= new Empire[NUM_MONSTER];
-
+    
     private float currentTime = 0;
     private final GalacticCouncil council = new GalacticCouncil();
     private final RandomEvents events = new RandomEvents();
@@ -109,7 +110,7 @@ public class Galaxy implements Base, Serializable {
     private transient Map<String, List<String>> raceSystemNames = new HashMap<>();
     private transient Map<String, Integer> raceSystemCtr = new HashMap<>();
     private transient List<SpaceMonster> spaceMonsters;
-
+    
     public Empire orionEmpire()				 {
     	if (orionEmpire == null)
     		orionEmpire = new Empire(this, -2, orionId(), 0, "Orion");
@@ -147,7 +148,7 @@ public class Galaxy implements Base, Serializable {
         if (s.hasMonster())
         	s.monster().setEmpireSystem(systemCount, s);
         systemCount++;
-
+        
         Nebula neb = nebulaContaining(s);
         s.inNebula(neb != null);
         if (neb != null)
@@ -204,7 +205,7 @@ public class Galaxy implements Base, Serializable {
     public void addNebula(Nebula nebula, float nebSize) {
     	Nebula neb = nebula.copy();
         neb.setXY(nebula.x(), nebula.y());
-        nebulas.add(neb);
+        nebulas.add(neb);    	
     }
     public List<StarSystem> systemsNamed(String name) {
         List<StarSystem> systems = new ArrayList<>();
@@ -272,7 +273,7 @@ public class Galaxy implements Base, Serializable {
         for (Nebula neb: nebulas) {
             if (neb.contains(x,y))
                 return neb;
-        }
+        }        
         return null;
     }
     public Empire empireMatching(int color, int shape) {
@@ -320,7 +321,7 @@ public class Galaxy implements Base, Serializable {
         NoticeMessage.resetSubstatus(text("TURN_COLONIES"));
         // after bombardments, check for any possible colonizations
         checkForColonization();
-
+        
         // BR: Removed refreshViews from addColonizedSystem and removeColonizedSystem
         // the recalcDistances takes time and don't need to be called at each events
         // Grouped here. Only Removed refreshViews will be executed.
@@ -359,7 +360,7 @@ public class Galaxy implements Base, Serializable {
 	                                BombardSystemNotification.create(sys.id, fl, true, 1);
 	                            }
 	                        }
-	                    }
+	                    }                
 	                }
 	            }
         	}
@@ -370,7 +371,7 @@ public class Galaxy implements Base, Serializable {
             Empire home = sys.empire();
             List<ShipFleet> fleets = sys.orbitingFleetsNoMonster();
             if ((home == null) && !fleets.isEmpty()){
-                for (ShipFleet fl: fleets)
+                for (ShipFleet fl: fleets) 
                     fl.checkColonize();
             }
         }
@@ -411,7 +412,7 @@ public class Galaxy implements Base, Serializable {
     			galRandom = rng();
     		else
     			galRandom = new Rand(permRandom.nextLong());
-
+    	
     	if (options().persistentRNG())
     		Rotp.rand(galRandom);
         for (Empire emp: empires())
@@ -430,7 +431,7 @@ public class Galaxy implements Base, Serializable {
     				monster.setXY(sys);
     			}
     		}
-    }
+    }    
     public void validate() {
        for (Empire emp: empires())
             emp.validate();
@@ -485,7 +486,7 @@ public class Galaxy implements Base, Serializable {
 	       	}
         }
         transports.removeAll(arrivingTransports);
-
+        
         //move fleets
         List<ShipFleet> incomingFleets = ships.inTransitFleets();
         Collections.sort(incomingFleets, Ship.ARRIVAL_TIME);
@@ -527,8 +528,8 @@ public class Galaxy implements Base, Serializable {
     }
     public int numColonizedSystems() {
         int num = 0;
-        for (Empire e: empires)
-            num += e.numColonizedSystems();
+        for (Empire e: empires) 
+            num += e.numColonizedSystems();       
         return num;
     }
     public int friendlyPopApproachingSystem(StarSystem sys) {
@@ -694,7 +695,7 @@ public class Galaxy implements Base, Serializable {
     private void loadRaceNames(String rId, int i) {
         Race r = Race.keyed(rId);
         List<String> names = new ArrayList<>(r.systemNames);
-        Collections.shuffle(names, rng());
+        shuffle(names);
         raceSystemNames().put(rId, names);
         raceSystemCtr().put(rId, i);
     }
@@ -728,7 +729,7 @@ public class Galaxy implements Base, Serializable {
 		SystemBaseData[] starSystems;
 		private int numEmpires;
 		public EmpireBaseData[] empires;
-
+		
 		GalaxyBaseData(Galaxy src) {
 			width		= src.width();
 			height		= src.height();

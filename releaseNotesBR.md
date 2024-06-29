@@ -10,7 +10,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Removed the 6 buttons option, as their contents was no longer updated...
   - Added the Tune Galaxy button, which opens a new settings panel on the side of the galaxy map, allowing you to see the effects of changes.
 - The guide now follow the color theme.
-- Tentative to add column dividers in compact panels.
 - updated Hotkey help
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -132,7 +131,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Number of star per empire
   - Galaxy size
 - Option to allow nearby stars to be out of the galaxy limits.
-
+- Galaxy setup Panel:
+  - Removed the 6 buttons option, as their contents was no longer updated...
+  - Added the Tune Galaxy button, which opens a new settings panel on the side of the galaxy map, allowing you to see the effects of changes.
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
@@ -198,6 +199,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - Alt-E : Auto Build Scout (Explorer)
 - (Xilmi) Missiles are no longer taken into consideration in the facingOverwhelmingForce-check of the retreat-logic. This prevents stacks from retreating when their opponents would run out of missiles due to firing them at other stacks.
 - The display of alien factories is now more explicit.
+- The guide now follow the color theme.
+- Following a suggestion from Roland Johansoen: Renamed "Pregame" to "Setup" and "In-Game" to "Options" and updated guide and help texts consequently.
+- Switched the default random generator to a better one.
 
 
 <b><ins>Bug Fixes:</ins></b>

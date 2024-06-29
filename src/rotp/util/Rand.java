@@ -30,7 +30,7 @@ public class Rand extends Random {
 	private int lastId = 0;
 
 	private SerialRandom rng;
-
+	
     private double nextNextGaussian;
     private boolean haveNextNextGaussian = false;
 
@@ -39,7 +39,7 @@ public class Rand extends Random {
     		rng = new SerialRandom();
     	return rng;
     }
-
+    
 	public Rand()			{ rng = new SerialRandom(); }
     public Rand(int src)	{ this((long) src); }
 	public Rand(long src)	{
@@ -54,7 +54,7 @@ public class Rand extends Random {
 	@Override public float   nextFloat()	{ return (float) rng().nextDouble(); }
 	@Override public int	 nextInt()		{ return rng().nextInt(); }
 	@Override public long	 nextLong()		{ return rng().nextLong(); }
-
+	
     @Override synchronized public double nextGaussian() { // Copied from java.util.Random
         if (haveNextNextGaussian) {
             haveNextNextGaussian = false;
@@ -109,7 +109,7 @@ public class Rand extends Random {
 	/**
 	 * @return  -1 <= random double < 1
 	 */
-	public double sym() { return next() * 2.0 - 1.0; }
+	public double sym() { return nextDouble() * 2.0 - 1.0; }
 	/**
 	 * @return  -1 <= random float < 1
 	 */
@@ -135,22 +135,22 @@ public class Rand extends Random {
 
 	// ===== Symmetric Getters with Limits =====
 	/**
-	 * @return  ctr-width/2 <= random double < ctr+width/2
+	 * @return  center-width/2 <= random double < center+width/2
 	 */
-	public double sym(double ctr, double width) {
-		return (next() - 0.5) * width + ctr;
+	public double sym(double center, double width) {
+		return (nextDouble() - 0.5) * width + center;
 	}
 	/**
-	 * @return  ctr-width/2 <= random float < ctr+width/2
+	 * @return  center-width/2 <= random float < center+width/2
 	 */
-	public float sym(float ctr, float width) {
-		return (nextFloat() - 0.5f) * width + ctr;
+	public float sym(float center, float width) {
+		return (nextFloat() - 0.5f) * width + center;
 	}
 	/**
-	 * @return  ctr-width/2 <= random int < ctr+width/2
+	 * @return  center-width/2 <= random int < center+width/2
 	 */
-	public int sym(int ctr, int width) {
-		return (int) ((nextFloat() - 0.5f) * width + ctr);
+	public int sym(int center, int width) {
+		return (int) ((nextFloat() - 0.5f) * width + center);
 	}
     public <T> T random(List<T> list) {
         return (list == null || list.isEmpty()) ? null : list.get(nextInt(list.size()));

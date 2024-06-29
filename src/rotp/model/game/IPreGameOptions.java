@@ -117,14 +117,14 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 			setLimits(1, Rotp.maximumSystems-1);
 			setIncrements(1, 10, 100);
 		}
-		@Override public void lateInit(int level)	{
+		@Override public void initDependencies(int level)	{
 			if (level == 0) {
 				resetLinks();
 				//addLink(secondRingSystemNumber, DO_FOLLOW, GO_DOWN, GO_DOWN, "Ring 2");
 				addLink(secondRingSystemNumber, DO_LOCK, GO_DOWN, GO_DOWN, "Ring 2");
 			}
 			else
-				super.lateInit(level);
+				super.initDependencies(level);
 		}
 		@Override protected void convertValueToLink(LinkData rec)	{
 			// Convert the current state

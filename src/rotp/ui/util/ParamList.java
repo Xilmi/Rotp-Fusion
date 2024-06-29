@@ -315,12 +315,16 @@ public class ParamList extends AbstractParam<String> {
 		String title	= langLabel(getLangLabel(), "");
 		initGuiTexts();
 		String[] list= valueLabelMap.guiTextList.toArray(new String[listSize()]);
+		int height = 128 + (int)Math.ceil(18.5 * list.length);
+		height = Math.max(300, height);
+		height = Math.min(350, height);
 		ListDialog dialog = new ListDialog(
 				frame,	frame.getParent(),	// Frame & Location component
 				message, title,				// Message & Title
 				list, currentOption(),		// List & Initial choice
 				null, true,					// long Dialogue & isVertical
-				RotPUI.scaledSize(350), RotPUI.scaledSize(300),	// size
+//				RotPUI.scaledSize(350), RotPUI.scaledSize(238),	// size
+				RotPUI.scaledSize(350), RotPUI.scaledSize(height),	// size
 				null,						// Font
 				frame,						// Preview
 				valueLabelMap.cfgValueList,	// Alternate return

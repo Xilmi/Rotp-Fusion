@@ -191,10 +191,12 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 //			g.setPaint(bg());
 		int left = xGist+wGist/5;
 		int mid  = 3*wGist/5;
-		g.setPaint(bg(numColumns));
-		g.fillRect(xGist, yGist, wGist, hGist);
+//		g.setPaint(bg(numColumns));
+//		g.fillRect(xGist, yGist, wGist, hGist);
+//		g.setPaint(bg());
+//		g.fillRect(left, yGist, mid, titlePad-rowPad);
 		g.setPaint(bg());
-		g.fillRect(left, yGist, mid, titlePad-rowPad);
+		g.fillRect(xGist, yGist, wGist, hGist);
 
 		// Title
 		g.setFont(titleFont);
@@ -233,8 +235,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		userBox.setBounds(lastBox.x-smallButtonW-sep2, defaultBox.y, smallButtonW, smallButtonH);
 
 		yDesc = defaultBox.y - ( descHeigh + buttonPadV);
-		g.setPaint(bg());
-		g.fillRect(left, yDesc-yFull, mid, bGist-yDesc);
+//		g.setPaint(bg());
+//		g.fillRect(left, yDesc-yFull, mid, bGist-yDesc);
 		
         initButtonBackImg();
         g.dispose();

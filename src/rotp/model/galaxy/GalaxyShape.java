@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import rotp.model.game.IGameOptions;
 import rotp.util.Base;
 import rotp.util.Rand;
@@ -39,7 +38,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 
 	static final double twoPI = Math.PI * 2.0; // BR:
 	private static float orionBuffer = 10;
-	static float empireBuffer = 8;
+	static float empireBuffer = 8;	
 	private float[] x;
 	private float[] y;
 	private CompanionWorld[] companionWorlds; // BR:
@@ -57,7 +56,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	List<EmpireSystem> empSystems = new ArrayList<>();
 	private Point.Float orionXY;
 	IGameOptions opts;
-
+	
 	// BR: added for symmetric galaxy
 	private static float cx; // Width galaxy center
 	private static float cy; // Height galaxy center
@@ -70,24 +69,28 @@ public abstract class GalaxyShape implements Base, Serializable {
 	Rand randY	 = new Rand(randRnd.nextLong());  // for Y and Angle
 	private long tm0; // for timing computation
 	// \BR
-
+	
 	private float dynamicGrowth = 1f;
 	private int   currentEmpire = 0;
 	private int   loopReserve   = 0;
 	private int	  homeStarNum	= 3;
-
+	
 	protected String finalOption1;
 	protected String finalOption2;
 	protected int option1;
 	protected int option2;
 	protected boolean isSymmetric;
 	private boolean looseLimits;
-
+	
 	GalaxyShape (IGameOptions options) {
 		opts = options;
 		init0();
 	}
 	private void init0() {
+//		randRnd = new Rand(opts.selectedGalaxyRandSource());
+//		rand	= new Rand(opts.selectedGalaxyRandSource());
+//		randX	= new Rand.RandX(opts.selectedGalaxyRandSource());
+//		randY	= new Rand.RandY(opts.selectedGalaxyRandSource());
 		randRnd = new Rand(opts.selectedGalaxyRandSource());
 		rand	= randRnd;
 		randX	= randRnd;
@@ -99,7 +102,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 
 		finalOption1 = opts.selectedGalaxyShapeOption1();
 		finalOption2 = opts.selectedGalaxyShapeOption2();
-
+		
 		if (RANDOM_OPTION.equals(finalOption1)) {
 			List<String> optionList = new ArrayList<>(options1());
 			optionList.remove(RANDOM_OPTION);
@@ -298,7 +301,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 				homeStars++; // the nearby system will be set later
 			} else {
 				dynamicGrowth += 0.01f;
-				continue; // Fail... Retry
+				continue; // Fail... Retry					
 			}
 			// ----- now the opponents Homes
 			// get the stars
@@ -309,7 +312,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 				empSystems.add(sys);
 				homeStars++; // the nearby system will be set later
 		   	}
-
+			
 			// ===== Then the nearby systems
 			boolean valid = true;
 			EmpireSystem player = empSystems.get(0);
@@ -335,7 +338,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			   		homeStars++;
 			   	}
 			}
-
+				
 			radius = opts.secondRingRadius();
 			minRel = buffer/radius;
 			minRel *= minRel;
@@ -372,7 +375,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		// we've already generated 3(or more) stars for every empire so reduce their
 		// total from the count of remaining stars to create ("too many stars" bug)
 		int nonEmpireStars = maxStars - (empSystems.size() * homeStarNum);
-		// Adjust for compatibility with symmetric galaxy
+		// Adjust for compatibility with symmetric galaxy 
 		// Remove Orion, modulo number of Empires, then add Orion
 		nonEmpireStars = 1 + Math.floorDiv(nonEmpireStars-1, numEmpires) * numEmpires;
 		int attempts = 0;
@@ -458,7 +461,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			maxStars = opts.numberStarSystems();
 		else
 			maxStars = min(MaxPreviewSystems, opts.numberStarSystems());
-
+			
 		// common symmetric and non symmetric initializer for generation
 		numOpponents = max(0, opts.selectedNumberOpponents());
 		numEmpires = numOpponents + 1;
@@ -473,7 +476,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		orionBuffer  = max(4 * sysBuffer, empireBuffer*3/2); // BR: Restored Vanilla values.
 		// BR: Player customization
 		orionBuffer  = max(sysBuffer, orionBuffer * opts.orionToEmpireModifier());
-
+		
 		looseLimits = opts.looseNeighborhood();
 	}
 	private void fullInit() {
@@ -823,7 +826,7 @@ public abstract class GalaxyShape implements Base, Serializable {
     		Nebula neb = tryAddNebula(nebSize, nebulas);
     		if ( neb != null) {
     			nebulas.add(neb);
-    			return true;
+    			return true;    			
     		}
     	}
     	return false;
@@ -837,13 +840,13 @@ public abstract class GalaxyShape implements Base, Serializable {
         boolean looseNebula = options().looseNebula();
         Point.Float pt	 = new Point.Float();
         getPointFromRandomStarSystem(pt);
-
+        
         Nebula neb;
         if (nebulas.size() < MAX_UNIQUE_NEBULAS)
             neb = new Nebula(nebSize, true);
         else
             neb = random(nebulas).copy();
-
+        
         float w = neb.adjWidth();
         float h = neb.adjHeight();
         // BR: Needed by Bitmap Galaxies
@@ -880,7 +883,7 @@ public abstract class GalaxyShape implements Base, Serializable {
             for (Nebula existingNeb: nebulas)
                 if (existingNeb.contains(neb.centerX(), neb.centerY()))
                 	return neb.cancel();
-        }
+        }    	
         return neb;
     }
 	// ========================================================================
@@ -1067,11 +1070,11 @@ public abstract class GalaxyShape implements Base, Serializable {
 
 		final double minRandom = twoPI / 6.0;
 		CtrPoint[] cW;
-
+		
 		// ========== constructors ==========
 		//
 		CompanionWorld(int numComp) {
-			cW = new CtrPoint[abs(numComp)];
+			cW = new CtrPoint[abs(numComp)];			
 		}
 		CompanionWorld(EmpireSystem empire, int numComp) {
 			this(numComp);
@@ -1090,7 +1093,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 				double orientation = twoPI / 8 ; // Global orientation
 				for (int i=0; i<numComp; i++) {
 					cW[i] = home.shift(unit(orientation - i * ctr));
-				}
+				}			
 			}
 		}
 	   	// ========== Getters ==========
@@ -1155,9 +1158,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 
 	   	// ========== Getters ==========
 	   	//
-	   	private Point.Float get()   { return new Point.Float((float)x + cx, (float)y + cy); }
-	   	float getX()        { return (float) x + cx; }
-	   	float getY()        { return (float) y + cy; }
+	   	private Point.Float get()   { return new Point.Float((float)x + cx, (float)y + cy); }   	
+	   	float getX()        { return (float) x + cx; }   	
+	   	float getY()        { return (float) y + cy; }   	
 //		double ray()        { return Math.sqrt(x*x + y*y); }
 //		double angle()      { return Math.atan2(y, x); } // yes y and x in this order!!!
 //		CtrPoint mirrorX()  { return new CtrPoint(-x, y); }

@@ -266,6 +266,13 @@ public abstract class AbstractParam <T> implements IParam{
 			if (entry.follow(up))
 				entry.followValue(newValue);
 		}
+		
+		// update the dependencies list
+		for (LinkData entry : linkList) {
+			if (entry.action == DO_REFRESH)
+				entry.aim.initDependencies(VALID_DEPENDENCIES);
+		}
+		
 		processingToggle = false;
 		return true;
 	}
@@ -444,6 +451,9 @@ public abstract class AbstractParam <T> implements IParam{
 	}
 	protected void addLink(AbstractParam<?> aim, int action, boolean srcUp, boolean aimUp, String key) {
 		addLink(new LinkData(aim, action, srcUp, aimUp, key, this));
+	}
+	protected void addLink(AbstractParam<?> aim, int action) { // Only use for refresh
+		addLink(new LinkData(aim, action, false, false, "", this));
 	}
 	protected void convertValueToLink(LinkData rec) 		  {
 		System.err.println("convertValueToLink request is not implemented:");

@@ -133,7 +133,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 	ParamBoolean challengeMode		= new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
 	default boolean selectedChallengeMode()		{ return challengeMode.get(); }
-
+	
 	ParamFloat counciRequiredPct	= new ParamFloat(MOD_UI, "COUNCIL_REQUIRED_PCT", 2f/3f)
 			.setLimits(0f, 0.99f)
 			.setIncrements(0.01f/3f, 0.02f, 0.1f)
@@ -176,13 +176,13 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 			.put("NoSpy",	MOD_UI + "DARK_GALAXY_NO_SPY")
 			.put("Spy",		MOD_UI + "DARK_GALAXY_SPY");
 	default boolean selectedDarkGalaxy()	{
-		return !darkGalaxy.get().equalsIgnoreCase("No")
+		return !darkGalaxy.get().equalsIgnoreCase("No") 
 				&& GameSession.instance().inProgress(); // for the final replay
 	}
 	default boolean darkGalaxySpy()			{ return darkGalaxy.get().equalsIgnoreCase("Spy"); }
 	default boolean darkGalaxyNoSpy()		{ return darkGalaxy.get().equalsIgnoreCase("NoSpy"); }
 	default boolean darkGalaxyDark()		{ return darkGalaxy.get().equalsIgnoreCase("Shrink"); }
-
+	
 	ParamList transportAutoEco			= new ParamList( MOD_UI, "TRANSPORT_AUTO_ECO", "No")
 			.showFullGuide(true)
 			.isValueInit(false)
@@ -209,7 +209,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 	ParamBoolean defaultChainRally		= new ParamBoolean(MOD_UI, "DEFAULT_CHAIN_RALLY", true);
 	default boolean defaultChainRally()		{ return defaultChainRally.get(); }
-
+	
 	String CHAIN_RALLY_SPEED_FLEET	= "FLEET";
 	String CHAIN_RALLY_SPEED_MIN	= "MIN";
 	String CHAIN_RALLY_SPEED_TOP	= "TOP";
@@ -374,7 +374,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
 				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
 				raceStatusLog, compactOptionOnly,
-
+				
 				headerSpacer,
 				new ParamTitle("XILMI_AI_OPTIONS"),
 				playerAttackConfidence, playerDefenseConfidence,

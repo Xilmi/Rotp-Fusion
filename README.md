@@ -70,7 +70,6 @@ Later:
 
 2024.06.29 (BR)
 - The guide now follow the color theme.
-- Tentative to add column dividers in compact panels.
 - updated Hotkey help
 
 2024.06.28 (BR)

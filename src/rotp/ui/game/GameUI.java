@@ -173,11 +173,10 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
           Point2D start = new Point2D.Float(x0, 0); // BR adjustable for 10 or 16 species
           Point2D end = new Point2D.Float(x1, 0);
           float[] dist = {0.0f, 0.1f, 0.9f, 1.0f};
-          
-          Color edge0 = opt()==0? new Color(147,96, 61) : new Color(65,72,71);
           Color mid0 = raceCenterColor();
-//          Color edge0 = raceCenterColor();
-//          Color mid0 = loadHiBackground();
+//          Color edge0 = opt()==0? new Color(147,96, 61) : new Color(65,72,71);
+          Color edge0 = raceEdgeColor();
+//          Color mid0 = raceCenterColor();
           Color[] colors0 = {edge0, mid0,  mid0, edge0 };
           return new LinearGradientPaint(start, end, dist, colors0, CycleMethod.REPEAT);
     }
