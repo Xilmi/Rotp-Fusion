@@ -20,7 +20,7 @@ import rotp.model.empires.Empire;
 
 public final class TechSoilEnrichment extends Tech {
     public float growthMod;
-    public int planetaryIncrease;
+    public int planetaryIncrease; // BR: This is an approximation, Planet uses another formula.
     public int environment;
     public TechSoilEnrichment(String typeId, int lv, int seq, boolean b, TechCategory c) {
         id(typeId, seq);
@@ -42,13 +42,13 @@ public final class TechSoilEnrichment extends Tech {
         switch(typeSeq) {
             case 0:
                 growthMod = 1.5f;
-                planetaryIncrease = 25;
+                planetaryIncrease = 25; // BR: This is an approximation, Planet uses another formula.
                 cost = 150;
                 environment = 2;
                 break;
             case 1:
                 growthMod = 2;
-                planetaryIncrease = 50;
+                planetaryIncrease = 50; // BR: This is an approximation, Planet uses another formula.
                 cost = 300;
                 environment = 3;
                 break;

@@ -37,7 +37,6 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-- soil enrichment, show impact on future pop pop/max pop
 - Monsters:
   - Option to change their travel time.
   - More Planet Monsters Guardian.
@@ -70,6 +69,7 @@ Later:
 
 2024.06.30 (BR)
 - Added Shape selection on "Tune Galaxy" panel
+- Soil enrichment and atmospheric terraforming show their impact on planet size (+)
 
 2024.06.29 (BR)
 - The guide now follow the color theme.

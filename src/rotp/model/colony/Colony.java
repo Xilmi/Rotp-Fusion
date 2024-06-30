@@ -1117,8 +1117,18 @@ public final class Colony implements Base, IMappedObject, Serializable {
         if (ecology().pct() < pct)
             forcePct(ECOLOGY, pct);
     }
+    // BR: ultimate max size, used by system panel.
+    // may probably be used instead of maxSize in some other case... 
+    public float ultimateMaxSize() { // After Enrichment
+        float terraformAdj  = tech().terraformAdj();
+        float potentialBaseSize = planet.potentialSize(tech());
+        
+        if (planet.isEnvironmentHostile() && tech().topAtmoEnrichmentTech() == null)
+       		terraformAdj *= options().hostileTerraformingPct();
+        return max(planet.currentSize(), potentialBaseSize+terraformAdj);
+    }
     public float maxSize() {
-        float terraformAdj = tech().terraformAdj();
+    	float terraformAdj = tech().terraformAdj();
         if (planet.isEnvironmentHostile())
             terraformAdj *= options().hostileTerraformingPct();
         return max(planet.currentSize(), planet.baseSize()+terraformAdj);

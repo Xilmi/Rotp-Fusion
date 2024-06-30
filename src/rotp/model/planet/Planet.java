@@ -32,7 +32,9 @@ import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
+import rotp.model.tech.TechAtmosphereEnrichment;
 import rotp.model.tech.TechSoilEnrichment;
+import rotp.model.tech.TechTree;
 import rotp.ui.util.planets.Sphere2D;
 import rotp.ui.util.planets.SphereShadowPaint;
 import rotp.util.Base;
@@ -300,7 +302,7 @@ public class Planet implements Base, IMappedObject, Serializable {
         float newSize = Math.min(maxSize, baseSize()+amt);
         baseSize(newSize);
     }
-    public float currentSize()     { return baseSize() + terraformLevel; }
+    public float currentSize()      { return baseSize() + terraformLevel; }
     public StarSystem starSystem()  { return system; }
     public Colony colony()          { return colony; }
     public void setColony(Colony c) { colony = c; }
@@ -317,18 +319,49 @@ public class Planet implements Base, IMappedObject, Serializable {
         if (isColonized())
             colony().ecology().resetBiosphere();
     }
-
+    public float potentialSize(TechTree tech)	{
+    	TechSoilEnrichment soil = tech.topSoilEnrichmentTech();
+    	TechAtmosphereEnrichment atmo = tech.topAtmoEnrichmentTech();
+    	float newSize = baseSize();
+    	int level = -1;
+    	if (soil != null)
+    		level = soil.typeSeq;
+    	if (isEnvironmentHostile() && atmo != null) {
+			newSize += atmosphereIncrease();
+    		if (level >= 0)
+    			newSize += fertileIncrease(newSize);
+    		if (level >= 1)
+    			newSize += gaiaIncrease(newSize);
+    		return newSize;
+		}
+    	if (isEnvironmentNormal()) {
+    		if (level >= 0)
+    			newSize += fertileIncrease(newSize);
+    		if (level >= 1)
+    			newSize += gaiaIncrease(newSize);
+    		return newSize;
+    	}
+    	if (isEnvironmentFertile()) {
+    		if (level >= 1)
+    			newSize += gaiaIncrease(newSize);
+    		return newSize;
+    	}
+    	return newSize;
+    }
+    private float fertileIncrease(float size) { return (float)Math.ceil(size/20.0f) * 5; }
+    private float gaiaIncrease(float size)    { return (float)Math.ceil((size-10)/20.0f) * 5; }
+    private int   atmosphereIncrease()        { return (int) (20*session().populationBonus()); }
     public void enrichSoil() {
         if (isEnvironmentNormal()) {
             starSystem().addEvent(new SystemTerraformingEvent("SYSEVENT_SOIL_ENRICHED"));
             makeEnvironmentFertile();
-            float incr = (float)Math.ceil(baseSize() / 20.0f) * 5;
+            float incr = fertileIncrease(baseSize());
             increaseBaseSize(incr);
         }
         else if (isEnvironmentFertile()) {
             starSystem().addEvent(new SystemTerraformingEvent("SYSEVENT_GAIA_TERRAFORMING"));
             makeEnvironmentGaia();
-            float incr = (float)Math.ceil((baseSize()-10) / 20.0f) * 5;
+            float incr = gaiaIncrease(baseSize());
             increaseBaseSize(incr);
         }
         if (colony != null)
@@ -342,7 +375,7 @@ public class Planet implements Base, IMappedObject, Serializable {
         if (isEnvironmentHostile()) {
             environment = Math.max(environment, ENVIRONMENT_NORMAL);
             planetTypeKey = PlanetType.MINIMAL;
-            int incr = (int) (20*session().populationBonus());
+            int incr = atmosphereIncrease();
             increaseBaseSize(incr);
             type = null;
         	// type();
@@ -397,9 +430,8 @@ public class Planet implements Base, IMappedObject, Serializable {
             default: return 1;
         }
     }
-    public float maxSize() {
-        return isColonized() ? colony.maxSize() : baseSize();
-    }
+    public float ultimateMaxSize() { return isColonized() ? colony.ultimateMaxSize() : baseSize(); }
+    public float maxSize()         { return isColonized() ? colony.maxSize() : baseSize(); }
     public float maxSizeAfterSoilAtmoTform() {
         float size = maxSize();
         int tempEnv = environment();

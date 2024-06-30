@@ -486,7 +486,7 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
                 popStr = text("MAIN_PLANET_REBELLION");
                 g2.setColor(redText);
             }
-            else if (planet.currentSize() == planet.maxSize())
+            else if (planet.currentSize() == planet.ultimateMaxSize())
                 popStr = text("MAIN_PLANET_SIZE", planetSize);
             else if (pl.sv.isColonized(id) && pl.sv.empire(id).isAI())
                 popStr = text("MAIN_PLANET_SIZE", planetSize);
