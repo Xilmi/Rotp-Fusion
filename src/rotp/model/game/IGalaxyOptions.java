@@ -1,7 +1,7 @@
 package rotp.model.game;
 
-import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.DefaultValues.DEF_VAL;
+import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.IGalaxyOptions.GalaxyOption.GOI;
 import static rotp.model.game.IGameOptions.DIFFICULTY_NORMAL;
 import static rotp.model.game.IGameOptions.getGameDifficultyOptions;
@@ -9,6 +9,7 @@ import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
 import static rotp.model.game.IPreGameOptions.empiresSpreadingFactor;
 import static rotp.ui.util.IParam.langLabel;
 
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -18,6 +19,7 @@ import java.util.Map.Entry;
 
 import rotp.Rotp;
 import rotp.ui.RotPUI;
+import rotp.ui.game.BaseModPanel;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.IParam;
 import rotp.ui.util.LinkData;
@@ -210,16 +212,6 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 					RotPUI.setupGalaxyUI().postSelectionMedium(true);
 				return value;
 			}
-			@Override public boolean next()	{
-				super.next();
-				RotPUI.setupGalaxyUI().postSelectionMedium(true);
-				return false;
-			}
-			@Override public boolean prev()	{
-				super.prev();
-				RotPUI.setupGalaxyUI().postSelectionMedium(true);
-				return false;
-			}
 		}
 		private final ParamBoolean showNewRaces 			= new ShowNewRaces();
 		private final class ShowNewRaces extends ParamBoolean {
@@ -233,27 +225,44 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 					RotPUI.setupGalaxyUI().postSelectionLight(true);
 				}
 			}
-			@Override public boolean next()	{
-				super.next();
-				RotPUI.setupGalaxyUI().postSelectionLight(true);
-				return false;
-			}
-			@Override public boolean prev()	{
-				super.prev();
-				RotPUI.setupGalaxyUI().postSelectionLight(true);
-				return false;
-			}
 		}
 		private final GlobalCROptions globalCROptions 	= new GlobalCROptions (BASE_UI, "OPP_CR_OPTIONS",
 				SpecificCROption.BASE_RACE.value);
 		private final ParamBoolean useSelectableAbilities	= new ParamBoolean(BASE_UI, "SELECT_CR_OPTIONS", false);
-		private final ParamString  shapeOption3   		= new ParamString(BASE_UI, "SHAPE_OPTION_3", "");
-	
+		private final ParamString  shapeOption3   		= new ShapeOption3();
+		private final class ShapeOption3 extends ParamString {
+			ShapeOption3() { super(BASE_UI, "SHAPE_OPTION_3", ""); }
+			@Override public void initDependencies(int level)	{
+				if (level == 0) {
+					//resetLinks();
+				}
+				else {
+					updated(true);
+				}
+			}
+			@Override public boolean toggle(MouseEvent e, BaseModPanel frame)	{
+				RotPUI.setupGalaxyUI().selectBitmapFromList();
+				return false;
+			}
+			@Override public String getGuiDisplay(int idx)	{
+				if (shapeSelection.get().equals(SHAPE_BITMAP))
+					return super.getGuiDisplay(idx);
+				return "---";
+			}
+		}
 		private final ParamList	shapeOption2   		= new ShapeOption2(); // Duplicate Do not add the list
 		private final class ShapeOption2 extends ParamList {
 			ShapeOption2() {
 				super(BASE_UI, "SHAPE_OPTION_2");
 				showFullGuide(true);
+			}
+			@Override public void initDependencies(int level)	{
+				if (level == 0) {
+					//resetLinks();
+				}
+				else {
+					updated(true);
+				}
 			}
 			@Override public String	getOptionValue(IGameOptions options)	{
 				return options.selectedGalaxyShapeOption2();
@@ -289,15 +298,10 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 					RotPUI.setupGalaxyUI().postSelectionMedium(true);
 				return get();
 			}
-			@Override public boolean next()	{
-				super.next();
-				RotPUI.setupGalaxyUI().postSelectionMedium(true);
-				return false;
-			}
-			@Override public boolean prev()	{
-				super.prev();
-				RotPUI.setupGalaxyUI().postSelectionMedium(true);
-				return false;
+			@Override public String getGuiDisplay(int idx)	{
+				if (listSize()==0)
+					return "---";
+				return super.getGuiDisplay(idx);
 			}
 		}
 	
@@ -306,6 +310,14 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			ShapeOption1() {
 				super(BASE_UI, "SHAPE_OPTION_1");
 				showFullGuide(true);
+			}
+			@Override public void initDependencies(int level)	{
+				if (level == 0) {
+					//resetLinks();
+				}
+				else {
+					updated(true);
+				}
 			}
 			@Override public String	getOptionValue(IGameOptions options)	{
 				return options.selectedGalaxyShapeOption1();
@@ -330,14 +342,34 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return get();
 			}
 			@Override public boolean next()	{
-				super.next();
-				RotPUI.setupGalaxyUI().postSelectionMedium(true);
+				if (shapeSelection.get().equals(SHAPE_TEXT))
+					RotPUI.setupGalaxyUI().nextMapOption1(true);
+				else {
+					super.next();
+					RotPUI.setupGalaxyUI().postSelectionMedium(true);
+				}
 				return false;
 			}
 			@Override public boolean prev()	{
-				super.prev();
-				RotPUI.setupGalaxyUI().postSelectionMedium(true);
+				if (shapeSelection.get().equals(SHAPE_TEXT))
+					RotPUI.setupGalaxyUI().prevMapOption1(true);
+				else {
+					super.prev();
+					RotPUI.setupGalaxyUI().postSelectionMedium(true);
+				}
 				return false;
+			}
+			@Override public boolean toggle(MouseEvent e, BaseModPanel frame)	{
+				if (shapeSelection.get().equals(SHAPE_TEXT))
+					RotPUI.setupGalaxyUI().selectGalaxyTextFromList();
+				else
+					super.toggle(e, frame);
+				return false;
+			}
+			@Override public String getGuiDisplay(int idx)	{
+				if (listSize()==0)
+					return "---";
+				return super.getGuiDisplay(idx);
 			}
 		}
 	
@@ -346,6 +378,16 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			ShapeSelection() {
 				super(BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE);
 				showFullGuide(false);
+			}
+			@Override public void initDependencies(int level)	{
+				if (level == 0) {
+					resetLinks();
+					addLink(shapeOption1, DO_REFRESH);
+					addLink(shapeOption2, DO_REFRESH);
+					addLink(shapeOption3, DO_REFRESH);
+				}
+				else
+					super.initDependencies(level);
 			}
 			@Override public String getOptionValue(IGameOptions options) {
 				return options.selectedGalaxyShape();
@@ -364,16 +406,6 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				if (RotPUI.instance() != null)
 					RotPUI.setupGalaxyUI().postSelectionFull(true);
 				return get();
-			}
-			@Override public boolean next()	{
-				super.next();
-				RotPUI.setupGalaxyUI().postSelectionFull(true);
-				return false;
-			}
-			@Override public boolean prev()	{
-				super.prev();
-				RotPUI.setupGalaxyUI().postSelectionFull(true);
-				return false;
 			}
 		}
 	
@@ -447,30 +479,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 					postGalaxySizeSelection();
 				return get();
 			}
-			@Override public boolean next()	{
-				super.next();
-				postGalaxySizeSelection();
-				return false;
-			}
-			@Override public boolean prev()	{
-				super.prev();
-				postGalaxySizeSelection();
-				return false;
-			}
-			@Override public boolean isValidValue()	{
-				boolean invalid = isInvalidLocalValue(get());
-//				if (invalid) {
-//					IGameOptions opts = opts();
-//					int minSize = Math.max(opts.selectedMinStarsPerEmpire()+1,
-//											opts.secondRingSystemNumber()+2);
-//					reInit(getGalaxySizeOptions(minSize));
-//					invalid = isInvalidLocalValue(get());
-//					if (invalid) {
-//						set(SIZE_DYNAMIC);
-//					}
-//				}
-				return !invalid;
-			}
+			@Override public boolean isValidValue()	{ return !isInvalidLocalValue(get()); }
 			@Override public boolean isInvalidLocalValue(LinkData rec)	{ return super.isInvalidLocalValue(rec); }
 			@Override public boolean isInvalidLocalValue(String value)	{ return super.isInvalidLocalValue(value); }
 			@Override protected boolean isInvalidLocalMax(String value)	{ return false; }
@@ -548,16 +557,6 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 					RotPUI.setupGalaxyUI().postSelectionLight(true);
 				return get();
 			}
-			@Override public boolean next()	{
-				super.next();
-				RotPUI.setupGalaxyUI().postSelectionLight(true);
-				return false;
-			}
-			@Override public boolean prev()	{
-				super.prev();
-				RotPUI.setupGalaxyUI().postSelectionLight(true);
-				return false;
-			}
 		}
 	
 		private final ParamInteger aliensNumber = new AliensNumber(); // Duplicate Do not add the list
@@ -592,16 +591,6 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				if (RotPUI.instance() != null)
 					RotPUI.setupGalaxyUI().postSelectionMedium(true);
 				return value;
-			}
-			@Override public boolean next()	{
-				super.next();
-				RotPUI.setupGalaxyUI().postSelectionMedium(true);
-				return false;
-			}
-			@Override public boolean prev()	{
-				super.prev();
-				RotPUI.setupGalaxyUI().postSelectionMedium(true);
-				return false;
 			}
 		}
 	

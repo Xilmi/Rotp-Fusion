@@ -171,8 +171,13 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 				set(min);
 			return forceUpdate;
 		}
+		@Override public String getGuiDisplay(int idx)	{
+			if (!opts().sizeSelection().get().equals(IGalaxyOptions.SIZE_DYNAMIC))
+				return "---";
+			return super.getGuiDisplay(idx);
+		}
 	}
-	default int selectedDynStarsPerEmpire()	{ return Math.abs(dynStarsPerEmpire.getValidValue()); }
+	default int selectedDynStarsPerEmpire()	 { return Math.abs(dynStarsPerEmpire.getValidValue()); }
 	default ParamInteger dynStarsPerEmpire() { return dynStarsPerEmpire; }
 
 	// Restart Always looks for setup options!

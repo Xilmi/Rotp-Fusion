@@ -70,6 +70,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private static final int bottomPad		= rowPad;
 	private static final int textBoxH		= settingH;
 	private static final int hDistSetting	= settingH + settingpadH; // distance between two setting top corner
+	private static final int minWidth		= 710;
+	
 	private		   final JTextPane descBox	= new JTextPane();
 	private int yTop;
 	private int numColumns, numRows;
@@ -318,7 +320,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 				int swLeft	= txtLeft.stringWidth(gi);
 				int swRight	= txtRight.stringWidth(gi);
 				int sw		= swLeft + swRight;
-				int dx		= (retina(columnWidth) - sw)/2;
+				int dx		= max(0, (retina(columnWidth) - sw)/2);
 				txtLeft.setScaledXY(dx, retina(rowPad+s7));
 				txtRight.setScaledXY(dx + swLeft, retina(rowPad+s7));
 				txtLeft.draw(gi);
@@ -408,11 +410,21 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		descBox.setVisible(true);
 		int hSettingTotal = hDistSetting * numRows;
 
-		if (!hovering) {
+		int minH = titlePad + hSettingTotal + descHeigh + buttonPadV + smallButtonH + bottomPad;
+		if (hovering)
+			if (scaled(minWidth) > wGist)
+				minH = minH + buttonPadV + smallButtonH;
+			if (minH > hGist) {
+				hGist = max(hGist, minH);
+				hFull = hGist;
+				bGist = yGist + hGist;
+				bFull = bGist;
+			}
+		else {
 			xGist = columnPad;
 			rGist = wFull - columnPad;
 			wGist = rGist - xGist;
-			hGist = titlePad + hSettingTotal + descHeigh + buttonPadV + smallButtonH + bottomPad;
+			hGist = minH;
 			yGist = (hFull - hGist) / 2;
 			bGist = yGist + hGist;
 

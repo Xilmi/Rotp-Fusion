@@ -117,7 +117,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			topPad		-= s40; // Push the settings up			
 			shiftTitle	-= s10; // Shift the title a little
 		}	
-		hGist		= topPad + hSettings + smallButtonH + s10;
+		hGist	= topPad + hSettings + smallButtonH + s10;
 		topM	= (hFull - hGist)/2;
 		yTop	= topM + topPad; // First setting top position
 		yButton	= yTop + hSettings - shiftButton + s13;

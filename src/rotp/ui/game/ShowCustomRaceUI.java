@@ -509,7 +509,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		w	= getWidth();
 		h	= getHeight();
 		wGist	= getBackGroundWidth();
-		hGist		= titlePad + columnsMaxH + tooltipPadV + descHeigh + buttonPadV + smallButtonH + buttonPadV;
+		hGist	= titlePad + columnsMaxH + tooltipPadV + descHeigh + buttonPadV + smallButtonH + buttonPadV;
 //		currentWith	 = wFirstColumn;
 //		descWidth = wBG - 2 * columnPad;
 

@@ -305,6 +305,7 @@ public abstract class AbstractParam <T> implements IParam{
 	public String getCfgValue(T value)	{ return String.valueOf(value); }
 	// ========== Public Getters ==========
 	//
+	protected boolean processingToggle()	{ return processingToggle; }
 	public String getLabel()		{ return langLabel(getLangLabel()); }
 	protected String formerName()	{ return formerName; }
 	protected T creationValue()		{ return isValueInit? value : defaultValue(); }

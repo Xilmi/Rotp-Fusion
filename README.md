@@ -68,6 +68,9 @@ Later:
 
 ## What's New
 
+2024.06.30 (BR)
+- Added Shape selection on "Tune Galaxy" panel
+
 2024.06.29 (BR)
 - The guide now follow the color theme.
 - updated Hotkey help

@@ -164,7 +164,7 @@ public class ParamList extends AbstractParam<String> {
 			return "";
 		return name(index);
 	}
-	@Override public LinkValue linkValue(String val) { return new LinkValue(val); } 
+	@Override public LinkValue linkValue(String val) 	{ return new LinkValue(val); } 
 	@Override protected String linkValue(LinkValue val) { return val.stringValue(); }
 	@Override public boolean isInvalidLocalValue(String value)	{ return !valueLabelMap.isValid(value); }
 	@Override protected boolean isInvalidLocalMax(String value)	{ return isInvalidLocalValue(value); }
@@ -357,7 +357,13 @@ public class ParamList extends AbstractParam<String> {
 			valueLabelMap.guiTextList.add(langLabel(label));
 	}
 	protected int defaultValueIndex()			{
-		return getValidIndex(getIndex(defaultValue()));
+		int id = getIndex(defaultValue());
+		if (id < 0)
+			if (listSize()==0)
+				return -1;
+			else
+				return 0;
+		return id;
 	}
 	public int	getRawIndex()					{
 		String value = get();
@@ -375,8 +381,6 @@ public class ParamList extends AbstractParam<String> {
 		int id = getRawIndex();
 		if (id < 0)
 			id = defaultValueIndex();
-		if (id < 0)
-			return 0;
 		return id;		
 	}
 	private int getValidIndex(int id)			{
@@ -388,9 +392,9 @@ public class ParamList extends AbstractParam<String> {
 	//
 	public static class IndexableMap{
 		
-		private final LinkedList<String>  cfgValueList	= new LinkedList<>(); // also key list
-		private final LinkedList<String>  langLabelList	= new LinkedList<>();
-		private final LinkedList<String>  guiTextList	= new LinkedList<>();
+		private final SafeList cfgValueList	 = new SafeList(); // also key list
+		private final SafeList langLabelList = new SafeList();
+		private final SafeList guiTextList	 = new SafeList();
 
 		
 		// ========== Constructors and Initializers ==========
@@ -503,6 +507,15 @@ public class ParamList extends AbstractParam<String> {
 				index++;
 			}
 			return -1;
+		}
+		class SafeList extends LinkedList<String> {
+			@Override public String get(int id) {
+				if (id<0 || size() == 0)
+					return "";
+				if (id>=size())
+					return super.get(0);
+				return super.get(id);
+			}
 		}
 	}
 }

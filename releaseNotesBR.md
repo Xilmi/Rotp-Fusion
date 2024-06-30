@@ -3,7 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 - Fixed possible crash when loading an old game.
-- Following a suggestion from Roland Johansoen: Renamed "Pregame" to "Setup" and "In-Game" to "Options" and updated guide and help texts consequently.
+- Following a suggestion from Roland Johansen: Renamed "Pregame" to "Setup" and "In-Game" to "Options" and updated guide and help texts consequently.
 - Switched the default random generator to a better one.
 - Fixed Star density list not always following as dependencies.
 - Galaxy setup Panel:
@@ -11,6 +11,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Added the Tune Galaxy button, which opens a new settings panel on the side of the galaxy map, allowing you to see the effects of changes.
 - The guide now follow the color theme.
 - updated Hotkey help
+- Added Shape selection on "Tune Galaxy" panel
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
