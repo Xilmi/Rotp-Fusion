@@ -2,9 +2,7 @@ package rotp.model.game;
 
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
-import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -258,9 +256,9 @@ public interface IRandomEvents extends IBaseOptsTools {
 	//
 	ParamSubUI customRandomEventUI = customRandomEventUI();
 
-	static LinkedList<LinkedList<IParam>> customRandomEventMap() {
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	static SafeListPanel customRandomEventMap() {
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_GLOBAL"),
 				IAdvOptions.randomEvents,
 				eventsStartTurn, eventsPace,
@@ -279,7 +277,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 				headerSpacer,
 				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_DELAYS"),
 				donationDelayTurn,
 				depletedDelayTurn,
@@ -299,7 +297,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 				sizeBoostDelayTurn,
 				gauntletDelayTurn
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_RETURNS"),
 				donationReturnTurn,
 				depletedReturnTurn,
@@ -325,7 +323,5 @@ public interface IRandomEvents extends IBaseOptsTools {
 		return new ParamSubUI(MOD_UI, "RANDOM_EVENTS_UI", customRandomEventMap(),
 				"RANDOM_EVENTS_TITLE", RANDOM_EVENTS_GUI_ID);
 	}
-	static LinkedList<IParam> customRandomEventOptions() {
-		return IBaseOptsTools.getSingleList(customRandomEventMap());
-	}
+	static SafeListParam customRandomEventOptions() { return customRandomEventMap().getSingleList(); }
 }

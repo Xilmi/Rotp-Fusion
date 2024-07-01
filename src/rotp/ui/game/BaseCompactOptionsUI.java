@@ -37,6 +37,8 @@ import java.util.LinkedList;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
+import rotp.model.game.SafeListPanel;
+import rotp.model.game.SafeListParam;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
@@ -85,7 +87,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private final LinkedList<ModText>	btListRight	= new LinkedList<>(); // right part
 	private final LinkedList<ModText>	btListBoth	= new LinkedList<>();
 	private final LinkedHashMap<Integer, BufferedImage>	imgList	= new LinkedHashMap<>();
-	private LinkedList<LinkedList<IParam>>	optionsList;
+	private SafeListPanel	optionsList;
 	private BaseModPanel parentUI;
 	private boolean forceUpdate = true;
 	private boolean callPreview = false;
@@ -93,7 +95,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	// ========== Constructors and initializers ==========
 	//
 	public BaseCompactOptionsUI(String guiTitle_ID, String guiId,
-			LinkedList<LinkedList<IParam>> paramList) {
+			SafeListPanel paramList) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
 		optionsList = paramList;
@@ -105,7 +107,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		init_0();
 	}
 	public BaseCompactOptionsUI(String guiTitle_ID, String guiId,
-			LinkedList<LinkedList<IParam>> paramList, boolean hovering,
+			SafeListPanel paramList, boolean hovering,
 			Rectangle location) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
@@ -127,7 +129,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		init_0();
 	}
 	
-	protected LinkedList<LinkedList<IParam>> getList() { return optionsList; }
+	protected SafeListPanel getList() { return optionsList; }
 	@Override protected void singleInit() {
 		optionsList		= getList();
 		activeList		= new LinkedList<>();
@@ -136,7 +138,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		int totalRows   = 0;
 		numColumns = optionsList.size();
 		numRows    = 0;
-		for (LinkedList<IParam> list : optionsList) {
+		for (SafeListParam list : optionsList) {
 			totalRows += list.size();
 			lastRowList.add(totalRows);
 			numRows = max(numRows, list.size());

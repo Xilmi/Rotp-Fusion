@@ -1,9 +1,7 @@
 package rotp.model.game;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
-import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamIntegerSound;
@@ -171,9 +169,9 @@ public interface ICombatOptions extends IBaseOptsTools {
 	//
 	ParamSubUI combatOptionsUI = combatOptionsUI();
 
-	static LinkedList<LinkedList<IParam>> combatOptionsMap() {
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	static SafeListPanel combatOptionsMap() {
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("WEAPON_ANIMATIONS"),
 				showResultDelay,
 				newWeaponSound, playerSoundEcho,
@@ -183,7 +181,7 @@ public interface ICombatOptions extends IBaseOptsTools {
 				beamWindupFrames, beamHoldFrames,
 				heavyBeamHoldFrames, shieldFadingFrames
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("SHIELD_ANIMATIONS"),
 				shieldType, alwaysShowsShield, 
 	
@@ -201,7 +199,5 @@ public interface ICombatOptions extends IBaseOptsTools {
 		return new ParamSubUI( MOD_UI, "ZOOM_OPTIONS_UI", combatOptionsMap(),
 				"ZOOM_OPTIONS_TITLE", ZOOM_GUI_ID).isCfgFile(true);
 	}
-	static LinkedList<IParam> combatOptions() {
-		return IBaseOptsTools.getSingleList(combatOptionsMap());
-	}
+	static SafeListParam combatOptions() { return combatOptionsMap().getSingleList(); }
 }

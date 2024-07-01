@@ -9,9 +9,7 @@ import rotp.ui.util.ParamSubUI;
 public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptions,
 							IRaceOptions, IGovOptions, IGalaxyOptions, IMainOptions {
 
-	default LinkedList<IParam> governorOptions() {
-		return rotp.model.game.GovernorOptions.governorOptions;
-	}
+	default SafeListParam governorOptions() { return GovernorOptions.governorOptions; }
 	int id();
 	void id(int id);
 	DynOptions dynOpts();

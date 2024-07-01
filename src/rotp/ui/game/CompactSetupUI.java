@@ -15,9 +15,7 @@
  */
 package rotp.ui.game;
 
-import java.util.LinkedList;
-
-import rotp.ui.util.IParam;
+import rotp.model.game.SafeListPanel;
 
 public class CompactSetupUI extends BaseCompactOptionsUI {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +23,7 @@ public class CompactSetupUI extends BaseCompactOptionsUI {
 	public static final String GUI_ID     = "MERGED_STATIC_OPTIONS";
 	
 	public CompactSetupUI() { super(guiTitleID, GUI_ID); }
-	@Override protected LinkedList<LinkedList<IParam>> getList() {
+	@Override protected SafeListPanel getList() {
 		return rotp.model.game.IPreGameOptions.preGameOptionsMap();
 	}
 }

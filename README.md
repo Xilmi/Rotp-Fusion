@@ -67,6 +67,9 @@ Later:
 
 ## What's New
 
+2024.07.01 (BR)
+- Safer, quicker and less memory consuming list for option management.
+
 2024.06.30 (BR)
 - Added Shape selection on "Tune Galaxy" panel
 - Soil enrichment and atmospheric terraforming show their impact on planet size (+)

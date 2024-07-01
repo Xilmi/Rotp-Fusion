@@ -7,14 +7,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import rotp.Rotp;
 import rotp.model.planet.Planet;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
-import rotp.ui.util.IParam;
 import rotp.ui.util.LinkData;
 import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamAAN2;
@@ -205,12 +203,12 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	ParamTech techCloning		= new ParamTech("TECH_CLONING",		3, "Cloning",			0); // level 21
 	ParamTech techAtmospheric	= new ParamTech("TECH_ATMOSPHERIC",	3, "AtmosphereEnrichment",	0); // level 22
 	ParamTech techGaia			= new ParamTech("TECH_GAIA",		3, "SoilEnrichment",	1); // level 30
-	LinkedList<ParamTech> techModList		= new LinkedList<>(Arrays.asList(
+	List<ParamTech> techModList		= new ArrayList<>(Arrays.asList(
 			techIrradiated, techCloning, techAtmospheric,
 			techCloaking, techStargate, techGaia, techHyperspace,
 			techIndustry2, techThorium, techTransport
 			));
-	default LinkedList<ParamTech> techModList()			{ return techModList; }
+	default List<ParamTech> techModList()	{ return techModList; }
 	default List<String> forbiddenTechList(boolean isPlayer)	{
 		List<String> list = new ArrayList<>();
 		for (ParamTech  tech : techModList) {
@@ -368,12 +366,10 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default ParamBoolean getLooseNeighborhood()	{ return looseNeighborhood; }
 	// ==================== GUI List Declarations ====================
 	//
-	static LinkedList<IParam> preGameOptions() {
-		return IBaseOptsTools.getSingleList(preGameOptionsMap());
-	}
-	static LinkedList<LinkedList<IParam>> preGameOptionsMap()	{
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	static SafeListParam preGameOptions() { return preGameOptionsMap().getSingleList(); }
+	static SafeListPanel preGameOptionsMap()	{
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("START_GALAXY_OPTIONS"),
 				galaxyAge, starDensity,
 				empiresSpreadingFactor,
@@ -388,7 +384,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 				IMainOptions.realNebulaShape,
 				IMainOptions.realNebulaeOpacity
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("START_EMPIRE_OPTIONS"),
 				orionLikeHomeworld, artifactsHomeworld, fertileHomeworld,
 				richHomeworld, ultraRichHomeworld,
@@ -404,7 +400,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 				// new ParamTitle("SUB_PANEL_OPTIONS"),
 				ISystemsOptions.systemsOptionsUI()
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("START_TECH_CONTROL"),
 				techIrradiated, techCloning, techAtmospheric,
 				techCloaking, techStargate, techGaia, techHyperspace,
@@ -415,7 +411,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 				randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
 				randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("RESTART_OPTIONS"),
 				restartChangesPlayerRace, restartChangesPlayerAI,
 				restartChangesAliensAI, restartAppliesSettings,

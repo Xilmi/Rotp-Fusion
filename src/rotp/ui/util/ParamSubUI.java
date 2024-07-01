@@ -21,19 +21,20 @@ import static rotp.ui.util.IParam.langLabel;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.util.LinkedList;
 
 import rotp.model.game.IGameOptions;
+import rotp.model.game.SafeListPanel;
+import rotp.model.game.SafeListParam;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.BaseCompactOptionsUI;
 
 
-public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
+public class ParamSubUI extends AbstractParam<SafeListPanel> {
 	
 	private final String GUI_TITLE_ID;
 	private final String GUI_ID;
-	public  final LinkedList<LinkedList<IParam>> optionsMap;
-	public  final LinkedList<IParam> optionsList = new LinkedList<>();
+	public  final SafeListPanel optionsMap;
+	public  final SafeListParam optionsList = new SafeListParam();
 	
 	// ===== Constructors =====
 	//
@@ -45,14 +46,14 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 	 * @param guiID Unique GUI ID for load and save
 	 */
 	public ParamSubUI(String gui, String name,
-			LinkedList<LinkedList<IParam>> optionsMap,
+			SafeListPanel optionsMap,
 			String guiTitleID, String guiID)
 	{
 		super(gui, name, optionsMap);
 		GUI_TITLE_ID = gui + guiTitleID;
 		GUI_ID = guiID;
 		this.optionsMap = optionsMap;
-		for (LinkedList<IParam> list : optionsMap) {
+		for (SafeListParam list : optionsMap) {
 			for (IParam param : list) {
 				if (param != null && !param.isTitle())
 					optionsList.add(param);
@@ -67,7 +68,7 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 	 * @param guiID Unique GUI ID for load and save
 	 */
 	public ParamSubUI(String gui, String guiId,
-			LinkedList<LinkedList<IParam>> optionsMap) {
+			SafeListPanel optionsMap) {
 		this(gui, guiId+"_UI", optionsMap, guiId+"_TITLE", guiId);
 	}
 	// ===== Overriders =====
@@ -102,12 +103,12 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 						&& !(excludeSubMenu && param.isSubMenu()))
 					param.setFromDefault(excludeCfg, excludeSubMenu);
 	}
-	@Override protected LinkedList<LinkedList<IParam>> getOptionValue(
+	@Override protected SafeListPanel getOptionValue(
 			IGameOptions options) {
 		return last();
 	}
 	@Override protected void setOptionValue(IGameOptions options,
-			LinkedList<LinkedList<IParam>> value) {}
+			SafeListPanel value) {}
 	@Override public void setFromCfgValue(String val) {
 		for (IParam param : optionsList)
 			if (param != null && !param.isCfgFile())
@@ -141,17 +142,17 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 		ui.start("", pUI);
 	}
 	public String titleId() { return GUI_TITLE_ID; }
-	public LinkedList<IParam> optionsList() { return optionsList; }
+	public SafeListParam optionsList() { return optionsList; }
 	public void updateList() {
 		optionsList.clear();
-		for (LinkedList<IParam> list : optionsMap) {
+		for (SafeListParam list : optionsMap) {
 			for (IParam param : list) {
 				if (param != null && !param.isTitle())
 					optionsList.add(param);
 			}
 		}
 	}
-	public void newMap(LinkedList<LinkedList<IParam>> newMap) {
+	public void newMap(SafeListPanel newMap) {
 		optionsMap.clear();
 		optionsMap.addAll(newMap);
 		updateList();

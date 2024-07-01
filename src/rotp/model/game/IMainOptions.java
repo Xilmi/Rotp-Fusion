@@ -710,12 +710,10 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		return new ParamSubUI( MOD_UI, "NAME_OPTIONS_UI", specieNameOptionsMap(),
 				"NAME_OPTIONS_TITLE", NAME_GUI_ID).isCfgFile(true);
 	}
-	static LinkedList<IParam> specieNameOptions() {
-		return IBaseOptsTools.getSingleList(specieNameOptionsMap());
-	}
-	static LinkedList<LinkedList<IParam>> specieNameOptionsMap()	{
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	static SafeListParam specieNameOptions() { return specieNameOptionsMap().getSingleList(); }
+	static SafeListPanel specieNameOptionsMap()	{
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				altairi, ursinathi,
 				nazlok, human,
 				kholdan, meklonar,
@@ -757,9 +755,9 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 						));
 		return options;
 	}
-	static LinkedList<LinkedList<IParam>> commonOptionsMap()	{
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	static SafeListPanel commonOptionsMap()	{
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("COMPUTER_OPTIONS"),
 				graphicsMode, texturesMode, sensitivityMode,
 				soundVolume, musicVolume,
@@ -771,7 +769,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				noFogOnIcons, showAlternateAnimation,
 				useFusionFont, compactOptionOnly
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ZOOM_FONT"),
 				mapFontFactor, showNameMinFont, showInfoFontRatio,
 				showPendingOrders,
@@ -784,7 +782,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				new ParamTitle("ZOOM_REPLAY"),
 				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("BACKUP_OPTIONS"),
 				backupTurns, backupKeep, saveDirectory,
 
@@ -809,7 +807,5 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				.isCfgFile(false);
 	}
 
-	static LinkedList<IParam> commonOptions() {
-		return IBaseOptsTools.getSingleList(commonOptionsMap());
-	}
+	static SafeListParam commonOptions() { return commonOptionsMap().getSingleList(); }
 }

@@ -23,7 +23,7 @@ import static rotp.ui.util.IParam.tableFormat;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import rotp.model.game.IDebugOptions;
@@ -54,7 +54,7 @@ public class ParamList extends AbstractParam<String> {
 	 * @param list keys for map table
 	 * @param header The label Header
 	 */
-/*	public ParamList(String gui, String name, String defaultCfgLabel, LinkedList<String> list, String mid) {
+/*	public ParamList(String gui, String name, String defaultCfgLabel, ArrayList<String> list, String mid) {
 		super(gui, name, defaultCfgLabel);
 		valueLabelMap = new IndexableMap();
 		for (String element : list)
@@ -266,8 +266,8 @@ public class ParamList extends AbstractParam<String> {
 	protected String getMapValue(int id) { return valueLabelMap.cfgValueList.get(id); }
 	// ===== Other Public Methods =====
 	//
-	public LinkedList<String> getOptions()	{
-		LinkedList<String> list = new LinkedList<String>();
+	public List<String> getOptions()	{
+		List<String> list = new ArrayList<String>();
 		if (isDuplicate()) // Values and labels are swap because values may be redundant
 			list.addAll(valueLabelMap.langLabelList);
 		else
@@ -508,7 +508,7 @@ public class ParamList extends AbstractParam<String> {
 			}
 			return -1;
 		}
-		class SafeList extends LinkedList<String> {
+		class SafeList extends ArrayList<String> {
 			@Override public String get(int id) {
 				if (id<0 || size() == 0)
 					return "";

@@ -5,7 +5,6 @@ import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
 import static rotp.model.game.IBaseOptsTools.headerSpacer;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import rotp.model.game.GovernorOptions.GatesGovernor;
 import rotp.ui.util.IParam;
@@ -106,11 +105,11 @@ public interface IGovOptions {
 	// ==================== GUI List Declarations ====================
 	//
 
-	LinkedList<IParam> mergedStaticOptions	= new LinkedList<>();
-	LinkedList<LinkedList<IParam>> governorOptionsMap = governorOptionsMap();
-	static LinkedList<LinkedList<IParam>> governorOptionsMap()	{
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	SafeListParam mergedStaticOptions	= new SafeListParam();
+	SafeListPanel governorOptionsMap = governorOptionsMap();
+	static SafeListPanel governorOptionsMap()	{
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle(GOV_UI + "TRANSPORT_OPTIONS"),
 				autoTransport, autotransportAtMax, autotransportAll,
 				transportNoRich, transportPoorX2, transportMaxDist,
@@ -121,7 +120,7 @@ public interface IGovOptions {
 				autoSpend, reserveForSlow, shipBuilding,
 				maxGrowthMode
 				)));
-		map.add(new LinkedList<>(Arrays.asList(				
+		map.add(new SafeListParam(Arrays.asList(				
 				new ParamTitle(GOV_UI + "INTELLIGENCE_OPTIONS"),
 				auto_Infiltrate, auto_Spy, respectPromises,
 				
@@ -136,7 +135,7 @@ public interface IGovOptions {
 				new ParamTitle(GOV_UI + "STARGATES_OPTIONS"),
 				starGateOption
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle(GOV_UI + "ASPECT_OPTIONS"),
 				originalPanel, customSize, animatedImage,
 				brightnessPct, sizeFactorPct,
@@ -146,7 +145,7 @@ public interface IGovOptions {
 				new ParamTitle(GOV_UI + "OTHER_OPTIONS"),
 				governorByDefault, auto_Apply
 				)));
-		for (LinkedList<IParam> list : map) {
+		for (SafeListParam list : map) {
 			for (IParam param : list) {
 				if (param != null && !param.isTitle())
 					mergedStaticOptions.add(param);
@@ -156,5 +155,5 @@ public interface IGovOptions {
 	};
 	ParamSubUI	governorOptionsUI	= new ParamSubUI(GOV_UI, "SETUP_MENU",
 			governorOptionsMap, "SETUP_TITLE", GOV_GUI_ID);
-	LinkedList<IParam> governorOptions = governorOptionsUI.optionsList();
+	SafeListParam governorOptions = governorOptionsUI.optionsList();
 }

@@ -4,11 +4,9 @@ import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import rotp.Rotp;
 import rotp.ui.RotPUI;
-import rotp.ui.util.IParam;
 import rotp.ui.util.LinkData;
 import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamBoolean;
@@ -346,12 +344,10 @@ public interface ISystemsOptions extends IBaseOptsTools {
 
 	// ==================== GUI List Declarations ====================
 	//
-	static LinkedList<IParam> systemsOptions() {
-		return IBaseOptsTools.getSingleList(systemsOptionsMap());
-	}
-	static LinkedList<LinkedList<IParam>> systemsOptionsMap()	{
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	static SafeListParam systemsOptions() { return systemsOptionsMap().getSingleList(); }
+	static SafeListPanel systemsOptionsMap()	{
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ARTIFACT_OPTIONS"),
 				artifactPlanetMult, artifactPlanetOffset,
 				headerSpacer,
@@ -363,7 +359,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 				new ParamTitle("GAME_OTHER"),
 				orionToEmpireModifier
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("RICH_OPTIONS"),
 				ultraPoorPlanetMult, ultraPoorPlanetOffset,
 				poorPlanetMult, poorPlanetOffset,
@@ -371,7 +367,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 				richPlanetMult, richPlanetOffset,
 				ultraRichPlanetMult, ultraRichPlanetOffset
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("HOMEWORLD_NEIGHBORHOOD"),
 				firstRingSystemNumber,
 				firstRingHabitable,

@@ -1,9 +1,7 @@
 package rotp.model.game;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
-import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -49,13 +47,13 @@ public interface IIronmanOptions extends IBaseOptsTools {
 	//
 	ParamSubUI ironmanOptionsUI = ironmanOptionsUI();
 
-	static LinkedList<LinkedList<IParam>> ironmanOptionsMap() {
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	static SafeListPanel ironmanOptionsMap() {
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("IRONMAN_MAIN"),
 				ironmanMode
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("IRONMAN_CUSTOM"),
 				IGameOptions.fixedEventsMode,
 				persistentArtifact,
@@ -69,7 +67,5 @@ public interface IIronmanOptions extends IBaseOptsTools {
 		return new ParamSubUI( MOD_UI, "IRONMAN_OPTIONS_UI", ironmanOptionsMap(),
 				"IRONMAN_OPTIONS_TITLE", IRONMAN_GUI_ID).isCfgFile(true);
 	}
-	static LinkedList<IParam> ironmanOptions() {
-		return IBaseOptsTools.getSingleList(ironmanOptionsMap());
-	}
+	static SafeListParam ironmanOptions() { return ironmanOptionsMap().getSingleList(); }
 }

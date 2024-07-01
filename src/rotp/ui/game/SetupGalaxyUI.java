@@ -95,6 +95,8 @@ import rotp.model.galaxy.Nebula;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IInGameOptions;
+import rotp.model.game.SafeListPanel;
+import rotp.model.game.SafeListParam;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
@@ -313,9 +315,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		globalAbilities.reInit(globalAbilitiesList);
 		globalAbilitiesArray = globalAbilitiesList.toArray(new String[globalAbilitiesList.size()]);
 	}
-	private LinkedList<LinkedList<IParam>> advancedSystemMap()	{
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	private SafeListPanel advancedSystemMap()	{
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("NEBULAE_OPTION"),
 				opts.getNebula(),
 				opts.getNebulaPlacing(),
@@ -337,7 +339,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				opts.shapeOption2(),
 				opts.shapeOption3()
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("HOMEWORLD_NEIGHBORHOOD"),
 				opts.getFirstRingSystemNumber(),
 				opts.getFirstRingHabitable(),

@@ -1,10 +1,8 @@
 package rotp.model.game;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
-import rotp.ui.util.IParam;
 import rotp.ui.util.ParamFlagColor;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -143,9 +141,9 @@ public interface IFlagOptions extends IBaseOptsTools {
 	//
 	ParamSubUI autoFlagOptionsUI = autoFlagOptionsUI();
 
-	static LinkedList<LinkedList<IParam>> autoFlagOptionsMap() {
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	static SafeListPanel autoFlagOptionsMap() {
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_ID_SELECTION"),
 				autoFlagAssignation1, autoFlagAssignation2,
 				autoFlagAssignation3, autoFlagAssignation4,
@@ -159,7 +157,7 @@ public interface IFlagOptions extends IBaseOptsTools {
 				flagTechStandardColor, flagTechBarrenColor, flagTechDeadColor,
 				flagTechToxicColor, flagTechRadiatedColor, flagTechNoneColor
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_VESTIGES"),
 				flagRuinsOrionColor, flagRuinsAntaranColor, flagRuinsNoneColor,
 
@@ -174,7 +172,7 @@ public interface IFlagOptions extends IBaseOptsTools {
 				flagEnvGaiaColor, flagEnvFertileColor,
 				flagEnvNormalColor,	flagEnvHostileColor, flagEnvNoneColor
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_TYPE"),
 				flagTerranColor, flagJungleColor, flagOceanColor,
 				flagAridColor, flagSteppeColor, flagDesertColor, flagMinimalColor,
@@ -188,7 +186,5 @@ public interface IFlagOptions extends IBaseOptsTools {
 		return new ParamSubUI( MOD_UI, "AUTO_FLAG_UI", autoFlagOptionsMap(),
 				"AUTO_FLAG_TITLE", AUTO_FLAG_GUI_ID);
 	}
-	static LinkedList<IParam> autoFlagOptions() {
-		return IBaseOptsTools.getSingleList(autoFlagOptionsMap());
-	}
+	static SafeListParam autoFlagOptions() { return autoFlagOptionsMap().getSingleList(); }
 }

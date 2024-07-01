@@ -350,7 +350,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedNebulaeOption		= opt.selectedNebulaeOption;
         selectedNumberOpponents		= opt.selectedNumberOpponents;
         
-        LinkedList<IParam> list = systemsOptionsUI.optionsList;
+        SafeListParam list = systemsOptionsUI.optionsList;
         for (IParam param : list)
         	param.copyOption(oldOpt, this, true);
 

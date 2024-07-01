@@ -24,13 +24,11 @@ import static rotp.model.game.IMainOptions.galaxyPreviewColorStarsSize;
 import static rotp.model.game.IMainOptions.raceStatusLog;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.ships.ShipDesign;
-import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
@@ -305,14 +303,12 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default float aiDefenseConfidence()		{ return aiDefenseConfidence.get()/100f; }
 
 	// ==================== GUI List Declarations ====================
-	LinkedList<IParam> inGameOptions	= inGameOptions();
-	static LinkedList<IParam> inGameOptions() {
-		return IBaseOptsTools.getSingleList(inGameOptionsMap());
-	}
+	SafeListParam inGameOptions	= inGameOptions();
+	static SafeListParam inGameOptions() { return inGameOptionsMap().getSingleList(); }
 
-	static LinkedList<LinkedList<IParam>> inGameOptionsMap()	{
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	static SafeListPanel inGameOptionsMap()	{
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("GAME_DIFFICULTY"),
 				IGalaxyOptions.getDifficultySelection(), customDifficulty,
 				dynamicDifficulty, challengeMode,
@@ -332,7 +328,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				ironmanNoLoad, ironmanLoadDelay,
 				allowSpeciesDetails
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
 				councilWin, counciRequiredPct, councilPlayerVote,
 				aiHostility, techTrading,
@@ -351,7 +347,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				new ParamTitle("BETA_TEST"),
 				debugAutoRun, darkGalaxy
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("SUB_PANEL_OPTIONS"),
 				customRandomEventUI,
 				randomEvents,
@@ -368,7 +364,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				showAlliancesGNN, hideMinorReports, showAllocatePopUp, showLimitedWarnings,
 				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("MENU_OPTIONS"),
 				divertExcessToResearch, defaultMaxBases, displayYear,
 				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,

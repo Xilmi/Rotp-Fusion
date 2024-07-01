@@ -3,10 +3,8 @@ package rotp.model.game;
 import static rotp.ui.UserPreferences.showMemory;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import rotp.ui.RotPUI;
-import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -150,9 +148,9 @@ public interface IDebugOptions extends IBaseOptsTools {
 
 	// ==================== GUI List Declarations ====================
 	//
-	static LinkedList<LinkedList<IParam>> debugOptionsMap() {
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
+	static SafeListPanel debugOptionsMap() {
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("DEBUG_MEMORY"),
 				debugShowMemory, debugConsoleMemory,
 				debugShowMoreMemory, debugFileMemory,
@@ -162,7 +160,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 				IAdvOptions.councilWin, IAdvOptions.autoplay,
 				IMainOptions.backupTurns
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("DEBUG_AUTO_RUN"),
 				debugAutoRun, debugNoAutoSave,
 				debugARContinueOnLoss,
@@ -170,7 +168,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 				debugBMZoomOut, debugBMShowAll,
 				consoleAutoRun, debugLogNotif, debugLogEvents
 				)));
-		map.add(new LinkedList<>(Arrays.asList(
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("GAME_OTHER"),
 				IMainOptions.menuStartup,
 				continueAnyway
@@ -183,7 +181,5 @@ public interface IDebugOptions extends IBaseOptsTools {
 		return new ParamSubUI( MOD_UI, "DEBUG_OPTIONS_UI", IDebugOptions.debugOptionsMap(),
 				"DEBUG_OPTIONS_TITLE", DEBUG_GUI_ID).isCfgFile(true);
 	}
-	static LinkedList<IParam> debugOptions() {
-		return IBaseOptsTools.getSingleList(IDebugOptions.debugOptionsMap());
-	}
+	static SafeListParam debugOptions() { return IDebugOptions.debugOptionsMap().getSingleList(); }
 }
