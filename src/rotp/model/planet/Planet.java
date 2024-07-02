@@ -456,12 +456,12 @@ public class Planet implements Base, IMappedObject, Serializable {
         // if we are not fertile and can be made fertile, count that
         if ((tempEnv == ENVIRONMENT_NORMAL) && (soilTech.environment > ENVIRONMENT_NORMAL)) {
             tempEnv = ENVIRONMENT_FERTILE;
-            size += ((float)Math.ceil(baseSize() / 20.0f) * 5);
+            size += fertileIncrease(baseSize());
         }
         
         // if we are not gaia and can be made gaia, count that
         if ((tempEnv == ENVIRONMENT_FERTILE) && (soilTech.environment > ENVIRONMENT_FERTILE)) {
-            size += ((float)Math.ceil((baseSize()-10) / 20.0f) * 5);
+            size += gaiaIncrease(baseSize());
         }
 
         return size;

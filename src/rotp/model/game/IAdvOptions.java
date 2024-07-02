@@ -39,11 +39,9 @@ import static rotp.model.game.ISystemsOptions.surfaceSecurityFactor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import rotp.ui.util.IParam;
 import rotp.ui.util.LinkData;
 import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamList;
@@ -420,8 +418,8 @@ public interface IAdvOptions extends IBaseOptsTools {
 //					IInGameOptions.inGameOptionsUI,
 //					IPreGameOptions.preGameOptionsUI
 //					));
-	static LinkedList<IParam> advancedOptions() {
-		LinkedList<IParam> options  = new LinkedList<>(
+	static SafeListParam advancedOptions() {
+		SafeListParam options  = new SafeListParam(
 				Arrays.asList(
 						galaxyAge, starDensity,
 						nebulae, planetQuality,

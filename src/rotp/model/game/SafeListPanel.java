@@ -12,7 +12,7 @@ public class SafeListPanel extends ArrayList<SafeListParam>{
 			return super.get(0);
 		return super.get(id);
 	}
-	public SafeListParam getSingleList() {
+	public SafeListParam getList() {
 		SafeListParam paramList = new SafeListParam();
 		for ( SafeListParam list : this )
 			for (IParam param : list)

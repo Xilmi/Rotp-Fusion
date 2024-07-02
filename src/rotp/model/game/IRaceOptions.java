@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.ui.game.GameUI;
-import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamCR;
 import rotp.ui.util.PlayerShipSet;
@@ -84,24 +83,24 @@ public interface IRaceOptions extends IBaseOptsTools {
 	default Serializable selectedPlayerCustomRace()			 { return playerCustomRace.get(); }
 	default void selectedPlayerCustomRace(Serializable race) { playerCustomRace.set(race); }
 	// Custom Race Menu
-	static LinkedList<IParam> optionsCustomRaceBase = new LinkedList<>(
+	static SafeListParam optionsCustomRaceBase = new SafeListParam(
 			Arrays.asList(
 					playerIsCustom, playerCustomRace
 					));
-	default LinkedList<IParam> optionsCustomRace() {
-		LinkedList<IParam> list = new LinkedList<>();
+	default SafeListParam optionsCustomRace() {
+		SafeListParam list = new SafeListParam();
 		list.addAll(optionsCustomRaceBase);
 		return list;
 	}
 	// ==================== GUI List Declarations ====================
 	//
-	static LinkedList<IParam> optionsRace = new LinkedList<>(
+	static SafeListParam optionsRace = new SafeListParam(
 			Arrays.asList(
 					playerShipSet, playerIsCustom, playerCustomRace
 					));
-	default LinkedList<IParam> optionsRace()	{ return optionsRace; }
+	default SafeListParam optionsRace()	{ return optionsRace; }
 
-	LinkedList<IParam> editCustomRace = new LinkedList<>();
-	default LinkedList<IParam> editCustomRace()	{ return editCustomRace; }
+	SafeListParam editCustomRace = new SafeListParam();
+	default SafeListParam editCustomRace()	{ return editCustomRace; }
 
 }

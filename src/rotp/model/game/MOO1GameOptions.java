@@ -30,7 +30,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -120,13 +119,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private transient GalaxyShape galaxyShape;
     private transient int id = UNKNOWN_ID;
 
-    public MOO1GameOptions() {
-        init();
-    }
-    public MOO1GameOptions(boolean init) {
-    	if(init)
-    		init();
-    }
+    public MOO1GameOptions() { init(); }
+    public MOO1GameOptions(boolean init) { if(init) init(); }
     private void init() {
         // initOpponentRaces();
         randomizeColors();
@@ -1264,7 +1258,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		copyBaseRaceSettings(dest);
 		copyAdvancedOptions(dest);
     }
-    private void copyPanelBaseSettings(MOO1GameOptions dest, LinkedList<IParam> pList) {
+    private void copyPanelBaseSettings(MOO1GameOptions dest, SafeListParam pList) {
    		if (pList == optionsGalaxy()) {
    			copyBaseGalaxySettings(dest);
    			return;
@@ -1288,7 +1282,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		setBaseRaceSettingsToDefault();
 		setBaseGalaxySettingsToDefault();
     }
-    private void setPanelGameSettingsToDefault(LinkedList<IParam> pList,
+    private void setPanelGameSettingsToDefault(SafeListParam pList,
     		boolean excludeCfg, boolean excludeSubMenu) {
     	if (pList == null)
     		return;
@@ -1303,7 +1297,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	       				&& !(excludeSubMenu && param.isSubMenu()))
 		       		param.setFromDefault(excludeCfg, excludeSubMenu);
     }
-    private void setPanelBaseSettingsToDefault(LinkedList<IParam> pList) {
+    private void setPanelBaseSettingsToDefault(SafeListParam pList) {
    		if (pList == null)
    			return;
    		if (pList == optionsGalaxy()) {
@@ -1377,7 +1371,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        		for (IParam param : allModOptions())
         		param.initDependencies(IParam.VALID_DEPENDENCIES);
     }
-    @Override public void resetPanelSettingsToDefault(LinkedList<IParam> pList,
+    @Override public void resetPanelSettingsToDefault(SafeListParam pList,
     		boolean excludeCfg, boolean excludeSubMenu) {
     	setPanelGameSettingsToDefault(pList, excludeCfg, excludeSubMenu);
     	setPanelBaseSettingsToDefault(pList);
@@ -1388,7 +1382,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override public void saveOptionsToFile(String fileName) {
     	saveOptions(this, fileName);
     }
-    @Override public void saveOptionsToFile(String fileName, LinkedList<IParam> pList) {
+    @Override public void saveOptionsToFile(String fileName, SafeListParam pList) {
     	// No dependencies update on load... this will on final load.
     	if (pList == null)
     		return;
@@ -1418,7 +1412,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         		param.initDependencies(IParam.VALID_DEPENDENCIES);
         source.copyAllBaseSettings(this);
     }
-    @Override public void updateFromFile(String fileName, LinkedList<IParam> pList) {
+    @Override public void updateFromFile(String fileName, SafeListParam pList) {
    	if (pList == null)
     		return;
     	MOO1GameOptions source = loadOptions(fileName);

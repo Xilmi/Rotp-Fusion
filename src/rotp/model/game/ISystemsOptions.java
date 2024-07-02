@@ -344,7 +344,6 @@ public interface ISystemsOptions extends IBaseOptsTools {
 
 	// ==================== GUI List Declarations ====================
 	//
-	static SafeListParam systemsOptions() { return systemsOptionsMap().getSingleList(); }
 	static SafeListPanel systemsOptionsMap()	{
 		SafeListPanel map = new SafeListPanel();
 		map.add(new SafeListParam(Arrays.asList(

@@ -48,6 +48,7 @@ import javax.swing.JTextPane;
 
 import rotp.Rotp;
 import rotp.model.game.IMainOptions;
+import rotp.model.game.SafeListParam;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
@@ -112,9 +113,9 @@ public abstract class BaseModPanel extends BasePanel
 	protected boolean showTiming = false;
 
 	private boolean initialised = false;
-	LinkedList<IParam> paramList;
-	LinkedList<IParam> duplicateList;
-	LinkedList<IParam> activeList;
+	SafeListParam paramList;
+	SafeListParam duplicateList;
+	SafeListParam activeList;
 
 	protected int xButton, yButton, wButton, hButton; // absolute button position.
 	protected int xFull, yFull, wFull, hFull, rFull, bFull; // absolute panel window size and position (right, bottom)
@@ -143,7 +144,7 @@ public abstract class BaseModPanel extends BasePanel
 	protected int invRetina(int val)	{ return val/retinaFactor; }
 
 	protected void singleInit() {} // To avoid call to options during class creation
-	public LinkedList<IParam> activeList() { return activeList; }
+	public SafeListParam activeList() { return activeList; }
 	
 	public GuidePopUp guidePopUp;
 	
@@ -179,7 +180,7 @@ public abstract class BaseModPanel extends BasePanel
 		guidePopUp.init();
 	}
 	protected abstract String GUI_ID();
-	protected LinkedList<IParam> localOptions() { return activeList; };
+	protected SafeListParam localOptions() { return activeList; };
 	private void localInit(Graphics2D g) {
 		Font prevFont = g.getFont();
 		

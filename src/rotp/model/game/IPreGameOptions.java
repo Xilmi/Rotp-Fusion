@@ -366,7 +366,6 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default ParamBoolean getLooseNeighborhood()	{ return looseNeighborhood; }
 	// ==================== GUI List Declarations ====================
 	//
-	static SafeListParam preGameOptions() { return preGameOptionsMap().getSingleList(); }
 	static SafeListPanel preGameOptionsMap()	{
 		SafeListPanel map = new SafeListPanel();
 		map.add(new SafeListParam(Arrays.asList(

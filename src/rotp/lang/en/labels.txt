@@ -693,6 +693,13 @@ MAIN_HELP_3G                      | Tech - shows available technologies. Allows 
 MAIN_HELP_3H                      | Next Year - advances the game to the next year.
 MAIN_HELP_3I                      | Current Turn - displays the game's current turn or your empire's current year. Click to toggle.
 MAIN_HELP_3J                      | Map controls - click to cycle through various display settings for the galaxy map.
+// Smart-Max Help
+MAIN_HELP_4A                      | Smart Max will always keeps ECO clean.
+MAIN_HELP_4B                      | Shipyard:<br> Left-Click: Min Allocation Needed up to build limit.<br> Right-Click: Max Allocation Available.
+MAIN_HELP_4C                      | Defenses:<br> Left-Click: Min Allocation Needed up to get bases limit. <br> Right-Click: Max Allocation Available.
+MAIN_HELP_4D                      | Industry:<br> Left-Click: Max Allocation Needed to finalize factories. <br> Right-Click: Max Allocation Needed to finalize factories.
+MAIN_HELP_4E                      | Ecology:<br> Left-Click: Max Allocation Needed to finalize Growth. <br> Right-Click: Max Allocation Needed to finalize terraform. <br>Mid-Click: Min Allocation Needed to stay clean.
+MAIN_HELP_4F                      | Technology:<br> Left-Click: Max Allocation Available. <br> Right-Click: Max Allocation Available.
 
 // modnar: shorten SystemData display
 MAIN_SYSTEM_DETAIL_PFB            | P:%1  F:%2  B:%3
@@ -1615,7 +1622,7 @@ SETUP_TERRAFORMING_NONE_HELP      | Improved Terraforming technologies that incr
 SETUP_TERRAFORMING_NONE           | None
 SETUP_COLONIZING_NORMAL_HELP      | Any special colony base can colonize a planet of that hostility or lower on the "hierarchy of hostilities" from Barren to Irradiated.
 SETUP_COLONIZING_NORMAL           | Normal
-SETUP_COLONIZING_RESTRICTED_HELP  |  Hostile environment will need a colony base of that specific type. Now the Irradiated Colony Base you'll need to settle the most hostile of planets is no longer the be-all and end-all of colony bases.
+SETUP_COLONIZING_RESTRICTED_HELP  | Hostile environment will need a colony base of that specific type. Now the Irradiated Colony Base you'll need to settle the most hostile of planets is no longer the be-all and end-all of colony bases.
 SETUP_COLONIZING_RESTRICTED       | Restricted
 SETUP_FUEL_RANGE_CUT              | Cut
 SETUP_FUEL_RANGE_LOW              | Low

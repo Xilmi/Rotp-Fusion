@@ -5,7 +5,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 - Added Shape selection on "Tune Galaxy" panel.
 - Soil enrichment and atmospheric terraforming show their impact on planet size (+).
-
+- Fixed factory estimation error.
+- Factory estimation will show refit requirement.
+- Added help for "smart-max".
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

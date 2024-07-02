@@ -1061,6 +1061,42 @@ public class MainUI extends BasePanel implements IMapHandler {
         HelpSpec sp10 = helpUI.addBlueHelpText(x10, y10, w10, 3, text("MAIN_HELP_3J"));
         sp10.setLine(x10, y10+(sp10.height()/2), s45, y10+(sp10.height()/2));
 
+        // BR: Smart max help
+        Sprite spr = this.clickedSprite();
+        if (!(spr instanceof StarSystem))
+        	return;
+        if (((StarSystem) spr).empire() != player())
+        	return;
+        int w0 = scaled(250);
+        int x0 = w - w0 - s5;
+        int y0 = s20;
+        w1 = scaled(340);
+        x1 = x0 - w1 - scaled(50);
+        y1 = y0;
+        int xe = w-scaled(75);
+        int ye = scaled(310);
+        int dye = s29;
+        
+        helpUI.addBrownHelpText(x0, y0, w0, 1, text("MAIN_HELP_4A"));
+
+        HelpSpec sp2s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4B"));
+        sp2s.setLine(x1+w1, y1+(sp2s.height()*3/4), xe, ye);
+        y1 += (sp2s.height()+s5);
+        ye += dye;
+        HelpSpec sp3s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4C"));
+        sp3s.setLine(x1+w1, y1+(sp3s.height()*3/4), xe, ye);
+        y1 += (sp3s.height()+s5);
+        ye += dye;
+        HelpSpec sp4s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4D"));
+        sp4s.setLine(x1+w1, y1+(sp4s.height()/2), xe, ye);
+        y1 += (sp4s.height()+s5);
+        ye += dye;
+        HelpSpec sp5s = helpUI.addBrownHelpText(x1, y1, w1, 4, text("MAIN_HELP_4E"));
+        sp5s.setLine(x1+w1, y1+(sp5s.height()/2), xe, ye);
+        y1 += (sp5s.height()+s5);
+        ye += dye;
+        HelpSpec sp6s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4F"));
+        sp6s.setLine(x1+w1, y1+(sp6s.height()/2), xe, ye);
     }
     @Override
     public void keyPressed(KeyEvent e) {

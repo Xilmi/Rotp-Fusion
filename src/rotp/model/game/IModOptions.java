@@ -1,7 +1,8 @@
 package rotp.model.game;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
+import java.util.List;
 
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamSubUI;
@@ -32,7 +33,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	 * @param fileName
 	 * @param paramList
 	 */
-	void saveOptionsToFile (String fileName, LinkedList<IParam> paramList);
+	void saveOptionsToFile (String fileName, SafeListParam paramList);
 	/**
 	 * Save all options to file
 	 * @param fileName
@@ -44,14 +45,14 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	 * @param fileName
 	 * @param paramList
 	 */
-//	void updateFromFile (String fileName, LinkedList<IParam> paramList, boolean includeCfg);
-	void updateFromFile (String fileName, LinkedList<IParam> paramList);
+//	void updateFromFile (String fileName, SafeListParam paramList, boolean includeCfg);
+	void updateFromFile (String fileName, SafeListParam paramList);
 	/**
 	 * update the listed parameters From their default values
 	 * (Options and options' tools)
 	 * @param paramList
 	 */
-	void resetPanelSettingsToDefault (LinkedList<IParam> paramList, boolean excludeCfg, boolean excludeSubMenu);
+	void resetPanelSettingsToDefault (SafeListParam paramList, boolean excludeCfg, boolean excludeSubMenu);
 
 	void resetAllNonCfgSettingsToDefault();
 	void updateAllNonCfgFromFile(String fileName);
@@ -77,63 +78,63 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 
 	// ==================== All Parameters ====================
 	//
-	default LinkedList<IParam> allModOptions()	{ return allModOptions; }
-	LinkedList<IParam> allModOptions = getAllModOptions();
-	static LinkedList<IParam> getAllModOptions() {
+	default SafeListParam allModOptions()	{ return allModOptions; }
+	SafeListParam allModOptions = getAllModOptions();
+	static SafeListParam getAllModOptions() {
 		// Start with a set to filter duplicates
 		LinkedHashSet<IParam> allModOptions = new LinkedHashSet<>();
-		allModOptions.addAll(IPreGameOptions.preGameOptions());
-		allModOptions.addAll(ISystemsOptions.systemsOptions());
-		allModOptions.addAll(IInGameOptions.inGameOptions());
+		allModOptions.addAll(IPreGameOptions.preGameOptionsMap().getList());
+		allModOptions.addAll(ISystemsOptions.systemsOptionsMap().getList());
+		allModOptions.addAll(IInGameOptions.inGameOptionsMap().getList());
 		allModOptions.addAll(IGalaxyOptions.getOptionsGalaxy());
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
-		allModOptions.addAll(IFlagOptions.autoFlagOptions());
+		allModOptions.addAll(IFlagOptions.autoFlagOptionsMap().getList());
 		allModOptions.addAll(governorOptions);
 		allModOptions.addAll(IMainOptions.vanillaSettingsUI());
 //		allModOptions.addAll(IMainOptions.mainOptionsUI());
-		allModOptions.addAll(IMainOptions.commonOptions());
+		allModOptions.addAll(IMainOptions.commonOptionsMap().getList());
 		allModOptions.add(IMainOptions.realNebulaSize);
 		allModOptions.add(IMainOptions.realNebulaShape);
 		allModOptions.add(IMainOptions.realNebulaeOpacity);
 		allModOptions.add(IMainOptions.showGuide);
 		allModOptions.add(IMainOptions.disableAutoHelp);
 		allModOptions.add(IMainOptions.defaultSettings);
-		allModOptions.addAll(IDebugOptions.debugOptions());
-		allModOptions.addAll(ICombatOptions.combatOptions());
-		allModOptions.addAll(IIronmanOptions.ironmanOptions());
-		allModOptions.addAll(IMainOptions.specieNameOptions());
+		allModOptions.addAll(IDebugOptions.debugOptionsMap().getList());
+		allModOptions.addAll(ICombatOptions.combatOptionsMap().getList());
+		allModOptions.addAll(IIronmanOptions.ironmanOptionsMap().getList());
+		allModOptions.addAll(IMainOptions.specieNameOptionsMap().getList());
 		allModOptions.remove(null);
 		// Then create the final list (LinkedHashSet don't offer the .get(index) method)
-		LinkedList<IParam> options = new LinkedList<>();
+		SafeListParam options = new SafeListParam();
 		options.addAll(allModOptions);
 		return options;
 	};
 
 	// ==================== GUI List Declarations ====================
 	//
-	static LinkedList<IParam> allCfgOptions() {
-		LinkedList<IParam> list = new LinkedList<>();
+	static SafeListParam allCfgOptions() {
+		SafeListParam list = new SafeListParam();
 		for(IParam param:getAllModOptions())
 			if (param.isCfgFile())
 				list.add(param);
 		return list;
 	}
-	static LinkedList<IParam> allDuplicateOptions() {
-		LinkedList<IParam> list = new LinkedList<>();
+	static SafeListParam allDuplicateOptions() {
+		SafeListParam list = new SafeListParam();
 		for(IParam param:getAllModOptions())
 			if (param.isCfgFile() && param.isDuplicate())
 				list.add(param);
 		return list;
 	}
-	static LinkedList<IParam> allNotCfgOptions() {
-		LinkedList<IParam> list = new LinkedList<>();
+	static SafeListParam allNotCfgOptions() {
+		SafeListParam list = new SafeListParam();
 		for(IParam param:getAllModOptions())
 			if (!param.isCfgFile())
 				list.add(param);
 		return list;
 	}
-//	static LinkedList<IParam> allOptions() {
+//	static SafeListParam allOptions() {
 //		// Start with a set to filter duplicates
 //		LinkedHashSet<IParam> allOptions = new LinkedHashSet<>();
 //		allOptions.addAll(IPreGameOptions.modStaticAOptions());
@@ -153,13 +154,13 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 //		allOptions.addAll(IIronmanOptions.ironmanOptions());
 //		allOptions.remove(null);
 //		// Then create the final list (LinkedHashSet don't offer the .get(index) method)
-//		LinkedList<IParam> options = new LinkedList<>();
+//		SafeListParam options = new SafeListParam();
 //		options.addAll(allOptions);
 //		return options;
 //	}
 //    // All the Global parameters
-//	static LinkedList<IParam> globalOptions(boolean initialList) {
-//		LinkedList<IParam> globalOptions = new LinkedList<>();
+//	static SafeListParam globalOptions(boolean initialList) {
+//		SafeListParam globalOptions = new SafeListParam();
 //		globalOptions.addAll(IMainOptions.mainOptionsUI());
 //		globalOptions.remove(debugOptionsUI);
 //		globalOptions.remove(combatOptionsUI);
@@ -183,8 +184,8 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 //	}
 	// ==================== GUI Sub List Declarations ====================
 	//
-	static LinkedList<ParamSubUI> subPanelList() {
-		LinkedList<ParamSubUI> list = new LinkedList<>();
+	static List<ParamSubUI> subPanelList() {
+		List<ParamSubUI> list = new ArrayList<>();
 		list.add(debugOptionsUI);
 		list.add(customRandomEventUI);
 		list.add(governorOptionsUI);

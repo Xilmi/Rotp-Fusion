@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -21,7 +20,6 @@ import rotp.Rotp;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.util.GlobalCROptions;
-import rotp.ui.util.IParam;
 import rotp.ui.util.LinkData;
 import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamBoolean;
@@ -101,9 +99,9 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	default int numberStarSystems(String size, IGameOptions opts) {
 		return GOI().getNumberStarSystems(size, opts);
 	}
-	default LinkedList<IParam>	optionsGalaxy()			{ return GOI().optionsGalaxy; }
+	default SafeListParam	optionsGalaxy()			{ return GOI().optionsGalaxy; }
 
-	static LinkedList<IParam> getOptionsGalaxy()		{ return GOI().optionsGalaxy; }
+	static SafeListParam getOptionsGalaxy()		{ return GOI().optionsGalaxy; }
 	static ParamList		  getSizeSelection()		{ return GOI().sizeSelection; }
 	static ParamList		  getDifficultySelection()	{ return GOI().difficultySelection; }
 	static ParamInteger		  getAliensNumber()			{ return GOI().aliensNumber; }
@@ -599,7 +597,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	
 		// ==================== GUI List Declarations ====================
 		//
-		private final LinkedList<IParam> optionsGalaxy = new LinkedList<>(
+		private final SafeListParam optionsGalaxy = new SafeListParam(
 				Arrays.asList(
 						showNewRaces, globalCROptions, useSelectableAbilities, shapeOption3,
 						galaxyRandSource, previewNebula,

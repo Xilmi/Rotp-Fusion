@@ -4,10 +4,10 @@ import static rotp.model.galaxy.StarSystem.getMinFont;
 import static rotp.model.galaxy.StarSystem.setFontPct;
 import static rotp.model.galaxy.StarSystem.setMinFont;
 import static rotp.model.galaxy.StarSystem.setMinFont2;
+import static rotp.model.game.DefaultValues.DEF_VAL;
 import static rotp.model.game.DefaultValues.FUSION_DEFAULT;
 import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
-import static rotp.model.game.DefaultValues.DEF_VAL;
 import static rotp.ui.UserPreferences.backupTurns;
 import static rotp.ui.UserPreferences.disableAdvisor;
 import static rotp.ui.UserPreferences.displayMode;
@@ -40,7 +40,6 @@ import java.awt.event.MouseWheelEvent;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import javax.swing.JFileChooser;
 
@@ -50,7 +49,6 @@ import rotp.ui.UserPreferences;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.MainOptionsUI;
-import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolInt;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -710,7 +708,6 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		return new ParamSubUI( MOD_UI, "NAME_OPTIONS_UI", specieNameOptionsMap(),
 				"NAME_OPTIONS_TITLE", NAME_GUI_ID).isCfgFile(true);
 	}
-	static SafeListParam specieNameOptions() { return specieNameOptionsMap().getSingleList(); }
 	static SafeListPanel specieNameOptionsMap()	{
 		SafeListPanel map = new SafeListPanel();
 		map.add(new SafeListParam(Arrays.asList(
@@ -729,8 +726,8 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				)));
 		return map;
 	}
-	static LinkedList<IParam> vanillaSettingsUI() {
-		LinkedList<IParam> options  = new LinkedList<>(
+	static SafeListParam vanillaSettingsUI() {
+		SafeListParam options  = new SafeListParam(
 				Arrays.asList(
 						displayMode, graphicsMode,
 						texturesMode, sensitivityMode,
@@ -806,6 +803,4 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		return new ParamSubUI( MOD_UI, COMMON_GUI_ID, commonOptionsMap())
 				.isCfgFile(false);
 	}
-
-	static SafeListParam commonOptions() { return commonOptionsMap().getSingleList(); }
 }

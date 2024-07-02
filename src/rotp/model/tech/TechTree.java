@@ -818,7 +818,7 @@ public final class TechTree implements Base, Serializable {
     public float scoutRange() {
        return shipRange() + topReserveFuelRangeTech().range();
     }
-    public float baseFactoryCost() {
+    public float bestFactoryCost() {
         return topImprovedIndustrialTech == null ? TechImprovedIndustrial.BASE_FACTORY_COST : topImprovedIndustrialTech().factoryCost;
     }
     public float factoryWasteMod() {
@@ -829,13 +829,13 @@ public final class TechTree implements Base, Serializable {
     }
     public float maxFactoryCost() {
         // ignoreFactoryRefit = always use RC2 has basis for factory cost
-        int controls = empire.ignoresFactoryRefit() ?  TechRoboticControls.BASE_ROBOT_CONTROLS : baseRobotControls();
+        int controls = empire.ignoresFactoryRefit() ?  TechRoboticControls.BASE_ROBOT_CONTROLS : topRobotControls();
         return newFactoryCost(controls);
     }
     public float newFactoryCost(int controls) {
-        return baseFactoryCost() * controls / 2;
+        return bestFactoryCost() * controls / 2;
     }
-    public int baseRobotControls() {
+    public int topRobotControls() { // BR: renamed from baseRobotControls... was misleading
         return topRoboticControlsTech == null ? TechRoboticControls.BASE_ROBOT_CONTROLS : topRoboticControlsTech().mark;
     }
     public MissileBase newMissileBase() {

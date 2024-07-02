@@ -360,7 +360,7 @@ public class AIGeneral implements Base, General {
         }
         expectedFactoriesAtArrival = max(0, expectedFactoriesAtArrival - destroyed);
         
-        float facSavings = expectedFactoriesAtArrival * (empire.tech().baseFactoryCost() - 2) + sys.planet().alienFactories(empire.id) * empire.tech().baseFactoryCost();
+        float facSavings = expectedFactoriesAtArrival * (empire.tech().bestFactoryCost() - 2) + sys.planet().alienFactories(empire.id) * empire.tech().bestFactoryCost();
         float invasionGain = facSavings;
         List<Tech> possibleTechs = v.empire().tech().techsUnknownTo(empire, true);
         float avgTechCost = 0;

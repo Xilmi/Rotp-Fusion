@@ -67,6 +67,11 @@ Later:
 
 ## What's New
 
+2024.07.02 (BR)
+- Fixed factory estimation error.
+- Factory estimation will show refit requirement.
+- Added help for "smart-max".
+
 2024.07.01 (BR)
 - Safer, quicker and less memory consuming list for option management.
 

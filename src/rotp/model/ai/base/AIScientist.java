@@ -777,7 +777,7 @@ public class AIScientist implements Base, Scientist {
             return 0;
 
         // increased value when increased roboticc controls
-        float adj = empire.tech().baseRobotControls() / TechRoboticControls.BASE_ROBOT_CONTROLS;
+        float adj = empire.tech().topRobotControls() / TechRoboticControls.BASE_ROBOT_CONTROLS;
         // scale add'l prevention assuming 5x factories (2BC from starting 10) is best (level 50)
         // with max robot controls (adj = 7/2 = 3.5)
         // these don't compound because the value of this tech plummets when no factories to build

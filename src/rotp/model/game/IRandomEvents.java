@@ -323,5 +323,5 @@ public interface IRandomEvents extends IBaseOptsTools {
 		return new ParamSubUI(MOD_UI, "RANDOM_EVENTS_UI", customRandomEventMap(),
 				"RANDOM_EVENTS_TITLE", RANDOM_EVENTS_GUI_ID);
 	}
-	static SafeListParam customRandomEventOptions() { return customRandomEventMap().getSingleList(); }
+	static SafeListParam customRandomEventOptions() { return customRandomEventMap().getList(); }
 }

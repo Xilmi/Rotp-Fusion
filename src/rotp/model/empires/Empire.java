@@ -4036,7 +4036,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public boolean ignoresFactoryRefit()       { return dataRace().ignoresFactoryRefit(); }
     public boolean canResearch(Tech t)         { return t.canBeResearched(dataRace()); }
     public int maxRobotControls() {
-        return tech.baseRobotControls() + robotControlsAdj();
+        return tech.topRobotControls() + robotControlsAdj();
     }
     public int baseRobotControls() {
         return TechRoboticControls.BASE_ROBOT_CONTROLS + robotControlsAdj();

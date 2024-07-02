@@ -110,7 +110,7 @@ public final class ShipCombatResults implements Base {
         }
         if (defender == e) {
             bc += (basesDestroyed * e.tech().newMissileBaseCost());
-            bc += (factoriesDestroyed() * e.tech().baseFactoryCost());
+            bc += (factoriesDestroyed() * e.tech().bestFactoryCost());
             bc += (popDestroyed() * (e.tech().populationCost()+e.workerProductivity()));
         }
         float prod = e == null ? 0 : e.totalPlanetaryProduction();

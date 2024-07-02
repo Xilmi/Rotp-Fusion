@@ -345,20 +345,27 @@ public class EmpireColonySpendingPane extends BasePanel {
 
             if (category == Colony.INDUSTRY)  {
             	ColonyIndustry industry = colony.industry();
-            	float[] factoryBalance = industry.factoryBalance();
-            	float balance	= factoryBalance[0];
+            	Float[] factoryBalance = industry.factoryBalance();
+            	Float balance	= factoryBalance[0];
             	// float upcoming	= factoryBalance[1];
             	// float needed	= factoryBalance[2];
             	// float factories	= factoryBalance[3];
             	// float max		= factoryBalance[4];
-            	String indStr	= df1.format(Math.abs(balance));
-            	// boolean overTheMax	= factories == max && upcoming > 0;
-            	boolean rightAmount	= balance == 0;
-            	// boolean overTheNeed	= factories != max && balance > 0;
-            	
+            	String indStr = "";
+            	boolean rightAmount;
+            	if (balance == null)
+            		rightAmount = false;
+            	else {
+            		indStr	= df1.format(Math.abs(balance));
+            		rightAmount	= (balance == 0);
+            	}
             	boolean warning = !rightAmount && !colony.isGovernor();
             	if (warning) {
-                	if (balance > 0) {
+            		if (balance == null) {
+                 		indStr = text("MAIN_COLONY_SPENDING_REFIT");
+                 		g.setColor(Color.LIGHT_GRAY);
+            		}
+            		else if (balance > 0) {
                 		indStr = text("MAIN_COLONY_SPENDING_UNUSED_FACT", df1.format(balance));
                 		g.setColor(Color.ORANGE);
                 		g.fill(fillRect);

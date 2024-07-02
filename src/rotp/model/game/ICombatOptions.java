@@ -199,5 +199,4 @@ public interface ICombatOptions extends IBaseOptsTools {
 		return new ParamSubUI( MOD_UI, "ZOOM_OPTIONS_UI", combatOptionsMap(),
 				"ZOOM_OPTIONS_TITLE", ZOOM_GUI_ID).isCfgFile(true);
 	}
-	static SafeListParam combatOptions() { return combatOptionsMap().getSingleList(); }
 }

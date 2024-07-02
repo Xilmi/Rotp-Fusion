@@ -46,7 +46,7 @@ public final class TechImprovedIndustrial extends Tech {
         }
     }
     @Override
-    public boolean isObsolete(Empire c) { return factoryCost > c.tech().baseFactoryCost(); }
+    public boolean isObsolete(Empire c) { return factoryCost > c.tech().bestFactoryCost(); }
     @Override
     public float baseValue(Empire c) { return c.ai().scientist().baseValue(this); }
     @Override

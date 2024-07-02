@@ -1,9 +1,5 @@
 package rotp.model.game;
 
-import java.util.LinkedList;
-
-import rotp.ui.util.IParam;
-
 public class ModOptions implements IModOptions {
 
 	@Override public int id()							{ return 0; }
@@ -16,9 +12,9 @@ public class ModOptions implements IModOptions {
 	@Override public void loadStartupOptions()			{ }
 	@Override public void resetAllNonCfgSettingsToDefault()	{ }
 	@Override public void saveOptionsToFile(String s)	{ }
-	@Override public void saveOptionsToFile(String s, LinkedList<IParam> p)	{ }
-	@Override public void updateFromFile(String s, LinkedList<IParam> p)	{ }
-	@Override public void resetPanelSettingsToDefault(LinkedList<IParam> p,
+	@Override public void saveOptionsToFile(String s, SafeListParam p)	{ }
+	@Override public void updateFromFile(String s, SafeListParam p)	{ }
+	@Override public void resetPanelSettingsToDefault(SafeListParam p,
 								boolean excludeCfg, boolean excludeSubMenu)	{ }
 	@Override public void copyAliensAISettings(IGameOptions dest)			{ }
 	@Override public void updateAllNonCfgFromFile(String fileName)			{ }

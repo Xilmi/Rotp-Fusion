@@ -1634,7 +1634,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	private class MainMenu extends CommandMenu {
 		MainMenu  (String name) {
 			super(name);
-			addMenu(new CommandMenu("Global Settings Menu", this, IMainOptions.commonOptions()));
+			addMenu(new CommandMenu("Global Settings Menu", this, IMainOptions.commonOptionsMap().getList()));
 			speciesMenu = new SpeciesMenu("Player Species Menu", this);
 			setupMenu = new SetupMenus("New Setup Menu", this);
 			addMenu(setupMenu);
@@ -1663,7 +1663,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 			super(name, parent);
 			researchMenu	 = researchView.initTechMenu(this);
 			designMenu		 = designView.initDesignMenu(this);
-			addMenu(new CommandMenu("In Game Settings Menu", this, IInGameOptions.inGameOptions()));
+			addMenu(new CommandMenu("In Game Settings Menu", this, IInGameOptions.inGameOptionsMap().getList()));
 			addMenu(new CommandMenu("Governor Menu", this, GovernorOptions.governorOptionsUI));
 			addMenu(researchMenu);
 			addMenu(designMenu);

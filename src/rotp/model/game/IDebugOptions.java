@@ -181,5 +181,4 @@ public interface IDebugOptions extends IBaseOptsTools {
 		return new ParamSubUI( MOD_UI, "DEBUG_OPTIONS_UI", IDebugOptions.debugOptionsMap(),
 				"DEBUG_OPTIONS_TITLE", DEBUG_GUI_ID).isCfgFile(true);
 	}
-	static SafeListParam debugOptions() { return IDebugOptions.debugOptionsMap().getSingleList(); }
 }

@@ -377,7 +377,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			oppAbilities[i] = new Box(specificAbilities, i);
 		for (int i=0;i<oppAI.length;i++)
 			oppAI[i] = new Box(specificAI, i);
-		duplicateList = new LinkedList<>();
+		duplicateList = new SafeListParam();
 		duplicateList.add(opts.difficultySelection());
 		duplicateList.add(opts.shapeSelection());
 		duplicateList.add(opts.sizeSelection());

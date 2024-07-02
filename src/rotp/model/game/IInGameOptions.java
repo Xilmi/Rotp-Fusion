@@ -303,9 +303,6 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default float aiDefenseConfidence()		{ return aiDefenseConfidence.get()/100f; }
 
 	// ==================== GUI List Declarations ====================
-	SafeListParam inGameOptions	= inGameOptions();
-	static SafeListParam inGameOptions() { return inGameOptionsMap().getSingleList(); }
-
 	static SafeListPanel inGameOptionsMap()	{
 		SafeListPanel map = new SafeListPanel();
 		map.add(new SafeListParam(Arrays.asList(

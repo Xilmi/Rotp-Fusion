@@ -474,7 +474,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 else if(target.isColony())
                 {
                     CombatStackColony csCol = (CombatStackColony) target;
-                    valueMod = csCol.colony.population() * csCol.colony.empire().tech().populationCost() + csCol.colony.industry().factories() * csCol.colony.empire().tech().baseFactoryCost();
+                    valueMod = csCol.colony.population() * csCol.colony.empire().tech().populationCost() + csCol.colony.industry().factories() * csCol.colony.empire().tech().bestFactoryCost();
                     if(killPct > 0.9f && !empire.generalAI().allowedToBomb(target.mgr.system()) && !facingOverwhelmingForce(stack, true))
                         valueMod = 0;
                 }

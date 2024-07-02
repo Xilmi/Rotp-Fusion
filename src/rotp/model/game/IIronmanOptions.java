@@ -67,5 +67,4 @@ public interface IIronmanOptions extends IBaseOptsTools {
 		return new ParamSubUI( MOD_UI, "IRONMAN_OPTIONS_UI", ironmanOptionsMap(),
 				"IRONMAN_OPTIONS_TITLE", IRONMAN_GUI_ID).isCfgFile(true);
 	}
-	static SafeListParam ironmanOptions() { return ironmanOptionsMap().getSingleList(); }
 }

@@ -186,5 +186,4 @@ public interface IFlagOptions extends IBaseOptsTools {
 		return new ParamSubUI( MOD_UI, "AUTO_FLAG_UI", autoFlagOptionsMap(),
 				"AUTO_FLAG_TITLE", AUTO_FLAG_GUI_ID);
 	}
-	static SafeListParam autoFlagOptions() { return autoFlagOptionsMap().getSingleList(); }
 }

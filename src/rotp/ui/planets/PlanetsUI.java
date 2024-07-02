@@ -70,6 +70,7 @@ import rotp.ui.fleets.SystemListingUI.DataView;
 import static rotp.ui.fleets.SystemListingUI.LEFT;
 import static rotp.ui.fleets.SystemListingUI.RIGHT;
 import rotp.ui.game.HelpUI;
+import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.EmpireColonyFoundedPane;
 import rotp.ui.main.EmpireColonyInfoPane;
 import rotp.ui.main.EmpireColonySpendingPane;
@@ -349,10 +350,45 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         sp8.setLine(scaled(400), y8+sp8.height(), scaled(400), scaled(660));
         
     }
+    private void loadSmartMaxHelp() {
+    	int w = getWidth();
+    	HelpUI helpUI = RotPUI.helpUI();
+    	
+    	int w0 = scaled(250);
+        int x0 = w - w0 - s10;
+        int y0 = scaled(270);
+        int w1 = scaled(340);
+        int x1 = x0 - w1 - scaled(30);
+        int y1 = scaled(300);
+        int xe = w-scaled(75);
+        int ye = scaled(325);
+        int dye = s30;
+        
+        helpUI.addBrownHelpText(x0, y0, w0, 1, text("MAIN_HELP_4A"));
+
+        HelpSpec sp2s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4B"));
+        sp2s.setLine(x1+w1, y1+(sp2s.height()/2), xe, ye);
+        y1 += (sp2s.height()+s5);
+        ye += dye;
+        HelpSpec sp3s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4C"));
+        sp3s.setLine(x1+w1, y1+(sp3s.height()/3), xe, ye);
+        y1 += (sp3s.height()+s5);
+        ye += dye;
+        HelpSpec sp4s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4D"));
+        sp4s.setLine(x1+w1, y1+(sp4s.height()/4), xe, ye);
+        y1 += (sp4s.height()+s5);
+        ye += dye;
+        HelpSpec sp5s = helpUI.addBrownHelpText(x1, y1, w1, 4, text("MAIN_HELP_4E"));
+        sp5s.setLine(x1+w1, y1+(sp5s.height()/4), xe, ye);
+        y1 += (sp5s.height()+s5);
+        ye += dye;
+        HelpSpec sp6s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4F"));
+        sp6s.setLine(x1+w1, y1+(sp6s.height()/4), xe, ye);
+    }
     private void loadHelpUI2a() {
         HelpUI helpUI = RotPUI.helpUI();
 
-        int x1 = scaled(200);
+        int x1 = scaled(100);
         int w1 = scaled(400);
         int y1 = scaled(350);
         helpUI.addBrownHelpText(x1, y1, w1, 4, text("PLANETS_HELP_ALL"));
@@ -404,11 +440,13 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         int y8 = scaled(100);
         HelpUI.HelpSpec sp8 = helpUI.addBrownHelpText(x8,y8,w8, 3, text("PLANETS_HELP_2G"));
         sp8.setLine(scaled(805), y8, scaled(805), s77);
+
+        loadSmartMaxHelp();
     }
     private void loadHelpUI2b() {
         HelpUI helpUI = RotPUI.helpUI();
 
-        int x1 = scaled(200);
+        int x1 = scaled(100);
         int w1 = scaled(400);
         int y1 = scaled(350);
         helpUI.addBrownHelpText(x1, y1, w1, 4, text("PLANETS_HELP_ALL"));
@@ -466,11 +504,13 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         int y8 = scaled(190);
         HelpUI.HelpSpec sp8 = helpUI.addBrownHelpText(x8,y8,w8, 3, text("PLANETS_HELP_3G"));
         sp8.setLine(scaled(835), y8, scaled(835), s77);
+
+        loadSmartMaxHelp();
     }
     private void loadHelpUI2c() {
         HelpUI helpUI = RotPUI.helpUI();
 
-        int x1 = scaled(200);
+        int x1 = scaled(100);
         int w1 = scaled(400);
         int y1 = scaled(350);
         helpUI.addBrownHelpText(x1, y1, w1, 4, text("PLANETS_HELP_ALL"));
@@ -528,6 +568,8 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         int y9 = scaled(190);
         HelpUI.HelpSpec sp9 = helpUI.addBrownHelpText(x9,y9,w9, 3, text("PLANETS_HELP_4H"));
         sp9.setLine(scaled(865), y9, scaled(865), s77);
+
+        loadSmartMaxHelp();
     }
     @Override
     public void paintComponent(Graphics g0) {

@@ -49,7 +49,7 @@ public final class TechRoboticControls extends Tech {
     public boolean isRoboticControlsTech()  { return true; }
     @Override
     public boolean isObsolete(Empire c) {
-        return mark < c.tech().baseRobotControls();
+        return mark < c.tech().topRobotControls();
     }
     @Override
     public float baseValue(Empire c) { return c.ai().scientist().baseValue(this); }
