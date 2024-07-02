@@ -18,8 +18,6 @@ package rotp.ui.main;
 import static rotp.model.colony.Colony.DEFENSE;
 import static rotp.model.colony.Colony.ECOLOGY;
 import static rotp.model.colony.Colony.INDUSTRY;
-import static rotp.model.colony.Colony.RESEARCH;
-import static rotp.model.colony.Colony.SHIP;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -68,7 +66,7 @@ public class EmpireColonySpendingPane extends BasePanel {
 
     Color borderHi, borderLo, textC, backC;
 
-    EmpireSliderPane shipSlider, defSlider, indSlider, ecoSlider, researchSlider;
+    private EmpireSliderPane shipSlider, defSlider, indSlider, ecoSlider, researchSlider;
 
     private final SystemViewer parent;
     private GalaxyMapPanel mapListener;
@@ -122,7 +120,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             	else if (e.isControlDown())
             		shipSlider.toggleLock();
             	else if (e.isAltDown())
-            		shipSlider.smoothMaxSlider(true, null);
+            		shipSlider.smoothMaxClick(true, null);
+//            		shipSlider.leftClickResultBox(true, null);
                 return;
             case KeyEvent.VK_2:
 //                switch (mods) {
@@ -138,7 +137,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             	else if (e.isControlDown())
             		defSlider.toggleLock();
             	else if (e.isAltDown())
-            		defSlider.smoothMaxSlider(true, null);
+            		defSlider.smoothMaxClick(true, null);
+//            		defSlider.leftClickResultBox(true, null);
                 return;
             case KeyEvent.VK_3:
 //                switch (mods) {
@@ -154,7 +154,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             	else if (e.isControlDown())
             		indSlider.toggleLock();
             	else if (e.isAltDown())
-            		indSlider.smoothMaxSlider(true, null);
+            		indSlider.smoothMaxClick(true, null);
+//            		indSlider.leftClickResultBox(true, null);
                 return;
             case KeyEvent.VK_4:
 //                switch (mods) {
@@ -170,7 +171,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             	else if (e.isControlDown())
             		ecoSlider.toggleLock();
             	else if (e.isAltDown())
-            		ecoSlider.smoothMaxSlider(true, null);
+            		ecoSlider.smoothMaxClick(true, null);
+//            		ecoSlider.leftClickResultBox(true, null);
                 return;
             case KeyEvent.VK_5:
 //                switch (mods) {
@@ -186,7 +188,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             	else if (e.isControlDown())
             		researchSlider.toggleLock();
             	else if (e.isAltDown())
-            		researchSlider.smoothMaxSlider(true, null);
+            		researchSlider.smoothMaxClick(true, null);
+//            		researchSlider.leftClickResultBox(true, null);
                 return;
             case KeyEvent.VK_Q:
             {
@@ -200,9 +203,9 @@ public class EmpireColonySpendingPane extends BasePanel {
             }
         }
     }
-    class EmpireSliderPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+    private class EmpireSliderPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
-        EmpireColonySpendingPane mgmtPane;
+        //EmpireColonySpendingPane mgmtPane;
         private final Polygon leftArrow = new Polygon();
         private final Polygon rightArrow = new Polygon();
         private final Rectangle labelBox = new Rectangle();
@@ -215,8 +218,8 @@ public class EmpireColonySpendingPane extends BasePanel {
         private final int rightButtonX[] = new int[3];
         private final int rightButtonY[] = new int[3];
         private final int category;
-        EmpireSliderPane(EmpireColonySpendingPane ui, int cat) {
-            mgmtPane = ui;
+        private EmpireSliderPane(EmpireColonySpendingPane ui, int cat) {
+            //mgmtPane = ui;
             category = cat;
             init();
         }
@@ -438,7 +441,7 @@ public class EmpireColonySpendingPane extends BasePanel {
         private int boxBottomY()        { return getHeight()-s6; }
         private int boxBorderW()        { return s3; }
 
-        public void decrement(boolean click) {
+        private void decrement(boolean click) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -462,7 +465,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             else if (click)
                 misClick();
         }
-        public void smoothMaxSlider(boolean click, MouseEvent e) {
+/*        private void leftClickResultBox(boolean click, MouseEvent e) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -483,8 +486,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             colony.redistributeReducedEcoSpending();
 
             parent.repaint();
-        }
-        public void maxSlider(boolean click, MouseEvent e) {
+        } */
+/*        private void maxSlider(boolean click, MouseEvent e) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -528,8 +531,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             if (click)
                 softClick();
             parent.repaint();
-        }
-        public void rightClickResultBox(boolean click, MouseEvent e) {
+        } */
+/*        private void rightClickResultBox(boolean click, MouseEvent e) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -556,12 +559,12 @@ public class EmpireColonySpendingPane extends BasePanel {
                     RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
                     mapListener.repaintTechStatus();
                 }
-            }
+            } 
             if (click)
                 softClick();
             parent.repaint();
-        }
-        public void middleClickResultBox(boolean click, MouseEvent e) {
+        } */
+/*        private void middleClickResultBox(boolean click, MouseEvent e) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -593,8 +596,86 @@ public class EmpireColonySpendingPane extends BasePanel {
             if (click)
                 softClick();
             parent.repaint();
+        } */
+        private void clearMaxClick(boolean click, MouseEvent e) {
+            StarSystem sys = parent.systemViewToDisplay();
+            if (sys == null)
+                return;
+            Colony colony = sys.colony();
+            if (colony == null)
+                return;
+            if (colony.locked(category)) {
+            	misClick();
+            	return;
+            }
+
+            if (e!=null && e.isControlDown()) // TODO BR: Think more about this
+        		colony.toggleOrder(category);
+
+        	float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
+
+            colony.clearUnlockedSpending();
+            int allocation = colony.allocationRemaining();
+            int allocationNeeded = colony.category(category).smartAllocationNeeded(e);
+            allocation = min(allocation, allocationNeeded);
+            if(allocation == 0)
+                allocation = colony.allocationRemaining();
+            colony.setAllocation(this.category, allocation);
+
+        	if (category == ECOLOGY) {
+        		colony.redistributeReducedEcoSpending();
+        		colony.keepEcoLockedToClean = SwingUtilities.isMiddleMouseButton(e);
+        	}
+        	else 
+        		colony.checkEcoAtClean();
+
+        	if (mapListener == null)
+                RotPUI.instance().techUI().resetPlanetaryResearch();
+            else {
+                float techAdj = colony.totalPlanetaryResearch() - prevTech;
+                RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
+                mapListener.repaintTechStatus();
+            }
+
+            if (click)
+                softClick();
+            parent.repaint();
         }
-        public void increment(boolean click) {
+        private void smoothMaxClick(boolean click, MouseEvent e) { // TODO BR:
+            StarSystem sys = parent.systemViewToDisplay();
+            if (sys == null)
+                return;
+            Colony colony = sys.colony();
+            if (colony == null)
+                return;
+            if (colony.locked(category)) {
+            	misClick();
+            	return;
+            }
+
+            if (e!=null && e.isControlDown()) // TODO BR: Think more about this
+            	colony.toggleOrder(category);
+
+            colony.verifiedSmoothMaxSlider(category, e);
+
+            // TODO BR: Clean
+//            colony.checkEcoAtClean(); // BR: to avoid wrong setting if not clean!
+//            int allocationNeeded = colony.category(category).smartAllocationNeeded(e);
+//            int prevAllocation = colony.allocation(category);
+//            int incr = allocationNeeded > prevAllocation ? 1 : -1;
+//            int lim = (allocationNeeded - prevAllocation) * incr;
+//            for (int i=0; i<lim; i++) {
+//            	if(!colony.increment(category, incr))
+//            		break;
+//            }
+
+
+            if (click)
+                softClick();
+            parent.repaint();
+        }
+
+        private void increment(boolean click) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -618,7 +699,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             else if (click)
                 misClick();
         }
-        public void toggleLock() {
+        private void toggleLock() {
             softClick();
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
@@ -629,7 +710,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             colony.toggleLock(category);
             repaint();
         }
-        public void toggleOrder() {
+        private void toggleOrder() {
             softClick();
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
@@ -637,9 +718,14 @@ public class EmpireColonySpendingPane extends BasePanel {
             Colony colony = sys.colony();
             if (colony == null)
                 return;
-            if(colony.toggleOrder(category))
-            	smoothMaxSlider(true, null);;
-            repaint();
+	            switch (category) {
+		    	case DEFENSE:
+		    	case INDUSTRY:
+		    	case ECOLOGY:
+		    		colony.toggleOrder(category);
+		            repaint();
+		    		return;
+	            }
         }
         @Override
         public void mouseClicked(MouseEvent arg0) {}
@@ -670,12 +756,17 @@ public class EmpireColonySpendingPane extends BasePanel {
             else if (rightArrow.contains(x,y))
                 increment(true);
             else if (resultBox.contains(x,y))
-            	if (SwingUtilities.isRightMouseButton(e))
-            		rightClickResultBox(true, e);
-            	else if (SwingUtilities.isMiddleMouseButton(e))
-            		middleClickResultBox(true, e);
+            	if (e.isShiftDown())
+            		clearMaxClick(true, e);
             	else
-            		smoothMaxSlider(true, e);
+            		smoothMaxClick(true, e);
+            		
+//            	if (SwingUtilities.isRightMouseButton(e))
+//            		rightClickResultBox(true, e);
+//            	else if (SwingUtilities.isMiddleMouseButton(e))
+//            		middleClickResultBox(true, e);
+//            	else
+//            		leftClickResultBox(true, e);
 //            		maxSlider(true, e);
             else {
                 if (this.category < 0) {
@@ -753,7 +844,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                     increment(false);
             }
         }
-        public float pctBoxSelected(int x, int y) {
+        private float pctBoxSelected(int x, int y) {
             int bw = boxBorderW();
             int minX = sliderBox.x+bw;
             int maxX = sliderBox.x+sliderBox.width-bw;

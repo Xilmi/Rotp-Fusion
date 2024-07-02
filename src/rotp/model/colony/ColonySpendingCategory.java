@@ -15,7 +15,9 @@
  */
 package rotp.model.colony;
 
+import java.awt.event.MouseEvent;
 import java.io.Serializable;
+
 import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechTree;
@@ -103,4 +105,5 @@ public abstract class ColonySpendingCategory implements Base, Serializable {
         return allocation() - oldValue;
     }
     public float excessSpending()     { return 0; }
+    public int smartAllocationNeeded(MouseEvent e) { return 0; }
 }

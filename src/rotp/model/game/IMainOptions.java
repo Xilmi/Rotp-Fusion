@@ -476,7 +476,8 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		}
 	}
 
-	ParamBoolean showPendingOrders	= new ParamBoolean(MOD_UI, "SHOW_PENDING_ORDERS", false);
+	ParamBoolean showPendingOrders	= new ParamBoolean(MOD_UI, "SHOW_PENDING_ORDERS", true)
+			.isCfgFile(true);
 	default boolean showPendingOrders()		{ return showPendingOrders.get(); }
 
 	ParamBoolean raceStatusLog		= new ParamBoolean(MOD_UI, "RACE_STATUS_LOG", false).isCfgFile(true);
@@ -769,7 +770,6 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ZOOM_FONT"),
 				mapFontFactor, showNameMinFont, showInfoFontRatio,
-				showPendingOrders,
 				
 				headerSpacer,
 				new ParamTitle("ZOOM_FLEET"),
@@ -785,6 +785,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 
 				headerSpacer,
 				new ParamTitle("GAME_UI_PREFERENCES"),
+				showPendingOrders,
 				raceStatusLog, disableAdvisor, disableAutoHelp,
 				originalSpeciesOnly,
 

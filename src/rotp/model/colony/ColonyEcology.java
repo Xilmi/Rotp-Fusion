@@ -15,6 +15,10 @@
  */
 package rotp.model.colony;
 
+import java.awt.event.MouseEvent;
+
+import javax.swing.SwingUtilities;
+
 import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechAtmosphereEnrichment;
@@ -524,5 +528,14 @@ public class ColonyEcology extends ColonySpendingCategory {
         float pctNeeded = min(1, needed / prod);
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
+    }
+    @Override public int smartAllocationNeeded(MouseEvent e) { //TODO BR: smartAllocationNeeded
+    	if (e==null || SwingUtilities.isLeftMouseButton(e))
+    		return maxAllocationNeeded();
+    	if (SwingUtilities.isRightMouseButton(e))
+    		return terraformAllocationNeeded();
+    	if (SwingUtilities.isMiddleMouseButton(e))
+    		return cleanupAllocationNeeded();
+    	return 0;
     }
 }

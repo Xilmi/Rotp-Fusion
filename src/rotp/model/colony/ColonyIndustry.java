@@ -15,6 +15,10 @@
  */
 package rotp.model.colony;
 
+import java.awt.event.MouseEvent;
+
+import javax.swing.SwingUtilities;
+
 import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechRoboticControls;
@@ -366,6 +370,72 @@ public class ColonyIndustry extends ColonySpendingCategory {
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }
+    private float spendingNeeded() {
+        float builtFactories = factories;
+        int colonyControls = robotControls;
+        float expectedMissingPopulation = planet().currentSize() - expectedPopulation();
+        float notTobuild = expectedMissingPopulation * tech().topRobotControls();
+        builtFactories += notTobuild;
+
+        float totalCost = 0;
+        int previouslyConvertedFactories = 0;
+        
+        // Cost of all
+        while (colonyControls <= tech().topRobotControls()) {
+            // how many total factories can we have at current controls?
+            float buildableFactories = maxBuildableFactories(colonyControls);
+            
+            // if we already have that many factories, then upgrade robotic controls if possible 
+            if (buildableFactories <= builtFactories) {
+                if (colonyControls == tech().topRobotControls())
+                    break; // no more robotic control upgrades, so quit
+                if (!empire().ignoresFactoryRefit()) {
+                    float refitCost = buildableFactories * tech().bestFactoryCost() / 2;
+                    totalCost += refitCost;
+                }
+                colonyControls++;
+            }          
+            // first, try to convert existing alien factories to our max build limit
+            if (builtFactories < buildableFactories) {
+                int convertableFactories = convertableAlienFactories(colonyControls)-previouslyConvertedFactories;
+                if (convertableFactories > 0) {
+                    float convertCost = convertableFactories * factoryConversionCost();
+                    float delta = convertCost/factoryConversionCost();
+                    totalCost += convertCost;
+                    builtFactories += delta;
+                    previouslyConvertedFactories += delta;
+                }
+            }
+            // second, try to build new factories at current controls
+            if (builtFactories < buildableFactories) {
+                float costPerFactory = tech().newFactoryCost(colonyControls);
+                float factoriesToBuild = buildableFactories-builtFactories;
+                float buildCost = factoriesToBuild * costPerFactory;
+                float delta = buildCost/costPerFactory;
+                totalCost += buildCost;
+                builtFactories += delta;
+            }
+        }
+        totalCost = max(0, totalCost-industryReserveBC);
+ 
+        // adjust cost for planetary production
+        // assume any amount over current production comes from reserve (no adjustment)
+        float totalBC = (colony().totalProductionIncome() * planet().productionAdj()) + colony().maxReserveIncome();
+        if (totalCost > totalBC)
+            totalCost += colony().totalProductionIncome() * (1 - planet().productionAdj());
+        else
+            totalCost *= colony().totalIncome() / totalBC;
+
+        return totalCost;
+    }
+    public int minAllocationNeeded() {
+        float needed = spendingNeeded();
+        if (needed <= 0)
+            return 0;
+        float pctNeeded = min(1, needed / colony().totalIncome());
+        int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
+        return ticks;
+    }
     private float expectedPopulation() {
     	float curentPopulation	 = colony().population();
        	float upcomingPopGrowth  = colony().ecology().upcomingPopGrowth(); // Next Turn
@@ -484,5 +554,14 @@ public class ColonyIndustry extends ColonySpendingCategory {
         int randomEmpId = p.randomAlienFactoryEmpire();
         p.addAlienFactories(randomEmpId, -1);
         newFactories++;
+    }
+    @Override public int smartAllocationNeeded(MouseEvent e) { //TODO BR: smartAllocationNeeded
+    	if (e==null || SwingUtilities.isLeftMouseButton(e))
+    		return maxAllocationNeeded();
+    	if (SwingUtilities.isRightMouseButton(e))
+    		return MAX_TICKS;
+    	if (SwingUtilities.isMiddleMouseButton(e))
+    		return minAllocationNeeded();
+    	return 0;
     }
 }

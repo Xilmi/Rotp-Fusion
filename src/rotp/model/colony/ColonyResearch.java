@@ -15,6 +15,10 @@
  */
 package rotp.model.colony;
 
+import java.awt.event.MouseEvent;
+
+import javax.swing.SwingUtilities;
+
 import rotp.model.empires.Empire;
 
 public class ColonyResearch extends ColonySpendingCategory {
@@ -96,5 +100,14 @@ public class ColonyResearch extends ColonySpendingCategory {
             return;
         projectBC = 0;
         unallocatedBC = 0;
+    }
+    @Override public int smartAllocationNeeded(MouseEvent e) { //TODO BR: smartAllocationNeeded
+    	if (e==null || SwingUtilities.isLeftMouseButton(e))
+    		return MAX_TICKS;
+    	if (SwingUtilities.isRightMouseButton(e))
+    		return MAX_TICKS;
+    	if (SwingUtilities.isMiddleMouseButton(e))
+    		return MAX_TICKS;
+    	return 0;
     }
 }

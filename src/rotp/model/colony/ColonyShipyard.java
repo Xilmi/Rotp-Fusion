@@ -15,6 +15,10 @@
  */
 package rotp.model.colony;
 
+import java.awt.event.MouseEvent;
+
+import javax.swing.SwingUtilities;
+
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
@@ -483,10 +487,12 @@ public class ColonyShipyard extends ColonySpendingCategory {
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     } 
-    public int smoothMaxAllocationNeeded() {
-    	int buildTarget = buildTarget();
-    	if (buildTarget <= 0)
-    		return 0;
+    private int targetMaxAllocationNeeded() {
+    	int buildTarget = buildLimit();
+    	if (buildingStargate)
+    		buildTarget = 1;
+    	if (buildTarget == 0)
+    		buildTarget = Integer.MAX_VALUE;
     	// Start at 1 tick, as even if 0BC are needed, no tick = no ship
     	for (int tick=1; tick<=MAX_TICKS; tick++) {
     		if (upcomingShipCount((float) tick / MAX_TICKS) >= buildTarget)
@@ -494,11 +500,20 @@ public class ColonyShipyard extends ColonySpendingCategory {
     	}
         return MAX_TICKS;
     }
-    private int buildTarget() {
-    	if (buildingStargate)
-    		return 1;
-    	if (buildLimit() == 0)
-    		return Integer.MAX_VALUE;
-    	return buildLimit();
+//    private int buildTarget() {
+//    	if (buildingStargate)
+//    		return 1;
+//    	if (buildLimit() == 0)
+//    		return Integer.MAX_VALUE;
+//    	return buildLimit();
+//    }
+    @Override public int smartAllocationNeeded(MouseEvent e) { //TODO BR: smartAllocationNeeded
+    	if (e==null || SwingUtilities.isLeftMouseButton(e)) // Target limit
+    		return targetMaxAllocationNeeded();
+    	if (SwingUtilities.isRightMouseButton(e)) // Max Available
+    		return MAX_TICKS;
+    	if (SwingUtilities.isMiddleMouseButton(e)) // AI suggestion, but free for future uses
+    		return maxAllocationNeeded();
+    	return 0;
     }
 }

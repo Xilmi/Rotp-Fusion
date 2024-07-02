@@ -694,13 +694,13 @@ MAIN_HELP_3H                      | Next Year - advances the game to the next ye
 MAIN_HELP_3I                      | Current Turn - displays the game's current turn or your empire's current year. Click to toggle.
 MAIN_HELP_3J                      | Map controls - click to cycle through various display settings for the galaxy map.
 // Smart-Max Help
-MAIN_HELP_4A                      | Smart Max will always keeps ECO clean.
+MAIN_HELP_4A                      | Smart Min/Max will always keeps ECO clean.<br>Smooth Min/Max is equivalent to clicking Up/Down arrow till reaching the target. <br>Shift-Click (Hard-Max) will first clear the unlocked spending, set the Max allocation, clean ECO, then redistribute the remaining BC with the same priorities as the "Next Turn" process.   
 MAIN_HELP_4B                      | Shipyard:<br> Left-Click: Min Allocation Needed up to build limit.<br> Right-Click: Max Allocation Available.
-MAIN_HELP_4C                      | Defenses:<br> Left-Click: Min Allocation Needed up to get bases limit. <br> Right-Click: Max Allocation Available.
-MAIN_HELP_4D                      | Industry:<br> Left-Click: Max Allocation Needed to finalize factories. <br> Right-Click: Max Allocation Needed to finalize factories.
-MAIN_HELP_4E                      | Ecology:<br> Left-Click: Max Allocation Needed to finalize Growth. <br> Right-Click: Max Allocation Needed to finalize terraform. <br>Mid-Click: Min Allocation Needed to stay clean.
-MAIN_HELP_4F                      | Technology:<br> Left-Click: Max Allocation Available. <br> Right-Click: Max Allocation Available.
-
+MAIN_HELP_4C                      | Defenses:<br> Left-Click: Min Allocation Needed up to get bases limit. <br> Right-Click: Max Allocation Available. <br>Mid-Click: Min Allocation Needed for the shield.
+MAIN_HELP_4D                      | Industry:<br> Left-Click: Min Allocation Needed to finalize factories. <br> Right-Click: Max Allocation Available. <br>Mid-Click: Min Allocation Needed to follow population growth.
+MAIN_HELP_4E                      | Ecology:<br> Left-Click: Min Allocation Needed to finalize Growth. <br> Right-Click: Min Allocation Needed to finalize terraform. <br>Mid-Click: Min Allocation Needed to stay clean.
+MAIN_HELP_4F                      | Technology:<br> Click: Max Allocation Available.
+MAIN_HELP_4G                      | Click here to lock / Unlock the spending. (Greyed when locked)<br>Ctrl-Click to cancel or restore colony orders. (The ones you can gives after a Technology update)<br> These fields are prioritized during the "Next Turn" process.<br> An option is available to show them in blue... or not.
 // modnar: shorten SystemData display
 MAIN_SYSTEM_DETAIL_PFB            | P:%1  F:%2  B:%3
 MAIN_SYSTEM_DETAIL_PF             | P:%1  F:%2
@@ -2710,7 +2710,7 @@ SETTINGS_MOD_ALLOW_SPECIES_DETAILS_DESC  | In the Empire Diplomacy panel, allows
 SETTINGS_MOD_ALLOW_SPECIES_DETAILS       | Allow Species Details: %1
 
 SETTINGS_MOD_SHOW_PENDING_ORDERS_DESC    | Spending categories having pending orders (Given after Technology update) are highlighted in blue.
-SETTINGS_MOD_SHOW_PENDING_ORDERS         | Show Orders: %1
+SETTINGS_MOD_SHOW_PENDING_ORDERS         | Show Colony Orders: %1
 
 SETTINGS_MOD_DARK_GALAXY_NO_DESC         | Not interested in dark galaxy mode.
 SETTINGS_MOD_DARK_GALAXY_NO              | No

@@ -367,6 +367,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
 				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
 				raceStatusLog, compactOptionOnly,
+				IMainOptions.showPendingOrders,
 				
 				headerSpacer,
 				new ParamTitle("XILMI_AI_OPTIONS"),

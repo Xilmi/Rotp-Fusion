@@ -70,7 +70,11 @@ Later:
 2024.07.02 (BR)
 - Fixed factory estimation error.
 - Factory estimation will show refit requirement.
+- Added min factory requirement for next turn growth.
 - Added help for "smart-max".
+- HelpUI: added option 0 lines to auto set their number.
+- Added Help for Colony order Toggle.
+- Both soft and hard smart-Min/Max are now available. Hard-smart respond to the Shift key.
 
 2024.07.01 (BR)
 - Safer, quicker and less memory consuming list for option management.

@@ -73,10 +73,18 @@ public class HelpUI extends BasePanel implements MouseListener {
     }
     public HelpSpec addBlueHelpText(int x, int y, int w, int num, String text, int x1, int y1, int x2, int y2, int x3, int y3) {
         HelpSpec sp = new HelpSpec();
+        if (num==0)
+        	sp.lines = getLineNumber(text, w);
+        else
+        	sp.lines = num;
+ 
+        if (y<0)
+        	sp.y = -y -sp.height();
+        else
+        	sp.y = y;
         sp.x = x;
-        sp.y = y;
         sp.w = w;
-        sp.lines = num;
+        	
         sp.x1 = x1;
         sp.y1 = y1;
         sp.x2 = x2;
@@ -88,7 +96,14 @@ public class HelpUI extends BasePanel implements MouseListener {
         specs.add(sp);
         return sp;
     }
-    
+    public int getLineNumber(String str, int maxWidth) {
+    	Graphics g = getGraphics();
+        int fontSize = FONT_SIZE;
+        g.setFont(narrowFont(fontSize));
+        List<String> lines = wrappedLines(g, str, maxWidth - s30);
+        g.dispose();
+        return lines.size();
+    }
     @Override
     public void paintComponent(Graphics g0) {
         super.paintComponent(g0);

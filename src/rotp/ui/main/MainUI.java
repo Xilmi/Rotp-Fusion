@@ -253,7 +253,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         if (spr instanceof StarSystem) {
             StarSystem sys = (StarSystem) spr;
             if (sys.empire() == player())
-                numHelpFrames = 3;
+                numHelpFrames = 4;
         }
         
         loadHelpUI();
@@ -466,6 +466,7 @@ public class MainUI extends BasePanel implements IMapHandler {
                 switch(helpFrame) {
                     case 1: loadEmpireColonyHelpFrame1(); break;
                     case 2: loadEmpireColonyHelpFrame2(); break;
+                    case 3: loadEmpireColonyHelpFrame3(); break;
                     default: loadButtonBarHelpFrame(); break;
                 }
             }
@@ -491,9 +492,9 @@ public class MainUI extends BasePanel implements IMapHandler {
     @Override
     public boolean hoverOverFlightPaths()          { return displayPanel.hoverOverFlightPaths(); }
     @Override
-    public boolean masksMouseOver(int x, int y)       { return displayPanelMasks(x, y) || overlay.masksMouseOver(x,y); }
+    public boolean masksMouseOver(int x, int y)    { return displayPanelMasks(x, y) || overlay.masksMouseOver(x,y); }
     @Override
-    public Color alertColor(SystemView sv)            { 
+    public Color alertColor(SystemView sv)         { 
         if (sv.isAlert())
             return redAlertC;
         return null; 
@@ -748,10 +749,10 @@ public class MainUI extends BasePanel implements IMapHandler {
     }
     private void addHotKeysFrame() {
         HelpUI helpUI = RotPUI.helpUI();
-        int xHK = scaled(50);
-        int yHK = scaled(35);
-        int wHK = scaled(475);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 39, text("MAIN_HELP_HK"));
+        int xHK = scaled(25);
+        int yHK = scaled(15);
+        int wHK = scaled(500);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 0, text("MAIN_HELP_HK"));
     }
     private void loadHotKeysFrame() {
         HelpUI helpUI = RotPUI.helpUI();
@@ -1000,6 +1001,71 @@ public class MainUI extends BasePanel implements IMapHandler {
         HelpSpec sp11 = helpUI.addBrownHelpText(x11, y11, w11, lines, txt);
         sp11.setLine(w-scaled(40), y11+sp11.height(), w-scaled(25), scaled(170));
     }
+    private void loadEmpireColonyHelpFrame3() { // BR: Smart max help
+        HelpUI helpUI = RotPUI.helpUI();
+        helpUI.clear();
+        HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 3, text("MAIN_HELP_ALL"));
+        s0.setLine(s100, s25, s30, s25);
+
+        int w = getWidth();
+        
+        Sprite spr = this.clickedSprite();
+        if (!(spr instanceof StarSystem))
+        	return;
+        if (((StarSystem) spr).empire() != player())
+        	return;
+        int w0 = scaled(280);
+        int x0 = w - w0 - scaled(670);
+        int w1 = scaled(400);
+        int x1 = w - w1 - scaled(260);
+        int y1 = s10;
+        int xe = w-scaled(75);
+        int ye = scaled(310);
+        int dye = s29;
+
+        HelpSpec sp2s = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_4B"));
+        sp2s.setLine(x1+w1, y1+(sp2s.height()*3/4), xe, ye);
+        y1 += (sp2s.height()+s5);
+        ye += dye;
+        HelpSpec sp3s = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_4C"));
+        sp3s.setLine(x1+w1, y1+(sp3s.height()*3/4), xe, ye);
+        y1 += (sp3s.height()+s5);
+        ye += dye;
+        HelpSpec sp4s = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_4D"));
+        sp4s.setLine(x1+w1, y1+(sp4s.height()/2), xe, ye);
+        y1 += (sp4s.height()+s5);
+        ye += dye;
+        HelpSpec sp5s = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_4E"));
+        sp5s.setLine(x1+w1, y1+(sp5s.height()/2), xe, ye);
+        y1 += (sp5s.height()+s5);
+        ye += dye;
+        HelpSpec sp6s = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_4F"));
+        sp6s.setLine(x1+w1, y1+(sp6s.height()/2), xe, ye);
+
+        int y0 = y1 + sp6s.height();
+        helpUI.addBrownHelpText(x0, -y0, w0, 0, text("MAIN_HELP_4A"));
+ 
+        y1 += (sp6s.height()+s5);
+        ye = scaled(437);
+        xe = w-scaled(230);
+        HelpSpec sp7s = helpUI.addBlueHelpText(x1, y1, w1, 0, text("MAIN_HELP_4G"));
+        sp7s.setLine(x1+w1, y1+(sp7s.height()/2), xe, ye);
+        int xb = xe;
+        int yb = ye;
+        int lx = xb - s17;
+        int rx = xb + s25;
+        int ty = ye - scaled(140);
+        int by = ye;
+        sp7s.setLineArr(xb, yb,
+        		lx, yb,
+        		lx, ty,
+        		rx, ty,
+        		rx, by,
+        		lx, by,
+        		lx, ty + s100
+           	    );
+
+    }
     private void loadButtonBarHelpFrame() {
         HelpUI helpUI = RotPUI.helpUI();
         helpUI.clear();
@@ -1060,43 +1126,6 @@ public class MainUI extends BasePanel implements IMapHandler {
         int w10 = scaled(250);
         HelpSpec sp10 = helpUI.addBlueHelpText(x10, y10, w10, 3, text("MAIN_HELP_3J"));
         sp10.setLine(x10, y10+(sp10.height()/2), s45, y10+(sp10.height()/2));
-
-        // BR: Smart max help
-        Sprite spr = this.clickedSprite();
-        if (!(spr instanceof StarSystem))
-        	return;
-        if (((StarSystem) spr).empire() != player())
-        	return;
-        int w0 = scaled(250);
-        int x0 = w - w0 - s5;
-        int y0 = s20;
-        w1 = scaled(340);
-        x1 = x0 - w1 - scaled(50);
-        y1 = y0;
-        int xe = w-scaled(75);
-        int ye = scaled(310);
-        int dye = s29;
-        
-        helpUI.addBrownHelpText(x0, y0, w0, 1, text("MAIN_HELP_4A"));
-
-        HelpSpec sp2s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4B"));
-        sp2s.setLine(x1+w1, y1+(sp2s.height()*3/4), xe, ye);
-        y1 += (sp2s.height()+s5);
-        ye += dye;
-        HelpSpec sp3s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4C"));
-        sp3s.setLine(x1+w1, y1+(sp3s.height()*3/4), xe, ye);
-        y1 += (sp3s.height()+s5);
-        ye += dye;
-        HelpSpec sp4s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4D"));
-        sp4s.setLine(x1+w1, y1+(sp4s.height()/2), xe, ye);
-        y1 += (sp4s.height()+s5);
-        ye += dye;
-        HelpSpec sp5s = helpUI.addBrownHelpText(x1, y1, w1, 4, text("MAIN_HELP_4E"));
-        sp5s.setLine(x1+w1, y1+(sp5s.height()/2), xe, ye);
-        y1 += (sp5s.height()+s5);
-        ye += dye;
-        HelpSpec sp6s = helpUI.addBrownHelpText(x1, y1, w1, 3, text("MAIN_HELP_4F"));
-        sp6s.setLine(x1+w1, y1+(sp6s.height()/2), xe, ye);
     }
     @Override
     public void keyPressed(KeyEvent e) {
