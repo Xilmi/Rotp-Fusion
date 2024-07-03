@@ -708,7 +708,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         checkEcoAtClean();
         
         if (reallocationRequired)
-            empire().governorAI().setColonyAllocations(this);            
+            empire().governorAI().setColonyAllocations(this);
 
     }
     public void addFollowUpSpendingOrder(float orderAmt) {

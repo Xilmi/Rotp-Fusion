@@ -3,11 +3,15 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Added Shape selection on "Tune Galaxy" panel.
-- Soil enrichment and atmospheric terraforming show their impact on planet size (+).
 - Fixed factory estimation error.
 - Factory estimation will show refit requirement.
+- Added min factory requirement for next turn growth.
 - Added help for "smart-max".
+- Added Help for Colony order Toggle.
+- Both smooth and smart Min/Max are now available. smart respond to the Shift key.
+- Spending Panel: added "Refresh" activated by "Ctrl-Click" using the "Next-Turn" logic.
+- Improved the help description. 
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -51,7 +55,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Max combat turns from 10 to 1000.
   - Option to continue after game over panel! (At your own risk)
   - New "war view" mode, toggled with "W" Key (Good companion of "F7"/"F8")
-  - Option to Default Forward Rallya and help to select the quickest way through stargates
+  - Option to Default Forward Rally and help to select the quickest way through stargates
   - Added Last spy report age in contact panel, and their last efficiencies.
   - Empire status can show max tech level.
   - Restart will now gives the same research tech list.
@@ -59,5 +63,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Transport Panel: auto refill option improvement.
   - Plenty of new Hotkeys: (Shift-F1 to reveal them)
   - Plenty of minor improvements.
+  - Improved Smart-Max.
 - AI: Stronger than ever.
 - Plenty of little bug fixes.

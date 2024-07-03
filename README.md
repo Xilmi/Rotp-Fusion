@@ -67,12 +67,18 @@ Later:
 
 ## What's New
 
+2024.07.03 (BR)
+- Spending Panel: added "Refresh" activated by "Ctrl-Click" using the "Next-Turn" logic.
+- Improved the help description. 
+
 2024.07.02 (BR)
 - Fixed factory estimation error.
 - Factory estimation will show refit requirement.
 - Added min factory requirement for next turn growth.
 - Added help for "smart-max".
-- HelpUI: added option 0 lines to auto set their number.
+- HelpUI:
+  - Added option 0 lines to auto set their number.
+  - added option negative y to set the bottom of the box.
 - Added Help for Colony order Toggle.
 - Both soft and hard smart-Min/Max are now available. Hard-smart respond to the Shift key.
 

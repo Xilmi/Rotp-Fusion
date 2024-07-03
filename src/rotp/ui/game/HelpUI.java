@@ -79,7 +79,7 @@ public class HelpUI extends BasePanel implements MouseListener {
         	sp.lines = num;
  
         if (y<0)
-        	sp.y = -y -sp.height();
+        	sp.y = -y - sp.height();
         else
         	sp.y = y;
         sp.x = x;
@@ -208,6 +208,10 @@ public class HelpUI extends BasePanel implements MouseListener {
         private Color lineC = Color.white;
         private String text;
         public int height() { return HelpUI.height(lines); }
+        public int x()	    { return x; }
+        public int y()	    { return y; }
+        public int xe()		{ return x + w; }
+        public int ye()		{ return y + height(); }
         public void setLine(int x1, int y1, int x2, int y2) {
             setLine(x1,y1,x2,y2,-1,-1);
         }
@@ -222,7 +226,7 @@ public class HelpUI extends BasePanel implements MouseListener {
         public void setLineArr(int... arr) {
         	lineArr = arr;
         }
-        int[] rect(int x, int y, int w, int h) {
+        public int[] rect(int x, int y, int w, int h) {
         	return new int[] {x, y, x+w, y, x+w, y+h, x, y+h, x, y};
         }
     }    

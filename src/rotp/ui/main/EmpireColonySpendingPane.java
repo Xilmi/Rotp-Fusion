@@ -18,6 +18,7 @@ package rotp.ui.main;
 import static rotp.model.colony.Colony.DEFENSE;
 import static rotp.model.colony.Colony.ECOLOGY;
 import static rotp.model.colony.Colony.INDUSTRY;
+import static rotp.model.colony.Colony.RESEARCH;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -107,12 +108,6 @@ public class EmpireColonySpendingPane extends BasePanel {
         int mods = e.getModifiersEx();
         switch (k) {
             case KeyEvent.VK_1:
-//                switch (mods) {
-//                    case 0: shipSlider.increment(true); break;
-//                    case 64: shipSlider.decrement(true); break;
-//                    case 128: shipSlider.toggleLock();    break;
-//                    default:  break;
-//                }
             	if (mods == 0) // No modifiers
             		shipSlider.increment(true);
             	else if (e.isShiftDown())
@@ -121,15 +116,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             		shipSlider.toggleLock();
             	else if (e.isAltDown())
             		shipSlider.smoothMaxClick(true, null);
-//            		shipSlider.leftClickResultBox(true, null);
                 return;
             case KeyEvent.VK_2:
-//                switch (mods) {
-//                    case 0: defSlider.increment(true); break;
-//                    case 64: defSlider.decrement(true); break;
-//                    case 128: defSlider.toggleLock();    break;
-//                    default: break;
-//                }
             	if (mods == 0) // No modifiers
             		defSlider.increment(true);
             	else if (e.isShiftDown())
@@ -138,15 +126,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             		defSlider.toggleLock();
             	else if (e.isAltDown())
             		defSlider.smoothMaxClick(true, null);
-//            		defSlider.leftClickResultBox(true, null);
                 return;
             case KeyEvent.VK_3:
-//                switch (mods) {
-//                    case 0: indSlider.increment(true); break;
-//                    case 64: indSlider.decrement(true); break;
-//                    case 128: indSlider.toggleLock();    break;
-//                    default: break;
-//                }
             	if (mods == 0) // No modifiers
             		indSlider.increment(true);
             	else if (e.isShiftDown())
@@ -155,15 +136,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             		indSlider.toggleLock();
             	else if (e.isAltDown())
             		indSlider.smoothMaxClick(true, null);
-//            		indSlider.leftClickResultBox(true, null);
                 return;
             case KeyEvent.VK_4:
-//                switch (mods) {
-//                    case 0: ecoSlider.increment(true); break;
-//                    case 64: ecoSlider.decrement(true); break;
-//                    case 128: ecoSlider.toggleLock();    break;
-//                    default: break;
-//                }
             	if (mods == 0) // No modifiers
             		ecoSlider.increment(true);
             	else if (e.isShiftDown())
@@ -172,15 +146,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             		ecoSlider.toggleLock();
             	else if (e.isAltDown())
             		ecoSlider.smoothMaxClick(true, null);
-//            		ecoSlider.leftClickResultBox(true, null);
                 return;
             case KeyEvent.VK_5:
-//                switch (mods) {
-//                    case 0: researchSlider.increment(true); break;
-//                    case 64: researchSlider.decrement(true); break;
-//                    case 128: researchSlider.toggleLock();    break;
-//                    default:  break;
-//                }
             	if (mods == 0) // No modifiers
             		researchSlider.increment(true);
             	else if (e.isShiftDown())
@@ -189,7 +156,6 @@ public class EmpireColonySpendingPane extends BasePanel {
             		researchSlider.toggleLock();
             	else if (e.isAltDown())
             		researchSlider.smoothMaxClick(true, null);
-//            		researchSlider.leftClickResultBox(true, null);
                 return;
             case KeyEvent.VK_Q:
             {
@@ -597,7 +563,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                 softClick();
             parent.repaint();
         } */
-        private void clearMaxClick(boolean click, MouseEvent e) {
+/*        private void clearMaxClick(boolean click, MouseEvent e) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -609,18 +575,16 @@ public class EmpireColonySpendingPane extends BasePanel {
             	return;
             }
 
-            if (e!=null && e.isControlDown()) // TODO BR: Think more about this
-        		colony.toggleOrder(category);
-
-        	float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
+            float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
 
             colony.clearUnlockedSpending();
             int allocation = colony.allocationRemaining();
-            int allocationNeeded = colony.category(category).smartAllocationNeeded(e);
+            int allocationNeeded =  colony.category(category).smartAllocationNeeded(e);
             allocation = min(allocation, allocationNeeded);
-            if(allocation == 0)
+            System.out.println("allocation = "+allocation);
+            if(allocation == 0 && category != RESEARCH)
                 allocation = colony.allocationRemaining();
-            colony.setAllocation(this.category, allocation);
+            colony.setAllocation(category, allocation);
 
         	if (category == ECOLOGY) {
         		colony.redistributeReducedEcoSpending();
@@ -628,7 +592,6 @@ public class EmpireColonySpendingPane extends BasePanel {
         	}
         	else 
         		colony.checkEcoAtClean();
-
         	if (mapListener == null)
                 RotPUI.instance().techUI().resetPlanetaryResearch();
             else {
@@ -636,12 +599,12 @@ public class EmpireColonySpendingPane extends BasePanel {
                 RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
                 mapListener.repaintTechStatus();
             }
-
+            	
             if (click)
                 softClick();
             parent.repaint();
-        }
-        private void smoothMaxClick(boolean click, MouseEvent e) { // TODO BR:
+        } */
+/*        private void clearBaseAllocClick(boolean click, MouseEvent e) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -653,28 +616,115 @@ public class EmpireColonySpendingPane extends BasePanel {
             	return;
             }
 
-            if (e!=null && e.isControlDown()) // TODO BR: Think more about this
-            	colony.toggleOrder(category);
+            colony.clearUnlockedSpending();
+            int allocation = colony.allocationRemaining();
+            int allocationNeeded =  colony.category(category).smartAllocationNeeded(e);
+            allocation = min(allocation, allocationNeeded);
+            colony.hasNewOrders(true);
+        	player().governorAI().setInitialAllocations(colony);
+        	colony.validate();
+            
+            if (click)
+                softClick();
+            parent.repaint();
+        }*/
+        private void smoothMaxClick(boolean click, MouseEvent e) { // TODO BR:
+        	// Common start
+            StarSystem sys = parent.systemViewToDisplay();
+            if (sys == null)
+                return;
+            Colony colony = sys.colony();
+            if (colony == null)
+                return;
+            if (colony.locked(category)) {
+            	misClick();
+            	return;
+            }
+            float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
 
+            // Specific optimizations
             colony.verifiedSmoothMaxSlider(category, e);
 
-            // TODO BR: Clean
-//            colony.checkEcoAtClean(); // BR: to avoid wrong setting if not clean!
-//            int allocationNeeded = colony.category(category).smartAllocationNeeded(e);
-//            int prevAllocation = colony.allocation(category);
-//            int incr = allocationNeeded > prevAllocation ? 1 : -1;
-//            int lim = (allocationNeeded - prevAllocation) * incr;
-//            for (int i=0; i<lim; i++) {
-//            	if(!colony.increment(category, incr))
-//            		break;
-//            }
-
-
+            // Common End
+        	if (mapListener == null)
+                RotPUI.instance().techUI().resetPlanetaryResearch();
+            else {
+                float techAdj = colony.totalPlanetaryResearch() - prevTech;
+                RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
+                mapListener.repaintTechStatus();
+            }
+            	
             if (click)
                 softClick();
             parent.repaint();
         }
+        private void commonResultBox(boolean click, MouseEvent e) {
+        	// Common start
+            StarSystem sys = parent.systemViewToDisplay();
+            if (sys == null)
+                return;
+            Colony colony = sys.colony();
+            if (colony == null)
+                return;
+            if (colony.locked(category)) {
+            	misClick();
+            	return;
+            }
+            float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
+        	
+            // Specific optimizations
+            
+            // Reset to AI Setting
+            if (e.isControlDown()) {
+           		colony.hasNewOrders(true); 
+            	try {
+            		player().governorAI().setInitialAllocations(colony);
+            	}
+            	catch (Exception exception) {
+            		System.err.println("setInitialAllocations Error");
+            		System.err.println(exception.toString());
+            	}
+            	player().governorAI().setInitialAllocations(colony);
+            	colony.validate();
+            	colony.checkEcoAtClean();
+            }
 
+            // Smart Max
+            else if (e.isShiftDown()) {
+                colony.clearUnlockedSpending();
+                int allocation = colony.allocationRemaining();
+                int allocationNeeded =  colony.category(category).smartAllocationNeeded(e);
+                allocation = min(allocation, allocationNeeded);
+                if(allocation == 0 && category != RESEARCH)
+                    allocation = colony.allocationRemaining();
+                colony.setAllocation(category, allocation);
+
+            	if (category == ECOLOGY) {
+            		colony.redistributeReducedEcoSpending();
+            		colony.keepEcoLockedToClean = SwingUtilities.isMiddleMouseButton(e);
+            	}
+            	else 
+            		colony.checkEcoAtClean();
+
+        	}
+
+            // Smooth Max
+            else
+        		colony.verifiedSmoothMaxSlider(category, e);
+
+            // Common End
+        	if (mapListener == null)
+                RotPUI.instance().techUI().resetPlanetaryResearch();
+            else {
+                float techAdj = colony.totalPlanetaryResearch() - prevTech;
+                RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
+                mapListener.repaintTechStatus();
+            }
+            	
+            if (click)
+                softClick();
+            parent.repaint();
+        }
         private void increment(boolean click) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
@@ -756,10 +806,13 @@ public class EmpireColonySpendingPane extends BasePanel {
             else if (rightArrow.contains(x,y))
                 increment(true);
             else if (resultBox.contains(x,y))
-            	if (e.isShiftDown())
-            		clearMaxClick(true, e);
-            	else
-            		smoothMaxClick(true, e);
+            	commonResultBox(true, e);
+//            	if (e.isControlDown())
+//            		clearBaseAllocClick(true, e);
+//            	else if (e.isShiftDown())
+//            		clearMaxClick(true, e);
+//            	else
+//            		smoothMaxClick(true, e);
             		
 //            	if (SwingUtilities.isRightMouseButton(e))
 //            		rightClickResultBox(true, e);

@@ -105,9 +105,9 @@ public class ColonyResearch extends ColonySpendingCategory {
     	if (e==null || SwingUtilities.isLeftMouseButton(e))
     		return MAX_TICKS;
     	if (SwingUtilities.isRightMouseButton(e))
-    		return MAX_TICKS;
+    		return 0;
     	if (SwingUtilities.isMiddleMouseButton(e))
-    		return MAX_TICKS;
+    		return 0;
     	return 0;
     }
 }

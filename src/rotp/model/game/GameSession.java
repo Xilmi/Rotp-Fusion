@@ -1268,9 +1268,9 @@ public final class GameSession implements Base, Serializable {
             GameSession.instance = newSession;
             if (Rotp.isIDE()) {
             	if (newSession.governorOptions == null)
-            		System.out.println("newSession.governorOptions == null");
+            		System.err.println("newSession.governorOptions == null ==> Not RotP-Fusion");
             	if (newSession.options.dynOpts() == null)
-            		System.out.println("newSession.options.dynOpts() == null");
+            		System.err.println("newSession.options.dynOpts() == null ==> Not RotP-Fusion");
             }
             newSession.validate();
             newSession.validateOnLoadOnly();
