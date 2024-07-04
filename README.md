@@ -69,7 +69,9 @@ Later:
 
 2024.07.03 (BR)
 - Spending Panel: added "Refresh" activated by "Ctrl-Click" using the "Next-Turn" logic.
-- Improved the help description. 
+- "Shift-Ctrl-Click" will smart set all unlocked spending.
+- Improved the help description.
+- New help tools.
 
 2024.07.02 (BR)
 - Fixed factory estimation error.

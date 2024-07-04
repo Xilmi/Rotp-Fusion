@@ -674,8 +674,31 @@ public class EmpireColonySpendingPane extends BasePanel {
         	
             // Specific optimizations
             
+            // Smart Max
+            if (e.isShiftDown()) {
+                colony.clearUnlockedSpending();
+                if (e.isControlDown()) {
+                	colony.redistributeReducedEcoSpending();
+                }
+                else {
+                    int allocation = colony.allocationRemaining();
+                    int allocationNeeded =  colony.category(category).smartAllocationNeeded(e);
+                    
+                    allocation = min(allocation, allocationNeeded);
+                    if(allocation == 0 && category != RESEARCH)
+                        allocation = colony.allocationRemaining();
+                    colony.setAllocation(category, allocation);
+
+                	if (category == ECOLOGY) {
+                		colony.redistributeReducedEcoSpending();
+                		colony.keepEcoLockedToClean = SwingUtilities.isMiddleMouseButton(e);
+                	}
+                	else 
+                		colony.checkEcoAtClean();
+                }
+        	}
             // Reset to AI Setting
-            if (e.isControlDown()) {
+            else if (e.isControlDown()) {
            		colony.hasNewOrders(true); 
             	try {
             		player().governorAI().setInitialAllocations(colony);
@@ -688,25 +711,6 @@ public class EmpireColonySpendingPane extends BasePanel {
             	colony.validate();
             	colony.checkEcoAtClean();
             }
-
-            // Smart Max
-            else if (e.isShiftDown()) {
-                colony.clearUnlockedSpending();
-                int allocation = colony.allocationRemaining();
-                int allocationNeeded =  colony.category(category).smartAllocationNeeded(e);
-                allocation = min(allocation, allocationNeeded);
-                if(allocation == 0 && category != RESEARCH)
-                    allocation = colony.allocationRemaining();
-                colony.setAllocation(category, allocation);
-
-            	if (category == ECOLOGY) {
-            		colony.redistributeReducedEcoSpending();
-            		colony.keepEcoLockedToClean = SwingUtilities.isMiddleMouseButton(e);
-            	}
-            	else 
-            		colony.checkEcoAtClean();
-
-        	}
 
             // Smooth Max
             else

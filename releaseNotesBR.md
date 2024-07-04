@@ -3,14 +3,16 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Fixed factory estimation error.
-- Factory estimation will show refit requirement.
-- Added min factory requirement for next turn growth.
-- Added help for "smart-max".
-- Added Help for Colony order Toggle.
-- Both smooth and smart Min/Max are now available. smart respond to the Shift key.
-- Spending Panel: added "Refresh" activated by "Ctrl-Click" using the "Next-Turn" logic.
-- Improved the help description. 
+- Spending PaneL:
+  - Fixed factory estimation error.
+  - Factory estimation will show refit requirement.
+  - Added smart-set min factory requirement for next turn growth.
+  - Added help for "smart-max".
+  - Added Help for Colony order Toggle.
+  - Both smooth and smart Min/Max are now available. smart respond to the Shift key.
+  - "Refresh" activated by "Ctrl-Click" using the "Next-Turn" logic.
+  - "Smart all" activated by "Shift -Ctrl-Click".
+  - Improved the help description. 
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
