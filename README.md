@@ -67,6 +67,12 @@ Later:
 
 ## What's New
 
+2024.07.04 (BR)
+- Fixed a small bug preventing you from selecting your first opponent.
+- New Governor option to promote atmosphere and soil enrichment, as well as planet terraforming.
+  - Could be used before a council, to boost your vote power.
+  - Currently only available in the compact sub panel.
+
 2024.07.03 (BR)
 - Spending Panel: added "Refresh" activated by "Ctrl-Click" using the "Next-Turn" logic.
 - "Shift-Ctrl-Click" will smart set all unlocked spending.

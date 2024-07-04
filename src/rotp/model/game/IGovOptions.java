@@ -57,6 +57,9 @@ public interface IGovOptions {
 			.setIncrements(10, 50, 200);
 	ParamBoolean shipBuilding		= new ParamBoolean(GOV_UI, "SHIP_BUILDING", true);
 	ParamBoolean maxGrowthMode		= new ParamBoolean(GOV_UI, "LEGACY_GROWTH_MODE", true);
+	ParamInteger terraformEarly		= new ParamInteger(GOV_UI, "TERRAFORM_EARLY", 0)
+			.setLimits(0, 400)
+			.setIncrements(1, 5, 20);
 
 	// Intelligence Options
 	ParamBoolean auto_Infiltrate	= new ParamBoolean(GOV_UI, "AUTO_INFILTRATE", true);
@@ -118,7 +121,7 @@ public interface IGovOptions {
 				new ParamTitle(GOV_UI + "COLONY_OPTIONS"),
 				missileBasesMin, shieldAlones,
 				autoSpend, reserveForSlow, shipBuilding,
-				maxGrowthMode
+				maxGrowthMode, terraformEarly
 				)));
 		map.add(new SafeListParam(Arrays.asList(				
 				new ParamTitle(GOV_UI + "INTELLIGENCE_OPTIONS"),

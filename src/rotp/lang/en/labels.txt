@@ -4265,6 +4265,8 @@ GOVERNOR_SHIP_BUILDING_DESC          | Shipbuilding with Governor enabled. Diver
 GOVERNOR_SHIP_BUILDING               | Shipbuilding: %1
 GOVERNOR_LEGACY_GROWTH_MODE_DESC     | Develop colonies as quickly as possible.
 GOVERNOR_LEGACY_GROWTH_MODE          | Rapid growth: %1
+GOVERNOR_TERRAFORM_EARLY_DESC        | Favor atmosphere and soil enrichment, as well as planet terraforming.<br>Could be used before a council, to boost your vote power.
+GOVERNOR_TERRAFORM_EARLY             | Boost Planet Early: %1%
 
 HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS_DESC | Spying activities related Options.
 HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS      | ~~~ INTELLIGENCE OPTIONS ~~~%1

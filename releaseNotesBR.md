@@ -12,7 +12,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Both smooth and smart Min/Max are now available. smart respond to the Shift key.
   - "Refresh" activated by "Ctrl-Click" using the "Next-Turn" logic.
   - "Smart all" activated by "Shift -Ctrl-Click".
-  - Improved the help description. 
+  - Improved the help description.
+
+- Fixed a small bug preventing you from selecting your first opponent.
+- New Governor option to promote atmosphere and soil enrichment, as well as planet terraforming.
+  - Could be used before a council, to boost your vote power.
+  - Currently only available in the compact sub panel.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -46,6 +51,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Governor Options:
   - Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"
   - The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.
+  - New option to promote atmosphere and soil enrichment, as well as planet terraforming.
 - GUI Improvement:
   - Load and Save Options Now available on the main Menu with the "CTRL" key modifier.
   - New option to select the default values: RotP-Fusion / RotP-Original / MoO1

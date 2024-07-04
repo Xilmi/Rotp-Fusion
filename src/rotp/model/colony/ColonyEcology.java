@@ -470,6 +470,56 @@ public class ColonyEcology extends ColonySpendingCategory {
         newPopCost = max(0,newPopCost);
         return tform + newPopCost;
     }
+    public float[] planetBoostCost() {
+    	float[] planetBoostCost = new float[5];
+        Empire emp = empire();
+        TechTree tech = emp.tech();
+        Planet planet = planet();
+        float soilEnrichBCCopy = soilEnrichBC;
+        if (planet.isEnvironmentHostile()) {
+            if (planet.canTerraformAtmosphere(emp)) {
+            	planetBoostCost[0] = max(0, atmosphereTerraformCost() - hostileBC);
+
+            	if (tech.enrichSoil()) {
+            		int deltaEnv = tech.topSoilEnrichmentTech().environment - planet.environment();
+            		if (deltaEnv > 1) {
+            			planetBoostCost[1] = max(0, SOIL_UPGRADE_BC - soilEnrichBCCopy);
+            			soilEnrichBCCopy -= SOIL_UPGRADE_BC;
+            			if (deltaEnv > 2)
+            				planetBoostCost[2] = max(0, SOIL_UPGRADE_BC - soilEnrichBCCopy);
+            		}
+            	}
+            }
+        }
+        else if (planet.isEnvironmentNormal()) {
+        	if (tech.enrichSoil()) {
+        		int deltaEnv = tech.topSoilEnrichmentTech().environment - planet.environment();
+        		if (deltaEnv > 0) {
+        			planetBoostCost[1] = max(0, SOIL_UPGRADE_BC - soilEnrichBCCopy);
+        			soilEnrichBCCopy -= SOIL_UPGRADE_BC;
+        			if (deltaEnv > 1)
+        				planetBoostCost[2] = max(0, SOIL_UPGRADE_BC - soilEnrichBCCopy);
+        		}
+        	}
+        }
+        else if (planet.isEnvironmentFertile()) {
+        	if (tech.enrichSoil()) {
+        		int deltaEnv = tech.topSoilEnrichmentTech().environment - planet.environment();
+        		if (deltaEnv > 0)
+        			planetBoostCost[2] = max(0, SOIL_UPGRADE_BC - soilEnrichBCCopy);
+        	}
+        }
+
+        float roomToGrow = colony().maxSize() - planet.currentSize();
+        if (roomToGrow > 0)
+        	planetBoostCost[3] = max(0, roomToGrow * tech.popIncreaseCost());
+
+        for (int i=0; i<4; i++)
+        	planetBoostCost[4] += planetBoostCost[i];
+
+        return planetBoostCost;
+    }
+    
     public float terraformSpendingNeeded() {
         float cleanCost = colony().minimumCleanupCost();
         Empire emp = empire();
@@ -486,7 +536,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         if (!emp.ignoresPlanetEnvironment()) {
             if (!planet.isEnvironmentHostile() || planet.canTerraformAtmosphere(emp)) {
                 if (tech.enrichSoil() && (tech.topSoilEnrichmentTech().environment > planet.environment())) {
-                    enrichCost = ((tech.topSoilEnrichmentTech().environment - planet.environment()) * 150) - soilEnrichBC;
+                    enrichCost = ((tech.topSoilEnrichmentTech().environment - planet.environment()) * SOIL_UPGRADE_BC) - soilEnrichBC;
                     enrichCost = max(0,enrichCost);
                 }
             }
@@ -499,7 +549,6 @@ public class ColonyEcology extends ColonySpendingCategory {
             terraformCost = roomToGrow * tech.popIncreaseCost();
             terraformCost = max(0,terraformCost);
         }
-
         return cleanCost + hostileCost + enrichCost + terraformCost;
     }
     public int terraformAllocationNeeded() {
