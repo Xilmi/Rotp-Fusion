@@ -374,7 +374,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
         float builtFactories = factories;
         int colonyControls = robotControls;
         float expectedMissingPopulation = planet().currentSize() - expectedPopulation();
-        float notTobuild = expectedMissingPopulation * tech().topRobotControls();
+        float notTobuild = expectedMissingPopulation * maxRobotControls();
         builtFactories += notTobuild;
 
         float totalCost = 0;
@@ -451,14 +451,15 @@ public class ColonyIndustry extends ColonySpendingCategory {
     	float maxFactories	     = maxBuildableFactories();
     	float upcomingFactories  = upcomingFactories();
     	float maxNeededFactories = maxFactories - factories - upcomingFactories;
-    	float neededFactories    = maxNeededFactories - expectedMissingPopulation * robotControls;
-    	Float factoryBalance     = -neededFactories;
- 
+	float neededFactories    = maxNeededFactories - expectedMissingPopulation * maxRobotControls();
+	float factoryBalance     = -neededFactories;
+	Float refitFlag = 0f;
+
     	if (robotControls != tech().topRobotControls()
     			|| convertableAlienFactories() != 0) { // check for refit
-        	factoryBalance = null;
+		refitFlag = null;
     	}
-    	return new Float[] {factoryBalance, upcomingFactories, neededFactories, factories, maxFactories};
+	return new Float[] {factoryBalance, refitFlag};
     }
     //
     // PRIVATE METHODS
