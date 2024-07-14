@@ -224,7 +224,7 @@ EVENT_RELIC_PLANETS_NO_CONTACT    | Our astronomers are flabbergasted! Galaxy-wi
 // modnar: add Gauntlet Relic random event
 EVENT_RELIC_GAUNTLET              | Half of all galactic life have been wiped out following the activation of a Precursor gauntlet with seven embedded gems. [target_race] scientists studying the relic have denied responsibility. Third-party investigators question the capacity increase on many [target_empire] planets and new Planetology technologies.
 EVENT_RELIC_GAUNTLET_NO_CONTACT   | Half of all galactic life have been wiped out, probably following the activation of the legendary Precursor gauntlet with seven embedded gems.
-// modnar: add Boost Planet baseSize random event
+// modnar: add Boost Planet base Size random event
 EVENT_SIZEBOOST                   | Archaeologists exploring the [target_race] world in the [system] system have revealed massive subterranean caverns. These geologically stable chambers are habitable and have substantially boosted the planet's size.
 
 SYSEVENT_HOMEWORLD                | Homeworld for the [alien_race].
@@ -237,7 +237,7 @@ SYSEVENT_DESTROYED_MONSTER        | Destroyed by the %1.
 SYSEVENT_DESTROYED_UNKNOWN        | Destroyed.
 SYSEVENT_ATMOSPHERE_TERRAFORMED   | The planet's atmosphere has been terraformed.
 SYSEVENT_SOIL_ENRICHED            | The planet's soil has been enriched, making it fertile.
-SYSEVENT_GAIA_TERRAFORMING        | The planet has been converted to a gaia world.
+SYSEVENT_GAIA_TERRAFORMING        | The planet has been converted to a Gaia world.
 SYSEVENT_REBELLION                | Colony went into rebellion.
 SYSEVENT_COMET                    | A comet impacted the planet.
 SYSEVENT_PLAGUE                   | A deadly plague swept across the planet.
@@ -246,7 +246,7 @@ SYSEVENT_ENRICHED                 | Huge deposits of rich ore were discovered on
 SYSEVENT_DEPLETED                 | Ore deposits on the planet were depleted.
 SYSEVENT_ACCIDENT                 | A massive industrial accident irradiated the planet.
 SYSEVENT_SUPERNOVA                | The planet was irradiated by a supernova.
-// modnar: add Boost Planet baseSize random event
+// modnar: add Boost Planet base Size random event
 SYSEVENT_SIZEBOOST                | The planet size has been boosted by underground caverns.
 
 
@@ -335,7 +335,7 @@ INC_INDUSTRIALIST_DESC2           | The [your_empire] has an efficient industry.
 INC_MILITARIST_TITLE              | Militarist
 INC_MILITARIST_DESC1              | The [your_empire] maintains insufficient military.
 INC_MILITARIST_DESC2              | The [your_empire] maintains sufficient military.
-INC_TECHNOLOGIST_TITLE            | Technolgoist
+INC_TECHNOLOGIST_TITLE            | Technologist
 INC_TECHNOLOGIST_DESC1            | The [your_empire] does not research enough.
 INC_TECHNOLOGIST_DESC2            | The [your_empire] tries to advance in technology.
 INC_ERRATIC_TITLE                 | Erratic
@@ -419,11 +419,11 @@ GAME_SETTINGS_DEFAULT             | Set to Default
 GAME_SETTINGS_DISPLAY_MODE        | Display Mode: %1
 GAME_SETTINGS_WINDOWED_HELP       | Windowed is fixed ratio (resizable on the Main panel). You will be able to move it freely, event to another screen (is its size is big enough).
 GAME_SETTINGS_WINDOWED            | Windowed
-GAME_SETTINGS_BORDERLESS_HELP     | Borderless is a maximized window, less restrictive than the Fullscreen mode.
+GAME_SETTINGS_BORDERLESS_HELP     | Borderless is a maximized window, less restrictive than the Full screen mode.
 GAME_SETTINGS_BORDERLESS          | Borderless
-GAME_SETTINGS_FULLSCREEN_HELP     | Fullscreen is an exclusive maximized window. Cleaner but more restrictive than Borderless mode.
+GAME_SETTINGS_FULLSCREEN_HELP     | Full screen is an exclusive maximized window. Cleaner but more restrictive than Borderless mode.
 GAME_SETTINGS_FULLSCREEN          | Full Screen
-GAME_SETTINGS_DISPLAY_MODE_DESC   | Requires a restart. Windowed is fixed ratio and resizable. Borderless is a maximized window. Fullscreen is an exclusive maximized window.
+GAME_SETTINGS_DISPLAY_MODE_DESC   | Requires a restart. Windowed is fixed ratio and resizable. Borderless is a maximized window. Full screen is an exclusive maximized window.
 GAME_SETTINGS_GRAPHICS            | Graphics Level: %1
 GAME_SETTINGS_GRAPHICS_LOW_HELP   | Lowest graphic requirement, but lower image quality, and no animations.
 GAME_SETTINGS_GRAPHICS_LOW        | Low
@@ -455,16 +455,16 @@ GAME_SETTINGS_SENSITIVITY_DESC        | Toggle how quickly the galaxy map respon
 GAME_SETTINGS_MEMORY                  | Show Memory Usage: %1
 GAME_SETTINGS_MEMORY_YES              | Yes
 GAME_SETTINGS_MEMORY_NO               | No
-GAME_SETTINGS_MEMORY_DESC             | Toggles the display of memory usage statistics at the bottom right corner of the game. Useful for monitoring memory usage. ([Reseve from GC] {Reserve from mins} Used / Allocated / Available (Max Used / Max Allocated) / Threads)
+GAME_SETTINGS_MEMORY_DESC             | Toggles the display of memory usage statistics at the bottom right corner of the game. Useful for monitoring memory usage. ([Reserve from GC] {Reserve from mins} Used / Allocated / Available (Max Used / Max Allocated) / Threads)
 GAME_SETTINGS_MORE_MEMORY             | Console More Memory: %1
 GAME_SETTINGS_MORE_MEMORY_YES         | Yes
 GAME_SETTINGS_MORE_MEMORY_NO          | No
-GAME_SETTINGS_MORE_MEMORY_DESC        | Toggles the console output of extended memory usage statistics at the begining and the end of turn, and when loading a game.
+GAME_SETTINGS_MORE_MEMORY_DESC        | Toggles the console output of extended memory usage statistics at the beginning and the end of turn, and when loading a game.
 
 GAME_SETTINGS_MEMORY_CONSOLE      | Console Memory Usage: %1
-GAME_SETTINGS_MEMORY_CONSOLE_DESC | Toggles the console output of memory usage statistics at the begining and the end of turn.
+GAME_SETTINGS_MEMORY_CONSOLE_DESC | Toggles the console output of memory usage statistics at the beginning and the end of turn.
 GAME_SETTINGS_MEMORY_FILE         | File Memory Usage: %1
-GAME_SETTINGS_MEMORY_FILE_DESC    | Toggles the file output of memory usage statistics at the begeining and the end of turn.
+GAME_SETTINGS_MEMORY_FILE_DESC    | Toggles the file output of memory usage statistics at the beginning and the end of turn.
 
 GAME_SETTINGS_SHOW_CONSOLE_PANEL      | Show Console Panel: %1
 GAME_SETTINGS_SHOW_CONSOLE_PANEL_DESC | Toggles the Display of a console for alternate interactions.
@@ -500,7 +500,7 @@ SETTINGS_MOD_DEBUG_BM_SHOW_ALL_DESC       | When in Benchmark mode, galaxy will 
 SETTINGS_MOD_DEBUG_BM_SHOW_ALL_OFF        | Off
 SETTINGS_MOD_DEBUG_BM_SHOW_ALL_OFF_DESC   | No, don't change anything.
 SETTINGS_MOD_DEBUG_BM_SHOW_ALL_ALWAY      | Always
-SETTINGS_MOD_DEBUG_BM_SHOW_ALL_ALWAY_DESC | Display all from the begining.
+SETTINGS_MOD_DEBUG_BM_SHOW_ALL_ALWAY_DESC | Display all from the beginning.
 SETTINGS_MOD_DEBUG_BM_SHOW_ALL_LOSS       | On Loss
 SETTINGS_MOD_DEBUG_BM_SHOW_ALL_LOSS_DESC  | Only enabled if the player empire is extinct. (Military loss)
 
@@ -514,7 +514,7 @@ GAME_SETTINGS_CONSOLE_AUTO_PLAY_DESC | When enabled, the logged data are also sh
 GAME_SETTINGS_DEBUG_LOG_NOTIF        | Log Notifications: %1
 GAME_SETTINGS_DEBUG_LOG_NOTIF_DESC   | Toggles the Notification logging  when in Debug AutoPlay.
 GAME_SETTINGS_DEBUG_LOG_EVENTS       | Log Random Events: %1
-GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Toggles the RandomEvents logging  when in Debug AutoPlay.
+GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Toggles the Random Events logging  when in Debug AutoPlay.
 
 GAME_SETTINGS_CONTINUE_ANYWAY        | Continue Anyway: %1
 GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | The Game will continue while the player is alive!
@@ -525,13 +525,13 @@ GAME_SETTINGS_SELECTED_SCREEN_DESC | Select the screen on which you will play. (
 GAME_SETTINGS_SOUNDS              | Sounds: %1
 GAME_SETTINGS_SOUNDS_OFF          | Muted
 GAME_SETTINGS_SOUNDS_ON           | %1/10
-GAME_SETTINGS_SOUNDS_DESC         | Click to mute or unmute sound effects within the game. Use the mousewheel to raise or lower the volume.
+GAME_SETTINGS_SOUNDS_DESC         | Click to mute or unmute sound effects within the game. Use the mouse wheel to raise or lower the volume.
 GAME_SETTINGS_SOUNDS_DISABLED     | Disabled
 GAME_SETTINGS_SOUNDS_ERR_DESC     | Sounds disabled due to following error: %1
 GAME_SETTINGS_MUSIC               | Music: %1
 GAME_SETTINGS_MUSIC_OFF           | Muted
 GAME_SETTINGS_MUSIC_ON            | %1/10
-GAME_SETTINGS_MUSIC_DESC          | Click to mute or unmute music within the game. Use the mousewheel to raise or lower the volume.
+GAME_SETTINGS_MUSIC_DESC          | Click to mute or unmute music within the game. Use the mouse wheel to raise or lower the volume.
 GAME_SETTINGS_AUTOCOLONIZE        | Colonize: %1
 GAME_SETTINGS_AUTOCOLONIZE_YES    | Automatically
 GAME_SETTINGS_AUTOCOLONIZE_NO     | Always Prompt
@@ -548,7 +548,7 @@ GAME_SETTINGS_AUTOBOMBARD_YES_HELP    | The galaxy is ours! Repels the weaklings
 GAME_SETTINGS_AUTOBOMBARD_WAR_HELP    | Annihilate our declared enemies, seek advice for other empires!
 GAME_SETTINGS_AUTOBOMBARD_INVADE_HELP | Annihilate our declared enemies if no invasion is planned, seek advise otherwise.
 GAME_SETTINGS_AUTOBOMBARD_HELP    | What should be done when your you have armed fleet orbiting an alien empire? Should we bombard them or leave them alone?
-GAME_SETTINGS_AUTOBOMBARD_DESC    | Toggle to always prompt to bombard, never bombard, always bombard, only auto-bombard when at war, or only auto-bombard when at war with no invasion forces en route. 
+GAME_SETTINGS_AUTOBOMBARD_DESC    | Toggle to always prompt to bomb, never bomb, always bomb, only auto-bomb in case of war, or only auto-bomb in case of war with no invading forces en route.
 GAME_SETTINGS_BACKUP_OFF          | Off
 GAME_SETTINGS_BACKUP_ON           | Every %1 turns
 GAME_SETTINGS_BACKUP              | Backup: %1
@@ -662,14 +662,14 @@ MAIN_HELP_1C                      | Defenses - builds and upgrades missile bases
 MAIN_HELP_1D                      | Industry - builds factories which increase overall colony production.
 MAIN_HELP_1E                      | Ecology  - cleans industrial waste, terraforms the planet, and can increase population growth.
 MAIN_HELP_1F                      | Technology - adds to the empire's overall research.
-MAIN_HELP_1G                      | Ratio bars show the breakdown of a planet's production.  The spending for each bar can be adjusted by mousewheel, clicking within the bar, or clicking on the left/right arrows for each bar.
+MAIN_HELP_1G                      | Ratio bars show the breakdown of a planet's production.  The spending for each bar can be adjusted by mouse wheel, clicking within the bar, or clicking on the left/right arrows for each bar.
 MAIN_HELP_1H                      | The expected result of spending for an area is displayed to the right of each bar. Overflow spending will be sent to the empire's treasury reserve.<br>Click to spend enough to finish current task.
 MAIN_HELP_1I                      | To access spy Reports. (If any)
 MAIN_HELP_2A                      | Planetary shield level for the colony. Shields cannot be constructed on planets within a nebula.
-MAIN_HELP_2B                      | Number of missile bases and the maximum desired for this planet. Click or use the mousewheel to change the maximum.
+MAIN_HELP_2B                      | Number of missile bases and the maximum desired for this planet. Click or use the mouse wheel to change the maximum.
 MAIN_HELP_2C                      | Total planetary production from industry and population.
 MAIN_HELP_2D                      | Actual production adjusted for empire-wide trade income, spy and security costs, as well as missile base and ship maintenance.
-MAIN_HELP_2E                      | Change ship design to build in the planet's orbiting shipyard. Production accrued for unfinished ships will accelerate production of new ships by 50% until spent. Click or use the mousewheel to change the ship design.
+MAIN_HELP_2E                      | Change ship design to build in the planet's orbiting shipyard. Production accrued for unfinished ships will accelerate production of new ships by 50% until spent. Click or use the mouse wheel to change the ship design.
 MAIN_HELP_2F                      | Set a rally point to automatically send newly constructed ships to another colony.
 MAIN_HELP_2FSG                    | Rally to the nearest stargate.<br>(Based on "→CHAIN_RALLY_SPEED_HK←" setting)
 MAIN_HELP_2G                      | Transport population to fortify another colony or send troops to invade an enemy planet. The colony incurs a one-time production cost for transporting.
@@ -701,7 +701,7 @@ MAIN_HELP_4D                      | Industry:<br> Left-Click: Min Allocation Nee
 MAIN_HELP_4E                      | Ecology:<br> Left-Click: Min Allocation Needed to finalize Growth.<br> Right-Click: Min Allocation Needed to finalize terraform. <br>Mid-Click: Min Allocation Needed to stay clean.
 MAIN_HELP_4F                      | Technology:<br> Left-Click: Max Allocation Available.<br> Right-Click: 0 Allocation --> full reallocation.
 MAIN_HELP_4G                      | Click here to lock / Unlock the spending. (Greyed when locked)<br>Ctrl-Click to cancel or restore colony orders. (The ones you can gives after a Technology update)<br> These fields are prioritized during the "Next Turn" process.<br> An option is available to show them in blue... or not.
-// modnar: shorten SystemData display
+// modnar: shorten System Data display
 MAIN_SYSTEM_DETAIL_PFB            | P:%1  F:%2  B:%3
 MAIN_SYSTEM_DETAIL_PF             | P:%1  F:%2
 MAIN_SYSTEM_DETAIL_NO_DATA        | No Data
@@ -940,7 +940,7 @@ MAIN_ALLOCATE_MAX_POPULATION      | • %1 has reached its population maximum of
 MAIN_ALLOCATE_TERRAFORM_COMPLETE  | • %1 has completed environmental terraforming.
 MAIN_ALLOCATE_ATMOSPHERE_COMPLETE | • %1 has been terraformed to a normal environment with the standard growth rate.
 MAIN_ALLOCATE_FERTILE_COMPLETE    | • %1 has been terraformed to a fertile environment with 150% of the standard growth rate.
-MAIN_ALLOCATE_GAIA_COMPLETE       | • %1 has been terraformed to a gaia environment with double the standard growth rate.
+MAIN_ALLOCATE_GAIA_COMPLETE       | • %1 has been terraformed to a Gaia environment with double the standard growth rate.
 MAIN_ALLOCATE_SABOTAGE_BASES      | • %1 has had %2 missile bases destroyed by [spy_race] saboteurs.
 MAIN_ALLOCATE_SABOTAGE_FACTORIES  | • %1 has had %2 factories destroyed by [spy_race] saboteurs.
 MAIN_ALLOCATE_COLONY_CAPTURED     | • %1 was recently captured by %2 troops.
@@ -1067,7 +1067,7 @@ PLANETS_HELP_1C                   | Military - Click this tab to show military d
 PLANETS_HELP_1D                   | Colony spending can be adjusted as on main screen.
 PLANETS_HELP_1E                   | Increase colony production by up to 50% by transferring funds from the empire treasury.
 PLANETS_HELP_1F                   | Total Income for your empire.
-PLANETS_HELP_1G                   | Total Spending for your empire expressed as a pct of income.
+PLANETS_HELP_1G                   | Total Spending for your empire expressed as a pct. of income.
 PLANETS_HELP_1H                   | Levy a tax on your colonies to add to the empire treasury. Optionally restrict this tax to only colonies that have completed their Ecology, Industry and Defense spending.
 PLANETS_HELP_2A                   | Name - The name for your system. Editable.
 PLANETS_HELP_2B                   | Population - Current population, including change from previous turn.
@@ -1083,7 +1083,7 @@ PLANETS_HELP_3D                   | Factories - Number of factories, including c
 PLANETS_HELP_3E                   | Production - total production for colony.
 PLANETS_HELP_3F                   | Reserve - total reserve currently stored on colony.
 PLANETS_HELP_3G                   | Notes - Player system notes. Editable.
-PLANETS_HELP_3H                   | Capacity - pct of maximum possible production.
+PLANETS_HELP_3H                   | Capacity - pct. of maximum possible production.
 PLANETS_HELP_4A                   | Name - The name for your system. Editable.
 PLANETS_HELP_4B                   | Population - Current population, including change from previous turn.
 PLANETS_HELP_4C                   | Resources - for Rich, Poor and Artifact planets.
@@ -1322,8 +1322,8 @@ GNN_ALLY_AT_WAR                   | Our ally, the [ally_empire], has entered int
 
 // Error UI text
 ERROR_TITLE                       | An Error has occurred  :(
-//ERROR_MESSAGE                     | If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to Ray Fowler, or bring it to his attention on the ROTP subreddit.
-ERROR_MESSAGE                     | If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to BrokenRegistry, or bring it to his attention on the ROTP subreddit.
+//ERROR_MESSAGE                     | If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to Ray Fowler, or bring it to his attention on the RotP subreddit.
+ERROR_MESSAGE                     | If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to BrokenRegistry, or bring it to his attention on the RotP subreddit.
 ERROR_EMAIL                       | Email: Broken.Registry@protonmail.com
 ERROR_REDDIT                      | Reddit: www.Reddit.com/r/rotp
 
@@ -1456,11 +1456,11 @@ SETUP_OPPONENT_AI_XILMI_HELP      | AI-Family: Xilmi<br> Uses a diplomacy-module
 SETUP_OPPONENT_AI_XILMI           | AI: Roleplay
 SETUP_OPPONENT_AI_HYBRID_HELP     | AI-Family: Xilmi<br> Uses the same diplomacy-module and espionage-module as the base-AI to basically present an AI that diplomatically acts like base-AIs but still has all the advantages in the other aspects of the game.
 SETUP_OPPONENT_AI_HYBRID          | AI: Hybrid
-SETUP_OPPONENT_AI_CRUEL_HELP      | AI-Family: Xilmi (No relationship bar, no alliances)<br> ... these AIs all play more careful than aggressive while some racial differences still are applied. It's very similar in behavior to the latter but usually the games are a lot more peaceful as long as noone has a massive advantage. They are also highly opportunistic. The reason why "Fun" was created because playing against this kind of AI can be extremely frustrating. You can have a long game where nothing really happens and then be wiped out in a few turns from several opponents at once. There is an algorithm at play that guesses the chance of being backstabbed in the event of a war-declation. And because of that it is highly likely that the AI thinks the other party will be more likely to be backstabbed and not them, if they declare war. Oh... They will ignore everything in the case they should eventually reach the end of the tech-tree. So the game will not be technically endless, even if it seems like that.
+SETUP_OPPONENT_AI_CRUEL_HELP      | AI-Family: Xilmi (No relationship bar, no alliances)<br> ... these AIs all play more careful than aggressive while some racial differences still are applied. It's very similar in behavior to the latter but usually the games are a lot more peaceful as long as no one has a massive advantage. They are also highly opportunistic. The reason why "Fun" was created because playing against this kind of AI can be extremely frustrating. You can have a long game where nothing really happens and then be wiped out in a few turns from several opponents at once. There is an algorithm at play that guesses the chance of being backstabbed in the event of a war-declaration. And because of that it is highly likely that the AI thinks the other party will be more likely to be backstabbed and not them, if they declare war. Oh... They will ignore everything in the case they should eventually reach the end of the tech-tree. So the game will not be technically endless, even if it seems like that.
 SETUP_OPPONENT_AI_CRUEL           | AI: Fusion
-SETUP_OPPONENT_AI_FUN_HELP        | AI-Family: Xilmi (No relationship bar, no alliances)<br> Plays the game in a sort of "king-of-the-hill"-style. It's more concerned about preventing others from winning than it is concerned about winning itself. It will choose the strongest enemy available but takes into account when they are already at war. It creates some sort of tournament-like bracket-gameplay with separate 1v1s, that also can turn into 1vX for someone who's becoming too successfull. Note that once a war is declared they are not easily made to stop it. This prevents swingy-situations where it would become an eternal back-and-forth changing their current enemy with the situation. Basically: A former super-power being tackled from three sides will not simply be left alone when it's not a superpower anymore.
+SETUP_OPPONENT_AI_FUN_HELP        | AI-Family: Xilmi (No relationship bar, no alliances)<br> Plays the game in a sort of "king-of-the-hill"-style. It's more concerned about preventing others from winning than it is concerned about winning itself. It will choose the strongest enemy available but takes into account when they are already at war. It creates some sort of tournament-like bracket-gameplay with separate 1v1s, that also can turn into 1vX for someone who's becoming too successful. Note that once a war is declared they are not easily made to stop it. This prevents swingy-situations where it would become an eternal back-and-forth changing their current enemy with the situation. Basically: A former super-power being tackled from three sides will not simply be left alone when it's not a superpower anymore.
 SETUP_OPPONENT_AI_FUN             | AI: Fun
-SETUP_OPPONENT_AI_PERSONALITY_HELP | AI-Family: Xilmi (No relationship bar, no alliances)<br> This one doesn't care about being fair when choosing their opponent. It is highly opportunistic and definitely wants to win. However, it's aggressiveness is heavily dependent on their empire's species and leader's personality. They can be anything from suicidal to overly careful. However, experience has shown that the more careful approach does a lot better on average. That's why...
+SETUP_OPPONENT_AI_PERSONALITY_HELP | AI-Family: Xilmi (No relationship bar, no alliances)<br> This one doesn't care about being fair when choosing their opponent. It is highly opportunistic and definitely wants to win. However, it's aggressiveness is heavily dependent on their empire's species and leader's personality. They can be anything from suicidal to overly careful. However, experience has shown that the more careful approach does a lot better on average. <br><b><u>Brief overview of how each personality-trait impacts the AI's behaviour:</u></b><br><b>Aggressive:</b> They go to war pretty easily, including situations that don't look too well.<br><b>Erratic:</b> How likely they are to declare war varies from turn to turn.<br><b>Honorable:</b> They will not declare war by themselves. They have to be asked in order to do it. They will not sue for peace if things aren't going their way, as this would be dishonorable.<br><b>Pacifist:</b> They will never declare any war. Not by themselves and not when asked. They also are easy to make peace with again. They only decline a peace-offer if they still have invasions inbound.<br><b>Ruthless:</b> Nothing prevents them from going to war if they want one. Not even if it would be completely suicidal to do so. They also won't sue for peace when they are losing.<br><b>Xenophobic:</b> Someone's got to be not special. They would only declare war if they think it's looking reasonably doable.<br><b>Diplomat:</b> Caution is advised with these ones. They are opportunistic and take the path of least resistance, when it comes to whom to declare war on while playing nice to everyone who could be a threat. They are strong contenders for the victory. They particularly like force-field-techs.<br><b>Ecologist:</b> Their goal is to keep a balance between the species in the galaxy. So they would only ever attack whoever has most population. Except if it's themselves. In this case the best balance is already established and war is unnecessary. They particularly like planetology-techs.<br><b>Expansionist:</b> They do not think in "empires", they think in planets. So whoever owns the juiciest target nearby is considered a good potential victim. Defend your planets to make them look less juicy and they'll look elsewhere. They particularly like propulsion-techs.<br><b>Industrialist:</b> Protection of their industrial core is the primary goal of industrialists. So whoever settles closest to their core must be removed first in order to secure the future of their productivity. Their strategy is mostly a defensive one. They particularly like construction-techs.<br><b>Militarist:</b> They enjoy wars and the best opponent is the one that can actually fight back. They generally pick on whoever is the strongest overall. Removing the biggest obstacle for their domination first. They particularly like weapon-techs.<br><b>Technologist:</b> As long as they have all the techs out there, they are perfectly happy and will leave others alone. However, if someone beats them in their field, they become jealous. And the more stuff you have that they don't, the more interesting your worlds become for invasion to integrate your tech into their portfolio. You can appease them by gifting them all your techs for free. They particularly like computer-techs.
 SETUP_OPPONENT_AI_PERSONALITY     | AI: Character
 SETUP_OPPONENT_AI_RANDOM_HELP     | Randomly selected from: Base, Modnar, Rookie, Roleplay, Hybrid, Fusion, Fun, or Character.
 SETUP_OPPONENT_AI_RANDOM          | AI: Random
@@ -1502,7 +1502,7 @@ SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Di
 
 SETUP_RESEARCH_RATE_NORMAL_HELP   | Research costs factors = 1.
 SETUP_RESEARCH_RATE_NORMAL        | Normal
-// mondar: add fast research option
+// modnar: add fast research option
 SETUP_RESEARCH_RATE_FAST_HELP     | Research costs factors:<br>75% at level 2;&ensp 65% at level 6;&ensp 60% at level 8;<br>55% at level 20;&ensp 52% at level 50;&ensp 51% at level 100.
 SETUP_RESEARCH_RATE_FAST          | Fast
 SETUP_RESEARCH_RATE_SLOW_HELP     | Research costs factors:<br>115% at level 2;&ensp 2 at level 12;&ensp 2.5 at level 20;<br>3 at level 28;&ensp 4 at level 50;&ensp 6 at level 100.
@@ -1539,11 +1539,11 @@ SETUP_NEBULA_NORMAL               | Normal
 SETUP_NEBULA_COMMON               | Common
 SETUP_NEBULA_FREQUENT             | Frequent
 SETUP_NEBULA_NONE_HELP            | None, probably the best choice for symmetric galaxy, as nebulas are not symmetry compatible!
-SETUP_NEBULA_RARE_HELP            | One Quarter of nebula occurence.
-SETUP_NEBULA_UNCOMMON_HELP        | Halve the nebula occurence.
-SETUP_NEBULA_NORMAL_HELP          | Normal nebula occurence.
-SETUP_NEBULA_COMMON_HELP          | Double the nebula occurence.
-SETUP_NEBULA_FREQUENT_HELP        | Quadruple the nebula occurence.
+SETUP_NEBULA_RARE_HELP            | One Quarter of nebula occurrence.
+SETUP_NEBULA_UNCOMMON_HELP        | Halve the nebula occurrence.
+SETUP_NEBULA_NORMAL_HELP          | Normal nebula occurrence.
+SETUP_NEBULA_COMMON_HELP          | Double the nebula occurrence.
+SETUP_NEBULA_FREQUENT_HELP        | Quadruple the nebula occurrence.
 
 SETUP_COUNCIL_NONE                | No Council
 SETUP_COUNCIL_IMMEDIATE           | Immediate
@@ -1642,9 +1642,9 @@ SETUP_FUEL_RANGE_HIGHER_HELP      | Fuel range factor = 3.
 SETUP_FUEL_RANGE_HIGHEST_HELP     | Fuel range factor = 5.
 SETUP_RANDOMIZE_AI_NONE_HELP      | To disable this option. But will not disable any randomization on the Galaxy Menu.
 SETUP_RANDOMIZE_AI_NONE           | None
-SETUP_RANDOMIZE_AI_PERSONALITY_HELP | Only the AI personality will be afected by this option, but the Galaxy Menu options may override this, and some AI will ignore all personality option!
+SETUP_RANDOMIZE_AI_PERSONALITY_HELP | Only the AI personality will be affected by this option, but the Galaxy Menu options may override this, and some AI will ignore all personality option!
 SETUP_RANDOMIZE_AI_PERSONALITY    | Personality
-SETUP_RANDOMIZE_AI_ABILITY_HELP   | Only the AI ability will be afected by this option, but the Galaxy Menu options may override it!
+SETUP_RANDOMIZE_AI_ABILITY_HELP   | Only the AI ability will be affected by this option, but the Galaxy Menu options may override it!
 SETUP_RANDOMIZE_AI_ABILITY        | Ability
 SETUP_RANDOMIZE_AI_BOTH_HELP      | This option will try to change both the AI personality and the AI ability... Only if the Galaxy Menu options don't override it!
 SETUP_RANDOMIZE_AI_BOTH           | Both
@@ -1709,7 +1709,7 @@ SETUP_VOID_3                      | Void 3
 SETUP_VOID_4                      | Void 4
 SETUP_VOID_5                      | Void 5
 SETUP_TEXT_0                      | Homeworld Name
-SETUP_TEXT_1                      | ROTP
+SETUP_TEXT_1                      | RotP
 SETUP_TEXT_2                      | MoO1
 SETUP_1_LINE                      | Single Line
 SETUP_2_LINE                      | Double Line
@@ -1765,7 +1765,7 @@ SETUP_BITMAP_SHARP2               | Sharper
 SETUP_BITMAP_SHARP3               | Sharpest
 SETUP_BITMAP_SHARP4               | Razor like
 SETUP_BITMAP_NO_SELECTION         | Click here to select a file
-SETUP_SPECIFIC_AI_DESC            | Select the AI tha will control this opponent.
+SETUP_SPECIFIC_AI_DESC            | Select the AI that will control this opponent.
 SETUP_SPECIFIC_AI                 | Opponent Specific AI
 SETUP_GLOBAL_AI_DESC              | Select one AI...
 SETUP_GLOBAL_AI                   | Opponents AI
@@ -1809,8 +1809,8 @@ CUSTOM_RACE_GUI_LOAD_DESC         | Load the settings from the file specified in
 CUSTOM_RACE_GUI_LOAD              | Reload
 CUSTOM_RACE_GUI_SAVE_DESC         | Save the settings to the file specified in "File Name" Field, existing files will be overwritten.
 CUSTOM_RACE_GUI_SAVE              | Save to File
-CUSTOM_RACE_RACE_LIST             | FileList
-CUSTOM_RACE_RACE_LIST_DESC        | Custom species ablilities file list. Click to load. (At the top is the one when opening the GUI.) 
+CUSTOM_RACE_RACE_LIST             | File List
+CUSTOM_RACE_RACE_LIST_DESC        | Custom species abilities file list. Click to load. (At the top is the one when opening the GUI.) 
 CUSTOM_RACE_RANDOM_MAX            | Setting Max in %
 CUSTOM_RACE_RANDOM_MIN            | Setting Min in %
 CUSTOM_RACE_RANDOM_EDGES          | Smooth Edges
@@ -1836,10 +1836,10 @@ CUSTOM_RACE_RACE_SILICATE         | Silicate
 CUSTOM_RACE_RACE_ROBOTIC          | Robotic
 CUSTOM_RACE_IGNORES_ECO_DESC      | Will be able to colonize any planet, and wont be impaired by their Hostility.
 CUSTOM_RACE_IGNORES_ECO           | Species Ignores Eco
-CUSTOM_RACE_PROPERTIE             | Species Propertie
-CUSTOM_RACE_CREDIT_DESC           | Easy Money! Gives each turn: Population * CreditBonus / 100
+CUSTOM_RACE_PROPERTIE             | Species Properties
+CUSTOM_RACE_CREDIT_DESC           | Easy Money! Gives each turn: Population * Credit Bonus / 100
 CUSTOM_RACE_CREDIT                | Credits Bonus
-CUSTOM_RACE_HIT_POINTS_DESC       | Hull hability to get damage percentage.
+CUSTOM_RACE_HIT_POINTS_DESC       | Hull ability to get damage percentage.
 CUSTOM_RACE_HIT_POINTS            | Hit Point Factor
 CUSTOM_RACE_MAINTENANCE_DESC      | Fleet cost percentage.
 CUSTOM_RACE_MAINTENANCE           | Maintenance Factor
@@ -1872,7 +1872,7 @@ CUSTOM_RACE_PROD_REFIT_COST       | Ignores Refit Cost
 CUSTOM_RACE_TECH_DISCOVERY        | Tech Discovery
 CUSTOM_RACE_TECH_DISCOVERY_DESC   | The base probability of getting a tech available. Displayed cost is the sum of specific tech discovery cost.
 CUSTOM_RACE_TECH_RESEARCH         | Tech Research
-CUSTOM_RACE_TECH_RESEARCH_DESC    | Revenue multiplier for reseaching technology. Cost is linked to the research cost multiplier. Displayed cost is the sum of specific tech research cost.
+CUSTOM_RACE_TECH_RESEARCH_DESC    | Revenue multiplier for researching technology. Cost is linked to the research cost multiplier. Displayed cost is the sum of specific tech research cost.
 CUSTOM_RACE_POP_GROW_RATE         | Population Grow Rate
 CUSTOM_RACE_DIPLOMACY_TRADE       | Trade Bonus
 CUSTOM_RACE_DIPLO_POS_DP          | Diplo Pos DP
@@ -1902,12 +1902,12 @@ CUSTOM_RACE_RESEARCH_FORCEFIELD        | Cost Force Field
 CUSTOM_RACE_RESEARCH_PLANET            | Cost Planet
 CUSTOM_RACE_RESEARCH_PROPULSION        | Cost Propulsion
 CUSTOM_RACE_RESEARCH_WEAPON            | Cost Weapon
-CUSTOM_RACE_RESEARCH_COMPUTER_DESC     | Cost multiplier for reseaching Computer tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
-CUSTOM_RACE_RESEARCH_CONSTRUCTION_DESC | Cost multiplier for reseaching Construction tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
-CUSTOM_RACE_RESEARCH_FORCEFIELD_DESC   | Cost multiplier for reseaching Force Field tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
-CUSTOM_RACE_RESEARCH_PLANET_DESC       | Cost multiplier for reseaching Planet tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
-CUSTOM_RACE_RESEARCH_PROPULSION_DESC   | Cost multiplier for reseaching Propulsion tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
-CUSTOM_RACE_RESEARCH_WEAPON_DESC       | Cost multiplier for reseaching Weapon tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RESEARCH_COMPUTER_DESC     | Cost multiplier for researching Computer tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RESEARCH_CONSTRUCTION_DESC | Cost multiplier for researching Construction tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RESEARCH_FORCEFIELD_DESC   | Cost multiplier for researching Force Field tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RESEARCH_PLANET_DESC       | Cost multiplier for researching Planet tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RESEARCH_PROPULSION_DESC   | Cost multiplier for researching Propulsion tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RESEARCH_WEAPON_DESC       | Cost multiplier for researching Weapon tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
 CUSTOM_RACE_RACE_NAME             | Species Name
 CUSTOM_RACE_RACE_NAME_DESC        | All possible names<br>The counterpart of the "_race" parameter in Species.labels.txt files, and the "name" parameter in Species.names.txt files.
 CUSTOM_RACE_RACE_NAME_PLURAL      | Plural Species Name
@@ -1989,7 +1989,7 @@ CUSTOM_RACE_ARTIFACTS_NONE_DESC   | Normal Research
 CUSTOM_RACE_ARTIFACTS_ORION       | Orion Ruin
 CUSTOM_RACE_ARTIFACTS_ORION_DESC  | Quadruple Research
 
-CUSTOM_RACE_FAVORED_SHIPSET       | ShipSet
+CUSTOM_RACE_FAVORED_SHIPSET       | Shipset
 CUSTOM_RACE_FAVORED_SHIPSET_DESC  | What is the preferred shipset used by this specie? (If still available)
 CUSTOM_RACE_FAVORED_SHIP_SIZE     | Ships Size
 CUSTOM_RACE_FAVORED_SHIP_SIZE_DESC | What is the preferred ship size used by this species? (AI:Base, AI:Modnar, AI: Rookie, and AI:Roleplay will use this information)
@@ -2033,7 +2033,7 @@ SETTINGS_RANDOM_EVENTS            | Random Events: %1
 SETTINGS_RESEARCH_RATE            | Research Rate: %1
 SETTINGS_COUNCIL_WIN              | Council Win: %1
 SETTINGS_RANDOMIZE_AI             | Randomize AI: %1
-SETTINGS_AUTOPLAY                 | Autoplay: %1
+SETTINGS_AUTOPLAY                 | Auto play: %1
 SETTINGS_TECH_TRADING             | Tech Trading: %1
 SETTINGS_GALAXY_AGE               | Galaxy Age: %1
 SETTINGS_WARP_SPEED               | Warp Speed: %1
@@ -2043,14 +2043,14 @@ SETTINGS_TERRAFORMING             | Hostile Terraforming: %1
 SETTINGS_COLONIZING               | Colonizing: %1
 SETTINGS_FUEL_RANGE               | Fuel Range: %1
 SETTINGS_AI_HOSTILITY             | Hostility: %1
-SETTINGS_RANDOM_EVENTS_HELP       | There are twenty random events in Remnants of the Precursors <i> (sixten vanilla and four from the Modnar)</i>, some favorable and some unfavorable. As of turn 50 <i> (this value can be changed) </i>, the percentage chance that a random event will occur somewhere in the galaxy begins to climb. After a random event occurs, the percentage chance resets to zero and begins climbing again next turn.<br>Random events are a catch-up mechanic that favors weaker factions. Once the event is determined, it will target a player based on how well they're doing in the game. Favorable events are more likely to happen to players with lower overall production, whereas unfavorable events are more likely to happen to players with higher overall production. Some event can only happen once.
+SETTINGS_RANDOM_EVENTS_HELP       | There are twenty random events in Remnants of the Precursors <i> (sixteen vanilla and four from the Modnar)</i>, some favorable and some unfavorable. As of turn 50 <i> (this value can be changed) </i>, the percentage chance that a random event will occur somewhere in the galaxy begins to climb. After a random event occurs, the percentage chance resets to zero and begins climbing again next turn.<br>Random events are a catch-up mechanic that favors weaker factions. Once the event is determined, it will target a player based on how well they're doing in the game. Favorable events are more likely to happen to players with lower overall production, whereas unfavorable events are more likely to happen to players with higher overall production. Some event can only happen once.
 SETTINGS_RANDOM_EVENTS_DESC       | Space Monsters are random events and considerable mid-game threats.<br> Turn off space monsters or all random events. 
 SETTINGS_WARP_SPEED_DESC          | Increase the speed of more advanced warp technologies. This can be desirable on very large maps.
 SETTINGS_GALAXY_AGE_DESC          | Compared to normal galaxies, young galaxies have more white and blue stars while old galaxies have more red and neutron stars.
 SETTINGS_TECH_TRADING_HELP        | Tech trading is the other common way to learn a technology. The AI factions will trade technologies with each other, so you might as well get in on the action.<br>You can turn off all technology trades or restrict these trades to allies, this limitation can also be extended to aid.
 SETTINGS_TECH_TRADING_DESC        | Turn off all technology trades or restrict these trades to allies. **To restrict aid too.
 SETTINGS_STAR_DENSITY_DESC        | Set to high to reduce the chance of empires being stranded early in the game.
-SETTINGS_RESEARCH_RATE_HELP       | If you like savoring your new technologies, if you want to delay being distracted by science's newest shinies, you can slow the rate of research
+SETTINGS_RESEARCH_RATE_HELP       | If you like savoring your new technologies, if you want to delay being distracted by science's newest shinnies, you can slow the rate of research
 SETTINGS_RESEARCH_RATE_DESC       | Slow the research rate of new technologies, lengthening the useful life of current technologies.<br> [Asymptotic in modnar MOD]
 SETTINGS_NEBULAE_DESC             | Nebulae slow down ship travel and render shields useless. Increase or decrease their frequency.
 // modnar: change PLANET_QUALITY settings, only Normal, Larger, and Richer
@@ -2067,7 +2067,7 @@ SETTINGS_COUNCIL_DESC             | Disable the council victory condition or all
 SETTINGS_RANDOMIZE_AI_HELP        | Original "Advanced Option" to Randomize the AI played personalities, racial abilities, or both.<br><i>In case of conflict with the selected abilities in the Galaxy menu, The Galaxy menu win.</i>(Should be set to 'Original Species' for this option to works.)
 SETTINGS_RANDOMIZE_AI_DESC        | Randomize the AI player personalities, racial abilities, or both.
 SETTINGS_AUTOPLAY_DESC            | Completely automate the game by having an AI play for the player.<br> This is useful for a first-hand view of how the AI works.
-SETTINGS_AUTOPLAY_WARNING         | Warning! Autoplay is currently enabled which will prevent user gameplay.<br> Use "Advanced Options" to disable.
+SETTINGS_AUTOPLAY_WARNING         | Warning! Auto play is currently enabled which will prevent user gameplay.<br> Use "Advanced Options" to disable.
 SETTINGS_FUEL_RANGE_HELP          | Increase or decrease the range of fuel range technologies and reserve fuel tanks. tolerant species will benefit from reduced ranges, while fast growing species will appreciate increased ranges...
 SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologies and reserve fuel tanks.
 SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien species.<br>When the hostility between two empires reach the level 30, a war declaration will follow!
@@ -2093,11 +2093,11 @@ HEADERS_START_TECH_CONTROL        | ~~ ALLOWED AND FORBIDDEN TECH ~~%1
 HEADERS_START_RANDOM_ALIENS_HELP  | When opponent abilities are set to 'Random' the following settings will be used:
 HEADERS_START_RANDOM_ALIENS_DESC  | Options used for the generation of random species. Only read when starting or restarting a game.
 HEADERS_START_RANDOM_ALIENS       | ~~~ RANDOM ALIENS OPTIONS ~~~%1
-HEADERS_GAME_RELATIONS_DESC       | Options controling the relations between empires. Can be changed dynamically.
+HEADERS_GAME_RELATIONS_DESC       | Options controlling the relations between empires. Can be changed dynamically.
 HEADERS_GAME_RELATIONS            | ~~~ EMPIRES RELATIONS ~~~%1
 HEADERS_RANDOM_EVENTS_OPT_DESC    | Random Events Options. Can be changed dynamically.
 HEADERS_RANDOM_EVENTS_OPT         | ~~~ RANDOM EVENTS OPTIONS ~~~%1
-HEADERS_GAME_VARIOUS_DESC         | Diverses Options. Can be changed dynamically.
+HEADERS_GAME_VARIOUS_DESC         | Diverse Options. Can be changed dynamically.
 HEADERS_GAME_VARIOUS              | ~~~ VARIOUS OPTIONS ~~~%1
 HEADERS_GAME_OTHER_DESC           | Other Options. Can be changed dynamically.
 HEADERS_GAME_OTHER                | ~~~ OTHER OPTIONS ~~~%1
@@ -2109,7 +2109,7 @@ HEADERS_BETA_TEST_DESC            | New options under construction.<br>Please te
 HEADERS_BETA_TEST                 | ~~~ NEW OPTIONS (BETA) ~~~%1
 HEADERS_GAME_DIFFICULTY_DESC      | Options affecting the game difficulty level. Can be changed dynamically.
 HEADERS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
-HEADERS_RESTART_OPTIONS_HELP      | Hidden behind the&nbsp <b>Start</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>Restart</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
+HEADERS_RESTART_OPTIONS_HELP      | Hidden behind the&nbsp <b>Start</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>Restart</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swap it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
 HEADERS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
 HEADERS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~%1
 HEADERS_ZOOM_FACTORS_DESC         | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects. (Remnant.cfg options)
@@ -2143,7 +2143,7 @@ HEADERS_RANDOM_EVENTS_MONSTERS       | ~~~ MONSTERS PARAMETERS ~~~%1
 HEADERS_RANDOM_EVENTS_DELAYS_DESC    | Parameters related to random events activation and delays.
 HEADERS_RANDOM_EVENTS_DELAYS         | ~~~ DELAYS PARAMETERS ~~~%1
 HEADERS_RANDOM_EVENTS_RETURNS_DESC   | Parameters related to random events reiteration. 
-HEADERS_RANDOM_EVENTS_RETURNS        | ~~~ RECURING PARAMETERS ~~~%1
+HEADERS_RANDOM_EVENTS_RETURNS        | ~~~ RECURRING PARAMETERS ~~~%1
 
 
 HEADERS_DEBUG_MEMORY_DESC            | To enable or disable Memory monitoring.
@@ -2164,7 +2164,7 @@ HEADERS_WEAPON_ANIMATIONS            | ~~~ BEAM WEAPON ANIMATIONS ~~~%1
 HEADERS_SHIELD_ANIMATIONS_DESC       | To set combat shield animations parameters.
 HEADERS_SHIELD_ANIMATIONS            | ~~~ SHIELD ANIMATIONS ~~~%1
 
-HEADERS_UNCLASSIFIED_DESC            | The rigth position has still to be found!
+HEADERS_UNCLASSIFIED_DESC            | The right position has still to be found!
 HEADERS_UNCLASSIFIED                 | ~~~ UNCLASSIFIED MOD ~~~%1
 
 
@@ -2182,23 +2182,23 @@ SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI      | - Advanced Galaxy Menu -
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_DESC | Opens a submenu containing advanced Galaxy settings.
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_HELP | Opens a submenu containing advanced Galaxy settings.<br>These settings are finals.<br>These settings are saved with the game.
 
-HEADERS_ARTIFACT_OPTIONS_HELP        | To customize Antaran and Orion Artefact probablilites.<br>The first artifact to be set win! (Antaran First). The default probability is first multiplied by the modifier, then the offset is added.
-HEADERS_ARTIFACT_OPTIONS_DESC        | To customize Antaran and Orion Artefact probablilites.
+HEADERS_ARTIFACT_OPTIONS_HELP        | To customize Antaran and Orion Artefact probabilities.<br>The first artifact to be set win! (Antaran First). The default probability is first multiplied by the modifier, then the offset is added.
+HEADERS_ARTIFACT_OPTIONS_DESC        | To customize Antaran and Orion Artefact probabilities.
 HEADERS_ARTIFACT_OPTIONS             | ~~~ ARTIFACT ~~~%1
-HEADERS_RICH_OPTIONS_HELP            | To customize Utra-Poor, Poor, Rich, and Utra-Rich Ressources probablilites.<br>The first ressource to be set win! (From Utra-Poor to Utra-Rich). The default probability is first multiplied by the modifier, then the offset is added.
-HEADERS_RICH_OPTIONS_DESC            | To customize Utra-Poor, Poor, Rich, and Utra-Rich Ressources probablilites.
-HEADERS_RICH_OPTIONS                 | ~~~ RESSOURCES ~~~%1
+HEADERS_RICH_OPTIONS_HELP            | To customize Ultra-Poor, Poor, Rich, and Ultra-Rich Resources probabilities.<br>The first resource to be set win! (From Ultra-Poor to Ultra-Rich). The default probability is first multiplied by the modifier, then the offset is added.
+HEADERS_RICH_OPTIONS_DESC            | To customize Ultra-Poor, Poor, Rich, and Ultra-Rich Resources probabilities.
+HEADERS_RICH_OPTIONS                 | ~~~ RESOURCES ~~~%1
 HEADERS_NEBULAE_OPTION_DESC          | To customize nebulae placement and impact on planets.
 HEADERS_NEBULAE_OPTION               | ~~~ NEBULAE ~~~%1
-HEADERS_HOMEWORLD_NEIGHBORHOOD_DESC  | To customize distances and contents of homeworld neighborhood.
+HEADERS_HOMEWORLD_NEIGHBORHOOD_DESC  | To customize distances and contents of home world neighborhood.
 HEADERS_HOMEWORLD_NEIGHBORHOOD       | ~~~ NEIGHBORHOOD ~~~%1
 HEADERS_LINKED_OPTIONS_DESC          | These options are linked to the ones above.
 HEADERS_LINKED_OPTIONS               | ~~~ LINKED OPTIONS ~~~%1
-HEADERS_GALAXY_SHAPE_DESC            | Galaxy Shape selections. Text and Bitmap options are not implémented.
+HEADERS_GALAXY_SHAPE_DESC            | Galaxy Shape selections. Text and Bitmap options are not implemented.
 HEADERS_GALAXY_SHAPE                 | ~~~ GALAXY SHAPE ~~~%1
 
 
-SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | To allow a planet Utra-poor, Poor, Rich ,or Utra-rich to also have artifacts.
+SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | To allow a planet Ultra-poor, Poor, Rich ,or Ultra-rich to also have artifacts.
 SETTINGS_MOD_RICH_POOR_ARTIFACT      | Rich/Poor & Artifacts: %1
 SETTINGS_MOD_ARTIFACT_MULT_DESC      | Antaran artifact planet probability multiplier.
 SETTINGS_MOD_ARTIFACT_MULT           | Antaran Multiplier: %1%
@@ -2228,7 +2228,7 @@ SETTINGS_MOD_ULTRA_RICH_OFFSET_DESC  | Ultra-Rich planet probability offset.
 SETTINGS_MOD_ULTRA_RICH_OFFSET       | Ultra-Rich Offset: %1%
 
 TAG_RED_DISPLAY  | Red display means incompatibility with other red options.
-SETTINGS_MOD_FIRST_RING_SYS_NUM_HELP    | Minimum number of star systems to be found in the immediate vicinity.<br>→TAG_RED_DISPLAY←<br>This value must be >= than the Min Nearby Livable.<br>This value must be <= than the Min MidRange Stars.
+SETTINGS_MOD_FIRST_RING_SYS_NUM_HELP    | Minimum number of star systems to be found in the immediate vicinity.<br>→TAG_RED_DISPLAY←<br>This value must be >= than the Min Nearby Livable.<br>This value must be <= than the Min Midrange Stars.
 SETTINGS_MOD_FIRST_RING_SYS_NUM_DESC    | Minimum number of star systems to be found in the immediate vicinity.<br>→TAG_RED_DISPLAY←
 SETTINGS_MOD_FIRST_RING_SYS_NUM         | Min Nearby Stars: %1
 
@@ -2268,17 +2268,17 @@ SETTINGS_MOD_NEBULA_ENRICHMENT_DESC        | Improvement of the planet in the ce
 SETTINGS_MOD_NEBULA_ENRICHMENT             | Nebula planet: %1
 SETTINGS_MOD_NEBULA_ENRICHMENT_NONE_DESC   | Nebulae have no impact on the central planet.
 SETTINGS_MOD_NEBULA_ENRICHMENT_NONE        | None
-SETTINGS_MOD_NEBULA_ENRICHMENT_LESS_DESC   | Enrich if Galaxy > 200 and at least 4 stars are insdide the nebula.
+SETTINGS_MOD_NEBULA_ENRICHMENT_LESS_DESC   | Enrich if Galaxy > 200 and at least 4 stars are inside the nebula.
 SETTINGS_MOD_NEBULA_ENRICHMENT_LESS        | Less
-SETTINGS_MOD_NEBULA_ENRICHMENT_NORMAL_DESC | Enrich if Galaxy > 100 and at least 3 stars are insdide the nebula.
+SETTINGS_MOD_NEBULA_ENRICHMENT_NORMAL_DESC | Enrich if Galaxy > 100 and at least 3 stars are inside the nebula.
 SETTINGS_MOD_NEBULA_ENRICHMENT_NORMAL      | Normal
-SETTINGS_MOD_NEBULA_ENRICHMENT_MORE_DESC   | Enrich if Galaxy > 50 and at least 2 stars are insdide the nebula.
+SETTINGS_MOD_NEBULA_ENRICHMENT_MORE_DESC   | Enrich if Galaxy > 50 and at least 2 stars are inside the nebula.
 SETTINGS_MOD_NEBULA_ENRICHMENT_MORE        | More
-SETTINGS_MOD_NEBULA_ENRICHMENT_ALWAYS_DESC | Nebulae alway enrich the central planet.
+SETTINGS_MOD_NEBULA_ENRICHMENT_ALWAYS_DESC | Nebulae always enrich the central planet.
 SETTINGS_MOD_NEBULA_ENRICHMENT_ALWAYS      | Always
 
 SETTINGS_MOD_NEBULA_HOMEWORLD_DESC         | Do you allow a nebula to be above an empire's neighborhood?
-SETTINGS_MOD_NEBULA_HOMEWORLD              | Homeworlds Nebula: %1
+SETTINGS_MOD_NEBULA_HOMEWORLD              | Home worlds Nebula: %1
 SETTINGS_MOD_NEBULA_HOMEWORLD_ALLOW_DESC   | No restrictions on a nebula being above an empire's neighborhood.
 SETTINGS_MOD_NEBULA_HOMEWORLD_ALLOW        | Allow
 SETTINGS_MOD_NEBULA_HOMEWORLD_NEVER_DESC   | Never let a nebula be too close to an empire's neighborhood.
@@ -2336,13 +2336,13 @@ SETTINGS_MOD_HOME_ARTIFACT           | Get Artifact HomeWorld: %1
 SETTINGS_MOD_HOME_FERTILE            | Get Fertile HomeWorld: %1
 SETTINGS_MOD_HOME_RICH               | Get Rich HomeWorld: %1
 SETTINGS_MOD_HOME_ULTRA_RICH         | Get Ultra-Rich HomeWorld: %1
-SETTINGS_MOD_DIST_ARTIFACT_PLANET_HELP | This will force a minimal distance between all Homeworlds and their nearest artifact planet.<br> The purpose is to avoid a random boost to early in the game for some empires.
-SETTINGS_MOD_DIST_ARTIFACT_PLANET_DESC | Minimal distance between Homeworlds and the nearest artifact planet.
+SETTINGS_MOD_DIST_ARTIFACT_PLANET_HELP | This will force a minimal distance between all Home worlds and their nearest artifact planet.<br> The purpose is to avoid a random boost to early in the game for some empires.
+SETTINGS_MOD_DIST_ARTIFACT_PLANET_DESC | Minimal distance between Home worlds and the nearest artifact planet.
 SETTINGS_MOD_CHALLENGE_MODE_DESC     | Give AI Empires additional starting resources (more Population, Factories, and Ships).
 SETTINGS_MOD_NEW_RACES_ON_DESC       | Include the new species as potential opponents
 SETTINGS_MOD_BATTLE_SCOUT_DESC       | Medium-Hull armed Scout Design for the Player at start of game. Buildable despite breaking Ship Space limitations.
-SETTINGS_MOD_COMPANION_WORLDS_HELP   | Give 0 to 6 additional Colonies around ALL Empire Homeworlds at start of game.<br> - Use negative values, from -1 to -4, to keep the original pre-assigned layout.<br> - Use positive values, from 1 to 6, to activate the new randomly assigned layout.
-SETTINGS_MOD_COMPANION_WORLDS_DESC   | Give 0 to 6 additional Colonies around ALL Empire Homeworlds at start of game. (Negative value for original disposition)
+SETTINGS_MOD_COMPANION_WORLDS_HELP   | Give 0 to 6 additional Colonies around ALL Empire Home worlds at start of game.<br> - Use negative values, from -1 to -4, to keep the original pre-assigned layout.<br> - Use positive values, from 1 to 6, to activate the new randomly assigned layout.
+SETTINGS_MOD_COMPANION_WORLDS_DESC   | Give 0 to 6 additional Colonies around ALL Empire Home worlds at start of game. (Negative value for original disposition)
 SETTINGS_MOD_RANDOM_TECH_START_DESC  | Give ALL Empires 2 random first Tier Techs at start of game. No Artifact Planets will be generated in the Galaxy. (Techs can differ from Empire to Empire.)
 SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC  | Sets the AI Production Modifier from 20% to 500%. Make sure to select "Difficulty: Custom". (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
 SETTINGS_MOD_DYNAMIC_DIFFICULTY_DESC | Scales the AI Production up/down when weaker/stronger than the Player. Effect ramps up at around Turn-150. (Will not infinitely scale, very strong AI Empires will be almost un-changed.)
@@ -2353,7 +2353,7 @@ SETTINGS_MOD_SCRAP_REFUND_ALLY_DESC     | Only ships orbiting on empire or ally 
 SETTINGS_MOD_SCRAP_REFUND_NEVER_DESC    | Nowhere, don't bother me with that!
 SETTINGS_MOD_SCRAP_REFUND_FACTOR_DESC   | What percentage of the ships value can be salvaged from their scrap metal?
 SETTINGS_MOD_MISSILE_BASE_MODIFIER_DESC | Sets cost of missile-bases from 10% to 200%. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
-SETTINGS_MOD_MISSILE_SHIP_MODIFIER_DESC | Sets size, cost and power-consuption of missiles from 10% to 200%. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
+SETTINGS_MOD_MISSILE_SHIP_MODIFIER_DESC | Sets size, cost and power-consumption of missiles from 10% to 200%. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
 SETTINGS_MOD_RETREAT_RESTRICTIONS_DESC | Sets for whom retreating shall be restricted. (scroll the mouse wheel to change)
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS_DESC | Sets for how many turns someone who's retreating is restricted must remain in combat. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5/20.)
 SETTINGS_MOD_MAX_COMBAT_TURNS_DESC   | Sets the maximum duration of ship battles. (It was 50 for MoO1)<br>After this delay, the attackers retreat. Chosen at random if there is no colony.
@@ -2364,7 +2364,7 @@ SETTINGS_MOD_HOME_RICH_DESC          | {Always, Never, Auto} Gives Player/AI Ric
 SETTINGS_MOD_HOME_ULTRA_RICH_DESC    | {Always, Never, Auto} Gives Player/AI Ultra-Rich HomeWorld
 SETTINGS_MOD_POP_GROWTH              | Pop Growth: %1
 SETTINGS_MOD_POP_GROWTH_DESC         | The goal of this new setting is to make pops a more valuable resource. Losing pops and mass transporting them will have higher costs to your economy. It will slow down conquests from transports and development of newly conquered worlds. There may be a different meta. <br> - Reduces natural pop growth by 0.5x<br> - Increases the cost to purchase pops with the eco slider by 2x <br> - Adds a maximum cap on how much pops you can purchase per turn, proportionally to the size of the planet. The spending cap is set initially to 2.5% of the planet size, and increases with cloning techs. <br> The pop purchase cap in particular mainly affects highly developed colonies in the mid to late game. It means colonies cannot instantly regrow their pops after sending transports.
-SETTINGS_MOD_POP_GROWTH_Help         | Setting for how fast Pops grow and how fast Pops can be purchased
+SETTINGS_MOD_POP_GROWTH_HELP         | Setting for how fast Pops grow and how fast Pops can be purchased
 SETTINGS_MOD_POP_GROWTH_NORMAL       | Normal
 SETTINGS_MOD_POP_GROWTH_NORMAL_DESC  | Pop Growth same as vanilla
 SETTINGS_MOD_POP_GROWTH_REDUCED      | Reduced
@@ -2416,16 +2416,16 @@ SETTINGS_MOD_COUNCIL_PLAYER_VOTE_SIZE       | by Size
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST_DESC  | The player will always vote last.
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST       | Last
 
-SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_HELP | To adjust the Empire Homeworlds spreading; (Vanilla value is 100%).<br>A small value will allow homeworlds to be closer, resulting in a great variety of distances.<br>Increasing this value will push aways the homeworlds, resulting in more uniformized distances.<br>This parameter can be adjusted on the Galaxy map preview.
-SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_DESC | Minimum distance between Empire Homeworlds Factor in %.(Not allowed on "complex galaxies")
+SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_HELP | To adjust the Empire Home worlds spreading; (Vanilla value is 100%).<br>A small value will allow home worlds to be closer, resulting in a great variety of distances.<br>Increasing this value will push away the home worlds, resulting in more uniformized distances.<br>This parameter can be adjusted on the Galaxy map preview.
+SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_DESC | Minimum distance between Empire Home worlds Factor in %.(Not allowed on "complex galaxies")
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR      | Empires Spreading: %1%
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_MAP  | Minimum Empires Spacing: %1% (%2 ly)
 
 SETTINGS_MOD_GALAXY_SIZE                   | Galaxy size: %1 ly x %2 ly
 
-SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | To help defining the maximun opponent number from the size of the galaxy.
+SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | To help defining the maximum opponent number from the size of the galaxy.
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE        | Min Stars per Empire: %1
-SETTINGS_MOD_PREF_STARS_PER_EMPIRE_HELP  | When setting the galaxy size, the default number of opponent will be the ratio of the galaxy new size and this value (without exceding 49 opponents).<br> If the number of opponent has already be set manually, its value won't be adjusted anymore.
+SETTINGS_MOD_PREF_STARS_PER_EMPIRE_HELP  | When setting the galaxy size, the default number of opponent will be the ratio of the galaxy new size and this value (without exceeding 49 opponents).<br> If the number of opponent has already be set manually, its value won't be adjusted anymore.
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE_DESC  | To help defining the default opponent number from the size of the galaxy.
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE       | Favored Stars Number: %1
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE_DESC   | Number of Stars per Empire for dynamic galaxy size.
@@ -2437,7 +2437,7 @@ SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI      | Restart Changes Aliens AI: %1
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_YES  | Opponent empires will use the current GUI Opponent AI (Play against) on Restart.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_NO   | Opponent empires will use keep their former AI on Restart.
 
-SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_HELP | When starting a new game based on a previously played game, you can either keep the previous auto-play option, or use the current GUI one. This option is not very usefull anymore, since it's now easy to change this setting while playing the game (Ctrl-o)
+SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_HELP | When starting a new game based on a previously played game, you can either keep the previous auto-play option, or use the current GUI one. This option is not very useful anymore, since it's now easy to change this setting while playing the game (Ctrl-o)
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_DESC | Should "Restart" Change the Player AI? 
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI      | Restart Changes AutoPlay: %1 
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_YES  | Use the current GUI Auto-play setting on Restart.
@@ -2465,7 +2465,7 @@ TECH_HEAD_HK                             | To force Include or Exclude the Techn
 TECH_END_HK                              | in the Tech Tree for Player/AI.
 TECH_VAL_HK                              | {Always, Never, Auto} Include
 TECH_LEVEL_HK                            | This technology could be available at Level
-SETTINGS_MOD_TECH_IRRADIATED_HELP        | →TECH_HEAD_HK← <b>→CONTROLENV_6_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CONTROLENV_6_DETAIL←</i><br>→TECH_LEVEL_HK← 18.<br>It coul be very frustrating not being able to colonize all the planet late in the game!
+SETTINGS_MOD_TECH_IRRADIATED_HELP        | →TECH_HEAD_HK← <b>→CONTROLENV_6_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CONTROLENV_6_DETAIL←</i><br>→TECH_LEVEL_HK← 18.<br>It could be very frustrating not being able to colonize all the planet late in the game!
 SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18)→TECH_VAL_HK← "→CONTROLENV_6_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_IRRADIATED             | Radiated Colony: %1
 SETTINGS_MOD_TECH_CLOAKING_HELP          | →TECH_HEAD_HK← <b>→CLOAK_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CLOAK_0_DETAIL←</i><br>→TECH_LEVEL_HK← 27.<br>You like it! or not! Used in conjunction with Hyperspace Communication, game endings can get very boring.
@@ -2507,7 +2507,7 @@ SETTINGS_MOD_RACES_RAND_MAX_HELP         | Setting used when opponents 'Random' 
 SETTINGS_MOD_RACES_RAND_MAX_DESC         | Alien species randomization: Upper limit for the settings relative randomization window.
 SETTINGS_MOD_RACES_RAND_MAX              | Settings % Max: %1
 
-SETTINGS_MOD_RACES_RAND_EDGES_HELP       | Setting used when opponents 'Random' abilities are selected: "Smooth Edges" defines the limits randomization distribution shape; when "Smooth" the values still have a small probablity of going past the limits, the distribution will be bell shaped. 
+SETTINGS_MOD_RACES_RAND_EDGES_HELP       | Setting used when opponents 'Random' abilities are selected: "Smooth Edges" defines the limits randomization distribution shape; when "Smooth" the values still have a small probability of going past the limits, the distribution will be bell shaped. 
 SETTINGS_MOD_RACES_RAND_EDGES_DESC       | Alien species randomization: Smooth edges allow 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)
 SETTINGS_MOD_RACES_RAND_EDGES            | Smooth Edges: %1
 SETTINGS_MOD_RACES_RAND_EDGES_YES        | Two thirds of the values will be within the limits, one sixth may be above the limit while another sixth may be below the limit.
@@ -2543,7 +2543,7 @@ SETTINGS_MOD_ZOOM_EMPIRE_REPLAY_DESC     | Empire History replay start showing t
 SETTINGS_MOD_ZOOM_EMPIRE_REPLAY          | Empire Replay show all: %1
 SETTINGS_MOD_REPLAY_TURN_PACE_HELP       | To slow down the pace of History replay. Approximate time between two turns in multiples of 100 ms.<br>Can be set in the history panel using the key "1" to "0" as multiple of 100 ms. ("0" = 10)<br> Use "SHIFT" to get multiple of 1 second.
 SETTINGS_MOD_REPLAY_TURN_PACE_DESC       | To slow down the pace of History replay. Approximate time between two turns in multiples of 100 ms.
-SETTINGS_MOD_REPLAY_TURN_PACE            | Replay pace: %1 x 100 ms
+SETTINGS_MOD_REPLAY_TURN_PACE            | Replay pace: %1 x 100 ms.
 
 
 SETTINGS_MOD_ORIGINAL_SPECIES_ONLY_DESC  | The character setting panel will only show the then original species (Yes).<br>The six new species will be shown too (No).
@@ -2627,7 +2627,7 @@ SETTINGS_MOD_SHOW_SYSTEM_NAME 	         | Name
 SETTINGS_MOD_SHOW_SYSTEM_DATA            | Name and Data
 SETTINGS_MOD_HIDE_SYSTEM_NAME_HELP       | Hide everything.
 SETTINGS_MOD_SHOW_SYSTEM_NAME_HELP       | Show only the star system name
-SETTINGS_MOD_SHOW_SYSTEM_DATA_HELP       | Show the star system name abd the colony data.
+SETTINGS_MOD_SHOW_SYSTEM_DATA_HELP       | Show the star system name above the colony data.
 
 SETTINGS_MOD_SHIP_DISPLAY_DESC           | Which moving ships should be displayed? (Related to the icon button on the left of the Galaxy) 
 SETTINGS_MOD_SHIP_DISPLAY                | Ship Display: %1
@@ -2665,7 +2665,7 @@ SETTINGS_MOD_DEVELOPED_NO_BASE           | {→MAIN_COLONY_INDUSTRY←, →MAIN_
 SETTINGS_MOD_DEVELOPED_INDUSTRY_DESC     | Planet is full of factories.
 SETTINGS_MOD_DEVELOPED_INDUSTRY          | {→MAIN_COLONY_INDUSTRY←}
 
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_Help     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the Mass Transport Panel.<br>The slider will be set to green to confirm the auto refill status.<br> Ctrl+Click on sliders to toggle.
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_HELP     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the Mass Transport Panel.<br>The slider will be set to green to confirm the auto refill status.<br> Ctrl+Click on sliders to toggle.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_DESC     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the transport panel.
 TRANSPORT_AUTO_ECO_HK                    | Transport ECO
 SETTINGS_MOD_TRANSPORT_AUTO_ECO          | →TRANSPORT_AUTO_ECO_HK←: %1
@@ -2710,7 +2710,7 @@ SETTINGS_MOD_RESEARCH_MOO1               | Research Moo1: %1
 SETTINGS_MOD_PERSISTENT_RNG_DESC         | To make the base Random Generator Persistent. Reload won't change game randomness. 
 SETTINGS_MOD_PERSISTENT_RNG              | persistent RNG: %1
 
-SETTINGS_MOD_ALLOW_SPECIES_DETAILS_DESC  | In the Empire Diplomacy panel, allows or prohibits calling for more detailed species informations.
+SETTINGS_MOD_ALLOW_SPECIES_DETAILS_DESC  | In the Empire Diplomacy panel, allows or prohibits calling for more detailed species information.
 SETTINGS_MOD_ALLOW_SPECIES_DETAILS       | Allow Species Details: %1
 
 SETTINGS_MOD_SHOW_PENDING_ORDERS_DESC    | Spending categories having pending orders (Given after Technology update) are highlighted in blue.
@@ -2726,19 +2726,19 @@ SETTINGS_MOD_DARK_GALAXY_SHRINK_DESC     | Shows only Systems in range, No Spyin
 SETTINGS_MOD_DARK_GALAXY_SHRINK          | Dark
 SETTINGS_MOD_DARK_GALAXY_DESC            | Yes: only Star systems in scout range or in scanner range are shown. 
 SETTINGS_MOD_DARK_GALAXY                 | Dark Galaxy: %1
-SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Why? by u/dweller_below</b><br><br><b>Boring:</b> We are all within a particulary thick nebula. The supernova that created this nebula spewed heavy elements EVERYWHERE. The particular combination of elements in our local nebula block EVERYTHING.<br><br><b>Funner/self referential:</b> We are participants in a vast simulation created by the Orions/Antarans. Naturally, the simulation must be good enough that we all express sentience/sapience. In iteration 42 of the simulation our Gods/Masters decided to isolate each race until we encounter each other.<br><br><b>Funnerest:</b> The Antarans won the Orion/Antaran war and moved to exterminate Exterminate EXTERMINATE EVERYTHING. Our races have all been recently rescued/moved/copied to our ARC (Antaran Rescue Craft) by the Orions. The ARC just looks like a small galaxy. The ARC is actually a pocket dimension/rescue craft. This explains several things:<br>- The high density of intelligent races within our ARC.<br>- Why the Orions don't dominate our ARC. The Orions oppose the Antarans. One of the differences is the Orions don't dominate/exterminate other races. This matches prior backstory.<br>- Why we haven't sensed radio emissions from each other. Or light from each other's star. Game starts at the creation of the ARC. We USED to see other stars. But, now everything is different. Now, when we start to move outside of our small ight bubbles, we find that everything is different. In fact, every star is radiating a decaying light bubble full of obsolete/meaningless information. But, as you get close to the adjacent stars, you can see what is really there NOW.<br>- Why physical law changes. The Orions manufactured different physical law within each game/ARC for "reasons". Everytime we play, the ARC can be slightly different. The Orions had enough resources to copy our races multiple times and create multiple ARCs. Each Game/ARC is an attempt to create a different combination of survivors.
+SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Why? by u/dweller_below</b><br><br><b>Boring:</b> We are all within a particularly thick nebula. The supernova that created this nebula spewed heavy elements EVERYWHERE. The particular combination of elements in our local nebula block EVERYTHING.<br><br><b>Funnier/self referential:</b> We are participants in a vast simulation created by the Orion's/Antaran. Naturally, the simulation must be good enough that we all express sentience/sapience. In iteration 42 of the simulation our Gods/Masters decided to isolate each race until we encounter each other.<br><br><b>Funniest:</b> The Antarans won the Orion/Antaran war and moved to exterminate Exterminate EXTERMINATE EVERYTHING. Our races have all been recently rescued/moved/copied to our ARC (Antaran Rescue Craft) by the Orions. The ARC just looks like a small galaxy. The ARC is actually a pocket dimension/rescue craft. This explains several things:<br>- The high density of intelligent races within our ARC.<br>- Why the Orions don't dominate our ARC. The Orions oppose the Antarans. One of the differences is the Orions don't dominate/exterminate other races. This matches prior backstory.<br>- Why we haven't sensed radio emissions from each other. Or light from each other's star. Game starts at the creation of the ARC. We USED to see other stars. But, now everything is different. Now, when we start to move outside of our small ight bubbles, we find that everything is different. In fact, every star is radiating a decaying light bubble full of obsolete/meaningless information. But, as you get close to the adjacent stars, you can see what is really there NOW.<br>- Why physical law changes. The Orions manufactured different physical law within each game/ARC for "reasons". Every time we play, the ARC can be slightly different. The Orions had enough resources to copy our races multiple times and create multiple ARCs. Each Game/ARC is an attempt to create a different combination of survivors.
 
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | To boost the maximal security tax percentage. (Spying bonus = 2 x tax)
 SETTINGS_MOD_MAX_SECURITY_PCT            | Max Security: %1%
 
 SETTINGS_MOD_SHIELD_TYPE_NONE_DESC       | No shield animations (for low power computers)
 SETTINGS_MOD_SHIELD_TYPE_NONE            | None
-SETTINGS_MOD_SHIELD_TYPE_3D_DESC         | 3D semi tranparent shield animations. (May giltch on mac OS)
+SETTINGS_MOD_SHIELD_TYPE_3D_DESC         | 3D semi transparent shield animations. (May glitch on mac OS)
 SETTINGS_MOD_SHIELD_TYPE_3D              | 3D
 SETTINGS_MOD_SHIELD_TYPE_2D_DESC         | 2D shield animations (for mac OS, if 3D is too glitchy)
 SETTINGS_MOD_SHIELD_TYPE_2D              | 2D
-SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS_DESC  | 3D semi tranparent shield animations. With extra buffers to minimize glitches. More computer intensive!
-SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS       | 3D Buf
+SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS_DESC  | 3D semi transparent shield animations. With extra buffers to minimize glitches. More computer intensive!
+SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS       | 3D Buff
 
 SETTINGS_MOD_NEW_WEAPON_ANIMATION_DESC   | Show Shield and miss effect.
 SETTINGS_MOD_NEW_WEAPON_ANIMATION        | Shields Effects: %1
@@ -2747,13 +2747,13 @@ SETTINGS_MOD_NEW_WEAPON_SOUND            | New Weapon Sound: %1
 SETTINGS_MOD_PLAYER_SOUND_ECHO_DESC      | Add Echo to weapon sound if the player is the target!
 SETTINGS_MOD_PLAYER_SOUND_ECHO           | Player Target Echo: %1
 SETTINGS_MOD_ECHO_SOUND_DELAY_DESC       | Base Echo Delay, for small hull size!
-SETTINGS_MOD_ECHO_SOUND_DELAY            | Echo Base Delay: %1 ms
-SETTINGS_MOD_ECHO_SOUND_HULL_DELAY_DESC  | Additionnal Echo Delay per Hull size!
-SETTINGS_MOD_ECHO_SOUND_HULL_DELAY       | Echo Hull Delay: %1 ms
+SETTINGS_MOD_ECHO_SOUND_DELAY            | Echo Base Delay: %1 ms.
+SETTINGS_MOD_ECHO_SOUND_HULL_DELAY_DESC  | Additional Echo Delay per Hull size!
+SETTINGS_MOD_ECHO_SOUND_HULL_DELAY       | Echo Hull Delay: %1 ms.
 SETTINGS_MOD_ECHO_SOUND_DECAY_DESC       | Echo Decay parameter: 0% = no Echo; 100% = Permanent echo!
 SETTINGS_MOD_ECHO_SOUND_DECAY            | Echo Decay: %1%
 
-SETTINGS_MOD_BEAM_WINDUP_FRAMES_DESC     | Beam building duration. (Should be instantaneous, but seing the beam propagation is nice too!) 
+SETTINGS_MOD_BEAM_WINDUP_FRAMES_DESC     | Beam building duration. (Should be instantaneous, but seeing the beam propagation is nice too!) 
 SETTINGS_MOD_BEAM_WINDUP_FRAMES          | Beam Windup Frames: %1
 SETTINGS_MOD_BEAM_HOLD_FRAMES_DESC       | After the beam building phase, the attack can be hold a little bit. This value will be added to the base weapon hold value.
 SETTINGS_MOD_BEAM_HOLD_FRAMES            | Beam Hold Frames: %1
@@ -2767,7 +2767,7 @@ SETTINGS_MOD_SHIELD_ENVELOPING           | Shield Enveloping: %1
 SETTINGS_MOD_BEAM_ANIMATION_FPS_DESC     | Animation Speed in frames per second. This to tune the animation duration, jointly with the number of frames settings.
 SETTINGS_MOD_BEAM_ANIMATION_FPS          | Animation Speed: %1 fps
 SETTINGS_MOD_BEAM_ANIMATION_DELAY_DESC   | Pause between two frames. You may try to balance this value with higher frames number to get a smoother animation.
-SETTINGS_MOD_BEAM_ANIMATION_DELAY        | Animation Delay: %1 ms
+SETTINGS_MOD_BEAM_ANIMATION_DELAY        | Animation Delay: %1 ms.
 SETTINGS_MOD_SHOW_RESULT_DELAY_DESC      | The results panel should no longer appear until the animations finish. This is a security delay in the event of a bug. If set to "0 ms", the panel will appear immediately, just like before!
 SETTINGS_MOD_SHOW_RESULT_DELAY           | Result Max Delay: %1 ms
 SETTINGS_MOD_ALWAYS_SHOWS_SHIELD_DESC    | Shield animations will still be displayed, even if the target has no shield!
@@ -2776,7 +2776,7 @@ SETTINGS_MOD_SHIELD_NOISE_PCT_DESC       | Add some noise to the shield animatio
 SETTINGS_MOD_SHIELD_NOISE_PCT            | Shield Noise: %1%
 SETTINGS_MOD_SHIELD_TRANSPARENCY_DESC    | Low value for high shield intensity; High value gives more transparency.
 SETTINGS_MOD_SHIELD_TRANSPARENCY         | Shield Transparency: %1%
-SETTINGS_MOD_SHIELD_FLICKERING_DESC      | Litte shield intensity vibration during the holding phase.
+SETTINGS_MOD_SHIELD_FLICKERING_DESC      | Little shield intensity vibration during the holding phase.
 SETTINGS_MOD_SHIELD_FLICKERING           | Shield Flickering: %1%
 SETTINGS_MOD_SHIELD_BORDER_DESC          | Shield border thickness.
 SETTINGS_MOD_SHIELD_BORDER               | Shield Borders: %1
@@ -2817,16 +2817,16 @@ SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy 
 SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Show circular grid: %1
 SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Custom Species Menu: Show the lower box with Tooltips?
 SETTINGS_MOD_SHOW_TOOLTIPS               | Show Tooltips: %1
-SETTINGS_MOD_USE_FUSION_FONT_HELP        | To be used with <b>Text Shaped Galaxies</b>: On Windows computers you won't have access to all available chars... So I merged a bunch of "noto" fonts to a big package and included it to this mod. It's a mixt of monospaced and variable fonts (for a total of 153 fonts), I had to remove "advanced" table features because they were to big to be merged (There is a reason why Google don't offert the big merged one!). Consequently, it won't be a good idea to try to copy it into your font folder...
+SETTINGS_MOD_USE_FUSION_FONT_HELP        | To be used with <b>Text Shaped Galaxies</b>: On Windows computers you won't have access to all available chars... So I merged a bunch of "noto" fonts to a big package and included it to this mod. It's a mixt of monospaced and variable fonts (for a total of 153 fonts), I had to remove "advanced" table features because they were to big to be merged (There is a reason why Google don't offer the big merged one!). Consequently, it won't be a good idea to try to copy it into your font folder...
 SETTINGS_MOD_USE_FUSION_FONT_DESC        | Galaxy text shaped will use Fusion font.
 SETTINGS_MOD_USE_FUSION_FONT             | Use Fusion Font: %1
 SETTINGS_MOD_USE_FUSION_FONT_YES         | Replace the original standard "monospaced" Fonts with the dedicated "Fusion" ones.
 SETTINGS_MOD_USE_FUSION_FONT_NO          | Keep the original standard "monospaced" Fonts.
 SETTINGS_MOD_SHOW_NEXT_COUNCIL_DESC      | Show years left until next council. (On Galaxy panel, next to the Year)
 SETTINGS_MOD_SHOW_NEXT_COUNCIL           | Show next council: %1
-SETTINGS_MOD_LOAD_LOCAL_DESC             | Settings are loaded for current panel only (Yes), or all settings are loaded alltogether (No)
+SETTINGS_MOD_LOAD_LOCAL_DESC             | Settings are loaded for current panel only (Yes), or all settings are loaded altogether (No)
 SETTINGS_MOD_LOAD_LOCAL                  | Load Local Only: %1
-SETTINGS_MOD_SAVE_LOCAL_DESC             | Settings are saved for current panel only (Yes), or all settings are saved alltogether (No)
+SETTINGS_MOD_SAVE_LOCAL_DESC             | Settings are saved for current panel only (Yes), or all settings are saved altogether (No)
 SETTINGS_MOD_SAVE_LOCAL                  | Save Local Only: %1
 SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE_DESC | Galaxy preview: Orion, Player, and Aliens Star size. (0 = No Color and same size "2" as before)
 SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE      | Stars Size: %1
@@ -2873,8 +2873,8 @@ SETTINGS_MOD_BASE_MOD_OPTIONS_UI         | - Base Mod Settings Menu -
 SETTINGS_MOD_BASE_MOD_OPTIONS_UI_DESC    | Opens a submenu containing Base mod options.<br>To be extended on demand.
 
 SETTINGS_MOD_COMMON_OPTIONS_TITLE        | Extended Settings
-SETTINGS_MOD_COMMON_OPTIONS_UI           | - Extended remnant.cfg Settings Menu -
-SETTINGS_MOD_COMMON_OPTIONS_UI_DESC      | Opens a submenu containing remnant.cfg settings and some other performance and presentation settings common to all gameplay.
+SETTINGS_MOD_COMMON_OPTIONS_UI           | - Extended Remnant.cfg Settings Menu -
+SETTINGS_MOD_COMMON_OPTIONS_UI_DESC      | Opens a submenu containing Remnant.cfg settings and some other performance and presentation settings common to all gameplay.
 
 SETTINGS_MOD_NAME_OPTIONS_TITLE          | Base Species Nominal Names
 SETTINGS_MOD_NAME_OPTIONS_UI             | - Base Species Names -
@@ -2951,7 +2951,7 @@ SETTINGS_MOD_AUTO_FLAG_CLEAR             | Clear the Flag
 
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the Top Left flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Auto-Flag 1: %1
-SETTINGS_MOD_AUTO_FLAG_ASSIGN_2_DESC     | Select the parameter that will be automatically associated with the Top Rigth flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_2_DESC     | Select the parameter that will be automatically associated with the Top Right flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_2          | Auto-Flag 2: %1
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_3_DESC     | Select the parameter that will be automatically associated with the Bottom Right flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_3          | Auto-Flag 3: %1
@@ -2986,7 +2986,7 @@ SETTINGS_MOD_AUTO_FLAG_RICH_DESC          | Select the Flag Color to set automat
 SETTINGS_MOD_AUTO_FLAG_NORMAL_DESC        | Select the Flag Color to set automatically when a Normal Planet is scouted.
 SETTINGS_MOD_AUTO_FLAG_POOR_DESC          | Select the Flag Color to set automatically when a Poor Planet is scouted.
 SETTINGS_MOD_AUTO_FLAG_ULTRA_POOR_DESC    | Select the Flag Color to set automatically when an Ultra Poor Planet is scouted.
-SETTINGS_MOD_AUTO_FLAG_NONE_DESC          | Select the Flag Color to set automatically when No ressources are found.
+SETTINGS_MOD_AUTO_FLAG_NONE_DESC          | Select the Flag Color to set automatically when No resources are found.
 
 SETTINGS_MOD_AUTO_FLAG_TECH_GAIA_DESC     | Select the Flag Color to set automatically when a Gaia Planet is scouted. (Standard colony ship)
 SETTINGS_MOD_AUTO_FLAG_TECH_FERTILE_DESC  | Select the Flag Color to set automatically when a Fertile Planet is scouted. (Standard colony ship)
@@ -3048,9 +3048,9 @@ SETTINGS_MOD_AUTO_FLAG_VESTIGES_NONE     | None Color: %1
 
 SETTINGS_MOD_GALAXY_RAND_SOURCE_HELP     | By default, the preview gives only an global idea of the galaxy you will get. By setting a value other than "Random", the preview will display the final galaxy. Use this to avoid configurations you won't like... To far from Orion... To close to the center... or tor far! etc...
 SETTINGS_MOD_GALAXY_RAND_SOURCE_DESC     | if <> 0, this number will be used as source for the galaxy random generator. The final galaxy will be the preview one.<br>This option will unlock the galaxy preview size limitation (5000). Be ready for long generation time with "Insane" and above galaxies!
-SETTINGS_MOD_GALAXY_RAND_SOURCE          | Random or Wysiwyg: %1
+SETTINGS_MOD_GALAXY_RAND_SOURCE          | Random or WYSIWYG: %1
 SETTINGS_MOD_GALAXY_RAND_RANDOM          | Random
-SETTINGS_MOD_GALAXY_RAND_WYSIWYG         | Wysiwyg %1
+SETTINGS_MOD_GALAXY_RAND_WYSIWYG         | WYSIWYG %1
 
 SETTINGS_MOD_AUTO_TERRAFORM_ENDING_DESC  | When in terraforming mode, what will trigger the end of the Eco boost?
 SETTINGS_MOD_AUTO_TERRAFORM_ENDING       | Terraform End: %1
@@ -3077,7 +3077,7 @@ SETTINGS_MOD_GUARDIAN_MONSTERS_RUIN_DESC | Artifact planets can be guarded by Sp
 SETTINGS_MOD_GUARDIAN_MONSTERS_RUIN      | Artifact
 SETTINGS_MOD_GUARDIAN_MONSTERS_PCT_DESC  | Base probability (in %) for good planets to have a Space Monster. This value will be multiplied by the planet size (in %).
 SETTINGS_MOD_GUARDIAN_MONSTERS_PCT       | Guardians Prob: %1%
-SETTINGS_MOD_GUARDIAN_MONSTERS_LEVEL_DESC | Dificulty level for Gardian Space Monsters.
+SETTINGS_MOD_GUARDIAN_MONSTERS_LEVEL_DESC | Difficulty level for Guardian Space Monsters.
 SETTINGS_MOD_GUARDIAN_MONSTERS_LEVEL      | Guardians Level: %1%
 
 
@@ -3095,7 +3095,7 @@ REF_DELAY_1      | To set the starting turn offset of random
 REF_DELAY_2      | events (x2 for Easy; x3 for Easier; x4 for Easiest).<br>Off (-1) will disable this event.
 REF_RETURN       | Repeat Delay: %1
 REF_RETURN_1     | To set the Delay between two
-REF_RETURN_2     | events occurence. (0 = Unique event; -1 = Concurrent)
+REF_RETURN_2     | events occurrence. (0 = Unique event; -1 = Concurrent)
 REF_MAX_SYS_1    | To set the Number of stars systems attacked by the
 REF_MAX_SYS_2    | before leaving. (0 = Not limited)
 REF_INTRO        | <br><u>Event Description:</u><br>
@@ -3109,11 +3109,11 @@ SETTINGS_MOD_EVENTS_FAVOR_WEAK_HELP      | By default, Yes, the Random events ar
 SETTINGS_MOD_EVENTS_FAVOR_WEAK_DESC      | To adjust the probability of the next event occurring.
 SETTINGS_MOD_EVENTS_FAVOR_WEAK           | Favor the weak: %1
 
-SETTINGS_MOD_FIXED_EVENTS_MODE_HELP      | A seed is given at the begining of a game, and will be used to generate the random events.<br>- Target empires are no more determined by their powers.<br>- Same time, same event, same target on different play.<br>- Same Events on Reload.<br>- If an event is still actif, it will be put on waiting list till the previous occurence ends.<br>- If targeted empire is extinct, Monsters are directed to their former home world.
-SETTINGS_MOD_FIXED_EVENTS_MODE_DESC      | A seed is given at the begining of a game, and will be used to generate the random events. Target empire are no more determined by their powers.
+SETTINGS_MOD_FIXED_EVENTS_MODE_HELP      | A seed is given at the beginning of a game, and will be used to generate the random events.<br>- Target empires are no more determined by their powers.<br>- Same time, same event, same target on different play.<br>- Same Events on Reload.<br>- If an event is still active, it will be put on waiting list till the previous occurrence ends.<br>- If targeted empire is extinct, Monsters are directed to their former home world.
+SETTINGS_MOD_FIXED_EVENTS_MODE_DESC      | A seed is given at the beginning of a game, and will be used to generate the random events. Target empire are no more determined by their powers.
 SETTINGS_MOD_FIXED_EVENTS_MODE           | Deterministic random events: %1
 
-SETTINGS_MOD_MONSTERS_GIVE_LOOTS_HELP    | A seed is given at the begining of a game, and will be used to generate the random events.<br>- Target empires are no more determined by their powers.<br>- Same time, same event, same target on different play.<br>- Same Events on Reload.<br>- If an event is still actif, it will be put on waiting list till the previous occurence ends.<br>- If targeted empire is extinct, Monsters are directed to their former home world.
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_HELP    | A seed is given at the beginning of a game, and will be used to generate the random events.<br>- Target empires are no more determined by their powers.<br>- Same time, same event, same target on different play.<br>- Same Events on Reload.<br>- If an event is still active, it will be put on waiting list till the previous occurrence ends.<br>- If targeted empire is extinct, Monsters are directed to their former home world.
 SETTINGS_MOD_MONSTERS_GIVE_LOOTS_DESC     | Loots are given on Monster destruction.
 SETTINGS_MOD_MONSTERS_GIVE_LOOTS          | Monsters give Loots: %1
 SETTINGS_MOD_MONSTERS_GIVE_LOOTS_YES      | →BOOLEAN_YES←
@@ -3121,7 +3121,7 @@ SETTINGS_MOD_MONSTERS_GIVE_LOOTS_NO       | →BOOLEAN_NO←
 SETTINGS_MOD_MONSTERS_GIVE_LOOTS_YES_DESC | BC, Tech, or Ship
 SETTINGS_MOD_MONSTERS_GIVE_LOOTS_NO_DESC  | Default value (Vanilla)
 
-SETTINGS_MOD_MONSTERS_LEVEL_HELP         | Default ROTP Monsters are quite challenging. This option will cut the difficulty in half.
+SETTINGS_MOD_MONSTERS_LEVEL_HELP         | Default RotP Monsters are quite challenging. This option will cut the difficulty in half.
 SETTINGS_MOD_MONSTERS_LEVEL_DESC         | To allow easier Monsters.
 SETTINGS_MOD_MONSTERS_LEVEL              | Monsters level: %1
 SETTINGS_MOD_MONSTERS_LEVEL_NORMAL       | Normal
@@ -3129,8 +3129,8 @@ SETTINGS_MOD_MONSTERS_LEVEL_EASY         | Easy
 SETTINGS_MOD_MONSTERS_LEVEL_NORMAL_DESC  | Vanilla Monsters... Quite a challenge!
 SETTINGS_MOD_MONSTERS_LEVEL_EASY_DESC    | Less scary monsters.
 
-SETTINGS_MOD_MONSTERS_GNN_HELP           | GNN Monster Notification Repetition: With the multiple occurence of monsters, the number of GNN Notification can become bothersome. They can be limited to one per Monster appearance, or one per Monster type.
-SETTINGS_MOD_MONSTERS_GNN_DESC           | GNN Monster Notification Repetition: With the multiple occurence of monsters, the number of GNN Notification can become bothersome. They can be limited to one per Monster appearance, or one per Monster type.
+SETTINGS_MOD_MONSTERS_GNN_HELP           | GNN Monster Notification Repetition: With the multiple occurrence of monsters, the number of GNN Notification can become bothersome. They can be limited to one per Monster appearance, or one per Monster type.
+SETTINGS_MOD_MONSTERS_GNN_DESC           | GNN Monster Notification Repetition: With the multiple occurrence of monsters, the number of GNN Notification can become bothersome. They can be limited to one per Monster appearance, or one per Monster type.
 SETTINGS_MOD_MONSTERS_GNN                | GNN Notify %1 Monsters
 SETTINGS_MOD_MONSTERS_GNN_ALL            | All
 SETTINGS_MOD_MONSTERS_GNN_NEW            | New
@@ -3327,7 +3327,7 @@ SETTINGS_MOD_IRONMAN_OPTIONS_TITLE       | Ironman Menu
 SETTINGS_MOD_IRONMAN_OPTIONS_UI_DESC     | Open Sub Menu to access Ironman customization options.
 SETTINGS_MOD_IRONMAN_OPTIONS_UI          | §~ Ironman Menu: %1
 
-HEADERS_IRONMAN_BASIC_DESC               | To test ironman options without risk.<br>Option button removal is only available from Pre-Game options, to avoid unfortunate misclick.
+HEADERS_IRONMAN_BASIC_DESC               | To test ironman options without risk.<br>Option button removal is only available from Pre-Game options, to avoid unfortunate misClick.
 HEADERS_IRONMAN_BASIC                    | ~~~ IRONMAN LITE ~~~%1
 HEADERS_IRONMAN_MAIN_DESC                | The one that govern all.
 HEADERS_IRONMAN_MAIN                     | ~~~ MAIN OPTION ~~~%1
@@ -3354,7 +3354,7 @@ SETTINGS_MOD_IRONMAN_LOAD_DELAY_HELP     | Reload turn divider.<br>Only saved ga
 SETTINGS_MOD_IRONMAN_LOAD_DELAY_DESC     | Reload turn divider.<br>Only saved game at turns that can be divided by this value are allowed to be reloaded.
 SETTINGS_MOD_IRONMAN_LOAD_DELAY          | Reload turn divider: %1
 
-SETTINGS_MOD_REPEATABLE_ARTIFACT_DESC    | Arfifacts planets will constantly give the same tech on reload.
+SETTINGS_MOD_REPEATABLE_ARTIFACT_DESC    | Artifacts planets will constantly give the same tech on reload.
 SETTINGS_MOD_REPEATABLE_ARTIFACT         | Deterministic Artifacts: %1
 
 // Tech UI labels
@@ -3405,7 +3405,7 @@ TECH_BUTTON_EXIT                  | EXIT
 
 // Tech UI help
 TECH_HELP_1A                      | OVERVIEW - This screen allows you to adjust spending across the six areas of technology that you can study. You can review technologies already learned (green), current in research (yellow) or available for future research (brown). 
-TECH_HELP_1B                      | Click or scroll with the mousewheel to view the technologies for an area of research. 
+TECH_HELP_1B                      | Click or scroll with the mouse wheel to view the technologies for an area of research. 
 TECH_HELP_1C                      | Fills up when research points (RP) are spent in an area. Once filled, there is an increasing chance each turn to learn the technology.
 TECH_HELP_1D                      | Technology currently being researched. See its description for benefits.
 TECH_HELP_1E                      | General benefits provided by technologies already learned in this area.
@@ -3903,7 +3903,7 @@ RACES_HELP_6A                     | This screen provides a current ranking, in v
 RACES_HELP_6A2                    | This screen provides a historical comparison, in various categories, of our empire to a selected empire. This data is gathered from our spy networks within those empires.
 RACES_HELP_6B                     | Fleet Strength - combines number and size of ships.
 RACES_HELP_6C                     | Population - total population of all colonized systems.
-RACES_HELP_6D                     | Technology - average level of technology in all areas of research.<br>The maximum level of technology is shown when "Absolute" value is secleted.
+RACES_HELP_6D                     | Technology - average level of technology in all areas of research.<br>The maximum level of technology is shown when "Absolute" value is selected.
 RACES_HELP_6Dg                    | Technology - average level of technology in all areas of research.<br> The dotted line shows the maximum level of technology.
 RACES_HELP_6E                     | Planets - the number of colonized systems.
 RACES_HELP_6F                     | Production - total industrial production for the empire.
@@ -4147,7 +4147,7 @@ GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE_E  | Submission to Alien Overlords
 GAME_OVER_NEW_REPUBLIC_LOSS_E             | Fall of the New Republic
 GAME_OVER_NEW_REPUBLIC_LOSS_LEADER_E      | Fiasco of the New Republic
 GAME_OVER_NEW_REPUBLIC_LOSS_MAJOR_E       | Fall of the New Republic
-GAME_OVER_NEW_REPUBLIC_LOSS_MINOR_E       | Unsuccesful New Republic
+GAME_OVER_NEW_REPUBLIC_LOSS_MINOR_E       | Unsuccessful New Republic
 GAME_OVER_NEW_REPUBLIC_ALLY_LOSS_E        | Attempt to Help the New Republic
 GAME_OVER_REBELLION_LOSS_E                | Destruction of the Rebellion
 GAME_OVER_REBELLION_LEADER_LOSS_E         | Crazy Leader Defeated During his Rebellion
@@ -4183,9 +4183,9 @@ GAME_OVER_DIPLOMATIC_LOSS_LEADER_RB        | →GAME_OVER_DIPLOMATIC_LOSS_LEADER
 GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER_RB    | →GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER←
 GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE_RB  | →GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE←
 GAME_OVER_NEW_REPUBLIC_LOSS_RB             | →GAME_OVER_NEW_REPUBLIC_LOSS←
-GAME_OVER_NEW_REPUBLIC_LOSS_LEADER_RB      | →GAME_OVER_DIPLO_FEARED_WIN_RB← Overtrown
-GAME_OVER_NEW_REPUBLIC_LOSS_MAJOR_RB       | →GAME_OVER_DIPLO_MAJOR_WIN_RB← Overtrown
-GAME_OVER_NEW_REPUBLIC_LOSS_MINOR_RB       | →GAME_OVER_DIPLOMATIC_WIN_RB← Overtrown
+GAME_OVER_NEW_REPUBLIC_LOSS_LEADER_RB      | →GAME_OVER_DIPLO_FEARED_WIN_RB← Overthrown
+GAME_OVER_NEW_REPUBLIC_LOSS_MAJOR_RB       | →GAME_OVER_DIPLO_MAJOR_WIN_RB← Overthrown
+GAME_OVER_NEW_REPUBLIC_LOSS_MINOR_RB       | →GAME_OVER_DIPLOMATIC_WIN_RB← Overthrown
 GAME_OVER_NEW_REPUBLIC_ALLY_LOSS_RB        | →GAME_OVER_NEW_REPUBLIC_LOSS←
 GAME_OVER_REBELLION_LOSS_RB                | →GAME_OVER_REBELLION_LOSS←
 GAME_OVER_REBELLION_LEADER_LOSS_RB         | →GAME_OVER_REBELLION_LEADER_LOSS←
@@ -4218,18 +4218,18 @@ GAME_OVER_CONTINUE                | Continue (test)
 
 // text for race-generic endings
 // %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 special text
-GAME_OVER_NO_COLONIES_LOSS2       | The rule of %2 has ended, undone by imperial incompetence.#With no civilized worlds on which to land safely, any surviving [player_race] transports are unable to sustain the technological progress made by your society.#Barbarism is the natural state of society. Civilization is unnatural. It is a whim of circumstance. And barbarism must ultimately triumph.
+GAME_OVER_NO_COLONIES_LOSS2       | The rule of %2 has ended, undone by imperial incompetence. #With no civilized worlds on which to land safely, any surviving [player_race] transports are unable to sustain the technological progress made by your society. #Barbarism is the natural state of society. Civilization is unnatural. It is a whim of circumstance. And barbarism must ultimately triumph.
 
 //
 // ===== BR: Governor labels =====
 // 
-HEADERS_GOVERNOR_SETUP_MENU_DESC  | To define the Governor options ouside of the Game
+HEADERS_GOVERNOR_SETUP_MENU_DESC  | To define the Governor options outside of the Game
 HEADERS_GOVERNOR_SETUP_MENU       | ~~~ SETUP GOVERNOR ~~~%1
 GOVERNOR_SETUP_TITLE              | Governor Setup Panel
 GOVERNOR_SETUP_MENU_DESC          | Open Sub Menu to access Governor Options Setup.
 GOVERNOR_SETUP_MENU               | - Governor Menu -
 
-HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | AutoTransport Options.
+HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | Auto Transport Options.
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ AUTO-TRANSPORT OPTIONS ~~~%1
 GOVERNOR_AUTO_TRANSPORT_DESC        | Let AI handle population transportation.
 GOVERNOR_AUTO_TRANSPORT             | Auto Transport: %1
@@ -4244,7 +4244,7 @@ GOVERNOR_TRANSPORT_POOR_DBL         | Double from Poor: %1
 GOVERNOR_TRANSPORT_MAX_TURNS_DESC   | Maximum transport distance in turns.<br>(1.5x higher distance when transporting to nebulae)
 GOVERNOR_TRANSPORT_MAX_TURNS        | Max Distance: %1 turn(s)
 
-HEADERS_GOVERNOR_STARGATES_OPTIONS_DESC | StarGates Options.
+HEADERS_GOVERNOR_STARGATES_OPTIONS_DESC | Stargates Options.
 HEADERS_GOVERNOR_STARGATES_OPTIONS      | ~~~ STARGATES OPTIONS ~~~%1
 GOVERNOR_STARGATES_OPTIONS_DESC      | To select when the stargates should be build automatically.
 GOVERNOR_STARGATES_OPTIONS           | Gates Built: %1
@@ -4260,9 +4260,9 @@ HEADERS_GOVERNOR_COLONY_OPTIONS      | ~~~ COLONY OPTIONS ~~~%1
 GOVERNOR_MIN_MISSILE_BASES_DESC      | Minimum missile bases to be built automatically.
 GOVERNOR_MIN_MISSILE_BASES           | Min Bases: %1
 GOVERNOR_SHIELD_WITHOUT_BASES_DESC   | Allow shields without bases.
-GOVERNOR_SHIELD_WITHOUT_BASES        | Shields alones: %1
+GOVERNOR_SHIELD_WITHOUT_BASES        | Shields alone: %1
 GOVERNOR_AUTOSPEND_DESC              | Automatically spend reserve on planets with lowest production.
-GOVERNOR_AUTOSPEND                   | autospend: %1
+GOVERNOR_AUTOSPEND                   | auto spend: %1
 GOVERNOR_RESERVE_DESC                | Keep in reserve.
 GOVERNOR_RESERVE                     | Reserve: %1
 GOVERNOR_SHIP_BUILDING_DESC          | Shipbuilding with Governor enabled. Divert resources into shipbuilding and not research if planet is already building ships.
@@ -4295,20 +4295,20 @@ GOVERNOR_AUTO_COLONY_COUNT_DESC      | Number of Colony ships to send.
 GOVERNOR_AUTO_COLONY_COUNT           | Colony Count: %1
 GOVERNOR_AUTO_ATTACK_COUNT_DESC      | Number of Attack ships to send.
 GOVERNOR_AUTO_ATTACK_COUNT           | Attack Count: %1
-GOVERNOR_AUTOSHIPS_BY_DEFAULT_DESC   | AutoShips is set to "On" by Default: If true, new colonies will have auto ship building set to "on".
-GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset autoShips: %1
+GOVERNOR_AUTOSHIPS_BY_DEFAULT_DESC   | Auto Ships is set to "On" by Default: If true, new colonies will have auto ship building set to "on".
+GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset auto Ships: %1
 
 HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Appearance related Options.
 HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~%1
-GOVERNOR_ORIGINAL_PANEL_DESC         | How the panel should be displayed? Old ways or Rotp like?
+GOVERNOR_ORIGINAL_PANEL_DESC         | How the panel should be displayed? Old ways or RotP like?
 GOVERNOR_ORIGINAL_PANEL              | Original View: %1
 GOVERNOR_ORIGINAL_PANEL_YES          | The panel will be displayed in its gray color as originally designed.<br>No size or brightness control.
-GOVERNOR_ORIGINAL_PANEL_NO           | The panel will copy the Rotp fonts, colors and icons.<br>It will be resizable, and the brightnes can be adjusted.
+GOVERNOR_ORIGINAL_PANEL_NO           | The panel will copy the RotP fonts, colors and icons.<br>It will be resizable, and the brightness can be adjusted.
 GOVERNOR_CUSTOM_SIZE_DESC            | Quick way to activate or deactivate the resizing.  (Available for the new design only)
 GOVERNOR_CUSTOM_SIZE                 | Custom Size: %1
-GOVERNOR_SIZE_FACTOR_DESC            | The factor used to adjust the font size.<br>The other parameters will follow; but with discret increments, leading to jerky changes. (Available for the new design only)
+GOVERNOR_SIZE_FACTOR_DESC            | The factor used to adjust the font size.<br>The other parameters will follow; but with discrete increments, leading to jerky changes. (Available for the new design only)
 GOVERNOR_SIZE_FACTOR                 | Size Factor: %1%
-GOVERNOR_BRIGHTNESS_DESC             | The Rotp panel have various brightness level... I will let you choose what this one should use!  (Available for the new design only)
+GOVERNOR_BRIGHTNESS_DESC             | The RotP panel have various brightness level... I will let you choose what this one should use!  (Available for the new design only)
 GOVERNOR_BRIGHTNESS                  | Brightness: %1%
 GOVERNOR_POSITION_X_DESC             | Horizontal position of the Governor Panel.
 GOVERNOR_POSITION_X                  | X position: %1
@@ -4321,16 +4321,16 @@ GOVERNOR_AUTO_APPLY_DESC            | Apply the option on the fly, without havin
 GOVERNOR_AUTO_APPLY                 | Auto Apply: %1
 GOVERNOR_ON_BY_DEFAULT_DESC         | This will activate the governor for all new colonies, created or invaded.
 GOVERNOR_ON_BY_DEFAULT              | On By Default: %1
-GOVERNOR_ANIMATED_IMAGE_DESC        | If the animation is disturbing you, you can stop it by clicking on it!<br>another click will reativate it.
+GOVERNOR_ANIMATED_IMAGE_DESC        | If the animation is disturbing you, you can stop it by clicking on it!<br>another click will reactivate it.
 GOVERNOR_ANIMATED_IMAGE             | Animate Image: %1
-GOVERNOR_FULL_REFRESH_ON_LOAD_HELP  | On some computer, loading and updating governor panel appearance while the panel is behing the main window may lead to display glitches. Consequently, by default only the values are updated. "Yes" will allow a full governor panel update.
+GOVERNOR_FULL_REFRESH_ON_LOAD_HELP  | On some computer, loading and updating governor panel appearance while the panel is behind the main window may lead to display glitches. Consequently, by default only the values are updated. "Yes" will allow a full governor panel update.
 GOVERNOR_FULL_REFRESH_ON_LOAD_DESC  | Position, size and color will refresh when loading a new game.<br>Set to false in case of display glitches.
 GOVERNOR_FULL_REFRESH_ON_LOAD       | Full Reset: %1
 
 // BR: Tech Trigger Add-on
 //
 ENGINE_8_TRIGGER                    | →ENGINE_8_DETAIL←<br>It is illegal to use a Hyper Drive in the commission of Theft, Pillage or Piracy.
-STARGATE_0_TRIGGER                  | →STARGATE_0_DETAIL←<br>Traversing Inter-Dimensional space almost never awakes Elritch Abominations.
+STARGATE_0_TRIGGER                  | →STARGATE_0_DETAIL←<br>Traversing Inter-Dimensional space almost never awakes Eldritch Abominations.
 CLONE_1_TRIGGER                     | →CLONE_1_DETAIL←<br>The GrowInAtor is perfectly safe! Nothing can't go wrong.
 
 //
@@ -4347,7 +4347,7 @@ SETTINGS_BUTTON_DEFAULT_DESC      | Reload Default options or Restore initial op
 SETTINGS_BUTTON_GUIDE_DESC        | Enable / Disable automated contextual Help on all setup panels.
 SETTINGS_BUTTON_HELP_DESC         | This or <b>"F1"</b>  will display a global overview of the panel.<br>If an option is hovered when pressing <b>"F1"</b> a more specific help will be shown.
 
-SETTINGS_GUIDE_HELP               | <b>Enable / Disable</b> automated contextual Help on all setup panels.<br> A short explantion will pop up when the mouse is over an option.<br> A longuer explanation may be some time available by pressing <b>"F1"</b> (when hovering the option). Elsewhere, <b>"F1"</b> will show a global overview of the panel<br>The guide can also be enable/disabled with the key <b>"G"</b>.
+SETTINGS_GUIDE_HELP               | <b>Enable / Disable</b> automated contextual Help on all setup panels.<br> A short explanation will pop up when the mouse is over an option.<br> A longer explanation may be some time available by pressing <b>"F1"</b> (when hovering the option). Elsewhere, <b>"F1"</b> will show a global overview of the panel<br>The guide can also be enable/disabled with the key <b>"G"</b>.
 SETTINGS_GUIDE_DESC               | Enable / Disable automated contextual Help on all setup panels.
 SETTINGS_EXIT_DESC                | Save the current Settings then Exit Panel.
 SETTINGS_APPLY_DESC               | Save the current Settings.
@@ -4358,8 +4358,8 @@ SETTINGS_LOCAL_DEFAULT_DESC       | Set options in this panel to their default v
 SETTINGS_GLOBAL_DEFAULT_DESC      | Set options for all GUIs to their default values.
 SETTINGS_LOCAL_LAST_GAME_DESC     | Set options in this panel based on the last game played.
 SETTINGS_GLOBAL_LAST_GAME_DESC    | Set options for all GUIs based on the values of the last game played.
-SETTINGS_LOCAL_LAST_SET_DESC      | Set options in this panel based on the values of the last Gui (From File).
-SETTINGS_GLOBAL_LAST_SET_DESC     | Set options for all GUIs based on the values of the last Gui (From File).
+SETTINGS_LOCAL_LAST_SET_DESC      | Set options in this panel based on the values of the last GUI (From File).
+SETTINGS_GLOBAL_LAST_SET_DESC     | Set options for all GUIs based on the values of the last GUI (From File).
 SETTINGS_LOCAL_USER_SET_DESC      | Set options in this panel based on the User's preferred values (From File).
 SETTINGS_GLOBAL_USER_SET_DESC     | Set options for all GUIs based on the User's preferred values (From File).
 SETTINGS_LOCAL_USER_SAVE_DESC     | Save options in this panel to the User's preferred values (To File).
@@ -4380,10 +4380,10 @@ SETUP_RACE_HOMEWORLD_HELP         | You can set your home world name here, or ch
 SETUP_GALAXY_MAIN_DESC            | OVERVIEW<br> This screen allows you to select your Galaxy and your Opponents.<br> Use "Ctrl" and "Shift" to change the buttons functions. Global = All options. Local = Options from this panel.
 SETUP_START_DESC                  | Save options and Start the Game.<br> "Ctrl" => Restart a new game based on and old save game.
 SETUP_BUTTON_START_DESC           | Save the current options and Start the Game.
-SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.
+SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swap it with a previous opponent.
 SETUP_GALAXY_BACK_DESC            | Cancel options and go back to the Player options menu.
 SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "Setup" contains parameters being set once when starting or restarting a game.<br> "Options" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Press "B" or go to "Setup" and set "Show Compact Options" to "No".
-SETUP_GALAXY_VANILLA_OPTIONS_HELP | This button open Advanced options configutation Menu.<br> Press "B" to toggle the submenus call buttons.
+SETUP_GALAXY_VANILLA_OPTIONS_HELP | This button open Advanced options configuration Menu.<br> Press "B" to toggle the submenus call buttons.
 SETUP_TUNE_GALAXY_OPTIONS_HELP    | This button opens a hover control panel to fine-tune galaxy settings. <br>The galaxy map preview will update live.
 SETUP_GALAXY_ABILITIES_DESC       | Default abilities for alien Empires:<br> 'Original Species' = Original abilities of the selected Species (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the original species name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Species = specific Original Species; or any other customized species you have built.
 SETUP_GALAXY_SELECTABLE_DESC      | "Yes" => A selection line will appear at the top of the boxes below, allowing the selection of individual ability.
@@ -4391,7 +4391,7 @@ SETUP_GALAXY_SELECTABLE		      | Selectable Abilities
 SETUP_GALAXY_RACE_LIST_HELP       | <b>Species list selection</b><br> Modnar has extended the original species list with six new species. If you are not in the mood to see them, you can exclude them from the selection.<hr><b>Default:</b>&nbsp Original<hr><b>Original:</b>&nbsp The 6 Modnar Species are excluded.<br> <b>All Species</b>:&nbsp The 6 Modnar Species can also be selected or randomly assigned.
 SETUP_GALAXY_RACE_LIST_DESC       | "Original" = The 6 Modnar Species are excluded.<br> "All Species" = The 6 Modnar Species can also be selected or randomly assigned.
 SETUP_GALAXY_AGAINST_DESC         | To select Aliens AI.<br> "AI:Selectable" => A selection line will appear on the bottom of the Boxes bellow, allowing the selection of individual Aliens AI.
-SETUP_GALAXY_PREVIEW_DESC         | This is what the Galaxy will look like.<br>Blue dot = Orion.<br>Green dots = Player Homeworld and neighbor systems.<br>Red dots = Opponents Homeworlds and their neighbor systems.<br>Grey dots = other star systems.<br>Click to show/hide a 10 ly spaced grid.<br>Scroll to change the empires spreading.<br>Middle Click to restore the default minimal distances between empires.
+SETUP_GALAXY_PREVIEW_DESC         | This is what the Galaxy will look like.<br>Blue dot = Orion.<br>Green dots = Player Homeworld and neighbor systems.<br>Red dots = Opponents Home worlds and their neighbor systems.<br>Grey dots = other star systems.<br>Click to show/hide a 10 ly spaced grid.<br>Scroll to change the empires spreading.<br>Middle Click to restore the default minimal distances between empires.
 
 SETUP_SELECT_CR_OPTIONS_DESC      | if "Yes", a selection line will appear at the top of the boxes below, allowing the selection of individual ability.
 SETUP_SELECT_CR_OPTIONS_YES       | A selection line will appear at the top of the opponent boxes, allowing the selection of individual ability.
@@ -4400,7 +4400,7 @@ SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 ???		                          | ???
 ???_DESC		                  | ???_DESCXXX
 
-'Selection'_DESC        | Same abilities as the global abilitied selected on the top.
+'Selection'_DESC        | Same abilities as the global abilities selected on the top.
 'Original Species'_DESC | Original abilities of the selected species (the one on the icon)
 'Reworked'_DESC         | Reworked abilities of the selected species (the one on the icon), modified and saved by the player (in the Species Customization Panel) with the respectively named species files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
 'Player'_DESC           | Same abilities as the selected player race.
@@ -4413,7 +4413,7 @@ SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 'All'_DESC              | Abilities randomly selected within the original species abilities and the customized species files, ignoring the "Available to AI" option.
 
 SETUP_GALAXY_SHAPE_RECTANGLE_HELP    | Original rectangular or square Galaxies with up to five voids.
-SETUP_GALAXY_SHAPE_RECTANGLE_O1_HELP | Shape ratio adjustement.
+SETUP_GALAXY_SHAPE_RECTANGLE_O1_HELP | Shape ratio adjustment.
 SETUP_GALAXY_SHAPE_RECTANGLE_O2_HELP | Void distribution selection.
 SETUP_GALAXY_SHAPE_RECTANGLE_O1      | First Star Field option.
 SETUP_GALAXY_SHAPE_RECTANGLE_O2      | Second Star Field option
@@ -4423,8 +4423,8 @@ SETUP_VOID_0_HELP             | Plain galaxy, no void.
 SETUP_VOID_1_HELP             | Galaxy with a central void.
 SETUP_VOID_2_HELP             | Galaxy with two diagonal voids.
 SETUP_VOID_5_HELP             | Add five voids to the galaxy
-SETUP_GALAXY_SHAPE_ELLIPSE_HELP    | Original Elliptical shaped Galaxies, from circular to a lattened 5:1 ratio. A void can be placed at the center, from small to ring like.
-SETUP_GALAXY_SHAPE_ELLIPSE_O1_HELP | Shape ratio and symmetry adjustement.
+SETUP_GALAXY_SHAPE_ELLIPSE_HELP    | Original Elliptical shaped Galaxies, from circular to a flattened 5:1 ratio. A void can be placed at the center, from small to ring like.
+SETUP_GALAXY_SHAPE_ELLIPSE_O1_HELP | Shape ratio and symmetry adjustment.
 SETUP_GALAXY_SHAPE_ELLIPSE_O2_HELP | Void distribution selection.
 SETUP_GALAXY_SHAPE_ELLIPSE_O1      | First elliptical galaxy option.
 SETUP_GALAXY_SHAPE_ELLIPSE_O2      | Second elliptical galaxy option.
@@ -4440,20 +4440,20 @@ SETUP_VOID_4_HELP             | Ring galaxy.
 SETUP_GALAXY_SHAPE_SPIRAL_HELP    | Original Spiral shaped Galaxies, up to 8 arms and 7 levels of curvature. This galaxy has a symmetric option to gives each empire has the same home world, and the same neighborhood, there are as many arms as empires.
 SETUP_GALAXY_SHAPE_SPIRAL_O1_HELP | Arm number selection.
 SETUP_GALAXY_SHAPE_SPIRAL_O2_HELP | Arm curvature adjustment.
-SETUP_GALAXY_SHAPE_SPIRAL_O1      | First spîral galaxy option.
-SETUP_GALAXY_SHAPE_SPIRAL_O2      | Second spîral galaxy option.
+SETUP_GALAXY_SHAPE_SPIRAL_O1      | First spiral galaxy option.
+SETUP_GALAXY_SHAPE_SPIRAL_O2      | Second spiral galaxy option.
 SETUP_SPIRAL_2_ARMS_HELP      | Very common two-armed galaxy.
-SETUP_SPIRAL_3_ARMS_HELP      | Less common three-armed galagy.
+SETUP_SPIRAL_3_ARMS_HELP      | Less common three-armed galaxy.
 SETUP_SPIRAL_4_ARMS_HELP      | A four-armed galaxy, similar to the Milky Way.
 SETUP_SPIRAL_5_ARMS_HELP      | A frenetic five-armed galaxy.
 SETUP_SPIRAL_6_ARMS_HELP      | A surprizing six-armed galaxy.
 SETUP_SPIRAL_7_ARMS_HELP      | A very exotic seven-armed galaxy.
 SETUP_SPIRAL_8_ARMS_HELP      | A lucky eight-armed galaxy.
 SETUP_SPIRAL_SYMMETRIC_HELP   | Galaxy with circular symmetry, each empire has the same home world and the same neighborhood. Orion is at the center point.
-SETUP_SPIRAL_ROTATION_0_HELP  | A streight galaxy.
+SETUP_SPIRAL_ROTATION_0_HELP  | A straight galaxy.
 SETUP_SPIRAL_ROTATION_1_HELP  | A slightly curved galaxy&nbsp <i>(~30°)</i>.
 SETUP_SPIRAL_ROTATION_2_HELP  | A shyly curved galaxy&nbsp <i>(~60°)</i>.
-SETUP_SPIRAL_ROTATION_3_HELP  | A midly curved galaxy&nbsp <i>(~90°)</i>.
+SETUP_SPIRAL_ROTATION_3_HELP  | A mildly curved galaxy&nbsp <i>(~90°)</i>.
 SETUP_SPIRAL_ROTATION_4_HELP  | A well curved galaxy&nbsp <i>(~120°)</i>.
 SETUP_SPIRAL_ROTATION_5_HELP  | A strongly curved galaxy&nbsp <i>(~150°)</i>.
 SETUP_SPIRAL_ROTATION_6_HELP  | An indecently curved galaxy&nbsp <i>(~180°)</i>.
@@ -4531,12 +4531,12 @@ SETUP_GALAXY_SHAPE_SWIRLCLUSTERS_O1_HELP | Galaxies position selection.
 SETUP_SWIRLCLUSTERS_0_HELP   | The swirl line cross the galaxies.
 SETUP_SWIRLCLUSTERS_1_HELP   | The galaxies are placed between the swirl lines.
 SETUP_SWIRLCLUSTERS_2_HELP   | Only the swirl line!
-SETUP_GALAXY_SHAPE_SPIRALARMS_HELP    | Another type of spiral galaxy. The number of arms is based on its size: <i>the fourth root of the number of star systemz</i>; exept for the symmetric option, where it depends on the number of empires.
+SETUP_GALAXY_SHAPE_SPIRALARMS_HELP    | Another type of spiral galaxy. The number of arms is based on its size: <i>the fourth root of the number of star systems</i>; except for the symmetric option, where it depends on the number of empires.
 SETUP_GALAXY_SHAPE_SPIRALARMS_O1      | First spiral arm galaxy option.
 SETUP_GALAXY_SHAPE_SPIRALARMS_O2      | Second spiral arm galaxy option.
 SETUP_GALAXY_SHAPE_SPIRALARMS_O1_HELP | Arm curvature selection.
 SETUP_GALAXY_SHAPE_SPIRALARMS_O2_HELP | Normal versus Symmetric selection.
-SETUP_SPIRALARMS_0_HELP         | A streight spiral galaxy.
+SETUP_SPIRALARMS_0_HELP         | A straight spiral galaxy.
 SETUP_SPIRALARMS_1_HELP         | A very Loose spiral galaxy <i>(~60°)</i>.
 SETUP_SPIRALARMS_2_HELP         | A loose spiral galaxy <i>(~120°)</i>.
 SETUP_SPIRALARMS_3_HELP         | A normal spiral galaxy <i>(~1 turn)</i>.
@@ -4544,7 +4544,7 @@ SETUP_SPIRALARMS_4_HELP         | A tight spiral galaxy <i>(~1.5 turns)</i>.
 SETUP_SPIRALARMS_NORMAL_HELP    | Normal, as non symmetric!
 SETUP_SPIRALARMS_SYMMETRIC_HELP | Galaxy with circular symmetry, each empire has the same home world and the same neighborhood. Orion is at the center point.
 
-SETUP_GALAXY_SHAPE_BITMAP_HELP      | Build your own galaxy shape, based on a Bitmap.<ul><li>Real shots of galaxies gives nice results.</li><li>You can draw your own galaxies, in shades of gray or colors.</li><li>With colored galaxies, you can define regions where Orion, Player and Aliens stars systemes should be.</li><li>An advanced color mode allows you to define the regions of each Aliens, as well as Nebula regions!</li><li>Some examples can be found in BitmapGalaxyExamples.zip</li></ul>Preferably use a small bitmap image to define the galaxy; VGA size is more than enough... Galaxies are still randomly generated!
+SETUP_GALAXY_SHAPE_BITMAP_HELP      | Build your own galaxy shape, based on a Bitmap.<ul><li>Real shots of galaxies gives nice results.</li><li>You can draw your own galaxies, in shades of gray or colors.</li><li>With colored galaxies, you can define regions where Orion, Player and Aliens stars systems should be.</li><li>An advanced color mode allows you to define the regions of each Aliens, as well as Nebula regions!</li><li>Some examples can be found in BitmapGalaxyExamples.zip</li></ul>Preferably use a small bitmap image to define the galaxy; VGA size is more than enough... Galaxies are still randomly generated!
 
 SETUP_GALAXY_SHAPE_BITMAP_O1        | First bitmap galaxy option.
 SETUP_GALAXY_SHAPE_BITMAP_O2        | Second bitmap galaxy option.
@@ -4556,20 +4556,20 @@ SETUP_BITMAP_GREY_INVERSE_DESC  | Because some nice pictures have a white backgr
 SETUP_BITMAP_COLOR_DESC         | The colors of the images are interpreted: Blue for Orion, Green for the Player. The remaining stars and nebulae are distributed over these three regions
 SETUP_BITMAP_COLOR_HELP         | The colors of the images are interpreted:<ul><li>Blue for Orion.</li><li>Green for the Player.</li><li>Red for the Aliens.</li><li>The remaining stars and nebulae are distributed over these three regions.</li><li>If one color is missing: it will be replaced by global grayscale.</li></ul>
 
-SETUP_BITMAP_ADVANCED_HELP      | It uses multiple sub-bitmaps grouped vertically in a single Bitmap file.<br>Start with Black as background (sub-bitmap separator)<br>Fist Sub-Bitmap: Definition of lone star systems:<ul><li>Add Blue rectangle to define the limits of the sub-bitmap.</li><li>Add Green inside the first rectangle to define the density of lone stars.</li><ul><li>Can be mixed with blue, or replace it.</li><li>The intensity of green defines the probability of having a star:<br>(255 = Max; 0 = no stars)</li></ul></ul><i>Other Sub-Bitmaps:<ul><li>Copy the Lone star sub-bitmap, as often as necessary, keeping a few black lines as separators.</li><li>Blue is still needed to fill the gap and avoid black lines in the middle of the sub-bitmap.</li><li>The Green color is then ignored, but you may will to keep it as repair point.</li><li>The intensity of Red will be used to defines the next probabilities.</li><li>You can use White instead of Red, as White contains Red, and other colors are ignored.</li><li>All invalid Sub-Bitmaps will be reblaced by the first one.</li></ul></i>Second Sub-Bitmap: Preferred location of nebulae:<ul><li>No Red = same as lone star systems.</li><li>For "No Nebulaes"use the already existing option in the good old Advanced Options" panel.</li></ul>Third Sub-Bitmap: Orion's favourite location:<br>Fourth Sub-Bitmap: Preferred location of Player:<br>Following Sub-Bitmap: Preferred location of aliens:<ul><li>Up to 49 Alien's sub-bitmap can be defined.</li><li>If there are more Aliens than sub-bitmap, the galaxy factory will loop on the available Alien sub-bitmap.</li></ul>
+SETUP_BITMAP_ADVANCED_HELP      | It uses multiple sub-bitmaps grouped vertically in a single Bitmap file.<br>Start with Black as background (sub-bitmap separator)<br>Fist Sub-Bitmap: Definition of lone star systems:<ul><li>Add Blue rectangle to define the limits of the sub-bitmap.</li><li>Add Green inside the first rectangle to define the density of lone stars.</li><ul><li>Can be mixed with blue, or replace it.</li><li>The intensity of green defines the probability of having a star:<br>(255 = Max; 0 = no stars)</li></ul></ul><i>Other Sub-Bitmaps:<ul><li>Copy the Lone star sub-bitmap, as often as necessary, keeping a few black lines as separators.</li><li>Blue is still needed to fill the gap and avoid black lines in the middle of the sub-bitmap.</li><li>The Green color is then ignored, but you may will to keep it as repair point.</li><li>The intensity of Red will be used to defines the next probabilities.</li><li>You can use White instead of Red, as White contains Red, and other colors are ignored.</li><li>All invalid Sub-Bitmaps will be replaced by the first one.</li></ul></i>Second Sub-Bitmap: Preferred location of nebulae:<ul><li>No Red = same as lone star systems.</li><li>For "No Nebulas" use the already existing option in the good old Advanced Options" panel.</li></ul>Third Sub-Bitmap: Orion's favourite location:<br>Fourth Sub-Bitmap: Preferred location of Player:<br>Following Sub-Bitmap: Preferred location of aliens:<ul><li>Up to 49 Alien's sub-bitmap can be defined.</li><li>If there are more Aliens than sub-bitmap, the galaxy factory will loop on the available Alien sub-bitmap.</li></ul>
 
-SETUP_BITMAP_ADVANCED_MASK_HELP  | Same as "Advanced" with the option to allow you to define the color gradiens only once, on the first sub-bitmap, and uses uniform colors to define the regions on the following maps.<br>The two maps are then multiplyed to define a resulting map.
+SETUP_BITMAP_ADVANCED_MASK_HELP  | Same as "Advanced" with the option to allow you to define the color gradients only once, on the first sub-bitmap, and uses uniform colors to define the regions on the following maps.<br>The two maps are then multiplied to define a resulting map.
 SETUP_BITMAP_ADVANCED_MASK2_HELP | Same as "Advanced/Mask" with an additional sharpening effect to keeps the Empires well inside the other stars.
 SETUP_BITMAP_NORMAL_HELP         | Don't change the bitmap contrast.
 SETUP_BITMAP_SHARP1_HELP         | Increase the contrast a little bit.
 SETUP_BITMAP_SHARP2_HELP         | Increase the contrast twice.
 SETUP_BITMAP_SHARP3_HELP         | Sharply increase the contrast.
-SETUP_BITMAP_SHARP4_HELP         | Al,ost convert the bitmap to black and white!
+SETUP_BITMAP_SHARP4_HELP         | Almost convert the bitmap to black and white!
 
 SETUP_GALAXY_SHAPE_RANDOM_HELP   | Galaxy randomly selected from grouped stars galaxies.<br>→SETUP_GALAXY_SHAPE_RECTANGLE←, →SETUP_GALAXY_SHAPE_ELLIPSE←, →SETUP_GALAXY_SHAPE_SPIRAL←, →SETUP_GALAXY_SHAPE_CLUSTER←, →SETUP_GALAXY_SHAPE_SPIRALARMS←, →SETUP_GALAXY_SHAPE_SHURIKEN← <br>(Pairs well with the dark galaxy option)
 SETUP_GALAXY_SHAPE_RANDOM_2_HELP | Galaxy randomly selected from almost all galaxies.<br> Excluded: →SETUP_GALAXY_SHAPE_TEXT←, →SETUP_GALAXY_SHAPE_BITMAP←. <br>(Pairs well with dark galaxy option)
 
-// Shortcuts / HotKeys list  (use crossreferences →←) →HK_←
+// Shortcuts / Hotkeys list  (use cross-references →←) →HK_←
 // Shortcuts Cross referenced
 HK_HEADER      | HOTKEYS: (Available by right-clicking the Help button)<br>→HK_SHIFT_F1←
 HK_SHIFT_F1    | <br>SHIFT+F1 : Show Hotkeys List (This)
@@ -4584,7 +4584,7 @@ HK_1_5         | <br>1-5/+SHIFT : Increment/Decrement spending to ship, def, ind
 HK_CTRL_1_5    | <br>CTRL+1-5 : Lock spending slider.
 HK_ALT_1_5     | <br>ALT+1-5 : Smart-Max spending.
 HK_MAP_ARROWS  | <br>Arrows : Move Map.
-HK_MAP_ZOOM    | <br>+/- : Zoom Map. ("ALT-" : Full view of the galaxy) <br>Mousewheel : Zoom Map.
+HK_MAP_ZOOM    | <br>+/- : Zoom Map. ("ALT-" : Full view of the galaxy) <br>Mouse wheel : Zoom Map.
 HK_TAB         | <br>Tab/+SHIFT : Next/Previous Tab.
 HK_YEAR        | <br>Y : Toggle Year Display.
 HK_FLAG_LOOP   | <br>(Num) * - 9 + : Loop thru Flags ("SHIFT-" Reverse) ("CTRL-" Same Flag Color)
@@ -4596,13 +4596,13 @@ HK_SEL_E       | Spending to 100% / Smart Max / Lock / Unlock
 HK_SET_DEFAULT | <br>ALT-F : Set Default Values to RotP-Fusion.<br>ALT-M : Set Default Values to MoO1.<br>ALT-R : Set Default Values to original RotP.
 
 // Shortcuts Full lists*
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>W : Toggle war view mode showing only the fleets targeting the planet in danger.<br>        (Auto off when selected planet is not in danger)<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet →HK_FLAG_LOOP←<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mousewheel : Increment quantities/moves slider<br>→HK_ESCAPE←
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>W : Toggle war view mode showing only the fleets targeting the planet in danger.<br>        (Auto off when selected planet is not in danger)<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/Page Down/Page Up : Next/Previous player Idle fleet →HK_FLAG_LOOP←<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mouse wheel : Increment quantities/moves slider<br>→HK_ESCAPE←
 
 PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Multi selection too)<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S→HK_SEL_B← Ship →HK_SEL_E←<br>D→HK_SEL_B← Defense →HK_SEL_E←<br>W→HK_SEL_B← Industry →HK_SEL_E←<br>E→HK_SEL_B← Ecology →HK_SEL_E←<br>R→HK_SEL_B← Research →HK_SEL_E←<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
 
 FLEETS_HELP_HK       | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
 
-TECH_HELP_HK         | →HK_HEADER← →HK_F1_?← <br><br>1-6/+SHIFT : Increment/Decrement categories.<br>CTRL+1-6 : Lock sliders.<br>Arrows : Move Tree / Categories<br>= : Equalize<br>mousewheel : Increment quantities/moves slider. <br>→HK_ESCAPE←
+TECH_HELP_HK         | →HK_HEADER← →HK_F1_?← <br><br>1-6/+SHIFT : Increment/Decrement categories.<br>CTRL+1-6 : Lock sliders.<br>Arrows : Move Tree / Categories<br>= : Equalize<br>mouse wheel : Increment quantities/moves slider. <br>→HK_ESCAPE←
 
 SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1_?← <br><br>Arrows Down/Up : Next/Previous Slot.<br><br>S : Scrap Design.<br>R : Rename Design.<br>D : Create Design.<br>C / (+CTRL) : Clear Design / (Only Weapons)<br><br>ALT-A : Auto build.<br>ALT-B : Auto build Bomber.<br>ALT-F : Auto build Fighter.<br>ALT-E : Auto build Scout (Explorer).<br>ALT-P : Auto build Colony (Pioneer). <br>→HK_ESCAPE←
 
