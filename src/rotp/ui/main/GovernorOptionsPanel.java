@@ -603,6 +603,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		this.reserve.setValue(options.getReserve());
 		this.shipbuilding.setSelected(options.isShipbuilding());
 		this.legacyGrowthMode.setSelected(options.legacyGrowthMode());
+		this.terraformEarly.setValue(options.terraformEarly());
 
 		// Intelligence Options
 		this.autoInfiltrate.setSelected(options.isAutoInfiltrate());
@@ -646,6 +647,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		options.setReserve((Integer)reserve.getValue());
 		options.setShipbuilding(shipbuilding.isSelected());
 		options.setLegacyGrowthMode(legacyGrowthMode.isSelected());
+		options.setTerraformEarly((Integer)terraformEarly.getValue());
 
 		// Intelligence Options
 		options.setAutoInfiltrate(autoInfiltrate.isSelected());
@@ -767,6 +769,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
         legacyGrowthMode = new javax.swing.JCheckBox();
         missileBases = new GovernorJSpinner();
         missileBasesLabel = new javax.swing.JLabel();
+        terraformEarly = new GovernorJSpinner();
+        terraformEarlyLabel = new javax.swing.JLabel();
         javax.swing.JPanel spyPanel = new javax.swing.JPanel();
         spareXenophobes = new javax.swing.JCheckBox();
         autoSpy = new javax.swing.JCheckBox();
@@ -1210,6 +1214,22 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 
         missileBasesLabel.setText("Minimum missile bases");
 
+        terraformEarly.setModel(new javax.swing.SpinnerNumberModel(0, 0, 400, 1));
+        terraformEarly.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
+			public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                terraformEarlyStateChanged(evt);
+            }
+        });
+        terraformEarly.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            @Override
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                terraformEarlyMouseWheelMoved(evt);
+            }
+        });
+
+        terraformEarlyLabel.setText("Boost Planet Early");
+
         javax.swing.GroupLayout colonyPanelLayout = new javax.swing.GroupLayout(colonyPanel);
         colonyPanel.setLayout(colonyPanelLayout);
         colonyPanelLayout.setHorizontalGroup(
@@ -1217,13 +1237,20 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
             .addGroup(colonyPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(shipbuilding)
                     .addGroup(colonyPanelLayout.createSequentialGroup()
-                        .addComponent(missileBases)
+                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(shipbuilding)
+                            .addGroup(colonyPanelLayout.createSequentialGroup()
+                                .addComponent(missileBases)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(missileBasesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(shieldWithoutBases))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(colonyPanelLayout.createSequentialGroup()
+                        .addComponent(terraformEarly)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(missileBasesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(shieldWithoutBases))
-                .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(terraformEarlyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(colonyPanelLayout.createSequentialGroup()
                         .addComponent(reserve, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1250,7 +1277,11 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
                         .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(legacyGrowthMode)
                             .addComponent(shipbuilding))
-                        .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(terraformEarly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(terraformEarlyLabel))
+                        .addGap(2, 2, 2))
                     .addGroup(colonyPanelLayout.createSequentialGroup()
                         .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(reserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1282,7 +1313,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
             }
         });
 
-        autoInfiltrate.setText("Autoinfiltrate");
+        autoInfiltrate.setText("Auto Infiltrate");
         autoInfiltrate.setToolTipText("Automatically sends spies to infiltrate other empires");
         autoInfiltrate.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -1562,14 +1593,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		frame.setVisible(false);
 	}//GEN-LAST:event_cancelButtonActionPerformed
 
-	private void missileBasesMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_missileBasesMouseWheelMoved
-		mouseWheel(missileBases, evt);
-	}//GEN-LAST:event_missileBasesMouseWheelMoved
-
-	private void reserveMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_reserveMouseWheelMoved
-		mouseWheel(reserve, evt);
-	}//GEN-LAST:event_reserveMouseWheelMoved
-
 	private void completionistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completionistActionPerformed
 		performCompletionist();
 	}//GEN-LAST:event_completionistActionPerformed
@@ -1639,30 +1662,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 			options().setAutoAttack(autoAttack.isSelected());
 	}//GEN-LAST:event_autoAttackActionPerformed
 
-	private void shieldWithoutBasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shieldWithoutBasesActionPerformed
-		if (isAutoApply())
-			options().setShieldWithoutBases(shieldWithoutBases.isSelected());
-	}//GEN-LAST:event_shieldWithoutBasesActionPerformed
-
-	private void autospendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autospendActionPerformed
-		if (isAutoApply())
-			options().setAutospend(autospend.isSelected());
-	}//GEN-LAST:event_autospendActionPerformed
-
-	private void shipbuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shipbuildingActionPerformed
-		if (isAutoApply())
-			options().setShipbuilding(shipbuilding.isSelected());
-	}//GEN-LAST:event_shipbuildingActionPerformed
-
 	private void autoInfiltrateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoInfiltrateActionPerformed
 		if (isAutoApply())
 			options().setAutoInfiltrate(autoInfiltrate.isSelected());
 	}//GEN-LAST:event_autoInfiltrateActionPerformed
-
-	private void legacyGrowthModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_legacyGrowthModeActionPerformed
-		if (isAutoApply())
-			options().setLegacyGrowthMode(legacyGrowthMode.isSelected());
-	}//GEN-LAST:event_legacyGrowthModeActionPerformed
 
 	private void autoSpyActionPerformed(java.awt.event.ActionEvent evt) {                                               
 		if (isAutoApply())
@@ -1685,16 +1688,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 	private void stargateOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOnActionPerformed
 		if (isAutoApply()) applyStargates();
 	}//GEN-LAST:event_stargateOnActionPerformed
-
-	private void reserveStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_reserveStateChanged
-		if (isAutoApply())
-			options().setReserve((Integer)reserve.getValue());
-	}//GEN-LAST:event_reserveStateChanged
-
-	private void missileBasesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_missileBasesStateChanged
-		if (isAutoApply())
-			options().setMinimumMissileBases((Integer)missileBases.getValue());
-	}//GEN-LAST:event_missileBasesStateChanged
 
 	private void autoAttackShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoAttackShipCountStateChanged
 		if (isAutoApply())
@@ -1756,6 +1749,55 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		setBrightnessPct((Integer)brightnessPct.getValue());
 		protectedUpdateColor();
 	}//GEN-LAST:event_brightnessPctStateChanged
+
+    private void terraformEarlyMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_terraformEarlyMouseWheelMoved
+        // TODO add your handling code here:
+    	mouseWheel(terraformEarly, evt);
+    }//GEN-LAST:event_terraformEarlyMouseWheelMoved
+
+    private void terraformEarlyStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_terraformEarlyStateChanged
+        // TODO add your handling code here:
+    	if (isAutoApply())
+    		options().setTerraformEarly((Integer)terraformEarly.getValue());
+    }//GEN-LAST:event_terraformEarlyStateChanged
+
+    private void missileBasesMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_missileBasesMouseWheelMoved
+        mouseWheel(missileBases, evt);
+    }//GEN-LAST:event_missileBasesMouseWheelMoved
+
+    private void missileBasesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_missileBasesStateChanged
+        if (isAutoApply())
+        options().setMinimumMissileBases((Integer)missileBases.getValue());
+    }//GEN-LAST:event_missileBasesStateChanged
+
+    private void legacyGrowthModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_legacyGrowthModeActionPerformed
+        if (isAutoApply())
+        options().setLegacyGrowthMode(legacyGrowthMode.isSelected());
+    }//GEN-LAST:event_legacyGrowthModeActionPerformed
+
+    private void shieldWithoutBasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shieldWithoutBasesActionPerformed
+        if (isAutoApply())
+        options().setShieldWithoutBases(shieldWithoutBases.isSelected());
+    }//GEN-LAST:event_shieldWithoutBasesActionPerformed
+
+    private void shipbuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shipbuildingActionPerformed
+        if (isAutoApply())
+        options().setShipbuilding(shipbuilding.isSelected());
+    }//GEN-LAST:event_shipbuildingActionPerformed
+
+    private void reserveMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_reserveMouseWheelMoved
+        mouseWheel(reserve, evt);
+    }//GEN-LAST:event_reserveMouseWheelMoved
+
+    private void reserveStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_reserveStateChanged
+        if (isAutoApply())
+        options().setReserve((Integer)reserve.getValue());
+    }//GEN-LAST:event_reserveStateChanged
+
+    private void autospendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autospendActionPerformed
+        if (isAutoApply())
+        options().setAutospend(autospend.isSelected());
+    }//GEN-LAST:event_autospendActionPerformed
 
 	private  void mouseWheel(JSpinner spinner, java.awt.event.MouseWheelEvent evt) {
 		if (evt.getScrollType() != MouseWheelEvent.WHEEL_UNIT_SCROLL) {
@@ -1825,6 +1867,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
     javax.swing.JRadioButton stargateOn;
     javax.swing.ButtonGroup stargateOptions;
     javax.swing.JRadioButton stargateRich;
+    javax.swing.JSpinner terraformEarly;
+    javax.swing.JLabel terraformEarlyLabel;
     javax.swing.JSpinner transportMaxTurns;
     javax.swing.JCheckBox transportPoorDouble;
     javax.swing.JCheckBox transportRichDisabled;

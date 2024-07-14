@@ -234,7 +234,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public void setLegacyGrowthMode(boolean b)	{ maxGrowthMode.silentSet(b); }
 
 	public int terraformEarly()					{ return terraformEarly.get(); }
-	public void terraformEarly(int pct)			{ terraformEarly.silentSet(pct); }
+	public void setTerraformEarly(int pct)		{ terraformEarly.silentSet(pct); }
 
 	public int  getMinimumMissileBases()		{ return missileBasesMin.get(); }
 	public void setMinimumMissileBases(int i)	{ missileBasesMin.silentSet(i); }

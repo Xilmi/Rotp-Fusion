@@ -3,8 +3,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- - Display refit+needed/over in industry spending slider plus swap to maxRobotControls (Cybersol)
+- Display refit+needed/over in industry spending slider plus swap to maxRobotControls (Cybersol)
 - Added possibilities to "Tech Trade Limitation" to also limit technology aid.
+- Added "Boost Planet Early" option to governor panel.
+- Spell Check labels.txt + improvements
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

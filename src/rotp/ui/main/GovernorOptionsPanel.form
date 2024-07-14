@@ -603,15 +603,25 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="shipbuilding" alignment="0" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="missileBases" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="missileBasesLabel" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="shipbuilding" alignment="0" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="missileBases" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="missileBasesLabel" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="shieldWithoutBases" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="shieldWithoutBases" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="terraformEarly" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="terraformEarlyLabel" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="reserve" max="-2" attributes="0"/>
@@ -646,6 +656,11 @@
                               <Component id="shipbuilding" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="terraformEarly" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="terraformEarlyLabel" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -732,6 +747,25 @@
             <Property name="text" type="java.lang.String" value="Minimum missile bases"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JSpinner" name="terraformEarly">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0" maximum="400" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="terraformEarlyStateChanged"/>
+            <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="terraformEarlyMouseWheelMoved"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GovernorJSpinner()"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="terraformEarlyLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Boost Planet Early"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="spyPanel">
@@ -800,7 +834,7 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="autoInfiltrate">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Autoinfiltrate"/>
+            <Property name="text" type="java.lang.String" value="Auto Infiltrate"/>
             <Property name="toolTipText" type="java.lang.String" value="Automatically sends spies to infiltrate other empires"/>
           </Properties>
           <Events>

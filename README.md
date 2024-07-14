@@ -67,6 +67,10 @@ Later:
 
 ## What's New
 
+2024.07.14 (BR)
+- Added "Boost Planet Early" option to governor panel.
+- Spell Check labels.txt + improvements
+
 2024.07.09 (BR)
 - Added possibilities to "Tech Trade Limitation" to also limit technology aid.
 
