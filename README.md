@@ -67,6 +67,9 @@ Later:
 
 ## What's New
 
+2024.07.15 (BR)
+- Governor panel Numeric fields: Arrows are now visible.
+
 2024.07.14 (BR)
 - Added "Boost Planet Early" option to governor panel.
 - Spell Check labels.txt + improvements

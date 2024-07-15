@@ -37,9 +37,16 @@ class RotpJSpinnerUI extends BasicSpinnerUI {
 	@Override public void installUI(JComponent c) {
 		super.installUI(c);
 		c.removeAll();
-		c.setLayout(new BorderLayout());
+		c.setLayout(new RotpSpinnerBorderLayout());
 		c.add(createNextButton(), BorderLayout.EAST);
 		c.add(createPreviousButton(), BorderLayout.WEST);
 		c.add(createEditor(), BorderLayout.CENTER);
+	}
+}
+class RotpSpinnerBorderLayout extends BorderLayout {
+	@Override public void addLayoutComponent(Component comp, Object constraints) {
+		if (constraints.equals("Editor"))
+			constraints = CENTER;
+		super.addLayoutComponent(comp, constraints);
 	}
 }

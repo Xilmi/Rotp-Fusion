@@ -10,16 +10,20 @@ import javax.swing.JTextField;
 public class RotpJSpinner extends JSpinner {
 
 	protected RotpJSpinner() {
-		if (isNewFormat())
+		//super();
+		if (isNewFormat()) {
 			setUI(new RotpJSpinnerUI(arrowSize()));
+			//setUI(new LeftRightSpinnerUI());
+		}
 	}
 	
-	@Override public void setLayout(LayoutManager mgr) {
-		if (isNewFormat())
-			super.setLayout(new RotpJSpinnerLayout());
-		else
-			super.setLayout(mgr);
-	}
+//	@Override public void setLayout(LayoutManager mgr) {
+//		if (isNewFormat())
+//			super.setLayout(new LeftRightSpinnerBorderLayout());
+//			//super.setLayout(new RotpJSpinnerLayout());
+//		else
+//			super.setLayout(mgr);
+//	}
 
 	protected boolean	isNewFormat()	{ return true; }
 	protected int		arrowSize()		{ return 16; }

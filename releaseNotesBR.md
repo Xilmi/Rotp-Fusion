@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Added possibilities to "Tech Trade Limitation" to also limit technology aid.
 - Added "Boost Planet Early" option to governor panel.
 - Spell Check labels.txt + improvements
+- Governor panel Numeric fields: Arrows are now visible.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

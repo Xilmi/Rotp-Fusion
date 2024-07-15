@@ -19,6 +19,7 @@ class RotpJSpinnerIcon implements Icon {
 	 */
 	RotpJSpinnerIcon (int direction) {  dir = direction; }
 	private Polygon arrow(int width, int height, int border) {
+		int dh = Math.max(1, height/19);
 		Polygon p = new Polygon();
 		p.reset();
 		int b2 = 3*border/2;
@@ -26,15 +27,15 @@ class RotpJSpinnerIcon implements Icon {
 		int m  = width/5;
 		int w  = width - m;
 		if (dir == SwingConstants.EAST) {
-			p.addPoint(m+b,		b+b);
+			p.addPoint(m+b,		b+b + dh);
 			p.addPoint(m-b2+w,	height/2);
-			p.addPoint(m+b,		height - b-b);
+			p.addPoint(m+b,		height -dh - b-b);
 			return p;
 		}
 		else if (dir == SwingConstants.WEST) {
-			p.addPoint(w-b,	b+b);
+			p.addPoint(w-b,	b+b + dh);
 			p.addPoint(b2,	height/2);
-			p.addPoint(w-b,	height - b-b);
+			p.addPoint(w-b,	height - dh - b-b);
 			return p;
 		}
 		else if (dir == SwingConstants.NORTH) {
