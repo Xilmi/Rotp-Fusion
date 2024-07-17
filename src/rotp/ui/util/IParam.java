@@ -91,6 +91,8 @@ public interface IParam extends InterfaceOptions{
 		}
 	}
 
+	// For Governor ToolTips
+	public default String govTooltips()			{ return "<html>" + getDescription() + "</html>"; };
 	// Limited size for toolTip boxes
 	public default String getDescription()		{
 		if (getToolTip().isEmpty())

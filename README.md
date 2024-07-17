@@ -67,6 +67,9 @@ Later:
 
 ## What's New
 
+2024.07.17 (BR)
+- Governor panel: More tooltips, and they follow the color theme.
+
 2024.07.15 (BR)
 - Governor panel Numeric fields: Arrows are now visible.
 

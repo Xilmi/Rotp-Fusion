@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import rotp.ui.util.AbstractParam;
 import rotp.ui.util.IParam;
+import rotp.util.LabelManager;
 
 /**
  * Governor options.
@@ -161,65 +162,77 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public boolean	refreshRequested()	{ return callForRefresh; }
 	public boolean	resetRequested()	{ return callForReset; }
 	
-	public boolean isOriginalPanel()			{ return originalPanel.get(); }
-	public void setIsOriginalPanel(boolean b)	{ originalPanel.set(b); }
+	public boolean	isOriginalPanel()				{ return originalPanel.get(); }
+	public void		setIsOriginalPanel(boolean b)	{ originalPanel.set(b); }
+	public String	originalPanelTT()				{ return originalPanel.govTooltips(); }
 
-	public boolean isCustomSize()				{ return customSize.get(); }
-	public void setIsCustomSize(boolean b)		{ customSize.set(b); }
+	public boolean	isCustomSize()					{ return customSize.get(); }
+	public void		setIsCustomSize(boolean b)		{ customSize.set(b); }
+	public String	customSizeTT()					{ return customSize.govTooltips(); }
 
-	public boolean isAnimatedImage()			{ return animatedImage.get(); }
-	public void setIsAnimatedImage(boolean b)	{ animatedImage.silentSet(b); }
-	public boolean toggleAnimatedImage() 		{
+	public boolean	isAnimatedImage()				{ return animatedImage.get(); }
+	public void		setIsAnimatedImage(boolean b)	{ animatedImage.silentSet(b); }
+	public boolean	toggleAnimatedImage()	 		{
 		animatedImage.toggle();
 		return animatedImage.get();
 	}
 
-	public int  getBrightnessPct()				{ return brightnessPct.get(); }
-	public void setBrightnessPct(int i)			{ brightnessPct.set(i); }
+	public int		getBrightnessPct()				{ return brightnessPct.get(); }
+	public void		setBrightnessPct(int i)			{ brightnessPct.set(i); }
+	public String	brightnessPctTT()				{ return brightnessPct.govTooltips(); }
 
-	public int  getSizeFactorPct()				{ return sizeFactorPct.get(); }
-	public void setSizeFactorPct(int i)			{ sizeFactorPct.set(i); }
+	public int		getSizeFactorPct()				{ return sizeFactorPct.get(); }
+	public void		setSizeFactorPct(int i)			{ sizeFactorPct.set(i); }
+	public String	sizeFactorPctTT()				{ return sizeFactorPct.govTooltips(); }
 
-	public int  getPositionX()					{ return horizontalPosition.get(); }
-	public void setPositionX(int i)				{ horizontalPosition.silentSet(i); }
+	public int  getPositionX()						{ return horizontalPosition.get(); }
+	public void setPositionX(int i)					{ horizontalPosition.silentSet(i); }
 
-	public int  getPositionY()					{ return verticalPosition.get(); }
-	public void setPositionY(int i)				{ verticalPosition.silentSet(i); }
+	public int  getPositionY()						{ return verticalPosition.get(); }
+	public void setPositionY(int i)					{ verticalPosition.silentSet(i); }
 
-	public Point getPosition()					{
+	public Point getPosition()						{
 		Point pt = new Point();
 			pt.x = horizontalPosition.get();
 			pt.y = verticalPosition.get();
 		return pt;
 	}
-	public void setPosition(Point pt)			{
+	public void setPosition(Point pt)				{
 		horizontalPosition.silentSet(pt.x);
 		verticalPosition.silentSet(pt.y);
 	}
 
-	public boolean isAutoApply()				{ return auto_Apply.get(); }
-	public void setAutoApply(boolean b)			{ auto_Apply.silentSet(b); }
+	public boolean	isAutoApply()					{ return auto_Apply.get(); }
+	public void		setAutoApply(boolean b)			{ auto_Apply.silentSet(b); }
+	public String	autoApplyTT()					{ return auto_Apply.govTooltips(); }
 
-	public boolean isGovernorOnByDefault()		{ return governorByDefault.get(); }
+	public boolean isGovernorOnByDefault()			{ return governorByDefault.get(); }
 	public void setGovernorOnByDefault(boolean b)	{ governorByDefault.silentSet(b); }
+	public String governorOnByDefaultTT()			{ return governorByDefault.govTooltips(); }
 
-	public boolean isAutotransport()			{ return autoTransport.get(); }
-	public void setAutotransport(boolean b)		{ autoTransport.silentSet(b); }
+	public boolean	isAutotransport()				{ return autoTransport.get(); }
+	public void		setAutotransport(boolean b)		{ autoTransport.silentSet(b); }
+	public String	autotransportTT()				{ return autoTransport.govTooltips(); }
 
-	public boolean isAutotransportXilmi()		{ return autotransportAtMax.get(); }
-	public void setAutotransportXilmi(boolean b){ autotransportAtMax.silentSet(b); }
+	public boolean	isAutotransportXilmi()			{ return autotransportAtMax.get(); }
+	public void		setAutotransportXilmi(boolean b){ autotransportAtMax.silentSet(b); }
+	public String	autotransportXilmiTT()			{ return autotransportAtMax.govTooltips(); }
 
-	public boolean isAutotransportUngoverned()	{ return autotransportAll.get(); }
-	public void setAutotransportUngoverned(boolean b) { autotransportAll.silentSet(b); }
+	public boolean	isAutotransportUngoverned()		{ return autotransportAll.get(); }
+	public void	setAutotransportUngoverned(boolean b)	{ autotransportAll.silentSet(b); }
+	public String	autotransportUngovernedTT()		{ return autotransportAll.govTooltips(); }
 
-	public boolean isTransportRichDisabled()		{ return transportNoRich.get(); }
-	public void setTransportRichDisabled(boolean b) { transportNoRich.silentSet(b); }
+	public boolean	isTransportRichDisabled()		{ return transportNoRich.get(); }
+	public void	setTransportRichDisabled(boolean b) { transportNoRich.silentSet(b); }
+	public String	transportRichDisabledTT()		{ return transportNoRich.govTooltips(); }
 
-	public boolean isTransportPoorDouble()			{ return transportPoorX2.get(); }
-	public void setTransportPoorDouble(boolean b)	{ transportPoorX2.silentSet(b); }
+	public boolean	isTransportPoorDouble()			{ return transportPoorX2.get(); }
+	public void	setTransportPoorDouble(boolean b)	{ transportPoorX2.silentSet(b); }
+	public String	transportPoorDoubleTT()			{ return transportPoorX2.govTooltips(); }
 
-	public int  getTransportMaxTurns()			{ return transportMaxDist.get(); }
-	public void setTransportMaxTurns(int i)		{ transportMaxDist.silentSet(i); }
+	public int		getTransportMaxTurns()			{ return transportMaxDist.get(); }
+	public void		setTransportMaxTurns(int i)		{ transportMaxDist.silentSet(i); }
+	public String	transportMaxTurnsTT()			{ return transportMaxDist.govTooltips(); }
 
 	public GatesGovernor getGates()				{
 		String gate = starGateOption.get();
@@ -228,56 +241,79 @@ public class GovernorOptions implements Serializable, IGovOptions {
 				return value;
 		return GatesGovernor.Rich; // Default Value
 	}
-	public void setGates(GatesGovernor gates)	{ starGateOption.silentSet(gates.name()); }
+	public void		setGates(GatesGovernor gates)	{ starGateOption.silentSet(gates.name()); }
+	public String	gatesOffTT()					{ return text("GOVERNOR_STARGATES_NONE_HELP"); }
+	public String	gatesRichTT()					{ return text("GOVERNOR_STARGATES_RICH_HELP"); }
+	public String	gatesOnTT()						{ return text("GOVERNOR_STARGATES_ALL_HELP"); }
 
-	public boolean legacyGrowthMode()			{ return maxGrowthMode.get(); }
-	public void setLegacyGrowthMode(boolean b)	{ maxGrowthMode.silentSet(b); }
+	public boolean	legacyGrowthMode()				{ return maxGrowthMode.get(); }
+	public void		setLegacyGrowthMode(boolean b)	{ maxGrowthMode.silentSet(b); }
+	public String	legacyGrowthModeTT()			{ return maxGrowthMode.govTooltips(); }
 
-	public int terraformEarly()					{ return terraformEarly.get(); }
-	public void setTerraformEarly(int pct)		{ terraformEarly.silentSet(pct); }
+	public int		terraformEarly()				{ return terraformEarly.get(); }
+	public void		setTerraformEarly(int pct)		{ terraformEarly.silentSet(pct); }
+	public String	terraformEarlyTT()				{ return terraformEarly.govTooltips(); }
 
-	public int  getMinimumMissileBases()		{ return missileBasesMin.get(); }
-	public void setMinimumMissileBases(int i)	{ missileBasesMin.silentSet(i); }
+	public int		getMinimumMissileBases()		{ return missileBasesMin.get(); }
+	public void		setMinimumMissileBases(int i)	{ missileBasesMin.silentSet(i); }
+	public String	minimumMissileBasesTT()			{ return missileBasesMin.govTooltips(); }
 
-	public boolean getShieldWithoutBases()		{ return shieldAlones.get(); }
-	public void setShieldWithoutBases(boolean b){ shieldAlones.silentSet(b); }
+	public boolean	getShieldWithoutBases()			{ return shieldAlones.get(); }
+	public void		setShieldWithoutBases(boolean b){ shieldAlones.silentSet(b); }
+	public String	shieldWithoutBasesTT()			{ return shieldAlones.govTooltips(); }
 
-	public boolean isAutospend()				{ return autoSpend.get(); }
-	public void setAutospend(boolean b)			{ autoSpend.silentSet(b); }
+	public boolean	isAutospend()					{ return autoSpend.get(); }
+	public void		setAutospend(boolean b)			{ autoSpend.silentSet(b); }
+	public String	autospendTT()					{ return autoSpend.govTooltips(); }
 
-	public int  getReserve()					{ return reserveForSlow.get(); }
-	public void setReserve(int i)				{ reserveForSlow.silentSet(i); }
+	public int		getReserve()					{ return reserveForSlow.get(); }
+	public void		setReserve(int i)				{ reserveForSlow.silentSet(i); }
+	public String	reserveTT()						{ return reserveForSlow.govTooltips(); }
 
-	public boolean isShipbuilding()				{ return shipBuilding.get(); }
-	public void setShipbuilding(boolean b)		{ shipBuilding.silentSet(b); }
+	public boolean	isShipbuilding()				{ return shipBuilding.get(); }
+	public void		setShipbuilding(boolean b)		{ shipBuilding.silentSet(b); }
+	public String	shipbuildingTT()				{ return shipBuilding.govTooltips(); }
 
-	public boolean isAutoInfiltrate()			{ return auto_Infiltrate.get(); }
-	public void setAutoInfiltrate(boolean b)	{ auto_Infiltrate.silentSet(b); }
+	public boolean	isAutoInfiltrate()				{ return auto_Infiltrate.get(); }
+	public void		setAutoInfiltrate(boolean b)	{ auto_Infiltrate.silentSet(b); }
+	public String	autoInfiltrateTT()				{ return auto_Infiltrate.govTooltips(); }
 
-	public boolean isAutoSpy()					{ return auto_Spy.get(); }
-	public void setAutoSpy(boolean b)			{ auto_Spy.silentSet(b); }
+	public boolean	isAutoSpy()						{ return auto_Spy.get(); }
+	public void		setAutoSpy(boolean b)			{ auto_Spy.silentSet(b); }
+	public String	autoSpyTT()						{ return auto_Spy.govTooltips(); }
 
-	public boolean respectPromises()			{ return respectPromises.get(); }
-	public void setRespectPromises(boolean b)	{ respectPromises.silentSet(b); }
+	public boolean	respectPromises()				{ return respectPromises.get(); }
+	public void		setRespectPromises(boolean b)	{ respectPromises.silentSet(b); }
+	public String	respectPromisesTT()				{ return respectPromises.govTooltips(); }
 
-	public boolean isAutoScout()				{ return auto_Scout.get(); }
-	public void setAutoScout(boolean b)			{ auto_Scout.silentSet(b); }
+	public boolean	isAutoScout()					{ return auto_Scout.get(); }
+	public void		setAutoScout(boolean b)			{ auto_Scout.silentSet(b); }
+	public String	autoScoutTT()					{ return auto_Scout.govTooltips(); }
 
-	public boolean isAutoColonize()				{ return govAutoColonize.get(); }
-	public void setAutoColonize(boolean b)		{ govAutoColonize.silentSet(b); }
+	public boolean	isAutoColonize()				{ return govAutoColonize.get(); }
+	public void		setAutoColonize(boolean b)		{ govAutoColonize.silentSet(b); }
+	public String	autoColonizeTT()				{ return govAutoColonize.govTooltips(); }
 
-	public boolean isAutoAttack()				{ return auto_Attack.get(); }
-	public void setAutoAttack(boolean b)		{ auto_Attack.silentSet(b); }
+	public boolean	isAutoAttack()					{ return auto_Attack.get(); }
+	public void		setAutoAttack(boolean b)		{ auto_Attack.silentSet(b); }
+	public String	autoAttackTT()					{ return auto_Attack.govTooltips(); }
 
-	public int  getAutoScoutShipCount()			{ return autoScoutCount.get(); }
-	public void setAutoScoutShipCount(int i)	{ autoScoutCount.silentSet(i); }
+	public int		getAutoScoutShipCount()			{ return autoScoutCount.get(); }
+	public void		setAutoScoutShipCount(int i)	{ autoScoutCount.silentSet(i); }
+	public String	autoScoutShipCountTT()			{ return autoScoutCount.govTooltips(); }
 
-	public int  getAutoColonyShipCount()		{ return autoColonyCount.get(); }
-	public void setAutoColonyShipCount(int i)	{ autoColonyCount.silentSet(i); }
+	public int		getAutoColonyShipCount()		{ return autoColonyCount.get(); }
+	public void		setAutoColonyShipCount(int i)	{ autoColonyCount.silentSet(i); }
+	public String	autoColonyShipCountTT()			{ return autoColonyCount.govTooltips(); }
 
-	public int  getAutoAttackShipCount()		{ return autoAttackCount.get(); }
-	public void setAutoAttackShipCount(int i)	{ autoAttackCount.silentSet(i); }
+	public int		getAutoAttackShipCount()		{ return autoAttackCount.get(); }
+	public void		setAutoAttackShipCount(int i)	{ autoAttackCount.silentSet(i); }
+	public String	autoAttackShipCountTT()			{ return autoAttackCount.govTooltips(); }
 
-	public boolean isAutoShipsByDefault()		{ return autoShipsDefault.get(); }
-	public void setAutoShipsByDefault(boolean b){ autoShipsDefault.silentSet(b); }
+	public boolean	isAutoShipsByDefault()			{ return autoShipsDefault.get(); }
+	public void		setAutoShipsByDefault(boolean b){ autoShipsDefault.silentSet(b); }
+	public String	autoShipsByDefaultTT()			{ return autoShipsDefault.govTooltips(); }
+
+    private String text(String key) { return LabelManager.current().label(key); }
+
 }

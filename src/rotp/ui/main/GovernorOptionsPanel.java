@@ -33,6 +33,7 @@ import javax.swing.JSpinner;
 import javax.swing.JSpinner.NumberEditor;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.basic.BasicArrowButton;
@@ -69,9 +70,9 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 	private static final int	ANIMATION_CANCELED	= 2;
 	private static final int	ANIMATION_RESET		= 3;
 
-	private  Font	valueFont, baseFont, labelFont, buttonFont, panelTitleFont;
-	private  Color	frameBgColor, panelBgColor, textBgColor, valueBgColor;
-	private  Color	textColor, valueTextColor, panelTitleColor;
+	private  Font	valueFont, baseFont, labelFont, buttonFont, panelTitleFont, tooltipFont;
+	private  Color	frameBgColor, panelBgColor, textBgColor, valueBgColor, tooltipBgColor;
+	private  Color	textColor, valueTextColor, panelTitleColor, tooltipTxtColor;
 	private  Color	buttonColor, buttonTextColor, iconBgColor;
 	private  Color	hiddenColor, disabledColor, hoverColor, borderColor;
 	private  int	iconSize, arrowHeight, buttonCorner;
@@ -153,6 +154,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 			updateOngoing = true;
 			initNewColors(true);
 			initNewFonts();
+			initTooltips();
 			updatePanel(frame, isNewFormat(), false, 0);
 			updateOngoing = false;
 			setRaceImg(); 	// Pack and set icon
@@ -178,10 +180,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 			frameBgColor	= multColor(GameUI.setupFrame(),			0.40f * brightness);
 			panelBgColor	= multColor(GameUI.paneBackgroundColor(),	0.60f * brightness);
 			valueBgColor	= multColor(GameUI.paneBackgroundColor(),	0.85f * brightness);
-//			frameBgColor	= multColor(new Color(93,  75,  66), brightness);
-//			panelBgColor	= multColor(new Color(150, 105, 73), brightness);
-//			valueBgColor	= multColor(RacesUI.lightBrown, 1.2f * brightness);
 			textBgColor		= panelBgColor;
+			tooltipBgColor	= multColor(GameUI.paneBackgroundColor(),	0.95f * brightness);
 			
 			buttonColor		= panelBgColor;
 			borderColor		= multColor(valueBgColor, 1.2f);
@@ -195,6 +195,11 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 			valueTextColor	= SystemPanel.blackText;
 			panelTitleColor	= SystemPanel.whiteText;
 			iconBgColor		= valueBgColor;
+			tooltipTxtColor	= SystemPanel.blackText;
+		}
+		else {
+			tooltipBgColor	= new Color(214,217,223);
+			tooltipTxtColor	= SystemPanel.blackText;
 		}
 	}
 	private void initNewFonts() {
@@ -207,6 +212,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 			labelFont		= FontManager.getNarrowFont(scaledSize(labelFontSize));
 			buttonFont		= FontManager.getNarrowFont(scaledSize(buttonFontSize));
 			panelTitleFont	= FontManager.getNarrowFont(scaledSize(panelTitleFontSize));
+			tooltipFont		= FontManager.getNarrowFont(scaledSize(baseFontSize));
+		}
+		else {
+			tooltipFont		= new Font("SansSerif", Font.PLAIN, 12);
 		}
 	}
 	private void initPanel() {
@@ -214,6 +223,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		initNewColors(false);
 		initComponents();	// Load the form
 		loadValues();		// Load User's values
+		initTooltips();
+		loadTooltips();
 		updatePanel(frame, isNewFormat(), false, 0); // Apply the new formating
 		setRaceImg();		// Pack and set icon
 	}
@@ -242,6 +253,11 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		isCustomSize		= options().isCustomSize();
 		sizeFactorPct		= options().getSizeFactorPct();
 		brightnessFactorPct	= options().getBrightnessPct();
+	}
+	private void initTooltips()	{
+		UIManager.put("ToolTip.font", tooltipFont);
+		UIManager.put("ToolTip.background", tooltipBgColor);
+		UIManager.put("ToolTip.foreground", tooltipTxtColor);
 	}
 	// ========== Local tools ==========
 	//
@@ -568,6 +584,63 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 
 	// ========== Load and save Values ==========
 	//
+	private void loadTooltips()	{
+		GovernorOptions options = options();
+		// Other Options and duplicate
+		governorDefault.setToolTipText(options.governorOnByDefaultTT());
+        completionist.setToolTipText("<html>\nI like completing games fully. <br/>\n"
+        		+ "Allow all Empires to Research the following Technologies:<br/>\n<br/>\n"
+        		+ "Controlled Irradiated Environment<br/>\n"
+        		+ "Atmospheric Terraforming<br/>\n"
+        		+ "Complete Terraforming<br/>\n"
+        		+ "Advanced Soil Enrichment<br/>\n"
+        		+ "Intergalactic Star Gates<br/>\n<br/>\n"
+        		+ "More than 30% of the Galaxy needs to be colonized.<br/>\n"
+        		+ "Player must control more than 50% of colonized systems.<br/>\n"
+        		+ "Player must have completed all Research in their Tech Tree (Future Techs too).<br/>\n</html>");
+		autoApplyToggleButton.setToolTipText(options.autoApplyTT());
+		
+		// AutoTransport Options
+		autotransport.setToolTipText(options.autotransportTT());
+		autotransportXilmi.setToolTipText(options.autotransportXilmiTT());
+		allowUngoverned.setToolTipText(options.autotransportUngovernedTT());
+		transportMaxTurns.setToolTipText(options.transportMaxTurnsTT());
+		transportRichDisabled.setToolTipText(options.transportRichDisabledTT());
+		transportPoorDouble.setToolTipText(options.transportPoorDoubleTT());
+
+		// StarGates Options
+		stargateOff.setToolTipText(options.gatesOffTT());
+		stargateRich.setToolTipText(options.gatesRichTT());
+		stargateOn.setToolTipText(options.gatesOnTT());
+
+		// Colony Options
+		missileBases.setToolTipText(options.minimumMissileBasesTT());
+		shieldWithoutBases.setToolTipText(options.shieldWithoutBasesTT());
+		autospend.setToolTipText(options.autospendTT());
+		reserve.setToolTipText(options.reserveTT());
+		shipbuilding.setToolTipText(options.shipbuildingTT());
+		legacyGrowthMode.setToolTipText(options.legacyGrowthModeTT());
+		terraformEarly.setToolTipText(options.terraformEarlyTT());
+
+		// Intelligence Options
+		autoInfiltrate.setToolTipText(options.autoInfiltrateTT());
+		autoSpy.setToolTipText(options.autoSpyTT());
+		spareXenophobes.setToolTipText(options.respectPromisesTT());
+
+		// Fleet Options
+		autoScout.setToolTipText(options.autoScoutTT());
+		autoColonize.setToolTipText(options.autoColonizeTT());
+		autoAttack.setToolTipText(options.autoAttackTT());
+		autoScoutShipCount.setToolTipText(options.autoScoutShipCountTT());
+		autoColonyShipCount.setToolTipText(options.autoColonyShipCountTT());
+		autoAttackShipCount.setToolTipText(options.autoAttackShipCountTT());
+
+		// Aspect Options
+		customSize.setToolTipText(options.customSizeTT());
+		sizePct.setToolTipText(options.sizeFactorPctTT());
+		brightnessPct.setToolTipText(options.brightnessPctTT());
+		isOriginal.setToolTipText(options.originalPanelTT());
+	}
 	private void loadValues() {
 		GovernorOptions options = options();
 		// Other Options and duplicate

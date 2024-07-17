@@ -82,7 +82,7 @@ public class SettingString extends SettingBase<String> implements Base{
 	}
 	@Override public boolean next() {
 		Object prev = UIManager.get("OptionPane.minimumSize");
-		UIManager.put("OptionPane.minimumSize", new Dimension(800,90)); 
+		UIManager.put("OptionPane.minimumSize", new Dimension(scaled(800),scaled(90))); 
 		String input;
 		input = JOptionPane.showInputDialog(settingText().panel() ,inputMessage, settingValue());
 		UIManager.put("OptionPane.minimumSize", prev); 

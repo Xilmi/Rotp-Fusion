@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import rotp.model.game.IGameOptions;
+import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 
 public class ParamString extends AbstractParam<String> {
@@ -64,7 +65,7 @@ public class ParamString extends AbstractParam<String> {
 	}
 	@Override public boolean toggle(MouseEvent e, BaseModPanel frame) {
 		Object prev = UIManager.get("OptionPane.minimumSize");
-		UIManager.put("OptionPane.minimumSize", new Dimension(200,90)); 
+		UIManager.put("OptionPane.minimumSize", new Dimension(RotPUI.scaledSize(200),RotPUI.scaledSize(90))); 
 		String input;
 		input = JOptionPane.showInputDialog(frame ,inputMessage, get());
 		UIManager.put("OptionPane.minimumSize", prev); 

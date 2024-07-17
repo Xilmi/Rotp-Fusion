@@ -1,7 +1,6 @@
 package rotp.ui.util.swing;
 
 import java.awt.Color;
-import java.awt.LayoutManager;
 
 import javax.swing.JComponent;
 import javax.swing.JSpinner;
@@ -16,7 +15,6 @@ public class RotpJSpinner extends JSpinner {
 			//setUI(new LeftRightSpinnerUI());
 		}
 	}
-	
 //	@Override public void setLayout(LayoutManager mgr) {
 //		if (isNewFormat())
 //			super.setLayout(new LeftRightSpinnerBorderLayout());
