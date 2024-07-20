@@ -16,7 +16,7 @@ DefeatAmbience          , data/sounds/defeat.wav            , 100            , L
 ShipCombatAmbience      , data/sounds/combat_space.wav      , 50             , L
 ShipCombatIntro         , data/sounds/combat_open.wav       , 100            ,
 
-#Dipomacy Themes
+# Diplomacy Themes
 ThemeAlkari             , data/sounds/theme_alkari.wav       , 100            , L
 ThemeBulrathi           , data/sounds/theme_bulrathi.wav     , 100            , L
 ThemeDarlok             , data/sounds/theme_darlok.wav       , 100            , L

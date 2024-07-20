@@ -387,7 +387,7 @@ public class ColonyDefense extends ColonySpendingCategory {
         return ticks;
     }
 
-    @Override public int smartAllocationNeeded(MouseEvent e) { //TODO BR: smartAllocationNeeded
+    @Override public int smartAllocationNeeded(MouseEvent e) {
     	if (e==null || SwingUtilities.isLeftMouseButton(e)) // Upgrade And go to Target limit
     		return maxAllocationNeeded();
     	if (SwingUtilities.isRightMouseButton(e)) // Max Available

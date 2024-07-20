@@ -500,14 +500,14 @@ public class ColonyShipyard extends ColonySpendingCategory {
     	}
         return MAX_TICKS;
     }
-//    private int buildTarget() {
-//    	if (buildingStargate)
-//    		return 1;
-//    	if (buildLimit() == 0)
-//    		return Integer.MAX_VALUE;
-//    	return buildLimit();
-//    }
-    @Override public int smartAllocationNeeded(MouseEvent e) { //TODO BR: smartAllocationNeeded
+/*    private int buildTarget() {
+    	if (buildingStargate)
+    		return 1;
+    	if (buildLimit() == 0)
+    		return Integer.MAX_VALUE;
+    	return buildLimit();
+    } */
+    @Override public int smartAllocationNeeded(MouseEvent e) {
     	if (e==null || SwingUtilities.isLeftMouseButton(e)) // Target limit
     		return targetMaxAllocationNeeded();
     	if (SwingUtilities.isRightMouseButton(e)) // Max Available

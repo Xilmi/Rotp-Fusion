@@ -846,8 +846,7 @@ public abstract class BaseModPanel extends BasePanel
 				modText.mouseExit();
 			}
 		}
-		void fillButtonBackImg(Graphics2D g) { // TODO BR: Validate
-			//g.setPaint(lbg());
+		void fillButtonBackImg(Graphics2D g) {
 			if (retina)
 				g.fillRoundRect(retina(x-xButton), retina(y-yButton), retina(width), retina(height), cnrR, cnrR);
 			else

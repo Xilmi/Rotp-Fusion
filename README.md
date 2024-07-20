@@ -67,6 +67,11 @@ Later:
 
 ## What's New
 
+2024.07.20 (BR)
+- Fixed home worlds the Orion Artifacts giving Orion council bonus.
+- MoO1 "default option" will memorize random generator seed.
+- Right-Click on planet (above spending panel), will bring the planet view. (Still under construction)
+
 2024.07.17 (BR)
 - Governor panel: More tooltips, and they follow the color theme.
 

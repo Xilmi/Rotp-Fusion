@@ -27,11 +27,14 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Ellipse2D;
+
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
+import rotp.ui.RotPUI;
 import rotp.util.AnimationManager;
 
 public class SystemGraphicPane extends BasePanel implements MouseMotionListener, MouseListener, MouseWheelListener {
@@ -171,6 +174,12 @@ public class SystemGraphicPane extends BasePanel implements MouseMotionListener,
         StarSystem sys = parent.systemViewToDisplay();
         if (sys == null)
             return;
+        if (SwingUtilities.isRightMouseButton(e)) {
+        	if (sys.empire().isPlayer()) {
+        		RotPUI.instance().selectColonyViewPanel(sys.id);
+        		return;
+        	}
+        }
         if (currentHover == 3) {
             currentHover = 0;
             player().sv.removeStargate(sys.id);

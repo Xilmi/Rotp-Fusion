@@ -451,9 +451,9 @@ public class ColonyIndustry extends ColonySpendingCategory {
     	float maxFactories	     = maxBuildableFactories();
     	float upcomingFactories  = upcomingFactories();
     	float maxNeededFactories = maxFactories - factories - upcomingFactories;
-	float neededFactories    = maxNeededFactories - expectedMissingPopulation * maxRobotControls();
-	float factoryBalance     = -neededFactories;
-	Float refitFlag = 0f;
+		float neededFactories    = maxNeededFactories - expectedMissingPopulation * maxRobotControls();
+		float factoryBalance     = -neededFactories;
+		Float refitFlag = 0f;
 
     	if (robotControls != tech().topRobotControls()
     			|| convertableAlienFactories() != 0) { // check for refit
@@ -556,7 +556,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
         p.addAlienFactories(randomEmpId, -1);
         newFactories++;
     }
-    @Override public int smartAllocationNeeded(MouseEvent e) { //TODO BR: smartAllocationNeeded
+    @Override public int smartAllocationNeeded(MouseEvent e) {
     	if (e==null || SwingUtilities.isLeftMouseButton(e))
     		return maxAllocationNeeded();
     	if (SwingUtilities.isRightMouseButton(e))

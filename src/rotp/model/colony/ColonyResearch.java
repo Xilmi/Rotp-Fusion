@@ -101,7 +101,7 @@ public class ColonyResearch extends ColonySpendingCategory {
         projectBC = 0;
         unallocatedBC = 0;
     }
-    @Override public int smartAllocationNeeded(MouseEvent e) { //TODO BR: smartAllocationNeeded
+    @Override public int smartAllocationNeeded(MouseEvent e) {
     	if (e==null || SwingUtilities.isLeftMouseButton(e))
     		return MAX_TICKS;
     	if (SwingUtilities.isRightMouseButton(e))

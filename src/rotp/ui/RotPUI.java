@@ -81,6 +81,7 @@ import rotp.ui.map.SystemsUI;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.TurnNotification;
 import rotp.ui.planets.ColonizePlanetUI;
+import rotp.ui.planets.ColonyViewUI;
 import rotp.ui.planets.GroundBattleUI;
 import rotp.ui.planets.PlanetsUI;
 import rotp.ui.races.RacesUI;
@@ -162,6 +163,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private static final String SELECT_NEW_TECH_PANEL = "NewTech";
     private static final String DISCOVER_TECH_PANEL = "DiscoverTech";
     private static final String COLONIZE_PROMPT_PANEL = "PromptColonize";
+    private static final String COLONY_VIEW_PANEL = "ColonyView";
     private static final String DIPLOMATIC_MESSAGE_PANEL = "DiplomaticMessage";
     private static final String SHIP_BATTLE_PANEL = "ShipBattle";
     private static final String GROUND_BATTLE_PANEL = "GroundBattle";
@@ -258,6 +260,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final HistoryUI historyUI = new HistoryUI();
     private final GNNUI gnnUI = new GNNUI();
     private final ColonizePlanetUI colonizePlanetUI = new ColonizePlanetUI();
+    private final ColonyViewUI colonyViewUI = new ColonyViewUI();
     private final DiplomaticMessageUI diplomaticMessageUI = new DiplomaticMessageUI();
     private final GalacticCouncilUI galacticCouncilUI = new GalacticCouncilUI();
     private final GameOverUI gameOverUI = new GameOverUI();
@@ -684,6 +687,13 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         else
             selectPanel(COLONIZE_PROMPT_PANEL, colonizePlanetUI);
     }
+    public void selectColonyViewPanel(int sysId) {
+    	colonyViewUI.init(sysId);
+        if (!UserPreferences.windowed())
+            selectDialogPanel(COLONY_VIEW_PANEL, colonyViewUI);
+        else
+            selectPanel(COLONY_VIEW_PANEL, colonyViewUI);
+    }
     public void selectSelectNewTechPanel(TechCategory cat) {
         session().pauseNextTurnProcessing("Show Select Tech");
         selectNewTechUI.category(cat);
@@ -866,6 +876,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             dialogPane.addToLayout(diplomaticMessageUI, DIPLOMATIC_MESSAGE_PANEL);
             dialogPane.addToLayout(selectNewTechUI, SELECT_NEW_TECH_PANEL);
             dialogPane.addToLayout(colonizePlanetUI, COLONIZE_PROMPT_PANEL);
+            dialogPane.addToLayout(colonyViewUI, COLONY_VIEW_PANEL);
             dialogPane.addToLayout(discoverTechUI, DISCOVER_TECH_PANEL);
             dialogPane.addToLayout(groundBattleUI, GROUND_BATTLE_PANEL);
             dialogPane.addToLayout(gnnUI, GNN_PANEL);
@@ -876,6 +887,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             add(diplomaticMessageUI, DIPLOMATIC_MESSAGE_PANEL);
             add(selectNewTechUI, SELECT_NEW_TECH_PANEL);
             add(colonizePlanetUI, COLONIZE_PROMPT_PANEL);
+            add(colonyViewUI, COLONY_VIEW_PANEL);
             add(discoverTechUI, DISCOVER_TECH_PANEL);
             add(groundBattleUI, GROUND_BATTLE_PANEL);
             add(gnnUI, GNN_PANEL);

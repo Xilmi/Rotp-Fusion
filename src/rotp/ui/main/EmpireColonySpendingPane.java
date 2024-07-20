@@ -315,24 +315,24 @@ public class EmpireColonySpendingPane extends BasePanel {
             if (category == Colony.INDUSTRY)  {
             	ColonyIndustry industry = colony.industry();
             	Float[] factoryBalance = industry.factoryBalance();
-		float balance   = factoryBalance[0];
-		Float refitFlag = factoryBalance[1];
-            	String indStr = "";
-		boolean rightAmount = (balance == 0);
+            	float balance   = factoryBalance[0];
+            	Float refitFlag = factoryBalance[1];
+            	boolean rightAmount = (balance == 0);
             	boolean warning = !rightAmount && !colony.isGovernor();
             	if (warning) {
-			if (balance > 0) {
-				indStr = text("MAIN_COLONY_SPENDING_UNUSED_FACT", df1.format(balance));
-				g.setColor(Color.ORANGE);
-				g.fill(fillRect);
-				g.setColor(Color.GRAY);
+            		String indStr = "";
+            		if (balance > 0) {
+						indStr = text("MAIN_COLONY_SPENDING_UNUSED_FACT", df1.format(balance));
+						g.setColor(Color.ORANGE);
+						g.fill(fillRect);
+						g.setColor(Color.GRAY);
                 	}
                 	else {
-				indStr = text("MAIN_COLONY_SPENDING_NEEDED_FACT", df1.format(-balance));
-				g.setColor(Color.LIGHT_GRAY);
-                	}
-			if (refitFlag == null)
-				indStr = text("MAIN_COLONY_SPENDING_REFIT") + " " + indStr;
+						indStr = text("MAIN_COLONY_SPENDING_NEEDED_FACT", df1.format(-balance));
+						g.setColor(Color.LIGHT_GRAY);
+	                }
+					if (refitFlag == null)
+						indStr = text("MAIN_COLONY_SPENDING_REFIT") + ", " + indStr;
 	            	g.setFont(narrowFont(14));
 	            	int sw1 = g.getFontMetrics().stringWidth(indStr);
 	            	int x1 = (boxW-sw1)/2;
@@ -617,7 +617,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                 softClick();
             parent.repaint();
         }*/
-        private void smoothMaxClick(boolean click, MouseEvent e) { // TODO BR:
+        private void smoothMaxClick(boolean click, MouseEvent e) {
         	// Common start
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)

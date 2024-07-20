@@ -917,12 +917,14 @@ public interface Base {
         BufferedImage bufferedImage = newOpaqueImage(image.getWidth(null), image.getHeight(null));
         Graphics2D g = bufferedImage.createGraphics();
         g.drawImage(image, null, null);
+        g.dispose();
         return bufferedImage;
     }
     public default BufferedImage newBufferedImage(Image image) {
         BufferedImage bufferedImage = newBufferedImage(image.getWidth(null), image.getHeight(null));
         Graphics2D g = bufferedImage.createGraphics();
         g.drawImage(image, null, null);
+        g.dispose();
         return bufferedImage;
     }
     public default Border newLineBorder(Color c, int th) {
@@ -1438,6 +1440,7 @@ public interface Base {
         
         Graphics g = img.getGraphics();
         g.drawImage(back, 0, 0, imgW, imgH, null);
+        g.dispose();
     }
     public default String generateGameName() {
 		String name;

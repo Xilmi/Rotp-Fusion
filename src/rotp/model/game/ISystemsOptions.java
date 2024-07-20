@@ -168,7 +168,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	default float secondRingRadius() { return secondRingRadius.getValidValue(); }
 	default ParamFloat getSecondRingRadius()	{ return secondRingRadius; }
 
-	float surfaceSecurityFactor = 0.855f; // TODO BR: Tune
+	float surfaceSecurityFactor = 0.855f;
 
 	static Integer radiusToNumStars(float radius) {
 		float systemBuffer = 1.9f;

@@ -2534,11 +2534,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
     }
     public float orionCouncilBonus() {
-        Galaxy gal = galaxy();
-        for (int i=0; i<sv.count(); i++) {
-            if ((sv.empire(i) == this) && gal.system(i).planet().isOrionArtifact())
-                return .2f;
-        }
+        if (galaxy().orionSystem().empire() == this)
+            return .2f;
         return 0;
     }
     public void addVisibleShip(Ship sh) {

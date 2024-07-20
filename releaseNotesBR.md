@@ -3,12 +3,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Display refit+needed/over in industry spending slider plus swap to maxRobotControls (Cybersol)
-- Added possibilities to "Tech Trade Limitation" to also limit technology aid.
-- Added "Boost Planet Early" option to governor panel.
-- Spell Check labels.txt + improvements
-- Governor panel Numeric fields: Arrows are now visible.
-- Governor panel: More tooltips, and they follow the color theme.
+- Fixed home worlds the Orion Artifacts giving Orion council bonus.
+- MoO1 "default option" will memorize random generator seed.
+- Right-Click on planet (above spending panel), will bring the planet view. (Still under construction)
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -62,5 +59,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Plenty of new Hotkeys: (Shift-F1 to reveal them)
   - Plenty of minor improvements.
   - Improved Smart-Max.
+  - Right-Click on planet (above spending panel), will bring the planet view. (Still under construction)
 - AI: Stronger than ever.
 - Plenty of little bug fixes.

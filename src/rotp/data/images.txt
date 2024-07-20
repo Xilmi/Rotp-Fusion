@@ -9,6 +9,7 @@ TEXTURE_BROWN       | images/texture_brown.jpg
 TEXTURE_GRAY        | images/texture_gray.jpg
 DERELICT_SHIP       | images/Derelict_Ship.jpg
 SPY_REPORT          | images/spy-report.png
+FACTORY_ICON        | images/factory-icon.png
 // modnar: add clean icons
 ROTP_MOD_ICON1      | images/rotp_custom_ico_4_medium.png
 ROTP_MOD_ICON2      | images/rotp_custom_ico_4_small.png

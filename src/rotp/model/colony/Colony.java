@@ -466,35 +466,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public void smoothMaxSlider(int category) {
     	if(locked(category))
     		return;
-    	verifiedSmoothMaxSlider(category, null); // TODO BR: Clean
-//    	checkEcoAtClean(); // BR: to avoid wrong setting if not clean!
-//        int needAllocation = MAX_TICKS;
-//        switch(category)
-//        {
-//            case SHIP:
-//                if(shipyard().buildLimit() > 0) {
-//               	needAllocation = shipyard().targetMaxAllocationNeeded();
-//                }
-//                break;
-//            case DEFENSE:
-//                needAllocation = defense().maxAllocationNeeded();
-//                break;
-//            case INDUSTRY:
-//                needAllocation = industry().maxAllocationNeeded();
-//                break;
-//            case ECOLOGY:
-//                needAllocation = ecology().maxAllocationNeeded();
-//                break;
-//            default:
-//                break;
-//        }
-//        int prevAllocation = allocation(category);
-//        int incr = needAllocation > prevAllocation ? 1 : -1;
-//        int lim = (needAllocation - prevAllocation) * incr;
-//        for (int i=0; i<lim; i++) {
-//        	if(!increment(category, incr))
-//        		break;
-//        }
+    	verifiedSmoothMaxSlider(category, null);
     }
     public void verifiedSmoothMaxSlider(int category, MouseEvent e) {
         checkEcoAtClean(); // BR: to avoid wrong setting if not clean!
@@ -508,9 +480,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
         if(category != ECOLOGY)
         	checkEcoAtClean();
-//        if(category != RESEARCH && !locked(RESEARCH))
-//        	allocation(RESEARCH, 0);
-//        redistributeReducedEcoSpending();
     }
 
     // modnar: add challengeMode option from UserPreferences to give AI more initial resources

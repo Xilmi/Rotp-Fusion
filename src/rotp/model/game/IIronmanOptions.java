@@ -1,5 +1,7 @@
 package rotp.model.game;
 
+import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
+
 import java.util.Arrays;
 
 import rotp.ui.util.ParamBoolean;
@@ -30,13 +32,16 @@ public interface IIronmanOptions extends IBaseOptsTools {
 	default int selectedIronmanLoadDelay()	{ return ironmanLoadDelay.get(); }
 
 	ParamBoolean persistentArtifact	= new ParamBoolean(MOD_UI, "REPEATABLE_ARTIFACT", false)
-			.isValueInit(false);
+			.isValueInit(false)
+			.setDefaultValue(MOO1_DEFAULT, true);
 	default boolean isPersistentArtifact()	{ return persistentArtifact.get(); }
 	
-	ParamBoolean researchMoo1		= new ParamBoolean(MOD_UI, "RESEARCH_MOO1", false);
+	ParamBoolean researchMoo1		= new ParamBoolean(MOD_UI, "RESEARCH_MOO1", false)
+			.setDefaultValue(MOO1_DEFAULT, true);
 	default boolean researchMoo1()			{ return researchMoo1.get(); }
 
-	ParamBoolean persistentRNG		= new ParamBoolean(MOD_UI, "PERSISTENT_RNG", false);
+	ParamBoolean persistentRNG		= new ParamBoolean(MOD_UI, "PERSISTENT_RNG", false)
+			.setDefaultValue(MOO1_DEFAULT, true);
 	default boolean persistentRNG()			{ return persistentRNG.get(); }
 
 	ParamBoolean allowSpeciesDetails	= new ParamBoolean(MOD_UI, "ALLOW_SPECIES_DETAILS", true);

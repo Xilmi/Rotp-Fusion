@@ -1,5 +1,6 @@
 #
 // modnar: change color of scatter-pack missiles and torpedoes
+BASE_MISSILE              | images/missiles/base_missile.png
 COMBAT_MISSILE            | images/missiles/missile.png
 
 MISSILE_NUCLEAR           | images/missiles/missile.png
