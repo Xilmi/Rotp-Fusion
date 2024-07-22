@@ -265,8 +265,8 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
         g.drawImage(c.planet().landscapeImage(), 0, 0, w, h, null);
 
         // draw fortress
-        //BufferedImage fortImg = colony.empire().race().fortress(colony.fortressNum());
-        BufferedImage fortImg = defenderEmp.race().fortress(0);
+        BufferedImage fortImg = colony.empire().race().fortress(colony.fortressNum());
+        //BufferedImage fortImg = defenderEmp.race().fortress(0);
         int fortW = scaled(fortImg.getWidth());
         int fortH = scaled(fortImg.getHeight());
         int fortX = w-fortW;

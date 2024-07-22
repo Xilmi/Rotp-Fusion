@@ -38,47 +38,119 @@ import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 
 public class ColonyViewUI extends BasePanel implements MouseListener {
-	private static final long serialVersionUID = 1L;
+	private static final int NUM_BY_ICON = 10;
 
 	private Image landscapeImg;
+	private boolean landscapeOnly = false;
 	private boolean exited = false;
 	private int sysId;
-	private int iconWidth = s48;
-	private int factoryWidth, factoryHeight;
-	private int speciesWidth, speciesHeight;
-	private int missileWidth, missileHeight;
+	private int iconWidth, barSep, blockSep, rowSep, colSep, maxColumns;
+	private int factoryWidth, factoryHeight, factoryNum, factoryCols, factoryRows, factoryBars;
+	private int speciesWidth, speciesHeight, speciesNum, speciesRows;
+	private int missileWidth, missileHeight, missileNum, missileCols, missileRows;
 	private BufferedImage factoryImg, speciesImg, missileImg;
 	private String ambienceKey;
 
-	public ColonyViewUI()	{ init(); }
-	private void init()		{
+	public ColonyViewUI()		{ init(); }
+	private void init()			{
 		setBackground(Color.black);
 		addMouseListener(this);
 	}
 	public void init(int sysId)	{
 		this.sysId		= sysId;
-		exited			= false;
 		StarSystem sys	= galaxy().system(sysId);
+		Colony colony	= sys.colony();
+		exited			= false;
 		Race race		= sys.empire().race();
 		ambienceKey		= race.ambienceKey;
-		iconWidth		= s32;
+		float pop		= colony.population();
+		float bases		= colony.defense().bases();
+		float factories	= colony.industry().factories();
+		factoryRows		= colony.industry().effectiveRobotControls();
+		maxColumns		= 10;
+		iconWidth		= s80;
+		blockSep		= s20;
+		barSep			= s10;
+		rowSep			= -scaled(1*factoryRows);
+		initDisplayVar(pop, bases, factories);
+		if (speciesRows>2 || (factoryBars > 1 && factoryRows>4)) {
+			maxColumns	= 15;
+			iconWidth	= s56;
+			blockSep	= s10;
+			initDisplayVar(pop, bases, factories);
+		}
+		if (factoryBars > 1) {
+			blockSep = blockSep *3/4;
+		}
+		colSep = 0;
+
 		initFactoryImage();
 		initMissileImage();
 		initSpeciesImage(race);
-		initLandscapeImage(sys.colony());
+		createImage(false);
+	}
+	private void initDisplayVar(float pop, float bases, float factories)	{
+		speciesNum	= (int) Math.ceil(pop/NUM_BY_ICON);
+		speciesRows	= (int) Math.ceil((double)speciesNum/maxColumns);
+		missileNum	= (int) Math.ceil(bases/NUM_BY_ICON);
+		missileCols	= (int) Math.ceil((double)missileNum/maxColumns);
+		if (missileNum == 0)
+			missileRows	= 0;
+		else
+			missileRows	= (int) Math.ceil((double)missileNum/missileCols);
+		factoryNum	= (int) Math.ceil(factories/NUM_BY_ICON);
+		factoryCols	= (int) Math.ceil((double)factoryNum/factoryRows);
+		factoryBars	= (int) Math.ceil((double)factoryCols/maxColumns);
 	}
 	private void initSpeciesImage(Race race)	{
+		speciesWidth  = iconWidth;
+		speciesHeight = speciesWidth;
+		int spH = speciesWidth*8/10;
+		int spW = spH;
+		int[] iHue = new int[] {180};
+		BufferedImage mugshot = race.diplomatQuiet();
+		int mW	= mugshot.getWidth(null);
+		int mH	= mugshot.getHeight(null);
+		int mX1	= 0;
+		int mX2	= mX1 + mH;
+		int mW2	= mX2 - mX1;
+		int spW2 = spW*mW2/mW;
+
+		BufferedImage[] mugHue = setHue(mugshot, iHue, 96);
+		speciesImg    = newBufferedImage(speciesWidth, speciesHeight);
+		Graphics2D g  = (Graphics2D) speciesImg.getGraphics();
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		int x = 0;
+		int y = 0;
+		g.drawImage(mugshot, x, y, x+spW2, y+spH, mX1, 0, mX2, mH, null);
+		x = speciesWidth-spW2;
+		y = (speciesHeight-spH)/3;
+		g.drawImage(mugshot, x, y, x+spW2, y+spH, mX2, 0, mX1, mH, null);
+		g.drawImage(mugHue[0], x, y, x+spW2, y+spH, mX2, 0, mX1, mH, null);
+		x = x/2;
+		y = speciesHeight-spH;
+
+		mugshot = race.scientistQuiet();
+		mW	= mugshot.getWidth(null);
+		mH	= mugshot.getHeight(null);
+		mX1	= 0;
+		mX2	= mX1 + mH;
+		mW2	= mX2 - mX1;
+		spW2 = spW*mW2/mW;
+		g.drawImage(mugshot, x, y, x+spW2, y+spH, mX1, 0, mX2, mH, null);
+
+		g.dispose();
+	}
+/*	private void initSpeciesImage2(Race race)	{
 		speciesWidth  = iconWidth;
 		speciesHeight = speciesWidth;
 		int spW = speciesWidth*4/8;
 		int spH = spW * 41/38;
 		int[] iHue = new int[] {0, 90, 180};
-//		BufferedImage scientist  = race.advisorScout();
-//		int sW = scientist.getWidth(null);
-//		int sH = scientist.getHeight(null);
-//		BufferedImage leader  = race.councilLeader();
-//		int lW = leader.getWidth(null);
-//		int lH = leader.getHeight(null);
 		BufferedImage mugshot = race.diploMugshotQuiet();
 		int mW = mugshot.getWidth(null);
 		int mH = mugshot.getHeight(null);
@@ -95,7 +167,6 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int y = 0;
 		//y = spH/5;
 		g.drawImage(mugshot, x, y, x+spW, y+spH, mW, 0, 0, mH, null);
-//		g.drawImage(mugHue[0], x, y, x+spW, y+spH, 0, 0, mW, mH, null);
 		x = speciesWidth-spW;
 		y = spH/5;
 		g.drawImage(mugshot, x, y, x+spW, y+spH, 0, 0, mW, mH, null);
@@ -104,12 +175,15 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		y = speciesHeight-spH;
 		g.drawImage(mugshot, x, y, x+spW, y+spH, 0, 0, mW, mH, null);
 		g.drawImage(mugHue[2], x, y, x+spW, y+spH, 0, 0, mW, mH, null);
-//		x = 0;
-//		spW = speciesWidth;
-//		g.drawImage(leader, x, y, x+spW, y+spH, 0, 0, lW, lH, null);
-//		g.drawImage(scientist, x, y, x+spW, y+spH, 0, 0, sW, sH, null);
 
 		g.dispose();
+	} */
+	private BufferedImage rect(int w, int h, Color c, Double angleDeg) {
+		BufferedImage img = new BufferedImage(w, h, TYPE_INT_ARGB);
+		Graphics2D g = img.createGraphics();
+		g.setColor(c);
+		g.fillRect(0, 0, w, h);
+		return rotate(img, angleDeg);
 	}
 	private BufferedImage rotate(BufferedImage bimg, Double angleDeg) {
 		double angle = Math.toRadians(angleDeg);
@@ -143,15 +217,11 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.dispose();
 		return image;
 	}
-	private void initMissileImage()	{
-		missileWidth  = iconWidth;
+	private void initMissileImage()				{
+		missileWidth  = iconWidth*3/4;
 		missileHeight = missileWidth;
 		int w0	= 512;
 		int h0	= w0;
-		int cX	= w0/2-100;
-		int missileLen = 450;
-		int missileSep = 160;
-		BufferedImage missile = missile(missileLen);
 		BufferedImage image = new BufferedImage(w0, h0, TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -160,40 +230,103 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-		// Rear Missile
-		BufferedImage rotMissile = rotate(missile, -60.0);
+		int wheelRadius = 40;
+		// Frame
+		int frX = 0;
+		int frGap = wheelRadius * 3/2;
+		int frH = 44;
+		int frLowY = h0 - frGap;
+		int frTopY = frLowY - frH;
+		int frW = w0;
+
+		// Holder
+		Color darkGreen = new Color(75, 83, 32);
+		int holdH = 48;
+		int holdL = 300;
+		BufferedImage holder = rect(holdL, holdH, darkGreen, -45.0);
+		int hW = holder.getWidth();
+		int hH = holder.getHeight();
+		int hX = 160;
+		int hY = frLowY - hH;
+		g.drawImage(holder, hX, hY, hX+hW, hY+hH, 0, 0, hW, hH, null);
+		int hold2L = 220;
+		int hold2H = 24;
+		holder = rect(hold2L, hold2H, darkGreen, -70.0);
+		hW = holder.getWidth();
+		hH = holder.getHeight();
+		hX = 290;
+		hY = frLowY - hH;
+		g.drawImage(holder, hX, hY, hX+hW, hY+hH, 0, 0, hW, hH, null);
+
+		// Cabin
+		int cabH = 120 + frH;
+		int cabW = 120;
+		int cabX = w0 - cabW;
+		int cabY = frLowY - cabH;
+		int arcW  = 40;
+		int arcH  = arcW * 3;
+		g.setColor(darkGreen);
+		g.fillRoundRect(cabX, cabY, cabW, cabH, arcW, arcH);
+
+		// frame
+		g.setColor(darkGreen);
+		g.fillRect(frX, frTopY, frW-arcW, frH);
+		
+		// Windows
+		int winH = 48;
+		int winW = cabW * 2/3;
+		int winX = w0 - winW - 4;
+		int winY = cabY + 32;
+		//g.setColor(Color.GRAY);
+		g.setColor(new Color(80, 80, 112));
+		g.fillRect(winX, winY, winW, winH);
+		
+		// Wheels
+		int wheelNum = 5;
+		int wheelDia = 2 * wheelRadius;
+		int wheelSep = w0/(wheelNum);
+		int wheelX   = wheelSep/2 - wheelRadius;
+		int wheelY   = h0 - wheelDia;
+		int missing  = 6;
+		g.setColor(Color.BLACK);
+		for (int i=0; i<wheelNum; i++)
+			if (i!=missing)
+				g.fillRoundRect(wheelX+wheelSep*i, wheelY, wheelDia, wheelDia, wheelDia, wheelDia);
+		int tireH  = wheelRadius/2;
+		int rimDia = wheelDia - 2*tireH;
+		int rimY   = wheelY + tireH;
+		int rimX   = wheelX + tireH;
+		g.setColor(Color.GRAY);
+		for (int i=0; i<wheelNum; i++)
+			if (i!=missing)
+				g.fillRoundRect(rimX+wheelSep*i, rimY, rimDia, rimDia, rimDia, rimDia);
+		int axeDia = 32;
+		int dR     = (wheelDia-axeDia)/2;
+		int axeY   = wheelY + dR;
+		int axeX   = wheelX + dR;
+		g.setColor(darkGreen);
+		for (int i=0; i<wheelNum; i++)
+			if (i!=missing)
+				g.fillRoundRect(axeX+wheelSep*i, axeY, axeDia, axeDia, axeDia, axeDia);
+
+		
+		// Missiles
+		int missileNum = 3;
+		int missileLen = 360;
+		BufferedImage rotMissile = rotate(missile(missileLen), -45.0);
 		int rW = rotMissile.getWidth();
 		int rH = rotMissile.getHeight();
-		int misX = w0 - rW - missileSep;
-		int misY = 0;
-		g.drawImage(rotMissile, misX, misY, misX+rW, misY+rH, 0, 0, rW, rH, null);
-
-		// Pole
-		int poleW = 100;
-		int poleH = 200;
-		int poleX = cX-poleW/2;
-		int poleY = h0-poleH;
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(poleX, poleY, poleW, poleH);
-		// Base
-		int baseW = 300;
-		int baseH = 32;
-		int baseX = cX-baseW/2;
-		int baseY = h0-baseH;
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(baseX, baseY, baseW, baseH);
-		// Top
-		int topW = baseW;
-		int topH = 32;
-		int topX = cX-topW/2;
-		int topY = poleY;
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(topX, topY, topW, topH);
-
-		// Front Missile
-		misX += missileSep;
-		g.drawImage(rotMissile, misX, misY, misX+rW, misY+rH, 0, 0, rW, rH, null);
-
+		int missileDx = 45;
+		int missileDy = missileDx;
+		int missileX  = 0;
+		int missileY  = 0;
+		int mX = missileX;
+		int mY = missileY;
+		for (int i=0; i<missileNum; i++) {
+			g.drawImage(rotMissile, mX, mY, mX+rW, mY+rH, 0, 0, rW, rH, null);
+			mX += missileDx;
+			mY += missileDy;
+		}
 		g.dispose();
 
 		missileImg = newBufferedImage(missileWidth, missileHeight);
@@ -235,18 +368,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		}
 		return img;
 	}
-//	private void initFactoryImage()				{
-//		wFact = s12;
-//		hFact = s12;
-//		Image img  = image("FACTORY_ICON");
-//		factoryImg = newBufferedImage(wFact, hFact);
-//		Graphics2D g = (Graphics2D) factoryImg.getGraphics();
-//		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-//		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-//		g.drawImage(img, 0, 0, wFact, hFact, 0, 0, img.getWidth(null), img.getHeight(null), null);
-//		g.dispose();
-//	}
-	private BufferedImage dome(int radius)	{
+	private BufferedImage dome(int radius)		{
 		int w = 2*radius;
 		BufferedImage img = new BufferedImage(w, w, TYPE_INT_ARGB);
 		Point2D center	= new Point2D.Float(radius, radius);
@@ -299,8 +421,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.dispose();
 		return img;
 	}
-	private void initFactoryImage()			{
-		factoryWidth  = iconWidth * 3/4;
+	private void initFactoryImage()				{
+		factoryWidth  = iconWidth * 2/4;
 		factoryHeight = factoryWidth * 3/4;
 		int w0	= 512;
 		int h0	= w0;
@@ -357,19 +479,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.drawImage(img, winXb, winYb, winXb+winW, winYb+winH, 0, 0, winW, winH, null);
 		g.drawImage(img, winXd, winYb, winXd+winW, winYb+winH, 0, 0, winW, winH, null);
 		
-
 		g.dispose();
-
-//		// blur a little bit
-//		int blur	= 9;
-//		int blurSq	= blur*blur;
-//		float flt	= 1.0f/blurSq;
-//		float[] matrix = new float[blurSq];
-//		for (int i = 0; i < blurSq; i++)
-//			matrix[i] = flt;
-//		ConvolveOp op = new ConvolveOp( new Kernel(blur, blur, matrix), ConvolveOp.EDGE_NO_OP, null );
-//		BufferedImage img2 = op.filter(image, new BufferedImage(w0, h0, TYPE_INT_ARGB));
-//		img2 = op.filter(img2, new BufferedImage(w0, h0, TYPE_INT_ARGB));
 
 		factoryImg = new BufferedImage(factoryWidth, factoryHeight, TYPE_INT_ARGB);
 		g = (Graphics2D) factoryImg.getGraphics();
@@ -382,26 +492,29 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.drawImage(image, 0, 0, factoryWidth, factoryHeight, 0, 0, w0, h0, null);
 		g.dispose();
 	}
-	private void initLandscapeImage(Colony c)	{
+	private void createImage(boolean bgOnly)	{
 		int w = getWidth();
 		int h = getHeight();
 		StarSystem sys = galaxy().system(sysId);
+		Colony colony  = sys.colony();
 		//Empire empire = sys.empire();
 		Race race = sys.empire().race();
 		landscapeImg = newBufferedImage(w,h);
 		Graphics2D g = (Graphics2D) landscapeImg.getGraphics();
-		g.setColor(Color.black);
-		g.fillRect(0, 0, getWidth(), getHeight());
-		// modnar: use (slightly) better upsampling
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		g.drawImage(c.planet().type().atmosphereImage(), 0, 0, w, h, null);
-		g.drawImage(c.planet().type().randomCloudImage(), 0, 0, w, h, null);
-		g.drawImage(c.planet().landscapeImage(), 0, 0, w, h, null);
+		g.setColor(Color.black);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		g.drawImage(colony.planet().type().atmosphereImage(), 0, 0, w, h, null);
+		g.drawImage(colony.planet().type().randomCloudImage(), 0, 0, w, h, null);
+		g.drawImage(colony.planet().landscapeImage(), 0, 0, w, h, null);
 
 		// draw fortress
-		//BufferedImage fortImg = colony.empire().race().fortress(colony.fortressNum());
-		BufferedImage fortImg = race.fortress(0);
+		BufferedImage fortImg = race.fortress(sys.colony().fortressNum());
+		//BufferedImage fortImg = race.fortress(0);
 		int fortW = scaled(fortImg.getWidth());
 		int fortH = scaled(fortImg.getHeight());
 		int fortX = w-fortW;
@@ -414,94 +527,111 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 			g.drawImage(shieldImg, fortX, fortY, fortX+fortW, fortY+fortH, 0, 0, shieldImg.getWidth(), shieldImg.getHeight(), null);
 		}
 
-		g.dispose();
-	}
-	private void advanceScreen()				{
-		exited = true;
-		buttonClick();
-		RotPUI.instance().selectMainPanel(false);
-	}
-	private void paintScene(Image img)			{
-		Graphics2D g = (Graphics2D) img.getGraphics();
-		setFontHints(g);
-		int w = getWidth();
-		int h = getHeight();
-		int marginX	= s10;
-		int marginY	= speciesHeight + s10;
-		int sepHa	= factoryHeight * 4/5;
-		int sepHb	= s10;
-		int wBar	= w - 2*marginX-scaled(250);
-		int dxMax	= iconWidth * 3/2;
-		//Color detailLineC = Color.white;
-		StarSystem sys	= galaxy().system(sysId);
-		Colony col		= sys.colony();
-		float pop		= col.population();
-		float plants	= col.industry().factories();
-		float bases		= col.defense().bases();
-		int popNum		= (int) Math.ceil(pop/10);
-		int plantNum	= (int) Math.ceil(plants/10);
-		int baseNum		= (int) Math.ceil(bases/10);
-		int rControl	= col.industry().effectiveRobotControls();
-		int factColumn	= plantNum/rControl;
-		if (factColumn*rControl < plantNum)
-			factColumn++;
+		if (bgOnly) {
+			g.dispose();
+			return;
+		}
 
-		int dxPop	= wBar / popNum;
-		int dxFact	= wBar / factColumn;
-		int dx		= min(dxPop, dxFact, dxMax);
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		g.drawImage(landscapeImg, 0, 0, w, h, null);
+		int marginX	= s10;
+		int marginY	= marginX;
+		int dx		= iconWidth + colSep;
 
 		// draw pop
-		int x0 = marginX+dx/8;
-		int yPop = h - marginY;
-		int ya = yPop;
-		for (int i=0; i<popNum; i++) {
-			g.drawImage(speciesImg, x0, ya, x0+speciesWidth, ya+speciesHeight, 0, 0, speciesWidth, speciesHeight, null);
-			x0 += dx;
+		int xSpecies = marginX+dx/8;
+		int ySpecies = h - marginY - speciesRows*(speciesHeight + rowSep) + rowSep;
+		int xa = xSpecies;
+		int ya = ySpecies;
+		for (int row=speciesRows-1; row>=0; row--) {
+			if (row%2==0)
+				xa = xSpecies;
+			else
+				xa = xSpecies + dx/2;
+			int colLim = min (maxColumns, speciesNum - row*maxColumns);
+			for (int col=0; col<colLim; col++) {
+				g.drawImage(speciesImg, xa, ya, xa+speciesWidth, ya+speciesHeight, 0, 0, speciesWidth, speciesHeight, null);
+				xa += dx;
+			}
+			ya += speciesHeight + rowSep;
 		}
 		
 		// draw Factories
-		int yFact = yPop - sepHb - (rControl)*sepHa;
-		ya = yFact;
-		int num = plantNum;
-		boolean isShifted = false;
-		for (int lev=0; lev<rControl && num>0; lev++) {
-			if (isShifted)
-				x0 = marginX + dx/2;
-			else
-				x0 = marginX;
-			factColumn = num / (rControl-lev);
-			if (factColumn*(rControl-lev) < num)
-				factColumn++;
-			for (int i=0; i<factColumn && num>0; i++) {
-				g.drawImage(factoryImg, x0, ya, x0+factoryWidth, ya+factoryHeight, 0, 0, factoryWidth, factoryHeight, null);
-				x0 += dx;
-				num--;
+		int xFactory = marginX;
+		int yFactory = ySpecies - factoryBars*(factoryRows*(factoryHeight+rowSep)-rowSep+blockSep);
+		ya = yFactory;
+		int factoryPerBar = maxColumns * factoryRows;
+		for (int bar=factoryBars-1; bar>=0; bar--) {
+			int factLim	= min(factoryPerBar, factoryNum - bar*factoryPerBar);
+			int numCol	= min (maxColumns, factoryCols - bar*maxColumns);
+			int rowTop	= min(factoryRows, factLim)-1;
+			int yBar = ya;
+			
+			for (int col=0; (col<numCol) && (factLim>=0); col++) {
+				int rowStart = min(factoryRows, factLim)-1;
+				for (int row=rowStart; row>=0; row--) {
+					ya = yBar + (rowTop-row) * (factoryHeight + rowSep);
+					if (row%2==0)
+						xa = xFactory + col*dx;
+					else
+						xa = xFactory + col*dx + dx/2;
+					g.drawImage(factoryImg, xa, ya, xa+factoryWidth, ya+factoryHeight, 0, 0, factoryWidth, factoryHeight, null);
+					factLim--;
+					ya += factoryHeight + rowSep;
+				}
 			}
-			isShifted = !isShifted;
-			ya += sepHa;
+			ya += barSep - rowSep;
+		}
+		
+		// draw Missiles
+		int xMissile = marginX;
+		int yMissile = yFactory - missileHeight-blockSep;
+		ya = yMissile;
+		xa = marginX;
+		for (int row=missileRows-1; row>=0; row--) {
+			if (row%2==0)
+				xa = xMissile;
+			else
+				xa = xMissile + dx/2;
+			int colLim = min (maxColumns, missileNum - row*maxColumns);
+			for (int col=0; col<colLim; col++) {
+				g.drawImage(missileImg, xa, ya, xa+missileWidth, ya+missileHeight, 0, 0, missileWidth, missileHeight, null);
+				xa += dx;
+			}
+			ya += missileHeight + rowSep;
 		}
 
-		// draw Missiles
-		int yMissiles = yFact - missileHeight-s10;
-		ya = yMissiles;
-		x0 = marginX;
-		for (int i=0; i<baseNum; i++) {
-			g.drawImage(missileImg, x0, ya, x0+missileWidth, ya+missileHeight, 0, 0, missileWidth, missileHeight, null);
-			x0 += dx;
-		}
+//		// Draw test
+//		int tstH  = s64;
+//		int tstW  = tstH;
+//		int yTest = yMissiles - tstH-s10;
+//		ya = yTest;
+//		int yb = yTest-tstH-s10;
+//		x0 = marginX;
+//		for (Race species : Race.races()) {
+//			initSpeciesImage(species);
+//			int dW = speciesImg.getWidth();
+//			int dH = speciesImg.getHeight();
+//			int dSize = max(dW,dH);
+//			int w2 = tstW * dW/dSize;
+//			int h2 = tstH * dH/dSize;
+//			g.drawImage(speciesImg, x0, ya, x0+w2, ya+h2, 0, 0, dW, dH, null);
+//
+////			initSpeciesImage2(species);
+////			dW = speciesImg.getWidth();
+////			dH = speciesImg.getHeight();
+////			dSize = max(dW,dH);
+////			w2 = tstW * dW/dSize;
+////			h2 = tstH * dH/dSize;
+////			g.drawImage(speciesImg, x0, yb, x0+w2, yb+h2, 0, 0, dW, dH, null);
+//			x0 += w2+s5;
+//		}
+		
 
 		// draw subtitle last (so it overlays any ship)
 		int y0 = s30;
 		String subtitle = text(sys.planet().type().description(sys.empire()));
 		g.setFont(narrowFont(24));
 		int sw = g.getFontMetrics().stringWidth(subtitle);
-		x0 = (w-sw)/2;
+		int x0 = (w-sw)/2;
 		drawBorderedString(g, subtitle, 1, x0, y0, Color.black, Color.yellow);
 
 		// draw title last (so it overlays any ship)
@@ -514,20 +644,39 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		
 		g.dispose();
 	}
-	@Override public String ambienceSoundKey()		{ return ambienceKey; }
-	@Override public void keyPressed(KeyEvent e)	{
+	private void advanceScreen()				{
+		exited = true;
+		buttonClick();
+		RotPUI.instance().selectMainPanel(false);
+		landscapeImg = null;
+		factoryImg = null;
+		speciesImg = null;
+		missileImg = null;
+	}
+	@Override public String ambienceSoundKey()			{ return ambienceKey; }
+	@Override public void keyPressed(KeyEvent e)		{
 		int k = e.getKeyCode();
 
 		switch(k) {
+			case KeyEvent.VK_Z:
+				landscapeOnly = !landscapeOnly;
+				createImage(landscapeOnly);
+				repaint();
+				break;
 			case KeyEvent.VK_ESCAPE:
 			case KeyEvent.VK_SPACE:
 				advanceScreen();
 		}
 	}
-	@Override public void paintComponent(Graphics g)	{
-		super.paintComponent(g);
-		paintScene(screenBuffer());
-		g.drawImage(screenBuffer(), 0, 0, null);
+	@Override public void paintComponent(Graphics g0)	{
+		super.paintComponent(g0);
+		Graphics2D g = (Graphics2D) g0;
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g.drawImage(landscapeImg, 0, 0, null);
 	}
 	@Override public void animate()	{
 		if (exited)

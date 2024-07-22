@@ -175,7 +175,7 @@ public class SystemGraphicPane extends BasePanel implements MouseMotionListener,
         if (sys == null)
             return;
         if (SwingUtilities.isRightMouseButton(e)) {
-        	if (sys.empire().isPlayer()) {
+        	if (isPlayer(sys.empire())) {
         		RotPUI.instance().selectColonyViewPanel(sys.id);
         		return;
         	}

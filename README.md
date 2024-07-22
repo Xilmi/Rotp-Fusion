@@ -67,6 +67,11 @@ Later:
 
 ## What's New
 
+2024.07.22 (BR)
+- Planet View:
+  - Improved People an missiles icons.
+  - Press "Z" toggle landscape view only.
+
 2024.07.20 (BR)
 - Fixed home worlds the Orion Artifacts giving Orion council bonus.
 - MoO1 "default option" will memorize random generator seed.
