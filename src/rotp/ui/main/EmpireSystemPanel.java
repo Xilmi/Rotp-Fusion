@@ -689,8 +689,10 @@ public class EmpireSystemPanel extends SystemPanel {
         	Float speed = null;
         	if (sys != null) {
         		ColonyShipyard shipyard = sys.colony().shipyard();
-        		ShipDesign shipDesign = (ShipDesign) shipyard.design();
-        		speed = options().chainRallySpeed(player(), shipDesign);
+        		if (shipyard.design() instanceof ShipDesign) {
+        			ShipDesign shipDesign = (ShipDesign) shipyard.design();
+        			speed = options().chainRallySpeed(player(), shipDesign);
+        		}
         	}
         	rallyToNearestSG(action, speed);        		
         }

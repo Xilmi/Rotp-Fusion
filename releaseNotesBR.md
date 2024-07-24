@@ -7,6 +7,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - MoO1 "default option" will memorize random generator seed.
 - Right-Click on planet (above spending panel), will bring the planet view. (Still under construction)
   - Press "Z" toggle landscape view only.
+  - added stargate.
+  - added ships
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

@@ -3540,6 +3540,24 @@ public final class Empire implements Base, NamedObject, Serializable {
             return false;
         return v.embassy().anyWar();
     }
+    public boolean atPeaceWith(int empId) {
+        if (empId == id) return false;
+        if (empId == Empire.NULL_ID) return false;
+
+        EmpireView v = viewForEmpire(empId);
+        if (v == null)
+            return false;
+        return v.embassy().peaceTreatyInEffect();
+    }
+    public boolean noTreatyWith(int empId) {
+        if (empId == id) return false;
+        if (empId == Empire.NULL_ID) return false;
+
+        EmpireView v = viewForEmpire(empId);
+        if (v == null)
+            return false;
+        return v.embassy().noTreaty();
+    }
     public boolean hasTradeWith(Empire c) {
         if (c == this) return false;
         if (c == null) return false;

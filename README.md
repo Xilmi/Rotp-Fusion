@@ -67,6 +67,11 @@ Later:
 
 ## What's New
 
+2024.07.24 (BR)
+- Planet View:
+  - added stargate.
+  - added ships
+
 2024.07.22 (BR)
 - Planet View:
   - Improved People an missiles icons.

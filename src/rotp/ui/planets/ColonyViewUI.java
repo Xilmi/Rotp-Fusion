@@ -25,25 +25,43 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RadialGradientPaint;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 import rotp.model.colony.Colony;
+import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
+import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.ships.ShipDesign;
+import rotp.model.ships.ShipDesignLab;
+import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.main.SystemPanel;
 
 public class ColonyViewUI extends BasePanel implements MouseListener {
 	private static final int NUM_BY_ICON = 10;
+	private static final Color ownerTextColor	= Color.YELLOW;
+	private static final Color allyTextColor	= Color.GREEN;
+	private static final Color peaceTextColor	= Color.BLUE;
+	private static final Color warTextColor		= Color.RED;
+	private static final Color otherTextColor	= Color.GRAY;
+	private static final boolean RIGHT	= true;
+	private static final boolean LEFT	= false;
 
 	private Image landscapeImg;
 	private boolean landscapeOnly = false;
 	private boolean exited = false;
 	private int sysId;
+	private int stepY = s15;
 	private int iconWidth, barSep, blockSep, rowSep, colSep, maxColumns;
 	private int factoryWidth, factoryHeight, factoryNum, factoryCols, factoryRows, factoryBars;
 	private int speciesWidth, speciesHeight, speciesNum, speciesRows;
@@ -103,7 +121,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		factoryBars	= (int) Math.ceil((double)factoryCols/maxColumns);
 	}
 	private void initSpeciesImage(Race race)	{
-		speciesWidth  = iconWidth;
+		speciesWidth	= iconWidth;
 		speciesHeight = speciesWidth;
 		int spH = speciesWidth*8/10;
 		int spW = spH;
@@ -117,8 +135,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int spW2 = spW*mW2/mW;
 
 		BufferedImage[] mugHue = setHue(mugshot, iHue, 96);
-		speciesImg    = newBufferedImage(speciesWidth, speciesHeight);
-		Graphics2D g  = (Graphics2D) speciesImg.getGraphics();
+		speciesImg	 = newBufferedImage(speciesWidth, speciesHeight);
+		Graphics2D g	= (Graphics2D) speciesImg.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
 		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -146,7 +164,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.dispose();
 	}
 /*	private void initSpeciesImage2(Race race)	{
-		speciesWidth  = iconWidth;
+		speciesWidth	= iconWidth;
 		speciesHeight = speciesWidth;
 		int spW = speciesWidth*4/8;
 		int spH = spW * 41/38;
@@ -156,8 +174,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int mH = mugshot.getHeight(null);
 
 		BufferedImage[] mugHue = setHue(mugshot, iHue, 128);
-		speciesImg    = newBufferedImage(speciesWidth, speciesHeight);
-		Graphics2D g  = (Graphics2D) speciesImg.getGraphics();
+		speciesImg	 = newBufferedImage(speciesWidth, speciesHeight);
+		Graphics2D g	= (Graphics2D) speciesImg.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
 		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -187,19 +205,19 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 	}
 	private BufferedImage rotate(BufferedImage bimg, Double angleDeg) {
 		double angle = Math.toRadians(angleDeg);
-	    double sin = Math.abs(Math.sin(angle));
-	    double cos = Math.abs(Math.cos(angle));
-	    int w = bimg.getWidth();
-	    int h = bimg.getHeight();
-	    int neww = (int) Math.floor(w*cos + h*sin);
-	    int newh = (int) Math.floor(h*cos + w*sin);
-	    BufferedImage rotated = new BufferedImage(neww, newh, TYPE_INT_ARGB);
-	    Graphics2D graphic = rotated.createGraphics();
-	    graphic.translate((neww-w)/2, (newh-h)/2);
-	    graphic.rotate(angle, w/2, h/2);
-	    graphic.drawRenderedImage(bimg, null);
-	    graphic.dispose();
-	    return rotated;
+			double sin = Math.abs(Math.sin(angle));
+			double cos = Math.abs(Math.cos(angle));
+			int w = bimg.getWidth();
+			int h = bimg.getHeight();
+			int neww = (int) Math.floor(w*cos + h*sin);
+			int newh = (int) Math.floor(h*cos + w*sin);
+			BufferedImage rotated = new BufferedImage(neww, newh, TYPE_INT_ARGB);
+			Graphics2D graphic = rotated.createGraphics();
+			graphic.translate((neww-w)/2, (newh-h)/2);
+			graphic.rotate(angle, w/2, h/2);
+			graphic.drawRenderedImage(bimg, null);
+			graphic.dispose();
+			return rotated;
 	}
 	private BufferedImage missile(int length)	{
 		Image missile = image("BASE_MISSILE");
@@ -218,7 +236,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		return image;
 	}
 	private void initMissileImage()				{
-		missileWidth  = iconWidth*3/4;
+		missileWidth	= iconWidth*3/4;
 		missileHeight = missileWidth;
 		int w0	= 512;
 		int h0	= w0;
@@ -263,8 +281,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int cabW = 120;
 		int cabX = w0 - cabW;
 		int cabY = frLowY - cabH;
-		int arcW  = 40;
-		int arcH  = arcW * 3;
+		int arcW	= 40;
+		int arcH	= arcW * 3;
 		g.setColor(darkGreen);
 		g.fillRoundRect(cabX, cabY, cabW, cabH, arcW, arcH);
 
@@ -285,25 +303,25 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int wheelNum = 5;
 		int wheelDia = 2 * wheelRadius;
 		int wheelSep = w0/(wheelNum);
-		int wheelX   = wheelSep/2 - wheelRadius;
-		int wheelY   = h0 - wheelDia;
-		int missing  = 6;
+		int wheelX	 = wheelSep/2 - wheelRadius;
+		int wheelY	 = h0 - wheelDia;
+		int missing	= 6;
 		g.setColor(Color.BLACK);
 		for (int i=0; i<wheelNum; i++)
 			if (i!=missing)
 				g.fillRoundRect(wheelX+wheelSep*i, wheelY, wheelDia, wheelDia, wheelDia, wheelDia);
-		int tireH  = wheelRadius/2;
+		int tireH	= wheelRadius/2;
 		int rimDia = wheelDia - 2*tireH;
-		int rimY   = wheelY + tireH;
-		int rimX   = wheelX + tireH;
+		int rimY	 = wheelY + tireH;
+		int rimX	 = wheelX + tireH;
 		g.setColor(Color.GRAY);
 		for (int i=0; i<wheelNum; i++)
 			if (i!=missing)
 				g.fillRoundRect(rimX+wheelSep*i, rimY, rimDia, rimDia, rimDia, rimDia);
 		int axeDia = 32;
-		int dR     = (wheelDia-axeDia)/2;
-		int axeY   = wheelY + dR;
-		int axeX   = wheelX + dR;
+		int dR	= (wheelDia-axeDia)/2;
+		int axeY	 = wheelY + dR;
+		int axeX	 = wheelX + dR;
 		g.setColor(darkGreen);
 		for (int i=0; i<wheelNum; i++)
 			if (i!=missing)
@@ -318,8 +336,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int rH = rotMissile.getHeight();
 		int missileDx = 45;
 		int missileDy = missileDx;
-		int missileX  = 0;
-		int missileY  = 0;
+		int missileX	= 0;
+		int missileY	= 0;
 		int mX = missileX;
 		int mY = missileY;
 		for (int i=0; i<missileNum; i++) {
@@ -330,7 +348,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.dispose();
 
 		missileImg = newBufferedImage(missileWidth, missileHeight);
-		g  = (Graphics2D) missileImg.getGraphics();
+		g	= (Graphics2D) missileImg.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
 		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -422,7 +440,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		return img;
 	}
 	private void initFactoryImage()				{
-		factoryWidth  = iconWidth * 2/4;
+		factoryWidth	= iconWidth * 2/4;
 		factoryHeight = factoryWidth * 3/4;
 		int w0	= 512;
 		int h0	= w0;
@@ -457,7 +475,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		// Chimneys
 		BufferedImage img = chimney(chemW, h0);
-		g.drawImage(img, chemX,  0, chemX +chemW, h0, 0, 0, chemW, h0, null);
+		g.drawImage(img, chemX,	0, chemX +chemW, h0, 0, 0, chemW, h0, null);
 		g.drawImage(img, chemXb, 0, chemXb+chemW, h0, 0, 0, chemW, h0, null);
 		g.drawImage(img, chemXc, 0, chemXc+chemW, h0, 0, 0, chemW, h0, null);
 		g.drawImage(img, chemXd, 0, chemXd+chemW, h0, 0, 0, chemW, h0, null);
@@ -472,10 +490,10 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.drawImage(img, porchX, porchY, porchX+porchW, h0, 0, 0, porchW, porchH, null);
 		// Windows
 		img = windows(winW, winH);
-		g.drawImage(img, winX,  winY,  winX+winW,  winY+winH,  0, 0, winW, winH, null);
-		g.drawImage(img, winXb, winY,  winXb+winW, winY+winH,  0, 0, winW, winH, null);
-		g.drawImage(img, winXc, winY,  winXc+winW, winY+winH,  0, 0, winW, winH, null);
-		g.drawImage(img, winXd, winY,  winXd+winW, winY+winH,  0, 0, winW, winH, null);
+		g.drawImage(img, winX,	winY,	winX+winW,	winY+winH,	0, 0, winW, winH, null);
+		g.drawImage(img, winXb, winY,	winXb+winW, winY+winH,	0, 0, winW, winH, null);
+		g.drawImage(img, winXc, winY,	winXc+winW, winY+winH,	0, 0, winW, winH, null);
+		g.drawImage(img, winXd, winY,	winXd+winW, winY+winH,	0, 0, winW, winH, null);
 		g.drawImage(img, winXb, winYb, winXb+winW, winYb+winH, 0, 0, winW, winH, null);
 		g.drawImage(img, winXd, winYb, winXd+winW, winYb+winH, 0, 0, winW, winH, null);
 		
@@ -492,13 +510,87 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.drawImage(image, 0, 0, factoryWidth, factoryHeight, 0, 0, w0, h0, null);
 		g.dispose();
 	}
+/*	private BufferedImage stargate(int ra, int rb, double a)	{
+		// Fermat spiral r = a * sqrt(phi)
+		int dia = 2*rb;
+		double dPhi = Math.PI/10;
+		double phiA = ra*ra /(a*a);
+		double phiB = rb*rb /(a*a);
+		BufferedImage img = new BufferedImage(dia, dia, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) img.getGraphics();
+		g.setColor(new Color(128, 128, 255));
+		g.setStroke(stroke2);
+		double r = a * Math.sqrt(phiA);
+		int x0 = (int) Math.round(r*Math.cos(phiA));
+		int y0 = (int) Math.round(r*Math.sin(phiA));
+		
+		for (double phi=phiA+dPhi; phi<phiB; phi+=dPhi) {
+			r = a * Math.sqrt(phi);
+			int x1 = (int) Math.round(r*Math.cos(phi));
+			int y1 = (int) Math.round(r*Math.sin(phi));
+			g.drawLine(rb+x0, rb+y0, rb+x1, rb+y1);
+			g.drawLine(rb-x0, rb-y0, rb-x1, rb-y1);
+			g.drawLine(rb+y0, rb-x0, rb+y1, rb-x1);
+			g.drawLine(rb-y0, rb+x0, rb-y1, rb+x1);
+			x0=x1;
+			y0=y1;
+		}
+		g.dispose();
+		return img;
+	} */
+	private BufferedImage stargate(int ra, int rb, double a, double k)	{
+		//  logarithmic spiral r = a * e^(k*phi)
+		int dia = 2*rb;
+		int n = 4;
+		double beta = Math.PI/(2*n);
+		double dPhi = Math.PI/32;
+		double phiA = Math.log(ra/a)/k;
+		double phiB = Math.log(rb/a)/k;
+		BufferedImage img = new BufferedImage(dia, dia, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) img.getGraphics();
+		int c3 = 255;
+		int c2 = c3*2/8;
+		int c1 = c2;
+		g.setColor(new Color(c1, c2, c3));
+		g.setStroke(stroke2);
+		double r = a * Math.exp(k*phiA);
+		int[] x0 = new int[n];
+		int[] y0 = new int[n];
+		Color[] colors = new Color[n];
+		for (int i=0; i<n; i++) {
+			x0[i] = (int) Math.round(r*Math.cos(phiA + i*beta));
+			y0[i] = (int) Math.round(r*Math.sin(phiA + i*beta));
+//			int dc = c1*(i%2)/2;
+			int dc = c1*i*3/(4*n);
+			colors[i] = new Color(c1-dc, c2-dc, c3);
+		}
+		
+		for (double phi=phiA+dPhi; phi<phiB; phi+=dPhi) {
+			r = a * Math.exp(k*phi);
+			for (int i=0; i<n; i++) {
+				g.setColor(colors[i]);
+				int x1 = (int) Math.round(r*Math.cos(phi + i*beta));
+				int y1 = (int) Math.round(r*Math.sin(phi + i*beta));
+				g.drawLine(rb+x0[i], rb+y0[i], rb+x1, rb+y1);
+				g.drawLine(rb-x0[i], rb-y0[i], rb-x1, rb-y1);
+				g.drawLine(rb+y0[i], rb-x0[i], rb+y1, rb-x1);
+				g.drawLine(rb-y0[i], rb+x0[i], rb-y1, rb+x1);
+				x0[i]=x1;
+				y0[i]=y1;
+			}
+		}
+		g.dispose();
+		return img;
+	}
+
 	private void createImage(boolean bgOnly)	{
 		int w = getWidth();
 		int h = getHeight();
 		StarSystem sys = galaxy().system(sysId);
 		Colony colony  = sys.colony();
-		//Empire empire = sys.empire();
-		Race race = sys.empire().race();
+		Empire empire  = sys.empire();
+		int empId	 = empire.id;
+		Race race    = sys.empire().race();
 		landscapeImg = newBufferedImage(w,h);
 		Graphics2D g = (Graphics2D) landscapeImg.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -526,7 +618,6 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 			BufferedImage shieldImg = race.shield();
 			g.drawImage(shieldImg, fortX, fortY, fortX+fortW, fortY+fortH, 0, 0, shieldImg.getWidth(), shieldImg.getHeight(), null);
 		}
-
 		if (bgOnly) {
 			g.dispose();
 			return;
@@ -599,31 +690,221 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 			ya += missileHeight + rowSep;
 		}
 
-//		// Draw test
-//		int tstH  = s64;
-//		int tstW  = tstH;
-//		int yTest = yMissiles - tstH-s10;
-//		ya = yTest;
-//		int yb = yTest-tstH-s10;
-//		x0 = marginX;
-//		for (Race species : Race.races()) {
-//			initSpeciesImage(species);
-//			int dW = speciesImg.getWidth();
-//			int dH = speciesImg.getHeight();
-//			int dSize = max(dW,dH);
-//			int w2 = tstW * dW/dSize;
-//			int h2 = tstH * dH/dSize;
-//			g.drawImage(speciesImg, x0, ya, x0+w2, ya+h2, 0, 0, dW, dH, null);
-//
-////			initSpeciesImage2(species);
-////			dW = speciesImg.getWidth();
-////			dH = speciesImg.getHeight();
-////			dSize = max(dW,dH);
-////			w2 = tstW * dW/dSize;
-////			h2 = tstH * dH/dSize;
-////			g.drawImage(speciesImg, x0, yb, x0+w2, yb+h2, 0, 0, dW, dH, null);
-//			x0 += w2+s5;
-//		}
+		// Draw Stargates
+		if (sys.hasStargate(empire)) {
+			int ra = scaled(30);
+			int rb = scaled(50);
+			double a = scaled(2);
+			double k = 0.25;
+			BufferedImage starGate = stargate(ra, rb, a, k);
+			int sgH = starGate.getHeight();
+			int sgW = starGate.getWidth();
+			int sgSide = 2*rb;
+			int sgX = getWidth()/2 - rb;
+			int sgY = scaled(40);
+			g.drawImage(starGate, sgX, sgY, sgX+sgSide, sgY+sgSide, 0, 0, sgW, sgH, null);
+		}
+
+		List<ShipFleet> fleets = sys.orbitingFleets();
+		if (fleets != null && !fleets.isEmpty()) {
+			int allyFleetCount	 = 0;
+			int allyDesignCount	 = 0;
+			int peaceFleetCount	 = 0;
+			int peaceDesignCount = 0;
+			int warFleetCount	 = 0;
+			int warDesignCount	 = 0;
+			int otherFleetCount	 = 0;
+			int otherDesignCount = 0;
+			boolean shipCountSix = false;
+			for (ShipFleet fleet : fleets) {
+				Empire e = fleet.empire();
+				int eId  = e.id;
+				int num  = numDesign(fleet, empId);
+				shipCountSix  |= num==6;
+				if (e == empire) { }
+				else if (empire.alliedWith(eId)) {
+					allyFleetCount ++;
+					allyDesignCount += num;
+				}
+				else if (empire.atWarWith(empId)) {
+					warFleetCount ++;
+					warDesignCount += num;
+				}
+				else if (empire.atPeaceWith(empId)) {
+					peaceFleetCount ++;
+					peaceDesignCount += num;
+				}
+				else {
+					otherFleetCount ++;
+					otherDesignCount += num;
+				}
+			}
+			int leftFleetCount	= peaceFleetCount + warFleetCount + otherFleetCount;
+			int leftDesignCount	= peaceDesignCount + warDesignCount + otherDesignCount;
+			boolean allyAtLeft	= leftFleetCount==0;
+			if (allyAtLeft) {
+				leftFleetCount	= allyFleetCount;
+				leftDesignCount	= allyDesignCount;
+			}
+			stepY = s15;
+			int shW = shipCountSix? scaled(260) : scaled(300);
+			if (leftFleetCount>2 && leftDesignCount > 12) {
+				shW = scaled(220);
+				stepY = s12;
+			}
+			boolean groupLeft = leftFleetCount>3;
+			if (groupLeft) {
+				int shrink = max(160, leftDesignCount * 2);
+				shW = scaled(260-shrink);
+				stepY = s10;
+			}
+			
+			int shH  = shW;
+			int shDH = shH + marginY;
+			int shDW = shW + marginX;
+			int shLX = marginX;
+			int shRX = w - marginX;
+			int shLY = scaled(60);
+			int shRY = shLY;
+			// Draw Owner Ships
+			for (ShipFleet fleet : fleets) {
+				Empire e = fleet.empire();
+				if (e == empire) {
+					drawFleet(g, fleet, shRX, shRY, shW, shH, RIGHT, ownerTextColor);
+					shRY += shDH;
+				}
+			}
+			// Draw Ally or united Ships
+			for (ShipFleet fleet : fleets) {
+				Empire e = fleet.empire();
+				if (e != empire && empire.alliedWith(e.id)) {
+					if (leftFleetCount == 0) {
+						drawFleet(g, fleet, shLX, shLY, shW, shH, LEFT, allyTextColor);
+						shLY += shDH;
+					}
+					else {
+						drawFleet(g, fleet, shRX, shRY, shW, shH, RIGHT, allyTextColor);
+						shRY += shDH;
+					}
+				}
+			}
+			// Draw Peace Ships
+			int leftIdx = 0;
+			for (ShipFleet fleet : fleets) {
+				Empire e = fleet.empire();
+				if (e.atPeaceWith(empId)) {
+					int num = numDesign(fleet, empId);
+					if (groupLeft) {
+						int shX = shLX + leftIdx * shDW;
+						int shY = shLY + leftIdx * stepY;
+						drawFleet(g, fleet, shX, shY, shW, shH, LEFT, peaceTextColor);
+						leftIdx += num;
+						if (leftIdx >= 5) {
+							leftIdx = 0;
+							shLY += shDH;
+						}
+					}
+					else {
+						drawFleet(g, fleet, shLX, shLY, shW, shH, LEFT, peaceTextColor);
+						shLY += shDH;
+					}
+				}
+			}
+			// Draw Other Ships (no treaty)
+			for (ShipFleet fleet : fleets) {
+				Empire e = fleet.empire();
+				if (e.noTreatyWith(empId)) {
+					int num = numDesign(fleet, empId);
+					if (groupLeft) {
+						int shX = shLX + leftIdx * shDW;
+						int shY = shLY + leftIdx * stepY;
+						drawFleet(g, fleet, shX, shY, shW, shH, LEFT, otherTextColor);
+						leftIdx += num;
+						if (leftIdx >= 5) {
+							leftIdx = 0;
+							shLY += shDH;
+						}
+					}
+					else {
+						drawFleet(g, fleet, shLX, shLY, shW, shH, LEFT, otherTextColor);
+						shLY += shDH;
+					}
+				}
+			}
+			// Draw At War Ships
+			for (ShipFleet fleet : fleets) {
+				Empire e = fleet.empire();
+				if (e.atWarWith(empId)) {
+					int num = numDesign(fleet, empId);
+					if (groupLeft) {
+						int shX = shLX + leftIdx * shDW;
+						int shY = shLY + leftIdx * stepY;
+						drawFleet(g, fleet, shX, shY, shW, shH, LEFT, warTextColor);
+						leftIdx += num;
+						if (leftIdx >= 5) {
+							leftIdx = 0;
+							shLY += shDH;
+						}
+					}
+					else {
+						drawFleet(g, fleet, shLX, shLY, shW, shH, LEFT, warTextColor);
+						shLY += shDH;
+					}
+				}
+			}
+		}
+
+		
+/*		// Draw Owner Ships
+		ShipFleet fleet = sys.orbitingFleetForEmpire(empire);
+		int dispFleet = 0;
+		int shW = scaled(275);
+		int shH = shW;
+		if (fleet!=null && !fleet.isEmpty()) {
+			dispFleet++;
+			int shY = scaled(60);
+			int shX = w - s10;
+			drawFleet(g, fleet, shX, shY, shW, shH, true, ownerTextColor);
+		}
+		// Draw alien Ships
+		int fleetCount = fleets.size() - dispFleet;
+		if (fleetCount>0) {
+			int shX = s10;
+			int shY = scaled(60);
+			
+			for (ShipFleet fl : fleets) {
+				if (fl.empId==empire.id)
+					continue;
+				drawFleet(g, fl, shX, shY, shW, shH, false, otherTextColor);
+				shY += shH + s10;
+			}
+		} */
+		
+/*		// Draw test
+		int tstH	= s64;
+		int tstW	= tstH;
+		int yTest = yMissiles - tstH-s10;
+		ya = yTest;
+		int yb = yTest-tstH-s10;
+		x0 = marginX;
+		for (Race species : Race.races()) {
+			initSpeciesImage(species);
+			int dW = speciesImg.getWidth();
+			int dH = speciesImg.getHeight();
+			int dSize = max(dW,dH);
+			int w2 = tstW * dW/dSize;
+			int h2 = tstH * dH/dSize;
+			g.drawImage(speciesImg, x0, ya, x0+w2, ya+h2, 0, 0, dW, dH, null);
+
+//			initSpeciesImage2(species);
+//			dW = speciesImg.getWidth();
+//			dH = speciesImg.getHeight();
+//			dSize = max(dW,dH);
+//			w2 = tstW * dW/dSize;
+//			h2 = tstH * dH/dSize;
+//			g.drawImage(speciesImg, x0, yb, x0+w2, yb+h2, 0, 0, dW, dH, null);
+			x0 += w2+s5;
+		} */
 		
 
 		// draw subtitle last (so it overlays any ship)
@@ -644,6 +925,108 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		
 		g.dispose();
 	}
+	private int numDesign(ShipFleet fleet, int empId)	{
+        int[] visible = fleet.visibleShips(empId);
+        int num = 0;
+        for (int cnt: visible) {
+            if (cnt > 0)
+                num++;
+        }
+        return num;
+	}
+    private void drawFleet(Graphics2D g, ShipFleet fleet, int x, int y, int w, int h,
+    						boolean location, Color textColor) {
+		StarSystem sys = galaxy().system(sysId);
+		Empire empire  = sys.empire();
+
+        int spacing = s15;
+        // figure out size of ships
+        int shipW = w/2;
+        int shipH = (h/3)-spacing-spacing; // give room for text above/below ship
+        if  ((shipH *3/2) <  shipW)
+            shipW = shipH * 3/2;
+        else
+            shipH = shipW * 2/3;
+
+        int shipX = location==RIGHT? x-shipW/2 :  x+shipW/2;
+        int shipY = y;
+
+
+        // get count of all stacks based on design visibility
+        int[] visible = fleet.visibleShips(empire.id);
+        // count how many of those visible designs have ships
+        int num = 0;
+        for (int cnt: visible) {
+            if (cnt > 0)
+                num++;
+        }
+        if (num == 0)
+        	return;
+        for (int i=0; i<num; i++) {
+        	drawShip(g, fleet, i, shipX, shipY, shipW, shipH, location, textColor);
+        	if (location==RIGHT)
+        		shipX -= shipW+s5;
+        	else
+        		shipX += shipW+spacing;
+        	shipY += stepY;
+        }
+    }
+	private void drawShip(Graphics2D g, ShipFleet fleet, int desId, int x0, int y0,
+							int w, int h, boolean location, Color textColor) {
+		StarSystem sys = galaxy().system(sysId);
+		Empire empire  = sys.empire();
+
+		int x = x0-w/2;
+		int y = y0-h/2;
+
+		ShipDesign d = fleet.visibleDesign(empire.id, desId);
+		Image img = d.image();
+		int imgW = img.getWidth(null);
+		int imgH = img.getHeight(null);
+		float scale = min((float)w/imgW, (float)h/imgH);
+
+		int w1 = (int)(scale*imgW);
+		int h1 = (int)(scale*imgH);
+
+		int x1 = x+((w-w1)/2);
+		int y1 = y+((h-h1)/2);
+		if (scale < 0.5) {
+			BufferedImage tmp = new BufferedImage(imgW/2, imgH/2, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g2D = tmp.createGraphics();
+			g2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+			g2D.drawImage(img, 0, 0, imgW/2, imgH/2, 0, 0, imgW, imgH, this);
+			g2D.dispose();
+			img = tmp;
+			imgW = img.getWidth(null);
+			imgH = img.getHeight(null);
+			scale = scale*2;
+		}
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		if (location==RIGHT)
+			g.drawImage(img, x1, y1, x1+w1, y1+h1, 0, 0, imgW, imgH, null);
+		else
+			g.drawImage(img, x1, y1, x1+w1, y1+h1, imgW, imgH, 0, 0, null);
+
+		// draw ship name
+		scaledFont(g, d.name(), w-s5, 18, 9);
+		int sw = g.getFontMetrics().stringWidth(d.name());
+		int x2 = x+((w-sw)/2);
+		drawBorderedString(g, d.name(), 1, x2, y+s5, Color.black, textColor);
+
+		int y3 = y+h+s7;
+
+		// draw ship count
+		// format ship count
+		int count2 = fleet.num(d.id());
+		int count1 = count2;
+		String s = count1 == count2 ? str(count1) : text("MAIN_FLEET_SHIP_COUNT", count1,count2);
+		scaledFont(g, s, w-s60, 18, 12);
+		int sw3 = g.getFontMetrics().stringWidth(s);
+		int x3 = x+((w-sw3)/2);
+		drawString(g,s, x3, y3);
+		drawBorderedString(g, s, 1, x3, y3, Color.black, textColor);
+	}
 	private void advanceScreen()				{
 		exited = true;
 		buttonClick();
@@ -662,11 +1045,13 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 				landscapeOnly = !landscapeOnly;
 				createImage(landscapeOnly);
 				repaint();
-				break;
+				return;
 			case KeyEvent.VK_ESCAPE:
 			case KeyEvent.VK_SPACE:
 				advanceScreen();
+				return;
 		}
+		repaint(); // TODO BR: REMOVE
 	}
 	@Override public void paintComponent(Graphics g0)	{
 		super.paintComponent(g0);
@@ -688,6 +1073,11 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 	@Override public void mouseExited(MouseEvent e)		{ }
 	@Override public void mousePressed(MouseEvent e)	{ }
 	@Override public void mouseReleased(MouseEvent e)	{
+		if (SwingUtilities.isRightMouseButton(e)) {
+			repaint();
+			return;
+		}
+			
 		if ((e.getButton() > 3) || e.getClickCount() > 1)
 			return;
 		advanceScreen();
