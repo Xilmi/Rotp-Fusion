@@ -15,14 +15,21 @@
  */
 package rotp.model.ships;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.empires.ShipView;
+import rotp.model.tech.Tech;
 import rotp.model.tech.TechEngineWarp;
 import rotp.util.Base;
+import rotp.util.ImageColorizer;
 
 public class ShipDesignLab implements Base, Serializable {
     private static final long serialVersionUID = 1L;
@@ -769,5 +776,112 @@ public class ShipDesignLab implements Base, Serializable {
             }
         }
         return bestWpn;
+    }
+    public BufferedImage missileImage(Tech tech, int length, int height) {
+    	String key = tech.imageKey();
+    	int size = ShipDesign.SMALL;
+    	int model = 0;
+    	int shipColor = ImageColorizer.RED;
+    	switch (key) {
+	    	case "MISSILE_SCATTER_PACK_V":
+	    	case "MISSILE_SCATTER_PACK_VII":
+	    	case "MISSILE_SCATTER_PACK_X":
+	    		size = ShipDesign.SMALL;
+	    		model = 5;
+	    		shipColor = ImageColorizer.BLUE;
+	    		break;    		
+
+	    	case "TORPEDO_ANTI_MATTER":
+	    	case "TORPEDO_HELLFIRE":
+	    	case "TORPEDO_PROTON":
+	    	case "TORPEDO_PLASMA":
+	    		size = ShipDesign.SMALL;
+	    		model = 2;
+	    		shipColor = ImageColorizer.GREEN;
+	    		break;
+
+	    	default:
+	    		size = ShipDesign.SMALL;
+	    		model = 0;
+	    		shipColor = ImageColorizer.RED;
+    	}
+    	// current missile image size
+    	int mW = 173;
+    	int mH = 54;
+    	// current missile location
+    	int mX1 = 13;
+    	int mY1 = 3;
+    	int mX2 = 155;
+    	int mY2 = 52;
+    	
+        // get source image to be transformed
+        ShipImage src = ShipLibrary.current().shipImage(shipStyleIndex(), size, model);
+        Image image = newBufferedImage(icon(src.baseIcon()).getImage());
+        int imgW = image.getWidth(null);
+        int imgH = image.getHeight(null);
+        BufferedImage srcImg = new BufferedImage(imgW, imgH, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = (Graphics2D) srcImg.getGraphics();
+        g.drawImage(image, 0, 0, imgW, imgH, 0, 0, imgW, imgH, null);
+        g.dispose();
+        //image = null;
+        BufferedImage clippedImg = clippedImage(srcImg);
+        clippedImg = colorizer.makeColor(shipColor, clippedImg);
+        imgW = clippedImg.getWidth();
+        imgH = clippedImg.getHeight();
+ 
+        // image to build
+        int imgWidth = length;
+        int imgX1, imgX2, imgY1, imgY2, imgHeight;
+        if (height<=0) {
+            imgX1	  = mX1 * imgWidth / mW;
+            imgX2	  = mX2 * imgWidth / mW;
+            imgY1	  = mY1 * imgWidth / mW;
+            imgY2	  = mY2 * imgWidth / mW;
+            imgHeight = mH  * imgWidth / mW;
+        }
+        else {
+            imgHeight = height;
+            imgX1	  = 0;
+            imgX2	  = imgWidth;
+            imgY1	  = 0;
+            imgY2	  = imgHeight;
+        }
+
+        BufferedImage img = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
+        g = (Graphics2D) img.getGraphics();
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+        g.drawImage(clippedImg, imgX1, imgY1, imgX2, imgY2, 0, 0, imgW, imgH, null);
+        g.dispose();
+        return img;
+    }
+    private BufferedImage clippedImage(BufferedImage srcImg) {
+        int imgW = srcImg.getWidth();
+        int imgH = srcImg.getHeight();
+        int yMin = Integer.MAX_VALUE;
+        int xMin = Integer.MAX_VALUE;
+        int yMax = -1;
+        int xMax = -1;
+        for(int x=0; x<imgW; x++) {
+        	 for(int y=0; y<imgH; y++) {
+        		 int color = srcImg.getRGB(x, y);
+        		 int alpha = (color >> 24) & 0xff;
+        		 if (alpha > 32) {
+           			 if (y<yMin)
+        				 yMin = y;
+           			 else if (y>yMax)
+        				 yMax = y;
+           			 if (x<xMin)
+           				xMin = x;
+           			 else if (x>xMax)
+           				xMax = x;
+        		}
+        	}
+        }
+        return srcImg.getSubimage(xMin, yMin, xMax-xMin+1, yMax-yMin+1);
     }
 }

@@ -71,6 +71,7 @@ Later:
 - Planet View:
   - added stargate.
   - added ships
+- Missiles: New option to have their graphics based on shipset.
 
 2024.07.22 (BR)
 - Planet View:

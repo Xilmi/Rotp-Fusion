@@ -25,7 +25,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RadialGradientPaint;
 import java.awt.RenderingHints;
-import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -41,11 +40,9 @@ import rotp.model.empires.Race;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.ShipDesign;
-import rotp.model.ships.ShipDesignLab;
-import rotp.model.ships.ShipLibrary;
+import rotp.model.tech.Tech;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.main.SystemPanel;
 
 public class ColonyViewUI extends BasePanel implements MouseListener {
 	private static final int NUM_BY_ICON = 10;
@@ -65,8 +62,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 	private int iconWidth, barSep, blockSep, rowSep, colSep, maxColumns;
 	private int factoryWidth, factoryHeight, factoryNum, factoryCols, factoryRows, factoryBars;
 	private int speciesWidth, speciesHeight, speciesNum, speciesRows;
-	private int missileWidth, missileHeight, missileNum, missileCols, missileRows;
-	private BufferedImage factoryImg, speciesImg, missileImg;
+	private int missileWidth, missileHeight, missileNum, missileRows;
 	private String ambienceKey;
 
 	public ColonyViewUI()		{ init(); }
@@ -103,7 +99,6 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		colSep = 0;
 
 		initFactoryImage();
-		initMissileImage();
 		initSpeciesImage(race);
 		createImage(false);
 	}
@@ -111,16 +106,15 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		speciesNum	= (int) Math.ceil(pop/NUM_BY_ICON);
 		speciesRows	= (int) Math.ceil((double)speciesNum/maxColumns);
 		missileNum	= (int) Math.ceil(bases/NUM_BY_ICON);
-		missileCols	= (int) Math.ceil((double)missileNum/maxColumns);
 		if (missileNum == 0)
 			missileRows	= 0;
 		else
-			missileRows	= (int) Math.ceil((double)missileNum/missileCols);
+			missileRows	= (int) Math.ceil((double)missileNum/maxColumns);
 		factoryNum	= (int) Math.ceil(factories/NUM_BY_ICON);
 		factoryCols	= (int) Math.ceil((double)factoryNum/factoryRows);
 		factoryBars	= (int) Math.ceil((double)factoryCols/maxColumns);
 	}
-	private void initSpeciesImage(Race race)	{
+	private BufferedImage initSpeciesImage(Race race)	{
 		speciesWidth	= iconWidth;
 		speciesHeight = speciesWidth;
 		int spH = speciesWidth*8/10;
@@ -135,7 +129,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int spW2 = spW*mW2/mW;
 
 		BufferedImage[] mugHue = setHue(mugshot, iHue, 96);
-		speciesImg	 = newBufferedImage(speciesWidth, speciesHeight);
+		BufferedImage speciesImg = newBufferedImage(speciesWidth, speciesHeight);
 		Graphics2D g	= (Graphics2D) speciesImg.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
@@ -162,8 +156,9 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.drawImage(mugshot, x, y, x+spW2, y+spH, mX1, 0, mX2, mH, null);
 
 		g.dispose();
+		return speciesImg;
 	}
-/*	private void initSpeciesImage2(Race race)	{
+/*	private BufferedImage initSpeciesImage2(Race race)	{
 		speciesWidth	= iconWidth;
 		speciesHeight = speciesWidth;
 		int spW = speciesWidth*4/8;
@@ -174,7 +169,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int mH = mugshot.getHeight(null);
 
 		BufferedImage[] mugHue = setHue(mugshot, iHue, 128);
-		speciesImg	 = newBufferedImage(speciesWidth, speciesHeight);
+		BufferedImage speciesImg = newBufferedImage(speciesWidth, speciesHeight);
 		Graphics2D g	= (Graphics2D) speciesImg.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
@@ -195,6 +190,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.drawImage(mugHue[2], x, y, x+spW, y+spH, 0, 0, mW, mH, null);
 
 		g.dispose();
+		return speciesImg;
 	} */
 	private BufferedImage rect(int w, int h, Color c, Double angleDeg) {
 		BufferedImage img = new BufferedImage(w, h, TYPE_INT_ARGB);
@@ -220,7 +216,17 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 			return rotated;
 	}
 	private BufferedImage missile(int length)	{
-		Image missile = image("BASE_MISSILE");
+		StarSystem sys = galaxy().system(sysId);
+		Empire empire  = sys.empire();
+		Image missile;
+		if (options().shipBasedMissiles()) {
+			Tech tech = empire.tech().bestMissileBase().missile().tech();
+			missile = empire.shipLab().missileImage(tech, length, length/5);
+		}
+		else {
+			missile = image("BASE_MISSILE");
+			length -= length/10;
+		}
 		int wi = missile.getWidth(null);
 		int hi = missile.getHeight(null);
 		int h = hi * length / wi;
@@ -235,8 +241,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.dispose();
 		return image;
 	}
-	private void initMissileImage()				{
-		missileWidth	= iconWidth*3/4;
+	private BufferedImage initMissileImage()	{
+		missileWidth  = iconWidth*3/4;
 		missileHeight = missileWidth;
 		int w0	= 512;
 		int h0	= w0;
@@ -250,12 +256,12 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 
 		int wheelRadius = 40;
 		// Frame
-		int frX = 0;
-		int frGap = wheelRadius * 3/2;
-		int frH = 44;
-		int frLowY = h0 - frGap;
-		int frTopY = frLowY - frH;
-		int frW = w0;
+		int frX		= 0;
+		int frGap	= wheelRadius * 3/2;
+		int frH		= 44;
+		int frLowY	= h0 - frGap;
+		int frTopY	= frLowY - frH;
+		int frW		= w0;
 
 		// Holder
 		Color darkGreen = new Color(75, 83, 32);
@@ -281,8 +287,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int cabW = 120;
 		int cabX = w0 - cabW;
 		int cabY = frLowY - cabH;
-		int arcW	= 40;
-		int arcH	= arcW * 3;
+		int arcW = 40;
+		int arcH = arcW * 3;
 		g.setColor(darkGreen);
 		g.fillRoundRect(cabX, cabY, cabW, cabH, arcW, arcH);
 
@@ -329,15 +335,17 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 
 		
 		// Missiles
-		int missileNum = 3;
-		int missileLen = 360;
+		int missileNum	= 2;
+		//int missileLen = 360;
+		//int missileDx = 45;
+		int missileLen	= 450;
+		int missileDx	= 65;
+		int missileDy	= missileDx;
 		BufferedImage rotMissile = rotate(missile(missileLen), -45.0);
 		int rW = rotMissile.getWidth();
 		int rH = rotMissile.getHeight();
-		int missileDx = 45;
-		int missileDy = missileDx;
-		int missileX	= 0;
-		int missileY	= 0;
+		int missileX = 0;
+		int missileY = 0;
 		int mX = missileX;
 		int mY = missileY;
 		for (int i=0; i<missileNum; i++) {
@@ -347,8 +355,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		}
 		g.dispose();
 
-		missileImg = newBufferedImage(missileWidth, missileHeight);
-		g	= (Graphics2D) missileImg.getGraphics();
+		BufferedImage missileImg = new BufferedImage(missileWidth, missileHeight, TYPE_INT_ARGB);
+		g = (Graphics2D) missileImg.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
 		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -356,6 +364,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g.drawImage(image, 0, 0, missileWidth, missileHeight, 0, 0, w0, h0, null);
 		g.dispose();
+		
+		return missileImg;
 	}
 	private BufferedImage[] setHue(BufferedImage src, int[] iHue, int alpha)	{
 		int w = src.getWidth(null);
@@ -439,7 +449,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.dispose();
 		return img;
 	}
-	private void initFactoryImage()				{
+	private BufferedImage initFactoryImage()				{
 		factoryWidth	= iconWidth * 2/4;
 		factoryHeight = factoryWidth * 3/4;
 		int w0	= 512;
@@ -499,7 +509,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		
 		g.dispose();
 
-		factoryImg = new BufferedImage(factoryWidth, factoryHeight, TYPE_INT_ARGB);
+		BufferedImage factoryImg = new BufferedImage(factoryWidth, factoryHeight, TYPE_INT_ARGB);
 		g = (Graphics2D) factoryImg.getGraphics();
 		g.setComposite(AlphaComposite.SrcOver);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -509,6 +519,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g.drawImage(image, 0, 0, factoryWidth, factoryHeight, 0, 0, w0, h0, null);
 		g.dispose();
+		return factoryImg;
 	}
 /*	private BufferedImage stargate(int ra, int rb, double a)	{
 		// Fermat spiral r = a * sqrt(phi)
@@ -628,6 +639,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int dx		= iconWidth + colSep;
 
 		// draw pop
+		BufferedImage speciesImg = initSpeciesImage(race);
 		int xSpecies = marginX+dx/8;
 		int ySpecies = h - marginY - speciesRows*(speciesHeight + rowSep) + rowSep;
 		int xa = xSpecies;
@@ -646,6 +658,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		}
 		
 		// draw Factories
+		BufferedImage factoryImg = initFactoryImage();
 		int xFactory = marginX;
 		int yFactory = ySpecies - factoryBars*(factoryRows*(factoryHeight+rowSep)-rowSep+blockSep);
 		ya = yFactory;
@@ -673,6 +686,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		}
 		
 		// draw Missiles
+		BufferedImage missileImg = initMissileImage();
 		int xMissile = marginX;
 		int yMissile = yFactory - missileHeight-blockSep;
 		ya = yMissile;
@@ -854,59 +868,6 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 			}
 		}
 
-		
-/*		// Draw Owner Ships
-		ShipFleet fleet = sys.orbitingFleetForEmpire(empire);
-		int dispFleet = 0;
-		int shW = scaled(275);
-		int shH = shW;
-		if (fleet!=null && !fleet.isEmpty()) {
-			dispFleet++;
-			int shY = scaled(60);
-			int shX = w - s10;
-			drawFleet(g, fleet, shX, shY, shW, shH, true, ownerTextColor);
-		}
-		// Draw alien Ships
-		int fleetCount = fleets.size() - dispFleet;
-		if (fleetCount>0) {
-			int shX = s10;
-			int shY = scaled(60);
-			
-			for (ShipFleet fl : fleets) {
-				if (fl.empId==empire.id)
-					continue;
-				drawFleet(g, fl, shX, shY, shW, shH, false, otherTextColor);
-				shY += shH + s10;
-			}
-		} */
-		
-/*		// Draw test
-		int tstH	= s64;
-		int tstW	= tstH;
-		int yTest = yMissiles - tstH-s10;
-		ya = yTest;
-		int yb = yTest-tstH-s10;
-		x0 = marginX;
-		for (Race species : Race.races()) {
-			initSpeciesImage(species);
-			int dW = speciesImg.getWidth();
-			int dH = speciesImg.getHeight();
-			int dSize = max(dW,dH);
-			int w2 = tstW * dW/dSize;
-			int h2 = tstH * dH/dSize;
-			g.drawImage(speciesImg, x0, ya, x0+w2, ya+h2, 0, 0, dW, dH, null);
-
-//			initSpeciesImage2(species);
-//			dW = speciesImg.getWidth();
-//			dH = speciesImg.getHeight();
-//			dSize = max(dW,dH);
-//			w2 = tstW * dW/dSize;
-//			h2 = tstH * dH/dSize;
-//			g.drawImage(speciesImg, x0, yb, x0+w2, yb+h2, 0, 0, dW, dH, null);
-			x0 += w2+s5;
-		} */
-		
-
 		// draw subtitle last (so it overlays any ship)
 		int y0 = s30;
 		String subtitle = text(sys.planet().type().description(sys.empire()));
@@ -1032,9 +993,6 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		buttonClick();
 		RotPUI.instance().selectMainPanel(false);
 		landscapeImg = null;
-		factoryImg = null;
-		speciesImg = null;
-		missileImg = null;
 	}
 	@Override public String ambienceSoundKey()			{ return ambienceKey; }
 	@Override public void keyPressed(KeyEvent e)		{
@@ -1051,7 +1009,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 				advanceScreen();
 				return;
 		}
-		repaint(); // TODO BR: REMOVE
+		//repaint(); // TO DO BR: REMOVE
 	}
 	@Override public void paintComponent(Graphics g0)	{
 		super.paintComponent(g0);
@@ -1061,6 +1019,33 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+//		// Draw test
+//		int tstH	= s64;
+//		int tstW	= tstH;
+//		int yTest = getHeight()/2;
+//		int ya = yTest;
+//		int yb = yTest-tstH-s10;
+//		int xa = s10;
+//		for (Race species : Race.races()) {
+//			initSpeciesImage(species);
+//			int dW = speciesImg.getWidth();
+//			int dH = speciesImg.getHeight();
+//			int dSize = max(dW,dH);
+//			int w2 = tstW * dW/dSize;
+//			int h2 = tstH * dH/dSize;
+//			g.drawImage(speciesImg, xa, ya, xa+w2, ya+h2, 0, 0, dW, dH, null);
+//
+////			initSpeciesImage2(species);
+////			dW = speciesImg.getWidth();
+////			dH = speciesImg.getHeight();
+////			dSize = max(dW,dH);
+////			w2 = tstW * dW/dSize;
+////			h2 = tstH * dH/dSize;
+////			g.drawImage(speciesImg, x0, yb, x0+w2, yb+h2, 0, 0, dW, dH, null);
+//			xa += w2+s5;
+//		}
+
 		g.drawImage(landscapeImg, 0, 0, null);
 	}
 	@Override public void animate()	{

@@ -9,6 +9,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Press "Z" toggle landscape view only.
   - added stargate.
   - added ships
+- Missiles: New option to have their graphics based on shipset.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -63,5 +64,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Plenty of minor improvements.
   - Improved Smart-Max.
   - Right-Click on planet (above spending panel), will bring the planet view. (Still under construction)
+  - Missiles: New option to have their graphics based on shipset.
 - AI: Stronger than ever.
 - Plenty of little bug fixes.

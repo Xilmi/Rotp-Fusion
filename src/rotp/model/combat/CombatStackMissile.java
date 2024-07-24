@@ -17,6 +17,7 @@ package rotp.model.combat;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+
 import rotp.model.ships.ShipWeaponMissileType;
 import rotp.ui.BasePanel;
 import rotp.ui.combat.ShipBattleUI;
@@ -45,14 +46,19 @@ public class CombatStackMissile extends CombatStack {
         offsetX = ship.offsetX;
         offsetY = ship.offsetY;
         attackLevel = ship.attackLevel();
-        Image missileImg = image(miss.tech().imageKey());
 
         int imgW = BasePanel.s60;
-        int imgH = imgW*missileImg.getHeight(null)/missileImg.getWidth(null);
-        missiles = newBufferedImage(imgW,imgH);
-        Graphics g = missiles.getGraphics();
-        g.drawImage(missileImg,0,0,imgW,imgH,null);
-        g.dispose();
+        if (options().shipBasedMissiles()) {
+        	missiles = empire.shipLab().missileImage(miss.tech(), imgW, imgW/5);
+        }
+        else {
+            Image missileImg = image(miss.tech().imageKey());
+            int imgH   = imgW*missileImg.getHeight(null)/missileImg.getWidth(null);        	
+            missiles   = newBufferedImage(imgW,imgH);
+            Graphics g = missiles.getGraphics();
+            g.drawImage(missileImg,0,0,imgW,imgH,null);
+            g.dispose();        	
+        }
 
         maxMove = miss.speed();
         //image = missile.image(num);
@@ -63,7 +69,6 @@ public class CombatStackMissile extends CombatStack {
     public String fullName() {
         return concat(str(num), ":", missile.name(), "-", Integer.toHexString(hashCode()));
     }
-
     @Override
     public float maxDamage()             { return missile.maxDamage(); }
     @Override

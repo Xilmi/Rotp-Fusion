@@ -702,6 +702,10 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		@Override public String getOption()			{ return DEF_VAL.defVal(); }
 		@Override public void setOption(String s)	{ DEF_VAL.selectedDefault(s); }
 	}
+	ParamBoolean shipBasedMissiles	= new ParamBoolean(MOD_UI, "SHIP_BASED_MISSILES", true)
+			.isCfgFile(true);
+	default boolean shipBasedMissiles()	{ return shipBasedMissiles.get(); }
+
 	// ==================== GUI List Declarations ====================
 	//
 	String NAME_GUI_ID	= "NAME_OPTIONS";
@@ -770,14 +774,18 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ZOOM_FONT"),
 				mapFontFactor, showNameMinFont, showInfoFontRatio,
-				
+
 				headerSpacer,
 				new ParamTitle("ZOOM_FLEET"),
 				showFleetFactor, showFlagFactor, showPathFactor,
-				
+
 				headerSpacer,
 				new ParamTitle("ZOOM_REPLAY"),
-				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
+				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace,
+
+				headerSpacer,
+				new ParamTitle("GAME_OTHER"),
+				shipBasedMissiles
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("BACKUP_OPTIONS"),

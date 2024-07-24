@@ -2799,10 +2799,9 @@ SETTINGS_MOD_COLOR_SET_GREY         | Grey
 SETTINGS_MOD_COLOR_SET_BROWN_DESC   | Default vanilla Brown color set.
 SETTINGS_MOD_COLOR_SET_GREY_DESC    | Alternate Dark color set.
 
-SETTINGS_MOD_REAL_NEBULAE_SIZE_DESC | Use Real Nebulae images with the this resolution factor.<br>Real Nebula distribution is non-overlapping.
-SETTINGS_MOD_REAL_NEBULAE_SIZE      | Real Nebula: %1
-SETTINGS_MOD_REAL_NEBULAE_NO        | No
-SETTINGS_MOD_REAL_NEBULAE_SHAPE_HELP | Flight path analysis will replace rectangular shape with a better approximation of the nebula shape?<br>Changing this parameter may affect the duration already sent fleet!
+SETTINGS_MOD_REAL_NEBULAE_SIZE_DESC  | Use Real Nebulae images with the this resolution factor.<br>Real Nebula distribution is non-overlapping.
+SETTINGS_MOD_REAL_NEBULAE_SIZE       | Real Nebula: %1
+SETTINGS_MOD_REAL_NEBULAE_NO         | No
 SETTINGS_MOD_REAL_NEBULAE_SHAPE_HELP | To replace rectangular shape with a better approximation of the nebula shape.<br>This will impact the flight path analysis. Changing this parameter during a game may impact travelling fleets arrival time. 
 SETTINGS_MOD_REAL_NEBULAE_SHAPE_DESC | To replace rectangular shape with a better approximation of the nebula shape.
 SETTINGS_MOD_REAL_NEBULAE_SHAPE      | Real Nebula Shape: %1
@@ -2844,6 +2843,10 @@ SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO       | Auto Refuse Exchanges: %1
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS_DESC  | Limit the number of aliens repeating the same warning:<br> For Expansion, Genocide, and use of Bio weapons. 
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS       | Limit Warnings: %1
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS_ALL   | Show All
+
+SETTINGS_MOD_SHIP_BASED_MISSILES_DESC | The missile shape will be based on the selected ship set instead of the uniform classic missile.
+SETTINGS_MOD_SHIP_BASED_MISSILES      | Shipset missiles: %1
+
 
 SETTINGS_MOD_BOMBING_TARGET_DESC         | Limited Bombing: Stop Bombing the population level reach this limit. !!! Powerful weapons may still annihilate the population !!!
 SETTINGS_MOD_BOMBING_TARGET              | Bombing Limit: %1 pop
