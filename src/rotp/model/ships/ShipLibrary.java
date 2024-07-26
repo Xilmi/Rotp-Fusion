@@ -38,7 +38,10 @@ public class ShipLibrary implements Base {
     public ImageIcon stargate;
     public List<String> styles = new ArrayList<>();
     public List<String> unchosenStyles = new ArrayList<>();
-    public List<ShipStyle> shipStyles = new ArrayList<>();
+    public List<ShipStyle> shipStyles  = new ArrayList<>();
+    public List<Integer> missileDesign = new ArrayList<>();
+    public List<Integer> scatterDesign = new ArrayList<>();
+    public List<Integer> torpedoDesign = new ArrayList<>();
 
     private static final String[] sizeKey = { "A", "B", "C", "D" };
     private static final String[] designKey = { "01", "02", "03", "04", "05", "06" };
@@ -317,8 +320,36 @@ public class ShipLibrary implements Base {
         if (isComment(input))
             return;
 
-        int mark = input.indexOf(',', 0);
-        String setName = input.substring(0, mark).trim();
+        String[] entries = input.split(",");
+        String setName = entries[0].trim();
         styles.add(setName);
+        Integer design = 1;
+        int id = 1;
+        if (entries.length > id) {
+        	Integer des = getInteger(entries[id].trim());
+        	if (des!=null && des!=0 && des<=6 && des>=-6)
+        		design = des;
+        }
+    	missileDesign.add(design);
+
+    	id++;
+        if (entries.length > id) {
+        	Integer des = getInteger(entries[id].trim());
+           	if (des!=null && des!=0 && des<=6 && des>=-6)
+        		design = des;
+        }
+        scatterDesign.add(design);
+        
+    	id++;
+        if (entries.length > id) {
+        	Integer des = getInteger(entries[id].trim());
+           	if (des!=null && des!=0 && des<=6 && des>=-6)
+        		design = des;
+        }
+        torpedoDesign.add(design);
+
+    	// int mark = input.indexOf(',', 0);
+        // String setName = input.substring(0, mark).trim();
+        // styles.add(setName);
     }
 }

@@ -10,6 +10,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - added stargate.
   - added ships
 - Missiles: New option to have their graphics based on shipset.
+  - Now picks the best ship design of each species.
+- Planet View replaced stargate image by one found in RotP image
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

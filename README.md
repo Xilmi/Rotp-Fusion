@@ -67,6 +67,10 @@ Later:
 
 ## What's New
 
+2024.07.26 (BR)
+- Planet View replaced stargate image by one found in RotP image
+- Missile shipset picks the best ship design of each species.
+
 2024.07.24 (BR)
 - Planet View:
   - added stargate.

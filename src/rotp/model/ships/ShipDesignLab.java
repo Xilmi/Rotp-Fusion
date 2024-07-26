@@ -780,14 +780,14 @@ public class ShipDesignLab implements Base, Serializable {
     public BufferedImage missileImage(Tech tech, int length, int height) {
     	String key = tech.imageKey();
     	int size = ShipDesign.SMALL;
-    	int model = 0;
+    	int rawModel = 1;
     	int shipColor = ImageColorizer.RED;
     	switch (key) {
 	    	case "MISSILE_SCATTER_PACK_V":
 	    	case "MISSILE_SCATTER_PACK_VII":
 	    	case "MISSILE_SCATTER_PACK_X":
 	    		size = ShipDesign.SMALL;
-	    		model = 5;
+	    		rawModel = ShipLibrary.current().scatterDesign.get(shipStyleIndex());
 	    		shipColor = ImageColorizer.BLUE;
 	    		break;    		
 
@@ -796,15 +796,22 @@ public class ShipDesignLab implements Base, Serializable {
 	    	case "TORPEDO_PROTON":
 	    	case "TORPEDO_PLASMA":
 	    		size = ShipDesign.SMALL;
-	    		model = 2;
+	    		rawModel = ShipLibrary.current().torpedoDesign.get(shipStyleIndex());
 	    		shipColor = ImageColorizer.GREEN;
 	    		break;
 
 	    	default:
 	    		size = ShipDesign.SMALL;
-	    		model = 0;
+	    		rawModel = ShipLibrary.current().missileDesign.get(shipStyleIndex());
 	    		shipColor = ImageColorizer.RED;
     	}
+    	boolean flip = rawModel<0;
+    	int model;
+		if (flip)
+			model = 1+rawModel;
+		else
+			model = rawModel-1;
+
     	// current missile image size
     	int mW = 173;
     	int mH = 54;
@@ -821,7 +828,10 @@ public class ShipDesignLab implements Base, Serializable {
         int imgH = image.getHeight(null);
         BufferedImage srcImg = new BufferedImage(imgW, imgH, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) srcImg.getGraphics();
-        g.drawImage(image, 0, 0, imgW, imgH, 0, 0, imgW, imgH, null);
+        if (flip)
+            g.drawImage(image, 0, 0, imgW, imgH, imgW, imgH, 0, 0, null);
+        else
+        	g.drawImage(image, 0, 0, imgW, imgH, 0, 0, imgW, imgH, null);
         g.dispose();
         //image = null;
         BufferedImage clippedImg = clippedImage(srcImg);

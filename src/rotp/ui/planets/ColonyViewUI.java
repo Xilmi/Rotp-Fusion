@@ -106,6 +106,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		speciesNum	= (int) Math.ceil(pop/NUM_BY_ICON);
 		speciesRows	= (int) Math.ceil((double)speciesNum/maxColumns);
 		missileNum	= (int) Math.ceil(bases/NUM_BY_ICON);
+		// missileNum += 5;
 		if (missileNum == 0)
 			missileRows	= 0;
 		else
@@ -130,12 +131,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 
 		BufferedImage[] mugHue = setHue(mugshot, iHue, 96);
 		BufferedImage speciesImg = newBufferedImage(speciesWidth, speciesHeight);
-		Graphics2D g	= (Graphics2D) speciesImg.getGraphics();
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		Graphics2D g = getGraphicsRH(speciesImg);
 		int x = 0;
 		int y = 0;
 		g.drawImage(mugshot, x, y, x+spW2, y+spH, mX1, 0, mX2, mH, null);
@@ -231,12 +227,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int hi = missile.getHeight(null);
 		int h = hi * length / wi;
 		BufferedImage image = new BufferedImage(length, h, TYPE_INT_ARGB);
-		Graphics2D g = (Graphics2D) image.getGraphics();
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		Graphics2D g = getGraphicsRH(image);
 		g.drawImage(missile, 0, 0, length, h, 0, 0, wi, hi, null);
 		g.dispose();
 		return image;
@@ -247,12 +238,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int w0	= 512;
 		int h0	= w0;
 		BufferedImage image = new BufferedImage(w0, h0, TYPE_INT_ARGB);
-		Graphics2D g = (Graphics2D) image.getGraphics();
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		Graphics2D g = getGraphicsRH(image);
 
 		int wheelRadius = 40;
 		// Frame
@@ -356,12 +342,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.dispose();
 
 		BufferedImage missileImg = new BufferedImage(missileWidth, missileHeight, TYPE_INT_ARGB);
-		g = (Graphics2D) missileImg.getGraphics();
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g = getGraphicsRH(missileImg);
 		g.drawImage(image, 0, 0, missileWidth, missileHeight, 0, 0, w0, h0, null);
 		g.dispose();
 		
@@ -477,12 +458,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int winXc	= w0 - winX - winW;
 		int winXd	= w0 - winXb - winW;
 		BufferedImage image = new BufferedImage(w0, h0, TYPE_INT_ARGB);
-		Graphics2D g = (Graphics2D) image.getGraphics();
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		Graphics2D g = getGraphicsRH(image);
 		// Chimneys
 		BufferedImage img = chimney(chemW, h0);
 		g.drawImage(img, chemX,	0, chemX +chemW, h0, 0, 0, chemW, h0, null);
@@ -510,13 +486,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.dispose();
 
 		BufferedImage factoryImg = new BufferedImage(factoryWidth, factoryHeight, TYPE_INT_ARGB);
-		g = (Graphics2D) factoryImg.getGraphics();
+		g = getGraphicsRH(factoryImg);
 		g.setComposite(AlphaComposite.SrcOver);
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g.drawImage(image, 0, 0, factoryWidth, factoryHeight, 0, 0, w0, h0, null);
 		g.dispose();
 		return factoryImg;
@@ -549,7 +520,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.dispose();
 		return img;
 	} */
-	private BufferedImage stargate(int ra, int rb, double a, double k)	{
+/*	private BufferedImage stargate(int ra, int rb, double a, double k)	{
 		//  logarithmic spiral r = a * e^(k*phi)
 		int dia = 2*rb;
 		int n = 4;
@@ -571,7 +542,6 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		for (int i=0; i<n; i++) {
 			x0[i] = (int) Math.round(r*Math.cos(phiA + i*beta));
 			y0[i] = (int) Math.round(r*Math.sin(phiA + i*beta));
-//			int dc = c1*(i%2)/2;
 			int dc = c1*i*3/(4*n);
 			colors[i] = new Color(c1-dc, c2-dc, c3);
 		}
@@ -592,7 +562,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		}
 		g.dispose();
 		return img;
-	}
+	} */
 
 	private void createImage(boolean bgOnly)	{
 		int w = getWidth();
@@ -603,12 +573,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int empId	 = empire.id;
 		Race race    = sys.empire().race();
 		landscapeImg = newBufferedImage(w,h);
-		Graphics2D g = (Graphics2D) landscapeImg.getGraphics();
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		Graphics2D g = getGraphicsRH(landscapeImg);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		g.drawImage(colony.planet().type().atmosphereImage(), 0, 0, w, h, null);
@@ -706,17 +671,25 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 
 		// Draw Stargates
 		if (sys.hasStargate(empire)) {
-			int ra = scaled(30);
-			int rb = scaled(50);
-			double a = scaled(2);
-			double k = 0.25;
-			BufferedImage starGate = stargate(ra, rb, a, k);
-			int sgH = starGate.getHeight();
-			int sgW = starGate.getWidth();
-			int sgSide = 2*rb;
-			int sgX = getWidth()/2 - rb;
+//			int ra = scaled(30);
+//			int rb = scaled(50);
+//			double a = scaled(2);
+//			double k = 0.25;
+//			BufferedImage starGate = stargate(ra, rb, a, k);
+//			int sgH = starGate.getHeight();
+//			int sgW = starGate.getWidth();
+//			int sgSide = 2*rb;
+//			int sgX = getWidth()/2 - rb;
+//			int sgY = scaled(40);
+//			g.drawImage(starGate, sgX, sgY, sgX+sgSide, sgY+sgSide, 0, 0, sgW, sgH, null);
+			Image starGate = empire.shipLab().stargateDesign().image();
+			int sgH = starGate.getHeight(null);
+			int sgW = starGate.getWidth(null);
+			int sgWidth  = scaled(150);
+			int sgHeight = sgH * sgWidth/sgW;
+			int sgX = (getWidth()-sgWidth)/2;
 			int sgY = scaled(40);
-			g.drawImage(starGate, sgX, sgY, sgX+sgSide, sgY+sgSide, 0, 0, sgW, sgH, null);
+			g.drawImage(starGate, sgX, sgY, sgX+sgWidth, sgY+sgHeight, 0, 0, sgW, sgH, null);
 		}
 
 		List<ShipFleet> fleets = sys.orbitingFleets();

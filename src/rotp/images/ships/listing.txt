@@ -1,17 +1,19 @@
 // a listing of ship sets
-Alkari     ,
-Bulrathi   ,
-Darlok     ,
-EarlyGame  ,
-GearHead   ,
-Human      ,
-JackTrades ,
-Klackon    ,
-Meklar     ,
-Monocle    ,
-Mrrshan    ,
-NeoHuman   ,
-Psilon     ,
-Sakkra     ,
-Silicoid   ,
-WarDemon   ,
+// Name, Missile (red), Scatter (blue), Torpedo (green), other, other
+// Negative value to flip the design
+Alkari     , 1, 3, 6, 2, 4
+Bulrathi   , 1, 3, 6, 2, 4
+Darlok     , -1, 2, 6, 1, 4
+EarlyGame  , 1, 3, 5, 2, 4
+GearHead   , 1, 3, 6, 2, 4
+Human      , 1, 2, 6, 1, 4
+JackTrades , 1, 3, 6, 2, 4
+Klackon    , 1, 3, 6, 2, 4
+Meklar     , 1, 3, 5, 2, 4
+Monocle    , 1, 3, 6, 2, 4
+Mrrshan    , 1, 2, 6, 2, 4
+NeoHuman   , 1, 2, 6, 2, 4
+Psilon     , 1, 3, 4, 2, 6
+Sakkra     , 2, 3, 4, 1, 6
+Silicoid   , 1, 3, 6, 2, 4
+WarDemon   , -1, 2, 6, 1, 4
