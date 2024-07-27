@@ -68,6 +68,9 @@ Later:
 ## What's New
 
 2024.07.26 (BR)
+- Diversification of galaxy size denominations, following Xilmi's suggested list.
+
+2024.07.26 (BR)
 - Planet View replaced stargate image by one found in RotP image
 - Missile shipset picks the best ship design of each species.
 

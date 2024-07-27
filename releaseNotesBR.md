@@ -3,15 +3,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Fixed home worlds the Orion Artifacts giving Orion council bonus.
-- MoO1 "default option" will memorize random generator seed.
-- Right-Click on planet (above spending panel), will bring the planet view. (Still under construction)
-  - Press "Z" toggle landscape view only.
-  - added stargate.
-  - added ships
 - Missiles: New option to have their graphics based on shipset.
   - Now picks the best ship design of each species.
 - Planet View replaced stargate image by one found in RotP image
+- Diversification of galaxy size denominations, following Xilmi's suggested list.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
