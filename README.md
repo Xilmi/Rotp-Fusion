@@ -67,7 +67,10 @@ Later:
 
 ## What's New
 
-2024.07.26 (BR)
+2024.07.28 (BR)
+- The option to continue after winning a game is renamed "A few more turns...", and will no more be propagated to the next game.
+
+2024.07.27 (BR)
 - Diversification of galaxy size denominations, following Xilmi's suggested list.
 
 2024.07.26 (BR)

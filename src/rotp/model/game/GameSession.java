@@ -130,6 +130,7 @@ public final class GameSession implements Base, Serializable {
     private long id;
     private boolean spyActivity = false;
     private Integer lastTurnAlive;
+    private boolean aFewMoreTurns = false;
 
     public GameStatus status()                   { return status; }
     public long id()                             { return id; }
@@ -189,6 +190,8 @@ public final class GameSession implements Base, Serializable {
     }
     public void dismissAlert() { viewedAlerts++; }
 
+    public void setAFewMoreTurns() 		 { aFewMoreTurns = true; }
+    public boolean aFewMoreTurns() 		 { return aFewMoreTurns; }
     public boolean performingTurn()      { return performingTurn; }
     @Override
     public IGameOptions options()        { return options; }

@@ -424,7 +424,8 @@ public final class GameOverUI extends FadeInPanel
     }
     private void advanceMode() {
         stopAmbience();
-        if (options().continueAnyway() && !GameSession.instance().galaxy().player().extinct()) {
+        if ((GameSession.instance().aFewMoreTurns() || options().continueAnyway())
+        		&& !GameSession.instance().galaxy().player().extinct()) {
         	RotPUI rotPUIinstance = RotPUI.instance();
         	rotPUIinstance.mainUI().showDisplayPanel();
         	rotPUIinstance.selectMainPanel();
@@ -500,7 +501,8 @@ public final class GameOverUI extends FadeInPanel
         }
         else if (hoverBox == continueBox) {
             softClick();
-            options().continueAnyway(true);
+            session().setAFewMoreTurns();
+            //options().continueAnyway(true);
             advanceMode();
             return;
         }

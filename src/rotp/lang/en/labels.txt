@@ -4217,7 +4217,7 @@ GAME_OVER_REBEL_ALLIANCE_FOLLOWER_WIN_RB   | →GAME_OVER_REBEL_ALLIANCE_FOLLOWE
 
 GAME_OVER_EXIT                    | Exit
 GAME_OVER_REPLAY                  | Replay
-GAME_OVER_CONTINUE                | Continue (test)
+GAME_OVER_CONTINUE                | A few more turns...
 
 // text for race-generic endings
 // %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 special text
