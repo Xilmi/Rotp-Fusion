@@ -71,6 +71,8 @@ Later:
 - Added Gaia homeworld option.
 - Fixed sound and music toggling bug.
 - Fixed Orion Guardian new missile graphic bug.
+- Smart/Smooth Min/Max optimization.
+  - Freed up BC will now be smartly redistributed, priorizing colony orders. (The ones you can gives after a Technology update, displayed in blue)
 
 2024.07.28 (BR)
 - The option to continue after winning a game is renamed "A few more turns...", and will no more be propagated to the next game.
