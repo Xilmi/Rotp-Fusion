@@ -70,6 +70,7 @@ Later:
 2024.07.29 (BR)
 - Added Gaia homeworld option.
 - Fixed sound and music toggling bug.
+- Fixed Orion Guardian new missile graphic bug.
 
 2024.07.28 (BR)
 - The option to continue after winning a game is renamed "A few more turns...", and will no more be propagated to the next game.
