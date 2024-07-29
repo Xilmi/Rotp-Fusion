@@ -3,14 +3,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Missiles: New option to have their graphics based on shipset.
-  - Now picks the best ship design of each species.
-- Planet View replaced stargate image by one found in RotP image
-- Diversification of galaxy size denominations, following Xilmi's suggested list.
-- The option to continue after winning a game is renamed "A few more turns...", and will no more be propagated to the next game.
-- Added Gaia homeworld option.
 - Fixed sound and music toggling bug.
 - Fixed Orion Guardian new missile graphic bug.
+- Smart/Smooth Min/Max optimization.
+  - Freed up BC will now be smartly redistributed, priorizing colony orders. (The ones you can gives after a Technology update, displayed in blue)
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
