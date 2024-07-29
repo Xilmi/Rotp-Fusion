@@ -96,14 +96,16 @@ public abstract class ColonySpendingCategory implements Base, Serializable {
     public void removeSpendingOrders() { }
     public boolean canLowerMaintenance() { return false; }
     public void lowerMaintenance()       { }
-    public int orderedAllocation()      { return (int) Math.ceil(orderedValue() * MAX_TICKS);  }  
-    public int adjustValue(int amt) {
+    public int orderedAllocation()       { return (int) Math.ceil(orderedValue() * MAX_TICKS);  }  
+    public int adjustValue(int amt)      {
         // attempt to adjust current value by amt
         // return the actual amount adjusted
         int oldValue = allocation();
         colony.allocation(categoryType(), bounds(0,oldValue+amt,MAX_TICKS));
         return allocation() - oldValue;
     }
-    public float excessSpending()     { return 0; }
+    public float excessSpending()        { return 0; }
+    public int smoothAllocationNeeded()  { return 0; }
     public int smartAllocationNeeded(MouseEvent e) { return 0; }
+    
 }

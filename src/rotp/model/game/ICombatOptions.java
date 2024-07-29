@@ -164,6 +164,14 @@ public interface ICombatOptions extends IBaseOptsTools {
 	default boolean shieldType3D()			{ return shieldType.get().equalsIgnoreCase("Yes"); }
 	default boolean shieldType2D()			{ return shieldType.get().equalsIgnoreCase("2D"); }
 	default boolean shieldType3Buffer()		{ return shieldType.get().equalsIgnoreCase("3B"); }
+	
+	ParamBoolean asteroidsVanish			= new ParamBoolean(MOD_UI, "ASTEROIDS_VANISH", true)
+			.setDefaultValue(MOO1_DEFAULT, false);
+	ParamBoolean moo1AsteroidsLocation		= new ParamBoolean(MOD_UI, "MOO1_ASTEROIDS_LOCATION", false)
+			.setDefaultValue(MOO1_DEFAULT, true);
+	ParamBoolean moo1AsteroidsProperties	= new ParamBoolean(MOD_UI, "MOO1_ASTEROIDS_PROPERTIES", false)
+			.setDefaultValue(MOO1_DEFAULT, true);
+	
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -193,6 +201,11 @@ public interface ICombatOptions extends IBaseOptsTools {
 				headerSpacer,
 				startShieldDemo
 				)));
+//		map.add(new SafeListParam(Arrays.asList(
+//				new ParamTitle("ASTEROIDS"),
+//				asteroidsVanish,
+//				moo1AsteroidsLocation, moo1AsteroidsProperties
+//				)));
 		return map;
 	};
 	static ParamSubUI combatOptionsUI() {

@@ -507,6 +507,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
     		return Integer.MAX_VALUE;
     	return buildLimit();
     } */
+    @Override public int smoothAllocationNeeded() { return targetMaxAllocationNeeded(); }
     @Override public int smartAllocationNeeded(MouseEvent e) {
     	if (e==null || SwingUtilities.isLeftMouseButton(e)) // Target limit
     		return targetMaxAllocationNeeded();

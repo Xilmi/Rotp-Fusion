@@ -14,6 +14,9 @@ public interface IBaseOptsTools {
 	String LIVE_OPTIONS_FILE	= "Live" + OPTIONFILE_EXTENSION;
 	String USER_OPTIONS_FILE	= "User" + OPTIONFILE_EXTENSION;
 	String NEGATIVE_DISABLED	= "SETTINGS_MOD_NEGATIVE_DISABLED";
+	String FUSION_DEFAULT		= DefaultValues.FUSION_DEFAULT;
+	String MOO1_DEFAULT			= DefaultValues.MOO1_DEFAULT;
+	String ROTP_DEFAULT			= DefaultValues.ROTP_DEFAULT;
 	// To be able to identify the current options
 	int UNKNOWN_ID = 0;
 	int GAME_ID  = 1;

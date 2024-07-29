@@ -1,7 +1,5 @@
 package rotp.model.game;
 
-import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
-
 import java.util.Arrays;
 
 import rotp.ui.util.ParamBoolean;

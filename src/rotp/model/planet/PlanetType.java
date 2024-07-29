@@ -282,4 +282,22 @@ public class PlanetType implements Base {
                 return  0;
         }
     }
+    public int[] asteroidProbability(String type) {
+    	switch (type) {
+	        case RADIATED:	return new int[] {46, 25, 29};
+	        case TOXIC:		return new int[] {47, 25, 28};
+	        case INFERNO:	return new int[] {48, 25, 27};
+	        case DEAD:		return new int[] {49, 25, 26};
+	        case TUNDRA:	return new int[] {50, 25, 25};
+	        case BARREN:	return new int[] {51, 25, 24};
+	        case MINIMAL:	return new int[] {52, 25, 23};
+	        case DESERT:	return new int[] {53, 25, 22};
+	        case STEPPE:	return new int[] {54, 25, 21};
+	        case ARID:		return new int[] {55, 25, 20};
+	        case OCEAN:		return new int[] {56, 25, 19};
+	        case JUNGLE:	return new int[] {57, 25, 18};
+	        case TERRAN:	return new int[] {58, 25, 17};
+    	}
+    	return new int[] {0, 0, 100};
+    }
 }

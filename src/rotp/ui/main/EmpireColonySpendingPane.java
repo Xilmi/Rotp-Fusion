@@ -663,8 +663,7 @@ public class EmpireColonySpendingPane extends BasePanel {
         	
             // Specific optimizations
             
-            // Smart Max
-            if (e.isShiftDown()) {
+            if (e.isShiftDown()) { // Smart Max, clear the free spending
                 colony.clearUnlockedSpending();
                 if (e.isControlDown()) {
                 	colony.redistributeReducedEcoSpending();
@@ -682,22 +681,26 @@ public class EmpireColonySpendingPane extends BasePanel {
                 		colony.redistributeReducedEcoSpending();
                 		colony.keepEcoLockedToClean = SwingUtilities.isMiddleMouseButton(e);
                 	}
-                	else 
+                	else {
                 		colony.checkEcoAtClean();
+                		colony.redistributeSpending(category);
+                	}
                 }
         	}
             // Reset to AI Setting
             else if (e.isControlDown()) {
-           		colony.hasNewOrders(true); 
-            	try {
-            		player().governorAI().setInitialAllocations(colony);
-            	}
-            	catch (Exception exception) {
-            		System.err.println("setInitialAllocations Error");
-            		System.err.println(exception.toString());
-            	}
-            	player().governorAI().setInitialAllocations(colony);
-            	colony.validate();
+            	colony.clearUnlockedSpending();
+            	colony.redistributeSpending(-1);
+//           		colony.hasNewOrders(true); 
+//            	try {
+//            		player().governorAI().setInitialAllocations(colony);
+//            	}
+//            	catch (Exception exception) {
+//            		System.err.println("setInitialAllocations Error");
+//            		System.err.println(exception.toString());
+//            	}
+//            	player().governorAI().setInitialAllocations(colony);
+//            	colony.validate();
             	colony.checkEcoAtClean();
             }
 

@@ -131,7 +131,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public int allocation(int i)               { return allocation[i]; }
     public void allocation(int i, int val)     { allocation[i] = val; }
     public void addAllocation(int i, int val)  { allocation[i]+= val; }
-    public void setAllocation(int i, int val) {
+    public int setAllocation(int i, int val) {
         // attempt to set allocation for category[i] to val
         // do not add more than allocationRemaining()
         // do not reduce current allocation
@@ -141,6 +141,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         if(i == ECOLOGY){
             keepEcoLockedToClean = false;
         }
+        return addAmt;
     }
     public boolean locked(int i)               { return locked[i]; }
     public void locked(int i, boolean b)       { locked[i] = b; }
@@ -469,6 +470,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     	verifiedSmoothMaxSlider(category, null);
     }
     public void verifiedSmoothMaxSlider(int category, MouseEvent e) {
+    	int prevTech = allocation(RESEARCH);
         checkEcoAtClean(); // BR: to avoid wrong setting if not clean!
         int allocationNeeded = category(category).smartAllocationNeeded(e);
         int prevAllocation = allocation(category);
@@ -480,6 +482,13 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
         if(category != ECOLOGY)
         	checkEcoAtClean();
+        if (category != RESEARCH ) {
+        	int deltaTech = allocation(RESEARCH) - prevTech;
+        	if (deltaTech > 0) { // Smart distribution of the decremented spending
+        		allocation(RESEARCH, prevTech);
+        		redistributeSpending(category);
+        	}
+        }
     }
 
     // modnar: add challengeMode option from UserPreferences to give AI more initial resources
@@ -906,6 +915,58 @@ public final class Colony implements Base, IMappedObject, Serializable {
             cat.removeSpendingOrders();
         }
     }
+    // BR: For spending panel UI
+    public void redistributeSpending(int category) {
+        int maxAllocation = ColonySpendingCategory.MAX_TICKS;
+
+        // determine how much categories are over/under spent
+        int spendingTotal = 0;
+        for (int i = 0; i < NUM_CATS; i++)
+            spendingTotal += spending[i].allocation();
+        int adj = maxAllocation - spendingTotal;
+        if (adj==0)
+    		return;
+        int[] sequence = {ECOLOGY, INDUSTRY, SHIP, DEFENSE, RESEARCH };
+
+        // Look for orders
+        for (int i : sequence) {
+            if ((i != category) && !locked(i) && hasOrder(i)) {
+            	ColonySpendingCategory currCat = spending[i];
+            	int currentAllocation = currCat.allocation();
+            	int allocationNeeded  = currCat.smoothAllocationNeeded();
+            	int increment = allocationNeeded - currentAllocation;
+            	increment = bounds(0, increment, adj);
+            	adj -= currCat.adjustValue(increment);
+            	if (adj==0)
+            		return;
+            }
+        }
+        // distribute the remaining
+        for (int i : sequence) {
+            if ((i != category) && !locked(i)) {
+            	ColonySpendingCategory currCat = spending[i];
+            	int currentAllocation = currCat.allocation();
+            	int allocationNeeded  = currCat.smoothAllocationNeeded();
+            	int increment = allocationNeeded - currentAllocation;
+            	increment = bounds(0, increment, adj);
+            	adj -= currCat.adjustValue(increment);
+            	if (adj==0)
+            		return;
+            }
+        }
+
+        // if any adj remaining, send back to original cat
+        // this is always player-driver, so remove spending orders
+        if (adj != 0)
+            if (category > 0) {
+	        	ColonySpendingCategory cat = category(category);
+	            cat.adjustValue(adj);
+	            cat.removeSpendingOrders();
+	        }
+            else
+            	redistributeReducedEcoSpending();
+    }
+
     public float transportPriority() {
         float pr;
         if (inRebellion())

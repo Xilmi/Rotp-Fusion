@@ -1040,8 +1040,8 @@ public class MainUI extends BasePanel implements IMapHandler {
         sp4s.setLine(x1+w1, y1+(sp4s.height()/2), xe, ye);
 
         // Intermediate boxes
-        int w0 = w1 + s100;
-        int x0 = x1 - s100;
+        int w0 = w1 + scaled(150);
+        int x0 = x1 - scaled(150);
         int xBox = w-scaled(247);
         int yBox = scaled(297);
         int hBox = scaled(140);

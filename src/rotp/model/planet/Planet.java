@@ -100,6 +100,7 @@ public class Planet implements Base, IMappedObject, Serializable {
     private float oceanPct = 0;
     private int cloudThickness = 0;  //200 nothing, 550 all white, 400-450 terran
     private final int[] alienFactories;
+    private Integer asteroidsMin, asteroidsMax;
 
     // vars used for sprite drawing
     public Color terrainColor1 = Color.green;
@@ -117,6 +118,40 @@ public class Planet implements Base, IMappedObject, Serializable {
             type = PlanetType.keyed(planetTypeKey);
         return type;
     }
+    private void initAsteroids()           {
+    	int[] probabilities = type().asteroidProbability(planetTypeKey);
+    	switch (resources) {
+	    	case RICH:
+	    		probabilities[0] -= 10;
+	    		probabilities[2] += 10;
+	    		break;
+	    	case ULTRA_RICH:
+	    		probabilities[0] -= 20;
+	    		probabilities[2] += 20;
+	    		break;
+    	}
+    	float rand = 100 * random() - probabilities[0];
+    	if (rand < 0) { // No asteroids
+    		asteroidsMin = 0;
+    		asteroidsMax = 0;
+    		return;
+    	}
+    	rand -= probabilities[1];
+    	if(rand < 0) { // Low density
+    		asteroidsMin = 1;
+    		asteroidsMax = 5;
+    		return;
+    	}
+    	// High density
+   		asteroidsMin = 3;
+  		asteroidsMax = 7;    		
+    }
+    public int asteroidsCount()            {
+    	if (asteroidsMin == null)
+    		initAsteroids();
+    	return roll(asteroidsMin, asteroidsMax);
+    }
+    
     public int iceLevel()                  { return iceLevel; }
     public int cloudThickness()            { return cloudThickness; }
     public int terrainSeed()               { return terrainSeed; }
@@ -137,7 +172,7 @@ public class Planet implements Base, IMappedObject, Serializable {
     public boolean isResourceRich()        { return resources == RICH; }
     public boolean isResourceUltraRich()   { return resources == ULTRA_RICH; }
 
-    private int resources()                 { return resources; }
+    private int resources()                { return resources; }
     public void depleteResources()         { resources = max(ULTRA_POOR, resources-1); }
     public void enrichResources()          { resources = min(ULTRA_RICH, resources+1); }
     public void setResourceUltraPoor()     { resources = ULTRA_POOR; }

@@ -694,7 +694,7 @@ MAIN_HELP_3H                      | Next Year - advances the game to the next ye
 MAIN_HELP_3I                      | Current Turn - displays the game's current turn or your empire's current year. Click to toggle.
 MAIN_HELP_3J                      | Map controls - click to cycle through various display settings for the galaxy map.
 // Smart-Max Help
-MAIN_HELP_4A                      | Min/Max assistants will always keeps ECO clean.<br>- Smooth Min/Max: is equivalent to clicking Up/Down arrow till reaching the target. <br>- Smart Min/Max: (Shift-Click) will clear the unlocked spending, set the Min/Max allocation, clean ECO, then smartly redistribute the remaining BC.<br>- Refresh: (Ctrl-Click) will clear the unlocked spending then use the "Next Turn" logic.   
+MAIN_HELP_4A                      | Min/Max assistants will always keeps ECO clean.<br>- Smooth Min/Max: is equivalent to clicking Up/Down arrow till reaching the target. Liberated BC will be smartly redistributed. <br>- Smart Min/Max: (Shift-Click) will clear the unlocked spending, set the Min/Max allocation, clean ECO, then smartly redistribute the remaining BC.<br>- Refresh: (Ctrl-Click) will clear the unlocked spending then smartly redistribute the available BC.   
 MAIN_HELP_4B                      | Shipyard:<br> Left-Click: Min Allocation Needed up to build limit.<br> Right-Click: Max Allocation Available.
 MAIN_HELP_4C                      | Defenses:<br> Left-Click: Min Allocation Needed up to get bases limit.<br> Right-Click: Max Allocation Available. <br>Mid-Click: Min Allocation Needed for the shield.
 MAIN_HELP_4D                      | Industry:<br> Left-Click: Min Allocation Needed to finalize factories.<br> Right-Click: Max Allocation Available. <br>Mid-Click: Min Allocation Needed to follow population growth.
@@ -2164,6 +2164,9 @@ HEADERS_WEAPON_ANIMATIONS            | ~~~ BEAM WEAPON ANIMATIONS ~~~%1
 HEADERS_SHIELD_ANIMATIONS_DESC       | To set combat shield animations parameters.
 HEADERS_SHIELD_ANIMATIONS            | ~~~ SHIELD ANIMATIONS ~~~%1
 
+HEADERS_ASTEROIDS_DESC               | To set Asteroids placements and properties.
+HEADERS_ASTEROIDS                    | ~~~ ASTEROIDS ~~~%1
+
 HEADERS_UNCLASSIFIED_DESC            | The right position has still to be found!
 HEADERS_UNCLASSIFIED                 | ~~~ UNCLASSIFIED MOD ~~~%1
 
@@ -2732,6 +2735,18 @@ SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Why? by u/dweller_below</b><br>
 
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | To boost the maximal security tax percentage. (Spying bonus = 2 x tax)
 SETTINGS_MOD_MAX_SECURITY_PCT            | Max Security: %1%
+
+SETTINGS_MOD_MOO1_ASTEROIDS_VANISH          | Vanish: %1
+SETTINGS_MOD_MOO1_ASTEROIDS_VANISH_DESC     | Asteroids will disappear as the fight progresses. (5%)
+
+SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION        | MoO1 Placement: %1
+SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION_DESC   | Asteroids will be placed according to MoO1 rules and will not be removed during combat.
+SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION_HELP   | Asteroids will be placed according to MoO1 rules and will not be removed during combat.<br>The asteroid density will depends on planet type, and are fixed once. It could either be: No asteroids, low-density or high-density.<br>A low-density asteroid belt means that a random 1 to 5 asteroid squares will appear on the Ship Combat Display screen whenever ships engage in combat over that planet.<br>A high-density asteroid belt places a random 3 to 7 asteroid squares in the vicinity.
+
+SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES      | Impact weapons: %1
+SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_DESC | Asteroids will partially destroy missiles and reduce beam effectiveness, per MoO 1 rules.
+SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_HELP | Asteroids will partially destroy missiles and reduce beam effectiveness, per MoO 1 rules.<br>When beam weapons fire through any asteroid squares, the defender gets +3 added to his Beam Defense Level.<br> Each missile or torpedo that moves through an asteroid square has a chance to be destroyed:<br>Nuclear and Hyper V: 80%<br>Hyper X and Scatter Pack V : 72%<br>Merculite and Scatter Pack VII : 64%<br>Stinger, Scatter Pack X, Pulson, and Anti-Matter Torpedo: 56%<br>Hercular: 48%<br>Hellfire, Zeon, and Proton Torpedoes: 40%<br>Plasma Torpedo: 32%
+
 
 SETTINGS_MOD_SHIELD_TYPE_NONE_DESC       | No shield animations (for low power computers)
 SETTINGS_MOD_SHIELD_TYPE_NONE            | None

@@ -428,14 +428,6 @@ public class ColonyIndustry extends ColonySpendingCategory {
 
         return totalCost;
     }
-    public int minAllocationNeeded() {
-        float needed = spendingNeeded();
-        if (needed <= 0)
-            return 0;
-        float pctNeeded = min(1, needed / colony().totalIncome());
-        int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
-        return ticks;
-    }
     private float expectedPopulation() {
     	float curentPopulation	 = colony().population();
        	float upcomingPopGrowth  = colony().ecology().upcomingPopGrowth(); // Next Turn
@@ -556,13 +548,21 @@ public class ColonyIndustry extends ColonySpendingCategory {
         p.addAlienFactories(randomEmpId, -1);
         newFactories++;
     }
+    @Override public int smoothAllocationNeeded() {
+        float needed = spendingNeeded();
+        if (needed <= 0)
+            return 0;
+        float pctNeeded = min(1, needed / colony().totalIncome());
+        int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
+        return ticks;
+    }
     @Override public int smartAllocationNeeded(MouseEvent e) {
     	if (e==null || SwingUtilities.isLeftMouseButton(e))
     		return maxAllocationNeeded();
     	if (SwingUtilities.isRightMouseButton(e))
     		return MAX_TICKS;
     	if (SwingUtilities.isMiddleMouseButton(e))
-    		return minAllocationNeeded();
+    		return smoothAllocationNeeded();
     	return 0;
     }
 }
