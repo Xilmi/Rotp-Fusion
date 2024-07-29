@@ -118,7 +118,8 @@ public class PlanetFactory implements Base {
 		if (combo(opts.selectedFertileHomeworld(),
 				dr.raceWithFertileHomeworld(), isPlayer))
 			p.enrichSoil();
-		if (dr.raceWithGaiaHomeworld()) {
+		if (combo(opts.selectedGaiaHomeworld(),
+				dr.raceWithGaiaHomeworld(), isPlayer)) {
 			p.enrichSoil();
             p.enrichSoil();
 		}

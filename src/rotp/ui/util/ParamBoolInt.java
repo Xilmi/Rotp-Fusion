@@ -74,8 +74,13 @@ public class ParamBoolInt extends ParamInteger {
 		return false;
 	}
 	@Override public boolean toggle(MouseEvent e, BaseModPanel frame)	{
-		set(-last());
-		boolParam.set(isEnabled());
+		int lastInt = Math.abs(last());
+		boolean lastBool = boolParam.get();
+		boolParam.set(!lastBool);
+		if (lastBool)
+			set(-lastInt);
+		else
+			set(lastInt);
 		return false;
 	}
 	// ===== Other Public Methods =====

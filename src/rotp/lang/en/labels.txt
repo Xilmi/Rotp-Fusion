@@ -2334,6 +2334,7 @@ SETTINGS_MOD_MAX_COMBAT_TURNS        | Max combat turns: %1
 SETTINGS_MOD_HOME_ORION              | Orion Ruin HomeWorld: %1
 SETTINGS_MOD_HOME_ARTIFACT           | Get Artifact HomeWorld: %1
 SETTINGS_MOD_HOME_FERTILE            | Get Fertile HomeWorld: %1
+SETTINGS_MOD_HOME_GAIA               | Get Gaia HomeWorld: %1
 SETTINGS_MOD_HOME_RICH               | Get Rich HomeWorld: %1
 SETTINGS_MOD_HOME_ULTRA_RICH         | Get Ultra-Rich HomeWorld: %1
 SETTINGS_MOD_DIST_ARTIFACT_PLANET_HELP | This will force a minimal distance between all Home worlds and their nearest artifact planet.<br> The purpose is to avoid a random boost to early in the game for some empires.
@@ -2360,6 +2361,7 @@ SETTINGS_MOD_MAX_COMBAT_TURNS_DESC   | Sets the maximum duration of ship battles
 SETTINGS_MOD_HOME_ORION_DESC         | {Always, Never, Auto} Gives Player/AI Orion Ruin HomeWorld
 SETTINGS_MOD_HOME_ARTIFACT_DESC      | {Always, Never, Auto} Gives Player/AI Artifact HomeWorld
 SETTINGS_MOD_HOME_FERTILE_DESC       | {Always, Never, Auto} Gives Player/AI Fertile HomeWorld
+SETTINGS_MOD_HOME_GAIA_DESC          | {Always, Never, Auto} Gives Player/AI Gaia HomeWorld
 SETTINGS_MOD_HOME_RICH_DESC          | {Always, Never, Auto} Gives Player/AI Rich HomeWorld
 SETTINGS_MOD_HOME_ULTRA_RICH_DESC    | {Always, Never, Auto} Gives Player/AI Ultra-Rich HomeWorld
 SETTINGS_MOD_POP_GROWTH              | Pop Growth: %1

@@ -35,6 +35,8 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default ParamAAN2 selectedArtifactsHomeworld()	{ return artifactsHomeworld; }
 	ParamAAN2 fertileHomeworld			= new ParamAAN2("HOME_FERTILE");
 	default ParamAAN2 selectedFertileHomeworld()	{  return fertileHomeworld; }
+	ParamAAN2 gaiaHomeworld				= new ParamAAN2("HOME_GAIA");
+	default ParamAAN2 selectedGaiaHomeworld()		{  return gaiaHomeworld; }
 	ParamAAN2 richHomeworld				= new ParamAAN2("HOME_RICH");
 	default ParamAAN2 selectedRichHomeworld()		{ return richHomeworld; }
 	ParamAAN2 ultraRichHomeworld		= new ParamAAN2("HOME_ULTRA_RICH");
@@ -385,7 +387,8 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("START_EMPIRE_OPTIONS"),
-				orionLikeHomeworld, artifactsHomeworld, fertileHomeworld,
+				orionLikeHomeworld, artifactsHomeworld,
+				fertileHomeworld, gaiaHomeworld,
 				richHomeworld, ultraRichHomeworld,
 				companionWorlds, battleScout, randomTechStart, randomizeAI,
 
