@@ -69,6 +69,7 @@ Later:
 
 2024.07.30 (BR)
 - For trackpad user: Music and soud level can now be adjusted with right-click / Shift-right-click.
+- Fixed disabling untested new feature.
 
 2024.07.29 (BR)
 - Added Gaia homeworld option.

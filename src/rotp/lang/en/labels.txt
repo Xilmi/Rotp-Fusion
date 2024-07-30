@@ -2736,8 +2736,8 @@ SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Why? by u/dweller_below</b><br>
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | To boost the maximal security tax percentage. (Spying bonus = 2 x tax)
 SETTINGS_MOD_MAX_SECURITY_PCT            | Max Security: %1%
 
-SETTINGS_MOD_MOO1_ASTEROIDS_VANISH          | Vanish: %1
-SETTINGS_MOD_MOO1_ASTEROIDS_VANISH_DESC     | Asteroids will disappear as the fight progresses. (5%)
+SETTINGS_MOD_ASTEROIDS_VANISH            | Vanish: %1
+SETTINGS_MOD_ASTEROIDS_VANISH_DESC       | Asteroids will disappear as the fight progresses. (5%)
 
 SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION        | MoO1 Placement: %1
 SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION_DESC   | Asteroids will be placed according to MoO1 rules and will not be removed during combat.

@@ -741,7 +741,9 @@ public class ShipCombatManager implements Base {
                     if (st.x > 5)
                         st.reverse();
                     stackIndex++;
-                    asteroidRows.remove((Integer)startingPosn[stackIndex]/10);
+//                    int id = asteroidRows.indexOf(startingPosn[stackIndex]/10);
+//                    if (id!=-1)
+//                    	asteroidRows.remove(id);
                     //log("Ship Stack: "+st);
                 }
             }
