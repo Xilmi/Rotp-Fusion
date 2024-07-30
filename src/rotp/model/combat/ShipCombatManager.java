@@ -37,6 +37,10 @@ public class ShipCombatManager implements Base {
     private static Thread autoRunThread;
     @SuppressWarnings("unused")
 	private static Thread runningThread;
+    private static int EMPTY    = 0;
+    private static int ASTEROID = 1;
+    private static int SHIPS    = 2;
+    private static int PLANET   = 3;
     // combat vars
     public ShipBattleUI ui;
     private StarSystem system;
@@ -58,10 +62,10 @@ public class ShipCombatManager implements Base {
     private int turnCounter = 0;
     private final int[] startingPosn = { 30,40,20,50,10,60,0 };
     private final double[][] riskMap = new double[maxX+1][maxY+1];
+    private int[][] initialMap       = new int[maxX+1][maxY+1];
     public boolean[][] asteroidMap = new boolean[maxX+1][maxY+1];
     private boolean initialPause;
     public List<CombatStack> currentTurnList;
-    private List<Integer> asteroidRows;
 
     public boolean interdiction()              { return interdiction; }
     public ShipCombatResults results()         { return results; }
@@ -659,6 +663,12 @@ public class ShipCombatManager implements Base {
         for (Empire c : empiresInCombat)
             results.addEmpire(c);
     }
+    private void clearInitialMap() {
+        for (int x=0;x<=maxX;x++) {
+            for (int y=0;y<=maxY;y++)
+                initialMap[x][y] = 0;
+        }
+    }
     private void clearAsteroids() {
         for (int x=0;x<=maxX;x++) {
             for (int y=0;y<=maxY;y++)
@@ -670,15 +680,26 @@ public class ShipCombatManager implements Base {
         clearAsteroids();
 
         if (options().moo1AsteroidsLocation()) {
-        	int numRows = asteroidRows.size();
-        	int numCols = maxX-3;
-        	int numAsteroids = system.planet().asteroidsCount();
+        	int numRows = maxY+1;
+        	int numCols = maxX-1; // remove the borders
+        	int numAsteroids = 5 + system.planet().asteroidsCount();
         	while (numAsteroids>0) {
-        		int x = rng().nextInt(numCols)+2;
-        		int y = asteroidRows.get(rng().nextInt(numRows));
-        		if (!(asteroidMap[x][y] || asteroidMap[x+1][y] || asteroidMap[x-1][y]
-        				|| asteroidMap[x][min(y+1, maxY)] || asteroidMap[x][max(y-1, 0)])) {
+        		int x = rng().nextInt(numCols)+1;
+        		int y = rng().nextInt(numRows);
+        		int up   = min(y+1, maxY);
+        		int down = max(y-1, 0);
+        		if (!(initialMap[x][y]>EMPTY
+        				|| initialMap[x+1][y] > EMPTY		// Sides
+        				|| initialMap[x-1][y] > EMPTY
+        				|| initialMap[x][up]  > EMPTY
+        				|| initialMap[x][down] > EMPTY
+        				|| initialMap[x+1][up] > ASTEROID	// Diagonals
+        				|| initialMap[x-1][up] > ASTEROID
+        				|| initialMap[x+1][down] > ASTEROID
+        				|| initialMap[x-1][down] > ASTEROID
+        				)) {
         			asteroidMap[x][y] = true;
+        			initialMap [x][y] = ASTEROID;
         			numAsteroids--;
         		}
         	}
@@ -723,27 +744,28 @@ public class ShipCombatManager implements Base {
     	}
     }
     private void placeCombatStacks() {
+        clearInitialMap();
         addEmpiresToCombat();
-        asteroidRows = new ArrayList<Integer>();
-        for (Integer i=0; i<=maxY; i++)
-        	asteroidRows.add(i);
-
         int[] posnAdj = { 0,9 };
         int empIndex = 0;
         // for each empire, place ship stacks
         for (Empire c : results.empires()) {
             int stackIndex = 0;
+            int idOffset = 0;
             for (CombatStack st : results.activeStacks()) {
                 if (st.empire == c) {
-                    int stackPosn = startingPosn[stackIndex] + posnAdj[empIndex];
+                	int stackPosn = startingPosn[stackIndex+idOffset] + posnAdj[empIndex];
+                	if (st.isColony() && options().moo1PlanetLocation()) {
+                	        int[] posPlanetAdj = { 1,8 };
+                	        stackPosn = startingPosn[stackIndex] + posPlanetAdj[empIndex];
+                	        idOffset = -1;
+                	}
                     st.x = stackPosn % 10;
                     st.y = stackPosn / 10;
                     if (st.x > 5)
                         st.reverse();
                     stackIndex++;
-//                    int id = asteroidRows.indexOf(startingPosn[stackIndex]/10);
-//                    if (id!=-1)
-//                    	asteroidRows.remove(id);
+                    initialMap[st.x][st.y] = st.isColony()? PLANET : SHIPS;
                     //log("Ship Stack: "+st);
                 }
             }

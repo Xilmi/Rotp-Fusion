@@ -70,6 +70,10 @@ Later:
 2024.07.30 (BR)
 - For trackpad user: Music and soud level can now be adjusted with right-click / Shift-right-click.
 - Fixed disabling untested new feature.
+- Ship Combat:
+  - New option to set MoO1 like astrroids distribution.
+  - New option to prevent asteroids from disapearing.
+  - New option to place Ships and planet in their MoO1 location.
 
 2024.07.29 (BR)
 - Added Gaia homeworld option.

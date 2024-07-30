@@ -9,6 +9,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Freed up BC will now be smartly redistributed, priorizing colony orders. (The ones you can gives after a Technology update, displayed in blue)
 - For trackpad user: Music and soud level can now be adjusted with right-click / Shift-right-click.
 - Fixed disabling untested new feature.
+- Ship Combat:
+  - New option to set MoO1 like astrroids distribution.
+  - New option to prevent asteroids from disapearing.
+  - New option to place Ships and planet in their MoO1 location.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -38,6 +42,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New Option panel to set default Nominal Species Names.
 - New rules:
   - Successful execution of a sabotage-mission will now also provide a full scan of the target-system and thus allow the system to be invaded. (Xilmi)
+- Old Rules:
+  - Ship Combat:
+    - New option to set MoO1 like astrroids distribution.
+    - New option to prevent asteroids from disapearing.
+    - New option to place Ships and planet in their MoO1 location.
 - Governor Options:
   - Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"
   - The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.

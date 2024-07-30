@@ -2739,6 +2739,9 @@ SETTINGS_MOD_MAX_SECURITY_PCT            | Max Security: %1%
 SETTINGS_MOD_ASTEROIDS_VANISH            | Vanish: %1
 SETTINGS_MOD_ASTEROIDS_VANISH_DESC       | Asteroids will disappear as the fight progresses. (5%)
 
+SETTINGS_MOD_MOO1_PLANET_LOCATION           | MoO1 Planet: %1
+SETTINGS_MOD_MOO1_PLANET_LOCATION_DESC      | MoO1 Planet is located in the second row while RotP place it in the first row.
+
 SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION        | MoO1 Placement: %1
 SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION_DESC   | Asteroids will be placed according to MoO1 rules and will not be removed during combat.
 SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION_HELP   | Asteroids will be placed according to MoO1 rules and will not be removed during combat.<br>The asteroid density will depends on planet type, and are fixed once. It could either be: No asteroids, low-density or high-density.<br>A low-density asteroid belt means that a random 1 to 5 asteroid squares will appear on the Ship Combat Display screen whenever ships engage in combat over that planet.<br>A high-density asteroid belt places a random 3 to 7 asteroid squares in the vicinity.

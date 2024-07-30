@@ -166,12 +166,19 @@ public interface ICombatOptions extends IBaseOptsTools {
 	default boolean shieldType3Buffer()		{ return shieldType.get().equalsIgnoreCase("3B"); }
 	
 	ParamBoolean asteroidsVanish			= new ParamBoolean(MOD_UI, "ASTEROIDS_VANISH", true)
-			.setDefaultValue(MOO1_DEFAULT, false);
+			.setDefaultValue(MOO1_DEFAULT, false)
+			.isValueInit(false);
+	ParamBoolean moo1PlanetLocation			= new ParamBoolean(MOD_UI, "MOO1_PLANET_LOCATION", false)
+			.setDefaultValue(MOO1_DEFAULT, true)
+			.isValueInit(false);
 	ParamBoolean moo1AsteroidsLocation		= new ParamBoolean(MOD_UI, "MOO1_ASTEROIDS_LOCATION", false)
-			.setDefaultValue(MOO1_DEFAULT, true);
+			.setDefaultValue(MOO1_DEFAULT, true)
+			.isValueInit(false);
 	ParamBoolean moo1AsteroidsProperties	= new ParamBoolean(MOD_UI, "MOO1_ASTEROIDS_PROPERTIES", false)
-			.setDefaultValue(MOO1_DEFAULT, true);
+			.setDefaultValue(MOO1_DEFAULT, true)
+			.isValueInit(false);
 	default boolean asteroidsVanish()			{ return asteroidsVanish.get(); }
+	default boolean moo1PlanetLocation()		{ return moo1PlanetLocation.get(); }
 	default boolean moo1AsteroidsLocation()		{ return moo1AsteroidsLocation.get(); }
 	default boolean moo1AsteroidsProperties()	{ return moo1AsteroidsProperties.get(); }
 	
@@ -204,11 +211,12 @@ public interface ICombatOptions extends IBaseOptsTools {
 				headerSpacer,
 				startShieldDemo
 				)));
-//		map.add(new SafeListParam(Arrays.asList(
-//				new ParamTitle("ASTEROIDS"),
-//				asteroidsVanish,
-//				moo1AsteroidsLocation, moo1AsteroidsProperties
-//				)));
+		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("ASTEROIDS"),
+				asteroidsVanish,
+				moo1PlanetLocation, moo1AsteroidsLocation,
+				moo1AsteroidsProperties
+				)));
 		return map;
 	};
 	static ParamSubUI combatOptionsUI() {
