@@ -20,6 +20,8 @@ import static rotp.ui.util.IParam.langLabel;
 
 import java.awt.event.MouseEvent;
 
+import javax.swing.SwingUtilities;
+
 import rotp.ui.game.BaseModPanel;
 
 public class ParamBoolInt extends ParamInteger {
@@ -74,6 +76,14 @@ public class ParamBoolInt extends ParamInteger {
 		return false;
 	}
 	@Override public boolean toggle(MouseEvent e, BaseModPanel frame)	{
+		if (SwingUtilities.isRightMouseButton(e)) {
+			if (e.isShiftDown())
+				prev();
+			else
+				next();
+			return false;
+		}
+			
 		int lastInt = Math.abs(last());
 		boolean lastBool = boolParam.get();
 		boolParam.set(!lastBool);

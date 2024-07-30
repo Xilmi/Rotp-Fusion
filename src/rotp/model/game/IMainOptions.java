@@ -5,9 +5,6 @@ import static rotp.model.galaxy.StarSystem.setFontPct;
 import static rotp.model.galaxy.StarSystem.setMinFont;
 import static rotp.model.galaxy.StarSystem.setMinFont2;
 import static rotp.model.game.DefaultValues.DEF_VAL;
-import static rotp.model.game.DefaultValues.FUSION_DEFAULT;
-import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
-import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
 import static rotp.ui.UserPreferences.backupTurns;
 import static rotp.ui.UserPreferences.disableAdvisor;
 import static rotp.ui.UserPreferences.displayMode;
@@ -196,6 +193,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 					"SOUNDS_ON", "SOUNDS_OFF", 10, 0, 10);
 			isDuplicate(true);
 			isCfgFile(true);
+			loop(true);
 		}
 		@Override public String getCfgLabel()		{ return "SOUND_VOLUME"; }
 		@Override public Integer getOption()		{ return soundVolume(); }
@@ -229,6 +227,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			super(GAME_UI, playMusic, "MUSIC_ON", "MUSIC_OFF", 10, 0, 10);
 			isDuplicate(true);
 			isCfgFile(true);
+			loop(true);
 		}
 		@Override public String getCfgLabel()		{ return "MUSIC_VOLUME"; }
 		@Override public Integer getOption()		{ return musicVolume(); }

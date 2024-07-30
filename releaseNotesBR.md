@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Orion Guardian new missile graphic bug.
 - Smart/Smooth Min/Max optimization.
   - Freed up BC will now be smartly redistributed, priorizing colony orders. (The ones you can gives after a Technology update, displayed in blue)
+- For trackpad user: Music and soud level can now be adjusted with right-click / Shift-right-click.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

@@ -525,13 +525,13 @@ GAME_SETTINGS_SELECTED_SCREEN_DESC | Select the screen on which you will play. (
 GAME_SETTINGS_SOUNDS              | Sounds: %1
 GAME_SETTINGS_SOUNDS_OFF          | Muted
 GAME_SETTINGS_SOUNDS_ON           | %1/10
-GAME_SETTINGS_SOUNDS_DESC         | Click to mute or unmute sound effects within the game. Use the mouse wheel to raise or lower the volume.
+GAME_SETTINGS_SOUNDS_DESC         | Click to mute or unmute sound effects within the game. Use the mouse wheel to raise or lower the volume. (Or right-click / shift-right-click)
 GAME_SETTINGS_SOUNDS_DISABLED     | Disabled
 GAME_SETTINGS_SOUNDS_ERR_DESC     | Sounds disabled due to following error: %1
 GAME_SETTINGS_MUSIC               | Music: %1
 GAME_SETTINGS_MUSIC_OFF           | Muted
 GAME_SETTINGS_MUSIC_ON            | %1/10
-GAME_SETTINGS_MUSIC_DESC          | Click to mute or unmute music within the game. Use the mouse wheel to raise or lower the volume.
+GAME_SETTINGS_MUSIC_DESC          | Click to mute or unmute music within the game. Use the mouse wheel to raise or lower the volume. (Or right-click / shift-right-click)
 GAME_SETTINGS_AUTOCOLONIZE        | Colonize: %1
 GAME_SETTINGS_AUTOCOLONIZE_YES    | Automatically
 GAME_SETTINGS_AUTOCOLONIZE_NO     | Always Prompt

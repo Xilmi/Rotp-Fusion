@@ -171,6 +171,9 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.setDefaultValue(MOO1_DEFAULT, true);
 	ParamBoolean moo1AsteroidsProperties	= new ParamBoolean(MOD_UI, "MOO1_ASTEROIDS_PROPERTIES", false)
 			.setDefaultValue(MOO1_DEFAULT, true);
+	default boolean asteroidsVanish()			{ return asteroidsVanish.get(); }
+	default boolean moo1AsteroidsLocation()		{ return moo1AsteroidsLocation.get(); }
+	default boolean moo1AsteroidsProperties()	{ return moo1AsteroidsProperties.get(); }
 	
 
 	// ==================== GUI List Declarations ====================

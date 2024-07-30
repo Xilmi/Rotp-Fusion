@@ -61,6 +61,7 @@ public class ShipCombatManager implements Base {
     public boolean[][] asteroidMap = new boolean[maxX+1][maxY+1];
     private boolean initialPause;
     public List<CombatStack> currentTurnList;
+    private List<Integer> asteroidRows;
 
     public boolean interdiction()              { return interdiction; }
     public ShipCombatResults results()         { return results; }
@@ -402,8 +403,8 @@ public class ShipCombatManager implements Base {
         if (combatIsFinished())
             return;
 
-        placeAsteroids();
         placeCombatStacks();
+        placeAsteroids();
         allStacks.clear();
         allStacks.addAll(results.activeStacks());
 
@@ -424,8 +425,8 @@ public class ShipCombatManager implements Base {
         if (combatIsFinished())
             return;
 
-        placeAsteroids();
         placeCombatStacks();
+        placeAsteroids();
         allStacks.clear();
         allStacks.addAll(results.activeStacks());
 
@@ -667,6 +668,22 @@ public class ShipCombatManager implements Base {
     private void placeAsteroids() {
         // clear the asteroid map before starting
         clearAsteroids();
+
+        if (options().moo1AsteroidsLocation()) {
+        	int numRows = asteroidRows.size();
+        	int numCols = maxX-3;
+        	int numAsteroids = system.planet().asteroidsCount();
+        	while (numAsteroids>0) {
+        		int x = rng().nextInt(numCols)+2;
+        		int y = asteroidRows.get(rng().nextInt(numRows));
+        		if (!(asteroidMap[x][y] || asteroidMap[x+1][y] || asteroidMap[x-1][y]
+        				|| asteroidMap[x][min(y+1, maxY)] || asteroidMap[x][max(y-1, 0)])) {
+        			asteroidMap[x][y] = true;
+        			numAsteroids--;
+        		}
+        	}
+        	return;
+        }
         
         boolean isAsteroidSystem = system().planet().type().isAsteroids();
         CombatStackColony colony = results().colonyStack;
@@ -693,18 +710,23 @@ public class ShipCombatManager implements Base {
         }
     }
     private void trimAsteroids() {
-        for (int x=0; x<=maxX; x++) {
-            for (int y=0;y<=maxY; y++) {
-                if (asteroidMap[x][y] && (random() < .05)) {
-                    asteroidMap[x][y] = false;
-                    redrawMap = true;
-                    break;
+    	if (options().asteroidsVanish()) {
+            for (int x=0; x<=maxX; x++) {
+                for (int y=0;y<=maxY; y++) {
+                    if (asteroidMap[x][y] && (random() < .05)) {
+                        asteroidMap[x][y] = false;
+                        redrawMap = true;
+                        break;
+                    }
                 }
             }
-        }
+    	}
     }
     private void placeCombatStacks() {
         addEmpiresToCombat();
+        asteroidRows = new ArrayList<Integer>();
+        for (Integer i=0; i<=maxY; i++)
+        	asteroidRows.add(i);
 
         int[] posnAdj = { 0,9 };
         int empIndex = 0;
@@ -719,6 +741,7 @@ public class ShipCombatManager implements Base {
                     if (st.x > 5)
                         st.reverse();
                     stackIndex++;
+                    asteroidRows.remove((Integer)startingPosn[stackIndex]/10);
                     //log("Ship Stack: "+st);
                 }
             }
