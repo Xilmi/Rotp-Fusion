@@ -43,6 +43,7 @@ import rotp.model.ships.ShipDesign;
 import rotp.model.tech.Tech;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.game.HelpUI;
 
 public class ColonyViewUI extends BasePanel implements MouseListener {
 	private static final int NUM_BY_ICON = 10;
@@ -967,11 +968,35 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		RotPUI.instance().selectMainPanel(false);
 		landscapeImg = null;
 	}
+
+	private void loadHelpUI()					{
+		HelpUI helpUI = RotPUI.helpUI();
+		helpUI.clear();
+		int w = getWidth();
+		int w0 = scaled(250);
+        int x0 = (w - w0)/2;
+        int y0 = scaled(80);
+	
+        helpUI.addBrownHelpText(x0, y0, w0, 7, text("COLONY_VIEW_HELP_1"));
+        helpUI.open(this);
+	}
+	@Override public void showHelp()					{
+		loadHelpUI();
+		repaint();
+	}
+	@Override public void advanceHelp()					{
+		cancelHelp();
+		repaint();
+	}
+	@Override public void cancelHelp()					{ RotPUI.helpUI().close(); }
 	@Override public String ambienceSoundKey()			{ return ambienceKey; }
 	@Override public void keyPressed(KeyEvent e)		{
 		int k = e.getKeyCode();
 
 		switch(k) {
+			case KeyEvent.VK_F1:
+				showHelp();
+				return;
 			case KeyEvent.VK_Z:
 				landscapeOnly = !landscapeOnly;
 				createImage(landscapeOnly);

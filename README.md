@@ -67,6 +67,10 @@ Later:
 
 ## What's New
 
+2024.07.31 (BR)
+- Added help to the colony view.
+- Added all options related to Ship combat in the combat option panel. 
+
 2024.07.30 (BR)
 - For trackpad user: Music and soud level can now be adjusted with right-click / Shift-right-click.
 - Fixed disabling untested new feature.

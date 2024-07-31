@@ -18,6 +18,7 @@ package rotp.model.planet;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -67,6 +68,23 @@ public class PlanetType implements Base {
     public static final int HOSTILITY_JUNGLE = 1;
     public static final int HOSTILITY_TERRAN = 0;
 
+    public static final List<String> planetTypes = Arrays.asList(new String[] {
+    			NONE,
+    			RADIATED,
+    			TOXIC,
+    			INFERNO,
+    			DEAD,
+    			TUNDRA,
+    			BARREN,
+    			MINIMAL,
+    			DESERT,
+    			STEPPE,
+    			ARID,
+    			OCEAN,
+    			JUNGLE,
+    			TERRAN
+    			});
+
     private String key;
     private String descBiological;
     private String descSilicoid;
@@ -103,8 +121,8 @@ public class PlanetType implements Base {
     public Sphere2D smallSphere(Planet p)               { return smallSpheres().get(p.terrainSeed());  }
     public void smallSphere(Sphere2D sph, Planet p)     { smallSpheres().put(p.terrainSeed(), sph); }
     public int sphereResolution(Planet p)         {
-        if (PlanetType.this.sphereResolution().containsKey(p.terrainSeed()))
-            return PlanetType.this.sphereResolution().get(p.terrainSeed());
+        if (sphereResolution().containsKey(p.terrainSeed()))
+            return sphereResolution().get(p.terrainSeed());
         else
             return 0;
     }
@@ -196,58 +214,58 @@ public class PlanetType implements Base {
     }
     public float randomOceanPct() {
         switch(key()) {
-            case PlanetType.OCEAN:
+            case OCEAN:
                 return random(0.8f,1.0f);
-            case PlanetType.JUNGLE:
+            case JUNGLE:
                 return random(0.6f,0.8f);
-            case PlanetType.TERRAN:
+            case TERRAN:
                 return random(0.55f,0.7f);
-            case PlanetType.STEPPE:
+            case STEPPE:
                 return random(0.25f,0.55f);
-            case PlanetType.ARID:
+            case ARID:
                 return random(0.1f,0.25f);
-            case PlanetType.DESERT:
+            case DESERT:
                 return random(0.05f,0.1f);
-            case PlanetType.MINIMAL:
+            case MINIMAL:
                 return 0.05f;
-            case PlanetType.TOXIC:
+            case TOXIC:
                 return random(0.2f,0.6f);
-            case PlanetType.BARREN:
-            case PlanetType.TUNDRA:
-            case PlanetType.DEAD:
-            case PlanetType.INFERNO:
-            case PlanetType.RADIATED:
+            case BARREN:
+            case TUNDRA:
+            case DEAD:
+            case INFERNO:
+            case RADIATED:
             default:
                 return 0.0f;
         }
     }
     public int randomIceLevel() {
         switch(key()) {
-            case PlanetType.OCEAN:
+            case OCEAN:
                 return roll(10,30);
-            case PlanetType.JUNGLE:
+            case JUNGLE:
                 return 0;
-            case PlanetType.TERRAN:
+            case TERRAN:
                 return roll(10,60);
-            case PlanetType.STEPPE:
+            case STEPPE:
                 return roll(10,80);
-            case PlanetType.ARID:
+            case ARID:
                 return roll(10,60);
-            case PlanetType.DESERT:
+            case DESERT:
                 return roll(10,50);
-            case PlanetType.MINIMAL:
+            case MINIMAL:
                 return roll(0,40);
-            case PlanetType.BARREN:
+            case BARREN:
                 return roll(0,20);
-            case PlanetType.TUNDRA:
+            case TUNDRA:
                 return 0;
-            case PlanetType.DEAD:
+            case DEAD:
                 return roll(30,100);
-            case PlanetType.INFERNO:
+            case INFERNO:
                 return 0;
-            case PlanetType.TOXIC:
+            case TOXIC:
                 return roll(0,30);
-            case PlanetType.RADIATED:
+            case RADIATED:
             default:
                 return  roll(0,20);
         }
@@ -260,44 +278,54 @@ public class PlanetType implements Base {
         // terran 400-450
         // heavy 450-500
         switch(key()) {
-            case PlanetType.OCEAN:
-            case PlanetType.JUNGLE:
-            case PlanetType.TERRAN:
-            case PlanetType.STEPPE:
+            case OCEAN:
+            case JUNGLE:
+            case TERRAN:
+            case STEPPE:
                 return roll(400,450);
-            case PlanetType.ARID:
-            case PlanetType.DESERT:
-            case PlanetType.TUNDRA:
+            case ARID:
+            case DESERT:
+            case TUNDRA:
                 return roll(350,400);
-            case PlanetType.MINIMAL:
-            case PlanetType.BARREN:
+            case MINIMAL:
+            case BARREN:
                 return roll(300,350);
-            case PlanetType.INFERNO:
+            case INFERNO:
                 return 700;
-            case PlanetType.TOXIC:
+            case TOXIC:
                 return roll(300,500);
-            case PlanetType.DEAD:
-            case PlanetType.RADIATED:
+            case DEAD:
+            case RADIATED:
             default:
                 return  0;
         }
     }
     public int[] asteroidProbability(String type) {
-    	switch (type) {
-	        case RADIATED:	return new int[] {46, 25, 29};
-	        case TOXIC:		return new int[] {47, 25, 28};
-	        case INFERNO:	return new int[] {48, 25, 27};
-	        case DEAD:		return new int[] {49, 25, 26};
-	        case TUNDRA:	return new int[] {50, 25, 25};
-	        case BARREN:	return new int[] {51, 25, 24};
-	        case MINIMAL:	return new int[] {52, 25, 23};
-	        case DESERT:	return new int[] {53, 25, 22};
-	        case STEPPE:	return new int[] {54, 25, 21};
-	        case ARID:		return new int[] {55, 25, 20};
-	        case OCEAN:		return new int[] {56, 25, 19};
-	        case JUNGLE:	return new int[] {57, 25, 18};
-	        case TERRAN:	return new int[] {58, 25, 17};
-    	}
-    	return new int[] {0, 0, 100};
+    	int typeIdx  = planetTypes.indexOf(type);
+    	if (typeIdx == 0)
+    		return new int[] {0, 0, 100};
+    	int noneBase = 46;
+    	int noneStep = 1;
+    	int lowBase  = 25;
+    	int lowStep  = 0;
+    	int none = noneBase + (typeIdx-1) * noneStep;
+    	int low  = lowBase  + (typeIdx-1) * lowStep;
+    	return new int[] {none, low};
+//    	switch (type) {
+//	        case RADIATED:	return new int[] {46, 25, 29};
+//	        case TOXIC:		return new int[] {47, 25, 28};
+//	        case INFERNO:	return new int[] {48, 25, 27};
+//	        case DEAD:		return new int[] {49, 25, 26};
+//	        case TUNDRA:	return new int[] {50, 25, 25};
+//	        case BARREN:	return new int[] {51, 25, 24};
+//	        case MINIMAL:	return new int[] {52, 25, 23};
+//	        case DESERT:	return new int[] {53, 25, 22};
+//	        case STEPPE:	return new int[] {54, 25, 21};
+//	        case ARID:		return new int[] {55, 25, 20};
+//	        case OCEAN:		return new int[] {56, 25, 19};
+//	        case JUNGLE:	return new int[] {57, 25, 18};
+//	        case TERRAN:	return new int[] {58, 25, 17};
+//    	}
+//    	return new int[] {0, 0, 100};
     }
 }

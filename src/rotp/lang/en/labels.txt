@@ -758,6 +758,8 @@ TURN_RETREAT_FLEETS               | Retreating Fleets
 TURN_DESIGN_SHIPS                 | Designing Ships
 TURN_COLONY_SPENDING              | Colony Allocations
 
+COLONY_VIEW_HELP_1                | Nothing fancy there...<br><br>Just enjoy the view.<br><br>"Z" to see the background alone.<br>→HK_ESCAPE←
+
 // Fleet labels
 MAIN_FLEET_TITLE                  | [fleet_race] Fleet
 MAIN_FLEET_TITLE_UNKNOWN          | Unknown Fleet

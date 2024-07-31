@@ -165,6 +165,43 @@ public interface ICombatOptions extends IBaseOptsTools {
 	default boolean shieldType2D()			{ return shieldType.get().equalsIgnoreCase("2D"); }
 	default boolean shieldType3Buffer()		{ return shieldType.get().equalsIgnoreCase("3B"); }
 	
+	ParamInteger playerAttackConfidence  = new ParamInteger(MOD_UI, "PLAYER_ATTACK_CONFIDENCE", 100)
+			.setLimits(100, 500)
+			.setIncrements(1, 5, 20);
+	ParamInteger playerDefenseConfidence = new ParamInteger(MOD_UI, "PLAYER_DEFENSE_CONFIDENCE", 100)
+			.setLimits(100, 500)
+			.setIncrements(1, 5, 20);
+	ParamInteger aiAttackConfidence		 = new ParamInteger(MOD_UI, "AI_ATTACK_CONFIDENCE", 100)
+			.setLimits(100, 500)
+			.setIncrements(1, 5, 20);
+	ParamInteger aiDefenseConfidence	 = new ParamInteger(MOD_UI, "AI_DEFENSE_CONFIDENCE", 100)
+			.setLimits(100, 500)
+			.setIncrements(1, 5, 20);
+	default float playerAttackConfidence()	{ return playerAttackConfidence.get()/100f; }
+	default float playerDefenseConfidence()	{ return playerDefenseConfidence.get()/100f; }
+	default float aiAttackConfidence()		{ return aiAttackConfidence.get()/100f; }
+	default float aiDefenseConfidence()		{ return aiDefenseConfidence.get()/100f; }
+
+	ParamInteger retreatRestrictionTurns	= new ParamInteger(MOD_UI, "RETREAT_RESTRICTION_TURNS", 100)
+			.setDefaultValue(MOO1_DEFAULT, 1)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20);
+	default int selectedRetreatRestrictionTurns()	{ return retreatRestrictionTurns.get(); }
+
+	ParamList retreatRestrictions			= new ParamList(MOD_UI, "RETREAT_RESTRICTIONS", "None")
+			.setDefaultValue(MOO1_DEFAULT, "Both")
+			.showFullGuide(true)
+			.put("None",	MOD_UI + "RETREAT_NONE")
+			.put("AI",		MOD_UI + "RETREAT_AI")
+			.put("Player",	MOD_UI + "RETREAT_PLAYER")
+			.put("Both",	MOD_UI + "RETREAT_BOTH");
+	default int selectedRetreatRestrictions()	{ return retreatRestrictions.getIndex(); }
+
+	ParamInteger maxCombatTurns		= new ParamInteger(MOD_UI, "MAX_COMBAT_TURNS", 100)
+			.setLimits(10, 1000)
+			.setIncrements(1, 5, 20);
+	default int maxCombatTurns()				{ return maxCombatTurns.get(); }
+
 	ParamBoolean asteroidsVanish			= new ParamBoolean(MOD_UI, "ASTEROIDS_VANISH", true)
 			.setDefaultValue(MOO1_DEFAULT, false)
 			.isValueInit(false);
@@ -215,7 +252,17 @@ public interface ICombatOptions extends IBaseOptsTools {
 				new ParamTitle("ASTEROIDS"),
 				asteroidsVanish,
 				moo1PlanetLocation, moo1AsteroidsLocation,
-				moo1AsteroidsProperties
+				moo1AsteroidsProperties,
+
+				headerSpacer,
+				new ParamTitle("XILMI_AI_OPTIONS"),
+				playerAttackConfidence, playerDefenseConfidence,
+				aiAttackConfidence, aiDefenseConfidence,
+
+				headerSpacer,
+				new ParamTitle("GAME_OTHER"),
+				maxCombatTurns,
+				retreatRestrictions, retreatRestrictionTurns
 				)));
 		return map;
 	};

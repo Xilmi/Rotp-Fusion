@@ -747,34 +747,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             default: return StarType.RED;
         }
     }
-    // BR: Made this String Array public
-    /**
-     * @return List of all planetTypes Key 
-     * in the sequence used by randomPlanet()
-     */
-    private static String[] planetTypes() {
-    	return new String[] {
-    			PlanetType.NONE,
-    			PlanetType.RADIATED,
-    			PlanetType.TOXIC,
-    			PlanetType.INFERNO,
-    			PlanetType.DEAD,
-    			PlanetType.TUNDRA,
-    			PlanetType.BARREN,
-    			PlanetType.MINIMAL,
-    			PlanetType.DESERT,
-    			PlanetType.STEPPE,
-    			PlanetType.ARID,
-    			PlanetType.OCEAN,
-    			PlanetType.JUNGLE,
-    			PlanetType.TERRAN
-    			};
-    } // \BR
-    
-    @Override
-    public Planet randomPlanet(StarSystem s) {
+    @Override public Planet randomPlanet(StarSystem s) {
         Planet p = new Planet(s);
-        String[] planetTypes = planetTypes(); // BR: Made this String Array public
         float[] pcts;
 
         float[] redPcts =    { .05f, .10f, .15f, .20f, .25f, .30f, .35f, .40f, .50f, .60f, .75f, .85f, .95f, 1.0f };
@@ -818,7 +792,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 break;
             }
         }
-        p.initPlanetType(planetTypes[typeIndex]);
+        p.initPlanetType(PlanetType.planetTypes.get(typeIndex));
 
         checkForHostileEnvironment(p, s);
 

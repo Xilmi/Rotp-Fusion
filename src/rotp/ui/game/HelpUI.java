@@ -98,6 +98,10 @@ public class HelpUI extends BasePanel implements MouseListener {
     }
     public int getLineNumber(String str, int maxWidth) {
     	Graphics g = getGraphics();
+    	if (g==null) {
+    		System.err.println("HelpUI.getLineNumber can't get graphic!");
+    		return 10;
+    	}
         int fontSize = FONT_SIZE;
         g.setFont(narrowFont(fontSize));
         List<String> lines = wrappedLines(g, str, maxWidth - s30);

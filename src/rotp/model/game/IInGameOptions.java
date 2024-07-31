@@ -9,7 +9,6 @@ import static rotp.model.game.IAdvOptions.researchRate;
 import static rotp.model.game.IAdvOptions.techTrading;
 import static rotp.model.game.IAdvOptions.terraforming;
 import static rotp.model.game.IAdvOptions.warpSpeed;
-import static rotp.model.game.ICombatOptions.combatOptionsUI;
 import static rotp.model.game.IDebugOptions.debugAutoRun;
 import static rotp.model.game.IFlagOptions.autoFlagOptionsUI;
 import static rotp.model.game.IFlagOptions.flagColorCount;
@@ -34,7 +33,7 @@ import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 
-public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
+public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICombatOptions {
 
 	// ========================================================================
 	// GamePlay options
@@ -43,21 +42,6 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 			.put("Normal",		MOD_UI + "POP_GROWTH_NORMAL")
 			.put("Reduced",		MOD_UI + "POP_GROWTH_REDUCED");
 	default String selectedPopGrowthFactor()	{ return popGrowthFactor.get(); }
-
-	ParamInteger retreatRestrictionTurns	= new ParamInteger(MOD_UI, "RETREAT_RESTRICTION_TURNS", 100)
-			.setDefaultValue(MOO1_DEFAULT, 1)
-			.setLimits(0, 100)
-			.setIncrements(1, 5, 20);
-	default int selectedRetreatRestrictionTurns()	{ return retreatRestrictionTurns.get(); }
-
-	ParamList retreatRestrictions			= new ParamList(MOD_UI, "RETREAT_RESTRICTIONS", "None")
-			.setDefaultValue(MOO1_DEFAULT, "Both")
-			.showFullGuide(true)
-			.put("None",	MOD_UI + "RETREAT_NONE")
-			.put("AI",		MOD_UI + "RETREAT_AI")
-			.put("Player",	MOD_UI + "RETREAT_PLAYER")
-			.put("Both",	MOD_UI + "RETREAT_BOTH");
-	default int selectedRetreatRestrictions()	{ return retreatRestrictions.getIndex(); }
 
 	ParamList targetBombard					= new ParamList(MOD_UI, "TARGET_BOMBARD", "None")
 			.showFullGuide(true)
@@ -140,11 +124,6 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 			.setLimits(null, null)
 			.setIncrements(1, 5, 20);
 	default int selectedBombingTarget()			{ return bombingTarget.get(); }
-
-	ParamInteger maxCombatTurns		= new ParamInteger(MOD_UI, "MAX_COMBAT_TURNS", 100)
-			.setLimits(10, 1000)
-			.setIncrements(1, 5, 20);
-	default int maxCombatTurns()				{ return maxCombatTurns.get(); }
 
 	ParamList autoTerraformEnding	= new ParamList( MOD_UI, "AUTO_TERRAFORM_ENDING", "Populated")
 			.showFullGuide(true)
@@ -283,22 +262,6 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		}
 	}
 
-	ParamInteger playerAttackConfidence  = new ParamInteger(MOD_UI, "PLAYER_ATTACK_CONFIDENCE", 100)
-			.setLimits(100, 500)
-			.setIncrements(1, 5, 20);
-	ParamInteger playerDefenseConfidence = new ParamInteger(MOD_UI, "PLAYER_DEFENSE_CONFIDENCE", 100)
-			.setLimits(100, 500)
-			.setIncrements(1, 5, 20);
-	ParamInteger aiAttackConfidence		 = new ParamInteger(MOD_UI, "AI_ATTACK_CONFIDENCE", 100)
-			.setLimits(100, 500)
-			.setIncrements(1, 5, 20);
-	ParamInteger aiDefenseConfidence	 = new ParamInteger(MOD_UI, "AI_DEFENSE_CONFIDENCE", 100)
-			.setLimits(100, 500)
-			.setIncrements(1, 5, 20);
-	default float playerAttackConfidence()	{ return playerAttackConfidence.get()/100f; }
-	default float playerDefenseConfidence()	{ return playerDefenseConfidence.get()/100f; }
-	default float aiAttackConfidence()		{ return aiAttackConfidence.get()/100f; }
-	default float aiDefenseConfidence()		{ return aiDefenseConfidence.get()/100f; }
 
 	// ==================== GUI List Declarations ====================
 	static SafeListPanel inGameOptionsMap()	{

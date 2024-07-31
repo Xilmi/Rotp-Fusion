@@ -14,6 +14,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - New option to prevent asteroids from disapearing.
   - New option to place Ships and planet in their MoO1 location.
   - New option for asteroids to impact on weapons. (As in MoO1)
+  - Added all options related to Ship combat in the combat option panel.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
