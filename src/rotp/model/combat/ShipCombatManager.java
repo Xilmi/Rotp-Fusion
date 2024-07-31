@@ -66,6 +66,7 @@ public class ShipCombatManager implements Base {
     public boolean[][] asteroidMap = new boolean[maxX+1][maxY+1];
     private boolean initialPause;
     public List<CombatStack> currentTurnList;
+    public boolean moO1Asteroids; // if true => impact beam and missiles
 
     public boolean interdiction()              { return interdiction; }
     public ShipCombatResults results()         { return results; }
@@ -664,6 +665,7 @@ public class ShipCombatManager implements Base {
             results.addEmpire(c);
     }
     private void clearInitialMap() {
+    	moO1Asteroids = options().moo1AsteroidsProperties();
         for (int x=0;x<=maxX;x++) {
             for (int y=0;y<=maxY;y++)
                 initialMap[x][y] = 0;
@@ -681,10 +683,10 @@ public class ShipCombatManager implements Base {
 
         if (options().moo1AsteroidsLocation()) {
         	int numRows = maxY+1;
-        	int numCols = maxX-1; // remove the borders
-        	int numAsteroids = 5 + system.planet().asteroidsCount();
+        	int numCols = maxX-3; // remove the borders
+        	int numAsteroids = 10 + system.planet().asteroidsCount(); // TODO BR: REMOVE THE OFFSET
         	while (numAsteroids>0) {
-        		int x = rng().nextInt(numCols)+1;
+        		int x = rng().nextInt(numCols)+2;
         		int y = rng().nextInt(numRows);
         		int up   = min(y+1, maxY);
         		int down = max(y-1, 0);

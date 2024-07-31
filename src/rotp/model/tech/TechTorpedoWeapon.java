@@ -34,6 +34,7 @@ public final class TechTorpedoWeapon extends Tech {
     public int attacks = 1;
     public int turnsToFire = 1;
     public int damageLoss = 0;
+    public float decay = 0.58f;
 
     public boolean shipOnly = false;
 
@@ -81,6 +82,7 @@ public final class TechTorpedoWeapon extends Tech {
                 cost = 56;
                 computer = 4;
                 range = 8;
+                decay = pctToLive(56);
                 imageKey = "TORPEDO_ANTI_MATTER";
                 break;
             case 1: // HELLFIRE TORPEDOS
@@ -102,6 +104,7 @@ public final class TechTorpedoWeapon extends Tech {
                 power = 400;
                 computer = 6;
                 range = 10;
+                decay = pctToLive(40);
                 imageKey = "TORPEDO_PROTON";
                 break;
             case 3: // PLASMA TORPEDOS
@@ -113,6 +116,7 @@ public final class TechTorpedoWeapon extends Tech {
                 computer = 7;
                 damageLoss = 15;
                 range = 10;
+                decay = pctToLive(32);
                 imageKey = "TORPEDO_PLASMA";
                 break;
         }

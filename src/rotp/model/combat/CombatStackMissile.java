@@ -121,9 +121,11 @@ public class CombatStackMissile extends CombatStack {
         mgr.destroyStack(this);
     }
     public boolean pursue(float tgtMoveDist) {
+        if (mgr.moO1Asteroids)
+        	return pursueMoO1(tgtMoveDist);
         if (!target.visible)
             return true;
-        
+        	
         float targetDist = distanceTo(target.x(), target.y());
         float moveDist = min(move, moveRate * tgtMoveDist);
         float stepPct = min(1,moveDist/targetDist);
@@ -139,10 +141,47 @@ public class CombatStackMissile extends CombatStack {
 
         move = max(0, move - moveDist);
         range -= moveDist;
-        
+       
         // return 'true' if missile is done
         return ((move <= 0) || destroyed());
     }
+    public boolean pursueMoO1(float tgtMoveDist) {
+        if (!target.visible)
+            return true;
+        float targetDist = distanceTo(target.x(), target.y());
+        float moveDist = min(move, moveRate * tgtMoveDist);
+        float stepPct = min(1,moveDist/targetDist);
+
+        float stepX = stepPct * (target.x()-x());
+        float stepY = stepPct * (target.y()-y());
+
+        boolean asteroidStart = mgr.asteroidMap[(int)(x()+0.5f)][(int)(y()+0.5f)];
+        offsetX += stepX;
+        offsetY += stepY;
+        boolean asteroidStop = mgr.asteroidMap[(int)(x()+0.5f)][(int)(y()+0.5f)];
+        if (asteroidStart || asteroidStop) {
+        	System.out.println();
+        	System.out.print("num = " + num);
+        	if (asteroidStart && asteroidStop) {
+        		num = afterDecay(num, missile.decay(), moveDist);
+        	}
+        	else {
+        		num = afterDecay(num, missile.decay(), moveDist/2);
+        	}
+        	if (num == 0)
+        		return true;
+        }
+
+        if (canAttack(target))
+            fireWeapon(target);
+
+        move = max(0, move - moveDist);
+        range -= moveDist;
+       
+        // return 'true' if missile is done
+        return ((move <= 0) || destroyed());
+    }
+   
     private boolean selfDestruct() {
         if (turnsLeft < 1)
             return true;

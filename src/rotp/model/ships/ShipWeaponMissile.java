@@ -43,11 +43,12 @@ public final class ShipWeaponMissile extends ShipWeaponMissileType {
     @Override
     public TechMissileWeapon tech()       { return (TechMissileWeapon) super.tech(); }
     @Override
-    public float computerLevel()         { return tech().computer; }
+    public float computerLevel()          { return tech().computer; }
+    @Override public float decay()        { return tech().decay; };
     @Override
     public Image image(int num)           { return tech().image(num); }
     @Override
-    public float speed()                 { return speed; }
+    public float speed()                  { return speed; }
     @Override
     public int minDamage()                { return tech().damage(); }
     @Override
@@ -59,7 +60,7 @@ public final class ShipWeaponMissile extends ShipWeaponMissileType {
     @Override
     public int shots()                    { return shots; }
     @Override
-    public int scatterAttacks()             { return tech().attacks; }
+    public int scatterAttacks()           { return tech().attacks; }
     @Override
     public int bombardAttacks()           { return shots; }
     @Override

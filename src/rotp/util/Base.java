@@ -1629,4 +1629,23 @@ public interface Base {
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		return g;
     }
+    default float pctToLive(int pctToDie)	{
+    	// pct(distance) = 100 * exp(-decay*distance)
+    	// -decay = ln(pct(1)/100)
+    	int pctToLive = 100-pctToDie;
+    	return (float) -Math.log(pctToLive/100.0);
+    }
+    default float liveToRatio(float survive, float distance)	{
+    	return (float) (Math.exp(-survive * distance));
+    }
+    default int afterDecay(int num, float survive, float distance) {
+    	float ratio = liveToRatio(survive, distance);
+    	if (num > 100)
+    		return (int) Math.round(num * ratio);
+    	int remain = num;
+    	for (int i=0; i<num; i++)
+    		if (random()>ratio)
+    			remain--;
+    	return remain;
+    }
 }

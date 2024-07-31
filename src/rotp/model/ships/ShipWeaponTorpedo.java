@@ -28,15 +28,16 @@ public final class ShipWeaponTorpedo extends ShipWeaponMissileType {
         sequence(t.level + .1f);
     }
     @Override
-    public float planetDamageMod()       { return CombatStackColony.TORPEDO_DAMAGE_MOD; }
+    public float planetDamageMod()        { return CombatStackColony.TORPEDO_DAMAGE_MOD; }
     @Override
     public int bombardAttacks()           { return 5; }
     @Override
     public TechTorpedoWeapon tech()       { return (TechTorpedoWeapon) super.tech(); }
     @Override
-    public float computerLevel()         { return tech().computer; }
+    public float computerLevel()          { return tech().computer; }
+    @Override public float decay()        { return tech().decay; };
     @Override
-    public float damageLoss(float dist) { return dist*tech().damageLoss; }
+    public float damageLoss(float dist)   { return dist*tech().damageLoss; }
     @Override
     public Image image(int num)           { return tech().image(num); }
     @Override
@@ -46,7 +47,7 @@ public final class ShipWeaponTorpedo extends ShipWeaponMissileType {
     @Override
     public int turnsToFire()              { return tech().turnsToFire; }
     @Override
-    public float speed()                 { return tech().speed; }
+    public float speed()                  { return tech().speed; }
     @Override
     public int minDamage()                { return tech().damage(); }
     @Override

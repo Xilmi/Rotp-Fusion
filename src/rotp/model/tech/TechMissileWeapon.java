@@ -43,6 +43,7 @@ public final class TechMissileWeapon extends Tech {
     public float speed2 = 1;
     public int computer = 0;
     public int attacks = 1;
+    public float decay = 0.2f;
 
     public boolean shipOnly = false;
 
@@ -67,11 +68,11 @@ public final class TechMissileWeapon extends Tech {
         baseInit();
     }
     @Override
-    public boolean canBeMiniaturized()      { return true; }
+    public boolean canBeMiniaturized()    { return true; }
     @Override
     public Colony.Orders followup()	      { return Colony.Orders.BASES; }
     @Override
-    public float baseReallocateAmount()          { return .10f; }
+    public float baseReallocateAmount()   { return .10f; }
     public ImageIcon icon(int count) {
         List<ImageIcon> icons = iconsForType(imageType);
         int i = (int) Math.sqrt(count);
@@ -107,6 +108,7 @@ public final class TechMissileWeapon extends Tech {
                 power = 20;
                 shots = 2;  shots2 = 5;
                 range = 6;  range2 = 4;
+                decay = pctToLive(82);
                 baseMissile = new MissileBaseMissile(this, 27);
                 imageKey = "MISSILE_NUCLEAR";
                 break;
@@ -118,6 +120,7 @@ public final class TechMissileWeapon extends Tech {
                 cost = 12;
                 shots = 2;  shots2 = 5;
                 range = 7;  range2 = 5;
+                decay = pctToLive(82);
                 baseMissile = new MissileBaseMissile(this, 38);
                 imageKey = "MISSILE_HYPER_V";
                 break;
@@ -130,6 +133,7 @@ public final class TechMissileWeapon extends Tech {
                 computer = 1;
                 shots = 2;  shots2 = 5;
                 range = 7;  range2 = 5;
+                decay = pctToLive(72);
                 baseMissile = new MissileBaseMissile(this, 65);
                 imageKey = "MISSILE_HYPER_X";
                 break;
@@ -142,6 +146,7 @@ public final class TechMissileWeapon extends Tech {
                 attacks = 5;
                 shots = 2;  shots2 = 5;
                 range = 7;  range2 = 5;
+                decay = pctToLive(72);
                 baseMissile = new MissileBaseMissile(this, 97);
                 imageKey = "MISSILE_SCATTER_PACK_V";
                 break;
@@ -154,6 +159,7 @@ public final class TechMissileWeapon extends Tech {
                 computer = 2;
                 shots = 2;  shots2 = 5;
                 range = 8;  range2 = 6;
+                decay = pctToLive(64);
                 baseMissile = new MissileBaseMissile(this, 70);
                 imageKey = "MISSILE_MERCULITE";
                 break;
@@ -166,6 +172,7 @@ public final class TechMissileWeapon extends Tech {
                 computer = 3;
                 shots = 2;  shots2 = 5;
                 range = 9;  range2 = 7;
+                decay = pctToLive(56);
                 baseMissile = new MissileBaseMissile(this, 84);
                 imageKey = "MISSILE_STINGER";
                 break;
@@ -179,6 +186,7 @@ public final class TechMissileWeapon extends Tech {
                 attacks = 7;
                 shots = 2;  shots2 = 5;
                 range = 8;  range2 = 6;
+                decay = pctToLive(64);
                 baseMissile = new MissileBaseMissile(this, 151);
                 imageKey = "MISSILE_SCATTER_PACK_VII";
                 break;
@@ -191,6 +199,7 @@ public final class TechMissileWeapon extends Tech {
                 computer = 4;
                 shots = 2;  shots2 = 5;
                 range = 10;  range2 = 8;
+                decay = pctToLive(56);
                 baseMissile = new MissileBaseMissile(this, 108);
                 imageKey = "MISSILE_PULSON";
                 break;
@@ -203,6 +212,7 @@ public final class TechMissileWeapon extends Tech {
                 computer = 5;
                 shots = 2;  shots2 = 5;
                 range = 10;  range2 = 9;
+                decay = pctToLive(48);
                 baseMissile = new MissileBaseMissile(this, 141);
                 imageKey = "MISSILE_HERCULAR";
                 break;
@@ -215,6 +225,7 @@ public final class TechMissileWeapon extends Tech {
                 computer = 6;
                 shots = 2;  shots2 = 5;
                 range = 10;  range2 = 10; // modnar: correct missile range
+                decay = pctToLive(40);
                 baseMissile = new MissileBaseMissile(this, 162);
                 imageKey = "MISSILE_ZEON";
                 break;
@@ -228,6 +239,7 @@ public final class TechMissileWeapon extends Tech {
                 attacks = 10;
                 shots = 2;  shots2 = 5;
                 range = 9;  range2 = 7; // modnar: correct missile range
+                decay = pctToLive(56);
                 baseMissile = new MissileBaseMissile(this, 162);
                 imageKey = "MISSILE_SCATTER_PACK_X";
                 break;
