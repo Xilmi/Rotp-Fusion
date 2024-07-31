@@ -93,6 +93,7 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	}
 	@Override protected Boolean getOptionValue(IGameOptions options) {
 		Boolean value = options.dynOpts().getBoolean(getLangLabel());
+		//System.out.println("getOptionValue " + getCfgLabel() + " " + value);
 		if (value == null)
 			if (formerName() == null)
 				value = creationValue();
@@ -102,6 +103,7 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	}
 	@Override protected void setOptionValue(IGameOptions options, Boolean value) {
 		options.dynOpts().setBoolean(getLangLabel(), value);
+		//System.out.println("setOptionValue " + getCfgLabel() + " " + value);
 	}
 	// ===== Other Methods =====
 	//
