@@ -993,12 +993,12 @@ public class ShipFleet extends FleetBase {
                         int bombAtt = d.weapon(j).bombardAttacks() - bombardCount(i);
                         int numAttacks = num[i] * attackCount * wpnCount * bombAtt;
                         for (int k=0; k<numAttacks && system().population()>popLim; k++)
-                            d.weapon(j).fireUpon(shipStack, colonyStack, 1);
+                            d.weapon(j).fireUpon(shipStack, colonyStack, 1, mgr);
                     }
                     for (int j=0;j<ShipDesign.maxSpecials();j++) {
                         int numAttacks = d.special(j).bombardAttacks() - bombardCount(i);
                         for (int k=0; k<numAttacks && system().population()>popLim; k++)
-                            d.special(j).fireUpon(shipStack, colonyStack, 1);
+                            d.special(j).fireUpon(shipStack, colonyStack, 1, mgr);
                     }
                 }
             }
@@ -1030,12 +1030,12 @@ public class ShipFleet extends FleetBase {
                         int bombAtt = d.weapon(j).bombardAttacks() - bombardCount(i);
                         int numAttacks = num[i] * attackCount * wpnCount * bombAtt;
                         for (int k=0;k<numAttacks && system().isColonized();k++)
-                            d.weapon(j).fireUpon(shipStack, colonyStack, 1);
+                            d.weapon(j).fireUpon(shipStack, colonyStack, 1, mgr);
                     }
                     for (int j=0;j<ShipDesign.maxSpecials();j++) {
                         int numAttacks = d.special(j).bombardAttacks() - bombardCount(i);
                         for (int k=0;k<numAttacks && system().isColonized();k++)
-                            d.special(j).fireUpon(shipStack, colonyStack, 1);
+                            d.special(j).fireUpon(shipStack, colonyStack, 1, mgr);
                     }
                 }
             }

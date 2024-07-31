@@ -1,6 +1,5 @@
 package rotp.model.game;
 
-import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.IGameOptions.AI_HOSTILITY_NORMAL;
 import static rotp.model.game.IGameOptions.AUTOPLAY_OFF;
 import static rotp.model.game.IGameOptions.COLONIZING_NORMAL;

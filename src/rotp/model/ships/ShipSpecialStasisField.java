@@ -17,6 +17,7 @@ package rotp.model.ships;
 
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackShip;
+import rotp.model.combat.ShipCombatManager;
 import rotp.model.tech.TechStasisField;
 
 public final class ShipSpecialStasisField extends ShipSpecial {
@@ -49,7 +50,7 @@ public final class ShipSpecialStasisField extends ShipSpecial {
     @Override
     public void becomeDestroyed()  { breakStasis(); }
     @Override
-    public void fireUpon(CombatStack source, CombatStack tgt, int count)   {
+    public void fireUpon(CombatStack source, CombatStack tgt, int count, ShipCombatManager mgr)   {
         if (tgt.immuneToStasis())
             return;
         if (tgt.isShip()) {

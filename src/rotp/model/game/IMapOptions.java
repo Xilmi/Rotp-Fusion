@@ -1,7 +1,5 @@
 package rotp.model.game;
 
-import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
-
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;

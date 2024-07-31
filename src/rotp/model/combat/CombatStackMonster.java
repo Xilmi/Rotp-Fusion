@@ -188,7 +188,7 @@ public class CombatStackMonster extends CombatStack {
 			}
 			else {
 				log(fullName(), " firing ", str(count), " ", selectedWeapon.name(), " at ", targetStack.fullName());
-				selectedWeapon.fireUpon(this, target, count);
+				selectedWeapon.fireUpon(this, target, count, mgr);
 			}
 			if (target == null)
 				log("TARGET IS NULL AFTER BEING FIRED UPON!");

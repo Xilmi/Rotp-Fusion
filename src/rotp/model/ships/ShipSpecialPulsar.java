@@ -16,6 +16,7 @@
 package rotp.model.ships;
 
 import rotp.model.combat.CombatStack;
+import rotp.model.combat.ShipCombatManager;
 import rotp.model.tech.TechEnergyPulsar;
 
 public final class ShipSpecialPulsar extends ShipSpecial {
@@ -41,7 +42,7 @@ public final class ShipSpecialPulsar extends ShipSpecial {
         return target.num * Math.min(1,(dam/target.maxStackHits()));
     }
     @Override
-    public void fireUpon(CombatStack source, CombatStack target, int count) {
+    public void fireUpon(CombatStack source, CombatStack target, int count, ShipCombatManager mgr) {
         float maxDam = tech().firstShipDamage + (int)((tech().extraShipDamage * (source.num-1)));
         float dam = roll(1,(int)maxDam);
 

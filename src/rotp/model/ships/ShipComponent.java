@@ -21,6 +21,7 @@ import java.util.Comparator;
 import java.util.Objects;
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackColony;
+import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
 import rotp.model.tech.Tech;
 import rotp.util.Base;
@@ -76,7 +77,7 @@ public class ShipComponent implements Base, Serializable {
     public void becomeDestroyed()        { }
     public float estimatedKills(CombatStack source, CombatStack target, int num) {  return 0; }
 
-    public void fireUpon(CombatStack source, CombatStack target, int count)      { 	}
+    public void fireUpon(CombatStack source, CombatStack target, int count, ShipCombatManager mgr)      { 	}
     public boolean isNone()          { return nullTech(); }
     public String name()             { return techId == null ? "" : tech().item(); }
     public String desc()             { return techId == null ? "" : tech().brief(); }

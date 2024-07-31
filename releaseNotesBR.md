@@ -13,6 +13,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - New option to set MoO1 like astrroids distribution.
   - New option to prevent asteroids from disapearing.
   - New option to place Ships and planet in their MoO1 location.
+  - New option for asteroids to impact on weapons. (As in MoO1)
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
@@ -47,6 +48,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - New option to set MoO1 like astrroids distribution.
     - New option to prevent asteroids from disapearing.
     - New option to place Ships and planet in their MoO1 location.
+    - New option for asteroids to impact on weapons. (As in MoO1)
 - Governor Options:
   - Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"
   - The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.

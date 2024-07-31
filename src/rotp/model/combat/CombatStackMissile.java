@@ -114,7 +114,7 @@ public class CombatStackMissile extends CombatStack {
     }
     @Override
     public void fireWeapon(CombatStack target) {
-        missile.fireUpon(this, target, num);
+        missile.fireUpon(this, target, num, mgr);
         //if (target.damageSustained > 0)
         //    log("missile damage: ", str(target.damageSustained));
 
@@ -155,19 +155,18 @@ public class CombatStackMissile extends CombatStack {
         float stepX = stepPct * (target.x()-x());
         float stepY = stepPct * (target.y()-y());
 
-        boolean asteroidStart = mgr.asteroidMap[(int)(x()+0.5f)][(int)(y()+0.5f)];
+        boolean asteroidStart = mgr.isAsteroid(x(), y());
         offsetX += stepX;
         offsetY += stepY;
-        boolean asteroidStop = mgr.asteroidMap[(int)(x()+0.5f)][(int)(y()+0.5f)];
+        boolean asteroidStop = mgr.isAsteroid(x(), y());
         if (asteroidStart || asteroidStop) {
-        	System.out.println();
-        	System.out.print("num = " + num);
         	if (asteroidStart && asteroidStop) {
         		num = afterDecay(num, missile.decay(), moveDist);
         	}
         	else {
         		num = afterDecay(num, missile.decay(), moveDist/2);
         	}
+        	sleep(500);
         	if (num == 0)
         		return true;
         }

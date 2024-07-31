@@ -412,7 +412,7 @@ public class CombatStackShip extends CombatStack {
             }
             else {
                 //log(fullName(), " firing ", str(count), " ", selectedWeapon.name(), " at ", targetStack.fullName());
-                selectedWeapon.fireUpon(this, target, count);
+                selectedWeapon.fireUpon(this, target, count, mgr);
             }
             if (selectedWeapon.isLimitedShotWeapon())
                 roundsRemaining[index] = max(0, roundsRemaining[index]-1);

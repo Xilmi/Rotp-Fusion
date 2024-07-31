@@ -19,6 +19,7 @@ import java.awt.Component;
 import java.awt.Image;
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackColony;
+import rotp.model.combat.ShipCombatManager;
 
 public class ShipWeaponMissileType extends ShipWeapon {
     private static final long serialVersionUID = 1L;
@@ -50,7 +51,7 @@ public class ShipWeaponMissileType extends ShipWeapon {
     @Override
     public void drawAttackEffect(CombatStack source, CombatStack target, Component comp) { }
     @Override
-    public void fireUpon(CombatStack source, CombatStack target, int count) {
+    public void fireUpon(CombatStack source, CombatStack target, int count, ShipCombatManager mgr) {
         if (random() < target.autoMissPct())
         {
             if(target.mgr.showAnimations())

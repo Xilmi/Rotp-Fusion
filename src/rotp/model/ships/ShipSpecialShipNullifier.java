@@ -18,6 +18,7 @@ package rotp.model.ships;
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackColony;
 import rotp.model.combat.CombatStackShip;
+import rotp.model.combat.ShipCombatManager;
 import rotp.model.tech.TechShipNullifier;
 
 public final class ShipSpecialShipNullifier extends ShipSpecial {
@@ -37,7 +38,7 @@ public final class ShipSpecialShipNullifier extends ShipSpecial {
     @Override
     public int range()              { return tech().range; }
     @Override
-    public void fireUpon(CombatStack source, CombatStack target, int count) {
+    public void fireUpon(CombatStack source, CombatStack target, int count, ShipCombatManager mgr) {
         if (random() < tech().hitChance)
             makeSuccessfulAttack(source, target);
         else

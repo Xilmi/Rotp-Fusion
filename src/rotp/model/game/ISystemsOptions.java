@@ -1,6 +1,5 @@
 package rotp.model.game;
 
-import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
 
 import java.util.Arrays;

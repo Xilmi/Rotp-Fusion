@@ -1,7 +1,5 @@
 package rotp.model.game;
 
-import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
-import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
 import static rotp.model.game.IAdvOptions.aiHostility;
 import static rotp.model.game.IAdvOptions.colonizing;
 import static rotp.model.game.IAdvOptions.councilWin;

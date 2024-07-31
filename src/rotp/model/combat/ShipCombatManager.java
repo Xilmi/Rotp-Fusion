@@ -67,7 +67,36 @@ public class ShipCombatManager implements Base {
     private boolean initialPause;
     public List<CombatStack> currentTurnList;
     public boolean moO1Asteroids; // if true => impact beam and missiles
-
+    public boolean isAsteroid(float x, float y) { return asteroidMap[(int)(x+0.5)][(int)(y+0.5)]; }
+    public int asteroidsInPath(float srcX, float srcY, float tarX, float tarY) {
+    	// Maybe take spreading into account an fractional impact 
+    	int count = 0;
+    	float dX = tarX - srcX;
+    	float dY = tarY - srcY;
+    	float dist = (float) Math.sqrt(dX*dX + dY*dY);
+    	float step = 0.2f;
+    	float stepX = step * dX/dist;
+    	float stepY = step * dY/dist;
+    	int   lastX = -1;
+    	int   lastY = -1;
+       	float x = srcX;
+       	float y = srcY;
+       	while (dist>0) {
+       		x += stepX;
+       		y += stepY;
+       		dist -= step;
+       		if (isAsteroid(x, y)) {
+      			int idX = (int)(x+0.5);
+      			int idY = (int)(y+0.5);
+      			if (lastX != idX || lastY != idY) {
+      				count++;
+      				lastX = idX;
+      				lastY = idY;
+      			}
+       		}
+       	}
+    	return count;
+    }
     public boolean interdiction()              { return interdiction; }
     public ShipCombatResults results()         { return results; }
     public StarSystem system()                 { return system; }
@@ -684,7 +713,7 @@ public class ShipCombatManager implements Base {
         if (options().moo1AsteroidsLocation()) {
         	int numRows = maxY+1;
         	int numCols = maxX-3; // remove the borders
-        	int numAsteroids = 10 + system.planet().asteroidsCount(); // TODO BR: REMOVE THE OFFSET
+        	int numAsteroids = system.planet().asteroidsCount();
         	while (numAsteroids>0) {
         		int x = rng().nextInt(numCols)+2;
         		int y = rng().nextInt(numRows);

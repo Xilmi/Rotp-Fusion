@@ -18,6 +18,7 @@ package rotp.model.ships;
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackColony;
 import rotp.model.combat.CombatStackShip;
+import rotp.model.combat.ShipCombatManager;
 import rotp.model.tech.TechStreamProjector;
 
 public final class ShipSpecialProjector extends ShipSpecial {
@@ -45,7 +46,7 @@ public final class ShipSpecialProjector extends ShipSpecial {
         return dam / target.maxStackHits() * target.num;
     }
     @Override
-    public void fireUpon(CombatStack source, CombatStack target, int count)      {
+    public void fireUpon(CombatStack source, CombatStack target, int count, ShipCombatManager mgr) {
         float armorMod = tech().armorMod(count);
         if (target.isShip()) {
             CombatStackShip st	= (CombatStackShip) target;

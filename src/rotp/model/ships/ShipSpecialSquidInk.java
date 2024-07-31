@@ -16,6 +16,7 @@
 package rotp.model.ships;
 
 import rotp.model.combat.CombatStack;
+import rotp.model.combat.ShipCombatManager;
 import rotp.model.tech.TechSquidInk;
 
 public final class ShipSpecialSquidInk extends ShipSpecial {
@@ -34,7 +35,7 @@ public final class ShipSpecialSquidInk extends ShipSpecial {
 		float pct = .2f;
 		return target.num * pct;
 	}
-	@Override public void	 fireUpon(CombatStack source, CombatStack target, int count) {
+	@Override public void	 fireUpon(CombatStack source, CombatStack target, int count, ShipCombatManager mgr) {
 		float pct = (random()*.2f) + .1f;
 		// modnar: bug fix for Black Hole damage numbers
 		float pctLoss = (float)Math.max(0.0f, pct - (target.shieldLevel() / 50) - target.blackHoleDef());

@@ -1,7 +1,6 @@
 package rotp.model.game;
 
 import static rotp.model.game.DefaultValues.DEF_VAL;
-import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.IGalaxyOptions.GalaxyOption.GOI;
 import static rotp.model.game.IGameOptions.DIFFICULTY_NORMAL;
 import static rotp.model.game.IGameOptions.getGameDifficultyOptions;

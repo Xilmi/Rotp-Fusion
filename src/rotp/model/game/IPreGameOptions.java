@@ -1,8 +1,5 @@
 package rotp.model.game;
 
-import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
-import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;

@@ -17,6 +17,7 @@ package rotp.model.ships;
 
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackColony;
+import rotp.model.combat.ShipCombatManager;
 import rotp.model.tech.TechBombWeapon;
 
 public final class ShipWeaponBomb extends ShipWeapon {
@@ -50,7 +51,7 @@ public final class ShipWeaponBomb extends ShipWeapon {
         return super.estimatedBombardDamage(source, target) * target.bombDamageMod();
     }
     @Override
-    public void fireUpon(CombatStack source, CombatStack target, int count) {
+    public void fireUpon(CombatStack source, CombatStack target, int count, ShipCombatManager mgr) {
         float defense = target.bombDefense();
         float attack = source.attackLevel();
         float pct = (5 + attack - defense) / 10;

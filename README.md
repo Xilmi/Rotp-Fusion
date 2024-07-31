@@ -74,9 +74,7 @@ Later:
   - New option to set MoO1 like astrroids distribution.
   - New option to prevent asteroids from disapearing.
   - New option to place Ships and planet in their MoO1 location.
-  - New option for asteroids to impact on weapon.
-    - Impact missiles
-    - Todo Torpedoes, Beams.
+  - New option for asteroids to impact on weapons. (As in MoO1)
 
 2024.07.29 (BR)
 - Added Gaia homeworld option.

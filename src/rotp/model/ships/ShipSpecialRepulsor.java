@@ -16,6 +16,7 @@
 package rotp.model.ships;
 
 import rotp.model.combat.CombatStack;
+import rotp.model.combat.ShipCombatManager;
 import rotp.model.tech.TechRepulsor;
 
 public final class ShipSpecialRepulsor extends ShipSpecial {
@@ -35,7 +36,7 @@ public final class ShipSpecialRepulsor extends ShipSpecial {
     @Override
     public int range()                   { return 1; }
     @Override
-    public void fireUpon(CombatStack source, CombatStack target, int count) {
+    public void fireUpon(CombatStack source, CombatStack target, int count, ShipCombatManager mgr) {
         makeSuccessfulAttack(source, target);
     }
     private void makeSuccessfulAttack(CombatStack source, CombatStack target) {

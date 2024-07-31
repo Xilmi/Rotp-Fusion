@@ -17,6 +17,7 @@ package rotp.model.ships;
 
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackColony;
+import rotp.model.combat.ShipCombatManager;
 import rotp.model.tech.TechBiologicalWeapon;
 
 public final class ShipWeaponBiological extends ShipWeapon {
@@ -54,7 +55,7 @@ public final class ShipWeaponBiological extends ShipWeapon {
         return bombardAttacks()*avg;
     }
     @Override
-    public void fireUpon(CombatStack source, CombatStack target, int count) {
+    public void fireUpon(CombatStack source, CombatStack target, int count, ShipCombatManager mgr) {
         source.usedBioweapons();
         float defense = target.bioweaponDefense();
         float attack = source.attackLevel();
