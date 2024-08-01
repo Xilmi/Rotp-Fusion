@@ -66,6 +66,7 @@ import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.history.HistoryUI.GalaxyMapPane;
 import rotp.ui.map.IMapHandler;
 import rotp.ui.sprites.FlightPathDisplaySprite;
 import rotp.ui.sprites.FlightPathSprite;
@@ -1355,6 +1356,13 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     @Override
     public void mouseReleased(MouseEvent e) {
     	setModifierKeysState(e); // BR: For the Flag color selection
+    	if (historyMode) {
+    		GalaxyMapPane historyPane = (GalaxyMapPane) parent;
+    		if (historyPane.showHelp) {
+    			historyPane.cancelHelp();
+    			return;
+    		}
+    	}
         boolean shift = e.isShiftDown();
         if (dragSelecting) {
             if ((selectX0 != selectX1) && (selectY0 != selectY1)) 

@@ -37,10 +37,6 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-- Monsters:
-  - Option to change their travel time.
-  - More Planet Monsters Guardian.
-- Add Help to History.
 - Some Achievements options.
 - Add option to limit random event tech generosity... (For slow research, etc...)
 - Option to continue game after victory!
@@ -49,6 +45,9 @@ Console Next steps: (Sequence probably not definitive)
 - Access optional turn reports and spy reports.
 
 Later:
+- Monsters:
+  - Option to change their travel time.
+  - More Planet Monsters Guardian.
 - Add a temerity setting to custom species.
 - Color List for opponents...
 - Some kind of positive monster like instead of attacking strong empires it defends weak empires
@@ -66,6 +65,9 @@ Later:
 
 
 ## What's New
+
+2024.08.01 (BR)
+- Added Help to History View.
 
 2024.07.31 (BR)
 - Added help to the colony view.

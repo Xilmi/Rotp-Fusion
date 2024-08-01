@@ -15,6 +15,8 @@
  */
 package rotp.ui.game;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,6 +24,7 @@ import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class HelpUI extends BasePanel implements MouseListener {
     private static final Color backgroundHaze = new Color(0,0,0,40);
     private static final int FONT_SIZE		= 16;
     private static final int MIN_FONT_SIZE	= 10;
+    private static final BufferedImage fakeGraphic = new BufferedImage(16, 16, TYPE_INT_ARGB);
     private final Color blueBackC  = new Color(78,101,155);
     private final Color brownBackC = new Color(240,240,240);
     private final Color brownTextC = new Color(45,14,5);
@@ -98,9 +102,8 @@ public class HelpUI extends BasePanel implements MouseListener {
     }
     public int getLineNumber(String str, int maxWidth) {
     	Graphics g = getGraphics();
-    	if (g==null) {
-    		System.err.println("HelpUI.getLineNumber can't get graphic!");
-    		return 10;
+    	if (g==null) {// BR: because this may happen !?
+    		g = (Graphics2D) fakeGraphic.getGraphics();
     	}
         int fontSize = FONT_SIZE;
         g.setFont(narrowFont(fontSize));

@@ -48,6 +48,8 @@ import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.HelpUI;
+import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
@@ -282,6 +284,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
     	options().replayTurnPace(turnPace);
     	//System.out.println("TurnPace: " + turnPace + " x 100 ms");
     }
+
     @Override
     public void animate() {
         if (paused)
@@ -302,6 +305,13 @@ public final class HistoryUI extends BasePanel implements MouseListener {
     	setModifierKeysState(e); // BR: For the Flag color selection
         int k = e.getKeyCode();
         switch(k) {
+			case KeyEvent.VK_F1:
+				mapPane.showHelp();
+				return;
+        	case KeyEvent.VK_L:
+        		if (e.isAltDown())
+					reloadLabels();
+				return;
         	case KeyEvent.VK_1:
         		setTurnPace(1, e);
         		break;
@@ -385,8 +395,10 @@ public final class HistoryUI extends BasePanel implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
     	setModifierKeysState(e); // BR: For the Flag color selection
-        if ((e.getButton() > 3) || e.getClickCount() > 1)
-            return;
+    	if (mapPane.showHelp) {
+    		cancelHelp();
+    		return;
+    	}
     }
     final class TitlePanel extends BasePanel {
         private static final long serialVersionUID = 1L;
@@ -642,6 +654,11 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         public void mousePressed(MouseEvent e) { }
         @Override
         public void mouseReleased(MouseEvent e) {
+        	if (mapPane.showHelp) {
+        		cancelHelp();
+        		return;
+        	}
+
             if ((hoverTarget == nextTurnBox) && canNextTurn()) {
                 softClick(); 
                 nextTurn();
@@ -705,9 +722,10 @@ public final class HistoryUI extends BasePanel implements MouseListener {
                repaint();
         }
     }
-    class GalaxyMapPane extends BasePanel implements IMapHandler {
+    public class GalaxyMapPane extends BasePanel implements IMapHandler {
         private static final long serialVersionUID = 1L;
         private LinearGradientPaint backGradient;
+        public boolean showHelp = false;
         public GalaxyMapPane() {
             init0();
         }
@@ -743,6 +761,30 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         }
         @Override
         public GalaxyMapPanel map()         { return map; }
+    	private void loadHelpUI()			{
+    		HelpUI helpUI = RotPUI.helpUI();
+    		helpUI.clear();
+    		int w = getWidth();
+    		int w0 = scaled(350);
+            int x0 = (w - w0)/2;
+            int y0 = scaled(50);
+            HelpSpec sp0 = helpUI.addBrownHelpText(x0, y0, w0, 0, text("HISTORY_HELP_MAIN"));
+             
+    		int w1 = scaled(300);
+            int x1 = (w - w1)/2;;
+            int y1 = sp0.ye() + scaled(30);
+            helpUI.addBrownHelpText(x1, y1, w1, 0, text("HISTORY_HELP_HK"));
+
+            showHelp = true;
+            repaint();
+    	}
+    	@Override public void showHelp()	{ loadHelpUI(); }
+    	@Override public void advanceHelp()	{ cancelHelp(); }
+    	@Override public void cancelHelp()	{
+    		showHelp = false;
+    		RotPUI.helpUI().clear();
+    		repaint();
+    	}
         @Override
         public void drawTitle(Graphics2D g) { 
             int w = getWidth();
@@ -960,6 +1002,12 @@ public final class HistoryUI extends BasePanel implements MouseListener {
                     drawString(g,amt, x1-sw0-s10, y1);
                     drawString(g,emp.raceName(), x1, y1);
                 }
+            }
+            // Show Help
+            // BR: Normal help call just close this pane!
+            // So this is the work around
+            if (showHelp) {
+            	RotPUI.helpUI().paintComponent(g);
             }
         }
     }

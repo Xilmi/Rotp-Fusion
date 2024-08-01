@@ -977,7 +977,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
         int x0 = (w - w0)/2;
         int y0 = scaled(80);
 	
-        helpUI.addBrownHelpText(x0, y0, w0, 7, text("COLONY_VIEW_HELP_1"));
+        helpUI.addBrownHelpText(x0, y0, w0, 0, text("COLONY_VIEW_HELP_1"));
         helpUI.open(this);
 	}
 	@Override public void showHelp()					{

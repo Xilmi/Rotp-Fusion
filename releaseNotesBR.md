@@ -11,6 +11,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - New options to define the "Low" and "High" asteroid density.
   - New options to set the probability for a planet to get "Low" and "High" asteroid density.
   - Added all options related to Ship combat in the combat option panel.
+- Added Help to History View.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
