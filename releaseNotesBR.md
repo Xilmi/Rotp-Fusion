@@ -3,17 +3,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Fixed sound and music toggling bug.
-- Fixed Orion Guardian new missile graphic bug.
-- Smart/Smooth Min/Max optimization.
-  - Freed up BC will now be smartly redistributed, priorizing colony orders. (The ones you can gives after a Technology update, displayed in blue)
-- For trackpad user: Music and soud level can now be adjusted with right-click / Shift-right-click.
-- Fixed disabling untested new feature.
 - Ship Combat:
   - New option to set MoO1 like astrroids distribution.
   - New option to prevent asteroids from disapearing.
   - New option to place Ships and planet in their MoO1 location.
   - New option for asteroids to impact on weapons. (As in MoO1)
+  - New options to define the "Low" and "High" asteroid density.
+  - New options to set the probability for a planet to get "Low" and "High" asteroid density.
   - Added all options related to Ship combat in the combat option panel.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

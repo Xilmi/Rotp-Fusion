@@ -711,11 +711,13 @@ public class ShipCombatManager implements Base {
         clearAsteroids();
 
         if (options().moo1AsteroidsLocation()) {
+        	int emptyCols = 2;
         	int numRows = maxY+1;
-        	int numCols = maxX-3; // remove the borders
+        	int numCols = maxX+1 - 2*emptyCols; // remove the borders
         	int numAsteroids = system.planet().asteroidsCount();
-        	while (numAsteroids>0) {
-        		int x = rng().nextInt(numCols)+2;
+        	int maxLoop = 100;
+        	while (numAsteroids>0 && maxLoop>0) {
+        		int x = rng().nextInt(numCols)+emptyCols;
         		int y = rng().nextInt(numRows);
         		int up   = min(y+1, maxY);
         		int down = max(y-1, 0);
@@ -733,6 +735,12 @@ public class ShipCombatManager implements Base {
         			initialMap [x][y] = ASTEROID;
         			numAsteroids--;
         		}
+       			maxLoop--;
+       			if (maxLoop<50) {
+       				emptyCols = 1;
+       				numCols = maxX+1 - 2*emptyCols;
+       			}
+       				
         	}
         	return;
         }

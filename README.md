@@ -69,7 +69,8 @@ Later:
 
 2024.07.31 (BR)
 - Added help to the colony view.
-- Added all options related to Ship combat in the combat option panel. 
+- Added all options related to Ship combat in the combat option panel.
+- New option to define the "Low" and "High" asteroid density, and the probability for a planet to get them.
 
 2024.07.30 (BR)
 - For trackpad user: Music and soud level can now be adjusted with right-click / Shift-right-click.

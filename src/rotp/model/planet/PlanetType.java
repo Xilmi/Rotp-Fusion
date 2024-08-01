@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import rotp.model.empires.Empire;
+import rotp.model.game.IGameOptions;
 import rotp.ui.util.planets.Sphere2D;
 import rotp.util.Base;
 import rotp.util.ColorMap;
@@ -304,10 +305,12 @@ public class PlanetType implements Base {
     	int typeIdx  = planetTypes.indexOf(type);
     	if (typeIdx == 0)
     		return new int[] {0, 0, 100};
-    	int noneBase = 46;
-    	int noneStep = 1;
-    	int lowBase  = 25;
-    	int lowStep  = 0;
+    	IGameOptions opts = options();
+    	int noneBase = opts.baseNoAsteroidsProbPct();
+    	int noneStep = opts.stepNoAsteroidsProbPct();
+    	int lowBase  = opts.baseLowAsteroidsProbPct();
+    	int lowStep  = opts.stepLowAsteroidsProbPct();
+
     	int none = noneBase + (typeIdx-1) * noneStep;
     	int low  = lowBase  + (typeIdx-1) * lowStep;
     	return new int[] {none, low};

@@ -2752,6 +2752,33 @@ SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES      | Impact weapons: %1
 SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_DESC | Asteroids will partially destroy missiles and reduce beam effectiveness, per MoO 1 rules.
 SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_HELP | Asteroids will partially destroy missiles and reduce beam effectiveness, per MoO 1 rules.<br>When beam weapons fire through any asteroid squares, the defender gets +3 added to his Beam Defense Level.<br> Each missile or torpedo that moves through an asteroid square has a chance to be destroyed:<br>Nuclear and Hyper V: 80%<br>Hyper X and Scatter Pack V : 72%<br>Merculite and Scatter Pack VII : 64%<br>Stinger, Scatter Pack X, Pulson, and Anti-Matter Torpedo: 56%<br>Hercular: 48%<br>Hellfire, Zeon, and Proton Torpedoes: 40%<br>Plasma Torpedo: 32%
 
+PLANET_TYPE_LIST                         | The planet type sequence is: <br>RADIATED, TOXIC, INFERNO, DEAD, TUNDRA, BARREN, MINIMAL, DESERT, STEPPE, ARID, OCEAN, JUNGLE, TERRAN
+SETTINGS_MOD_BASE_NO_ASTEROIDS           | Base None: %1%
+SETTINGS_MOD_BASE_NO_ASTEROIDS_DESC      | Base probability to have no asteroids around the planets, based on their type.
+SETTINGS_MOD_STEP_NO_ASTEROIDS           | Step None: %1%
+SETTINGS_MOD_STEP_NO_ASTEROIDS_DESC      | Incremental probability to have no asteroids around the planets, based on their type.<br> There are 13 planet types. When the star has no planets, there will be a high asteroid density.
+SETTINGS_MOD_STEP_NO_ASTEROIDS_HELP      | →SETTINGS_MOD_STEP_NO_ASTEROIDS_DESC←<br>→PLANET_TYPE_LIST←
+
+SETTINGS_MOD_BASE_LOW_ASTEROIDS          | Base Low: %1%
+SETTINGS_MOD_BASE_LOW_ASTEROIDS_DESC     | Base probability to have a low asteroid density around the planets, based on their type.
+SETTINGS_MOD_STEP_LOW_ASTEROIDS          | Step Low: %1%
+SETTINGS_MOD_STEP_LOW_ASTEROIDS_DESC     | Incremental probability to have a low asteroid density around the planets, based on their type.<br> There are 13 planet types. When the star has no planets, there will be a high asteroid density.
+SETTINGS_MOD_STEP_LOW_ASTEROIDS_HELP     | →SETTINGS_MOD_STEP_LOW_ASTEROIDS_DESC←<br>→PLANET_TYPE_LIST←
+
+SETTINGS_MOD_RICH_NO_ASTEROIDS           | Rich Offset: %1%
+SETTINGS_MOD_RICH_NO_ASTEROIDS_DESC      | Incremental probability to have a low asteroid density around rich planets.
+SETTINGS_MOD_U_RICH_NO_ASTEROIDS         | U-Rich Offset: %1%
+SETTINGS_MOD_U_RICH_NO_ASTEROIDS_DESC    | Incremental probability to have a low asteroid density around ultra-rich planets.
+
+SETTINGS_MOD_MIN_LOW_ASTEROIDS           | Low Min: %1
+SETTINGS_MOD_MIN_LOW_ASTEROIDS_DESC      | Low Asteroid Density: Minimum number of asteroids that can appear on the battle screen.
+SETTINGS_MOD_MAX_LOW_ASTEROIDS           | Low Max: %1
+SETTINGS_MOD_MAX_LOW_ASTEROIDS_DESC      | Low Asteroid Density: Maximum number of asteroids that can appear on the battle screen.
+
+SETTINGS_MOD_MIN_HIGH_ASTEROIDS          | High Min: %1
+SETTINGS_MOD_MIN_HIGH_ASTEROIDS_DESC     | High Asteroid Density: Minimum number of asteroids that can appear on the battle screen.
+SETTINGS_MOD_MAX_HIGH_ASTEROIDS          | High Max: %1
+SETTINGS_MOD_MAX_HIGH_ASTEROIDS_DESC     | High Asteroid Density: Maximum number of asteroids that can appear on the battle screen.
 
 SETTINGS_MOD_SHIELD_TYPE_NONE_DESC       | No shield animations (for low power computers)
 SETTINGS_MOD_SHIELD_TYPE_NONE            | None

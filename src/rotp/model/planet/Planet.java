@@ -77,6 +77,9 @@ public class Planet implements Base, IMappedObject, Serializable {
     private static final int NO_ARTIFACTS = 0;
     private static final int RUINS_ANTARAN = 6;
     private static final int RUINS_ORION = 7;
+    private static final int ASTEROID_DENSITY_NONE = 0;
+    private static final int ASTEROID_DENSITY_LOW  = 1;
+    private static final int ASTEROID_DENSITY_HIGH = 2;
 
     private String planetTypeKey;
     private final StarSystem system;
@@ -100,7 +103,8 @@ public class Planet implements Base, IMappedObject, Serializable {
     private float oceanPct = 0;
     private int cloudThickness = 0;  //200 nothing, 550 all white, 400-450 terran
     private final int[] alienFactories;
-    private Integer asteroidsMin, asteroidsMax;
+    // private Integer asteroidsMin, asteroidsMax;
+    private Integer asteroidsDensity;
 
     // vars used for sprite drawing
     public Color terrainColor1 = Color.green;
@@ -122,34 +126,41 @@ public class Planet implements Base, IMappedObject, Serializable {
     	int[] probabilities = type().asteroidProbability(planetTypeKey);
     	switch (resources) {
 	    	case RICH:
-	    		probabilities[0] -= 10;
-	    		probabilities[2] += 10;
+	    		probabilities[0] += options().richNoAsteroidsModPct();
 	    		break;
 	    	case ULTRA_RICH:
-	    		probabilities[0] -= 20;
-	    		probabilities[2] += 20;
+	    		probabilities[0] += options().ultraRichNoAsteroidsModPct();
 	    		break;
     	}
     	float rand = 100 * random() - probabilities[0];
     	if (rand < 0) { // No asteroids
-    		asteroidsMin = 0;
-    		asteroidsMax = 0;
+    		asteroidsDensity = ASTEROID_DENSITY_NONE;
     		return;
     	}
     	rand -= probabilities[1];
     	if(rand < 0) { // Low density
-    		asteroidsMin = 1;
-    		asteroidsMax = 5;
+    		asteroidsDensity = ASTEROID_DENSITY_LOW;
     		return;
     	}
     	// High density
-   		asteroidsMin = 3;
-  		asteroidsMax = 7;    		
+    	asteroidsDensity = ASTEROID_DENSITY_HIGH;
     }
     public int asteroidsCount()            {
-    	if (asteroidsMin == null)
+    	if (asteroidsDensity == null)
     		initAsteroids();
-    	return roll(asteroidsMin, asteroidsMax);
+    	switch (asteroidsDensity) {
+	    	case ASTEROID_DENSITY_HIGH:
+	        	int highMin = options().minHighAsteroids();
+	        	int highMax = options().maxHighAsteroids();
+	        	return roll(min(highMin, highMax), max(highMin, highMax));
+	    	case ASTEROID_DENSITY_LOW:
+	        	int lowMin = options().minLowAsteroids();
+	        	int lowMax = options().maxLowAsteroids();
+	        	return roll(min(lowMin, lowMax), max(lowMin, lowMax));
+	    	case ASTEROID_DENSITY_NONE:
+	    	default:
+	    		return 0;
+    	}
     }
     
     public int iceLevel()                  { return iceLevel; }

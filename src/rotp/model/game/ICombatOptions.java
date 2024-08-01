@@ -219,6 +219,51 @@ public interface ICombatOptions extends IBaseOptsTools {
 	default boolean moo1AsteroidsLocation()		{ return moo1AsteroidsLocation.get(); }
 	default boolean moo1AsteroidsProperties()	{ return moo1AsteroidsProperties.get(); }
 	
+	ParamInteger baseNoAsteroidsProbPct		= new ParamInteger(MOD_UI, "BASE_NO_ASTEROIDS", 46)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20);
+	ParamInteger stepNoAsteroidsProbPct		= new ParamInteger(MOD_UI, "STEP_NO_ASTEROIDS", 1)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20);
+	default int baseNoAsteroidsProbPct()		{ return baseNoAsteroidsProbPct.get(); }
+	default int stepNoAsteroidsProbPct()		{ return stepNoAsteroidsProbPct.get(); }
+
+	ParamInteger baseLowAsteroidsProbPct	= new ParamInteger(MOD_UI, "BASE_LOW_ASTEROIDS", 25)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20);
+	ParamInteger stepLowAsteroidsProbPct	= new ParamInteger(MOD_UI, "STEP_LOW_ASTEROIDS", 0)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20);
+	default int baseLowAsteroidsProbPct()		{ return baseLowAsteroidsProbPct.get(); }
+	default int stepLowAsteroidsProbPct()		{ return stepLowAsteroidsProbPct.get(); }
+
+	ParamInteger richNoAsteroidsModPct		= new ParamInteger(MOD_UI, "RICH_NO_ASTEROIDS", -10)
+			.setLimits(-100, 100)
+			.setIncrements(1, 5, 20);
+	ParamInteger ultraRichNoAsteroidsModPct	= new ParamInteger(MOD_UI, "U_RICH_NO_ASTEROIDS", -20)
+			.setLimits(-100, 100)
+			.setIncrements(1, 5, 20);
+	default int richNoAsteroidsModPct()			{ return richNoAsteroidsModPct.get(); }
+	default int ultraRichNoAsteroidsModPct()	{ return ultraRichNoAsteroidsModPct.get(); }
+
+	ParamInteger minLowAsteroids			= new ParamInteger(MOD_UI, "MIN_LOW_ASTEROIDS", 1)
+			.setLimits(0, 20)
+			.setIncrements(1, 2, 5);
+	ParamInteger maxLowAsteroids			= new ParamInteger(MOD_UI, "MAX_LOW_ASTEROIDS", 5)
+			.setLimits(0, 20)
+			.setIncrements(1, 2, 5);
+	default int minLowAsteroids()				{ return minLowAsteroids.get(); }
+	default int maxLowAsteroids()				{ return maxLowAsteroids.get(); }
+
+	ParamInteger minHighAsteroids			= new ParamInteger(MOD_UI, "MIN_HIGH_ASTEROIDS", 3)
+			.setLimits(0, 20)
+			.setIncrements(1, 2, 5);
+	ParamInteger maxHighAsteroids			= new ParamInteger(MOD_UI, "MAX_HIGH_ASTEROIDS", 7)
+			.setLimits(0, 20)
+			.setIncrements(1, 2, 5);
+	default int minHighAsteroids()				{ return minHighAsteroids.get(); }
+	default int maxHighAsteroids()				{ return maxHighAsteroids.get(); }
+
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -250,11 +295,17 @@ public interface ICombatOptions extends IBaseOptsTools {
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ASTEROIDS"),
-				asteroidsVanish,
 				moo1PlanetLocation, moo1AsteroidsLocation,
-				moo1AsteroidsProperties,
-
+				asteroidsVanish, moo1AsteroidsProperties,
 				headerSpacer,
+				minLowAsteroids, maxLowAsteroids,
+				minHighAsteroids, maxHighAsteroids,
+				headerSpacer,
+				baseNoAsteroidsProbPct, stepNoAsteroidsProbPct,
+				baseLowAsteroidsProbPct, stepLowAsteroidsProbPct,
+				richNoAsteroidsModPct, ultraRichNoAsteroidsModPct
+				)));
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("XILMI_AI_OPTIONS"),
 				playerAttackConfidence, playerDefenseConfidence,
 				aiAttackConfidence, aiDefenseConfidence,
