@@ -13,6 +13,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Added all options related to Ship combat in the combat option panel.
 - Added Help to History View.
 - New button to declare war before ship combat.
+  - Replaced ship combat War war button by Empire Flags.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

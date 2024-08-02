@@ -65,6 +65,9 @@ Later:
 
 ## What's New
 
+2024.08.02 (BR)
+- Replaced ship combat War war button by Empire Flags.
+
 2024.08.01 (BR)
 - Added Help to History View.
 - New button to declare war before ship combat.
