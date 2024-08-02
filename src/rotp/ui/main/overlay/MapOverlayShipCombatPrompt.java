@@ -17,6 +17,7 @@ package rotp.ui.main.overlay;
 
 import rotp.model.Sprite;
 import rotp.model.combat.ShipCombatManager;
+import rotp.model.empires.DiplomaticEmbassy;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
@@ -60,6 +61,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
     RetreatAllBattleSprite retreatButton = new RetreatAllBattleSprite();
     EnterBattleSprite battleButton = new EnterBattleSprite();
     SystemFlagSprite flagButton = new SystemFlagSprite();
+    StartWarBattleSprite warButton = new StartWarBattleSprite();
     public MapOverlayShipCombatPrompt(MainUI p) {
         parent = p;
     }
@@ -97,9 +99,26 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         player().sv.toggleFlagColor(sysId, reverse);
         parent.repaint();
     }
-    private void resetFlagColor() {
+    private void resetFlagColor()	{
         player().sv.resetFlagColor(sysId);
         parent.repaint();
+    }
+    private boolean showStartWar()	{
+    	Empire alien  = mgr.results().aiEmpire();
+    	if (alien == null)
+    		return false;
+    	Empire player = mgr.player();
+    	DiplomaticEmbassy embassy = player.viewForEmpire(alien).embassy();
+    	boolean hide = embassy.anyWar() || embassy.unity();
+    	return !hide;
+    }
+    private void startWar()	{
+    	Empire alien  = mgr.results().aiEmpire();
+    	if (alien == null)
+    		return;
+    	Empire player = mgr.player();
+    	DiplomaticEmbassy embassy = player.viewForEmpire(alien).embassy();
+    	embassy.declareWar();
     }
     @Override
     public boolean drawSprites()   { return drawSprites; }
@@ -116,7 +135,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         StarSystem sys = galaxy().system(sysId);
         Empire pl = player();
 
-        int s7 = BasePanel.s7;
+        int s7  = BasePanel.s7;
         int s10 = BasePanel.s10;
         int s15 = BasePanel.s15;
         int s20 = BasePanel.s20;
@@ -238,20 +257,53 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         resolveButton.mapY(battleButton.mapY());
         resolveButton.draw(parent.map(), g);
         
+        boolean showStartWar = showStartWar();
+        if (showStartWar) {
+        	parent.addNextTurnControl(warButton);
+            warButton.init(this, g);
+            warButton.mapX(resolveButton.mapX()+resolveButton.width()+s7);
+            warButton.mapY(battleButton.mapY());            	           	
+            warButton.draw(parent.map(), g);        	
+        }
+        
         parent.addNextTurnControl(smartResolveButton);
         smartResolveButton.init(this, g);
-        smartResolveButton.mapX(resolveButton.mapX()+resolveButton.width()+s7);
+        if (showStartWar)
+        	smartResolveButton.mapX(warButton.mapX()+warButton.width()+s7);
+        else
+        	smartResolveButton.mapX(resolveButton.mapX()+resolveButton.width()+s7);
         smartResolveButton.mapY(battleButton.mapY());
         smartResolveButton.draw(parent.map(), g);
 
-        if(options().selectedRetreatRestrictions() < 2 || options().selectedRetreatRestrictionTurns() == 0)
-        {
+        
+        boolean showRetreat = options().selectedRetreatRestrictions() < 2
+        					|| options().selectedRetreatRestrictionTurns() == 0;
+        if(showRetreat) {
             parent.addNextTurnControl(retreatButton);
             retreatButton.init(this, g);
             retreatButton.mapX(smartResolveButton.mapX()+smartResolveButton.width()+s7);
             retreatButton.mapY(battleButton.mapY());
             retreatButton.draw(parent.map(), g);
         }
+
+//        if(showRetreat) {
+//            parent.addNextTurnControl(retreatButton);
+//            retreatButton.init(this, g);
+//            retreatButton.mapX(smartResolveButton.mapX()+smartResolveButton.width()+s7);
+//            retreatButton.mapY(battleButton.mapY());
+//            retreatButton.draw(parent.map(), g);
+//        }
+//
+//        if (showStartWar) {
+//        	parent.addNextTurnControl(warButton);
+//            warButton.init(this, g);
+//            if (showRetreat)
+//                warButton.mapX(retreatButton.mapX()+retreatButton.width()+s7);
+//            else
+//                warButton.mapX(smartResolveButton.mapX()+smartResolveButton.width()+s15);
+//            warButton.mapY(battleButton.mapY());            	           	
+//            warButton.draw(parent.map(), g);        	
+//        }
 
         // draw planet info, from bottom up
         int x1 = boxX+s15;
@@ -431,6 +483,9 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
                 break;
             case KeyEvent.VK_F:
                 toggleFlagColor(shift);
+                break;
+            case KeyEvent.VK_W:
+            	startWar();
                 break;
             default:
             	if (!shift) // BR: to avoid noise when changing flag color
@@ -668,6 +723,90 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         @Override
         public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             startCombat(ShipBattleUI.RETREAT_ALL);
+        };
+    }
+    class StartWarBattleSprite extends MapSprite {
+        private final Color hoverC   = new Color(192,0,16);
+        private final Color bgDarkC  = new Color(168,156,96);
+        private final Color bgLightC = new Color(224,208,128);
+        private int mapX, mapY, buttonW, buttonH;
+        private int selectX, selectY, selectW, selectH;
+
+        private MapOverlayShipCombatPrompt parent;
+
+        protected int mapX()      { return mapX; }
+        protected int mapY()      { return mapY; }
+        public void mapX(int i)   { selectX = mapX = i; }
+        public void mapY(int i)   { selectY = mapY = i; }
+
+        public int width()        { return buttonW; }
+        public int height()       { return buttonH; }
+        private String label()    { return text("SHIP_COMBAT_START_WAR"); }
+        private Font font()       { return narrowFont(18); }
+
+        public void init(MapOverlayShipCombatPrompt p, Graphics2D g)  {
+            parent = p;
+            buttonH = BasePanel.s30;
+            buttonW = buttonH;
+            selectW = buttonW;
+            selectH = buttonH;
+        }
+        public void setSelectionBounds(int x, int y, int w, int h) {
+            selectX = x;
+            selectY = y;
+            selectW = w;
+            selectH = h;
+        }
+        @Override
+        public boolean isSelectableAt(GalaxyMapPanel map, int x, int y) {
+            hovering = x >= selectX
+                        && x <= selectX+selectW
+                        && y >= selectY
+                        && y <= selectY+selectH;
+            return hovering;
+        }
+        @Override
+        public void draw(GalaxyMapPanel map, Graphics2D g) {
+            if (!parent.drawSprites())
+                return;
+            g.setColor(bgDarkC);
+            g.fillRoundRect(mapX, mapY, buttonW,buttonH,buttonW,buttonH);
+            Color c0 = hovering ? Color.RED : hoverC;
+            g.setColor(c0);
+            Stroke prevStr =g.getStroke();
+            g.setStroke(BasePanel.stroke2);
+            g.drawRoundRect(mapX, mapY, buttonW,buttonH,buttonW,buttonH);
+            g.setStroke(prevStr);
+            Font wFont = new Font(Font.MONOSPACED, Font.BOLD, BasePanel.s30);
+            g.setFont(wFont);
+
+            String str = label();
+            int sw = g.getFontMetrics().stringWidth(str);
+            int x2a = mapX+((buttonW-sw)/2);
+            drawBorderedString(g, str, x2a, mapY+buttonH-BasePanel.s7, SystemPanel.grayText, c0);
+
+            g.setFont(font());
+            if (!hovering)
+            	return;
+
+            str = "Declare War ?";
+            sw = g.getFontMetrics().stringWidth(str);
+            int s5 = BasePanel.s5;
+            int w3 = sw + BasePanel.s20;
+            int h3 = buttonH;
+            int y3 = mapY - scaled(120);
+            int y3a = y3 + buttonH - BasePanel.s9;
+            int x3 = mapX;
+            int x3a = x3+((w3-sw)/2);
+            g.setColor(bgLightC);
+            g.fillRoundRect(x3, y3, w3, h3, s5, s5);
+            g.setColor(c0);
+            g.drawRoundRect(x3, y3, w3, h3, s5, s5);
+            drawBorderedString(g, str, x3a, y3a, SystemPanel.grayText, c0);
+        }
+        @Override
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        	startWar();
         };
     }
     class EnterBattleSprite extends MapSprite {

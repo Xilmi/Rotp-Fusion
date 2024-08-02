@@ -39,7 +39,6 @@ Bug to fix:
 Very soon:
 - Some Achievements options.
 - Add option to limit random event tech generosity... (For slow research, etc...)
-- Option to continue game after victory!
 
 Console Next steps: (Sequence probably not definitive)
 - Access optional turn reports and spy reports.
@@ -68,6 +67,7 @@ Later:
 
 2024.08.01 (BR)
 - Added Help to History View.
+- New button to declare war before ship combat.
 
 2024.07.31 (BR)
 - Added help to the colony view.

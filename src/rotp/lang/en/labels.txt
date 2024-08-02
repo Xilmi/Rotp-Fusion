@@ -3679,6 +3679,7 @@ SHIP_COMBAT_RETREAT_ALL           | Retreat All
 SHIP_COMBAT_NEXT                  | Next Ship
 SHIP_COMBAT_AUTO_RESOLVE          | Auto-Resolve
 SHIP_COMBAT_SMART_RESOLVE         | Smart-Resolve
+SHIP_COMBAT_START_WAR             | Ω
 SHIP_COMBAT_AUTO_RESOLVING        | Resolving Combat...
 SHIP_COMBAT_PLAY_BATTLE           | Auto-Play Battle
 SHIP_COMBAT_PAUSE_BATTLE          | Pause Battle

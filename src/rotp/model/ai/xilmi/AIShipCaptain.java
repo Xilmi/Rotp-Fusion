@@ -324,10 +324,10 @@ public class AIShipCaptain implements Base, ShipCaptain {
     {
         boolean performedAttack = false;
         boolean initialTargetWasShip = false;
-        if(target.isShip())
-            initialTargetWasShip = true;
         if(target == null)
             return false;
+        if(target.isShip())
+            initialTargetWasShip = true;
         //1st run: fire only specials which are not repulsor or stasis-field
         for (int i=0;i<stack.numWeapons(); i++) {
             if(target == null)

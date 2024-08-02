@@ -1106,7 +1106,7 @@ public class ShipCombatManager implements Base {
         if (path.size() > st.move) 
             path.limitMoves((int)st.move);
 
-        // movet the stack along it's path until done or destroyed (by missiles)
+        // move the stack along it's path until done or destroyed (by missiles)
         for (int i=0;i<path.size();i++) {
             if (!st.destroyed()) 
                 moveStack(st, path.mapX(i), path.mapY(i));
