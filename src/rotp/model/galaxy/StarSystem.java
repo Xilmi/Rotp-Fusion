@@ -228,7 +228,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     public String notes()                       { return notes == null ? "" : notes; }
     public void notes(String s)                 { notes = s.length() <= 40 ? s : s.substring(0,40); }
     public String eventKey()                    { return eventKey == null ? "": eventKey; }
-    public void eventKey(String s)              { eventKey = s; }
+    public void eventKey(String s)              { eventKey = s.replaceAll("\\d",""); }
     public boolean hasEvent()                   { return eventKey != null; }
     public void clearEvent()                    { eventKey = null; }
     public boolean hasMonster()                 { return monster != null; }

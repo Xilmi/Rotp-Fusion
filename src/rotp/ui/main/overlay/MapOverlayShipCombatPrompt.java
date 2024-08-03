@@ -43,6 +43,7 @@ import rotp.model.empires.EmpireStatus;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.ShipFleet;
+import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
@@ -68,7 +69,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
     int pop, bases, fact, shield;
     public int boxX, boxY, boxW, boxH;
     boolean drawSprites = false;
-    boolean showInfo = false;
+    int showInfo = 0;
     public ShipCombatManager mgr;
     AutoResolveBattleSprite resolveButton = new AutoResolveBattleSprite();
     SmartResolveBattleSprite smartResolveButton = new SmartResolveBattleSprite();
@@ -431,14 +432,18 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         flagButton.mapX(boxX+boxW-flagButton.width()+s10);
         flagButton.mapY(boxY+boxH-buttonPaneH-flagButton.height()+s10);
         flagButton.draw(parent.map(), g);
-        
+
         // Empire flag
         int margin = BasePanel.s4;
     	parent.addNextTurnControl(warButton);
         warButton.init(this, g);
         warButton.mapX(boxX+boxW - warButton.width()-margin);
         warButton.mapY(boxY + margin);            	           	
-        warButton.draw(parent.map(), g);        	
+        warButton.draw(parent.map(), g);
+
+        if (showInfo == 1) {
+        	// TODO BR: More useful info
+        }
     }
     @Override
     public boolean handleKeyPress(KeyEvent e) {
@@ -760,7 +765,19 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             boolean anyWar;
             EmpireView view = null;
             DiplomaticEmbassy embassy = null;
-        	if (alien == null) {
+            
+            if (mgr.results().isMonsterAttack()) {
+            	SpaceMonster monster = mgr.results().monster();
+            	flagWar = monster.image();
+        		flag    = flagWar;
+        		anyWar  = true;
+            	int sx2 = flagWar.getWidth(null);
+            	int sy2 = flagWar.getHeight(null);
+            	int y = mapY + BasePanel.s15;
+        		g.drawImage(flagWar, mapX, y, mapX+buttonW, y+buttonH, 0, 0, sx2, sy2, null);
+        		return;
+            }
+            else if (alien == null) { // Should never happen...
         		Race race = player.race();
         		flagWar = race.flagWar();
         		flag    = race.flagPact();
@@ -792,7 +809,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             	int xs = x3+((w3-ws)/2);
             	int ys = y3 + h3 - BasePanel.s9;
             	if (anyWar) {
-            		if (embassy != null) {
+            		if (embassy != null) { // Thus not a monster
             			g.setColor(MainUI.paneShadeC);
                 		g.fillRoundRect(x3-bd, y3-bd, w3+bd+bd, h3+bd+bd, cnr, cnr);
             			g.setColor(MainUI.textBoxShade0);

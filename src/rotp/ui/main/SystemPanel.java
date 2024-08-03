@@ -213,7 +213,7 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
         int lines = showSpyData ? 5 : 4;
         int lineH = h/lines;  // line height
 
-        // ensure we are always at least font 16, readjust lineH to compensate
+        // ensure we are always at least font 16, read just lineH to compensate
         int estFontSize = min(20, max(16, unscaled(lineH)));
         lineH = scaled(estFontSize);
 

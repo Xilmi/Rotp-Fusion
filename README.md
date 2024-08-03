@@ -65,6 +65,11 @@ Later:
 
 ## What's New
 
+2024.08.03 (BR)
+- Ship Combat Pop-Up: more info.
+- Ship Combat Pop-Up: display incoming monster icon.
+- Planet Info: Fixed event text for concurent monsters options.
+
 2024.08.02 (BR)
 - Replaced ship combat War war button by Empire Flags.
 

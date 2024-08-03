@@ -14,6 +14,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Added Help to History View.
 - New button to declare war before ship combat.
   - Replaced ship combat War war button by Empire Flags.
+  - Ship Combat Pop-Up: display incoming monster icon.
   - Ship Combat Pop-Up: more info.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
