@@ -142,6 +142,21 @@ public class EmpireStatus implements Base, Serializable {
     public int age(Empire viewer) {
             return galaxy().numberTurns() - lastViewTurn(viewer);
     }
+    public float ageViewValue(Empire viewer, int cat, int age) {
+    	if (age < age(viewer))
+    		return -1;
+    	int turn = galaxy().numberTurns() - age;
+        switch(cat) {
+	        case FLEET:      return valueFor(fleetStrength(), turn);
+	        case POPULATION: return valueFor(population(), turn);
+	        case TECHNOLOGY: return valueFor(technology(), turn);
+	        case PLANETS:    return valueFor(planets(), turn);
+	        case PRODUCTION: return valueFor(production(), turn);
+	        case POWER:      return valueFor(power(), turn);
+	        case TECHNOLOGY_MAX: return valueFor(technologyMax(), turn);
+	    }
+        return -1;
+    }
     public float lastViewValue(Empire viewer, int cat) {
         switch(cat) {
             case FLEET:      return valueFor(fleetStrength(), lastViewTurn(viewer));

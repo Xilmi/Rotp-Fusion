@@ -39,6 +39,7 @@ import rotp.model.combat.CombatStack;
 import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.DiplomaticEmbassy;
 import rotp.model.empires.Empire;
+import rotp.model.empires.EmpireStatus;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.ShipFleet;
@@ -49,6 +50,8 @@ import rotp.ui.combat.ShipBattleUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.races.RacesDiplomacyUI;
+import rotp.ui.races.RacesUI;
 import rotp.ui.sprites.MapSprite;
 import rotp.ui.vipconsole.IVIPListener;
 import rotp.ui.vipconsole.VIPConsole;
@@ -65,6 +68,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
     int pop, bases, fact, shield;
     public int boxX, boxY, boxW, boxH;
     boolean drawSprites = false;
+    boolean showInfo = false;
     public ShipCombatManager mgr;
     AutoResolveBattleSprite resolveButton = new AutoResolveBattleSprite();
     SmartResolveBattleSprite smartResolveButton = new SmartResolveBattleSprite();
@@ -702,7 +706,6 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         };
     }
     class StartWarBattleSprite extends MapSprite {
-        private final Color bgLightC = new Color(224,208,128);
         private int mapX, mapY, buttonW, buttonH;
         private int selectX, selectY, selectW, selectH;
         private MapOverlayShipCombatPrompt parent;
@@ -715,7 +718,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         public int width()        { return buttonW; }
         public int height()       { return buttonH; }
         private String label()    { return text("SHIP_COMBAT_START_WAR"); }
-        private Font font()       { return narrowFont(18); }
+        private Font font()       { return narrowFont(16); }
 
         public void init(MapOverlayShipCombatPrompt p, Graphics2D g)  {
             parent = p;
@@ -755,6 +758,8 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         	Image flag;
             Image flagWar;
             boolean anyWar;
+            EmpireView view = null;
+            DiplomaticEmbassy embassy = null;
         	if (alien == null) {
         		Race race = player.race();
         		flagWar = race.flagWar();
@@ -762,33 +767,110 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         		anyWar  = true;
         	}
         	else {
-        		EmpireView view = player.viewForEmpire(alien);
+        		view    = player.viewForEmpire(alien);
+        		embassy = view.embassy();
         		flag    = view.flag();
         		flagWar = alien.race().flagWar();
-        		anyWar  = view.embassy().anyWar();
+        		anyWar  = embassy.anyWar();
         	}
             if (hovering) {
+            	int s10 = BasePanel.s10;
             	int sx2 = flagWar.getWidth(null);
             	int sy2 = flagWar.getHeight(null);
             	g.drawImage(flagWar, mapX, mapY, mapX+buttonW, mapY+buttonH, 0, 0, sx2, sy2, null);
 
             	// draw pop-up
-            	if (!anyWar) {
-                	g.setFont(font());
-                	String str = label();
-                    int sw = g.getFontMetrics().stringWidth(str);
-                    int s5 = BasePanel.s5;
-                    int w3 = sw + BasePanel.s20;
-                    int h3 = BasePanel.s30;
-                    int y3 = mapY + buttonH+BasePanel.s10;
-                    int y3a = y3 + h3 - BasePanel.s9;
-                    int x3 = mapX + buttonW - w3;
-                    int x3a = x3+((w3-sw)/2);
-                    g.setColor(bgLightC);
-                    g.fillRoundRect(x3, y3, w3, h3, s5, s5);
+            	g.setFont(font());
+            	int lineH = BasePanel.s18;
+            	int bd = BasePanel.s3;
+            	int cnr = BasePanel.s10;
+            	int w3 = scaled(200);
+            	int h3 = BasePanel.s30;
+            	int x3 = boxX + boxW - w3;
+            	int y3 = mapY - h3 - BasePanel.s15;
+            	int ws = w3 - BasePanel.s20;
+            	int xs = x3+((w3-ws)/2);
+            	int ys = y3 + h3 - BasePanel.s9;
+            	if (anyWar) {
+            		if (embassy != null) {
+            			g.setColor(MainUI.paneShadeC);
+                		g.fillRoundRect(x3-bd, y3-bd, w3+bd+bd, h3+bd+bd, cnr, cnr);
+            			g.setColor(MainUI.textBoxShade0);
+                		g.fillRoundRect(x3, y3, w3, h3, cnr, cnr);
+                		String str = embassy.treatyStatus();
+                		int sw = g.getFontMetrics().stringWidth(str);
+                		int xv = x3+((w3-sw)/2);
+                		g.setColor(Color.RED);
+                		g.drawString(str, xv, ys);
+            		}
+            	}
+            	else {
+            		int xe = x3 + w3 - s10;
+            		h3 = scaled(130);
+            		y3 = mapY - h3 - BasePanel.s15;
+            		ys = y3 + lineH;
+            		g.setColor(MainUI.paneShadeC);
+            		g.fillRoundRect(x3-bd, y3-bd, w3+bd+bd, h3+bd+bd, cnr, cnr);
+            		g.setColor(MainUI.textBoxShade0);
+            		g.fillRoundRect(x3, y3, w3, h3, cnr, cnr);
+            		String str = embassy.treatyStatus();
+            		g.setColor(SystemPanel.blackText);
+            		g.drawString(str, xs, ys);
+
+            		ys += lineH;
+            		str = text("RACES_DIPLOMACY_TRADE_TREATY");
+            		g.drawString(str, xs, ys);
+            		str = text("RACES_DIPLOMACY_TRADE_AMT", view.trade().level());
+            		int sw = g.getFontMetrics().stringWidth(str);
+            		int xv = xe - sw;
+            		g.drawString(str, xv, ys);
+
+            		ys += lineH;
+            		str = text("RACES_DIPLOMACY_CURRENT_TRADE");
+            		g.drawString(str, xs, ys);
+            		int amt = (int) view.trade().profit();
+            		str = text("RACES_DIPLOMACY_TRADE_AMT", str(amt));
+            		sw = g.getFontMetrics().stringWidth(str);
+            		xv = xe - sw;
+            		g.drawString(str, xv, ys);
+
+            		// Fleets power
+            		ys += lineH;
+            		str = "Military Power Ratio";
+            		g.drawString(str, xs, ys);
+            		int age =  alien.status().age(player());
+            		float alienPower  = alien.status().lastViewValue(player, EmpireStatus.FLEET);
+            		float playerPower = player.status().ageViewValue(player, EmpireStatus.FLEET, age);
+            		float ratio = playerPower/alienPower;
+            		str = df1.format(ratio);
+            		if (age>1) // Current turn has not been computed
+            			str += "(" + (age-1) + ")";
+            		sw = g.getFontMetrics().stringWidth(str);
+            		xv = xe - sw;
+            		g.drawString(str, xv, ys);
+
+            		// Empires power
+            		ys += lineH;
+            		str = "Empires Power Ratio";
+            		g.drawString(str, xs, ys);
+            		age =  alien.status().age(player());
+            		alienPower  = alien.status().lastViewValue(player, EmpireStatus.POWER);
+            		playerPower = player.status().ageViewValue(player, EmpireStatus.POWER, age);
+            		ratio = playerPower/alienPower;
+            		str = df1.format(ratio);
+            		if (age>1) // Current turn has not been computed
+            			str += "(" + (age-1) + ")";
+            		sw = g.getFontMetrics().stringWidth(str);
+            		xv = xe - sw;
+            		g.drawString(str, xv, ys);
+
+            		// declare war?
+            		ys += lineH + s10;
+            		str = label();
+                    sw = g.getFontMetrics().stringWidth(str);
+                    xv = x3+((w3-sw)/2);
                     g.setColor(Color.RED);
-                    g.drawRoundRect(x3, y3, w3, h3, s5, s5);
-                    drawBorderedString(g, str, x3a, y3a, SystemPanel.grayText, Color.RED);
+                    drawBorderedString(g, str, xv, ys, SystemPanel.grayText, Color.RED);
             	}
             }
             else {
