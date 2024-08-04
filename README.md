@@ -65,6 +65,9 @@ Later:
 
 ## What's New
 
+2024.08.04 (BR)
+- Ship Combat Pop-Up: press "H" to get more fleet Info
+
 2024.08.03 (BR)
 - Ship Combat Pop-Up: more info.
 - Ship Combat Pop-Up: display incoming monster icon.

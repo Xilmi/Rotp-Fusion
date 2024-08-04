@@ -291,7 +291,7 @@ public class CombatStackColony extends CombatStack {
         return maxRange;
     }
     @Override
-    public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH) {
+    public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH, int stop) {
         int x1 = x;
         // int y1 = y;
 
@@ -304,7 +304,7 @@ public class CombatStackColony extends CombatStack {
         int y2 = y+stackH-BasePanel.s5;
         g.setFont(narrowFont(16));
         int nameMgn = BasePanel.s5;
-        String name = ui.showTacticalInfo() || (num == 0) ? sname : text("SHIP_COMBAT_COUNT_NAME", str(num), sname);
+        String name = (stop==2) || ui.showTacticalInfo() || (num==0) ? sname : text("SHIP_COMBAT_COUNT_NAME", str(num), sname);
         scaledFont(g, name, stackW-nameMgn,16,8);
         int sw2 = g.getFontMetrics().stringWidth(name);
         int x2 = max(x1, x1+((stackW-nameMgn-sw2)/2));
@@ -318,7 +318,7 @@ public class CombatStackColony extends CombatStack {
         int y4 = y+mgn;
         int w4 = stackW-mgn-mgn;
         int barH = BasePanel.s10;
-        if (ui.showTacticalInfo()) {
+        if (stop==2 || ui.showTacticalInfo()) {
             // draw health bar & hp
             if (num > 0) {
                 g.setColor(healthBarBackC);

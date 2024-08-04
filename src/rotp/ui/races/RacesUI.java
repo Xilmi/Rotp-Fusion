@@ -70,7 +70,7 @@ public class RacesUI extends BasePanel {
     MainTitlePanel titlePanel;
     RacesDiplomacyUI diploPanel;
     RacesIntelligenceUI intelPanel;
-    RacesMilitaryUI militaryPanel;
+    public RacesMilitaryUI militaryPanel;
     RacesStatusUI statusPanel;
     RacePlayerRelationsPane raceListingPanel;
     RacesSetColorUI setColorPanel;

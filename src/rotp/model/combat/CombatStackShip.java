@@ -634,7 +634,8 @@ public class CombatStackShip extends CombatStack {
         mgr.currentStack().recordKills(shipsLost);
     }
     @Override
-    public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH) {
+    public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH, int stop) {
+    	boolean showTacticalInfo = stop==2 || ui.showTacticalInfo();
         Image img = design.image();
 
         int w0 = img.getWidth(null);
@@ -687,7 +688,7 @@ public class CombatStackShip extends CombatStack {
         if (transparency < 1)
             g.setComposite(prevComp);
 
-        if (ui == null) // BR: To only get a copy of the targeted ship
+        if (stop == 1) // BR: To only get a copy of the targeted ship
         	return;
 
         if (mgr.currentStack().isShip()) {
@@ -706,11 +707,11 @@ public class CombatStackShip extends CombatStack {
         int iconW = BasePanel.s18;
         int y2 = y+stackH-BasePanel.s5;
         g.setFont(narrowFont(16));
-        int nameMgn = ui.showTacticalInfo() ? iconW + BasePanel.s5 : BasePanel.s5;
-        String name = ui.showTacticalInfo() ? design.name() : text("SHIP_COMBAT_COUNT_NAME", str(num), design.name());
+        int nameMgn = showTacticalInfo ? iconW + BasePanel.s5 : BasePanel.s5;
+        String name = showTacticalInfo ? design.name() : text("SHIP_COMBAT_COUNT_NAME", str(num), design.name());
         scaledFont(g, name, stackW-nameMgn,16,8);
         int sw2 = g.getFontMetrics().stringWidth(name);
-        int x1mgn = reversed || !ui.showTacticalInfo() ? x1 : x1+iconW;
+        int x1mgn = reversed || !showTacticalInfo ? x1 : x1+iconW;
         int x2 = max(x1mgn, x1mgn+((stackW-nameMgn-sw2)/2));
 
         g.setColor(Color.lightGray);
@@ -733,7 +734,7 @@ public class CombatStackShip extends CombatStack {
         int y4 = y+mgn;
         int w4 = stackW-mgn-mgn;
         int barH = BasePanel.s10;
-        if (ui.showTacticalInfo()) {
+        if (showTacticalInfo) {
             // draw health bar & hp
             g.setColor(healthBarBackC);
             g.fillRect(x4, y4, w4, barH);

@@ -1856,14 +1856,14 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             ShipDesign d = sh.design;
             int count = counts.containsKey(d) ? counts.get(d) : 0;
             if (count > 0)
-                sh.drawStack(this, g, count, x, y, w, h);
+                sh.drawStack(this, g, count, x, y, w, h, 0);
         }
         else if (st.isMissile()) {
             CombatStackMissile sh = (CombatStackMissile) st;
-            sh.drawStack(this, g, 0, x, y, w, h);
+            sh.drawStack(this, g, 0, x, y, w, h, 0);
         }
         else if (st.isMonster()) {
-            st.drawStack(this, g, 0, x, y, w, h);
+            st.drawStack(this, g, 0, x, y, w, h, 0);
         }
         else if (st.isColony()) {
             showPlanet = true;
@@ -1896,7 +1896,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             int imgH = renderedPlanetImage.getHeight();
             g.drawImage(renderedPlanetImage, planetX, planetY, planetX+planetR, planetY+planetR, 0, 0, imgW, imgH, null);
         }
-        st.drawStack(this, g, 0, x, y, w, h);
+        st.drawStack(this, g, 0, x, y, w, h, 0);
         /*
         int y0 = y+h-s5;
         g.setFont(narrowFont(18));

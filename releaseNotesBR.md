@@ -3,19 +3,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Ship Combat:
-  - New option to set MoO1 like astrroids distribution.
-  - New option to prevent asteroids from disapearing.
-  - New option to place Ships and planet in their MoO1 location.
-  - New option for asteroids to impact on weapons. (As in MoO1)
-  - New options to define the "Low" and "High" asteroid density.
-  - New options to set the probability for a planet to get "Low" and "High" asteroid density.
-  - Added all options related to Ship combat in the combat option panel.
 - Added Help to History View.
 - New button to declare war before ship combat.
   - Replaced ship combat War war button by Empire Flags.
   - Ship Combat Pop-Up: display incoming monster icon.
   - Ship Combat Pop-Up: more info.
+  - Ship Combat Pop-Up: press "H" to get more fleet Info
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

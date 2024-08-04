@@ -1335,14 +1335,14 @@ public final class TechShipWeapon extends Tech {
     private void drawStack(ShipBattleUI ui, Graphics2D g, CombatStack st, int x, int y, int w, int h) {
         if (st.isShip()) {
             CombatStackShip sh = (CombatStackShip) st;
-            sh.drawStack(null, g, 1, x, y, w, h);
+            sh.drawStack(null, g, 1, x, y, w, h, 1);
         }
         else if (st.isMissile()) {
             CombatStackMissile sh = (CombatStackMissile) st;
-            sh.drawStack(null, g, 0, x, y, w, h);
+            sh.drawStack(null, g, 0, x, y, w, h, 1);
         }
         else if (st.isMonster()) {
-            st.drawStack(null, g, 0, x, y, w, h);
+            st.drawStack(null, g, 0, x, y, w, h, 1);
         }
         else if (st.isColony()) {
         	int planetR = h*5/6;

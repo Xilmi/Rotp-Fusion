@@ -659,7 +659,7 @@ public class CombatStack implements Base {
         }
         g.setClip(null);
     }
-    public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH) {
+    public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH, int stop) {
         Image img = image;
 
         int w0 = img.getWidth(null);
@@ -730,7 +730,7 @@ public class CombatStack implements Base {
         if (overlayImg != null) 
             g.drawImage(overlayImg, x1, y1, ui);
 
-        if (ui == null) // BR: To only get a copy of the targeted ship
+        if (stop == 1) // BR: To only get a copy of the targeted ship
         	return;
 
         int y2 = y+stackH-BasePanel.s5;
@@ -758,7 +758,7 @@ public class CombatStack implements Base {
         int y4 = y+mgn;
         int w4 = stackW-mgn-mgn;
         int barH = BasePanel.s10;
-        if (ui.showTacticalInfo()) {
+        if (stop==2 || ui.showTacticalInfo()) {
             // draw health bar & hp
             g.setColor(healthBarBackC);
             g.fillRect(x4, y4, w4, barH);

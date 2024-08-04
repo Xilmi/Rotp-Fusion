@@ -42,6 +42,8 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireStatus;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.Race;
+import rotp.model.empires.ShipView;
+import rotp.model.empires.SpyNetwork;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
@@ -51,7 +53,7 @@ import rotp.ui.combat.ShipBattleUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.races.RacesDiplomacyUI;
+import rotp.ui.races.RacesMilitaryUI;
 import rotp.ui.races.RacesUI;
 import rotp.ui.sprites.MapSprite;
 import rotp.ui.vipconsole.IVIPListener;
@@ -86,6 +88,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         Empire pl = player();
         flagButton.reset();
         StarSystem sys = galaxy().system(sysId);
+        showInfo = 0;
         fleet = null;
         planetImg = null;
         drawSprites = true;
@@ -125,6 +128,60 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
     	Empire player = mgr.player();
     	DiplomaticEmbassy embassy = player.viewForEmpire(alien).embassy();
     	embassy.declareWar();
+    }
+    private void drawFleetsInfo(Graphics2D g) {
+    	if (showInfo == 0)
+    		return;
+    	maskC = new Color(40,40,40,160);
+    	Empire player = player();
+    	RacesMilitaryUI milPane = RacesUI.instance.militaryPanel;
+
+    	int ws = parent.getWidth();
+    	int w = scaled(947);
+    	int h = BasePanel.s80;
+       	int dh = h+BasePanel.s2;
+		int x = (ws-w)/4;
+		int yi = BasePanel.s10;
+		int y = scaled(166);
+
+    	if (showInfo == 1) {
+    		if (mgr.results().isMonsterAttack()) {
+    			drawMonsterInfo(mgr.results().monster());
+    			return;
+    		}
+    		else {
+            	Empire alien  = mgr.results().attacker();
+            	if (alien == player)
+            		alien = mgr.results().defender();
+            	SpyNetwork spies = player.viewForEmpire(alien).spies();
+        		for(CombatStack st : mgr.activeStacks()) {
+                    if(st.isShip()) {
+                        if(st.empire == alien) {
+                        	ShipView view = spies.shipViewFor(st.design());
+                        	milPane.drawShipDesign(g, view, st.num, x, y, w, h);
+                            y += dh;
+                        }
+                    }
+        		}
+    			milPane.paintAlienData(g, alien, x, yi);
+    		}
+    	}
+
+    	if (showInfo == 2) {
+    		for(CombatStack st : mgr.activeStacks()) {
+                if(st.isShip()) {
+                    if(st.empire == player) {
+                    	ShipView view = player.shipViewFor(st.design());
+                    	milPane.drawShipDesign(g, view, st.num, x, y, w, h);
+                        y += dh;
+                    }
+                }
+    		}
+    		milPane.paintPlayerData(g, x, yi);
+    	}
+    }
+    private void drawMonsterInfo(SpaceMonster monster) {
+    	// TODO BR: drawMonsterInfo(SpaceMonster monster)
     }
     @Override
     public boolean drawSprites()   { return drawSprites; }
@@ -326,8 +383,10 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         }
        
         // if unscouted, no planet info
-        if (!scouted)
-            return;
+        if (!scouted) {
+        	drawFleetsInfo(g);
+        	return;
+        }
         
         x1 = boxX+s15;
         y1 = boxY+boxH1+boxH2-s10;
@@ -441,9 +500,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         warButton.mapY(boxY + margin);            	           	
         warButton.draw(parent.map(), g);
 
-        if (showInfo == 1) {
-        	// TODO BR: More useful info
-        }
+        drawFleetsInfo(g);
     }
     @Override
     public boolean handleKeyPress(KeyEvent e) {
@@ -451,6 +508,11 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         Empire aiEmpire = mgr.results().aiEmpire();
         switch(e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
+            	if (showInfo!=0) { // break info before entering battle
+            		showInfo = 0;
+            		parent.repaint();
+            		break;
+            	}
             case KeyEvent.VK_E:
                 startCombat(ShipBattleUI.ENTER_COMBAT);
                 break;
@@ -471,6 +533,15 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
                 break;
             case KeyEvent.VK_W:
             	startWar();
+                break;
+            case KeyEvent.VK_H:
+            	switch (showInfo) {
+	            	case 0: showInfo = 1; break;
+	            	case 1: showInfo = 2; break;
+	            	case 2: showInfo = 0; break;
+            	}
+            	buttonClick();
+            	parent.repaint();
                 break;
             default:
             	if (!shift) // BR: to avoid noise when changing flag color

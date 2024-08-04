@@ -195,7 +195,7 @@ public class CombatStackMissile extends CombatStack {
         return false;
     }
     @Override
-    public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH) {
+    public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH, int stop) {
         int x0 = (int) ((x()+0.5f)*stackW);
         int y0 = (int) ((y()+0.5f)*stackH);
         AffineTransform tx = new AffineTransform();
