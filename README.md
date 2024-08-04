@@ -67,6 +67,7 @@ Later:
 
 2024.08.04 (BR)
 - Ship Combat Pop-Up: press "H" to get more fleet Info
+- Galaxy Map: Press "H" to get more Info on selected/hovered fleet.
 
 2024.08.03 (BR)
 - Ship Combat Pop-Up: more info.

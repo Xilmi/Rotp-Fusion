@@ -9,6 +9,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Ship Combat Pop-Up: display incoming monster icon.
   - Ship Combat Pop-Up: more info.
   - Ship Combat Pop-Up: press "H" to get more fleet Info
+  - Galaxy Map: Press "H" to get more Info on selected/hovered fleet.
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

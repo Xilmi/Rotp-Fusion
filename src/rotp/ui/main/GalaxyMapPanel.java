@@ -40,6 +40,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -51,6 +53,8 @@ import javax.swing.Timer;
 
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
+import rotp.model.empires.ShipView;
+import rotp.model.empires.SpyNetwork;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.Location;
@@ -62,12 +66,15 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IMapOptions;
+import rotp.model.ships.ShipDesign;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.history.HistoryUI.GalaxyMapPane;
 import rotp.ui.map.IMapHandler;
+import rotp.ui.races.RacesMilitaryUI;
+import rotp.ui.races.RacesUI;
 import rotp.ui.sprites.FlightPathDisplaySprite;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.GridCircularDisplaySprite;
@@ -143,6 +150,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 
     private static boolean warView = false;
     private static int targetSysId = NO_TARGET;
+
     
     public static boolean isWarView()	 	{ return warView; }
     public static void toggleWarView()	 	{ warView = !warView; }

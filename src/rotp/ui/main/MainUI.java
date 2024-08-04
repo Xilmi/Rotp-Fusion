@@ -26,6 +26,9 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.swing.JLayeredPane;
 import javax.swing.border.Border;
 import rotp.Rotp;
@@ -33,6 +36,8 @@ import rotp.model.Sprite;
 import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EspionageMission;
+import rotp.model.empires.ShipView;
+import rotp.model.empires.SpyNetwork;
 import rotp.model.empires.SystemView;
 import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.Location;
@@ -47,6 +52,8 @@ import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.overlay.*;
 import rotp.ui.map.IMapHandler;
 import rotp.ui.notifications.GameAlert;
+import rotp.ui.races.RacesMilitaryUI;
+import rotp.ui.races.RacesUI;
 import rotp.ui.sprites.AlertDismissSprite;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.HelpSprite;
@@ -119,8 +126,12 @@ public class MainUI extends BasePanel implements IMapHandler {
     private boolean showAdvice = false;
     private int helpFrame = 0;
     private int numHelpFrames = 0;
+    private boolean showFleetInfo = false;
+    
+    @Override public boolean showFleetInfo()          { return showFleetInfo; }
+    @Override public void showFleetInfo(boolean show) { showFleetInfo = show; }
 
-    public Border paneBorder()               { return null;   }
+    public Border paneBorder()               { return null; }
     public static Color shadeBorderC()       { return shadeBorderC; }
     public static Color paneBackground()     { return paneBackground; }
     public static Color paneHighlight()      { return paneBackgroundHighlight; }
@@ -669,6 +680,54 @@ public class MainUI extends BasePanel implements IMapHandler {
     public void paintOverMap(GalaxyMapPanel ui, Graphics2D g) {
         nextTurnControls.clear();
         overlay.paintOverMap(this, ui, g);
+        if (showFleetInfo)
+        	drawFleetsInfo(g);
+    }
+    private void drawFleetsInfo(Graphics2D g) {
+    	if (!showFleetInfo)
+    		return;
+
+   		ShipFleet fleet = displayPanel.shipFleetToDisplay();
+   		if (fleet == null) {
+   			showFleetInfo = false;
+   			return;
+   		}
+
+   		Empire empire = fleet.empire();
+    	if (empire == null) {
+   			showFleetInfo = false;
+    		return;
+    	}
+
+    	Empire player = player();
+    	RacesMilitaryUI milPane = RacesUI.instance.militaryPanel;
+    	
+    	int ws = getWidth();
+    	int w = scaled(947);
+    	int h = BasePanel.s80;
+       	int dh = h+BasePanel.s2;
+		int x = BasePanel.s46;;
+		int yi = BasePanel.s10;
+		int y = scaled(166);
+		Map<ShipDesign, Integer> visShip = fleet.visibleShipDesigns(player.id);
+
+		if (empire.isPlayer()) {
+			for( Entry<ShipDesign, Integer> entry : visShip.entrySet()) {
+              	ShipView view = player.shipViewFor(entry.getKey());
+              	milPane.drawShipDesign(g, view, entry.getValue(), x, y, w, h);
+                  y += dh;
+			}
+			milPane.paintPlayerData(g, x, yi);
+		}
+		else {
+			SpyNetwork spies = player.viewForEmpire(empire).spies();
+			for( Entry<ShipDesign, Integer> entry : visShip.entrySet()) {
+              	ShipView view = spies.shipViewFor(entry.getKey());
+              	milPane.drawShipDesign(g, view, entry.getValue(), x, y, w, h);
+                  y += dh;
+			}
+			milPane.paintAlienData(g, empire, x, yi);
+		}
     }
     public void advanceMap() {
         log("Advancing Main UI Map");

@@ -24,6 +24,7 @@ import java.awt.Image;
 import java.awt.LinearGradientPaint;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
@@ -35,8 +36,8 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.List;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
@@ -56,6 +57,11 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
     protected BasePanel bottomPane;
     String nebulaText;
     private final int[] stackAdjustment = new int[ShipDesignLab.MAX_DESIGNS];
+    public void toggleShowFleetInfo() {
+    	parent.parent.showFleetInfo(!parent.parent.showFleetInfo());
+    }
+    public void clearShowFleetInfo() { parent.parent.showFleetInfo(false); }
+
     //session vars
     private StarSystem selectedDest()         { return (StarSystem) sessionVar("FLEETDEPLOY_SELECTED_DEST"); }
     private void selectedDest(StarSystem s)   { sessionVar("FLEETDEPLOY_SELECTED_DEST", s); }
@@ -107,14 +113,12 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         initModel();
     }
     @Override
-    public void handleNextTurn() {  clearStackAdjustments(); }
-    public ShipFleet fleetToDisplay() {
-        return parent.shipFleetToDisplay();
-    }
+    public void handleNextTurn()             {  clearStackAdjustments(); }
+    public ShipFleet fleetToDisplay()        { return parent.shipFleetToDisplay(); }
     @Override
-    public boolean hoverOverFleets()               { return (selectedFleet() == null) || (selectedFleet().empire() != player()); }
+    public boolean hoverOverFleets()         { return (selectedFleet() == null) || (selectedFleet().empire() != player()); }
     @Override
-    public boolean hoverOverFlightPaths()          { return selectedFleet() == null; }
+    public boolean hoverOverFlightPaths()    { return selectedFleet() == null; }
     public StarSystem displayedDestination() {
         if (tentativeDest() != null)
             return tentativeDest();
@@ -425,6 +429,11 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 useClickedSprite(systems.get(index), 1, false);
                 //parent.parent.hoveringOverSprite(systems.get(index).sprite());
                 parent.repaint();
+                return;
+            case KeyEvent.VK_H:
+            	toggleShowFleetInfo();
+            	parent.repaint();
+                return;
         }
     }
     private void initModel() {

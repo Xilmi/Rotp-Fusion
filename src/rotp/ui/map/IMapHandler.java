@@ -52,6 +52,9 @@ public interface IMapHandler {
     default public void drawYear(Graphics2D g) { }
     default public void drawTitle(Graphics2D g) { }
     
+    default public void showFleetInfo(boolean show) {  }
+    default public boolean showFleetInfo()          { return false; }
+    
     default public boolean animating()    { return true; }
 
     default public boolean forwardMouseEvents() { return false; }

@@ -132,7 +132,6 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
     private void drawFleetsInfo(Graphics2D g) {
     	if (showInfo == 0)
     		return;
-    	maskC = new Color(40,40,40,160);
     	Empire player = player();
     	RacesMilitaryUI milPane = RacesUI.instance.militaryPanel;
 
