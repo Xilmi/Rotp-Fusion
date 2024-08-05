@@ -300,12 +300,15 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         // if we are not a System, quit now
         if (!(o instanceof StarSystem))
             return false;
-        
+
         if (adjustedFleet() == null)
             return false;
 
         if (adjustedFleet().empire() != player())
             return false;
+
+        if (isAltDown())
+        	return false;
 
         adjustedFleet().use(o, parent.parent);
         tentativeDest((StarSystem) o);

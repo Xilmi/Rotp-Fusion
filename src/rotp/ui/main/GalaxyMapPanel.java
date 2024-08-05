@@ -40,8 +40,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -53,8 +51,6 @@ import javax.swing.Timer;
 
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
-import rotp.model.empires.ShipView;
-import rotp.model.empires.SpyNetwork;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.Location;
@@ -66,15 +62,12 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IMapOptions;
-import rotp.model.ships.ShipDesign;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.history.HistoryUI.GalaxyMapPane;
 import rotp.ui.map.IMapHandler;
-import rotp.ui.races.RacesMilitaryUI;
-import rotp.ui.races.RacesUI;
 import rotp.ui.sprites.FlightPathDisplaySprite;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.GridCircularDisplaySprite;
@@ -150,6 +143,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 
     private static boolean warView = false;
     private static int targetSysId = NO_TARGET;
+    private boolean lastHoverAltDown = false;
 
     
     public static boolean isWarView()	 	{ return warView; }
@@ -542,22 +536,22 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 //        double ms = (time2-time1) / 1_000_000.0;
 //        System.out.format("RRR base %.2f ms\n", ms);
     }
-    // BR: modnar commented the only call to this method
-//    private void drawBackground(Graphics2D g) {
-//        if (showShipRanges()) {
-//            if (redrawRangeMap) {
-//                redrawRangeMap = false;
-//                Graphics2D g0 =  (Graphics2D) rangeMapBuffer.getGraphics();
-//                setFontHints(g0);
-//                g0.setColor(unreachableBackground);
-//                g0.fillRect(0,0,getWidth(),getHeight());
-//                if (parent.showShipRanges())
-//                    drawExtendedRangeDisplay(g0);
-//                drawOwnershipDisplay(g0);
-//            }
-//            g.drawImage(rangeMapBuffer,0,0,null);
-//        }
-//    }
+/*    // BR: modnar commented the only call to this method
+    private void drawBackground(Graphics2D g) {
+        if (showShipRanges()) {
+            if (redrawRangeMap) {
+                redrawRangeMap = false;
+                Graphics2D g0 =  (Graphics2D) rangeMapBuffer.getGraphics();
+                setFontHints(g0);
+                g0.setColor(unreachableBackground);
+                g0.fillRect(0,0,getWidth(),getHeight());
+                if (parent.showShipRanges())
+                    drawExtendedRangeDisplay(g0);
+                drawOwnershipDisplay(g0);
+            }
+            g.drawImage(rangeMapBuffer,0,0,null);
+        }
+    } */
 	// modnar: make regular ship fuel range cover starry background
  	private void drawShipRanges(Graphics2D g) {
 		if (showShipRanges()) {
@@ -1302,7 +1296,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 return;
         }
         
-
         Sprite prevHover = hoverSprite;
         
         // skip the check if we are currently in the midst of a check
@@ -1313,9 +1306,13 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         finally { searchingSprite = false; }
         
         // still hovering over same sprite... do nothing
-        if (hoverSprite == prevHover) 
+        boolean altDown = isAltDown();
+        boolean altChange = altDown!=lastHoverAltDown;
+        if (altChange)
+        	lastHoverAltDown = altDown;
+        if (hoverSprite == prevHover && !altChange) 
             return;
-        
+
         // if sprite changed, but we are also still over the prevHover
         // if the prevHover is higher display priority than the new,
         // then do nothing. What is the point of this? If a fleet is in 
@@ -1343,17 +1340,17 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         parent.hoveringOverSprite(hoverSprite);
     }
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e)     {}
     @Override
-    public void mouseEntered(MouseEvent arg0) { }
+    public void mouseEntered(MouseEvent arg0)  { }
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent e)      {
         if (parent.hoveringSprite() != null)
             parent.hoveringSprite().mouseExit(this);
         parent.hoveringOverSprite(null);
     }
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent e)     {
         boolean rightClick = SwingUtilities.isRightMouseButton(e) && parent.allowsDragSelect();
         if (rightClick) {
             dragSelecting = true;
@@ -1362,7 +1359,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         }
     }
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent e)    {
     	setModifierKeysState(e); // BR: For the Flag color selection
     	if (historyMode) {
     		GalaxyMapPane historyPane = (GalaxyMapPane) parent;
@@ -1387,8 +1384,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         int clicks = e.getClickCount();
         boolean rightClick = SwingUtilities.isRightMouseButton(e);
         boolean middleClick = SwingUtilities.isMiddleMouseButton(e);
-//        int x1 = e.getX();
-//        int y1 = e.getY();
         Sprite newSelection = hoverSprite;
 
         if (newSelection == null) 
@@ -1398,4 +1393,5 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             
         parent.hoveringOverSprite(newSelection);
     }
+    public void altToggled (boolean isAltDown) { parent.hoveringOverSprite(hoverSprite); }
 }

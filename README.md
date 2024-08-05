@@ -65,6 +65,9 @@ Later:
 
 ## What's New
 
+2024.08.05 (BR)
+- Galaxy Map, fleet relocation: press "Alt" to get info on the hovered star or ship.
+
 2024.08.04 (BR)
 - Ship Combat Pop-Up: press "H" to get more fleet Info
 - Galaxy Map: Press "H" to get more Info on selected/hovered fleet.

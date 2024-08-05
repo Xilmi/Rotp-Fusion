@@ -127,6 +127,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     private int helpFrame = 0;
     private int numHelpFrames = 0;
     private boolean showFleetInfo = false;
+    private boolean lastHoverAltDown = false;
     
     @Override public boolean showFleetInfo()          { return showFleetInfo; }
     @Override public void showFleetInfo(boolean show) { showFleetInfo = show; }
@@ -455,9 +456,18 @@ public class MainUI extends BasePanel implements IMapHandler {
             StarSystem sys = (StarSystem) spr;
             if (sys.empire() == player()) {
             	loadHotKeysFrame();
+            	RotPUI.helpUI().open(this);
             	return;
             }
         }
+        if (spr instanceof ShipFleet) {
+            loadHotKeysFrame();
+            addHotKeysShipFleet();
+            RotPUI.helpUI().open(this);
+            return;
+        }
+    	loadHotKeysFrame();
+    	RotPUI.helpUI().open(this);        
     }
     private void loadHelpUI() {
         HelpUI helpUI = RotPUI.helpUI();
@@ -563,8 +573,10 @@ public class MainUI extends BasePanel implements IMapHandler {
     }
     @Override
     public void hoveringOverSprite(Sprite o) {
-        if (o == lastHoveringSprite())
+    	boolean altDown = isAltDown();
+        if (o == lastHoveringSprite() && altDown==lastHoverAltDown)
             return;
+        lastHoverAltDown = altDown;
 
         if (lastHoveringSprite() != null)
             lastHoveringSprite().mouseExit(map);
@@ -579,7 +591,6 @@ public class MainUI extends BasePanel implements IMapHandler {
             ((StarSystem)o).repaint(map);
             displayPanel.useClickedSprite(clickedSprite(), 1, false);
         }
-
         lastHoveringSprite(o);
         if (overlay.hoveringOverSprite(o))
             return;
@@ -625,8 +636,8 @@ public class MainUI extends BasePanel implements IMapHandler {
         return loc;
     }
 
-    public StarSystem lastSystemSelected()    { return (StarSystem) sessionVar("MAINUI_SELECTED_SYSTEM"); }
-    public void lastSystemSelected(Sprite s)  { sessionVar("MAINUI_SELECTED_SYSTEM", s); }
+    public StarSystem lastSystemSelected()   { return (StarSystem) sessionVar("MAINUI_SELECTED_SYSTEM"); }
+    public void lastSystemSelected(Sprite s) { sessionVar("MAINUI_SELECTED_SYSTEM", s); }
     @Override
     public Sprite clickedSprite()            { return (Sprite) sessionVar("MAINUI_CLICKED_SPRITE"); }
     @Override
@@ -647,20 +658,20 @@ public class MainUI extends BasePanel implements IMapHandler {
     public Sprite lastHoveringSprite()       { return (Sprite) sessionVar("MAINUI_LAST_HOVERING_SPRITE"); }
     public void lastHoveringSprite(Sprite s) { sessionVar("MAINUI_LAST_HOVERING_SPRITE", s); }
     @Override
-    public Border mapBorder()                   { return null; 	}
+    public Border mapBorder()                { return null; 	}
     @Override
-    public boolean canChangeMapScales()         { return overlay.canChangeMapScale(); }
+    public boolean canChangeMapScales()      { return overlay.canChangeMapScale(); }
     @Override
-    public float startingScalePct()            { return 12.0f / map().sizeX(); }
+    public float startingScalePct()          { return 12.0f / map().sizeX(); }
     @Override
     public List<Sprite> controlSprites()     { return baseControls; }
     @Override
-    public void reselectCurrentSystem() {
+    public void reselectCurrentSystem()      {
         clickingOnSprite(lastSystemSelected(), 1, false, true, false);
         repaint();
     }
     @Override
-    public IMappedObject gridOrigin() {
+    public IMappedObject gridOrigin()        {
         if (!map.showGridCircular())
             return null;
         Sprite spr = clickedSprite();
@@ -702,7 +713,6 @@ public class MainUI extends BasePanel implements IMapHandler {
     	Empire player = player();
     	RacesMilitaryUI milPane = RacesUI.instance.militaryPanel;
     	
-    	int ws = getWidth();
     	int w = scaled(947);
     	int h = BasePanel.s80;
        	int dh = h+BasePanel.s2;
@@ -813,11 +823,17 @@ public class MainUI extends BasePanel implements IMapHandler {
         int wHK = scaled(500);
         helpUI.addBrownHelpText(xHK, yHK, wHK, 0, text("MAIN_HELP_HK"));
     }
+    private void addHotKeysShipFleet() {
+        HelpUI helpUI = RotPUI.helpUI();
+        int xHK = scaled(540);
+        int yHK = scaled(15);
+        int wHK = scaled(400);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 0, text("MAIN_HELP_SHIPFLEET_HK"));
+    }
     private void loadHotKeysFrame() {
         HelpUI helpUI = RotPUI.helpUI();
         helpUI.clear();
         addHotKeysFrame();
-    	helpUI.open(this);
     }
     private void loadHelpFrameTP() {
         HelpUI helpUI = RotPUI.helpUI();
@@ -1192,10 +1208,20 @@ public class MainUI extends BasePanel implements IMapHandler {
         HelpSpec sp10 = helpUI.addBlueHelpText(x10, y10, w10, 3, text("MAIN_HELP_3J"));
         sp10.setLine(x10, y10+(sp10.height()/2), s45, y10+(sp10.height()/2));
     }
-    @Override
-    public void keyPressed(KeyEvent e) {
+    @Override public void keyPressed(KeyEvent e)  {
     	setModifierKeysState(e); // BR: For the Flag color selection
+    	if (e.getKeyCode() == KeyEvent.VK_ALT && !lastHoverAltDown) {
+            map.altToggled(true);
+            return;
+        }
         if (!overlay.handleKeyPress(e))
             overlayNone.handleKeyPress(e);
+    }
+    @Override public void keyReleased(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
+    	if (e.getKeyCode() == KeyEvent.VK_ALT && lastHoverAltDown) {
+            map.altToggled(false);
+            return;
+        }
     }
 }
