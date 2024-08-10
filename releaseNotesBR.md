@@ -3,13 +3,16 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Added Help to History View.
 - New button to declare war before ship combat.
   - Replaced ship combat War war button by Empire Flags.
   - Ship Combat Pop-Up: display incoming monster icon.
   - Ship Combat Pop-Up: more info.
   - Ship Combat Pop-Up: press "H" to get more fleet Info
 - Galaxy Map, fleet relocation: press "Alt" to get info on the hovered star or ship.
+- Merged Xilmi AI improvement:
+  - Instead of a static 100% score-bonus for being able to kill at least one ship in an enemy-stack, the score is now divided by the hitpoints of the first ship of the stack if not at least one ship can be killed. This shall help prevent the AI from shooting at big tanky ships that will just retreat once their health drops too far instead of attempting to secure kills on smaller ships.
+- Fixed missing beam Animations.
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
