@@ -635,7 +635,7 @@ public class CombatStackShip extends CombatStack {
     }
     @Override
     public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH, int stop) {
-    	boolean showTacticalInfo = stop==2 || ui.showTacticalInfo();
+    	boolean showTacticalInfo = stop==2 || (ui!=null && ui.showTacticalInfo());
         Image img = design.image();
 
         int w0 = img.getWidth(null);
