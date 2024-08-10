@@ -1,5 +1,5 @@
 ## What's New
 
-2024.06.14 (Xilmi)
-- Combat-AI now checks the safety of a path towards enemy ships and will avoid moving through the attack-range of enemies that would destroy them.
-- Fixed an issue that made the AI consider their own missile-boats as worthless due to a recent change about not being afraid from enemy-missile-boats when they haven't attacked yet.
+2024.08.10 (Xilmi)
+- Instead of a static 100% score-bonus for being able to kill at least one ship in an enemy-stack, the score is now divided by the hitpoints of the first ship of the stack if not at least one ship can be killed.
+This shall help prevent the AI from shooting at big tanky ships that will just retreat once their health drops too far instead of attempting to secure kills on smaller ships.
