@@ -65,6 +65,20 @@ Later:
 
 ## What's New
 
+2024.08.28 (BR)
+- Fixed some monster path glitches.
+
+2024.08.26 (BR)
+- After first council, the last vote will be shown in the Empire-Diplomacy panel.
+- When hovered over, Space Monsters are displayed on the right panel.
+  - Pressing "H" will then display their specs.
+- Space Monsters can be replaced by their MoO1 equivalent.
+- All Space monsters now have a design, and extends ShipFleet.
+  - Their combat stack extends CombatStackShip.
+  - New "Fake" tech to describe their special abilities.
+    - They are still fully controlled by their AI-Captain and their combat stack.
+  - More than 3 special weapons can be given to the Space Monsters (5 for the Amoeba)
+
 2024.08.10 (BR)
 - Fixed missing beam Animations
 

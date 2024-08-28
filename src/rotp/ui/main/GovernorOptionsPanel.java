@@ -1824,12 +1824,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 	}//GEN-LAST:event_brightnessPctStateChanged
 
     private void terraformEarlyMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_terraformEarlyMouseWheelMoved
-        // TODO add your handling code here:
     	mouseWheel(terraformEarly, evt);
     }//GEN-LAST:event_terraformEarlyMouseWheelMoved
 
     private void terraformEarlyStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_terraformEarlyStateChanged
-        // TODO add your handling code here:
     	if (isAutoApply())
     		options().setTerraformEarly((Integer)terraformEarly.getValue());
     }//GEN-LAST:event_terraformEarlyStateChanged

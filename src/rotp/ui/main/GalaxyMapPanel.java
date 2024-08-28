@@ -888,22 +888,26 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 
         if(debugShowAll) {
             for (Ship sh: galaxy().ships.allFleets()) {
-                sh.setDisplayed(this);
-                Sprite spr = (Sprite) sh;
-                // if we are drawing the ship, then check if its flight path should be drawn first
-                if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
-                && (parent.shouldDrawSprite(sh.pathSprite()) || debugShowAll)) {
-                    if (sh.pathSprite()!=null)
-                        sh.pathSprite().draw(this,g);
-                spr.draw(this, g);
+            	if (sh != null) {
+                    sh.setDisplayed(this);
+                    Sprite spr = (Sprite) sh;
+                    // if we are drawing the ship, then check if its flight path should be drawn first
+                    if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
+                    		&& (parent.shouldDrawSprite(sh.pathSprite()) || debugShowAll)) {
+                        if (sh.pathSprite()!=null)
+                            sh.pathSprite().draw(this,g);
+                    spr.draw(this, g);
+                    }
                 }
             }
         	for (SpaceMonster sh: galaxy().spaceMonsters()) {
-        		sh.setDisplayed(this);
-        		Sprite spr = (Sprite) sh;
-        		if (sh.pathSprite()!=null)
-        			sh.pathSprite().draw(this, g);
-        		spr.draw(this, g);
+        		if (sh != null) {
+            		sh.setDisplayed(this);
+            		Sprite spr = (Sprite) sh;
+            		if (sh.pathSprite()!=null)
+            			sh.pathSprite().draw(this, g);
+            		spr.draw(this, g);
+        		}
         	}
         }
         else if (warView) {
@@ -1120,6 +1124,26 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 }
                 if (closestShip != null)
                     return closestShip;
+                List<SpaceMonster> monsters = new ArrayList<>(pl.visibleMonsters());
+                minDistance = Float.MAX_VALUE;
+                for (Ship sh: monsters) {
+                    if (sh.displayed()) {
+                        Sprite spr = (Sprite) sh;
+                        if (parent.shouldDrawSprite(spr)
+                        && spr.isSelectableAt(this, x1, y1)) {
+                            float dist = spr.selectDistance(this, x1, y1);
+                            if (dist == 0)
+                               return spr;
+                            if (dist < minDistance) {
+                                minDistance = dist;
+                                closestShip = spr;
+                            }
+                        }
+                    }
+                }
+                if (closestShip != null)
+                    return closestShip;
+
             }
         }
         if (!ctrlDown && parent.hoverOverSystems()) {

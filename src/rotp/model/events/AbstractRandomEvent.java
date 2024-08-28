@@ -25,6 +25,8 @@ import rotp.ui.util.ParamInteger;
 import rotp.util.Base;
 
 abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
+	// BR: I forgot to set one... So here is the auto-generated one!
+	private static final long serialVersionUID = -6808434634169955261L;
 	private List<Empire> pendingEvents	= new ArrayList<>();
 	private Integer lastEndedTurn; // BR: new parameter, could be null on reload
 

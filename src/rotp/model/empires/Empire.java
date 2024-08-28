@@ -401,6 +401,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         transportImage = null;
     }
     public boolean canSeeShips(int empId) {
+    	if (isMonster(empId))
+    		return true;
         if (canSeeShips == null) {
             canSeeShips = new boolean[galaxy().numEmpires()];
             for (int i=0;i<canSeeShips.length;i++) 
@@ -556,6 +558,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public Empire(Galaxy g, int empId, int sysId, int cId, String name) {
         log("creating Monster empire for ",  name);
         id			= empId;
+        selectedAI	= IGameOptions.BASE;
         raceKey		= "RACE_PSILON";
         dataRaceKey	= "RACE_PSILON";
         race		= Race.keyed(raceKey);
@@ -589,6 +592,14 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void loadStartingShipDesigns() {
         shipLab.init(this);
     }
+    public boolean isMonster(int id)     { return id < NULL_ID; };
+    public boolean isNull(int id)        { return id == NULL_ID; };
+    public boolean isEmpire(int id)      { return id >= 0; };
+    public boolean isNotEmpire(int id)   { return id < 0; };
+    public boolean isMonster()           { return id < NULL_ID; };
+    public boolean isEmpire()            { return id >= 0; };
+    public boolean isNull()              { return id == NULL_ID; };
+    public boolean isNotEmpire()         { return id < 0; };
     public boolean isPlayer()            { return id == PLAYER_ID; };
     public boolean isAI()                { return id != PLAYER_ID; };
     public boolean isPlayerControlled()  { return !isAIControlled(); }
@@ -1211,6 +1222,12 @@ public final class Empire implements Base, NamedObject, Serializable {
         return tech().canLearnToColonize(pt);
     }
     public boolean knowETA(Ship sh) {
+    	if (isMonster(sh.empId())) {
+    		SpaceMonster monster = (SpaceMonster) sh;
+    		if (monster.event == null)
+    			return false;
+    		return monster.event.notified();
+    	}
         return knowShipETA || canSeeShips(sh.empId());
     }
     public StarSystem defaultSystem() {
@@ -2680,7 +2697,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         List<StarSystem> mySystems = this.allColonizedSystems();
 
         // get monsters in transit
-        for (SpaceMonster sh : gal.spaceMonsters()) {
+        List<SpaceMonster> spaceMonsters = gal.spaceMonsters();
+        for (SpaceMonster sh : spaceMonsters) {
             if (sh != null && sh.visibleTo(id) && canScanTo(sh, mySystems, myShips) )
             	addVisibleMonster(sh);
         }
@@ -3129,18 +3147,18 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
     }
     public DiplomaticTreaty treatyWithEmpire(int empId) {
-        if ((empId < 0) || (empId >= empireViews.length) || (empId == id))
+        if ((isNotEmpire(empId)) || (empId >= empireViews.length) || (empId == id))
             return null;
         
         return empireViews[empId].embassy().treaty();
     }
     public EmpireView viewForEmpire(Empire emp) {
-        if ((emp != null) && (emp != this))
+        if ((emp != null) && (emp != this) && (emp.isEmpire()))
             return empireViews[emp.id];
         return null;
     }
     public EmpireView viewForEmpire(int empId) {
-        if ((empId < 0) || (empireViews == null) || (empId >= empireViews.length) || (empId == id))
+        if (isNotEmpire(empId) || (empireViews == null) || (empId >= empireViews.length) || (empId == id))
             return null;
         return empireViews[empId];
     }
@@ -3245,6 +3263,8 @@ public final class Empire implements Base, NamedObject, Serializable {
             return v.embassy().treaty();
     }
     public int numColonies() {
+    	if (isNotEmpire())
+    		return 2;
         int count = 0;
         for (int n=0; n<sv.count(); n++) {
             if (sv.empire(n) == this)
@@ -3469,14 +3489,14 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public boolean friendlyWith(int empId) {
         if (empId == id) return true;
-        if (empId == Empire.NULL_ID) return false;
+        if (isNotEmpire() || isNotEmpire(empId)) return false;
 
         EmpireView v = viewForEmpire(empId);
         return v == null ? false : v.embassy().isFriend();
     }
     public boolean pactWith(int empId) {
         if (empId == id) return true;
-        if (empId == Empire.NULL_ID) return false;
+        if (isNotEmpire() || isNotEmpire(empId)) return false;
 
         EmpireView v = viewForEmpire(empId);
         return v == null ? false : v.embassy().pact();
@@ -3487,14 +3507,14 @@ public final class Empire implements Base, NamedObject, Serializable {
      */
     public boolean alliedWith(int empId) {
         if (empId == id) return true;
-        if (empId == Empire.NULL_ID) return false;
+        if (isNotEmpire() || isNotEmpire(empId)) return false;
 
         EmpireView v = viewForEmpire(empId);
         return v == null ? false : v.embassy().alliance() || v.embassy().unity();
     }
     public boolean unityWith(int empId) {
         if (empId == id) return true;
-        if (empId == Empire.NULL_ID) return false;
+        if (isNotEmpire() || isNotEmpire(empId)) return false;
 
         EmpireView v = viewForEmpire(empId);
         return v == null ? false : v.embassy().unity();
@@ -3502,16 +3522,21 @@ public final class Empire implements Base, NamedObject, Serializable {
     public boolean tradingWith(Empire c) {
         if (c == this) return true;
         if (c == null) return false;
+        if (isNotEmpire() || c.isNotEmpire()) return false;
         if (c.extinct) return false;
 
         EmpireView v = viewForEmpire(c);
         return v == null ? false : v.trade().active();
     }
     public boolean aggressiveWith(int empId) {
-        if (empId == id) return false;
-        if (empId == Empire.NULL_ID) return false;
-        if (id < Empire.NULL_ID)
-        	return empId > Empire.NULL_ID;
+        if (empId == id)
+        	return false;
+        if (isNull(empId))
+        	return false;
+        if (isMonster())
+        	return isEmpire(empId);
+        if (isMonster(empId))
+        	return isEmpire();
 
         EmpireView v = viewForEmpire(empId);
         if (v == null)
@@ -3524,6 +3549,10 @@ public final class Empire implements Base, NamedObject, Serializable {
     public boolean aggressiveWith(Empire c, StarSystem s) {
         if (c == this) return false;
         if (c == null) return false;
+        if (isMonster())
+        	return c.isEmpire();
+        if (c.isMonster())
+        	return isEmpire();
         if (c.extinct) return true;
 
         EmpireView v = viewForEmpire(c);
@@ -3533,7 +3562,11 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public boolean atWarWith(int empId) {
         if (empId == id) return false;
-        if (empId == Empire.NULL_ID) return false;
+        if (isNull(empId)) return false;
+        if (isMonster())
+        	return isEmpire(empId);
+        if (isMonster(empId))
+        	return isEmpire();
 
         EmpireView v = viewForEmpire(empId);
         if (v == null)
@@ -3542,7 +3575,11 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public boolean atPeaceWith(int empId) {
         if (empId == id) return false;
-        if (empId == Empire.NULL_ID) return false;
+        if (isNull(empId)) return false;
+        if (isMonster())
+        	return isEmpire(empId);
+        if (isMonster(empId))
+        	return isEmpire();
 
         EmpireView v = viewForEmpire(empId);
         if (v == null)
@@ -3551,7 +3588,11 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public boolean noTreatyWith(int empId) {
         if (empId == id) return false;
-        if (empId == Empire.NULL_ID) return false;
+        if (isNull(empId)) return false;
+        if (isMonster())
+        	return isEmpire(empId);
+        if (isMonster(empId))
+        	return isEmpire();
 
         EmpireView v = viewForEmpire(empId);
         if (v == null)
@@ -3561,6 +3602,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public boolean hasTradeWith(Empire c) {
         if (c == this) return false;
         if (c == null) return false;
+        if (isMonster() || c.isMonster()) return false;
         if (c.extinct) return false;
 
         EmpireView v = viewForEmpire(c);
@@ -3571,6 +3613,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public int contactAge(Empire c) {
         if (c == this) return 0;
         if (c == null) return 0;
+        if (isMonster() || c.isMonster()) return 0;
         if (c.extinct) return 0;
 
         EmpireView v = viewForEmpire(c);
@@ -4476,7 +4519,10 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (d == null)
             return null;
 
-        if (d.empire() == this)
+        Empire shEmp = d.empire();
+        if (shEmp.isMonster())
+            return new ShipView(d);
+        if (shEmp == this)
             return shipLab.shipViewFor(d);
 
         EmpireView cv = viewForEmpire(d.empire());

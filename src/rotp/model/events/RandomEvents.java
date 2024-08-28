@@ -104,7 +104,7 @@ public class RandomEvents implements Base, Serializable {
 		if (options().debugAutoRun() && options().debugLogEvents()) {
 			turnLog(IGameOptions.AUTORUN_EVENTS, "Remove Event: " + ev.notificationText());
 		}
-   	if (ev.hasPendingEvents()) { // BR: May only happen with "fixed Event mode"
+		if (ev.hasPendingEvents()) { // BR: May only happen with "fixed Event mode"
 			Empire emp = ev.getPendingEmpire();
 			ev.trigger(emp);
 			if (options().debugAutoRun() && options().debugLogEvents()) {
@@ -330,8 +330,9 @@ public class RandomEvents implements Base, Serializable {
     	List<RandomEvent> tempEvents = new ArrayList<>(activeEvents);
 		for(RandomEvent ev: tempEvents) {
 			if (ev.monsterEvent()) {
-				SpaceMonster monster = ev.monster();
-				monsters.add(monster);
+				SpaceMonster monster = ev.monster(false); // do not track
+				if (monster != null)
+					monsters.add(monster);
 			}
 		}
 		return monsters;
@@ -341,7 +342,7 @@ public class RandomEvents implements Base, Serializable {
     	List<RandomEvent> tempEvents = new ArrayList<>(activeEvents);
 		for(RandomEvent ev: tempEvents) {
 			if (ev.monsterEvent()) {
-				SpaceMonster monster = ev.monster();
+				SpaceMonster monster = ev.monster(true); // Track lost Monsters
 				monster.event = (IMonsterPos) ev;
 			}
 		}

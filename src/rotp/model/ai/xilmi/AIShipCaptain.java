@@ -252,7 +252,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                         continue;
                     if(stack.weapon(i).isSpecial())
                         continue;
-                    if(stack.shotsRemaining(i) < shipStack.weaponAttacks[i] || stack.weapon(i).isLimitedShotWeapon() && shipStack.roundsRemaining[i] < 1)
+                    if(stack.shotsRemaining(i) < shipStack.weaponAttacks(i) || stack.weapon(i).isLimitedShotWeapon() && shipStack.roundsRemaining(i) < 1)
                     {
                         allWeaponsCanStillFire = false;
                     }
@@ -542,13 +542,13 @@ public class AIShipCaptain implements Base, ShipCaptain {
         if(path == null)
             return 0;
         float pathSafety = 1;
-        float threatValue = 0;
-        float totalValue = 0;
+        //float threatValue = 0;
+        //float totalValue = 0;
         for (int i=0;i<path.size();i++) 
         {
             Point coord = new Point(path.mapX(i), path.mapY(i));
             for (CombatStack st : combat().activeStacks()) {
-                if (st.isMonster() || stack.empire.aggressiveWith(st.empire, combat().system())) 
+                if (st.isMonster() || stack.empire().aggressiveWith(st.empire(), combat().system())) 
                 {
                     if(st.movePointsTo(coord.x, coord.y) <= st.maxFiringRange(stack))
                     {
@@ -605,9 +605,9 @@ public class AIShipCaptain implements Base, ShipCaptain {
         int bestX = st.x;
         int bestY = st.y;
         float safestScore = 0;
-        for(int x = 0; x <= st.mgr.maxX; ++x)
+        for(int x = 0; x <= ShipCombatManager.maxX; ++x)
         {
-            for(int y = 0; y <= st.mgr.maxY; ++y)
+            for(int y = 0; y <= ShipCombatManager.maxY; ++y)
             {
                 float currentScore = 0;
                 if(!st.mgr.validSquare(x,y))
@@ -723,17 +723,17 @@ public class AIShipCaptain implements Base, ShipCaptain {
         if(tgt.repulsorRange() > 0 && !st.ignoreRepulsors())
             distanceToBeAt = max(distanceToBeAt, 2);
         boolean shallGoForFirstStrike = true;
-        if(galaxy().shipCombat().results().damageSustained(st.empire) > 0
-                || galaxy().shipCombat().results().damageSustained(tgt.empire) > 0)
+        if(galaxy().shipCombat().results().damageSustained(st.empire()) > 0
+                || galaxy().shipCombat().results().damageSustained(tgt.empire()) > 0)
             shallGoForFirstStrike = false;
         boolean enemyCanAttackAnythingFromMe = false;
         for(CombatStack enemy : galaxy().shipCombat().activeStacks())
         {
-            if(enemy.empire != empire)
+            if(enemy.empire() != empire)
                 continue;
             for(CombatStack mine : galaxy().shipCombat().activeStacks())
             {
-                if(mine.empire != empire)
+                if(mine.empire() != empire)
                     continue;
                 if(enemy.isArmed())
                 {
@@ -820,7 +820,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
     @Override
     public boolean wantToRetreat(CombatStack currStack) {
         CombatStackColony col = combat().results().colonyStack;
-        EmpireView colView = (col == null) ? null : currStack.empire.viewForEmpire(col.empire);
+        EmpireView colView = (col == null) ? null : currStack.empire().viewForEmpire(col.empire());
         boolean inPact = (colView != null) && colView.embassy().pact();
             
         if (currStack == col)
@@ -836,7 +836,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             boolean atLeastOneStackStillArmed = false;
             for(CombatStack cst : currStack.mgr.allStacks())
             {
-                if(cst.empire == empire)
+                if(cst.empire() == empire)
                 {
                     if(cst.isArmed())
                         atLeastOneStackStillArmed = true;
@@ -934,11 +934,11 @@ public class AIShipCaptain implements Base, ShipCaptain {
             if (st.isMonster()) 
                 enemies.add(st);
             else {
-                if (stack.empire.alliedWith(id(st.empire)))
+                if (stack.empire().alliedWith(id(st.empire())))
                 {
                     allies().add(st);
                 }
-                else if (stack.empire.aggressiveWith(st.empire, combat().system()))
+                else if (stack.empire().aggressiveWith(st.empire(), combat().system()))
                     enemies().add(st);
             }
         }
@@ -988,7 +988,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 enemyHasRepulsor = true;
             if(st1.isShip() && st1.design().hasWarpDissipator())
                 enemyHasWarpDissipator = true;
-            if(col != null && col.empire == st1.empire && col.mgr.currentStack() != null)
+            if(col != null && col.empire() == st1.empire() && col.mgr.currentStack() != null)
                 if(col.movePointsTo(st1) == 1)
                     foesBlockPlanet++;
             if(st1.inStasis || (st1.maneuverablity() == 0 && st1.isShip()))
@@ -1122,14 +1122,14 @@ public class AIShipCaptain implements Base, ShipCaptain {
         //System.out.println(stack.mgr.system().name()+" "+stack.fullName()+" allyKillTime: "+allyKillTime+" enemyKillTime: "+enemyKillTime+" enemyKillTimeWithoutHeal: "+enemyKillTimeWithoutHeal);
         if (enemyKillTime == allyKillTime)
         {
-            if(col != null && col.empire == empire)
+            if(col != null && col.empire() == empire)
                 return false;
             else
                 return true;
         }
-        if(stack.empire.isPlayer())
+        if(stack.empire().isPlayer())
         {
-            if(col != null && col.empire == empire)
+            if(col != null && col.empire() == empire)
             {
                 enemyKillTime *= options().playerDefenseConfidence();
                 enemyKillTimeWithoutHeal *= options().playerDefenseConfidence();
@@ -1142,7 +1142,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         }
         else
         {
-            if(col != null && col.empire == empire)
+            if(col != null && col.empire() == empire)
             {
                 enemyKillTime *= options().aiDefenseConfidence();
                 enemyKillTimeWithoutHeal *= options().aiDefenseConfidence();
@@ -1314,11 +1314,11 @@ public class AIShipCaptain implements Base, ShipCaptain {
             if(d.weapon(j).noWeapon())
                 continue;
             float dmg = num * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, colony);
-            if(ship.roundsRemaining[j] > 0)
+            if(ship.roundsRemaining(j) > 0)
                 dmg /= d.weapon(j).bombardAttacks();
             damage += dmg;
         }
-        for (int j=0;j<ShipDesign.maxSpecials();j++)
+        for (int j=0;j<d.maxSpecials();j++)
             damage += d.special(j).estimatedBombardDamage(d, colony);
         return damage;
     }
@@ -1330,7 +1330,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         for (int j=0;j<ShipDesign.maxWeapons();j++) {
             if(d.weapon(j).noWeapon())
                 continue;
-            if(ship.roundsRemaining[j] > 0)
+            if(ship.roundsRemaining(j) > 0)
                 popLoss += (num * d.wpnCount(j) * d.weapon(j).estimatedBioweaponDamage(ship, colony) / d.weapon(j).bombardAttacks()); //divide by bombard-attacks as the return-value is for orbital-bombard, not during-combat-bombard
         }
         return popLoss;

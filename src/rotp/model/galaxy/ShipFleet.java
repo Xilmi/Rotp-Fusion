@@ -24,6 +24,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import rotp.model.Sprite;
 import rotp.model.ai.FleetOrders;
 import rotp.model.ai.FleetStats;
@@ -47,7 +48,7 @@ public class ShipFleet extends FleetBase {
     private int sysId;
     private int destSysId = StarSystem.NULL_ID;
     private int rallySysId = StarSystem.NULL_ID;
-    public final int[] num = new int[ShipDesignLab.MAX_DESIGNS];
+    public  int[] num = new int[ShipDesignLab.MAX_DESIGNS];
     private Status status = Status.ORBITING;
 
     private boolean retreating = false;
@@ -225,7 +226,6 @@ public class ShipFleet extends FleetBase {
         //     return null;
         return galaxy().system(destId);
     }
-    @Override
     public FlightPathSprite pathSprite() {
         StarSystem dest = destinationOrRallySystem();
         // If we have no destination and no rally system, we have no path and no path sprite.
@@ -324,8 +324,15 @@ public class ShipFleet extends FleetBase {
     public boolean inTransit()      { return isInTransit(); }
     public boolean isActive()       { return hasShips(); }
 
-    public int num(int i)             { return num[i]; }
-    void num(int i, int count) { num[i] = count; }
+    public int num(int i)           { return num[i]; }
+    void validate()                 { // BR: For backward compatibility with monsters
+    	if (num == null) {
+    		num = new int[ShipDesignLab.MAX_DESIGNS];
+    		if (this instanceof OrionGuardianShip)
+    			system(galaxy().orionSystem());
+    	}
+    }
+    void num(int i, int count)      { num[i] = count; }
     void reset() {
         for (int i=0;i<num.length;i++)
             num[i] = 0;
@@ -518,7 +525,7 @@ public class ShipFleet extends FleetBase {
                             return true;
                     }
                 }
-                for (int j=0;j<ShipDesign.maxSpecials();j++) {
+                for (int j=0;j<d.maxSpecials();j++) {
                     if (d.special(j).canAttackShips()) {
                         return true;
                     }
@@ -733,9 +740,10 @@ public class ShipFleet extends FleetBase {
         }
         return dmg;
     }
+    
     // BR: tools against space monsters
-    protected float firepowerAntiMonster(float shield, float defense, float missileDefense, int speed, int beamRange) {
-        float dmg = 0;
+    public float firepowerAntiMonster(float shield, float defense, float missileDefense, int speed, int beamRange) {
+        float dmg = 0 + 0;
         for (int i=0;i<num.length;i++) {
             if (num[i]>0) {
                 ShipDesign des = design(i);
@@ -743,6 +751,9 @@ public class ShipFleet extends FleetBase {
                     dmg += (num[i] * des.firepowerAntiMonster(shield, defense, missileDefense, speed, beamRange));
             }
         }
+//        if (dmg == 0) {
+//        	System.out.println("firepowerAntiMonster = 0 --> " + design(0).name());
+//        }
         return dmg;
     }
 	protected int otherSpecialCount()	{ return 0; } // For monster out of design specials
@@ -995,7 +1006,7 @@ public class ShipFleet extends FleetBase {
                         for (int k=0; k<numAttacks && system().population()>popLim; k++)
                             d.weapon(j).fireUpon(shipStack, colonyStack, 1, mgr);
                     }
-                    for (int j=0;j<ShipDesign.maxSpecials();j++) {
+                    for (int j=0;j<d.maxSpecials();j++) {
                         int numAttacks = d.special(j).bombardAttacks() - bombardCount(i);
                         for (int k=0; k<numAttacks && system().population()>popLim; k++)
                             d.special(j).fireUpon(shipStack, colonyStack, 1, mgr);
@@ -1032,7 +1043,7 @@ public class ShipFleet extends FleetBase {
                         for (int k=0;k<numAttacks && system().isColonized();k++)
                             d.weapon(j).fireUpon(shipStack, colonyStack, 1, mgr);
                     }
-                    for (int j=0;j<ShipDesign.maxSpecials();j++) {
+                    for (int j=0;j<d.maxSpecials();j++) {
                         int numAttacks = d.special(j).bombardAttacks() - bombardCount(i);
                         for (int k=0;k<numAttacks && system().isColonized();k++)
                             d.special(j).fireUpon(shipStack, colonyStack, 1, mgr);
@@ -1061,7 +1072,7 @@ public class ShipFleet extends FleetBase {
                         continue;
                     damage += (num[i] * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, planetStack));
                 }
-                for (int j=0;j<ShipDesign.maxSpecials();j++)
+                for (int j=0;j<d.maxSpecials();j++)
                     damage += d.special(j).estimatedBombardDamage(d, planetStack);
             }
         }
@@ -1281,4 +1292,5 @@ public class ShipFleet extends FleetBase {
         int count = Arrays.stream(this.num).sum();
         return count == 1;
     }
+    public void degradePlanet(StarSystem sys)	{  } // BR:
 }

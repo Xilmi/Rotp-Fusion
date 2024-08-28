@@ -791,7 +791,7 @@ public class NewShipTemplate implements Base {
 
     public static float estimatedShipDamage(ShipDesign d, EnemyShipTarget target) {
         List<ShipSpecial> rangeSpecials = new ArrayList<>();
-        for (int i=0;i<ShipDesign.maxSpecials();i++) {
+        for (int i=0;i<d.maxSpecials();i++) {
             ShipSpecial sp = d.special(i);
             if (sp.allowsCloaking()
             || (sp.allowsTeleporting() && !target.hasInterdictors)
@@ -848,9 +848,7 @@ public class NewShipTemplate implements Base {
         else
             return dmgSpecs.remove(0);
     }
-    private boolean ineffective(ShipDesign d) {
-        return d.perTurnDamage() == 0;
-    }
+    // private boolean ineffective(ShipDesign d) { return d.perTurnDamage() == 0; }
     class DesignDamageSpec {
         public int numWeapons = 0;
         public ShipWeapon weapon;

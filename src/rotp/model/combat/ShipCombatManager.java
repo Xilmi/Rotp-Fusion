@@ -100,6 +100,7 @@ public class ShipCombatManager implements Base {
     public boolean interdiction()              { return interdiction; }
     public ShipCombatResults results()         { return results; }
     public StarSystem system()                 { return system; }
+    public void system(StarSystem sys)         { system = sys; }
     public CombatStack currentStack()          { return currentStack; }
     public List<CombatStack> activeStacks()    { return results.activeStacks(); }
     public void ui(ShipBattleUI panel)         { ui = panel; }
@@ -193,6 +194,7 @@ public class ShipCombatManager implements Base {
         }
     }
     public void battle(StarSystem sys, SpaceMonster monster) {
+    	system = sys;
         monster.initCombat();
         empiresInConflict = sys.empiresInConflict();
         List<Empire> empires = new ArrayList<>(empiresInConflict);
@@ -221,8 +223,8 @@ public class ShipCombatManager implements Base {
         ShipFleet fl2 = sys.orbitingFleetForEmpire(emp2);
         int sysEmpId = sys.empId();
         
-        // each empire gets an encounter scan of the opposing fleet
-        // in addition, if a fleet has a NAP with the system empire,
+        // each empire() gets an encounter scan of the opposing fleet
+        // in addition, if a fleet has a NAP with the system empire(),
         // update the ownership for the system
         if (fl1 != null) {
             if ((fl2 != null) && fl2.allowsScanning())
@@ -285,7 +287,7 @@ public class ShipCombatManager implements Base {
         system = s;
         results = new ShipCombatResults(this, system, emp1, emp2);
         
-        // set last attacker for colony empire in case genocide occurs
+        // set last attacker for colony empire() in case genocide occurs
         if (system.empire() == emp1)
             emp1.lastAttacker(emp2);
         else if (system.empire() == emp2)
@@ -375,7 +377,7 @@ public class ShipCombatManager implements Base {
         };
     }
     public boolean canScan(Empire civ, CombatStack st) {
-        if (st.empire == civ)
+        if (st.empire() == civ)
             return true;
         if (st.cloaked)
             return false;
@@ -383,7 +385,7 @@ public class ShipCombatManager implements Base {
             return true;
 
         for (CombatStack stack : results.activeStacks()) {
-            if ((stack.empire == civ) && stack.canScan())
+            if ((stack.empire() == civ) && stack.canScan())
                 return true;
         }
         return false;
@@ -475,7 +477,7 @@ public class ShipCombatManager implements Base {
         for (CombatStack st: activeStacks) {
             if (st.inStasis && st.isShip()) {
                 CombatStackShip sh = (CombatStackShip) st;
-                StarSystem dest = sh.empire.retreatSystem(system());
+                StarSystem dest = sh.empire().retreatSystem(system());
                 boolean prevShow = showAnimations;
                 showAnimations = false;
                 if ((dest == null) || (dest == system))
@@ -527,7 +529,7 @@ public class ShipCombatManager implements Base {
         log("Retreating: ", stack.fullName());
         performingStackTurn = true;
         stack.drawRetreat();
-        results.addShipsRetreated(stack.design, stack.num);
+        results.addShipsRetreated(stack.design(), stack.num);
         removeFromCombat(stack);
         stack.retreatToSystem(s);
         //turnDone(stack);
@@ -537,7 +539,7 @@ public class ShipCombatManager implements Base {
     public void destroyStack(CombatStack stack) {
         log("Destroyed: ", stack.fullName());
         if (stack instanceof CombatStackShip)
-            results.addShipStackDestroyed(((CombatStackShip)stack).design, stack.origNum);
+            results.addShipStackDestroyed(((CombatStackShip)stack).design(), stack.origNum);
         else if (stack instanceof CombatStackColony)
             results.addBasesDestroyed(stack.num);
 
@@ -606,10 +608,10 @@ public class ShipCombatManager implements Base {
         passives.add(emp1);
         passives.add(emp2);
         // ships & armed colonies mean there is still a
-        // "combatable" stack for the empire
+        // "combatable" stack for the empire()
         for (CombatStack st: results.activeStacks()) {
             if (st.isArmed() || !st.isColony())
-                passives.remove(st.empire);
+                passives.remove(st.empire());
         }
         for (Empire passiveEmp: passives) {
             log("retreating empires from init: ",passives.toString());
@@ -648,10 +650,10 @@ public class ShipCombatManager implements Base {
         List<Empire> passives = new ArrayList<>();
         passives.add(emp);
         // ships & armed colonies mean there is still a
-        // "combatable" stack for the empire
+        // "combatable" stack for the empire()
         for (CombatStack st: results.activeStacks()) {
             if (st.isArmed() || !st.isColony())
-                passives.remove(st.empire);
+                passives.remove(st.empire());
         }
         for (Empire passiveEmp: passives) {
             log("retreating empires from init: ",passives.toString());
@@ -663,7 +665,7 @@ public class ShipCombatManager implements Base {
 
         List<CombatStack> activeStacks = new ArrayList<>(results.activeStacks());
         for (CombatStack st : activeStacks) {
-            if ((st.empire == e) && st.isShip()) {
+            if ((st.empire() == e) && st.isShip()) {
                 CombatStackShip ship = (CombatStackShip) st;
                 if (ship.retreat()) {
                     retreatingStacks.add(ship);
@@ -679,8 +681,8 @@ public class ShipCombatManager implements Base {
         for (CombatStack st : results.activeStacks()) {
             if (st.isPlayerControlled())
                 playerInCombat = true;
-            if (!empiresInCombat.contains(st.empire))
-                empiresInCombat.add(st.empire);
+            if (!empiresInCombat.contains(st.empire()))
+                empiresInCombat.add(st.empire());
         }
 
         // build civs array, placing player ships first
@@ -787,12 +789,12 @@ public class ShipCombatManager implements Base {
         addEmpiresToCombat();
         int[] posnAdj = { 0,9 };
         int empIndex = 0;
-        // for each empire, place ship stacks
+        // for each empire(), place ship stacks
         for (Empire c : results.empires()) {
             int stackIndex = 0;
             int idOffset = 0;
             for (CombatStack st : results.activeStacks()) {
-                if (st.empire == c) {
+                if (st.empire() == c) {
                 	int stackPosn = startingPosn[stackIndex+idOffset] + posnAdj[empIndex];
                 	if (st.isColony() && options().moo1PlanetLocation()) {
                 	        int[] posPlanetAdj = { 1,8 };
@@ -862,7 +864,7 @@ public class ShipCombatManager implements Base {
                 for (CombatStack st2 : results.activeStacks()) {
                     if (st2.isShip()) {
                         CombatStackShip sh2 = (CombatStackShip) st2;
-                        st.empire.scanDesign(sh2.design, st2.empire);
+                        st.empire().scanDesign(sh2.design(), st2.empire());
                     }
                 }
             }
@@ -890,7 +892,7 @@ public class ShipCombatManager implements Base {
             {
                 for(CombatStackMissile missile : st.missiles())
                 {
-                    //ail: the missile alsoe needs to have a target that still is there as otherwise this can lead to combat going on after target with incoming missile was destroyed
+                    //ail: the missile also needs to have a target that still is there as otherwise this can lead to combat going on after target with incoming missile was destroyed
                     if(missile.target.num > 0)
                         return true;
                 }
@@ -936,7 +938,7 @@ public class ShipCombatManager implements Base {
             return true;
         
         for (CombatStack s: results.activeStacks()) {            
-            if(st.ignoreRepulsors() || (s.empire == st.empire) || s.inStasis)
+            if(st.ignoreRepulsors() || (s.empire() == st.empire()) || s.inStasis)
                 continue;
             if(s.movePointsTo(x, y) <= s.repulsorRange())
                 return false;
@@ -1162,7 +1164,7 @@ public class ShipCombatManager implements Base {
         // enemy stacks may have a repulsor range that is also not traversable
         List<CombatStack> stacks = new ArrayList<>(results.activeStacks());
         for (CombatStack s: stacks) {            
-            int r = stack.ignoreRepulsors() || (s.empire == stack.empire) || s.inStasis ? 0 : s.repulsorRange();
+            int r = stack.ignoreRepulsors() || (s.empire() == stack.empire()) || s.inStasis ? 0 : s.repulsorRange();
             if ((r == 0) && stack.canEat(s)) 
                 continue;
             else if (r == 0) 
@@ -1185,7 +1187,7 @@ public class ShipCombatManager implements Base {
             return;
         List<CombatStack> stacks = new ArrayList<>(results.activeStacks());
         for (CombatStack s: stacks) {
-            if(s.empire == stack.empire)
+            if(s.empire() == stack.empire())
                 continue;
             if(s.initiative() <= stack.initiative())
                 continue;

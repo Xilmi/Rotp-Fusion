@@ -32,18 +32,11 @@ public class RandomEventGeneric   extends AbstractRandomEvent {
     private String eventKey;
     @SuppressWarnings("unused")
 	private Map<String,Object> eventData = new HashMap<>();
-    public RandomEventGeneric(String key) {
+    public RandomEventGeneric(String key)	{
         eventKey = key;
         initData(key);
     }
-    @Override
-    public boolean monsterEvent() { 
-        // monsterEvent flag for each event. 
-        switch(eventKey) {
-            default:
-                return false; 
-        }
-    }
+    @Override public boolean monsterEvent()	{ return false; }
     @Override
     public String statusMessage() { 
         // statusMessage behavior for each event. Probably should spin off

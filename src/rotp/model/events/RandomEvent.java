@@ -40,6 +40,6 @@ public interface RandomEvent {
     void nextTurn();
     int minimumTurn();
     int startTurn();
-    default boolean techDiscovered()	{ return true; }
-    default SpaceMonster monster()		{ return null; }
+    default boolean techDiscovered()			{ return true; }
+    default SpaceMonster monster(boolean track)	{ return null; }
 }
