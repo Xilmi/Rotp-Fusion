@@ -3,11 +3,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Selected default value are now displayed in the Guide and in the description box.
+- Fixed Main Setting UI background.
 - After first council, the last vote will be shown in the Empire-Diplomacy panel.
 - When hovered over, Space Monsters are displayed on the right panel.
   - Pressing "H" will then display their specs.
 - Space Monsters can be replaced by their MoO1 equivalent.
-
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

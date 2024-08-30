@@ -98,6 +98,12 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		for (int i=1; i<lastRowList.size(); i++) {
 			numRows = max(numRows, lastRowList.get(i)-lastRowList.get(i-1));
 		}
+
+		addMouseListener(this);
+		addMouseMotionListener(this);
+		addMouseWheelListener(this);
+	}
+	private void elementsPositioning()	{
 		// Elements positioning
 		int shiftTitle	= s40;
 		int shiftButton	= s15;
@@ -128,11 +134,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		if (numRows == 6) {
 			// Move the description to the Title level
 			yDesc	= yTitle;
-		}
-
-		addMouseListener(this);
-		addMouseMotionListener(this);
-		addMouseWheelListener(this);
+		}		
 	}
 	private void buildRowCountList() {
 		numColumns = 1;
@@ -155,6 +157,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	//
 	@Override protected void initBackImg() {
 		long timeStart = System.currentTimeMillis();
+		elementsPositioning();
 		forceUpdate = true;
 		backImg = newOpaqueImage(wFull, hFull);
 		Graphics2D g = (Graphics2D) backImg.getGraphics();
@@ -234,6 +237,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			int imgH	= hSetting + yNew + margin;
 			int imgWR	= retina(imgW);
 			int imgHR	= retina(imgH);
+
 			BufferedImage img = new BufferedImage(imgWR, imgHR, TYPE_INT_ARGB);
 			Graphics2D gi = (Graphics2D) img.getGraphics();
 			gi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -424,7 +428,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		xSetting = leftM + columnPad/2;
 		ySetting = yTop;
 		// First column (left)
-		while (index<activeList.size()) {
+		while (index < activeList.size()) {
 			paintSetting(g, btList.get(index), activeList.get(index).getGuiDescription());
 			goToNextSetting();
 		}
@@ -432,7 +436,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		g.setStroke(prev);
 		showGuide(g);
 		if (showTiming)
-			System.out.println("Classic Menu paintComponent() Time = " + (System.currentTimeMillis()-timeStart));	
+			System.out.println("Classic Menu paintComponent() Time = " + (System.currentTimeMillis()-timeStart));
 	}
 	@Override public void keyPressed(KeyEvent e)		{
 		super.keyPressed(e);

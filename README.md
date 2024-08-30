@@ -65,6 +65,10 @@ Later:
 
 ## What's New
 
+2024.08.30 (BR)
+- Selected default value are now displayed in the Guide and in the description box.
+- Fixed Main Setting UI background.
+
 2024.08.28 (BR)
 - Fixed some monster path glitches.
 

@@ -29,11 +29,10 @@ import java.util.EnumMap;
 import rotp.util.ModifierKeysState;
 
 
-//public class ParamButtonHelp extends AbstractParam<String> {
 public class ParamButtonHelp implements IParam {
 	
-	private EnumMap<ModifierKeysState, String>  nameMap = new EnumMap<>(ModifierKeysState.class);
-	private EnumMap<ModifierKeysState, Boolean> showMap = new EnumMap<>(ModifierKeysState.class);
+	protected EnumMap<ModifierKeysState, String>  nameMap = new EnumMap<>(ModifierKeysState.class);
+	protected EnumMap<ModifierKeysState, Boolean> showMap = new EnumMap<>(ModifierKeysState.class);
 	private final String	name;
 	// ===== Constructors =====
 	//
@@ -55,7 +54,7 @@ public class ParamButtonHelp implements IParam {
 		showMap.put(ModifierKeysState.CTRL, showCtrl);
 		showMap.put(ModifierKeysState.CTRL_SHIFT, showCtrlShift);
 	}
-	private String helpLine(ModifierKeysState state, int html) {
+	protected String helpLine(ModifierKeysState state, int html) {
 		String help, line;
 		String label = nameMap.get(state);
 		if (label == null || label.isEmpty() || !showMap.get(state))
@@ -100,9 +99,7 @@ public class ParamButtonHelp implements IParam {
 
 	// ===== Overriders =====
 	//
-	@Override public String getGuide()		{
-		return buildHelp(1); 
-	} // html
+	@Override public String getGuide()		{ return buildHelp(1); } // html
 	@Override public String getFullHelp()	{ return buildHelp(2); } // html
 	@Override public String getHelp()		{ return buildHelp(0); } // Full for old Help
 	@Override public String getCfgLabel()	{ return name; }

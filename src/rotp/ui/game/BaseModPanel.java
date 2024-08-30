@@ -55,6 +55,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamButtonHelp;
+import rotp.ui.util.ParamDefaultButtonHelp;
 import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
 
@@ -522,13 +523,13 @@ public abstract class BaseModPanel extends BasePanel
 
 	// ==================== Default Button ====================
 	//
-	private static final ParamButtonHelp defaultButton = new ParamButtonHelp(
+	private static final ParamButtonHelp defaultButton = new ParamDefaultButtonHelp(
 			"SETTINGS_BUTTON_DEFAULT", // For Help Do not add the list
 			setGlobalDefaultKey,
 			setLocalDefaultKey,
 			restoreGlobalKey,
 			restoreLocalKey);
-	private static final ParamButtonHelp defaultSubButton = new ParamButtonHelp(
+	private static final ParamButtonHelp defaultSubButton = new ParamDefaultButtonHelp(
 			"SETTINGS_BUTTON_DEFAULT", // For Help Do not add the list
 			setLocalDefaultKey,	true,
 			setLocalDefaultKey,	false,
