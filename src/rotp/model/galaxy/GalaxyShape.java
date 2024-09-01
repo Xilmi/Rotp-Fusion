@@ -87,18 +87,10 @@ public abstract class GalaxyShape implements Base, Serializable {
 		init0();
 	}
 	private void init0() {
-//		randRnd = new Rand(opts.selectedGalaxyRandSource());
-//		rand	= new Rand(opts.selectedGalaxyRandSource());
-//		randX	= new Rand.RandX(opts.selectedGalaxyRandSource());
-//		randY	= new Rand.RandY(opts.selectedGalaxyRandSource());
 		randRnd = new Rand(opts.selectedGalaxyRandSource());
 		rand	= randRnd;
 		randX	= randRnd;
 		randY	= randRnd;
-
-//		rand	= new Rand(randRnd.nextLong());
-//		randX	= new Rand(randRnd.nextLong());
-//		randY	= new Rand(randRnd.nextLong());
 
 		finalOption1 = opts.selectedGalaxyShapeOption1();
 		finalOption2 = opts.selectedGalaxyShapeOption2();
@@ -321,7 +313,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			float radius = opts.firstRingRadius();
 			float minRel = buffer/radius;
 			minRel *= minRel;
-			for (int nbSys=0; nbSys<num1; nbSys++) { // variable nearby systems
+			for (int nbSys=1; nbSys<=num1; nbSys++) { // variable nearby systems
 				// get player nearby system
 				if (player.addNearbySystemsSym(this, null, radius, buffer, minRel))
 					homeStars++;
@@ -342,7 +334,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			radius = opts.secondRingRadius();
 			minRel = buffer/radius;
 			minRel *= minRel;
-			for (int nbSys=num1; nbSys<num2; nbSys++) { // variable nearby systems
+			for (int nbSys=num1+1; nbSys<=num2; nbSys++) { // variable nearby systems
 				// get player nearby system
 				if (player.addNearbySystemsSym(this, null, radius, buffer, minRel))
 					homeStars++;

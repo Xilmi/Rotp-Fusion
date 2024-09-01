@@ -66,6 +66,7 @@ Later:
 ## What's New
 
 2024.08.31 (BR)
+- Fixed Symmetric galaxy generation.
 - Fixed some Memory "leak".
   - Several older session objects could be kept "prisoner" in some GUI variables, this until these variable were reused by the current session.
   - Some Empire references are replaced by their ID

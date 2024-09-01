@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed Symmetric galaxy generation.
 - Fixed some Memory "leak".
 - Selected default value are now displayed in the Guide and in the description box.
 - Fixed Main Setting UI background.
