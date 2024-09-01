@@ -43,6 +43,7 @@ public class MapOverlayAutosaveFailed extends MapOverlay {
         errorMsg = err == null ? "<null>" : err;
         okButton.reset();
     }
+    public void releaseObjects() { }
     public void ok() {
         parent.clearOverlay();
     }

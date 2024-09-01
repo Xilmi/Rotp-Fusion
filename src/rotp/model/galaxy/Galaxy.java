@@ -33,9 +33,6 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.Empire.EmpireBaseData;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.empires.Race;
-import rotp.model.events.RandomEventSpaceAmoeba;
-import rotp.model.events.RandomEventSpaceCrystal;
-import rotp.model.events.RandomEventSpacePirates;
 import rotp.model.events.RandomEvents;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.game.DynOptions;
@@ -55,9 +52,6 @@ public class Galaxy implements Base, Serializable {
     public static final float TIME_PER_TURN = 1;
     public	static final String EMPIRES_KEY	= "SETUP_EMPIRE_LIST";
     public	static final String SYSTEMS_KEY	= "SETUP_SYSTEM_LIST";
-//    public	static final List<SpaceMonster> MONSTERS = new ArrayList<>();
-//    public	static final int	NUM_MONSTER	= 4;
-//    public	static final Empire[] MONSTERS	= new Empire[NUM_MONSTER];
     
     private float currentTime = 0;
     private final GalacticCouncil council = new GalacticCouncil();
@@ -418,9 +412,6 @@ public class Galaxy implements Base, Serializable {
     	orionEmpire = new Empire(this, -2, orionId(), 0, "Orion"); // to update tech
         for (Empire emp: empires())
              emp.validateOnLoad();
-        RandomEventSpacePirates.triggerEmpire = isTechDiscovered(RandomEventSpacePirates.TRIGGER_TECH);
-        RandomEventSpaceCrystal.triggerEmpire = isTechDiscovered(RandomEventSpaceCrystal.TRIGGER_TECH);
-        RandomEventSpaceAmoeba.triggerEmpire  = isTechDiscovered(RandomEventSpaceAmoeba.TRIGGER_TECH);
         events.validateOnLoad();
         player().setVisibleMonsters();
         // Gives Guardian monster their systems
@@ -709,12 +700,11 @@ public class Galaxy implements Base, Serializable {
     	}
     	return false;
     }
-    public Empire isTechDiscovered(String id) {
-    	for (Empire e: empires) {
+    public int techDiscoveryEmpireId(String id) {
+    	for (Empire e: empires)
     		if(e.tech().knows(id))
-    			return e;
-    	}
-    	return null;
+    			return e.id;
+    	return Empire.NULL_ID;
     }
     public HashMap<String, Integer> eventGNNState()	{ return events().eventGNNState(); }
 

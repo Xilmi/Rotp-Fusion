@@ -49,6 +49,10 @@ public class MapOverlayAllocateSystems extends MapOverlay {
     public MapOverlayAllocateSystems(MainUI p) {
         parent = p;
     }
+    public void releaseObjects() {
+    	systemsToAllocate.clear();
+    	orderedSystems.clear();
+    }
     public void init(HashMap<StarSystem,List<String>> newSystems) {
         drawSprites = true;
         systemsToAllocate = newSystems;

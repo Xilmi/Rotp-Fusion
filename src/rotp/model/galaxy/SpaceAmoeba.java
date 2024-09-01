@@ -37,7 +37,7 @@ public class SpaceAmoeba extends SpaceMonster {
     private static final boolean isFusion	= false;
 
 	public SpaceAmoeba(Float speed, Float level) {
-		super("SPACE_AMOEBA", -4, speed, level);
+		super("SPACE_AMOEBA", -2, speed, level);
 	}
 
 	private int hullHitPoints()		{ return moO1Level (3000, 1000, 200, 0.5f, 0.5f); }

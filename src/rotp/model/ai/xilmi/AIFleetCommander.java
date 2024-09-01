@@ -1693,6 +1693,8 @@ public class AIFleetCommander implements Base, FleetCommander {
     public float combatPower(ShipFleet attacker, ShipFleet defender) {
         return combatPower(attacker, getFleetStats(defender));
     }
+
+    // TODO BR: Try to comment this -> monsters = fleet
     float combatPower(SpaceMonster monster , ShipFleet defender) {
         FleetStats defenderStats = getFleetStats(defender);
         monster.initCombat();

@@ -60,6 +60,12 @@ public class MapOverlaySystemsScouted extends MapOverlay {
     public MapOverlaySystemsScouted(MainUI p) {
         parent = p;
     }
+    public void releaseObjects() {
+    	scoutSystems.clear();
+    	allySystems.clear();
+    	astronomerSystems.clear();
+    	orderedSystems.clear();
+    }
     public void init(HashMap<String, List<StarSystem>> newSystems) {
         parent.hideDisplayPanel();
         origMapScale = parent.map().scaleY();

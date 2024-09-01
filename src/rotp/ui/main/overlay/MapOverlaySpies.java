@@ -60,6 +60,9 @@ public class MapOverlaySpies extends MapOverlay {
     public MapOverlaySpies(MainUI p) {
         parent = p;
     }
+    public void releaseObjects() {
+    	selectedEmpire = null;
+    }
     public boolean shouldDisplay() {
         return !empires.isEmpty();
     }

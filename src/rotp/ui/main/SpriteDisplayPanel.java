@@ -325,4 +325,17 @@ public class SpriteDisplayPanel extends BasePanel implements SystemViewer, Mouse
     public void mouseMoved(MouseEvent e) { }
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) { }
+
+    public void releaseObjects() {
+    	playerSystemPane.releaseObjects();
+        alienSystemPane.releaseObjects();
+        unexploredAlienPane.releaseObjects();
+        exploredSystemPane.releaseObjects();
+        unexploredSystemPane.releaseObjects();
+        fleetPane.releaseObjects();
+        transportDeployPane.releaseObjects();
+        transportDisplayPane.releaseObjects();
+        shipRelocationPane.releaseObjects();
+    	shipRelocationPane.releaseObjects();
+    }
 }

@@ -34,7 +34,6 @@ public class RandomEventSpacePirates extends RandomEventMonsters {
 	public static final String TRIGGER_TECH		= "EngineWarp:8";
 	public static final String TRIGGER_GNN_KEY	= "EVENT_SPACE_PIRATES_TRIG";
 	public static final String GNN_EVENT		= "GNN_Event_Pirates";
-	public static Empire triggerEmpire;
 	private int empId; // Not to be set: kept for backward compatibility
 	private int sysId; // Not to be set: kept for backward compatibility
 	private int turnCount; // Not to be set: kept for backward compatibility
@@ -42,7 +41,7 @@ public class RandomEventSpacePirates extends RandomEventMonsters {
 	@Override protected SpaceMonster newMonster(Float speed, Float level) {
 		return new SpacePirates(speed, level);
 	}
-	@Override public boolean techDiscovered()	{ return triggerEmpire != null; }
+	@Override public boolean techDiscovered()	{ return !galaxy().events().spacePiratesNotTriggered(); }
 	@Override protected String name()			{ return "PIRATES"; }
 	@Override ParamInteger delayTurn()			{ return IGameOptions.piratesDelayTurn; }
 	@Override ParamInteger returnTurn()			{ return IGameOptions.piratesReturnTurn; }

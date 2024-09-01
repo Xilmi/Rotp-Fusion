@@ -83,7 +83,8 @@ public class MapOverlayNone extends MapOverlay {
             	if (parent.displayPanel().canEscape())
                     parent.displayPanel().keyPressed(e);
                 else
-                    RotPUI.instance().selectGamePanel();
+                	parent.selectGamePanel();
+//                    RotPUI.instance().selectGamePanel();
                 break;
             case KeyEvent.VK_EQUALS:
                 if (e.isShiftDown())  
@@ -116,7 +117,8 @@ public class MapOverlayNone extends MapOverlay {
                 break;
             case KeyEvent.VK_G:
                 buttonClick();
-                RotPUI.instance().selectGamePanel();
+                parent.selectGamePanel();
+//                RotPUI.instance().selectGamePanel();
                 break;
             case KeyEvent.VK_D:
                 buttonClick();

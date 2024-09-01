@@ -70,12 +70,12 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 	@Override public boolean goodEvent()		{ return false; }
 	@Override public boolean monsterEvent() 	{ return true; }
 	@Override public SpaceMonster monster(boolean track)	{
-		if (monster != null)
-			monster.event = this;	// ? just a security!
-		else if (track) {
-			trackLostMonster();		// backward compatibility
-			monster.event = this;	// ? just a security!
-		}
+//		if (monster != null)
+//			monster.event = this;	// ? just a security!
+//		else if (track) {
+//			trackLostMonster();		// backward compatibility
+//			monster.event = this;	// ? just a security!
+//		}
 		return monster;
 	}
 	@Override int nextAllowedTurn()				{ // for backward compatibility
@@ -151,6 +151,12 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 			return 1;
 		return super.startTurn();
 	}
+	@Override public void validateOnLoad()		{
+		super.validateOnLoad();
+		if (monster == null)
+			trackLostMonster();
+		monster.event = this;
+	};
 	
 	// Mandatory and occasional override
 	abstract protected String name();
@@ -247,7 +253,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 		terminateEvent(this);
 	}
 	private void trackLostMonster()				{ // backward compatibility
-		System.err.println(galaxy().currentTurn() + " trackLostMonster() ");
+		System.out.println(galaxy().currentTurn() + " trackLostMonster() ");
 		targetEmpId		= oldEmpId();
 		targetSysId		= oldSysId();
 		targetTurnCount	= oldTurnCount()+1;
@@ -598,4 +604,5 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 		notifyTurnCount = NOTIFY_TURN_COUNT + roll(-1, 2);
 		return notifyTurnCount;
 	}
+
 }

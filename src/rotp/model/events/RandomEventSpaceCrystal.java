@@ -27,7 +27,6 @@ public class RandomEventSpaceCrystal extends RandomEventMonsters {
 	public static final String TRIGGER_TECH		= "Stargate:0";
 	public static final String TRIGGER_GNN_KEY	= "EVENT_SPACE_CRYSTAL_TRIG";
 	public static final String GNN_EVENT		= "GNN_Event_Crystal";
-	public static Empire triggerEmpire;
 	private int empId; // Not to be set: kept for backward compatibility
 	private int sysId; // Not to be set: kept for backward compatibility
 	private int turnCount; // Not to be set: kept for backward compatibility
@@ -35,7 +34,7 @@ public class RandomEventSpaceCrystal extends RandomEventMonsters {
 	@Override protected SpaceMonster newMonster(Float speed, Float level) {
 		return new SpaceCrystal(speed, level);
 	}
-	@Override public boolean techDiscovered()	{ return triggerEmpire != null; }
+	@Override public boolean techDiscovered()	{ return !galaxy().events().spaceCrystalNotTriggered(); }
 	@Override protected String name()			{ return "CRYSTAL"; }
 	@Override ParamInteger delayTurn()			{ return IGameOptions.crystalDelayTurn; }
 	@Override ParamInteger returnTurn()			{ return IGameOptions.crystalReturnTurn; }

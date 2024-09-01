@@ -65,6 +65,7 @@ public class TransportDeploymentPanel extends SystemPanel {
     private void init() {
         initModel();
     }
+    public void releaseObjects() { }
     @Override
     public void handleNextTurn() {  cancel(); }
     @Override

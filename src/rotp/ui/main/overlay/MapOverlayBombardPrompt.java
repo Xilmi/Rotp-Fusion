@@ -64,6 +64,9 @@ public class MapOverlayBombardPrompt extends MapOverlay implements IVIPListener 
         parent = p;
         clickSprite = new ClickToContinueSprite(parent);
     }
+    public void releaseObjects() {
+    	fleet = null;
+    }
     public void init(int systemId, ShipFleet fl) {
         drawSprites = true;
         planetImg = null;

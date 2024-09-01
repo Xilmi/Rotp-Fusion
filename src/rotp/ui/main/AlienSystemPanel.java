@@ -46,6 +46,8 @@ public class AlienSystemPanel extends SystemPanel {
         parentSpritePanel = p;
         initModel();
     }
+    public void releaseObjects() { }
+
     @Override
     public void animate()            { overviewPane.animate(); }
     @Override
@@ -60,10 +62,11 @@ public class AlienSystemPanel extends SystemPanel {
         private static final long serialVersionUID = 1L;
         SystemPanel parent;
         Shape textureClip;
-        Empire displayEmp;
+        // Empire displayEmp; // was preventing garbage collection
         Rectangle nameBox = new Rectangle();
         Rectangle flagBox = new Rectangle();
         Shape hoverBox;
+        int displayEmpId = Empire.NULL_ID;
 
         DetailPane(SystemPanel p) {
             parent = p;
@@ -83,7 +86,8 @@ public class AlienSystemPanel extends SystemPanel {
         public void paintComponent(Graphics g0) {
             Graphics2D g = (Graphics2D) g0;
             nameBox.setBounds(0,0,0,0);
-            displayEmp = null;
+            Empire displayEmp = null;
+            displayEmpId = Empire.NULL_ID;
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -93,6 +97,7 @@ public class AlienSystemPanel extends SystemPanel {
             displayEmp = pl.sv.empire(id);
             if (displayEmp == null)
                 return;
+            displayEmpId = id;
 
             boolean spied = pl.sv.isSpied(id);
 
@@ -187,7 +192,7 @@ public class AlienSystemPanel extends SystemPanel {
                 g.drawImage(fortImg, fortX, fortY, fortX+fortW, fortY+fortH, 0, 0, fortImg.getWidth(), fortImg.getHeight(), null);
 
                 // for hostile planets, draw shield
-                if (sys.colony().empire().race().isHostile(sys.colony().planet().type())) {
+                if (sys.colony() != null && sys.colony().empire().race().isHostile(sys.colony().planet().type())) {
                     BufferedImage shieldImg = sys.colony().empire().race().shield();
                     g.drawImage(shieldImg, fortX, fortY, fortX+fortW, fortY+fortH, 0, 0, shieldImg.getWidth(), shieldImg.getHeight(), null);
                 }
@@ -249,7 +254,7 @@ public class AlienSystemPanel extends SystemPanel {
             else if (hoverBox == nameBox) {
                 RotPUI.instance().selectRacesPanel();
                 RotPUI.instance().racesUI().selectDiplomacyTab();
-                RotPUI.instance().racesUI().selectedEmpire(displayEmp);              
+                RotPUI.instance().racesUI().selectedEmpire(galaxy().empire(displayEmpId));              
             }
         }
         @Override

@@ -48,6 +48,9 @@ public class MapOverlayBombardedNotice  extends MapOverlay {
         parent = p;
         clickSprite = new ClickToContinueSprite(parent);
     }
+    public void releaseObjects() {
+    	fleet = null;
+    }
     public void init(int systemId, ShipFleet fl) {
         mask = null;
         planetImg = null;

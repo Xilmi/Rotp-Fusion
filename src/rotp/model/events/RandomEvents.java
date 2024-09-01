@@ -40,6 +40,9 @@ public class RandomEvents implements Base, Serializable {
 	private Long targetSeed = null;
 	private long monsterId  = 0;
 	private HashMap<String, Integer> eventGNNState;
+	private Integer empireIdTechTriggerSpaceAmoeba  = Empire.NULL_ID;
+	private Integer empireIdTechTriggerSpaceCrystal = Empire.NULL_ID;
+	private Integer empireIdTechTriggerSpacePirates = Empire.NULL_ID;
 
 	public int startTurn()				{ // BR:Made it adjustable
 		return IGameOptions.eventsStartTurn.get();
@@ -96,6 +99,28 @@ public class RandomEvents implements Base, Serializable {
 		targetSeed = new Random(targetSeed()).nextLong();
 		return new Random(targetSeed).nextInt(numEmp);
 	}
+
+	public int empireIdTechTriggerSpaceAmoeba()	{
+		if (empireIdTechTriggerSpaceAmoeba == null)
+			empireIdTechTriggerSpaceAmoeba = galaxy().techDiscoveryEmpireId(RandomEventSpaceAmoeba.TRIGGER_TECH);
+		return empireIdTechTriggerSpaceAmoeba;
+	}
+	public int empireIdTechTriggerSpaceCrystal()	{
+		if (empireIdTechTriggerSpaceCrystal == null)
+			empireIdTechTriggerSpaceCrystal = galaxy().techDiscoveryEmpireId(RandomEventSpaceCrystal.TRIGGER_TECH);
+		return empireIdTechTriggerSpaceCrystal;
+	}
+	public int empireIdTechTriggerSpacePirates()	{
+		if (empireIdTechTriggerSpacePirates == null)
+			empireIdTechTriggerSpacePirates = galaxy().techDiscoveryEmpireId(RandomEventSpacePirates.TRIGGER_TECH);
+		return empireIdTechTriggerSpacePirates;
+	}
+	public void empireIdTechTriggerSpaceAmoeba(int id)	{ empireIdTechTriggerSpaceAmoeba  = id; }
+	public void empireIdTechTriggerSpaceCrystal(int id)	{ empireIdTechTriggerSpaceCrystal = id; }
+	public void empireIdTechTriggerSpacePirates(int id)	{ empireIdTechTriggerSpacePirates = id; }
+	public boolean spaceAmoebaNotTriggered()	{ return empireIdTechTriggerSpaceAmoeba == Empire.NULL_ID; }
+	public boolean spaceCrystalNotTriggered()	{ return empireIdTechTriggerSpaceCrystal == Empire.NULL_ID; }
+	public boolean spacePiratesNotTriggered()	{ return empireIdTechTriggerSpacePirates == Empire.NULL_ID; }
 
 	public void addActiveEvent(RandomEvent ev)		{ activeEvents.add(ev); }
 	public boolean isActiveEvent(RandomEvent ev)	{ return activeEvents.contains(ev); }
@@ -341,10 +366,11 @@ public class RandomEvents implements Base, Serializable {
     	// possible that call may remove an active event
     	List<RandomEvent> tempEvents = new ArrayList<>(activeEvents);
 		for(RandomEvent ev: tempEvents) {
-			if (ev.monsterEvent()) {
-				SpaceMonster monster = ev.monster(true); // Track lost Monsters
-				monster.event = (IMonsterPos) ev;
-			}
+			ev.validateOnLoad();
+//			if (ev.monsterEvent()) {
+//				SpaceMonster monster = ev.monster(true); // Track lost Monsters
+//				monster.event = (IMonsterPos) ev;
+//			}
 		}
     }
 	public HashMap<String, Integer> eventGNNState()	{

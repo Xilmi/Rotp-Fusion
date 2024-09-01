@@ -205,7 +205,8 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
     private void clickButton(int i) {
         RotPUI.instance().mainUI().cancel();
         switch(i) {
-            case 0: RotPUI.instance().selectGamePanel();    break;
+//            case 0: RotPUI.instance().selectGamePanel();    break;
+            case 0: parent.selectGamePanel();    break;
             case 1: RotPUI.instance().selectSystemsPanel(); break;
             case 2: RotPUI.instance().selectFleetPanel();   break;
             case 3: RotPUI.instance().selectDesignPanel();  break;

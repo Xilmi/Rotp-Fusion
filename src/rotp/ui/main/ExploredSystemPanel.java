@@ -54,6 +54,8 @@ public class ExploredSystemPanel extends SystemPanel {
         parentSpritePanel = p;
         initModel();
     }
+    public void releaseObjects() { }
+
     @Override
     public void animate()            { overviewPane.animate(); }
     @Override

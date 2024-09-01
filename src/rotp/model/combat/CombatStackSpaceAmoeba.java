@@ -121,7 +121,6 @@ public class CombatStackSpaceAmoeba extends CombatStackMonster {
 		return actualDamage; 
 	}
 	@Override public Color shieldBaseColor()	{ return Color.yellow; }
-	@Override public void becomeDestroyed()		{ destroyed = true; num = 0;}
 
 	public void eatShips(CombatStack st) {
 		if (st == null)

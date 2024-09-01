@@ -50,6 +50,8 @@ public class UnexploredAlienSystemPanel extends SystemPanel {
     private void init() {
         initModel();
     }
+    public void releaseObjects() { }
+
     @Override
     public void animate()            { overviewPane.animate(); }
     @Override
@@ -64,10 +66,11 @@ public class UnexploredAlienSystemPanel extends SystemPanel {
         private static final long serialVersionUID = 1L;
         SystemPanel parent;
         Shape textureClip;
-        Empire displayEmp;
+        // Empire displayEmp; // was preventing garbage collection
         Rectangle nameBox = new Rectangle();
         Rectangle flagBox = new Rectangle();
         Shape hoverBox;
+        int displayEmpId = Empire.NULL_ID;
 
         DetailPane(SystemPanel p) {
             parent = p;
@@ -91,15 +94,18 @@ public class UnexploredAlienSystemPanel extends SystemPanel {
         public void paintComponent(Graphics g0) {
             Graphics2D g = (Graphics2D) g0;
             nameBox.setBounds(0,0,0,0);
-            displayEmp = null;
+            Empire displayEmp = null;
+            displayEmpId = Empire.NULL_ID;
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
+
             int id = sys.id;
             Empire pl = player();
             displayEmp = pl.sv.empire(id);
             if (displayEmp == null)
                 return;
+            displayEmpId = id;
 
             super.paintComponent(g);
             int h = getHeight();
@@ -239,7 +245,7 @@ public class UnexploredAlienSystemPanel extends SystemPanel {
             else if (hoverBox == nameBox) {
                 RotPUI.instance().selectRacesPanel();
                 RotPUI.instance().racesUI().selectDiplomacyTab();
-                RotPUI.instance().racesUI().selectedEmpire(displayEmp);              
+                RotPUI.instance().racesUI().selectedEmpire(galaxy().empire(displayEmpId));              
             }
         }
         @Override

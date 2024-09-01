@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed some Memory "leak".
 - Selected default value are now displayed in the Guide and in the description box.
 - Fixed Main Setting UI background.
 - After first council, the last vote will be shown in the Empire-Diplomacy panel.
@@ -44,6 +45,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - New option to prevent asteroids from disapearing.
     - New option to place Ships and planet in their MoO1 location.
     - New option for asteroids to impact on weapons. (As in MoO1)
+  - Space Monsters can be replaced by their MoO1 equivalent.
 - Governor Options:
   - Replaced the Governor "Spare Xenophobes" with a more general option: "Respect promises"
   - The last promise will be shown in the Empire Intelligence panel during the entire sensitive time.

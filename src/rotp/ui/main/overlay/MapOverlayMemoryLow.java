@@ -47,6 +47,8 @@ public class MapOverlayMemoryLow extends MapOverlay {
         restartButton.reset();
         skipButton.reset();
     }
+    public void releaseObjects() { }
+
     public void restart() {
         Rotp.restartFromLowMemory();
     }

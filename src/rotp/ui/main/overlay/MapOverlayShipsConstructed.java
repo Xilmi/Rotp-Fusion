@@ -44,6 +44,9 @@ public class MapOverlayShipsConstructed extends MapOverlay {
         parent = p;
         clickSprite = new ClickToContinueSprite(parent);
     }
+    public void releaseObjects() {
+    	designs.clear();
+    }
     public void init() {
         parent.hideDisplayPanel();
         designs.clear();

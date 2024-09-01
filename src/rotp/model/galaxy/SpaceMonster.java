@@ -69,6 +69,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	}
 	
 	abstract protected ShipDesign designRotP();
+
 	protected ShipDesign designMoO1()		{ return designRotP(); }
 	protected void initDesigns()			{
 		designs = new ShipDesign[ShipDesignLab.MAX_DESIGNS];

@@ -58,6 +58,10 @@ public class MapOverlayColonizePrompt extends MapOverlay {
         parent = p;
         clickSprite = new ClickToContinueSprite(parent);
     }
+    public void releaseObjects() {
+    	fleet = null;
+    	design = null;
+    }
     public void init(int systemId, ShipFleet fl, ShipDesign d) {
         StarSystem sys = galaxy().system(systemId);
         sysId = systemId;

@@ -537,6 +537,7 @@ public class MainUI extends BasePanel implements IMapHandler {
             selectPlayerHomeSystem();
             sessionVar("MAINUI_MAP_INITIALIZED", true);
         }
+        displayPanel.releaseObjects(); // BR: To help garbage collector
     }
     @Override
     public void clickingNull(int cnt, boolean right) {
@@ -1243,5 +1244,27 @@ public class MainUI extends BasePanel implements IMapHandler {
             map.altToggled(false);
             return;
         }
+    }
+
+    public void selectGamePanel()	{
+    	// TODO BR: release element to help garbage collection on new game.
+    	// May be more objects should be released.
+    	displayPanel.releaseObjects();
+
+        overlayMemoryLow.releaseObjects();
+        overlayJava32Bit.releaseObjects();
+        overlayAutosaveFailed.releaseObjects();
+        overlayShipsConstructed.releaseObjects();
+        overlaySpies.releaseObjects();
+        overlayAllocateSystems.releaseObjects();
+        overlaySystemsScouted.releaseObjects();
+        overlayEspionageMission.releaseObjects();
+        overlayColonizePrompt.releaseObjects();
+        overlayBombardPrompt.releaseObjects();
+        overlayBombardedNotice.releaseObjects();
+        overlayShipCombatPrompt.releaseObjects();
+        overlayAdvice.releaseObjects();
+
+    	RotPUI.instance().selectGamePanel();
     }
 }

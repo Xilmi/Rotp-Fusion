@@ -52,6 +52,7 @@ public class TransportPanel extends BasePanel {
         parent = p;
         initModel();
     }
+    public void releaseObjects() { }
     public Transport transport() { return parent.transportToDisplay(); }
     @Override
     public void animate() {

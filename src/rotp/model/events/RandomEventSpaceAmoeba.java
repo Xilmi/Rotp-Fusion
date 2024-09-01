@@ -15,6 +15,8 @@
  */
 package rotp.model.events;
 
+import java.time.LocalTime;
+
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.SpaceAmoeba;
 import rotp.model.galaxy.SpaceMonster;
@@ -27,15 +29,21 @@ public class RandomEventSpaceAmoeba extends RandomEventMonsters {
 	public static final String TRIGGER_TECH		= "Cloning:1";
 	public static final String TRIGGER_GNN_KEY	= "EVENT_SPACE_AMOEBA_TRIG";
 	public static final String GNN_EVENT		= "GNN_Event_Amoeba";
-	public static Empire triggerEmpire;
 	private int empId; // Not to be set: kept for backward compatibility
 	private int sysId; // Not to be set: kept for backward compatibility
 	private int turnCount; // Not to be set: kept for backward compatibility
 
+	public RandomEventSpaceAmoeba() {
+		System.out.println(LocalTime.now() + " No Galaxy: " + " New RandomEventSpaceAmoeba was created");
+	}
 	@Override protected SpaceMonster newMonster(Float speed, Float level) {
+		if (galaxy() != null)
+			System.out.println(galaxy().currentTurn() + " RandomEventSpaceAmoeba: newMonster was created");
+		else
+			System.out.println(LocalTime.now() + " No Galaxy: " + " RandomEventSpaceAmoeba: newMonster was created");
 		return new SpaceAmoeba(speed, level);
 	}
-	@Override public boolean techDiscovered()	{ return triggerEmpire != null; }
+	@Override public boolean techDiscovered()	{ return !galaxy().events().spaceAmoebaNotTriggered(); }
 	@Override protected String name()			{ return "AMOEBA"; }
 	@Override ParamInteger delayTurn()			{ return IGameOptions.amoebaDelayTurn; }
 	@Override ParamInteger returnTurn()			{ return IGameOptions.amoebaReturnTurn; }

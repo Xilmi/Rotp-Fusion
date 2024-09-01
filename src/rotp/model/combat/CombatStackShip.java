@@ -651,14 +651,17 @@ public class CombatStackShip extends CombatStack {
         int orig = num;
         super.loseShip();
         int shipsLost = orig-num;
-        fleet.removeShips(design.id(), shipsLost, true);
+        if (design != null)
+        	fleet.removeShips(design.id(), shipsLost, true);
 
         // record losses
         if (!destroyed())  // if destroyed, already recorded lose in super.loseShip()
             mgr.results().addShipDestroyed(design, shipsLost);
         
-        empire().shipLab().recordDestruction(design, shipsLost);
-        mgr.currentStack().recordKills(shipsLost);
+        if (design != null) {
+        	empire().shipLab().recordDestruction(design, shipsLost);
+        	mgr.currentStack().recordKills(shipsLost);
+        }
     }
     @Override
     public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH, int stop) {

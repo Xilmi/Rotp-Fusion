@@ -24,6 +24,7 @@ import rotp.model.empires.Empire;
 import rotp.model.events.RandomEventSpaceAmoeba;
 import rotp.model.events.RandomEventSpaceCrystal;
 import rotp.model.events.RandomEventSpacePirates;
+import rotp.model.events.RandomEvents;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamTech;
 import rotp.util.Base;
@@ -112,27 +113,28 @@ public final class TechCategory implements Base, Serializable {
     	boolean newEvent = false;
     	String gnnEvent	 = "";
     	String gnnKey	 = "";
+    	RandomEvents events = galaxy().events();
     	// System.out.println("isTriggerEvent id = " + id);
     	switch (id) {
 	    	case RandomEventSpacePirates.TRIGGER_TECH:
-	    		if (RandomEventSpacePirates.triggerEmpire == null) {
-	    			RandomEventSpacePirates.triggerEmpire = emp;
+	    		if (events.spacePiratesNotTriggered()) {
+	    			events.empireIdTechTriggerSpacePirates(emp.id);
 	    			gnnEvent = RandomEventSpacePirates.GNN_EVENT;
 	    			gnnKey	 = RandomEventSpacePirates.TRIGGER_GNN_KEY;
 	    			newEvent = true;
 	    		}
 	    		break;
 	    	case RandomEventSpaceCrystal.TRIGGER_TECH:
-	    		if (RandomEventSpaceCrystal.triggerEmpire == null) {
-	    			RandomEventSpaceCrystal.triggerEmpire = emp;
+	    		if (events.spaceCrystalNotTriggered()) {
+	    			events.empireIdTechTriggerSpaceCrystal(emp.id);
 	    			gnnEvent = RandomEventSpaceCrystal.GNN_EVENT;
 	    			gnnKey	 = RandomEventSpaceCrystal.TRIGGER_GNN_KEY;
 	    			newEvent = true;
 	    		}
 	    		break;
 	    	case RandomEventSpaceAmoeba.TRIGGER_TECH:
-	    		if (RandomEventSpaceAmoeba.triggerEmpire == null) {
-	    			RandomEventSpaceAmoeba.triggerEmpire = emp;
+	    		if (events.spaceAmoebaNotTriggered()) {
+	    			events.empireIdTechTriggerSpaceAmoeba(emp.id);
 	    			gnnEvent = RandomEventSpaceAmoeba.GNN_EVENT;
 	    			gnnKey	 = RandomEventSpaceAmoeba.TRIGGER_GNN_KEY;
 	    			newEvent = true;

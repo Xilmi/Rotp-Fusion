@@ -43,6 +43,8 @@ public class MapOverlayJava32Bit extends MapOverlay {
         okButton.reset();
         showSprite = true;
     }
+    public void releaseObjects() { }
+
     public void ok() {
         showSprite = false;
         parent.clearOverlay();

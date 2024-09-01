@@ -51,6 +51,7 @@ public class WarViewPanel extends SystemPanel {
 	}
 
 	private void init() { initModel(); }
+    public void releaseObjects() { }
 
 	@Override public void animate() {
 		topPane.animate();
@@ -140,8 +141,9 @@ public class WarViewPanel extends SystemPanel {
 		private static final int fontSize = 16;
 		private final int lineH = scaled(fontSize);
 		private final int scrollH = 3 * lineH;
-		private StarSystem sys, lastSys;
-		private FleetRecordMap fleetsMap = new FleetRecordMap();
+		// private StarSystem sys, lastSys;
+		private Integer sysId;
+		//private FleetRecordMap fleetsMap = new FleetRecordMap();
 		int offsetY = 0;
 		
 		Rectangle eventsBox = new Rectangle();
@@ -150,18 +152,19 @@ public class WarViewPanel extends SystemPanel {
 			addMouseListener(this);
 			addMouseWheelListener(this);
 		}
-		private void buildLists() {
-			if (sys == null)
-				return;
-			fleetsMap.clear();
+		private FleetRecordMap buildLists() {
+			FleetRecordMap fleetsMap = new FleetRecordMap();
+			if (sysId == null)
+				return fleetsMap;
+			//fleetsMap.clear();
 			// Process orbiting fleet
 			FleetRecord orbitingRecord = new FleetRecord();
 			fleetsMap.put(0, orbitingRecord);
-			List<ShipFleet> orbitingFleet = player().visibleOrbitingFleet(sys);
+			List<ShipFleet> orbitingFleet = player().visibleOrbitingFleet(galaxy().system(sysId));
 			for (Ship fleet : orbitingFleet) {
 				orbitingRecord.add(fleet);
 			}
-			List<Ship> incomingFleet = player().incomingKnownETAFleets(sys.id);
+			List<Ship> incomingFleet = player().incomingKnownETAFleets(sysId);
 			for (Ship fleet : incomingFleet) {
 				Integer turn = fleet.travelTurnsRemainingAdjusted();
 				FleetRecord incomingRecord = fleetsMap.get(turn);
@@ -171,6 +174,7 @@ public class WarViewPanel extends SystemPanel {
 				}
 				incomingRecord.add(fleet);
 			}
+			return fleetsMap;
 		}
 		@Override
 		public void paintComponent(Graphics g0) {
@@ -179,14 +183,14 @@ public class WarViewPanel extends SystemPanel {
 			Graphics2D g = (Graphics2D) g0;
 			super.paintComponent(g);
 
-			sys = systemViewToDisplay();
-			if (sys != lastSys) {
-				lastSys = sys;
-				offsetY = 0;
-				buildLists();
-			}
-			if (sys == null)
+			StarSystem sys = systemViewToDisplay();
+			if (sys == null) {
+				sysId = null;
 				return;
+			}
+			sysId = sys.id;
+			offsetY = 0;
+			FleetRecordMap fleetsMap = buildLists();
 			
 			String title = text("WAR_VIEW_TITLE");
 			g.setFont(narrowFont(20));

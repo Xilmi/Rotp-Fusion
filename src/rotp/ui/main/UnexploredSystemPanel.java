@@ -51,6 +51,8 @@ public class UnexploredSystemPanel extends SystemPanel implements MouseMotionLis
         addMouseMotionListener(this);
         addMouseWheelListener(this);
     }
+    public void releaseObjects() { }
+
     @Override
     protected BasePanel topPane() { return null; }
     @Override

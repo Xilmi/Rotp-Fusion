@@ -82,6 +82,9 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
     public MapOverlayShipCombatPrompt(MainUI p) {
         parent = p;
     }
+    public void releaseObjects() {
+    	fleet = null;
+    }
     public void init(ShipCombatManager m) {
         mgr = m;
         sysId = mgr.system().id;

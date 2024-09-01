@@ -28,7 +28,6 @@ import rotp.model.game.GameSession;
 import rotp.model.ships.ShipDesign;
 
 public class CombatStackMonster extends CombatStackShip {
-	//private final SpaceMonster monster;
 	private final boolean fusionGuardian;
 	private final boolean moo1Monster;
 	private final boolean rotPMonster;

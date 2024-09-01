@@ -113,6 +113,8 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         selectNewFleet(null);
         initModel();
     }
+    public void releaseObjects() { }
+
     @Override
     public void handleNextTurn()             {  clearStackAdjustments(); }
     public ShipFleet fleetToDisplay()        { return parent.shipFleetToDisplay(); }

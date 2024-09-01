@@ -27,7 +27,8 @@ import rotp.util.Base;
 abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 	// BR: I forgot to set one... So here is the auto-generated one!
 	private static final long serialVersionUID = -6808434634169955261L;
-	private List<Empire> pendingEvents	= new ArrayList<>();
+	private List<Empire>  pendingEvents	= new ArrayList<>(); // Do not use: For backward compatibility
+	private List<Integer> empireIdPendingEvents	= new ArrayList<>();
 	private Integer lastEndedTurn; // BR: new parameter, could be null on reload
 
 	abstract ParamInteger delayTurn();
@@ -39,20 +40,27 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 	@Override public String	 systemKey()		{ return ""; }
 	@Override public String	 statusMessage()	{ return ""; }
 	@Override public boolean monsterEvent()		{ return false; }
+	@Override public void	 validateOnLoad()	{
+		if (pendingEvents == null)
+			return;
+		empireIdPendingEvents = new ArrayList<>();
+		for (Empire e : pendingEvents)
+			empireIdPendingEvents.add(e.id);
+	};
 	@Override public int startTurn()			{
 		return eventsStartTurn() + delayTurn().get() * difficultyFactor();
 	}
 	@Override public boolean hasPendingEvents()	{
-		if (pendingEvents == null) // BR: For backward game compatibility
+		if (empireIdPendingEvents == null)
 			return false;
-		return pendingEvents.size() > 0; 
+		return empireIdPendingEvents.size() > 0; 
 	}
 	@Override public Empire getPendingEmpire()	{
-		if (pendingEvents == null) // BR: For backward game compatibility
+		if (empireIdPendingEvents == null)
 			return null;
-		if (pendingEvents.size()==0)
+		if (empireIdPendingEvents.size()==0)
 			return null;
-		return pendingEvents.remove(0); 
+		return galaxy().empire(empireIdPendingEvents.remove(0)); 
 	}
 	@Override public int minimumTurn()			{
 		if (isEventDisabled())
@@ -73,7 +81,7 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 			return Integer.MAX_VALUE;
 	}	
 	@Override public void addPendingEvents(Empire emp) {
-		pendingEvents.add(emp);
+		empireIdPendingEvents.add(emp.id);
 		if (options().debugAutoRun() && options().debugLogEvents())
         	turnLog(IGameOptions.AUTORUN_EVENTS, "Pending: " + emp.name() + " # " + notificationText());
 	}
@@ -98,8 +106,8 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 		return false;
 	}
 	void terminateEvent(RandomEvent event)		{
-   		galaxy().events().removeActiveEvent(event);
    		setLastEndedTurn();
+   		galaxy().events().removeActiveEvent(event);
 	}
 	private void	setLastEndedTurn() 			{ lastEndedTurn = galaxy().currentTurn(); }
 	private int		eventsStartTurn()			{ return IGameOptions.eventsStartTurn.get(); }

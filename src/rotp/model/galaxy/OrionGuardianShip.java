@@ -49,7 +49,7 @@ public class OrionGuardianShip extends GuardianMonsters {
         techs.add("ShipWeapon:16");  // death ray
     }
 	@Override public void initCombat()		{
-        combatStacks().clear();
+		super.initCombat();
 		if (options().isMoO1Monster())
 			addCombatStack(new CombatStackMonster(this, imageKey, stackLevel(), 0, isFusion, shieldColor));
 		else

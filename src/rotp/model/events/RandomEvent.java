@@ -42,4 +42,5 @@ public interface RandomEvent {
     int startTurn();
     default boolean techDiscovered()			{ return true; }
     default SpaceMonster monster(boolean track)	{ return null; }
+    default void validateOnLoad()	{ };
 }

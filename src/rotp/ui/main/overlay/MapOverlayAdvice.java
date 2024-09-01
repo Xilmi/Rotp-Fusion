@@ -49,6 +49,9 @@ public class MapOverlayAdvice extends MapOverlay {
     public MapOverlayAdvice(MainUI p) {
         parent = p;
     }
+    public void releaseObjects() {
+    	emp1 = null;
+    }
     public void init(String key, Empire e1, String s1, String s2, String s3) {
         textKey = key;
         emp1 = e1;

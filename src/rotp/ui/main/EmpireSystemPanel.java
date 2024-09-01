@@ -74,6 +74,8 @@ public class EmpireSystemPanel extends SystemPanel {
     private void init() {
         initModel();
     }
+    public void releaseObjects() { }
+
     @Override
     public String subPanelTextureName()    { return TEXTURE_GRAY; }
     @Override

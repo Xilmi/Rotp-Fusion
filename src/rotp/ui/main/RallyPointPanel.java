@@ -58,6 +58,9 @@ public class RallyPointPanel extends SystemPanel {
     private void init() {
         initModel();
     }
+    public void releaseObjects() {
+    	lastPreviewChain = null;
+    }
     @Override
     public void animate() {
         topPane.animate();

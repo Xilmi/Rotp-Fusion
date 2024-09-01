@@ -67,6 +67,9 @@ public class MapOverlayEspionageMission extends MapOverlay implements IVIPListen
         for (int i=0;i<categorySprites.length;i++)
             categorySprites[i] = new TechCategorySprite(this,i);
     }
+    public void releaseObjects() {
+    	mission = null;
+    }
     public boolean canSelect(int catNum) {
         return (mission.techChoice(TechCategory.id(catNum)) != null);
     }
