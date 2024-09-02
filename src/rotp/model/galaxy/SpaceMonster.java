@@ -229,7 +229,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 		designs = null; // TO DO BR: REMOVE
 		if (designs == null || designTurn != turn)			{
 			designTurn = turn;
-			clearFleetStats();
+			// clearFleetStats();
 			initDesigns();
 		}
 		return designs;

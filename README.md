@@ -65,6 +65,9 @@ Later:
 
 ## What's New
 
+2024.09.02 (BR)
+- AIs have been changed to evaluate monster power from their design, this using standard fleet power evaluation tools.
+
 2024.08.31 (BR)
 - Fixed Symmetric galaxy generation.
 - Fixed some Memory "leak".

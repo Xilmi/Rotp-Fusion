@@ -15,8 +15,6 @@
  */
 package rotp.model.events;
 
-import java.time.LocalTime;
-
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.SpaceAmoeba;
 import rotp.model.galaxy.SpaceMonster;
@@ -34,13 +32,13 @@ public class RandomEventSpaceAmoeba extends RandomEventMonsters {
 	private int turnCount; // Not to be set: kept for backward compatibility
 
 	public RandomEventSpaceAmoeba() {
-		System.out.println(LocalTime.now() + " No Galaxy: " + " New RandomEventSpaceAmoeba was created");
+		//System.out.println(LocalTime.now() + " No Galaxy: " + " New RandomEventSpaceAmoeba was created");
 	}
 	@Override protected SpaceMonster newMonster(Float speed, Float level) {
-		if (galaxy() != null)
-			System.out.println(galaxy().currentTurn() + " RandomEventSpaceAmoeba: newMonster was created");
-		else
-			System.out.println(LocalTime.now() + " No Galaxy: " + " RandomEventSpaceAmoeba: newMonster was created");
+//		if (galaxy() != null)
+//			System.out.println(galaxy().currentTurn() + " RandomEventSpaceAmoeba: newMonster was created");
+//		else
+//			System.out.println(LocalTime.now() + " No Galaxy: " + " RandomEventSpaceAmoeba: newMonster was created");
 		return new SpaceAmoeba(speed, level);
 	}
 	@Override public boolean techDiscovered()	{ return !galaxy().events().spaceAmoebaNotTriggered(); }

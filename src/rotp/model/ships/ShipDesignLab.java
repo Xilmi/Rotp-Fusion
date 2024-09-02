@@ -217,7 +217,9 @@ public class ShipDesignLab implements Base, Serializable {
         sv.scan();
         if (empire.isMonster())
         	designHistory.clear();
-        designHistory.add(sv);
+        // monster design are always rebuilt, so do dot fill up the history with it!
+        if (sv.empire().isEmpire())
+        	designHistory.add(sv);
         return sv;
     }
     public void recordScrap(Design d, int num)       { d.addTotalScrapped(num); }

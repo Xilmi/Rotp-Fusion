@@ -43,7 +43,7 @@ import rotp.util.Base;
 
 public class ShipFleet extends FleetBase {
     private static final long serialVersionUID = 1L;
-    enum Status { ORBITING, DEPLOYED, IN_TRANSIT, RETREAT_ON_ARRIVAL };
+    private enum Status { ORBITING, DEPLOYED, IN_TRANSIT, RETREAT_ON_ARRIVAL };
     public final int empId;
     private int sysId;
     private int destSysId = StarSystem.NULL_ID;
@@ -58,7 +58,7 @@ public class ShipFleet extends FleetBase {
     private transient FleetOrders orders;
     private transient FlightPathSprite pathSprite;
     private transient int[] bombardCount = new int[ShipDesignLab.MAX_DESIGNS];
-    private transient FleetStats fleetStats;
+    //private transient FleetStats fleetStats;
     private transient boolean isCopy = false;
 
     public int sysId()                  { return sysId; }
@@ -683,7 +683,7 @@ public class ShipFleet extends FleetBase {
         }
         return maxSpeed;
     }
-    private int bestBeamCombatSpeed() {
+/*    private int bestBeamCombatSpeed() {
         int speed = 1;
         for (int i=0;i<num.length;i++) {
             if (num[i]>0) {
@@ -693,8 +693,8 @@ public class ShipFleet extends FleetBase {
             }
         }
         return speed;
-    }
-    private int bestBeamWeaponRange(int minRange) {
+    } */
+/*    private int bestBeamWeaponRange(int minRange) {
         int rng = 1;
         for (int i=0;i<num.length;i++) {
             if (num[i]>0) {
@@ -704,7 +704,7 @@ public class ShipFleet extends FleetBase {
             }
         }
         return rng;
-    }
+    } */
     // modnar: add firepowerAntiShip to only count weapons that can attack ships
     public float firepowerAntiShip(float shield) {
         float dmg = 0;
@@ -742,7 +742,7 @@ public class ShipFleet extends FleetBase {
     }
     
     // BR: tools against space monsters
-    public float firepowerAntiMonster(float shield, float defense, float missileDefense, int speed, int beamRange) {
+/*    public float firepowerAntiMonster(float shield, float defense, float missileDefense, int speed, int beamRange) {
         float dmg = 0 + 0;
         for (int i=0;i<num.length;i++) {
             if (num[i]>0) {
@@ -755,14 +755,14 @@ public class ShipFleet extends FleetBase {
 //        	System.out.println("firepowerAntiMonster = 0 --> " + design(0).name());
 //        }
         return dmg;
-    }
+    } */
 	protected int otherSpecialCount()	{ return 0; } // For monster out of design specials
-    protected void clearFleetStats()	{ fleetStats = null; }
-    private FleetStats getFleetStats()	{
-    	if (fleetStats == null)
-    		fleetStats = getFleetStats(this);
-    	return fleetStats;
-    }
+//    protected void clearFleetStats()	{ fleetStats = null; }
+//    private FleetStats getFleetStats()	{
+//    	if (fleetStats == null)
+//    		fleetStats = getFleetStats(this);
+//    	return fleetStats;
+//    }
     private FleetStats getFleetStats(ShipFleet fl) {
         FleetStats stats	= new FleetStats();
         float totalShield	= 0;
@@ -795,25 +795,45 @@ public class ShipFleet extends FleetBase {
         }
         return stats;
     }
-    public boolean monsterStrongerThan(ShipFleet attacker, float securityFactor) {
-        FleetStats defenderStats = getFleetStats();
+    private float combatPower(ShipFleet attacker, FleetStats defender) { //BR: From xilmi.AIFleetCommander
+        FleetStats defenderStats = defender;
         FleetStats attackerStats = getFleetStats(attacker);
-        float attackerPower = attacker.firepowerAntiMonster(defenderStats.avgShield, defenderStats.avgDefense,
-        		defenderStats.avgMissileDefense, bestBeamCombatSpeed(), bestBeamWeaponRange(1));
-        attackerPower *= Math.pow(1.26, attackerStats.avgSpecials);
-        attackerPower *= attackerStats.totalHP;
-        float defenderPower = firepowerAntiMonster(attackerStats.avgShield, attackerStats.avgDefense,
-        		attackerStats.avgMissileDefense, attacker.bestBeamCombatSpeed(), attacker.bestBeamWeaponRange(1));
-        defenderPower *= Math.pow(1.26, defenderStats.avgSpecials);
-        defenderPower *= defenderStats.totalHP;
-        if (defenderPower == 0)
-        	return attackerPower == 0;
-        float attackerDefenderRatio = attackerPower/defenderPower;
-//        if (attackerDefenderRatio > 0) // TO DO BR: Comment
-//        	System.out.println(getTurn() + " System " + sysId +
-//        			" attacker (" + attacker.empId + ") / Defender Ratio = " + attackerDefenderRatio);
+        float power = attacker.firepowerAntiShip(defenderStats.avgShield, defenderStats.avgDefense, defenderStats.avgMissileDefense);
+        power *= Math.pow(1.26, attackerStats.avgSpecials);
+        float shipsOfAvgPower = attackerStats.totalHP / attackerStats.avgHP;
+        power *= (shipsOfAvgPower + 1) / (2 * shipsOfAvgPower);
+        power *= attackerStats.avgArmor;
+        return power;
+    }
+    private float combatPower(ShipFleet attacker, ShipFleet defender) { //BR: From xilmi.AIFleetCommander
+        return combatPower(attacker, getFleetStats(defender));
+    }
+    public boolean monsterStrongerThan(ShipFleet attacker, float securityFactor) {
+    	float attackerPower = combatPower(attacker, this);
+    	float defenderPower = combatPower(this, attacker);
+    	float attackerDefenderRatio = attackerPower/defenderPower;
         return attackerDefenderRatio < securityFactor;
     }
+
+//    public boolean monsterStrongerThan(ShipFleet attacker, float securityFactor) {
+//        FleetStats defenderStats = getFleetStats();
+//        FleetStats attackerStats = getFleetStats(attacker);
+//        float attackerPower = attacker.firepowerAntiMonster(defenderStats.avgShield, defenderStats.avgDefense,
+//        		defenderStats.avgMissileDefense, bestBeamCombatSpeed(), bestBeamWeaponRange(1));
+//        attackerPower *= Math.pow(1.26, attackerStats.avgSpecials);
+//        attackerPower *= attackerStats.totalHP;
+//        float defenderPower = firepowerAntiMonster(attackerStats.avgShield, attackerStats.avgDefense,
+//        		attackerStats.avgMissileDefense, attacker.bestBeamCombatSpeed(), attacker.bestBeamWeaponRange(1));
+//        defenderPower *= Math.pow(1.26, defenderStats.avgSpecials);
+//        defenderPower *= defenderStats.totalHP;
+//        if (defenderPower == 0)
+//        	return attackerPower == 0;
+//        float attackerDefenderRatio = attackerPower/defenderPower;
+////        if (attackerDefenderRatio > 0) // TO DO BR: Comment
+////        	System.out.println(getTurn() + " System " + sysId +
+////        			" attacker (" + attacker.empId + ") / Defender Ratio = " + attackerDefenderRatio);
+//        return attackerDefenderRatio < securityFactor;
+//    }
 /*    public float combatPower(ShipFleet attacker) {
         FleetStats defenderStats = getFleetStats();
         FleetStats attackerStats = getFleetStats(attacker);

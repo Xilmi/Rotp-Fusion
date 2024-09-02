@@ -35,7 +35,6 @@ import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.Location;
 import rotp.model.galaxy.Ship;
 import rotp.model.galaxy.ShipFleet;
-import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.model.ships.ShipDesign;
@@ -366,7 +365,8 @@ public class AIFleetCommander implements Base, FleetCommander {
             
             if(current.monster() != null) {
                 //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" => "+empire.sv.name(current.id)+" monsterpower: "+combatPower(current.monster(), fleet)+" fleetpower: "+combatPower(fleet, getMonsterStats(current.monster().combatStacks())));
-                if(combatPower(current.monster(), fleet) > combatPower(fleet, getMonsterStats(current.monster().combatStacks())))
+// TODO BR: test                if(combatPower(current.monster(), fleet) > combatPower(fleet, getMonsterStats(current.monster().combatStacks())))
+                if(combatPower(current.monster(), fleet) > combatPower(fleet, current.monster()))
                 {
                     //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" => "+empire.sv.name(current.id)+" should be skipped!");
                     continue;
@@ -374,7 +374,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             }
             float score = 0.0f;
             float transports = 0.0f;
-            float myTransports = 0.0f;
+            // float myTransports = 0.0f;
             float enemyFightingPower = 0.0f;
             float enemyBombardDamage = 0.0f;
             float bombardDamage = 0.0f;
@@ -391,7 +391,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                 transports = systemInfoBuffer.get(id).enemyIncomingTransports;
                 bombardDamage = systemInfoBuffer.get(id).myBombardDamage;
                 myPower = systemInfoBuffer.get(id).myTotalPower;
-                myTransports = systemInfoBuffer.get(id).myIncomingTransports;
+                //myTransports = systemInfoBuffer.get(id).myIncomingTransports;
                 colonizationBonus = systemInfoBuffer.get(id).additionalSystemsInRangeWhenColonized;
                 colonizerEnroute = systemInfoBuffer.get(id).colonizersEnroute;
                 canScanTo = systemInfoBuffer.get(id).inScannerRange;
@@ -940,7 +940,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                                 {
                                     continue;
                                 }
-                                EmpireView ev = empire.viewForEmpire(orbiting.empId());
+                                //EmpireView ev = empire.viewForEmpire(orbiting.empId());
                                 if(orbiting.isArmed()) {
                                     enemyStats.merge(getFleetStats(orbiting));
                                     enemyFleetPower += combatPower(orbiting, fleet);
@@ -950,7 +950,8 @@ public class AIFleetCommander implements Base, FleetCommander {
                         if(target.monster() != null)
                         {
                             enemyFleetPower += combatPower(target.monster(), fleet);
-                            enemyStats.merge(getMonsterStats(target.monster().combatStacks()));
+//                            enemyStats.merge(getMonsterStats(target.monster().combatStacks())); // TODO BR: test
+                            enemyStats.merge(getFleetStats(target.monster()));
                         }
                         for(ShipFleet incoming : target.incomingFleets())
                         {
@@ -960,7 +961,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                                     continue;
                                 if(incoming.travelTurnsRemainingAdjusted() > travelTurns)
                                     continue;
-                                EmpireView ev = empire.viewForEmpire(incoming.empId());
+                                //EmpireView ev = empire.viewForEmpire(incoming.empId());
                                 if(incoming.isArmed()){
                                     enemyStats.merge(getFleetStats(incoming));
                                     enemyFleetPower += combatPower(incoming, fleet);
@@ -1628,42 +1629,42 @@ public class AIFleetCommander implements Base, FleetCommander {
         }
         return stats;
     }
-    FleetStats getMonsterStats(List<CombatStack> monsters) {
-        FleetStats stats = new FleetStats();
-        float totalShield = 0;
-        float totalDefense = 0;
-        float totalMissileDefense = 0;
-        float totalSpecials = 0;
-        float totalHP = 0;
-        float totalVal = 0;
-        float totalCombatSpeed = 0;
-        float totalWeighedHP = 0;
-        for (CombatStack monster : monsters) {
-            int num = monster.num;
-            if (num > 0) {
-                totalHP += num * monster.hits();
-                totalVal += num * monster.hits();
-                totalShield += num * monster.shieldLevel() * monster.hits();
-                totalDefense += num * monster.beamDefense() * monster.hits();
-                totalMissileDefense += num * monster.missileDefense() * monster.hits();
-                totalSpecials += num * 2 * monster.hits();
-                totalCombatSpeed += monster.maxMove();
-                totalWeighedHP += num * monster.hits() * monster.hits();
-            }
-        }
-        if(totalVal > 0)
-        {
-            stats.avgShield = totalShield / totalVal;
-            stats.avgDefense = totalDefense / totalVal;
-            stats.avgMissileDefense = totalMissileDefense / totalVal;
-            stats.avgSpecials = totalSpecials / totalVal;
-            stats.avgCombatSpeed = totalCombatSpeed / totalVal;
-            stats.totalHP = totalHP;
-            stats.avgHP = totalWeighedHP / totalVal;
-            stats.avgArmor = totalHP / 600;
-        }
-        return stats;
-    }
+//    FleetStats getMonsterStats(List<CombatStack> monsters) { // TODO BR: ???
+//        FleetStats stats = new FleetStats();
+//        float totalShield = 0;
+//        float totalDefense = 0;
+//        float totalMissileDefense = 0;
+//        float totalSpecials = 0;
+//        float totalHP = 0;
+//        float totalVal = 0;
+//        float totalCombatSpeed = 0;
+//        float totalWeighedHP = 0;
+//        for (CombatStack monster : monsters) {
+//            int num = monster.num;
+//            if (num > 0) {
+//                totalHP += num * monster.hits();
+//                totalVal += num * monster.hits();
+//                totalShield += num * monster.shieldLevel() * monster.hits();
+//                totalDefense += num * monster.beamDefense() * monster.hits();
+//                totalMissileDefense += num * monster.missileDefense() * monster.hits();
+//                totalSpecials += num * 2 * monster.hits();
+//                totalCombatSpeed += monster.maxMove();
+//                totalWeighedHP += num * monster.hits() * monster.hits();
+//            }
+//        }
+//        if(totalVal > 0)
+//        {
+//            stats.avgShield = totalShield / totalVal;
+//            stats.avgDefense = totalDefense / totalVal;
+//            stats.avgMissileDefense = totalMissileDefense / totalVal;
+//            stats.avgSpecials = totalSpecials / totalVal;
+//            stats.avgCombatSpeed = totalCombatSpeed / totalVal;
+//            stats.totalHP = totalHP;
+//            stats.avgHP = totalWeighedHP / totalVal;
+//            stats.avgArmor = totalHP / 600;
+//        }
+//        return stats;
+//    }
     float monsterFirePower(List<CombatStack> monsters, float shield, float defense, float missileDefense) {
         float total = 0;
         for (CombatStack monster : monsters) {
@@ -1695,17 +1696,17 @@ public class AIFleetCommander implements Base, FleetCommander {
     }
 
     // TODO BR: Try to comment this -> monsters = fleet
-    float combatPower(SpaceMonster monster , ShipFleet defender) {
-        FleetStats defenderStats = getFleetStats(defender);
-        monster.initCombat();
-        FleetStats monsterStats = getMonsterStats(monster.combatStacks());
-        float power = monsterFirePower(monster.combatStacks(), defenderStats.avgShield, defenderStats.avgDefense, defenderStats.avgMissileDefense);
-        power *= Math.pow(1.26, monsterStats.avgSpecials);
-        float shipsOfAvgPower = monsterStats.totalHP / monsterStats.avgHP;
-        power *= (shipsOfAvgPower + 1) / (2 * shipsOfAvgPower);
-        power *= monsterStats.avgArmor;
-        return power;
-    }
+//    float combatPower(SpaceMonster monster , ShipFleet defender) {
+//        FleetStats defenderStats = getFleetStats(defender);
+//        monster.initCombat();
+//        FleetStats monsterStats = getMonsterStats(monster.combatStacks());
+//        float power = monsterFirePower(monster.combatStacks(), defenderStats.avgShield, defenderStats.avgDefense, defenderStats.avgMissileDefense);
+//        power *= Math.pow(1.26, monsterStats.avgSpecials);
+//        float shipsOfAvgPower = monsterStats.totalHP / monsterStats.avgHP;
+//        power *= (shipsOfAvgPower + 1) / (2 * shipsOfAvgPower);
+//        power *= monsterStats.avgArmor;
+//        return power;
+//    }
     public float myTotalPower() {
         if(myTotalPower > -1)
             return myTotalPower;
