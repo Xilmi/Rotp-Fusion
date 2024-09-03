@@ -705,6 +705,10 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			.isCfgFile(true);
 	default boolean shipBasedMissiles()	{ return shipBasedMissiles.get(); }
 
+	ParamBoolean scoutAndColonyOnly	= new ParamBoolean(MOD_UI, "SCOUT_AND_COLONY_ONLY", false)
+			.isCfgFile(true);
+	default boolean scoutAndColonyOnly()		{ return scoutAndColonyOnly.get(); }
+
 	// ==================== GUI List Declarations ====================
 	//
 	String NAME_GUI_ID	= "NAME_OPTIONS";
@@ -784,7 +788,8 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 
 				headerSpacer,
 				new ParamTitle("GAME_OTHER"),
-				shipBasedMissiles
+				shipBasedMissiles,
+				scoutAndColonyOnly
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("BACKUP_OPTIONS"),

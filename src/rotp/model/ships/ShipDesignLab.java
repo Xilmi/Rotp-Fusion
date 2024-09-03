@@ -170,24 +170,32 @@ public class ShipDesignLab implements Base, Serializable {
         design = startingScoutDesign();
         setScoutDesign(design, 0);
 
+        boolean isPlayer = empire.isPlayer();
+        boolean isActive = !(isPlayer && options().scoutAndColonyOnly());
+ 
         design = nst.autoDestroyerDesign(empire.shipDesignerAI(), 0);
-        if (empire.isPlayer())
+        if (isPlayer)
             design.name(text("SHIP_DESIGN_1ST_FIGHTER_NAME"));
-        if(design.isArmed())
-            setFighterDesign(design, 1);
+        if(design.isArmed()) {
+        	setFighterDesign(design, 1);
+        	design.active(isActive);
+        }
 
         design = nst.autoBomberDesign(empire.shipDesignerAI(), 1);
-        if (empire.isPlayer())
+        if (isPlayer)
             design.name(text("SHIP_DESIGN_1ST_BOMBER_NAME"));
         setBomberDesign(design, 2);
+        design.active(isActive);
 
         design = nst.autoDestroyerDesign(empire.shipDesignerAI(), 1);
-        if (empire.isPlayer())
+        if (isPlayer)
             design.name(text("SHIP_DESIGN_1ST_DESTROYER_NAME"));
         setDestroyerDesign(design, 3);
+        design.active(isActive);
 
         design = startingColonyDesign();
         setColonyDesign(design, 4);
+        
     }
     public void nextTurn() {
         for (int i=0;i<designs.length;i++) {

@@ -2902,8 +2902,11 @@ SETTINGS_MOD_SHOW_LIMITED_WARNINGS_DESC  | Limit the number of aliens repeating 
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS       | Limit Warnings: %1
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS_ALL   | Show All
 
-SETTINGS_MOD_SHIP_BASED_MISSILES_DESC | The missile shape will be based on the selected ship set instead of the uniform classic missile.
-SETTINGS_MOD_SHIP_BASED_MISSILES      | Shipset missiles: %1
+SETTINGS_MOD_SHIP_BASED_MISSILES_DESC    | The missile shape will be based on the selected ship set instead of the uniform classic missile.
+SETTINGS_MOD_SHIP_BASED_MISSILES         | Shipset missiles: %1
+
+SETTINGS_MOD_SCOUT_AND_COLONY_ONLY_DESC  | The default ship designs may not appeal to experienced players. To avoid the hassle of deleting them, you can choose to disable their initialization. Only scout ships and colony ships will be enabled.
+SETTINGS_MOD_SCOUT_AND_COLONY_ONLY       | Minimal designs: %1
 
 
 SETTINGS_MOD_BOMBING_TARGET_DESC         | Limited Bombing: Stop Bombing the population level reach this limit. !!! Powerful weapons may still annihilate the population !!!
