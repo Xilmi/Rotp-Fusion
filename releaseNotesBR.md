@@ -3,16 +3,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed non-unique monsters not resetting their announcements.
 - The default ship designs may not appeal to experienced players. To avoid the hassle of deleting them, you can now choose to disable their initialization. Only scout ships and colony ships will be enabled.
 - AIs have been changed to evaluate monster power from their design, this using standard fleet power evaluation tools.
 - Fixed Symmetric galaxy generation.
-- Fixed some Memory "leak".
-- Selected default value are now displayed in the Guide and in the description box.
-- Fixed Main Setting UI background.
-- After first council, the last vote will be shown in the Empire-Diplomacy panel.
-- When hovered over, Space Monsters are displayed on the right panel.
-  - Pressing "H" will then display their specs.
-- Space Monsters can be replaced by their MoO1 equivalent.
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

@@ -65,6 +65,9 @@ Later:
 
 ## What's New
 
+2024.09.04 (BR)
+- Fixed non-unique monsters not resetting their announcements.
+
 2024.09.02 (BR)
 - AIs have been changed to evaluate monster power from their design, this using standard fleet power evaluation tools.
 - The default ship designs may not appeal to experienced players. To avoid the hassle of deleting them, you can now choose to disable their initialization. Only scout ships and colony ships will be enabled.

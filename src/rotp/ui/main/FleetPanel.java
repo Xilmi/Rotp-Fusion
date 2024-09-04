@@ -785,6 +785,9 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             textureClip = new Rectangle2D.Float(x,y,w,h);
             g.setColor(MainUI.paneBackground());
             g.fillRect(x, y, w, h);
+            // if (displayFl.empire().isMonster()) {
+            // 	System.out.println("draw Monster Info");
+            // }
 
             int x0 =s10;
             int y0 = s20;

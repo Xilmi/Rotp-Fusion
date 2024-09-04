@@ -344,6 +344,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 	private void moveToNextSystem()				{
 		// System.out.println(galaxy().currentTurn() + " moveToNextSystem() " + monster.name());
 		newNotifyTurnCount();
+		setNotified(false);
 		monster.travelSpeed = realSpeed; // could have been slowed!
 		monster.sysId(targetSysId); // be sure the monster is at the planet
 		int nextSysId = getNextSystem();
