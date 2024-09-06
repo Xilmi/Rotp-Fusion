@@ -121,6 +121,9 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 	}
 	@Override public void nextTurn()			{
 		if (isEventDisabled()) {
+			StarSystem sys = galaxy().system(targetSysId);
+			if (sys != null)
+				sys.clearEvent();
 			terminateEvent(this);
 			return;
 		}

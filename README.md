@@ -40,12 +40,8 @@ Very soon:
 - Some Achievements options.
 - Add option to limit random event tech generosity... (For slow research, etc...)
 
-Console Next steps: (Sequence probably not definitive)
-- Access optional turn reports and spy reports.
-
 Later:
 - Monsters:
-  - Option to change their travel time.
   - More Planet Monsters Guardian.
 - Add a temerity setting to custom species.
 - Color List for opponents...
@@ -56,14 +52,17 @@ Later:
 - Species Easy-Normal-Hard
 - Tech trading extended list.
   - Switch tech level category...
-- Option to be used to force war declaration upon "Smart Resolve".
-  - Check if at war and add a button if not!
 - Governor: Individual disable receive troops
   - The AI is bombing my world, killing 7 or so colonists per turn. Every turn, my healthy planets send colonists to 'help', which ALL get killed by the orbiting enemy fleet. I would like to be able to prevent this while still allowing transport between my other planets.
 - Are there any plans to give the player an option whether to drop Death Spores or not, when they are present? (Or to only use Death Spores, and not bombs)?
 
 
 ## What's New
+
+2024.09.06 (BR)
+- Fixed Monster events deletion not alway removing the warning on the targeted planet.
+- Fixed some monster leveling.
+- Fixed erroneous Game Over title.
 
 2024.09.04 (BR)
 - Fixed non-unique monsters not resetting their announcements.

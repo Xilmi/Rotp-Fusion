@@ -327,7 +327,7 @@ public final class GameOverUI extends FadeInPanel
         else if (status.wonNewRepublicAsChampion())
             return "GAME_OVER_NEW_REPUBLIC_WIN_CHAMPION";
         else if (status.wonRebellionAsCrazyLeader())
-            return "GAME_OVER_REBELLION_CRAZY_WIN_E";
+            return "GAME_OVER_REBELLION_CRAZY_WIN";
         else if (status.wonRebellionAsChallenger())
             return "GAME_OVER_REBELLION_CHALLENGER_WIN";
         else if (status.wonRebellionAsFollower())

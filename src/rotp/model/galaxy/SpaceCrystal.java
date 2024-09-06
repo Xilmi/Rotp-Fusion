@@ -131,7 +131,7 @@ public class SpaceCrystal extends SpaceMonster {
 		int maneuver = max(2, stackLevel(2));
 		design.maneuver(lab.maneuver(maneuver));
 		design.monsterManeuver(maneuver);
-		design.monsterAttackLevel(20); // Always hit
+		design.monsterAttackLevel(stackLevel(20)); // Normal = Always hit
 		design.monsterBeamDefense(1);
 		design.monsterEcmDefense(1);
 		design.monsterInitiative(100);

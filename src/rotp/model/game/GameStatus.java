@@ -101,7 +101,7 @@ public class GameStatus implements Base, Serializable {
     public boolean wonNewRepublic()                { return status == Status.WIN_NEW_REPUBLIC; }
     public boolean wonNewRepublicAsFearedLeader()  { return wonNewRepublic() && isFeared(); }
     public boolean wonNewRepublicAsMajorLeader()   { return wonNewRepublic() && isMajor(); }
-    public boolean wonNewRepublicAsMinorLeader()   { return wonNewRepublic() && isFeared(); }
+    public boolean wonNewRepublicAsMinorLeader()   { return wonNewRepublic() && isMinor(); }
     public boolean wonNewRepublicAsAllied()        { return wonNewRepublic() && allianceWithLeader; } // Not reachable yet
     public boolean wonNewRepublicAsChampion()      { return subStatus == wonNewRepublicAsChampion; } // Not reachable yet
     public boolean wonRebellion()                  { return status == Status.WIN_REBELLION; }
