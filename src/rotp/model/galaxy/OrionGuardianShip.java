@@ -45,8 +45,7 @@ public class OrionGuardianShip extends GuardianMonsters {
     public OrionGuardianShip(Float speed, Float level)	{
 		super(imageKey, -2, speed, level);
 		num(0, 1); // Number of monsters
-		if (!options().isMoO1Monster())
-        techs.add("ShipWeapon:16");  // death ray
+		techs.add("ShipWeapon:16");  // death ray
     }
 	@Override public void initCombat()		{
 		super.initCombat();

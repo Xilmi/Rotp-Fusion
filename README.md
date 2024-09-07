@@ -59,6 +59,10 @@ Later:
 
 ## What's New
 
+2024.09.07 (BR)
+- Fixed Rich asteroid occurrence.
+- Fixed MoO1 Orion Guardian not giving Death Ray.
+
 2024.09.06 (BR)
 - Fixed Monster events deletion not alway removing the warning on the targeted planet.
 - Fixed some monster leveling.

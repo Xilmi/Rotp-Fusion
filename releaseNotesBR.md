@@ -3,6 +3,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed Rich asteroid occurrence.
+- Fixed MoO1 Orion Guardian not giving Death Ray.
 - Minor fixes for monsters and Game Over.
 - Fixed non-unique monsters not resetting their announcements.
 - The default ship designs may not appeal to experienced players. To avoid the hassle of deleting them, you can now choose to disable their initialization. Only scout ships and colony ships will be enabled.

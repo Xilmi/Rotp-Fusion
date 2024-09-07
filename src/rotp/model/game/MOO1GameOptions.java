@@ -1041,7 +1041,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             p.setResourcePoor();
     }
     private void checkForRichResources(Planet p, StarSystem s) {
-    	if (p.type().key() == PlanetType.NONE)
+    	if (p.isEnvironmentNone())
     		return; // BR: asteroids !!!
         // planet/star ratios per Table 3-9a of Strategy Guide
         float r1 = 0;
@@ -1107,7 +1107,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             p.setResourceUltraRich();
     }
     private void checkForArtifacts(Planet p, StarSystem s) {
-    	if (p.type().key() == PlanetType.NONE)
+    	if (p.isEnvironmentNone())
     		return; // BR: asteroids !!!
         // modnar: no Artifact planets if randomTechStart selected
         float rArtifact = 1.0f;
