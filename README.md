@@ -59,6 +59,10 @@ Later:
 
 ## What's New
 
+2024.09.09 (BR)
+- New Auto-Flag option for stars in nebula.
+- Purple flags are now more distinct from blue ones.
+
 2024.09.07 (BR)
 - Fixed Rich asteroid occurrence.
 - Fixed MoO1 Orion Guardian not giving Death Ray.

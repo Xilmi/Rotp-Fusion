@@ -2146,6 +2146,8 @@ HEADERS_AUTO_FLAG_COLONY_TECH_DESC   | Set the color of the flags according to E
 HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ COLONY SHIP TECH ~~~%1
 HEADERS_AUTO_FLAG_VESTIGES_DESC      | Set the color of the flags according to the vestiges of civilization.
 HEADERS_AUTO_FLAG_VESTIGES           | ~~~ CIVILIZATION VESTIGES ~~~%1
+HEADERS_AUTO_FLAG_IN_NEBULA_DESC     | Set the color of the flags according to being in a nebula.
+HEADERS_AUTO_FLAG_IN_NEBULA          | ~~~ IN NEBULA ~~~%1
 
 HEADERS_RANDOM_EVENTS_GLOBAL_DESC    | Parameters affecting all random events.
 HEADERS_RANDOM_EVENTS_GLOBAL         | ~~~ GLOBAL PARAMETERS ~~~%1
@@ -3011,6 +3013,7 @@ SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Planet Environment
 SETTINGS_MOD_AUTO_FLAG_RESOURCES         | Planet Resources
 SETTINGS_MOD_AUTO_FLAG_RUINS             | Civilization Vestiges
 SETTINGS_MOD_AUTO_FLAG_TECH              | Colony Ship Tech
+SETTINGS_MOD_AUTO_FLAG_NEBULA            | In Nebula
 SETTINGS_MOD_AUTO_FLAG_CLEAR             | Clear the Flag
 
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the Top Left flag. (Only the first time a Star System is scouted)
@@ -3066,6 +3069,10 @@ SETTINGS_MOD_AUTO_FLAG_VESTIGES_ORION_DESC   | Select the Flag Color to set auto
 SETTINGS_MOD_AUTO_FLAG_VESTIGES_ANTARAN_DESC | Select the Flag Color to set automatically when a Planet with vestige of Antaran civilization is scouted.
 SETTINGS_MOD_AUTO_FLAG_VESTIGES_NONE_DESC    | Select the Flag Color to set automatically when No vestiges are found.
 
+SETTINGS_MOD_AUTO_FLAG_IN_NEBULA_DESC        | Select the Flag Color to set automatically when The Star is in a nebula.
+SETTINGS_MOD_AUTO_FLAG_NOT_NEBULA_DESC       | Select the Flag Color to set automatically when The Star is not in a nebula.
+
+
 SETTINGS_MOD_AUTO_FLAG_ARID              | Arid Color: %1
 SETTINGS_MOD_AUTO_FLAG_BARREN            | Barren Color: %1
 SETTINGS_MOD_AUTO_FLAG_DEAD              | Dead Color: %1
@@ -3109,6 +3116,9 @@ SETTINGS_MOD_AUTO_FLAG_TECH_NONE         | Asteroid Color: %1
 SETTINGS_MOD_AUTO_FLAG_VESTIGES_ORION    | Orion Color: %1
 SETTINGS_MOD_AUTO_FLAG_VESTIGES_ANTARAN  | Antaran Color: %1
 SETTINGS_MOD_AUTO_FLAG_VESTIGES_NONE     | None Color: %1
+
+SETTINGS_MOD_AUTO_FLAG_IN_NEBULA         | In Nebula Color: %1
+SETTINGS_MOD_AUTO_FLAG_NOT_NEBULA        | Not In Nebula Color: %1
 
 SETTINGS_MOD_GALAXY_RAND_SOURCE_HELP     | By default, the preview gives only an global idea of the galaxy you will get. By setting a value other than "Random", the preview will display the final galaxy. Use this to avoid configurations you won't like... To far from Orion... To close to the center... or tor far! etc...
 SETTINGS_MOD_GALAXY_RAND_SOURCE_DESC     | if <> 0, this number will be used as source for the galaxy random generator. The final galaxy will be the preview one.<br>This option will unlock the galaxy preview size limitation (5000). Be ready for long generation time with "Insane" and above galaxies!

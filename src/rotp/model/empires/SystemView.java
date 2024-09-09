@@ -432,6 +432,15 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 	    	color = flagTechGaiaColor.getIndex();
 		setFlagColor(color, id);
     }
+    private void setNebulaFlagColor(Planet planet, int id) {
+    	int color;
+    	if (planet.starSystem().inNebula())
+    		color = flagInNebulaColor.getIndex();
+    	else
+    		color = flagNotNebulaColor.getIndex();
+		setFlagColor(color, id);
+    }
+    
     private void clearFlagColor(Planet planet, int id) { setFlagColor(0, id); }
     private void setFlagColor(int color, int id)	{ // BR: flagColorCount
     	flagColor = getMixedColor(flagColor, color, id);
@@ -591,6 +600,9 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 	    		return;
 	    	case AUTO_FLAG_TECH:
 	    		setTechFlagColor(p, id);
+	    		return;
+	    	case AUTO_FLAG_NEBULA:
+	    		setNebulaFlagColor(p, id);
 	    		return;
 	    	case AUTO_FLAG_CLEAR:
 	    		clearFlagColor(p, id);

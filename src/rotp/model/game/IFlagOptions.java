@@ -30,6 +30,7 @@ public interface IFlagOptions extends IBaseOptsTools {
 	String AUTO_FLAG_ASSET	= "SETTINGS_MOD_AUTO_FLAG_RESOURCES";
 	String AUTO_FLAG_RUINS	= "SETTINGS_MOD_AUTO_FLAG_RUINS";
 	String AUTO_FLAG_TECH	= "SETTINGS_MOD_AUTO_FLAG_TECH";
+	String AUTO_FLAG_NEBULA	= "SETTINGS_MOD_AUTO_FLAG_NEBULA";
 	String AUTO_FLAG_CLEAR	= "SETTINGS_MOD_AUTO_FLAG_CLEAR";
     
 	IndexableMap flagAssignationMap = flagAssignationMap();
@@ -42,6 +43,7 @@ public interface IFlagOptions extends IBaseOptsTools {
 	    		AUTO_FLAG_ASSET,
 	    		AUTO_FLAG_ENV,
 	    		AUTO_FLAG_TYPE,
+	    		AUTO_FLAG_NEBULA,
 	    		AUTO_FLAG_CLEAR
 				);
 		for (String element : flagAssignationList)
@@ -51,17 +53,6 @@ public interface IFlagOptions extends IBaseOptsTools {
 
 	// ========================================================================
 	// BR: AUTO-FLAG PARAMETERS SUB UI
-//	ParamInteger loopFlag			= new ParamInteger(MOD_UI, "LOOP_FLAG", 0, 0, 4, 1, 1, 1) {
-//		{
-//			loop(true);
-//			specialValue(0, MOD_UI + "LOOP_NONE");
-//			specialValue(1,	MOD_UI + "LOOP_TOP_LEFT");
-//			specialValue(2,	MOD_UI + "LOOP_TOP_RIGHT");
-//			specialValue(3,	MOD_UI + "LOOP_BOTTOM_RIGHT");
-//			specialValue(4,	MOD_UI + "LOOP_BOTTOM_LEFT");
-//		}
-//	};
-//	default int selectedLoopFlag()	{ return loopFlag.get(); } 
 
 	ParamList autoFlagAssignation1	= new ParamList(MOD_UI, "AUTO_FLAG_ASSIGN_1",
 			AUTO_FLAG_NOT, flagAssignationMap) {
@@ -131,6 +122,9 @@ public interface IFlagOptions extends IBaseOptsTools {
 	ParamFlagColor flagRuinsAntaranColor= new ParamFlagColor("AUTO_FLAG_VESTIGES_ANTARAN", FLAG_COLOR_LTBLUE);
 	ParamFlagColor flagRuinsNoneColor 	= new ParamFlagColor("AUTO_FLAG_VESTIGES_NONE",	FLAG_COLOR_NONE);
 
+	ParamFlagColor flagInNebulaColor 	= new ParamFlagColor("AUTO_FLAG_IN_NEBULA",		FLAG_COLOR_PURPLE);
+	ParamFlagColor flagNotNebulaColor 	= new ParamFlagColor("AUTO_FLAG_NOT_NEBULA",	FLAG_COLOR_NONE);
+	
 	ParamInteger flagColorCount = new ParamInteger(MOD_UI, "FLAG_COLOR_COUNT", 1)
 			.setLimits(1, 4)
 			.setIncrements(1, 1, 1)
@@ -148,9 +142,10 @@ public interface IFlagOptions extends IBaseOptsTools {
 				autoFlagAssignation1, autoFlagAssignation2,
 				autoFlagAssignation3, autoFlagAssignation4,
 
-//				headerSpacer,
-//				loopFlag,
-				
+				headerSpacer,
+				new ParamTitle("AUTO_FLAG_IN_NEBULA"),
+				flagInNebulaColor, flagNotNebulaColor,
+
 				headerSpacer,
 				new ParamTitle("AUTO_FLAG_COLONY_TECH"),
 				flagTechGaiaColor, flagTechFertileColor, flagTechGoodColor,

@@ -3,6 +3,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- New Auto-Flag option for stars in nebula.
+- Purple flags are now more distinct from blue ones.
 - Fixed Rich asteroid occurrence.
 - Fixed MoO1 Orion Guardian not giving Death Ray.
 - Minor fixes for monsters and Game Over.
