@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Added a Dark Green flag to differentiate Fertile planets from Gaia planets, and Jungle planets from Terran planets.
 - New Auto-Flag option for stars in nebula.
 - Purple flags are now more distinct from blue ones.
 - Fixed Rich asteroid occurrence.

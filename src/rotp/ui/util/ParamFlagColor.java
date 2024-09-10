@@ -29,6 +29,7 @@ public class ParamFlagColor extends ParamList {
     public static final String FLAG_COLOR_RED    = "FLAG_COLOR_RED";
     public static final String FLAG_COLOR_BLUE   = "FLAG_COLOR_BLUE";
     public static final String FLAG_COLOR_GREEN  = "FLAG_COLOR_GREEN";
+    public static final String FLAG_COLOR_DKGREEN= "FLAG_COLOR_DKGREEN";
     public static final String FLAG_COLOR_YELLOW = "FLAG_COLOR_YELLOW";
     public static final String FLAG_COLOR_AQUA   = "FLAG_COLOR_AQUA";
     public static final String FLAG_COLOR_ORANGE = "FLAG_COLOR_ORANGE";
@@ -50,7 +51,8 @@ public class ParamFlagColor extends ParamList {
 			    FLAG_COLOR_ORANGE,
 			    FLAG_COLOR_LTBLUE,
 			    FLAG_COLOR_PURPLE,
-			    FLAG_COLOR_PINK
+			    FLAG_COLOR_PINK,
+			    FLAG_COLOR_DKGREEN
 				);
 		flagCount = flagColorList.size();
 		for (String element : flagColorList)

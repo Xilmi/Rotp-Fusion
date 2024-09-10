@@ -56,6 +56,7 @@ FLAG_COLOR_WHITE                  | White
 FLAG_COLOR_RED                    | Red
 FLAG_COLOR_BLUE                   | Blue
 FLAG_COLOR_GREEN                  | Green
+FLAG_COLOR_DKGREEN                | Dark Green
 FLAG_COLOR_YELLOW                 | Yellow
 FLAG_COLOR_AQUA                   | Aqua
 FLAG_COLOR_ORANGE                 | Orange

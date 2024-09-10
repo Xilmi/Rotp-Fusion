@@ -59,6 +59,9 @@ Later:
 
 ## What's New
 
+2024.09.10 (BR)
+- Added a Dark Green flag to differentiate Fertile planets from Gaia planets, and Jungle planets from Terran planets.
+
 2024.09.09 (BR)
 - New Auto-Flag option for stars in nebula.
 - Purple flags are now more distinct from blue ones.

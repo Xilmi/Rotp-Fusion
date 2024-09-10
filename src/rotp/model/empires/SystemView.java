@@ -89,7 +89,8 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 			"Flag_Orange",
 			"Flag_LtBlue",
 			"Flag_Purple",
-			"Flag_Pink"
+			"Flag_Pink",
+			"Flag_DkGreen"
 			);
     private static final List<String> mapFlagImageNameList = Arrays.asList (
 			"Flag_NoneM",
@@ -102,7 +103,8 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 			"Flag_OrangeM",
 			"Flag_LtBlueM",
 			"Flag_PurpleM",
-			"Flag_Pink"
+			"Flag_PinkM",
+			"Flag_DkGreenM"
 			);
 
     public  static final int FLAG_NONE = 0;
@@ -155,13 +157,13 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     private transient PlanetType vPlanetType;
     private transient FleetPlan fleetPlan;
 
-    /**
-     * @return Ordered List of Flag Colors // BR:
-     */
-    public static List<String> getFlagList() {
-    	return Arrays.asList("NONE", "WHITE", "RED", "BLUE", "GREEN", "YELLOW"
-    				 , "AQUA", "ORANGE", "LIGHT BLUE", "PURPLE", "PINK");
-    }
+//    /**
+//     * @return Ordered List of Flag Colors // BR:
+//     */
+//    public static List<String> getFlagList() {
+//    	return Arrays.asList("NONE", "WHITE", "RED", "BLUE", "GREEN", "YELLOW"
+//    				 , "AQUA", "ORANGE", "LIGHT BLUE", "PURPLE", "PINK");
+//    }
     public List<ShipFleet> orbitingFleets()  { return vOrbitingFleets; }
     public List<ShipFleet> exitingFleets()   { return vExitingFleets; }
     public StarSystem system()               { return galaxy().system(sysId); }

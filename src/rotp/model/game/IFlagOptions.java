@@ -16,6 +16,7 @@ public interface IFlagOptions extends IBaseOptsTools {
     String FLAG_COLOR_WHITE		= "FLAG_COLOR_WHITE";
     String FLAG_COLOR_RED		= "FLAG_COLOR_RED";
     String FLAG_COLOR_BLUE		= "FLAG_COLOR_BLUE";
+    String FLAG_COLOR_DKGREEN	= "FLAG_COLOR_DKGREEN";
     String FLAG_COLOR_GREEN		= "FLAG_COLOR_GREEN";
     String FLAG_COLOR_YELLOW	= "FLAG_COLOR_YELLOW";
     String FLAG_COLOR_AQUA		= "FLAG_COLOR_AQUA";
@@ -79,7 +80,7 @@ public interface IFlagOptions extends IBaseOptsTools {
 	default String selectedAutoFlagAssignation4() { return autoFlagAssignation4.get(); }
 
 	ParamFlagColor flagTerranColor 		= new ParamFlagColor("AUTO_FLAG_TERRAN",		FLAG_COLOR_GREEN);
-	ParamFlagColor flagJungleColor 		= new ParamFlagColor("AUTO_FLAG_JUNGLE",		FLAG_COLOR_GREEN);
+	ParamFlagColor flagJungleColor 		= new ParamFlagColor("AUTO_FLAG_JUNGLE",		FLAG_COLOR_DKGREEN);
 	ParamFlagColor flagOceanColor 		= new ParamFlagColor("AUTO_FLAG_OCEAN",			FLAG_COLOR_AQUA);
 	ParamFlagColor flagAridColor 		= new ParamFlagColor("AUTO_FLAG_ARID",			FLAG_COLOR_YELLOW);
 	ParamFlagColor flagSteppeColor 		= new ParamFlagColor("AUTO_FLAG_STEPPE",		FLAG_COLOR_YELLOW);
@@ -94,7 +95,7 @@ public interface IFlagOptions extends IBaseOptsTools {
 	ParamFlagColor flagAsteroidColor 	= new ParamFlagColor("AUTO_FLAG_ASTEROID",		FLAG_COLOR_PINK);
 
 	ParamFlagColor flagEnvGaiaColor 	= new ParamFlagColor("AUTO_FLAG_ENV_GAIA",		FLAG_COLOR_GREEN);
-	ParamFlagColor flagEnvFertileColor 	= new ParamFlagColor("AUTO_FLAG_ENV_FERTILE",	FLAG_COLOR_AQUA);
+	ParamFlagColor flagEnvFertileColor 	= new ParamFlagColor("AUTO_FLAG_ENV_FERTILE",	FLAG_COLOR_DKGREEN);
 	ParamFlagColor flagEnvNormalColor 	= new ParamFlagColor("AUTO_FLAG_ENV_NORMAL",	FLAG_COLOR_NONE);
 	ParamFlagColor flagEnvHostileColor 	= new ParamFlagColor("AUTO_FLAG_ENV_HOSTILE",	FLAG_COLOR_ORANGE);
 	ParamFlagColor flagEnvNoneColor 	= new ParamFlagColor("AUTO_FLAG_ENV_NONE",		FLAG_COLOR_NONE);
@@ -109,7 +110,7 @@ public interface IFlagOptions extends IBaseOptsTools {
 	ParamFlagColor flagNoneColor 		= new ParamFlagColor("AUTO_FLAG_NONE",			FLAG_COLOR_NONE);
 
 	ParamFlagColor flagTechGaiaColor 	= new ParamFlagColor("AUTO_FLAG_TECH_GAIA",		FLAG_COLOR_GREEN);
-	ParamFlagColor flagTechFertileColor = new ParamFlagColor("AUTO_FLAG_TECH_FERTILE",	FLAG_COLOR_GREEN);
+	ParamFlagColor flagTechFertileColor = new ParamFlagColor("AUTO_FLAG_TECH_FERTILE",	FLAG_COLOR_DKGREEN);
 	ParamFlagColor flagTechGoodColor 	= new ParamFlagColor("AUTO_FLAG_TECH_GOOD",		FLAG_COLOR_BLUE);
 	ParamFlagColor flagTechStandardColor= new ParamFlagColor("AUTO_FLAG_TECH_STANDARD",	FLAG_COLOR_YELLOW);
 	ParamFlagColor flagTechBarrenColor 	= new ParamFlagColor("AUTO_FLAG_TECH_BARREN",	FLAG_COLOR_ORANGE);

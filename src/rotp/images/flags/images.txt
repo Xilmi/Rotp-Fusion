@@ -12,6 +12,7 @@ Flag_Purple   | images/flags/bPurple.png
 Flag_Red      | images/flags/bRed.png
 Flag_White    | images/flags/bWhite.png
 Flag_Yellow   | images/flags/bYellow.png
+Flag_DkGreen  | images/flags/bDarkGreen.png
 Flag_AquaM    | images/flags/wAqua.png
 Flag_BlueM    | images/flags/wBlue.png
 Flag_GreenM   | images/flags/wGreen.png
@@ -22,6 +23,7 @@ Flag_PurpleM  | images/flags/wPurple.png
 Flag_RedM     | images/flags/wRed.png
 Flag_WhiteM   | images/flags/wWhite.png
 Flag_YellowM  | images/flags/wYellow.png
+Flag_DkGreenM | images/flags/wDarkGreen.png
 
 Star_Empty    | images/flags/starEmpty.png
 Star_Half     | images/flags/starHalf.png
