@@ -167,6 +167,21 @@ TECH_PLANETOLOGY                  | Planetology
 TECH_PROPULSION                   | Propulsion
 TECH_WEAPONS                      | Weapons
 
+TECH_CURRENT_LEVEL                | Current technology level %1
+TECH_NEXT_LEVEL                   | Level after selected tech discovery %1 (+%2)
+TECH_HOVER_LEVEL                  | Level after hovered tech discovery %1 (+%2)
+TECH_LEVEL_HEADER                 | Technology level impact:
+TECH_LEVEL_VALUE                  | Technology level %1
+TECH_CATEGORY_HEADER              | CATEGORY %1
+TECH_LEVEL_OF_TECH                | Level %1
+
+TECH_COMPUTERS_LEVEL_DESC         | During espionage, the difference between your Computer level and your target's Computer level is applied as a modifier.
+TECH_CONSTRUCTION_LEVEL_DESC      | Every Construction level increases the available space for all hull types by 2%.
+TECH_FORCE_FIELDS_LEVEL_DESC      | 
+TECH_PLANETOLOGY_LEVEL_DESC       | At the start of the game, each colonist produces .5BC. As your Planetology technology level rises, so does their productivity. The increase is incremental, but the overall rate doubles at level 17, triples at level 33, and quadruples at level 50.
+TECH_PROPULSION_LEVEL_DESC        | 
+TECH_WEAPONS_LEVEL_DESC           | The amount of damage your spies inflict during Sabotage actions increases with your Weapons technology level. This will destroy more factories and missile bases.
+
 // Random Events
 EVENT_ACCIDENT                    | A major industrial accident pollutes the [target_race] world in the [system] system with industrial waste, damaging its ecology and permanently irradiating the planet.
 EVENT_ASSASSINATION               | A terrorist from the [assassin_empire] has assassinated the [victim_race] diplomat, placing the two empires on the brink of war.
@@ -3448,6 +3463,7 @@ TECH_EMPIRE_BALANCED_DESC         | Balanced spending increases overall research
 TECH_EMPIRE_DETAIL_1              | %1 BC for 
 TECH_EMPIRE_DETAIL_2              | %2 RP / Year
 TECH_TOTAL_RP                     | %1 RP
+TECH_LEVEL                        | Level %1
 TECH_DISCOVERY_PCT                | %1%
 TECH_CHANGE_RESEARCH              | Click to Research this Technology
 TECH_NEXT_TIER_TITLE              | Not Available Yet.
@@ -3485,15 +3501,18 @@ TECH_SHIP_SPEED_AMT               | Warp %1
 TECH_BUTTON_EXIT                  | EXIT
 
 // Tech UI help
-TECH_HELP_1A                      | OVERVIEW - This screen allows you to adjust spending across the six areas of technology that you can study. You can review technologies already learned (green), current in research (yellow) or available for future research (brown). 
+TECH_HELP_1A                      | - OVERVIEW -<br>This screen allows you to adjust spending across the six areas of technology that you can study.<br>You can review technologies already learned (green),<br>currently in research (yellow)<br> or available for future research (brown). 
 TECH_HELP_1B                      | Click or scroll with the mouse wheel to view the technologies for an area of research. 
 TECH_HELP_1C                      | Fills up when research points (RP) are spent in an area. Once filled, there is an increasing chance each turn to learn the technology.
 TECH_HELP_1D                      | Technology currently being researched. See its description for benefits.
 TECH_HELP_1E                      | General benefits provided by technologies already learned in this area.
 TECH_HELP_1F                      | Total production (BC) applied to research and the total research points (RP) resulting from it.
 TECH_HELP_1G                      | Overflow spending in a colony may be directed to research instead of the empire treasury.
-TECH_HELP_1H                      | Each tech area has a spending bar. Click on the name to lock a bar. Spending for the first 1/6th of the bar gains a 25% research bonus.
+TECH_HELP_1H                      | Each tech area has a spending bar.<br>Click on the name to lock a bar.<br>Spending for the first 1/6th of the bar gains a 25% research bonus.<br>This means you'll optimize research spending by keeping all six bars equal.
 TECH_HELP_1I                      | Equalize the spending allocations for the unlocked bars. 
+TECH_HELP_1J                      | - MINIATURIZATION -<br>All ship components get smaller and cheaper as you research other technologies in the same category as that component.<br>For every technology level above a non-weapon component's level, its size is reduced by 2.5% and its cost is reduced by 5%.<br>Weapon components shrink more quickly. For every technology level above a weapon's level, its size is reduced by 5% and its cost is reduced by 5%.<br> This means your designs will get cheaper as you learn more technologies, and as weapons recede from the cutting edge, more of them will fit onto your ships.
+TECH_HELP_1K                      | Technology levels are determined by multiplying your highest known tech's level by 0.80 and adding 1 for every technology you know in that category.
+
 
 // =========================================================================
 //   ALPHA 4
@@ -4691,7 +4710,7 @@ PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scrol
 
 FLEETS_HELP_HK       | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
 
-TECH_HELP_HK         | →HK_HEADER← →HK_F1_?← <br><br>1-6/+SHIFT : Increment/Decrement categories.<br>CTRL+1-6 : Lock sliders.<br>Arrows : Move Tree / Categories<br>= : Equalize<br>mouse wheel : Increment quantities/moves slider. <br>→HK_ESCAPE←
+TECH_HELP_HK         | →HK_HEADER← →HK_F1_?← <br><br>1-6/+SHIFT : Increment/Decrement categories.<br>CTRL+1-6 : Lock sliders.<br>Arrows : Move Tree / Categories<br>= : Equalize<br>mouse wheel : Increment quantities/moves slider.<br><br>A, F : Show/Hide Free tech<br>G, H, I, or Right Click: Show more info on hovered tech <br> →HK_ESCAPE←
 
 SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1_?← <br><br>Arrows Down/Up : Next/Previous Slot.<br><br>S : Scrap Design.<br>R : Rename Design.<br>D : Create Design.<br>C / (+CTRL) : Clear Design / (Only Weapons)<br><br>ALT-A : Auto build.<br>ALT-B : Auto build Bomber.<br>ALT-F : Auto build Fighter.<br>ALT-E : Auto build Scout (Explorer).<br>ALT-P : Auto build Colony (Pioneer). <br>→HK_ESCAPE←
 

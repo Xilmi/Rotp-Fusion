@@ -130,9 +130,7 @@ public final class TechLibrary implements Base {
         if (type.equalsIgnoreCase("StasisField"))          { return new TechStasisField(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("BlackHole"))            { return new TechBlackHole(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("SquidInk"))             { return new TechSquidInk(type, level, seq, free, loadingCat); }
-        if (type.equalsIgnoreCase("ResistSpecial"))        {
-        	return new TechResistSpecial(type, level, seq, free, loadingCat);
-        	}
+        if (type.equalsIgnoreCase("ResistSpecial"))        { return new TechResistSpecial(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("AmoebaEatShips"))       { return new TechAmoebaEatShips(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("ControlEnvironment"))   { return new TechControlEnvironment(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("EcoRestoration"))       { return new TechEcoRestoration(type, level, seq, free, loadingCat); }

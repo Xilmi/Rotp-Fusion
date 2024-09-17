@@ -3,16 +3,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Added a Dark Green flag to differentiate Fertile planets from Gaia planets, and Jungle planets from Terran planets.
-- New Auto-Flag option for stars in nebula.
-- Purple flags are now more distinct from blue ones.
-- Fixed Rich asteroid occurrence.
-- Fixed MoO1 Orion Guardian not giving Death Ray.
-- Minor fixes for monsters and Game Over.
-- Fixed non-unique monsters not resetting their announcements.
-- The default ship designs may not appeal to experienced players. To avoid the hassle of deleting them, you can now choose to disable their initialization. Only scout ships and colony ships will be enabled.
-- AIs have been changed to evaluate monster power from their design, this using standard fleet power evaluation tools.
-- Fixed Symmetric galaxy generation.
+- Fixed auto-design of ships allowing both "Auto-Repair" and "Advanced Damage Control". This is useless, as only the best repair percentage is used.
+- Tech Panel: Show/Hide free tech. Press "A" for All, or "F" for Free.
+- Tech Panel: New complementary tech info available. Right click on tech, or press "I" for Info, "H" for Hints, or "G" for Guide. In progress.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

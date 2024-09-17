@@ -20,6 +20,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Stroke;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import rotp.model.colony.Colony;
 import rotp.model.combat.CombatStack;
@@ -87,6 +88,62 @@ public class Tech implements Base {
     public static final int FUTURE_PLANETOLOGY = 93;
     public static final int FUTURE_PROPULSION = 94;
     public static final int FUTURE_WEAPON = 95;
+    public static final HashMap<Integer, String> typeMap = new HashMap<>();
+    static {
+    	typeMap.put(ARMOR, "ARMOR");
+    	typeMap.put(ATMOSPHERE_ENRICHMENT, "ATMOSPHERE_ENRICHMENT");
+    	typeMap.put(AUTOMATED_REPAIR, "AUTOMATED_REPAIR");
+    	typeMap.put(BATTLE_COMPUTER, "BATTLE_COMPUTER");
+    	typeMap.put(BATTLE_SUIT, "BATTLE_SUIT");
+    	typeMap.put(BEAM_FOCUS, "BEAM_FOCUS");
+    	typeMap.put(BIOLOGICAL_ANTIDOTE, "BIOLOGICAL_ANTIDOTE");
+    	typeMap.put(BIOLOGICAL_WEAPON, "BIOLOGICAL_WEAPON");
+    	typeMap.put(BLACK_HOLE, "BLACK_HOLE");
+    	typeMap.put(BOMB_WEAPON, "BOMB_WEAPON");
+    	typeMap.put(CLOAKING, "CLOAKING");
+    	typeMap.put(CLONING, "CLONING");
+    	typeMap.put(COMBAT_TRANSPORTER, "COMBAT_TRANSPORTER");
+    	typeMap.put(CONTROL_ENVIRONMENT, "CONTROL_ENVIRONMENT");
+    	typeMap.put(DEFLECTOR_SHIELD, "DEFLECTOR_SHIELD");
+    	typeMap.put(DISPLACEMENT, "DISPLACEMENT");
+    	typeMap.put(ECM_JAMMER, "ECM_JAMMER");
+    	typeMap.put(ECO_RESTORATION, "ECO_RESTORATION");
+    	typeMap.put(ENERGY_PULSAR, "ENERGY_PULSAR");
+    	typeMap.put(ENGINE_WARP, "ENGINE_WARP");
+    	typeMap.put(FUEL_RANGE, "FUEL_RANGE");
+    	typeMap.put(HAND_WEAPON, "HAND_WEAPON");
+    	typeMap.put(HYPERSPACE_COMM, "HYPERSPACE_COMM");
+    	typeMap.put(IMPROVED_INDUSTRIAL, "IMPROVED_INDUSTRIAL");
+    	typeMap.put(IMPROVED_TERRAFORMING, "IMPROVED_TERRAFORMING");
+    	typeMap.put(INDUSTRIAL_WASTE, "INDUSTRIAL_WASTE");
+    	typeMap.put(MISSILE_SHIELD, "MISSILE_SHIELD");
+    	typeMap.put(MISSILE_WEAPON, "MISSILE_WEAPON");
+    	typeMap.put(PERSONAL_SHIELD, "PERSONAL_SHIELD");
+    	typeMap.put(PLANETARY_SHIELD, "PLANETARY_SHIELD");
+    	typeMap.put(REPULSOR, "REPULSOR");
+    	typeMap.put(RESERVE_FUEL_RANGE, "RESERVE_FUEL_RANGE");
+    	typeMap.put(ROBOTIC_CONTROLS, "ROBOTIC_CONTROLS");
+    	typeMap.put(SCANNER, "SCANNER");
+    	typeMap.put(SHIP_INERTIAL, "SHIP_INERTIAL");
+    	typeMap.put(SHIP_NULLIFIER, "SHIP_NULLIFIER");
+    	typeMap.put(SHIP_WEAPON, "SHIP_WEAPON");
+    	typeMap.put(SOIL_ENRICHMENT, "SOIL_ENRICHMENT");
+    	typeMap.put(STARGATE, "STARGATE");
+    	typeMap.put(STASIS_FIELD, "STASIS_FIELD");
+    	typeMap.put(STREAM_PROJECTOR, "STREAM_PROJECTOR");
+    	typeMap.put(SUBSPACE_INTERDICTOR, "SUBSPACE_INTERDICTOR");
+    	typeMap.put(TELEPORTER, "TELEPORTER");
+    	typeMap.put(TORPEDO_WEAPON, "TORPEDO_WEAPON");
+    	typeMap.put(SQUID_INK, "SQUID_INK");
+    	typeMap.put(RESIST_SPECIAL, "RESIST_SPECIAL");
+    	typeMap.put(EAT_SHIPS, "EAT_SHIPS");
+    	typeMap.put(FUTURE_COMPUTER, "FUTURE_COMPUTER");
+    	typeMap.put(FUTURE_CONSTRUCTION, "FUTURE_CONSTRUCTION");
+    	typeMap.put(FUTURE_FORCE_FIELD, "FUTURE_FORCE_FIELD");
+    	typeMap.put(FUTURE_PLANETOLOGY, "FUTURE_PLANETOLOGY");
+    	typeMap.put(FUTURE_PROPULSION, "FUTURE_PROPULSION");
+    	typeMap.put(FUTURE_WEAPON, "FUTURE_WEAPON");
+    }
 
     public String id;
     public int techType;
@@ -102,9 +159,9 @@ public class Tech implements Base {
     private String detail = "";
     private String trigger = "";
     private String item = null;
-    private String shDesc = "";
+    private String shDesc = ""; // for short description = brief()
     private String item2 = null;
-    private String shDesc2 = "";
+    private String shDesc2 = ""; // for short description 2 = brief2()
 
     public int sequence;
     public int quintile = 0;
@@ -152,11 +209,17 @@ public class Tech implements Base {
     public	  String  item()				{ return item == null ? name() : text(item); }
     public	  String  item2()				{ return item2 == null ? item() : text(item2); }
     public	  String  imageKey()			{ return ""; }
+    public	  String  techTypeKey()			{ return typeMap.get(techType); }
+    public	  String  techTypeName()		{ return labels().realLabel(techTypeKey() + "_NAME"); }
+    public	  String  techTypeDesc()		{ return labels().realLabel(techTypeKey() + "_DETAIL"); }
+    public	  String  infoKey()				{ return techTypeKey() + "_INFO_DESC"; }
+    public	  String  info()				{ return infoKey().isEmpty()? "" : text(infoKey()); }
+    
     public	  Image	  image()				{ return iconFilename == null ? null : image(iconFilename); }
     public	  int	  futureTechLevel()		{ return 0; }
-    public	  boolean isWarpDissipator()	{ return false; }
-    public	  boolean isTechNullifier()		{ return false; }
 
+    public boolean isWarpDissipator()		{ return false; }
+    public boolean isTechNullifier()		{ return false; }
     public boolean isControlEnvironmentTech() { return false; }
     public boolean isMissileWeaponTech()    { return false; }
     public boolean isMissileBaseWeapon()    { return false; }

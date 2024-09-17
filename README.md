@@ -59,6 +59,11 @@ Later:
 
 ## What's New
 
+2024.09.17 (BR)
+- Fixed auto-design of ships allowing both "Auto-Repair" and "Advanced Damage Control". This is useless, as only the best repair percentage is used.
+- Tech Panel: Show/Hide free tech. Press "A" for All, or "F" for Free.
+- Tech Panel: New complementary tech info available. Right click on tech, or press "I" for Info, "H" for Hints, or "G" for Guide. In progress.
+
 2024.09.10 (BR)
 - Added a Dark Green flag to differentiate Fertile planets from Gaia planets, and Jungle planets from Terran planets.
 

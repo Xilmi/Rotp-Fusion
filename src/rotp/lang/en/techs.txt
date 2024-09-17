@@ -3,6 +3,9 @@
 //
 // Armor techs
 // 
+ARMOR_NAME       | Armor technologies
+ARMOR_DETAIL     | Armor will determine your design's hit points. As you research better armor -- starting with titanium, and then progressing through duralloy, zortrium, andrium, tritanium, adamantium, and neutronium -- each of your hull sizes will get more hit points.<br>Note that every type of armor is available in default strength or double strength (double strength is indicated by a II following the name). Double strength armor takes up more space, but gives your ship 50% more hit points.<br>Also note that armor is subject to the benefits of miniaturization (i.e. every ten levels of Construction technology you have above an armor's tech level reduces its cost by 50% and its size by 25%).<br>Personal combat armor is also enhanced, adding to all ground attacks.
+
 ARMOR_0_NAME     | Titanium Armor
 ARMOR_0_ITEM     | Titanium
 ARMOR_0_BRIEF    | Hit Points %1
@@ -42,12 +45,18 @@ ARMOR_6_DETAIL   | Increases the hit points of ships and transports by 300%. Per
 //
 // Atmospheric Terraforming techs
 // 
+ATMOSPHERE_NAME        | Atmospheric Terraforming Technologies
+ATMOSPHERE_DETAIL      | <br>Remove the Hostile trait to the planet:<br>- Change planet environment to normal.<br>- Set the planet type to minimal.<br>- Increase the planet size by 20.<br>Benefits that result from it:<br>- Remove the 50% penalty to population growth.<br>- Remove the "Hostile Terraforming" limitation.
+
 ATMOSPHERE_0_NAME      | Atmospheric Terraforming
 ATMOSPHERE_0_DETAIL    | Converts Hostile environments to Normal environments for a cost of 150 BCs.
 
 //
 // Automated Repair techs
 // 
+AUTOREPAIR_NAME        | Automated Repair Special Devices
+AUTOREPAIR_DETAIL      | Automated Repair Systems (level-14) and Advanced Damage Control  (level-36) make ships tougher to kill. With these special devices, undestroyed ships will automatically repair up to 15 or 30 percent, respectively, of their total, prebattle hit points at the end of each round of combat.<br>When attacking ships that have these systems, you can't kill them unless you can inflict more damage on them than they can repair each round.<br>Note that these repair and damage control systems really pay dividends on larger ship types, as they can repair more damage points per turn.
+
 AUTOREPAIR_0_NAME      | Automated Repair System
 AUTOREPAIR_0_BRIEF     | Heals 15% of ship's hit points a turn
 AUTOREPAIR_0_DETAIL    | Undestroyed ships can repair up to 15% of their total hit points at the end of each turn.
@@ -68,6 +77,9 @@ AUTOREPAIR_3_DETAIL    | Once the max damage is reached, the Amoeba split in two
 //
 // Battle Computer techs
 // 
+COMPUTER_NAME      | Battle Computers
+COMPUTER_DETAIL    | Ships: Computers will determine your design's Attack Level, which is compared to the target's missile or beam defense during combat<br>Missile bases are always equipped with your best battle computers.
+
 // this is the Ship Design entry for selecting no battle computer
 COMPUTER_0_NAME    | 
 COMPUTER_0_ITEM    |  
@@ -133,9 +145,12 @@ COMPUTER_11_DETAIL | Increases weapon accuracy to Level 11.
 //
 // Battle Suit techs for ground combat
 // 
+BATTLESUIT_NAME      | Personal Armor Technologies
+BATTLESUIT_DETAIL    | Gives Ground combat bonus:<br>+ 10 for Battle Suits (Tech level 11)<br>+20 for Armored Exoskeletons (Tech level 24)<br>+30 for Powered Armor (Tech level 40)
+
 // this is for default, no-bonus armor that player starts with
-BATTLESUIT_0_NAME    | Armor
-BATTLESUIT_0_DETAIL  |
+BATTLESUIT_0_NAME    | No armor
+BATTLESUIT_0_DETAIL  | No-bonus armor
 
 BATTLESUIT_1_NAME    | Battle Suits
 BATTLESUIT_1_DETAIL  | Armor that not only protects but also boosts strength. Adds 10 to all ground combat rolls.
@@ -302,10 +317,10 @@ CONTROLENV_6_DETAIL  | Permits the colonization of irradiated and less hostile p
 // Deflector Shield tech
 //
 // this is the entry on Ship Design for selecting no deflector shield
-DEFLECTOR_0_NAME      | 
-DEFLECTOR_0_ITEM      |   
-DEFLECTOR_0_BRIEF     |  
-DEFLECTOR_0_DETAIL    | 
+DEFLECTOR_0_NAME      | No Deflector Shields
+DEFLECTOR_0_ITEM      | Class 0
+DEFLECTOR_0_BRIEF     | Absorbs nothing
+DEFLECTOR_0_DETAIL    | Your ships are not protected
 
 DEFLECTOR_1_NAME      | Class I Deflector Shields
 DEFLECTOR_1_ITEM      | Class I
@@ -771,8 +786,8 @@ FUTUREWEAPON_9_DETAIL  | General Improvements in Weapon Technology.
 //
 // Hand Weapon techs
 //
-HANDWEAPON_0_NAME      | 
-HANDWEAPON_0_DETAIL    | 
+HANDWEAPON_0_NAME      | Bare hands
+HANDWEAPON_0_DETAIL    | Your ground troops fight with their bare hands.
 
 HANDWEAPON_1_NAME      | Hand Lasers
 HANDWEAPON_1_DETAIL    | Personal lasers that add 5 to your ground combat rolls.
@@ -954,8 +969,11 @@ MISSWPN_10_DETAIL    | MIRV versions of Stinger Missiles, splitting into 10 sepa
 // Personal Shield techs for ground combat
 //
 // default "no shield" tech that each player starts with
-PERSSHIELD_0_NAME     | 
-PERSSHIELD_0_DETAIL   | 
+PERSSHIELD_NAME       | Personal protection technologies
+PERSSHIELD_DETAIL     | Ground troops equipment
+
+PERSSHIELD_0_NAME     | No Personal Shield
+PERSSHIELD_0_DETAIL   | Unprotected ground troops
 
 PERSSHIELD_1_NAME     | Personal Deflector Shield
 PERSSHIELD_1_DETAIL   | Protects individual ground troops with a directional force field. Adds +10 to all ground combat battles.
@@ -1024,6 +1042,7 @@ ROBOTCTRL_4_DETAIL   | Allows 7 factories to be operated per population. The ref
 SCANNER_0_NAME       | Battle Scanner
 SCANNER_0_BRIEF      | Scans enemy ships in combat
 SCANNER_0_DETAIL     | Reveals technical specifications of enemy spacecraft in combat.
+SCANNER_0_INFO       | Besides allowing to examine the specs of an enemy fleet, Battle scanners also add +3 to that ship group's initiative rating. This mean you may have defensive reaction fire to approaching enemy! This can be an awesome advantage. (And it also gives +1 attack bonus)
 
 SCANNER_1_NAME       | Deep Space Scanner
 SCANNER_1_BRIEF      | Detects ships up to 5 light-years away

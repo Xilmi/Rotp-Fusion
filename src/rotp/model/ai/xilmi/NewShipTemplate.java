@@ -647,7 +647,7 @@ public class NewShipTemplate implements Base {
             Tech tech = spec.tech();
             float currentScore = 0;
             
-            //new approach: The main idea behind our bombers is that they are cheap and that they carry lots of bombs, so no specials besided of cloaking-device help us outside of combat
+            //new approach: The main idea behind our bombers is that they are cheap and that they carry lots of bombs, so no specials beside of cloaking-device help us outside of combat
             if(bomber && !tech.isType(Tech.CLOAKING))
                 continue;
             
@@ -660,7 +660,7 @@ public class NewShipTemplate implements Base {
                     currentScore = 75;
                 if(tech.typeSeq == 1)
                     currentScore = 125;
-                currentScore += tech.level - ai.empire().tech().avgTechLevel(); //loses usefullness with more miniaturization
+                currentScore += tech.level - ai.empire().tech().avgTechLevel(); //loses usefulness with more miniaturization
                 if(d.size() < 2)
                     currentScore = 0;
                 if(d.size() > 2)
@@ -799,6 +799,7 @@ public class NewShipTemplate implements Base {
         float remainingSpace = spaceAllowed; 
         
         boolean alreadyInertial = false;
+        boolean alreadyAutoRepair = false;
         for(ShipSpecial spec : specials.values())
         {
             if(spec.isNone())
@@ -807,6 +808,8 @@ public class NewShipTemplate implements Base {
                 continue;
             if(spec.isInertial() && alreadyInertial)
                 continue;
+            if(spec.shipRepairPct()>0 && alreadyAutoRepair)
+                continue;
             if(spec.space(d) <= remainingSpace)
             {
                 d.special(nextSlot,spec);
@@ -814,6 +817,8 @@ public class NewShipTemplate implements Base {
                 remainingSpace -= spec.space(d);
                 if(spec.isInertial())
                     alreadyInertial = true;
+                if(spec.shipRepairPct()>0)
+                	alreadyAutoRepair = true;
                 //System.out.print("\n"+ai.empire().name()+" "+d.name()+" added "+spec.name()+" with "+spec.space(d)+" remaining: "+remainingSpace);
                 if(nextSlot > 2)
                     break;

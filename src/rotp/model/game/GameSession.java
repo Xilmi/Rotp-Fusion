@@ -128,12 +128,19 @@ public final class GameSession implements Base, Serializable {
     private Galaxy galaxy;
     private final GameStatus status = new GameStatus();
     private long id;
+    private Long achievementId;
     private boolean spyActivity = false;
     private Integer lastTurnAlive;
     private boolean aFewMoreTurns = false;
 
     public GameStatus status()                   { return status; }
     public long id()                             { return id; }
+    public long achievementId()                  {
+    	if (achievementId == null)
+    		achievementId = newAchievementId();
+    	return achievementId;
+    }
+    private long newAchievementId()              { return System.currentTimeMillis(); }
     public ExecutorService smallSphereService()  { return smallSphereService; }
 
     public static boolean ironmanLocked() 		 { return ironmanLocked; }
@@ -284,6 +291,7 @@ public final class GameSession implements Base, Serializable {
 
         synchronized(ONE_GAME_AT_A_TIME) {
             id = (long) (Long.MAX_VALUE*random());
+            achievementId = newAchievementId();
             GalaxyFactory.current().newGalaxy();
             log("Galaxy complete");
             status().startGame();
@@ -306,6 +314,7 @@ public final class GameSession implements Base, Serializable {
 
         synchronized(ONE_GAME_AT_A_TIME) {
             id = (long) (Long.MAX_VALUE*random());
+            achievementId = newAchievementId();
             GalaxyFactory.current().newGalaxy(src);
             log("Galaxy complete");
             status().startGame();
