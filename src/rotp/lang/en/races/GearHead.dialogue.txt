@@ -144,6 +144,7 @@ WARN_SKIRMISH_07           | Hail, oh glorious [your_name]! The [my_race] hope t
 WARN_SKIRMISH_08           | Why attack the [my_race] at [system]? Surely there are more important threats for the mighty [your_empire] to deal with.
 WARN_SKIRMISH_09           | Inform the butchers who orchestrated the attack at [system] that even the smallest [my_race] force can unleash a painful bite when cornered.
 
+WARN_ATTACKED_01           | Such a bold attack stems only from a complete lack of respect, ambassador! You are fortunate indeed that [my_title] does not deign to reprimand your insolence. You may not be as fortunate next time! 
 WARN_ATTACKED_04           | Consider yourself fortunate, [your_nameTitle] [your_name], that the [my_empire] is not yet ready to enter into a senseless war over the incident at [system].
 WARN_ATTACKED_05           | Your senseless attack on the [my_race] star system at [system] has endangered the lives of billions on both our worlds.
 WARN_ATTACKED_06           | How can you not expect retaliation from the [my_empire] for the unprovoked attack at [system]?
@@ -151,6 +152,7 @@ WARN_ATTACKED_07           | Venture near the [system] star system again and the
 WARN_ATTACKED_08           | Many within the [my_empire] are restless and crave action. Another attack like the one at [system] and you will give us an excuse for war.
 WARN_ATTACKED_09           | The relations between our two empires is becoming quite dire. The attack on the [my_race] system at [system] was unprovoked and may soon lead to war.
 
+WARN_INVADED_01            | So you seek to take that which does not belong to you, ambassador?! Tempt our wrath no more: we would gladly be rid of that worthless planet if it means being rid of your stupidity! 
 WARN_INVADED_04            | The [my_empire] orders you to cease all hostilities in the [system] system or face the consequences of your actions.
 WARN_INVADED_05            | Conflicts such as the battle at [system] can only be interpreted as a prelude to war with the [my_empire].
 WARN_INVADED_06            | Blast you, [your_nameTitle] [your_name]! You are jeopardizing the future of both our peoples by your senseless attacks on [my_race] colonies.
@@ -181,6 +183,7 @@ WARN_SABOTAGE_07           | Emperor [your_name], if you wish to avert a sensele
 WARN_SABOTAGE_08           | The [my_empire] will not long stand for acts of terrorism and sabotage from the mighty [your_empire]. Wars have begun over less. [framed]
 WARN_SABOTAGE_09           | The noble [my_race] will always stand against the tyrant [your_empire] and its wanton acts of terrorism. [framed]
 
+WARN_GENOCIDE_01           | While I do agree that the [victim_race] were a miserable horde of churlish vermin, the Sovereignty strongly opposes committing genocide. We wonder, ambassador, if your people are capable of repeating these actions with more... civilized races?
 WARN_GENOCIDE_04           | [attacker_nameTitle] [attacker_name], you go too far! The mighty [my_race] do not look kindly upon your genocide of the [victim_race].
 WARN_GENOCIDE_05           | Remember [your_name], that genocide is often a sword with two edges.
 WARN_GENOCIDE_06           | The friendly [my_race] hope that the powerful [your_empire] continue to distinguish between friend and foe.

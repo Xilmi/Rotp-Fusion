@@ -59,6 +59,9 @@ Later:
 
 ## What's New
 
+2024.09.20 (BR)
+- Added 3 missing dialogues to the six additional species.
+
 2024.09.17 (BR)
 - Fixed auto-design of ships allowing both "Auto-Repair" and "Advanced Damage Control". This is useless, as only the best repair percentage is used.
 - Tech Panel: Show/Hide free tech. Press "A" for All, or "F" for Free.

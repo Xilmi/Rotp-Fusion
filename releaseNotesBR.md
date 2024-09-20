@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Added 3 missing dialogues to the six additional species.
 - Fixed auto-design of ships allowing both "Auto-Repair" and "Advanced Damage Control". This is useless, as only the best repair percentage is used.
 - Tech Panel: Show/Hide free tech. Press "A" for All, or "F" for Free.
 - Tech Panel: New complementary tech info available. Right click on tech, or press "I" for Info, "H" for Hints, or "G" for Guide. In progress.
