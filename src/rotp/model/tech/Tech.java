@@ -91,58 +91,58 @@ public class Tech implements Base {
     public static final HashMap<Integer, String> typeMap = new HashMap<>();
     static {
     	typeMap.put(ARMOR, "ARMOR");
-    	typeMap.put(ATMOSPHERE_ENRICHMENT, "ATMOSPHERE_ENRICHMENT");
-    	typeMap.put(AUTOMATED_REPAIR, "AUTOMATED_REPAIR");
-    	typeMap.put(BATTLE_COMPUTER, "BATTLE_COMPUTER");
-    	typeMap.put(BATTLE_SUIT, "BATTLE_SUIT");
-    	typeMap.put(BEAM_FOCUS, "BEAM_FOCUS");
-    	typeMap.put(BIOLOGICAL_ANTIDOTE, "BIOLOGICAL_ANTIDOTE");
-    	typeMap.put(BIOLOGICAL_WEAPON, "BIOLOGICAL_WEAPON");
-    	typeMap.put(BLACK_HOLE, "BLACK_HOLE");
-    	typeMap.put(BOMB_WEAPON, "BOMB_WEAPON");
-    	typeMap.put(CLOAKING, "CLOAKING");
-    	typeMap.put(CLONING, "CLONING");
-    	typeMap.put(COMBAT_TRANSPORTER, "COMBAT_TRANSPORTER");
-    	typeMap.put(CONTROL_ENVIRONMENT, "CONTROL_ENVIRONMENT");
-    	typeMap.put(DEFLECTOR_SHIELD, "DEFLECTOR_SHIELD");
+    	typeMap.put(ATMOSPHERE_ENRICHMENT, "ATMOSPHERE");
+    	typeMap.put(AUTOMATED_REPAIR, "AUTOREPAIR");
+    	typeMap.put(BATTLE_COMPUTER, "COMPUTER");
+    	typeMap.put(BATTLE_SUIT, "BATTLESUIT");
+    	typeMap.put(BEAM_FOCUS, "BEAMFOCUS");
+    	typeMap.put(BIOLOGICAL_ANTIDOTE, "BIOANTIDOTE");
+    	typeMap.put(BIOLOGICAL_WEAPON, "BIOWEAPON");
+    	typeMap.put(BLACK_HOLE, "BLACKHOLE");
+    	typeMap.put(BOMB_WEAPON, "BOMB");
+    	typeMap.put(CLOAKING, "CLOAK");
+    	typeMap.put(CLONING, "CLONE");
+    	typeMap.put(COMBAT_TRANSPORTER, "COMBATTRANSPORT");
+    	typeMap.put(CONTROL_ENVIRONMENT, "CONTROLENV");
+    	typeMap.put(DEFLECTOR_SHIELD, "DEFLECTOR");
     	typeMap.put(DISPLACEMENT, "DISPLACEMENT");
-    	typeMap.put(ECM_JAMMER, "ECM_JAMMER");
-    	typeMap.put(ECO_RESTORATION, "ECO_RESTORATION");
-    	typeMap.put(ENERGY_PULSAR, "ENERGY_PULSAR");
-    	typeMap.put(ENGINE_WARP, "ENGINE_WARP");
-    	typeMap.put(FUEL_RANGE, "FUEL_RANGE");
-    	typeMap.put(HAND_WEAPON, "HAND_WEAPON");
-    	typeMap.put(HYPERSPACE_COMM, "HYPERSPACE_COMM");
-    	typeMap.put(IMPROVED_INDUSTRIAL, "IMPROVED_INDUSTRIAL");
-    	typeMap.put(IMPROVED_TERRAFORMING, "IMPROVED_TERRAFORMING");
-    	typeMap.put(INDUSTRIAL_WASTE, "INDUSTRIAL_WASTE");
-    	typeMap.put(MISSILE_SHIELD, "MISSILE_SHIELD");
-    	typeMap.put(MISSILE_WEAPON, "MISSILE_WEAPON");
-    	typeMap.put(PERSONAL_SHIELD, "PERSONAL_SHIELD");
-    	typeMap.put(PLANETARY_SHIELD, "PLANETARY_SHIELD");
+    	typeMap.put(ECM_JAMMER, "ECMJAMMER");
+    	typeMap.put(ECO_RESTORATION, "ECORESTORATION");
+    	typeMap.put(ENERGY_PULSAR, "PULSAR");
+    	typeMap.put(ENGINE_WARP, "ENGINE");
+    	typeMap.put(FUEL_RANGE, "FUELRANGE");
+    	typeMap.put(HAND_WEAPON, "HANDWEAPON");
+    	typeMap.put(HYPERSPACE_COMM, "HYPERSPACE");
+    	typeMap.put(IMPROVED_INDUSTRIAL, "IMPRINDUSTRY");
+    	typeMap.put(IMPROVED_TERRAFORMING, "IMPRTFORM");
+    	typeMap.put(INDUSTRIAL_WASTE, "INDWASTE");
+    	typeMap.put(MISSILE_SHIELD, "MISSDEF");
+    	typeMap.put(MISSILE_WEAPON, "MISSWPN");
+    	typeMap.put(PERSONAL_SHIELD, "PERSSHIELD");
+    	typeMap.put(PLANETARY_SHIELD, "PLANETSHIELD");
     	typeMap.put(REPULSOR, "REPULSOR");
-    	typeMap.put(RESERVE_FUEL_RANGE, "RESERVE_FUEL_RANGE");
-    	typeMap.put(ROBOTIC_CONTROLS, "ROBOTIC_CONTROLS");
+    	typeMap.put(RESERVE_FUEL_RANGE, "RSRVFUEL");
+    	typeMap.put(ROBOTIC_CONTROLS, "ROBOTCTRL");
     	typeMap.put(SCANNER, "SCANNER");
-    	typeMap.put(SHIP_INERTIAL, "SHIP_INERTIAL");
-    	typeMap.put(SHIP_NULLIFIER, "SHIP_NULLIFIER");
-    	typeMap.put(SHIP_WEAPON, "SHIP_WEAPON");
-    	typeMap.put(SOIL_ENRICHMENT, "SOIL_ENRICHMENT");
+    	typeMap.put(SHIP_INERTIAL, "SHIPINERTIAL");
+    	typeMap.put(SHIP_NULLIFIER, "SHIPNULLIFIER");
+    	typeMap.put(SHIP_WEAPON, "SHIPWPN");
+    	typeMap.put(SOIL_ENRICHMENT, "SOILENRICH");
     	typeMap.put(STARGATE, "STARGATE");
-    	typeMap.put(STASIS_FIELD, "STASIS_FIELD");
-    	typeMap.put(STREAM_PROJECTOR, "STREAM_PROJECTOR");
-    	typeMap.put(SUBSPACE_INTERDICTOR, "SUBSPACE_INTERDICTOR");
-    	typeMap.put(TELEPORTER, "TELEPORTER");
-    	typeMap.put(TORPEDO_WEAPON, "TORPEDO_WEAPON");
+    	typeMap.put(STASIS_FIELD, "STASIS");
+    	typeMap.put(STREAM_PROJECTOR, "STREAMWPN");
+    	typeMap.put(SUBSPACE_INTERDICTOR, "SUBSPACEINT");
+    	typeMap.put(TELEPORTER, "SUBSPACETEL");
+    	typeMap.put(TORPEDO_WEAPON, "TORPEDO");
     	typeMap.put(SQUID_INK, "SQUID_INK");
     	typeMap.put(RESIST_SPECIAL, "RESIST_SPECIAL");
     	typeMap.put(EAT_SHIPS, "EAT_SHIPS");
-    	typeMap.put(FUTURE_COMPUTER, "FUTURE_COMPUTER");
-    	typeMap.put(FUTURE_CONSTRUCTION, "FUTURE_CONSTRUCTION");
-    	typeMap.put(FUTURE_FORCE_FIELD, "FUTURE_FORCE_FIELD");
-    	typeMap.put(FUTURE_PLANETOLOGY, "FUTURE_PLANETOLOGY");
-    	typeMap.put(FUTURE_PROPULSION, "FUTURE_PROPULSION");
-    	typeMap.put(FUTURE_WEAPON, "FUTURE_WEAPON");
+    	typeMap.put(FUTURE_COMPUTER, "FUTURECOMP");
+    	typeMap.put(FUTURE_CONSTRUCTION, "FUTURECONST");
+    	typeMap.put(FUTURE_FORCE_FIELD, "FUTUREFORCE");
+    	typeMap.put(FUTURE_PLANETOLOGY, "FUTUREPLANET");
+    	typeMap.put(FUTURE_PROPULSION, "FUTUREPROP");
+    	typeMap.put(FUTURE_WEAPON, "FUTUREWEAPON");
     }
 
     public String id;
@@ -212,8 +212,8 @@ public class Tech implements Base {
     public	  String  techTypeKey()			{ return typeMap.get(techType); }
     public	  String  techTypeName()		{ return labels().realLabel(techTypeKey() + "_NAME"); }
     public	  String  techTypeDesc()		{ return labels().realLabel(techTypeKey() + "_DETAIL"); }
-    public	  String  infoKey()				{ return techTypeKey() + "_INFO_DESC"; }
-    public	  String  info()				{ return infoKey().isEmpty()? "" : text(infoKey()); }
+    public	  String  infoKey()				{ return name.replace("_NAME", "_INFO"); }
+    public	  String  info()				{ return labels().realLabel(infoKey()); }
     
     public	  Image	  image()				{ return iconFilename == null ? null : image(iconFilename); }
     public	  int	  futureTechLevel()		{ return 0; }

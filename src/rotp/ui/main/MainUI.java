@@ -1247,7 +1247,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     }
 
     public void selectGamePanel()	{
-    	// TODO BR: release element to help garbage collection on new game.
+    	// BR: release element to help garbage collection on new game.
     	// May be more objects should be released.
     	displayPanel.releaseObjects();
 

@@ -101,7 +101,7 @@ tech:100, FutureConstruction,    9, 0, TECH_FUTURE_CONSTRUCTION_10,
 cat: 2
 tech:  0, PersonalShield,        0, 1, ,
 tech:  0, DeflectorShield,       0, 1, ,
-tech:  1, DeflectorShield,       1, 0, TECH_DEFLECTOR_SHIELDS_01,
+tech:  1, DeflectorShield,       1, 1, TECH_DEFLECTOR_SHIELDS_01,
 tech:  4, DeflectorShield,       2, 0, TECH_DEFLECTOR_SHIELDS_02,
 tech:  7, SquidInk,              0, 0, TECH_SQUID_INK,
 tech:  8, PersonalShield,        1, 0, TECH_PERSONAL_SHIELD_01,

@@ -100,6 +100,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
     private int minimumPraiseLevel = 0;
     private int minimumWarnLevel = 0;
     private boolean threatened = false;
+    private boolean muted = false;
 
     public Empire empire()                               { return view.empire(); }
     public Empire owner()                                { return view.owner(); }
@@ -113,8 +114,10 @@ public class DiplomaticEmbassy implements Base, Serializable {
     public float relations()                             { return relations; }
     public boolean contact()                             { return contact; }
     public boolean onWarFooting()                        { return warFooting; }
+    public boolean muted()                               { return muted; }
+    public void toggleMuted()                            { muted = !muted; }
     public void beginWarPreparations(String cb, DiplomaticIncident inc) {
-        // dont replace an existing casus belli unless the new one is worse
+        // don't replace an existing casus belli unless the new one is worse
         if (casusBelliInc != null) {
             if (casusBelliInc.moreSevere(inc))
                 return;

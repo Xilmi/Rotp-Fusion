@@ -569,7 +569,7 @@ public final class GameSession implements Base, Serializable {
                     log("Notifications processed 3 - back to MainPanel");
                     RotPUI.instance().selectMainPanel();
                 }
-                // all diplomatic fallout: praise, warnings, treaty offers, war declarations
+                // all diplomatic fallout: praise, warnings, treaty offers, war declarations + Research
                 gal.assessTurn();
 
                 if (processNotifications()){

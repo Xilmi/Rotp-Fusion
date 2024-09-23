@@ -2580,6 +2580,9 @@ SETTINGS_MOD_REPLAY_TURN_PACE_DESC       | To slow down the pace of History repl
 SETTINGS_MOD_REPLAY_TURN_PACE            | Replay pace: %1 x 100 ms.
 
 
+SETTINGS_MOD_DISPLAY_FREE_TECH_DESC      | To display free technologies in the technology panel. (Those available from the beginning, without having to search for them).
+SETTINGS_MOD_DISPLAY_FREE_TECH           | Show Free Techs: %1
+
 SETTINGS_MOD_ORIGINAL_SPECIES_ONLY_DESC  | The character setting panel will only show the then original species (Yes).<br>The six new species will be shown too (No).
 SETTINGS_MOD_ORIGINAL_SPECIES_ONLY       | 10 Species only: %1
 SETTINGS_MOD_SHOW_ALT_ANIMATION_DESC     | Select between vanilla animations (No) or Zestyclose Art work (Yes).<br>(Younger Human diplomat)
@@ -3869,6 +3872,8 @@ RACES_MANAGE_RECALL_DIPLOMAT      | Recall Diplomat
 RACES_MANAGE_OUR_RECALLED         | Our diplomat recalled
 RACES_MANAGE_THEIR_RECALLED       | Their diplomat recalled
 RACES_MANAGE_BOTH_RECALLED        | Both diplomats recalled
+RACES_MANAGE_MUTE_WARNING_SPY     | Mute Warnings
+RACES_MANAGE_UNMUTE_WARNING_SPY   | Unmute
 
 RACES_INTEL_TITLE                 | [alien_race] Intelligence Report
 RACES_COUNTER_INTEL_TITLE         | Counter-Intelligence Report

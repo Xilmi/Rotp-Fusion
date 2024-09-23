@@ -1131,6 +1131,24 @@ public class RacesUI extends BasePanel {
             if (UserPreferences.texturesInterface()) 
                 drawTextureWithExistingClip(g, x0,y0,w0,h0);
             drawRaceImage(g, emp, back, x0, y0, h0, inRange);
+            // Display muted icon
+            if (!emp.isPlayer()) {
+            	EmpireView view = player().viewForEmpire(emp);
+            	if (view.embassy().muted()) {
+            		Image img = image("DIPLOMAT_MUTED");
+            		int iW = img.getWidth(null);
+            		int iH = img.getHeight(null);
+            		int width = scaled(25);
+            		int height = width;
+            		int dx = w0 - width;
+               		int xa = x0 + dx;
+               		int xb = xa + width;
+            		int dy = (h0 - height)/2;
+            		int ya = y0 + dy;
+            		int yb = ya + height;
+            		g.drawImage(img, xa, ya, xb, yb, 0, 0, iW, iH, null);
+            	}
+            }
         }
         public void drawRaceImage(Graphics2D g, Empire emp, BufferedImage back, int x, int y, int h, boolean inRange) {
             BufferedImage img = emp.race().diploMugshotQuiet();

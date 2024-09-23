@@ -4,7 +4,7 @@
 // Armor techs
 // 
 ARMOR_NAME       | Armor technologies
-ARMOR_DETAIL     | Armor will determine your design's hit points. As you research better armor -- starting with titanium, and then progressing through duralloy, zortrium, andrium, tritanium, adamantium, and neutronium -- each of your hull sizes will get more hit points.<br>Note that every type of armor is available in default strength or double strength (double strength is indicated by a II following the name). Double strength armor takes up more space, but gives your ship 50% more hit points.<br>Also note that armor is subject to the benefits of miniaturization (i.e. every ten levels of Construction technology you have above an armor's tech level reduces its cost by 50% and its size by 25%).<br>Personal combat armor is also enhanced, adding to all ground attacks.
+ARMOR_DETAIL     | Armor will determine your design's hit points. As you research better armor (starting with titanium, and then duralloy, zortrium, andrium, tritanium, adamantium, and neutronium) each of your hull sizes will gain more hit points.<br>Note that each armor type comes in either default strength or double strength (double strength is indicated by a II after the name). Double strength armor takes up more space, but gives your ship 50% more hit points.<br>Also note that armor is subject to the benefits of miniaturization (i.e. every ten levels of Construction technology you have above an armor's tech level reduces its cost by 50% and its size by 25%).<br>Personal combat armor is also enhanced, adding to all ground attacks.
 
 ARMOR_0_NAME     | Titanium Armor
 ARMOR_0_ITEM     | Titanium
@@ -40,13 +40,13 @@ ARMOR_6_NAME     | Neutronium Armor
 ARMOR_6_ITEM     | Neutronium
 ARMOR_6_BRIEF    | Hit Points %1
 ARMOR_6_DETAIL   | Increases the hit points of ships and transports by 300%. Personal combat armor is also enhanced, adding 30 to all ground attacks.
-
+ARMOR_6_INFO     | This is the top level Armor.
 
 //
 // Atmospheric Terraforming techs
 // 
 ATMOSPHERE_NAME        | Atmospheric Terraforming Technologies
-ATMOSPHERE_DETAIL      | <br>Remove the Hostile trait to the planet:<br>- Change planet environment to normal.<br>- Set the planet type to minimal.<br>- Increase the planet size by 20.<br>Benefits that result from it:<br>- Remove the 50% penalty to population growth.<br>- Remove the "Hostile Terraforming" limitation.
+ATMOSPHERE_DETAIL      | <br>Remove the Hostile trait from the planet:<br>- Change the planet's environment to normal.<br>- Set the planet type to minimal.<br>- Increase the planet size by 20.<br>Benefits:<br>- Remove the 50% population growth penalty.<br>- Remove the "Hostile Terraforming" limitation.
 
 ATMOSPHERE_0_NAME      | Atmospheric Terraforming
 ATMOSPHERE_0_DETAIL    | Converts Hostile environments to Normal environments for a cost of 150 BCs.
@@ -55,7 +55,7 @@ ATMOSPHERE_0_DETAIL    | Converts Hostile environments to Normal environments fo
 // Automated Repair techs
 // 
 AUTOREPAIR_NAME        | Automated Repair Special Devices
-AUTOREPAIR_DETAIL      | Automated Repair Systems (level-14) and Advanced Damage Control  (level-36) make ships tougher to kill. With these special devices, undestroyed ships will automatically repair up to 15 or 30 percent, respectively, of their total, prebattle hit points at the end of each round of combat.<br>When attacking ships that have these systems, you can't kill them unless you can inflict more damage on them than they can repair each round.<br>Note that these repair and damage control systems really pay dividends on larger ship types, as they can repair more damage points per turn.
+AUTOREPAIR_DETAIL      | Automated Repair Systems (level-14) and Advanced Damage Control  (level-36) make ships harder to destroy. With these special devices, undestroyed ships will automatically repair up to 15% or 30%, respectively, of their pre-battle hit points at the end of each combat turn.<br>When attacking ships with these systems, you cannot destroy them unless you can inflict more damage on them than they can repair each turn.<br>Note that these repair and damage control systems really pay off on larger ship types, as they can repair more points of damage per turn.
 
 AUTOREPAIR_0_NAME      | Automated Repair System
 AUTOREPAIR_0_BRIEF     | Heals 15% of ship's hit points a turn
@@ -64,6 +64,7 @@ AUTOREPAIR_0_DETAIL    | Undestroyed ships can repair up to 15% of their total h
 AUTOREPAIR_1_NAME      | Advanced Damage Control
 AUTOREPAIR_1_BRIEF     | Heals 30% of ship's hits a turn
 AUTOREPAIR_1_DETAIL    | Undestroyed ships can repair up to 30% of their total hit points at the end of each turn.
+AUTOREPAIR_1_INFO      | This is the top level Automated Repair System.
 
 AUTOREPAIR_2_NAME      | Max 500 Hits per turn
 AUTOREPAIR_2_BRIEF     | Limit damage to max 500 Hits per turn
@@ -78,13 +79,13 @@ AUTOREPAIR_3_DETAIL    | Once the max damage is reached, the Amoeba split in two
 // Battle Computer techs
 // 
 COMPUTER_NAME      | Battle Computers
-COMPUTER_DETAIL    | Ships: Computers will determine your design's Attack Level, which is compared to the target's missile or beam defense during combat<br>Missile bases are always equipped with your best battle computers.
+COMPUTER_DETAIL    | Ships: Computers will determine the attack level of your design, which is compared to the target's missile or beam defense during combat.<br>Missile bases are always equipped with your best combat computers.
 
 // this is the Ship Design entry for selecting no battle computer
-COMPUTER_0_NAME    | 
-COMPUTER_0_ITEM    |  
+COMPUTER_0_NAME    | Slide Rule
+COMPUTER_0_ITEM    | Mark 0
 COMPUTER_0_BRIEF   | Attack Level 0
-COMPUTER_0_DETAIL  |
+COMPUTER_0_DETAIL  | May the force be with you.
 
 COMPUTER_1_NAME    | Battle Computer Mark I
 COMPUTER_1_ITEM    | Mark I
@@ -140,7 +141,7 @@ COMPUTER_11_NAME   | Battle Computer Mark XI
 COMPUTER_11_ITEM   | Mark XI
 COMPUTER_11_BRIEF  | Attack Level XI
 COMPUTER_11_DETAIL | Increases weapon accuracy to Level 11.
-
+COMPUTER_11_INFO   | This is the top level Battle Computer.
 
 //
 // Battle Suit techs for ground combat
@@ -149,8 +150,8 @@ BATTLESUIT_NAME      | Personal Armor Technologies
 BATTLESUIT_DETAIL    | Gives Ground combat bonus:<br>+ 10 for Battle Suits (Tech level 11)<br>+20 for Armored Exoskeletons (Tech level 24)<br>+30 for Powered Armor (Tech level 40)
 
 // this is for default, no-bonus armor that player starts with
-BATTLESUIT_0_NAME    | No armor
-BATTLESUIT_0_DETAIL  | No-bonus armor
+BATTLESUIT_0_NAME    | Leather Suits
+BATTLESUIT_0_DETAIL  | Nice looking, comfortable, but no armor bonus.
 
 BATTLESUIT_1_NAME    | Battle Suits
 BATTLESUIT_1_DETAIL  | Armor that not only protects but also boosts strength. Adds 10 to all ground combat rolls.
@@ -160,7 +161,7 @@ BATTLESUIT_2_DETAIL  | Advanced mobile suits that not only boost power and incre
 
 BATTLESUIT_3_NAME    | Powered Armor
 BATTLESUIT_3_DETAIL  | Combines high mobility, anti-grav flight, and heavy armored plating to form the most advanced armor available for ground troops. Adds 30 to all ground combat rolls.
-
+BATTLESUIT_3_INFO    | This is the top level Personal Armor.
 
 //
 // Energy Focus techs for beam weapons
@@ -168,15 +169,19 @@ BATTLESUIT_3_DETAIL  | Combines high mobility, anti-grav flight, and heavy armor
 BEAMFOCUS_0_NAME    | High Energy Focus
 BEAMFOCUS_0_BRIEF   | Adds +3 to energy weapon range
 BEAMFOCUS_0_DETAIL  | Increases the firing range of all energy weapons by three.
+BEAMFOCUS_0_INFO    | A High Energy Focus is a wonderful complement to any normal beam/direct fire weapons a ship might be armed with.<br>It increases all of their maximum ranges by three squares on the ship's combat display screen.<br>Remember, however, that for every square a beam weapon fires beyond one, +1 is added to the target's defense rating.
 
 BEAMFOCUS_1_NAME    | Oracle Interface
 BEAMFOCUS_1_BRIEF   | Concentrate beam weapons, halve enemy's shield
 BEAMFOCUS_1_DETAIL  | Coordinates all beam weapon attacks into one simultaneous burst of concentrated fire, halving the enemy's shield strength.
-
+BEAMFOCUS_1_INFO    | The Oracle Interface is a nifty little piece of computer technology that allows all beam weapons on every ship in the firegroup to simultaneously hit an enemy target at a specific point. Its effect is to halve the enemy target's shields.<br>Note that weapons that already halve enemy shields, when supplemented with an Oracle Interface, will halve them twice.
 
 //
 // Biological antidote techs 
 // 
+BIOANTIDOTE_NAME      | Bio Toxin and Universal Antidote
+BIOANTIDOTE_DETAIL    | Developing Biotoxin (level 17) and Universal Antidotes (level 36) is essential. Indeed, there are many personality types in the galaxy who use biological weapons too freely, and their effects can be devastating unless you have a cure.<br>Unfortunately, neither of these items will reduce the damage caused by biological attacks to a planet's habitability.
+
 BIOANTIDOTE_0_NAME    | Bio Toxin Antidote
 BIOANTIDOTE_0_DETAIL  | Reduces casualties taken from biological weapons by 1M per attack.
 
@@ -187,6 +192,9 @@ BIOANTIDOTE_1_DETAIL  | Reduces casualties taken from biological weapons by 2M p
 //
 // Biological weapon techs 
 // 
+BIOWEAPON_NAME       | Biological Weapons
+BIOWEAPON_DETAIL     | Like bombs, biological weapons have a range of 1 square and are designed exclusively to attack planets. When dropped, they have the same chance to miss as bombs. Unlike bombs, the amount of damage biological weapons deal when they hit is not determined by their hit roll. Instead, if they hit, they have an equal chance to deal a random amount of damage, from 1 to their maximum amount. So even if a biological weapon barely hits, it can still deal its maximum damage; conversely, a perfect hit roll of 100 might only deal its minimum damage of 1 point.<br>It is important to remember that, unlike all other weapons, biological weapons do not cause collateral damage to missile bases or factories. Instead, they only do three things:<br>• Eliminate population points from the targeted planet<br>• Reduce its maximum population size<br>• Upset all other empires in the game.
+
 BIOWEAPON_0_NAME     | Death Spores
 BIOWEAPON_0_BRIEF    | Biological Weapon
 BIOWEAPON_0_DETAIL   | Horrible biological weapons capable of reducing the maximum planetary population by 1M per attack.
@@ -204,6 +212,7 @@ BIOWEAPON_2_DETAIL   | Abominable biological weapons capable of reducing planeta
 //
 BLACKHOLE_0_NAME     | Black Hole Generator
 BLACKHOLE_0_DETAIL   | Creates a sub-space field that warps normal space, creating a black hole that destroys 25% to 100% of enemy ships or missile bases, less 2% per shield class.
+BLACKHOLE_0_INFO     | The advantage of this weapon is that it leaves the factories and population of the defended planet intact; it does not cause any collateral damage.<br>More specifically, this special weapon does not destroy the habitability of a planet, nor does it incite the anger of other players like biological weapons do. It allows you to focus on destroying enemy missile bases, while leaving their population intact for your armies to conquer so that you can reap the benefits of the factories the enemy has there.
 
 //
 // Monster Special tech
@@ -228,6 +237,10 @@ RESISTSPECIAL_1_DETAIL | Target are immune to the effects of a stasis field atta
 //
 // Bomb weapon tech
 //
+
+BOMB_NAME       | Bombs
+BOMB_DETAIL     | Bombs have only one purpose: to attack colonies. And they are very effective at this task. Bombs come in five different types and deal increasing damage (Nuclear 3-12, Fusion 5-20, Anti-Matter 10-40, Omega V 20-50, Neutronium 40-70).<br>Note that each bomb rack only allows 10 attacks.<br>Bombs only have a range of 1 tile and can miss their target when a planet is defended by missile bases. Each base has a bomb defense level of 1 plus its ECM rating.
+
 BOMB_0_NAME     | Nuclear Bomb
 BOMB_0_BRIEF    | Ground Attacks Only
 BOMB_0_DETAIL   | Bombs that explode for 3-12 points of damage on ground targets only.
@@ -255,11 +268,14 @@ BOMB_4_DETAIL   | Bombs that explode for 40-70 points of damage on ground target
 CLOAK_0_NAME     | Cloaking Device
 CLOAK_0_BRIEF    | Renders ship nearly invisible
 CLOAK_0_DETAIL   | Renders ship nearly invisible until they attack, improving their defenses by +5. Ships must uncloak to attack and will automatically recloak on any turn in which they don't attack.
-
+CLOAK_0_INFO     | Cloaking Device is a level 27 force field technology that adds 5 to a group of ships' defense against beam and missile weapon attacks.<br>With the exception of Stasis Field Generators, it does not affect special weapon attacks.<br>Ships must decloak to fire, but will always be the first to fire. This is a way to ensure that you will land the first hit against an enemy with a higher initiative. In fact, it will even lose its defensive reaction fire capability while you are cloaked. Enemy ships will also not get their reaction fire against a ship that has just decloaked, provided that it does not move after decloaking. After a turn without firing, ships equipped with cloaking devices will automatically recloak.<br>Cloaking is ideal for ships armed with short-range weapons (beams and bombs), as it allows them to close in on the enemy with less risk. Additionally, cloaked ships cannot be targeted by enemy attacks from stasis field generators.
 
 //
 // Cloning tech
 //
+CLONE_NAME       | Cloning Technologies
+CLONE_DETAIL     | At the start of the game, the cost to buy a population point is 20 BC. Once cloning technology is discovered, this cost drops to 10 BC, and only 5 BC with advanced cloning technology.<br>Thus, with cloning technologies, it becomes cheaper and easier to maintain planets at their maximum population level as well as replace lost population points.
+
 CLONE_0_NAME     | Cloning
 CLONE_0_DETAIL   | Allows bio-engineered colonists to be grown at a rate of 1M per 10 BC.
 
@@ -272,11 +288,15 @@ CLONE_1_DETAIL   | Allows bio-engineered colonists to be grown at a rate of 1M p
 //
 COMBATTRANSPORT_0_NAME     | Combat Transporters
 COMBATTRANSPORT_0_DETAIL   | Transports equipped with these devices have a 50% chance of beaming down onto enemy surfaces before they can be attacked by enemy ships and missile defense bases.
-
+COMBATTRANSPORT_0_INFO     | Combat Transporters give each transport a 50% chance to avoid combat (reduced to 25% if you attack a faction with Subspace Interdictors).<br>Stealth invasions are a great strategy to use after discovering this technology. This is especially true when your ground troops have a technological advantage over an opponent or when you can replace your population faster than they can.
 
 //
 // Control Environment tech
 //
+CONTROLENV_NAME      | Colonizing
+CONTROLENV_DETAIL    | By default, any special colony base can colonize a planet of that hostility or lower on 
+the "hierarchy of hostilities" from Barren to Irradiated. But if you set this to Restricted, a Hostile environment will need a colony base of that specific type. Now the Irradiated Colony Base you'll need to settle the most hostile of planets is no longer the be-all and end-all of colony bases.
+
 CONTROLENV_0_NAME    | Controlled Normal Environment
 CONTROLENV_0_ITEM    | Standard Colony Base
 CONTROLENV_0_BRIEF   | Allows Normal Planet Landings
@@ -316,8 +336,13 @@ CONTROLENV_6_DETAIL  | Permits the colonization of irradiated and less hostile p
 //
 // Deflector Shield tech
 //
+
+DEFLECTOR_NAME        | Deflector Shields
+DEFLECTOR_DETAIL      | Depending on their level, deflector shields may absorb up to 15 point of attack. Some weapons will halve their effectiveness, and they are totally ineffective in nebula
+Depending on their level, deflector shields can absorb up to 15 attack points. However, some weapons can reduce their effectiveness by half. These shields are completely ineffective in nebulae.
+
 // this is the entry on Ship Design for selecting no deflector shield
-DEFLECTOR_0_NAME      | No Deflector Shields
+DEFLECTOR_0_NAME      | Shield looking paint
 DEFLECTOR_0_ITEM      | Class 0
 DEFLECTOR_0_BRIEF     | Absorbs nothing
 DEFLECTOR_0_DETAIL    | Your ships are not protected
@@ -376,7 +401,7 @@ DEFLECTOR_11_NAME     | Class XV Deflector Shields
 DEFLECTOR_11_ITEM     | Class XV
 DEFLECTOR_11_BRIEF    | Absorbs 15 hits
 DEFLECTOR_11_DETAIL   | Absorbs 15 points of damage from all attacks.
-
+DEFLECTOR_11_INFO     | This is the top level Deflector Shields.
 
 //
 // Displacement tech
@@ -389,11 +414,14 @@ DISPLACEMENT_0_DETAIL | Randomly shifts the equipped ships in and out of normal 
 //
 // ECM Jammer tech
 //
+ECMJAMMER_NAME        | Electronic CounterMeasures
+ECMJAMMER_DETAIL      | ECM Jammers contribute directly to a design's Missile Defense.<br>Missile bases are equipped with your best ECM Jammer technology.
+
 // this is the entry on Ship Design for selecting no ECM Jammer
-ECMJAMMER_0_NAME      | 
-ECMJAMMER_0_ITEM      | 
+ECMJAMMER_0_NAME      | No ECM
+ECMJAMMER_0_ITEM      | No Jammer
 ECMJAMMER_0_BRIEF     | Missile Def 0
-ECMJAMMER_0_DETAIL    | 
+ECMJAMMER_0_DETAIL    | May the force be with you.
 
 ECMJAMMER_1_NAME      | ECM Jammer Mark I
 ECMJAMMER_1_ITEM      | Jammer I
@@ -444,11 +472,14 @@ ECMJAMMER_10_NAME     | ECM Jammer Mark X
 ECMJAMMER_10_ITEM     | Jammer X
 ECMJAMMER_10_BRIEF    | Missile Def 10
 ECMJAMMER_10_DETAIL   | Adds 10 levels to defense against enemy missile attacks.
-
+ECMJAMMER_10_INFO     | This is the top level ECM Jammer.
 
 //
 // Ecological Restoration techs
 //
+ECORESTORATION_NAME     | Ecological Restoration Technologies
+ECORESTORATION_DETAIL   | The initial cost of cleaning industrial waste is 1 BC for 2 units of waste. With the right technology, you can clean up to 20 units of waste per BC.
+
 ECORESTORATION_0_NAME   | Ecological Restoration
 ECORESTORATION_0_DETAIL | Eliminates 2 units of industrial waste for a cost of 1 BC.
 
@@ -468,6 +499,9 @@ ECORESTORATION_4_DETAIL | Eliminates 20 units of industrial waste for a cost of 
 //
 // Energy Pulsar techs
 //
+PULSAR_NAME       | Pulsar Technologies
+PULSAR_DETAIL     | Energy Pulsars (level 16) and Ionic Pulsars (level 40) are propulsion technologies that expand a sphere of energy out from the firing ship group to all adjacent squares, hitting friend and foe alike.<br>A pulsar attack does an identical amount of damage to every ship in a group. The strength of an Pulsar attacking ranges from a random 1 to 5 (2 to 10) for the first ship in the group, + 1 for every pair of ships in the group making the pulsar attack.<br> Note that enemy shields will reduce pulsar attack damage.
+
 PULSAR_0_NAME     | Energy Pulsar
 PULSAR_0_BRIEF    | Expands to inflict 1-5 hits
 PULSAR_0_DETAIL   | A potent engine modification which generates a sudden spherical burst of energy striking all adjacent ships for up to 5 points of damage +1 per two ships.
@@ -484,7 +518,11 @@ PULSAR_2_DETAIL   | A powerful engine modification capable of generating a spher
 //
 // Engine techs
 //
-ENGINE_0_NAME    | Retro Engines 
+ENGINE_NAME      | Engines Technologies 
+ENGINE_DETAIL    | One important difference between Remnants of the Precursors and other games with ship design is that engines are 100% hands-off. You simply choose the engine type you want -- this will almost always be your best available type -- and the designer automatically adds engines to meet your power requirement, taking into account all the other settings on the Ship Design screen and displaying all the relevant information on the Engines panel. It even adds "partial engines", as you can see next to the Engines Required stat. This will routinely be a number with a decimal.<br>Your ship's engine determines its warp speed, which is how quickly it travels on the main map,
+measured in parsecs per year. Your ship's combat speed, which is how many spaces it moves during combat, is determined by its Maneuver class. Maneuver class is a setting for how much of the ship's power will be diverted to moving around during combat. Maneuver class is capped by a ship's engine type, and every two points in a ship's Maneuver class give it one point of Combat Speed.<br>Transports travel at one point slower than your fastest engines.
+
+ENGINE_0_NAME    | Retro Engines
 ENGINE_0_DETAIL  | Moves ships at Warp %1, and allows a maximum maneuverability of class I in combat.
 ENGINE_0_ITEM    | Retros
 ENGINE_0_ITEM2   | Class 1
@@ -909,6 +947,9 @@ MISSDEF_2_DETAIL    | An energy field that destroys incoming enemy missiles and 
 //
 // Missile Weapon techs
 //
+MISSWPN_NAME        | Missiles
+MISSWPN_DETAIL      | Their attack level is equal to the combat computer level of the firing ship, plus the weapon's attack bonus.
+
 MISSWPN_0_NAME      | Nuclear Missile
 MISSWPN_0_BRIEF     | 2 shots, +1 speed
 MISSWPN_0_BRIEF2    | 5 shots
@@ -972,8 +1013,8 @@ MISSWPN_10_DETAIL    | MIRV versions of Stinger Missiles, splitting into 10 sepa
 PERSSHIELD_NAME       | Personal protection technologies
 PERSSHIELD_DETAIL     | Ground troops equipment
 
-PERSSHIELD_0_NAME     | No Personal Shield
-PERSSHIELD_0_DETAIL   | Unprotected ground troops
+PERSSHIELD_0_NAME     | Light cape
+PERSSHIELD_0_DETAIL   | Nice bullfighter cape, but doesn't really protect.
 
 PERSSHIELD_1_NAME     | Personal Deflector Shield
 PERSSHIELD_1_DETAIL   | Protects individual ground troops with a directional force field. Adds +10 to all ground combat battles.
@@ -1015,11 +1056,15 @@ REPULSOR_0_DETAIL  | Repels enemy ships one space away from the defending ship. 
 RSRVFUEL_0_NAME    | Reserve Fuel Tanks
 RSRVFUEL_0_BRIEF   | Extends Ship Range by %1 light-years
 RSRVFUEL_0_DETAIL  | Reserve Fuel Tanks increase a ship's range.
-
+RSRVFUEL_0_INFO    | +3 light-year range, can not be miniaturized.
 
 //
 // Robotic Controls techs 
 //
+
+ROBOTCTRL_NAME       | Robotic Controls Technologies
+ROBOTCTRL_DETAIL     | Your workers start with the ability to operate two factories. The refit cost to upgrade a factory to a higher level is half the standard cost of each factory.
+
 ROBOTCTRL_0_NAME     | Improved Robotic Controls III
 ROBOTCTRL_0_DETAIL   | Allows 3 factories to be operated per population. The refit cost to upgrade is half the standard cost of each factory.
 
@@ -1034,11 +1079,14 @@ ROBOTCTRL_3_DETAIL   | Allows 6 factories to be operated per population. The ref
 
 ROBOTCTRL_4_NAME     | Improved Robotic Controls VII
 ROBOTCTRL_4_DETAIL   | Allows 7 factories to be operated per population. The refit cost to upgrade is 2.5 times the standard cost of each factory.
-
+ROBOTCTRL_4_INFO     | This is the top Improved Robotic Controls.
 
 //
 // Scanner techs 
 //
+SCANNER_NAME         | Space Scanners
+SCANNER_DETAIL       | The initial scanners are very limited. They can only detect enemy ships up to 3 light years away, without being able to tell you where they are going.<br>Your ships do not detect enemy ships unless they are orbiting the same planet, in which case you will usually learn about it when a battle occurs.<br>As you develop Deep Space Scanners, these ranges increase, giving planets and fleets a little more warning time regarding enemy movements. Improved and advanced space scanners will also provide the ship's destination and estimate the arrival time.
+
 SCANNER_0_NAME       | Battle Scanner
 SCANNER_0_BRIEF      | Scans enemy ships in combat
 SCANNER_0_DETAIL     | Reveals technical specifications of enemy spacecraft in combat.
@@ -1062,23 +1110,25 @@ SCANNER_3_DETAIL     | Allows exploration of planets from colony bases up to 9 l
 //
 SHIPINERTIAL_0_NAME     | Inertial Stabilizer
 SHIPINERTIAL_0_BRIEF    | Adds +2 to maneuverability
-SHIPINERTIAL_0_DETAIL   | Reduces the inertia of ships, adding 2 classes of maneuverability in combat (+2 defense and +1 combat speed).
+SHIPINERTIAL_0_DETAIL   | Reduces the inertia of ships, adding 2 classes of maneuverability in combat (+2 defense and +1 combat speed). Also reduces the effect of Black Hole attacks by 15%.
 
 SHIPINERTIAL_1_NAME     | Inertial Nullifier
 SHIPINERTIAL_1_BRIEF    | Adds +4 to maneuverability
-SHIPINERTIAL_1_DETAIL   | Negates the inertia of ships, adding 4 classes of maneuverability in combat. Also reduces the effect of Black Hole attacks by -30%.
+SHIPINERTIAL_1_DETAIL   | Negates the inertia of ships, adding 4 classes of maneuverability in combat (+4 defense and +2 combat speed). Also reduces the effect of Black Hole attacks by 30%.
 
 
 //
-// Ship Inertial techs 
+// Technology Nullifier techs 
 //
 SHIPNULLIFIER_0_NAME     | Technology Nullifier
 SHIPNULLIFIER_0_BRIEF    | Destroys enemy computers
 SHIPNULLIFIER_0_DETAIL   | Scrambles enemy Battle Computers and ECM, reducing them from 2-6 levels per attack. Its range exceeds most ship weapons.
+SHIPNULLIFIER_0_INFO     | There are no defenses or countermeasures against Technology Nullifiers. They automatically strike any group of targeted enemy ships within a four-square radius, jamming their combat computers and ECM systems. Hit are cumulative and reduces the target's combat computers and ECM systems by two to six levels.<br>Note that if enemy ships are damaged by tech nullifiers while their missiles or torpedoes are en route to one of your ship groups, it will reduce their attack level. Therefore, it is always a good tactic to zap enemy missile bases and missile/torpedo armed ships with tech nullifiers at every opportunity.
 
 SHIPNULLIFIER_1_NAME     | Warp Dissipator
 SHIPNULLIFIER_1_BRIEF    | Reduces speed of enemy ships
 SHIPNULLIFIER_1_DETAIL   | Warp Dissipators are long-range weapons that disrupt enemy starship engines, reducing their speed with each attack.
+SHIPNULLIFIER_1_INFO     | The Warp Dissipator has a range of three square and a 50% chance to hit. Ships hit by a Warp Dissipator have their combat speed reduced by one and their maneuverability reduced by two (which also reduces their base levels of beam and missile defense!).<br>Damage dealt by Warp Dissipators is cumulative over the course of a battle.
 
 SHIPNULLIFIER_2_NAME     | Crystal Nullifier
 SHIPNULLIFIER_2_BRIEF    | Destroys enemy computers and repair abilities 
@@ -1184,6 +1234,9 @@ SHIPWPN_24_DETAIL      | A dart streaming weapon that fift the effectiveness of 
 //
 // Soil Enrichment techs
 //
+SOILENRICH_NAME       | Soil Enrichment technologies
+SOILENRICH_DETAIL     | (Advanced) Soil Enrichment adds the (Gaia) Fertile trait that boosts population growth by (100%) 50%, and also increases a planet's size by (50%) 25%. Note that planet sizes are rounded up in multiples of five, so soil enrichment won't leave you with a bunch of planets with derpy sizes like 63.<br>Note that if a planet is already fertile, going to Gaia will only add the missing 25% in size.
+
 SOILENRICH_0_NAME     | Soil Enrichment
 SOILENRICH_0_DETAIL   | Converts standard planets to fertile enviroments, increasing population growth by 50% and raising the base planetary size by +25% for a one-time cost of 150 BC.
 
@@ -1196,6 +1249,7 @@ SOILENRICH_1_DETAIL   | Converts standard and fertile planets to gaias, doubling
 //
 STARGATE_0_NAME      | Star Gates
 STARGATE_0_DETAIL    | Allows your ships to move between any two planets equipped with star gates in only one turn. Costs 3000 BC to build.
+STARGATE_0_INFO      | Stargates are built on your planets like any other ship design, but they are expensive: 3000 BC to build and 300 BC per turn to maintain.<br>This maintenance cost (10% of their cost) is never reduced by miniaturization. In comparison, maintaining ships and missile bases only costs 2% of their cost per turn.<br>You cannot use Star Gates from other empires or unowned stars, and Star Gates are never captured when their planet is conquered.
 
 
 //
@@ -1204,11 +1258,15 @@ STARGATE_0_DETAIL    | Allows your ships to move between any two planets equippe
 STASIS_0_NAME      | Stasis Field
 STASIS_0_BRIEF     | Enemy frozen for 1 turn
 STASIS_0_DETAIL    | Freezes one group of enemy ships, up to one space away, for one turn. Frozen ships cannot attack or be attacked.
+STASIS_0_INFO      | It is best to avoid freezing ships targeted by your missiles or torpedoes, as this will protect enemy ships from your own weapons.
 
 
 //
 // Stream Weapon techs
 //
+STREAMWPN_NAME    | Stream Projectors
+STREAMWPN_DETAIL  | Ion and Neutron Stream Projectors Special weapons hit every target in the defending group, bypassing target shields.
+
 STREAMWPN_0_NAME    | Ion Stream Projector
 STREAMWPN_0_BRIEF   | Reduces enemy armor by 20%
 STREAMWPN_0_DETAIL  | Fires an intense ionic blast, reducing the armor of every target in the opponent's group by 20% plus 1% per 2 firing ships, up to a maximum of 50% of its starting hit points per attack.
@@ -1231,11 +1289,15 @@ SUBSPACEINT_0_DETAIL  | Prevents the use of enemy sub-space teleporters and comb
 SUBSPACETEL_0_NAME    | Sub-Space Teleporter
 SUBSPACETEL_0_BRIEF   | Teleports ship in combat
 SUBSPACETEL_0_DETAIL  | Teleports ships to any space on the combat map and before determining combat initiative normally.
-
+SUBSPACETEL_0_INFO    | Subspace teleporters are not affected by repulsors and will not trigger automatic defensive reaction fire.<br>Incorporate Subspace Teleporters into new ship designs quickly, as their period of greatest utility ends once enemies discover the Subspace Interdictor.
 
 //
 // Ship Torpedo Weapon techs
 //
+TORPEDO_NAME          | Torpedoes
+TORPEDO_DETAIL        | Torpedoes have a lot of power and can be fired an unlimited number of times in combat.<br>They also have good tracking computers that add to the firing ship's combat computer level (if the ship is hit by a computer nullifier, it will also affect the torpedoes).<br>They do have one small drawback, however: They can only fire once every two turns, so it takes a turn to reload them after firing them.
+
+
 TORPEDO_0_NAME        | Anti-Matter Torpedoes
 TORPEDO_0_BRIEF       | Fires one per 2 turns
 TORPEDO_0_DETAIL      | High energy tracking torpedoes that deliver 30 points of damage but may only be fired every other turn. Each torpedo is equipped with a +4 level targeting computer.

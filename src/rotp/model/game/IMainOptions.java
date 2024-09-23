@@ -386,6 +386,13 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	ParamBoolean originalSpeciesOnly	= new ParamBoolean(MOD_UI, "ORIGINAL_SPECIES_ONLY", true).isCfgFile(true);
 	default boolean originalSpeciesOnly()	{ return originalSpeciesOnly.get(); }
 
+	ParamBoolean displayFreeTech	= new ParamBoolean(MOD_UI, "DISPLAY_FREE_TECH", true)
+			.isCfgFile(true)
+			.setDefaultValue(ROTP_DEFAULT, false)
+			.setDefaultValue(MOO1_DEFAULT, false);
+	default boolean displayFreeTech()		{ return displayFreeTech.get(); }
+	default boolean toggleDisplayFreeTech()	{ return displayFreeTech.toggle(); }
+
 	ParamBoolean  noFogOnIcons	= new ParamBoolean( BASE_UI, "NO_FOG_ON_ICONS", false).isCfgFile(true);
 	default boolean noFogOnIcons()	{ return noFogOnIcons.get(); }
 
@@ -799,7 +806,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				new ParamTitle("GAME_UI_PREFERENCES"),
 				showPendingOrders,
 				raceStatusLog, disableAdvisor, disableAutoHelp,
-				originalSpeciesOnly,
+				originalSpeciesOnly, displayFreeTech,
 
 				// headerSpacer,
 				// new ParamTitle("GAME_VARIOUS"),

@@ -40,6 +40,7 @@ import java.util.List;
 
 import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
+import rotp.model.empires.EmpireView;
 import rotp.model.empires.Race;
 import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
@@ -107,8 +108,17 @@ public class DiplomaticMessageUI extends FadeInPanel
             dialogBox = player().race().dialogNorm();
         }
         else {
-            flag = player().viewForEmpire(diplomatEmpire).flag();
-            dialogBox = player().viewForEmpire(diplomatEmpire).dialogueBox();
+        	EmpireView view = player().viewForEmpire(diplomatEmpire);
+        	if (view.embassy().muted() &&
+        			( notif.type().equals(DialogueManager.WARNING_ESPIONAGE)
+        			|| notif.type().equals(DialogueManager.WARNING_SABOTAGE))) {
+        		log("Skipped Espionage / sabotage Warning");
+        		// System.out.println("Skipped Espionage / sabotage Warning");
+                exited = true;
+            	return false;
+        	}
+            flag = view.flag();
+            dialogBox = view.dialogueBox();
         }
 
         diplomatEmpire.race().resetDiplomat();
@@ -134,6 +144,7 @@ public class DiplomaticMessageUI extends FadeInPanel
             message.escape();
         	return false;
         }
+        
         return true;
     }
     public void initReply(DiplomacyRequestReply reply) {

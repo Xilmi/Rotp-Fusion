@@ -365,7 +365,6 @@ public class AIFleetCommander implements Base, FleetCommander {
             
             if(current.monster() != null) {
                 //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" => "+empire.sv.name(current.id)+" monsterpower: "+combatPower(current.monster(), fleet)+" fleetpower: "+combatPower(fleet, getMonsterStats(current.monster().combatStacks())));
-// TODO BR: test                if(combatPower(current.monster(), fleet) > combatPower(fleet, getMonsterStats(current.monster().combatStacks())))
                 if(combatPower(current.monster(), fleet) > combatPower(fleet, current.monster()))
                 {
                     //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" => "+empire.sv.name(current.id)+" should be skipped!");
@@ -950,7 +949,6 @@ public class AIFleetCommander implements Base, FleetCommander {
                         if(target.monster() != null)
                         {
                             enemyFleetPower += combatPower(target.monster(), fleet);
-//                            enemyStats.merge(getMonsterStats(target.monster().combatStacks())); // TODO BR: test
                             enemyStats.merge(getFleetStats(target.monster()));
                         }
                         for(ShipFleet incoming : target.incomingFleets())
@@ -1629,7 +1627,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         }
         return stats;
     }
-//    FleetStats getMonsterStats(List<CombatStack> monsters) { // TODO BR: ???
+//    FleetStats getMonsterStats(List<CombatStack> monsters) {
 //        FleetStats stats = new FleetStats();
 //        float totalShield = 0;
 //        float totalDefense = 0;
@@ -1695,7 +1693,6 @@ public class AIFleetCommander implements Base, FleetCommander {
         return combatPower(attacker, getFleetStats(defender));
     }
 
-    // TODO BR: Try to comment this -> monsters = fleet
 //    float combatPower(SpaceMonster monster , ShipFleet defender) {
 //        FleetStats defenderStats = getFleetStats(defender);
 //        monster.initCombat();

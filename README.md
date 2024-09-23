@@ -59,6 +59,10 @@ Later:
 
 ## What's New
 
+2024.09.23 (BR)
+- New option to mute diplomats from spying warnings.
+- Tech panel: About half the new complementary tech info is now available.
+
 2024.09.20 (BR)
 - Added 3 missing dialogues to the six additional species.
 

@@ -3,6 +3,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- New option to mute diplomats from spying warnings.
+- Tech panel: About half the new complementary tech info is now available.
 - Added 3 missing dialogues to the six additional species.
 - Fixed auto-design of ships allowing both "Auto-Repair" and "Advanced Damage Control". This is useless, as only the best repair percentage is used.
 - Tech Panel: Show/Hide free tech. Press "A" for All, or "F" for Free.

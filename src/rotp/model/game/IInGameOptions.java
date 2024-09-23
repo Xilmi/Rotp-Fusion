@@ -319,7 +319,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 				autoBombard_, autoColonize_, spyOverSpend,
 				transportAutoEco, defaultForwardRally,
 				defaultChainRally, 	chainRallySpeed,
-				showAlliancesGNN, hideMinorReports, showAllocatePopUp, showLimitedWarnings,
+				showAlliancesGNN, hideMinorReports,
+				showAllocatePopUp, showLimitedWarnings,
 				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
 				)));
 		map.add(new SafeListParam(Arrays.asList(

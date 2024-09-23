@@ -99,7 +99,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     float totalPlanetaryResearch = -1;
     public float totalPlanetaryResearchSpending = 0;
     private int altReturn = -1;
-    private boolean showFreeTechs = false;
+//    private boolean showFreeTechs = false;
 
     public AllocateTechUI() {
         initModel();
@@ -226,6 +226,9 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     	txt = tech.detail();
     	if (!txt.isEmpty())
     		info += NEWLINE + txt;
+    	txt = tech.info();
+    	if (txt != null && !txt.isEmpty())
+    		info += NEWLINE + NEWLINE + txt;
 
     	// Tech Type Info
     	txt	= tech.techTypeDesc();
@@ -235,7 +238,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     	}
     	return info;
      }
-    private void loadInfo(String techId)			{ // TODO BR: Tech Guide
+    private void loadInfo(String techId)			{
     	HelpUI helpUI = RotPUI.helpUI();
         helpUI.clear();
 
@@ -843,6 +846,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         TechCategory cat = player().tech().category(selectedCategory);
         techSelections.clear();
         techForGuide.clear();
+    	boolean showFreeTechs = options().displayFreeTech();
         boolean newResearch = cat.researchStarted();
         String currentT = cat.currentTech();
 
@@ -872,11 +876,14 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         Graphics2D g = (Graphics2D) visualTree.createGraphics();
         setFontHints(g);
         Tech[] techs = new Tech[maxTechLvl - minTechLvl + 7];
+        int freeId = 0;
         for (String techId: allT) {
             Tech tech = tech(techId);
             if ((tech.level >= minTechLvl) && (tech.level <= maxTechLvl))
-            	if (tech.free)
-            		techs[tech.level] = tech;
+            	if (tech.free) {
+            		techs[freeId] = tech;
+            		freeId++;
+            	}
             	else
             		techs[tech.level+5] = tech;
         }
@@ -1119,7 +1126,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
             	return;
             case KeyEvent.VK_A: // All
             case KeyEvent.VK_F: // Free
-            	showFreeTechs = !showFreeTechs;
+            	options().toggleDisplayFreeTech();
             	initVisualTree();
             	repaint();
             	return;
