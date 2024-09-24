@@ -1301,7 +1301,7 @@ public class RacesUI extends BasePanel {
             hoveringIcon = false;
             for (Empire emp: colorIcons.keySet()) {
                 Shape rec = colorIcons.get(emp);
-                if (rec.contains(x,y)) {
+                if (!emp.extinct() && rec.contains(x,y)) {
                     hoverShape = rec;
                     hoverEmp = emp;
                     hoveringIcon = true;

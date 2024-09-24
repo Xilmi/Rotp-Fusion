@@ -59,6 +59,9 @@ Later:
 
 ## What's New
 
+2024.09.24 (BR)
+- Fixed a color setting bug. Sometimes when trying to change the color of an empire, the player's empire color would be changed instead! This could happen after an empire was eliminated.
+
 2024.09.23 (BR)
 - New option to mute diplomats from spying warnings.
 - Tech panel: About half the new complementary tech info is now available.
