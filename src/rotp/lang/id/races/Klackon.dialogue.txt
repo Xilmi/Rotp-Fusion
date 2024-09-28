@@ -62,7 +62,7 @@ WARN_GENOCIDE_01           | Kasar sekali! Aku tidak pernah menduga kau akan mel
 WARN_FINAL_WAR_01          | Sekarang aku lihat bahwa jika aku ingin mewujudkan mimpiku, galaksi ini harus dalam kondisi damai. Tapi selama kau masih ada kedamaian itu tidak dapat diwujudkan. Alasannya jelas: [rebel_name] harus dihancurkan! 
 WARN_COUNCIL_VOTE_01       | Kuakui aku tidak akrab dengan nuansa yang yang kau sebut sebagai "manuver politik." Tapi aku tahu bahwa dengan memberikan suara untuk [other_name] kau telah bergerak melawanku, dan aku tidak pernah melupakan siapapun yang menghalangiku. 
 WARN_OATHBREAKER_01        | Inikah caramu beroperasi, [your_name]? Membuat persetujuan kemudian mematahkannya ketika menurutmu itu lebih baik bagimu? Aku tahu bahwa kau sama sekali tidak seperti aku, dan tindakanmu membuktikannya lebih dari sekedar bayangan keraguan! 
-WARN_ATTACKED_ALLY_01      | Mengapa kau menyerang temanku si [defender_name], [your name]? Carilah cara lain untuk menyelesaikan ketidakpuasanmu: Aku tidak suka dipaksa untuk ikut campur! 
+WARN_ATTACKED_ALLY_01      | Mengapa kau menyerang temanku si [defender_name], [your_name]? Carilah cara lain untuk menyelesaikan ketidakpuasanmu: Aku tidak suka dipaksa untuk ikut campur! 
 WARN_REBELLING_AGAINST_01  | Aku tidak suka [your_name], dan bahkan aku lebih tidak suka kau dipilih sebagai pemimpin majelis! Aku harus memikirkan apa yang terjadi hari ini, dan kau harus memikirkan kemungkinan bagaimana aku akan dipaksa untuk meresponnya! 
 
 PRAISE_COUNCIL_VOTE_01     | [voter_name]! Jangan kira aku akan menganggap remeh suaramu di Majelis! Meski kau dan aku sangat berbeda, aku sangat bahagia aku bisa bertemu dengan teman yang luar biasa sepertimu dalam perjalananku. 

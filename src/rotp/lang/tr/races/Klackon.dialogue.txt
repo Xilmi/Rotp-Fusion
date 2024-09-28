@@ -62,7 +62,7 @@ WARN_GENOCIDE_01           | Nasıl bir taş kalplilik! [victim_name] olarak bil
 WARN_FINAL_WAR_01          | Şimdi görüyorum ki hayalimi gerçekleştirebilmem için galaksinin huzur içinde olması gerekiyor. Ama sen var olduğun sürece bu barış asla gerçekleşemez. Cevap açık: [rebel_name] yok edilmeli! 
 WARN_COUNCIL_VOTE_01       | "Politik manevra" dediğin şeyin nüanslarına aşina olmadığımı itiraf ediyorum. Ama [other_name] için oy vererek bana karşı bir hamle yaptığını biliyorum ve bana ayak bağı olanları unutmam. 
 WARN_OATHBREAKER_01        | [your_name], senin hareket tarzın böyle mi yani? Bir anlaşmayı yapıp uygun gördüğünde bozuvermek mi? Benim gibi olmadığını biliyordum ve davranışların bunu hiçbir şüpheye yer bırakmayacak şekilde kanıtlıyor! 
-WARN_ATTACKED_ALLY_01      | Neden arkadaşım [defender_name] ulusuna, saldırıyorsun [your name]? Sorunlarınızı çözmenin başka bir yolunu bulun: Müdahaleye mecbur bırakılmaktan hazzetmeyeceğim! 
+WARN_ATTACKED_ALLY_01      | Neden arkadaşım [defender_name] ulusuna, saldırıyorsun [your_name]? Sorunlarınızı çözmenin başka bir yolunu bulun: Müdahaleye mecbur bırakılmaktan hazzetmeyeceğim! 
 differences: I will not like being forced to intervene! 
 WARN_REBELLING_AGAINST_01  | [your_name], seni sevmiyorum ve konsey lideri olarak seçilmeni daha da sevmiyorum! Bugün neler olduğunu değerlendirmeliyim ve sen de yakında mecburen nasıl bir yanıt vereceğimi değerlendirmelisin! 
 

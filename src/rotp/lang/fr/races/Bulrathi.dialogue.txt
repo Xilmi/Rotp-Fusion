@@ -81,6 +81,3 @@ ACCEPT_TRADE_01            | La sagesse de vos négociations compense votre manq
 RESPOND_IGNORE_THREAT_01   | Hahaha, et pourquoi devrions-nous écouter les menaces de si petits êtres ? Allez-y maintenant, et comptez-vous chanceux que nous soyons d'humeur si indulgente aujourd'hui !
 RESPOND_STOP_SPYING_01     | Les petits chommkas que nous utilisons pour espionner ont été attrapés, n'est-ce pas ? Eh bien, rendez-nous sains et saufs, eux et nos espions, et nous veillerons à ce qu'ils ne vous dérangent plus.
 RESPOND_STOP_ATTACKING_01  | Les flottes de l'Empire sont terrifiantes, n'est-ce pas ? N'ayez pas peur, mon petit, notre affichage a eu l'effet escompté, et nous allons les rappeler maintenant.
-
-
-

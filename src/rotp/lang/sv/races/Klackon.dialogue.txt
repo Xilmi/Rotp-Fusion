@@ -62,7 +62,7 @@ WARN_GENOCIDE_01           | Vilket oförfinat beteende! Jag trodde aldrig att d
 WARN_FINAL_WAR_01          | Jag förstår nu att om jag ska kunna uppnå min dröm, då måste galaxen ha fred. Men så länge som du existerar kan den freden aldrig förverkligas. Det här leder till en uppenbar slutsats: [rebel_name]en måste omintetgöras! 
 WARN_COUNCIL_VOTE_01       | Jag måste erkänna att jag inte helt begriper de fina detaljerna av vad som kallas "politiska manövrar". Men jag vet att genom att du röstat på [other_name] så har du utfört ett drag emot mig, och jag glömmer inte de som besvärar och hindrar mig.
 WARN_OATHBREAKER_01        | Är det så här du fungerar, [your_name]? Att först sluta avtal bara för att sen bryta det när du känner att det passar dig? Jag visste att du inte alls var som jag är, och dina handlingar bevisar detta bortom all förmodan!
-WARN_ATTACKED_ALLY_01      | Varför anfaller du min vän [defender_name], [your name]? Ni får hitta ett annat sätt att göra upp: Jag kommer inte vara nöjd om jag tvingas ingripa!
+WARN_ATTACKED_ALLY_01      | Varför anfaller du min vän [defender_name], [your_name]? Ni får hitta ett annat sätt att göra upp: Jag kommer inte vara nöjd om jag tvingas ingripa!
 WARN_REBELLING_AGAINST_01  | Jag gillar inte [your_name]lingen, och jag gillar än mindre att du blev vald ledare av det galaktiska rådet! Jag måste fundera över det här, och du borde fundera över vad jag kan fundera över vad jag kanske kommer behöva att göra!
 
 PRAISE_COUNCIL_VOTE_01     | [voter_name]! Tro inte att jag inte alls tänker på din röstning i Rådet och tar den för given! Även om du och jag är väldigt annorlunda, så är jag glad att jag kunde träffa på en sådan bra vän som dig på min resa.

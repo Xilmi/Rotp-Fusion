@@ -80,4 +80,3 @@ ACCEPT_TRADE_01 | Áno, pán veľvyslanec, súhlasíme, že vzájomný obchod je
 RESPOND_IGNORE_THREAT_01 | Nemýľte si náš pacifizmus so slabosťou! Vaša hrozba bola určite vyslovená v iracionálnom hneve. Pre tento krát vám váš výbuch odpustíme.
 RESPOND_STOP_SPYING_01 | Hovoríte, že špión patriaci ríši [my_race_akuzativ]? Určite ide o nejaké nedorozumenie. Vráťte nám, prosím, nášho občana, aby sme tomu mohli prísť na koreň. Pokojne si vydýchnite, špehovanie je to posledné, na čo myslíme.
 RESPOND_STOP_ATTACKING_01 | Nech táto mocná flotila odradí každého, kto je natoľko hlúpy, aby začal nákladnú vojnu. A nech naše odvolanie tejto flotily slúži ako dôkaz nášho záväzku voči mieru. 
-

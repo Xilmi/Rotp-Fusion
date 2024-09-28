@@ -62,7 +62,7 @@ WARN_GENOCIDE_01           | ¡Qué insensible! Nunca esperé que llegaras tan l
 WARN_FINAL_WAR_01          | Ahora veo que para realizar mi sueño, la galaxia debe estar en paz. Pero mientras existas, esa paz nunca podrá hacerse realidad. La respuesta es obvia: ¡[rebel_name] debe ser destruido! 
 WARN_COUNCIL_VOTE_01       | Admito que no estoy familiarizado con los matices de lo que llamas "maniobras políticas". Pero sé que al votar por [other_name] has hecho un movimiento en mi contra, y no me olvido de los que me impiden así. 
 WARN_OATHBREAKER_01        | ¿Es así como operas, [your_name]? ¿Haces un acuerdo solo para romperlo cuando lo creas conveniente? ¡Sabía que no eras como yo, y tus acciones lo prueban sin lugar a dudas! 
-WARN_ATTACKED_ALLY_01      | Porque atacas a mi amigo [defender_name], [your name]? Encuentra otra manera de resolver sus diferencias: ¡No me gustará que me obliguen a intervenir! 
+WARN_ATTACKED_ALLY_01      | Porque atacas a mi amigo [defender_name], [your_name]? Encuentra otra manera de resolver sus diferencias: ¡No me gustará que me obliguen a intervenir! 
 WARN_REBELLING_AGAINST_01  | ¡No me gusta [your_name], y me gusta aún menos que hayas sido elegido como líder del consejo! ¡Debo reflexionar sobre lo que sucedió hoy, y debes reflexionar sobre cómo pronto me veré obligado a responder! 
 
 PRAISE_COUNCIL_VOTE_01     | [voter_name]! ¡No creas que doy por sentado su voto en el Consejo! Aunque tú y yo somos muy diferentes, estoy realmente feliz de haber podido conocer a un amigo tan maravilloso como tú en mi viaje. 

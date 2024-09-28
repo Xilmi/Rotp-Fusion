@@ -61,7 +61,7 @@ WARN_GENOCIDE_01           | Que cruel! Nunca pensei que chegasses a ponto de an
 WARN_FINAL_WAR_01          | Hoje compreendo que para eu concretizar o meu sonho, toda a galáxia terá de estar em paz. Mas enquanto tu existires, essa paz jamais será uma realidade. A resposta é óbvia: o [rebel_name] tem de ser destruído! 
 WARN_COUNCIL_VOTE_01       | Vou admitir que não estou familiarizada com as nuances do que chamam "realpolitik." Mas sei que ao votares no [other_name], fizeste algo contra mim, e eu não me esqueço de quem me prejudica.
 WARN_OATHBREAKER_01        | É assim que funcionas, [your_name]? Fazes acordos para quebrares quando queres? Eu sabia que não eras nada como eu e as tua ações demonstram isso sem margem para dúvidas!
-WARN_ATTACKED_ALLY_01      | Por que atacas o meu amigo [defender_name], [your name]? Encontrem outro meio de resolver as vossas diferenças: não quero ser forçada a intervir!
+WARN_ATTACKED_ALLY_01      | Por que atacas o meu amigo [defender_name], [your_name]? Encontrem outro meio de resolver as vossas diferenças: não quero ser forçada a intervir!
 WARN_REBELLING_AGAINST_01  | Eu não gosto do [other_name] e gosto ainda menos que tenhas sido escolhido para líder do Conselho! Vou ponderar o que aconteceu hoje e tu devias refletir sobre como terei de te responder em breve.
 
 PRAISE_COUNCIL_VOTE_01     | [voter_name]! Não penses que dou o teu voto no Conselho por garantido! Sei que tu e eu somos muito diferentes, mas fico muito feliz por ter conhecido um amigo tão maravilhoso na minha jornada.
