@@ -21,9 +21,19 @@ The description of the additions/changes by BrokenRegistry can be found there: <
 
 ### To build and run locally:
 
+On Debian / Ubuntu:
+
 ```
 sudo apt install vorbis-tools
 sudo apt install webp
+mvn clean package -Dmaven.javadoc.skip=true
+java -jar target/rotp-<timestamp>-mini.jar
+```
+
+On Fedora:
+
+```
+sudo dnf install libwebp-tools vorbis-tools
 mvn clean package -Dmaven.javadoc.skip=true
 java -jar target/rotp-<timestamp>-mini.jar
 ```

@@ -64,7 +64,7 @@ WARN_GENOCIDE_01           | 多麼無情！萬萬沒想到，你竟然會徹底
 WARN_FINAL_WAR_01          | 我現在意識到了，如果想要實現我的夢想，銀河系必須和平。但如果你退出了新共和國，就不會有和平。答案很清楚：[rebel_name]必須被消滅！
 WARN_COUNCIL_VOTE_01       | 我承認我不熟悉所謂的“政治權術”。 但我知道，通過投票給[other_name]，你是在反對我，我不會忘記那些阻礙我的人。
 WARN_OATHBREAKER_01        | 這是你的行動方式嗎，[your_name]？達成協議只是爲了在你認爲合適的時候打破它？我就知道你和我不一樣，你的行動證明了這一點！[spiesCaught]
-WARN_ATTACKED_ALLY_01      | 你爲什麼要攻擊我的朋友[defender_name]，[your name]？請尋找另一種解決你們分歧的方法，我不想被迫干預這些事情！
+WARN_ATTACKED_ALLY_01      | 你爲什麼要攻擊我的朋友[defender_name]，[your_name]？請尋找另一種解決你們分歧的方法，我不想被迫干預這些事情！
 WARN_REBELLING_AGAINST_01  | 我不喜歡[your_name]，更不喜歡你被選爲委員會的領袖！我必須思考今天發生的事情，你們也應該思考我即將做出的迴應了！
 PRAISE_COUNCIL_VOTE_01     | [voter_name]！你在委員會上的投票說明了很多！雖然你我很不一樣，但我真的很高興能在旅途中遇到像你這樣的好朋友。
 PRAISE_COUNCIL_VOTE_02     | 在我的漫長生命中，我從未需要考慮“政治”，但你所做的事情對我來說是有益的，是嗎？讓我們儘快再談，以便我們更好地學習如何互惠互利。

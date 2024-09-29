@@ -85,5 +85,3 @@ ACCEPT_TRADE_01 | Predpokladám, že asi nemôžeme vyplieniť každú civilizá
 RESPOND_IGNORE_THREAT_01 | Haha! Hahahahaaa! Prepáč, že sa smejem, tvoje hrozby sú až komicky trápne. Utekaj domov, než sa naši nájazdníci nerozhodnú naostriť si pazúry na vaše kolónie.
 RESPOND_STOP_SPYING_01 | Našli ste špióna, ktorý podľa vás patrí k nám? Určite nie. Nikdy by nás ani vo sne nenapadlo špehovať  [your_race_akuzativ]. Robte si so špiónom, čo chcete, nám je to jedno.
 RESPOND_STOP_ATTACKING_01 | Obávate sa nájazdu, [your_race]? Nemajte obavy, nemáme záujem o to, čo vlastníte. Teraz ich presunieme. Nechceli by sme vás, predsa vystrašiť.
-
-

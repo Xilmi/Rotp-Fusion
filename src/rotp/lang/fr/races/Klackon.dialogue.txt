@@ -62,7 +62,7 @@ WARN_GENOCIDE_01           | Quelle insensibilité ! Je n'aurais jamais pensé q
 WARN_FINAL_WAR_01          | Je vois maintenant que pour que je réalise mon rêve, la galaxie doit être en paix. Mais tant que vous existerez, cette paix ne pourra jamais être réalisée. La réponse est évidente : le [rebel_name] doit être détruit ! 
 WARN_COUNCIL_VOTE_01       | J'avoue que je ne connais pas les nuances de ce que vous appelez des "manœuvres politiques".Mais je sais qu'en votant pour [other_name] vous avez fait un geste contre moi, et je n'oublie pas ceux qui m'y empêchent ainsi. 
 WARN_OATHBREAKER_01        | Est-ce ainsi que vous fonctionnez, [your_name]? Faire un accord pour le rompre quand bon vous semble ? Je savais que vous n'étiez pas comme moi, et vos actions le prouvent sans l'ombre d'un doute ! [spiesCaught] 
-WARN_ATTACKED_ALLY_01      | Pourquoi attaquez-vous mon ami [defender_name], [your name]? Trouvez un autre moyen de résoudre vos différends : Je n'aimerai pas être obligé d'intervenir ! 
+WARN_ATTACKED_ALLY_01      | Pourquoi attaquez-vous mon ami [defender_name], [your_name]? Trouvez un autre moyen de résoudre vos différends : Je n'aimerai pas être obligé d'intervenir ! 
 WARN_REBELLING_AGAINST_01  | Je n'aime pas le [your_name], et j'aime encore moins que vous ayez été choisi comme chef du conseil ! Je dois réfléchir à ce qui s'est passé aujourd'hui, et vous devriez réfléchir à la façon dont je pourrais bientôt être obligé de répondre ! 
 
 PRAISE_COUNCIL_VOTE_01     | [voter_name]! Ne pensez pas que je considère votre vote au Conseil comme acquis ! Bien que vous et moi soyons très différents, je suis vraiment heureux d'avoir pu rencontrer un ami aussi merveilleux que vous au cours de mon voyage. 
