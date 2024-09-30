@@ -3,13 +3,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Custom Council percentage: The anounce and conclusion messages will now follow the requirement.
+- Fixed incorrect variable names in language files. (Frank Zago)
 - Fixed a color setting bug. Sometimes when trying to change the color of an empire, the player's empire color would be changed instead! This could happen after an empire was eliminated.
 - New option to mute diplomats from spying warnings.
-- Tech panel: About half the new complementary tech info is now available.
-- Added 3 missing dialogues to the six additional species.
-- Fixed auto-design of ships allowing both "Auto-Repair" and "Advanced Damage Control". This is useless, as only the best repair percentage is used.
-- Tech Panel: Show/Hide free tech. Press "A" for All, or "F" for Free.
-- Tech Panel: New complementary tech info available. Right click on tech, or press "I" for Info, "H" for Hints, or "G" for Guide. In progress.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

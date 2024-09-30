@@ -69,6 +69,12 @@ Later:
 
 ## What's New
 
+2024.09.30 (BR)
+- Custom Council percentage: The anounce and conclusion messages will now follow the requirement.
+
+2024.09.29 (Frank Zago)
+- Fixed incorrect variable names in language files.
+
 2024.09.24 (BR)
 - Fixed a color setting bug. Sometimes when trying to change the color of an empire, the player's empire color would be changed instead! This could happen after an empire was eliminated.
 

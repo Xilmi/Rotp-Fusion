@@ -294,8 +294,7 @@ COMBATTRANSPORT_0_INFO     | Combat Transporters give each transport a 50% chanc
 // Control Environment tech
 //
 CONTROLENV_NAME      | Colonizing
-CONTROLENV_DETAIL    | By default, any special colony base can colonize a planet of that hostility or lower on 
-the "hierarchy of hostilities" from Barren to Irradiated. But if you set this to Restricted, a Hostile environment will need a colony base of that specific type. Now the Irradiated Colony Base you'll need to settle the most hostile of planets is no longer the be-all and end-all of colony bases.
+CONTROLENV_DETAIL    | By default, any special colony base can colonize a planet of that hostility or lower on the "hierarchy of hostilities" from Barren to Irradiated. But if you set the "Restricted" option, a Hostile environment will need a colony base of that specific type. Now the Irradiated Colony Base you'll need to settle the most hostile of planets is no longer the be-all and end-all of colony bases.<br> Hostility sequence: Barren, Tundra, Dead, Inferno, Toxic, and Irradiated.
 
 CONTROLENV_0_NAME    | Controlled Normal Environment
 CONTROLENV_0_ITEM    | Standard Colony Base

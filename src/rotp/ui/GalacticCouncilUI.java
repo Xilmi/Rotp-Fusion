@@ -173,7 +173,7 @@ public final class GalacticCouncilUI extends FadeInPanel
         int lineTextSize = 15;
         g.setFont(narrowFont(lineTextSize));
         String text1 = text("COUNCIL_CONVENE");
-        String text2 = text("COUNCIL_CONVENE2");
+        String text2 = getModedText("COUNCIL_CONVENE2");
         text2 = emp1.replaceTokens(text2, "first");
         text2 = emp2.replaceTokens(text2, "second");
         
@@ -520,6 +520,16 @@ public final class GalacticCouncilUI extends FadeInPanel
         int x4b = button3X + ((buttonW - sw4) / 2);
         drawBorderedString(g, button4Text, x4b, button4Y + buttonH - s9, SystemPanel.textShadowC, c0);  
     }
+    private String getModedText(String key)	{
+    	float pctRequired = GalacticCouncil.pctRequired() * 100;
+    	boolean isTwoThird = 2000 == round(pctRequired * 30);
+    	String text;
+    	if (isTwoThird)
+    		text = text(key);
+    	else
+    		text = text(key+"_MOD", df1.format(pctRequired));
+    	return text;
+    }
     private void paintNoWinnerMessage(Graphics2D g) {
         int w = getWidth();
         int h = getHeight();
@@ -533,7 +543,7 @@ public final class GalacticCouncilUI extends FadeInPanel
         
         int lineTextSize = 15;
         g.setFont(narrowFont(lineTextSize));
-        String text1 = text("COUNCIL_ADJOURN");
+        String text1 = getModedText("COUNCIL_ADJOURN");
         
         int bdr = s10;
         int w1 =  scaled(430);
@@ -1540,7 +1550,7 @@ public final class GalacticCouncilUI extends FadeInPanel
         Empire emp1 = c.candidate1();
         Empire emp2 = c.candidate2();
         String text1 = text("COUNCIL_CONVENE");
-        String text2 = text("COUNCIL_CONVENE2");
+        String text2 = getModedText("COUNCIL_CONVENE2");
         text2 = emp1.replaceTokens(text2, "first");
         text2 = emp2.replaceTokens(text2, "second");
 
@@ -1559,7 +1569,7 @@ public final class GalacticCouncilUI extends FadeInPanel
 	private String noWinnerMessage() {
 		String msg = NEWLINE + text("COUNCIL_ADJOURN_TITLE");
 		msg += NEWLINE + voteTotals();
-		msg += NEWLINE + text("COUNCIL_ADJOURN");
+		msg += NEWLINE + getModedText("COUNCIL_ADJOURN");
 		return msg;
 	}
 	private String showVoteResultMessage() {

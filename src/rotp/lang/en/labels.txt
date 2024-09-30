@@ -4058,8 +4058,10 @@ HISTORY_EMPIRE                    | Empire
 COUNCIL_CONVENE_TITLE             | The High Council Convenes
 COUNCIL_CONVENE                   | The High Council has convened to elect one leader to be Ruler of the Galaxy.
 COUNCIL_CONVENE2                  | Each empire casts a share of votes proportional to its population. A candidate must collect at least two thirds of all votes to be elected. The candidates are the leaders of the two most populous empires: [first_name] of the [first_empire] and [second_name] of the [second_empire].
+COUNCIL_CONVENE2_MOD              | Each empire casts a share of votes proportional to its population. A candidate must collect at least %1% of all votes to be elected. The candidates are the leaders of the two most populous empires: [first_name] of the [first_empire] and [second_name] of the [second_empire].
 COUNCIL_ADJOURN_TITLE             | The High Council Adjourns
 COUNCIL_ADJOURN                   | Voting has concluded and neither candidate has collected two-thirds of votes. No ruler has been named. The High Council will reconvene for another vote in 25 years.
+COUNCIL_ADJOURN_MOD               | Voting has concluded and neither candidate has collected %1% of votes. No ruler has been named. The High Council will reconvene for another vote in 25 years.
 COUNCIL_SUMMARY_TITLE             | Voter Summary
 COUNCIL_SUMMARY                   | Votes are cast in order of population. %1 votes are required to win election.
 COUNCIL_BEGIN_VOTING              | Begin Voting
@@ -4380,7 +4382,7 @@ GOVERNOR_SHIP_BUILDING_DESC          | Shipbuilding with Governor enabled. Diver
 GOVERNOR_SHIP_BUILDING               | Shipbuilding: %1
 GOVERNOR_LEGACY_GROWTH_MODE_DESC     | Develop colonies as quickly as possible.
 GOVERNOR_LEGACY_GROWTH_MODE          | Rapid growth: %1
-GOVERNOR_TERRAFORM_EARLY_DESC        | Favor atmosphere and soil enrichment, as well as planet terraforming.<br>Could be used before a council, to boost your vote power.
+GOVERNOR_TERRAFORM_EARLY_DESC        | Favor atmosphere and soil enrichment, as well as planet terraforming. <br>Could be used before a council, to boost your vote power.
 GOVERNOR_TERRAFORM_EARLY             | Boost Planet Early: %1%
 
 HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS_DESC | Spying activities related Options.
