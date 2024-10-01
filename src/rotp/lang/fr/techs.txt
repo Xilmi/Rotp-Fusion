@@ -3,37 +3,37 @@
 //
 // Armor techs
 // 
-ARMOR_0_NAME     | Armure en Titane
+ARMOR_0_NAME     | Blindage en Titane
 ARMOR_0_ITEM     | Titane
 ARMOR_0_BRIEF    | Point de Vie %1
-ARMOR_0_DETAIL   | Technologie d'armure débutante. Aucun bonus au blindage du navire ou aux attaques au sol.
+ARMOR_0_DETAIL   | Technologie de blindage basique. Aucun bonus au blindage du navire ou aux attaques au sol.
 
-ARMOR_1_NAME     | Armure en Duralloy
+ARMOR_1_NAME     | Blindage en Duralloy
 ARMOR_1_ITEM     | Duralloy
 ARMOR_1_BRIEF    | Point de Vie %1
 ARMOR_1_DETAIL   | Augmente les points de vie des navires et des transports de 50 %. L'armure de combat personnelle est également améliorée, ajoutant 5 à toutes les attaques au sol.
 
-ARMOR_2_NAME     | Armure en Zortrium
+ARMOR_2_NAME     | Blindage en Zortrium
 ARMOR_2_ITEM     | Zortrium
 ARMOR_2_BRIEF    | Point de Vie %1
 ARMOR_2_DETAIL   | Augmente les points de vie des navires et des transports de 100 %. L'armure de combat personnelle est également améliorée, ajoutant 10 à toutes les attaques au sol.
 
-ARMOR_3_NAME     | Armure en Andrium
+ARMOR_3_NAME     | Blindage en Andrium
 ARMOR_3_ITEM     | Andrium
 ARMOR_3_BRIEF    | Point de Vie %1
 ARMOR_3_DETAIL   | Augmente les points de vie des navires et des transports de 150 %. L'armure de combat personnelle est également améliorée, ajoutant 15 à toutes les attaques au sol.
 
-ARMOR_4_NAME     | Armure en Tritane
+ARMOR_4_NAME     | Blindage en Tritanium
 ARMOR_4_ITEM     | Tritanium
 ARMOR_4_BRIEF    | Point de Vie %1
 ARMOR_4_DETAIL   | Augmente les points de vie des navires et des transports de 200%.  L'armure de combat personnelle est également améliorée, ajoutant 20 à toutes les attaques au sol.
 
-ARMOR_5_NAME     | Armure en Adamantium
+ARMOR_5_NAME     | Blindage en Adamantium
 ARMOR_5_ITEM     | Adamantium
 ARMOR_5_BRIEF    | Point de Vie %1
 ARMOR_5_DETAIL   | Augmente les points de vie des navires et des transports de 250%. L'armure de combat personnelle est également améliorée, ajoutant 25 à toutes les attaques au sol.
 
-ARMOR_6_NAME     | Armure en Neutronium
+ARMOR_6_NAME     | Blindage en Neutronium
 ARMOR_6_ITEM     | Neutronium
 ARMOR_6_BRIEF    | Point de Vie %1
 ARMOR_6_DETAIL   | Augmente les points de vie des navires et des transports de 300%. L'armure de combat personnelle est également améliorée, ajoutant 30 à toutes les attaques au sol.
@@ -49,11 +49,11 @@ ATMOSPHERE_0_DETAIL    | Convertit les environnements hostiles en environnements
 // Automated Repair techs
 // 
 AUTOREPAIR_0_NAME      | Système de réparation automatisé
-AUTOREPAIR_0_BRIEF     | Soigne 15 % des coups du navire par tour
+AUTOREPAIR_0_BRIEF     | Répare 15 % des coups du navire par tour
 AUTOREPAIR_0_DETAIL    | Les navires non détruits peuvent réparer jusqu'à 15 % de leurs points de vie totaux à la fin de chaque tour.
 
 AUTOREPAIR_1_NAME      | Contrôle avancé des dommages
-AUTOREPAIR_1_BRIEF     | Soigne 30 % des coups du navire par tour
+AUTOREPAIR_1_BRIEF     | Répare 30 % des coups du navire par tour
 AUTOREPAIR_1_DETAIL    | Les navires non détruits peuvent réparer jusqu'à 30 % de leurs points de vie totaux à la fin de chaque tour.
 
 
@@ -1041,7 +1041,7 @@ SHIPWPN_1_NAME         | Laser Gatling
 SHIPWPN_1_BRIEF        | Tire 4 fois/tour
 SHIPWPN_1_DETAIL       | Un laser avancé qui tire jusqu'à quatre fois par tour et inflige 1 à 4 points de dégâts à chaque coup.
 
-SHIPWPN_2_NAME         | Pistolet à plombs à neutrons
+SHIPWPN_2_NAME         | Canon particulaire à neutrons
 SHIPWPN_2_BRIEF        | Réduit de moitié la force du bouclier
 SHIPWPN_2_DETAIL       | Arme à flux de particules lourdes qui réduit de moitié l'efficacité des boucliers déflecteurs ennemis et inflige 2 à 5 points de dégâts.
 
@@ -1191,4 +1191,3 @@ TORPEDO_2_DETAIL      | Torpilles énergétiques à haut rendement qui infligent
 TORPEDO_3_NAME        | Torpilles à plasma
 TORPEDO_3_BRIEF       | Perd 15 dégâts/hex
 TORPEDO_3_DETAIL      | Torpilles à énergie pure qui infligent 150 points de dégâts et se déplacent à la vitesse 6, mais perdent 15 dégâts par case parcourue. Le lanceur tire un tour sur deux et dispose d'un ordinateur de guidage +7.
-

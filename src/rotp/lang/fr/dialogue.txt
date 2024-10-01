@@ -91,7 +91,7 @@ DECLINE_TECH_TRADE_01      | [my_nameTitle] [my_name] voit peu d'intérêt pour 
 
 OFFER_TECH_EXCHANGE_01     | [your_empire] a grand besoin de votre technologie [tech]. Peut-être êtes-vous prêt à l'échanger contre une partie de notre technologie.
 OFFER_TECH_EXCHANGE_01     | [your_empire] sait que vous avez appris les secrets de [tech]. Pouvons-nous vous offrir une partie de notre technologie en échange ?
-OFFER_TECH_EXCHANGE_01     | [your_nameTitle] [your_name] [your_empireof] souhaite le secret de la technologie [tech]. L'échangerez-vous contre une de nos avances ?
+OFFER_TECH_EXCHANGE_01     | [your_nameTitle] [your_name] [your_empireof] souhaite le secret de la technologie [tech]. L'échangerez-vous contre une de nos avancées ?
 OFFER_TECH_EXCHANGE_01     | La race [your_raceadjecF] est impressionnée par les merveilles scientifiques de [tech]. Que pouvons-nous vous offrir pour son secret ?
 
 ACCEPT_TECH_EXCHANGE_01    | Très bien. [my_nameTitle] [my_name] il accepte d'échanger les merveilleux secrets [my_race_pluraladjec] de [techGiven] contre la technologie [techReceived].

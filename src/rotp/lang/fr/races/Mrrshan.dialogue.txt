@@ -32,7 +32,7 @@ DECLAREWAR_ERRATIC_03      | Cela fait bien trop longtemps que nous n'avons pas 
 //
 DECLAREWAR_MILITARY_01     | Le fort prend et le faible donne : une loi de fer de l'univers. Vous verrez bientôt que cela s'applique non seulement à vos trésors, mais aussi à vos planètes.
 DECLAREWAR_MILITARY_02     | Bien qu'elle brille rarement comme de l'or, la terre est souvent une valeur en soi. Et tous les bons prix valent la peine de se battre, n'est-ce pas, ambassadeur ?
-DECLAREWAR_MILITARY_03     | Les besoins du Khanat l'emportent sur les besoins de la race [votre_raceadjecF]. Vous avez peut-être une technologie impressionnante, mais je doute que vous ayez la férocité pour l'égaler !
+DECLAREWAR_MILITARY_03     | Les besoins du Khanat l'emportent sur les besoins de la race [your_raceadjecF]. Vous avez peut-être une technologie impressionnante, mais je doute que vous ayez la férocité pour l'égaler !
 //
 DECLAREWAR_ALLIANCE_01     | Vous avez joué à un jeu dangereux pour faire de l'allié du Khanat un ennemi. Ce jeu va bientôt se terminer rapidement et de manière sanglante !
 DECLAREWAR_ALLIANCE_02     | Notre allié, [other_race_pluralnoun], est un peuple honorable mais faible. Vous auriez pu gagner si cette guerre n'avait impliqué que vos deux empires, mais avec nous à leurs côtés, vous n'avez aucune chance de victoire !
@@ -53,7 +53,7 @@ DECLAREWAR_ASSASSIN_01     | Je ne suis pas du tout choqué que votre espèce se
 OFFER_PEACE_01             | Il y a un temps pour tout, ambassadeur, et le temps est maintenant venu de mettre fin à nos hostilités. Gardez vos reliques; la paix est tout ce que nous désirons de vous maintenant!
 OFFER_TRADE_01             | Il ne fait aucun doute que le moyen le plus rapide de gagner des trophées est de les prendre à ceux qui sont trop faibles pour vous arrêter ! Mais le commerce peut également être un moyen acceptable pour deux empires de gagner l'un de l'autre. Commençons à [amt] BC chaque année pour voir combien nous pouvons... gagner les uns des autres. 
 OFFER_PACT_01              | Pas besoin d'empires si égaux pour se battre entre eux quand il y a beaucoup de races plus faibles à piller et à brûler. Mettons-nous d'accord sur un pacte officiel de non-agression afin que nos énergies soient mieux dépensées pour ceux qui ont des trésors plus faciles à prendre ! 
-OFFER_ALLIANCE_01          | Je viens à vous aujourd'hui pour vous proposer une alliance formelle entre le Khanat et [votre_empire]. J'espère que vous ne perdrez pas de temps à signer ce traité ? N'oubliez pas non plus : une part égale dans une alliance signifie une part égale du butin de guerre ! 
+OFFER_ALLIANCE_01          | Je viens à vous aujourd'hui pour vous proposer une alliance formelle entre le Khanat et [your_empire]. J'espère que vous ne perdrez pas de temps à signer ce traité ? N'oubliez pas non plus : une part égale dans une alliance signifie une part égale du butin de guerre !
  
 WARN_TRESPASSING_01        | À moins que vos navires ne soient dans le système [system] pour payer des tributs, je vous suggère de leur ordonner de faire demi-tour et de partir dès que possible. 
 WARN_EXPANSION_01          | Bien que nous préférions les objets de valeur avec lesquels nous pouvons orner les murs de nos temples, nous ne sommes pas aveugles au point d'ignorer le trésor qu'est la terre non réclamée. Vérifiez votre expansion ou risquez de susciter notre colère, ambassadeur. 
@@ -85,5 +85,3 @@ ACCEPT_TRADE_01            | Je suppose que nous ne pouvons pas piller toutes le
 RESPOND_IGNORE_THREAT_01   | Pardonnez-moi de rire, vos menaces sont juste comiquement vides. Courez maintenant avant que nos pillards ne décident d'aiguiser leurs griffes sur vos colonies.
 RESPOND_STOP_SPYING_01     | Vous avez trouvé un espion qui, selon vous, nous appartient ? Sûrement pas. Nous n'aurions jamais songé à espionner l'exalté [your_empire]. Faites ce que vous voulez de l'espion, cela n'a aucune importance pour nous.
 RESPOND_STOP_ATTACKING_01  | Inquiet d'un raid, [your_race]? Ne vous inquiétez pas, nous n'avons aucun intérêt à ce que vous possédez. Nous allons les déplacer maintenant. Nous ne voudrions pas vous effrayer, après tout.
-
-

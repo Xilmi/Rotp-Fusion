@@ -41,7 +41,7 @@ DECLAREWAR_SPYING_03       | Croyez-vous être en mesure de prendre nos secrets 
 DECLAREWAR_ATTACK_01       | Enfin, vous vous êtes exposés, les Enfants de Quaralone ! Personne d'autre que la couvée de notre ennemi le plus détesté ne serait assez fou pour nous défier si hardiment ! Préparez-vous pour la bataille finale!
 DECLAREWAR_ATTACK_02       | Nous soupçonnons depuis longtemps que vous étiez le rejeton de notre ancien ennemi ! Avec cet attaque, vous avez confirmé ce fait pour toujours ! Enfin, notre prophétie s'accomplira !
 DECLAREWAR_ATTACK_03       | Le scélérat! Le fléau ! Dans nos heures les plus sombres, vous lancez une telle attaque contre nous ?! Maintenant que vous vous êtes faits connaître comme notre ennemi éternel, aucune différence dans nos forces ne nous empêchera de vous anéantir !
-DECLAREWAR_OPPORTUNITY_01  | Alors que nous poursuivons à travers la galaxie dans notre sainte croisade, nous devons saisir toutes les opportunités pour augmenter notre avantage. Ce temps est maintenant et anéantir votre espèce est l'opportunité. Adieu, pathétique [votre_raceadjec].
+DECLAREWAR_OPPORTUNITY_01  | Alors que nous poursuivons à travers la galaxie dans notre sainte croisade, nous devons saisir toutes les opportunités pour augmenter notre avantage. Ce temps est maintenant et anéantir votre espèce est l'opportunité. Adieu, pathétique [your_raceadjec].
 DECLAREWAR_ASSASSIN_01     | Comment osez-vous tuer un ambassadeur de l'Imperium !? Seul un des rejetons de Quaralone pouvait agir avec un esprit aussi mauvais ! Préparez vos flottes pour la guerre ! 
 
 OFFER_PEACE_01             | Ils disent que pour connaître quelqu'un, il faut d'abord le combattre. Nous nous sommes battus et nous voyons que vous n'êtes pas les enfants de la bête Quaralone. Nous voudrions avoir la paix avec vous maintenant, afin que nous puissions concentrer notre attention sur ceux qui méritent de ressentir notre fureur. 
@@ -81,4 +81,3 @@ ACCEPT_TRADE_01            | L'Imperium accepte votre offre, [your_raceadjec]. N
 RESPOND_IGNORE_THREAT_01   | Notre croisade ne sera pas découragée par vos vaines menaces. Trouvez quelqu'un d'autre pour déranger ou risquez notre colère !
 RESPOND_STOP_SPYING_01     | Nous voulions simplement déterminer l'identité de l'ignoble Couvée de Quaralon. Nous sommes convaincus que votre peuple n'est pas notre ennemi mortel déguisé.
 RESPOND_STOP_ATTACKING_01  | Nos flottes recherchaient les ennemis de l'Imperium. Si vous n'êtes pas nos ennemis, ils n'ont pas besoin de rester où ils sont.
-
