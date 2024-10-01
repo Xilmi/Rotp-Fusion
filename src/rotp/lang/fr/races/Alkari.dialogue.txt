@@ -49,7 +49,7 @@ DECLAREWAR_ATTACK_02       | Alors ça commence, ambassadeur ! Si le peuple [my_
 DECLAREWAR_ATTACK_03       | On aurait dû s'attendre à ce genre de vulgarité de la part d'une race grossière comme la vôtre, ambassadeur ! Ne pensez pas que la Souveraineté se rendra à vous sans contestation !
 //
 DECLAREWAR_OPPORTUNITY_01  | Comme vous pouvez le voir, nous, [my_empireof], avons remporté beaucoup de succès dans nos entreprises spatiales. Malheureusement, ambassadeur, nos besoins imposent que notre prochain succès se fasse aux dépens de votre empire. 
-DECLAREWAR_ASSASSIN_01     | Quelle grossièreté est-ce? Vous voudriez commettre un acte aussi monstrueux que de tuer un ambassadeur de sang-froid ? La Souveraineté ne souffrira plus d'une race aussi détestable que la vôtre pour exister !
+DECLAREWAR_ASSASSIN_01     | Quelle grossièreté est-ce? Vous voudriez commettre un acte aussi monstrueux que de tuer un ambassadeur de sang-froid ? La Souveraineté ne souffrira plus qu'une race aussi détestable que la vôtre puisse exister !
 
 
 OFFER_PEACE_01             | L'histoire du Millénium Cramoisi ne peut pas se répéter, ambassadeur ! Nous vous demandons de faire honneur à [your_race] et [my_race] signant ce traité de paix pour empêcher toute nouvelle effusion de sang !
@@ -57,7 +57,7 @@ OFFER_TRADE_01             | Assurément, des races civilisées comme la nôtre 
 OFFER_PACT_01              | La Souveraineté est satisfaite de la manière dont votre peuple se présente dans les affaires diplomatiques. Pour montrer à quel point nous valorisons notre relation, nous souhaitons signer un pacte de non-agression, garantissant qu'aucun de nous ne soit la proie de... mal interpréter les intentions de l'autre.
 OFFER_ALLIANCE_01          | Vos actions vous ont valu beaucoup d'estime auprès de la Souveraineté, ambassadeur ! Le Roi Flèche a décrété qu'une alliance entre [your_race] et [my_race] doit être conclue immédiatement ! Nous n'attendons que votre signature !
 
-WARN_TRESPASSING_01        | Il est tout à fait inapproprié que les flottes [your__race_pluraladjecF] se promènent dans le système [system] comme s'il s'agissait de leur propre domaine. Il est dans l'intérêt de tous, ambassadeur, que vous rectifiiez cela immédiatement. 
+WARN_TRESPASSING_01        | Il est tout à fait inapproprié que les flottes [your_race_pluraladjecF] se promènent dans le système [system] comme s'il s'agissait de leur propre domaine. Il est dans l'intérêt de tous, ambassadeur, que vous rectifiiez cela immédiatement.
 WARN_EXPANSION_01          | Se développer sans contrôle là où vous le souhaitez montre un grand manque de respect envers vos voisins, ambassadeur ! Je vous conseille fortement de ne plus continuer ce manque de respect envers la Souveraineté. 
 WARN_BUILDUP_01            | Pensez-vous que nous sommes aveugles, ambassadeur ?! Nous voyons vos flottes continuer à augmenter en taille et en force. Montrez-nous que vous ne voulez pas nuire en annulant cette accumulation, ou vous pourriez en effet gagner une réponse préventive !
 WARN_SKIRMISH_01           | Nous connaissons parfaitement de l'escarmouche de [system], ambassadeur ! La Souveraineté ignorera vos actions cette fois-ci. Pourquoi? Je ne vois aucune raison de répondre à une telle question de la part de personnes comme vous ! 
@@ -90,5 +90,3 @@ ACCEPT_TRADE_01            | La Souveraineté est toujours heureuse de traiter a
 RESPOND_IGNORE_THREAT_01   | Vous osez essayer de provoquer [my_empire]? Emportez vos plaisanteries risibles ailleurs avant qu'elles cessent d'être amusantes.
 RESPOND_STOP_SPYING_01     | Vos yeux semblent aussi aiguisés que les nôtres lorsqu'il s'agit de trouver des espions. Considérez nos efforts de subterfuge comme terminés.
 RESPOND_STOP_ATTACKING_01  | Maintenant, voyez-vous la puissance de notre souveraineté ? Tant que vous n'oubliez pas notre puissance, nous ne vous dérangerons plus avec ces flottes.
-
- 

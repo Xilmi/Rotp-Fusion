@@ -46,7 +46,7 @@ DECLAREWAR_ASSASSIN_01     | Je dois vous offrir un certain niveau de... félici
 OFFER_PEACE_01             | La guerre ne change jamais, ambassadeur. Tant de tueries, tant de destructions, tout ça pour quoi faire ? S'il vous plaît, reconnaissons nos... torts passés et commençons une nouvelle ère de paix. 
 OFFER_TRADE_01             | Les races civilisées et... intelligentes comme les nôtres savent que la prospérité, pas la guerre, s'avère la plus bénéfique. La République souhaite une prospérité mutuelle avec votre peuple et un accord commercial de [amt] BC chaque année comme le meilleur endroit pour commencer. 
 OFFER_PACT_01              | Plus nous passons de temps parmi vous, plus nous valorisons nos relations diplomatiques. Nous devrions faire tout notre possible pour... préserver ce lien, et un pacte de non-agression entre nos peuples verra qu'il continuera à perdurer, n'est-ce pas, ambassadeur ? 
-OFFER_ALLIANCE_01          | Le temps est venu ambassadeur : une alliance entre [mon_empire] et [votre_empire] doit être forgée. A travers nous, la galaxie verra que la coexistence pacifique est le seul choix acceptable ! 
+OFFER_ALLIANCE_01          | Le temps est venu ambassadeur : une alliance entre [my_empire] et [your_empire] doit être forgée. A travers nous, la galaxie verra que la coexistence pacifique est le seul choix acceptable !
 
 WARN_TRESPASSING_01        | Votre présence sur [system] a fait sourciller le conseil. S'il vous plaît, retirez-vous immédiatement avant que la paix pour laquelle nous avons travaillé si dur ne soit rompue. 
 WARN_EXPANSION_01          | Il y a peu de façons pour nous de vous interpréter si rapidement... en élargissant votre sphère d'influence. Aucun d'eux n'est bon pour maintenir la paix entre nos peuples.
@@ -80,4 +80,3 @@ ACCEPT_TRADE_01            | Oui, ambassadeur, nous convenons que le commerce mu
 RESPOND_IGNORE_THREAT_01   | Ne confondez pas notre pacifisme avec de la faiblesse ! Votre menace a sûrement été exprimée dans une colère irrationnelle, et nous vous pardonnerons donc cette fois-ci.
 RESPOND_STOP_SPYING_01     | Un espion de [my_raceadjec], dites-vous ? Cela doit certainement être un malentendu. S'il vous plaît, rendez-nous notre citoyen afin que nous puissions aller au fond des choses, et soyez tranquille en sachant que l'espionnage est la dernière chose à laquelle nous pensons.
 RESPOND_STOP_ATTACKING_01  | Que cette puissante flotte dissuade quiconque est assez insensé de commencer une guerre coûteuse, et que notre retrait de celle-ci sans ordonner son utilisation montre notre engagement en faveur de la paix.
-

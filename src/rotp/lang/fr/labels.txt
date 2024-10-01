@@ -517,8 +517,8 @@ MAIN_FLEET_DISPLAY                | Affichage de la Flotte
 MAIN_FLEET_CHOOSE_DEST            | Choisissez la destination et le nombre de navires à envoyer.
 MAIN_FLEET_OUT_OF_RANGE_DESC      | La destination est hors de portée de la flotte, %1 a.l. de la colonie la plus proche.
 MAIN_FLEET_INVALID_RETREAT        | Les flottes en retraite ne peuvent être envoyées que dans des colonies amies
-MAIN_FLEET_ETA_UNNAMED            | heure d'arrivée estimée jusqu'à destination : %1 Ans 
-MAIN_FLEET_ETA_NAMED              | heure d'arrivée estimée jusqu'à  %1 : %2 Ans 
+MAIN_FLEET_ETA_UNNAMED            | Durée du trajet : %1 Ans
+MAIN_FLEET_ETA_NAMED              | Durée du trajet vers %1 : %2 Ans
 MAIN_FLEET_SET_RALLY              | Ralliement
 MAIN_FLEET_AUTO_RETREAT           | Se retirer automatiquement à l'arrivée
 MAIN_FLEET_ETA_UNKNOWN            | Les scanners ne peuvent pas déterminer la destination
@@ -536,8 +536,8 @@ MAIN_FLEET_INVALID_DESTINATION2   | Impossible d'envoyer la flotte à ce systèm
 MAIN_RALLY_TITLE                  | Définition du Point de Ralliement
 MAIN_RALLY_PROMPT                 | Sélectionnez un système sous votre contrôle pour y envoyer des navires nouvellement construits.
 MAIN_RALLY_FORWARD                | Transférer les rallyes entrants
-MAIN_RALLY_TRAVEL_TIME            | Temps de trajet vers %1 : %2 Ans
-MAIN_RALLY_INSTANT_TIME           | Temps de trajet vers %1 : Instantané
+MAIN_RALLY_TRAVEL_TIME            | Durée du trajet vers %1 : %2 Ans
+MAIN_RALLY_INSTANT_TIME           | Durée du trajet vers %1 : Instantané
 MAIN_RALLY_WILL_CANCEL            | La sélection de cette destination effacera tout point de ralliement existant.
 MAIN_RALLY_ERROR                  | Vous devez sélectionner un système sous votre contrôle.
 MAIN_RALLY_NO_SELECTION           | Pas de Sélection
@@ -549,7 +549,7 @@ MAIN_RALLY_STOP                   | Arrêter le Rallye
 MAIN_TRANSPORTS_EMPIRE            | Transports [empire_raceof]
 MAIN_TRANSPORTS_COUNT             | %1 Transports
 MAIN_TRANSPORTS_CANCEL            | Annuler
-MAIN_TRANSPORTS_SHOW_DEST         | Heure d'arrivée estimée jusqu'à %1 : %2 Ans
+MAIN_TRANSPORTS_SHOW_DEST         | Temps de trajet vers %1 : %2 Ans
 MAIN_TRANSPORT_TITLE              | Envoi de Transports
 MAIN_TRANSPORT_ABANDON_TITLE      | Abandonner le Système
 MAIN_TRANSPORT_PROMPT             | Sélectionnez un système colonisé vers lequel envoyer des navires de transport civils ou militaires.
@@ -814,7 +814,7 @@ PLANETS_HELP_4I                   | Drapeau - Drapeau du système, choisi par l'
 
 // Bombardment prompt
 MAIN_BOMBARDED_TITLE             | %1 a été bombardé par des forces [alien_race_pluraladjecF].
-MAIN_BOMBARD_TITLE               | Nos forces sont en orbite autour d'une colonie ennemie [alien_raceajecF].
+MAIN_BOMBARD_TITLE               | Nos forces sont en orbite autour d'une colonie ennemie [alien_raceadjecF].
 MAIN_BOMBARD_TROOPS              | %1 troupes [alien_race_pluraladjecF] sont en orbite ou en transit vers cette colonie.
 MAIN_BOMBARD_PROMPT              | Bombarder la planète ?
 MAIN_BOMBARD_YES                 | Oui
@@ -926,12 +926,12 @@ TECH_TOP_TIER_DETAIL              | La réalisation de ces recherches rendra dis
 TECH_OBSOLETE_DETAIL              | Cette technologie est obsolète.
 TECH_CAN_CHANGE                   | Ce choix peut être modifié sur l'écran Technologie avant de passer au tour suivant.
 TECH_CHOOSE_RESEARCH_COST         | %1 RP
-TECH_CHOOSE_RESEARCH_TIER         | Étage %1
-TECH_TRADE_TIER_COST_INFO         | (Étage %1 - %2 RP)
+TECH_CHOOSE_RESEARCH_TIER         | Niveau %1
+TECH_TRADE_TIER_COST_INFO         | (Niveau %1 - %2 RP)
 TECH_CONFIRM_CHOICE               | Sélectionner
 TECH_DISCOVERY_TITLE              | Les scientifiques [player_race_pluraladjec] réalisent une percée %1
 TECH_SCOUTED_TITLE                | Éclaireurs explorant les ruines de %1 découvrent
-TECH_STOLEN_TITLE                 | Our spies have infiltrated the [alien_race] research center at %2.
+TECH_STOLEN_TITLE                 | Nos espions ont infiltrés le centre de recherche [alien_race] à %2.
 TECH_TRADED_TITLE                 | Les scientifiques [player_race_pluraladjec] acquièrent la technologie des scientifiques [alien_race_pluraladjec]
 TECH_PLUNDERED_TITLE              | Soldats aux Ruines de %1 pillent
 TECH_DERELICT_TITLE               | Les explorateurs [alien_race_pluraladjec] pillent une technologie ancienne
@@ -1002,7 +1002,7 @@ INVASION_REBELS_TITLE             | %1 rebelles [defender_race_pluraladjec]
 INVASION_TROOP_ARMOR_DESC         | %1 %2
 
 // GNN Text
-GNN_TITLE                         | La Réseau d'actualités galactique [player_race_pluralnounof] rapporte :
+GNN_TITLE                         | Le Réseau d'actualités galactique [player_race_pluralnounof] rapporte :
 GNN_EMPIRE_RANKING                | %1. [empire_race_pluralnoun]
 GNN_EXTINCTION_KNOWN_VICTIM       | [victim_race_pluralnoun]
 GNN_EXTINCTION_KNOWN_KILLER       | [killer_race_pluralnoun]
@@ -1365,7 +1365,7 @@ SHIP_DESIGN_SIZE_LARGE            | Grande
 SHIP_DESIGN_SIZE_HUGE             | Énorme
 SHIP_DESIGN_SIZE_LABEL            | Taille
 SHIP_DESIGN_TYPE_LABEL            | Type
-SHIP_DESIGN_COUNT_LABEL           | Décompte
+SHIP_DESIGN_COUNT_LABEL           | Quantité
 SHIP_DESIGN_DAMAGE_LABEL          | Dommage
 SHIP_DESIGN_POWER_LABEL           | Puiss.
 SHIP_DESIGN_RANGE_LABEL           | Portée
@@ -1403,7 +1403,7 @@ SHIP_DESIGN_RENAME_BUTTON         | Renommer
 SHIP_DESIGN_DEPLOY_BUTTON         | Déployer la conception
 SHIP_DESIGN_DEPLOY_DESC           | Une fois déployé, vous pouvez construire ce vaisseau sur vos colonies et ce design ne peut être que renommé ou mis au rebut.
 SHIP_DESIGN_SCRAP_BUTTON          | Annuler la conception
-SHIP_DESIGN_SCRAP_CONFIRM1        | Êtes-vous sûr de vouloir supprimer le design %1 ?
+SHIP_DESIGN_SCRAP_CONFIRM1        | Êtes-vous sûr de vouloir supprimer le dessein %1 ?
 SHIP_DESIGN_SCRAP_CONFIRM2        | Cela détruira %1 navires de votre flotte et placera %2 BC dans la réserve planétaire.
 SHIP_DESIGN_SCRAP_CONFIRM3        | Vous n'avez actuellement aucun navire construit de ce type.
 SHIP_DESIGN_SCRAP_CANCEL          | Annuler
@@ -1495,7 +1495,7 @@ SHIP_DESIGN_HELP_2A               | Type de moteur - le type de moteur utilisé 
 SHIP_DESIGN_HELP_2B               | Vitesse - vitesse de déplacement fournie par le moteur.
 SHIP_DESIGN_HELP_2C               | Coût - le coût de chaque moteur nécessaire pour la Puiss..
 SHIP_DESIGN_HELP_2D               | Taille - espace de coque requis par moteur.
-SHIP_DESIGN_HELP_2E               | Puiss. - la Puiss. de sortie par moteur.
+SHIP_DESIGN_HELP_2E               | Puiss. - la puissance de sortie par moteur.
 SHIP_DESIGN_HELP_2F               | Exigences d'alimentation - exigence d'alimentation requises pour tous les composants du vaisseau.
 SHIP_DESIGN_HELP_2G               | Moteurs requis - nombre de moteurs nécessaires pour répondre aux besoins en Puiss..
 SHIP_DESIGN_HELP_2H               | Taille totale - espace total de la coque nécessaire pour tous les moteurs.
@@ -1505,11 +1505,11 @@ SHIP_DESIGN_HELP_2K               | Le nom de la conception du navire.
 SHIP_DESIGN_HELP_3A               | Ordinateurs - affectent le niveau d'attaque de votre vaisseau au combat.
 SHIP_DESIGN_HELP_3B               | Armure - affecte les points de vie de votre vaisseau. L'armure lourde l'augmente de 50 %.
 SHIP_DESIGN_HELP_3C               | Boucliers - réduisent les dégâts des attaques entrantes.
-SHIP_DESIGN_HELP_3D               | les contre-mesures électroniques améliorent votre défense antimissile. - les contre-mesures électroniques améliorent votre défense antimissile.
+SHIP_DESIGN_HELP_3D               | Les contre-mesures électroniques améliorent votre défense antimissile.
 SHIP_DESIGN_HELP_3E               | Manœuvre - augmente la manœuvrabilité et les défenses du navire.
 SHIP_DESIGN_HELP_3F               | Armes - peuvent infliger des dégâts aux navires et colonies ennemis. Jusqu'à quatre types d'armes différents peuvent être ajoutés à une conception de navire.
 SHIP_DESIGN_HELP_3G               | Spéciaux - appareils qui offrent des capacités uniques à votre vaisseau. Jusqu'à trois dispositifs spéciaux peuvent être ajoutés à une conception de navire.
-SHIP_DESIGN_HELP_4A               | Renommer - vous permet de renommer un dessin existant.
+SHIP_DESIGN_HELP_4A               | Renommer - vous permet de renommer un dessein existant.
 SHIP_DESIGN_HELP_4B               | Supprimer conception - supprime une conception existante. Les navires démolis retournent 25% de leur valeur de construction au trésor.
 SHIP_DESIGN_HELP_4C               | Les conceptions de navires déployés peuvent être construites sur n'importe laquelle de vos colonies.
 SHIP_DESIGN_HELP_4D               | Les emplacements de conception de navire disponibles peuvent être sélectionnés afin de créer un nouveau design.
@@ -1539,9 +1539,9 @@ SHIP_COMBAT_SYSTEM_FACT           | Usines
 SHIP_COMBAT_SYSTEM_BASE           | Bases
 SHIP_COMBAT_TITLE_VICTORIOUS      | VICTORIEUX
 SHIP_COMBAT_SHIP_TOTALS           | %1 🡒 %2
-SHIP_COMBAT_RESULTS_RETREATED     | RECULÉ
+SHIP_COMBAT_RESULTS_RETREATED     | RETRAITE
 SHIP_COMBAT_RESULTS_DESTROYED     | DÉTRUIT
-SHIP_COMBAT_RETREAT_ALL           | Reculer tout
+SHIP_COMBAT_RETREAT_ALL           | Se retirer
 SHIP_COMBAT_NEXT                  | Prochain navire
 SHIP_COMBAT_AUTO_RESOLVE          | Bataille à résolution automatique
 SHIP_COMBAT_AUTO_RESOLVING        | En train de résoudre le combat...
@@ -1654,7 +1654,7 @@ RACES_DIPLOMACY_BUREAU_DESC_FINAL | Nous sommes engagés dans une guerre finale 
 RACES_DIPLOMACY_KNOWN_EMPIRES     | Empires étrangers connus
 RACES_DIPLOMACY_RECALLED_DIPLOMAT | Diplomates rappelés
 RACES_DIPLOMACY_MANAGE_DIPLOMATS  | Gérer les diplomates
-RACES_DIPLOMACY_AUDIENCE          | Public
+RACES_DIPLOMACY_AUDIENCE          | Audience
 RACES_DIPLOMACY_CONTACT           | Établir contact
 RACES_DIPLOMACY_TRADE_SUMMARY     | Résumé commercial
 RACES_DIPLOMACY_TRADE_DESC        | Contactez l'ambassadeur [alien_raceadjec] pour négocier un traité commercial. Les réseaux commerciaux prennent du temps et de l'argent à mettre en place, mais une fois matures, ils apportent de l'argent au trésor de votre empire.
@@ -1956,14 +1956,14 @@ DIPLOMACY_MENU_CONTINUE           | Continuer
 DIPLOMACY_MENU_ACKNOWLEDGE        | Reconnaître
 DIPLOMACY_MENU_ACCEPT             | Accepter
 DIPLOMACY_MENU_ACCEPT_NEED_BC     | Accepter (pas assez de fonds)
-DIPLOMACY_MENU_FORGET_IT          | Oubliez-le
+DIPLOMACY_MENU_FORGET_IT          | N'y pensez pas
 DIPLOMACY_TRADE_LEVEL             | %1 BC / Année
 DIPLOMACY_MENU_TREATIES           | Proposer un traité
 DIPLOMACY_MENU_TRADE              | Accord commercial
 DIPLOMACY_MENU_TECHNOLOGY         | Technologie d'échange
 DIPLOMACY_MENU_OFFER_AID          | Offrir de l'aide
 DIPLOMACY_MENU_AMT                | %1 BC
-DIPLOMACY_MENU_OFFER_TECHS        | Technologie d'offre
+DIPLOMACY_MENU_OFFER_TECHS        | Offrir une technologie
 DIPLOMACY_MENU_THREATEN           | Menacer
 DIPLOMACY_MENU_DECLARE_WAR        | Déclarer la guerre
 DIPLOMACY_MENU_EVICT_SPIES        | Déplacer tous les espions (diminue les relations)

@@ -19,7 +19,7 @@ CONTACT_RUTHLESS           | Vous êtes de si petites créatures ! Vous n'avez 
 CONTACT_ERRATIC            | Nous, [my_empireof], vous saluons, les petits. Notre destin se situe quelque part parmi ces mondes dispersés et ces étoiles brûlantes. Il sera intéressant de voir où vous vous situerez dans notre grand dessein.
 //
 GREETING_01                | Vous avez donc agi avec honneur, et ainsi nous agirons pour vous honorer. Dites-nous ce dont vous avez besoin, mon petit ami. 
-GREETING_04                | Parlez vite, petit [your_raceajdec]. Ne tentez pas notre colère avec de fausses promesses et des marchés unilatérales .
+GREETING_04                | Parlez vite, petit [your_raceadjec]. Ne tentez pas notre colère avec de fausses promesses et des marchés unilatéraux.
 GREETING_07                | Venir parler avec nous montre une grande bravoure pour quelqu'un si petit. Cette bravoure mérite votre sécurité pour le moment.
 
 DECLAREWAR_HATE_01         | Des petits [your_race_pluraladjec] sur leurs petits mondes avec leurs petits projets. Le [my_title] se lasse de votre ingérence constante. Vous ne survivrez pas au malheur que nous vous infligeons !
