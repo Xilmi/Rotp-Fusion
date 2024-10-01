@@ -69,6 +69,10 @@ Later:
 
 ## What's New
 
+2024.10.01
+- Update French language (Frank Zago)
+- Tech Panel: New complementary tech info available. (BR)
+
 2024.09.30 (BR)
 - Custom Council percentage: The anounce and conclusion messages will now follow the requirement.
 

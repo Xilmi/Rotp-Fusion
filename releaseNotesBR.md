@@ -3,6 +3,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Update French language. (Frank Zago)
+- Tech Panel: New complementary tech info available.
 - Custom Council percentage: The anounce and conclusion messages will now follow the requirement.
 - Fixed incorrect variable names in language files. (Frank Zago)
 - Fixed a color setting bug. Sometimes when trying to change the color of an empire, the player's empire color would be changed instead! This could happen after an empire was eliminated.
