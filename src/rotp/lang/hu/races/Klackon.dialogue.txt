@@ -65,7 +65,7 @@ WARN_GENOCIDE_01           | Milyen érzéketlen! Soha nem számítottam arra, h
 WARN_FINAL_WAR_01          | Most már látom, hogy ahhoz, hogy megvalósíthassam álmomat, a galaxisnak békében kell lennie. De amíg létezel, a béke soha nem valósulhat meg. A válasz nyilvánvaló: [rebel_name] lázadót meg kell semmisíteni! 
 WARN_COUNCIL_VOTE_01       | Bevallom, hogy nem ismerem az általad "politikai manőverezésnek" nevezett nüanszokat. De tudom, hogy azzal, hogy [other_name] nevűre szavaztál, ellenem léptél fel, és én nem felejtem el azokat, akik megakadályoznak valamiben.
 WARN_OATHBREAKER_01        | 
-Tehát így működsz, [your_name]? Azért kötsz megállapodást, hogy akkor bontsd fel, amikor jónak látod? Tudtam, hogy nem olyan vagy, mint én, és a tetteid ezt minden kétséget kizáróan igazolják! [SpyesCaught] 
+Tehát így működsz, [your_name]? Azért kötsz megállapodást, hogy akkor bontsd fel, amikor jónak látod? Tudtam, hogy nem olyan vagy, mint én, és a tetteid ezt minden kétséget kizáróan igazolják! [spiesCaught] 
 WARN_ATTACKED_ALLY_01      | Miért támadod [defender_name] barátomat, [your_name]? Találj más módot a nézeteltérések megoldására: nem fogom szeretni, ha közbelépésre kényszerítenek! 
 WARN_REBELLING_AGAINST_01  | Nem kedvellek [your_name], és még kevésbé szeretem, hogy téged választottak a tanács vezetőjévé! Át kell gondolnom, mi történt ma és neked is el kell gondolkodnod azon, hogyan lehetek hamarosan kénytelen reagálni! 
 

@@ -1667,7 +1667,7 @@ RACES_INTEL_BUREAU_SPIES          | Total de espías
 RACES_INTEL_BUREAU_MANAGE         | Manage Spies
 RACES_INTEL_BUREAU_SPENDING       | Gasto total
 RACES_INTEL_SPY_ORDERS            | Órdenes de espionaje
-RACES_INTEL_SPY_ORDERS_DESC       | Asigne a sus espías para esconderse, robar secretos o sabotear colonias [alien_race_pluraladjecF ]. Cuanto más grande sea su red de espías, mayores serán las posibilidades de éxito en cada turno, siempre que ninguno de sus espías sea capturado y confiese..
+RACES_INTEL_SPY_ORDERS_DESC       | Asigne a sus espías para esconderse, robar secretos o sabotear colonias [alien_race_pluraladjecF]. Cuanto más grande sea su red de espías, mayores serán las posibilidades de éxito en cada turno, siempre que ninguno de sus espías sea capturado y confiese..
 RACES_INTEL_SPY_WARNING           | Si se descubre, esta misión romperá nuestro tratado con [alien_race_pluralnoun].
 RACES_INTEL_SPY_WARNING_WAR       | Si se descubre, esta misión podría desencadenar una guerra con [alien_race_pluralnoun].
 RACES_INTEL_KNOWN_TECHNOLOGY      | Tecnología [alien_raceadjecF] onocida

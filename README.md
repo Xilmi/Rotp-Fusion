@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.10.02 (BR)
+- Fixed some keywords that should not have been translated into foreign languages.
+
 2024.10.01
 - Update French language (Frank Zago)
 - Tech Panel: New complementary tech info available. (BR)

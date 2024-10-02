@@ -18,7 +18,7 @@ CONTACT_HONORABLE | Aká radostná príležitosť stretnúť sa s ostatnými, kt
 CONTACT_ERRATIC | [my_empire] želá všetko dobré. Váš ľud máme volať... [your_race_plural]? Fascinujúce. Áno... Naozaj fascinujúce.
 
 //
-GREETING_01 | Sme veľmi radi, že sa nám ozval náš veľavážený priateľ. Ako vám môžu byť [my_race_plural ] dnes nápomocní?
+GREETING_01 | Sme veľmi radi, že sa nám ozval náš veľavážený priateľ. Ako vám môžu byť [my_race_plural] dnes nápomocní?
 GREETING_04 | Pozdravujeme veľvyslanec. Som rád, že môžem predložiť vaše požiadavky našej Rade na... Prerokovanie.
 GREETING_07 | Linka je otvorená, veľvyslanec. O čom chcete... Diskutovať?
 //

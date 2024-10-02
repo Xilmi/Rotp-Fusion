@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed some keywords that should not have been translated into foreign languages.
 - Update French language. (Frank Zago)
 - Tech Panel: New complementary tech info available.
 - Custom Council percentage: The anounce and conclusion messages will now follow the requirement.

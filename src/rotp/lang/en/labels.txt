@@ -1946,7 +1946,7 @@ CUSTOM_RACE_LABEL_TITLE_DESC      | The counterpart of the "_title" parameter in
 CUSTOM_RACE_LEADER_FULLTITLE      | Full Leader Title
 CUSTOM_RACE_LEADER_FULLTITLE_DESC | The counterpart of the "fulltitle" parameter in Species.names.txt files.
 CUSTOM_RACE_LEADER_NAMETITLE      | Full Leader Title 2
-CUSTOM_RACE_LEADER_NAMETITLE_DESC | The counterpart of the "_nametitle" parameter in Species.labels.txt files.
+CUSTOM_RACE_LEADER_NAMETITLE_DESC | The counterpart of the "_nameTitle" parameter in Species.labels.txt files.
 CUSTOM_RACE_RACE_EMPIRE_NAME      | Empire Designation
 CUSTOM_RACE_RACE_EMPIRE_NAME_DESC | The counterpart of the "_empire" parameter in Species.labels.txt files.
 CUSTOM_RACE_HOME_WORLDS           | Homes worlds

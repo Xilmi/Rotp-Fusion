@@ -14,7 +14,7 @@
 
 // Alkari specific dialogue
 
-CONTACT_HONORABLE          | Üdv neked, oh [your_nametitle] [your_name] [your_empire_originating_prefix_lowercase]! Mi [my_empire_originating_prefix_lowercase] kiterjesszük szívélyes üdvözletünket és várjuk, hogy közös tiszteletben fejlesszük a kapcsolatunkat.
+CONTACT_HONORABLE          | Üdv neked, oh [your_nameTitle] [your_name] [your_empire_originating_prefix_lowercase]! Mi [my_empire_originating_prefix_lowercase] kiterjesszük szívélyes üdvözletünket és várjuk, hogy közös tiszteletben fejlesszük a kapcsolatunkat.
 CONTACT_PACIFIST           | Legőszintébb üdvözletünk, [your_title] [your_empire_originating_prefix_lowercase]. Ne tereljen háborút a Szuverenitásunk küszöbéhez, és mindkét fajunk virágozni fog közös, nemes viszonyunkban.
 CONTACT_ERRATIC            | A hosszú léttartamú [my_empire] nagykövete vagyok. Az én népem kiterjeszti üdvözletetét, ahogy az a szokásunk. A fajotok [your_race] néven ismert? Milyen... érdekes.
 

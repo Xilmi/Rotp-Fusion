@@ -125,7 +125,7 @@ ACCEPT_PACT_01             | Ak súhlasíte, že nepošlete lode do žiadnej z n
 ACCEPT_PACT_01             | [my_nameTitle] [my_name] súhlasí s vaším návrhom paktu o neútočení. Tak ako je písané, tak sa aj stane!
 ACCEPT_PACT_01             | Súhlasím. Pokiaľ nezaútočíte na naše kolónie, [my_race_plural] budú dodržiavať pakt o neútočení.
 
-BREAK_ALLIANCE_01          | Ríša [My_race_akuzativ] už naďalej nemôže udržiavať spojenectvo s ríšou [your_race_akuzativ].
+BREAK_ALLIANCE_01          | Ríša [my_race_akuzativ] už naďalej nemôže udržiavať spojenectvo s ríšou [your_race_akuzativ].
 ANNOUNCE_ALLIANCE_01       | V roku [year] sa ríša [my_race_akuzativ] a [your_race_akuzativ] dohodli na vytvorení spojenectva, v ktorom ani jedna z nich nezaútočí na flotily alebo kolónie tej druhej.
 ANNOUNCE_ALLIANCE_01       | Tak vzniká naša aliancia. Vaše lode môžu navštevovať naše kolónie podľa vašej ľubovôle a získavať palivo z našich základní.
 ACCEPT_ALLIANCE_01         | [my_nameTitle] [my_name] víta spojenectvo s našími dobrými priateľmi [your_race_instrumental].

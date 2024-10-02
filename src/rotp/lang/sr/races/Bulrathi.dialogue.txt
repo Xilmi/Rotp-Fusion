@@ -41,7 +41,7 @@ DECLAREWAR_ATTACK_01       | Ako toliko želite da se borite, treba samo da pita
 DECLAREWAR_ATTACK_02       | Da nas napadnete tako drsko, kao da ste mnogo jači nego što jeste. Pohvalno, ali na kraju pogrešno.
 DECLAREWAR_ATTACK_03       | Neka tako bude! Možda je istina da ste bolje naoružani, ali i dalje ćete se naći nadmašeni!
 DECLAREWAR_OPPORTUNITY_01  | Naši ljudi uvek traže šanse da izoštre svoje borbene veštine, a vaši ljudi se mogu pokazati kao dostojan izazov. Budite dobri takmičar, da bi se o vaše vrste rado sećali u našoj istoriji.
-DECLAREWAR_ASSASSIN_01     | Nismo očekivali ništa manje: rasa toliko fizički inferiorna da moraju pribeći ubijanju nenaoružanog ambasadora da bi ostvarili svoje ambicije. Moli se svim bogovima koje imate, mali [tvoja_rasaVoc], jer ćemo se pobrinuti da ovo bude vaša poslednja bitka.
+DECLAREWAR_ASSASSIN_01     | Nismo očekivali ništa manje: rasa toliko fizički inferiorna da moraju pribeći ubijanju nenaoružanog ambasadora da bi ostvarili svoje ambicije. Moli se svim bogovima koje imate, mali [your_raceVoc], jer ćemo se pobrinuti da ovo bude vaša poslednja bitka.
 
 OFFER_PEACE_01             | Vaši se ljudi dobro bore, maleni, ali u ovom ratu je proliveno više nego dovoljno krvi. Spremni smo da ostavimo prepirke u prošlosti i da krenemo ka miru, ako ste i vi dovoljno hrabri da učinite isto.
 OFFER_TRADE_01             | Ono što vam nedostaje u veličini izgleda da nadoknađujete svojom snalažljivošću. Naši ljudi svake godine predlažu trgovinu [amt] MK, u nadi da će trgovina za nas oboje biti korisnija od sukoba.

@@ -62,7 +62,7 @@ WARN_BIOWEAPON_01          | Elképzelhetetlen! A hús elég gyenge a hagyomány
 WARN_GENOCIDE_01           | Mondd el, miért követtél el népirtást [victim_race_prefix_lowercase] faj ellen. Gondosan válogasd meg a szavaidat: válaszod határozza meg, miként lépünk tovább innen!
 WARN_FINAL_WAR_01          | Csak szövetségek kötése révén tudjuk befejezni szent hadjáratunkat! Mi egyesült népekként állunk együtt, ti mégis egyedül vagytok, mint a káosz és a háború hangja. A prófécia mozgásban van: valóban Qaralon ivadéka vagy!
 WARN_COUNCIL_VOTE_01       | Minden bizonnyal jobb lenne, ha ezt a tanácsot feloszlatnák, és a Birodalomnak adnák a galaktikus ügyek kizárólagos irányítását. Akkor a néped kiérdemelné az ellenségességünket, mikor így felszólaltok ellenünk!
-WARN_OATHBREAKER_01        | Milyen zavarba ejtő, ha valaki megszegi a szavát, az olyan, mint megtörni a bizalmát. Kétségtelen, hogy csak a próféciák ellensége merne így cselekedni! [SpyesCaught]
+WARN_OATHBREAKER_01        | Milyen zavarba ejtő, ha valaki megszegi a szavát, az olyan, mint megtörni a bizalmát. Kétségtelen, hogy csak a próféciák ellensége merne így cselekedni! [spiesCaught]
 WARN_ATTACKED_ALLY_01      | [defender_race_possessive_prefix_uppercase] viselik a Birodalommal való közösség megtiszteltetését! Vedd figyelembe a támadásra válaszul adott figyelmeztetésünket: biztosíthatunk, hogy csak egyszer kapod meg!
 WARN_REBELLING_AGAINST_01  | Hadjáratunk nem késik! Sem a tanács együgyűségei, sem temiattad! Készülj fel, nagykövet: hamarosan elér a szent vihar!
 

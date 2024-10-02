@@ -35,7 +35,7 @@ DECLAREWAR_MILITARY_02 | Hoci sa pôda málokedy trbliece ako zlato, často je s
 DECLAREWAR_MILITARY_03 | Potreby chanátu prevažujú nad potrebami rasy [your_race_akuzativ]. Možno máte pôsobivú technológiu, ale pochybujeme, že sa ňou dá nahradiť naša krutosť!
 //
 DECLAREWAR_ALLIANCE_01 | Rozohrali ste veľmi nebezpečnú hru. Zo spojenca chanátu si urobiť nepriateľa. Táto hra sa pre vás čoskoro a krvavo skončí!
-DECLAREWAR_ALLIANCE_02 | Naši spojenci, [other_race_plural ], sú čestní, ale slabí. Možno by ste vyhrali, keby sa tejto vojny zúčastnili len vaše dve ríše, ale s nami na ich strane nemáte šancu!
+DECLAREWAR_ALLIANCE_02 | Naši spojenci, [other_race_plural], sú čestní, ale slabí. Možno by ste vyhrali, keby sa tejto vojny zúčastnili len vaše dve ríše, ale s nami na ich strane nemáte šancu!
 DECLAREWAR_ALLIANCE_03 | Radšej by sme mali tú česť zvrhnúť vašu ríšu osamote. Vyzerá to však, že tentoraz sa budeme deliť o slávu a korisť s [other_race_instrumental].
 //
 DECLAREWAR_SPYING_01 | Zbabelec, ktorý sa radšej angažuje v utajení, než aby bojoval priamo nemá žiadnu česť! Tvoje činy ukazujú aká je vaša ríša slabá. Teraz za to zaplatíš! 

@@ -23,7 +23,7 @@ DECLINE_OFFER_07           | Talán hiszékeny bolondoknak néztek minket? Az aj
 DECLINE_OFFER_08           | Eme ajánlat nem tűnik tisztességesnek számunkra.
 DECLINE_OFFER_09           | Attól tartunk, hogy az ajánlatot vissza kell utasítanunk.
 
-DECLINE_ENEMY_ALLY_01      | [my__race_possessive_prefix_uppercase] soha nem alkudoznának a gyűlölt [other_race_possessive] szövetségeseivel!
+DECLINE_ENEMY_ALLY_01      | [my_race_possessive_prefix_uppercase] soha nem alkudoznának a gyűlölt [other_race_possessive] szövetségeseivel!
 DECLINE_ALREADY_ALLIED_01  | [my_race_possessive_prefix_uppercase] és a szövetségeseink nem vehetjük figyelembe e kérést mindaddig, amíg ti más birodalmakkal vagytok szövetségben.
 DECLINE_NO_WAR_ON_ALLY_01  | Nem fogunk hadat üzenni a szövetségeseinknek.
 DECLINE_PEACE_TREATY_01    | Nem fogjuk megtörni [other_race_relational_prefix_lowercase] kötött békeszerződésünket.
@@ -111,7 +111,7 @@ BREAK_PACT_01              | Mi, [my_race_possessive_prefix_lowercase] figyelmez
 ANNOUNCE_PACT_01           | [year]. évben [my_empire_prefix_lowercase] megfogadja, hogy tartja magát a megnemtámadási szerződéshez és nem harcol [your_race_relational_prefix_lowercase], hacsak nem keringenek az egyik gyarmatunk körül.
 ACCEPT_PACT_01             | [my_empire_prefix_uppercase] beleegyezik a megnemtámadási szerződés megkötésébe. Egyik oldal sem fogja támadni a másik flottáit, hacsak nem lépnek be a másik egyik gyarmatának pályájára.
 ACCEPT_PACT_01             | Ha vállaljátok, hogy nem küldtök hajókat a gyarmatainkra, [my_race_possessive_prefix_lowercase] megfogadják, hogy nem támadják a hajóitokat.
-ACCEPT_PACT_01             | [my_nametitle] [my_name] egyetért a javasolt megnemtámadási szerződéssel. Tehát meg van írva, ezért meg kell tenni!
+ACCEPT_PACT_01             | [my_nameTitle] [my_name] egyetért a javasolt megnemtámadási szerződéssel. Tehát meg van írva, ezért meg kell tenni!
 ACCEPT_PACT_01             | Megállapodtunk, akkor. Mindaddig, amíg nem támadjátok meg a gyarmatainkat, [my_empire_prefix_lowercase] tartja magát a megnemtámadási szerződést.
 
 BREAK_ALLIANCE_01          | [my_empire_prefix_uppercase] már nem tarthatja fenn Szövetségét [your_empire_relational_prefix_lowercase].

@@ -19,7 +19,7 @@ CONTACT_RUTHLESS           | Milyen apró lények vagytok! Mindössze két dolgo
 CONTACT_ERRATIC            | Mi,[my_empire_prefix_lowercase] üdvözlünk benneteket, apróságok. A sorsunk valahol ezek között az elszórt világok és égő csillagok között rejlik. Érdekes lesz látni hova illetek majd be a nagy elképzelésünkbe.
 //
 GREETING_01                | Lám becsülettel cselekedtetek, tehát mi is becsülettel viseltetünk felétek. Mondjátok el mire van szükségetek, kis barátaink. 
-GREETING_04                | Beszéljetek gyorsan, kis [your__race_possessive]. Ne tegyétek próbára a haragunkat hamis ígéretekkel és egyoldalú ajánlatokkal.
+GREETING_04                | Beszéljetek gyorsan, kis [your_race_possessive]. Ne tegyétek próbára a haragunkat hamis ígéretekkel és egyoldalú ajánlatokkal.
 GREETING_07                | Eljönni és beszélni hozzánk nagy bátorságról tesz bizonyságot ilyen apróságokhoz képest. Ez a bátorság egyelőre kivívja a biztonságotokat.
 
 DECLAREWAR_HATE_01         | Az apró [your_race_possessive] az apró világaikban a mégapróbb sémáikkal. [my_title_prefix_uppercase] belefárad az állandó beavatkozásotokba. Nem fogjátok túlélni a végzetet amit rátok hozunk!

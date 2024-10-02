@@ -15,7 +15,7 @@
 // Bulrathi specific dialogue
 
 CONTACT_AGGRESSIVE         | Je suis ambassadeur [my_empireof]. Je vous conseille de rester du bon côté du [my_title], mon petit [your_raceadjec]. Car il n'a qu'à dire un mot et votre espèce périra sous une fureur que vous ne pourriez imaginer.
-CONTACT_RUTHLESS           | Vous êtes de si petites créatures ! Vous n'avez besoin de savoir que deux choses : premièrement, que nous nous appelons "[my_race_pluralnoun ]", et deuxièmement, que s'opposer à notre conquête ne fait que garantir votre disparition !
+CONTACT_RUTHLESS           | Vous êtes de si petites créatures ! Vous n'avez besoin de savoir que deux choses : premièrement, que nous nous appelons "[my_race_pluralnoun]", et deuxièmement, que s'opposer à notre conquête ne fait que garantir votre disparition !
 CONTACT_ERRATIC            | Nous, [my_empireof], vous saluons, les petits. Notre destin se situe quelque part parmi ces mondes dispersés et ces étoiles brûlantes. Il sera intéressant de voir où vous vous situerez dans notre grand dessein.
 //
 GREETING_01                | Vous avez donc agi avec honneur, et ainsi nous agirons pour vous honorer. Dites-nous ce dont vous avez besoin, mon petit ami. 

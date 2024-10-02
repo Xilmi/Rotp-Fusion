@@ -14,7 +14,7 @@
 
 // Bulrathi specific dialogue
 
-CONTACT_AGGRESSIVE         | Sono ambasciatore [my_empireof]. Le consiglio di stare dalla parte buona del [my_title], piccolo [your_raceadjec ]. Perché lui ha solo bisogno di dare l'ordine e la Sua specie perirà sotto una furia che non potrebbe assolutamente immaginare.
+CONTACT_AGGRESSIVE         | Sono ambasciatore [my_empireof]. Le consiglio di stare dalla parte buona del [my_title], piccolo [your_raceadjec]. Perché lui ha solo bisogno di dare l'ordine e la Sua specie perirà sotto una furia che non potrebbe assolutamente immaginare.
 CONTACT_RUTHLESS           | Che piccole creature siete! Deve solo sapere due cose: primo, che siamo chiamati "[my_race_pluraladjec]", e secondo, che opporsi alla nostra conquista garantisce solo la Sua scomparsa!
 CONTACT_ERRATIC            | Noi [my_empireof] vi salutiamo, piccoli. Il nostro destino giace da qualche parte tra questi mondi sparsi e stelle ardenti. Sarà interessante vedere dove vi troverete nel nostro grande design.
 //

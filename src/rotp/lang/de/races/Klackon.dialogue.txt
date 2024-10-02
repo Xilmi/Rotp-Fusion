@@ -32,7 +32,7 @@ DECLAREWAR_MILITARY_01     | Ich habe immer noch nicht den einen gefunden, der s
 DECLAREWAR_MILITARY_02     | Was verbergen Sie vor mir [your_name]? Ich werde es nicht mit Sicherheit wissen, bis ich jede deiner Welten untersucht habe, und ich werde sie dir jetzt wegnehmen, damit ich das tun kann!
 DECLAREWAR_MILITARY_03     | Ich werde nicht zulassen, dass Ihr das Objekt meiner Suche noch länger verheimlicht! Ich weiß, dass derjenige, den ich suche, sich auf einer eurer Welten befindet. Ich werde nicht ruhen, bis Ihr sie mir übergeben habt!
 DECLAREWAR_ALLIANCE_01     | Mein Freund namens [other_name] hat mir bei meiner Suche mehr geholfen, als Ihr Euch vorstellen könnt. Ich bin froh, mich dafür revanchieren zu können, indem ich Euch loswerde!
-DECLAREWAR_ALLIANCE_02     | Diejenigen, die mir bei meiner Suche helfen, haben meine unendliche Wertschätzung, und ich werde gerne geben, was ich kann, um meinen Freund [anderer_Name] zu ehren. Bereite Dich auf den Tod vor, [your_name]!
+DECLAREWAR_ALLIANCE_02     | Diejenigen, die mir bei meiner Suche helfen, haben meine unendliche Wertschätzung, und ich werde gerne geben, was ich kann, um meinen Freund [other_name] zu ehren. Bereite Dich auf den Tod vor, [your_name]!
 DECLAREWAR_ALLIANCE_03     | Ihr drängt jeden in der Galaxie, weil Ihr glaubt, dass es niemand wagen würde, sich Eurem Willen zu widersetzen. Wenn der [other_name] den Kampf zu Euch bringt, dann werde ich das auch tun!
 DECLAREWAR_SPYING_01       | Nicht eine Sache passiert auf einer meiner Welten, die meinem Blick entgeht. Da Sie darauf bestehen, sich so ruchlos zu verhalten, lassen Sie mir keine andere Wahl, als Sie zu vernichten.
 DECLAREWAR_SPYING_02       | Dummer [your_name], ich habe genug von Ihren Spielchen! Ihr werdet keine Zeit für solche hinterhältigen Intrigen haben, wenn Ihr Euch gegen meine Armeen wehren müsst! Bereitet Euch auf den Krieg vor!
@@ -48,18 +48,18 @@ OFFER_TRADE_01             | Wir sind beide mit unseren eigenen Zielen in die Ga
 OFFER_PACT_01              | Ich habe auf meiner Reise durch den Weltraum viele seltsame Kreaturen getroffen, und viele von ihnen sind von Natur aus streitsüchtig und gewalttätig. Du scheinst keines von beiden zu sein, also lass uns mit einem Nichtangriffspakt jeglichen Missverständnissen vorbeugen. 
 OFFER_ALLIANCE_01          | Unsere Beziehung ist für uns beide äußerst vorteilhaft gewesen, [your_name]. Lasst uns Verbündete in Wort und Tat werden, so dass alle in der Galaxie wissen, dass wir zusammenhalten! 
  
-WARN_TRESPASSING_01        | Ihre Anwesenheit in [System] macht mich sehr unruhig. Entfernen Sie die [your_name]-Flotte aus dem Gebiet, oder ich könnte gezwungen sein, Vergeltung zu üben.  
+WARN_TRESPASSING_01        | Ihre Anwesenheit in [system] macht mich sehr unruhig. Entfernen Sie die [your_name]-Flotte aus dem Gebiet, oder ich könnte gezwungen sein, Vergeltung zu üben.  
 WARN_EXPANSION_01          | Ich werde nicht zulassen, dass Sie mich daran hindern, meine Suche zu beenden, indem Sie jede Welt, auf die Sie Ihr Auge werfen, für sich beanspruchen. Hören Sie sofort auf, oder bereiten Sie sich auf einen Krieg vor!
 WARN_BUILDUP_01            | Du hast deine Flotte auf eine beeindruckende Größe anwachsen lassen, [your_name]. Sei vorsichtig, wie Du sie einsetzt, meine Flotten sind präsent. 
-WARN_SKIRMISH_01           | Der Vorfall bei [System] beunruhigt mich. War es lediglich ein Missverständnis Eurer Seite? Sorgt dafür, dass es nicht wieder vorkommt: Ich möchte nicht gegen [your_name] kämpfen, wenn es nicht sein muss. 
+WARN_SKIRMISH_01           | Der Vorfall bei [system] beunruhigt mich. War es lediglich ein Missverständnis Eurer Seite? Sorgt dafür, dass es nicht wieder vorkommt: Ich möchte nicht gegen [your_name] kämpfen, wenn es nicht sein muss. 
 WARN_ATTACKED_01           | Was haben Sie davon, mich so anzugreifen? Hören Sie sofort mit Ihrer Aggression auf, oder Sie zwingen mich, sie hundertfach an Sie zurückzuzahlen! 
-WARN_INVADED_01            | Warum sind Sie in meinen Raum im [System] System eingedrungen?! Wollt Ihr einen Konflikt anzetteln oder habt Ihr lediglich die Kontrolle über Eure Körper verloren? 
-WARN_ESPIONAGE_01          | Ich verstehe Sie nicht, [spy_name]. Ihr tut so, als wolltet Ihr keinen Konflikt, versucht dann aber, meine Geheimnisse zu stehlen? Wenn Ihr darauf besteht, so weiterzumachen, verspreche ich, dass es Euch leidtun wird! [Verrat]
+WARN_INVADED_01            | Warum sind Sie in meinen Raum im [system] System eingedrungen?! Wollt Ihr einen Konflikt anzetteln oder habt Ihr lediglich die Kontrolle über Eure Körper verloren? 
+WARN_ESPIONAGE_01          | Ich verstehe Sie nicht, [spy_name]. Ihr tut so, als wolltet Ihr keinen Konflikt, versucht dann aber, meine Geheimnisse zu stehlen? Wenn Ihr darauf besteht, so weiterzumachen, verspreche ich, dass es Euch leidtun wird! [framed]
 WARN_SABOTAGE_01           | Mit diesem Akt der Sabotage machen Sie mich zum Gespött! Meine Suche hat Vorrang vor allem anderen, aber wenn das noch einmal passiert, werde ich meine Suche unterbrechen, um mich persönlich um Sie zu kümmern! 
 WARN_BIOWEAPON_01          | Diese Waffe von dir ist absolut schrecklich. Sie überhaupt zu benutzen, spricht für das, was Sie wirklich sind, aber sie auf dem Körper eines anderen Lebewesens zu benutzen, macht mich völlig demütig! 
 WARN_GENOCIDE_01           | Wie gefühllos! Ich hätte nie erwartet, dass Sie so weit gehen würden, denjenigen, der als [victim_name] bekannt ist, vollständig zu zerstören. Ich werde die Barbarei, die Sie heute an den Tag gelegt haben, nie vergessen. 
 WARN_FINAL_WAR_01          | Ich sehe jetzt, dass die Galaxie in Frieden leben muss, damit ich meinen Traum verwirklichen kann. Aber solange Ihr existiert, kann dieser Frieden niemals verwirklicht werden. Die Antwort liegt auf der Hand: Die [rebel_name] müssen vernichtet werden! 
-WARN_COUNCIL_VOTE_01       | Ich gebe zu, dass ich mit den Feinheiten dessen, was Ihr "politisches Manövrieren" nennt, nicht vertraut bin. Aber ich weiß, dass Sie mit Ihrer Stimmabgabe für [other_Name] einen Schritt gegen mich gemacht haben, und ich vergesse nicht, dass diese mich so behindern. 
+WARN_COUNCIL_VOTE_01       | Ich gebe zu, dass ich mit den Feinheiten dessen, was Ihr "politisches Manövrieren" nennt, nicht vertraut bin. Aber ich weiß, dass Sie mit Ihrer Stimmabgabe für [other_name] einen Schritt gegen mich gemacht haben, und ich vergesse nicht, dass diese mich so behindern. 
 WARN_OATHBREAKER_01        | Ist das Ihre Vorgehensweise, [your_name]? Eine Vereinbarung zu treffen, nur um sie zu brechen, wenn Sie es für richtig halten? Ich wusste, dass Sie nicht so sind wie ich, und Ihre Handlungen beweisen dies ohne jeden Zweifel! [spiesCaught] 
 WARN_ATTACKED_ALLY_01      | Warum greifen Sie meinen Freund [defender_name] an, [your_name]? Finden Sie einen anderen Weg zur Lösung Ihrer Differenzen: Ich mag es nicht, wenn ich gezwungen werde, einzugreifen! 
 WARN_REBELLING_AGAINST_01  | Ich mag den [your_name] nicht, und noch weniger mag ich, dass Sie zum Anführer des Rates gewählt wurden! Ich muss darüber nachdenken, was heute geschehen ist, und Sie sollten darüber nachdenken, wie ich vielleicht bald gezwungen sein werde, zu reagieren! 
@@ -199,7 +199,7 @@ ACCEPT_BREAK_ALLIANCE_01   | Ich stimme zu, die [other_race] ist nicht mehr vert
 ACCEPT_BREAK_ALLIANCE_01   | Auch wenn es mich schmerzt, der [other_race] den Rücken zu kehren, habe ich das getan.
 ACCEPT_BREAK_ALLIANCE_01   | Das [other_empire] ist nicht länger mein Verbündeter
 ACCEPT_BREAK_ALLIANCE_01   | Die Allianz von mir und dem [other_empire] liegt nun in Fetzen unter unseren Füßen.
-ACCEPT_BREAK_ALLIANCE_01   | Wie Sie wünschen, werde ich das [andere_Volk] nicht länger meinen Verbündeten nennen.
+ACCEPT_BREAK_ALLIANCE_01   | Wie Sie wünschen, werde ich das [other_empire] nicht länger meinen Verbündeten nennen.
 
 ACCEPT_JOINT_WAR_01        | Das [other_empire] muss vor der vereinten Macht von [my_race] und [your_race] fallen.
 ACCEPT_JOINT_WAR_01        | Mit [my_race] und [your_race] verbündet, wird die [other_race] nicht lange überleben.
@@ -210,7 +210,7 @@ RESPOND_CLOSE_EMBASSY_01   | So sei es. Es wird keine weiteren Diskussionen zwis
 RESPOND_BREAK_TRADE_01     | Ich werde mir das merken.
 RESPOND_BREAK_TRADE_01     | Also, [your_nameTitel] [your_name], Sie können Ihr Wort nicht halten. Ich werde dies nicht vergessen.
 
-RESPOND_BREAK_PACT_01      | Ich werde die Worte deiner gebrochenen Verträge auf deinen Grabstein schreiben, [your_nametitle] [your_name].
+RESPOND_BREAK_PACT_01      | Ich werde die Worte deiner gebrochenen Verträge auf deinen Grabstein schreiben, [your_nameTitle] [your_name].
 RESPOND_BREAK_PACT_01      | Das [your_empire] wird unter dem Gewicht seiner eigenen gebrochenen Versprechen zerbröckeln.
 
 RESPOND_BREAK_ALLIANCE_01  | Sie haben die Vereinbarung entehrt. Die Allianz ist gebrochen.
