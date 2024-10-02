@@ -1,21 +1,21 @@
 // all possible names
-nome: Nazlokiano, Sarlokiano, Spailokiano, Shadelokiano
+name: Nazlokiano, Sarlokiano, Spailokiano, Shadelokiano
 
 desc1: Diplomáticos Agresivos
 desc2: Espías Supremos
-desc3: [_race_pluralnoun] son espectros antinaturales y secretos, que se originan en otra dimensión  
+desc3: [my_race_pluralnoun] son espectros antinaturales y secretos, que se originan en otra dimensión  
 
 // possible home system names
-casa: Nazin, Mordor, Hades, Abyssal, Hel
-título:     Soberano
-título completo: Soberano
+home: Nazin, Mordor, Hades, Abyssal, Hel
+title:     Soberano
+fulltitle: Soberano
 
 // possible leader names
-líder: Darquan, Morfane, Narzina, Nazgur, Shador, Ssithra
+leader: Darquan, Morfane, Narzina, Nazgur, Shador, Ssithra
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-nave1: Niebla, Vapor, Chispa, Velo, Presagio, Éter, Centelleo
-nave2: Espejismo, Sombra, Sueño, Ilusión, Reflexión, Visión, Guarida
-nave3: Fantasma, Espectro, Wraith, Shade, Ghost, Espíritu, Poltergeist
-nave4: Pesadilla, Phantasm, Terror, Horror, Renacido, La Parca, Fobos
+ship1: Niebla, Vapor, Chispa, Velo, Presagio, Éter, Centelleo
+ship2: Espejismo, Sombra, Sueño, Ilusión, Reflexión, Visión, Guarida
+ship3: Fantasma, Espectro, Wraith, Shade, Ghost, Espíritu, Poltergeist
+ship4: Pesadilla, Phantasm, Terror, Horror, Renacido, La Parca, Fobos
 

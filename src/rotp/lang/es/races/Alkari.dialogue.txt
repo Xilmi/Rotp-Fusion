@@ -45,7 +45,7 @@ DECLAREWAR_SPYING_02       | ¡Tal ultraje no quedará impune, embajador! ¡Aque
 DECLAREWAR_SPYING_03       | ¡Embajador! ¿Cómo se atreve su gente a cometer actos tan atroces contra la Soberanía?!¡Haremos justicia por esto a toda costa! ¡Prepárense para la guerra!
 //
 DECLAREWAR_ATTACK_01       | Hmph! ¡Qué decisión tan temeraria, embajador! ¡Pero si la guerra es lo que desean, entonces la guerra es lo que la Soberanía les traerá!
-DECLAREWAR_ATTACK_02       | ¡Así comienza, embajador! Si la gente [my_race_raceadjecF] pudo sobrevivir a las interminables guerras del Milenio Carmesí, ¡nosotros sobreviviremos fácilmente a una guerra contra los de su gente!
+DECLAREWAR_ATTACK_02       | ¡Así comienza, embajador! Si la gente [my_raceadjecF] pudo sobrevivir a las interminables guerras del Milenio Carmesí, ¡nosotros sobreviviremos fácilmente a una guerra contra los de su gente!
 DECLAREWAR_ATTACK_03       | ¡Deberíamos haber esperado este tipo de vulgaridades de una raza tosca como la suya, embajador! ¡No crean que la soberanía se les entregará sin oposición!
 //
 DECLAREWAR_OPPORTUNITY_01  | Como puede ver, nosotros [my_empireof] hemos tenido mucho éxito en nuestras aventuras espaciales. Desafortunadamente, embajador, nuestras necesidades dictan que nuestro próximo éxito debe ser a expensas de su imperio. 

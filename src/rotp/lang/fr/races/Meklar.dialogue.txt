@@ -16,7 +16,7 @@
 
 CONTACT_ERRATIC            | Espèce : [your_raceadjecF]. Désignation du leader : [your_title]. Innovations technologiques : variées. Évaluation de la menace : non concluante.
 CONTACT_HONORABLE          | L'espèce [your_raceadjecF] présente un intérêt. [my_empire] il sent le potentiel de coopérer pour un bénéfice mutuel. Les résultats restent à voir.
-CONTACT_RUTHLESS           | [my_empire] est maintenant au courant de l'existence [your_race_pluralnounof]. [my_title] lance un avertissement à toute l'espèce [your_raceadjecF] : n'interférez pas avec les objectifs du Dominion. Cela entraînera l'extinction [your_pluralnounof].
+CONTACT_RUTHLESS           | [my_empire] est maintenant au courant de l'existence [your_race_pluralnounof]. [my_title] lance un avertissement à toute l'espèce [your_raceadjecF] : n'interférez pas avec les objectifs du Dominion. Cela entraînera l'extinction [your_race_pluralnounof].
 //
 GREETING_01                | Identité de l'ambassadeur allié confirmée. Énoncez la demande au Dominion. Dominion aidera si possible. 
 GREETING_04                | [my_empire] reconnaît l'ambassadeur [your_race_pluralnounof].Dominion est prêt à traiter les demandes pour le moment.
@@ -45,13 +45,13 @@ DECLAREWAR_ASSASSIN_01     | Ambassador du Dominion rendu inutilisable par l'esp
 OFFER_PEACE_01             | [my_title] atteint un nouveau jugement. La guerre n'est plus une dépense acceptable pour le Dominion. Dominion souhaite négocier la paix immédiatement. 
 OFFER_TRADE_01             | L'espèce [your_raceadjecF] possède des ressources importantes. Dominion possède également des objets de valeur. Dominion propose un accord commercial à [amt] BC par an.  
 OFFER_PACT_01              | Dominion aspire à un résultat au-delà des conflits insensés. Pacte de non-agression avec l'espèce [your_raceadjecF] considéré comme le moyen le plus prudent d'obtenir le résultat déclaré. 
-OFFER_ALLIANCE_01          | [my_title] valorise la diplomatie avec l'espèce [your_raceadjecF]. Dominion propose une alliance formelle pour assurer la survie à la fois de l'espèce [your_raceadjecf] et de l'espèce [my_raceadjecF]. Réponse immédiate demandée.  
+OFFER_ALLIANCE_01          | [my_title] valorise la diplomatie avec l'espèce [your_raceadjecF]. Dominion propose une alliance formelle pour assurer la survie à la fois de l'espèce [your_raceadjecF] et de l'espèce [my_raceadjecF]. Réponse immédiate demandée.  
 
 WARN_TRESPASSING_01        | Espèce [your_raceadjecF] détectée dans le système [system]. Zone précédemment revendiquée par Dominion. Quitter immédiatement. 
 WARN_EXPANSION_01          | Expansion rapide de l'espèce [your_raceadjecF] considérée comme une menace pour les objectifs du Dominion. La poursuite de la croissance territoriale forcera une action militaire en guise de réponse. 
 WARN_BUILDUP_01            | Le réseau de surveillance du Dominion identifie les flottes de l'espèce [your_raceadjecF] comme une menace potentielle pour la sécurité.  Surveillance accrue de l'espèce [your_raceadjecF] pour garantir que les intérêts du Dominion ne soient pas compromis.
-WARN_SKIRMISH_01           | Conflit entre les flottes du Dominion et de l'espèce [your_raceadjecf] détecté à [system]. Dominion déconseille les récidives offenses : Dominion est prêt à réagir de manière appropriée si l'avertissement n'est pas pris en compte. 
-WARN_ATTACKED_01           | Agression [attacker_racedjec] agression constatée à [system]. [defender_title] donne un message à l'ambassadeur : continuer à menacer la sécurité du Dominion entraînera l'extinction de l'espèce [attacker_raceadjecF]. 
+WARN_SKIRMISH_01           | Conflit entre les flottes du Dominion et de l'espèce [your_raceadjecF] détecté à [system]. Dominion déconseille les récidives offenses : Dominion est prêt à réagir de manière appropriée si l'avertissement n'est pas pris en compte. 
+WARN_ATTACKED_01           | Agression [attacker_raceadjec] agression constatée à [system]. [defender_title] donne un message à l'ambassadeur : continuer à menacer la sécurité du Dominion entraînera l'extinction de l'espèce [attacker_raceadjecF]. 
 WARN_INVADED_01            | Rappel de Dominion que l'espèce [attacker_raceadjecF] n'a aucun droit sur l'espace [defender_raceadjec]. Retirez les flottes immédiatement ou faites face à l'anéantissement total..
 WARN_ESPIONAGE_01          | De l'activité d'espionnage [spy_raceadjecF] enregistrée sur le territoire du Dominion. Protocoles de sécurité du Dominion supérieurs aux compétences [spy_race_pluralnounof] en espionnage. Tester à nouveau Dominion peut s'avérer fatal. [framed]
 WARN_SABOTAGE_01           | Le Dominion est au courant de l'implication de l'espèce [spy_raceadjecF] dans un récent sabotage. Tentative de chaos trop insignifiante pour justifier une réponse. De nouvelles tentatives de sabotage assureront des représailles rapides. [forced]
@@ -60,11 +60,11 @@ WARN_GENOCIDE_01           | Génocide de l'espèce [victim_raceadjecF] par l'es
 WARN_FINAL_WAR_01          | Toutes les espèces connues créent un accord pour assurer une paix durable dans la galaxie. L`espéce [rebel_raceadjecF] seule dissidente. Dominion prendra les mesures appropriées.
 WARN_COUNCIL_VOTE_01       | Le Dominion est au courant des actions [voter_race_pluralnounof] au conseil. Signification sans importance. Résultat évalué comme préjudiciable aux objectifs [candidate_race_pluralnounof]. Statut diplomatique ajusté en conséquence.  
 WARN_OATHBREAKER_01        | [my_title] juge : l'espèce [your_raceadjecF] n'est plus considérée comme digne de confiance. Toutes les transactions futures sont sujettes à révision sur la base du non-respect de l'accord contraignant de l'espèce [your_raceadjecF]. [spiesCaught]
-WARN_ATTACKED_ALLY_01      | Conflit enregistré entre l'espèce [your_raceadjecF] et l'espèce [defender_raceadjecF]. L'espèce [defender_raceadjecf] alliée connue du Dominion. Cessez de vous battre ou préparez-vous aux conséquences. 
+WARN_ATTACKED_ALLY_01      | Conflit enregistré entre l'espèce [your_raceadjecF] et l'espèce [defender_raceadjecF]. L'espèce [defender_raceadjecF] alliée connue du Dominion. Cessez de vous battre ou préparez-vous aux conséquences. 
 WARN_REBELLING_AGAINST_01  | L'espèce [your_raceadjecF] désormais obstacle aux objectifs du Dominion. Décision du Conseil Galactique inacceptable. En attente de la réponse de l'Arbitre Suprême. 
 
 
-PRAISE_COUNCIL_VOTE_01     | L'ambassadeur de l'espèce [voter_racedjecF] continue d'aider à faire avancer les objectifs [candidate_race_pluralnounof]. Dominion reconnaît l'avantage d'une relation continue avec l'espèce [voter_raceadjecF]. Dominion remboursera la faveur si nécessaire. 
+PRAISE_COUNCIL_VOTE_01     | L'ambassadeur de l'espèce [voter_raceadjecF] continue d'aider à faire avancer les objectifs [candidate_race_pluralnounof]. Dominion reconnaît l'avantage d'une relation continue avec l'espèce [voter_raceadjecF]. Dominion remboursera la faveur si nécessaire. 
 PRAISE_COUNCIL_VOTE_02     | Dominion prend note de votre vote positif au conseil. Dominion ajustera la vue sur l'espèce [voter_raceadjecF] en conséquence.
 PRAISE_COUNCIL_VOTE_03     | Dominion reconnaît la probabilité de subterfuge par l'espèce [voter_raceadjecF]. Continuer à aider Dominion en conseil peut apaiser les inquiétudes. 
 
@@ -74,10 +74,10 @@ PRAISE_ATTACKED_ENEMY_03   | Attaquer l'espèce [defender_raceadjecF] n'excuse p
 
 PRAISE_TRADE_01            | L'espèce du Dominion et [your_race_pluralnounof] continuent de gagner beaucoup du commerce continu. Dominion souhaite que le commerce demeure tant que l'arrangement conserve son statut avantageux.
 PRAISE_TRADE_02            | Dominion exprime sa satisfaction à l'égard de l'accord commercial avec l'espèce [your_raceadjecF]. Assurez-vous que l'accord perdure afin que les deux races profitent l'une de l'autre.
-PRAISE_REBELLING_WITH_01     | Dominion reconnaît que le dirigeant du Conseil Galactique n'est pas digne de confiance. Objection [your_race_pluralnounof] notée. Dominion aidera l'espèce [your_raceadjF] dans la rébellion.
+PRAISE_REBELLING_WITH_01     | Dominion reconnaît que le dirigeant du Conseil Galactique n'est pas digne de confiance. Objection [your_race_pluralnounof] notée. Dominion aidera l'espèce [your_raceadjecF] dans la rébellion.
  
 ACCEPT_TRADE_01            | Demande commerciale [your_race_pluralnounof] reçue. Montant proposé [amt] BC. Dominion est d'accord.
-RESPOND_IGNORE_THREAT_01   | Menace déroutante de l'espèce [your_raceadjecF]. Civilization [your_raceadjecf] nettement inférieur aux flottes du Dominion. Ignorer.
+RESPOND_IGNORE_THREAT_01   | Menace déroutante de l'espèce [your_raceadjecF]. Civilization [your_raceadjecF] nettement inférieur aux flottes du Dominion. Ignorer.
 RESPOND_STOP_SPYING_01     | Espion du Dominion capturé alors qu'il tentait d'avoir un aperçu des formes de vie [your_race_pluralnounof]. Dominion s'excuse. Renvoyer capturé [my_raceadjec] dès que possible
 RESPOND_STOP_ATTACKING_01  | Dominion a réussi à montrer ses capacités militaires à la civilisation [your_raceadjecF]. Renvoyer les flottes aux coordonnées d'attente désignées.
 

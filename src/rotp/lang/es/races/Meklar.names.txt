@@ -1,21 +1,21 @@
 // all possible names
-nome: Meklonariano, Mechanariano, Cybernariano, Digitariano, Technariano
+name: Meklonariano, Mechanariano, Cybernariano, Digitariano, Technariano
 
 desc1: Industriales Erráticos
 desc2: Controles de Fábrica Mejorados
-desc3: Los ciudadanos [_race_pluraladjec] del Dominio buscan la perfección y la inmortalidad a través de la tecnología.
+desc3: Los ciudadanos [my_race_pluraladjec] del Dominio buscan la perfección y la inmortalidad a través de la tecnología.
 
 // possible home system names
-casa: Meklon, Collosson, Calculon, Bender, Optimus
+home: Meklon, Collosson, Calculon, Bender, Optimus
 
-título:     Árbitro Supremo
-título completo: Árbitro Supremo
+title:     Árbitro Supremo
+fulltitle: Árbitro Supremo
 
 // possible leader names
-líder: CB-715, INT-986, MS-35, QX-537, TVC-15, TX-1138
+leader: CB-715, INT-986, MS-35, QX-537, TVC-15, TX-1138
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-nave1: Byte, Transistor, Interruptor, Componente, Circuito, Dígito, Lógica  
-nave2: Procesador, Calculadora, Computadora, Algoritmo, Red, Cálculo
-nave3: Dinamo, Batería, Áyax, Tornado, Nexo, Merodeador, Dracma
-nave4: Némesis, Devastador, Aniquilador, Intruso, Hiperión, Penetrador, Atormentador
+ship1: Byte, Transistor, Interruptor, Componente, Circuito, Dígito, Lógica  
+ship2: Procesador, Calculadora, Computadora, Algoritmo, Red, Cálculo
+ship3: Dinamo, Batería, Áyax, Tornado, Nexo, Merodeador, Dracma
+ship4: Némesis, Devastador, Aniquilador, Intruso, Hiperión, Penetrador, Atormentador

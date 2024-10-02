@@ -26,7 +26,7 @@ MAIN_ADVISOR_TITLE                | %1 Stödgivare
 MAIN_ADVISOR_BUTTON_OK            | Avfärda
 MAIN_ADVISOR_SCOUT                | Store Härskare, vi har förberett både spejare och ett koloni-skepp för avfärd. Vi börjar utforska och kolonisera omgivningen på er order.
 MAIN_ADVISOR_TRANSPORT            | %1 är nu en del av vårt territorium! Ge ordern, så skickar vi genast transporter för att befolka planeten.
-MAIN_ADVISOR_DIPLOMACY            | En främmande folkras har kommit i kontakt med vårt Välde, [_title]. Vi väntar på ert beslut om vi ska förhålla oss som vänner eller fiender.
+MAIN_ADVISOR_DIPLOMACY            | En främmande folkras har kommit i kontakt med vårt Välde, [my_title]. Vi väntar på ert beslut om vi ska förhålla oss som vänner eller fiender.
 MAIN_ADVISOR_SHIP_ENGINE          | Våra forskare fortsätter att storma fram med sina upptäckter! Den här gången genom att förbättra våra skeppsmotorer. De väntar ert beslut angående möjliga skeppsinstallationer.
 MAIN_ADVISOR_RALLY_POINTS         | Strid, blod och ära väntar oss! Bestäm vart de nyligen konstruerade fartygen ska flyga med hjälp av Samlingspunkter.
 MAIN_ADVISOR_MISSILE_BASES        | Våra kolonier väntar på er befallning, Härskare. De förväntar sig missilbaser för defensiva förberedelser.

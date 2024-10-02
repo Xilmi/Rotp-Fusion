@@ -68,13 +68,13 @@ PRAISE_COUNCIL_VOTE_01     | I nostri amici [voter_empireof] non ci hanno mai de
 PRAISE_COUNCIL_VOTE_02     | Al consiglio sono state prese decisioni sagge, ma forse la più saggia è stata il voto che ha posto per la Repubblica. Riconosciamo tale... dedizione alla pace e possiamo godere dell'amicizia con voi fintanto che tale dedizione continua.  
 PRAISE_COUNCIL_VOTE_03     | Siamo a conoscenza del Suo voto per la Repubblica in consiglio. Siamo sorpresi, ambasciatore, e forse abbiamo sottovalutato l'intelligenza della Sua gente. 
 
-PRAISE_ATTACKED_ENEMY_01   | Ambasciatore! Il Suo aiuto è molto... apprezzato. Insieme rimuoveremo la minaccia [defender_raceadjF] e ripristineremo la pace che questa galassia desidera disperatamente. 
+PRAISE_ATTACKED_ENEMY_01   | Ambasciatore! Il Suo aiuto è molto... apprezzato. Insieme rimuoveremo la minaccia [defender_raceadjecF] e ripristineremo la pace che questa galassia desidera disperatamente. 
 PRAISE_ATTACKED_ENEMY_02   | Consideriamo e onoriamo le azioni [attacker_empireof] come un impegno per i nostri ideali di una pace più grande. Siate certi che non appena... costringeremo [defender_race_pluralnoun] a calmarsi, la pace potrà riprendere. 
 PRAISE_ATTACKED_ENEMY_03   | La Sua gente è sia violenta che sfacciata, quindi non sorprende che vi uniate così facilmente a una guerra. Tuttavia, il fatto che abbiate rivolto le vostre armi verso il partito che non combatte per la pace deve almeno essere... riconosciuto. 
 
 PRAISE_TRADE_01            | Commerciare con un altro che si dedica alla pace è un vantaggio, ma commerciare con un amico che si dedica alla pace è davvero una benedizione. Che i nostri accordi commerciali e la nostra amicizia durino fino alla fine della galassia! 
 PRAISE_TRADE_02            | Non è meraviglioso, ambasciatore? Guardi quanto semplici atti commerciali avvantaggiano tutte le parti coinvolte! Speriamo che questo continui a essere un vantaggio per entrambe le nostre razze per gli eoni a venire! 
-PRAISE_REBELLING_WITH_01   | Noi [my_race_pluraladj] abbiamo sempre creduto che la guerra non sia mai la risposta. Questo consiglio, tuttavia, ci mostra che abbiamo sbagliato fin dall'inizio. Fate la vostra guerra, ambasciatore, e sappete che la Repubblica è con voi! 
+PRAISE_REBELLING_WITH_01   | Noi [my_race_pluraladjec] abbiamo sempre creduto che la guerra non sia mai la risposta. Questo consiglio, tuttavia, ci mostra che abbiamo sbagliato fin dall'inizio. Fate la vostra guerra, ambasciatore, e sappete che la Repubblica è con voi! 
  
 ACCEPT_TRADE_01            | Sì, ambasciatore, siamo d'accordo che il commercio reciproco è la via migliore per la pace. [amt] BC ogni anno va abbastanza bene e vi ringraziamo per la vostra generosità.
 RESPOND_IGNORE_THREAT_01   | Non scambiate il nostro pacifismo per debolezza! Sicuramente la vostra minaccia è stata espressa con rabbia irrazionale, quindi questa volta perdoneremo il vostro sfogo.

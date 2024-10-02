@@ -36,7 +36,7 @@ DECLAREWAR_MILITARY_01     | Még mindig nem találtam meg, aki olyan, mint én.
 DECLAREWAR_MILITARY_02     |Mit titkolsz előlem [your_name]? Nem tudhatom biztosan amíg meg nem vizsgálom mindegyik világodat, és most elveszem őket tőled, hogy megtehessem!
 DECLAREWAR_MILITARY_03     | Nem engedem tovább, hogy rejtegesd a keresésem tárgyát! Tudom, hogy akit keresek, az az egyik világotokon van. Nem nyugszom, amíg át nem adod őket nekem!
 DECLAREWAR_ALLIANCE_01     | [other_name] nevű barátom többet segített a küldetésemben, mint azt sejthette. Örömmel törlesztek azzal, hogy megszabadulok tőled!
-DECLAREWAR_ALLIANCE_02     | Azokat, akik segítenek a keresésemben, örökké értékelni fogom és tiszteletem jeléül boldogan megadom amit tudok [other_name] barátomnak. Készülj a halálra, [yout_name]!
+DECLAREWAR_ALLIANCE_02     | Azokat, akik segítenek a keresésemben, örökké értékelni fogom és tiszteletem jeléül boldogan megadom amit tudok [other_name] barátomnak. Készülj a halálra, [your_name]!
 DECLAREWAR_ALLIANCE_03     | Mindenkire nyomást gyakorolsz a galaxisban, mert azt hiszed, senki sem merne szembeszállni az akaratoddal. Ha [other_name] harcot hoz majd neked, akkor én is úgy teszek majd!
 DECLAREWAR_SPYING_01       | Egyik világomon sem történik olyan dolog, ami elkerülné a figyelmemet. Mivel ragaszkodsz ahhoz, hogy ilyen aljas módon viselkedj, nem hagysz nekem más választást, mint hogy elpusztítsalak.
 DECLAREWAR_SPYING_02       | Ostoba [your_name], elegem van a játékaidból! Nem lesz időd ilyen aljas cselszövésekre, ha vissza kell verned a seregeimet! Készülj a háborúra!
@@ -57,7 +57,7 @@ WARN_EXPANSION_01          | Nem fogom engedni, hogy megakadályozd, hogy véghe
 WARN_BUILDUP_01            | Lenyűgöző méretűre növelted a flottádat, [your_name]. Légy azonban óvatos, hogyan használod, amíg az én flottám jelen van.
 WARN_SKIRMISH_01           | Az incidens, ami[system] rendszernél történt nyugtalanít. Ez csak félreértés volt a részedről? Győződj meg róla, hogy ez nem fordul elő újra: nem akarok harcolni ellened, [your_name] ha nem muszáj.
 WARN_ATTACKED_01           | Mit nyerhetsz azzal, ha így megtámadsz? Azonnal vess véget az agressziónak, különben arra kényszerítesz, hogy százszorosan fizessem vissza!
-WARN_INVADED_01            | Miért támadtad meg a területemet [rendszer] rendszerben?! Konfliktust szándékozol kirobbantani, vagy egyszerűen elvesztetted az uralmat a tested felett? 
+WARN_INVADED_01            | Miért támadtad meg a területemet [system] rendszerben?! Konfliktust szándékozol kirobbantani, vagy egyszerűen elvesztetted az uralmat a tested felett? 
 WARN_ESPIONAGE_01          | Nem értelek, [spy_name]. Úgy teszel, mintha nem akarnál konfliktust, de megpróbálod ellopni a titkaimat? Ha ragaszkodsz ahhoz, hogy így folytasd, megígérem, hogy bánni fogod! [framed]
 WARN_SABOTAGE_01           | Gúnyt űzöl belőlem ezzel a szabotázs akcióval! Az én küldetésem elsőbbséget élvez minden mással szemben, de ha ez újra megtörténik, felfüggesztem a kutatást, hogy személyesen foglalkozzam veled! [forced]
 WARN_BIOWEAPON_01          | Ez a fegyvered abszolút borzasztó. Ha egyáltalán használod, az arról beszél, ami valójában vagy, de ha egy másik élőlény testén használod, az végképp elkeserítő!
@@ -166,7 +166,7 @@ DECLINE_TECH_TRADE_01      | [your_name], vajmi kevés szükségem van arra, ami
 DECLINE_TECH_TRADE_01      | Kevés érdeklődést látok a technológiádra.
 
 DECLINE_NO_WAR_ON_ALLY_01  | Nem fogok háborúba egy szövetségessel.
-DECLINE_PEACE_TREATY_01    | Nem fogom megszegni a békemegállapodásomat [other_name_5].
+DECLINE_PEACE_TREATY_01    | Nem fogom megszegni a békemegállapodásomat [other_name].
 
 OFFER_TECH_EXCHANGE_01     | Nagy szükségem van a te [tech] technológiádra. Talán hajlandó vagy elcserélni az enyémek valamelyikével.
 OFFER_TECH_EXCHANGE_01     | Tudom, hogy kiismerted [tech] titkait. Felajánlhatom cserébe valamelyiket az enyémek közül?

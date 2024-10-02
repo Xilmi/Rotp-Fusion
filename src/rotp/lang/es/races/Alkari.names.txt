@@ -1,22 +1,22 @@
 // all possible names
-nome: Altairianos, Aviarianos, Cluckarianos, Featharianos, Fowlarianos
+name: Altairianos, Aviarianos, Cluckarianos, Featharianos, Fowlarianos
 
 desc1: Militaristas Honorables
 desc2: Pilotos Superiores
-desc3: La Soberanía [_raceadjecF] es una sociedad guerrera organizada que valora el honor en la batalla.
+desc3: La Soberanía [my_raceadjecF] es una sociedad guerrera organizada que valora el honor en la batalla.
 
 // possible home system names
-casa: Altair, Aegir, Aviar, Volary, Aerie
+home: Altair, Aegir, Aviar, Volary, Aerie
 
-título:     Rey de la Espira
-título completo: Rey de la Espira
+title:     Rey de la Espira
+fulltitle: Rey de la Espira
 
 // possible leader names
-líder: Ariel, Vidente, Altovuelo, Alaroja, Garrafilada, Señor del Cielo
+leader: Ariel, Vidente, Altovuelo, Alaroja, Garrafilada, Señor del Cielo
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-nave1: Zorromurciélago, Gavilán, Pelícano, Pinzón, Reyezuelo, Cuervo, Pluma
-nave2: Halcón, Halcón del Cielo, Gaviota Espacial, Búho de Battla, Frailecillo, Ala Estelar
-nave3: Pájaro de Guerra, Halcón de Guerra, Águila de Guerra, Halieto, Buitre, Arpía, Cóndor
-nave4: Pájaro del Trueno, Ala del Temor, Maestro del Cielo, Ruc, Rodan, Grifo, Fénix
+ship1: Zorromurciélago, Gavilán, Pelícano, Pinzón, Reyezuelo, Cuervo, Pluma
+ship2: Halcón, Halcón del Cielo, Gaviota Espacial, Búho de Battla, Frailecillo, Ala Estelar
+ship3: Pájaro de Guerra, Halcón de Guerra, Águila de Guerra, Halieto, Buitre, Arpía, Cóndor
+ship4: Pájaro del Trueno, Ala del Temor, Maestro del Cielo, Ruc, Rodan, Grifo, Fénix
 

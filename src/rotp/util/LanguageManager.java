@@ -121,6 +121,21 @@ public class LanguageManager implements Base {
         if (selectedLanguage() == i)
             return;
         loadLanguage(i);
+        
+        validateDialogueTokens(true); // TODO BR: change to false
+    }
+    private void validateDialogueTokens(boolean doIt) {
+    	if (!doIt)
+    		return;
+    	boolean valid = true;
+    	System.out.println("Start Dialogue Tokens Validation");    	
+    	for (Race r : Race.races()) {
+    		valid &= r.validateDialogueTokens();
+    	}
+    	if (valid)
+    		System.out.println("Validation Successful");
+    	else
+    		System.out.println("Validation Failed");
     }
     public void reloadLanguage()      { loadLanguage(selectedLanguage()); } // BR: to reload labels without having to restart
     public void reloadRace(Race race) { // BR: to reload Selected race labels
@@ -187,6 +202,7 @@ public class LanguageManager implements Base {
             }
         }
     }
+    
     protected String languageDisplayName(String fn) {
         FileInputStream fis;
         try {

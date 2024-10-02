@@ -1,22 +1,22 @@
 // all possible names
-nome: Humano, Terrano, Tellano, Primano, Midgardiano
+name: Humano, Terrano, Tellano, Primano, Midgardiano
 
 desc1: Diplomáticos Honorables
 desc2: Comerciantes Expertos y Magníficos Diplomáticos.
 desc3: Los humanos con su labia son maestros en convencer a otros para que sirvan a los intereses humanos.
 
 // possible home system names
-casa: Tierra, Terra, Tellus, Prime, Midgard
+home: Tierra, Terra, Tellus, Prime, Midgard
 
-título:     Triunviro
-títule completo: Triunviro
+title:     Triunviro
+fulltitle: Triunviro
 
 // possible leader names
-líder: Alexander, Bladrov II, Durash IV, Johann III, Lasitus, Strader
+leader: Alexander, Bladrov II, Durash IV, Johann III, Lasitus, Strader
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-nave1: Centinela, Encuesta, Correo, Explorador, Buscador, Mensajero, Patrulla
-nave2: Fragata, Corbeta, Cañonero, Caza, Brigada, Alcaudón, Comando
-nave3: Crucero, Escolta, Buque de Guerra, Defensor, Portaaeronaves, Vanguardia, Aguilucho
-nave4: Acorazado monocalibre, Acorazado, Dreadstar, Devastador, Crucero de guerra, Vengador, Destructor
+ship1: Centinela, Encuesta, Correo, Explorador, Buscador, Mensajero, Patrulla
+ship2: Fragata, Corbeta, Cañonero, Caza, Brigada, Alcaudón, Comando
+ship3: Crucero, Escolta, Buque de Guerra, Defensor, Portaaeronaves, Vanguardia, Aguilucho
+ship4: Acorazado monocalibre, Acorazado, Dreadstar, Devastador, Crucero de guerra, Vengador, Destructor
 

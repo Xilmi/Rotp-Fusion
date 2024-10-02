@@ -48,7 +48,7 @@ MAIN_COLONIZE_ANIMATION_TITLE     | Nell'anno %1, ho formato una nuova colonia.
 MAIN_ALERT_SPY_CAPTURED           | Ho catturato una spia [ofalien_empire], costringendolo a confessare le loro attività %2 .
 MAIN_ALERT_TRANSPORTS_KILLED      | I miei tentativi di raggiungere %2 sono stati fermati difendendo le forze [alien_race].
 MAIN_ALERT_INVADERS_KILLED        | Dei trasporti [alien_race_plural] che tentavano di invadere %2 sono stati completamente distrutti da me.
-MAIN_BOMBARD_TITLE                | Sto orbitando attorno a una colonia nemica [alien_raceF].
+MAIN_BOMBARD_TITLE                | Sto orbitando attorno a una colonia nemica [alien_race].
 
 TECH_RESEARCH_COMPUTER            | Devo selezionare la prossima tecnologia informatica su cui concentrarmi.
 TECH_RESEARCH_CONSTRUCTION        | Devo selezionare la prossima tecnologia di costruzione su cui concentrarmi.
@@ -69,7 +69,7 @@ TECH_ALLOCATE_ENRICH_SOIL         | Devo aumentare i rapporti ecologici delle mi
 TECH_ALLOCATE_ATMOSPHERE          | Devo aumentare i rapporti ecologici delle mie colonie con ambienti ostili per iniziare a terraformare i miei pianeti?
 TECH_ALLOCATE_TERRAFORM           | Devo aumentare i rapporti ecologici di tutte le mie colonie per iniziare a terraformare i miei pianeti?
 
-NOTICE_ESPIONAGE_TITLE            | Mi sono infiltrato in una base [alien_raceF].
+NOTICE_ESPIONAGE_TITLE            | Mi sono infiltrato in una base [alien_race].
 NOTICE_ESPIONAGE_FRAME_TITLE      | Sono riuscito a incastrare un'altra razza per il furto.
 
 SHIP_COMBAT_TITLE_DESC            | Incontro una flotta [alien_race] ostile.

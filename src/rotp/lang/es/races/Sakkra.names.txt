@@ -1,22 +1,22 @@
 // all possible names
-nome: Ssslaurano, Reptarano, Saurano, Raptorano, Tyrannano
+name: Ssslaurano, Reptarano, Saurano, Raptorano, Tyrannano
 
 desc1: Expansionistas Agresivos
 desc2: Mayor crecimiento de la población
-desc3: Los fanáticos del Cónclave [_raceadjec] se esfuerzan por perfeccionar los mundos que conquistan.
+desc3: Los fanáticos del Cónclave [my_raceadjec] se esfuerzan por perfeccionar los mundos que conquistan.
 
 // possible home system names
-casa: Sssla, Sssana, Sssihs, Sssha, Sssss, Hsssa
+home: Sssla, Sssana, Sssihs, Sssha, Sssss, Hsssa
 
-título:     Magíster
-título completo: Primer Magíster
+title:     Magíster
+fulltitle: Primer Magíster
 
 // possible leader names
-líder: Guanar, Hissa, Kryssta, Saurak, Sauron, Tyranid
+leader: Guanar, Hissa, Kryssta, Saurak, Sauron, Tyranid
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-nave1: Geco, Camaleón, Lagarto, Iguana, Esquinco, Anolis, Cola de Látigo
-nave2: Tegu, Varanus, Dracaena, Caimán, Cocodrilo, Gavial, Basilisco
-nave3: Dinosaurio, Raptor, Pterodáctilo, Terópodo, Ceratops, Depredador, Plesiosauro
-nave4: Titán, Coloso, Dragón, Godzilla, Kraken, Gorgona, Tiranosaurio
+ship1: Geco, Camaleón, Lagarto, Iguana, Esquinco, Anolis, Cola de Látigo
+ship2: Tegu, Varanus, Dracaena, Caimán, Cocodrilo, Gavial, Basilisco
+ship3: Dinosaurio, Raptor, Pterodáctilo, Terópodo, Ceratops, Depredador, Plesiosauro
+ship4: Titán, Coloso, Dragón, Godzilla, Kraken, Gorgona, Tiranosaurio
 

@@ -33,7 +33,7 @@ DECLAREWAR_MILITARY_02     | Existuje možnosť, že odpovede, ktoré hľadáme,
 DECLAREWAR_MILITARY_03     | Ak nedokážeme nájsť riešenie našej záhady, nemá zmysel, aby naša existencia pokračovala! Ak sa odpoveď nachádza na jednom z vašich svetov, urobíme všetko preto, aby sme ju získali!
 DECLAREWAR_ALLIANCE_01     | Hlupáci! Z nášho spojenca si urobiť nepriateľa. Tým ste si urobili nepriateľa i z nás! Rýchlo vás zlikvidujeme: nemáme čas zdržiavať sa vašimi omylmi a hlúposťami!
 DECLAREWAR_ALLIANCE_02     | Málokedy sa miešame do záležitostí iných. Keď nás však spojenec, ktorý nám pomohol v hodine temnej požiada o pomoc, urobíme čo je v našich silách, aby sme mu pomohli.
-DECLAREWAR_ALLIANCE_03     | S potešením sledujeme, ako vaše ríše bojujú medzi sebou. Vieme, akú hrozbu pre nás predstavujete, a preto radi pomôžeme [defender_race_dativ	] vás odstrániť.
+DECLAREWAR_ALLIANCE_03     | S potešením sledujeme, ako vaše ríše bojujú medzi sebou. Vieme, akú hrozbu pre nás predstavujete, a preto radi pomôžeme [defender_race_dativ] vás odstrániť.
 DECLAREWAR_SPYING_01       | Pobavili ste nás! Takéto chabé pokusy o špionáž voči nám, majstrom v špehovaní? Trest za váš neúspech vás však neminie.
 DECLAREWAR_SPYING_02       | Je odvážne, že sa nás pokúšate prekonať v oblasti špionáže. Som zvedavý, ako sa vaša odvaha prejaví, keď použijeme vojenskú silu.
 DECLAREWAR_SPYING_03       | Vy ste vážne verili tomu, že vaši neohrabaní špióni uniknú nášmu ostražitému pohľadu? Ak ste tak arogantný, že ste si to mysleli, tak ste asi i dosť arogantný postaviť sa nám v boji.

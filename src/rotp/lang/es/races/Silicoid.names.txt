@@ -1,21 +1,21 @@
 // all possible names
-nome: Cryslonoide, Igneoide, Sedimoide, Granitoide, Magmoide
+name: Cryslonoide, Igneoide, Sedimoide, Granitoide, Magmoide
 
 desc1: Expansionistas Xenófobos
 desc2: Inmune a Entornos Hostiles
-desc3: Los enigmáticos y litovóricos [_race_pluraladjec] buscan en la galaxia a su eterno enemigo.
+desc3: Los enigmáticos y litovóricos [my_race_pluraladjec] buscan en la galaxia a su eterno enemigo.
 
 // possible home system names
-casa: Cryslon, Geode, Karst, Igneous, Silican
+home: Cryslon, Geode, Karst, Igneous, Silican
 
-título:     Emperador
-título completo: Emperador de Cristal
+title:     Emperador
+fulltitle: Emperador de Cristal
 
 // possible leader names
-líder: Carnax, Crystous, Geode, Granid, Igneous, Sedimin
+leader: Carnax, Crystous, Geode, Granid, Igneous, Sedimin
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-nave1: Sedimento, Guijarro, Piedra, Roca, Cristal, Mineral, Arena
-nave2: Granito, Mármol, Pizarra, Cuarzo, Piedra Pómez, Gabro, Obsidiana
-nave3: Magma, Lava, Feldespato, Riolita, Mica, Basalto, Dacita
-nave4: Diamante, Zafiro, Esmeralda, Rubí, Amatista, Topacio, Granate
+ship1: Sedimento, Guijarro, Piedra, Roca, Cristal, Mineral, Arena
+ship2: Granito, Mármol, Pizarra, Cuarzo, Piedra Pómez, Gabro, Obsidiana
+ship3: Magma, Lava, Feldespato, Riolita, Mica, Basalto, Dacita
+ship4: Diamante, Zafiro, Esmeralda, Rubí, Amatista, Topacio, Granate

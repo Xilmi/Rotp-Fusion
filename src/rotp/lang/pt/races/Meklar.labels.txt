@@ -1,7 +1,7 @@
 // race-specific variables (must start with _)
 _empire                           | Jurisdição Meklar, Jurisdição Mecanar, Jurisdição Cibernar, Jurisdição Digitar, Jurisdição Tecnar
 _race_male                        | Meklar, Mecanar, Cibernar, Digitar, Tecnar
-_race_male plural                 | Meklares, Mecanares, Cibernares, Digitares, Tecnares
+_race_male_plural                 | Meklares, Mecanares, Cibernares, Digitares, Tecnares
 _race_female                      | Meklar, Mecanar, Cibernar, Digitar, Tecnar
 _race_female_plural               | Meklares, Mecanares, Cibernares, Digitares, Tecnares
 _title                            | Mediador Supremo

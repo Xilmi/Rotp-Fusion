@@ -68,7 +68,7 @@ WARN_GENOCIDE_01 | Odstránil si [victim_race_akuzativ], však? Dobre, veď aj n
 WARN_FINAL_WAR_01 | Viete, že sme sa všetci rozhodli spojiť pre dobro všetkých svetov, však? Prečo sa chcete postaviť proti našej jednote, veľvyslanec? Čoskoro už na tom nebude záležať. Ale nebojte sa! O vaše planéty sa dobre postaráme aj po vašom odchode. Poslúžite ako dobré hnojivo.
 WARN_COUNCIL_VOTE_01 | To nebolo veľmi pekné, čo ste urobili v rade. Myslel som si, že sme sa dohodli, veľvyslanec? Že vôľa [candidate_race_akuzativ] bola vždy tou správnou voľbou? Nabudúce už si volebné tlačidlo nepomýľ, špinavý [your_race]!
 WARN_OATHBREAKER_01 | Vždy sme si mysleli, že ste fyzicky nechutní, máte čudné telá a odporný pach. Ale teraz vidíme, že výzor a vaše činy idú ruka v ruke! Zmizni mi z očí, veľvyslanec: Začína mi byť naozaj veľmi zle. [spiesCaught]
-WARN_ATTACKED_ALLY_01 | Pozri, nie sme práve fanúšikmi [obranca_race_akuzativ], aj keď technicky vzaté sme spojenci. Čo chcem povedať je, prestaňte s tým hlúpym hašterením, inak sa budeme musieť zapojiť.
+WARN_ATTACKED_ALLY_01 | Pozri, nie sme práve fanúšikmi [defender_race_akuzativ], aj keď technicky vzaté sme spojenci. Čo chcem povedať je, prestaňte s tým hlúpym hašterením, inak sa budeme musieť zapojiť.
 WARN_REBELLING_AGAINST_01 | Ako nám to mohla rada urobiť?! Ako si mohli zo všetkých ľudí vybrať práve teba, aby si viedol túto galaxiu? Nemôžeme to nechať len tak... ste jednoducho... takí... ŠPINAVÍ! 
 
 PRAISE_COUNCIL_VOTE_01 | Hej veľvyslanec! Ďakujem, že si bol v rade taký super. Tie ostatné rasy sú fakt nechutné, ale mať podporu od bytostí ako ty? No, vďaka tebe máme pocit, že robíme niečo správne. Keby si náhodou niečo potreboval, tak mi zavolaj, dobre? 

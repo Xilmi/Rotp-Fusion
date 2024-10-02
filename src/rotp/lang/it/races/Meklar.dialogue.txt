@@ -23,11 +23,11 @@ GREETING_04                | [my_empire] riconosce [your_race_pluralnoun], ambas
 GREETING_07                | Richiesta dello Stato. È improbabile che Il Dominio invii richieste [your_race_pluralnounof] a [my_title] per l'elaborazione.
 //
 DECLAREWAR_HATE_01         | [my_empire] non è più disposto a tollerare la presenza [your_empireof]. Forza della specie [your_raceadjecF] relativamente primitiva. Esecuzione del protocollo di ricerca e distruzione.
-DECLAREWAR_HATE_02         | [my_title] non consentirà più l'interferenza della specie [your_racedjecF] con gli obiettivi del Dominio. Dominio disposto a dedicare molto per preservare la direttiva primaria.
+DECLAREWAR_HATE_02         | [my_title] non consentirà più l'interferenza della specie [your_raceadjecF] con gli obiettivi del Dominio. Dominio disposto a dedicare molto per preservare la direttiva primaria.
 DECLAREWAR_HATE_03         | Il Dominio non può continuare le direttive finché [your_empire] perdura. Il Dominio deve porre fine a questa specie. Nessuna alternativa trovata.
 DECLAREWAR_ERRATIC_01      | [my_title] conclude che l'esistenza della specie [your_raceadjecF] minaccia gli obiettivi del Dominio. Il Dominio iniziando immediatamente i protocolli di sterminio.
 DECLAREWAR_ERRATIC_02      | [my_title] giudica che la specie [your_raceadjecF] probabilmente abbia il segreto per proseguire con l'obiettivo del Dominio. Il Dominio prenderà i segreti della specie [your_raceadjecF] con la forza.
-DECLAREWAR_ERRATIC_03      | [my_title] ritiene che la specie [your_raceadjecF] sia una variabile inaccettabile nei piani del Dominio. Il Dominio eliminerà la specie [your_racedjecF] o si distruggerà nel processo.
+DECLAREWAR_ERRATIC_03      | [my_title] ritiene che la specie [your_raceadjecF] sia una variabile inaccettabile nei piani del Dominio. Il Dominio eliminerà la specie [your_raceadjecF] o si distruggerà nel processo.
 DECLAREWAR_MILITARY_01     | [my_empire] deve continuare a proliferare attraverso la galassia alla ricerca dell'obiettivo finale. [your_empire] inibisce l'espansione. Problema ora in fase di correzione.
 DECLAREWAR_MILITARY_02     | Il Dominio non è in grado di individuare l'obiettivo primario. Possibilità che i pianeti vicini o [your_empireof] contengano ciò che si cerca. Guerra inevitabile.
 DECLAREWAR_MILITARY_03     | Dominio costretto ad espandere la portata del suo territorio. La forza della specie [your_raceadjecF] non può essere un fattore dissuasivo. Guerra spiacevole, ma necessaria.
@@ -35,7 +35,7 @@ DECLAREWAR_ALLIANCE_01     | [your_empire] ha dichiarato guerra all'alleato del 
 DECLAREWAR_ALLIANCE_02     | Dominion ha ricevuto una richiesta di aiuto [other_empireof]. Procedere per aiutare l'alleato nella guerra contro la specie [your_raceadjecF] finché il conflitto persiste.
 DECLAREWAR_ALLIANCE_03     | La specie [your_raceadjecF] diventa arrogante per dichiarare guerra agli altri. Il Dominio aiuterà un altro impero a rimuovere la specie [your_raceadjecF] dalla galassia.
 DECLAREWAR_SPYING_01       | La specie [your_raceadjecF] si impegna in un'azione segreta contro il Dominio. Conseguenze per il Dominio: trascurabili. Conseguenze per la specie [your_raceadjecF]: fatale.
-DECLAREWAR_SPYING_02       | Sotterfugio rilevato nel territorio del Dominio. Fonte confermata come specie [your_raceF]. I protocolli del Dominio richiedono la guerra come risposta. 
+DECLAREWAR_SPYING_02       | Sotterfugio rilevato nel territorio del Dominio. Fonte confermata come specie [your_race]. I protocolli del Dominio richiedono la guerra come risposta. 
 DECLAREWAR_SPYING_03       | Dominion rileva un evidente tentativo di destabilizzazione da parte [your_empireof]. Non si può consentire alla specie [your_raceadjecF] di continuare a interferire con gli obiettivi. Il Dominio deve vendicarsi ad ogni costo.
 DECLAREWAR_ATTACK_01       | La specie [your_raceadjecF] si è dimostrata ostile nonostante l'evidente superiorità [my_race_pluralnounof]. Dominio in movimento per rimuovere completamente la minaccia.
 DECLAREWAR_ATTACK_02       | La specie [your_raceadjecF] impedisce gli obiettivi del Dominio attaccando direttamente. Confronto inevitabile.

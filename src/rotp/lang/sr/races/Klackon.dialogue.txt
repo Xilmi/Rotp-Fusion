@@ -111,7 +111,7 @@ DECLINE_OATHBREAKER_01     | Trenutno ne želim da sklopim sporazum jer si u pro
 DECLINE_OATHBREAKER_01     | Nisi ispoštovao svoje prošle dogovore. Sada ne vidim razlog da ti verujem.
 DECLINE_OATHBREAKER_01     | Zašto bi ti verovao sada, kada si prekršio toliko prošlih sporazuma?
 DECLINE_OATHBREAKER_01     | Ne vidim razlog da se dogovaram sa nekim ko nije ispunio prošla obećanja.
-DECLINE_OATHBREAKER_01     | Nećemo se sporazumevati sa tobom, [your_nameV] jer nemate čast.
+DECLINE_OATHBREAKER_01     | Nećemo se sporazumevati sa tobom, [your_nameTitleV] jer nemate čast.
 
 DECLINE_ESPIONAGE_01       | Ti si lopov, kradeš plodove mog istraživanja. Odbijam tvoj zahtev.
 DECLINE_ESPIONAGE_01       | Naša tehnologija je samo za mene. Nemaš prava da je kradeš. Razgovaraćemo kad prestaneš da kradeš.

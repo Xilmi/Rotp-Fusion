@@ -3,7 +3,9 @@ _empire                           | Le Conclave Ssslaurien, Le Conclave Reptarie
 _empireof                         | du Conclave Ssslaurien, du Conclave Reptarien, du Conclave Saurien, du Conclave Raptorien, du Conclave Tyrannien
 _raceadjec                        | Ssslaurien, Reptarien, Saurien, Raptorien, Tyrannien
 _raceadjecF                       | Ssslaurienne, Reptarienne, Saurienne, Raptorienne, Tyrannienne
+
 _race_pluralnoun                  | les Ssslauriens, les Reptariens, les Sauriens, les Raptoriens, les Tyranniens
+
 _race_pluralnounof                | des Ssslauriens, des Reptariens, des Sauriens, des Raptoriens, des Tyranniens
 _race_pluralnounto                | aux Ssslauriens, aux Reptariens, aux Sauriens, aux Raptoriens, aux Tyranniens
 _race_pluraladjec                 | Ssslauriens, Reptariens, Sauriens, Raptoriens, Tyranniens

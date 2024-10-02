@@ -14,7 +14,7 @@
 
 // Mrrshan specific dialogue
 
-CONTACT_AGGRESSIVE         | Je vous salue, chose étrange. Je suis [my_race_pluralnounof], et un serviteur du Khan D'Or. J'espère que vous êtes fort, [your_racejec], pas seulement pour le bien de votre peuple, mais aussi pour le bien des trésors qui vous sont les plus chers. 
+CONTACT_AGGRESSIVE         | Je vous salue, chose étrange. Je suis [my_race_pluralnounof], et un serviteur du Khan D'Or. J'espère que vous êtes fort, [your_raceadjec], pas seulement pour le bien de votre peuple, mais aussi pour le bien des trésors qui vous sont les plus chers. 
 CONTACT_RUTHLESS           | Nous sommes [my_race_pluralnoun], [your_raceadjec], et nous adhérons à une seule croyance : le fort prendra et le faible donnera. Si vous ne comprenez pas déjà la sagesse d'une telle philosophie, nous ne manquerons pas de vous l'enseigner très bientôt.
 CONTACT_XENOPHOBIC         | Priez que le Khan D'Or vous considère comme digne, [your_race]. Suscitez sa colère et il n'aura aucun scrupule à ce que des flottes [my_race_pluralnounof] s'abattent sur vous.
 //
@@ -64,7 +64,7 @@ WARN_INVADED_01            | Vous plaisantez sûrement avec votre maigre petite 
 WARN_ESPIONAGE_01          | À quels jeux sournois votre peuple joue-t-il ! Vous aurez à faire beaucoup plus d'efforts que cela si vous souhaitez obtenir les secrets du Khanat pour vous-même. Ramenez votre espion avec vous et partez, avant que ce jeu ne cesse d'être amusant. [framed]
 WARN_SABOTAGE_01           | Des stratagèmes dangereux, ambassadeur. Si le bâtiment que vous vouliez détruire abritait des objets de grande valeur, nous aurions sans aucun doute lavé votre sang des rues de votre monde natal. Je vous recommande fortement de ne plus envisager le sabotage. [forced]
 WARN_BIOWEAPON_01          | Les trophées doivent être gagnés dans des combats honorables, pas volés dans les os de ceux qui étaient sans défense même de leur vivant ! Si jamais vous utilisez à nouveau des armes aussi ignobles, je vous assure que ce sera la dernière fois ! 
-WARN_GENOCIDE_01           | Ce n'est pas une mauvaise décision, d'éradiquer toute l'espèce [victim_racedjecF] et de prendre chacun de leurs trésors pour le vôtre. Bien que je doute que vous soyez assez stupide pour essayer quelque chose comme ça avec nous, vos capacités sont toujours assez déconcertantes. 
+WARN_GENOCIDE_01           | Ce n'est pas une mauvaise décision, d'éradiquer toute l'espèce [victim_raceadjecF] et de prendre chacun de leurs trésors pour le vôtre. Bien que je doute que vous soyez assez stupide pour essayer quelque chose comme ça avec nous, vos capacités sont toujours assez déconcertantes. 
 WARN_FINAL_WAR_01          | [your_raceadjec] idiot! Défier la volonté de la décision du conseil, c'est défier la volonté [my_race_pluralnounof] mêmes ! Nous prendrons vos trophées et les brûlerons jusqu'à la plus petite boule ! Rien ne restera de votre espèce une fois que nous aurons fini ! 
 WARN_COUNCIL_VOTE_01       | Le khanat a des affaires plus importantes à régler que de jouer à des jeux politiques dans les chambres du conseil. Il vaudrait mieux pour nous que vous cédiez simplement à nos souhaits. Et ce serait mieux pour toi aussi, si je me disais clairement.
 WARN_OATHBREAKER_01        | Hmph! Seuls les désespérés brisent le lien de leur parole. Peu importe! À partir de maintenant, nous traiterons simplement avec vous comme nous traitons avec d'autres personnes trop trompeuses pour qu'on puisse leur faire confiance. [spiesCaught]

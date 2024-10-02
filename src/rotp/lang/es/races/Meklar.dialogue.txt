@@ -37,7 +37,7 @@ DECLAREWAR_ALLIANCE_03     | [your_raceadjecF] especie se vuelve arrogante para 
 DECLAREWAR_SPYING_01       | Especie [your_raceadjecF] participa en una acción secreta contra Dominio. Consecuencias para Dominio: insignificantes. Consecuencias para la especie [your_raceadjecF]: fatales.
 DECLAREWAR_SPYING_02       | Subterfugio detectado en territorio del Dominio. Fuente confirmada como especie [your_raceadjecF]. Los protocolos de Dominio requieren la guerra como respuesta. 
 DECLAREWAR_SPYING_03       | Dominio detecta un intento evidente de desestabilización por parte de [your_empire]. No se puede permitir que la especie [your_raceadjecF] siga interfiriendo con los objetivos. Dominio debe tomar represalias a toda costa.
-DECLAREWAR_ATTACK_01       | La especie [your_raceadjecF] demostró ser hostil a pesar de la evidente superioridad [my_raceajecF]. Dominio prociede para eliminar la amenaza por completo.
+DECLAREWAR_ATTACK_01       | La especie [your_raceadjecF] demostró ser hostil a pesar de la evidente superioridad [my_raceadjecF]. Dominio prociede para eliminar la amenaza por completo.
 DECLAREWAR_ATTACK_02       | La especie [your_raceadjecF] impide los objetivos del Dominio atacando directamente. Enfrentamiento inevitable.
 DECLAREWAR_ATTACK_03       | La especie [your_raceadjecF] intenta evitar que Dominio alcance los objetivos aniquilando a [my_race_pluralnoun]. Dominio tomará represalias con toda la fuerza militar disponible.
 DECLAREWAR_OPPORTUNITY_01  | [my_title] cree que la especie [your_raceadjecF] en última instancia resultará perjudicial para lograr la directiva principal. Dominio erradicará la especie [your_raceadjecF] antes de que la amenaza se materialice por completo.
@@ -50,7 +50,7 @@ OFFER_ALLIANCE_01          | [my_title] valora la diplomacia con la especie [you
 
 WARN_TRESPASSING_01        | Especie [your_raceadjecF] detectada en el sistema [system]. Área previamente reclamada por Dominio. Desocupen inmediatamente. 
 WARN_EXPANSION_01          | Rápida expansión de especie [your_raceadjecF] se considera una amenaza para los objetivos del Dominio. Continuación del crecimiento territorial forzará acción militar como respuesta. 
-WARN_BUILDUP_01            | Red de vigilancia de Dominio identifica flotas [your_race_pluraladjecF] como amenaza potencial para la seguridad. Aumentando vigilancia de especie [your_raceajdecF] para garantizar que intereses del Dominio no sean comprometidos.
+WARN_BUILDUP_01            | Red de vigilancia de Dominio identifica flotas [your_race_pluraladjecF] como amenaza potencial para la seguridad. Aumentando vigilancia de especie [your_raceadjecF] para garantizar que intereses del Dominio no sean comprometidos.
 WARN_SKIRMISH_01           | Conflicto entre las flotas de Dominio y [your_race_pluraladjecF] detectado en [system]. Dominio advierte contra infracciones reincidentes: Dominio está preparado para responder adecuadamente si no se escucha la advertencia. 
 WARN_ATTACKED_01           | Agresión [your_raceadjecF] notada en [system]. [defender_title] da un mensaje a embajador: continuar amenazando seguridad del Dominio resultará en extinción de especie [attacker_raceadjecF]. 
 WARN_INVADED_01            | Recordatorio de Dominio de que especie [attacker_raceadjecF] no tiene ningún derecho sobre espacio [defender_raceadjec]. Remuevan flotas de inmediato o enfrenten aniquilación total.
@@ -61,7 +61,7 @@ WARN_GENOCIDE_01           | Genocidio de especie [victim_raceadjecF] por parte 
 WARN_FINAL_WAR_01          | Todas especies conocidas crean acuerdo para garantizar paz duradera en la galaxia. Especie [rebel_raceadjecF] única disidente. Dominio tomará las medidas apropiadas.
 WARN_COUNCIL_VOTE_01       | Dominio al tanto de acciones de [voter_race_pluraladjecF] en consejo. Significado irrelevante. Resultado evaluado como perjudicial para los objetivos [candidate_race_pluraladjec]. Estatus diplomático se ajustó en consecuencia.  
 WARN_OATHBREAKER_01        | [my_title] emite juicio: especie [your_raceadjecF] ya no se considera confiable. Todos tratos futuros están sujetos a revisión en base a especie [your_raceadjecF] rompiendo acuerdo vinculante. 
-WARN_ATTACKED_ALLY_01      | Conflicto registrado entre especie de [your_raceadjecF] y especie [raza_defensoradjecF]. Especie [defender_raceadjecF] conocida aliada de Dominio. Dejen de pelear o preparense para consecuencias. 
+WARN_ATTACKED_ALLY_01      | Conflicto registrado entre especie de [your_raceadjecF] y especie [defender_raceadjecF]. Especie [defender_raceadjecF] conocida aliada de Dominio. Dejen de pelear o preparense para consecuencias. 
 WARN_REBELLING_AGAINST_01  | Especie [your_raceadjecF] ahora es obstáculo para objetivos del Dominio. Decisión del Consejo Galáctico inaceptable. En espera de respuesta del Árbitro Supremo. 
 
 
@@ -74,8 +74,8 @@ PRAISE_ATTACKED_ENEMY_02   | Dominio agradece ayuda contra especie [defender_rac
 PRAISE_ATTACKED_ENEMY_03   | Atacar a especie [defender_raceadjecF] no excusa crímenes pasados contra Dominio. Dominio reevaluará nivel de amenaza de especie [attacker_raceadjecF] dependiendo de su acción en esta guerra.
 
 PRAISE_TRADE_01            | Las especies de Dominio y [your_raceadjecF] continúan ganando mucho con comercio continuo. Dominio desea que comercio permanezca mientras acuerdo continúe beneficiario.
-PRAISE_TRADE_02            | Dominio expresa su satisfacción por acuerdo comercial con especie [your_raceajdecF]. Aseguren que acuerdo perdure para que ambas razas se beneficien mutuamente. 
-PRAISE_REBELLING_WITH_01   | Dominio concuerda que gobernante de Consejo Galáctico no es fiable. Objeción de especie [your_raceadjecF] notada. Dominio ayudará a especie [your_racedjacF] en rebelión. 
+PRAISE_TRADE_02            | Dominio expresa su satisfacción por acuerdo comercial con especie [your_raceadjecF]. Aseguren que acuerdo perdure para que ambas razas se beneficien mutuamente. 
+PRAISE_REBELLING_WITH_01   | Dominio concuerda que gobernante de Consejo Galáctico no es fiable. Objeción de especie [your_raceadjecF] notada. Dominio ayudará a especie [your_raceadjecF] en rebelión. 
  
 ACCEPT_TRADE_01            | Solicitud de comercio de especie [your_raceadjecF] recibida. Cantidad propuesta [amt] BC. Dominio está de acuerdo.
 RESPOND_IGNORE_THREAT_01   | Amenaza de especie [your_raceadjecF] desconcertante. civilización [your_raceadjecF] sustancialmente inferior a flotas del Dominio. Ignorar.

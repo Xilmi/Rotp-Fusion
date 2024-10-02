@@ -34,7 +34,7 @@ DECLAREWAR_MILITARY_02     | Ricordate questo, patetico [your_raceadjec]: tutti 
 DECLAREWAR_MILITARY_03     | Non vi permetteremo di rivendicare nemmeno un'altra roccia su mondi che sono o saranno i nostri! Sarà la potenza del vostro esercito contro la forza delle nostre convinzioni. Vediamo quale prevarrà!
 DECLAREWAR_ALLIANCE_01     | È stata una decisione poco saggia dichiarare guerra a un alleato dell'Imperium. Pregate che possiate trovare misericordia dai vostri dei, perché non troverete da noi.
 DECLAREWAR_ALLIANCE_02     | Il nostro alleato ci informa che avete scelto di far loro guerra: così facendo avete dichiarato guerra anche a noi. Preparatevi!
-DECLAREWAR_ALLIANCE_03     | Non ci interessa il destino [other_race_pluralof], ma useremo questa opportunità per liberare la galassia dalla vostra specie in modo da poter continuare la nostra santa crociata. 
+DECLAREWAR_ALLIANCE_03     | Non ci interessa il destino [other_race_pluralnounof], ma useremo questa opportunità per liberare la galassia dalla vostra specie in modo da poter continuare la nostra santa crociata. 
 DECLAREWAR_SPYING_01       | Pietoso [your_raceadjec]! In questo giorno imparerà la follia di rubare i segreti dell'Imperium!
 DECLAREWAR_SPYING_02       | Desiderate così tanto conoscere i nostri segreti? Poi Le dirò la più importante: noi non perdoniamo e non dimentichiamo. Preparatevi alla guerra!
 DECLAREWAR_SPYING_03       | Credete di essere in grado di prendere i nostri segreti senza conseguenze? Imparerete presto la follia di una decisione così arrogante.
@@ -47,7 +47,7 @@ DECLAREWAR_ASSASSIN_01     | Come osate uccidere un ambasciatore dell'Imperium!?
 OFFER_PEACE_01             | Si dice che per conoscere qualcuno si deve prima combatterlo. Abbiamo combattuto e vediamo che non siete i figli della bestia Quaralonica. Avremmo pace con voi ora, così possiamo concentrare la nostra attenzione su coloro che meritano di sentire la nostra furia. 
 OFFER_TRADE_01             | Esplorare le profondità dello spazio è un'impresa costosa. L'Imperium vuole proporre il commercio aperto. [amt] BC all'anno finanzierà la nostra santa crociata e accumulerà più ricchezza per il vostro popolo. Cosa ne dite? 
 OFFER_PACT_01              | Cerchiamo solo la distruzione di Quaralone e della sua stirpe. Finché crediamo che la Sua gente non sia loro, non abbiamo apprensione con voi. Dimostreremmo le nostre intenzioni con un patto di non aggressione. Se scegliate di firmarlo è una vostra decisione.
-OFFER_ALLIANCE_01          | Abbiamo incontrato numerose creature strane e vili durante la nostra guerra santa per ripulire la galassia. Di quelli che abbiamo incontrato, crediamo che siete il meno probabile di essere nostro miserabile nemico. Alleatevi con noi, [your_raceajdec], e guadagnate la benedizione dell'[my_title]! 
+OFFER_ALLIANCE_01          | Abbiamo incontrato numerose creature strane e vili durante la nostra guerra santa per ripulire la galassia. Di quelli che abbiamo incontrato, crediamo che siete il meno probabile di essere nostro miserabile nemico. Alleatevi con noi, [your_raceadjec], e guadagnate la benedizione dell'[my_title]! 
 
 WARN_TRESPASSING_01        | Profanate lo spazio consacrato di [system] con la vostra presenza non invitata! Ritiratevi immediatamente o vi scacceremo con il fuoco dei giusti! 
 WARN_EXPANSION_01          | Credete che la galassia sia vostra e solo vostra? Interrompete immediatamente questa espansione spericolata o affrontate l'ira dell'intero Imperium!

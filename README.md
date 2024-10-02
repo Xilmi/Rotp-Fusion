@@ -70,7 +70,7 @@ Later:
 ## What's New
 
 2024.10.02 (BR)
-- Fixed some keywords that should not have been translated into foreign languages.
+- Fixed plenty of keywords that should not have been translated into foreign languages.
 
 2024.10.01
 - Update French language (Frank Zago)

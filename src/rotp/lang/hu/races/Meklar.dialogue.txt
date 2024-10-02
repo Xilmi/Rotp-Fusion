@@ -79,7 +79,7 @@ PRAISE_REBELLING_WITH_01     | A Domínium egyetért, hogy a Galaktikus Tanács 
  
 ACCEPT_TRADE_01            | [your_race_whose_prefix_uppercase] faj kereskedési megállapodásra tett kérés rögzítve. [amt] EK-nyi javasolt összeg. A Domínium egyetért.
 RESPOND_IGNORE_THREAT_01   | [your_race_whose_prefix_uppercase] faj fenyegetése rejtélyes. [your_race_whose_prefix_uppercase] civilizáció a Domínium flottáihoz képest lényegesen alacsonyrendűbb. Figyelmen kívül hagyás.
-RESPOND_STOP_SPYING_01     | DEgy Domíniumi kém rajta lett kapva, miközben megpróbált betekintést szerezni [you_race_whose_prefix_lowercase] életforma tevékénységeibe. A Domínium bocsánatkérést nyújt be. A rabul ejtett [my_race] mihamarabbi visszatérése kérvényelt.
+RESPOND_STOP_SPYING_01     | DEgy Domíniumi kém rajta lett kapva, miközben megpróbált betekintést szerezni [your_race_whose_prefix_lowercase] életforma tevékénységeibe. A Domínium bocsánatkérést nyújt be. A rabul ejtett [my_race] mihamarabbi visszatérése kérvényelt.
 RESPOND_STOP_ATTACKING_01  | A Domínium sikeresen bemutatta katonai képességit [your_race_whose_prefix_lowercase] civilizációnak. A flottákat visszatérítem a kijelölt állomásoló koordinátákhoz.
 
 DIPLO_TECH_REQUEST_MENU_01   | Technológia specifikációja.

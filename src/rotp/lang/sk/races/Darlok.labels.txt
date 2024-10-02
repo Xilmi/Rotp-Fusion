@@ -5,7 +5,7 @@ _empire_lowercase                 | Darlok, Sarlok, Spylok, Šadelok, Nazlok
 _race                             | Darlokan, Sarlokan, Spylokan, Šadelokan, Nazlokan
 _race_plural                      | Darlokani, Sarlokani, Spylokani, Šadelokani, Nazlokani
 _race_akuzativ					| Darlokanov, Sarlokanov, Spylokanov, Šadelokanov
-_race_dativ						| Darlokanom, Sarlokanom, Spylokanom, Šadelokanom
+_race_dativ      				| Darlokanom, Sarlokanom, Spylokanom, Šadelokanom
 _race_instrumental				| Darlokanmi, Sarlokanmi, Spylokanmi, Šadelokanmi
 _race_adjective					| Darlokská, Sarlokská Spylokská, Šadelokská
 _race_adjective_akuzativ		| darlokského, sarlokského, spylokského, šadelokského

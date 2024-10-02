@@ -77,7 +77,7 @@ PRAISE_TRADE_02            | Sebbene la guerra possa essere il modo più esilara
 
 PRAISE_REBELLING_WITH_01   | Ha ha! Quindi pensa di schierarvi da solo contro la galassia? Pensava che avremmo evitato una battaglia così gloriosa? Si alzi, perché [my_empire] sta con voi!
 
-ACCEPT_TRADE_01            | La saggezza delle Sue trattative compensa la Sua mancanza di dimensioni, piccolo [your_raceajdec]! L'Impero è lieto di scambiare [amt] BC con voi ogni anno d'ora in poi.
+ACCEPT_TRADE_01            | La saggezza delle Sue trattative compensa la Sua mancanza di dimensioni, piccolo [your_raceadjec]! L'Impero è lieto di scambiare [amt] BC con voi ogni anno d'ora in poi.
 RESPOND_IGNORE_THREAT_01   | Hahaha, e perché dovremmo ascoltare le minacce di esseri così piccoli? Andate ora e ritenetevi fortunato che oggi siamo di umore così indulgente!
 RESPOND_STOP_SPYING_01     | I piccoli chommka che usiamo per spiare sono stati catturati, vero? Ebbene, Ci restituisca illesi sia loro che le nostre spie e vedremo che non La disturberanno più.
 RESPOND_STOP_ATTACKING_01  | Le flotte dell'Impero sono terrificanti, vero? Non tema, piccolo, il nostro display ha avuto l'effetto desiderato e ora li richiameremo.

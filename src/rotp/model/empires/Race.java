@@ -372,6 +372,79 @@ public class Race implements Base, Serializable {
         return labels().introduction();
     }
 
+    private List<String> varTokens(String s) { // BR: for debug
+        String startKey = "[";
+        int keySize = startKey.length();
+        List<String> tokens = new ArrayList<>();
+        int prevIndex = -1;
+        int nextIndex = s.indexOf(startKey, prevIndex);
+        while (nextIndex >= 0) {
+            int endIndex = s.indexOf(']', nextIndex);
+            if (endIndex <= nextIndex)
+                return tokens;
+            String var = s.substring(nextIndex+keySize, endIndex);
+            tokens.add(var);
+            prevIndex = nextIndex;
+            nextIndex = s.indexOf(startKey, endIndex);
+        }
+        return tokens;
+    }
+    public boolean validateDialogueTokens() { // BR: for debug
+    	boolean valid = true;
+    	for (List<String> val : raceLabels().dialogueMapValues()) {
+    		if (val != null && !val.isEmpty()) {
+    			for (String txt : val) {
+    				List<String> tokens = varTokens(txt);
+    				if (!tokens.isEmpty()) {
+    					for (String token : tokens) {
+    						String src = token;
+    						token = token.replace("your_", "_");
+    						token = token.replace("my_", "_");
+    						token = token.replace("other_", "_");
+    						token = token.replace("alien_", "_");
+    						token = token.replace("player_", "_");
+    						token = token.replace("spy_", "_");
+    						token = token.replace("leader_", "_");
+    						token = token.replace("defender_", "_");
+    						token = token.replace("attacker_", "_");
+    						token = token.replace("voter_", "_");
+       						token = token.replace("candidate_", "_");
+       						token = token.replace("victim_", "_");
+        					token = token.replace("rebel_", "_");
+        					token = token.replace("rival_", "_");
+
+        					switch (token) {
+	       						case "_name":
+	       						case "_home":
+	       						case "system":
+	       						case "amt":
+	       						case "year":
+	       						case "tech":
+	       						case "techGiven":
+	       						case "techReceived":
+	       						case "framed":
+	       						case "spiesCaught":
+	       						case "forced":
+	       						case "target":
+	       							break;
+	       						default:
+       								if (!raceLabels().hasLabel(token)) {
+//       	    							if (token.startsWith("_"))
+//       	    								token = token.substring(1);
+       	    							if (!labels().hasLabel(token)) {
+       		    							valid = false;
+       		    							System.err.println("Missing token: " + token
+       		    									+ " / " + id + " / " + src);
+       	    							}
+       	    						}
+       						}
+    					}
+    				}
+    			}
+    		}
+    	}
+    	return valid;
+    }
     public String dialogue(String key) {
         // return race-specific dialogue if present
         // else return default dialog

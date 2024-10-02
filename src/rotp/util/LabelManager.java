@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -284,4 +285,52 @@ public class LabelManager implements Base {
         }
         catch(UnsupportedEncodingException e) { }
     }
+
+    public Collection<List<String>> dialogueMapValues() { return dialogueMap.values(); } // BR: For Debug
+//    public boolean validateDialogueTokens() {
+//    	boolean valid = true;
+//    	for ( List<String> val : dialogueMap.values()) {
+//    		if (val != null && !val.isEmpty()) {
+//    			for (String txt : val) {
+//    				List<String> tokens = varTokens(txt);
+//    				if (!tokens.isEmpty()) {
+//    					for (String token : tokens) {
+//    						token = token.replace("your_", "_");
+//    						token = token.replace("my_", "_");
+//    						token = token.replace("other_", "_");
+//    						token = token.replace("alien_", "_");
+//    						token = token.replace("player_", "_");
+//    						token = token.replace("spy_", "_");
+//    						token = token.replace("leader_", "_");
+//    						token = token.replace("defender_", "_");
+//    						token = token.replace("attacker_", "_");
+//    						token = token.replace("voter_", "_");
+//    						if (!hasLabel(token) && !instance.hasLabel(token)) {
+//    							valid = false;
+//    							System.err.println("Missing token: " + token);
+//    						}
+//    					}
+//    				}
+//    			}
+//    		}
+//    	}
+//    	return valid;
+//    }
+//    private List<String> varTokens(String s) {
+//        String startKey = "[";
+//        int keySize = startKey.length();
+//        List<String> tokens = new ArrayList<>();
+//        int prevIndex = -1;
+//        int nextIndex = s.indexOf(startKey, prevIndex);
+//        while (nextIndex >= 0) {
+//            int endIndex = s.indexOf(']', nextIndex);
+//            if (endIndex <= nextIndex)
+//                return tokens;
+//            String var = s.substring(nextIndex+keySize, endIndex);
+//            tokens.add(var);
+//            prevIndex = nextIndex;
+//            nextIndex = s.indexOf(startKey, endIndex);
+//        }
+//        return tokens;
+//    }
 }

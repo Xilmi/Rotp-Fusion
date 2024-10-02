@@ -59,9 +59,9 @@ DECLINE_SABOTAGE_01        | Miután abbahagytátok a [target] szabotálását, 
 DECLINE_BUILDUP_01         | Szó sem lehet róla míg határaink mentén halmozzátok a hajóitokat.
 DECLINE_BUILDUP_01         | Távolítsátok el hajóitokat a határaink mellől és megfontoljuk. Addig az ügy nem tart igényt a figyelmünkre.
 DECLINE_BUILDUP_01         | A határaink mentén tartozkodó hajóitok nem képviselnek fenyegetést, viszont megtagadjuk a további együttműködést amíg ott időznek.
-DECLINE_BUILDUP_01         | Ha [my__empire_relational_prefix_lowercase] szeretnétek tárgyalni, akkor a hajóitokkal másokat fenyegessetek, ne minket.
+DECLINE_BUILDUP_01         | Ha [my_empire_relational_prefix_lowercase] szeretnétek tárgyalni, akkor a hajóitokkal másokat fenyegessetek, ne minket.
 
-DECLINE_ENCROACH_01        | Flottáitok behatoltak [_race_possessive_prefix_lowercase] űrtelüretére. Távolítsátok el őket és utána beszélünk.
+DECLINE_ENCROACH_01        | Flottáitok behatoltak [my_race_possessive_prefix_lowercase] űrtelüretére. Távolítsátok el őket és utána beszélünk.
 
 DECLINE_SKIRMISH_01        | Provokáció nélkül megtámadjátok a hajóink és elvárjátok, hogy elfogadjuk az ajánlatot? Elutasítjuk az alkudozást.
 DECLINE_SKIRMISH_01        | Nem fogadhatunk el ajánlatot olyanoktól, akik megtámadják a flottáinkat.
@@ -85,7 +85,7 @@ DECLINE_BIOWEAPONS_01      | Azok halálsikolyai visszhangoznak hallószerveinkb
 DECLINE_TECH_TRADE_01      | Nincs olyan technológiátok, amely érdekelne minket.
 DECLINE_TECH_TRADE_01      | Nincs szükségünk [your_race] játékokra.
 DECLINE_TECH_TRADE_01      | A primitív találmányaitok nem érdekelnek minket.
-DECLINE_TECH_TRADE_01      | [_race_possessive_prefix_uppercase] messze felülmúlják a technológiátokat.
+DECLINE_TECH_TRADE_01      | [my_race_possessive_prefix_uppercase] messze felülmúlják a technológiátokat.
 DECLINE_TECH_TRADE_01      | [your_nameTitle] [your_name], kevés igényünk van arra, amit a tudósai kínálnak nekünk.
 DECLINE_TECH_TRADE_01      | [my_nameTitle] [my_name] kevés érdekfeszítőt lát a technológiátokban.
 

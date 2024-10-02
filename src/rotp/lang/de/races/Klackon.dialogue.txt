@@ -208,7 +208,7 @@ ACCEPT_JOINT_WAR_01        | Im Jahr [year] verbünden sich [your_empire] und ic
 RESPOND_CLOSE_EMBASSY_01   | So sei es. Es wird keine weiteren Diskussionen zwischen mir und dem [your_empire] geben.
 
 RESPOND_BREAK_TRADE_01     | Ich werde mir das merken.
-RESPOND_BREAK_TRADE_01     | Also, [your_nameTitel] [your_name], Sie können Ihr Wort nicht halten. Ich werde dies nicht vergessen.
+RESPOND_BREAK_TRADE_01     | Also, [your_nameTitle] [your_name], Sie können Ihr Wort nicht halten. Ich werde dies nicht vergessen.
 
 RESPOND_BREAK_PACT_01      | Ich werde die Worte deiner gebrochenen Verträge auf deinen Grabstein schreiben, [your_nameTitle] [your_name].
 RESPOND_BREAK_PACT_01      | Das [your_empire] wird unter dem Gewicht seiner eigenen gebrochenen Versprechen zerbröckeln.

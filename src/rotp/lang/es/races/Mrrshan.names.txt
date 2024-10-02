@@ -1,21 +1,21 @@
 // all possible names
-nome: Fiershan, Prrshan, Meowshan, Clawshan, Hisshan
+name: Fiershan, Prrshan, Meowshan, Clawshan, Hisshan
 
 desc1: Militaristas Despiadados
 desc2: Artilleros Superiores
-desc3: Las hordas [_race_pluraladjecF] buscan trofeos de batalla a medida que se extienden por la galaxia.
+desc3: Las hordas [my_race_pluraladjecF] buscan trofeos de batalla a medida que se extienden por la galaxia.
 
 // possible home system names
-casa: Fierias, Fierina, Miamara, Miriana, Yailaria
+home: Fierias, Fierina, Miamara, Miriana, Yailaria
 
-título:     Kan
-título completo: Kan
+title:     Kan
+fulltitle: Kan
 
 // possible leader names
-líder: Jasana, Miamar, Mirana, Prrsha, Shandra, Yalara
+leader: Jasana, Miamar, Mirana, Prrsha, Shandra, Yalara
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-nave1: Glotón, Cimarrón, Hurón, Tejón, Felino, Ratonero, Calicó
-nave2: Lince, Puma, Tigrillo, Gato Montés, Caracal, Yaguatirica, Serval
-nave3: Pantera, Leopardo, Gato de Guerra, Guepardo, Lince Rojo, Ocelote, Yaguarundí
-nave4: Dientes de Sable, León de Montaña, Tigre, León, Jaguar, Ligre, León Americano
+ship1: Glotón, Cimarrón, Hurón, Tejón, Felino, Ratonero, Calicó
+ship2: Lince, Puma, Tigrillo, Gato Montés, Caracal, Yaguatirica, Serval
+ship3: Pantera, Leopardo, Gato de Guerra, Guepardo, Lince Rojo, Ocelote, Yaguarundí
+ship4: Dientes de Sable, León de Montaña, Tigre, León, Jaguar, Ligre, León Americano

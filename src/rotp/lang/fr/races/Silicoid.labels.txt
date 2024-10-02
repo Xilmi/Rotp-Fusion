@@ -39,7 +39,7 @@ MAIN_ADVISOR_SHIP_WEAPON   | Dieu-Empereur ! Vos scientifiques présentent leurs
 MAIN_ADVISOR_COUNCIL       | Une réunion de seigneurs connue sous le nom de Conseil Galactique sera bientôt à nos portes ! Notre ancien ennemi doit être caché parmi ceux qui s'y rassemblent ! Nous devons les exposer pour que notre noble croisade puisse vraiment commencer !
 MAIN_ADVISOR_REBELLION     | Puissant Empereur ! L'impensable se produit. Notre peuple, sans aucun doute infecté par notre infâme Ancien Ennemi, se rebelle contre vous sur %1. Il faut mettre un terme à cette corruption tout de suite !
 MAIN_ADVISOR_RESIST_COUNCIL   | La témérité de ces imbéciles ! Dieu-Empereur, nos flottes sont prêtes ! Conduis-nous à la victoire dans cette fatale prédestinée !
-MAIN_ADVISOR_COUNCIL_RESISTED | Bien sûr, les enfants de notre ennemi ne pouvaient pas accepter la domination [my_raceajdecF] ! Notre peuple est en délire : enfin la prophétie s'accomplira !
+MAIN_ADVISOR_COUNCIL_RESISTED | Bien sûr, les enfants de notre ennemi ne pouvaient pas accepter la domination [my_raceadjecF] ! Notre peuple est en délire : enfin la prophétie s'accomplira !
 
 // text for endings... '#' represents a paragraph break
 // variables: %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 is special race-specific text described below

@@ -14,7 +14,7 @@
 
 // Klackon specific dialogue
 
-CONTACT_AGGRESSIVE         | Eu sou [my_tiltle][my_name] e tu és O... [your_name]? Um nome inesperado para alguém como eu. Dizes que não és nada como eu? Este encontro começa a tornar-se algo... incomodativo.
+CONTACT_AGGRESSIVE         | Eu sou [my_title][my_name] e tu és O... [your_name]? Um nome inesperado para alguém como eu. Dizes que não és nada como eu? Este encontro começa a tornar-se algo... incomodativo.
 CONTACT_RUTHLESS           | Sou conhecida por [my_name]. Tu és o [your_name]? O que é um [your_name]? Não tenho tempo para alguém que brinca com a minha seriedade!
 CONTACT_XENOPHOBIC         | Eu sempre soube desde o começo da minha jornada que havia outra entidade como eu, mas tu não és como eu... És diferente... alien... e perigosa.
 //

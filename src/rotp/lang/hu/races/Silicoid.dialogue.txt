@@ -16,7 +16,7 @@
 
 CONTACT_XENOPHOBIC         | [my_empire] méltóképpen elismerte a jelenlétedet [your_name] [your_race] fajból. Igényeink szerint felvesszük veled a kapcsolatot.
 CONTACT_RUTHLESS           | Rajtad van a Birodalom tekintete, [your_race]. A te érdekedben és mindazok kedvéért, akiket nagyra tartasz, imádkozz, hogy [my_title] kedvezően viszonyuljon hozzád.
-CONTACT_AGGRESSIVE         |Mi vagyunk [my_race_possessive_prefix_lowecase], csekélyke [your_race]. Területünk hatalmas, erőnk pedig páratlan. Figyelmeztetlek, hogy ne próbáld meg haragunkat, különben megtanulod a halálos megtorlás jelentését.
+CONTACT_AGGRESSIVE         |Mi vagyunk [my_race_possessive_prefix_lowercase], csekélyke [your_race]. Területünk hatalmas, erőnk pedig páratlan. Figyelmeztetlek, hogy ne próbáld meg haragunkat, különben megtanulod a halálos megtorlás jelentését.
 
 //
 GREETING_01                | Üdvözlet nagykövet. Mondd el, mit kérsz, és ha [my_title] érdemesnek talál téged, szüneteltetjük szent háborúnkat, hogy segítsünk neked.
@@ -54,10 +54,10 @@ Hívatlan jelenléteddel beszennyezed a [system] megszentelt terét! Azonnal von
 WARN_EXPANSION_01          | Azt hiszed, hogy a galaxis a tiéd, és egyedül a tiéd? Azonnal állítsd le ezt a vakmerő terjeszkedést, vagy nézz szembe az egész Birodalom haragjával!
 WARN_BUILDUP_01            | Csak a Birodalom birtokolhatja a legerősebb flottákat a galaxisban, mert csak a Birodalom tud megfelelő ítéletet mondani a gonoszok felett. A saját kockázataid tudatában támadd meg ezt a diktátumot, [your_race].
 WARN_SKIRMISH_01           | Mit akarsz ezzel mondani, nagykövet? Egy puszta összecsapás, amely felett csak egyszer hunyunk szemet: ne engedd, hogy ez még egyszer megtörténjen!
-WARN_ATTACKED_01           | Őrület! Meg mered támadni a birodalmat! [defender_title_prefix_uppercase] bölcsen elrendelte, hogy maradjunk a megtorlásunknál, hogy lássa, mit fogsz tenni ezután. Valóban te vagy a régóta keresett ellenségünk?!
+WARN_ATTACKED_01           | Őrület! Meg mered támadni a birodalmat! [defender_empire_prefix_uppercase] bölcsen elrendelte, hogy maradjunk a megtorlásunknál, hogy lássa, mit fogsz tenni ezután. Valóban te vagy a régóta keresett ellenségünk?!
 WARN_INVADED_01            | Minden bizonnyal [attacker_race_prefix_lowercase] elkeseredett cselekedete, hogy területet lopjanak el a Birodalomtól. Tudd, hogy [system] rendszer jelentéktelen volt számunkra, de ha továbbra is elveszed azt, ami a Birodalomé, az csak a végzetedet jelentheti! 
 WARN_ESPIONAGE_01          | A döntés, hogy ellopd a titkainkat, súlyos mérlegelési hiba volt, nagykövet. Óvatosságot kérek: ha a próbálkozása nem lenne annyira nevetséges, minden bizonnyal szörnyűbb visszhangot váltott volna ki! [framed]
-WARN_SABOTAGE_01           | Micsoda trükk ez? A szabotázs elítélendő akció, amely csak gyávákhoz és gazemberekhez méltó! Felfeded hát magad, mint a próféciáink aljas ellensége? [victim_title_prefix_uppercase] eldönti majd... [forced]
+WARN_SABOTAGE_01           | Micsoda trükk ez? A szabotázs elítélendő akció, amely csak gyávákhoz és gazemberekhez méltó! Felfeded hát magad, mint a próféciáink aljas ellensége? [victim_empire_prefix_uppercase] eldönti majd... [forced]
 WARN_BIOWEAPON_01          | Elképzelhetetlen! A hús elég gyenge a hagyományos fegyverekkel szemben is, de a biológiai fegyverekkel szemben esélytelen. És a civilek ellen is?! Bizonyára Qaralon sötét vére folyik keresztül a fajtád ereiben!
 WARN_GENOCIDE_01           | Mondd el, miért követtél el népirtást [victim_race_prefix_lowercase] faj ellen. Gondosan válogasd meg a szavaidat: válaszod határozza meg, miként lépünk tovább innen!
 WARN_FINAL_WAR_01          | Csak szövetségek kötése révén tudjuk befejezni szent hadjáratunkat! Mi egyesült népekként állunk együtt, ti mégis egyedül vagytok, mint a káosz és a háború hangja. A prófécia mozgásban van: valóban Qaralon ivadéka vagy!

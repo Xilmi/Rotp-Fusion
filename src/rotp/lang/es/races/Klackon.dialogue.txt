@@ -102,7 +102,7 @@ DECLINE_ANNOYED_01         | He escuchado suficiente. Nosotros hablaremos de nue
 DECLINE_ANNOYED_02         | Estoy cansado de las negociaciones diplomáticas. Podemos continuar las discusiones en otro momento.
 DECLINE_ANNOYED_02         | Estas conversaciones no nos llevan a ninguna parte. Debo retirarme.
 DECLINE_ANNOYED_02         | Me voy ahora
-DECLINE_ANNOYED_03         | Mil disculpas, [your_nae], pero otros deberes llaman.
+DECLINE_ANNOYED_03         | Mil disculpas, [your_name], pero otros deberes llaman.
 DECLINE_ANNOYED_03         | Perdóname, pero nuestro tiempo ha llegado a su fin.
 DECLINE_ANNOYED_03         | Tengo poco tiempo y mucho que hacer. Tal vez podamos hablar de nuevo más tarde.
 

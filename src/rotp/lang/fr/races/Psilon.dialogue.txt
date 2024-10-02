@@ -31,8 +31,8 @@ DECLAREWAR_ERRATIC_03      | L'heure de la bataille est arrivée, ambassadeur. L
 DECLAREWAR_MILITARY_01     | Je m'excuse, ambassadeur, mais le moment est venu pour la République d'étendre son influence. Si nous ne pouvons pas... gagner ces territoires pacifiquement, nous devons les prendre par la force.
 DECLAREWAR_MILITARY_02     | Peu de choses dans cette galaxie valent la peine de rompre la paix. Vous conviendrez certainement, ambassadeur, que ce territoire en fait partie ?
 DECLAREWAR_MILITARY_03     | Je viens avec des messages de guerre, ambassadeur. Le Conseil a décrété que nous devons augmenter le territoire de la République à ce moment-là. Bien que vos prouesses au combat puissent être... impressionnantes, la volonté du Conseil ne sera pas niée.
-DECLAREWAR_ALLIANCE_01     | L'un de nos alliés, [autre_race_pluralnoun], sont venus nous demander notre aide dans leur combat contre vous. Le Conseil les a entendus et a accepté, et ainsi notre aide leur sera accordée.
-DECLAREWAR_ALLIANCE_02     | Que votre race et [autre_race_pluralnoun] aient rompu votre paix est... triste. Que nous devions nous joindre à la lutte contre vous l'est encore plus. 
+DECLAREWAR_ALLIANCE_01     | L'un de nos alliés, [other_race_pluralnoun], sont venus nous demander notre aide dans leur combat contre vous. Le Conseil les a entendus et a accepté, et ainsi notre aide leur sera accordée.
+DECLAREWAR_ALLIANCE_02     | Que votre race et [other_race_pluralnoun] aient rompu votre paix est... triste. Que nous devions nous joindre à la lutte contre vous l'est encore plus. 
 DECLAREWAR_ALLIANCE_03     | Il est évident que votre espèce est trop querelleuse pour que ... une paix durable puisse être négociée. Si [other_race_pluralnoun] ont choisi d'entrer en guerre avec vous, nous le ferons aussi.
 DECLAREWAR_SPYING_01       | I am curious about how you thought this course would play out. Mener de telles actions contre la République... peut-être avons-nous surestimé votre intelligence après tout. 
 DECLAREWAR_SPYING_02       | Si vous aviez souhaité... gagner quelque chose de nous, nous aurions préféré que vous demandiez simplement plutôt que d'agir secrètement. Maintenant, vous ne nous laissez pas d'autre choix que de briser cette paix que nous nous sommes efforcés de préserver. 
@@ -68,7 +68,7 @@ PRAISE_COUNCIL_VOTE_01     | Nos amis [voter_empireof] ne nous ont jamais laiss�
 PRAISE_COUNCIL_VOTE_02     | Des décisions sages ont été prises au conseil, mais la plus sage a peut-être été le vote que vous avez accordé à la République. Nous reconnaissons un tel... dévouement à la paix, et pouvons apprécier l'amitié avec vous aussi longtemps que ce dévouement continue.  
 PRAISE_COUNCIL_VOTE_03     | Nous avons connaissance de votre vote pour la République en conseil. Nous sommes surpris, ambassadeur, et avons peut-être sous-estimé l'intelligence de votre peuple. 
 
-PRAISE_ATTACKED_ENEMY_01   | Ambassadeur! Votre aide est des plus... appréciée. Ensemble, nous éliminerons la menace [defender_racedjecF] et restaurerons la paix dont cette galaxie a désespérément besoin. 
+PRAISE_ATTACKED_ENEMY_01   | Ambassadeur! Votre aide est des plus... appréciée. Ensemble, nous éliminerons la menace [defender_raceadjecF] et restaurerons la paix dont cette galaxie a désespérément besoin. 
 PRAISE_ATTACKED_ENEMY_02   | Nous considérons et honorons les actions [attacker_empireof] comme un engagement envers nos idéaux d'une plus grande paix. Soyez assuré que dès que nous... forcerons [defender_race_pluralnoun] à ralentir, la paix pourra reprendre. 
 PRAISE_ATTACKED_ENEMY_03   | Votre peuple est à la fois violent et effronté, il n'est donc pas surprenant que vous vous joigniez si facilement à une guerre. Pourtant, le fait que vous ayez tourné vos armes vers le parti qui ne se bat pas pour la paix doit au moins être… reconnu. 
 

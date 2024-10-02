@@ -131,7 +131,7 @@ EVENT_COMET_3                     | La cometa nel sistema [system] è stata dist
 EVENT_COMET_4                     | La letale cometa ha distrutto il mondo [target_raceadjec] nel sistema [system].
 EVENT_DONATION                    | Un ricco mercante disposto a sostenere la causa fa una sostanziosa donazione di [amt] BC alla Riserva Planetaria [target_raceadjecF].
 EVENT_DEPLETED                    | Il mondo [target_raceadjec] su [system] ha esaurito i suoi depositi di metalli pesanti, rendendo il pianeta povero di minerali.
-EVENT_DERELICT                    | La flotta [target_empireof] ha scoperto un'antica nave abbandonata. Da allora gli scienziati [target__race_pluralnounof] hanno raccolto più campi di forza e tecnologie di armi dalla nave.
+EVENT_DERELICT                    | La flotta [target_empireof] ha scoperto un'antica nave abbandonata. Da allora gli scienziati [target_race_pluralnounof] hanno raccolto più campi di forza e tecnologie di armi dalla nave.
 EVENT_EARTHQUAKE                  | Un devastante terremoto colpisce il mondo [target_raceadjec] nel [system], uccidendo [amt] milioni di coloni e danneggiando vaste aree di attività industriale.
 EVENT_ENRICHED                    | L'esplorazione mineraria profonda nel mondo [target_raceadjec] nel sistema [system] rivela un enorme deposito di metalli pesanti precedentemente non rilevato, che rende il pianeta Ricco di Minerali.
 EVENT_FERTILE                     | Un improvviso spostamento nell'asse planetario del mondo [target_raceadjec] in [system] ha cambiato il suo ambiente per renderlo più fertile. La crescita della popolazione aumenta del 50%.

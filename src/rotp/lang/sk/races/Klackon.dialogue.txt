@@ -173,7 +173,7 @@ ACCEPT_TECHNOLOGY_AID_01 | Prijímam tvoj dar [tech].
 BREAK_TRADE_01 | [your_name], už nemám záujem s tebou obchodovať.
 ANNOUNCE_TRADE_01 | S účinnosťou od roku [year] sme sa ja a [your_name] dohodoli na obchodovaní v hodnote [amt] BC ročne.
 ACCEPT_TRADE_01 | Obchodná zmluva vo výške [amt] BC je akceptovateľná.
-ACCEPT_TRADE_01 | Netrpezlivo očakávam skvelý tovar, ktorý ponúkaš [vaše_meno]. Prijímam tvoju dohodu na [amt] BC ročne.
+ACCEPT_TRADE_01 | Netrpezlivo očakávam skvelý tovar, ktorý ponúkaš [your_name]. Prijímam tvoju dohodu na [amt] BC ročne.
 ACCEPT_TRADE_01 | Súhlasím s obchodom v hodnote [amt] BC ročne.
 ACCEPT_TRADE_01 | Dobre, [your_name], tvoju ponuku v hodnote [amt] BC ročne považujem za férovú a spravodlivú.
 

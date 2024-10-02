@@ -3,20 +3,20 @@ name: Koldaniano, Klackantiano, Klockaniano, Arthroponiano, Coleopteroniano
 
 desc1: Industriales Xenófobos
 desc2: Mente de Colmena y Aumento de la Producción de Trabajadores
-desc3: Una especie con una sola mente controladora, la industriosa [_raceadjecF] es inescrutable para los extraños.
+desc3: Una especie con una sola mente controladora, la industriosa [my_raceadjecF] es inescrutable para los extraños.
 
 // possible home system names
-casa: Kholdan, Kholdant, Khaldon, Klokdon, Khakdon
+home: Kholdan, Kholdant, Khaldon, Klokdon, Khakdon
 
-título:     Soberano
-título completo: Soberano
+title:     Soberano
+fulltitle: Soberano
 
 // possible leader names
-líder: Ixitixl, Kaxal, Kikitik, Klaquan, K'kalak, Xantak
+leader: Ixitixl, Kaxal, Kikitik, Klaquan, K'kalak, Xantak
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-nave1: Abejorro, Aguja, Mantis Religiosa, Escarabajo, Zángano, Araña, Mandíbula
-nave2: Avispón, Veneno, Venom, Libélula, Aguijón, Escarabeo, Avispa
-nave3: Tarántula, Víbora, Naja, Áspid, Serpiente, Mamba, Escorpión
-nave4: Cobra Real, Viuda Negra, Death Wyn, Crótalo, Naga, Víbora Negra, Mamba Negro
+ship1: Abejorro, Aguja, Mantis Religiosa, Escarabajo, Zángano, Araña, Mandíbula
+ship2: Avispón, Veneno, Venom, Libélula, Aguijón, Escarabeo, Avispa
+ship3: Tarántula, Víbora, Naja, Áspid, Serpiente, Mamba, Escorpión
+ship4: Cobra Real, Viuda Negra, Death Wyn, Crótalo, Naga, Víbora Negra, Mamba Negro
 

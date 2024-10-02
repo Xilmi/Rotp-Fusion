@@ -3,19 +3,19 @@ name: Ursinatiano, Bearatiano, Bulratiano, Poratiano, Grizzlatiano
 
 desc1: Ecologistas Agresivos
 desc2: Fantásticos Luchadores Terrestres
-desc3: [_race_pluralnoun] ferozmente leales valoran tanto la fuerza como la sabiduría en su rey-filósofo.
+desc3: [my_race_pluralnoun] ferozmente leales valoran tanto la fuerza como la sabiduría en su rey-filósofo.
 
 // possible home system names
-casa: Ursa, Canis, Grizzla, Pandara, Bruin
+home: Ursa, Canis, Grizzla, Pandara, Bruin
 
-título:     Gran Jerarca
-título completo: Gran Jerarca
+title:     Gran Jerarca
+fulltitle: Gran Jerarca
 
 // possible leader names
-líder: Bullux, Durpp, Grunk, Krungo, Monch, Smurch
+leader: Bullux, Durpp, Grunk, Krungo, Monch, Smurch
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-nave1: Pata, Patrulla, Garra, Colmillo, Diente, Jabali, Ursino
-nave2: Cazador, Gladiador, Centinela, Pescador, Rastreador, Carnívoro, Panda
-nave3: Oso de Guerra, Bruto, Depredador, Intimidador, Matador, Guardián, Protector
-nave4: Gris, Castigador, Rinoceronte, Kodiak, Destructor, Cerbero, Torturador
+ship1: Pata, Patrulla, Garra, Colmillo, Diente, Jabali, Ursino
+ship2: Cazador, Gladiador, Centinela, Pescador, Rastreador, Carnívoro, Panda
+ship3: Oso de Guerra, Bruto, Depredador, Intimidador, Matador, Guardián, Protector
+ship4: Gris, Castigador, Rinoceronte, Kodiak, Destructor, Cerbero, Torturador

@@ -59,7 +59,7 @@ WARN_SABOTAGE_01 | Sabotáž. Zodpovedný druh: [spy_race]. Domínium si je vedo
 WARN_BIOWEAPON_01 | Domínium pozoruje použitie hrubej biologickej zbrane. Účinná zbraň. Hodnotenie druhu: [attacker_race_plural]. Potenciál hrozby zvýšený o 3 úrovne.
 WARN_GENOCIDE_01 | Zaznamenaná genocída. Obeť, druh: [victim_race_plural]. Agresor, druh: [attacker_race_plural]. Domínium sa nezaoberá možnou príčinou alebo alternatívami. Hodnotenie druhu: [attacker_race_plural]. Potenciál hrozby zvýšený o 5 úrovní.  
 WARN_FINAL_WAR_01 | Všetky známe druhy vytvorili dohodu na zabezpečenie trvalého mieru v galaxii. Druh: [rebel_race_plural]. Jediný nesúhlasiaci. Domínium prijme príslušné opatrenia.
-WARN_COUNCIL_VOTE_01 | Druh: [voter_race_plural]. Domínium si je vedomé vašich akcií v rade. Význam irelevantný. Výsledok vyhodnotený ako škodlivý pre ciele [candidate_race_akuzative]. Diplomatické postavenie sa primerane upraví.  
+WARN_COUNCIL_VOTE_01 | Druh: [voter_race_plural]. Domínium si je vedomé vašich akcií v rade. Význam irelevantný. Výsledok vyhodnotený ako škodlivý pre ciele [candidate_race_akuzativ]. Diplomatické postavenie sa primerane upraví.  
 WARN_OATHBREAKER_01 | [my_title] vynáša rozsudo. Druh: [your_race]. Druh už nie je považovaný za dôveryhodný. Všetky budúce vzťahy podliehajú revízii na základe toho, že druh porušil záväznú dohodu. [spiesCaught]
 WARN_ATTACKED_ALLY_01 | Zaznamenaný konflikt medzi druhmi: [your_race_plural] a  [defender_race_plural]. Druh: [defender_race_plural]. Druh je spojenec domínia. Ukončite boj alebo sa znášajte na následky. 
 WARN_REBELLING_AGAINST_01 | Druh: [your_race_plural]. Druh je prekážkou cieľov Domínia. Rozhodnutie Galaktickej rady je neprijateľné. Čakáme na odpoveď Najvyššieho arbitra. 
