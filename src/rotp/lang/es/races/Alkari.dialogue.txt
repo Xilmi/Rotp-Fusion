@@ -16,7 +16,7 @@
 
 CONTACT_HONORABLE          | Salve a usted, oh [your_nameTitle] [your_empireof]! Nosotros [my_empireof] extendemos cordiales saludos y esperamos tratos honorables con los de su gente. 
 CONTACT_PACIFIST           | Los más sinceros saludos a usted, [your_title] [your_empireof]. No lleve la guerra al umbral de nuestra Soberanía, y ambos prosperaremos en la amistad del otro. 
-CONTACT_ERRATIC            | Soy embajador del longevo [_empire]. Mi gente extiende saludos como es nuestra costumbre. Los de su especie son conocidos como [your_race_pluralnoun]? Que... intrigante.
+CONTACT_ERRATIC            | Soy embajador del longevo [my_empire]. Mi gente extiende saludos como es nuestra costumbre. Los de su especie son conocidos como [your_race_pluralnoun]? Que... intrigante.
 
 //
 GREETING_01                | Salve a usted, embajador! ¿Qué servicio podría prestar la Soberanía a tan venerado aliado en este día?

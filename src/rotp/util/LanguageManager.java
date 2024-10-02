@@ -122,7 +122,7 @@ public class LanguageManager implements Base {
             return;
         loadLanguage(i);
         
-        validateDialogueTokens(true); // TODO BR: change to false
+        validateDialogueTokens(false); // TO DO BR: change to false (true for debug)
     }
     private void validateDialogueTokens(boolean doIt) {
     	if (!doIt)
