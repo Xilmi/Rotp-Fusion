@@ -147,7 +147,7 @@ COMPUTER_11_INFO   | This is the top level Battle Computer.
 // Battle Suit techs for ground combat
 // 
 BATTLESUIT_NAME      | Personal Armor Technologies
-BATTLESUIT_DETAIL    | Gives Ground combat bonus:<br>+ 10 for Battle Suits (Tech level 11)<br>+20 for Armored Exoskeletons (Tech level 24)<br>+30 for Powered Armor (Tech level 40)
+BATTLESUIT_DETAIL    | Gives Ground combat bonus:<br>+10 for Battle Suits (Tech level 11)<br>+20 for Armored Exoskeletons (Tech level 24)<br>+30 for Powered Armor (Tech level 40)
 
 // this is for default, no-bonus armor that player starts with
 BATTLESUIT_0_NAME    | Leather Suits
@@ -1333,4 +1333,3 @@ TORPEDO_2_DETAIL      | High-yield energy torpedoes that deliver 75 points of da
 TORPEDO_3_NAME        | Plasma Torpedoes
 TORPEDO_3_BRIEF       | Loses 15 damage/hex
 TORPEDO_3_DETAIL      | Pure energy torpedoes that deliver 150 points of damage and move at speed 6, but loses 15 damage per space traveled. The launcher fires every other turn and has a +7 guidance computer.
-
