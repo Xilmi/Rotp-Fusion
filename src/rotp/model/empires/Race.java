@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import rotp.model.empires.Leader.Objective;
 import rotp.model.empires.Leader.Personality;
@@ -391,8 +392,14 @@ public class Race implements Base, Serializable {
     }
     public boolean validateDialogueTokens() { // BR: for debug
     	boolean valid = true;
-    	for (List<String> val : raceLabels().dialogueMapValues()) {
-    		if (val != null && !val.isEmpty()) {
+    	for (Entry<String, List<String>> entry : raceLabels().dialogueMapEntrySet()) {
+    		List<String> val = entry.getValue();
+    		if (val == null || val.isEmpty()) {
+    			valid = false;
+    			String key = entry.getKey();
+				System.err.println("Keyword with empty text: " + key + " / " + id);
+    		}
+    		else {
     			for (String txt : val) {
     				List<String> tokens = varTokens(txt);
     				if (!tokens.isEmpty()) {
@@ -429,8 +436,6 @@ public class Race implements Base, Serializable {
 	       							break;
 	       						default:
        								if (!raceLabels().hasLabel(token)) {
-//       	    							if (token.startsWith("_"))
-//       	    								token = token.substring(1);
        	    							if (!labels().hasLabel(token)) {
        		    							valid = false;
        		    							System.err.println("Missing token: " + token

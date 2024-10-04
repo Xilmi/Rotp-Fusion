@@ -157,10 +157,8 @@ EVENT_SPACE_CRYSTAL_3             | Az Űrkristályt elpusztították [victim_ra
 SYSEVENT_HOMEWORLD                | [alien_race_possessive_prefix_uppercase] anyavilága.
 SYSEVENT_SCOUTED                  | [alien_race_possessive_prefix_uppercase] derítették fel először.
 SYSEVENT_COLONIZED                | [alien_race_possessive_prefix_uppercase] gyarmata.
-SYSEVENT_CAPTURED                 | Foglyul tartott [alien_race_prefix_lowercase]
- erők által.
-SYSEVENT_ABANDONED                | Elhagyatott [alien_race_possessive_prefix_lowercase]
- által.
+SYSEVENT_CAPTURED                 | Foglyul tartott [alien_race_prefix_lowercase] erők által.
+SYSEVENT_ABANDONED                | Elhagyatott [alien_race_possessive_prefix_lowercase] által.
 SYSEVENT_DESTROYED                | Megsemmisített a keringő [alien_race] erők által.
 SYSEVENT_DESTROYED_MONSTER        | %1 faj semmisítette meg.
 SYSEVENT_DESTROYED_UNKNOWN        | Megsemmisült.

@@ -10,7 +10,6 @@ _race_pluralnounto                | ai Ursinatiani, ai Bearatiani, agli Bulratia
 _race_pluraladjec                 | Ursinatiani, Bearatiani, Bulratiani, Poratiani, Grizzlatiani
 _race_pluraladjecF                | Ursinatiane, Bearatiane, Bulratiane, Poratiane, Grizzlatiane
 
-Ursinathi, Bearathi, Burlathi, Pawrathi, Grizzlathi
 
 _title                            | Gran Gerarca
 _nameTitle                        | Gran Gerarca

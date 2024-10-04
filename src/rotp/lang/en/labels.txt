@@ -1368,8 +1368,7 @@ SETUP_RULESET_SIRIUS              | Sirius
 SETUP_GALAXY_SIZE_LABEL           | Size
 SETUP_RACE_MULTIPLIER             | x%1
 SETUP_GALAXY_SHAPE_LABEL          | Shape
-SETUP_GALAXY_SIZE_HELP            | The galaxy size will determine the number of stars and therefore the maximum player count.<br>Note that there are multiple star counts for some size settings. For instance, an average sized galaxy can have 100 or 150 stars. A large galaxy can have 225 or 333 stars.<br> Each selection will change the number of opponents to its default setting, which can then be adjusted on the Select
-Opponents panel.
+SETUP_GALAXY_SIZE_HELP            | The galaxy size will determine the number of stars and therefore the maximum player count.<br>Note that there are multiple star counts for some size settings. For instance, an average sized galaxy can have 100 or 150 stars. A large galaxy can have 225 or 333 stars.<br> Each selection will change the number of opponents to its default setting, which can then be adjusted on the "Select Opponents" panel.
 SETUP_GALAXY_SIZE_DESC            | Select the Galaxy Size
 SETUP_GALAXY_SIZE                 | Galaxy Size: %1
 SETUP_GALAXY_SIZE_STAR_PER_EMPIRE | %1 s/e
@@ -1474,8 +1473,7 @@ SETUP_OPPONENT_AI_DESC            | Select the AI that will be applied to all yo
 SETUP_OPPONENT_AI                 | Play against:
 SETUP_OPPONENT_AI_BASE_HELP       | AI-Family: Base<br> More defensive than the other Base-Family-AIs.
 SETUP_OPPONENT_AI_BASE            | AI: Base
-SETUP_OPPONENT_AI_MODNAR_HELP     | AI-Family: Base<br> Uses an opening-book for the first few technologies. Builds fewer missile-bases. Uses a broader variety of ship-design-templates. Attack-size scales with difficulty.
-Diplomacy is a bit more quirky due to some missing bug-fixes.
+SETUP_OPPONENT_AI_MODNAR_HELP     | AI-Family: Base<br> Uses an opening-book for the first few technologies. Builds fewer missile-bases. Uses a broader variety of ship-design-templates. Attack-size scales with difficulty. Diplomacy is a bit more quirky due to some missing bug-fixes.
 SETUP_OPPONENT_AI_MODNAR          | AI: Modnar
 SETUP_OPPONENT_AI_ROOKIE_HELP     | AI-Family: Base<br> Uses an opening-book for the first few technologies. Builds fewer missile-bases. Uses a broader variety of ship-design-templates. Attack-size scales with difficulty.<br> An important bug about retreat-behavior is fixed. There's no real point in having the two other base-AIs around. It's just so the Mod doesn't lack them as a feature.
 SETUP_OPPONENT_AI_ROOKIE          | AI: Rookie
@@ -1649,7 +1647,7 @@ SETUP_TERRAFORMING_NORMAL_HELP    | Terraforming technologies work at 100% on ho
 SETUP_TERRAFORMING_NORMAL         | Normal
 SETUP_TERRAFORMING_REDUCED_HELP   | Improved Terraforming technologies that increase the size of your planets will only have half effectiveness on Hostile planets,  until you've applied Atmosphere Terraforming to remove the Hostile trait.
 SETUP_TERRAFORMING_REDUCED        | Reduced
-SETUP_TERRAFORMING_NONE_HELP      | Improved Terraforming technologies that increase the size of your planets will no affect Hostile planets,  until you've applied Atmosphere Terraforming to remove the Hostile trait.
+SETUP_TERRAFORMING_NONE_HELP      | Improved Terraforming technologies that increase the size of your planets will not affect Hostile planets, until you've applied Atmosphere Terraforming to remove the Hostile trait.
 SETUP_TERRAFORMING_NONE           | None
 SETUP_COLONIZING_NORMAL_HELP      | Any special colony base can colonize a planet of that hostility or lower on the "hierarchy of hostilities" from Barren to Irradiated.
 SETUP_COLONIZING_NORMAL           | Normal
@@ -2084,10 +2082,9 @@ SETTINGS_NEBULAE_DESC             | Nebulae slow down ship travel and render shi
 //-SETTINGS_PLANET_QUALITY_DESC    | [modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich;<br> "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
 SETTINGS_PLANET_QUALITY_HELP      |  Do you want your galaxy to lean more terran or more barren?<br>After the stars have been placed, each star has a percentage chance based on its type of getting a single planet. The star type then determines the environment of its planet. The environment sets the range of sizes available for a planet, with unfriendly environments tending to smaller planets. However, the formula allows planets to sometimes stray dramatically from their default ranges. It's possible, but unlikely, to find massive barren planets and tiny fertile planets. Finally, the star type determines the chance that its planet will have a special trait like poor, rich, or artifact.
 SETTINGS_PLANET_QUALITY_DESC      | Increases or decreases the frequency of higher quality planets.
-SETTINGS_TERRAFORMING_HELP        | When this is set to Normal, once you've colonized a Hostile planet with the required colony base, the only difference from non-Hostile planets is a 50% penalty to population growth. This can be removed with Atmospheric Terraforming, at which points the Hostile trait is removed and the colony is like any other environment. But if you'd like your Hostile planets to have more bite, put this setting on Reduced. Now the Improved Terraforming
-technologies that increase the size of your planets will only have half effectiveness on Hostile planets. For instance, the first step of Improved Terraforming lets you add +10 to a planet's size to represent more hospitable conditions. But with this setting at Reduced, a Hostile planet will only get +5 size. And if you want really hostile Hostile planets, put this setting on None. Now you can't apply any terraforming size upgrades until you've applied Atmosphere Terraforming to remove the Hostile trait.
+SETTINGS_TERRAFORMING_HELP        | When this is set to Normal, once you've colonized a Hostile planet with the required colony base, the only difference from non-Hostile planets is a 50% penalty to population growth. This can be removed with Atmospheric Terraforming, at which points the Hostile trait is removed and the colony is like any other environment. But if you'd like your Hostile planets to have more bite, put this setting on Reduced. Now the Improved Terraforming technologies that increase the size of your planets will only have half effectiveness on Hostile planets. For instance, the first step of Improved Terraforming lets you add +10 to a planet's size to represent more hospitable conditions. But with this setting at Reduced, a Hostile planet will only get +5 size. And if you want really hostile Hostile planets, put this setting on None. Now you can't apply any terraforming size upgrades until you've applied Atmosphere Terraforming to remove the Hostile trait.
 SETTINGS_TERRAFORMING_DESC        | Reduce or eliminate the benefits of the Improved Terraforming technologies on hostile planets.
-SETTINGS_COLONIZING_HELP          |  By default, any special colony base can colonize a planet of that hostility or lower on the "hierarchy of hostilities" from Barren to Irradiated. But if you set this to Restricted, a Hostile environment will need a colony base of that specific type. Now the Irradiated Colony Base you'll need to settle the most hostile of planets is no longer the be-all and end-all of colony bases.
+SETTINGS_COLONIZING_HELP          | By default, any special colony base can colonize a planet of that hostility or lower on the "hierarchy of hostilities" from Barren to Irradiated. But if you set this to Restricted, a Hostile environment will need a colony base of that specific type. Now the Irradiated Colony Base you'll need to settle the most hostile of planets is no longer the be-all and end-all of colony bases.
 SETTINGS_COLONIZING_DESC          | Restrict the colonization of systems to only those for which you have acquired the specific technology.
 SETTINGS_COUNCIL_WIN_HELP         | This determines whether factions can reject a council victory, or whether one is even possible.
 SETTINGS_COUNCIL_DESC             | Disable the council victory condition or allow enemy empires to rebel against a player victory.

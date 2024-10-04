@@ -16,8 +16,7 @@
 
 CONTACT_AGGRESSIVE         | La saluto, cosa strana. Sono [my_empireof], e un servitore del Khan Dorato. Spero che Lei sia forte, [your_raceadjec], non solo per il bene del Suo popolo, ma anche per il bene dei tesori a cui tenete di più. 
 CONTACT_RUTHLESS           | Siamo [my_race_pluralnoun], [your_race_pluraladjec], e aderiamo a una sola convinzione: il forte prenderà e il debole darà. Se non conosce già la saggezza di una simile filosofia, gliela insegneremo molto presto.
-CONTACT_XENOPHOBIC         | Pregate che il Khan Dorato vi consideri degni, [your_race_pluraladjec]. Suscitate la sua ira e non avrà scrupoli a far scendere su di voi flotte 
-.
+CONTACT_XENOPHOBIC         | Pregate che il Khan Dorato vi consideri degni, [your_race_pluraladjec]. Suscitate la sua ira e non avrà scrupoli a far scendere su di voi flotte.
 //
 GREETING_01                | Si è provato a noi più e più volte. Siamo onorati di fare il possibile per dimostrarLe in genere.
 GREETING_04                | Ascolterò le Sue parole, ambasciatore, ma non sono obbligato a darLe qualunque cosa Lei stia cercando.

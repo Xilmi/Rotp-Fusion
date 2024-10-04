@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed several dialog files containing orphaned keywords and orphaned definitions because they were accidentally split across multiple lines.
 - Fixed plenty keywords that should not have been translated into foreign languages. (In more than half the languages...)
 - Update French language. (Frank Zago)
 - Tech Panel: New complementary tech info available.

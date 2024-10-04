@@ -30,8 +30,7 @@ DECLAREWAR_ERRATIC_02      | Ha mai guardato le stelle e desiderato sapere cosa 
 DECLAREWAR_ERRATIC_03      | In tempi di grande incertezza, potrebbe trovare le creature più modeste ancora in grado di sferrare un colpo fatale.
 DECLAREWAR_MILITARY_01     | Non abbiamo ancora trovato quello che più desideriamo, e così vi porteremo via i luoghi che i nostri occhi non hanno ancora visto. Arrendete i vostri mondi o cadete in loro difesa.
 DECLAREWAR_MILITARY_02     | Esiste la possibilità che le risposte che cerchiamo si nascondano su un pianeta del vostro impero, e così le avremo tutte. Sappiate che non è personale, [your_race_pluraladjec], ma i tempi disperati richiedono un'azione disperata.
-DECLAREWAR_MILITARY_03     | Se non riusciamo a raggiungere la soluzione del nostro enigma, non ha senso continuare ad andare avanti! Se la risposta si trova su uno dei vostri mondi, daremo tutto ciò che dobbiamo per ottenere
-no!
+DECLAREWAR_MILITARY_03     | Se non riusciamo a raggiungere la soluzione del nostro enigma, non ha senso continuare ad andare avanti! Se la risposta si trova su uno dei vostri mondi, daremo tutto ciò che dobbiamo per ottenere no!
 DECLAREWAR_ALLIANCE_01     | Stolto! Ha fatto del nostro alleato un nemico, e come tale ha fatto di noi un nemico! Vi abbatteremo in fretta: non abbiamo tempo da perdere con i vostri errori e le vostre follie!
 DECLAREWAR_ALLIANCE_02     | È raro che ci intromettiamo direttamente negli affari degli altri. Ma quando un alleato che ha aiutato la nostra ricerca chiede il nostro aiuto, faremo il possibile per aiutarlo.
 DECLAREWAR_ALLIANCE_03     | Siamo lieti di vedere i vostri imperi combattere tra loro, ma conosciamo la minaccia che ci presentate. Aiuteremo volentieri [defender_race_pluralnoun] a rimuovere l'impedimento che pone la vostra esistenza.

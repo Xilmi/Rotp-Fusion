@@ -338,7 +338,6 @@ CONTROLENV_6_DETAIL  | Permits the colonization of all hostile planets.
 
 DEFLECTOR_NAME        | Deflector Shields
 DEFLECTOR_DETAIL      | Depending on their level, deflector shields may absorb up to 15 point of attack. Some weapons will halve their effectiveness, and they are totally ineffective in nebula
-Depending on their level, deflector shields can absorb up to 15 attack points. However, some weapons can reduce their effectiveness by half. These shields are completely ineffective in nebulae.
 
 // this is the entry on Ship Design for selecting no deflector shield
 DEFLECTOR_0_NAME      | Shield looking paint
@@ -520,8 +519,7 @@ PULSAR_2_DETAIL   | A powerful engine modification capable of generating a spher
 // Engine techs
 //
 ENGINE_NAME      | Engines Technologies 
-ENGINE_DETAIL    | One important difference between Remnants of the Precursors and other games with ship design is that engines are 100% hands-off. You simply choose the engine type you want -- this will almost always be your best available type -- and the designer automatically adds engines to meet your power requirement, taking into account all the other settings on the Ship Design screen and displaying all the relevant information on the Engines panel. It even adds "partial engines", as you can see next to the Engines Required stat. This will routinely be a number with a decimal.<br>Your ship's engine determines its warp speed, which is how quickly it travels on the main map,
-measured in parsecs per year. Your ship's combat speed, which is how many spaces it moves during combat, is determined by its Maneuver class. Maneuver class is a setting for how much of the ship's power will be diverted to moving around during combat. Maneuver class is capped by a ship's engine type, and every two points in a ship's Maneuver class give it one point of Combat Speed.<br>Transports travel at one point slower than your fastest engines.
+ENGINE_DETAIL    | One important difference between Remnants of the Precursors and other games with ship design is that engines are 100% hands-off. You simply choose the engine type you want -- this will almost always be your best available type -- and the designer automatically adds engines to meet your power requirement, taking into account all the other settings on the Ship Design screen and displaying all the relevant information on the Engines panel. It even adds "partial engines", as you can see next to the Engines Required stat. This will routinely be a number with a decimal.<br>Your ship's engine determines its warp speed, which is how quickly it travels on the main map, measured in parsecs per year. Your ship's combat speed, which is how many spaces it moves during combat, is determined by its Maneuver class. Maneuver class is a setting for how much of the ship's power will be diverted to moving around during combat. Maneuver class is capped by a ship's engine type, and every two points in a ship's Maneuver class give it one point of Combat Speed.<br>Transports travel at one point slower than your fastest engines.
 
 ENGINE_0_NAME    | Retro Engines
 ENGINE_0_DETAIL  | Moves ships at Warp %1, and allows a maximum maneuverability of class I in combat.

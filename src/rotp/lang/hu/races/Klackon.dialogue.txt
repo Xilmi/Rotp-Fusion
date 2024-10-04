@@ -14,10 +14,8 @@
 
 // Klackon specific dialogue
 
-CONTACT_AGGRESSIVE         | 
-Én [my_name] vagyok, te pedig [your_name]? Furcsa név egy hozzám hasonlónak, de azt mondod, hogy nem vagy olyan, mint én? Ez egy nagyon... bosszantó találkozás.
-CONTACT_RUTHLESS           | 
-Engem [my_name] néven ismernek. Te vagy [your_name]? Mi az a [your_name]? Nemigen van szükségem olyan fajtára, aki ilyen csavarral boldogul!
+CONTACT_AGGRESSIVE         | Én [my_name] vagyok, te pedig [your_name]? Furcsa név egy hozzám hasonlónak, de azt mondod, hogy nem vagy olyan, mint én? Ez egy nagyon... bosszantó találkozás.
+CONTACT_RUTHLESS           | Engem [my_name] néven ismernek. Te vagy [your_name]? Mi az a [your_name]? Nemigen van szükségem olyan fajtára, aki ilyen csavarral boldogul!
 CONTACT_XENOPHOBIC         | Tudtam, amikor megkezdtem az utamat, hogy kell lennie még hozzám hasonlónak, de te egyáltalán nem vagy olyan, mint én... Más vagy... idegen... és veszélyes.
 //
 GREETING_01                | Barátom! Örülök, hogy eljöttél! Remélem, meg tudom adni, bármit is keresel.
@@ -33,7 +31,7 @@ DECLAREWAR_ERRATIC_01      | Nem verhetsz át a trükkjeiddel! Tudom, hogy akkor
 DECLAREWAR_ERRATIC_02      | A viselkedésed furcsa és kiszámíthatatlan. A bizonytalanság, amitől éreztetsz, nagyon idegesít, és nem értem, miért kellene tovább szenvednem. Készülj fel a felejtésre!
 DECLAREWAR_ERRATIC_03      | Miért csinálod, amit csinálsz? Mi hajt téged? És ez arra késztet, hogy egy napon háborút hozz rám? Alig várom, hogy lássam, mit teszel ezután: a jövőmért azonnal hadat kell viselnem ellened!
 DECLAREWAR_MILITARY_01     | Még mindig nem találtam meg, aki olyan, mint én. Tudom, hogy létezniük kell, és minden egyes világodban keresem majd őket, ha egyszer elveszem őket tőled!
-DECLAREWAR_MILITARY_02     |Mit titkolsz előlem [your_name]? Nem tudhatom biztosan amíg meg nem vizsgálom mindegyik világodat, és most elveszem őket tőled, hogy megtehessem!
+DECLAREWAR_MILITARY_02     | Mit titkolsz előlem [your_name]? Nem tudhatom biztosan amíg meg nem vizsgálom mindegyik világodat, és most elveszem őket tőled, hogy megtehessem!
 DECLAREWAR_MILITARY_03     | Nem engedem tovább, hogy rejtegesd a keresésem tárgyát! Tudom, hogy akit keresek, az az egyik világotokon van. Nem nyugszom, amíg át nem adod őket nekem!
 DECLAREWAR_ALLIANCE_01     | [other_name] nevű barátom többet segített a küldetésemben, mint azt sejthette. Örömmel törlesztek azzal, hogy megszabadulok tőled!
 DECLAREWAR_ALLIANCE_02     | Azokat, akik segítenek a keresésemben, örökké értékelni fogom és tiszteletem jeléül boldogan megadom amit tudok [other_name] barátomnak. Készülj a halálra, [your_name]!
@@ -64,8 +62,7 @@ WARN_BIOWEAPON_01          | Ez a fegyvered abszolút borzasztó. Ha egyáltalá
 WARN_GENOCIDE_01           | Milyen érzéketlen! Soha nem számítottam arra, hogy odáig fajulsz, hogy teljesen megsemmisítsd [victim_name] néven ismertet. Soha nem felejtem el azt a barbárságot amit ma tanúsítottál. 
 WARN_FINAL_WAR_01          | Most már látom, hogy ahhoz, hogy megvalósíthassam álmomat, a galaxisnak békében kell lennie. De amíg létezel, a béke soha nem valósulhat meg. A válasz nyilvánvaló: [rebel_name] lázadót meg kell semmisíteni! 
 WARN_COUNCIL_VOTE_01       | Bevallom, hogy nem ismerem az általad "politikai manőverezésnek" nevezett nüanszokat. De tudom, hogy azzal, hogy [other_name] nevűre szavaztál, ellenem léptél fel, és én nem felejtem el azokat, akik megakadályoznak valamiben.
-WARN_OATHBREAKER_01        | 
-Tehát így működsz, [your_name]? Azért kötsz megállapodást, hogy akkor bontsd fel, amikor jónak látod? Tudtam, hogy nem olyan vagy, mint én, és a tetteid ezt minden kétséget kizáróan igazolják! [spiesCaught] 
+WARN_OATHBREAKER_01        | Tehát így működsz, [your_name]? Azért kötsz megállapodást, hogy akkor bontsd fel, amikor jónak látod? Tudtam, hogy nem olyan vagy, mint én, és a tetteid ezt minden kétséget kizáróan igazolják! [spiesCaught] 
 WARN_ATTACKED_ALLY_01      | Miért támadod [defender_name] barátomat, [your_name]? Találj más módot a nézeteltérések megoldására: nem fogom szeretni, ha közbelépésre kényszerítenek! 
 WARN_REBELLING_AGAINST_01  | Nem kedvellek [your_name], és még kevésbé szeretem, hogy téged választottak a tanács vezetőjévé! Át kell gondolnom, mi történt ma és neked is el kell gondolkodnod azon, hogyan lehetek hamarosan kénytelen reagálni! 
 
@@ -74,12 +71,10 @@ PRAISE_COUNCIL_VOTE_02     | Hosszú fennállásom során soha nem volt szüksé
 PRAISE_COUNCIL_VOTE_03     | A tanácsban rám adott szavazatod csak egy kísérlet arra nézve, hogy újragondoljam a rólad alkotott véleményemet. Azonban úgy gondolom, hogy erre kényszerülhetek, ha a tetteid továbbra is hasznomra válnak.  
 PRAISE_ATTACKED_ENEMY_01   | Igen! Megtámadtak és a barátom a segítségemre siet! Ez az aljas [defender_name], mutassuk meg neki, hogy együtt harcolunk, elszakíthatatlan kötelékben! 
 PRAISE_ATTACKED_ENEMY_02   | Köszönjük [attacker_name]! Jó látni, hogy van másvalaki is, aki felismeri, milyen fenyegetést jelent akit „[defender_name]” néven ismernek. Gyere! Együtt fogjuk megtámadni, amíg nem marad belőle semmi! 
-PRAISE_ATTACKED_ENEMY_03   |Nem tudom [attacker_name], mit remélsz [defender_name]megtámadásától. Tévelygő vagy, akiben nem lehet megbízni, de ennek ellenére emlékezni fogok minderre.
+PRAISE_ATTACKED_ENEMY_03   | Nem tudom [attacker_name], mit remélsz [defender_name]megtámadásától. Tévelygő vagy, akiben nem lehet megbízni, de ennek ellenére emlékezni fogok minderre.
 PRAISE_TRADE_01            | Csak úgy sikerült eljutnunk idáig, hogy közösen dolgoztunk a kölcsönös előnyök érdekében. Tartson ki a kereskedéseinkből szerzett jólét, amíg mindketten megtaláljuk, amit keresünk!   
-PRAISE_TRADE_02            | 
-Megelégedettséggel tölt el, hogy a kereskedelmi megállapodásunk  mindkettőnknek segít. Te is örülsz ennek, ugye [your_name]?  
-PRAISE_REBELLING_WITH_01   | 
-[your_name] segítséget kér! Csatlakozom hozzád, és fegyvert fogok e nevetséges tanács ellen! A barátom vagy, és ez azt jelenti, hogy soha nem fogsz egyedül harcolni!
+PRAISE_TRADE_02            | Megelégedettséggel tölt el, hogy a kereskedelmi megállapodásunk  mindkettőnknek segít. Te is örülsz ennek, ugye [your_name]?  
+PRAISE_REBELLING_WITH_01   | [your_name] segítséget kér! Csatlakozom hozzád, és fegyvert fogok e nevetséges tanács ellen! A barátom vagy, és ez azt jelenti, hogy soha nem fogsz egyedül harcolni!
 
 DIPLO_TECH_REQUEST_MENU_01   | Milyen típusú technológia érdekel?
 DIPLO_TECH_COUNTER_MENU_01   | Mit cserélnél el érte?
@@ -155,7 +150,6 @@ DECLINE_BIOWEAPONS_01      | Nem kötök egyezséget senkivel, aki biológiai fe
 DECLINE_BIOWEAPONS_01      | Nem tudok egyezséget kötni senkivel, aki elég elkeseredett ahhoz, hogy biológiai fegyverekhez folyamodjon.
 DECLINE_BIOWEAPONS_01      | Olyan fegyvereket használsz, amelyek kimondhatatlan borzalmakat okoznak nekem. Nem vagyok hajlandó ilyen őrültséggel foglalkozni.
 
-Community Verified icon
 DECLINE_BIOWEAPONS_01      | Az istenek utálják azokat, akik biológiai fegyverekkel pusztítanának el bolygókat. Nem engedhetem meg.
 DECLINE_BIOWEAPONS_01      | A fájdalom, amit a biológiai fegyvereid okoznak, megtölti a fülem. Nem hallom meg az ajánlatát.
 DECLINE_TECH_TRADE_01      | Nincs olyan technológiád, ami érdekelne engem.
@@ -205,7 +199,7 @@ BREAK_ALLIANCE_01          | A továbbiakban nem tartom fenn a szövetséget vel
 ANNOUNCE_ALLIANCE_01       | [year] évben [your_name] és én megállapodunk abban, hogy szövetséget kötünk, amennyiben egyikünk sem támadja meg a másik flottáját vagy gyarmatát.
 ANNOUNCE_ALLIANCE_01       | Tehát a Szövetségünk összekovácsolódott. Hajóid tetszés szerint látogathatják gyarmataimat, és üzemanyagot kaphatnak a bázisaimról.
 ACCEPT_ALLIANCE_01         | Üdvözlöm a Szövetséget [your_name], jó barátom.
-ACCEPT_ALLIANCE_01         |[your_name] és én ma Szövetséget kovácsolunk. Halál az ellenségeinkre!
+ACCEPT_ALLIANCE_01         | [your_name] és én ma Szövetséget kovácsolunk. Halál az ellenségeinkre!
 ACCEPT_ALLIANCE_01         | Látom a bölcsességet a Szövetségünkben, [your_name]. Tehát legyen!
 
 ACCEPT_BREAK_ALLIANCE_01   | Egyetértek azzal, hogy [other_name] többé nem megbíztható, ezért felbontottam vele a szövetségemet.

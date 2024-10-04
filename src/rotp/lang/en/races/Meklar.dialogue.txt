@@ -140,4 +140,3 @@ RESPOND_CLOSE_EMBASSY_01   | Actions recorded.
 RESPOND_BREAK_TRADE_01     | Actions recorded.
 RESPOND_BREAK_PACT_01      | Actions recorded.
 RESPOND_BREAK_ALLIANCE_01  | Actions recorded.
-RESPOND_DECLARE_WAR_01     | Actions recorded.

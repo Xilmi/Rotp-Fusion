@@ -1144,7 +1144,7 @@ SHIPWPN_19_DETAIL      | 发出3道等离子光速，造成20到50点伤害。
 
 
 SHIPWPN_20_NAME        | 恒星转换器
-SHIPWPN_20_BRIEF       | 
+SHIPWPN_20_BRIEF       | 擊中所有四個護盾
 SHIPWPN_20_DETAIL      | 创造一个包围敌舰的反物质能量场，每次攻击造成10到35点，攻击距离为3格。
 
 
@@ -1224,7 +1224,7 @@ TORPEDO_0_BRIEF       | 每2回合发射1次
 TORPEDO_0_DETAIL      | 自动瞄准鱼雷，每次造成30点伤害，但隔1回合才能发射1次。每个鱼雷都配备了让精准度+4的制导设备。
 
 TORPEDO_1_NAME        | 地狱火鱼雷
-TORPEDO_1_BRIEF       | 
+TORPEDO_1_BRIEF       | 擊中所有四個護盾
 TORPEDO_1_DETAIL      | 高速鱼雷，它的速度为5，配备了精准度为6的制导设备，造成4次25点伤害。
 
 

@@ -125,6 +125,7 @@ public class LanguageManager implements Base {
         validateDialogueTokens(false); // TO DO BR: change to false (true for debug)
     }
     private void validateDialogueTokens(boolean doIt) {
+    	LabelManager.validate = doIt;
     	if (!doIt)
     		return;
     	boolean valid = true;

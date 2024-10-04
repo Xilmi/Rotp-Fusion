@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.10.04 (BR)
+- Fixed several dialog files containing orphaned keywords and orphaned definitions because they were accidentally split across multiple lines.
+
 2024.10.02 (BR)
 - Fixed plenty of keywords that should not have been translated into foreign languages.
 

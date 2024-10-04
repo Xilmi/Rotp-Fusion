@@ -19,7 +19,7 @@ _race_plural7                     | Дарлоки, Сарлоки, Шпилюк
 _title                            | Правитель
 _title3                           | Правителю
 _title7                           | Правителю
-_nameTitle  
+_nameTitle                        | 
 
 //
 // All text below this point is copyright 2018-2020 Jeff Colucci

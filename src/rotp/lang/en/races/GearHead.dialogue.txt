@@ -406,7 +406,6 @@ RESPOND_BREAK_ALLIANCE_01  | Very well. Your untrustworthy intentions have shown
 RESPOND_BREAK_ALLIANCE_01  | We have little need of treaties that are not honored. The alliance is broken.
 RESPOND_BREAK_ALLIANCE_01  | So be it. The alliance is broken.
 
-RESPOND_DECLARE_WAR_01       | 
 RESPOND_IGNORE_THREAT_01     | We ignore the hollow threats of a raving lunatic.
 RESPOND_IGNORE_THREAT_01     | You bluff poorly, [your_nameTitle] [your_name]. Your threats do not concern us.
 RESPOND_IGNORE_THREAT_01     | Make your childish threats. The young of the [my_race] often throw tantrums as well.

@@ -1643,7 +1643,7 @@ RACES_INTEL_SECURITY_BONUS        | Bonus de Securitate
 RACES_INTEL_TOTAL_SPENDING        | Cheltuieli Totale
 RACES_INTEL_SECURITY_TAX          | Taxă de Securitate
 RACES_INTEL_TAX_DESC              | Taxați coloniile pentru a crește șansele de a descoperi spioni străini.
-RACES_INTEL_TAX_OUT_OF_RANGE      | 
+RACES_INTEL_TAX_OUT_OF_RANGE      | Cheltuielile încep când se află în raza de acțiune a imperiilor extraterestre.
 RACES_INTEL_SECURITY_BONUS_AMT    | +%1%
 RACES_INTEL_SECURITY_BONUS_NONE   | Fără
 RACES_INTEL_REPORT_AGE            | Vârsta Raportului

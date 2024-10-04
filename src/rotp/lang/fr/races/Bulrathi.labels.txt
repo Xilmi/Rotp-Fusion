@@ -11,7 +11,6 @@ _race_pluraladjecF                | Ursinathiennes, Bearathiennes, Burlathiennes
 _title                            | le Grand Hiérarque
 _nameTitle                        | le Grand Hiérarque
 
-Ursinathi Empire, Bearathi Empire, Burlathi Empire, Pawrathi Empire, Grizzlathi Empire
 
 //
 // All text below this point is copyright 2018-2020 Jeff Colucci

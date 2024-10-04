@@ -54,10 +54,8 @@ _nameTitle                        | Nagy Hierarcha
 // Advisor text
 MAIN_ADVISOR_TITLE                | Ursinati Tanácsadó
 MAIN_ADVISOR_BUTTON_OK            | Rendben
-MAIN_ADVISOR_SCOUT                | 
-Mester,felderítőinkkel és gyarmatosító hajóinkkal is felkészültünk az indulásra. Parancsára elkezdjük a környező rendszerek felfedezését és gyarmatosítását.
-MAIN_ADVISOR_TRANSPORT            | 
-A világ 1%-a hozzáadódott a birodalmához! Adja ki a parancsot és azonnal megkezdjük a szállítók kiküldését!
+MAIN_ADVISOR_SCOUT                | Mester,felderítőinkkel és gyarmatosító hajóinkkal is felkészültünk az indulásra. Parancsára elkezdjük a környező rendszerek felfedezését és gyarmatosítását.
+MAIN_ADVISOR_TRANSPORT            | A világ 1%-a hozzáadódott a birodalmához! Adja ki a parancsot és azonnal megkezdjük a szállítók kiküldését!
 MAIN_ADVISOR_DIPLOMACY            | Egy idegen faj kapcsolatba lépett a birodalmunkkal, Mester. Akár barátként vagy ellenségként kezeljük őket, a döntés kizárólag az ön belátására van hagyva.
 MAIN_ADVISOR_SHIP_ENGINE          | A tudósaink folytatják a technológia határainak feszegetését, ezúttal a hajtóműveink sebességét fejlesztve. Az ön jóváhagyására várnak a űrhajó megújult formaterveit illetően.
 MAIN_ADVISOR_RALLY_POINTS         | Irányítsa újonnan tervezett hajóinkat a gyülekezési pontokra, hogy ott összpontosítsa a flottákat ahol kívánja.
@@ -66,8 +64,7 @@ MAIN_ADVISOR_SHIP_WEAPON          | Kutatóink foganatosítottak egy elsöprő �
 MAIN_ADVISOR_COUNCIL              | A képviselők hamarosan összegyűlnek az első Galatikus Tanácshoz, Mester. Diplomatáink követni fogják az ön iránymutatását, hogy biztosítsák, hogy a tanács igazodik az ön akaratához.
 MAIN_ADVISOR_REBELLION            | Úgy tűnik, hogy a népek 1%-a úgy döntött, hogy nyíltan megtagadja önt, Mester. Itt az idő emlékeztetni őket rá, miért ön lett kiválasztva a Birodalom vezetésére.
 MAIN_ADVISOR_RESIST_COUNCIL       | Csakis ön ülhet a galaxis trónján! Nem fogjuk vérszomjunkat csillapítani amíg ön foglalja el jogos helyét, Mester!
-MAIN_ADVISOR_COUNCIL_RESISTED     | 
-Haha! Kíváncsi vagyok milyen lehet olyan bolondnak lenni, hogy valaki uralmunk ellen szegődjön! Nem számít, ezek az aprócska lázadók szét lesznek taposva a sarkaink alatt!
+MAIN_ADVISOR_COUNCIL_RESISTED     | Haha! Kíváncsi vagyok milyen lehet olyan bolondnak lenni, hogy valaki uralmunk ellen szegődjön! Nem számít, ezek az aprócska lázadók szét lesznek taposva a sarkaink alatt!
 
 
 // text for endings... '#' represents a paragraph break

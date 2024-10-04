@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -31,6 +32,8 @@ import rotp.Rotp;
 public class LabelManager implements Base {
     static LabelManager instance = new LabelManager();
     public static LabelManager current()  { return instance; }
+	public static boolean validate = false; // BR: for debug purpose
+	private static String lastDir = "";
 
     private String labelFile = "labels.txt";
     private String dialogueFile = "dialogue.txt";
@@ -88,11 +91,13 @@ public class LabelManager implements Base {
         return (value == null) || value.isEmpty() ? key : random(value);
     }
     public void load(String dir) {
+    	lastDir = dir;
     	loadLabelFile(dir);
     	loadTechsFile(dir);
     	loadDialogueFile(dir);
     }
     public void loadIntroFile(String dir) {
+    	lastDir = dir;
         log("loading Intro: ", dir, introFile);
         String filename = dir+introFile;
         BufferedReader in = reader(filename);
@@ -129,6 +134,7 @@ public class LabelManager implements Base {
             
     }
     public void loadLabelFile(String dir) {
+    	lastDir = dir;
         log("loading Labels: ", dir, labelFile);
         String filename = dir+labelFile;
         BufferedReader in = reader(filename);
@@ -160,6 +166,7 @@ public class LabelManager implements Base {
         dialogueMap.clear();
     }
     public void loadDialogueFile(String dir) {
+    	lastDir = dir;
         log("loading Dialogue: ", dir, dialogueFile);
         
         String filename = dir+dialogueFile;
@@ -222,14 +229,27 @@ public class LabelManager implements Base {
             return 0;
  
         List<String> vals = substrings(input, '|');
-        if (vals.size() < 2)
+        if (vals.size() < 2) {
+        	if (validate) {
+            	if (input.contains("|")) {
+            		validateError("Orphan label keyword: " + input + " / " + labelFile);
+            	}
+            	else if (!input.trim().isEmpty()) {
+            		validateError(labelFile + " / Orphan label text: " + input);
+            	}
+        	}
             return 0;
+       }
         
         int wc = 0;
+        String val = vals.get(1);
+        if (validate && val.trim().isEmpty()) {
+        	validateError("Orphan label keyword: " + input + " / " + labelFile);
+        }
         try {
-            labelMap.put(vals.get(0), vals.get(1).getBytes("UTF-8"));
+            labelMap.put(vals.get(0), val.getBytes("UTF-8"));
             if (Rotp.countWords)
-                wc = substrings(vals.get(1), ' ').size();
+                wc = substrings(val, ' ').size();
         }
         catch(UnsupportedEncodingException e) { }
         return wc;
@@ -239,17 +259,30 @@ public class LabelManager implements Base {
             return 0;
  
         List<String> vals = substrings(input, '|');
-        if (vals.size() < 2)
+        if (vals.size() < 2) {
+        	if (validate) {
+            	if (input.contains("|")) {
+            		validateError("Orphan dialogue keyword: " + input + " / " + dialogueFile);
+            	}
+            	else if (!input.trim().isEmpty()) {
+            		validateError(dialogueFile + " / Orphan dialogue text: " + input);
+            	}
+        	}
             return 0;
-        
+        }
+         
         String key = vals.get(0);
         if (!map.containsKey(key))
             map.put(key, new ArrayList<>());
-        	
-        map.get(key).add(vals.get(1));
+        
+        String val = vals.get(1);
+        if (validate && val.trim().isEmpty()) {
+        	validateError("Orphan dialogue keyword: " + input + " / " + dialogueFile);
+        }
+        map.get(key).add(val);
         
         if (Rotp.countWords)
-            return substrings(vals.get(1), ' ').size();
+            return substrings(val, ' ').size();
         else
             return 0;
     }
@@ -287,50 +320,13 @@ public class LabelManager implements Base {
     }
 
     public Collection<List<String>> dialogueMapValues() { return dialogueMap.values(); } // BR: For Debug
-//    public boolean validateDialogueTokens() {
-//    	boolean valid = true;
-//    	for ( List<String> val : dialogueMap.values()) {
-//    		if (val != null && !val.isEmpty()) {
-//    			for (String txt : val) {
-//    				List<String> tokens = varTokens(txt);
-//    				if (!tokens.isEmpty()) {
-//    					for (String token : tokens) {
-//    						token = token.replace("your_", "_");
-//    						token = token.replace("my_", "_");
-//    						token = token.replace("other_", "_");
-//    						token = token.replace("alien_", "_");
-//    						token = token.replace("player_", "_");
-//    						token = token.replace("spy_", "_");
-//    						token = token.replace("leader_", "_");
-//    						token = token.replace("defender_", "_");
-//    						token = token.replace("attacker_", "_");
-//    						token = token.replace("voter_", "_");
-//    						if (!hasLabel(token) && !instance.hasLabel(token)) {
-//    							valid = false;
-//    							System.err.println("Missing token: " + token);
-//    						}
-//    					}
-//    				}
-//    			}
-//    		}
-//    	}
-//    	return valid;
-//    }
-//    private List<String> varTokens(String s) {
-//        String startKey = "[";
-//        int keySize = startKey.length();
-//        List<String> tokens = new ArrayList<>();
-//        int prevIndex = -1;
-//        int nextIndex = s.indexOf(startKey, prevIndex);
-//        while (nextIndex >= 0) {
-//            int endIndex = s.indexOf(']', nextIndex);
-//            if (endIndex <= nextIndex)
-//                return tokens;
-//            String var = s.substring(nextIndex+keySize, endIndex);
-//            tokens.add(var);
-//            prevIndex = nextIndex;
-//            nextIndex = s.indexOf(startKey, endIndex);
-//        }
-//        return tokens;
-//    }
+    public Set<Entry<String, List<String>>> dialogueMapEntrySet() { return dialogueMap.entrySet(); } // BR: For Debug
+
+    private void validateError(String msg) {
+    	if (LanguageManager.selectedLanguage() != 0
+//    			&& !lastDir.contains("lang/en/")
+    			) {
+    		System.err.println("("+ lastDir + ") " + msg);
+    	}
+    }
 }

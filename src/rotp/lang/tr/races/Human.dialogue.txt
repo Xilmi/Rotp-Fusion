@@ -16,8 +16,7 @@
 
 CONTACT_HONORABLE          | Biz Arz'dan [my_race_plural], [your_title] ve seninle iletişim kuracağımız için çok heyecanlıyız. Üçlü Erkten herhangi bir şeye ihtiyacın olursa, lütfen sormaktan çekinme.
 CONTACT_PACIFIST           | Sıcak bir merhaba [your_name]. Siz [your_empire] ulusu musunuz? [my_empire] ulusunu temsilen, umarım bu, insanlarımız arasındaki sayısız dostane alışverişlerin ilki olur.
-"CONTACT_ERRATIC            | Arz halkı genellikle sorunlarımızı müzakere ve diplomasi ile çözmeyi tercih eder. Yine de, halkın daha vahşi yöntemleri tercih ediyorsa, size ayak uydururuz, 
- [your_race]."
+"CONTACT_ERRATIC           | Arz halkı genellikle sorunlarımızı müzakere ve diplomasi ile çözmeyi tercih eder. Yine de, halkın daha vahşi yöntemleri tercih ediyorsa, size ayak uydururuz,  [your_race]."
 //
 GREETING_01                | Ah! [your_empire] elçisi burada! Sana yiyecek veya içecek getireyim mi? Lütfen rahatına bak ve bugün senin için ne yapabileceğimizi söyle.
 GREETING_04                | Selam! Üçlü Erkten bir şeye mi ihtiyacın var? Talebini Erklere iletebileceğimden emin değilim, ama belki de aslında rahatsız edilmelerine gerek olmayan bir şeye ihtiyacın vardır?

@@ -141,4 +141,3 @@ RESPOND_CLOSE_EMBASSY_01   | Akcja zarejestrowana.
 RESPOND_BREAK_TRADE_01     | Akcja zarejestrowana.
 RESPOND_BREAK_PACT_01      | Akcja zarejestrowana.
 RESPOND_BREAK_ALLIANCE_01  | Akcja zarejestrowana.
-RESPOND_DECLARE_WAR_01     | Akcja zarejestrowana.

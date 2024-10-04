@@ -23,7 +23,6 @@ GREETING_04                | Üdvözlet nagykövet. Örömmel nyújtom be kéré
 GREETING_07                | A vonal nyitva van, nagykövet. Mit... szeretnél megvitatni?
 //
 DECLAREWAR_HATE_01         | Mindent megtettünk, hogy... alkalmazkodjunk a jelenlétedhez, de egy olyan intelligens faj, mint a tiéd, egyszerűen túl sok ahhoz, hogy égi szomszédként elviseljük. Ne félj, a véged legalább olyan gyors lesz, mint amilyen fájdalommentes.
-Fear not, your end will be as swift as it is painless.
 DECLAREWAR_HATE_02         | Sok időt töltöttünk a tanácskozással. Ez... sajnálatos, de határozottak vagyunk azzal kapcsolatban, hogy a népeteket el kell távolítani a galaxisból.
 DECLAREWAR_HATE_03         | Bár mi minden esetben előnyben részesítjük a békét, nem engedhetjük meg, hogy továbbra is úgy járjatok el, ahogy eddig tettétek. Megtesszük... amit kell, hogy helyreállítsuk a békét a galaxisban.
 DECLAREWAR_ERRATIC_01      | Bevallom, zavarba ejtőnek találom a Tanács lépéseit, de úgy ítélték meg, hogy a népetek elérte intelligenciája határát, és... el kell távolítani őket. Sajnos én csak egy nagykövet vagyok, és nincs módom meggyőzni őket az ellenkezőjéről.
@@ -33,8 +32,7 @@ DECLAREWAR_MILITARY_01     | Elnézést kérek nagykövet, de eljött az idő, h
 DECLAREWAR_MILITARY_02     | Few things in this galaxy are worth breaking a peace for. You would certainly agree, ambassador, that territory is one of them?
 DECLAREWAR_MILITARY_03     | Háborús hírrel jövök, nagykövet. A Tanács úgy határozott, hogy növelnünk kell a Köztársaság területét. Bár a harci képességeitek... lenyűgözőek, a Tanács akarata nem lesz megtagadható.
 DECLAREWAR_ALLIANCE_01     | Egyik szövetségesünk, [other_race_possessive_prefix_lowercase], eljöttek hozzánk, hogy a segítségünkért esedezzenek az ellenetek folytatott harcukban. A Tanács meghallgatta őket és beleegyezett, így megkapják a segítségünket.
-DECLAREWAR_ALLIANCE_02     | 
-Hogy a ti fajotok és [other_race_possessive_prefix_lowercase] megtörték a békéteket, az... szomorú. Még inkább az, hogy csatlakoznunk kell az ellenetek folytatott harchoz.
+DECLAREWAR_ALLIANCE_02     | Hogy a ti fajotok és [other_race_possessive_prefix_lowercase] megtörték a békéteket, az... szomorú. Még inkább az, hogy csatlakoznunk kell az ellenetek folytatott harchoz.
 DECLAREWAR_ALLIANCE_03     | Nyilvánvaló, hogy a fajtátok túlságosan pörlekedő ahhoz, hogy bármilyen... tartós békét ápoljon. Ha [other_race_possessive_prefix_lowercase] úgy döntöttek, hogy háborúba indulnak veletek, mi is megtesszük.
 DECLAREWAR_SPYING_01       | Kíváncsi vagyok, hogyan fog alakulni ez a menet. Ilyen lépéseket tenni a Köztársaság ellen... talán mégis túlbecsültük az intelligenciátokat.
 DECLAREWAR_SPYING_02       | Ha szerettetek volna... kapni tőlünk valamit, jobban preferáltuk volna, ha egyszerűen kéritek, nem pedig burkoltan cselekedtek. Most nem hagytok más választást, mint hogy megtörjük ezt a békét, amit oly keményen próbáltunk megőrizni. 
@@ -42,18 +40,15 @@ DECLAREWAR_SPYING_03       | Elszomorító, nagykövet. Annyi más lehetőséget
 DECLAREWAR_ATTACK_01       | A tetteid logikátlanok, nagykövet. Megtámadni egy olyan népet, amely kizárólag békére vágyik, miközben olyan egyértelműen túlerőben van hozzátok képest... észbontó. Úgy tűnik, hogy a fajotok sokkal kevésbé okos, mint azt korábban gondoltuk.  
 DECLAREWAR_ATTACK_02       | Ez egy... sötét nap birodalmaink számára. Nem kívántunk mást, mint harmonikus együttélést a népetekkel. Miért kényszerítetek így bennünket?
 DECLAREWAR_ATTACK_03       | Miért ezt az utat választottátok? Lényegünkig békés nép vagyunk, de biztosak lehettek benne, hogy tudjuk, hogyan védjük meg magunkat ilyen időkben.
-DECLAREWAR_OPPORTUNITY_01  | 
-Nos, ez minden bizonnyal érdekes élmény volt, nagykövet. Eljött azonban az idő, hogy véget vessünk a történelmeteknek. Hisszük, hogy az ilyen csekély intellektuális képességekkel rendelkezők végeredményben akadályozzák céljaink elérését.
+DECLAREWAR_OPPORTUNITY_01  | Nos, ez minden bizonnyal érdekes élmény volt, nagykövet. Eljött azonban az idő, hogy véget vessünk a történelmeteknek. Hisszük, hogy az ilyen csekély intellektuális képességekkel rendelkezők végeredményben akadályozzák céljaink elérését.
 DECLAREWAR_ASSASSIN_01     | Valamilyen szinten muszáj felajánlanom... a gratulációmat. Kevés tett képes arra, hogy [my_empire_addressing_prefix_lowercase] ilyen könnyen háborúra mozgósítsa, de egy fegyvertelen nagykövet megölése kétségtelenül egy ilyen.
 
 OFFER_PEACE_01             | A háború soha nem változik, nagykövet. Annyi gyilkolás, annyi pusztítás, mindezt minek? Kérlek, ismerjük el... múltbeli sérelmeinket, és kezdjük el a béke új korszakát. 
-OFFER_TRADE_01             | 
-Az olyan civilizált és... intelligens fajok, mint a miénk, tudják, hogy nem a háború, hanem a jólét a leghasznosabb. A Köztársaság kölcsönös jólétet kíván a népetekkel, és évi [amt] EK értékű kereskedelmi megállapodást, mint a legjobb kezdést. 
+OFFER_TRADE_01             | Az olyan civilizált és... intelligens fajok, mint a miénk, tudják, hogy nem a háború, hanem a jólét a leghasznosabb. A Köztársaság kölcsönös jólétet kíván a népetekkel, és évi [amt] EK értékű kereskedelmi megállapodást, mint a legjobb kezdést. 
 OFFER_PACT_01              | Minél több időt töltünk a fajtátokkal, annál jobban értékeljük diplomáciai kapcsolatainkat. Minden tőlünk telhetőt meg kell tennünk, hogy... megőrizzük ezt a köteléket, és a népeink közötti megnemtámadási egyezmény azt fogja láttatni, hogy ez továbbra is fennmarad, nem igaz, nagykövet?
 OFFER_ALLIANCE_01          | Eljött az idő, nagykövet: szövetséget kell kötni [my_empire_prefix_lowercase] és [your_empire_prefix_lowercase] között. Általunk a galaxis látni fogja, hogy a békés együttélés az egyetlen elfogadható választás!
 
-WARN_TRESPASSING_01        | 
-Jelenlétetek [system] rendszerben felvonta a szemöldököket a tanácsban. Kérlek, azonnal vonuljatok vissza, mielőtt megtörik a béke, amiért oly keményen dolgoztunk. 
+WARN_TRESPASSING_01        | Jelenlétetek [system] rendszerben felvonta a szemöldököket a tanácsban. Kérlek, azonnal vonuljatok vissza, mielőtt megtörik a béke, amiért oly keményen dolgoztunk. 
 WARN_EXPANSION_01          | Kevés mód van arra, hogy ilyen gyorsan értelmezzük a... gyorsan kiterjesztett befolyási övezetedet. Egyik sem alkalmas arra, hogy fenntartsa a békét népeink között.
 WARN_BUILDUP_01            | Ha ily módon építitek fel a flottáitokat, az rossz előjele lehet a békességnek, nagykövet. Légy óvatos, hogy mások, beleértve a Köztársaságot is, hogyan értelmeznek egy ilyen megfélemlítő flottát.
 WARN_SKIRMISH_01           | [system] rendszer csetepatéja... zavaró. Értelmezzük ezt a józan ész átmeneti szabadságaként? Vagy annak a jele, hogy hamarosan valami sokkal veszélyesebb történhet?
@@ -65,11 +60,9 @@ WARN_BIOWEAPON_01          | Ez... hallatlan, nagykövet. Biofegyvert használni
 WARN_GENOCIDE_01           | És éppen így, egy hang a galaxis kórusában örökre elvész. Hogy egy nép képes legyen ekkora gonoszságra... Attól tartok, hogy a végén nem fogunk tudni tartós békét kötni veletek.
 WARN_FINAL_WAR_01          | A galaxis a harmónia küszöbén áll, és te mégis makacsul úgy döntesz, hogy az útjába állsz. Ha... [rebel_empire_prefix_lowercase] eltávolítása az örök béke ára, akkor mindent megteszünk, hogy ez a számla ki legyen egyenlítve.
 WARN_COUNCIL_VOTE_01       | [candidate_empire_prefix_uppercase] nem törekszik másra, mint a békére, hogy mindenki részesülhessen a jólétből, amit nyújt. Ha a legjobb... jövőt kívánod a népednek, nem szavazol többé a Köztársaság ellen a tanácsban.
-WARN_OATHBREAKER_01        | 
-Csúnya és becstelen, nagykövet. Kíváncsiak vagyunk, vajon ugyanolyan könnyen felbontanád-e a békét, mint a megállapodásokat, mert mi készen fogunk állni, ha valaha is így döntenél. [spiesCaught]
+WARN_OATHBREAKER_01        | Csúnya és becstelen, nagykövet. Kíváncsiak vagyunk, vajon ugyanolyan könnyen felbontanád-e a békét, mint a megállapodásokat, mert mi készen fogunk állni, ha valaha is így döntenél. [spiesCaught]
 WARN_ATTACKED_ALLY_01      | Állítsd le ezeket a támadásokat, nagykövet! Tudod, hogy [defender_race_prefix_lowercase] szövetségesei vagyunk. Nem tudnánk inkább párbeszéddel békét teremteni, ahelyett, hogy mindannyiunkat háborúra kényszerítenél?
-WARN_REBELLING_AGAINST_01  | 
-Nem! Nem lehet rátok bízni, hogy a békébe vezessétek a tanácsot! A béke iránti elkötelezettségünk messze felülmúlja a tiéteket, de arra kényszeríthet bennünket, hogy hamarosan elvessük ezt az elkötelezettséget!
+WARN_REBELLING_AGAINST_01  | Nem! Nem lehet rátok bízni, hogy a békébe vezessétek a tanácsot! A béke iránti elkötelezettségünk messze felülmúlja a tiéteket, de arra kényszeríthet bennünket, hogy hamarosan elvessük ezt az elkötelezettséget!
 
 PRAISE_COUNCIL_VOTE_01     | Barátaink [voter_empire_originating_prefix_lowercase], még soha nem hagytak cserben minket! A Köztársaság köszönetét fejezi ki nektek a mai... tetteitekért a tanácsban, és várjuk, hogy vendégül láthassunk benneteket [candidate_home] bolygón, amint időt tudtok rá szánni.
 PRAISE_COUNCIL_VOTE_02     | Bölcs döntések születtek a tanácsban, de talán a legbölcsebb a Köztársaságra adott szavazatotok volt. Elismerjük ezt a... béke iránti elkötelezettséget, és addig ápoljuk a barátságot, amíg ez az odaadás kitart.
@@ -84,7 +77,6 @@ PRAISE_TRADE_02            | Hát nem csodálatos, nagykövet? Nézd meg, hogy m
 PRAISE_REBELLING_WITH_01   | i [my_race_possessive], mindig is úgy gondoltuk, hogy a háború soha nem válasz. Ez a tanács azonban megmutatta nekünk, hogy mindvégig tévedtünk. Indítsd el a háborúdat, nagykövet, és tudd, hogy a Köztársaság melletted áll! 
  
 ACCEPT_TRADE_01            | Igen, nagykövet, egyetértünk abban, hogy a kölcsönös kereskedelem a legjobb út a békéhez. Évi [amt] EK nagyon megfelel és köszönjük a nagylelkűségedet.
-RESPOND_IGNORE_THREAT_01   | 
-Ne téveszd össze a pacifizmusunkat gyengeséggel! Fenyegetésed bizonyára irracionális haragodban hangzott el, ezért ezúttal megbocsátjuk a kitörésedet.
+RESPOND_IGNORE_THREAT_01   | Ne téveszd össze a pacifizmusunkat gyengeséggel! Fenyegetésed bizonyára irracionális haragodban hangzott el, ezért ezúttal megbocsátjuk a kitörésedet.
 RESPOND_STOP_SPYING_01     | Hogy mi, [my_race_possessive], kémek lennénk, azt mondod? Ez biztosan félreértés. Kérjük, küldd vissza hozzánk a civilünket, hogy a végére járhassunk ennek és nyugodjatok meg abban a tudatban, hogy a kémkedés az utolsó dolog, ami megfordulna a fejünkben.
 RESPOND_STOP_ATTACKING_01  | Ez a hatalmas flotta tántorítson el mindenkit, aki elég ostoba lenne egy költséges háborúba kezdeni, és e haderő bevetés nélküli eltávolítása mutassa meg a béke iránti elkötelezettségünket.

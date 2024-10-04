@@ -3,7 +3,7 @@ _empire                           | Klakon Kovanı, Klakan Kovanı, Klokan Kovan
 _race                             | Klakon, Klakan, Klokan, Eklembacak, Kınkanat
 _race_plural                      | Klakonlar, Klakanlar, Klokanlar, Eklembacaklar, Kınkanatlar
 _title                            | yönetici
-_nameTitle                        
+_nameTitle                        | 
 
 //
 // All text below this point is copyright 2018-2020 Jeff Colucci

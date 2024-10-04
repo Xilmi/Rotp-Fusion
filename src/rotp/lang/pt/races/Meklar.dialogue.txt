@@ -140,4 +140,3 @@ RESPOND_CLOSE_EMBASSY_01   | Ações gravadas.
 RESPOND_BREAK_TRADE_01     | Ações gravadas.
 RESPOND_BREAK_PACT_01      | Ações gravadas.
 RESPOND_BREAK_ALLIANCE_01  | Ações gravadas.
-RESPOND_DECLARE_WAR_01     | Ações gravadas.
