@@ -2,7 +2,7 @@
 
 //
 // Armor techs
-// 
+//
 ARMOR_0_NAME     | Armatura di titanio
 ARMOR_0_ITEM     | Tiatnio
 ARMOR_0_BRIEF    | Punti Ferita %1
@@ -42,13 +42,13 @@ ARMOR_6_DETAIL   | Aumenta i punti ferita di navi e trasporti del 300%. Anche l'
 
 //
 // Atmospheric Terraforming techs
-// 
+//
 ATMOSPHERE_0_NAME      | Terraformazione atmosferica
 ATMOSPHERE_0_DETAIL    | Converte ambienti ostili in ambienti normali per un costo di 150 BCs.
 
 //
 // Automated Repair techs
-// 
+//
 AUTOREPAIR_0_NAME      | Sistema di riparazione automatizzato
 AUTOREPAIR_0_BRIEF     | Cura il 15% dei colpi della nave per turno
 AUTOREPAIR_0_DETAIL    | Le navi non distrutte possono riparare fino al 15% dei loro punti ferita totali alla fine di ogni turno.
@@ -61,10 +61,10 @@ AUTOREPAIR_1_DETAIL    | Le navi non distrutte possono riparare fino al 30% dei 
 
 //
 // Battle Computer techs
-// 
+//
 // this is the Ship Design entry for selecting no battle computer
-COMPUTER_0_NAME    | 
-COMPUTER_0_ITEM    |  
+COMPUTER_0_NAME    |
+COMPUTER_0_ITEM    |
 COMPUTER_0_BRIEF   | Livello di attacco 0
 COMPUTER_0_DETAIL  |
 
@@ -126,7 +126,7 @@ COMPUTER_11_DETAIL | Aumenta la precisione dell'arma al livello 11.
 
 //
 // Battle Suit techs for ground combat
-// 
+//
 // this is for default, no-bonus armor that player starts with
 BATTLESUIT_0_NAME    | Armatura
 BATTLESUIT_0_DETAIL  |
@@ -143,7 +143,7 @@ BATTLESUIT_3_DETAIL  | Combina elevata mobilità, volo antigravitazionale e cora
 
 //
 // Energy Focus techs for beam weapons
-// 
+//
 BEAMFOCUS_0_NAME    | Concentrazione ad alta energia
 BEAMFOCUS_0_BRIEF   | Aggiunge +3 al raggio delle armi a energia
 BEAMFOCUS_0_DETAIL  | Aumenta di tre il raggio di tiro di tutte le armi a energia.
@@ -154,8 +154,8 @@ BEAMFOCUS_1_DETAIL  | Coordina tutti gli attacchi con armi a raggio in un'unica 
 
 
 //
-// Biological antidote techs 
-// 
+// Biological antidote techs
+//
 BIOANTIDOTE_0_NAME    | Antidoto alla Biotossina
 BIOANTIDOTE_0_DETAIL  | Riduce le perdite subite dalle armi biologiche di 1M per attacco.
 BIOANTIDOTE_1_NAME    | Antidoto Universale
@@ -163,8 +163,8 @@ BIOANTIDOTE_1_DETAIL  | Riduce le perdite subite dalle armi biologiche di 2M per
 
 
 //
-// Biological weapon techs 
-// 
+// Biological weapon techs
+//
 BIOWEAPON_0_NAME     | Spore di Morte
 BIOWEAPON_0_BRIEF    | Arma Biologica
 BIOWEAPON_0_DETAIL   | Orribili armi biologiche in grado di ridurre la popolazione planetaria massima di 1M per attacco.
@@ -275,10 +275,10 @@ CONTROLENV_6_DETAIL  | Permette la colonizzazione di pianeti irradiati e meno os
 // Deflector Shield tech
 //
 // this is the entry on Ship Design for selecting no deflector shield
-DEFLECTOR_0_NAME      | 
-DEFLECTOR_0_ITEM      |   
-DEFLECTOR_0_BRIEF     |  
-DEFLECTOR_0_DETAIL    | 
+DEFLECTOR_0_NAME      |
+DEFLECTOR_0_ITEM      |
+DEFLECTOR_0_BRIEF     |
+DEFLECTOR_0_DETAIL    |
 
 DEFLECTOR_1_NAME      | Scudi Deflettori di Classe I
 DEFLECTOR_1_ITEM      | Classe I
@@ -346,10 +346,10 @@ DISPLACEMENT_0_DETAIL | Sposta casualmente le navi equipaggiate dentro e fuori d
 // ECM Jammer tech
 //
 // this is the entry on Ship Design for selecting no ECM Jammer
-ECMJAMMER_0_NAME      | 
-ECMJAMMER_0_ITEM      | 
+ECMJAMMER_0_NAME      |
+ECMJAMMER_0_ITEM      |
 ECMJAMMER_0_BRIEF     | Missile Def 0
-ECMJAMMER_0_DETAIL    | 
+ECMJAMMER_0_DETAIL    |
 
 ECMJAMMER_1_NAME      | Mark I Jammer di ECM
 ECMJAMMER_1_ITEM      | Jammer I
@@ -429,14 +429,14 @@ PULSAR_0_BRIEF    | Si espande per infliggere 1-5 colpi
 PULSAR_0_DETAIL   | Una potente modifica del motore che genera un'improvvisa esplosione sferica di energia che colpisce tutte le navi adiacenti fino a 5 punti di danno +1 ogni due navi.
 
 PULSAR_1_NAME     | Pulsar Ionico
-	sPULSAR_1_BRIEF    | Si espande per infliggere 2-10 colpi
+PULSAR_1_BRIEF    | Si espande per infliggere 2-10 colpi
 PULSAR_1_DETAIL   | Una potente modifica del motore in grado di generare un'esplosione sferica di energia graduale che colpisce tutte le navi adiacenti fino a 10 punti di danno +1 per nave attaccante.
 
 
 //
 // Engine techs
 //
-ENGINE_0_NAME    | Retro Engines 
+ENGINE_0_NAME    | Retro Engines
 ENGINE_0_DETAIL  | Muove le navi alla curvatura %1 e consente una manovrabilità massima di classe I in combattimento.
 ENGINE_0_ITEM    | Retros
 ENGINE_0_ITEM2   | Classe 1
@@ -457,7 +457,7 @@ ENGINE_2_ITEM2   | Classe 3
 ENGINE_2_BRIEF   | Curvatura 3  Def %1
 ENGINE_2_BRIEF2  | Velocità di combattimento %1
 
-ENGINE_3_NAME    | Trazione a Fusione  
+ENGINE_3_NAME    | Trazione a Fusione
 ENGINE_3_DETAIL  | Muove le navi alla curvatura %1 e consente una manovrabilità massima di classe IV in combattimento.
 ENGINE_3_ITEM    | Fusione
 ENGINE_3_ITEM2   | Classe 4
@@ -562,7 +562,7 @@ FUTURECOMP_8_NAME    | Computer Futuristico IX
 FUTURECOMP_8_DETAIL  | Miglioramenti generali nella tecnologia informatica.
 
 FUTURECOMP_9_NAME    | Computer Futuristico X
-FUTURECOMP_9_DETAIL  | Miglioramenti generali nella tecnologia informatica. 
+FUTURECOMP_9_DETAIL  | Miglioramenti generali nella tecnologia informatica.
 
 
 //
@@ -732,14 +732,14 @@ FUTUREWEAPON_8_NAME    | Arma Futuristica IX
 FUTUREWEAPON_8_DETAIL  | Miglioramenti Generali nella Tecnologia delle Armi.
 
 FUTUREWEAPON_9_NAME    | Arma Futuristica X
-FUTUREWEAPON_9_DETAIL  | Miglioramenti Generali nella Tecnologia delle Armi. 
+FUTUREWEAPON_9_DETAIL  | Miglioramenti Generali nella Tecnologia delle Armi.
 
 
 //
 // Hand Weapon techs
 //
-HANDWEAPON_0_NAME      | 
-HANDWEAPON_0_DETAIL    | 
+HANDWEAPON_0_NAME      |
+HANDWEAPON_0_DETAIL    |
 
 HANDWEAPON_1_NAME      | Laser a Mano
 HANDWEAPON_1_DETAIL    | Laser personali che aggiungono 5 ai tuoi tiri di combattimento a terra.
@@ -921,8 +921,8 @@ MISSWPN_10_DETAIL    | Versioni MIRV dei Missili Pungiglione, che si dividono in
 // Personal Shield techs for ground combat
 //
 // default "no shield" tech that each player starts with
-PERSSHIELD_0_NAME     | 
-PERSSHIELD_0_DETAIL   | 
+PERSSHIELD_0_NAME     |
+PERSSHIELD_0_DETAIL   |
 
 PERSSHIELD_1_NAME     | Scudo Deflettore Personale
 PERSSHIELD_1_DETAIL   | Protegge le singole truppe di terra con un campo di forza direzionale. Aggiunge +10 a tutte le battaglie di combattimento a terra.
@@ -934,7 +934,7 @@ PERSSHIELD_3_NAME     | Scudo Barriera Personale
 PERSSHIELD_3_DETAIL   | Racchiude completamente il soldato in un campo di forza quasi impenetrabile. Aggiunge +30 a tutti i tiri per il combattimento a terra.
 
 //
-// Planetary Shield techs 
+// Planetary Shield techs
 //
 PLANETSHIELD_0_NAME    | Scudi Planetari di Classe V
 PLANETSHIELD_0_DETAIL  | Assorbe 5 punti di danno da tutti gli attacchi contro le superfici dei pianeti, aggiungendo gli scudi deflettori della base missilistica.
@@ -950,14 +950,14 @@ PLANETSHIELD_3_DETAIL  | Assorbe 20 punti di danno da tutti gli attacchi contro 
 
 
 //
-// Repulsor tech 
+// Repulsor tech
 //
 REPULSOR_0_NAME    | Raggio Repulsore
 REPULSOR_0_BRIEF   | Sposta le navi nemiche indietro di 1 spazio
 REPULSOR_0_DETAIL  | Respinge le navi nemiche indietro di uno spazio dalla nave in difesa. Quest'arma speciale ha una portata di uno spazio.
 
 //
-// Reserve Fuel tech 
+// Reserve Fuel tech
 //
 RSRVFUEL_0_NAME    | Serbatoi Carburante di Riserva
 RSRVFUEL_0_BRIEF   | Estende la portata della nave di %1 anni luce
@@ -965,7 +965,7 @@ RSRVFUEL_0_DETAIL  | I serbatoi di carburante di riserva aumentano la portata di
 
 
 //
-// Robotic Controls techs 
+// Robotic Controls techs
 //
 ROBOTCTRL_0_NAME     | Controlli Robotici Migliorati III
 ROBOTCTRL_0_DETAIL   | Consente di gestire 3 fabbriche per popolazione. Il costo di riparazione per l'aggiornamento è la metà del costo standard di ogni fabbrica.
@@ -984,7 +984,7 @@ ROBOTCTRL_4_DETAIL   | Consente di gestire 7 fabbriche per popolazione. Il costo
 
 
 //
-// Scanner techs 
+// Scanner techs
 //
 SCANNER_0_NAME       | Scanner da Battaglia
 SCANNER_0_BRIEF      | Scansiona le navi nemiche in combattimento
@@ -1003,7 +1003,7 @@ SCANNER_3_BRIEF      | Consente l'esplorazione di pianeti fino a 9 anni luce di 
 SCANNER_3_DETAIL     | Consente l'esplorazione di pianeti da basi di colonie fino a 9 anni luce di distanza e rileva le navi nemiche fino a 3 anni luce di distanza dalle tue navi.
 
 //
-// Ship Inertial techs 
+// Ship Inertial techs
 //
 SHIPINERTIAL_0_NAME     | Stabilizzatore Inerziale
 SHIPINERTIAL_0_BRIEF    | Aggiunge +2 alla manovrabilità
@@ -1014,7 +1014,7 @@ SHIPINERTIAL_1_BRIEF    | Aggiunge +4 alla manovrabilità
 SHIPINERTIAL_1_DETAIL   | Annulla l'inerzia delle navi, aggiungendo 4 classi di manovrabilità in combattimento. Riduce anche l'effetto degli attacchi del buco nero del -30%.
 
 //
-// Ship Inertial techs 
+// Ship Inertial techs
 //
 SHIPNULLIFIER_0_NAME     | Nullificatore di Tecnologia
 SHIPNULLIFIER_0_BRIEF    | Distrugge i computer nemici
@@ -1026,7 +1026,7 @@ SHIPNULLIFIER_1_DETAIL   | I dissipatori di curvatura sono armi a lungo raggio c
 
 
 //
-// Ship Weapon techs 
+// Ship Weapon techs
 //
 SHIPWPN_0_NAME         | Laser
 SHIPWPN_0_ITEM2        | Laser pesante

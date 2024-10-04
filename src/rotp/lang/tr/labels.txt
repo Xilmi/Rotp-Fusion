@@ -1,17 +1,17 @@
-// This is the label text file for Remnants of the Precursors| 
-// comment lines should start with '/'  they are ignored| 
-//  | 
+// This is the label text file for Remnants of the Precursors|
+// comment lines should start with '/'  they are ignored|
+//  |
 // the format for each line is   key | label
-//    where 'key' is the code used by the game to retrieve the label| 
-//    You cannot create new keys! The game will not use them| 
-//    You can only use keys that the game is looking for.| 
-//| 
-// Large number formatting| 
+//    where 'key' is the code used by the game to retrieve the label|
+//    You cannot create new keys! The game will not use them|
+//    You can only use keys that the game is looking for.|
+//|
+// Large number formatting|
 NUM_FORMAT_THOUSANDS              | %1B
 NUM_FORMAT_MILLIONS               | %1MY
 NUM_FORMAT_BILLIONS               | %1ML
 
-// Star descriptions| 
+// Star descriptions|
 RED_STAR_DESCRIPTION              | Kırmızı yıldızlar genelde yetersiz gezegenlere ev sahipliği yapan eski ve sönük yıldızlardır.
 YELLOW_STAR_DESCRIPTION           | Sarı yıldızlar dünya benzeri ve dünya altı gezegenleri keşfetme konusunda en iyi şansı vadeder.
 ORANGE_STAR_DESCRIPTION           | Turuncu yıldızlar orta parlaklıktadır ve farklı tipte gezegenlerle çevrilidirler.
@@ -19,7 +19,7 @@ BLUE_STAR_DESCRIPTION             | Mavi yıldızlar mineral bakımından zengin
 WHITE_STAR_DESCRIPTION            | Beyaz yıldızlar inanılmaz sıcaktırlar ve genellikle zorlu gezegenlere sahiptirler.
 PURPLE_STAR_DESCRIPTION           | Nötron yıldızları enderdir ve varsıl gezegen bulma konusunda en yüksek şansı vadeder.
 
-// Planet Types| 
+// Planet Types|
 PLANET_ARID                       | Kuru
 PLANET_BARREN                     | Çorak
 PLANET_DEAD                       | Ölü
@@ -35,7 +35,7 @@ PLANET_TERRAN                     | Dünyabenzeri
 PLANET_TOXIC                      | Zehirli
 PLANET_TUNDRA                     | Tundra
 
-// Spy Missions| 
+// Spy Missions|
 SPY_HIDE                          | Gizlen
 SPY_ESPIONAGE                     | Bilgi Edin
 SPY_SABOTAGE                      | Sabotaj
@@ -59,7 +59,7 @@ TERRAN_DESC_BIOLOGICAL            | Dünyabenzeri gezegenler farklı tipte yaşa
 TOXIC_DESC_BIOLOGICAL             | Zehirli gezegenler bereketsiz ve metan bazlı ekosistemlere sahip donmuş dünyalardır.
 TUNDRA_DESC_BIOLOGICAL            | Tundra gezegenleri bir buzdeposuna tıkalı kalmış, uyuyan yersel dünyalardır.
 
-// Planet Specials| 
+// Planet Specials|
 PLANET_ARTIFACTS                  | Eserler
 PLANET_ULTRA_POOR                 | Aşırı Fakir
 PLANET_POOR                       | Fakir
@@ -69,33 +69,33 @@ PLANET_HOSTILE                    | Zorlu
 PLANET_FERTILE                    | Bereketli
 PLANET_GAIA                       | Münbit
 
-// Planet Descriptors for Race| 
+// Planet Descriptors for Race|
 PLANET_HOMEWORLD                  | 1% Ana Dünyası
 PLANET_WORLD                      | %1 Dünya
 PLANET_COLONY                     | %1 Kolonisi
 PLANET_ORION                      | Orion
 PLANET_ORION_GUARDIAN             | Muhafız
 
-// Nebula names  ("starName" Nebula)| 
+// Nebula names  ("starName" Nebula)|
 NEBULA_NAME                       | %1 Nebulası
 NEBULA_ID                         | Nebula: %1
 
-// In this, %1 is the race's title when using with the name ("_nameTitle" in the races labels.txt file)| 
-// and %2 is the leader's actual name| 
+// In this, %1 is the race's title when using with the name ("_nameTitle" in the races labels.txt file)|
+// and %2 is the leader's actual name|
 TITLE_LEADERNAME                  | %1 %2
 
-// Extended Colony Name prefix when we run out of names| 
+// Extended Colony Name prefix when we run out of names|
 COLONY_NAME_2                     | Yeni %1
 COLONY_NAME_3                     | Dış %1
 COLONY_NAME_4                     | Uzak %1
 COLONY_NAME_5                     | Uç %1
 
-// Space Monster Names| 
+// Space Monster Names|
 SPACE_AMOEBA                      | Uzay Amipi
 SPACE_CRYSTAL                     | Uzay Kristali
 ORION_GUARDIAN                    | Avcı Muhafızı
 
-// Personality types (adjective)| 
+// Personality types (adjective)|
 LEADER_ERRATIC                    | Dengesiz
 LEADER_PACIFIST                   | Barışsever
 LEADER_HONORABLE                  | Saygın
@@ -103,17 +103,17 @@ LEADER_RUTHLESS                   | Gaddar
 LEADER_AGGRESSIVE                 | Saldırgan
 LEADER_XENOPHOBIC                 | Yabancı Düşmanı
 
-// Leader Objective Types (noun)| 
+// Leader Objective Types (noun)|
 LEADER_DIPLOMAT                   | Diplomat
 LEADER_MILITARIST                 | Militarist
 LEADER_ECOLOGIST                  | Çevreci
 LEADER_INDUSTRIALIST              | Sanayici
 LEADER_EXPANSIONIST               | Genişlemeci
 LEADER_TECHNOLOGIST               | Teknolog
-// Leader Personality & Objective displayed together| 
+// Leader Personality & Objective displayed together|
 LEADER_PERSONALITY_FORMAT         | %1 %2
 
-// Technology names and descriptions | 
+// Technology names and descriptions |
 TECH_COMPUTERS                    | Bilgisayarlar
 TECH_CONSTRUCTION                 | İnşaat
 TECH_FORCE_FIELDS                 | Güç Sahaları
@@ -121,7 +121,7 @@ TECH_PLANETOLOGY                  | Gezegenbilim
 TECH_PROPULSION                   | İtki
 TECH_WEAPONS                      | Silahlar
 
-// Random Events| 
+// Random Events|
 EVENT_ACCIDENT                    | Büyük bir sanayi kazası [system] sistemindeki [target_race] dünyasını endüstriyel atığa maruz bıraktı ve dünyanın ekolojisine zarar verip, gezegeni kalıcı olarak radyasyona boğdu.
 EVENT_ASSASSINATION               | [assassin_empire] imparatorluğuna bağlı bir terörist [victim_race] diplomatına suikastte bulundu ve iki imparatorluğu savaşın eşiğine getirdi.
 EVENT_COMET                       | [system] sisteminde devasa bir göktaşı tespit edildi ve eğer onu yok etmek için büyük bir filo ayarlanmazsa, [target_race] dünyasına [years] yıl içerisinde çarpacak.
@@ -135,7 +135,7 @@ EVENT_EARTHQUAKE                  | Tahripkâr bir deprem [system] sistemindeki 
 EVENT_ENRICHED                    | [system] sistemindeki [target_race] dünyasındaki derin madenleme çalışmaları daha önce keşfedilmemiş devasa ağır metal rezervlerini açığa çıkardı ve bu gezegen artık Mineral Zengin.
 EVENT_FERTILE                     | [system] sistemindeki [target_race] dünyasının eksenindeki ani bir kayma, ortamın daha bereketli olmasına yol açtı. Nüfus artışı yüzde 50 artar.
 EVENT_PIRACY                      | Korsanlar [target_race] sistemleri arasındaki bütün ticareti altüst etmeye başladı ve ticaret gelirlerini yüzde [amt] düşürdü. [system] sisteminde hareket üslerine meydan okumak için silahlı gemilere ihtiyaç duyuluyor.
-EVENT_PIRACY_2                    | [system] sistemine konuşlu korsanlar [target_race] ticaret faaliyetlerini altüst etmeye devam ediyor ve ticaret gelirlerini tahmini olarak yüzde [amt] düşürdü. 
+EVENT_PIRACY_2                    | [system] sistemine konuşlu korsanlar [target_race] ticaret faaliyetlerini altüst etmeye devam ediyor ve ticaret gelirlerini tahmini olarak yüzde [amt] düşürdü.
 EVENT_PIRACY_3                    | [target_race] filosu [system] sistemine konuşlu büyük bir korsan faaliyetini yok etti. Genel ticaret seviyeleri normale döndü.
 EVENT_PLAGUE                      | [system] sistemindeki [target_race] dünyasını ölümcül bir salgın sardı. Sistem karantina altına alındı ve bilim adamları bir tedavi bulabilene kadar milyonların ölmesi bekleniyor.
 EVENT_PLAGUE_2                    | [system] sistemindeki ölümcül salgın sürüyor. Bilim adamları  tedaviyi bulmak için [amt] AP'nin daha gerekli olduğunu tahmin ediyorlar.
@@ -174,9 +174,9 @@ SYSEVENT_ENRICHED                 | Gezegende büyük maden yatakları keşfedil
 SYSEVENT_DEPLETED                 | Gezegendeki maden yatakları tüketildi.
 SYSEVENT_ACCIDENT                 | Devasa bir endüstriyel kaza gezegeni radyasyona maruz bıraktı.
 SYSEVENT_SUPERNOVA                | Bir süpernova gezegeni radyasyona maruz bıraktı.
- 
 
-// Diplomatic Incident titles & descriptions| 
+
+// Diplomatic Incident titles & descriptions|
 INC_ASSASSINATION_TITLE           | Suikast
 INC_ASSASSINATION_DESC            | [assassin_empire] menşeili bir terörist [victim_race] diplomatına suikastte bulundu.
 INC_ATTACKED_ALLY_TITLE           | Dosta Saldırı
@@ -236,8 +236,8 @@ INC_FINANCIAL_AID_DESC            | [your_empire], [my_empire] ulusuna [amt] BC'
 INC_TECHNOLOGY_AID_TITLE          | Teknolojik Yardım
 INC_TECHNOLOGY_AID_DESC           | [your_empire], [tech] sırlarını [my_empire] ile karşılıksız olarak paylaştı.
 INC_TECHNOLOGY_AID_DESC_MULT      | [your_empire], [my_empire] ile aşağıdaki teknolojilerin sırlarını karşılıksız olarak paylaştı: [techs]
-INC_TECHNOLOGY_TECH_LIST_COMMA    | , 
-INC_ENEMY_AID_TITLE               | Düşmana Yardım 
+INC_TECHNOLOGY_TECH_LIST_COMMA    | ,
+INC_ENEMY_AID_TITLE               | Düşmana Yardım
 INC_ENEMY_AID_MONEY_DESC          | [your_empire], [my_empire] ulusunun bir düşmanı olan [enemy_empire] ulusuna yardım için [amt] BC verdi.
 INC_ENEMY_AID_TECH_DESC           | [your_empire], [my_empire] ulusunun bir düşmanı olan [enemy_empire] ulusuna [tech] sırlarını verdi.
 INC_PARANOIA_TITLE                | Paranoya
@@ -262,7 +262,7 @@ INC_DESTROYED_FACTORIES_DESC      | [spy_empire] için çalışan sabotajcılar 
 INC_INCITED_REBELLION_TITLE       | İsyana Kışkırtma
 INC_INCITED_REBELLION_DESC        | [spy_empire] için çalışan bölücüler [system] sisteminde [amt] milyon kişiyi isyana kışkırttı.
 INC_SIGNED_ALLIANCE_TITLE         | İttifak
-INC_SIGNED_ALLIANCE_DESC          | [my_empire] ve [your_empire] bir İttifak içinde bir araya gelerek birbirlerini dış tehditlere karşı koruma sözü verdiler. 
+INC_SIGNED_ALLIANCE_DESC          | [my_empire] ve [your_empire] bir İttifak içinde bir araya gelerek birbirlerini dış tehditlere karşı koruma sözü verdiler.
 INC_JOINT_WAR_TITLE               | Savaş İlanı
 INC_LEFT_ALLIANCE_TITLE           | İttifak Bozuldu
 INC_SIGNED_PACT_TITLE             | Saldırmazlık Anlaşması
@@ -282,15 +282,15 @@ INC_TRADE_INCOME_DESC             | [your_empire] ve [my_empire] arasındaki tic
 INC_TRESPASSING_TITLE             | İzinsiz Giriş
 INC_TRESPASSING_DESC              | [your_race] filoları [my_empire] ulusunun bir parçası olan [system] sistemine izinsiz giriyor.
 
-// generic click to skip or continue messages| 
+// generic click to skip or continue messages|
 CLICK_SKIP                        | Animasyonu ESC ile veya tıklayarak atla.
 CLICK_CONTINUE                    | Devam etmek için ESC veya tıkla.
 CLICK_EXIT                        | Çıkmak için ESC veya tıkla…
 BUTTON_EXIT                       | Çık
 
-// GAME/SETUP UI | 
-GAME_TITLE_LINE_1                 | Öncüllerin 
-GAME_TITLE_LINE_2                 | 
+// GAME/SETUP UI |
+GAME_TITLE_LINE_1                 | Öncüllerin
+GAME_TITLE_LINE_2                 |
 GAME_TITLE_LINE_3                 | Kalıntıları
 GAME_DISCUSS_ONLINE               | Çevrimiçi Sohbet Et
 GAME_MENU_CONTINUE                | Oyuna Devam Et
@@ -304,9 +304,9 @@ GAME_VERSION                      | Versiyon: %1
 GAME_SHRINK                       | Küçült -
 GAME_ENLARGE                      | Genişlet
 
-// Game Settings UI| 
+// Game Settings UI|
 GAME_SETTINGS_TITLE               | Oyun Ayarları
-GAME_SETTINGS_DESCRIPTION         | Tüm oyun ayarlarını belirlemek için tıkla. 
+GAME_SETTINGS_DESCRIPTION         | Tüm oyun ayarlarını belirlemek için tıkla.
 GAME_SETTINGS_EXIT                | Çık
 GAME_SETTINGS_DEFAULT             | Varsayılanı Seç
 GAME_SETTINGS_DISPLAY_MODE        | Görüntüleme Modu: %1
@@ -354,7 +354,7 @@ GAME_SETTINGS_AUTOBOMBARD_NEVER   | Hiçbir Zaman
 GAME_SETTINGS_AUTOBOMBARD_YES     | Daima
 GAME_SETTINGS_AUTOBOMBARD_WAR     | Sadece Savaşta
 GAME_SETTINGS_AUTOBOMBARD_INVADE  | Sadece Savaştayken, Kuşatma harici
-GAME_SETTINGS_AUTOBOMBARD_DESC    | Her seferinde sor, hiç sorma, her zaman bombala, hiç bombalama, savaştayken hep bombala ya da kuşatan kuvvet yoksa hep bombala seçeneklerinden birini seç. 
+GAME_SETTINGS_AUTOBOMBARD_DESC    | Her seferinde sor, hiç sorma, her zaman bombala, hiç bombalama, savaştayken hep bombala ya da kuşatan kuvvet yoksa hep bombala seçeneklerinden birini seç.
 GAME_SETTINGS_BACKUP_OFF          | Kapalı
 GAME_SETTINGS_BACKUP_ON           | Her %1 turda
 GAME_SETTINGS_BACKUP              | Yedekleme: %1
@@ -365,7 +365,7 @@ GAME_SETTINGS_SAVEDIR_CUSTOM      | Seçilmiş
 GAME_SETTINGS_SAVEDIR_DESC1       | Kaydetme dizini şu anda oyunla aynı dizine ayarlanmıştır.
 GAME_SETTINGS_SAVEDIR_DESC2       | Kaydetme dizini şu anda şu şekilde ayarlandı: %1
 
-// Load Game UI| 
+// Load Game UI|
 LOAD_GAME_TITLE                   | Oyunu Yükle
 LOAD_GAME_AUTOSAVE                | En Son Otomatik Kayıt
 LOAD_GAME_BACKUP_DIR              | Yedekleme Dizini: %1 dosya
@@ -379,7 +379,7 @@ LOAD_GAME_CANCEL                  | İptal
 LOAD_GAME_OK                      | Yükle
 LOAD_GAME_TOO_LONG                | ...
 
-// Save Game UI| 
+// Save Game UI|
 SAVE_GAME_TITLE                   | Oyunu Kaydet
 SAVE_GAME_FILENAME                | Dosya adına göre sırala
 SAVE_GAME_DATE                    | Tarihe Göre
@@ -387,11 +387,11 @@ SAVE_GAME_SIZE                    | Boyuta Göre
 SAVE_GAME_SAVING                  | Kaydediliyor…
 SAVE_GAME_CANCEL                  | İptal
 SAVE_GAME_OK                      | Kaydet
- 
-// Intro UI| 
+
+// Intro UI|
 INTRO_BEGIN                       | Başla
- 
-// MAIN UI - Bottom Navigation options| 
+
+// MAIN UI - Bottom Navigation options|
 MAIN_NAVIGATION_GAME              | Oyun
 MAIN_NAVIGATION_DESIGN            | Tasarımlar
 MAIN_NAVIGATION_FLEETS            | Filolar
@@ -482,7 +482,7 @@ TURN_BOMBARDMENT                  | Gezegen Bombardımanı
 TURN_TRANSPORTS                   | Taşıyıcılar
 TURN_COLONIES                     | Kolonizasyon
 TURN_SPIES                        | Casus Faaliyetleri
-TURN_REBELLION                    | Ayaklanmalar 
+TURN_REBELLION                    | Ayaklanmalar
 TURN_COUNCIL                      | Konsey Durumu
 TURN_RESEARCH                     | Araştırma
 TURN_ASSESS                       | İçişleri Tamamlanıyor
@@ -499,7 +499,7 @@ TURN_RETREAT_FLEETS               | Filolar Geri Çekiliyor
 TURN_DESIGN_SHIPS                 | Gemiler Tasarlanıyor
 TURN_COLONY_SPENDING              | Koloni Tahsisleri
 
-// Fleet labels| 
+// Fleet labels|
 MAIN_FLEET_TITLE                  | [fleet_race] Filosu
 MAIN_FLEET_TITLE_UNKNOWN          | Bilinmeyen Filo
 MAIN_FLEET_IN_ORBIT               | Yörüngede
@@ -517,8 +517,8 @@ MAIN_FLEET_DISPLAY                | Filo Ekranı
 MAIN_FLEET_CHOOSE_DEST            | Gönderilecek gemi sayısını ve varış yerini seç.
 MAIN_FLEET_OUT_OF_RANGE_DESC      | Hedef filo menzili dışında, en yakın koloniden %1 ışıkyılı uzaklıkta.
 MAIN_FLEET_INVALID_RETREAT        | Geri çekilen filolar sadece dost kolonilere gönderilebilir.
-MAIN_FLEET_ETA_UNNAMED            | Hedefe varış süresi: %1 Yıl 
-MAIN_FLEET_ETA_NAMED              | %1 mevkisisine varış süresi: %2 Yıl 
+MAIN_FLEET_ETA_UNNAMED            | Hedefe varış süresi: %1 Yıl
+MAIN_FLEET_ETA_NAMED              | %1 mevkisisine varış süresi: %2 Yıl
 MAIN_FLEET_SET_RALLY              | İstikamet
 MAIN_FLEET_AUTO_RETREAT           | Varışta otomatik olarak geri çekil
 MAIN_FLEET_ETA_UNKNOWN            | Tarayıcılar hedef belirleyemiyor
@@ -532,7 +532,7 @@ MAIN_FLEET_INVALID_RETREAT        | Geçersiz Geri Çekilme
 MAIN_FLEET_INVALID_DESTINATION    | %1 hedefine filo gönderilemiyor
 MAIN_FLEET_INVALID_DESTINATION2   | Bu sisteme filo gönderilemiyor
 
-// Rally Point labels| 
+// Rally Point labels|
 MAIN_RALLY_TITLE                  | Toplanma Noktası Ayarlanıyor
 MAIN_RALLY_PROMPT                 | Kontrolün altındaki bir sistemi yeni inşa edilen gemileri göndermek üzere seç.
 MAIN_RALLY_FORWARD                | İleri doğru toplanmalar
@@ -545,7 +545,7 @@ MAIN_RALLY_CANCEL                 | İptal
 MAIN_RALLY_START                  | Toplanma Başlat
 MAIN_RALLY_STOP                   | Toplanmayı Durdur
 
-// Transport labels| 
+// Transport labels|
 MAIN_TRANSPORTS_EMPIRE            | %1 Nakliyeci
 MAIN_TRANSPORTS_COUNT             | %1 Nakliyeci
 MAIN_TRANSPORTS_CANCEL            | İptal
@@ -573,7 +573,7 @@ MAIN_TRANSPORT_ABANDON            | Terk Et
 MAIN_TRANSPORT_CLEAR              | Nakliyeleri İptal Et
 MAIN_TRANSPORT_SURRENDER          | Varışta otomatik olarak teslim ol
 
-// Colony labels| 
+// Colony labels|
 MAIN_COLONY_HOMEWORLD             | %1 Ana Dünyası
 MAIN_COLONY_FOUNDED               | %1 Kolonisi
 MAIN_COLONY_POPULATION            | Nüfus
@@ -620,7 +620,7 @@ MAIN_COLONY_ABANDON_LABEL         | Terk Et
 MAIN_COLONY_SHIP_SCRAPPED         | Iskarta
 MAIN_COLONY_NO_SHIELD             | Nebula
 
-// System Scouted Notification| 
+// System Scouted Notification|
 MAIN_SCOUT_TITLE                  | Bilim Adamları Yeni Bir Yıldız Sistemi Kayda Geçirdiler
 MAIN_SCOUT_SUBTITLE_1             | Gemilerimiz şu sistemi keşfetti
 MAIN_SCOUT_SUBTITLE_2             | Gökbilimcilerimiz şu verileri topladı
@@ -637,7 +637,7 @@ MAIN_SCOUT_POOR_DESC              | Kaynaklar: Fakir- Sanayiden elde edilen çı
 MAIN_SCOUT_RICH_DESC              | Kaynaklar: Zengin - Sanayiden elde edilen çıktı iki katına çıkar.
 MAIN_SCOUT_ULTRA_RICH_DESC        | Kaynaklar: Aşırı Zengin - Sanayiden elde edilen çıktı üç katına çıkar.
 
-// Colonization prompt| 
+// Colonization prompt|
 MAIN_COLONIZE_TITLE               | Kolonistlerimiz yerleşimsiz sistem %1 yörüngesinde bulunuyor.
 MAIN_COLONIZE_PROMPT              | Yeni bir koloni kur?
 MAIN_COLONIZE_YES                 | Evet
@@ -646,7 +646,7 @@ MAIN_COLONIZE_ANIMATION_TITLE     | %1 yılında, [player_empire] yeni bir kolon
 MAIN_COLONIZE_NAME_PROMPT         | Koloni Adı
 MAIN_COLONIZE_NAME_OK             | Tamam
 
-// Reasons to ask player to reallocate a system (during next turn)| 
+// Reasons to ask player to reallocate a system (during next turn)|
 MAIN_ALLOCATE_TITLE               | Harcama Düzenlemeleri
 MAIN_ALLOCATE_DESIGN_SCRAPPED     | %1 hangarında yapım aşamasındaki gemi tasarımı rafa kaldırıldı.
 MAIN_ALLOCATE_COLONIZED           | • %1 kolonileştirildi.
@@ -655,7 +655,7 @@ MAIN_ALLOCATE_SHIPS_COMPLETE      | • %1, istenen %2 sayıda gemiyi inşa etme
 MAIN_ALLOCATE_SHIELD_COMPLETE     | • %1, %2 inşasını tamamladı.
 MAIN_ALLOCATE_BASES_COMPLETE      | • %1, %2 füze üssü inşa etmeyi tamamladı.
 MAIN_ALLOCATE_BASES_UPGRADED      | • %1, füze üslerini yenilemeyi tamamladı.
-MAIN_ALLOCATE_MAX_FACTORIES       | • %1, sektör maksimumu %2 kurulabilir fabrikaya ulaştı. 
+MAIN_ALLOCATE_MAX_FACTORIES       | • %1, sektör maksimumu %2 kurulabilir fabrikaya ulaştı.
 MAIN_ALLOCATE_MAX_POPULATION      | • %1, maksimum %2 kolonist nüfusuna ulaştı.
 MAIN_ALLOCATE_TERRAFORM_COMPLETE  | • %1 çevre yerselleştirmesini tamamladı.
 MAIN_ALLOCATE_ATMOSPHERE_COMPLETE | • %1, standart büyüme oranına sahip normal bir çevreye dönüştürüldü.
@@ -673,18 +673,18 @@ MAIN_ALLOCATE_PREV_SYSTEM         | Geri
 MAIN_ALLOCATE_NEXT_SYSTEM         | İleri
 MAIN_ALLOCATE_CLOSE               | Kapat
 
-// Fleet Production display (during next turn)| 
+// Fleet Production display (during next turn)|
 MAIN_FLEET_PRODUCTION_TITLE       | Filo Üretim Özeti
 MAIN_FLEET_SHIP_COUNT             | %1/%2
 
-// 32-bit Java Warning| 
+// 32-bit Java Warning|
 MAIN_JAVA_32BIT_TITLE             | Uyarı! 32-bit Java kullanımda
 MAIN_JAVA_32BIT_DESC              | Bu oyunu 32-bit Java sürümüyle çalıştırıyorsun. Bu, kullanılabilir belleği büyük ölçüde azaltıp oyun performansını etkileyebilir.
 MAIN_JAVA_32BIT_DESC_2            | Öncüllerin Kalıntıları bu modda çalışsa da, 64-bit Java'ya güncellemen oyun deneyimini iyileştirecektir.
 MAIN_JAVA_32BIT_DESC_3            | Java'yı yükseltmek için yardıma ihtiyacın varsa, lütfen internette www.reddit.com/r/rotp adresine gidip yardım isteyebilirsin.
 MAIN_JAVA_32BIT_OK                | Tamam
 
-// Memory Low Warning| 
+// Memory Low Warning|
 MAIN_MEMORY_LOW_TITLE             | Uyarı! Oyun Belleği Düşük
 MAIN_MEMORY_LOW_DESC              | Bu oyun için kullanılabilir bellek azalıyor. Bu, uzun süreli oynayıştan veya oyunun yeterli boş bellek olmadan başlatılmasından kaynaklanabilir.
 MAIN_MEMORY_LOW_DESC_2            | Bu oyunu yeniden başlatıp bu noktadan devam etmek için "Yeniden Başlat"a bas. Yeniden başlatmadan oynamaya devam etmek, kayıt verilerinin kaybı dahil, öngörülemeyen davranışlara neden olabilir.
@@ -692,15 +692,15 @@ MAIN_MEMORY_LOW_DESC_3            | Bu mesajı tekrar tekrar görüyorsanız, ye
 MAIN_MEMORY_LOW_RESTART           | Yeniden Başlat
 MAIN_MEMORY_LOW_SKIP              | Atla
 
-// Autosave Failed Warning| 
+// Autosave Failed Warning|
 MAIN_AUTOSAVE_FAILED_TITLE        | Uyarı! Otomatik Kaydetme Başarısız
 MAIN_AUTOSAVE_FAILED_DESC         | "Sonraki Tur"a bastığında çalışan Otomatik Kaydetme özelliği başarısız oldu. Bu, anlık bir arıza olabilir, ancak devam etmeden önce lütfen bu oyunu manuel olarak kaydet.
 MAIN_AUTOSAVE_FAILED_DESC_2       | Bu hata için oyuna sağlanan mesaj: %1
 MAIN_AUTOSAVE_FAILED_DESC_3       | Bu mesajı sık sık görüyorsan, lütfen çevrimiçi olarak www.reddit.com/r/rotp adresine gidip ve bu ekran görüntüsünü gönder.
 MAIN_AUTOSAVE_FAILED_OK           | Tamam
 
-// Alerts| 
-MAIN_ALERT_TITLE                  | Uyarı 
+// Alerts|
+MAIN_ALERT_TITLE                  | Uyarı
 MAIN_ALERT_TITLE_COUNT            | Uyarı - %2 arasından %1.
 MAIN_ALERT_SPY_REPORT             | İstihbarat büromuz son casusluk faaliyetleri hakkında yeni bir rapor yayınladı.
 MAIN_ALERT_TECH_STOLEN            | İç güvenlik, [alien_race] casuslarının casusluk faaliyetlerini ortaya çıkardı.
@@ -719,7 +719,7 @@ MAIN_ALERT_TRADE_MATURED          | %1 ile olan ticaret anlaşmamız %2 BC'lik m
 MAIN_ALERT_ALLIANCE_WEAKENING     | [ally_empire] ile olan ittifakımız zayıflıyor.
 MAIN_ALERT_ALLIANCE_BREAKING      | [ally_empire] ile olan ittifakımız çöküşün eşiğinde!
 
-// Colony Listing UI| 
+// Colony Listing UI|
 PLANETS_TITLE                     | %1 Kolonisi
 PLANETS_VIEW_ECOLOGY              | Ekoloji Görünümü
 PLANETS_VIEW_INDUSTRY             | Sanayi Görünümü
@@ -752,7 +752,7 @@ PLANETS_TRANSFER_ACCEPT           | Aktar
 PLANETS_COLONY_TRANSFER_TITLE     | Para Transferi
 PLANETS_COLONY_TRANSFER_DETAIL    | Bu koloninin üretimini artırmak için imparatorluk hazinesinden fon aktarın.
 PLANETS_COLONY_TRANSFER_BUTTON    | Hazineden Para Transferi
-PLANETS_LIST_NUM                  | 
+PLANETS_LIST_NUM                  |
 PLANETS_LIST_NAME                 | Ad
 PLANETS_LIST_POPULATION           | Nüfus
 PLANETS_LIST_POP                  | Nüf.
@@ -812,14 +812,14 @@ PLANETS_HELP_4G                   | Tersane - gemi tasarımı inşa ediliyor.
 PLANETS_HELP_4H                   | Notlar - Oyuncunun sistem notları. Düzenlenebilir.
 PLANETS_HELP_4I                   | Bayrak - kullanıcının seçtiği sistem bayrağı.
 
-// Bombardment prompt| 
+// Bombardment prompt|
 MAIN_BOMBARDED_TITLE             | %1, %2 kuvvetleri tarafından bombalandı.
 MAIN_BOMBARD_TITLE               | Kuvvetlerimiz bir düşman %2 kolonisinin yörüngesinde.
 MAIN_BOMBARD_TROOPS              | %1 %2 birlikleri yörüngede veya bu koloniye hareket halinde.
 MAIN_BOMBARD_PROMPT              | Gezegeni bombala?
 MAIN_BOMBARD_YES                 | Evet
 MAIN_BOMBARD_NO                  | Hayır
-MAIN_BOMBARD_POPULATION          | Nüfus: %1 
+MAIN_BOMBARD_POPULATION          | Nüfus: %1
 MAIN_BOMBARD_FACTORIES           | Fabrikalar: %1
 MAIN_BOMBARD_BASES               | Üsler: %1
 MAIN_BOMBARD_SHIELD              | Kalkan: %1
@@ -829,7 +829,7 @@ MAIN_BOMBARD_DMG                 | (%1)
 MAIN_BOMBARD_NAME_PROMPT         | Koloni Adı
 
 
-// Fleet listing UI| 
+// Fleet listing UI|
 FLEETS_TITLE                      | Filolar
 FLEETS_SELECT_SYSTEMS             | Sistemleri Seç
 FLEETS_SELECT_FLEETS              | Filoları Seç
@@ -869,9 +869,9 @@ FLEETS_SETTING_RALLY_POINTS       | Toplanma Noktaları Başlatılıyor
 FLEETS_START_RALLIES_DESC         | Seçili tüm sistemlerde yeni inşa edilmiş gemileri göndermek için bir sistemini seç.
 FLEETS_START_RALLIES              | Toplanma Başlat
 FLEETS_SEND_TRANSPORTS            | Taşıyıcı Gönder
-FLEETS_ADJUST_SPENDING_SELECT     | Gemi harcamalarını ayarlamak için sistem seç 
+FLEETS_ADJUST_SPENDING_SELECT     | Gemi harcamalarını ayarlamak için sistem seç
 FLEETS_ADJUST_SPENDING_DESC       | Seçilen %1 sistem için istediğin Gemi harcama seviyelerini seç
-FLEETS_ADJUST_SPENDING_DESC2      | Diğer harcama kategorileri otomatik olarak ayarlanacaktır. 
+FLEETS_ADJUST_SPENDING_DESC2      | Diğer harcama kategorileri otomatik olarak ayarlanacaktır.
 FLEETS_ADJUST_SPENDING_DESC3      | Ekoloji, kirliliği temizlemek için gereken minimum harcamanın altına düşmeyecektir.
 FLEETS_ADJUST_SPENDING            | Gemi Harcamalarını Ayarla
 FLEETS_SPENDING_0                 | Gemi Harcaması Yok
@@ -905,17 +905,17 @@ FLEETS_CANCEL                     | İptal
 FLEETS_HELP_ALL                   | GENEL BAKIŞ - Bu ekran, filoların, taşıyıcıların ve gemi inşasının büyük ölçekte yönetilmesini sağlar. Genelde, yönetmek için bir grup filo veya sistem seçip, bunları daha küçük bir kümeye filtreleyip ardından gerçekleştirilecek eylemi seçersin.
 FLEETS_HELP_1A                    | Sistemleri Seç - sistemleri seçmenin üç yolu vardır: 1) haritadaki sistemlere tıklayarak, 2) sağ tıklayıp harita üzerinde sürükleyerek ve 3) "Tümünü Seç" ve "Seçimleri Kaldır" düğmelerini kullanarak.
 FLEETS_HELP_1B                    | Filtrele - seçili sistemler listesini sınırlamak için onay kutularını seç. İlgili seçenekler arasında geçiş yapmak için filtreler de tıklanabilir.
-FLEETS_HELP_1C                    | Ve sistemleri inşa edilen gemi tasarımına göre de filtreleyebilirsin. 
+FLEETS_HELP_1C                    | Ve sistemleri inşa edilen gemi tasarımına göre de filtreleyebilirsin.
 FLEETS_HELP_1D                    | Gemi Tasarımı - seçili sistemlerde inşa edilecek gemi tasarımını değiştir. Boş görüntü, seçili sistemlerin şu anda farklı farklı tasarımlar inşa ettiği anlamına gelir. Dikkat! Bu işlem için bir onay istemi yok.
 FLEETS_HELP_1E                    | Taşıyıcı Gönder - seçili sistemlerden taşıyıcıları tek bir hedef sisteme gönderin.
-FLEETS_HELP_1F                    | Toplanma Noktalarını Ayarla - seçili sistemler için toplanma noktalarını tek bir hedef sistem olarak belirle. 
+FLEETS_HELP_1F                    | Toplanma Noktalarını Ayarla - seçili sistemler için toplanma noktalarını tek bir hedef sistem olarak belirle.
 FLEETS_HELP_2A                    | Filoları Seç - filoları seçmenin üç yolu vardır: 1) haritadaki filolara tıklayarak, 2) sağ tıklayıp harita üzerinde sürükleyerek ve 3) "Tümünü Seç" ve "Seçimleri Kaldır" düğmelerini kullanarak.
 FLEETS_HELP_2B                    | Filtrele - seçili filolar listesini sınırlamak için onay kutularını seç. İlgili seçenekler arasında geçiş yapmak için filtreler de tıklanabilir.
 FLEETS_HELP_2C                    | Yalnızca Belli Gemileri Yolla- filolarından konuşlamak istediğin gemi türlerini kısıtla.
 FLEETS_HELP_2D                    | İntikal için Seçildi - türe göre konuşlandırılacak gemi sayısı.
 FLEETS_HELP_2E                    | Filoları Yolla - seçilen filoları tek bir hedef sisteme konuşlandırın.
 
-// Select Next Tech to Research UI| 
+// Select Next Tech to Research UI|
 TECH_RESEARCH_COMPUTER            | Araştırmacılarımızın odaklanması gereken bir sonraki bilgisayar teknolojisini seç.
 TECH_RESEARCH_CONSTRUCTION        | Araştırmacılarımızın odaklanması gereken bir sonraki inşaat teknolojisini seç.
 TECH_RESEARCH_FORCE_FIELD         | Araştırmacılarımızın odaklanması gereken bir sonraki kuvvet alanı teknolojisini seç.
@@ -955,7 +955,7 @@ TECH_COMPLETED_WEAPON             | Silah teknolojisinde mümkün olan tüm ara�
 TECH_COMPLETED_ALL                | Mümkün olan tüm bilimsel araştırmaları tamamladık. Çalışma saati bitti. Gelecekteki tüm araştırma fonları imparatorluk hazinesine aktarılacak.
 TECH_COMPLETED_VERIFY             | Kalan araştırma alanlarındaki harcama tahsislerinin doğru şekilde ayarlandığını doğrula.
 
-// prompt for espionage| 
+// prompt for espionage|
 NOTICE_ESPIONAGE_TITLE            | Casuslarımız bir [alien_race] üssüne sızdı.
 NOTICE_ESPIONAGE_SUBTITLE         | Çalmak için bir teknoloji türü seç.
 NOTICE_ESPIONAGE_NO_TECH          | Mevcut Teknoloji Yok
@@ -964,7 +964,7 @@ NOTICE_ESPIONAGE_FOOTER           | Fark edilirse, bu bir Diplomatik Olaya neden
 NOTICE_ESPIONAGE_FRAME_TITLE      | Casuslarımız hırsızlığın çamurunu başka bir ırka atmayı başardı.
 NOTICE_ESPIONAGE_FRAME_SUBTITLE   | Hedef ırkı seç:
 
-// Spy Capture display (during next turn)| 
+// Spy Capture display (during next turn)|
 NOTICE_SPIES_TITLE                | Mevcut Casus Raporu
 NOTICE_SPIES_NO_ACTIVITY          | Anlamlı bir casus faaliyeti gözlemlenmedi.
 NOTICE_SPIES_ACTIVITY             | Mevcut Faaliyet:
@@ -983,16 +983,16 @@ NOTICE_SPIES_SABOTAGE_BASES       | • Casuslarımız, %2 sistemini koruyan %1 
 NOTICE_SPIES_SABOTAGE_REBELS      | • Casuslarımız %2 sistemindeki isyancıları kışkırtmada başarılı oldu.
 NOTICE_SPIES_SABOTAGE_REBELLION   | • Casuslarımız %2 sisteminde ayaklanma başlatmada başarılı oldu.
 NOTICE_SPIES_LEARNED_TECH         | • Casuslarımız, [alien_empire] ulusunun yakın zamanda bizim bilmediğimiz şu teknolojileri öğrendiğini bildirdi: %1
-// this just details how to concatenate a list of multiple technology (English uses ,)| 
+// this just details how to concatenate a list of multiple technology (English uses ,)|
 NOTICE_SPIES_MULTIPLE_TECHS       | %1 %2
 NOTICE_SPIES_THREATEN             | Tehdit Et
 NOTICE_SPIES_MANAGE               | Casusları Yönet
 NOTICE_SPIES_CLOSE                | Kapat
 
-// Ground Combat UI| 
+// Ground Combat UI|
 INVASION_BATTLE                   | %1 yılında, [attacker_race] and [defender_race] %2 için savaştılar.
 INVASION_BATTLE_REBELS            | %1 yılında, [attacker_race] ve isyancılar %2 için savaştılar.
-INVASION_TROOPS_LANDED            | %1 [attacker_race] birlikleri karaya indi. 
+INVASION_TROOPS_LANDED            | %1 [attacker_race] birlikleri karaya indi.
 INVASION_SOME_TROOPS_LANDED       | %2 [attacker_race] askerinden %1 kadarı karaya indi.
 INVASION_WIN                      | [attacker_race] taşıyıcıları %2 mevkisisini ele geçirdi.
 INVASION_LOSS                     | [defender_race] birlikleri %2' mevkisisini başarıyla savundu.
@@ -1001,12 +1001,12 @@ INVASION_DEFENDERS_TITLE          | %1 [defender_race] Birlikleri
 INVASION_REBELS_TITLE             | %1 [defender_race] Asileri
 INVASION_TROOP_ARMOR_DESC         | %1 %2
 
-// GNN Text| 
+// GNN Text|
 GNN_TITLE                         | [player_race] Galaktik Haber Ajansı şunları bildiriyor:
 GNN_EMPIRE_RANKING                | %1. [empire_race]
 GNN_EXTINCTION_KNOWN_VICTIM       | [victim_race]
 GNN_EXTINCTION_KNOWN_KILLER       | [killer_race]
-GNN_EXTINCTION_UNKNOWN_VICTIM     | Bilinmeyen bir medeniyet 
+GNN_EXTINCTION_UNKNOWN_VICTIM     | Bilinmeyen bir medeniyet
 GNN_EXTINCTION_UNKNOWN_KILLER     | bilinmeyen bir imparatorluk
 GNN_EXTINCTION                    | %1, %2 tarafından tamamen yok edildi.
 GNN_EXTINCTION_NO_KILLER          | %1 tamamen yok edildi.
@@ -1019,21 +1019,21 @@ GNN_FLEETS_RANKING                | Uzay filosu güçlerinin mevcut sıralaması
 GNN_CENSUS_RANKING                | İmparatorluk nüfuslarının nüfus sayımı sıralaması:
 GNN_PRODUCTION_RANKING            | İmparatorluk hasılalarının mevcut sıralaması:
 GNN_TECHNOLOGY_RANKING            | İleri teknolojinin mevcut liderleri:
-GNN_PLAYER_REBELLION              | %1 ayaklandı ve [rebelling_empire] ulusuna katkıda bulunmayı reddediyor. Koloni en az %2 milyon isyancının elinde. Ayaklanmayı bastırmak için asker gönderilmelidir. 
+GNN_PLAYER_REBELLION              | %1 ayaklandı ve [rebelling_empire] ulusuna katkıda bulunmayı reddediyor. Koloni en az %2 milyon isyancının elinde. Ayaklanmayı bastırmak için asker gönderilmelidir.
 GNN_ALIEN_REBELLION               | %1 ayaklandı ve [rebelling_empire] ulusuna katkıda bulunmayı reddetti. Koloni en az %2 milyon isyancının elinde.
-GNN_PLAYER_REBELLION_SPREAD       | İsyan [rebelling_empire] boyunca yayılmaya devam ediyor. %1 mevkisisindeki koloni en az %2 milyon isyancının elinde. 
+GNN_PLAYER_REBELLION_SPREAD       | İsyan [rebelling_empire] boyunca yayılmaya devam ediyor. %1 mevkisisindeki koloni en az %2 milyon isyancının elinde.
 GNN_OVERTHROW                     | [alien_empire] içinden yeni bir lider ortaya çıktı. Söylentiler yeni imparatorun %1 olduğunu gösteriyor. İlişkiler tarafsız hale geldi ve ticaret sekteye uğradı.
 GNN_END_COUNCIL                   | Geriye sadece iki İmparatorluk kaldığından, galaksiyi bir Galaktik Konsey ile birleştirme girişimleri sona erdi. Pek çok lider artık nasıl bir nihaî çözümün kalıcı barış getirebileceğini tartışıyor.
 GNN_FORM_COUNCIL                  | Barış arayışında, her ırkın temsilcileri, en kalabalık iki imparatorluğun liderlerinden birini Galaktik İmparator seçmek için yakında toplanacak.
 GNN_ALLY_AT_WAR                   | Müttefikimiz [ally_empire], [other_empire] ulusuna karşı savaşa girdi.
 
-// Error UI text| 
+// Error UI text|
 ERROR_TITLE                       | Bir Sorun çıktı :(
 ERROR_MESSAGE                     | Bu sorunu çözmek için yardım istiyorsan, lütfen bu kullanıcı arayüzünün ekran görüntüsünü ve 'recent.rotp' oyun kaydı dosyasını Ray Fowler'a gönder veya ROTP subredditinde dikkatine sun.
 ERROR_EMAIL                       | E-posta: rayfowler@fastmail.com
 ERROR_REDDIT                      | Reddit: www.Reddit.com/r/rotp
 
-// Setup UI| 
+// Setup UI|
 SETUP_SELECT_RACE                 | Irkını Seç
 SETUP_SELECT_OPPONENTS            | Rakipleri Seç
 SETUP_SELECT_GALAXY               | Galaksi Seç
@@ -1205,7 +1205,7 @@ SETUP_VOID_3                      | Boşluk 3
 SETUP_VOID_4                      | Boşluk 4
 
 
-// Advanced Settings| 
+// Advanced Settings|
 SETTINGS_TITLE                    | Gelişmiş Oyun Seçenekleri
 SETTINGS_DESCRIPTION              | Oyunun bütün ayarlarını belirlemek için tıkla.
 SETTINGS_EXIT                     | Çık
@@ -1225,7 +1225,7 @@ SETTINGS_TERRAFORMING             | Zorlu Yerselleştirme: %1
 SETTINGS_COLONIZING               | Kolonileştirme: %1
 SETTINGS_FUEL_RANGE               | Yakıt Menzili: %1
 SETTINGS_AI_HOSTILITY             | Zorluluk: %1
-SETTINGS_RANDOM_EVENTS_DESC       | Uzay Canavarları rastgele olaylardır ve oyun ortasında ciddi tehdittirler. Uzay Canavarlarını veya tüm rastgele olayları kapat. 
+SETTINGS_RANDOM_EVENTS_DESC       | Uzay Canavarları rastgele olaylardır ve oyun ortasında ciddi tehdittirler. Uzay Canavarlarını veya tüm rastgele olayları kapat.
 SETTINGS_WARP_SPEED_DESC          | Daha gelişmiş eğim teknolojilerinin hızını artır. Bu, çok büyük haritalarda istenebilir.
 SETTINGS_GALAXY_AGE_DESC          | Normal gökadalarla kıyasla, genç gökadalarda daha fazla beyaz ve mavi yıldız bulunurken, eski gökadalarda da daha fazla kırmızı ve nötron yıldızı bulunur.
 SETTINGS_TECH_TRADING_DESC        | Tüm teknoloji takaslarını kapat veya bu takasları müttefiklerle sınırlandır.
@@ -1242,14 +1242,14 @@ SETTINGS_AUTOPLAY_WARNING         | Uyarı! Şu anda otomatik oynatma etkindir v
 SETTINGS_FUEL_RANGE_DESC          | Yakıt menzili ve yedek yakın deposu teknolojilerinin menzilini artır.
 SETTINGS_AI_HOSTILITY_DESC        | Yabancı ırklar arasındaki genel düşmanlık seviyesini artırıp azalt.
 
-// Tech UI labels| 
+// Tech UI labels|
 TECH_RESEARCH                     | Teknoloji Araştırması
 TECH_RESEARCH_POINTS              | Araştırma Puanları
 TECH_EMPIRE_SPENDING              | İmparatorluk Teknoloji Harcamaları
-TECH_EMPIRE_SPENDING_DESC         | Tüm kolonilerin teknoloji harcamalarının toplamı. 
+TECH_EMPIRE_SPENDING_DESC         | Tüm kolonilerin teknoloji harcamalarının toplamı.
 TECH_EMPIRE_TECH_RESERVE_OPT      | Artan koloni harcamalarını hazine rezervinden araştırmaya yönlendir
 TECH_EMPIRE_BALANCED_DESC         | Dengeli harcama genel araştırma puanlarını artırır.
-TECH_EMPIRE_DETAIL_1              | %1 BC ile 
+TECH_EMPIRE_DETAIL_1              | %1 BC ile
 TECH_EMPIRE_DETAIL_2              | %2 AP / Yıl
 TECH_TOTAL_RP                     | %1 AP
 TECH_DISCOVERY_PCT                | %%1
@@ -1288,22 +1288,22 @@ TECH_SHIP_SPEED                   | Maksimum Hız
 TECH_SHIP_SPEED_AMT               | Eğim %1
 TECH_BUTTON_EXIT                  | ÇIKIŞ
 
-// Tech UI help| 
-TECH_HELP_1A                      | GENEL BAKIŞ - Bu ekranda, öğrenilebilecek altı teknoloji alanında harcamaları ayarlayabilirsin. Halihazırda öğrenilmiş (yeşil), araştırması süren (sarı) veya gelecekteki araştırmalar için uygun (kahverengi) teknolojileri inceleyebilirsin. 
-TECH_HELP_1B                      | Bir araştırma alanındaki teknolojileri görüntülemek için fare tekerleği ile tıkla veya kaydır. 
+// Tech UI help|
+TECH_HELP_1A                      | GENEL BAKIŞ - Bu ekranda, öğrenilebilecek altı teknoloji alanında harcamaları ayarlayabilirsin. Halihazırda öğrenilmiş (yeşil), araştırması süren (sarı) veya gelecekteki araştırmalar için uygun (kahverengi) teknolojileri inceleyebilirsin.
+TECH_HELP_1B                      | Bir araştırma alanındaki teknolojileri görüntülemek için fare tekerleği ile tıkla veya kaydır.
 TECH_HELP_1C                      | Bir alanda araştırma puanları (AP) harcandığında dolar. Dolduktan sonra, teknolojiyi öğrenmek için şans her tur artar.
 TECH_HELP_1D                      | Teknoloji şu anda araştırılıyor. Faydaları için açıklamasına bak.
 TECH_HELP_1E                      | Bu alanda çoktan öğrenilen teknolojilerin sağladığı genel faydalar.
 TECH_HELP_1F                      | Araştırmaya aktarılan toplam üretim (BC) ve bundan kaynaklanan toplam araştırma puanları (AP).
 TECH_HELP_1G                      | Bir kolonideki aşırı harcamalar, imparatorluk hazinesi yerine araştırmaya yönlendirilebilir.
 TECH_HELP_1H                      | Her teknoloji alanı için bir harcama çubuğu vardır. Bir çubuğu kilitlemek için ismine tıkla. Çubuğun ilk altıda birine denk gelen harcama, yüzde 25 araştırma bonusu sağlar.
-TECH_HELP_1I                      | Erişilebilir çubuklar için harcama tahsislerini eşitleyin. 
+TECH_HELP_1I                      | Erişilebilir çubuklar için harcama tahsislerini eşitleyin.
 
-// =========================================================================| 
-//   ALPHA 4| 
-// =========================================================================| 
+// =========================================================================|
+//   ALPHA 4|
+// =========================================================================|
 
-// Ship Design UI| 
+// Ship Design UI|
 SHIP_DESIGN_TITLE                 | Gemi Tasarımı
 SHIP_DESIGN_SLOTS                 | Tasarım Çeşitleri
 SHIP_DESIGN_AVAILABLE             | Kullanılabilir
@@ -1375,7 +1375,7 @@ SHIP_DESIGN_UNNAMED_DESIGN        | Adsız
 SHIP_DESIGN_COMPONENT_NONE        | Yok
 
 
-// ship design selection dialogs| 
+// ship design selection dialogs|
 SHIP_DESIGN_STARGATE_NAME         | Yıldızkapısı
 SHIP_DESIGN_1ST_SCOUT_NAME        | Keşif
 SHIP_DESIGN_1ST_FIGHTER_NAME      | Savaşçı
@@ -1435,18 +1435,18 @@ SHIP_DESIGN_SPECIAL_SIZE          | Boyut
 SHIP_DESIGN_SPECIAL_POWER         | Güç
 SHIP_DESIGN_SPECIAL_SPACE         | Alan
 
-// Ship Design help| 
+// Ship Design help|
 SHIP_DESIGN_HELP_ALL              | GENEL BAKIŞ - bir ulus altı taneye kadar aktif gemi tasarımına sahip olabilir. Her tasarım için bir gövde boyutu seçip ardından gövdeyi zırh, kalkan ve silah gibi çeşitli bileşenlerle doldur. Her bileşenin bir boyutu, gücü ve maliyeti vardır. Bir bileşen için gereken toplam alan, kendi boyutu artı ona güç sağlamak için gereken sayıdaki motorun boyutudur. Bir gemi tasarımı bir kez belirlendikten sonra, kolonilerinden herhangi birinde inşa edilebilir.
 SHIP_DESIGN_HELP_1A               | Boyut - daha büyük gövde boyutları maliyeti artırır ancak daha fazla alan sağlar.
 SHIP_DESIGN_HELP_1B               | Menzil - geminin sistemlerinden ne kadar uzağa gidebileceği.
-SHIP_DESIGN_HELP_1C               | Hız - yıldızlar arası mesafede seyahat hızı. 
+SHIP_DESIGN_HELP_1C               | Hız - yıldızlar arası mesafede seyahat hızı.
 SHIP_DESIGN_HELP_1D               | Maliyet - bu gemiyi inşa etmenin toplam maliyeti.
 SHIP_DESIGN_HELP_1E               | Toplam Alan - bu gemi tasarımındaki bileşenler tarafından kullanılan toplam alan.
 SHIP_DESIGN_HELP_1F               | Kullanılabilir Alan - bu gemi tasarımında henüz kullanılmayan alan.
 SHIP_DESIGN_HELP_1G               | Can Puanı - bu gemiyi savaşta yok etmek için gereken hasar.
 SHIP_DESIGN_HELP_1H               | Füze Savunması - savaşta füze silahlarına karşı savunma seviyesi.
 SHIP_DESIGN_HELP_1I               | Işın Savunması - savaşta ışın silahlarına karşı savunma seviyesi.
-SHIP_DESIGN_HELP_1J               | Saldırı Seviyesi - savaşta silahlar için saldırı seviyesi. 
+SHIP_DESIGN_HELP_1J               | Saldırı Seviyesi - savaşta silahlar için saldırı seviyesi.
 SHIP_DESIGN_HELP_1K               | Muharebe Hızı - geminin savaşta tur başına kat edebileceği mesafe.
 SHIP_DESIGN_HELP_1L               | Renk - geminin rengini değiştirir.
 SHIP_DESIGN_HELP_2A               | Motor Tipi - bu gemi tasarımına güç sağlamak için kullanılan motor tipi.
@@ -1476,7 +1476,7 @@ SHIP_DESIGN_HELP_4F               | Temizle - seçilen tüm bileşenleri sıfır
 SHIP_DESIGN_HELP_4G               | Tasarımı Yolla - tamamlanmış tasarımı yollamak, ona bir ad koymana olanak sağlar ve onu inşaya hazır hâle getirir.
 
 
-// Ship Combat UI| 
+// Ship Combat UI|
 SHIP_COMBAT_TITLE_SYSTEM          | %1 mevkisisinde Gemi Savaşı!
 SHIP_COMBAT_TITLE_UNSCOUTED       | Keşfedilmemiş sistemde Gemi Savaşı!
 SHIP_COMBAT_TITLE_DESC            | Kuvvetlerimiz bir düşman [alien_race] filosuyla karşılaştı.
@@ -1506,7 +1506,7 @@ SHIP_COMBAT_AUTO_RESOLVING        | Savaş Sonuçlandırılıyor...
 SHIP_COMBAT_PLAY_BATTLE           | Savaşı Otomatik Yürüt
 SHIP_COMBAT_PAUSE_BATTLE          | Savaşı Duraklat
 SHIP_COMBAT_STATS_ON              | Savaş İstatistikleri: Evet
-SHIP_COMBAT_STATS_OFF             | Savaş İstatistikleri: Hayır 
+SHIP_COMBAT_STATS_OFF             | Savaş İstatistikleri: Hayır
 SHIP_COMBAT_EXIT                  | Çık
 SHIP_COMBAT_COUNT_NAME            | %1 %2
 SHIP_COMBAT_MONSTER_TARGET        | Uzay canavarı hedef alındı.
@@ -1606,9 +1606,9 @@ RACES_DIPLOMACY_RELATIONS_METER   | İlişki Ölçeği
 RACES_DIPLOMACY_RELATIONS_UNKNOWN | Diplomatlarımız ve casuslarımız [alien_empire] ulusunun ruh halini ve saiklerini çözemiyor.
 RACES_DIPLOMACY_BUREAU            | Diplomasi Bürosu
 RACES_DIPLOMACY_BUREAU_DESC1      | Yabancı imparatorluklarla iletişim kur veya onların seninle iletişim kurmasını önlemek için diplomatlarını geri çağır.
-RACES_DIPLOMACY_BUREAU_DESC       | Görüşmek için [alien_race] büyükelçisiyle iletişime geç veya diplomatların geri çağrılmışsa yeniden bağlantı kur. 
+RACES_DIPLOMACY_BUREAU_DESC       | Görüşmek için [alien_race] büyükelçisiyle iletişime geç veya diplomatların geri çağrılmışsa yeniden bağlantı kur.
 RACES_DIPLOMACY_BUREAU_DESC_RANGE | Gemi menzilimizin dışında kalan imparatorluklarla diplomatik ilişki kuramayız.
-RACES_DIPLOMACY_BUREAU_DESC_FINAL | Yeni Cumhuriyet ile nihaî bir savaştayız. Diplomasi artık bir seçenek değil. 
+RACES_DIPLOMACY_BUREAU_DESC_FINAL | Yeni Cumhuriyet ile nihaî bir savaştayız. Diplomasi artık bir seçenek değil.
 RACES_DIPLOMACY_KNOWN_EMPIRES     | Bilinen Yabancı İmparatorluklar
 RACES_DIPLOMACY_RECALLED_DIPLOMAT | Geri Çağrılan Diplomatlar
 RACES_DIPLOMACY_MANAGE_DIPLOMATS  | Diplomatları Yönet
@@ -1617,7 +1617,7 @@ RACES_DIPLOMACY_CONTACT           | Bağlantı Kur
 RACES_DIPLOMACY_TRADE_SUMMARY     | Ticaret Özeti
 RACES_DIPLOMACY_TRADE_DESC        | Bir ticaret anlaşması müzakere etmek için [alien_race] büyükelçisi ile iletişime geç. Ticaret ağlarının kurulması zaman ve para gerektirir, ancak olgunlaştıklarında imparatorluğunuzun hazinesine para getirirler.
 RACES_DIPLOMACY_TRADE_DESC_RANGE  | Gemi menzilimizin dışında kalan imparatorluklarla ticaret ağları kuramayız.
-RACES_DIPLOMACY_TRADE_DESC_FINAL  | Yeni Cumhuriyet ile nihaî bir savaştayız. Ticaret artık mümkün değil. 
+RACES_DIPLOMACY_TRADE_DESC_FINAL  | Yeni Cumhuriyet ile nihaî bir savaştayız. Ticaret artık mümkün değil.
 RACES_DIPLOMACY_TRADE_TREATY      | Ticaret Anlaşması
 RACES_DIPLOMACY_FOREIGN_RELATIONS | Dış İlişkiler
 RACES_DIPLOMACY_FOREIGN_RANGE     | Diplomatik temas kurmadan [alien_empire] ulusunun dış ilişkilerini bilemeyiz.
@@ -1649,8 +1649,8 @@ RACES_INTEL_SECURITY_BONUS_NONE   | Yok
 RACES_INTEL_REPORT_AGE            | Rapor Zamanı
 RACES_INTEL_SPY_NETWORK           | Casus Ağları
 RACES_INTEL_SPENDING              | Harcama
-RACES_INTEL_SPENDING_DESC         | Ağa zaman içinde casus eklemek için harcamaları artır. 
-RACES_INTEL_SPENDING_DESC_UNITY   | Teknoloji Yeni Cumhuriyet üyeleri arasında özgürce paylaşıldığı için casus ağları gereksizdir. 
+RACES_INTEL_SPENDING_DESC         | Ağa zaman içinde casus eklemek için harcamaları artır.
+RACES_INTEL_SPENDING_DESC_UNITY   | Teknoloji Yeni Cumhuriyet üyeleri arasında özgürce paylaşıldığı için casus ağları gereksizdir.
 RACES_INTEL_SPENDING_CAPPED       | Ulus casus harcama sınırına ulaşıldı. Casus ağların finansmanı yüzde %1 oranında azaltıldı.
 RACES_INTEL_SPENDING_RANGE        | Gemi menzili dışındaki imparatorluklar için casus ağları oluşturulamaz.
 RACES_INTEL_PERCENT_AMT           | Yüzde %1
@@ -1735,9 +1735,9 @@ RACES_UNKNOWN_DATA                | ???
 RACES_SET_COLOR_TITLE             | [alien_empire] için yeni renk seç
 RACES_SET_COLOR_DESC              | Seçilen renk ve şekil başka bir imparatorluk tarafından kullanılıyorsa renkler takas edilir.
 
-// Races UI help| 
+// Races UI help|
 RACES_HELP_0A                     | GENEL BAKIŞ: Bu ekran, karşılaştığın uzaylı ırklarının her biri hakkında ayrıntılı bilgi sağlar.
-RACES_HELP_0B                     | Diplomasi - Seçilen imparatorlukla diplomasi yap. 
+RACES_HELP_0B                     | Diplomasi - Seçilen imparatorlukla diplomasi yap.
 RACES_HELP_0C                     | İstihbarat - Uzaylı teknolojisini görüntüle ve casus ağlarını yönet.
 RACES_HELP_0D                     | Askeriye - Filo ve gemi tasarımlarını görüntüleyin.
 RACES_HELP_0E                     | Durum - Çok sayıda kategoride karşılaştırma.
@@ -1754,7 +1754,7 @@ RACES_HELP_2B                     | Seçilen imparatorluktan bir diplomat ile g�
 RACES_HELP_2C                     | Seçilen imparatorlukla imzalanan ticaret anlaşmaları hakkında bilgiler.
 RACES_HELP_2D                     | Seçilen imparatorluğun bağlantı kurduğu diğer imparatorluklar.
 RACES_HELP_2E                     | Seçilen imparatorluğun sana nasıl tepki vereceğini etkileyen diplomatik olaylar. Etkiler zamanla sıfıra doğru değişecektir.
-RACES_HELP_2F                     | Seçilen imparatorlukla ilişkilerin mevcut durumunun bir ölçüsü. 
+RACES_HELP_2F                     | Seçilen imparatorlukla ilişkilerin mevcut durumunun bir ölçüsü.
 RACES_HELP_3A                     | Düşman casuslarını engelleme şansını artırmak için güvenlik vergisini artır.
 RACES_HELP_3B                     | İletişim kurulan tüm imparatorluklardaki casuslarını yönetmek için doğrudan erişim sağlar.
 RACES_HELP_3C                     | Casuslarının topladığına göre, diğer imparatorluklar tarafından bilinen tüm teknolojiler. Bilmediğin teknolojiler sarı renkle gösterilmiştir.
@@ -1763,7 +1763,7 @@ RACES_HELP_4B                     | Seçilen imparatorluğa sızan casusların g
 RACES_HELP_4C                     | Seçilen imparatorluk tarafından bilinen tüm teknolojiler. Bilmediğin teknolojiler sarı renkle gösterilmiştir.
 RACES_HELP_5A                     | Gövde boyutuna göre, seçilen ırkın filosunda bilinen gemi sayısı. Bu bilgi, seçilen imparatorlukta aktif bir casus ağın olduğu sürece güncel kalacaktır.
 RACES_HELP_5B                     | Gemi tasarımlarının bilinen yetenekleri. Eski tasarımlar hizmet dışı olabilir. Bu bilgi özellikle gemi muharebesi sırasında toplanır.
-RACES_HELP_5C                     | Seçilen imparatorluğun bilinen savunma yetenekleri. 
+RACES_HELP_5C                     | Seçilen imparatorluğun bilinen savunma yetenekleri.
 RACES_HELP_6A                     | Bu ekran, çeşitli kategorilerde, imparatorluğumuzun bilinen diğer imparatorluklara kıyasla güncel bir sıralamasını sunar. Bu veriler, o imparatorluklardaki casus ağlarımızdan toplanıyor.
 RACES_HELP_6A2                    | Bu ekran, imparatorluğumuzun seçili bir imparatorlukla çeşitli kategorilerde tarihsel bir karşılaştırmasını sağlar. Bu veriler, o imparatorluklardaki casus ağlarımızdan toplanıyor.
 RACES_HELP_6B                     | Filo Gücü - gemilerin sayısını ve boyutunu hesaba katar.
@@ -1773,7 +1773,7 @@ RACES_HELP_6E                     | Gezegenler - yerleşimli sistemlerin sayıs�
 RACES_HELP_6F                     | Üretim - imparatorluk için toplam sanayi üretimi.
 RACES_HELP_6G                     | Toplam Güç - filo gücü, teknoloji ve üretim seviyelerinin bir kombinasyonu.
 
-// Sabotage UI| 
+// Sabotage UI|
 SABOTAGE_TITLE                    | Casuslarımız [alien_race] kolonilerine sızdı ve emirleri yerine getirmeye hazır.
 SABOTAGE_PROMPT                   | %1 sisteminde [alien_empire] ulusuna karşı uygulanacak sabotaj şeklini seç.
 SABOTAGE_WARNING                  | Uyarı! Herhangi bir sabotaj eylemi [alien_empire] ile olan antlaşmamızı bozar.
@@ -1792,7 +1792,7 @@ NOTICE_SPYING_MISSION_HIDE        | Sızma
 NOTICE_SPYING_MISSION_ESPIONAGE   | Casusluk
 NOTICE_SPYING_MISSION_SABOTAGE    | Sabotaj
 
-// History UI| 
+// History UI|
 HISTORY_TITLE                     | Bilinen Galaktik Tarih
 HISTORY_TITLE_ALL                 | Tam Galaktik Tarih
 HISTORY_TURN_DESC                 | Tur %1/%2
@@ -1808,7 +1808,7 @@ HISTORY_EMPIRE                    | İmparatorluk
 
 
 
-// Council UIs| 
+// Council UIs|
 COUNCIL_CONVENE_TITLE             | Yüksek Konsey Toplanıyor
 COUNCIL_CONVENE                   | Yüksek Konsey, Galaksinin Hükümdarı olacak bir lider seçmek üzere toplandı.
 COUNCIL_CONVENE2                  | Her imparatorluk, nüfusuyla orantılı bir oy miktarı kullanır. Bir adayın seçilebilmesi için tüm oyların en az üçte ikisini toplaması gerekir. Adaylar en kalabalık iki ulusun liderleri: [first_empire] ulusundan [first_name] ve [second_empire] ulusundan [second_name].
@@ -1843,7 +1843,7 @@ COUNCIL_ACCEPT_RULING             | Kararı Kabul Et
 COUNCIL_REJECT_RULING             | Kararı Reddet
 
 
-// Credit text| 
+// Credit text|
 CREDITS_DEVELOPER                 | Ray Fowler, Geliştirici
 CREDITS_ILLUSTRATOR               | Petar Penev, İllüstratör
 CREDITS_GRAPHIC_DESIGN            | Kaitlin Lindsay, Grafik Tasarımcı
@@ -1851,8 +1851,8 @@ CREDITS_MUSIC                     | Efe Tozan, Müzik
 CREDITS_WRITER                    | Jeff Colucci, Yazar
 CREDITS_SOUND                     | Remi Agullo, Ses Tasarımcısı
 CREDITS_TRANSLATOR                | Emre Ergin, Çevirmen
-| 
-// Systems UI| 
+
+// Systems UI|
 SYSTEMS_TITLE                     | Sistemler
 SYSTEMS_TAB_EXPLORE               | Keşfet
 SYSTEMS_TAB_EXPAND                | Genişle
@@ -1939,7 +1939,7 @@ DIPLOMACY_MENU_BREAK_PACT         | Saldırmazlık Paktını Boz...
 DIPLOMACY_MENU_BREAK_ALLIANCE     | İttifakı Boz
 DIPLOMACY_TRADE_MENU_BREAK        | Ticaret Anlaşmasını Boz
 DIPLOMACY_THREATEN_MENU_0         | Büyükelçiyi Geri Çağır
-DIPLOMACY_THREATEN_MENU_1         | Haraç İste 
+DIPLOMACY_THREATEN_MENU_1         | Haraç İste
 DIPLOMACY_THREATEN_MENU_2         | Saldırmazlık Paktını Boz
 DIPLOMACY_THREATEN_MENU_3         | İttifakı Boz
 DIPLOMACY_THREATEN_MENU_BR        | Ticaret Anlaşmasını Boz
@@ -1953,11 +1953,11 @@ DIPLOMACY_ACCEPT_ESTABLISH_TRADE  | Kabul Et (Ticaret Başlatır)
 DIPLOMACY_DECLINE_OFFER           | Reddet
 DIPLOMACY_DECLINE_BREAK_ALLIANCE  | Reddet (İttifakı Bozar)
 DIPLOMACY_IGNORE_THREAT           | Tehdidi Yok Say
-DIPLOMACY_SHUTDOWN_SPIES          | [alien_empire] içindeki tüm casus ağlarını durdur 
+DIPLOMACY_SHUTDOWN_SPIES          | [alien_empire] içindeki tüm casus ağlarını durdur
 DIPLOMACY_HIDE_SPIES              | [alien_empire] içindeki tüm casusların gizlenmesini emret
 DIPLOMACY_RETREAT_SHIPS           | [alien_race] sistemlerinin yörüngesindeki veya oralara hareket halindeki tüm gemilere Geri Çekilme emri verin
 
-// types of endings| 
+// types of endings|
 GAME_OVER_OVERTHROWN_LOSS         | Devrilme Yenilgisi
 GAME_OVER_MILITARY_LOSS           | Askerî Yenilgi
 GAME_OVER_DIPLOMATIC_LOSS         | Diplomatik Yenilgi
@@ -1975,6 +1975,6 @@ GAME_OVER_NO_COLONIES_LOSS        | Toplumsal Çöküş Yenilgisi
 GAME_OVER_EXIT                    | Çık
 GAME_OVER_REPLAY                  | Yeniden Oyna
 
-// text for race-generic endings| 
-// %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 special text| 
+// text for race-generic endings|
+// %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 special text|
 GAME_OVER_NO_COLONIES_LOSS2       | %2 yönetimi, ulusal beceriksizlik yüzünden mahvoldu ve sona erdi.#Hayatta kalan hiçbir %3 taşıyıcısı, güvenle inecek medeni bir dünya olmadan,  toplumunun yaptığı teknolojik ilerlemeyi sürdüremeyecek.#Barbarlık toplumun doğal halidir. Medeniyet gayritabiîdir. Şartların geçici bir hevesidir. Ve barbarlık eninde sonunda zafere ulaşacaktır.

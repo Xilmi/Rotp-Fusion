@@ -1,14 +1,14 @@
 //
 // All text below this point is copyright 2018-2020 Jeff Colucci
-// 
-// Licensed under the Creative Commons License, 
+//
+// Licensed under the Creative Commons License,
 // Attribution-NonCommercial-NoDerivatives 4.0 International (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     https://creativecommons.org/licenses/by-nc-nd/4.0/
-//  
-// This license is legally binding. Please review this license before altering 
+//
+// This license is legally binding. Please review this license before altering
 // or distributing any material covered under this license.
 //
 
@@ -16,7 +16,7 @@
 
 CONTACT_HONORABLE          | Biz Arz'dan [my_race_plural], [your_title] ve seninle iletişim kuracağımız için çok heyecanlıyız. Üçlü Erkten herhangi bir şeye ihtiyacın olursa, lütfen sormaktan çekinme.
 CONTACT_PACIFIST           | Sıcak bir merhaba [your_name]. Siz [your_empire] ulusu musunuz? [my_empire] ulusunu temsilen, umarım bu, insanlarımız arasındaki sayısız dostane alışverişlerin ilki olur.
-"CONTACT_ERRATIC           | Arz halkı genellikle sorunlarımızı müzakere ve diplomasi ile çözmeyi tercih eder. Yine de, halkın daha vahşi yöntemleri tercih ediyorsa, size ayak uydururuz,  [your_race]."
+CONTACT_ERRATIC           | Arz halkı genellikle sorunlarımızı müzakere ve diplomasi ile çözmeyi tercih eder. Yine de, halkın daha vahşi yöntemleri tercih ediyorsa, size ayak uydururuz, [your_race].
 //
 GREETING_01                | Ah! [your_empire] elçisi burada! Sana yiyecek veya içecek getireyim mi? Lütfen rahatına bak ve bugün senin için ne yapabileceğimizi söyle.
 GREETING_04                | Selam! Üçlü Erkten bir şeye mi ihtiyacın var? Talebini Erklere iletebileceğimden emin değilim, ama belki de aslında rahatsız edilmelerine gerek olmayan bir şeye ihtiyacın vardır?
@@ -27,11 +27,11 @@ DECLAREWAR_HATE_02         | Uzun ve kanlı bir savaş açıkça alnımıza yaz�
 DECLAREWAR_HATE_03         | Artık numara yapmanın bir anlamı yok! Galaksiyi sizinle paylaşıyor olmanın sırtımıza bindirdiği yüklere bir saniye daha müsamaha göstermeyeceğiz! Ödeyeceğimiz bedel ne olursa olsun!
 
 DECLAREWAR_ERRATIC_01      | Son zamanlarda ordumuzun tembel ve kayıtsız hale geldiği çok kere söylendi. Umarım sizinle yapacağımız savaş, Üçlü Erk'in daha tehlikeli düşmanları için ordumuzu yeniden şekillendirir.
-DECLAREWAR_ERRATIC_02      | Savaş oyunlarını bilir misin, büyükelçi? Eğitim amacıyla güçlerimizi birbirimize düşürdüğümüz sahte savaşlar. Halkınla gerçek bir savaşın bu amaca daha faydalı olacağını umuyoruz. 
-DECLAREWAR_ERRATIC_03      | Hiçbir şey bir halkı ortak bir düşman kadar birleştiremez, büyükelçi! Eğer diplomasi yoluyla çıkarlarımıza hizmet etmeyecekseniz, en azından halkımızı bir araya getiren bir güç olarak bize faydalı olabilirsiniz. 
+DECLAREWAR_ERRATIC_02      | Savaş oyunlarını bilir misin, büyükelçi? Eğitim amacıyla güçlerimizi birbirimize düşürdüğümüz sahte savaşlar. Halkınla gerçek bir savaşın bu amaca daha faydalı olacağını umuyoruz.
+DECLAREWAR_ERRATIC_03      | Hiçbir şey bir halkı ortak bir düşman kadar birleştiremez, büyükelçi! Eğer diplomasi yoluyla çıkarlarımıza hizmet etmeyecekseniz, en azından halkımızı bir araya getiren bir güç olarak bize faydalı olabilirsiniz.
 //
-DECLAREWAR_MILITARY_01     | Diplomatik yollarla bize toprak vermeyi kabul etmen sizin için daha iyi olurdu. Bunu yapmayı reddetmen bizi alternatif eyleme zorluyor. 
-DECLAREWAR_MILITARY_02     | Çok iyi bildiğin gibi, artan bir nüfus, sürekli artan ihtiyaçlarını karşılamak için sürekli genişleyen bir araziye ihtiyaç duyar. Genişleme zamanı geldi ve ihtiyacımız olan arazi şu an size ait. 
+DECLAREWAR_MILITARY_01     | Diplomatik yollarla bize toprak vermeyi kabul etmen sizin için daha iyi olurdu. Bunu yapmayı reddetmen bizi alternatif eyleme zorluyor.
+DECLAREWAR_MILITARY_02     | Çok iyi bildiğin gibi, artan bir nüfus, sürekli artan ihtiyaçlarını karşılamak için sürekli genişleyen bir araziye ihtiyaç duyar. Genişleme zamanı geldi ve ihtiyacımız olan arazi şu an size ait.
 DECLAREWAR_MILITARY_03     | Erkler, halkın kendilerini onlara adadığı kadar kendilerini halka adamışlardır. İhtiyaçlarımız, yeni yerleşimler için dünyalarınızı gerektiriyorsa bunun için hayatlarını seve seve verirler!
 //
 DECLAREWAR_ALLIANCE_01     | Müttefiklerinizi etkilemenin birçok yolu vardır, büyükelçi. Sizi ortadan kaldırmak, [other_race] gözündeki itibarımızı kesinlikle artıracaktır, bu yüzden iyi bir performans sergilemeye çalışın, tamam mı?
@@ -50,38 +50,38 @@ DECLAREWAR_OPPORTUNITY_01  | Yaptığımız her eylem kendi hedeflerimize yönel
 DECLAREWAR_ASSASSIN_01     | Güya zeki bir ırkın bir büyükelçi öldürmek kadar iğrenç bir şeyi yapabildiğini öğrendiğimde şok oldum. Sizi aleme ibret kılacağız ki, böylece hiçbir imparatorluk, Üçlü Erke karşı sizin bu eyleminize kalkışmasın!
 
 OFFER_PEACE_01             | Elbette şimdi bunun gibi savaşların sadece trajedi getirdiğini görebiliyorsundur. Değerli [your_race] ve [my_race] kanları daha fazla dökülmeden bu saçmalığa bir son verelim. Savaşı sona erdirip çocuklarımızın miras almaktan gurur duyacakları yeni bir gelecek oluşturmak için bize katılın!
-OFFER_TRADE_01             | [my_home] civarında "savaş kaçınılmazdır" diye bir söz vardır, ancak bunun refahın hüküm sürdüğü yerlerde hiçbir zaman doğru olmadığını uzun zaman önce öğrendik. Gelin hep birlikte bu refahın peşinde koşalım. Her yıl, hımm, [amt] BC ile başlayalım mı? 
-OFFER_PACT_01              | İkimiz de biliyoruz ki savaşlar imparatorluklar galaksi boyunca genişlerken kazara başlayabilir. Üçlü Erk'in isteyeceği son şey, sizinki gibi örnek alınası bir halkla savaşmak ve saldırmazlık paktı, her iki halkı geceleri daha rahat uyutacak. Sence de öyle değil mi? 
-OFFER_ALLIANCE_01          | [your_race_plural] gerçekten harika! Büyükelçi, az önce aklıma bir fikir geldi: [your_race] ve [my_race] arasında bir ittifak resmileştirelim. Birlikte, bu galaksinin ayaktakımına, ilerlemenin tek yolunun şiddet değil diplomasi olduğunu öğretebiliriz! 
+OFFER_TRADE_01             | [my_home] civarında "savaş kaçınılmazdır" diye bir söz vardır, ancak bunun refahın hüküm sürdüğü yerlerde hiçbir zaman doğru olmadığını uzun zaman önce öğrendik. Gelin hep birlikte bu refahın peşinde koşalım. Her yıl, hımm, [amt] BC ile başlayalım mı?
+OFFER_PACT_01              | İkimiz de biliyoruz ki savaşlar imparatorluklar galaksi boyunca genişlerken kazara başlayabilir. Üçlü Erk'in isteyeceği son şey, sizinki gibi örnek alınası bir halkla savaşmak ve saldırmazlık paktı, her iki halkı geceleri daha rahat uyutacak. Sence de öyle değil mi?
+OFFER_ALLIANCE_01          | [your_race_plural] gerçekten harika! Büyükelçi, az önce aklıma bir fikir geldi: [your_race] ve [my_race] arasında bir ittifak resmileştirelim. Birlikte, bu galaksinin ayaktakımına, ilerlemenin tek yolunun şiddet değil diplomasi olduğunu öğretebiliriz!
 
-WARN_TRESPASSING_01        | Büyükelçi, görünüşe göre bir [your_race] filosu [my_race] topraklarında konumlandı. Buna izin veremeyeceğimizi tabii ki biliyorsun değil mi? Sorun değil, sadece filolarınızı çekin ve bunu olmamış sayalım. 
-WARN_EXPANSION_01          | Üçlü Erk, halkının iradesine saygı duymak istese de, böylesine agresif bir bölgesel genişlemeye göz yumamayız. Diplomatik bağlarımızı korumak adına buna son vereceğinizden eminim, değil mi büyükelçi? 
-WARN_BUILDUP_01            | Büyükelçi, lütfen! Askeri liderlerimiz, filolarınızın son zamanlardaki yığılması konusunda patırtı çıkarıyorlar! O askeri aptallara korkularının yersiz olduğunu göstermek için gemi inşaatını yavaşlatmanızı rica ediyorum! 
+WARN_TRESPASSING_01        | Büyükelçi, görünüşe göre bir [your_race] filosu [my_race] topraklarında konumlandı. Buna izin veremeyeceğimizi tabii ki biliyorsun değil mi? Sorun değil, sadece filolarınızı çekin ve bunu olmamış sayalım.
+WARN_EXPANSION_01          | Üçlü Erk, halkının iradesine saygı duymak istese de, böylesine agresif bir bölgesel genişlemeye göz yumamayız. Diplomatik bağlarımızı korumak adına buna son vereceğinizden eminim, değil mi büyükelçi?
+WARN_BUILDUP_01            | Büyükelçi, lütfen! Askeri liderlerimiz, filolarınızın son zamanlardaki yığılması konusunda patırtı çıkarıyorlar! O askeri aptallara korkularının yersiz olduğunu göstermek için gemi inşaatını yavaşlatmanızı rica ediyorum!
 WARN_SKIRMISH_01           | Az önce Üçlü Erk gemileri ile [your_empire] ulusuna ait bir filo arasındaki çatışma hakkında korkunç bir rapor aldım. Lütfen bunun asla tekrarlanmamasını sağlayın, aksi halde savaşın kaçınılmaz bir gelecek olacağından korkuyorum!
-WARN_ATTACKED_01           | İyi değil büyükelçi: hiç iyi değil. [system] mevkisinde bize saldırmak... ne düşünüyordunuz ki? Diplomasiye olan bağlılığım nedeniyle orduyu uzak tutmaya çalışsam da bunu sürdürürseniz onları yatıştırmak için yapabileceğim hiçbir şey olmayacak. 
-WARN_INVADED_01            | Generallerimiz, halkınızın son hamlesi hakkında çok öfkeli! [system] sistemini işgal ettiğinizde, savaşa gitmeye hazırlar! Bunu bir an önce durdurmalısın! Bir savaş başlatmaya çalışmıyorsun, değil mi?! 
+WARN_ATTACKED_01           | İyi değil büyükelçi: hiç iyi değil. [system] mevkisinde bize saldırmak... ne düşünüyordunuz ki? Diplomasiye olan bağlılığım nedeniyle orduyu uzak tutmaya çalışsam da bunu sürdürürseniz onları yatıştırmak için yapabileceğim hiçbir şey olmayacak.
+WARN_INVADED_01            | Generallerimiz, halkınızın son hamlesi hakkında çok öfkeli! [system] sistemini işgal ettiğinizde, savaşa gitmeye hazırlar! Bunu bir an önce durdurmalısın! Bir savaş başlatmaya çalışmıyorsun, değil mi?!
 WARN_ESPIONAGE_01          | Halkım casusluğa yabancı değil ve yüzyıllar önceki buz gibi bir soğuk savaştan bu yana kültürümüze yayıldı. Ama bilmelisin ki, gelecekte sırlarımızı çalma girişimlerinizin tekrarı misilleme ile karşılanacaktır. [framed]
 WARN_SABOTAGE_01           | Casusluğu anlayabiliriz, ama sabotaj?! Generalleri yatıştırmak için elimden geleni yapacağım, ama bir daha böyle bir şey denerseniz, gelecekte size yardım edebileceğimden ve hatta yardım etmeye istekli olacağımdan emin değilim. [forced]
-WARN_BIOWEAPON_01          | [system] mevkisinde siviller üzerinde biyolojik silah kullandığınız dikkatimi çekti. Ben... açıkçası ne diyeceğimi bilemiyorum. Diplomatik ilişkilerimizin iyiliği için elimden geleni yapacağım, ancak Üçlü Erk özelinde yanıtın ne olacağı konusunda hevesli olduğumu söyleyemem. 
-WARN_GENOCIDE_01           | Ne yaptınız siz?! Güzel ve kadim bir kültür sonsuza dek kayboldu! Erklerin bu habere nasıl tepki vereceğini düşündüğümde titriyorum: [victim_race] ırkını soykırıma uğratmak, felsefemizin mutlak antitezidir! 
-WARN_FINAL_WAR_01          | Sonunda galaksi bir araya gelip barış için hareket etmeyi seçmesine rağmen, demokrasiyle seçtiğimiz eylem planımıza hem de siz mi karşı çıkıyorsunuz? Onca ilişkimizden sonra senden daha iyisini beklemekle yanılmışım. Ama biliyorum ki yakında bu hata düzeltilecek! 
+WARN_BIOWEAPON_01          | [system] mevkisinde siviller üzerinde biyolojik silah kullandığınız dikkatimi çekti. Ben... açıkçası ne diyeceğimi bilemiyorum. Diplomatik ilişkilerimizin iyiliği için elimden geleni yapacağım, ancak Üçlü Erk özelinde yanıtın ne olacağı konusunda hevesli olduğumu söyleyemem.
+WARN_GENOCIDE_01           | Ne yaptınız siz?! Güzel ve kadim bir kültür sonsuza dek kayboldu! Erklerin bu habere nasıl tepki vereceğini düşündüğümde titriyorum: [victim_race] ırkını soykırıma uğratmak, felsefemizin mutlak antitezidir!
+WARN_FINAL_WAR_01          | Sonunda galaksi bir araya gelip barış için hareket etmeyi seçmesine rağmen, demokrasiyle seçtiğimiz eylem planımıza hem de siz mi karşı çıkıyorsunuz? Onca ilişkimizden sonra senden daha iyisini beklemekle yanılmışım. Ama biliyorum ki yakında bu hata düzeltilecek!
 WARN_COUNCIL_VOTE_01       | Konseydeki hareketlerinizin beni hayal kırıklığına uğrattığını itiraf ediyorum, büyükelçi. Bunun sizin açınızdan tek seferlik bir hata olduğunu, ve sonradan bizim deyişimizle devirdiğiniz çamın bardak olmasını umuyorum.
-WARN_OATHBREAKER_01        | Güven tüm diplomasinin temelidir, büyükelçi. Sözünüzü çiğnemekle güvenimizin içine ettiniz ve sizi temin ederim ki diplomatik ilişkilerimiz muhtemelen asla toparlanamayacağı bir darbe aldı. 
+WARN_OATHBREAKER_01        | Güven tüm diplomasinin temelidir, büyükelçi. Sözünüzü çiğnemekle güvenimizin içine ettiniz ve sizi temin ederim ki diplomatik ilişkilerimiz muhtemelen asla toparlanamayacağı bir darbe aldı.
 WARN_ATTACKED_ALLY_01      | Büyükelçi, [defender_race] ulusuna daha fazla saldırıdan kaçınmanızı şiddetle tavsiye ediyorum. Onlarla bir ittifak yemini ettik ve bu şedid hareket tarzını sürdürmekte ısrar ederseniz, ordumuzu kenarda ben bile tutamayacağım!
-WARN_REBELLING_AGAINST_01  | Galaktik Konsey'e liderlik etmek için bizim yerimize seçilmiş olman mümkün değil! Erkler çok kızacak! Korkarım ki savaşı geriye kalan tek geçerli seçenek olarak görecekler! 
+WARN_REBELLING_AGAINST_01  | Galaktik Konsey'e liderlik etmek için bizim yerimize seçilmiş olman mümkün değil! Erkler çok kızacak! Korkarım ki savaşı geriye kalan tek geçerli seçenek olarak görecekler!
 //
-PRAISE_COUNCIL_VOTE_01     | İyi arkadaşım büyükelçi! Sana sadece şunu söylemek istedim: bugün konseyde ne iyi ettin! Üçlü Erk, amaçlarımızı destekleyenleri her zaman takdir eder ve sizin gibi büyük bir müttefikin bu takdiri kazanmayı sürdürmesinden mutlu. 
+PRAISE_COUNCIL_VOTE_01     | İyi arkadaşım büyükelçi! Sana sadece şunu söylemek istedim: bugün konseyde ne iyi ettin! Üçlü Erk, amaçlarımızı destekleyenleri her zaman takdir eder ve sizin gibi büyük bir müttefikin bu takdiri kazanmayı sürdürmesinden mutlu.
 PRAISE_COUNCIL_VOTE_02     | Ah, [voter_empire] elçisi. Ertelemeden önce seni bulduğuma sevindim. Üçlü Erk'in ideallerine olan inancının bu kadar güçlü olduğunu görmekten mutluyum! İkimiz de eve döndüğümüzde, bana kesinlikle ulaşın ki diplomatik bağlarımızı güçlendirebilelim.
-PRAISE_COUNCIL_VOTE_03     | Demek nihayetinde bize oy verdiniz, ha? Sonunda kendinize gelmenize sevindim. Üçlü Erk ile yeni diplomatik bağlar kurmak için çalışmaya hazırsanız, belki onlara hakkınızda iyi şeyler söyleyebilirim. 
+PRAISE_COUNCIL_VOTE_03     | Demek nihayetinde bize oy verdiniz, ha? Sonunda kendinize gelmenize sevindim. Üçlü Erk ile yeni diplomatik bağlar kurmak için çalışmaya hazırsanız, belki onlara hakkınızda iyi şeyler söyleyebilirim.
 
-PRAISE_ATTACKED_ENEMY_01   | [defender_race] ulusunun Üçlü Erk'in bir savaşa gireceğini beklemediğinden eminim, ama biliyorum ki arkadaşlarımız [your_race] ulusunun da katılmasını beklemiyorlardı! Birlikte onlara diplomasinin ve güvenin neden ustalaşılacak en önemli araçlar olduğunu göstereceğiz! 
-PRAISE_ATTACKED_ENEMY_02   | Bugün savaş için güzel bir gün, büyükelçi. Çok daha barışçıl koşullarda arkadaşlar edinmeyi tercih ediyoruz, ancak [defender_race] ulusuna karşı bir savaş, benim ve senin halkın arasında uzun bir dostluğun başlangıcı demek oluyorsa, o zaman bu, şüphesiz savaşmaya değer bir savaştır! 
+PRAISE_ATTACKED_ENEMY_01   | [defender_race] ulusunun Üçlü Erk'in bir savaşa gireceğini beklemediğinden eminim, ama biliyorum ki arkadaşlarımız [your_race] ulusunun da katılmasını beklemiyorlardı! Birlikte onlara diplomasinin ve güvenin neden ustalaşılacak en önemli araçlar olduğunu göstereceğiz!
+PRAISE_ATTACKED_ENEMY_02   | Bugün savaş için güzel bir gün, büyükelçi. Çok daha barışçıl koşullarda arkadaşlar edinmeyi tercih ediyoruz, ancak [defender_race] ulusuna karşı bir savaş, benim ve senin halkın arasında uzun bir dostluğun başlangıcı demek oluyorsa, o zaman bu, şüphesiz savaşmaya değer bir savaştır!
 PRAISE_ATTACKED_ENEMY_03   | Üçlü Erk, barışçıl ilişkilere yönelik girişimlerimizi küçümseyen herhangi bir düşmanla başa çıkmak için fazlasıyla yeteneklidir. Ancak, iyi niyetli bir davranış olarak bu savaşa katılmakta ısrar ederseniz, size engel olmak için kesinlikle hiçbir şey yapmayacağız!
 
-PRAISE_TRADE_01            | Şimdi tüm mesele bu! İyi arkadaşlar ve müreffeh ticaret anlaşmaları, düşmanlardan ve yıkıcı savaşlardan daha değerlidir! Halkının arkadaşlarımız olmayı seçmesine sevindim ve eminim Erkler de aynı şekilde hissediyordur! 
-PRAISE_TRADE_02            | Evet, diplomasinin temeli güvendir, ancak tabii ki karşılıklı yarar sağlayan ticaretin de zararı olmaz, değil mi? Umarım anlaşmamıza sürekli devam edebiliriz ve birbirimize yardım etmenin yeni yolları da zuhur eder. Biz insanların dediği gibi, "Sen benim sırtımı kaşırsan, ben de seninkini kaşırım!" 
+PRAISE_TRADE_01            | Şimdi tüm mesele bu! İyi arkadaşlar ve müreffeh ticaret anlaşmaları, düşmanlardan ve yıkıcı savaşlardan daha değerlidir! Halkının arkadaşlarımız olmayı seçmesine sevindim ve eminim Erkler de aynı şekilde hissediyordur!
+PRAISE_TRADE_02            | Evet, diplomasinin temeli güvendir, ancak tabii ki karşılıklı yarar sağlayan ticaretin de zararı olmaz, değil mi? Umarım anlaşmamıza sürekli devam edebiliriz ve birbirimize yardım etmenin yeni yolları da zuhur eder. Biz insanların dediği gibi, "Sen benim sırtımı kaşırsan, ben de seninkini kaşırım!"
 
-PRAISE_REBELLING_WITH_01   | Korkma büyükelçi! Biz de konseyi gerçekte olduğuyla tanıyoruz: barış içinde bir arada yaşama taklidi içinde yozlaşmış bir diktatörlük. Bir olacağız ve bu despotlardan kesin olarak kurtulana kadar durmayacağız! 
+PRAISE_REBELLING_WITH_01   | Korkma büyükelçi! Biz de konseyi gerçekte olduğuyla tanıyoruz: barış içinde bir arada yaşama taklidi içinde yozlaşmış bir diktatörlük. Bir olacağız ve bu despotlardan kesin olarak kurtulana kadar durmayacağız!
 
 ACCEPT_TRADE_01            | Bu ticaret anlaşması ikimize de fayda sağlayacak, büyükelçi. [my_empire] ve [your_empire], her yıl [amt] BC şıkırtısıyla arkadaşlar! Kulağa hoş geliyor, sence de öyle değil mi?
 RESPOND_IGNORE_THREAT_01   | Ah, herhalde bu tehdidin bir tür şakadır. Evet, evet, bir şaka! Haha, çok komik, büyükelçi!
