@@ -147,7 +147,7 @@ COMPUTER_11_INFO   | This is the top level Battle Computer.
 // Battle Suit techs for ground combat
 // 
 BATTLESUIT_NAME      | Personal Armor Technologies
-BATTLESUIT_DETAIL    | Gives Ground combat bonus:<br>+ 10 for Battle Suits (Tech level 11)<br>+20 for Armored Exoskeletons (Tech level 24)<br>+30 for Powered Armor (Tech level 40)
+BATTLESUIT_DETAIL    | Gives Ground combat bonus:<br>+10 for Battle Suits (Tech level 11)<br>+20 for Armored Exoskeletons (Tech level 24)<br>+30 for Powered Armor (Tech level 40)
 
 // this is for default, no-bonus armor that player starts with
 BATTLESUIT_0_NAME    | Leather Suits
@@ -193,7 +193,7 @@ BIOANTIDOTE_1_DETAIL  | Reduces casualties taken from biological weapons by 2M p
 // Biological weapon techs 
 // 
 BIOWEAPON_NAME       | Biological Weapons
-BIOWEAPON_DETAIL     | Like bombs, biological weapons have a range of 1 square and are designed exclusively to attack planets. When dropped, they have the same chance to miss as bombs. Unlike bombs, the amount of damage biological weapons deal when they hit is not determined by their hit roll. Instead, if they hit, they have an equal chance to deal a random amount of damage, from 1 to their maximum amount. So even if a biological weapon barely hits, it can still deal its maximum damage; conversely, a perfect hit roll of 100 might only deal its minimum damage of 1 point.<br>It is important to remember that, unlike all other weapons, biological weapons do not cause collateral damage to missile bases or factories. Instead, they only do three things:<br>• Eliminate population points from the targeted planet<br>• Reduce its maximum population size<br>• Upset all other empires in the game.
+BIOWEAPON_DETAIL     | Like bombs, biological weapons have a range of 1 square and are designed exclusively to attack planets. When dropped, they have the same chance to miss as bombs. Unlike bombs, the amount of damage biological weapons deal when they hit is not determined by their hit roll. Instead, if they hit, they have an equal chance to deal a random amount of damage, from 1 to their maximum amount. So even if a biological weapon barely hits, it can still deal its maximum damage; conversely, a perfect hit roll of 100 might only deal its minimum damage of 1 point.<br>It is important to remember that, unlike all other weapons, biological weapons do not cause collateral damage to missile bases or factories. Instead, they only do three things:<br>- Eliminate population points from the targeted planet<br>- Reduce its maximum population size<br>- Upset all other empires in the game.
 
 BIOWEAPON_0_NAME     | Death Spores
 BIOWEAPON_0_BRIEF    | Biological Weapon
@@ -1331,4 +1331,3 @@ TORPEDO_2_DETAIL      | High-yield energy torpedoes that deliver 75 points of da
 TORPEDO_3_NAME        | Plasma Torpedoes
 TORPEDO_3_BRIEF       | Loses 15 damage/hex
 TORPEDO_3_DETAIL      | Pure energy torpedoes that deliver 150 points of damage and move at speed 6, but loses 15 damage per space traveled. The launcher fires every other turn and has a +7 guidance computer.
-

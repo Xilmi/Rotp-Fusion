@@ -31,7 +31,7 @@ Laplace
 Slipher
 Friedmann
 Hubble
-Lemaître
+LemaÃ®tre
 Thomson
 Born
 Crick

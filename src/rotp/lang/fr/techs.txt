@@ -180,7 +180,7 @@ BIOWEAPON_2_DETAIL   | Des armes biologiques abominables capables de réduire le
 // Black Hole Generator tech
 //
 BLACKHOLE_0_NAME     | Générateur de trous noirs
-BLACKHOLE_0_DETAIL   | Crée un champ sous-espace qui déforme l'espace normal, créant un trou noir qui détruit 25 % à 100 % des navires ennemis ou des bases de missiles, moins 2 % par Classee de bouclier.
+BLACKHOLE_0_DETAIL   | Crée un champ sous-espace qui déforme l'espace normal, créant un trou noir qui détruit 25 % à 100 % des navires ennemis ou des bases de missiles, moins 2 % par Classe de bouclier.
 
 
 //
@@ -280,58 +280,58 @@ DEFLECTOR_0_ITEM      |
 DEFLECTOR_0_BRIEF     |  
 DEFLECTOR_0_DETAIL    | 
 
-DEFLECTOR_1_NAME      | Boucliers déflecteurs de Classee I
-DEFLECTOR_1_ITEM      | Classee I
+DEFLECTOR_1_NAME      | Boucliers déflecteurs de Classe I
+DEFLECTOR_1_ITEM      | Classe I
 DEFLECTOR_1_BRIEF     | Absorbe 1 coup
 DEFLECTOR_1_DETAIL    | Absorbe 1 point de dégâts de toutes les attaques.
 
-DEFLECTOR_2_NAME      | Boucliers déflecteurs de Classee II
-DEFLECTOR_2_ITEM      | Classee II
+DEFLECTOR_2_NAME      | Boucliers déflecteurs de Classe II
+DEFLECTOR_2_ITEM      | Classe II
 DEFLECTOR_2_BRIEF     | Absorbe 2 coup
 DEFLECTOR_2_DETAIL    | Absorbe 2 points de dégâts de toutes les attaques.
 
-DEFLECTOR_3_NAME      | Boucliers déflecteurs de Classee III
-DEFLECTOR_3_ITEM      | Classee III
+DEFLECTOR_3_NAME      | Boucliers déflecteurs de Classe III
+DEFLECTOR_3_ITEM      | Classe III
 DEFLECTOR_3_BRIEF     | Absorbe 3 coup
 DEFLECTOR_3_DETAIL    | Absorbe 3 points de dégâts de toutes les attaques.
 
-DEFLECTOR_4_NAME      | Boucliers déflecteurs de Classee IV
-DEFLECTOR_4_ITEM      | Classee IV
+DEFLECTOR_4_NAME      | Boucliers déflecteurs de Classe IV
+DEFLECTOR_4_ITEM      | Classe IV
 DEFLECTOR_4_BRIEF     | Absorbe 4 coup
 DEFLECTOR_4_DETAIL    | Absorbe 4 points de dégâts de toutes les attaques.
 
-DEFLECTOR_5_NAME      | Boucliers déflecteurs de Classee V
-DEFLECTOR_5_ITEM      | Classee V
+DEFLECTOR_5_NAME      | Boucliers déflecteurs de Classe V
+DEFLECTOR_5_ITEM      | Classe V
 DEFLECTOR_5_BRIEF     | Absorbe 5 coup
 DEFLECTOR_5_DETAIL    | Absorbe 5 points de dégâts de toutes les attaques.
 
-DEFLECTOR_6_NAME      | Boucliers déflecteurs de Classee VI
-DEFLECTOR_6_ITEM      | Classee VI
+DEFLECTOR_6_NAME      | Boucliers déflecteurs de Classe VI
+DEFLECTOR_6_ITEM      | Classe VI
 DEFLECTOR_6_BRIEF     | Absorbe 6 coup
 DEFLECTOR_6_DETAIL    | Absorbe 6 points de dégâts de toutes les attaques.
 
-DEFLECTOR_7_NAME      | Boucliers déflecteurs de Classee VII
-DEFLECTOR_7_ITEM      | Classee VII
+DEFLECTOR_7_NAME      | Boucliers déflecteurs de Classe VII
+DEFLECTOR_7_ITEM      | Classe VII
 DEFLECTOR_7_BRIEF     | Absorbe 7 coup
 DEFLECTOR_7_DETAIL    | Absorbe 7 points de dégâts de toutes les attaques.
 
-DEFLECTOR_8_NAME      | Boucliers déflecteurs de Classee IX
-DEFLECTOR_8_ITEM      | Classee IX
+DEFLECTOR_8_NAME      | Boucliers déflecteurs de Classe IX
+DEFLECTOR_8_ITEM      | Classe IX
 DEFLECTOR_8_BRIEF     | Absorbe 9 coup
 DEFLECTOR_8_DETAIL    | Absorbe 9 points de dégâts de toutes les attaques.
 
-DEFLECTOR_9_NAME      | Boucliers déflecteurs de Classee XI
-DEFLECTOR_9_ITEM      | Classee XI
+DEFLECTOR_9_NAME      | Boucliers déflecteurs de Classe XI
+DEFLECTOR_9_ITEM      | Classe XI
 DEFLECTOR_9_BRIEF     | Absorbe 11 coup
 DEFLECTOR_9_DETAIL    | Absorbe 11 points de dégâts de toutes les attaques.
 
-DEFLECTOR_10_NAME     | Boucliers déflecteurs de Classee XIII
-DEFLECTOR_10_ITEM     | Classee XIII
+DEFLECTOR_10_NAME     | Boucliers déflecteurs de Classe XIII
+DEFLECTOR_10_ITEM     | Classe XIII
 DEFLECTOR_10_BRIEF    | Absorbe 13 coup
 DEFLECTOR_10_DETAIL   | Absorbe 13 points de dégâts de toutes les attaques.
 
-DEFLECTOR_11_NAME     | Boucliers déflecteurs de Classee XV
-DEFLECTOR_11_ITEM     | Classee XV
+DEFLECTOR_11_NAME     | Boucliers déflecteurs de Classe XV
+DEFLECTOR_11_ITEM     | Classe XV
 DEFLECTOR_11_BRIEF    | Absorbe 15 coup
 DEFLECTOR_11_DETAIL   | Absorbe 15 points de dégâts de toutes les attaques.
 
@@ -438,63 +438,63 @@ PULSAR_1_DETAIL   | Une puissante modification de moteur capable de générer un
 // Engine techs
 //
 ENGINE_0_NAME    | Moteurs rétro
-ENGINE_0_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classee I en combat.
+ENGINE_0_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe I en combat.
 ENGINE_0_ITEM    | Rétro
-ENGINE_0_ITEM2   | Classee 1
+ENGINE_0_ITEM2   | Classe 1
 ENGINE_0_BRIEF   | Distorsion 1  Def %1
 ENGINE_0_BRIEF2  | Vitesse de combat %1
 
 ENGINE_1_NAME    | Moteurs nucléaires
-ENGINE_1_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classee II en combat.
+ENGINE_1_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe II en combat.
 ENGINE_1_ITEM    | Nucléaire
-ENGINE_1_ITEM2   | Classee 2
+ENGINE_1_ITEM2   | Classe 2
 ENGINE_1_BRIEF   | Distorsion 2  Def %1
 ENGINE_1_BRIEF2  | Vitesse de combat %1
 
 ENGINE_2_NAME    | Propulsion conventionnelle/sous-lumière
-ENGINE_2_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classee III en combat.
+ENGINE_2_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe III en combat.
 ENGINE_2_ITEM    | Sous-lumière
 ENGINE_2_ITEM2   | Classe 3
 ENGINE_2_BRIEF   | Distorsion 3  Def %1
 ENGINE_2_BRIEF2  | Vitesse de combat %1
 
-ENGINE_3_NAME    | Propulsion à fusion 
-ENGINE_3_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classee IV en combat.
+ENGINE_3_NAME    | Propulsion à fusion
+ENGINE_3_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe IV en combat.
 ENGINE_3_ITEM    | Fusion
 ENGINE_3_ITEM2   | Classe 4
 ENGINE_3_BRIEF   | Distorsion 4  Def %1
 ENGINE_3_BRIEF2  | Vitesse de combat %1
 
-ENGINE_4_NAME    | Moteurs d'impulsion 
-ENGINE_4_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classee V en combat.
+ENGINE_4_NAME    | Moteurs d'impulsion
+ENGINE_4_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe V en combat.
 ENGINE_4_ITEM    | Impulsion
 ENGINE_4_ITEM2   | Classe 5
 ENGINE_4_BRIEF   | Distorsion 5  Def %1
 ENGINE_4_BRIEF2  | Vitesse de combat %1
 
-ENGINE_5_NAME    | Propulsion ionique 
-ENGINE_5_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classee VI en combat.
+ENGINE_5_NAME    | Propulsion ionique
+ENGINE_5_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe VI en combat.
 ENGINE_5_ITEM    | Ionique
 ENGINE_5_ITEM2   | Classe 6
 ENGINE_5_BRIEF   | Distorsion 6  Def %1
 ENGINE_5_BRIEF2  | Vitesse de combat %1
 
-ENGINE_6_NAME    | Moteurs à l'anti-matière 
-ENGINE_6_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classee VII en combat.
-ENGINE_6_ITEM    | Anti-matière 
+ENGINE_6_NAME    | Moteurs à l'anti-matière
+ENGINE_6_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe VII en combat.
+ENGINE_6_ITEM    | Anti-matière
 ENGINE_6_ITEM2   | Classe 7
 ENGINE_6_BRIEF   | Distorsion 7  Def %1
 ENGINE_6_BRIEF2  | Vitesse de combat %1
 
 ENGINE_7_NAME    | Propulsion interphasée
-ENGINE_7_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classee VII en combat.
+ENGINE_7_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe VII en combat.
 ENGINE_7_ITEM    | Interphasée
 ENGINE_7_ITEM2   | Classe 8
 ENGINE_7_BRIEF   | Distorsion 8  Def %1
 ENGINE_7_BRIEF2  | Vitesse de combat %1
 
 ENGINE_8_NAME    | Propulsion hyper
-ENGINE_8_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classee IX en combat.
+ENGINE_8_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe IX en combat.
 ENGINE_8_ITEM    | Hyper
 ENGINE_8_ITEM2   | Classe 9
 ENGINE_8_BRIEF   | Distorsion 9  Def %1
@@ -828,16 +828,16 @@ IMPRTFORM_8_DETAIL      | Augmente la capacité de population des planètes de 1
 // Industrial Waste techs
 //
 INDWASTE_0_NAME         | Réduction des déchets industriels 80%
-INDWASTE_0_DETAIL       | Réduit les niveaux de pollution de l'usine à 80 % du taux normal.
+INDWASTE_0_DETAIL       | Réduit le niveau de pollution des usines à 80 % du taux normal.
 
 INDWASTE_1_NAME         | Réduction des déchets industriels 60%
-INDWASTE_1_DETAIL       | Réduit les niveaux de pollution de l'usine à 60 % du taux normal.
+INDWASTE_1_DETAIL       | Réduit le niveau de pollution des usines à 60 % du taux normal.
 
 INDWASTE_2_NAME         | Réduction des déchets industriels 40%
-INDWASTE_2_DETAIL       | Réduit les niveaux de pollution de l'usine à 40 % du taux normal.
+INDWASTE_2_DETAIL       | Réduit le niveau de pollution des usines à 40 % du taux normal.
 
 INDWASTE_3_NAME         | Réduction des déchets industriels 20%
-INDWASTE_3_DETAIL       | Réduit les niveaux de pollution de l'usine à 20 % du taux normal.
+INDWASTE_3_DETAIL       | Réduit le niveau de pollution des usines à 20 % du taux normal.
 
 INDWASTE_4_NAME         | Élimination des déchets industriels
 INDWASTE_4_DETAIL       | Les usines cessent de polluer.
