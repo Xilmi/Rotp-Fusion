@@ -1,6 +1,6 @@
 // This is the label text file for Remnants of the Precursors
 // comment lines should start with '/'  they are ignored
-//  
+//
 // the format for each line is   key | label
 //    where 'key' is the code used by the game to retrieve the label
 //    You cannot create new keys! The game will not use them
@@ -51,7 +51,7 @@ DESERT_DESC_BIOLOGICAL            | Os planetas desérticos são mundos secos e 
 INFERNO_DESC_BIOLOGICAL           | Os planetas infernais são mundos extremamente quentes, com atmosferas densas e tempestades violentas.
 JUNGLE_DESC_BIOLOGICAL            | Os planetas tropicais são mundos luxuriantes cobertos de densas florestas, selvas e pântanos.
 MINIMAL_DESC_BIOLOGICAL           | Os planetas desolados são ermos térreos que desafiam os limites da habitabilidade.
-NONE_DESC_BIOLOGICAL              | Sem planetas maciços, estes sistemas cheios de asteróides desafiam todas as teorias a respeito de formação planetária. 
+NONE_DESC_BIOLOGICAL              | Sem planetas maciços, estes sistemas cheios de asteróides desafiam todas as teorias a respeito de formação planetária.
 OCEAN_DESC_BIOLOGICAL             | Os planetas oceânicos cobrem-se quase inteiramente de água, dificultando frequentemente o acesso aos recursos.
 RADIATED_DESC_BIOLOGICAL          | Os planetas radioativos são mundos desprovidos de atmosfera e de vida, banhados por chuvas de radiação de estrelas próximas.
 STEPPE_DESC_BIOLOGICAL            | Os planetas de estepe são mundos frios dominados por invernos rigorosos e ambientes árticos.
@@ -113,7 +113,7 @@ LEADER_TECHNOLOGIST               | Tecnologista
 // Leader Personality & Objective displayed together
 LEADER_PERSONALITY_FORMAT         | %2 %1
 
-// Technology names and descriptions 
+// Technology names and descriptions
 TECH_COMPUTERS                    | Computadores
 TECH_CONSTRUCTION                 | Engenharia
 TECH_FORCE_FIELDS                 | Campos de Forças
@@ -198,7 +198,7 @@ INC_AT_WAR_WITH_ALLY_DESC         | Estás em guerra com [other_empire], aliados
 INC_CLOSED_EMBASSY_TITLE          | Embaixador Chamado de Volta
 INC_CLOSED_EMBASSY_DESC           | A [your_empire] cortou as relações diplomáticas com [my_empire].
 INC_EVICTED_SPIES_TITLE           | Diplomatas Recambiados
-INC_EVICTED_SPIES_DESC            | A [your_empire] expulsou todos os diplomatas da [my_empire] considerados não essenciais. 
+INC_EVICTED_SPIES_DESC            | A [your_empire] expulsou todos os diplomatas da [my_empire] considerados não essenciais.
 INC_BROKE_ALLIANCE_TITLE          | Aliança Quebrada
 INC_BROKE_ALLIANCE_DESC           | A [your_empire] quebrou a sua aliança com [my_empire].
 INC_BROKE_PACT_TITLE              | Pacto Quebrado
@@ -236,7 +236,7 @@ INC_FINANCIAL_AID_DESC            | [my_empire] recebeu uma oferta de [amt] BM d
 INC_TECHNOLOGY_AID_TITLE          | Ajuda Tecnológica
 INC_TECHNOLOGY_AID_DESC           | A [your_empire] partilhou voluntariamente os segredos da tecnologia de [tech] com [my_empire].
 INC_TECHNOLOGY_AID_DESC_MULT      | A [your_empire] partilhou voluntariamente os segredos das seguintes tecnologias com [my_empire]: [techs]
-INC_TECHNOLOGY_TECH_LIST_COMMA    | , 
+INC_TECHNOLOGY_TECH_LIST_COMMA    | ,
 INC_ENEMY_AID_TITLE               | Ajuda ao Inimigo
 INC_ENEMY_AID_MONEY_DESC          | A [your_empire] doou [amt] BM em auxílio da [enemy_empire], inimigos da [my_empire].
 INC_ENEMY_AID_TECH_DESC           | A [your_empire] partilhou os segredos da tecnologia de [tech] com [enemy_empire], inimigos da [my_empire].
@@ -262,7 +262,7 @@ INC_DESTROYED_FACTORIES_DESC      | Sabotadores a trabalhar para [spy_empire] de
 INC_INCITED_REBELLION_TITLE       | Rebelião Incitada
 INC_INCITED_REBELLION_DESC        | Insurgentes a trabalhar para [spy_empire] incitaram [amt] milhões de rebeldes no sistema [system].
 INC_SIGNED_ALLIANCE_TITLE         | Aliança
-INC_SIGNED_ALLIANCE_DESC          | A [my_empire] e a [your_empire] juntaram forças numa aliança, jurando defender-se mutuamente das ameaças externas. 
+INC_SIGNED_ALLIANCE_DESC          | A [my_empire] e a [your_empire] juntaram forças numa aliança, jurando defender-se mutuamente das ameaças externas.
 INC_JOINT_WAR_TITLE               | Guerra Declarada
 INC_LEFT_ALLIANCE_TITLE           | Aliança Quebrada
 INC_SIGNED_PACT_TITLE             | Pacto de Não-agressão
@@ -288,7 +288,7 @@ CLICK_CONTINUE                    | Prime Esc ou Faz Clique para Continuar...
 CLICK_EXIT                        | Prime Esc ou Faz Clique para Sair...
 BUTTON_EXIT                       | Sair
 
-// GAME/SETUP UI 
+// GAME/SETUP UI
 GAME_TITLE_LINE_1                 | OS HERDEIROS
 GAME_TITLE_LINE_2                 | dos
 GAME_TITLE_LINE_3                 | PRECURSORES
@@ -306,7 +306,7 @@ GAME_ENLARGE                      | Expandir
 
 // Game Settings UI
 GAME_SETTINGS_TITLE               | Configurações do Jogo
-GAME_SETTINGS_DESCRIPTION         | Carrega para alternar entre cada opção. 
+GAME_SETTINGS_DESCRIPTION         | Carrega para alternar entre cada opção.
 GAME_SETTINGS_EXIT                | Sair
 GAME_SETTINGS_DEFAULT             | Reverter
 GAME_SETTINGS_DISPLAY_MODE        | Ecrã/Tela: %1
@@ -458,7 +458,7 @@ MAIN_NO_PLANETS                   | Sem Planetas Colonizáveis
 MAIN_NO_COLONIES                  | Por Colonizar
 MAIN_UNSCOUTED                    | Carece de Reconhecimento
 MAIN_ABANDONED                    | Abandonado
-MAIN_ALIEN_COLONY                 | Colónia %1 
+MAIN_ALIEN_COLONY                 | Colónia %1
 MAIN_UNKNOWN_COLONY               | Colónia Alienígena
 MAIN_NEBULA_DESC                  | A velocidade de deslocação máxima de uma nave através de uma nébula limita-se à Dobra Espacial 1.
 MAIN_PLANET_SIZE                  | Tamanho: %1
@@ -678,7 +678,7 @@ MAIN_FLEET_SHIP_COUNT             | %1/%2
 
 // 32-bit Java Warning
 MAIN_JAVA_32BIT_TITLE             | Aviso! Java de 32 bits em uso.
-MAIN_JAVA_32BIT_DESC              | Estás a correr o jogo numa versão de Java de 32 bits. Isto pode reduzir drasticamente a memória disponível e prejudicar o desempenho do jogo. 
+MAIN_JAVA_32BIT_DESC              | Estás a correr o jogo numa versão de Java de 32 bits. Isto pode reduzir drasticamente a memória disponível e prejudicar o desempenho do jogo.
 MAIN_JAVA_32BIT_DESC_2            | Embora Os Herdeiros dos Precursores funcione nestas condições, um upgrade para uma versão de 64 bits melhora a experiência do jogo.
 MAIN_JAVA_32BIT_DESC_3            | Se necessitas de assistência para fazer um upgrade do Java, podes dirigir-te a www.reddit.com/r/rotp e pedir ajuda (em inglês).
 MAIN_JAVA_32BIT_OK                | OK
@@ -699,7 +699,7 @@ MAIN_AUTOSAVE_FAILED_DESC_3       | Se esta mensagem surge com frequência, visi
 MAIN_AUTOSAVE_FAILED_OK           | OK
 
 // Alerts
-MAIN_ALERT_TITLE                  | Alerta 
+MAIN_ALERT_TITLE                  | Alerta
 MAIN_ALERT_TITLE_COUNT            | Alerta - %1 de %2
 MAIN_ALERT_SPY_REPORT             | Os nossos serviços secretos têm um novo relatório das atividades de espionagem recentes.
 MAIN_ALERT_TECH_STOLEN            | O departamento de segurança interna descobriu atividades de espionagem por agentes [alien_race_male_plural].
@@ -719,7 +719,7 @@ MAIN_ALERT_ALLIANCE_WEAKENING     | A nossa aliança com [ally_empire] tem vindo
 MAIN_ALERT_ALLIANCE_BREAKING      | A nossa aliança com [ally_empire] está prestes a desfazer-se!
 
 // Colony Listing UI
-PLANETS_TITLE                     | Colónias %1 
+PLANETS_TITLE                     | Colónias %1
 PLANETS_VIEW_ECOLOGY              | Gestão Ecológica
 PLANETS_VIEW_INDUSTRY             | Gestão Industrial
 PLANETS_VIEW_MILITARY             | Gestão Militar
@@ -751,7 +751,7 @@ PLANETS_TRANSFER_ACCEPT           | Transferir
 PLANETS_COLONY_TRANSFER_TITLE     | Transferir Fundos
 PLANETS_COLONY_TRANSFER_DETAIL    | Transferir fundos do tesouro público do império a fim de aumentar a produção desta colónia.
 PLANETS_COLONY_TRANSFER_BUTTON    | Transferir Fundos do tesouro público
-PLANETS_LIST_NUM                  | 
+PLANETS_LIST_NUM                  |
 PLANETS_LIST_NAME                 | Nome
 PLANETS_LIST_POPULATION           | População
 PLANETS_LIST_POP                  | Pop.
@@ -938,7 +938,7 @@ TECH_GUARDIAN_TITLE               | Soldados [player_race_male_plural] Recuperam
 TECH_ALLOCATE_SHIELD              | Devemos aumentar os investimentos em Defesa em todas as nossas colónias para podermos construir novos escudos planetários?
 TECH_ALLOCATE_MISSILE_BASES       | Devemos aumentar os investimentos em Defesa em todas as nossas colónias para podermos melhorar as nossas bases de mísseis?
 TECH_ALLOCATE_FACTORIES           | Devemos aumentar os investimentos em Indústria em todas as nossas colónias para podermos melhorar os nossos Controlos Industriais?
-TECH_ALLOCATE_CLEAN_WASTE         | Devemos reduzir os investimentos em Ecologia em todas as nossas colónias para o mínimo necessário ao seu saneamento? 
+TECH_ALLOCATE_CLEAN_WASTE         | Devemos reduzir os investimentos em Ecologia em todas as nossas colónias para o mínimo necessário ao seu saneamento?
 TECH_ALLOCATE_ENRICH_SOIL         | Devemos aumentar os investimentos em Ecologia em todas as nossas colónias com ambientes medianos para podermos começar a terraformar os planetas?
 TECH_ALLOCATE_ATMOSPHERE          | Devemos aumentar os investimentos em Ecologia em todas as nossas colónias com ambientes hostis para podermos começar a terraformar os planetas?
 TECH_ALLOCATE_TERRAFORM           | Devemos aumentar os investimentos em Ecologia em todas as nossas colónias para podermos começar a terraformar os planetas?
@@ -991,7 +991,7 @@ NOTICE_SPIES_CLOSE                | Fechar
 // Ground Combat UI
 INVASION_BATTLE                   | No ano %1, [attacker_race_male_plural] e [defender_race_male_plural] combatem por %2.
 INVASION_BATTLE_REBELS            | No ano %1, [attacker_race_male_plural] e rebeldes combatem por %2.
-INVASION_TROOPS_LANDED            | %1 tropas [attacker_race_female_plural] aterraram. 
+INVASION_TROOPS_LANDED            | %1 tropas [attacker_race_female_plural] aterraram.
 INVASION_SOME_TROOPS_LANDED       | %1 de %2 tropas [attacker_race_female_plural] aterraram.
 INVASION_WIN                      | Transportes [attacker_race_male_plural] capturam %2.
 INVASION_LOSS                     | Tropas [defender_race_female_plural] conseguem defender %2.
@@ -1020,7 +1020,7 @@ GNN_PRODUCTION_RANKING            | Classificação dos impérios por produção
 GNN_TECHNOLOGY_RANKING            | Classificação dos impérios por avanço tecnológico:
 GNN_PLAYER_REBELLION              | %1 rebeliou-se e recusa-se a contribuir para a [rebelling_empire]. Pelo menos %2 milhões de rebeldes controlam a colónia. Tropas têm de ser enviadas para silenciar a insurgência.
 GNN_ALIEN_REBELLION               | %1 rebeliou-se e recusa-se a contribuir para a [rebelling_empire]. Pelo menos %2 milhões de rebeldes controlam a colónia.
-GNN_PLAYER_REBELLION_SPREAD       | A rebelião continua a alastrar-se pela [rebelling_empire]. Pelo menos %2 milhões de rebeldes controlam a colónia de %1. 
+GNN_PLAYER_REBELLION_SPREAD       | A rebelião continua a alastrar-se pela [rebelling_empire]. Pelo menos %2 milhões de rebeldes controlam a colónia de %1.
 GNN_OVERTHROW                     | Um novo líder emerge da [alien_empire]. Rumores indicam que o novo imperador é %1. As relações diplomáticas são agora neutras e as trocas comerciais foram interrompidas.
 GNN_END_COUNCIL                   | Com apenas dois impérios restantes, as tentativas para unificar a galáxia através de um conselho caem por terra. Muitos líderes debatem agora que género de solução final poderá trazer uma paz duradoura.
 GNN_FORM_COUNCIL                  | Na busca de paz, representantes de cada raça vão reunir-se para eleger um Imperador Galáctico dentre os líderes dos dois impérios mais populosos.
@@ -1123,8 +1123,8 @@ SETUP_RESEARCH_RATE_SLOWEST       | Lentíssimo
 SETUP_TECH_TRADING_YES            | Sim
 SETUP_TECH_TRADING_ALLIES         | Apenas Aliados
 SETUP_TECH_TRADING_NO             | Não
-SETUP_WAPP_SPEED_NORMAL           | Normal
-SETUP_WAPP_SPEED_FAST             | Rápida
+SETUP_WARP_SPEED_NORMAL           | Normal
+SETUP_WARP_SPEED_FAST             | Rápida
 SETUP_NEBULA_NONE                 | Nenhuma
 SETUP_NEBULA_RARE                 | Rara
 SETUP_NEBULA_UNCOMMON             | Incomum
@@ -1217,7 +1217,7 @@ SETTINGS_RANDOMIZE_AI             | Sorteio do Computador: %1
 SETTINGS_AUTOPLAY                 | Jogo Automatizado: %1
 SETTINGS_TECH_TRADING             | Trocas de Tecnologia: %1
 SETTINGS_GALAXY_AGE               | Idade da Galáxia: %1
-SETTINGS_WAPP_SPEED               | Velocidade da Dobra Espacial: %1
+SETTINGS_WARP_SPEED               | Velocidade da Dobra Espacial: %1
 SETTINGS_NEBULAE                  | Nébulas: %1
 SETTINGS_PLANET_QUALITY           | Qualidade dos Planetas: %1
 SETTINGS_TERRAFORMING             | Terraformação em Ambiente Hostil: %1
@@ -1225,7 +1225,7 @@ SETTINGS_COLONIZING               | Colonização: %1
 SETTINGS_FUEL_RANGE               | Alcance do Combustível: %1
 SETTINGS_AI_HOSTILITY             | Hostilidade dos Jogadores: %1
 SETTINGS_RANDOM_EVENTS_DESC       | Os Eventos Aleatórios incluem monstros do espaço e ameaças consideráveis que surjem a meio da partida. Podes desativar os monstros do espaço ou todos os eventos aleatórios.
-SETTINGS_WAPP_SPEED_DESC          | Aumenta a velocidade inerente às tecnologias de Dobra Espacial mais avançadas. Isto pode ser desejável em mapas de grandes dimensões.
+SETTINGS_WARP_SPEED_DESC          | Aumenta a velocidade inerente às tecnologias de Dobra Espacial mais avançadas. Isto pode ser desejável em mapas de grandes dimensões.
 SETTINGS_GALAXY_AGE_DESC          | Comparativamente às galáxias medianas, as galáxias jovens têm mais estrelas brancas e azuis, enquanto que as galáxias antigas têm mais estrelas vermelhas e de neutrões.
 SETTINGS_TECH_TRADING_DESC        | Desativa todas as trocas de tecnologia ou permite que estas apenas ocorram entre aliados.
 SETTINGS_STAR_DENSITY_DESC        | Com uma definição elevada, reduzes a chance de os impérios estagnarem nas fases iniciais da partida.
@@ -1248,7 +1248,7 @@ TECH_EMPIRE_SPENDING              | Gastos do Império
 TECH_EMPIRE_SPENDING_DESC         | A soma dos gastos em Tecnologia de todas as nossas colónias.
 TECH_EMPIRE_TECH_RESERVE_OPT      | Canalizar os excessos da reserva do tesouro público para pesquisa.
 TECH_EMPIRE_BALANCED_DESC         | Um investimento perfeitamente equilibrado aumenta os Pontos de Pesquisa em geral.
-TECH_EMPIRE_DETAIL_1              | %1 BM por 
+TECH_EMPIRE_DETAIL_1              | %1 BM por
 TECH_EMPIRE_DETAIL_2              | %2 PP / ano
 TECH_TOTAL_RP                     | %1 PP
 TECH_DISCOVERY_PCT                | %1%
@@ -1937,7 +1937,7 @@ DIPLOMACY_MENU_BREAK_PACT         | Quebrar Pacto de Não-agressão
 DIPLOMACY_MENU_BREAK_ALLIANCE     | Quebrar Aliança
 DIPLOMACY_TRADE_MENU_BREAK        | Quebrar Acordo Comercial
 DIPLOMACY_THREATEN_MENU_0         | Retirem o Vosso Embaixador
-DIPLOMACY_THREATEN_MENU_1         | Exigir Tributo 
+DIPLOMACY_THREATEN_MENU_1         | Exigir Tributo
 DIPLOMACY_THREATEN_MENU_2         | Quebrar Pacto de Não-agressão
 DIPLOMACY_THREATEN_MENU_3         | Quebrar Aliança
 DIPLOMACY_THREATEN_MENU_BR        | Quebrar Acordo Comercial
@@ -1951,7 +1951,7 @@ DIPLOMACY_ACCEPT_ESTABLISH_TRADE  | Aceitar (estabelece uma troca)
 DIPLOMACY_DECLINE_OFFER           | Recusar
 DIPLOMACY_DECLINE_BREAK_ALLIANCE  | Recusar (quebra a aliança)
 DIPLOMACY_IGNORE_THREAT           | Ignorar Ameaça
-DIPLOMACY_SHUTDOWN_SPIES          | Cancelar todas as redes de espionagem n[alien_empire] 
+DIPLOMACY_SHUTDOWN_SPIES          | Cancelar todas as redes de espionagem n[alien_empire]
 DIPLOMACY_HIDE_SPIES              | Ordenar a todos os agentes n[alien_empire] que se escondam como infiltrados
 DIPLOMACY_RETREAT_SHIPS           | Ordenar a retirada de todas as naves em órbita ou em trânsito nos sistemas dos [alien_race_male_plural]
 

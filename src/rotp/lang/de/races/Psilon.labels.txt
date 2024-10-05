@@ -3,20 +3,20 @@ _empire                           | Mentaran Republik, Mentalon Republik, Psycho
 _race                             | Mentaran, Mentalon, Psychon, Cerebron, Neuralon
 _race_plural                      | Mentarans, Mentalons, Psychons, Cerebrons, Neuralons
 _title                            | Hoher Rat
-_nameTitle                        | Hoher Rat 
+_nameTitle                        | Hoher Rat
 
 
 //
 // All text below this point is copyright 2018-2020 Jeff Colucci
-// 
-// Licensed under the Creative Commons License, 
+//
+// Licensed under the Creative Commons License,
 // Attribution-NonCommercial-NoDerivatives 4.0 International (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     https://creativecommons.org/licenses/by-nc-nd/4.0/
-//  
-// This license is legally binding. Please review this license before altering 
+//
+// This license is legally binding. Please review this license before altering
 // or distributing any material covered under this license.
 //
 
@@ -25,13 +25,13 @@ MAIN_ADVISOR_TITLE                | %1 Berater
 MAIN_ADVISOR_BUTTON_OK            | Wegtreten
 MAIN_ADVISOR_SCOUT                | Hoher Ratsherr, unsere Erkundungsflotte steht bereit. Würden Sie es für sinnvoll halten, dass wir bald eine neue Welt finden und dort eine Siedlung gründen?
 MAIN_ADVISOR_TRANSPORT            | Unsere neue Kolonie ist gegründet worden. Der Rat berät nun darüber, wie viele unserer Leute wir mit einem Transportschiff dorthin schicken sollten, wenn wir überhaupt welche schicken sollten.
-MAIN_ADVISOR_DIPLOMACY            | Aus den Tiefen des Weltraums ist eine völlig neue Zivilisation erschienen! Ich bete, dass sie eine friedliche Koexistenz einer gewaltsamen vorziehen. 
-MAIN_ADVISOR_SHIP_ENGINE          | Unsere Wissenschaftler haben die Technologie unserer Raumschifftriebwerke ständig weiterentwickelt. Vertreter sind jetzt vor dem Rat und machen Vorschläge, wie man sie am besten nutzen kann. 
+MAIN_ADVISOR_DIPLOMACY            | Aus den Tiefen des Weltraums ist eine völlig neue Zivilisation erschienen! Ich bete, dass sie eine friedliche Koexistenz einer gewaltsamen vorziehen.
+MAIN_ADVISOR_SHIP_ENGINE          | Unsere Wissenschaftler haben die Technologie unserer Raumschifftriebwerke ständig weiterentwickelt. Vertreter sind jetzt vor dem Rat und machen Vorschläge, wie man sie am besten nutzen kann.
 MAIN_ADVISOR_RALLY_POINTS         | Es ist bedauerlich, aber die Republik befindet sich nun inmitten eines Krieges. Der Rat muss über einen Sammelpunkt für unsere Flotten entscheiden, damit unsere Kolonisten in Sicherheit sind.
-MAIN_ADVISOR_MISSILE_BASEN        | Anstatt Kriegsflotten aufzustellen, können wir auf unseren Kolonien defensive Raketenbasen errichten, um sie vor Invasionen zu schützen. Der Rat möchte Ihre Meinung darüber hören, welchen Welten die Präsenz dieser Basen am besten dienen würde. 
+MAIN_ADVISOR_MISSILE_BASES        | Anstatt Kriegsflotten aufzustellen, können wir auf unseren Kolonien defensive Raketenbasen errichten, um sie vor Invasionen zu schützen. Der Rat möchte Ihre Meinung darüber hören, welchen Welten die Präsenz dieser Basen am besten dienen würde.
 MAIN_ADVISOR_SHIP_WEAPON          | Der Rat ist in einer hitzigen Debatte über das neueste Design für Schiffswaffen. Einige wünschen die sofortige Zerstörung der Waffen, aber wir möchten vielleicht unsere Schiffsdesigns als rein proaktive Maßnahme ändern.
 MAIN_ADVISOR_COUNCIL              | Bald wird es ein freudiges Treffen der größten und mächtigsten Völker der Galaxie geben. Wir sollten an diesem Galaktischen Rat teilnehmen und die Weisheit unserer himmlischen Nachbarn hören.
-MAIN_ADVISOR_RESIST_COUNCIL       | Es beunruhigt mich, dass all unsere Bemühungen zu diesem Krieg geführt haben, aber wenn die einzige Alternative darin besteht, sich diesem kriegstreiberischen Rat zu unterwerfen, dann sehe ich keine andere Wahl für unser Volk! 
+MAIN_ADVISOR_RESIST_COUNCIL       | Es beunruhigt mich, dass all unsere Bemühungen zu diesem Krieg geführt haben, aber wenn die einzige Alternative darin besteht, sich diesem kriegstreiberischen Rat zu unterwerfen, dann sehe ich keine andere Wahl für unser Volk!
 MAIN_ADVISOR_COUNCIL_RESISTED     | Macht es Sie nicht traurig, dass andere den Frieden so vehement ablehnen? Stählen Sie Ihre Entschlossenheit, Hoher Rat: Dies wird der letzte Krieg sein, den diese Galaxie je sehen wird.
 
 

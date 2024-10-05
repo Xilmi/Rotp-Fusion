@@ -1,6 +1,6 @@
 // This is the label text file for Remnants of the Precursors
 // comment lines should start with '/'  they are ignored
-//  
+//
 // the format for each line is   key | label
 //    where 'key' is the code used by the game to retrieve the label
 //    You cannot create new keys! The game will not use them
@@ -17,7 +17,7 @@ YELLOW_STAR_DESCRIPTION           | Gula stjärnor ger den bästa chansen att fi
 ORANGE_STAR_DESCRIPTION           | Orange stjärnor är av mediumintensitet och planetklasserna kan variera mellan olika typer.
 BLUE_STAR_DESCRIPTION             | Blå stjärnor är relativt unga stjärnor med mineralrika, livlösa planeter.
 WHITE_STAR_DESCRIPTION            | Vita dvärgstjärnor brinner hett, med mycket UV-ljus, och har generellt planeter med ogästvänligt klimat.
-PUFPLE_STAR_DESCRIPTION           | Neutronstjärnor är sällsynta, men har god chans att ha planeter rika på mineraler.
+PURPLE_STAR_DESCRIPTION           | Neutronstjärnor är sällsynta, men har god chans att ha planeter rika på mineraler.
 
 // Planet Typs
 PLANET_ARID                       | Torrt
@@ -113,7 +113,7 @@ LEADER_TECHNOLOGIST               | Teknologisk
 // Leader Personality & Objective displayed together
 LEADER_PERSONALITY_FORMAT         | %1 %2
 
-// Teknologi names and descriptions 
+// Teknologi names and descriptions
 TECH_COMPUTERS                    | Datorteknik
 TECH_CONSTRUCTION                 | Bygg- och maskinteknik
 TECH_FORCE_FIELDS                 | Kraftfält
@@ -135,7 +135,7 @@ EVENT_EARTHQUAKE                  | En förödande jordbävning har drabbat [tar
 EVENT_ENRICHED                    | Djupnivås-borrningar i utforskande syfte har uppdagat stora mängder viktiga mineralfyndigheter på [target_raceposs] planet i [system]-systemet. Planeten kan numer klassas som Mineralrik, med följd av förhöjd produktion.
 EVENT_FERTILE                     | En plötslig skiftning i planetens lutning har lett till att [target_raceposs] planet i [system]-systemet har förbättrat klimat till den grad att planeten nu klassas Bördig. Befolkningstillväxten beräknas öka med 50%.
 EVENT_PIRACY                      | En grupp Pirater har gjort [target_race] sitt primära mål, och den interplanetära handeln är nu under hot. Handelsintäkter beräknas sänkas med [amt]%. [target_race] kommer behöva skicka en beväpnad flotta till [system]-systemet för att försöka slå ut piraternas högkvarter, och därmed adressera hotet.
-EVENT_PIRACY_2                    | Piraterna som plågar [target_race] håller fortsatt på med plundring av handel. Deras högkvarter i [system]-systemet står ännu, och plundringen beräknas sänka handelsintäkter med [amt]%. 
+EVENT_PIRACY_2                    | Piraterna som plågar [target_race] håller fortsatt på med plundring av handel. Deras högkvarter i [system]-systemet står ännu, och plundringen beräknas sänka handelsintäkter med [amt]%.
 EVENT_PIRACY_3                    | [target_raceposs] flottor har förstört de högkvarter i [system]-systemet som var navet för de pirater som hade drabbat imperiet. Handeln är nu tillbaka på normala nivåer, med hotet ur vägen.
 EVENT_PLAGUE                      | En farsot med hög dödlighet har drabbat [target_raceposs] planet i [system]-systemet. Planeten har blivit satt i karantän, och miljoner beräknas dö varje år innan forskare kan finna och utveckla ett botemedel.
 EVENT_PLAGUE_2                    | Den farsot med hög dödlighet som plågar [system]-systemet fortsätter att härja. Enligt forskares beräkningar kommer det behövas ytterligare [amt] FP för att finna ett botemedel.
@@ -151,7 +151,7 @@ EVENT_SPACE_AMOEBA_1              | En gigantisk livsform dubbad "Rymd-amöban" 
 EVENT_SPACE_AMOEBA_2              | Rymd-amöban som hotade [victim_race] har slukat den koloni som fanns i [system]-systemet. Ingen av befolkningen som fanns på planeten har förväntats klara sig.
 EVENT_SPACE_AMOEBA_3              | Rymd-amöban som hotade [victim_race] har blivit omintetgjord av försvaret i [system]-systemet.
 EVENT_SPACE_CRYSTAL               | En enorm kristallin livsform dubbad "Förintar-kristallen" har blivit upptäckt färdandes mot [system]-systemet. [victim_race] förväntas komma att behöva försvara sig militärt mot hotet.
-EVENT_SPACE_CRYSTAL_1             | En enorm kristallin livsform dubbad "Förintar-kristallen" har blivit upptäckt färdandes mot det obefolkade [system]-systemet. 
+EVENT_SPACE_CRYSTAL_1             | En enorm kristallin livsform dubbad "Förintar-kristallen" har blivit upptäckt färdandes mot det obefolkade [system]-systemet.
 EVENT_SPACE_CRYSTAL_2             | Förintar-kristallen har omintetgjort allt liv på kolonin tillhörande [victim_race] i [system]-systemet.
 EVENT_SPACE_CRYSTAL_3             | Förintar-kristallen har blivit förstörd av det militära försvar [victim_race] samlat i [system]-systemet. Miljoner kan nu andas ut i lättnad.
 
@@ -236,8 +236,8 @@ INC_FINANCIAL_AID_DESC            | [your_empire] har donerat [amt] BC till [my_
 INC_TECHNOLOGY_AID_TITLE          | Teknologiskt Bistånd
 INC_TECHNOLOGY_AID_DESC           | [your_empire] har delat med sig av kunskapen om [tech] till [my_empire], helt utan återkrav.
 INC_TECHNOLOGY_AID_DESC_MULT      | [your_empire] har donerat flertalet teknologier till [my_empire], helt utan återkrav: [techs]
-INC_TECHNOLOGY_TECH_LIST_COMMA    | , 
-INC_ENEMY_AID_TITLE               | Bistånd till Fiende 
+INC_TECHNOLOGY_TECH_LIST_COMMA    | ,
+INC_ENEMY_AID_TITLE               | Bistånd till Fiende
 INC_ENEMY_AID_MONEY_DESC          | [your_empire] har donerat [amt] BC i stöd till [enemy_empire], en fiende till [my_empire].
 INC_ENEMY_AID_TECH_DESC           | [your_empire] har donerat kunskapen om [tech] till [enemy_empire], en fiende till [my_empire].
 INC_PARANOIA_TITLE                | Paranoid Uppfattning
@@ -288,9 +288,9 @@ CLICK_CONTINUE                    | Klicka eller tryck Escape för att Fortsätt
 CLICK_EXIT                        | Klicka eller tryck Escape för att Återgå...
 BUTTON_EXIT                       | Klar
 
-// GAME/SETUP UI 
+// GAME/SETUP UI
 GAME_TITLE_LINE_1                 | FÖRELÖPARNAS
-GAME_TITLE_LINE_2                 |  
+GAME_TITLE_LINE_2                 |
 GAME_TITLE_LINE_3                 | KVARLÄMNOR
 GAME_DISCUSS_ONLINE               | Mötesplats Online
 GAME_MENU_CONTINUE                | Fortsätt på senaste
@@ -482,7 +482,7 @@ TURN_BOMBARDMENT                  | Planetärt Bombardemang
 TURN_TRANSPORTS                   | Transporter
 TURN_COLONIES                     | Kolonisering
 TURN_SPIES                        | Aktiviteter för Spionage
-TURN_REBELLION                    | Uppror 
+TURN_REBELLION                    | Uppror
 TURN_COUNCIL                      | Rådets Status
 TURN_RESEARCH                     | Forskning
 TURN_ASSESS                       | Färdigställer Internt
@@ -752,7 +752,7 @@ PLANETS_TRANSFER_ACCEPT           | Överför
 PLANETS_COLONY_TRANSFER_TITLE     | Injicera Kapital
 PLANETS_COLONY_TRANSFER_DETAIL    | Använd statskassans reserver för att injicera medel för att stimulera en kolonis produktion.
 PLANETS_COLONY_TRANSFER_BUTTON    | Överför Kapital Från Statskassan
-PLANETS_LIST_NUM                  | 
+PLANETS_LIST_NUM                  |
 PLANETS_LIST_NAME                 | Namn
 PLANETS_LIST_POPULATION           | Population
 PLANETS_LIST_POP                  | Pop.
@@ -792,12 +792,12 @@ PLANETS_HELP_2B                   | Population - Nuvarande population, inklusive
 PLANETS_HELP_2C                   | Typ - Klimat- och terrängstyp av planet. Grön representerar Bördiga planeter.
 PLANETS_HELP_2D                   | Resurser - visar planeters resursstatus: Mineralrika, Mineralfattiga och Reliker.
 PLANETS_HELP_2E                   | Storlek - Planetens nuvarande storlek.
-PLANETS_HELP_2F                   | Avfall - nivåerna av industriellt avfall på en planet. 
+PLANETS_HELP_2F                   | Avfall - nivåerna av industriellt avfall på en planet.
 PLANETS_HELP_2G                   | Anteckningar - Spelarens egna anteckningar. Redigerbart.
 PLANETS_HELP_3A                   | Namn - Systemets namn. Redigerbart.
 PLANETS_HELP_3B                   | Population - Nuvarande population, inklusive tillväxt från turen innan.
 PLANETS_HELP_3C                   | Resurser - visar planeters resursstatus: Mineralrika, Mineralfattiga och Reliker.
-PLANETS_HELP_3D                   | Fabriker - Antalet fabriker, inklusive de tillagda sedan turen innan. 
+PLANETS_HELP_3D                   | Fabriker - Antalet fabriker, inklusive de tillagda sedan turen innan.
 PLANETS_HELP_3E                   | Produktion - kolonins totala produktion.
 PLANETS_HELP_3F                   | Reserv - totala reserven för tillfället lagrad på kolonin.
 PLANETS_HELP_3G                   | Anteckningar - Spelarens egna anteckningar. Redigerbart.
@@ -933,7 +933,7 @@ TECH_DISCOVERY_TITLE              | [player_race] Forskare har nått ett Genombr
 TECH_SCOUTED_TITLE                | Spejare Utforskandes Ruinerna vid %1 Upptäckte
 TECH_STOLEN_TITLE                 | Våra spioner har infiltrerat %1 forskningscenter vid %2.
 TECH_TRADED_TITLE                 | [player_raceposs] Forskare Erhåller Teknologi från [alien_race] Forskare
-TECH_PLUNDERED_TITLE              | Trupperna vid Ruinerna av %1 har Plundrat 
+TECH_PLUNDERED_TITLE              | Trupperna vid Ruinerna av %1 har Plundrat
 TECH_DERELICT_TITLE               | [player_race] Spejare har Plundrat en Uråldrig Teknologi
 TECH_GUARDIAN_TITLE               | [player_race] Trupper Extraherar ett Uråldrigt Vapen
 TECH_ALLOCATE_SHIELD              | Vill du automatiskt justera allokeringen av alla koloniers försvarsbudget för att bygga de nya planetära sköldarna?
@@ -987,8 +987,8 @@ NOTICE_SPIES_LEARNED_TECH         | • Våra spioner rapporterar att [alien_emp
 NOTICE_SPIES_MULTIPLE_TECHS       | %1, %2
 NOTICE_SPIES_THREATEN             | Hota
 NOTICE_SPIES_MANAGE               | Hantera Spioner
-NOTICE_SPIES_CLOSE                | Stäng  
-  
+NOTICE_SPIES_CLOSE                | Stäng
+
 
 // Ground Combat UI
 INVASION_BATTLE                   | År %1, går [attacker_race] och [defender_race] till strid om %2.
@@ -1007,7 +1007,7 @@ GNN_TITLE                         | [player_race] Galaktiska Nyheters Kanal rapp
 GNN_EMPIRE_RANKING                | %1. [empire_race]
 GNN_EXTINCTION_KNOWN_VICTIM       | [victim_race]
 GNN_EXTINCTION_KNOWN_KILLER       | [killer_race]
-GNN_EXTINCTION_UNKNOWN_VICTIM     | En okänd civilisation 
+GNN_EXTINCTION_UNKNOWN_VICTIM     | En okänd civilisation
 GNN_EXTINCTION_UNKNOWN_KILLER     | ett okänt imperium
 GNN_EXTINCTION                    | %1 har fullständigt utrotats av %2.
 GNN_EXTINCTION_NO_KILLER          | %1 har blivit totalt eliminerat.
@@ -1022,7 +1022,7 @@ GNN_PRODUCTION_RANKING            | Den nuvarande rangordningen för imperiers o
 GNN_TECHNOLOGY_RANKING            | Den nuvarande rangordningen för mest avancerad teknologi:
 GNN_PLAYER_REBELLION              | %1 har gjort uppror och vägrar bidra till [rebelling_empire] mer. Minst %2 miljoner rebeller kontrollerar nu kolonin. Man kommer måsta sända trupper för att stävja revolten.
 GNN_ALIEN_REBELLION               | %1 har gjort uppror och vägrar bidra till [rebelling_empire] mer. Minst %2 miljoner rebeller kontrollerar nu kolonin.
-GNN_PLAYER_REBELLION_SPREAD       | Revolterna fortsätter att spridas genom [rebelling_empire]. Åtminstone %2 miljoner rebeller har nu tagit kontroll över kolonin vid %1. 
+GNN_PLAYER_REBELLION_SPREAD       | Revolterna fortsätter att spridas genom [rebelling_empire]. Åtminstone %2 miljoner rebeller har nu tagit kontroll över kolonin vid %1.
 GNN_OVERTHROW                     | En ny ledare har klivit fram i [alien_empire]. Det ryktas om att denne nye regent är en %1. Alla diplomatiska relationer har nu blivit neutrala och alla handelsavtal avbrutna.
 GNN_END_COUNCIL                   | Med endast två återstående Imperier, har försök att ena galaxen genom det Galaktiska Rådet kommit till sitt slut. Ledare och officerare debatterar nu vilket sorts sista slut galaxen kan få, och om det kan etableras en bestående fred.
 GNN_FORM_COUNCIL                  | I strävan efter fred i galaxen kommer representanter från varje folkslag snart sammanträda för att utvälja en Galaktisk Kejsare. Valet står mellan ledarna av de två imperier som har högst population.
@@ -1226,7 +1226,7 @@ SETTINGS_TERRAFORMING             | Ogästvänlig Terraformering: %1
 SETTINGS_COLONIZING               | Kolonisation: %1
 SETTINGS_FUEL_RANGE               | Bränslereserver: %1
 SETTINGS_AI_HOSTILITY             | Aggressivitet: %1
-SETTINGS_RANDOM_EVENTS_DESC       | Rymdmonster är Händelser och farliga hot runt mitten-nivån av spelets utveckling. Stäng av rymdmonster eller alla Händelser. 
+SETTINGS_RANDOM_EVENTS_DESC       | Rymdmonster är Händelser och farliga hot runt mitten-nivån av spelets utveckling. Stäng av rymdmonster eller alla Händelser.
 SETTINGS_WARP_SPEED_DESC          | Höj färdhastigheten på de mer avancerade warp-motorerna. Kan vara behövligt på extra stora kartor.
 SETTINGS_GALAXY_AGE_DESC          | Jämfört med normala galaxer, så har unga galaxer mer vita och blå stjärnor, medan gamla galaxer har mer röda- och neutronstjärnor.
 SETTINGS_TECH_TRADING_DESC        | Välj bort alla utbyten av teknologi, eller begränsa dem till utbyten mellan allierade.
@@ -1250,7 +1250,7 @@ TECH_EMPIRE_SPENDING              | Total Forskningsbudget
 TECH_EMPIRE_SPENDING_DESC         | Summan av alla koloniers forskningsbudget.
 TECH_EMPIRE_TECH_RESERVE_OPT      | Tilldela överflödiga koloniresurser från statskassan till forskning
 TECH_EMPIRE_BALANCED_DESC         | Jämlika nivåer av forskningsinsatser ökar effektiviteten av forskningspoäng.
-TECH_EMPIRE_DETAIL_1              | %1 BC för 
+TECH_EMPIRE_DETAIL_1              | %1 BC för
 TECH_EMPIRE_DETAIL_2              | %2 FP / År
 TECH_TOTAL_RP                     | %1 FP
 TECH_DISCOVERY_PCT                | %1%
@@ -1439,7 +1439,7 @@ SHIP_DESIGN_SPECIAL_SPACE         | Utrymme
 // Skeppsdesign help
 SHIP_DESIGN_HELP_ALL              | ÖVERSIKT - ett imperium kan ha upp till sex aktiva skeppsdesigner. För varje design, välj ett skrov och fyll det sedan med olika komponenter liksom pansar, sköldar och vapen. Varje komponent har en storlek, energiförbrukning och produktionskostnad. Det totala utrymmet som krävs för en komponent är dess storlek, plus storleken för motorerna som krävs för att driva komponenten. När en design är verkställd, kan den konstrueras i vilken som helst av dina kolonier.
 SHIP_DESIGN_HELP_1A               | Storlek - större storlekar av skrov har högre kostnad, men mer utrymme
-SHIP_DESIGN_HELP_1B               | Räckvidd - hur långt bort skeppet kan färdas från dina system. 
+SHIP_DESIGN_HELP_1B               | Räckvidd - hur långt bort skeppet kan färdas från dina system.
 SHIP_DESIGN_HELP_1C               | Hastighet - färdhastighet genom rymden på färd mellan stjärnor.
 SHIP_DESIGN_HELP_1D               | Kostnad  - sammanlagda kostnaden att bygga skeppet.
 SHIP_DESIGN_HELP_1E               | Totalt Utrymme - sammanlagda utrymmet som upptas av komponenter i designplanen.
@@ -1448,7 +1448,7 @@ SHIP_DESIGN_HELP_1G               | Skadepoäng - mängden skada som krävs för
 SHIP_DESIGN_HELP_1H               | Missilförsvar - försvar mot missilvapen i strid.
 SHIP_DESIGN_HELP_1I               | Strålförsvar - försvarsnivå mot strålvapen i strid.
 SHIP_DESIGN_HELP_1J               | Precisionsnivå - attacknivån dikterar precisionen för vapen i strid.
-SHIP_DESIGN_HELP_1K               | Stridssteg - hur långt ett skepp kan färdas i strid, per tur. 
+SHIP_DESIGN_HELP_1K               | Stridssteg - hur långt ett skepp kan färdas i strid, per tur.
 SHIP_DESIGN_HELP_1L               | Färgton - ändrar skeppets färger.
 SHIP_DESIGN_HELP_2A               | Motortyp - typen av motor som driver skeppsdesignen.
 SHIP_DESIGN_HELP_2B               | Hastighet - färdhastighet med denna typ av motor.
@@ -1608,9 +1608,9 @@ RACES_DIPLOMACY_RELATIONS_METER   | Relationsmätare
 RACES_DIPLOMACY_RELATIONS_UNKNOWN | Humöret och motiven för [alien_empire] är outgrundliga för våra diplomater och spioner.
 RACES_DIPLOMACY_BUREAU            | Byrå för Diplomati
 RACES_DIPLOMACY_BUREAU_DESC1      | Kontakta utländska imperier eller återkalla dina diplomater för att förhindra imperier från att kontakta dig.
-RACES_DIPLOMACY_BUREAU_DESC       | Kontakta [alien_race] ambassadör för en audiens eller återetablera kontakt om dina diplomater har återkallats. 
+RACES_DIPLOMACY_BUREAU_DESC       | Kontakta [alien_race] ambassadör för en audiens eller återetablera kontakt om dina diplomater har återkallats.
 RACES_DIPLOMACY_BUREAU_DESC_RANGE | Vi kan inte upprätta diplomatiska relationer med imperier som är utanför skeppräckvidd.
-RACES_DIPLOMACY_BUREAU_DESC_FINAL | Vi är engagerade i ett slutkrig med den Nya Republiken. Diplomati är inte längre ett alternativ. 
+RACES_DIPLOMACY_BUREAU_DESC_FINAL | Vi är engagerade i ett slutkrig med den Nya Republiken. Diplomati är inte längre ett alternativ.
 RACES_DIPLOMACY_KNOWN_EMPIRES     | Kända Främmande Imperier
 RACES_DIPLOMACY_RECALLED_DIPLOMAT | Återkallade Diplomater
 RACES_DIPLOMACY_MANAGE_DIPLOMATS  | Hantera Diplomater
@@ -1619,7 +1619,7 @@ RACES_DIPLOMACY_CONTACT           | Upprätta Kontakt
 RACES_DIPLOMACY_TRADE_SUMMARY     | Totalrapport för Handel
 RACES_DIPLOMACY_TRADE_DESC        | Kontakta [alien_race] ambassadör för att förhandla om handelsavtal. Handelsnätverk kräver tid och pengar att starta, men när de når sin fulla potentioal drar de in pengar till imperiets statskassa.
 RACES_DIPLOMACY_TRADE_DESC_RANGE  | Vi kan inte upprätta handelsnätverk med imperier som är utanför skeppsräckvidd.
-RACES_DIPLOMACY_TRADE_DESC_FINAL  | Vi är engagerade i ett slutgiltigt krig med den Nya Republiken. Handel är inte längre möjlig. 
+RACES_DIPLOMACY_TRADE_DESC_FINAL  | Vi är engagerade i ett slutgiltigt krig med den Nya Republiken. Handel är inte längre möjlig.
 RACES_DIPLOMACY_TRADE_TREATY      | Handelssavtal
 RACES_DIPLOMACY_FOREIGN_RELATIONS | Utländska Relationer
 RACES_DIPLOMACY_FOREIGN_RANGE     | Vi kan inte känna till de relationer [alien_empire] befintligen har innan vi har upprättat en diplomatisk kontakt.
@@ -1653,7 +1653,7 @@ RACES_INTEL_REPORT_AGE            | Rapports Ålder
 RACES_INTEL_SPY_NETWORK           | Spionnätverk
 RACES_INTEL_SPENDING              | Budget
 RACES_INTEL_SPENDING_DESC         | Öka din budget för att lägga till spioner till nätverket över tid.
-RACES_INTEL_SPENDING_DESC_UNITY   | Spionagenätverk är onödiga eftersom teknologin delas fritt mellan medlemmarna av den Nya Republiken. 
+RACES_INTEL_SPENDING_DESC_UNITY   | Spionagenätverk är onödiga eftersom teknologin delas fritt mellan medlemmarna av den Nya Republiken.
 RACES_INTEL_SPENDING_CAPPED       | Imperiets budgetgräns för spionage uppnådd. Finansiering för spionagenätverk reducerad med %1%.
 RACES_INTEL_SPENDING_RANGE        | Kan inte skapa spionagenätverk för imperier utanför skeppsräckvidd.
 RACES_INTEL_PERCENT_AMT           | %1%
@@ -1757,7 +1757,7 @@ RACES_HELP_2B                     | Beviljar en audiens med en diplomat för det
 RACES_HELP_2C                     | Information om det markerade imperiets undertecknade handelsavtal.
 RACES_HELP_2D                     | Andra imperier som det markerade imperiet har kontaktat.
 RACES_HELP_2E                     | Diplomatiska incidenter som påverkar hur det markerade imperiet reagerar på dig. Effekterna kommer att närma sig noll över tid.
-RACES_HELP_2F                     | Det nuvarande förhållandet med det markerade imperiet, representerat av ett utmätt värde. 
+RACES_HELP_2F                     | Det nuvarande förhållandet med det markerade imperiet, representerat av ett utmätt värde.
 RACES_HELP_3A                     | Höj säkerhetsskatten för att förbättra dina chanser att hindra fiendens spioner.
 RACES_HELP_3B                     | Ger direktåtkomst för att hantera dina spioner i alla kontaktade imperier.
 RACES_HELP_3C                     | All teknologi upptäckt av andra imperier, som samlats av dina spioner. Teknologier som du ännu inte upptäckt visas i gult.
@@ -1766,7 +1766,7 @@ RACES_HELP_4B                     | Ge order till spionerna som infiltrerar det 
 RACES_HELP_4C                     | All teknologi känd av det markerade imperiet. Teknologier du inte upptäckt visas i gult.
 RACES_HELP_5A                     | Det kända antalet skepp i flottan för det markerade imperiet, efter skrovstorlek. Denna information kommer att förbli aktuell så länge du har ett aktivt spionnätverk i det markerade imperiet.
 RACES_HELP_5B                     | Kända funktioner för olika skeppsdesigner. Äldre designer kan ha slutat användas. Denna information samlas främst under skeppsstrid.
-RACES_HELP_5C                     | Det markerade imperiets kända defensiva kapacitet. 
+RACES_HELP_5C                     | Det markerade imperiets kända defensiva kapacitet.
 RACES_HELP_6A                     | Denna skärm ger en aktuell rangordning, i olika kategorier, av vårt imperium jämfört med andra kända imperier. Denna information samlas in från våra spionnätverk inom dessa imperier.
 RACES_HELP_6A2                    | Denna skärm ger en historisk jämförelse, i olika kategorier, av vårt imperium jämfört med ett utvalt imperium. Denna information samlas in från våra spionnätverk inom dessa imperier.
 RACES_HELP_6B                     | Flottstyrka - kombinerar antal och storlek av skepp.
@@ -1933,7 +1933,7 @@ DIPLOMACY_MENU_STOP_ATTACKING     | Sluta Attackera
 DIPLOMACY_MENU_GOODBYE            | Adjö
 DIPLOMACY_MENU_PACT               | Föreslå Avtal om Icke-aggression
 DIPLOMACY_MENU_ALLIANCE           | Föreslå Allians
-DIPLOMACY_MENU_PEACE              | Föreslå Fredsavtal	
+DIPLOMACY_MENU_PEACE              | Föreslå Fredsavtal
 DIPLOMACY_MENU_TRADE              | Föreslå Handelsavtal
 DIPLOMACY_MENU_JOINT_WAR          | Gemensam Krigsförklaring mot ett annat Imperium
 DIPLOMACY_MENU_PROPOSE_BREAK_ALLY | Bryt Alliansen med Annat Folkslag
@@ -1942,7 +1942,7 @@ DIPLOMACY_MENU_BREAK_PACT         | Bryt Avtal om Icke-aggression
 DIPLOMACY_MENU_BREAK_ALLIANCE     | Bryt Allians
 DIPLOMACY_TRADE_MENU_BREAK        | Bryt Handelsavtal
 DIPLOMACY_THREATEN_MENU_0         | Återkalla Ambassadör
-DIPLOMACY_THREATEN_MENU_1         | Begär Tribut 
+DIPLOMACY_THREATEN_MENU_1         | Begär Tribut
 DIPLOMACY_THREATEN_MENU_2         | Bryt Avtal om Icke-aggression
 DIPLOMACY_THREATEN_MENU_3         | Bryt Allians
 DIPLOMACY_THREATEN_MENU_BR        | Bryt Handelsavtal
@@ -1956,7 +1956,7 @@ DIPLOMACY_ACCEPT_ESTABLISH_TRADE  | Acceptera (Etablerar Handel)
 DIPLOMACY_DECLINE_OFFER           | Avböj
 DIPLOMACY_DECLINE_BREAK_ALLIANCE  | Avböj (Bryter Allians)
 DIPLOMACY_IGNORE_THREAT           | Ignorera Hot
-DIPLOMACY_SHUTDOWN_SPIES          | Stäng ner alla spionnätverk i [alien_empire] 
+DIPLOMACY_SHUTDOWN_SPIES          | Stäng ner alla spionnätverk i [alien_empire]
 DIPLOMACY_HIDE_SPIES              | Beordra alla spioner i [alien_empire] till Dolda.
 DIPLOMACY_RETREAT_SHIPS           | Beordra alla fartyg som kretsar kring eller färdas till [alien_race] system att Retirera
 

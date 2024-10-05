@@ -10,20 +10,20 @@ _race_pluraladjec                 | Nazlokiens, Sarlokiens, Spylokiens, Shadelok
 _race_pluraladjecF                | Nazlokiennes, Sarlokiennes, Spylokiennes, Shadelokiennes, Nazlokiennes
 
 _title                            | l'Empereur
-_nameTitle                        | 
+_nameTitle                        |
 
 
 //
 // All text below this point is copyright 2018-2020 Jeff Colucci
-// 
-// Licensed under the Creative Commons License, 
+//
+// Licensed under the Creative Commons License,
 // Attribution-NonCommercial-NoDerivatives 4.0 International (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     https://creativecommons.org/licenses/by-nc-nd/4.0/
-//  
-// This license is legally binding. Please review this license before altering 
+//
+// This license is legally binding. Please review this license before altering
 // or distributing any material covered under this license.
 
 // Advisor text
@@ -32,7 +32,7 @@ MAIN_ADVISOR_BUTTON_OK            | Rejeter
 MAIN_ADVISOR_SCOUT                | Nous avons terminé la construction d'une paire d'éclaireurs et d'un navire de colonie. Espérons que les réponses que nous cherchons se présentent sur un monde proche.
 MAIN_ADVISOR_TRANSPORT            | Aucune réponse trouvée sur la planète %1. Nous devrions encore augmenter notre nombre là-bas en envoyant tous les transports dont nous pouvons disposer.
 MAIN_ADVISOR_DIPLOMACY            | Des représentants d'un peuple originaire de ce plan se sont fait connaître. Nous devons faire tout notre possible pour apprendre toutes les réponses qu'ils possèdent.
-MAIN_ADVISOR_SHIP_ENGIN	E         | Nous avons découvert un moyen de produire des moteurs plus efficaces. Nous devons parvenir à un consensus sur la meilleure façon de mettre à jour nos conceptions de navires pour utiliser cette nouvelle technologie.
+MAIN_ADVISOR_SHIP_ENGINE          | Nous avons découvert un moyen de produire des moteurs plus efficaces. Nous devons parvenir à un consensus sur la meilleure façon de mettre à jour nos conceptions de navires pour utiliser cette nouvelle technologie.
 MAIN_ADVISOR_RALLY_POINTS         | Un conflit inévitable a commencé ! Nos installations de production peuvent diriger leurs navires nouvellement construits pour se rallier à un seul monde et y former une flotte pour nous défendre des agresseurs.
 MAIN_ADVISOR_MISSILE_BASES        | Nous avons trop perdu en venant dans cet univers pour en perdre plus maintenant : faites en sorte que nos colonies se protègent des ennemis en construisant autant de bases de missiles défensifs que possible.
 MAIN_ADVISOR_SHIP_WEAPON          | Nous avons découvert une nouvelle technologie qui améliore les capacités offensives de nos navires spatiaux. Nous devons à nouveau décider comment mettre à jour nos conceptions de navires pour en profiter le plus rapidement possible.
