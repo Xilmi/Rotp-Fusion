@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Minor Fixes and French translation of some mod options.
 - Plenty of language file Fixes, Ongoing... (BR & Frank Zago)
 - Fixed several dialog files containing orphaned keywords and orphaned definitions because they were accidentally split across multiple lines.
 - Fixed plenty keywords that should not have been translated into foreign languages. (In more than half the languages...)
@@ -10,8 +11,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Tech Panel: New complementary tech info available.
 - Custom Council percentage: The anounce and conclusion messages will now follow the requirement.
 - Fixed incorrect variable names in language files. (Frank Zago)
-- Fixed a color setting bug. Sometimes when trying to change the color of an empire, the player's empire color would be changed instead! This could happen after an empire was eliminated.
-- New option to mute diplomats from spying warnings.
+
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

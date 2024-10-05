@@ -57,6 +57,7 @@ import rotp.ui.main.SystemPanel;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamString;
 import rotp.util.FontManager;
+import rotp.util.LanguageManager;
 import rotp.util.ModifierKeysState;
 
 public final class SetupRaceUI extends BaseModPanel implements MouseWheelListener, IRaceOptions {
@@ -651,16 +652,23 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         g.setFont(font(fs));
         drawBorderedString(g0, raceName, 1, x0, y0, Color.black, Color.white);
 
+        int dy = s16;
+        String language = LanguageManager.current().selectedLanguageName();
+        if (language.equals("Français")) {
+        	dy = s15;
+        	g.setFont(narrowFont(15));
+        }
+        else
+        	g.setFont(narrowFont(16));
         // draw race desc #1
         int maxLineW = scaled(185); // modnar: right side extended, increase maxLineW
         y0 += s20; // BR: squeezed
-        g.setFont(narrowFont(16));
         g.setColor(Color.black);
         List<String> desc1Lines = wrappedLines(g, desc1, maxLineW); // BR:
         g.fillOval(x0, y0-s8, s5, s5);
         for (String line: desc1Lines) {
             drawString(g,line, x0+s8, y0);
-            y0 += s16;
+            y0 += dy;
         }
 
         // draw race desc #2
@@ -669,7 +677,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         g.fillOval(x0, y0-s8, s5, s5);
         for (String line: desc2Lines) {
             drawString(g,line, x0+s8, y0);
-            y0 += s16;
+            y0 += dy;
         }
 
         // modnar: draw race desc #4, with 'if' check
@@ -679,7 +687,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
             g.fillOval(x0, y0-s8, s5, s5);
             for (String line: desc4Lines) {
                 drawString(g,line, x0+s8, y0);
-                y0 += s18;
+                y0 += dy;
             }
         }
         
@@ -689,7 +697,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         List<String> desc3Lines = scaledNarrowWrappedLines(g0, desc3, maxLineW+s8, 5, 16, 13);
         for (String line: desc3Lines) {
             drawString(g,line, x0, y0);
-            y0 += s16;
+            y0 += dy;
         }
 
         // BR: draw Ship Set label

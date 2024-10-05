@@ -238,8 +238,10 @@ public enum RaceFactory implements Base {
             r.raceLabels().resetDialogue();
     }
     public void loadRaceLangFiles(String langDir) {
-        for (Race r : Race.races())
-            loadRaceLangFiles(r, langDir);
+        for (Race r : Race.races()) {
+        	r.raceLabels().resetDialogue();
+        	loadRaceLangFiles(r, langDir);
+        }
     }
     public void loadRaceLangFiles(Race r, String langDir) {
         String dir = concat("lang/", langDir, "/races/");

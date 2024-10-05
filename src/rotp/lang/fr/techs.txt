@@ -3,40 +3,43 @@
 //
 // Armor techs
 // 
+ARMOR_NAME       | Technologies des blindages
+ARMOR_DETAIL     | Le blindage déterminera les points de structure de vos vaisseaux. Au fur et à mesure que vous recherchez un meilleur blindage (en commençant par le titane, puis le duralloy, le zortrium, l'andrium, le tritanium, l'adamantium et le neutronium), chacune des tailles de coque gagnera plus de points de structure.<br>Notez que chaque type de blindage est disponible en simple épaisseur par défaut ou en double épaisseur (la double épaisseur est identifiée par un II). Une armure de double épaisseur prend plus de place, mais ajoute à votre vaisseau 50 % de points de structure.<br>Notez également que le blindage bénéficie des avantages de la miniaturisation (Chaque dix niveaux de technologie de construction, que vous avez au-dessus du niveau de technologie d'un blindage, réduisent son coût de 50 % et sa taille de 25 %).<br>Les armures de combat de vos troupes bénéficient également des nouveaux blindages,  renforcant toutes les attaques au sol.
+
 ARMOR_0_NAME     | Blindage en Titane
 ARMOR_0_ITEM     | Titane
-ARMOR_0_BRIEF    | Point de Vie %1
-ARMOR_0_DETAIL   | Technologie de blindage basique. Aucun bonus au blindage du navire ou aux attaques au sol.
+ARMOR_0_BRIEF    | Point de structure %1
+ARMOR_0_DETAIL   | Technologie de blindage de base. Aucun bonus au blindage de vos vaisseaux ni aux attaques au sol.
 
 ARMOR_1_NAME     | Blindage en Duralloy
 ARMOR_1_ITEM     | Duralloy
-ARMOR_1_BRIEF    | Point de Vie %1
-ARMOR_1_DETAIL   | Augmente les points de vie des navires et des transports de 50 %. L'armure de combat personnelle est également améliorée, ajoutant 5 à toutes les attaques au sol.
+ARMOR_1_BRIEF    | Point de structure %1
+ARMOR_1_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 50 %. Les armures de combat de vos troupes ajoutent un bonus de 5 points à toutes les attaques au sol.
 
 ARMOR_2_NAME     | Blindage en Zortrium
 ARMOR_2_ITEM     | Zortrium
-ARMOR_2_BRIEF    | Point de Vie %1
-ARMOR_2_DETAIL   | Augmente les points de vie des navires et des transports de 100 %. L'armure de combat personnelle est également améliorée, ajoutant 10 à toutes les attaques au sol.
+ARMOR_2_BRIEF    | Point de structure %1
+ARMOR_2_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 100 %. Les armures de combat de vos troupes ajoutent un bonus de 10 points à toutes les attaques au sol.
 
 ARMOR_3_NAME     | Blindage en Andrium
 ARMOR_3_ITEM     | Andrium
-ARMOR_3_BRIEF    | Point de Vie %1
-ARMOR_3_DETAIL   | Augmente les points de vie des navires et des transports de 150 %. L'armure de combat personnelle est également améliorée, ajoutant 15 à toutes les attaques au sol.
+ARMOR_3_BRIEF    | Point de structure %1
+ARMOR_3_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 150 %. Les armures de combat de vos troupes ajoutent un bonus de 15 points à toutes les attaques au sol.
 
 ARMOR_4_NAME     | Blindage en Tritanium
 ARMOR_4_ITEM     | Tritanium
-ARMOR_4_BRIEF    | Point de Vie %1
-ARMOR_4_DETAIL   | Augmente les points de vie des navires et des transports de 200%.  L'armure de combat personnelle est également améliorée, ajoutant 20 à toutes les attaques au sol.
+ARMOR_4_BRIEF    | Point de structure %1
+ARMOR_4_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 200%.  Les armures de combat de vos troupes ajoutent un bonus de 20 points à toutes les attaques au sol.
 
 ARMOR_5_NAME     | Blindage en Adamantium
 ARMOR_5_ITEM     | Adamantium
-ARMOR_5_BRIEF    | Point de Vie %1
-ARMOR_5_DETAIL   | Augmente les points de vie des navires et des transports de 250%. L'armure de combat personnelle est également améliorée, ajoutant 25 à toutes les attaques au sol.
+ARMOR_5_BRIEF    | Point de structure %1
+ARMOR_5_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 250%. Les armures de combat de vos troupes ajoutent un bonus de 25 points à toutes les attaques au sol.
 
 ARMOR_6_NAME     | Blindage en Neutronium
 ARMOR_6_ITEM     | Neutronium
-ARMOR_6_BRIEF    | Point de Vie %1
-ARMOR_6_DETAIL   | Augmente les points de vie des navires et des transports de 300%. L'armure de combat personnelle est également améliorée, ajoutant 30 à toutes les attaques au sol.
+ARMOR_6_BRIEF    | Point de structure %1
+ARMOR_6_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 300%. Les armures de combat de vos troupes ajoutent un bonus de 30 points à toutes les attaques au sol.
 
 
 //
@@ -61,10 +64,10 @@ AUTOREPAIR_1_DETAIL    | Les navires non détruits peuvent réparer jusqu'à 30 
 // Battle Computer techs
 // 
 // this is the Ship Design entry for selecting no battle computer
-COMPUTER_0_NAME    | 
-COMPUTER_0_ITEM    |  
+COMPUTER_0_NAME    | Règle à calcul
+COMPUTER_0_ITEM    | Mark 0
 COMPUTER_0_BRIEF   | Niveau d'attaque 0
-COMPUTER_0_DETAIL  |
+COMPUTER_0_DETAIL  | Que la force soit avec vous.
 
 COMPUTER_1_NAME    | Ordinateur de Combat Mark I
 COMPUTER_1_ITEM    | Mark I
@@ -125,18 +128,20 @@ COMPUTER_11_DETAIL | Augmente la précision de l'arme au niveau 11.
 //
 // Battle Suit techs for ground combat
 // 
+BATTLESUIT_NAME      | Technologies des armures de combats au sol.
+BATTLESUIT_DETAIL    | Donne un bonus de combat au sol :<br>+10 pour les tenues de combat (niveau 11)<br>+20 pour les exosquelettes blindés (niveau 24)<br>+30 pour les armures motorisées (niveau 40)
 // this is for default, no-bonus armor that player starts with
-BATTLESUIT_0_NAME    | Armure
-BATTLESUIT_0_DETAIL  |
+BATTLESUIT_0_NAME    | Habit de cuir.
+BATTLESUIT_0_DETAIL  | Beau, confortable, mais pas de bonus d'armure.
 
 BATTLESUIT_1_NAME    | Tenues de Combat
-BATTLESUIT_1_DETAIL  | Une armure qui non seulement protège mais renforce également la force. Ajoute 10 à tous les jets de combat au sol.
+BATTLESUIT_1_DETAIL  | Une armure qui non seulement protège mais renforce également la force. Ajoute 10 points aux combats au sol.
 
 BATTLESUIT_2_NAME    | Exosquelette Blindé
-BATTLESUIT_2_DETAIL  | Des tenues mobiles avancées qui non seulement augmentent la puissance et augmentent les défenses, mais offrent également un vol limité aux troupes au sol. Ajoute 20 à tous les jets de combat au sol.
+BATTLESUIT_2_DETAIL  | Des tenues mobiles avancées qui non seulement augmentent la puissance et augmentent les défenses, mais offrent également un vol limité aux troupes au sol. Ajoute 20 points aux combats au sol.
 
-BATTLESUIT_3_NAME    | Armure de Force 
-BATTLESUIT_3_DETAIL  | Combine une grande mobilité, un vol anti-gravité et un blindage lourd pour former l'armure la plus avancée disponible pour les troupes au sol. Ajoute 30 à tous les jets de combat au sol.
+BATTLESUIT_3_NAME    | Armure de motorisées 
+BATTLESUIT_3_DETAIL  | Combine une grande mobilité, un vol anti-gravité et un blindage lourd pour former l'armure la plus avancée disponible pour les troupes au sol. Ajoute 30 àpoints aux combats au sol.
 
 
 //
@@ -274,11 +279,14 @@ CONTROLENV_6_DETAIL  | Permet la colonisation des planètes irradiées et moins 
 //
 // Deflector Shield tech
 //
+DEFLECTOR_NAME        | Technologie des Boucliers déflecteurs
+DEFLECTOR_DETAIL      | Selon leur niveau, les boucliers déflecteurs peuvent absorber jusqu'à 15 points de dégâts de toutes les attaques. Certaines armes réduisent leur efficacité de moitié et ils sont totalement inefficaces dans les nébuleuses.
+
 // this is the entry on Ship Design for selecting no deflector shield
-DEFLECTOR_0_NAME      | 
-DEFLECTOR_0_ITEM      |   
-DEFLECTOR_0_BRIEF     |  
-DEFLECTOR_0_DETAIL    | 
+DEFLECTOR_0_NAME      | Peinture de camouflage
+DEFLECTOR_0_ITEM      | Class 0
+DEFLECTOR_0_BRIEF     | N'absorbe rien
+DEFLECTOR_0_DETAIL    | Ne protège pas vos vaisseaux.
 
 DEFLECTOR_1_NAME      | Boucliers déflecteurs de Classe I
 DEFLECTOR_1_ITEM      | Classe I
@@ -346,11 +354,14 @@ DISPLACEMENT_0_DETAIL | Déplace aléatoirement les vaisseaux équipés dans et 
 //
 // ECM Jammer tech
 //
+ECMJAMMER_NAME        | Technologie des contre mesures Electroniques
+ECMJAMMER_DETAIL      | Les contre mesures Electroniques contribuent directement à la défense antimissile d'un vaisseau.<br>Les bases de missiles sont équipées de votre meilleure technologie de contre mesures Electroniques.
+
 // this is the entry on Ship Design for selecting no ECM Jammer
-ECMJAMMER_0_NAME      | 
-ECMJAMMER_0_ITEM      | 
+ECMJAMMER_0_NAME      | Aucune contre mesures
+ECMJAMMER_0_ITEM      | Silence
 ECMJAMMER_0_BRIEF     | Défense antimissile 0
-ECMJAMMER_0_DETAIL    | 
+ECMJAMMER_0_DETAIL    | Que la force soit avec vous.
 
 ECMJAMMER_1_NAME      | Brouilleurs(ECM) Mark I
 ECMJAMMER_1_ITEM      | Brouilleur I
@@ -739,23 +750,23 @@ FUTUREWEAPON_9_DETAIL  | Améliorations générales de la technologie des armes.
 //
 // Hand Weapon techs
 //
-HANDWEAPON_0_NAME      | 
-HANDWEAPON_0_DETAIL    | 
+HANDWEAPON_0_NAME      | À main nue
+HANDWEAPON_0_DETAIL    | Vos troupes terrestres combattent à mains nues.
 
 HANDWEAPON_1_NAME      | Lasers à main
-HANDWEAPON_1_DETAIL    | Des lasers personnels qui ajoutent 5 à vos jets de combat au sol.
+HANDWEAPON_1_DETAIL    | Des lasers personnels qui ajoutent 5 points à vos attaques au sol.
 
 HANDWEAPON_2_NAME      | Fusil ionique
 HANDWEAPON_2_DETAIL    | Armes à rayon personnelles qui ajoutent 10 points à vos attaques au sol.
 
 HANDWEAPON_3_NAME      | Fusil à fusion
-HANDWEAPON_3_DETAIL    | Des armes à rayon imprécises mais incroyablement puissantes qui ajoutent 20 points à vos jets de combat au sol.
+HANDWEAPON_3_DETAIL    | Des armes à rayon imprécises mais incroyablement puissantes qui ajoutent 20 points à vos attaques au sol.
 
 HANDWEAPON_4_NAME      | Phaseur manuel
-HANDWEAPON_4_DETAIL    | Ded puissantes armes à énergie portatives capables de réduire un adversaire à ses atomes composants. Ajoute 25 à vos jets de combat au sol.
+HANDWEAPON_4_DETAIL    | Des puissantes armes à énergie portatives capables de réduire un adversaire à ses atomes composants. Ajoute 25 points à vos attaques au sol.
 
 HANDWEAPON_5_NAME      | Fusil à plasma
-HANDWEAPON_5_DETAIL    | L'arme de poing la plus dévastatrice disponible. Ajoute 30 à vos attaques au sol.
+HANDWEAPON_5_DETAIL    | L'arme de poing la plus dévastatrice disponible. Ajoute 30 points à vos attaques au sol.
 
 
 //
@@ -922,8 +933,8 @@ MISSWPN_10_DETAIL    | Les versions Mirvage des missiles Stinger, se divisant en
 // Personal Shield techs for ground combat
 //
 // default "no shield" tech that each player starts with
-PERSSHIELD_0_NAME     | 
-PERSSHIELD_0_DETAIL   | 
+PERSSHIELD_0_NAME     | Cape
+PERSSHIELD_0_DETAIL   | Belle cape de torero, mais ne protège pas vraiment.
 
 PERSSHIELD_1_NAME     | Bouclier déflecteur personnel
 PERSSHIELD_1_DETAIL   | Protège les troupes terrestres individuelles avec un champ de force directionnel. Ajoute +10 à toutes les batailles au sol.

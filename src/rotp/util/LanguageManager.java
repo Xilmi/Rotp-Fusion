@@ -93,11 +93,9 @@ public class LanguageManager implements Base {
     }
     public static String selectedLanguageDir() { return languages.get(selectedLanguage).directory; }
     public static String languageDir(int i)    { return languages.get(i).directory; }
-    public String selectedLanguageName() {
-        return language(selectedLanguage());
-    }
-    public String defaultLanguageFullPath()   { return baseDir+languages().get(DEFAULT_LANGUAGE).directory; }
-    public String selectedLanguageFullPath()  { return baseDir+languages().get(selectedLanguage()).directory; }
+    public String selectedLanguageName()       { return language(selectedLanguage()); }
+    public String defaultLanguageFullPath()    { return baseDir+languages().get(DEFAULT_LANGUAGE).directory; }
+    public String selectedLanguageFullPath()   { return baseDir+languages().get(selectedLanguage()).directory; }
 
     public String language(int i)   { return languages().get(i).name; }
     public String langDir(int i)    { return languages().get(i).directory; }
@@ -169,6 +167,7 @@ public class LanguageManager implements Base {
 
         if (i != DEFAULT_LANGUAGE) {  // BR: Uncommented
             currDir = baseDir+newLang.directory+"/";
+            labels().resetDialogue(); // To avoid mixing languages
             labels().load(currDir);
             RaceFactory.current().loadRaceLangFiles(newLang.directory);
         }

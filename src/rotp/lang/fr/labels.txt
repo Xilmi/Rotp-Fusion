@@ -303,6 +303,9 @@ GAME_MENU_RESTART                 | Recommencer
 GAME_VERSION                      | Version: %1
 GAME_SHRINK                       | Rétrécir -
 GAME_ENLARGE                      | Élargir
+GAME_MENU_REPLAY_LAST_TURN        | Rejouer ce tour
+GAME_MENU_LOAD_OPTIONS            | Charger les Paramètres
+GAME_MENU_SAVE_OPTIONS            | Enregistrer les Paramètres
 
 // Game Settings UI
 GAME_SETTINGS_TITLE               | Paramètres de Jeu
@@ -599,7 +602,7 @@ MAIN_COLONY_SPENDING_ECO_GROWTH   | Croissance %1
 MAIN_COLONY_SPENDING_ATMOSPHERE   | Atmo
 MAIN_COLONY_SPENDING_ENRICH_SOIL  | Sol
 MAIN_COLONY_SPENDING_TERRAFORM    | T-form
-MAIN_COLONY_SPENDING_CLEANUP      | Nettoyage
+MAIN_COLONY_SPENDING_CLEANUP      | Pur
 MAIN_COLONY_SPENDING_GROWTH       | Croître
 MAIN_COLONY_SPENDING_SHIELD       | Boucliers
 MAIN_COLONY_SPENDING_UPG_BASES    | Améliorations

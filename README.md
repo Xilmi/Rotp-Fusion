@@ -69,6 +69,11 @@ Later:
 
 ## What's New
 
+2024.10.05
+- Randomized Message: Fixed dual language messages.
+- French translation of some mod text to avoid empty boxes...
+- Fine tuned Species setup menu for some french text display.
+
 2024.10.04
 - Fixed several dialog files containing orphaned keywords and orphaned definitions because they were accidentally split across multiple lines. (BR)
 - Update French language (Frank Zago)

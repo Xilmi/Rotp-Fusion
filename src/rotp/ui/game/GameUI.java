@@ -478,13 +478,11 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
-	        // settingsText.displayText(text("GAME_MENU_GLOBAL_MOD_SETTINGS"));
 	        continueText.displayText(text("GAME_MENU_REPLAY_LAST_TURN"));
 	        loadGameText.displayText(text("GAME_MENU_LOAD_OPTIONS"));
 	        saveGameText.displayText(text("GAME_MENU_SAVE_OPTIONS"));
 	        break;
 		default:
-	        // settingsText.displayText(text("GAME_MENU_SETTINGS"));
 	        continueText.displayText(text("GAME_MENU_CONTINUE"));
 	        loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
 	        saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
