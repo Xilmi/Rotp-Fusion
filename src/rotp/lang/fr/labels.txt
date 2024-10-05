@@ -549,7 +549,7 @@ MAIN_RALLY_START                  | Démarrer le Rallye
 MAIN_RALLY_STOP                   | Arrêter le Rallye
 
 // Transport labels
-MAIN_TRANSPORTS_EMPIRE            | Transports [empire_raceof]
+MAIN_TRANSPORTS_EMPIRE            | Transports [empire_race]
 MAIN_TRANSPORTS_COUNT             | %1 Transports
 MAIN_TRANSPORTS_CANCEL            | Annuler
 MAIN_TRANSPORTS_SHOW_DEST         | Durée du trajet vers %1 : %2 Années
@@ -1428,7 +1428,7 @@ SHIP_DESIGN_1ST_SCOUT_NAME        | Éclaireur
 SHIP_DESIGN_1ST_FIGHTER_NAME      | Chasseur
 SHIP_DESIGN_1ST_DESTROYER_NAME    | Contre-torpilleur
 SHIP_DESIGN_1ST_BOMBER_NAME       | Bombardier
-SHIP_DESIGN_1ST_COLONY_NAME       | Colonisie
+SHIP_DESIGN_1ST_COLONY_NAME       | Coloniste
 SHIP_DESIGN_COMPUTER_TITLE        | Ordinateurs
 SHIP_DESIGN_COMPUTER_TYPE         | Type
 SHIP_DESIGN_COMPUTER_COST         | Coût
