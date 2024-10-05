@@ -2,7 +2,7 @@
 
 //
 // Armor techs
-// 
+//
 ARMOR_NAME       | Technologies des blindages
 ARMOR_DETAIL     | Le blindage déterminera les points de structure de vos vaisseaux. Au fur et à mesure que vous recherchez un meilleur blindage (en commençant par le titane, puis le duralloy, le zortrium, l'andrium, le tritanium, l'adamantium et le neutronium), chacune des tailles de coque gagnera plus de points de structure.<br>Notez que chaque type de blindage est disponible en simple épaisseur par défaut ou en double épaisseur (la double épaisseur est identifiée par un II). Une armure de double épaisseur prend plus de place, mais ajoute à votre vaisseau 50 % de points de structure.<br>Notez également que le blindage bénéficie des avantages de la miniaturisation (Chaque dix niveaux de technologie de construction, que vous avez au-dessus du niveau de technologie d'un blindage, réduisent son coût de 50 % et sa taille de 25 %).<br>Les armures de combat de vos troupes bénéficient également des nouveaux blindages,  renforcant toutes les attaques au sol.
 
@@ -44,13 +44,13 @@ ARMOR_6_DETAIL   | Augmente les points de structure des vaisseaux et des transpo
 
 //
 // Atmospheric Terraforming techs
-// 
+//
 ATMOSPHERE_0_NAME      | Terraformation atmosphérique
 ATMOSPHERE_0_DETAIL    | Convertit les environnements hostiles en environnements normaux pour un coût de 150 BC.
 
 //
 // Automated Repair techs
-// 
+//
 AUTOREPAIR_0_NAME      | Système de réparation automatisé
 AUTOREPAIR_0_BRIEF     | Répare 15 % des coups du navire par tour
 AUTOREPAIR_0_DETAIL    | Les navires non détruits peuvent réparer jusqu'à 15 % de leurs points de vie totaux à la fin de chaque tour.
@@ -62,7 +62,7 @@ AUTOREPAIR_1_DETAIL    | Les navires non détruits peuvent réparer jusqu'à 30 
 
 //
 // Battle Computer techs
-// 
+//
 // this is the Ship Design entry for selecting no battle computer
 COMPUTER_0_NAME    | Règle à calcul
 COMPUTER_0_ITEM    | Mark 0
@@ -127,7 +127,7 @@ COMPUTER_11_DETAIL | Augmente la précision de l'arme au niveau 11.
 
 //
 // Battle Suit techs for ground combat
-// 
+//
 BATTLESUIT_NAME      | Technologies des armures de combats au sol.
 BATTLESUIT_DETAIL    | Donne un bonus de combat au sol :<br>+10 pour les tenues de combat (niveau 11)<br>+20 pour les exosquelettes blindés (niveau 24)<br>+30 pour les armures motorisées (niveau 40)
 // this is for default, no-bonus armor that player starts with
@@ -140,13 +140,13 @@ BATTLESUIT_1_DETAIL  | Une armure qui non seulement protège mais renforce égal
 BATTLESUIT_2_NAME    | Exosquelette Blindé
 BATTLESUIT_2_DETAIL  | Des tenues mobiles avancées qui non seulement augmentent la puissance et augmentent les défenses, mais offrent également un vol limité aux troupes au sol. Ajoute 20 points aux combats au sol.
 
-BATTLESUIT_3_NAME    | Armure de motorisées 
+BATTLESUIT_3_NAME    | Armure de motorisées
 BATTLESUIT_3_DETAIL  | Combine une grande mobilité, un vol anti-gravité et un blindage lourd pour former l'armure la plus avancée disponible pour les troupes au sol. Ajoute 30 àpoints aux combats au sol.
 
 
 //
 // Energy Focus techs for beam weapons
-// 
+//
 BEAMFOCUS_0_NAME    | Concentration à haute énergie
 BEAMFOCUS_0_BRIEF   | Ajoute +3 à la portée des armes énergétiques
 BEAMFOCUS_0_DETAIL  | Augmente la portée de tir de toutes les armes à énergie de trois.
@@ -157,8 +157,8 @@ BEAMFOCUS_1_DETAIL  | Coordonne toutes les attaques d'armes à faisceau en une r
 
 
 //
-// Biological antidote techs 
-// 
+// Biological antidote techs
+//
 BIOANTIDOTE_0_NAME    | Antidote aux toxines biologiques
 BIOANTIDOTE_0_DETAIL  | Réduit les pertes causées par les armes biologiques de 1M par attaque.
 
@@ -167,8 +167,8 @@ BIOANTIDOTE_1_DETAIL  | Réduit les pertes causées par les armes biologiques de
 
 
 //
-// Biological weapon techs 
-// 
+// Biological weapon techs
+//
 BIOWEAPON_0_NAME     | Spores de la mort
 BIOWEAPON_0_BRIEF    | Arme biologique
 BIOWEAPON_0_DETAIL   | Des armes biologiques horribles capables de réduire les populations planétaires maximales de 1M par attaque.
@@ -242,7 +242,7 @@ COMBATTRANSPORT_0_DETAIL   | Les transports équipés de ces dispositifs ont 50�
 //
 CONTROLENV_0_NAME    | Environnement Normal Contrôlé
 CONTROLENV_0_ITEM    | Base de colonie standard
-CONTROLENV_0_BRIEF   | Allows Normal Planet Landings
+CONTROLENV_0_BRIEF   | Autorise les atterrissages sur des planètes standard
 CONTROLENV_0_DETAIL  | Permits the colonization of standard planets.
 
 CONTROLENV_1_NAME    | Environnement stérile contrôlé
@@ -284,7 +284,7 @@ DEFLECTOR_DETAIL      | Selon leur niveau, les boucliers déflecteurs peuvent ab
 
 // this is the entry on Ship Design for selecting no deflector shield
 DEFLECTOR_0_NAME      | Peinture de camouflage
-DEFLECTOR_0_ITEM      | Class 0
+DEFLECTOR_0_ITEM      | Classe 0
 DEFLECTOR_0_BRIEF     | N'absorbe rien
 DEFLECTOR_0_DETAIL    | Ne protège pas vos vaisseaux.
 
@@ -462,7 +462,7 @@ ENGINE_1_ITEM2   | Classe 2
 ENGINE_1_BRIEF   | Distorsion 2  Def %1
 ENGINE_1_BRIEF2  | Vitesse de combat %1
 
-ENGINE_2_NAME    | Propulsion conventionnelle/sous-lumière
+ENGINE_2_NAME    | Propulsion conventionnelle subluminale
 ENGINE_2_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe III en combat.
 ENGINE_2_ITEM    | Sous-lumière
 ENGINE_2_ITEM2   | Classe 3
@@ -574,7 +574,7 @@ FUTURECOMP_8_NAME    | Ordinateur futuriste IX
 FUTURECOMP_8_DETAIL  | Améliorations générales de la technologie informatique.
 
 FUTURECOMP_9_NAME    | Ordinateur futuriste X
-FUTURECOMP_9_DETAIL  | Améliorations générales de la technologie informatique. 
+FUTURECOMP_9_DETAIL  | Améliorations générales de la technologie informatique.
 
 
 //
@@ -608,7 +608,7 @@ FUTURECONST_8_NAME    | Construction futuriste IX
 FUTURECONST_8_DETAIL  | Améliorations générales de la technologie de la construction.
 
 FUTURECONST_9_NAME    | Construction futuriste X
-FUTURECONST_9_DETAIL  | Améliorations générales de la technologie de la construction. 
+FUTURECONST_9_DETAIL  | Améliorations générales de la technologie de la construction.
 
 
 //
@@ -753,7 +753,7 @@ FUTUREWEAPON_9_DETAIL  | Améliorations générales de la technologie des armes.
 HANDWEAPON_0_NAME      | À main nue
 HANDWEAPON_0_DETAIL    | Vos troupes terrestres combattent à mains nues.
 
-HANDWEAPON_1_NAME      | Lasers à main
+HANDWEAPON_1_NAME      | Pistolet lasers
 HANDWEAPON_1_DETAIL    | Des lasers personnels qui ajoutent 5 points à vos attaques au sol.
 
 HANDWEAPON_2_NAME      | Fusil ionique
@@ -947,7 +947,7 @@ PERSSHIELD_3_DETAIL   | Enveloppe complètement le soldat dans un champ de force
 
 
 //
-// Planetary Shield techs 
+// Planetary Shield techs
 //
 PLANETSHIELD_0_NAME    | Boucliers Planétaires Classe V
 PLANETSHIELD_0_DETAIL  | Absorbe 5 points de dégâts de toutes les attaques contre les surfaces des planètes, ajoutant aux boucliers déflecteurs de base de missiles.
@@ -963,7 +963,7 @@ PLANETSHIELD_3_DETAIL  | Absorbe 20 points de dégâts de toutes les attaques co
 
 
 //
-// Repulsor tech 
+// Repulsor tech
 //
 REPULSOR_0_NAME    | Faisceau repulseur
 REPULSOR_0_BRIEF   | Fait reculer les navires ennemis d'une case
@@ -971,7 +971,7 @@ REPULSOR_0_DETAIL  | Repousse les navires ennemis à une case du navire défense
 
 
 //
-// Reserve Fuel tech 
+// Reserve Fuel tech
 //
 RSRVFUEL_0_NAME    | Réservoirs de carburant de réserve
 RSRVFUEL_0_BRIEF   | Étend la portée du vaisseau de %1 années-lumière
@@ -979,7 +979,7 @@ RSRVFUEL_0_DETAIL  | Les réservoirs de carburant de réserve augmentent la port
 
 
 //
-// Robotic Controls techs 
+// Robotic Controls techs
 //
 ROBOTCTRL_0_NAME     | Commandes robotiques améliorées III
 ROBOTCTRL_0_DETAIL   | Permet de faire fonctionner 3 usines par habitant. Le coût de remise en état pour la mise à niveau est la moitié du coût standard de chaque usine.
@@ -998,7 +998,7 @@ ROBOTCTRL_4_DETAIL   | Permet de faire fonctionner 7 usines par habitant. Le co�
 
 
 //
-// Scanner techs 
+// Scanner techs
 //
 SCANNER_0_NAME       | Scanner de combat
 SCANNER_0_BRIEF      | Scanne les navires ennemis au combat
@@ -1014,11 +1014,11 @@ SCANNER_2_DETAIL     | Détecte les navires ennemis jusqu'à 7 années-lumière 
 
 SCANNER_3_NAME       | Scanner spatial avancé
 SCANNER_3_BRIEF      | Permet l'exploration de planètes jusqu'à 9 années-lumière
-SCANNER_3_DETAIL     | Permet l'exploration de planètes à partir de bases de colonies jusqu'à 9 années-lumière et détecte les navires ennemis jusqu'à 3 années-lumière de vos navires. 
+SCANNER_3_DETAIL     | Permet l'exploration de planètes à partir de bases de colonies jusqu'à 9 années-lumière et détecte les navires ennemis jusqu'à 3 années-lumière de vos navires.
 
 
 //
-// Ship Inertial techs 
+// Ship Inertial techs
 //
 SHIPINERTIAL_0_NAME     | Stabilisateur inertiel
 SHIPINERTIAL_0_BRIEF    | Ajoute +2 à la maniabilité
@@ -1030,7 +1030,7 @@ SHIPINERTIAL_1_DETAIL   | Annule l'inertie des navires, ajoutant 4 classes de ma
 
 
 //
-// Ship Inertial techs 
+// Ship Inertial techs
 //
 SHIPNULLIFIER_0_NAME     | Annulateur de technologie
 SHIPNULLIFIER_0_BRIEF    | Détruit les ordinateurs ennemis
@@ -1042,7 +1042,7 @@ SHIPNULLIFIER_1_DETAIL   | Les dissipateurs de distorsion sont des armes à long
 
 
 //
-// Ship Weapon techs 
+// Ship Weapon techs
 //
 SHIPWPN_0_NAME         | Laser
 SHIPWPN_0_ITEM2        | Laser lourd
@@ -1137,10 +1137,10 @@ SHIPWPN_23_DETAIL      | Un rayon qui entoure les boucliers d'une cible, délivr
 // Soil Enrichment techs
 //
 SOILENRICH_0_NAME     | Enrichissement du sol
-SOILENRICH_0_DETAIL   | Convertit les planètes standard en environnements fertiles, augmentant la croissance démographique de 50 % et augmentant la taille planétaire de base de + 25 % pour un coût unique de 150 BC.
+SOILENRICH_0_DETAIL   | Convertit les planètes standard en environnements fertiles, augmentant la croissance démographique de 50 % et augmentant la taille planétaire de base de + 25 % pour un coût unique de 150 BC.
 
 SOILENRICH_1_NAME     | Enrichissement avancé du sol
-SOILENRICH_1_DETAIL   | Convertit les planètes standard et fertiles en gaias, doublant la croissance démographique et augmentant la taille de base de la planète de + 50 % pour un coût unique de 300 Bc.
+SOILENRICH_1_DETAIL   | Convertit les planètes standard et fertiles en gaïas, doublant la croissance démographique et augmentant la taille de base de la planète de + 50 % pour un coût unique de 300 Bc.
 
 
 //
