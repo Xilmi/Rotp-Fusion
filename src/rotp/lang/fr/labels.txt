@@ -552,7 +552,7 @@ MAIN_RALLY_STOP                   | Arrêter le Rallye
 MAIN_TRANSPORTS_EMPIRE            | Transports [empire_raceof]
 MAIN_TRANSPORTS_COUNT             | %1 Transports
 MAIN_TRANSPORTS_CANCEL            | Annuler
-MAIN_TRANSPORTS_SHOW_DEST         | Temps de trajet vers %1 : %2 Ans
+MAIN_TRANSPORTS_SHOW_DEST         | Durée du trajet vers %1 : %2 Années
 MAIN_TRANSPORT_TITLE              | Envoi de Transports
 MAIN_TRANSPORT_ABANDON_TITLE      | Abandonner le Système
 MAIN_TRANSPORT_PROMPT             | Sélectionnez un système colonisé vers lequel envoyer des vaisseaux de transport civils ou militaires.
@@ -561,7 +561,7 @@ MAIN_TRANSPORT_SELECT_POP         | Sélectionnez la population civile à envoye
 MAIN_TRANSPORT_SELECT_TROOPS      | Sélectionnez le nombre d'unités militaires à envoyer (jusqu'à la moitié de la population de %1).
 MAIN_TRANSPORT_POP_LABEL          | Population
 MAIN_TRANSPORT_TOTAL_POP_LABEL    | Population Totale: %1
-MAIN_TRANSPORT_ETA                | Temps de trajet vers %1: %2 Ans
+MAIN_TRANSPORT_ETA                | Durée du trajet vers %1 : %2 Années
 MAIN_TRANSPORT_ERROR              | Vous devez sélectionner un système colonisé.
 MAIN_TRANSPORT_ABANDON_ERROR      | Vous devez sélectionner un système %1.
 MAIN_TRANSPORT_OUT_OF_RANGE       | Ce système est hors de portée de nos transports militaires.
@@ -571,7 +571,7 @@ MAIN_TRANSPORT_NO_ROOM            | Attention - La planète cible a atteint sa p
 MAIN_TRANSPORT_SIZE_WARNING       | Attention - La planète cible ne peut supporter que %1 million !
 MAIN_TRANSPORT_NO_SELECTION       | Pas de Sélection
 MAIN_TRANSPORT_CANCEL             | Annuler
-MAIN_TRANSPORT_SEND               | Envoyer des Troupes
+MAIN_TRANSPORT_SEND               | Envoyer
 MAIN_TRANSPORT_ABANDON            | Annuler
 MAIN_TRANSPORT_CLEAR              | Effacer les Transports
 MAIN_TRANSPORT_SURRENDER          | Capitulation Automatique à l'Arrivée
@@ -618,7 +618,7 @@ MAIN_COLONY_SHIPYARD_LIMIT        | Limite :
 MAIN_COLONY_SHIPYARD_LIMIT_NONE   | Aucune
 MAIN_COLONY_SHIPYARD_CONSTRUCTION | Flotte en Construction
 MAIN_COLONY_RELOCATE_LABEL        | Définir Pt. Ralliement
-MAIN_COLONY_TRANSPORTS_LABEL      | Envoyer des Transports
+MAIN_COLONY_TRANSPORTS_LABEL      | Transporter
 MAIN_COLONY_ABANDON_LABEL         | Abandonner
 MAIN_COLONY_SHIP_SCRAPPED         | Supprimé
 MAIN_COLONY_NO_SHIELD             | Nébuleuse
@@ -1100,7 +1100,7 @@ SETUP_RANDOM_EVENTS_OFF           | Désactivé
 SETUP_RANDOM_EVENTS_NO_MONSTERS   | Sans monstres
 SETUP_GALAXY_NUMBER_EMPIRES       | Nombre d'empires : %1
 SETUP_GALAXY_NUMBER_SYSTEMS       | Nombre de systèmes: %1
-SETUP_GALAXY_MAX_OPPONENTS        | Nombre d'adversaires : %1
+SETUP_GALAXY_MAX_OPPONENTS        | %1 adversaires ou moins
 SETUP_OPPONENTS_HEADER_1          | %1 vs.
 SETUP_OPPONENTS_HEADER_2          | Empires rivaux
 SETUP_OPPONENT_RANDOM             | ???
@@ -1426,9 +1426,9 @@ SHIP_DESIGN_COMPONENT_NONE        | Aucun
 SHIP_DESIGN_STARGATE_NAME         | Porte des étoiles
 SHIP_DESIGN_1ST_SCOUT_NAME        | Éclaireur
 SHIP_DESIGN_1ST_FIGHTER_NAME      | Chasseur
-SHIP_DESIGN_1ST_DESTROYER_NAME    | Destructeur
+SHIP_DESIGN_1ST_DESTROYER_NAME    | Contre-torpilleur
 SHIP_DESIGN_1ST_BOMBER_NAME       | Bombardier
-SHIP_DESIGN_1ST_COLONY_NAME       | Vaisseau de colonisation
+SHIP_DESIGN_1ST_COLONY_NAME       | Colonisie
 SHIP_DESIGN_COMPUTER_TITLE        | Ordinateurs
 SHIP_DESIGN_COMPUTER_TYPE         | Type
 SHIP_DESIGN_COMPUTER_COST         | Coût

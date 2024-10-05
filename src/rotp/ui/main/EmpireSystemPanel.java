@@ -280,8 +280,11 @@ public class EmpireSystemPanel extends SystemPanel {
             int w1 = (w-s5)*8/20;
             g.setColor(MainUI.shadeBorderC());
             g.fillRect(0, h-s35, w, s35);
-            drawTransportButton(g,0,h-s35,w0,s35);
-            drawAbandonButton(g,w0+s5,h-s35,w1,s35);
+            int maxSize = 20;
+            int transportSize = drawTransportButton(g, 0, h-s35, w0, s35, maxSize);
+            int abandonSize   = drawAbandonButton(g, w0+s5, h-s35, w1, s35, transportSize);
+            if (abandonSize < transportSize) // Same text size for the two buttons
+            	drawTransportButton(g,0,h-s35,w0,s35, maxSize);
         }
         private boolean hasStargate()	{ return player().stargateCostPerBC()>0; }
         private void drawTitle(Graphics g) {
@@ -560,10 +563,10 @@ public class EmpireSystemPanel extends SystemPanel {
             int imgH = img.getHeight(null);
             g.drawImage(img, x1, y1, x2, y2, 0, 0, imgW, imgH, null);
         }
-        private void drawTransportButton(Graphics2D g, int x, int y, int w, int h) {
+        private int drawTransportButton(Graphics2D g, int x, int y, int w, int h, int maxSize) {
             StarSystem sys = parentSpritePanel.systemViewToDisplay();
             if (sys == null)
-                return;
+                return 20;
 
             boolean enabled = transportEnabled();
             transportBox.setBounds(x, y, w, h);
@@ -580,7 +583,7 @@ public class EmpireSystemPanel extends SystemPanel {
             else
                 g.setColor(textColor);
             String s = text("MAIN_COLONY_TRANSPORTS_LABEL");
-            int fontSize = scaledFont(g, s, w-s10,20, 14);
+            int fontSize = scaledFont(g, s, w-s10, maxSize, 14);
             
             g.setFont(narrowFont(fontSize));
             int sw = g.getFontMetrics().stringWidth(s);
@@ -593,11 +596,12 @@ public class EmpireSystemPanel extends SystemPanel {
                 g.drawRect(x+s2,y+s5,w-s2,h-s7);
                 g.setStroke(prevStroke);
             }
+            return fontSize;
         }
-        private void drawAbandonButton(Graphics2D g, int x, int y, int w, int h) {
+        private int drawAbandonButton(Graphics2D g, int x, int y, int w, int h, int maxSize) {
             StarSystem sys = parentSpritePanel.systemViewToDisplay();
             if (sys == null)
-                return;
+                return 20;
 
             boolean enabled = transportEnabled();
             abandonBox.setBounds(x, y, w, h);
@@ -617,7 +621,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 g.setColor(textColor);
 
             String s = text("MAIN_COLONY_ABANDON_LABEL");
-            int fontSize = scaledFont(g, s, w-s10,20, 14);
+            int fontSize = scaledFont(g, s, w-s10, maxSize, 14);
             
             g.setFont(narrowFont(fontSize));
             int sw = g.getFontMetrics().stringWidth(s);
@@ -630,6 +634,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 g.drawRect(x+s2,y+s5,w-s2,h-s7);
                 g.setStroke(prevStroke);
             }
+            return fontSize;
         }
         private void incrementBuildLimit(int amt) {
             StarSystem sys = parentSpritePanel.systemViewToDisplay();

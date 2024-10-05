@@ -409,14 +409,20 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
             default: return stroke1;
         }
     }
-	public void reloadLabels() {
+    public void reloadLabels() {
 		if (!Rotp.isIDE()) {
 			// BR: Intended to only To be used from IDE
 			return;
 		}
+		copyLabels("rotp/lang/en/labels.txt");
+		copyLabels("rotp/lang/en/techs.txt");
+		copyLabels("rotp/lang/fr/labels.txt");
+		copyLabels("rotp/lang/fr/techs.txt");
+		LanguageManager.current().reloadLanguage();
+    }
+	private void copyLabels(String baseName) {
 		// First copy file from the modified source to final destination
 		// Validated for eclipse IDE
-		String baseName = "rotp/lang/en/labels.txt";
 		String jarPath  = Rotp.jarPath();
 		String destName = "classes/" + baseName;	// the file that will be loaded
 		String srcName  = "../src/" + baseName;		// up from target/class
@@ -435,7 +441,6 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
 				System.err.println(e.toString());
 			}
 		}
-		LanguageManager.current().reloadLanguage();
 	}
 
     // used for keyEvents sent from RotPUI
