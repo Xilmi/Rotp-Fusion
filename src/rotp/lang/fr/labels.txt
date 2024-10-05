@@ -295,7 +295,9 @@ GAME_DISCUSS_ONLINE               | Discussions en ligne
 GAME_MENU_CONTINUE                | Continuer
 GAME_MENU_NEW_GAME                | Nouvelle Partie
 GAME_MENU_LOAD_GAME               | Charger
+GAME_MENU_LOAD_OPTIONS            | Charger les Paramètres
 GAME_MENU_SAVE_GAME               | Enregistrer
+GAME_MENU_SAVE_OPTIONS            | Enregistrer les Paramètres
 GAME_MENU_SETTINGS                | Paramètres
 GAME_MENU_OPEN_MANUAL             | Mode d'emploi
 GAME_MENU_EXIT                    | Quitter
@@ -304,8 +306,6 @@ GAME_VERSION                      | Version: %1
 GAME_SHRINK                       | Rétrécir -
 GAME_ENLARGE                      | Élargir
 GAME_MENU_REPLAY_LAST_TURN        | Rejouer ce tour
-GAME_MENU_LOAD_OPTIONS            | Charger les Paramètres
-GAME_MENU_SAVE_OPTIONS            | Enregistrer les Paramètres
 
 // Game Settings UI
 GAME_SETTINGS_TITLE               | Paramètres de Jeu
@@ -2008,17 +2008,17 @@ DIPLOMACY_RETREAT_SHIPS           | Ordonnez à tous les vaisseaux en orbite ou 
 // types of endings
 GAME_OVER_OVERTHROWN_LOSS         | Défaite vous avez été détrôné
 GAME_OVER_MILITARY_LOSS           | Défaite militaire
+GAME_OVER_NO_COLONIES_LOSS        | Défaite par effondrement sociétal
 GAME_OVER_DIPLOMATIC_LOSS         | Défaite diplomatique
 GAME_OVER_NEW_REPUBLIC_LOSS       | Défaite de la Nouvelle République
 GAME_OVER_REBELLION_LOSS          | Défaite due à une rébellion
-GAME_OVER_DIPLOMATIC_WIN          | Victoire diplomatique
 GAME_OVER_MILITARY_WIN            | Victoire militaire
 GAME_OVER_MILITARY_ALLIANCE_WIN   | Victoire de l'alliance militaire
+GAME_OVER_DIPLOMATIC_WIN          | Victoire diplomatique
+GAME_OVER_ALLIANCE_WIN            | Victoire par alliance
 GAME_OVER_NEW_REPUBLIC_WIN        | Victoire de la Nouvelle République
 GAME_OVER_REBELLION_WIN           | Victoire de la rébellion
 GAME_OVER_REBEL_ALLIANCE_WIN      | Victoire de l'alliance rebelle
-GAME_OVER_ALLIANCE_WIN            | Victoire par alliance
-GAME_OVER_NO_COLONIES_LOSS        | Défaite par effondrement sociétal
 
 GAME_OVER_EXIT                    | Quitter
 GAME_OVER_REPLAY                  | Rejouer
