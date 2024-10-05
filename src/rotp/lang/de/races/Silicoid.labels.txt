@@ -7,15 +7,15 @@ _nameTitle                 | Kristallimperator
 
 //
 // All text below this point is copyright 2018-2020 Jeff Colucci
-// 
-// Licensed under the Creative Commons License, 
+//
+// Licensed under the Creative Commons License,
 // Attribution-NonCommercial-NoDerivatives 4.0 International (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     https://creativecommons.org/licenses/by-nc-nd/4.0/
-//  
-// This license is legally binding. Please review this license before altering 
+//
+// This license is legally binding. Please review this license before altering
 // or distributing any material covered under this license.
 //
 
@@ -27,7 +27,7 @@ MAIN_ADVISOR_TRANSPORT     | Die Kolonie auf %1 ist in deinem Namen gegründet w
 MAIN_ADVISOR_DIPLOMACY     | Gott-Imperator! Ein Vertreter eines fremden Imperiums erscheint vor dem Thron! Dies könnte unser ewiger Feind sein, der sich offenbart! Wir werden mit aller gebotenen Vorsicht vorgehen!
 MAIN_ADVISOR_SHIP_ENGINE   | Eure Wissenschaftler haben neue Schiffsmotorenkonstruktionen perfektioniert! Sie werden Eure Flotten modifizieren, sobald Ihr sie dazu ermächtigt!
 MAIN_ADVISOR_RALLY_POINTS  | Endlich! Unser heiliger Krieg beginnt, Gott-Imperator! Befiehl deinen Flotten, sich auf jeder Welt zu versammeln, die du kontrollierst, und sie sollen unserem verhassten Feind den schnellen Tod bringen!
-MAIN_ADVISOR_MISSILE_BASEN | Deine Generäle glauben, dass der Bau von defensiven Raketenbasen auf unseren verwundbarsten Kolonien ein kluges Unterfangen wäre! Wenn Sie zustimmen, Gott-Imperator, soll der Bau sofort beginnen!
+MAIN_ADVISOR_MISSILE_BASES | Deine Generäle glauben, dass der Bau von defensiven Raketenbasen auf unseren verwundbarsten Kolonien ein kluges Unterfangen wäre! Wenn Sie zustimmen, Gott-Imperator, soll der Bau sofort beginnen!
 MAIN_ADVISOR_SHIP_WEAPON   | Gott-Imperator! Eure Wissenschaftler präsentieren ihren neuesten Fortschritt in der Waffentechnologie! Wir werden unsere Flotten mit diesen Kriegswerkzeugen ausrüsten, wenn Sie nur den Befehl dazu geben!
 MAIN_ADVISOR_COUNCIL       | Eine Versammlung von Lords, bekannt als der Galaktische Rat, wird bald über uns kommen! Unsere alten Feinde müssen unter denen, die sich dort versammeln, sein! Wir müssen sie entlarven, damit unser edler Kreuzzug wirklich beginnen kann!
 MAIN_ADVISOR_REBELLION     | Mächtiger Imperator! Das Undenkbare geschieht. Unser Volk, das zweifellos von unserem ruchlosen alten Feind infiziert wurde, rebelliert auf %1 gegen dich. Wir müssen dieser Korruption sofort ein Ende setzen!

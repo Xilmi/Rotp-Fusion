@@ -1,6 +1,6 @@
 // This is the label text file for Remnants of the Precursors
 // comment lines should start with '/'  they are ignored
-//  
+//
 // the format for each line is   key | label
 //    where 'key' is the code used by the game to retrieve the label
 //    You cannot create new keys! The game will not use them
@@ -112,7 +112,7 @@ LEADER_TECHNOLOGIST               | Technologist
 // Leader Personality & Objective displayed together
 LEADER_PERSONALITY_FORMAT         | %1 %2
 
-// Technology names and descriptions 
+// Technology names and descriptions
 TECH_COMPUTERS                    | Computer
 TECH_CONSTRUCTION                 | Fertigung
 TECH_FORCE_FIELDS                 | Kraftfelder
@@ -182,7 +182,7 @@ INC_ATTACKED_ALLY_TITLE           | Angegriffener Verbündeter
 INC_ATTACKED_ALLY_DESC            | Die [attacker_empire] haben die [defender_empire] angegriffen, einen Verbündeten der [my_empire].
 INC_ATTACKED_ENEMY_TITLE          | Angegriffener Feind
 INC_ATTACKED_ENEMY_DESC           | Die [attacker_empire] haben die [defender_empire] angegriffen, einen Feind der [my_empire].
-INC_USED_BIOWEAPONS_TITLE         | Einsatz biologischer Waffen 
+INC_USED_BIOWEAPONS_TITLE         | Einsatz biologischer Waffen
 INC_USED_BIOWEAPONS_DESC          | Die [attacker_empire] haben biologische Waffen gegen die [victim_empire] im [system]-System eingesetzt.
 INC_KILLED_MONSTER_TITLE          | %1
 INC_KILLED_MONSTER_DESC           | Das Monster [monster] wurde von den [your_empire] ausgeschaltet. Die Bedrohung der Galaxis wurde beendet.
@@ -234,8 +234,8 @@ INC_FINANCIAL_AID_DESC            | Die [your_empire] unterstützen mit [amt] BC
 INC_TECHNOLOGY_AID_TITLE          | Technologische Hilfe
 INC_TECHNOLOGY_AID_DESC           | Die [your_empire] unterstützen die [my_empire] mit den Geheimnissen der Technologie [tech].
 INC_TECHNOLOGY_AID_DESC_MULT      | Die [your_empire] unterstützen die [my_empire] mit den Geheimnissen der Technologien: [techs]
-INC_TECHNOLOGY_TECH_LIST_COMMA    | , 
-INC_ENEMY_AID_TITLE               | Hilfe für den Feind 
+INC_TECHNOLOGY_TECH_LIST_COMMA    | ,
+INC_ENEMY_AID_TITLE               | Hilfe für den Feind
 INC_ENEMY_AID_MONEY_DESC          | Die [your_empire] haben mit [amt] BC die [enemy_empire] unterstützt, einem Feind der [my_empire].
 INC_ENEMY_AID_TECH_DESC           | Die [your_empire] haben die Geheimnisse der Tehcnologie [tech] an die [enemy_empire]weitergegeben, einem Feind der [my_empire].
 INC_PARANOIA_TITLE                | Paranoia
@@ -257,10 +257,10 @@ INC_DESTROYED_BASES_TITLE         | Zerstörte Raketenbasis
 INC_DESTROYED_BASES_DESC          | Saboteure der [spy_empire] zerstören [amt] defensive Raketenbasen im [system] System.
 INC_DESTROYED_FACTORIES_TITLE     | Zerstörte Fabriken
 INC_DESTROYED_FACTORIES_DESC      | Saboteure der [spy_empire] zerstören [amt] Fabriken im [system] System.
-INC_INCITED_REBELLION_TITLE       | Rebellion verursacht 
+INC_INCITED_REBELLION_TITLE       | Rebellion verursacht
 INC_INCITED_REBELLION_DESC        | Sezessionisten der [spy_empire] haben einen Aufstand mit [amt] Millionen Rebellen im [system] System.
 INC_SIGNED_ALLIANCE_TITLE         | Allianz
-INC_SIGNED_ALLIANCE_DESC          | Die [my_empire] und die [your_empire] haben eine Allianz gebildet und schwören sich, gegen alle externen Bedrohungen zu verteidigen. 
+INC_SIGNED_ALLIANCE_DESC          | Die [my_empire] und die [your_empire] haben eine Allianz gebildet und schwören sich, gegen alle externen Bedrohungen zu verteidigen.
 INC_JOINT_WAR_TITLE               | Krieg erklärt
 INC_LEFT_ALLIANCE_TITLE           | Allianz gebrochen
 INC_SIGNED_PACT_TITLE             | Nichtangriffspakt
@@ -286,7 +286,7 @@ CLICK_CONTINUE                    | Drücke Esc oder Klicke zum Fortfahren...
 CLICK_EXIT                        | Drücke Esc oder Klicke zum Abbrechen
 BUTTON_EXIT                       | Ausgang
 
-// GAME/SETUP UI 
+// GAME/SETUP UI
 GAME_TITLE_LINE_1                 | REMNANTS
 GAME_TITLE_LINE_2                 | of the
 GAME_TITLE_LINE_3                 | PRECURSORS
@@ -352,7 +352,7 @@ GAME_SETTINGS_AUTOBOMBARD_NEVER   | Niemals
 GAME_SETTINGS_AUTOBOMBARD_YES     | Immer
 GAME_SETTINGS_AUTOBOMBARD_WAR     | Nur im Krieg
 GAME_SETTINGS_AUTOBOMBARD_INVADE  | Nur im Krieg, keine Invasion
-GAME_SETTINGS_AUTOBOMBARD_DESC    | Anpassen, ob immer, niemals, nur im Krieg oder nur im Krieg ohne Invasionsflotte auf dem Weg automatisch bombadiert wird. 
+GAME_SETTINGS_AUTOBOMBARD_DESC    | Anpassen, ob immer, niemals, nur im Krieg oder nur im Krieg ohne Invasionsflotte auf dem Weg automatisch bombadiert wird.
 GAME_SETTINGS_BACKUP_OFF          | Aus
 GAME_SETTINGS_BACKUP_ON           | Jeden %1 Zug
 GAME_SETTINGS_BACKUP              | Backup: %1
@@ -669,7 +669,7 @@ MAIN_ALLOCATE_NOTICE_NUMBER       | Notiz %1 von %2
 MAIN_ALLOCATE_BRIEF_NUMBER        | %1 von %2
 MAIN_ALLOCATE_PREV_SYSTEM         | Vorherige
 MAIN_ALLOCATE_NEXT_SYSTEM         | Nächste
-MAIN_ALLOCATE_FINISHED            | Ende
+MAIN_ALLOCATE_CLOSE               | Ende
 
 // Fleet Production display (during next turn)
 MAIN_FLEET_PRODUCTION_TITLE       | Flottenproduktion
@@ -698,7 +698,7 @@ MAIN_AUTOSAVE_FAILED_DESC_3       | Wenn Du diese Meldung häufig siehst, gehe b
 MAIN_AUTOSAVE_FAILED_OK           | OK
 
 // Alerts
-MAIN_ALERT_TITLE                  | Alarm 
+MAIN_ALERT_TITLE                  | Alarm
 MAIN_ALERT_TITLE_COUNT            | Alarm - %1 von %2
 MAIN_ALERT_TECH_STOLEN            | Interne Sicherheitsprotokolle weisen darauf hin, dass ein Spion der %1 das Wissen um %2 gestohlen hat.
 MAIN_ALERT_SPY_CAPTURED           | Wir haben einen Spion des [alien_race] Reichs gefangen und verhören ihn für ein Geständnis über die %1 Aktivitäten.
@@ -715,7 +715,7 @@ MAIN_ALERT_INVADERS_KILLED        | Der [alien_race] Transport zur Invasion von 
 MAIN_ALERT_TRESPASSING1           | [alien_race] Schiffe wurden beim Grenzübertritt nahe unserer Kolonie %1 System entdeckt.
 MAIN_ALERT_TRESPASSING2           | Der [alien_race] Botschafter protestiert, dass unsere Schiffe die Grenzen bei %1 überschritten haben.
 MAIN_ALERT_TRADE_MATURED          | Unser Handelsvertrag mit den %1 hat ein maximales Volumen von %2 BC erreicht.
-MAIN_ALERT_SPY_NEW_TECH           | Unsere Spione informieren uns, dass die [ally_empire] die Geheimnisse hinter %1 kennen. 
+MAIN_ALERT_SPY_NEW_TECH           | Unsere Spione informieren uns, dass die [ally_empire] die Geheimnisse hinter %1 kennen.
 
 // Colony Listing UI
 PLANETS_TITLE                     | [player_race] Kolonie
@@ -750,7 +750,7 @@ PLANETS_TRANSFER_ACCEPT           | Transfer
 PLANETS_COLONY_TRANSFER_TITLE     | Subventionieren
 PLANETS_COLONY_TRANSFER_DETAIL    | Subventionen aus der Staatskasse um Kolonieproduktion zu erhöhen.
 PLANETS_COLONY_TRANSFER_BUTTON    | Subventionieren aus der Staatskasse
-PLANETS_LIST_NUM                  | 
+PLANETS_LIST_NUM                  |
 PLANETS_LIST_NAME                 | Name
 PLANETS_LIST_POPULATION           | Bevölkerung
 PLANETS_LIST_POP                  | Bev.
@@ -795,7 +795,7 @@ PLANETS_HELP_2G                   | Notizen - Notizen des Spielers. Editierbar.
 PLANETS_HELP_3A                   | Name - Name des Systems. Editierbar.
 PLANETS_HELP_3B                   | Bevölkerung - Aktuelle Bevölkerung, inklusive Veränderung zum letzten Zug.
 PLANETS_HELP_3C                   | Ressourcen - für Reich, Arm und Artifakt Welten.
-PLANETS_HELP_3D                   | Fabriken - Anzahl der Fabriken, inklusive Veränderung zum letzten Zug. 
+PLANETS_HELP_3D                   | Fabriken - Anzahl der Fabriken, inklusive Veränderung zum letzten Zug.
 PLANETS_HELP_3E                   | Produktion - Komplette Produktion der Kolonie.
 PLANETS_HELP_3F                   | Reserve - Komplette Reserve auf diesem Planeten
 PLANETS_HELP_3G                   | Notizen - Notizen des Spielers. Editierbar.
@@ -867,7 +867,7 @@ FLEETS_SETTING_RALLY_POINTS       | Starte Routenpunkt
 FLEETS_START_RALLIES_DESC         | Wähle ein System unter Kontrolle um dorthin neue Schiffe von allen Systemen zu senden.
 FLEETS_START_RALLIES              | Starte Route
 FLEETS_SEND_TRANSPORTS            | Sende Transport
-FLEETS_ADJUST_SPENDING_SELECT     | Wähle System für Schiffsausgaben 
+FLEETS_ADJUST_SPENDING_SELECT     | Wähle System für Schiffsausgaben
 FLEETS_ADJUST_SPENDING_DESC       | Wähle die gewünschten Schiffsausgaben für die %1 ausgewählten Systeme
 FLEETS_ADJUST_SPENDING_DESC2      | Andere Ausgabenkategorien werden automatisch angepasst. Die Ökologie wird die Mindestausgaben für die Reinigung der Verschmutzung beibehalten.
 FLEETS_ADJUST_SPENDING_DESC3      | Ökologie wird auf ein Minumum reduziert um Verschmutzung zu beseitigen.
@@ -881,7 +881,7 @@ FLEETS_CANCEL_TRANSPORTS_DESC     | %1 gewählte Systeme haben bereits geplante 
 FLEETS_CANCEL_TRANSPORTS          | Transporte abbrechen
 FLEETS_DEPLOYING_TRANSPORTS_DESC  | Wähle ein System in Reichweite um zivile oder Truppentransporte zu senden.
 FLEETS_DEPLOY_TRANSPORTS          | Sende Transporte
-FLEETS_FLEET_DEPLOYMENT           | Flottensendung 
+FLEETS_FLEET_DEPLOYMENT           | Flottensendung
 FLEETS_UNDEPLOYING_FLEETS         | %1 gewählte Flotten sind bereits verplant
 FLEETS_CANCEL_DEPLOYMENTS         | Sendung abbrechen
 FLEETS_DEPLOYING_FLEETS           | Sende Flotte
@@ -902,10 +902,10 @@ FLEETS_CANCEL                     | Abbrechen
 FLEETS_HELP_ALL                   | Überblick - Dieser Bildschirm ermöglicht die Verwaltung von Flotten, Transporten und Schiffsbau im Überblick. Im Allgemeinen wählst Du eine Gruppe von Flotten oder Systemen aus, die Du verwalten möchtest, filterst sie auf eine kleinere Menge und wählst dann die Aktion aus, die für sie durchgeführt werden soll.
 FLEETS_HELP_1A                    | Systeme auswählen - es gibt drei Möglichkeiten, Systeme auszuwählen: 1) durch Anklicken von Systemen auf der Karte, 2) durch Ziehen mit der rechten Maustaste über die Karte und 3) mit den Schaltflächen "Alle auswählen" und "Alle abwählen".
 FLEETS_HELP_1B                    | Filtern nach - Aktiviere Kontrollkästchen, um die Liste der ausgewählten Systeme einzugrenzen. Filter können auch angeklickt werden, um durch verwandte Optionen zu blättern
-FLEETS_HELP_1C                    | Und bauen - Filtersysteme entsprechend dem zu bauenden Schiffsdesign. 
+FLEETS_HELP_1C                    | Und bauen - Filtersysteme entsprechend dem zu bauenden Schiffsdesign.
 FLEETS_HELP_1D                    | Schiffsdesign - Ändere das Schiffsdesign, das in den ausgewählten Systemen gebaut werden soll. Ein leeres Bild bedeutet, dass die ausgewählten Systeme derzeit andere Designs bauen. Achtung! Für diese Aktion gibt es keine Sicherheitsabfrage.
 FLEETS_HELP_1E                    | Transporte senden - sendet Transporte aus den ausgewählten Systemen an ein einzelnes Zielsystem.
-FLEETS_HELP_1F                    | Sammelpunkte setzen - setzt die Sammelpunkte für die ausgewählten Systeme auf ein einzelnes Zielsystem. 
+FLEETS_HELP_1F                    | Sammelpunkte setzen - setzt die Sammelpunkte für die ausgewählten Systeme auf ein einzelnes Zielsystem.
 FLEETS_HELP_2A                    | Flotten auswählen - es gibt drei Möglichkeiten, Flotten auszuwählen: 1) durch Anklicken von Flotten auf der Karte, 2) durch Ziehen mit der rechten Maustaste über die Karte und 3) mit den Schaltflächen "Alle auswählen" und "Alle abwählen".
 FLEETS_HELP_2B                    | Filtern nach - aktivieren Sie Kontrollkästchen, um die Liste der ausgewählten Flotten einzugrenzen. Filter können auch angeklickt werden, um durch verwandte Optionen zu blättern.
 FLEETS_HELP_2C                    | Nur Schiffe eines Typs einsetzen - schränke die Schiffstypen ein, die aus der Flotten eingesetzt werden sollen.
@@ -976,7 +976,7 @@ NOTICE_SPIES_FRAMED               | - Wir wurden für Spionageaktivitäten inner
 NOTICE_SPIES_ESPIONAGE            | - Unsere Spione haben die Geheimnisse von %1 aus dem [alien_empire] gestohlen.
 NOTICE_SPIES_ESPIONAGE_FRAME      | Wir haben den [framed_empire] erfolgreich für diesen Diebstahl reingelegt.
 NOTICE_SPIES_SABOTAGE_FACTORIES   | - Unsere Spione haben erfolgreich %1 Fabriken im System %2 zerstört.
-NOTICE_SPIES_SABOTAGE_BASEN       | - Unsere Spione haben erfolgreich %1 Raketenbasen zerstört, die das System %2 schützen.
+NOTICE_SPIES_SABOTAGE_BASES       | - Unsere Spione haben erfolgreich %1 Raketenbasen zerstört, die das System %2 schützen.
 NOTICE_SPIES_SABOTAGE_REBELS      | - Unsere Spione haben erfolgreich Rebellen im System %2 aufgehetzt.
 NOTICE_SPIES_SABOTAGE_REBELLION   | - Unsere Spione haben im %2-System erfolgreich eine Rebellion ausgelöst.
 NOTICE_SPIES_LEARNED_TECH         | - Unsere Spione berichten, dass das [alien_empire] kürzlich die folgenden uns unbekannten Technologien erlernt hat: %1
@@ -990,7 +990,7 @@ NOTICE_SPIES_CLOSE                | Schließen
 // Ground Combat UI
 INVASION_BATTLE                   | Im Jahr %1, findet zwischen den [attacker_race] und [defender_race] eine Schlacht um %2 statt.
 INVASION_BATTLE_REBELS            | Im Jahr %1, findet zwischen den [attacker_race] und  Rebellen eine Schlacht um %2 statt.
-INVASION_TROOPS_LANDED            | %1 [attacker_race] Truppen sind gelandet. 
+INVASION_TROOPS_LANDED            | %1 [attacker_race] Truppen sind gelandet.
 INVASION_SOME_TROOPS_LANDED       | %1 von %2 [attacker_race] Truppen sind gelandet.
 INVASION_WIN                      | [attacker_race] Truppen erobern %2.
 INVASION_LOSS                     | [defender_race] Truppen verteidigen erfolgreich %2.
@@ -1019,7 +1019,7 @@ GNN_PRODUCTION_RANKING            | Das Ranking der Produktionsstatistik:
 GNN_TECHNOLOGY_RANKING            | Das Ranking der weit entwickelsten Völker:
 GNN_PLAYER_REBELLION              | %1 hat rebelliert und arbeitet nicht mehr mit dem [rebelling_empire] zusammen. Mindestens %2 Millionen Rebellen kontrollieren die Kolonie. Truppen müssen zur Beendigung entsandt werden.
 GNN_ALIEN_REBELLION               | %1 hat rebelliert und arbeitet nicht mehr mit dem [rebelling_empire] zusammen.Mindestens %2 Millionen Rebellen kontrollieren die Kolonie.
-GNN_PLAYER_REBELLION_SPREAD       | Die Rebellion breitet sich weiter im [rebelling_empire] aus. Mindestens %2 Millionen Rebellen kontrollieren jetzt unsere Kolonie bei %1. Es müssen Truppen entsandt werden, um den Aufstand niederzuschlagen. 
+GNN_PLAYER_REBELLION_SPREAD       | Die Rebellion breitet sich weiter im [rebelling_empire] aus. Mindestens %2 Millionen Rebellen kontrollieren jetzt unsere Kolonie bei %1. Es müssen Truppen entsandt werden, um den Aufstand niederzuschlagen.
 GNN_OVERTHROW                     | Ein neue Anführer führt jetzt das [alien_empire] . Gerüchte besagen, dass der neue Anführer ein %2 ist. Das Verhältnis wurde Neutral gesetzt und der Handel auf 0 gesetzt.
 GNN_END_COUNCIL                   | Mit nur noch zwei verbleibenden Mitgliedern werden die Versuche des Galaktischen Rats eingestellt. Viele Anführer diskutieren jetzt, welche endgültige Lösung möglich ist.
 GNN_FORM_COUNCIL                  | Auf der Suche nach Frieden werden die Vertreter jeder Rasse bald einberufen, um einen galaktischen Anführer zu wählen, der von allen Führern aus den beiden bevölkerungsreichsten Reiche gewählt werden soll.
@@ -1223,7 +1223,7 @@ SETTINGS_TERRAFORMING             | Lebensfeindlich Terraforming: %1
 SETTINGS_COLONIZING               | Kolonisierung: %1
 SETTINGS_FUEL_RANGE               | Reichweite: %1
 SETTINGS_FUEL_RANGE               | Treibstoffreichweite: %1
-SETTINGS_RANDOM_EVENTS_DESC       | Weltraummonster sind Zufallsereignisse und erhebliche Bedrohungen in der Mitte des Spiels. Schalte Weltraummonster oder alle Zufallsereignisse aus. 
+SETTINGS_RANDOM_EVENTS_DESC       | Weltraummonster sind Zufallsereignisse und erhebliche Bedrohungen in der Mitte des Spiels. Schalte Weltraummonster oder alle Zufallsereignisse aus.
 SETTINGS_WARP_SPEED_DESC          | Erhöhen Sie die Geschwindigkeit von fortgeschrittenen Warp-Technologien. Dies kann auf sehr großen Karten wünschenswert sein.
 SETTINGS_GALAXY_AGE_DESC          | Im Vergleich zu normalen Galaxien haben junge Galaxien mehr weiße und blaue Sterne, während alte Galaxien mehr rote und Neutronensterne haben.
 SETTINGS_TECH_TRADING_DESC        | Schalte alle Technologiegeschäfte aus oder beschränke diese Geschäfte auf Verbündete.
@@ -1287,15 +1287,15 @@ TECH_SHIP_SPEED_AMT               | Warp %1
 TECH_BUTTON_EXIT                  | Ausgang
 
 // Tech UI help
-TECH_HELP_1A                      | ÜBERSICHT - Auf diesem Bildschirm kannst Du die Ausgaben in den sechs Technologiebereichen anpassen, die Du erforschen kannst. Du kannst bereits erlernte Technologien (grün), aktuell in der Forschung (gelb) oder verfügbar für zukünftige Forschung (braun) überprüfen. 
-TECH_HELP_1B                      | Klick oder Mausrad, um die Technologien für einen Bereich anzuzeigen. 
+TECH_HELP_1A                      | ÜBERSICHT - Auf diesem Bildschirm kannst Du die Ausgaben in den sechs Technologiebereichen anpassen, die Du erforschen kannst. Du kannst bereits erlernte Technologien (grün), aktuell in der Forschung (gelb) oder verfügbar für zukünftige Forschung (braun) überprüfen.
+TECH_HELP_1B                      | Klick oder Mausrad, um die Technologien für einen Bereich anzuzeigen.
 TECH_HELP_1C                      | Füllt sich auf, wenn Forschungspunkte (RP) in einem Bereich ausgegeben werden. Sobald sie aufgefüllt sind, steigt die Chance in jeder Runde, die Technologie zu erlernen.
 TECH_HELP_1D                      | Technologie wird derzeit erforscht. Siehe ihre Beschreibung für Vorteile.
 TECH_HELP_1E                      | Allgemeiner Nutzen durch bereits erlernte Technologien in diesem Bereich.
 TECH_HELP_1F                      | Gesamtproduktion (BC), die auf die Forschung angewendet wird, und die daraus resultierenden Gesamtforschungspunkte (RP).
 TECH_HELP_1G                      | Überlaufende Ausgaben in einer Kolonie können in die Forschung statt in die Staatskasse geleitet werden.
 TECH_HELP_1H                      | Jeder Technikbereich hat eine Ausgabenleiste. Klicke auf den Namen, um einen Balken zu sperren. Die Ausgaben für die ersten 1/6 der Leiste bringen einen Forschungsbonus von 25 %.
-TECH_HELP_1I                      | Gleiche die Ausgabenzuweisungen für die nicht gesperrten Leisten aus. 
+TECH_HELP_1I                      | Gleiche die Ausgabenzuweisungen für die nicht gesperrten Leisten aus.
 
 // =========================================================================
 //   ALPHA 4
@@ -1437,14 +1437,14 @@ SHIP_DESIGN_SPECIAL_SPACE         | Raum
 SHIP_DESIGN_HELP_ALL              | ÜBERBLICK - ein Imperium kann bis zu sechs aktive Schiffsdesigns haben. Für jedes Design wähle eine Hüllengröße und statte es dann mit verschiedenen Komponenten wie Panzerung, Schilden und Waffen aus. Jede Komponente hat eine Größe, Leistung und Kosten. Der gesamte Platzbedarf einer Komponente ergibt sich aus ihrer Größe plus der Anzahl der Triebwerke, die für ihren Antrieb benötigt werden. Einmal eingesetzt, kann ein Schiffsentwurf in jeder Ihrer Kolonien gebaut werden.
 SHIP_DESIGN_HELP_1A               | Größe - größere Rümpfe verursachen zusätzliche Kosten, bieten aber mehr Platz.
 SHIP_DESIGN_HELP_1B               | Reichweite - wie weit sich das Schiff von Deinen Systemen entfernen kann.
-SHIP_DESIGN_HELP_1C               | Geschwindigkeit - Reisegeschwindigkeit im Raum zwischen den Sternen. 
+SHIP_DESIGN_HELP_1C               | Geschwindigkeit - Reisegeschwindigkeit im Raum zwischen den Sternen.
 SHIP_DESIGN_HELP_1D               | Kosten - Gesamtkosten für den Bau dieses Schiffes.
 SHIP_DESIGN_HELP_1E               | Gesamtraum, der von den Komponenten dieses Schiffsentwurfs genutzt wird.
 SHIP_DESIGN_HELP_1F               | Verfügbarer Platz - ungenutzter Platz auf diesem Schiffsentwurf.
 SHIP_DESIGN_HELP_1G               | Trefferpunkte - Schaden, der erforderlich ist, um dieses Schiff im Kampf zu zerstören.
 SHIP_DESIGN_HELP_1H               | Raketenabwehr - Verteidigung gegen Raketenwaffen im Kampf.
 SHIP_DESIGN_HELP_1I               | Strahlenabwehr - Verteidigung gegen Strahlenwaffen im Kampf.
-SHIP_DESIGN_HELP_1J               | Angriffsstufe - Angriffsstufe für Waffen im Kampf. 
+SHIP_DESIGN_HELP_1J               | Angriffsstufe - Angriffsstufe für Waffen im Kampf.
 SHIP_DESIGN_HELP_1K               | Kampfgeschwindigkeit -  Entfernung, die das Schiff im Kampf zurücklegen kann, pro Runde.
 SHIP_DESIGN_HELP_1L 	          | Farbe - ändert die Farbe des Schiffes.
 SHIP_DESIGN_HELP_2A               | Antriebstyp - Typ, der für den Antrieb dieses Schiffsdesigns verwendet wird.
@@ -1456,7 +1456,7 @@ SHIP_DESIGN_HELP_2F               | Stärkeanforderung - Gesamtleistungsbedarf f
 SHIP_DESIGN_HELP_2G               | Erforderliche Antriebe - Anzahl der Antriebe, die benötigt werden, um den Leistungsbedarf zu decken.
 SHIP_DESIGN_HELP_2H               | Gesamtgröße - Gesamtraum im Rumpf, der für alle Motoren benötigt wird.
 SHIP_DESIGN_HELP_2I               | Gesamtkosten - Gesamtbaukosten für alle Motoren.
-SHIP_DESIGN_HELP_2J               | Es gibt sechs verschiedene Bilder für jede der vier Rumpfgrößen. Wenn Du einen neuen Schiffsentwurf erstellst, klicke auf Sie , um die Optionen zu durchlaufen. 
+SHIP_DESIGN_HELP_2J               | Es gibt sechs verschiedene Bilder für jede der vier Rumpfgrößen. Wenn Du einen neuen Schiffsentwurf erstellst, klicke auf Sie , um die Optionen zu durchlaufen.
 SHIP_DESIGN_HELP_2K               | Name des Schiffsdesign.
 SHIP_DESIGN_HELP_3A               | Computer - beeinflussen die Angriffsstufe Ihres Schiffes im Kampf.
 SHIP_DESIGN_HELP_3B               | Panzerung - beeinflusst die Trefferpunkte Ihres Schiffes. Schwere Panzerung erhöht diese um 50 %.
@@ -1572,7 +1572,7 @@ RELATIONS_FRIENDLY                | Freundlich
 RELATIONS_UNITY                   | Einheit
 RELATIONS_HARMONY                 | Harmonie
 
-RACES_TITLE                       | Übersicht 
+RACES_TITLE                       | Übersicht
 RACES_SELECTOR_TITLE              | Außenpolitik
 RACES_TAB_DIPLOMACY               | Diplomatie
 RACES_TAB_INTELLIGENCE            | Geheimdienst
@@ -1604,9 +1604,9 @@ RACES_DIPLOMACY_RELATIONS_METER   | Beziehungsmeter
 RACES_DIPLOMACY_RELATIONS_UNKNOWN | Die Stimmung und Motive des [alien_empire] sind für unsere Diplomaten und Spione undurchschaubar.
 RACES_DIPLOMACY_BUREAU            | Diplomatieamt
 RACES_DIPLOMACY_BUREAU_DESC1      | Kontaktiere fremde Imperien oder ruf Sie Deine Diplomaten zurück, um zu verhindern, dass Imperien mit Dir Kontakt aufnehmen.
-RACES_DIPLOMACY_BUREAU_DESC       | Kontaktiere den [alien_race]-Botschafter für eine Audienz oder stelle den Kontakt her, wenn Deine Diplomaten abberufen wurden. 
+RACES_DIPLOMACY_BUREAU_DESC       | Kontaktiere den [alien_race]-Botschafter für eine Audienz oder stelle den Kontakt her, wenn Deine Diplomaten abberufen wurden.
 RACES_DIPLOMACY_BUREAU_DESC_RANGE | Wir können keine diplomatischen Beziehungen zu Imperien aufnehmen, die sich außerhalb unserer Schiffsreichweite befinden.
-RACES_DIPLOMACY_BUREAU_DESC_FINAL | Wir befinden uns in einem endgültigen Krieg mit der Neuen Republik. Diplomatie ist nicht länger eine Option. 
+RACES_DIPLOMACY_BUREAU_DESC_FINAL | Wir befinden uns in einem endgültigen Krieg mit der Neuen Republik. Diplomatie ist nicht länger eine Option.
 RACES_DIPLOMACY_KNOWN_EMPIRES     | Bekannte fremde Imperien
 RACES_DIPLOMACY_RECALLED_DIPLOMAT | Zurückgerufene Diplomaten
 RACES_DIPLOMACY_MANAGE_DIPLOMATS  | Verwalte Diplomaten
@@ -1615,7 +1615,7 @@ RACES_DIPLOMACY_CONTACT           | Kontakt etablieren
 RACES_DIPLOMACY_TRADE_SUMMARY     | Handelszusammenfassung
 RACES_DIPLOMACY_TRADE_DESC        | Kontaktiere den [alien_race]-Botschafter, um einen Handelsvertrag auszuhandeln. Handelsnetzwerke brauchen Zeit und Geld, um aufgebaut zu werden, aber wenn sie ausgereift sind, bringen sie Geld in die Schatzkammer Deines Reiches.
 RACES_DIPLOMACY_TRADE_DESC_RANGE  | Wir können keine Handelsnetzwerke aufbauen, während sie sich außerhalb der Schiffsreichweite befinden.
-RACES_DIPLOMACY_TRADE_DESC_FINAL  | Wir befinden uns in einem endgültigen Krieg mit der Neuen Republik. Handel ist nicht mehr möglich. 
+RACES_DIPLOMACY_TRADE_DESC_FINAL  | Wir befinden uns in einem endgültigen Krieg mit der Neuen Republik. Handel ist nicht mehr möglich.
 RACES_DIPLOMACY_TRADE_TREATY      | Handelsvertrag
 RACES_DIPLOMACY_FOREIGN_RELATIONS | Auswärtige Beziehungen
 RACES_DIPLOMACY_FOREIGN_RANGE     | Die auswärtigen Beziehungen des [alien_empire] können wir erst kennen, wenn wir diplomatischen Kontakt aufgenommen haben.
@@ -1647,8 +1647,8 @@ RACES_INTEL_SECURITY_BONUS_NONE   | Keine
 RACES_INTEL_REPORT_AGE            | Alter d. Reports
 RACES_INTEL_SPY_NETWORK           | Spionagenetzwerk
 RACES_INTEL_SPENDING              | Ausgaben
-RACES_INTEL_SPENDING_DESC         | Erhöhe Ausgaben um weitere Spione über Zeit zu rekrutieren. 
-RACES_INTEL_SPENDING_DESC_UNITY   | Spionagenetzwerk unnötig,da Technologie in der neuen Republik frei mit den Mitgliedern geteilt wird. 
+RACES_INTEL_SPENDING_DESC         | Erhöhe Ausgaben um weitere Spione über Zeit zu rekrutieren.
+RACES_INTEL_SPENDING_DESC_UNITY   | Spionagenetzwerk unnötig,da Technologie in der neuen Republik frei mit den Mitgliedern geteilt wird.
 RACES_INTEL_SPENDING_CAPPED       | Limit der Spionageausgaben erreicht. Unterstützung für Sionagenetzwerke um %1% gekürzt.
 RACES_INTEL_SPENDING_RANGE        | Kann keine Spionagenetzwerk außerhalb der Schiffsreichweite erstellen.
 RACES_INTEL_PERCENT_AMT           | %1%
@@ -1752,7 +1752,7 @@ RACES_HELP_2B                     | Gewährt eine Audienz bei einem Diplomaten d
 RACES_HELP_2C                     | Informationen zu Handelsverträgen, die mit dem ausgewählten Reich abgeschlossen wurden.
 RACES_HELP_2D                     | Andere Reiche, die das ausgewählte Reich kontaktiert hat.
 RACES_HELP_2E                     | Diplomatische Vorfälle, die beeinflussen, wie das ausgewählte Reich auf Dich reagiert. Die Auswirkungen bewegen sich mit der Zeit gegen Null.
-RACES_HELP_2F                     | Ein Maß für den aktuellen Stand der Beziehungen mit dem ausgewählten Reich. 
+RACES_HELP_2F                     | Ein Maß für den aktuellen Stand der Beziehungen mit dem ausgewählten Reich.
 RACES_HELP_3A                     | Erhöhe die Sicherheitssteuer, um die Chancen zu verbessern, feindliche Spionageaktionen zu vereiteln.
 RACES_HELP_3B                     | Ermöglicht den direkten Zugriff auf die Verwaltung Deiner Spione in allen kontaktierten Imperien.
 RACES_HELP_3C                     | Alle Technologien, die anderen Imperien bekannt sind, wie sie von unseren Spionen gesammelt wurden. Technologien, die wir nicht kennen, sind gelb dargestellt.
@@ -1761,7 +1761,7 @@ RACES_HELP_4B                     | Lege die Aufträge für die Spione fest, die
 RACES_HELP_4C                     | Alle Technologien, die das ausgewählte Reich kennt. Technologien, die wir nicht kennen, werden gelb dargestellt.
 RACES_HELP_5A                     | Die bekannte Anzahl von Schiffen in der Flotte des ausgewählten Volkes, nach Hüllengröße. Diese Informationen bleiben aktuell, solange ein aktives Spionagenetz im ausgewählten Reich ist.
 RACES_HELP_5B                     | Die bekannten Fähigkeiten von Schiffsdesigns. Ältere Konstruktionen können außer Betrieb sein. Diese Informationen werden in erster Linie während des Schiffskampfes gesammelt.
-RACES_HELP_5C                     | Die bekannten Verteidigungsfähigkeiten des ausgewählten Reiches. 
+RACES_HELP_5C                     | Die bekannten Verteidigungsfähigkeiten des ausgewählten Reiches.
 RACES_HELP_6A                     | Dieser Bildschirm zeigt eine aktuelle Rangliste unseres Reichs in verschiedenen Kategorien im Vergleich zu anderen bekannten Reichen. Diese Daten werden von unseren Spionagenetzwerken innerhalb dieser Imperien gesammelt.
 RACES_HELP_6A2                    | Dieser Bildschirm bietet einen historischen Vergleich, in verschiedenen Kategorien, unseres Imperiums mit einem ausgewählten Imperium. Diese Daten werden von unseren Spionagenetzwerken innerhalb dieser Imperien gesammelt.
 RACES_HELP_6B                     | Flottenstärke - kombiniert Anzahl und Größe der Schiffe.
@@ -1848,7 +1848,7 @@ CREDITS_GRAPHIC_DESIGN            | Kaitlin Lindsay, Graphic Designer
 CREDITS_MUSIC                     | Efe Tozan, Music
 CREDITS_WRITER                    | Jeff Colucci, Writer
 CREDITS_SOUND                     | Remi Agullo, Sound Designer
-CREDITS_TRANSLATOR                | 
+CREDITS_TRANSLATOR                |
 
 // Systems UI
 SYSTEMS_TITLE                     | Systeme
@@ -1937,7 +1937,7 @@ DIPLOMACY_MENU_BREAK_PACT         | Nichtangriffspakt brechen
 DIPLOMACY_MENU_BREAK_ALLIANCE     | Bündnis brechen
 DIPLOMACY_TRADE_MENU_BREAK        | Handelsvertrag brechen
 DIPLOMACY_THREATEN_MENU_0         | Botschafter zurückrufen
-DIPLOMACY_THREATEN_MENU_1         | Tribut einfordern 
+DIPLOMACY_THREATEN_MENU_1         | Tribut einfordern
 DIPLOMACY_THREATEN_MENU_2         | Nichtangriffspakt brechen
 DIPLOMACY_THREATEN_MENU_3         | Allianz brechen
 DIPLOMACY_THREATEN_MENU_BR        | Handelsvertrag brechen
@@ -1951,7 +1951,7 @@ DIPLOMACY_ACCEPT_ESTABLISH_TRADE  | Akzeptieren (Schließt Handel ab)
 DIPLOMACY_DECLINE_OFFER           | Ablehnen
 DIPLOMACY_DECLINE_BREAK_ALLIANCE  | Ablehnen (bricht die Allianz)
 DIPLOMACY_IGNORE_THREAT           | Bedrohung ignorieren
-DIPLOMACY_SHUTDOWN_SPIES          | Alle Spionagenetzwerke im [alien_empire] abschalten 
+DIPLOMACY_SHUTDOWN_SPIES          | Alle Spionagenetzwerke im [alien_empire] abschalten
 DIPLOMACY_HIDE_SPIES              | Alle Spione im [alien_empire] zum Verstecken anweisen
 DIPLOMACY_RETREAT_SHIPS           | Befiehlt allen Schiffen, die sich im Orbit oder auf dem Weg zu [alien_race] Systemen befinden, sich zurückzuziehen
 
@@ -1959,13 +1959,13 @@ DIPLOMACY_RETREAT_SHIPS           | Befiehlt allen Schiffen, die sich im Orbit o
 GAME_OVER_OVERTHROWN_LOSS         | Umsturz Niederlage
 GAME_OVER_MILITARY_LOSS           | Militärische Niederlage
 GAME_OVER_DIPLOMATIC_LOSS         | Diplomatische Niederlage
-GAME_OVER_NEW_REPUBLIC_LOSS       | Niederlage durch neue Republik 
+GAME_OVER_NEW_REPUBLIC_LOSS       | Niederlage durch neue Republik
 GAME_OVER_REBELLION_LOSS          | Niederlage durch Rebellion
 GAME_OVER_DIPLOMATIC_WIN          | Diplomatischer Sieg
 GAME_OVER_MILITARY_WIN            | Militärischer Sieg
 GAME_OVER_MILITARY_ALLIANCE_WIN   | Militärische Allianz Sieg
 GAME_OVER_NEW_REPUBLIC_WIN        | Sieg durch neue Republik
-GAME_OVER_REBELLION_WIN           | Sieg durch Rebellion 
+GAME_OVER_REBELLION_WIN           | Sieg durch Rebellion
 GAME_OVER_REBEL_ALLIANCE_WIN      | Sieg der Rebellenallianz
 GAME_OVER_ALLIANCE_WIN            | Allianz Sieg
 GAME_OVER_NO_COLONIES_LOSS        | Niederlage durch Soziologischer Kollaps
