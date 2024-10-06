@@ -194,8 +194,8 @@ EVENT_PLAGUE                      | Une pandémie mortel frappe le monde [target
 EVENT_PLAGUE_2                    | La pandémie mortelle dans le système [system] persiste. Les scientifiques estiment qu'il faudra encore [amt] RP pour trouver un remède.
 EVENT_PLAGUE_3                    | Les scientifiques [target_race_pluraladjec] ont trouvé un remède contre la pandémie mortelle qui affligeait le système [system]. La quarantaine du système a été levée.
 EVENT_REBELLION                   | Le monde [target_raceadjec] dans le système [system] s'est révolté, cessant toute production planétaire. La révolte se poursuivra jusqu'à ce que la rébellion soit vaincue militairement.
-EVENT_SUPERNOVA                   | Les scientifiques [target_race_pluraladjec] prédisent que l'étoile du système [system] deviendra une supernova d'ici [year] ans. Ils recommandent de détourner toutes les recherches du système vers la recherche d'une solution.
-EVENT_SUPERNOVA_2                 | La menace d'une supernova dans le système [system] d'ici [year] ans demeure. Les scientifiques estiment qu'il faudra encore [amt] RP pour prévenir cette catastrophe.
+EVENT_SUPERNOVA                   | Les scientifiques [target_race_pluraladjec] prédisent que l'étoile du système [system] deviendra une supernova d'ici [years] ans. Ils recommandent de détourner toutes les recherches du système vers la recherche d'une solution.
+EVENT_SUPERNOVA_2                 | La menace d'une supernova dans le système [system] d'ici [years] ans demeure. Les scientifiques estiment qu'il faudra encore [amt] RP pour prévenir cette catastrophe.
 EVENT_SUPERNOVA_3                 | En travaillant fébrilement, les physiciens [target_race_pluraladjec] dans le système [system] ont trouvé un moyen de retarder la supernova de leur étoile proche dans un avenir prévisible.
 EVENT_SUPERNOVA_4                 | L'étoile du système [system] est devenue une supernova, irradiant le monde [target_raceadjec], dévastant son environnement et tuant des millions de personnes.
 EVENT_VIRUS                       | Un virus informatique hautement destructeur frappe les centres de recherche [target_race_pluraladjec], détruisant des années de recherche en [technology].
@@ -471,7 +471,7 @@ GAME_SETTINGS_SHOW_CONSOLE_PANEL_DESC | Change l'affichage d'une console pour d'
 
 SETTINGS_MOD_DEBUG_AUTO_RUN            | Exécution automatique : %1
 SETTINGS_MOD_DEBUG_AUTO_RUN_DESC       | Change le statut du mode de debuggage. Le jeu ne s'arrêtera pas à la fin de chaque tour
-SETTINGS_MOD_DEBUG_AUTO_RUN_OFF        | Arrêt
+SETTINGS_MOD_DEBUG_AUTO_RUN_OFF        | Désactivée
 SETTINGS_MOD_DEBUG_AUTO_RUN_OFF_DESC   | Pour désactiver l'exécution automatique
 SETTINGS_MOD_DEBUG_AUTO_RUN_ON         | Activé
 SETTINGS_MOD_DEBUG_AUTO_RUN_ON_DESC    | Le jeu ne s'arrêtera pas à la fin de chaque tour
@@ -603,6 +603,13 @@ MAIN_NAVIGATION_COLONIES          | Colonies
 MAIN_NAVIGATION_TECH              | Tech
 MAIN_NAVIGATION_NEXT_TURN         | Tour Suivant
 MAIN_NAVIGATION_NEXT_YEAR         | Année Suivante
+MAIN_NAVIGATION_AUTO_RUN          | !!! Lancer automatiquement !!!
+MAIN_NAVIGATION_AUTO_RUN_PAUSE    | Suspendre exécution auto.
+MAIN_NAVIGATION_AUTO_RUN_AI       | Utiliser l'IA pour l'exécution automatique
+MAIN_NAVIGATION_AUTO_RUN_LOCKED   | !!! Exécution automatique (L%1 T) !!!
+MAIN_NAVIGATION_NEXT_TURN_LOCKED  | Tour suivant (L%1 T)
+MAIN_NAVIGATION_NEXT_YEAR_LOCKED  | Année suivante (L%1 T)
+MAIN_NAVIGATION_LOCKED            | Verrouillage (L%1 T)
 MAIN_YEAR_DISPLAY                 | Année  %1
 MAIN_TURN_DISPLAY                 | Tour  %1
 MAIN_SPY_REPORT                   | Espion
@@ -615,6 +622,11 @@ MAIN_TECH_RESERVE_TAX_ALL         | Taxer %1% de la production sur toutes les co
 MAIN_TECH_RESERVE_TAX             | Taxer %1% de la production sur les colonies développées
 MAIN_TECH_RESERVE_TAX_NONE        | Aucune taxe prélevée sur la production de la colonie
 MAIN_HELP_ALL                     | Aide - cliquez pour parcourir les informations d'aide pour un écran particulier. Hit escape to cancel.
+MAIN_HELP_MOD                     | Mod Help - "O" pour accéder au menu des options de jeu. "Accueil" dans Auto-Flag la planète sélectionnée. "Alt"+"Home" pour appliquer Auto-Flag à toutes les planètes déjà explorées.
+MAIN_HELP_MOD_1A                  | Pour activer ou désactiver le Gouverneur pour ce système solaire.
+MAIN_HELP_MOD_1B                  | Pour accéder au menu Options du gouverneur.
+MAIN_HELP_MOD_1F                  | Des alertes du tour peuvent y apparaître : Faites un clic droit sur elles pour centrer la carte sur le système. Cliquez à gauche pour afficher la prochaine alerte.
+MAIN_HELP_MOD_1I                  | Pour accéder au panneau "Options".<br>Utile pour se souvenir de nos choix de configuration.<br>Peut être modifié... Mais certaines options ne devraient pas l'être !
 MAIN_HELP_1A                      | Chaque star system divise sa production en cinq zones. Les barres grisées indiquent que la barre de production a été verrouillée et ne changera pas. Cliquez sur le nom pour verrouiller/déverrouiller.
 MAIN_HELP_1B                      | Chantier naval - construit le modèle de vaisseau sélectionné. Les gros vaisseaux peuvent prendre plusieurs tours.
 MAIN_HELP_1C                      | Défenses - construit et améliore les bases de missiles jusqu'à la limite spécifiée et les boucliers planétaires lorsqu'ils sont disponibles.
@@ -623,17 +635,23 @@ MAIN_HELP_1E                      | Écologie - nettoie les déchets industriels
 MAIN_HELP_1F                      | Technologie - ajoute à la recherche globale de l'empire.
 MAIN_HELP_1G                      | Les barres de ratio montrent la répartition de la production d'une planète. Les dépenses pour chaque barre peuvent être ajustées à l'aide de la molette de la souris, en cliquant dans la barre ou en cliquant sur les flèches gauche/droite de chaque barre.
 MAIN_HELP_1H                      | Le résultat attendu des dépenses pour une zone est affiché à droite de chaque barre. Les dépenses excédentaires seront envoyées à la réserve du trésor de l'empire.
+MAIN_HELP_1I                      | Pour accéder aux rapports d'espionnage. (Le cas échéant)
 MAIN_HELP_2A                      | Niveau du bouclier planétaire de la colonie. Les boucliers ne peuvent pas être construits sur les planètes dans une nébuleuse.
 MAIN_HELP_2B                      | Nombre de bases de missiles et le maximum souhaité pour cette planète. Cliquez ou utilisez la molette de la souris pour modifier le maximum.
 MAIN_HELP_2C                      | Production planétaire totale de l'industrie et de la population.
 MAIN_HELP_2D                      | Production réelle ajustée en fonction des revenus commerciaux à l'échelle de l'empire, des coûts d'espionnage et de sécurité, ainsi que de la maintenance des bases de missiles et des vaisseaux.
 MAIN_HELP_2E                      | Modifiez la conception du vaisseau pour le construire dans le chantier naval en orbite de la planète. La production accumulée pour les vaisseaux inachevés accélérera la production de nouveaux vaisseaux de 50 % jusqu'à leur épuisement. Cliquez ou utilisez la molette de la souris pour modifier la conception du vaisseau.
 MAIN_HELP_2F                      | Définissez un point de ralliement pour envoyer automatiquement les vaisseaux nouvellement construits vers une autre colonie.
+MAIN_HELP_2FSG                    | Rassemblement à la porte des étoiles la plus proche.<br>(Basé sur "→CHAIN_RALLY_SPEED_HK←"
 MAIN_HELP_2G                      | Transportez de la population pour fortifier une autre colonie ou envoyez des troupes envahir une planète ennemie. La colonie engage un coût de production unique pour le transport.
 MAIN_HELP_2H                      | Abandonnez complètement une planète en transférant toute sa population vers une autre colonie.
 MAIN_HELP_2I                      | Population actuelle et maximale de la planète. 100 représente une planète d'origine complète qui n'a pas été terraformée.
 MAIN_HELP_2J                      | Usines actuelles et maximales autorisées. Usines maximales basées sur la population et la technologie des contrôles robotiques.
 MAIN_HELP_2K                      | Placez un drapeau sur le système pour l'aider à se démarquer sur la carte de la galaxie.
+MAIN_HELP_2K_2F                   | Placez deux drapeaux sur le système pour l'aider à se démarquer sur la carte de la galaxie.
+MAIN_HELP_2K_M2                   | Bouton de gauche = Suivant / Bouton de droite = Réinitialiser / "Home" = Auto-Flag.
+MAIN_HELP_2K_M3                   | Bouton gauche = Suivant / Bouton droit = Précédent / Bouton du milieu = Réinitialiser / "Home" = Auto-Flag.
+MAIN_HELP_2K_2F_HOLD              | (Appuyez aussi sur "Ctrl" pour définir le deuxième drapeau)
 MAIN_HELP_2L                      | Le montant de la réserve stockée dans le trésor de l'empire.
 MAIN_HELP_2M                      | L'état actuel de la recherche pour chacun des six domaines technologiques.
 MAIN_HELP_3A                      | Jeu - revient au menu d'ouverture. Vous permet d'ajuster les paramètres ou d'enregistrer, de charger et de démarrer des jeux.
@@ -647,6 +665,13 @@ MAIN_HELP_3H                      | Année Suivante - fait avancer le jeu à l'a
 MAIN_HELP_3I                      | Tour actuel - affiche le tour actuel du jeu ou l'année en cours de votre empire. Cliquez pour basculer.
 MAIN_HELP_3J                      | Commandes de la carte - cliquez pour parcourir les différents paramètres d'affichage de la carte de la galaxie.
 
+MAIN_HELP_4A                      | Les assistants Min/Max garderont toujours ECO propre.<br>- Smooth Min/Max: est équivalent à cliquer sur la flèche Haut/Bas jusqu'à atteindre la cible. Les BC libérés seront redistribués intelligemment. <br>- Smart Min/Max: (Shift + Clique) effacera les dépenses débloquées, définira l'allocation Min/Max, nettoiera ECO, puis redistribuera intelligemment les BC restants.<br>- Rafraîchir: (Ctrl + Clique) effacera les dépenses débloquées puis redistribuera intelligemment les BC disponibles.
+MAIN_HELP_4B                      | Chantier naval: <br> Cliquez-gauche : Affectation minimale nécessaire pour construire jusqu'à la limite.<br> Cliquez-droit : Allocation maximale disponible.
+MAIN_HELP_4C                      | Défenses: <br> Cliquez-gauche : Affectation minimale nécessaire pour construire jusqu'a la limite des bases.<br> Cliquez-droit : Allocation maximale disponible. <br>Cliquez-milieu: Affectation minimale pour construire le bouclier.
+MAIN_HELP_4D                      | Industrie: <br> Cliquez-gauche : Affectation minimale nécessaire pour finaliser les usines.<br> Cliquez-droit : Allocation maximale disponible. <br>Cliquez-milieu: Attribution minimale nécessaire pour suivre la croissance de la population.
+MAIN_HELP_4E                      | Écologie: <br> Cliquez-gauche : Affectation minimale nécessaire pour finaliser la croissance.<br> Cliquez-droit : Affectation minimale nécessaire pour finaliser la terraformation. <br>Clicquez-milieu: Affectation minimale nécessaire pour rester propre.
+MAIN_HELP_4F                      | Technologie: <br>Cliquez-gauche : Allocation maximale disponible.<br> Cliquez-droit : 0 Affectation --> réaffectation complète.
+MAIN_HELP_4G                      | Cliquez ici pour verrouiller / déverrouiller les dépenses. (en gris quand vèrrouillé)<br>Clique + Ctrl pour annuler ou restaurer les ordres des colonies. (Ce que vous pouvez donner après une mise à jour technologique)<br> Ces champs sont classés par ordre de priorité lors du processus de «prochain virage».<br> Une option est disponible pour les montrer en bleu... ou non.
 MAIN_SYSTEM_DETAIL_PFB            | Pop %1  Usi %2  Base %3
 MAIN_SYSTEM_DETAIL_PF             | Pop %1  Usi %2
 MAIN_SYSTEM_DETAIL_NO_DATA        | Pas de données
@@ -675,6 +700,7 @@ MAIN_PLANET_EVENT_PLAGUE          | pandémie
 MAIN_PLANET_EVENT_SUPERNOVA       | Supernova
 MAIN_PLANET_EVENT_AMOEBA          | l'Amibe Spatial
 MAIN_PLANET_EVENT_CRYSTAL         | le Cristal Spatial
+MAIN_PLANET_EVENT_PIRATES         | les Pirates de l'espace
 MAIN_ADVANCING_YEAR               | Passer à l'Année  %1...
 MAIN_ADVANCING_TURN               | Passer au Tour %1...
 TURN_SAVING                       | Sauvegarde de la Partie
@@ -702,6 +728,9 @@ TURN_DESIGN_SHIPS                 | Concevoir des Vaisseaux
 TURN_COLONY_SPENDING              | Allocations de Colonie
 
 // Fleet labels
+COLONY_VIEW_HELP_1                | Rien de fantaisiste là-bas...<br><br>Profitez juste de la vue.<br><br>"Z" pour voir uniquement le fond.<br>→HK_ESCAPE←
+HISTORY_HELP_MAIN                 | HISTORIQUE: <br>Pour voir comment la galaxie s'est développée depuis le premier tour.<br>Cela vous permet de voir tout ça ! À condition, bien sûr, que vous ayez les informations nécessaires.
+HISTORY_HELP_HK                   | →HK_HEADER← →HK_F1←<br>1-0 : Pour régler le rythme.→HK_MAP_ZOOM←→HK_MAP_ARROWS←<br>B / F : tour Précédent / Suivant<br>P : Pause <br>R : Réinitialiser<br>→HK_ESCAPE←
 MAIN_FLEET_TITLE                  | Flotte [fleet_raceadjecF]
 MAIN_FLEET_TITLE_UNKNOWN          | Flotte Inconnue
 MAIN_FLEET_IN_ORBIT               | En orbite
@@ -729,7 +758,7 @@ MAIN_FLEET_THROUGH_NEBULA         | Vitesse maximale limitée à Distorsion 1 da
 MAIN_FLEET_CANCEL                 | Annuler
 MAIN_FLEET_OUT_OF_RANGE           | Hors de Portée
 MAIN_FLEET_DEPLOY_FLEET           | Déployer la Flotte
-MAIN_FLEET_UNDEPLOY_FLEET         | Annuler le Déploiement de la Flotte
+MAIN_FLEET_UNDEPLOY_FLEET         | Annuler Déploiement
 MAIN_FLEET_INVALID_RETREAT        | Retraite Invalide
 MAIN_FLEET_INVALID_DESTINATION    | Impossible d'envoyer la flotte à %1
 MAIN_FLEET_INVALID_DESTINATION2   | Impossible d'envoyer la flotte à ce système
@@ -738,6 +767,7 @@ MAIN_FLEET_INVALID_DESTINATION2   | Impossible d'envoyer la flotte à ce systèm
 MAIN_RALLY_TITLE                  | Définition du Point de Ralliement
 MAIN_RALLY_PROMPT                 | Sélectionnez un système sous votre contrôle pour y envoyer des vaisseaux nouvellement construits.
 MAIN_RALLY_FORWARD                | Transférer les rallyes entrants
+MAIN_RALLY_CHAIN                  | Chaîner les rassemblements avec les Portes de Étoiles
 MAIN_RALLY_TRAVEL_TIME            | Durée du trajet vers %1 : %2 Ans
 MAIN_RALLY_INSTANT_TIME           | Durée du trajet vers %1 : Instantané
 MAIN_RALLY_WILL_CANCEL            | La sélection de cette destination effacera tout point de ralliement existant.
@@ -772,10 +802,12 @@ MAIN_TRANSPORT_NO_SELECTION       | Pas de Sélection
 MAIN_TRANSPORT_CANCEL             | Annuler
 MAIN_TRANSPORT_SEND               | Envoyer
 MAIN_TRANSPORT_ABANDON            | Annuler
-MAIN_TRANSPORT_CLEAR              | Effacer les Transports
+MAIN_TRANSPORT_CLEAR              | Annuler Transports
 MAIN_TRANSPORT_SURRENDER          | Capitulation Automatique à l'Arrivée
 
 // Colony labels
+MAIN_TRANSPORT_INCOMING_TROOP     | Troupes(%1)
+MAIN_TRANSPORT_INCOMING_POP       | Pop(%1)
 MAIN_COLONY_HOMEWORLD             | Planète %1
 MAIN_COLONY_FOUNDED               | Colonie %1
 MAIN_COLONY_POPULATION            | Population
@@ -790,12 +822,15 @@ MAIN_COLONY_INDUSTRY              | Ind
 MAIN_COLONY_ECOLOGY               | Eco
 MAIN_COLONY_TECHNOLOGY            | Tech
 MAIN_COLONY_ALLOCATE_SPENDING     | Allouer les Dépenses
+GOVERNOR_OPTIONS                  | Options
 MAIN_COLONY_SPENDING_NONE         | Aucune
 MAIN_COLONY_SPENDING_RESERVE      | Réserve
 MAIN_COLONY_SPENDING_TECH         | Tech
 MAIN_COLONY_SPENDING_CONVERT      | Convertir
 MAIN_COLONY_SPENDING_REFIT        | Remettre en État
 MAIN_COLONY_SPENDING_MAX_FACT     | Max
+MAIN_COLONY_SPENDING_UNUSED_FACT  | %1 extra
+MAIN_COLONY_SPENDING_NEEDED_FACT  | Besoin de %1
 MAIN_COLONY_SPENDING_WASTE        | Déchets
 MAIN_COLONY_SPENDING_ECO_GROWTH   | Croissance %1
 MAIN_COLONY_SPENDING_ATMOSPHERE   | Atmo
@@ -823,6 +858,19 @@ MAIN_COLONY_SHIP_SCRAPPED         | Supprimé
 MAIN_COLONY_NO_SHIELD             | Nébuleuse
 
 // System Scouted Notification
+MAIN_ADVISOR_TITLE                | %1 Conseiller
+MAIN_ADVISOR_BUTTON_OK            | Congédier
+MAIN_ADVISOR_SCOUT                | Monseigneur, nos explorateurs se tiennent prêts à découvrir un nouveau monde afin que nos vaisseaux de colonies ajoutez le territoire à notre illustre souveraineté.
+MAIN_ADVISOR_TRANSPORT            | Un monde nouveau porte notre bannière, mais il grandit à un rythme inhibé. L'envoi d'un transport dans la colonie lui permettra de croître à un rythme beaucoup plus rapide.
+MAIN_ADVISOR_DIPLOMACY            | Une autre civilisation spatiale s'est révélée ! Nos diplomates observeront tous les décorums appropriés en votre nom, et prendront note avec attention s'ils répondent de la même manière.
+MAIN_ADVISOR_SHIP_ENGINE          | Nos plus grands esprits ont conçu un nouveau moteur plus efficace. Ils souhaitent que vous revoyiez les schémas existants et que vous décidiez de la meilleure façon d'appliquer les nouveaux moteurs à nos flottes.
+MAIN_ADVISOR_RALLY_POINTS         | Notre ère de paix ne peut se poursuivre tant qu'une espèce indigne fait la guerre à notre glorieux empire. Les citoyens de l'Empire se tiennent unis sous vous, et assembleront leurs flottes partout où vous les dirigerez.
+MAIN_ADVISOR_MISSILE_BASES        | Avec les flottes souveraines engagées dans la bataille, nos mondes extérieurs sont vulnérables à l'agression ennemie. Nous pouvons commencer notre construction de bases de missiles défensives sur n'importe quel monde que vous désirez.
+MAIN_ADVISOR_SHIP_WEAPON          | Nos chercheurs ont eu une percée en matière d'armement des navires. Les flottes peuvent à tout moment être équipées de ces technologies dévastatrices.
+MAIN_ADVISOR_COUNCIL              | Le Conseil Galactique se réunira bientôt, et notre présence sera sans doute très souhaitée. Nos diplomates saisiront cette occasion pour faire en sorte que tout ce qui est décidé contribue au bien de la souveraineté.
+MAIN_ADVISOR_REBELLION            | Ah, une rébellion sur %1. Comme c'est bizarre. Je suppose que cela devait arriver à un certain moment, mon seigneur, mais nous devrions quand même la réprimer avant que le mécontentement ne s'étende à nos autres colonies.
+MAIN_ADVISOR_RESIST_COUNCIL       | Seigneur ! Nous sommes avec vous ! Il n'y aura pas de paix dans cette galaxie jusqu'à ce que tu prennes ta place légitime sur son trône suprême !
+MAIN_ADVISOR_COUNCIL_RESISTED     | Pathétique. Voyez comment les imbéciles luttent contre l'inévitable ? Donnez-nous l'ordre d'écraser ces rebelles, et nous le ferrons!
 MAIN_SCOUT_TITLE                  | Les Scientifiques Cataloguent un Nouveau Système Stellaire
 MAIN_SCOUT_SUBTITLE_1             | Nos vaisseaux ont repéré ce système
 MAIN_SCOUT_SUBTITLE_2             | Nos astronomes ont collecté ces données
@@ -959,6 +1007,8 @@ PLANETS_LIST_NAME                 | Nom
 PLANETS_LIST_POPULATION           | Population
 PLANETS_LIST_POP                  | Pop.
 PLANETS_LIST_SIZE                 | Taille
+PLANETS_LIST_MAX_TRANS_TO_FILL    | Remplir
+PLANETS_LIST_MAX_TRANS_NO_LOSS    | Stable
 PLANETS_LIST_TYPE                 | Type
 PLANETS_LIST_FACTORIES            | Usines
 PLANETS_LIST_WASTE                | Déchets
@@ -1020,6 +1070,8 @@ MAIN_BOMBARD_TITLE               | Nos forces sont en orbite autour d'une coloni
 NEUTRAL_BOMBARD_TITLE            | Nos forces sont en orbite autour d'une colonie neutre [alien_raceadjecF].
 MAIN_BOMBARD_TROOPS              | %1 troupes [alien_race_pluraladjecF] sont en orbite ou en transit vers cette colonie.
 MAIN_BOMBARD_PROMPT              | Bombarder la planète ?
+MAIN_BOMBARD_TARGET              | Épargne %1 pop
+MAIN_BOMBARD_DROP_ALL            | Tout larguer
 MAIN_BOMBARD_YES                 | Oui
 MAIN_BOMBARD_NO                  | Non
 MAIN_BOMBARD_POPULATION          | Population : %1
@@ -1542,7 +1594,7 @@ TECH_HELP_1D                      | Technologie actuellement à l'étude. Voyez 
 TECH_HELP_1E                      | Avantages généraux fournis par les technologies déjà apprises dans ce domaine.
 TECH_HELP_1F                      | La production totale (BC) appliquée à la recherche et les points de recherche totaux (RP) qui en découlent.
 TECH_HELP_1G                      | Les dépenses excessives dans une colonie peuvent être dirigées vers la recherche au lieu du trésor de l'empire.
-TECH_HELP_1H                      | Chaque domaine technologique a une barre de dépenses. Cliquez sur le nom pour verrouiller une barre. Dépenser pour le premier 1/6e de la barre gagne un bonus de recherche de 25 %.
+TECH_HELP_1H                      | Chaque domaine technologique a une barre de dépenses. Cliquez sur le nom pour vérrouiller une barre. Les dépenses du premier 1/6ème de chaque barre gagnent un bonus de recherche de 25 %.
 TECH_HELP_1I                      | Égalisez les allocations de dépenses pour les barres déverrouillées.
 
 // =========================================================================

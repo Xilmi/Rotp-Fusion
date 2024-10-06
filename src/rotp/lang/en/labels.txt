@@ -1800,7 +1800,7 @@ SETUP_GLOBAL_ABILITY              | Global Abilities
 SETUP_SPECIFIC_OPPONENT_DESC      | You can select your opponents individually, or let the game choose for you...<br>A maximum of 5 opponents of the same species is allowed.
 SETUP_SPECIFIC_OPPONENT           | Specific Opponent
 SETUP_NOT_AVAILABLE               | N/A
-SETUP_ALIENS_NUMBER_DESC          | Select the number of opponents (between 0 an 49), which will be limited by your map size. Then select the setting for base AI (the default), the Modnar AI (a stronger AI that retains a sense of personality sometimes at the expense of efficiency), the Xilmi AI (a ruthless AI that prioritizes efficiency), or individual settings for each opponent.
+SETUP_ALIENS_NUMBER_DESC          | Select the number of opponents (between 0 and 49), which will be limited by your map size. Then select the setting for base AI (the default), the Modnar AI (a stronger AI that retains a sense of personality sometimes at the expense of efficiency), the Xilmi AI (a ruthless AI that prioritizes efficiency), or individual settings for each opponent.
 SETUP_ALIENS_NUMBER               | Opponents Number: %1
 
 SETUP_PLAYER_SPECIES_DESC         | Select your Species
