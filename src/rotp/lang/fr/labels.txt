@@ -511,8 +511,8 @@ GAME_SETTINGS_AUTOBOMBARD_YES     | Toujours
 GAME_SETTINGS_AUTOBOMBARD_WAR     | Seulement en guerre
 GAME_SETTINGS_AUTOBOMBARD_INVADE  | Seulement en guerre et pas invasion
 GAME_SETTINGS_AUTOBOMBARD_NO_HELP     | Pas d'automatisation ! Toujours demander des commandes fraîches!
-GAME_SETTINGS_AUTOBOMBARD_NEVER_HELP  | Pas d'automatisation ! Toujours demander des commandes fraîches!
-GAME_SETTINGS_AUTOBOMBARD_YES_HELP    | La galaxie est à nous ! Refoulons les faibles et réclamons notre due !
+GAME_SETTINGS_AUTOBOMBARD_NEVER_HELP  | Pas de question ! Ne jamais bombarder!
+GAME_SETTINGS_AUTOBOMBARD_YES_HELP    | La galaxie est à nous ! Refoulons les faibles et réclamons notre dû !
 GAME_SETTINGS_AUTOBOMBARD_WAR_HELP    | Annihilez nos ennemis déclarés, demandez conseil pour d'autres empires !
 GAME_SETTINGS_AUTOBOMBARD_INVADE_HELP | Annihilez nos ennemis déclarés si aucune invasion n'est prévue, demandez conseil autrement.
 GAME_SETTINGS_AUTOBOMBARD_HELP    | Que faire lorsque votre flotte armée est en orbite autour d'un empire extraterrestre? Devrions-nous les bombarder ou les laisser seuls ?

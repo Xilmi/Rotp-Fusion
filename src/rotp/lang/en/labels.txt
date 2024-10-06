@@ -558,7 +558,7 @@ GAME_SETTINGS_AUTOBOMBARD_YES     | Always
 GAME_SETTINGS_AUTOBOMBARD_WAR     | Only War
 GAME_SETTINGS_AUTOBOMBARD_INVADE  | Only War and not Invading
 GAME_SETTINGS_AUTOBOMBARD_NO_HELP     | No automation! Always ask for fresh orders!
-GAME_SETTINGS_AUTOBOMBARD_NEVER_HELP  | No automation! Always ask for fresh orders!
+GAME_SETTINGS_AUTOBOMBARD_NEVER_HELP  | No questions asked! Never bomb!
 GAME_SETTINGS_AUTOBOMBARD_YES_HELP    | The galaxy is ours! Repels the weaklings and claim our due!
 GAME_SETTINGS_AUTOBOMBARD_WAR_HELP    | Annihilate our declared enemies, seek advice for other empires!
 GAME_SETTINGS_AUTOBOMBARD_INVADE_HELP | Annihilate our declared enemies if no invasion is planned, seek advise otherwise.
