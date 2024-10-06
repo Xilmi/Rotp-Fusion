@@ -11,6 +11,16 @@ NUM_FORMAT_THOUSANDS              | %1K
 NUM_FORMAT_MILLIONS               | %1M
 NUM_FORMAT_BILLIONS               | %1G
 
+// Basic Boolean Display
+BOOLEAN_YES                       | Oui
+BOOLEAN_NO                        | Non
+BOOLEAN_YES_HELP                  | Pour activer cette option.
+BOOLEAN_NO_HELP                   | Pour désactiver cette option.
+
+// Basic Is Default value Display
+SUB_UI_DEFAULT_YES                | Par défaut
+SUB_UI_DEFAULT_NO                 | Personnalisé
+
 // Star descriptions
 RED_STAR_DESCRIPTION              | Les étoiles rouges sont vieilles et ternes, elles n'abritent généralement que des planètes pauvres.
 YELLOW_STAR_DESCRIPTION           | Les étoiles jaunes offrent les meilleures chances de découvrir des planètes accueillantes.
@@ -34,6 +44,19 @@ PLANET_STEPPE                     | Steppe
 PLANET_TERRAN                     | Terrestre
 PLANET_TOXIC                      | Toxique
 PLANET_TUNDRA                     | Toundra
+
+FLAG_COLOR_NONE                   | Aucune
+FLAG_COLOR_WHITE                  | Blanc
+FLAG_COLOR_RED                    | Rouge
+FLAG_COLOR_BLUE                   | Bleu
+FLAG_COLOR_GREEN                  | Vert
+FLAG_COLOR_DKGREEN                | Vert foncé
+FLAG_COLOR_YELLOW                 | Jaune
+FLAG_COLOR_AQUA                   | Aqua
+FLAG_COLOR_ORANGE                 | Orange
+FLAG_COLOR_LTBLUE                 | Bleu clair
+FLAG_COLOR_PURPLE                 | Pourpre
+FLAG_COLOR_PINK                   | Rose
 
 // Spy Missions
 SPY_HIDE                          | Dissimulation
@@ -60,6 +83,9 @@ TOXIC_DESC_BIOLOGICAL             | Les planètes toxiques sont des mondes gelé
 TUNDRA_DESC_BIOLOGICAL            | Les planètes toundra sont des mondes terrestres dormants, piégés dans un stade glaciaire.
 
 // Planet Specials
+PLANET_VESTIGES_SHORT             | V +
+PLANET_ARTIFACTS_SHORT            | A +
+PLANET_VESTIGES                   | Vestiges
 PLANET_ARTIFACTS                  | Artefacts
 PLANET_ULTRA_POOR                 | Ultra Pauvre
 PLANET_POOR                       | Pauvre
@@ -68,6 +94,14 @@ PLANET_ULTRA_RICH                 | Ultra Riche
 PLANET_HOSTILE                    | Hostile
 PLANET_FERTILE                    | Fertile
 PLANET_GAIA                       | Gaïa
+PLANET_ARTIFACTS_HELP             | Recherche doublée
+PLANET_ULTRA_POOR_HELP            | La production des vaisseaux, des bases et des usines est divisée par trois.
+PLANET_POOR_HELP                  | La production des vaisseaux, des bases et des usines est divisée par deux.
+PLANET_RICH_HELP                  | La production des vaisseaux, des bases et des usines est doublée.
+PLANET_ULTRA_RICH_HELP            | La production des vaisseaux, des bases et des usines est triplée.
+PLANET_HOSTILE_HELP               | La croissance démographique est réduite de moitié.
+PLANET_FERTILE_HELP               | La croissance démographique est augmentée de moitié.
+PLANET_GAIA_HELP                  | La croissance démographique est doublée.
 
 // Planet Descriptors for Race
 PLANET_HOMEWORLD                  | Monde [alien_race_pluralnounof]
@@ -75,6 +109,8 @@ PLANET_WORLD                      | Planète [alien_race_pluralnounof]
 PLANET_COLONY                     | Colonie [alien_race_pluralnounof]
 PLANET_ORION                      | Orion
 PLANET_ORION_GUARDIAN             | Gardien
+PLANET_SPACE_JELLYFISH            | Méduse Spatialle
+PLANET_SPACE_CUTTLEFISH           | Seiche Spatialle
 
 // Nebula names  ("starName" Nebula)
 NEBULA_NAME                       | Nebuleuse %1
@@ -92,7 +128,10 @@ COLONY_NAME_5                     | %1 Distante
 // Space Monster Names
 SPACE_AMOEBA                      | l'Amibe Spatial
 SPACE_CRYSTAL                     | le Cristal Spatial
+SPACE_PIRATES                     | les Pirates de l'espace
 ORION_GUARDIAN                    | le Gardien d'Orion
+SPACE_JELLYFISH                   | la Méduse Spatialle
+SPACE_CUTTLEFISH                  | la Seiche Spatialle
 
 // Personality types (adjective)
 LEADER_ERRATIC                    | Erratique
@@ -120,6 +159,21 @@ TECH_PLANETOLOGY                  | Planétologie
 TECH_PROPULSION                   | Propulsion
 TECH_WEAPONS                      | Armement
 
+TECH_CURRENT_LEVEL                | Niveau technologique actuel %1
+TECH_NEXT_LEVEL                   | Niveau après la découverte technologique sélectionnée %1 (+%2)
+TECH_HOVER_LEVEL                  | Niveau après la découverte technologique en vol stationnaire %1 (+%2)
+TECH_LEVEL_HEADER                 | Impact sur le niveau technologique:
+TECH_LEVEL_VALUE                  | Niveau technologique %1
+TECH_CATEGORY_HEADER              | CATÉGORIE %1
+TECH_LEVEL_OF_TECH                | Niveau %1
+TECH_COMPUTERS_LEVEL_DESC         | Pendant l'espionnage, la différence entre votre niveau d'ordinateur et le niveau d'ordinateur de votre cible est appliquée comme modificateur.
+TECH_CONSTRUCTION_LEVEL_DESC      | Chaque niveau de construction augmente de 2% l'espace disponible pour tous les types de coques.
+TECH_FORCE_FIELDS_LEVEL_DESC      |
+
+TECH_PLANETOLOGY_LEVEL_DESC       | Au début du jeu, chaque colon produit 0,5BC. À mesure que votre niveau de technologie de Planetologie augmente, leur productivité aussi. L'augmentation est progressive, mais le taux global double au niveau 17, triple au niveau 33 et quadruple au niveau 50.
+TECH_PROPULSION_LEVEL_DESC        |
+TECH_WEAPONS_LEVEL_DESC           | Les dommages que vos espions infligent pendant les actions de sabotage augmente avec votre niveau de technologie Armes. Cela va détruire plus d'usines et de bases de missiles.
+
 // Random Events
 EVENT_ACCIDENT                    | Un accident industriel majeur pollue le monde [target_raceadjec] dans le système [system] avec des déchets industriels, endommageant son écologie et irradiant de façon permanente la planète.
 EVENT_ASSASSINATION               | Un terroriste [assassin_empireof] a assassiné le diplomate [victim_race_pluralnounof], plaçant les deux empires au bord de la guerre.
@@ -145,14 +199,36 @@ EVENT_SUPERNOVA_2                 | La menace d'une supernova dans le système [
 EVENT_SUPERNOVA_3                 | En travaillant fébrilement, les physiciens [target_race_pluraladjec] dans le système [system] ont trouvé un moyen de retarder la supernova de leur étoile proche dans un avenir prévisible.
 EVENT_SUPERNOVA_4                 | L'étoile du système [system] est devenue une supernova, irradiant le monde [target_raceadjec], dévastant son environnement et tuant des millions de personnes.
 EVENT_VIRUS                       | Un virus informatique hautement destructeur frappe les centres de recherche [target_race_pluraladjec], détruisant des années de recherche en [technology].
+
 EVENT_SPACE_AMOEBA                | Une forme biologique monstrueuse surnommée «l'Amibe Spatiale» a été repérée s'approchant du système [system]. Les colons et les flottes [victim_race_pluraladjec] se préparent au pire.
 EVENT_SPACE_AMOEBA_1              | Une forme biologique monstrueuse surnommée «l'Amibe Spatiale» a été repérée s'approchant du système non colonisé [system].
 EVENT_SPACE_AMOEBA_2              | L'Amibe Spatiale a complètement détruit la colonie [victim_raceadjecF] dans le système [system].
 EVENT_SPACE_AMOEBA_3              | L'Amibe Spatiale a été détruite par les défenseurs [victim_race_pluraladjec] dans le système [system].
+EVENT_SPACE_AMOEBA_4              | Les scanners qui ont suivi les progrès d'une Amoeba spatiale indiquent que la créature a disparu de notre galaxie.
+EVENT_SPACE_AMOEBA_TRIG           | La SCT (Société qui Clone Tout) a incarné avec succès une horreur transdimensionnelle. Lorsqu'on leur a demandé des commentaires, les porte-parole ont dit: AAAAAAAAHHHHHHHHH !! ÇA BRÛLE !
+EVENT_SPACE_AMOEBA_PLUNDER        | →EVENT_SPACE_AMOEBA_3←. L'étude de la monstruosité visqueuse a permis aux scientifiques de faire avancer leurs recherches en planétologie, et la vente de sa chair très prisée apporte [amt] BC aux coffres de l'empire.
+
 EVENT_SPACE_CRYSTAL               | Une gigantesque entité cristalline appelée «le Cristal Spatial» a été repérée s'approchant du système [system]. Les colons et les flottes [victim_race_pluraladjec] se préparent au pire.
 EVENT_SPACE_CRYSTAL_1             | Une gigantesque entité cristalline appelée «le Cristal Spatial» a été repérée s'approchant du système non colonisé [system].
 EVENT_SPACE_CRYSTAL_2             | Le Cristal Spatial a complètement détruit toute vie sur la colonie [victim_raceadjecF] dans le système [system].
 EVENT_SPACE_CRYSTAL_3             | Le Cristal Spatial a été détruit par les défenseurs [victim_race_pluraladjec] dans le système [system].
+EVENT_SPACE_CRYSTAL_4             | Le cristal spatial hideux a quitté notre galaxie. Pourquoi ? Pourquoi est-ce parti ? La galaxie ne le saura peut-être jamais.
+EVENT_SPACE_CRYSTAL_TRIG          | Les scientifiques responsables de la nouvelle technologie de la Porte des Étoiles ont déclaré : Nous regardions l'abîme, et l'abîme gronde Nom Nom Nom!
+EVENT_SPACE_CRYSTAL_PLUNDER       | →EVENT_SPACE_CRYSTAL_3←.<br> La recherche actuelle en matière de propulsion pourrait être complétée par l'analyse des restes cristallins, et la vente de cristaux inférieurs rapporte [amt] BC à la réserve planétaire de l'empire.
+
+EVENT_SPACE_PIRATES               | Une flotte de pirates maraudeurs a été repérée près du système [système]. Les colons [race] et les flottes de défense se préparent au pire.
+EVENT_SPACE_PIRATES_1             | Une flotte de pirates maraudeurs a été repérée près du système non colonisé [system].
+EVENT_SPACE_PIRATES_2             | Les redoutables pirates spatiaux ont ravagé la population et pillé toute l'industrie sur la colonie [race] dans le système [systeme], dévastatant l'écologie locale.
+EVENT_SPACE_PIRATES_3             | La flotte de pirates a été détruite par les défenseurs [race] dans le système [system]. Des richesses importantes trouvées dans les épaves ont été saisies par l'armée [race] pour renforcer la réserve planétaire par [amt] BC.
+EVENT_SPACE_PIRATES_4             | Les pirates spatiaux a quitté notre galaxie insignifiante ! Où sont-ils passé ? On s'en fiche, bon débarras !
+EVENT_SPACE_PIRATES_TRIG          | La récette découverte de la Propulsion Hyper va tout changer. Par exemple, les criminels se réjouissent de leur nouvelle mobilité.
+EVENT_SPACE_PIRATES_PLUNDER       | →EVENT_SPACE_PIRATES_3←.<br> L'étude des navires pirates endommagés aide à faire avancer certains projets de recherche en cours.
+
+EVENT_RELIC_PLANETS               | Une relique des Précurseurs s'est mystérieusement activée dans l'espace [target_empire]. Les scanners à l'échelle de la galaxie rapportent la formation de nouvelles planètes dans plusieurs systèmes solaires précédemment vides après des événements de coalescence intense d'astéroïdes. Les scientifiques [target_race] ont également récolté plusieurs technologies de construction à partir de la relique.
+EVENT_RELIC_PLANETS_NO_CONTACT    | Nos astronomes sont sidérés ! Les scanners à l'échelle de la galaxie rapportent la formation de nouvelles planètes dans plusieurs systèmes solaires précédemment vides après des événements de coalescence intense d'astéroïdes.
+EVENT_RELIC_GAUNTLET              | La moitié de la vie galactique a été effacée après l'activation d'un gantelet Précurseur avec sept pierres précieuses intégrées. Les scientifiques [target_race] qui étudient la relique ont nié leur responsabilité. Des enquêteurs tiers remettent en question l'augmentation de la capacité sur de nombreuses planètes [target_empire] et les nouvelles technologies de Planetologie.
+EVENT_RELIC_GAUNTLET_NO_CONTACT   | La moitié de toute la vie galactique a été effacée, probablement après l'activation du légendaire gantelet Precurseur avec sept pierres précieuses intégrées.
+EVENT_SIZEBOOST                   | Les archéologues explorant le monde [target_race] dans le système [system] ont révélé des cavernes souterraines massives. Ces chambres géologiquement stables sont habitables et ont considérablement augmenté la taille de la planète.
 
 SYSEVENT_HOMEWORLD                | Monde d'origine [alien_race_pluralnounof].
 SYSEVENT_SCOUTED                  | D'abord repéré par [alien_race_pluralnoun].
@@ -173,7 +249,7 @@ SYSEVENT_ENRICHED                 | D'énormes gisements riches en minerais ont 
 SYSEVENT_DEPLETED                 | Les gisements de minerai de la planète ont été épuisés.
 SYSEVENT_ACCIDENT                 | Un accident industriel massif a irradié la planète.
 SYSEVENT_SUPERNOVA                | La planète a été irradiée par une supernova.
-
+SYSEVENT_SIZEBOOST                | La taille de la planète a été augmentée par des cavernes souterraines.
 
 // Diplomatic Incident titles & descriptions
 INC_ASSASSINATION_TITLE           | Assassinat
@@ -245,6 +321,32 @@ INC_PARANOIA_DESC2                | Une faction marginale au sein [my_empireof] 
 INC_PARANOIA_DESC3                | Une minorité bruyante au sein [my_empireof] exprime ses inquiétudes quant au fait que [your_race_pluralnoun] représentent une menace existentielle pour leur espèce. [your_empire] occupe désormais [num] systèmes fondés à l'origine par [my_empire].
 INC_PARANOIA_DESC4                | Une grande partie [my_empireof] appelle à l'action face aux craintes croissantes que [your_race_pluralnoun] puissent en effet constituer une menace existentielle pour leur espèce. [your_empire] occupe désormais [num] systèmes fondés à l'origine par [my_empire].
 INC_PARANOIA_DESC5                | Des paniques de masse ont saisi [my_empire] en réalisant que [your_race_pluralnoun] sont clairement devenus une menace existentielle pour leur espèce. [your_empire] occupe désormais [num] systèmes fondés à l'origine par [my_empire].
+INC_DIPLOMAT_TITLE                | Diplomate
+INC_DIPLOMAT_DESC1                | [your_empire] a besoin de plus d'amis.
+INC_DIPLOMAT_DESC2                | [your_empire] a des amis.
+INC_ECOLOGIST_TITLE               | Écologue
+INC_ECOLOGIST_DESC1               | [your_empire] doit mieux traiter leurs planètes.
+INC_ECOLOGIST_DESC2               | [your_empire] traitent bien leurs planètes.
+INC_EXPANSIONIST_TITLE            | Expansionniste
+INC_EXPANSIONIST_DESC1            | Nos frontières raprochées suscitent des tensions.
+INC_EXPANSIONIST_DESC2            | L'espace vide entre [your_empire] et [my_empire] nous détend.
+INC_INDUSTRIALIST_TITLE           | Industriel
+INC_INDUSTRIALIST_DESC1           | [your_empire] a une industrie inefficace.
+INC_INDUSTRIALIST_DESC2           | [your_empire] a une industrie efficace.
+INC_MILITARIST_TITLE              | Militariste
+INC_MILITARIST_DESC1              | [your_empire] maintient une armée insuffisante.
+INC_MILITARIST_DESC2              | [your_empire] maintient suffisamment d'effectifs militaires.
+INC_TECHNOLOGIST_TITLE            | Technologue
+INC_TECHNOLOGIST_DESC1            | [your_empire] ne fait pas assez de recherches.
+INC_TECHNOLOGIST_DESC2            | [your_empire] essaie de progresser dans la technologie.
+INC_ERRATIC_TITLE                 | Erratique
+INC_ERRATIC_DESC1                 | [my_empire] n'aime pas [your_empire].
+INC_ERRATIC_DESC2                 | [my_empire] aime [your_empire].
+INC_COEXIST_TITLE                 | Coexistence
+INC_COEXIST_DESC1                 | [your_empire] n'a causé aucun problème récemment.
+INC_COEXIST_DESC2                 | [your_empire] est un ami fiable.
+INC_COEXIST_DESC3                 | [your_empire] est un allié fiable.
+INC_COEXIST_DESC4                 | [your_empire] est un grand allié.
 INC_EXPANSION_TITLE               | Expansion
 INC_EXPANSION_DESC                | Avec le contrôle de [num] systèmes, [your_empire] est devenu trop grand.
 INC_GENOCIDE_TITLE                | Génocide
@@ -266,6 +368,8 @@ INC_JOINT_WAR_TITLE               | Guerre déclarée
 INC_LEFT_ALLIANCE_TITLE           | Alliance brisée
 INC_SIGNED_PACT_TITLE             | Pacte de non-agression
 INC_SIGNED_PACT_DESC              | [my_empire] et [your_empire] ont signé un pacte de non-agression, évitant les conflits de vaisseaux dans les systèmes neutres.
+INC_SIGNED_ARMISTICE_TITLE        | Signer un Armistice
+INC_SIGNED_ARMISTICE_DESC         | [my_empire] et [your_empire] ont signé un armistice, puis un pacte de non-agression, évitant les conflits spatiaux dans des systèmes neutres.
 INC_SIGNED_PEACE_TITLE            | Traité de Paix
 INC_SIGNED_PEACE_DESC             | [my_empire] et [your_empire] ont signé un traité de paix, mettant fin à toutes les hostilités jusqu'à ce que[endYear].
 INC_SIGNED_TRADE_TITLE            | Traité Commercial
@@ -313,30 +417,90 @@ GAME_SETTINGS_DESCRIPTION         | Cliquez pour changer les paramètres du jeu.
 GAME_SETTINGS_EXIT                | Quitter
 GAME_SETTINGS_DEFAULT             | Valeur par défaut
 GAME_SETTINGS_DISPLAY_MODE        | Mode d'Affichage: %1
+GAME_SETTINGS_WINDOWED_HELP       | La fenêtre a ratio fixe (rédimensionnable sur le panneau principal). Vous serez en mesure de la déplacer librement, même vers un autre écran (si sa taille est assez grande).
 GAME_SETTINGS_WINDOWED            | Fenêtré
+GAME_SETTINGS_BORDERLESS_HELP     | Sans Bords est une fenêtre maximisée, moins restrictive que le mode plein écran.
 GAME_SETTINGS_BORDERLESS          | Sans Bords
+GAME_SETTINGS_FULLSCREEN_HELP     | Plein écran est une fenêtre exclusive maximisée. Mode plus propre mais plus restrictif que sans bords.
 GAME_SETTINGS_FULLSCREEN          | Plein Écran
 GAME_SETTINGS_DISPLAY_MODE_DESC   | Nécessite un redémarrage. Fenêtré est redimensionnable avec un rapport prédéfini. Sans Bords est la fenêtre maximisée. Plein écran est une fenêtre maximisée exclusive.
 GAME_SETTINGS_GRAPHICS            | Niveau Graphique: %1
+GAME_SETTINGS_GRAPHICS_LOW_HELP   | Demande graphique la plus faible, avec une qualité d'image inférieure, et aucune animation.
 GAME_SETTINGS_GRAPHICS_LOW        | Faible
+GAME_SETTINGS_GRAPHICS_MED_HELP   | Demande graphique moyenne, images animées, mais pas d'anti-aliasing.
 GAME_SETTINGS_GRAPHICS_MED        | Moyen
+GAME_SETTINGS_GRAPHICS_HIGH_HELP  | Qualité graphique supérieure, avec des images anti-aliasing et animées.
 GAME_SETTINGS_GRAPHICS_HIGH       | Élevé
+GAME_SETTINGS_GRAPHICS_RETINA_HELP | Pour ordinateur Apple avec écrans rétina, avec carte bit, graphismes supérieurs, anti-aliasing et images animées.
+GAME_SETTINGS_GRAPHICS_RETINA      | Retina
 GAME_SETTINGS_GRAPHICS_DESC       | Ajustement de la qualité graphique du jeu. Moyen : l'anticrénelage des images est désactivé. Faible : les animations sont désactivées.
 GAME_SETTINGS_TEXTURES            | Textures: %1
+GAME_SETTINGS_TEXTURES_NO_HELP    | Pas de textures pour les cartes graphiques très anciennes.
 GAME_SETTINGS_TEXTURES_NO         | Aucunes
+GAME_SETTINGS_TEXTURES_INTERFACE_HELP | Pour avoir des interfaces plus agréables, la plupart des cartes graphiques devraient le supporter.
 GAME_SETTINGS_TEXTURES_INTERFACE  | Interface Utilisateur
+GAME_SETTINGS_TEXTURES_MAP_HELP   | Pour avoir de plus belles cartes de la galaxie, les anciennes cartes graphiques et les grandes galaxies pourraient conduire à un rafraîchissement lent.
 GAME_SETTINGS_TEXTURES_MAP        | Carte de la Galaxie
+GAME_SETTINGS_TEXTURES_BOTH_HELP  | Si vous ne savez pas quoi choisir... C'est le choix.
 GAME_SETTINGS_TEXTURES_BOTH       | Interface et Carte
 GAME_SETTINGS_TEXTURES_DESC       | Ajustement de l'utilisation des textures sur la carte de la galaxie et sur les différents écrans tout au long du jeu.
 GAME_SETTINGS_SENSITIVITY         | Sensibilité du Survol: %1
+GAME_SETTINGS_SENSITIVITY_HIGH_HELP   | Une réponse plus rapide avec une exigence plus élevée de CPU, mais peut également causer de la fatigue oculaire.
 GAME_SETTINGS_SENSITIVITY_HIGH    | Haute
+GAME_SETTINGS_SENSITIVITY_MEDIUM_HELP | Généralement suffisant !
 GAME_SETTINGS_SENSITIVITY_MEDIUM  | Moyenne
+GAME_SETTINGS_SENSITIVITY_LOW_HELP    | Réponse la plus lente avec un minimum de CPU.
 GAME_SETTINGS_SENSITIVITY_LOW     | Faible
 GAME_SETTINGS_SENSITIVITY_DESC    | Ajustement de la vitesse à laquelle la carte de la galaxie répond au mouvement de la souris lors de la mise à jour du panneau d'affichage.
 GAME_SETTINGS_MEMORY              | Afficher l'utilisation de la mémoire : %1
 GAME_SETTINGS_MEMORY_YES          | Oui
 GAME_SETTINGS_MEMORY_NO           | Non
 GAME_SETTINGS_MEMORY_DESC         | Activer ou désactiver l'affichage des statistiques d'utilisation de la mémoire dans le coin inférieur droit du jeu. Pratique for visualiser l'utilisation de la mémoire.
+GAME_SETTINGS_MORE_MEMORY             | Console Plus de Mémoire : %1
+GAME_SETTINGS_MORE_MEMORY_YES         | Oui
+GAME_SETTINGS_MORE_MEMORY_NO          | Non
+GAME_SETTINGS_MORE_MEMORY_DESC        | Change la sortie console des statistiques d'utilisation de mémoire étendue au début et à la fin du tour, et lors du chargement d'un jeu.
+GAME_SETTINGS_MEMORY_CONSOLE      | Utilisation de la mémoire par la console : %1
+GAME_SETTINGS_MEMORY_CONSOLE_DESC | Change la sortie console des statistiques d'utilisation de la mémoire au début et à la fin du tour.
+GAME_SETTINGS_MEMORY_FILE         | Utilisation de la mémoire par les fichiers : %1
+GAME_SETTINGS_MEMORY_FILE_DESC    | Change la sortie de fichier des statistiques d'utilisation de la mémoire au début et à la fin du tour.
+GAME_SETTINGS_SHOW_CONSOLE_PANEL      | Afficher le panneau de la console : %1
+GAME_SETTINGS_SHOW_CONSOLE_PANEL_DESC | Change l'affichage d'une console pour d'autres interactions.
+SETTINGS_MOD_DEBUG_AUTO_RUN            | Auto Run: %1
+SETTINGS_MOD_DEBUG_AUTO_RUN            | Exécution automatique : %1
+SETTINGS_MOD_DEBUG_AUTO_RUN_DESC       | Change le statut du mode de debuggage. Le jeu ne s'arrêtera pas à la fin de chaque tour
+SETTINGS_MOD_DEBUG_AUTO_RUN_OFF        | Arrêt
+SETTINGS_MOD_DEBUG_AUTO_RUN_OFF_DESC   | Pour désactiver l'exécution automatique
+SETTINGS_MOD_DEBUG_AUTO_RUN_ON         | Activé
+SETTINGS_MOD_DEBUG_AUTO_RUN_ON_DESC    | Le jeu ne s'arrêtera pas à la fin de chaque tour
+SETTINGS_MOD_DEBUG_AUTO_RUN_BENCH      | Test de référence
+SETTINGS_MOD_DEBUG_AUTO_RUN_BENCH_DESC | Le jeu ne s'arrêtera pas à la fin de chaque tour, enregistrera le résultat à la fin du jeu et lancera un nouveau jeu avec les mêmes paramètres.
+SETTINGS_MOD_DEBUG_AUTO_RUN_END        | Continuer
+SETTINGS_MOD_DEBUG_AUTO_RUN_END_DESC   | For Benchmark mode, Stop the current game, log results, then Continue the tests.<br>When the player has lost the game and the remaining factions are no longer fighting.
+SETTINGS_MOD_DEBUG_AUTO_RUN_END_DESC   | Pour le mode Test de référence, arrêtez le jeu actuel, enregistrez les résultats, puis continuez les tests.<br>Lorsque le joueur a perdu le jeu et que les factions restantes ne se battent plus.
+SETTINGS_MOD_NEGATIVE_DISABLED         | Désactivé
+SETTINGS_MOD_DEBUG_BM_MAX_TURNS        | Nombre de tours max du test : %1
+SETTINGS_MOD_DEBUG_BM_MAX_TURNS_DESC   | En mode Test, le nombre maximum de tours à jouer. Arrête le jeu en cours, et commence un nouveau jeu.
+SETTINGS_MOD_DEBUG_BM_LOST_TURNS       | Tours en test : %1
+_en_GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Log to console: %1
+_fr_GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Connectez-vous à la console & #160;: %1
+_en_GAME_SETTINGS_CONSOLE_AUTO_PLAY_DESC | When enabled, the logged data are also shown on the console.
+_fr_GAME_SETTINGS_CONSOLE_AUTO_PLAY_DESC | Une fois activées, les données enregistrées sont également affichées sur la console.
+_en_GAME_SETTINGS_DEBUG_LOG_NOTIF        | Log Notifications: %1
+_fr_GAME_SETTINGS_DEBUG_LOG_NOTIF        | Notifications de journal & #160;: %1
+_en_GAME_SETTINGS_DEBUG_LOG_NOTIF_DESC   | Toggles the Notification logging  when in Debug AutoPlay.
+_fr_GAME_SETTINGS_DEBUG_LOG_NOTIF_DESC   | Indique l'enregistrement de la notification lors du Debug AutoPlay.
+_en_GAME_SETTINGS_DEBUG_LOG_EVENTS       | Log Random Events: %1
+_fr_GAME_SETTINGS_DEBUG_LOG_EVENTS       | Loger les événements aléatoires & #160;: %1
+_en_GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Toggles the Random Events logging  when in Debug AutoPlay.
+_fr_GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Déboguer le journal des événements aléatoires lorsque dans Debug AutoPlay.
+_en_GAME_SETTINGS_CONTINUE_ANYWAY        | Continue Anyway: %1
+_fr_GAME_SETTINGS_CONTINUE_ANYWAY        | Continuer de toute façon & #160;: %1
+_en_GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | The Game will continue after victory or defeat, this while the player is alive!
+_fr_GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | Le jeu continuera après la victoire ou la défaite, cela pendant que le joueur est vivant !
+GAME_SETTINGS_SCREEN               | Écran sélectionné : %1
+GAME_SETTINGS_SELECTED_SCREEN      | Écran sélectionné : %1
+GAME_SETTINGS_SELECTED_SCREEN_DESC | Sélectionnez l'écran sur lequel vous allez jouer. (-1 = écran principal)
 GAME_SETTINGS_SOUNDS              | Sons: %1
 GAME_SETTINGS_SOUNDS_OFF          | Muet
 GAME_SETTINGS_SOUNDS_ON           | %1/10
