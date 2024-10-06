@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Minor UI Fixes and French translation improvements.
 - More French translation fixes (BR & Frank Zago)
 - Minor Fixes and French translation of some mod options.
 - Plenty of language file Fixes, Ongoing... (BR & Frank Zago)

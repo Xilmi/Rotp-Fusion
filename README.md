@@ -69,6 +69,11 @@ Later:
 
 ## What's New
 
+2024.10.06 (BR)
+- Fixed some text spreading outside buttons. (dynamic size)
+- Ship design: fixed bad looking french text.
+- Fixed some bad french translations.
+
 2024.10.05  (Frank Zago)
 - More French translations and fixes.
 

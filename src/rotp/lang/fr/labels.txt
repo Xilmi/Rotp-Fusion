@@ -892,7 +892,7 @@ PLANETS_VIEW_ECOLOGY              | Vue Écologique
 PLANETS_VIEW_INDUSTRY             | Vue Industrielle
 PLANETS_VIEW_MILITARY             | Vue Militaire
 PLANETS_SPENDING_COSTS            | Dépenses de l'Empire
-PLANETS_COSTS_DESC                | Chaque colonie paie un pour cent de sa production pour soutenir les dépenses de l'empire.
+PLANETS_COSTS_DESC                | Chaque colonie contribue par un pourcentage de sa production pour soutenir les dépenses de l'empire.
 PLANETS_COSTS_SHIPS               | Entretien de la Flotte
 PLANETS_COSTS_BASES               | Bases de Missiles
 PLANETS_COSTS_STARGATES           | Portes des Étoiles
@@ -913,7 +913,7 @@ PLANETS_BUTTON_TRANSFER           | TRANSFÉRER
 PLANETS_BUTTON_EXIT               | QUITTER
 PLANETS_AMT_PCT                   | %1%
 PLANETS_AMT_BC                    | %1 BC
-PLANETS_TRANSFER_DESC             | TransféreR des fonds de l'Empire vers %1
+PLANETS_TRANSFER_DESC             | Transférer des fonds de l'Empire vers %1
 PLANETS_TRANSFER_CANCEL           | Annuler
 PLANETS_TRANSFER_ACCEPT           | Transférer
 PLANETS_COLONY_TRANSFER_TITLE     | Transférer des Fonds
@@ -1006,7 +1006,7 @@ FLEETS_DESELECT_ALL               | Tout Déselectionner
 FLEETS_FILTER_BY                  | Filtrer par:
 FLEETS_CONSTRUCTING_DESIGN        | Et en train de construire :
 FLEETS_INCLUDES_SHIP_TYPE         | Déployer que vaisseaux type:
-FLEETS_SELECTED_SHIPS             | Sélectionné pour le Péploiement
+FLEETS_SELECTED_SHIPS             | Sélectionné pour le déploiement
 FLEETS_BUILDING_DESIGN            | %1
 FLEETS_HAS_STARGATE               | Le Système a une Porte des Étoiles
 FLEETS_HAS_NO_STARGATE            | Le Système n'a pas de Porte des Étoiles
@@ -1029,7 +1029,7 @@ FLEETS_HAS_ORDERS                 | La flotte est en transit
 FLEETS_HAS_NO_ORDERS              | La flotte est en orbite
 FLEETS_IS_RALLYING                | La flotte se mobilise
 FLEETS_DESIGN_COUNT               | %1 %2
-FLEETS_DEPLOY_FLEETS              | Déployer des flottes
+FLEETS_DEPLOY_FLEETS              | Déployer les flottes
 FLEETS_SET_RALLY_POINTS           | Définir points de ralliement
 FLEETS_STOP_RALLIES_DESC          | %1 systèmes sélectionnés ont déjà des points de ralliement attribués
 FLEETS_STOP_RALLIES               | Arrêter les rassemblements
@@ -1057,7 +1057,7 @@ FLEETS_UNDEPLOYING_FLEETS         | %1 flottes sélectionnées ont déjà des d�
 FLEETS_CANCEL_DEPLOYMENTS         | Annuler les déploiements
 FLEETS_DEPLOYING_FLEETS           | En train de déployer des flottes
 FLEETS_DEPLOYING_FLEETS_DESC      | Sélectionner un système à portée pour déployer toutes les flottes sélectionnées.
-FLEETS_DEPLOY_FLEETS              | Déployer des flottes
+FLEETS_DEPLOY_FLEETS              | Déployer les flottes
 FLEETS_TRANSPORTS_TITLE           | Envoyer des transports depuis :
 FLEETS_TRANSPORTS_SEND            | Envoyer %1 transports
 FLEETS_TRANSPORTS_SYNCH           | Synchroniser
@@ -1450,13 +1450,13 @@ SETTINGS_COUNCIL_DESC             | Disable the council victory condition or all
 SETTINGS_RANDOMIZE_AI_DESC        | Choisir au hasard les personnalités des joueurs IA, les capacités raciales ou les deux.
 SETTINGS_AUTOPLAY_DESC            | Automatiser complètement le jeu en faisant jouer une IA pour le joueur. Ceci est utile pour une vue de première main du fonctionnement de l'IA.
 SETTINGS_AUTOPLAY_WARNING         | Avertissement! La lecture automatique est actuellement activée, ce qui empêchera le jeu de l'utilisateur. Utilisez «Options avancées» pour désactiver.
-SETTINGS_FUEL_RANGE_DESC          | Augmenter la gamme des technologies de portée de carburant et des réservoirs de carburant de réserve.
-SETTINGS_AI_HOSTILITY_DESC        | Augmenter ou diminuez le niveau général d'hostilité entre les races extraterrestres.
+SETTINGS_FUEL_RANGE_DESC          | Augmente la portée des technologies de carburant et des réservoirs de carburant supplémentaires.
+SETTINGS_AI_HOSTILITY_DESC        | Augmente ou diminue le niveau général d'hostilité entre les espèces extraterrestres.
 
 // Tech UI labels
 TECH_RESEARCH                     | Technologies Recherchées
 TECH_RESEARCH_POINTS              | Points de recherche
-TECH_EMPIRE_SPENDING              | Budget de Recherce
+TECH_EMPIRE_SPENDING              | Budget de Recherche
 TECH_EMPIRE_SPENDING_DESC         | Somme des dépenses technologiques de toutes les colonies.
 TECH_EMPIRE_TECH_RESERVE_OPT      | Transférer les dépenses excédentaires de la colonie de la réserve du Trésor vers la recherche
 TECH_EMPIRE_BALANCED_DESC         | Des dépenses équilibrées augmentent les points de recherche globaux.
@@ -1515,19 +1515,19 @@ TECH_HELP_1I                      | Égalisez les allocations de dépenses pour 
 // =========================================================================
 
 // Ship Design UI
-SHIP_DESIGN_TITLE                 | Conception de vaisseaux
-SHIP_DESIGN_SLOTS                 | Emplacements de conception
+SHIP_DESIGN_TITLE                 | Conception des vaisseaux
+SHIP_DESIGN_SLOTS                 | Emplacement du modèle
 SHIP_DESIGN_AVAILABLE             | Disponible
-SHIP_DESIGN_AVAILABLE_DESC        | Sélectionnez cet emplacement de conception pour commencer à travailler sur une nouvelle conception de vaisseau.
-SHIP_DESIGN_AVAILABLE_DESC2       | Déployez cette conception pour permettre la construction sur les colonies.
+SHIP_DESIGN_AVAILABLE_DESC        | Sélectionnez cet emplacement pour concevoir une nouvelle maquette de vaisseau.
+SHIP_DESIGN_AVAILABLE_DESC2       | Déployez ce modèle pour permettre au colonies de construire ce type de vaisseau.
 SHIP_DESIGN_PROTOTYPE             | Prototype
-SHIP_DESIGN_PROTOTYPE_DESC        | Aucun créneau de conception de vaisseau disponible pour le déploiement
-SHIP_DESIGN_SLOT_DESC             | Total en flotte :
+SHIP_DESIGN_PROTOTYPE_DESC        | Aucun emplacement de prototypage n'est disponible pour le déploiement.
+SHIP_DESIGN_SLOT_DESC             | Dans notre flotte :
 SHIP_DESIGN_SLOT_DESC2            | En orbite :
 SHIP_DESIGN_SLOT_DESC3            | En transit :
 SHIP_DESIGN_SLOT_DESC4            | En construction :
-SHIP_DESIGN_NEW                   | Nouvelle conception de vaisseau
-SHIP_DESIGN_PROTOTYPE_TITLE       | Prototype de conception de vaisseau
+SHIP_DESIGN_NEW                   | Nouvelle maquette de vaisseau
+SHIP_DESIGN_PROTOTYPE_TITLE       | Prototype de vaisseau
 SHIP_DESIGN_SIZE_SMALL            | Petite
 SHIP_DESIGN_SIZE_MEDIUM           | Moyenne
 SHIP_DESIGN_SIZE_LARGE            | Grande
@@ -1549,19 +1549,19 @@ SHIP_DESIGN_TOTAL_SPACE_LABEL     | Espace total
 SHIP_DESIGN_AVAIL_SPACE_LABEL     | Espace disponible
 SHIP_DESIGN_COLORS                | Teinte
 SHIP_DESIGN_COMBAT_STATS_TITLE    | Statistiques de combat
-SHIP_DESIGN_HIT_POINTS_LABEL      | Points de vie
+SHIP_DESIGN_HIT_POINTS_LABEL      | Points de structure
 SHIP_DESIGN_MISSILE_DEF_LABEL     | Défense antimissile
-SHIP_DESIGN_BEAM_DEF_LABEL        | Défense de Faisceau
+SHIP_DESIGN_BEAM_DEF_LABEL        | Défense de faisceau
 SHIP_DESIGN_ATTACK_LEVEL_LABEL    | Niveau d'attaque
 SHIP_DESIGN_COMBAT_SPEED_LABEL    | Vitesse de combat
-SHIP_DESIGN_COMBAT_SPEED_VALUE    | %1 carré(s)
+SHIP_DESIGN_COMBAT_SPEED_VALUE    | %1 case(s)
 SHIP_DESIGN_ENGINES_TITLE         | Propulsion
 SHIP_DESIGN_ENGINES_DESC          | Propulse votre vaisseau et ses composants.
 SHIP_DESIGN_ENGINE_TYPE           | Type
 SHIP_DESIGN_ENGINE_SPEED          | Vitesse
-SHIP_DESIGN_ENGINE_COST1          | Coût, par unité
-SHIP_DESIGN_ENGINE_SIZE1          | Taille, par unité
-SHIP_DESIGN_ENGINE_POWER1         | Puiss., par unité
+SHIP_DESIGN_ENGINE_COST1          | Coût par unité
+SHIP_DESIGN_ENGINE_SIZE1          | Taille par unité
+SHIP_DESIGN_ENGINE_POWER1         | Puissance par unité
 SHIP_DESIGN_POWER_REQUIREMENTS    | Requis de puissance
 SHIP_DESIGN_ENGINES_REQUIRED      | Unités requises
 SHIP_DESIGN_ENGINES_SIZE          | Taille totale
@@ -1569,16 +1569,16 @@ SHIP_DESIGN_ENGINES_COST          | Coût total
 SHIP_DESIGN_COPY_BUTTON           | Copier
 SHIP_DESIGN_CLEAR_BUTTON          | Effacer
 SHIP_DESIGN_RENAME_BUTTON         | Renommer
-SHIP_DESIGN_DEPLOY_BUTTON         | Déployer la conception
-SHIP_DESIGN_DEPLOY_DESC           | Une fois déployé, vous pouvez construire ce vaisseau sur vos colonies et ce design ne peut être que renommé ou mis au rebut.
+SHIP_DESIGN_DEPLOY_BUTTON         | Déployer
+SHIP_DESIGN_DEPLOY_DESC           | Une fois déployé, vos colonies pourront construire ce vaisseau. Ce vaisseau ne pourra qu'être renommé ou mis au rebut.
 SHIP_DESIGN_SCRAP_BUTTON          | Annuler la conception
-SHIP_DESIGN_SCRAP_CONFIRM1        | Êtes-vous sûr de vouloir supprimer le dessein %1 ?
+SHIP_DESIGN_SCRAP_CONFIRM1        | Êtes-vous sûr de vouloir supprimer le modèle %1 ?
 SHIP_DESIGN_SCRAP_CONFIRM2        | Cela détruira %1 vaisseaux de votre flotte et placera %2 BC dans la réserve planétaire.
-SHIP_DESIGN_SCRAP_CONFIRM3        | Vous n'avez actuellement aucun vaisseau construit de ce type.
+SHIP_DESIGN_SCRAP_CONFIRM3        | Vous n'avez actuellement aucun vaisseau construit de ce modèle.
 SHIP_DESIGN_SCRAP_CANCEL          | Annuler
 SHIP_DESIGN_SCRAP_OK              | Supprimer
-SHIP_DESIGN_RENAME_CONFIRM        | Renommez la conception de votre vaisseau
-SHIP_DESIGN_DEPLOY_CONFIRM        | Nommez votre nouveau design de vaisseau
+SHIP_DESIGN_RENAME_CONFIRM        | Renommez votre vaisseau
+SHIP_DESIGN_DEPLOY_CONFIRM        | Nommez votre nouveau vaisseau
 SHIP_DESIGN_DEPLOY_CANCEL         | Annuler
 SHIP_DESIGN_DEPLOY_OK             | Déployer
 SHIP_DESIGN_RENAME_OK             | Renommer
@@ -1622,7 +1622,7 @@ SHIP_DESIGN_ENGINE_SPACE          | Espace
 SHIP_DESIGN_ENGINE_COST           | Coût
 SHIP_DESIGN_ENGINE_SIZE           | Taille
 SHIP_DESIGN_ENGINE_POWER          | Puiss.
-SHIP_DESIGN_MANEUVER_TITLE        | Manœuvre
+SHIP_DESIGN_MANEUVER_TITLE        | Maniabilité
 SHIP_DESIGN_MANEUVER_TYPE         | Type
 SHIP_DESIGN_MANEUVER_SPEED        | Vitesse
 SHIP_DESIGN_MANEUVER_COST         | Coût
@@ -1747,10 +1747,10 @@ SHIP_COMBAT_ACTION_WPN_COUNT      | %1 x%2
 SHIP_COMBAT_ACTION_WPN_COUNT_SHOTS| %1 x%2 x%3
 SHIP_COMBAT_INFO_LABEL            | Informations sur le vaisseau
 SHIP_COMBAT_SCAN_LABEL            | Informations sur l'analyse du vaisseau
-SHIP_COMBAT_SCAN_HIT_POINTS       | Points de vie
-SHIP_COMBAT_SCAN_MISSILE_DEF      | Défense antimissile
-SHIP_COMBAT_SCAN_BEAM_DEF         | Défense de faisceau
-SHIP_COMBAT_SCAN_SHIELD_CLASS     | Classe de bouclier
+SHIP_COMBAT_SCAN_HIT_POINTS       | Structure
+SHIP_COMBAT_SCAN_MISSILE_DEF      | Déf. antimissile
+SHIP_COMBAT_SCAN_BEAM_DEF         | Déf. de faisceau
+SHIP_COMBAT_SCAN_SHIELD_CLASS     | Classe du bouclier
 SHIP_COMBAT_SCAN_ATTACK_LEVEL     | Niveau d'attaque
 SHIP_COMBAT_SCAN_SPEED            | Vitesse
 SHIP_COMBAT_SCAN_WEAPONS          | Armes

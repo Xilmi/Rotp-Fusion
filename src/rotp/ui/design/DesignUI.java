@@ -34,6 +34,7 @@ import rotp.ui.main.SystemPanel;
 import rotp.util.AnimationManager;
 import rotp.util.Base;
 import rotp.util.ImageColorizer;
+import rotp.util.LanguageManager;
 import rotp.util.Palette;
 
 public class DesignUI extends BasePanel {
@@ -1550,8 +1551,17 @@ public class DesignUI extends BasePanel {
             g.setColor(darkBrown);
             g.fillRect(x, y0+s10, w, h-s85);
 
+            int xofs1 = 0;
+            int xofs2 = 0;
+            String language = LanguageManager.current().selectedLanguageName();
+            if (language.equals("Français")) {
+            	xofs1 = w*5/100;
+            	xofs2 = s10;
+            }
+            
             int x1 = x+s10;
-            int x2 = x+(w*55/100);
+            int x2 = x+(w*55/100)-xofs1;
+
             int rowH=(h-s85-s25)/7;
 
             g.setFont(narrowFont(17));
@@ -1773,7 +1783,7 @@ public class DesignUI extends BasePanel {
 
             g.setFont(narrowFont(22));
             String title = text("SHIP_DESIGN_COMBAT_STATS_TITLE");
-            this.scaledFont(g, title, (w*45/100)-s10, 22, 16);
+            this.scaledFont(g, title, (w*45/100)-s10+xofs1, 22, 16);
             drawShadowedString(g, title,3,x2+s5,y1,SystemPanel.textShadowC, SystemPanel.whiteText);
 
             if (UserPreferences.texturesInterface()) 
@@ -1905,7 +1915,7 @@ public class DesignUI extends BasePanel {
             }
 
             // draw right side values
-            int x3 = x+w-s20;
+            int x3 = x+w-s20+xofs2;
             g.setColor(darkestBrown);
             g.setFont(narrowFont(17));
             str = ""+(int)des.hits();
@@ -2358,12 +2368,28 @@ public class DesignUI extends BasePanel {
             // set up column starts and widths
             int w = w0-s20;
             int y1 = y+s20;
-            int x1 = x+s10; int w1 = w*30/100;
-            int x2 = x1+w1; int w2 = w*20/100;
-            int x3 = x2+w2; int w3 = w*24/100;
-            int x4 = x3+w3; int w4 = w*8/100;
-            int x5 = x4+w4; int w5 = w*10/100;
-            int x6 = x5+w5; int w6 = w*8/100;
+            int pct1 = 30;
+            int pct2 = 20;
+            int pct3 = 24;
+            int pct4 = 8;
+            int pct5 = 10;
+            int pct6 = 8;
+            String language = LanguageManager.current().selectedLanguageName();
+            if (language.equals("Français")) {
+                pct1 = 22;
+                pct2 = 28;
+                pct3 = 24;
+                pct4 = 8;
+                pct5 = 10;
+                pct6 = 8;
+            }
+
+            int x1 = x+s10; int w1 = w*pct1/100;
+            int x2 = x1+w1; int w2 = w*pct2/100;
+            int x3 = x2+w2; int w3 = w*pct3/100;
+            int x4 = x3+w3; int w4 = w*pct4/100;
+            int x5 = x4+w4; int w5 = w*pct5/100;
+            int x6 = x5+w5; int w6 = w*pct6/100;
 
             // draw headers
             g.setColor(Color.black);
@@ -2637,12 +2663,28 @@ public class DesignUI extends BasePanel {
             // set up column starts and widths
             int w = w0-s20;
             int y1 = y+s20;
-            int x1 = x+s10; int w1 = w*30/100;
-            int x2 = x1+w1; int w2 = w*20/100;
-            int x3 = x2+w2; int w3 = w*24/100;
-            int x4 = x3+w3; int w4 = w*8/100;
-            int x5 = x4+w4; int w5 = w*10/100;
-            int x6 = x5+w5; int w6 = w*8/100;
+            int pct1 = 30;
+            int pct2 = 20;
+            int pct3 = 24;
+            int pct4 = 8;
+            int pct5 = 10;
+            int pct6 = 8;
+            String language = LanguageManager.current().selectedLanguageName();
+            if (language.equals("Français")) {
+                pct1 = 24;
+                pct2 = 26;
+                pct3 = 24;
+                pct4 = 8;
+                pct5 = 10;
+                pct6 = 8;
+            }
+
+            int x1 = x+s10; int w1 = w*pct1/100;
+            int x2 = x1+w1; int w2 = w*pct2/100;
+            int x3 = x2+w2; int w3 = w*pct3/100;
+            int x4 = x3+w3; int w4 = w*pct4/100;
+            int x5 = x4+w4; int w5 = w*pct5/100;
+            int x6 = x5+w5; int w6 = w*pct6/100;
 
             // draw headers
             g.setColor(Color.black);

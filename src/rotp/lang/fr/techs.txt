@@ -8,37 +8,37 @@ ARMOR_DETAIL     | Le blindage déterminera les points de structure de vos vaiss
 
 ARMOR_0_NAME     | Blindage en Titane
 ARMOR_0_ITEM     | Titane
-ARMOR_0_BRIEF    | Point de structure %1
+ARMOR_0_BRIEF    | %1 pts de structure
 ARMOR_0_DETAIL   | Technologie de blindage de base. Aucun bonus au blindage de vos vaisseaux ni aux attaques au sol.
 
 ARMOR_1_NAME     | Blindage en Duralloy
 ARMOR_1_ITEM     | Duralloy
-ARMOR_1_BRIEF    | Point de structure %1
+ARMOR_1_BRIEF    | %1 pts de structure
 ARMOR_1_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 50 %. Les armures de combat de vos troupes ajoutent un bonus de 5 points à toutes les attaques au sol.
 
 ARMOR_2_NAME     | Blindage en Zortrium
 ARMOR_2_ITEM     | Zortrium
-ARMOR_2_BRIEF    | Point de structure %1
+ARMOR_2_BRIEF    | %1 pts de structure
 ARMOR_2_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 100 %. Les armures de combat de vos troupes ajoutent un bonus de 10 points à toutes les attaques au sol.
 
 ARMOR_3_NAME     | Blindage en Andrium
 ARMOR_3_ITEM     | Andrium
-ARMOR_3_BRIEF    | Point de structure %1
+ARMOR_3_BRIEF    | %1 pts de structure
 ARMOR_3_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 150 %. Les armures de combat de vos troupes ajoutent un bonus de 15 points à toutes les attaques au sol.
 
 ARMOR_4_NAME     | Blindage en Tritanium
 ARMOR_4_ITEM     | Tritanium
-ARMOR_4_BRIEF    | Point de structure %1
+ARMOR_4_BRIEF    | %1 pts de structure
 ARMOR_4_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 200%.  Les armures de combat de vos troupes ajoutent un bonus de 20 points à toutes les attaques au sol.
 
 ARMOR_5_NAME     | Blindage en Adamantium
 ARMOR_5_ITEM     | Adamantium
-ARMOR_5_BRIEF    | Point de structure %1
+ARMOR_5_BRIEF    | %1 pts de structure
 ARMOR_5_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 250%. Les armures de combat de vos troupes ajoutent un bonus de 25 points à toutes les attaques au sol.
 
 ARMOR_6_NAME     | Blindage en Neutronium
 ARMOR_6_ITEM     | Neutronium
-ARMOR_6_BRIEF    | Point de structure %1
+ARMOR_6_BRIEF    | %1 pts de structure
 ARMOR_6_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 300%. Les armures de combat de vos troupes ajoutent un bonus de 30 points à toutes les attaques au sol.
 
 
@@ -240,38 +240,38 @@ COMBATTRANSPORT_0_DETAIL   | Les transports équipés de ces dispositifs ont 50�
 //
 // Control Environment tech
 //
-CONTROLENV_0_NAME    | Environnement Normal Contrôlé
-CONTROLENV_0_ITEM    | Base de colonie standard
+CONTROLENV_0_NAME    | Maîtrise des environnements normaux
+CONTROLENV_0_ITEM    | Module de colonisation standard
 CONTROLENV_0_BRIEF   | Autorise les atterrissages sur des planètes standard
 CONTROLENV_0_DETAIL  | Permits the colonization of standard planets.
 
-CONTROLENV_1_NAME    | Environnement stérile contrôlé
-CONTROLENV_1_ITEM    | Base de colonie stérile
+CONTROLENV_1_NAME    | Maîtrise des environnements stériles
+CONTROLENV_1_ITEM    | Module de colonisation «stérile»
 CONTROLENV_1_BRIEF   | Autorise les atterrissages sur des planètes stériles
 CONTROLENV_1_DETAIL  | Permet la colonisation des planètes stériles et moins hostiles.
 
-CONTROLENV_2_NAME    | Environnement toundra contrôlé
-CONTROLENV_2_ITEM    | Base de colonie toundra
-CONTROLENV_2_BRIEF   | Autorise les atterrissages sur des planètes tundra
+CONTROLENV_2_NAME    | Maîtrise des environnements toundra
+CONTROLENV_2_ITEM    | Module de colonisation «toundra»
+CONTROLENV_2_BRIEF   | Autorise les atterrissages sur des planètes toundra
 CONTROLENV_2_DETAIL  | Permet la colonisation des planètes toundra et moins hostiles.
 
-CONTROLENV_3_NAME    | Environnement mort contrôlé
-CONTROLENV_3_ITEM    | Base de la colonie morte
+CONTROLENV_3_NAME    | Maîtrise des environnements morts
+CONTROLENV_3_ITEM    | Module de colonisation «mort»
 CONTROLENV_3_BRIEF   | Autorise les atterrissages sur des planètes mortes
 CONTROLENV_3_DETAIL  | Permet la colonisation des planètes mortes et moins hostiles.
 
-CONTROLENV_4_NAME    | Environnement inferno contrôlé
-CONTROLENV_4_ITEM    | Base de la colonie inferno
+CONTROLENV_4_NAME    | Maîtrise des environnements infernaux
+CONTROLENV_4_ITEM    | Module de colonisation «infernal»
 CONTROLENV_4_BRIEF   | Autorise les atterrissages sur des planètes inferno
 CONTROLENV_4_DETAIL  | Permet la colonisation des planètes inferno et moins hostiles.
 
-CONTROLENV_5_NAME    | Environnement toxique contrôlé
-CONTROLENV_5_ITEM    | Base de colonie toxique
+CONTROLENV_5_NAME    | Maîtrise des environnements toxiques
+CONTROLENV_5_ITEM    | Module de colonisation «toxique»
 CONTROLENV_5_BRIEF   | Autorise les atterrissages sur des planètes toxiques
 CONTROLENV_5_DETAIL  | Permet la colonisation des planètes toxiques et moins hostiles.
 
-CONTROLENV_6_NAME    | Environnement irradié contrôlé
-CONTROLENV_6_ITEM    | base de colonie irradiée
+CONTROLENV_6_NAME    | Maîtrise des environnements irradiés
+CONTROLENV_6_ITEM    | Module de colonisation «irradié»
 CONTROLENV_6_BRIEF   | Permet les atterrissages sur des planètes irradiées
 CONTROLENV_6_DETAIL  | Permet la colonisation des planètes irradiées et moins hostiles.
 
@@ -285,62 +285,62 @@ DEFLECTOR_DETAIL      | Selon leur niveau, les boucliers déflecteurs peuvent ab
 // this is the entry on Ship Design for selecting no deflector shield
 DEFLECTOR_0_NAME      | Peinture de camouflage
 DEFLECTOR_0_ITEM      | Classe 0
-DEFLECTOR_0_BRIEF     | N'absorbe rien
+DEFLECTOR_0_BRIEF     | N'absorbent rien
 DEFLECTOR_0_DETAIL    | Ne protège pas vos vaisseaux.
 
 DEFLECTOR_1_NAME      | Boucliers déflecteurs de Classe I
 DEFLECTOR_1_ITEM      | Classe I
-DEFLECTOR_1_BRIEF     | Absorbe 1 coup
+DEFLECTOR_1_BRIEF     | Absorbent 1 point
 DEFLECTOR_1_DETAIL    | Absorbe 1 point de dégâts de toutes les attaques.
 
 DEFLECTOR_2_NAME      | Boucliers déflecteurs de Classe II
 DEFLECTOR_2_ITEM      | Classe II
-DEFLECTOR_2_BRIEF     | Absorbe 2 coup
+DEFLECTOR_2_BRIEF     | Absorbent 2 points
 DEFLECTOR_2_DETAIL    | Absorbe 2 points de dégâts de toutes les attaques.
 
 DEFLECTOR_3_NAME      | Boucliers déflecteurs de Classe III
 DEFLECTOR_3_ITEM      | Classe III
-DEFLECTOR_3_BRIEF     | Absorbe 3 coup
+DEFLECTOR_3_BRIEF     | Absorbent 3 points
 DEFLECTOR_3_DETAIL    | Absorbe 3 points de dégâts de toutes les attaques.
 
 DEFLECTOR_4_NAME      | Boucliers déflecteurs de Classe IV
 DEFLECTOR_4_ITEM      | Classe IV
-DEFLECTOR_4_BRIEF     | Absorbe 4 coup
+DEFLECTOR_4_BRIEF     | Absorbent 4 points
 DEFLECTOR_4_DETAIL    | Absorbe 4 points de dégâts de toutes les attaques.
 
 DEFLECTOR_5_NAME      | Boucliers déflecteurs de Classe V
 DEFLECTOR_5_ITEM      | Classe V
-DEFLECTOR_5_BRIEF     | Absorbe 5 coup
+DEFLECTOR_5_BRIEF     | Absorbent 5 points
 DEFLECTOR_5_DETAIL    | Absorbe 5 points de dégâts de toutes les attaques.
 
 DEFLECTOR_6_NAME      | Boucliers déflecteurs de Classe VI
 DEFLECTOR_6_ITEM      | Classe VI
-DEFLECTOR_6_BRIEF     | Absorbe 6 coup
+DEFLECTOR_6_BRIEF     | Absorbent 6 points
 DEFLECTOR_6_DETAIL    | Absorbe 6 points de dégâts de toutes les attaques.
 
 DEFLECTOR_7_NAME      | Boucliers déflecteurs de Classe VII
 DEFLECTOR_7_ITEM      | Classe VII
-DEFLECTOR_7_BRIEF     | Absorbe 7 coup
+DEFLECTOR_7_BRIEF     | Absorbent 7 points
 DEFLECTOR_7_DETAIL    | Absorbe 7 points de dégâts de toutes les attaques.
 
 DEFLECTOR_8_NAME      | Boucliers déflecteurs de Classe IX
 DEFLECTOR_8_ITEM      | Classe IX
-DEFLECTOR_8_BRIEF     | Absorbe 9 coup
+DEFLECTOR_8_BRIEF     | Absorbent 9 points
 DEFLECTOR_8_DETAIL    | Absorbe 9 points de dégâts de toutes les attaques.
 
 DEFLECTOR_9_NAME      | Boucliers déflecteurs de Classe XI
 DEFLECTOR_9_ITEM      | Classe XI
-DEFLECTOR_9_BRIEF     | Absorbe 11 coup
+DEFLECTOR_9_BRIEF     | Absorbent 11 points
 DEFLECTOR_9_DETAIL    | Absorbe 11 points de dégâts de toutes les attaques.
 
 DEFLECTOR_10_NAME     | Boucliers déflecteurs de Classe XIII
 DEFLECTOR_10_ITEM     | Classe XIII
-DEFLECTOR_10_BRIEF    | Absorbe 13 coup
+DEFLECTOR_10_BRIEF    | Absorbent 13 points
 DEFLECTOR_10_DETAIL   | Absorbe 13 points de dégâts de toutes les attaques.
 
 DEFLECTOR_11_NAME     | Boucliers déflecteurs de Classe XV
 DEFLECTOR_11_ITEM     | Classe XV
-DEFLECTOR_11_BRIEF    | Absorbe 15 coup
+DEFLECTOR_11_BRIEF    | Absorbent 15 points
 DEFLECTOR_11_DETAIL   | Absorbe 15 points de dégâts de toutes les attaques.
 
 
@@ -359,58 +359,58 @@ ECMJAMMER_DETAIL      | Les contre mesures Electroniques contribuent directement
 
 // this is the entry on Ship Design for selecting no ECM Jammer
 ECMJAMMER_0_NAME      | Aucune contre mesures
-ECMJAMMER_0_ITEM      | Silence
-ECMJAMMER_0_BRIEF     | Défense antimissile 0
+ECMJAMMER_0_ITEM      | Aucune
+ECMJAMMER_0_BRIEF     | Déf. antimissile 0
 ECMJAMMER_0_DETAIL    | Que la force soit avec vous.
 
 ECMJAMMER_1_NAME      | Brouilleurs(ECM) Mark I
 ECMJAMMER_1_ITEM      | Brouilleur I
-ECMJAMMER_1_BRIEF     | Déf. missiles 1
+ECMJAMMER_1_BRIEF     | Déf. antimissile 1
 ECMJAMMER_1_DETAIL    | Ajoute 1 niveau à la défense contre les attaques de missiles ennemis.
 
 ECMJAMMER_2_NAME      | Brouilleurs(ECM) Mark II
 ECMJAMMER_2_ITEM      | Brouilleur II
-ECMJAMMER_2_BRIEF     | Déf. missiles 2
+ECMJAMMER_2_BRIEF     | Déf. antimissile 2
 ECMJAMMER_2_DETAIL    | Ajoute 2 niveau à la défense contre les attaques de missiles ennemis.
 
 ECMJAMMER_3_NAME      | Brouilleurs(ECM) Mark III
 ECMJAMMER_3_ITEM      | Brouilleur III
-ECMJAMMER_3_BRIEF     | Déf. missiles 3
+ECMJAMMER_3_BRIEF     | Déf. antimissile 3
 ECMJAMMER_3_DETAIL    | Ajoute 3 niveau à la défense contre les attaques de missiles ennemis.
 
 ECMJAMMER_4_NAME      | Brouilleurs(ECM) Mark IV
 ECMJAMMER_4_ITEM      | Brouilleur IV
-ECMJAMMER_4_BRIEF     | Déf. missiles 4
+ECMJAMMER_4_BRIEF     | Déf. antimissile 4
 ECMJAMMER_4_DETAIL    | Ajoute 4 niveau à la défense contre les attaques de missiles ennemis.
 
 ECMJAMMER_5_NAME      | Brouilleurs(ECM) Mark V
 ECMJAMMER_5_ITEM      | Brouilleur V
-ECMJAMMER_5_BRIEF     | Déf. missiles 5
+ECMJAMMER_5_BRIEF     | Déf. antimissile 5
 ECMJAMMER_5_DETAIL    | Ajoute 5 niveau à la défense contre les attaques de missiles ennemis.
 
 ECMJAMMER_6_NAME      | Brouilleurs(ECM) Mark VI
 ECMJAMMER_6_ITEM      | Brouilleur VI
-ECMJAMMER_6_BRIEF     | Déf. missiles 6
+ECMJAMMER_6_BRIEF     | Déf. antimissile 6
 ECMJAMMER_6_DETAIL    | Ajoute 6 niveau à la défense contre les attaques de missiles ennemis.
 
 ECMJAMMER_7_NAME      | Brouilleurs(ECM) Mark VII
 ECMJAMMER_7_ITEM      | Brouilleur VII
-ECMJAMMER_7_BRIEF     | Déf. missiles 7
+ECMJAMMER_7_BRIEF     | Déf. antimissile 7
 ECMJAMMER_7_DETAIL    | Ajoute 7 niveau à la défense contre les attaques de missiles ennemis.
 
 ECMJAMMER_8_NAME      | Brouilleurs(ECM) Mark VIII
 ECMJAMMER_8_ITEM      | Brouilleur VIII
-ECMJAMMER_8_BRIEF     | Déf. missiles 8
+ECMJAMMER_8_BRIEF     | Déf. antimissile 8
 ECMJAMMER_8_DETAIL    | Ajoute 8 niveau à la défense contre les attaques de missiles ennemis.
 
 ECMJAMMER_9_NAME      | Brouilleurs(ECM) Mark IX
 ECMJAMMER_9_ITEM      | Brouilleur IX
-ECMJAMMER_9_BRIEF     | Déf. missiles 9
+ECMJAMMER_9_BRIEF     | Déf. antimissile 9
 ECMJAMMER_9_DETAIL    | Ajoute 9 niveau à la défense contre les attaques de missiles ennemis.
 
 ECMJAMMER_10_NAME     | Brouilleurs(ECM) Mark X
 ECMJAMMER_10_ITEM     | Brouilleur X
-ECMJAMMER_10_BRIEF    | Déf. missiles 10
+ECMJAMMER_10_BRIEF    | Déf. antimissile 10
 ECMJAMMER_10_DETAIL   | Ajoute 10 niveau à la défense contre les attaques de missiles ennemis.
 
 
@@ -973,9 +973,9 @@ REPULSOR_0_DETAIL  | Repousse les navires ennemis à une case du navire défense
 //
 // Reserve Fuel tech
 //
-RSRVFUEL_0_NAME    | Réservoirs de carburant de réserve
+RSRVFUEL_0_NAME    | Réservoirs de carburant supplémentaires
 RSRVFUEL_0_BRIEF   | Étend la portée du vaisseau de %1 années-lumière
-RSRVFUEL_0_DETAIL  | Les réservoirs de carburant de réserve augmentent la portée d'un navire.
+RSRVFUEL_0_DETAIL  | Les réservoirs de carburant supplémentaires augmentent la portée du vaisseau.
 
 
 //

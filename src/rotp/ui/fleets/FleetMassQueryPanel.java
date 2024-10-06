@@ -98,6 +98,7 @@ public class FleetMassQueryPanel extends BasePanel {
             int boxL = boxMgn;
             int boxW = (w- (3*boxMgn))/2;
             int boxH = s20;
+            scaledFont(g, fr1, boxW-s10, 15, 7);
             int sw1 = g.getFontMetrics().stringWidth(fr1);
             int fr1X = boxL+((boxW-sw1)/2);
             selectAllBox.setBounds(boxL, y0-boxH, boxW, boxH);
@@ -117,6 +118,7 @@ public class FleetMassQueryPanel extends BasePanel {
 
             // draw Deselect All box
             int boxL2 = w-boxMgn-boxW;
+            scaledFont(g, fr2, boxW-s10, 15, 7);
             int sw2 = g.getFontMetrics().stringWidth(fr2);
             int fr2X = boxL2+((boxW-sw2)/2);
             deselectAllBox.setBounds(boxL2, y0-boxH, boxW, boxH);

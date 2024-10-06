@@ -92,20 +92,28 @@ public final class ConfirmCreateUI extends BasePanel implements KeyListener, Mou
         int boxW = dlgW-bdr-bdr;
         int shipW = boxW-mgn-mgn;
         int w0 = shipW-mgn-mgn;
+
+        String titleString = renamingOnly ? text("SHIP_DESIGN_RENAME_CONFIRM") : text("SHIP_DESIGN_DEPLOY_CONFIRM");
+
+        g.setFont(narrowFont(20));
+        List<String> titleLines = wrappedLines(g, titleString, w0);
+        int lineSep = s20;
+        int numSep = titleLines.size()-1;
+        int extraH = lineSep * numSep;
         
         // draw border
-        int dlgH = scaled(DIALOG_H);
+        int dlgH = scaled(DIALOG_H)+extraH;
         List<String> amtLines = null; 
         // extra descriptive text for deploy, so window may need to be taller
         if (!renamingOnly) {
             g.setFont(narrowFont(16));
             String descString = text("SHIP_DESIGN_DEPLOY_DESC");
             amtLines = wrappedLines(g, descString,  w0);
-            dlgH = scaled(DIALOG_H)+(amtLines.size()*s16);        
+            dlgH = scaled(DIALOG_H)+(amtLines.size()*s16)+extraH;        
         }
         
         int dlgX = (w-dlgW)/2;
-        int dlgY = (h-dlgH)/2;
+        int dlgY = (h-dlgH+extraH)/2;
         g.setColor(borderC);
         g.fillRect(dlgX,dlgY,dlgW,dlgH);
 
@@ -122,11 +130,14 @@ public final class ConfirmCreateUI extends BasePanel implements KeyListener, Mou
 
         int y0 = boxY+mgn+shipH;
         int x0 = boxX+mgn+mgn;
-        String titleString = renamingOnly ? text("SHIP_DESIGN_RENAME_CONFIRM") : text("SHIP_DESIGN_DEPLOY_CONFIRM");
-
+//        String titleString = renamingOnly ? text("SHIP_DESIGN_RENAME_CONFIRM") : text("SHIP_DESIGN_DEPLOY_CONFIRM");
+//
         g.setFont(narrowFont(20));
-        List<String> titleLines = wrappedLines(g, titleString, w0);
+//        List<String> titleLines = wrappedLines(g, titleString, w0);
 
+        
+        
+        
         int y1 = y0 + s25;
         g.setColor(SystemPanel.whiteText);
         for (String line: titleLines) {

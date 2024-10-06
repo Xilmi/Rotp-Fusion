@@ -502,7 +502,8 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         boolean hovering = (actionBox != null) && (actionBox == hoverBox);
         Color c0 = (actionBox == null) ? SystemPanel.grayText : hovering ? SystemPanel.yellowText : SystemPanel.whiteText;
 
-        g.setFont(narrowFont(18));
+        //g.setFont(narrowFont(18));
+        scaledFont(g, label, w1-s10, 18, 7);
         int sw = g.getFontMetrics().stringWidth(label);
         int x0 = x1+((w1-sw)/2);
         drawShadowedString(g, label, 3, x0, y+buttonH-s7, SystemPanel.textShadowC, c0);
