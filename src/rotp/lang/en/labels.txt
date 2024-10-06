@@ -1,6 +1,6 @@
 // This is the label text file for Remnants of the Precursors
 // comment lines should start with '/'  they are ignored
-//  
+//
 // the format for each line is   key | label
 //    where 'key' is the code used by the game to retrieve the label
 //    You cannot create new keys! The game will not use them
@@ -9,7 +9,7 @@
 // To cross reference labels put the key between →←
 // Used these char because they are not available in MyriadPro fonts anyways!
 // example:
-// CROSS_REFERENCED_EXAMPLE | blablabla either →BOOLEAN_YES← or →BOOLEAN_NO← 
+// CROSS_REFERENCED_EXAMPLE | blablabla either →BOOLEAN_YES← or →BOOLEAN_NO←
 // ALT 8594 →
 // ALT 8582 ←
 
@@ -75,7 +75,7 @@ SPY_WARNING                       | [You have been warned.]
 
 ARID_DESC_BIOLOGICAL              | Arid Planets are dry, terrestrial worlds with limited vegetation and no more than 40% water surface area.
 BARREN_DESC_BIOLOGICAL            | Barren planets are dry, dusty worlds with thin atmospheres and no surface water.
-DEAD_DESC_BIOLOGICAL              | Dead planets are cold, long-dead terrestrial worlds with thin atmospheres and no surface water. 
+DEAD_DESC_BIOLOGICAL              | Dead planets are cold, long-dead terrestrial worlds with thin atmospheres and no surface water.
 DESERT_DESC_BIOLOGICAL            | Desert Planets are dry, terrestrial worlds with very sparse vegetation and no more than 20% water surface area.
 INFERNO_DESC_BIOLOGICAL           | Inferno planets are extremely hot worlds with thick atmospheres and violent storms.
 JUNGLE_DESC_BIOLOGICAL            | Jungle planets are lush, tropical worlds blanketed with thick forests, jungles and swamps.
@@ -159,7 +159,7 @@ LEADER_TECHNOLOGIST               | Technologist
 // Leader Personality & Objective displayed together
 LEADER_PERSONALITY_FORMAT         | %1 %2
 
-// Technology names and descriptions 
+// Technology names and descriptions
 TECH_COMPUTERS                    | Computers
 TECH_CONSTRUCTION                 | Construction
 TECH_FORCE_FIELDS                 | Force Fields
@@ -177,9 +177,9 @@ TECH_LEVEL_OF_TECH                | Level %1
 
 TECH_COMPUTERS_LEVEL_DESC         | During espionage, the difference between your Computer level and your target's Computer level is applied as a modifier.
 TECH_CONSTRUCTION_LEVEL_DESC      | Every Construction level increases the available space for all hull types by 2%.
-TECH_FORCE_FIELDS_LEVEL_DESC      | 
+TECH_FORCE_FIELDS_LEVEL_DESC      |
 TECH_PLANETOLOGY_LEVEL_DESC       | At the start of the game, each colonist produces .5BC. As your Planetology technology level rises, so does their productivity. The increase is incremental, but the overall rate doubles at level 17, triples at level 33, and quadruples at level 50.
-TECH_PROPULSION_LEVEL_DESC        | 
+TECH_PROPULSION_LEVEL_DESC        |
 TECH_WEAPONS_LEVEL_DESC           | The amount of damage your spies inflict during Sabotage actions increases with your Weapons technology level. This will destroy more factories and missile bases.
 
 // Random Events
@@ -326,8 +326,8 @@ INC_FINANCIAL_AID_DESC            | The [your_empire] has freely given [amt] BC 
 INC_TECHNOLOGY_AID_TITLE          | Technological Aid
 INC_TECHNOLOGY_AID_DESC           | The [your_empire] has freely shared the secrets of [tech] with the [my_empire].
 INC_TECHNOLOGY_AID_DESC_MULT      | The [your_empire] has freely shared with the [my_empire] the secrets of the following technologies: [techs]
-INC_TECHNOLOGY_TECH_LIST_COMMA    | , 
-INC_ENEMY_AID_TITLE               | Aid to Enemy 
+INC_TECHNOLOGY_TECH_LIST_COMMA    | ,
+INC_ENEMY_AID_TITLE               | Aid to Enemy
 INC_ENEMY_AID_MONEY_DESC          | The [your_empire] has given [amt] BC in aid to the [enemy_empire], an enemy of the [my_empire].
 INC_ENEMY_AID_TECH_DESC           | The [your_empire] has given the secrets of [tech] to the [enemy_empire], an enemy of the [my_empire].
 INC_PARANOIA_TITLE                | Paranoia
@@ -378,7 +378,7 @@ INC_DESTROYED_FACTORIES_DESC      | Saboteurs working for the [spy_empire] destr
 INC_INCITED_REBELLION_TITLE       | Incited Rebellion
 INC_INCITED_REBELLION_DESC        | Seditionists working for the [spy_empire] incited [amt] million rebels in the [system] system.
 INC_SIGNED_ALLIANCE_TITLE         | Alliance
-INC_SIGNED_ALLIANCE_DESC          | The [my_empire] and the [your_empire] joined together in an Alliance, promising to defend one another from external threats. 
+INC_SIGNED_ALLIANCE_DESC          | The [my_empire] and the [your_empire] joined together in an Alliance, promising to defend one another from external threats.
 INC_JOINT_WAR_TITLE               | Declared War
 INC_LEFT_ALLIANCE_TITLE           | Broke Alliance
 INC_SIGNED_PACT_TITLE             | Non-Aggression Pact
@@ -406,7 +406,7 @@ CLICK_CONTINUE                    | Click or Escape to Continue...
 CLICK_EXIT                        | Click or Escape to Exit...
 BUTTON_EXIT                       | Exit
 
-// GAME/SETUP UI 
+// GAME/SETUP UI
 GAME_TITLE_LINE_1                 | REMNANTS
 GAME_TITLE_LINE_2                 | of the
 GAME_TITLE_LINE_3                 | PRECURSORS
@@ -428,11 +428,11 @@ GAME_MENU_REPLAY_LAST_TURN        | Replay Last Turn
 
 // Game Settings UI
 GAME_SETTINGS_TITLE               | Game Settings
-GAME_SETTINGS_DESCRIPTION         | Click to toggle each game setting. 
+GAME_SETTINGS_DESCRIPTION         | Click to toggle each game setting.
 GAME_SETTINGS_EXIT                | Exit
 GAME_SETTINGS_DEFAULT             | Set to Default
 GAME_SETTINGS_DISPLAY_MODE        | Display Mode: %1
-GAME_SETTINGS_WINDOWED_HELP       | Windowed is fixed ratio (resizable on the Main panel). You will be able to move it freely, event to another screen (is its size is big enough).
+GAME_SETTINGS_WINDOWED_HELP       | Windowed is fixed ratio (resizable on the Main panel). You will be able to move it freely, even to another screen (if its size is big enough).
 GAME_SETTINGS_WINDOWED            | Windowed
 GAME_SETTINGS_BORDERLESS_HELP     | Borderless is a maximized window, less restrictive than the Full screen mode.
 GAME_SETTINGS_BORDERLESS          | Borderless
@@ -452,7 +452,7 @@ GAME_SETTINGS_GRAPHICS_DESC       | Adjusts the graphics quality of game. Medium
 GAME_SETTINGS_TEXTURES            | Textures: %1
 GAME_SETTINGS_TEXTURES_NO_HELP    | No Textures for very old graphic cards.
 GAME_SETTINGS_TEXTURES_NO         | No
-GAME_SETTINGS_TEXTURES_INTERFACE_HELP | To Have nicer Interfaces, most graphic cards should support it. 
+GAME_SETTINGS_TEXTURES_INTERFACE_HELP | To Have nicer Interfaces, most graphic cards should support it.
 GAME_SETTINGS_TEXTURES_INTERFACE  | User Interface
 GAME_SETTINGS_TEXTURES_MAP_HELP   | To Have nicer Galaxy Maps, old graphic cards and big galaxies could lead to slow refresh.
 GAME_SETTINGS_TEXTURES_MAP        | Galaxy Map
@@ -605,7 +605,7 @@ SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER_DESC | I'm a fan of these pop-ups, keep the
 MOO1_HK        | MoO1
 CLASSIC_HK     | RotP-Classic
 FUSION_HK      | RotP-Fusion
-CURRENT_DEF_HK | <br>(Selected default values are from 
+CURRENT_DEF_HK | <br>(Selected default values are from
 SETTINGS_MOD_DEFAULT_SETTINGS       | Default Settings: %1
 SETTINGS_MOD_DEFAULT_IS_FUSION      | Fusion
 SETTINGS_MOD_DEFAULT_IS_FUSION_NOW  | →CURRENT_DEF_HK← →MOO1_HK←).
@@ -716,7 +716,7 @@ MAIN_HELP_3H                      | Next Year - advances the game to the next ye
 MAIN_HELP_3I                      | Current Turn - displays the game's current turn or your empire's current year. Click to toggle.
 MAIN_HELP_3J                      | Map controls - click to cycle through various display settings for the galaxy map.
 // Smart-Max Help
-MAIN_HELP_4A                      | Min/Max assistants will always keeps ECO clean.<br>- Smooth Min/Max: is equivalent to clicking Up/Down arrow till reaching the target. Liberated BC will be smartly redistributed. <br>- Smart Min/Max: (Shift-Click) will clear the unlocked spending, set the Min/Max allocation, clean ECO, then smartly redistribute the remaining BC.<br>- Refresh: (Ctrl-Click) will clear the unlocked spending then smartly redistribute the available BC.   
+MAIN_HELP_4A                      | Min/Max assistants will always keeps ECO clean.<br>- Smooth Min/Max: is equivalent to clicking Up/Down arrow till reaching the target. Liberated BC will be smartly redistributed. <br>- Smart Min/Max: (Shift-Click) will clear the unlocked spending, set the Min/Max allocation, clean ECO, then smartly redistribute the remaining BC.<br>- Refresh: (Ctrl-Click) will clear the unlocked spending then smartly redistribute the available BC.
 MAIN_HELP_4B                      | Shipyard:<br> Left-Click: Min Allocation Needed up to build limit.<br> Right-Click: Max Allocation Available.
 MAIN_HELP_4C                      | Defenses:<br> Left-Click: Min Allocation Needed up to get bases limit.<br> Right-Click: Max Allocation Available. <br>Mid-Click: Min Allocation Needed for the shield.
 MAIN_HELP_4D                      | Industry:<br> Left-Click: Min Allocation Needed to finalize factories.<br> Right-Click: Max Allocation Available. <br>Mid-Click: Min Allocation Needed to follow population growth.
@@ -763,7 +763,7 @@ TURN_BOMBARDMENT                  | Planetary Bombardment
 TURN_TRANSPORTS                   | Transports
 TURN_COLONIES                     | Colonization
 TURN_SPIES                        | Spy Activities
-TURN_REBELLION                    | Rebellions 
+TURN_REBELLION                    | Rebellions
 TURN_COUNCIL                      | Council Status
 TURN_RESEARCH                     | Research
 TURN_ASSESS                       | Completing Internal
@@ -802,8 +802,8 @@ MAIN_FLEET_DISPLAY                | Fleet Display
 MAIN_FLEET_CHOOSE_DEST            | Choose destination and number of ships to send.
 MAIN_FLEET_OUT_OF_RANGE_DESC      | Destination is out of fleet range, %1 light-years from closest colony.
 MAIN_FLEET_INVALID_RETREAT        | Retreating fleets can only be sent to friendly colonies
-MAIN_FLEET_ETA_UNNAMED            | ETA to destination: %1 Years 
-MAIN_FLEET_ETA_NAMED              | ETA to %1: %2 Years 
+MAIN_FLEET_ETA_UNNAMED            | ETA to destination: %1 Years
+MAIN_FLEET_ETA_NAMED              | ETA to %1: %2 Years
 MAIN_FLEET_SET_RALLY              | Rallying
 MAIN_FLEET_AUTO_RETREAT           | Automatically retreat upon arrival
 MAIN_FLEET_ETA_UNKNOWN            | Scanners cannot determine destination
@@ -915,17 +915,17 @@ MAIN_COLONY_NO_SHIELD             | Nebula
 // Advisor text
 MAIN_ADVISOR_TITLE                | %1 Advisor
 MAIN_ADVISOR_BUTTON_OK            | Dismiss
-MAIN_ADVISOR_SCOUT                | My lord, our scouts stand at the ready to discover a new world for our colony ship to bring into the fold so that we may add the territory to our illustrious sovereignty. 
+MAIN_ADVISOR_SCOUT                | My lord, our scouts stand at the ready to discover a new world for our colony ship to bring into the fold so that we may add the territory to our illustrious sovereignty.
 MAIN_ADVISOR_TRANSPORT            | A new world bears our banner, but it grows at an inhibited rate. Sending a transport to the colony will enable it to grow at a much swifter rate.
 MAIN_ADVISOR_DIPLOMACY            | Another spacefaring civilization has revealed itself! Our diplomats will observe all appropriate decorum in your name, and take careful note on if they respond in kind.
 MAIN_ADVISOR_SHIP_ENGINE          | Our greatest minds have crafted a new, more efficient engine design. They wish for you to review existing ship schematics and decide how best to apply the new engines to our fleets.
 MAIN_ADVISOR_RALLY_POINTS         | Our era of peace cannot continue while an undignified species wages war on our glorious empire. The people of the Empire stand united under you, and will assemble their fleets to wherever you direct them.
 MAIN_ADVISOR_MISSILE_BASES        | With the sovereign fleets engaged in battle, our outer worlds lie vulnerable to enemy aggression. We can begin our construction of defensive missile bases on any world you desire.
 MAIN_ADVISOR_SHIP_WEAPON          | Our researchers have had a breakthrough in regards to ship weaponry. The fleets can be outfitted with these devastating pieces of technology at any time.
-MAIN_ADVISOR_COUNCIL              | The Galactic Council will soon convene, and our presence will no doubt be highly desired. Our diplomats will take this chance to ensure all that is decided upon will further the good of the sovereignty. 
+MAIN_ADVISOR_COUNCIL              | The Galactic Council will soon convene, and our presence will no doubt be highly desired. Our diplomats will take this chance to ensure all that is decided upon will further the good of the sovereignty.
 MAIN_ADVISOR_REBELLION            | Ah, a rebellion on %1. How quaint. I suppose it was bound to happen at some point my lord, but we should still bring it to heel before discontent spreads to our other colonies.
-MAIN_ADVISOR_RESIST_COUNCIL       | My lord! We stand with you! There shall be no peace in this galaxy until you take your rightful place upon its highest throne! 
-MAIN_ADVISOR_COUNCIL_RESISTED     | Pathetic. See how the fools struggle against the inevitable? Give us the order to crush these rebels, and we shall see it done! 
+MAIN_ADVISOR_RESIST_COUNCIL       | My lord! We stand with you! There shall be no peace in this galaxy until you take your rightful place upon its highest throne!
+MAIN_ADVISOR_COUNCIL_RESISTED     | Pathetic. See how the fools struggle against the inevitable? Give us the order to crush these rebels, and we shall see it done!
 // System Scouted Notification
 MAIN_SCOUT_TITLE                  | Scientists Catalogue A New Star System
 MAIN_SCOUT_SUBTITLE_1             | Our ships have scouted this system
@@ -961,7 +961,7 @@ MAIN_ALLOCATE_SHIPS_COMPLETE      | • %1 has completed building the requested 
 MAIN_ALLOCATE_SHIELD_COMPLETE     | • %1 has completed building %2.
 MAIN_ALLOCATE_BASES_COMPLETE      | • %1 has completed building %2 missile bases.
 MAIN_ALLOCATE_BASES_UPGRADED      | • %1 has completed upgrading its missile bases.
-MAIN_ALLOCATE_MAX_FACTORIES       | • %1 has reached its industry maximum of %2 buildable factories. 
+MAIN_ALLOCATE_MAX_FACTORIES       | • %1 has reached its industry maximum of %2 buildable factories.
 MAIN_ALLOCATE_MAX_POPULATION      | • %1 has reached its population maximum of %2 colonists.
 MAIN_ALLOCATE_TERRAFORM_COMPLETE  | • %1 has completed environmental terraforming.
 MAIN_ALLOCATE_ATMOSPHERE_COMPLETE | • %1 has been terraformed to a normal environment with the standard growth rate.
@@ -1006,7 +1006,7 @@ MAIN_AUTOSAVE_FAILED_DESC_3       | If you see this message frequently, please g
 MAIN_AUTOSAVE_FAILED_OK           | OK
 
 // Alerts
-MAIN_ALERT_TITLE                  | Alert 
+MAIN_ALERT_TITLE                  | Alert
 MAIN_ALERT_TITLE_COUNT            | Alert - %1 of %2
 MAIN_ALERT_SPY_REPORT             | Our intelligence bureau has provided a new report on recent spying activity.
 MAIN_ALERT_TECH_STOLEN            | Internal security has uncovered espionage activities by [alien_race] spies.
@@ -1058,7 +1058,7 @@ PLANETS_TRANSFER_ACCEPT           | Transfer
 PLANETS_COLONY_TRANSFER_TITLE     | Transfer Funds
 PLANETS_COLONY_TRANSFER_DETAIL    | Transfer funds from the empire's treasury to increase this colony's production.
 PLANETS_COLONY_TRANSFER_BUTTON    | Transfer Funds From Treasury
-PLANETS_LIST_NUM                  | 
+PLANETS_LIST_NUM                  |
 PLANETS_LIST_NAME                 | Name
 PLANETS_LIST_POPULATION           | Population
 PLANETS_LIST_POP                  | Pop.
@@ -1181,9 +1181,9 @@ FLEETS_START_RALLIES_DESC         | Select a system you control to send newly bu
 FLEETS_RALLY_TO_STARGATES         | Start rallying nearest stargates
 FLEETS_START_RALLIES              | Start Rallies
 FLEETS_SEND_TRANSPORTS            | Send Transports
-FLEETS_ADJUST_SPENDING_SELECT     | Select systems to set Ship spending 
+FLEETS_ADJUST_SPENDING_SELECT     | Select systems to set Ship spending
 FLEETS_ADJUST_SPENDING_DESC       | Select the desired Ship spending levels for the %1 selected systems
-FLEETS_ADJUST_SPENDING_DESC2      | Other spending categories will be automatically adjusted. 
+FLEETS_ADJUST_SPENDING_DESC2      | Other spending categories will be automatically adjusted.
 FLEETS_ADJUST_SPENDING_DESC3      | Ecology will retain minimum spending required to clean pollution.
 FLEETS_ADJUST_SPENDING            | Adjust Ship Spending
 FLEETS_SPENDING_0                 | No Ship Spending
@@ -1217,7 +1217,7 @@ FLEETS_CANCEL                     | Cancel
 FLEETS_HELP_ALL                   | OVERVIEW - This screen allows the management of fleets, transports and shipbuilding on a large scale. In general, you will select a group of fleets or systems to manage, filter them to a smaller set, and then choose the action to perform on them.
 FLEETS_HELP_1A                    | Select Systems - there are three ways to select systems: 1) by clicking systems on the map, 2) by right-click dragging over the map, and 3) by using the "Select All" and "Deselect All" buttons.
 FLEETS_HELP_1B                    | Filter By - select check boxes to narrow down the list of selected systems. Filters can also be clicked to cycle through related options.
-FLEETS_HELP_1C                    | And building - filter systems according to the ship design being constructed. 
+FLEETS_HELP_1C                    | And building - filter systems according to the ship design being constructed.
 FLEETS_HELP_1D                    | Ship Design - change the ship design to build in the selected systems. A blank image means that the selected systems are currently building different designs. Caution! There is no confirmation prompt for this action.
 FLEETS_HELP_1E                    | Send Transports - send transports from the selected systems to a single target system.
 FLEETS_HELP_1F                    | Set Rally Points - set the rally points for the selected systems to a single target system.
@@ -1311,7 +1311,7 @@ NOTICE_SPIES_CLOSE                | Close
 // Ground Combat UI
 INVASION_BATTLE                   | In the Year %1, the [attacker_race] and [defender_race] battle for %2.
 INVASION_BATTLE_REBELS            | In the Year %1, the [attacker_race] and rebels battle for %2.
-INVASION_TROOPS_LANDED            | %1 [attacker_race] troops landed. 
+INVASION_TROOPS_LANDED            | %1 [attacker_race] troops landed.
 INVASION_SOME_TROOPS_LANDED       | %1 of %2 [attacker_race] troops landed.
 INVASION_WIN                      | [attacker_race] transports capture %2.
 INVASION_LOSS                     | [defender_race] troops successfully defend %2.
@@ -1325,7 +1325,7 @@ GNN_TITLE                         | The [player_race] Galactic News Network repo
 GNN_EMPIRE_RANKING                | %1. [empire_race]
 GNN_EXTINCTION_KNOWN_VICTIM       | The [victim_race]
 GNN_EXTINCTION_KNOWN_KILLER       | the [killer_race]
-GNN_EXTINCTION_UNKNOWN_VICTIM     | An unknown civilization 
+GNN_EXTINCTION_UNKNOWN_VICTIM     | An unknown civilization
 GNN_EXTINCTION_UNKNOWN_KILLER     | an unknown empire
 GNN_EXTINCTION                    | %1 has been completely destroyed by %2.
 GNN_EXTINCTION_NO_KILLER          | %1 has been completely destroyed.
@@ -1338,9 +1338,9 @@ GNN_FLEETS_RANKING                | Current ranking of space fleet strengths:
 GNN_CENSUS_RANKING                | The census ranking of empire populations:
 GNN_PRODUCTION_RANKING            | Current rankings of empire production:
 GNN_TECHNOLOGY_RANKING            | Current leaders of advanced technology:
-GNN_PLAYER_REBELLION              | %1 has rebelled and refuses to contribute to the [rebelling_empire]. At least %2 million rebels control the colony. Troops must be sent to quell the uprising. 
+GNN_PLAYER_REBELLION              | %1 has rebelled and refuses to contribute to the [rebelling_empire]. At least %2 million rebels control the colony. Troops must be sent to quell the uprising.
 GNN_ALIEN_REBELLION               | %1 has rebelled and refused to contribute to the [rebelling_empire]. At least %2 million rebels control the colony.
-GNN_PLAYER_REBELLION_SPREAD       | Rebellion continues to spread throughout the [rebelling_empire]. At least %2 million rebels now control the colony at %1. 
+GNN_PLAYER_REBELLION_SPREAD       | Rebellion continues to spread throughout the [rebelling_empire]. At least %2 million rebels now control the colony at %1.
 GNN_OVERTHROW                     | A new leader emerged from within the [alien_empire]. Rumors indicate the new emperor is a %1. Relations have become neutral and trade has been disrupted.
 GNN_END_COUNCIL                   | With only two Empires remaining, attempts to unify the galaxy with a Galactic Council have ended. Many leaders now debate what sort of final solution can bring lasting peace.
 GNN_FORM_COUNCIL                  | In the pursuit of peace, representatives for each empire will soon convene to elect a Galactic Emperor to be chosen from the leaders of the two most populous empires.
@@ -1488,15 +1488,15 @@ SETUP_OPPONENT_AI_PERSONALITY_HELP | AI-Family: Xilmi (No relationship bar, no a
 SETUP_OPPONENT_AI_PERSONALITY     | AI: Character
 SETUP_OPPONENT_AI_RANDOM_HELP     | Randomly selected from: Base, Modnar, Rookie, Roleplay, Hybrid, Fusion, Fun, or Character.
 SETUP_OPPONENT_AI_RANDOM          | AI: Random
-SETUP_OPPONENT_AI_RANDOM_BASIC_HELP | Randomly selected from: Base, Modnar, or Rookie. 
+SETUP_OPPONENT_AI_RANDOM_BASIC_HELP | Randomly selected from: Base, Modnar, or Rookie.
 SETUP_OPPONENT_AI_RANDOM_BASIC    | AI: R.Basic
 SETUP_OPPONENT_AI_RANDOM_ADV_HELP | Randomly selected from: Roleplay, Hybrid, Fusion, Fun, or Character.
 SETUP_OPPONENT_AI_RANDOM_ADV      | AI: R.Xilmi
 SETUP_OPPONENT_AI_RANDOM_NOBAR_HELP | Randomly selected from: Fusion, Fun, or Character.<br>These AI are opportunistic and don't display the relationship bar.
 SETUP_OPPONENT_AI_RANDOM_NOBAR    | AI: R.no relat
-SETUP_OPPONENT_AI_SELECT_HELP     | To be able to select a different AI for each opponent. <br> A new selection field will be added at the bottom of each opponent icon. 
+SETUP_OPPONENT_AI_SELECT_HELP     | To be able to select a different AI for each opponent. <br> A new selection field will be added at the bottom of each opponent icon.
 SETUP_OPPONENT_AI_SELECT          | AI: Selectable
-SETUP_OPPONENT_AI_PLAYER_HELP     | The control is under your hands. 
+SETUP_OPPONENT_AI_PLAYER_HELP     | The control is under your hands.
 SETUP_OPPONENT_AI_PLAYER          | AI: Off
 SETUP_OPPONENT_CR                 | Abilities:
 SETUP_AUTOPLAY_OFF_HELP           | The player takes command of the empire.
@@ -1623,7 +1623,7 @@ SETUP_AI_HOSTILITY_HIGHEST_HELP   | Hostility is increased by 30.
 SETUP_GAME_NUMBER_OPPONENTS       | Opponents
 // modnar: change PLANET_QUALITY settings, add larger and richer
 // BR: from change to add!
-SETUP_PLANET_QUALITY_NORMAL_HELP  | Base Quality setting.<br>Based on random factor between 0% and 100%. 
+SETUP_PLANET_QUALITY_NORMAL_HELP  | Base Quality setting.<br>Based on random factor between 0% and 100%.
 SETUP_PLANET_QUALITY_LARGER_HELP  | Gives +50% Planet Size,<br>but also +20% Poor, and -20% Rich.
 SETUP_PLANET_QUALITY_RICHER_HELP  | Gives +50% Rich, -20% Poor, and +50% Artifact,<br> but also -20% Planet Size.
 SETUP_PLANET_QUALITY_HELL_HELP    | Awful Quality.<br>Based on random factor between 0% and 50%.
@@ -1800,7 +1800,7 @@ SETUP_GLOBAL_ABILITY              | Global Abilities
 SETUP_SPECIFIC_OPPONENT_DESC      | You can select your opponents individually, or let the game choose for you...<br>A maximum of 5 opponents of the same species is allowed.
 SETUP_SPECIFIC_OPPONENT           | Specific Opponent
 SETUP_NOT_AVAILABLE               | N/A
-SETUP_ALIENS_NUMBER_DESC          | Select the number of opponents (between 0 an 49), which will be limited by your map size. Then select the setting for base AI (the default), the Modnar AI (a stronger AI that retains a sense of personality sometimes at the expense of efficiency), the Xilmi AI (a ruthless AI that prioritizes efficiency), or individual settings for each opponent. 
+SETUP_ALIENS_NUMBER_DESC          | Select the number of opponents (between 0 an 49), which will be limited by your map size. Then select the setting for base AI (the default), the Modnar AI (a stronger AI that retains a sense of personality sometimes at the expense of efficiency), the Xilmi AI (a ruthless AI that prioritizes efficiency), or individual settings for each opponent.
 SETUP_ALIENS_NUMBER               | Opponents Number: %1
 
 SETUP_PLAYER_SPECIES_DESC         | Select your Species
@@ -1834,7 +1834,7 @@ CUSTOM_RACE_GUI_LOAD              | Reload
 CUSTOM_RACE_GUI_SAVE_DESC         | Save the settings to the file specified in "File Name" Field, existing files will be overwritten.
 CUSTOM_RACE_GUI_SAVE              | Save to File
 CUSTOM_RACE_RACE_LIST             | File List
-CUSTOM_RACE_RACE_LIST_DESC        | Custom species abilities file list. Click to load. (At the top is the one when opening the GUI.) 
+CUSTOM_RACE_RACE_LIST_DESC        | Custom species abilities file list. Click to load. (At the top is the one when opening the GUI.)
 CUSTOM_RACE_RANDOM_MAX            | Setting Max in %
 CUSTOM_RACE_RANDOM_MIN            | Setting Min in %
 CUSTOM_RACE_RANDOM_EDGES          | Smooth Edges
@@ -2068,7 +2068,7 @@ SETTINGS_COLONIZING               | Colonizing: %1
 SETTINGS_FUEL_RANGE               | Fuel Range: %1
 SETTINGS_AI_HOSTILITY             | Hostility: %1
 SETTINGS_RANDOM_EVENTS_HELP       | There are twenty random events in Remnants of the Precursors <i> (sixteen vanilla and four from the Modnar)</i>, some favorable and some unfavorable. As of turn 50 <i> (this value can be changed) </i>, the percentage chance that a random event will occur somewhere in the galaxy begins to climb. After a random event occurs, the percentage chance resets to zero and begins climbing again next turn.<br>Random events are a catch-up mechanic that favors weaker factions. Once the event is determined, it will target a player based on how well they're doing in the game. Favorable events are more likely to happen to players with lower overall production, whereas unfavorable events are more likely to happen to players with higher overall production. Some event can only happen once.
-SETTINGS_RANDOM_EVENTS_DESC       | Space Monsters are random events and considerable mid-game threats.<br> Turn off space monsters or all random events. 
+SETTINGS_RANDOM_EVENTS_DESC       | Space Monsters are random events and considerable mid-game threats.<br> Turn off space monsters or all random events.
 SETTINGS_WARP_SPEED_DESC          | Increase the speed of more advanced warp technologies. This can be desirable on very large maps.
 SETTINGS_GALAXY_AGE_DESC          | Compared to normal galaxies, young galaxies have more white and blue stars while old galaxies have more red and neutron stars.
 SETTINGS_TECH_TRADING_HELP        | Tech trading is the other common way to learn a technology. The AI factions will trade technologies with each other, so you might as well get in on the action.<br>You can turn off all technology trades or restrict these trades to allies, this limitation can also be extended to aid.
@@ -2167,7 +2167,7 @@ HEADERS_RANDOM_EVENTS_MONSTERS_DESC  | Parameters dedicated to monsters random e
 HEADERS_RANDOM_EVENTS_MONSTERS       | ~~~ MONSTERS PARAMETERS ~~~%1
 HEADERS_RANDOM_EVENTS_DELAYS_DESC    | Parameters related to random events activation and delays.
 HEADERS_RANDOM_EVENTS_DELAYS         | ~~~ DELAYS PARAMETERS ~~~%1
-HEADERS_RANDOM_EVENTS_RETURNS_DESC   | Parameters related to random events reiteration. 
+HEADERS_RANDOM_EVENTS_RETURNS_DESC   | Parameters related to random events reiteration.
 HEADERS_RANDOM_EVENTS_RETURNS        | ~~~ RECURRING PARAMETERS ~~~%1
 
 
@@ -2196,7 +2196,7 @@ HEADERS_UNCLASSIFIED_DESC            | The right position has still to be found!
 HEADERS_UNCLASSIFIED                 | ~~~ UNCLASSIFIED MOD ~~~%1
 
 
-HEADERS_SPACER_DESC                  |  
+HEADERS_SPACER_DESC                  |
 HEADERS_SPACER                       |  %1
 
 // BR: add UI panel for Systems options
@@ -2462,29 +2462,29 @@ SETTINGS_MOD_DYN_STARS_PER_EMPIRE_DESC   | Number of Stars per Empire for dynami
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE        | Stars per empire: %1
 
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_HELP | When starting a new game based on a previously played game, the opponents can either keep their previous AI or change to the new GUI global one.
-SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | Should "Restart" Change the Aliens AI? 
-SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI      | Restart Changes Aliens AI: %1 
+SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | Should "Restart" Change the Aliens AI?
+SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI      | Restart Changes Aliens AI: %1
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_YES  | Opponent empires will use the current GUI Opponent AI (Play against) on Restart.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_NO   | Opponent empires will use keep their former AI on Restart.
 
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_HELP | When starting a new game based on a previously played game, you can either keep the previous auto-play option, or use the current GUI one. This option is not very useful anymore, since it's now easy to change this setting while playing the game (Ctrl-o)
-SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_DESC | Should "Restart" Change the Player AI? 
-SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI      | Restart Changes AutoPlay: %1 
+SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_DESC | Should "Restart" Change the Player AI?
+SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI      | Restart Changes AutoPlay: %1
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_YES  | Use the current GUI Auto-play setting on Restart.
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_NO   | Keep the former Auto-play setting on Restart.
 
 SETTINGS_MOD_RESTART_APPLY_SETTINGS_HELP | When starting a new game based on a previously played game, you can either keep its original settings or use the current GUI settings.
-SETTINGS_MOD_RESTART_APPLY_SETTINGS_DESC | Should "Restart" Apply the current GUI Settings? (Except for Galaxy and Species settings) 
-SETTINGS_MOD_RESTART_APPLY_SETTINGS      | Restart with new Settings: %1 
+SETTINGS_MOD_RESTART_APPLY_SETTINGS_DESC | Should "Restart" Apply the current GUI Settings? (Except for Galaxy and Species settings)
+SETTINGS_MOD_RESTART_APPLY_SETTINGS      | Restart with new Settings: %1
 SETTINGS_MOD_RESTART_APPLY_SETTINGS_YES  | Restart will use the current settings.
 SETTINGS_MOD_RESTART_APPLY_SETTINGS_NO   | Restart with keep the original game settings
 
 SETTINGS_MOD_RESTART_PLAYER_RACE_HELP    | When starting a new game based on a previously played game, you can keep the original species, use the current GUI one, or if you choose to swap the home world with another empire, you can also steel the species of the swapped opponent.
 SETTINGS_MOD_RESTART_PLAYER_RACE_DESC    | Player Species after "Restart" Last? or Swap? GUI & Last Alien? GUI & Swap Alien?
-SETTINGS_MOD_RESTART_PLAYER_RACE         | Restart Player Species: %1 
+SETTINGS_MOD_RESTART_PLAYER_RACE         | Restart Player Species: %1
 SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_LAST  | GUI & Last
 SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP  | GUI & Swap
-SETTINGS_MOD_RESTART_PLAYER_RACE_LAST      | Last 
+SETTINGS_MOD_RESTART_PLAYER_RACE_LAST      | Last
 SETTINGS_MOD_RESTART_PLAYER_RACE_SWAP      | Swap
 SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_LAST_DESC | The player will take the current GUI species and, in case of home worlds swap, the swapped opponent will keep their last species.
 SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP_DESC | The player will take the current GUI species and, in case of home worlds swap, the swapped opponent will take the former player species.
@@ -2537,7 +2537,7 @@ SETTINGS_MOD_RACES_RAND_MAX_HELP         | Setting used when opponents 'Random' 
 SETTINGS_MOD_RACES_RAND_MAX_DESC         | Alien species randomization: Upper limit for the settings relative randomization window.
 SETTINGS_MOD_RACES_RAND_MAX              | Settings % Max: %1
 
-SETTINGS_MOD_RACES_RAND_EDGES_HELP       | Setting used when opponents 'Random' abilities are selected: "Smooth Edges" defines the limits randomization distribution shape; when "Smooth" the values still have a small probability of going past the limits, the distribution will be bell shaped. 
+SETTINGS_MOD_RACES_RAND_EDGES_HELP       | Setting used when opponents 'Random' abilities are selected: "Smooth Edges" defines the limits randomization distribution shape; when "Smooth" the values still have a small probability of going past the limits, the distribution will be bell shaped.
 SETTINGS_MOD_RACES_RAND_EDGES_DESC       | Alien species randomization: Smooth edges allow 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)
 SETTINGS_MOD_RACES_RAND_EDGES            | Smooth Edges: %1
 SETTINGS_MOD_RACES_RAND_EDGES_YES        | Two thirds of the values will be within the limits, one sixth may be above the limit while another sixth may be below the limit.
@@ -2567,9 +2567,9 @@ SETTINGS_MOD_RACES_ARE_RANDOM_TARGET_DESC  | If the final result is not within t
 // BR: Global Settings UI panel for MOD game options
 SETTINGS_MOD_TITLE_GLOBAL                | In-Game Convenience Options
 
-SETTINGS_MOD_ZOOM_FINAL_REPLAY_DESC      | Final History replay start showing the full galaxy (Instead of being zoomed on player empire) 
+SETTINGS_MOD_ZOOM_FINAL_REPLAY_DESC      | Final History replay start showing the full galaxy (Instead of being zoomed on player empire)
 SETTINGS_MOD_ZOOM_FINAL_REPLAY           | Final Replay show all: %1
-SETTINGS_MOD_ZOOM_EMPIRE_REPLAY_DESC     | Empire History replay start showing the full galaxy (Instead of being zoomed on selected empire) 
+SETTINGS_MOD_ZOOM_EMPIRE_REPLAY_DESC     | Empire History replay start showing the full galaxy (Instead of being zoomed on selected empire)
 SETTINGS_MOD_ZOOM_EMPIRE_REPLAY          | Empire Replay show all: %1
 SETTINGS_MOD_REPLAY_TURN_PACE_HELP       | To slow down the pace of History replay. Approximate time between two turns in multiples of 100 ms.<br>Can be set in the history panel using the key "1" to "0" as multiple of 100 ms. ("0" = 10)<br> Use "SHIFT" to get multiple of 1 second.
 SETTINGS_MOD_REPLAY_TURN_PACE_DESC       | To slow down the pace of History replay. Approximate time between two turns in multiples of 100 ms.
@@ -2644,7 +2644,7 @@ SETTINGS_MOD_SHOW_ALL_AI                 | Show all AIs: %1
 SETTINGS_MOD_SHOW_ALL_AI_YES             | All AIs are available for the player and the opponents.
 SETTINGS_MOD_SHOW_ALL_AI_NO              | AI:Base and AI:Modnar won't be available.
 
-SETTINGS_MOD_FLIGHT_PATH_DISPLAY_DESC    | Which path should be shown? (Related to the icon button on the left of the Galaxy) 
+SETTINGS_MOD_FLIGHT_PATH_DISPLAY_DESC    | Which path should be shown? (Related to the icon button on the left of the Galaxy)
 SETTINGS_MOD_FLIGHT_PATH_DISPLAY         | Show flight path: %1
 SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS        | All
 SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS  | Important
@@ -2653,7 +2653,7 @@ SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS_HELP       | Show all flight paths
 SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS_HELP | Show only important flight paths. (Non threatening alien fleets are hidden)
 SETTINGS_MOD_SHOW_NO_FLIGHTPATHS_HELP        | Hide all flight paths
 
-SETTINGS_MOD_SYSTEM_NAME_DISPLAY_DESC    | What should be displayed under the star systems? (Related to the icon button on the left of the Galaxy) 
+SETTINGS_MOD_SYSTEM_NAME_DISPLAY_DESC    | What should be displayed under the star systems? (Related to the icon button on the left of the Galaxy)
 SETTINGS_MOD_SYSTEM_NAME_DISPLAY         | Star Display: %1
 SETTINGS_MOD_HIDE_SYSTEM_NAME            | Nothing
 SETTINGS_MOD_SHOW_SYSTEM_NAME 	         | Name
@@ -2662,7 +2662,7 @@ SETTINGS_MOD_HIDE_SYSTEM_NAME_HELP       | Hide everything.
 SETTINGS_MOD_SHOW_SYSTEM_NAME_HELP       | Show only the star system name
 SETTINGS_MOD_SHOW_SYSTEM_DATA_HELP       | Show the star system name above the colony data.
 
-SETTINGS_MOD_SHIP_DISPLAY_DESC           | Which moving ships should be displayed? (Related to the icon button on the left of the Galaxy) 
+SETTINGS_MOD_SHIP_DISPLAY_DESC           | Which moving ships should be displayed? (Related to the icon button on the left of the Galaxy)
 SETTINGS_MOD_SHIP_DISPLAY                | Ship Display: %1
 SETTINGS_MOD_SHOW_ALL_SHIPS              | All
 SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS 	     | Transport
@@ -2671,7 +2671,7 @@ SETTINGS_MOD_SHOW_ALL_SHIPS_HELP         | Show me every moving things.
 SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS_HELP  | Show transports and armed ships, hide unarmed ships.
 SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS_HELP  | Show only War ships, hide transports and unarmed ships.
 
-SETTINGS_MOD_SHOW_SHIP_RANGES_DESC       | Which ships should be displayed near the star systems? (Related to the icon button on the left of the Galaxy) 
+SETTINGS_MOD_SHOW_SHIP_RANGES_DESC       | Which ships should be displayed near the star systems? (Related to the icon button on the left of the Galaxy)
 SETTINGS_MOD_SHOW_SHIP_RANGES            | Stars & Ranges: %1
 SETTINGS_MOD_SHOW_RANGES                 | Ranges only
 SETTINGS_MOD_SHOW_STARS_AND_RANGES 	     | Ranges & stars
@@ -2740,7 +2740,7 @@ SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE       | Cold War*
 SETTINGS_MOD_RESEARCH_MOO1_DESC          | YES: Reload won't change research probability<br>NO: You may try to reload to get a new dice roll! (RotP default)
 SETTINGS_MOD_RESEARCH_MOO1               | Research Moo1: %1
 
-SETTINGS_MOD_PERSISTENT_RNG_DESC         | To make the base Random Generator Persistent. Reload won't change game randomness. 
+SETTINGS_MOD_PERSISTENT_RNG_DESC         | To make the base Random Generator Persistent. Reload won't change game randomness.
 SETTINGS_MOD_PERSISTENT_RNG              | persistent RNG: %1
 
 SETTINGS_MOD_ALLOW_SPECIES_DETAILS_DESC  | In the Empire Diplomacy panel, allows or prohibits calling for more detailed species information.
@@ -2757,7 +2757,7 @@ SETTINGS_MOD_DARK_GALAXY_NO_SPY_DESC     | Remember Empire Names and locations, 
 SETTINGS_MOD_DARK_GALAXY_NO_SPY          | Named
 SETTINGS_MOD_DARK_GALAXY_SHRINK_DESC     | Shows only Systems in range, No Spying, no memory of scouted systems.
 SETTINGS_MOD_DARK_GALAXY_SHRINK          | Dark
-SETTINGS_MOD_DARK_GALAXY_DESC            | Yes: only Star systems in scout range or in scanner range are shown. 
+SETTINGS_MOD_DARK_GALAXY_DESC            | Yes: only Star systems in scout range or in scanner range are shown.
 SETTINGS_MOD_DARK_GALAXY                 | Dark Galaxy: %1
 SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Why? by u/dweller_below</b><br><br><b>Boring:</b> We are all within a particularly thick nebula. The supernova that created this nebula spewed heavy elements EVERYWHERE. The particular combination of elements in our local nebula block EVERYTHING.<br><br><b>Funnier/self referential:</b> We are participants in a vast simulation created by the Orion's/Antaran. Naturally, the simulation must be good enough that we all express sentience/sapience. In iteration 42 of the simulation our Gods/Masters decided to isolate each race until we encounter each other.<br><br><b>Funniest:</b> The Antarans won the Orion/Antaran war and moved to exterminate Exterminate EXTERMINATE EVERYTHING. Our races have all been recently rescued/moved/copied to our ARC (Antaran Rescue Craft) by the Orions. The ARC just looks like a small galaxy. The ARC is actually a pocket dimension/rescue craft. This explains several things:<br>- The high density of intelligent races within our ARC.<br>- Why the Orions don't dominate our ARC. The Orions oppose the Antarans. One of the differences is the Orions don't dominate/exterminate other races. This matches prior backstory.<br>- Why we haven't sensed radio emissions from each other. Or light from each other's star. Game starts at the creation of the ARC. We USED to see other stars. But, now everything is different. Now, when we start to move outside of our small ight bubbles, we find that everything is different. In fact, every star is radiating a decaying light bubble full of obsolete/meaningless information. But, as you get close to the adjacent stars, you can see what is really there NOW.<br>- Why physical law changes. The Orions manufactured different physical law within each game/ARC for "reasons". Every time we play, the ARC can be slightly different. The Orions had enough resources to copy our races multiple times and create multiple ARCs. Each Game/ARC is an attempt to create a different combination of survivors.
 
@@ -2828,7 +2828,7 @@ SETTINGS_MOD_ECHO_SOUND_HULL_DELAY       | Echo Hull Delay: %1 ms.
 SETTINGS_MOD_ECHO_SOUND_DECAY_DESC       | Echo Decay parameter: 0% = no Echo; 100% = Permanent echo!
 SETTINGS_MOD_ECHO_SOUND_DECAY            | Echo Decay: %1%
 
-SETTINGS_MOD_BEAM_WINDUP_FRAMES_DESC     | Beam building duration. (Should be instantaneous, but seeing the beam propagation is nice too!) 
+SETTINGS_MOD_BEAM_WINDUP_FRAMES_DESC     | Beam building duration. (Should be instantaneous, but seeing the beam propagation is nice too!)
 SETTINGS_MOD_BEAM_WINDUP_FRAMES          | Beam Windup Frames: %1
 SETTINGS_MOD_BEAM_HOLD_FRAMES_DESC       | After the beam building phase, the attack can be hold a little bit. This value will be added to the base weapon hold value.
 SETTINGS_MOD_BEAM_HOLD_FRAMES            | Beam Hold Frames: %1
@@ -2877,7 +2877,7 @@ SETTINGS_MOD_COLOR_SET_GREY_DESC    | Alternate Dark color set.
 SETTINGS_MOD_REAL_NEBULAE_SIZE_DESC  | Use Real Nebulae images with the this resolution factor.<br>Real Nebula distribution is non-overlapping.
 SETTINGS_MOD_REAL_NEBULAE_SIZE       | Real Nebula: %1
 SETTINGS_MOD_REAL_NEBULAE_NO         | No
-SETTINGS_MOD_REAL_NEBULAE_SHAPE_HELP | To replace rectangular shape with a better approximation of the nebula shape.<br>This will impact the flight path analysis. Changing this parameter during a game may impact travelling fleets arrival time. 
+SETTINGS_MOD_REAL_NEBULAE_SHAPE_HELP | To replace rectangular shape with a better approximation of the nebula shape.<br>This will impact the flight path analysis. Changing this parameter during a game may impact travelling fleets arrival time.
 SETTINGS_MOD_REAL_NEBULAE_SHAPE_DESC | To replace rectangular shape with a better approximation of the nebula shape.
 SETTINGS_MOD_REAL_NEBULAE_SHAPE      | Real Nebula Shape: %1
 SETTINGS_MOD_REAL_NEBULAE_OPACITY_DESC | Opacity of the new real image based nebulae. 100% = No transparency.
@@ -2915,7 +2915,7 @@ SETTINGS_MOD_SHOW_ALLOCATE_POPUP_DESC    | At the start of the turn, display the
 SETTINGS_MOD_SHOW_ALLOCATE_POPUP         | Show Allocate Popup: %1
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO_DESC  | Auto Refuse Tech Exchange offers.
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO       | Auto Refuse Exchanges: %1
-SETTINGS_MOD_SHOW_LIMITED_WARNINGS_DESC  | Limit the number of aliens repeating the same warning:<br> For Expansion, Genocide, and use of Bio weapons. 
+SETTINGS_MOD_SHOW_LIMITED_WARNINGS_DESC  | Limit the number of aliens repeating the same warning:<br> For Expansion, Genocide, and use of Bio weapons.
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS       | Limit Warnings: %1
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS_ALL   | Show All
 
@@ -3456,10 +3456,10 @@ SETTINGS_MOD_REPEATABLE_ARTIFACT         | Deterministic Artifacts: %1
 TECH_RESEARCH                     | Technology Research
 TECH_RESEARCH_POINTS              | Research Points
 TECH_EMPIRE_SPENDING              | Empire Tech Spending
-TECH_EMPIRE_SPENDING_DESC         | Sum of all colonies' tech spending. 
+TECH_EMPIRE_SPENDING_DESC         | Sum of all colonies' tech spending.
 TECH_EMPIRE_TECH_RESERVE_OPT      | Divert excess colony spending from treasury reserve to research
 TECH_EMPIRE_BALANCED_DESC         | Balanced spending increases overall research points.
-TECH_EMPIRE_DETAIL_1              | %1 BC for 
+TECH_EMPIRE_DETAIL_1              | %1 BC for
 TECH_EMPIRE_DETAIL_2              | %2 RP / Year
 TECH_TOTAL_RP                     | %1 RP
 TECH_LEVEL                        | Level %1
@@ -3500,15 +3500,15 @@ TECH_SHIP_SPEED_AMT               | Warp %1
 TECH_BUTTON_EXIT                  | EXIT
 
 // Tech UI help
-TECH_HELP_1A                      | - OVERVIEW -<br>This screen allows you to adjust spending across the six areas of technology that you can study.<br>You can review technologies already learned (green),<br>currently in research (yellow)<br> or available for future research (brown). 
-TECH_HELP_1B                      | Click or scroll with the mouse wheel to view the technologies for an area of research. 
+TECH_HELP_1A                      | - OVERVIEW -<br>This screen allows you to adjust spending across the six areas of technology that you can study.<br>You can review technologies already learned (green),<br>currently in research (yellow)<br> or available for future research (brown).
+TECH_HELP_1B                      | Click or scroll with the mouse wheel to view the technologies for an area of research.
 TECH_HELP_1C                      | Fills up when research points (RP) are spent in an area. Once filled, there is an increasing chance each turn to learn the technology.
 TECH_HELP_1D                      | Technology currently being researched. See its description for benefits.
 TECH_HELP_1E                      | General benefits provided by technologies already learned in this area.
 TECH_HELP_1F                      | Total production (BC) applied to research and the total research points (RP) resulting from it.
 TECH_HELP_1G                      | Overflow spending in a colony may be directed to research instead of the empire treasury.
 TECH_HELP_1H                      | Each tech area has a spending bar.<br>Click on the name to lock a bar.<br>Spending for the first 1/6th of the bar gains a 25% research bonus.<br>This means you'll optimize research spending by keeping all six bars equal.
-TECH_HELP_1I                      | Equalize the spending allocations for the unlocked bars. 
+TECH_HELP_1I                      | Equalize the spending allocations for the unlocked bars.
 TECH_HELP_1J                      | - MINIATURIZATION -<br>All ship components get smaller and cheaper as you research other technologies in the same category as that component.<br>For every technology level above a non-weapon component's level, its size is reduced by 2.5% and its cost is reduced by 5%.<br>Weapon components shrink more quickly. For every technology level above a weapon's level, its size is reduced by 5% and its cost is reduced by 5%.<br> This means your designs will get cheaper as you learn more technologies, and as weapons recede from the cutting edge, more of them will fit onto your ships.
 TECH_HELP_1K                      | Technology levels are determined by multiplying your highest known tech's level by 0.80 and adding 1 for every technology you know in that category.
 
@@ -3657,14 +3657,14 @@ SHIP_DESIGN_SPECIAL_SPACE         | Space
 SHIP_DESIGN_HELP_ALL              | OVERVIEW - an empire can have up to six active ship designs. For each design, choose a hull size then fill it with various components such as armor, shields and weapons. Each component has a size, power and cost. The total space required for a component is its size plus the size of the number of engines needed to power it. Once deployed, a ship design can be constructed in any of your colonies.
 SHIP_DESIGN_HELP_1A               | Size - larger hull sizes add cost but provide more space.
 SHIP_DESIGN_HELP_1B               | Range - how far the ship can travel from your systems.
-SHIP_DESIGN_HELP_1C               | Speed - travel speed in space between stars. 
+SHIP_DESIGN_HELP_1C               | Speed - travel speed in space between stars.
 SHIP_DESIGN_HELP_1D               | Cost  - total cost to build this ship.
 SHIP_DESIGN_HELP_1E               | Total Space - total space used by the components on this ship design.
 SHIP_DESIGN_HELP_1F               | Available Space - unused space on this ship design.
 SHIP_DESIGN_HELP_1G               | Hit Points - damage required to destroy this ship in combat.
 SHIP_DESIGN_HELP_1H               | Missile Defense - defense level vs. missile weapons in combat.
 SHIP_DESIGN_HELP_1I               | Beam Defense - defense level vs. beam weapons in combat.
-SHIP_DESIGN_HELP_1J               | Attack Level - attack level for weapons in combat. 
+SHIP_DESIGN_HELP_1J               | Attack Level - attack level for weapons in combat.
 SHIP_DESIGN_HELP_1K               | Combat Speed - distance the ship can travel in combat, per turn.
 SHIP_DESIGN_HELP_1L               | Tint - alters the color of the ship.
 SHIP_DESIGN_HELP_2A               | Engine Type - the type of engine used to power this ship design.
@@ -3692,9 +3692,9 @@ SHIP_DESIGN_HELP_4D               | Available ship design slots can be selected 
 SHIP_DESIGN_HELP_4E               | Copy - copy an existing design to serve as a starting point for a new design.
 SHIP_DESIGN_HELP_4F               | Clear - resets all of the selected components.<br>Ctrl-Clear to reset weapons only.
 SHIP_DESIGN_HELP_4G               | Deploy Design - when your new design is complete, deploying it allows you to name it and makes it available for construction.
-SHIP_DESIGN_HELP_4H               | Auto Scout - →GOVERNOR_AUTO_SCOUT_DESC← 
-SHIP_DESIGN_HELP_4I               | Auto Attack - →GOVERNOR_AUTO_ATTACK_DESC← 
-SHIP_DESIGN_HELP_4J               | Auto Colonize - →GOVERNOR_AUTO_COLONIZE_DESC← 
+SHIP_DESIGN_HELP_4H               | Auto Scout - →GOVERNOR_AUTO_SCOUT_DESC←
+SHIP_DESIGN_HELP_4I               | Auto Attack - →GOVERNOR_AUTO_ATTACK_DESC←
+SHIP_DESIGN_HELP_4J               | Auto Colonize - →GOVERNOR_AUTO_COLONIZE_DESC←
 
 // Ship Combat UI
 SHIP_COMBAT_TITLE_SYSTEM          | Ship Combat at %1!
@@ -3837,9 +3837,9 @@ RACES_DIPLOMACY_RELATIONS_METER   | Relations Meter
 RACES_DIPLOMACY_RELATIONS_UNKNOWN | The mood and motives of the [alien_empire] are inscrutable to our diplomats and spies.
 RACES_DIPLOMACY_BUREAU            | Diplomacy Bureau
 RACES_DIPLOMACY_BUREAU_DESC1      | Contact foreign empires or recall your diplomats to prevent empires from contacting you.
-RACES_DIPLOMACY_BUREAU_DESC       | Contact the [alien_race] ambassador for an audience or establish contact if your diplomats have been recalled. 
+RACES_DIPLOMACY_BUREAU_DESC       | Contact the [alien_race] ambassador for an audience or establish contact if your diplomats have been recalled.
 RACES_DIPLOMACY_BUREAU_DESC_RANGE | We cannot establish diplomatic relations with empires that are out of our ship range.
-RACES_DIPLOMACY_BUREAU_DESC_FINAL | We are engaged in a final war with the New Republic. Diplomacy is no longer an option. 
+RACES_DIPLOMACY_BUREAU_DESC_FINAL | We are engaged in a final war with the New Republic. Diplomacy is no longer an option.
 RACES_DIPLOMACY_KNOWN_EMPIRES     | Known Foreign Empires
 RACES_DIPLOMACY_RECALLED_DIPLOMAT | Recalled Diplomats
 RACES_DIPLOMACY_MANAGE_DIPLOMATS  | Manage Diplomats
@@ -3848,7 +3848,7 @@ RACES_DIPLOMACY_CONTACT           | Establish Contact
 RACES_DIPLOMACY_TRADE_SUMMARY     | Trade Summary
 RACES_DIPLOMACY_TRADE_DESC        | Contact the [alien_race] ambassador to negotiate a trade treaty. Trade networks take time and money to set up, but once mature bring money into your empire's treasury.
 RACES_DIPLOMACY_TRADE_DESC_RANGE  | We cannot establish trade networks with empires that are out of our ship range.
-RACES_DIPLOMACY_TRADE_DESC_FINAL  | We are engaged in a final war with the New Republic. Trade is no longer possible. 
+RACES_DIPLOMACY_TRADE_DESC_FINAL  | We are engaged in a final war with the New Republic. Trade is no longer possible.
 RACES_DIPLOMACY_TRADE_TREATY      | Trade Treaty
 RACES_DIPLOMACY_FOREIGN_RELATIONS | Foreign Relations
 RACES_DIPLOMACY_FOREIGN_RANGE     | We cannot know the foreign relations of the [alien_empire] until we have established diplomatic contact.
@@ -3883,8 +3883,8 @@ RACES_INTEL_SECURITY_BONUS_NONE   | None
 RACES_INTEL_REPORT_AGE            | Report Age
 RACES_INTEL_SPY_NETWORK           | Spy Networks
 RACES_INTEL_SPENDING              | Spending
-RACES_INTEL_SPENDING_DESC         | Increase spending to add spies to the network over time. 
-RACES_INTEL_SPENDING_DESC_UNITY   | Spy networks are unnecessary as technology is shared freely among members of the New Republic. 
+RACES_INTEL_SPENDING_DESC         | Increase spending to add spies to the network over time.
+RACES_INTEL_SPENDING_DESC_UNITY   | Spy networks are unnecessary as technology is shared freely among members of the New Republic.
 RACES_INTEL_SPENDING_CAPPED       | Empire spy spending limit reached. Funding for spy networks reduced by %1%.
 RACES_INTEL_SPENDING_RANGE        | Cannot create spy networks for empires out of ship range.
 RACES_INTEL_GOVERNOR_INSTRUCTIONS | Governor Instructions
@@ -3977,7 +3977,7 @@ RACES_SET_COLOR_DESC              | If the selected color and shape are used by 
 
 // Races UI help
 RACES_HELP_0A                     | OVERVIEW: This screen provides detailed information about each of the alien empires that you have encountered.
-RACES_HELP_0B                     | Diplomacy - Engage in diplomacy with the selected empire. 
+RACES_HELP_0B                     | Diplomacy - Engage in diplomacy with the selected empire.
 RACES_HELP_0C                     | Intelligence - Display alien technology and manage your spy networks.
 RACES_HELP_0D                     | Military - Display fleet and ship designs.
 RACES_HELP_0E                     | Status - Comparison across several categories.
@@ -3995,7 +3995,7 @@ RACES_HELP_2B                     | Grants an audience with a diplomat for the s
 RACES_HELP_2C                     | Information about trade treaties signed with the selected empire.
 RACES_HELP_2D                     | Other empires that the selected empire has contacted.
 RACES_HELP_2E                     | Diplomatic incidents that affect how the selected empire reacts to you. The effects will move towards zero over time.
-RACES_HELP_2F                     | A measure of the current state of relations with the selected empire. 
+RACES_HELP_2F                     | A measure of the current state of relations with the selected empire.
 RACES_HELP_3A                     | Increase the security tax to improve your chances of thwarting enemy spies.
 RACES_HELP_3B                     | Provides direct access to manage your spies in all contacted empires.
 RACES_HELP_3C                     | All technologies known by other empires, as gathered by your spies.<br>Technologies that you do not know are shown:<br>- in grey if they are outdated,<br>- in yellow otherwise.
@@ -4005,7 +4005,7 @@ RACES_HELP_4C                     | All technologies known by the selected empir
 RACES_HELP_4D                     | Latest reported spy bonuses for related missions.<br>(Likelihood / Impact).<br>Based on the latest reported technology and security levels.
 RACES_HELP_5A                     | The known number of ships in the fleet of the selected empire, by hull size. This information will remain current as long as you have an active spy network in the selected empire.
 RACES_HELP_5B                     | The known capabilities of ship designs. Older designs may be out of service. This information is primarily gathered during ship combat.
-RACES_HELP_5C                     | The known defensive capabilities of the selected empire. 
+RACES_HELP_5C                     | The known defensive capabilities of the selected empire.
 RACES_HELP_6A                     | This screen provides a current ranking, in various categories, of our empire compared to other known empires. This data is gathered from our spy networks within those empires. If it is not up to date, the age is indicated in parentheses.
 RACES_HELP_6A2                    | This screen provides a historical comparison, in various categories, of our empire to a selected empire. This data is gathered from our spy networks within those empires.
 RACES_HELP_6B                     | Fleet Strength - combines number and size of ships.
@@ -4094,7 +4094,7 @@ CREDITS_GRAPHIC_DESIGN            | Kaitlin Lindsay, Graphic Designer
 CREDITS_MUSIC                     | Efe Tozan, Music
 CREDITS_WRITER                    | Jeff Colucci, Writer
 CREDITS_SOUND                     | Remi Agullo, Sound Designer
-CREDITS_TRANSLATOR                | 
+CREDITS_TRANSLATOR                |
 
 // Systems UI
 SYSTEMS_TITLE                     | Systems
@@ -4189,7 +4189,7 @@ DIPLOMACY_MENU_BREAK_PACT         | Break Non-Aggression Pact
 DIPLOMACY_MENU_BREAK_ALLIANCE     | Break Alliance
 DIPLOMACY_TRADE_MENU_BREAK        | Break Trade Treaty
 DIPLOMACY_THREATEN_MENU_0         | Recall Ambassador
-DIPLOMACY_THREATEN_MENU_1         | Demand Tribute 
+DIPLOMACY_THREATEN_MENU_1         | Demand Tribute
 DIPLOMACY_THREATEN_MENU_2         | Break Non-Aggression Pact
 DIPLOMACY_THREATEN_MENU_3         | Break Alliance
 DIPLOMACY_THREATEN_MENU_BR        | Break Trade Treaty
@@ -4203,7 +4203,7 @@ DIPLOMACY_ACCEPT_ESTABLISH_TRADE  | Accept (Establishes Trade)
 DIPLOMACY_DECLINE_OFFER           | Decline
 DIPLOMACY_DECLINE_BREAK_ALLIANCE  | Decline (Breaks Alliance)
 DIPLOMACY_IGNORE_THREAT           | Ignore Threat
-DIPLOMACY_SHUTDOWN_SPIES          | Shutdown all spy networks in the [alien_empire] 
+DIPLOMACY_SHUTDOWN_SPIES          | Shutdown all spy networks in the [alien_empire]
 DIPLOMACY_HIDE_SPIES              | Order all spies in the [alien_empire] to Hide
 DIPLOMACY_RETREAT_SHIPS           | Order all ships orbiting or in transit to [alien_race] systems to Retreat
 
@@ -4331,7 +4331,7 @@ GAME_OVER_NO_COLONIES_LOSS2       | The rule of %2 has ended, undone by imperial
 
 //
 // ===== BR: Governor labels =====
-// 
+//
 HEADERS_GOVERNOR_SETUP_MENU_DESC  | To define the Governor options outside of the Game
 HEADERS_GOVERNOR_SETUP_MENU       | ~~~ SETUP GOVERNOR ~~~%1
 GOVERNOR_SETUP_TITLE              | Governor Setup Panel
@@ -4444,7 +4444,7 @@ CLONE_1_TRIGGER                     | →CLONE_1_DETAIL←<br>The GrowInAtor is 
 
 //
 // ===== BR: Guide and contextual Help added by Mods =====
-// 
+//
 SETUP_OPP_CR_OPTIONS_HELP           | Default abilities for alien Species:<br> 'Original Species' = Standard abilities of the selected Species (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the Species default name.<br> (ex: RACE_DARLOK for the Darlok);<br> *Species = specific Original Species; or any other customized species you have built.
 
 
@@ -4478,10 +4478,10 @@ SETTINGS_GLOBAL_USER_SAVE_DESC    | Save options for all GUIs to User's preferre
 SETUP_RACE_MAIN_DESC              | OVERVIEW<br> This screen allows you to adjust Base Player Empire parameters.<br> Use "Ctrl" and "Shift" to change the buttons functions.<br> Global = All options. Local = Options from this panel.<br>"R" will select a new species randomly.
 SETUP_RACE_NEXT_DESC              | Save options and go to the Galaxy setup menu.
 SETUP_RACE_CANCEL_DESC            | Cancel options and go back to the Main menu.
-SETUP_RACE_CUSTOM_DESC            | Enter the Species Customization Menu.<br> (For Player or Aliens) 
+SETUP_RACE_CUSTOM_DESC            | Enter the Species Customization Menu.<br> (For Player or Aliens)
 SETUP_RACE_CHECK_BOX_DESC         | Select the defined custom species as player species.
 SETUP_RACE_SHIPSET_DESC           | Select Shipset used by the player.<br> "Original" = The one associated by default to the selected species.
-SETUP_RACE_RACES_DESC             | The graphical representation of the player species, with its animations, and by default its abilities. (Abilities can also be randomized or customized) 
+SETUP_RACE_RACES_DESC             | The graphical representation of the player species, with its animations, and by default its abilities. (Abilities can also be randomized or customized)
 SETUP_RACE_LEADER_HELP            | Name your leader here, think twice, as you won't be able to change it later.
 SETUP_RACE_HOMEWORLD_HELP         | You can set your home world name here, or change it later in the game colony tab.
 
@@ -4698,7 +4698,7 @@ HK_TAB         | <br>Tab/+SHIFT : Next/Previous Tab.
 HK_YEAR        | <br>Y : Toggle Year Display.
 HK_FLAG_LOOP   | <br>(Num) * - 9 + : Loop thru Flags ("SHIFT-" Reverse) ("CTRL-" Same Flag Color)
 
-HK_FOG         | <br>F : Show / Hide Fog on Diplomat Icons. 
+HK_FOG         | <br>F : Show / Hide Fog on Diplomat Icons.
 HK_GUIDE       | <br>G : Toggle Guide.
 HK_SEL_B       | /+ALT/+CTRL/+SHIFT : Current Selection
 HK_SEL_E       | Spending to 100% / Smart Max / Lock / Unlock
