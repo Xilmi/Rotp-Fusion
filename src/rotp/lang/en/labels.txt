@@ -562,7 +562,7 @@ GAME_SETTINGS_AUTOBOMBARD_NEVER_HELP  | No automation! Always ask for fresh orde
 GAME_SETTINGS_AUTOBOMBARD_YES_HELP    | The galaxy is ours! Repels the weaklings and claim our due!
 GAME_SETTINGS_AUTOBOMBARD_WAR_HELP    | Annihilate our declared enemies, seek advice for other empires!
 GAME_SETTINGS_AUTOBOMBARD_INVADE_HELP | Annihilate our declared enemies if no invasion is planned, seek advise otherwise.
-GAME_SETTINGS_AUTOBOMBARD_HELP    | What should be done when your you have armed fleet orbiting an alien empire? Should we bombard them or leave them alone?
+GAME_SETTINGS_AUTOBOMBARD_HELP    | What should be done when you have an armed fleet orbiting an alien empire? Should we bombard them or leave them alone?
 GAME_SETTINGS_AUTOBOMBARD_DESC    | Toggle to always prompt to bomb, never bomb, always bomb, only auto-bomb in case of war, or only auto-bomb in case of war with no invading forces en route.
 GAME_SETTINGS_BACKUP_OFF          | Off
 GAME_SETTINGS_BACKUP_ON           | Every %1 turns
@@ -576,7 +576,7 @@ GAME_SETTINGS_BACKUP_KEEP_ALL_DESC | Disable automatic backup deletion.
 GAME_SETTINGS_SAVEDIR             | Save Directory: %1
 GAME_SETTINGS_SAVEDIR_DEFAULT     | Default
 GAME_SETTINGS_SAVEDIR_CUSTOM      | Custom
-GAME_SETTINGS_SAVEDIR_HELP        | To select a custom directory to save you files: By default, its the same directory as the game.
+GAME_SETTINGS_SAVEDIR_HELP        | To select a custom directory to save your files: By default, it's the same directory as the game.
 GAME_SETTINGS_SAVEDIR_DESC1       | The save directory is currently set to the same directory as the game.
 GAME_SETTINGS_SAVEDIR_DESC2       | The save directory is currently set to: %1
 GAME_SETTINGS_DISPLAY_YEAR        | Display Year: %1
