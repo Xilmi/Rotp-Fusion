@@ -431,7 +431,7 @@ GAME_SETTINGS_GRAPHICS_MED_HELP   | Demande graphique moyenne, images animées, 
 GAME_SETTINGS_GRAPHICS_MED        | Moyen
 GAME_SETTINGS_GRAPHICS_HIGH_HELP  | Qualité graphique supérieure, avec des images anti-aliasing et animées.
 GAME_SETTINGS_GRAPHICS_HIGH       | Élevé
-GAME_SETTINGS_GRAPHICS_RETINA_HELP | Pour ordinateur Apple avec écrans rétina, avec carte bit, graphismes supérieurs, anti-aliasing et images animées.
+GAME_SETTINGS_GRAPHICS_RETINA_HELP | Pour ordinateur Apple avec écrans rétina, avec Retina bitmaps, graphismes supérieurs, anti-aliasing et images animées.
 GAME_SETTINGS_GRAPHICS_RETINA      | Retina
 GAME_SETTINGS_GRAPHICS_DESC       | Ajustement de la qualité graphique du jeu. Moyen : l'anticrénelage des images est désactivé. Faible : les animations sont désactivées.
 GAME_SETTINGS_TEXTURES            | Textures: %1
@@ -460,13 +460,15 @@ GAME_SETTINGS_MORE_MEMORY             | Console Plus de Mémoire : %1
 GAME_SETTINGS_MORE_MEMORY_YES         | Oui
 GAME_SETTINGS_MORE_MEMORY_NO          | Non
 GAME_SETTINGS_MORE_MEMORY_DESC        | Change la sortie console des statistiques d'utilisation de mémoire étendue au début et à la fin du tour, et lors du chargement d'un jeu.
+
 GAME_SETTINGS_MEMORY_CONSOLE      | Utilisation de la mémoire par la console : %1
 GAME_SETTINGS_MEMORY_CONSOLE_DESC | Change la sortie console des statistiques d'utilisation de la mémoire au début et à la fin du tour.
 GAME_SETTINGS_MEMORY_FILE         | Utilisation de la mémoire par les fichiers : %1
 GAME_SETTINGS_MEMORY_FILE_DESC    | Change la sortie de fichier des statistiques d'utilisation de la mémoire au début et à la fin du tour.
+
 GAME_SETTINGS_SHOW_CONSOLE_PANEL      | Afficher le panneau de la console : %1
 GAME_SETTINGS_SHOW_CONSOLE_PANEL_DESC | Change l'affichage d'une console pour d'autres interactions.
-SETTINGS_MOD_DEBUG_AUTO_RUN            | Auto Run: %1
+
 SETTINGS_MOD_DEBUG_AUTO_RUN            | Exécution automatique : %1
 SETTINGS_MOD_DEBUG_AUTO_RUN_DESC       | Change le statut du mode de debuggage. Le jeu ne s'arrêtera pas à la fin de chaque tour
 SETTINGS_MOD_DEBUG_AUTO_RUN_OFF        | Arrêt
@@ -476,28 +478,15 @@ SETTINGS_MOD_DEBUG_AUTO_RUN_ON_DESC    | Le jeu ne s'arrêtera pas à la fin de 
 SETTINGS_MOD_DEBUG_AUTO_RUN_BENCH      | Test de référence
 SETTINGS_MOD_DEBUG_AUTO_RUN_BENCH_DESC | Le jeu ne s'arrêtera pas à la fin de chaque tour, enregistrera le résultat à la fin du jeu et lancera un nouveau jeu avec les mêmes paramètres.
 SETTINGS_MOD_DEBUG_AUTO_RUN_END        | Continuer
-SETTINGS_MOD_DEBUG_AUTO_RUN_END_DESC   | For Benchmark mode, Stop the current game, log results, then Continue the tests.<br>When the player has lost the game and the remaining factions are no longer fighting.
 SETTINGS_MOD_DEBUG_AUTO_RUN_END_DESC   | Pour le mode Test de référence, arrêtez le jeu actuel, enregistrez les résultats, puis continuez les tests.<br>Lorsque le joueur a perdu le jeu et que les factions restantes ne se battent plus.
 SETTINGS_MOD_NEGATIVE_DISABLED         | Désactivé
 SETTINGS_MOD_DEBUG_BM_MAX_TURNS        | Nombre de tours max du test : %1
 SETTINGS_MOD_DEBUG_BM_MAX_TURNS_DESC   | En mode Test, le nombre maximum de tours à jouer. Arrête le jeu en cours, et commence un nouveau jeu.
 SETTINGS_MOD_DEBUG_BM_LOST_TURNS       | Tours en test : %1
-_en_GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Log to console: %1
-_fr_GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Connectez-vous à la console & #160;: %1
-_en_GAME_SETTINGS_CONSOLE_AUTO_PLAY_DESC | When enabled, the logged data are also shown on the console.
-_fr_GAME_SETTINGS_CONSOLE_AUTO_PLAY_DESC | Une fois activées, les données enregistrées sont également affichées sur la console.
-_en_GAME_SETTINGS_DEBUG_LOG_NOTIF        | Log Notifications: %1
-_fr_GAME_SETTINGS_DEBUG_LOG_NOTIF        | Notifications de journal & #160;: %1
-_en_GAME_SETTINGS_DEBUG_LOG_NOTIF_DESC   | Toggles the Notification logging  when in Debug AutoPlay.
-_fr_GAME_SETTINGS_DEBUG_LOG_NOTIF_DESC   | Indique l'enregistrement de la notification lors du Debug AutoPlay.
-_en_GAME_SETTINGS_DEBUG_LOG_EVENTS       | Log Random Events: %1
-_fr_GAME_SETTINGS_DEBUG_LOG_EVENTS       | Loger les événements aléatoires & #160;: %1
-_en_GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Toggles the Random Events logging  when in Debug AutoPlay.
-_fr_GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Déboguer le journal des événements aléatoires lorsque dans Debug AutoPlay.
-_en_GAME_SETTINGS_CONTINUE_ANYWAY        | Continue Anyway: %1
-_fr_GAME_SETTINGS_CONTINUE_ANYWAY        | Continuer de toute façon & #160;: %1
-_en_GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | The Game will continue after victory or defeat, this while the player is alive!
-_fr_GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | Le jeu continuera après la victoire ou la défaite, cela pendant que le joueur est vivant !
+GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Se connectez à la console : %1
+GAME_SETTINGS_CONSOLE_AUTO_PLAY_DESC | Une fois activé, les données enregistrées sont également affichées sur la console.
+GAME_SETTINGS_CONTINUE_ANYWAY        | Continuer quand même: %1
+GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | Le jeu continuera après la victoire ou la défaite, tant que le joueur est vivant !
 GAME_SETTINGS_SCREEN               | Écran sélectionné : %1
 GAME_SETTINGS_SELECTED_SCREEN      | Écran sélectionné : %1
 GAME_SETTINGS_SELECTED_SCREEN_DESC | Sélectionnez l'écran sur lequel vous allez jouer. (-1 = écran principal)
@@ -521,18 +510,64 @@ GAME_SETTINGS_AUTOBOMBARD_NEVER   | Jamais
 GAME_SETTINGS_AUTOBOMBARD_YES     | Toujours
 GAME_SETTINGS_AUTOBOMBARD_WAR     | Seulement en guerre
 GAME_SETTINGS_AUTOBOMBARD_INVADE  | Seulement en guerre et pas invasion
+GAME_SETTINGS_AUTOBOMBARD_NO_HELP     | Pas d'automatisation ! Toujours demander des commandes fraîches!
+GAME_SETTINGS_AUTOBOMBARD_NEVER_HELP  | Pas d'automatisation ! Toujours demander des commandes fraîches!
+GAME_SETTINGS_AUTOBOMBARD_YES_HELP    | La galaxie est à nous ! Refoulons les faibles et réclamons notre due !
+GAME_SETTINGS_AUTOBOMBARD_WAR_HELP    | Annihilez nos ennemis déclarés, demandez conseil pour d'autres empires !
+GAME_SETTINGS_AUTOBOMBARD_INVADE_HELP | Annihilez nos ennemis déclarés si aucune invasion n'est prévue, demandez conseil autrement.
+GAME_SETTINGS_AUTOBOMBARD_HELP    | Que faire lorsque votre flotte armée est en orbite autour d'un empire extraterrestre? Devrions-nous les bombarder ou les laisser seuls ?
 GAME_SETTINGS_AUTOBOMBARD_DESC    | Basculez pour toujours inviter à bombarder, ne jamais bombarder, toujours bombarder, uniquement bombarder automatiquement en cas de guerre, ou uniquement bombarder automatiquement en cas de guerre sans forces d'invasion en route.
 GAME_SETTINGS_BACKUP_OFF          | Désactivé
 GAME_SETTINGS_BACKUP_ON           | Tout/tous %1 tours
 GAME_SETTINGS_BACKUP              | Sauvegarde: %1
 GAME_SETTINGS_BACKUP_DESC         | Activer pour que votre jeu en cours soit enregistré périodiquement dans le dossier de sauvegarde avec un nom unique, vous permettant de recharger à partir des tours précédents.
+GAME_SETTINGS_BACKUP_KEEP          | Suppr. auto. : conserver %1
+GAME_SETTINGS_BACKUP_KEEP_DESC     | Lorsque la suppression automatique de sauvegarde est activée, les fichiers de sauvegarde les plus anciens seront envoyés à la corbeille.<br> -1 = Tout garder; la suppression automatique de sauvegarde est désactivée.
+GAME_SETTINGS_BACKUP_KEEP_ALL      | Tous
+GAME_SETTINGS_BACKUP_KEEP_ALL_DESC | Désactiver la suppression automatique de sauvegarde.
 GAME_SETTINGS_SAVEDIR             | Enregistrer le répertoire : %1
 GAME_SETTINGS_SAVEDIR_DEFAULT     | Défaut
 GAME_SETTINGS_SAVEDIR_CUSTOM      | Personnalisé
+GAME_SETTINGS_SAVEDIR_HELP        | Pour sélectionner un répertoire pour enregistrer vos fichiers : Par défaut, c'est le même répertoire que le jeu.
 GAME_SETTINGS_SAVEDIR_DESC1       | Le répertoire de sauvegarde est actuellement défini sur le même répertoire que le jeu.
 GAME_SETTINGS_SAVEDIR_DESC2       | Le répertoire de sauvegarde est actuellement défini sur: %1
 
 // Load Game UI
+GAME_SETTINGS_DISPLAY_YEAR        | Afficher l'Année : %1
+GAME_SETTINGS_DISPLAY_YEAR_DESC   | Sur l'écran Galaxie: Affiche soit le tour actuel du jeu ou l'année en cours de votre empire
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH      | Rechercher : %1
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_YES  | Les dépenses excédentaires des colonies sont détournées vers la recherche.
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_NO   | Les dépenses excédentaires des colonies sont versées au Trésor.
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC | Les dépenses excédentaires des colonies sont reversées à la recherche.
+GAME_SETTINGS_DEFAULT_MAX_BASES              | Nombre max. de bases : %1
+GAME_SETTINGS_DEFAULT_MAX_BASES_DESC         | Nombre maximal de bases de missiles par défaut pour les nouvelles colonies.
+SETTINGS_MOD_DISABLE_ADVISOR_YES  | Désactivé
+SETTINGS_MOD_DISABLE_ADVISOR_NO   | Activé
+SETTINGS_MOD_DISABLE_ADVISOR      | Désactiver le conseiller : %1
+SETTINGS_MOD_DISABLE_ADVISOR_DESC | Activer / Désactiver l'affichage automatique des conseils de l'ècran Galaxie lors du démarrage d'un nouveau jeu.
+SETTINGS_MOD_DISABLE_AUTO_HELP_YES        | Oui
+SETTINGS_MOD_DISABLE_AUTO_HELP_NO         | Non
+SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER      | Jamais
+SETTINGS_MOD_DISABLE_AUTO_HELP            | Désactiver l'aide automatique : %1
+SETTINGS_MOD_DISABLE_AUTO_HELP_DESC       | Activer / Désactiver l'affichage automatique de l'aide dans l'ecran Galaxie lors du démarrage d'un nouveau jeu.
+SETTINGS_MOD_DISABLE_AUTO_HELP_YES_DESC   | Oui (Mais sera montré à nouveau si vous supprimez Remnant.cfg)
+SETTINGS_MOD_DISABLE_AUTO_HELP_NO_DESC    | Non (mais ne sera affiché qu'une seule fois)
+SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER_DESC | Je suis fan de ces pop-ups, garde-les !
+MOO1_HK        | MoO1
+CLASSIC_HK     | RotP-Classic
+FUSION_HK      | RotP-Fusion
+CURRENT_DEF_HK | <br>(Les valeurs par défaut sélectionnées proviennent de
+SETTINGS_MOD_DEFAULT_SETTINGS       | Paramètres par défaut : %1
+SETTINGS_MOD_DEFAULT_IS_FUSION      | Fusion
+SETTINGS_MOD_DEFAULT_IS_FUSION_NOW  | →CURRENT_DEF_HK← →MOO1_HK←).
+SETTINGS_MOD_DEFAULT_IS_MOO1        | MoO1
+SETTINGS_MOD_DEFAULT_IS_MOO1_NOW    | →CURRENT_DEF_HK← →FUSION_HK←).
+SETTINGS_MOD_DEFAULT_IS_ROTP        | RotP
+SETTINGS_MOD_DEFAULT_IS_ROTP_NOW    | →CURRENT_DEF_HK← →CLASSIC_HK←).
+SETTINGS_MOD_DEFAULT_SETTINGS_DESC  | Sélectionnez les paramètres par défaut à appliquer avec le bouton du milieu de la souris et les boutons "Par défaut".
+SETTINGS_MOD_DEFAULT_IS_FUSION_DESC | Recommandé par les joueurs →FUSION_HK←
+SETTINGS_MOD_DEFAULT_IS_MOO1_DESC   | Aussi près que possible de →MOO1_HK←.
+SETTINGS_MOD_DEFAULT_IS_ROTP_DESC   | Aussi près que possible de l'original →CLASSIC_HK←.
 LOAD_GAME_TITLE                   | Charger la Partie
 LOAD_GAME_AUTOSAVE                | Enregistrement automatique plus récent
 LOAD_GAME_BACKUP_DIR              | Répertoire de sauvegarde : %1 fichiers
