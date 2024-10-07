@@ -250,9 +250,10 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
     }
     private void drawFleetTitle(Graphics2D g, Empire emp, int x, int y, int w, int h) {
         g.setColor(SystemPanel.orangeText);
-        g.setFont(narrowFont(32));
+        //g.setFont(narrowFont(32));
         String title = text("RACES_MILITARY_TITLE");
         title = emp.replaceTokens(title, "alien");
+        scaledFont(g, title, w-s15, 32, 20);
         drawString(g,title, x+s10, y+h-s15);
     }
     private void drawDefenseTitle(Graphics2D g, Empire emp, int x, int y, int w, int h) {
@@ -266,7 +267,8 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         int x0 = x+s20;
         int y0 = y + s26;
         String title2 = text("RACES_MILITARY_SUBTITLE");
-        g.setFont(narrowFont(20));
+        // g.setFont(narrowFont(20));
+        scaledFont(g, title2, w-s30, 20, 10);
         drawShadowedString(g, title2, 1, x0, y0, SystemPanel.blackText, Color.white);
 
         Empire pl = player();
@@ -289,7 +291,8 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         int x0 = x+s20;
         int y0 = y + s26;
         String title2 = text("RACES_MILITARY_SUBTITLE");
-        g.setFont(narrowFont(20));
+        // g.setFont(narrowFont(20));
+        scaledFont(g, title2, w-s30, 20, 10);
         drawShadowedString(g, title2, 1, x0, y0, SystemPanel.blackText, Color.white);
 
         Empire pl = player();
@@ -755,15 +758,20 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         int y1 = y0+lineH;
         int y2 = y1+lineH;
         int y3 = y2+lineH;
-        g.setFont(narrowFont(16));
+        int maxW = w-s30;
+        // g.setFont(narrowFont(16));
         String label = text("RACES_MILITARY_ATTACK_LEVEL");
-        drawString(g,label,  x0, y0);
+        scaledFont(g, label, maxW, 16, 10);
+        drawString(g, label, x0, y0);
         label = text("RACES_MILITARY_MISSILE_DEFENSE");
-        drawString(g,label,  x0, y1);
+        scaledFont(g, label, maxW, 16, 10);
+        drawString(g, label, x0, y1);
         label = text("RACES_MILITARY_BEAM_DEFENSE");
-        drawString(g,label,  x0, y2);
+        scaledFont(g, label, maxW, 16, 10);
+        drawString(g, label, x0, y2);
         label = text("RACES_MILITARY_COMBAT_SPEED");
-        drawString(g,label,  x0, y3);
+        scaledFont(g, label, maxW, 16, 10);
+        drawString(g, label, x0, y3);
              
         g.setFont(narrowFont(15));
         String val = view.computerKnown() ? str((int)d.attackLevel()+d.empire().shipAttackBonus()) : unk;
@@ -822,13 +830,21 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
             y0 += lineH;
             if (view.specialKnown(i)) {
                 if (view.hasSpecial(i)) {
-                    drawString(g,d.special(i).name(), x0, y0);
+                	String str = d.special(i).name();
+                	scaledFont(g, str, w-s10, 16, 10);
+                    drawString(g, str, x0, y0);
                 }
-                else if (i == 0)
-                    drawString(g,text("RACES_MILITARY_NO_SPECIALS"), x0, y0);
+                else if (i == 0) {
+                	String str = text("RACES_MILITARY_NO_SPECIALS");
+                	scaledFont(g, str, w-s10, 16, 10);
+                    drawString(g, str, x0, y0);
+                }
             }
-            else if (i == 0)
-                drawString(g,text("RACES_MILITARY_UNSCANNED_LONG"), x0, y0);
+            else if (i == 0) {
+            	String str = text("RACES_MILITARY_UNSCANNED_LONG");
+            	scaledFont(g, str, w-s10, 16, 10);
+            	drawString(g, str, x0, y0);
+            }
         }   
     }
     private void drawSizeBox(Graphics g, String size, int count, int x, int y, int w, int h, boolean hideVal) {

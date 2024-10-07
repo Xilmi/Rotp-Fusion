@@ -3,6 +3,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Global text size shrink for some languages.
+- More automatic text size to fit buttons.
 - More French translations and fixes. (Frank Zago)
 - Minor UI Fixes and French translation improvements.
 - More French translation fixes (BR & Frank Zago)

@@ -207,15 +207,18 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
     }
     private void drawIntelTitle(Graphics2D g, Empire emp, int x, int y, int w, int h) {
         g.setColor(SystemPanel.orangeText);
-        g.setFont(narrowFont(32));
+        //g.setFont(narrowFont(32));
         String title = text("RACES_INTEL_TITLE");
         title = emp.replaceTokens(title, "alien");
+        scaledFont(g, title, w-s15, 32, 20);
         drawString(g,title, x+s10, y+h-s15);
     }
     private void drawCounterIntelTitle(Graphics2D g, Empire emp, int x, int y, int w, int h) {
         g.setColor(SystemPanel.orangeText);
-        g.setFont(narrowFont(32));
-        drawString(g,text("RACES_COUNTER_INTEL_TITLE"), x+s10, y+h-s15);
+        //g.setFont(narrowFont(32));
+        String title = text("RACES_COUNTER_INTEL_TITLE");
+        scaledFont(g, title, w-s15, 32, 20);
+        drawString(g, title, x+s10, y+h-s15);
     }
     private void drawPlayerBaseInfo(Graphics2D g, Empire emp, int x, int y, int w, int h) {
         int lineH = s30;

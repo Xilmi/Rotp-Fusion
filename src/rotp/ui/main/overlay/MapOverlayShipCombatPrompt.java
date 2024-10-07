@@ -58,6 +58,7 @@ import rotp.ui.races.RacesUI;
 import rotp.ui.sprites.MapSprite;
 import rotp.ui.vipconsole.IVIPListener;
 import rotp.ui.vipconsole.VIPConsole;
+import rotp.util.LanguageManager;
 
 public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListener {
     static final Color destroyedTextC = new Color(255,32,32,192);
@@ -575,12 +576,23 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         public int width()        { return buttonW; }
         public int height()       { return buttonH; }
         private String label()    { return text("SHIP_COMBAT_AUTO_RESOLVE"); }
-        private Font font()       { return narrowFont(18); }
+        private Font font()       {
+        	String language = LanguageManager.current().selectedLanguageName();
+        	if (language.equals("Português")) {
+        		return narrowFont(16);
+        	}
+        	return narrowFont(18);
+        }
         public void reset()       { background = null; }
 
         public void init(MapOverlayShipCombatPrompt p, Graphics2D g)  {
             parent = p;
-            buttonW = BasePanel.s40 + g.getFontMetrics(font()).stringWidth(label());
+        	String language = LanguageManager.current().selectedLanguageName();
+        	if (language.equals("Português")) {
+                buttonW = BasePanel.s20 + g.getFontMetrics(font()).stringWidth(label());
+        	}
+        	else
+        		buttonW = BasePanel.s40 + g.getFontMetrics(font()).stringWidth(label());
             buttonH = BasePanel.s30;
             selectW = buttonW;
             selectH = buttonH;
@@ -652,12 +664,23 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         public int width()        { return buttonW; }
         public int height()       { return buttonH; }
         private String label()    { return text("SHIP_COMBAT_SMART_RESOLVE"); }
-        private Font font()       { return narrowFont(18); }
+        private Font font()       {
+        	String language = LanguageManager.current().selectedLanguageName();
+        	if (language.equals("Português")) {
+        		return narrowFont(16);
+        	}
+        	return narrowFont(18);
+        }
         public void reset()       { background = null; }
 
         public void init(MapOverlayShipCombatPrompt p, Graphics2D g)  {
             parent = p;
-            buttonW = BasePanel.s40 + g.getFontMetrics(font()).stringWidth(label());
+        	String language = LanguageManager.current().selectedLanguageName();
+        	if (language.equals("Português")) {
+                buttonW = BasePanel.s20 + g.getFontMetrics(font()).stringWidth(label());
+        	}
+        	else
+        		buttonW = BasePanel.s40 + g.getFontMetrics(font()).stringWidth(label());
             buttonH = BasePanel.s30;
             selectW = buttonW;
             selectH = buttonH;
@@ -729,12 +752,23 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         public int width()        { return buttonW; }
         public int height()       { return buttonH; }
         private String label()    { return text("SHIP_COMBAT_RETREAT_ALL"); }
-        private Font font()       { return narrowFont(18); }
+        private Font font()       {
+        	String language = LanguageManager.current().selectedLanguageName();
+        	if (language.equals("Português")) {
+        		return narrowFont(16);
+        	}
+        	return narrowFont(18);
+        }
         public void reset()       { background = null; }
 
         public void init(MapOverlayShipCombatPrompt p, Graphics2D g)  {
             parent = p;
-            buttonW = BasePanel.s40 + g.getFontMetrics(font()).stringWidth(label());
+        	String language = LanguageManager.current().selectedLanguageName();
+        	if (language.equals("Português")) {
+                buttonW = BasePanel.s20 + g.getFontMetrics(font()).stringWidth(label());
+        	}
+        	else
+        		buttonW = BasePanel.s40 + g.getFontMetrics(font()).stringWidth(label());
             buttonH = BasePanel.s30;
             selectW = buttonW;
             selectH = buttonH;
@@ -807,7 +841,12 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         public void init(MapOverlayShipCombatPrompt p, Graphics2D g)  {
             parent = p;
             buttonH = BasePanel.s60;
-            buttonW = buttonH;
+        	String language = LanguageManager.current().selectedLanguageName();
+        	if (language.equals("Português")) {
+                buttonW = BasePanel.s20 + g.getFontMetrics(font()).stringWidth(label());
+        	}
+        	else
+        		buttonW = BasePanel.s40 + g.getFontMetrics(font()).stringWidth(label());
             selectW = buttonW;
             selectH = buttonH;
         }
@@ -844,6 +883,9 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             boolean anyWar;
             EmpireView view = null;
             DiplomaticEmbassy embassy = null;
+            int flagH = buttonH;
+            int flagW = flagH;
+            int flagX = mapX + buttonW - flagW;
             
             if (mgr.results().isMonsterAttack()) {
             	SpaceMonster monster = mgr.results().monster();
@@ -852,8 +894,10 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         		anyWar  = true;
             	int sx2 = flagWar.getWidth(null);
             	int sy2 = flagWar.getHeight(null);
+            	flagW = flagH * sx2 / sy2;
             	int y = mapY + BasePanel.s15;
-        		g.drawImage(flagWar, mapX, y, mapX+buttonW, y+buttonH, 0, 0, sx2, sy2, null);
+        		//g.drawImage(flagWar, mapX, y, mapX+buttonW, y+buttonH, 0, 0, sx2, sy2, null);
+        		g.drawImage(flagWar, flagX, y, flagX+flagW, y+flagH, 0, 0, sx2, sy2, null);
         		return;
             }
             else if (alien == null) { // Should never happen...
@@ -873,7 +917,9 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             	int s10 = BasePanel.s10;
             	int sx2 = flagWar.getWidth(null);
             	int sy2 = flagWar.getHeight(null);
-            	g.drawImage(flagWar, mapX, mapY, mapX+buttonW, mapY+buttonH, 0, 0, sx2, sy2, null);
+            	flagW = flagH * sx2 / sy2;
+            	//g.drawImage(flagWar, mapX, mapY, mapX+buttonW, mapY+buttonH, 0, 0, sx2, sy2, null);
+            	g.drawImage(flagWar, flagX, mapY, flagX+flagW, mapY+flagH, 0, 0, sx2, sy2, null);
 
             	// draw pop-up
             	g.setFont(font());
@@ -970,8 +1016,10 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             	}
             }
             else {
-            	g.drawImage(flag, mapX, mapY, mapX+buttonW, mapY+buttonH,
-            			0, 0, flag.getWidth(null), flag.getHeight(null), null);
+            	int sx2 = flag.getWidth(null);
+            	int sy2 = flag.getHeight(null);
+            	flagW = flagH * sx2 / sy2;
+            	g.drawImage(flag, flagX, mapY, flagX+flagW, mapY+flagH, 0, 0, sx2, sy2, null);
             }
         }
         @Override
@@ -996,12 +1044,23 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         public int width()        { return buttonW; }
         public int height()       { return buttonH; }
         private String label()    { return text("SHIP_COMBAT_ENTER_BATTLE"); }
-        private Font font()       { return narrowFont(18); }
+        private Font font()       {
+        	String language = LanguageManager.current().selectedLanguageName();
+        	if (language.equals("Português")) {
+        		return narrowFont(16);
+        	}
+        	return narrowFont(18);
+        }
         public void reset()       { background = null; }
 
         public void init(MapOverlayShipCombatPrompt p, Graphics2D g)  {
             parent = p;
-            buttonW = BasePanel.s40 + g.getFontMetrics(font()).stringWidth(label());
+        	String language = LanguageManager.current().selectedLanguageName();
+        	if (language.equals("Português")) {
+                buttonW = BasePanel.s20 + g.getFontMetrics(font()).stringWidth(label());
+        	}
+        	else
+        		buttonW = BasePanel.s40 + g.getFontMetrics(font()).stringWidth(label());
             buttonH = BasePanel.s30;
             selectW = buttonW;
             selectH = buttonH;

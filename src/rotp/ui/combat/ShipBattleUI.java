@@ -36,6 +36,7 @@ import rotp.ui.FadeInPanel;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.vipconsole.IVIPConsole;
 import rotp.ui.vipconsole.IVIPListener;
+import rotp.util.LanguageManager;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -706,7 +707,13 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         int x1 = x + s4;
         int w1 = w - s8;
         int x1a = x1 + s4;
-        int x1b = x1 + (w1 / 2) + s8;
+        int x1l = x1 + (w1 / 2);
+        String language = LanguageManager.current().selectedLanguageName();
+        if (language.equals("Português")) {
+        	x1l = x1 + (w1 * 35/100);
+        }
+        int x1b = x1l + s8;
+
         Color textColor = SystemPanel.blackText;
         g.setColor(lineColor);
         g.fillRect(x1, y2, w1, s1);
@@ -787,7 +794,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         g.fillRect(x1, y2, w1, s1);
 
         g.setColor(lineColor);
-        g.fillRect(x1 + (w / 2), y2a, s1, y2 - y2a);
+        g.fillRect(x1l, y2a, s1, y2 - y2a);
 
         // weapon - missile type for bases
         if (numWeapons > 0) {

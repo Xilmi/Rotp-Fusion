@@ -515,7 +515,7 @@ public class EmpireSystemPanel extends SystemPanel {
             g.setStroke(prevStroke);
 
             String s = text("MAIN_COLONY_RELOCATE_LABEL");
-            scaledFont(g, s, w-s10, 17, 13);
+            scaledFont(g, s, w-s5, 17, 10);
             if (!enabled)
                 g.setColor(gray90C);
             else if (hoverBox == rallyPointBox)	

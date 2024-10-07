@@ -2,9 +2,9 @@
 
 name,       Български
 
-logo,       TheanoDidot-Regular.ttf,    100
-dialogue,   MyriadPro-BoldCond.otf,     100
-narrow,     MyriadPro-BoldCond.otf,     100
-normal,     MyriadPro-Bold.otf,         100
-plain,      MyriadPro-Cond.otf,         100
-language,   MyriadPro-BoldCond.otf,     100
+logo,       TheanoDidot-Regular.ttf,    85
+dialogue,   MyriadPro-BoldCond.otf,     85
+narrow,     MyriadPro-BoldCond.otf,     85
+normal,     MyriadPro-Bold.otf,         85
+plain,      MyriadPro-Cond.otf,         85
+language,   MyriadPro-BoldCond.otf,     85

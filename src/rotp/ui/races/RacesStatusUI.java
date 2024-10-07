@@ -254,7 +254,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
             g.setStroke(prev);
         }
         
-        g.setFont(narrowFont(20));
+        //g.setFont(narrowFont(20));
         if (button == hoverShape) 
             g.setColor(Color.yellow);
         else
@@ -263,6 +263,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         
         String text = text("RACES_STATUS_HISTORY");
         text = emp.replaceTokens(text, "alien");
+        scaledFont(g, text, w-s10, 20, 10);
         int sw = g.getFontMetrics().stringWidth(text);
         int x0 = x+(w-sw)/2;
         drawString(g,text, x0, y+h-s6);

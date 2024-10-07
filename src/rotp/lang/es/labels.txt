@@ -1392,7 +1392,7 @@ SHIP_DESIGN_SHIELD_COST           | Costo
 SHIP_DESIGN_SHIELD_SIZE           | Tamaño
 SHIP_DESIGN_SHIELD_POWER          | Potencia
 SHIP_DESIGN_SHIELD_SPACE          | Espacio
-SHIP_DESIGN_ECM_TITLE             | Bloqueador(Contramedidas electrónicas)
+SHIP_DESIGN_ECM_TITLE             | Bloqueador(CME)
 SHIP_DESIGN_ECM_TYPE              | Tipo
 SHIP_DESIGN_ECM_COST              | Costo
 SHIP_DESIGN_ECM_SIZE              | Tamaño

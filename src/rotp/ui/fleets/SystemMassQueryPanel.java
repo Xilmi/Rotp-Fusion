@@ -344,6 +344,7 @@ public class SystemMassQueryPanel extends BasePanel {
         private void drawRallyPointHeader(Graphics2D g, int w, int h) {
             g.setFont(narrowFont(25));
             String title = text("FLEETS_SET_RALLY_POINTS");
+            scaledFont(g, title, w-s10, 25, 10);
             drawShadowedString(g, title, 3, s5, h-s95, SystemPanel.textShadowC, SystemPanel.orangeText);
             //drawShadowedString(g, title, 3, s5, h-s75, SystemPanel.textShadowC, SystemPanel.orangeText);
 
@@ -581,8 +582,7 @@ public class SystemMassQueryPanel extends BasePanel {
             g.setStroke(prevStroke);
 
             String s = text("FLEETS_RELOCATE_LABEL");
-            g.setFont(narrowFont(17));
-            this.scaledFont(g, s, scaled(120), 17, 14);
+            scaledFont(g, s, w-s5, 17, 10);
             if (!player().canRallyFleets())
                 g.setColor(SystemPanel.grayText);
             else if (hoverBox == rallyPointBox)	

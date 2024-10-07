@@ -597,7 +597,8 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         g.setStroke(prev);
 
         String eqText = text("TECH_EQUALIZE");
-        g.setFont(narrowFont(20));
+        scaledFont(g, eqText, eqW-s10, 20, 10);
+        // g.setFont(narrowFont(20));
         c9 = hoverBox == equalizeButton ? Color.yellow : Color.white;
         int sw9 = g.getFontMetrics().stringWidth(eqText);
         int x9 = eqX+((eqW-sw9)/2);

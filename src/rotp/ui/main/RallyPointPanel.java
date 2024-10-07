@@ -44,6 +44,7 @@ import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesign;
 import rotp.ui.BasePanel;
 import rotp.ui.sprites.ShipRelocationSprite;
+import rotp.util.LanguageManager;
 
 public class RallyPointPanel extends SystemPanel {
     private static final long serialVersionUID = 1L;
@@ -317,11 +318,17 @@ public class RallyPointPanel extends SystemPanel {
 
             int leftM = s5;
             String title = text("MAIN_RALLY_TITLE");
-            g.setFont(narrowFont(24));
+            //g.setFont(narrowFont(24));
+            scaledFont(g, title, w-s10, 24, 15);
             drawShadowedString(g, title, 3, leftM, s30, MainUI.shadeBorderC(), SystemPanel.whiteLabelText);
 
             String prompt = text("MAIN_RALLY_PROMPT");
-            g.setFont(narrowFont(18));
+            //g.setFont(narrowFont(18));
+            String language = LanguageManager.current().selectedLanguageName();
+            if (language.equals("Español"))
+            	g.setFont(narrowFont(17));
+            else
+            	g.setFont(narrowFont(18));
 
             int y0 = s35;
             g.setColor(MainUI.darkShadowC);
@@ -602,7 +609,8 @@ public class RallyPointPanel extends SystemPanel {
             boolean hovering = (actionBox != null) && (actionBox == hoverBox);
             Color c0 = hovering ? SystemPanel.yellowText : SystemPanel.whiteText;
 
-            g.setFont(narrowFont(22));
+            //g.setFont(narrowFont(22));
+            scaledFont(g, label, w-s10, 22, 10);
             int sw = g.getFontMetrics().stringWidth(label);
             int x0 = x1+((w-sw)/2);
             drawShadowedString(g, label, 3, x0, y+h-s11, SystemPanel.textShadowC, c0);

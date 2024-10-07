@@ -779,7 +779,8 @@ public class RacesUI extends BasePanel {
             drawString(g,"?", s16, s30);
         }
         private void drawTab(Graphics2D g, int x, int y, int w, int h, String label, Rectangle box, boolean selected) {
-            g.setFont(narrowFont(22));
+            // g.setFont(narrowFont(22));
+            scaledFont(g, label, w-s10, 22, 10);
             if (selected)
                 g.setColor(lightBrown);
             else

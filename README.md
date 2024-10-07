@@ -69,6 +69,11 @@ Later:
 
 ## What's New
 
+2024.10.07 (BR)
+- Many UI text size fix for foreign language (now dynamic text size)
+- Language specific text position adjustment.
+- Global text size shrink for some languages.
+
 2024.10.06  (Frank Zago)
 - More French translations and fixes.
 

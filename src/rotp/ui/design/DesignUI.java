@@ -1553,10 +1553,20 @@ public class DesignUI extends BasePanel {
 
             int xofs1 = 0;
             int xofs2 = 0;
+            int fontSize = 17;
             String language = LanguageManager.current().selectedLanguageName();
             if (language.equals("Français")) {
             	xofs1 = w*5/100;
             	xofs2 = s10;
+            }
+            else if (language.equals("Deutsch")) {
+            	xofs1 = w*3/100;
+            	xofs2 = s10;
+            	fontSize = 16;
+            }
+            else if (language.equals("Español")) {
+            	xofs2 = s10;
+            	fontSize = 16;
             }
             
             int x1 = x+s10;
@@ -1564,7 +1574,7 @@ public class DesignUI extends BasePanel {
 
             int rowH=(h-s85-s25)/7;
 
-            g.setFont(narrowFont(17));
+            g.setFont(narrowFont(fontSize));
             g.setColor(Color.black);
             int y1 = y0+rowH+s15;
             drawString(g,text("SHIP_DESIGN_SIZE_LABEL"), x1, y1);
@@ -1835,7 +1845,7 @@ public class DesignUI extends BasePanel {
             drawString(g,sizeStr, x1a, y1);
 
             g.setColor(darkestBrown);
-            g.setFont(narrowFont(17));
+            g.setFont(narrowFont(fontSize));
            
             String str = player().tech().topFuelRangeTech().unlimited ? text("SHIP_DESIGN_RANGE_UNLIMITED") : text("SHIP_DESIGN_RANGE_VALUE", (int)des.range());
             sw = g.getFontMetrics().stringWidth(str);
@@ -1858,7 +1868,7 @@ public class DesignUI extends BasePanel {
 
             // right side
             g.setColor(Color.black);
-            g.setFont(narrowFont(17));
+            g.setFont(narrowFont(fontSize));
             drawString(g,text("SHIP_DESIGN_HIT_POINTS_LABEL"), x2+s10, y2);
             drawString(g,text("SHIP_DESIGN_MISSILE_DEF_LABEL"), x2+s10, y3);
             drawString(g,text("SHIP_DESIGN_BEAM_DEF_LABEL"), x2+s10, y4);
@@ -1917,7 +1927,7 @@ public class DesignUI extends BasePanel {
             // draw right side values
             int x3 = x+w-s20+xofs2;
             g.setColor(darkestBrown);
-            g.setFont(narrowFont(17));
+            g.setFont(narrowFont(fontSize));
             str = ""+(int)des.hits();
             sw = g.getFontMetrics().stringWidth(str);
             drawString(g,str, x3-sw, y2);
@@ -2206,6 +2216,18 @@ public class DesignUI extends BasePanel {
             g.setColor(darkBrown);
             g.fillRect(x, y, w, h);
 
+            int fontSize = 16;
+            int fontSize2 = 16;
+            String language = LanguageManager.current().selectedLanguageName();
+            if (language.equals("Deutsch")) {
+            	fontSize = 15;
+            	fontSize2 = 13;
+            }
+            else if (language.equals("Español")) {
+            	fontSize = 15;
+            	fontSize2 = 15;            	
+            }
+
             g.setFont(narrowFont(22));
             drawShadowedString(g, text("SHIP_DESIGN_ENGINES_TITLE"), 3, x + s10, y + s25, SystemPanel.textShadowC, SystemPanel.whiteText);
             g.setColor(Color.black);
@@ -2225,7 +2247,7 @@ public class DesignUI extends BasePanel {
             int y1 = y0 + s26;
             drawString(g,typeLabel, x0, y1);
             int y2 = y1 + s33 - scrunch;
-            g.setFont(narrowFont(16));
+            g.setFont(narrowFont(fontSize));
             drawString(g,text("SHIP_DESIGN_ENGINE_SPEED"), x0, y2);
             int y3 = y2 + s17;
             drawString(g,text("SHIP_DESIGN_ENGINE_COST1"), x0, y3);
@@ -2238,6 +2260,7 @@ public class DesignUI extends BasePanel {
             int y7 = y6 + s17;
             drawString(g,text("SHIP_DESIGN_ENGINES_REQUIRED"), x0, y7);
             int y8 = y7 + s27 - scrunch;
+            g.setFont(narrowFont(fontSize2));
             drawString(g,text("SHIP_DESIGN_ENGINES_SIZE"), x0, y8);
             int y9 = y8 + s17;
             drawString(g,text("SHIP_DESIGN_ENGINES_COST"), x0, y9);
@@ -2374,6 +2397,8 @@ public class DesignUI extends BasePanel {
             int pct4 = 8;
             int pct5 = 10;
             int pct6 = 8;
+            int fontSizeTitle = 20;
+            
             String language = LanguageManager.current().selectedLanguageName();
             if (language.equals("Français")) {
                 pct1 = 22;
@@ -2382,6 +2407,33 @@ public class DesignUI extends BasePanel {
                 pct4 = 8;
                 pct5 = 10;
                 pct6 = 8;
+            }
+            else if (language.equals("Deutsch")) {
+                pct1 = 22;
+                pct2 = 28;
+                pct3 = 24;
+                pct4 = 8;
+                pct5 = 10;
+                pct6 = 8;            	
+            }
+            else if (language.equals("Italiana")) {
+                pct1 = 22;
+                pct2 = 28;
+                pct3 = 24;
+                pct4 = 8;
+                pct5 = 10;
+                pct6 = 8;            	
+            }
+            else if (language.equals("Español")) {
+                pct1 = 24;
+                pct2 = 26;
+                pct3 = 24;
+                pct4 = 8;
+                pct5 = 10;
+                pct6 = 8;            	
+            }
+            else if (language.equals("Português")) {
+            	fontSizeTitle = 18;
             }
 
             int x1 = x+s10; int w1 = w*pct1/100;
@@ -2416,19 +2468,19 @@ public class DesignUI extends BasePanel {
             int rowH = (y+h-s10-y1)/3;
             int y2 = y1+rowH;
             String title1 = text("SHIP_DESIGN_COMPUTER_TITLE");
-            g.setFont(narrowFont(20));
+            g.setFont(narrowFont(fontSizeTitle));
             drawShadowedString(g, title1, 3, x1, y2, SystemPanel.textShadowC, SystemPanel.whiteText);
 
            // draw ship armor row
             int y3 = y2+rowH;
             String title2 = text("SHIP_DESIGN_ARMOR_TITLE");
-            g.setFont(narrowFont(20));
+            g.setFont(narrowFont(fontSizeTitle));
             drawShadowedString(g, title2, 3, x1, y3, SystemPanel.textShadowC, SystemPanel.whiteText);
 
             // draw ship shields row
             int y4 = y3+rowH;
             String title3 = text("SHIP_DESIGN_SHIELD_TITLE");
-            g.setFont(narrowFont(20));
+            g.setFont(narrowFont(fontSizeTitle));
             drawShadowedString(g, title3, 3, x1, y4, SystemPanel.textShadowC, SystemPanel.whiteText);
 
             if (UserPreferences.texturesInterface()) 
@@ -2669,10 +2721,42 @@ public class DesignUI extends BasePanel {
             int pct4 = 8;
             int pct5 = 10;
             int pct6 = 8;
+            int fontSizeTitle = 20;
+            int fontSizeDesc  = 15;
             String language = LanguageManager.current().selectedLanguageName();
             if (language.equals("Français")) {
                 pct1 = 24;
                 pct2 = 26;
+                pct3 = 24;
+                pct4 = 8;
+                pct5 = 10;
+                pct6 = 8;
+            }
+            else if (language.equals("Deutsch")) {
+            	fontSizeTitle = 16;
+            	fontSizeDesc  = 13;
+                pct1 = 24;
+                pct2 = 26;
+                pct3 = 24;
+                pct4 = 8;
+                pct5 = 10;
+                pct6 = 8;
+            }
+            else if (language.equals("Italiana")) {
+            	fontSizeTitle = 16;
+            	fontSizeDesc  = 13;
+                pct1 = 21;
+                pct2 = 30;
+                pct3 = 23;
+                pct4 = 8;
+                pct5 = 10;
+                pct6 = 8;
+            }
+            else if (language.equals("Español")) {
+            	fontSizeTitle = 16;
+            	fontSizeDesc  = 13;
+                pct1 = 25;
+                pct2 = 25;
                 pct3 = 24;
                 pct4 = 8;
                 pct5 = 10;
@@ -2711,14 +2795,14 @@ public class DesignUI extends BasePanel {
             int rowH = (y+h-s10-y1)/3;
             int y2 = y1+rowH;
             String title1 = text("SHIP_DESIGN_ECM_TITLE");
-            g.setFont(narrowFont(20));
-            scaledFont(g, title1, x2-x1-s5, 20, 17);
+            //g.setFont(narrowFont(fontSizeTitle));
+            scaledFont(g, title1, x2-x1-s5, fontSizeTitle, 15);
             drawShadowedString(g, title1, 3, x1, y2, SystemPanel.textShadowC, SystemPanel.whiteText);
 
             // draw ship maneuver row
             int y3 = y2+rowH;
             String title2 = text("SHIP_DESIGN_MANEUVER_TITLE");
-            g.setFont(narrowFont(20));
+            g.setFont(narrowFont(fontSizeTitle));
             drawShadowedString(g, title2, 3, x1, y3, SystemPanel.textShadowC, SystemPanel.whiteText);
 
             if (UserPreferences.texturesInterface()) 
@@ -2731,7 +2815,7 @@ public class DesignUI extends BasePanel {
             String ecmSize = fmt(ecm.size(des), 1);
             String ecmPower = fmt(ecm.power(des), 1);
             String ecmCost = fmt(ecm.cost(des), 1);
-            g.setFont(narrowFont(15));
+            g.setFont(narrowFont(fontSizeDesc));
             g.setColor(darkestBrown);
             List<String> descLines = wrappedLines(g, ecmDesc, w2);
             if (descLines.size() == 1) 
@@ -2804,7 +2888,7 @@ public class DesignUI extends BasePanel {
             String manvSize = fmt(manv.size(des), 1);
             String manvPower = fmt(manv.power(des), 1);
             String manvCost = fmt(manv.cost(des), 1);
-            g.setFont(narrowFont(15));
+            g.setFont(narrowFont(fontSizeDesc));
             g.setColor(darkestBrown);
             descLines = wrappedLines(g, manvDesc, w2);
             if (descLines.size() == 1) 

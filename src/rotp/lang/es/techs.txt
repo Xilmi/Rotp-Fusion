@@ -354,55 +354,55 @@ ECMJAMMER_0_ITEM      |
 ECMJAMMER_0_BRIEF     | Defensa de misiles 0
 ECMJAMMER_0_DETAIL    | 
 
-ECMJAMMER_1_NAME      | Bloqueador(Contramedidas electrónicas) Mark I
+ECMJAMMER_1_NAME      | Bloqueador(CME) Mark I
 ECMJAMMER_1_ITEM      | Bloqueador I
 ECMJAMMER_1_BRIEF     | Defensa de misiles 1
-ECMJAMMER_1_DETAIL    | Agrega 1 nivel a la defensa contra ataques de misiles enemigos.
+ECMJAMMER_1_DETAIL    | Agrega 1 nivel a la defensa contra ataques de misiles enemigos. (Contramedidas electrónicas)
 
-ECMJAMMER_2_NAME      | Bloqueador(Contramedidas electrónicas) Mark II
+ECMJAMMER_2_NAME      | Bloqueador(CME) Mark II
 ECMJAMMER_2_ITEM      | Bloqueador II
 ECMJAMMER_2_BRIEF     | Defensa de misiles 2
-ECMJAMMER_2_DETAIL    | Agrega 2 nivel a la defensa contra ataques de misiles enemigos.
+ECMJAMMER_2_DETAIL    | Agrega 2 nivel a la defensa contra ataques de misiles enemigos. (Contramedidas electrónicas)
 
-ECMJAMMER_3_NAME      | Bloqueador(Contramedidas electrónicas) Mark III
+ECMJAMMER_3_NAME      | Bloqueador(CME) Mark III
 ECMJAMMER_3_ITEM      | Bloqueador III
 ECMJAMMER_3_BRIEF     | Defensa de misiles 3
-ECMJAMMER_3_DETAIL    | Agrega 3 nivel a la defensa contra ataques de misiles enemigos.
+ECMJAMMER_3_DETAIL    | Agrega 3 nivel a la defensa contra ataques de misiles enemigos. (Contramedidas electrónicas)
 
-ECMJAMMER_4_NAME      | Bloqueador(Contramedidas electrónicas) Mark IV
+ECMJAMMER_4_NAME      | Bloqueador(CME) Mark IV
 ECMJAMMER_4_ITEM      | Bloqueador IV
 ECMJAMMER_4_BRIEF     | Defensa de misiles 4
-ECMJAMMER_4_DETAIL    | Agrega 4 nivel a la defensa contra ataques de misiles enemigos..
+ECMJAMMER_4_DETAIL    | Agrega 4 nivel a la defensa contra ataques de misiles enemigos. (Contramedidas electrónicas)
 
-ECMJAMMER_5_NAME      | Bloqueador(Contramedidas electrónicas) Mark V
+ECMJAMMER_5_NAME      | Bloqueador(CME) Mark V
 ECMJAMMER_5_ITEM      | Bloqueador V
 ECMJAMMER_5_BRIEF     | Defensa de misiles 5
-ECMJAMMER_5_DETAIL    | Agrega 5 nivel a la defensa contra ataques de misiles enemigos.
+ECMJAMMER_5_DETAIL    | Agrega 5 nivel a la defensa contra ataques de misiles enemigos. (Contramedidas electrónicas)
 
-ECMJAMMER_6_NAME      | Bloqueador(Contramedidas electrónicas) Mark VI
+ECMJAMMER_6_NAME      | Bloqueador(CME) Mark VI
 ECMJAMMER_6_ITEM      | Bloqueador VI
 ECMJAMMER_6_BRIEF     | Defensa de misiles 6
-ECMJAMMER_6_DETAIL    | Agrega 6 nivel a la defensa contra ataques de misiles enemigos.
+ECMJAMMER_6_DETAIL    | Agrega 6 nivel a la defensa contra ataques de misiles enemigos. (Contramedidas electrónicas)
 
-ECMJAMMER_7_NAME      | Bloqueador(Contramedidas electrónicas) Mark VII
+ECMJAMMER_7_NAME      | Bloqueador(CME) Mark VII
 ECMJAMMER_7_ITEM      | Bloqueador VII
 ECMJAMMER_7_BRIEF     | Defensa de misiles 7
-ECMJAMMER_7_DETAIL    | Agrega 7 nivel a la defensa contra ataques de misiles enemigos.
+ECMJAMMER_7_DETAIL    | Agrega 7 nivel a la defensa contra ataques de misiles enemigos. (Contramedidas electrónicas)
 
-ECMJAMMER_8_NAME      | Bloqueador(Contramedidas electrónicas) Mark VIII
+ECMJAMMER_8_NAME      | Bloqueador(CME) Mark VIII
 ECMJAMMER_8_ITEM      | Bloqueador VIII
 ECMJAMMER_8_BRIEF     | Defensa de misiles 8
-ECMJAMMER_8_DETAIL    | Agrega 8 nivel a la defensa contra ataques de misiles enemigos.
+ECMJAMMER_8_DETAIL    | Agrega 8 nivel a la defensa contra ataques de misiles enemigos. (Contramedidas electrónicas)
 
-ECMJAMMER_9_NAME      | Bloqueador(Contramedidas electrónicas) Mark IX
+ECMJAMMER_9_NAME      | Bloqueador(CME) Mark IX
 ECMJAMMER_9_ITEM      | Bloqueador IX
 ECMJAMMER_9_BRIEF     | Defensa de misiles 9
-ECMJAMMER_9_DETAIL    | Agrega 9 nivel a la defensa contra ataques de misiles enemigos..
+ECMJAMMER_9_DETAIL    | Agrega 9 nivel a la defensa contra ataques de misiles enemigos. (Contramedidas electrónicas)
 
-ECMJAMMER_10_NAME     | Bloqueador(Contramedidas electrónicas) Mark X
+ECMJAMMER_10_NAME     | Bloqueador(CME) Mark X
 ECMJAMMER_10_ITEM     | Bloqueador X
 ECMJAMMER_10_BRIEF    | Defensa de misiles 10
-ECMJAMMER_10_DETAIL   | Agrega 10 nivel a la defensa contra ataques de misiles enemigos.
+ECMJAMMER_10_DETAIL   | Agrega 10 nivel a la defensa contra ataques de misiles enemigos. (Contramedidas electrónicas)
 
 
 //
