@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- More French translations (New and fixes) (BR & Frank Zago)
 - Global text size shrink for some languages.
 - More automatic text size to fit buttons.
 - More French translations and fixes. (Frank Zago)
@@ -16,7 +17,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Tech Panel: New complementary tech info available.
 - Custom Council percentage: The anounce and conclusion messages will now follow the requirement.
 - Fixed incorrect variable names in language files. (Frank Zago)
-
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

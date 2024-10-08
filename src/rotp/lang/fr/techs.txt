@@ -51,13 +51,13 @@ ATMOSPHERE_0_DETAIL    | Convertit les environnements hostiles en environnements
 //
 // Automated Repair techs
 //
-AUTOREPAIR_0_NAME      | Système de réparation automatisé
+AUTOREPAIR_0_NAME      | Robots de maintenance automatique
 AUTOREPAIR_0_BRIEF     | Répare 15 % des coups du navire par tour
-AUTOREPAIR_0_DETAIL    | Les navires non détruits peuvent réparer jusqu'à 15 % de leurs points de vie totaux à la fin de chaque tour.
+AUTOREPAIR_0_DETAIL    | À la fin de chaque tour, les vaisseaux non détruits peuvent réparer jusqu'à 15 % de la totalité de leurs points de structure.
 
-AUTOREPAIR_1_NAME      | Contrôle avancé des dommages
+AUTOREPAIR_1_NAME      | Maîtrise avancée des dommages
 AUTOREPAIR_1_BRIEF     | Répare 30 % des coups du navire par tour
-AUTOREPAIR_1_DETAIL    | Les navires non détruits peuvent réparer jusqu'à 30 % de leurs points de vie totaux à la fin de chaque tour.
+AUTOREPAIR_1_DETAIL    | À la fin de chaque tour, les vaisseaux non détruits peuvent réparer jusqu'à 30 % de la totalité de leurs points de structure.
 
 
 //
@@ -169,17 +169,17 @@ BIOANTIDOTE_1_DETAIL  | Réduit les pertes causées par les armes biologiques de
 //
 // Biological weapon techs
 //
-BIOWEAPON_0_NAME     | Spores de la mort
+BIOWEAPON_0_NAME     | Spores mortels
 BIOWEAPON_0_BRIEF    | Arme biologique
-BIOWEAPON_0_DETAIL   | Des armes biologiques horribles capables de réduire les populations planétaires maximales de 1M par attaque.
+BIOWEAPON_0_DETAIL   | Une arme biologique horrible capable de réduire la populations planétaire maximale de 1M par attaque.
 
 BIOWEAPON_1_NAME     | Virus du Malheur
 BIOWEAPON_1_BRIEF    | Arme biologique
-BIOWEAPON_1_DETAIL   | Ded redoutables armes biologiques capables de réduire les populations planétaires de 2M par attaque.
+BIOWEAPON_1_DETAIL   | De redoutables armes biologiques capables de réduire la population planétaire de 2M par attaque.
 
 BIOWEAPON_2_NAME     | Terminateur Bio
 BIOWEAPON_2_BRIEF    | Arme biologique
-BIOWEAPON_2_DETAIL   | Des armes biologiques abominables capables de réduire les populations planétaires de 3M par attaque.
+BIOWEAPON_2_DETAIL   | Une arme biologique abominable capable de réduire la population planétaire de 3M par attaque.
 
 //
 // Black Hole Generator tech
@@ -455,16 +455,19 @@ ENGINE_0_ITEM2   | Classe 1
 ENGINE_0_BRIEF   | Distorsion 1  Def %1
 ENGINE_0_BRIEF2  | Vitesse de combat %1
 
-ENGINE_1_NAME    | Moteurs nucléaires
+// Nucléaire = sous-entendu Fission.
+ENGINE_1_NAME    | Propulsion nucléaire
 ENGINE_1_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe II en combat.
 ENGINE_1_ITEM    | Nucléaire
 ENGINE_1_ITEM2   | Classe 2
 ENGINE_1_BRIEF   | Distorsion 2  Def %1
 ENGINE_1_BRIEF2  | Vitesse de combat %1
 
+// Non sens! Subspace est défini pour les communication ou est équivalent à hyperspace (Top technologie!)
+// On va donc rester avec l'idée de la traduction originale... Jusqu'à ce qu'on trouve mieu!
 ENGINE_2_NAME    | Propulsion conventionnelle subluminale
 ENGINE_2_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe III en combat.
-ENGINE_2_ITEM    | Sous-lumière
+ENGINE_2_ITEM    | Subluminal
 ENGINE_2_ITEM2   | Classe 3
 ENGINE_2_BRIEF   | Distorsion 3  Def %1
 ENGINE_2_BRIEF2  | Vitesse de combat %1
@@ -476,7 +479,7 @@ ENGINE_3_ITEM2   | Classe 4
 ENGINE_3_BRIEF   | Distorsion 4  Def %1
 ENGINE_3_BRIEF2  | Vitesse de combat %1
 
-ENGINE_4_NAME    | Moteurs d'impulsion
+ENGINE_4_NAME    | Moteurs à impulsion
 ENGINE_4_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe V en combat.
 ENGINE_4_ITEM    | Impulsion
 ENGINE_4_ITEM2   | Classe 5
@@ -490,7 +493,7 @@ ENGINE_5_ITEM2   | Classe 6
 ENGINE_5_BRIEF   | Distorsion 6  Def %1
 ENGINE_5_BRIEF2  | Vitesse de combat %1
 
-ENGINE_6_NAME    | Moteurs à l'anti-matière
+ENGINE_6_NAME    | Moteurs à anti-matière
 ENGINE_6_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe VII en combat.
 ENGINE_6_ITEM    | Anti-matière
 ENGINE_6_ITEM2   | Classe 7
@@ -504,9 +507,9 @@ ENGINE_7_ITEM2   | Classe 8
 ENGINE_7_BRIEF   | Distorsion 8  Def %1
 ENGINE_7_BRIEF2  | Vitesse de combat %1
 
-ENGINE_8_NAME    | Propulsion hyper
+ENGINE_8_NAME    | Propulsion hyperspatiale
 ENGINE_8_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe IX en combat.
-ENGINE_8_ITEM    | Hyper
+ENGINE_8_ITEM    | Hyper-espace
 ENGINE_8_ITEM2   | Classe 9
 ENGINE_8_BRIEF   | Distorsion 9  Def %1
 ENGINE_8_BRIEF2  | Vitesse de combat %1
@@ -518,28 +521,29 @@ ENGINE_8_BRIEF2  | Vitesse de combat %1
 FUELRANGE_0_NAME   | Piles à combustible
 FUELRANGE_0_DETAIL | Les réserves de carburant permettent aux vaisseaux de s'éloigner jusqu'à %1 années-lumière des planètes des colonies.
 
-FUELRANGE_1_NAME   | Piles à combustible à hydrogène
+// Condensé pour éviter de sortir des champs alloués par les interfaces utilisateur
+FUELRANGE_1_NAME   | Piles à Hydrogène
 FUELRANGE_1_DETAIL | Les réserves de carburant permettent aux vaisseaux de s'éloigner jusqu'à %1 années-lumière des planètes des colonies.
 
-FUELRANGE_2_NAME   | Piles à combustible au deutérium
+FUELRANGE_2_NAME   | Piles à Deutérium
 FUELRANGE_2_DETAIL | Les réserves de carburant permettent aux vaisseaux de s'éloigner jusqu'à %1 années-lumière des planètes des colonies.
 
-FUELRANGE_3_NAME   | Piles à combustible au irridium
+FUELRANGE_3_NAME   | Piles à Irridium
 FUELRANGE_3_DETAIL | Les réserves de carburant permettent aux vaisseaux de s'éloigner jusqu'à %1 années-lumière des planètes des colonies.
 
 FUELRANGE_4_NAME   | Cristaux de Dotomite
 FUELRANGE_4_DETAIL | Les réserves de carburant permettent aux vaisseaux de s'éloigner jusqu'à %1 années-lumière des planètes des colonies.
 
-FUELRANGE_5_NAME   | Piles à combustible au uridium
+FUELRANGE_5_NAME   | Piles à Uridium
 FUELRANGE_5_DETAIL | Les réserves de carburant permettent aux vaisseaux de s'éloigner jusqu'à %1 années-lumière des planètes des colonies.
 
-FUELRANGE_6_NAME   | Piles à combustible Reajax II
+FUELRANGE_6_NAME   | Piles à Reajax II
 FUELRANGE_6_DETAIL | Les réserves de carburant permettent aux vaisseaux de s'éloigner jusqu'à %1 années-lumière des planètes des colonies.
 
-FUELRANGE_7_NAME   | Cristaux de trilithium
+FUELRANGE_7_NAME   | Cristaux de Trilithium
 FUELRANGE_7_DETAIL | Les réserves de carburant permettent aux vaisseaux de s'éloigner jusqu'à %1 années-lumière des planètes des colonies.
 
-FUELRANGE_8_NAME   | Piles de thorium
+FUELRANGE_8_NAME   | Piles à Thorium
 FUELRANGE_8_DETAIL | Les réserves de carburant permettent aux navires de s'éloigner de n'importe quelle distance des planètes de la colonie.
 
 
@@ -716,34 +720,34 @@ FUTUREPROP_9_DETAIL  | Améliorations générales de la technologie de propulsio
 //
 // Arme futuriste techs
 //
-FUTUREWEAPON_0_NAME    | Arme futuriste I
+FUTUREWEAPON_0_NAME    | Armes futuriste I
 FUTUREWEAPON_0_DETAIL  | Améliorations générales de la technologie des armes.
 
-FUTUREWEAPON_1_NAME    | Arme futuriste II
+FUTUREWEAPON_1_NAME    | Armes futuriste II
 FUTUREWEAPON_1_DETAIL  | Améliorations générales de la technologie des armes.
 
-FUTUREWEAPON_2_NAME    | Arme futuriste III
+FUTUREWEAPON_2_NAME    | Armes futuriste III
 FUTUREWEAPON_2_DETAIL  | Améliorations générales de la technologie des armes.
 
-FUTUREWEAPON_3_NAME    | Arme futuriste IV
+FUTUREWEAPON_3_NAME    | Armes futuriste IV
 FUTUREWEAPON_3_DETAIL  | Améliorations générales de la technologie des armes.
 
-FUTUREWEAPON_4_NAME    | Arme futuriste V
+FUTUREWEAPON_4_NAME    | Armes futuriste V
 FUTUREWEAPON_4_DETAIL  | Améliorations générales de la technologie des armes.
 
-FUTUREWEAPON_5_NAME    | Arme futuriste VI
+FUTUREWEAPON_5_NAME    | Armes futuriste VI
 FUTUREWEAPON_5_DETAIL  | Améliorations générales de la technologie des armes.
 
-FUTUREWEAPON_6_NAME    | Arme futuriste VII
+FUTUREWEAPON_6_NAME    | Armes futuriste VII
 FUTUREWEAPON_6_DETAIL  | Améliorations générales de la technologie des armes.
 
-FUTUREWEAPON_7_NAME    | Arme futuriste VIII
+FUTUREWEAPON_7_NAME    | Armes futuriste VIII
 FUTUREWEAPON_7_DETAIL  | Améliorations générales de la technologie des armes.
 
-FUTUREWEAPON_8_NAME    | Arme futuriste IX
+FUTUREWEAPON_8_NAME    | Armes futuriste IX
 FUTUREWEAPON_8_DETAIL  | Améliorations générales de la technologie des armes.
 
-FUTUREWEAPON_9_NAME    | Arme futuriste X
+FUTUREWEAPON_9_NAME    | Armes futuriste X
 FUTUREWEAPON_9_DETAIL  | Améliorations générales de la technologie des armes.
 
 
@@ -779,28 +783,28 @@ HYPERSPACE_0_DETAIL    | Vous permet de communiquer avec des flottes de navires 
 //
 // Technologie industrielle améliorées
 //
-IMPRINDUSTRY_0_NAME     | Technologie industrielle améliorée 9
+IMPRINDUSTRY_0_NAME     | Production industrielle 9
 IMPRINDUSTRY_0_DETAIL   | Réduit les coûts de construction d'usine à 9 BC chacun.
 
-IMPRINDUSTRY_1_NAME     | Technologie industrielle améliorée 8
+IMPRINDUSTRY_1_NAME     | Production industrielle 8
 IMPRINDUSTRY_1_DETAIL   | Réduit les coûts de construction d'usine à 8 BC chacun.
 
-IMPRINDUSTRY_2_NAME     | Technologie industrielle améliorée 7
-IMPRINDUSTRY_2_DETAIL   | Réduit les coûts de construction d'usine à 7 BC chacun.
+IMPRINDUSTRY_2_NAME     | Production industrielle 7
+IMPRINDUSTRY_2_DETAIL   | Réduit les coûts de construction d'usine à 7 BC chacun. 
 
-IMPRINDUSTRY_3_NAME     | Technologie industrielle améliorée 6
+IMPRINDUSTRY_3_NAME     | Production industrielle 6
 IMPRINDUSTRY_3_DETAIL   | Réduit les coûts de construction d'usine à 6 BC chacun.
 
-IMPRINDUSTRY_4_NAME     | Technologie industrielle améliorée 5
+IMPRINDUSTRY_4_NAME     | Production industrielle 5
 IMPRINDUSTRY_4_DETAIL   | Réduit les coûts de construction d'usine à 5 BC chacun.
 
-IMPRINDUSTRY_5_NAME     | Technologie industrielle améliorée 4
+IMPRINDUSTRY_5_NAME     | Production industrielle 4
 IMPRINDUSTRY_5_DETAIL   | Réduit les coûts de construction d'usine à 4 BC chacun.
 
-IMPRINDUSTRY_6_NAME     | Technologie industrielle améliorée 3
+IMPRINDUSTRY_6_NAME     | Production industrielle 3
 IMPRINDUSTRY_6_DETAIL   | Réduit les coûts de construction d'usine à 3 BC chacun.
 
-IMPRINDUSTRY_7_NAME     | Technologie industrielle améliorée 2
+IMPRINDUSTRY_7_NAME     | Production industrielle 2
 IMPRINDUSTRY_7_DETAIL   | Réduit les coûts de construction d'usine à 2 BC chacun.
 
 
@@ -1052,7 +1056,7 @@ SHIPWPN_1_NAME         | Laser Gatling
 SHIPWPN_1_BRIEF        | Tire 4 fois/tour
 SHIPWPN_1_DETAIL       | Un laser avancé qui tire jusqu'à quatre fois par tour et inflige 1 à 4 points de dégâts à chaque coup.
 
-SHIPWPN_2_NAME         | Canon particulaire à neutrons
+SHIPWPN_2_NAME         | Canon à neutrons
 SHIPWPN_2_BRIEF        | Réduit de moitié la force du bouclier
 SHIPWPN_2_DETAIL       | Arme à flux de particules lourdes qui réduit de moitié l'efficacité des boucliers déflecteurs ennemis et inflige 2 à 5 points de dégâts.
 
@@ -1060,11 +1064,11 @@ SHIPWPN_3_NAME         | Canon à ions
 SHIPWPN_3_ITEM2        | Canon à ions lourds
 SHIPWPN_3_DETAIL       | Armes à faisceau de haute intensité capables d'infliger 3 à 8 points de dégâts. Les canons à ions lourds frappent pendant 3 à 15 et ont une portée de deux espaces.
 
-SHIPWPN_4_NAME         | Conducteur de masse
+SHIPWPN_4_NAME         | Canon à particules
 SHIPWPN_4_BRIEF        | Réduit de moitié la force du bouclier
 SHIPWPN_4_DETAIL       | Un accélérateur linéaire qui divise par deux l'efficacité des boucliers déflecteurs ennemis et inflige 5 à 8 points de dégâts.
 
-SHIPWPN_5_NAME         | Blaster à neutrons
+SHIPWPN_5_NAME         | Pulseur à neutrons
 SHIPWPN_5_ITEM2        | Blaster lourd à neutrons
 SHIPWPN_5_DETAIL       | Armes à faisceau puissant capables d'infliger 3 à 12 points de dégâts. Les blasters à neutrons lourds frappent de 3 à 24 points et ont une portée de 2 espaces.
 
@@ -1072,7 +1076,7 @@ SHIPWPN_6_NAME         | Faisceau gravitonnel
 SHIPWPN_6_BRIEF        | Attaque en continu
 SHIPWPN_6_DETAIL       | Faisceau tracteur-répulseur capable de réduire les navires en pièces. Il frappe pour 1 à 15 points de dégâts, et l'effet de flux continu permet aux dégâts excédentaires de se propager à d'autres navires.
 
-SHIPWPN_7_NAME         | Faisceau dur
+SHIPWPN_7_NAME         | Faisceau solidifié
 SHIPWPN_7_BRIEF        | Réduit de moitié la force du bouclier
 SHIPWPN_7_DETAIL       | Une arme à faisceau énergétique-matière qui réduit de moitié l'efficacité des boucliers déflecteurs ennemis et inflige 8 à 12 points de dégâts.
 
@@ -1088,9 +1092,9 @@ SHIPWPN_10_NAME        | Phaseur
 SHIPWPN_10_ITEM2       | Phaseur lourd
 SHIPWPN_10_DETAIL      | Rayons à énergie phasée capables d'infliger 5 à 20 points de dégâts. Les phaseurs lourds infligent 5 à 40 points de dégâts et ont une portée de deux cases.
 
-SHIPWPN_11_NAME        | Blaster automatique
+SHIPWPN_11_NAME        | Pulseur automatique
 SHIPWPN_11_BRIEF       | Tire 3 fois/tour
-SHIPWPN_11_DETAIL      | Un blaster à neutrons avancé qui tire jusqu'à trois fois par tour pour 4 à 16 points de dégâts par coup.
+SHIPWPN_11_DETAIL      | Un pulseur à neutrons évolué qui tire jusqu'à trois fois par tour pour 4 à 16 points de dégâts par coup.
 
 SHIPWPN_12_NAME        | Faisceau Tachyon
 SHIPWPN_12_BRIEF       | Attaque en continu
@@ -1136,7 +1140,7 @@ SHIPWPN_23_DETAIL      | Un rayon qui entoure les boucliers d'une cible, délivr
 //
 // Soil Enrichment techs
 //
-SOILENRICH_0_NAME     | Enrichissement du sol
+SOILENRICH_0_NAME     | Fertilisation du sol
 SOILENRICH_0_DETAIL   | Convertit les planètes standard en environnements fertiles, augmentant la croissance démographique de 50 % et augmentant la taille planétaire de base de + 25 % pour un coût unique de 150 BC.
 
 SOILENRICH_1_NAME     | Enrichissement avancé du sol
