@@ -954,16 +954,16 @@ PERSSHIELD_3_DETAIL   | Enveloppe complètement le soldat dans un champ de force
 // Planetary Shield techs
 //
 PLANETSHIELD_0_NAME    | Boucliers Planétaires Classe V
-PLANETSHIELD_0_DETAIL  | Absorbe 5 points de dégâts de toutes les attaques contre les surfaces des planètes, ajoutant aux boucliers déflecteurs de base de missiles.
+PLANETSHIELD_0_DETAIL  | Absorbent 5 points de dégâts de toutes les attaques contre les surfaces des planètes, ajoutant aux boucliers déflecteurs de base de missiles.
 
 PLANETSHIELD_1_NAME    | Boucliers Planétaires Classe X
-PLANETSHIELD_1_DETAIL  | Absorbe 10 points de dégâts de toutes les attaques contre les surfaces des planètes, ajoutant aux boucliers déflecteurs de base de missiles.
+PLANETSHIELD_1_DETAIL  | Absorbent 10 points de dégâts de toutes les attaques contre les surfaces des planètes, ajoutant aux boucliers déflecteurs de base de missiles.
 
 PLANETSHIELD_2_NAME    | Boucliers Planétaires Classe XV
-PLANETSHIELD_2_DETAIL  | Absorbe 15 points de dégâts de toutes les attaques contre les surfaces des planètes, ajoutant aux boucliers déflecteurs de base de missiles.
+PLANETSHIELD_2_DETAIL  | Absorbent 15 points de dégâts de toutes les attaques contre les surfaces des planètes, ajoutant aux boucliers déflecteurs de base de missiles.
 
 PLANETSHIELD_3_NAME    | Boucliers Planétaires Classe XX
-PLANETSHIELD_3_DETAIL  | Absorbe 20 points de dégâts de toutes les attaques contre les surfaces des planètes, ajoutant aux boucliers déflecteurs de base de missiles.
+PLANETSHIELD_3_DETAIL  | Absorbent 20 points de dégâts de toutes les attaques contre les surfaces des planètes, ajoutant aux boucliers déflecteurs de base de missiles.
 
 
 //
@@ -977,7 +977,7 @@ REPULSOR_0_DETAIL  | Repousse les navires ennemis à une case du navire défense
 //
 // Reserve Fuel tech
 //
-RSRVFUEL_0_NAME    | Réservoirs de carburant supplémentaires
+RSRVFUEL_0_NAME    | Réservoirs supplémentaires
 RSRVFUEL_0_BRIEF   | Étend la portée du vaisseau de %1 années-lumière
 RSRVFUEL_0_DETAIL  | Les réservoirs de carburant supplémentaires augmentent la portée du vaisseau.
 
