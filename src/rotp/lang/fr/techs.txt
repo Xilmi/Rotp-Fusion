@@ -134,14 +134,14 @@ BATTLESUIT_DETAIL    | Donne un bonus de combat au sol :<br>+10 pour les tenues
 BATTLESUIT_0_NAME    | Habit de cuir.
 BATTLESUIT_0_DETAIL  | Beau, confortable, mais pas de bonus d'armure.
 
-BATTLESUIT_1_NAME    | Tenues de Combat
+BATTLESUIT_1_NAME    | Tenue de Combat
 BATTLESUIT_1_DETAIL  | Une armure qui non seulement protège mais renforce également la force. Ajoute 10 points aux combats au sol.
 
 BATTLESUIT_2_NAME    | Exosquelette Blindé
 BATTLESUIT_2_DETAIL  | Des tenues mobiles avancées qui non seulement augmentent la puissance et augmentent les défenses, mais offrent également un vol limité aux troupes au sol. Ajoute 20 points aux combats au sol.
 
-BATTLESUIT_3_NAME    | Armure de motorisées
-BATTLESUIT_3_DETAIL  | Combine une grande mobilité, un vol anti-gravité et un blindage lourd pour former l'armure la plus avancée disponible pour les troupes au sol. Ajoute 30 àpoints aux combats au sol.
+BATTLESUIT_3_NAME    | Armure motorisée
+BATTLESUIT_3_DETAIL  | Combine une grande mobilité, un vol anti-gravité et un blindage lourd pour former l'armure la plus avancée disponible pour les troupes au sol. Ajoute 30 points aux combats au sol.
 
 
 //
