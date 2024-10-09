@@ -3,6 +3,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed some "Debug mode" Null pointer exception bugs
+- More French translations (New and fixes)
 - More French translations (New and fixes) (BR & Frank Zago)
 - Global text size shrink for some languages.
 - More automatic text size to fit buttons.

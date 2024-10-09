@@ -557,7 +557,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             g.drawImage(shipImg, shipX,shipY,shipX+shipW,shipY+shipH, 0,0,imgW,imgH, null);
 
             // draw title
-            g.setFont(narrowFont(36));
+            // g.setFont(narrowFont(36));
             String str1;
             if (isMonster)
             	str1 = monster.name();
@@ -567,6 +567,8 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             }
             else 
                 str1 = text("MAIN_FLEET_TITLE_UNKNOWN");
+
+            scaledFont(g, str1, w-s25, 36, 20);
             drawBorderedString(g, str1, 2, s15, s42, Color.black, SystemPanel.orangeText);
             // draw orbiting data, bottom up
             int y0 = h-s12;
@@ -793,7 +795,8 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             int y0 = s20;
             int lineH = s16;
             String title = displayFl.canBeSentBy(player()) ? text("MAIN_FLEET_DEPLOYMENT") : text("MAIN_FLEET_DISPLAY");
-            g.setFont(narrowFont(22));
+            // g.setFont(narrowFont(22));
+            scaledFont(g, title, w-s20, 22, 15);
             drawShadowedString(g, title, 4, x0, y0, SystemPanel.textShadowC, Color.white);
 
             if (showAdjust) {
@@ -804,8 +807,14 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
 
             	g.setFont(narrowFont(16));
                 g.setColor(SystemPanel.blackText);
-                g.drawString("All", xa+s8, ya+s15);
-
+                String selectAll = text("MAIN_FLEET_SELECT_ALL");
+                int wsa = s24;
+                scaledFont(g, selectAll, wsa, 22, 15);
+                int sw = g.getFontMetrics().stringWidth(selectAll);
+                int dx = s3+(wsa-sw)/2;
+                
+                g.drawString(selectAll, xa+dx, ya+s15);
+                scaledFont(g, title, w-s20, 22, 15);
                 b[0]=ya-s6;  b[1]=ya-s12; b[2]=ya;
                 // draw min all box
                 Color c1 = hoverBox == minAllBoxH ? SystemPanel.yellowText : SystemPanel.blackText;
@@ -929,15 +938,19 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                     text = text("MAIN_FLEET_ETA_UNKNOWN");
                 }
             }
-            g.setFont(narrowFont(16));
-            
             if (text != null) {
-                List<String> lines = wrappedLines(g, text, w-s30);
-                for (String line: lines) {
-                    drawString(g,line, x0, y0);
-                    y0 += lineH;
-                }
+            	scaledFont(g, text, w-s30, 16, 10);
+            	drawString(g ,text, x0, y0);
+                y0 += lineH;
             }
+            g.setFont(narrowFont(16));
+//            if (text != null) {
+//                List<String> lines = wrappedLines(g, text, w-s30);
+//                for (String line: lines) {
+//                    drawString(g,line, x0, y0);
+//                    y0 += lineH;
+//                }
+//            }
 
             if (rallyText != null) {
                 y0 += lineH/2;
@@ -960,7 +973,8 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 g.setStroke(prev);
                 g.setColor(SystemPanel.blackText);
                 int indent = checkW+s6;
-                drawString(g,rallyText, x0+indent, y0);
+            	scaledFont(g, rallyText, w-s30-indent, 16, 10);
+                drawString(g, rallyText, x0+indent, y0);
             }
             if (retreatText != null) {
                 y0 += lineH;
@@ -983,12 +997,16 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                g.setStroke(prev);
                 g.setColor(SystemPanel.blackText);
                 int indent = checkW+s6;
-                List<String> lines = wrappedLines(g, retreatText, w-s30, indent);
-                for (String line: lines) {
-                    drawString(g,line, x0+indent, y0);
-                    indent = 0;
-                    y0 += lineH;
-                }
+                // BR: Line in excess are not managed!
+            	scaledFont(g, retreatText, w-s30-indent, 16, 10);
+            	drawString(g ,retreatText, x0+indent, y0);
+            	y0 += lineH;
+//                List<String> lines = wrappedLines(g, retreatText, w-s30, indent);
+//                for (String line: lines) {
+//                    drawString(g,line, x0+indent, y0);
+//                    indent = 0;
+//                    y0 += lineH;
+//                }
             }
         }
         private void drawFleet(Graphics2D g, ShipFleet origFl, ShipFleet displayFl, boolean showAdjust, int x, int y, int w, int h) {

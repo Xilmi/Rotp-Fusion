@@ -748,12 +748,13 @@ MAIN_FLEET_DISPLAY                | Affichage de la Flotte
 MAIN_FLEET_CHOOSE_DEST            | Choisissez la destination et le nombre de vaisseaux à envoyer.
 MAIN_FLEET_OUT_OF_RANGE_DESC      | La destination est hors de portée de la flotte, %1 a.l. de la colonie la plus proche.
 MAIN_FLEET_INVALID_RETREAT        | Les flottes en retraite ne peuvent être envoyées que dans des colonies amies
-MAIN_FLEET_ETA_UNNAMED            | Durée du trajet : %1 Ans
-MAIN_FLEET_ETA_NAMED              | Durée du trajet vers %1 : %2 Ans
+MAIN_FLEET_ETA_UNNAMED            | Durée du trajet : %1 Années
+MAIN_FLEET_ETA_NAMED              | Durée du trajet vers %1 : %2 Années
 MAIN_FLEET_SET_RALLY              | Ralliement
 MAIN_FLEET_AUTO_RETREAT           | Se retirer automatiquement à l'arrivée
 MAIN_FLEET_ETA_UNKNOWN            | Les scanners ne peuvent pas déterminer la destination
 MAIN_FLEET_THROUGH_NEBULA         | Vitesse maximale limitée à Distorsion 1 dans les nébuleuses
+MAIN_FLEET_SELECT_ALL             | Tous
 
 MAIN_FLEET_CANCEL                 | Annuler
 MAIN_FLEET_OUT_OF_RANGE           | Hors de Portée
@@ -768,7 +769,7 @@ MAIN_RALLY_TITLE                  | Définition du Point de Ralliement
 MAIN_RALLY_PROMPT                 | Sélectionnez un système sous votre contrôle pour y envoyer des vaisseaux nouvellement construits.
 MAIN_RALLY_FORWARD                | Transférer les rallyes entrants
 MAIN_RALLY_CHAIN                  | Chaîner les rassemblements avec les Portes de Étoiles
-MAIN_RALLY_TRAVEL_TIME            | Durée du trajet vers %1 : %2 Ans
+MAIN_RALLY_TRAVEL_TIME            | Durée du trajet vers %1 : %2 Années
 MAIN_RALLY_INSTANT_TIME           | Durée du trajet vers %1 : Instantané
 MAIN_RALLY_WILL_CANCEL            | La sélection de cette destination effacera tout point de ralliement existant.
 MAIN_RALLY_ERROR                  | Vous devez sélectionner un système sous votre contrôle.
@@ -830,7 +831,7 @@ MAIN_COLONY_SPENDING_CONVERT      | Convertir
 MAIN_COLONY_SPENDING_REFIT        | Rénove
 MAIN_COLONY_SPENDING_MAX_FACT     | Max
 MAIN_COLONY_SPENDING_UNUSED_FACT  | %1 extra
-MAIN_COLONY_SPENDING_NEEDED_FACT  | Besoin de %1
+MAIN_COLONY_SPENDING_NEEDED_FACT  | Demande %1
 MAIN_COLONY_SPENDING_WASTE        | Déchets
 MAIN_COLONY_SPENDING_ECO_GROWTH   | Croissance %1
 MAIN_COLONY_SPENDING_ATMOSPHERE   | Atmo
@@ -1302,6 +1303,9 @@ SETUP_RULESET_SIRIUS              | Sirius
 SETUP_GALAXY_SIZE_LABEL           | Taille
 SETUP_RACE_MULTIPLIER             | x%1
 SETUP_GALAXY_SHAPE_LABEL          | Forme
+
+SETUP_GALAXY_SIZE_DYNAMIC         | Dynamique
+SETUP_GALAXY_SIZE_MICRO           | Micro
 SETUP_GALAXY_SIZE_TINY            | Minuscule
 SETUP_GALAXY_SIZE_SMALL           | Très petite
 SETUP_GALAXY_SIZE_SMALL2          | Petite
@@ -1339,20 +1343,35 @@ SETUP_GALAXY_SHAPE_LORENZ         | Lorenz
 SETUP_GALAXY_SHAPE_LORENZ2        | Lorenz 2
 SETUP_GALAXY_SHAPE_FRACTAL        | Fractale
 SETUP_GALAXY_SHAPE_CHAOSGAME      | Chaotique
+SETUP_GALAXY_SHAPE_BITMAP         | Bitmap
+SETUP_GALAXY_SHAPE_RANDOM         | Aléatoire Simple
+SETUP_GALAXY_SHAPE_RANDOM_2       | Aléatoire Toutes
+SETUP_SHAPE_OPTION_1              | Option 1: %1
+SETUP_SHAPE_OPTION_1_DESC         | Choisir la première option pour cette forme de galaxie.
+SETUP_SHAPE_OPTION_2              | Option 2: %1
+SETUP_SHAPE_OPTION_2_DESC         | Choisir la seconde option pour cette forme de galaxie.
+SETUP_SHAPE_OPTION_3              | Option 3: %1
+SETUP_SHAPE_OPTION_3_DESC         | Nom du fichier de l'image associée à la galaxie Bitmap.
 SETUP_GALAXY_MAP_OPTION_LABEL     | Option
 SETUP_GALAXY_MAP_OPTION_A         | Option A
 SETUP_GALAXY_MAP_OPTION_B         | Option B
 SETUP_GALAXY_MAP_OPTION_C         | Option C
+SETUP_GALAXY_MAP_OPTION_A0        | Option A
+SETUP_GALAXY_MAP_OPTION_B0        | Option B
+SETUP_GALAXY_MAP_OPTION_C0        | Option C
+SETUP_GALAXY_MAP_OPTION_A1        | Option A
+SETUP_GALAXY_MAP_OPTION_B1        | Option B
+SETUP_GALAXY_MAP_OPTION_C1        | Option C
 SETUP_GALAXY_AGE_NORMAL           | Normale
 SETUP_GALAXY_AGE_YOUNG            | Jeune
-SETUP_GALAXY_AGE_OLD              | Vieille
+SETUP_GALAXY_AGE_OLD              | Ancienne
 SETUP_RANDOM_EVENTS_ON            | Activé
 SETUP_RANDOM_EVENTS_OFF           | Désactivé
 SETUP_RANDOM_EVENTS_NO_MONSTERS   | Sans monstres
 SETUP_GALAXY_NUMBER_EMPIRES       | Nombre d'empires : %1
 SETUP_GALAXY_NUMBER_SYSTEMS       | Nombre de systèmes: %1
 SETUP_GALAXY_MAX_OPPONENTS        | %1 adversaires ou moins
-SETUP_OPPONENTS_HEADER_1          | %1 vs.
+SETUP_OPPONENTS_HEADER_1          | %1 contre
 SETUP_OPPONENTS_HEADER_2          | Empires rivaux
 SETUP_OPPONENT_RANDOM             | ???
 SETUP_OPPONENT_AI                 | Jouer contre:
@@ -1434,6 +1453,10 @@ SETUP_BUTTON_NEXT                 | Suivant
 SETUP_BUTTON_START                | Commencer
 SETUP_BUTTON_SETTINGS             | Options avancées
 
+SETUP_BUTTON_TUNE_GALAXY             | Ajuster la galaxie
+SETUP_BUTTON_MERGED_STATIC_SETTINGS  | Setup
+SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS | Options
+
 SETUP_RANDOM_OPTION               | Aléatoire
 SETUP_SPIRAL_2_ARMS               | Deux bras
 SETUP_SPIRAL_3_ARMS               | Trois bras
@@ -1487,9 +1510,14 @@ SETUP_VIEW_2                      | Vue C
 SETUP_MAZE_0                      | Dédale A
 SETUP_MAZE_1                      | Dédale B
 SETUP_MAZE_2                      | Dédale C
+SETUP_SHURIKEN_A                  | 7 Pointes
 SETUP_SHURIKEN_0                  | 9 Pointes
 SETUP_SHURIKEN_1                  | 11 Pointes
 SETUP_SHURIKEN_2                  | 13 Pointes
+SETUP_SHURIKEN_3                  | 15 Pointes
+SETUP_SHURIKEN_4                  | 17 Pointes
+SETUP_SHURIKEN_ORIGINAL           | Original
+SETUP_SHURIKEN_ALTERNATIVE        | Alternatif
 SETUP_SHURIKEN_SYMMETRIC          | Symétrique
 SETUP_SPIRALARMS_0                | Droit
 SETUP_SPIRALARMS_1                | Très Lâche

@@ -69,6 +69,10 @@ Later:
 
 ## What's New
 
+2024.10.08 (BR)
+- Fixed some "Debug mode" Null pointer exception bugs
+- More French translations (New and fixes)
+
 2024.10.08 (BR & Frank Zago)
 - More French translations (New and fixes)
 
