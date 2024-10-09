@@ -617,6 +617,10 @@ public final class GameSession implements Base, Serializable {
                     try { Thread.sleep(MINIMUM_NEXT_TURN_TIME - spentMs);
                     } catch (InterruptedException e) { }
                 }
+                else if (spentMs < 100) { // To give time to thread to synchronize.
+                    try { Thread.sleep(100 - spentMs);
+                    } catch (InterruptedException e) { }
+                }
                 RotPUI.instance().repaint();
                 log("Next Turn - END: ", str(galaxy.currentYear()));
             	debugMonitor(ufs, spentMs);

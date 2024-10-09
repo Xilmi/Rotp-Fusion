@@ -3,6 +3,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Custom base species nominal name option is now reserved for English language use only.
+  - As other languages may use different or more keywords.
 - Fixed some "Debug mode" Null pointer exception bugs
 - More French translations (New and fixes)
 - More French translations (New and fixes) (BR & Frank Zago)

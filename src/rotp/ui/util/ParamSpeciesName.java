@@ -22,8 +22,6 @@ import rotp.util.sound.SoundManager;
 
 public class ParamSpeciesName extends ParamString {
 	
-	private boolean isValidValue = false;
-	
 	// ===== Constructors =====
 	//
 	/**
@@ -70,7 +68,10 @@ public class ParamSpeciesName extends ParamString {
 	}
 	// ===== Overriders =====
 	//
-	@Override public boolean isValidValue()	{ return isValidValue; }
+	@Override public boolean isValidValue()	{
+		String[] strArray = getArray();
+		return strArray.length == 0 || newName(strArray);
+	}
 
 	@Override public String	set(String val)	{
 		super.set(val);
@@ -78,10 +79,8 @@ public class ParamSpeciesName extends ParamString {
 		if (strArray.length == 0 || newName(strArray)) {
 			Race race = Race.keyed(getCfgLabel());
 			LanguageManager.current().reloadRace(race);
-			isValidValue = true;
 		}
 		else {
-			isValidValue = false;
 			misClick();
 		}
 		return val;

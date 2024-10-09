@@ -27,6 +27,7 @@ import rotp.util.AnimationManager;
 import rotp.util.Base;
 import rotp.util.ImageManager;
 import rotp.util.LabelManager;
+import rotp.util.LanguageManager;
 import rotp.util.PixelShifter;
 
 public enum RaceFactory implements Base {
@@ -256,9 +257,14 @@ public enum RaceFactory implements Base {
         labels.loadDialogueFile(dir);
         labels.loadLabelFile(dir);
         // Update Species names if required.
-        HashMap<String, ParamSpeciesName> map = IGameOptions.speciesNameMap;
-        ParamSpeciesName param = map.get(r.id);
-        String[] speciesNames = param==null? null : param.getValid();
+        // Only for English language
+        String[] speciesNames = null;
+        int selectedLanguage = LanguageManager.selectedLanguage();
+        if (selectedLanguage <= 0) {
+            HashMap<String, ParamSpeciesName> map = IGameOptions.speciesNameMap;
+            ParamSpeciesName param = map.get(r.id);
+            speciesNames = param==null? null : param.getValid();        	
+        }
         if (speciesNames != null) {
         	labels.replaceFirstVal("_empire",		speciesNames[0]);
         	labels.replaceFirstVal("_race",			speciesNames[1]);

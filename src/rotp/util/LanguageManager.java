@@ -154,6 +154,7 @@ public class LanguageManager implements Base {
 
         // reload default labels, since that is assured of completeness
         String currDir;
+        selectedLanguage(0);
         currDir = baseDir+defLang.directory+"/"; // BR: Uncommented
         labels().loadLabelFile(currDir); // BR: Uncommented
         labels().loadDialogueFile(currDir); // BR: Uncommented

@@ -72,6 +72,9 @@ Later:
 2024.10.08 (BR)
 - Fixed some "Debug mode" Null pointer exception bugs
 - More French translations (New and fixes)
+- Attempting to fix mysterious warning in debug mode
+- Custom base species nominal name option is now reserved for English language use only.
+  - As other languages may use different or more keywords.
 
 2024.10.08 (BR & Frank Zago)
 - More French translations (New and fixes)
