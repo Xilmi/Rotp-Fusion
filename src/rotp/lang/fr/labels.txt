@@ -109,8 +109,8 @@ PLANET_WORLD                      | Planète [alien_race_pluralnounof]
 PLANET_COLONY                     | Colonie [alien_race_pluralnounof]
 PLANET_ORION                      | Orion
 PLANET_ORION_GUARDIAN             | Gardien
-PLANET_SPACE_JELLYFISH            | Méduse Spatialle
-PLANET_SPACE_CUTTLEFISH           | Seiche Spatialle
+PLANET_SPACE_JELLYFISH            | Méduse Spatiale
+PLANET_SPACE_CUTTLEFISH           | Seiche Spatiale
 
 // Nebula names  ("starName" Nebula)
 NEBULA_NAME                       | Nebuleuse %1
@@ -126,12 +126,12 @@ COLONY_NAME_4                     | %1 Lointaine
 COLONY_NAME_5                     | %1 Distante
 
 // Space Monster Names
-SPACE_AMOEBA                      | l'Amibe Spatial
+SPACE_AMOEBA                      | l'Amibe Spatiale
 SPACE_CRYSTAL                     | le Cristal Spatial
 SPACE_PIRATES                     | les Pirates de l'espace
 ORION_GUARDIAN                    | le Gardien d'Orion
-SPACE_JELLYFISH                   | la Méduse Spatialle
-SPACE_CUTTLEFISH                  | la Seiche Spatialle
+SPACE_JELLYFISH                   | la Méduse Spatiale
+SPACE_CUTTLEFISH                  | la Seiche Spatiale
 
 // Personality types (adjective)
 LEADER_ERRATIC                    | Erratique
@@ -698,7 +698,7 @@ MAIN_PLANET_EVENT_COMET           | Comète
 MAIN_PLANET_EVENT_PIRACY          | Piraterie
 MAIN_PLANET_EVENT_PLAGUE          | pandémie
 MAIN_PLANET_EVENT_SUPERNOVA       | Supernova
-MAIN_PLANET_EVENT_AMOEBA          | l'Amibe Spatial
+MAIN_PLANET_EVENT_AMOEBA          | l'Amibe Spatiale
 MAIN_PLANET_EVENT_CRYSTAL         | le Cristal Spatial
 MAIN_PLANET_EVENT_PIRATES         | les Pirates de l'espace
 MAIN_ADVANCING_YEAR               | Passer à l'Année  %1...
@@ -881,9 +881,9 @@ MAIN_SCOUT_NO_PLANET              | Aucune Planète Habitable Trouvée
 MAIN_SCOUT_HOSTILE_DESC           | Environnement : Hostile - La croissance démographique est divisée par deux.
 MAIN_SCOUT_FERTILE_DESC           | Environnement: Fertile - La croissance démographique est de +50% normale.
 MAIN_SCOUT_GAIA_DESC              | Environnement: Gaïa - La croissance démographique est de +100% normale.
-MAIN_SCOUT_ARTIFACTS_DESC         | Ruines Antariennes : La recherche est doublées.
-MAIN_SCOUT_ANCIENTS_DESC          | Ancienne Planète Natale : La recherche est  quadruplés.
-MAIN_SCOUT_ULTRA_POOR_DESC        | Ressources : Ultra-Pauvre - La production industrielle est réduite d'un tiers.
+MAIN_SCOUT_ARTIFACTS_DESC         | Ruines Antariennes : La recherche est doublée.
+MAIN_SCOUT_ANCIENTS_DESC          | Ancienne Planète Natale : La recherche est quadruplé.
+MAIN_SCOUT_ULTRA_POOR_DESC        | Ressources : Ultra-Pauvre - La production industrielle est réduite à un tiers.
 MAIN_SCOUT_POOR_DESC              | Ressources : Pauvre - La production industrielle est divisée par deux.
 MAIN_SCOUT_RICH_DESC              | Ressources : Riche - La production industrielle est doublée.
 MAIN_SCOUT_ULTRA_RICH_DESC        | Ressources : Ultra-Riche - La production industrielle est triplée.
@@ -914,7 +914,7 @@ MAIN_ALLOCATE_FERTILE_COMPLETE    | • %1 a été terraformé en un environneme
 MAIN_ALLOCATE_GAIA_COMPLETE       | • %1 a été terraformé en un environnement gaïa avec le double du taux de croissance standard.
 MAIN_ALLOCATE_SABOTAGE_BASES      | • %1 a eu %2 bases de missiles détruites par des saboteurs [spy_race_pluraladjec].
 MAIN_ALLOCATE_SABOTAGE_FACTORIES  | • %1 a vu %2 usines détruites par des saboteurs [spy_race_pluraladjec].
-MAIN_ALLOCATE_COLONY_CAPTURED     | • %1 a été récemment capturé par %2 troupes.
+MAIN_ALLOCATE_COLONY_CAPTURED     | • %1 a été récemment capturé par les troupes %2.
 MAIN_ALLOCATE_ECO_LOCKED_WASTE    | • %1 a des dépenses écologiques verrouillées manuellement à un niveau insuffisant pour nettoyer la pollution.
 MAIN_ALLOCATE_PROJECT_ENDED       | • %1 ne recherche plus de projet spécial : %2
 MAIN_ALLOCATE_CHANGE_SPENDING     | Les allocations de dépenses du système peuvent être ajustées à ce moment.
@@ -931,7 +931,7 @@ MAIN_FLEET_SHIP_COUNT             | %1/%2
 // 32-bit Java Warning
 MAIN_JAVA_32BIT_TITLE             | Avertissement! Java 32 bits en cours d'utilisation
 MAIN_JAVA_32BIT_DESC              | Vous exécutez ce jeu avec une version 32 bits de Java. Cela peut réduire considérablement la mémoire disponible et avoir un impact sur les performances du jeu.
-MAIN_JAVA_32BIT_DESC_2            | Bien que Des Restes des Précurseurs fonctionne dans ce mode, la mise à niveau vers Java 64 bits améliorera l'expérience de jeu.
+MAIN_JAVA_32BIT_DESC_2            | Bien que Vestiges des Précurseurs fonctionne dans ce mode, la mise à niveau vers Java 64 bits améliorera l'expérience de jeu.
 MAIN_JAVA_32BIT_DESC_3            | Si vous avez besoin d'aide pour mettre à niveau Java, veuillez vous connecter à www.reddit.com/r/rotp et demander de l'aide.
 MAIN_JAVA_32BIT_OK                | OK
 
@@ -1123,6 +1123,7 @@ FLEETS_STOP_RALLIES_DESC          | %1 systèmes sélectionnés ont déjà des p
 FLEETS_STOP_RALLIES               | Arrêter les rassemblements
 FLEETS_SETTING_RALLY_POINTS       | Points de départ du ralliement
 FLEETS_START_RALLIES_DESC         | Sélectionner un système que vous contrôlez pour envoyer des vaisseaux nouvellement construits à partir de tous les systèmes sélectionnés.
+FLEETS_RALLY_TO_STARGATES         | Commencer à rallier les portes des étoiles les plus proches
 FLEETS_START_RALLIES              | Lancer les ralliement
 FLEETS_SEND_TRANSPORTS            | Envoyer des transports
 FLEETS_ADJUST_SPENDING_SELECT     | Sélectionnez les systèmes pour définir les dépenses des vaisseaux
@@ -1165,6 +1166,8 @@ FLEETS_HELP_1C                    | Et en train de construire - filtrez les syst
 FLEETS_HELP_1D                    | Conception du vaisseau - modifiez la conception du vaisseau pour l'intégrer aux systèmes sélectionnés. Une image vide signifie que les systèmes sélectionnés construisent actuellement des conceptions différentes. Attention ! Il n'y a pas d'invite de confirmation pour cette action.
 FLEETS_HELP_1E                    | Envoyer des transports - envoyer des transports depuis les systèmes sélectionnés vers un seul système cible.
 FLEETS_HELP_1F                    | Définir pnts. ralliement - définissez les points de ralliement pour les systèmes sélectionnés sur un seul système cible.
+FLEETS_HELP_1G                    | →FLEETS_RALLY_TO_STARGATES←<br> Commencez à rallier les systèmes sélectionnés au système le plus proche avec une Porte des Étoile.<br>- Basé sur le paramètre "→CHAIN_RALLY_SPEED_HK←".<br>- Les systèmes sélectionnés avec une Porte des Étoile ne sont pas affectés.
+FLEETS_HELP_1H                   | →MAIN_RALLY_CHAIN←<br> Pour minimiser le temps de déplacement en prenant un raccourci par l'intermédiaire de la Porte des Étoile la plus proche. (Basé sur le paramètre "→CHAIN_RALLY_SPEED_HK←")<br> Cela permettra également "Ralliement Avancé" sur les systèmes avec un Porte des Étoiles intermédiaires.
 FLEETS_HELP_2A                    | Sélectionner les flottes - il existe trois façons de sélectionner des flottes : 1) en cliquant sur les flottes sur la carte, 2) en cliquant avec le bouton droit de la souris sur la carte et 3) en utilisant les boutons «Sélectionner tout» et «Désélectionner tout».
 FLEETS_HELP_2B                    | Filtrer par - cochez les cases pour réduire la liste des flottes sélectionnées. Il est également possible de cliquer sur les filtres pour faire défiler les options associées.
 FLEETS_HELP_2C                    | Déployer uniquement des vaisseaux de type - restreignez les types de vaisseaux que vous souhaitez déployer à partir de vos flottes.
@@ -1172,6 +1175,10 @@ FLEETS_HELP_2D                    | Sélectionné pour le déploiement - un nomb
 FLEETS_HELP_2E                    | Déployer des flottes - déployer les flottes sélectionnées sur un seul système cible.
 
 // Select Next Tech to Research UI
+FLEETS_HELP_3A                    | Stable :<br> Le nombre maximum de populations que vous pouvez envoyer de cette planète tout en étant en mesure de recroître au même niveau, avec la barre ECO réglée à max.<br>Il revient au joueur ou au gouverneur d'ajuster la barre ECO.
+FLEETS_HELP_3B                    | Remplir:<br>Le nombre maximum de population que vous pouvez envoyer de cette planète tout en étant capable de recroissance pour remplir la planète, avec la barre ECO définie à max.<br>Il revient au joueur ou au gouverneur d'ajuster la barre ECO.
+FLEETS_HELP_3C                    | Barres de sélection des populations à envoyer:<br>- Cliquez à gauche sur le curseur = sélection de pourcentage normale.<br>- Cliquez au milieu sur le curseur = sélection de la valeur "Stable".<br>- Cliquez avec le bouton droit sur le curseur = sélection de la valeur "Remplir".<br>Ctrl+Cliquez pour basculer le remplissage automatique (Sans gouverneur) affiché en Vert sur Gris.<br>L'état de remplissage automatique par défaut est défini par l'option "→TRANSPORT_AUTO_ECO_HK←".
+FLEETS_HELP_3MAIN                 | APERÇU:<br> Cet écran permet de gérer le transport de la population et des troupes.<br>Sélectionnez la colonie de destination et la capacité du transport.<br>La colonie de destination peut être changée à volonté.
 TECH_RESEARCH_COMPUTER            | Sélectionnez la prochaine technologie informatique sur laquelle nos chercheurs devraient se concentrer.
 TECH_RESEARCH_CONSTRUCTION        | Sélectionnez la prochaine technologie de construction sur laquelle nos chercheurs devraient se concentrer.
 TECH_RESEARCH_FORCE_FIELD         | Sélectionnez la prochaine technologie de champ de force sur laquelle nos chercheurs devraient se concentrer.
@@ -1304,6 +1311,15 @@ SETUP_GALAXY_SIZE_LABEL           | Taille
 SETUP_RACE_MULTIPLIER             | x%1
 SETUP_GALAXY_SHAPE_LABEL          | Forme
 
+SETUP_GALAXY_SIZE_HELP            | La taille de la galaxie déterminera le nombre d'étoiles et donc le nombre maximum de joueurs.<br>Notez qu'il y a plusieurs étoiles pour certains paramètres de taille. Par exemple, une galaxie de taille moyenne peut avoir 100 ou 150 étoiles. Une grande galaxie peut avoir 225 ou 333 étoiles.<br> Chaque sélection changera le nombre d'opposants à son paramètre par défaut, qui peut ensuite être ajusté sur le panneau "Sélectionner les opposants".
+SETUP_GALAXY_SIZE_DESC            | Sélectionnez la taille de la Galaxie
+SETUP_GALAXY_SIZE                 | Taille de la Galaxie : %1
+SETUP_GALAXY_SIZE_STAR_PER_EMPIRE | %1 é/e
+SETUP_GALAXY_SIZE_DYNAMIC_DESC    | La taille de la galaxie est fonction du nombre d'empires et du nombre sélectionné d'étoiles par empire.
+SETUP_GALAXY_SIZE_MAXIMUM_DESC    | Cette taille de galaxie est fonction de la taille de la mémoire de l'ordinateur.
+SETUP_GALAXY_SIZE_MOO1_DESC       | Cette taille de Galaxie est disponible dans le jeu original MOO1.
+SETUP_GALAXY_SIZE_UP1000_DESC     | Taille de Galaxie plus grande que celles disponibles dans le jeu original MOO1, mais toujours raisonnable. Il faudra du temps pour gagner...
+SETUP_GALAXY_SIZE_OVER1000_DESC   | Taille de galaxie indécente, beaucoup plus grande que celles disponibles dans le jeu original MOO1. Il vous faudra des semaines pour terminer cette partie.
 SETUP_GALAXY_SIZE_DYNAMIC         | Dynamique
 SETUP_GALAXY_SIZE_MICRO           | Micro
 SETUP_GALAXY_SIZE_TINY            | Minuscule
@@ -1323,6 +1339,13 @@ SETUP_GALAXY_SIZE_MASSIVE5        | Colossale
 SETUP_GALAXY_SIZE_INSANE          | Insensée
 SETUP_GALAXY_SIZE_LUDICROUS       | Ridicule
 SETUP_GALAXY_SIZE_MAXIMUM         | Maximal
+SETUP_GALAXY_SHAPE_HELP           | Sélectionnez votre galaxie dans la liste des formes conventionnelles : champ stellaire, ellipse ou spirale.<br> Ou de la liste étendue ajoutée par des modders. Toutes les formes ont plusieurs variantes disponibles. Mais si vous n'aimez aucun d'elles, vous pouvez toujours essayer de créer votre propre forme à partir de textes ou de bitmaps!!!
+SETUP_GALAXY_SHAPE_DESC           | Sélectionnez la forme de la Galaxie
+SETUP_GALAXY_SHAPE                | Forme : %1
+SETUP_GALAXY_SHAPE_OPTION_1_DESC  | Sélectionnez la première option de forme de la Galaxie
+SETUP_GALAXY_SHAPE_OPTION_1       | Sélection de la première option de forme de la Galaxie %1
+SETUP_GALAXY_SHAPE_OPTION_2_DESC  | Sélectionnez la seconde option de forme de la Galaxie
+SETUP_GALAXY_SHAPE_OPTION_2       | Sélection de la seconde option de forme de la Galaxie %1
 SETUP_GALAXY_SHAPE_RECTANGLE      | Rectangulaire
 SETUP_GALAXY_SHAPE_CIRCULAR       | Circulaire
 SETUP_GALAXY_SHAPE_RING           | Anneau
@@ -1365,19 +1388,46 @@ SETUP_GALAXY_MAP_OPTION_C1        | Option C
 SETUP_GALAXY_AGE_NORMAL           | Normale
 SETUP_GALAXY_AGE_YOUNG            | Jeune
 SETUP_GALAXY_AGE_OLD              | Ancienne
+SETUP_GALAXY_AGE_NORMAL_HELP      | Probabilité de la couleur de l'étoile :<br>Rouge : 30%&emsp Orange : 25%&emsp Jaune : 15%<br>Bleue : 15%&emsp Blanche : 10%&emsp Pourpre : 5%
+SETUP_GALAXY_AGE_YOUNG_HELP       | Probabilité de couleur de l'étoile:<br>Rouge : 20%&emsp Orange : 20%&emsp Jaune : 15%<br>Bleue : 30%&emsp Blanche : 10%&emsp Pourpre : 5%
+SETUP_GALAXY_AGE_OLD_HELP         | Probabilité de couleur de l'étoile:<br>Rouge : 50%&emsp Orange : 15%&emsp Jaune : 10%<br>Bleue : 5%&emsp Blanche : 5%&emsp Pourpre : 15%
 SETUP_RANDOM_EVENTS_ON            | Activé
 SETUP_RANDOM_EVENTS_OFF           | Désactivé
 SETUP_RANDOM_EVENTS_NO_MONSTERS   | Sans monstres
+SETUP_RANDOM_EVENTS_TECH_MONSTERS | Monstres technologiques
+SETUP_RANDOM_EVENTS_ONLY_MONSTERS | Seulement des monstres
+SETUP_RANDOM_EVENTS_ON_HELP            | Tous les événements sont autorisés une fois le moment venu.
+SETUP_RANDOM_EVENTS_OFF_HELP           | !!! Laisse-moi tranquille !!! Pas d'événement aléatoire.
+SETUP_RANDOM_EVENTS_NO_MONSTERS_HELP   | Ok pour les événements aléatoires, mais ni d'Amibe Spatiale, de Cristal Spatial, ou de Pirates de l'Espace. <i> (Mais un événement de pirates peut se produire)</i>
+SETUP_RANDOM_EVENTS_TECH_MONSTERS_HELP | Ok pour les événements aléatoires, et les Monstres peuvent être déclenchés par des recherches pertinentes:<br>- Propulsion hyperspatiale pour les Pirates de l'Espace.<br>- Planetologie / Clonage avancé pour l'Amibe Spatiale.<br>- Propulsion / Porte des Étoiles pour le Cristal Spatial.
+SETUP_RANDOM_EVENTS_ONLY_MONSTERS_HELP | Seulement des monstres : Aucun événement aléatoire, mais les Monstres peuvent être déclenchés par des recherches pertinentes :<br>- Propulsion hyperspatiale pour les Pirates de l'Espace.<br>- Planetologie / Clonage avancé pour l'Amibe Spatiale.<br>- Propulsion / Porte des Étoiles pour le Cristal Spatial.
 SETUP_GALAXY_NUMBER_EMPIRES       | Nombre d'empires : %1
 SETUP_GALAXY_NUMBER_SYSTEMS       | Nombre de systèmes: %1
 SETUP_GALAXY_MAX_OPPONENTS        | %1 adversaires ou moins
+SETUP_SHOW_ABILITIES_HEADER       | Sélectionnable
+SETUP_NEW_RACES_HEADER            | Espèces
+SETUP_NEW_RACES_ON                | Toutes les espèces
+SETUP_NEW_RACES_OFF               | Original
 SETUP_OPPONENTS_HEADER_1          | %1 contre
 SETUP_OPPONENTS_HEADER_2          | Empires rivaux
 SETUP_OPPONENT_RANDOM             | ???
 SETUP_OPPONENT_AI                 | Jouer contre:
-SETUP_OPPONENT_AI_BASE            | AI: Base
-SETUP_OPPONENT_AI_MODNAR          | AI: Modnar
-SETUP_OPPONENT_AI_XILMI           | AI: Xilmi
+SETUP_OPPONENT_AI_BASE            | IA: Base
+SETUP_OPPONENT_AI_MODNAR          | IA: Modnar
+SETUP_OPPONENT_AI_ROOKIE          | IA: Débutant
+SETUP_OPPONENT_AI_XILMI           | IA: Xilmi
+SETUP_OPPONENT_AI_HYBRID          | IA: Hybride
+SETUP_OPPONENT_AI_CRUEL           | IA: Fusion
+SETUP_OPPONENT_AI_FUN             | IA: Amusant
+SETUP_OPPONENT_AI_PERSONALITY     | IA: Personnalité
+SETUP_OPPONENT_AI_RANDOM_HELP     | Sélection aléatoire parmi : Base, Modnar, Débutant, Xilmi, Hybride, Fusion, Amusant ou Personnalité.
+SETUP_OPPONENT_AI_RANDOM          | IA: Aléatoire
+SETUP_OPPONENT_AI_RANDOM_BASIC_HELP | Sélection aléatoire parmi : Base, Modnar ou Débutant.
+SETUP_OPPONENT_AI_RANDOM_BASIC    | IA: A.Basic
+SETUP_OPPONENT_AI_RANDOM_ADV_HELP | Sélection aléatoire parmi : Xilmi, Hybrid, Fusion, Amusant ou Personnalité.
+SETUP_OPPONENT_AI_RANDOM_ADV      | IA: A.Xilmi
+SETUP_OPPONENT_AI_RANDOM_NOBAR_HELP | Sélection aléatoire parmi : Fusion, Amusant ou Personnalité.<br> Ces IA sont opportunistes et n'affichent pas la barre de relation.
+SETUP_OPPONENT_AI_SELECT_HELP     | Pour pouvoir sélectionner une IA différente pour chaque adversaire. <br> Un nouveau champ de sélection sera ajouté au bas de chaque icône adverse.
 SETUP_OPPONENT_AI_SELECT          | AI: Sélectionnable
 SETUP_AUTOPLAY_OFF                | Desactivé
 SETUP_AUTOPLAY_AI_BASE            | AI: Base
@@ -2232,7 +2282,7 @@ SYSTEMS_STATUS_COMET              | Une comète frappera cette planète dans %1 
 SYSTEMS_STATUS_SUPERNOVA          | L'étoile du système deviendra une supernova dans %1 ans. Les physiciens ont besoin de %2 RP pour éviter cette catastrophe.
 SYSTEMS_STATUS_PLAGUE             | La colonie connaît un fléau planétaire nécessitant %1 RP pour y remédier.
 SYSTEMS_STATUS_PIRACY             | Les pirates affectent les routes commerciales dans ce système.
-SYSTEMS_STATUS_SPACE_AMOEBA       | Une amibe spatiale géante se dirige vers ce système.
+SYSTEMS_STATUS_SPACE_AMOEBA       | Une Amibe Spatiale géante se dirige vers ce système.
 SYSTEMS_STATUS_SPACE_CRYSTAL      | Un gigantesque cristal spatial se dirige vers ce système.
 
 

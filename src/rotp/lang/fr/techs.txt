@@ -766,7 +766,7 @@ HANDWEAPON_2_DETAIL    | Armes à rayon personnelles qui ajoutent 10 points à v
 HANDWEAPON_3_NAME      | Fusil à fusion
 HANDWEAPON_3_DETAIL    | Des armes à rayon imprécises mais incroyablement puissantes qui ajoutent 20 points à vos attaques au sol.
 
-HANDWEAPON_4_NAME      | Phaseur manuel
+HANDWEAPON_4_NAME      | Phaseur de poing
 HANDWEAPON_4_DETAIL    | Des puissantes armes à énergie portatives capables de réduire un adversaire à ses atomes composants. Ajoute 25 points à vos attaques au sol.
 
 HANDWEAPON_5_NAME      | Fusil à plasma
@@ -790,7 +790,7 @@ IMPRINDUSTRY_1_NAME     | Production industrielle 8
 IMPRINDUSTRY_1_DETAIL   | Réduit les coûts de construction d'usine à 8 BC chacun.
 
 IMPRINDUSTRY_2_NAME     | Production industrielle 7
-IMPRINDUSTRY_2_DETAIL   | Réduit les coûts de construction d'usine à 7 BC chacun. 
+IMPRINDUSTRY_2_DETAIL   | Réduit les coûts de construction d'usine à 7 BC chacun.
 
 IMPRINDUSTRY_3_NAME     | Production industrielle 6
 IMPRINDUSTRY_3_DETAIL   | Réduit les coûts de construction d'usine à 6 BC chacun.
