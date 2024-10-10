@@ -1446,7 +1446,7 @@ SETUP_GALAXY_MAP_OPTION_C1        | Option C
 SETUP_GALAXY_AGE_NORMAL           | Normal
 SETUP_GALAXY_AGE_YOUNG            | Young
 SETUP_GALAXY_AGE_OLD              | Old
-SETUP_GALAXY_AGE_NORMAL_HELP      | Star color probability:<br>Red:&nbsp 30%&emsp  Orange:&nbsp 25%&emsp  Yellow:&nbsp 15<br>Blue:&nbsp 15%&emsp  White:&nbsp 10%&emsp  Purple:&nbsp 5%
+SETUP_GALAXY_AGE_NORMAL_HELP      | Star color probability:<br>Red:&nbsp 30%&emsp  Orange:&nbsp 25%&emsp  Yellow:&nbsp 15%<br>Blue:&nbsp 15%&emsp  White:&nbsp 10%&emsp  Purple:&nbsp 5%
 SETUP_GALAXY_AGE_YOUNG_HELP       | Star color probability:<br>Red:&nbsp 20%&emsp  Orange:&nbsp 20%&emsp  Yellow:&nbsp 15%<br>Blue:&nbsp 30%&emsp  White:&nbsp 10%&emsp  Purple:&nbsp 5%
 SETUP_GALAXY_AGE_OLD_HELP         | Star color probability:<br>Red:&nbsp 50%&emsp  Orange:&nbsp 15%&emsp  Yellow:&nbsp 10%<br>Blue:&nbsp 5%&emsp  White:&nbsp 5%&emsp  Purple:&nbsp 15%
 SETUP_RANDOM_EVENTS_ON            | On
