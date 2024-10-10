@@ -1236,8 +1236,10 @@ public final class Empire implements Base, NamedObject, Serializable {
         StarSystem home = galaxy().system(capitalSysId);
         if (home.empire() == this)
             return home;
+        else if (!extinct)
+        	return allColonizedSystems().get(0);
         else
-            return allColonizedSystems().get(0);
+        	return galaxy().system(0);
     }
     public void addViewFor(Empire emp) {
         if ((emp != null) && (emp != this))
