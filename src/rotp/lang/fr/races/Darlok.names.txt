@@ -3,7 +3,8 @@ name: Nazlok, Sarlok, Spylok, Shadelok, Nazlok
 
 desc1: Des Diplomates Agressifs
 desc2: Des Espions Suprêmes
-desc3: Les Nazlokiennes sont des spectres contre nature et secrets, originaires d'une autre dimension  
+desc3: Les [race]s sont des spectres contre nature et secrets, originaires d'une autre dimension
+desc4: Securité +20%, Succès +20%, pour un Coût -50%
 
 // possible home system names
 home: Nazin, Mordor, Hades, Abyssal, Hel

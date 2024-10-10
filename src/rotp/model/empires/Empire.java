@@ -671,6 +671,8 @@ public final class Empire implements Base, NamedObject, Serializable {
 
     // TODO BR: complete replaceTokens for custom races
     public String replaceTokens(String s, String key) {
+    	if (key.equals("player")) // BR: many confusion in translations
+    		s = replaceTokens(s, "my");
         List<String> tokens = this.varTokens(s, key);
         String s1 = s;
         for (String token: tokens) {
@@ -4039,7 +4041,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public boolean isRandomized()			   { return dataRace().isRandomized(); }
     public DynOptions raceOptions()			   { return raceOptions; }
     public void raceOptions(DynOptions opts)   { raceOptions = opts; }
-    public String  description4()			   { return dataRace().description4(); }
+    public String  description4()			   { return dataRace().getDescription4(); }
     public DynOptions dynamicOptions()		   { return dynamicOptions; }
     // Modnar added features
     public float bCBonus()                     { return dataRace().bCBonus(); }

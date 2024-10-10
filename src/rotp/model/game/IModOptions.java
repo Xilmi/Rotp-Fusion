@@ -104,6 +104,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(ICombatOptions.combatOptionsMap().getList());
 		allModOptions.addAll(IIronmanOptions.ironmanOptionsMap().getList());
 		allModOptions.addAll(IMainOptions.specieNameOptionsMap().getList());
+		allModOptions.addAll(IMainOptions.specieNameOptionsMapFr().getList());
 		allModOptions.remove(null);
 		// Then create the final list (LinkedHashSet don't offer the .get(index) method)
 		SafeListParam options = new SafeListParam();

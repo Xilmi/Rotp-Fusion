@@ -2919,10 +2919,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			else {
 				Race   race		= Race.keyed(key);
 				String raceName = race.setupName();
-				help = labelFormat(raceName) + race.description1
-						+ "<br>" + race.description2
-						+ "&ensp /&ensp " + race.description3.replace("[race]", raceName)
-						+ "&ensp /&ensp " + race.description4;
+				help = labelFormat(raceName) + race.getDescription1()
+						+ "<br>" + race.getDescription2()
+						+ "&ensp /&ensp " + race.getDescription3()
+						+ "&ensp /&ensp " + race.getDescription4();
 			}
 			return help;
 		}
@@ -2935,10 +2935,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			else {
 				Race   race		= Race.keyed(key);
 				String raceName = race.setupName();
-				help = labelFormat(raceName) + race.description1
-						+ "<br>" + race.description2
-						+ "<br>" + race.description3.replace("[race]", raceName)
-						+ "<br>" + race.description4;
+				help = labelFormat(raceName) + race.getDescription1()
+						+ "<br>" + race.getDescription2()
+						+ "<br>" + race.getDescription3()
+						+ "<br>" + race.getDescription4();
 			}
 			return tableFormat(help);
 		}
@@ -2960,12 +2960,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			Race   race		= fileToAlienRace(key);
 			String raceName = race.setupName;
 			if (key.startsWith(BASE_RACE_MARKER))
-				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
+				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.getDescription1();
 			else
-				help = labelFormat(raceName) + race.description1;
-			help += "<br>" + race.description2
-					+ "&ensp /&ensp " + race.description3.replace("[race]", raceName)
-					+ "&ensp /&ensp " + race.description4;
+				help = labelFormat(raceName) + race.getDescription1();
+			help += "<br>" + race.getDescription2()
+					+ "&ensp /&ensp " + race.getDescription3()
+					+ "&ensp /&ensp " + race.getDescription4();
 			return help;
 		}
 		@Override public String setFromIndex(int index) {
@@ -3004,12 +3004,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			Race   race		= fileToAlienRace(key);
 			String raceName = race.setupName;
 			if (key.startsWith(BASE_RACE_MARKER))
-				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
+				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.getDescription1();
 			else
-				help = labelFormat(raceName) + race.description1;
-			help += "<br>" + race.description2
-					+ "&ensp /&ensp " + race.description3.replace("[race]", raceName)
-					+ "&ensp /&ensp " + race.description4;
+				help = labelFormat(raceName) + race.getDescription1();
+			help += "<br>" + race.getDescription2()
+					+ "&ensp /&ensp " + race.getDescription3()
+					+ "&ensp /&ensp " + race.getDescription4();
 			return help;
 		}
 	};

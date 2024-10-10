@@ -635,17 +635,17 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         String raceName, desc1, desc2, desc3, desc4;
         if (playerIsCustom.get()) {
         	raceName = dataRace.setupName;
-        	desc1 = dataRace.description1;
-        	desc2 = dataRace.description2;
-        	desc3 = dataRace.description3.replace("[race]", raceName);
-        	desc4 = dataRace.description4;
+        	desc1 = dataRace.getDescription1();
+        	desc2 = dataRace.getDescription2();
+        	desc3 = dataRace.getDescription3(raceName);
+        	desc4 = dataRace.getDescription4();
         }
         else {
         	raceName = race.setupName();
-        	desc1 = race.description1;
-        	desc2 = race.description2;
-        	desc3 = race.description3.replace("[race]", raceName);
-        	desc4 = race.description4;
+        	desc1 = race.getDescription1();
+        	desc2 = race.getDescription2();
+        	desc3 = race.getDescription3();
+        	desc4 = race.getDescription4();
         }
         // \BR:
         int fs = scaledFontSize(g, raceName, scaled(200), 30, 10);
@@ -1213,8 +1213,22 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     }
     private void goToRenameSpecies() {
         buttonClick();
-        IMainOptions.specieNameOptionsUI().toggle(null, GUI_ID, this);
-		setVisible(false);      
+		String langId = LanguageManager.selectedLanguageDir();
+		switch (langId) {
+			case "en":
+				buttonClick();
+				IMainOptions.specieNameOptionsUI().toggle(null, GUI_ID, this);
+				setVisible(false);
+				return;
+			case "fr":
+				buttonClick();
+				IMainOptions.specieNameOptionsFrUI().toggle(null, GUI_ID, this);
+				setVisible(false);
+				return;
+			default:
+				misClick();
+				return;
+		}
     }
     @Override
     public String ambienceSoundKey() { 
@@ -1376,12 +1390,12 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 			Race   race		= Race.keyed(key);
 			String raceName = race.setupName();
 			if (key.startsWith(BASE_RACE_MARKER))
-				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
+				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.getDescription1();
 			else
-				help = labelFormat(raceName) + race.description1;
-			help += "<br>" + race.description2
-				 +  "<br>" + race.description3.replace("[race]", raceName)
-				 +  "<br>" + race.description4;
+				help = labelFormat(raceName) + race.getDescription1();
+			help += "<br>" + race.getDescription2()
+				 +  "<br>" + race.getDescription3()
+				 +  "<br>" + race.getDescription4();
 			return help;
 		}
 		@Override public String	guideValue()	{ return text(get()); }

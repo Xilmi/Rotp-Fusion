@@ -136,6 +136,7 @@ public class MapOverlayAdvice extends MapOverlay {
         g.setFont(narrowFont(28));
         String title = text("MAIN_ADVISOR_TITLE", player().raceName(), player().leader().name());
         title = player().replaceTokens(title, "player");
+        //title = player().replaceTokens(title, "my");
         drawShadowedString(g, title, 4, textMgn, boxTop+scaled(28), SystemPanel.textShadowC, SystemPanel.whiteText);
 
         int imgW = advisorImg.getWidth();

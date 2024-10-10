@@ -2960,7 +2960,11 @@ SETTINGS_MOD_COMMON_OPTIONS_UI_DESC      | Opens a submenu containing Remnant.cf
 
 SETTINGS_MOD_NAME_OPTIONS_TITLE          | Base Species Nominal Names
 SETTINGS_MOD_NAME_OPTIONS_UI             | - Base Species Names -
-SETTINGS_MOD_NAME_OPTIONS_UI_DESC        | Open Sub Menu to view base species nominal names.
+SETTINGS_MOD_NAME_OPTIONS_UI_DESC        | Open Sub Menu to view base species nominal names. (For English configuration only)
+
+SETTINGS_MOD_NAME_OPTIONS_FR_TITLE       | Base Species Nominal Names Fr
+SETTINGS_MOD_NAME_OPTIONS_FR_UI          | - Base Species Names Fr -
+SETTINGS_MOD_NAME_OPTIONS_FR_UI_DESC     | Open Sub Menu to view base species nominal names. (For French configuration only)
 
 SETTINGS_MOD_MOO1_SPECIES_NAME           | Original MoO1 Species Names
 SETTINGS_MOD_MOO1_SPECIES_NAME_DESC      | To set the original names from Master of Orion
@@ -2980,7 +2984,17 @@ NAME_RACE_MRRSHAN         | Fiershan: %1
 NAME_RACE_PSILON          | Mentaran: %1
 NAME_RACE_SAKKRA          | Ssslaura: %1
 NAME_RACE_SILICOID        | Cryslonoid: %1
-NAME_DESC0                 | Enter the new "Empire name, Species name, Species Plural Name" for this species. Leave blank to keep the current name.<br>Example: Human Triumvirate, Human, Humans.
+NAME_RACE_ALKARI_FR       | Altairi: %1
+NAME_RACE_BULRATHI_FR     | Ursinathi: %1
+NAME_RACE_DARLOK_FR       | Nazlok: %1
+NAME_RACE_HUMAN_FR        | Human: %1
+NAME_RACE_KLACKON_FR      | Kholdan: %1
+NAME_RACE_MEKLAR_FR       | Meklonar: %1
+NAME_RACE_MRRSHAN_FR      | Fiershan: %1
+NAME_RACE_PSILON_FR       | Mentaran: %1
+NAME_RACE_SAKKRA_FR       | Ssslaura: %1
+NAME_RACE_SILICOID_FR     | Cryslonoid: %1
+NAME_DESC0                | Enter the new "Empire name, Species name, Species Plural Name" for this species. Leave blank to keep the current name.<br>Example: Human Triumvirate, Human, Humans.
 NAME_DESC                 | →NAME_DESC0← (Invalid settings are displayed in red)
 NAME_RACE_ALKARI_DESC     | →NAME_DESC←
 NAME_RACE_BULRATHI_DESC   | →NAME_DESC←
@@ -3003,6 +3017,30 @@ NAME_RACE_MRRSHAN_HELP    | →NAME_HELP←
 NAME_RACE_PSILON_HELP     | →NAME_HELP←
 NAME_RACE_SAKKRA_HELP     | →NAME_HELP←
 NAME_RACE_SILICOID_HELP   | →NAME_HELP←
+
+NAME_FR_DESC0              | Enter the new "Empire name, Empire of name, Species adjective, Species adjective F, Species Plural Name, Species of Plural Name, Species to Plural Name, Species Plural adjective, Species Plural adjective F" for this species. Leave blank to keep the current name.<br>Example: Le Triumvirat Humain, du Triumvirat Humain, Humain, Humaine, les Humains, des Humains, aux Humains, Humains, Humaines.
+NAME_FR_DESC               | →NAME_FR_DESC0← (Invalid settings are displayed in red)
+NAME_RACE_ALKARI_FR_DESC   | →NAME_FR_DESC←
+NAME_RACE_BULRATHI_FR_DESC | →NAME_FR_DESC←
+NAME_RACE_DARLOK_FR_DESC   | →NAME_FR_DESC←
+NAME_RACE_HUMAN_FR_DESC    | →NAME_FR_DESC←
+NAME_RACE_KLACKON_FR_DESC  | →NAME_FR_DESC←
+NAME_RACE_MEKLAR_FR_DESC   | →NAME_FR_DESC←
+NAME_RACE_MRRSHAN_FR_DESC  | →NAME_FR_DESC←
+NAME_RACE_PSILON_FR_DESC   | →NAME_FR_DESC←
+NAME_RACE_SAKKRA_FR_DESC   | →NAME_FR_DESC←
+NAME_RACE_SILICOID_FR_DESC | →NAME_FR_DESC←
+NAME_FR_HELP               | →NAME_FR_DESC0←<br>Invalid settings are displayed in red.
+NAME_RACE_ALKARI_FR_HELP   | →NAME_FR_HELP←
+NAME_RACE_BULRATHI_FR_HELP | →NAME_FR_HELP←
+NAME_RACE_DARLOK_FR_HELP   | →NAME_FR_HELP←
+NAME_RACE_HUMAN_FR_HELP    | →NAME_FR_HELP←
+NAME_RACE_KLACKON_FR_HELP  | →NAME_FR_HELP←
+NAME_RACE_MEKLAR_FR_HELP   | →NAME_FR_HELP←
+NAME_RACE_MRRSHAN_FR_HELP  | →NAME_FR_HELP←
+NAME_RACE_PSILON_FR_HELP   | →NAME_FR_HELP←
+NAME_RACE_SAKKRA_FR_HELP   | →NAME_FR_HELP←
+NAME_RACE_SILICOID_FR_HELP | →NAME_FR_HELP←
 
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developer's Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | - Debug Options Menu -
@@ -4213,10 +4251,12 @@ GAME_OVER_OVERTHROWN_LOSS               | Overthrown Loss
 GAME_OVER_MILITARY_LOSS                 | Military Loss
 GAME_OVER_NO_COLONIES_LOSS              | Societal Collapse Loss
 GAME_OVER_DIPLOMATIC_LOSS               | Diplomatic Loss
+GAME_OVER_DIPLOMATIC_LOSS_FEARED        | →GAME_OVER_DIPLOMATIC_LOSS←
 GAME_OVER_DIPLOMATIC_LOSS_LEADER        | →GAME_OVER_DIPLOMATIC_LOSS←
 GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER    | →GAME_OVER_DIPLOMATIC_LOSS←
 GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE  | →GAME_OVER_DIPLOMATIC_LOSS←
 GAME_OVER_NEW_REPUBLIC_LOSS             | New Republic Loss
+GAME_OVER_NEW_REPUBLIC_LOSS_FEARED      | →GAME_OVER_NEW_REPUBLIC_LOSS←
 GAME_OVER_NEW_REPUBLIC_LOSS_LEADER      | →GAME_OVER_NEW_REPUBLIC_LOSS←
 GAME_OVER_NEW_REPUBLIC_LOSS_MAJOR       | →GAME_OVER_NEW_REPUBLIC_LOSS←
 GAME_OVER_NEW_REPUBLIC_LOSS_MINOR       | →GAME_OVER_NEW_REPUBLIC_LOSS←
@@ -4251,11 +4291,13 @@ GAME_OVER_OVERTHROWN_LOSS_E               | →GAME_OVER_MILITARY_LOSS←
 GAME_OVER_MILITARY_LOSS_E                 | Exterminated
 GAME_OVER_NO_COLONIES_LOSS_E              | Societal Collapse
 GAME_OVER_DIPLOMATIC_LOSS_E               | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_FEARED_E        | Bond to Alien Overlords
 GAME_OVER_DIPLOMATIC_LOSS_LEADER_E        | Bond to Alien Overlords
 GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER_E    | Alien Overlords
 GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE_E  | Submission to Alien Overlords
 GAME_OVER_NEW_REPUBLIC_LOSS_E             | Fall of the New Republic
 GAME_OVER_NEW_REPUBLIC_LOSS_LEADER_E      | Fiasco of the New Republic
+GAME_OVER_NEW_REPUBLIC_LOSS_FEARED_E      | Fall of the New Republic
 GAME_OVER_NEW_REPUBLIC_LOSS_MAJOR_E       | Fall of the New Republic
 GAME_OVER_NEW_REPUBLIC_LOSS_MINOR_E       | Unsuccessful New Republic
 GAME_OVER_NEW_REPUBLIC_ALLY_LOSS_E        | Attempt to Help the New Republic

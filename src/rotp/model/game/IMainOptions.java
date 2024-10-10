@@ -602,17 +602,65 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default boolean selectedShowAllAI()			{ return showAllAI.get(); }
 	String NAME_UI		= "NAME_";
 	// Customized nominal names
-	ParamSpeciesName altairi	= new ParamSpeciesName(NAME_UI, "RACE_ALKARI",	 "Alkari Sovereignty, Alkari, Alkaris");
-	ParamSpeciesName ursinathi	= new ParamSpeciesName(NAME_UI, "RACE_BULRATHI", "Bulrathi Empire, Bulrathi, Bulrathis");
-	ParamSpeciesName nazlok		= new ParamSpeciesName(NAME_UI, "RACE_DARLOK",	 "Darloks, Darlok, Darloks");
-	ParamSpeciesName human		= new ParamSpeciesName(NAME_UI, "RACE_HUMAN",	 "Human Triumvirate, Human, Humans");
-	ParamSpeciesName kholdan	= new ParamSpeciesName(NAME_UI, "RACE_KLACKON",	 "Klackon Hive, Klackon, Klackons");
-	ParamSpeciesName meklonar	= new ParamSpeciesName(NAME_UI, "RACE_MEKLAR",	 "Meklar Dominion, Meklar, Meklars");
-	ParamSpeciesName fiershan	= new ParamSpeciesName(NAME_UI, "RACE_MRRSHAN",	 "Mrrshan Clan, Mrrshan, Mrrshan");
-	ParamSpeciesName mentaran	= new ParamSpeciesName(NAME_UI, "RACE_PSILON",	 "Psilon Republic, Psilon, Psilons");
-	ParamSpeciesName ssslaura	= new ParamSpeciesName(NAME_UI, "RACE_SAKKRA",	 "Sakkra Conclave, Sakkra, Sakkras");
-	ParamSpeciesName cryslonoid	= new ParamSpeciesName(NAME_UI, "RACE_SILICOID", "Silicoid Imperium, Silicoid, Silicoids");
+	// Former English Values
+	String altairiMOOen		= "Alkari Sovereignty, Alkari, Alkaris";
+	String ursinathiMOOen	= "Bulrathi Empire, Bulrathi, Bulrathis";
+	String nazlokMOOen		= "Darloks, Darlok, Darloks";
+	String humanMOOen		= "Human Triumvirate, Human, Humans";
+	String kholdanMOOen		= "Klackon Hive, Klackon, Klackons";
+	String meklonarMOOen	= "Meklar Dominion, Meklar, Meklars";
+	String fiershanMOOen	= "Mrrshan Clan, Mrrshan, Mrrshan";
+	String mentaranMOOen	= "Psilon Republic, Psilon, Psilons";
+	String ssslauraMOOen	= "Sakkra Conclave, Sakkra, Sakkras";
+	String cryslonoidMOOen	= "Silicoid Imperium, Silicoid, Silicoids";
+	// Former French Values
+	String altairiMOOfr		= "La Souveraineté Alkarienne, de la Souveraineté Alkarienne, Alkarien, Alkarienne, "
+							+ "les Alkaris, des Alkaris, aux Alkaris, Alkariens, Alkariennes";
+	String ursinathiMOOfr	= "L'Empire Bulrathien, de l'Empire Bulrathien, Bulrathien, Bulrathienne, "
+							+ "les Bulrathis, des Bulrathis, aux Bulrathis, Bulrathiens, Bulrathiennes";
+	String nazlokMOOfr		= "Darlok, des Darloks, Darlokien, Darlokienne, "
+							+ "les Darloks, des Darloks, aux Darloks, Darlokiens, Darlokiennes";
+	String humanMOOfr		= "Le Triumvirat Humain, du Triumvirat Humain, Humain, Humaine, "
+							+ "les Humains, des Humains, aux Humains, Humains, Humaines";
+	String kholdanMOOfr		= "La Ruche Klackonienne, de la Ruche Klackonienne, Klackonien, Klackonienne, "
+							+ "les Klackons, des Klackons, aux Klackons, Klackoniens, Klackoniennes";
+	String meklonarMOOfr	= "Le Dominion Meklarien, du Dominion Meklarien, Meklarien, Meklarienne, "
+							+ "les Meklars, des Meklars, aux Meklars, Meklariens,  Meklariennes";
+	String fiershanMOOfr	= "Le Clan Mrrshan, du Clan Mrrshan, Mrrshan, Mrrshan, "
+							+ "les Mrrshan, des Mrrshan, aux Mrrshan, Mrrshan, Mrrshan";
+	String mentaranMOOfr	= "La République Psilonne, de la République Psilonne, Psilon, Psilonne, "
+							+ "les Psilons, des Psilons, aux Psilons, Psilons, Psilonnes";
+	String ssslauraMOOfr	= "Le Conclave Sakkra, du Conclave Sakkra, Sakkra, Sakkra, "
+							+ "les Sakkras, des Sakkras, aux Sakkras, Sakkras, Sakkras";
+	String cryslonoidMOOfr	= "L'Imperium Silicoïdien, de L'Imperium Silicoïdien, Silicoïdien, Silicoïdienne, "
+							+ "les Silicoïds, des Silicoïds, aux Silicoïds, Silicoïdiens, Silicoïdiennes";
 
+	// Customized nominal names
+	// for English language
+	ParamSpeciesName altairi	= new ParamSpeciesName(NAME_UI, "RACE_ALKARI",	 altairiMOOen);
+	ParamSpeciesName ursinathi	= new ParamSpeciesName(NAME_UI, "RACE_BULRATHI", ursinathiMOOen);
+	ParamSpeciesName nazlok		= new ParamSpeciesName(NAME_UI, "RACE_DARLOK",	 nazlokMOOen);
+	ParamSpeciesName human		= new ParamSpeciesName(NAME_UI, "RACE_HUMAN",	 humanMOOen);
+	ParamSpeciesName kholdan	= new ParamSpeciesName(NAME_UI, "RACE_KLACKON",	 kholdanMOOen);
+	ParamSpeciesName meklonar	= new ParamSpeciesName(NAME_UI, "RACE_MEKLAR",	 meklonarMOOen);
+	ParamSpeciesName fiershan	= new ParamSpeciesName(NAME_UI, "RACE_MRRSHAN",	 fiershanMOOen);
+	ParamSpeciesName mentaran	= new ParamSpeciesName(NAME_UI, "RACE_PSILON",	 mentaranMOOen);
+	ParamSpeciesName ssslaura	= new ParamSpeciesName(NAME_UI, "RACE_SAKKRA",	 ssslauraMOOen);
+	ParamSpeciesName cryslonoid	= new ParamSpeciesName(NAME_UI, "RACE_SILICOID", cryslonoidMOOen);
+	// for French language
+	ParamSpeciesName altairiFr		= new ParamSpeciesName(NAME_UI, "fr", "RACE_ALKARI_FR",		altairiMOOfr);
+	ParamSpeciesName ursinathiFr	= new ParamSpeciesName(NAME_UI, "fr", "RACE_BULRATHI_FR",	ursinathiMOOfr);
+	ParamSpeciesName nazlokFr		= new ParamSpeciesName(NAME_UI, "fr", "RACE_DARLOK_FR",		nazlokMOOfr);
+	ParamSpeciesName humanFr		= new ParamSpeciesName(NAME_UI, "fr", "RACE_HUMAN_FR",		humanMOOfr);
+	ParamSpeciesName kholdanFr		= new ParamSpeciesName(NAME_UI, "fr", "RACE_KLACKON_FR",	kholdanMOOfr);
+	ParamSpeciesName meklonarFr		= new ParamSpeciesName(NAME_UI, "fr", "RACE_MEKLAR_FR",		meklonarMOOfr);
+	ParamSpeciesName fiershanFr		= new ParamSpeciesName(NAME_UI, "fr", "RACE_MRRSHAN_FR",	fiershanMOOfr);
+	ParamSpeciesName mentaranFr		= new ParamSpeciesName(NAME_UI, "fr", "RACE_PSILON_FR",		mentaranMOOfr);
+	ParamSpeciesName ssslauraFr		= new ParamSpeciesName(NAME_UI, "fr", "RACE_SAKKRA_FR",		ssslauraMOOfr);
+	ParamSpeciesName cryslonoidFr	= new ParamSpeciesName(NAME_UI, "fr", "RACE_SILICOID_FR",	cryslonoidMOOfr);
+
+	// Mapped customized nominal names
+	// for English language
 	HashMap<String, ParamSpeciesName> speciesNameMap = speciesNameMap();
 	static HashMap<String, ParamSpeciesName> speciesNameMap() {
 		HashMap<String, ParamSpeciesName> map= new HashMap<>();
@@ -628,6 +676,22 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		map.put(ursinathi.getCfgLabel(),	ursinathi);
 		return map;
 	}
+	// for French language
+	HashMap<String, ParamSpeciesName> speciesNameMapFr = speciesNameMapFr();
+	static HashMap<String, ParamSpeciesName> speciesNameMapFr() {
+		HashMap<String, ParamSpeciesName> map= new HashMap<>();
+		map.put(humanFr.getCfgLabel(),		humanFr);
+		map.put(altairiFr.getCfgLabel(),	altairiFr);
+		map.put(cryslonoidFr.getCfgLabel(),	cryslonoidFr);
+		map.put(fiershanFr.getCfgLabel(),	fiershanFr);
+		map.put(kholdanFr.getCfgLabel(),	kholdanFr);
+		map.put(meklonarFr.getCfgLabel(),	meklonarFr);
+		map.put(mentaranFr.getCfgLabel(),	mentaranFr);
+		map.put(nazlokFr.getCfgLabel(),		nazlokFr);
+		map.put(ssslauraFr.getCfgLabel(),	ssslauraFr);
+		map.put(ursinathiFr.getCfgLabel(),	ursinathiFr);
+		return map;
+	}
 
 	ParamBoolean moo1SpeciesName = new Moo1SpeciesName();
 	class Moo1SpeciesName extends ParamBoolean {
@@ -637,19 +701,39 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			isDuplicate(false);
 		}
 		@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
-			human.set("Human Triumvirate, Human, Humans");
-			altairi.set("Alkari Sovereignty, Alkari, Alkaris");
-			cryslonoid.set("Silicoid Imperium, Silicoid, Silicoids");
-			fiershan.set("Mrrshan Clan, Mrrshan, Mrrshan");
-			kholdan.set("Klackon Hive, Klackon, Klackons");
-			meklonar.set("Meklar Dominion, Meklar, Meklars");
-			mentaran.set("Psilon Republic, Psilon, Psilons");
-			nazlok.set("Darloks, Darlok, Darloks");
-			ssslaura.set("Sakkra Conclave, Sakkra, Sakkras");
-			ursinathi.set("Bulrathi Empire, Bulrathi, Bulrathis");
-			next();
-			LanguageManager.current().reloadLanguage();
-			return true;
+			String langId = LanguageManager.selectedLanguageDir();
+			switch (langId) {
+				case "en":
+					human.set(humanMOOen);
+					altairi.set(altairiMOOen);
+					cryslonoid.set(cryslonoidMOOen);
+					fiershan.set(fiershanMOOen);
+					kholdan.set(kholdanMOOen);
+					meklonar.set(meklonarMOOen);
+					mentaran.set(mentaranMOOen);
+					nazlok.set(nazlokMOOen);
+					ssslaura.set(ssslauraMOOen);
+					ursinathi.set(ursinathiMOOen);
+					next();
+					LanguageManager.current().reloadLanguage();
+					return true;
+				case "fr":
+					humanFr.set(humanMOOfr);
+					altairiFr.set(altairiMOOfr);
+					cryslonoidFr.set(cryslonoidMOOfr);
+					fiershanFr.set(fiershanMOOfr);
+					kholdanFr.set(kholdanMOOfr);
+					meklonarFr.set(meklonarMOOfr);
+					mentaranFr.set(mentaranMOOfr);
+					nazlokFr.set(nazlokMOOfr);
+					ssslauraFr.set(ssslauraMOOfr);
+					ursinathiFr.set(ursinathiMOOfr);
+					next();
+					LanguageManager.current().reloadLanguage();
+					return true;
+				default:
+					return false;
+			}
 		}
 		@Override public String	guideValue() { return ""; }
 	}
@@ -662,13 +746,27 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			isDuplicate(false);
 		}
 		@Override public boolean toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
-			for (ParamSpeciesName param : speciesNameMap.values()) {
-				param.set("");
-				param.updated(true);
+			String langId = LanguageManager.selectedLanguageDir();
+			switch (langId) {
+				case "en":
+					for (ParamSpeciesName param : speciesNameMap.values()) {
+						param.set("");
+						param.updated(true);
+					}
+					next();
+					LanguageManager.current().reloadLanguage();
+					return true;
+				case "fr":
+					for (ParamSpeciesName param : speciesNameMapFr.values()) {
+						param.set("");
+						param.updated(true);
+					}
+					next();
+					LanguageManager.current().reloadLanguage();
+					return true;
+				default:
+					return false;
 			}
-			next();
-			LanguageManager.current().reloadLanguage();
-			return true;
 		}
 		@Override public String	guideValue() { return ""; }
 	}
@@ -741,6 +839,29 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				)));
 		return map;
 	}
+	static ParamSubUI specieNameOptionsFrUI() {
+		return new ParamSubUI( MOD_UI, "NAME_OPTIONS_UI", specieNameOptionsMapFr(),
+				"NAME_OPTIONS_TITLE", NAME_GUI_ID).isCfgFile(true);
+	}
+	static SafeListPanel specieNameOptionsMapFr()	{
+		SafeListPanel map = new SafeListPanel();
+		map.add(new SafeListParam(Arrays.asList(
+				altairiFr, ursinathiFr,
+				nazlokFr, humanFr,
+				kholdanFr, meklonarFr,
+				fiershanFr, mentaranFr,
+				ssslauraFr, cryslonoidFr,
+
+				headerSpacer,
+				moo1SpeciesName,
+				clearSpeciesName,
+
+				headerSpacer,
+				activateSpeciesName
+				)));
+		return map;
+	}
+
 	static SafeListParam vanillaSettingsUI() {
 		SafeListParam options  = new SafeListParam(
 				Arrays.asList(
@@ -814,7 +935,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				new ParamTitle("SUB_PANEL_OPTIONS"),
 				IDebugOptions.debugOptionsUI(),
 				ICombatOptions.combatOptionsUI(),
-				specieNameOptionsUI()
+				specieNameOptionsUI(), specieNameOptionsFrUI()
 				)));
 		return map;
 	};

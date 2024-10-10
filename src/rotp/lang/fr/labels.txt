@@ -882,7 +882,7 @@ MAIN_SCOUT_HOSTILE_DESC           | Environnement : Hostile - La croissance dém
 MAIN_SCOUT_FERTILE_DESC           | Environnement: Fertile - La croissance démographique est de +50% normale.
 MAIN_SCOUT_GAIA_DESC              | Environnement: Gaïa - La croissance démographique est de +100% normale.
 MAIN_SCOUT_ARTIFACTS_DESC         | Ruines Antariennes : La recherche est doublée.
-MAIN_SCOUT_ANCIENTS_DESC          | Ancienne Planète Natale : La recherche est quadruplé.
+MAIN_SCOUT_ANCIENTS_DESC          | Ancienne Planète Natale : La recherche est quadruplée.
 MAIN_SCOUT_ULTRA_POOR_DESC        | Ressources : Ultra-Pauvre - La production industrielle est réduite à un tiers.
 MAIN_SCOUT_POOR_DESC              | Ressources : Pauvre - La production industrielle est divisée par deux.
 MAIN_SCOUT_RICH_DESC              | Ressources : Riche - La production industrielle est doublée.
@@ -1297,7 +1297,7 @@ ERROR_EMAIL                       | E-mail: rayfowler@fastmail.com
 ERROR_REDDIT                      | Reddit: www.Reddit.com/r/rotp
 
 // Setup UI
-SETUP_SELECT_RACE                 | Sélection de la Race
+SETUP_SELECT_RACE                 | Sélection de l'espèce
 SETUP_SELECT_OPPONENTS            | Sélection des adversaires
 SETUP_SELECT_GALAXY               | Configuration de la Galaxie
 SETUP_SELECT_GALAXY_OPTIONS       | Sélection les options

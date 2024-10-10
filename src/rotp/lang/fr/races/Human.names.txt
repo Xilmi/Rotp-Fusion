@@ -4,6 +4,7 @@ name: Humain, Terrien, Tellien, Primien, Midgardien
 desc1: D'honorables Diplomates
 desc2: Excellents Commerçants et experts en diplomaties
 desc3: Éloquents, les humains sont les maîtres dans l'art de convaincre les autres de servir leurs intérêts.
+desc4: Commerce +25%, Diplomatie +100%
 
 // possible home system names
 home: Terre, Terra, Tellus, Prime, Midgard

@@ -28,7 +28,7 @@ _nameTitle                        | le Haut Conseiller
 
 // Advisor text
 MAIN_ADVISOR_TITLE                | Conseiller %1
-MAIN_ADVISOR_BUTTON_OK            | Rejeter
+MAIN_ADVISOR_BUTTON_OK            | Merci
 MAIN_ADVISOR_SCOUT                | Haut conseiller, notre flotte d'exploration est prête. Considéreriez-vous qu'il serait plus prudent pour nous de trouver un nouveau monde et d'y créer bientôt une colonie ?
 MAIN_ADVISOR_TRANSPORT            | Notre nouvelle colonie a été établie. Le conseil délibère maintenant sur le nombre de nos gens que nous devrions envoyer là-bas sur un navire de transport, si nous devions en envoyer.
 MAIN_ADVISOR_DIPLOMACY            | Des profondeurs de l'espace, une toute nouvelle civilisation est apparue ! Je prie pour qu'ils préfèrent une coexistence pacifique à une violente. 
@@ -58,5 +58,5 @@ GAME_OVER_COUNCIL_MILITARY_WIN2   | La paix enfin, quoique douce-amère...#Une f
 GAME_OVER_COUNCIL_MILITARY_LOSS2  | La Nouvelle République est en ruines...#Un terrible destin vous est arrivé. Alors que votre quête touchait à sa fin et que vous étiez sur le point de récolter les fruits de vos longs labeurs, votre rêve d'une fédération pacifique d'empires vous a été arraché. Bien que beaucoup au sein du Conseil Galactique souhaitaient l'harmonie et la prospérité et voyaient que vous étiez celui qui était destiné à conduire la galaxie vers un tel avenir, une rébellion vile a éclaté alors que les plus enclins à la violence ne voulaient pas mettre de côté leur besoin primordial de férocité sauvage. Contre vos propres idéaux, vous avez dirigé les forces de la Nouvelle République pour faire face à cette menace, et contre une force aussi écrasante, vous n'avez pas pu remporter la victoire.#Maintenant, la galaxie est beaucoup plus vide qu'elle ne l'était auparavant, car votre fière et noble civilisation a été entièrement expurgée. Alors que vos ennemis se moquent de vos principes comme étant faibles et idéalistes, vous savez aussi que l'histoire sera également hostile à votre échec. Ceux qui resteront trembleront sous la tyrannie et la guerre, et la violence régnera à la place de la paix. C'est la fin que vous vouliez le moins de cette lutte longue et difficile, et pour vous, au moins, l'histoire a pris fin des plus malheureuses...
 
 // This text is the %8 variable in some of the game over text... when this race wins the game
-GAME_OVER_ALLIANCE_WIN3           | the unyielding desire for peace of the Mentariens
-GAME_OVER_REBELLION_LOSS3         | l'intellect inégalé des Mentarans surclasse
+GAME_OVER_ALLIANCE_WIN3           | le désir inébranlable de paix [my_race_pluralnounof]
+GAME_OVER_REBELLION_LOSS3         | l'intellect inégalé [my_race_pluralnounof] surclasse

@@ -391,7 +391,7 @@ public class CustomRaceDefinitions  {
 		return -malus;
 	}
 	private void pushSettings() {
-			race = Race.keyed(baseRace).copy();
+		race = Race.keyed(baseRace).copy();
 		for (SettingBase<?> setting : settingList) {
 			setting.pushSetting();
 		}
@@ -575,7 +575,7 @@ public class CustomRaceDefinitions  {
 	    	Race dr = cr.getRace();
 	    	String cfgValue	 = dr.setupName;
 	    	String langLabel = dr.id;
-	    	String tooltipKey = dr.description3;
+	    	String tooltipKey = dr.getDescription3();
 	    	float cost = cr.getTotalCost();
 	    	put(cfgValue, langLabel, cost, langLabel, tooltipKey);
 	    }
@@ -583,7 +583,7 @@ public class CustomRaceDefinitions  {
 	    	Race dr = Race.keyed(raceKey);	    	
 	    	String cfgValue	  = dr.id;
 	    	String langLabel  = BASE_RACE_MARKER + dr.setupName();
-	    	String tooltipKey = dr.description3;
+	    	String tooltipKey = dr.getDescription3();
 	    	CustomRaceDefinitions cr = new CustomRaceDefinitions(dr);
 	    	float cost = cr.getTotalCost();
 	    	put(cfgValue, langLabel, cost, langLabel, tooltipKey);
@@ -716,10 +716,10 @@ public class CustomRaceDefinitions  {
 			randomStr("Randomized");
 		}
 		@Override public void pushSetting() {
-			race.description1 = settingValue();
+			race.setDescription1(settingValue());
 		}
 		@Override public void pullSetting() {
-			set(race.description1);		
+			set(race.getDescription1());		
 		}
 	}
 	// ==================== RaceDescription2 ====================
@@ -731,10 +731,10 @@ public class CustomRaceDefinitions  {
 			randomStr("Randomized");
 		}
 		@Override public void pushSetting() {
-			race.description2 = settingValue();
+			race.setDescription2(settingValue());
 		}
 		@Override public void pullSetting() {
-			set(race.description2);		
+			set(race.getDescription2());
 		}
 	}
 	// ==================== RaceDescription3 ====================
@@ -746,10 +746,10 @@ public class CustomRaceDefinitions  {
 			randomStr("Randomized");
 		}
 		@Override public void pushSetting() {
-			race.description3 = settingValue();
+			race.setDescription3(settingValue());
 		}
 		@Override public void pullSetting() {
-			set(race.description3);		
+			set(race.getDescription3());
 		}
 	}
 	// ==================== RaceDescription4 ====================
@@ -761,10 +761,10 @@ public class CustomRaceDefinitions  {
 			randomStr("Randomized");
 		}
 		@Override public void pushSetting() {
-			race.description4 = settingValue();
+			race.setDescription4(settingValue());
 		}
 		@Override public void pullSetting() {
-			set(race.description4);		
+			set(race.getDescription4());
 		}
 	}
 	// ==================== RacePrefix ====================

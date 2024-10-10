@@ -94,7 +94,7 @@ public class Race implements Base, Serializable {
     public String worldsPrefix = ""; // BR: for custom Races
     public String worldsSuffix = ""; // BR: for custom Races
     public String langKey;
-    public String description1, description2, description3, description4; // modnar: add desc4
+    private String description1, description2, description3, description4; // modnar: add desc4
     public String directoryName;
     public String laboratoryKey, embassyKey, councilKey;
     public String holographKey;
@@ -457,8 +457,31 @@ public class Race implements Base, Serializable {
             return raceLabels().dialogue(key);
         return labels().dialogue(key);
     }
-    public String name()                      { return text(id); }
+    public String name()                        { return text(id); }
+    public void setDescription1(String desc)    { description1 = desc; }
+    public void setDescription2(String desc)    { description2 = desc; }
+    public void setDescription3(String desc)    { description3 = desc; }
+    public void setDescription4(String desc)    { description4 = desc; }
+    public String getDescription1()             {
+    	return description1;
+    }
+    public String getDescription2()             {
+    	return description2;
+    }
+    public String getDescription3()             {
+    	return getDescription3(setupName());
+    }
+     public String getDescription3(String name) {
+    	 String desc = description3.replace("[empire]", empireTitle());
+    	return desc.replace("[race]", name);
+    }
+   public String getDescription4()              {
+    	return description4;
+    }
+    
     public String setupName() {
+    	if (raceNames.isEmpty())
+    		return "";
         return text(substrings(raceNames.get(0), '|').get(0));
     }
     public int shipAttackBonus()              { return shipAttackBonus; }
@@ -500,7 +523,6 @@ public class Race implements Base, Serializable {
     public String fullTitle()                 { return fullTitle; }
     public void fullTitle(String s)           { fullTitle = s; }
     // BR: Custom Races
-    public String  description4()             { return description4; }
     boolean isCustomRace()                    { return isCustomRace; }
     Race   isCustomRace(boolean val)          { isCustomRace = val; return this;}
     public boolean isRandomized() { return crEmpireNameRandom.equalsIgnoreCase(empireTitle); }

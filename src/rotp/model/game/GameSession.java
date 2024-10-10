@@ -543,7 +543,7 @@ public final class GameSession implements Base, Serializable {
                 player().setVisibleMonsters();
 
                 // test game over conditions
-                //randomlyEndGame();
+                // randomlyEndGame(); // TO DO BR: Comment
 
                 if (!inProgress())
                     return;

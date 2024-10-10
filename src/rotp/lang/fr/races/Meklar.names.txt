@@ -3,7 +3,8 @@ name: Meklonarien, Mechanarien, Cybernarien, Digitarien, Technarien
 
 desc1: Des Industriels Erratiques
 desc2: Contrôles d'Usine Améliorés
-desc3: Les citoyens Meklonariens du Dominion recherchent la perfection et l'immortalité grâce à la technologie.
+desc3: Les citoyens [race]s du Dominion recherchent la perfection et l'immortalité grâce à la technologie.
+desc4: +2 Usines par habitant
 
 // possible home system names
 home: Meklon, Collosson, Calculon, Bender, Optimus

@@ -27,7 +27,7 @@ _nameTitle                        | le Triumvir
 
 // Advisor text
 MAIN_ADVISOR_TITLE                | Conseiller Humain
-MAIN_ADVISOR_BUTTON_OK            | Rejeter
+MAIN_ADVISOR_BUTTON_OK            | Merci
 MAIN_ADVISOR_SCOUT                | Notre division logistique rapporte qu'une paire d'éclaireurs et un vaisseau de colonisation sont prêts à être déployés. Je suggère que nous localisions et colonisions une planète proche dès que possible.
 MAIN_ADVISOR_TRANSPORT            | L'établissement d'une colonie à %1 a réussi. Plus nous utiliserons de transports, plus vite %1 deviendra la pierre angulaire de notre empire interstellaire.
 MAIN_ADVISOR_DIPLOMACY            | Triumvir, je suis ravi de confirmer notre premier contact avec une civilisation extraterrestre ! SVP, ajustez nos services secrets afin que nous puissions commencer à manipuler ces extraterrestres pour mieux servir nos desseins.

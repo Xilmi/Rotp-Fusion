@@ -69,7 +69,14 @@ Later:
 
 ## What's New
 
-2024.10.08 (BR)
+2024.10.10 (BR)
+- More French translations (New and fixes)
+- Added option for Custom base species nominal in French too.
+
+2024.10.09 (Frank Zago)
+- More French translations (New and fixes)
+
+2024.10.09 (BR)
 - Fixed some "Debug mode" Null pointer exception bugs
 - More French translations (New and fixes)
 - Attempting to fix mysterious warning in debug mode
