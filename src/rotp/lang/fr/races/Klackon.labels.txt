@@ -14,15 +14,15 @@ _nameTitle                        |
 
 //
 // All text below this point is copyright 2018-2020 Jeff Colucci
-// 
-// Licensed under the Creative Commons License, 
+//
+// Licensed under the Creative Commons License,
 // Attribution-NonCommercial-NoDerivatives 4.0 International (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     https://creativecommons.org/licenses/by-nc-nd/4.0/
-//  
-// This license is legally binding. Please review this license before altering 
+//
+// This license is legally binding. Please review this license before altering
 // or distributing any material covered under this license.
 //
 
@@ -38,8 +38,8 @@ MAIN_ADVISOR_MISSILE_BASES        | Je vois maintenant que toute la vie n'a pas 
 MAIN_ADVISOR_SHIP_WEAPON          | Je continue d'avancer et, une fois intégrée à mes nouveaux vaisseaux, ma nouvelle technologie d'armement me fournira plus de puissance.
 MAIN_ADVISOR_COUNCIL              | Grand émoi ! Une rencontre avec de nombreuses espèces aura bientôt lieu. Quelles formes de vie y seront rassemblées ? Si je me présente sous un meilleur jour parmi ceux que je connais, peut-être qu'ils faciliteront mon introduction aux nouvelles espèces.
 MAIN_ADVISOR_REBELLION            | Qu'est-ce qui se passe? J'ai perdu le contrôle de moi-même sur %1. Qu'importe, je dois simplement aller leur montrer que c'est moi qui commande.
-MAIN_ADVISOR_RESIST_COUNCIL       | Impossible! Qu'un autre a été choisi pour régner sur ces insipides imbéciles, alors que ma sagesse reste ignorée ! Mais qu'importe : je vais y mettre fin immédiatement ! 
-MAIN_ADVISOR_COUNCIL_RESISTED     | Pourquoi ces imbéciles persistent-ils à être si désagréables ? Le conseil est à moi, la galaxie est à moi, et maintenant ils apprendront quelle est leur place dans mon domaine ! 
+MAIN_ADVISOR_RESIST_COUNCIL       | Impossible! Qu'un autre a été choisi pour régner sur ces insipides imbéciles, alors que ma sagesse reste ignorée ! Mais qu'importe : je vais y mettre fin immédiatement !
+MAIN_ADVISOR_COUNCIL_RESISTED     | Pourquoi ces imbéciles persistent-ils à être si désagréables ? Le conseil est à moi, la galaxie est à moi, et maintenant ils apprendront quelle est leur place dans mon domaine !
 
 MAIN_SCOUT_TITLE                  | J'explore un nouveau système stellaire
 MAIN_COLONIZE_TITLE               | Je suis en orbite autour de %1, un système non encore colonisé.
@@ -79,7 +79,7 @@ SABOTAGE_REBELS_RESULT            | J'ai encouragé %1 rebelles.
 SABOTAGE_REBELS_TOTAL             | J'ai encouragé %1 rebelles. La dissidence atteint maintenant %2%.
 SABOTAGE_REBELS_REVOLT            | J'ai déclenché une révolte !
 
-COUNCIL_CAST_PROMPT               | Je dois choisir (votes %1)...
+COUNCIL_CAST_PROMPT               | Je dois choisir (%1 voix)...
 
 // text for endings... '#' represents a paragraph break
 // variables: %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 is special race-specific text described below

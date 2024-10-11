@@ -802,7 +802,7 @@ MAIN_TRANSPORT_SIZE_WARNING       | Attention - La planète cible ne peut suppor
 MAIN_TRANSPORT_NO_SELECTION       | Pas de Sélection
 MAIN_TRANSPORT_CANCEL             | Annuler
 MAIN_TRANSPORT_SEND               | Envoyer
-MAIN_TRANSPORT_ABANDON            | Annuler
+MAIN_TRANSPORT_ABANDON            | Abandonner
 MAIN_TRANSPORT_CLEAR              | Annuler Transports
 MAIN_TRANSPORT_SURRENDER          | Capitulation Automatique à l'Arrivée
 
@@ -1196,7 +1196,7 @@ TECH_DISCOVERY_TITLE              | Les scientifiques [player_race_pluraladjec] 
 TECH_SCOUTED_TITLE                | Éclaireurs explorant les ruines de %1 découvrent
 TECH_STOLEN_TITLE                 | Nos espions ont infiltrés le centre de recherche [alien_race] à %2.
 TECH_TRADED_TITLE                 | Les scientifiques [player_race_pluraladjec] acquièrent la technologie des scientifiques [alien_race_pluraladjec]
-TECH_PLUNDERED_TITLE              | Soldats aux Ruines de %1 pillent
+TECH_PLUNDERED_TITLE              | Pillage dans les ruines de %1
 TECH_DERELICT_TITLE               | Les explorateurs [alien_race_pluraladjec] pillent une technologie ancienne
 TECH_GUARDIAN_TITLE               | Les soldats [alien_race_pluraladjec] récupèrent une arme ancienne
 TECH_ALLOCATE_SHIELD              | Devrions-nous augmenter les ratios de défense de toutes nos colonies pour construire les nouveaux boucliers planétaires ?
@@ -1411,12 +1411,19 @@ SETUP_NEW_RACES_OFF               | Original
 SETUP_OPPONENTS_HEADER_1          | %1 contre
 SETUP_OPPONENTS_HEADER_2          | Empires rivaux
 SETUP_OPPONENT_RANDOM             | ???
+SETUP_OPPONENT_AI_DESC            | Sélectionnez l'IA qui sera utilisée par tous vos opposants.
 SETUP_OPPONENT_AI                 | Jouer contre:
+SETUP_OPPONENT_AI_BASE_HELP       | IA-Famille: Base<br> Plus défensif que les autres base-famille-IA.
 SETUP_OPPONENT_AI_BASE            | IA: Base
+SETUP_OPPONENT_AI_MODNAR_HELP     | IA-Famille: Base<br> Utilise un livre d'ouverture pour les premières technologies. Il construit moins de bases de missiles. Utilise une plus grande variété de modèles de vaisseaux. L'agressivité est fonction de la difficulté. La diplomatie est un peu plus excentrique en raison de quelques corrections de bug manquantes.
 SETUP_OPPONENT_AI_MODNAR          | IA: Modnar
+SETUP_OPPONENT_AI_ROOKIE_HELP     | IA-Famille: Base<br> Utilise un livre d'ouverture pour les premières technologies. Il construit moins de bases de missiles. Utilise une plus grande variété de modèles de vaisseaux. L'agressivité est fonction de la difficulté.<br> Un bug important sur le comportement en retraite est corrigé. Il n'y a aucun intérêt à avoir les deux autres AI de base. C'est juste pour que le Mod ne manque pas d'eux comme une fonctionnalité.
 SETUP_OPPONENT_AI_ROOKIE          | IA: Débutant
+SETUP_OPPONENT_AI_XILMI_HELP      | Famille IA: Xilmi<br> Utilise un module diplomatique semblable à celui de la Famille-Base en ce sens qu'il utilise les valeurs relationnelles pour la prise de décisions. Cependant, il diffère aussi de ceux-ci en ce qu'il n'y a pas de hasard impliqué et plutôt des seuils pour les PAN et les Alliances s'ajuster dynamiquement sur la base d'une comparaison de puissance. Essentiellement : Plus une IA est faible, plus elle est disposée à signer des alliances même si la relation n'est pas cordiale. Basé sur des alliances de personnalité peut être beaucoup plus stable.
 SETUP_OPPONENT_AI_XILMI           | IA: Xilmi
+SETUP_OPPONENT_AI_HYBRID_HELP     | Famille IA: Xilmi<br> Utilise le même module de diplomatie et d'espionnage que la IA-base pour présenter fondamentalement une IA qui agit diplomatiquement comme une IA-base, mais a toujours tous les avantages dans les autres aspects du jeu.
 SETUP_OPPONENT_AI_HYBRID          | IA: Hybride
+SETUP_OPPONENT_AI_CRUEL_HELP      | IA-Famille: Xilmi (Pas de barre de relations, pas d'alliances)<br> ... ces IAs jouent toutes plus prudentes qu'agressives alors que certaines différences raciales sont encore appliquées. Il est très similaire dans le comportement à ce dernier, mais généralement les jeux sont beaucoup plus paisible tant que personne n'a un avantage massif. Elles sont également très opportunistes. La raison pour laquelle "Amusant" a été créé parce que jouer contre ce genre d'IA peut être extrêmement frustrant. Vous pouvez avoir un long jeu où rien ne se passe vraiment et puis être effacé en quelques tours par plusieurs adversaires à la fois. Il y a un algorithme en jeu qui devine la chance d'être rétrogradé en cas de déclaration de guerre. Et à cause de cela, il est fort probable que l'IA pense que l'autre parti sera plus susceptible d'être rétrogradé et non pas eux, s'ils déclarent la guerre. Oh... Elles ignoreront tout dans les cas où elles devraient finalement atteindre la fin de l'arbre technologique. Donc le jeu ne sera pas techniquement sans fin, même si cela pourrait le paraître.
 SETUP_OPPONENT_AI_CRUEL           | IA: Fusion
 SETUP_OPPONENT_AI_FUN             | IA: Amusant
 SETUP_OPPONENT_AI_PERSONALITY     | IA: Personnalité
@@ -1429,10 +1436,14 @@ SETUP_OPPONENT_AI_RANDOM_ADV      | IA: A.Xilmi
 SETUP_OPPONENT_AI_RANDOM_NOBAR_HELP | Sélection aléatoire parmi : Fusion, Amusant ou Personnalité.<br> Ces IA sont opportunistes et n'affichent pas la barre de relation.
 SETUP_OPPONENT_AI_SELECT_HELP     | Pour pouvoir sélectionner une IA différente pour chaque adversaire. <br> Un nouveau champ de sélection sera ajouté au bas de chaque icône adverse.
 SETUP_OPPONENT_AI_SELECT          | AI: Sélectionnable
+SETUP_OPPONENT_AI_PLAYER_HELP     | Le contrôle est entre vos mains.
+SETUP_OPPONENT_AI_PLAYER          | IA: Arrêt
+SETUP_OPPONENT_CR                 | Capacités:
+SETUP_AUTOPLAY_OFF_HELP           | Le joueur prend le commandement de l'empire.
 SETUP_AUTOPLAY_OFF                | Desactivé
-SETUP_AUTOPLAY_AI_BASE            | AI: Base
-SETUP_AUTOPLAY_AI_MODNAR          | AI: Modnar
-SETUP_AUTOPLAY_AI_XILMI           | AI: Xilmi
+SETUP_GAME_DIFFICULTY_HELP        | La difficulté de réglage appliquera une prime ou une pénalité à la production des joueurs d'IA.<br> Avec Normale ou plus, les Monstres de l'Espace seront introduit parmi les évènements aléatoires vers le milieu de la partie. Mais pour les niveaux de difficulté Faciles, Trés faciles et Trop Faciles, les Monstres de l'Espace seront retardés afin de donner aux joueurs plus de temps pour se développer.
+SETUP_GAME_DIFFICULTY_DESC        | Sélectionnez le niveau de difficulté du jeu.
+SETUP_GAME_DIFFICULTY             | Sélection des difficultés du jeu : %1
 SETUP_GAME_DIFFICULTY_LABEL       | Difficulté
 SETUP_DIFFICULTY_EASIEST          | Trop facile
 SETUP_DIFFICULTY_EASIER           | Très facile
@@ -1441,24 +1452,67 @@ SETUP_DIFFICULTY_NORMAL           | Normale
 SETUP_DIFFICULTY_HARD             | Difficile
 SETUP_DIFFICULTY_HARDER           | Très difficile
 SETUP_DIFFICULTY_HARDEST          | Trop difficile
+SETUP_DIFFICULTY_CUSTOM           | Personnalisé
+SETUP_DIFFICULTY_EASIEST_HELP     | Trop facile (55%)
+SETUP_DIFFICULTY_EASIER_HELP      | Très facile (75 %)
+SETUP_DIFFICULTY_EASY_HELP        | Facile (90 %)
+SETUP_DIFFICULTY_NORMAL_HELP      | Normal (100%)
+SETUP_DIFFICULTY_HARD_HELP        | Difficile (110 %)
+SETUP_DIFFICULTY_HARDER_HELP      | Très difficile (125%)
+SETUP_DIFFICULTY_HARDEST_HELP     | Trop difficile (145 %)
+SETUP_DIFFICULTY_CUSTOM_HELP      | Cette valeur est définie par l'option <b>Difficulté personnalisée</b> qui se trouve en haut à gauche du panneau "Options"
+SETUP_RESEARCH_RATE_NORMAL_HELP   | Facteurs de coût de la recherche = 1.
 SETUP_RESEARCH_RATE_NORMAL        | Normale
+SETUP_RESEARCH_RATE_FAST_HELP     | Facteurs des coûts de la recherche : <br>75 % au niveau 2;&ensp 65 % au niveau 6;&ensp 60 % au niveau 8;<br>55 % au niveau 20;&ensp 52 % au niveau 50;&ensp 51 % au niveau 100.
+SETUP_RESEARCH_RATE_FAST          | Rapide
+SETUP_RESEARCH_RATE_SLOW_HELP     | Facteurs des coûts de la recherche :<br>1,15 au niveau 2;&ensp 2 au niveau 12;&ensp 2,5 au niveau 20;<br>3 au niveau 28;&ensp 4 au niveau 50;&ensp 6 au niveau 100.
 SETUP_RESEARCH_RATE_SLOW          | Lent
+SETUP_RESEARCH_RATE_SLOWER_HELP   | Facteurs des coûts de la recherche : <br>1,2 au niveau 2;&ensp 2,5 au niveau 10;&ensp 4 au niveau 20;<br>5 au niveau 29;&ensp 7 au niveau 50;&ensp 10 au niveau 100.
 SETUP_RESEARCH_RATE_SLOWER        | Plus lent
+SETUP_RESEARCH_RATE_SLOWEST_HELP  | Ancien facteur « le plus faible »<br> Facteurs des coûts de la recherche :<br>1,27 au niveau 2;&ensp 5 au niveau 11;&ensp 8 au niveau 20;<br>10 au niveau 26;&ensp 16 au niveau 51;&ensp 25 au niveau 100.
 SETUP_RESEARCH_RATE_SLOWEST       | Encore plus lent
+SETUP_RESEARCH_RATE_IMPEDED_HELP  | Facteurs des coûts de la recherche : <br>1,34 au niveau 2;&ensp 10 au niveau 11;&ensp 17 au niveau 20;<br>23 au niveau 28;&ensp 36 au niveau 51;&ensp 55 au niveau 100.
+SETUP_RESEARCH_RATE_IMPEDED       | Traînant
+SETUP_RESEARCH_RATE_LETHARGIC_HELP | Facteurs des coûts de la recherche :<br>1,41 au niveau 2;&ensp 21 au niveau 11;&ensp 38 au niveau 20;<br>50 au niveau 27;&ensp 80 au niveau 51;&ensp 125 au niveau 100.
+SETUP_RESEARCH_RATE_LETHARGIC      | Glacial
 SETUP_TECH_TRADING_YES            | Oui
 SETUP_TECH_TRADING_ALLIES         | Alliés uniquement
+SETUP_TECH_TRADING_ALLIES_AID     | Alliés seulement**
 SETUP_TECH_TRADING_NO             | Non
+SETUP_TECH_TRADING_NO_AID         | Non**
+SETUP_TECH_TRADING_YES_HELP       | N'importe qui peut échanger avec n'importe qui, tant que leur relation est assez bonne.<br>Les empires en guerre ne feront pas de commerce!
+SETUP_TECH_TRADING_ALLIES_HELP    | Le commerce est limité entre alliés seulement.
+SETUP_TECH_TRADING_ALLIES_AID_HELP | Le commerce et l'aide sont limités entre les seuls alliés.
+SETUP_TECH_TRADING_NO_HELP        | Il n'y a aucun commerce.
+SETUP_TECH_TRADING_NO_AID_HELP    | Il n'y a ni commerce ni aide.
+SETUP_WARP_SPEED_NORMAL_HELP      | Progression de la vitesse de distorsion: 1, 2, 3, 4, 5, 6, 7, 8, 9
 SETUP_WARP_SPEED_NORMAL           | Normale
+SETUP_WARP_SPEED_FAST_HELP        | Progression de la vitesse de distorsion: 1, 2, 3, 5, 7, 10, 13, 17, 21
 SETUP_WARP_SPEED_FAST             | Rapide
+SETUP_WARP_SPEED_FAST_F_HELP      | Progression de la vitesse de distorsion : 1, 2, 3, 5, 8, 13, 21, 34, 55 (progression initiale de Fibonacci)
+SETUP_WARP_SPEED_FAST_F           | Plus rapide
 SETUP_NEBULA_NONE                 | Aucune
 SETUP_NEBULA_RARE                 | Rare
 SETUP_NEBULA_UNCOMMON             | Rare
 SETUP_NEBULA_NORMAL               | Normale
 SETUP_NEBULA_COMMON               | Commune
 SETUP_NEBULA_FREQUENT             | Fréquente
+SETUP_NEBULA_NONE_HELP            | Aucun, probablement le meilleur choix pour les galaxies symétriques, car les nébuleuses ne sont pas compatibles avec la symétrie!
 SETUP_COUNCIL_NONE                | Pas d'élections
 SETUP_COUNCIL_IMMEDIATE           | Immédiat
 SETUP_COUNCIL_REBELS              | Autoriser les rebelles
+SETUP_COUNCIL_NO_ALLIANCES        | Aucune alliance
+SETUP_COUNCIL_REALMS_BEYOND       | Des royaumes au-delà
+SETUP_COUNCIL_NONE_HELP           | Pas de Conseil ! La seule façon de gagner est de détruire tous les autres empires !
+SETUP_COUNCIL_IMMEDIATE_HELP      | Une fois que les deux tiers de la galaxie auront été colonisés, le Conseil se réunira tout les 25 ans pour tenir des élections. Si vous gagnez, chacun sera d'accord que vous êtes le meilleur!
+SETUP_COUNCIL_REBELS_HELP         | Une fois que les deux tiers de la galaxie auront été colonisés, le Conseil se réunira tout les 25 ans pour tenir des élections. Si vous gagnez, certains de vos pires ennemis peuvent refuser de vous suivre, et vont commencer une rébellion: La dernière guerre!!!
+SETUP_COUNCIL_NO_ALLIANCES_HELP   | Pas de demi-victoire... ==> Aucune victoire de l'Alliance (ni Conseil ni Militaire)
+SETUP_COUNCIL_REALMS_BEYOND_HELP  | Pas de deuxième chance, pas de demi-gagnant... ==> Pas de victoire de l'Alliance (ni Conseil ni Militaire) & Pas de rébellion! (y compris le joueur)
+SETUP_STAR_DENSITY_LONELY         | Solitaire
+SETUP_STAR_DENSITY_U_WIDE         | Ultra large
+SETUP_STAR_DENSITY_V_WIDE         | Très large
+SETUP_STAR_DENSITY_WIDER          | Plus large
+SETUP_STAR_DENSITY_WIDE           | Large
 SETUP_STAR_DENSITY_LOWEST         | Encore plus faible
 SETUP_STAR_DENSITY_LOWER          | Plus faible
 SETUP_STAR_DENSITY_LOW            | Faible
@@ -1466,6 +1520,18 @@ SETUP_STAR_DENSITY_NORMAL         | Normale
 SETUP_STAR_DENSITY_HIGH           | Élevée
 SETUP_STAR_DENSITY_HIGHER         | Plus élevée
 SETUP_STAR_DENSITY_HIGHEST        | Encore plus élevée
+SETUP_STAR_DENSITY_LONELY_HELP    | Augmenter l'écart entre les étoiles de 300% (À vos risques et périls)
+SETUP_STAR_DENSITY_U_WIDE_HELP    | Augmenter l'écart entre les étoiles de 200% (À vos risques et périls)
+SETUP_STAR_DENSITY_V_WIDE_HELP    | Augmenter l'écart entre les étoiles de 130% (À vos risques et périls)
+SETUP_STAR_DENSITY_WIDER_HELP     | Augmenter l'écart entre les étoiles de 80% (à vos risques et périls)
+SETUP_STAR_DENSITY_WIDE_HELP      | Augmenter l'écart entre les étoiles de 50%
+SETUP_STAR_DENSITY_LOWEST_HELP    | Augmenter l'écart entre les étoiles de 30%
+SETUP_STAR_DENSITY_LOWER_HELP     | Augmenter l'écart entre les étoiles de 20%
+SETUP_STAR_DENSITY_LOW_HELP       | Augmenter l'écart entre les étoiles de 10%
+SETUP_STAR_DENSITY_NORMAL_HELP    | Écart entre les étoiles normal
+SETUP_STAR_DENSITY_HIGH_HELP      | Diminuer l'écart entre les étoiles de 10%
+SETUP_STAR_DENSITY_HIGHER_HELP    | Diminuer l'écart entre les étoiles de 20%
+SETUP_STAR_DENSITY_HIGHEST_HELP   | Diminuer l'écart entre les étoiles de 30%
 SETUP_AI_HOSTILITY_LOWEST         | Le plus gentil
 SETUP_AI_HOSTILITY_LOWER          | Plus gentil
 SETUP_AI_HOSTILITY_LOW            | Gentil
@@ -1473,6 +1539,13 @@ SETUP_AI_HOSTILITY_NORMAL         | Normale
 SETUP_AI_HOSTILITY_HIGH           | En colère
 SETUP_AI_HOSTILITY_HIGHER         | Plus en colère
 SETUP_AI_HOSTILITY_HIGHEST        | Le plus en colère
+SETUP_AI_HOSTILITY_LOWEST_HELP    | L'hostilité est réduite de 30.
+SETUP_AI_HOSTILITY_LOWER_HELP     | L'hostilité est réduite de 20.
+SETUP_AI_HOSTILITY_LOW_HELP       | L'hostilité est réduite de 10.
+SETUP_AI_HOSTILITY_NORMAL_HELP    | Valeur de base de l'hostilité.
+SETUP_AI_HOSTILITY_HIGH_HELP      | L'hostilité est augmentée de 10.
+SETUP_AI_HOSTILITY_HIGHER_HELP    | L'hostilité augmente de 20.
+SETUP_AI_HOSTILITY_HIGHEST_HELP   | L'hostilité augmente de 30.
 SETUP_GAME_NUMBER_OPPONENTS       | Adversaires
 SETUP_PLANET_QUALITY_POOR         | Pauvre
 SETUP_PLANET_QUALITY_MEDIOCRE     | Médiocre
@@ -2196,7 +2269,7 @@ COUNCIL_SUMMARY                   | Les votes sont exprimés par ordre de popula
 COUNCIL_BEGIN_VOTING              | Commencer à voter
 COUNCIL_SHOW_VOTING               | Continuer de voter
 COUNCIL_SKIP_TO_PLAYER            | Passer au vote [player_raceadjec]
-COUNCIL_COMPLETE_VOTING           | Terminer tous les votes
+COUNCIL_COMPLETE_VOTING           | Finir le scrutin
 COUNCIL_SHOW_RESULTS              | Montrer les résultats
 COUNCIL_VIEW_SUMMARY              | Liste des candidats
 COUNCIL_VOTES_REQUIRED            | %1 votes requis pour remporter l'élection.
@@ -2206,9 +2279,9 @@ COUNCIL_CHOICE_ABSTAIN            | Abstention
 COUNCIL_CAST_VOTE                 | [voter_empire] vote pour [candidate_name] (%1 voix)
 COUNCIL_CAST_ABSTAIN              | [voter_empire] s'abstient (%1 voix)
 COUNCIL_CHOICE_ABSTAIN            | S'abstenir
-COUNCIL_VOTE_COUNT                | %1 votes
-COUNCIL_VOTE_CAST                 | %1 votes - pour [alien_race_pluralnoun]
-COUNCIL_VOTE_ABSTAINED            | %1 votes - Abstention
+COUNCIL_VOTE_COUNT                | %1 voix
+COUNCIL_VOTE_CAST                 | %1 voix - pour [alien_race_pluralnoun]
+COUNCIL_VOTE_ABSTAINED            | %1 voix - Abstention
 COUNCIL_TREATY_CANDIDATE          | [alien_race_pluralnoun] : Candidat
 COUNCIL_TREATY_ALLIANCE           | [alien_race_pluralnoun] : Alliance
 COUNCIL_TREATY_PACT               | [alien_race_pluralnoun] : Pacte de non-agression
