@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.10.11 (BR)
+- Fixed All race name being the same when "Base Species Nominal Names" option was set.
+
 2024.10.10 (BR)
 - More French translations (New and fixes)
 - Added option for Custom base species nominal in French too.

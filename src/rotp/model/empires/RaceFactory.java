@@ -306,7 +306,7 @@ public enum RaceFactory implements Base {
             err("RaceFactory.loadRaceLangFile(", r.directoryName+") -- IOException: ", e.toString());
         }
         if (speciesNames != null) { // Update Species names if required.
-        	r.parseRaceNames(speciesName);
+        	r.raceNames.set(0, speciesName);
         }
         if (Rotp.countWords)
             log("WORDS - "+filename+": "+wc);

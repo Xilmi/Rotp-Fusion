@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed All race name being the same when "Base Species Nominal Names" option was set.
 - Added Warning for "Continue on defeat": Reloading a game with a dead player will crash the game.
 
 (Ongoing)
