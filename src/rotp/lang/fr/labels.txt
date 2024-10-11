@@ -405,7 +405,7 @@ GAME_MENU_SAVE_OPTIONS            | Enregistrer les Paramètres
 GAME_MENU_SETTINGS                | Paramètres
 GAME_MENU_OPEN_MANUAL             | Mode d'emploi
 GAME_MENU_EXIT                    | Quitter
-GAME_MENU_RESTART                 | Recommencer
+GAME_MENU_RESTART                 | Redémarrer
 GAME_VERSION                      | Version: %1
 GAME_SHRINK                       | Rétrécir -
 GAME_ENLARGE                      | Élargir

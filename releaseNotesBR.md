@@ -3,25 +3,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Added option for Custom base species nominal in French too.
-- Custom base species nominal name option is now reserved for English language use only.
-  - As other languages may use different or more keywords.
-- Fixed some "Debug mode" Null pointer exception bugs
-- More French translations (New and fixes)
-- More French translations (New and fixes) (BR & Frank Zago)
-- Global text size shrink for some languages.
-- More automatic text size to fit buttons.
-- More French translations and fixes. (Frank Zago)
-- Minor UI Fixes and French translation improvements.
-- More French translation fixes (BR & Frank Zago)
-- Minor Fixes and French translation of some mod options.
-- Plenty of language file Fixes, Ongoing... (BR & Frank Zago)
-- Fixed several dialog files containing orphaned keywords and orphaned definitions because they were accidentally split across multiple lines.
-- Fixed plenty keywords that should not have been translated into foreign languages. (In more than half the languages...)
-- Update French language. (Frank Zago)
-- Tech Panel: New complementary tech info available.
-- Custom Council percentage: The anounce and conclusion messages will now follow the requirement.
-- Fixed incorrect variable names in language files. (Frank Zago)
+- Added Warning for "Continue on defeat": Reloading a game with a dead player will crash the game.
+
+(Ongoing)
+- Fixed plenty of language translation bugs, and UI display.
+  - French translation improvement. (BR & Frank Zago)
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
@@ -86,4 +72,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Right-Click on planet (above spending panel), will bring the planet view. (Still under construction)
   - Missiles: New option to have their graphics based on shipset.
 - AI: Stronger than ever.
+- Fixed plenty of language translation bugs.
+  - French translation improvement.
 - Plenty of little bug fixes.

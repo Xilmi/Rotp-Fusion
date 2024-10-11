@@ -502,7 +502,7 @@ SETTINGS_MOD_DEBUG_BM_LOST_TURNS       | Benchmark lost turns: %1
 SETTINGS_MOD_DEBUG_BM_LOST_TURNS_DESC  | When in Benchmark mode, maximum number of turns to play after the player loses the game. Then break and start a new game.
 
 SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS              | Continue on defeat: %1
-SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_DESC         | In Auto-Run Mode, when the player loose the game, continue with the remaining empires?
+SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_DESC         | In Auto-Run Mode, when the player loose the game, continue with the remaining empires.<br>!!! Reloading a game with a dead player will crash the game !!!
 SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_NEVER        | Never
 SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_NEVER_DESC   | No, follow the rules and stop!
 SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_ALWAYS       | Always
