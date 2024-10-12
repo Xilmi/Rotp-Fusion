@@ -30,13 +30,13 @@ _nameTitle                        | le Roi Flèche
 // Advisor text
 MAIN_ADVISOR_TITLE                | Conseiller [my_raceadjec]
 MAIN_ADVISOR_BUTTON_OK            | Merci
-MAIN_ADVISOR_SCOUT                | Monseigneur, nos éclaireurs sont prêts à découvrir un nouveau monde que notre navire de colonisation apportera au bercail afin que nous puissions ajouter le territoire à notre illustre souveraineté.
+MAIN_ADVISOR_SCOUT                | Monseigneur, nos éclaireurs sont prêts à découvrir un nouveau monde que notre vaisseau de colonisation apportera au bercail afin que nous puissions ajouter le territoire à notre illustre souveraineté.
 MAIN_ADVISOR_TRANSPORT            | Un nouveau monde porte notre bannière, mais il se développe à un rythme inhibé. L'envoi d'un moyen de transport vers la colonie lui permettra de croître beaucoup plus rapidement.
 MAIN_ADVISOR_DIPLOMACY            | Une autre civilisation spatiale s'est révélée ! Nos diplomates observeront tout le décorum approprié en votre nom et prendront soigneusement note s'ils répondent de la même manière.
-MAIN_ADVISOR_SHIP_ENGINE          | Nos plus grands esprits ont conçu une nouvelle conception de moteur plus efficace. Ils souhaitent que vous examiniez les schémas des navires existants et décidiez de la meilleure façon d'appliquer les nouveaux moteurs à nos flottes.
+MAIN_ADVISOR_SHIP_ENGINE          | Nos plus grands esprits ont conçu une nouvelle conception de moteur plus efficace. Ils souhaitent que vous examiniez les schémas des vaisseaux existants et décidiez de la meilleure façon d'appliquer les nouveaux moteurs à nos flottes.
 MAIN_ADVISOR_RALLY_POINTS         | Notre ère de paix ne peut pas continuer tant qu'une race indigne fait la guerre à notre glorieux empire. Les 32 Maisons sont unies sous vos ordres et rassembleront leurs flottes là où vous les dirigerez.
 MAIN_ADVISOR_MISSILE_BASES        | Avec les flottes souveraines engagées dans la bataille, nos mondes extérieurs sont vulnérables à l'agression ennemie. Nous pouvons commencer notre construction de bases de missiles défensifs sur n'importe quel monde que vous désirez.
-MAIN_ADVISOR_SHIP_WEAPON          | Nos chercheurs ont fait une percée en ce qui concerne l'armement des navires. Les flottes peuvent être équipées de ces technologies dévastatrices à tout moment.
+MAIN_ADVISOR_SHIP_WEAPON          | Nos chercheurs ont fait une percée en ce qui concerne l'armement des vaisseaux. Les flottes peuvent être équipées de ces technologies dévastatrices à tout moment.
 MAIN_ADVISOR_COUNCIL              | Le Conseil Galactique se réunira bientôt, et notre présence sera sans aucun doute fortement souhaitée. Nos diplomates saisiront cette chance pour s'assurer que tout ce qu'ils décideront servira le bien de la souveraineté.
 MAIN_ADVISOR_REBELLION            | Ah, une rébellion sur %1. Qu'est-ce que c'est pittoresque. Je suppose que cela devait arriver à un moment donné, monseigneur, mais nous devrions quand même le mettre au pas avant que le mécontentement ne se propage à nos autres colonies.
 MAIN_ADVISOR_RESIST_COUNCIL       | Mon Seigneur! Nous sommes à vos côtés! Il n'y aura pas de paix dans cette galaxie jusqu'à ce que vous preniez la place qui vous revient sur son trône le plus élevé !

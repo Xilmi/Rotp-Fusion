@@ -52,11 +52,11 @@ ATMOSPHERE_0_DETAIL    | Convertit les environnements hostiles en environnements
 // Automated Repair techs
 //
 AUTOREPAIR_0_NAME      | Robots de maintenance automatique
-AUTOREPAIR_0_BRIEF     | Répare 15 % des coups du navire par tour
+AUTOREPAIR_0_BRIEF     | Répare 15 % des coups du vaisseau par tour
 AUTOREPAIR_0_DETAIL    | À la fin de chaque tour, les vaisseaux non détruits peuvent réparer jusqu'à 15 % de la totalité de leurs points de structure.
 
 AUTOREPAIR_1_NAME      | Maîtrise avancée des dommages
-AUTOREPAIR_1_BRIEF     | Répare 30 % des coups du navire par tour
+AUTOREPAIR_1_BRIEF     | Répare 30 % des coups du vaisseau par tour
 AUTOREPAIR_1_DETAIL    | À la fin de chaque tour, les vaisseaux non détruits peuvent réparer jusqu'à 30 % de la totalité de leurs points de structure.
 
 
@@ -185,7 +185,7 @@ BIOWEAPON_2_DETAIL   | Une arme biologique abominable capable de réduire la pop
 // Black Hole Generator tech
 //
 BLACKHOLE_0_NAME     | Générateur de trous noirs
-BLACKHOLE_0_DETAIL   | Crée un champ sous-espace qui déforme l'espace normal, créant un trou noir qui détruit 25 % à 100 % des navires ennemis ou des bases de missiles, moins 2 % par Classe de bouclier.
+BLACKHOLE_0_DETAIL   | Crée un champ sous-espace qui déforme l'espace normal, créant un trou noir qui détruit 25 % à 100 % des vaisseaux ennemis ou des bases de missiles, moins 2 % par Classe de bouclier.
 
 
 //
@@ -216,8 +216,8 @@ BOMB_4_DETAIL   | Des bombes qui explosent et causent 40 à 70 points de dégât
 // Cloaking tech
 //
 CLOAK_0_NAME     | Bouclier occulteur
-CLOAK_0_BRIEF    | Rend le navire presque invisible
-CLOAK_0_DETAIL   | Les vaisseaux rendus sont presque invisibles jusqu'à ce qu'ils attaquent, améliorant leurs défenses de +5. Les navires doivent se dévoiler pour attaquer et se recouvrent automatiquement à chaque tour pendant lequel ils n'attaquent pas.
+CLOAK_0_BRIEF    | Rend le vaisseau presque invisible
+CLOAK_0_DETAIL   | Les vaisseaux rendus sont presque invisibles jusqu'à ce qu'ils attaquent, améliorant leurs défenses de +5. Les vaisseaux doivent se dévoiler pour attaquer et se recouvrent automatiquement à chaque tour pendant lequel ils n'attaquent pas.
 
 
 //
@@ -234,7 +234,7 @@ CLONE_1_DETAIL   | Permet aux colons bio-conçus d'être cultivés à un taux de
 // Combat Transporter tech
 //
 COMBATTRANSPORT_0_NAME     | Transporteurs de combat
-COMBATTRANSPORT_0_DETAIL   | Les transports équipés de ces dispositifs ont 50 % de chances de se téléporter sur les surfaces ennemies avant de pouvoir être attaqués par des navires et des bases de défense antimissile ennemis.
+COMBATTRANSPORT_0_DETAIL   | Les transports équipés de ces dispositifs ont 50 % de chances de se téléporter sur les surfaces ennemies avant de pouvoir être attaqués par des vaisseaux et des bases de défense antimissile ennemis.
 
 
 //
@@ -438,11 +438,11 @@ ECORESTORATION_4_DETAIL | Élimine 20 unités de déchets industriels pour un co
 //
 PULSAR_0_NAME     | Pulsar d'énergie
 PULSAR_0_BRIEF    | S'étend pour infliger 1 à 5 coups
-PULSAR_0_DETAIL   | Une puissante modification du moteur qui génère une explosion d'énergie sphérique soudaine frappant tous les navires adjacents, infligeant jusqu'à 5 points de dégâts +1 pour deux navires.
+PULSAR_0_DETAIL   | Une puissante modification du moteur qui génère une explosion d'énergie sphérique soudaine frappant tous les vaisseaux adjacents, infligeant jusqu'à 5 points de dégâts +1 pour deux vaisseaux.
 
 PULSAR_1_NAME     | Pulsar ionique
 PULSAR_1_BRIEF    | S'étend pour infliger 2 à 10 coups
-PULSAR_1_DETAIL   | Une puissante modification de moteur capable de générer une rafale sphérique d'énergie phasée frappant tous les navires adjacents et infligeant jusqu'à 10 points de dégâts +1 par navire attaquant.
+PULSAR_1_DETAIL   | Une puissante modification de moteur capable de générer une rafale sphérique d'énergie phasée frappant tous les vaisseaux adjacents et infligeant jusqu'à 10 points de dégâts +1 par vaisseau attaquant.
 
 
 //
@@ -544,7 +544,7 @@ FUELRANGE_7_NAME   | Cristaux de Trilithium
 FUELRANGE_7_DETAIL | Les réserves de carburant permettent aux vaisseaux de s'éloigner jusqu'à %1 années-lumière des planètes des colonies.
 
 FUELRANGE_8_NAME   | Piles à Thorium
-FUELRANGE_8_DETAIL | Les réserves de carburant permettent aux navires de s'éloigner de n'importe quelle distance des planètes de la colonie.
+FUELRANGE_8_DETAIL | Les réserves de carburant permettent aux vaisseaux de s'éloigner de n'importe quelle distance des planètes de la colonie.
 
 
 //
@@ -777,7 +777,7 @@ HANDWEAPON_5_DETAIL    | L'arme de poing la plus dévastatrice disponible. Ajout
 // Hyperspace Communication tech
 //
 HYPERSPACE_0_NAME      | Communications hyperspatiales
-HYPERSPACE_0_DETAIL    | Vous permet de communiquer avec des flottes de navires dans l'hyperespace et de modifier leurs destinations en cours de route.
+HYPERSPACE_0_DETAIL    | Vous permet de communiquer avec des flottes de vaisseaux dans l'hyperespace et de modifier leurs destinations en cours de route.
 
 
 //
@@ -925,7 +925,7 @@ MISSWPN_8_DETAIL    | Missile très avancé qui explose et inflige 25 points de 
 MISSWPN_9_NAME      | Missiles Zeon
 MISSWPN_9_BRIEF     | 2 coups, Ciblage +5
 MISSWPN_9_BRIEF2    | 5 coups, Ciblage +5
-MISSWPN_9_DETAIL    | Le missile le plus avancé disponible. Capable de frapper les navires ennemis pour 30 points de dégâts et de se déplacer à une vitesse de 5. Le missile est guidé par un ordinateur de ciblage +6.
+MISSWPN_9_DETAIL    | Le missile le plus avancé disponible. Capable de frapper les vaisseaux ennemis pour 30 points de dégâts et de se déplacer à une vitesse de 5. Le missile est guidé par un ordinateur de ciblage +6.
 
 MISSWPN_10_NAME      | Missiles à têtes multiples X
 MISSWPN_10_BRIEF     | 2 coups, Mirvage X
@@ -970,8 +970,8 @@ PLANETSHIELD_3_DETAIL  | Absorbent 20 points de dégâts de toutes les attaques 
 // Repulsor tech
 //
 REPULSOR_0_NAME    | Faisceau repulseur
-REPULSOR_0_BRIEF   | Fait reculer les navires ennemis d'une case
-REPULSOR_0_DETAIL  | Repousse les navires ennemis à une case du navire défenseur. Cette arme spéciale a une portée d'une case.
+REPULSOR_0_BRIEF   | Fait reculer les vaisseaux ennemis d'une case
+REPULSOR_0_DETAIL  | Repousse les vaisseaux ennemis à une case du vaisseau défenseur. Cette arme spéciale a une portée d'une case.
 
 
 //
@@ -1005,20 +1005,20 @@ ROBOTCTRL_4_DETAIL   | Permet de faire fonctionner 7 usines par habitant. Le co�
 // Scanner techs
 //
 SCANNER_0_NAME       | Scanner de combat
-SCANNER_0_BRIEF      | Scanne les navires ennemis au combat
+SCANNER_0_BRIEF      | Scanne les vaisseaux ennemis au combat
 SCANNER_0_DETAIL     | Révèle les spécifications techniques des vaisseaux spatiaux ennemis au combat.
 
 SCANNER_1_NAME       | Scanner de l'espace lointain
-SCANNER_1_BRIEF      | Détecte les navires jusqu'à 5 années-lumière
-SCANNER_1_DETAIL     | Détecte les navires ennemis jusqu'à 5 années-lumière de vos colonies et 1 année-lumière de vos navires.
+SCANNER_1_BRIEF      | Détecte les vaisseaux jusqu'à 5 années-lumière
+SCANNER_1_DETAIL     | Détecte les vaisseaux ennemis jusqu'à 5 années-lumière de vos colonies et 1 année-lumière de vos vaisseaux.
 
 SCANNER_2_NAME       | Scanner spatial amélioré
-SCANNER_2_BRIEF      | Détecte les navires et les destinations jusqu'à 7 années-lumière
-SCANNER_2_DETAIL     | Détecte les navires ennemis jusqu'à 7 années-lumière de vos colonies et 2 années-lumière de vos navires. Les destinations ennemies peuvent être déterminées.
+SCANNER_2_BRIEF      | Détecte les vaisseaux et les destinations jusqu'à 7 années-lumière
+SCANNER_2_DETAIL     | Détecte les vaisseaux ennemis jusqu'à 7 années-lumière de vos colonies et 2 années-lumière de vos vaisseaux. Les destinations ennemies peuvent être déterminées.
 
 SCANNER_3_NAME       | Scanner spatial avancé
 SCANNER_3_BRIEF      | Permet l'exploration de planètes jusqu'à 9 années-lumière
-SCANNER_3_DETAIL     | Permet l'exploration de planètes à partir de bases de colonies jusqu'à 9 années-lumière et détecte les navires ennemis jusqu'à 3 années-lumière de vos navires.
+SCANNER_3_DETAIL     | Permet l'exploration de planètes à partir de bases de colonies jusqu'à 9 années-lumière et détecte les vaisseaux ennemis jusqu'à 3 années-lumière de vos vaisseaux.
 
 
 //
@@ -1026,11 +1026,11 @@ SCANNER_3_DETAIL     | Permet l'exploration de planètes à partir de bases de c
 //
 SHIPINERTIAL_0_NAME     | Stabilisateur inertiel
 SHIPINERTIAL_0_BRIEF    | Ajoute +2 à la maniabilité
-SHIPINERTIAL_0_DETAIL   | Réduit l'inertie des navires, ajoutant 2 Classes de maniabilité au combat (+2 défense et +1 Vitesse de combat).
+SHIPINERTIAL_0_DETAIL   | Réduit l'inertie des vaisseaux, ajoutant 2 Classes de maniabilité au combat (+2 défense et +1 Vitesse de combat).
 
 SHIPINERTIAL_1_NAME     | Annulateur inertiel
 SHIPINERTIAL_1_BRIEF    | Ajoute +4 à la maniabilité
-SHIPINERTIAL_1_DETAIL   | Annule l'inertie des navires, ajoutant 4 classes de maniabilité au combat. Réduit également l'effet des attaques de Trou Noir de -30%.
+SHIPINERTIAL_1_DETAIL   | Annule l'inertie des vaisseaux, ajoutant 4 classes de maniabilité au combat. Réduit également l'effet des attaques de Trou Noir de -30%.
 
 
 //
@@ -1038,10 +1038,10 @@ SHIPINERTIAL_1_DETAIL   | Annule l'inertie des navires, ajoutant 4 classes de ma
 //
 SHIPNULLIFIER_0_NAME     | Annulateur de technologie
 SHIPNULLIFIER_0_BRIEF    | Détruit les ordinateurs ennemis
-SHIPNULLIFIER_0_DETAIL   | Brouille les ordinateurs de combat et l'ECM ennemis, les réduisant de 2 à 6 niveaux par attaque. Sa portée dépasse la plupart des armes des navires.
+SHIPNULLIFIER_0_DETAIL   | Brouille les ordinateurs de combat et l'ECM ennemis, les réduisant de 2 à 6 niveaux par attaque. Sa portée dépasse la plupart des armes des vaisseaux.
 
 SHIPNULLIFIER_1_NAME     | Dissipateur de distorsion
-SHIPNULLIFIER_1_BRIEF    | Réduit la vitesse des navires ennemis
+SHIPNULLIFIER_1_BRIEF    | Réduit la vitesse des vaisseaux ennemis
 SHIPNULLIFIER_1_DETAIL   | Les dissipateurs de distorsion sont des armes à longue portée qui perturbent les moteurs des vaisseaux ennemis, réduisant leur vitesse à chaque attaque.
 
 
@@ -1074,7 +1074,7 @@ SHIPWPN_5_DETAIL       | Armes à faisceau puissant capables d'infliger 3 à 12 
 
 SHIPWPN_6_NAME         | Faisceau gravitonnel
 SHIPWPN_6_BRIEF        | Attaque en continu
-SHIPWPN_6_DETAIL       | Faisceau tracteur-répulseur capable de réduire les navires en pièces. Il frappe pour 1 à 15 points de dégâts, et l'effet de flux continu permet aux dégâts excédentaires de se propager à d'autres navires.
+SHIPWPN_6_DETAIL       | Faisceau tracteur-répulseur capable de réduire les vaisseaux en pièces. Il frappe pour 1 à 15 points de dégâts, et l'effet de flux continu permet aux dégâts excédentaires de se propager à d'autres vaisseaux.
 
 SHIPWPN_7_NAME         | Faisceau rigidifié
 SHIPWPN_7_BRIEF        | Réduit de moitié la force du bouclier
@@ -1098,7 +1098,7 @@ SHIPWPN_11_DETAIL      | Un pulseur à neutrons évolué qui tire jusqu'à trois
 
 SHIPWPN_12_NAME        | Faisceau Tachyon
 SHIPWPN_12_BRIEF       | Attaque en continu
-SHIPWPN_12_DETAIL      | Tire un flux intense de particules de tachyons qui frappent les navires ennemis pendant 1 à 25 coups. L'effet de flux continu permet aux dommages excédentaires de se propager à d'autres navires.
+SHIPWPN_12_DETAIL      | Tire un flux intense de particules de tachyons qui frappent les vaisseaux ennemis pendant 1 à 25 coups. L'effet de flux continu permet aux dommages excédentaires de se propager à d'autres vaisseaux.
 
 SHIPWPN_13_NAME        | Canon automatique Gauss
 SHIPWPN_13_BRIEF       | 1/2 Boucliers, tire 4x
@@ -1106,7 +1106,7 @@ SHIPWPN_13_DETAIL      | Un accélérateur linéaire avancé capable de tirer 4 
 
 SHIPWPN_14_NAME        | Faisceau de particules
 SHIPWPN_14_BRIEF       | Réduit de moitié la force du bouclier
-SHIPWPN_14_DETAIL      | Accélérateurs de particules à haute intensité capables de frapper les navires ennemis pour 10 à 20 points de dégâts et de réduire de moitié l'efficacité des boucliers déflecteurs.
+SHIPWPN_14_DETAIL      | Accélérateurs de particules à haute intensité capables de frapper les vaisseaux ennemis pour 10 à 20 points de dégâts et de réduire de moitié l'efficacité des boucliers déflecteurs.
 
 SHIPWPN_15_NAME        | Canon à plasma
 SHIPWPN_15_DETAIL      | Tire des éclairs d'énergie intenses qui infligent 6 à 30 points de dégâts à une distance de 1.
@@ -1132,7 +1132,7 @@ SHIPWPN_21_NAME        | Appareil mutilateur
 SHIPWPN_21_DETAIL      | Libère d'énormes quantités d'énergie concentrée sur les cibles ennemies, infligeant 20 à 100 points de dégâts.
 
 SHIPWPN_22_NAME        | Le flux amibe
-SHIPWPN_22_DETAIL      | Un flux qui fait 250-1000 points de dégâts et a une portée de 3 cases. Son effet de flux continu lui permet de transporter les dégâts d'un navire à l'autre.
+SHIPWPN_22_DETAIL      | Un flux qui fait 250-1000 points de dégâts et a une portée de 3 cases. Son effet de flux continu lui permet de transporter les dégâts d'un vaisseau à l'autre.
 
 SHIPWPN_23_NAME        | Le rayon de cristal
 SHIPWPN_23_DETAIL      | Un rayon qui entoure les boucliers d'une cible, délivrant 4 attaques pour 100-300 points de dégâts chacune. Il dispose d'une portée de 3 espaces.
@@ -1159,7 +1159,7 @@ STARGATE_0_DETAIL    | Permet à vos vaisseaux de se déplacer entre deux planè
 //
 STASIS_0_NAME      | Champ de stase
 STASIS_0_BRIEF     | Ennemi figé pendant 1 tour
-STASIS_0_DETAIL    | Fige un groupe de navires ennemis, jusqu'à une case de distance, pendant un tour. Les navires figés ne peuvent ni attaquer ni être attaqués.
+STASIS_0_DETAIL    | Fige un groupe de vaisseaux ennemis, jusqu'à une case de distance, pendant un tour. Les vaisseaux figés ne peuvent ni attaquer ni être attaqués.
 
 
 //
@@ -1171,7 +1171,7 @@ STREAMWPN_0_DETAIL  | Tire une explosion ionique intense, réduisant l'armure de
 
 STREAMWPN_1_NAME    | Projecteur de flux de neutrons
 STREAMWPN_1_BRIEF   | Réduit l'armure ennemie de 40%
-STREAMWPN_1_DETAIL  | Tire une explosion de neutrinos concentrés, réduisant l'armure de chaque cible du groupe adverse de 40 % plus 1 % par navire qui tire, jusqu'à un maximum de 75 % de ses points de vie par attaque.
+STREAMWPN_1_DETAIL  | Tire une explosion de neutrinos concentrés, réduisant l'armure de chaque cible du groupe adverse de 40 % plus 1 % par vaisseau qui tire, jusqu'à un maximum de 75 % de ses points de vie par attaque.
 
 
 //
