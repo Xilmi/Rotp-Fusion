@@ -105,7 +105,43 @@ public class MapOverlayAdvice extends MapOverlay {
 
         int mgn = BasePanel.s3;
         int buttonBarH = BasePanel.s68;
-        int boxW = scaled(380);
+
+        int txtRightMargin  = scaled(10);
+        int txtLeftMargin   = scaled(155);
+        int txtNominalWidth = scaled(215);
+        int maxLineNumber   = 6;
+        
+        // BR: Increase with for long text
+        // Title
+        String title = text("MAIN_ADVISOR_TITLE", player().raceName(), player().leader().name());
+        title = player().replaceTokens(title, "player");
+        int sw = g.getFontMetrics(narrowFont(28)).stringWidth(title);
+        int textWidth = max(txtNominalWidth, sw);
+        // Description
+        g.setFont(narrowFont(18));
+        String desc;
+        if (var1 == null)
+            desc = text(textKey);
+        else if (var2 == null)
+            desc = text(textKey, var1);
+        else if (var3 == null)
+            desc = text(textKey, var1, var2);
+        else
+            desc = text(textKey, var1, var2, var3);
+        
+        desc = player().replaceTokens(desc, "player");
+        
+        if (emp1 != null)
+            desc = emp1.replaceTokens(desc, "alien");
+        
+        List<String> lines = wrappedLines(g, desc, textWidth);
+        int stepW = scaled(10);
+        while (lines.size() > maxLineNumber) {
+        	textWidth += stepW;
+        	lines = wrappedLines(g, desc, textWidth);
+        }
+        
+        int boxW = txtRightMargin + textWidth + txtLeftMargin;
         int boxH = scaled(200);
 
         if (backPaint == null) {
@@ -132,11 +168,8 @@ public class MapOverlayAdvice extends MapOverlay {
         }
 
         // draw text title
-        int textMgn = boxLeft+scaled(155);
+        int textMgn = boxLeft + txtLeftMargin;
         g.setFont(narrowFont(28));
-        String title = text("MAIN_ADVISOR_TITLE", player().raceName(), player().leader().name());
-        title = player().replaceTokens(title, "player");
-        //title = player().replaceTokens(title, "my");
         drawShadowedString(g, title, 4, textMgn, boxTop+scaled(28), SystemPanel.textShadowC, SystemPanel.whiteText);
 
         int imgW = advisorImg.getWidth();
@@ -149,22 +182,6 @@ public class MapOverlayAdvice extends MapOverlay {
 
         // draw text
         g.setFont(narrowFont(18));
-        String desc;
-        if (var1 == null)
-            desc = text(textKey);
-        else if (var2 == null)
-            desc = text(textKey, var1);
-        else if (var3 == null)
-            desc = text(textKey, var1, var2);
-        else
-            desc = text(textKey, var1, var2, var3);
-        
-        desc = player().replaceTokens(desc, "player");
-        
-        if (emp1 != null)
-            desc = emp1.replaceTokens(desc, "alien");
-        
-        List<String> lines = wrappedLines(g, desc, boxW+mgn-textMgn-scaled(10));
         int lineH = scaled(19);
         int y0 = boxTop+scaled(55);
         for (String line: lines) {
@@ -176,7 +193,7 @@ public class MapOverlayAdvice extends MapOverlay {
         int okW = g.getFontMetrics().stringWidth(okStr);
         // draw button
         int buttonW = Math.max(scaled(75), okW+scaled(30));
-        int buttonX = boxRight-buttonW-scaled(10);
+        int buttonX = boxRight-buttonW-txtRightMargin;
         int buttonY = boxBottom-scaled(40);
         int buttonH = scaled(30);
         parent.addNextTurnControl(okButton);

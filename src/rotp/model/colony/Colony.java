@@ -1785,6 +1785,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             if (spending[i] == null || spending[i].colony() == null)
                 return;
         // Set max missile bases if minimum is set
+        float prevTech = totalPlanetaryResearch();
         if (session().getGovernorOptions().getMinimumMissileBases() > 0) {
             if (defense().maxBases() < session().getGovernorOptions().getMinimumMissileBases()) {
                 defense().maxBases(session().getGovernorOptions().getMinimumMissileBases());
@@ -1868,6 +1869,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
             increment(Colony.SHIP, allocForShips);
         }
         locked(Colony.ECOLOGY, true);
+        float techAdj = totalPlanetaryResearch() - prevTech;
+        RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
         /*System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+name()+" After Govern:");
         System.out.println(galaxy().currentTurn()+" "+empire.name()+" Ship: "+allocation(SHIP));
         System.out.println(galaxy().currentTurn()+" "+empire.name()+" Def : "+allocation(DEFENSE));

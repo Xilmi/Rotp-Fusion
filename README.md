@@ -69,6 +69,10 @@ Later:
 
 ## What's New
 
+2024.10.12 (BR)
+- Fixed Research bubble not always being up to date.
+- Fixed Advisor Messages not always fitting inside the box. 
+
 2024.10.11 (BR)
 - Fixed All race name being the same when "Base Species Nominal Names" option was set.
 
