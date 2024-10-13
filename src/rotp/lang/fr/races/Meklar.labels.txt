@@ -28,7 +28,7 @@ _nameTitle                        | l'Arbitre Suprême
 
 // Advisor text
 MAIN_ADVISOR_TITLE                | Conseiller [my_raceadjec]
-MAIN_ADVISOR_BUTTON_OK            | Merci
+MAIN_ADVISOR_BUTTON_OK            | Remerciements
 MAIN_ADVISOR_SCOUT                | Flotte préparée pour l'exploration et la colonisation. En attente d'une directive pour commencer les opérations.
 MAIN_ADVISOR_TRANSPORT            | Première colonie fondée sur un monde voisin. Désigné « %1 ». Capable d'accueillir %2 personnes supplémentaires. Peut transporter la population de %3 pour compléter la population.
 MAIN_ADVISOR_DIPLOMACY            | Nouvelle espèce détectée. Désigné "[alien_race_pluralnoun]". En attente d'instructions supplémentaires de l'Ordinateur Central.

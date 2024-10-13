@@ -69,6 +69,13 @@ Later:
 
 ## What's New
 
+2024.10.13  (Frank Zago)
+- Shortened some of the French translations + minor fixes.
+- Auto conversion of dialogue keywords for untranslated texts. (Only in French for now)
+
+2024.10.13  (Frank Zago)
+- More French translations (New and fixes)
+
 2024.10.12 (BR)
 - Fixed Research bubble not always being up to date.
 - Fixed Advisor Messages not always fitting inside the box. 

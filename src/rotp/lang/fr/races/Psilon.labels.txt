@@ -28,7 +28,7 @@ _nameTitle                        | le Haut Conseiller
 
 // Advisor text
 MAIN_ADVISOR_TITLE                | Conseiller %1
-MAIN_ADVISOR_BUTTON_OK            | Merci
+MAIN_ADVISOR_BUTTON_OK            | Vous pouvez disposer
 MAIN_ADVISOR_SCOUT                | Haut conseiller, notre flotte d'exploration est prête. Considéreriez-vous qu'il serait plus prudent pour nous de trouver un nouveau monde et d'y créer bientôt une colonie ?
 MAIN_ADVISOR_TRANSPORT            | Notre nouvelle colonie a été établie. Le conseil délibère maintenant sur le nombre de nos gens que nous devrions envoyer là-bas sur un vaisseau de transport, si nous devions en envoyer.
 MAIN_ADVISOR_DIPLOMACY            | Des profondeurs de l'espace, une toute nouvelle civilisation est apparue ! Je prie pour qu'ils préfèrent une coexistence pacifique à une violente. 

@@ -860,7 +860,7 @@ MAIN_COLONY_NO_SHIELD             | Nébuleuse
 
 // System Scouted Notification
 MAIN_ADVISOR_TITLE                | %1 Conseiller
-MAIN_ADVISOR_BUTTON_OK            | Congédier
+MAIN_ADVISOR_BUTTON_OK            | Vous pouvez disposer
 MAIN_ADVISOR_SCOUT                | Monseigneur, nos explorateurs se tiennent prêts à découvrir un nouveau monde afin que nos vaisseaux de colonies ajoutez le territoire à notre illustre souveraineté.
 MAIN_ADVISOR_TRANSPORT            | Un monde nouveau porte notre bannière, mais il grandit à un rythme inhibé. L'envoi d'un transport dans la colonie lui permettra de croître à un rythme beaucoup plus rapide.
 MAIN_ADVISOR_DIPLOMACY            | Une autre civilisation spatiale s'est révélée ! Nos diplomates observeront tous les décorums appropriés en votre nom, et prendront note avec attention s'ils répondent de la même manière.

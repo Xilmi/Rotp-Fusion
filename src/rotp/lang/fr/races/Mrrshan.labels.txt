@@ -30,7 +30,7 @@ _nameTitle                        | le Khan
 
 // Advisor text
 MAIN_ADVISOR_TITLE                | Conseiller [my_raceadjec]
-MAIN_ADVISOR_BUTTON_OK            | Merci
+MAIN_ADVISOR_BUTTON_OK            | Disposez
 MAIN_ADVISOR_SCOUT                | Ah-ha! Notre première flotte est prête ! Utilisons-la pour trouver un monde avec des ennemis qui ont beaucoup de trésors à prendre.
 MAIN_ADVISOR_TRANSPORT            | Nous avons pris un nouveau territoire sur %1. Plus nous transporterons de %3, plus vite nous trouverons le butin de ce monde.
 MAIN_ADVISOR_DIPLOMACY            | Nous avons pris contact avec une nouvelle race extraterrestre ! Vous pensez qu'ils se révéleront être de puissants ennemis, ou leurs trésors seront-ils faciles à cueillir ?
@@ -41,7 +41,7 @@ MAIN_ADVISOR_SHIP_WEAPON          | Nous avons réussi à développer de nouvell
 MAIN_ADVISOR_COUNCIL              | Une réunion de peuples sera bientôt à nos portes, mais ils disent que c'est pour la diplomatie au lieu de la guerre. Étrange, n'est-ce pas ? Pourtant, nous devrions assister à ce "Conseil Galactique", ne serait-ce que pour apaiser les empires les plus craintifs.
 MAIN_ADVISOR_REBELLION            | Vous ne vous sentez pas bien, Khan ? Il y a une rébellion sur %1 et vous n'avez pas donné d'ordre pour les abattre.
 MAIN_ADVISOR_RESIST_COUNCIL       | Pensaient-ils que nous allions simplement nous allonger et les laisser mettre la paix d'un lâche sur la galaxie comme ça ? Commençons les pillages, Khan : notre peuple a hâte de trouver un trésor ! 
-MAIN_ADVISOR_COUNCIL_RESISTED     | Those rebel fools refuse our ruling! Let's show 'em our dictum: the strong take, the weak give! 
+MAIN_ADVISOR_COUNCIL_RESISTED     | Ces stupides rebelles refusent notre victoire ! Montrons-leur nos principes : le fort prend, le faible donne !
 
 // text for endings... '#' represents a paragraph break
 // variables: %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 is special race-specific text described below

@@ -18,5 +18,5 @@ leader: Alexander, Bladrov II, Durash IV, Johann III, Lasitus, Strader
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
 ship1: Sentinelle, Arpenteur, Courrier, Explorateur, Chercheur, Messager, Patrouilleur
 ship2: Frégate, Corvette, Canonnière, Chasseur, Brigade, aviso, Commando
-ship3: Croiseur, Escorteur, Vaisseau de Guerre, Défenseur, Transporteur, Avant-garde, Harrier
-ship4: Dreadnought, Cuirassé, Étoile de l'Effroi, Dévastateur, Croiseur de Combat, Vengeur, Destructeur
+ship3: Croiseur, Escorteur, Cuirassé, Défenseur, Transporteur, Avant-garde, Harrier
+ship4: Dreadnought, Cuirassé, L'Effrayant, Dévastateur, Le Terrifiant, Vengeur, Destructeur

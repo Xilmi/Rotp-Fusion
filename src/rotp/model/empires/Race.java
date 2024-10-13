@@ -37,6 +37,7 @@ import rotp.model.ships.ShipDesign;
 import rotp.util.Base;
 import rotp.util.ImageTransformer;
 import rotp.util.LabelManager;
+import rotp.util.LanguageManager;
 
 public class Race implements Base, Serializable {
     private static final long serialVersionUID = 1L;
@@ -356,7 +357,12 @@ public class Race implements Base, Serializable {
     public String text(String key) {
         if (raceLabels().hasLabel(key))
             return raceLabels().label(key);
-        return labels().label(key);
+
+        String altKey = LanguageManager.swapToken(key);
+    	if (altKey != null && raceLabels().hasLabel(altKey))
+    		return raceLabels().label(altKey);
+
+    	return labels().label(key);
     }
     @Override public String text(String key, String... vals) {
         String str = text(key);

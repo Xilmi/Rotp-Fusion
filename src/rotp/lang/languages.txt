@@ -15,7 +15,7 @@ bg,  българин         ,  ,   ,
 de,  Deutsch          ,  ,   , 
 el,  Ελληνικά         ,  ,   , 
 es,  Español          ,  ,   ,
-fr,  Français         ,  ,   ,  , 
+fr,  Français         ,  ,   ,  , ; _race , _raceadjec; _race_plural, _race_pluraladjec; _empireof, _empire; _raceadjec, _race; _raceadjecF, _race; _race_pluralnoun, _race_plural; _race_pluralnounof, _race_plural; _race_pluralnounto, _race_plural; _race_pluraladjec, _race_plural; _race_pluraladjecF, _race_plural
 hu,  Magyar           ,  ,   ,  , 
 id,  Indonesia        ,  ,   , 
 it,  Italiana         ,  ,   ,

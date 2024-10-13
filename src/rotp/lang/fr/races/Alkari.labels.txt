@@ -29,7 +29,7 @@ _nameTitle                        | le Roi Flèche
 
 // Advisor text
 MAIN_ADVISOR_TITLE                | Conseiller [my_raceadjec]
-MAIN_ADVISOR_BUTTON_OK            | Merci
+MAIN_ADVISOR_BUTTON_OK            | Bon vent
 MAIN_ADVISOR_SCOUT                | Monseigneur, nos éclaireurs sont prêts à découvrir un nouveau monde que notre vaisseau de colonisation apportera au bercail afin que nous puissions ajouter le territoire à notre illustre souveraineté.
 MAIN_ADVISOR_TRANSPORT            | Un nouveau monde porte notre bannière, mais il se développe à un rythme inhibé. L'envoi d'un moyen de transport vers la colonie lui permettra de croître beaucoup plus rapidement.
 MAIN_ADVISOR_DIPLOMACY            | Une autre civilisation spatiale s'est révélée ! Nos diplomates observeront tout le décorum approprié en votre nom et prendront soigneusement note s'ils répondent de la même manière.

@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import rotp.Rotp;
@@ -42,10 +43,15 @@ public class LanguageManager implements Base {
     private static int selectedLanguage = LanguageManager.DEFAULT_LANGUAGE;
     public static final char[] latinDigits = { '0','1','2','3','4','5','6','7','8','9' };
     public static char[] customDigits = null;
+    public static Language currentLanguage;
 
     public static void selectDefaultLanguage() { instance.selectLanguage(LanguageManager.DEFAULT_LANGUAGE); }
     public static int selectedLanguage()        { return selectedLanguage; }
-    public static void selectedLanguage(int i)  { selectedLanguage = i; }
+    public static void selectedLanguage(int i)  {
+    	selectedLanguage = i;
+    	if (i >= 0)
+    		currentLanguage  = languages.get(i);
+    }
 
     private List<Language> languages()  {
         if (languages.isEmpty()) {
@@ -182,6 +188,15 @@ public class LanguageManager implements Base {
     public boolean currentLogographic() { return logographic(selectedLanguage()); }
     public ComponentOrientation currentOrientation()  { return orientation(selectedLanguage()); }
 
+    public static String swapToken(String token) {
+    	if (currentLanguage.hasTokenMap) {
+    		String alt = currentLanguage.tokenMap.get(token);
+    		// System.out.println("getValidToken: " + token + " => " + alt);
+    		return alt;
+    	}
+    	return null;
+    }
+    
     protected void loadLanguages() {
         loadInstalledLanguages();
         File langDir = new File(Rotp.jarPath()+"/lang");
@@ -195,7 +210,7 @@ public class LanguageManager implements Base {
                     if (langName != null) {
                         FontManager.current().loadLanguageFonts(baseDir, langCode);
                         if (language == null) 
-                            languages.add(new Language(langCode, "", langName, "", "", false,null));
+                            languages.add(new Language(langCode, "", langName, "", "", false, null, null));
                         else 
                             language.name = langName;
                     }
@@ -255,6 +270,11 @@ public class LanguageManager implements Base {
     protected void loadInstalledLanguageLine(String input) {
         if (isComment(input))
             return;
+        
+        // BR: Added option for token replacement
+        List<String> entry = substrings(input, ';', 0);
+        input = entry.remove(0);
+        HashMap<String, String> tokenMap = getTokenMap(entry);
 
         List<String> strings = substrings(input, ',');
         String dirString = strings.get(0);
@@ -267,20 +287,39 @@ public class LanguageManager implements Base {
          
         boolean logo = logoString.equalsIgnoreCase("Y");
 
-        languages.add(new Language(dirString, subdirString, nameString, orientString, fontString, logo, digitsString));
-        // load fonts for selected lanage
+        languages.add(new Language(dirString, subdirString, nameString, orientString, fontString, logo, digitsString, tokenMap));
+        // load fonts for selected language
         FontManager.current().loadLanguageFonts(baseDir, dirString);
     }
+    private HashMap<String, String> getTokenMap(List<String> input) {
+    	HashMap<String, String> tokenMap = new HashMap<>();
+        while (!input.isEmpty()) {
+        	String pair = input.remove(0);
+        	List<String> strings = substrings(pair, ',');
+        	if (strings.size() == 2 && !strings.get(0).isEmpty() && !strings.get(1).isEmpty()) {
+        		tokenMap.put(strings.get(0), strings.get(1));
+        	}
+        	else {
+        		System.err.println("Error: wrong number of token in " + languageFile + " pair = " + pair);
+        	}
+        }
+    	return tokenMap;
+    }
+
     class Language {
-        String directory;
-        String subdirectory;
-        Locale locale;
-        ComponentOrientation orientation;
-        boolean logographic = false;
+        final String directory;
+        final String subdirectory;
+        final Locale locale;
+        final ComponentOrientation orientation;
+        final boolean logographic;
         String name;
-        String font;
-        char[] digits;
-        public Language(String dir, String sub, String n, String o, String f, boolean logo, char[] d) {
+        final String font;
+        final char[] digits;
+        final HashMap<String, String> tokenMap;
+        final boolean hasTokenMap;
+
+        public Language(String dir, String sub, String n, String o, String f,
+        		boolean logo, char[] d, HashMap<String, String> tMap) {
             directory = dir;
             subdirectory = sub;
             name = n;
@@ -292,6 +331,8 @@ public class LanguageManager implements Base {
                 orientation = ComponentOrientation.RIGHT_TO_LEFT;
             else
                 orientation = ComponentOrientation.LEFT_TO_RIGHT;
+            hasTokenMap = tMap != null && !tMap.isEmpty();
+            tokenMap = hasTokenMap? tMap : null;
         }
     }
 }
