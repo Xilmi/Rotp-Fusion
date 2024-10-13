@@ -1,13 +1,13 @@
 // race-specific variables (must start with _)
-_empire                           | Nazlok, Sarloks, Spyloks, Shadeloks, Nazloks
-_empireof                         | des Nazloks, des Sarlols, des Spylols, des Shadeloks, des Nazloks
-_raceadjec                        | Nazlokien, Sarlokien, Spylokien, Shadelokien, Nazlokien
-_raceadjecF                       | Nazlokienne, Sarlokienne, Spylokienne, Shadelokienne, Nazlokienne
-_race_pluralnoun                  | les Nazlokiens, les Sarlokiens, les Spylokiens, les Shadelokiens, les Nazlokiens
-_race_pluralnounof                | des Nazlokiens, des Sarlokiens, des Spylokiens, des Shadelokiens, des Nazlokiens
-_race_pluralnounto                | aux Nazlokiens, aux Sarlokiens, aux Spylokiens, aux Shadelokiens, aux Nazlokiens
-_race_pluraladjec                 | Nazlokiens, Sarlokiens, Spylokiens, Shadelokiens, Nazlokiens
-_race_pluraladjecF                | Nazlokiennes, Sarlokiennes, Spylokiennes, Shadelokiennes, Nazlokiennes
+_empire                           | Nazlok, Sarlok, Spylok, Shadelok, Dralok
+_empireof                         | des Nazloks, des Sarlols, des Spyloks, des Shadeloks, des Draloks
+_raceadjec                        | Nazlokien, Sarlokien, Spylokien, Shadelokien, Dralokien
+_raceadjecF                       | Nazlokienne, Sarlokienne, Spylokienne, Shadelokienne, Dralokienne
+_race_pluralnoun                  | les Nazlokiens, les Sarlokiens, les Spylokiens, les Shadelokiens, les Dralokiens
+_race_pluralnounof                | des Nazlokiens, des Sarlokiens, des Spylokiens, des Shadelokiens, des Dralokiens
+_race_pluralnounto                | aux Nazlokiens, aux Sarlokiens, aux Spylokiens, aux Shadelokiens, aux Dralokiens
+_race_pluraladjec                 | Nazlokiens, Sarlokiens, Spylokiens, Shadelokiens, Dralokiens
+_race_pluraladjecF                | Nazlokiennes, Sarlokiennes, Spylokiennes, Shadelokiennes, Dralokiennes
 
 _title                            | l'Empereur
 _nameTitle                        |
