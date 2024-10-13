@@ -14,21 +14,21 @@ bg,  българин         ,  ,   ,
 #bn,  বাংলা            ,  ,   ,  , ০১২৩৪৫৬৭৮৯
 de,  Deutsch          ,  ,   , 
 el,  Ελληνικά         ,  ,   , 
-es,  Español          ,  ,   ,
+es,  Español          ,  ,   , ; _race , _raceadjec; _race_plural, _race_pluraladjec; _empireof, _empire; _raceadjec, _race; _raceadjecF, _race; _race_pluralnoun, _race_plural; _race_pluralnounF, _race_plural; _race_pluralnounof, _race_plural; _race_pluralnounto, _race_plural; _race_pluraladjec, _race_plural; _race_pluraladjecF, _race_plural
 fr,  Français         ,  ,   ,  , ; _race , _raceadjec; _race_plural, _race_pluraladjec; _empireof, _empire; _raceadjec, _race; _raceadjecF, _race; _race_pluralnoun, _race_plural; _race_pluralnounof, _race_plural; _race_pluralnounto, _race_plural; _race_pluraladjec, _race_plural; _race_pluraladjecF, _race_plural
-hu,  Magyar           ,  ,   ,  , 
+hu,  Magyar           ,  ,   ,  , ; _race_plural, _race; _empire_prefix_lowercase, _empire; _empire_prefix_uppercase, _empire; _empire_originating_prefix_lowercase, _empire; _empire_taking_prefix_lowercase, _empire; _empire_relational, _empire; _empire_relational_prefix_lowercase, _empire; _empire_giving_prefix_lowercase, _empire; _empire_giving_prefix_uppercase, _empire; _empire_addressing_prefix_lowercase, _empire; _empire_approaching_prefix_lowercase, _empire; _empire_lean_prefix_lowercase, _empire; _empire_containing_prefix_lowercase, _empire; _empire_within_prefix_lowercase, _empire; _race_prefix_lowercase, _race; _race_prefix_uppercase, _race; _race_whose_lowercase, _race; _race_whose_uppercase, _race; _race_whose_prefix_lowercase, _race; _race_whose_prefix_uppercase, _race; _race_possessive, _race; _race_possessive_prefix_lowercase, _race; _race_possessive_prefix_uppercase, _race; _race_relational, _race; _race_relational_prefix_lowercase, _race; _race_giving, _race; _race_giving_prefix_lowercase, _race; _race_regarding, _race; _race_regarding_prefix_lowercase, _race; _race_taking_prefix_lowercase, _race; _race_approaching_prefix_lowercase, _race
 id,  Indonesia        ,  ,   , 
-it,  Italiana         ,  ,   ,
-pl,  Polski           ,  ,   , 
-pt,  Português        ,  ,   , 
+it,  Italiana         ,  ,   ,; _race , _raceadjec; _race_plural, _race_pluraladjec; _empireof, _empire; _raceadjec, _race; _raceadjecF, _race; _race_pluralnoun, _race_plural; _race_pluralnounof, _race_plural; _race_pluralnounF, _race_plural; _race_pluraladjec, _race_plural; _race_pluraladjecF, _race_plural
+pl,  Polski           ,  ,   , ; _empire2, _empire; _race2, _race; _race3, _race
+pt,  Português        ,  ,   , ; _race, _race_male; _race_plural, _race_male_plural; _race_male, _race; _race_male_plural, _race_plural; _race_female, _race; _race_female_plural, _race_plural
 ro,  Română           ,  ,   , 
-ru,  Русский          ,  ,   , 
-sk,  Slovenčina       ,  ,   ,
-sr,  Srpski           ,  ,   , 
-sr2, Српски           ,  ,   , 
-sv,  Svenska          ,  ,   ,
+ru,  Русский          ,  ,   , ; _nameTitle_dativs, _nameTitle; _empire_rodit, _empire; _empire_dativs, _empire; _empire_tvor, _empire; _empire_acc, _empire; _race_plural_dativs, _race_plural; _race_plural_tvor, _race_plural; _race_plural_rod, _race_plural; _race_adj, _race; _race_adj_plural, _race_plural; _race_adj_acc, _race; _race_adj_rod, _race
+sk,  Slovenčina       ,  ,   , ; _empire_lowercase, _empire; _race_akuzativ, _race; _race_dativ, _race; _race_instrumental, _race; _race_adjective, _race; _race_adjective_akuzativ, _race; _race_adjective_instrumental, _race
+sr,  Srpski           ,  ,   , ; _empireStvo, _empire; _empireStva, _empire; _empireStvu, _empire; _empireStvom, _empire; _empireStvo, _empire; _empireSkog, _empire; _empireSki, _empire; _empireSku, _empire; _empireSka, _empire; _empireSke, _empire; _raceSkog, _race; _raceSki, _race; _raceSkih, _race; _raceSku, _race; _raceSka, _race; _raceSke, _race; _raceSkom, _race; _raceSkoj, _race; _raceIja, _race; _raceVoc, _race_plural; _titleV, _title; _titleA, _title; _titleI, _title; _nameTitleV, _nameTitle; _nameTitleA, _nameTitle; _nameTitleI, _nameTitle
+sr2, Српски           ,  ,   , ; _empireStvo, _empire; _empireStva, _empire; _empireStvu, _empire; _empireStvom, _empire; _empireStvo, _empire; _empireSkog, _empire; _empireSki, _empire; _empireSku, _empire; _empireSka, _empire; _empireSke, _empire; _raceSkog, _race; _raceSki, _race; _raceSkih, _race; _raceSku, _race; _raceSka, _race; _raceSke, _race; _raceSkom, _race; _raceSkoj, _race; _raceIja, _race; _raceVoc, _race_plural; _titleV, _title; _titleA, _title; _titleI, _title; _nameTitleV, _nameTitle; _nameTitleA, _nameTitle; _nameTitleI, _nameTitle
+sv,  Svenska          ,  ,   , ; _racepludef, _race_plural; _raceposs, _race
 tr,  Türkçe           ,  ,   ,
-uk,  Українська       ,  ,   , 
+uk,  Українська       ,  ,   , ; _empire2, _empire; _empire3, _empire; _empire4, _empire; _empire5, _empire; _race2, _race; _race3, _race; _race4, _race; _race5, _race; _race7, _race; _race_plural2, _race_plural; _race_plural3, _race_plural; _race_plural4, _race_plural; _race_plural5, _race_plural; _race_plural7, _race_plural; _title3, _title; _title7, _title
 zh,  简体中文          ,  ,   , Y
 zh2, 繁體中文          ,  ,   , Y
 

@@ -631,6 +631,7 @@ LOAD_GAME_BAD_VERSION             | Cannot load saved game file: %1. This file m
 LOAD_GAME_CANCEL                  | Cancel
 LOAD_GAME_OK                      | Load
 LOAD_GAME_TOO_LONG                | ...
+LOAD_GAME_RECENT_START_SAVEFILE   | !!! To Replay Last Turn !!!
 
 // Save Game UI
 SAVE_GAME_TITLE                   | Save Game

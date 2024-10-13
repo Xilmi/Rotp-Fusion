@@ -69,9 +69,10 @@ Later:
 
 ## What's New
 
-2024.10.13  (Frank Zago)
+2024.10.13  (BR)
 - Shortened some of the French translations + minor fixes.
-- Auto conversion of dialogue keywords for untranslated texts. (Only in French for now)
+- Auto conversion of dialogue keywords for untranslated texts.
+  - All Languages
 
 2024.10.13  (Frank Zago)
 - More French translations (New and fixes)

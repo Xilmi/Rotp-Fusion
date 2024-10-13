@@ -90,6 +90,7 @@ import rotp.ui.races.RacesUI;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.Base;
+import rotp.util.LabelManager;
 import rotp.util.MoveToTrash;
 
 public final class GameSession implements Base, Serializable {
@@ -99,8 +100,6 @@ public final class GameSession implements Base, Serializable {
     public static final String BACKUP_DIRECTORY   = "backup";
     public static final String SAVEFILE_EXTENSION = ".rotp";
     public static final String RECENT_SAVEFILE    = "recent"+SAVEFILE_EXTENSION;
-    // BR: to save the beginning of the turn
-    public static final String RECENT_START_SAVEFILE = "!!! To Replay Last Turn !!!"+SAVEFILE_EXTENSION;
     public static final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final Object ONE_GAME_AT_A_TIME = new Object();
     private static GameSession instance = new GameSession();
@@ -145,6 +144,10 @@ public final class GameSession implements Base, Serializable {
 
     public static boolean ironmanLocked() 		 { return ironmanLocked; }
     public static boolean isSuspended() 		 { return suspendNextTurn; }
+    // BR: to save the beginning of the turn
+    public static final String recentStartSaveFile() {
+    	return LabelManager.current().label("LOAD_GAME_RECENT_START_SAVEFILE") + SAVEFILE_EXTENSION;
+    }
 
     public void pauseNextTurnProcessing(String s)   {
         if (performingTurn) {
@@ -1186,7 +1189,7 @@ public final class GameSession implements Base, Serializable {
 		return ufs;
     }
     public void saveRecentStartSession() {
-        String filename = RECENT_START_SAVEFILE;
+        String filename = recentStartSaveFile();
         try {
             saveSession(filename, false);
         }
@@ -1226,7 +1229,7 @@ public final class GameSession implements Base, Serializable {
         return true;
     }
     public boolean hasRecentStartSession() {
-    	File f = new File(saveDir(), RECENT_START_SAVEFILE);
+    	File f = new File(saveDir(), recentStartSaveFile());
         try {
             InputStream file = new FileInputStream(f);
             file.close();
@@ -1253,7 +1256,7 @@ public final class GameSession implements Base, Serializable {
         loadSession(saveDir(), lastSave, startUp);
     }
     public void loadRecentStartGame(boolean startUp) {
-       loadSession(saveDir(), RECENT_START_SAVEFILE, startUp);
+       loadSession(saveDir(), recentStartSaveFile(), startUp);
     }
     public void loadRecentSession(boolean startUp) {
         loadSession(saveDir(), RECENT_SAVEFILE, startUp);

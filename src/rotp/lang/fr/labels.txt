@@ -519,13 +519,13 @@ GAME_SETTINGS_AUTOBOMBARD_HELP    | Que faire lorsque votre flotte armée est en
 GAME_SETTINGS_AUTOBOMBARD_DESC    | Basculez pour toujours inviter à bombarder, ne jamais bombarder, toujours bombarder, uniquement bombarder automatiquement en cas de guerre, ou uniquement bombarder automatiquement en cas de guerre sans forces d'invasion en route.
 GAME_SETTINGS_BACKUP_OFF          | Désactivé
 GAME_SETTINGS_BACKUP_ON           | Tout/tous %1 tours
-GAME_SETTINGS_BACKUP              | Sauvegarde: %1
-GAME_SETTINGS_BACKUP_DESC         | Activer pour que votre jeu en cours soit enregistré périodiquement dans le dossier de sauvegarde avec un nom unique, vous permettant de recharger à partir des tours précédents.
+GAME_SETTINGS_BACKUP              | Archive: %1
+GAME_SETTINGS_BACKUP_DESC         | Activer pour que votre jeu en cours soit enregistré périodiquement dans le dossier d'archive avec un nom unique, vous permettant de recharger à partir des tours précédents.
 GAME_SETTINGS_BACKUP_KEEP          | Suppr. auto. : conserver %1
 GAME_SETTINGS_BACKUP_KEEP_DESC     | Lorsque la suppression automatique de sauvegarde est activée, les fichiers de sauvegarde les plus anciens seront envoyés à la corbeille.<br> -1 = Tout garder; la suppression automatique de sauvegarde est désactivée.
 GAME_SETTINGS_BACKUP_KEEP_ALL      | Tous
 GAME_SETTINGS_BACKUP_KEEP_ALL_DESC | Désactiver la suppression automatique de sauvegarde.
-GAME_SETTINGS_SAVEDIR             | Enregistrer le répertoire : %1
+GAME_SETTINGS_SAVEDIR             | Répertoire d'enregistrement : %1
 GAME_SETTINGS_SAVEDIR_DEFAULT     | Défaut
 GAME_SETTINGS_SAVEDIR_CUSTOM      | Personnalisé
 GAME_SETTINGS_SAVEDIR_HELP        | Pour sélectionner un répertoire pour enregistrer vos fichiers : Par défaut, c'est le même répertoire que le jeu.
@@ -564,31 +564,33 @@ SETTINGS_MOD_DEFAULT_IS_MOO1        | MoO1
 SETTINGS_MOD_DEFAULT_IS_MOO1_NOW    | →CURRENT_DEF_HK← →FUSION_HK←).
 SETTINGS_MOD_DEFAULT_IS_ROTP        | RotP
 SETTINGS_MOD_DEFAULT_IS_ROTP_NOW    | →CURRENT_DEF_HK← →CLASSIC_HK←).
-SETTINGS_MOD_DEFAULT_SETTINGS_DESC  | Sélectionnez les paramètres par défaut à appliquer avec le bouton du milieu de la souris et les boutons "Par défaut".
+SETTINGS_MOD_DEFAULT_SETTINGS_DESC  | Sélectionnez les paramètres par défaut à appliquer avec le bouton du milieu de la souris ou le bouton «Par défaut».
 SETTINGS_MOD_DEFAULT_IS_FUSION_DESC | Recommandé par les joueurs →FUSION_HK←
 SETTINGS_MOD_DEFAULT_IS_MOO1_DESC   | Aussi près que possible de →MOO1_HK←.
 SETTINGS_MOD_DEFAULT_IS_ROTP_DESC   | Aussi près que possible de l'original →CLASSIC_HK←.
 LOAD_GAME_TITLE                   | Charger la Partie
-LOAD_GAME_AUTOSAVE                | Enregistrement automatique plus récent
-LOAD_GAME_BACKUP_DIR              | Répertoire de sauvegarde : %1 fichiers
-LOAD_GAME_SAVE_DIR                | Répertoire de sauvegarde : %1 fichiers
+LOAD_GAME_AUTOSAVE                | Enregistrement automatique le plus récent
+LOAD_GAME_BACKUP_DIR              | Répertoire d'archive: %1 fichiers
+LOAD_GAME_SAVE_DIR                | Répertoire d'enregistremenent: %1 fichiers
 LOAD_GAME_FILENAME                | Trier par nom de fichier
 LOAD_GAME_DATE                    | par Date
 LOAD_GAME_SIZE                    | par Taille
 LOAD_GAME_LOADING                 | Chargement...
-LOAD_GAME_BAD_VERSION             | Impossible de charger le fichier de jeu enregistré: %1. Ce fichier est peut-être corrompu ou obsolète.
+LOAD_GAME_BAD_VERSION             | Impossible de charger le fichier de jeu enregistré: %1. Ce fichier peut-être corrompu ou obsolète.
 LOAD_GAME_CANCEL                  | Annuler
 LOAD_GAME_OK                      | Charger
 LOAD_GAME_TOO_LONG                | ...
+LOAD_GAME_RECENT_START_SAVEFILE   | !!! Rejouer le dernier tour !!!
+
 
 // Save Game UI
-SAVE_GAME_TITLE                   | Sauvegarder la Partie
+SAVE_GAME_TITLE                   | Enregistrer la Partie
 SAVE_GAME_FILENAME                | Trier par nom de fichier
 SAVE_GAME_DATE                    | par Date
 SAVE_GAME_SIZE                    | par Taille
-SAVE_GAME_SAVING                  | Sauvegarde en cours ...
+SAVE_GAME_SAVING                  | Enregistrement en cours ...
 SAVE_GAME_CANCEL                  | Annuler
-SAVE_GAME_OK                      | Sauvegarder
+SAVE_GAME_OK                      | Enregistrer
 
 // Intro UI
 INTRO_BEGIN                       | Commencer
@@ -622,11 +624,11 @@ MAIN_TECH_RESERVE_TAX_ALL         | Taxer %1% de la production sur toutes les co
 MAIN_TECH_RESERVE_TAX             | Taxer %1% de la production sur les colonies développées
 MAIN_TECH_RESERVE_TAX_NONE        | Aucune taxe prélevée sur la production de la colonie
 MAIN_HELP_ALL                     | Aide - cliquez pour parcourir les informations d'aide pour un écran particulier. Escape pour annuler.
-MAIN_HELP_MOD                     | Mod Help - "O" pour accéder au menu des options de jeu. "Accueil" dans Auto-Flag la planète sélectionnée. "Alt"+"Home" pour appliquer Auto-Flag à toutes les planètes déjà explorées.
+MAIN_HELP_MOD                     | Mod Help - «O» pour accéder au menu des options de jeu. «Home» dans Auto-Flag la planète sélectionnée. «Alt»+«Home» pour appliquer Auto-Flag à toutes les planètes déjà explorées.
 MAIN_HELP_MOD_1A                  | Pour activer ou désactiver le Gouverneur pour ce système solaire.
 MAIN_HELP_MOD_1B                  | Pour accéder au menu Options du gouverneur.
 MAIN_HELP_MOD_1F                  | Des alertes du tour peuvent y apparaître : Faites un clic droit sur elles pour centrer la carte sur le système. Cliquez à gauche pour afficher la prochaine alerte.
-MAIN_HELP_MOD_1I                  | Pour accéder au panneau "Options".<br>Utile pour se souvenir de nos choix de configuration.<br>Peut être modifié... Mais certaines options ne devraient pas l'être !
+MAIN_HELP_MOD_1I                  | Pour accéder au panneau «Options».<br>Utile pour se souvenir de nos choix de configuration.<br>Peut être modifié... Mais certaines options ne devraient pas l'être !
 MAIN_HELP_1A                      | Chaque star system divise sa production en cinq zones. Les barres grisées indiquent que la barre de production a été verrouillée et ne changera pas. Cliquez sur le nom pour verrouiller/déverrouiller.
 MAIN_HELP_1B                      | Chantier naval - construit le modèle de vaisseau sélectionné. Les gros vaisseaux peuvent prendre plusieurs tours.
 MAIN_HELP_1C                      | Défenses - construit et améliore les bases de missiles jusqu'à la limite spécifiée et les boucliers planétaires lorsqu'ils sont disponibles.
@@ -642,16 +644,16 @@ MAIN_HELP_2C                      | Production planétaire totale de l'industrie
 MAIN_HELP_2D                      | Production réelle ajustée en fonction des revenus commerciaux à l'échelle de l'empire, des coûts d'espionnage et de sécurité, ainsi que de la maintenance des bases de missiles et des vaisseaux.
 MAIN_HELP_2E                      | Modifiez la conception du vaisseau pour le construire dans le chantier naval en orbite de la planète. La production accumulée pour les vaisseaux inachevés accélérera la production de nouveaux vaisseaux de 50 % jusqu'à leur épuisement. Cliquez ou utilisez la molette de la souris pour modifier la conception du vaisseau.
 MAIN_HELP_2F                      | Définissez un point de ralliement pour envoyer automatiquement les vaisseaux nouvellement construits vers une autre colonie.
-MAIN_HELP_2FSG                    | Rassemblement à la porte des étoiles la plus proche.<br>(Basé sur "→CHAIN_RALLY_SPEED_HK←"
+MAIN_HELP_2FSG                    | Rassemblement à la porte des étoiles la plus proche.<br>(Basé sur «→CHAIN_RALLY_SPEED_HK←»
 MAIN_HELP_2G                      | Transportez de la population pour fortifier une autre colonie ou envoyez des troupes envahir une planète ennemie. La colonie engage un coût de production unique pour le transport.
 MAIN_HELP_2H                      | Abandonnez complètement une planète en transférant toute sa population vers une autre colonie.
 MAIN_HELP_2I                      | Population actuelle et maximale de la planète. 100 représente une planète d'origine complète qui n'a pas été terraformée.
 MAIN_HELP_2J                      | Usines actuelles et maximales autorisées. Usines maximales basées sur la population et la technologie des contrôles robotiques.
 MAIN_HELP_2K                      | Placez un drapeau sur le système pour l'aider à se démarquer sur la carte de la galaxie.
 MAIN_HELP_2K_2F                   | Placez deux drapeaux sur le système pour l'aider à se démarquer sur la carte de la galaxie.
-MAIN_HELP_2K_M2                   | Bouton de gauche = Suivant / Bouton de droite = Réinitialiser / "Home" = Auto-Flag.
-MAIN_HELP_2K_M3                   | Bouton gauche = Suivant / Bouton droit = Précédent / Bouton du milieu = Réinitialiser / "Home" = Auto-Flag.
-MAIN_HELP_2K_2F_HOLD              | (Appuyez aussi sur "Ctrl" pour définir le deuxième drapeau)
+MAIN_HELP_2K_M2                   | Bouton de gauche = Suivant / Bouton de droite = Réinitialiser / «Home» = Auto-Flag.
+MAIN_HELP_2K_M3                   | Bouton gauche = Suivant / Bouton droit = Précédent / Bouton du milieu = Réinitialiser / «Home» = Auto-Flag.
+MAIN_HELP_2K_2F_HOLD              | (Appuyez aussi sur «Ctrl» pour définir le deuxième drapeau)
 MAIN_HELP_2L                      | Le montant de la réserve stockée dans le trésor de l'empire.
 MAIN_HELP_2M                      | L'état actuel de la recherche pour chacun des six domaines technologiques.
 MAIN_HELP_3A                      | Jeu - revient au menu d'ouverture. Vous permet d'ajuster les paramètres ou d'enregistrer, de charger et de démarrer des jeux.
@@ -728,7 +730,7 @@ TURN_DESIGN_SHIPS                 | Concevoir des Vaisseaux
 TURN_COLONY_SPENDING              | Allocations de Colonie
 
 // Fleet labels
-COLONY_VIEW_HELP_1                | Rien de fantaisiste là-bas...<br><br>Profitez juste de la vue.<br><br>"Z" pour voir uniquement le fond.<br>→HK_ESCAPE←
+COLONY_VIEW_HELP_1                | Rien de fantaisiste là-bas...<br><br>Profitez juste de la vue.<br><br>«Z» pour voir uniquement le fond.<br>→HK_ESCAPE←
 HISTORY_HELP_MAIN                 | HISTORIQUE: <br>Pour voir comment la galaxie s'est développée depuis le premier tour.<br>Cela vous permet de voir tout ça ! À condition, bien sûr, que vous ayez les informations nécessaires.
 HISTORY_HELP_HK                   | →HK_HEADER← →HK_F1←<br>1-0 : Pour régler le rythme.→HK_MAP_ZOOM←→HK_MAP_ARROWS←<br>B / F : tour Précédent / Suivant<br>P : Pause <br>R : Réinitialiser<br>→HK_ESCAPE←
 MAIN_FLEET_TITLE                  | Flotte [fleet_raceadjecF]
@@ -1166,8 +1168,8 @@ FLEETS_HELP_1C                    | Et en train de construire - filtrez les syst
 FLEETS_HELP_1D                    | Conception du vaisseau - modifiez la conception du vaisseau pour l'intégrer aux systèmes sélectionnés. Une image vide signifie que les systèmes sélectionnés construisent actuellement des conceptions différentes. Attention ! Il n'y a pas d'invite de confirmation pour cette action.
 FLEETS_HELP_1E                    | Envoyer des transports - envoyer des transports depuis les systèmes sélectionnés vers un seul système cible.
 FLEETS_HELP_1F                    | Définir pnts. ralliement - définissez les points de ralliement pour les systèmes sélectionnés sur un seul système cible.
-FLEETS_HELP_1G                    | →FLEETS_RALLY_TO_STARGATES←<br> Commencez à rallier les systèmes sélectionnés au système le plus proche avec une Porte des Étoile.<br>- Basé sur le paramètre "→CHAIN_RALLY_SPEED_HK←".<br>- Les systèmes sélectionnés avec une Porte des Étoile ne sont pas affectés.
-FLEETS_HELP_1H                   | →MAIN_RALLY_CHAIN←<br> Pour minimiser le temps de déplacement en prenant un raccourci par l'intermédiaire de la Porte des Étoile la plus proche. (Basé sur le paramètre "→CHAIN_RALLY_SPEED_HK←")<br> Cela permettra également "Ralliement Avancé" sur les systèmes avec un Porte des Étoiles intermédiaires.
+FLEETS_HELP_1G                    | →FLEETS_RALLY_TO_STARGATES←<br> Commencez à rallier les systèmes sélectionnés au système le plus proche avec une Porte des Étoile.<br>- Basé sur le paramètre «→CHAIN_RALLY_SPEED_HK←».<br>- Les systèmes sélectionnés avec une Porte des Étoile ne sont pas affectés.
+FLEETS_HELP_1H                   | →MAIN_RALLY_CHAIN←<br> Pour minimiser le temps de déplacement en prenant un raccourci par l'intermédiaire de la Porte des Étoile la plus proche. (Basé sur le paramètre «→CHAIN_RALLY_SPEED_HK←»)<br> Cela permettra également «Ralliement Avancé» sur les systèmes avec un Porte des Étoiles intermédiaires.
 FLEETS_HELP_2A                    | Sélectionner les flottes - il existe trois façons de sélectionner des flottes : 1) en cliquant sur les flottes sur la carte, 2) en cliquant avec le bouton droit de la souris sur la carte et 3) en utilisant les boutons «Sélectionner tout» et «Désélectionner tout».
 FLEETS_HELP_2B                    | Filtrer par - cochez les cases pour réduire la liste des flottes sélectionnées. Il est également possible de cliquer sur les filtres pour faire défiler les options associées.
 FLEETS_HELP_2C                    | Déployer uniquement des vaisseaux de type - restreignez les types de vaisseaux que vous souhaitez déployer à partir de vos flottes.
@@ -1177,7 +1179,7 @@ FLEETS_HELP_2E                    | Déployer des flottes - déployer les flotte
 // Select Next Tech to Research UI
 FLEETS_HELP_3A                    | Stable :<br> Le nombre maximum de populations que vous pouvez envoyer de cette planète tout en étant en mesure de recroître au même niveau, avec la barre ECO réglée à max.<br>Il revient au joueur ou au gouverneur d'ajuster la barre ECO.
 FLEETS_HELP_3B                    | Remplir:<br>Le nombre maximum de population que vous pouvez envoyer de cette planète tout en étant capable de recroissance pour remplir la planète, avec la barre ECO définie à max.<br>Il revient au joueur ou au gouverneur d'ajuster la barre ECO.
-FLEETS_HELP_3C                    | Barres de sélection des populations à envoyer:<br>- Cliquez à gauche sur le curseur = sélection de pourcentage normale.<br>- Cliquez au milieu sur le curseur = sélection de la valeur "Stable".<br>- Cliquez avec le bouton droit sur le curseur = sélection de la valeur "Remplir".<br>Ctrl+Cliquez pour basculer le remplissage automatique (Sans gouverneur) affiché en Vert sur Gris.<br>L'état de remplissage automatique par défaut est défini par l'option "→TRANSPORT_AUTO_ECO_HK←".
+FLEETS_HELP_3C                    | Barres de sélection des populations à envoyer:<br>- Cliquez à gauche sur le curseur = sélection de pourcentage normale.<br>- Cliquez au milieu sur le curseur = sélection de la valeur «Stable».<br>- Cliquez avec le bouton droit sur le curseur = sélection de la valeur «Remplir».<br>Ctrl+Cliquez pour basculer le remplissage automatique (Sans gouverneur) affiché en Vert sur Gris.<br>L'état de remplissage automatique par défaut est défini par l'option «→TRANSPORT_AUTO_ECO_HK←».
 FLEETS_HELP_3MAIN                 | APERÇU:<br> Cet écran permet de gérer le transport de la population et des troupes.<br>Sélectionnez la colonie de destination et la capacité du transport.<br>La colonie de destination peut être changée à volonté.
 TECH_RESEARCH_COMPUTER            | Sélectionnez la prochaine technologie informatique sur laquelle nos chercheurs devraient se concentrer.
 TECH_RESEARCH_CONSTRUCTION        | Sélectionnez la prochaine technologie de construction sur laquelle nos chercheurs devraient se concentrer.
@@ -1311,7 +1313,7 @@ SETUP_GALAXY_SIZE_LABEL           | Taille
 SETUP_RACE_MULTIPLIER             | x%1
 SETUP_GALAXY_SHAPE_LABEL          | Forme
 
-SETUP_GALAXY_SIZE_HELP            | La taille de la galaxie déterminera le nombre d'étoiles et donc le nombre maximum de joueurs.<br>Notez qu'il y a plusieurs étoiles pour certains paramètres de taille. Par exemple, une galaxie de taille moyenne peut avoir 100 ou 150 étoiles. Une grande galaxie peut avoir 225 ou 333 étoiles.<br> Chaque sélection changera le nombre d'opposants à son paramètre par défaut, qui peut ensuite être ajusté sur le panneau "Sélectionner les opposants".
+SETUP_GALAXY_SIZE_HELP            | La taille de la galaxie déterminera le nombre d'étoiles et donc le nombre maximum de joueurs.<br>Notez qu'il y a plusieurs étoiles pour certains paramètres de taille. Par exemple, une galaxie de taille moyenne peut avoir 100 ou 150 étoiles. Une grande galaxie peut avoir 225 ou 333 étoiles.<br> Chaque sélection changera le nombre d'opposants à son paramètre par défaut, qui peut ensuite être ajusté sur le panneau «Sélectionner les opposants».
 SETUP_GALAXY_SIZE_DESC            | Sélectionnez la taille de la Galaxie
 SETUP_GALAXY_SIZE                 | Taille de la Galaxie : %1
 SETUP_GALAXY_SIZE_STAR_PER_EMPIRE | %1 é/e
@@ -1423,7 +1425,7 @@ SETUP_OPPONENT_AI_XILMI_HELP      | Famille IA: Xilmi<br> Utilise un module dipl
 SETUP_OPPONENT_AI_XILMI           | IA: Xilmi
 SETUP_OPPONENT_AI_HYBRID_HELP     | Famille IA: Xilmi<br> Utilise le même module de diplomatie et d'espionnage que la IA-base pour présenter fondamentalement une IA qui agit diplomatiquement comme une IA-base, mais a toujours tous les avantages dans les autres aspects du jeu.
 SETUP_OPPONENT_AI_HYBRID          | IA: Hybride
-SETUP_OPPONENT_AI_CRUEL_HELP      | IA-Famille: Xilmi (Pas de barre de relations, pas d'alliances)<br> ... ces IAs jouent toutes plus prudentes qu'agressives alors que certaines différences raciales sont encore appliquées. Il est très similaire dans le comportement à ce dernier, mais généralement les jeux sont beaucoup plus paisible tant que personne n'a un avantage massif. Elles sont également très opportunistes. La raison pour laquelle "Amusant" a été créé parce que jouer contre ce genre d'IA peut être extrêmement frustrant. Vous pouvez avoir un long jeu où rien ne se passe vraiment et puis être effacé en quelques tours par plusieurs adversaires à la fois. Il y a un algorithme en jeu qui devine la chance d'être rétrogradé en cas de déclaration de guerre. Et à cause de cela, il est fort probable que l'IA pense que l'autre parti sera plus susceptible d'être rétrogradé et non pas eux, s'ils déclarent la guerre. Oh... Elles ignoreront tout dans les cas où elles devraient finalement atteindre la fin de l'arbre technologique. Donc le jeu ne sera pas techniquement sans fin, même si cela pourrait le paraître.
+SETUP_OPPONENT_AI_CRUEL_HELP      | IA-Famille: Xilmi (Pas de barre de relations, pas d'alliances)<br> ... ces IAs jouent toutes plus prudentes qu'agressives alors que certaines différences raciales sont encore appliquées. Il est très similaire dans le comportement à ce dernier, mais généralement les jeux sont beaucoup plus paisible tant que personne n'a un avantage massif. Elles sont également très opportunistes. La raison pour laquelle «Amusant«» a été créé parce que jouer contre ce genre d'IA peut être extrêmement frustrant. Vous pouvez avoir un long jeu où rien ne se passe vraiment et puis être effacé en quelques tours par plusieurs adversaires à la fois. Il y a un algorithme en jeu qui devine la chance d'être rétrogradé en cas de déclaration de guerre. Et à cause de cela, il est fort probable que l'IA pense que l'autre parti sera plus susceptible d'être rétrogradé et non pas eux, s'ils déclarent la guerre. Oh... Elles ignoreront tout dans les cas où elles devraient finalement atteindre la fin de l'arbre technologique. Donc le jeu ne sera pas techniquement sans fin, même si cela pourrait le paraître.
 SETUP_OPPONENT_AI_CRUEL           | IA: Fusion
 SETUP_OPPONENT_AI_FUN             | IA: Amusant
 SETUP_OPPONENT_AI_PERSONALITY     | IA: Personnalité
@@ -1460,7 +1462,7 @@ SETUP_DIFFICULTY_NORMAL_HELP      | Normal (100%)
 SETUP_DIFFICULTY_HARD_HELP        | Difficile (110 %)
 SETUP_DIFFICULTY_HARDER_HELP      | Très difficile (125%)
 SETUP_DIFFICULTY_HARDEST_HELP     | Trop difficile (145 %)
-SETUP_DIFFICULTY_CUSTOM_HELP      | Cette valeur est définie par l'option <b>Difficulté personnalisée</b> qui se trouve en haut à gauche du panneau "Options"
+SETUP_DIFFICULTY_CUSTOM_HELP      | Cette valeur est définie par l'option <b>Difficulté personnalisée</b> qui se trouve en haut à gauche du panneau «Options»
 SETUP_RESEARCH_RATE_NORMAL_HELP   | Facteurs de coût de la recherche = 1.
 SETUP_RESEARCH_RATE_NORMAL        | Normale
 SETUP_RESEARCH_RATE_FAST_HELP     | Facteurs des coûts de la recherche : <br>75 % au niveau 2;&ensp 65 % au niveau 6;&ensp 60 % au niveau 8;<br>55 % au niveau 20;&ensp 52 % au niveau 50;&ensp 51 % au niveau 100.
@@ -2452,13 +2454,13 @@ HK_1_5         | <br>1-5/+SHIFT : Incrémente / Décremente dépenses pour vaiss
 HK_CTRL_1_5    | <br>CTRL+1-5 : Verrouiller le curseur de dépenses.
 HK_ALT_1_5     | <br>ALT+1-5 : Max-Intel.
 HK_MAP_ARROWS  | <br>Flêches : Déplacer la carte.
-HK_MAP_ZOOM    | <br>+/- : Zoomer la carte. ("ALT-" : Vue complète de la galaxie) <br>Roue de la souris : Zoomer sur la carte.
+HK_MAP_ZOOM    | <br>+/- : Zoomer la carte. («ALT-» : Vue complète de la galaxie) <br>Roue de la souris : Zoomer sur la carte.
 HK_TAB         | <br>Tab/+SHIFT : Onglet suivant/précédent.
 HK_YEAR        | <br>Y : Alterner l'année / le tour.
-HK_FLAG_LOOP   | <br>(Num) * - 9 + : Drapeau suivant ("SHIFT-" Précédent) ("CTRL-" Même couleur de drapeau)
+HK_FLAG_LOOP   | <br>(Num) * - 9 + : Drapeau suivant («SHIFT-» Précédent) («CTRL-» Même couleur de drapeau)
 HK_FOG         | <br>F : Afficher / Cacher le brouillard sur les icônes diplomatiques.
 HK_GUIDE       | <br>G : Afficher / cache le Guide
 HK_SEL_B       | /+ALT/+CTRL/+SHIFT : Sélection actuelle
 HK_SEL_E       | Dépenses à 100% / Max-Intel. / Verrouillage / Déverrouillage
 HK_SET_DEFAULT | <br>ALT-F : Définir les valeurs par défaut à →FUSION_HK←.<br>ALT-M : Définir les valeurs par défaut à →MOO1_HK←.<br>ALT-R : Définir les valeurs par défaut à →CLASSIC_HK←.
-MAIN_HELP_SHIPFLEET_HK | HOTKEY QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d'informations détaillées (si elles sont connues)<br><br> MODE DE DÉMÉNAGEMENT DES FLOTTES :<br><br>Appuyez sur "ALT" pour montrer des informations sur l'étoile ou la flotte survolée par la souris.
+MAIN_HELP_SHIPFLEET_HK | HOTKEY QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d'informations détaillées (si elles sont connues)<br><br> MODE DE DÉMÉNAGEMENT DES FLOTTES :<br><br>Appuyez sur «ALT» pour montrer des informations sur l'étoile ou la flotte survolée par la souris.

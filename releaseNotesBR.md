@@ -3,7 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Auto conversion of dialogue keywords for untranslated texts. (Only in French for now)
+- Auto conversion of dialogue keywords for untranslated texts.
 - Fixed Research bubble not always being up to date.
 - Fixed Advisor Messages not always fitting inside the box. 
 - Fixed All race name being the same when "Base Species Nominal Names" option was set.
