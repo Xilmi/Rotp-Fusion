@@ -170,7 +170,7 @@ TECH_COMPUTERS_LEVEL_DESC         | Pendant l'espionnage, la différence entre v
 TECH_CONSTRUCTION_LEVEL_DESC      | Chaque niveau de construction augmente de 2% l'espace disponible pour tous les types de coques.
 TECH_FORCE_FIELDS_LEVEL_DESC      |
 
-TECH_PLANETOLOGY_LEVEL_DESC       | Au début du jeu, chaque colon produit 0,5BC. À mesure que votre niveau de technologie de Planetologie augmente, leur productivité aussi. L'augmentation est progressive, mais le taux global double au niveau 17, triple au niveau 33 et quadruple au niveau 50.
+TECH_PLANETOLOGY_LEVEL_DESC       | Au début du jeu, chaque colon produit 0,5BC. À mesure que votre niveau de technologie de Planétologie augmente, leur productivité aussi. L'augmentation est progressive, mais le taux global double au niveau 17, triple au niveau 33 et quadruple au niveau 50.
 TECH_PROPULSION_LEVEL_DESC        |
 TECH_WEAPONS_LEVEL_DESC           | Les dommages que vos espions infligent pendant les actions de sabotage augmente avec votre niveau de technologie Armes. Cela va détruire plus d'usines et de bases de missiles.
 
@@ -222,11 +222,11 @@ EVENT_SPACE_PIRATES_2             | Les redoutables pirates spatiaux ont ravagé
 EVENT_SPACE_PIRATES_3             | La flotte de pirates a été détruite par les défenseurs [race] dans le système [system]. Des richesses importantes trouvées dans les épaves ont été saisies par l'armée [race] pour renforcer la réserve planétaire par [amt] BC.
 EVENT_SPACE_PIRATES_4             | Les pirates spatiaux a quitté notre galaxie insignifiante ! Où sont-ils passé ? On s'en fiche, bon débarras !
 EVENT_SPACE_PIRATES_TRIG          | La récette découverte de la Propulsion Hyper va tout changer. Par exemple, les criminels se réjouissent de leur nouvelle mobilité.
-EVENT_SPACE_PIRATES_PLUNDER       | →EVENT_SPACE_PIRATES_3←.<br> L'étude des navires pirates endommagés aide à faire avancer certains projets de recherche en cours.
+EVENT_SPACE_PIRATES_PLUNDER       | →EVENT_SPACE_PIRATES_3←.<br> L'étude des vaisseaux pirates endommagés aide à faire avancer certains projets de recherche en cours.
 
 EVENT_RELIC_PLANETS               | Une relique des Précurseurs s'est mystérieusement activée dans l'espace [target_empire]. Les scanners à l'échelle de la galaxie rapportent la formation de nouvelles planètes dans plusieurs systèmes solaires précédemment vides après des événements de coalescence intense d'astéroïdes. Les scientifiques [target_race] ont également récolté plusieurs technologies de construction à partir de la relique.
 EVENT_RELIC_PLANETS_NO_CONTACT    | Nos astronomes sont sidérés ! Les scanners à l'échelle de la galaxie rapportent la formation de nouvelles planètes dans plusieurs systèmes solaires précédemment vides après des événements de coalescence intense d'astéroïdes.
-EVENT_RELIC_GAUNTLET              | La moitié de la vie galactique a été effacée après l'activation d'un gantelet Précurseur avec sept pierres précieuses intégrées. Les scientifiques [target_race] qui étudient la relique ont nié leur responsabilité. Des enquêteurs tiers remettent en question l'augmentation de la capacité sur de nombreuses planètes [target_empire] et les nouvelles technologies de Planetologie.
+EVENT_RELIC_GAUNTLET              | La moitié de la vie galactique a été effacée après l'activation d'un gantelet Précurseur avec sept pierres précieuses intégrées. Les scientifiques [target_race] qui étudient la relique ont nié leur responsabilité. Des enquêteurs tiers remettent en question l'augmentation de la capacité sur de nombreuses planètes [target_empire] et les nouvelles technologies de Planétologie.
 EVENT_RELIC_GAUNTLET_NO_CONTACT   | La moitié de toute la vie galactique a été effacée, probablement après l'activation du légendaire gantelet Precurseur avec sept pierres précieuses intégrées.
 EVENT_SIZEBOOST                   | Les archéologues explorant le monde [target_race] dans le système [system] ont révélé des cavernes souterraines massives. Ces chambres géologiquement stables sont habitables et ont considérablement augmenté la taille de la planète.
 
@@ -621,7 +621,7 @@ MAIN_TECH_RESERVE_BC              | %1 BC
 MAIN_TECH_RESERVE_TAX_ALL         | Taxer %1% de la production sur toutes les colonies
 MAIN_TECH_RESERVE_TAX             | Taxer %1% de la production sur les colonies développées
 MAIN_TECH_RESERVE_TAX_NONE        | Aucune taxe prélevée sur la production de la colonie
-MAIN_HELP_ALL                     | Aide - cliquez pour parcourir les informations d'aide pour un écran particulier. Hit escape to cancel.
+MAIN_HELP_ALL                     | Aide - cliquez pour parcourir les informations d'aide pour un écran particulier. Escape pour annuler.
 MAIN_HELP_MOD                     | Mod Help - "O" pour accéder au menu des options de jeu. "Accueil" dans Auto-Flag la planète sélectionnée. "Alt"+"Home" pour appliquer Auto-Flag à toutes les planètes déjà explorées.
 MAIN_HELP_MOD_1A                  | Pour activer ou désactiver le Gouverneur pour ce système solaire.
 MAIN_HELP_MOD_1B                  | Pour accéder au menu Options du gouverneur.
@@ -867,7 +867,7 @@ MAIN_ADVISOR_DIPLOMACY            | Une autre civilisation spatiale s'est révé
 MAIN_ADVISOR_SHIP_ENGINE          | Nos plus grands esprits ont conçu un nouveau moteur plus efficace. Ils souhaitent que vous revoyiez les schémas existants et que vous décidiez de la meilleure façon d'appliquer les nouveaux moteurs à nos flottes.
 MAIN_ADVISOR_RALLY_POINTS         | Notre ère de paix ne peut se poursuivre tant qu'une espèce indigne fait la guerre à notre glorieux empire. Les citoyens de l'Empire se tiennent unis sous vous, et assembleront leurs flottes partout où vous les dirigerez.
 MAIN_ADVISOR_MISSILE_BASES        | Avec les flottes souveraines engagées dans la bataille, nos mondes extérieurs sont vulnérables à l'agression ennemie. Nous pouvons commencer notre construction de bases de missiles défensives sur n'importe quel monde que vous désirez.
-MAIN_ADVISOR_SHIP_WEAPON          | Nos chercheurs ont eu une percée en matière d'armement des navires. Les flottes peuvent à tout moment être équipées de ces technologies dévastatrices.
+MAIN_ADVISOR_SHIP_WEAPON          | Nos chercheurs ont eu une percée en matière d'armement des vaisseaux. Les flottes peuvent à tout moment être équipées de ces technologies dévastatrices.
 MAIN_ADVISOR_COUNCIL              | Le Conseil Galactique se réunira bientôt, et notre présence sera sans doute très souhaitée. Nos diplomates saisiront cette occasion pour faire en sorte que tout ce qui est décidé contribue au bien de la souveraineté.
 MAIN_ADVISOR_REBELLION            | Ah, une rébellion sur %1. Comme c'est bizarre. Je suppose que cela devait arriver à un certain moment, mon seigneur, mais nous devrions quand même la réprimer avant que le mécontentement ne s'étende à nos autres colonies.
 MAIN_ADVISOR_RESIST_COUNCIL       | Seigneur ! Nous sommes avec vous ! Il n'y aura pas de paix dans cette galaxie jusqu'à ce que tu prennes ta place légitime sur son trône suprême !
@@ -1399,8 +1399,8 @@ SETUP_RANDOM_EVENTS_ONLY_MONSTERS | Seulement des monstres
 SETUP_RANDOM_EVENTS_ON_HELP            | Tous les événements sont autorisés une fois le moment venu.
 SETUP_RANDOM_EVENTS_OFF_HELP           | !!! Laisse-moi tranquille !!! Pas d'événement aléatoire.
 SETUP_RANDOM_EVENTS_NO_MONSTERS_HELP   | Ok pour les événements aléatoires, mais ni d'Amibe Spatiale, de Cristal Spatial, ou de Pirates de l'Espace. <i> (Mais un événement de pirates peut se produire)</i>
-SETUP_RANDOM_EVENTS_TECH_MONSTERS_HELP | Ok pour les événements aléatoires, et les Monstres peuvent être déclenchés par des recherches pertinentes:<br>- Propulsion hyperspatiale pour les Pirates de l'Espace.<br>- Planetologie / Clonage avancé pour l'Amibe Spatiale.<br>- Propulsion / Porte des Étoiles pour le Cristal Spatial.
-SETUP_RANDOM_EVENTS_ONLY_MONSTERS_HELP | Seulement des monstres : Aucun événement aléatoire, mais les Monstres peuvent être déclenchés par des recherches pertinentes :<br>- Propulsion hyperspatiale pour les Pirates de l'Espace.<br>- Planetologie / Clonage avancé pour l'Amibe Spatiale.<br>- Propulsion / Porte des Étoiles pour le Cristal Spatial.
+SETUP_RANDOM_EVENTS_TECH_MONSTERS_HELP | Ok pour les événements aléatoires, et les Monstres peuvent être déclenchés par des recherches pertinentes:<br>- Propulsion hyperspatiale pour les Pirates de l'Espace.<br>- Planétologie / Clonage avancé pour l'Amibe Spatiale.<br>- Propulsion / Porte des Étoiles pour le Cristal Spatial.
+SETUP_RANDOM_EVENTS_ONLY_MONSTERS_HELP | Seulement des monstres : Aucun événement aléatoire, mais les Monstres peuvent être déclenchés par des recherches pertinentes :<br>- Propulsion hyperspatiale pour les Pirates de l'Espace.<br>- Planétologie / Clonage avancé pour l'Amibe Spatiale.<br>- Propulsion / Porte des Étoiles pour le Cristal Spatial.
 SETUP_GALAXY_NUMBER_EMPIRES       | Nombre d'empires : %1
 SETUP_GALAXY_NUMBER_SYSTEMS       | Nombre de systèmes: %1
 SETUP_GALAXY_MAX_OPPONENTS        | %1 adversaires ou moins
@@ -1658,7 +1658,6 @@ SETUP_NOT_AVAILABLE               | N/A
 SETTINGS_TITLE                    | Options Avancées
 SETTINGS_DESCRIPTION              | Cliquez pour changer les paramètres.
 SETTINGS_EXIT                     | Quitter
-SETTINGS_DEFAULT                  | Valeurs par défaut
 SETTINGS_STAR_DENSITY             | Densité des étoiles : %1
 SETTINGS_RANDOM_EVENTS            | Événements aléatoires : %1
 SETTINGS_RESEARCH_RATE            | Vitesse de la recherche : %1
@@ -1690,6 +1689,15 @@ SETTINGS_AUTOPLAY_DESC            | Automatiser complètement le jeu en faisant 
 SETTINGS_AUTOPLAY_WARNING         | Avertissement! La lecture automatique est actuellement activée, ce qui empêchera le jeu de l'utilisateur. Utilisez «Options avancées» pour désactiver.
 SETTINGS_FUEL_RANGE_DESC          | Augmente la portée des technologies de carburant et des réservoirs de carburant supplémentaires.
 SETTINGS_AI_HOSTILITY_DESC        | Augmente ou diminue le niveau général d'hostilité entre les espèces extraterrestres.
+
+TECH_HEAD_HK                             | Inclure ou exclure la Technologie
+TECH_END_HK                              | dans l'arbre technique pour joueur/IA.
+TECH_VAL_HK                              | Inclure {Toujours, Jamais, Auto}
+TECH_LEVEL_HK                            | Cette technologie pourrait être disponible au niveau
+
+TRANSPORT_AUTO_ECO_HK                    | Transports ECO
+
+CHAIN_RALLY_SPEED_HK                     | Vitesse des ralliements en chaîne
 
 // Tech UI labels
 TECH_RESEARCH                     | Technologies Recherchées
@@ -1800,7 +1808,7 @@ SHIP_DESIGN_ENGINE_SPEED          | Vitesse
 SHIP_DESIGN_ENGINE_COST1          | Coût par unité
 SHIP_DESIGN_ENGINE_SIZE1          | Taille par unité
 SHIP_DESIGN_ENGINE_POWER1         | Puissance par unité
-SHIP_DESIGN_POWER_REQUIREMENTS    | Requis de puissance
+SHIP_DESIGN_POWER_REQUIREMENTS    | Puissance requise
 SHIP_DESIGN_ENGINES_REQUIRED      | Unités requises
 SHIP_DESIGN_ENGINES_SIZE          | Taille totale
 SHIP_DESIGN_ENGINES_COST          | Coût total
@@ -2317,12 +2325,12 @@ SYSTEMS_ENTER_NOTES               | Mettez vos notes système ici.
 SYSTEMS_ALERT                     | Alerte système
 SYSTEMS_NO_ALERTS                 | Aucune alerte pour le moment.
 SYSTEMS_HISTORY                   | Historique du système
-SYSTEMS_UNSCOUTED                 | Système sans surveillance, atteignable par nos vaisseaux éclaireurs.
-SYSTEMS_UNSCOUTED_NEED_TECH       | Système sans surveillance, sera atteignable après la recherche de «%1» terminée.
-SYSTEMS_UNSCOUTED_COLONIZED       | Système sans surveillance, contrôlé par un empire non allié.
-SYSTEMS_UNSCOUTED_ENEMY           | Système sans surveillance, contrôlé par un empire ennemi.
+SYSTEMS_UNSCOUTED                 | Système inexploré, atteignable par nos vaisseaux éclaireurs.
+SYSTEMS_UNSCOUTED_NEED_TECH       | Système inexploré, sera atteignable après la recherche de «%1» terminée.
+SYSTEMS_UNSCOUTED_COLONIZED       | Système inexploré, contrôlé par un empire non allié.
+SYSTEMS_UNSCOUTED_ENEMY           | Système inexploré, contrôlé par un empire ennemi.
 SYSTEMS_UNSCOUTED_GUARDED         | Impossible d'effectuer une reconnaissance tant que le système sera protégé.
-SYSTEMS_UNSCOUTED_UNREACHABLE     | Système sans surveillance, actuellement inaccessible.
+SYSTEMS_UNSCOUTED_UNREACHABLE     | Système inexploré, actuellement inaccessible.
 SYSTEMS_CAN_COLONIZE              | Système atteignable et colonisable avec notre technologie actuelle.
 SYSTEMS_CAN_COLONIZE_EN_ROUTE     | Une colonie est en route vers ce système. La date d'arrivée est estimée à %1 tours.
 SYSTEMS_CAN_COLONIZE_ENEMY        | Système atteignable et colonisable, mais une flotte [alien_raceadjecF] hostile est en orbite.
@@ -2428,3 +2436,29 @@ GAME_OVER_REPLAY                  | Rejouer
 // text for race-generic endings
 // %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 special text
 GAME_OVER_NO_COLONIES_LOSS2       | Le règne de %2 a pris fin, ruiné par l'incompétence impériale.#En l'absence de mondes civilisés sur lesquels atterrir en toute sécurité, les transports [player_race_pluraladjec] survivants sont incapables de soutenir les progrès technologiques réalisés par votre société.#La barbarie étant l'état naturel des sociétés, la civilisation n'est pas naturelle. C'est un caprice des circonstances. Et la barbarie doit finalement triompher.
+
+// Shortcuts / Hotkeys list  (use cross-references →←) →HK_←
+// Shortcuts Cross referenced
+HK_HEADER      | HOTKEYS: (Disponible en cliquant Aide avec le bouton droit)<br>→HK_SHIFT_F1←
+HK_SHIFT_F1    | <br>SHIFT+F1 : Afficher la liste des hotkeys
+HK_F1          | <br>F1 : Afficher l'aide.
+HK_F1_?        | <br>F1, ? : Afficher l'aide.
+HK_ESCAPE      | <br>Escape : Sortez de ce panneau.
+HK_FLAG        | <br>F : Changer la couleur du drapeau.
+HK_HOME        | <br>Home : Définir la couleur du drapeau automatiquement.
+HK_ALT_HOME    | <br>ALT-Home : Définir la couleur Auto-Drapeau pour tous les systèmes explorés.
+HK_B_SHIFT_B   | <br>B/SHIFT-B : Incrémente / Décremente Bases Max.
+HK_1_5         | <br>1-5/+SHIFT : Incrémente / Décremente dépenses pour vaisseaux, transport, environnement, technologie
+HK_CTRL_1_5    | <br>CTRL+1-5 : Verrouiller le curseur de dépenses.
+HK_ALT_1_5     | <br>ALT+1-5 : Max-Intel.
+HK_MAP_ARROWS  | <br>Flêches : Déplacer la carte.
+HK_MAP_ZOOM    | <br>+/- : Zoomer la carte. ("ALT-" : Vue complète de la galaxie) <br>Roue de la souris : Zoomer sur la carte.
+HK_TAB         | <br>Tab/+SHIFT : Onglet suivant/précédent.
+HK_YEAR        | <br>Y : Alterner l'année / le tour.
+HK_FLAG_LOOP   | <br>(Num) * - 9 + : Drapeau suivant ("SHIFT-" Précédent) ("CTRL-" Même couleur de drapeau)
+HK_FOG         | <br>F : Afficher / Cacher le brouillard sur les icônes diplomatiques.
+HK_GUIDE       | <br>G : Afficher / cache le Guide
+HK_SEL_B       | /+ALT/+CTRL/+SHIFT : Sélection actuelle
+HK_SEL_E       | Dépenses à 100% / Max-Intel. / Verrouillage / Déverrouillage
+HK_SET_DEFAULT | <br>ALT-F : Définir les valeurs par défaut à →FUSION_HK←.<br>ALT-M : Définir les valeurs par défaut à →MOO1_HK←.<br>ALT-R : Définir les valeurs par défaut à →CLASSIC_HK←.
+MAIN_HELP_SHIPFLEET_HK | HOTKEY QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d'informations détaillées (si elles sont connues)<br><br> MODE DE DÉMÉNAGEMENT DES FLOTTES :<br><br>Appuyez sur "ALT" pour montrer des informations sur l'étoile ou la flotte survolée par la souris.

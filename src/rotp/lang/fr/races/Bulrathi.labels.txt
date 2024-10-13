@@ -29,13 +29,13 @@ _nameTitle                        | le Grand Hiérarque
 // Advisor text
 MAIN_ADVISOR_TITLE                | Conseiller [my_raceadjec]
 MAIN_ADVISOR_BUTTON_OK            | Merci
-MAIN_ADVISOR_SCOUT                | Maître, nous avons préparé des éclaireurs et un navire de colonisation pour le départ. Nous commencerons à explorer et à coloniser un système à proximité à votre commande.
+MAIN_ADVISOR_SCOUT                | Maître, nous avons préparé des éclaireurs et un vaisseau de colonisation pour le départ. Nous commencerons à explorer et à coloniser un système à proximité à votre commande.
 MAIN_ADVISOR_TRANSPORT            | Le monde de %1, ajouté à notre empire ! Donnez la commande et nous commencerons à envoyer des transports immédiatement !
 MAIN_ADVISOR_DIPLOMACY            | Une race extraterrestre a pris contact avec notre empire, Maître. Que nous les traitions en amis ou en ennemis est une décision laissée à votre entière discrétion.
-MAIN_ADVISOR_SHIP_ENGINE          | Nos scientifiques continuent de repousser les limites de la technologie, cette fois en améliorant la vitesse de nos moteurs.Ils attendent votre décision sur les conceptions de navires mises à jour. 
-MAIN_ADVISOR_RALLY_POINTS         | Une bataille glorieuse est à nos portes ! Dirigez nos navires nouvellement conçus avec des points de ralliement pour assembler nos flottes où vous le désirez.
+MAIN_ADVISOR_SHIP_ENGINE          | Nos scientifiques continuent de repousser les limites de la technologie, cette fois en améliorant la vitesse de nos moteurs.Ils attendent votre décision sur les conceptions de vaisseaux mises à jour. 
+MAIN_ADVISOR_RALLY_POINTS         | Une bataille glorieuse est à nos portes ! Dirigez nos vaisseaux nouvellement conçus avec des points de ralliement pour assembler nos flottes où vous le désirez.
 MAIN_ADVISOR_MISSILE_BASES        | Nos colonies attendent votre parole, Maître, pour commencer la construction de bases de missiles pour les aider à se défendre contre les attaques ennemies.
-MAIN_ADVISOR_SHIP_WEAPON          | Nos chercheurs ont conçu de nouvelles armes dévastatrices pour nos flottes ! Revisitez nos conceptions de navires à votre guise, Maître, pour décider comment nos ennemis tomberont avant notre puissance écrasante.
+MAIN_ADVISOR_SHIP_WEAPON          | Nos chercheurs ont conçu de nouvelles armes dévastatrices pour nos flottes ! Revisitez nos conceptions de vaisseaux à votre guise, Maître, pour décider comment nos ennemis tomberont avant notre puissance écrasante.
 MAIN_ADVISOR_COUNCIL              | Les représentants du premier Conseil Galactique se réuniront bientôt, Maître. Nos diplomates suivront vos instructions pour s'assurer que les décisions du conseil sont conformes à votre volonté. 
 MAIN_ADVISOR_REBELLION            | Il semblerait que les habitants de %1 aient décidé de vous défier ouvertement, Maître. Il est temps de leur rappeler pourquoi vous êtes celui qui a été choisi pour diriger l'Empire !
 MAIN_ADVISOR_RESIST_COUNCIL       | Vous seul pouvez vous asseoir sur le trône de la galaxie ! Nous n'étoufferons pas notre soif de sang tant que vous n'aurez pas pris la place qui vous revient, Maître !

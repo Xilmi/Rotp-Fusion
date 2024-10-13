@@ -29,10 +29,10 @@ _nameTitle                 | l'Empereur de Cristal
 // Advisor text
 MAIN_ADVISOR_TITLE         | Conseiller cryslonoïdien
 MAIN_ADVISOR_BUTTON_OK     | Merci
-MAIN_ADVISOR_SCOUT         | Dieu-Empereur, vos éclaireurs sont prêts à escorter le premier navire de la colonie vers n'importe quel monde que vous désirez ! Passez la commande et voyez votre volonté sera faite!
+MAIN_ADVISOR_SCOUT         | Dieu-Empereur, vos éclaireurs sont prêts à escorter le premier vaisseau de la colonie vers n'importe quel monde que vous désirez ! Passez la commande et voyez votre volonté sera faite!
 MAIN_ADVISOR_TRANSPORT     | La colonie sur %1 a été fondée en votre nom, puissant Empereur ! Si vous désirez que nous envoyions plus de transports pour soutenir votre nouveau domaine, dites le mot et nous nous conformerons !
 MAIN_ADVISOR_DIPLOMACY     | Dieu-Empereur ! Un représentant d'un empire extraterrestre apparaît devant le trône ! This may be our eternal enemy revealed! Nous procéderons avec toute la prudence nécessaire !
-MAIN_ADVISOR_SHIP_ENGINE   | Vos scientifiques ont perfectionné de nouvelles conceptions de moteurs de navires ! Ils modifieront vos flottes dès que vous le daignerez !
+MAIN_ADVISOR_SHIP_ENGINE   | Vos scientifiques ont perfectionné de nouvelles conceptions de moteurs de vaisseaux ! Ils modifieront vos flottes dès que vous le daignerez !
 MAIN_ADVISOR_RALLY_POINTS  | Enfin! Notre guerre sainte commence, Dieu-Empereur ! Commandez à vos flottes de se rallier dans n'importe quel monde que vous contrôlez et elles apporteront la mort rapide à notre ennemi détesté !
 MAIN_ADVISOR_MISSILE_BASES | Vos généraux pensent que construire des bases de missiles défensifs sur nos colonies les plus vulnérables serait une entreprise prudente ! Si vous êtes d'accord, Dieu-Empereur, la construction commencera immédiatement !
 MAIN_ADVISOR_SHIP_WEAPON   | Dieu-Empereur ! Vos scientifiques présentent leurs dernières avancées en matière de technologie des armes ! Nous équiperons nos flottes de ces outils de guerre, si vous donnez votre commandement !

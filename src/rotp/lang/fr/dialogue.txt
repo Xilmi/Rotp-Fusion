@@ -56,14 +56,14 @@ DECLINE_SABOTAGE_01        | Quoi ?! Vous vous attendez à ce que nous acception
 DECLINE_SABOTAGE_01        | Vous détruisez notre [target]. Pourquoi devrions-nous traiter avec vous?
 DECLINE_SABOTAGE_01        | Lorsque vous arrêtez de saboter notre [target], nous pouvons examiner la question plus avant.
 
-DECLINE_BUILDUP_01         | Nous n'en parlerons pas pendant que vous amassez des navires près de nos frontières.
-DECLINE_BUILDUP_01         | Retirez vos navires le long de nos frontières et nous envisagerons d'accepter. Jusque-là, nous ne sommes pas intéressés.
-DECLINE_BUILDUP_01         | Vos navires à nos frontières ne sont pas une menace pour nous. Mais nous refusons de traiter tant qu'ils restent.
-DECLINE_BUILDUP_01         | Si vous souhaitez traiter avec [my_empire], alors envoyez vos navires menacer les autres, pas nous.
+DECLINE_BUILDUP_01         | Nous n'en parlerons pas pendant que vous amassez des vaisseaux près de nos frontières.
+DECLINE_BUILDUP_01         | Retirez vos vaisseaux le long de nos frontières et nous envisagerons d'accepter. Jusque-là, nous ne sommes pas intéressés.
+DECLINE_BUILDUP_01         | Vos vaisseaux à nos frontières ne sont pas une menace pour nous. Mais nous refusons de traiter tant qu'ils restent.
+DECLINE_BUILDUP_01         | Si vous souhaitez traiter avec [my_empire], alors envoyez vos vaisseaux menacer les autres, pas nous.
 
 DECLINE_ENCROACH_01        | Vos flottes empiètent sur l'espace [my_raceadjec]. Éloignez-les, puis nous parlerons.
 
-DECLINE_SKIRMISH_01        | Vous attaquez nos navires sans provocation et vous attendez de nous que nous acceptions ? Nous refusons de traiter.
+DECLINE_SKIRMISH_01        | Vous attaquez nos vaisseaux sans provocation et vous attendez de nous que nous acceptions ? Nous refusons de traiter.
 DECLINE_SKIRMISH_01        | Nous ne pouvons accepter une offre de quelqu'un qui attaque nos flottes.
 DECLINE_SKIRMISH_01        | Une fois que vos flottes auront cessé d'attaquer les nôtres, nous pourrons parler.
 DECLINE_SKIRMISH_01        | Si vous souhaitez traiter avec [my_empire], laissez nos flottes tranquilles.
@@ -110,13 +110,13 @@ ACCEPT_PEACE_01            | Nous nous lassons de cette destruction insensée. [
 BREAK_PACT_01              | Un avertissement à [your_empire] [my_race_pluralnounof] : notre pacte de non-agression est rompu !
 ANNOUNCE_PACT_01           | Au cours de l'année [year], [my_empire] s'engage à adhérer à un pacte de non-agression et à ne pas attaquer les flottes [your_race_pluraladjecF] à moins qu'elles ne soient en orbite autour de l'une de nos colonies.
 ACCEPT_PACT_01             | [my_empire] accepte un pacte de non-agression. Aucune des deux parties n'attaquera les flottes de l'autre, à moins qu'elles n'entrent dans l'orbite d'une colonie adverse.
-ACCEPT_PACT_01             | Si vous acceptez de ne pas envoyer de navires dans l'une de nos colonies, le peuple [my_raceadjec] jure de ne pas attaquer aucun de vos navires.
+ACCEPT_PACT_01             | Si vous acceptez de ne pas envoyer de vaisseaux dans l'une de nos colonies, le peuple [my_raceadjec] jure de ne pas attaquer aucun de vos vaisseaux.
 ACCEPT_PACT_01             | [my_nameTitle] [my_name] accepte votre pacte de non-agression proposé. Ainsi c'est écrit, ainsi ce sera fait !
 ACCEPT_PACT_01             | C'est d'accord alors. Tant que vous n'attaquez pas nos colonies, [my_empire] respectera le Pacte de non-agression.
 
 BREAK_ALLIANCE_01          | [my_empire] ne peut plus maintenir une alliance avec [your_empire].
 ANNOUNCE_ALLIANCE_01       | En [year] [my_empire] et [your_empire] acceptent de former une alliance dans laquelle ni l'un ni l'autre n'attaquera les flottes ou les colonies de l'autre.
-ANNOUNCE_ALLIANCE_01       | Ainsi notre Alliance est forgée. Vos navires peuvent visiter nos colonies à votre guise et s'approvisionner en carburant dans nos bases.
+ANNOUNCE_ALLIANCE_01       | Ainsi notre Alliance est forgée. Vos vaisseaux peuvent visiter nos colonies à votre guise et s'approvisionner en carburant dans nos bases.
 ACCEPT_ALLIANCE_01         | [my_nameTitle] [my_name] accueille une Alliance avec notre bon ami, [your_nameTitle] [your_name].
 ACCEPT_ALLIANCE_01         | [my_empire] et [your_empire] forgent aujourd'hui une Alliance entre nos peuples. Mort à nos ennemis !
 ACCEPT_ALLIANCE_01         | [my_nameTitle] [my_name] voit la sagesse dans une Alliance avec [your_empire]. Ainsi soit-il!

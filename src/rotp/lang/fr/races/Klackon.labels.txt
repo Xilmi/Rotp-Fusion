@@ -29,7 +29,7 @@ _nameTitle                        |
 // Advisor text
 MAIN_ADVISOR_TITLE                | [player_name]
 MAIN_ADVISOR_BUTTON_OK            | Merci
-MAIN_ADVISOR_SCOUT                | Mes navires sont enfin terminés. Je dois utiliser mes éclaireurs pour trouver de nouveaux mondes sur un desquels mon navire de colonisation pourra se poser.
+MAIN_ADVISOR_SCOUT                | Mes vaisseaux sont enfin terminés. Je dois utiliser mes éclaireurs pour trouver de nouveaux mondes sur un desquels mon vaisseau de colonisation pourra se poser.
 MAIN_ADVISOR_TRANSPORT            | Je me suis établi dans ce nouveau monde et je dois en envoyer plus de colons pour le développer. Il n'y a pas de nouvelle vie ici, et donc ma recherche continue.
 MAIN_ADVISOR_DIPLOMACY            | Enfin de la nouvelle vie ! Quelle étrange forme de vie qui communique par des bruits et des gestes. Je dois contempler les informations diplomatiques et de renseignement que je connais à leur sujet avant de faire mon prochain pas.
 MAIN_ADVISOR_SHIP_ENGINE          | Je continue de m'améliorer avec ce raffinement de mes moteurs de vaisseaux spatiaux. Je dois améliorer la conception de mes vaisseaux pour les intégrer à ma flotte.

@@ -125,10 +125,10 @@ DECLINE_SABOTAGE_01        | Quoi! Vous voulez que je sois d'accord quand vous s
 DECLINE_SABOTAGE_01        | Vous détruisez mon [target]. Pourquoi devrais-je traiter avec vous ?
 DECLINE_SABOTAGE_01        | Lorsque vous arrêterez de saboter mon [target], je pourrai réfléchir davantage à la question.
 
-DECLINE_BUILDUP_01         | Je n'en parlerai pas pendant que vous amassez des navires près de mes frontières.
-DECLINE_BUILDUP_01         | Retirez vos navires le long de mes frontières et j'envisagerai d'accepter. Jusque-là, je ne suis pas intéressé.
-DECLINE_BUILDUP_01         | Vos navires à mes frontières ne sont pas une menace pour moi. Mais je refuse de traiter tant qu'ils restent.
-DECLINE_BUILDUP_01         | Si vous souhaitez traiter avec moi, alors envoyez vos navires menacer les autres, pas moi.
+DECLINE_BUILDUP_01         | Je n'en parlerai pas pendant que vous amassez des vaisseaux près de mes frontières.
+DECLINE_BUILDUP_01         | Retirez vos vaisseaux le long de mes frontières et j'envisagerai d'accepter. Jusque-là, je ne suis pas intéressé.
+DECLINE_BUILDUP_01         | Vos vaisseaux à mes frontières ne sont pas une menace pour moi. Mais je refuse de traiter tant qu'ils restent.
+DECLINE_BUILDUP_01         | Si vous souhaitez traiter avec moi, alors envoyez vos vaisseaux menacer les autres, pas moi.
 
 DECLINE_ENCROACH_01        | Vos flottes s'immiscent dans mon espace. Éloignez-les, puis nous parlerons.
 
@@ -186,13 +186,13 @@ ACCEPT_PEACE_01            | Je me lasse de cette destruction insensée. J'accep
 BREAK_PACT_01              | Un avertissement à [your_name] de ma part : notre pacte de non-agression est rompu !
 ANNOUNCE_PACT_01           | Dans l'année [year], je m'engage à adhérer à un pacte de non-agression et à ne pas attaquer vos flottes à moins qu'elles ne soient en orbite autour de l'une de mes colonies.
 ACCEPT_PACT_01             | J'accepte un pacte de non-agression. Ni l'un ni l'autre n'attaquera les flottes de l'autre, à moins que l'orbite d'une colonie adverse ne soit entrée.
-ACCEPT_PACT_01             | Si vous acceptez de ne pas envoyer de navires dans aucune de mes colonies, je m'engage à n'attaquer aucun de vos navires.
+ACCEPT_PACT_01             | Si vous acceptez de ne pas envoyer de vaisseaux dans aucune de mes colonies, je m'engage à n'attaquer aucun de vos vaisseaux.
 ACCEPT_PACT_01             | J'accepte votre pacte de non-agression proposé. Ainsi c'est écrit, ainsi ce sera fait !
 ACCEPT_PACT_01             | D'accord, alors. Tant que vous n'attaquez pas mes colonies, je respecterai le Pacte de non-agression.
 
 BREAK_ALLIANCE_01          | Je ne peux plus maintenir une Alliance avec [your_name].
 ANNOUNCE_ALLIANCE_01       | Au cours de l'année [year], [your_name] et moi convenons de former une alliance dans laquelle ni l'un ni l'autre n'attaquera les flottes ou les colonies de l'autre.
-ANNOUNCE_ALLIANCE_01       | Ainsi notre Alliance est forgée. Vos navires peuvent visiter mes colonies à votre guise et obtenir du carburant de mes bases.
+ANNOUNCE_ALLIANCE_01       | Ainsi notre Alliance est forgée. Vos vaisseaux peuvent visiter mes colonies à votre guise et obtenir du carburant de mes bases.
 ACCEPT_ALLIANCE_01         | J'accueille une Alliance avec mon bon ami, [your_name].
 ACCEPT_ALLIANCE_01         | Moi et [your_name] forgeons aujourd'hui une alliance. Mort à nos ennemis !
 ACCEPT_ALLIANCE_01         | Je vois la sagesse dans une Alliance avec [your_name]. Ainsi soit-il!

@@ -29,13 +29,13 @@ _nameTitle                        |
 // Advisor text
 MAIN_ADVISOR_TITLE                | Conseiller [my_raceadjec]
 MAIN_ADVISOR_BUTTON_OK            | Merci
-MAIN_ADVISOR_SCOUT                | Nous avons terminé la construction d'une paire d'éclaireurs et d'un navire de colonie. Espérons que les réponses que nous cherchons se présentent sur un monde proche.
+MAIN_ADVISOR_SCOUT                | Nous avons terminé la construction d'une paire d'éclaireurs et d'un vaisseau de colonie. Espérons que les réponses que nous cherchons se présentent sur un monde proche.
 MAIN_ADVISOR_TRANSPORT            | Aucune réponse trouvée sur la planète %1. Nous devrions encore augmenter notre nombre là-bas en envoyant tous les transports dont nous pouvons disposer.
 MAIN_ADVISOR_DIPLOMACY            | Des représentants d'un peuple originaire de ce plan se sont fait connaître. Nous devons faire tout notre possible pour apprendre toutes les réponses qu'ils possèdent.
-MAIN_ADVISOR_SHIP_ENGINE          | Nous avons découvert un moyen de produire des moteurs plus efficaces. Nous devons parvenir à un consensus sur la meilleure façon de mettre à jour nos conceptions de navires pour utiliser cette nouvelle technologie.
-MAIN_ADVISOR_RALLY_POINTS         | Un conflit inévitable a commencé ! Nos installations de production peuvent diriger leurs navires nouvellement construits pour se rallier à un seul monde et y former une flotte pour nous défendre des agresseurs.
+MAIN_ADVISOR_SHIP_ENGINE          | Nous avons découvert un moyen de produire des moteurs plus efficaces. Nous devons parvenir à un consensus sur la meilleure façon de mettre à jour nos conceptions de vaisseaux pour utiliser cette nouvelle technologie.
+MAIN_ADVISOR_RALLY_POINTS         | Un conflit inévitable a commencé ! Nos installations de production peuvent diriger leurs vaisseaux nouvellement construits pour se rallier à un seul monde et y former une flotte pour nous défendre des agresseurs.
 MAIN_ADVISOR_MISSILE_BASES        | Nous avons trop perdu en venant dans cet univers pour en perdre plus maintenant : faites en sorte que nos colonies se protègent des ennemis en construisant autant de bases de missiles défensifs que possible.
-MAIN_ADVISOR_SHIP_WEAPON          | Nous avons découvert une nouvelle technologie qui améliore les capacités offensives de nos navires spatiaux. Nous devons à nouveau décider comment mettre à jour nos conceptions de navires pour en profiter le plus rapidement possible.
+MAIN_ADVISOR_SHIP_WEAPON          | Nous avons découvert une nouvelle technologie qui améliore les capacités offensives de nos vaisseaux spatiaux. Nous devons à nouveau décider comment mettre à jour nos conceptions de vaisseaux pour en profiter le plus rapidement possible.
 MAIN_ADVISOR_COUNCIL              | Il y a des rumeurs d'un rassemblement connu sous le nom de Conseil Galactique qui se produira bientôt. Nos espions espèrent l'utiliser comme une opportunité de recueillir toutes les informations qu'ils peuvent. L'avenir de notre race en dépend !
 MAIN_ADVISOR_REBELLION            | Les habitants de %1 ont-ils perdu la tête ?! Ils oublient que ce n'est qu'ensemble que nous pouvons triompher dans cet univers ! Il faut faire un exemple de cette rébellion immédiatement !
 MAIN_ADVISOR_RESIST_COUNCIL       | Nos chances de succès ici ont toujours été minces. Lutter contre le Conseil Galactique et ses alliés n'entrave pas nos chances.
