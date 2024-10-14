@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.10.14  (BR)
+- More French translations.
+
 2024.10.13  (BR)
 - Shortened some of the French translations + minor fixes.
 - Auto conversion of dialogue keywords for untranslated texts.

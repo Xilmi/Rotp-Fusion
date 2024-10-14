@@ -1569,13 +1569,16 @@ SETUP_RANDOMIZE_AI_ABILITY        | Capacité
 SETUP_RANDOMIZE_AI_BOTH           | Les deux
 SETUP_RACE_LABEL                  | Races disponibles
 SETUP_RACE_COLOR                  | Votre Couleur
-SETUP_HOMEWORLD_NAME_LABEL        | Planète :
+SETUP_HOMEWORLD_NAME_LABEL        | Planète d'origine :
 SETUP_LEADER_NAME_LABEL           | Dirigeant :
+SETUP_SHIP_SET_LABEL              | Modèles de vaisseaux :
+SETUP_SHIPSET_ORIGINAL            | Original
 SETUP_FLAG_LABEL                  | Bannière
 SETUP_BUTTON_CANCEL               | Annuler
 SETUP_BUTTON_BACK                 | Retour
 SETUP_BUTTON_NEXT                 | Suivant
 SETUP_BUTTON_START                | Commencer
+SETUP_BUTTON_RESTART              | Recommencer
 SETUP_BUTTON_SETTINGS             | Options avancées
 
 SETUP_BUTTON_TUNE_GALAXY             | Ajuster la galaxie
@@ -1654,7 +1657,53 @@ SETUP_SPIRALARMS_SYMMETRIC        | Symmetric
 SETUP_SWIRLCLUSTERS_0             | Sur le fil
 SETUP_SWIRLCLUSTERS_1             | Imbriqués
 SETUP_SWIRLCLUSTERS_2             | Sans Amas
+SETUP_BITMAP_GREY_SUM             | Gris / Somme
+SETUP_BITMAP_GREY_MAX             | Gris / Max
+SETUP_BITMAP_GREY_INVERSE         | Gris Inversé
+SETUP_BITMAP_COLOR                | Couleur
+SETUP_BITMAP_ADVANCED             | Avancé
+SETUP_BITMAP_ADVANCED_MASK        | Avancé/Masque
+SETUP_BITMAP_ADVANCED_MASK2       | Avancé/Masque2
+SETUP_BITMAP_NORMAL               | Normal
+SETUP_BITMAP_SHARP1               | Affiné
+SETUP_BITMAP_SHARP2               | Aiguisé
+SETUP_BITMAP_SHARP3               | Affilé
+SETUP_BITMAP_SHARP4               | Comme un Rasoir
+SETUP_BITMAP_NO_SELECTION         | Sélection du fichier
+SETUP_SPECIFIC_AI_DESC            | Choisir l'IA qui pilotera cet opposant.
+SETUP_SPECIFIC_AI                 | IA dédiée aux opposants
+SETUP_GLOBAL_AI_DESC              | Choisir une IA...
+SETUP_GLOBAL_AI                   | IA des Opposants
+SETUP_SPECIFIC_ABILITY_DESC       | Choisir l'aptitude de cet opposant
+SETUP_SPECIFIC_ABILITY            | Aptitudes spécifiques des opposant
+SETUP_GLOBAL_ABILITY_DESC         | Choisir les aptitudes de vos opposants. Par défaut, les aptitudes standards de l'espèce seront utilisées.
+SETUP_GLOBAL_ABILITY              | Aptitudes globales
+SETUP_SPECIFIC_OPPONENT_DESC      | Vous pouvez choisir individuellement vos opposants, ou laisser le jeu les choisir aléatoirement...<br>Un maximum de 5 opposants de la même espèce sont autorisés.
+SETUP_SPECIFIC_OPPONENT           | Opposant Spécifique
 SETUP_NOT_AVAILABLE               | N/A
+SETUP_ALIENS_NUMBER_DESC          | Choisir le nombre d'opposants (entre 0 et 49). Ce nombre est limité par la taille de la galaxie. Choisir ensuite les IA de vos opposans, globalement ou individuellement.
+SETUP_ALIENS_NUMBER               | Nombre d'opposants: %1
+
+SETUP_PLAYER_SPECIES_DESC         | Choisissez votre espèce
+SETUP_PLAYER_SPECIES              | Espèce du joueur
+SETUP_PLAYER_HOMEWORLD_DESC       | Choisissez le nom de votre planète d'origine.
+SETUP_PLAYER_HOMEWORLD            | Planète d'origine du joueur
+SETUP_PLAYER_LEADER_DESC          | Choisissez le nom de votre dirigeant.
+SETUP_PLAYER_LEADER               | Dirigeant du joueur
+
+SETUP_NO_FOG_ON_ICONS             | Retirer la brume: %1
+SETUP_NO_FOG_ON_ICONS_DESC        | Retire le brouillard qui masque partiellement les icones des diplomates dans les paneaux de configuration de l'espèce de de caractérisation de la galaxie.
+
+// BR: config Player Race
+SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Façonner une espèce
+
+// BR: Customize Player Race
+CUSTOM_RACE_RACE_AI_DESC          | Changer l'IA de l'empire
+CUSTOM_RACE_GUI_TITLE             | Façonnage des espèces
+CUSTOM_RACE_SHOW_TITLE            | Aptitudes de l'espèce
+CUSTOM_RACE_GUI_MALUS             | (Malus: %1)
+CUSTOM_RACE_GUI_COST              | Valeur totale: %1
+CUSTOM_RACE_GUI_SELECT_DESC       | Enregistrer cette espèce, l'attribuer au joueur, Enregistrer en tant que «Dernier paramètre», et quitter ce panneau.
 
 // Advanced Settings
 SETTINGS_TITLE                    | Options Avancées
