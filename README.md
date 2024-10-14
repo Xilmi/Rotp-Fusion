@@ -73,6 +73,7 @@ Later:
 - Shortened some of the French translations + minor fixes.
 - Auto conversion of dialogue keywords for untranslated texts.
   - All Languages
+- Secured Base.drawBackgroundStars after a crash report. One star was outside the allowed window!? It was probably due to a processor glitch as this method is constantly called... But better safe than sorry.
 
 2024.10.13  (Frank Zago)
 - More French translations (New and fixes)

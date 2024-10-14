@@ -1275,6 +1275,10 @@ public interface Base {
         g.fillRect(0,0,w,h);
         int count = w*h;
         int p = 0;
+        // BR: added security Crashed once, probably because random was too close to 1!?
+        int w_ = max(0, w-1);
+        int h_ = max(0, h-1);
+
         // Color dimmest = newColor(32,32,32);
         // Color dimmer = newColor(48,48,48);
         // Color dim = newColor(64,64,64);
@@ -1288,10 +1292,10 @@ public interface Base {
 
         while (p < count) {
             p += (minDist + (int) Math.ceil(random()*varDist));
-            int x1 = p % w;
-            int y1 = p / h;
-            x1 = (int) Math.ceil(random()*w);
-            y1 = (int) Math.ceil(random()*h);
+            // int x1 = p % w; // BR: was useless
+            // int y1 = p / h;
+            int x1 = (int) Math.ceil(random()*w_);
+            int y1 = (int) Math.ceil(random()*h_);
             int roll = (int) Math.ceil(random()*100);
 			// modnar: test reduce background star speckle
 			/*
@@ -1332,6 +1336,9 @@ public interface Base {
         g.fillRect(0,0,w,h);
         int count = w*h;
         int p = 0;
+        // BR: added security Crashed once, probably because random was too close to 1!?
+        int w_ = max(0, w-1);
+        int h_ = max(0, h-1);
 
         int s1 = BasePanel.s1;
         int s2 = BasePanel.s2;
@@ -1339,10 +1346,10 @@ public interface Base {
 
         while (p < count) {
             p += (minDist + (int) Math.ceil(random()*varDist));
-            int x1 = p % w;
-            int y1 = p / h;
-            x1 = (int) Math.floor(random()*w);
-            y1 = (int) Math.floor(random()*h);
+            // int x1 = p % w; // BR: was useless
+            // int y1 = p / h;
+            int x1 = (int) Math.floor(random()*w_);
+            int y1 = (int) Math.floor(random()*h_);
             int clr=  image.getRGB(x1,y1);
             int  red   = (clr & 0x00ff0000) >> 16;
             int  green = (clr & 0x0000ff00) >> 8;
