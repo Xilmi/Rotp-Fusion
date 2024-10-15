@@ -3538,6 +3538,7 @@ TECH_SHIP_RANGE_AMT               | %1 light-years
 TECH_SHIP_SPEED                   | Top Speed
 TECH_SHIP_SPEED_AMT               | Warp %1
 TECH_BUTTON_EXIT                  | EXIT
+TECH_FREE_TECH                    | Free
 
 // Tech UI help
 TECH_HELP_1A                      | - OVERVIEW -<br>This screen allows you to adjust spending across the six areas of technology that you can study.<br>You can review technologies already learned (green),<br>currently in research (yellow)<br> or available for future research (brown).
@@ -4761,7 +4762,7 @@ TECH_HELP_HK         | →HK_HEADER← →HK_F1_?← <br><br>1-6/+SHIFT : Increm
 
 SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1_?← <br><br>Arrows Down/Up : Next/Previous Slot.<br><br>S : Scrap Design.<br>R : Rename Design.<br>D : Create Design.<br>C / (+CTRL) : Clear Design / (Only Weapons)<br><br>ALT-A : Auto build.<br>ALT-B : Auto build Bomber.<br>ALT-F : Auto build Fighter.<br>ALT-E : Auto build Scout (Explorer).<br>ALT-P : Auto build Colony (Pioneer). <br>→HK_ESCAPE←
 
-RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Empire. →HK_TAB←<br><br>A : Select Embassy Panel.<br>D : Select Diplomat Panel.<br>S : Select Spies Panel. <br>→HK_ESCAPE←
+RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Empire. →HK_TAB←<br><br>A : →RACES_DIPLOMACY_AUDIENCE← with the selected Empire.<br><br>When the player's empire is selected:<br>D : →RACES_DIPLOMACY_MANAGE_DIPLOMATS←.<br>S : →RACES_INTEL_BUREAU_MANAGE←. <br>→HK_ESCAPE←
 
 SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_YEAR← →HK_FLAG← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
 

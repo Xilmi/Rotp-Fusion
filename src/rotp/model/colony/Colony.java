@@ -314,6 +314,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	    	    		|| orders.containsKey(Orders.TERRAFORM)
 	    				|| orders.containsKey(Orders.POPULATION);
 	    	case SHIP:
+	    		return priorizeShips();
 	    	case RESEARCH:
     		default:
     			return false;
@@ -429,6 +430,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	   			keepEcoLockedToClean = false;
 	    		return;
 	    	case SHIP:
+	    		priorizeShips(true);
+	    		return;
 	    	case RESEARCH:
 			default:
     	}
@@ -450,6 +453,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	   			keepEcoLockedToClean = true;
 	    		return;
 	    	case SHIP:
+	    		priorizeShips(false);
+	    		return;
 	    	case RESEARCH:
 			default:
 		}
@@ -1716,6 +1721,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     private boolean governor = govOptions().isGovernorOnByDefault();
 //  TODO: For future use, flag allowing this colony to autobuild ships
     private boolean autoShips = govOptions().isAutoShipsByDefault();
+    private boolean priorizeShips = false;
 
     public boolean isGovernor() { return governor; }
     public void setDefaultGovernor() { setGovernor(govOptions().isGovernorOnByDefault()); }
@@ -1730,10 +1736,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
     }
 
-    public boolean isAutoShips() { return autoShips; }
-    public void setAutoShips(boolean autoShips) {
-        this.autoShips = autoShips;
-    }
+    public boolean isAutoShips()                { return autoShips; }
+    public void setAutoShips(boolean autoShips) { this.autoShips = autoShips; }
+    public boolean priorizeShips()              { return priorizeShips; }
+    public void priorizeShips(boolean priorize) { priorizeShips = priorize; }
 
     /**
      * Increment slider. Stop moving when results no longer contains "stopWhenDisappears".
@@ -1801,7 +1807,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
                 !shipyard().stargateCompleted();
         // remember if this planet was building ships. Stargate doesn't count
         // if we just finished building a stargate, we're not building ships
-        boolean buildingShips = (allocation[SHIP] > 0 || shipyard().buildLimit() > 0) &&
+        boolean buildingShips = (allocation[SHIP] > 0 || shipyard().buildLimit() > 0 || priorizeShips()) &&
                 !shipyard().design().equals(empire.shipLab().stargateDesign()) &&
                 !buildingStargate;
 

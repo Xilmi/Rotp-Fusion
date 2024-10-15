@@ -19,6 +19,7 @@ import static rotp.model.colony.Colony.DEFENSE;
 import static rotp.model.colony.Colony.ECOLOGY;
 import static rotp.model.colony.Colony.INDUSTRY;
 import static rotp.model.colony.Colony.RESEARCH;
+import static rotp.model.colony.Colony.SHIP;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -768,6 +769,7 @@ public class EmpireColonySpendingPane extends BasePanel {
 		    	case DEFENSE:
 		    	case INDUSTRY:
 		    	case ECOLOGY:
+		    	case SHIP:
 		    		colony.toggleOrder(category);
 		            repaint();
 		    		return;

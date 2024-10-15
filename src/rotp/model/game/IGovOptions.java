@@ -96,7 +96,7 @@ public interface IGovOptions {
 			.setLimits(1, 9999)
 			.setIncrements(1, 5, 20);
     // if true, new colonies will have auto ship building set to "on"
-	ParamBoolean autoShipsDefault	= new ParamBoolean(GOV_UI, "AUTOSHIPS_BY_DEFAULT", true);
+	ParamBoolean autoShipsDefault	= new ParamBoolean(GOV_UI, "AUTOSHIPS_BY_DEFAULT", false);
 
 	// Other Options
 	ParamBoolean animatedImage		= new ParamBoolean(GOV_UI, "ANIMATED_IMAGE", true);

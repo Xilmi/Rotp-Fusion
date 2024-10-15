@@ -135,7 +135,7 @@ public class RacesUI extends BasePanel {
         int xHK = scaled(100);
         int yHK = scaled(70);
         int wHK = scaled(360);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 14, text("RACES_HELP_HK"));
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 0, text("RACES_HELP_HK"));
         helpUI.open(this);
     }
     private void loadHelpUI() {

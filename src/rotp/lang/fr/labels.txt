@@ -1795,6 +1795,7 @@ TECH_SHIP_RANGE_AMT               | %1 A.L.
 TECH_SHIP_SPEED                   | Vitesse de pointe
 TECH_SHIP_SPEED_AMT               | Distorsion %1
 TECH_BUTTON_EXIT                  | QUITTER
+TECH_FREE_TECH                    | Gratis
 
 // Tech UI help
 TECH_HELP_1A                      | APERÇU - Cet écran vous permet d'ajuster les dépenses dans les six domaines technologiques que vous pouvez étudier. Vous pouvez passer en revue les technologies déjà apprises (vert), en cours de recherche (jaune) ou disponibles pour de futures recherches (marron).

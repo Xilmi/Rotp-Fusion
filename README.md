@@ -69,8 +69,18 @@ Later:
 
 ## What's New
 
+2024.10.15  (BR)
+- Fixed Governor not upgrading planet for Silicoids.
+- Ship building can now be prioritized. (For Governor).
+- Improved Empire Hotkey description.
+- "Free" of tech panel is now translatable.
+
+2024.10.14  (Frank Zago)
+- More French translations (New and fixes)
+
 2024.10.14  (BR)
 - More French translations.
+- Fixed Governor not upgrading planet for Silicoids.
 
 2024.10.13  (BR)
 - Shortened some of the French translations + minor fixes.

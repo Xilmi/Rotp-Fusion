@@ -331,9 +331,9 @@ public class ColonyShipyard extends ColonySpendingCategory {
 
         return min(buildLimit, (int) (totalBC / cost));
     }
-    public String buildLimitResult() {
+    /* public String buildLimitResult() { // BR: Commented Unused
         return text("MAIN_COLONY_SHIPYARD_LIMIT",buildLimit());
-    }
+    } */
     @Override
     public float excessSpending() {
         if (colony().allocation(categoryType()) == 0)

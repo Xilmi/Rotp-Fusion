@@ -533,16 +533,16 @@ public class ColonyEcology extends ColonySpendingCategory {
 
         // don't count enrichSoil cost unless not hostile or civ can terraform hostile
         float enrichCost = 0;
-        if (!emp.ignoresPlanetEnvironment()) {
+        // if (!emp.ignoresPlanetEnvironment()) { // BR: Still useful for size improvement
             if (!planet.isEnvironmentHostile() || planet.canTerraformAtmosphere(emp)) {
                 if (tech.enrichSoil() && (tech.topSoilEnrichmentTech().environment > planet.environment())) {
                     enrichCost = ((tech.topSoilEnrichmentTech().environment - planet.environment()) * SOIL_UPGRADE_BC) - soilEnrichBC;
                     enrichCost = max(0,enrichCost);
                 }
             }
-        }
+        // }
         // try to terraform planet to maxSize (currently not counting incr from previous terraforms)
-        float roomToGrow = colony().maxSize() - planet.currentSize();
+        float roomToGrow = colony().ultimateMaxSize() - planet.currentSize();
         float terraformCost = 0;
 
         if (roomToGrow > 0) {

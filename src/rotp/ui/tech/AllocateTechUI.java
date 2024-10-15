@@ -948,7 +948,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     private void drawTierLevel(Graphics2D g, int x0, int w, int tierNum) {
         g.setColor(tierNumC);
         g.setFont(narrowFont(30));
-        String numStr = tierNum==0? "Free" : str(tierNum);
+        String numStr = tierNum==0? text("TECH_FREE_TECH") : str(tierNum);
         int sw = g.getFontMetrics().stringWidth(numStr);
         drawString(g,numStr, x0+w-sw-s5, s25);
     }

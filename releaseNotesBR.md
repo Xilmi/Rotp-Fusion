@@ -3,6 +3,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Improved Empire Hotkey description.
+- "Free" of tech panel is now translatable.
+- Ship building can now be prioritized. (For Governor).
+- Fixed Governor not upgrading planet for Silicoids.
 - Auto conversion of dialogue keywords for untranslated texts.
 - Fixed Research bubble not always being up to date.
 - Fixed Advisor Messages not always fitting inside the box. 
