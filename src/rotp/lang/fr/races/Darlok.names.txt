@@ -1,5 +1,5 @@
 // all possible names
-name: Nazlok, Sarlok, Spylok, Shadelok, Nazlok
+name: Nazlok, Sarlok, Spylok, Shadelok, Dralok
 
 desc1: Des Diplomates Agressifs
 desc2: Des Espions Suprêmes
@@ -20,4 +20,3 @@ ship1: Brouillard, Vapeur, Étincelle, Voile, Présage, Éther, Lueur
 ship2: Mirage, Ombre, Rêve, Illusion, Reflet, Vision, Hantise
 ship3: Fantôme, Spectre, Apparition, Nuance, Âme, Esprit, Poltergeist
 ship4: Cauchemar, Fantasme, Terreur, Horreur, Revenant, Faucheuse, Phobos
-

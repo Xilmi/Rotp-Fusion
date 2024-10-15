@@ -295,7 +295,7 @@ INC_COUNCIL_VOTE_FOR_DESC         | [voter_race_pluralnoun] ont voté pour [cand
 INC_COUNCIL_VOTE_AGAINST_DESC     | [voter_race_pluralnoun] ont voté contre [candidate_name], leader [candidate_race_pluralnounof].
 INC_COUNCIL_ABSTAIN_DESC          | [voter_race_pluralnoun] se sont abstenus lors de l'élection du Conseil Galactique, refusant de voter pour [candidate_name], leader [candidate_race_pluralnounof].
 INC_DECLARED_WAR_TITLE            | Guerre déclarée
-INC_DECLARED_WAR_DESC             | [aggressor_empire] a déclaré la guerre aux [victim_empire_pluraladjec].
+INC_DECLARED_WAR_DESC             | [aggressor_empire] a déclaré la guerre [victim_race_pluralnounto].
 INC_ERRATIC_WAR_TITLE             | Comportement ératique
 INC_ERRATIC_WAR_DESC              | [aggressor_race_pluralnoun] sont devenus agités et ont déclaré la guerre à [victim_empire], et personne ne sait vraiment pourquoi.
 INC_DEMANDED_TRIBUTE_TITLE        | Hommage demandé
@@ -371,7 +371,7 @@ INC_SIGNED_PACT_DESC              | [my_empire] et [your_empire] ont signé un p
 INC_SIGNED_ARMISTICE_TITLE        | Signer un Armistice
 INC_SIGNED_ARMISTICE_DESC         | [my_empire] et [your_empire] ont signé un armistice, puis un pacte de non-agression, évitant les conflits spatiaux dans des systèmes neutres.
 INC_SIGNED_PEACE_TITLE            | Traité de Paix
-INC_SIGNED_PEACE_DESC             | [my_empire] et [your_empire] ont signé un traité de paix, mettant fin à toutes les hostilités jusqu'à ce que[endYear].
+INC_SIGNED_PEACE_DESC             | [my_empire] et [your_empire] ont signé un traité de paix, mettant fin à toutes les hostilités jusqu'en [endYear].
 INC_SIGNED_TRADE_TITLE            | Traité Commercial
 INC_SIGNED_TRADE_DESC             | [my_empire] et [your_empire] ont convenu d'un traité commercial jusqu'à un montant annuel maximum de [amt] BC.
 INC_SKIRMISH_TITLE                | Escarmouche
@@ -1806,6 +1806,8 @@ TECH_HELP_1F                      | La production totale (BC) appliquée à la r
 TECH_HELP_1G                      | Les dépenses excessives dans une colonie peuvent être dirigées vers la recherche au lieu du trésor de l'empire.
 TECH_HELP_1H                      | Chaque domaine technologique a une barre de dépenses. Cliquez sur le nom pour vérrouiller une barre. Les dépenses du premier 1/6ème de chaque barre gagnent un bonus de recherche de 25 %.
 TECH_HELP_1I                      | Égalisez les allocations de dépenses pour les barres déverrouillées.
+TECH_HELP_1J                      | - MINIATURISATION -<br>Tous les composants des vaisseaux deviennent plus petits et moins chers lorsque vous recherchez d'autres technologies dans la même catégorie que ce composant.<br> Pour chaque niveau de technologie au-dessus du niveau d'un composant non armé, sa taille est réduite de 2,5 % et son coût réduit de 5 %.<br>Les composant d'armes diminuent plus rapidement. Pour chaque niveau de technologie dépassant le niveau d'arme, sa taille est réduite de 5 % et son coût réduit de 5 %.<br> Cela signifie que vos conceptions seront moins chères à mesure que plus vous apprendrez de technologies, et que les armes ne seront plus à la pointe, plus vous pourrez en mettre dans vos vaisseaux.
+TECH_HELP_1K                      | Les niveaux de technologie sont déterminés en multipliant votre plus haut niveau de technologie connu par 0,80 et en ajoutant 1 pour chaque technologie que vous connaissez dans cette catégorie.
 
 // =========================================================================
 //   ALPHA 4
@@ -2252,6 +2254,7 @@ RACES_HELP_0D                     | Armée - Affichez les conceptions de la flot
 RACES_HELP_0E                     | Statut - Comparaison entre plusieurs catégories.
 RACES_HELP_0F                     | La sélection de votre empire vous permet de gérer les informations de toutes les races contactées sur chaque onglet.
 RACES_HELP_0G                     | La sélection d'un empire extraterrestre affiche des informations plus détaillées pour cette race sur chaque onglet.
+RACES_HELP_0H                     | Si pas à jour :<br>Âge du dernier rapport d'espionnage âge.<br> ("-" pour jamais)
 RACES_HELP_1A                     | Informations générales pour l'empire sélectionné.
 RACES_HELP_1B                     | Fournit un accès direct aux diplomates de tous les empires contactés.
 RACES_HELP_1C                     | Augmentez la taxe de sécurité pour améliorer vos chances de déjouer les espions ennemis.
@@ -2270,6 +2273,7 @@ RACES_HELP_3C                     | Toutes les technologies connues par d'autres
 RACES_HELP_4A                     | Définissez le nombre de réseaux d'espionnage que vous souhaitez établir dans l'empire sélectionné et le montant que vous souhaitez dépenser chaque année.
 RACES_HELP_4B                     | Définissez les ordres pour les espions infiltrant l'empire sélectionné. Masquer - collecter des données. Espionnage - tentative de vol de technologie. Sabotage - incitez à des rébellions ou détruisez des usines et des bases de missiles.
 RACES_HELP_4C                     | Toutes les technologies connues par l'empire sélectionné. Les technologies que vous ne connaissez pas sont indiquées en jaune.
+RACES_HELP_4D                     | Primes d'espionnage les plus récentes pour les missions connexes.<br>(Probabilité / Impact).< br> Basé sur les derniers niveaux de technologie et de sécurité signalés.
 RACES_HELP_5A                     | Le nombre connu de vaisseaux dans la flotte de la race sélectionnée, par taille de coque. Ces informations resteront à jour tant que vous aurez un réseau d'espionnage actif dans l'empire sélectionné.
 RACES_HELP_5B                     | Les capacités connues des conceptions de vaisseaux. Les conceptions plus anciennes peuvent être hors service. Ces informations sont principalement recueillies lors des combats navals.
 RACES_HELP_5C                     | Les capacités défensives connues de l'empire sélectionné.
@@ -2278,6 +2282,7 @@ RACES_HELP_6A2                    | Cet écran fournit une comparaison historiqu
 RACES_HELP_6B                     | Force de la Flotte - combine le nombre et la taille des vaisseaux.
 RACES_HELP_6C                     | Population - population totale de tous les systèmes colonisés.
 RACES_HELP_6D                     | Technologie - niveau moyen de technologie dans tous les domaines de la recherche.
+RACES_HELP_6Dg                    | Technologie - niveau moyen de technologie dans tous les domaines de recherche.<br> La ligne pointillée montre le niveau maximal de technologie.
 RACES_HELP_6E                     | Planètes - le nombre de systèmes colonisés.
 RACES_HELP_6F                     | Production - production industrielle totale pour l'empire.
 RACES_HELP_6G                     | Puiss. totale - une combinaison de la force de la flotte, de la technologie et des niveaux de production.
@@ -2513,3 +2518,7 @@ HK_SEL_B       | /+ALT/+CTRL/+SHIFT : Sélection actuelle
 HK_SEL_E       | Dépenses à 100% / Max-Intel. / Verrouillage / Déverrouillage
 HK_SET_DEFAULT | <br>ALT-F : Définir les valeurs par défaut à →FUSION_HK←.<br>ALT-M : Définir les valeurs par défaut à →MOO1_HK←.<br>ALT-R : Définir les valeurs par défaut à →CLASSIC_HK←.
 MAIN_HELP_SHIPFLEET_HK | HOTKEY QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d'informations détaillées (si elles sont connues)<br><br> MODE DE DÉMÉNAGEMENT DES FLOTTES :<br><br>Appuyez sur «ALT» pour montrer des informations sur l'étoile ou la flotte survolée par la souris.
+
+// Shortcuts Full lists*
+
+TECH_HELP_HK         | →HK_HEADER← →HK_F1_?← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>CTRL+1-6 : (dé)verrouiller les curseurs.<br>Flêches : Déplacer l'arbre / Catégories<br>= : Égalizer<br>Molette souris : Changer affectations.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit: Montre plus d'info sur la tech survolée <br> →HK_ESCAPE←
