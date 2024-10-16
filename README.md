@@ -75,6 +75,9 @@ Later:
   - Fixed some French help translations.
 - Fixed Greek characters not being displayed in GNN announces. (French only)
   - Changed the dialogue font, as the original one don't includes Greek set.
+  - !This was not a bug, just a no-feature, as no system includes Greek character!
+  --> Restored Original font. It will only be replaced when the original GNN font will not be able to display the system name.
+
 
 2024.10.15  (BR)
 - Fixed Governor not upgrading planet for Silicoids.

@@ -354,8 +354,14 @@ public class DiplomaticMessageUI extends FadeInPanel
         int nonRemarkLines = message.numReplies()+(message.numDataLines()+1)/2;
         int maxLinesForText = nonRemarkLines > 3 ? 2 : 6-nonRemarkLines;
         // need to calculate correct font size to fit full text (remark & detail) onto allowed # of lines
-        int dispFontSize = scaledDialogueFontSize(g, displayText, w1, maxLinesForText, 26, 16);
-        g.setFont(dlgFont(dispFontSize));
+        int dispFontSize = scaledDialogueOrNarrowFontSize(g, displayText, w1, maxLinesForText, 26, 16);
+        if (dispFontSize >0) {
+        	g.setFont(dlgFont(dispFontSize));
+        }
+        else {
+        	dispFontSize = -dispFontSize;
+        	g.setFont(narrowFont(dispFontSize));
+        }
         // now split just the remark text 
         List<String> remarkLines = wrappedLines(g, messageRemark, w1);
         int lineH = scaled(dispFontSize-2);

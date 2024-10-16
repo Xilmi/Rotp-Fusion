@@ -146,7 +146,7 @@ public class GNNUI extends FadeInPanel implements MouseListener, MouseMotionList
     private void drawText(Graphics g, int w, int h) {
         Color c0 = player().race().gnnTextColor;
         g.setColor(c0);
-        g.setFont(dlgFont(28));
+        g.setFont(dlgOrNarrowFont(28, messageText));
         int lineH = s28;
         int y1 = h*27/100;
         int x1 = w*65/100;

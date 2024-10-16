@@ -46,7 +46,7 @@ public enum FontManager implements Base {
 
     public static Font getNarrowFont(float size) {
     	Font[] fonts = INSTANCE.allFonts.get(INSTANCE.narrowFont);
-    	return fonts[0].deriveFont(size);
+    	return fonts[0].deriveFont(size*INSTANCE.narrowSize/100);
     }
     public void resetGalaxyFont() { galaxyFont = null; }
     @Override public Font galaxyFont(int size) { // BR: MonoSpaced font for Galaxy

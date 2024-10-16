@@ -199,6 +199,18 @@ public interface Base {
     public default Font galaxyFont(int size) { // BR: MonoSpaced font for Galaxy
         return FontManager.current().galaxyFont(size);
     }
+    /**
+     * First choice is dialogue font... But if the dialogue font
+     * can not display the String str, return the narrow font
+     * (dialogue font do not include Greek Character Set)
+     */
+    public default Font dlgOrNarrowFont(int size, String str) {
+    	Font dlg = FontManager.current().dlgFont(size);
+    	if (dlg.canDisplayUpTo(str) == -1)
+    		return dlg;
+    	else
+    		return FontManager.current().narrowFont(size);
+    }
     public default Font dlgFont(int size) {
         return FontManager.current().dlgFont(size);
     }
@@ -1186,6 +1198,31 @@ public interface Base {
             wrappedLines = wrappedLines(g, text, maxWidth);
         }
         return wrappedLines;
+    }
+    /**
+    * First choice is dialogue font... But if the dialogue font
+    * can not display the String str, return the narrow font
+    * (dialogue font do not include Greek Character Set)
+    * Negative value is returned for narrow fonts
+    */
+    public default int scaledDialogueOrNarrowFontSize(Graphics g, String text, int maxWidth, int maxLines, int desiredFont, int minFont) {
+        int fontSize = desiredFont;
+        Font font = dlgFont(fontSize);
+        if (font.canDisplayUpTo(text) == -1)
+        	return scaledDialogueFontSize(g, text, maxWidth, maxLines, desiredFont, minFont);
+        else
+        	return -scaledNarrowFontSize(g, text, maxWidth, maxLines, desiredFont, minFont);
+    }
+    public default int scaledNarrowFontSize(Graphics g, String text, int maxWidth, int maxLines, int desiredFont, int minFont) {
+        int fontSize = desiredFont;
+        g.setFont(narrowFont(fontSize));
+        List<String> wrappedLines = wrappedLines(g, text, maxWidth);
+        while ((wrappedLines.size() > maxLines) && (fontSize > minFont)) {
+            fontSize--;
+            g.setFont(narrowFont(fontSize));
+            wrappedLines = wrappedLines(g, text, maxWidth);
+        }
+        return fontSize;
     }
     public default int scaledDialogueFontSize(Graphics g, String text, int maxWidth, int maxLines, int desiredFont, int minFont) {
         int fontSize = desiredFont;

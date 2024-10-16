@@ -2,8 +2,6 @@
 
 logo,       Amarante-Regular.otf,     100
 dialogue,   CRANBERR.otf,             100
-// BR: Use this one to display planet names with greek char
-//dialogue,   MyriadPro-Regular.otf,    90
 narrow,     MyriadPro-BoldCond.otf,   100
 normal,     MyriadPro-Bold.otf,       100
 plain,      MyriadPro-Cond.otf,       100
