@@ -1064,7 +1064,7 @@ PLANETS_HELP_4D                   | Production - production totale de la colonie
 PLANETS_HELP_4E                   | Boucliers - niveau du bouclier planétaire.
 PLANETS_HELP_4F                   | Bases - bases de missiles sur la planète. Rouge si technologie obsolète.
 PLANETS_HELP_4G                   | Chantier Naval - conception du vaisseau en cours de construction.
-PLANETS_HELP_4H                   | Notes - PNotes du joueur sur le système. Modifiable.
+PLANETS_HELP_4H                   | Notes - Notes du joueur sur le système. Modifiable.
 PLANETS_HELP_4I                   | Drapeau - Drapeau du système, choisi par l'utilisateur.
 
 // Bombardment prompt
@@ -1286,7 +1286,7 @@ GNN_PRODUCTION_RANKING            | Classements actuels de la production de l'em
 GNN_TECHNOLOGY_RANKING            | Leaders actuels de la technologie de pointe :
 GNN_PLAYER_REBELLION              | %1 s'est rebellé et refuse de contribuer à [rebelling_empire]. Au moins %2 millions de rebelles contrôlent la colonie. Des troupes doivent être envoyées pour réprimer le soulèvement.
 GNN_ALIEN_REBELLION               | %1 s'est rebellé et a refusé de contribuer à [rebelling_empire]. Au moins %2 millions de rebelles contrôlent la colonie.
-GNN_PLAYER_REBELLION_SPREAD       | Rebellion continues to spread throughout the [rebelling_empire]. At least %2 million rebels now control the colony at %1.
+GNN_PLAYER_REBELLION_SPREAD       | La rébellion continue de se propager dans tout le [rebelling_empire]. Au moins %2 millions de rebelles contrôlent désormais la colonie de %1.
 GNN_OVERTHROW                     | Un nouveau chef a émergé de l'intérieur [alien_empireof]. Les rumeurs indiquent que le nouvel empereur est %1. Les relations sont devenues neutres et les échanges ont été perturbés.
 GNN_END_COUNCIL                   | Avec seulement deux Empires restants, les tentatives d'unification de la galaxie avec un Conseil Galactique ont pris fin. De nombreux dirigeants débattent maintenant du type de solution finale qui peut apporter une paix durable.
 GNN_FORM_COUNCIL                  | Dans la poursuite de la paix, des représentants de chaque race se réuniront bientôt pour élire un empereur galactique à choisir parmi les dirigeants des deux empires les plus peuplés.
@@ -1907,7 +1907,7 @@ SHIP_DESIGN_1ST_SCOUT_NAME        | Éclaireur
 SHIP_DESIGN_1ST_FIGHTER_NAME      | Chasseur
 SHIP_DESIGN_1ST_DESTROYER_NAME    | Contre-torpilleur
 SHIP_DESIGN_1ST_BOMBER_NAME       | Bombardier
-SHIP_DESIGN_1ST_COLONY_NAME       | Coloniste
+SHIP_DESIGN_1ST_COLONY_NAME       | Colonisateur
 SHIP_DESIGN_COMPUTER_TITLE        | Ordinateurs
 SHIP_DESIGN_COMPUTER_TYPE         | Type
 SHIP_DESIGN_COMPUTER_COST         | Coût
@@ -2000,7 +2000,9 @@ SHIP_DESIGN_HELP_4D               | Les emplacements de conception de vaisseau d
 SHIP_DESIGN_HELP_4E               | Copier - Copier une conception existante pour servir de point de départ à une nouvelle conception.
 SHIP_DESIGN_HELP_4F               | Effacer - Réinitialise tous les composants sélectionnés.
 SHIP_DESIGN_HELP_4G               | Déployer conception - Lorsque votre nouvelle conception est terminée, son déploiement vous permet de la nommer et de la rendre disponible pour la construction.
-
+SHIP_DESIGN_HELP_4H               | Exploration auto. - →GOVERNOR_AUTO_SCOUT_DESC←
+SHIP_DESIGN_HELP_4I               | Attaque auto. - →GOVERNOR_AUTO_ATTACK_DESC←
+SHIP_DESIGN_HELP_4J               | Colonisation auto. - →GOVERNOR_AUTO_COLONIZE_DESC←
 
 // Ship Combat UI
 SHIP_COMBAT_TITLE_SYSTEM          | Combat de vaisseaux à %1!
@@ -2511,15 +2513,15 @@ GAME_OVER_NO_COLONIES_LOSS2       | Le règne de %2 a pris fin, ruiné par l'inc
 
 // Shortcuts / Hotkeys list  (use cross-references →←) →HK_←
 // Shortcuts Cross referenced
-HK_HEADER      | HOTKEYS: (Disponible en cliquant Aide avec le bouton droit)<br>→HK_SHIFT_F1←
-HK_SHIFT_F1    | <br>SHIFT+F1 : Afficher la liste des hotkeys
+HK_HEADER      | Raccourcis clavier : (Disponible en cliquant Aide avec le bouton droit)<br>→HK_SHIFT_F1←
+HK_SHIFT_F1    | <br>SHIFT+F1 : Afficher la liste des raccourcis clavier
 HK_F1          | <br>F1 : Afficher l'aide.
 HK_ESCAPE      | <br>Escape : Sortez de ce panneau.
 HK_FLAG        | <br>F : Changer la couleur du drapeau.
 HK_HOME        | <br>Home : Définir automatiquement la couleur des drapeaux.
 HK_ALT_HOME    | <br>ALT-Home : Redéfinir automatiquement la couleur drapeau pour tous les systèmes explorés.
-HK_B_SHIFT_B   | <br>B/SHIFT-B : Incrémente / Décremente Bases Max.
-HK_1_5         | <br>1-5/+SHIFT : Incrémente / Décremente dépenses pour vaisseaux, transport, environnement, technologie
+HK_B_SHIFT_B   | <br>B/SHIFT-B : Incrémente / Décrémente Bases Max.
+HK_1_5         | <br>1-5/+SHIFT : Incrémente / Décrémente dépenses pour vaisseaux, transport, environnement, technologie
 HK_CTRL_1_5    | <br>CTRL+1-5 : Verrouiller le curseur de dépenses.
 HK_ALT_1_5     | <br>ALT+1-5 : Max-Intel.
 HK_MAP_ARROWS  | <br>Flêches : Déplacer la carte.
@@ -2532,10 +2534,14 @@ HK_GUIDE       | <br>G : Afficher / Cacher le Guide
 HK_SEL_B       | /+ALT/+CTRL/+SHIFT : Sélection actuelle
 HK_SEL_E       | Dépenses à 100% / Max-Intel. / Verrouillage / Déverrouillage
 HK_SET_DEFAULT | <br>ALT-F : Définir les valeurs par défaut à →FUSION_HK←.<br>ALT-M : Définir les valeurs par défaut à →MOO1_HK←.<br>ALT-R : Définir les valeurs par défaut à →CLASSIC_HK←.
-MAIN_HELP_SHIPFLEET_HK | HOTKEY QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d'informations détaillées (si elles sont connues)<br><br> MODE DE REDIRECTION DES FLOTTES :<br><br>Appuyez sur «ALT» pour montrer des informations sur l'étoile ou la flotte survolée par la souris.
 
 // Shortcuts Full lists*
+MAIN_HELP_SHIPFLEET_HK | Raccourcis clavier QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d'informations détaillées (si elles sont connues)<br><br> MODE DE REDIRECTION DES FLOTTES :<br><br>Appuyez sur «ALT» pour montrer des informations sur l'étoile ou la flotte survolée par la souris.
+
 MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre Suivante/Précédente colonie<br>F5/F6 : Votre Suivante/Précédente colonie ayant construit un vaisseau<br>F7/F8 : Votre Suivante/Précédente colonie ciblée par un ennemi<br>W : Basculer la vue de guerre, n'affichant que les vaisseaux ciblant la planette en danger.<br>        (Se désactive lorsque la planète n'est pas en danger)<br>F9/F10 : Votre Suivante/Précédente flotte<br>F11/F12 : IA Suivante/Précédente flotte<br>Space/Page Down/Page Up : Votre Suivante/Précédente flotte inactive →HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d'Option →HK_YEAR←<br>SHIFT-S : Rapport d'espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
 
+PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flêches Haut / Bas : Bouge barre de défilement<br>Flêches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Selection multiple)<br><br>CTRL+A : Sélectionner tous les systèmes<br>Q/+CTRL : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des navires à 100%<br>Y,Z/+CTRL : Planète en manque de population / + Dépenses ECO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +CTRL /+SHIFT : Basculer activation du gouverneur / Avtivé / Désactivé <br>→HK_ESCAPE←
 
 TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>CTRL+1-6 : (dé)verrouiller les curseurs.<br>Flêches : Déplacer l'arbre / Catégories<br>= : Égalizer<br>Molette souris : Changer l'allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit: Montre plus d'info sur la tech survolée <br> →HK_ESCAPE←
+
+SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1← <br><br>Flêches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimmer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+CTRL) : Purger le modèle / (Juste l'armement)<br><br>ALT-A : Construction automatique<br>ALT-B : Construction automatique Bombardier<br>ALT-F : Construction automatique Chasseur<br>ALT-E : Construction automatique Éclaireur.<br>ALT-P : Construction automatique Colonisateur. <br>→HK_ESCAPE←
