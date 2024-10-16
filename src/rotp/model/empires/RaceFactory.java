@@ -257,7 +257,7 @@ public enum RaceFactory implements Base {
         labels.loadDialogueFile(dir);
         labels.loadLabelFile(dir);
         // Update Species names if required.
-        // Only for English language
+        // Only for English and French language
         String[] speciesNames = null;
         int selectedLanguage = LanguageManager.selectedLanguage();
         String langId = LanguageManager.selectedLanguageDir();

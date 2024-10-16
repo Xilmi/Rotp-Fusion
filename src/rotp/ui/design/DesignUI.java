@@ -590,7 +590,7 @@ public class DesignUI extends BasePanel {
             int x5 = w-scaled(560);
             int w5 = scaled(280);
             int y5 = topY;
-            HelpUI.HelpSpec sp5 = helpUI.addBrownHelpText(x5, y5, w5, 2, text("SHIP_DESIGN_HELP_4D"));
+            HelpUI.HelpSpec sp5 = helpUI.addBrownHelpText(x5, y5, w5, 0, text("SHIP_DESIGN_HELP_4D"));
             sp5.setLine(x5+w5, y5+(sp5.height()/2), w-scaled(230), y5+(sp5.height()/2));
         }
     }
@@ -646,7 +646,7 @@ public class DesignUI extends BasePanel {
             int x5 = scaled(670);
             int w5 = scaled(280);
             int y5 = topY;
-            HelpUI.HelpSpec sp5 = helpUI.addBrownHelpText(x5, y5, w5, 2, text("SHIP_DESIGN_HELP_4D"));
+            HelpUI.HelpSpec sp5 = helpUI.addBrownHelpText(x5, y5, w5, 0, text("SHIP_DESIGN_HELP_4D"));
             sp5.setLine(x5+w5, y5+(sp5.height()/2), scaled(1000), y5+(sp5.height()/2));
         }
         

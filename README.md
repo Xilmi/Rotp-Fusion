@@ -69,6 +69,13 @@ Later:
 
 ## What's New
 
+2024.10.16  (BR)
+- Empire Panel: Removed tab limitation for "A", "D" , and "S" key actions.
+- Fixed some Help bubble size and content.
+  - Fixed some French help translations.
+- Fixed Greek characters not being displayed in GNN announces. (French only)
+  - Changed the dialogue font, as the original one don't includes Greek set.
+
 2024.10.15  (BR)
 - Fixed Governor not upgrading planet for Silicoids.
 - Ship building can now be prioritized. (For Governor).

@@ -656,23 +656,23 @@ public class RacesUI extends BasePanel {
             	else
             		showHelp();
             	return;
-            case KeyEvent.VK_A:
-                if (selectedPanel.equals(DIPLOMACY_PANEL)) {
+            case KeyEvent.VK_A: // Audience
+                //if (selectedPanel.equals(DIPLOMACY_PANEL)) {
                     if (!selectedEmpire().isPlayer())
                         diploPanel.openEmbassy();
-                }
+                //}
                 return;
-            case KeyEvent.VK_D:
-                if (selectedPanel.equals(DIPLOMACY_PANEL)) {
+            case KeyEvent.VK_D: // Diplomat
+                //if (selectedPanel.equals(DIPLOMACY_PANEL)) {
                     if (selectedEmpire().isPlayer())
                         diploPanel.openManageDiplomatsPane();
-                }
+                //}
                 return;
-            case KeyEvent.VK_S:
-                if (selectedPanel.equals(DIPLOMACY_PANEL)) {
+            case KeyEvent.VK_S: // Spy
+                //if (selectedPanel.equals(DIPLOMACY_PANEL)) {
                     if (selectedEmpire().isPlayer())
                         diploPanel.openManageSpiesPane();
-                }
+                //}
                 return;
             case KeyEvent.VK_ESCAPE:
                 exit(false);

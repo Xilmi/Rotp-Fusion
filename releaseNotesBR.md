@@ -3,6 +3,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Empire Panel: Removed tab limitation for "A", "D" , and "S" key actions.
+- Fixed some Help bubble size and content.
+  - Fixed some French help translations.
+- Fixed Greek characters not being displayed in GNN announces. (French only)
+  - Changed the dialogue font, as the original one don't includes Greek set.
 - Improved Empire Hotkey description.
 - "Free" of tech panel is now translatable.
 - Ship building can now be prioritized. (For Governor).

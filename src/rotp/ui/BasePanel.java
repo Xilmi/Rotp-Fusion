@@ -27,6 +27,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -412,8 +413,11 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
     public void reloadLabels() {
 		if (!Rotp.isIDE()) {
 			// BR: Intended to only To be used from IDE
+			Toolkit.getDefaultToolkit().beep();
+			LanguageManager.current().reloadLanguage();
 			return;
 		}
+		Toolkit.getDefaultToolkit().beep();
 		copyLabels("rotp/lang/en/labels.txt");
 		copyLabels("rotp/lang/en/techs.txt");
 		copyLabels("rotp/lang/fr/labels.txt");

@@ -644,36 +644,36 @@ MAIN_HELP_2C                      | Production planétaire totale de l'industrie
 MAIN_HELP_2D                      | Production réelle ajustée en fonction des revenus commerciaux à l'échelle de l'empire, des coûts d'espionnage et de sécurité, ainsi que de la maintenance des bases de missiles et des vaisseaux.
 MAIN_HELP_2E                      | Modifiez la conception du vaisseau pour le construire dans le chantier naval en orbite de la planète. La production accumulée pour les vaisseaux inachevés accélérera la production de nouveaux vaisseaux de 50 % jusqu'à leur épuisement. Cliquez ou utilisez la molette de la souris pour modifier la conception du vaisseau.
 MAIN_HELP_2F                      | Définissez un point de ralliement pour envoyer automatiquement les vaisseaux nouvellement construits vers une autre colonie.
-MAIN_HELP_2FSG                    | Rassemblement à la porte des étoiles la plus proche.<br>(Basé sur «→CHAIN_RALLY_SPEED_HK←»
+MAIN_HELP_2FSG                    | Ralliement à la porte des étoiles la plus proche.<br>(Basé sur «→CHAIN_RALLY_SPEED_HK←»)
 MAIN_HELP_2G                      | Transportez de la population pour fortifier une autre colonie ou envoyez des troupes envahir une planète ennemie. La colonie engage un coût de production unique pour le transport.
 MAIN_HELP_2H                      | Abandonnez complètement une planète en transférant toute sa population vers une autre colonie.
 MAIN_HELP_2I                      | Population actuelle et maximale de la planète. 100 représente une planète d'origine complète qui n'a pas été terraformée.
 MAIN_HELP_2J                      | Usines actuelles et maximales autorisées. Usines maximales basées sur la population et la technologie des contrôles robotiques.
-MAIN_HELP_2K                      | Placez un drapeau sur le système pour l'aider à se démarquer sur la carte de la galaxie.
-MAIN_HELP_2K_2F                   | Placez deux drapeaux sur le système pour l'aider à se démarquer sur la carte de la galaxie.
-MAIN_HELP_2K_M2                   | Bouton de gauche = Suivant / Bouton de droite = Réinitialiser / «Home» = Auto-Flag.
-MAIN_HELP_2K_M3                   | Bouton gauche = Suivant / Bouton droit = Précédent / Bouton du milieu = Réinitialiser / «Home» = Auto-Flag.
-MAIN_HELP_2K_2F_HOLD              | (Appuyez aussi sur «Ctrl» pour définir le deuxième drapeau)
+MAIN_HELP_2K                      | Associez un drapeau au système pour le démarquer sur la carte de la galaxie.
+MAIN_HELP_2K_2F                   | Attribuez jusquà 4 drapeaux au système pour le démarquer sur la carte de la galaxie.
+MAIN_HELP_2K_M2                   | Clic-gauche = Suivant / Clic-droite = Réinitialiser / «Home» = Auto-Flag.
+MAIN_HELP_2K_M3                   | Clic-gauche = Suivant / Clic-droit = Précédent / Clic-milieu = Réinitialiser / «Home» = Auto-Flag.
+MAIN_HELP_2K_2F_HOLD              | («Ctrl» pour les drapeaux de droite, «Shift» pour les drapeaux du bas)
 MAIN_HELP_2L                      | Le montant de la réserve stockée dans le trésor de l'empire.
 MAIN_HELP_2M                      | L'état actuel de la recherche pour chacun des six domaines technologiques.
 MAIN_HELP_3A                      | Jeu - revient au menu d'ouverture. Vous permet d'ajuster les paramètres ou d'enregistrer, de charger et de démarrer des jeux.
 MAIN_HELP_3B                      | Systèmes - Cartographie de la galaxie indiquant le status des systèmes selon différents critères
 MAIN_HELP_3C                      | Flottes - permet un contrôle à grande échelle de vos flottes et de la construction navale au sein de votre empire.
-MAIN_HELP_3D                      | Conceptions - créez des conceptions de vaisseaux pour votre flotte en utilisant votre dernière technologie. Les conceptions indésirables peuvent être supprimées.
-MAIN_HELP_3E                      | Races - des informations détaillées et des options diplomatiques pour toutes les races extraterrestres que vous avez rencontrées.
-MAIN_HELP_3F                      | Colonies - liste détaillée et triable de vos colonies. Fournit également des revenus et des coûts d'empire.
-MAIN_HELP_3G                      | Tech - affiche les technologies disponibles. Vous permet de concentrer ou d'équilibrer la recherche sur un maximum de six technologies.
-MAIN_HELP_3H                      | Année Suivante - fait avancer le jeu à l'année suivante.
-MAIN_HELP_3I                      | Tour actuel - affiche le tour actuel du jeu ou l'année en cours de votre empire. Cliquez pour basculer.
-MAIN_HELP_3J                      | Commandes de la carte - cliquez pour parcourir les différents paramètres d'affichage de la carte de la galaxie.
+MAIN_HELP_3D                      | Conceptions - Créez des modèles de vaisseaux pour votre flotte en utilisant vos dernières technologies. Les vaisseaux obsolètes peuvent être supprimés.
+MAIN_HELP_3E                      | Empires - Des informations détaillées et des options diplomatiques pour toutes les espèces extraterrestres que vous avez rencontrées.
+MAIN_HELP_3F                      | Colonies - Liste détaillée et triable de vos colonies. Fournit également des revenus et des coûts d'empire.
+MAIN_HELP_3G                      | Tech - Affiche les technologies disponibles. Vous permet d'ajuster la recherche pour chacune des six technologies.
+MAIN_HELP_3H                      | Année Suivante - Fait avancer le jeu à l'année suivante.
+MAIN_HELP_3I                      | Tour actuel - Affiche le tour actuel du jeu ou l'année en cours de votre empire. Cliquez pour basculer.
+MAIN_HELP_3J                      | Commandes de la carte - Cliquez pour parcourir les différents paramètres d'affichage de la carte de la galaxie.
 
-MAIN_HELP_4A                      | Les assistants Min/Max garderont toujours ECO propre.<br>- Smooth Min/Max: est équivalent à cliquer sur la flèche Haut/Bas jusqu'à atteindre la cible. Les BC libérés seront redistribués intelligemment. <br>- Smart Min/Max: (Shift + Clique) effacera les dépenses débloquées, définira l'allocation Min/Max, nettoiera ECO, puis redistribuera intelligemment les BC restants.<br>- Rafraîchir: (Ctrl + Clique) effacera les dépenses débloquées puis redistribuera intelligemment les BC disponibles.
-MAIN_HELP_4B                      | Chantier naval: <br> Cliquez-gauche : Affectation minimale nécessaire pour construire jusqu'à la limite.<br> Cliquez-droit : Allocation maximale disponible.
-MAIN_HELP_4C                      | Défenses: <br> Cliquez-gauche : Affectation minimale nécessaire pour construire jusqu'a la limite des bases.<br> Cliquez-droit : Allocation maximale disponible. <br>Cliquez-milieu: Affectation minimale pour construire le bouclier.
-MAIN_HELP_4D                      | Industrie: <br> Cliquez-gauche : Affectation minimale nécessaire pour finaliser les usines.<br> Cliquez-droit : Allocation maximale disponible. <br>Cliquez-milieu: Attribution minimale nécessaire pour suivre la croissance de la population.
-MAIN_HELP_4E                      | Écologie: <br> Cliquez-gauche : Affectation minimale nécessaire pour finaliser la croissance.<br> Cliquez-droit : Affectation minimale nécessaire pour finaliser la terraformation. <br>Clicquez-milieu: Affectation minimale nécessaire pour rester propre.
-MAIN_HELP_4F                      | Technologie: <br>Cliquez-gauche : Allocation maximale disponible.<br> Cliquez-droit : 0 Affectation --> réaffectation complète.
-MAIN_HELP_4G                      | Cliquez ici pour verrouiller / déverrouiller les dépenses. (en gris quand vèrrouillé)<br>Clique + Ctrl pour annuler ou restaurer les ordres des colonies. (Ce que vous pouvez donner après une mise à jour technologique)<br> Ces champs sont classés par ordre de priorité lors du processus de «prochain virage».<br> Une option est disponible pour les montrer en bleu... ou non.
+MAIN_HELP_4A                      | Les assistants Min/Max garderont toujours ECO propre.<br>- Smooth Min/Max: est équivalent à cliquer sur la flèche Haut/Bas jusqu'à atteindre la cible. Les BC libérés seront redistribués intelligemment. <br>- Smart Min/Max: (Shift + Clic) effacera les dépenses débloquées, définira l'allocation Min/Max, nettoiera ECO, puis redistribuera intelligemment les BC restants.<br>- Rafraîchir: (Ctrl + Clic) effacera les dépenses débloquées puis redistribuera intelligemment les BC disponibles.
+MAIN_HELP_4B                      | Chantier naval: <br> Clic-gauche : Allocation minimale nécessaire pour construire jusqu'à la limite.<br> Clic-droit : Allocation maximale disponible.
+MAIN_HELP_4C                      | Défenses: <br> Clic-gauche : Allocation minimale nécessaire pour construire les bases demandées.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu: Allocation minimale pour construire le bouclier.
+MAIN_HELP_4D                      | Industrie: <br> Clic-gauche : Allocation minimale nécessaire pour finaliser les usines.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu: Allocation minimale nécessaire pour suivre la croissance de la population.
+MAIN_HELP_4E                      | Écologie: <br> Clic-gauche : Allocation minimale nécessaire pour finaliser la croissance.<br> Clic-droit : Allocation minimale nécessaire pour finaliser la terraformation. <br>Clic-milieu: Allocation minimale nécessaire pour rester propre.
+MAIN_HELP_4F                      | Technologie: <br>Clic-gauche : Allocation maximale disponible.<br> Clic-droit : 0 Allocation --> réallocation complète.
+MAIN_HELP_4G                      | Cliquez ici pour verrouiller / déverrouiller les dépenses. (en gris quand vèrrouillé)<br>Clique + Ctrl pour annuler ou restaurer les ordres des colonies. (Que vous pouvez fixer après une mise à jour technologique)<br> Ces champs sont classés par ordre de priorité lors du processus de «Tour suivant».<br> Une option est disponible pour les afficher en bleu... ou pas.
 MAIN_SYSTEM_DETAIL_PFB            | Pop %1  Usi %2  Base %3
 MAIN_SYSTEM_DETAIL_PF             | Pop %1  Usi %2
 MAIN_SYSTEM_DETAIL_NO_DATA        | Pas de données
@@ -770,7 +770,7 @@ MAIN_FLEET_INVALID_DESTINATION2   | Impossible d'envoyer la flotte à ce systèm
 MAIN_RALLY_TITLE                  | Définition du Point de Ralliement
 MAIN_RALLY_PROMPT                 | Sélectionnez un système sous votre contrôle pour y envoyer des vaisseaux nouvellement construits.
 MAIN_RALLY_FORWARD                | Transférer les rallyes entrants
-MAIN_RALLY_CHAIN                  | Chaîner les rassemblements avec les Portes de Étoiles
+MAIN_RALLY_CHAIN                  | Chaîner les Allocations avec les Portes de Étoiles
 MAIN_RALLY_TRAVEL_TIME            | Durée du trajet vers %1 : %2 Années
 MAIN_RALLY_INSTANT_TIME           | Durée du trajet vers %1 : Instantané
 MAIN_RALLY_WILL_CANCEL            | La sélection de cette destination effacera tout point de ralliement existant.
@@ -824,7 +824,7 @@ MAIN_COLONY_DEFENSE               | Def
 MAIN_COLONY_INDUSTRY              | Ind
 MAIN_COLONY_ECOLOGY               | Eco
 MAIN_COLONY_TECHNOLOGY            | Tech
-MAIN_COLONY_ALLOCATE_SPENDING     | Allouer les Dépenses
+MAIN_COLONY_ALLOCATE_SPENDING     | Gouverneur
 GOVERNOR_OPTIONS                  | Options
 MAIN_COLONY_SPENDING_NONE         | Aucune
 MAIN_COLONY_SPENDING_RESERVE      | Réserve
@@ -1122,7 +1122,7 @@ FLEETS_DESIGN_COUNT               | %1 %2
 FLEETS_DEPLOY_FLEETS              | Déployer les flottes
 FLEETS_SET_RALLY_POINTS           | Définir points de ralliement
 FLEETS_STOP_RALLIES_DESC          | %1 systèmes sélectionnés ont déjà des points de ralliement attribués
-FLEETS_STOP_RALLIES               | Arrêter les rassemblements
+FLEETS_STOP_RALLIES               | Arrêter les ralliement
 FLEETS_SETTING_RALLY_POINTS       | Points de départ du ralliement
 FLEETS_START_RALLIES_DESC         | Sélectionner un système que vous contrôlez pour envoyer des vaisseaux nouvellement construits à partir de tous les systèmes sélectionnés.
 FLEETS_RALLY_TO_STARGATES         | Commencer à rallier les portes des étoiles les plus proches
@@ -1708,7 +1708,22 @@ CUSTOM_RACE_GUI_SELECT_DESC       | Enregistrer cette espèce, l'attribuer au jo
 // Advanced Settings
 SETTINGS_TITLE                    | Options Avancées
 SETTINGS_DESCRIPTION              | Cliquez pour changer les paramètres.
+SETTINGS_GUIDE                    | Guide
 SETTINGS_EXIT                     | Quitter
+SETTINGS_APPLY                    | Appliquer
+SETTINGS_CANCEL                   | Annuler
+SETTINGS_LOCAL_RESTORE            | Rétablir Local
+SETTINGS_GLOBAL_RESTORE           | Rétablir Global
+SETTINGS_LOCAL_DEFAULT            | Defaut »» Local
+SETTINGS_GLOBAL_DEFAULT           | Defaut »» Global
+SETTINGS_LOCAL_LAST_GAME          | Jeu »» Local
+SETTINGS_GLOBAL_LAST_GAME         | Jeu »» Global
+SETTINGS_LOCAL_LAST_SET           | Dernier »» Local
+SETTINGS_GLOBAL_LAST_SET          | Dernier »» Global
+SETTINGS_LOCAL_USER_SET           | Perso. »» Local
+SETTINGS_GLOBAL_USER_SET          | Perso. »» Global
+SETTINGS_LOCAL_USER_SAVE          | Local »» Perso.
+SETTINGS_GLOBAL_USER_SAVE         | Global »» Perso.
 SETTINGS_STAR_DENSITY             | Densité des étoiles : %1
 SETTINGS_RANDOM_EVENTS            | Événements aléatoires : %1
 SETTINGS_RESEARCH_RATE            | Vitesse de la recherche : %1
@@ -1947,43 +1962,43 @@ SHIP_DESIGN_SPECIAL_POWER         | Puiss.
 SHIP_DESIGN_SPECIAL_SPACE         | Espace
 
 // Ship Design help
-SHIP_DESIGN_HELP_ALL              | APERÇU - un empire peut avoir jusqu'à six modèles de vaisseaux actifs. Pour chaque conception, choisissez une taille de coque puis remplissez-la de divers composants tels que des armures, des boucliers et des armes. Chaque composant a une taille, une Puiss. et un coût. L'espace total requis pour un composant est sa taille plus la taille du nombre de moteurs nécessaires pour l'alimenter. Une fois déployé, un modèle de vaisseau peut être construit dans n'importe laquelle de vos colonies.
-SHIP_DESIGN_HELP_1A               | Taille - les grandes tailles de coque augmentent les coûts mais offrent plus d'espace.
-SHIP_DESIGN_HELP_1B               | Portée - jusqu'où le vaisseau peut voyager depuis vos systèmes.
-SHIP_DESIGN_HELP_1C               | Vitesse - vitesse de déplacement dans l'espace entre les étoiles.
-SHIP_DESIGN_HELP_1D               | Coût - coût total pour construire ce vaisseau.
-SHIP_DESIGN_HELP_1E               | Espace total - espace total utilisé par les composants sur cette conception de vaisseau.
-SHIP_DESIGN_HELP_1F               | Espace disponible - espace inutilisé sur ce modèle de vaisseau.
-SHIP_DESIGN_HELP_1G               | Points de vie - dégâts nécessaires pour détruire ce vaisseau au combat.
-SHIP_DESIGN_HELP_1H               | Défense antimissile - niveau de défense contre les armes de missiles au combat.
-SHIP_DESIGN_HELP_1I               | Défense de faisceau - niveau de défense contre les armes à faisceau au combat.
-SHIP_DESIGN_HELP_1J               | Niveau d'attaque - niveau d'attaque des armes en combat.
-SHIP_DESIGN_HELP_1K               | manœuvrabilité - distance que le vaisseau peut parcourir en combat, par tour.
-SHIP_DESIGN_HELP_1L               | Teinte - modifie la couleur du vaisseau.
-SHIP_DESIGN_HELP_2A               | Type de moteur - le type de moteur utilisé pour propulser cette conception de vaisseau.
-SHIP_DESIGN_HELP_2B               | Vitesse - vitesse de déplacement fournie par le moteur.
-SHIP_DESIGN_HELP_2C               | Coût - le coût de chaque moteur nécessaire pour la Puiss..
-SHIP_DESIGN_HELP_2D               | Taille - espace de coque requis par moteur.
-SHIP_DESIGN_HELP_2E               | Puiss. - la puissance de sortie par moteur.
-SHIP_DESIGN_HELP_2F               | Exigences d'alimentation - exigence d'alimentation requises pour tous les composants du vaisseau.
-SHIP_DESIGN_HELP_2G               | Moteurs requis - nombre de moteurs nécessaires pour répondre aux besoins en Puiss..
-SHIP_DESIGN_HELP_2H               | Taille totale - espace total de la coque nécessaire pour tous les moteurs.
-SHIP_DESIGN_HELP_2I               | Coût total - coût de construction total pour tous les moteurs.
+SHIP_DESIGN_HELP_ALL              | APERÇU - Un empire peut avoir jusqu'à six modèles de vaisseaux actifs. Pour chaque conception, choisissez une taille de coque puis remplissez-la de divers composants tels que des armures, des boucliers et des armes. Chaque composant a une taille, une Puiss. et un coût. L'espace total requis pour un composant est sa taille plus la taille du nombre de moteurs nécessaires pour l'alimenter. Une fois déployé, un modèle de vaisseau peut être construit dans n'importe laquelle de vos colonies.
+SHIP_DESIGN_HELP_1A               | Taille - Les grandes tailles de coque augmentent les coûts mais offrent plus d'espace.
+SHIP_DESIGN_HELP_1B               | Portée - Jusqu'où le vaisseau peut voyager depuis vos systèmes.
+SHIP_DESIGN_HELP_1C               | Vitesse - Vitesse de déplacement dans l'espace entre les étoiles.
+SHIP_DESIGN_HELP_1D               | Coût - Coût total pour construire ce vaisseau.
+SHIP_DESIGN_HELP_1E               | Espace total - Espace total utilisé par les composants sur cette conception de vaisseau.
+SHIP_DESIGN_HELP_1F               | Espace disponible - Espace inutilisé sur ce modèle de vaisseau.
+SHIP_DESIGN_HELP_1G               | Points de vie - Dégâts nécessaires pour détruire ce vaisseau au combat.
+SHIP_DESIGN_HELP_1H               | Défense antimissile - Niveau de défense contre les armes de missiles au combat.
+SHIP_DESIGN_HELP_1I               | Défense de faisceau - Niveau de défense contre les armes à faisceau au combat.
+SHIP_DESIGN_HELP_1J               | Niveau d'attaque - Niveau d'attaque des armes en combat.
+SHIP_DESIGN_HELP_1K               | Manœuvrabilité - Distance que le vaisseau peut parcourir en combat, par tour.
+SHIP_DESIGN_HELP_1L               | Teinte - Modifie la couleur du vaisseau.
+SHIP_DESIGN_HELP_2A               | Type de moteur - Le type de moteur utilisé pour propulser cette conception de vaisseau.
+SHIP_DESIGN_HELP_2B               | Vitesse - Vitesse de déplacement fournie par le moteur.
+SHIP_DESIGN_HELP_2C               | Coût - Le coût de chaque moteur nécessaire pour la Puiss..
+SHIP_DESIGN_HELP_2D               | Taille - Espace de coque requis par moteur.
+SHIP_DESIGN_HELP_2E               | Puissance - La puissance de sortie par moteur.
+SHIP_DESIGN_HELP_2F               | Exigences d'alimentation - Exigence d'alimentation requises pour tous les composants du vaisseau.
+SHIP_DESIGN_HELP_2G               | Moteurs requis - Nombre de moteurs nécessaires pour répondre aux besoins en Puiss..
+SHIP_DESIGN_HELP_2H               | Taille totale - Espace total de la coque nécessaire pour tous les moteurs.
+SHIP_DESIGN_HELP_2I               | Coût total - Coût de construction total pour tous les moteurs.
 SHIP_DESIGN_HELP_2J               | L'image attribuée à la conception de vaisseau sélectionné. Il y a six images différentes pour chacune des quatre tailles de coque. Lors de la création d'un nouveau design de vaisseau, cliquez sur pour faire défiler les options.
 SHIP_DESIGN_HELP_2K               | Le nom de la conception du vaisseau.
-SHIP_DESIGN_HELP_3A               | Ordinateurs - affectent le niveau d'attaque de votre vaisseau au combat.
-SHIP_DESIGN_HELP_3B               | Armure - affecte les points de vie de votre vaisseau. L'armure lourde l'augmente de 50 %.
-SHIP_DESIGN_HELP_3C               | Boucliers - réduisent les dégâts des attaques entrantes.
+SHIP_DESIGN_HELP_3A               | Ordinateur - Affectent le niveau d'attaque de votre vaisseau au combat.
+SHIP_DESIGN_HELP_3B               | Armure - Affecte les points de vie de votre vaisseau. L'armure lourde l'augmente de 50 %.
+SHIP_DESIGN_HELP_3C               | Boucliers - Réduisent les dégâts des attaques entrantes.
 SHIP_DESIGN_HELP_3D               | Les contre-mesures électroniques améliorent votre défense antimissile.
-SHIP_DESIGN_HELP_3E               | Manœuvre - augmente la manœuvrabilité et les défenses du vaisseau.
-SHIP_DESIGN_HELP_3F               | Armes - peuvent infliger des dégâts aux vaisseaux et colonies ennemis. Jusqu'à quatre types d'armes différents peuvent être ajoutés à une conception de vaisseau.
-SHIP_DESIGN_HELP_3G               | Spéciaux - appareils qui offrent des capacités uniques à votre vaisseau. Jusqu'à trois dispositifs spéciaux peuvent être ajoutés à une conception de vaisseau.
-SHIP_DESIGN_HELP_4A               | Renommer - vous permet de renommer un dessein existant.
-SHIP_DESIGN_HELP_4B               | Supprimer conception - supprime une conception existante. Les vaisseaux démolis retournent 25% de leur valeur de construction au trésor.
+SHIP_DESIGN_HELP_3E               | Manœuvre - Augmente la manœuvrabilité et les défenses du vaisseau.
+SHIP_DESIGN_HELP_3F               | Armes - Peuvent infliger des dégâts aux vaisseaux et colonies ennemis. Jusqu'à quatre types d'armes différents peuvent être ajoutés à une conception de vaisseau.
+SHIP_DESIGN_HELP_3G               | Spéciaux - Appareils qui offrent des capacités uniques à votre vaisseau. Jusqu'à trois dispositifs spéciaux peuvent être ajoutés à une conception de vaisseau.
+SHIP_DESIGN_HELP_4A               | Renommer - Vous permet de renommer un dessein existant.
+SHIP_DESIGN_HELP_4B               | Supprimer conception - Supprime une conception existante. Les vaisseaux démolis retournent 25% de leur valeur de construction au trésor.
 SHIP_DESIGN_HELP_4C               | Les conceptions de vaisseaux déployés peuvent être construites sur n'importe laquelle de vos colonies.
 SHIP_DESIGN_HELP_4D               | Les emplacements de conception de vaisseau disponibles peuvent être sélectionnés afin de créer un nouveau design.
-SHIP_DESIGN_HELP_4E               | Copier - copier une conception existante pour servir de point de départ à une nouvelle conception.
-SHIP_DESIGN_HELP_4F               | Effacer - réinitialise tous les composants sélectionnés.
+SHIP_DESIGN_HELP_4E               | Copier - Copier une conception existante pour servir de point de départ à une nouvelle conception.
+SHIP_DESIGN_HELP_4F               | Effacer - Réinitialise tous les composants sélectionnés.
 SHIP_DESIGN_HELP_4G               | Déployer conception - Lorsque votre nouvelle conception est terminée, son déploiement vous permet de la nommer et de la rendre disponible pour la construction.
 
 
@@ -2499,27 +2514,28 @@ GAME_OVER_NO_COLONIES_LOSS2       | Le règne de %2 a pris fin, ruiné par l'inc
 HK_HEADER      | HOTKEYS: (Disponible en cliquant Aide avec le bouton droit)<br>→HK_SHIFT_F1←
 HK_SHIFT_F1    | <br>SHIFT+F1 : Afficher la liste des hotkeys
 HK_F1          | <br>F1 : Afficher l'aide.
-HK_F1_?        | <br>F1, ? : Afficher l'aide.
 HK_ESCAPE      | <br>Escape : Sortez de ce panneau.
 HK_FLAG        | <br>F : Changer la couleur du drapeau.
-HK_HOME        | <br>Home : Définir la couleur du drapeau automatiquement.
-HK_ALT_HOME    | <br>ALT-Home : Définir la couleur Auto-Drapeau pour tous les systèmes explorés.
+HK_HOME        | <br>Home : Définir automatiquement la couleur des drapeaux.
+HK_ALT_HOME    | <br>ALT-Home : Redéfinir automatiquement la couleur drapeau pour tous les systèmes explorés.
 HK_B_SHIFT_B   | <br>B/SHIFT-B : Incrémente / Décremente Bases Max.
 HK_1_5         | <br>1-5/+SHIFT : Incrémente / Décremente dépenses pour vaisseaux, transport, environnement, technologie
 HK_CTRL_1_5    | <br>CTRL+1-5 : Verrouiller le curseur de dépenses.
 HK_ALT_1_5     | <br>ALT+1-5 : Max-Intel.
 HK_MAP_ARROWS  | <br>Flêches : Déplacer la carte.
-HK_MAP_ZOOM    | <br>+/- : Zoomer la carte. («ALT-» : Vue complète de la galaxie) <br>Roue de la souris : Zoomer sur la carte.
+HK_MAP_ZOOM    | <br>+/- : Zoomer la carte. («ALT-» : Vue complète de la galaxie) <br>Molette de la souris : Zoomer sur la carte.
 HK_TAB         | <br>Tab/+SHIFT : Onglet suivant/précédent.
 HK_YEAR        | <br>Y : Alterner l'année / le tour.
 HK_FLAG_LOOP   | <br>(Num) * - 9 + : Drapeau suivant («SHIFT-» Précédent) («CTRL-» Même couleur de drapeau)
 HK_FOG         | <br>F : Afficher / Cacher le brouillard sur les icônes diplomatiques.
-HK_GUIDE       | <br>G : Afficher / cache le Guide
+HK_GUIDE       | <br>G : Afficher / Cacher le Guide
 HK_SEL_B       | /+ALT/+CTRL/+SHIFT : Sélection actuelle
 HK_SEL_E       | Dépenses à 100% / Max-Intel. / Verrouillage / Déverrouillage
 HK_SET_DEFAULT | <br>ALT-F : Définir les valeurs par défaut à →FUSION_HK←.<br>ALT-M : Définir les valeurs par défaut à →MOO1_HK←.<br>ALT-R : Définir les valeurs par défaut à →CLASSIC_HK←.
-MAIN_HELP_SHIPFLEET_HK | HOTKEY QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d'informations détaillées (si elles sont connues)<br><br> MODE DE DÉMÉNAGEMENT DES FLOTTES :<br><br>Appuyez sur «ALT» pour montrer des informations sur l'étoile ou la flotte survolée par la souris.
+MAIN_HELP_SHIPFLEET_HK | HOTKEY QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d'informations détaillées (si elles sont connues)<br><br> MODE DE REDIRECTION DES FLOTTES :<br><br>Appuyez sur «ALT» pour montrer des informations sur l'étoile ou la flotte survolée par la souris.
 
 // Shortcuts Full lists*
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre Suivante/Précédente colonie<br>F5/F6 : Votre Suivante/Précédente colonie ayant construit un vaisseau<br>F7/F8 : Votre Suivante/Précédente colonie ciblée par un ennemi<br>W : Basculer la vue de guerre, n'affichant que les vaisseaux ciblant la planette en danger.<br>        (Se désactive lorsque la planète n'est pas en danger)<br>F9/F10 : Votre Suivante/Précédente flotte<br>F11/F12 : IA Suivante/Précédente flotte<br>Space/Page Down/Page Up : Votre Suivante/Précédente flotte inactive →HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d'Option →HK_YEAR←<br>SHIFT-S : Rapport d'espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
 
-TECH_HELP_HK         | →HK_HEADER← →HK_F1_?← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>CTRL+1-6 : (dé)verrouiller les curseurs.<br>Flêches : Déplacer l'arbre / Catégories<br>= : Égalizer<br>Molette souris : Changer affectations.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit: Montre plus d'info sur la tech survolée <br> →HK_ESCAPE←
+
+TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>CTRL+1-6 : (dé)verrouiller les curseurs.<br>Flêches : Déplacer l'arbre / Catégories<br>= : Égalizer<br>Molette souris : Changer l'allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit: Montre plus d'info sur la tech survolée <br> →HK_ESCAPE←
