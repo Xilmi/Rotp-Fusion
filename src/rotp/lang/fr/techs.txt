@@ -464,7 +464,7 @@ ENGINE_1_BRIEF   | Distorsion 2  Def %1
 ENGINE_1_BRIEF2  | Vitesse de combat %1
 
 // Non sens! Subspace est défini pour les communication ou est équivalent à hyperspace (Top technologie!)
-// On va donc rester avec l'idée de la traduction originale... Jusqu'à ce qu'on trouve mieu!
+// On va donc rester avec l'idée de la traduction originale... Jusqu'à ce qu'on trouve mieux!
 ENGINE_2_NAME    | Propulsion conventionnelle subluminale
 ENGINE_2_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe III en combat.
 ENGINE_2_ITEM    | Subluminal
@@ -1050,7 +1050,7 @@ SHIPNULLIFIER_1_DETAIL   | Les dissipateurs de distorsion sont des armes à long
 //
 SHIPWPN_0_NAME         | Laser
 SHIPWPN_0_ITEM2        | Laser lourd
-SHIPWPN_0_DETAIL       | Arme à faisceau à tir direct qui inflige 1 à 4 points de dégâts.Les lasers lourds ont une portée de deux espaces et infligent 1 à 7 points de dégâts.
+SHIPWPN_0_DETAIL       | Arme à faisceau à tir direct qui inflige 1 à 4 points de dégâts. Les lasers lourds ont une portée de deux espaces et infligent 1 à 7 points de dégâts.
 
 SHIPWPN_1_NAME         | Laser Gatling
 SHIPWPN_1_BRIEF        | Tire 4 fois/tour

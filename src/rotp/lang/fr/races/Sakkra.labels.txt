@@ -11,20 +11,20 @@ _race_pluralnounto                | aux Ssslauriens, aux Reptariens, aux Saurien
 _race_pluraladjec                 | Ssslauriens, Reptariens, Sauriens, Raptoriens, Tyranniens
 _race_pluraladjecF                | Ssslauriennes, Reptariennes, Sauriennes, Raptoriennes, Tyranniennes
 _title                            | le Premier Magister
-_nameTitle                        | le Premier Magister 
+_nameTitle                        | le Premier Magister
 
 
 //
 // All text below this point is copyright 2018-2020 Jeff Colucci
-// 
-// Licensed under the Creative Commons License, 
+//
+// Licensed under the Creative Commons License,
 // Attribution-NonCommercial-NoDerivatives 4.0 International (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     https://creativecommons.org/licenses/by-nc-nd/4.0/
-//  
-// This license is legally binding. Please review this license before altering 
+//
+// This license is legally binding. Please review this license before altering
 // or distributing any material covered under this license.
 //
 
@@ -32,17 +32,17 @@ _nameTitle                        | le Premier Magister
 MAIN_ADVISOR_TITLE                | Conseiller [my_raceadjec]
 MAIN_ADVISOR_BUTTON_OK            | Merci
 MAIN_ADVISOR_SCOUT                | Enfin, nous pouvons commencer à perfectionner les environnements des mondes au-delà du nôtre. Premier Magister, envoyez nos éclaireurs et votre vaisseau de colonisation sur une planète proche dès que vous le pouvez !
-MAIN_ADVISOR_TRANSPORT            | Nous avons établi notre première colonie sur un monde entièrement nouveau. Une fois que vous avez envoyé un transport, nous pouvons renforcer nos chiffres et résoudre les mystères sur %1 encore plus rapidement ! 
+MAIN_ADVISOR_TRANSPORT            | Nous avons établi notre première colonie sur un monde entièrement nouveau. Une fois que vous avez envoyé un transport, nous pouvons renforcer nos chiffres et résoudre les mystères sur %1 encore plus rapidement !
 MAIN_ADVISOR_DIPLOMACY            | Un autre peuple capable de voyager dans l'espace a pris contact avec le Conclave. Ouvrons un dialogue avec eux et voyons à quel point ils traitent leur propre monde. Nous saurons alors comment les traiter au mieux.
-MAIN_ADVISOR_SHIP_ENGINE          | Nous avons conçu des moteurs de vaisseaux bien plus efficaces que ceux que nous utilisons actuellement. Développons de nouveaux schémas de vaisseaux dès que nous le pourrons. 
-MAIN_ADVISOR_RALLY_POINTS         | Nos voisins semblent nous trouver... désagréables. Nous pouvons utiliser des points de ralliement pour diriger nos vaisseaux vers un seul endroit afin d'éviter tout dommage à nos magnifiques nouveaux mondes. 
-MAIN_ADVISOR_MISSILE_BASES        | Cela me peine d'envisager même de souiller nos mondes de cette manière, mais nous pouvons ménager de l'espace pour des bases de missiles défensives pour les protéger de dommages encore plus inesthétiques. 
-MAIN_ADVISOR_SHIP_WEAPON          | Il y a eu une découverte concernant des moyens plus puissants d'endommager les vaisseaux ennemis. Nous devons absolument appliquer cette technologie à tous les nouveaux vaisseaux que nous produisons à l'avenir. 
-MAIN_ADVISOR_COUNCIL              | Il y a une réunion appelée le "Conseil Galactique" à laquelle toutes les civilisations avancées assisteront probablement. Cela pourrait être l'occasion pour nous de voir quels autres empires s'opposeraient à... l'expansion du Conclave.
+MAIN_ADVISOR_SHIP_ENGINE          | Nous avons conçu des moteurs de vaisseaux bien plus efficaces que ceux que nous utilisons actuellement. Développons de nouveaux schémas de vaisseaux dès que nous le pourrons.
+MAIN_ADVISOR_RALLY_POINTS         | Nos voisins semblent nous trouver... désagréables. Nous pouvons utiliser des points de ralliement pour diriger nos vaisseaux vers un seul endroit afin d'éviter tout dommage à nos magnifiques nouveaux mondes.
+MAIN_ADVISOR_MISSILE_BASES        | Cela me peine d'envisager même de souiller nos mondes de cette manière, mais nous pouvons ménager de l'espace pour des bases de missiles défensives pour les protéger de dommages encore plus inesthétiques.
+MAIN_ADVISOR_SHIP_WEAPON          | Il y a eu une découverte concernant des moyens plus puissants d'endommager les vaisseaux ennemis. Nous devons absolument appliquer cette technologie à tous les nouveaux vaisseaux que nous produisons à l'avenir.
+MAIN_ADVISOR_COUNCIL              | Il y a une réunion appelée le « Conseil Galactique » à laquelle toutes les civilisations avancées assisteront probablement. Cela pourrait être l'occasion pour nous de voir quels autres empires s'opposeraient à... l'expansion du Conclave.
 MAIN_ADVISOR_REBELLION            | Magister! Il y a une rébellion sur %1. Je ne sais pas quelle en est la cause, mais je sais quelle devrait être la solution !
-MAIN_ADVISOR_RESIST_COUNCIL       | Pas question que nous prenions cela pacifiquement, n'est-ce pas ? Nous allons combattre le conseil maintenant, n'est-ce pas ?! Si nous ne le faisons pas, pensez à ce qui arrivera à ces pauvres planètes ! 
-MAIN_ADVISOR_COUNCIL_RESISTED     | Ces dégoûtants rebelles !! Nous les avons à peine tolérés, même existants, et maintenant ils veulent se rebeller ? Donnez-nous l'ordre de les exterminer : nous avons beaucoup de leurs mondes à revendiquer pour le Conclave ! 
- 
+MAIN_ADVISOR_RESIST_COUNCIL       | Pas question que nous prenions cela pacifiquement, n'est-ce pas ? Nous allons combattre le conseil maintenant, n'est-ce pas ?! Si nous ne le faisons pas, pensez à ce qui arrivera à ces pauvres planètes !
+MAIN_ADVISOR_COUNCIL_RESISTED     | Ces dégoûtants rebelles !! Nous les avons à peine tolérés, même existants, et maintenant ils veulent se rebeller ? Donnez-nous l'ordre de les exterminer : nous avons beaucoup de leurs mondes à revendiquer pour le Conclave !
+
 
 // text for endings... '#' represents a paragraph break
 // variables: %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 is special race-specific text described below
