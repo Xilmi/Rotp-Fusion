@@ -3,10 +3,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Fixed Greek characters not being displayed in GNN announces. (French only)
-  - Changed the dialogue font, as the original one don't includes Greek set.
-  - !This was not a bug, just a no-feature, as no system includes Greek character!
-  --> Restored Original font. It will only be replaced when the original GNN font will not be able to display the system name.
+- Fixed a potential crash in ground combat animation.
+- Fixed Greek characters not being displayed in GNN announces.
+  - The original GNN font don't includes Greek set.
+  - The font will be replaced when the GNN font will not be able to display the system name.
 - Empire Panel: Removed tab limitation for "A", "D" , and "S" key actions.
 - Fixed some Help bubble size and content.
   - Fixed some French help translations.

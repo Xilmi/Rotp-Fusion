@@ -777,7 +777,8 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
             int thisY = min(endTopY, startY+(landingCount*dropPerFrame));
             // draw landing ship
             Image shipImg = thisY == endTopY ? nextOpeningShipImage() : nextDescendingShipImage();
-
+            if (shipImg == null)
+            	return;
             int imgW = shipImg.getWidth(null);
             int imgH = shipImg.getHeight(null);
             g.drawImage(shipImg, shipX, thisY, shipX+dispW, thisY+dispH, 0, 0, imgW, imgH, null);

@@ -1408,7 +1408,7 @@ SETUP_GALAXY_NUMBER_SYSTEMS       | Nombre de systèmes: %1
 SETUP_GALAXY_MAX_OPPONENTS        | %1 adversaires ou moins
 SETUP_SHOW_ABILITIES_HEADER       | Sélectionnable
 SETUP_NEW_RACES_HEADER            | Espèces
-SETUP_NEW_RACES_ON                | Toutes les espèces
+SETUP_NEW_RACES_ON                | Toutes
 SETUP_NEW_RACES_OFF               | Original
 SETUP_OPPONENTS_HEADER_1          | %1 contre
 SETUP_OPPONENTS_HEADER_2          | Empires rivaux

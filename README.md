@@ -69,6 +69,10 @@ Later:
 
 ## What's New
 
+2024.10.17  (BR)
+- Fixed a potential crash in ground combat animation.
+  - The Transport descending or opening frame were missing!?... The missing animation will be skipped instead of a game crash!
+
 2024.10.16  (BR)
 - Empire Panel: Removed tab limitation for "A", "D" , and "S" key actions.
 - Fixed some Help bubble size and content.
