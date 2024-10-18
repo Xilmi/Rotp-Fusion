@@ -525,6 +525,8 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
                 deadIndex = remainingAttackers.size() - 1;
             else 
                 deadIndex = random(remainingAttackers);
+            if (deadIndex == null)
+            	return -1;
             if (deadIndex < attackerState.length)
                 attackerState[deadIndex] = BEGIN_DYING;
             remainingAttackers.remove(deadIndex);
@@ -535,6 +537,8 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
                 deadIndex = remainingDefenders.size() - 1;
             else 
                 deadIndex = random(remainingDefenders);
+            if (deadIndex == null)
+            	return -1;
             if (deadIndex < defenderState.length)
                 defenderState[deadIndex] = BEGIN_DYING;
             remainingDefenders.remove(deadIndex);
@@ -587,6 +591,8 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
     }
     private void drawTroops(Graphics2D g, int troopCount, boolean attack, int x, int y) {
 //        log("DrawTroops. count:"+troopCount+" attacker?"+attack+"  x:"+x+"  y:"+y);
+    	if (troopCount<=0)
+    		return;
         int MAX_PER_ROW = 25;
         int  NUM_ROWS = 6;
         int MAX_ROWS = 20;
@@ -667,13 +673,18 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
 
         // if defender dies this turn, ensure that
         // predecided victim is fired on at least once
-        int victim;
+        Integer victim;
         if (!attackerDead && deathThisTurn > 0) {
             victim = deathThisTurn;
             deathThisTurn = 0;
         }
-        else
+        else {
             victim = random(remainingDefenders);
+	        if (victim == null) {
+	            victim = deathThisTurn;
+	            deathThisTurn = 0;
+	        }
+        }
 
         int victimX = defenderX[0]-(defenderImgW/2);
         int victimY = defenderY[0]+(defenderImgH/2);
@@ -700,13 +711,18 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
 
         // if attacker dies this turn, ensure that
         // predetermined victim is fired on at least once
-        int victim;
+        Integer victim;
         if (attackerDead && deathThisTurn > 0) {
             victim = deathThisTurn;
             deathThisTurn = 0;
         }
-        else
-            victim = random(remainingAttackers);
+        else {
+        	victim = random(remainingAttackers);
+        	if (victim == null) {
+	            victim = deathThisTurn;
+	            deathThisTurn = 0;
+        	}
+        }
 
         int victimX = attackerX[0]+(attackerImgW/2);
         int victimY = attackerY[0]+(attackerImgH/2);
