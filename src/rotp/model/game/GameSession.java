@@ -76,6 +76,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.LoadGameUI;
+import rotp.ui.main.EmpireColonySpendingPane;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.GNNExpansionEvent;
 import rotp.ui.notifications.GNNRankingNoticeCheck;
@@ -1393,6 +1394,7 @@ public final class GameSession implements Base, Serializable {
             memLog();
             // RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment
         }
+        EmpireColonySpendingPane.validateOnLoad();
     }
     static ThreadFactory minThreadFactory() {
         return (Runnable r) -> {

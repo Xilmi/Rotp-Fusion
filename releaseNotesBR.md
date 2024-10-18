@@ -3,8 +3,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed Governor being toggled while clicking outside of the button.
+- Replaced Governor button color by icons.
 - Fixed some crashes occurring when interrupting massive ground attacks.
-- "Governor Toggle" and "Governor Options" are now true buttons
+- "Governor Toggle" and "Governor Options" are now true buttons.
 - Fixed a potential crash in ground combat animation.
 - Fixed Greek characters not being displayed in GNN announces.
   - The original GNN font don't includes Greek set.

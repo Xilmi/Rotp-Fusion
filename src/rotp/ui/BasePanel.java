@@ -413,8 +413,8 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
     public void reloadLabels() {
 		if (!Rotp.isIDE()) {
 			// BR: Intended to only To be used from IDE
-			Toolkit.getDefaultToolkit().beep();
-			LanguageManager.current().reloadLanguage();
+			// Toolkit.getDefaultToolkit().beep();
+			// LanguageManager.current().reloadLanguage();
 			return;
 		}
 		Toolkit.getDefaultToolkit().beep();

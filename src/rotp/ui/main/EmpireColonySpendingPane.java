@@ -15,12 +15,14 @@
  */
 package rotp.ui.main;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.colony.Colony.DEFENSE;
 import static rotp.model.colony.Colony.ECOLOGY;
 import static rotp.model.colony.Colony.INDUSTRY;
 import static rotp.model.colony.Colony.RESEARCH;
 import static rotp.model.colony.Colony.SHIP;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -28,6 +30,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.ComponentAdapter;
@@ -38,6 +41,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList; // modnar: change to cleaner icon set
 import java.util.List; // modnar: change to cleaner icon set
 
@@ -68,6 +72,9 @@ public class EmpireColonySpendingPane extends BasePanel {
     static final Color sliderTextDisabled	= new Color(65,65,65);
     static final Color sliderTextHasOrder	= new Color(0,0,142);
 
+    private static BufferedImage diploMugshotQuiet;
+    private static BufferedImage noGovernor;
+
     private final Rectangle governorBox = new Rectangle();
     private final Rectangle optionsBox = new Rectangle();
 
@@ -77,6 +84,9 @@ public class EmpireColonySpendingPane extends BasePanel {
 
     private final SystemViewer parent;
     private GalaxyMapPanel mapListener;
+
+    public static void validateOnLoad() { diploMugshotQuiet = null; }
+
     public EmpireColonySpendingPane(SystemViewer p, Color c0, Color text, Color hi, Color lo) {
         parent = p;
         textC = text;
@@ -175,6 +185,51 @@ public class EmpireColonySpendingPane extends BasePanel {
             }
         }
     }
+    private BufferedImage governorImage() {
+    	// diploMugshotQuiet = null;
+    	if (diploMugshotQuiet == null) {
+    		int mugH = s22; // s82
+    		int mugW = mugH * 76 / 82; // s76
+    		diploMugshotQuiet = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
+            Graphics2D g = (Graphics2D) diploMugshotQuiet.getGraphics();
+            g.setComposite(AlphaComposite.SrcOver);
+            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+            g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+    		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+    		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+    		BufferedImage img = player().race().diploMugshotQuiet();
+            int imgW = img.getWidth();
+            int imgH = img.getHeight();
+    		g.drawImage(img, 0, 0, mugW, mugH, 0, 0, imgW, imgH, null);
+        	g.dispose();
+    	}
+    	return diploMugshotQuiet;
+    }
+    private BufferedImage noGovernorImage() {
+    	noGovernor = null;
+    	if (noGovernor == null) {
+    		int mugH = s22;
+    		int mugW = mugH;
+    		noGovernor = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
+            Graphics2D g = (Graphics2D) noGovernor.getGraphics();
+            g.setComposite(AlphaComposite.SrcOver);
+            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+            g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+    		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+    		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+    		Image img = image("NO_GOVERNOR");
+            int imgW = img.getWidth(null);
+            int imgH = img.getHeight(null);
+    		g.drawImage(img, 0, 0, mugW, mugH, 0, 0, imgW, imgH, null);
+        	g.dispose();
+    	}
+    	return noGovernor;
+    }
+
     private class EmpireSliderPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
         //EmpireColonySpendingPane mgmtPane;
@@ -218,26 +273,42 @@ public class EmpireColonySpendingPane extends BasePanel {
             governorBox.setBounds(x, y, w, h);
 
             String title;
+            int txtW = w-s5;
+            int txtO = 0;
+            int imgW = 0;
             if (isGovernor) {
-            	g.setColor(new Color(0, 127, 0, 127));
-            	g.fillRoundRect(x, y, w, h, s10, s10);
             	title = text("GOVERNOR_IS_ON_BUTTON");
+//            	g.setColor(new Color(0, 127, 0, 127));
+//            	g.fillRoundRect(x, y, w, h, s10, s10);
+            	imgW = s25;
+            	txtO = imgW/2;
+            	txtW -= s30;
             }
-            else
+            else {
             	title = text("GOVERNOR_IS_OFF_BUTTON");
+            	imgW = s25;
+            	txtO = imgW/2;
+            	txtW -= s30;
+            }
 
             g.setColor(borderC);
             g.drawRoundRect(x, y, w, h, s10, s10);
             g.setStroke(prevStroke);
 
             g.setColor(titleC);
-            scaledFont(g, title, w-s5, 20, 15);
+            scaledFont(g, title, txtW, 20, 12);
             Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
-            int titleX = round(x + (w-bound.getWidth())/2);
+            int titleX = round(x + (w-bound.getWidth())/2) - txtO;
             int titleY = round(3*bound.getHeight()-h)/2 - y ;
             if (LanguageManager.selectedLanguageDir().equals("fr"))
             	titleY += s3;
             drawShadowedString(g, title, 2, titleX, titleY, MainUI.shadeBorderC(), titleC);
+            if (isGovernor) {
+            	g.drawImage(governorImage(), x+w-s24, y+s2, null);
+            }
+            else {
+            	g.drawImage(noGovernorImage(), x+w-s24, y+s2, null);
+            }
         }
         private void drawOptionsButton(Graphics2D g, int x, int y, int w, int h) {
             Color borderC, titleC;
@@ -260,7 +331,7 @@ public class EmpireColonySpendingPane extends BasePanel {
 
             g.setColor(titleC);
             String title = text("GOVERNOR_OPTIONS");
-            scaledFont(g, title, w-s5, 20, 15);
+            scaledFont(g, title, w-s5, 20, 12);
             Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
             int titleX = round(x + (w-bound.getWidth())/2);
             int titleY = round(3*bound.getHeight()-h)/2 - y ;
@@ -677,11 +748,12 @@ public class EmpireColonySpendingPane extends BasePanel {
                 increment(true);
             else if (resultBox.contains(x,y))
             	commonResultBox(true, e);
-            else if (governorBox.contains(x,y))
-            	toggleGovernor();
-            else if (optionsBox.contains(x,y))
-            	governorOptions();
-            else {
+            else if (this.category < 0) {
+                if (governorBox.contains(x,y))
+                	toggleGovernor();
+                else if (optionsBox.contains(x,y))
+                	governorOptions();                	
+            } else {
 //                if (this.category < 0) {
 //// TODO: for future use
 ////                    if (x < EmpireColonySpendingPane.this.getWidth() - s95) {

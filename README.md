@@ -73,6 +73,8 @@ Later:
 - Fixed some crashes occurring when interrupting massive ground attacks.
 - "Governor Toggle" and "Governor Options" are now true buttons
 - Adjusted some help bubbles location, and improved some french translations.
+- Fixed Governor being toggled while clicking outside of the button.
+- Replaced Governor button color by icons.
 
 2024.10.17  (BR)
 - Fixed a potential crash in ground combat animation.
