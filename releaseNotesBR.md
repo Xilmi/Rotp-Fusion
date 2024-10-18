@@ -3,22 +3,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed some crashes occurring when interrupting massive ground attacks.
+- "Governor Toggle" and "Governor Options" are now true buttons
 - Fixed a potential crash in ground combat animation.
 - Fixed Greek characters not being displayed in GNN announces.
   - The original GNN font don't includes Greek set.
   - The font will be replaced when the GNN font will not be able to display the system name.
-- Empire Panel: Removed tab limitation for "A", "D" , and "S" key actions.
-- Fixed some Help bubble size and content.
-  - Fixed some French help translations.
-- Improved Empire Hotkey description.
-- "Free" of tech panel is now translatable.
-- Ship building can now be prioritized. (For Governor).
-- Fixed Governor not upgrading planet for Silicoids.
-- Auto conversion of dialogue keywords for untranslated texts.
-- Fixed Research bubble not always being up to date.
-- Fixed Advisor Messages not always fitting inside the box. 
-- Fixed All race name being the same when "Base Species Nominal Names" option was set.
-- Added Warning for "Continue on defeat": Reloading a game with a dead player will crash the game.
+
 
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.

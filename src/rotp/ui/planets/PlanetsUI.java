@@ -356,7 +356,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
     	
     	int w0 = scaled(300);
         int x0 = w - w0 - s10;
-        int y0 = scaled(90);
+        int y0 = scaled(20);
         int w1 = scaled(400);
         int x1 = w - scaled(700);
         int y1 = scaled(280);

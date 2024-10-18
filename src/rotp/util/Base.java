@@ -412,6 +412,7 @@ public interface Base {
     public default int abs(int v1)              	 { return Math.abs(v1); }
     public default int ceil(float f)              	 { return (int) Math.ceil(f); }
     public default int round(float f)              	 { return Math.round(f); }
+    public default int round(double f)             	 { return (int) Math.round(f); }
     public default int max(int v1, int v2)           { return Math.max(v1,v2); }
     public default int max(int v1, int v2, int v3)   { return max(v1,max(v2,v3)); }
     public default int max(int... n) {

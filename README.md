@@ -69,6 +69,10 @@ Later:
 
 ## What's New
 
+2024.10.18  (BR)
+- Fixed some crashes occurring when interrupting massive ground attacks.
+- "Governor Toggle" and "Governor Options" are now true buttons
+
 2024.10.17  (BR)
 - Fixed a potential crash in ground combat animation.
   - The Transport descending or opening frame were missing!?... The missing animation will be skipped instead of a game crash!

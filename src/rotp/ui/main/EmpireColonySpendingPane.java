@@ -37,6 +37,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList; // modnar: change to cleaner icon set
 import java.util.List; // modnar: change to cleaner icon set
 
@@ -52,6 +53,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.SystemViewer;
 import rotp.ui.UserPreferences;
 import rotp.util.ImageManager;
+import rotp.util.LanguageManager;
 
 public class EmpireColonySpendingPane extends BasePanel {
     private static final long serialVersionUID = 1L;
@@ -65,6 +67,9 @@ public class EmpireColonySpendingPane extends BasePanel {
     static final Color sliderTextEnabled	= Color.black;
     static final Color sliderTextDisabled	= new Color(65,65,65);
     static final Color sliderTextHasOrder	= new Color(0,0,142);
+
+    private final Rectangle governorBox = new Rectangle();
+    private final Rectangle optionsBox = new Rectangle();
 
     Color borderHi, borderLo, textC, backC;
 
@@ -196,8 +201,74 @@ public class EmpireColonySpendingPane extends BasePanel {
             addMouseMotionListener(this);
             addMouseWheelListener(this);
         }
-        @Override
-        public void paintComponent(Graphics g0) {
+
+        private void drawGovernorButton(Graphics2D g, int x, int y, int w, int h, boolean isGovernor) {
+            Color borderC, titleC;
+            Stroke prevStroke = g.getStroke();
+            if (hoverBox == governorBox) {
+            	borderC = SystemPanel.yellowText;
+            	titleC  = SystemPanel.yellowText;
+                g.setStroke(stroke2);
+            }
+            else {
+            	borderC = newColor(175,175,175);
+            	titleC = textC;
+                g.setStroke(stroke1);
+            }
+            governorBox.setBounds(x, y, w, h);
+
+            String title;
+            if (isGovernor) {
+            	g.setColor(new Color(0, 127, 0, 127));
+            	g.fillRoundRect(x, y, w, h, s10, s10);
+            	title = text("GOVERNOR_IS_ON_BUTTON");
+            }
+            else
+            	title = text("GOVERNOR_IS_OFF_BUTTON");
+
+            g.setColor(borderC);
+            g.drawRoundRect(x, y, w, h, s10, s10);
+            g.setStroke(prevStroke);
+
+            g.setColor(titleC);
+            scaledFont(g, title, w-s5, 20, 15);
+            Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
+            int titleX = round(x + (w-bound.getWidth())/2);
+            int titleY = round(3*bound.getHeight()-h)/2 - y ;
+            if (LanguageManager.selectedLanguageDir().equals("fr"))
+            	titleY += s3;
+            drawShadowedString(g, title, 2, titleX, titleY, MainUI.shadeBorderC(), titleC);
+        }
+        private void drawOptionsButton(Graphics2D g, int x, int y, int w, int h) {
+            Color borderC, titleC;
+            if (hoverBox == optionsBox) {
+            	borderC = SystemPanel.yellowText;
+            	titleC  = SystemPanel.yellowText;
+                g.setStroke(stroke2);
+            }
+            else {
+            	borderC = newColor(175,175,175);
+               	titleC  = textC;
+                g.setStroke(stroke1);
+            }
+        	optionsBox.setBounds(x, y, w, h);
+
+        	Stroke prevStroke = g.getStroke();
+            g.setColor(borderC);
+        	g.drawRoundRect(x, y, w, h, s10, s10);
+            g.setStroke(prevStroke);
+
+            g.setColor(titleC);
+            String title = text("GOVERNOR_OPTIONS");
+            scaledFont(g, title, w-s5, 20, 15);
+            Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
+            int titleX = round(x + (w-bound.getWidth())/2);
+            int titleY = round(3*bound.getHeight()-h)/2 - y ;
+            if (LanguageManager.selectedLanguageDir().equals("fr"))
+            	titleY += s3;
+            drawShadowedString(g, title, 2, titleX, titleY, MainUI.shadeBorderC(), titleC);
+        }
+        @Override public void paintComponent(Graphics g0) {
             Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
 
@@ -211,31 +282,44 @@ public class EmpireColonySpendingPane extends BasePanel {
             int w = getWidth();
 
             if (category < 0) {
-                Color color;
-                if (colony.isGovernor()) {
-                    color = Color.green;
-                } else {
-                    color = MainUI.shadeBorderC();
-                }
+            	int wGov = scaled(150);
+            	int xGov = s5;
+            	int hGov = s25;
+            	int yGov = getHeight() - hGov - s1;
+            	drawGovernorButton(g, xGov, yGov, wGov, hGov, colony.isGovernor());
 
-                g.setFont(narrowFont(20));
-                String titleText = text("MAIN_COLONY_ALLOCATE_SPENDING");
-                int titleY = getHeight() - s6;
-                drawShadowedString(g, titleText, 2, s5, titleY, color, textC);
+            	int wOpt = s75;
+            	int xOpt = w - wOpt - s5;
+            	int hOpt = hGov;
+            	int yOpt = yGov;
+            	drawOptionsButton(g, xOpt, yOpt, wOpt, hOpt);
 
-                // crappy ASCII art. Should be something else.
-                // TODO: for future use
-//                if (1 == 0) {
-//                    if (colony.isAutoShips()) {
-//                        color = Color.green;
-//                    } else {
-//                        color = MainUI.shadeBorderC();
-//                    }
-//                    String shipAutomateText = "]=>";
-//                    drawShadowedString(g, shipAutomateText, 2, w - s95, titleY, color, textC);
+            	//paintGovernor(g, colony);
+//                Color color;
+//                if (colony.isGovernor()) {
+//                    color = Color.green;
+//                } else {
+//                    color = MainUI.shadeBorderC();
 //                }
-                String governorOptionsText = text("GOVERNOR_OPTIONS");
-                drawShadowedString(g, governorOptionsText, 2, w-s60, titleY, MainUI.shadeBorderC(), textC);
+//
+//                g.setFont(narrowFont(20));
+//                String titleText = text("MAIN_COLONY_ALLOCATE_SPENDING");
+//                int titleY = getHeight() - s6;
+//                drawShadowedString(g, titleText, 2, s5, titleY, color, textC);
+//
+//                // crappy ASCII art. Should be something else.
+//                // TODO: for future use
+////                if (1 == 0) {
+////                    if (colony.isAutoShips()) {
+////                        color = Color.green;
+////                    } else {
+////                        color = MainUI.shadeBorderC();
+////                    }
+////                    String shipAutomateText = "]=>";
+////                    drawShadowedString(g, shipAutomateText, 2, w - s95, titleY, color, textC);
+////                }
+//                String governorOptionsText = text("GOVERNOR_OPTIONS");
+//                drawShadowedString(g, governorOptionsText, 2, w-s60, titleY, MainUI.shadeBorderC(), textC);
                 return;
             }
             String text = text(Colony.categoryName(category));
@@ -421,203 +505,6 @@ public class EmpireColonySpendingPane extends BasePanel {
             else if (click)
                 misClick();
         }
-/*        private void leftClickResultBox(boolean click, MouseEvent e) {
-            StarSystem sys = parent.systemViewToDisplay();
-            if (sys == null)
-                return;
-            Colony colony = sys.colony();
-            if (colony == null)
-                return;
-            if(!colony.locked(category)) {
-                colony.smoothMaxSlider(category);
-                if (e!=null && e.isControlDown())
-           		 colony.toggleOrder(category);
-            }
-            if (click)
-                softClick();
-            if(category != ECOLOGY)
-            	colony.checkEcoAtClean();
-            if(category != RESEARCH && !colony.locked(RESEARCH))
-            	colony.allocation(RESEARCH, 0);
-            colony.redistributeReducedEcoSpending();
-
-            parent.repaint();
-        } */
-/*        private void maxSlider(boolean click, MouseEvent e) {
-            StarSystem sys = parent.systemViewToDisplay();
-            if (sys == null)
-                return;
-            Colony colony = sys.colony();
-            if (colony == null)
-                return;
-            if(!colony.locked(category)) {
-                colony.clearUnlockedSpending();
-            	if (e.isControlDown())
-            		 colony.toggleOrder(category);
-                int allocation = colony.allocationRemaining();
-                if(e.getButton() == 1)
-                {
-                    switch(category)
-                    {
-                        case SHIP:
-                            if(colony.shipyard().buildLimit() > 0)
-                                allocation = min(allocation, colony.shipyard().maxAllocationNeeded());
-                            break;
-                        case DEFENSE:
-                            allocation = min(allocation, colony.defense().maxAllocationNeeded());
-                            break;
-                        case INDUSTRY:
-                            allocation = min(allocation, colony.industry().maxAllocationNeeded());
-                            break;
-                        case ECOLOGY:
-                            allocation = min(allocation, colony.ecology().maxAllocationNeeded());
-                            break;
-                        default:
-                            break;
-                    }
-                    if(allocation == 0)
-                        allocation = colony.allocationRemaining();
-                }
-                colony.setAllocation(this.category, allocation);
-                if(category != ECOLOGY)
-                    colony.checkEcoAtClean();
-                else
-                    colony.redistributeReducedEcoSpending();
-            }
-            if (click)
-                softClick();
-            parent.repaint();
-        } */
-/*        private void rightClickResultBox(boolean click, MouseEvent e) {
-            StarSystem sys = parent.systemViewToDisplay();
-            if (sys == null)
-                return;
-            Colony colony = sys.colony();
-            if (colony == null)
-                return;
-            if(!colony.locked(category)) {
-            	if (e.isControlDown())
-            		colony.toggleOrder(category);
-                float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
-                switch(category) {
-                    case ECOLOGY:
-                    	colony.checkEcoAtTerraform();
-                    	colony.keepEcoLockedToClean = false;
-                        break;
-                    default:
-                    	maxSlider(click, e);
-                    	return;
-                }
-                if (mapListener == null)
-                    RotPUI.instance().techUI().resetPlanetaryResearch();
-                else {
-                    float techAdj = colony.totalPlanetaryResearch() - prevTech;
-                    RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
-                    mapListener.repaintTechStatus();
-                }
-            } 
-            if (click)
-                softClick();
-            parent.repaint();
-        } */
-/*        private void middleClickResultBox(boolean click, MouseEvent e) {
-            StarSystem sys = parent.systemViewToDisplay();
-            if (sys == null)
-                return;
-            Colony colony = sys.colony();
-            if (colony == null)
-                return;
-            if(!colony.locked(category)) {
-            	if (e.isControlDown())
-            		colony.toggleOrder(category);
-                float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
-                switch(category) {
-                    case SHIP:		break;
-                    case DEFENSE:	break;
-                    case INDUSTRY:	break;
-                    case ECOLOGY:
-                    	colony.keepEcoLockedToClean = true;
-                    	colony.checkEcoAtClean();
-                        break;
-                    default:		break;
-                }
-                if (mapListener == null)
-                    RotPUI.instance().techUI().resetPlanetaryResearch();
-                else {
-                    float techAdj = colony.totalPlanetaryResearch() - prevTech;
-                    RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
-                    mapListener.repaintTechStatus();
-                }
-            }
-            if (click)
-                softClick();
-            parent.repaint();
-        } */
-/*        private void clearMaxClick(boolean click, MouseEvent e) {
-            StarSystem sys = parent.systemViewToDisplay();
-            if (sys == null)
-                return;
-            Colony colony = sys.colony();
-            if (colony == null)
-                return;
-            if (colony.locked(category)) {
-            	misClick();
-            	return;
-            }
-
-            float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
-
-            colony.clearUnlockedSpending();
-            int allocation = colony.allocationRemaining();
-            int allocationNeeded =  colony.category(category).smartAllocationNeeded(e);
-            allocation = min(allocation, allocationNeeded);
-            System.out.println("allocation = "+allocation);
-            if(allocation == 0 && category != RESEARCH)
-                allocation = colony.allocationRemaining();
-            colony.setAllocation(category, allocation);
-
-        	if (category == ECOLOGY) {
-        		colony.redistributeReducedEcoSpending();
-        		colony.keepEcoLockedToClean = SwingUtilities.isMiddleMouseButton(e);
-        	}
-        	else 
-        		colony.checkEcoAtClean();
-        	if (mapListener == null)
-                RotPUI.instance().techUI().resetPlanetaryResearch();
-            else {
-                float techAdj = colony.totalPlanetaryResearch() - prevTech;
-                RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
-                mapListener.repaintTechStatus();
-            }
-            	
-            if (click)
-                softClick();
-            parent.repaint();
-        } */
-/*        private void clearBaseAllocClick(boolean click, MouseEvent e) {
-            StarSystem sys = parent.systemViewToDisplay();
-            if (sys == null)
-                return;
-            Colony colony = sys.colony();
-            if (colony == null)
-                return;
-            if (colony.locked(category)) {
-            	misClick();
-            	return;
-            }
-
-            colony.clearUnlockedSpending();
-            int allocation = colony.allocationRemaining();
-            int allocationNeeded =  colony.category(category).smartAllocationNeeded(e);
-            allocation = min(allocation, allocationNeeded);
-            colony.hasNewOrders(true);
-        	player().governorAI().setInitialAllocations(colony);
-        	colony.validate();
-            
-            if (click)
-                softClick();
-            parent.repaint();
-        }*/
         private void smoothMaxClick(boolean click, MouseEvent e) {
         	// Common start
             StarSystem sys = parent.systemViewToDisplay();
@@ -692,16 +579,6 @@ public class EmpireColonySpendingPane extends BasePanel {
             else if (e.isControlDown()) {
             	colony.clearUnlockedSpending();
             	colony.redistributeSpending(-1);
-//           		colony.hasNewOrders(true); 
-//            	try {
-//            		player().governorAI().setInitialAllocations(colony);
-//            	}
-//            	catch (Exception exception) {
-//            		System.err.println("setInitialAllocations Error");
-//            		System.err.println(exception.toString());
-//            	}
-//            	player().governorAI().setInitialAllocations(colony);
-//            	colony.validate();
             	colony.checkEcoAtClean();
             }
 
@@ -775,21 +652,16 @@ public class EmpireColonySpendingPane extends BasePanel {
 		    		return;
 	            }
         }
-        @Override
-        public void mouseClicked(MouseEvent arg0) {}
-        @Override
-        public void mouseEntered(MouseEvent arg0) {}
-        @Override
-        public void mouseExited(MouseEvent arg0) {
+        @Override public void mouseClicked(MouseEvent arg0) {}
+        @Override public void mouseEntered(MouseEvent arg0) {}
+        @Override public void mouseExited(MouseEvent arg0) {
             if (hoverBox != null) {
                 hoverBox = null;
                 repaint();
             }
         }
-        @Override
-        public void mousePressed(MouseEvent ev) { }
-        @Override
-        public void mouseReleased(MouseEvent e) {
+        @Override public void mousePressed(MouseEvent ev) { }
+        @Override public void mouseReleased(MouseEvent e) {
             if (e.getButton() > 3)
                 return;
             int x = e.getX();
@@ -805,33 +677,23 @@ public class EmpireColonySpendingPane extends BasePanel {
                 increment(true);
             else if (resultBox.contains(x,y))
             	commonResultBox(true, e);
-//            	if (e.isControlDown())
-//            		clearBaseAllocClick(true, e);
-//            	else if (e.isShiftDown())
-//            		clearMaxClick(true, e);
-//            	else
-//            		smoothMaxClick(true, e);
-            		
-//            	if (SwingUtilities.isRightMouseButton(e))
-//            		rightClickResultBox(true, e);
-//            	else if (SwingUtilities.isMiddleMouseButton(e))
-//            		middleClickResultBox(true, e);
-//            	else
-//            		leftClickResultBox(true, e);
-//            		maxSlider(true, e);
+            else if (governorBox.contains(x,y))
+            	toggleGovernor();
+            else if (optionsBox.contains(x,y))
+            	governorOptions();
             else {
-                if (this.category < 0) {
-// TODO: for future use
-//                    if (x < EmpireColonySpendingPane.this.getWidth() - s95) {
+//                if (this.category < 0) {
+//// TODO: for future use
+////                    if (x < EmpireColonySpendingPane.this.getWidth() - s95) {
+////                        toggleGovernor();
+////                    } else if (x < EmpireColonySpendingPane.this.getWidth() - s60) {
+////                        toggleAutoShips();
+//                    if (x < EmpireColonySpendingPane.this.getWidth() - s60) {
 //                        toggleGovernor();
-//                    } else if (x < EmpireColonySpendingPane.this.getWidth() - s60) {
-//                        toggleAutoShips();
-                    if (x < EmpireColonySpendingPane.this.getWidth() - s60) {
-                        toggleGovernor();
-                    } else {
-                        governorOptions();
-                    }
-                }
+//                    } else {
+//                        governorOptions();
+//                    }
+//                }
                 float pct = pctBoxSelected(x,y);
                 if (pct >= 0) {
                     Colony colony = parent.systemViewToDisplay().colony();
@@ -861,10 +723,8 @@ public class EmpireColonySpendingPane extends BasePanel {
                 }
             }
         }
-        @Override
-        public void mouseDragged(MouseEvent arg0) { }
-        @Override
-        public void mouseMoved(MouseEvent e) {
+        @Override public void mouseDragged(MouseEvent arg0) { }
+        @Override public void mouseMoved(MouseEvent e) {
             int x = e.getX();
             int y = e.getY();
 
@@ -879,14 +739,17 @@ public class EmpireColonySpendingPane extends BasePanel {
                 newHover = rightArrow;
             else if (resultBox.contains(x,y))
                 newHover = resultBox;
+            else if (governorBox.contains(x,y))
+                newHover = governorBox;
+            else if (optionsBox.contains(x,y))
+                newHover = optionsBox;
 
             if (newHover != hoverBox) {
                 hoverBox = newHover;
                 repaint();
             }
         }
-        @Override
-        public void mouseWheelMoved(MouseWheelEvent e) {
+        @Override public void mouseWheelMoved(MouseWheelEvent e) {
             int rot = e.getWheelRotation();
             if (hoverBox == sliderBox) {
                 if (rot > 0)
@@ -958,7 +821,6 @@ public class EmpireColonySpendingPane extends BasePanel {
             }
         });
     }
-
     private void toggleGovernor() {
         if (parent.systemViewToDisplay() != null && parent.systemViewToDisplay().colony() != null) {
             Colony colony = parent.systemViewToDisplay().colony();
