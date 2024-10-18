@@ -72,6 +72,7 @@ Later:
 2024.10.18  (BR)
 - Fixed some crashes occurring when interrupting massive ground attacks.
 - "Governor Toggle" and "Governor Options" are now true buttons
+- Adjusted some help bubbles location, and improved some french translations.
 
 2024.10.17  (BR)
 - Fixed a potential crash in ground combat animation.

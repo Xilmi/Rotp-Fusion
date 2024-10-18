@@ -673,7 +673,7 @@ MAIN_HELP_4C                      | Défenses: <br> Clic-gauche : Allocation min
 MAIN_HELP_4D                      | Industrie: <br> Clic-gauche : Allocation minimale nécessaire pour finaliser les usines.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu: Allocation minimale nécessaire pour suivre la croissance de la population.
 MAIN_HELP_4E                      | Écologie: <br> Clic-gauche : Allocation minimale nécessaire pour finaliser la croissance.<br> Clic-droit : Allocation minimale nécessaire pour finaliser la terraformation. <br>Clic-milieu: Allocation minimale nécessaire pour rester propre.
 MAIN_HELP_4F                      | Technologie: <br>Clic-gauche : Allocation maximale disponible.<br> Clic-droit : 0 Allocation --> réallocation complète.
-MAIN_HELP_4G                      | Cliquez ici pour verrouiller / déverrouiller les dépenses. (en gris quand vèrrouillé)<br>Clique + Ctrl pour annuler ou restaurer les ordres des colonies. (Que vous pouvez fixer après une mise à jour technologique)<br> Ces champs sont classés par ordre de priorité lors du processus de «Tour suivant».<br> Une option est disponible pour les afficher en bleu... ou pas.
+MAIN_HELP_4G                      | Cliquez ici pour verrouiller / déverrouiller les dépenses. (en gris lorsque verrouillé)<br>Clique + Ctrl pour annuler ou restaurer les ordres des colonies. (Que vous pouvez fixer après une mise à jour technologique)<br> Ces champs sont classés par ordre de priorité lors du processus de «Tour suivant».<br> Une option est disponible pour les afficher en bleu... ou pas.
 MAIN_SYSTEM_DETAIL_PFB            | Pop %1  Usi %2  Base %3
 MAIN_SYSTEM_DETAIL_PF             | Pop %1  Usi %2
 MAIN_SYSTEM_DETAIL_NO_DATA        | Pas de données
@@ -1049,11 +1049,11 @@ PLANETS_HELP_2B                   | Population - Population actuelle, y compris 
 PLANETS_HELP_2C                   | Type - Type de terrain de la planète. Vert pour les planètes Fertiles.
 PLANETS_HELP_2D                   | Ressources - pour les planètes Riches, Pauvres et Artefacts.
 PLANETS_HELP_2E                   | Taille - Taille actuelle de la planète.
-PLANETS_HELP_2F                   | Déchets - niveau de déchets industriels sur la planète.
+PLANETS_HELP_2F                   | Déchets - Niveau de déchets industriels sur la planète.
 PLANETS_HELP_2G                   | Notes - Notes du joueur sur le système. Modifiable.
 PLANETS_HELP_3A                   | Nom - Le nom de votre système. Modifiable.
 PLANETS_HELP_3B                   | Population - Population actuelle, y compris le changement par rapport au tour précédent.
-PLANETS_HELP_3C                   | Ressources - pour les planètes Riches, Pauvres et Artefacts.
+PLANETS_HELP_3C                   | Ressources - Pour les planètes Riches, Pauvres et Artefacts.
 PLANETS_HELP_3D                   | Usines- Nombre d'usines, y compris le changement par rapport au tour précédent.
 PLANETS_HELP_3E                   | Production - production totale de la colonie.
 PLANETS_HELP_3F                   | Reserve - réserve totale actuellement stockée sur la colonie.
@@ -2274,13 +2274,13 @@ RACES_HELP_0D                     | Armée - Affichez les conceptions de la flot
 RACES_HELP_0E                     | Statut - Comparaison entre plusieurs catégories.
 RACES_HELP_0F                     | La sélection de votre empire vous permet de gérer les informations de toutes les races contactées sur chaque onglet.
 RACES_HELP_0G                     | La sélection d'un empire extraterrestre affiche des informations plus détaillées pour cette race sur chaque onglet.
-RACES_HELP_0H                     | Si pas à jour :<br>Âge du dernier rapport d'espionnage âge.<br> ("-" pour jamais)
+RACES_HELP_0H                     | S'il n'est pas à jour, âge du dernier rapport d'espionnage.<br> ("-" S'il n'y en a jamais eu)
 RACES_HELP_1A                     | Informations générales pour l'empire sélectionné.
 RACES_HELP_1B                     | Fournit un accès direct aux diplomates de tous les empires contactés.
 RACES_HELP_1C                     | Augmentez la taxe de sécurité pour améliorer vos chances de déjouer les espions ennemis.
 RACES_HELP_1D                     | Fournit un accès direct pour gérer vos espions dans tous les empires contactés.
 RACES_HELP_1E                     | Des incidents diplomatiques qui affectent la façon dont les autres empires réagissent à votre égard. Les effets tendront vers zéro avec le temps.
-RACES_HELP_1F                     | Cliquez pour changer la couleur d'une course affichée sur la carte
+RACES_HELP_1F                     | Cliquez pour changer la couleur attribuée à l'empire.
 RACES_HELP_2A                     | Informations générales pour l'empire sélectionné.
 RACES_HELP_2B                     | Accorde une audience avec un diplomate de l'empire sélectionné.
 RACES_HELP_2C                     | Informations sur les traités commerciaux signés avec l'empire sélectionné.
