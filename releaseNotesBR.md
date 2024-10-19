@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed big Symmetric Galaxies... Not being Symmetric.
 - Fixed combat results displaying "RETREATED" instead of "DESTROYED" when 0 ships were remaining.
 - "Governor Toggle" button and its "Option" button now match the interface standard
 - Fixed Governor being toggled while clicking outside of the button.

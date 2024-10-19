@@ -70,8 +70,9 @@ Later:
 ## What's New
 
 2024.10.19  (BR)
-- "Governor Toggle" button and its "Option" button now match the interface standard
+- "Governor Toggle" button and its "Option" button now match the interface standard.
 - Fixed combat results displaying "RETREATED" instead of "DESTROYED" when 0 ships were remaining.
+- Fixed big Symmetric Galaxies... Not being Symmetric.
 
 2024.10.18  (BR)
 - Fixed some crashes occurring when interrupting massive ground attacks.

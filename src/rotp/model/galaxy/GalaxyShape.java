@@ -491,7 +491,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 
 		initWidthHeight();
 		float minSize = min(fullWidth, fullHeight);
-		usingRegions = minSize > 100;
+		usingRegions = (minSize > 100) && !isSymmetric();
 		if (usingRegions) {
 			regionScale = min(64, (int) (minSize / 6.0));
 			regions = new ShapeRegion[regionScale][regionScale];
