@@ -1557,17 +1557,18 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             g.drawImage(img, x, y, x+w, y+h, w0, 0, 0, h0, null);
         else
             g.drawImage(img, x, y, x+w, y+h, 0, 0, w0, h0, null);
-        if (retreat > 0) {
-            g.setFont(narrowFont(30));
-            String summary = text("SHIP_COMBAT_RESULTS_RETREATED");
-            int sw0 = g.getFontMetrics().stringWidth(summary);
-            drawBorderedString(g, summary, x+(w-sw0)/2, y+h/2+s5, Color.black, Color.yellow);              
-        }
-        else if (start == dead) {
+        // BR: swapped test to avoid retreat of 0 ship
+        if (start == dead) {
             g.setFont(narrowFont(30));
             String summary = text("SHIP_COMBAT_RESULTS_DESTROYED");
             int sw0 = g.getFontMetrics().stringWidth(summary);
             drawBorderedString(g, summary, x+(w-sw0)/2, y+h/2+s5, Color.black, Color.red);              
+        }
+        else if (retreat > 0) {
+            g.setFont(narrowFont(30));
+            String summary = text("SHIP_COMBAT_RESULTS_RETREATED");
+            int sw0 = g.getFontMetrics().stringWidth(summary);
+            drawBorderedString(g, summary, x+(w-sw0)/2, y+h/2+s5, Color.black, Color.yellow);              
         }
         g.setFont(narrowFont(18));
         g.setColor(SystemPanel.whiteText);
