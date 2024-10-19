@@ -16,15 +16,15 @@ _nameTitle                        | le Khan
 
 //
 // All text below this point is copyright 2018-2020 Jeff Colucci
-// 
-// Licensed under the Creative Commons License, 
+//
+// Licensed under the Creative Commons License,
 // Attribution-NonCommercial-NoDerivatives 4.0 International (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     https://creativecommons.org/licenses/by-nc-nd/4.0/
-//  
-// This license is legally binding. Please review this license before altering 
+//
+// This license is legally binding. Please review this license before altering
 // or distributing any material covered under this license.
 //
 
@@ -38,9 +38,9 @@ MAIN_ADVISOR_SHIP_ENGINE          | Nous avons trouvé un moyen d'améliorer nos
 MAIN_ADVISOR_RALLY_POINTS         | Khan! La guerre est à nos portes ! Les Khanats honoreront leur engagement de s'unir à vous à ce moment-là, alors établissez un point de ralliement pour leur dire où envoyer leurs flottes !
 MAIN_ADVISOR_MISSILE_BASES        | Les mondes périphériques sous notre contrôle sont vulnérables aux attaques ennemies ! Construisons des bases de missiles pour les empêcher de tomber entre les mains de l'ennemi.
 MAIN_ADVISOR_SHIP_WEAPON          | Nous avons réussi à développer de nouvelles armes puissantes à utiliser sur nos vaisseaux. Ceux-ci provoqueront certainement une déroute parmi les forces de nos ennemis une fois que nous les aurons inclus dans nos conceptions de vaisseaux.
-MAIN_ADVISOR_COUNCIL              | Une réunion de peuples sera bientôt à nos portes, mais ils disent que c'est pour la diplomatie au lieu de la guerre. Étrange, n'est-ce pas ? Pourtant, nous devrions assister à ce "Conseil Galactique", ne serait-ce que pour apaiser les empires les plus craintifs.
+MAIN_ADVISOR_COUNCIL              | Une réunion de peuples sera bientôt à nos portes, mais ils disent que c'est pour la diplomatie au lieu de la guerre. Étrange, n'est-ce pas ? Pourtant, nous devrions assister à ce « Conseil Galactique », ne serait-ce que pour apaiser les empires les plus craintifs.
 MAIN_ADVISOR_REBELLION            | Vous ne vous sentez pas bien, Khan ? Il y a une rébellion sur %1 et vous n'avez pas donné d'ordre pour les abattre.
-MAIN_ADVISOR_RESIST_COUNCIL       | Pensaient-ils que nous allions simplement nous allonger et les laisser mettre la paix d'un lâche sur la galaxie comme ça ? Commençons les pillages, Khan : notre peuple a hâte de trouver un trésor ! 
+MAIN_ADVISOR_RESIST_COUNCIL       | Pensaient-ils que nous allions simplement nous allonger et les laisser mettre la paix d'un lâche sur la galaxie comme ça ? Commençons les pillages, Khan : notre peuple a hâte de trouver un trésor !
 MAIN_ADVISOR_COUNCIL_RESISTED     | Ces stupides rebelles refusent notre victoire ! Montrons-leur nos principes : le fort prend, le faible donne !
 
 // text for endings... '#' represents a paragraph break

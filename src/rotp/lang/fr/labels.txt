@@ -544,7 +544,7 @@ GAME_SETTINGS_DEFAULT_MAX_BASES_DESC         | Nombre maximal de bases de missil
 SETTINGS_MOD_DISABLE_ADVISOR_YES  | Désactivé
 SETTINGS_MOD_DISABLE_ADVISOR_NO   | Activé
 SETTINGS_MOD_DISABLE_ADVISOR      | Désactiver le conseiller : %1
-SETTINGS_MOD_DISABLE_ADVISOR_DESC | Activer / Désactiver l'affichage automatique des conseils de l'ècran Galaxie lors du démarrage d'un nouveau jeu.
+SETTINGS_MOD_DISABLE_ADVISOR_DESC | Activer / Désactiver l'affichage automatique des conseils de l'écran Galaxie lors du démarrage d'un nouveau jeu.
 SETTINGS_MOD_DISABLE_AUTO_HELP_YES        | Oui
 SETTINGS_MOD_DISABLE_AUTO_HELP_NO         | Non
 SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER      | Jamais
@@ -622,7 +622,7 @@ MAIN_TECH_RP_DISCOVERY            | Découverte Imminente
 MAIN_TECH_RESERVE_BC              | %1 BC
 MAIN_TECH_RESERVE_TAX_ALL         | Taxer %1% de la production sur toutes les colonies
 MAIN_TECH_RESERVE_TAX             | Taxer %1% de la production sur les colonies développées
-MAIN_TECH_RESERVE_TAX_NONE        | Aucune taxe prélevée sur la production de la colonie
+MAIN_TECH_RESERVE_TAX_NONE        | Aucune taxe prélevée sur la production des colonies
 MAIN_HELP_ALL                     | Aide - cliquez pour parcourir les informations d'aide pour un écran particulier. Escape pour annuler.
 MAIN_HELP_MOD                     | Mod Help - «O» pour accéder au menu des options de jeu. «Home» dans Auto-Flag la planète sélectionnée. «Alt»+«Home» pour appliquer Auto-Flag à toutes les planètes déjà explorées.
 MAIN_HELP_MOD_1A                  | Pour activer ou désactiver le Gouverneur pour ce système solaire.
@@ -644,7 +644,7 @@ MAIN_HELP_2C                      | Production planétaire totale de l'industrie
 MAIN_HELP_2D                      | Production réelle ajustée en fonction des revenus commerciaux à l'échelle de l'empire, des coûts d'espionnage et de sécurité, ainsi que de la maintenance des bases de missiles et des vaisseaux.
 MAIN_HELP_2E                      | Modifiez la conception du vaisseau pour le construire dans le chantier naval en orbite de la planète. La production accumulée pour les vaisseaux inachevés accélérera la production de nouveaux vaisseaux de 50 % jusqu'à leur épuisement. Cliquez ou utilisez la molette de la souris pour modifier la conception du vaisseau.
 MAIN_HELP_2F                      | Définissez un point de ralliement pour envoyer automatiquement les vaisseaux nouvellement construits vers une autre colonie.
-MAIN_HELP_2FSG                    | Ralliement à la porte des étoiles la plus proche.<br>(Basé sur «→CHAIN_RALLY_SPEED_HK←»)
+MAIN_HELP_2FSG                    | Ralliement à la Porte des Étoiles la plus proche.<br>(Basé sur «→CHAIN_RALLY_SPEED_HK←»)
 MAIN_HELP_2G                      | Transportez de la population pour fortifier une autre colonie ou envoyez des troupes envahir une planète ennemie. La colonie engage un coût de production unique pour le transport.
 MAIN_HELP_2H                      | Abandonnez complètement une planète en transférant toute sa population vers une autre colonie.
 MAIN_HELP_2I                      | Population actuelle et maximale de la planète. 100 représente une planète d'origine complète qui n'a pas été terraformée.
@@ -980,7 +980,7 @@ PLANETS_VIEW_ECOLOGY              | Vue Écologique
 PLANETS_VIEW_INDUSTRY             | Vue Industrielle
 PLANETS_VIEW_MILITARY             | Vue Militaire
 PLANETS_SPENDING_COSTS            | Dépenses de l'Empire
-PLANETS_COSTS_DESC                | Chaque colonie contribue par un pourcentage de sa production pour soutenir les dépenses de l'empire.
+PLANETS_COSTS_DESC                | Chaque colonie contribue un pourcentage de sa production pour soutenir les dépenses de l'empire.
 PLANETS_COSTS_SHIPS               | Entretien de la Flotte
 PLANETS_COSTS_BASES               | Bases de Missiles
 PLANETS_COSTS_STARGATES           | Portes des Étoiles
@@ -988,11 +988,11 @@ PLANETS_COSTS_SPYING              | Espionnage
 PLANETS_COSTS_SECURITY            | Sécurité
 PLANETS_TOTAL_INCOME              | Revenu Annuel
 PLANETS_INCOME_TRADE              | Revenu Commercial
-PLANETS_INCOME_PLANETS            | Production de la Colonie
+PLANETS_INCOME_PLANETS            | Production des Colonies
 PLANETS_INCOME_TOTAL              | Total
 PLANETS_TREASURY                  | Trésor de l'Empire
 PLANETS_TREASURY_FUNDS            | Fonds du Trésor
-PLANETS_TAX_DESC                  | Taxer vos colonies pour les ajouter au trésor de l'empire.
+PLANETS_TAX_DESC                  | Taxer vos colonies pour contribuer au trésor de l'empire.
 PLANETS_RESERVE_TAX               | Taxe de Réserve
 PLANETS_RESERVE_INCREASE          | +%1 BC/Année
 PLANETS_RESERVE_NO_TAX            | Pas d'Impôts
@@ -1417,17 +1417,17 @@ SETUP_OPPONENTS_HEADER_2          | Empires rivaux
 SETUP_OPPONENT_RANDOM             | ???
 SETUP_OPPONENT_AI_DESC            | Sélectionnez l'IA qui sera utilisée par tous vos opposants.
 SETUP_OPPONENT_AI                 | Jouer contre:
-SETUP_OPPONENT_AI_BASE_HELP       | IA-Famille: Base<br> Plus défensif que les autres base-famille-IA.
+SETUP_OPPONENT_AI_BASE_HELP       | Famille IA: Base<br> Plus défensif que les autres base-famille-IA.
 SETUP_OPPONENT_AI_BASE            | IA: Base
-SETUP_OPPONENT_AI_MODNAR_HELP     | IA-Famille: Base<br> Utilise un livre d'ouverture pour les premières technologies. Il construit moins de bases de missiles. Utilise une plus grande variété de modèles de vaisseaux. L'agressivité est fonction de la difficulté. La diplomatie est un peu plus excentrique en raison de quelques corrections de bug manquantes.
+SETUP_OPPONENT_AI_MODNAR_HELP     | Famille IA: Base<br> Utilise un livre d'ouverture pour les premières technologies. Il construit moins de bases de missiles. Utilise une plus grande variété de modèles de vaisseaux. L'agressivité est fonction de la difficulté. La diplomatie est un peu plus excentrique en raison de quelques corrections de bug manquantes.
 SETUP_OPPONENT_AI_MODNAR          | IA: Modnar
-SETUP_OPPONENT_AI_ROOKIE_HELP     | IA-Famille: Base<br> Utilise un livre d'ouverture pour les premières technologies. Il construit moins de bases de missiles. Utilise une plus grande variété de modèles de vaisseaux. L'agressivité est fonction de la difficulté.<br> Un bug important sur le comportement en retraite est corrigé. Il n'y a aucun intérêt à avoir les deux autres AI de base. C'est juste pour que le Mod ne manque pas d'eux comme une fonctionnalité.
+SETUP_OPPONENT_AI_ROOKIE_HELP     | Famille IA: Base<br> Utilise un livre d'ouverture pour les premières technologies. Il construit moins de bases de missiles. Utilise une plus grande variété de modèles de vaisseaux. L'agressivité est fonction de la difficulté.<br> Un bug important sur le comportement en retraite est corrigé. Il n'y a aucun intérêt à avoir les deux autres IA de base. C'est juste pour que le Mod ne manque pas d'eux comme une fonctionnalité.
 SETUP_OPPONENT_AI_ROOKIE          | IA: Débutant
 SETUP_OPPONENT_AI_XILMI_HELP      | Famille IA: Xilmi<br> Utilise un module diplomatique semblable à celui de la Famille-Base en ce sens qu'il utilise les valeurs relationnelles pour la prise de décisions. Cependant, il diffère aussi de ceux-ci en ce qu'il n'y a pas de hasard impliqué et plutôt des seuils pour les PAN et les Alliances s'ajuster dynamiquement sur la base d'une comparaison de puissance. Essentiellement : Plus une IA est faible, plus elle est disposée à signer des alliances même si la relation n'est pas cordiale. Basé sur des alliances de personnalité peut être beaucoup plus stable.
 SETUP_OPPONENT_AI_XILMI           | IA: Xilmi
 SETUP_OPPONENT_AI_HYBRID_HELP     | Famille IA: Xilmi<br> Utilise le même module de diplomatie et d'espionnage que la IA-base pour présenter fondamentalement une IA qui agit diplomatiquement comme une IA-base, mais a toujours tous les avantages dans les autres aspects du jeu.
 SETUP_OPPONENT_AI_HYBRID          | IA: Hybride
-SETUP_OPPONENT_AI_CRUEL_HELP      | IA-Famille: Xilmi (Pas de barre de relations, pas d'alliances)<br> ... ces IAs jouent toutes plus prudentes qu'agressives alors que certaines différences raciales sont encore appliquées. Il est très similaire dans le comportement à ce dernier, mais généralement les jeux sont beaucoup plus paisible tant que personne n'a un avantage massif. Elles sont également très opportunistes. La raison pour laquelle «Amusant«» a été créé parce que jouer contre ce genre d'IA peut être extrêmement frustrant. Vous pouvez avoir un long jeu où rien ne se passe vraiment et puis être effacé en quelques tours par plusieurs adversaires à la fois. Il y a un algorithme en jeu qui devine la chance d'être rétrogradé en cas de déclaration de guerre. Et à cause de cela, il est fort probable que l'IA pense que l'autre parti sera plus susceptible d'être rétrogradé et non pas eux, s'ils déclarent la guerre. Oh... Elles ignoreront tout dans les cas où elles devraient finalement atteindre la fin de l'arbre technologique. Donc le jeu ne sera pas techniquement sans fin, même si cela pourrait le paraître.
+SETUP_OPPONENT_AI_CRUEL_HELP      | Famille IA: Xilmi (Pas de barre de relations, pas d'alliances)<br> ... ces IAs jouent toutes plus prudentes qu'agressives alors que certaines différences raciales sont encore appliquées. Il est très similaire dans le comportement à ce dernier, mais généralement les jeux sont beaucoup plus paisible tant que personne n'a un avantage massif. Elles sont également très opportunistes. La raison pour laquelle «Amusant«» a été créé parce que jouer contre ce genre d'IA peut être extrêmement frustrant. Vous pouvez avoir un long jeu où rien ne se passe vraiment et puis être effacé en quelques tours par plusieurs adversaires à la fois. Il y a un algorithme en jeu qui devine la chance d'être rétrogradé en cas de déclaration de guerre. Et à cause de cela, il est fort probable que l'IA pense que l'autre parti sera plus susceptible d'être rétrogradé et non pas eux, s'ils déclarent la guerre. Oh... Elles ignoreront tout dans les cas où elles devraient finalement atteindre la fin de l'arbre technologique. Donc le jeu ne sera pas techniquement sans fin, même si cela pourrait le paraître.
 SETUP_OPPONENT_AI_CRUEL           | IA: Fusion
 SETUP_OPPONENT_AI_FUN             | IA: Amusant
 SETUP_OPPONENT_AI_PERSONALITY     | IA: Personnalité
@@ -1439,7 +1439,7 @@ SETUP_OPPONENT_AI_RANDOM_ADV_HELP | Sélection aléatoire parmi : Xilmi, Hybrid,
 SETUP_OPPONENT_AI_RANDOM_ADV      | IA: A.Xilmi
 SETUP_OPPONENT_AI_RANDOM_NOBAR_HELP | Sélection aléatoire parmi : Fusion, Amusant ou Personnalité.<br> Ces IA sont opportunistes et n'affichent pas la barre de relation.
 SETUP_OPPONENT_AI_SELECT_HELP     | Pour pouvoir sélectionner une IA différente pour chaque adversaire. <br> Un nouveau champ de sélection sera ajouté au bas de chaque icône adverse.
-SETUP_OPPONENT_AI_SELECT          | AI: Sélectionnable
+SETUP_OPPONENT_AI_SELECT          | IA: Sélectionnable
 SETUP_OPPONENT_AI_PLAYER_HELP     | Le contrôle est entre vos mains.
 SETUP_OPPONENT_AI_PLAYER          | IA: Arrêt
 SETUP_OPPONENT_CR                 | Capacités:
@@ -1473,7 +1473,7 @@ SETUP_RESEARCH_RATE_SLOW_HELP     | Facteurs des coûts de la recherche :<br>1,1
 SETUP_RESEARCH_RATE_SLOW          | Lent
 SETUP_RESEARCH_RATE_SLOWER_HELP   | Facteurs des coûts de la recherche : <br>1,2 au niveau 2;&ensp 2,5 au niveau 10;&ensp 4 au niveau 20;<br>5 au niveau 29;&ensp 7 au niveau 50;&ensp 10 au niveau 100.
 SETUP_RESEARCH_RATE_SLOWER        | Plus lent
-SETUP_RESEARCH_RATE_SLOWEST_HELP  | Ancien facteur « le plus faible »<br> Facteurs des coûts de la recherche :<br>1,27 au niveau 2;&ensp 5 au niveau 11;&ensp 8 au niveau 20;<br>10 au niveau 26;&ensp 16 au niveau 51;&ensp 25 au niveau 100.
+SETUP_RESEARCH_RATE_SLOWEST_HELP  | Ancien facteur « le plus faible »<br> Facteurs des coûts de la recherche :<br>1,27 au niveau 2;&ensp 5 au niveau 11;&ensp 8 au niveau 20;<br>10 au niveau 26;&ensp 16 au niveau 51;&ensp 25 au niveau 100.
 SETUP_RESEARCH_RATE_SLOWEST       | Encore plus lent
 SETUP_RESEARCH_RATE_IMPEDED_HELP  | Facteurs des coûts de la recherche : <br>1,34 au niveau 2;&ensp 10 au niveau 11;&ensp 17 au niveau 20;<br>23 au niveau 28;&ensp 36 au niveau 51;&ensp 55 au niveau 100.
 SETUP_RESEARCH_RATE_IMPEDED       | Traînant
@@ -1904,7 +1904,7 @@ SHIP_DESIGN_COMPONENT_NONE        | Aucun
 
 
 // ship design selection dialogs
-SHIP_DESIGN_STARGATE_NAME         | Porte des étoiles
+SHIP_DESIGN_STARGATE_NAME         | Porte des Étoiles
 SHIP_DESIGN_1ST_SCOUT_NAME        | Éclaireur
 SHIP_DESIGN_1ST_FIGHTER_NAME      | Chasseur
 SHIP_DESIGN_1ST_DESTROYER_NAME    | Contre-torpilleur
@@ -2274,7 +2274,7 @@ RACES_HELP_0D                     | Armée - Affichez les conceptions de la flot
 RACES_HELP_0E                     | Statut - Comparaison entre plusieurs catégories.
 RACES_HELP_0F                     | La sélection de votre empire vous permet de gérer les informations de toutes les races contactées sur chaque onglet.
 RACES_HELP_0G                     | La sélection d'un empire extraterrestre affiche des informations plus détaillées pour cette race sur chaque onglet.
-RACES_HELP_0H                     | S'il n'est pas à jour, âge du dernier rapport d'espionnage.<br> ("-" S'il n'y en a jamais eu)
+RACES_HELP_0H                     | S'il n'est pas à jour, âge du dernier rapport d'espionnage.<br> (« - » S'il n'y en a jamais eu)
 RACES_HELP_1A                     | Informations générales pour l'empire sélectionné.
 RACES_HELP_1B                     | Fournit un accès direct aux diplomates de tous les empires contactés.
 RACES_HELP_1C                     | Augmentez la taxe de sécurité pour améliorer vos chances de déjouer les espions ennemis.
@@ -2293,7 +2293,7 @@ RACES_HELP_3C                     | Toutes les technologies connues par d'autres
 RACES_HELP_4A                     | Définissez le nombre de réseaux d'espionnage que vous souhaitez établir dans l'empire sélectionné et le montant que vous souhaitez dépenser chaque année.
 RACES_HELP_4B                     | Définissez les ordres pour les espions infiltrant l'empire sélectionné. Masquer - collecter des données. Espionnage - tentative de vol de technologie. Sabotage - incitez à des rébellions ou détruisez des usines et des bases de missiles.
 RACES_HELP_4C                     | Toutes les technologies connues par l'empire sélectionné. Les technologies que vous ne connaissez pas sont indiquées en jaune.
-RACES_HELP_4D                     | Primes d'espionnage les plus récentes pour les missions connexes.<br>(Probabilité / Impact).< br> Basé sur les derniers niveaux de technologie et de sécurité signalés.
+RACES_HELP_4D                     | Primes d'espionnage les plus récentes pour les missions connexes.<br>(Probabilité / Impact).<br> Basé sur les derniers niveaux de technologie et de sécurité signalés.
 RACES_HELP_5A                     | Le nombre connu de vaisseaux dans la flotte de la race sélectionnée, par taille de coque. Ces informations resteront à jour tant que vous aurez un réseau d'espionnage actif dans l'empire sélectionné.
 RACES_HELP_5B                     | Les capacités connues des conceptions de vaisseaux. Les conceptions plus anciennes peuvent être hors service. Ces informations sont principalement recueillies lors des combats navals.
 RACES_HELP_5C                     | Les capacités défensives connues de l'empire sélectionné.
@@ -2542,7 +2542,7 @@ MAIN_HELP_SHIPFLEET_HK | Raccourcis clavier QUAND LA FLOTTE EST SÉLECTIONNÉE :
 
 MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre Suivante/Précédente colonie<br>F5/F6 : Votre Suivante/Précédente colonie ayant construit un vaisseau<br>F7/F8 : Votre Suivante/Précédente colonie ciblée par un ennemi<br>W : Basculer la vue de guerre, n'affichant que les vaisseaux ciblant la planette en danger.<br>        (Se désactive lorsque la planète n'est pas en danger)<br>F9/F10 : Votre Suivante/Précédente flotte<br>F11/F12 : IA Suivante/Précédente flotte<br>Space/Page Down/Page Up : Votre Suivante/Précédente flotte inactive →HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d'Option →HK_YEAR←<br>SHIFT-S : Rapport d'espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
 
-PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flêches Haut / Bas : Bouge barre de défilement<br>Flêches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Selection multiple)<br><br>CTRL+A : Sélectionner tous les systèmes<br>Q/+CTRL : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des navires à 100%<br>Y,Z/+CTRL : Planète en manque de population / + Dépenses ECO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +CTRL /+SHIFT : Basculer activation du gouverneur / Avtivé / Désactivé <br>→HK_ESCAPE←
+PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flêches Haut / Bas : Bouge barre de défilement<br>Flêches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Selection multiple)<br><br>CTRL+A : Sélectionner tous les systèmes<br>Q/+CTRL : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+CTRL : Planète en manque de population / + Dépenses ECO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +CTRL /+SHIFT : Basculer activation du gouverneur / Avtivé / Désactivé <br>→HK_ESCAPE←
 
 TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>CTRL+1-6 : (dé)verrouiller les curseurs.<br>Flêches : Déplacer l'arbre / Catégories<br>= : Égalizer<br>Molette souris : Changer l'allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit: Montre plus d'info sur la tech survolée <br> →HK_ESCAPE←
 
