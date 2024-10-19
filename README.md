@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.10.19  (BR)
+- "Governor Toggle" button and its "Option" button now match the interface standard
+
 2024.10.18  (BR)
 - Fixed some crashes occurring when interrupting massive ground attacks.
 - "Governor Toggle" and "Governor Options" are now true buttons

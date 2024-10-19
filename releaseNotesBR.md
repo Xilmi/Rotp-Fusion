@@ -3,6 +3,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- "Governor Toggle" button and its "Option" button now match the interface standard
 - Fixed Governor being toggled while clicking outside of the button.
 - Replaced Governor button color by icons.
 - Fixed some crashes occurring when interrupting massive ground attacks.
