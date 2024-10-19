@@ -3,6 +3,14 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+(Ongoing)
+- Fixed plenty of language translation bugs, and UI display.
+  - French translation improvement. (BR & Frank Zago)
+
+
+- In case of Greek characters, dialog Font will be replaced by "plainFont" instead of "narrowFont".
+- The dialog font has been replaced, for the French language, by a font that includes accented letters.
+- The Governor Button Icon now updates when starting a new game.
 - Fixed big Symmetric Galaxies... Not being Symmetric.
 - Fixed combat results displaying "RETREATED" instead of "DESTROYED" when 0 ships were remaining.
 - "Governor Toggle" button and its "Option" button now match the interface standard
@@ -14,11 +22,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Greek characters not being displayed in GNN announces.
   - The original GNN font don't includes Greek set.
   - The font will be replaced when the GNN font will not be able to display the system name.
-
-
-(Ongoing)
-- Fixed plenty of language translation bugs, and UI display.
-  - French translation improvement. (BR & Frank Zago)
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

@@ -351,6 +351,7 @@ public final class GameSession implements Base, Serializable {
     	ironmanLocked	= false;
     	viewedAlerts	= 0;
     	RacesUI.instance.resetFinalVars();
+    	EmpireColonySpendingPane.resetPanel();
     }
     private void stopCurrentGame() {
         RotPUI.instance().mainUI().clearAdvice();
@@ -1394,7 +1395,7 @@ public final class GameSession implements Base, Serializable {
             memLog();
             // RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment
         }
-        EmpireColonySpendingPane.validateOnLoad();
+        EmpireColonySpendingPane.resetPanel();
     }
     static ThreadFactory minThreadFactory() {
         return (Runnable r) -> {

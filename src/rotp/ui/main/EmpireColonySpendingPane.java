@@ -77,9 +77,16 @@ public class EmpireColonySpendingPane extends BasePanel {
     static final Color gray115C				= new Color(115,115,115);
     static final Color gray175C				= new Color(175,175,175);
 
-    private static GradientPaint govPt, optPt;
-    private static BufferedImage diploMugshotQuiet;
-    private static BufferedImage noGovernor;
+    private static GradientPaint govPaint, optPaint;
+    private static BufferedImage governorImage;
+    private static BufferedImage noGovernorImage;
+    private static int govButtonW, optButtonW;
+    private static int maxButtonFontSize = 17;
+    private static int minButtonFontSize = 12;
+    private static int iconWidth    = s25;
+    private static int buttonMargin = s20;
+    private static int buttonOffset = s10;
+    private static boolean needInitialization = true;
 
     private final Rectangle governorBox = new Rectangle();
     private final Rectangle optionsBox = new Rectangle();
@@ -91,7 +98,7 @@ public class EmpireColonySpendingPane extends BasePanel {
     private final SystemViewer parent;
     private GalaxyMapPanel mapListener;
 
-    public static void validateOnLoad() { diploMugshotQuiet = null; }
+    public static void resetPanel() { needInitialization = true; }
 
     public EmpireColonySpendingPane(SystemViewer p, Color c0, Color text, Color hi, Color lo) {
         parent = p;
@@ -124,8 +131,80 @@ public class EmpireColonySpendingPane extends BasePanel {
         add(ecoSlider);
         add(researchSlider);
     }
-    @Override
-    public void keyPressed(KeyEvent e) {
+    private void reinitPanel(Graphics2D g) {
+    	int w = getWidth();
+    	initGovernorImage();
+    	initNoGovernorImage();
+    	initGovernorButton(g, scaled(150));
+    	initOptionsButtonW(g, scaled(65));
+    	int x1 = buttonMargin;
+    	int x2 = x1 + govButtonW;
+    	int y = 0;
+    	govPaint = new GradientPaint(x1, y, gray175C, x2, y, gray115C);
+    	x2 = w - buttonMargin;
+    	x1 = x2 - optButtonW;
+    	optPaint = new GradientPaint(x1, y, gray115C, x2, y, gray175C);
+    	needInitialization = false;
+    }
+    private void initGovernorImage()	{
+		int mugH = s20; // s82
+		int mugW = mugH * 76 / 82; // s76
+		governorImage = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
+        Graphics2D g = (Graphics2D) governorImage.getGraphics();
+        g.setComposite(AlphaComposite.SrcOver);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+		Image img = player().race().diploMugshotQuiet();
+        int imgW = img.getWidth(null);
+        int imgH = img.getHeight(null);
+		g.drawImage(img, 0, 0, mugW, mugH, 0, 0, imgW, imgH, null);
+    	g.dispose();
+    }
+    private void initNoGovernorImage()	{
+		int mugH = s22;
+		int mugW = mugH;
+		noGovernorImage = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
+        Graphics2D g = (Graphics2D) noGovernorImage.getGraphics();
+        g.setComposite(AlphaComposite.SrcOver);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+		Image img = image("NO_GOVERNOR");
+        int imgW = img.getWidth(null);
+        int imgH = img.getHeight(null);
+		g.drawImage(img, 0, 0, mugW, mugH, 0, 0, imgW, imgH, null);
+    	g.dispose();
+    }
+    private void initGovernorButton(Graphics2D g, int maxWidth)	{
+		int margin = iconWidth + buttonMargin;
+		int maxTitleWidth = maxWidth - margin;
+		String title = text("GOVERNOR_IS_ON_BUTTON");
+		scaledFont(g, title, maxTitleWidth, maxButtonFontSize, minButtonFontSize);
+		Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
+		int titleW  = (int) Math.ceil(bound.getWidth());
+		title = text("GOVERNOR_IS_OFF_BUTTON");
+		scaledFont(g, title, maxTitleWidth, maxButtonFontSize, minButtonFontSize);
+		bound = g.getFontMetrics().getStringBounds(title, g);
+		titleW = max(titleW, (int) Math.ceil(bound.getWidth()));
+		govButtonW = titleW + margin;    	
+    }
+    private void initOptionsButtonW(Graphics2D g, int maxWidth) {
+		int margin = iconWidth + buttonMargin;
+		int maxTitleWidth = maxWidth - margin;
+		String title = text("GOVERNOR_OPTIONS");
+		scaledFont(g, title, maxTitleWidth, maxButtonFontSize, minButtonFontSize);
+		Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
+		int titleW  = (int) Math.ceil(bound.getWidth());
+		optButtonW = titleW + margin;
+    }
+    @Override public void keyPressed(KeyEvent e) {
         int k = e.getKeyCode();
         int mods = e.getModifiersEx();
         switch (k) {
@@ -191,60 +270,17 @@ public class EmpireColonySpendingPane extends BasePanel {
             }
         }
     }
-    private BufferedImage governorImage() {
-    	//diploMugshotQuiet = null;
-    	if (diploMugshotQuiet == null) {
-    		int mugH = s20; // s82
-    		int mugW = mugH * 76 / 82; // s76
-    		diploMugshotQuiet = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
-            Graphics2D g = (Graphics2D) diploMugshotQuiet.getGraphics();
-            g.setComposite(AlphaComposite.SrcOver);
-            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-            g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-    		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-    		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+//    private GradientPaint govPt(int x, int y, int w) {
+//    	// if (govPt == null)
+//    		govPaint = new GradientPaint(x, y, gray175C, x+w, y, gray115C);
+//    	return govPaint;
+//    }
+//    private GradientPaint optPt(int x, int y, int w) {
+//    	if (optPaint == null)
+//    		optPaint = new GradientPaint(x, y, gray115C, x+w, y, gray175C);
+//    	return optPaint;
+//    }
 
-    		BufferedImage img = player().race().diploMugshotQuiet();
-            int imgW = img.getWidth();
-            int imgH = img.getHeight();
-    		g.drawImage(img, 0, 0, mugW, mugH, 0, 0, imgW, imgH, null);
-        	g.dispose();
-    	}
-    	return diploMugshotQuiet;
-    }
-    private BufferedImage noGovernorImage() {
-    	// noGovernor = null;
-    	if (noGovernor == null) {
-    		int mugH = s22;
-    		int mugW = mugH;
-    		noGovernor = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
-            Graphics2D g = (Graphics2D) noGovernor.getGraphics();
-            g.setComposite(AlphaComposite.SrcOver);
-            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-            g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-    		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-    		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-
-    		Image img = image("NO_GOVERNOR");
-            int imgW = img.getWidth(null);
-            int imgH = img.getHeight(null);
-    		g.drawImage(img, 0, 0, mugW, mugH, 0, 0, imgW, imgH, null);
-        	g.dispose();
-    	}
-    	return noGovernor;
-    }
-    private GradientPaint govPt(int x, int y, int w) {
-    	if (govPt == null)
-    		govPt = new GradientPaint(x, y, gray175C, x+w, y, gray115C);
-    	return govPt;
-    }
-    private GradientPaint optPt(int x, int y, int w) {
-    	if (optPt == null)
-    		optPt = new GradientPaint(x, y, gray115C, x+w, y, gray175C);
-    	return optPt;
-    }
     private class EmpireSliderPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
         //EmpireColonySpendingPane mgmtPane;
@@ -274,11 +310,29 @@ public class EmpireColonySpendingPane extends BasePanel {
 
         private void drawGovernorButton(Graphics2D g, int x, int y, int w, int h, boolean isGovernor) {
             Color borderC, titleC;
-            int maxFontSize = 17;
-            GradientPaint pt = govPt(x, y, w);
+            String title;
+            if (isGovernor)
+            	title   = text("GOVERNOR_IS_ON_BUTTON");
+            else
+            	title   = text("GOVERNOR_IS_OFF_BUTTON");
+            int margin = buttonMargin + iconWidth;
+            int maxTitleWidth = w - margin;
+            int titleDx = iconWidth/2;
+            scaledFont(g, title, maxTitleWidth, maxButtonFontSize, minButtonFontSize);
+            Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
+            
+            int titleW  = (int) Math.ceil(bound.getWidth());
+            int buttonW  = govButtonW;
+            //int buttonW = min(w, titleW + margin);
+            double titleH  = bound.getHeight();
+            double descent = g.getFontMetrics().getDescent();
+            double titleDy = (h-titleH)/2;
+            int titleX = round(x + (buttonW-titleW)/2) - titleDx;
+            int titleY = round(y + h - descent-titleDy);
+
             Paint prevPaint = g.getPaint();
-            g.setPaint(pt);
-            g.fillRoundRect(x, y, w, h, s10, s10);
+            g.setPaint(govPaint);
+            g.fillRoundRect(x, y, buttonW, h, s10, s10);
             g.setPaint(prevPaint);
 
             Stroke prevStroke = g.getStroke();
@@ -295,50 +349,25 @@ public class EmpireColonySpendingPane extends BasePanel {
             		titleC  = gray90C;
                 g.setStroke(stroke2);
             }
-            governorBox.setBounds(x, y, w, h);
+            governorBox.setBounds(x, y, buttonW, h);
 
-            String title;
-            int imageW  = 0;
-            if (isGovernor) {
-            	title   = text("GOVERNOR_IS_ON_BUTTON");
-            	imageW  = s25;
-            }
-            else {
-            	title   = text("GOVERNOR_IS_OFF_BUTTON");
-            	imageW  = s25;
-            }
-            int titleW  = w - s10 - imageW;
-            int titleDx = imageW/2;;
 
             g.setColor(borderC);
-            g.drawRoundRect(x, y, w, h, s10, s10);
+            g.drawRoundRect(x, y, buttonW, h, s10, s10);
             g.setStroke(prevStroke);
-
             g.setColor(titleC);
-            scaledFont(g, title, titleW, maxFontSize, 12);
-            Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
-            double titleH  = bound.getHeight();
-            double descent = g.getFontMetrics().getDescent();
-            double titleDy = (h-titleH)/2;
-            int titleX = round(x + (w-bound.getWidth())/2) - titleDx;
-            int titleY = round(y + h - descent-titleDy);
-
             g.drawString(title, titleX, titleY);
             //drawShadowedString(g, title, 2, titleX, titleY, MainUI.shadeBorderC(), titleC);
 
-            if (isGovernor) {
-            	g.drawImage(governorImage(), x+w-imageW, y+s3, null);
-            }
-            else {
-            	g.drawImage(noGovernorImage(), x+w-imageW, y+s2, null);
-            }
+            if (isGovernor)
+            	g.drawImage(governorImage, x+buttonW-iconWidth, y+s3, null);
+            else
+            	g.drawImage(noGovernorImage, x+buttonW-iconWidth, y+s2, null);
         }
         private void drawOptionsButton(Graphics2D g, int x, int y, int w, int h) {
             Color borderC, titleC;
-            int maxFontSize = 17;
-            GradientPaint pt = optPt(x, y, w);
             Paint prevPaint = g.getPaint();
-            g.setPaint(pt);
+            g.setPaint(optPaint);
             g.fillRoundRect(x, y, w, h, s10, s10);
             g.setPaint(prevPaint);
 
@@ -361,7 +390,7 @@ public class EmpireColonySpendingPane extends BasePanel {
 
             g.setColor(titleC);
             String title = text("GOVERNOR_OPTIONS");
-            scaledFont(g, title, w-s5, maxFontSize, 12);
+            scaledFont(g, title, w-s5, maxButtonFontSize, minButtonFontSize);
             Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
             double titleH  = bound.getHeight();
             double descent = g.getFontMetrics().getDescent();
@@ -372,8 +401,10 @@ public class EmpireColonySpendingPane extends BasePanel {
             //drawShadowedString(g, title, 2, titleX, titleY, MainUI.shadeBorderC(), titleC);
         }
         @Override public void paintComponent(Graphics g0) {
-            Graphics2D g = (Graphics2D) g0;
+        	Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
+        	if (needInitialization)
+        		reinitPanel(g);
 
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
@@ -386,13 +417,14 @@ public class EmpireColonySpendingPane extends BasePanel {
 
             if (category < 0) {
             	int wGov = scaled(150);
-            	int xGov = s5;
+            	int xGov = buttonOffset;
             	int hGov = s25;
             	int yGov = getHeight() - hGov - s1;
             	drawGovernorButton(g, xGov, yGov, wGov, hGov, colony.isGovernor());
 
-            	int wOpt = s75;
-            	int xOpt = w - wOpt - s5;
+            	//int wOpt = s75;
+            	int wOpt = s65;
+            	int xOpt = w - wOpt - buttonOffset;
             	int hOpt = hGov;
             	int yOpt = yGov;
             	drawOptionsButton(g, xOpt, yOpt, wOpt, hOpt);

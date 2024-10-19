@@ -69,23 +69,29 @@ Later:
 
 ## What's New
 
-2024.10.19  (BR)
+2024.10.19 (Frank Zago)
+- Plenty of French translations (New and fixes)
+
+2024.10.19 (BR)
 - "Governor Toggle" button and its "Option" button now match the interface standard.
 - Fixed combat results displaying "RETREATED" instead of "DESTROYED" when 0 ships were remaining.
 - Fixed big Symmetric Galaxies... Not being Symmetric.
+- In case of Greek characters, dialog Font will be replaced by "plainFont" instead of "narrowFont".
+- The dialog font has been replaced, for the French language, by a font that includes accented letters.
+- The Governor Button Icon now updates when starting a new game.
 
-2024.10.18  (BR)
+2024.10.18 (BR)
 - Fixed some crashes occurring when interrupting massive ground attacks.
 - "Governor Toggle" and "Governor Options" are now true buttons
 - Adjusted some help bubbles location, and improved some french translations.
 - Fixed Governor being toggled while clicking outside of the button.
 - Replaced Governor button color by icons.
 
-2024.10.17  (BR)
+2024.10.17 (BR)
 - Fixed a potential crash in ground combat animation.
   - The Transport descending or opening frame were missing!?... The missing animation will be skipped instead of a game crash!
 
-2024.10.16  (BR)
+2024.10.16 (BR)
 - Empire Panel: Removed tab limitation for "A", "D" , and "S" key actions.
 - Fixed some Help bubble size and content.
   - Fixed some French help translations.
@@ -94,27 +100,26 @@ Later:
   - !This was not a bug, just a no-feature, as no system includes Greek character!
   --> Restored Original font. It will only be replaced when the original GNN font will not be able to display the system name.
 
-
-2024.10.15  (BR)
+2024.10.15 (BR)
 - Fixed Governor not upgrading planet for Silicoids.
 - Ship building can now be prioritized. (For Governor).
 - Improved Empire Hotkey description.
 - "Free" of tech panel is now translatable.
 
-2024.10.14  (Frank Zago)
+2024.10.14 (Frank Zago)
 - More French translations (New and fixes)
 
-2024.10.14  (BR)
+2024.10.14 (BR)
 - More French translations.
 - Fixed Governor not upgrading planet for Silicoids.
 
-2024.10.13  (BR)
+2024.10.13 (BR)
 - Shortened some of the French translations + minor fixes.
 - Auto conversion of dialogue keywords for untranslated texts.
   - All Languages
 - Secured Base.drawBackgroundStars after a crash report. One star was outside the allowed window!? It was probably due to a processor glitch as this method is constantly called... But better safe than sorry.
 
-2024.10.13  (Frank Zago)
+2024.10.13 (Frank Zago)
 - More French translations (New and fixes)
 
 2024.10.12 (BR)

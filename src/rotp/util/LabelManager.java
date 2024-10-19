@@ -15,6 +15,7 @@
  */
 package rotp.util;
 
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -243,9 +244,14 @@ public class LabelManager implements Base {
         
         int wc = 0;
         String val = vals.get(1);
-        if (validate && val.trim().isEmpty()) {
-        	validateError("Orphan label keyword: " + input + " / " + labelFile);
-        }
+        if (validate) {
+            if (val.trim().isEmpty()) {
+            	validateError("Orphan label keyword: " + input + " / " + labelFile);
+            }
+            else {
+            	testForDialogueFont(val);
+            }
+       }
         try {
             labelMap.put(vals.get(0), val.getBytes("UTF-8"));
             if (Rotp.countWords)
@@ -276,8 +282,13 @@ public class LabelManager implements Base {
             map.put(key, new ArrayList<>());
         
         String val = vals.get(1);
-        if (validate && val.trim().isEmpty()) {
-        	validateError("Orphan dialogue keyword: " + input + " / " + dialogueFile);
+        if (validate) {
+            if (val.trim().isEmpty()) {
+            	validateError("Orphan dialogue keyword: " + input + " / " + dialogueFile);
+            }
+            else {
+            	testForDialogueFont(val);
+            }
         }
         map.get(key).add(val);
         
@@ -322,6 +333,26 @@ public class LabelManager implements Base {
     public Collection<List<String>> dialogueMapValues() { return dialogueMap.values(); } // BR: For Debug
     public Set<Entry<String, List<String>>> dialogueMapEntrySet() { return dialogueMap.entrySet(); } // BR: For Debug
 
+    private void testForDialogueFont(String str) {
+    	if (FontManager.current() == null)
+    		return;
+    	Font dlg = FontManager.current().dlgFont(16);
+//    	Font dlg = FontManager.current().plainFont(16);
+    	int loc = dlg.canDisplayUpTo(str);
+    	if (loc == -1)
+    		return;
+    	char badChar = str.charAt(loc);
+    	int badCode = badChar;
+    	switch(badCode) {
+    	case 8594:
+    	case 8226:
+    		return;
+    	case 11199:
+    		return;
+    	default:
+    		System.err.println("("+ lastDir + ") dlgFont err: " + badChar + " / " + badCode + " / " + str);
+    	}
+    }
     private void validateError(String msg) {
     	if (LanguageManager.selectedLanguage() != 0
 //    			&& !lastDir.contains("lang/en/")

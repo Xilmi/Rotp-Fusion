@@ -880,6 +880,12 @@ MAIN_COLONY_TECHNOLOGY            | Tech
 MAIN_COLONY_ALLOCATE_SPENDING     | Allocate Spending
 GOVERNOR_IS_ON_BUTTON             | Governor Toggle
 GOVERNOR_IS_OFF_BUTTON            | Governor Toggle
+//GOVERNOR_IS_ON_BUTTON             | Governor Enabled
+//GOVERNOR_IS_OFF_BUTTON            | Governor Disabled
+//GOVERNOR_IS_ON_BUTTON             | Governor Active
+//GOVERNOR_IS_OFF_BUTTON            | Governor Inactive
+//GOVERNOR_IS_ON_BUTTON             | Governor
+//GOVERNOR_IS_OFF_BUTTON            | Governor
 GOVERNOR_OPTIONS                  | Options
 MAIN_COLONY_SPENDING_NONE         | None
 MAIN_COLONY_SPENDING_RESERVE      | Reserve
