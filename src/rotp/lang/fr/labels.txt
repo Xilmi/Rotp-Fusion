@@ -856,7 +856,7 @@ MAIN_COLONY_SHIPYARD_COMPLETED    | Complété : %1
 MAIN_COLONY_SHIPYARD_LIMIT        | Limite :
 MAIN_COLONY_SHIPYARD_LIMIT_NONE   | Aucune
 MAIN_COLONY_SHIPYARD_CONSTRUCTION | Flotte en Construction
-MAIN_COLONY_RELOCATE_LABEL        | Définir Pt. Ralliement
+MAIN_COLONY_RELOCATE_LABEL        | Fixer Pt. Ralliement
 MAIN_COLONY_TRANSPORTS_LABEL      | Transporter
 MAIN_COLONY_ABANDON_LABEL         | Abandonner
 MAIN_COLONY_SHIP_SCRAPPED         | Supprimé
@@ -1114,7 +1114,7 @@ FLEETS_IS_STANDARD                | Le système a des ressources standard
 FLEETS_SYSTEMS_SELECTED           | %1 Systèmes sélectionnés
 FLEETS_FLEETS_SELECTED            | %1 Flottes sélectionnées
 FLEETS_MULTIPLE_DESIGNS           | Plusieurs
-FLEETS_RELOCATE_LABEL             | Définir points de ralliement
+FLEETS_RELOCATE_LABEL             | Fixer points de ralliement
 FLEETS_TRANSPORTS_LABEL           | Envoyer des transports
 FLEETS_SPENDING_LABEL             | Ajuster les dépenses des vaisseaux
 FLEETS_HAS_ORDERS                 | La flotte est en transit
@@ -1125,7 +1125,7 @@ FLEETS_DEPLOY_FLEETS              | Déployer les flottes
 FLEETS_SET_RALLY_POINTS           | Définir points de ralliement
 FLEETS_STOP_RALLIES_DESC          | %1 systèmes sélectionnés ont déjà des points de ralliement attribués
 FLEETS_STOP_RALLIES               | Arrêter les ralliement
-FLEETS_SETTING_RALLY_POINTS       | Points de départ du ralliement
+FLEETS_SETTING_RALLY_POINTS       | Origines du ralliement
 FLEETS_START_RALLIES_DESC         | Sélectionner un système que vous contrôlez pour envoyer des vaisseaux nouvellement construits à partir de tous les systèmes sélectionnés.
 FLEETS_RALLY_TO_STARGATES         | Commencer à rallier les portes des étoiles les plus proches
 FLEETS_START_RALLIES              | Lancer les ralliement

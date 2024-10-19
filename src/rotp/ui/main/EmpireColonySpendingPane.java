@@ -24,10 +24,12 @@ import static rotp.model.colony.Colony.SHIP;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Paint;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -57,7 +59,6 @@ import rotp.ui.RotPUI;
 import rotp.ui.SystemViewer;
 import rotp.ui.UserPreferences;
 import rotp.util.ImageManager;
-import rotp.util.LanguageManager;
 
 public class EmpireColonySpendingPane extends BasePanel {
     private static final long serialVersionUID = 1L;
@@ -71,7 +72,12 @@ public class EmpireColonySpendingPane extends BasePanel {
     static final Color sliderTextEnabled	= Color.black;
     static final Color sliderTextDisabled	= new Color(65,65,65);
     static final Color sliderTextHasOrder	= new Color(0,0,142);
+    static final Color gray20C				= new Color(20,20,20);
+    static final Color gray90C				= new Color(90,90,90);
+    static final Color gray115C				= new Color(115,115,115);
+    static final Color gray175C				= new Color(175,175,175);
 
+    private static GradientPaint govPt, optPt;
     private static BufferedImage diploMugshotQuiet;
     private static BufferedImage noGovernor;
 
@@ -186,9 +192,9 @@ public class EmpireColonySpendingPane extends BasePanel {
         }
     }
     private BufferedImage governorImage() {
-    	// diploMugshotQuiet = null;
+    	//diploMugshotQuiet = null;
     	if (diploMugshotQuiet == null) {
-    		int mugH = s22; // s82
+    		int mugH = s20; // s82
     		int mugW = mugH * 76 / 82; // s76
     		diploMugshotQuiet = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
             Graphics2D g = (Graphics2D) diploMugshotQuiet.getGraphics();
@@ -208,7 +214,7 @@ public class EmpireColonySpendingPane extends BasePanel {
     	return diploMugshotQuiet;
     }
     private BufferedImage noGovernorImage() {
-    	noGovernor = null;
+    	// noGovernor = null;
     	if (noGovernor == null) {
     		int mugH = s22;
     		int mugW = mugH;
@@ -229,7 +235,16 @@ public class EmpireColonySpendingPane extends BasePanel {
     	}
     	return noGovernor;
     }
-
+    private GradientPaint govPt(int x, int y, int w) {
+    	if (govPt == null)
+    		govPt = new GradientPaint(x, y, gray175C, x+w, y, gray115C);
+    	return govPt;
+    }
+    private GradientPaint optPt(int x, int y, int w) {
+    	if (optPt == null)
+    		optPt = new GradientPaint(x, y, gray115C, x+w, y, gray175C);
+    	return optPt;
+    }
     private class EmpireSliderPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
         //EmpireColonySpendingPane mgmtPane;
@@ -259,6 +274,13 @@ public class EmpireColonySpendingPane extends BasePanel {
 
         private void drawGovernorButton(Graphics2D g, int x, int y, int w, int h, boolean isGovernor) {
             Color borderC, titleC;
+            int maxFontSize = 17;
+            GradientPaint pt = govPt(x, y, w);
+            Paint prevPaint = g.getPaint();
+            g.setPaint(pt);
+            g.fillRoundRect(x, y, w, h, s10, s10);
+            g.setPaint(prevPaint);
+
             Stroke prevStroke = g.getStroke();
             if (hoverBox == governorBox) {
             	borderC = SystemPanel.yellowText;
@@ -266,61 +288,69 @@ public class EmpireColonySpendingPane extends BasePanel {
                 g.setStroke(stroke2);
             }
             else {
-            	borderC = newColor(175,175,175);
-            	titleC = textC;
-                g.setStroke(stroke1);
+            	borderC = gray175C;
+            	if (isGovernor)
+            		titleC  = gray20C;
+            	else
+            		titleC  = gray90C;
+                g.setStroke(stroke2);
             }
             governorBox.setBounds(x, y, w, h);
 
             String title;
-            int txtW = w-s5;
-            int txtO = 0;
-            int imgW = 0;
+            int imageW  = 0;
             if (isGovernor) {
-            	title = text("GOVERNOR_IS_ON_BUTTON");
-//            	g.setColor(new Color(0, 127, 0, 127));
-//            	g.fillRoundRect(x, y, w, h, s10, s10);
-            	imgW = s25;
-            	txtO = imgW/2;
-            	txtW -= s30;
+            	title   = text("GOVERNOR_IS_ON_BUTTON");
+            	imageW  = s25;
             }
             else {
-            	title = text("GOVERNOR_IS_OFF_BUTTON");
-            	imgW = s25;
-            	txtO = imgW/2;
-            	txtW -= s30;
+            	title   = text("GOVERNOR_IS_OFF_BUTTON");
+            	imageW  = s25;
             }
+            int titleW  = w - s10 - imageW;
+            int titleDx = imageW/2;;
 
             g.setColor(borderC);
             g.drawRoundRect(x, y, w, h, s10, s10);
             g.setStroke(prevStroke);
 
             g.setColor(titleC);
-            scaledFont(g, title, txtW, 20, 12);
+            scaledFont(g, title, titleW, maxFontSize, 12);
             Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
-            int titleX = round(x + (w-bound.getWidth())/2) - txtO;
-            int titleY = round(3*bound.getHeight()-h)/2 - y ;
-            if (LanguageManager.selectedLanguageDir().equals("fr"))
-            	titleY += s3;
-            drawShadowedString(g, title, 2, titleX, titleY, MainUI.shadeBorderC(), titleC);
+            double titleH  = bound.getHeight();
+            double descent = g.getFontMetrics().getDescent();
+            double titleDy = (h-titleH)/2;
+            int titleX = round(x + (w-bound.getWidth())/2) - titleDx;
+            int titleY = round(y + h - descent-titleDy);
+
+            g.drawString(title, titleX, titleY);
+            //drawShadowedString(g, title, 2, titleX, titleY, MainUI.shadeBorderC(), titleC);
+
             if (isGovernor) {
-            	g.drawImage(governorImage(), x+w-s24, y+s2, null);
+            	g.drawImage(governorImage(), x+w-imageW, y+s3, null);
             }
             else {
-            	g.drawImage(noGovernorImage(), x+w-s24, y+s2, null);
+            	g.drawImage(noGovernorImage(), x+w-imageW, y+s2, null);
             }
         }
         private void drawOptionsButton(Graphics2D g, int x, int y, int w, int h) {
             Color borderC, titleC;
+            int maxFontSize = 17;
+            GradientPaint pt = optPt(x, y, w);
+            Paint prevPaint = g.getPaint();
+            g.setPaint(pt);
+            g.fillRoundRect(x, y, w, h, s10, s10);
+            g.setPaint(prevPaint);
+
             if (hoverBox == optionsBox) {
             	borderC = SystemPanel.yellowText;
             	titleC  = SystemPanel.yellowText;
                 g.setStroke(stroke2);
             }
             else {
-            	borderC = newColor(175,175,175);
-               	titleC  = textC;
-                g.setStroke(stroke1);
+            	borderC = gray175C;
+               	titleC  = gray20C;
+                g.setStroke(stroke2);
             }
         	optionsBox.setBounds(x, y, w, h);
 
@@ -331,13 +361,15 @@ public class EmpireColonySpendingPane extends BasePanel {
 
             g.setColor(titleC);
             String title = text("GOVERNOR_OPTIONS");
-            scaledFont(g, title, w-s5, 20, 12);
+            scaledFont(g, title, w-s5, maxFontSize, 12);
             Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
+            double titleH  = bound.getHeight();
+            double descent = g.getFontMetrics().getDescent();
+            double titleDy = (h-titleH)/2;
             int titleX = round(x + (w-bound.getWidth())/2);
-            int titleY = round(3*bound.getHeight()-h)/2 - y ;
-            if (LanguageManager.selectedLanguageDir().equals("fr"))
-            	titleY += s3;
-            drawShadowedString(g, title, 2, titleX, titleY, MainUI.shadeBorderC(), titleC);
+            int titleY = round(y + h - descent-titleDy);
+            g.drawString(title, titleX, titleY);
+            //drawShadowedString(g, title, 2, titleX, titleY, MainUI.shadeBorderC(), titleC);
         }
         @Override public void paintComponent(Graphics g0) {
             Graphics2D g = (Graphics2D) g0;
