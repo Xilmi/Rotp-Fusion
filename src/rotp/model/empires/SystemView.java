@@ -772,30 +772,36 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     public boolean artifact()                { return (planet() != null) && planet().isArtifact(); }
     public boolean orionArtifact()           { return (planet() != null) && planet().isOrionArtifact(); }
     
-    public boolean environmentHostile()     { return (planet() != null) && planet().isEnvironmentHostile(); }
-    public boolean environmentFertile()     { return (planet() != null) && planet().isEnvironmentFertile(); }
-    public boolean environmentGaia()        { return (planet() != null) && planet().isEnvironmentGaia(); }
+    public boolean environmentHostile()      { return (planet() != null) && planet().isEnvironmentHostile(); }
+    public boolean environmentFertile()      { return (planet() != null) && planet().isEnvironmentFertile(); }
+    public boolean environmentGaia()         { return (planet() != null) && planet().isEnvironmentGaia(); }
 
-    public void resetFlagColor()	{ 
+    public void resetFlagColor()			 {
 		if(ModifierKeysState.isShiftOrCtrlDown() && scouted())
     		autoFlagPlanet(vPlanet);
-    	else 
+    	else
     		flagColor = FLAG_NONE;
     }
-    public void toggleFlagColor(boolean reverse) { // BR: flagColorCount
-    	int id;
+    private int getFlagId()					 {
     	if(ModifierKeysState.isCtrlDown()) // Left - Right
         	if(ModifierKeysState.isShiftDown()) // Top - Bottom
-        		id = 3;
+        		return 3;
         	else
-        		id = 2;
+        		return 2;
     	else
         	if(ModifierKeysState.isShiftDown()) // Top - Bottom
-        		id = 4;
+        		return 4;
         	else
-        		id = 1;
-    	setFlagColor(toggleFlagColor(reverse, getFlagColor(id)), id);
+        		return 1;
     }
+    public int toggleFlagColor(boolean reverse) { // BR: flagColorCount
+    	int id = getFlagId();
+    	int oldFlagColor = getFlagColor(id);
+    	int newFlagColor = toggleFlagColor(reverse, oldFlagColor);
+    	setFlagColor(newFlagColor, id);
+    	return newFlagColor;
+    }
+    public void setFlagColor(int newFlagColor)	{  setFlagColor(newFlagColor, getFlagId()); }
     private int toggleFlagColor(boolean reverse, int flagColor) { // BR: flagColorCount
 		if (reverse) {
 			flagColor--;
@@ -809,7 +815,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 			return flagColor;
 		}
     }
-    public String resourceType() {
+    public String resourceType()			{
         if (artifact() || orionArtifact())
             return "PLANET_ARTIFACTS";
         if (resourceUltraPoor())
@@ -823,7 +829,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
         else
             return "";
     }
-    public String ecologyType() {
+    public String ecologyType()				{
         if (environmentHostile())
             return "PLANET_HOSTILE";
         else if (environmentFertile())
@@ -867,7 +873,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 
     public boolean canRallyTo(StarSystem sys) { return sys.empire() == owner(); }
 
-    public float distanceTo(SystemView v)   { return system().distanceTo(v.system()); }
+    public float distanceTo(SystemView v)	 { return system().distanceTo(v.system()); }
 
     public int desiredMissileBases() {
         return (empire() == owner()) ? colony().defense().maxBases() : 0;

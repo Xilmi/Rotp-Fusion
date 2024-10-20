@@ -76,6 +76,8 @@ Later:
 - Dynamic Governor buttons resising.
   - The font size are uniformized.
   - Updated Colony panel colors.
+- Colony Panel multiple selection, changing the common flag (The one under the planet):
+  - All the selected colony will have the flag selected (with Shift/Ctrl) set to the color displayed on the common flag.
 
 2024.10.19 (Frank Zago)
 - Plenty of French translations (New and fixes)

@@ -30,6 +30,8 @@ import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingUtilities;
+
+import rotp.model.empires.SystemInfo;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 
@@ -91,7 +93,7 @@ public class EmpireColonyFoundedPane extends BasePanel implements MouseMotionLis
         g.drawImage(flagImage, w-sz+s15-shX, h-sz+s15, sz, sz, null);
         flagBox.setBounds(w-sz+s25,h-sz+s15-shX,sz-s20,sz-s10);
     }
-    public void forceAutoFlagColor(boolean all) {
+    public void forceAutoFlagColor(boolean all)  {
         List<StarSystem> systems = parent.systemsToDisplay();
         if (systems == null) {
             systems = new ArrayList<>();
@@ -119,10 +121,15 @@ public class EmpireColonyFoundedPane extends BasePanel implements MouseMotionLis
                 systems.add(sys);
         }
         
-        for (StarSystem sys1: systems) 
-            player().sv.toggleFlagColor(sys1.id, reverse);
+        SystemInfo sv = player().sv;
+        Integer flagColor = null;
+        for (StarSystem sys1: systems)
+        	if (flagColor == null)
+        		flagColor = sv.toggleFlagColor(sys1.id, reverse);
+        	else
+        		sv.setFlagColor(sys1.id, flagColor);
 
-                if (repainter != null)
+        if (repainter != null)
             repainter.repaint();
         else if (topParent != null)
             topParent.repaint();
