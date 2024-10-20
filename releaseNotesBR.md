@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- "Governor Toggle" button and its "Option" button now match the interface standard in the colony panel too.
 - Captured Alien Factory Display have now their dedicated label.
 - In case of Greek characters, dialog Font will be replaced by "plainFont" instead of "narrowFont".
 - The dialog font has been replaced, for the French language, by a font that includes accented letters.

@@ -60,6 +60,14 @@ public class EmpireSystemPanel extends SystemPanel {
     static final Color darkBrown = new Color(45,14,5);
     static final Color brown = new Color(64,24,13);
     static final Color sliderBoxBlue = new Color(34,140,142);
+    private static final Color gray20C  = new Color(20,20,20);
+    private static final Color buttonC  = new Color(110,110,110);
+    private static final Color gray70C  = new Color(70,70,70);
+    private static final Color gray90C  = new Color(90,90,90);
+    private static final Color gray115C = new Color(115,115,115);
+    // private static final Color gray150C = new Color(150,150,150);
+    private static final Color gray175C = new Color(175,175,175);
+    private static final Color gray190C = new Color(190,190,190);
 
     private SystemViewInfoPane topPane;
     private EmpireColonySpendingPane spendingPane;
@@ -168,7 +176,9 @@ public class EmpireSystemPanel extends SystemPanel {
         detailTopPane.add(foundedPane, BorderLayout.NORTH);
         detailTopPane.add(infoPane, BorderLayout.CENTER);
         Color textC = new Color(204,204,204);
-        spendingPane = new EmpireColonySpendingPane(this, MainUI.paneBackground(), textC, labelBorderHi, labelBorderLo);
+        spendingPane = new EmpireColonySpendingPane(this,
+        		MainUI.paneBackground(), textC, labelBorderHi, labelBorderLo,
+        		gray20C, gray90C, gray175C, gray115C, gray175C, true);
         if (parentSpritePanel.parent != null)  
             spendingPane.mapListener(parentSpritePanel.parent.map());
         shipPane = new EmpireShipPane(this);
@@ -223,15 +233,7 @@ public class EmpireSystemPanel extends SystemPanel {
         private boolean hasPreview = false;
 
         Color textColor = newColor(204,204,204);
-        Color gray20C = newColor(20,20,20);
         Color darkShadingC = newColor(50,50,50);
-        Color buttonC = newColor(110,110,110);
-        Color gray70C = newColor(70,70,70);
-        Color gray90C = newColor(90,90,90);
-        Color gray115C = newColor(115,115,115);
-        Color gray150C = newColor(150,150,150);
-        Color gray175C = newColor(175,175,175);
-        Color gray190C = newColor(190,190,190);
         EmpireShipPane(EmpireSystemPanel p) {
             parent = p;
             init();

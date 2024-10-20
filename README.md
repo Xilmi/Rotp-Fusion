@@ -75,6 +75,7 @@ Later:
   - are displayed on multi-lines.
 - Dynamic Governor buttons resising.
   - The font size are uniformized.
+  - Updated Colony panel colors.
 
 2024.10.19 (Frank Zago)
 - Plenty of French translations (New and fixes)

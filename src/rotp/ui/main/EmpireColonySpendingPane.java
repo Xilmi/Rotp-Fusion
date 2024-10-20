@@ -72,12 +72,7 @@ public class EmpireColonySpendingPane extends BasePanel {
     static final Color sliderTextEnabled	= Color.black;
     static final Color sliderTextDisabled	= new Color(65,65,65);
     static final Color sliderTextHasOrder	= new Color(0,0,142);
-    static final Color gray20C				= new Color(20,20,20);
-    static final Color gray90C				= new Color(90,90,90);
-    static final Color gray115C				= new Color(115,115,115);
-    static final Color gray175C				= new Color(175,175,175);
 
-    private static GradientPaint govPaint, optPaint;
     private static BufferedImage governorImage;
     private static BufferedImage noGovernorImage;
     private static int govMaxW, optMaxW;
@@ -91,26 +86,42 @@ public class EmpireColonySpendingPane extends BasePanel {
     private static int buttonY;
     private static int buttonMargin = s20;
     private static int buttonOffset = s10;
-    private static boolean needInitialization = true;
+    private static boolean needInitializationRound = true;
+    private static boolean needInitializationSquare = true;
 
-    private final Rectangle governorBox = new Rectangle();
-    private final Rectangle optionsBox = new Rectangle();
-
-    Color borderHi, borderLo, textC, backC;
+    private final Rectangle governorBox	= new Rectangle();
+    private final Rectangle optionsBox	= new Rectangle();
+    private GradientPaint govPaint, optPaint;
+    private final SystemViewer parent;
+    private final boolean isRound;
+    private final Color textColorOn, textColorOff;
+    private final Color paintColorExt, paintColorInt;
+    private final Color buttonColor;
+    final Color borderHi, borderLo, textC, backC;
 
     private EmpireSliderPane shipSlider, defSlider, indSlider, ecoSlider, researchSlider;
 
-    private final SystemViewer parent;
     private GalaxyMapPanel mapListener;
 
-    public static void resetPanel() { needInitialization = true; }
+    public static void resetPanel() {
+    	needInitializationRound = true;
+    	needInitializationSquare = true;
+    }
 
-    public EmpireColonySpendingPane(SystemViewer p, Color c0, Color text, Color hi, Color lo) {
+    public EmpireColonySpendingPane(SystemViewer p, Color c0, Color text, Color hi, Color lo,
+    		Color tOn, Color tOff, Color pExt, Color pInt, Color bC, boolean round) {
         parent = p;
-        textC = text;
-        backC = c0;
+        textC  = text;
+        backC  = c0;
         borderHi = hi;
         borderLo = lo;
+        textColorOn  = tOn;
+        textColorOff = tOff;
+        paintColorExt = pExt;
+        paintColorInt = pInt;
+        buttonColor   = bC;
+
+        isRound  = round;
         init();
     }
     public void mapListener(GalaxyMapPanel map)  { mapListener = map; }
@@ -136,8 +147,10 @@ public class EmpireColonySpendingPane extends BasePanel {
         add(ecoSlider);
         add(researchSlider);
     }
+    private boolean needInitialization() {
+    	return isRound? needInitializationRound : needInitializationSquare;
+    }
     private void reinitPanel(Graphics2D g) {
-    	buttonMargin = s20;
     	buttonY = getHeight() - buttonH - s1;
     	int w = getWidth();
     	initGovernorImage();
@@ -151,18 +164,16 @@ public class EmpireColonySpendingPane extends BasePanel {
     		govFontSize = initButtons(g, maxFont);
     	}
     	while(maxFont != govFontSize);
-    	// System.out.println("govFontSize = " + govFontSize);
-
-    	//initGovernorButton(g, scaled(150));
-    	//initOptionsButtonW(g, scaled(65));
     	govButtonX = buttonOffset;
     	int x2 = govButtonX + govButtonW;
-    	int y = buttonY;
-    	govPaint = new GradientPaint(govButtonX, y, gray175C, x2, y, gray115C);
+    	govPaint = new GradientPaint(govButtonX, buttonY, paintColorExt, x2, buttonY, paintColorInt);
     	x2 = w - buttonOffset;
     	optButtonX = x2 - optButtonW;
-    	optPaint = new GradientPaint(optButtonX, y, gray115C, x2, y, gray175C);
-    	needInitialization = false;
+    	optPaint = new GradientPaint(optButtonX, buttonY, paintColorInt, x2, buttonY, paintColorExt);
+    	if (isRound)
+    		needInitializationRound = false;
+    	else
+    		needInitializationSquare = false;
     }
     private void initGovernorImage()	{
 		int mugH = s20; // s82
@@ -242,28 +253,32 @@ public class EmpireColonySpendingPane extends BasePanel {
         int titleX = round(govButtonX + (govButtonW-titleW)/2) - titleDx;
         int titleY = round(buttonY + buttonH - descent-titleDy);
 
-        Paint prevPaint = g.getPaint();
-        g.setPaint(govPaint);
-        g.fillRoundRect(govButtonX, buttonY, govButtonW, buttonH, s10, s10);
-        g.setPaint(prevPaint);
-
+        if (isRound) {
+            Paint prevPaint = g.getPaint();
+            g.setPaint(govPaint);
+            g.fillRoundRect(govButtonX, buttonY, govButtonW, buttonH, s10, s10);
+            g.setPaint(prevPaint);
+        }
         if (hovered) {
         	borderC = SystemPanel.yellowText;
         	titleC  = SystemPanel.yellowText;
         }
         else {
-        	borderC = gray175C;
+        	borderC = buttonColor;
         	if (isGovernor)
-        		titleC  = gray20C;
+        		titleC  = textColorOn;
         	else
-        		titleC  = gray90C;
+        		titleC  = textColorOff;
         }
         governorBox.setBounds(govButtonX, buttonY, govButtonW, buttonH);
 
         Stroke prevStroke = g.getStroke();
         g.setStroke(stroke2);
         g.setColor(borderC);
-        g.drawRoundRect(govButtonX, buttonY, govButtonW, buttonH, s10, s10);
+        if (isRound)
+        	g.drawRoundRect(govButtonX, buttonY, govButtonW, buttonH, s10, s10);
+        else
+        	g.drawRect(govButtonX, buttonY, govButtonW, buttonH);
         g.setStroke(prevStroke);
         g.setColor(titleC);
         g.drawString(title, titleX, titleY);
@@ -285,25 +300,29 @@ public class EmpireColonySpendingPane extends BasePanel {
         int titleX = round(optButtonX + (optButtonW-titleW)/2);
         int titleY = round(buttonY + buttonH - descent-titleDy);
 
-        Paint prevPaint = g.getPaint();
-        g.setPaint(optPaint);
-        g.fillRoundRect(optButtonX, buttonY, optButtonW, buttonH, s10, s10);
-        g.setPaint(prevPaint);
-
+        if (isRound) {
+            Paint prevPaint = g.getPaint();
+            g.setPaint(optPaint);
+            g.fillRoundRect(optButtonX, buttonY, optButtonW, buttonH, s10, s10);
+            g.setPaint(prevPaint);
+        }
         if (hovered) {
         	borderC = SystemPanel.yellowText;
         	titleC  = SystemPanel.yellowText;
         }
         else {
-        	borderC = gray175C;
-           	titleC  = gray20C;
+        	borderC = buttonColor;
+           	titleC  = textColorOn;
         }
     	optionsBox.setBounds(optButtonX, buttonY, optButtonW, buttonH);
 
     	Stroke prevStroke = g.getStroke();
         g.setStroke(stroke2);
         g.setColor(borderC);
-    	g.drawRoundRect(optButtonX, buttonY, optButtonW, buttonH, s10, s10);
+        if (isRound)
+        	g.drawRoundRect(optButtonX, buttonY, optButtonW, buttonH, s10, s10);
+        else
+        	g.drawRect(optButtonX, buttonY, optButtonW, buttonH);
         g.setStroke(prevStroke);
 
         g.setColor(titleC);
@@ -407,7 +426,7 @@ public class EmpireColonySpendingPane extends BasePanel {
         @Override public void paintComponent(Graphics g0) {
         	Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
-        	if (needInitialization)
+        	if (needInitialization())
         		reinitPanel(g);
 
             StarSystem sys = parent.systemViewToDisplay();
