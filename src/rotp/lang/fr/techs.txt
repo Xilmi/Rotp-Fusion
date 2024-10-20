@@ -986,19 +986,19 @@ RSRVFUEL_0_DETAIL  | Les réservoirs de carburant supplémentaires augmentent la
 // Robotic Controls techs
 //
 ROBOTCTRL_0_NAME     | Commandes robotiques améliorées III
-ROBOTCTRL_0_DETAIL   | Permet de faire fonctionner 3 usines par habitant. Le coût de remise en état pour la mise à niveau est la moitié du coût standard de chaque usine.
+ROBOTCTRL_0_DETAIL   | Permet de faire fonctionner 3 usines par habitant. Le coût de la mise à niveau est la moitié du coût standard de chaque usine.
 
 ROBOTCTRL_1_NAME     | Commandes robotiques améliorées IV
-ROBOTCTRL_1_DETAIL   | Permet de faire fonctionner 4 usines par habitant. Le coût de remise en état pour la mise à niveau est le coût standard de chaque usine.
+ROBOTCTRL_1_DETAIL   | Permet de faire fonctionner 4 usines par habitant. Le coût de la mise à niveau est le coût standard de chaque usine.
 
 ROBOTCTRL_2_NAME     | Commandes robotiques améliorées V
-ROBOTCTRL_2_DETAIL   | Permet de faire fonctionner 5 usines par habitant. Le coût de remise en état pour la mise à niveau est une fois et demie le coût standard de chaque usine.
+ROBOTCTRL_2_DETAIL   | Permet de faire fonctionner 5 usines par habitant. Le coût de la mise à niveau est une fois et demie le coût standard de chaque usine.
 
 ROBOTCTRL_3_NAME     | Commandes robotiques améliorées VI
-ROBOTCTRL_3_DETAIL   | Permet de faire fonctionner 6 usines par habitant. Le coût de remise en état de la mise à niveau est le double du coût standard de chaque usine.
+ROBOTCTRL_3_DETAIL   | Permet de faire fonctionner 6 usines par habitant. Le coût de la mise à niveau est le double du coût standard de chaque usine.
 
 ROBOTCTRL_4_NAME     | Commandes robotiques améliorées VII
-ROBOTCTRL_4_DETAIL   | Permet de faire fonctionner 7 usines par habitant. Le coût de remise en état de la mise à niveau est de 2,5 fois le coût standard de chaque usine.
+ROBOTCTRL_4_DETAIL   | Permet de faire fonctionner 7 usines par habitant. Le coût de la mise à niveau est de 2,5 fois le coût standard de chaque usine.
 
 
 //
