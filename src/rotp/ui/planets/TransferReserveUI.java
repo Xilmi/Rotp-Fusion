@@ -31,6 +31,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.util.List;
+
+import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
@@ -342,7 +344,9 @@ public final class TransferReserveUI extends BasePanel implements MouseListener,
             int amount = (int) (pct*player().totalReserve());
             for(StarSystem sys : targetSystems)
             {
-                player().allocateReserve(sys.colony(), amount);
+            	Colony col = sys.colony();
+                player().allocateReserve(col, amount);
+                //col.governIfNeeded();
                 if(player().totalReserve() == 0)
                     break;
             }

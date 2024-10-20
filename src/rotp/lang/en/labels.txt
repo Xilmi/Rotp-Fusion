@@ -884,7 +884,7 @@ MAIN_COLONY_ALLOCATE_SPENDING     | Allocate Spending
 //GOVERNOR_IS_ON_BUTTON             | Governor Enabled
 //GOVERNOR_IS_OFF_BUTTON            | Governor Disabled
 //GOVERNOR_IS_ON_BUTTON             | Governor On Duty
-//GOVERNOR_IS_OFF_BUTTON            | Governor Inactive
+//GOVERNOR_IS_OFF_BUTTON            | Appoint Governor
 GOVERNOR_IS_ON_BUTTON             | Governor Active
 GOVERNOR_IS_OFF_BUTTON            | Governor Inactive
 //GOVERNOR_IS_ON_BUTTON             | Governor
