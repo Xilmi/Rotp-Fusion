@@ -7,7 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
-
+- Captured Alien Factory Display have now their dedicated label.
 - In case of Greek characters, dialog Font will be replaced by "plainFont" instead of "narrowFont".
 - The dialog font has been replaced, for the French language, by a font that includes accented letters.
 - The Governor Button Icon now updates when starting a new game.
@@ -18,10 +18,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Replaced Governor button color by icons.
 - Fixed some crashes occurring when interrupting massive ground attacks.
 - "Governor Toggle" and "Governor Options" are now true buttons.
-- Fixed a potential crash in ground combat animation.
-- Fixed Greek characters not being displayed in GNN announces.
-  - The original GNN font don't includes Greek set.
-  - The font will be replaced when the GNN font will not be able to display the system name.
+
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

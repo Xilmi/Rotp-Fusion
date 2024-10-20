@@ -282,19 +282,34 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
         }
         if (isPlayer) {
             x0 = s25;
+            int xMin = 0;
+            int maxW = scaled(150);
+            int minW = scaled(100);
+            int maxFont = 20;
+            int minFont = 10;
             // This will only display alienFactories if the player has colonized the system.
             // We could display alienFactories if the player has merely explored the system,
             // just as we show the player the planet's current terraformed size.
-            for (int empId=0; empId<sys.galaxy().numEmpires(); empId++)
+            for (int empId=0; empId<sys.galaxy().numEmpires(); empId++) {
                 if (sys.planet().alienFactories(empId) > 0) {
-                    String str = String.valueOf(sys.planet().alienFactories(empId));
-                    str += " " + sys.galaxy().empire(empId).raceName();
-                    str += " " + text("MAIN_COLONY_FACTORIES");
+                	Empire emp = galaxy().empire(empId);
+                	String val = String.valueOf(sys.planet().alienFactories(empId));
+                	String str = text("MAIN_COLONY_ALIEN_FACTORIES", val);
+                	str = emp.replaceTokens(str, "alien");
+                    maxFont = scaledFont(g, str, maxW, maxFont, minFont);
+                    // String str = String.valueOf(sys.planet().alienFactories(empId));
+                    // str += " " + sys.galaxy().empire(empId).raceName();
+                    // str += " " + text("MAIN_COLONY_FACTORIES");
                     g.setColor(sys.galaxy().empire(empId).nameColor());
                     drawString(g, str, x0, y0);
-                    int sw = g.getFontMetrics().stringWidth(str);
-                    x0 += sw + s4;
-                }        	
+                    //int sw = g.getFontMetrics().stringWidth(str);
+                    //x0 += sw + s4;
+                    maxW = max(minW, maxW-s10);
+                    maxFont = max(minFont, maxFont-2);
+                    x0 = max(xMin, x0-s5);
+                    y0 = y0 + scaled(maxFont);
+                }
+            }
         }
     }
     public void drawSystemTreatyStatus(Graphics2D g, StarSystem sys, Font textF, int y, int w, int h) {

@@ -31,6 +31,7 @@ import rotp.Rotp;
 import rotp.model.empires.Race;
 import rotp.model.empires.RaceFactory;
 import rotp.ui.UserPreferences;
+import rotp.ui.main.EmpireColonySpendingPane;
 
 public class LanguageManager implements Base {
     static LanguageManager instance = new LanguageManager();
@@ -125,8 +126,9 @@ public class LanguageManager implements Base {
         if (selectedLanguage() == i)
             return;
         loadLanguage(i);
-        
         validateDialogueTokens(false); // TO DO BR: change to false (true for debug)
+        if (!Rotp.noOptions("selectLanguage(" + i + ")"))
+        	EmpireColonySpendingPane.resetPanel();
     }
     private void validateDialogueTokens(boolean doIt) {
     	LabelManager.validate = doIt;

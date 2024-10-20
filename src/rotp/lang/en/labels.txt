@@ -868,6 +868,7 @@ MAIN_COLONY_HOMEWORLD             | %1 Homeworld
 MAIN_COLONY_FOUNDED               | %1 Colony
 MAIN_COLONY_POPULATION            | Population
 MAIN_COLONY_FACTORIES             | Factories
+MAIN_COLONY_ALIEN_FACTORIES       | %1 [alien_race] →MAIN_COLONY_FACTORIES←
 MAIN_COLONY_VALUE+                | %1+
 MAIN_COLONY_SHIELD                | Shield Level
 MAIN_COLONY_BASES                 | Bases
@@ -878,12 +879,14 @@ MAIN_COLONY_INDUSTRY              | Ind
 MAIN_COLONY_ECOLOGY               | Eco
 MAIN_COLONY_TECHNOLOGY            | Tech
 MAIN_COLONY_ALLOCATE_SPENDING     | Allocate Spending
-GOVERNOR_IS_ON_BUTTON             | Governor Toggle
-GOVERNOR_IS_OFF_BUTTON            | Governor Toggle
+//GOVERNOR_IS_ON_BUTTON             | Governor Toggle
+//GOVERNOR_IS_OFF_BUTTON            | Governor Toggle
 //GOVERNOR_IS_ON_BUTTON             | Governor Enabled
 //GOVERNOR_IS_OFF_BUTTON            | Governor Disabled
-//GOVERNOR_IS_ON_BUTTON             | Governor Active
+//GOVERNOR_IS_ON_BUTTON             | Governor On Duty
 //GOVERNOR_IS_OFF_BUTTON            | Governor Inactive
+GOVERNOR_IS_ON_BUTTON             | Governor Active
+GOVERNOR_IS_OFF_BUTTON            | Governor Inactive
 //GOVERNOR_IS_ON_BUTTON             | Governor
 //GOVERNOR_IS_OFF_BUTTON            | Governor
 GOVERNOR_OPTIONS                  | Options

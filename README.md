@@ -69,6 +69,13 @@ Later:
 
 ## What's New
 
+2024.10.20 (BR)
+- Captured Alien Factory Display
+  - have now their dedicated label.
+  - are displayed on multi-lines.
+- Dynamic Governor buttons resising.
+  - The font size are uniformized.
+
 2024.10.19 (Frank Zago)
 - Plenty of French translations (New and fixes)
 

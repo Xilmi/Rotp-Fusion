@@ -80,10 +80,15 @@ public class EmpireColonySpendingPane extends BasePanel {
     private static GradientPaint govPaint, optPaint;
     private static BufferedImage governorImage;
     private static BufferedImage noGovernorImage;
+    private static int govMaxW, optMaxW;
     private static int govButtonW, optButtonW;
+    private static int govButtonX, optButtonX;
     private static int maxButtonFontSize = 17;
     private static int minButtonFontSize = 12;
+    private static int govFontSize;
     private static int iconWidth    = s25;
+    private static int buttonH      = s25;
+    private static int buttonY;
     private static int buttonMargin = s20;
     private static int buttonOffset = s10;
     private static boolean needInitialization = true;
@@ -132,18 +137,31 @@ public class EmpireColonySpendingPane extends BasePanel {
         add(researchSlider);
     }
     private void reinitPanel(Graphics2D g) {
+    	buttonMargin = s20;
+    	buttonY = getHeight() - buttonH - s1;
     	int w = getWidth();
     	initGovernorImage();
     	initNoGovernorImage();
-    	initGovernorButton(g, scaled(150));
-    	initOptionsButtonW(g, scaled(65));
-    	int x1 = buttonMargin;
-    	int x2 = x1 + govButtonW;
-    	int y = 0;
-    	govPaint = new GradientPaint(x1, y, gray175C, x2, y, gray115C);
-    	x2 = w - buttonMargin;
-    	x1 = x2 - optButtonW;
-    	optPaint = new GradientPaint(x1, y, gray115C, x2, y, gray175C);
+    	govFontSize = maxButtonFontSize;
+    	int maxFont;
+    	govMaxW = scaled(150);
+    	optMaxW = scaled(75);
+    	do {
+    		maxFont = govFontSize;
+    		govFontSize = initButtons(g, maxFont);
+    	}
+    	while(maxFont != govFontSize);
+    	// System.out.println("govFontSize = " + govFontSize);
+
+    	//initGovernorButton(g, scaled(150));
+    	//initOptionsButtonW(g, scaled(65));
+    	govButtonX = buttonOffset;
+    	int x2 = govButtonX + govButtonW;
+    	int y = buttonY;
+    	govPaint = new GradientPaint(govButtonX, y, gray175C, x2, y, gray115C);
+    	x2 = w - buttonOffset;
+    	optButtonX = x2 - optButtonW;
+    	optPaint = new GradientPaint(optButtonX, y, gray115C, x2, y, gray175C);
     	needInitialization = false;
     }
     private void initGovernorImage()	{
@@ -182,28 +200,116 @@ public class EmpireColonySpendingPane extends BasePanel {
 		g.drawImage(img, 0, 0, mugW, mugH, 0, 0, imgW, imgH, null);
     	g.dispose();
     }
-    private void initGovernorButton(Graphics2D g, int maxWidth)	{
-		int margin = iconWidth + buttonMargin;
-		int maxTitleWidth = maxWidth - margin;
-		String title = text("GOVERNOR_IS_ON_BUTTON");
-		scaledFont(g, title, maxTitleWidth, maxButtonFontSize, minButtonFontSize);
-		Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
-		int titleW  = (int) Math.ceil(bound.getWidth());
-		title = text("GOVERNOR_IS_OFF_BUTTON");
-		scaledFont(g, title, maxTitleWidth, maxButtonFontSize, minButtonFontSize);
-		bound = g.getFontMetrics().getStringBounds(title, g);
-		titleW = max(titleW, (int) Math.ceil(bound.getWidth()));
-		govButtonW = titleW + margin;    	
+    private int initButtons(Graphics2D g, int maxFont) {
+    	int font1 = initGovernorButton(g, govMaxW, maxFont);
+    	int font2 = initOptionsButtonW(g, optMaxW, font1);
+    	return min(font1, font2);
     }
-    private void initOptionsButtonW(Graphics2D g, int maxWidth) {
+    private int initGovernorButton(Graphics2D g, int maxWidth, int maxFont)	{
 		int margin = iconWidth + buttonMargin;
 		int maxTitleWidth = maxWidth - margin;
+		String title1 = text("GOVERNOR_IS_ON_BUTTON");
+		int fontSize1 = scaledFont(g, title1, maxTitleWidth, maxFont, minButtonFontSize);
+		int titleW1   = g.getFontMetrics().stringWidth(title1);
+
+		String title2 = text("GOVERNOR_IS_OFF_BUTTON");
+		int fontSize2 = scaledFont(g, title2, maxTitleWidth, maxFont, minButtonFontSize);
+		int titleW2   = g.getFontMetrics().stringWidth(title2);
+
+		int titleW = max(titleW1, titleW2);
+		govButtonW = titleW + margin;
+		return min(fontSize1, fontSize2);
+    }
+    private int initOptionsButtonW(Graphics2D g, int maxWidth, int maxFont) {
+		int maxTitleWidth = maxWidth - buttonMargin;
 		String title = text("GOVERNOR_OPTIONS");
-		scaledFont(g, title, maxTitleWidth, maxButtonFontSize, minButtonFontSize);
-		Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
-		int titleW  = (int) Math.ceil(bound.getWidth());
-		optButtonW = titleW + margin;
+		int fontSize = scaledFont(g, title, maxTitleWidth, maxFont, minButtonFontSize);
+		int titleW   = g.getFontMetrics().stringWidth(title);
+		optButtonW = titleW + buttonMargin;
+		return fontSize;
     }
+    private void drawGovernorButton(Graphics2D g, boolean hovered, boolean isGovernor) {
+        Color borderC, titleC;
+        String title = isGovernor? text("GOVERNOR_IS_ON_BUTTON") : text("GOVERNOR_IS_OFF_BUTTON");
+        int titleDx = iconWidth/2;
+        g.setFont(narrowFont(govFontSize));
+        Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
+        
+        int titleW     = (int) Math.ceil(bound.getWidth());
+        double titleH  = bound.getHeight();
+        double descent = g.getFontMetrics().getDescent();
+        double titleDy = (buttonH-titleH)/2;
+        int titleX = round(govButtonX + (govButtonW-titleW)/2) - titleDx;
+        int titleY = round(buttonY + buttonH - descent-titleDy);
+
+        Paint prevPaint = g.getPaint();
+        g.setPaint(govPaint);
+        g.fillRoundRect(govButtonX, buttonY, govButtonW, buttonH, s10, s10);
+        g.setPaint(prevPaint);
+
+        if (hovered) {
+        	borderC = SystemPanel.yellowText;
+        	titleC  = SystemPanel.yellowText;
+        }
+        else {
+        	borderC = gray175C;
+        	if (isGovernor)
+        		titleC  = gray20C;
+        	else
+        		titleC  = gray90C;
+        }
+        governorBox.setBounds(govButtonX, buttonY, govButtonW, buttonH);
+
+        Stroke prevStroke = g.getStroke();
+        g.setStroke(stroke2);
+        g.setColor(borderC);
+        g.drawRoundRect(govButtonX, buttonY, govButtonW, buttonH, s10, s10);
+        g.setStroke(prevStroke);
+        g.setColor(titleC);
+        g.drawString(title, titleX, titleY);
+
+        if (isGovernor)
+        	g.drawImage(governorImage, govButtonX+govButtonW-iconWidth, buttonY+s3, null);
+        else
+        	g.drawImage(noGovernorImage, govButtonX+govButtonW-iconWidth, buttonY+s2, null);
+    }
+    private void drawOptionsButton(Graphics2D g, boolean hovered) {
+        Color borderC, titleC;
+        String title = text("GOVERNOR_OPTIONS");
+        g.setFont(narrowFont(govFontSize));
+        Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
+        int titleW  = (int) Math.ceil(bound.getWidth());
+        double titleH  = bound.getHeight();
+        double descent = g.getFontMetrics().getDescent();
+        double titleDy = (buttonH-titleH)/2;
+        int titleX = round(optButtonX + (optButtonW-titleW)/2);
+        int titleY = round(buttonY + buttonH - descent-titleDy);
+
+        Paint prevPaint = g.getPaint();
+        g.setPaint(optPaint);
+        g.fillRoundRect(optButtonX, buttonY, optButtonW, buttonH, s10, s10);
+        g.setPaint(prevPaint);
+
+        if (hovered) {
+        	borderC = SystemPanel.yellowText;
+        	titleC  = SystemPanel.yellowText;
+        }
+        else {
+        	borderC = gray175C;
+           	titleC  = gray20C;
+        }
+    	optionsBox.setBounds(optButtonX, buttonY, optButtonW, buttonH);
+
+    	Stroke prevStroke = g.getStroke();
+        g.setStroke(stroke2);
+        g.setColor(borderC);
+    	g.drawRoundRect(optButtonX, buttonY, optButtonW, buttonH, s10, s10);
+        g.setStroke(prevStroke);
+
+        g.setColor(titleC);
+        g.drawString(title, titleX, titleY);
+    }
+
     @Override public void keyPressed(KeyEvent e) {
         int k = e.getKeyCode();
         int mods = e.getModifiersEx();
@@ -270,16 +376,6 @@ public class EmpireColonySpendingPane extends BasePanel {
             }
         }
     }
-//    private GradientPaint govPt(int x, int y, int w) {
-//    	// if (govPt == null)
-//    		govPaint = new GradientPaint(x, y, gray175C, x+w, y, gray115C);
-//    	return govPaint;
-//    }
-//    private GradientPaint optPt(int x, int y, int w) {
-//    	if (optPaint == null)
-//    		optPaint = new GradientPaint(x, y, gray115C, x+w, y, gray175C);
-//    	return optPaint;
-//    }
 
     private class EmpireSliderPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
@@ -308,98 +404,6 @@ public class EmpireColonySpendingPane extends BasePanel {
             addMouseWheelListener(this);
         }
 
-        private void drawGovernorButton(Graphics2D g, int x, int y, int w, int h, boolean isGovernor) {
-            Color borderC, titleC;
-            String title;
-            if (isGovernor)
-            	title   = text("GOVERNOR_IS_ON_BUTTON");
-            else
-            	title   = text("GOVERNOR_IS_OFF_BUTTON");
-            int margin = buttonMargin + iconWidth;
-            int maxTitleWidth = w - margin;
-            int titleDx = iconWidth/2;
-            scaledFont(g, title, maxTitleWidth, maxButtonFontSize, minButtonFontSize);
-            Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
-            
-            int titleW  = (int) Math.ceil(bound.getWidth());
-            int buttonW  = govButtonW;
-            //int buttonW = min(w, titleW + margin);
-            double titleH  = bound.getHeight();
-            double descent = g.getFontMetrics().getDescent();
-            double titleDy = (h-titleH)/2;
-            int titleX = round(x + (buttonW-titleW)/2) - titleDx;
-            int titleY = round(y + h - descent-titleDy);
-
-            Paint prevPaint = g.getPaint();
-            g.setPaint(govPaint);
-            g.fillRoundRect(x, y, buttonW, h, s10, s10);
-            g.setPaint(prevPaint);
-
-            Stroke prevStroke = g.getStroke();
-            if (hoverBox == governorBox) {
-            	borderC = SystemPanel.yellowText;
-            	titleC  = SystemPanel.yellowText;
-                g.setStroke(stroke2);
-            }
-            else {
-            	borderC = gray175C;
-            	if (isGovernor)
-            		titleC  = gray20C;
-            	else
-            		titleC  = gray90C;
-                g.setStroke(stroke2);
-            }
-            governorBox.setBounds(x, y, buttonW, h);
-
-
-            g.setColor(borderC);
-            g.drawRoundRect(x, y, buttonW, h, s10, s10);
-            g.setStroke(prevStroke);
-            g.setColor(titleC);
-            g.drawString(title, titleX, titleY);
-            //drawShadowedString(g, title, 2, titleX, titleY, MainUI.shadeBorderC(), titleC);
-
-            if (isGovernor)
-            	g.drawImage(governorImage, x+buttonW-iconWidth, y+s3, null);
-            else
-            	g.drawImage(noGovernorImage, x+buttonW-iconWidth, y+s2, null);
-        }
-        private void drawOptionsButton(Graphics2D g, int x, int y, int w, int h) {
-            Color borderC, titleC;
-            Paint prevPaint = g.getPaint();
-            g.setPaint(optPaint);
-            g.fillRoundRect(x, y, w, h, s10, s10);
-            g.setPaint(prevPaint);
-
-            if (hoverBox == optionsBox) {
-            	borderC = SystemPanel.yellowText;
-            	titleC  = SystemPanel.yellowText;
-                g.setStroke(stroke2);
-            }
-            else {
-            	borderC = gray175C;
-               	titleC  = gray20C;
-                g.setStroke(stroke2);
-            }
-        	optionsBox.setBounds(x, y, w, h);
-
-        	Stroke prevStroke = g.getStroke();
-            g.setColor(borderC);
-        	g.drawRoundRect(x, y, w, h, s10, s10);
-            g.setStroke(prevStroke);
-
-            g.setColor(titleC);
-            String title = text("GOVERNOR_OPTIONS");
-            scaledFont(g, title, w-s5, maxButtonFontSize, minButtonFontSize);
-            Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
-            double titleH  = bound.getHeight();
-            double descent = g.getFontMetrics().getDescent();
-            double titleDy = (h-titleH)/2;
-            int titleX = round(x + (w-bound.getWidth())/2);
-            int titleY = round(y + h - descent-titleDy);
-            g.drawString(title, titleX, titleY);
-            //drawShadowedString(g, title, 2, titleX, titleY, MainUI.shadeBorderC(), titleC);
-        }
         @Override public void paintComponent(Graphics g0) {
         	Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
@@ -416,18 +420,9 @@ public class EmpireColonySpendingPane extends BasePanel {
             int w = getWidth();
 
             if (category < 0) {
-            	int wGov = scaled(150);
-            	int xGov = buttonOffset;
-            	int hGov = s25;
-            	int yGov = getHeight() - hGov - s1;
-            	drawGovernorButton(g, xGov, yGov, wGov, hGov, colony.isGovernor());
-
-            	//int wOpt = s75;
-            	int wOpt = s65;
-            	int xOpt = w - wOpt - buttonOffset;
-            	int hOpt = hGov;
-            	int yOpt = yGov;
-            	drawOptionsButton(g, xOpt, yOpt, wOpt, hOpt);
+            	buttonY = getHeight() - buttonH - s1;
+            	drawGovernorButton(g, hoverBox == governorBox, colony.isGovernor());
+            	drawOptionsButton(g, hoverBox == optionsBox);
 
             	//paintGovernor(g, colony);
 //                Color color;
