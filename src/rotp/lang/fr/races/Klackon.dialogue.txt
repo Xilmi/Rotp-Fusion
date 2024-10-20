@@ -16,7 +16,7 @@
 
 CONTACT_AGGRESSIVE         | Je suis le [my_name], et vous êtes le... [your_name]? Un nom étrange pour un autre comme moi, mais vous dites que vous n'êtes pas comme moi ? Cela devient une rencontre des plus... irritantes.
 CONTACT_RUTHLESS           | Je suis connu comme [my_name]. Vous êtes le [your_name]? Qu'est-ce qu'un [your_name]? J'ai peu besoin d'un genre qui se nourrit d'une telle circonvolution !
-CONTACT_XENOPHOBIC         | Je savais quand j'ai commencé mon voyage qu'il doit y avoir un autre comme moi, mais vous n'êtes pas du tout comme moi... Vous êtes different... étranger... et dangereux.
+CONTACT_XENOPHOBIC         | Je savais quand j'ai commencé mon voyage qu'il doit y avoir un autre comme moi, mais vous n'êtes pas du tout comme moi... Vous êtes différent... étranger... et dangereux.
 //
 GREETING_01                | Mon ami ! Je suis content que vous soyez venu ! J'espère pouvoir vous fournir tout ce que vous cherchez.
 GREETING_04                | L'étrange [your_name] m'appelle. De quoi avez-vous besoin, étrange [your_name]?
@@ -28,7 +28,7 @@ DECLAREWAR_HATE_02         | Quand je pense à vous, ça me donne un sentiment d
 DECLAREWAR_HATE_03         | Non! Il ne se peut pas que j'aie entrepris mon voyage uniquement pour trouver quelque chose comme vous dans cette galaxie ! Je ne continuerai pas à vivre avec vous en voisin ! Soit vous périssez, soit je le ferais !
 DECLAREWAR_ERRATIC_01      | Vous ne pouvez pas me tromper avec votre supercherie ! Je sais que vous me frapperez au moment qui vous convient le mieux ! Mais je vais vous tuer avant que ça n'arrive !
 DECLAREWAR_ERRATIC_02      | Votre comportement est étrange et imprévisible. L'incertitude que vous me faites me tourmente ainsi, et je ne vois pas pourquoi j'aurais à la subir plus longtemps. Préparez-vous à l'oubli !
-DECLAREWAR_ERRATIC_03      | Pourquoi faites-vous ce que vous faites? Qu'est-ce qui vous pousse ? Et cela vous poussera-t-il à m'apporter la guerre un jour ? Je ne peux pas simplesment attendre de voir ce que tu vas faire ensuite : pour mon avenir je dois vous faire la guerre immédiatement !
+DECLAREWAR_ERRATIC_03      | Pourquoi faites-vous ce que vous faites? Qu'est-ce qui vous pousse ? Et cela vous poussera-t-il à m'apporter la guerre un jour ? Je ne peux simplement pas attendre de voir ce que tu vas faire ensuite : pour mon avenir je dois vous faire la guerre immédiatement !
 DECLAREWAR_MILITARY_01     | Je n'ai toujours pas trouvé celui qui me ressemble. Je sais qu'ils doivent exister, et je les chercherai sur chacun de vos mondes une fois que je vous les aurai pris !
 DECLAREWAR_MILITARY_02     | Que me cachez-vous, [your_name]? Je ne le saurai pas avec certitude jusqu'à ce que j'examine chacun de vos mondes, et je vais vous les prendre maintenant afin que je puisse le faire !
 DECLAREWAR_MILITARY_03     | Je ne vous laisserai plus cacher l'objet de ma recherche ! Je sais que celui que je cherche est sur l'un de vos mondes. Je ne me reposerai pas tant que vous ne me les aurez pas donnés !
@@ -55,7 +55,7 @@ WARN_BUILDUP_01            | Vous avez agrandi votre flotte à une taille impres
 WARN_SKIRMISH_01           | L'incident à [system] me déstabilise. Était-ce simplement un malentendu de votre part? Assurez-vous que cela ne se reproduise plus : Je ne veux pas combattre le [your_name] si je n'y suis pas obligé.
 WARN_ATTACKED_01           | Qu'y a-t-il à gagner à m'attaquer ainsi ? Cessez votre agressivité immédiatement, ou vous me forcerez à vous riposter au centuple !
 WARN_INVADED_01            | Pourquoi avez-vous envahi mon espace au système [system] ?! Avez-vous l'intention de déclencher un conflit ou avez-vous simplement perdu le contrôle de vos corps ?
-WARN_ESPIONAGE_01          | je ne vous comprends pas, [spy_name]. Vous agissez comme si vous ne vouliez pas de conflit mais essayez ensuite de voler mes secrets ? Si vous insistez pour continuer ainsi, je vous promets de vous faire en regretter ! [framed]
+WARN_ESPIONAGE_01          | je ne vous comprends pas, [spy_name]. Vous agissez comme si vous ne vouliez pas de conflit mais essayez ensuite de voler mes secrets ? Si vous insistez pour continuer ainsi, je vous promets de vous le faire regretter ! [framed]
 WARN_SABOTAGE_01           | Vous vous moquez de moi avec cet acte de sabotage ! Ma quête a préséance sur tout le reste, mais si cela se reproduit, je mettrai ma recherche en pause pour m'occuper de vous personnellement ! [forced]
 WARN_BIOWEAPON_01          | Votre arme est absolument horrifiante. L'utiliser du tout parle de ce que vous êtes vraiment, mais l'utiliser sur le corps d'un autre être vivant me rend complètement mortifié !
 WARN_GENOCIDE_01           | Quelle insensibilité ! Je n'aurais jamais pensé que vous iriez jusqu'à détruire complètement celui connu sous le nom de [victim_name]. Je n'oublierai jamais la barbarie dont vous avez fait preuve aujourd'hui.

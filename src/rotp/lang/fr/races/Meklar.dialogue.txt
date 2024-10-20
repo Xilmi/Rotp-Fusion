@@ -29,7 +29,7 @@ DECLAREWAR_ERRATIC_02      | [my_title] juge que l'espèce [your_raceadjecF] dé
 DECLAREWAR_ERRATIC_03      | [my_title] considère l'espèce [your_raceadjecF] comme une variable inacceptable dans les plans du Dominion. Dominion éradiquera l'espèce [your_raceadjecF] ou se terminera dans le processus.
 DECLAREWAR_MILITARY_01     | [my_empire] doit continuer à proliférer à travers la galaxie dans la poursuite du but ultime. [your_empire] inhibe l'expansion. Problème en cours de résolution.
 DECLAREWAR_MILITARY_02     | Dominion incapable de localiser l'objectif principal. Possibilité que des planètes proches ou [your_empireof] contiennent ce qui est recherché. Guerre inévitable.
-DECLAREWAR_MILITARY_03     | Dominion contraint d'étendre la portée de son territoire. La force de l'espèces [your_raceadjecF] ne peut pas être un facteur dissuasif. Guerre regrettable, mais nécessaire.
+DECLAREWAR_MILITARY_03     | Dominion contraint d'étendre la portée de son territoire. La force de l'espèce [your_raceadjecF] ne peut pas être un facteur dissuasif. Guerre regrettable, mais nécessaire.
 DECLAREWAR_ALLIANCE_01     | [your_empire] a déclaré la guerre à un allié du Dominion. Dominion protégera les intérêts acquis dans les objectifs en éradiquant la menace [your_raceadjecF].
 DECLAREWAR_ALLIANCE_02     | Dominion a reçu une demande d'aide [other_empireof]. Dominion aidera l'allié dans la guerre contre l'espèce [your_raceadjec] tant que le conflit persiste.
 DECLAREWAR_ALLIANCE_03     | L'espèce [your_raceadjecF] devient arrogante pour déclarer la guerre aux autres. Dominion aidera l'autre empire à éliminer l'espèce [your_raceadjecF] de la galaxie.
@@ -40,7 +40,7 @@ DECLAREWAR_ATTACK_01       | Espèce [your_raceadjecF] hostile malgré la supér
 DECLAREWAR_ATTACK_02       | L'espèce [your_raceadjecF] entrave les objectifs du Dominion en attaquant directement. Affrontement inévitable.
 DECLAREWAR_ATTACK_03       | L'espèce [your_raceadjecF] tente d'empêcher Dominion d'atteindre ses objectifs en éliminant l'espèce [my_raceadjecF]. Dominion ripostera avec toute la force militaire disponible.
 DECLAREWAR_OPPORTUNITY_01  | [my_title] croit que l'espèce [your_raceadjecF] finira par s'avérer préjudiciable à la réalisation de la directive primaire. Dominion éradiquera l'espèce [your_raceadjecF] avant que la menace ne soit pleinement réalisée.
-DECLAREWAR_ASSASSIN_01     | Ambassador du Dominion rendu inutilisable par l'espèce [your_raceadjecF] avant d'être réintégré dans l'Ordinateur Central. Des actions de l'espèce [your_raceadjecF] exigent des représailles violentes.
+DECLAREWAR_ASSASSIN_01     | Ambassadeur du Dominion rendu inutilisable par l'espèce [your_raceadjecF] avant d'être réintégré dans l'Ordinateur Central. Des actions de l'espèce [your_raceadjecF] exigent des représailles violentes.
 
 OFFER_PEACE_01             | [my_title] atteint un nouveau jugement. La guerre n'est plus une dépense acceptable pour le Dominion. Dominion souhaite négocier la paix immédiatement.
 OFFER_TRADE_01             | L'espèce [your_raceadjecF] possède des ressources importantes. Dominion possède également des objets de valeur. Dominion propose un accord commercial à [amt] BC par an.
@@ -77,7 +77,7 @@ PRAISE_TRADE_02            | Dominion exprime sa satisfaction à l'égard de l'a
 PRAISE_REBELLING_WITH_01     | Dominion reconnaît que le dirigeant du Conseil Galactique n'est pas digne de confiance. Objection [your_race_pluralnounof] notée. Dominion aidera l'espèce [your_raceadjecF] dans la rébellion.
 
 ACCEPT_TRADE_01            | Demande commerciale [your_race_pluralnounof] reçue. Montant proposé [amt] BC. Dominion est d'accord.
-RESPOND_IGNORE_THREAT_01   | Menace déroutante de l'espèce [your_raceadjecF]. Civilization [your_raceadjecF] nettement inférieur aux flottes du Dominion. Ignorer.
+RESPOND_IGNORE_THREAT_01   | Menace déroutante de l'espèce [your_raceadjecF]. Civilisation [your_raceadjecF] nettement inférieure aux flottes du Dominion. Ignorer.
 RESPOND_STOP_SPYING_01     | Espion du Dominion capturé alors qu'il tentait d'avoir un aperçu des formes de vie [your_race_pluralnounof]. Dominion s'excuse. Renvoyer capturé [my_raceadjec] dès que possible
 RESPOND_STOP_ATTACKING_01  | Dominion a réussi à montrer ses capacités militaires à la civilisation [your_raceadjecF]. Renvoyer les flottes aux coordonnées d'attente désignées.
 
@@ -117,7 +117,7 @@ DECLINE_ATTACK_01          | Demande refusée.
 DECLINE_INVASION_01        | Demande refusée.
 DECLINE_BIOWEAPONS_01      | Demande refusée.
 DECLINE_TECH_TRADE_01      | Demande refusée.
-OFFER_TECH_EXCHANGE_01     | Dominion éxige une technologie [tech]. Spécifiez la rémunération.
+OFFER_TECH_EXCHANGE_01     | Dominion exige une technologie [tech]. Spécifiez la rémunération.
 ACCEPT_TECH_EXCHANGE_01    | Acceptation enregistrée.
 ACCEPT_FINANCIAL_AID_01    | Acceptation enregistrée.
 ACCEPT_TECHNOLOGY_AID_01   | Acceptation enregistrée.
@@ -126,7 +126,7 @@ BREAK_TRADE_01             | Accord commercial résilié.
 ANNOUNCE_PEACE_01          | Acceptation enregistrée.
 ACCEPT_PEACE_01            | Demande acceptée.
 
-BREAK_PACT_01              | Non-aggression pact terminated.
+BREAK_PACT_01              | Pacte de non-agression résilié.
 ANNOUNCE_PACT_01           | Acceptation enregistrée.
 ACCEPT_PACT_01             | Demande acceptée.
 

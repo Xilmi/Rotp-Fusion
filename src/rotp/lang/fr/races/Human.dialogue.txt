@@ -81,7 +81,7 @@ PRAISE_ATTACKED_ENEMY_03   | Le Triumvirat est plus que capable d'affronter n'im
 PRAISE_TRADE_01            | Y a que ça de vrai. De bons amis et des accords commerciaux prospères valent plus que des ennemis et des guerres dévastatrices ! Je suis heureux que votre peuple ait choisi d'être nos amis, et je suis sûr que les Triumvirs ressentent exactement la même chose !
 PRAISE_TRADE_02            | Oui, la confiance est le fondement de la diplomatie, mais le commerce mutuellement avantageux ne fait certainement jamais de mal, n'est-ce pas ? J'espère que nous pourrons continuer notre accord indéfiniment et que de nouvelles façons de nous entraider émergeront. Comme nous, les humains, aimons le dire, « si tu me grattes le dos, alors je gratte le tien ! ».
 
-PRAISE_REBELLING_WITH_01   | Ne craignez pas, embassadeur. Nous aussi reconnaissons le conseil pour ce qu'il est : une dictature corrompue déguisée en coexistence pacifique. Nous resterons solidaires et nous ne nous arrêterons pas tant que nous ne serons pas débarrassés de ces despotes une fois pour toutes !
+PRAISE_REBELLING_WITH_01   | N'ayez pas peur, ambassadeur ! Nous aussi reconnaissons le conseil pour ce qu'il est : une dictature corrompue déguisée en coexistence pacifique. Nous resterons solidaires et nous ne nous arrêterons pas tant que nous ne serons pas débarrassés de ces despotes une fois pour toutes !
 
 ACCEPT_TRADE_01            | Cet accord commercial nous profitera à tous les deux, ambassadeur. [my_empire] et [your_empire], amis à hauteur de [amt] BC chaque année ! Cela sonne bien, n'est-ce pas ?
 RESPOND_IGNORE_THREAT_01   | Oh, sûrement cette menace que vous faites est une sorte de blague ? Oui, oui, une blague ! Haha, très amusant, ambassadeur !
