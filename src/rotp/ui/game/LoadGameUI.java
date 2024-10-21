@@ -505,7 +505,8 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
 
             end = min(saveFiles.size(), start+MAX_FILES);
 
-            int w0 = scaled(650);
+            int w0 = scaled(650); // BR: TODO TUNE
+            //int w0 = scaled(800); // BR: TODO TUNE
             int x0 = (w-w0)/2;
             int h0 = s5+(MAX_FILES*lineH);
             int y0 = scaled(180);

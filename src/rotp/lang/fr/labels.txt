@@ -993,11 +993,14 @@ PLANETS_INCOME_PLANETS            | Production des Colonies
 PLANETS_INCOME_TOTAL              | Total
 PLANETS_TREASURY                  | Trésor de l'Empire
 PLANETS_TREASURY_FUNDS            | Fonds du Trésor
-PLANETS_TAX_DESC                  | Taxer vos colonies pour contribuer au trésor de l'empire.
-PLANETS_RESERVE_TAX               | Taxe de Réserve
+PLANETS_TAX_DESC                  | Taxez vos colonies pour financer votre empire.
+PLANETS_RESERVE_TAX               | Taux
 PLANETS_RESERVE_INCREASE          | +%1 BC/Année
 PLANETS_RESERVE_NO_TAX            | Pas d'Impôts
-PLANETS_RESERVE_ONLY_DEVELOPED    | Ne taxer que colonies pleinement développées
+PLANETS_RESERVE_ONLY_DEVELOPED    | Ne taxer que les colonies pleinement développées.
+PLANETS_RES_FULL_DEF_LABEL        | Manquant max:
+PLANETS_RES_FULL_DEF_POP          | Peuple: %1
+PLANETS_RES_FULL_DEF_FACT         | Usines: %1
 PLANETS_BUTTON_TRANSFER           | TRANSFÉRER
 PLANETS_BUTTON_EXIT               | QUITTER
 PLANETS_AMT_PCT                   | %1%

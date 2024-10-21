@@ -264,14 +264,14 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 					&& col.ecology().isCompleted(maxMissingPopulation());
 		}
 	}
-	ParamInteger maxMissingPopulation	= new ParamInteger(MOD_UI, "DEV_MAX_MISSING_POP", 4)
+	ParamInteger maxMissingPopulation	= new ParamInteger(MOD_UI, "DEV_MAX_MISSING_POP", 3)
 			.setDefaultValue(MOO1_DEFAULT, 0)
 			.setDefaultValue(ROTP_DEFAULT, 0)
 			.setLimits(0, 50)
 			.setIncrements(1, 5, 20);
 	default int maxMissingPopulation()	{ return maxMissingPopulation.get(); }	
 
-	ParamInteger maxMissingFactories	= new ParamInteger(MOD_UI, "DEV_MAX_MISSING_FACT", 4)
+	ParamInteger maxMissingFactories	= new ParamInteger(MOD_UI, "DEV_MAX_MISSING_FACT", 3)
 			.setDefaultValue(MOO1_DEFAULT, 0)
 			.setDefaultValue(ROTP_DEFAULT, 0)
 			.setLimits(0, 50)

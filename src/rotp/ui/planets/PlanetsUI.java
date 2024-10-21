@@ -57,6 +57,7 @@ import javax.swing.SwingUtilities;
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.model.ships.Design;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseTextField;
@@ -1118,7 +1119,9 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             drawHelpButton(g);
 
             g.setColor(SystemPanel.orangeText);
-            g.setFont(narrowFont(30));
+            int maxTitleW = tabW+gap/2;
+            //g.setFont(narrowFont(30));
+            scaledFont(g, title, maxTitleW, 30, 20);
 
             int y0 = h - s10;
             drawString(g,title, x0,y0);
@@ -2301,7 +2304,9 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         private final Polygon leftArrow = new Polygon();
         private final Polygon rightArrow = new Polygon();
         private final Rectangle reserveBox = new Rectangle();
-        private final Rectangle sliderBox = new Rectangle();
+        private final Rectangle sliderBox  = new Rectangle();
+        private final Rectangle maxPopBox  = new Rectangle();
+        private final Rectangle maxFactBox = new Rectangle();
         private Shape hoverBox;
         // polygon coordinates for left & right increment buttons
         private final int leftButtonX[] = new int[3];
@@ -2326,10 +2331,34 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         @Override
         public void paintComponent(Graphics g0) {
             super.paintComponent(g0);
-
             Graphics2D g = (Graphics2D) g0;
             int w = getWidth();
             int h = getHeight();
+
+            boolean extra = true;
+            // Description line preparation to determine line spacing
+            int lineH = s15;
+            int minFontSize = 12;
+            int xd = s20;
+            String desc = text("PLANETS_TAX_DESC");
+            //int fontSize = scaledFont(g, desc, w-xd-xd, 15, minFontSize);
+            //System.out.println("description font Size: " + fontSize); // TO DO BR: Comment
+            
+            List<String> lines = scaledNarrowWrappedLines(g, desc, w-xd-xd, 1, 15, minFontSize);
+            int lineSep = extra? s6 : s10;
+            if (extra && lines.size() > 1) { // try to reduce margin
+            	int x2 = s10;
+            	lineSep = s4;
+            	List<String> lines2 = scaledNarrowWrappedLines(g, desc, w-x2-x2, 1, 15, minFontSize);
+                if (lines.size() == 1) {
+                	xd = x2;
+                	lines = lines2;
+                	lineSep = s6;
+                }
+            }
+            int stepY = lineH + lineSep;
+
+            // Header "Empire Treasury"
             g.setFont(narrowFont(24));
             String title = text("PLANETS_TREASURY");
             int sw = g.getFontMetrics().stringWidth(title);
@@ -2344,10 +2373,13 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
 
             textureClip = new Rectangle(x1,y1,w1,h1);
 
-            int midP = x1 + (w1*3/5);
+            // Top line "Treasury Funds XXXX BC"
+            int w2 = w1*3/5;
+            int midP = x1 + w2;
             y1 += s20;
-            g.setFont(narrowFont(20));
             String label = text("PLANETS_TREASURY_FUNDS");
+            scaledFont(g, label, w2, 20, 15);
+            //g.setFont(narrowFont(20));
             sw = g.getFontMetrics().stringWidth(label);
             drawShadowedString(g, label, 2, midP-sw, y1, SystemPanel.textShadowC, SystemPanel.whiteText);
 
@@ -2355,20 +2387,34 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             String text = text("PLANETS_AMT_BC", shortFmt(player().totalReserve()));
             drawString(g,text, midP+s10, y1);
 
-            y1 += s10;
-            int lineH = s15;
-            List<String> lines = scaledNarrowWrappedLines(g, text("PLANETS_TAX_DESC"), w-s40, 1, 15, 12);
+            // Description line
+            y1 += lineSep;
+            int dy2 = s2;
             if (lines.size() > 1) {
-                lineH = s12;
-                y1 -= s5;
+            	g.setFont(narrowFont(minFontSize));
+            	lineH = scaled(minFontSize);
+                if (extra)
+                    y1 -= s2;
+                else
+                	y1 -= s5;
+            }
+            else {
+            	g.setFont(narrowFont(15));
+                if (extra) {
+                	y1 -= s3;
+                	dy2 = s3;
+                }
             }
             for (String line: lines) {
+            	sw = g.getFontMetrics().stringWidth(line);
+            	x1 = (w-sw)/2;
                 y1 += lineH;
-                drawString(g,line, s20, y1);
+                drawString(g, line, x1, y1);
             }
 
+            // Slider box and text
             int boxW=s100;
-            y1 += s27;
+            y1 += stepY + dy2;
             x1 = s20;
             String lbl = text("PLANETS_RESERVE_TAX");
             scaledFont(g, lbl, ((w-boxW)/2)-s15, 16, 13);
@@ -2397,15 +2443,15 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             drawString(g,result, x1, y1);
             
 
-             // draw check box
+            // draw check box
             g.setFont(narrowFont(14));
-            String opt = text("PLANETS_RESERVE_ONLY_DEVELOPED"); 
+            String opt = text("PLANETS_RESERVE_ONLY_DEVELOPED");
             int optSW = g.getFontMetrics().stringWidth(opt);
             int checkW = s12;
             int totalW = checkW+s6+optSW;
             int checkX=(w-totalW)/2;
-            
-            y1 += s25;
+            y1 += stepY;
+
             reserveBox.setBounds(checkX, y1-checkW, checkW, checkW);
             int labelX = checkX+checkW+s6;
             Stroke prev = g.getStroke();
@@ -2424,6 +2470,60 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             g.setStroke(prev);
             g.setColor(palette.black);
             drawString(g,opt,labelX,y1);
+            
+            if (!extra)
+            	return;
+
+            // Fully developed definition
+            IGameOptions opts = options();
+            int boxDY = s2;
+            int boxDX = s5;
+            lineH = s15;
+            int boxH = lineH + boxDY + boxDY;
+            y1 += s18;
+            x1 = s20;
+            
+            // label
+            label = text("PLANETS_RES_FULL_DEF_LABEL");
+            g.setFont(narrowFont(15));
+            g.setColor(palette.black);
+            drawString(g, label, x1, y1);
+            sw = g.getFontMetrics().stringWidth(label);
+            int left  = x1 + sw + s20;
+            int infoW = w1-left;
+            int halfW = infoW/2;
+            
+            // Population
+            int maxPop = opts.maxMissingPopulation();
+            String pop = text("PLANETS_RES_FULL_DEF_POP", maxPop);
+            sw = g.getFontMetrics().stringWidth(pop);
+            x1 = left + (halfW - sw)/2;
+            maxPopBox.setBounds(x1-boxDX, y1-lineH, sw+boxDX+boxDX, boxH);
+            if (hoverBox == maxPopBox) {
+            	prev = g.getStroke();
+            	g.setStroke(stroke2);
+                g.setColor(Color.yellow);
+                g.draw(maxPopBox);
+                g.setStroke(prev);
+            }
+            g.setColor(palette.black);
+            drawString(g, pop, x1, y1);
+            
+            // Factories
+            int maxFact = opts.maxMissingFactories();
+            String fact = text("PLANETS_RES_FULL_DEF_FACT", maxFact);
+            sw = g.getFontMetrics().stringWidth(fact);
+            x1 = left + halfW + (halfW - sw)/2;
+            maxFactBox.setBounds(x1-boxDX, y1-lineH, sw+boxDX+boxDX, boxH);
+            if (hoverBox == maxFactBox) {
+            	prev = g.getStroke();
+            	g.setStroke(stroke2);
+                g.setColor(Color.yellow);
+                g.draw(maxFactBox);
+                g.setStroke(prev);
+            }
+            g.setColor(palette.black);
+            drawString(g, fact, x1, y1);
         }
         private void drawSliderBox(Graphics2D g, int x, int y, int w, int h) {
             int leftMargin = x;
@@ -2557,6 +2657,16 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 decrement(true);
             else if (rightArrow.contains(x,y))
                 increment(true);
+
+            else if (hoverBox == maxPopBox) {
+            	IGameOptions.maxMissingPopulation.toggle(e, null);
+            	repaint();
+            }
+            else if (hoverBox == maxFactBox) {
+            	IGameOptions.maxMissingFactories.toggle(e, null);
+            	repaint();
+            }
+
             else {
                 float pct = pctBoxSelected(x,y);
                 if (pct >= 0) {
@@ -2600,6 +2710,10 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 newHover = leftArrow;
             else if (rightArrow.contains(x,y))
                 newHover = rightArrow;
+            else if (maxPopBox.contains(x,y))
+                newHover = maxPopBox;
+            else if (maxFactBox.contains(x,y))
+                newHover = maxFactBox;
 
             if (newHover != hoverBox) {
                 hoverBox = newHover;
@@ -2614,6 +2728,15 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                     decrement(false);
                 else if (rot  < 0)
                     increment(false);
+            }
+            else if (hoverBox == maxPopBox) {
+            	IGameOptions.maxMissingPopulation.toggle(e);
+            	repaint();
+            }
+
+            else if (hoverBox == maxFactBox) {
+            	IGameOptions.maxMissingFactories.toggle(e);
+            	repaint();
             }
         }
     }

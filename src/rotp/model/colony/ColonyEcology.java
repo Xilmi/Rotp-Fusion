@@ -86,8 +86,9 @@ public class ColonyEcology extends ColonySpendingCategory {
     }
 	@Override public boolean isCompleted(int maxMissingPop) {
     	boolean noWaste = empire().ignoresPlanetEnvironment() || waste() == 0;
+    	Colony col = colony();
     	if (noWaste) {
-    		float missingPop = colony().planet().maxSize() - colony().population();
+    		float missingPop = col.planet().maxSize() - col.population() + col.inTransport();
     		return missingPop <= maxMissingPop;
     	}
     	return false;

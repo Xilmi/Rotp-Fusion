@@ -73,6 +73,7 @@ Later:
 - Fixed missing governor refresh after transferring funds.
 - "Tax only fully developed colonies":
   - The "fully developed colonies" definition has an option to allow some missing population (Governor small transport), and some missing factories (spy actions).
+  - Made the option available in the Colonies panel.
 
 2024.10.20 (Frank Zago)
 - French translations fixes.

@@ -10,6 +10,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed missing governor refresh after transferring funds.
 - "Tax only fully developed colonies":
   - The "fully developed colonies" definition has an option to allow some missing population (Governor small transport), and some missing factories (spy actions).
+  - Made the option available in the Colonies panel.
 - Colony Panel multiple selection, changing the common flag (The one under the planet):
   - All the selected colony will have the flag selected (with Shift/Ctrl) set to the color displayed on the common flag.
 - "Governor Toggle" button and its "Option" button now match the interface standard in the colony panel too.
