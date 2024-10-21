@@ -998,7 +998,12 @@ public abstract class BaseModPanel extends BasePanel
 			hide();
 			guideFontSize = FONT_SIZE;
 		}
-		private void setText(String newText)	{ text = newText; }
+		private void setText(String newText)	{
+			text = newText;
+			text = text.replace("<=", "&lt;=");
+			text = text.replace(">=", "&gt;=");
+			text = text.replace("<>", "&lt;&gt;");
+		}
 		private void setFullHelp(boolean full)	{ fullHelp = full; }
 		private void setDest(Rectangle newDest)	{
 			dest = newDest;

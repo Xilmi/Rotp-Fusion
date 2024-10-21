@@ -38,21 +38,21 @@ public class ColonyDefense extends ColonySpendingCategory {
     private boolean shieldCompleted = false;
     private boolean missileBasesUpgraded = false;
 
-    public MissileBase missileBase()              { return missileBase; }
-    public float bases()                         { return bases; }
-    public void bases(float d)                   { bases = d; }
-    public float shield()                        { return shield; }
-    public boolean shieldCompleted()              { return shieldCompleted && shieldAtMaxLevel(); }
-    public boolean missileBasesUpgraded()         { return missileBasesUpgraded && (missileBase == tech().bestMissileBase()); }
+    public MissileBase missileBase()       { return missileBase; }
+    public float bases()                   { return bases; }
+    public void bases(float d)             { bases = d; }
+    public float shield()                  { return shield; }
+    public boolean shieldCompleted()       { return shieldCompleted && shieldAtMaxLevel(); }
+    public boolean missileBasesUpgraded()  { return missileBasesUpgraded && (missileBase == tech().bestMissileBase()); }
 
-    public void updateMissileBase()               { missileBase = colony().tech().bestMissileBase(); }
-    public void destroyBases(int i)               { bases -= i; }
-    @Override
-    public boolean isCompleted() {
-        boolean missilesDone = (maxBases == 0) || ((missileBase == colony().tech().bestMissileBase()) &&  missileBasesCompleted());
+    public void updateMissileBase()        { missileBase = colony().tech().bestMissileBase(); }
+    public void destroyBases(int i)        { bases -= i; }
+    @Override public boolean isCompleted() {
+        boolean missilesDone = (maxBases == 0)
+        		|| ((missileBase == colony().tech().bestMissileBase()) &&  missileBasesCompleted());
         return missilesDone && shieldAtMaxLevel();
     }
-    public boolean shieldAtMaxLevel() {
+    public boolean shieldAtMaxLevel()      {
         return colony().starSystem().inNebula() || (shield >= maxShieldLevel());
     }
     public boolean missileBasesCompleted() {

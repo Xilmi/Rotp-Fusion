@@ -253,15 +253,30 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	default boolean isDeveloped(Colony col)	{
 		switch (developedDefinition.get()) {
 		case DEVELOPED_NO_BASE:
-			return col.industry().isCompleted() && col.ecology().isCompleted();
+			return col.industry().isCompleted(maxMissingFactories())
+					&& col.ecology().isCompleted(maxMissingPopulation());
 		case DEVELOPED_INDUSTRY:
-			return col.industry().isCompleted();
+			return col.industry().isCompleted(maxMissingFactories());
 		case DEVELOPED_ALL:
 		default:
-			return col.defense().isCompleted() && col.industry().isCompleted() && col.ecology().isCompleted();
+			return col.defense().isCompleted(0) // TODO BR: no param
+					&& col.industry().isCompleted(maxMissingFactories())
+					&& col.ecology().isCompleted(maxMissingPopulation());
 		}
 	}
+	ParamInteger maxMissingPopulation	= new ParamInteger(MOD_UI, "DEV_MAX_MISSING_POP", 4)
+			.setDefaultValue(MOO1_DEFAULT, 0)
+			.setDefaultValue(ROTP_DEFAULT, 0)
+			.setLimits(0, 50)
+			.setIncrements(1, 5, 20);
+	default int maxMissingPopulation()	{ return maxMissingPopulation.get(); }	
 
+	ParamInteger maxMissingFactories	= new ParamInteger(MOD_UI, "DEV_MAX_MISSING_FACT", 4)
+			.setDefaultValue(MOO1_DEFAULT, 0)
+			.setDefaultValue(ROTP_DEFAULT, 0)
+			.setLimits(0, 50)
+			.setIncrements(1, 5, 20);
+	default int maxMissingFactories()	{ return maxMissingFactories.get(); }	
 
 	// ==================== GUI List Declarations ====================
 	static SafeListPanel inGameOptionsMap()	{
@@ -279,6 +294,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 				IMainOptions.realNebulaSize, IMainOptions.realNebulaShape,
 				IMainOptions.realNebulaeOpacity,
 				developedDefinition,
+				maxMissingPopulation, maxMissingFactories,
 
 				headerSpacer,
 				new ParamTitle("IRONMAN_BASIC"),

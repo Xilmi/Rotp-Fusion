@@ -63,6 +63,7 @@ public abstract class ColonySpendingCategory implements Base, Serializable {
     public abstract void nextTurn(float prod, float rsv);
     public abstract void assessTurn();
 
+    public boolean isCompleted(int maxMissing) { return isCompleted(); }
     public ColonySpendingCategory () {  }
     @Override
     public String toString()            { return str(allocation()); }

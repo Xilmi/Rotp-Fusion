@@ -84,6 +84,14 @@ public class ColonyEcology extends ColonySpendingCategory {
 		return colony().population() >= colony().planet().maxSize()
         		&& (empire().ignoresPlanetEnvironment() || waste() == 0);
     }
+	@Override public boolean isCompleted(int maxMissingPop) {
+    	boolean noWaste = empire().ignoresPlanetEnvironment() || waste() == 0;
+    	if (noWaste) {
+    		float missingPop = colony().planet().maxSize() - colony().population();
+    		return missingPop <= maxMissingPop;
+    	}
+    	return false;
+    }
     @Override
     public float orderedValue() {
         return max(super.orderedValue(),

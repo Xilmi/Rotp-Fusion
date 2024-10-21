@@ -63,8 +63,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s40; // Offset from Margin
 	private static final int titlePad		= s70; // Offset of first setting
-	private static final int settingFont	= 20;
-	private static final int settingH		= s20;
+	private static final int settingFont	= 19;
+	private static final int settingH		= s19;
 	private static final int settingpadH	= s5;
 	private static final int columnPad		= s12;
 	private static final int tooltipLines	= 2;

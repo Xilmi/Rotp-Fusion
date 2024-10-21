@@ -308,6 +308,7 @@ public final class TransferReserveUI extends BasePanel implements MouseListener,
         amt = 0;
         softClick();
         disableGlassPane();
+        repaint();
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -346,7 +347,7 @@ public final class TransferReserveUI extends BasePanel implements MouseListener,
             {
             	Colony col = sys.colony();
                 player().allocateReserve(col, amount);
-                //col.governIfNeeded();
+                col.governIfNeeded();
                 if(player().totalReserve() == 0)
                     break;
             }

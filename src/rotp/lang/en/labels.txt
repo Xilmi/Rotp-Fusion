@@ -2704,12 +2704,19 @@ SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
 
 SETTINGS_MOD_DEVELOPED_DEFINITION_DESC   | When "→PLANETS_RESERVE_ONLY_DEVELOPED←" is selected, what should be completed?
 SETTINGS_MOD_DEVELOPED_DEFINITION        | Developed = %1
-SETTINGS_MOD_DEVELOPED_ALL_DESC          | Best shields + Bases have the best missiles (if > 0) + Planet is full of factories + Population is at maximum + Fully terraformed planet+ No waste.
+SETTINGS_MOD_DEVELOPED_ALL_DESC          | Best shields + Bases have the best missiles (if > 0) + Planet is full of factories (or almost) + Population is at maximum (or almost) + Fully terraformed planet+ No waste.
 SETTINGS_MOD_DEVELOPED_ALL               | {→MAIN_COLONY_DEFENSE←, →MAIN_COLONY_INDUSTRY←, →MAIN_COLONY_ECOLOGY←}
 SETTINGS_MOD_DEVELOPED_NO_BASE_DESC      | Planet is full of factories + Population is at maximum + Fully terraformed planet+ No waste.
 SETTINGS_MOD_DEVELOPED_NO_BASE           | {→MAIN_COLONY_INDUSTRY←, →MAIN_COLONY_ECOLOGY←}
 SETTINGS_MOD_DEVELOPED_INDUSTRY_DESC     | Planet is full of factories.
 SETTINGS_MOD_DEVELOPED_INDUSTRY          | {→MAIN_COLONY_INDUSTRY←}
+
+SETTINGS_MOD_DEV_MAX_MISSING_POP_DESC    | What should be the maximum missing population before the taxation start to apply as "Developed colony"?<br>The governor may send some population from the already developed colonies to help populate the new ones. Thus regularly avoiding the colony from being taxed...
+SETTINGS_MOD_DEV_MAX_MISSING_POP         | Max missing Pop: %1
+
+SETTINGS_MOD_DEV_MAX_MISSING_FACT_DESC   | What is the maximum number of factories missing to obtain the status of "developed colony" and for the taxman to do his job.<br>A fully developed colony could be the target of a spy mission destroying a few factories, without it being an excuse not to pay their taxes.
+SETTINGS_MOD_DEV_MAX_MISSING_FACT        | Max missing Fact: %1
+
 
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_HELP     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the Mass Transport Panel.<br>The slider will be set to green to confirm the auto refill status.<br> Ctrl+Click on sliders to toggle.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_DESC     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the transport panel.
@@ -4768,8 +4775,10 @@ MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Next/Previous play
 PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Multi selection too)<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S→HK_SEL_B← Ship →HK_SEL_E←<br>D→HK_SEL_B← Defense →HK_SEL_E←<br>W→HK_SEL_B← Industry →HK_SEL_E←<br>E→HK_SEL_B← Ecology →HK_SEL_E←<br>R→HK_SEL_B← Research →HK_SEL_E←<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
 
 FLEETS_HELP_HK       | →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
-
-TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : Increment/Decrement categories.<br>CTRL+1-6 : Lock sliders.<br>Arrows : Move Tree / Categories<br>= : Equalize<br>mouse wheel : Increment quantities/moves slider.<br><br>A, F : Show/Hide Free tech<br>G, H, I, or Right Click: Show more info on hovered tech <br> →HK_ESCAPE←
+// !!!
+// Do not remove the space between ">" & "=" because of confusion with ">=" wish is replaced by "&gt;="
+// !!!
+TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : Increment/Decrement categories.<br>CTRL+1-6 : Lock sliders.<br>Arrows : Move Tree / Categories<br> = : Equalize<br>mouse wheel : Increment quantities/moves slider.<br><br>A, F : Show/Hide Free tech<br>G, H, I, or Right Click: Show more info on hovered tech <br> →HK_ESCAPE←
 
 SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Slot.<br><br>S : Scrap Design.<br>R : Rename Design.<br>D : Create Design.<br>C / (+CTRL) : Clear Design / (Only Weapons)<br><br>ALT-A : Auto build.<br>ALT-B : Auto build Bomber.<br>ALT-F : Auto build Fighter.<br>ALT-E : Auto build Scout (Explorer).<br>ALT-P : Auto build Colony (Pioneer). <br>→HK_ESCAPE←
 

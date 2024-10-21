@@ -997,7 +997,7 @@ PLANETS_TAX_DESC                  | Taxer vos colonies pour contribuer au tréso
 PLANETS_RESERVE_TAX               | Taxe de Réserve
 PLANETS_RESERVE_INCREASE          | +%1 BC/Année
 PLANETS_RESERVE_NO_TAX            | Pas d'Impôts
-PLANETS_RESERVE_ONLY_DEVELOPED    | Taxer que colonies pleinement développées
+PLANETS_RESERVE_ONLY_DEVELOPED    | Ne taxer que colonies pleinement développées
 PLANETS_BUTTON_TRANSFER           | TRANSFÉRER
 PLANETS_BUTTON_EXIT               | QUITTER
 PLANETS_AMT_PCT                   | %1%
@@ -1764,7 +1764,35 @@ TECH_END_HK                              | dans l'arbre technique pour joueur/IA
 TECH_VAL_HK                              | Inclure {Toujours, Jamais, Auto}
 TECH_LEVEL_HK                            | Cette technologie pourrait être disponible au niveau
 
+FR_MISSIELS_DESC_HK                      | Les bases sont équipées des meilleurs boucliers ainsi que des meilleurs missiles (si > 0)
+FR_USINES_DESC_HK                        | La planète a achevé de construire ses usines (ou presque)
+FR_POPULATION_DESC_HK                    | La population est à son maximum (ou presque) + La planète est entèrement terraformée + Aucuns déchets (si affecté par les déchets)
+SETTINGS_MOD_DEVELOPED_DEFINITION_DESC   | Quels sont les critères à appliquer lorsque "→PLANETS_RESERVE_ONLY_DEVELOPED←" est sélectionné?
+SETTINGS_MOD_DEVELOPED_DEFINITION        | Developpé = %1
+SETTINGS_MOD_DEVELOPED_ALL_DESC          | →FR_MISSIELS_DESC_HK← + →FR_USINES_DESC_HK← + →FR_POPULATION_DESC_HK←.
+SETTINGS_MOD_DEVELOPED_ALL               | {→MAIN_COLONY_DEFENSE←, →MAIN_COLONY_INDUSTRY←, →MAIN_COLONY_ECOLOGY←}
+SETTINGS_MOD_DEVELOPED_NO_BASE_DESC      | →FR_USINES_DESC_HK← + →FR_POPULATION_DESC_HK←.
+SETTINGS_MOD_DEVELOPED_NO_BASE           | {→MAIN_COLONY_INDUSTRY←, →MAIN_COLONY_ECOLOGY←}
+SETTINGS_MOD_DEVELOPED_INDUSTRY_DESC     | →FR_USINES_DESC_HK←.
+SETTINGS_MOD_DEVELOPED_INDUSTRY          | {→MAIN_COLONY_INDUSTRY←}
+
+SETTINGS_MOD_DEV_MAX_MISSING_POP_DESC    | Quel est le nombre maximum d'habitants manquants pour obtenir le status de « colonie développée » et que le fisc fasse son office.<br>Le gouverneur peut envoyer une partie de la population des colonies déjà développées pour aider à peupler les nouvelles. Cela ne dispense pas le payement des impôts.
+SETTINGS_MOD_DEV_MAX_MISSING_POP         | Pop manquante <= %1
+
+SETTINGS_MOD_DEV_MAX_MISSING_FACT_DESC   | Quel est le nombre maximum d'usines manquantes pour obtenir le status de « colonie développée » et que le fisc fasse son office.<br>Une colonie pleinement développée pourrait être la cible d'une mission d'espionnage détruisant quelques usines, sans que ce soit une excuse pour ne pas de payer leurs impôts.
+SETTINGS_MOD_DEV_MAX_MISSING_FACT        | Usines manquantes <= %1
+
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_HELP     | Les colonies sans gouverneur peuvent avoir leurs barres d'ajustement Eco réglés sur « Croissance » après l'envoi des transports. Sélectionnez la valeur par défaut à définir dans le panneau de transport de masse.<br>Le curseur sera réglé sur vert pour confirmer l'état de remplissage automatique.<br>Ctrl+Clic sur les barres d'ajustements pour inverser.
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_DESC     | Les colonies sans gouverneur peuvent avoir leurs barres d'ajustement Eco réglés sur « Croissance » après l'envoi des transports. Sélectionnez la valeur par défaut d'initialisation dans le panneau de transport.
 TRANSPORT_AUTO_ECO_HK                    | Transports ECO
+SETTINGS_MOD_TRANSPORT_AUTO_ECO          | →TRANSPORT_AUTO_ECO_HK←: %1
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES_DESC | La valeur par défaut sera de remplacer automatiquement la population de la colonie.
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES      | Activé
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | La valeur par défaut sera : "Désactivé".
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO       | Désactivé
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST_DESC | Conservera le dernier paramètre de colonie.
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Dernier
+
 
 CHAIN_RALLY_SPEED_HK                     | Vitesse des ralliements en chaîne
 
@@ -2545,6 +2573,9 @@ MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre Suivante/Pr�
 
 PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>CTRL+A : Sélectionner tous les systèmes<br>Q/+CTRL : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+CTRL : Planète en manque de population / + Dépenses ECO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +CTRL /+SHIFT : Basculer activation du gouverneur / Avtivé / Désactivé <br>→HK_ESCAPE←
 
-TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>CTRL+1-6 : (dé)verrouiller les curseurs.<br>Flèches : Déplacer l'arbre / Catégories<br>= : Égaliser<br>Molette souris : Changer l'allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit: Montre plus d'info sur la tech survolée <br> →HK_ESCAPE←
+// !!!
+// Do not remove the space between ">" & "=" because of confusion with ">=" wish is replaced by "&gt;="
+// !!!
+TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>CTRL+1-6 : (dé)verrouiller les curseurs.<br>Flèches : Déplacer l'arbre / Catégories<br> = : Égaliser<br>Molette souris : Changer l'allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit: Montre plus d'info sur la tech survolée <br> →HK_ESCAPE←
 
 SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1← <br><br>Flèches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+CTRL) : Purger le modèle / (Juste l'armement)<br><br>ALT-A : Construction automatique<br>ALT-B : Construction automatique Bombardier<br>ALT-F : Construction automatique Chasseur<br>ALT-E : Construction automatique Éclaireur.<br>ALT-P : Construction automatique Colonisateur. <br>→HK_ESCAPE←

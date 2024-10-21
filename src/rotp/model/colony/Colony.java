@@ -320,11 +320,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     			return false;
     	}
     }
-
-    public boolean isDeveloped()  {
-    	return options().isDeveloped(this);
-        // return defense().isCompleted() && industry().isCompleted() && ecology().isCompleted(); 
-    }
+    public boolean isDeveloped()  { return options().isDeveloped(this); }
     public float orderAmount(Colony.Orders order) {
         Colony.Orders priorityOrder = empire.priorityOrders();
         // amount for this order
@@ -1096,7 +1092,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         float empireTaxPct = empire.empireTaxPct();
         float colonyTaxPct = 0.0f;
         if (empireTaxPct > 0) { // let's avoid unnecessary calls to isDeveloped()
-            if (!empire.empireTaxOnlyDeveloped() || isDeveloped())
+            if (!empire.empireTaxOnlyDeveloped() || options().isDeveloped(this))
                 colonyTaxPct = empireTaxPct;
         }
         return colonyTaxPct;
@@ -1840,7 +1836,9 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
         // add maximum defense
         // don't allocate just for "upgrades" if there are no bases or if there are more bases than we want
-        if (!defense().isCompleted() && (defense().maxBases() > 0 && defense().maxBases() >= defense().bases()) || session().getGovernorOptions().getShieldWithoutBases()) {
+        if (!defense().isCompleted()
+        		&& (defense().maxBases() > 0 && defense().maxBases() >= defense().bases())
+        		|| session().getGovernorOptions().getShieldWithoutBases()) {
             int allocationAvailableForDefense = allocation(RESEARCH) + allocationRemaining();
             if(allocation(SHIP) > 1)
                 allocationAvailableForDefense += allocation(SHIP) - 1;

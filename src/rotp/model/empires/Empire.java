@@ -4109,8 +4109,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public float totalIncome()                { return netTradeIncome() + totalPlanetaryIncome(); }
     public float netIncome()                  { return totalIncome() - totalShipMaintenanceCost() - totalStargateCost() - totalMissileBaseCost(); }
-    public float empireTaxRevenue()           { 
-        if (empireTaxOnlyDeveloped())
+    public float empireTaxRevenue() { // Player only 
+        if (empireTaxOnlyDeveloped()) // Player only
             return totalTaxableDevelopedPlanetaryProduction() * empireTaxPct() / 2; 
         else
             return totalTaxablePlanetaryProduction() * empireTaxPct() / 2; 
@@ -4126,7 +4126,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public float maxEmpireTaxPct()            { return (float) maxEmpireTaxLevel()/100; }
     public int empireTaxLevel()               { return empireTaxLevel; }
     public boolean empireTaxOnlyDeveloped()   { return empireTaxOnlyDeveloped; }
-    public void toggleEmpireTaxOnlyDeveloped(){ 
+    public void toggleEmpireTaxOnlyDeveloped(){ // Player only
         empireTaxOnlyDeveloped = !empireTaxOnlyDeveloped;
         if (empireTaxLevel > 0)
             flagColoniesToRecalcSpending();
@@ -4284,7 +4284,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return totalProductionBC;
     }
-    public float totalTaxableDevelopedPlanetaryProduction() {
+    public float totalTaxableDevelopedPlanetaryProduction() { // Player only
         float totalProductionBC = 0;
         List<StarSystem> systems = new ArrayList<>(allColonizedSystems());
         for (StarSystem sys: systems) {

@@ -63,11 +63,13 @@ public class ColonyIndustry extends ColonySpendingCategory {
     public int maxBuildableFactories(int rc) { return (int) (planet().currentSize() * (rc+empire().robotControlsAdj())); }
     public int maxUseableFactories()         { return maxUseableFactories(robotControls()); }
     public int maxUseableFactories(int rc)   { return (int) colony().population() * (rc+empire().robotControlsAdj()); }
+    @Override public boolean isCompleted()   { return factories >= maxBuildableFactories(); }
+    @Override public boolean isCompleted(int maxMissingFactories)	{
+    	return (maxBuildableFactories()-factories) <= maxMissingFactories;
+    }
+    public boolean isCompletedThisTurn() { return isCompleted(0) && (newFactories > 0); }
     @Override
-    public boolean isCompleted()         { return factories >= maxBuildableFactories(); }
-    public boolean isCompletedThisTurn() { return isCompleted() && (newFactories > 0); }
-    @Override
-    public float orderedValue()         { return max(super.orderedValue(), colony().orderAmount(Colony.Orders.FACTORIES)); }
+    public float orderedValue()          { return max(super.orderedValue(), colony().orderAmount(Colony.Orders.FACTORIES)); }
     @Override
     public void removeSpendingOrders()   { colony().removeColonyOrder(Colony.Orders.FACTORIES); }
     public void capturedBy(Empire newCiv) {
