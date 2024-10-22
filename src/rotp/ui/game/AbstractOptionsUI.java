@@ -228,6 +228,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		int yNewR = retina(yNew);
 		IParam param = activeList.get(index);
 		boolean refresh = forceUpdate || param.updated();
+		refresh = true;
 		if (refresh) {
 			int wSettingR	= retina(wSetting);
 			int hSettingR	= retina(hSetting);

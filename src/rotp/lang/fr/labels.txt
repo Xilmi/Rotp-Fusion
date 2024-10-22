@@ -16,6 +16,8 @@ BOOLEAN_YES                       | Oui
 BOOLEAN_NO                        | Non
 BOOLEAN_YES_HELP                  | Pour activer cette option.
 BOOLEAN_NO_HELP                   | Pour désactiver cette option.
+BOOLEAN_YES_DESC                  | Pour activer cette option.
+BOOLEAN_NO_DESC                   | Pour désactiver cette option.
 
 // Basic Is Default value Display
 SUB_UI_DEFAULT_YES                | Par défaut
@@ -451,20 +453,22 @@ GAME_SETTINGS_SENSITIVITY_MEDIUM_HELP | Généralement suffisant !
 GAME_SETTINGS_SENSITIVITY_MEDIUM  | Moyenne
 GAME_SETTINGS_SENSITIVITY_LOW_HELP    | Réponse la plus lente avec un minimum de CPU.
 GAME_SETTINGS_SENSITIVITY_LOW     | Faible
-GAME_SETTINGS_SENSITIVITY_DESC    | Ajustement de la vitesse à laquelle la carte de la galaxie répond au mouvement de la souris lors de la mise à jour du panneau d'affichage.
-GAME_SETTINGS_MEMORY              | Afficher l'utilisation de la mémoire : %1
-GAME_SETTINGS_MEMORY_YES          | Oui
-GAME_SETTINGS_MEMORY_NO           | Non
-GAME_SETTINGS_MEMORY_DESC         | Activer ou désactiver l'affichage des statistiques d'utilisation de la mémoire dans le coin inférieur droit du jeu. Pratique for visualiser l'utilisation de la mémoire.
+GAME_SETTINGS_SENSITIVITY_DESC    | Ajustement de la vitesse à laquelle la carte de la galaxie répond au mouvement de la souris lors de la mise à jour du panneau d'affichage.  ([Reserve (GC)] {Reserve (min)} Utilisée / Allouée / Disponible (Usage Max / Max Allouée) / Threads)
+GAME_SETTINGS_MEMORY              | Mémoire utilisée : %1
+GAME_SETTINGS_MEMORY_YES          | Affiche
+GAME_SETTINGS_MEMORY_NO           | Ignore
+GAME_SETTINGS_MEMORY_YES_DESC     | L'utilisation de la mémoire est affichée dans le coin inférieur droit.
+GAME_SETTINGS_MEMORY_NO_DESC      | Pas de statistics.
+GAME_SETTINGS_MEMORY_DESC         | Activer ou désactiver l'affichage des statistiques d'utilisation de la mémoire dans le coin inférieur droit de la fenêtre. Pratique for visualiser l'utilisation de la mémoire.
 GAME_SETTINGS_MORE_MEMORY             | Console Plus de Mémoire : %1
 GAME_SETTINGS_MORE_MEMORY_YES         | Oui
 GAME_SETTINGS_MORE_MEMORY_NO          | Non
 GAME_SETTINGS_MORE_MEMORY_DESC        | Change la sortie console des statistiques d'utilisation de mémoire étendue au début et à la fin du tour, et lors du chargement d'un jeu.
 
-GAME_SETTINGS_MEMORY_CONSOLE      | Utilisation de la mémoire par la console : %1
-GAME_SETTINGS_MEMORY_CONSOLE_DESC | Change la sortie console des statistiques d'utilisation de la mémoire au début et à la fin du tour.
-GAME_SETTINGS_MEMORY_FILE         | Utilisation de la mémoire par les fichiers : %1
-GAME_SETTINGS_MEMORY_FILE_DESC    | Change la sortie de fichier des statistiques d'utilisation de la mémoire au début et à la fin du tour.
+GAME_SETTINGS_MEMORY_CONSOLE      | Stat. mémoire -> Console : %1
+GAME_SETTINGS_MEMORY_CONSOLE_DESC | Active/Désactive l'écriture sur la console des statistiques d'utilisation de la mémoire au début et à la fin de chaque tour.
+GAME_SETTINGS_MEMORY_FILE         | Stat. mémoire -> Fichiers : %1
+GAME_SETTINGS_MEMORY_FILE_DESC    | Active/Désactive l'écriture dans le fichier des statistiques d'utilisation de la mémoire au début et à la fin de chaque tour.
 
 GAME_SETTINGS_SHOW_CONSOLE_PANEL      | Afficher le panneau de la console : %1
 GAME_SETTINGS_SHOW_CONSOLE_PANEL_DESC | Change l'affichage d'une console pour d'autres interactions.
@@ -501,8 +505,8 @@ GAME_SETTINGS_MUSIC_OFF           | Muet
 GAME_SETTINGS_MUSIC_ON            | %1/10
 GAME_SETTINGS_MUSIC_DESC          | Cliquez pour désactiver ou réactiver la musique dans le jeu. Utilisez la molette de la souris pour augmenter ou diminuer le volume.
 GAME_SETTINGS_AUTOCOLONIZE        | Colonisation : %1
-GAME_SETTINGS_AUTOCOLONIZE_YES    | Automatiquement
-GAME_SETTINGS_AUTOCOLONIZE_NO     | Toujours demander.
+GAME_SETTINGS_AUTOCOLONIZE_YES_DESC | Automatiquement
+GAME_SETTINGS_AUTOCOLONIZE_NO_DESC  | Toujours demander.
 GAME_SETTINGS_AUTOCOLONIZE_DESC   | Basculez pour auto-coloniser et nommer les planètes dès l'arrivée des vaisseaux coloniaux. Cela peut faire gagner du temps sur de très grandes cartes.
 GAME_SETTINGS_AUTOBOMBARD         | Bombardements : %1
 GAME_SETTINGS_AUTOBOMBARD_NO      | Toujours demander.
@@ -535,14 +539,14 @@ GAME_SETTINGS_SAVEDIR_DESC2       | Le répertoire de sauvegarde est actuellemen
 // Load Game UI
 GAME_SETTINGS_DISPLAY_YEAR        | Afficher l'Année : %1
 GAME_SETTINGS_DISPLAY_YEAR_DESC   | Sur l'écran Galaxie: Affiche soit le tour actuel du jeu ou l'année en cours de votre empire
-GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH      | Rechercher : %1
-GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_YES  | Les dépenses excédentaires des colonies sont détournées vers la recherche.
-GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_NO   | Les dépenses excédentaires des colonies sont versées au Trésor.
-GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC | Les dépenses excédentaires des colonies sont reversées à la recherche.
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH          | Rechercher : %1
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_YES_DESC | Les dépenses excédentaires des colonies sont détournées vers la recherche.
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_NO_DESC  | Les dépenses excédentaires des colonies sont versées au Trésor.
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC     | Les dépenses excédentaires des colonies sont reversées à la recherche.
 GAME_SETTINGS_DEFAULT_MAX_BASES              | Nombre max. de bases : %1
 GAME_SETTINGS_DEFAULT_MAX_BASES_DESC         | Nombre maximal de bases de missiles par défaut pour les nouvelles colonies.
-SETTINGS_MOD_DISABLE_ADVISOR_YES  | Désactivé
-SETTINGS_MOD_DISABLE_ADVISOR_NO   | Activé
+SETTINGS_MOD_DISABLE_ADVISOR_YES_DESC | Désactivé
+SETTINGS_MOD_DISABLE_ADVISOR_NO_DESC  | Activé
 SETTINGS_MOD_DISABLE_ADVISOR      | Désactiver le conseiller : %1
 SETTINGS_MOD_DISABLE_ADVISOR_DESC | Activer / Désactiver l'affichage automatique des conseils de l'écran Galaxie lors du démarrage d'un nouveau jeu.
 SETTINGS_MOD_DISABLE_AUTO_HELP_YES        | Oui

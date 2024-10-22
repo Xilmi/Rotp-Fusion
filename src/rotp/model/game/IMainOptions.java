@@ -357,6 +357,27 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		@Override public void setOption(Boolean val) { FontManager.INSTANCE.resetGalaxyFont(); }
 	}
 
+	String LOAD_SAVE_NORMAL	= "NORMAL";
+	String LOAD_SAVE_WIDE	= "WIDE";
+	String LOAD_SAVE_FULL	= "FULL";
+	ParamList loadSaveWidth = new ParamList( MOD_UI, "LOAD_SAVE_WIDTH", LOAD_SAVE_NORMAL)
+			.isCfgFile(true)
+			.showFullGuide(true)
+			.put(LOAD_SAVE_NORMAL,	MOD_UI + "LOAD_SAVE_NORMAL")
+			.put(LOAD_SAVE_WIDE,	MOD_UI + "LOAD_SAVE_WIDE")
+			.put(LOAD_SAVE_FULL,	MOD_UI + "LOAD_SAVE_FULL");
+	default int loadSaveWidth()	{
+		String val = (loadSaveWidth.get().toUpperCase());
+		if (val.equals(LOAD_SAVE_NORMAL))
+			return 650;
+		else if (val.equals(LOAD_SAVE_WIDE))
+			return 850;
+		else if (val.equals(LOAD_SAVE_FULL))
+			return 1200;
+		else
+			return 650;
+	}
+
 	ParamList compactOptionOnly = new ParamList( MOD_UI, "COMPACT_OPTION_ONLY", "Yes")
 			.isCfgFile(true)
 			.showFullGuide(true)
@@ -840,8 +861,8 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		return map;
 	}
 	static ParamSubUI specieNameOptionsFrUI() {
-		return new ParamSubUI( MOD_UI, "NAME_OPTIONS_UI", specieNameOptionsMapFr(),
-				"NAME_OPTIONS_TITLE", NAME_GUI_ID).isCfgFile(true);
+		return new ParamSubUI( MOD_UI, "NAME_OPTIONS_FR_UI", specieNameOptionsMapFr(),
+				"NAME_OPTIONS_FR_TITLE", NAME_GUI_ID).isCfgFile(true);
 	}
 	static SafeListPanel specieNameOptionsMapFr()	{
 		SafeListPanel map = new SafeListPanel();
@@ -900,7 +921,8 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				colorSet, galaxyPreviewColorStarsSize,
 				minListSizePopUp, menuStartup,
 				noFogOnIcons, showAlternateAnimation,
-				useFusionFont, compactOptionOnly
+				useFusionFont, compactOptionOnly,
+				loadSaveWidth
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ZOOM_FONT"),

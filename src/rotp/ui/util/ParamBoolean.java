@@ -17,6 +17,7 @@
 package rotp.ui.util;
 
 import static rotp.ui.util.IParam.labelFormat;
+import static rotp.ui.util.IParam.langHelp;
 import static rotp.ui.util.IParam.realLangLabel;
 import static rotp.ui.util.IParam.rowFormat;
 import static rotp.ui.util.IParam.rowsSeparator;
@@ -79,8 +80,8 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	@Override public int	getIndex()			{ return get()? 1 : 0; }
 	@Override public String	getCfgValue(Boolean value)		 { return yesOrNo(value); }
 	@Override public void	setFromCfgValue(String newValue) { setFromCfg(yesOrNo(newValue)); }	
-	@Override public String	guideValue()				{ return yesOrNo(get()); }
-	@Override public String	guideDefaultValue()			{ return yesOrNo(defaultValue()); }
+	@Override public String	guideValue()				{ return guiValue(get()); }
+	@Override public String	guideDefaultValue()			{ return guiValue(defaultValue()); }
 	@Override public boolean prev()						{ return next(); }
 	@Override public boolean next()						{ set(!get()); return false; }
 	@Override public boolean toggle(MouseWheelEvent e)	{ return next(); }
@@ -108,23 +109,33 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	// ===== Other Methods =====
 	//
 	public	boolean	toggle()				{ return next(); }
-	private	String	valueHelp(boolean b)	{
-		String label = getLangLabel();
-		label += b ? "_YES" : "_NO";
-		return realLangLabel(label);
-	}
+	
 	private String	getRowHelp(boolean b)	{
-		String help = valueHelp(b);
-		if (help == null)
-			if (b)
-				help = "Enable this option.";
-			else
-				help = "Disable this option.";
-		return rowFormat(labelFormat(yesOrNo(b)), help);
+		String help  = valueHelp(b);
+		String label = labelFormat(guiValue(b));
+		return rowFormat(label, help);
 	}
 	private String	getTableHelp()			{
-		String rows = getRowHelp(true);
-		rows += rowsSeparator() + getRowHelp(false);
+		String rows = getRowHelp(true) + rowsSeparator() + getRowHelp(false);
 		return tableFormat(rows);
 	}
+	private	String	valueHelp(boolean b)	{
+		String label = getValueLabel(b);
+		String help = langHelp(label);
+		if (help == null || help.isEmpty())
+			help = defaultHelp(b);
+		return help;
+	}
+	private	String	guiValue(boolean b)		{
+		String label = getValueLabel(b);
+		String value = realLangLabel(label);
+		if (value == null)
+			value = defaultGuiVal(b);
+		return value;
+	}
+	private String defaultGuiVal(boolean b)	{ return realLangLabel(defaultLabel(b)); }
+	private String defaultHelp(boolean b)	{ return langHelp(defaultLabel(b)); }
+	private String getValueLabel(boolean b) { return getLangLabel() + valExt(b); }
+	private String valExt(boolean b)		{ return b? "_YES" : "_NO"; }
+	private String defaultLabel(boolean b)	{ return b? "BOOLEAN_YES" : "BOOLEAN_NO"; }
 }

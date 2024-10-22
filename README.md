@@ -69,6 +69,10 @@ Later:
 
 ## What's New
 
+2024.10.22 (BR)
+- New option to increase the with of load/save panel (for those who use long file names)
+- Made boolean options more compatible with language translation.
+
 2024.10.21 (BR)
 - Fixed missing governor refresh after transferring funds.
 - "Tax only fully developed colonies":

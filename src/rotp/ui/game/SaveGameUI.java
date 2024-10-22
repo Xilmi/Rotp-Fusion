@@ -263,14 +263,24 @@ public final class SaveGameUI extends BasePanel implements MouseListener, MouseW
     public void keyPressed(KeyEvent e) {
         int k = e.getKeyCode();
         switch(k) {
-            case KeyEvent.VK_DOWN:  scrollDown();  return;
-            case KeyEvent.VK_UP:    scrollUp();    return;
+            case KeyEvent.VK_DOWN:  scrollDown();	return;
+            case KeyEvent.VK_UP:    scrollUp();		return;
             case KeyEvent.VK_ENTER:
-            case KeyEvent.VK_S:
-                saveGame();
-                return;
+            case KeyEvent.VK_S:		saveGame();		return;
             case KeyEvent.VK_ESCAPE:
-            case KeyEvent.VK_C:     cancelSave();      return;
+            case KeyEvent.VK_C:     cancelSave();	return;
+            case KeyEvent.VK_RIGHT:
+            	if (e.isControlDown()) {
+            		IGameOptions.loadSaveWidth.next();
+            		repaint();
+            	}
+            	return;
+            case KeyEvent.VK_LEFT:
+            	if (e.isControlDown()) {
+            		IGameOptions.loadSaveWidth.prev();
+            		repaint();
+            	}
+            	return;
         }
     }
     private void saveGame() {
@@ -375,7 +385,8 @@ public final class SaveGameUI extends BasePanel implements MouseListener, MouseW
 
             end = min(saveFiles.size(), start+saveFiles.size());
 
-            int w0 = scaled(650);
+            //int w0 = scaled(650); // BR: TODO TUNE
+            int w0 = scaled(options().loadSaveWidth());
             int x0 = (w-w0)/2;
             int h0 = s5+(MAX_FILES*lineH);
             int y0 = scaled(180);

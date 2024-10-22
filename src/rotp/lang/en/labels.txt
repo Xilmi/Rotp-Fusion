@@ -23,9 +23,13 @@ BOOLEAN_YES                       | Yes
 BOOLEAN_NO                        | No
 BOOLEAN_YES_HELP                  | To enable this option.
 BOOLEAN_NO_HELP                   | To disable this option.
+BOOLEAN_YES_DESC                  | To enable this option.
+BOOLEAN_NO_DESC                   | To disable this option.
+
 // Basic Is Default value Display
 SUB_UI_DEFAULT_YES                | Default
 SUB_UI_DEFAULT_NO                 | Custom
+
 // Star descriptions
 RED_STAR_DESCRIPTION              | Red stars are old and dull stars that commonly have poor planets.
 YELLOW_STAR_DESCRIPTION           | Yellow stars offer the best chance of discovering terran and sub-terran planets.
@@ -468,12 +472,14 @@ GAME_SETTINGS_SENSITIVITY_LOW_HELP    | Slowest response with minimal CPU requir
 GAME_SETTINGS_SENSITIVITY_LOW         | Low
 GAME_SETTINGS_SENSITIVITY_DESC        | Toggle how quickly the galaxy map responds to mouse movement when updating the display panel.
 GAME_SETTINGS_MEMORY                  | Show Memory Usage: %1
-GAME_SETTINGS_MEMORY_YES              | Yes
+GAME_SETTINGS_MEMORY_YES              | Show
 GAME_SETTINGS_MEMORY_NO               | No
-GAME_SETTINGS_MEMORY_DESC             | Toggles the display of memory usage statistics at the bottom right corner of the game. Useful for monitoring memory usage. ([Reserve from GC] {Reserve from mins} Used / Allocated / Available (Max Used / Max Allocated) / Threads)
+GAME_SETTINGS_MEMORY_YES_DESC         | Memory usage is displayed at the bottom right.
+GAME_SETTINGS_MEMORY_NO_DESC          | No statistics.
+GAME_SETTINGS_MEMORY_DESC             | Toggles the display of memory usage statistics at the bottom right corner of the window. Useful for monitoring memory usage. ([Reserve from GC] {Reserve from min} Used / Allocated / Available (Max Used / Max Allocated) / Threads)
 GAME_SETTINGS_MORE_MEMORY             | Console More Memory: %1
-GAME_SETTINGS_MORE_MEMORY_YES         | Yes
-GAME_SETTINGS_MORE_MEMORY_NO          | No
+GAME_SETTINGS_MORE_MEMORY_YES         | →BOOLEAN_YES←
+GAME_SETTINGS_MORE_MEMORY_NO          | →BOOLEAN_NO←
 GAME_SETTINGS_MORE_MEMORY_DESC        | Toggles the console output of extended memory usage statistics at the beginning and the end of turn, and when loading a game.
 
 GAME_SETTINGS_MEMORY_CONSOLE      | Console Memory Usage: %1
@@ -548,8 +554,8 @@ GAME_SETTINGS_MUSIC_OFF           | Muted
 GAME_SETTINGS_MUSIC_ON            | %1/10
 GAME_SETTINGS_MUSIC_DESC          | Click to mute or unmute music within the game. Use the mouse wheel to raise or lower the volume. (Or right-click / shift-right-click)
 GAME_SETTINGS_AUTOCOLONIZE        | Colonize: %1
-GAME_SETTINGS_AUTOCOLONIZE_YES    | Automatically
-GAME_SETTINGS_AUTOCOLONIZE_NO     | Always Prompt
+GAME_SETTINGS_AUTOCOLONIZE_YES_DESC | Automatically
+GAME_SETTINGS_AUTOCOLONIZE_NO_DESC  | Always Prompt
 GAME_SETTINGS_AUTOCOLONIZE_DESC   | Toggle to auto-colonize and name planets immediately when colony ships arrive. This can be time-saving on very large maps.
 GAME_SETTINGS_AUTOBOMBARD         | Bombard: %1
 GAME_SETTINGS_AUTOBOMBARD_NO      | Always Prompt
@@ -581,20 +587,20 @@ GAME_SETTINGS_SAVEDIR_DESC1       | The save directory is currently set to the s
 GAME_SETTINGS_SAVEDIR_DESC2       | The save directory is currently set to: %1
 GAME_SETTINGS_DISPLAY_YEAR        | Display Year: %1
 GAME_SETTINGS_DISPLAY_YEAR_DESC   | On the Galaxy map: Displays either the game's current turn or your empire's current year
-GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH      | To Research: %1
-GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_YES  | Excess colony spending is diverted to research.
-GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_NO   | Excess colony spending is sent to treasury.
-GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC | Divert excess colony spending from treasury reserve to research.
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH          | To Research: %1
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_YES_DESC | Excess colony spending is diverted to research.
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_NO_DESC  | Excess colony spending is sent to treasury.
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC     | Divert excess colony spending from treasury reserve to research.
 GAME_SETTINGS_DEFAULT_MAX_BASES              | Max Bases: %1
 GAME_SETTINGS_DEFAULT_MAX_BASES_DESC         | Default Maximum Missile Bases for New Colonies.
 
-SETTINGS_MOD_DISABLE_ADVISOR_YES  | Disabled
-SETTINGS_MOD_DISABLE_ADVISOR_NO   | Enabled
+SETTINGS_MOD_DISABLE_ADVISOR_YES_DESC | Disabled
+SETTINGS_MOD_DISABLE_ADVISOR_NO_DESC  | Enabled
 SETTINGS_MOD_DISABLE_ADVISOR      | Disable Advisor: %1
 SETTINGS_MOD_DISABLE_ADVISOR_DESC | To Enable / Disable to automatics display of Galaxy Panel Advice when starting a new Game.
 
-SETTINGS_MOD_DISABLE_AUTO_HELP_YES        | Yes
-SETTINGS_MOD_DISABLE_AUTO_HELP_NO         | No
+SETTINGS_MOD_DISABLE_AUTO_HELP_YES        | →BOOLEAN_YES←
+SETTINGS_MOD_DISABLE_AUTO_HELP_NO         | →BOOLEAN_NO←
 SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER      | Never
 SETTINGS_MOD_DISABLE_AUTO_HELP            | Disable Auto Help: %1
 SETTINGS_MOD_DISABLE_AUTO_HELP_DESC       | To Enable / Disable to automatics display of Galaxy Panel Help when starting a new Game.
@@ -959,8 +965,8 @@ MAIN_SCOUT_ULTRA_RICH_DESC        | Resources: Ultra Rich - Output from industry
 // Colonization prompt
 MAIN_COLONIZE_TITLE               | Our Colonists are orbiting %1, an uncolonized system.
 MAIN_COLONIZE_PROMPT              | Build a new colony?
-MAIN_COLONIZE_YES                 | Yes
-MAIN_COLONIZE_NO                  | No
+MAIN_COLONIZE_YES                 | →BOOLEAN_YES←
+MAIN_COLONIZE_NO                  | →BOOLEAN_NO←
 MAIN_COLONIZE_ANIMATION_TITLE     | In the year %1, the [player_empire] forms a new colony.
 MAIN_COLONIZE_NAME_PROMPT         | Colony Name
 MAIN_COLONIZE_NAME_OK             | OK
@@ -1144,8 +1150,8 @@ MAIN_BOMBARD_TROOPS              | %1 [alien_race] troops are orbiting or in tra
 MAIN_BOMBARD_PROMPT              | Bombard the planet?
 MAIN_BOMBARD_TARGET              | Spare %1 pop
 MAIN_BOMBARD_DROP_ALL            | Drop All
-MAIN_BOMBARD_YES                 | Yes
-MAIN_BOMBARD_NO                  | No
+MAIN_BOMBARD_YES                 | →BOOLEAN_YES←
+MAIN_BOMBARD_NO                  | →BOOLEAN_NO←
 MAIN_BOMBARD_POPULATION          | Population: %1
 MAIN_BOMBARD_FACTORIES           | Factories: %1
 MAIN_BOMBARD_BASES               | Bases: %1
@@ -2480,20 +2486,20 @@ SETTINGS_MOD_DYN_STARS_PER_EMPIRE        | Stars per empire: %1
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_HELP | When starting a new game based on a previously played game, the opponents can either keep their previous AI or change to the new GUI global one.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | Should "Restart" Change the Aliens AI?
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI      | Restart Changes Aliens AI: %1
-SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_YES  | Opponent empires will use the current GUI Opponent AI (Play against) on Restart.
-SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_NO   | Opponent empires will use keep their former AI on Restart.
+SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_YES_DESC | Opponent empires will use the current GUI Opponent AI (Play against) on Restart.
+SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_NO_DESC  | Opponent empires will use keep their former AI on Restart.
 
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_HELP | When starting a new game based on a previously played game, you can either keep the previous auto-play option, or use the current GUI one. This option is not very useful anymore, since it's now easy to change this setting while playing the game (Ctrl-o)
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_DESC | Should "Restart" Change the Player AI?
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI      | Restart Changes AutoPlay: %1
-SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_YES  | Use the current GUI Auto-play setting on Restart.
-SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_NO   | Keep the former Auto-play setting on Restart.
+SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_YES_DESC | Use the current GUI Auto-play setting on Restart.
+SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_NO_DESC  | Keep the former Auto-play setting on Restart.
 
 SETTINGS_MOD_RESTART_APPLY_SETTINGS_HELP | When starting a new game based on a previously played game, you can either keep its original settings or use the current GUI settings.
 SETTINGS_MOD_RESTART_APPLY_SETTINGS_DESC | Should "Restart" Apply the current GUI Settings? (Except for Galaxy and Species settings)
 SETTINGS_MOD_RESTART_APPLY_SETTINGS      | Restart with new Settings: %1
-SETTINGS_MOD_RESTART_APPLY_SETTINGS_YES  | Restart will use the current settings.
-SETTINGS_MOD_RESTART_APPLY_SETTINGS_NO   | Restart with keep the original game settings
+SETTINGS_MOD_RESTART_APPLY_SETTINGS_YES_DESC | Restart will use the current settings.
+SETTINGS_MOD_RESTART_APPLY_SETTINGS_NO_DESC  | Restart with keep the original game settings
 
 SETTINGS_MOD_RESTART_PLAYER_RACE_HELP    | When starting a new game based on a previously played game, you can keep the original species, use the current GUI one, or if you choose to swap the home world with another empire, you can also steel the species of the swapped opponent.
 SETTINGS_MOD_RESTART_PLAYER_RACE_DESC    | Player Species after "Restart" Last? or Swap? GUI & Last Alien? GUI & Swap Alien?
@@ -2556,8 +2562,8 @@ SETTINGS_MOD_RACES_RAND_MAX              | Settings % Max: %1
 SETTINGS_MOD_RACES_RAND_EDGES_HELP       | Setting used when opponents 'Random' abilities are selected: "Smooth Edges" defines the limits randomization distribution shape; when "Smooth" the values still have a small probability of going past the limits, the distribution will be bell shaped.
 SETTINGS_MOD_RACES_RAND_EDGES_DESC       | Alien species randomization: Smooth edges allow 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)
 SETTINGS_MOD_RACES_RAND_EDGES            | Smooth Edges: %1
-SETTINGS_MOD_RACES_RAND_EDGES_YES        | Two thirds of the values will be within the limits, one sixth may be above the limit while another sixth may be below the limit.
-SETTINGS_MOD_RACES_RAND_EDGES_NO         | All values will be uniformly spread inside the fixed limits.
+SETTINGS_MOD_RACES_RAND_EDGES_YES_DESC   | Two thirds of the values will be within the limits, one sixth may be above the limit while another sixth may be below the limit.
+SETTINGS_MOD_RACES_RAND_EDGES_NO_DESC    | All values will be uniformly spread inside the fixed limits.
 
 SETTINGS_MOD_RACES_RAND_TARGET_MIN_HELP  | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Target Range, each individual setting will be set within the given relative range. Then if the final result is not within the final "Target Range" the values will be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.<br>This is the lower limit for the Target Range.
 SETTINGS_MOD_RACES_RAND_TARGET_MIN_DESC  | Alien species randomization: Lower limit for the Targeted total value.
@@ -2613,6 +2619,17 @@ SETTINGS_MOD_MAP_FONT_FACTOR_DESC        | To adjust the galaxy map font size. B
 SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1
 SETTINGS_MOD_MENU_STARTUP_DESC           | How should the Game Settings be initialized when Launching RotP?
 SETTINGS_MOD_MENU_STARTUP                | Launch Settings: %1
+
+SETTINGS_MOD_LOAD_SAVE_WIDTH_DESC        | To customize the with of the Load and Save Panel, for those who uses long file names.
+SETTINGS_MOD_LOAD_SAVE_WIDTH             | Load/Save Width: %1
+SETTINGS_MOD_LOAD_SAVE_NORMAL_DESC       | The original width.
+SETTINGS_MOD_LOAD_SAVE_NORMAL            | Default
+SETTINGS_MOD_LOAD_SAVE_WIDE_DESC         | ~130% of the original width.
+SETTINGS_MOD_LOAD_SAVE_WIDE              | Wide
+SETTINGS_MOD_LOAD_SAVE_FULL_DESC         | ~185% of the original width.
+SETTINGS_MOD_LOAD_SAVE_FULL              | Full
+
+
 SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic configuration menus (six menus) and Compact configuration menus (2 menus). Both provide a distinction between:<br><b>Setup Settings:</b>&nbsp which are only read once, when a game starts (or restarts).<br><b>Rules and gameplay settings:</b>&nbsp which can be changed while playing a game. (Ctrl-o) to call the rules and gameplay configuration menu.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC     | Show multiple configuration Menus at standard size, or only one compacted configuration menu?
 SETTINGS_MOD_COMPACT_OPTION_ONLY          | Settings Buttons: %1
@@ -2633,8 +2650,10 @@ SETTINGS_MOD_GAME_OVER_TITLE_RB            | Realms Beyond
 SETTINGS_MOD_RACE_STATUS_LOG_HELP        | The Empire status graphs can either be displayed on a linear or logarithmic scale.
 SETTINGS_MOD_RACE_STATUS_LOG_DESC        | The Empire status graphs can be displayed on a linear or logarithmic scale.
 SETTINGS_MOD_RACE_STATUS_LOG             | Empire status graph log: %1
-SETTINGS_MOD_RACE_STATUS_LOG_YES         | Logarithmic Scale
-SETTINGS_MOD_RACE_STATUS_LOG_NO          | Linear Scale
+SETTINGS_MOD_RACE_STATUS_LOG_YES_DESC    | Logarithmic Scale
+SETTINGS_MOD_RACE_STATUS_LOG_NO_DESC     | Linear Scale
+SETTINGS_MOD_RACE_STATUS_LOG_YES_UI      | Logarithmic Scale
+SETTINGS_MOD_RACE_STATUS_LOG_NO_UI       | Linear Scale
 
 SETTINGS_MOD_RACE_STATUS_VIEW_HELP       | The Empire status values can be displayed as absolute, or relative.<br> Relative to the known total or to the player.
 SETTINGS_MOD_RACE_STATUS_VIEW_DESC       | The Empire status values can be displayed as absolute, or relative.<br> Relative to the known total or to the player.
@@ -2657,8 +2676,8 @@ SETTINGS_MOD_OPTIONS_USER_HELP           | The options will be in the same state
 
 SETTINGS_MOD_SHOW_ALL_AI_DESC            | AI:Base, AI:Modnar, and AI:Rookies are quite similar. AI:Rookie is based on the other two, with some important bug fixed. You may want to hide unfixed AI.
 SETTINGS_MOD_SHOW_ALL_AI                 | Show all AIs: %1
-SETTINGS_MOD_SHOW_ALL_AI_YES             | All AIs are available for the player and the opponents.
-SETTINGS_MOD_SHOW_ALL_AI_NO              | AI:Base and AI:Modnar won't be available.
+SETTINGS_MOD_SHOW_ALL_AI_YES_DESC        | All AIs are available for the player and the opponents.
+SETTINGS_MOD_SHOW_ALL_AI_NO_DESC         | AI:Base and AI:Modnar won't be available.
 
 SETTINGS_MOD_FLIGHT_PATH_DISPLAY_DESC    | Which path should be shown? (Related to the icon button on the left of the Galaxy)
 SETTINGS_MOD_FLIGHT_PATH_DISPLAY         | Show flight path: %1
@@ -2917,8 +2936,8 @@ SETTINGS_MOD_SHOW_TOOLTIPS               | Show Tooltips: %1
 SETTINGS_MOD_USE_FUSION_FONT_HELP        | To be used with <b>Text Shaped Galaxies</b>: On Windows computers you won't have access to all available chars... So I merged a bunch of "noto" fonts to a big package and included it to this mod. It's a mixt of monospaced and variable fonts (for a total of 153 fonts), I had to remove "advanced" table features because they were to big to be merged (There is a reason why Google don't offer the big merged one!). Consequently, it won't be a good idea to try to copy it into your font folder...
 SETTINGS_MOD_USE_FUSION_FONT_DESC        | Galaxy text shaped will use Fusion font.
 SETTINGS_MOD_USE_FUSION_FONT             | Use Fusion Font: %1
-SETTINGS_MOD_USE_FUSION_FONT_YES         | Replace the original standard "monospaced" Fonts with the dedicated "Fusion" ones.
-SETTINGS_MOD_USE_FUSION_FONT_NO          | Keep the original standard "monospaced" Fonts.
+SETTINGS_MOD_USE_FUSION_FONT_YES_DESC    | Replace the original standard "monospaced" Fonts with the dedicated "Fusion" ones.
+SETTINGS_MOD_USE_FUSION_FONT_NO_DESC     | Keep the original standard "monospaced" Fonts.
 SETTINGS_MOD_SHOW_NEXT_COUNCIL_DESC      | Show years left until next council. (On Galaxy panel, next to the Year)
 SETTINGS_MOD_SHOW_NEXT_COUNCIL           | Show next council: %1
 SETTINGS_MOD_LOAD_LOCAL_DESC             | Settings are loaded for current panel only (Yes), or all settings are loaded altogether (No)
@@ -4477,8 +4496,8 @@ HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Appearance related Options.
 HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~%1
 GOVERNOR_ORIGINAL_PANEL_DESC         | How the panel should be displayed? Old ways or RotP like?
 GOVERNOR_ORIGINAL_PANEL              | Original View: %1
-GOVERNOR_ORIGINAL_PANEL_YES          | The panel will be displayed in its gray color as originally designed.<br>No size or brightness control.
-GOVERNOR_ORIGINAL_PANEL_NO           | The panel will copy the RotP fonts, colors and icons.<br>It will be resizable, and the brightness can be adjusted.
+GOVERNOR_ORIGINAL_PANEL_YES_DESC     | The panel will be displayed in its gray color as originally designed.<br>No size or brightness control.
+GOVERNOR_ORIGINAL_PANEL_NO_DESC      | The panel will copy the RotP fonts, colors and icons.<br>It will be resizable, and the brightness can be adjusted.
 GOVERNOR_CUSTOM_SIZE_DESC            | Quick way to activate or deactivate the resizing.  (Available for the new design only)
 GOVERNOR_CUSTOM_SIZE                 | Custom Size: %1
 GOVERNOR_SIZE_FACTOR_DESC            | The factor used to adjust the font size.<br>The other parameters will follow; but with discrete increments, leading to jerky changes. (Available for the new design only)
@@ -4569,8 +4588,8 @@ SETUP_GALAXY_AGAINST_DESC         | To select Aliens AI.<br> "AI:Selectable" => 
 SETUP_GALAXY_PREVIEW_DESC         | This is what the Galaxy will look like.<br>Blue dot = Orion.<br>Green dots = Player Homeworld and neighbor systems.<br>Red dots = Opponents Home worlds and their neighbor systems.<br>Grey dots = other star systems.<br>Click to show/hide a 10 ly spaced grid.<br>Scroll to change the empires spreading.<br>Middle Click to restore the default minimal distances between empires.
 
 SETUP_SELECT_CR_OPTIONS_DESC      | if "Yes", a selection line will appear at the top of the boxes below, allowing the selection of individual ability.
-SETUP_SELECT_CR_OPTIONS_YES       | A selection line will appear at the top of the opponent boxes, allowing the selection of individual ability.
-SETUP_SELECT_CR_OPTIONS_NO        | The selected global ability (on the left) will be applied to all the opponents.
+SETUP_SELECT_CR_OPTIONS_YES_DESC  | A selection line will appear at the top of the opponent boxes, allowing the selection of individual ability.
+SETUP_SELECT_CR_OPTIONS_NO_DESC   | The selected global ability (on the left) will be applied to all the opponents.
 SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 ???		                          | ???
 ???_DESC		                  | ???_DESCXXX

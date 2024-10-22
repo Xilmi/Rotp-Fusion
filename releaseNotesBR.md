@@ -7,6 +7,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- New option to increase the with of load/save panel (for those who use long file names)
+- Made boolean options more compatible with language translation.
 - Fixed missing governor refresh after transferring funds.
 - "Tax only fully developed colonies":
   - The "fully developed colonies" definition has an option to allow some missing population (Governor small transport), and some missing factories (spy actions).
@@ -14,18 +16,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Colony Panel multiple selection, changing the common flag (The one under the planet):
   - All the selected colony will have the flag selected (with Shift/Ctrl) set to the color displayed on the common flag.
 - "Governor Toggle" button and its "Option" button now match the interface standard in the colony panel too.
-- Captured Alien Factory Display have now their dedicated label.
-- In case of Greek characters, dialog Font will be replaced by "plainFont" instead of "narrowFont".
-- The dialog font has been replaced, for the French language, by a font that includes accented letters.
-- The Governor Button Icon now updates when starting a new game.
-- Fixed big Symmetric Galaxies... Not being Symmetric.
-- Fixed combat results displaying "RETREATED" instead of "DESTROYED" when 0 ships were remaining.
-- "Governor Toggle" button and its "Option" button now match the interface standard
-- Fixed Governor being toggled while clicking outside of the button.
-- Replaced Governor button color by icons.
-- Fixed some crashes occurring when interrupting massive ground attacks.
-- "Governor Toggle" and "Governor Options" are now true buttons.
-
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

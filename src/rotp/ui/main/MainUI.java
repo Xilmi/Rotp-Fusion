@@ -1064,11 +1064,9 @@ public class MainUI extends BasePanel implements IMapHandler {
         int w11;
         int y11;
         int x11;
-        int lines;
         String txt;
         if (options().selectedFlagColorCount() == 1) {
         	txt   = text("MAIN_HELP_2K");
-        	lines = 5;
         	y11   = s14;
             if (has3Buttons()) {
             	w11 = scaled(250);
@@ -1081,7 +1079,6 @@ public class MainUI extends BasePanel implements IMapHandler {
             }
         } else {
         	txt   = text("MAIN_HELP_2K_2F");
-        	lines = 6;
         	y11   = s4;
             if (has3Buttons()) {
             	txt += " " + text("MAIN_HELP_2K_M3");

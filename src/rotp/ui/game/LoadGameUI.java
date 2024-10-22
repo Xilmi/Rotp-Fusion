@@ -54,6 +54,7 @@ import javax.swing.SwingUtilities;
 import rotp.Rotp;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
@@ -356,8 +357,8 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
     public void keyPressed(KeyEvent e) {
         int k = e.getKeyCode();
         switch(k) {
-            case KeyEvent.VK_DOWN:  scrollDown(); return;
-            case KeyEvent.VK_UP:    scrollUp();   return;
+            case KeyEvent.VK_DOWN:  scrollDown();	return;
+            case KeyEvent.VK_UP:    scrollUp();		return;
             case KeyEvent.VK_L:
             case KeyEvent.VK_ENTER:
                 if (canSelect())
@@ -368,7 +369,19 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
                     toggleSaveBackupListing();
                 break;
             case KeyEvent.VK_ESCAPE:
-            case KeyEvent.VK_C:    cancelLoad();      return;
+            case KeyEvent.VK_C:    cancelLoad();	return;
+            case KeyEvent.VK_RIGHT:
+            	if (e.isControlDown()) {
+            		IGameOptions.loadSaveWidth.next();
+            		repaint();
+            	}
+            	return;
+            case KeyEvent.VK_LEFT:
+            	if (e.isControlDown()) {
+            		IGameOptions.loadSaveWidth.prev();
+            		repaint();
+            	}
+            	return;
         }
     }
     private boolean canSelect()    { return selectIndex >= 0; }
@@ -505,8 +518,8 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
 
             end = min(saveFiles.size(), start+MAX_FILES);
 
-            int w0 = scaled(650); // BR: TODO TUNE
-            //int w0 = scaled(800); // BR: TODO TUNE
+            //int w0 = scaled(650); // BR: TODO TUNE
+            int w0 = scaled(options().loadSaveWidth());
             int x0 = (w-w0)/2;
             int h0 = s5+(MAX_FILES*lineH);
             int y0 = scaled(180);

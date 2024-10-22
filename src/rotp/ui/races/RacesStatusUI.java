@@ -204,9 +204,9 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         
         String text;
         if (options().selectedRaceStatusLog())
-        	text = text("SETTINGS_MOD_RACE_STATUS_LOG_YES");
+        	text = text("SETTINGS_MOD_RACE_STATUS_LOG_YES_UI");
         else
-        	text = text("SETTINGS_MOD_RACE_STATUS_LOG_NO");
+        	text = text("SETTINGS_MOD_RACE_STATUS_LOG_NO_UI");
         int sw = g.getFontMetrics().stringWidth(text);
         int x0 = x+(w-sw)/2;
         drawString(g,text, x0, y+h-s6);
