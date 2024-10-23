@@ -191,7 +191,7 @@ EVENT_ENRICHED                    | L'exploration minière en profondeur dans le
 EVENT_FERTILE                     | Un changement soudain de l'axe planétaire du monde [target_raceadjec] du [system] a changé son environnement, le rendant plus fertile. La croissance démographique augmente de 50 %.
 EVENT_PIRACY                      | Des pirates ont commencé à perturber le commerce global entre les systèmes [target_race_pluraladjec], réduisant les revenus commerciaux de [amt]%. Des vaisseaux armés sont nécessaires dans le système [system] pour interrompre leur base d'opérations.
 EVENT_PIRACY_2                    | Les pirates basés dans le système [system] continuent de perturber l'activité commerciale [target_race_pluralnounof], réduisant les niveaux commerciaux globaux d'environ [amt]%.
-EVENT_PIRACY_3                    | La flotte [target_raceadjecF] a détruit une opération de piratage majeure basée sur le système [system]. Dans l'ensemble, les niveaux commerciaux sont revenus à des niveaux normaux.
+EVENT_PIRACY_3                    | La flotte [target_raceadjecF] a détruit une opération de piratage majeure basée dans le système [system]. Dans l'ensemble, les niveaux commerciaux sont revenus à des niveaux normaux.
 EVENT_PLAGUE                      | Une pandémie mortel frappe le monde [target_raceadjec] dans le système [system]. Une quarantaine a été établie sur le système et des millions de personnes devraient mourir chaque année jusqu'à ce que les scientifiques puissent trouver un remède.
 EVENT_PLAGUE_2                    | La pandémie mortelle dans le système [system] persiste. Les scientifiques estiment qu'il faudra encore [amt] RP pour trouver un remède.
 EVENT_PLAGUE_3                    | Les scientifiques [target_race_pluraladjec] ont trouvé un remède contre la pandémie mortelle qui affligeait le système [system]. La quarantaine du système a été levée.
@@ -1036,7 +1036,7 @@ PLANETS_LIST_TURNS                | Tours
 PLANETS_LIST_YEARS                | Ans
 PLANETS_LIST_TRANSPORTS           | Transports
 PLANETS_LIST_RESOURCES            | Ressources
-PLANETS_MULTI_SYSTEMS             | Systèmes %1
+PLANETS_MULTI_SYSTEMS             | %1 Systèmes
 PLANETS_AGGREGATE_VALUES          | Valeurs Agrégées
 PLANETS_SPENDING_0                | Aucune Dépense %1
 PLANETS_SPENDING_25               | Dépenses %1 25%
@@ -1766,17 +1766,47 @@ SETTINGS_AUTOPLAY_WARNING         | Avertissement! La lecture automatique est ac
 SETTINGS_FUEL_RANGE_DESC          | Augmente la portée des technologies de carburant et des réservoirs de carburant supplémentaires.
 SETTINGS_AI_HOSTILITY_DESC        | Augmente ou diminue le niveau général d'hostilité entre les espèces extraterrestres.
 
+HEADERS_GAME_UI_PREFERENCES_DESC  | Personnalisation de l'interface de jeu.
+HEADERS_GAME_UI_PREFERENCES       | ~~~ PRÉFÉRENCES DE L'INTERFACE ~~~%1
+HEADERS_GAME_RELATIONS_DESC       | Options de contrôle des relations entre empires. Peut être changé dynamiquement.
+HEADERS_GAME_RELATIONS            | ~~~ RELATIONS AVEC LES EMPIRES ~~~%1
+HEADERS_GAME_VARIOUS_DESC         | Options diverses. Peut être changé dynamiquement.
+HEADERS_GAME_VARIOUS              | ~~~ OPTIONS DIVERSES ~~~%1
+HEADERS_GAME_OTHER_DESC           | Autres options. Peut être changé dynamiquement.
+HEADERS_GAME_OTHER                | ~~~ AUTRES OPTIONS ~~~%1
+HEADERS_GAME_AUTOMATION_DESC      | Option pour supprimer les tâches ennuyeuses !
+HEADERS_GAME_AUTOMATION           | ~~~ AUTOMATISATIONS ~~~%1
+HEADERS_GAME_COMBAT_DESC          | Options affectant l'attaque et la défense. Peut être changé dynamiquement.
+HEADERS_GAME_COMBAT               | ~~~ OPTIONS DE COMBAT ~~~%1
+HEADERS_GAME_DIFFICULTY_DESC      | Options affectant le niveau de difficulté du jeu. Peut être changé dynamiquement.
+HEADERS_GAME_DIFFICULTY           | ~~~ DIFFICULTÉ DU JEU ~~~%1
+SETTINGS_MOD_SYSTEMS_OPTIONS_TITLE   | Configuration avancée des Étoiles et des Planètes
+SETTINGS_MOD_SYSTEMS_OPTIONS_UI      | - Menu des options avancées de planète -
+SETTINGS_MOD_SYSTEMS_OPTIONS_UI_DESC | Ouvre un sous-menu contenant des paramètres Planétaires plus avancés.
+SETTINGS_MOD_SYSTEMS_OPTIONS_UI_HELP | Ouvre un sous-menu contenant des paramètres Planétaires plus avancés.<br>Ces paramètres sont définitifs.<br>Ces paramètres sont enregistrés avec le jeu.
+SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_TITLE   | Configuration avancée de la Galaxie
+SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI      | - Menu avancé Galaxie -
+SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_DESC | Ouvre un sous-menu contenant des paramètres avancés Galaxie.
+SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_HELP | Ouvre un sous-menu contenant les paramètres avancés de Galaxie.<br> Ces paramètres sont définitifs.<br> Ces paramètres sont enregistrés avec le jeu.
+SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | Permettre à une planète ultra-pauvre, pauvre, riche, ou ultra-riche d'avoir aussi des artefacts.
+SETTINGS_MOD_RICH_POOR_ARTIFACT      | Riche/pauvre & Artefacts: %1
+SETTINGS_MOD_ARTIFACT_MULT_DESC      | Multiplicateur de probabilité de planète d'artefacts antariens.
+SETTINGS_MOD_ARTIFACT_MULT           | Multiplicateur Antarien: %1%
+
+// modnar: add UI panel for modnar MOD game options
+SETTINGS_MOD_CUSTOM_DIFFICULTY       | Difficulté personnalisée : %1%
+SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC  | Définit le Modificateur de Production del'IA de 20% à 500%. Assurez-vous de sélectionner "Difficulté: Personnalisé". (Presser Shift/Ctrl, puis faire défiler la molette de la souris pour changer en unités de 5%/20%.)
 TECH_HEAD_HK                             | Inclure ou exclure la Technologie
 TECH_END_HK                              | dans l'arbre technique pour joueur/IA.
 TECH_VAL_HK                              | Inclure {Toujours, Jamais, Auto}
 TECH_LEVEL_HK                            | Cette technologie pourrait être disponible au niveau
 
-FR_MISSIELS_DESC_HK                      | Les bases sont équipées des meilleurs boucliers ainsi que des meilleurs missiles (si > 0)
+FR_MISSILES_DESC_HK                      | Les bases sont équipées des meilleurs boucliers ainsi que des meilleurs missiles (si > 0)
 FR_USINES_DESC_HK                        | La planète a achevé de construire ses usines (ou presque)
 FR_POPULATION_DESC_HK                    | La population est à son maximum (ou presque) + La planète est entèrement terraformée + Aucuns déchets (si affecté par les déchets)
 SETTINGS_MOD_DEVELOPED_DEFINITION_DESC   | Quels sont les critères à appliquer lorsque "→PLANETS_RESERVE_ONLY_DEVELOPED←" est sélectionné?
 SETTINGS_MOD_DEVELOPED_DEFINITION        | Developpé = %1
-SETTINGS_MOD_DEVELOPED_ALL_DESC          | →FR_MISSIELS_DESC_HK← + →FR_USINES_DESC_HK← + →FR_POPULATION_DESC_HK←.
+SETTINGS_MOD_DEVELOPED_ALL_DESC          | →FR_MISSILES_DESC_HK← + →FR_USINES_DESC_HK← + →FR_POPULATION_DESC_HK←.
 SETTINGS_MOD_DEVELOPED_ALL               | {→MAIN_COLONY_DEFENSE←, →MAIN_COLONY_INDUSTRY←, →MAIN_COLONY_ECOLOGY←}
 SETTINGS_MOD_DEVELOPED_NO_BASE_DESC      | →FR_USINES_DESC_HK← + →FR_POPULATION_DESC_HK←.
 SETTINGS_MOD_DEVELOPED_NO_BASE           | {→MAIN_COLONY_INDUSTRY←, →MAIN_COLONY_ECOLOGY←}
