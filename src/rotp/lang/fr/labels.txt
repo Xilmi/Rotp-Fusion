@@ -6,6 +6,51 @@
 //    You cannot create new keys! The game will not use them
 //    You can only use keys that the game is looking for.
 //
+// To cross reference labels put the key between →←
+// Used these char because they are not available in MyriadPro fonts anyways!
+// example:
+// CROSS_REFERENCED_EXAMPLE | blablabla either →BOOLEAN_YES← or →BOOLEAN_NO←
+// ALT 8594 →
+// ALT 8582 ←
+//
+// Mod option label key descriptions
+//
+// _DESC | Basic description that only allow <br> control.
+//
+// _HELP | The help text displayed in the Guide pop up. Can use some basic HTML controls <br> <i></i> <u></u> <b></b> etc...In the absence of _HELP, _DESC will be displayed.
+// Translators can always add a _HELP label even if not present in the English file.
+// 
+// SETTINGS_MOD_Parameter              | The parameter's name shown on the options panel. Try to limit their length to max 20 chars.
+//
+// SETTINGS_MOD_Parameter_DESC         | The parameter's description displayed in the two lines box at the bottom of the option panel. <br> can be used to force line split.
+//
+// SETTINGS_MOD_Parameter_HELP         | A more complete parameter's description, displayed in the Guide pop up. Can use some basic HTML controls. This label is optional and will be replaced by _DESC if missing. 
+//
+// Label used by parameters of the type "List"
+//
+// SETTINGS_MOD_Parameter_Options      | The name of this parameter option, displayed at the right of the parameter name. It should be short, especially if the parameter name is long.
+//
+// SETTINGS_MOD_Parameter_Options_DESC | The description of the parameter's option, displayed in the guide. <br> can be used to force line split.
+//
+// SETTINGS_MOD_Parameter_Options_HELP | To replace _DESC if HTML control are used.
+//
+// Why both _DESC and _HELP instead of always _HELP ?
+// Only _DESC can be cross-referenced (with →←) by the "F1" help, which does not support HTML.
+// So if _HELP is needed you it's a good idea to also create a _DESC simplified text to be cross-referenced by the "F1" help.
+//
+// Label used by parameters of the type "Boolean"
+//
+// SETTINGS_MOD_Parameter_YES          | The text to display when the parameter is "true". In its absence "BOOLEAN_YES" will be used.
+// SETTINGS_MOD_Parameter_NO           | The text to display when the parameter is "false". In its absence "BOOLEAN_NO" will be used.
+// SETTINGS_MOD_Parameter_YES_HELP or
+// SETTINGS_MOD_Parameter_YES_DESC     | The description of the parameter's "true", displayed in the guide. In its absence "BOOLEAN_YES_HELP" will be used.
+// SETTINGS_MOD_Parameter_NO           | The description of the parameter's "false", displayed in the guide. In its absence "BOOLEAN_NO_HELP" will be used.
+//
+// Label used by parameters of the type "Sub-Panel"
+//
+// SETTINGS_MOD_Parameter_TITLE        | The title displayed on the top of the Sub-Panel
+//
+
 // Large number formatting
 NUM_FORMAT_THOUSANDS              | %1K
 NUM_FORMAT_MILLIONS               | %1M
@@ -14,8 +59,8 @@ NUM_FORMAT_BILLIONS               | %1G
 // Basic Boolean Display
 BOOLEAN_YES                       | Oui
 BOOLEAN_NO                        | Non
-BOOLEAN_YES_HELP                  | Pour activer cette option.
-BOOLEAN_NO_HELP                   | Pour désactiver cette option.
+BOOLEAN_YES_HELP                  | Pour <b>activer</b> cette option.
+BOOLEAN_NO_HELP                   | Pour <b>désactiver</b> cette option.
 BOOLEAN_YES_DESC                  | Pour activer cette option.
 BOOLEAN_NO_DESC                   | Pour désactiver cette option.
 
@@ -61,7 +106,7 @@ FLAG_COLOR_PURPLE                 | Pourpre
 FLAG_COLOR_PINK                   | Rose
 
 // Spy Missions
-SPY_HIDE                          | Dissimulation
+SPY_HIDE                          | Dormant
 SPY_ESPIONAGE                     | Espionnage
 SPY_SABOTAGE                      | Sabotage
 SPY_CAUGHT                        | [Vos espions ont été pris.]
@@ -168,34 +213,34 @@ TECH_LEVEL_HEADER                 | Impact sur le niveau technologique:
 TECH_LEVEL_VALUE                  | Niveau technologique %1
 TECH_CATEGORY_HEADER              | CATÉGORIE %1
 TECH_LEVEL_OF_TECH                | Niveau %1
-TECH_COMPUTERS_LEVEL_DESC         | Pendant l'espionnage, la différence entre votre niveau d'ordinateur et le niveau d'ordinateur de votre cible est appliquée comme modificateur.
+TECH_COMPUTERS_LEVEL_DESC         | Lors des missions d'espionnage, la différence entre votre niveau technologique d'ordinateur et celui de l'empire ciblé modifie la probabilté de réussite de la mission.
 TECH_CONSTRUCTION_LEVEL_DESC      | Chaque niveau de construction augmente de 2% l'espace disponible pour tous les types de coques.
 TECH_FORCE_FIELDS_LEVEL_DESC      |
 
-TECH_PLANETOLOGY_LEVEL_DESC       | Au début du jeu, chaque colon produit 0,5BC. À mesure que votre niveau de technologie de Planétologie augmente, leur productivité aussi. L'augmentation est progressive, mais le taux global double au niveau 17, triple au niveau 33 et quadruple au niveau 50.
+TECH_PLANETOLOGY_LEVEL_DESC       | En début de partie, chaque colon produit 0,5BC. À mesure que votre niveau de technologie de Planétologie augmente, leur productivité suit. L'augmentation est progressive, et atteint une valeur double au niveau 17, triple au niveau 33 et quadruple au niveau 50.
 TECH_PROPULSION_LEVEL_DESC        |
-TECH_WEAPONS_LEVEL_DESC           | Les dommages que vos espions infligent pendant les actions de sabotage augmente avec votre niveau de technologie Armes. Cela va détruire plus d'usines et de bases de missiles.
+TECH_WEAPONS_LEVEL_DESC           | Les dommages que vos espions infligent pendant les missions de sabotage augmente avec votre niveau de technologie de l'armement. Davantage d'usines et de bases de missiles seront détruites.
 
 // Random Events
-EVENT_ACCIDENT                    | Un accident industriel majeur pollue le monde [target_raceadjec] dans le système [system] avec des déchets industriels, endommageant son écologie et irradiant de façon permanente la planète.
+EVENT_ACCIDENT                    | Un accident industriel majeur pollue la colonie [target_raceadjec] dans le système [system] avec des déchets industriels, endommageant gravement son écologie et irradiant la planète de manière permanente.
 EVENT_ASSASSINATION               | Un terroriste [assassin_empireof] a assassiné le diplomate [victim_race_pluralnounof], plaçant les deux empires au bord de la guerre.
-EVENT_COMET                       | Une gigantesque comète a été détectée dans le système [system] et entrera en collision avec le monde [target_raceadjec] dans [years] ans à moins qu'une grande flotte de vaisseaux ne soit déployée pour la détruire.
+EVENT_COMET                       | Une gigantesque comète a été détectée, approchant le système [system] et entrera en collision avec la colonie [target_raceadjecF] dans [years] ans. À moins qu'une flotte de vaisseaux suffisante ne soit déployée pour la détruire.
 EVENT_COMET_2                     | Une gigantesque comète devrait anéantir toute vie sur le monde [target_raceadjec] dans le système [system] en seulement [years] ans. Plus de vaisseaux armés sont nécessaires pour éviter cette catastrophe.
 EVENT_COMET_3                     | La comète du système [system] a été détruite, grâce aux efforts de la flotte [target_raceadjecF].
 EVENT_COMET_4                     | La comète mortelle a détruit le monde [target_raceadjec] dans le système [system].
 EVENT_DONATION                    | Un riche marchand désireux de soutenir la cause fait un don substantiel de [amt] BC à la réserve planétaire [target_raceadjecF].
-EVENT_DEPLETED                    | Le monde [target_raceadjec] de [system] a épuisé ses gisements de métaux lourds, rendant la planète pauvre en minéraux.
-EVENT_DERELICT                    | La flotte [target_empireof] a découvert un ancien vaisseau abandonné. Les scientifiques [target_race_pluralnounof] ont depuis récolté plusieurs technologies de champ de force et d'armes à partir du vaisseau.
-EVENT_EARTHQUAKE                  | Un tremblement de terre dévastateur frappe le monde [target_raceadjec] dans le système [system], tuant [amt] millions de colons tout en endommageant de vastes zones d'activité industrielle.
-EVENT_ENRICHED                    | L'exploration minière en profondeur dans le monde [target_raceadjec] dans le système [system] révèle un énorme gisement de métaux lourds jusque-là non détecté, rendant la planète riche en minéraux.
-EVENT_FERTILE                     | Un changement soudain de l'axe planétaire du monde [target_raceadjec] du [system] a changé son environnement, le rendant plus fertile. La croissance démographique augmente de 50 %.
+EVENT_DEPLETED                    | La colonie [target_raceadjecF] du [system] a épuisé ses gisements de métaux lourds, rendant la planète pauvre en minéraux.
+EVENT_DERELICT                    | La flotte [target_empireof] a découvert un ancien vaisseau abandonné. Les scientifiques [target_race_pluralnounof] ont depuis récolté plusieurs technologies de champ de force et d'armement à partir du vaisseau.
+EVENT_EARTHQUAKE                  | Un tremblement de terre dévastateur frappe la colonie [target_raceadjecF] dans le système [system], tuant [amt] millions de colons, tout en endommageant de vastes zones d'activité industrielle.
+EVENT_ENRICHED                    | L'exploration minière en profondeur dans la colonie [target_raceadjecF] dans le système [system] révèle un énorme gisement de métaux lourds jusque-là non détecté, rendant la planète riche en minéraux.
+EVENT_FERTILE                     | Un changement soudain de l'axe planétaire de la planète [target_raceadjecF] du [system] a changé son environnement, le rendant plus fertile. La croissance démographique augmente de 50 %.
 EVENT_PIRACY                      | Des pirates ont commencé à perturber le commerce global entre les systèmes [target_race_pluraladjec], réduisant les revenus commerciaux de [amt]%. Des vaisseaux armés sont nécessaires dans le système [system] pour interrompre leur base d'opérations.
 EVENT_PIRACY_2                    | Les pirates basés dans le système [system] continuent de perturber l'activité commerciale [target_race_pluralnounof], réduisant les niveaux commerciaux globaux d'environ [amt]%.
-EVENT_PIRACY_3                    | La flotte [target_raceadjecF] a détruit une opération de piratage majeure basée dans le système [system]. Dans l'ensemble, les niveaux commerciaux sont revenus à des niveaux normaux.
-EVENT_PLAGUE                      | Une pandémie mortel frappe le monde [target_raceadjec] dans le système [system]. Une quarantaine a été établie sur le système et des millions de personnes devraient mourir chaque année jusqu'à ce que les scientifiques puissent trouver un remède.
+EVENT_PIRACY_3                    | La flotte [target_raceadjecF] a détruit une opération de piratage majeure basée dans le système [system]. Dans l'ensemble, les échanges commerciaux sont revenus à leurs niveaux normaux.
+EVENT_PLAGUE                      | Une pandémie mortel frappe la colonie [target_raceadjecF] dans le système [system]. La colonie a été mise en quarantaine, et on s'attends à des millions de morts par année, jusqu'à ce que les scientifiques réussissent à trouver un remède.
 EVENT_PLAGUE_2                    | La pandémie mortelle dans le système [system] persiste. Les scientifiques estiment qu'il faudra encore [amt] RP pour trouver un remède.
 EVENT_PLAGUE_3                    | Les scientifiques [target_race_pluraladjec] ont trouvé un remède contre la pandémie mortelle qui affligeait le système [system]. La quarantaine du système a été levée.
-EVENT_REBELLION                   | Le monde [target_raceadjec] dans le système [system] s'est révolté, cessant toute production planétaire. La révolte se poursuivra jusqu'à ce que la rébellion soit vaincue militairement.
+EVENT_REBELLION                   | La colonie [target_raceadjecF] dans le système [system] s'est révoltée, cessant toute production planétaire. La révolte se poursuivra jusqu'à ce que la rébellion soit vaincue militairement.
 EVENT_SUPERNOVA                   | Les scientifiques [target_race_pluraladjec] prédisent que l'étoile du système [system] deviendra une supernova d'ici [years] ans. Ils recommandent de détourner toutes les recherches du système vers la recherche d'une solution.
 EVENT_SUPERNOVA_2                 | La menace d'une supernova dans le système [system] d'ici [years] ans demeure. Les scientifiques estiment qu'il faudra encore [amt] RP pour prévenir cette catastrophe.
 EVENT_SUPERNOVA_3                 | En travaillant fébrilement, les physiciens [target_race_pluraladjec] dans le système [system] ont trouvé un moyen de retarder la supernova de leur étoile proche dans un avenir prévisible.

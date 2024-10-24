@@ -69,6 +69,13 @@ Later:
 
 ## What's New
 
+2024.10.23 (BR)
+- French translations fixes.
+- Added some ocumentation in label.txt file.
+
+2024.10.22 (Frank Zago)
+- French translations and fixes.
+
 2024.10.22 (BR)
 - New option to increase the with of load/save panel (for those who use long file names)
 - Made boolean options more compatible with language translation.

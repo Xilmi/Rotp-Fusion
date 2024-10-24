@@ -12,6 +12,44 @@
 // CROSS_REFERENCED_EXAMPLE | blablabla either →BOOLEAN_YES← or →BOOLEAN_NO←
 // ALT 8594 →
 // ALT 8582 ←
+//
+// Mod option label key descriptions
+//
+// _DESC | Basic description that only allow <br> control.
+//
+// _HELP | The help text displayed in the Guide pop up. Can use some basic HTML controls <br> <i></i> <u></u> <b></b> etc...In the absence of _HELP, _DESC will be displayed.
+// Translators can always add a _HELP label even if not present in the English file.
+// 
+// SETTINGS_MOD_Parameter              | The parameter's name shown on the options panel. Try to limit their length to max 20 chars.
+//
+// SETTINGS_MOD_Parameter_DESC         | The parameter's description displayed in the two lines box at the bottom of the option panel. <br> can be used to force line split.
+//
+// SETTINGS_MOD_Parameter_HELP         | A more complete parameter's description, displayed in the Guide pop up. Can use some basic HTML controls. This label is optional and will be replaced by _DESC if missing. 
+//
+// Label used by parameters of the type "List"
+//
+// SETTINGS_MOD_Parameter_Options      | The name of this parameter option, displayed at the right of the parameter name. It should be short, especially if the parameter name is long.
+//
+// SETTINGS_MOD_Parameter_Options_DESC | The description of the parameter's option, displayed in the guide. <br> can be used to force line split.
+//
+// SETTINGS_MOD_Parameter_Options_HELP | To replace _DESC if HTML control are used.
+//
+// Why both _DESC and _HELP instead of always _HELP ?
+// Only _DESC can be cross-referenced (with →←) by the "F1" help, which does not support HTML.
+// So if _HELP is needed you it's a good idea to also create a _DESC simplified text to be cross-referenced by the "F1" help.
+//
+// Label used by parameters of the type "Boolean"
+//
+// SETTINGS_MOD_Parameter_YES          | The text to display when the parameter is "true". In its absence "BOOLEAN_YES" will be used.
+// SETTINGS_MOD_Parameter_NO           | The text to display when the parameter is "false". In its absence "BOOLEAN_NO" will be used.
+// SETTINGS_MOD_Parameter_YES_HELP or
+// SETTINGS_MOD_Parameter_YES_DESC     | The description of the parameter's "true", displayed in the guide. In its absence "BOOLEAN_YES_HELP" will be used.
+// SETTINGS_MOD_Parameter_NO           | The description of the parameter's "false", displayed in the guide. In its absence "BOOLEAN_NO_HELP" will be used.
+//
+// Label used by parameters of the type "Sub-Panel"
+//
+// SETTINGS_MOD_Parameter_TITLE        | The title displayed on the top of the Sub-Panel
+//
 
 // Large number formatting
 NUM_FORMAT_THOUSANDS              | %1K
@@ -21,8 +59,8 @@ NUM_FORMAT_BILLIONS               | %1B
 // Basic Boolean Display
 BOOLEAN_YES                       | Yes
 BOOLEAN_NO                        | No
-BOOLEAN_YES_HELP                  | To enable this option.
-BOOLEAN_NO_HELP                   | To disable this option.
+BOOLEAN_YES_HELP                  | To <b>enable</b> this option.
+BOOLEAN_NO_HELP                   | To <b>disable</b> this option.
 BOOLEAN_YES_DESC                  | To enable this option.
 BOOLEAN_NO_DESC                   | To disable this option.
 
