@@ -217,12 +217,12 @@ TECH_LEVEL_VALUE                  | Technology level %1
 TECH_CATEGORY_HEADER              | CATEGORY %1
 TECH_LEVEL_OF_TECH                | Level %1
 
-TECH_COMPUTERS_LEVEL_DESC         | During espionage, the difference between your Computer level and your target's Computer level is applied as a modifier.
-TECH_CONSTRUCTION_LEVEL_DESC      | Every Construction level increases the available space for all hull types by 2%.
+TECH_COMPUTERS_LEVEL_DESC         | During espionage missions, the difference between your computer technology level and that of the targeted empire changes the probability of mission success.
+TECH_CONSTRUCTION_LEVEL_DESC      | Each Construction level increases the available space for all hull types by 2%.
 TECH_FORCE_FIELDS_LEVEL_DESC      |
-TECH_PLANETOLOGY_LEVEL_DESC       | At the start of the game, each colonist produces .5BC. As your Planetology technology level rises, so does their productivity. The increase is incremental, but the overall rate doubles at level 17, triples at level 33, and quadruples at level 50.
+TECH_PLANETOLOGY_LEVEL_DESC       | At the start of the game, each colonist produces 0.5BC. As your Planetology technology level increases, so does their productivity. The increase is gradual, reaching double the value at level 17, triple at level 33, and quadruple at level 50.
 TECH_PROPULSION_LEVEL_DESC        |
-TECH_WEAPONS_LEVEL_DESC           | The amount of damage your spies inflict during Sabotage actions increases with your Weapons technology level. This will destroy more factories and missile bases.
+TECH_WEAPONS_LEVEL_DESC           | The damage your spies inflict during sabotage missions increases with your weapons technology level. More factories and missile bases will be destroyed.
 
 // Random Events
 EVENT_ACCIDENT                    | A major industrial accident pollutes the [target_race] world in the [system] system with industrial waste, damaging its ecology and permanently irradiating the planet.

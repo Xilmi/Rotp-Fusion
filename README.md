@@ -71,7 +71,7 @@ Later:
 
 2024.10.23 (BR)
 - French translations fixes.
-- Added some ocumentation in label.txt file.
+- Added some documentation in label.txt file.
 
 2024.10.22 (Frank Zago)
 - French translations and fixes.

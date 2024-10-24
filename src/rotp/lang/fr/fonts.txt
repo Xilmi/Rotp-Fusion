@@ -1,7 +1,7 @@
 // These are the fonts used for the 5 font types within the game.
 
 logo,       Amarante-Regular.otf,     95
-// do not include accentued letters nor non breakable space.
+// do not include accentuated letters nor non breakable space.
 //dialogue,   CRANBERR.otf,             95
 //dialogue,   MyriadPro-Cond.otf,       95
 dialogue,   FiraSans-Light.ttf,       95
