@@ -153,9 +153,9 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="transportMaxTurnsLabel" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="autotransportXilmi" alignment="0" max="-2" attributes="0"/>
-                      <Component id="allowUngoverned" alignment="0" max="-2" attributes="0"/>
                       <Component id="autotransport" alignment="0" max="-2" attributes="0"/>
+                      <Component id="allowUngoverned" alignment="0" max="-2" attributes="0"/>
+                      <Component id="autotransportXilmi" alignment="0" max="-2" attributes="0"/>
                       <Component id="transportRichDisabled" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -165,11 +165,11 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="autotransportXilmi" min="-2" max="-2" attributes="0"/>
+                  <Component id="autotransport" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="allowUngoverned" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="autotransport" min="-2" max="-2" attributes="0"/>
+                  <Component id="autotransportXilmi" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="transportMaxTurns" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -186,7 +186,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JCheckBox" name="autotransport">
+        <Component class="javax.swing.JCheckBox" name="autotransportXilmi">
           <Properties>
             <Property name="text" type="java.lang.String" value="Population automatically transported from colonies at max production capacity"/>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -194,7 +194,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autotransportActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autotransportXilmiActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="transportMaxTurns">
@@ -248,12 +248,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="transportPoorDoubleActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="autotransportXilmi">
+        <Component class="javax.swing.JCheckBox" name="autotransport">
           <Properties>
             <Property name="text" type="java.lang.String" value="Let AI handle population transportation"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autotransportXilmiActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autotransportActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="allowUngoverned">
@@ -603,18 +603,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="shipbuilding" alignment="0" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="missileBases" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="missileBasesLabel" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="shieldWithoutBases" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="shipbuilding" alignment="0" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="missileBases" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="missileBasesLabel" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="shieldWithoutBases" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="terraformEarly" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>

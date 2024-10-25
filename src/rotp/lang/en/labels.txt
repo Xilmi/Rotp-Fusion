@@ -4463,9 +4463,10 @@ GOVERNOR_SETUP_MENU               | - Governor Menu -
 
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | Auto Transport Options.
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ AUTO-TRANSPORT OPTIONS ~~~%1
-GOVERNOR_AUTO_TRANSPORT_DESC        | Let AI handle population transportation.
+GOVERNOR_AUTO_TRANSPORT_HELP        | Let AI handle population transportation.<br>Colonies will receive population from more populated colonies, up to maximum transport distance.<br>Disabling this option will not disable the "From Max Prod" option.
+GOVERNOR_AUTO_TRANSPORT_DESC        | Let The AI handle population transportation. (To help populate new colonies)
 GOVERNOR_AUTO_TRANSPORT             | Auto Transport: %1
-GOVERNOR_TRANSPORT_XILMI_DESC       | Population automatically transported from colonies at max production capacity.
+GOVERNOR_TRANSPORT_XILMI_DESC       | Population automatically transported from colonies at max production capacity. (This even if "Auto Transport" is disabled)
 GOVERNOR_TRANSPORT_XILMI            | From Max Prod: %1
 GOVERNOR_TRANSPORT_UNGOVERNED_DESC  | Allow sending population from ungoverned colonies.
 GOVERNOR_TRANSPORT_UNGOVERNED       | From Ungoverned: %1

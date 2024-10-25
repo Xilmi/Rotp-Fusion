@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.10.25 (BR)
+- Fixed Governor Auto-Transport: "Population automatically transported from colonies at max production capacity" and "Let AI handle population transportation" functionalities were swapped!
+
 2024.10.23 (BR)
 - French translations fixes.
 - Added some documentation in label.txt file.

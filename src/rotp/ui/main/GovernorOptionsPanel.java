@@ -803,13 +803,13 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
         stargateOptions = new javax.swing.ButtonGroup();
         governorDefault = new javax.swing.JCheckBox();
         javax.swing.JPanel autotransportPanel = new javax.swing.JPanel();
-        autotransport = new javax.swing.JCheckBox();
+        autotransportXilmi = new javax.swing.JCheckBox();
         transportMaxTurns = new GovernorJSpinner();
         javax.swing.JLabel transportMaxTurnsLabel = new javax.swing.JLabel();
         javax.swing.JLabel transportMaxTurnsNebula = new javax.swing.JLabel();
         transportRichDisabled = new javax.swing.JCheckBox();
         transportPoorDouble = new javax.swing.JCheckBox();
-        autotransportXilmi = new javax.swing.JCheckBox();
+        autotransport = new javax.swing.JCheckBox();
         allowUngoverned = new javax.swing.JCheckBox();
         allGovernorsOn = new javax.swing.JButton();
         allGovernorsOff = new javax.swing.JButton();
@@ -868,12 +868,12 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 
         autotransportPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Autotransport Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13))); // NOI18N
 
-        autotransport.setText("Population automatically transported from colonies at max production capacity");
-        autotransport.setMinimumSize(new java.awt.Dimension(0, 0));
-        autotransport.addActionListener(new java.awt.event.ActionListener() {
+        autotransportXilmi.setText("Population automatically transported from colonies at max production capacity");
+        autotransportXilmi.setMinimumSize(new java.awt.Dimension(0, 0));
+        autotransportXilmi.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autotransportActionPerformed(evt);
+                autotransportXilmiActionPerformed(evt);
             }
         });
 
@@ -917,11 +917,11 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
             }
         });
 
-        autotransportXilmi.setText("Let AI handle population transportation");
-        autotransportXilmi.addActionListener(new java.awt.event.ActionListener() {
+        autotransport.setText("Let AI handle population transportation");
+        autotransport.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autotransportXilmiActionPerformed(evt);
+                autotransportActionPerformed(evt);
             }
         });
 
@@ -946,20 +946,20 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
                         .addComponent(transportMaxTurns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(transportMaxTurnsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(autotransportXilmi)
+                    .addComponent(autotransport)
                     .addComponent(allowUngoverned)
-                    .addComponent(autotransport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(autotransportXilmi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(transportRichDisabled))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         autotransportPanelLayout.setVerticalGroup(
             autotransportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(autotransportPanelLayout.createSequentialGroup()
-                .addComponent(autotransportXilmi)
+                .addComponent(autotransport)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(allowUngoverned)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autotransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(autotransportXilmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(autotransportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(transportMaxTurns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1310,15 +1310,12 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
             .addGroup(colonyPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(shipbuilding)
                     .addGroup(colonyPanelLayout.createSequentialGroup()
-                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(shipbuilding)
-                            .addGroup(colonyPanelLayout.createSequentialGroup()
-                                .addComponent(missileBases)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(missileBasesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(shieldWithoutBases))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(missileBases)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(missileBasesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(shieldWithoutBases)
                     .addGroup(colonyPanelLayout.createSequentialGroup()
                         .addComponent(terraformEarly)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1682,10 +1679,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		mouseWheel(autoAttackShipCount, evt);
 	}//GEN-LAST:event_autoAttackShipCountMouseWheelMoved
 
-	private void autotransportXilmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportXilmiActionPerformed
+	private void autotransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportActionPerformed
 		if (isAutoApply())
 			options().setAutotransportXilmi(autotransportXilmi.isSelected());
-	}//GEN-LAST:event_autotransportXilmiActionPerformed
+	}//GEN-LAST:event_autotransportActionPerformed
 
 	private void transportMaxTurnsLabelMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_transportMaxTurnsLabelMouseWheelMoved
 		mouseWheel(transportMaxTurns, evt);
@@ -1705,10 +1702,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 			options().setAutotransportUngoverned(allowUngoverned.isSelected());
 	}//GEN-LAST:event_allowUngovernedActionPerformed
 
-	private void autotransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportActionPerformed
+	private void autotransportXilmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportXilmiActionPerformed
 		if (isAutoApply())
 			options().setAutotransport(autotransport.isSelected());
-	}//GEN-LAST:event_autotransportActionPerformed
+	}//GEN-LAST:event_autotransportXilmiActionPerformed
 
 	private void transportRichDisabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportRichDisabledActionPerformed
 		if (isAutoApply())
