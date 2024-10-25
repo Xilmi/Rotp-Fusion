@@ -62,7 +62,7 @@ WARN_GENOCIDE_01           | Dites-nous maintenant pourquoi vous avez commis un 
 WARN_FINAL_WAR_01          | Ce n'est qu'en forgeant des alliances que nous pourrons achever notre sainte croisade ! Nous sommes solidaires en tant que peuples unis, mais vous restez seul en tant que voix du chaos et de la guerre. La prophétie est en marche : vous êtes bien la progéniture de Quaralone !
 WARN_COUNCIL_VOTE_01       | Il vaudrait sûrement mieux que ce conseil soit dissous et que l'Imperium se voit confier le contrôle exclusif des affaires galactiques. Alors votre peuple pourrait gagner notre inimitié si vous vous exprimez contre nous !
 WARN_OATHBREAKER_01        | Comme c'est déconcertant, rompre sa parole, c'est rompre sa confiance. Nul doute que l'Ennemi des Prophéties oserait agir de la sorte ! [spiesCaught]
-WARN_ATTACKED_ALLY_01      | [defender_race_pluralnoun] portent l'honneur de la communion avec l'Imperium ! Tenez compte de notre avertissement en réponse à votre attaque : je vous assure que vous ne la recevrez qu'une seule fois !
+WARN_ATTACKED_ALLY_01      | [defender_race_pluralnoun] portent l'honneur de la communion avec l'Imperium ! Tenez compte de notre avertissement en réponse à votre attaque : je vous assure que vous ne le recevrez qu'une seule fois !
 WARN_REBELLING_AGAINST_01  | Notre croisade ne tardera pas ! Pas par les niais du conseil, et pas par vous ! Préparez-vous, ambassadeur : une sainte tempête va bientôt s'abattre sur vous !
 
 PRAISE_COUNCIL_VOTE_01     | Notre allié de confiance mérite à nouveau nos éloges ! A vous de dire raison au conseil, notre croisade ne faiblira jamais ! Vous avez gagné la gratitude de l'Imperium aujourd'hui, [voter_raceadjec].

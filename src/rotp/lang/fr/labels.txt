@@ -19,12 +19,12 @@
 //
 // _HELP | The help text displayed in the Guide pop up. Can use some basic HTML controls <br> <i></i> <u></u> <b></b> etc...In the absence of _HELP, _DESC will be displayed.
 // Translators can always add a _HELP label even if not present in the English file.
-// 
+//
 // SETTINGS_MOD_Parameter              | The parameter's name shown on the options panel. Try to limit their length to max 20 chars.
 //
 // SETTINGS_MOD_Parameter_DESC         | The parameter's description displayed in the two lines box at the bottom of the option panel. <br> can be used to force line split.
 //
-// SETTINGS_MOD_Parameter_HELP         | A more complete parameter's description, displayed in the Guide pop up. Can use some basic HTML controls. This label is optional and will be replaced by _DESC if missing. 
+// SETTINGS_MOD_Parameter_HELP         | A more complete parameter's description, displayed in the Guide pop up. Can use some basic HTML controls. This label is optional and will be replaced by _DESC if missing.
 //
 // Label used by parameters of the type "List"
 //
@@ -219,7 +219,7 @@ TECH_FORCE_FIELDS_LEVEL_DESC      |
 
 TECH_PLANETOLOGY_LEVEL_DESC       | En début de partie, chaque colon produit 0,5BC. À mesure que votre niveau de technologie de Planétologie augmente, leur productivité suit. L'augmentation est progressive, et atteint une valeur double au niveau 17, triple au niveau 33 et quadruple au niveau 50.
 TECH_PROPULSION_LEVEL_DESC        |
-TECH_WEAPONS_LEVEL_DESC           | Les dommages que vos espions infligent pendant les missions de sabotage augmente avec votre niveau de technologie de l'armement. Davantage d'usines et de bases de missiles seront détruites.
+TECH_WEAPONS_LEVEL_DESC           | Les dommages que vos espions infligent pendant les missions de sabotage augmentent avec votre niveau de technologie de l'armement. Davantage d'usines et de bases de missiles seront détruites.
 
 // Random Events
 EVENT_ACCIDENT                    | Un accident industriel majeur pollue la colonie [target_raceadjec] dans le système [system] avec des déchets industriels, endommageant gravement son écologie et irradiant la planète de manière permanente.
@@ -237,7 +237,7 @@ EVENT_FERTILE                     | Un changement soudain de l'axe planétaire d
 EVENT_PIRACY                      | Des pirates ont commencé à perturber le commerce global entre les systèmes [target_race_pluraladjec], réduisant les revenus commerciaux de [amt]%. Des vaisseaux armés sont nécessaires dans le système [system] pour interrompre leur base d'opérations.
 EVENT_PIRACY_2                    | Les pirates basés dans le système [system] continuent de perturber l'activité commerciale [target_race_pluralnounof], réduisant les niveaux commerciaux globaux d'environ [amt]%.
 EVENT_PIRACY_3                    | La flotte [target_raceadjecF] a détruit une opération de piratage majeure basée dans le système [system]. Dans l'ensemble, les échanges commerciaux sont revenus à leurs niveaux normaux.
-EVENT_PLAGUE                      | Une pandémie mortel frappe la colonie [target_raceadjecF] dans le système [system]. La colonie a été mise en quarantaine, et on s'attends à des millions de morts par année, jusqu'à ce que les scientifiques réussissent à trouver un remède.
+EVENT_PLAGUE                      | Une pandémie mortelle frappe la colonie [target_raceadjecF] dans le système [system]. La colonie a été mise en quarantaine, et on s'attends à des millions de morts par année, jusqu'à ce que les scientifiques réussissent à trouver un remède.
 EVENT_PLAGUE_2                    | La pandémie mortelle dans le système [system] persiste. Les scientifiques estiment qu'il faudra encore [amt] RP pour trouver un remède.
 EVENT_PLAGUE_3                    | Les scientifiques [target_race_pluraladjec] ont trouvé un remède contre la pandémie mortelle qui affligeait le système [system]. La quarantaine du système a été levée.
 EVENT_REBELLION                   | La colonie [target_raceadjecF] dans le système [system] s'est révoltée, cessant toute production planétaire. La révolte se poursuivra jusqu'à ce que la rébellion soit vaincue militairement.
@@ -1504,6 +1504,9 @@ SETUP_OPPONENT_AI_PLAYER          | IA: Arrêt
 SETUP_OPPONENT_CR                 | Capacités:
 SETUP_AUTOPLAY_OFF_HELP           | Le joueur prend le commandement de l'empire.
 SETUP_AUTOPLAY_OFF                | Désactivé
+SETUP_AUTOPLAY_AI_BASE            | AI: Base
+SETUP_AUTOPLAY_AI_MODNAR          | AI: Modnar
+SETUP_AUTOPLAY_AI_XILMI           | AI: Xilmi
 SETUP_GAME_DIFFICULTY_HELP        | La difficulté de réglage appliquera une prime ou une pénalité à la production des joueurs d'IA.<br> Avec Normale ou plus, les Monstres de l'Espace seront introduits parmi les événements aléatoires vers le milieu de la partie. Mais pour les niveaux de difficulté Faciles, Trés faciles et Trop Faciles, les Monstres de l'Espace seront retardés afin de donner aux joueurs plus de temps pour se développer.
 SETUP_GAME_DIFFICULTY_DESC        | Sélectionnez le niveau de difficulté du jeu.
 SETUP_GAME_DIFFICULTY             | Sélection des difficultés du jeu : %1
@@ -1771,6 +1774,7 @@ SETTINGS_TITLE                    | Options Avancées
 SETTINGS_DESCRIPTION              | Cliquez pour changer les paramètres.
 SETTINGS_GUIDE                    | Guide
 SETTINGS_EXIT                     | Quitter
+SETTINGS_DEFAULT                  | Valeurs par défaut
 SETTINGS_APPLY                    | Appliquer
 SETTINGS_CANCEL                   | Annuler
 SETTINGS_LOCAL_RESTORE            | Rétablir Local
@@ -1840,13 +1844,58 @@ SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI      | - Menu avancé Galaxie -
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_DESC | Ouvre un sous-menu contenant des paramètres avancés Galaxie.
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_HELP | Ouvre un sous-menu contenant les paramètres avancés de Galaxie.<br> Ces paramètres sont définitifs.<br> Ces paramètres sont enregistrés avec le jeu.
 SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | Permettre à une planète ultra-pauvre, pauvre, riche, ou ultra-riche d'avoir aussi des artefacts.
-SETTINGS_MOD_RICH_POOR_ARTIFACT      | Riche/pauvre & Artefacts: %1
+SETTINGS_MOD_RICH_POOR_ARTIFACT      | Riche / pauvre & Artefacts : %1
 SETTINGS_MOD_ARTIFACT_MULT_DESC      | Multiplicateur de probabilité de planète d'artefacts antariens.
-SETTINGS_MOD_ARTIFACT_MULT           | Multiplicateur Antarien: %1%
+SETTINGS_MOD_ARTIFACT_MULT           | Multiplicateur Antarien : %1%
 
 // modnar: add UI panel for modnar MOD game options
+SETTINGS_MOD_DYNAMIC_TITLE           | Règles et paramètres du jeu
+SETTINGS_MOD_CHALLENGE_MODE          | Mode défi : %1
 SETTINGS_MOD_CUSTOM_DIFFICULTY       | Difficulté personnalisée : %1%
-SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC  | Définit le Modificateur de Production del'IA de 20% à 500%. Assurez-vous de sélectionner "Difficulté: Personnalisé". (Presser Shift/Ctrl, puis faire défiler la molette de la souris pour changer en unités de 5%/20%.)
+SETTINGS_MOD_DYNAMIC_DIFFICULTY      | Difficulté dynamique : %1
+SETTINGS_MOD_HOME_ORION              | Planète mère avec Vestiges : %1
+SETTINGS_MOD_HOME_ARTIFACT           | Planète mère avec Artefact : %1
+SETTINGS_MOD_HOME_FERTILE            | Planète mère Fertile : %1
+SETTINGS_MOD_HOME_GAIA               | Planète mère Gaïa : %1
+SETTINGS_MOD_HOME_RICH               | Planète mère Riche : %1
+SETTINGS_MOD_HOME_ULTRA_RICH         | Planète mère Ultra-Riche : %1
+SETTINGS_MOD_CHALLENGE_MODE_DESC     | Donnez aux Empires d'IA des ressources supplémentaires au début (plus de population, de usines et de vaisseaux.)
+SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC  | Définit le Modificateur de Production de l'IA de 20 % à 500 %. Assurez-vous de sélectionner "Difficulté: Personnalisé". (Presser Shift / Ctrl, puis faire défiler la molette de la souris pour changer en unités de 5 % / 20 %.)
+SETTINGS_MOD_DYNAMIC_DIFFICULTY_DESC | Adapte la production des IA à la force du joueur. L'effet augmente vers le 150ème tour. (L'ajustement n'est pas infini. Les Empires d'IA très forts seront presque inchangés.)
+SETTINGS_MOD_HOME_ORION_DESC         | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère de type Orion avec Vestiges.
+SETTINGS_MOD_HOME_ARTIFACT_DESC      | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère avec Artefact.
+SETTINGS_MOD_HOME_FERTILE_DESC       | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère Fertile.
+SETTINGS_MOD_HOME_GAIA_DESC          | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère Gaïa.
+SETTINGS_MOD_HOME_RICH_DESC          | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère Riche.
+SETTINGS_MOD_HOME_ULTRA_RICH_DESC    | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère Ultra-Riche.
+SETTINGS_MOD_POP_GROWTH              | Croissance démographique : %1
+SETTINGS_MOD_POP_GROWTH_DESC         | L'objectif de ce nouveau cadre est de faire de la population une ressource plus précieuse. Perdre des colons et les transporter en masse aura des coûts plus élevés pour votre économie. Il ralentira les conquêtes par transports et le développement des mondes nouvellement conquis. Il peut y avoir un méta différent. <br> - Réduit la croissance naturelle de la population de 0,5x<br> - Augmente le coût d'achat des colons avec le curseur ECO de 2x <br> - Ajoute un plafond maximal sur la quantité de colons que vous pouvez acheter par tour, proportionnellement à la taille de la planète. Le plafond de dépenses est initialement fixé à 2,5 % de la taille de la planète et augmente avec les technologies de clonage. <br> Le plafond d'achat de la population en particulier affecte principalement les colonies très développées du milieu à la fin de la partie. Cela signifie que les colonies ne peuvent pas regénérer instantanément leur population après avoir envoyé des transports.
+SETTINGS_MOD_POP_GROWTH_HELP         | Détermine la vitesse de croissance démographique et la rapidité d'achat de colons
+SETTINGS_MOD_POP_GROWTH_NORMAL       | Normale
+SETTINGS_MOD_POP_GROWTH_NORMAL_DESC  | Croissance normale
+SETTINGS_MOD_POP_GROWTH_REDUCED      | Réduite
+SETTINGS_MOD_POP_GROWTH_REDUCED_DESC | Croissance demographique à 50 %, coût d'achat doublé, achat colons plafonné à une valeur égale à la taille maximale de la colonie
+SETTINGS_MOD_OPTION_NEVER                | Jamais
+SETTINGS_MOD_OPTION_AUTO                 | Auto.
+SETTINGS_MOD_OPTION_ALWAYS               | Toujours
+SETTINGS_MOD_OPTION_NEVER_NEVER_DESC     | Jamais ni pour le joueur, ni pour l'IA.
+SETTINGS_MOD_OPTION_NEVER_NEVER          | Jamais / Jamais
+SETTINGS_MOD_OPTION_NEVER_AUTO_DESC      | Jamais pour le joueur, valeur par défaut pour l'IA.
+SETTINGS_MOD_OPTION_NEVER_AUTO           | Jamais / Auto.
+SETTINGS_MOD_OPTION_NEVER_ALWAYS_DESC    | Jamais pour le joueur, toujours pour l'IA.
+SETTINGS_MOD_OPTION_NEVER_ALWAYS         | Jamais / Toujours
+SETTINGS_MOD_OPTION_AUTO_NEVER_DESC      | Valeur par défaut pour le joueur, jamais pour l'IA.
+SETTINGS_MOD_OPTION_AUTO_NEVER           | Auto. / Jamais
+SETTINGS_MOD_OPTION_AUTO_AUTO_DESC       | Valeur par défaut pour le joueur et l'IA.
+SETTINGS_MOD_OPTION_AUTO_AUTO            | Auto. / Auto.
+SETTINGS_MOD_OPTION_AUTO_ALWAYS_DESC     | Valeur par défaut pour le joueur, toujours pour l'IA.
+SETTINGS_MOD_OPTION_AUTO_ALWAYS          | Auto / Toujours
+SETTINGS_MOD_OPTION_ALWAYS_NEVER_DESC    | Toujours pour le joueur, jamais pour l'IA.
+SETTINGS_MOD_OPTION_ALWAYS_NEVER         | Toujours / Jamais
+SETTINGS_MOD_OPTION_ALWAYS_AUTO_DESC     | Toujours pour le joueur, valeur par défaut pour l'IA.
+SETTINGS_MOD_OPTION_ALWAYS_AUTO          | Toujours / Auto.
+SETTINGS_MOD_OPTION_ALWAYS_ALWAYS_DESC   | Toujours pour le joueur et l'IA.
+SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Toujours / Toujours
 TECH_HEAD_HK                             | Inclure ou exclure la Technologie
 TECH_END_HK                              | dans l'arbre technique pour joueur/IA.
 TECH_VAL_HK                              | Inclure {Toujours, Jamais, Auto}
@@ -1855,6 +1904,14 @@ TECH_LEVEL_HK                            | Cette technologie pourrait être disp
 FR_MISSILES_DESC_HK                      | Les bases sont équipées des meilleurs boucliers ainsi que des meilleurs missiles (si > 0)
 FR_USINES_DESC_HK                        | La planète a achevé de construire ses usines (ou presque)
 FR_POPULATION_DESC_HK                    | La population est à son maximum (ou presque) + La planète est entèrement terraformée + Aucuns déchets (si affecté par les déchets)
+SETTINGS_MOD_OPTIONS_DEFAULT             | Paramètres par défaut
+SETTINGS_MOD_OPTIONS_LAST                | Dernière configuration de l'interface graphique
+SETTINGS_MOD_OPTIONS_GAME                | Paramètres du jeu
+SETTINGS_MOD_OPTIONS_USER                | Paramètres de l'utilisateur
+SETTINGS_MOD_OPTIONS_DEFAULT_HELP        | Les options seront réinitialisées à leurs valeurs par défaut.
+SETTINGS_MOD_OPTIONS_LAST_HELP           | Les options seront celles utilisées lorsque ROTP a été fermé la dernière fois.
+SETTINGS_MOD_OPTIONS_GAME_HELP           | Les options seront celles du dernier jeu joué.
+SETTINGS_MOD_OPTIONS_USER_HELP           | Les options seront les préférences sauvées par l'utilisateur.
 SETTINGS_MOD_DEVELOPED_DEFINITION_DESC   | Quels sont les critères à appliquer lorsque "→PLANETS_RESERVE_ONLY_DEVELOPED←" est sélectionné?
 SETTINGS_MOD_DEVELOPED_DEFINITION        | Developpé = %1
 SETTINGS_MOD_DEVELOPED_ALL_DESC          | →FR_MISSILES_DESC_HK← + →FR_USINES_DESC_HK← + →FR_POPULATION_DESC_HK←.
@@ -1864,7 +1921,7 @@ SETTINGS_MOD_DEVELOPED_NO_BASE           | {→MAIN_COLONY_INDUSTRY←, →MAIN_
 SETTINGS_MOD_DEVELOPED_INDUSTRY_DESC     | →FR_USINES_DESC_HK←.
 SETTINGS_MOD_DEVELOPED_INDUSTRY          | {→MAIN_COLONY_INDUSTRY←}
 
-SETTINGS_MOD_DEV_MAX_MISSING_POP_DESC    | Quel est le nombre maximum d'habitants manquants pour obtenir le status de « colonie développée » et que le fisc fasse son office.<br>Le gouverneur peut envoyer une partie de la population des colonies déjà développées pour aider à peupler les nouvelles. Cela ne dispense pas le payement des impôts.
+SETTINGS_MOD_DEV_MAX_MISSING_POP_DESC    | Quel est le nombre maximum d'habitants manquants pour obtenir le status de « colonie développée » et que le fisc fasse son office.<br>Le gouverneur peut envoyer une partie de la population des colonies déjà développées pour aider à peupler les nouvelles. Cela ne dispense pas le paiement des impôts.
 SETTINGS_MOD_DEV_MAX_MISSING_POP         | Pop manquante <= %1
 
 SETTINGS_MOD_DEV_MAX_MISSING_FACT_DESC   | Quel est le nombre maximum d'usines manquantes pour obtenir le status de « colonie développée » et que le fisc fasse son office.<br>Une colonie pleinement développée pourrait être la cible d'une mission d'espionnage détruisant quelques usines, sans que ce soit une excuse pour ne pas de payer leurs impôts.
@@ -1881,8 +1938,18 @@ SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO       | Désactivé
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST_DESC | Conservera le dernier paramètre de colonie.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Dernier
 
-
 CHAIN_RALLY_SPEED_HK                     | Vitesse des ralliements en chaîne
+
+SETTINGS_MOD_DARK_GALAXY_NO_DESC         | Désactivé; tous les systèmes de la Galaxie apparaissent sur la carte.
+SETTINGS_MOD_DARK_GALAXY_NO              | Non
+SETTINGS_MOD_DARK_GALAXY_SPY_DESC        | L'espionnage peut donner quelques informations sur les systèmes des empire contactés mais hors de portée.
+SETTINGS_MOD_DARK_GALAXY_SPY             | Vue Espion
+SETTINGS_MOD_DARK_GALAXY_NO_SPY_DESC     | Se rappeler des noms et emplacements des Empires, pas de mémoire des systèmes explorés.
+SETTINGS_MOD_DARK_GALAXY_NO_SPY          | Nommé
+SETTINGS_MOD_DARK_GALAXY_SHRINK_DESC     | Ne montre que les systèmes à portée, pas d'espion, pas de mémoire des systèmes explorés.
+SETTINGS_MOD_DARK_GALAXY_SHRINK          | Vue Brouillée
+SETTINGS_MOD_DARK_GALAXY_DESC            | Seuls les systèmes aux alentours sont montrés.
+SETTINGS_MOD_DARK_GALAXY                 | Brouillard de Guerre : %1
 
 // Tech UI labels
 TECH_RESEARCH                     | Technologies Recherchées
@@ -2318,6 +2385,7 @@ RACES_INTEL_BUREAU_DESC           | Affectez vos espions pour voler de la techno
 RACES_INTEL_BUREAU_SPIES          | Total d'espions
 RACES_INTEL_BUREAU_MANAGE         | Gérer les espions
 RACES_INTEL_BUREAU_SPENDING       | Dépenses totales
+RACES_INTEL_SPY_EFFICIENCY        | Bonus d'espionnage
 RACES_INTEL_SPY_ORDERS            | Ordres d'espionnage
 RACES_INTEL_SPY_ORDERS_DESC       | Affectez vos espions à se dissimuler pour voler des secrets ou saboter des colonies [alien_race_pluraladjecF]. Plus votre réseau d'espionnage sera grand, plus vous aurez de chances de réussite à chaque tour, pour autant qu'aucun de vos espions ne soit capturé et n'avoue.
 RACES_INTEL_SPY_WARNING           | Si elle est découverte, cette mission rompra notre traité avec [alien_race_pluraladjec].
