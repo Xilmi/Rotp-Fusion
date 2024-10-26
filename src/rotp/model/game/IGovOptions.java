@@ -26,8 +26,8 @@ public interface IGovOptions {
 	int GOV_RESET		= 2;
 	
 	// AutoTransport Options
-	ParamBoolean autoTransport		= new ParamBoolean(GOV_UI, "AUTO_TRANSPORT", false);
-	ParamBoolean autotransportAtMax	= new ParamBoolean(GOV_UI, "TRANSPORT_XILMI", false);
+	ParamBoolean autoTransportAI	= new ParamBoolean(GOV_UI, "AUTO_TRANSPORT", false);
+	ParamBoolean autotransportGov	= new ParamBoolean(GOV_UI, "AUTOTRANSPORT_GOV", false);
 	ParamBoolean autotransportAll	= new ParamBoolean(GOV_UI, "TRANSPORT_UNGOVERNED", false);
 	ParamBoolean transportNoRich	= new ParamBoolean(GOV_UI, "TRANSPORT_RICH_OFF", true);
 	ParamBoolean transportPoorX2	= new ParamBoolean(GOV_UI, "TRANSPORT_POOR_DBL", true);
@@ -114,7 +114,7 @@ public interface IGovOptions {
 		SafeListPanel map = new SafeListPanel();
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle(GOV_UI + "TRANSPORT_OPTIONS"),
-				autoTransport, autotransportAtMax, autotransportAll,
+				autoTransportAI, autotransportGov, autotransportAll,
 				transportNoRich, transportPoorX2, transportMaxDist,
 
 				headerSpacer,

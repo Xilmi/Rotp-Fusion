@@ -1826,7 +1826,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 //            balanceEcoAndInd(1, buildingShips, true);
 
         // Leave some room for normal population growth if we're auto transporting
-        if (session().getGovernorOptions().isAutotransport())
+        if (session().getGovernorOptions().isAutotransportAI())
             balanceEcoAndInd(1 - Math.max(normalPopGrowth(), 3) / maxSize(), buildingShips, false);
         else
             balanceEcoAndInd(1, buildingShips, false);

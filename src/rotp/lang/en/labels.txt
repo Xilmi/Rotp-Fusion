@@ -4461,7 +4461,7 @@ GAME_OVER_NO_COLONIES_LOSS2       | The rule of %2 has ended, undone by imperial
 //
 // ===== BR: Governor labels =====
 //
-HEADERS_GOVERNOR_SETUP_MENU_DESC  | To define the Governor options outside of the Game
+HEADERS_GOVERNOR_SETUP_MENU_DESC  | To set governor options before starting the game.
 HEADERS_GOVERNOR_SETUP_MENU       | ~~~ SETUP GOVERNOR ~~~%1
 GOVERNOR_SETUP_TITLE              | Governor Setup Panel
 GOVERNOR_SETUP_MENU_DESC          | Open Sub Menu to access Governor Options Setup.
@@ -4469,11 +4469,12 @@ GOVERNOR_SETUP_MENU               | - Governor Menu -
 
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | Auto Transport Options.
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ AUTO-TRANSPORT OPTIONS ~~~%1
-GOVERNOR_AUTO_TRANSPORT_HELP        | Let AI handle population transportation.<br>Colonies will receive population from more populated colonies, up to maximum transport distance.<br>Disabling this option will not disable the "From Max Prod" option.
-GOVERNOR_AUTO_TRANSPORT_DESC        | Let The AI handle population transportation. (To help populate new colonies)
-GOVERNOR_AUTO_TRANSPORT             | Auto Transport: %1
-GOVERNOR_TRANSPORT_XILMI_DESC       | Population automatically transported from colonies at max production capacity. (This even if "Auto Transport" is disabled)
-GOVERNOR_TRANSPORT_XILMI            | From Max Prod: %1
+GOVERNOR_AUTO_TRANSPORT_HELP        | The AI ​​handles population transport (To help populate new colonies).<br>Many colonies will contribute small transports.<br>The population will then regenerate naturally.<br>This automation is dominant, being the first to be activated.<br>Both transport automation options can be activated independently of each other.
+GOVERNOR_AUTO_TRANSPORT_DESC        | AI handles population transportation. (To help populate new colonies)<br>Many colonies will contribute with small transports.
+GOVERNOR_AUTO_TRANSPORT             | AI Autotransport: %1
+GOVERNOR_AUTOTRANSPORT_GOV_HELP     | Original Governor's Automated Transport.<br>Population is automatically transported from colonies with a population close to the maximum size.<br>Has little impact when both transport automation options are enabled.
+GOVERNOR_AUTOTRANSPORT_GOV_DESC     | Original Governor Automated Transport.<br>Population is automatically transported from colonies with a population close to the maximum size.
+GOVERNOR_AUTOTRANSPORT_GOV          | Gov Autotransport: %1
 GOVERNOR_TRANSPORT_UNGOVERNED_DESC  | Allow sending population from ungoverned colonies.
 GOVERNOR_TRANSPORT_UNGOVERNED       | From Ungoverned: %1
 GOVERNOR_TRANSPORT_RICH_OFF_DESC    | Don't send from Rich/Artifacts planets.

@@ -1514,9 +1514,9 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (isAIControlled()) {
             return;
         }
-        if(options.isAutotransportXilmi())
+        if(options.isAutotransportGovernor())
             ai.sendTransports();
-        if(!options.isAutotransport())
+        if(!options.isAutotransportAI())
             return;
 
         List<Colony> colonies = new LinkedList<>();

@@ -2630,6 +2630,27 @@ GAME_OVER_REPLAY                  | Rejouer
 // %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 special text
 GAME_OVER_NO_COLONIES_LOSS2       | Le règne de %2 a pris fin, ruiné par l'incompétence impériale.#En l'absence de mondes civilisés sur lesquels atterrir en toute sécurité, les transports [player_race_pluraladjec] survivants sont incapables de soutenir les progrès technologiques réalisés par votre société.#La barbarie étant l'état naturel des sociétés, la civilisation n'est pas naturelle. C'est un caprice des circonstances. Et la barbarie doit finalement triompher.
 
+//
+// ===== BR: Governor labels =====
+//
+HEADERS_GOVERNOR_SETUP_MENU_DESC  | Pour définir les options du gouverneur avant de commencer la partie.
+HEADERS_GOVERNOR_SETUP_MENU       | ~~~ MANDAT DU GOUVERNEUR ~~~%1
+GOVERNOR_SETUP_TITLE              | Mandat du Gouverneur
+GOVERNOR_SETUP_MENU_DESC          | Ouvre le sous-menu de configuration du mandat du gouverneur.
+GOVERNOR_SETUP_MENU               | - Options du Gouverneur -
+
+
+HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | Paramètres de transport automatisé.
+HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ TRANSPORT AUTOMATISÉ ~~~%1
+GOVERNOR_AUTO_TRANSPORT_HELP        | L'IA gére le transport de la population (Pour aider à peupler de nouvelles colonies).<br>De nombreuses colonies contribueront avec des transports de faible taille.<br>La population se régénérera ensuite naturellement.<br>Cette automatisation est dominante, étant la première à être activée.<br>Les deux options d’automatisation du transport peuvent être activées indépendamment l’une de l’autre.
+GOVERNOR_AUTO_TRANSPORT_DESC        | L'IA gére le transport de la population. (Pour aider à peupler de nouvelles colonies)<br>De nombreuses colonies contribueront avec des transports de faible taille.
+GOVERNOR_AUTO_TRANSPORT             | Auto Transport IA: %1
+GOVERNOR_AUTOTRANSPORT_GOV_HELP     | Transport automatisé du gouverneur original.<br>La population est automatiquement transportée depuis les colonies ayant une population proche de la taille maximale.<br>N'a que peu d'impact lorsque les deux options d’automatisation du transport sont activées.
+GOVERNOR_AUTOTRANSPORT_GOV_DESC     | Transport automatisé du gouverneur original.<br>La population est automatiquement transportée depuis les colonies ayant une population proche de la taille maximale.
+GOVERNOR_AUTOTRANSPORT_GOV          | Auto Transport Gov: %1
+
+
+
 // Shortcuts / Hotkeys list  (use cross-references →←) →HK_←
 // Shortcuts Cross referenced
 HK_HEADER      | Raccourcis clavier : (Disponible en cliquant Aide avec le bouton droit)<br>→HK_SHIFT_F1←

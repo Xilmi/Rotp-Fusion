@@ -601,8 +601,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		autoApplyToggleButton.setToolTipText(options.autoApplyTT());
 		
 		// AutoTransport Options
-		autotransport.setToolTipText(options.autotransportTT());
-		autotransportXilmi.setToolTipText(options.autotransportXilmiTT());
+		autotransportAI.setToolTipText(options.autotransportAITT());
+		autotransportGovernor.setToolTipText(options.autotransportGovernorTT());
 		allowUngoverned.setToolTipText(options.autotransportUngovernedTT());
 		transportMaxTurns.setToolTipText(options.transportMaxTurnsTT());
 		transportRichDisabled.setToolTipText(options.transportRichDisabledTT());
@@ -649,8 +649,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		this.autoApplyToggleButton.setSelected(isAutoApply());
 		
 		// AutoTransport Options
-		this.autotransport.setSelected(options.isAutotransport());
-		this.autotransportXilmi.setSelected(options.isAutotransportXilmi());
+		this.autotransportAI.setSelected(options.isAutotransportAI());
+		this.autotransportGovernor.setSelected(options.isAutotransportGovernor());
 		this.allowUngoverned.setSelected(options.isAutotransportUngoverned());
 		this.transportMaxTurns.setValue(options.getTransportMaxTurns());
 		this.transportRichDisabled.setSelected(options.isTransportRichDisabled());
@@ -703,8 +703,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		GovernorOptions options = options();
 		
 		// AutoTransport Options
-		options.setAutotransport(autotransport.isSelected());
-		options.setAutotransportXilmi(autotransportXilmi.isSelected());
+		options.setAutotransportAI(autotransportAI.isSelected());
+		options.setAutotransportGovernor(autotransportGovernor.isSelected());
 		options.setAutotransportUngoverned(allowUngoverned.isSelected());
 		options.setTransportMaxTurns((Integer)transportMaxTurns.getValue());
 		options.setTransportRichDisabled(transportRichDisabled.isSelected());
@@ -803,13 +803,13 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
         stargateOptions = new javax.swing.ButtonGroup();
         governorDefault = new javax.swing.JCheckBox();
         javax.swing.JPanel autotransportPanel = new javax.swing.JPanel();
-        autotransportXilmi = new javax.swing.JCheckBox();
+        autotransportGovernor = new javax.swing.JCheckBox();
         transportMaxTurns = new GovernorJSpinner();
         javax.swing.JLabel transportMaxTurnsLabel = new javax.swing.JLabel();
         javax.swing.JLabel transportMaxTurnsNebula = new javax.swing.JLabel();
         transportRichDisabled = new javax.swing.JCheckBox();
         transportPoorDouble = new javax.swing.JCheckBox();
-        autotransport = new javax.swing.JCheckBox();
+        autotransportAI = new javax.swing.JCheckBox();
         allowUngoverned = new javax.swing.JCheckBox();
         allGovernorsOn = new javax.swing.JButton();
         allGovernorsOff = new javax.swing.JButton();
@@ -868,12 +868,12 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 
         autotransportPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Autotransport Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13))); // NOI18N
 
-        autotransportXilmi.setText("Population automatically transported from colonies at max production capacity");
-        autotransportXilmi.setMinimumSize(new java.awt.Dimension(0, 0));
-        autotransportXilmi.addActionListener(new java.awt.event.ActionListener() {
+        autotransportGovernor.setText("Population automatically transported from colonies close to max population capacity");
+        autotransportGovernor.setMinimumSize(new java.awt.Dimension(0, 0));
+        autotransportGovernor.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autotransportXilmiActionPerformed(evt);
+                autotransportGovernorActionPerformed(evt);
             }
         });
 
@@ -917,11 +917,11 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
             }
         });
 
-        autotransport.setText("Let AI handle population transportation");
-        autotransport.addActionListener(new java.awt.event.ActionListener() {
+        autotransportAI.setText("Let AI handle population transportation (Xilmi AI)");
+        autotransportAI.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autotransportActionPerformed(evt);
+                autotransportAIActionPerformed(evt);
             }
         });
 
@@ -946,20 +946,20 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
                         .addComponent(transportMaxTurns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(transportMaxTurnsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(autotransport)
+                    .addComponent(autotransportAI)
                     .addComponent(allowUngoverned)
-                    .addComponent(autotransportXilmi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(autotransportGovernor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(transportRichDisabled))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         autotransportPanelLayout.setVerticalGroup(
             autotransportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(autotransportPanelLayout.createSequentialGroup()
-                .addComponent(autotransport)
+                .addComponent(autotransportAI)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(allowUngoverned)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autotransportXilmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(autotransportGovernor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(autotransportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(transportMaxTurns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1679,10 +1679,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		mouseWheel(autoAttackShipCount, evt);
 	}//GEN-LAST:event_autoAttackShipCountMouseWheelMoved
 
-	private void autotransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportActionPerformed
+	private void autotransportAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportAIActionPerformed
 		if (isAutoApply())
-			options().setAutotransportXilmi(autotransportXilmi.isSelected());
-	}//GEN-LAST:event_autotransportActionPerformed
+			options().setAutotransportGovernor(autotransportAI.isSelected());
+	}//GEN-LAST:event_autotransportAIActionPerformed
 
 	private void transportMaxTurnsLabelMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_transportMaxTurnsLabelMouseWheelMoved
 		mouseWheel(transportMaxTurns, evt);
@@ -1702,10 +1702,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 			options().setAutotransportUngoverned(allowUngoverned.isSelected());
 	}//GEN-LAST:event_allowUngovernedActionPerformed
 
-	private void autotransportXilmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportXilmiActionPerformed
+	private void autotransportGovernorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportGovernorActionPerformed
 		if (isAutoApply())
-			options().setAutotransport(autotransport.isSelected());
-	}//GEN-LAST:event_autotransportXilmiActionPerformed
+			options().setAutotransportAI(autotransportAI.isSelected());
+	}//GEN-LAST:event_autotransportGovernorActionPerformed
 
 	private void transportRichDisabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportRichDisabledActionPerformed
 		if (isAutoApply())
@@ -1908,8 +1908,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
     javax.swing.JLabel autoScoutShipCountLabel;
     javax.swing.JCheckBox autoSpy;
     javax.swing.JCheckBox autospend;
-    javax.swing.JCheckBox autotransport;
-    javax.swing.JCheckBox autotransportXilmi;
+    javax.swing.JCheckBox autotransportAI;
+    javax.swing.JCheckBox autotransportGovernor;
     javax.swing.JLabel brightnessLabel;
     javax.swing.JSpinner brightnessPct;
     javax.swing.JButton cancelButton;

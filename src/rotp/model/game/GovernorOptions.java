@@ -60,8 +60,8 @@ public class GovernorOptions implements Serializable, IGovOptions {
 //	private int autoAttackShipCount = 1;
 	private boolean governorOnByDefault		= isGovernorOnByDefault();
 	private boolean legacyGrowthMode		= legacyGrowthMode();
-	private boolean autotransport			= isAutotransport();
-	private boolean autotransportXilmi		= isAutotransportXilmi();
+	private boolean autotransport			= isAutotransportAI();
+	private boolean autotransportXilmi		= isAutotransportGovernor();
 	private boolean autotransportUngoverned	= isAutotransportUngoverned();
 	private GatesGovernor gates				= getGates();
 
@@ -119,8 +119,8 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public void gameLoaded()  {
 		// System.out.println("autoShipsByDefault = " + autoShipsByDefault);
 		if (autoShipsByDefault) {
-			autoTransport.silentSet(autotransport);
-			autotransportAtMax.silentSet(autotransportXilmi);
+			autoTransportAI.silentSet(autotransport);
+			autotransportGov.silentSet(autotransportXilmi);
 			autotransportAll.silentSet(autotransportUngoverned);
 			transportNoRich.silentSet(transportRichDisabled);
 			transportPoorX2.silentSet(transportPoorDouble);
@@ -210,13 +210,13 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public void setGovernorOnByDefault(boolean b)	{ governorByDefault.silentSet(b); }
 	public String governorOnByDefaultTT()			{ return governorByDefault.govTooltips(); }
 
-	public boolean	isAutotransport()				{ return autoTransport.get(); }
-	public void		setAutotransport(boolean b)		{ autoTransport.silentSet(b); }
-	public String	autotransportTT()				{ return autoTransport.govTooltips(); }
+	public boolean	isAutotransportAI()				{ return autoTransportAI.get(); }
+	public void		setAutotransportAI(boolean b)	{ autoTransportAI.silentSet(b); }
+	public String	autotransportAITT()				{ return autoTransportAI.govTooltips(); }
 
-	public boolean	isAutotransportXilmi()			{ return autotransportAtMax.get(); }
-	public void		setAutotransportXilmi(boolean b){ autotransportAtMax.silentSet(b); }
-	public String	autotransportXilmiTT()			{ return autotransportAtMax.govTooltips(); }
+	public boolean	isAutotransportGovernor()		{ return autotransportGov.get(); }
+	public void	setAutotransportGovernor(boolean b)	{ autotransportGov.silentSet(b); }
+	public String	autotransportGovernorTT()		{ return autotransportGov.govTooltips(); }
 
 	public boolean	isAutotransportUngoverned()		{ return autotransportAll.get(); }
 	public void	setAutotransportUngoverned(boolean b)	{ autotransportAll.silentSet(b); }

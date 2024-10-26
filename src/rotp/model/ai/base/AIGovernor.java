@@ -91,7 +91,7 @@ public class AIGovernor implements Base, Governor {
         }
         if (col.ecology().populationGrowthCompletedThisTurn()) {
             // disable colony at max pop message if governor is on and we are using auto transport
-            if (!col.isGovernor() || !govOptions().isAutotransport()) {
+            if (!col.isGovernor() || !govOptions().isAutotransportAI()) {
                 session().addSystemToAllocate(sys, text("MAIN_ALLOCATE_MAX_POPULATION", name, (int) col.maxSize()));
             }
         }
