@@ -197,7 +197,7 @@ public class BaseText implements Base {
         else
             return enabledC;
     }
-    private String displayText() {
+    public String displayText() {
         if (hovered && (hoverText != null))
             return hoverText;
         else

@@ -457,6 +457,12 @@ GAME_VERSION                      | Version: %1
 GAME_SHRINK                       | Rétrécir -
 GAME_ENLARGE                      | Élargir
 GAME_MENU_REPLAY_LAST_TURN        | Rejouer le tour
+GAME_MENU_CHECK_FOR_UPDATE        | Cliquez pour vérifier si une nouvelle version est disponible sur Github (Xilmi & BrokenRegistry).<br>Les liens vers les versions plus à jours seront affichés.
+GAME_MENU_NO_NEW_VERSION          | Il n'y a pas de nouvelle version disponible.
+GAME_MENU_GOT_NEW_VERSION         | Une nouvelle version est disponible.
+GAME_MENU_LAST_VERSION            | Une nouvelle version est disponible.<br>Il s'agit de la version la plus récente.
+GAME_MENU_NEWER_VERSION           | Une nouvelle version est disponible.<br>Ce n'est pas la version la plus récente, mais elle est plus récente que celle en cours d'exécution.
+GAME_MENU_GITHUB_REPOSITORY       | Github Repository: %1
 
 // Game Settings UI
 GAME_SETTINGS_TITLE               | Paramètres de Jeu

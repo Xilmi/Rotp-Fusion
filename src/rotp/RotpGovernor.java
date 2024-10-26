@@ -34,11 +34,14 @@ public class RotpGovernor {
     public static boolean GRAALVM_NATIVE = System.getProperty("org.graalvm.nativeimage.imagecode") != null;
     private static String governorVersion = null;
     private static String governorModId = null;
+    private static String governorBuildTime = null;
+    private static String governorRepName = null;
 
     public static String governorVersion() {
         if (governorVersion == null) {
             try {
                 governorVersion = readVersion("version");
+            	//System.out.println("governorVersion: " + governorVersion);
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e.getMessage(), e);
@@ -50,12 +53,37 @@ public class RotpGovernor {
         if (governorModId == null) {
             try {
             	governorModId = readVersion("modId");
+            	//System.out.println("governorModId: " + governorModId);
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e.getMessage(), e);
             }
         }
         return governorModId;
+    }
+    public static String governorBuildTime() {
+        if (governorBuildTime == null) {
+            try {
+            	governorBuildTime = readBuild("current.time");
+            	//System.out.println("governorBuildTime: " + governorBuildTime);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
+            }
+        }
+        return governorBuildTime;
+    }
+    public static String governorRepName() {
+        if (governorRepName == null) {
+            try {
+            	governorRepName = readBuild("repFullName");
+            	//System.out.println("governorRepName: " + governorRepName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
+            }
+        }
+        return governorRepName;
     }
 
     // minified versions will use WebP images and Ogg sounds.
@@ -134,6 +162,16 @@ public class RotpGovernor {
         Rotp.main(args);
     }
 
+    private static String readBuild(String key) throws IOException {
+        try (InputStream is = RotpGovernor.class.getResourceAsStream("/build.properties")) {
+            if (is == null) {
+                throw new FileNotFoundException("Unable to find rotp-version.properties");
+            }
+            Properties properties = new Properties();
+            properties.load(is);
+            return properties.getProperty(key);
+        }
+    }
     private static String readVersion(String key) throws IOException {
         try (InputStream is = RotpGovernor.class.getResourceAsStream("/rotp-version.properties")) {
             if (is == null) {
@@ -144,7 +182,6 @@ public class RotpGovernor {
             return properties.getProperty(key);
         }
     }
-
     private static boolean readMini() throws IOException {
         try (InputStream is = RotpGovernor.class.getResourceAsStream("/rotp-mini.properties")) {
             if (is == null) {

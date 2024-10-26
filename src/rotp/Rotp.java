@@ -47,8 +47,10 @@ import rotp.util.Rand;
 
 public class Rotp {
     private static final int MB = 1048576;
-    public static final String version = RotpGovernor.governorVersion();
-    public static final String modId = RotpGovernor.governorModId();
+    public static final String version   = RotpGovernor.governorVersion();
+    public static final String modId     = RotpGovernor.governorModId();
+    public static final String buildTime = RotpGovernor.governorBuildTime();
+    public static final String repName   = RotpGovernor.governorRepName();
     public static final int IMG_W = 1229;
     public static final int IMG_H = 768;
     public static boolean noOptions = true; // BR: Options are not ready to be called

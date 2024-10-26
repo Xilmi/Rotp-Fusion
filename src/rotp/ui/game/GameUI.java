@@ -41,7 +41,9 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.border.Border;
@@ -104,6 +106,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     private static final Color[] loadHoverBackgroundColor = { new Color(219,167,122), new Color(160,172,170) };
     private static final Color[] loadListMask = { new Color(0,0,0,120), new Color(0,0,0,120) };
     private static final Color[] sortLabelBackColor = { new Color(100,70,50), new Color(59,66,65) };
+    private static final String checkLinkXilmi = "https://github.com/Xilmi/Rotp-Fusion/releases/latest/";
+    private static final String checkLinkBR = "https://github.com/BrokenRegistry/Rotp-Fusion/releases/latest/";
     private static LinearGradientPaint[] loadBackground;
     private static LinearGradientPaint[] raceLeftBackground;
     private static LinearGradientPaint[] raceRightBackground;
@@ -127,6 +131,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     BaseText versionText, manualText;
     BaseText developerText, artistText, graphicDsnrText, writerText, soundText, translatorText, slideshowText;
     BaseText shrinkText, enlargeText;
+    BaseText lastVersionText, newVersionText;
     BaseText hoverBox;
     Rectangle languageBox = new Rectangle();
     boolean mouseDepressed = false;
@@ -142,6 +147,10 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     int animationTimer = BG_DURATION;
     private final GameLanguagePane languagePanel;
     float slideshowFade = SLIDESHOW_MAX;
+    private boolean showLastUpdatedLink = false;
+    private boolean showNewUpdatedLink  = false;
+    private boolean checkedForUpdate    = false;
+    private long currentVersion, brVersion, xilmiVersion;
 
     public static void  colorSet(int set)		  { colorSet = set; }
     public static Color langShade()               { return langShade[opt()]; }
@@ -189,7 +198,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         Color[] colors0 = {edge0, mid0,  mid0, edge0 };
         return new LinearGradientPaint(start, end, dist, colors0);
   }
-   public static LinearGradientPaint loadBackground() {
+    public static LinearGradientPaint loadBackground() {
         if (loadBackground == null) {
             loadBackground = new LinearGradientPaint[2];
             Point2D start = new Point2D.Float(RotPUI.scaledSize(350), 0);
@@ -381,7 +390,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         "SakCouncil", "SakWin", "SakLoss", "SakSab01", "SakSab02",
         "SilCouncil", "SilWin", "SilLoss", "SilSab01", "SilSab02",
          };
-    public Image background() { return backImg; }
+    private Image background() { return backImg; }
     public static int opt()   { return colorSet; }
 
     public GameUI() {
@@ -393,12 +402,11 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         imageKey2 = random(backImgKeys);
         while (imageKey1.equals(imageKey2))
             imageKey2 = random(backImgKeys);
-        Color enabledC = menuEnabled[0];
-        Color disabledC = menuDisabled[0];
-        Color hoverC = logoFore[1];
+        Color enabledC   = menuEnabled[0];
+        Color disabledC  = menuDisabled[0];
+        Color hoverC     = logoFore[1];
         Color depressedC = menuDepressed[1];
-        Color shadedC = menuShade[1];
-        
+        Color shadedC    = menuShade[1];
         // int w = getWidth();
         shrinkText      = new BaseText(this, false,20,   10,24,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
         enlargeText     = new BaseText(this, false,20,    0,24,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
@@ -420,6 +428,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         soundText       = new BaseText(this, false,16, -210,-27,  enabledC,  enabledC, hoverC, depressedC, Color.black, 1, 1, 1);
         translatorText  = new BaseText(this, false,16, -210,-10,  enabledC,  enabledC, hoverC, depressedC, Color.black, 1, 1, 1);
         slideshowText   = new BaseText(this, false,16, -210,-10,  enabledC,  enabledC, hoverC, depressedC, Color.black, 1, 1, 1);
+        lastVersionText = new BaseText(this, false,15,   5, -75,  enabledC,  enabledC, hoverC, depressedC, Color.black, 1, 0, 1);
+        newVersionText  = new BaseText(this, false,15,   5, -55,  enabledC,  enabledC, hoverC, depressedC, Color.black, 1, 0, 1);
 
         developerText.disabled(true);
         artistText.disabled(true);
@@ -428,7 +438,9 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         soundText.disabled(true);
         translatorText.disabled(true);
         slideshowText.disabled(true);
-        versionText.disabled(true);
+        versionText.disabled(false);
+        lastVersionText.disabled(false);
+        newVersionText.disabled(false);
         developerText.bordered(true);
         artistText.bordered(true);
         graphicDsnrText.bordered(true);
@@ -437,6 +449,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         translatorText.bordered(true);
         slideshowText.bordered(true);
         versionText.bordered(true);
+        lastVersionText.bordered(true);
+        newVersionText.bordered(true);
         discussText.bordered(true);
         shrinkText.bordered(true);
         enlargeText.bordered(true);
@@ -532,8 +546,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     public boolean drawMemory()      { return true; }
     @Override
     public String ambienceSoundKey() { return canContinue() ? super.ambienceSoundKey() : AMBIENCE_KEY; }
-    @Override
-    public void paintComponent(Graphics g0) {
+    @Override public void paintComponent(Graphics g0) {
         super.paintComponent(g0);
         Graphics2D g = (Graphics2D) g0;
         int w = getWidth();
@@ -673,8 +686,13 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             exitText.disabled(!canExit());
             exitText.drawCentered(g);
         }
+        // draw Shrink/Enlarge at top Right
+        shrinkText.visible(UserPreferences.windowed());
+        enlargeText.visible(UserPreferences.windowed());
+        shrinkText.draw(g);
+        enlargeText.draw(g);
         
-        // draw version at bottom right, then go up for other vals
+        // draw version at bottom right, then go up for other values
         developerText.draw(g);
         artistText.draw(g);
         graphicDsnrText.draw(g);
@@ -683,12 +701,61 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         translatorText.draw(g);
         versionText.draw(g);
         
-        shrinkText.visible(UserPreferences.windowed());
-        enlargeText.visible(UserPreferences.windowed());
-        shrinkText.draw(g);
-        enlargeText.draw(g);
+//        lastVersionText.displayText(checkLinkBR);
+//        newVersionText.displayText(checkLinkXilmi);
+//        showLastUpdatedLink = true;
+//        showNewUpdatedLink = true;
+        if (showLastUpdatedLink) {
+        	lastVersionText.draw(g);
+        }
+        if (showNewUpdatedLink) {
+       		newVersionText.draw(g);
+        }
+
+    	int boxW  = scaled(450);
+        if (versionText == hoverBox) {
+        	String info = text("GAME_MENU_GITHUB_REPOSITORY", Rotp.repName)
+        			+ NEWLINE + NEWLINE + text("GAME_MENU_CHECK_FOR_UPDATE");
+        	if (checkedForUpdate)
+        		if (showLastUpdatedLink)
+        			info += NEWLINE + NEWLINE + text("GAME_MENU_GOT_NEW_VERSION");
+        		else
+        			info += NEWLINE + NEWLINE + text("GAME_MENU_NO_NEW_VERSION");
+        	drawInfo(g, info, versionText.x(), versionText.y(), boxW);
+        }
+        if (showLastUpdatedLink && lastVersionText == hoverBox) {
+        	String info = text("GAME_MENU_LAST_VERSION");
+        	drawInfo(g, info, lastVersionText.x(), lastVersionText.y(), boxW);
+        }
+        if (showNewUpdatedLink && newVersionText == hoverBox) {
+        	String info =  text("GAME_MENU_NEWER_VERSION");
+        	drawInfo(g, info, newVersionText.x(), newVersionText.y(), boxW);
+        }
         
         g.setComposite(prevComp);
+    }
+    private void drawInfo(Graphics2D g, String info, int xLeft, int yBottom, int w) {
+    	int fontSize = 15;
+    	g.setFont(plainFont(fontSize));
+    	int lineH = scaled(fontSize);
+    	int marginY = s5;
+    	int marginX = s10;
+    	int sw = 0;
+    	List<String> lines = wrappedLines(g, info, w - 2*marginX);
+    	for (String line : lines)
+    		sw = max(sw, g.getFontMetrics().stringWidth(line));
+    	w = sw + 2*marginX;
+    	int boxH = lines.size()*lineH + 2*marginY;
+    	int yTop = yBottom - boxH;
+    	g.setColor(textShade());
+    	g.fillRect(xLeft, yTop, w, boxH);
+    	g.setColor(textColor());
+    	int x0 = xLeft + marginX;
+    	int y0 = yTop + marginY - lineH/4;
+    	for (String line : lines) {
+    		y0 += lineH;
+    		g.drawString(line, x0, y0);
+    	}
     }
     private String manualFilePath()	 {
         return LanguageManager.current().selectedLanguageFullPath()+"/manual.pdf";
@@ -698,7 +765,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         return readerExists(filename);
     }
     public	boolean canContinue()    { return session().status().inProgress() || session().hasRecentSession(); }
-    public	boolean canRecenStart()  { return session().hasRecentStartSession(); }
+    private	boolean canRecenStart()  { return session().hasRecentStartSession(); }
     private boolean canNewGame()     { return true; }
     private boolean canLoadGame()    { return true; }
     private boolean canSaveGame()    { return session().status().inProgress() || isCtrlDown(); }
@@ -708,6 +775,123 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     	return !UserPreferences.displayMode().equals(startingDisplayMode) 
             || (UserPreferences.screenSizePct() != startingScale)
             || (UserPreferences.selectedScreen() != startingScreen);
+    }
+
+    private String getPage(String adress) {
+    	try {
+			URL url = new URL(adress);
+			Scanner sc = new Scanner(url.openStream());
+			StringBuffer sb = new StringBuffer();
+			while(sc.hasNext()) {
+				sb.append(sc.next());
+				//System.out.println(sc.next());
+			}
+			sc.close();
+			return sb.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "";
+		}
+    }
+    private String getVersion (String rawResult) {
+//    	String result = rawResult.replaceAll("<[^>]*>", "");
+//    	String[] resArr = result.split(",");
+    	String[] resArr = rawResult.split(",|\\<|\\>");
+    	List <String> version = new ArrayList<>();
+
+    	for (String line : resArr) {
+//    		if (line.contains("BrokenRegistry")) {
+//    			System.out.println(line);
+//    		if (line.contains("Fusion")) {
+//    			System.out.println(line);
+    		if (line.contains("app-argument=")) {
+    			// System.out.println(line);
+    			boolean ok = false;
+    			String[] keyArr = line.split("/");
+    			for (String key : keyArr) {
+    				if (ok) {
+    					version.add(key.replace("\"", ""));
+    				}
+    				else
+    					ok = key.equals("tag");
+    			}
+    		}
+    	}
+    	String lastVersion = "";
+    	if (version.size() >3) {
+//    		lastVersion = "Fusion-" + version.get(0) + "-"
+//					+ version.get(1) + "-" + version.get(2)
+//					+ version.get(2).substring(0, 2);
+    		lastVersion = version.get(0) + "."
+					+ version.get(1) + "." + version.get(2)
+					+ "." + version.get(3).substring(0, 2);
+    		// isLastVersion = lastVersion.equalsIgnoreCase(Rotp.releaseId);
+    	}
+//    	System.out.println("version: " + version);
+//    	System.out.println("Current Version: " + Rotp.releaseId);
+//    	System.out.println("Last Version: " + lastVersion);
+//    	System.out.println("isLastVersion: " + isLastVersion);
+//    	System.out.println();
+    	return lastVersion;
+    }
+    private Long getValue(String version) {
+    	Long val = 0L;
+    	if (version.isEmpty())
+    		return val;
+    	String[] strings = version.split("-|\\.");
+    	if (strings.length < 4)
+    		return val;
+    	
+    	Long year  = getLong(strings[0]);
+    	if (year == null)
+    		return val;
+    	Long month = getLong(strings[1]);
+    	if (month == null)
+    		return val;
+    	Long day   = getLong(strings[2]);
+    	if (day == null)
+    		return val;
+    	Long hour  = getLong(strings[3]);
+    	if (hour == null)
+    		return val;
+    	val = ((year*100L + month)*100L + day)*100L + hour;
+    	return val;
+    }
+    private void checkForUpdate() {
+    	lastVersionText.displayText("");
+    	newVersionText.displayText("");
+    	currentVersion = getValue(Rotp.buildTime);
+    	String rawStr  = getPage(checkLinkBR);
+    	String verStr  = getVersion(rawStr);
+    	brVersion      = getValue(verStr);
+    	rawStr         = getPage(checkLinkXilmi);
+    	verStr         = getVersion(rawStr);
+    	xilmiVersion   = getValue(verStr);
+    	
+    	showNewUpdatedLink = false;
+    	showLastUpdatedLink = brVersion > currentVersion || xilmiVersion > currentVersion;
+    	if (showLastUpdatedLink) {
+    		if (brVersion > xilmiVersion) {
+    			lastVersionText.displayText(checkLinkBR);
+    			if (xilmiVersion > currentVersion) {
+    				newVersionText.displayText(checkLinkXilmi);
+    				showNewUpdatedLink = true;
+    			}
+    		}
+    		else {
+    			lastVersionText.displayText(checkLinkXilmi);
+    			if (brVersion > currentVersion) {
+    				newVersionText.displayText(checkLinkBR);
+    				showNewUpdatedLink = true;
+    			}
+    		}
+    	}
+    }
+    private void versionAction(MouseEvent e) {
+    		buttonClick();
+    		checkForUpdate();
+    		checkedForUpdate = true;
+    		repaint();
     }
 
     private void rescaleMenuOptions() {
@@ -726,7 +910,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             repaint();
         }
     }
-    protected void loadHotKeysUI()		{
+    private void loadHotKeysUI()		{
     	HelpUI helpUI = RotPUI.helpUI();
         helpUI.clear();
         int xHK = scaled(80);
@@ -745,7 +929,16 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     	checkModifierKey(e);
         int k = e.getKeyCode();
         switch (k) {
-            case KeyEvent.VK_Z:  hideText = false; repaint(); return;
+        case KeyEvent.VK_Z:
+        	hideText = false;
+        	repaint();
+        	return;
+        case KeyEvent.VK_V:
+        	if (e.isAltDown()) {
+        		checkForUpdate();
+            	repaint();
+            	return;
+        	}
         }
     }
     @Override public void keyPressed(KeyEvent e) {
@@ -828,6 +1021,12 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             Desktop.getDesktop().browse(new URL("http://www.reddit.com/r/rotp").toURI());
         } catch (IOException | URISyntaxException e) {}
     }
+    private void openUrlPage(String url) {
+        try {
+            buttonClick();
+            Desktop.getDesktop().browse(new URL(url).toURI());
+        } catch (IOException | URISyntaxException e) {}
+    }
     private void openManual() {
         try {
             buttonClick();
@@ -882,7 +1081,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     	}
 		misClick();
     }
-    public void replayLastTurn() { // BR:
+    private void replayLastTurn() { // BR:
         if (canRecenStart()) {
             buttonClick();
            	session().loadRecentStartGame(true);
@@ -909,13 +1108,13 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         		gameName = generateGameName(options());
         }
     }
-    public void newGame() { // BR:
+    private void newGame() { // BR:
         if (canNewGame()) {
             buttonClick();
             RotPUI.instance().selectSetupRacePanel();
         }
     }
-    public void loadGame() { // BR:
+    private void loadGame() { // BR:
         if (canLoadGame()) {
             buttonClick();
 //            loadRequest(false); // The call was not for SetupRaceUI
@@ -923,19 +1122,19 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             RotPUI.instance().selectLoadGamePanel();
         }
     }
-    public void saveGame() { // BR:
+    private void saveGame() { // BR:
         if (canSaveGame()) {
             buttonClick();
             RotPUI.instance().selectSaveGamePanel();
         }
     }
-    public void exitGame() {
+    private void exitGame() {
         if (canExit()) {
             buttonClick();
             GameSession.instance().exit();
         }
     }
-    public void restartGame() {
+    private void restartGame() {
         Rotp.restart();
     }
     private void selectLanguage(int i) {
@@ -946,7 +1145,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         titleImg = null;
         repaint();
     }
-    public void goToSettings() {
+    private void goToSettings() {
 		buttonClick();
 		MainOptionsUI mainOptionsUI = RotPUI.mainOptionsUI();
 		mainOptionsUI.init();
@@ -958,21 +1157,16 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         super.playAmbience();
         setTextValues();
     }
-    @Override
-    public void mouseClicked(MouseEvent e) { }
-    @Override
-    public void mouseEntered(MouseEvent e) { }
-    @Override
-    public void mouseExited(MouseEvent e) { }
-    @Override
-    public void mousePressed(MouseEvent e) {
+    @Override public void mouseClicked(MouseEvent e)  { }
+    @Override public void mouseEntered(MouseEvent e)  { }
+    @Override public void mouseExited(MouseEvent e)   { }
+    @Override public void mousePressed(MouseEvent e)  {
         resetSlideshowTimer();
         mouseDepressed = true;
         if (hoverBox != null)
             hoverBox.mousePressed();
     }
-    @Override
-    public void mouseReleased(MouseEvent e) {
+    @Override public void mouseReleased(MouseEvent e) {
     	checkModifierKey(e);
         if (e.getButton() > 3)
             return;
@@ -1013,17 +1207,20 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             shrinkFrame();
         else if (enlargeText.contains(x,y))
             expandFrame();
+        else if (versionText.contains(x,y))
+        	versionAction(e);
+        else if (lastVersionText.contains(x,y))
+        	openUrlPage(lastVersionText.displayText());
+        else if (newVersionText.contains(x,y))
+        	openUrlPage(newVersionText.displayText());;
     }
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        mouseMoved(e);
-    }
-    @Override
-    public void mouseMoved(MouseEvent e) {
+    @Override public void mouseDragged(MouseEvent e)  { mouseMoved(e); }
+    @Override public void mouseMoved(MouseEvent e)    {
         int x = e.getX();
         int y = e.getY();
 
         resetSlideshowTimer();
+        boolean repaint = false;
 
         if (hideText)
             return;
@@ -1053,9 +1250,23 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             newHover = shrinkText;
         else if (enlargeText.contains(x,y))
             newHover = enlargeText;
+        else if (versionText.contains(x,y)) {
+        	newHover = versionText;
+        	repaint = true;
+        }
+        else if (lastVersionText.contains(x,y)) {
+        	newHover = lastVersionText;
+        	repaint = true;
+        }
+        else if (newVersionText.contains(x,y)) {
+        	newHover = newVersionText;
+        	repaint = true;
+        }
 
         if (hoverBox != newHover) {
             if (hoverBox != null) {
+            	if (hoverBox == versionText || hoverBox == lastVersionText || hoverBox == newVersionText)
+            		repaint = true;
                 hoverBox.mouseExit();
                 repaint(hoverBox.bounds());
             }
@@ -1068,19 +1279,21 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
                 repaint(hoverBox.bounds());
             }
         }
+        if (repaint)
+        	repaint();
     }
-    public class GameLanguagePane extends BasePanel implements MouseListener, MouseMotionListener {
+    private class GameLanguagePane extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
-        List<String> names;
-        List<String> codes;
-        public int w;
-        public int h;
-        boolean fontsInitialized = false;
-        boolean fontsReady = false;
+        private List<String> names;
+        private List<String> codes;
+        private int w;
+        private int h;
+        private boolean fontsInitialized = false;
+        private boolean fontsReady = false;
         private Rectangle[] lang;
         private Rectangle hoverBox;
-        GameUI parent;
-        public GameLanguagePane(GameUI ui) {
+        private GameUI parent;
+        private GameLanguagePane(GameUI ui) {
             parent = ui;
             init();
         }
@@ -1095,11 +1308,11 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             addMouseMotionListener(this);
             setOpaque(false);
         }
-        void initBounds() {
+        private void initBounds() {
             w = scaled(100);
             h = s45+(s17*names.size());
         }
-        public void initFonts() {
+        private void initFonts() {
             if (fontsInitialized)
                 return;
             

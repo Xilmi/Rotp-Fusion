@@ -1660,6 +1660,13 @@ public interface Base {
 			return null;
 		}
 	}
+    default Long getLong(String text)	{
+		try {
+			return Long.parseLong(text);
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
     default Float getFloat(String text)		{
 		try {
 			return Float.parseFloat(text);
