@@ -2651,6 +2651,21 @@ GOVERNOR_AUTOTRANSPORT_GOV          | Auto Transport Gov: %1
 
 
 
+//
+// ===== BR: Guide and contextual Help added by Mods =====
+//
+GUIDE_NO_HELP_AVAILABLE           | Désolé, aucune aide disponible pour le moment.
+GUIDE_DEFAULT_VALUE_LABEL         | Valeur par défaut
+GUIDE_SELECTED_VALUE_LABEL        | Valeur sélectionnée
+GUIDE_SET_WITH_MID_CLICK          | (activé par le bouton de souris central)
+GUIDE_KEY_MODIFIER_LABEL          | Touches de modification
+GUIDE_KEY_MODIFIER_NONE           | Aucunes
+GUIDE_KEY_MODIFIER_SHIFT          | Shift
+GUIDE_KEY_MODIFIER_CTRL           | Ctrl
+GUIDE_KEY_MODIFIER_CTRL_SHIFT     | Ctrl+Shift
+GUIDE_KEY_MODIFIER_SEPARATOR      | &nbsp : &nbsp
+
+
 // Shortcuts / Hotkeys list  (use cross-references →←) →HK_←
 // Shortcuts Cross referenced
 HK_HEADER      | Raccourcis clavier : (Disponible en cliquant Aide avec le bouton droit)<br>→HK_SHIFT_F1←

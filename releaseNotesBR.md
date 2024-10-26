@@ -7,8 +7,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- The guide formatting texts can now be translated. (added in label.txt)
 - New option to check for updates and get a link to a newer version.
-- Fixed Governor Auto-Transport: "Population automatically transported from colonies at max production capacity" and "Let AI handle population transportation" functionalities were swapped!
 - New option to increase the with of load/save panel (for those who use long file names)
 - Made boolean options more compatible with language translation.
 - Fixed missing governor refresh after transferring funds.

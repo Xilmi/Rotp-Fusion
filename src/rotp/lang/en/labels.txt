@@ -1565,6 +1565,8 @@ SETUP_OPPONENT_AI_SELECT          | AI: Selectable
 SETUP_OPPONENT_AI_PLAYER_HELP     | The control is under your hands.
 SETUP_OPPONENT_AI_PLAYER          | AI: Off
 SETUP_OPPONENT_CR                 | Abilities:
+SETUP_OPP_CR_OPTIONS_HELP         | Default abilities for alien Species:<br> 'Original Species' = Standard abilities of the selected Species (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the Species default name.<br> (ex: RACE_DARLOK for the Darlok);<br> *Species = specific Original Species; or any other customized species you have built.
+
 SETUP_AUTOPLAY_OFF_HELP           | The player takes command of the empire.
 SETUP_AUTOPLAY_OFF                | Off
 SETUP_GAME_DIFFICULTY_HELP        | The difficulty setting will apply a boost or penalty to AI players' production.<br>On normal or higher, Space Monsters will be introduced among the random events somewhere during the mid-game. But on the easy, easier, and easiest difficulty levels, Space Monsters will be delayed to give players more time to build up.
@@ -4576,8 +4578,16 @@ CLONE_1_TRIGGER                     | →CLONE_1_DETAIL←<br>The GrowInAtor is 
 //
 // ===== BR: Guide and contextual Help added by Mods =====
 //
-SETUP_OPP_CR_OPTIONS_HELP           | Default abilities for alien Species:<br> 'Original Species' = Standard abilities of the selected Species (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the Species default name.<br> (ex: RACE_DARLOK for the Darlok);<br> *Species = specific Original Species; or any other customized species you have built.
-
+GUIDE_NO_HELP_AVAILABLE           | Sorry, no help available yet.
+GUIDE_DEFAULT_VALUE_LABEL         | Default Value
+GUIDE_SELECTED_VALUE_LABEL        | Selected Value
+GUIDE_SET_WITH_MID_CLICK          | (set with Middle Click)
+GUIDE_KEY_MODIFIER_LABEL          | Key Modifiers
+GUIDE_KEY_MODIFIER_NONE           | None
+GUIDE_KEY_MODIFIER_SHIFT          | Shift
+GUIDE_KEY_MODIFIER_CTRL           | Ctrl
+GUIDE_KEY_MODIFIER_CTRL_SHIFT     | Ctrl+Shift
+GUIDE_KEY_MODIFIER_SEPARATOR      | &nbsp : &nbsp
 
 // Common Guides and Help
 SETTINGS_BUTTON_EXIT_DESC         | Exit / Apply / Cancel <br> (Switch with "Ctrl" or "Shift")

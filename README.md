@@ -71,6 +71,9 @@ Later:
 
 2024.10.26 (BR)
 - New option to check for updates and get a link to a newer version.
+- Renamed auto transport method to be less confusing.
+- Improved auto transport Help text.
+- The guide formatting texts can now be translated. (added in label.txt)
 
 2024.10.25 (BR)
 - Fixed Governor Auto-Transport: "Population automatically transported from colonies at max production capacity" and "Let AI handle population transportation" functionalities were swapped!

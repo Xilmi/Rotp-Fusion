@@ -117,7 +117,7 @@ public interface IParam extends InterfaceOptions{
 		String name  = langLabel(label, "");
 		String help  = langHelp(label);
 		if (help.isEmpty())
-			help = "<b><i>Sorry, no help available yet.<i/></b>";
+			help = "<b><i>" + langLabel("GUIDE_NO_HELP_AVAILABLE") + "</i></b>";
 		help = "<u><b>" + name + "</b></u>" + NEWLINE + help;
 		if (sep)
 			return help + baseSeparator();
@@ -127,9 +127,9 @@ public interface IParam extends InterfaceOptions{
 	public default String headerHelp(boolean sep)	{ return headerHelp(getLangLabel(), sep); }
 //	public default String headerHelp()			{ return headerHelp(getLangLabel(), true); }
 	public default String defaultValueHelp()	{
-		String help = labelFormat("Default Value") + guideDefaultValue();
+		String help = labelFormat(langLabel("GUIDE_DEFAULT_VALUE_LABEL")) + guideDefaultValue();
 		if (!showVIPPanel.get())
-			help += htmlTuneFont(-2, "&emsp<i>(set with Middle Click)<i/>");
+			help += htmlTuneFont(-2, "&emsp<i>" + langLabel("GUIDE_SET_WITH_MID_CLICK") + "</i>");
 		help += baseSeparator();
 		return help;
 	}
@@ -152,7 +152,7 @@ public interface IParam extends InterfaceOptions{
 	}
 	public default String valueGuide(int id)	{ return "";}
 	public default String selectionGuide()		{
-		String val  = labelFormat("Selected Value") + guideValue();
+		String val  = labelFormat(langLabel("GUIDE_SELECTED_VALUE_LABEL")) + guideValue();
 		if (getIndex() < 0) // not a list
 			return val;
 		// this is a list
@@ -165,11 +165,17 @@ public interface IParam extends InterfaceOptions{
 		String[] mod = getModifiers();
 		if (mod == null)
 			return "";
-		String help = labelFormat("Key Modifiers")	+ NEWLINE
-					+ "None "		 + mod[0] + " &nbsp : &nbsp"
-					+ " Shift "		 + mod[1] + " &nbsp : &nbsp"
-					+ " Ctrl "		 + mod[2] + " &nbsp : &nbsp"
-					+ " Ctrl+Shift " + mod[3]
+		String label = langLabel("GUIDE_KEY_MODIFIER_LABEL") + " ";
+		String none  = langLabel("GUIDE_KEY_MODIFIER_NONE") + " ";
+		String shift = " " + langLabel("GUIDE_KEY_MODIFIER_SHIFT") + " ";
+		String ctrl  = " " + langLabel("GUIDE_KEY_MODIFIER_CTRL") + " ";
+		String both  = " " + langLabel("GUIDE_KEY_MODIFIER_CTRL_SHIFT") + " ";
+		String sep   = " " + langLabel("GUIDE_KEY_MODIFIER_SEPARATOR");
+		String help = labelFormat(label) + NEWLINE
+					+ none	+ mod[0] + sep
+					+ shift	+ mod[1] + sep
+					+ ctrl	+ mod[2] + sep
+					+ both	+ mod[3]
 					+ baseSeparator();
 		return help;
 	}
@@ -216,14 +222,14 @@ public interface IParam extends InterfaceOptions{
 	public static String labelFormat(String str)	{
 		if (str.isEmpty())
 			return str;
-		return "<b>" + str + ":</b>&nbsp ";
+		return "<b>" + str + ":</b>&nbsp "; // Make it bold
 	}
 	// ===== Lower level language tools =====
 	public static String langName(String key)		{
 		if (key == null)
 			return "";
 		String name = realLangLabel(key);
-//		name = langLabel(key); // TODO BR: For debug... comment! or not
+//		name = langLabel(key); // TO DO BR: For debug... comment! or not
 		if (name == null)
 			return "";
 		return name.split("%1")[0];
@@ -233,7 +239,7 @@ public interface IParam extends InterfaceOptions{
 			return "";
 //		System.out.println("langDesc: key+LABEL_DESCRIPTION = " + key+LABEL_DESCRIPTION);
 		String desc = realLangLabel(key+LABEL_DESCRIPTION);
-//		desc = langLabel(key+LABEL_DESCRIPTION); // TODO BR: For debug... comment!
+//		desc = langLabel(key+LABEL_DESCRIPTION); // TO DO BR: For debug... comment!
 		if (desc == null)
 			return "";
 //		System.out.println("desc = " + desc);
