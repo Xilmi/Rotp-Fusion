@@ -32,6 +32,7 @@ import rotp.util.LabelManager;
 public interface IParam extends InterfaceOptions{
 	public static final String LABEL_DESCRIPTION = "_DESC";
 	public static final String LABEL_HELP		 = "_HELP";
+	public static final String LABEL_GOV_LABEL	 = "_LABEL";
 	public static final String END				 = "   ";
 	public static final int INIT_DEPENDENCIES	 = 0;
 	public static final int VALID_DEPENDENCIES	 = 1;
@@ -91,8 +92,10 @@ public interface IParam extends InterfaceOptions{
 		}
 	}
 
-	// For Governor ToolTips
+	// For Governor ToolTips & labels
 	public default String govTooltips()			{ return "<html>" + getDescription() + "</html>"; };
+	public default String govLabelTxt()			{ return langGovLabel(getLangLabel()); };
+
 	// Limited size for toolTip boxes
 	public default String getDescription()		{
 		if (getToolTip().isEmpty())
@@ -233,6 +236,17 @@ public interface IParam extends InterfaceOptions{
 		if (name == null)
 			return "";
 		return name.split("%1")[0];
+	}
+	public static String langGovLabel(String key)		{
+		if (key == null)
+			return "";
+//		System.out.println("langDesc: key+LABEL_GOV_LABEL = " + key+LABEL_GOV_LABEL);
+		String label = realLangLabel(key+LABEL_GOV_LABEL);
+//		label = langLabel(key+LABEL_GOV_LABEL); // TO DO BR: For debug... comment!
+		if (label == null)
+			return "";
+//		System.out.println("label = " + label);
+		return label;
 	}
 	public static String langDesc(String key)		{
 		if (key == null)

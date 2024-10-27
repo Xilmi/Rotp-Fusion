@@ -69,6 +69,12 @@ Later:
 
 ## What's New
 
+2024.10.28 (BR)
+- Added tools for Multi Language on the Governor Panel.
+
+2024.10.27 (Frank Zago)
+- French translations and fixes.
+
 2024.10.27 (BR)
 - Fixed colony view not refreshed when using F5~F8 + mouse hover.
 

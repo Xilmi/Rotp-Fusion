@@ -117,6 +117,7 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Governor is on by default"/>
+        <Property name="name" type="java.lang.String" value="ON_BY_DEFAULT" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="governorDefaultActionPerformed"/>
@@ -134,6 +135,7 @@
             </TitledBorder>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="TRANSPORT_OPTIONS" noResource="true"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -192,6 +194,7 @@
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[0, 0]"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="AUTOTRANSPORT_GOV" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autotransportGovernorActionPerformed"/>
@@ -214,6 +217,7 @@
         <Component class="javax.swing.JLabel" name="transportMaxTurnsLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Maximum transport distance in turns"/>
+            <Property name="name" type="java.lang.String" value="TRANSPORT_MAX_TURNS" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="transportMaxTurnsLabelMouseWheelMoved"/>
@@ -226,6 +230,7 @@
         <Component class="javax.swing.JLabel" name="transportMaxTurnsNebula">
           <Properties>
             <Property name="text" type="java.lang.String" value="(1.5x higher distance when transporting to nebulae)"/>
+            <Property name="name" type="java.lang.String" value="TRANSPORT_MAX_TURNS_NEBULA" noResource="true"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -235,6 +240,7 @@
         <Component class="javax.swing.JCheckBox" name="transportRichDisabled">
           <Properties>
             <Property name="text" type="java.lang.String" value="Don&apos;t send from Rich/Artifacts planets"/>
+            <Property name="name" type="java.lang.String" value="TRANSPORT_RICH_OFF" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="transportRichDisabledActionPerformed"/>
@@ -243,6 +249,7 @@
         <Component class="javax.swing.JCheckBox" name="transportPoorDouble">
           <Properties>
             <Property name="text" type="java.lang.String" value="Send double from Poor planets"/>
+            <Property name="name" type="java.lang.String" value="TRANSPORT_POOR_DBL" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="transportPoorDoubleActionPerformed"/>
@@ -251,6 +258,7 @@
         <Component class="javax.swing.JCheckBox" name="autotransportAI">
           <Properties>
             <Property name="text" type="java.lang.String" value="Let AI handle population transportation (Xilmi AI)"/>
+            <Property name="name" type="java.lang.String" value="AUTO_TRANSPORT" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autotransportAIActionPerformed"/>
@@ -259,6 +267,7 @@
         <Component class="javax.swing.JCheckBox" name="allowUngoverned">
           <Properties>
             <Property name="text" type="java.lang.String" value="Allow sending population from ungoverned colonies"/>
+            <Property name="name" type="java.lang.String" value="TRANSPORT_UNGOVERNED" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="allowUngovernedActionPerformed"/>
@@ -294,6 +303,7 @@
             </TitledBorder>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="STARGATES_OPTIONS" noResource="true"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -337,6 +347,7 @@
               <ComponentRef name="stargateOptions"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Never build stargates"/>
+            <Property name="name" type="java.lang.String" value="STARGATES_NONE" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stargateOffActionPerformed"/>
@@ -348,6 +359,7 @@
               <ComponentRef name="stargateOptions"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Build stargates on Rich"/>
+            <Property name="name" type="java.lang.String" value="STARGATES_RICH_1" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stargateRichActionPerformed"/>
@@ -359,6 +371,7 @@
               <ComponentRef name="stargateOptions"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Always build stargates"/>
+            <Property name="name" type="java.lang.String" value="STARGATES_ALL" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stargateOnActionPerformed"/>
@@ -368,6 +381,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="and Ultra Rich planets"/>
+            <Property name="name" type="java.lang.String" value="STARGATES_RICH_2" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -412,6 +426,7 @@
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Auto Apply"/>
         <Property name="toolTipText" type="java.lang.String" value="For the settings to be applied live."/>
+        <Property name="name" type="java.lang.String" value="AUTO_APPLY" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoApplyToggleButtonActionPerformed"/>
@@ -429,6 +444,7 @@
             </TitledBorder>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="FLEET_OPTIONS" noResource="true"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -499,6 +515,7 @@
         <Component class="javax.swing.JCheckBox" name="autoScout">
           <Properties>
             <Property name="text" type="java.lang.String" value="Auto Scout"/>
+            <Property name="name" type="java.lang.String" value="AUTO_SCOUT" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoScoutActionPerformed"/>
@@ -507,6 +524,7 @@
         <Component class="javax.swing.JCheckBox" name="autoColonize">
           <Properties>
             <Property name="text" type="java.lang.String" value="Auto Colonize"/>
+            <Property name="name" type="java.lang.String" value="AUTO_COLONIZE" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoColonizeActionPerformed"/>
@@ -515,6 +533,7 @@
         <Component class="javax.swing.JCheckBox" name="autoAttack">
           <Properties>
             <Property name="text" type="java.lang.String" value="Auto Attack"/>
+            <Property name="name" type="java.lang.String" value="AUTO_ATTACK" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoAttackActionPerformed"/>
@@ -525,6 +544,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="1" maximum="9999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="AUTO_COLONY_COUNT" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="autoColonyShipCountStateChanged"/>
@@ -537,6 +557,7 @@
         <Component class="javax.swing.JLabel" name="autoColonyShipCountLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Number of colony ships to send"/>
+            <Property name="name" type="java.lang.String" value="AUTO_COLONY_COUNT" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="autoScoutShipCount">
@@ -544,6 +565,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="1" maximum="9999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="AUTO_SCOUT_COUNT" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="autoScoutShipCountStateChanged"/>
@@ -558,6 +580,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="1" maximum="9999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="AUTO_ATTACK_COUNT" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="autoAttackShipCountStateChanged"/>
@@ -570,11 +593,13 @@
         <Component class="javax.swing.JLabel" name="autoScoutShipCountLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Number of scout ships to send"/>
+            <Property name="name" type="java.lang.String" value="AUTO_SCOUT_COUNT" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="autoAttackShipCountLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Number of attack ships to send"/>
+            <Property name="name" type="java.lang.String" value="AUTO_ATTACK_COUNT" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -591,6 +616,7 @@
             </TitledBorder>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="COLONY_OPTIONS" noResource="true"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -674,6 +700,7 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Autospend"/>
             <Property name="toolTipText" type="java.lang.String" value="Automatically spend reserve on planets with lowest production"/>
+            <Property name="name" type="java.lang.String" value="AUTOSPEND" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autospendActionPerformed"/>
@@ -684,6 +711,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="1000" maximum="100000" minimum="0" numberType="java.lang.Integer" stepSize="10" type="number"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="RESERVE" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="reserveStateChanged"/>
@@ -696,12 +724,14 @@
         <Component class="javax.swing.JLabel" name="reserveLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Keep in reserve"/>
+            <Property name="name" type="java.lang.String" value="RESERVE" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="shipbuilding">
           <Properties>
             <Property name="text" type="java.lang.String" value="Shipbuilding with Governor enabled"/>
             <Property name="toolTipText" type="java.lang.String" value="Divert resources into shipbuilding and not research if planet is already building ships"/>
+            <Property name="name" type="java.lang.String" value="SHIP_BUILDING" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="shipbuildingActionPerformed"/>
@@ -710,6 +740,7 @@
         <Component class="javax.swing.JCheckBox" name="shieldWithoutBases">
           <Properties>
             <Property name="text" type="java.lang.String" value="Allow shields without bases"/>
+            <Property name="name" type="java.lang.String" value="SHIELD_WITHOUT_BASES" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="shieldWithoutBasesActionPerformed"/>
@@ -718,6 +749,7 @@
         <Component class="javax.swing.JCheckBox" name="legacyGrowthMode">
           <Properties>
             <Property name="text" type="java.lang.String" value="Develop colonies as quickly as possible"/>
+            <Property name="name" type="java.lang.String" value="LEGACY_GROWTH_MODE" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="legacyGrowthModeActionPerformed"/>
@@ -728,6 +760,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="0" maximum="1000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="MIN_MISSILE_BASES" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="missileBasesStateChanged"/>
@@ -740,6 +773,7 @@
         <Component class="javax.swing.JLabel" name="missileBasesLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Minimum missile bases"/>
+            <Property name="name" type="java.lang.String" value="MIN_MISSILE_BASES" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="terraformEarly">
@@ -747,6 +781,7 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="0" maximum="400" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="TERRAFORM_EARLY" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="terraformEarlyStateChanged"/>
@@ -759,6 +794,7 @@
         <Component class="javax.swing.JLabel" name="terraformEarlyLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Boost Planet Early"/>
+            <Property name="name" type="java.lang.String" value="TERRAFORM_EARLY" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -775,6 +811,7 @@
             </TitledBorder>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="INTELLIGENCE_OPTIONS" noResource="true"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -813,6 +850,7 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Respect promises"/>
             <Property name="toolTipText" type="java.lang.String" value="Once enjoined to stop espionage by an alien empire, the Governor will follow the player&apos;s choice for the time necessary for the empire to calm down."/>
+            <Property name="name" type="java.lang.String" value="SPARE_XENOPHOBES" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="spareXenophobesActionPerformed"/>
@@ -822,6 +860,7 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Let AI handle spies"/>
             <Property name="toolTipText" type="java.lang.String" value="Hand control over spies to AI"/>
+            <Property name="name" type="java.lang.String" value="AUTO_SPY" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoSpyActionPerformed"/>
@@ -831,6 +870,7 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Auto Infiltrate"/>
             <Property name="toolTipText" type="java.lang.String" value="Automatically sends spies to infiltrate other empires"/>
+            <Property name="name" type="java.lang.String" value="AUTO_INFILTRATE" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoInfiltrateActionPerformed"/>
@@ -850,6 +890,7 @@
             </TitledBorder>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="ASPECT_OPTIONS" noResource="true"/>
       </Properties>
 
       <Layout>
@@ -906,7 +947,7 @@
         <Component class="javax.swing.JCheckBox" name="isOriginal">
           <Properties>
             <Property name="text" type="java.lang.String" value="Original View"/>
-            <Property name="name" type="java.lang.String" value="Original View" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="ORIGINAL_PANEL" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="isOriginalActionPerformed"/>
@@ -915,7 +956,7 @@
         <Component class="javax.swing.JCheckBox" name="customSize">
           <Properties>
             <Property name="text" type="java.lang.String" value="CustomSize"/>
-            <Property name="name" type="java.lang.String" value="Custom Size" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="CUSTOM_SIZE" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customSizeActionPerformed"/>
@@ -927,7 +968,7 @@
               <SpinnerModel initial="100" maximum="200" minimum="20" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Size Factor"/>
-            <Property name="name" type="java.lang.String" value="Size Factor" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="SIZE_FACTOR" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sizePctStateChanged"/>
@@ -941,6 +982,7 @@
         <Component class="javax.swing.JLabel" name="sizeFactorLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="% Size"/>
+            <Property name="name" type="java.lang.String" value="SIZE_FACTOR" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="brightnessPct">
@@ -949,7 +991,7 @@
               <SpinnerModel initial="100" maximum="300" minimum="20" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Color Brightness"/>
-            <Property name="name" type="java.lang.String" value="Color Brightness" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="BRIGHTNESS" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="brightnessPctStateChanged"/>
@@ -962,6 +1004,7 @@
         <Component class="javax.swing.JLabel" name="brightnessLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="% Bright"/>
+            <Property name="name" type="java.lang.String" value="BRIGHTNESS" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>

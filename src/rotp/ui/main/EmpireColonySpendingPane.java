@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Paint;
+import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -37,6 +38,7 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -925,11 +927,33 @@ public class EmpireColonySpendingPane extends BasePanel {
         }
     }
 
-    JFrame governorOptionsFrame = null;
+    GovernorFrame governorOptionsFrame = null;
+    public class GovernorFrame extends JFrame implements KeyListener {
+    	GovernorFrame (String title)	{
+    		super(title);
+    		addKeyListener(this);
+    		setFocusable(true);
+            setFocusTraversalKeysEnabled(false);
+    	}
+    	@Override public void keyTyped(KeyEvent e)		{ }
+    	@Override public void keyPressed(KeyEvent e)	{ }
+    	@Override public void keyReleased(KeyEvent e)	{
+    		// TODO Auto-generated method stub
+    		checkModifierKey(e);
+    		switch(e.getKeyCode()) {
+    		case KeyEvent.VK_L:
+    			if (e.isAltDown()) {
+    				reloadLabels();
+    			}
+    			return;
+    		}
+    	}
+    }
     private class GovernorComponentAdapter extends ComponentAdapter {
     	@Override public void componentMoved(java.awt.event.ComponentEvent evt) {
         	GovernorOptions options = govOptions();
-			options.setPosition(getLocation());
+        	Point pt = evt.getComponent().getLocation();
+			options.setPosition(pt);
         }
     }
     private void governorOptions() {
@@ -937,7 +961,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             @Override
 			public void run() {
                 if (governorOptionsFrame == null) {
-                    governorOptionsFrame = new JFrame("GovernorOptions")
+                    governorOptionsFrame = new GovernorFrame("GovernorOptions")
 //                    {
 //                    	{
 //                    		addComponentListener(new GovernorComponentAdapter());
@@ -952,7 +976,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                     iconImages.add(ImageManager.current().image("ROTP_MOD_ICON2"));
                     iconImages.add(ImageManager.current().image("ROTP_MOD_ICON1"));
                     governorOptionsFrame.setIconImages(iconImages);
-                    governorOptionsFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    governorOptionsFrame.setDefaultCloseOperation(GovernorFrame.HIDE_ON_CLOSE);
 
                     //Create and set up the content pane.
                     GovernorOptionsPanel newContentPane = new GovernorOptionsPanel(governorOptionsFrame);
