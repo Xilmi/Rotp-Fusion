@@ -1,5 +1,5 @@
 // race-specific variables (must start with _)
-_empire                           | le Dominion Meklonarien, le Dominion Mechanarien, le Dominion Cybernarien, le Dominion Digitarien, le Dominion Technarien
+_empire                           | Le Dominion Meklonarien, Le Dominion Mechanarien, Le Dominion Cybernarien, Le Dominion Digitarien, Le Dominion Technarien
 _empireof                         | du Dominion Meklonarien, du Dominion Mechanarien, du Dominion Cybernarien, du Dominion Digitarien, du Dominion Technarien
 _raceadjec                        | Meklonarien, Mechanarien, Cybernarien, Digitarien, Technarien
 _raceadjecF                       | Meklonarienne, Mechanarienne, Cybernarienne, Digitarienne, Technarienne
