@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.10.27 (BR)
+- Fixed colony view not refreshed when using F5~F8 + mouse hover.
+
 2024.10.26 (BR)
 - New option to check for updates and get a link to a newer version.
 - Renamed auto transport method to be less confusing.

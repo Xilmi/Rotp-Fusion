@@ -35,23 +35,13 @@ public class MapOverlayNone extends MapOverlay {
     public MapOverlayNone(MainUI p) {
         parent = p;
     }
-    @Override
-    public boolean hideNextTurnNotice()           { return false; }
-    @Override
-    public boolean canChangeMapScale()            { return true; }
-    @Override
-    public boolean consumesClicks(Sprite spr)  { return false; }
-    @Override
-    public boolean hoveringOverSprite(Sprite o) { return false; }
-    @Override
-    public void advanceMap() {
-        parent.resumeTurn();
-    }
-    @Override
-    public void paintOverMap(MainUI parent, GalaxyMapPanel ui, Graphics2D g2) {
-    }
-    @Override
-    public boolean handleKeyPress(KeyEvent e) {
+    @Override public boolean hideNextTurnNotice()         { return false; }
+    @Override public boolean canChangeMapScale()          { return true; }
+    @Override public boolean consumesClicks(Sprite spr)   { return false; }
+    @Override public boolean hoveringOverSprite(Sprite o) { return false; }
+    @Override public void advanceMap()                    { parent.resumeTurn(); }
+    @Override public void paintOverMap(MainUI parent, GalaxyMapPanel ui, Graphics2D g2) { }
+    @Override public boolean handleKeyPress(KeyEvent e) {
     	setModifierKeysState(e); // BR: For the Flag color selection
     	if(session().autoRunning() && (e.getKeyCode() == KeyEvent.VK_ESCAPE)) {
     		session().pauseAutoRun();
@@ -66,25 +56,17 @@ public class MapOverlayNone extends MapOverlay {
         boolean shift = e.isShiftDown();
         boolean ctrl  = e.isControlDown();
         int s40 = BasePanel.s40;
-        List<StarSystem> systems;
-        List<ShipFleet> fleets;
-        StarSystem currSys;
-        ShipFleet currFleet;
-        int index;
         
         if (e.getKeyChar() == '?') {
             parent.showHelp();
             return true;
         }
-
-        // int code = e.getModifiersEx();
         switch(e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
             	if (parent.displayPanel().canEscape())
                     parent.displayPanel().keyPressed(e);
                 else
                 	parent.selectGamePanel();
-//                    RotPUI.instance().selectGamePanel();
                 break;
             case KeyEvent.VK_EQUALS:
                 if (e.isShiftDown())  
@@ -118,7 +100,6 @@ public class MapOverlayNone extends MapOverlay {
             case KeyEvent.VK_G:
                 buttonClick();
                 parent.selectGamePanel();
-//                RotPUI.instance().selectGamePanel();
                 break;
             case KeyEvent.VK_D:
                 buttonClick();
@@ -248,7 +229,7 @@ public class MapOverlayNone extends MapOverlay {
             case KeyEvent.VK_W: // BR:
             	GalaxyMapPanel.toggleWarView();
             	// Refresh to force activation
-            	currSys = null;
+            	StarSystem currSys = null;
             	// are we transporting?
                 if (parent.clickedSprite() instanceof SystemTransportSprite)
                     currSys = ((SystemTransportSprite) parent.clickedSprite()).homeSystem();
@@ -271,268 +252,43 @@ public class MapOverlayNone extends MapOverlay {
             		parent.showHelp();
                 break;
             case KeyEvent.VK_F2:
-                //softClick();
-                systems = player().orderedColonies();
-                currSys = null;
-                // are we transporting?
-                if (parent.clickedSprite() instanceof SystemTransportSprite) {
-                    SystemTransportSprite trSpr = (SystemTransportSprite) parent.clickedSprite();
-                    currSys = trSpr.starSystem() == null ? trSpr.homeSystem() : trSpr.starSystem();
-                }
-                // are we ship relocating?
-                else if (parent.clickedSprite() instanceof ShipRelocationSprite) {
-                    ShipRelocationSprite spr = (ShipRelocationSprite) parent.clickedSprite();
-                    currSys = spr.starSystem() == null ? spr.homeSystemView() : spr.starSystem();
-                }
-                else if (parent.clickedSprite() instanceof StarSystem)
-                    currSys = (StarSystem) parent.clickedSprite();
-                // find next index (exploit that missing element returns -1, so set to 0)
-                index = systems.indexOf(currSys)+1;
-                if (index == systems.size())
-                    index = 0;
-                if (parent.clickedSprite() instanceof SystemTransportSprite) {
-                    parent.hoveringOverSprite(systems.get(index));
-                    parent.clickingOnSprite(systems.get(index), 1, false, false, false);
-                }
-                else if (parent.clickedSprite() instanceof ShipRelocationSprite) {
-                    parent.hoveringOverSprite(systems.get(index));
-                }
-                else {
-                    parent.hoveringOverSprite(systems.get(index));
-                    parent.clickedSprite(systems.get(index));
-                    parent.map().recenterMapOn(systems.get(index));
-                }
-                parent.repaint();
+            	nextSystem(player().orderedColonies());
                 break;
             case KeyEvent.VK_F3:
-                //softClick();
-                systems = player().orderedColonies();
-                currSys = null;
-                // are we transporting?
-                if (parent.clickedSprite() instanceof SystemTransportSprite) {
-                    SystemTransportSprite spr = (SystemTransportSprite) parent.clickedSprite();
-                    currSys = spr.starSystem() == null ? spr.homeSystem() : spr.starSystem();
-                }
-                // are we ship relocating?
-                else if (parent.clickedSprite() instanceof ShipRelocationSprite) {
-                    ShipRelocationSprite spr = (ShipRelocationSprite) parent.clickedSprite();
-                    currSys = spr.starSystem() == null ? spr.homeSystemView() : spr.starSystem();
-                }
-                else if (parent.clickedSprite() instanceof StarSystem)
-                    currSys = (StarSystem) parent.clickedSprite();
-                index = systems.indexOf(currSys)-1;
-                if (index < 0)
-                    index = systems.size()-1;
-                if (parent.clickedSprite() instanceof SystemTransportSprite) {
-                    parent.hoveringOverSprite(systems.get(index));
-                    parent.clickingOnSprite(systems.get(index), 1, false, false, false);
-                }
-                else if (parent.clickedSprite() instanceof ShipRelocationSprite) {
-                    parent.hoveringOverSprite(systems.get(index));
-                }
-                else {
-                    parent.hoveringOverSprite(systems.get(index));
-                    parent.clickedSprite(systems.get(index));
-                    parent.map().recenterMapOn(systems.get(index));
-                }
-                parent.repaint();
+            	prevSystem(player().orderedColonies());
                 break;
             case KeyEvent.VK_F5:
-                systems = player().orderedShipConstructingColonies();
-                currSys = null;
-                if (systems.isEmpty())
-                    misClick();
-                else {
-                    //softClick();
-                    // are we transporting?
-                    if (parent.clickedSprite() instanceof SystemTransportSprite)
-                        currSys = ((SystemTransportSprite) parent.clickedSprite()).homeSystem();
-                    // are we ship relocating?
-                    else if (parent.clickedSprite() instanceof ShipRelocationSprite)
-                        currSys = ((ShipRelocationSprite) parent.clickedSprite()).homeSystemView();
-                    else if (parent.clickedSprite() instanceof StarSystem)
-                        currSys = (StarSystem) parent.clickedSprite();
-                    // find next index (exploit that missing element returns -1, so set to 0)
-                    index = systems.indexOf(currSys)+1;
-                    if (index == systems.size())
-                        index = 0;
-                    parent.clickedSprite(systems.get(index));
-                    parent.map().recenterMapOn(systems.get(index));
-                    parent.repaint();
-                }
+            	nextSystem(player().orderedShipConstructingColonies());
                 break;
             case KeyEvent.VK_F6:
-                systems = player().orderedShipConstructingColonies();
-                currSys = null;
-                if (systems.isEmpty())
-                    misClick();
-                else {
-                    //softClick();
-                    // are we transporting?
-                    if (parent.clickedSprite() instanceof SystemTransportSprite)
-                        currSys = ((SystemTransportSprite) parent.clickedSprite()).homeSystem();
-                    // are we ship relocating?
-                    else if (parent.clickedSprite() instanceof ShipRelocationSprite)
-                        currSys = ((ShipRelocationSprite) parent.clickedSprite()).homeSystemView();
-                    else if (parent.clickedSprite() instanceof StarSystem)
-                        currSys = (StarSystem) parent.clickedSprite();
-                    index = systems.indexOf(currSys)-1;
-                    if (index < 0)
-                        index = systems.size()-1;
-                    parent.clickedSprite(systems.get(index));
-                    parent.map().recenterMapOn(systems.get(index));
-                    parent.repaint();
-                }
+            	prevSystem(player().orderedShipConstructingColonies());
                 break;
             case KeyEvent.VK_F7:
-                systems = player().orderedUnderAttackSystems(parent.map().showUnarmedShips(), !parent.map().showFleetsOnly());
-                currSys = null;
-                if (systems.isEmpty())
-                    misClick();
-                else {
-                    //softClick();
-                    // are we transporting?
-                    if (parent.clickedSprite() instanceof SystemTransportSprite)
-                        currSys = ((SystemTransportSprite) parent.clickedSprite()).homeSystem();
-                        // are we ship relocating?
-                    else if (parent.clickedSprite() instanceof ShipRelocationSprite)
-                        currSys = ((ShipRelocationSprite) parent.clickedSprite()).homeSystemView();
-                    else if (parent.clickedSprite() instanceof StarSystem)
-                        currSys = (StarSystem) parent.clickedSprite();
-                    // find next index (exploit that missing element returns -1, so set to 0)
-                    index = systems.indexOf(currSys)+1;
-                    if (index == systems.size())
-                        index = 0;
-                    parent.clickedSprite(systems.get(index));
-                    parent.map().recenterMapOn(systems.get(index));
-                    parent.repaint();
-                }
+            	nextSystem(player().orderedUnderAttackSystems(
+            			parent.map().showUnarmedShips(), !parent.map().showFleetsOnly()));
                 break;
             case KeyEvent.VK_F8:
-                systems = player().orderedUnderAttackSystems(parent.map().showUnarmedShips(), !parent.map().showFleetsOnly());
-                currSys = null;
-                if (systems.isEmpty())
-                    misClick();
-                else {
-                    //softClick();
-                    // are we transporting?
-                    if (parent.clickedSprite() instanceof SystemTransportSprite)
-                        currSys = ((SystemTransportSprite) parent.clickedSprite()).homeSystem();
-                    // are we ship relocating?
-                    else if (parent.clickedSprite() instanceof ShipRelocationSprite)
-                        currSys = ((ShipRelocationSprite) parent.clickedSprite()).homeSystemView();
-                    else if (parent.clickedSprite() instanceof StarSystem)
-                        currSys = (StarSystem) parent.clickedSprite();
-                    index = systems.indexOf(currSys)-1;
-                    if (index < 0)
-                        index = systems.size()-1;
-                    parent.clickedSprite(systems.get(index));
-                    parent.map().recenterMapOn(systems.get(index));
-                    parent.repaint();
-                }
+            	prevSystem(player().orderedUnderAttackSystems(
+            			parent.map().showUnarmedShips(), !parent.map().showFleetsOnly()));
                 break;
             case KeyEvent.VK_F9:
-                fleets = player().orderedFleets();
-                currFleet = null;
-                if (fleets.isEmpty())
-                    misClick();
-                else {
-                    //softClick();
-                    if (parent.clickedSprite() instanceof ShipFleet)
-                        currFleet = (ShipFleet)parent.clickedSprite();
-                    index = fleets.indexOf(currFleet)+1;
-                    if (index == fleets.size())
-                        index = 0;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
-                    parent.map().recenterMapOn(fleets.get(index));
-                    parent.repaint();
-                }
+            	nextFleet(player().orderedFleets());
                 break;
             case KeyEvent.VK_F10:
-                fleets = player().orderedFleets();
-                currFleet = null;
-                if (fleets.isEmpty())
-                    misClick();
-                else {
-                    //softClick();
-                    if (parent.clickedSprite() instanceof ShipFleet)
-                        currFleet = (ShipFleet)parent.clickedSprite();
-                    index = fleets.indexOf(currFleet)-1;
-                    if (index < 0)
-                        index = fleets.size()-1;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
-                    parent.map().recenterMapOn(fleets.get(index));
-                    parent.repaint();
-                }
+            	prevFleet(player().orderedFleets());
                 break;
             case KeyEvent.VK_F11:
-                fleets = player().orderedEnemyFleets();
-                currFleet = null;
-                if (fleets.isEmpty())
-                    misClick();
-                else {
-                    //softClick();
-                    if (parent.clickedSprite() instanceof ShipFleet)
-                        currFleet = (ShipFleet)parent.clickedSprite();
-                    index = fleets.indexOf(currFleet)+1;
-                    if (index == fleets.size())
-                        index = 0;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
-                    parent.map().recenterMapOn(fleets.get(index));
-                    parent.repaint();
-                }
+            	nextFleet(player().orderedEnemyFleets());
                 break;
             case KeyEvent.VK_F12:
-                fleets = player().orderedEnemyFleets();
-                currFleet = null;
-                if (fleets.isEmpty())
-                    misClick();
-                else {
-                    //softClick();
-                    if (parent.clickedSprite() instanceof ShipFleet)
-                        currFleet = (ShipFleet)parent.clickedSprite();
-                    index = fleets.indexOf(currFleet)-1;
-                    if (index < 0)
-                        index = fleets.size()-1;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
-                    parent.map().recenterMapOn(fleets.get(index));
-                    parent.repaint();
-                }
+            	prevFleet(player().orderedEnemyFleets());
                 break;
             case KeyEvent.VK_PAGE_DOWN:
             case KeyEvent.VK_SPACE:
-                fleets = player().orderedIdleFleets();
-                currFleet = null;
-                if (fleets.isEmpty())
-                    misClick();
-                else {
-                    //softClick();
-                    if (parent.clickedSprite() instanceof ShipFleet)
-                        currFleet = (ShipFleet)parent.clickedSprite();
-                    index = fleets.indexOf(currFleet)+1;
-                    if (index == fleets.size())
-                        index = 0;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
-                    parent.map().recenterMapOn(fleets.get(index));
-                    parent.repaint();
-                }
+            	nextFleet(player().orderedIdleFleets());
                 break;
             case KeyEvent.VK_PAGE_UP:
-                fleets = player().orderedIdleFleets();
-                currFleet = null;
-                if (fleets.isEmpty())
-                    misClick();
-                else {
-                    //softClick();
-                    if (parent.clickedSprite() instanceof ShipFleet)
-                        currFleet = (ShipFleet)parent.clickedSprite();
-                    index = fleets.indexOf(currFleet)-1;
-                    if (index < 0)
-                        index = fleets.size()-1;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
-                    parent.map().recenterMapOn(fleets.get(index));
-                    parent.repaint();
-                }
+            	prevFleet(player().orderedIdleFleets());
                 break;
             case KeyEvent.VK_MULTIPLY:
             case KeyEvent.VK_7:
@@ -564,6 +320,92 @@ public class MapOverlayNone extends MapOverlay {
         	parent.clickingOnSprite(currSys, 1, false, true, false);
         	parent.clickedSprite(currSys);
             parent.map().recenterMapOn(currSys);
+            parent.repaint();
+        }
+    }
+    private StarSystem currentSystem() {
+    	StarSystem currentSystem = null;
+    	Sprite clickedSprite = parent.clickedSprite();
+    	// are we transporting?
+        if (clickedSprite instanceof SystemTransportSprite) {
+            SystemTransportSprite trSpr = (SystemTransportSprite) parent.clickedSprite();
+            currentSystem = trSpr.starSystem() == null ? trSpr.homeSystem() : trSpr.starSystem();
+        }
+        // are we ship relocating?
+        else if (clickedSprite instanceof ShipRelocationSprite) {
+            ShipRelocationSprite spr = (ShipRelocationSprite) parent.clickedSprite();
+            currentSystem = spr.starSystem() == null ? spr.homeSystemView() : spr.starSystem();
+        }
+        else if (clickedSprite instanceof StarSystem)
+            currentSystem = (StarSystem) clickedSprite;
+    	return currentSystem;
+    }
+    private void goToSystem(StarSystem system) {
+        if (parent.clickedSprite() instanceof SystemTransportSprite) {
+            parent.hoveringOverSprite(system);
+            parent.clickingOnSprite(system, 1, false, false, false);
+        }
+        else if (parent.clickedSprite() instanceof ShipRelocationSprite) {
+            parent.hoveringOverSprite(system);
+        }
+        else {
+            parent.hoveringOverSprite(system);
+            parent.clickedSprite(system);
+            parent.map().recenterMapOn(system);
+        }
+    }
+    private void nextSystem(List<StarSystem> systems) {
+    	if (systems.isEmpty()) {
+            misClick();
+            return;
+    	}
+    	StarSystem currSys = currentSystem();
+    	// find next index (exploit that missing element returns -1, so set to 0)
+        int index = systems.indexOf(currSys)+1;
+        if (index == systems.size())
+            index = 0;
+        goToSystem(systems.get(index));
+        parent.repaint();
+    }
+    private void prevSystem(List<StarSystem> systems) {
+    	if (systems.isEmpty()) {
+            misClick();
+            return;
+    	}
+    	StarSystem currSys = currentSystem();
+    	int index = systems.indexOf(currSys)-1;
+        if (index < 0)
+            index = systems.size()-1;
+        goToSystem(systems.get(index));
+        parent.repaint();
+    }
+    private void nextFleet(List<ShipFleet> fleets) {
+    	ShipFleet currFleet = null;
+        if (fleets.isEmpty())
+            misClick();
+        else {
+            if (parent.clickedSprite() instanceof ShipFleet)
+                currFleet = (ShipFleet)parent.clickedSprite();
+            int index = fleets.indexOf(currFleet)+1;
+            if (index == fleets.size())
+                index = 0;
+            parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
+            parent.map().recenterMapOn(fleets.get(index));
+            parent.repaint();
+        }
+    }
+    private void prevFleet(List<ShipFleet> fleets) {
+    	ShipFleet currFleet = null;
+        if (fleets.isEmpty())
+            misClick();
+        else {
+        	if (parent.clickedSprite() instanceof ShipFleet)
+                currFleet = (ShipFleet)parent.clickedSprite();
+            int index = fleets.indexOf(currFleet)-1;
+            if (index < 0)
+                index = fleets.size()-1;
+            parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
+            parent.map().recenterMapOn(fleets.get(index));
             parent.repaint();
         }
     }
