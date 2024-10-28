@@ -2710,6 +2710,7 @@ GOVERNOR_SETUP_MENU               | - Options du Gouverneur -
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | Paramètres de transport automatisé.
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ TRANSPORT AUTOMATISÉ ~~~%1
 GOVERNOR_TRANSPORT_OPTIONS_LABEL    | Paramètres d'automatisation du transport
+GOVERNOR_TRANSPORT_OPTIONS_TT       | Comment l'IA devrait gérer l'automatisation du transport.
 
 GOVERNOR_AUTO_TRANSPORT_HELP        | L'IA gère le transport de la population (Pour aider à peupler de nouvelles colonies).<br>De nombreuses colonies contribueront avec des transports de faible taille.<br>La population se régénérera ensuite naturellement.<br>Cette automatisation est dominante, étant la première à être activée.<br>Les deux options d’automatisation du transport peuvent être activées indépendamment l’une de l’autre.
 GOVERNOR_AUTO_TRANSPORT_DESC        | L'IA gère le transport de la population. (Pour aider à peupler de nouvelles colonies)<br>De nombreuses colonies contribueront avec des transports de faible taille.
@@ -2737,10 +2738,12 @@ GOVERNOR_TRANSPORT_MAX_TURNS_DESC   | Distance de transport maximale (en années
 GOVERNOR_TRANSPORT_MAX_TURNS        | Max Distance: %1 turn(s)
 GOVERNOR_TRANSPORT_MAX_TURNS_LABEL  | Distance de transport maximale (en années)
 GOVERNOR_TRANSPORT_MAX_TURNS_NEBULA_LABEL  | (Distance 1,5 fois plus élevée lorsque des nébuleuses sont traversées).
+GOVERNOR_TRANSPORT_MAX_TURNS_NEBULA_TT     | →GOVERNOR_TRANSPORT_MAX_TURNS_DESC←
 
-HEADERS_GOVERNOR_STARGATES_OPTIONS_DESC | Stargates Options.
-HEADERS_GOVERNOR_STARGATES_OPTIONS      | ~~~ STARGATES OPTIONS ~~~%1
+HEADERS_GOVERNOR_STARGATES_OPTIONS_DESC | Options de portes des étoiles
+HEADERS_GOVERNOR_STARGATES_OPTIONS      | ~~~ PORTES DES ÉTOILES ~~~%1
 GOVERNOR_STARGATES_OPTIONS_LABEL        | Portes des étoiles
+GOVERNOR_STARGATES_OPTIONS_TT           | Où l'IA devrait-elle construire des portes des étoiles ?
 
 GOVERNOR_STARGATES_OPTIONS_DESC      | To select when the stargates should be build automatically.
 GOVERNOR_STARGATES_OPTIONS           | Gates Built: %1
@@ -2755,91 +2758,97 @@ GOVERNOR_STARGATES_RICH_LABEL        | Build stargates on Rich and Ultra Rich pl
 GOVERNOR_STARGATES_ALL_LABEL         | Sur toutes les planètes
 GOVERNOR_STARGATES_RICH_1_LABEL      | Sur les planètes riches
 GOVERNOR_STARGATES_RICH_2_LABEL      | et ultra Riches
+GOVERNOR_STARGATES_RICH_1_TT         | →GOVERNOR_STARGATES_RICH_HELP←
+GOVERNOR_STARGATES_RICH_2_TT         | →GOVERNOR_STARGATES_RICH_HELP←
 
 HEADERS_GOVERNOR_COLONY_OPTIONS_DESC | Colony Options.
 HEADERS_GOVERNOR_COLONY_OPTIONS      | ~~~ COLONY OPTIONS ~~~%1
 GOVERNOR_COLONY_OPTIONS_LABEL        | Paramètres des colonies
+GOVERNOR_COLONY_OPTIONS_TT           | Comment l’IA devrait-elle gérer les colonies ?
 
-GOVERNOR_MIN_MISSILE_BASES_DESC      | Minimum missile bases to be built automatically.
+GOVERNOR_MIN_MISSILE_BASES_DESC      | Nombre minimal de bases de missiles à construire automatiquement.
 GOVERNOR_MIN_MISSILE_BASES           | Min Bases: %1
-GOVERNOR_MIN_MISSILE_BASES_LABEL     | Minimum missile bases
+GOVERNOR_MIN_MISSILE_BASES_LABEL     | Bases de missile minimum.
 
-GOVERNOR_SHIELD_WITHOUT_BASES_DESC   | Allow shields without bases.
-GOVERNOR_SHIELD_WITHOUT_BASES        | Shields alone: %1
-GOVERNOR_SHIELD_WITHOUT_BASES_LABEL  | Allow shields without bases
+GOVERNOR_SHIELD_WITHOUT_BASES_DESC   | Autoriser les boucliers sans bases.
+GOVERNOR_SHIELD_WITHOUT_BASES        | Boucliers seuls: %1
+GOVERNOR_SHIELD_WITHOUT_BASES_LABEL  | Autoriser les boucliers sans bases.
 
-GOVERNOR_AUTOSPEND_DESC              | Automatically spend reserve on planets with lowest production.
-GOVERNOR_AUTOSPEND                   | auto spend: %1
-GOVERNOR_AUTOSPEND_LABEL             | Autospend
+GOVERNOR_AUTOSPEND_DESC              | Dépensez automatiquement les réserves sur les planètes ayant la production la plus faible.
+GOVERNOR_AUTOSPEND                   | Dépenses IA: %1
+GOVERNOR_AUTOSPEND_LABEL             | L'IA gère les dépenses.
 
-GOVERNOR_RESERVE_DESC                | Keep in reserve.
-GOVERNOR_RESERVE                     | Reserve: %1
-GOVERNOR_RESERVE_LABEL               | Garder en reserve
+GOVERNOR_RESERVE_DESC                | Économies à garder en réserve (Non dépensée par l'IA)
+GOVERNOR_RESERVE                     | Reserves: %1
+GOVERNOR_RESERVE_LABEL               | Fond de secours
 
-GOVERNOR_SHIP_BUILDING_DESC          | Shipbuilding with Governor enabled. Divert resources into shipbuilding and not research if planet is already building ships.
-GOVERNOR_SHIP_BUILDING               | Shipbuilding: %1
-GOVERNOR_SHIP_BUILDING_LABEL         | Shipbuilding with Governor enabled
+GOVERNOR_SHIP_BUILDING_DESC          | Construction navale avec gouverneur activé. Détournez les ressources vers la construction navale et ne faites pas de recherches si la planète construit déjà des navires.
+GOVERNOR_SHIP_BUILDING               | Chantiers navaux: %1
+GOVERNOR_SHIP_BUILDING_LABEL         | Construction navale avec gouverneur activé.
 
-GOVERNOR_LEGACY_GROWTH_MODE_DESC     | Develop colonies as quickly as possible.
-GOVERNOR_LEGACY_GROWTH_MODE          | Rapid growth: %1
-GOVERNOR_LEGACY_GROWTH_MODE_LABEL    | Develop colonies as quickly as possible
+GOVERNOR_LEGACY_GROWTH_MODE_DESC     | Développer les colonies le plus rapidement possible.
+GOVERNOR_LEGACY_GROWTH_MODE          | Croissanse rapide: %1
+GOVERNOR_LEGACY_GROWTH_MODE_LABEL    | Développer les colonies le plus rapidement possible.
 
-GOVERNOR_TERRAFORM_EARLY_DESC        | Favor atmosphere and soil enrichment, as well as planet terraforming. <br>Could be used before a council, to boost your vote power.
-GOVERNOR_TERRAFORM_EARLY             | Boost Planet Early: %1%
-GOVERNOR_TERRAFORM_EARLY_LABEL       | Boost Planet Early
+GOVERNOR_TERRAFORM_EARLY_DESC        | Favoriser l'enrichissement de l'atmosphère et des sols, ainsi que la terraformation de la planète. <br>Pourrait être utilisé avant la scéance du conseil, pour augmenter votre pouvoir de vote.
+GOVERNOR_TERRAFORM_EARLY             | Terraformation rapide: %1%
+GOVERNOR_TERRAFORM_EARLY_LABEL       | Terraformation rapide
 
-HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS_DESC | Spying activities related Options.
-HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS      | ~~~ INTELLIGENCE OPTIONS ~~~%1
+HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS_DESC | Mandats liés aux activités d'espionnage.
+HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS      | ~~~ SERVICES SECRETS ~~~%1
 GOVERNOR_INTELLIGENCE_OPTIONS_LABEL  | Services Secrets
+GOVERNOR_INTELLIGENCE_OPTIONS_TT     | Comment l’IA devrait gérer les activités d’espionnage.
 
-GOVERNOR_AUTO_INFILTRATE_DESC        | Automatically sends spies to infiltrate other empires.
-GOVERNOR_AUTO_INFILTRATE             | Auto Infiltrate: %1
-GOVERNOR_AUTO_INFILTRATE_LABEL       | Auto Infiltrate
+GOVERNOR_AUTO_INFILTRATE_DESC        | LIA gère l'envoi des espions pour infiltrer les autres empires.
+GOVERNOR_AUTO_INFILTRATE             | IA infiltration: %1
+GOVERNOR_AUTO_INFILTRATE_LABEL       | L'IA gère l'infiltration
 
-GOVERNOR_AUTO_SPY_DESC               | Hand control over spies to AI.
+GOVERNOR_AUTO_SPY_DESC               | Confiez le contrôle des espions à l’IA.
 GOVERNOR_AUTO_SPY                    | Auto Spy: %1
-GOVERNOR_AUTO_SPY_LABEL              | Let AI handle spies
+GOVERNOR_AUTO_SPY_LABEL              | L'IA gère les espions
 
 GOVERNOR_SPARE_XENOPHOBES_DESC       | Once enjoined to stop espionage by an alien empire, the Governor will follow the player's choice for the time necessary for the empire to calm down.
 GOVERNOR_SPARE_XENOPHOBES            | Respect promises: %1
-GOVERNOR_SPARE_XENOPHOBES_LABEL      | Respect promises
+GOVERNOR_SPARE_XENOPHOBES_LABEL      | Promesses tenues
 
 HEADERS_GOVERNOR_FLEET_OPTIONS_DESC  | Fleet Options.
 HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~%1
 GOVERNOR_FLEET_OPTIONS_LABEL         | Paramètres des Flottes
+GOVERNOR_FLEET_OPTIONS_TT            | Comment l'IA devrait gérer les activités des flottes.
 
-GOVERNOR_AUTO_SCOUT_DESC             | When enabled, the Governor will automatically send ships to scout new planets.
-GOVERNOR_AUTO_SCOUT                  | Auto Scout: %1
-GOVERNOR_AUTO_SCOUT_LABEL            | Auto Scout
+GOVERNOR_AUTO_SCOUT_DESC             | Lorsque cette option est activée, le gouverneur enverra automatiquement des vaisseaux pour explorer de nouvelles planètes.
+GOVERNOR_AUTO_SCOUT                  | IA Explore: %1
+GOVERNOR_AUTO_SCOUT_LABEL            | L'IA Explore
 
-GOVERNOR_AUTO_COLONIZE_DESC          | When enabled, the Governor will automatically send ships to colonize new planets.
-GOVERNOR_AUTO_COLONIZE               | Auto Colonize: %1
-GOVERNOR_AUTO_COLONIZE_LABEL         | Auto Colonize
+GOVERNOR_AUTO_COLONIZE_DESC          | Lorsque cette option est activée, le gouverneur enverra automatiquement des vaisseaux pour coloniser de nouvelles planètes.
+GOVERNOR_AUTO_COLONIZE               | IA Colonise: %1
+GOVERNOR_AUTO_COLONIZE_LABEL         | L'IA Colonise
 
-GOVERNOR_AUTO_ATTACK_DESC            | When enabled, the Governor will automatically send ships to enemy colonies.
-GOVERNOR_AUTO_ATTACK                 | Auto Attack: %1
-GOVERNOR_AUTO_ATTACK_LABEL           | Auto Attack
+GOVERNOR_AUTO_ATTACK_DESC            | Lorsque cette option est activée, le gouverneur enverra automatiquement des vaisseaux de guerre vers les colonies ennemies.
+GOVERNOR_AUTO_ATTACK                 | IA Extermine: %1
+GOVERNOR_AUTO_ATTACK_LABEL           | L'IA Extermine
 
-GOVERNOR_AUTO_SCOUT_COUNT_DESC       | Number of scout ships to send.
+GOVERNOR_AUTO_SCOUT_COUNT_DESC       | De combien de vaisseaux de reconnaissance la flotte devrait-elle être constituée ?
 GOVERNOR_AUTO_SCOUT_COUNT            | Éclaireurs: %1
-GOVERNOR_AUTO_SCOUT_COUNT_LABEL      | Nombre d'éclaireurs à envoyer
+GOVERNOR_AUTO_SCOUT_COUNT_LABEL      | Nombre d'éclaireurs à envoyer.
 
-GOVERNOR_AUTO_COLONY_COUNT_DESC      | Number of Colony ships to send.
+GOVERNOR_AUTO_COLONY_COUNT_DESC      | De combien de vaisseaux de colonisation la flotte devrait-elle être constituée ?
 GOVERNOR_AUTO_COLONY_COUNT           | Pionniers: %1
-GOVERNOR_AUTO_COLONY_COUNT_LABEL     | Nombre de pionniers à envoyer
+GOVERNOR_AUTO_COLONY_COUNT_LABEL     | Nombre de pionniers à envoyer.
 
-GOVERNOR_AUTO_ATTACK_COUNT_DESC      | Number of Attack ships to send.
+GOVERNOR_AUTO_ATTACK_COUNT_DESC      | De combien de vaisseaux de guerre la flotte devrait-elle être constituée ?
 GOVERNOR_AUTO_ATTACK_COUNT           | Baroudeurs: %1
-GOVERNOR_AUTO_ATTACK_COUNT_LABEL     | Nombre de vaisseaux de guerre à envoyer.
+GOVERNOR_AUTO_ATTACK_COUNT_LABEL     | Nombre de baroudeurs à envoyer.
 
 // Not yet implemented
-GOVERNOR_AUTOSHIPS_BY_DEFAULT_DESC   | Auto Ships is set to "On" by Default: If true, new colonies will have auto ship building set to "on".
+GOVERNOR_AUTOSHIPS_BY_DEFAULT_DESC   | La construction automatique de navires est Activée par défaut : si cette option est activée, la construction automatique de navires dans les nouvelles colonies sera activée.
 GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset auto Ships: %1
 GOVERNOR_AUTOSHIPS_BY_DEFAULT_LABEL  | Auto Ships is "On" by Default
 
-HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Appearance related Options.
+HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Options liées à l'apparence du panneau de configuration.
 HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~%1
-GOVERNOR_ASPECT_OPTIONS_LABEL        | Aspect
+GOVERNOR_ASPECT_OPTIONS_LABEL        | Apparence
+GOVERNOR_ASPECT_OPTIONS_TT           | Options liées à l'apparence de ce panneau de configuration.
 
 GOVERNOR_ORIGINAL_PANEL_DESC         | How the panel should be displayed? Old ways or RotP like?
 GOVERNOR_ORIGINAL_PANEL              | Original View: %1
@@ -2857,12 +2866,12 @@ GOVERNOR_SIZE_FACTOR_LABEL           | % Taille
 
 GOVERNOR_BRIGHTNESS_DESC             | The RotP panel have various brightness level... I will let you choose what this one should use!  (Available for the new design only)
 GOVERNOR_BRIGHTNESS                  | Brightness: %1%
-GOVERNOR_BRIGHTNESS_LABEL            | % Bright
+GOVERNOR_BRIGHTNESS_LABEL            | % Luminosité
 
 GOVERNOR_POSITION_X_DESC             | Horizontal position of the Governor Panel.
-GOVERNOR_POSITION_X                  | X position: %1
+GOVERNOR_POSITION_X                  | Position X: %1
 GOVERNOR_POSITION_Y_DESC             | Vertical position of the Governor Panel.
-GOVERNOR_POSITION_Y                  | Y position: %1
+GOVERNOR_POSITION_Y                  | Position Y: %1
 
 HEADERS_GOVERNOR_OTHER_OPTIONS_DESC | Unclassified Options.
 HEADERS_GOVERNOR_OTHER_OPTIONS      | ~~~ OTHER OPTIONS ~~~%1
@@ -2872,15 +2881,29 @@ GOVERNOR_AUTO_APPLY_LABEL           | Auto Apply
 
 GOVERNOR_ON_BY_DEFAULT_DESC         | This will activate the governor for all new colonies, created or invaded.
 GOVERNOR_ON_BY_DEFAULT              | On By Default: %1
-GOVERNOR_ON_BY_DEFAULT_LABEL        | Governor is on by default
+GOVERNOR_ON_BY_DEFAULT_LABEL        | Actif par défaut
 
-GOVERNOR_ANIMATED_IMAGE_DESC        | If the animation is disturbing you, you can stop it by clicking on it!<br>another click will reactivate it.
-GOVERNOR_ANIMATED_IMAGE             | Animate Image: %1
+GOVERNOR_ANIMATED_IMAGE_DESC        | Si l'animation vous dérange, vous pouvez l'arrêter en cliquant dessus !<br>un autre clic la réactivera.
+GOVERNOR_ANIMATED_IMAGE             | Animer l'image: %1
 GOVERNOR_FULL_REFRESH_ON_LOAD_HELP  | On some computer, loading and updating governor panel appearance while the panel is behind the main window may lead to display glitches. Consequently, by default only the values are updated. "Yes" will allow a full governor panel update.
 GOVERNOR_FULL_REFRESH_ON_LOAD_DESC  | Position, size and color will refresh when loading a new game.<br>Set to false in case of display glitches.
-GOVERNOR_FULL_REFRESH_ON_LOAD       | Full Reset: %1
+GOVERNOR_FULL_REFRESH_ON_LOAD       | Réinitialisation complète: %1
 
-
+GOVERNOR_ALL_GOVERNORS_ON_LABEL      | Activer tous les Gouverneurs
+GOVERNOR_ALL_GOVERNORS_ON_TT         | Toutes les colonies seront gouvernées
+GOVERNOR_ALL_GOVERNORS_OFF_LABEL     | Démettre tous les Gouverneurs
+GOVERNOR_ALL_GOVERNORS_OFF_TT        | Toutes les colonies seront sous le contrôle total du joueur
+GOVERNOR_OK_BUTTON_LABEL             | Quitter
+GOVERNOR_OK_BUTTON_TT                | Appliquer les paramètres et fermer l'interface graphique.
+GOVERNOR_APPLY_BUTTON_LABEL          | Appliquer
+GOVERNOR_APPLY_BUTTON_TT             | Appliquer les paramètres tout en gardant l’interface graphique ouverte.
+GOVERNOR_COMPLETIONIST_TECHNOLOGIES_LABEL | Perfectionnistes
+GOVERNOR_COMPLETIONIST_TECHNOLOGIES_TT    | J'aime terminer les jeux entièrement. <br> Autoriser tous les empires à rechercher les technologies suivantes :<br><br> Environnement irradié contrôlé<br> Terraformation atmosphérique<br> Terminer la terraformation<br> Enrichissement avancé du sol<br> Portes des étoiles<br><br> Plus de 30 % de la galaxie doit être colonisée.<br> Le joueur doit contrôler plus de 50 % des systèmes colonisés.<br> Le joueur doit avoir terminé toutes les recherches de son arbre technologique (Incluant les technologies futures).<br>
+GOVERNOR_CANCEL_BUTTON_LABEL         | Annuler
+GOVERNOR_CANCEL_BUTTON_TT            | Fermer l'interface graphique sans appliquer les changements.
+// Leave empty
+GOVERNOR_RACE_IMAGE_LABEL            |
+GOVERNOR_RACE_IMAGE_TT               | Si l'animation vous dérange, vous pouvez l'arrêter en cliquant dessus !<br>un autre clic la réactivera.
 
 //
 // ===== BR: Guide and contextual Help added by Mods =====

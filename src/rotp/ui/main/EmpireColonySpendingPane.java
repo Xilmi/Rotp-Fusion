@@ -938,7 +938,6 @@ public class EmpireColonySpendingPane extends BasePanel {
     	@Override public void keyTyped(KeyEvent e)		{ }
     	@Override public void keyPressed(KeyEvent e)	{ }
     	@Override public void keyReleased(KeyEvent e)	{
-    		// TODO Auto-generated method stub
     		checkModifierKey(e);
     		switch(e.getKeyCode()) {
     		case KeyEvent.VK_L:

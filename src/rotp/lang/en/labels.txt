@@ -4474,6 +4474,7 @@ GOVERNOR_SETUP_MENU               | - Governor Menu -
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | Auto Transport Options.
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ AUTO-TRANSPORT OPTIONS ~~~%1
 GOVERNOR_TRANSPORT_OPTIONS_LABEL    | Auto Transport Options
+GOVERNOR_TRANSPORT_OPTIONS_TT       | How AI should handle transportation automation.
 
 GOVERNOR_AUTO_TRANSPORT_HELP        | The AI ​​handles population transport (To help populate new colonies).<br>Many colonies will contribute small transports.<br>The population will then regenerate naturally.<br>This automation is dominant, being the first to be activated.<br>Both transport automation options can be activated independently of each other.
 GOVERNOR_AUTO_TRANSPORT_DESC        | AI handles population transportation. (To help populate new colonies)<br>Many colonies will contribute with small transports.
@@ -4501,10 +4502,12 @@ GOVERNOR_TRANSPORT_MAX_TURNS_DESC   | Maximum transport distance in turns.<br>(1
 GOVERNOR_TRANSPORT_MAX_TURNS        | Max Distance: %1 turn(s)
 GOVERNOR_TRANSPORT_MAX_TURNS_LABEL  | Maximum transport distance in turns
 GOVERNOR_TRANSPORT_MAX_TURNS_NEBULA_LABEL  | (1.5x higher distance when transporting to nebulae)
+GOVERNOR_TRANSPORT_MAX_TURNS_NEBULA_TT     | →GOVERNOR_TRANSPORT_MAX_TURNS_DESC←
 
 HEADERS_GOVERNOR_STARGATES_OPTIONS_DESC | Stargates Options.
 HEADERS_GOVERNOR_STARGATES_OPTIONS      | ~~~ STARGATES OPTIONS ~~~%1
 GOVERNOR_STARGATES_OPTIONS_LABEL        | Stargates Options
+GOVERNOR_STARGATES_OPTIONS_TT           | Where should the AI ​​build Stargates?
 
 GOVERNOR_STARGATES_OPTIONS_DESC      | To select when the stargates should be build automatically.
 GOVERNOR_STARGATES_OPTIONS           | Gates Built: %1
@@ -4519,10 +4522,13 @@ GOVERNOR_STARGATES_RICH_LABEL        | Build stargates on Rich and Ultra Rich pl
 GOVERNOR_STARGATES_ALL_LABEL         | Always build stargates
 GOVERNOR_STARGATES_RICH_1_LABEL      | Build stargates on Rich
 GOVERNOR_STARGATES_RICH_2_LABEL      | and Ultra Rich planets
+GOVERNOR_STARGATES_RICH_1_TT         | →GOVERNOR_STARGATES_RICH_HELP←
+GOVERNOR_STARGATES_RICH_2_TT         | →GOVERNOR_STARGATES_RICH_HELP←
 
 HEADERS_GOVERNOR_COLONY_OPTIONS_DESC | Colony Options.
 HEADERS_GOVERNOR_COLONY_OPTIONS      | ~~~ COLONY OPTIONS ~~~%1
 GOVERNOR_COLONY_OPTIONS_LABEL        | Colony Options
+GOVERNOR_COLONY_OPTIONS_TT           | How should AI handle colonies?
 
 GOVERNOR_MIN_MISSILE_BASES_DESC      | Minimum missile bases to be built automatically.
 GOVERNOR_MIN_MISSILE_BASES           | Min Bases: %1
@@ -4555,6 +4561,7 @@ GOVERNOR_TERRAFORM_EARLY_LABEL       | Boost Planet Early
 HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS_DESC | Spying activities related Options.
 HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS      | ~~~ INTELLIGENCE OPTIONS ~~~%1
 GOVERNOR_INTELLIGENCE_OPTIONS_LABEL  | Intelligence Options
+GOVERNOR_INTELLIGENCE_OPTIONS_TT     | How AI should handle espionage activities.
 
 GOVERNOR_AUTO_INFILTRATE_DESC        | Automatically sends spies to infiltrate other empires.
 GOVERNOR_AUTO_INFILTRATE             | Auto Infiltrate: %1
@@ -4571,6 +4578,7 @@ GOVERNOR_SPARE_XENOPHOBES_LABEL      | Respect promises
 HEADERS_GOVERNOR_FLEET_OPTIONS_DESC  | Fleet Options.
 HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~%1
 GOVERNOR_FLEET_OPTIONS_LABEL         | Fleet Options
+GOVERNOR_FLEET_OPTIONS_TT            | How AI should manage fleet operations.
 
 GOVERNOR_AUTO_SCOUT_DESC             | When enabled, the Governor will automatically send ships to scout new planets.
 GOVERNOR_AUTO_SCOUT                  | Auto Scout: %1
@@ -4601,9 +4609,10 @@ GOVERNOR_AUTOSHIPS_BY_DEFAULT_DESC   | Auto Ships is set to "On" by Default: If 
 GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset auto Ships: %1
 GOVERNOR_AUTOSHIPS_BY_DEFAULT_LABEL  | Auto Ships is "On" by Default
 
-HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Appearance related Options.
+HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Options related to the appearance of the control panel.
 HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~%1
 GOVERNOR_ASPECT_OPTIONS_LABEL        | Aspect
+GOVERNOR_ASPECT_OPTIONS_TT           | Options related to the appearance of this control panel.
 
 GOVERNOR_ORIGINAL_PANEL_DESC         | How the panel should be displayed? Old ways or RotP like?
 GOVERNOR_ORIGINAL_PANEL              | Original View: %1
@@ -4643,6 +4652,22 @@ GOVERNOR_ANIMATED_IMAGE             | Animate Image: %1
 GOVERNOR_FULL_REFRESH_ON_LOAD_HELP  | On some computer, loading and updating governor panel appearance while the panel is behind the main window may lead to display glitches. Consequently, by default only the values are updated. "Yes" will allow a full governor panel update.
 GOVERNOR_FULL_REFRESH_ON_LOAD_DESC  | Position, size and color will refresh when loading a new game.<br>Set to false in case of display glitches.
 GOVERNOR_FULL_REFRESH_ON_LOAD       | Full Reset: %1
+
+GOVERNOR_ALL_GOVERNORS_ON_LABEL      | All Governors ON
+GOVERNOR_ALL_GOVERNORS_ON_TT         | All colonies will be governed
+GOVERNOR_ALL_GOVERNORS_OFF_LABEL     | All Governors OFF
+GOVERNOR_ALL_GOVERNORS_OFF_TT        | All colonies will be under the full control of the player
+GOVERNOR_OK_BUTTON_LABEL             | OK
+GOVERNOR_OK_BUTTON_TT                | Apply settings and close the GUI
+GOVERNOR_APPLY_BUTTON_LABEL          | Apply
+GOVERNOR_APPLY_BUTTON_TT             | Apply settings and keep GUI open
+GOVERNOR_COMPLETIONIST_TECHNOLOGIES_LABEL | Completionist Technologies
+GOVERNOR_COMPLETIONIST_TECHNOLOGIES_TT    | I like completing games fully. <br> Allow all Empires to Research the following Technologies:<br><br> Controlled Irradiated Environment<br> Atmospheric Terraforming<br> Complete Terraforming<br> Advanced Soil Enrichment<br> Intergalactic Star Gates<br><br> More than 30% of the Galaxy needs to be colonized.<br> Player must control more than 50% of colonized systems.<br> Player must have completed all Research in their Tech Tree (Future Techs too).<br>
+GOVERNOR_CANCEL_BUTTON_LABEL         | Cancel
+GOVERNOR_CANCEL_BUTTON_TT            | Close the GUI
+// Leave empty
+GOVERNOR_RACE_IMAGE_LABEL            |
+GOVERNOR_RACE_IMAGE_TT               | If the animation is disturbing you, you can stop it by clicking on it!<br>another click will reactivate it.
 
 // BR: Tech Trigger Add-on
 //

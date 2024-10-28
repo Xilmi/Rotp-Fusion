@@ -46,6 +46,7 @@ import rotp.model.game.GovernorOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.game.GameUI;
 import rotp.ui.main.EmpireColonySpendingPane.GovernorFrame;
+import rotp.ui.util.IParam;
 import rotp.ui.util.swing.RotpJSpinner;
 import rotp.ui.util.swing.RotpJSpinnerButton;
 import rotp.util.FontManager;
@@ -53,6 +54,11 @@ import rotp.util.FontManager;
  * Produced using Netbeans Swing GUI builder.
  */
 public class GovernorOptionsPanel extends BasePanel{
+	private static final String HEADER  = "GOVERNOR_";
+	private static final String DESC    = IParam.LABEL_DESCRIPTION;
+	private static final String HELP    = IParam.LABEL_HELP;
+	private static final String LABEL   = IParam.LABEL_GOV_LABEL;
+	private static final String TOOLTIP = "_TT";
 	
 	private static final float	valueFontSize		= 14f;
 	private static final float	baseFontSize		= 14f;
@@ -224,7 +230,6 @@ public class GovernorOptionsPanel extends BasePanel{
 		initComponents();	// Load the form
 		loadValues();		// Load User's values
 		initTooltips();
-		loadTooltips();
 		updatePanel(frame, isNewFormat(), false, 0); // Apply the new formating
 		setRaceImg();		// Pack and set icon
 	}
@@ -262,6 +267,22 @@ public class GovernorOptionsPanel extends BasePanel{
 	}
 	// ========== Local tools ==========
 	//
+	private String getLabel(String name)		{ return text(HEADER + name + LABEL); }
+	private String getHelp(String name)			{ return text(HEADER + name + HELP); }
+	private String getDescription(String name)	{ return text(HEADER + name + DESC); }
+	private String getBaseToolTip(String name)	{ return text(HEADER + name + TOOLTIP); }
+	private String getToolTip(String name)		{
+		String toolTip = getBaseToolTip(name);
+		if (toolTip.startsWith(HEADER)) {
+			toolTip = getHelp(name);
+			if (toolTip.startsWith(HEADER)) {
+				toolTip = getDescription(name);
+				if (toolTip.startsWith(HEADER))
+					return name;
+			}
+		}
+		return "<html>" + toolTip + "</html>";
+	}
 	private boolean	isAutoApply()				{ return (govOptions().isAutoApply()); }
 	private boolean	isAnimatedImage()			{ return (govOptions().isAnimatedImage()); }
 	private boolean	isCustomSize()				{
@@ -386,6 +407,12 @@ public class GovernorOptionsPanel extends BasePanel{
 	private void setRotpSpinnerButton	(Component c, boolean newFormat, boolean debug) {
 		RotpJSpinnerButton button = (RotpJSpinnerButton) c;
 		button.setFocusPainted(false);
+		String name = button.getName();
+		//System.out.println("RotpJSpinnerButton name: " + name );
+		if (name != null) {
+			//button.setText(getLabel(name));
+			button.setToolTipText(getToolTip(name));
+		}
 		if (newFormat) {
 			button.setBackground(null);
 			button.setForeground(buttonTextColor);
@@ -402,9 +429,8 @@ public class GovernorOptionsPanel extends BasePanel{
 		String name = button.getName();
 		//System.out.println("button name: " + name );
 		if (name != null) {
-			String key = "GOVERNOR_" + name + "_LABEL";
-			String str = text(key);
-			button.setText(str);
+			button.setText(getLabel(name));
+			button.setToolTipText(getToolTip(name));
 		}
 		if (newFormat) {
 			button.setUI(rotpButtonUI);
@@ -427,9 +453,8 @@ public class GovernorOptionsPanel extends BasePanel{
 		String name = box.getName();
 		//System.out.println("box name: " + name );
 		if (name != null) {
-			String key = "GOVERNOR_" + name + "_LABEL";
-			String str = text(key);
-			box.setText(str);
+			box.setText(getLabel(name));
+			box.setToolTipText(getToolTip(name));
 		}
 		if (newFormat) {
 			box.setBackground(textBgColor);
@@ -443,6 +468,12 @@ public class GovernorOptionsPanel extends BasePanel{
 	private void setJRadioButton		(Component c, boolean newFormat, boolean debug) {
 		JRadioButton button = (JRadioButton) c;
 		button.setFocusPainted(false);
+		String name = button.getName();
+		//System.out.println("button name: " + name );
+		if (name != null) {
+			button.setText(getLabel(name));
+			button.setToolTipText(getToolTip(name));
+		}
 		if (newFormat) {
 			button.setBackground(textBgColor);
 			button.setForeground(textColor);
@@ -452,9 +483,22 @@ public class GovernorOptionsPanel extends BasePanel{
 			button.setIcon(iconCheckRadio);
 		}
 	}
-	private void setJToggleButton		(Component c, boolean newFormat, boolean debug) { }
+	private void setJToggleButton		(Component c, boolean newFormat, boolean debug) {
+		JToggleButton button = (JToggleButton) c;
+		String name = button.getName();
+		//System.out.println("button name: " + name );
+		if (name != null) {
+			button.setToolTipText(getToolTip(name));
+		}
+		
+	}
 	private void setJSpinner			(Component c, boolean newFormat, boolean debug) {
 		GovernorJSpinner spinner = (GovernorJSpinner) c;
+		String name = spinner.getName();
+		//System.out.println("GovernorJSpinner name: " + name );
+		if (name != null) {
+			//spinner.setToolTipText(getToolTip(name));
+		}
 		if (newFormat) {
 			spinner.getLayout();
 			spinner.setBackground(valueBgColor);
@@ -469,9 +513,8 @@ public class GovernorOptionsPanel extends BasePanel{
 		String name = label.getName();
 		//System.out.println("Label name: " + name );
 		if (name != null) {
-			String key = "GOVERNOR_" + name + "_LABEL";
-			String str = text(key);
-			label.setText(str);
+			label.setText(getLabel(name));
+			label.setToolTipText(getToolTip(name));
 		}
 		if (newFormat) {
 			label.setBackground(textBgColor);
@@ -481,6 +524,12 @@ public class GovernorOptionsPanel extends BasePanel{
 	}
 	private void setJFormattedTextField	(Component c, boolean newFormat, boolean debug) {
 		JFormattedTextField txt = (JFormattedTextField) c;
+		String name = txt.getName();
+		//System.out.println("Label name: " + name );
+		if (name != null) {
+			//txt.setText(getLabel(name));
+			//txt.setToolTipText(getToolTip(name));
+		}
 		if (newFormat) {
 			txt.setBackground(valueBgColor);
 			txt.setForeground(valueTextColor);
@@ -490,6 +539,11 @@ public class GovernorOptionsPanel extends BasePanel{
 	}
 	private void setNumberEditor		(Component c, boolean newFormat, boolean debug) {
 		NumberEditor num = (NumberEditor) c;
+		String name = num.getName();
+		// System.out.println("NumberEditor name: " + name );
+		if (name != null) {
+			num.setToolTipText(getToolTip(name));
+		}
 		if (newFormat) {
 			num.setBackground(valueBgColor);
 			num.setForeground(valueTextColor);
@@ -505,10 +559,9 @@ public class GovernorOptionsPanel extends BasePanel{
 		String name = pane.getName();
 		//System.out.println("Label name: " + name );
 		if (name != null && brdr != null && brdr instanceof TitledBorder) {
+			pane.setToolTipText(getToolTip(name));
 			TitledBorder border = (TitledBorder) brdr;
-			String key = "GOVERNOR_" + name + "_LABEL";
-			String str = text(key);
-			border.setTitle(str);
+			border.setTitle(getLabel(name));
 		}
 		if (newFormat) {
 			pane.setBackground(panelBgColor);
@@ -607,121 +660,6 @@ public class GovernorOptionsPanel extends BasePanel{
 
 	// ========== Load and save Values ==========
 	//
-	private void loadTooltips()	{
-		GovernorOptions options = govOptions();
-		// Other Options and duplicate
-		governorDefault.setToolTipText(options.governorOnByDefaultTT());
-        completionist.setToolTipText("<html>\nI like completing games fully. <br/>\n"
-        		+ "Allow all Empires to Research the following Technologies:<br/>\n<br/>\n"
-        		+ "Controlled Irradiated Environment<br/>\n"
-        		+ "Atmospheric Terraforming<br/>\n"
-        		+ "Complete Terraforming<br/>\n"
-        		+ "Advanced Soil Enrichment<br/>\n"
-        		+ "Intergalactic Star Gates<br/>\n<br/>\n"
-        		+ "More than 30% of the Galaxy needs to be colonized.<br/>\n"
-        		+ "Player must control more than 50% of colonized systems.<br/>\n"
-        		+ "Player must have completed all Research in their Tech Tree (Future Techs too).<br/>\n</html>");
-		autoApplyToggleButton.setToolTipText(options.autoApplyTT());
-		
-		// AutoTransport Options
-		autotransportAI.setToolTipText(options.autotransportAITT());
-		autotransportGovernor.setToolTipText(options.autotransportGovernorTT());
-		allowUngoverned.setToolTipText(options.autotransportUngovernedTT());
-		transportMaxTurns.setToolTipText(options.transportMaxTurnsTT());
-		transportRichDisabled.setToolTipText(options.transportRichDisabledTT());
-		transportPoorDouble.setToolTipText(options.transportPoorDoubleTT());
-
-		// StarGates Options
-		stargateOff.setToolTipText(options.gatesOffTT());
-		stargateRich.setToolTipText(options.gatesRichTT());
-		stargateOn.setToolTipText(options.gatesOnTT());
-
-		// Colony Options
-		missileBases.setToolTipText(options.minimumMissileBasesTT());
-		shieldWithoutBases.setToolTipText(options.shieldWithoutBasesTT());
-		autospend.setToolTipText(options.autospendTT());
-		reserve.setToolTipText(options.reserveTT());
-		shipbuilding.setToolTipText(options.shipbuildingTT());
-		legacyGrowthMode.setToolTipText(options.legacyGrowthModeTT());
-		terraformEarly.setToolTipText(options.terraformEarlyTT());
-
-		// Intelligence Options
-		autoInfiltrate.setToolTipText(options.autoInfiltrateTT());
-		autoSpy.setToolTipText(options.autoSpyTT());
-		spareXenophobes.setToolTipText(options.respectPromisesTT());
-
-		// Fleet Options
-		autoScout.setToolTipText(options.autoScoutTT());
-		autoColonize.setToolTipText(options.autoColonizeTT());
-		autoAttack.setToolTipText(options.autoAttackTT());
-		autoScoutShipCount.setToolTipText(options.autoScoutShipCountTT());
-		autoColonyShipCount.setToolTipText(options.autoColonyShipCountTT());
-		autoAttackShipCount.setToolTipText(options.autoAttackShipCountTT());
-
-		// Aspect Options
-		customSize.setToolTipText(options.customSizeTT());
-		sizePct.setToolTipText(options.sizeFactorPctTT());
-		brightnessPct.setToolTipText(options.brightnessPctTT());
-		isOriginal.setToolTipText(options.originalPanelTT());
-	}
-	private void loadLabels()	{
-		GovernorOptions options = govOptions();
-		// Other Options and duplicate
-		governorDefault.setText(options.governorOnByDefaultText());
-        completionist.setToolTipText("<html>\nI like completing games fully. <br/>\n"
-        		+ "Allow all Empires to Research the following Technologies:<br/>\n<br/>\n"
-        		+ "Controlled Irradiated Environment<br/>\n"
-        		+ "Atmospheric Terraforming<br/>\n"
-        		+ "Complete Terraforming<br/>\n"
-        		+ "Advanced Soil Enrichment<br/>\n"
-        		+ "Intergalactic Star Gates<br/>\n<br/>\n"
-        		+ "More than 30% of the Galaxy needs to be colonized.<br/>\n"
-        		+ "Player must control more than 50% of colonized systems.<br/>\n"
-        		+ "Player must have completed all Research in their Tech Tree (Future Techs too).<br/>\n</html>");
-		autoApplyToggleButton.setText(options.autoApplyText());
-		
-		// AutoTransport Options
-		autotransportAI.setText(options.autotransportAIText());
-		autotransportGovernor.setText(options.autotransportGovernorText());
-		allowUngoverned.setText(options.autotransportUngovernedText());
-		//transportMaxTurns.setText(options.transportMaxTurnsText());
-		transportRichDisabled.setText(options.transportRichDisabledText());
-		transportPoorDouble.setText(options.transportPoorDoubleText());
-
-		// StarGates Options
-		stargateOff.setText(options.gatesOffText());
-		stargateRich.setText(options.gatesRichText());
-		stargateOn.setText(options.gatesOnText());
-
-		// Colony Options
-		//missileBases.setText(options.minimumMissileBasesText());
-		shieldWithoutBases.setText(options.shieldWithoutBasesText());
-		autospend.setText(options.autospendText());
-		//reserve.setText(options.reserveText());
-		shipbuilding.setText(options.shipbuildingText());
-		legacyGrowthMode.setText(options.legacyGrowthModeText());
-		//terraformEarly.setText(options.terraformEarlyText());
-
-		// Intelligence Options
-		autoInfiltrate.setText(options.autoInfiltrateText());
-		autoSpy.setText(options.autoSpyText());
-		spareXenophobes.setText(options.respectPromisesText());
-
-		// Fleet Options
-		autoScout.setText(options.autoScoutText());
-		autoColonize.setText(options.autoColonizeText());
-		autoAttack.setText(options.autoAttackText());
-		//autoScoutShipCount.setText(options.autoScoutShipCountText());
-		//autoColonyShipCount.setText(options.autoColonyShipCountText());
-		//autoAttackShipCount.setText(options.autoAttackShipCountText());
-
-		// Aspect Options
-		customSize.setText(options.customSizeText());
-		//sizePct.setText(options.sizeFactorPctText());
-		//brightnessPct.setText(options.brightnessPctText());
-		isOriginal.setText(options.originalPanelText());
-	}
-
 	private void loadValues() {
 		GovernorOptions options = govOptions();
 		// Other Options and duplicate
@@ -1064,6 +1002,7 @@ public class GovernorOptionsPanel extends BasePanel{
         );
 
         allGovernorsOn.setText("All Governors ON");
+        allGovernorsOn.setName("ALL_GOVERNORS_ON"); // NOI18N
         allGovernorsOn.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1072,6 +1011,7 @@ public class GovernorOptionsPanel extends BasePanel{
         });
 
         allGovernorsOff.setText("All Governors OFF");
+        allGovernorsOff.setName("ALL_GOVERNORS_OFF"); // NOI18N
         allGovernorsOff.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1147,6 +1087,7 @@ public class GovernorOptionsPanel extends BasePanel{
 
         okButton.setText("OK");
         okButton.setToolTipText("Apply settings and close the GUI");
+        okButton.setName("OK_BUTTON"); // NOI18N
         okButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1155,6 +1096,7 @@ public class GovernorOptionsPanel extends BasePanel{
         });
 
         cancelButton.setText("Cancel");
+        cancelButton.setName("CANCEL_BUTTON"); // NOI18N
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1164,6 +1106,7 @@ public class GovernorOptionsPanel extends BasePanel{
 
         completionist.setText("Completionist Technologies");
         completionist.setToolTipText("<html>\nI like completing games fully. <br/>\nAllow all Empires to Research the following Technologies:<br/>\n<br/>\nControlled Irradiated Environment<br/>\nAtmospheric Terraforming<br/>\nComplete Terraforming<br/>\nAdvanced Soil Enrichment<br/>\nIntergalactic Star Gates<br/>\n<br/>\nMore than 30% of the Galaxy needs to be colonized.<br/>\nPlayer must control more than 50% of colonized systems.<br/>\nPlayer must have completed all Research in their Tech Tree (Future Techs too).<br/>\n</html>");
+        completionist.setName("COMPLETIONIST_TECHNOLOGIES"); // NOI18N
         completionist.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1173,6 +1116,7 @@ public class GovernorOptionsPanel extends BasePanel{
 
         applyButton.setText("Apply");
         applyButton.setToolTipText("Apply settings and keep GUI open");
+        applyButton.setName("APPLY_BUTTON"); // NOI18N
         applyButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1646,6 +1590,7 @@ public class GovernorOptionsPanel extends BasePanel{
         raceImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         raceImage.setFocusable(false);
         raceImage.setMinimumSize(new java.awt.Dimension(50, 50));
+        raceImage.setName("RACE_IMAGE"); // NOI18N
         raceImage.setRequestFocusEnabled(false);
         raceImage.setVerifyInputWhenFocusTarget(false);
         raceImage.addMouseListener(new java.awt.event.MouseAdapter() {
