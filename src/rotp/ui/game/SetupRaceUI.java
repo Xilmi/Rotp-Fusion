@@ -618,7 +618,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
             }
         }
 
-
         // race icon
         //BufferedImage icon = newBufferedImage(race.flagNorm());
         if (retina)
@@ -887,23 +886,27 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         return raceImg;
     }
     private BufferedImage raceIcon() {
+    	// raceIconImg = null;
         if (raceIconImg == null) {
             int newW = retina(iconSize);
             int newH = retina(iconSize);
-            raceIconImg = new BufferedImage(newW, newH, TYPE_INT_ARGB);
-            Graphics2D g = (Graphics2D) raceIconImg.getGraphics();            
-            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-            g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-    		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-    		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-    		
-            String selRace    = newGameOptions().selectedPlayerRace();
-    		BufferedImage img = newBufferedImage(Race.keyed(selRace).flagNorm());
-            int imgW = img.getWidth(null);
-            int imgH = img.getHeight(null);
-    		g.drawImage(img, 0, 0, newW, newH, 0, 0, imgW, imgH, null);
-    		g.dispose();
+            String selRace = newGameOptions().selectedPlayerRace();
+    		Image image = Race.keyed(selRace).flagNorm();
+            raceIconImg = resizeImage(image, newW, newH);
+//            raceIconImg = new BufferedImage(newW, newH, TYPE_INT_ARGB);
+//            Graphics2D g = (Graphics2D) raceIconImg.getGraphics();
+//            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//            g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+//            g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+//    		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+//    		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+//    		
+//            String selRace    = newGameOptions().selectedPlayerRace();
+//    		BufferedImage img = newBufferedImage(Race.keyed(selRace).flagNorm());
+//            int imgW = img.getWidth(null);
+//            int imgH = img.getHeight(null);
+//    		g.drawImage(img, 0, 0, newW, newH, 0, 0, imgW, imgH, null);
+//    		g.dispose();
         }
         return raceIconImg;
     }
@@ -1183,7 +1186,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 	        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 	        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-			//g2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 			g2D.drawImage(img, 0, 0, w0/2, h0/2, 0, 0, w0, h0, this);
 			g2D.dispose();
 			img = tmp;

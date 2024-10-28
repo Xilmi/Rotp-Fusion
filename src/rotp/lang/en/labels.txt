@@ -2414,6 +2414,7 @@ SETTINGS_MOD_SCRAP_REFUND_EMPIRE     | Empire Worlds
 SETTINGS_MOD_SCRAP_REFUND_ALLY       | Allied Worlds
 SETTINGS_MOD_SCRAP_REFUND_NEVER      | Never
 SETTINGS_MOD_SCRAP_REFUND_FACTOR     | Refund Factor: %1%
+SETTINGS_MOD_SHIP_SPACE_FACTOR       | Ship Space Factor: %1%
 SETTINGS_MOD_MISSILE_BASE_MODIFIER   | Missile Base Modifier: %1%
 SETTINGS_MOD_MISSILE_SHIP_MODIFIER   | Missile Ship Modifier: %1%
 SETTINGS_MOD_RETREAT_RESTRICTIONS    | Retreating restricted for: %1
@@ -2449,6 +2450,7 @@ SETTINGS_MOD_SCRAP_REFUND_EMPIRE_DESC   | Only ships orbiting on empire worlds w
 SETTINGS_MOD_SCRAP_REFUND_ALLY_DESC     | Only ships orbiting on empire or ally worlds will be valuably salvaged.
 SETTINGS_MOD_SCRAP_REFUND_NEVER_DESC    | Nowhere, don't bother me with that!
 SETTINGS_MOD_SCRAP_REFUND_FACTOR_DESC   | What percentage of the ships value can be salvaged from their scrap metal?
+SETTINGS_MOD_SHIP_SPACE_FACTOR_DESC     | To boost the ship space.
 SETTINGS_MOD_MISSILE_BASE_MODIFIER_DESC | Sets cost of missile-bases from 10% to 200%. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
 SETTINGS_MOD_MISSILE_SHIP_MODIFIER_DESC | Sets size, cost and power-consumption of missiles from 10% to 200%. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
 SETTINGS_MOD_RETREAT_RESTRICTIONS_DESC | Sets for whom retreating shall be restricted. (scroll the mouse wheel to change)

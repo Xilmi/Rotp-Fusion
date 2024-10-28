@@ -360,14 +360,19 @@ public final class ShipDesign extends Design {
         float techBonus = 1 + (.02f * empire().tech().construction().techLevel());
         // modnar: change total ship space for new races // modnar: NeoHumans, +40% space
         // BR: Made dataRace call
-        float raceSpaceBonus = empire().shipSpaceFactor(); 
+        float raceSpaceBonus = empire().shipSpaceFactor();
+        float optionSpaceBonus = options().selectedShipSpaceFactor();
+        int baseSpace = 0;
         switch(s) {
-            case SMALL  : return 40 * techBonus * raceSpaceBonus; // modnar: change total ship space for new races
-            case MEDIUM : return 200 * techBonus * raceSpaceBonus; // modnar: change total ship space for new races
-            case LARGE  : return 1000 * techBonus * raceSpaceBonus; // modnar: change total ship space for new races
-            case HUGE   : return 5000 * techBonus * raceSpaceBonus; // modnar: change total ship space for new races
-            default     : return 0;
+	        case SMALL  : baseSpace = 40; break;
+	        case MEDIUM : baseSpace = 200; break;
+	        case LARGE  : baseSpace = 1000; break;
+	        case HUGE   : baseSpace = 5000; break;
+	        default     : baseSpace = 0; break;
         }
+        // modnar: change total ship space for new races
+        float finalSpace = baseSpace * techBonus * raceSpaceBonus * optionSpaceBonus;
+        return finalSpace;
     }
     public void becomeObsolete(int turns) {
         if (!obsolete()) {

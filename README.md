@@ -71,6 +71,7 @@ Later:
 
 2024.10.28 (BR)
 - Added tools for Multi Language on the Governor Panel.
+- New option to boost the Ship space.
 
 2024.10.27 (Frank Zago)
 - French translations and fixes.

@@ -91,6 +91,11 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 			.guiFormat("%");
 	default float selectedScrapRefundFactor()	{ return scrapRefundFactor.get(); }
 
+	ParamInteger shipSpaceFactor	= new ParamInteger(MOD_UI, "SHIP_SPACE_FACTOR", 100)
+			.setLimits(100, 1000)
+			.setIncrements(1, 10, 50);
+	default float selectedShipSpaceFactor()	{ return shipSpaceFactor.get()/100f; }
+
 	ParamFloat missileBaseModifier	= new ParamFloat(MOD_UI, "MISSILE_BASE_MODIFIER", 2f/3f)
 			.setDefaultValue(MOO1_DEFAULT, 1f)
 			.setDefaultValue(ROTP_DEFAULT, 1f)
@@ -316,6 +321,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 				missileBaseModifier, missileShipModifier,
 				targetBombard, bombingTarget,
 				scrapRefundFactor, scrapRefundOption,
+				shipSpaceFactor,
 
 				headerSpacer,
 				new ParamTitle("BETA_TEST"),

@@ -15,6 +15,7 @@
  */
 package rotp.util;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.game.IGameOptions.DIFFICULTY_CUSTOM;
 import static rotp.model.game.IModOptions.playerCustomRace;
 import static rotp.model.game.IModOptions.playerIsCustom;
@@ -1682,6 +1683,33 @@ public interface Base {
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		return g;
+    }
+    default BufferedImage halvedImage(Image img) {
+    	int w0 = img.getWidth(null);
+        int h0 = img.getHeight(null);
+    	int w1 = w0/2;
+        int h1 = h0/2;
+        BufferedImage tmp = new BufferedImage(w1, h1, TYPE_INT_ARGB);
+        Graphics2D g2D = getGraphicsRH(tmp);
+		g2D.drawImage(img, 0, 0, w1, h1, 0, 0, w0, h0, null);
+		g2D.dispose();
+		return tmp;
+    }
+    default BufferedImage resizeImage(Image img, int w, int h) {
+    	int w0 = img.getWidth(null);
+        int h0 = img.getHeight(null);
+        float scale = min((float)w/w0, (float)h/h0);
+        while (scale < 0.5) {
+        	img = halvedImage(img);
+        	w0 = img.getWidth(null);
+        	h0 = img.getHeight(null);
+        	scale = min((float)w/w0, (float)h/h0);
+        }
+        BufferedImage tmp = new BufferedImage(w, h, TYPE_INT_ARGB);
+        Graphics2D g2D = getGraphicsRH(tmp);
+		g2D.drawImage(img, 0, 0, w, h, 0, 0, w0, h0, null);
+		g2D.dispose();
+		return tmp;
     }
     default float pctToLive(int pctToDie)	{
     	// pct(distance) = 100 * exp(-decay*distance)
