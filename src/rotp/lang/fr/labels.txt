@@ -2317,6 +2317,9 @@ RACES_DIPLOMACY_TOTAL_TRADE       | Total des traités commerciaux
 RACES_DIPLOMACY_TRADE_AMT         | %1 BC
 RACES_DIPLOMACY_CHARACTER         | Personnage
 RACES_DIPLOMACY_STATUS            | Statut
+RACES_DIPLOMACY_LAST_VOTE         | Dernier vote
+RACES_DIPLOMACY_VOTE_FOR_PLAYER   | Pour vous
+RACES_DIPLOMACY_ABSTAIN           | Abstention
 RACES_DIPLOMACY_RELATIONS_METER   | Compteur de relations
 RACES_DIPLOMACY_RELATIONS_UNKNOWN | L'humeur et les motivations [alien_empireof] sont impénétrables pour nos diplomates et nos espions.
 RACES_DIPLOMACY_BUREAU            | Bureau de la diplomatie
@@ -2333,7 +2336,7 @@ RACES_DIPLOMACY_TRADE_SUMMARY     | Résumé commercial
 RACES_DIPLOMACY_TRADE_DESC        | Contactez l'ambassadeur [alien_raceadjec] pour négocier un traité commercial. Les réseaux commerciaux prennent du temps et de l'argent à mettre en place, mais une fois matures, ils apportent de l'argent au trésor de votre empire.
 RACES_DIPLOMACY_TRADE_DESC_RANGE  | Nous ne pouvons pas établir de réseaux commerciaux avec des empires qui sont hors de portée de nos vaisseaux.
 RACES_DIPLOMACY_TRADE_DESC_FINAL  | Nous sommes engagés dans une guerre finale avec la Nouvelle République. Le commerce n'est plus possible.
-RACES_DIPLOMACY_TRADE_TREATY      | Traité de commerce
+RACES_DIPLOMACY_TRADE_TREATY      | Traité commercial
 RACES_DIPLOMACY_FOREIGN_RELATIONS | Relations étrangères
 RACES_DIPLOMACY_FOREIGN_RANGE     | Nous ne pouvons pas connaître les relations extérieures [alien_empireof] tant que nous n'avons pas établi de contact diplomatique.
 RACES_DIPLOMACY_FOREIGN_DESC      | [alien_race_pluralnoun] sont en contact avec les races suivantes :
@@ -2345,6 +2348,7 @@ RACES_DIPLOMACY_EVENT_TURN        | Tour
 RACES_DIPLOMACY_EVENT_RACE        | Race
 RACES_DIPLOMACY_EVENT_TITLE       | Incident diplomatique
 RACES_DIPLOMACY_EVENT_EFFECT      | Effet
+RACES_DIPLOMACY_ABILITY           | Aptitudes de l'espèce
 RACES_MANAGE_DIALOG_OK            | OK
 RACES_MANAGE_REINSTATE_DIPLOMAT   | Réintégrer votre Diplomate
 RACES_MANAGE_RECALL_DIPLOMAT      | Rappeler votre Diplomate
@@ -2514,7 +2518,7 @@ NOTICE_SPYING_MISSION_SABOTAGE    | Sabotage
 // History UI
 HISTORY_TITLE                     | Histoire galactique connue
 HISTORY_TITLE_ALL                 | Histoire galactique complète
-HISTORY_TURN_DESC                 | Tournez %1 sur %2
+HISTORY_TURN_DESC                 | Tour %1 sur %2
 HISTORY_FORWARD                   | En avant
 HISTORY_BACK                      | Retour
 HISTORY_PLAY                      | Lire
@@ -2782,8 +2786,8 @@ GOVERNOR_RESERVE_DESC                | Économies à garder en réserve (Non dé
 GOVERNOR_RESERVE                     | Reserves: %1
 GOVERNOR_RESERVE_LABEL               | Fond de secours
 
-GOVERNOR_SHIP_BUILDING_DESC          | Construction navale avec gouverneur activé. Détournez les ressources vers la construction navale et ne faites pas de recherches si la planète construit déjà des navires.
-GOVERNOR_SHIP_BUILDING               | Chantiers navaux: %1
+GOVERNOR_SHIP_BUILDING_DESC          | Construction navale avec gouverneur activé. Détournez les ressources vers la construction navale et ne faites pas de recherches si la planète construit déjà des vaisseaux.
+GOVERNOR_SHIP_BUILDING               | Chantiers navals: %1
 GOVERNOR_SHIP_BUILDING_LABEL         | Construction navale avec gouverneur activé.
 
 GOVERNOR_LEGACY_GROWTH_MODE_DESC     | Développer les colonies le plus rapidement possible.
@@ -2841,7 +2845,7 @@ GOVERNOR_AUTO_ATTACK_COUNT           | Baroudeurs: %1
 GOVERNOR_AUTO_ATTACK_COUNT_LABEL     | Nombre de baroudeurs à envoyer.
 
 // Not yet implemented
-GOVERNOR_AUTOSHIPS_BY_DEFAULT_DESC   | La construction automatique de navires est Activée par défaut : si cette option est activée, la construction automatique de navires dans les nouvelles colonies sera activée.
+GOVERNOR_AUTOSHIPS_BY_DEFAULT_DESC   | La construction automatique de vaisseaux est Activée par défaut : si cette option est activée, la construction automatique de vaisseaux dans les nouvelles colonies sera activée.
 GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset auto Ships: %1
 GOVERNOR_AUTOSHIPS_BY_DEFAULT_LABEL  | Auto Ships is "On" by Default
 
