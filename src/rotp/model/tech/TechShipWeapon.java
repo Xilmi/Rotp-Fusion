@@ -569,7 +569,7 @@ public final class TechShipWeapon extends Tech {
     	}
         ShipBattleUI ui = source.mgr.ui;
         if (!source.mgr.showAnimations()) {
-        	ui.animationCompleted();
+        	//ui.animationCompleted();
         	return;
         }
 
@@ -1021,12 +1021,13 @@ public final class TechShipWeapon extends Tech {
 				pause(sleepTime);
 			}
 		}
+		// TODO BR: VALIDATE the changes
 		// System.out.println("ui.waitingToShowResult() = " + ui.waitingToShowResult());
-		if (ui.waitingToShowResult()) {
-			ui.paintAllImmediately();
-			sleep(500); // no rush to show results
-		}
-        ui.animationCompleted();
+//		if (ui.waitingToShowResult()) {
+//			ui.paintAllImmediately();
+//			sleep(500); // no rush to show results
+//		}
+//        ui.animationCompleted();
         ui.paintAllImmediately();
     }
     private void drawNoShieldAttack(CombatStack source, CombatStack target,
@@ -1034,7 +1035,7 @@ public final class TechShipWeapon extends Tech {
     		int wpnNum, float dmg, int count, int boxW, int boxH, float force) {
         ShipBattleUI ui = source.mgr.ui;
         if (!source.mgr.showAnimations()) {
-        	ui.animationCompleted();
+        	//ui.animationCompleted();
         	return;
         }
 
@@ -1151,7 +1152,7 @@ public final class TechShipWeapon extends Tech {
         String missLabel = dmg < 0 ? text("SHIP_COMBAT_DEFLECTED") : text("SHIP_COMBAT_MISS");
         target.drawAttackResult(g,impaxtX,impactY,weaponX, dmg,missLabel);   
         g.setStroke(prev);
-        ui.animationCompleted();
+        //ui.animationCompleted();
         ui.paintAllImmediately();
     }
     private void drawOldAttack(CombatStack source, CombatStack target,
@@ -1159,7 +1160,7 @@ public final class TechShipWeapon extends Tech {
     		int wpnNum, float dmg, int count, int boxW, int boxH, float force) {
         ShipBattleUI ui = source.mgr.ui;
         if (!source.mgr.showAnimations()) {
-        	ui.animationCompleted();
+        	//ui.animationCompleted();
         	return;
         }
 
@@ -1302,7 +1303,7 @@ public final class TechShipWeapon extends Tech {
         String missLabel = dmg < 0 ? text("SHIP_COMBAT_DEFLECTED") : text("SHIP_COMBAT_MISS");
         target.drawAttackResult(g,impactX,impactY,weaponX, dmg,missLabel);   
         g.setStroke(prev);
-        ui.animationCompleted();
+        //ui.animationCompleted();
         ui.paintAllImmediately();
     }
     private ArrayList<Line2D.Double> addMultiLines(int size, int weapons, int sx, int sy, int tx, int ty) {

@@ -420,8 +420,12 @@ public class CombatStackShip extends CombatStack {
 
         if (targetStack.destroyed())
             return;
+        
         selectedWeaponIndex = index;
         target = targetStack;
+        if (target.mgr.ui != null)
+        	target.mgr.ui.newAnimationStarted();
+
         target.damageSustained = 0;
         int shotsTaken = allShots ? shotsRemaining[index] : 1;
 

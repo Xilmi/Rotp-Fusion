@@ -213,17 +213,17 @@ public class CombatStackColony extends CombatStack {
                 bestDamage = currentDamage;
             }
         }
+        if (newTarget.mgr.ui != null)
+        	newTarget.mgr.ui.newAnimationStarted();
+
         fireWeapon(newTarget, missileToUse);
     }
-    @Override
-    public void fireWeapon(CombatStack newTarget, int i) {
-        fireWeapon(newTarget, i, false);
-    }
-    @Override
-    public void fireWeapon(CombatStack newTarget, int i, boolean b) {
+    @Override public void fireWeapon(CombatStack newTarget, int i, boolean b) {
         if (missileFired)
             return;
         target = newTarget;
+        if (target.mgr.ui != null)
+        	target.mgr.ui.newAnimationStarted();
         // each missile base fires 3 missiles
         ShipWeaponMissile missileType = missile;
         if(i > 0 && numWeapons() > 0)

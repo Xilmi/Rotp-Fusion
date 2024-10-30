@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- Fixed all Combat result panels appearing before Combat animations end.
 - Governor Panel Translated to French.
 - New option to boost the Ship space.
 - Fixed colony view not refreshed when using F5~F8 + mouse hover.

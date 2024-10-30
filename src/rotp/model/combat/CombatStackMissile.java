@@ -114,6 +114,8 @@ public class CombatStackMissile extends CombatStack {
     }
     @Override
     public void fireWeapon(CombatStack target) {
+        if (target.mgr.ui != null)
+        	target.mgr.ui.newAnimationStarted();
         missile.fireUpon(this, target, num, mgr);
         //if (target.damageSustained > 0)
         //    log("missile damage: ", str(target.damageSustained));

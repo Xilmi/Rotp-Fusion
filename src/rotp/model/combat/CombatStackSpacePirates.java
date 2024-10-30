@@ -592,6 +592,9 @@ public class CombatStackSpacePirates extends CombatStack {
             return;
 
         target = targetStack;
+        if (target.mgr.ui != null)
+        	target.mgr.ui.newAnimationStarted();
+
         target.damageSustained = 0;
         // only fire if we have shots remaining... this is a missile concern
         if ((roundsRemaining[index] > 0)) {

@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.10.30 (BR)
+- Fixed all Combat result panels appearing before Combat animations end.
+
 2024.10.28 (BR)
 - Added tools for Multi Language on the Governor Panel.
 - New option to boost the Ship space.

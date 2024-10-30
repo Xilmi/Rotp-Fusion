@@ -50,52 +50,53 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     public static final int RETREAT_ALL = 2;
     public static final int SMART_RESOLVE = 4;
     private enum Display { INTRO, RESULT }
-    static final Color shipCountTextC = new Color(255,240,78);
-    static final Color grayBackC = new Color(123,123,123);
-    static final Color hostileBorderC = new Color(151,18,23);
+    //private static final Color shipCountTextC = new Color(255,240,78);
+    private static final Color grayBackC = new Color(123,123,123);
+    private static final Color hostileBorderC = new Color(151,18,23);
     public static final Color currentBorderC = new Color(163,123,0);
-    static final Color friendlyBorderC = new Color(79,79,79);
-    static final Color yellowButtonCenterC = new Color(120,120,42);
-    static final Color yellowButtonEdgeC = new Color(92,92,21);
-    static final Color redButtonCenterC = new Color(120,45,42);
-    static final Color redButtonEdgeC = new Color(92,20,21);
-    static final Color greenButtonCenterC = new Color(70,93,47);
-    static final Color greenButtonEdgeC = new Color(44,59,30);
-    static final Color grayButtonCenterC = new Color(128,128,128);
-    static final Color grayButtonEdgeC = new Color(92,92,92);
-    static final Color greenQuickButtonC = new Color(70,93,47);
-    static final Color grayQuickButtonC = new Color(92,92,92,128);
-    static final Color lineColor = new Color(150,150,150);
+    private static final Color friendlyBorderC = new Color(79,79,79);
+    private static final Color yellowButtonCenterC = new Color(120,120,42);
+    private static final Color yellowButtonEdgeC = new Color(92,92,21);
+    private static final Color redButtonCenterC = new Color(120,45,42);
+    private static final Color redButtonEdgeC = new Color(92,20,21);
+    private static final Color greenButtonCenterC = new Color(70,93,47);
+    private static final Color greenButtonEdgeC = new Color(44,59,30);
+    private static final Color grayButtonCenterC = new Color(128,128,128);
+    private static final Color grayButtonEdgeC = new Color(92,92,92);
+    private static final Color greenQuickButtonC = new Color(70,93,47);
+    private static final Color grayQuickButtonC = new Color(92,92,92,128);
+    private static final Color lineColor = new Color(150,150,150);
     private static final Color grayLeftC = new Color(173,173,173);
     private static final Color grayRightC = new Color(115,115,115);
     private static final Color grayBorderC = new Color(210,210,210);
 
     public static final Color spaceBlue = new Color(0,0,32);
+    private static final long exitDelay = 500; // ms
     private static final int GRID_COUNT_X = 10;
     private static final int GRID_COUNT_Y = 8;
-    int ptX[] = new int[GRID_COUNT_X+1];
-    int ptY[] = new int[GRID_COUNT_Y+1];
+    private int ptX[] = new int[GRID_COUNT_X+1];
+    private int ptY[] = new int[GRID_COUNT_Y+1];
     public int boxH = -1;
     public int boxW = -1;
     
     private int mouseGridX = 0;
     private int mouseGridY = 0;
-    int planetX = 250;
-    int planetY = 200;
-    int planetR = 400;
-    int pad = s10;
-    int barH = s45;
-    float planetRotateSpeed = 0.1f;
+    private int planetX = 250;
+    private int planetY = 200;
+    private int planetR = 400;
+    private int pad = s10;
+    private int barH = s45;
+    private float planetRotateSpeed = 0.1f;
     private boolean drawingPlanet = false;
-    @SuppressWarnings("unused")
-	private boolean planetDrawn = false;
+    private @SuppressWarnings("unused")
+	//private boolean planetDrawn = false;
     boolean showPlanet = false;
-    boolean exited = false;
-    boolean shiftPressed = false;
-    boolean showTactics = true;
-    BufferedImage renderedPlanetImage;
-    Image[] asteroids = new Image[16];
-    public int[][] asteroidRoll = new int[GRID_COUNT_X][GRID_COUNT_Y];
+    //boolean exited = false;
+    private boolean shiftPressed = false;
+    private boolean showTactics = true;
+    private BufferedImage renderedPlanetImage;
+    private Image[] asteroids = new Image[16];
+    private int[][] asteroidRoll = new int[GRID_COUNT_X][GRID_COUNT_Y];
     private final Color shadeC = new Color(255,255,255,20);
 
     private LinearGradientPaint menuBackC;
@@ -105,58 +106,63 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     private LinearGradientPaint nextShipButtonBackC;
     private LinearGradientPaint tacticalButtonBackC;
     private LinearGradientPaint exitBackC;
+    private LinearGradientPaint exitDisableBackC;
     private LinearGradientPaint playPauseBackC;
     private LinearGradientPaint leftGreenActionBackC;
     private LinearGradientPaint leftGrayActionBackC;
     private LinearGradientPaint rightGreenActionBackC;
     private LinearGradientPaint rightGrayActionBackC;
-    Map<ShipDesign, Integer> leftFleet = new LinkedHashMap<>();
-    Map<ShipDesign, Integer> rightFleet = new LinkedHashMap<>();
-    final Map<ShipDesign, Integer> counts = new LinkedHashMap<>();
-    Empire leftEmpire;
-    Empire rightEmpire;
-    SpaceMonster monster;
+    private Map<ShipDesign, Integer> leftFleet = new LinkedHashMap<>();
+    private Map<ShipDesign, Integer> rightFleet = new LinkedHashMap<>();
+    private final Map<ShipDesign, Integer> counts = new LinkedHashMap<>();
+    private Empire leftEmpire;
+    private Empire rightEmpire;
+    private SpaceMonster monster;
 
-    Display mode;
-    ShipCombatManager  mgr;
+    private Display mode;
+    private ShipCombatManager  mgr;
 
-    Rectangle planetBox = new Rectangle();
-    Rectangle hoverBox;
-    Rectangle currentGrid;
-    Rectangle resolveBox = new Rectangle();
-    Rectangle retreatBox = new Rectangle();
-    Rectangle tacticalBox = new Rectangle();
-    Rectangle exitBox = new Rectangle();
-    Rectangle playPauseBox = new Rectangle();
-    Rectangle nextBox = new Rectangle();
-    public Rectangle[][] combatGrids = new Rectangle[GRID_COUNT_X][GRID_COUNT_Y];
-    List<ShipActionButton> shipActionButtons = new ArrayList<>();
-    Rectangle shipButtonOverlay = new Rectangle();
-    FlightPath shipTravelPath = null;
-    ShipDoneButton shipDoneButton = new ShipDoneButton();
-    ShipMoveButton shipMoveButton = new ShipMoveButton();
-    ShipFireAllButton shipFireAllButton = new ShipFireAllButton();
-    ShipTeleportButton shipTeleportButton = new ShipTeleportButton();
-    ShipRetreatButton shipRetreatButton = new ShipRetreatButton();
-    ShipWeaponButton[] shipWeaponButton = new ShipWeaponButton[ShipDesign.maxWeapons()];
-    ShipSpecialButton[] shipSpecialButton = new ShipSpecialButton[ShipDesign.maxSpecials];
-    Robot robot;
+    private Rectangle planetBox = new Rectangle();
+    private Rectangle hoverBox;
+    private Rectangle currentGrid;
+    private Rectangle resolveBox = new Rectangle();
+    private Rectangle retreatBox = new Rectangle();
+    private Rectangle tacticalBox = new Rectangle();
+    private Rectangle exitBox = new Rectangle();
+    private Rectangle playPauseBox = new Rectangle();
+    private Rectangle nextBox = new Rectangle();
+    public  Rectangle[][] combatGrids = new Rectangle[GRID_COUNT_X][GRID_COUNT_Y];
+    private List<ShipActionButton> shipActionButtons = new ArrayList<>();
+    private Rectangle shipButtonOverlay = new Rectangle();
+    private FlightPath shipTravelPath = null;
+    private ShipDoneButton shipDoneButton = new ShipDoneButton();
+    private ShipMoveButton shipMoveButton = new ShipMoveButton();
+    private ShipFireAllButton shipFireAllButton = new ShipFireAllButton();
+    private ShipTeleportButton shipTeleportButton = new ShipTeleportButton();
+    private ShipRetreatButton shipRetreatButton = new ShipRetreatButton();
+    private ShipWeaponButton[] shipWeaponButton = new ShipWeaponButton[ShipDesign.maxWeapons()];
+    private ShipSpecialButton[] shipSpecialButton = new ShipSpecialButton[ShipDesign.maxSpecials];
+    private Robot robot;
+    private boolean refreshResultScreen = false;
+    private boolean refreshCombatScreen = false;
+    private long noResultBefore  = 0; // Time in ms
+    private long noExitBefore    = 0; // Time in ms
 
-    Color[] redColors = new Color[3];
-    Color[] greenColors = new Color[3];
-    Color[] yellowColors = new Color[3];
-    Color[] grayColors = new Color[3];
-    BufferedImage combatBackground;
+    private Color[] redColors = new Color[3];
+    private Color[] greenColors = new Color[3];
+    private Color[] yellowColors = new Color[3];
+    private Color[] grayColors = new Color[3];
+    private BufferedImage combatBackground;
     public int boxH() {
     	if (boxH < 0)
             boxH = (getHeight()-pad-pad-barH) / GRID_COUNT_Y;
     	return boxH;
     }
-    public int boxW() {
+    /* public int boxW() {
     	if (boxW < 0)
             boxW = (getWidth()-pad-pad) / GRID_COUNT_X;
     	return boxW;
-    }
+    } */
     public ShipBattleUI() {
         init();
     }
@@ -193,8 +199,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         asteroids[14] = image("COMBAT_ASTEROIDS_15");
         asteroids[15] = image("COMBAT_ASTEROIDS_16");
     }
-    @Override
-    public void drawBackgroundStars(BufferedImage img, Graphics g, int w0, int h0, int minDist, int varDist) {
+    @Override public void drawBackgroundStars(BufferedImage img, Graphics g, int w0, int h0, int minDist, int varDist) {
         // background stars need to be dimmer for this UI
         super.drawBackgroundStars(img, g, w0, h0, minDist, varDist);
         g.setColor(new Color(0,0,0,160));
@@ -261,11 +266,11 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         mgr.ui(this);
         mgr.showAnimations = true;
         mgr.setInitialPause();
-        exited = false;
+        //exited = false;
         mode = Display.INTRO;
         renderedPlanetImage = mgr.system().planet().image(planetR, 135);
 
-        planetDrawn = false;
+        //planetDrawn = false;
         showPlanet = false;
         shiftPressed = false;
         Color redEdgeC = new Color(92,20,20);
@@ -332,26 +337,36 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         rotateAndRenderPlanet();
         return true;
     }
-    @Override
-    public String ambienceSoundKey()     { return "ShipCombatAmbience"; }
-    @Override
-    public boolean hasStarBackground()   { return false; }
-    public boolean showTacticalInfo()    { return showTactics || shiftPressed; }
-    @Override
-    public void animate() {
+    @Override public String ambienceSoundKey()     { return "ShipCombatAmbience"; }
+    @Override public boolean hasStarBackground()   { return false; }
+    public boolean showTacticalInfo()              { return showTactics || shiftPressed; }
+    private void refreshResultScreen(boolean b)    { refreshResultScreen = b; }
+    private void refreshCombatScreen(boolean b)    { refreshCombatScreen = b; }
+    @Override public void animate()                {
+    	boolean repaint = false;
         if (this.stillFading()) {
             advanceFade();
-            repaint();
+            repaint = true;
         }
+        if (refreshResultScreen && !delayedExit()) {
+        	refreshResultScreen(false);
+        	repaint = true;
+        }
+        if (refreshCombatScreen && !delayedResult()) {
+        	refreshCombatScreen(false);
+        	repaint = true;
+        }
+        if (repaint)
+        	repaint();
     }
-    protected Image combatBackground() {
+    private Image combatBackground() {
         if (combatBackground == null) {
             combatBackground = newOpaqueImage(getWidth(), getHeight());
             combatBackground.getGraphics().drawImage(starBackground(),0,0,null);
         }
         return combatBackground;
     }
-    protected void resetCombatBackground() {
+    private void resetCombatBackground() {
         BufferedImage newCombatBackground = newOpaqueImage(getWidth(), getHeight());
         newCombatBackground.getGraphics().drawImage(starBackground(),0,0,null);
         combatBackground = newCombatBackground;
@@ -382,15 +397,14 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         int h = abs(ptY[y0a]-ptY[y1a])+boxH;
         paintImmediately(x,y,w,h);
     }
-    public void repaintButtonArea() {
+    /* public void repaintButtonArea() {
         int x = pad;
         int y = pad;
         int w = getWidth()-pad-pad;
         int h = getHeight()-pad-pad;
         repaint(x,y+h-barH,w,barH);
-    }
-    @Override
-    public void paintComponent(Graphics g0) {
+    } */
+    @Override public void paintComponent(Graphics g0) {
         int x = pad;
         int y = pad;
         int w = getWidth()-pad-pad;
@@ -445,10 +459,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
 
         drawMapBuffer(g0);
     }
-    @Override
-    protected void drawStars(Graphics g) {
-        super.drawStars(g, getWidth(), getHeight());
-    }
+    @Override protected void drawStars(Graphics g) { super.drawStars(g, getWidth(), getHeight()); }
     private void initFleetStacks(Empire e, Map<ShipDesign,Integer> map) {
         map.clear();
         ShipFleet orbitingFleet = mgr.system().orbitingFleetForEmpire(e);
@@ -1149,13 +1160,13 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     }
     public int stackW()                 { return boxW; }
     public int stackH()                 { return boxH; }
-    public Rectangle stackBox(CombatStack st) {
+    /* public Rectangle stackBox(CombatStack st) {
     	Rectangle rect = combatGrids[st.x][st.y];
     	return new Rectangle(
     			(int) (rect.x+ (st.offsetX*rect.width)),
     			(int) (rect.y+ (st.offsetY*rect.height)),
     			boxW, boxH);
-    }
+    } */
 
     private void paintMenuBarToImage(Graphics2D g, int x, int y, int w, int h) {
         if (menuBackC == null) {
@@ -1180,7 +1191,10 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             nextBox.setBounds(0,0,0,0);
             String exitText = text("SHIP_COMBAT_EXIT");
             int buttX = x+w-buttW-s10;
-            drawButton(g, exitBackC, exitText, exitBox, redButtonEdgeC, redButtonCenterC, buttX, buttY, buttW, buttH, false);
+            if (blockExit())
+                drawButton(g, exitDisableBackC, exitText, exitBox, grayButtonEdgeC, grayButtonCenterC, buttX, buttY, buttW, buttH, false);
+            else
+            	drawButton(g, exitBackC, exitText, exitBox, redButtonEdgeC, redButtonCenterC, buttX, buttY, buttW, buttH, false);
         }
         else {
             exitBox.setBounds(0,0,0,0);
@@ -1220,7 +1234,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             }
         }
     }
-    public void drawButton(Graphics2D g, LinearGradientPaint backC, String label, Rectangle bounds, Color edgeC, Color midC, int x, int y, int w, int h, boolean shouldBeGray) {
+    private void drawButton(Graphics2D g, LinearGradientPaint backC, String label, Rectangle bounds, Color edgeC, Color midC, int x, int y, int w, int h, boolean shouldBeGray) {
         bounds.setBounds(x,y,w,h);
         if (backC == null) {
             float[] dist = {0.0f, 0.5f, 1.0f};
@@ -1296,7 +1310,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     }
     private void drawPlanet(Graphics2D g, CombatStackColony st, int x, int y, int w, int h) {
         if (renderedPlanetImage != null) {
-            planetDrawn = true;
+            //planetDrawn = true;
             int imgW = renderedPlanetImage.getWidth();
             int imgH = renderedPlanetImage.getHeight();
             g.drawImage(renderedPlanetImage, planetX, planetY, planetX+planetR, planetY+planetR, 0, 0, imgW, imgH, null);
@@ -1641,10 +1655,6 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         }
         paintCellImmediately(mouseGridX, mouseGridY);
     }
-//    public void showResult() {
-//        mode = Display.RESULT;
-//        repaint();
-//    }
     private void retreatStack(CombatStack stack, boolean inCombat) {
         if (mgr.combatIsFinished() || mgr.autoResolve)
             return; 
@@ -1656,18 +1666,31 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         if (inCombat && mgr.currentStack().usingAI())
             mgr.continueToNextPlayerStack();
     }
-    public void finishAndResume() {
-        finish();
-        session().resumeNextTurnProcessing();
+    private void finishAndResume() {
+    	if (blockShowResult()) {
+    		newAnimationStarted(-1L);
+    		refreshCombatScreen(true);
+    		refreshResultScreen(true);
+    		repaint();
+    	}
+    	else {
+    		finish();
+            session().resumeNextTurnProcessing();
+    	}
     }
-    public void finish() {
+    private void finish() {
         if (mgr.combatIsFinished()) {
             mode = Display.RESULT;
-            exited = true;
+            if (blockShowResult()) {
+            	refreshCombatScreen(true);
+            	refreshResultScreen(true);
+            }
             repaint();
         }
         else {
-            mgr.showAnimations = false;
+            mgr.showAnimations  = false;
+        	refreshCombatScreen(false);
+        	refreshResultScreen(false);
             mgr.resolveAllCombat();
             mode = Display.RESULT;
             repaint();
@@ -1703,6 +1726,8 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         if(options().selectedRetreatRestrictions() >= 2 
         		&& options().selectedRetreatRestrictionTurns() > mgr.turnCounter())
             return;
+        newAnimationStarted(-1L);
+        refreshResultScreen(true);
         List<CombatStack> stacks = new ArrayList<>(mgr.activeStacks());
         for (CombatStack stack: stacks) 
             retreatStack(stack, inCombat);
@@ -1715,8 +1740,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         else
             finishAndResume();
     }
-    @Override
-    public void keyReleased(KeyEvent e) {
+    @Override public void keyReleased(KeyEvent e)     {
         if (stillFading())
             return;
         int k = e.getKeyCode();
@@ -1727,8 +1751,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
                 return;    
         }
     }
-    @Override
-    public void keyPressed(KeyEvent e) {
+    @Override public void keyPressed(KeyEvent e)      {
         if (stillFading())
             return;
         int k = e.getKeyCode();
@@ -1799,24 +1822,19 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
                     finish();
         }
     }
-    @Override
-    public void mouseClicked(MouseEvent e) { }
-    @Override
-    public void mouseEntered(MouseEvent e) { }
-    @Override
-    public void mouseExited(MouseEvent e) {
+    @Override public void mouseClicked(MouseEvent e)  { }
+    @Override public void mouseEntered(MouseEvent e)  { }
+    @Override public void mouseExited(MouseEvent e)   {
         if (hoverBox != null) {
             hoverBox = null;
             repaint();
         }
     }
-    @Override
-    public void mousePressed(MouseEvent e) {
+    @Override public void mousePressed(MouseEvent e)  {
         if (e.getButton() > 3)
             return;
     }
-    @Override
-    public void mouseReleased(MouseEvent e) {
+    @Override public void mouseReleased(MouseEvent e) {
         if ((e.getButton() > 3) || e.getClickCount() > 1)
             return;
         boolean rightClick = SwingUtilities.isRightMouseButton(e);
@@ -1850,15 +1868,13 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         else if (hoverBox == nextBox)
             nextStack();
     }
-    @Override
-    public void mouseDragged(MouseEvent e) {  }
-    @Override
-    public void mouseMoved(MouseEvent e) {
+    @Override public void mouseDragged(MouseEvent e)  {  }
+    @Override public void mouseMoved(MouseEvent e)    {
         int x = e.getX();
         int y = e.getY();
         mouseMovedTo(x,y);
     }   
-    private void mouseMovedTo(int x, int y) {
+    private void mouseMovedTo(int x, int y)           {
         Rectangle prevHover = hoverBox;
         Rectangle prevGrid = currentGrid;
         hoverBox = null;
@@ -1931,7 +1947,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         if (shipActionButtons.size() >= i)
             shipActionButtons.get(i-1).clickAction(rightClick);
     }
-    abstract class ShipActionButton extends Rectangle {
+    private abstract class ShipActionButton extends Rectangle {
         private static final long serialVersionUID = 1L;
         CombatStack ship;
         boolean draw = false;
@@ -2117,7 +2133,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             return rightGrayActionBackC;
         }
     }
-    class ShipDoneButton extends ShipActionButton {
+    private class ShipDoneButton extends ShipActionButton     {
         private static final long serialVersionUID = 1L;
         @Override
         String label()   { return text("SHIP_COMBAT_ACTION_TURN_DONE"); }
@@ -2126,7 +2142,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             nextStack();
         }
     }
-    class ShipMoveButton extends ShipActionButton {
+    private class ShipMoveButton extends ShipActionButton     {
         private static final long serialVersionUID = 1L;
         @Override
         String label()   { return text("SHIP_COMBAT_ACTION_MOVE"); }
@@ -2163,7 +2179,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             repaint();
         }
     }
-    class ShipTeleportButton extends ShipActionButton {
+    private class ShipTeleportButton extends ShipActionButton {
         private static final long serialVersionUID = 1L;
         @Override
         String label()   { return text("SHIP_COMBAT_ACTION_TELEPORT"); }
@@ -2181,7 +2197,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             repaint();
         }
     }
-    class ShipRetreatButton extends ShipActionButton {
+    private class ShipRetreatButton extends ShipActionButton  {
         private static final long serialVersionUID = 1L;
         @Override
         String label()   { return text("SHIP_COMBAT_ACTION_RETREAT"); }
@@ -2190,7 +2206,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             retreatStack(mgr.currentStack(), true);
         }
     }
-    class ShipFireAllButton extends ShipActionButton {
+    private class ShipFireAllButton extends ShipActionButton  {
         private static final long serialVersionUID = 1L;
         @Override
         String label()   { return mgr.currentStack().canFireWeaponAtTarget(ship) ? text("SHIP_COMBAT_ACTION_FIRE_ALL") : text("SHIP_COMBAT_ACTION_TURN_DONE"); }
@@ -2219,11 +2235,11 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             }
         }
     }
-    class ShipWeaponButton extends ShipActionButton {
+    private class ShipWeaponButton extends ShipActionButton   {
         private static final long serialVersionUID = 1L;
-        int index;
-        boolean allShots;
-        public void setData(CombatStack st, int i, int x0, int y0) {
+        private int index;
+        private boolean allShots;
+        private void setData(CombatStack st, int i, int x0, int y0) {
             super.setData(st,x0,y0);
             index = i;
         }
@@ -2282,10 +2298,10 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             allShots = false;
         }
     }
-    class ShipSpecialButton extends ShipActionButton {
+    private class ShipSpecialButton extends ShipActionButton  {
         private static final long serialVersionUID = 1L;
-        int weaponIndex;
-        public void setData(CombatStack st, int i, int x0, int y0) {
+        private int weaponIndex;
+        private void setData(CombatStack st, int i, int x0, int y0) {
             super.setData(st,x0,y0);
             weaponIndex = i;
         }
@@ -2336,36 +2352,39 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             // specials are not used with the fire all weapons action
         }
     }
-    private boolean animationCompleted = true;
-    public void showResult(){
-    	int maxTime = options().showResultDelay();
+
+    public void showResult() {
         mode = Display.RESULT;
+        
+        if (mgr.showAnimations()) {
+        	refreshResultScreen(delayedExit());
+        	refreshCombatScreen(delayedResult());
+        }
+        else {
+        	newAnimationStarted(-1L);
+        	refreshResultScreen(false);
+        	refreshCombatScreen(false);
+    	}
         repaint();
-    	if (maxTime > 0) {
-            synchronized(this){
-                while(!animationCompleted){
-                    try {
-                    	System.out.println("Wait animationCompleted: " + animationCompleted);
-    					wait(maxTime);
-    					animationCompleted = true;
-                    	System.out.println("Wait animationCompleted: " + animationCompleted);
-                    	repaint();
-    				} catch (InterruptedException e) {
-    					e.printStackTrace();
-    				}
-                }
-            }
+    }
+    private void newAnimationStarted(long delay) {
+    	if (mgr.showAnimations()) {
+    		noResultBefore = System.currentTimeMillis() + delay;
+        	noExitBefore   = noResultBefore + exitDelay;
+        	return;
+    	}
+    	else {
+        	noResultBefore = System.currentTimeMillis() - 1L;
+        	noExitBefore   = noResultBefore;
     	}
     }
-    public void animationCompleted(){
-        synchronized(this){
-             animationCompleted = true;
-             notifyAll();
-        }
-    }
-    public void newAnimationStarted() { animationCompleted = false; }
-    public boolean waitingToShowResult() { return mode == Display.RESULT; }
-    private boolean readyToShowResult() { return mode == Display.RESULT && animationCompleted; }
+    public void newAnimationStarted()    { newAnimationStarted(options().showResultDelay()); }
+    private boolean resultMode()         { return mode == Display.RESULT; }
+    private boolean delayedExit()        { return noExitBefore > System.currentTimeMillis(); }
+    private boolean delayedResult()      { return noResultBefore > System.currentTimeMillis(); }
+    private boolean blockShowResult()    { return delayedResult() && mgr.showAnimations(); }
+    private boolean blockExit()          { return readyToShowResult() && delayedExit(); }
+    private boolean readyToShowResult()  { return resultMode() && !blockShowResult(); }
 
     // ##### Console Tools
     @Override public void consoleEntry() { finishAndResume(); }

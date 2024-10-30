@@ -85,6 +85,8 @@ public class CombatStackSpaceAmoeba extends CombatStackMonster {
 	}
 	@Override public boolean selectBestWeapon(CombatStack target)	{ return canAttack(target); }
 	@Override public void fireWeapon(CombatStack target)	{
+        if (target.mgr.ui != null)
+        	target.mgr.ui.newAnimationStarted();
 		if (options().isMoO1Monster())
 			super.fireWeapon(target);
 		else

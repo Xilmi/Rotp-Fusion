@@ -72,11 +72,11 @@ public interface ICombatOptions extends IBaseOptsTools {
 	default int beamAnimationFPS()			{ return beamAnimationFPS.get(); }
 	default int beamAnimationDelay()		{ return 1000/beamAnimationFPS.get(); }
 
-	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 2000)
+	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 1500)
 			.setLimits(0, 5000)
 			.setIncrements(100, 500, 2000)
 			.isCfgFile(true);
-	default int showResultDelay()			{ return showResultDelay.get(); }
+	default long showResultDelay()			{ return showResultDelay.get(); }
 
 	ParamInteger shieldNoisePct		= new ParamInteger(MOD_UI, "SHIELD_NOISE_PCT" , 30)
 			.setLimits(0, 200)
