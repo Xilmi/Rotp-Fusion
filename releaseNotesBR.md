@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
 
 - Fixed all Combat result panels appearing before Combat animations end.
+- Restore the ambassador In case of accepting alliance after accepting a war!? (On the same turn...)
 - Governor Panel Translated to French.
 - New option to boost the Ship space.
 - Fixed colony view not refreshed when using F5~F8 + mouse hover.

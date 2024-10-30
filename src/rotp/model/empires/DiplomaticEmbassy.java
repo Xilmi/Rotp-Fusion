@@ -132,6 +132,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
         warFooting = false;
         casusBelli = null;
         casusBelliInc = null;
+        diplomatGoneTimer = 0;
     }
     private void evaluateWarPreparations() {
         // we are assessing turn and about to enter diplomacy. Are our reasons
@@ -613,6 +614,8 @@ public class DiplomaticEmbassy implements Base, Serializable {
     public DiplomaticIncident signAlliance() {
         beginTreaty();
         endWarPreparations();
+        //BR: In case of accepting alliance after accepting a war!? (On the same turn)
+        empire().viewForEmpire(owner()).embassy().endWarPreparations();
         setTreaty(new TreatyAlliance(view.owner(), view.empire()));
         owner().setRecalcDistances();
         empire().setRecalcDistances();
