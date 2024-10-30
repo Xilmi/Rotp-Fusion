@@ -1903,8 +1903,8 @@ CUSTOM_RACE_GUI_SAVE_DESC         | Save the settings to the file specified in "
 CUSTOM_RACE_GUI_SAVE              | Save to File
 CUSTOM_RACE_RACE_LIST             | File List
 CUSTOM_RACE_RACE_LIST_DESC        | Custom species abilities file list. Click to load. (At the top is the one when opening the GUI.)
-CUSTOM_RACE_RANDOM_MAX            | Setting Max in %
-CUSTOM_RACE_RANDOM_MIN            | Setting Min in %
+CUSTOM_RACE_RANDOM_MAX            | Setting Max
+CUSTOM_RACE_RANDOM_MIN            | Setting Min
 CUSTOM_RACE_RANDOM_EDGES          | Smooth Edges
 CUSTOM_RACE_RANDOM_TARGET_MAX     | Total Value Max
 CUSTOM_RACE_RANDOM_TARGET_MIN     | Total Value Min
@@ -2654,17 +2654,17 @@ SETTINGS_MOD_ORIGINAL_SPECIES_ONLY       | 10 Species only: %1
 SETTINGS_MOD_SHOW_ALT_ANIMATION_DESC     | Select between vanilla animations (No) or Zestyclose Art work (Yes).<br>(Younger Human diplomat)
 SETTINGS_MOD_SHOW_ALT_ANIMATION          | Alt Diplomat: %1
 SETTINGS_MOD_SHOW_FLEET_FACTOR_DESC      | To adjust the galaxy map fleets disappearance while zooming. Bigger factor means stay longer to the screen.
-SETTINGS_MOD_SHOW_FLEET_FACTOR           | Show Fleet Factor: %1
+SETTINGS_MOD_SHOW_FLEET_FACTOR           | Show Fleet Factor: %1%
 SETTINGS_MOD_SHOW_FLAG_FACTOR_DESC       | To adjust the galaxy map flags disappearance while zooming. Bigger factor means stay longer to the screen.
-SETTINGS_MOD_SHOW_FLAG_FACTOR            | Show Flag Factor: %1
+SETTINGS_MOD_SHOW_FLAG_FACTOR            | Show Flag Factor: %1%
 SETTINGS_MOD_SHOW_PATH_FACTOR_DESC       | To adjust the galaxy map paths disappearance while zooming. Bigger factor means stay longer to the screen.
-SETTINGS_MOD_SHOW_PATH_FACTOR            | Show Path Factor: %1
+SETTINGS_MOD_SHOW_PATH_FACTOR            | Show Path Factor: %1%
 SETTINGS_MOD_SHOW_NAME_MIN_FONT_DESC     | To adjust the galaxy map star name disappearance. Smaller value means stay longer to the screen.
 SETTINGS_MOD_SHOW_NAME_MIN_FONT          | Star Name Min Font: %1
 SETTINGS_MOD_SHOW_INFO_FONT_RATIO_DESC   | To adjust the galaxy map swap info to name only. Bigger ratio means stay longer to the screen.
-SETTINGS_MOD_SHOW_INFO_FONT_RATIO        | System Info Font Ratio: %1
+SETTINGS_MOD_SHOW_INFO_FONT_RATIO        | System Info Font Ratio: %1%
 SETTINGS_MOD_MAP_FONT_FACTOR_DESC        | To adjust the galaxy map font size. Bigger factor means bigger fonts.
-SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1
+SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1%
 SETTINGS_MOD_MENU_STARTUP_DESC           | How should the Game Settings be initialized when Launching RotP?
 SETTINGS_MOD_MENU_STARTUP                | Launch Settings: %1
 
@@ -4681,6 +4681,9 @@ CLONE_1_TRIGGER                     | →CLONE_1_DETAIL←<br>The GrowInAtor is 
 GUIDE_NO_HELP_AVAILABLE           | Sorry, no help available yet.
 GUIDE_DEFAULT_VALUE_LABEL         | Default Value
 GUIDE_SELECTED_VALUE_LABEL        | Selected Value
+GUIDE_MIN_MAX_NULL_VALUE          | None
+GUIDE_MINIMUM_VALUE_LABEL         | Min
+GUIDE_MAXIMUM_VALUE_LABEL         | Max
 GUIDE_SET_WITH_MID_CLICK          | (set with Middle Click)
 GUIDE_KEY_MODIFIER_LABEL          | Key Modifiers
 GUIDE_KEY_MODIFIER_NONE           | None
@@ -4688,6 +4691,7 @@ GUIDE_KEY_MODIFIER_SHIFT          | Shift
 GUIDE_KEY_MODIFIER_CTRL           | Ctrl
 GUIDE_KEY_MODIFIER_CTRL_SHIFT     | Ctrl+Shift
 GUIDE_KEY_MODIFIER_SEPARATOR      | &nbsp : &nbsp
+GUIDE_INTEGER_PCT_VALUE           | %1%
 
 // Common Guides and Help
 SETTINGS_BUTTON_EXIT_DESC         | Exit / Apply / Cancel <br> (Switch with "Ctrl" or "Shift")

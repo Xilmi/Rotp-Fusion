@@ -30,7 +30,8 @@ public interface IRandomEvents extends IBaseOptsTools {
 
 	ParamInteger eventsPace			= new ParamInteger(MOD_UI, "EVENTS_PACE", 100)
 			.setLimits(20, 500)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default float selectedEventsPace()			{ return (float)eventsPace.get()/100f; }
 
 	ParamBoolean eventsFavorWeak	= new ParamBoolean(MOD_UI, "EVENTS_FAVOR_WEAK", true);

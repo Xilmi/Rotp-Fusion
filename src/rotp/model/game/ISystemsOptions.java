@@ -19,10 +19,12 @@ public interface ISystemsOptions extends IBaseOptsTools {
 
 	ParamInteger artifactPlanetMult		= new ParamInteger( MOD_UI, "ARTIFACT_MULT", 100)
 			.setLimits(0, 10000)
-			.setIncrements(5, 50, 200);
+			.setIncrements(5, 50, 200)
+			.pctValue(true);
 	ParamInteger artifactPlanetOffset	= new ParamInteger( MOD_UI, "ARTIFACT_OFFSET", 0)
 			.setLimits(-100, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default float	artifactPlanetProb(float base)	{
 		float r = (float) (0.01 * (base * artifactPlanetMult.get() + artifactPlanetOffset.get()));
 		// System.out.println("artifactPlanetProb from " + base + " to " + r);
@@ -31,15 +33,18 @@ public interface ISystemsOptions extends IBaseOptsTools {
 
 	ParamInteger orionPlanetProb		= new ParamInteger( MOD_UI, "ARTIFACT_ORION", 0)
 			.setLimits(0, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default float	orionPlanetProb()	{ return 0.01f * orionPlanetProb.get(); }
 
 	ParamInteger ultraPoorPlanetMult	= new ParamInteger( MOD_UI, "ULTRA_POOR_MULT", 100)
 			.setLimits(0, 10000)
-			.setIncrements(5, 50, 200);
+			.setIncrements(5, 50, 200)
+			.pctValue(true);
 	ParamInteger ultraPoorPlanetOffset	= new ParamInteger( MOD_UI, "ULTRA_POOR_OFFSET", 0)
 			.setLimits(-100, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default float	ultraPoorPlanetProb(float base)	{
 		float r = (float) (0.01 * (base * ultraPoorPlanetMult.get() + ultraPoorPlanetOffset.get()));
 		// System.out.println("ultraPoorPlanetProb from " + base + " to " + r);
@@ -48,10 +53,12 @@ public interface ISystemsOptions extends IBaseOptsTools {
 
 	ParamInteger poorPlanetMult			= new ParamInteger( MOD_UI, "POOR_MULT", 100)
 			.setLimits(0, 10000)
-			.setIncrements(5, 50, 200);
+			.setIncrements(5, 50, 200)
+			.pctValue(true);
 	ParamInteger poorPlanetOffset		= new ParamInteger( MOD_UI, "POOR_OFFSET", 0)
 			.setLimits(-100, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default float	poorPlanetProb(float base)	{
 		float r = (float) (0.01 * (base * poorPlanetMult.get() + poorPlanetOffset.get()));
 		// System.out.println("poorPlanetProb from " + base + " to " + r);
@@ -60,10 +67,12 @@ public interface ISystemsOptions extends IBaseOptsTools {
 
 	ParamInteger richPlanetMult			= new ParamInteger( MOD_UI, "RICH_MULT", 100)
 			.setLimits(0, 10000)
-			.setIncrements(5, 50, 200);
+			.setIncrements(5, 50, 200)
+			.pctValue(true);
 	ParamInteger richPlanetOffset		= new ParamInteger( MOD_UI, "RICH_OFFSET", 0)
 			.setLimits(-100, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default float	richPlanetProb(float base)	{
 		float r = (float) (0.01 * (base * richPlanetMult.get() + richPlanetOffset.get()));
 		// System.out.println("richPlanetProb from " + base + " to " + r);
@@ -72,10 +81,12 @@ public interface ISystemsOptions extends IBaseOptsTools {
 
 	ParamInteger ultraRichPlanetMult	= new ParamInteger( MOD_UI, "ULTRA_RICH_MULT", 100)
 			.setLimits(0, 10000)
-			.setIncrements(5, 50, 200);
+			.setIncrements(5, 50, 200)
+			.pctValue(true);
 	ParamInteger ultraRichPlanetOffset	= new ParamInteger( MOD_UI, "ULTRA_RICH_OFFSET", 0)
 			.setLimits(-100, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default float	ultraRichPlanetProb(float base)	{
 		float r = (float) (0.01 * (base * ultraRichPlanetMult.get() + ultraRichPlanetOffset.get()));
 		// System.out.println("ultraRichPlanetProb from " + base + " to " + r);
@@ -88,7 +99,8 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	ParamInteger orionToEmpireModifier	= new ParamInteger( MOD_UI, "ORION_TO_EMPIRE_MODIFIER", 100)
 			.setDefaultValue(MOO1_DEFAULT, 0)
 			.setLimits(0, 1000)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default float	orionToEmpireModifier()	{ return (float) (0.01 * orionToEmpireModifier.get()); }
 	default ParamInteger getOrionToEmpireModifier()	{ return orionToEmpireModifier; }
 

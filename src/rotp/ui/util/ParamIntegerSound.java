@@ -26,4 +26,8 @@ public class ParamIntegerSound extends ParamInteger{
 		}
 		return super.set(val);
 	}
+	@Override public ParamIntegerSound pctValue(boolean pctValue) {
+		super.pctValue(pctValue);
+		return this;
+	}
 }

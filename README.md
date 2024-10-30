@@ -72,6 +72,7 @@ Later:
 2024.10.30 (BR)
 - Fixed all Combat result panels appearing before Combat animations end.
 - Restore the ambassador In case of accepting alliance after accepting a war!? (On the same turn...)
+- The Guide now display the Min and Max values.
 
 2024.10.28 (BR)
 - Added tools for Multi Language on the Governor Panel.

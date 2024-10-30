@@ -68,11 +68,15 @@ public interface IParam extends InterfaceOptions{
 	public default void setFromCfgValue(String val) {}
 	public default String	getCfgValue()			{ return ""; }
 	public default String	getCfgLabel()			{ return ""; }
-	public default String	getGuiDisplay()			{ return ""; }// Name, value, ... and more
+	public default String	getGuiDisplay()			{ return ""; } // Name, value, ... and more
 	public default String	getGuiDisplay(int id)	{ return ""; }
 	public default String	getGuiDescription()		{ return ""; }
-	public default String	guideValue()			{ return ""; }// Only the value, (player view)
+	public default String	guideValue()			{ return ""; } // Only the value, (player view)
+	public default String	guideSelectedValue()	{ return guideValue(); }
 	public default String	guideDefaultValue()		{ return ""; }
+	public default String	guideMinimumValue()		{ return ""; }
+	public default String	guideMaximumValue()		{ return ""; }
+	public default String	guideMinMaxHelp()		{ return ""; }
 	public default int		getIndex()				{ return -1; }
 	public default String	getToolTip()			{ return getGuiDescription(); }
 	public default String	getToolTip(int id)		{ return "";  }
@@ -132,12 +136,20 @@ public interface IParam extends InterfaceOptions{
 	public default String defaultValueHelp()	{
 		String help = labelFormat(langLabel("GUIDE_DEFAULT_VALUE_LABEL")) + guideDefaultValue();
 		if (!showVIPPanel.get())
-			help += htmlTuneFont(-2, "&emsp<i>" + langLabel("GUIDE_SET_WITH_MID_CLICK") + "</i>");
+			help += htmlTuneFont(-2, "&ensp<i>" + langLabel("GUIDE_SET_WITH_MID_CLICK") + "</i>");
+		help += "&emsp" + guideMinMaxHelp();
 		help += baseSeparator();
 		return help;
 	}
+	public default String minMaxValuesHelp()	{
+		String help = labelFormat(langLabel("GUIDE_MINIMUM_VALUE_LABEL")) + guideMinimumValue();
+		help += "&emsp" + labelFormat(langLabel("GUIDE_MAXIMUM_VALUE_LABEL")) + guideMaximumValue();
+//		help += baseSeparator();
+		return help;
+	}
+	
 	// The value in help format
-	public default String getSelectionStr()		{ return labelFormat(guideValue()); }
+	public default String getSelectionStr()		{ return labelFormat(guideSelectedValue()); }
 	public default String getValueStr(int id)	{
 		if (id<0)
 			return "";
@@ -155,7 +167,7 @@ public interface IParam extends InterfaceOptions{
 	}
 	public default String valueGuide(int id)	{ return "";}
 	public default String selectionGuide()		{
-		String val  = labelFormat(langLabel("GUIDE_SELECTED_VALUE_LABEL")) + guideValue();
+		String val  = labelFormat(langLabel("GUIDE_SELECTED_VALUE_LABEL")) + guideSelectedValue();
 		if (getIndex() < 0) // not a list
 			return val;
 		// this is a list

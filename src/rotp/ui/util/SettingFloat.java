@@ -17,6 +17,7 @@
 package rotp.ui.util;
 
 import static rotp.Rotp.rand;
+import static rotp.ui.util.IParam.langLabel;
 import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
 
 import java.awt.event.InputEvent;
@@ -50,6 +51,7 @@ public class SettingFloat extends SettingBase<Float> {
 	private boolean useNegFormula	= false;
 	private float	rawBaseCost		= 0f;
 	private String	cfgFormat		= "0.00##";
+
 
 	// ========== constructors ==========
 	//
@@ -234,10 +236,18 @@ public class SettingFloat extends SettingBase<Float> {
 			set(options.getFloat(getLangLabel(), defaultValue()));
 	}
 	@Override public String guideValue() { return getCfgValue(); }
+
+	@Override public String guideSelectedValue(){ return getString(settingValue()); }
+	@Override public String guideMinimumValue()	{ return getString(minValue); }
+	@Override public String guideMaximumValue()	{ return getString(maxValue); }
+	@Override public String guideMinMaxHelp()	{ return minMaxValuesHelp(); } // To activate standard Min Max display
+
 	// ===== Other Methods =====
 	//
 	protected void cfgFormat(String format)	{ cfgFormat = format; }
 	private boolean isCfgPercent()			{ return cfgFormat.equals("%"); }
+	private boolean isGuiPercent()		{ return cfgFormat.equals("%"); }
+	private boolean isGuiPerThousand()	{ return cfgFormat.equals("‰"); }
 	private boolean next(Float i) {
 		if (i == 0) {
 			setFromDefault(false, true);
@@ -320,5 +330,17 @@ public class SettingFloat extends SettingBase<Float> {
 		catch (NumberFormatException nfe) {
 			return null; // silent error!
 		}
+	}
+	private String getString(Float value) {
+		if (value == null)
+			return langLabel("GUIDE_MIN_MAX_NULL_VALUE");
+		if (isGuiPercent()) {
+			return String.format("%d", Math.round(value * 100f)) + "%";
+		}
+		if (isGuiPerThousand()) {
+			return new DecimalFormat("0.0")
+						.format(Math.round(value * 1000f) / 10f) + "%";
+		}
+		return new DecimalFormat(cfgFormat).format(value);
 	}
 }

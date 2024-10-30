@@ -62,7 +62,8 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	ParamInteger empiresSpreadingFactor	= new ParamInteger( MOD_UI, "EMPIRES_SPREADING_FACTOR", 100)
 			.setDefaultValue(MOO1_DEFAULT, 125)
 			.setLimits(10, 1000)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default int		selectedEmpireSpreadingPct()	{ return empiresSpreadingFactor.get(); }
 	default float	selectedEmpireSpreadingFactor()	{ return 0.01f * empiresSpreadingFactor.get(); }
 	default boolean	isCustomEmpireSpreadingFactor()	{ return !empiresSpreadingFactor.isDefaultValue(); }
@@ -229,10 +230,12 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 
 	ParamInteger randomAlienRacesMin		 = new ParamInteger(MOD_UI, "RACES_RAND_MIN", -50)
 			.setLimits(-100, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	ParamInteger randomAlienRacesMax		 = new ParamInteger(MOD_UI, "RACES_RAND_MAX", 50)
 			.setLimits(-100, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	ParamInteger randomAlienRacesTargetMax	 = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MAX", 75)
 			.setLimits(null, null)
 			.setIncrements(1, 10, 100);
@@ -260,7 +263,8 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 
 	ParamInteger guardianMonstersProbability = new ParamInteger(MOD_UI, "GUARDIAN_MONSTERS_PCT", 50)
 			.setLimits(0, 500)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default float guardianMonstersProbability()	{
 		if (noPlanetHaveMonster())
 			return 0;
@@ -268,7 +272,8 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	}
 	ParamInteger guardianMonstersLevel = new ParamInteger(MOD_UI, "GUARDIAN_MONSTERS_LEVEL", 100)
 			.setLimits(10, 1000)
-			.setIncrements(5, 20, 100);
+			.setIncrements(5, 20, 100)
+			.pctValue(true);
 	default float guardianMonstersLevel()		{ return guardianMonstersLevel.get()/100f; }
 	
 	default float guardianMonstersProbability(Planet planet) {

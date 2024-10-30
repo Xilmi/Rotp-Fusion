@@ -81,19 +81,22 @@ public interface ICombatOptions extends IBaseOptsTools {
 	ParamInteger shieldNoisePct		= new ParamInteger(MOD_UI, "SHIELD_NOISE_PCT" , 30)
 			.setLimits(0, 200)
 			.setIncrements(1, 5, 20)
-			.isCfgFile(true);
+			.isCfgFile(true)
+			.pctValue(true);
 	default int shieldNoisePct()			{ return shieldNoisePct.get(); }
 
 	ParamInteger shieldTransparency	= new ParamInteger(MOD_UI, "SHIELD_TRANSPARENCY" , 20)
 			.setLimits(0, 100)
 			.setIncrements(1, 5, 20)
-			.isCfgFile(true);
+			.isCfgFile(true)
+			.pctValue(true);
 	default int shieldTransparency()		{ return shieldTransparency.get(); }
 
 	ParamInteger shieldFlickering	= new ParamInteger(MOD_UI, "SHIELD_FLICKERING" , 20)
 			.setLimits(0, 100)
 			.setIncrements(1, 5, 20)
-			.isCfgFile(true);
+			.isCfgFile(true)
+			.pctValue(true);
 	default int shieldFlickering()			{ return shieldFlickering.get(); }
 
 	ParamInteger shieldBorder		= new ParamInteger(MOD_UI, "SHIELD_BORDER" , 0)
@@ -147,7 +150,8 @@ public interface ICombatOptions extends IBaseOptsTools {
 	ParamIntegerSound echoSoundHullDelay	= new ParamIntegerSound(MOD_UI, "ECHO_SOUND_HULL_DELAY" , 30, 0, 100, 1, 5, 20);
 	default int echoSoundHullDelay()		{ return echoSoundHullDelay.get(); }
 
-	ParamIntegerSound echoSoundDecay		= new ParamIntegerSound(MOD_UI, "ECHO_SOUND_DECAY" , 50, 0, 95, 1, 5, 20);
+	ParamIntegerSound echoSoundDecay		= new ParamIntegerSound(MOD_UI, "ECHO_SOUND_DECAY" , 50, 0, 95, 1, 5, 20)
+			.pctValue(true);
 	default float echoSoundDecay()			{ return echoSoundDecay.get()/100f; }
 
 	ParamBoolean former2DShield		= new ParamBoolean(MOD_UI, "FORMER_2D_SHIELD", true)
@@ -167,16 +171,20 @@ public interface ICombatOptions extends IBaseOptsTools {
 	
 	ParamInteger playerAttackConfidence  = new ParamInteger(MOD_UI, "PLAYER_ATTACK_CONFIDENCE", 100)
 			.setLimits(100, 500)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	ParamInteger playerDefenseConfidence = new ParamInteger(MOD_UI, "PLAYER_DEFENSE_CONFIDENCE", 100)
 			.setLimits(100, 500)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	ParamInteger aiAttackConfidence		 = new ParamInteger(MOD_UI, "AI_ATTACK_CONFIDENCE", 100)
 			.setLimits(100, 500)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	ParamInteger aiDefenseConfidence	 = new ParamInteger(MOD_UI, "AI_DEFENSE_CONFIDENCE", 100)
 			.setLimits(100, 500)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default float playerAttackConfidence()	{ return playerAttackConfidence.get()/100f; }
 	default float playerDefenseConfidence()	{ return playerDefenseConfidence.get()/100f; }
 	default float aiAttackConfidence()		{ return aiAttackConfidence.get()/100f; }
@@ -222,28 +230,34 @@ public interface ICombatOptions extends IBaseOptsTools {
 	
 	ParamInteger baseNoAsteroidsProbPct		= new ParamInteger(MOD_UI, "BASE_NO_ASTEROIDS", 46)
 			.setLimits(0, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	ParamInteger stepNoAsteroidsProbPct		= new ParamInteger(MOD_UI, "STEP_NO_ASTEROIDS", 1)
 			.setLimits(0, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default int baseNoAsteroidsProbPct()		{ return baseNoAsteroidsProbPct.get(); }
 	default int stepNoAsteroidsProbPct()		{ return stepNoAsteroidsProbPct.get(); }
 
 	ParamInteger baseLowAsteroidsProbPct	= new ParamInteger(MOD_UI, "BASE_LOW_ASTEROIDS", 25)
 			.setLimits(0, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	ParamInteger stepLowAsteroidsProbPct	= new ParamInteger(MOD_UI, "STEP_LOW_ASTEROIDS", 0)
 			.setLimits(0, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default int baseLowAsteroidsProbPct()		{ return baseLowAsteroidsProbPct.get(); }
 	default int stepLowAsteroidsProbPct()		{ return stepLowAsteroidsProbPct.get(); }
 
 	ParamInteger richNoAsteroidsModPct		= new ParamInteger(MOD_UI, "RICH_NO_ASTEROIDS", -10)
 			.setLimits(-100, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	ParamInteger ultraRichNoAsteroidsModPct	= new ParamInteger(MOD_UI, "U_RICH_NO_ASTEROIDS", -20)
 			.setLimits(-100, 100)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default int richNoAsteroidsModPct()			{ return richNoAsteroidsModPct.get(); }
 	default int ultraRichNoAsteroidsModPct()	{ return ultraRichNoAsteroidsModPct.get(); }
 

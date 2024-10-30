@@ -220,7 +220,7 @@ public class SettingBase<T> implements IParam {
 	@Override public String getCfgLabel()			{ return nameLabel; }
 	@Override public String getGuiDescription() 	{ return langLabel(descriptionId()); }
 	@Override public String guideValue()			{ return String.valueOf(settingValue()); }
-	@Override public String getGuiDisplay()			{ return text(getLangLabel(), guideValue()) + END; }
+	@Override public String getGuiDisplay()			{ return text(getLangLabel(), guideSelectedValue()) + END; }
 	@Override public String getToolTip()			{
 		if (settingToolTip == null) {
 			loadSettingToolTip();
@@ -714,8 +714,8 @@ public class SettingBase<T> implements IParam {
 	}
 	private String guiSettingLabelValueCostStr() {
 		if (hasNoCost)
-			return getLabel() + ": " + guideValue();
-		return getLabel() + ": " + guideValue() + " " + settingCostString();
+			return getLabel() + ": " + guideSelectedValue();
+		return getLabel() + ": " + guideSelectedValue() + " " + settingCostString();
 	}
 	private String guiCostOptionStr(int idx, int dec) {
 		if (hasNoCost)

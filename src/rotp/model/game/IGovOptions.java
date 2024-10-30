@@ -59,7 +59,8 @@ public interface IGovOptions {
 	ParamBoolean maxGrowthMode		= new ParamBoolean(GOV_UI, "LEGACY_GROWTH_MODE", true);
 	ParamInteger terraformEarly		= new ParamInteger(GOV_UI, "TERRAFORM_EARLY", 0)
 			.setLimits(0, 400)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 
 	// Intelligence Options
 	ParamBoolean auto_Infiltrate	= new ParamBoolean(GOV_UI, "AUTO_INFILTRATE", true);
@@ -71,10 +72,12 @@ public interface IGovOptions {
 	ParamBoolean customSize			= new ParamBoolean(GOV_UI, "CUSTOM_SIZE", true);
 	ParamInteger brightnessPct		= new ParamInteger(GOV_UI, "BRIGHTNESS", 100)
 			.setLimits(20, 300)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	ParamInteger sizeFactorPct		= new ParamInteger(GOV_UI, "SIZE_FACTOR", 100)
 			.setLimits(20, 200)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	ParamInteger horizontalPosition	= new ParamInteger(GOV_UI, "POSITION_X", 0)
 			.setLimits(null, null)
 			.setIncrements(1, 5, 20);

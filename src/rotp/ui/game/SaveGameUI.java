@@ -385,7 +385,7 @@ public final class SaveGameUI extends BasePanel implements MouseListener, MouseW
 
             end = min(saveFiles.size(), start+saveFiles.size());
 
-            //int w0 = scaled(650); // BR: TODO TUNE
+            //int w0 = scaled(650);
             int w0 = scaled(options().loadSaveWidth());
             int x0 = (w-w0)/2;
             int h0 = s5+(MAX_FILES*lineH);

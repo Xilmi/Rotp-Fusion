@@ -70,7 +70,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 
 	ParamInteger customDifficulty	= new ParamInteger(MOD_UI, "CUSTOM_DIFFICULTY", 100)
 			.setLimits(20, 500)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default int selectedCustomDifficulty()		{ return customDifficulty.get(); }
 
 	ParamBoolean dynamicDifficulty	= new ParamBoolean(MOD_UI, "DYNAMIC_DIFFICULTY", false);
@@ -93,7 +94,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 
 	ParamInteger shipSpaceFactor	= new ParamInteger(MOD_UI, "SHIP_SPACE_FACTOR", 100)
 			.setLimits(100, 1000)
-			.setIncrements(1, 10, 50);
+			.setIncrements(1, 10, 50)
+			.pctValue(true);
 	default float selectedShipSpaceFactor()	{ return shipSpaceFactor.get()/100f; }
 
 	ParamFloat missileBaseModifier	= new ParamFloat(MOD_UI, "MISSILE_BASE_MODIFIER", 2f/3f)
@@ -125,8 +127,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 			.cfgFormat("0.##")
 			.guiFormat("‰");
 
-	ParamInteger bombingTarget		= new ParamInteger(MOD_UI, "BOMBING_TARGET", 10)
-			.setLimits(null, null)
+	ParamInteger bombingTarget		= new ParamInteger(MOD_UI, "BOMBING_TARGET", 2)
+			.setLimits(0, 200)
 			.setIncrements(1, 5, 20);
 	default int selectedBombingTarget()			{ return bombingTarget.get(); }
 
@@ -145,7 +147,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 
 	ParamInteger maxSecurityPct		= new ParamInteger(MOD_UI, "MAX_SECURITY_PCT", 10)
 			.setLimits(10, 90)
-			.setIncrements(1, 5, 20);
+			.setIncrements(1, 5, 20)
+			.pctValue(true);
 	default int selectedMaxSecurityPct()		{ return maxSecurityPct.get(); }
 
 	ParamList darkGalaxy			= new ParamList( MOD_UI, "DARK_GALAXY", "No")

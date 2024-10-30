@@ -16,6 +16,8 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.util.IParam.langLabel;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.text.DecimalFormat;
@@ -120,6 +122,10 @@ public class ParamFloat extends AbstractParam<Float> {
 		}
 		return new DecimalFormat(guiFormat).format(get());
 	}
+	@Override public String guideMinimumValue()	{ return getString(minValue()); }
+	@Override public String guideMaximumValue()	{ return getString(maxValue()); }
+	@Override public String guideMinMaxHelp()	{ return minMaxValuesHelp(); } // To activate standard Min Max display
+
 	@Override public void setFromCfgValue(String newValue) {
 		if (isCfgPercent()) {
 			Integer val = stringToInteger(newValue.replace("%", ""));
@@ -200,7 +206,9 @@ public class ParamFloat extends AbstractParam<Float> {
 	}
 	public boolean next(MouseEvent e)	{ return next(Math.abs(getInc(e))); }
 	public boolean prev(MouseEvent e)	{ return next(-Math.abs(getInc(e))); }
-	private String getString(float value) {
+	private String getString(Float value) {
+		if (value == null)
+			return langLabel("GUIDE_MIN_MAX_NULL_VALUE");
 		if (isGuiPercent()) {
 			return String.format("%d", Math.round(value * 100f)) + "%";
 		}

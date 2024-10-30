@@ -601,7 +601,8 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	ParamInteger realNebulaeOpacity	= new ParamInteger(MOD_UI, "REAL_NEBULAE_OPACITY", 60)
 			.setLimits(10, 100)
 			.setIncrements(1, 5, 20)
-			.isCfgFile(true);
+			.isCfgFile(true)
+			.pctValue(true);
 	default float realNebulaeOpacity()	{ return realNebulaeOpacity.get()/100f; }
 
 	ParamBoolean showAllAI	= new ShowAllAI();

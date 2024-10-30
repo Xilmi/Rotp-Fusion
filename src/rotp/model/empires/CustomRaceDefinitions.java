@@ -68,9 +68,9 @@ public class CustomRaceDefinitions  {
 	private final LinkedList<SettingBase<?>> guiList	 = new LinkedList<>();
 
 	private final SettingInteger randomTargetMax = new SettingInteger(
-			ROOT, "RANDOM_TARGET_MAX", 75, null, null, 1, 5, 20);
+			ROOT, "RANDOM_TARGET_MAX", 75, null, null, 1, 5, 20).pctValue(false);
 	private final SettingInteger randomTargetMin = new SettingInteger(
-			ROOT, "RANDOM_TARGET_MIN", 0, null, null, 1, 5, 20);
+			ROOT, "RANDOM_TARGET_MIN", 0, null, null, 1, 5, 20).pctValue(false);
 	private final SettingInteger randomMax = new SettingInteger(
 			ROOT, "RANDOM_MAX", 50, -100, 100, 1, 5, 20);
 	private final SettingInteger randomMin = new SettingInteger(
@@ -1622,6 +1622,7 @@ public class CustomRaceDefinitions  {
 		private ProdControl() {
 			super(ROOT, "PROD_CONTROL", 0, -1, 4, 1, 1, 1,
 					DIFFERENCE, new float[]{0f, 15f, 0f}, new float[]{0f, 30f, 0f});
+			pctValue(false);
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -1674,7 +1675,7 @@ public class CustomRaceDefinitions  {
 		}
 
 		@Override public String guiSettingDisplayStr() {
-			return getLabel() + ": " + guideValue() + " " + costString(cost());
+			return getLabel() + ": " + guideSelectedValue() + " " + costString(cost());
 		}
 		@Override protected boolean next(Integer i) {
 			super.next(i);
@@ -1821,9 +1822,10 @@ public class CustomRaceDefinitions  {
 				return getLabel() + ": " + guideValue() + " " + costString(this.settingCost());
 			}
 			@Override public String guideValue() {
-				String str = settingValue().toString();
+				//String str = settingValue().toString();
+				String str = guideSelectedValue();
 				str += " -> ";
-				str += String.valueOf(combinedValue());
+				str += String.valueOf(combinedValue()) + "%";
 				return str;
 			}
 
@@ -1864,7 +1866,7 @@ public class CustomRaceDefinitions  {
 			set(Math.round(race.techDiscoveryPct * 100));
 		}
 		@Override public String guiSettingDisplayStr() {
-			return getLabel() + ": " + guideValue() + " " + costString(cost());
+			return getLabel() + ": " + guideSelectedValue() + " " + costString(cost());
 		}
 		@Override protected boolean next(Integer i) {
 			super.next(i);
@@ -2013,9 +2015,9 @@ public class CustomRaceDefinitions  {
 				return getLabel() + ": " + guideValue() + " " + costString(this.settingCost());
 			}
 			@Override public String guideValue() {
-				String str = settingValue().toString();
+				String str = guideSelectedValue();
 				str += " -> ";
-				str += String.valueOf(combinedValue());
+				str += String.valueOf(combinedValue()) + "%";
 				return str;
 			}
 

@@ -30,6 +30,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 	private boolean	loop		 	= false;
 	private boolean specialNegative	= false;
 	private boolean specialZero		= false;
+	private boolean pctValue		= false;
 	private String	negativeLabel	= "";
 	private String	zeroLabel		= "";
 	private LinkedHashMap<Integer, String> specialMap = new LinkedHashMap<>();
@@ -110,6 +111,10 @@ public class ParamInteger extends AbstractParam<Integer> {
 		specialMap.put(value, messageLabel);
 		return this;
 	}
+	public ParamInteger pctValue(boolean pctValue) {
+		this.pctValue = pctValue;
+		return this;
+	}
 	// ===== Overriders =====
 	//
 	@Override public ParamInteger isValueInit(boolean is) { super.isValueInit(is)  ; return this; }
@@ -129,8 +134,20 @@ public class ParamInteger extends AbstractParam<Integer> {
 							ctrlInc().toString(),
 							shiftCtrlInc().toString()};
 	}
-	@Override public String guideValue()		{ return guideValue(get()); }
-	@Override public String guideDefaultValue()	{ return guideValue(defaultValue()); }
+	@Override public String guideValue()		{ return guideValue(get(), false); }
+	@Override public String guideSelectedValue(){ return guideValue(get(), true); }
+	@Override public String guideDefaultValue()	{ return guideValue(defaultValue(), true); }
+	@Override public String guideMinimumValue()	{
+		if (minValue() == null)
+			return langLabel("GUIDE_MIN_MAX_NULL_VALUE");
+		return guideValue(dynMinValue(), true);
+	}
+	@Override public String guideMaximumValue()	{
+		if (maxValue() == null)
+			return langLabel("GUIDE_MIN_MAX_NULL_VALUE");
+		return guideValue(dynMaxValue(), true);
+	}
+	@Override public String guideMinMaxHelp()	{ return minMaxValuesHelp(); } // To activate standard Min Max display
 	@Override public void setFromCfgValue(String newValue) {
 		if (!isDuplicate())
 			setFromCfg(stringToInteger(newValue));
@@ -176,7 +193,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 	}
 	// ========== Overridable Methods ==========
 	//
-	public Integer dynMinValue()		{ return minValue(); }
+	public  Integer dynMinValue()		{ return minValue(); }
 	private Integer dynMaxValue()		{ return maxValue(); }
 	// ===== Other Public Methods =====
 	//
@@ -222,13 +239,17 @@ public class ParamInteger extends AbstractParam<Integer> {
 	private boolean isSpecial(Integer val)			{ return specialMap.containsKey(val); }
 	private boolean isSpecialZero(Integer val)		{ return specialZero && (val.equals(0)); }
 	private boolean isSpecialNegative(Integer val)	{ return specialNegative && (val < 0); }
-	private String guideValue(Integer val) {
+	private String guideValue(Integer val, boolean addPct) {
+		if (val == null)
+			return langLabel("GUIDE_MIN_MAX_NULL_VALUE");
 		if (isSpecialNegative(val))
 			return langLabel(negativeLabel);
 		if (isSpecialZero(val))
 			return langLabel(zeroLabel);
 		if (isSpecial(val))
 			return langLabel(specialMap.get(get()));
+		if (pctValue && addPct)
+			return langLabel("GUIDE_INTEGER_PCT_VALUE", String.valueOf(val));
 		return String.valueOf(val);
 	}
 	private boolean next(int i) {

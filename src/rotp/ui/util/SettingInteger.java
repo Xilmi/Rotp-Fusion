@@ -16,6 +16,7 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.util.IParam.langLabel;
 import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
 
 import java.awt.event.InputEvent;
@@ -36,6 +37,7 @@ public class SettingInteger extends SettingBase<Integer> {
 	private static final int     randCount				= 201;
 
 	private boolean loop	 = false;
+	private boolean pctValue = true;
 	private Integer minValue = null;
 	private Integer maxValue = null;
 	private Float	norm	 = 100f;
@@ -105,6 +107,10 @@ public class SettingInteger extends SettingBase<Integer> {
 		this.negCostFactor	= negCostFactor;
 	}
 
+	public SettingInteger pctValue(boolean pctValue) {
+		this.pctValue = pctValue;
+		return this;
+	}
 	// ===== Overriders =====
 	//
 	@Override public float maxValueCostFactor() {
@@ -187,6 +193,13 @@ public class SettingInteger extends SettingBase<Integer> {
 		if (!isSpacer() && options != null)
 			set(options.getInteger(getLangLabel(), defaultValue()));
 	}
+
+	@Override public String guideSelectedValue(){ return guideValue(settingValue(), true); }
+	@Override public String guideDefaultValue()	{ return guideValue(defaultValue(), true); }
+	@Override public String guideMinimumValue()	{ return guideValue(minValue, true); }
+	@Override public String guideMaximumValue()	{ return guideValue(maxValue, true); }
+	@Override public String guideMinMaxHelp()	{ return minMaxValuesHelp(); } // To activate standard Min Max display
+	
 	// ===== Other Methods =====
 	//
 	protected boolean next(Integer i) {
@@ -271,5 +284,12 @@ public class SettingInteger extends SettingBase<Integer> {
 		catch (NumberFormatException nfe) {
 			return null; // silent error!
 		}
+	}
+	private String guideValue(Integer val, boolean addPct) {
+		if (val == null)
+			return langLabel("GUIDE_MIN_MAX_NULL_VALUE");
+		if (pctValue && addPct)
+			return langLabel("GUIDE_INTEGER_PCT_VALUE", String.valueOf(val));
+		return String.valueOf(val);
 	}
 }

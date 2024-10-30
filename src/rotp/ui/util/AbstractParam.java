@@ -42,7 +42,7 @@ import rotp.ui.UserPreferences;
 import rotp.ui.game.BaseModPanel;
 import rotp.util.sound.SoundManager;
 
-public abstract class AbstractParam <T> implements IParam{
+public abstract class AbstractParam <T> implements IParam {
 	// Ignore UCDetector public warning!
 	protected static final boolean GO_UP	= true;
 	protected static final boolean GO_DOWN	= false;
