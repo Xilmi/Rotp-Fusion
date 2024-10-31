@@ -344,10 +344,23 @@ public class LabelManager implements Base {
     	char badChar = str.charAt(loc);
     	int badCode = badChar;
     	switch(badCode) {
-    	case 8594:
-    	case 8226:
+    	case 123:	// {
+    	case 125:	// }
+    	case 160:	// non-breaking space
+    	case 167:	// § The section sign
+    	case 183:	// ·
+    	case 8203:	// Zero-Width Space
+    	case 8226:	// • bullet point 
+    	case 8582:	// ←
+    	case 8594:	// →
+    	case 9198:	// Reset ⏮
+    	case 9208:	// Pause ⏸
+    	case 9654:	// Play ▶
+    	case 9655:	// Forward ▷
+    	case 9665:	// ◁ Back
+    	case 11199:	// Exit (circled bold x)
     		return;
-    	case 11199:
+    	case 55358:	// ߡ
     		return;
     	default:
     		System.err.println("("+ lastDir + ") dlgFont err: " + badChar + " / " + badCode + " / " + str);

@@ -3,7 +3,8 @@
 name,       Български
 
 logo,       TheanoDidot-Regular.ttf,    85
-dialogue,   MyriadPro-BoldCond.otf,     85
+//dialogue,   MyriadPro-BoldCond.otf,     85
+dialogue,   FiraSans-Light.ttf,         85
 narrow,     MyriadPro-BoldCond.otf,     85
 normal,     MyriadPro-Bold.otf,         85
 plain,      MyriadPro-Cond.otf,         85

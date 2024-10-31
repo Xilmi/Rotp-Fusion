@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- Replaced the Dialogue font set in languages ​​that required a more complete font set.
 - The Guide now display the Min and Max values.
 - Fixed all Combat result panels appearing before Combat animations end.
 - Restore the ambassador In case of accepting alliance after accepting a war!? (On the same turn...)

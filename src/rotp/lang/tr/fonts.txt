@@ -3,7 +3,8 @@
 name,       Türkçe     
 
 logo,       Amarante-Regular.otf,     100
-dialogue,   CRANBERR.otf,             100
+//dialogue,   CRANBERR.otf,             100
+dialogue,   FiraSans-Light.ttf,       100
 narrow,     MyriadPro-BoldCond.otf,   100
 normal,     MyriadPro-Bold.otf,       100
 plain,      MyriadPro-Cond.otf,       100

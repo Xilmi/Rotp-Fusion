@@ -71,6 +71,10 @@ Later:
 
 2024.10.31 (BR)
 - Fixed some compilation warnings.
+- Replaced the Dialogue font set in languages ​​that required a more complete font set.
+
+2024.10.31 (Frank Zago)
+- French translations and fixes.
 
 2024.10.30 (BR)
 - Fixed all Combat result panels appearing before Combat animations end.

@@ -128,7 +128,7 @@ public class LanguageManager implements Base {
         if (selectedLanguage() == i)
             return;
         loadLanguage(i);
-        validateDialogueTokens(false); // TODO BR: change to false (true for debug)
+        validateDialogueTokens(true); // TODO BR: change to false (true for debug)
         if (!Rotp.noOptions("selectLanguage(" + i + ")"))
         	EmpireColonySpendingPane.resetPanel();
         GovernorOptions.callForRefresh(IGovOptions.GOV_REFRESH);
