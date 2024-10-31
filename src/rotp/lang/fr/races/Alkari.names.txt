@@ -1,5 +1,5 @@
 // all possible names
-name: Altaïrien, Aviarien, Cluckarien, Featharien, Foularien
+name: Altaïrien, Aviarien, Cluckarien, Fedarien, Faularien
 
 desc1: Des Honorables Militaristes
 desc2: Des Pilotes supérieurs
@@ -20,4 +20,3 @@ ship1: Renardsouris, Épervier, Pélican, Pinson, Troglodyte, Corbeau, Plume
 ship2: Faucon, Faucon Céleste, Mouette de l'Espace, Hibou de Bataille, Macareux, Aile d'Étoile
 ship3: Coucou, Faucon de Guerre, Aigle de Guerre, Balbuzard, Vautour, Harpie, Condor
 ship4: Oiseau-Tonnerre, Aile d'Effroi, Maître du Ciel, Roc, Rodan, Griffon, Phénix
-
