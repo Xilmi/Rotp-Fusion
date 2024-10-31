@@ -226,7 +226,7 @@ public class ShipFleet extends FleetBase {
         //     return null;
         return galaxy().system(destId);
     }
-    public FlightPathSprite pathSprite() {
+    @Override public FlightPathSprite pathSprite() {
         StarSystem dest = destinationOrRallySystem();
         // If we have no destination and no rally system, we have no path and no path sprite.
         if (dest == null)

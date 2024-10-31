@@ -150,7 +150,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
                     keepScore = (1 - d.availableSpace()/d.totalSpace()) * (float)d.engine().warp() / (float)lab().fastestEngine().warp();
                 }
                 keepScore *= keepScore;
-                float keepBeforeCounts = keepScore;
+                //float keepBeforeCounts = keepScore;
                 keepScore *= (shipCounts[d.id()] + galaxy().ships.shipDesignConstructionCounts(empire.id)[d.id()]) * d.cost();
                 //we can scrap all that we don't need at all
                 //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" "+d.name()+" keepScore: "+keepScore+" before counts: "+keepBeforeCounts+" role: "+d.mission());
@@ -899,7 +899,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
     ShipWeapon BombWeapon(ShipDesign d)
     {
         ShipWeapon bombWeapon = null;
-        float highestWeaponSpace = 0;
+        //float highestWeaponSpace = 0;
         for (int i=0; i<maxWeapons(); i++)
         {
             if(d.weapon(i).groundAttacksOnly())

@@ -48,7 +48,7 @@ public class AIGovernor implements Base, Governor {
     }
     @Override
     public boolean readyToBuild(Colony col, ShipPlan sh, int designCost) {
-        float pct = col.currentProductionCapacity();
+        //float pct = col.currentProductionCapacity();
         float estProd = col.industry().factories()*col.planet().productionAdj();
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+col.name()+" estProd: "+estProd+" designCost: "+designCost+" sh.plan.priority(): "+sh.plan.priority()+" Repel: "+FleetPlan.REPEL+" enemy-fleet: "+!empire.enemyFleets().isEmpty());
         return estProd > designCost;

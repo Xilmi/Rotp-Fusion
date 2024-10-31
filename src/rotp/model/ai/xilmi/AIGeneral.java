@@ -288,7 +288,7 @@ public class AIGeneral implements Base, General {
 
         // for our systems
         if (empire == empire.sv.empire(sysId)) {
-            float value = invasionPriority(sys);
+            //float value = invasionPriority(sys);
             if (sys.colony().inRebellion()) {
                 boolean hasEnemyFleet = false;
                 for(ShipFleet fl : sys.orbitingFleets()) {
@@ -714,7 +714,7 @@ public class AIGeneral implements Base, General {
             empire.sv.fleetPlan(sys.id).priority = FleetPlan.BOMB_UNDEFENDED;
         }
     }
-    private void setRepelFleetPlan(StarSystem sys, float fleetSize) {
+    /*private void setRepelFleetPlan(StarSystem sys, float fleetSize) {
         float baseBCPresent = empire.sv.bases(sys.id)*empire.tech().newMissileBaseCost();
         float bcNeeded = max(empire.shipLab().fighterDesign().cost(), fleetSize*3); // modnar: reduce repel fleet
         bcNeeded -= baseBCPresent;
@@ -736,7 +736,7 @@ public class AIGeneral implements Base, General {
         fp.stagingPointId = empire.optimalStagingPoint(sys, speed);
         fp.addShips(empire.shipLab().destroyerDesign(), destroyersNeeded);
         fp.addShips(empire.shipLab().fighterDesign(), fightersNeeded);
-    }
+    }*/
     private void resetEmpireFleetStats() {
         if(FleetStatsUpdatedThisTurn)
             return;

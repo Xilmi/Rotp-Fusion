@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.10.31 (BR)
+- Fixed some compilation warnings.
+
 2024.10.30 (BR)
 - Fixed all Combat result panels appearing before Combat animations end.
 - Restore the ambassador In case of accepting alliance after accepting a war!? (On the same turn...)

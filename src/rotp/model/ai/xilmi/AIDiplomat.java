@@ -235,7 +235,7 @@ public class AIDiplomat implements Base, Diplomat {
     }
     @Override
     public List<Tech> techsAvailableForRequest(Empire diplomat) {
-        EmpireView view = empire.viewForEmpire(diplomat);
+        //EmpireView view = empire.viewForEmpire(diplomat);
         List<Tech> allUnknownTechs = diplomat.diplomatAI().offerableTechnologies(empire);
 
         List<Tech> allTechs = new ArrayList<>();
@@ -264,7 +264,7 @@ public class AIDiplomat implements Base, Diplomat {
         if(!willingToTradeTech(tech, requestor))
             return new ArrayList<>();
         
-        EmpireView view = empire.viewForEmpire(requestor);
+        //EmpireView view = empire.viewForEmpire(requestor);
 
         // what are all of the unknown techs that we could ask for
         List<Tech> allTechs = requestor.diplomatAI().offerableTechnologies(empire);
@@ -373,9 +373,7 @@ public class AIDiplomat implements Base, Diplomat {
     public Tech mostDesirableTech(EmpireView v) {
         return empire.ai().scientist().mostDesirableTech(v.empire().diplomatAI().offerableTechnologies(empire));
     }
-    private float techDealValue(EmpireView v) {
-        return 1.0f;
-    }
+    //private float techDealValue(EmpireView v) { return 1.0f; }
     //-----------------------------------
     //  TRADE TREATIES
     //-----------------------------------
@@ -1948,7 +1946,7 @@ public class AIDiplomat implements Base, Diplomat {
         }
         return false;
     }
-    private float warColonyLossLimit(EmpireView v) {
+    /*private float warColonyLossLimit(EmpireView v) {
         switch(v.owner().leader().objective) {
             case MILITARIST:    return 0.6f;
             case ECOLOGIST:     return 0.8f;
@@ -1958,8 +1956,8 @@ public class AIDiplomat implements Base, Diplomat {
             case TECHNOLOGIST:  return 0.6f;
             default:            return 0.6f;
         }        
-    }
-    private float warPopulationLossLimit(EmpireView v) {
+    }*/
+    /*private float warPopulationLossLimit(EmpireView v) {
         switch(v.owner().leader().personality) {
             case PACIFIST:   return 0.8f;
             case HONORABLE:  return 0.6f;
@@ -1969,8 +1967,8 @@ public class AIDiplomat implements Base, Diplomat {
             case ERRATIC:    return 0.6f;
             default:         return 0.6f;
         }        
-    }
-    private float warFactoryLossLimit(EmpireView v) {
+    }*/
+    /*private float warFactoryLossLimit(EmpireView v) {
         switch(v.owner().leader().objective) {
             case MILITARIST:    return 0.6f;
             case ECOLOGIST:     return 0.4f;
@@ -1980,8 +1978,8 @@ public class AIDiplomat implements Base, Diplomat {
             case TECHNOLOGIST:  return 0.6f;
             default:            return 0.6f;
         }        
-    }
-    private float warFleetSizeLossLimit(EmpireView v) {
+    }*/
+    /*private float warFleetSizeLossLimit(EmpireView v) {
         switch(v.owner().leader().objective) {
             case MILITARIST:    return 0.5f;
             case ECOLOGIST:     return 0.3f;
@@ -1991,7 +1989,7 @@ public class AIDiplomat implements Base, Diplomat {
             case TECHNOLOGIST:  return 0.3f;
             default:            return 0.3f;
         }        
-    }
+    }*/
     /*
       Interfaces to allow overriding of default leader behavior
     */
@@ -2043,6 +2041,7 @@ public class AIDiplomat implements Base, Diplomat {
         int objMod = 1;
         switch(empire.leader().objective) {
             case DIPLOMAT:  objMod = 2;
+            default:		objMod = 1;
         }
         switch(empire.leader().personality) {
             case PACIFIST:   return objMod*50;

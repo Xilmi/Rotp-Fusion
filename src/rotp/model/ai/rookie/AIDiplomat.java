@@ -1591,12 +1591,12 @@ public class AIDiplomat implements Base, Diplomat {
     private float previousVoteBonus(Empire c) {
         return c.id == empire.lastCouncilVoteEmpId() ? 0.6f : 0;
     }
-    private Empire conditionallyCastVoteFor(EmpireView ev) {
+    /*private Empire conditionallyCastVoteFor(EmpireView ev) {
         if (ev.embassy().noTreaty() && galaxy().council().nextVoteWouldElect(ev.empire()))
             return castVoteFor(null);
         else
             return castVoteFor(ev.empire());
-    }
+    }*/
     private Empire castVoteFor(Empire c) {
         if (c == null)
             empire.lastCouncilVoteEmpId(Empire.ABSTAIN_ID);

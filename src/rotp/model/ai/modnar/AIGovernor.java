@@ -23,7 +23,6 @@ import rotp.model.colony.ColonySpendingCategory;
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemView;
 import rotp.model.galaxy.StarSystem;
-import rotp.model.game.GameSession;
 import rotp.model.planet.Planet;
 import rotp.util.Base;
 
@@ -382,8 +381,8 @@ public class AIGovernor implements Base, Governor {
         else if (empire.sv.isRich(sys.id))
             baseMultiplier *= 1.5f;
         
-        if (sys == null)  // this can happen at startup
-            col.defense().maxBases(0);
+        // if (sys == null)  // this can happen at startup // BR: Previous sys.id calls say not down there!
+        //     col.defense().maxBases(0);
         else if (empire.sv.isAttackTarget(sys.id))
             col.defense().maxBases(max(currBases, (int)(baseMultiplier * col.production()/40))); // modnar: reduce
         else if (empire.sv.isBorderSystem(sys.id))

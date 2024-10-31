@@ -114,12 +114,12 @@ public class NewShipTemplate implements Base {
             shipDesigns[i] = newDesign(ai, role, i);
         }
 
-        int ReachableSystems = 0;
+        /* int ReachableSystems = 0; // BR: not used
         for (int id=0;id<ai.empire().sv.count();id++) 
         {
             if(ai.empire().sv.inShipRange(id))
                 ReachableSystems++;
-        }
+        } */
         
         SortedMap<Float, ShipDesign> designSorter = new TreeMap<>();
         float costLimit = ai.empire().totalPlanetaryProduction() * max(0.125f, ai.empire().shipMaintCostPerBC()) * 50 / ai.empire().allColonizedSystems().size();
@@ -939,7 +939,7 @@ public class NewShipTemplate implements Base {
         //ail: there is a maximum amount of bombs that make sense, which is exceeded in lategame, we need to calculate it and adjust the number
         if(bestWeapon.groundAttacksOnly())
         {
-            //maximum hitpoints a colony can have * hitpoints per point of population
+            //maximum hit points a colony can have * hitpoints per point of population
             float highestPopulation = 0;
             for (int id=0;id<ai.empire().sv.count();id++) 
             {
@@ -966,12 +966,13 @@ public class NewShipTemplate implements Base {
                 }
             }
         }
-        if(num > 0 && bestWeapon != null)
+        //if(num > 0 && bestWeapon != null)
+        if(num > 0) // BR: Previous bestWeapon. calls say never null down there!
             return bestWeapon;
         return null;
     }
     
-    private float shipProductionBudget(ShipDesigner ai, int topSystems) {
+    /* private float shipProductionBudget(ShipDesigner ai, int topSystems) {
         // how many BCs can topSystems number of top producing colonies
         // crank into ship production with shipRatio ratio per turn
 
@@ -988,17 +989,17 @@ public class NewShipTemplate implements Base {
             totalShipProduction += systemsProduction.get(i);
 
         return totalShipProduction;
-    }
+    } */
     private float bioWeaponScoreMod(ShipDesigner ai)
     {
         float scoreMod = 1;
         float totalMissileBaseCost = 0;
-        float totalShipCost = 0;
+        //float totalShipCost = 0;
         float totalPopulationCost = 0;
         for(Empire enemy : ai.empire().contactedEmpires())
         {
             totalMissileBaseCost += enemy.totalMissileBaseCost() * 50; //this is maintenance-cost but was supposed to be the actual cost, so times 50 to take that into account!
-            totalShipCost += enemy.shipMaintCostPerBC();
+            //totalShipCost += enemy.shipMaintCostPerBC();
             totalPopulationCost += enemy.totalPlanetaryPopulation() * enemy.tech().populationCost();
         }
         //System.out.print("\n"+ai.empire().name()+" totalPopulationCost"+totalPopulationCost+" totalMissileBaseCost: "+totalMissileBaseCost);
