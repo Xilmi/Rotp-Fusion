@@ -72,6 +72,7 @@ Later:
 2024.10.31 (BR)
 - Fixed some compilation warnings.
 - Replaced the Dialogue font set in languages ​​that required a more complete font set.
+- Removed the "are you sure" popup when you scrap an unused ship design.
 
 2024.10.31 (Frank Zago)
 - French translations and fixes.

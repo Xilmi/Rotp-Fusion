@@ -3234,9 +3234,20 @@ public class DesignUI extends BasePanel {
             }
         }
         private void openScrapDialog() {
-            confirmScrapUI.targetDesign(shipDesign());
-            enableGlassPane(confirmScrapUI);
-            return;
+        	if (shipCount(selectedSlot) + constructionCount(selectedSlot) > 0) {
+        		confirmScrapUI.targetDesign(shipDesign());
+        		enableGlassPane(confirmScrapUI);
+        	}
+        	else {
+        		scrapAction();
+        		instance.repaint();
+        	}
+        }
+        private void scrapAction() {
+            player().shipLab().scrapDesign(shipDesign());
+            // mark the player's empire economic stats to be
+            // recalculated since ship maintenance costs may change
+            player().recalcPlanetaryProduction();
         }
         private void openCreateDialog() {
             if (!shipDesign().validConfiguration())
