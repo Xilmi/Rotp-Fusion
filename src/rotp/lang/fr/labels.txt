@@ -1546,7 +1546,7 @@ SETUP_TECH_TRADING_ALLIES         | Alliés uniquement
 SETUP_TECH_TRADING_ALLIES_AID     | Alliés seulement**
 SETUP_TECH_TRADING_NO             | Non
 SETUP_TECH_TRADING_NO_AID         | Non**
-SETUP_TECH_TRADING_YES_HELP       | N'importe qui peut échanger avec n'importe qui, tant que leur relation est assez bonne.<br>Les empires en guerre ne feront pas de commerce!
+SETUP_TECH_TRADING_YES_HELP       | N'importe qui peut échanger avec n'importe qui, tant que leur relation est assez bonne.<br>Les empires en guerre ne feront pas de commerce !
 SETUP_TECH_TRADING_ALLIES_HELP    | Le commerce est limité entre alliés seulement.
 SETUP_TECH_TRADING_ALLIES_AID_HELP | Le commerce et l'aide sont limités entre les seuls alliés.
 SETUP_TECH_TRADING_NO_HELP        | Il n'y a aucun commerce.
@@ -1807,6 +1807,7 @@ SETTINGS_AI_HOSTILITY             | Hostilité : %1
 SETTINGS_RANDOM_EVENTS_DESC       | Les monstres spatiaux sont des événements aléatoires et des menaces considérables en milieu de partie. Désactiver les monstres spatiaux ou tous les événements aléatoires.
 SETTINGS_WARP_SPEED_DESC          | Augmenter la vitesse des technologies de distorsion plus avancées. Cela peut être souhaitable sur de très grandes cartes.
 SETTINGS_GALAXY_AGE_DESC          | Par rapport aux galaxies normales, les jeunes galaxies ont plus d'étoiles blanches et bleues tandis que les vieilles galaxies ont plus d'étoiles rouges et à neutrons.
+SETTINGS_TECH_TRADING_HELP        | L'échange de technologies est l'autre moyen habituel d'apprendre une technologie. Les factions de l'IA échangeront des technologies les unes avec les autres, donc vous pourriez aussi bien vous lancer dans l'action.<br> Vous pouvez désactiver tous les échanges de technologies ou limiter ces échanges aux alliés. Cette limitation peut également être étendue à l'aide.
 SETTINGS_TECH_TRADING_DESC        | Désactivez tous les métiers technologiques ou limitez ces métiers aux alliés.
 SETTINGS_STAR_DENSITY_DESC        | Choisir «élevée» pour réduire le risque que des empires soient bloqués au début de la partie.
 SETTINGS_RESEARCH_RATE_DESC       | Ralentir le rythme de recherche de nouvelles technologies, prolongeant la durée de vie utile des technologies actuelles.
@@ -1853,6 +1854,19 @@ SETTINGS_MOD_DYNAMIC_TITLE           | Règles et paramètres du jeu
 SETTINGS_MOD_CHALLENGE_MODE          | Mode défi : %1
 SETTINGS_MOD_CUSTOM_DIFFICULTY       | Difficulté personnalisée : %1%
 SETTINGS_MOD_DYNAMIC_DIFFICULTY      | Difficulté dynamique : %1
+SETTINGS_MOD_MISSILE_BASE_MODIFIER   | Coût base de missiles : %1%
+SETTINGS_MOD_MISSILE_SHIP_MODIFIER   | Coût missiles dans vaisseaux : %1%
+SETTINGS_MOD_RETREAT_RESTRICTIONS    | Retraite restreinte pour : %1
+SETTINGS_MOD_RETREAT_NONE            | Personne
+SETTINGS_MOD_RETREAT_AI              | IA
+SETTINGS_MOD_RETREAT_PLAYER          | Joueur
+SETTINGS_MOD_RETREAT_BOTH            | Tous
+SETTINGS_MOD_RETREAT_NONE_HELP       | Tout le monde est autorisé à battre en retraite !
+SETTINGS_MOD_RETREAT_AI_HELP         | L'IA ne peut pas battre en retraite si facilement, mais le joueur est autorisé à le faire!
+SETTINGS_MOD_RETREAT_PLAYER_HELP     | Le joueur ne peut pas battre en retraite si facilement, mais l'IA est autorisée à le faire!
+SETTINGS_MOD_RETREAT_BOTH_HELP       | Personne ne peut battre en retraite aussi facilement !
+SETTINGS_MOD_RETREAT_RESTRICTION_TURNS | Retraite restreinte pendant %1 tours
+SETTINGS_MOD_MAX_COMBAT_TURNS        | Tours de combat max. : %1
 SETTINGS_MOD_HOME_ORION              | Planète mère avec Vestiges : %1
 SETTINGS_MOD_HOME_ARTIFACT           | Planète mère avec Artefact : %1
 SETTINGS_MOD_HOME_FERTILE            | Planète mère Fertile : %1
@@ -1862,6 +1876,11 @@ SETTINGS_MOD_HOME_ULTRA_RICH         | Planète mère Ultra-Riche : %1
 SETTINGS_MOD_CHALLENGE_MODE_DESC     | Donnez aux Empires d'IA des ressources supplémentaires au début (plus de population, de usines et de vaisseaux.)
 SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC  | Définit le Modificateur de Production de l'IA de 20 % à 500 %. Assurez-vous de sélectionner "Difficulté: Personnalisé". (Presser Shift / Ctrl, puis faire défiler la molette de la souris pour changer en unités de 5 % / 20 %.)
 SETTINGS_MOD_DYNAMIC_DIFFICULTY_DESC | Adapte la production des IA à la force du joueur. L'effet augmente vers le 150ème tour. (L'ajustement n'est pas infini. Les Empires d'IA très forts seront presque inchangés.)
+SETTINGS_MOD_MISSILE_BASE_MODIFIER_DESC | Change le coût des bases de missiles de 10 % à 200 % du prix de base.
+SETTINGS_MOD_MISSILE_SHIP_MODIFIER_DESC | Change la taille, le coût et la consommation des missiles de 10 % à 200 %.
+SETTINGS_MOD_RETREAT_RESTRICTIONS_DESC | Indique qui sera restreint pour battre en retraite.
+SETTINGS_MOD_RETREAT_RESTRICTION_TURNS_DESC | Indique pendant combien de tours dure la restriction sur les retraites.
+SETTINGS_MOD_MAX_COMBAT_TURNS_DESC   | Définit la durée maximale des combats spatiaux. Ceci était fixé à 50 dans MoO1. Après cette durée, les agresseurs reculent. Choisi au hasard s'il n'y a pas de colonie.
 SETTINGS_MOD_HOME_ORION_DESC         | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère de type Orion avec Vestiges.
 SETTINGS_MOD_HOME_ARTIFACT_DESC      | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère avec Artefact.
 SETTINGS_MOD_HOME_FERTILE_DESC       | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère Fertile.
@@ -1896,6 +1915,19 @@ SETTINGS_MOD_OPTION_ALWAYS_AUTO_DESC     | Toujours pour le joueur, valeur par d
 SETTINGS_MOD_OPTION_ALWAYS_AUTO          | Toujours / Auto.
 SETTINGS_MOD_OPTION_ALWAYS_ALWAYS_DESC   | Toujours pour le joueur et l'IA.
 SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Toujours / Toujours
+
+SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Pourcentage nécessaire pour gagner l'élection au conseil.
+SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Exigences du Conseil: %1%
+
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_DESC       | Position du joueur pendant pendant la votation.
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE            | Vote du joueur : %1
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_FIRST_DESC | Le joueur votera toujours en premier.
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_FIRST      | En premier
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_SIZE_DESC  | Le joueur votera après les empires les plus peuplés.
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_SIZE       | Par population
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST_DESC  | Le joueur votera toujours en dernier.
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST       | En dernier
+
 TECH_HEAD_HK                             | Inclure ou exclure la Technologie
 TECH_END_HK                              | dans l'arbre technique pour joueur/IA.
 TECH_VAL_HK                              | Inclure {Toujours, Jamais, Auto}
@@ -1949,6 +1981,16 @@ SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Dernier
 
 CHAIN_RALLY_SPEED_HK                     | Vitesse des ralliements en chaîne
 
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | Désactiver les traités de paix ou supprimer la possibilité de coloniser losqu'une autre flotte est en orbite autour de la planète.
+SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Traité de paix: %1
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL_DESC | Aucun changement : La durée des traités de paix est fixée au hasard entre 10 et 15 ans.<br>Les planètes peuvent être colonisées, en présence de la flotte étrangère, et bien sûr votre flotte armée ne peut pas non plus les empêcher de coloniser.
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL      | Paix
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR_DESC  | Cela mettra fin à la guerre et les relations passeront à l'état : →RACES_NO_TREATY←.<br> Par conséquent, les flottes peuvent encore se battre pour protéger les planètes colonisables.<br> Pour les nouveaux traités seulement, les traités actuels ne sont pas affectés.
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR       | Armistice
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE_DESC  | Il s'agit encore d'un traité de paix d'une durée normale de 10 à 15 ans.<br> Mais vous ne permettrez pas à cet empire de coloniser une planète que vous protégez avec une flotte armée en orbite. Et bien sûr, ils ne vous permettront pas non plus de le faire. Les IAs ne sont pas au courant de cette limitation, donc cette option pourrait perturber les plans de leur flotte.
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE       | Guerre froide
+SETTINGS_MOD_ALLOW_SPECIES_DETAILS_DESC  | Dans le panneau de diplomatie de l'Empire, permet ou interdit de demander des informations plus détaillées sur les espèces.
+SETTINGS_MOD_ALLOW_SPECIES_DETAILS       | Autoriser les détails de l'espèce : %1
 SETTINGS_MOD_DARK_GALAXY_NO_DESC         | Désactivé; tous les systèmes de la Galaxie apparaissent sur la carte.
 SETTINGS_MOD_DARK_GALAXY_NO              | Non
 SETTINGS_MOD_DARK_GALAXY_SPY_DESC        | L'espionnage peut donner quelques informations sur les systèmes des empire contactés mais hors de portée.
@@ -1959,6 +2001,9 @@ SETTINGS_MOD_DARK_GALAXY_SHRINK_DESC     | Ne montre que les systèmes à porté
 SETTINGS_MOD_DARK_GALAXY_SHRINK          | Vue Brouillée
 SETTINGS_MOD_DARK_GALAXY_DESC            | Seuls les systèmes aux alentours sont montrés.
 SETTINGS_MOD_DARK_GALAXY                 | Brouillard de Guerre : %1
+
+SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | Pour augmenter le pourcentage maximal d'impôt sur la sécurité. (Prime d'espionnage = 2 × taxe)
+SETTINGS_MOD_MAX_SECURITY_PCT            | Sécurité Max. : %1%
 
 // Tech UI labels
 TECH_RESEARCH                     | Technologies Recherchées
@@ -2960,7 +3005,7 @@ HK_SET_DEFAULT | <br>ALT-F : Définir les valeurs par défaut à →FUSION_HK←
 // Shortcuts Full lists*
 MAIN_HELP_SHIPFLEET_HK | Raccourcis clavier QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d'informations détaillées (si elles sont connues)<br><br> MODE DE REDIRECTION DES FLOTTES :<br><br>Appuyez sur «ALT» pour montrer des informations sur l'étoile ou la flotte survolée par la souris.
 
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre Suivante/Précédente colonie<br>F5/F6 : Votre Suivante/Précédente colonie ayant construit un vaisseau<br>F7/F8 : Votre Suivante/Précédente colonie ciblée par un ennemi<br>W : Basculer la vue de guerre, n'affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n'est pas en danger)<br>F9/F10 : Votre Suivante/Précédente flotte<br>F11/F12 : IA Suivante/Précédente flotte<br>Space/Page Down/Page Up : Votre Suivante/Précédente flotte inactive →HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d'Option →HK_YEAR←<br>SHIFT-S : Rapport d'espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n'affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n'est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Space/Page Down/Page Up : Votre flotte inactive Suivante/Précédente →HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d'Option →HK_YEAR←<br>SHIFT-S : Rapport d'espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
 
 PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>CTRL+A : Sélectionner tous les systèmes<br>Q/+CTRL : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+CTRL : Planète en manque de population / + Dépenses ECO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +CTRL /+SHIFT : Basculer activation du gouverneur / Avtivé / Désactivé <br>→HK_ESCAPE←
 
