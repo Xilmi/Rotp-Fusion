@@ -19,12 +19,12 @@
 //
 // _HELP | The help text displayed in the Guide pop up. Can use some basic HTML controls <br> <i></i> <u></u> <b></b> etc...In the absence of _HELP, _DESC will be displayed.
 // Translators can always add a _HELP label even if not present in the English file.
-// 
+//
 // SETTINGS_MOD_Parameter              | The parameter's name shown on the options panel. Try to limit their length to max 20 chars.
 //
 // SETTINGS_MOD_Parameter_DESC         | The parameter's description displayed in the two lines box at the bottom of the option panel. <br> can be used to force line split.
 //
-// SETTINGS_MOD_Parameter_HELP         | A more complete parameter's description, displayed in the Guide pop up. Can use some basic HTML controls. This label is optional and will be replaced by _DESC if missing. 
+// SETTINGS_MOD_Parameter_HELP         | A more complete parameter's description, displayed in the Guide pop up. Can use some basic HTML controls. This label is optional and will be replaced by _DESC if missing.
 //
 // Label used by parameters of the type "List"
 //
@@ -2968,7 +2968,7 @@ SETTINGS_MOD_COLOR_SET_GREY         | Grey
 SETTINGS_MOD_COLOR_SET_BROWN_DESC   | Default vanilla Brown color set.
 SETTINGS_MOD_COLOR_SET_GREY_DESC    | Alternate Dark color set.
 
-SETTINGS_MOD_REAL_NEBULAE_SIZE_DESC  | Use Real Nebulae images with the this resolution factor.<br>Real Nebula distribution is non-overlapping.
+SETTINGS_MOD_REAL_NEBULAE_SIZE_DESC  | Use Real Nebulae images with this resolution factor.<br>Real Nebula distribution is non-overlapping.
 SETTINGS_MOD_REAL_NEBULAE_SIZE       | Real Nebula: %1
 SETTINGS_MOD_REAL_NEBULAE_NO         | No
 SETTINGS_MOD_REAL_NEBULAE_SHAPE_HELP | To replace rectangular shape with a better approximation of the nebula shape.<br>This will impact the flight path analysis. Changing this parameter during a game may impact travelling fleets arrival time.

@@ -1,6 +1,6 @@
 // race-specific variables (must start with _)
 _empire                           | Nazlok, Sarlok, Spylok, Shadelok, Dralok
-_empireof                         | des Nazloks, des Sarlols, des Spyloks, des Shadeloks, des Draloks
+_empireof                         | des Nazloks, des Sarloks, des Spyloks, des Shadeloks, des Draloks
 _raceadjec                        | Nazlokien, Sarlokien, Spylokien, Shadelokien, Dralokien
 _raceadjecF                       | Nazlokienne, Sarlokienne, Spylokienne, Shadelokienne, Dralokienne
 _race_pluralnoun                  | les Nazlokiens, les Sarlokiens, les Spylokiens, les Shadelokiens, les Dralokiens
