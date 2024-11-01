@@ -842,7 +842,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         int xHK = scaled(25);
         int yHK = scaled(15);
         int wHK = scaled(500);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 0, text("MAIN_HELP_HK"));
+        helpUI.addBrownHelpText(xHK, yHK, wHK, -41, text("MAIN_HELP_HK"));
     }
     private void addHotKeysShipFleet() {
         HelpUI helpUI = RotPUI.helpUI();

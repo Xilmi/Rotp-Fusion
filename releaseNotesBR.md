@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- Confidence-bonus is now applied during path-finding so that ships that are confident enough to retreat but are too afraid of moving anywhere near their enemies will no longer just hide in a corner. (Xilmi)
 - Loop thru Idle fleets: "Shift-" = Auto but still idle.
 - New Max Techs capture option when invading a colony, which is independent of the tech stealing option.
   - If technology theft was previously prohibited, then maximum number of technologies captured = 0.

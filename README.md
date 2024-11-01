@@ -69,10 +69,16 @@ Later:
 
 ## What's New
 
+2024.11.01 (Xilmi)
+- Confidence-bonus is now applied during path-finding so that ships that are confident enough to retreat but are too afraid of moving anywhere near their enemies will no longer just hide in a corner.
+
+Confidence-bonus is no longer applied for the check whether the whole stack will be oneshot.
 2024.11.01 (BR)
 - New Max Techs capture option when invading a colony, which is independent of the tech stealing option.
   - If technology theft was previously prohibited, then maximum number of technologies captured = 0.
 - Loop thru Idle fleets: "Shift-" = Auto but still idle.
+- Help pop-up: Line spacing will follow the font size.
+- DesignUI font size optimisation.
 
 2024.10.31 (BR)
 - Fixed some compilation warnings.

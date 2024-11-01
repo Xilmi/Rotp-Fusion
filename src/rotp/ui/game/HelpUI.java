@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rotp.ui.BasePanel;
+import rotp.ui.RotPUI;
 
 
 public class HelpUI extends BasePanel implements MouseListener {
@@ -77,10 +78,20 @@ public class HelpUI extends BasePanel implements MouseListener {
     }
     public HelpSpec addBlueHelpText(int x, int y, int w, int num, String text, int x1, int y1, int x2, int y2, int x3, int y3) {
         HelpSpec sp = new HelpSpec();
-        if (num==0)
+        if (num==0) {
         	sp.lines = getLineNumber(text, w);
-        else
+        	sp.hMax  = sp.height();
+        }
+        else if (num<0) {
+        	sp.lines = -num;
+        	sp.hMax  = sp.height();
+        	//sp.lines = getLineNumber(text, w, sp.hMax);
+        }
+        else {
         	sp.lines = num;
+        	sp.hMax  = sp.height();
+        }
+        sp.hMax = sp.height();
  
         if (y<0)
         	sp.y = -y - sp.height();
@@ -100,7 +111,7 @@ public class HelpUI extends BasePanel implements MouseListener {
         specs.add(sp);
         return sp;
     }
-    public int getLineNumber(String str, int maxWidth) {
+    public int getLineNumber(String str, int maxWidth)	{
     	Graphics g = getGraphics();
     	if (g==null) {// BR: because this may happen !?
     		g = (Graphics2D) fakeGraphic.getGraphics();
@@ -111,8 +122,26 @@ public class HelpUI extends BasePanel implements MouseListener {
         g.dispose();
         return lines.size();
     }
-    @Override
-    public void paintComponent(Graphics g0) {
+    private int getLineNumber(String str, int maxWidth, int maxHeight)	{
+    	Graphics g = getGraphics();
+    	if (g==null) {// BR: because this may happen !?
+    		g = (Graphics2D) fakeGraphic.getGraphics();
+    	}
+        int fontSize = FONT_SIZE;
+        g.setFont(narrowFont(fontSize));
+        List<String> lines = wrappedLines(g, str, maxWidth - s30);
+        int specH = height(lines.size(), fontSize);
+        while ((specH > maxHeight) && (fontSize > MIN_FONT_SIZE)) {
+            fontSize--;
+            g.setFont(narrowFont(fontSize));
+            lines = this.wrappedLines(g, str, maxWidth - s30);
+            specH = height(lines.size(), fontSize);
+        }
+        g.dispose();
+        return lines.size();
+    }
+   
+    @Override public void paintComponent(Graphics g0)	{
         super.paintComponent(g0);
         
         int w = getWidth();
@@ -122,27 +151,32 @@ public class HelpUI extends BasePanel implements MouseListener {
         g.fillRect(0, 0, w, h);
 
         for (HelpSpec spec: specs) {
-            int lineH = lineH();
+            int maxHeight = spec.hMax();
+
+            // Text formating
+            int fontSize = FONT_SIZE;
+            g.setFont(narrowFont(fontSize));
+            List<String> lines = wrappedLines(g, spec.text, spec.w - s30);
+            int specH = height(lines.size(), fontSize);
+            while ((specH > maxHeight) && (fontSize > MIN_FONT_SIZE)) {
+                fontSize--;
+                g.setFont(narrowFont(fontSize));
+                lines = wrappedLines(g, spec.text, spec.w - s30);
+                specH = height(lines.size(), fontSize);
+            }
             // draw background box
             Color backC = spec.backC;
-            Color bdrC = new Color(backC.getRed(), backC.getGreen(), backC.getBlue(), 160);
-            int specH = spec.height();
+            Color bdrC  = new Color(backC.getRed(), backC.getGreen(), backC.getBlue(), 160);
             g.setColor(bdrC);
             g.fillRect(spec.x, spec.y, spec.w, specH);
             g.setColor(backC);
             g.fillRect(spec.x+s5, spec.y+s5, spec.w-s10, specH-s10);
+            
             // draw box text
             g.setColor(spec.textC);
-            int fontSize = FONT_SIZE;
-            g.setFont(narrowFont(fontSize));
-            List<String> lines = this.wrappedLines(g, spec.text, spec.w - s30);
-            while ((lines.size() > spec.lines) && (fontSize > MIN_FONT_SIZE)) {
-                fontSize--;
-                g.setFont(narrowFont(fontSize));
-                lines = this.wrappedLines(g, spec.text, spec.w - s30);
-            }
+            int lineH = lineH(fontSize);
             int x0 = spec.x + s15;
-            int y0 = spec.y + lineH+s7;
+            int y0 = spec.y + lineH + scaled(fontSize/2 - 1);
             for (String line: lines) {
                 drawString(g,line, x0, y0);
                 y0 += lineH;
@@ -171,8 +205,7 @@ public class HelpUI extends BasePanel implements MouseListener {
             }
        }
     }
-    @Override
-    public void keyPressed(KeyEvent e)		{
+    @Override public void keyPressed(KeyEvent e)		{
         switch(e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
                 parent.cancelHelp();
@@ -187,22 +220,20 @@ public class HelpUI extends BasePanel implements MouseListener {
 				return;
         }
     }
-    @Override
-    public void mouseClicked(MouseEvent e)	{ }
-    @Override
-    public void mousePressed(MouseEvent e)	{ }
-    @Override
-    public void mouseReleased(MouseEvent e)	{ parent.advanceHelp(); }
-    @Override
-    public void mouseEntered(MouseEvent e)	{ }
-    @Override
-    public void mouseExited(MouseEvent e)	{ }
-    static int lineH()				{ return s18; }
-    static int height(int lines)		{ return s20 + lines*lineH(); }
+    @Override public void mouseClicked(MouseEvent e)	{ }
+    @Override public void mousePressed(MouseEvent e)	{ }
+    @Override public void mouseReleased(MouseEvent e)	{ parent.advanceHelp(); }
+    @Override public void mouseEntered(MouseEvent e)	{ }
+    @Override public void mouseExited(MouseEvent e)		{ }
+    private static int lineH(int fontSize)				{ return RotPUI.scaledSize(fontSize + 2); }
+    private static int height(int lines, int fontSize)	{ return s2 + (lines + 1) * lineH(fontSize) ; }
+    static int lineH()									{ return lineH(FONT_SIZE); }
+    static int height(int lines)						{ return height(lines, FONT_SIZE); }
  
     public class HelpSpec {
         private int x, y, w;
-        private int lines;
+        private int lines, hMax;
+        private int fontSize = FONT_SIZE;
         private int[] lineArr; // BR: to allow frames
         private int x1 = -1;
         private int y1 = -1;
@@ -214,7 +245,9 @@ public class HelpUI extends BasePanel implements MouseListener {
         private Color textC = Color.white;
         private Color lineC = Color.white;
         private String text;
-        public int height() { return HelpUI.height(lines); }
+        public int lineH()	{ return scaled(fontSize + 2); }        
+        public int height()	{ return s2 + (lines+1) * lineH(); }
+        public int hMax()	{ return hMax; }
         public int x()	    { return x; }
         public int y()	    { return y; }
         public int xe()		{ return x + w; }

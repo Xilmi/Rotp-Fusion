@@ -1123,7 +1123,7 @@ public interface Base {
                 if (!currentLine.isEmpty())
                 	lines.add(currentLine);
                 currentLine = "";
-        		if (forcedLine.trim().isEmpty()) {
+        		if (forcedLine.trim().isEmpty()) { // requested blank line
         			lines.add("");
         			continue;
         		}
@@ -1135,7 +1135,8 @@ public interface Base {
                         newLine = newLine + " " + word;
                     int newWidth = fm.stringWidth(newLine);
                     if (newWidth > (maxWidth-indent)) {
-                        lines.add(currentLine);
+                    	if (!currentLine.isEmpty())
+                    		lines.add(currentLine);
                         indent = 0;
                         currentLine = word;
                     }

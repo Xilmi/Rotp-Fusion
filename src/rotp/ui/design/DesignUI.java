@@ -881,15 +881,18 @@ public class DesignUI extends BasePanel {
         public void paintComponent(Graphics g0) {
             Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
+
             String title = text(titleKey);
             
             int w = getWidth();
             int h = getHeight();
             copyButton.setBounds(0,0,0,0);
-            
-            g.setFont(narrowFont(32));
+            scaledFont(g, title, w, 32, 20);
+            //g.setFont(narrowFont(32));
+            int sw = g.getFontMetrics().stringWidth(title);
+            int x = (w-sw)/2;
             g.setColor(SystemPanel.orangeText);
-            drawString(g,title, s10, s32);
+            drawString(g, title, x, s32);
             
             prototypeBox.setBounds(0,s50,w,h-s55);
             int shipW = shipSlotW < 0 ? s95 : shipSlotW;
@@ -904,7 +907,7 @@ public class DesignUI extends BasePanel {
             if ((selectedSlot >= 0) && !configPanel.shipDesign().active()) {
                 g.setFont(narrowFont(16));
                 String str = text("SHIP_DESIGN_COPY_BUTTON");
-                int sw = g.getFontMetrics().stringWidth(str);
+                sw = g.getFontMetrics().stringWidth(str);
                 int buttonW = sw + s40;
                 int buttonH = s20;
                 int buttonX = (leftM-buttonW)/2;
