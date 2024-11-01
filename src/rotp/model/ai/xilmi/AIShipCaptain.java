@@ -552,7 +552,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 {
                     if(st.movePointsTo(coord.x, coord.y) <= st.maxFiringRange(stack))
                     {
-                        pathSafety -= st.estimatedKillPct(stack, true);
+                        pathSafety -= st.estimatedKillPct(stack, true) / getApplicableConfidence(stack);
                     }
                 }
             }
@@ -1127,39 +1127,16 @@ public class AIShipCaptain implements Base, ShipCaptain {
             else
                 return true;
         }
-        if(stack.empire().isPlayer())
-        {
-            if(col != null && col.empire() == empire)
-            {
-                enemyKillTime *= options().playerDefenseConfidence();
-                enemyKillTimeWithoutHeal *= options().playerDefenseConfidence();
-            }
-            else
-            {
-                enemyKillTime *= options().playerAttackConfidence();
-                enemyKillTimeWithoutHeal *= options().playerAttackConfidence();
-            }
-        }
-        else
-        {
-            if(col != null && col.empire() == empire)
-            {
-                enemyKillTime *= options().aiDefenseConfidence();
-                enemyKillTimeWithoutHeal *= options().aiDefenseConfidence();
-            }
-            else
-            {
-                enemyKillTime *= options().aiAttackConfidence();
-                enemyKillTimeWithoutHeal *= options().aiAttackConfidence();
-            }
-        }
         if (!enemyHasWarpDissipator)
             if(enemyKillTimeWithoutHeal < 2)
                 return allyKillTime > enemyKillTime;
             else
                 return false;
         else
+        {
+            enemyKillTime *= getApplicableConfidence(stack);
             return allyKillTime > enemyKillTime;
+        }
     }
     @Override
     public StarSystem retreatSystem(StarSystem sys) {
@@ -1410,5 +1387,34 @@ public class AIShipCaptain implements Base, ShipCaptain {
             killPct += ((miss.maxDamage()-miss.target.shieldLevel())*miss.num*hitPct)/(miss.target.maxStackHits()*miss.target.num);
         }
         return min(1.0f, killPct);
+    }
+    
+    public float getApplicableConfidence(CombatStack stack)
+    {
+        CombatStackColony col = combat().results().colonyStack;
+        float baseConfidence = 1.0f;
+        if(stack.empire().isPlayer())
+        {
+            if(col != null && col.empire() == empire)
+            {
+                baseConfidence *= options().playerDefenseConfidence();
+            }
+            else
+            {
+                baseConfidence *= options().playerAttackConfidence();
+            }
+        }
+        else
+        {
+            if(col != null && col.empire() == empire)
+            {
+                baseConfidence *= options().aiDefenseConfidence();
+            }
+            else
+            {
+                baseConfidence *= options().aiAttackConfidence();
+            }
+        }
+        return baseConfidence;
     }
 }
