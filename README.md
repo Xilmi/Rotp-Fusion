@@ -69,6 +69,10 @@ Later:
 
 ## What's New
 
+2024.11.01 (BR)
+- New Max Techs capture option when invading a colony, which is independent of the tech stealing option.
+  - If technology theft was previously prohibited, then maximum number of technologies captured = 0.
+
 2024.10.31 (BR)
 - Fixed some compilation warnings.
 - Replaced the Dialogue font set in languages ​​that required a more complete font set.

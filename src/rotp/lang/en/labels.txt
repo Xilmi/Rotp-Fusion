@@ -2768,9 +2768,13 @@ SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS_HELP  | →SCANNER_2_NAME← or →SCANNER_
 SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS_DESC  | Have →SCANNER_0_NAME← and →SCANNER_1_NAME← automatically track ship trajectories when ships can be unambiguously identified across successive turns. !!! May gives wrong destinations when stars are aligned !!!
 SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS       | Track ships across turns: %1
 
-SETTINGS_MOD_ALLOW_TECH_STEALING_HELP    | To enable or disable technology stealing activities.<br> If disabled, half of the infiltration bonus will be given to Research bonus.<br>Infiltration penalty won't impact Research bonus.
-SETTINGS_MOD_ALLOW_TECH_STEALING_DESC    | To enable or disable technology stealing activities.<br> If disabled, half of the infiltration bonus will be given to Research bonus. (Never removed)
+SETTINGS_MOD_ALLOW_TECH_STEALING_HELP    | To enable or disable technology theft activities.<br>When disabled, half of the infiltration bonus will be attributed to the research bonus.<br>The infiltration penalty will not impact the research bonus.
+SETTINGS_MOD_ALLOW_TECH_STEALING_DESC    | To enable or disable technology theft activities.<br>When disabled, half of the infiltration bonus will be attributed to the research bonus. (Never negative bonus)
 SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
+
+SETTINGS_MOD_MAX_TECH_CAPTURED_HELP      | When invading an enemy colony, what is the maximum number of technologies that can be plundered?<br><b>Backwards Compatibility:</b> If tech theft was previously prohibited, this value will be initialized to 0.
+SETTINGS_MOD_MAX_TECH_CAPTURED_DESC      | When invading an enemy colony, what is the maximum number of technologies that can be plundered?
+SETTINGS_MOD_MAX_TECH_CAPTURED           | Max techs captured: %1
 
 SETTINGS_MOD_DEVELOPED_DEFINITION_DESC   | When "→PLANETS_RESERVE_ONLY_DEVELOPED←" is selected, what should be completed?
 SETTINGS_MOD_DEVELOPED_DEFINITION        | Developed = %1

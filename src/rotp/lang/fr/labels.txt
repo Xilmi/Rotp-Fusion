@@ -1912,6 +1912,15 @@ SETTINGS_MOD_OPTIONS_DEFAULT_HELP        | Les options seront réinitialisées �
 SETTINGS_MOD_OPTIONS_LAST_HELP           | Les options seront celles utilisées lorsque ROTP a été fermé la dernière fois.
 SETTINGS_MOD_OPTIONS_GAME_HELP           | Les options seront celles du dernier jeu joué.
 SETTINGS_MOD_OPTIONS_USER_HELP           | Les options seront les préférences sauvées par l'utilisateur.
+
+SETTINGS_MOD_ALLOW_TECH_STEALING_HELP    | Pour activer ou désactiver les activités de vol de technologies.<br>Lorsque désactivé, la moitié du bonus d'infiltration sera attribuée au bonus de recherche.<br>La pénalité d'infiltration n'aura pas d'impact sur le bonus de recherche.
+SETTINGS_MOD_ALLOW_TECH_STEALING_DESC    | Pour activer ou désactiver les activités de vol de technologies.<br>Lorsque désactivé, la moitié du bonus d'infiltration sera attribuée au bonus de recherche. (Jamais de bonus négatif)
+SETTINGS_MOD_ALLOW_TECH_STEALING         | Vol de Technologies: %1
+
+SETTINGS_MOD_MAX_TECH_CAPTURED_HELP      | Lors de l'invasion d'une colonie ennemie, quel est le nombre maximum de technologies pouvant être pillées ?<br><b>Rétrocompatibilité:</b> Si le vol de technologie était précédemment interdit, cette valeur sera initialisée à 0.
+SETTINGS_MOD_MAX_TECH_CAPTURED_DESC      | Lors de l'invasion d'une colonie ennemie, quel est le nombre maximum de technologies pouvant être pillées ?
+SETTINGS_MOD_MAX_TECH_CAPTURED           | Pillage max: %1
+
 SETTINGS_MOD_DEVELOPED_DEFINITION_DESC   | Quels sont les critères à appliquer lorsque "→PLANETS_RESERVE_ONLY_DEVELOPED←" est sélectionné?
 SETTINGS_MOD_DEVELOPED_DEFINITION        | Developpé = %1
 SETTINGS_MOD_DEVELOPED_ALL_DESC          | →FR_MISSILES_DESC_HK← + →FR_USINES_DESC_HK← + →FR_POPULATION_DESC_HK←.

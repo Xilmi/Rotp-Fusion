@@ -70,7 +70,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public static final int RESEARCH = 4;
 
     private static final float TECH_PLUNDER_PCT = 0.02f;
-    private static final int MAX_TECHS_CAPTURED = 6;
+    // private static final int MAX_TECHS_CAPTURED = 6;
     private static final int TARGETED_DAMAGE_FOR_POPLOSS = 400;
     private static final int TARGETED_DAMAGE_FOR_FACTLOSS = 100;
     private static final int UNTARGETED_DAMAGE_FOR_POPLOSS = 200;
@@ -1550,11 +1550,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
             session().addSystemToAllocate(starSystem(), str1);
         }
         // list of possible techs that could be recovered from factories
-        List<Tech> possibleTechs = empire().tech().techsUnknownTo(tr.empire(), true);
+        List<Tech> possibleTechs = empire().tech().techsUnknownTo(tr.empire(), false);
         int techsCaptured = 0;
+        int maxTechsCaptured = options().maxTechsCaptured();
         // each factory is 2% chance to plunder an unknown tech
         for (int i = 0; i < (int) industry().factories(); i++) {
-            if (techsCaptured >= MAX_TECHS_CAPTURED)
+            if (techsCaptured >= maxTechsCaptured)
                 break;
             if (!possibleTechs.isEmpty() && (random() <= TECH_PLUNDER_PCT)) {
                 Tech t = random(possibleTechs);

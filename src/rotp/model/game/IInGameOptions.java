@@ -140,10 +140,37 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	default String selectedAutoTerraformEnding()	{ return autoTerraformEnding.get(); }
 
 	ParamBoolean trackUFOsAcrossTurns = new ParamBoolean(MOD_UI, "TRACK_UFOS_ACROSS_TURNS", false);
-	default boolean selectedTrackUFOsAcrossTurns() { return trackUFOsAcrossTurns.get(); }
+	default boolean selectedTrackUFOsAcrossTurns()	{ return trackUFOsAcrossTurns.get(); }
 
 	ParamBoolean allowTechStealing	= new ParamBoolean(MOD_UI, "ALLOW_TECH_STEALING", true);
 	default boolean forbidTechStealing()	 	{ return !allowTechStealing.get(); }
+
+	ParamInteger maxTechsCaptured	= new MaxTechsCaptured()
+			.setLimits(0, 200)
+			.setIncrements(1, 5, 20);
+	default int maxTechsCaptured()				{ return maxTechsCaptured.get(); }
+	class MaxTechsCaptured extends ParamInteger {
+		MaxTechsCaptured() {
+			super(MOD_UI, "MAX_TECH_CAPTURED", 6);
+			setLimits(0, 10);
+			setIncrements(1, 2, 5);
+			loop(true);
+		}
+		// For backward compatibility
+		@Override protected Integer getOptionValue(IGameOptions options) {
+			Integer value = options.dynOpts().getInteger(getLangLabel());
+			if (value == null) {
+				Boolean allowTechStealing = options.dynOpts().getBoolean(MOD_UI + "ALLOW_TECH_STEALING");
+				if (allowTechStealing == null)
+					allowTechStealing = true;
+				if (allowTechStealing)
+					value = defaultValue();
+				else
+					value = 0;
+			}
+			return value;
+		}
+	}
 
 	ParamInteger maxSecurityPct		= new ParamInteger(MOD_UI, "MAX_SECURITY_PCT", 10)
 			.setLimits(10, 90)
@@ -314,10 +341,11 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 				new ParamTitle("GAME_RELATIONS"),
 				councilWin, counciRequiredPct, councilPlayerVote,
 				aiHostility, techTrading,
-				allowTechStealing, maxSecurityPct,
+				allowTechStealing, maxTechsCaptured,
+				maxSecurityPct,
 				specialPeaceTreaty,
 
-				headerSpacer,
+				//headerSpacer,
 				new ParamTitle("GAME_COMBAT"),
 				maxCombatTurns,
 				retreatRestrictions, retreatRestrictionTurns,

@@ -1021,7 +1021,6 @@ public final class TechShipWeapon extends Tech {
 				pause(sleepTime);
 			}
 		}
-		// TODO BR: VALIDATE the changes
 		// System.out.println("ui.waitingToShowResult() = " + ui.waitingToShowResult());
 //		if (ui.waitingToShowResult()) {
 //			ui.paintAllImmediately();
