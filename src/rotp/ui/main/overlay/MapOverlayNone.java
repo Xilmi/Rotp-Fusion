@@ -285,10 +285,16 @@ public class MapOverlayNone extends MapOverlay {
                 break;
             case KeyEvent.VK_PAGE_DOWN:
             case KeyEvent.VK_SPACE:
-            	nextFleet(player().orderedIdleFleets());
+            	if (e.isShiftDown())
+            		nextFleet(player().orderedAutoButIdleFleets());
+            	else
+            		nextFleet(player().orderedIdleFleets());
                 break;
             case KeyEvent.VK_PAGE_UP:
-            	prevFleet(player().orderedIdleFleets());
+            	if (e.isShiftDown())
+            		prevFleet(player().orderedAutoButIdleFleets());
+            	else
+            		prevFleet(player().orderedIdleFleets());
                 break;
             case KeyEvent.VK_MULTIPLY:
             case KeyEvent.VK_7:

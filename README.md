@@ -72,6 +72,7 @@ Later:
 2024.11.01 (BR)
 - New Max Techs capture option when invading a colony, which is independent of the tech stealing option.
   - If technology theft was previously prohibited, then maximum number of technologies captured = 0.
+- Loop thru Idle fleets: "Shift-" = Auto but still idle.
 
 2024.10.31 (BR)
 - Fixed some compilation warnings.

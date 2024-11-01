@@ -4749,6 +4749,36 @@ public final class Empire implements Base, NamedObject, Serializable {
         Collections.sort(list, ShipFleet.COST);
         return list;
     }
+    public List<ShipFleet> orderedAutoButIdleFleets() {
+        List<ShipFleet> list = new ArrayList<>();
+        List<ShipFleet> fleets = galaxy().ships.allFleets(id);
+        for (ShipFleet fl: fleets) {
+            if (fl != null && !fl.isEmpty())
+            {
+                if(fl.isDeployed() || fl.isInTransit())
+                    continue;
+                if(fl.system() != null && warEnemies().contains(fl.system().empire()))
+                    continue;
+                boolean allDesignsAuto = true;
+                for(int i = 0; i < ShipDesignLab.MAX_DESIGNS; ++i)
+                {
+                    if(fl.num[i] > 0)
+                    {
+                        ShipDesign d = shipLab.design(i);
+                        if(!d.isAutoScout() && !d.isAutoAttack() && !d.isAutoColonize())
+                        {
+                            allDesignsAuto = false;
+                            break;
+                        }
+                    }
+                }
+                if(allDesignsAuto)
+                	list.add(fl);
+            }
+        }
+        Collections.sort(list, ShipFleet.COST);
+        return list;
+    }
     public List<ShipFleet> orderedEnemyFleets() {
         List<ShipFleet> list = new ArrayList<>(enemyFleets());
         Collections.sort(list, IMappedObject.MAP_ORDER);
