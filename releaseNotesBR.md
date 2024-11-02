@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- New Icon to identify links to sub panels.
 - Fixed wrong warning when loading a game.
 - Fixed [player_xxx] being translated to [alien_xxx] in label.txt
 - Fixed "!!! To Replay Last Turn !!!.rotp" file being saved too often.

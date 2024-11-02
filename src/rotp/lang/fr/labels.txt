@@ -445,9 +445,9 @@ GAME_TITLE_LINE_3                 | PRÉCURSEURS
 GAME_DISCUSS_ONLINE               | Discussions en ligne
 GAME_MENU_CONTINUE                | Continuer la Partie
 GAME_MENU_NEW_GAME                | Nouvelle Partie
-GAME_MENU_LOAD_GAME               | Charger
+GAME_MENU_LOAD_GAME               | Charger une Partie
 GAME_MENU_LOAD_OPTIONS            | Charger les Paramètres
-GAME_MENU_SAVE_GAME               | Enregistrer
+GAME_MENU_SAVE_GAME               | Enregistrer la Partie
 GAME_MENU_SAVE_OPTIONS            | Enregistrer les Paramètres
 GAME_MENU_SETTINGS                | Paramètres
 GAME_MENU_OPEN_MANUAL             | Mode d'emploi
@@ -1823,25 +1823,25 @@ SETTINGS_FUEL_RANGE_DESC          | Augmente la portée des technologies de carb
 SETTINGS_AI_HOSTILITY_DESC        | Augmente ou diminue le niveau général d'hostilité entre les espèces extraterrestres.
 
 HEADERS_GAME_UI_PREFERENCES_DESC  | Personnalisation de l'interface de jeu.
-HEADERS_GAME_UI_PREFERENCES       | ~~~ PRÉFÉRENCES DE L'INTERFACE ~~~%1
+HEADERS_GAME_UI_PREFERENCES       | ~~~ PRÉFÉRENCES DE L'INTERFACE ~~~
 HEADERS_GAME_RELATIONS_DESC       | Options de contrôle des relations entre empires. Peut être changé dynamiquement.
-HEADERS_GAME_RELATIONS            | ~~~ RELATIONS AVEC LES EMPIRES ~~~%1
+HEADERS_GAME_RELATIONS            | ~~~ RELATIONS AVEC LES EMPIRES ~~~
 HEADERS_GAME_VARIOUS_DESC         | Options diverses. Peut être changé dynamiquement.
-HEADERS_GAME_VARIOUS              | ~~~ OPTIONS DIVERSES ~~~%1
+HEADERS_GAME_VARIOUS              | ~~~ OPTIONS DIVERSES ~~~
 HEADERS_GAME_OTHER_DESC           | Autres options. Peut être changé dynamiquement.
-HEADERS_GAME_OTHER                | ~~~ AUTRES OPTIONS ~~~%1
+HEADERS_GAME_OTHER                | ~~~ AUTRES OPTIONS ~~~
 HEADERS_GAME_AUTOMATION_DESC      | Option pour supprimer les tâches ennuyeuses !
-HEADERS_GAME_AUTOMATION           | ~~~ AUTOMATISATIONS ~~~%1
+HEADERS_GAME_AUTOMATION           | ~~~ AUTOMATISATIONS ~~~
 HEADERS_GAME_COMBAT_DESC          | Options affectant l'attaque et la défense. Peut être changé dynamiquement.
-HEADERS_GAME_COMBAT               | ~~~ OPTIONS DE COMBAT ~~~%1
+HEADERS_GAME_COMBAT               | ~~~ OPTIONS DE COMBAT ~~~
 HEADERS_GAME_DIFFICULTY_DESC      | Options affectant le niveau de difficulté du jeu. Peut être changé dynamiquement.
-HEADERS_GAME_DIFFICULTY           | ~~~ DIFFICULTÉ DU JEU ~~~%1
+HEADERS_GAME_DIFFICULTY           | ~~~ DIFFICULTÉ DU JEU ~~~
 SETTINGS_MOD_SYSTEMS_OPTIONS_TITLE   | Configuration avancée des Étoiles et des Planètes
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI      | - Menu des options avancées de planète -
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI_DESC | Ouvre un sous-menu contenant des paramètres Planétaires plus avancés.
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI_HELP | Ouvre un sous-menu contenant des paramètres Planétaires plus avancés.<br>Ces paramètres sont définitifs.<br>Ces paramètres sont enregistrés avec le jeu.
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_TITLE   | Configuration avancée de la Galaxie
-SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI      | - Menu avancé Galaxie -
+SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI      | Paramètres avancés Galaxie
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_DESC | Ouvre un sous-menu contenant des paramètres avancés Galaxie.
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_HELP | Ouvre un sous-menu contenant les paramètres avancés de Galaxie.<br> Ces paramètres sont définitifs.<br> Ces paramètres sont enregistrés avec le jeu.
 SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | Permettre à une planète ultra-pauvre, pauvre, riche, ou ultra-riche d'avoir aussi des artefacts.
@@ -2760,13 +2760,13 @@ GAME_OVER_NO_COLONIES_LOSS2       | Le règne de %2 a pris fin, ruiné par l'inc
 // ===== BR: Governor labels =====
 //
 HEADERS_GOVERNOR_SETUP_MENU_DESC  | Pour définir les options du gouverneur avant de commencer la partie.
-HEADERS_GOVERNOR_SETUP_MENU       | ~~~ MANDAT DU GOUVERNEUR ~~~%1
+HEADERS_GOVERNOR_SETUP_MENU       | ~~~ MANDAT DU GOUVERNEUR ~~~
 GOVERNOR_SETUP_TITLE              | Mandat du Gouverneur
 GOVERNOR_SETUP_MENU_DESC          | Ouvre le sous-menu de configuration du mandat du gouverneur.
-GOVERNOR_SETUP_MENU               | - Options du Gouverneur -
+GOVERNOR_SETUP_MENU               | Mandat du Gouverneur
 
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | Paramètres de transport automatisé.
-HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ TRANSPORT AUTOMATISÉ ~~~%1
+HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ TRANSPORT AUTOMATISÉ ~~~
 GOVERNOR_TRANSPORT_OPTIONS_LABEL    | Paramètres d'automatisation du transport
 GOVERNOR_TRANSPORT_OPTIONS_TT       | Comment l'IA devrait gérer l'automatisation du transport.
 
@@ -2799,7 +2799,7 @@ GOVERNOR_TRANSPORT_MAX_TURNS_NEBULA_LABEL  | (Distance 1,5 fois plus élevée lo
 GOVERNOR_TRANSPORT_MAX_TURNS_NEBULA_TT     | →GOVERNOR_TRANSPORT_MAX_TURNS_DESC←
 
 HEADERS_GOVERNOR_STARGATES_OPTIONS_DESC | Options de portes des étoiles
-HEADERS_GOVERNOR_STARGATES_OPTIONS      | ~~~ PORTES DES ÉTOILES ~~~%1
+HEADERS_GOVERNOR_STARGATES_OPTIONS      | ~~~ PORTES DES ÉTOILES ~~~
 GOVERNOR_STARGATES_OPTIONS_LABEL        | Portes des étoiles
 GOVERNOR_STARGATES_OPTIONS_TT           | Où l'IA devrait-elle construire des portes des étoiles ?
 
@@ -2820,7 +2820,7 @@ GOVERNOR_STARGATES_RICH_1_TT         | →GOVERNOR_STARGATES_RICH_HELP←
 GOVERNOR_STARGATES_RICH_2_TT         | →GOVERNOR_STARGATES_RICH_HELP←
 
 HEADERS_GOVERNOR_COLONY_OPTIONS_DESC | Colony Options.
-HEADERS_GOVERNOR_COLONY_OPTIONS      | ~~~ COLONY OPTIONS ~~~%1
+HEADERS_GOVERNOR_COLONY_OPTIONS      | ~~~ COLONY OPTIONS ~~~
 GOVERNOR_COLONY_OPTIONS_LABEL        | Paramètres des colonies
 GOVERNOR_COLONY_OPTIONS_TT           | Comment l’IA devrait-elle gérer les colonies ?
 
@@ -2853,7 +2853,7 @@ GOVERNOR_TERRAFORM_EARLY             | Terraformation rapide: %1%
 GOVERNOR_TERRAFORM_EARLY_LABEL       | Terraformation rapide
 
 HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS_DESC | Mandats liés aux activités d'espionnage.
-HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS      | ~~~ SERVICES SECRETS ~~~%1
+HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS      | ~~~ SERVICES SECRETS ~~~
 GOVERNOR_INTELLIGENCE_OPTIONS_LABEL  | Services Secrets
 GOVERNOR_INTELLIGENCE_OPTIONS_TT     | Comment l’IA devrait gérer les activités d’espionnage.
 
@@ -2870,7 +2870,7 @@ GOVERNOR_SPARE_XENOPHOBES            | Respect promises: %1
 GOVERNOR_SPARE_XENOPHOBES_LABEL      | Promesses tenues
 
 HEADERS_GOVERNOR_FLEET_OPTIONS_DESC  | Fleet Options.
-HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~%1
+HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~
 GOVERNOR_FLEET_OPTIONS_LABEL         | Paramètres des Flottes
 GOVERNOR_FLEET_OPTIONS_TT            | Comment l'IA devrait gérer les activités des flottes.
 
@@ -2904,7 +2904,7 @@ GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset auto Ships: %1
 GOVERNOR_AUTOSHIPS_BY_DEFAULT_LABEL  | Auto Ships is "On" by Default
 
 HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Options liées à l'apparence du panneau de configuration.
-HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~%1
+HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~
 GOVERNOR_ASPECT_OPTIONS_LABEL        | Apparence
 GOVERNOR_ASPECT_OPTIONS_TT           | Options liées à l'apparence de ce panneau de configuration.
 
@@ -2932,7 +2932,7 @@ GOVERNOR_POSITION_Y_DESC             | Vertical position of the Governor Panel.
 GOVERNOR_POSITION_Y                  | Position Y: %1
 
 HEADERS_GOVERNOR_OTHER_OPTIONS_DESC | Unclassified Options.
-HEADERS_GOVERNOR_OTHER_OPTIONS      | ~~~ OTHER OPTIONS ~~~%1
+HEADERS_GOVERNOR_OTHER_OPTIONS      | ~~~ OTHER OPTIONS ~~~
 GOVERNOR_AUTO_APPLY_DESC            | Apply the option on the fly, without having to close the panel. (Standard floating panel only)
 GOVERNOR_AUTO_APPLY                 | Auto Apply: %1
 GOVERNOR_AUTO_APPLY_LABEL           | Auto Apply

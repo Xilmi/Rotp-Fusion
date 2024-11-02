@@ -1731,4 +1731,135 @@ public interface Base {
     			remain--;
     	return remain;
     }
+/*    default BufferedImage subMenuIcon(int wi, int hi, Color col) {
+    	int w = 96;
+    	int h = w;
+    	int centerH   = h/2;
+    	int oddShift  = h - 2*centerH;
+    	int baseWidth = round(h/32f); // 3
+    	int baseThick = 2 * baseWidth;
+    	int lineThick = baseThick + oddShift;
+    	int arcD  = 2 * baseThick;
+    	int rectH = 3 * baseThick + oddShift;
+    	int leftW = w/3;
+    	BufferedImage img = new BufferedImage(w, h, TYPE_INT_ARGB);
+    	Graphics2D g = getGraphicsRH(img);
+    	g.setColor(col);
+
+    	// top bar
+    	int rectW = w;
+    	int x = 0;
+    	int y = 0;
+    	g.fillRoundRect(x, y, rectW, rectH, arcD, arcD);
+    	// bottom bar
+    	rectW = w - leftW;
+    	x = leftW;
+    	y = h - rectH;
+    	g.fillRoundRect(x, y, rectW, rectH, arcD, arcD);
+    	// center bar
+    	y = centerH - 2 * baseThick;
+    	g.fillRoundRect(x, y, rectW, rectH, arcD, arcD);
+    	// vertical Line
+    	arcD  = baseThick;
+    	x = baseThick;
+    	y = rectH + baseThick;
+    	int lineW = lineThick;
+    	int lineH = h - y - baseThick;
+    	g.fillRoundRect(x, y, lineW, lineH, arcD, arcD);
+    	g.fillRect(x, y, lineW, arcD); // Remove the top round corners
+    	// bottom line
+    	x = baseThick + lineThick; // mid line
+    	y = h - baseThick - lineThick;
+    	lineW = leftW - x - baseThick;
+    	lineH = lineThick;
+    	g.fillRect(x, y, lineW, lineH);
+    	// center line
+    	y = centerH - baseWidth;
+    	g.fillRect(x, y, lineW, lineH);
+
+    	g.setColor(Color.BLACK);
+    	// bottom line
+    	x = leftW + 2*lineThick;
+    	y = h - baseThick - lineThick;
+    	lineW = rectW - 4*lineThick;
+    	lineH = 5;
+    	g.fillRect(x, y, lineW, lineH);
+    	// center line
+    	y = centerH - baseWidth;
+    	g.fillRect(x, y, lineW, lineH);
+    	
+    	g.dispose();
+    	
+    	return resizeImage(img, wi, hi);
+    } */
+    default BufferedImage subMenuIcon(int wi, int hi, Color rectCol, Color barCol, Color lineCol) {
+    	int lineThick = 4;
+    	int barThick  = 6;
+    	int rectThick = 18;
+    	int rectGap   = 21;
+    	int arcD  = 12;
+    	int leftW = 32;
+    	int yBar  = 6;
+    	int yLine = 7;
+    	int xLine = 7;
+    	int barVL = barThick;
+    	int barVR = barVL + barThick;
+    	int barVC = (barVL + barVR)/2;
+    	int barHR = leftW - barThick;
+    	
+    	int h = rectThick*3 + rectGap*2;
+    	int w = h;
+
+    	BufferedImage img = new BufferedImage(w, h, TYPE_INT_ARGB);
+    	Graphics2D g = getGraphicsRH(img);
+
+    	// top bar
+    	int rectW = w;
+    	int x = 0;
+    	int y = 0;
+    	g.setColor(rectCol);
+    	g.fillRoundRect(x, y, rectW, rectThick, arcD, arcD);
+    	g.setColor(lineCol);
+    	g.fillRect(x+xLine+leftW, y+yLine, rectW-2*xLine-leftW, lineThick);
+
+    	// center bar
+    	y += rectThick+rectGap;
+    	x = leftW;
+    	rectW = w - x;
+    	g.setColor(rectCol);
+    	g.fillRoundRect(x, y, rectW, rectThick, arcD, arcD);
+    	g.setColor(lineCol);
+    	g.fillRect(x+xLine, y+yLine, rectW-2*xLine, lineThick);
+    	int xl = barVR;
+    	int lineW = barHR - xl;
+    	int lineH = barThick;
+    	g.setColor(barCol);
+    	g.fillRect(xl, y+yBar, lineW, lineH);
+    	
+    	// bottom bar
+    	y += rectThick+rectGap;
+    	x = leftW;
+    	rectW = w - x;
+    	g.setColor(rectCol);
+    	g.fillRoundRect(x, y, rectW, rectThick, arcD, arcD);
+    	g.setColor(lineCol);
+    	g.fillRect(x+xLine, y+yLine, rectW-2*xLine, lineThick);
+    	xl = barVC;
+    	lineW = barHR - xl;
+    	lineH = barThick;
+    	g.setColor(barCol);
+    	g.fillRect(xl, y+yBar, lineW, lineH);
+    	
+    	// vertical Bar
+    	x = barVL;
+    	y = rectThick + barThick;
+    	lineW = barThick;
+    	lineH = h - y - barThick;
+    	g.fillRoundRect(x, y, lineW, lineH, arcD, arcD);
+    	g.fillRect(x, y, lineW, lineW);
+
+    	g.dispose();
+    	
+    	return resizeImage(img, wi, hi);
+    }
 }

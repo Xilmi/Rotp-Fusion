@@ -32,8 +32,7 @@ public class BaseText implements Base {
 
     private final BasePanel panel;
     protected Color enabledC, disabledC, hoverC, depressedC, shadeC; // BR not final
-    @SuppressWarnings("unused")
-	private final int topLBdr, btmRBdr, bdrStep;
+	private final int topLBdr, btmRBdr; // , bdrStep;
     private final Rectangle bounds = new Rectangle();
     private String text, hoverText;
     private int x,y;
@@ -71,7 +70,7 @@ public class BaseText implements Base {
      * @param c3	hoverC
      * @param c4	depressedC
      * @param c5	shadeC
-     * @param i1	bdrStep
+     * @param i1	bdrStep (never used)
      * @param i2	topLBdr
      * @param i3	btmRBdr
      */
@@ -89,7 +88,7 @@ public class BaseText implements Base {
         hoverC = c3;
         depressedC = c4;
         shadeC = c5;
-        bdrStep = i1;
+        //bdrStep = i1;
         topLBdr = i2;
         btmRBdr = i3;
     }
@@ -226,9 +225,13 @@ public class BaseText implements Base {
         int fontH = g.getFontMetrics().getHeight();
      // BR: fixed Width for scrolling
         if (!fixedWidth)
-        	setBounds(x1,y1-fontH,sw+scaled(5),fontH+(fontH/5));
-        else
-        	setBounds(x1,y1-fontH-1,width,fontH+(fontH/5)+2);
+        	setBounds(x1, y1-fontH, sw+scaled(5), fontH+(fontH/5));
+        else {
+        	if (width > 0)
+        		setBounds(x1, y1-fontH-1, width, fontH+(fontH/5)+2);
+        	else // offset
+        		setBounds(x1+width, y1-fontH, sw+scaled(5)-width, fontH+(fontH/5));
+        }
         if (draw) {
             if (bordered)
                 drawBorderedString(g,displayText(), x1, y1, Color.black,textColor());

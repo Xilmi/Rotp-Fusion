@@ -122,24 +122,6 @@ public class HelpUI extends BasePanel implements MouseListener {
         g.dispose();
         return lines.size();
     }
-    private int getLineNumber(String str, int maxWidth, int maxHeight)	{
-    	Graphics g = getGraphics();
-    	if (g==null) {// BR: because this may happen !?
-    		g = (Graphics2D) fakeGraphic.getGraphics();
-    	}
-        int fontSize = FONT_SIZE;
-        g.setFont(narrowFont(fontSize));
-        List<String> lines = wrappedLines(g, str, maxWidth - s30);
-        int specH = height(lines.size(), fontSize);
-        while ((specH > maxHeight) && (fontSize > MIN_FONT_SIZE)) {
-            fontSize--;
-            g.setFont(narrowFont(fontSize));
-            lines = this.wrappedLines(g, str, maxWidth - s30);
-            specH = height(lines.size(), fontSize);
-        }
-        g.dispose();
-        return lines.size();
-    }
    
     @Override public void paintComponent(Graphics g0)	{
         super.paintComponent(g0);

@@ -2164,104 +2164,104 @@ SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologie
 SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien species.<br>When the hostility between two empires reach the level 30, a war declaration will follow!
 
 HEADERS_COMPUTER_OPTIONS_DESC     | Options related to the hardware.
-HEADERS_COMPUTER_OPTIONS          | ~~~ COMPUTER OPTIONS ~~~%1
+HEADERS_COMPUTER_OPTIONS          | ~~~ COMPUTER OPTIONS ~~~
 HEADERS_BACKUP_OPTIONS_DESC       | Files related Options.
-HEADERS_BACKUP_OPTIONS            | ~~~ BACKUP OPTIONS ~~~%1
+HEADERS_BACKUP_OPTIONS            | ~~~ BACKUP OPTIONS ~~~
 HEADERS_MENU_APPEARANCE_DESC      | Settings menu personalisation.
-HEADERS_MENU_APPEARANCE           | ~~~ MENU APPEARANCE ~~~%1
+HEADERS_MENU_APPEARANCE           | ~~~ MENU APPEARANCE ~~~
 HEADERS_GAME_UI_PREFERENCES_DESC  | Game UI personalisation..
-HEADERS_GAME_UI_PREFERENCES       | ~~~ GAME UI PREFERENCES ~~~%1
+HEADERS_GAME_UI_PREFERENCES       | ~~~ GAME UI PREFERENCES ~~~
 
 HEADERS_START_GALAXY_OPTIONS_DESC | Options used for galaxy buildings. Only read when starting a new game.
-HEADERS_START_GALAXY_OPTIONS      | ~~~ GALAXY OPTIONS ~~~%1
+HEADERS_START_GALAXY_OPTIONS      | ~~~ GALAXY OPTIONS ~~~
 HEADERS_START_PLANET_OPTIONS_DESC | Options used for planet generation. Only read when starting a new game.
-HEADERS_START_PLANET_OPTIONS      | ~~~ PLANETS OPTIONS ~~~%1
+HEADERS_START_PLANET_OPTIONS      | ~~~ PLANETS OPTIONS ~~~
 HEADERS_START_EMPIRE_OPTIONS_DESC | Options used for empire generation. Only read when starting or restarting a game.
-HEADERS_START_EMPIRE_OPTIONS      | ~~~ EMPIRES OPTIONS ~~~%1
+HEADERS_START_EMPIRE_OPTIONS      | ~~~ EMPIRES OPTIONS ~~~
 HEADERS_START_TECH_CONTROL_HELP   | Some technologies may be considered essential, and others boring, here is a way to personalize them, by forcing them to be available for research, or by preventing them!
 HEADERS_START_TECH_CONTROL_DESC   | Options used while generating technologies lists. Only read when starting or restarting a game.
-HEADERS_START_TECH_CONTROL        | ~~ ALLOWED AND FORBIDDEN TECH ~~%1
+HEADERS_START_TECH_CONTROL        | ~~ ALLOWED AND FORBIDDEN TECH ~~
 HEADERS_START_RANDOM_ALIENS_HELP  | When opponent abilities are set to 'Random' the following settings will be used:
 HEADERS_START_RANDOM_ALIENS_DESC  | Options used for the generation of random species. Only read when starting or restarting a game.
-HEADERS_START_RANDOM_ALIENS       | ~~~ RANDOM ALIENS OPTIONS ~~~%1
+HEADERS_START_RANDOM_ALIENS       | ~~~ RANDOM ALIENS OPTIONS ~~~
 HEADERS_GAME_RELATIONS_DESC       | Options controlling the relations between empires. Can be changed dynamically.
-HEADERS_GAME_RELATIONS            | ~~~ EMPIRES RELATIONS ~~~%1
+HEADERS_GAME_RELATIONS            | ~~~ EMPIRES RELATIONS ~~~
 HEADERS_RANDOM_EVENTS_OPT_DESC    | Random Events Options. Can be changed dynamically.
-HEADERS_RANDOM_EVENTS_OPT         | ~~~ RANDOM EVENTS OPTIONS ~~~%1
+HEADERS_RANDOM_EVENTS_OPT         | ~~~ RANDOM EVENTS OPTIONS ~~~
 HEADERS_GAME_VARIOUS_DESC         | Diverse Options. Can be changed dynamically.
-HEADERS_GAME_VARIOUS              | ~~~ VARIOUS OPTIONS ~~~%1
+HEADERS_GAME_VARIOUS              | ~~~ VARIOUS OPTIONS ~~~
 HEADERS_GAME_OTHER_DESC           | Other Options. Can be changed dynamically.
-HEADERS_GAME_OTHER                | ~~~ OTHER OPTIONS ~~~%1
+HEADERS_GAME_OTHER                | ~~~ OTHER OPTIONS ~~~
 HEADERS_GAME_AUTOMATION_DESC      | Option to remove annoying tasks!
-HEADERS_GAME_AUTOMATION           | ~~~ GAME AUTOMATIONS ~~~%1
+HEADERS_GAME_AUTOMATION           | ~~~ GAME AUTOMATIONS ~~~
 HEADERS_GAME_COMBAT_DESC          | Options affecting attack and defense. Can be changed dynamically.
-HEADERS_GAME_COMBAT               | ~~~ COMBAT OPTIONS ~~~%1
+HEADERS_GAME_COMBAT               | ~~~ COMBAT OPTIONS ~~~
 HEADERS_BETA_TEST_DESC            | New options under construction.<br>Please test and report bugs and inconsistencies.
-HEADERS_BETA_TEST                 | ~~~ NEW OPTIONS (BETA) ~~~%1
+HEADERS_BETA_TEST                 | ~~~ NEW OPTIONS (BETA) ~~~
 HEADERS_GAME_DIFFICULTY_DESC      | Options affecting the game difficulty level. Can be changed dynamically.
-HEADERS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
+HEADERS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~
 HEADERS_RESTART_OPTIONS_HELP      | Hidden behind the&nbsp <b>Start</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>Restart</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swap it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
 HEADERS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
-HEADERS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~%1
+HEADERS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~
 HEADERS_ZOOM_FACTORS_DESC         | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects. (Remnant.cfg options)
-HEADERS_ZOOM_FACTORS              | ~~~ DISPLAY PREFERENCES ~~~%1
+HEADERS_ZOOM_FACTORS              | ~~~ DISPLAY PREFERENCES ~~~
 HEADERS_MENU_OPTIONS_DESC         | Options controlling Menu Parameters. Can be changed dynamically. (Remnant.cfg options)
-HEADERS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~%1
+HEADERS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~
 HEADERS_ENOUGH_IS_ENOUGH_DESC     | Get these pop-up out of my face!
-HEADERS_ENOUGH_IS_ENOUGH          | ~~~ ENOUGH is ENOUGH ~~~%1
+HEADERS_ENOUGH_IS_ENOUGH          | ~~~ ENOUGH is ENOUGH ~~~
 HEADERS_PLANETS_FLAG_OPTIONS_DESC | To allow greater customization of the flag(s) of the planets.
-HEADERS_PLANETS_FLAG_OPTIONS      | ~~~ PLANETS FLAG OPTIONS ~~~%1
+HEADERS_PLANETS_FLAG_OPTIONS      | ~~~ PLANETS FLAG OPTIONS ~~~
 HEADERS_SUB_PANEL_OPTIONS_DESC    | Clicking the following options will open a sub-panel with more dedicated option.
 HEADERS_SUB_PANEL_OPTIONS         | §§~~ SUB PANEL OPTIONS ~~§§%1
 
-HEADERS_AUTO_FLAG_ID_SELECTION       | ~~~ AUTO-FLAG SELECTION ~~~%1
+HEADERS_AUTO_FLAG_ID_SELECTION       | ~~~ AUTO-FLAG SELECTION ~~~
 HEADERS_AUTO_FLAG_ID_SELECTION_DESC  | To Associate Auto-Flag position with it's parameter. (Only the first time a Star System is scouted)
 HEADERS_AUTO_FLAG_TYPE_DESC          | Select Flags Color based on Planet Type.
-HEADERS_AUTO_FLAG_TYPE               | ~~~ PLANET TYPE ~~~%1
+HEADERS_AUTO_FLAG_TYPE               | ~~~ PLANET TYPE ~~~
 HEADERS_AUTO_FLAG_ENVIRONMENT_DESC   | Set the color of the flags according to Planet Environment.
-HEADERS_AUTO_FLAG_ENVIRONMENT        | ~~~ PLANET ENVIRONMENT ~~~%1
+HEADERS_AUTO_FLAG_ENVIRONMENT        | ~~~ PLANET ENVIRONMENT ~~~
 HEADERS_AUTO_FLAG_RESOURCES_DESC     | Set the color of the flags according to Planet Resources.
-HEADERS_AUTO_FLAG_RESOURCES          | ~~~ PLANET RESOURCES ~~~%1
+HEADERS_AUTO_FLAG_RESOURCES          | ~~~ PLANET RESOURCES ~~~
 HEADERS_AUTO_FLAG_COLONY_TECH_DESC   | Set the color of the flags according to Environment and required Colony ship technologies.
-HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ COLONY SHIP TECH ~~~%1
+HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ COLONY SHIP TECH ~~~
 HEADERS_AUTO_FLAG_VESTIGES_DESC      | Set the color of the flags according to the vestiges of civilization.
-HEADERS_AUTO_FLAG_VESTIGES           | ~~~ CIVILIZATION VESTIGES ~~~%1
+HEADERS_AUTO_FLAG_VESTIGES           | ~~~ CIVILIZATION VESTIGES ~~~
 HEADERS_AUTO_FLAG_IN_NEBULA_DESC     | Set the color of the flags according to being in a nebula.
-HEADERS_AUTO_FLAG_IN_NEBULA          | ~~~ IN NEBULA ~~~%1
+HEADERS_AUTO_FLAG_IN_NEBULA          | ~~~ IN NEBULA ~~~
 
 HEADERS_RANDOM_EVENTS_GLOBAL_DESC    | Parameters affecting all random events.
-HEADERS_RANDOM_EVENTS_GLOBAL         | ~~~ GLOBAL PARAMETERS ~~~%1
+HEADERS_RANDOM_EVENTS_GLOBAL         | ~~~ GLOBAL PARAMETERS ~~~
 HEADERS_RANDOM_EVENTS_MONSTERS_DESC  | Parameters dedicated to monsters random events.
-HEADERS_RANDOM_EVENTS_MONSTERS       | ~~~ MONSTERS PARAMETERS ~~~%1
+HEADERS_RANDOM_EVENTS_MONSTERS       | ~~~ MONSTERS PARAMETERS ~~~
 HEADERS_RANDOM_EVENTS_DELAYS_DESC    | Parameters related to random events activation and delays.
-HEADERS_RANDOM_EVENTS_DELAYS         | ~~~ DELAYS PARAMETERS ~~~%1
+HEADERS_RANDOM_EVENTS_DELAYS         | ~~~ DELAYS PARAMETERS ~~~
 HEADERS_RANDOM_EVENTS_RETURNS_DESC   | Parameters related to random events reiteration.
-HEADERS_RANDOM_EVENTS_RETURNS        | ~~~ RECURRING PARAMETERS ~~~%1
+HEADERS_RANDOM_EVENTS_RETURNS        | ~~~ RECURRING PARAMETERS ~~~
 
 
 HEADERS_DEBUG_MEMORY_DESC            | To enable or disable Memory monitoring.
-HEADERS_DEBUG_MEMORY                 | ~~~ MEMORY MONITORING ~~~%1
+HEADERS_DEBUG_MEMORY                 | ~~~ MEMORY MONITORING ~~~
 HEADERS_DEBUG_AUTO_RUN_DESC          | To enable and configure Full Auto Run.
-HEADERS_DEBUG_AUTO_RUN               | ~~~ AUTO RUN ~~~%1
+HEADERS_DEBUG_AUTO_RUN               | ~~~ AUTO RUN ~~~
 HEADERS_DEBUG_RELEVANT_DESC          | May be you may need to adjust those settings too.
-HEADERS_DEBUG_RELEVANT               | ~~~ RELEVANT ~~~%1
+HEADERS_DEBUG_RELEVANT               | ~~~ RELEVANT ~~~
 
 HEADERS_ZOOM_FONT_DESC               | To set galaxy map font sizes.
-HEADERS_ZOOM_FONT                    | ~~~ ZOOM FONT FACTORS ~~~%1
+HEADERS_ZOOM_FONT                    | ~~~ ZOOM FONT FACTORS ~~~
 HEADERS_ZOOM_FLEET_DESC              | To set fleet path viewing factors.
-HEADERS_ZOOM_FLEET                   | ~~~ ZOOM FLEET FACTORS ~~~%1
+HEADERS_ZOOM_FLEET                   | ~~~ ZOOM FLEET FACTORS ~~~
 HEADERS_ZOOM_REPLAY_DESC             | To set History replay zoom and pace.
-HEADERS_ZOOM_REPLAY                  | ~~~ HISTORY REPLAY ~~~%1
+HEADERS_ZOOM_REPLAY                  | ~~~ HISTORY REPLAY ~~~
 HEADERS_WEAPON_ANIMATIONS_DESC       | To set combat beam animations parameters.
-HEADERS_WEAPON_ANIMATIONS            | ~~~ BEAM WEAPON ANIMATIONS ~~~%1
+HEADERS_WEAPON_ANIMATIONS            | ~~~ BEAM WEAPON ANIMATIONS ~~~
 HEADERS_SHIELD_ANIMATIONS_DESC       | To set combat shield animations parameters.
-HEADERS_SHIELD_ANIMATIONS            | ~~~ SHIELD ANIMATIONS ~~~%1
+HEADERS_SHIELD_ANIMATIONS            | ~~~ SHIELD ANIMATIONS ~~~
 
 HEADERS_ASTEROIDS_DESC               | To set Asteroids placements and properties.
-HEADERS_ASTEROIDS                    | ~~~ ASTEROIDS ~~~%1
+HEADERS_ASTEROIDS                    | ~~~ ASTEROIDS ~~~
 
 HEADERS_UNCLASSIFIED_DESC            | The right position has still to be found!
-HEADERS_UNCLASSIFIED                 | ~~~ UNCLASSIFIED MOD ~~~%1
+HEADERS_UNCLASSIFIED                 | ~~~ UNCLASSIFIED MOD ~~~
 
 
 HEADERS_SPACER_DESC                  |
@@ -2269,29 +2269,29 @@ HEADERS_SPACER                       |  %1
 
 // BR: add UI panel for Systems options
 SETTINGS_MOD_SYSTEMS_OPTIONS_TITLE   | Advanced Stars and Planets Configuration
-SETTINGS_MOD_SYSTEMS_OPTIONS_UI      | - Advanced Planet Options Menu -
+SETTINGS_MOD_SYSTEMS_OPTIONS_UI      | Advanced Planet Options
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI_DESC | Opens a submenu containing more advanced Planetary settings.
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI_HELP | Opens a submenu containing more advanced Planetary settings.<br>These settings are finals.<br>These settings are saved with the game.
 
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_TITLE   | Advanced Galaxy Configuration
-SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI      | - Advanced Galaxy Menu -
+SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI      | Advanced Galaxy Options
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_DESC | Opens a submenu containing advanced Galaxy settings.
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_HELP | Opens a submenu containing advanced Galaxy settings.<br>These settings are finals.<br>These settings are saved with the game.
 
 HEADERS_ARTIFACT_OPTIONS_HELP        | To customize Antaran and Orion Artefact probabilities.<br>The first artifact to be set win! (Antaran First). The default probability is first multiplied by the modifier, then the offset is added.
 HEADERS_ARTIFACT_OPTIONS_DESC        | To customize Antaran and Orion Artefact probabilities.
-HEADERS_ARTIFACT_OPTIONS             | ~~~ ARTIFACT ~~~%1
+HEADERS_ARTIFACT_OPTIONS             | ~~~ ARTIFACT ~~~
 HEADERS_RICH_OPTIONS_HELP            | To customize Ultra-Poor, Poor, Rich, and Ultra-Rich Resources probabilities.<br>The first resource to be set win! (From Ultra-Poor to Ultra-Rich). The default probability is first multiplied by the modifier, then the offset is added.
 HEADERS_RICH_OPTIONS_DESC            | To customize Ultra-Poor, Poor, Rich, and Ultra-Rich Resources probabilities.
-HEADERS_RICH_OPTIONS                 | ~~~ RESOURCES ~~~%1
+HEADERS_RICH_OPTIONS                 | ~~~ RESOURCES ~~~
 HEADERS_NEBULAE_OPTION_DESC          | To customize nebulae placement and impact on planets.
-HEADERS_NEBULAE_OPTION               | ~~~ NEBULAE ~~~%1
+HEADERS_NEBULAE_OPTION               | ~~~ NEBULAE ~~~
 HEADERS_HOMEWORLD_NEIGHBORHOOD_DESC  | To customize distances and contents of home world neighborhood.
-HEADERS_HOMEWORLD_NEIGHBORHOOD       | ~~~ NEIGHBORHOOD ~~~%1
+HEADERS_HOMEWORLD_NEIGHBORHOOD       | ~~~ NEIGHBORHOOD ~~~
 HEADERS_LINKED_OPTIONS_DESC          | These options are linked to the ones above.
-HEADERS_LINKED_OPTIONS               | ~~~ LINKED OPTIONS ~~~%1
+HEADERS_LINKED_OPTIONS               | ~~~ LINKED OPTIONS ~~~
 HEADERS_GALAXY_SHAPE_DESC            | Galaxy Shape selections. Text and Bitmap options are not implemented.
-HEADERS_GALAXY_SHAPE                 | ~~~ GALAXY SHAPE ~~~%1
+HEADERS_GALAXY_SHAPE                 | ~~~ GALAXY SHAPE ~~~
 
 
 SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | To allow a planet Ultra-poor, Poor, Rich ,or Ultra-rich to also have artifacts.
@@ -2386,7 +2386,7 @@ SETTINGS_MOD_LOOSE_NEIGHBORHOOD            | Loose Limits: %1
 
 // Xilmi-AI-options
 HEADERS_XILMI_AI_OPTIONS_DESC               | Options affecting AI decisions.
-HEADERS_XILMI_AI_OPTIONS                    | ~~~ XILMI AI OPTIONS ~~~%1
+HEADERS_XILMI_AI_OPTIONS                    | ~~~ XILMI AI OPTIONS ~~~
 SETTINGS_MOD_PLAYER_ATTACK_CONFIDENCE       | Player Attack Confidence: %1%
 SETTINGS_MOD_PLAYER_ATTACK_CONFIDENCE_DESC  | In Auto-Combat, determines how confident the AI is in their ships' combat-ability compared to their actual strength.<br>Increasing this value makes the AI more likely to accept losses in combat before retreating.
 SETTINGS_MOD_PLAYER_DEFENSE_CONFIDENCE      | Player Defense Confidence: %1%
@@ -3034,29 +3034,29 @@ SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Player is smart enough to control its
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Everyone is able to control their bombing.
 
 SETTINGS_MOD_PRE_GAME_OPTIONS_TITLE      | Galaxy Set Up Parameters
-SETTINGS_MOD_PRE_GAME_OPTIONS_UI         | - Setup Menu -
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI         | Setup Parameters
 SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC    | Opens a submenu containing advanced galaxy building settings, these parameters are only used once, when starting or restarting a game.
 SETTINGS_MOD_PRE_GAME_OPTIONS_UI_HELP    | →SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC←
 
 SETTINGS_MOD_IN_GAME_OPTIONS_TITLE       | Rules and Gameplay Settings
-SETTINGS_MOD_IN_GAME_OPTIONS_UI          | - Gameplay Options Menu -
+SETTINGS_MOD_IN_GAME_OPTIONS_UI          | Gameplay Options
 SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC     | Opens a submenu containing advanced rules and gameplay settings.
 SETTINGS_MOD_IN_GAME_OPTIONS_UI_HELP     | →SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC← These settings are saved with the game. This submenu is also available during gameplay.
 
 SETTINGS_MOD_BASE_MOD_OPTIONS_TITLE      | Base Mod Settings
-SETTINGS_MOD_BASE_MOD_OPTIONS_UI         | - Base Mod Settings Menu -
+SETTINGS_MOD_BASE_MOD_OPTIONS_UI         | Base Mod Settings
 SETTINGS_MOD_BASE_MOD_OPTIONS_UI_DESC    | Opens a submenu containing Base mod options.<br>To be extended on demand.
 
 SETTINGS_MOD_COMMON_OPTIONS_TITLE        | Extended Settings
-SETTINGS_MOD_COMMON_OPTIONS_UI           | - Extended Remnant.cfg Settings Menu -
+SETTINGS_MOD_COMMON_OPTIONS_UI           | Extended Remnant.cfg Settings
 SETTINGS_MOD_COMMON_OPTIONS_UI_DESC      | Opens a submenu containing Remnant.cfg settings and some other performance and presentation settings common to all gameplay.
 
 SETTINGS_MOD_NAME_OPTIONS_TITLE          | Base Species Nominal Names
-SETTINGS_MOD_NAME_OPTIONS_UI             | - Base Species Names -
+SETTINGS_MOD_NAME_OPTIONS_UI             | Base Species Names
 SETTINGS_MOD_NAME_OPTIONS_UI_DESC        | Open Sub Menu to view base species nominal names. (For English configuration only)
 
 SETTINGS_MOD_NAME_OPTIONS_FR_TITLE       | Base Species Nominal Names Fr
-SETTINGS_MOD_NAME_OPTIONS_FR_UI          | - Base Species Names Fr -
+SETTINGS_MOD_NAME_OPTIONS_FR_UI          | Base Species Names Fr
 SETTINGS_MOD_NAME_OPTIONS_FR_UI_DESC     | Open Sub Menu to view base species nominal names. (For French configuration only)
 
 SETTINGS_MOD_MOO1_SPECIES_NAME           | Original MoO1 Species Names
@@ -3136,11 +3136,11 @@ NAME_RACE_SAKKRA_FR_HELP   | →NAME_FR_HELP←
 NAME_RACE_SILICOID_FR_HELP | →NAME_FR_HELP←
 
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developer's Options
-SETTINGS_MOD_DEBUG_OPTIONS_UI            | - Debug Options Menu -
+SETTINGS_MOD_DEBUG_OPTIONS_UI            | Debug Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
 
 SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Combat Options Menu
-SETTINGS_MOD_ZOOM_OPTIONS_UI             | - Combat Options Menu -
+SETTINGS_MOD_ZOOM_OPTIONS_UI             | Combat Options
 SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse graphic combat options settings.
 SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects. Weapons sounds and Shields effects.
 
@@ -3152,7 +3152,7 @@ SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Auto-Flag 1: %1
 
 SETTINGS_MOD_AUTO_FLAG_TITLE             | Auto-Flag Menu
 SETTINGS_MOD_AUTO_FLAG_UI_DESC           | Open Sub Menu to set the parameters that will be automatically associated with flags. (Only the first time a Star System is scouted)
-SETTINGS_MOD_AUTO_FLAG_UI                | - Auto-Flag Options Menu -
+SETTINGS_MOD_AUTO_FLAG_UI                | Auto-Flag Options
 
 SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | No Automation
 SETTINGS_MOD_AUTO_FLAG_TYPE              | Planet Type
@@ -3307,7 +3307,7 @@ SETTINGS_MOD_IS_MOO1_MONSTER              | MoO1 Monsters: %1
 // ========== Random Events sub Panel
 SETTINGS_MOD_RANDOM_EVENTS_TITLE         | Random Event Customization
 SETTINGS_MOD_RANDOM_EVENTS_UI_DESC       | Open Sub Menu to get more random events customization options.
-SETTINGS_MOD_RANDOM_EVENTS_UI            | - Random Events Menu -
+SETTINGS_MOD_RANDOM_EVENTS_UI            | Random Events
 SETTINGS_MOD_RANDOM_EVENT_DISABLED       | Off
 SETTINGS_MOD_RANDOM_EVENT_UNIQUE         | Unique Event
 SETTINGS_MOD_RANDOM_EVENT_UNLIMITED      | Unlimited
@@ -3552,16 +3552,16 @@ SETTINGS_MOD_GAUNTLET_RETURN_TURN        | →REF_GAUNTLET← →REF_RETURN←
 // ========== Ironman sub Panel
 SETTINGS_MOD_IRONMAN_OPTIONS_TITLE       | Ironman Menu
 SETTINGS_MOD_IRONMAN_OPTIONS_UI_DESC     | Open Sub Menu to access Ironman customization options.
-SETTINGS_MOD_IRONMAN_OPTIONS_UI          | §~ Ironman Menu: %1
+SETTINGS_MOD_IRONMAN_OPTIONS_UI          | Ironman Options
 
 HEADERS_IRONMAN_BASIC_DESC               | To test ironman options without risk.<br>Option button removal is only available from Pre-Game options, to avoid unfortunate misClick.
-HEADERS_IRONMAN_BASIC                    | ~~~ IRONMAN LITE ~~~%1
+HEADERS_IRONMAN_BASIC                    | ~~~ IRONMAN LITE ~~~
 HEADERS_IRONMAN_MAIN_DESC                | The one that govern all.
-HEADERS_IRONMAN_MAIN                     | ~~~ MAIN OPTION ~~~%1
+HEADERS_IRONMAN_MAIN                     | ~~~ MAIN OPTION ~~~
 HEADERS_IRONMAN_FORMER_DESC              | Former option for backward compatibility.
-HEADERS_IRONMAN_FORMER                   | ~~~ FORMER OPTION ~~~%1
+HEADERS_IRONMAN_FORMER                   | ~~~ FORMER OPTION ~~~
 HEADERS_IRONMAN_CUSTOM_DESC              | To allow full or partial Ironman.
-HEADERS_IRONMAN_CUSTOM                   | ~~~ INDIVIDUAL OPTIONS ~~~%1
+HEADERS_IRONMAN_CUSTOM                   | ~~~ INDIVIDUAL OPTIONS ~~~
 
 SETTINGS_MOD_IRONMAN_MODE_HELP           | Though for challenges between players on the same starting galaxy.<br>Remove the access to in-game options to avoid easy cheating.<br>The activation of "Fixed random events" is strongly recommended.<br>More options will be added.
 SETTINGS_MOD_IRONMAN_MODE_DESC           | Though for challenges between players on the same starting galaxy. Remove the access to in-game options.
@@ -4470,13 +4470,13 @@ GAME_OVER_NO_COLONIES_LOSS2       | The rule of %2 has ended, undone by imperial
 // ===== BR: Governor labels =====
 //
 HEADERS_GOVERNOR_SETUP_MENU_DESC  | To set governor options before starting the game.
-HEADERS_GOVERNOR_SETUP_MENU       | ~~~ SETUP GOVERNOR ~~~%1
+HEADERS_GOVERNOR_SETUP_MENU       | ~~~ SETUP GOVERNOR ~~~
 GOVERNOR_SETUP_TITLE              | Governor Setup Panel
 GOVERNOR_SETUP_MENU_DESC          | Open Sub Menu to access Governor Options Setup.
 GOVERNOR_SETUP_MENU               | - Governor Menu -
 
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | Auto Transport Options.
-HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ AUTO-TRANSPORT OPTIONS ~~~%1
+HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ AUTO-TRANSPORT OPTIONS ~~~
 GOVERNOR_TRANSPORT_OPTIONS_LABEL    | Auto Transport Options
 GOVERNOR_TRANSPORT_OPTIONS_TT       | How AI should handle transportation automation.
 
@@ -4509,7 +4509,7 @@ GOVERNOR_TRANSPORT_MAX_TURNS_NEBULA_LABEL  | (1.5x higher distance when transpor
 GOVERNOR_TRANSPORT_MAX_TURNS_NEBULA_TT     | →GOVERNOR_TRANSPORT_MAX_TURNS_DESC←
 
 HEADERS_GOVERNOR_STARGATES_OPTIONS_DESC | Stargates Options.
-HEADERS_GOVERNOR_STARGATES_OPTIONS      | ~~~ STARGATES OPTIONS ~~~%1
+HEADERS_GOVERNOR_STARGATES_OPTIONS      | ~~~ STARGATES OPTIONS ~~~
 GOVERNOR_STARGATES_OPTIONS_LABEL        | Stargates Options
 GOVERNOR_STARGATES_OPTIONS_TT           | Where should the AI ​​build Stargates?
 
@@ -4530,7 +4530,7 @@ GOVERNOR_STARGATES_RICH_1_TT         | →GOVERNOR_STARGATES_RICH_HELP←
 GOVERNOR_STARGATES_RICH_2_TT         | →GOVERNOR_STARGATES_RICH_HELP←
 
 HEADERS_GOVERNOR_COLONY_OPTIONS_DESC | Colony Options.
-HEADERS_GOVERNOR_COLONY_OPTIONS      | ~~~ COLONY OPTIONS ~~~%1
+HEADERS_GOVERNOR_COLONY_OPTIONS      | ~~~ COLONY OPTIONS ~~~
 GOVERNOR_COLONY_OPTIONS_LABEL        | Colony Options
 GOVERNOR_COLONY_OPTIONS_TT           | How should AI handle colonies?
 
@@ -4563,7 +4563,7 @@ GOVERNOR_TERRAFORM_EARLY             | Boost Planet Early: %1%
 GOVERNOR_TERRAFORM_EARLY_LABEL       | Boost Planet Early
 
 HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS_DESC | Spying activities related Options.
-HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS      | ~~~ INTELLIGENCE OPTIONS ~~~%1
+HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS      | ~~~ INTELLIGENCE OPTIONS ~~~
 GOVERNOR_INTELLIGENCE_OPTIONS_LABEL  | Intelligence Options
 GOVERNOR_INTELLIGENCE_OPTIONS_TT     | How AI should handle espionage activities.
 
@@ -4580,7 +4580,7 @@ GOVERNOR_SPARE_XENOPHOBES            | Respect promises: %1
 GOVERNOR_SPARE_XENOPHOBES_LABEL      | Respect promises
 
 HEADERS_GOVERNOR_FLEET_OPTIONS_DESC  | Fleet Options.
-HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~%1
+HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~
 GOVERNOR_FLEET_OPTIONS_LABEL         | Fleet Options
 GOVERNOR_FLEET_OPTIONS_TT            | How AI should manage fleet operations.
 
@@ -4614,7 +4614,7 @@ GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset auto Ships: %1
 GOVERNOR_AUTOSHIPS_BY_DEFAULT_LABEL  | Auto Ships is "On" by Default
 
 HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Options related to the appearance of the control panel.
-HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~%1
+HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~
 GOVERNOR_ASPECT_OPTIONS_LABEL        | Aspect
 GOVERNOR_ASPECT_OPTIONS_TT           | Options related to the appearance of this control panel.
 
@@ -4642,7 +4642,7 @@ GOVERNOR_POSITION_Y_DESC             | Vertical position of the Governor Panel.
 GOVERNOR_POSITION_Y                  | Y position: %1
 
 HEADERS_GOVERNOR_OTHER_OPTIONS_DESC | Unclassified Options.
-HEADERS_GOVERNOR_OTHER_OPTIONS      | ~~~ OTHER OPTIONS ~~~%1
+HEADERS_GOVERNOR_OTHER_OPTIONS      | ~~~ OTHER OPTIONS ~~~
 GOVERNOR_AUTO_APPLY_DESC            | Apply the option on the fly, without having to close the panel. (Standard floating panel only)
 GOVERNOR_AUTO_APPLY                 | Auto Apply: %1
 GOVERNOR_AUTO_APPLY_LABEL           | Auto Apply

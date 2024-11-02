@@ -73,6 +73,7 @@ Later:
 - Fixed "!!! To Replay Last Turn !!!.rotp" file being saved too often.
 - Fixed [player_xxx] being translated to [alien_xxx] in label.txt
 - Fixed wrong warning from the previous fix "!!! To Replay Last Turn !!!.rotp"
+- New Icon to identify links to sub panels.
 
 2024.11.01 (Xilmi)
 - Confidence-bonus is now applied during path-finding so that ships that are confident enough to retreat but are too afraid of moving anywhere near their enemies will no longer just hide in a corner.

@@ -58,6 +58,9 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private static final Color enabledColor			= GameUI.labelColor();
 	private static final Color defaultValuesColor	= SystemPanel.whiteText;
 	private static final Color customValuesColor	= Color.orange;
+	private static final Color subMenuIconColor		= disabledColor;
+	private static final Color subMenuIconColor2	= Color.YELLOW;
+	private static final Color subMenuIconColor3	= Color.BLACK;
 	private static final int descLineH		= s18;
 	private	static final Font descFont		= FontManager.current().narrowFont(16);
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
@@ -73,8 +76,12 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private static final int textBoxH		= settingH;
 	private static final int hDistSetting	= settingH + settingpadH; // distance between two setting top corner
 	private static final int minWidth		= 710;
+	private static final int subMenuIconW	= s15;
+	private static final int subMenuIconH	= s15;
+	private static final int subMenuIconPad	= s3;
+	private	static BufferedImage subMenuIcon;
 	
-	private		   final JTextPane descBox	= new JTextPane();
+	private	final JTextPane descBox			= new JTextPane();
 	private int yTop;
 	private int numColumns, numRows;
 	private int yTitle;
@@ -236,6 +243,14 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
     }
 	// ========== Other Methods ==========
 	//
+	private BufferedImage subMenuIcon() {
+		subMenuIcon = null;
+		if (subMenuIcon == null)
+			subMenuIcon = subMenuIcon(retina(subMenuIconW), retina(subMenuIconH),
+					subMenuIconColor, subMenuIconColor2, subMenuIconColor3);
+		return subMenuIcon;
+	}
+
 	private ModText newBT(boolean disabled) {
 		ModText bt = new ModText(this, settingFont, enabledColor,
 				disabledColor, hoverC, depressedC, enabledColor, true);
@@ -267,11 +282,11 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private void paintSetting(Graphics2D g) {
 		IParam param = activeList.get(index);
 		boolean refresh = forceUpdate || param.updated();
-		if (refresh) {
+		if (refresh) { // Update imgList
 			if(hovering && param.trueChange())
-				callPreview = true;
+				callPreview = true; // To refresh visible parent panel
 			BufferedImage img = new BufferedImage(retina(columnWidth), retina(textBoxH), TYPE_INT_ARGB);
-			Graphics2D gi	 = (Graphics2D) img.getGraphics();
+			Graphics2D gi = (Graphics2D) img.getGraphics();
 			gi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			gi.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
 			ModText txtLeft	 = btListLeft.get(index);
@@ -289,7 +304,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			if (!param.isValidValue())
 				txtRight.enabledC(Color.red);
 			
-			if (retina) {
+			if (retina) { // Adapt font size to draw image
 				txtLeft.fontMult(retinaFactor);
 				txtRight.fontMult(retinaFactor);
 			}
@@ -298,7 +313,10 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 				txtLeft.enabledC(GameUI.textColor());
 				txtRight.forceHover = false;				
 				int sw	= txtLeft.stringWidth(gi);
-				int dx	= (retina(columnWidth) - sw)/2;
+				int margin = subMenuIconW + subMenuIconPad;
+				int dxIcon	= (retina(columnWidth-margin) - sw)/2;
+				gi.drawImage(subMenuIcon(), dxIcon, retina(s3), null);
+				int dx = dxIcon + margin;
 				txtLeft.setScaledXY(dx, retina(rowPad+s7));
 				txtLeft.draw(gi);
 				gi.dispose();
@@ -306,6 +324,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 					int y = ySetting-rowPad;
 					g.drawImage(img, xSetting, y, xSetting+columnWidth, y+textBoxH,
 							0, 0, retina(columnWidth), retina(textBoxH), null);
+					// restore font size for mouse hovering detection
 					txtLeft.fontMult(1);
 					txtRight.fontMult(1);
 				} 
@@ -314,6 +333,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 
 				param.updated(false);
 				imgList.put(index, img);
+				txtLeft.setFixedWidth(true, -margin);
 				txtLeft.setScaledXY(xSetting+invRetina(dx), ySetting+s7);
 				txtLeft.updateBounds(g);
 				txtLeft.forceHover  = false;
@@ -332,6 +352,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 					int y = ySetting-rowPad;
 					g.drawImage(img, xSetting, y, xSetting+columnWidth, y+textBoxH,
 							0, 0, retina(columnWidth), retina(textBoxH), null);
+					// restore font size for mouse hovering detection
 					txtLeft.fontMult(1);
 					txtRight.fontMult(1);
 				} 
