@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- Fixed [player_xxx] being translated to [alien_xxx] in label.txt
 - Fixed "!!! To Replay Last Turn !!!.rotp" file being saved too often.
 - Confidence-bonus is now applied during path-finding so that ships that are confident enough to retreat but are too afraid of moving anywhere near their enemies will no longer just hide in a corner. (Xilmi)
   - Confidence-bonus is no longer applied for the check whether the whole stack will be oneshot.

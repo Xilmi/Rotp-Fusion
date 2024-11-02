@@ -1260,8 +1260,8 @@ TECH_SCOUTED_TITLE                | Éclaireurs explorant les ruines de %1 déco
 TECH_STOLEN_TITLE                 | Nos espions ont infiltrés le centre de recherche [alien_race] à %2.
 TECH_TRADED_TITLE                 | Les scientifiques [player_race_pluraladjec] acquièrent la technologie des scientifiques [alien_race_pluraladjec]
 TECH_PLUNDERED_TITLE              | Pillage dans les ruines de %1
-TECH_DERELICT_TITLE               | Les explorateurs [alien_race_pluraladjec] pillent une technologie ancienne
-TECH_GUARDIAN_TITLE               | Les soldats [alien_race_pluraladjec] récupèrent une arme ancienne
+TECH_DERELICT_TITLE               | Les explorateurs [player_race_pluraladjec] pillent une technologie ancienne
+TECH_GUARDIAN_TITLE               | Les soldats [player_race_pluraladjec] récupèrent une arme ancienne
 TECH_ALLOCATE_SHIELD              | Devrions-nous augmenter les ratios de défense de toutes nos colonies pour construire les nouveaux boucliers planétaires ?
 TECH_ALLOCATE_MISSILE_BASES       | Devrions-nous augmenter les ratios de défense de toutes nos colonies pour moderniser nos bases de missiles ?
 TECH_ALLOCATE_FACTORIES           | Devrions-nous augmenter les ratios industriels de toutes nos colonies pour améliorer nos contrôles d'usine ?
