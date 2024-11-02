@@ -304,7 +304,7 @@ public final class GameSession implements Base, Serializable {
             shipsConstructed().clear();
             spyActivity = false;
             galaxy().startGame();
-            saveRecentSession(false);
+            saveRecentSession(true);
             saveBackupSession(1);
         }
     }
@@ -328,7 +328,7 @@ public final class GameSession implements Base, Serializable {
             spyActivity = false;
             galaxy().startGame();
     		GameUI.gameName = generateGameName();
-            saveRecentSession(false);
+            saveRecentSession(true);
             saveBackupSession(1);
         }
     }
@@ -1171,21 +1171,21 @@ public final class GameSession implements Base, Serializable {
         String dash = "-";
         return concat(leader,dash,race,dash,gShape,dash,gSize,dash,diff,dash,opp,dash,turn,SAVEFILE_EXTENSION);
     }
-    public long saveRecentSession(boolean endOfTurn) {
+    public long saveRecentSession(boolean playerTurn) {
     	boolean allowAutoSave = !options().debugNoAutoSave();
     	long ufs = -1;
-    	if (allowAutoSave && !endOfTurn) // BR: Always keep a copy of starting turn
+    	if (allowAutoSave && !playerTurn) // BR: Always keep a copy of starting turn
     		saveRecentStartSession();
         String filename = RECENT_SAVEFILE;
         try {
         	if (allowAutoSave)
         		ufs = saveSession(filename, false);
-            if (endOfTurn)
+            if (playerTurn)
                saveBackupSession(galaxy().currentTurn());
         }
         catch(Exception e) {
             err("Error saving: ", filename, " - ", e.getMessage());
-            if (endOfTurn)
+            if (playerTurn)
                 RotPUI.instance().mainUI().showAutosaveFailedPrompt(e.getMessage());
         }
 		return ufs;
@@ -1301,7 +1301,7 @@ public final class GameSession implements Base, Serializable {
         	if (!options().debugNoAutoSave()) {
                 // do not autosave the current session if that is the file we are trying to reload            
                 if (!filename.equals(RECENT_SAVEFILE))
-                    saveRecentSession(false);
+                    saveRecentSession(true);
                 else
                 	saveRecentStartSession(); // BR: to keep a copy of the beginning of the turn
         	}

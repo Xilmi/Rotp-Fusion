@@ -7,7 +7,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- Fixed "!!! To Replay Last Turn !!!.rotp" file being saved too often.
 - Confidence-bonus is now applied during path-finding so that ships that are confident enough to retreat but are too afraid of moving anywhere near their enemies will no longer just hide in a corner. (Xilmi)
+  - Confidence-bonus is no longer applied for the check whether the whole stack will be oneshot.
 - Loop thru Idle fleets: "Shift-" = Auto but still idle.
 - New Max Techs capture option when invading a colony, which is independent of the tech stealing option.
   - If technology theft was previously prohibited, then maximum number of technologies captured = 0.
@@ -18,12 +20,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Restore the ambassador In case of accepting alliance after accepting a war!? (On the same turn...)
 - Governor Panel Translated to French.
 - New option to boost the Ship space.
-- Fixed colony view not refreshed when using F5~F8 + mouse hover.
-- The guide formatting texts can now be translated. (added in label.txt)
-- New option to check for updates and get a link to a newer version.
-- New option to increase the with of load/save panel (for those who use long file names)
-- Made boolean options more compatible with language translation.
-- Fixed missing governor refresh after transferring funds.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
