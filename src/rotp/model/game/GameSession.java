@@ -304,7 +304,7 @@ public final class GameSession implements Base, Serializable {
             shipsConstructed().clear();
             spyActivity = false;
             galaxy().startGame();
-            saveRecentSession(true);
+            saveRecentSession();
             saveBackupSession(1);
         }
     }
@@ -328,7 +328,7 @@ public final class GameSession implements Base, Serializable {
             spyActivity = false;
             galaxy().startGame();
     		GameUI.gameName = generateGameName();
-            saveRecentSession(true);
+            saveRecentSession();
             saveBackupSession(1);
         }
     }
@@ -1190,6 +1190,15 @@ public final class GameSession implements Base, Serializable {
         }
 		return ufs;
     }
+    public void saveRecentSession() {
+        String filename = RECENT_SAVEFILE;
+        try {
+            saveSession(filename, false);
+        }
+        catch(Exception e) {
+            err("Error saving: ", filename, " - ", e.getMessage());
+        }
+    }
     public void saveRecentStartSession() {
         String filename = recentStartSaveFile();
         try {
@@ -1300,8 +1309,8 @@ public final class GameSession implements Base, Serializable {
             newSession.ironmanValidation();
         	if (!options().debugNoAutoSave()) {
                 // do not autosave the current session if that is the file we are trying to reload            
-                if (!filename.equals(RECENT_SAVEFILE))
-                    saveRecentSession(true);
+                if (!filename.equalsIgnoreCase(RECENT_SAVEFILE))
+                    saveRecentSession();
                 else
                 	saveRecentStartSession(); // BR: to keep a copy of the beginning of the turn
         	}
