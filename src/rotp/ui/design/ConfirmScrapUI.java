@@ -218,6 +218,11 @@ public final class ConfirmScrapUI extends BasePanel implements MouseListener, Mo
             scrapAction();
             return;
         }
+        else if (k == KeyEvent.VK_L && e.isAltDown()) {
+        	debugReloadLabels(this);
+        	repaint();
+        	return;
+        }
     }
     @Override
     public void mouseClicked(MouseEvent arg0) { }

@@ -720,7 +720,7 @@ public abstract class BaseModPanel extends BasePanel
 				return;
 			case KeyEvent.VK_L:
 				if (e.isAltDown())
-					reloadLabels();
+					debugReloadLabels();
 				return;
 			case KeyEvent.VK_F:
 				if (e.isAltDown())

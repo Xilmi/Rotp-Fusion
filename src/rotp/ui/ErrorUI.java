@@ -121,6 +121,13 @@ public class ErrorUI extends BasePanel implements MouseListener, MouseMotionList
             case KeyEvent.VK_ESCAPE:
                 advanceMode();
                 return;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	misClick();
+            	break;
         }
     }
 }

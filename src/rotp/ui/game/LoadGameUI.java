@@ -360,6 +360,13 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
             case KeyEvent.VK_DOWN:  scrollDown();	return;
             case KeyEvent.VK_UP:    scrollUp();		return;
             case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	if (canSelect())
+                    loadGame(selectedFile);
+                return;
             case KeyEvent.VK_ENTER:
                 if (canSelect())
                     loadGame(selectedFile);

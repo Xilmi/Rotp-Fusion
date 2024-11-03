@@ -27,17 +27,11 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -51,7 +45,6 @@ import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfacePreview;
 import rotp.util.Base;
-import rotp.util.LanguageManager;
 import rotp.util.ThickBevelBorder;
 
 public class BasePanel extends JPanel implements Base, InterfacePreview {
@@ -410,42 +403,6 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
             default: return stroke1;
         }
     }
-    public void reloadLabels() {
-		if (!Rotp.isIDE()) {
-			// BR: Intended to only To be used from IDE
-			Toolkit.getDefaultToolkit().beep();
-			LanguageManager.current().reloadLanguage();
-			return;
-		}
-		Toolkit.getDefaultToolkit().beep();
-		copyLabels("rotp/lang/en/labels.txt");
-		copyLabels("rotp/lang/en/techs.txt");
-		copyLabels("rotp/lang/fr/labels.txt");
-		copyLabels("rotp/lang/fr/techs.txt");
-		LanguageManager.current().reloadLanguage();
-    }
-	private void copyLabels(String baseName) {
-		// First copy file from the modified source to final destination
-		// Validated for eclipse IDE
-		String jarPath  = Rotp.jarPath();
-		String destName = "classes/" + baseName;	// the file that will be loaded
-		String srcName  = "../src/" + baseName;		// up from target/class
-		File f1 = new File(jarPath, destName);
-		File f2 = new File(jarPath, srcName);
-		if(!f1.exists())
-			return; // Should not happen!
-
-		if (f2.exists()) { // Validated for eclipse IDE -> update the file
-			Path destpath   = f1.toPath(); 
-			Path sourcepath = f2.toPath();
-			try {
-				Files.copy(sourcepath, destpath, StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				System.err.println("reloadLabels() IOException");
-				System.err.println(e.toString());
-			}
-		}
-	}
 
     // used for keyEvents sent from RotPUI
     public void keyPressed(KeyEvent e) { }

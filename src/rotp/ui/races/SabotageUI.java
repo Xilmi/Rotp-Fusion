@@ -243,6 +243,10 @@ public final class SabotageUI extends BasePanel implements MouseListener, IVIPLi
     public void keyPressed(KeyEvent e) {
     	setModifierKeysState(e); // BR: For the Flag color selection
         int k = e.getKeyCode();
+        if (k == KeyEvent.VK_L && e.isAltDown()) {
+        	debugReloadLabels(this);
+        	return;
+        }
         if (currentState == REQUEST_MISSION) {
             if (k == KeyEvent.VK_1)
                 destroyFactories();

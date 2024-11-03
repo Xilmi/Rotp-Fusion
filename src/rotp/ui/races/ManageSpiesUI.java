@@ -485,6 +485,10 @@ public class ManageSpiesUI extends BasePanel implements MouseListener, MouseWhee
             exit();
             return;
         }
+        else if (k == KeyEvent.VK_L && e.isAltDown()) {
+        	debugReloadLabels(this);
+        	return;
+        }
     }
     @Override
     public void mouseClicked(MouseEvent e) {

@@ -310,7 +310,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
 				return;
         	case KeyEvent.VK_L:
         		if (e.isAltDown())
-					reloadLabels();
+					debugReloadLabels(this);
 				return;
         	case KeyEvent.VK_1:
         		setTurnPace(1, e);

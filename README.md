@@ -71,6 +71,7 @@ Later:
 
 2024.11.03 (BR)
 - Fixed Planet Invasion title not updating at the end of the fight.
+- Added "Alt-L" language refresh feature to most little panel without access to "Help".
 
 2024.11.02 (BR)
 - Fixed "!!! To Replay Last Turn !!!.rotp" file being saved too often.

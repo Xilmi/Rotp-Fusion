@@ -268,6 +268,13 @@ public class RaceIntroUI extends BasePanel implements MouseListener {
             case KeyEvent.VK_ENTER:
                 finish();
                 return;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	misClick();
+            	break;
         }
     }
     @Override

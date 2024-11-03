@@ -149,6 +149,13 @@ public class MapOverlayShipsConstructed extends MapOverlay {
             case KeyEvent.VK_ESCAPE:
                 advanceMap();
                 break;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(parent);
+            		break;
+            	}
+            	misClick();
+            	break;
             default:
                 misClick(); break;
         }

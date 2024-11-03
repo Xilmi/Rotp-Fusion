@@ -544,6 +544,10 @@ public class MapOverlayBombardPrompt extends MapOverlay implements IVIPListener 
                 bombardCancel();
                 break;
             case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(parent);
+            		break;
+            	}
                 bombardTarget();
                 break;
             case KeyEvent.VK_Y:

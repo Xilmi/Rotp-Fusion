@@ -293,6 +293,10 @@ public final class ConfirmCreateUI extends BasePanel implements KeyListener, Mou
                 return;
             }
         }
+        else if (k == KeyEvent.VK_L && e.isAltDown()) {
+        	debugReloadLabels(this);
+        	return;
+        }
     }
     @Override
     public void mouseClicked(MouseEvent arg0) { }

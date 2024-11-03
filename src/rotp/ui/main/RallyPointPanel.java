@@ -160,6 +160,13 @@ public class RallyPointPanel extends SystemPanel {
                 }
                 useClickedSprite(systems.get(index), 1, false);
                 parentSpritePanel.repaint();
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	misClick();
+            	break;
         }
     }
     @Override

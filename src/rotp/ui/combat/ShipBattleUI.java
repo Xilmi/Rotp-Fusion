@@ -1820,6 +1820,13 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
                     finishAndResume();
                 else
                     finish();
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	misClick();
+            	break;
         }
     }
     @Override public void mouseClicked(MouseEvent e)  { }

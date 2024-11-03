@@ -317,6 +317,10 @@ public final class TransferReserveUI extends BasePanel implements MouseListener,
             exit();
             return;
         }
+        else if (k == KeyEvent.VK_L && e.isAltDown()) {
+        	debugReloadLabels(this);
+        	return;
+        }
     }
     @Override
     public void mouseClicked(MouseEvent arg0) { }

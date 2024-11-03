@@ -243,6 +243,10 @@ public final class RacesShipRenameUI extends BasePanel implements MouseListener,
             createAction();
             return;
         }
+        else if (k == KeyEvent.VK_L && e.isAltDown()) {
+        	debugReloadLabels(this);
+        	return;
+        }
     }
     @Override
     public void mouseClicked(MouseEvent arg0) { }

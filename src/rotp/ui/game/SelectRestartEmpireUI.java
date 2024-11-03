@@ -244,6 +244,13 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 			case KeyEvent.VK_DOWN:	scrollDown(); return;
 			case KeyEvent.VK_UP:	scrollUp();   return;
 			case KeyEvent.VK_L:
+				if (e.isAltDown()) {
+					debugReloadLabels(this);
+					return;
+				}
+				if (canSelect())
+					setOpponent(selectedOpponent);
+				return;
 			case KeyEvent.VK_ENTER:
 				if (canSelect())
 					setOpponent(selectedOpponent);

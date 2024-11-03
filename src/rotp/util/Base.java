@@ -23,6 +23,7 @@ import static rotp.model.game.IModOptions.playerIsCustom;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Composite;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -33,6 +34,7 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.Transparency;
 import java.awt.event.InputEvent;
 import java.awt.geom.Point2D;
@@ -56,6 +58,9 @@ import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryUsage;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1861,5 +1866,45 @@ public interface Base {
     	g.dispose();
     	
     	return resizeImage(img, wi, hi);
+    }
+    default void copyLabels(String baseName) {
+		// First copy file from the modified source to final destination
+		// Validated for eclipse IDE
+		String jarPath  = Rotp.jarPath();
+		String destName = "classes/" + baseName;	// the file that will be loaded
+		String srcName  = "../src/" + baseName;		// up from target/class
+		File f1 = new File(jarPath, destName);
+		File f2 = new File(jarPath, srcName);
+		if(!f1.exists())
+			return; // Should not happen!
+
+		if (f2.exists()) { // Validated for eclipse IDE -> update the file
+			Path destpath   = f1.toPath(); 
+			Path sourcepath = f2.toPath();
+			try {
+				Files.copy(sourcepath, destpath, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				System.err.println("reloadLabels() IOException");
+				System.err.println(e.toString());
+			}
+		}
+	}
+    default void debugReloadLabels() {
+		if (!Rotp.isIDE()) {
+			// BR: Intended to only To be used from IDE
+			Toolkit.getDefaultToolkit().beep();
+			LanguageManager.current().reloadLanguage();
+			return;
+		}
+		Toolkit.getDefaultToolkit().beep();
+		copyLabels("rotp/lang/en/labels.txt");
+		copyLabels("rotp/lang/en/techs.txt");
+		copyLabels("rotp/lang/fr/labels.txt");
+		copyLabels("rotp/lang/fr/techs.txt");
+		LanguageManager.current().reloadLanguage();
+    }
+    default void debugReloadLabels(Component component) {
+    	debugReloadLabels();
+    	component.repaint();
     }
 }

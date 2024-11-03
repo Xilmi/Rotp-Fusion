@@ -552,6 +552,13 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             	buttonClick();
             	parent.repaint();
                 break;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(parent);
+            		break;
+            	}
+            	misClick();
+            	break;
             default:
             	if (!shift) // BR: to avoid noise when changing flag color
             		misClick();

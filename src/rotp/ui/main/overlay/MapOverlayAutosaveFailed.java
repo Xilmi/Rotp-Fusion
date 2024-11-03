@@ -136,6 +136,13 @@ public class MapOverlayAutosaveFailed extends MapOverlay {
                 //softClick();
                 ok();
                 break;
+            case KeyEvent.VK_L:
+				if (e.isAltDown()) {
+					debugReloadLabels(parent);
+					break;
+				}
+                misClick();
+				break;
             default:
                 misClick();
                 break;

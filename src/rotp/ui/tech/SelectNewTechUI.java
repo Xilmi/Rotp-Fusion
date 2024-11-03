@@ -430,6 +430,13 @@ public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMo
             case KeyEvent.VK_S:
             case KeyEvent.VK_ENTER:
                 selectTech(hoverTech); return;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		return;
+            	}
+            	misClick();
+            	return;
         }
         if (techsY != prevY) 
             repaint(techListBox);

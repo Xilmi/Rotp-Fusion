@@ -254,6 +254,11 @@ public class MapOverlayAllocateSystems extends MapOverlay {
             case KeyEvent.VK_ESCAPE:
                 advanceMap();
                 break;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(parent);
+            	}
+                return false;
             default:
                 return false;
         }

@@ -122,6 +122,13 @@ public class EmpireSystemPanel extends SystemPanel {
             case KeyEvent.VK_4:
             case KeyEvent.VK_5:
                 spendingPane.keyPressed(e);
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	misClick();
+            	break;
         }
     }
     public void nextShipDesign() {

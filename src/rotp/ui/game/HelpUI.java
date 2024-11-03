@@ -198,8 +198,8 @@ public class HelpUI extends BasePanel implements MouseListener {
                 break;
 			case KeyEvent.VK_L:
 				if (e.isAltDown())
-				reloadLabels();
-				return;
+					debugReloadLabels();
+				break;
         }
     }
     @Override public void mouseClicked(MouseEvent e)	{ }

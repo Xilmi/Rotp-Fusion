@@ -138,6 +138,13 @@ public class MapOverlayEspionageMission extends MapOverlay implements IVIPListen
                 if (this.canSelect(5))
                     categorySprites[5].click(parent.map(), 1, false, true, false);
                 break;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(parent);
+            		break;
+            	}
+            	misClick();
+            	break;
             default:
                 misClick(); break;
         }

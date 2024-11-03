@@ -138,6 +138,13 @@ public class MapOverlaySpies extends MapOverlay {
                     selectEmpire(empires.get(nextI));
                     break;
                 }
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(parent);
+            		break;
+            	}
+            	misClick();
+            	break;
             default:
                 misClick(); break;
         }

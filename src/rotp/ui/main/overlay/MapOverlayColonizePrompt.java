@@ -351,6 +351,11 @@ public class MapOverlayColonizePrompt extends MapOverlay {
             case KeyEvent.VK_F:
                 toggleFlagColor(shift);
                 break;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(parent);
+            		break;
+            	}
             default:
             	if (!shift) // BR to avoid noise when changing flag color
             		misClick();

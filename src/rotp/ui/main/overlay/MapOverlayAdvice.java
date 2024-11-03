@@ -208,6 +208,11 @@ public class MapOverlayAdvice extends MapOverlay {
             case KeyEvent.VK_ESCAPE:
                 advanceMap();
                 return true;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(parent);
+            	}
+            	return false;
             default:
                 return false;
         }

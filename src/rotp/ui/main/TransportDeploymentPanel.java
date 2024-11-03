@@ -180,6 +180,13 @@ public class TransportDeploymentPanel extends SystemPanel {
                 useClickedSprite(systems.get(index), 1, false);
                 parentSpritePanel.repaint();
                 return;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	misClick();
+            	break;
         }
     }
     @Override

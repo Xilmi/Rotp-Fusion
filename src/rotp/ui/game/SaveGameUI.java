@@ -281,6 +281,13 @@ public final class SaveGameUI extends BasePanel implements MouseListener, MouseW
             		repaint();
             	}
             	return;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	misClick();
+            	break;
         }
     }
     private void saveGame() {

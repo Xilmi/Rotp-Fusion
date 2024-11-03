@@ -141,6 +141,13 @@ public class MapOverlayJava32Bit extends MapOverlay {
                 //softClick();
                 ok();
                 break;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(parent);
+            		break;
+            	}
+           		misClick();
+                break;
             default:
             	if (!e.isShiftDown()) // BR to avoid noise when changing flag color
             		misClick();

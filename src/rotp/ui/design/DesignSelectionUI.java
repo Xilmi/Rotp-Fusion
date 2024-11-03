@@ -445,6 +445,13 @@ public abstract class DesignSelectionUI extends BasePanel implements MouseListen
                 while(startIndex < numComponents() - MAX_LIST_SIZE)
                     scrollDown();
                 break;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	misClick();
+            	break;
         }
     }
 

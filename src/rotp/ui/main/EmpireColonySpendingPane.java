@@ -942,7 +942,7 @@ public class EmpireColonySpendingPane extends BasePanel {
     		switch(e.getKeyCode()) {
     		case KeyEvent.VK_L:
     			if (e.isAltDown()) {
-    				reloadLabels();
+    				debugReloadLabels();
     			}
     			return;
     		}

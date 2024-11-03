@@ -181,6 +181,13 @@ public class MapOverlayMemoryLow extends MapOverlay {
                 //softClick();
                 skip();
                 break;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(parent);
+            		break;
+            	}
+                misClick();
+                break;
             default:
                 misClick();
                 break;

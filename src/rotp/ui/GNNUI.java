@@ -209,6 +209,13 @@ public class GNNUI extends FadeInPanel implements MouseListener, MouseMotionList
             case KeyEvent.VK_SPACE:
                 advance();
                 return;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	misClick();
+            	break;
         }
     }
     @Override

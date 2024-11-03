@@ -366,8 +366,14 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
             case KeyEvent.VK_ESCAPE:
             case KeyEvent.VK_SPACE:
                 advanceScreen();
+                return;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		return;
+            	}
         }
-        repaint(); // TODO BR: REMOVE
+        repaint();
     }
     @Override
     public void paintComponent(Graphics g) {

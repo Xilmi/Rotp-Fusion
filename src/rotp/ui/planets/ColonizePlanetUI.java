@@ -548,6 +548,13 @@ public class ColonizePlanetUI extends FadeInPanel implements MouseListener, Mous
         switch(k) {
             case KeyEvent.VK_ESCAPE:
                 escapeAction();
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	misClick();
+            	break;
         }
     }
     protected void escapeAction() {

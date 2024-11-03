@@ -840,6 +840,13 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
                 if (mode == MODE_REALLOCATE)
                     handleReallocateSystemsAction(4);
                 return;
+            case KeyEvent.VK_L:
+            	if (e.isAltDown()) {
+            		debugReloadLabels(this);
+            		break;
+            	}
+            	misClick();
+            	break;
         }
     }
     // ##### Console Tools

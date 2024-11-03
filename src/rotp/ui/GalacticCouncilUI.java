@@ -1175,6 +1175,10 @@ public final class GalacticCouncilUI extends FadeInPanel
     public void keyPressed(KeyEvent e) {
         GalacticCouncil c = galaxy().council();
         int k = e.getKeyCode();
+        if (k == KeyEvent.VK_L && e.isAltDown()) {
+        	debugReloadLabels(this);
+        	return;
+        }
         // no key presses on screens where player selection is required
         switch(displayMode) {
             case ASK_PLAYER_VOTE:
@@ -1369,6 +1373,10 @@ public final class GalacticCouncilUI extends FadeInPanel
     @Override public boolean handleKeyPress(KeyEvent e)	{
     	GalacticCouncil c = galaxy().council();
     	int k = e.getKeyCode();
+    	if (k == KeyEvent.VK_L && e.isAltDown()) {
+    		debugReloadLabels(this);
+    		return false; // don't advance screen if no vote
+    	}
     	if (showVoterSummary) {
             switch(k) {
             case KeyEvent.VK_ESCAPE:
