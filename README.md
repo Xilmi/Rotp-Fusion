@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.11.03 (BR)
+- Fixed Planet Invasion title not updating at the end of the fight.
+
 2024.11.02 (BR)
 - Fixed "!!! To Replay Last Turn !!!.rotp" file being saved too often.
 - Fixed [player_xxx] being translated to [alien_xxx] in label.txt

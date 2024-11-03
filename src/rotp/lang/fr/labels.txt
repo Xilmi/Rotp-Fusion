@@ -1320,8 +1320,8 @@ INVASION_BATTLE                   | Dans l'année %1, [attacker_race_pluralnoun]
 INVASION_BATTLE_REBELS            | Dans l'année %1, [attacker_race_pluralnoun] et les rebelles se battent pour %2.
 INVASION_TROOPS_LANDED            | %1 troupes [attacker_race_pluraladjecF] ont atterri.
 INVASION_SOME_TROOPS_LANDED       | %1 sur %2 troupes [attacker_race_pluraladjecF] ont atterri.
-INVASION_WIN                      | Des transports [attacker_race_pluraladjec] capturent %2.
-INVASION_LOSS                     | Des troupes [attacker_race_pluraladjecF] ont réussi à défendre %2.
+INVASION_WIN                      | Les transports [attacker_race_pluraladjec] capturent %2.
+INVASION_LOSS                     | Les troupes [defender_race_pluraladjecF] ont réussi à défendre %2.
 INVASION_ATTACKERS_TITLE          | %1 troupes [attacker_race_pluraladjecF]
 INVASION_DEFENDERS_TITLE          | %1 troupes [defender_race_pluraladjecF]
 INVASION_REBELS_TITLE             | %1 rebelles [defender_race_pluraladjec]

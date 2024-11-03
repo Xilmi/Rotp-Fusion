@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- Fixed Planet Invasion title not updating at the end of the fight.
 - New Icon to identify links to sub panels.
 - Fixed wrong warning when loading a game.
 - Fixed [player_xxx] being translated to [alien_xxx] in label.txt
@@ -20,9 +21,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Replaced the Dialogue font set in languages ​​that required a more complete font set.
 - The Guide now display the Min and Max values.
 - Fixed all Combat result panels appearing before Combat animations end.
-- Restore the ambassador In case of accepting alliance after accepting a war!? (On the same turn...)
-- Governor Panel Translated to French.
-- New option to boost the Ship space.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

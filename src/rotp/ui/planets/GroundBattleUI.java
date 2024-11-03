@@ -367,6 +367,7 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
             case KeyEvent.VK_SPACE:
                 advanceScreen();
         }
+        repaint(); // TODO BR: REMOVE
     }
     @Override
     public void paintComponent(Graphics g) {
@@ -475,6 +476,10 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
             drawBorderedString(g,defArmorDesc,2,x0,y0,Color.black, detailLineC);
         }
 
+        // BR: Update the title
+        if (!battleInProgress())
+        	updateEndOfCombatTitle();
+        
         // draw title last (so it overlays any ship)
         int titleLineH = s40;
         g.setFont(narrowFont(40));
@@ -513,7 +518,7 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
                 }
             }
             else
-                    return;
+            	return;
         }
         repaint();
     }
@@ -555,6 +560,16 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
     private boolean battleInProgress() {
         return colony.defense().troops() > 0 && transport.size() > 0;
     }
+    private void updateEndOfCombatTitle()	{
+    	if (transport.size() == 0) {
+            title = text("INVASION_LOSS", defenderEmp.raceName(), sysName);
+            title = defenderEmp.replaceTokens(title, "defender");
+        }
+        else {
+            title = text("INVASION_WIN", attackerEmp.raceName(), sysName);
+            title = attackerEmp.replaceTokens(title, "attacker");
+        }
+    }
     private void advanceScreen() {
         if (landing()) {
             if (shipLanding != null)
@@ -575,15 +590,7 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
             repaint();
         }
         else {
-            if (transport.size() == 0) {
-                title = text("INVASION_LOSS", defenderEmp.raceName(), sysName);
-                title = defenderEmp.replaceTokens(title, "defender");
-            }
-            else {
-                title = text("INVASION_WIN", attackerEmp.raceName(), sysName);
-                title = attackerEmp.replaceTokens(title, "attacker");
-            }
-
+        	updateEndOfCombatTitle();
             exited = true;
             repaint();
             session().resumeNextTurnProcessing();
