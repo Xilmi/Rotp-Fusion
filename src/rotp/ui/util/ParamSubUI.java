@@ -34,7 +34,7 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 	private final String GUI_TITLE_ID;
 	private final String GUI_ID;
 	public  final SafeListPanel optionsMap;
-	public  final SafeListParam optionsList = new SafeListParam();
+	private final SafeListParam optionsList;
 	
 	// ===== Constructors =====
 	//
@@ -50,9 +50,10 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 			String guiTitleID, String guiID)
 	{
 		super(gui, name, optionsMap);
-		GUI_TITLE_ID = gui + guiTitleID;
-		GUI_ID = guiID;
-		this.optionsMap = optionsMap;
+		GUI_TITLE_ID	= gui + guiTitleID;
+		GUI_ID			= guiID;
+		this.optionsMap	= optionsMap;
+		optionsList		= new SafeListParam(GUI_ID);
 		for (SafeListParam list : optionsMap) {
 			for (IParam param : list) {
 				if (param != null && !param.isTitle())

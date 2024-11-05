@@ -2,24 +2,17 @@ package rotp.model.game;
 
 import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
-import static rotp.model.game.IBaseOptsTools.headerSpacer;
-
-import java.util.Arrays;
 
 import rotp.model.game.GovernorOptions.GatesGovernor;
-import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
-import rotp.ui.util.ParamSubUI;
-import rotp.ui.util.ParamTitle;
 
 public interface IGovOptions {
 	
 	// ==================== Governor Options ====================
 	//
 	String GOV_UI		= "GOVERNOR_";
-	String GOV_GUI_ID	= "GOV_2";
 	int	NOT_GOVERNOR	= 0;
 	int	NO_REFRESH		= 0;
 	int GOV_REFRESH		= 1;
@@ -107,59 +100,4 @@ public interface IGovOptions {
 	ParamBoolean governorByDefault	= new ParamBoolean(GOV_UI, "ON_BY_DEFAULT", true)
 			.setDefaultValue(MOO1_DEFAULT, false)
 			.setDefaultValue(ROTP_DEFAULT, false);
-
-	// ==================== GUI List Declarations ====================
-	//
-
-	SafeListParam mergedStaticOptions	= new SafeListParam();
-	SafeListPanel governorOptionsMap = governorOptionsMap();
-	static SafeListPanel governorOptionsMap()	{
-		SafeListPanel map = new SafeListPanel();
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle(GOV_UI + "TRANSPORT_OPTIONS"),
-				autoTransportAI, autotransportGov, autotransportAll,
-				transportNoRich, transportPoorX2, transportMaxDist,
-
-				headerSpacer,
-				new ParamTitle(GOV_UI + "COLONY_OPTIONS"),
-				missileBasesMin, shieldAlones,
-				autoSpend, reserveForSlow, shipBuilding,
-				maxGrowthMode, terraformEarly
-				)));
-		map.add(new SafeListParam(Arrays.asList(				
-				new ParamTitle(GOV_UI + "INTELLIGENCE_OPTIONS"),
-				auto_Infiltrate, auto_Spy, respectPromises,
-				
-				headerSpacer,
-				new ParamTitle(GOV_UI + "FLEET_OPTIONS"),
-				// autoShipsByDefault,	// TODO: for future use
-				auto_Scout, autoScoutCount,
-				govAutoColonize, autoColonyCount,
-				auto_Attack, autoAttackCount,
-				
-				headerSpacer,
-				new ParamTitle(GOV_UI + "STARGATES_OPTIONS"),
-				starGateOption
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle(GOV_UI + "ASPECT_OPTIONS"),
-				originalPanel, customSize, animatedImage,
-				brightnessPct, sizeFactorPct,
-				horizontalPosition, verticalPosition,
-				
-				headerSpacer,
-				new ParamTitle(GOV_UI + "OTHER_OPTIONS"),
-				governorByDefault, auto_Apply
-				)));
-		for (SafeListParam list : map) {
-			for (IParam param : list) {
-				if (param != null && !param.isTitle())
-					mergedStaticOptions.add(param);
-			}
-		}
-		return map;
-	};
-	ParamSubUI	governorOptionsUI	= new ParamSubUI(GOV_UI, "SETUP_MENU",
-			governorOptionsMap, "SETUP_TITLE", GOV_GUI_ID);
-	SafeListParam governorOptions = governorOptionsUI.optionsList();
 }

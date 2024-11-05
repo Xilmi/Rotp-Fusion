@@ -24,6 +24,7 @@ public class CompactOptionsUI extends BaseCompactOptionsUI {
 	
 	public CompactOptionsUI() { super(guiTitleID, GUI_ID); }
 	@Override protected SafeListPanel getList() {
-		return rotp.model.game.IInGameOptions.inGameOptionsMap();
+//		return rotp.model.game.IInGameOptions.inGameOptionsMap();
+		return rotp.ui.options.InGameOptions.inGameOptionsMap();
 	}
 }

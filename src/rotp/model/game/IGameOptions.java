@@ -33,43 +33,6 @@ import rotp.ui.game.SetupGalaxyUI;
 public interface IGameOptions extends IModOptions {
     public static final int MAX_OPPONENTS = SetupGalaxyUI.MAX_DISPLAY_OPPS;
     public static final int MAX_OPPONENT_TYPE = 5;
-//    public static final String SIZE_DYNAMIC = "SETUP_GALAXY_SIZE_DYNAMIC";
-//    public static final String SIZE_MICRO = "SETUP_GALAXY_SIZE_MICRO";
-//    public static final String SIZE_TINY = "SETUP_GALAXY_SIZE_TINY";
-//    public static final String SIZE_SMALL = "SETUP_GALAXY_SIZE_SMALL";
-//    public static final String SIZE_SMALL2 = "SETUP_GALAXY_SIZE_SMALL2";
-//    public static final String SIZE_MEDIUM = "SETUP_GALAXY_SIZE_AVERAGE";
-//    public static final String SIZE_MEDIUM2 = "SETUP_GALAXY_SIZE_AVERAGE2";
-//    public static final String SIZE_LARGE = "SETUP_GALAXY_SIZE_LARGE";
-//    public static final String SIZE_LARGE2 = "SETUP_GALAXY_SIZE_LARGE2";
-//    public static final String SIZE_HUGE = "SETUP_GALAXY_SIZE_HUGE";
-//    public static final String SIZE_HUGE2 = "SETUP_GALAXY_SIZE_HUGE2";
-//    public static final String SIZE_MASSIVE = "SETUP_GALAXY_SIZE_MASSIVE";
-//    public static final String SIZE_MASSIVE2 = "SETUP_GALAXY_SIZE_MASSIVE2";
-//    public static final String SIZE_MASSIVE3 = "SETUP_GALAXY_SIZE_MASSIVE3";
-//    public static final String SIZE_MASSIVE4 = "SETUP_GALAXY_SIZE_MASSIVE4";
-//    public static final String SIZE_MASSIVE5 = "SETUP_GALAXY_SIZE_MASSIVE5";
-//    public static final String SIZE_INSANE = "SETUP_GALAXY_SIZE_INSANE";
-//    public static final String SIZE_LUDICROUS = "SETUP_GALAXY_SIZE_LUDICROUS";
-//    public static final String SIZE_MAXIMUM = "SETUP_GALAXY_SIZE_MAXIMUM";
-//
-//    public static final String SHAPE_RECTANGLE = "SETUP_GALAXY_SHAPE_RECTANGLE";
-//    public static final String SHAPE_ELLIPTICAL = "SETUP_GALAXY_SHAPE_ELLIPSE";
-//    public static final String SHAPE_SPIRAL = "SETUP_GALAXY_SHAPE_SPIRAL";
-//    // modnar: add new map shapes
-//    public static final String SHAPE_TEXT = "SETUP_GALAXY_SHAPE_TEXT";
-//    public static final String SHAPE_LORENZ = "SETUP_GALAXY_SHAPE_LORENZ";
-//    public static final String SHAPE_FRACTAL = "SETUP_GALAXY_SHAPE_FRACTAL";
-//    public static final String SHAPE_MAZE = "SETUP_GALAXY_SHAPE_MAZE";
-//    public static final String SHAPE_SHURIKEN = "SETUP_GALAXY_SHAPE_SHURIKEN";
-//    public static final String SHAPE_BULLSEYE = "SETUP_GALAXY_SHAPE_BULLSEYE";
-//    public static final String SHAPE_GRID = "SETUP_GALAXY_SHAPE_GRID";
-//    public static final String SHAPE_CLUSTER = "SETUP_GALAXY_SHAPE_CLUSTER";
-//    public static final String SHAPE_SWIRLCLUSTERS = "SETUP_GALAXY_SHAPE_SWIRLCLUSTERS";
-//    public static final String SHAPE_SPIRALARMS = "SETUP_GALAXY_SHAPE_SPIRALARMS";
-//    public static final String SHAPE_BITMAP     = "SETUP_GALAXY_SHAPE_BITMAP";
-//    public static final String SHAPE_RANDOM     = "SETUP_GALAXY_SHAPE_RANDOM";
-//    public static final String SHAPE_RANDOM_2   = "SETUP_GALAXY_SHAPE_RANDOM_2";
 
     public static final String DIFFICULTY_EASIEST = "SETUP_DIFFICULTY_EASIEST";
     public static final String DIFFICULTY_EASIER  = "SETUP_DIFFICULTY_EASIER";
@@ -395,8 +358,6 @@ public interface IGameOptions extends IModOptions {
     public Color color(int i);
 
     // selectable options
-    // public List<String> galaxySizeOptions(); // BR:Moved to IGalaxyOptions
-    // public List<String> galaxyShapeOptions();
     public List<String> galaxyShapeOptions1();
     public List<String> galaxyShapeOptions2();
     public List<String> galaxyAgeOptions();
@@ -789,4 +750,71 @@ public interface IGameOptions extends IModOptions {
         list.add(DIFFICULTY_CUSTOM);
         return list;
     }
+    
+    // From Mods
+    float densitySizeFactor();
+    
+	int id();
+	void id(int id);
+	DynOptions dynOpts();
+	IGameOptions opts();
+	
+	default void	setAsGame()				{ id(GAME_ID); }
+	default void	setAsSetup()			{ id(SETUP_ID); }
+	default void	setAsUnknown()			{ id(UNKNOWN_ID); }
+	default boolean	isGameOption()			{ return id() == GAME_ID; }
+	default boolean	isSetupOption()			{ return id() == SETUP_ID; }
+	default boolean	isUnknownOption()		{ return !isGameOption() && !isSetupOption(); }
+
+	void prepareToSave(boolean secure);
+	void UpdateOptionsTools();
+	IGameOptions copyAllOptions();
+	
+	void loadStartupOptions();
+	/**
+	 * Load file and update with specified options list then save back to file
+	 * @param fileName
+	 * @param paramList
+	 */
+	void saveOptionsToFile (String fileName, SafeListParam paramList);
+	/**
+	 * Save all options to file
+	 * @param fileName
+	 */
+	void saveOptionsToFile (String fileName);
+	/**
+	 * Load the file and update the listed parameters
+	 * (Options and options' tools)
+	 * @param fileName
+	 * @param paramList
+	 */
+	void updateFromFile (String fileName, SafeListParam paramList);
+	/**
+	 * update the listed parameters From their default values
+	 * (Options and options' tools)
+	 * @param paramList
+	 */
+	void resetPanelSettingsToDefault (SafeListParam paramList, boolean excludeCfg, boolean excludeSubMenu);
+
+	void resetAllNonCfgSettingsToDefault();
+	void updateAllNonCfgFromFile(String fileName);
+	void copyAliensAISettings(IGameOptions dest);
+	
+	// Tools For Debug
+	default void	showOptionName()		{
+		System.out.println("Option name = " + optionName());
+	}
+	default void	showOptionName(String header)	{
+		System.out.println(header + " Option name = " + optionName());
+	}
+	default String	optionName()		{
+		switch (id()) {
+			case GAME_ID:
+				return "Game Options";
+			case SETUP_ID:
+				return "Setup Options";
+			default:
+				return "Unknown Options";
+		}
+	}
 }

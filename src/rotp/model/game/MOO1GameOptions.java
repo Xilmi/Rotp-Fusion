@@ -63,6 +63,9 @@ import rotp.model.tech.TechEngineWarp;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.SetupGalaxyUI;
+import rotp.ui.options.AllSubUI;
+import rotp.ui.options.GalaxyMenuOptions;
+import rotp.ui.options.RaceMenuOptions;
 import rotp.ui.util.IParam;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
@@ -344,7 +347,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedNebulaeOption		= opt.selectedNebulaeOption;
         selectedNumberOpponents		= opt.selectedNumberOpponents;
         
-        SafeListParam list = systemsOptionsUI.optionsList;
+        SafeListParam list = AllSubUI.systemSubUI().optionsList();
         for (IParam param : list)
         	param.copyOption(oldOpt, this, true);
 
@@ -1246,18 +1249,18 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		copyAdvancedOptions(dest);
     }
     private void copyPanelBaseSettings(MOO1GameOptions dest, SafeListParam pList) {
-   		if (pList == optionsGalaxy()) {
+    	switch (pList.name) {
+    	case GalaxyMenuOptions.GALAXY_ID:
    			copyBaseGalaxySettings(dest);
    			return;
-   		}
-   		if (pList == optionsRace()) {
+    	case RaceMenuOptions.RACE_ID:
    			copyBaseRaceSettings(dest);
    			return;
-   		}
-   		if (pList == allModOptions()) {
+    	case AllSubUI.ALL_MOD_OPTIONS:
     		System.err.println("Old call of copyPanelBaseSettings(allModOptions)");
     		copyAllBaseSettings(dest);
-   		}
+    		return;
+    	}
     }
     private void setAllNonCfgGameSettingsToDefault() { // settings saved in game file.
        	for (IParam param : allModOptions())
@@ -1287,19 +1290,18 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private void setPanelBaseSettingsToDefault(SafeListParam pList) {
    		if (pList == null)
    			return;
-   		if (pList == optionsGalaxy()) {
-   			setBaseGalaxySettingsToDefault();
+    	switch (pList.name) {
+    	case GalaxyMenuOptions.GALAXY_ID:
+    		setBaseGalaxySettingsToDefault();
    			return;
-   		}
-   		if (pList == optionsRace()) {
-   			setBaseRaceSettingsToDefault();
+    	case RaceMenuOptions.RACE_ID:
+    		setBaseRaceSettingsToDefault();
    			return;
-   		}
-   		if (pList == allModOptions()) {
+    	case AllSubUI.ALL_MOD_OPTIONS:
     		System.err.println("Old call of setPanelBaseSettingsToDefault(allModOptions)");
     		setAllNonCfgBaseSettingsToDefault();
-  			return;
-   		}
+    		return;
+    	}
     }
     private void transfert(String fileName, boolean set) {
     	// to avoid loosing former cfg settings.

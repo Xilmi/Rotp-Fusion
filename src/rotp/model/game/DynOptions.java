@@ -49,7 +49,13 @@ public class DynOptions implements DynamicOptions, Serializable {
     public LinkedHashMap<String, Integer>	   integerList() { return integerList; }
     public LinkedHashMap<String, Serializable> objectList()	 { return objectList; }
     public LinkedHashMap<String, String>	   stringList()	 { return stringList; }
-
+    public int size()	{
+    	return booleanList.size()
+    			+ floatList.size()
+    			+ integerList.size()
+    			+ objectList.size()
+    			+ stringList.size();
+    }
     // -------------------- Overriders --------------------
     //
 	@Override public Boolean setBoolean(String id, Boolean value) {

@@ -278,7 +278,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 	ParamSubUI customRandomEventUI = customRandomEventUI();
 
 	static SafeListPanel customRandomEventMap() {
-		SafeListPanel map = new SafeListPanel();
+		SafeListPanel map = new SafeListPanel("RANDOM_EVENTS");
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_GLOBAL"),
 				IAdvOptions.randomEvents,

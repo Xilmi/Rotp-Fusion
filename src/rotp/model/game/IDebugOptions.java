@@ -2,18 +2,13 @@ package rotp.model.game;
 
 import static rotp.ui.UserPreferences.showMemory;
 
-import java.util.Arrays;
-
 import rotp.ui.RotPUI;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
-import rotp.ui.util.ParamSubUI;
-import rotp.ui.util.ParamTitle;
 import rotp.ui.vipconsole.VIPConsole;
 
 public interface IDebugOptions extends IBaseOptsTools {
-	String DEBUG_GUI_ID		 = "DEBUG_OPTIONS";
     String MEMORY_LOGFILE	 = "AutoRunMemory.txt";
     String AUTORUN_LOGFILE	 = "AutoRunPlayer.txt";
     String NOTIF_LOGFILE	 = "AutoRunNotifications.txt";
@@ -145,40 +140,4 @@ public interface IDebugOptions extends IBaseOptsTools {
 	ParamBoolean continueAnyway		= new ParamBoolean(GAME_UI, "CONTINUE_ANYWAY", false, false);
 	default void continueAnyway(boolean b)	{ continueAnyway.set(b); }
 	default boolean continueAnyway()		{ return continueAnyway.get(); }
-
-	// ==================== GUI List Declarations ====================
-	//
-	static SafeListPanel debugOptionsMap() {
-		SafeListPanel map = new SafeListPanel();
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("DEBUG_MEMORY"),
-				debugShowMemory, debugConsoleMemory,
-				debugShowMoreMemory, debugFileMemory,
-
-				headerSpacer,
-				new ParamTitle("DEBUG_RELEVANT"),
-				IAdvOptions.councilWin, IAdvOptions.autoplay,
-				IMainOptions.backupTurns
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("DEBUG_AUTO_RUN"),
-				debugAutoRun, debugNoAutoSave,
-				debugARContinueOnLoss,
-				debugBMLostTurns, debugBMMaxTurns,
-				debugBMZoomOut, debugBMShowAll,
-				consoleAutoRun, debugLogNotif, debugLogEvents
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("GAME_OTHER"),
-				IMainOptions.menuStartup,
-				continueAnyway
-				)));
-		return map;
-	}
-	ParamSubUI debugOptionsUI = debugOptionsUI();
-
-	static ParamSubUI debugOptionsUI() {
-		return new ParamSubUI( MOD_UI, "DEBUG_OPTIONS_UI", IDebugOptions.debugOptionsMap(),
-				"DEBUG_OPTIONS_TITLE", DEBUG_GUI_ID).isCfgFile(true);
-	}
 }

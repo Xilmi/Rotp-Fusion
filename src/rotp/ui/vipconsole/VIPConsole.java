@@ -41,16 +41,14 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.model.game.GameSession;
-import rotp.model.game.GovernorOptions;
 import rotp.model.game.IAdvOptions;
 import rotp.model.game.IGameOptions;
-import rotp.model.game.IInGameOptions;
-import rotp.model.game.IMainOptions;
 import rotp.model.ships.ShipDesign;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.design.VIPDesignView;
 import rotp.ui.game.GameUI;
+import rotp.ui.options.AllSubUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -669,7 +667,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 			addMenu(parent);
 		}
 		CommandMenu(String name, CommandMenu parent, ParamSubUI ui)		{
-			this(name, parent, ui.optionsList);
+			this(name, parent, ui.optionsList());
 		}
 		CommandMenu(String name, CommandMenu parent, List<IParam> src)	{
 			this(name, parent);
@@ -1634,7 +1632,8 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	private class MainMenu extends CommandMenu {
 		MainMenu  (String name) {
 			super(name);
-			addMenu(new CommandMenu("Global Settings Menu", this, IMainOptions.commonOptionsMap().getList()));
+//			addMenu(new CommandMenu("Global Settings Menu", this, IMainOptions.commonOptionsMap().getList()));
+			addMenu(new CommandMenu("Global Settings Menu", this, AllSubUI.commonSubUI().optionsList()));
 			speciesMenu = new SpeciesMenu("Player Species Menu", this);
 			setupMenu = new SetupMenus("New Setup Menu", this);
 			addMenu(setupMenu);
@@ -1663,8 +1662,9 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 			super(name, parent);
 			researchMenu	 = researchView.initTechMenu(this);
 			designMenu		 = designView.initDesignMenu(this);
-			addMenu(new CommandMenu("In Game Settings Menu", this, IInGameOptions.inGameOptionsMap().getList()));
-			addMenu(new CommandMenu("Governor Menu", this, GovernorOptions.governorOptionsUI));
+			addMenu(new CommandMenu("In Game Settings Menu", this, AllSubUI.inGameSubUI().optionsList()));
+			addMenu(new CommandMenu("Governor Menu", this, AllSubUI.governorSubUI()));
+//			addMenu(new CommandMenu("Governor Menu", this, GovernorOptions.governorOptionsUI));
 			addMenu(researchMenu);
 			addMenu(designMenu);
 			addCmd(new CmdSelectTechMenu("Open Research Technology Menu", TECHNOLOGY_KEY));	// TECH

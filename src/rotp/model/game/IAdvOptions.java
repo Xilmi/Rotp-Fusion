@@ -41,6 +41,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import rotp.ui.options.AllSubUI;
 import rotp.ui.util.LinkData;
 import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamList;
@@ -113,7 +114,7 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 	static float getDensitySizeFactor(String density)	{ return densityMap().get(density); }
 	default float densitySizeFactor(String density)	{ return getDensitySizeFactor(density); }
-	float densitySizeFactor();
+	//float densitySizeFactor();
 	default float systemBuffer(String density)	{  return 1.9f * getDensitySizeFactor(density); }
 
 //	static float getSystemBuffer(String densityOption)	{ 
@@ -401,22 +402,6 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 	// ==================== GUI List Declarations ====================
 	//
-//	LinkedList<IParam> advancedOptions	  = new LinkedList<>(
-//			Arrays.asList(
-//					galaxyAge, starDensity,
-//					nebulae, planetQuality,
-//					terraforming,
-//					null,
-//					randomEvents, aiHostility,
-//					councilWin, randomizeAI,
-//					autoplay,
-//					null,
-//					researchRate, warpSpeed,
-//					fuelRange, techTrading,
-//					colonizing,
-//					IInGameOptions.inGameOptionsUI,
-//					IPreGameOptions.preGameOptionsUI
-//					));
 	static SafeListParam advancedOptions() {
 		SafeListParam options  = new SafeListParam(
 				Arrays.asList(
@@ -432,11 +417,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 						fuelRange, techTrading,
 						colonizing,
 						null,
-						IPreGameOptions.preGameOptionsUI(),
-						IInGameOptions.inGameOptionsUI(),
-						IMainOptions.commonOptionsUI(),
-						ICombatOptions.combatOptionsUI()
-						//IInGameOptions.baseModOptionsUI()
+						AllSubUI.preGameSubUI(),
+						AllSubUI.inGameSubUI(),
+						AllSubUI.commonSubUI(),
+						AllSubUI.combatSubUI()
 						));
 		return options;
 	}

@@ -3,6 +3,7 @@ package rotp.model.game;
 import java.awt.Point;
 import java.io.Serializable;
 
+import rotp.ui.options.AllSubUI;
 import rotp.ui.util.AbstractParam;
 import rotp.ui.util.IParam;
 import rotp.util.LabelManager;
@@ -99,7 +100,8 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	// ========== Constructor And Initializers ==========AbstractParam <T>
 	public GovernorOptions() {
 		//System.out.println("GovernorOptions() " + autoShipsByDefault);
-		for (IParam param : governorOptions) {
+//		for (IParam param : governorOptions) {
+		for (IParam param : AllSubUI.governorSubUI().optionsList()) {
 //			System.out.println("is duplicate? = " + param.isDuplicate() + " - " + param.isCfgFile()
 //			+ " - " + param.getCfgLabel());
 			((AbstractParam <?>) param).isGovernor(GOV_REFRESH);
@@ -144,7 +146,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 			governorByDefault.silentSet(governorOnByDefault);
 		}
 		autoShipsByDefault = false;
-		for (IParam param: governorOptions) {
+		for (IParam param: AllSubUI.governorSubUI().optionsList()) {
 			param.updateOptionTool();
 		}
 		// Converted use of autoShipsByDefault: true = not yet transfered.

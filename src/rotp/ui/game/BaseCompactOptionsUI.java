@@ -139,9 +139,9 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	protected SafeListPanel getList() { return optionsList; }
 	@Override protected void singleInit() {
 		optionsList		= getList();
-		activeList		= new SafeListParam();
-		duplicateList	= new SafeListParam();
-		paramList		= new SafeListParam();
+		activeList		= new SafeListParam(optionsList.name);
+		duplicateList	= new SafeListParam(optionsList.name);
+		paramList		= new SafeListParam(optionsList.name);
 		int totalRows   = 0;
 		numColumns = optionsList.size();
 		numRows    = 0;

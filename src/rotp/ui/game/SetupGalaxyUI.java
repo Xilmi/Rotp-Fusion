@@ -102,6 +102,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.options.AllSubUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.ParamButtonHelp;
@@ -316,7 +317,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		globalAbilitiesArray = globalAbilitiesList.toArray(new String[globalAbilitiesList.size()]);
 	}
 	private SafeListPanel advancedSystemMap()	{
-		SafeListPanel map = new SafeListPanel();
+		SafeListPanel map = new SafeListPanel("ADVANCED_SYSTEM");
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("NEBULAE_OPTION"),
 				opts.getNebula(),
@@ -370,14 +371,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		wysiwygBox			= new Box(opts.galaxyRandSource());
 		oppBox				= new Box(opts.aliensNumber());
 		
-		paramList = opts.optionsGalaxy();
+		paramList = AllSubUI.optionsGalaxy();
 		for (int i=0;i<oppSet.length;i++)
 			oppSet[i] = new Box(specificOpponent, i);
 		for (int i=0;i<oppAbilities.length;i++)
 			oppAbilities[i] = new Box(specificAbilities, i);
 		for (int i=0;i<oppAI.length;i++)
 			oppAI[i] = new Box(specificAI, i);
-		duplicateList = new SafeListParam();
+		duplicateList = new SafeListParam("GALAXY_DUPLICATE");
 		duplicateList.add(opts.difficultySelection());
 		duplicateList.add(opts.shapeSelection());
 		duplicateList.add(opts.sizeSelection());

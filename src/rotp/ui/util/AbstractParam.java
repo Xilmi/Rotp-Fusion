@@ -85,7 +85,7 @@ public abstract class AbstractParam <T> implements IParam {
 	 * @param name The name
 	 * @param commonDefault The common default value
 	 */
-	AbstractParam(String gui, String name, T commonDefault) {
+	protected AbstractParam(String gui, String name, T commonDefault) {
 		this.gui = gui;
 		this.name = name;
 		defaultValue(commonDefault);

@@ -35,8 +35,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import rotp.model.game.GameSession;
+import rotp.model.game.IModOptions;
 import rotp.model.game.MOO1GameOptions;
-import rotp.model.game.ModOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.SwingExceptionHandler;
@@ -347,3 +347,4 @@ public class Rotp {
     	@Override public void windowClosing(WindowEvent e) { System.exit(0); }
     }
 }
+class ModOptions implements IModOptions { }

@@ -17,9 +17,7 @@ import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
-import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTech;
-import rotp.ui.util.ParamTitle;
 import rotp.ui.util.RandomAlienRaces;
 
 public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsOptions {
@@ -368,79 +366,4 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	ParamBoolean looseNeighborhood	= new ParamBoolean( MOD_UI, "LOOSE_NEIGHBORHOOD", false);
 	default boolean looseNeighborhood()			{ return looseNeighborhood.get(); }
 	default ParamBoolean getLooseNeighborhood()	{ return looseNeighborhood; }
-	// ==================== GUI List Declarations ====================
-	//
-	static SafeListPanel preGameOptionsMap()	{
-		SafeListPanel map = new SafeListPanel();
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("START_GALAXY_OPTIONS"),
-				galaxyAge, starDensity,
-				empiresSpreadingFactor,
-				looseNeighborhood,
-				minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
-
-				headerSpacer,
-				new ParamTitle("NEBULAE_OPTION"),
-				nebulae, nebulaPlacing,
-				nebulaEnrichment, nebulaHomeworld,
-				IMainOptions.realNebulaSize,
-				IMainOptions.realNebulaShape,
-				IMainOptions.realNebulaeOpacity
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("START_EMPIRE_OPTIONS"),
-				orionLikeHomeworld, artifactsHomeworld,
-				fertileHomeworld, gaiaHomeworld,
-				richHomeworld, ultraRichHomeworld,
-				companionWorlds, battleScout, randomTechStart, randomizeAI,
-
-				headerSpacer,
-				new ParamTitle("START_PLANET_OPTIONS"),
-				planetQuality, minDistArtifactPlanet,
-				guardianMonsters, guardianMonstersLevel,
-				guardianMonstersProbability,
-
-				// headerSpacer,
-				// new ParamTitle("SUB_PANEL_OPTIONS"),
-				ISystemsOptions.systemsOptionsUI()
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("START_TECH_CONTROL"),
-				techIrradiated, techCloning, techAtmospheric,
-				techCloaking, techStargate, techGaia, techHyperspace,
-				techIndustry2, techThorium, techTransport,
-
-				headerSpacer,
-				new ParamTitle("START_RANDOM_ALIENS"),
-				randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
-				randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("RESTART_OPTIONS"),
-				restartChangesPlayerRace, restartChangesPlayerAI,
-				restartChangesAliensAI, restartAppliesSettings,
-
-				headerSpacer,
-				new ParamTitle("MENU_OPTIONS"),
-				IMainOptions.useFusionFont, IMainOptions.compactOptionOnly,
-				
-				// headerSpacer,
-				// new ParamTitle("MENU_OPTIONS"),
-				headerSpacer,
-				new ParamTitle("BETA_TEST"),
-				ironmanMode, ironmanOptionsUI,
-
-				headerSpacer,
-				new ParamTitle("GAME_OTHER"),
-				IMainOptions.showAllAI,
-				autoplay
-				)));
-
-		return map;
-	};
-	String PRE_GAME_GUI_ID	= "PRE_GAME_OPTIONS";
-	static ParamSubUI preGameOptionsUI() {
-		return new ParamSubUI( MOD_UI, PRE_GAME_GUI_ID, preGameOptionsMap());
-	}
-	ParamSubUI preGameOptionsUI	= preGameOptionsUI();
 }

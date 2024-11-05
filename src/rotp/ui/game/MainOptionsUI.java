@@ -28,6 +28,7 @@ public class MainOptionsUI extends AbstractOptionsUI {
 	@Override protected void init0() {
 		globalOptions = true;
 		isSubMenu	  = false;
-		duplicateList = rotp.model.game.IMainOptions.vanillaSettingsUI();
+//		duplicateList = rotp.model.game.IMainOptions.vanillaSettingsUI();
+		duplicateList = rotp.ui.options.MainOptions.vanillaSettingsUI();
 	}
 }

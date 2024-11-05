@@ -8,7 +8,6 @@ import java.awt.RadialGradientPaint;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.ui.game.GameUI;
@@ -41,7 +40,7 @@ public interface IRaceOptions extends IBaseOptsTools {
 	static LinkedList<String> getAllRaceOptions() {
 		LinkedList<String> list = getBaseRaceOptions();
 		list.add("RACE_NEOHUMAN");   // modnar: add races
-		list.add("RACE_MONOCLE");	// modnar: add races
+		list.add("RACE_MONOCLE");	 // modnar: add races
 		list.add("RACE_JACKTRADES"); // modnar: add races
 		list.add("RACE_EARLYGAME");  // modnar: add races
 		list.add("RACE_WARDEMON");   // modnar: add races
@@ -82,25 +81,4 @@ public interface IRaceOptions extends IBaseOptsTools {
 	default ParamCR playerCustomRace()						 { return playerCustomRace; }
 	default Serializable selectedPlayerCustomRace()			 { return playerCustomRace.get(); }
 	default void selectedPlayerCustomRace(Serializable race) { playerCustomRace.set(race); }
-	// Custom Race Menu
-	static SafeListParam optionsCustomRaceBase = new SafeListParam(
-			Arrays.asList(
-					playerIsCustom, playerCustomRace
-					));
-	default SafeListParam optionsCustomRace() {
-		SafeListParam list = new SafeListParam();
-		list.addAll(optionsCustomRaceBase);
-		return list;
-	}
-	// ==================== GUI List Declarations ====================
-	//
-	static SafeListParam optionsRace = new SafeListParam(
-			Arrays.asList(
-					playerShipSet, playerIsCustom, playerCustomRace
-					));
-	default SafeListParam optionsRace()	{ return optionsRace; }
-
-	SafeListParam editCustomRace = new SafeListParam();
-	default SafeListParam editCustomRace()	{ return editCustomRace; }
-
 }

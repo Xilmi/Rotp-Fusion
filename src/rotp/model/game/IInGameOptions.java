@@ -1,27 +1,5 @@
 package rotp.model.game;
 
-import static rotp.model.game.IAdvOptions.aiHostility;
-import static rotp.model.game.IAdvOptions.colonizing;
-import static rotp.model.game.IAdvOptions.councilWin;
-import static rotp.model.game.IAdvOptions.fuelRange;
-import static rotp.model.game.IAdvOptions.randomEvents;
-import static rotp.model.game.IAdvOptions.researchRate;
-import static rotp.model.game.IAdvOptions.techTrading;
-import static rotp.model.game.IAdvOptions.terraforming;
-import static rotp.model.game.IAdvOptions.warpSpeed;
-import static rotp.model.game.IDebugOptions.debugAutoRun;
-import static rotp.model.game.IFlagOptions.autoFlagOptionsUI;
-import static rotp.model.game.IFlagOptions.flagColorCount;
-import static rotp.model.game.IIronmanOptions.allowSpeciesDetails;
-import static rotp.model.game.IIronmanOptions.ironmanLoadDelay;
-import static rotp.model.game.IIronmanOptions.ironmanNoLoad;
-import static rotp.model.game.IIronmanOptions.persistentArtifact;
-import static rotp.model.game.IMainOptions.compactOptionOnly;
-import static rotp.model.game.IMainOptions.galaxyPreviewColorStarsSize;
-import static rotp.model.game.IMainOptions.raceStatusLog;
-
-import java.util.Arrays;
-
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
@@ -30,8 +8,6 @@ import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
-import rotp.ui.util.ParamSubUI;
-import rotp.ui.util.ParamTitle;
 
 public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICombatOptions {
 
@@ -294,7 +270,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 			return col.industry().isCompleted(maxMissingFactories());
 		case DEVELOPED_ALL:
 		default:
-			return col.defense().isCompleted(0) // TODO BR: no param
+			return col.defense().isCompleted(0)
 					&& col.industry().isCompleted(maxMissingFactories())
 					&& col.ecology().isCompleted(maxMissingPopulation());
 		}
@@ -312,92 +288,4 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 			.setLimits(0, 50)
 			.setIncrements(1, 5, 20);
 	default int maxMissingFactories()	{ return maxMissingFactories.get(); }	
-
-	// ==================== GUI List Declarations ====================
-	static SafeListPanel inGameOptionsMap()	{
-		SafeListPanel map = new SafeListPanel();
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("GAME_DIFFICULTY"),
-				IGalaxyOptions.getDifficultySelection(), customDifficulty,
-				dynamicDifficulty, challengeMode,
-
-				headerSpacer,
-				new ParamTitle("GAME_VARIOUS"),
-				terraforming,
-				colonizing, researchRate,
-				warpSpeed, fuelRange, popGrowthFactor,
-				IMainOptions.realNebulaSize, IMainOptions.realNebulaShape,
-				IMainOptions.realNebulaeOpacity,
-				developedDefinition,
-				maxMissingPopulation, maxMissingFactories,
-
-				headerSpacer,
-				new ParamTitle("IRONMAN_BASIC"),
-				persistentArtifact,
-				ironmanNoLoad, ironmanLoadDelay,
-				allowSpeciesDetails
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("GAME_RELATIONS"),
-				councilWin, counciRequiredPct, councilPlayerVote,
-				aiHostility, techTrading,
-				allowTechStealing, maxTechsCaptured,
-				maxSecurityPct,
-				specialPeaceTreaty,
-
-				//headerSpacer,
-				new ParamTitle("GAME_COMBAT"),
-				maxCombatTurns,
-				retreatRestrictions, retreatRestrictionTurns,
-				missileBaseModifier, missileShipModifier,
-				targetBombard, bombingTarget,
-				scrapRefundFactor, scrapRefundOption,
-				shipSpaceFactor,
-
-				headerSpacer,
-				new ParamTitle("BETA_TEST"),
-				debugAutoRun, darkGalaxy
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("SUB_PANEL_OPTIONS"),
-				customRandomEventUI,
-				randomEvents,
-				autoFlagOptionsUI, flagColorCount,
-				GovernorOptions.governorOptionsUI,
-				combatOptionsUI,
-				IMainOptions.commonOptionsUI(),
-
-				headerSpacer,
-				new ParamTitle("GAME_AUTOMATION"),
-				autoBombard_, autoColonize_, spyOverSpend,
-				transportAutoEco, defaultForwardRally,
-				defaultChainRally, 	chainRallySpeed,
-				showAlliancesGNN, hideMinorReports,
-				showAllocatePopUp, showLimitedWarnings,
-				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("MENU_OPTIONS"),
-				divertExcessToResearch, defaultMaxBases, displayYear,
-				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
-				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
-				raceStatusLog, compactOptionOnly,
-				IMainOptions.showPendingOrders,
-				
-				headerSpacer,
-				new ParamTitle("XILMI_AI_OPTIONS"),
-				playerAttackConfidence, playerDefenseConfidence,
-				aiAttackConfidence, aiDefenseConfidence,
-
-				headerSpacer,
-				new ParamTitle("ENOUGH_IS_ENOUGH"),
-				IMainOptions.disableAutoHelp, IMainOptions.disableAdvisor
-				)));
-		return map;
-	};
-	String IN_GAME_GUI_ID	= "IN_GAME_OPTIONS";
-	static ParamSubUI inGameOptionsUI() {
-		return new ParamSubUI( MOD_UI, IN_GAME_GUI_ID, inGameOptionsMap()).isCfgFile(false);
-	}
-	ParamSubUI inGameOptionsUI	= inGameOptionsUI();
 }

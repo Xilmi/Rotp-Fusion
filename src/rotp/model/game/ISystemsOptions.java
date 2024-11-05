@@ -2,8 +2,6 @@ package rotp.model.game;
 
 import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
 
-import java.util.Arrays;
-
 import rotp.Rotp;
 import rotp.ui.RotPUI;
 import rotp.ui.util.LinkData;
@@ -11,8 +9,6 @@ import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
-import rotp.ui.util.ParamSubUI;
-import rotp.ui.util.ParamTitle;
 import rotp.util.sound.SoundManager;
 
 public interface ISystemsOptions extends IBaseOptsTools {
@@ -352,51 +348,4 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	}
 	default int secondRingHabitable() { return secondRingHabitable.getValidValue(); }
 	default ParamInteger getSecondRingHabitable()	{ return secondRingHabitable; }
-
-	// ==================== GUI List Declarations ====================
-	//
-	static SafeListPanel systemsOptionsMap()	{
-		SafeListPanel map = new SafeListPanel();
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("ARTIFACT_OPTIONS"),
-				artifactPlanetMult, artifactPlanetOffset,
-				headerSpacer,
-				orionPlanetProb,
-				headerSpacer,
-				allowRichPoorArtifact,
-				
-				headerSpacer,
-				new ParamTitle("GAME_OTHER"),
-				orionToEmpireModifier
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("RICH_OPTIONS"),
-				ultraPoorPlanetMult, ultraPoorPlanetOffset,
-				poorPlanetMult, poorPlanetOffset,
-				headerSpacer,
-				richPlanetMult, richPlanetOffset,
-				ultraRichPlanetMult, ultraRichPlanetOffset
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("HOMEWORLD_NEIGHBORHOOD"),
-				firstRingSystemNumber,
-				firstRingHabitable,
-				firstRingRadius,
-				secondRingSystemNumber,
-				secondRingHabitable,
-				secondRingRadius,
-
-				headerSpacer,
-				new ParamTitle("LINKED_OPTIONS"),
-				IPreGameOptions.starDensity,
-				IGalaxyOptions.getSizeSelection(),
-				IPreGameOptions.dynStarsPerEmpire
-				)));
-		return map;
-	};
-	String SYSTEMS_GUI_ID	= "SYSTEMS_OPTIONS";
-	static ParamSubUI systemsOptionsUI() {
-		return new ParamSubUI( MOD_UI, SYSTEMS_GUI_ID, systemsOptionsMap());
-	}
-	ParamSubUI systemsOptionsUI	= systemsOptionsUI();
 }

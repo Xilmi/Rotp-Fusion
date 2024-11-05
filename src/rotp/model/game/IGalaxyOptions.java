@@ -4,13 +4,10 @@ import static rotp.model.game.DefaultValues.DEF_VAL;
 import static rotp.model.game.IGalaxyOptions.GalaxyOption.GOI;
 import static rotp.model.game.IGameOptions.DIFFICULTY_NORMAL;
 import static rotp.model.game.IGameOptions.getGameDifficultyOptions;
-import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
-import static rotp.model.game.IPreGameOptions.empiresSpreadingFactor;
 import static rotp.ui.util.IParam.langLabel;
 
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -98,16 +95,13 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	default int numberStarSystems(String size, IGameOptions opts) {
 		return GOI().getNumberStarSystems(size, opts);
 	}
-	default SafeListParam	optionsGalaxy()			{ return GOI().optionsGalaxy; }
-
-	static SafeListParam getOptionsGalaxy()		{ return GOI().optionsGalaxy; }
 	static ParamList		  getSizeSelection()		{ return GOI().sizeSelection; }
 	static ParamList		  getDifficultySelection()	{ return GOI().difficultySelection; }
 	static ParamInteger		  getAliensNumber()			{ return GOI().aliensNumber; }
 	static ParamInteger		  getGalaxyRandSource()		{ return GOI().galaxyRandSource; }
 
 	class GalaxyOption {
-		private static GalaxyOption instance;
+		public static GalaxyOption instance;
 		
 		static final GalaxyOption GOI() {
 			if (instance == null)
@@ -161,7 +155,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			}
 			return list;
 		}
-		final String getGalaxyKey(int size) {
+		private final String getGalaxyKey(int size) {
 			LinkedHashMap<String, Integer> map = sizeMap(false, null);
 			for (Entry<String, Integer> entry : map.entrySet())
 				if (size <= entry.getValue())
@@ -194,8 +188,8 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 		}	
 		// ==================== Galaxy Menu addition ====================
 		//
-		private final ParamBoolean previewNebula = new ParamBoolean(MOD_UI, "PREVIEW_NEBULA", true);
-		private final ParamInteger galaxyRandSource	= new GalaxyRandSource() ;
+		public final ParamBoolean previewNebula = new ParamBoolean(MOD_UI, "PREVIEW_NEBULA", true);
+		public final ParamInteger galaxyRandSource	= new GalaxyRandSource() ;
 		private final class GalaxyRandSource extends ParamInteger {
 			GalaxyRandSource() {
 				super(MOD_UI, "GALAXY_RAND_SOURCE", 0);
@@ -210,7 +204,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return value;
 			}
 		}
-		private final ParamBoolean showNewRaces 			= new ShowNewRaces();
+		public final ParamBoolean showNewRaces 			= new ShowNewRaces();
 		private final class ShowNewRaces extends ParamBoolean {
 			ShowNewRaces() {
 				super(MOD_UI, "SHOW_NEW_RACES", false);
@@ -223,10 +217,10 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				}
 			}
 		}
-		private final GlobalCROptions globalCROptions 	= new GlobalCROptions (BASE_UI, "OPP_CR_OPTIONS",
+		public final GlobalCROptions globalCROptions 	= new GlobalCROptions (BASE_UI, "OPP_CR_OPTIONS",
 				SpecificCROption.BASE_RACE.value);
-		private final ParamBoolean useSelectableAbilities	= new ParamBoolean(BASE_UI, "SELECT_CR_OPTIONS", false);
-		private final ParamString  shapeOption3   		= new ShapeOption3();
+		public final ParamBoolean useSelectableAbilities	= new ParamBoolean(BASE_UI, "SELECT_CR_OPTIONS", false);
+		public final ParamString  shapeOption3   		= new ShapeOption3();
 		private final class ShapeOption3 extends ParamString {
 			ShapeOption3() { super(BASE_UI, "SHAPE_OPTION_3", ""); }
 			@Override public void initDependencies(int level)	{
@@ -593,15 +587,5 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	
 		private final ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath())
 					.isCfgFile(true);
-	
-		// ==================== GUI List Declarations ====================
-		//
-		private final SafeListParam optionsGalaxy = new SafeListParam(
-				Arrays.asList(
-						showNewRaces, globalCROptions, useSelectableAbilities, shapeOption3,
-						galaxyRandSource, previewNebula,
-						empiresSpreadingFactor,
-						dynStarsPerEmpire // This one is a duplicate, but it helps readability
-						));
 	}
 }

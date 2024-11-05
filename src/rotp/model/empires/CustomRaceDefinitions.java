@@ -552,8 +552,13 @@ public class CustomRaceDefinitions  {
 			// Add existing files
 			File[] fileList = loadListing();
 			if (fileList != null)
-				for (File file : fileList)
-					add(loadOptions(file));
+				for (File file : fileList) {
+					DynOptions opt = loadOptions(file);
+					if (opt.size() == 0)
+						System.err.println("Empty race file: " + file.getName());
+					else
+						add(opt);
+				}
 
 			// Add Game races
 			for (String raceKey : IGameOptions.allRaceOptions)

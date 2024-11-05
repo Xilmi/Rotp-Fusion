@@ -1,16 +1,11 @@
 package rotp.model.game;
 
-import java.util.Arrays;
-
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamIntegerSound;
 import rotp.ui.util.ParamList;
-import rotp.ui.util.ParamSubUI;
-import rotp.ui.util.ParamTitle;
 
 public interface ICombatOptions extends IBaseOptsTools {
-	String ZOOM_GUI_ID		= "ZOOM_OPTIONS";
 
 	ParamBoolean finalReplayZoomOut	 = new ParamBoolean(MOD_UI, "ZOOM_FINAL_REPLAY", false)
 			.isCfgFile(true);
@@ -20,7 +15,7 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.isCfgFile(true);
 	default boolean empireReplayZoomOut()	{ return empireReplayZoomOut.get(); }
 
-	ParamInteger replayTurnPace		 = new ParamInteger(MOD_UI, "REPLAY_TURN_PACE" , 1)
+	ParamInteger replayTurnPace		= new ParamInteger(MOD_UI, "REPLAY_TURN_PACE" , 1)
 			.setLimits(1, 100)
 			.setIncrements(1, 5, 20)
 			.isCfgFile(true);
@@ -31,7 +26,7 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.isCfgFile(true);
 	default boolean newWeaponSound() 		{ return newWeaponSound.get(); }
 
-	ParamBoolean playerSoundEcho		= new ParamBoolean(MOD_UI, "PLAYER_SOUND_ECHO", true)
+	ParamBoolean playerSoundEcho	= new ParamBoolean(MOD_UI, "PLAYER_SOUND_ECHO", true)
 			.isCfgFile(true);
 	default boolean playerSoundEcho() 		{ return playerSoundEcho.get(); }
 
@@ -154,11 +149,11 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.pctValue(true);
 	default float echoSoundDecay()			{ return echoSoundDecay.get()/100f; }
 
-	ParamBoolean former2DShield		= new ParamBoolean(MOD_UI, "FORMER_2D_SHIELD", true)
+	ParamBoolean former2DShield				= new ParamBoolean(MOD_UI, "FORMER_2D_SHIELD", true)
 			.isCfgFile(true);
 	default boolean former2DShield()		{ return former2DShield.get(); }
 
-	ParamList shieldType			= new ParamList( MOD_UI, "NEW_WEAPON_ANIMATION", "Yes")
+	ParamList shieldType					= new ParamList( MOD_UI, "NEW_WEAPON_ANIMATION", "Yes")
 			.isCfgFile(true)
 			.showFullGuide(true)
 			.put("No",	MOD_UI + "SHIELD_TYPE_NONE") // for compatibility with former boolean
@@ -169,19 +164,19 @@ public interface ICombatOptions extends IBaseOptsTools {
 	default boolean shieldType2D()			{ return shieldType.get().equalsIgnoreCase("2D"); }
 	default boolean shieldType3Buffer()		{ return shieldType.get().equalsIgnoreCase("3B"); }
 	
-	ParamInteger playerAttackConfidence  = new ParamInteger(MOD_UI, "PLAYER_ATTACK_CONFIDENCE", 100)
+	ParamInteger playerAttackConfidence		= new ParamInteger(MOD_UI, "PLAYER_ATTACK_CONFIDENCE", 100)
 			.setLimits(100, 500)
 			.setIncrements(1, 5, 20)
 			.pctValue(true);
-	ParamInteger playerDefenseConfidence = new ParamInteger(MOD_UI, "PLAYER_DEFENSE_CONFIDENCE", 100)
+	ParamInteger playerDefenseConfidence	= new ParamInteger(MOD_UI, "PLAYER_DEFENSE_CONFIDENCE", 100)
 			.setLimits(100, 500)
 			.setIncrements(1, 5, 20)
 			.pctValue(true);
-	ParamInteger aiAttackConfidence		 = new ParamInteger(MOD_UI, "AI_ATTACK_CONFIDENCE", 100)
+	ParamInteger aiAttackConfidence			= new ParamInteger(MOD_UI, "AI_ATTACK_CONFIDENCE", 100)
 			.setLimits(100, 500)
 			.setIncrements(1, 5, 20)
 			.pctValue(true);
-	ParamInteger aiDefenseConfidence	 = new ParamInteger(MOD_UI, "AI_DEFENSE_CONFIDENCE", 100)
+	ParamInteger aiDefenseConfidence		= new ParamInteger(MOD_UI, "AI_DEFENSE_CONFIDENCE", 100)
 			.setLimits(100, 500)
 			.setIncrements(1, 5, 20)
 			.pctValue(true);
@@ -205,7 +200,7 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.put("Both",	MOD_UI + "RETREAT_BOTH");
 	default int selectedRetreatRestrictions()	{ return retreatRestrictions.getIndex(); }
 
-	ParamInteger maxCombatTurns		= new ParamInteger(MOD_UI, "MAX_COMBAT_TURNS", 100)
+	ParamInteger maxCombatTurns				= new ParamInteger(MOD_UI, "MAX_COMBAT_TURNS", 100)
 			.setDefaultValue(MOO1_DEFAULT, 50)
 			.setLimits(10, 1000)
 			.setIncrements(1, 5, 20);
@@ -278,62 +273,4 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.setIncrements(1, 2, 5);
 	default int minHighAsteroids()				{ return minHighAsteroids.get(); }
 	default int maxHighAsteroids()				{ return maxHighAsteroids.get(); }
-
-
-	// ==================== GUI List Declarations ====================
-	//
-	ParamSubUI combatOptionsUI = combatOptionsUI();
-
-	static SafeListPanel combatOptionsMap() {
-		SafeListPanel map = new SafeListPanel();
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("WEAPON_ANIMATIONS"),
-				showResultDelay,
-				newWeaponSound, playerSoundEcho,
-				echoSoundDecay, echoSoundDelay, echoSoundHullDelay,
-
-				headerSpacer,
-				beamWindupFrames, beamHoldFrames,
-				heavyBeamHoldFrames, shieldFadingFrames
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("SHIELD_ANIMATIONS"),
-				shieldType, alwaysShowsShield, 
-	
-				headerSpacer,
-				beamAnimationFPS, shieldEnveloping, shieldBorder,
-				shieldTransparency, shieldFlickering, shieldNoisePct,
-				weaponZposition, weaponZRandom,
-	
-				headerSpacer,
-				startShieldDemo
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("ASTEROIDS"),
-				moo1PlanetLocation, moo1AsteroidsLocation,
-				asteroidsVanish, moo1AsteroidsProperties,
-				headerSpacer,
-				minLowAsteroids, maxLowAsteroids,
-				minHighAsteroids, maxHighAsteroids,
-				headerSpacer,
-				baseNoAsteroidsProbPct, stepNoAsteroidsProbPct,
-				baseLowAsteroidsProbPct, stepLowAsteroidsProbPct,
-				richNoAsteroidsModPct, ultraRichNoAsteroidsModPct
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("XILMI_AI_OPTIONS"),
-				playerAttackConfidence, playerDefenseConfidence,
-				aiAttackConfidence, aiDefenseConfidence,
-
-				headerSpacer,
-				new ParamTitle("GAME_OTHER"),
-				maxCombatTurns,
-				retreatRestrictions, retreatRestrictionTurns
-				)));
-		return map;
-	};
-	static ParamSubUI combatOptionsUI() {
-		return new ParamSubUI( MOD_UI, "ZOOM_OPTIONS_UI", combatOptionsMap(),
-				"ZOOM_OPTIONS_TITLE", ZOOM_GUI_ID).isCfgFile(true);
-	}
 }

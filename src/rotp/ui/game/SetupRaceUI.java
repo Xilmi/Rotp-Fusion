@@ -46,7 +46,6 @@ import javax.swing.SwingUtilities;
 
 import rotp.model.empires.Race;
 import rotp.model.game.IGameOptions;
-import rotp.model.game.IMainOptions;
 import rotp.model.game.IRaceOptions;
 import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
@@ -54,6 +53,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.options.AllSubUI;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamString;
 import rotp.util.FontManager;
@@ -217,9 +217,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         for (int i=0; i<shipBox.length; i++)
         	shipBox[i].setBounds(xFleet, yFleet + i * shipDist, shipWidth, shipHeight);
     }
-	@Override protected void singleInit() {
-		paramList = optionsRace;
-	}
+	@Override protected void singleInit()	{ paramList = AllSubUI.optionsRace(); }
     @Override public void init() {
     	super.init();
     	leaderName.setBackground(GameUI.setupFrame());
@@ -1219,12 +1217,14 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		switch (langId) {
 			case "en":
 				buttonClick();
-				IMainOptions.specieNameOptionsUI().toggle(null, GUI_ID, this);
+//				IMainOptions.specieNameOptionsUI().toggle(null, GUI_ID, this);
+				AllSubUI.nameSubUI().toggle(null, GUI_ID, this);
 				setVisible(false);
 				return;
 			case "fr":
 				buttonClick();
-				IMainOptions.specieNameOptionsFrUI().toggle(null, GUI_ID, this);
+//				IMainOptions.specieNameOptionsFrUI().toggle(null, GUI_ID, this);
+				AllSubUI.nameFrSubUI().toggle(null, GUI_ID, this);
 				setVisible(false);
 				return;
 			default:

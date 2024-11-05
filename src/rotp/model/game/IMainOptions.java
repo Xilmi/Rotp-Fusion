@@ -54,14 +54,11 @@ import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamOptions;
 import rotp.ui.util.ParamSpeciesName;
 import rotp.ui.util.ParamString;
-import rotp.ui.util.ParamSubUI;
-import rotp.ui.util.ParamTitle;
 import rotp.util.FontManager;
 import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
 
 public interface IMainOptions extends IDebugOptions, ICombatOptions {
-	String DEBUG_GUI_ID		    = "DEBUG_OPTIONS";
 	String WINDOW_MODE			= "GAME_SETTINGS_WINDOWED";
 	String BORDERLESS_MODE		= "GAME_SETTINGS_BORDERLESS";
 	String FULLSCREEN_MODE		= "GAME_SETTINGS_FULLSCREEN";
@@ -835,136 +832,4 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	ParamBoolean scoutAndColonyOnly	= new ParamBoolean(MOD_UI, "SCOUT_AND_COLONY_ONLY", false)
 			.isCfgFile(true);
 	default boolean scoutAndColonyOnly()		{ return scoutAndColonyOnly.get(); }
-
-	// ==================== GUI List Declarations ====================
-	//
-	String NAME_GUI_ID	= "NAME_OPTIONS";
-	static ParamSubUI specieNameOptionsUI() {
-		return new ParamSubUI( MOD_UI, "NAME_OPTIONS_UI", specieNameOptionsMap(),
-				"NAME_OPTIONS_TITLE", NAME_GUI_ID).isCfgFile(true);
-	}
-	static SafeListPanel specieNameOptionsMap()	{
-		SafeListPanel map = new SafeListPanel();
-		map.add(new SafeListParam(Arrays.asList(
-				altairi, ursinathi,
-				nazlok, human,
-				kholdan, meklonar,
-				fiershan, mentaran,
-				ssslaura, cryslonoid,
-
-				headerSpacer,
-				moo1SpeciesName,
-				clearSpeciesName,
-
-				headerSpacer,
-				activateSpeciesName
-				)));
-		return map;
-	}
-	static ParamSubUI specieNameOptionsFrUI() {
-		return new ParamSubUI( MOD_UI, "NAME_OPTIONS_FR_UI", specieNameOptionsMapFr(),
-				"NAME_OPTIONS_FR_TITLE", NAME_GUI_ID).isCfgFile(true);
-	}
-	static SafeListPanel specieNameOptionsMapFr()	{
-		SafeListPanel map = new SafeListPanel();
-		map.add(new SafeListParam(Arrays.asList(
-				altairiFr, ursinathiFr,
-				nazlokFr, humanFr,
-				kholdanFr, meklonarFr,
-				fiershanFr, mentaranFr,
-				ssslauraFr, cryslonoidFr,
-
-				headerSpacer,
-				moo1SpeciesName,
-				clearSpeciesName,
-
-				headerSpacer,
-				activateSpeciesName
-				)));
-		return map;
-	}
-
-	static SafeListParam vanillaSettingsUI() {
-		SafeListParam options  = new SafeListParam(
-				Arrays.asList(
-						displayMode, graphicsMode,
-						texturesMode, sensitivityMode,
-						selectedScreen,
-
-						null,
-						soundVolume, musicVolume,
-						//debugShowMemory,
-						colorSet, gameOverTitles,
-						defaultSettings,
-						
-						null,
-						// IConvenienceOptions.autoColonize_, IConvenienceOptions.autoBombard_,
-						backupTurns, backupKeep, saveDirectory,
-						originalSpeciesOnly, showAllAI,
-
-						null,
-						disableAutoHelp, disableAdvisor,
-						commonOptionsUI(),
-						ICombatOptions.combatOptionsUI(),
-						IDebugOptions.debugOptionsUI()
-						));
-		return options;
-	}
-	static SafeListPanel commonOptionsMap()	{
-		SafeListPanel map = new SafeListPanel();
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("COMPUTER_OPTIONS"),
-				graphicsMode, texturesMode, sensitivityMode,
-				soundVolume, musicVolume,
-
-				headerSpacer,
-				new ParamTitle("MENU_APPEARANCE"),
-				colorSet, galaxyPreviewColorStarsSize,
-				minListSizePopUp, menuStartup,
-				noFogOnIcons, showAlternateAnimation,
-				useFusionFont, compactOptionOnly,
-				loadSaveWidth
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("ZOOM_FONT"),
-				mapFontFactor, showNameMinFont, showInfoFontRatio,
-
-				headerSpacer,
-				new ParamTitle("ZOOM_FLEET"),
-				showFleetFactor, showFlagFactor, showPathFactor,
-
-				headerSpacer,
-				new ParamTitle("ZOOM_REPLAY"),
-				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace,
-
-				headerSpacer,
-				new ParamTitle("GAME_OTHER"),
-				shipBasedMissiles,
-				scoutAndColonyOnly
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("BACKUP_OPTIONS"),
-				backupTurns, backupKeep, saveDirectory,
-
-				headerSpacer,
-				new ParamTitle("GAME_UI_PREFERENCES"),
-				showPendingOrders,
-				raceStatusLog, disableAdvisor, disableAutoHelp,
-				originalSpeciesOnly, displayFreeTech,
-
-				// headerSpacer,
-				// new ParamTitle("GAME_VARIOUS"),
-				headerSpacer,
-				new ParamTitle("SUB_PANEL_OPTIONS"),
-				IDebugOptions.debugOptionsUI(),
-				ICombatOptions.combatOptionsUI(),
-				specieNameOptionsUI(), specieNameOptionsFrUI()
-				)));
-		return map;
-	};
-	String COMMON_GUI_ID	= "COMMON_OPTIONS";
-	static ParamSubUI commonOptionsUI() {
-		return new ParamSubUI( MOD_UI, COMMON_GUI_ID, commonOptionsMap())
-				.isCfgFile(false);
-	}
 }

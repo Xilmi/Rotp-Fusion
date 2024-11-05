@@ -1,16 +1,10 @@
 package rotp.model.game;
 
-import java.util.Arrays;
-
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
-import rotp.ui.util.ParamSubUI;
-import rotp.ui.util.ParamTitle;
 
 public interface IIronmanOptions extends IBaseOptsTools {
-	String IRONMAN_GUI_ID	= "IRONMAN_OPTIONS";
-
 	ParamList ironmanMode	= new ParamList( MOD_UI, "IRONMAN_MODE", "Off")
 			.showFullGuide(true)
 			.isValueInit(false)
@@ -44,30 +38,4 @@ public interface IIronmanOptions extends IBaseOptsTools {
 
 	ParamBoolean allowSpeciesDetails	= new ParamBoolean(MOD_UI, "ALLOW_SPECIES_DETAILS", true);
 	default boolean allowSpeciesDetails()	{ return allowSpeciesDetails.get(); }
-
-
-	// ==================== GUI List Declarations ====================
-	//
-	ParamSubUI ironmanOptionsUI = ironmanOptionsUI();
-
-	static SafeListPanel ironmanOptionsMap() {
-		SafeListPanel map = new SafeListPanel();
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("IRONMAN_MAIN"),
-				ironmanMode
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("IRONMAN_CUSTOM"),
-				IGameOptions.fixedEventsMode,
-				persistentArtifact,
-				ironmanNoLoad, ironmanLoadDelay,
-				researchMoo1, persistentRNG,
-				allowSpeciesDetails
-				)));
-		return map;
-	};
-	static ParamSubUI ironmanOptionsUI() {
-		return new ParamSubUI( MOD_UI, "IRONMAN_OPTIONS_UI", ironmanOptionsMap(),
-				"IRONMAN_OPTIONS_TITLE", IRONMAN_GUI_ID).isCfgFile(true);
-	}
 }

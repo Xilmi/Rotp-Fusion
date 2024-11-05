@@ -69,6 +69,14 @@ Later:
 
 ## What's New
 
+2024.11.05 (BR)
+- Options panel reorganisation.
+  - Options lists are separated from options declarations.
+  - Options lists have a central management.
+
+2024.11.05 (Frank Zago)
+- French translations and fixes.
+
 2024.11.03 (BR)
 - Fixed Planet Invasion title not updating at the end of the fight.
 - Added "Alt-L" language refresh feature to most little panel without access to "Help".
