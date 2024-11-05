@@ -252,7 +252,7 @@ EVENT_SPACE_AMOEBA_1              | Une forme biologique monstrueuse surnommée 
 EVENT_SPACE_AMOEBA_2              | L'Amibe Spatiale a complètement détruit la colonie [victim_raceadjecF] dans le système [system].
 EVENT_SPACE_AMOEBA_3              | L'Amibe Spatiale a été détruite par les défenseurs [victim_race_pluraladjec] dans le système [system].
 EVENT_SPACE_AMOEBA_4              | Les scanners qui ont suivi les progrès d'une Amoeba spatiale indiquent que la créature a disparu de notre galaxie.
-EVENT_SPACE_AMOEBA_TRIG           | La SCT (Société qui Clone Tout) a incarné avec succès une horreur transdimensionnelle. Lorsqu'on leur a demandé des commentaires, les porte-parole ont dit: AAAAAAAAHHHHHHHHH !! ÇA BRÛLE !
+EVENT_SPACE_AMOEBA_TRIG           | La SCT (Société qui Clone Tout) a incarné avec succès une horreur transdimensionnelle. Lorsqu'on leur a demandé des commentaires, les porte-parole ont dit: AAAAAAAAHHHHHHHHH !! ÇA BRÛLE !
 EVENT_SPACE_AMOEBA_PLUNDER        | →EVENT_SPACE_AMOEBA_3←. L'étude de la monstruosité visqueuse a permis aux scientifiques de faire avancer leurs recherches en planétologie, et la vente de sa chair très prisée apporte [amt] BC aux coffres de l'empire.
 
 EVENT_SPACE_CRYSTAL               | Une gigantesque entité cristalline appelée «le Cristal Spatial» a été repérée s'approchant du système [system]. Les colons et les flottes [victim_race_pluraladjec] se préparent au pire.
@@ -260,19 +260,19 @@ EVENT_SPACE_CRYSTAL_1             | Une gigantesque entité cristalline appelée
 EVENT_SPACE_CRYSTAL_2             | Le Cristal Spatial a complètement détruit toute vie sur la colonie [victim_raceadjecF] dans le système [system].
 EVENT_SPACE_CRYSTAL_3             | Le Cristal Spatial a été détruit par les défenseurs [victim_race_pluraladjec] dans le système [system].
 EVENT_SPACE_CRYSTAL_4             | Le cristal spatial hideux a quitté notre galaxie. Pourquoi ? Pourquoi est-ce parti ? La galaxie ne le saura peut-être jamais.
-EVENT_SPACE_CRYSTAL_TRIG          | Les scientifiques responsables de la nouvelle technologie de la Porte des Étoiles ont déclaré : Nous regardions l'abîme, et l'abîme gronde Nom Nom Nom!
+EVENT_SPACE_CRYSTAL_TRIG          | Les scientifiques responsables de la nouvelle technologie de la Porte des Étoiles ont déclaré : Nous regardions l'abîme, et l'abîme gronde Nom Nom Nom!
 EVENT_SPACE_CRYSTAL_PLUNDER       | →EVENT_SPACE_CRYSTAL_3←.<br> La recherche actuelle en matière de propulsion pourrait être complétée par l'analyse des restes cristallins, et la vente de cristaux inférieurs rapporte [amt] BC à la réserve planétaire de l'empire.
 
 EVENT_SPACE_PIRATES               | Une flotte de pirates maraudeurs a été repérée près du système [système]. Les colons [race] et les flottes de défense se préparent au pire.
 EVENT_SPACE_PIRATES_1             | Une flotte de pirates maraudeurs a été repérée près du système non colonisé [system].
 EVENT_SPACE_PIRATES_2             | Les redoutables pirates spatiaux ont ravagé la population et pillé toute l'industrie sur la colonie [race] dans le système [systeme], dévastant l'écologie locale.
 EVENT_SPACE_PIRATES_3             | La flotte de pirates a été détruite par les défenseurs [race] dans le système [system]. Des richesses importantes trouvées dans les épaves ont été saisies par l'armée [race] pour renforcer la réserve planétaire par [amt] BC.
-EVENT_SPACE_PIRATES_4             | Les pirates spatiaux a quitté notre galaxie insignifiante ! Où sont-ils passé ? On s'en fiche, bon débarras !
+EVENT_SPACE_PIRATES_4             | Les pirates spatiaux a quitté notre galaxie insignifiante ! Où sont-ils passé ? On s'en fiche, bon débarras !
 EVENT_SPACE_PIRATES_TRIG          | La récente découverte de la Propulsion Hyper va tout changer. Par exemple, les criminels se réjouissent de leur nouvelle mobilité.
 EVENT_SPACE_PIRATES_PLUNDER       | →EVENT_SPACE_PIRATES_3←.<br> L'étude des vaisseaux pirates endommagés aide à faire avancer certains projets de recherche en cours.
 
 EVENT_RELIC_PLANETS               | Une relique des Précurseurs s'est mystérieusement activée dans l'espace [target_empireof]. Les scanners à l'échelle de la galaxie rapportent la formation de nouvelles planètes dans plusieurs systèmes solaires précédemment vides après des événements de coalescence intense d'astéroïdes. Les scientifiques [target_race] ont également récolté plusieurs technologies de construction à partir de la relique.
-EVENT_RELIC_PLANETS_NO_CONTACT    | Nos astronomes sont sidérés ! Les scanners à l'échelle de la galaxie rapportent la formation de nouvelles planètes dans plusieurs systèmes solaires précédemment vides après des événements de coalescence intense d'astéroïdes.
+EVENT_RELIC_PLANETS_NO_CONTACT    | Nos astronomes sont sidérés ! Les scanners à l'échelle de la galaxie rapportent la formation de nouvelles planètes dans plusieurs systèmes solaires précédemment vides après des événements de coalescence intense d'astéroïdes.
 EVENT_RELIC_GAUNTLET              | La moitié de la vie galactique a été effacée après l'activation d'un gantelet Précurseur avec sept pierres précieuses intégrées. Les scientifiques [target_race] qui étudient la relique ont nié leur responsabilité. Des enquêteurs tiers remettent en question l'augmentation de la capacité sur de nombreuses planètes [target_empire] et les nouvelles technologies de Planétologie.
 EVENT_RELIC_GAUNTLET_NO_CONTACT   | La moitié de toute la vie galactique a été effacée, probablement après l'activation du légendaire gantelet Précurseur avec sept pierres précieuses intégrées.
 EVENT_SIZEBOOST                   | Les archéologues explorant le monde [target_race] dans le système [system] ont révélé des cavernes souterraines massives. Ces chambres géologiquement stables sont habitables et ont considérablement augmenté la taille de la planète.
@@ -334,7 +334,7 @@ INC_CAPTURED_COLONY_DESC          | Les troupes de [attacker_empire] ont envahi 
 INC_DESTROYED_COLONY_TITLE        | Colonie détruite
 INC_DESTROYED_COLONY_DESC         | Une flotte [attacker_empireof] a complètement détruit le monde [defender_raceadjec] dans [system]. [amt] millions de citoyens ont été perdus.
 INC_FIRST_CONTACT_TITLE           | Premier contact
-INC_FIRST_CONTACT_DESC            | Le premier contact a été établi avec [your_empire]. Méfiez-vous !
+INC_FIRST_CONTACT_DESC            | Le premier contact a été établi avec [your_empire]. Méfiez-vous !
 INC_INVADED_COLONY_TITLE          | Colonie envahie
 INC_INVADED_COLONY_DESC           | Des troupes [attacker_race_pluralnounof] ont envahi mais n'ont pas réussi à capturer le monde [defender_raceadjec] dans [system]. [amt] millions de citoyens ont été perdus.
 INC_COUNCIL_VOTE_TITLE            | Vote du Conseil
@@ -398,7 +398,7 @@ INC_EXPANSION_TITLE               | Expansion
 INC_EXPANSION_DESC                | Avec le contrôle de [num] systèmes, [your_empire] est devenu trop grand.
 INC_GENOCIDE_TITLE                | Génocide
 INC_GENOCIDE_DESC                 | [attacker_empire] a complètement détruit la race [victim_raceadjecF].
-INC_FINAL_WAR_TITLE               | Guerre Finale !
+INC_FINAL_WAR_TITLE               | Guerre Finale !
 INC_FINAL_WAR_DESC                | [rebel_empire] s'est rebellé contre la décision du Conseil Galactique, ce qui a entraîné un appel à son éradication complète par les forces alliées restantes de la galaxie.
 INC_MILITARY_BUILDUP_TITLE        | Réarmement
 INC_MILITARY_BUILDUP_DESC         | [your_empire] assemble une flotte armée à [system].
@@ -486,7 +486,7 @@ GAME_SETTINGS_GRAPHICS_HIGH_HELP  | Qualité graphique supérieure, avec des ima
 GAME_SETTINGS_GRAPHICS_HIGH       | Élevé
 GAME_SETTINGS_GRAPHICS_RETINA_HELP | Pour ordinateur Apple avec écrans rétina, avec Retina bitmaps, graphismes supérieurs, anticrénelages et images animées.
 GAME_SETTINGS_GRAPHICS_RETINA      | Retina
-GAME_SETTINGS_GRAPHICS_DESC       | Ajustement de la qualité graphique du jeu. Moyen : l'anticrénelage des images est désactivé. Faible : les animations sont désactivées.
+GAME_SETTINGS_GRAPHICS_DESC       | Ajustement de la qualité graphique du jeu. Moyen : l'anticrénelage des images est désactivé. Faible : les animations sont désactivées.
 GAME_SETTINGS_TEXTURES            | Textures: %1
 GAME_SETTINGS_TEXTURES_NO_HELP    | Pas de textures pour les cartes graphiques très anciennes.
 GAME_SETTINGS_TEXTURES_NO         | Aucunes
@@ -500,31 +500,31 @@ GAME_SETTINGS_TEXTURES_DESC       | Ajustement de l'utilisation des textures sur
 GAME_SETTINGS_SENSITIVITY         | Sensibilité du Survol: %1
 GAME_SETTINGS_SENSITIVITY_HIGH_HELP   | Une réponse plus rapide avec une exigence plus élevée de CPU, mais peut également causer de la fatigue oculaire.
 GAME_SETTINGS_SENSITIVITY_HIGH    | Haute
-GAME_SETTINGS_SENSITIVITY_MEDIUM_HELP | Généralement suffisant !
+GAME_SETTINGS_SENSITIVITY_MEDIUM_HELP | Généralement suffisant !
 GAME_SETTINGS_SENSITIVITY_MEDIUM  | Moyenne
 GAME_SETTINGS_SENSITIVITY_LOW_HELP    | Réponse la plus lente avec un minimum de CPU.
 GAME_SETTINGS_SENSITIVITY_LOW     | Faible
 GAME_SETTINGS_SENSITIVITY_DESC    | Ajustement de la vitesse à laquelle la carte de la galaxie répond au mouvement de la souris lors de la mise à jour du panneau d'affichage.  ([Reserve (GC)] {Reserve (min)} Utilisée / Allouée / Disponible (Usage Max / Max Allouée) / Threads)
-GAME_SETTINGS_MEMORY              | Mémoire utilisée : %1
+GAME_SETTINGS_MEMORY              | Mémoire utilisée : %1
 GAME_SETTINGS_MEMORY_YES          | Affiche
 GAME_SETTINGS_MEMORY_NO           | Ignore
 GAME_SETTINGS_MEMORY_YES_DESC     | L'utilisation de la mémoire est affichée dans le coin inférieur droit.
 GAME_SETTINGS_MEMORY_NO_DESC      | Pas de statistics.
 GAME_SETTINGS_MEMORY_DESC         | Activer ou désactiver l'affichage des statistiques d'utilisation de la mémoire dans le coin inférieur droit de la fenêtre. Pratique for visualiser l'utilisation de la mémoire.
-GAME_SETTINGS_MORE_MEMORY             | Console Plus de Mémoire : %1
+GAME_SETTINGS_MORE_MEMORY             | Console Plus de Mémoire : %1
 GAME_SETTINGS_MORE_MEMORY_YES         | Oui
 GAME_SETTINGS_MORE_MEMORY_NO          | Non
 GAME_SETTINGS_MORE_MEMORY_DESC        | Change la sortie console des statistiques d'utilisation de mémoire étendue au début et à la fin du tour, et lors du chargement d'un jeu.
 
-GAME_SETTINGS_MEMORY_CONSOLE      | Stat. mémoire -> Console : %1
+GAME_SETTINGS_MEMORY_CONSOLE      | Stat. mémoire -> Console : %1
 GAME_SETTINGS_MEMORY_CONSOLE_DESC | Active/Désactive l'écriture sur la console des statistiques d'utilisation de la mémoire au début et à la fin de chaque tour.
-GAME_SETTINGS_MEMORY_FILE         | Stat. mémoire -> Fichiers : %1
+GAME_SETTINGS_MEMORY_FILE         | Stat. mémoire -> Fichiers : %1
 GAME_SETTINGS_MEMORY_FILE_DESC    | Active/Désactive l'écriture dans le fichier des statistiques d'utilisation de la mémoire au début et à la fin de chaque tour.
 
-GAME_SETTINGS_SHOW_CONSOLE_PANEL      | Afficher le panneau de la console : %1
+GAME_SETTINGS_SHOW_CONSOLE_PANEL      | Afficher le panneau de la console : %1
 GAME_SETTINGS_SHOW_CONSOLE_PANEL_DESC | Change l'affichage d'une console pour d'autres interactions.
 
-SETTINGS_MOD_DEBUG_AUTO_RUN            | Exécution automatique : %1
+SETTINGS_MOD_DEBUG_AUTO_RUN            | Exécution automatique : %1
 SETTINGS_MOD_DEBUG_AUTO_RUN_DESC       | Change le statut du mode de debuggage. Le jeu ne s'arrêtera pas à la fin de chaque tour
 SETTINGS_MOD_DEBUG_AUTO_RUN_OFF        | Désactivée
 SETTINGS_MOD_DEBUG_AUTO_RUN_OFF_DESC   | Pour désactiver l'exécution automatique
@@ -535,15 +535,15 @@ SETTINGS_MOD_DEBUG_AUTO_RUN_BENCH_DESC | Le jeu ne s'arrêtera pas à la fin de 
 SETTINGS_MOD_DEBUG_AUTO_RUN_END        | Continuer
 SETTINGS_MOD_DEBUG_AUTO_RUN_END_DESC   | Pour le mode Test de référence, arrêtez le jeu actuel, enregistrez les résultats, puis continuez les tests.<br>Lorsque le joueur a perdu le jeu et que les factions restantes ne se battent plus.
 SETTINGS_MOD_NEGATIVE_DISABLED         | Désactivé
-SETTINGS_MOD_DEBUG_BM_MAX_TURNS        | Nombre de tours max du test : %1
+SETTINGS_MOD_DEBUG_BM_MAX_TURNS        | Nombre de tours max du test : %1
 SETTINGS_MOD_DEBUG_BM_MAX_TURNS_DESC   | En mode Test, le nombre maximum de tours à jouer. Arrête le jeu en cours, et commence un nouveau jeu.
-SETTINGS_MOD_DEBUG_BM_LOST_TURNS       | Tours en test : %1
-GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Se connecter à la console : %1
+SETTINGS_MOD_DEBUG_BM_LOST_TURNS       | Tours en test : %1
+GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Se connecter à la console : %1
 GAME_SETTINGS_CONSOLE_AUTO_PLAY_DESC | Une fois activé, les données enregistrées sont également affichées sur la console.
 GAME_SETTINGS_CONTINUE_ANYWAY        | Continuer quand même: %1
-GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | Le jeu continuera après la victoire ou la défaite, tant que le joueur est vivant !
-GAME_SETTINGS_SCREEN               | Écran sélectionné : %1
-GAME_SETTINGS_SELECTED_SCREEN      | Écran sélectionné : %1
+GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | Le jeu continuera après la victoire ou la défaite, tant que le joueur est vivant !
+GAME_SETTINGS_SCREEN               | Écran sélectionné : %1
+GAME_SETTINGS_SELECTED_SCREEN      | Écran sélectionné : %1
 GAME_SETTINGS_SELECTED_SCREEN_DESC | Sélectionnez l'écran sur lequel vous allez jouer. (-1 = écran principal)
 GAME_SETTINGS_SOUNDS              | Sons: %1
 GAME_SETTINGS_SOUNDS_OFF          | Muet
@@ -555,20 +555,20 @@ GAME_SETTINGS_MUSIC               | Musique: %1
 GAME_SETTINGS_MUSIC_OFF           | Muet
 GAME_SETTINGS_MUSIC_ON            | %1/10
 GAME_SETTINGS_MUSIC_DESC          | Cliquez pour désactiver ou réactiver la musique dans le jeu. Utilisez la molette de la souris pour augmenter ou diminuer le volume.
-GAME_SETTINGS_AUTOCOLONIZE        | Colonisation : %1
+GAME_SETTINGS_AUTOCOLONIZE        | Colonisation : %1
 GAME_SETTINGS_AUTOCOLONIZE_YES_DESC | Automatiquement
 GAME_SETTINGS_AUTOCOLONIZE_NO_DESC  | Toujours demander.
 GAME_SETTINGS_AUTOCOLONIZE_DESC   | Basculez pour auto-coloniser et nommer les planètes dès l'arrivée des vaisseaux coloniaux. Cela peut faire gagner du temps sur de très grandes cartes.
-GAME_SETTINGS_AUTOBOMBARD         | Bombardements : %1
+GAME_SETTINGS_AUTOBOMBARD         | Bombardements : %1
 GAME_SETTINGS_AUTOBOMBARD_NO      | Toujours demander.
 GAME_SETTINGS_AUTOBOMBARD_NEVER   | Jamais
 GAME_SETTINGS_AUTOBOMBARD_YES     | Toujours
 GAME_SETTINGS_AUTOBOMBARD_WAR     | Seulement en guerre
 GAME_SETTINGS_AUTOBOMBARD_INVADE  | Seulement en guerre et pas invasion
-GAME_SETTINGS_AUTOBOMBARD_NO_HELP     | Pas d'automatisation ! Toujours demander des commandes fraîches!
-GAME_SETTINGS_AUTOBOMBARD_NEVER_HELP  | Pas de question ! Ne jamais bombarder!
-GAME_SETTINGS_AUTOBOMBARD_YES_HELP    | La galaxie est à nous ! Refoulons les faibles et réclamons notre dû !
-GAME_SETTINGS_AUTOBOMBARD_WAR_HELP    | Annihilez nos ennemis déclarés, demandez conseil pour d'autres empires !
+GAME_SETTINGS_AUTOBOMBARD_NO_HELP     | Pas d'automatisation ! Toujours demander des commandes fraîches!
+GAME_SETTINGS_AUTOBOMBARD_NEVER_HELP  | Pas de question ! Ne jamais bombarder!
+GAME_SETTINGS_AUTOBOMBARD_YES_HELP    | La galaxie est à nous ! Refoulons les faibles et réclamons notre dû !
+GAME_SETTINGS_AUTOBOMBARD_WAR_HELP    | Annihilez nos ennemis déclarés, demandez conseil pour d'autres empires !
 GAME_SETTINGS_AUTOBOMBARD_INVADE_HELP | Annihilez nos ennemis déclarés si aucune invasion n'est prévue, demandez conseil autrement.
 GAME_SETTINGS_AUTOBOMBARD_HELP    | Que faire lorsque votre flotte armée est en orbite autour d'un empire extraterrestre? Devrions-nous les bombarder ou les laisser seuls ?
 GAME_SETTINGS_AUTOBOMBARD_DESC    | Basculez pour toujours inviter à bombarder, ne jamais bombarder, toujours bombarder, uniquement bombarder automatiquement en cas de guerre, ou uniquement bombarder automatiquement en cas de guerre sans forces d'invasion en route.
@@ -576,43 +576,43 @@ GAME_SETTINGS_BACKUP_OFF          | Désactivé
 GAME_SETTINGS_BACKUP_ON           | Tout/tous %1 tours
 GAME_SETTINGS_BACKUP              | Archive: %1
 GAME_SETTINGS_BACKUP_DESC         | Activer pour que votre jeu en cours soit enregistré périodiquement dans le dossier d'archive avec un nom unique, vous permettant de recharger à partir des tours précédents.
-GAME_SETTINGS_BACKUP_KEEP          | Suppr. auto. : conserver %1
+GAME_SETTINGS_BACKUP_KEEP          | Suppr. auto. : conserver %1
 GAME_SETTINGS_BACKUP_KEEP_DESC     | Lorsque la suppression automatique de sauvegarde est activée, les fichiers de sauvegarde les plus anciens seront envoyés à la corbeille.<br> -1 = Tout garder; la suppression automatique de sauvegarde est désactivée.
 GAME_SETTINGS_BACKUP_KEEP_ALL      | Tous
 GAME_SETTINGS_BACKUP_KEEP_ALL_DESC | Désactiver la suppression automatique de sauvegarde.
-GAME_SETTINGS_SAVEDIR             | Répertoire d'enregistrement : %1
+GAME_SETTINGS_SAVEDIR             | Répertoire d'enregistrement : %1
 GAME_SETTINGS_SAVEDIR_DEFAULT     | Défaut
 GAME_SETTINGS_SAVEDIR_CUSTOM      | Personnalisé
-GAME_SETTINGS_SAVEDIR_HELP        | Pour sélectionner un répertoire pour enregistrer vos fichiers : Par défaut, c'est le même répertoire que le jeu.
+GAME_SETTINGS_SAVEDIR_HELP        | Pour sélectionner un répertoire pour enregistrer vos fichiers : Par défaut, c'est le même répertoire que le jeu.
 GAME_SETTINGS_SAVEDIR_DESC1       | Le répertoire de sauvegarde est actuellement défini sur le même répertoire que le jeu.
 GAME_SETTINGS_SAVEDIR_DESC2       | Le répertoire de sauvegarde est actuellement défini sur: %1
 
 // Load Game UI
-GAME_SETTINGS_DISPLAY_YEAR        | Afficher l'Année : %1
+GAME_SETTINGS_DISPLAY_YEAR        | Afficher l'Année : %1
 GAME_SETTINGS_DISPLAY_YEAR_DESC   | Sur l'écran Galaxie: Affiche soit le tour actuel du jeu ou l'année en cours de votre empire
-GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH          | Rechercher : %1
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH          | Rechercher : %1
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_YES_DESC | Les dépenses excédentaires des colonies sont détournées vers la recherche.
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_NO_DESC  | Les dépenses excédentaires des colonies sont versées au Trésor.
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC     | Les dépenses excédentaires des colonies sont reversées à la recherche.
-GAME_SETTINGS_DEFAULT_MAX_BASES              | Nombre max. de bases : %1
+GAME_SETTINGS_DEFAULT_MAX_BASES              | Nombre max. de bases : %1
 GAME_SETTINGS_DEFAULT_MAX_BASES_DESC         | Nombre maximal de bases de missiles par défaut pour les nouvelles colonies.
 SETTINGS_MOD_DISABLE_ADVISOR_YES_DESC | Désactivé
 SETTINGS_MOD_DISABLE_ADVISOR_NO_DESC  | Activé
-SETTINGS_MOD_DISABLE_ADVISOR      | Désactiver le conseiller : %1
+SETTINGS_MOD_DISABLE_ADVISOR      | Désactiver le conseiller : %1
 SETTINGS_MOD_DISABLE_ADVISOR_DESC | Activer / Désactiver l'affichage automatique des conseils de l'écran Galaxie lors du démarrage d'un nouveau jeu.
 SETTINGS_MOD_DISABLE_AUTO_HELP_YES        | Oui
 SETTINGS_MOD_DISABLE_AUTO_HELP_NO         | Non
 SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER      | Jamais
-SETTINGS_MOD_DISABLE_AUTO_HELP            | Désactiver l'aide automatique : %1
+SETTINGS_MOD_DISABLE_AUTO_HELP            | Désactiver l'aide automatique : %1
 SETTINGS_MOD_DISABLE_AUTO_HELP_DESC       | Activer / Désactiver l'affichage automatique de l'aide dans l'écran Galaxie lors du démarrage d'un nouveau jeu.
 SETTINGS_MOD_DISABLE_AUTO_HELP_YES_DESC   | Oui (Mais sera montré à nouveau si vous supprimez Remnant.cfg)
 SETTINGS_MOD_DISABLE_AUTO_HELP_NO_DESC    | Non (mais ne sera affiché qu'une seule fois)
-SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER_DESC | Je suis fan de ces pop-ups, garde-les !
+SETTINGS_MOD_DISABLE_AUTO_HELP_NEVER_DESC | Je suis fan de ces pop-ups, garde-les !
 MOO1_HK        | MoO1
 CLASSIC_HK     | RotP-Classic
 FUSION_HK      | RotP-Fusion
 CURRENT_DEF_HK | <br>(Les valeurs par défaut sélectionnées proviennent de
-SETTINGS_MOD_DEFAULT_SETTINGS       | Paramètres par défaut : %1
+SETTINGS_MOD_DEFAULT_SETTINGS       | Paramètres par défaut : %1
 SETTINGS_MOD_DEFAULT_IS_FUSION      | Fusion
 SETTINGS_MOD_DEFAULT_IS_FUSION_NOW  | →CURRENT_DEF_HK← →MOO1_HK←).
 SETTINGS_MOD_DEFAULT_IS_MOO1        | MoO1
@@ -635,7 +635,7 @@ LOAD_GAME_BAD_VERSION             | Impossible de charger le fichier de jeu enre
 LOAD_GAME_CANCEL                  | Annuler
 LOAD_GAME_OK                      | Charger
 LOAD_GAME_TOO_LONG                | ...
-LOAD_GAME_RECENT_START_SAVEFILE   | !!! Rejouer le dernier tour !!!
+LOAD_GAME_RECENT_START_SAVEFILE   | !!! Rejouer le dernier tour !!!
 
 
 // Save Game UI
@@ -660,10 +660,10 @@ MAIN_NAVIGATION_COLONIES          | Colonies
 MAIN_NAVIGATION_TECH              | Tech
 MAIN_NAVIGATION_NEXT_TURN         | Tour Suivant
 MAIN_NAVIGATION_NEXT_YEAR         | Année Suivante
-MAIN_NAVIGATION_AUTO_RUN          | !!! Lancer automatiquement !!!
+MAIN_NAVIGATION_AUTO_RUN          | !!! Lancer automatiquement !!!
 MAIN_NAVIGATION_AUTO_RUN_PAUSE    | Suspendre exécution auto.
 MAIN_NAVIGATION_AUTO_RUN_AI       | Utiliser l'IA pour l'exécution automatique
-MAIN_NAVIGATION_AUTO_RUN_LOCKED   | !!! Exécution automatique (L%1 T) !!!
+MAIN_NAVIGATION_AUTO_RUN_LOCKED   | !!! Exécution automatique (L%1 T) !!!
 MAIN_NAVIGATION_NEXT_TURN_LOCKED  | Tour suivant (L%1 T)
 MAIN_NAVIGATION_NEXT_YEAR_LOCKED  | Année suivante (L%1 T)
 MAIN_NAVIGATION_LOCKED            | Verrouillage (L%1 T)
@@ -682,8 +682,8 @@ MAIN_HELP_ALL                     | Aide - cliquez pour parcourir les informatio
 MAIN_HELP_MOD                     | Aide Mod - « O » pour accéder au menu des options de jeu. « Home » dans Auto-Flag la planète sélectionnée. « Alt » + « Home » pour appliquer Auto-Flag à toutes les planètes déjà explorées.
 MAIN_HELP_MOD_1A                  | Pour activer ou désactiver le Gouverneur pour ce système solaire.
 MAIN_HELP_MOD_1B                  | Pour accéder au menu Options du gouverneur.
-MAIN_HELP_MOD_1F                  | Des alertes du tour peuvent y apparaître : Faites un clic droit sur elles pour centrer la carte sur le système. Cliquez à gauche pour afficher la prochaine alerte.
-MAIN_HELP_MOD_1I                  | Pour accéder au panneau «Options».<br>Utile pour se souvenir de nos choix de configuration.<br>Peut être modifié... Mais certaines options ne devraient pas l'être !
+MAIN_HELP_MOD_1F                  | Des alertes du tour peuvent y apparaître : Faites un clic droit sur elles pour centrer la carte sur le système. Cliquez à gauche pour afficher la prochaine alerte.
+MAIN_HELP_MOD_1I                  | Pour accéder au panneau «Options».<br>Utile pour se souvenir de nos choix de configuration.<br>Peut être modifié... Mais certaines options ne devraient pas l'être !
 MAIN_HELP_1A                      | Chaque star system divise sa production en cinq zones. Les barres grisées indiquent que la barre de production a été verrouillée et ne changera pas. Cliquez sur le nom pour verrouiller/déverrouiller.
 MAIN_HELP_1B                      | Chantier naval - construit le modèle de vaisseau sélectionné. Les gros vaisseaux peuvent prendre plusieurs tours.
 MAIN_HELP_1C                      | Défenses - construit et améliore les bases de missiles jusqu'à la limite spécifiée et les boucliers planétaires lorsqu'ils sont disponibles.
@@ -723,11 +723,11 @@ MAIN_HELP_3I                      | Tour actuel - Affiche le tour actuel du jeu 
 MAIN_HELP_3J                      | Commandes de la carte - Cliquez pour parcourir les différents paramètres d'affichage de la carte de la galaxie.
 
 MAIN_HELP_4A                      | Les assistants Min/Max garderont toujours ECO propre.<br>- Smooth Min/Max: est équivalent à cliquer sur la flèche Haut/Bas jusqu'à atteindre la cible. Les BC libérés seront redistribués intelligemment. <br>- Smart Min/Max: (Shift + Clic) effacera les dépenses débloquées, définira l'allocation Min/Max, nettoiera ECO, puis redistribuera intelligemment les BC restants.<br>- Rafraîchir: (Ctrl + Clic) effacera les dépenses débloquées puis redistribuera intelligemment les BC disponibles.
-MAIN_HELP_4B                      | Chantier naval: <br> Clic-gauche : Allocation minimale nécessaire pour construire jusqu'à la limite.<br> Clic-droit : Allocation maximale disponible.
-MAIN_HELP_4C                      | Défenses: <br> Clic-gauche : Allocation minimale nécessaire pour construire les bases demandées.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu: Allocation minimale pour construire le bouclier.
-MAIN_HELP_4D                      | Industrie: <br> Clic-gauche : Allocation minimale nécessaire pour finaliser les usines.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu: Allocation minimale nécessaire pour suivre la croissance de la population.
-MAIN_HELP_4E                      | Écologie: <br> Clic-gauche : Allocation minimale nécessaire pour finaliser la croissance.<br> Clic-droit : Allocation minimale nécessaire pour finaliser la terraformation. <br>Clic-milieu: Allocation minimale nécessaire pour rester propre.
-MAIN_HELP_4F                      | Technologie: <br>Clic-gauche : Allocation maximale disponible.<br> Clic-droit : 0 Allocation --> réallocation complète.
+MAIN_HELP_4B                      | Chantier naval: <br> Clic-gauche : Allocation minimale nécessaire pour construire jusqu'à la limite.<br> Clic-droit : Allocation maximale disponible.
+MAIN_HELP_4C                      | Défenses: <br> Clic-gauche : Allocation minimale nécessaire pour construire les bases demandées.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu: Allocation minimale pour construire le bouclier.
+MAIN_HELP_4D                      | Industrie: <br> Clic-gauche : Allocation minimale nécessaire pour finaliser les usines.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu: Allocation minimale nécessaire pour suivre la croissance de la population.
+MAIN_HELP_4E                      | Écologie: <br> Clic-gauche : Allocation minimale nécessaire pour finaliser la croissance.<br> Clic-droit : Allocation minimale nécessaire pour finaliser la terraformation. <br>Clic-milieu: Allocation minimale nécessaire pour rester propre.
+MAIN_HELP_4F                      | Technologie: <br>Clic-gauche : Allocation maximale disponible.<br> Clic-droit : 0 Allocation --> réallocation complète.
 MAIN_HELP_4G                      | Cliquez ici pour verrouiller / déverrouiller les dépenses. (en gris lorsque verrouillé)<br>Clique + Ctrl pour annuler ou restaurer les ordres des colonies. (Que vous pouvez fixer après une mise à jour technologique)<br> Ces champs sont classés par ordre de priorité lors du processus de «Tour suivant».<br> Une option est disponible pour les afficher en bleu... ou pas.
 MAIN_SYSTEM_DETAIL_PFB            | Pop %1  Usi %2  Base %3
 MAIN_SYSTEM_DETAIL_PF             | Pop %1  Usi %2
@@ -786,8 +786,8 @@ TURN_COLONY_SPENDING              | Allocations de Colonie
 
 // Fleet labels
 COLONY_VIEW_HELP_1                | Rien de fantaisiste là-bas...<br><br>Profitez juste de la vue.<br><br>«Z» pour voir uniquement le fond.<br>→HK_ESCAPE←
-HISTORY_HELP_MAIN                 | HISTORIQUE: <br>Pour voir comment la galaxie s'est développée depuis le premier tour.<br>Cela vous permet de voir tout ça ! À condition, bien sûr, que vous ayez les informations nécessaires.
-HISTORY_HELP_HK                   | →HK_HEADER← →HK_F1←<br>1-0 : Pour régler le rythme.→HK_MAP_ZOOM←→HK_MAP_ARROWS←<br>B / F : tour Précédent / Suivant<br>P : Pause <br>R : Réinitialiser<br>→HK_ESCAPE←
+HISTORY_HELP_MAIN                 | HISTORIQUE: <br>Pour voir comment la galaxie s'est développée depuis le premier tour.<br>Cela vous permet de voir tout ça ! À condition, bien sûr, que vous ayez les informations nécessaires.
+HISTORY_HELP_HK                   | →HK_HEADER← →HK_F1←<br>1-0 : Pour régler le rythme.→HK_MAP_ZOOM←→HK_MAP_ARROWS←<br>B / F : tour Précédent / Suivant<br>P : Pause <br>R : Réinitialiser<br>→HK_ESCAPE←
 MAIN_FLEET_TITLE                  | Flotte [fleet_raceadjecF]
 MAIN_FLEET_TITLE_UNKNOWN          | Flotte Inconnue
 MAIN_FLEET_IN_ORBIT               | En orbite
@@ -805,8 +805,8 @@ MAIN_FLEET_DISPLAY                | Affichage de la Flotte
 MAIN_FLEET_CHOOSE_DEST            | Choisissez la destination et le nombre de vaisseaux à envoyer.
 MAIN_FLEET_OUT_OF_RANGE_DESC      | La destination est hors de portée de la flotte, %1 a.l. de la colonie la plus proche.
 MAIN_FLEET_INVALID_RETREAT        | Les flottes en retraite ne peuvent être envoyées que dans des colonies amies
-MAIN_FLEET_ETA_UNNAMED            | Durée du trajet : %1 Années
-MAIN_FLEET_ETA_NAMED              | Durée du trajet vers %1 : %2 Années
+MAIN_FLEET_ETA_UNNAMED            | Durée du trajet : %1 Années
+MAIN_FLEET_ETA_NAMED              | Durée du trajet vers %1 : %2 Années
 MAIN_FLEET_SET_RALLY              | Ralliement
 MAIN_FLEET_AUTO_RETREAT           | Se retirer automatiquement à l'arrivée
 MAIN_FLEET_ETA_UNKNOWN            | Les scanners ne peuvent pas déterminer la destination
@@ -826,8 +826,8 @@ MAIN_RALLY_TITLE                  | Définition du Point de Ralliement
 MAIN_RALLY_PROMPT                 | Sélectionnez un système sous votre contrôle pour y envoyer des vaisseaux nouvellement construits.
 MAIN_RALLY_FORWARD                | Transférer les rallyes entrants
 MAIN_RALLY_CHAIN                  | Chaîner les Allocations avec les Portes de Étoiles
-MAIN_RALLY_TRAVEL_TIME            | Durée du trajet vers %1 : %2 Années
-MAIN_RALLY_INSTANT_TIME           | Durée du trajet vers %1 : Instantané
+MAIN_RALLY_TRAVEL_TIME            | Durée du trajet vers %1 : %2 Années
+MAIN_RALLY_INSTANT_TIME           | Durée du trajet vers %1 : Instantané
 MAIN_RALLY_WILL_CANCEL            | La sélection de cette destination effacera tout point de ralliement existant.
 MAIN_RALLY_ERROR                  | Vous devez sélectionner un système sous votre contrôle.
 MAIN_RALLY_NO_SELECTION           | Pas de Sélection
@@ -839,7 +839,7 @@ MAIN_RALLY_STOP                   | Arrêter le Rallye
 MAIN_TRANSPORTS_EMPIRE            | Transports [empire_race]
 MAIN_TRANSPORTS_COUNT             | %1 Transports
 MAIN_TRANSPORTS_CANCEL            | Annuler
-MAIN_TRANSPORTS_SHOW_DEST         | Durée du trajet vers %1 : %2 Années
+MAIN_TRANSPORTS_SHOW_DEST         | Durée du trajet vers %1 : %2 Années
 MAIN_TRANSPORT_TITLE              | Envoi de Transports
 MAIN_TRANSPORT_ABANDON_TITLE      | Abandonner le Système
 MAIN_TRANSPORT_PROMPT             | Sélectionnez un système colonisé vers lequel envoyer des vaisseaux de transport civils ou militaires.
@@ -848,7 +848,7 @@ MAIN_TRANSPORT_SELECT_POP         | Sélectionnez la population civile à envoye
 MAIN_TRANSPORT_SELECT_TROOPS      | Sélectionnez le nombre d'unités militaires à envoyer (jusqu'à la moitié de la population de %1).
 MAIN_TRANSPORT_POP_LABEL          | Population
 MAIN_TRANSPORT_TOTAL_POP_LABEL    | Population Totale: %1
-MAIN_TRANSPORT_ETA                | Durée du trajet vers %1 : %2 Années
+MAIN_TRANSPORT_ETA                | Durée du trajet vers %1 : %2 Années
 MAIN_TRANSPORT_ERROR              | Vous devez sélectionner un système colonisé.
 MAIN_TRANSPORT_ABANDON_ERROR      | Vous devez sélectionner un système %1.
 MAIN_TRANSPORT_OUT_OF_RANGE       | Ce système est hors de portée de nos transports militaires.
@@ -908,8 +908,8 @@ MAIN_COLONY_COMPLETION_YEAR       | 1 An
 MAIN_COLONY_COMPLETION_YEARS      | %1 Ans
 MAIN_COLONY_COMPLETION_CENTURY    | %1 Ans
 MAIN_COLONY_COMPLETION_PER_YEAR   | %1/An
-MAIN_COLONY_SHIPYARD_COMPLETED    | Complété : %1
-MAIN_COLONY_SHIPYARD_LIMIT        | Limite :
+MAIN_COLONY_SHIPYARD_COMPLETED    | Complété : %1
+MAIN_COLONY_SHIPYARD_LIMIT        | Limite :
 MAIN_COLONY_SHIPYARD_LIMIT_NONE   | Aucune
 MAIN_COLONY_SHIPYARD_CONSTRUCTION | Flotte en Construction
 MAIN_COLONY_RELOCATE_LABEL        | Fixer Pt. Ralliement
@@ -923,25 +923,25 @@ MAIN_ADVISOR_TITLE                | %1 Conseiller
 MAIN_ADVISOR_BUTTON_OK            | Vous pouvez disposer
 MAIN_ADVISOR_SCOUT                | Monseigneur, nos explorateurs se tiennent prêts à découvrir un nouveau monde afin que nos vaisseaux de colonies ajoutent le territoire à notre illustre souveraineté.
 MAIN_ADVISOR_TRANSPORT            | Un monde nouveau porte notre bannière, mais il grandit à un rythme inhibé. L'envoi d'un transport dans la colonie lui permettra de croître à un rythme beaucoup plus rapide.
-MAIN_ADVISOR_DIPLOMACY            | Une autre civilisation spatiale s'est révélée ! Nos diplomates observeront tous les décorums appropriés en votre nom, et prendront note avec attention s'ils répondent de la même manière.
+MAIN_ADVISOR_DIPLOMACY            | Une autre civilisation spatiale s'est révélée ! Nos diplomates observeront tous les décorums appropriés en votre nom, et prendront note avec attention s'ils répondent de la même manière.
 MAIN_ADVISOR_SHIP_ENGINE          | Nos plus grands esprits ont conçu un nouveau moteur plus efficace. Ils souhaitent que vous revoyiez les schémas existants et que vous décidiez de la meilleure façon d'appliquer les nouveaux moteurs à nos flottes.
 MAIN_ADVISOR_RALLY_POINTS         | Notre ère de paix ne peut se poursuivre tant qu'une espèce indigne fait la guerre à notre glorieux empire. Les citoyens de l'Empire se tiennent unis sous vous, et assembleront leurs flottes partout où vous les dirigerez.
 MAIN_ADVISOR_MISSILE_BASES        | Avec les flottes souveraines engagées dans la bataille, nos mondes extérieurs sont vulnérables à l'agression ennemie. Nous pouvons commencer notre construction de bases de missiles défensives sur n'importe quel monde que vous désirez.
 MAIN_ADVISOR_SHIP_WEAPON          | Nos chercheurs ont eu une percée en matière d'armement des vaisseaux. Les flottes peuvent à tout moment être équipées de ces technologies dévastatrices.
 MAIN_ADVISOR_COUNCIL              | Le Conseil Galactique se réunira bientôt, et notre présence sera sans doute très souhaitée. Nos diplomates saisiront cette occasion pour faire en sorte que tout ce qui est décidé contribue au bien de la souveraineté.
 MAIN_ADVISOR_REBELLION            | Ah, une rébellion sur %1. Comme c'est bizarre. Je suppose que cela devait arriver à un certain moment, mon seigneur, mais nous devrions quand même la réprimer avant que le mécontentement ne s'étende à nos autres colonies.
-MAIN_ADVISOR_RESIST_COUNCIL       | Seigneur ! Nous sommes avec vous ! Il n'y aura pas de paix dans cette galaxie jusqu'à ce que tu prennes ta place légitime sur son trône suprême !
+MAIN_ADVISOR_RESIST_COUNCIL       | Seigneur ! Nous sommes avec vous ! Il n'y aura pas de paix dans cette galaxie jusqu'à ce que tu prennes ta place légitime sur son trône suprême !
 MAIN_ADVISOR_COUNCIL_RESISTED     | Pathétique. Voyez comment les imbéciles luttent contre l'inévitable ? Donnez-nous l'ordre d'écraser ces rebelles, et nous le ferrons!
 MAIN_SCOUT_TITLE                  | Les Scientifiques Cataloguent un Nouveau Système Stellaire
 MAIN_SCOUT_SUBTITLE_1             | Nos vaisseaux ont repéré ce système
 MAIN_SCOUT_SUBTITLE_2             | Nos astronomes ont collecté ces données
 MAIN_SCOUT_SUBTITLE_3             | Nos alliés ont partagé ces données
-MAIN_SCOUT_TYPE                   | Classification: %1      Taille : %2
+MAIN_SCOUT_TYPE                   | Classification: %1      Taille : %2
 MAIN_SCOUT_NO_PLANET              | Aucune Planète Habitable Trouvée
-MAIN_SCOUT_HOSTILE_DESC           | Environnement : Hostile - La croissance démographique est divisée par deux.
+MAIN_SCOUT_HOSTILE_DESC           | Environnement : Hostile - La croissance démographique est divisée par deux.
 MAIN_SCOUT_FERTILE_DESC           | Environnement: Fertile - La croissance démographique est de +50% normale.
 MAIN_SCOUT_GAIA_DESC              | Environnement: Gaïa - La croissance démographique est de +100% normale.
-MAIN_SCOUT_ARTIFACTS_DESC         | Ruines Antariennes : La recherche est doublée.
+MAIN_SCOUT_ARTIFACTS_DESC         | Ruines Antariennes : La recherche est doublée.
 MAIN_SCOUT_ANCIENTS_DESC          | Ancienne Planète Natale : La recherche est quadruplée.
 MAIN_SCOUT_ULTRA_POOR_DESC        | Ressources : Ultra-Pauvre - La production industrielle est réduite à un tiers.
 MAIN_SCOUT_POOR_DESC              | Ressources : Pauvre - La production industrielle est divisée par deux.
@@ -1138,10 +1138,10 @@ MAIN_BOMBARD_TARGET              | Épargne %1 pop
 MAIN_BOMBARD_DROP_ALL            | Tout larguer
 MAIN_BOMBARD_YES                 | Oui
 MAIN_BOMBARD_NO                  | Non
-MAIN_BOMBARD_POPULATION          | Population : %1
-MAIN_BOMBARD_FACTORIES           | Usines : %1
-MAIN_BOMBARD_BASES               | Bases : %1
-MAIN_BOMBARD_SHIELD              | Boucliers : %1
+MAIN_BOMBARD_POPULATION          | Population : %1
+MAIN_BOMBARD_FACTORIES           | Usines : %1
+MAIN_BOMBARD_BASES               | Bases : %1
+MAIN_BOMBARD_SHIELD              | Boucliers : %1
 MAIN_BOMBARD_COMPLETE            | Bombardement terminé.
 MAIN_BOMBARD_DESTROYED           | Colonie détruite
 MAIN_BOMBARD_DMG                 | (%1)
@@ -1155,7 +1155,7 @@ FLEETS_SELECT_FLEETS              | Sélectionner les Flottes
 FLEETS_SELECT_ALL                 | Tout Sélectionner
 FLEETS_DESELECT_ALL               | Tout Désélectionner
 FLEETS_FILTER_BY                  | Filtrer par:
-FLEETS_CONSTRUCTING_DESIGN        | Et en train de construire :
+FLEETS_CONSTRUCTING_DESIGN        | Et en train de construire :
 FLEETS_INCLUDES_SHIP_TYPE         | Déployer que vaisseaux type:
 FLEETS_SELECTED_SHIPS             | Sélectionné pour le déploiement
 FLEETS_BUILDING_DESIGN            | %1
@@ -1216,8 +1216,8 @@ FLEETS_TRANSPORTS_SYNCH           | Synchroniser
 FLEETS_TRANSPORTS_UNSYNCH         | Désynchroniser
 FLEETS_TRANSPORT_NO_ROOM          | Avertissement - La planète cible est à sa population maximale !
 FLEETS_TRANSPORT_SIZE_WARNING     | Avertissement - La planète cible ne peut supporter que %1 million !
-FLEETS_TRANSPORT_TIME             | Arrivée prévue : %1 ans
-FLEETS_TRANSPORT_TIME_RANGE       | Arrivée prévue : %1 à %2 ans
+FLEETS_TRANSPORT_TIME             | Arrivée prévue : %1 ans
+FLEETS_TRANSPORT_TIME_RANGE       | Arrivée prévue : %1 à %2 ans
 FLEETS_CANNOT_SEND_TRANSPORTS     | %1 est incapable d'envoyer des transports
 FLEETS_EXISTING_TRANSPORT         | En train d'envoyer %1 transports vers %2
 FLEETS_EXISTING_STOP              | Arrêter
@@ -1226,7 +1226,7 @@ FLEETS_HELP_ALL                   | APERÇU - Cet écran permet la gestion des f
 FLEETS_HELP_1A                    | Sélectionner les systèmes - il existe trois façons de sélectionner les systèmes : 1) en cliquant sur les systèmes sur la carte, 2) en cliquant avec le bouton droit de la souris sur la carte et 3) en utilisant les boutons «Sélectionner tout» et «Désélectionner tout».
 FLEETS_HELP_1B                    | Filtrer par - cochez les cases pour affiner la liste des systèmes sélectionnés. Il est également possible de cliquer sur les filtres pour faire défiler les options associées.
 FLEETS_HELP_1C                    | Et en train de construire - filtrez les systèmes en fonction de la conception du vaisseau en cours de construction.
-FLEETS_HELP_1D                    | Conception du vaisseau - modifiez la conception du vaisseau pour l'intégrer aux systèmes sélectionnés. Une image vide signifie que les systèmes sélectionnés construisent actuellement des conceptions différentes. Attention ! Il n'y a pas d'invite de confirmation pour cette action.
+FLEETS_HELP_1D                    | Conception du vaisseau - modifiez la conception du vaisseau pour l'intégrer aux systèmes sélectionnés. Une image vide signifie que les systèmes sélectionnés construisent actuellement des conceptions différentes. Attention ! Il n'y a pas d'invite de confirmation pour cette action.
 FLEETS_HELP_1E                    | Envoyer des transports - envoyer des transports depuis les systèmes sélectionnés vers un seul système cible.
 FLEETS_HELP_1F                    | Définir pnts. ralliement - définissez les points de ralliement pour les systèmes sélectionnés sur un seul système cible.
 FLEETS_HELP_1G                    | →FLEETS_RALLY_TO_STARGATES←<br> Commencez à rallier les systèmes sélectionnés au système le plus proche avec une Porte des Étoile.<br>- Basé sur le paramètre «→CHAIN_RALLY_SPEED_HK←».<br>- Les systèmes sélectionnés avec une Porte des Étoile ne sont pas affectés.
@@ -1238,7 +1238,7 @@ FLEETS_HELP_2D                    | Sélectionné pour le déploiement - un nomb
 FLEETS_HELP_2E                    | Déployer des flottes - déployer les flottes sélectionnées sur un seul système cible.
 
 // Select Next Tech to Research UI
-FLEETS_HELP_3A                    | Stable :<br> Le nombre maximum de populations que vous pouvez envoyer de cette planète tout en étant en mesure de recroître au même niveau, avec la barre ECO réglée à max.<br>Il revient au joueur ou au gouverneur d'ajuster la barre ECO.
+FLEETS_HELP_3A                    | Stable :<br> Le nombre maximum de populations que vous pouvez envoyer de cette planète tout en étant en mesure de recroître au même niveau, avec la barre ECO réglée à max.<br>Il revient au joueur ou au gouverneur d'ajuster la barre ECO.
 FLEETS_HELP_3B                    | Remplir:<br>Le nombre maximum de population que vous pouvez envoyer de cette planète tout en étant capable de recroissance pour remplir la planète, avec la barre ECO définie à max.<br>Il revient au joueur ou au gouverneur d'ajuster la barre ECO.
 FLEETS_HELP_3C                    | Barres de sélection des populations à envoyer:<br>- Cliquez à gauche sur le curseur = sélection de pourcentage normale.<br>- Cliquez au milieu sur le curseur = sélection de la valeur «Stable».<br>- Cliquez avec le bouton droit sur le curseur = sélection de la valeur «Remplir».<br>Ctrl+Cliquez pour basculer le remplissage automatique (Sans gouverneur) affiché en Vert sur Gris.<br>L'état de remplissage automatique par défaut est défini par l'option «→TRANSPORT_AUTO_ECO_HK←».
 FLEETS_HELP_3MAIN                 | APERÇU:<br> Cet écran permet de gérer le transport de la population et des troupes.<br>Sélectionnez la colonie de destination et la capacité du transport.<br>La colonie de destination peut être changée à volonté.
@@ -1328,7 +1328,7 @@ INVASION_REBELS_TITLE             | %1 rebelles [defender_race_pluraladjec]
 INVASION_TROOP_ARMOR_DESC         | %1 %2
 
 // GNN Text
-GNN_TITLE                         | Le Réseau d'actualités galactique [player_race_pluralnounof] rapporte :
+GNN_TITLE                         | Le Réseau d'actualités galactique [player_race_pluralnounof] rapporte :
 GNN_EMPIRE_RANKING                | %1. [empire_race_pluralnoun]
 GNN_EXTINCTION_KNOWN_VICTIM       | [victim_race_pluralnoun]
 GNN_EXTINCTION_KNOWN_KILLER       | [killer_race_pluralnoun]
@@ -1342,7 +1342,7 @@ GNN_EXPANSION_3                   | [expanding_empire] contrôle presque la majo
 GNN_ALLIANCE_FORMED               | [first_empire] a formé une alliance avec [second_empire].
 GNN_ALLIANCE_BROKEN               | L'alliance entre [first_empire] et [second_empire] a été rompue.
 GNN_FLEETS_RANKING                | Classement actuel des points forts de la flotte spatiale :
-GNN_CENSUS_RANKING                | Le classement censitaire des populations de l'empire :
+GNN_CENSUS_RANKING                | Le classement censitaire des populations de l'empire :
 GNN_PRODUCTION_RANKING            | Classements actuels de la production de l'empire :
 GNN_TECHNOLOGY_RANKING            | Leaders actuels de la technologie de pointe :
 GNN_PLAYER_REBELLION              | %1 s'est rebellé et refuse de contribuer à [rebelling_empire]. Au moins %2 millions de rebelles contrôlent la colonie. Des troupes doivent être envoyées pour réprimer le soulèvement.
@@ -1354,7 +1354,7 @@ GNN_FORM_COUNCIL                  | Dans la poursuite de la paix, des représent
 GNN_ALLY_AT_WAR                   | Notre allié, [ally_empire], est entré en guerre contre [other_empire].
 
 // Error UI text
-ERROR_TITLE                       | Une erreur est survenue  :(
+ERROR_TITLE                       | Une erreur est survenue  :(
 ERROR_MESSAGE                     | Si vous souhaitez aider à résoudre ce problème, veuillez envoyer une capture d'écran de cette interface utilisateur ainsi que le fichier de sauvegarde du jeu «recent.rotp» à Ray Fowler, ou portez-le à son attention sur le subreddit ROTP.
 ERROR_EMAIL                       | E-mail: rayfowler@fastmail.com
 ERROR_REDDIT                      | Reddit: www.Reddit.com/r/rotp
@@ -1376,7 +1376,7 @@ SETUP_GALAXY_SHAPE_LABEL          | Forme
 
 SETUP_GALAXY_SIZE_HELP            | La taille de la galaxie déterminera le nombre d'étoiles et donc le nombre maximum de joueurs.<br>Notez qu'il y a plusieurs étoiles pour certains paramètres de taille. Par exemple, une galaxie de taille moyenne peut avoir 100 ou 150 étoiles. Une grande galaxie peut avoir 225 ou 333 étoiles.<br> Chaque sélection changera le nombre d'opposants à son paramètre par défaut, qui peut ensuite être ajusté sur le panneau «Sélectionner les opposants».
 SETUP_GALAXY_SIZE_DESC            | Sélectionnez la taille de la Galaxie
-SETUP_GALAXY_SIZE                 | Taille de la Galaxie : %1
+SETUP_GALAXY_SIZE                 | Taille de la Galaxie : %1
 SETUP_GALAXY_SIZE_STAR_PER_EMPIRE | %1 é/e
 SETUP_GALAXY_SIZE_DYNAMIC_DESC    | La taille de la galaxie est fonction du nombre d'empires et du nombre sélectionné d'étoiles par empire.
 SETUP_GALAXY_SIZE_MAXIMUM_DESC    | Cette taille de galaxie est fonction de la taille de la mémoire de l'ordinateur.
@@ -1402,9 +1402,9 @@ SETUP_GALAXY_SIZE_MASSIVE5        | Colossale
 SETUP_GALAXY_SIZE_INSANE          | Insensée
 SETUP_GALAXY_SIZE_LUDICROUS       | Ridicule
 SETUP_GALAXY_SIZE_MAXIMUM         | Maximal
-SETUP_GALAXY_SHAPE_HELP           | Sélectionnez votre galaxie dans la liste des formes conventionnelles : champ stellaire, ellipse ou spirale.<br> Ou de la liste étendue ajoutée par des modders. Toutes les formes ont plusieurs variantes disponibles. Mais si vous n'aimez aucun d'elles, vous pouvez toujours essayer de créer votre propre forme à partir de textes ou de bitmaps!!!
+SETUP_GALAXY_SHAPE_HELP           | Sélectionnez votre galaxie dans la liste des formes conventionnelles : champ stellaire, ellipse ou spirale.<br> Ou de la liste étendue ajoutée par des modders. Toutes les formes ont plusieurs variantes disponibles. Mais si vous n'aimez aucun d'elles, vous pouvez toujours essayer de créer votre propre forme à partir de textes ou de bitmaps!!!
 SETUP_GALAXY_SHAPE_DESC           | Sélectionnez la forme de la Galaxie
-SETUP_GALAXY_SHAPE                | Forme : %1
+SETUP_GALAXY_SHAPE                | Forme : %1
 SETUP_GALAXY_SHAPE_OPTION_1_DESC  | Sélectionnez la première option de forme de la Galaxie
 SETUP_GALAXY_SHAPE_OPTION_1       | Sélection de la première option de forme de la Galaxie %1
 SETUP_GALAXY_SHAPE_OPTION_2_DESC  | Sélectionnez la seconde option de forme de la Galaxie
@@ -1451,7 +1451,7 @@ SETUP_GALAXY_MAP_OPTION_C1        | Option C
 SETUP_GALAXY_AGE_NORMAL           | Normale
 SETUP_GALAXY_AGE_YOUNG            | Jeune
 SETUP_GALAXY_AGE_OLD              | Ancienne
-SETUP_GALAXY_AGE_NORMAL_HELP      | Probabilité de la couleur de l'étoile :<br>Rouge : 30%&emsp Orange : 25%&emsp Jaune : 15%<br>Bleue : 15%&emsp Blanche : 10%&emsp Pourpre : 5%
+SETUP_GALAXY_AGE_NORMAL_HELP      | Probabilité de la couleur de l'étoile :<br>Rouge : 30%&emsp Orange : 25%&emsp Jaune : 15%<br>Bleue : 15%&emsp Blanche : 10%&emsp Pourpre : 5%
 SETUP_GALAXY_AGE_YOUNG_HELP       | Probabilité de couleur de l'étoile:<br>Rouge : 20%&emsp Orange : 20%&emsp Jaune : 15%<br>Bleue : 30%&emsp Blanche : 10%&emsp Pourpre : 5%
 SETUP_GALAXY_AGE_OLD_HELP         | Probabilité de couleur de l'étoile:<br>Rouge : 50%&emsp Orange : 15%&emsp Jaune : 10%<br>Bleue : 5%&emsp Blanche : 5%&emsp Pourpre : 15%
 SETUP_RANDOM_EVENTS_ON            | Activé
@@ -1460,11 +1460,11 @@ SETUP_RANDOM_EVENTS_NO_MONSTERS   | Sans monstres
 SETUP_RANDOM_EVENTS_TECH_MONSTERS | Monstres technologiques
 SETUP_RANDOM_EVENTS_ONLY_MONSTERS | Seulement des monstres
 SETUP_RANDOM_EVENTS_ON_HELP            | Tous les événements sont autorisés une fois le moment venu.
-SETUP_RANDOM_EVENTS_OFF_HELP           | !!! Laisse-moi tranquille !!! Pas d'événement aléatoire.
+SETUP_RANDOM_EVENTS_OFF_HELP           | !!! Laisse-moi tranquille !!! Pas d'événement aléatoire.
 SETUP_RANDOM_EVENTS_NO_MONSTERS_HELP   | Ok pour les événements aléatoires, mais ni d'Amibe Spatiale, de Cristal Spatial, ou de Pirates de l'Espace. <i> (Mais un événement de pirates peut se produire)</i>
 SETUP_RANDOM_EVENTS_TECH_MONSTERS_HELP | Ok pour les événements aléatoires, et les Monstres peuvent être déclenchés par des recherches pertinentes:<br>- Propulsion hyperspatiale pour les Pirates de l'Espace.<br>- Planétologie / Clonage avancé pour l'Amibe Spatiale.<br>- Propulsion / Porte des Étoiles pour le Cristal Spatial.
-SETUP_RANDOM_EVENTS_ONLY_MONSTERS_HELP | Seulement des monstres : Aucun événement aléatoire, mais les Monstres peuvent être déclenchés par des recherches pertinentes :<br>- Propulsion hyperspatiale pour les Pirates de l'Espace.<br>- Planétologie / Clonage avancé pour l'Amibe Spatiale.<br>- Propulsion / Porte des Étoiles pour le Cristal Spatial.
-SETUP_GALAXY_NUMBER_EMPIRES       | Nombre d'empires : %1
+SETUP_RANDOM_EVENTS_ONLY_MONSTERS_HELP | Seulement des monstres : Aucun événement aléatoire, mais les Monstres peuvent être déclenchés par des recherches pertinentes :<br>- Propulsion hyperspatiale pour les Pirates de l'Espace.<br>- Planétologie / Clonage avancé pour l'Amibe Spatiale.<br>- Propulsion / Porte des Étoiles pour le Cristal Spatial.
+SETUP_GALAXY_NUMBER_EMPIRES       | Nombre d'empires : %1
 SETUP_GALAXY_NUMBER_SYSTEMS       | Nombre de systèmes: %1
 SETUP_GALAXY_MAX_OPPONENTS        | %1 adversaires ou moins
 SETUP_SHOW_ABILITIES_HEADER       | Sélectionnable
@@ -1482,7 +1482,7 @@ SETUP_OPPONENT_AI_MODNAR_HELP     | Famille IA: Base<br> Utilise un livre d'ouve
 SETUP_OPPONENT_AI_MODNAR          | IA: Modnar
 SETUP_OPPONENT_AI_ROOKIE_HELP     | Famille IA: Base<br> Utilise un livre d'ouverture pour les premières technologies. Il construit moins de bases de missiles. Utilise une plus grande variété de modèles de vaisseaux. L'agressivité est fonction de la difficulté.<br> Un bug important sur le comportement en retraite est corrigé. Il n'y a aucun intérêt à avoir les deux autres IA de base. C'est juste pour que le Mod ne manque pas d'eux comme une fonctionnalité.
 SETUP_OPPONENT_AI_ROOKIE          | IA: Débutant
-SETUP_OPPONENT_AI_XILMI_HELP      | Famille IA: Xilmi<br> Utilise un module diplomatique semblable à celui de la Famille-Base en ce sens qu'il utilise les valeurs relationnelles pour la prise de décisions. Cependant, il diffère aussi de ceux-ci en ce qu'il n'y a pas de hasard impliqué et plutôt des seuils pour les PAN et les Alliances s'ajuster dynamiquement sur la base d'une comparaison de puissance. Essentiellement : Plus une IA est faible, plus elle est disposée à signer des alliances même si la relation n'est pas cordiale. Basé sur des alliances de personnalité peut être beaucoup plus stable.
+SETUP_OPPONENT_AI_XILMI_HELP      | Famille IA: Xilmi<br> Utilise un module diplomatique semblable à celui de la Famille-Base en ce sens qu'il utilise les valeurs relationnelles pour la prise de décisions. Cependant, il diffère aussi de ceux-ci en ce qu'il n'y a pas de hasard impliqué et plutôt des seuils pour les PAN et les Alliances s'ajuster dynamiquement sur la base d'une comparaison de puissance. Essentiellement : Plus une IA est faible, plus elle est disposée à signer des alliances même si la relation n'est pas cordiale. Basé sur des alliances de personnalité peut être beaucoup plus stable.
 SETUP_OPPONENT_AI_XILMI           | IA: Xilmi
 SETUP_OPPONENT_AI_HYBRID_HELP     | Famille IA: Xilmi<br> Utilise le même module de diplomatie et d'espionnage que la IA-base pour présenter fondamentalement une IA qui agit diplomatiquement comme une IA-base, mais a toujours tous les avantages dans les autres aspects du jeu.
 SETUP_OPPONENT_AI_HYBRID          | IA: Hybride
@@ -1490,13 +1490,13 @@ SETUP_OPPONENT_AI_CRUEL_HELP      | Famille IA: Xilmi (Pas de barre de relations
 SETUP_OPPONENT_AI_CRUEL           | IA: Fusion
 SETUP_OPPONENT_AI_FUN             | IA: Amusant
 SETUP_OPPONENT_AI_PERSONALITY     | IA: Personnalité
-SETUP_OPPONENT_AI_RANDOM_HELP     | Sélection aléatoire parmi : Base, Modnar, Débutant, Xilmi, Hybride, Fusion, Amusant ou Personnalité.
+SETUP_OPPONENT_AI_RANDOM_HELP     | Sélection aléatoire parmi : Base, Modnar, Débutant, Xilmi, Hybride, Fusion, Amusant ou Personnalité.
 SETUP_OPPONENT_AI_RANDOM          | IA: Aléatoire
-SETUP_OPPONENT_AI_RANDOM_BASIC_HELP | Sélection aléatoire parmi : Base, Modnar ou Débutant.
+SETUP_OPPONENT_AI_RANDOM_BASIC_HELP | Sélection aléatoire parmi : Base, Modnar ou Débutant.
 SETUP_OPPONENT_AI_RANDOM_BASIC    | IA: A.Basic
-SETUP_OPPONENT_AI_RANDOM_ADV_HELP | Sélection aléatoire parmi : Xilmi, Hybrid, Fusion, Amusant ou Personnalité.
+SETUP_OPPONENT_AI_RANDOM_ADV_HELP | Sélection aléatoire parmi : Xilmi, Hybrid, Fusion, Amusant ou Personnalité.
 SETUP_OPPONENT_AI_RANDOM_ADV      | IA: A.Xilmi
-SETUP_OPPONENT_AI_RANDOM_NOBAR_HELP | Sélection aléatoire parmi : Fusion, Amusant ou Personnalité.<br> Ces IA sont opportunistes et n'affichent pas la barre de relation.
+SETUP_OPPONENT_AI_RANDOM_NOBAR_HELP | Sélection aléatoire parmi : Fusion, Amusant ou Personnalité.<br> Ces IA sont opportunistes et n'affichent pas la barre de relation.
 SETUP_OPPONENT_AI_SELECT_HELP     | Pour pouvoir sélectionner une IA différente pour chaque adversaire. <br> Un nouveau champ de sélection sera ajouté au bas de chaque icône adverse.
 SETUP_OPPONENT_AI_SELECT          | IA: Sélectionnable
 SETUP_OPPONENT_AI_PLAYER_HELP     | Le contrôle est entre vos mains.
@@ -1509,7 +1509,7 @@ SETUP_AUTOPLAY_AI_MODNAR          | AI: Modnar
 SETUP_AUTOPLAY_AI_XILMI           | AI: Xilmi
 SETUP_GAME_DIFFICULTY_HELP        | La difficulté de réglage appliquera une prime ou une pénalité à la production des joueurs d'IA.<br> Avec Normale ou plus, les Monstres de l'Espace seront introduits parmi les événements aléatoires vers le milieu de la partie. Mais pour les niveaux de difficulté Faciles, Trés faciles et Trop Faciles, les Monstres de l'Espace seront retardés afin de donner aux joueurs plus de temps pour se développer.
 SETUP_GAME_DIFFICULTY_DESC        | Sélectionnez le niveau de difficulté du jeu.
-SETUP_GAME_DIFFICULTY             | Sélection des difficultés du jeu : %1
+SETUP_GAME_DIFFICULTY             | Sélection des difficultés du jeu : %1
 SETUP_GAME_DIFFICULTY_LABEL       | Difficulté
 SETUP_DIFFICULTY_EASIEST          | Trop facile
 SETUP_DIFFICULTY_EASIER           | Très facile
@@ -1529,33 +1529,33 @@ SETUP_DIFFICULTY_HARDEST_HELP     | Trop difficile (145 %)
 SETUP_DIFFICULTY_CUSTOM_HELP      | Cette valeur est définie par l'option <b>Difficulté personnalisée</b> qui se trouve en haut à gauche du panneau «Options»
 SETUP_RESEARCH_RATE_NORMAL_HELP   | Facteurs de coût de la recherche = 1.
 SETUP_RESEARCH_RATE_NORMAL        | Normale
-SETUP_RESEARCH_RATE_FAST_HELP     | Facteurs des coûts de la recherche : <br>75 % au niveau 2;&ensp 65 % au niveau 6;&ensp 60 % au niveau 8;<br>55 % au niveau 20;&ensp 52 % au niveau 50;&ensp 51 % au niveau 100.
+SETUP_RESEARCH_RATE_FAST_HELP     | Facteurs des coûts de la recherche : <br>75 % au niveau 2;&ensp 65 % au niveau 6;&ensp 60 % au niveau 8;<br>55 % au niveau 20;&ensp 52 % au niveau 50;&ensp 51 % au niveau 100.
 SETUP_RESEARCH_RATE_FAST          | Rapide
-SETUP_RESEARCH_RATE_SLOW_HELP     | Facteurs des coûts de la recherche :<br>1,15 au niveau 2;&ensp 2 au niveau 12;&ensp 2,5 au niveau 20;<br>3 au niveau 28;&ensp 4 au niveau 50;&ensp 6 au niveau 100.
+SETUP_RESEARCH_RATE_SLOW_HELP     | Facteurs des coûts de la recherche :<br>1,15 au niveau 2;&ensp 2 au niveau 12;&ensp 2,5 au niveau 20;<br>3 au niveau 28;&ensp 4 au niveau 50;&ensp 6 au niveau 100.
 SETUP_RESEARCH_RATE_SLOW          | Lent
-SETUP_RESEARCH_RATE_SLOWER_HELP   | Facteurs des coûts de la recherche : <br>1,2 au niveau 2;&ensp 2,5 au niveau 10;&ensp 4 au niveau 20;<br>5 au niveau 29;&ensp 7 au niveau 50;&ensp 10 au niveau 100.
+SETUP_RESEARCH_RATE_SLOWER_HELP   | Facteurs des coûts de la recherche : <br>1,2 au niveau 2;&ensp 2,5 au niveau 10;&ensp 4 au niveau 20;<br>5 au niveau 29;&ensp 7 au niveau 50;&ensp 10 au niveau 100.
 SETUP_RESEARCH_RATE_SLOWER        | Plus lent
-SETUP_RESEARCH_RATE_SLOWEST_HELP  | Ancien facteur « le plus faible »<br> Facteurs des coûts de la recherche :<br>1,27 au niveau 2;&ensp 5 au niveau 11;&ensp 8 au niveau 20;<br>10 au niveau 26;&ensp 16 au niveau 51;&ensp 25 au niveau 100.
+SETUP_RESEARCH_RATE_SLOWEST_HELP  | Ancien facteur « le plus faible »<br> Facteurs des coûts de la recherche :<br>1,27 au niveau 2;&ensp 5 au niveau 11;&ensp 8 au niveau 20;<br>10 au niveau 26;&ensp 16 au niveau 51;&ensp 25 au niveau 100.
 SETUP_RESEARCH_RATE_SLOWEST       | Encore plus lent
-SETUP_RESEARCH_RATE_IMPEDED_HELP  | Facteurs des coûts de la recherche : <br>1,34 au niveau 2;&ensp 10 au niveau 11;&ensp 17 au niveau 20;<br>23 au niveau 28;&ensp 36 au niveau 51;&ensp 55 au niveau 100.
+SETUP_RESEARCH_RATE_IMPEDED_HELP  | Facteurs des coûts de la recherche : <br>1,34 au niveau 2;&ensp 10 au niveau 11;&ensp 17 au niveau 20;<br>23 au niveau 28;&ensp 36 au niveau 51;&ensp 55 au niveau 100.
 SETUP_RESEARCH_RATE_IMPEDED       | Traînant
-SETUP_RESEARCH_RATE_LETHARGIC_HELP | Facteurs des coûts de la recherche :<br>1,41 au niveau 2;&ensp 21 au niveau 11;&ensp 38 au niveau 20;<br>50 au niveau 27;&ensp 80 au niveau 51;&ensp 125 au niveau 100.
+SETUP_RESEARCH_RATE_LETHARGIC_HELP | Facteurs des coûts de la recherche :<br>1,41 au niveau 2;&ensp 21 au niveau 11;&ensp 38 au niveau 20;<br>50 au niveau 27;&ensp 80 au niveau 51;&ensp 125 au niveau 100.
 SETUP_RESEARCH_RATE_LETHARGIC      | Glacial
 SETUP_TECH_TRADING_YES            | Oui
 SETUP_TECH_TRADING_ALLIES         | Alliés uniquement
 SETUP_TECH_TRADING_ALLIES_AID     | Alliés seulement**
 SETUP_TECH_TRADING_NO             | Non
 SETUP_TECH_TRADING_NO_AID         | Non**
-SETUP_TECH_TRADING_YES_HELP       | N'importe qui peut échanger avec n'importe qui, tant que leur relation est assez bonne.<br>Les empires en guerre ne feront pas de commerce !
+SETUP_TECH_TRADING_YES_HELP       | N'importe qui peut échanger avec n'importe qui, tant que leur relation est assez bonne.<br>Les empires en guerre ne feront pas de commerce !
 SETUP_TECH_TRADING_ALLIES_HELP    | Le commerce est limité entre alliés seulement.
 SETUP_TECH_TRADING_ALLIES_AID_HELP | Le commerce et l'aide sont limités entre les seuls alliés.
 SETUP_TECH_TRADING_NO_HELP        | Il n'y a aucun commerce.
 SETUP_TECH_TRADING_NO_AID_HELP    | Il n'y a ni commerce ni aide.
-SETUP_WARP_SPEED_NORMAL_HELP      | Progression de la vitesse de distorsion: 1, 2, 3, 4, 5, 6, 7, 8, 9
+SETUP_WARP_SPEED_NORMAL_HELP      | Progression de la vitesse de distorsion : 1, 2, 3, 4, 5, 6, 7, 8, 9
 SETUP_WARP_SPEED_NORMAL           | Normale
-SETUP_WARP_SPEED_FAST_HELP        | Progression de la vitesse de distorsion: 1, 2, 3, 5, 7, 10, 13, 17, 21
+SETUP_WARP_SPEED_FAST_HELP        | Progression de la vitesse de distorsion : 1, 2, 3, 5, 7, 10, 13, 17, 21
 SETUP_WARP_SPEED_FAST             | Rapide
-SETUP_WARP_SPEED_FAST_F_HELP      | Progression de la vitesse de distorsion : 1, 2, 3, 5, 8, 13, 21, 34, 55 (progression initiale de Fibonacci)
+SETUP_WARP_SPEED_FAST_F_HELP      | Progression de la vitesse de distorsion : 1, 2, 3, 5, 8, 13, 21, 34, 55 (progression initiale de Fibonacci)
 SETUP_WARP_SPEED_FAST_F           | Plus rapide
 SETUP_NEBULA_NONE                 | Aucune
 SETUP_NEBULA_RARE                 | Rare
@@ -1569,9 +1569,9 @@ SETUP_COUNCIL_IMMEDIATE           | Immédiat
 SETUP_COUNCIL_REBELS              | Autoriser les rebelles
 SETUP_COUNCIL_NO_ALLIANCES        | Aucune alliance
 SETUP_COUNCIL_REALMS_BEYOND       | Des royaumes au-delà
-SETUP_COUNCIL_NONE_HELP           | Pas de Conseil ! La seule façon de gagner est de détruire tous les autres empires !
+SETUP_COUNCIL_NONE_HELP           | Pas de Conseil ! La seule façon de gagner est de détruire tous les autres empires !
 SETUP_COUNCIL_IMMEDIATE_HELP      | Une fois que les deux tiers de la galaxie auront été colonisés, le Conseil se réunira tout les 25 ans pour tenir des élections. Si vous gagnez, chacun sera d'accord que vous êtes le meilleur!
-SETUP_COUNCIL_REBELS_HELP         | Une fois que les deux tiers de la galaxie auront été colonisés, le Conseil se réunira tout les 25 ans pour tenir des élections. Si vous gagnez, certains de vos pires ennemis peuvent refuser de vous suivre, et vont commencer une rébellion: La dernière guerre!!!
+SETUP_COUNCIL_REBELS_HELP         | Une fois que les deux tiers de la galaxie auront été colonisés, le Conseil se réunira tout les 25 ans pour tenir des élections. Si vous gagnez, certains de vos pires ennemis peuvent refuser de vous suivre, et vont commencer une rébellion: La dernière guerre !!!
 SETUP_COUNCIL_NO_ALLIANCES_HELP   | Pas de demi-victoire... ==> Aucune victoire de l'Alliance (ni Conseil ni Militaire)
 SETUP_COUNCIL_REALMS_BEYOND_HELP  | Pas de deuxième chance, pas de demi-gagnant... ==> Pas de victoire de l'Alliance (ni Conseil ni Militaire) & Pas de rébellion! (y compris le joueur)
 SETUP_STAR_DENSITY_LONELY         | Solitaire
@@ -1633,9 +1633,9 @@ SETUP_RANDOMIZE_AI_ABILITY        | Capacité
 SETUP_RANDOMIZE_AI_BOTH           | Les deux
 SETUP_RACE_LABEL                  | Races disponibles
 SETUP_RACE_COLOR                  | Votre Couleur
-SETUP_HOMEWORLD_NAME_LABEL        | Planète d'origine :
-SETUP_LEADER_NAME_LABEL           | Dirigeant :
-SETUP_SHIP_SET_LABEL              | Modèles de vaisseaux :
+SETUP_HOMEWORLD_NAME_LABEL        | Planète d'origine :
+SETUP_LEADER_NAME_LABEL           | Dirigeant :
+SETUP_SHIP_SET_LABEL              | Modèles de vaisseaux :
 SETUP_SHIPSET_ORIGINAL            | Original
 SETUP_FLAG_LABEL                  | Bannière
 SETUP_BUTTON_CANCEL               | Annuler
@@ -1789,21 +1789,21 @@ SETTINGS_LOCAL_USER_SET           | Perso. »» Local
 SETTINGS_GLOBAL_USER_SET          | Perso. »» Global
 SETTINGS_LOCAL_USER_SAVE          | Local »» Perso.
 SETTINGS_GLOBAL_USER_SAVE         | Global »» Perso.
-SETTINGS_STAR_DENSITY             | Densité des étoiles : %1
-SETTINGS_RANDOM_EVENTS            | Événements aléatoires : %1
-SETTINGS_RESEARCH_RATE            | Vitesse de la recherche : %1
-SETTINGS_COUNCIL_WIN              | Victoire par élection : %1
-SETTINGS_RANDOMIZE_AI             | IA aléatoire : %1
-SETTINGS_AUTOPLAY                 | Seulement les IA : %1
-SETTINGS_TECH_TRADING             | Échanges de technologies : %1
-SETTINGS_GALAXY_AGE               | Âge de la galaxie : %1
-SETTINGS_WARP_SPEED               | Vitesse de distorsion : %1
-SETTINGS_NEBULAE                  | Nébuleuses : %1
-SETTINGS_PLANET_QUALITY           | Qualité des planètes : %1
-SETTINGS_TERRAFORMING             | Terraformation : %1
-SETTINGS_COLONIZING               | Colonisation : %1
-SETTINGS_FUEL_RANGE               | Autonomie : %1
-SETTINGS_AI_HOSTILITY             | Hostilité : %1
+SETTINGS_STAR_DENSITY             | Densité des étoiles : %1
+SETTINGS_RANDOM_EVENTS            | Événements aléatoires : %1
+SETTINGS_RESEARCH_RATE            | Vitesse de la recherche : %1
+SETTINGS_COUNCIL_WIN              | Victoire par élection : %1
+SETTINGS_RANDOMIZE_AI             | IA aléatoire : %1
+SETTINGS_AUTOPLAY                 | Seulement les IA : %1
+SETTINGS_TECH_TRADING             | Échanges de technologies : %1
+SETTINGS_GALAXY_AGE               | Âge de la galaxie : %1
+SETTINGS_WARP_SPEED               | Vitesse de distorsion : %1
+SETTINGS_NEBULAE                  | Nébuleuses : %1
+SETTINGS_PLANET_QUALITY           | Qualité des planètes : %1
+SETTINGS_TERRAFORMING             | Terraformation : %1
+SETTINGS_COLONIZING               | Colonisation : %1
+SETTINGS_FUEL_RANGE               | Autonomie : %1
+SETTINGS_AI_HOSTILITY             | Hostilité : %1
 SETTINGS_RANDOM_EVENTS_DESC       | Les monstres spatiaux sont des événements aléatoires et des menaces considérables en milieu de partie. Désactiver les monstres spatiaux ou tous les événements aléatoires.
 SETTINGS_WARP_SPEED_DESC          | Augmenter la vitesse des technologies de distorsion plus avancées. Cela peut être souhaitable sur de très grandes cartes.
 SETTINGS_GALAXY_AGE_DESC          | Par rapport aux galaxies normales, les jeunes galaxies ont plus d'étoiles blanches et bleues tandis que les vieilles galaxies ont plus d'étoiles rouges et à neutrons.
@@ -1830,7 +1830,7 @@ HEADERS_GAME_VARIOUS_DESC         | Options diverses. Peut être changé dynamiq
 HEADERS_GAME_VARIOUS              | ~~~ OPTIONS DIVERSES ~~~
 HEADERS_GAME_OTHER_DESC           | Autres options. Peut être changé dynamiquement.
 HEADERS_GAME_OTHER                | ~~~ AUTRES OPTIONS ~~~
-HEADERS_GAME_AUTOMATION_DESC      | Option pour supprimer les tâches ennuyeuses !
+HEADERS_GAME_AUTOMATION_DESC      | Option pour supprimer les tâches ennuyeuses !
 HEADERS_GAME_AUTOMATION           | ~~~ AUTOMATISATIONS ~~~
 HEADERS_GAME_COMBAT_DESC          | Options affectant l'attaque et la défense. Peut être changé dynamiquement.
 HEADERS_GAME_COMBAT               | ~~~ OPTIONS DE COMBAT ~~~
@@ -1845,37 +1845,61 @@ SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI      | Paramètres avancés Galaxie
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_DESC | Ouvre un sous-menu contenant des paramètres avancés Galaxie.
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_HELP | Ouvre un sous-menu contenant les paramètres avancés de Galaxie.<br> Ces paramètres sont définitifs.<br> Ces paramètres sont enregistrés avec le jeu.
 SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | Permettre à une planète ultra-pauvre, pauvre, riche, ou ultra-riche d'avoir aussi des artefacts.
-SETTINGS_MOD_RICH_POOR_ARTIFACT      | Riche / pauvre & Artefacts : %1
+SETTINGS_MOD_RICH_POOR_ARTIFACT      | Riche / pauvre & Artefacts : %1
 SETTINGS_MOD_ARTIFACT_MULT_DESC      | Multiplicateur de probabilité de planète d'artefacts antariens.
-SETTINGS_MOD_ARTIFACT_MULT           | Multiplicateur Antarien : %1%
+SETTINGS_MOD_ARTIFACT_MULT           | Multiplicateur Antarien : %1%
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_DYNAMIC_TITLE           | Règles et paramètres du jeu
-SETTINGS_MOD_CHALLENGE_MODE          | Mode défi : %1
-SETTINGS_MOD_CUSTOM_DIFFICULTY       | Difficulté personnalisée : %1%
-SETTINGS_MOD_DYNAMIC_DIFFICULTY      | Difficulté dynamique : %1
-SETTINGS_MOD_MISSILE_BASE_MODIFIER   | Coût base de missiles : %1%
-SETTINGS_MOD_MISSILE_SHIP_MODIFIER   | Coût missiles dans vaisseaux : %1%
-SETTINGS_MOD_RETREAT_RESTRICTIONS    | Retraite restreinte pour : %1
+SETTINGS_MOD_CHALLENGE_MODE          | Mode défi : %1
+SETTINGS_MOD_CUSTOM_DIFFICULTY       | Difficulté personnalisée : %1%
+SETTINGS_MOD_DYNAMIC_DIFFICULTY      | Difficulté dynamique : %1
+SETTINGS_MOD_SCRAP_REFUND            | Casse pour vaisseaux : %1
+SETTINGS_MOD_SCRAP_REFUND_ALL        | Partout
+SETTINGS_MOD_SCRAP_REFUND_EMPIRE     | Dans l'Empire
+SETTINGS_MOD_SCRAP_REFUND_ALLY       | Mondes alliés
+SETTINGS_MOD_SCRAP_REFUND_NEVER      | Nulle part
+SETTINGS_MOD_SCRAP_REFUND_FACTOR     | Prix de rachat : %1%
+SETTINGS_MOD_SHIP_SPACE_FACTOR       | Volume des vaisseaux : %1%
+SETTINGS_MOD_MISSILE_BASE_MODIFIER   | Coût base de missiles : %1%
+SETTINGS_MOD_MISSILE_SHIP_MODIFIER   | Coût missiles dans vaisseaux : %1%
+SETTINGS_MOD_RETREAT_RESTRICTIONS    | Retraite restreinte pour : %1
 SETTINGS_MOD_RETREAT_NONE            | Personne
 SETTINGS_MOD_RETREAT_AI              | IA
 SETTINGS_MOD_RETREAT_PLAYER          | Joueur
 SETTINGS_MOD_RETREAT_BOTH            | Tous
-SETTINGS_MOD_RETREAT_NONE_HELP       | Tout le monde est autorisé à battre en retraite !
+SETTINGS_MOD_RETREAT_NONE_HELP       | Tout le monde est autorisé à battre en retraite !
 SETTINGS_MOD_RETREAT_AI_HELP         | L'IA ne peut pas battre en retraite si facilement, mais le joueur est autorisé à le faire!
 SETTINGS_MOD_RETREAT_PLAYER_HELP     | Le joueur ne peut pas battre en retraite si facilement, mais l'IA est autorisée à le faire!
-SETTINGS_MOD_RETREAT_BOTH_HELP       | Personne ne peut battre en retraite aussi facilement !
+SETTINGS_MOD_RETREAT_BOTH_HELP       | Personne ne peut battre en retraite aussi facilement !
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS | Retraite restreinte pendant %1 tours
-SETTINGS_MOD_MAX_COMBAT_TURNS        | Tours de combat max. : %1
-SETTINGS_MOD_HOME_ORION              | Planète mère avec Vestiges : %1
-SETTINGS_MOD_HOME_ARTIFACT           | Planète mère avec Artefact : %1
-SETTINGS_MOD_HOME_FERTILE            | Planète mère Fertile : %1
-SETTINGS_MOD_HOME_GAIA               | Planète mère Gaïa : %1
-SETTINGS_MOD_HOME_RICH               | Planète mère Riche : %1
-SETTINGS_MOD_HOME_ULTRA_RICH         | Planète mère Ultra-Riche : %1
+SETTINGS_MOD_MAX_COMBAT_TURNS        | Tours de combat max. : %1
+SETTINGS_MOD_HOME_ORION              | Planète mère avec Vestiges : %1
+SETTINGS_MOD_HOME_ARTIFACT           | Planète mère avec Artefact : %1
+SETTINGS_MOD_HOME_FERTILE            | Planète mère Fertile : %1
+SETTINGS_MOD_HOME_GAIA               | Planète mère Gaïa : %1
+SETTINGS_MOD_HOME_RICH               | Planète mère Riche : %1
+SETTINGS_MOD_HOME_ULTRA_RICH         | Planète mère Ultra-Riche : %1
 SETTINGS_MOD_CHALLENGE_MODE_DESC     | Donnez aux Empires d'IA des ressources supplémentaires au début (plus de population, de usines et de vaisseaux.)
 SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC  | Définit le Modificateur de Production de l'IA de 20 % à 500 %. Assurez-vous de sélectionner "Difficulté: Personnalisé". (Presser Shift / Ctrl, puis faire défiler la molette de la souris pour changer en unités de 5 % / 20 %.)
 SETTINGS_MOD_DYNAMIC_DIFFICULTY_DESC | Adapte la production des IA à la force du joueur. L'effet augmente vers le 150ème tour. (L'ajustement n'est pas infini. Les Empires d'IA très forts seront presque inchangés.)
+SETTINGS_MOD_SCRAP_REFUND_DESC          | La valeur de la ferraille sera-t-elle récupérée sur les vaisseaux déclassés partout dans la galaxie?
+SETTINGS_MOD_SCRAP_REFUND_ALL_DESC      | Option classique. Toute la ferraille sera récupérée.
+SETTINGS_MOD_SCRAP_REFUND_EMPIRE_DESC   | Seuls les vaisseaux en orbite sur les mondes de l'empire seront valorisés.
+SETTINGS_MOD_SHIP_SPACE_FACTOR_DESC     | Contrôle l'espace disponible dans les vaisseaux.
+
+SETTINGS_MOD_SHIP_DISPLAY_DESC           | Quels vaisseaux en mouvement doivent être affichés? (En lien avec le bouton icône à gauche dans la vue Galaxie)
+SETTINGS_MOD_SHIP_DISPLAY                | Affichage vaisseaux : %1
+SETTINGS_MOD_SHOW_ALL_SHIPS              | Tous
+SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS 	 | Transports
+SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS       | Armés
+SETTINGS_MOD_SHOW_ALL_SHIPS_HELP         | Montre tout ce qui bouge.
+SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS_HELP  | Montre les transports et les vaisseaux armés, et cache les vaisseaux désarmés.
+SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS_HELP  | Ne montre que les vaisseaux armés, et cache les transports et les vaisseaux désarmés.
+
+SETTINGS_MOD_SCRAP_REFUND_ALLY_DESC     | Seuls les vaisseaux en orbite dans l'empire ou autour de mondes alliés seront valorisés.
+SETTINGS_MOD_SCRAP_REFUND_NEVER_DESC    | Nulle part, ne me dérangez pas avec ça !
+SETTINGS_MOD_SCRAP_REFUND_FACTOR_DESC   | Quel pourcentage de la valeur des vaisseaux peut être récupéré de leur ferraille?
 SETTINGS_MOD_MISSILE_BASE_MODIFIER_DESC | Change le coût des bases de missiles de 10 % à 200 % du prix de base.
 SETTINGS_MOD_MISSILE_SHIP_MODIFIER_DESC | Change la taille, le coût et la consommation des missiles de 10 % à 200 %.
 SETTINGS_MOD_RETREAT_RESTRICTIONS_DESC | Indique qui sera restreint pour battre en retraite.
@@ -1887,7 +1911,7 @@ SETTINGS_MOD_HOME_FERTILE_DESC       | {Toujours, Jamais, Auto} donne au joueur 
 SETTINGS_MOD_HOME_GAIA_DESC          | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère Gaïa.
 SETTINGS_MOD_HOME_RICH_DESC          | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère Riche.
 SETTINGS_MOD_HOME_ULTRA_RICH_DESC    | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère Ultra-Riche.
-SETTINGS_MOD_POP_GROWTH              | Croissance démographique : %1
+SETTINGS_MOD_POP_GROWTH              | Croissance démographique : %1
 SETTINGS_MOD_POP_GROWTH_DESC         | L'objectif de ce nouveau cadre est de faire de la population une ressource plus précieuse. Perdre des colons et les transporter en masse aura des coûts plus élevés pour votre économie. Il ralentira les conquêtes par transports et le développement des mondes nouvellement conquis. Il peut y avoir un méta différent. <br> - Réduit la croissance naturelle de la population de 0,5x<br> - Augmente le coût d'achat des colons avec le curseur ECO de 2x <br> - Ajoute un plafond maximal sur la quantité de colons que vous pouvez acheter par tour, proportionnellement à la taille de la planète. Le plafond de dépenses est initialement fixé à 2,5 % de la taille de la planète et augmente avec les technologies de clonage. <br> Le plafond d'achat de la population en particulier affecte principalement les colonies très développées du milieu à la fin de la partie. Cela signifie que les colonies ne peuvent pas regénérer instantanément leur population après avoir envoyé des transports.
 SETTINGS_MOD_POP_GROWTH_HELP         | Détermine la vitesse de croissance démographique et la rapidité d'achat de colons
 SETTINGS_MOD_POP_GROWTH_NORMAL       | Normale
@@ -1920,7 +1944,7 @@ SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Pourcentage nécessaire pour gagner l
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Exigences du Conseil: %1%
 
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_DESC       | Position du joueur pendant pendant la votation.
-SETTINGS_MOD_COUNCIL_PLAYER_VOTE            | Vote du joueur : %1
+SETTINGS_MOD_COUNCIL_PLAYER_VOTE            | Vote du joueur : %1
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_FIRST_DESC | Le joueur votera toujours en premier.
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_FIRST      | En premier
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_SIZE_DESC  | Le joueur votera après les empires les plus peuplés.
@@ -1974,7 +1998,7 @@ TRANSPORT_AUTO_ECO_HK                    | Transports ECO
 SETTINGS_MOD_TRANSPORT_AUTO_ECO          | →TRANSPORT_AUTO_ECO_HK←: %1
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES_DESC | La valeur par défaut sera de remplacer automatiquement la population de la colonie.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES      | Activé
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | La valeur par défaut sera : "Désactivé".
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | La valeur par défaut sera : "Désactivé".
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO       | Désactivé
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST_DESC | Conservera le dernier paramètre de colonie.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Dernier
@@ -1983,14 +2007,14 @@ CHAIN_RALLY_SPEED_HK                     | Vitesse des ralliements en chaîne
 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | Désactiver les traités de paix ou supprimer la possibilité de coloniser losqu'une autre flotte est en orbite autour de la planète.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Traité de paix: %1
-SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL_DESC | Aucun changement : La durée des traités de paix est fixée au hasard entre 10 et 15 ans.<br>Les planètes peuvent être colonisées, en présence de la flotte étrangère, et bien sûr votre flotte armée ne peut pas non plus les empêcher de coloniser.
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL_DESC | Aucun changement : La durée des traités de paix est fixée au hasard entre 10 et 15 ans.<br>Les planètes peuvent être colonisées, en présence de la flotte étrangère, et bien sûr votre flotte armée ne peut pas non plus les empêcher de coloniser.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL      | Paix
-SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR_DESC  | Cela mettra fin à la guerre et les relations passeront à l'état : →RACES_NO_TREATY←.<br> Par conséquent, les flottes peuvent encore se battre pour protéger les planètes colonisables.<br> Pour les nouveaux traités seulement, les traités actuels ne sont pas affectés.
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR_DESC  | Cela mettra fin à la guerre et les relations passeront à l'état : →RACES_NO_TREATY←.<br> Par conséquent, les flottes peuvent encore se battre pour protéger les planètes colonisables.<br> Pour les nouveaux traités seulement, les traités actuels ne sont pas affectés.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR       | Armistice
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE_DESC  | Il s'agit encore d'un traité de paix d'une durée normale de 10 à 15 ans.<br> Mais vous ne permettrez pas à cet empire de coloniser une planète que vous protégez avec une flotte armée en orbite. Et bien sûr, ils ne vous permettront pas non plus de le faire. Les IAs ne sont pas au courant de cette limitation, donc cette option pourrait perturber les plans de leur flotte.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE       | Guerre froide
 SETTINGS_MOD_ALLOW_SPECIES_DETAILS_DESC  | Dans le panneau de diplomatie de l'Empire, permet ou interdit de demander des informations plus détaillées sur les espèces.
-SETTINGS_MOD_ALLOW_SPECIES_DETAILS       | Autoriser les détails de l'espèce : %1
+SETTINGS_MOD_ALLOW_SPECIES_DETAILS       | Autoriser les détails de l'espèce : %1
 SETTINGS_MOD_DARK_GALAXY_NO_DESC         | Désactivé; tous les systèmes de la Galaxie apparaissent sur la carte.
 SETTINGS_MOD_DARK_GALAXY_NO              | Non
 SETTINGS_MOD_DARK_GALAXY_SPY_DESC        | L'espionnage peut donner quelques informations sur les systèmes des empire contactés mais hors de portée.
@@ -2000,10 +2024,26 @@ SETTINGS_MOD_DARK_GALAXY_NO_SPY          | Nommé
 SETTINGS_MOD_DARK_GALAXY_SHRINK_DESC     | Ne montre que les systèmes à portée, pas d'espion, pas de mémoire des systèmes explorés.
 SETTINGS_MOD_DARK_GALAXY_SHRINK          | Vue Brouillée
 SETTINGS_MOD_DARK_GALAXY_DESC            | Seuls les systèmes aux alentours sont montrés.
-SETTINGS_MOD_DARK_GALAXY                 | Brouillard de Guerre : %1
+SETTINGS_MOD_DARK_GALAXY                 | Brouillard de Guerre : %1
 
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | Pour augmenter le pourcentage maximal d'impôt sur la sécurité. (Prime d'espionnage = 2 × taxe)
-SETTINGS_MOD_MAX_SECURITY_PCT            | Sécurité Max. : %1%
+SETTINGS_MOD_MAX_SECURITY_PCT            | Sécurité Max. : %1%
+
+SETTINGS_MOD_BOMBING_TARGET_DESC         | Bombardement limité: Arrêtez de bombarder lorsque le niveau de la population atteint cette limite !!! De puissantes armes peuvent quand même anéantir la population !!!
+SETTINGS_MOD_BOMBING_TARGET              | Limite de bombardement : %1 pop
+SETTINGS_MOD_TARGET_BOMBARD_DESC         | Détermine qui est autorisé à limiter ses bombardements.
+SETTINGS_MOD_TARGET_BOMBARD              | Autoriser bombardement limité : %1
+SETTINGS_MOD_TARGET_BOMBARD_NONE         | Personne
+SETTINGS_MOD_TARGET_BOMBARD_AI           | IA
+SETTINGS_MOD_TARGET_BOMBARD_PLAYER       | Joueur
+SETTINGS_MOD_TARGET_BOMBARD_BOTH         | Les deux
+SETTINGS_MOD_TARGET_BOMBARD_NONE_HELP    | Personne ne peut contrôler ses bombardements... C'est tout ou rien !
+SETTINGS_MOD_TARGET_BOMBARD_AI_HELP      | L'IA est assez intelligente pour contrôler ses bombardements, mais le joueur est trop lent pour le faire !
+SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Le joueur est assez intelligent pour contrôler ses bombardements, mais l'IA n'est pas autorisée à le faire !
+SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Tout le monde est capable de contrôler ses bombardements.
+
+SETTINGS_MOD_REPEATABLE_ARTIFACT_DESC    | Les planètes artéfacts donneront constamment la même technologie à chaque chargement de sauvegarde.
+SETTINGS_MOD_REPEATABLE_ARTIFACT         | Artéfacts déterministes : %1
 
 // Tech UI labels
 TECH_RESEARCH                     | Technologies Recherchées
@@ -2024,7 +2064,7 @@ TECH_FUTURE_TIER_DESC             | Apprenez toutes les technologies des niveaux
 TECH_ALLOCATE_POINTS              | Attribuer des points de recherche
 TECH_EQUALIZE                     | Égaliser les allocations
 TECH_RESEARCH_COMPLETED           | Recherche terminée
-TECH_RESEARCHING                  | En cours :
+TECH_RESEARCHING                  | En cours :
 TECH_NONE_RESEARCHED              | Aucun
 TECH_PLANETARY_SHIELDS            | Boucliers planétaires
 TECH_PLANETARY_SHIELDS_NONE       | Aucun
@@ -2077,10 +2117,10 @@ SHIP_DESIGN_AVAILABLE_DESC        | Sélectionnez cet emplacement pour concevoir
 SHIP_DESIGN_AVAILABLE_DESC2       | Déployez ce modèle pour permettre au colonies de construire ce type de vaisseau.
 SHIP_DESIGN_PROTOTYPE             | Prototype
 SHIP_DESIGN_PROTOTYPE_DESC        | Aucun emplacement de prototypage n'est disponible pour le déploiement.
-SHIP_DESIGN_SLOT_DESC             | Dans notre flotte :
-SHIP_DESIGN_SLOT_DESC2            | En orbite :
-SHIP_DESIGN_SLOT_DESC3            | En transit :
-SHIP_DESIGN_SLOT_DESC4            | En construction :
+SHIP_DESIGN_SLOT_DESC             | Dans notre flotte :
+SHIP_DESIGN_SLOT_DESC2            | En orbite :
+SHIP_DESIGN_SLOT_DESC3            | En transit :
+SHIP_DESIGN_SLOT_DESC4            | En construction :
 SHIP_DESIGN_NEW                   | Nouvelle maquette de vaisseau
 SHIP_DESIGN_PROTOTYPE_TITLE       | Prototype de vaisseau
 SHIP_DESIGN_SIZE_SMALL            | Petite
@@ -2510,7 +2550,7 @@ RACES_SET_COLOR_TITLE             | Choisissez une nouvelle couleur pour [alien_
 RACES_SET_COLOR_DESC              | Si la couleur et la forme sélectionnées sont utilisées par un autre empire, les couleurs seront inversées.
 
 // Races UI help
-RACES_HELP_0A                     | APERÇU : Cet écran fournit des informations détaillées sur chacune des races extraterrestres que vous avez rencontrées.
+RACES_HELP_0A                     | APERÇU : Cet écran fournit des informations détaillées sur chacune des races extraterrestres que vous avez rencontrées.
 RACES_HELP_0B                     | Diplomatie - Engagez-vous dans la diplomatie avec l'empire sélectionné.
 RACES_HELP_0C                     | Intelligence - Affichez la technologie extraterrestre et gérez vos réseaux d'espionnage.
 RACES_HELP_0D                     | Armée - Affichez les conceptions de la flotte et des vaisseaux.
@@ -2588,7 +2628,7 @@ HISTORY_EMPIRE                    | Empire
 // Council UIs
 COUNCIL_CONVENE_TITLE             | Le Haut Conseil se réunit
 COUNCIL_CONVENE                   | Le Haut Conseil s'est réuni pour élire un dirigeant qui sera le Souverain de la Galaxie.
-COUNCIL_CONVENE2                  | Chaque empire émet un nombre de voix proportionnel à sa population. Un candidat doit recueillir au moins les deux tiers de tous les suffrages pour être élu. Les candidats sont les dirigeants des deux empires les plus peuplés : [first_name] [first_empireof] et [second_name] [second_empireof].
+COUNCIL_CONVENE2                  | Chaque empire émet un nombre de voix proportionnel à sa population. Un candidat doit recueillir au moins les deux tiers de tous les suffrages pour être élu. Les candidats sont les dirigeants des deux empires les plus peuplés : [first_name] [first_empireof] et [second_name] [second_empireof].
 COUNCIL_ADJOURN_TITLE             | Le Haut Conseil s'ajourne
 COUNCIL_ADJOURN                   | Le vote est terminé et aucun des candidats n'a recueilli les deux tiers des voix. Aucun dirigeant n'a été nommé. Le Haut Conseil se réunira à nouveau pour un autre vote dans 25 ans.
 COUNCIL_SUMMARY_TITLE             | Résumé des candidats
@@ -2609,11 +2649,11 @@ COUNCIL_CHOICE_ABSTAIN            | S'abstenir
 COUNCIL_VOTE_COUNT                | %1 voix
 COUNCIL_VOTE_CAST                 | %1 voix - pour [alien_race_pluralnoun]
 COUNCIL_VOTE_ABSTAINED            | %1 voix - Abstention
-COUNCIL_TREATY_CANDIDATE          | [alien_race_pluralnoun] : Candidat
-COUNCIL_TREATY_ALLIANCE           | [alien_race_pluralnoun] : Alliance
-COUNCIL_TREATY_PACT               | [alien_race_pluralnoun] : Pacte de non-agression
-COUNCIL_TREATY_NONE               | [alien_race_pluralnoun] : Pas de traité
-COUNCIL_TREATY_WAR                | [alien_race_pluralnoun] : En guerre
+COUNCIL_TREATY_CANDIDATE          | [alien_race_pluralnoun] : Candidat
+COUNCIL_TREATY_ALLIANCE           | [alien_race_pluralnoun] : Alliance
+COUNCIL_TREATY_PACT               | [alien_race_pluralnoun] : Pacte de non-agression
+COUNCIL_TREATY_NONE               | [alien_race_pluralnoun] : Pas de traité
+COUNCIL_TREATY_WAR                | [alien_race_pluralnoun] : En guerre
 COUNCIL_CONTINUE                  | Continuer
 COUNCIL_ELECTED_TITLE             | Élu Souverain de la Galaxie !
 COUNCIL_ACCEPT_RULING             | Accepter la décision
@@ -2941,7 +2981,7 @@ GOVERNOR_ON_BY_DEFAULT_DESC         | This will activate the governor for all ne
 GOVERNOR_ON_BY_DEFAULT              | On By Default: %1
 GOVERNOR_ON_BY_DEFAULT_LABEL        | Actif par défaut
 
-GOVERNOR_ANIMATED_IMAGE_DESC        | Si l'animation vous dérange, vous pouvez l'arrêter en cliquant dessus !<br>un autre clic la réactivera.
+GOVERNOR_ANIMATED_IMAGE_DESC        | Si l'animation vous dérange, vous pouvez l'arrêter en cliquant dessus !<br>un autre clic la réactivera.
 GOVERNOR_ANIMATED_IMAGE             | Animer l'image: %1
 GOVERNOR_FULL_REFRESH_ON_LOAD_HELP  | On some computer, loading and updating governor panel appearance while the panel is behind the main window may lead to display glitches. Consequently, by default only the values are updated. "Yes" will allow a full governor panel update.
 GOVERNOR_FULL_REFRESH_ON_LOAD_DESC  | Position, size and color will refresh when loading a new game.<br>Set to false in case of display glitches.
@@ -2961,7 +3001,7 @@ GOVERNOR_CANCEL_BUTTON_LABEL         | Annuler
 GOVERNOR_CANCEL_BUTTON_TT            | Fermer l'interface graphique sans appliquer les changements.
 // Leave empty
 GOVERNOR_RACE_IMAGE_LABEL            |
-GOVERNOR_RACE_IMAGE_TT               | Si l'animation vous dérange, vous pouvez l'arrêter en cliquant dessus !<br>un autre clic la réactivera.
+GOVERNOR_RACE_IMAGE_TT               | Si l'animation vous dérange, vous pouvez l'arrêter en cliquant dessus !<br>un autre clic la réactivera.
 
 //
 // ===== BR: Guide and contextual Help added by Mods =====
@@ -2980,38 +3020,38 @@ GUIDE_KEY_MODIFIER_SEPARATOR      | &nbsp : &nbsp
 
 // Shortcuts / Hotkeys list  (use cross-references →←) →HK_←
 // Shortcuts Cross referenced
-HK_HEADER      | Raccourcis clavier : (Disponible en cliquant Aide avec le bouton droit)<br>→HK_SHIFT_F1←
-HK_SHIFT_F1    | <br>Shift+F1 : Afficher la liste des raccourcis clavier
-HK_F1          | <br>F1 : Afficher l'aide.
-HK_ESCAPE      | <br>Escape : Quitter ce panneau.
-HK_FLAG        | <br>F : Changer la couleur du drapeau.
-HK_HOME        | <br>Home : Définir automatiquement la couleur des drapeaux.
-HK_ALT_HOME    | <br>Alt-Home : Redéfinir automatiquement la couleur drapeau pour tous les systèmes explorés.
-HK_B_SHIFT_B   | <br>B/Shift-B : Incrémente / Décrémente Bases Max.
-HK_1_5         | <br>1-5/+Shift : Incrémente / Décrémente dépenses pour vaisseaux, transport, environnement, technologie
-HK_CTRL_1_5    | <br>Ctrl+1-5 : Verrouiller le curseur de dépenses.
-HK_ALT_1_5     | <br>Alt+1-5 : Max-Intel.
-HK_MAP_ARROWS  | <br>Flèches : Déplacer la carte.
-HK_MAP_ZOOM    | <br>+/- : Zoomer la carte. («Alt-» : Vue complète de la galaxie) <br>Molette de la souris : Zoomer sur la carte.
-HK_TAB         | <br>Tab/+Shift : Onglet suivant/précédent.
-HK_YEAR        | <br>Y : Alterner l'année / le tour.
-HK_FLAG_LOOP   | <br>(Num) * - 9 + : Drapeau suivant («Shift-» Précédent) («Ctrl-» Même couleur de drapeau)
-HK_FOG         | <br>F : Afficher / Cacher le brouillard sur les icônes diplomatiques.
-HK_GUIDE       | <br>G : Afficher / Cacher le Guide
-HK_SEL_B       | /+Alt/+Ctrl/+Shift : Sélection actuelle
+HK_HEADER      | Raccourcis clavier : (Disponible en cliquant Aide avec le bouton droit)<br>→HK_SHIFT_F1←
+HK_SHIFT_F1    | <br>Shift+F1 : Afficher la liste des raccourcis clavier
+HK_F1          | <br>F1 : Afficher l'aide.
+HK_ESCAPE      | <br>Escape : Quitter ce panneau.
+HK_FLAG        | <br>F : Changer la couleur du drapeau.
+HK_HOME        | <br>Home : Définir automatiquement la couleur des drapeaux.
+HK_ALT_HOME    | <br>Alt-Home : Redéfinir automatiquement la couleur drapeau pour tous les systèmes explorés.
+HK_B_SHIFT_B   | <br>B/Shift-B : Incrémente / Décrémente Bases Max.
+HK_1_5         | <br>1-5/+Shift : Incrémente / Décrémente dépenses pour vaisseaux, transport, environnement, technologie
+HK_CTRL_1_5    | <br>Ctrl+1-5 : Verrouiller le curseur de dépenses.
+HK_ALT_1_5     | <br>Alt+1-5 : Max-Intel.
+HK_MAP_ARROWS  | <br>Flèches : Déplacer la carte.
+HK_MAP_ZOOM    | <br>+/- : Zoomer la carte. («Alt-» : Vue complète de la galaxie) <br>Molette de la souris : Zoomer sur la carte.
+HK_TAB         | <br>Tab/+Shift : Onglet suivant/précédent.
+HK_YEAR        | <br>Y : Alterner l'année / le tour.
+HK_FLAG_LOOP   | <br>(Num) * - 9 + : Drapeau suivant («Shift-» Précédent) («Ctrl-» Même couleur de drapeau)
+HK_FOG         | <br>F : Afficher / Cacher le brouillard sur les icônes diplomatiques.
+HK_GUIDE       | <br>G : Afficher / Cacher le Guide
+HK_SEL_B       | /+Alt/+Ctrl/+Shift : Sélection actuelle
 HK_SEL_E       | Dépenses à 100% / Max-Intel. / Verrouillage / Déverrouillage
-HK_SET_DEFAULT | <br>Alt-F : Définir les valeurs par défaut à →FUSION_HK←.<br>Alt-M : Définir les valeurs par défaut à →MOO1_HK←.<br>Alt-R : Définir les valeurs par défaut à →CLASSIC_HK←.
+HK_SET_DEFAULT | <br>Alt-F : Définir les valeurs par défaut à →FUSION_HK←.<br>Alt-M : Définir les valeurs par défaut à →MOO1_HK←.<br>Alt-R : Définir les valeurs par défaut à →CLASSIC_HK←.
 
 // Shortcuts Full lists*
-MAIN_HELP_SHIPFLEET_HK | Raccourcis clavier QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d'informations détaillées (si elles sont connues)<br><br> MODE DE REDIRECTION DES FLOTTES :<br><br>Appuyez sur «Alt» pour montrer des informations sur l'étoile ou la flotte survolée par la souris.
+MAIN_HELP_SHIPFLEET_HK | Raccourcis clavier QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d'informations détaillées (si elles sont connues)<br><br> MODE DE REDIRECTION DES FLOTTES :<br><br>Appuyez sur «Alt» pour montrer des informations sur l'étoile ou la flotte survolée par la souris.
 
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n'affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n'est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Space/Page Down/Page Up : Votre flotte inactive Suivante/Précédente<br>«Shift-» Space/Page Down/Page Up : Votre flotte Auto. mais inactive Suivante/Précédente→HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d'Option →HK_YEAR←<br>Shift-S : Rapport d'espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n'affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n'est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Space/Page Down/Page Up : Votre flotte inactive Suivante/Précédente<br>«Shift-» Space/Page Down/Page Up : Votre flotte Auto. mais inactive Suivante/Précédente→HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d'Option →HK_YEAR←<br>Shift-S : Rapport d'espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
 
-PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>Ctrl+A : Sélectionner tous les systèmes<br>Q/+Ctrl : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+Ctrl : Planète en manque de population / + Dépenses ECO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +Ctrl /+Shift : Basculer activation du gouverneur / Avtivé / Désactivé <br>→HK_ESCAPE←
+PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>Ctrl+A : Sélectionner tous les systèmes<br>Q/+Ctrl : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+Ctrl : Planète en manque de population / + Dépenses ECO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +Ctrl /+Shift : Basculer activation du gouverneur / Avtivé / Désactivé <br>→HK_ESCAPE←
 
 // !!!
 // Do not remove the space between ">" & "=" because of confusion with ">=" wish is replaced by "&gt;="
 // !!!
-TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>Ctrl+1-6 : (dé)verrouiller les curseurs.<br>Flèches : Déplacer l'arbre / Catégories<br> = : Égaliser<br>Molette souris : Changer l'allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit: Montre plus d'info sur la tech survolée <br> →HK_ESCAPE←
+TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>Ctrl+1-6 : (dé)verrouiller les curseurs.<br>Flèches : Déplacer l'arbre / Catégories<br> = : Égaliser<br>Molette souris : Changer l'allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit: Montre plus d'info sur la tech survolée <br> →HK_ESCAPE←
 
-SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1← <br><br>Flèches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+Ctrl) : Purger le modèle / (Juste l'armement)<br><br>ALT-A : Construction automatique<br>ALT-B : Construction automatique Bombardier<br>ALT-F : Construction automatique Chasseur<br>ALT-E : Construction automatique Éclaireur.<br>ALT-P : Construction automatique Colonisateur. <br>→HK_ESCAPE←
+SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1← <br><br>Flèches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+Ctrl) : Purger le modèle / (Juste l'armement)<br><br>ALT-A : Construction automatique<br>ALT-B : Construction automatique Bombardier<br>ALT-F : Construction automatique Chasseur<br>ALT-E : Construction automatique Éclaireur.<br>ALT-P : Construction automatique Colonisateur. <br>→HK_ESCAPE←
