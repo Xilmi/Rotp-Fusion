@@ -51,7 +51,7 @@ public final class InGameOptions implements IOptionsSubUI {
 				retreatRestrictions, retreatRestrictionTurns,
 				missileBaseModifier, missileShipModifier,
 				targetBombard, bombingTarget,
-				scrapRefundFactor, scrapRefundOption,
+				scrapRefundOption, scrapRefundFactor,
 				shipSpaceFactor,
 
 				headerSpacer,

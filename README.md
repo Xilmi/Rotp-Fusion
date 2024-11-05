@@ -73,6 +73,8 @@ Later:
 - Options panel reorganisation.
   - Options lists are separated from options declarations.
   - Options lists have a central management.
+- Set max value for Bombing Limit to 300.
+- Swapped "Ship Refund" and "Refund factor" position.
 
 2024.11.05 (Frank Zago)
 - French translations and fixes.

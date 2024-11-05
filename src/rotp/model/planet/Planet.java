@@ -43,6 +43,11 @@ import rotp.util.FastImage;
 
 public class Planet implements Base, IMappedObject, Serializable {
     private static final long serialVersionUID = 1L;
+    public static final int creationSizeMax	= 120;
+    public static final int creationSizeMin	= 10;
+    public static final int baseSizeMax		= 180;
+    public static final int baseSizeMin		= creationSizeMin;
+    public static final int finalSizeMax	= baseSizeMax + 120;
     public static int COUNT = 0;
 
     private static final SphereShadowPaint ssp = new SphereShadowPaint();
@@ -347,7 +352,7 @@ public class Planet implements Base, IMappedObject, Serializable {
     public void baseSize(float d)  { baseSize = d; }
     // max base size for planet (before general terraforming) is 180
     public void increaseBaseSize(float amt) {
-        float maxSize = 180*session().populationBonus();
+        float maxSize = baseSizeMax*session().populationBonus();
         float newSize = Math.min(maxSize, baseSize()+amt);
         baseSize(newSize);
     }

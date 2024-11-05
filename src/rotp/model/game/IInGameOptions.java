@@ -3,6 +3,7 @@ package rotp.model.game;
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
+import rotp.model.planet.Planet;
 import rotp.model.ships.ShipDesign;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -104,7 +105,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 			.guiFormat("‰");
 
 	ParamInteger bombingTarget		= new ParamInteger(MOD_UI, "BOMBING_TARGET", 2)
-			.setLimits(0, 200)
+			.setLimits(0, Planet.finalSizeMax)
 			.setIncrements(1, 5, 20);
 	default int selectedBombingTarget()			{ return bombingTarget.get(); }
 

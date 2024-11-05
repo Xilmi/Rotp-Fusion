@@ -15,6 +15,9 @@
  */
 package rotp.model.planet;
 
+import static rotp.model.planet.Planet.creationSizeMax;
+import static rotp.model.planet.Planet.creationSizeMin;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
@@ -70,8 +73,8 @@ public class PlanetFactory implements Base {
         // modnar: change planet size with selectedPlanetQualityOption, which changes the bonus value
         // also change bound range (size_min, size_max) with bonus value
         // give all sizes in multiples of 5
-        float size_min = (float) (Math.round((10.0f*bonus)/5) * 5);
-        float size_max = (float) (Math.round((120.0f*bonus)/5) * 5);
+        float size_min = (float) (Math.round((creationSizeMin*bonus)/5) * 5);
+        float size_max = (float) (Math.round((creationSizeMax*bonus)/5) * 5);
         size = (float) (Math.round((size*bonus)/5) * 5);
         size = Math.max(size_min, Math.min(size, size_max));
         
@@ -82,7 +85,7 @@ public class PlanetFactory implements Base {
         Planet p = instance.options().orionPlanet(sys);
         p.setOrionArtifact();
         p.makeEnvironmentFertile();
-        p.baseSize(120*bonus);
+        p.baseSize(creationSizeMax*bonus);
         return p;
     }
     private static boolean combo(ParamAAN2 aan2, boolean b, boolean isPlayer) {
