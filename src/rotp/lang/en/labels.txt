@@ -3029,7 +3029,7 @@ SETTINGS_MOD_TARGET_BOMBARD_AI           | AI
 SETTINGS_MOD_TARGET_BOMBARD_PLAYER       | Player
 SETTINGS_MOD_TARGET_BOMBARD_BOTH         | Both
 SETTINGS_MOD_TARGET_BOMBARD_NONE_HELP    | Nobody is able to control its bombing... it's all or nothing!
-SETTINGS_MOD_TARGET_BOMBARD_AI_HELP      | AI is smart enough to control its bombing, but the Player is to slow do so!
+SETTINGS_MOD_TARGET_BOMBARD_AI_HELP      | AI is smart enough to control its bombing, but the Player is too slow do so!
 SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Player is smart enough to control its bombing, but AI is not allowed to do so!
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Everyone is able to control their bombing.
 
