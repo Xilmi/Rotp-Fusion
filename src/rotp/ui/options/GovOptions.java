@@ -24,7 +24,7 @@ final class GovOptions implements IOptionsSubUI {
 				autoTransportAI, autotransportGov, autotransportAll,
 				transportNoRich, transportPoorX2, transportMaxDist,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle(HEAD_ID + "COLONY_OPTIONS"),
 				missileBasesMin, shieldAlones,
 				autoSpend, reserveForSlow, shipBuilding,
@@ -34,14 +34,14 @@ final class GovOptions implements IOptionsSubUI {
 				new ParamTitle(HEAD_ID + "INTELLIGENCE_OPTIONS"),
 				auto_Infiltrate, auto_Spy, respectPromises,
 				
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle(HEAD_ID + "FLEET_OPTIONS"),
 				// autoShipsByDefault,	// TODO: for future use
 				auto_Scout, autoScoutCount,
 				govAutoColonize, autoColonyCount,
 				auto_Attack, autoAttackCount,
 				
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle(HEAD_ID + "STARGATES_OPTIONS"),
 				starGateOption
 				)));
@@ -51,7 +51,7 @@ final class GovOptions implements IOptionsSubUI {
 				brightnessPct, sizeFactorPct,
 				horizontalPosition, verticalPosition,
 				
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle(HEAD_ID + "OTHER_OPTIONS"),
 				governorByDefault, auto_Apply
 				)));

@@ -18,11 +18,11 @@ final class FlagOptions implements IOptionsSubUI {
 				autoFlagAssignation1, autoFlagAssignation2,
 				autoFlagAssignation3, autoFlagAssignation4,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("AUTO_FLAG_IN_NEBULA"),
 				flagInNebulaColor, flagNotNebulaColor,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("AUTO_FLAG_COLONY_TECH"),
 				flagTechGaiaColor, flagTechFertileColor, flagTechGoodColor,
 				flagTechStandardColor, flagTechBarrenColor, flagTechDeadColor,
@@ -32,13 +32,13 @@ final class FlagOptions implements IOptionsSubUI {
 				new ParamTitle("AUTO_FLAG_VESTIGES"),
 				flagRuinsOrionColor, flagRuinsAntaranColor, flagRuinsNoneColor,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("AUTO_FLAG_RESOURCES"),
 				flagOrionColor, flagAntaranColor,
 				flagUltraRichColor, flagRichColor, flagAssetNormalColor,
 				flagPoorColor, flagUltraPoorColor, flagNoneColor,
 				
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("AUTO_FLAG_ENVIRONMENT"),
 				flagEnvGaiaColor, flagEnvFertileColor,
 				flagEnvNormalColor,	flagEnvHostileColor, flagEnvNoneColor

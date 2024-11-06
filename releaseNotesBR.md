@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- Option Panel minor improvements.
 - Fixed Planet Invasion title not updating at the end of the fight.
 - New Icon to identify links to sub panels.
 - Fixed wrong warning when loading a game.

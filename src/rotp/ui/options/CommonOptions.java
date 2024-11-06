@@ -18,7 +18,7 @@ final class CommonOptions implements IOptionsSubUI {
 				graphicsMode, texturesMode, sensitivityMode,
 				soundVolume, musicVolume,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("MENU_APPEARANCE"),
 				colorSet, galaxyPreviewColorStarsSize,
 				minListSizePopUp, menuStartup,
@@ -30,15 +30,15 @@ final class CommonOptions implements IOptionsSubUI {
 				new ParamTitle("ZOOM_FONT"),
 				mapFontFactor, showNameMinFont, showInfoFontRatio,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("ZOOM_FLEET"),
 				showFleetFactor, showFlagFactor, showPathFactor,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("ZOOM_REPLAY"),
 				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("GAME_OTHER"),
 				shipBasedMissiles,
 				scoutAndColonyOnly
@@ -47,7 +47,7 @@ final class CommonOptions implements IOptionsSubUI {
 				new ParamTitle("BACKUP_OPTIONS"),
 				backupTurns, backupKeep, saveDirectory,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("GAME_UI_PREFERENCES"),
 				showPendingOrders,
 				raceStatusLog, disableAdvisor, disableAutoHelp,
@@ -55,7 +55,7 @@ final class CommonOptions implements IOptionsSubUI {
 
 				// headerSpacer,
 				// new ParamTitle("GAME_VARIOUS"),
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("SUB_PANEL_OPTIONS"),
 				AllSubUI.debugSubUI(),
 				AllSubUI.combatSubUI(),

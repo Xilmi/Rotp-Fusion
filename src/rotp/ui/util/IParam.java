@@ -84,6 +84,8 @@ public interface IParam extends InterfaceOptions{
 	public default String	getLangLabel()			{ return ""; }
 	public default String	getLangLabel(int id)	{ return ""; }
 	public default String[]	getModifiers()			{ return null; }
+	public default float	heightFactor()			{ return 1f; }
+
 	public default void drawBox(Graphics2D g, int x0, int y0, int w, int h, int indent, int blankW) {
 		int x1 = x0+w;
 		g.drawLine(x0, y0, x0+indent, y0);

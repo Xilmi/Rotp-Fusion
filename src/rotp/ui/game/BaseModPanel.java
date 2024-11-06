@@ -969,9 +969,7 @@ public abstract class BaseModPanel extends BasePanel
 	public class GuidePopUp {
 		private static final int FONT_SIZE	= 16;
 		private final int maxWidth      = scaled(400);
-//		private final Color guideColor	= GameUI.setupFrame();
 		private final Color helpColor	= new Color(240,240,240);
-		private final Color lineColor	= Color.white;
 		private final JTextPane border	= new JTextPane();
 		private final JTextPane	margin	= new JTextPane();
 		private final JTextPane pane	= new JTextPane();
@@ -980,8 +978,9 @@ public abstract class BaseModPanel extends BasePanel
 		private int x, y, w, h;
 		private int[] lineArr;
 		private boolean fullHelp;
-		private Color bgC  = GameUI.setupFrame();;
-		private Color bdrC = new Color(bgC.getRed(), bgC.getGreen(), bgC.getBlue(), 160);
+		private Color bgC		= GameUI.setupFrame();;
+		private Color bdrC		= new Color(bgC.getRed(), bgC.getGreen(), bgC.getBlue(), 160);
+		private Color lineColor	= bgC;
 
 		// ========== Constructors and initializers ==========
 		//	

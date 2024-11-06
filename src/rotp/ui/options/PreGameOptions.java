@@ -22,7 +22,7 @@ public final class PreGameOptions implements IOptionsSubUI {
 				looseNeighborhood,
 				minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("NEBULAE_OPTION"),
 				nebulae, nebulaPlacing,
 				nebulaEnrichment, nebulaHomeworld,
@@ -37,7 +37,7 @@ public final class PreGameOptions implements IOptionsSubUI {
 				richHomeworld, ultraRichHomeworld,
 				companionWorlds, battleScout, randomTechStart, randomizeAI,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("START_PLANET_OPTIONS"),
 				planetQuality, minDistArtifactPlanet,
 				guardianMonsters, guardianMonstersLevel,
@@ -53,7 +53,7 @@ public final class PreGameOptions implements IOptionsSubUI {
 				techCloaking, techStargate, techGaia, techHyperspace,
 				techIndustry2, techThorium, techTransport,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("START_RANDOM_ALIENS"),
 				randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
 				randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges
@@ -63,18 +63,18 @@ public final class PreGameOptions implements IOptionsSubUI {
 				restartChangesPlayerRace, restartChangesPlayerAI,
 				restartChangesAliensAI, restartAppliesSettings,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("MENU_OPTIONS"),
 				useFusionFont, compactOptionOnly,
 				
 				// headerSpacer,
 				// new ParamTitle("MENU_OPTIONS"),
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("BETA_TEST"),
 				AllSubUI.ironmanSubUI(),
 				ironmanMode,	// ironmanOptionsUI,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("GAME_OTHER"),
 				showAllAI,
 				autoplay

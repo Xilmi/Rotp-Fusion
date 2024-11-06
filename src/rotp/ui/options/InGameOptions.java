@@ -21,7 +21,7 @@ public final class InGameOptions implements IOptionsSubUI {
 				IGalaxyOptions.getDifficultySelection(), customDifficulty,
 				dynamicDifficulty, challengeMode,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("GAME_VARIOUS"),
 				terraforming,
 				colonizing, researchRate,
@@ -31,7 +31,7 @@ public final class InGameOptions implements IOptionsSubUI {
 				developedDefinition,
 				maxMissingPopulation, maxMissingFactories,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("IRONMAN_BASIC"),
 				persistentArtifact,
 				ironmanNoLoad, ironmanLoadDelay,
@@ -54,7 +54,7 @@ public final class InGameOptions implements IOptionsSubUI {
 				scrapRefundOption, scrapRefundFactor,
 				shipSpaceFactor,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("BETA_TEST"),
 				debugAutoRun, darkGalaxy
 				)));
@@ -68,7 +68,7 @@ public final class InGameOptions implements IOptionsSubUI {
 				AllSubUI.combatSubUI(),
 				AllSubUI.commonSubUI(),
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("GAME_AUTOMATION"),
 				autoBombard_, autoColonize_, spyOverSpend,
 				transportAutoEco, defaultForwardRally,
@@ -85,12 +85,12 @@ public final class InGameOptions implements IOptionsSubUI {
 				raceStatusLog, compactOptionOnly,
 				showPendingOrders,
 				
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("XILMI_AI_OPTIONS"),
 				playerAttackConfidence, playerDefenseConfidence,
 				aiAttackConfidence, aiDefenseConfidence,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("ENOUGH_IS_ENOUGH"),
 				disableAutoHelp, disableAdvisor
 				)));

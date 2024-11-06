@@ -36,7 +36,7 @@ import java.util.List;
 import rotp.Rotp;
 import rotp.model.game.GameSession;
 import rotp.model.game.IMainOptions;
-import rotp.model.game.IModOptions;
+import rotp.ui.options.AllSubUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamString;
 import rotp.util.LanguageManager;
@@ -72,13 +72,13 @@ public class UserPreferences implements IMainOptions {
 	private static List<IParam> optionList;
 	private static List<IParam> optionList() {
 		if (optionList == null) {
-			optionList = IModOptions.allCfgOptions();
+			optionList = AllSubUI.allCfgOptions(false);
 		}
 		
 		return optionList;
 	}
 	public static void initialList(boolean initial) {
-		optionList = IModOptions.allCfgOptions();
+		optionList = AllSubUI.allCfgOptions(true);
 		save();
 	}
 

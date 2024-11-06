@@ -41,6 +41,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.SwingExceptionHandler;
 import rotp.ui.UserPreferences;
+import rotp.ui.options.AllSubUI;
 import rotp.util.FontManager;
 import rotp.util.ImageManager;
 import rotp.util.Rand;
@@ -114,12 +115,9 @@ public class Rotp {
         frame.addWindowListener(new ExitCloseWindowAdapter());
 
         // BR: To initialize all mod static parameters in a controlled order
-        ModOptions modStaticInit = new ModOptions();
-        modStaticInit.allModOptions();
-        modStaticInit = null;
-        MOO1GameOptions optionsStaticInit = new MOO1GameOptions(false);
-        optionsStaticInit.allModOptions();
-        optionsStaticInit = null;
+        AllSubUI.allModOptions(true);
+        new MOO1GameOptions(false);
+        AllSubUI.allModOptions(true);
         
         // note: referencing the RotPUI class executes its static block
         // which loads in sounds, images, etc

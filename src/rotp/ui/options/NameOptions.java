@@ -20,11 +20,11 @@ final class NameOptions implements IOptionsSubUI {
 				fiershan, mentaran,
 				ssslaura, cryslonoid,
 
-				headerSpacer,
+				headerSpacer50,
 				moo1SpeciesName,
 				clearSpeciesName,
 
-				headerSpacer,
+				headerSpacer50,
 				activateSpeciesName
 				)));
 		return map;

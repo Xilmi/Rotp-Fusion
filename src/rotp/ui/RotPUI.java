@@ -51,8 +51,8 @@ import rotp.model.galaxy.Transport;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGameOptions;
-import rotp.model.game.IModOptions;
 import rotp.model.game.MOO1GameOptions;
+import rotp.model.game.SafeListParam;
 import rotp.model.planet.PlanetFactory;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipLibrary;
@@ -64,13 +64,13 @@ import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.fleets.FleetUI;
 import rotp.ui.game.AdvancedOptionsUI;
+import rotp.ui.game.CompactOptionsUI;
+import rotp.ui.game.CompactSetupUI;
 import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.LoadGameUI;
 import rotp.ui.game.MainOptionsUI;
-import rotp.ui.game.CompactOptionsUI;
-import rotp.ui.game.CompactSetupUI;
 import rotp.ui.game.RaceIntroUI;
 import rotp.ui.game.SaveGameUI;
 import rotp.ui.game.SetupGalaxyUI;
@@ -80,6 +80,7 @@ import rotp.ui.main.MainUI;
 import rotp.ui.map.SystemsUI;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.TurnNotification;
+import rotp.ui.options.AllSubUI;
 import rotp.ui.planets.ColonizePlanetUI;
 import rotp.ui.planets.ColonyViewUI;
 import rotp.ui.planets.GroundBattleUI;
@@ -897,9 +898,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             add(galacticCouncilUI, COUNCIL_PANEL);
             add(gameOverUI, GAME_OVER_PANEL);
         }
-        for (int level=0; level<2; level++)
-        	for (IParam param : IModOptions.allModOptions)
+        for (int level=0; level<2; level++) {
+        	SafeListParam allModOptions = AllSubUI.allModOptions(true);
+        	for (IParam param : allModOptions)
         		param.initDependencies(level);
+        }
         selectGamePanel();
     }
     private void selectDialogPanel(String panelName, BasePanel panel)   {

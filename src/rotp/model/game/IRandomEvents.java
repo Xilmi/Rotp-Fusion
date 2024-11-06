@@ -287,16 +287,16 @@ public interface IRandomEvents extends IBaseOptsTools {
 				monstersGiveLoots, monstersLevel,
 				monstersGNNNotification,
 
-				headerSpacer,
+				headerSpacer50,
 				guardianMonstersLevel,
 				isMoO1Monster,
 				
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("RANDOM_EVENTS_MONSTERS"),
 				piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
-				headerSpacer,
+				headerSpacer50,
 				amoebaDelayTurn, amoebaReturnTurn, amoebaMaxSystems,
-				headerSpacer,
+				headerSpacer50,
 				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems
 				)));
 		map.add(new SafeListParam(Arrays.asList(

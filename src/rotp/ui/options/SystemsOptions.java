@@ -17,12 +17,12 @@ final class SystemsOptions implements IOptionsSubUI {
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ARTIFACT_OPTIONS"),
 				artifactPlanetMult, artifactPlanetOffset,
-				headerSpacer,
+				lineSpacer25,
 				orionPlanetProb,
-				headerSpacer,
+				lineSpacer25,
 				allowRichPoorArtifact,
 				
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("GAME_OTHER"),
 				orionToEmpireModifier
 				)));
@@ -30,7 +30,7 @@ final class SystemsOptions implements IOptionsSubUI {
 				new ParamTitle("RICH_OPTIONS"),
 				ultraPoorPlanetMult, ultraPoorPlanetOffset,
 				poorPlanetMult, poorPlanetOffset,
-				headerSpacer,
+				lineSpacer25,
 				richPlanetMult, richPlanetOffset,
 				ultraRichPlanetMult, ultraRichPlanetOffset
 				)));
@@ -43,7 +43,7 @@ final class SystemsOptions implements IOptionsSubUI {
 				secondRingHabitable,
 				secondRingRadius,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("LINKED_OPTIONS"),
 				starDensity,
 				IGalaxyOptions.getSizeSelection(),

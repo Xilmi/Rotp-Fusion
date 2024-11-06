@@ -316,7 +316,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		globalAbilities.reInit(globalAbilitiesList);
 		globalAbilitiesArray = globalAbilitiesList.toArray(new String[globalAbilitiesList.size()]);
 	}
-	private SafeListPanel advancedSystemMap()	{
+	private SafeListPanel advancedSystemMap()	{ // TODO BR: Centralize
 		SafeListPanel map = new SafeListPanel("ADVANCED_SYSTEM");
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("NEBULAE_OPTION"),

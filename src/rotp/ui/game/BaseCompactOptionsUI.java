@@ -51,39 +51,41 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private String guiTitleID;
 	private String GUI_ID;
 	
-	private static final int rowPad		= s10;
-	private	static final int descPadM	= s5;
-	private static final int buttonPadV	= rowPad;
-	private static final Color disabledColor		= GameUI.textColor();
-	private static final Color enabledColor			= GameUI.labelColor();
-	private static final Color defaultValuesColor	= SystemPanel.whiteText;
-	private static final Color customValuesColor	= Color.orange;
-	private static final Color subMenuIconColor		= disabledColor;
-	private static final Color subMenuIconColor2	= Color.YELLOW;
-	private static final Color subMenuIconColor3	= Color.BLACK;
-	private static final int descLineH		= s18;
-	private	static final Font descFont		= FontManager.current().narrowFont(16);
-	private	static final Font titleFont		= FontManager.current().narrowFont(30);
-	private static final int titleOffset	= s40; // Offset from Margin
-	private static final int titlePad		= s70; // Offset of first setting
-	private static final int settingFont	= 19;
-	private static final int settingH		= s19;
-	private static final int settingpadH	= s5;
-	private static final int columnPad		= s12;
-	private static final int tooltipLines	= 2;
-	private static final int descHeigh		= tooltipLines * descLineH + descPadM;
-	private static final int bottomPad		= rowPad;
-	private static final int textBoxH		= settingH;
-	private static final int hDistSetting	= settingH + settingpadH; // distance between two setting top corner
-	private static final int minWidth		= 710;
-	private static final int subMenuIconW	= s15;
-	private static final int subMenuIconH	= s15;
-	private static final int subMenuIconPad	= s3;
+	private static final Color	disabledColor		= GameUI.textColor();
+	private static final Color	enabledColor		= GameUI.labelColor();
+	private static final Color	defaultValuesColor	= SystemPanel.whiteText;
+	private static final Color	customValuesColor	= Color.orange;
+	private static final Color	subMenuIconColor	= disabledColor;
+	private static final Color	subMenuIconColor2	= Color.YELLOW;
+	private static final Color	subMenuIconColor3	= Color.BLACK;
+	private static final int	rowPad			= s10;
+	private	static final int	descPadM		= s5;
+	private static final int	buttonPadV		= rowPad;
+	private static final int	descFontSize	= 16;
+	private static final int	titleFontSize	= 30;
+	private static final int	descLineH		= RotPUI.scaledSize(descFontSize+2);
+	private static final int	titleOffset		= s40; // Offset from Margin
+	private static final int	titlePad		= s70; // Offset of first setting
+	private static final int	settingFontSize	= 19;
+	private static final int	settingH		= RotPUI.scaledSize(settingFontSize);
+	private static final int	settingpadH		= s5;
+	private static final int	columnPad		= s12;
+	private static final int	tooltipLines	= 2;
+	private static final int	descHeigh		= tooltipLines * descLineH + descPadM;
+	private static final int	bottomPad		= rowPad;
+	private static final int	textBoxH		= settingH;
+	private static final int	hDistSetting	= settingH + settingpadH; // distance between two setting top corner
+	private static final int	minWidth		= 710;
+	private static final int	subMenuIconH	= RotPUI.scaledSize(settingFontSize-4);
+	private static final int	subMenuIconW	= subMenuIconH;
+	private static final int	subMenuIconPad	= s3;
+	private	static final Font	descFont		= FontManager.current().narrowFont(descFontSize);
+	private	static final Font	titleFont		= FontManager.current().narrowFont(titleFontSize);
 	private	static BufferedImage subMenuIcon;
 	
-	private	final JTextPane descBox			= new JTextPane();
+	private	final	JTextPane	descBox			= new JTextPane();
 	private int yTop;
-	private int numColumns, numRows;
+	private int numColumns, numRows, hSettingsTotal;
 	private int yTitle;
 	private int xSetting, ySetting, columnWidth; // settings var
 	private int index, column;
@@ -143,14 +145,17 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		duplicateList	= new SafeListParam(optionsList.name);
 		paramList		= new SafeListParam(optionsList.name);
 		int totalRows   = 0;
+		hSettingsTotal	= 0;
 		numColumns = optionsList.size();
 		numRows    = 0;
 		for (SafeListParam list : optionsList) {
+			int hSettings = 0;
 			totalRows += list.size();
 			lastRowList.add(totalRows);
 			numRows = max(numRows, list.size());
 			for (IParam param : list) {
 				if (param != null) {
+					hSettings += hDistSetting * param.heightFactor();
 					activeList.add(param);
 					btListLeft.add(newBT(param.isTitle()).initGuide(param));
 					btListRight.add(newBT2(param.isDefaultValue()).initGuide(param));
@@ -159,7 +164,11 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 					else
 						paramList.add(param);
 				}
+				else {
+					System.err.println("Null Param Error: " + guiTitleID);
+				}
 			}
+			hSettingsTotal = max(hSettingsTotal, hSettings);
 		}
 		btListBoth.addAll(btListLeft);
 		btListBoth.addAll(btListRight);
@@ -252,7 +261,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	}
 
 	private ModText newBT(boolean disabled) {
-		ModText bt = new ModText(this, settingFont, enabledColor,
+		ModText bt = new ModText(this, settingFontSize, enabledColor,
 				disabledColor, hoverC, depressedC, enabledColor, true);
 		bt.disabled(disabled);
 		return bt;
@@ -260,10 +269,10 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private ModText newBT2(boolean isDefault) {
 		ModText bt;
 		if (isDefault)
-			bt = new ModText(this, settingFont, defaultValuesColor, 
+			bt = new ModText(this, settingFontSize, defaultValuesColor, 
 					disabledColor, hoverC, depressedC, disabledColor, true);
 		else
-			bt = new ModText(this, settingFont, customValuesColor,
+			bt = new ModText(this, settingFontSize, customValuesColor,
 					disabledColor, hoverC, depressedC, disabledColor, true);
 		return bt;
 	}
@@ -279,13 +288,14 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		else
 			txt2.enabledC(customValuesColor);
 	}
-	private void paintSetting(Graphics2D g) {
-		IParam param = activeList.get(index);
+	private void paintSetting(Graphics2D g, IParam param) {
 		boolean refresh = forceUpdate || param.updated();
 		if (refresh) { // Update imgList
 			if(hovering && param.trueChange())
 				callPreview = true; // To refresh visible parent panel
-			BufferedImage img = new BufferedImage(retina(columnWidth), retina(textBoxH), TYPE_INT_ARGB);
+			float hFactor = param.heightFactor();
+			int boxH = (int) (textBoxH * hFactor);
+			BufferedImage img = new BufferedImage(retina(columnWidth), retina(boxH), TYPE_INT_ARGB);
 			Graphics2D gi = (Graphics2D) img.getGraphics();
 			gi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			gi.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
@@ -322,8 +332,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 				gi.dispose();
 				if (retina) {
 					int y = ySetting-rowPad;
-					g.drawImage(img, xSetting, y, xSetting+columnWidth, y+textBoxH,
-							0, 0, retina(columnWidth), retina(textBoxH), null);
+					g.drawImage(img, xSetting, y, xSetting+columnWidth, y+boxH,
+							0, 0, retina(columnWidth), retina(boxH), null);
 					// restore font size for mouse hovering detection
 					txtLeft.fontMult(1);
 					txtRight.fontMult(1);
@@ -350,8 +360,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 				gi.dispose();
 				if (retina) {
 					int y = ySetting-rowPad;
-					g.drawImage(img, xSetting, y, xSetting+columnWidth, y+textBoxH,
-							0, 0, retina(columnWidth), retina(textBoxH), null);
+					g.drawImage(img, xSetting, y, xSetting+columnWidth, y+boxH,
+							0, 0, retina(columnWidth), retina(boxH), null);
 					// restore font size for mouse hovering detection
 					txtLeft.fontMult(1);
 					txtRight.fontMult(1);
@@ -379,14 +389,15 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		else
 			g.drawImage(imgList.get(index), xSetting, ySetting-rowPad, null);
 	}
-	private void goToNextSetting() {
+	private void goToNextSetting(IParam param) {
+		int hSetting = (int) (hDistSetting * param.heightFactor());
 		index++;
 		if (index >= lastRowList.get(column)) {
 			column++;
 			xSetting = xSetting + columnWidth;
 			ySetting = yFull+yTop;
 		} else
-			ySetting += hDistSetting;
+			ySetting += hSetting;
 	}
 	private void mouseCommon(MouseEvent e, MouseWheelEvent w) {
 		for (int i=0; i<activeList.size(); i++) {
@@ -431,9 +442,9 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		hoverBox = null;
 		prevHover = null;
 		descBox.setVisible(true);
-		int hSettingTotal = hDistSetting * numRows;
+		//int hSettingTotal = hDistSetting * numRows;
 
-		int minH = titlePad + hSettingTotal + descHeigh + buttonPadV + smallButtonH + bottomPad;
+		int minH = titlePad + hSettingsTotal + descHeigh + buttonPadV + smallButtonH + bottomPad;
 		if (hovering)
 			if (scaled(minWidth) > wGist)
 				minH = minH + buttonPadV + smallButtonH;
@@ -580,8 +591,9 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		xSetting = xFull+xGist + columnPad/2;
 		ySetting = yFull+yTop;
 		while (index<activeList.size()) {
-			paintSetting(g);
-			goToNextSetting();
+			IParam param = activeList.get(index);
+			paintSetting(g, param);
+			goToNextSetting(param);
 		}
 		if (callPreview) {
 			parentUI.preview("quickGenerate");

@@ -20,7 +20,7 @@ final class CombatOptions implements IOptionsSubUI {
 				newWeaponSound, playerSoundEcho,
 				echoSoundDecay, echoSoundDelay, echoSoundHullDelay,
 
-				headerSpacer,
+				headerSpacer50,
 				beamWindupFrames, beamHoldFrames,
 				heavyBeamHoldFrames, shieldFadingFrames
 				)));
@@ -28,22 +28,22 @@ final class CombatOptions implements IOptionsSubUI {
 				new ParamTitle("SHIELD_ANIMATIONS"),
 				shieldType, alwaysShowsShield, 
 	
-				headerSpacer,
+				headerSpacer50,
 				beamAnimationFPS, shieldEnveloping, shieldBorder,
 				shieldTransparency, shieldFlickering, shieldNoisePct,
 				weaponZposition, weaponZRandom,
 	
-				headerSpacer,
+				headerSpacer50,
 				startShieldDemo
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ASTEROIDS"),
 				moo1PlanetLocation, moo1AsteroidsLocation,
 				asteroidsVanish, moo1AsteroidsProperties,
-				headerSpacer,
+				headerSpacer50,
 				minLowAsteroids, maxLowAsteroids,
 				minHighAsteroids, maxHighAsteroids,
-				headerSpacer,
+				headerSpacer50,
 				baseNoAsteroidsProbPct, stepNoAsteroidsProbPct,
 				baseLowAsteroidsProbPct, stepLowAsteroidsProbPct,
 				richNoAsteroidsModPct, ultraRichNoAsteroidsModPct
@@ -53,7 +53,7 @@ final class CombatOptions implements IOptionsSubUI {
 				playerAttackConfidence, playerDefenseConfidence,
 				aiAttackConfidence, aiDefenseConfidence,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("GAME_OTHER"),
 				maxCombatTurns,
 				retreatRestrictions, retreatRestrictionTurns

@@ -70,6 +70,12 @@ Later:
 ## What's New
 
 2024.11.05 (BR)
+- Options panels dynamic size.
+  - Will follow the option requested size.
+  - Header spacer are 50% of line size.
+  - New line spacer, 25% of line size.
+
+2024.11.05 (BR)
 - Options panel reorganisation.
   - Options lists are separated from options declarations.
   - Options lists have a central management.

@@ -17,6 +17,7 @@ public final class AllSubUI {
 	public	static final String ALL_DUPLICATE_OPTIONS	= "ALL_DUPLICATE_OPTIONS";
 	public	static final String ALL_NOT_CFG_OPTIONS		= "ALL_NOT_CFG_OPTIONS";
 	private	final Map<String, IOptionsSubUI> uiMap = new HashMap<>();
+	private static SafeListParam allModOptions;
 
 	public static AllSubUI instance()			{
 		if (instance == null)
@@ -42,34 +43,37 @@ public final class AllSubUI {
 		put(new SystemsOptions());
 	}
 
-	public SafeListParam getAllModOptions()		{
-		// Start with a set to filter duplicates
-		LinkedHashSet<IParam> allModOptions = new LinkedHashSet<>();
-		for (IOptionsSubUI ui : uiMap.values())
-			allModOptions.addAll(ui.getList());
-		
-		// Then create the final list 
-		SafeListParam list = new SafeListParam(ALL_MOD_OPTIONS);
-		list.addAll(allModOptions);
-		return list;
+	public static SafeListParam allModOptions(boolean refresh)		{
+		if (refresh || allModOptions == null) {
+			// Start with a set to filter duplicates
+			LinkedHashSet<IParam> allOptions = new LinkedHashSet<>();
+			for (IOptionsSubUI ui : instance().uiMap.values())
+				allOptions.addAll(ui.getList());
+			// Remove the line separators
+			allOptions.remove(null);
+			// Then create the final list 
+			allModOptions = new SafeListParam(ALL_MOD_OPTIONS);
+			allModOptions.addAll(allOptions);
+		}
+		return allModOptions;
 	}
-	public SafeListParam allCfgOptions()		{
+	public static SafeListParam allCfgOptions(boolean refresh)		{
 		SafeListParam list = new SafeListParam(ALL_CFG_OPTIONS);
-		for(IParam param : getAllModOptions())
+		for(IParam param : allModOptions(refresh))
 			if (param.isCfgFile())
 				list.add(param);
 		return list;
 	}
-	public SafeListParam allDuplicateOptions()	{
+	public static SafeListParam allDuplicateOptions(boolean refresh)	{
 		SafeListParam list = new SafeListParam(ALL_DUPLICATE_OPTIONS);
-		for(IParam param:getAllModOptions())
+		for(IParam param:allModOptions(refresh))
 			if (param.isCfgFile() && param.isDuplicate())
 				list.add(param);
 		return list;
 	}
-	public SafeListParam allNotCfgOptions()		{
+	public static SafeListParam allNotCfgOptions(boolean refresh)		{
 		SafeListParam list = new SafeListParam(ALL_NOT_CFG_OPTIONS);
-		for(IParam param:getAllModOptions())
+		for(IParam param:allModOptions(refresh))
 			if (!param.isCfgFile())
 				list.add(param);
 		return list;

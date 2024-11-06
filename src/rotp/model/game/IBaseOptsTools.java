@@ -1,6 +1,6 @@
 package rotp.model.game;
 
-import rotp.ui.util.ParamTitle;
+import rotp.ui.util.ParamSpacer;
 
 public interface IBaseOptsTools {
 	String BASE_UI				= "SETUP_";
@@ -22,6 +22,7 @@ public interface IBaseOptsTools {
 	int GAME_ID  = 1;
 	int SETUP_ID = 2;
 
-	ParamTitle headerSpacer = new ParamTitle("SPACER");
-	default ParamTitle headerSpacer()	{return headerSpacer; }
+	ParamSpacer headerSpacer50	= new ParamSpacer(0.5f);
+	ParamSpacer lineSpacer25	= new ParamSpacer(0.25f);
+	default ParamSpacer headerSpacer()	{return headerSpacer50; }
 }

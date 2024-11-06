@@ -19,7 +19,7 @@ final class DebugOptions implements IOptionsSubUI {
 				debugShowMemory, debugConsoleMemory,
 				debugShowMoreMemory, debugFileMemory,
 
-				headerSpacer,
+				headerSpacer50,
 				new ParamTitle("DEBUG_RELEVANT"),
 				councilWin, autoplay,
 				backupTurns

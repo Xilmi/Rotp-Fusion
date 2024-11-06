@@ -1263,7 +1263,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	}
     }
     private void setAllNonCfgGameSettingsToDefault() { // settings saved in game file.
-       	for (IParam param : allModOptions())
+       	for (IParam param : AllSubUI.allModOptions(false))
        		if (param != null && !param.isCfgFile()) // Exclude .cfg parameters
 	       		param.setFromDefault(true, false);
     }
@@ -1276,7 +1276,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		boolean excludeCfg, boolean excludeSubMenu) {
     	if (pList == null)
     		return;
-    	if (pList == allModOptions()) { // Should no more be used
+    	if (pList == AllSubUI.allModOptions(false)) { // Should no more be used
     		System.err.println("Old call of setModSettingsToDefault(allModOptions)");
     		setAllNonCfgGameSettingsToDefault();
     	}
@@ -1357,7 +1357,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	setAllNonCfgGameSettingsToDefault();
     	setAllNonCfgBaseSettingsToDefault();
        	if (!Rotp.noOptions) // Better safe than sorry
-       		for (IParam param : allModOptions())
+       		for (IParam param : AllSubUI.allModOptions(false))
         		param.initDependencies(IParam.VALID_DEPENDENCIES);
     }
     @Override public void resetPanelSettingsToDefault(SafeListParam pList,
@@ -1365,7 +1365,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	setPanelGameSettingsToDefault(pList, excludeCfg, excludeSubMenu);
     	setPanelBaseSettingsToDefault(pList);
        	if (!Rotp.noOptions) // Better safe than sorry
-       		for (IParam param : allModOptions())
+       		for (IParam param : AllSubUI.allModOptions(false))
         		param.initDependencies(IParam.VALID_DEPENDENCIES);
     }
     @Override public void saveOptionsToFile(String fileName) {
@@ -1386,7 +1386,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     @Override public void updateAllNonCfgFromFile(String fileName) {
     	MOO1GameOptions source = loadOptions(fileName);
-       	for (IParam param : allModOptions()) {
+       	for (IParam param : AllSubUI.allModOptions(false)) {
        		if (param != null) {
 	       		if (param.isCfgFile()) { // Exclude .cfg parameters
 	       			param.updateOptionTool();
@@ -1397,7 +1397,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        		}
        	}
        	if (!Rotp.noOptions) // Better safe than sorry
-       		for (IParam param : allModOptions())
+       		for (IParam param : AllSubUI.allModOptions(false))
         		param.initDependencies(IParam.VALID_DEPENDENCIES);
         source.copyAllBaseSettings(this);
     }
@@ -1426,7 +1426,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	       	}
     	}
        	if (!Rotp.noOptions) // Better safe than sorry
-       		for (IParam param : allModOptions())
+       		for (IParam param : AllSubUI.allModOptions(false))
         		param.initDependencies(IParam.VALID_DEPENDENCIES);
 
         source.copyPanelBaseSettings(this, pList);
@@ -1434,7 +1434,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override public void prepareToSave(boolean secure) {
     	// probably not necessary! but it's called during screen swap and won't delay the game
     	//System.out.println("prepareToSave() " + optionName());
-    	for (IParam param : allModOptions()) {
+    	for (IParam param : AllSubUI.allModOptions(false)) {
     		if (param != null) {
     			param.prepareToSave(this);
     		}
@@ -1448,7 +1448,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override public void UpdateOptionsTools() {
     	// probably overkill, but no needs to be picky
     	//System.out.println("UpdateOptionsTools() " + optionName());
-    	for (IParam param : allModOptions()) {
+    	for (IParam param : AllSubUI.allModOptions(false)) {
     		if (param != null && !param.isCfgFile()) { // cfg file if updated live!
     			param.updateOptionTool();
     		}
