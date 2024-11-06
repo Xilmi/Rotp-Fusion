@@ -133,7 +133,7 @@ TUNDRA_DESC_BIOLOGICAL            | Les planètes toundra sont des mondes terres
 PLANET_VESTIGES_SHORT             | V +
 PLANET_ARTIFACTS_SHORT            | A +
 PLANET_VESTIGES                   | Vestiges
-PLANET_ARTIFACTS                  | Artefacts
+PLANET_ARTIFACTS                  | Artéfacts
 PLANET_ULTRA_POOR                 | Ultra Pauvre
 PLANET_POOR                       | Pauvre
 PLANET_RICH                       | Riche
@@ -259,7 +259,7 @@ EVENT_SPACE_CRYSTAL               | Une gigantesque entité cristalline appelée
 EVENT_SPACE_CRYSTAL_1             | Une gigantesque entité cristalline appelée «le Cristal Spatial» a été repérée s'approchant du système non colonisé [system].
 EVENT_SPACE_CRYSTAL_2             | Le Cristal Spatial a complètement détruit toute vie sur la colonie [victim_raceadjecF] dans le système [system].
 EVENT_SPACE_CRYSTAL_3             | Le Cristal Spatial a été détruit par les défenseurs [victim_race_pluraladjec] dans le système [system].
-EVENT_SPACE_CRYSTAL_4             | Le cristal spatial hideux a quitté notre galaxie. Pourquoi ? Pourquoi est-ce parti ? La galaxie ne le saura peut-être jamais.
+EVENT_SPACE_CRYSTAL_4             | Le cristal spatial hideux a quitté notre galaxie. Pourquoi ? Pourquoi est-ce parti ? La galaxie ne le saura peut-être jamais.
 EVENT_SPACE_CRYSTAL_TRIG          | Les scientifiques responsables de la nouvelle technologie de la Porte des Étoiles ont déclaré : Nous regardions l'abîme, et l'abîme gronde Nom Nom Nom!
 EVENT_SPACE_CRYSTAL_PLUNDER       | →EVENT_SPACE_CRYSTAL_3←.<br> La recherche actuelle en matière de propulsion pourrait être complétée par l'analyse des restes cristallins, et la vente de cristaux inférieurs rapporte [amt] BC à la réserve planétaire de l'empire.
 
@@ -267,8 +267,8 @@ EVENT_SPACE_PIRATES               | Une flotte de pirates maraudeurs a été rep
 EVENT_SPACE_PIRATES_1             | Une flotte de pirates maraudeurs a été repérée près du système non colonisé [system].
 EVENT_SPACE_PIRATES_2             | Les redoutables pirates spatiaux ont ravagé la population et pillé toute l'industrie sur la colonie [race] dans le système [systeme], dévastant l'écologie locale.
 EVENT_SPACE_PIRATES_3             | La flotte de pirates a été détruite par les défenseurs [race] dans le système [system]. Des richesses importantes trouvées dans les épaves ont été saisies par l'armée [race] pour renforcer la réserve planétaire par [amt] BC.
-EVENT_SPACE_PIRATES_4             | Les pirates spatiaux a quitté notre galaxie insignifiante ! Où sont-ils passé ? On s'en fiche, bon débarras !
-EVENT_SPACE_PIRATES_TRIG          | La récente découverte de la Propulsion Hyper va tout changer. Par exemple, les criminels se réjouissent de leur nouvelle mobilité.
+EVENT_SPACE_PIRATES_4             | Les pirates spatiaux ont quittés notre insignifiante galaxie ! Où sont-ils passé ? On s'en fiche, bon débarras !
+EVENT_SPACE_PIRATES_TRIG          | La récente découverte de la Propulsion Hyperspatiale va tout changer. Par exemple, les criminels se réjouissent de leur nouvelle mobilité.
 EVENT_SPACE_PIRATES_PLUNDER       | →EVENT_SPACE_PIRATES_3←.<br> L'étude des vaisseaux pirates endommagés aide à faire avancer certains projets de recherche en cours.
 
 EVENT_RELIC_PLANETS               | Une relique des Précurseurs s'est mystérieusement activée dans l'espace [target_empireof]. Les scanners à l'échelle de la galaxie rapportent la formation de nouvelles planètes dans plusieurs systèmes solaires précédemment vides après des événements de coalescence intense d'astéroïdes. Les scientifiques [target_race] ont également récolté plusieurs technologies de construction à partir de la relique.
@@ -570,7 +570,7 @@ GAME_SETTINGS_AUTOBOMBARD_NEVER_HELP  | Pas de question ! Ne jamais bombarder!
 GAME_SETTINGS_AUTOBOMBARD_YES_HELP    | La galaxie est à nous ! Refoulons les faibles et réclamons notre dû !
 GAME_SETTINGS_AUTOBOMBARD_WAR_HELP    | Annihilez nos ennemis déclarés, demandez conseil pour d'autres empires !
 GAME_SETTINGS_AUTOBOMBARD_INVADE_HELP | Annihilez nos ennemis déclarés si aucune invasion n'est prévue, demandez conseil autrement.
-GAME_SETTINGS_AUTOBOMBARD_HELP    | Que faire lorsque votre flotte armée est en orbite autour d'un empire extraterrestre? Devrions-nous les bombarder ou les laisser seuls ?
+GAME_SETTINGS_AUTOBOMBARD_HELP    | Que faire lorsque votre flotte armée est en orbite autour d'un empire extraterrestre? Devrions-nous les bombarder ou les laisser seuls ?
 GAME_SETTINGS_AUTOBOMBARD_DESC    | Basculez pour toujours inviter à bombarder, ne jamais bombarder, toujours bombarder, uniquement bombarder automatiquement en cas de guerre, ou uniquement bombarder automatiquement en cas de guerre sans forces d'invasion en route.
 GAME_SETTINGS_BACKUP_OFF          | Désactivé
 GAME_SETTINGS_BACKUP_ON           | Tout/tous %1 tours
@@ -635,7 +635,7 @@ LOAD_GAME_BAD_VERSION             | Impossible de charger le fichier de jeu enre
 LOAD_GAME_CANCEL                  | Annuler
 LOAD_GAME_OK                      | Charger
 LOAD_GAME_TOO_LONG                | ...
-LOAD_GAME_RECENT_START_SAVEFILE   | !!! Rejouer le dernier tour !!!
+LOAD_GAME_RECENT_START_SAVEFILE   | !!! Rejouer le dernier tour !!!
 
 
 // Save Game UI
@@ -679,7 +679,7 @@ MAIN_TECH_RESERVE_TAX_ALL         | Taxer %1% de la production sur toutes les co
 MAIN_TECH_RESERVE_TAX             | Taxer %1% de la production sur les colonies développées
 MAIN_TECH_RESERVE_TAX_NONE        | Aucune taxe prélevée sur la production des colonies
 MAIN_HELP_ALL                     | Aide - cliquez pour parcourir les informations d'aide pour un écran particulier. Escape pour annuler.
-MAIN_HELP_MOD                     | Aide Mod - « O » pour accéder au menu des options de jeu. « Home » dans Auto-Flag la planète sélectionnée. « Alt » + « Home » pour appliquer Auto-Flag à toutes les planètes déjà explorées.
+MAIN_HELP_MOD                     | Aide Mod - « O » pour accéder au menu des options de jeu. « Home » pour appliquer Auto-Drapeau la planète sélectionnée. « Alt » + « Home » pour appliquer Auto-Drapeau à toutes les planètes déjà explorées.
 MAIN_HELP_MOD_1A                  | Pour activer ou désactiver le Gouverneur pour ce système solaire.
 MAIN_HELP_MOD_1B                  | Pour accéder au menu Options du gouverneur.
 MAIN_HELP_MOD_1F                  | Des alertes du tour peuvent y apparaître : Faites un clic droit sur elles pour centrer la carte sur le système. Cliquez à gauche pour afficher la prochaine alerte.
@@ -706,8 +706,8 @@ MAIN_HELP_2I                      | Population actuelle et maximale de la planè
 MAIN_HELP_2J                      | Usines actuelles et maximales autorisées. Usines maximales basées sur la population et la technologie des contrôles robotiques.
 MAIN_HELP_2K                      | Associez un drapeau au système pour le démarquer sur la carte de la galaxie.
 MAIN_HELP_2K_2F                   | Attribuez jusqu'à 4 drapeaux au système pour le démarquer sur la carte de la galaxie.
-MAIN_HELP_2K_M2                   | Clic-gauche = Suivant / Clic-droite = Réinitialiser / «Home» = Auto-Flag.
-MAIN_HELP_2K_M3                   | Clic-gauche = Suivant / Clic-droit = Précédent / Clic-milieu = Réinitialiser / «Home» = Auto-Flag.
+MAIN_HELP_2K_M2                   | Clic-gauche = Suivant / Clic-droite = Réinitialiser / «Home» = Auto-Drapeau.
+MAIN_HELP_2K_M3                   | Clic-gauche = Suivant / Clic-droit = Précédent / Clic-milieu = Réinitialiser / «Home» = Auto-Drapeau.
 MAIN_HELP_2K_2F_HOLD              | («Ctrl» pour les drapeaux de droite, «Shift» pour les drapeaux du bas)
 MAIN_HELP_2L                      | Le montant de la réserve stockée dans le trésor de l'empire.
 MAIN_HELP_2M                      | L'état actuel de la recherche pour chacun des six domaines technologiques.
@@ -931,7 +931,7 @@ MAIN_ADVISOR_SHIP_WEAPON          | Nos chercheurs ont eu une percée en matièr
 MAIN_ADVISOR_COUNCIL              | Le Conseil Galactique se réunira bientôt, et notre présence sera sans doute très souhaitée. Nos diplomates saisiront cette occasion pour faire en sorte que tout ce qui est décidé contribue au bien de la souveraineté.
 MAIN_ADVISOR_REBELLION            | Ah, une rébellion sur %1. Comme c'est bizarre. Je suppose que cela devait arriver à un certain moment, mon seigneur, mais nous devrions quand même la réprimer avant que le mécontentement ne s'étende à nos autres colonies.
 MAIN_ADVISOR_RESIST_COUNCIL       | Seigneur ! Nous sommes avec vous ! Il n'y aura pas de paix dans cette galaxie jusqu'à ce que tu prennes ta place légitime sur son trône suprême !
-MAIN_ADVISOR_COUNCIL_RESISTED     | Pathétique. Voyez comment les imbéciles luttent contre l'inévitable ? Donnez-nous l'ordre d'écraser ces rebelles, et nous le ferrons!
+MAIN_ADVISOR_COUNCIL_RESISTED     | Pathétique. Voyez comment les imbéciles luttent contre l'inévitable ? Donnez-nous l'ordre d'écraser ces rebelles, et nous le ferrons!
 MAIN_SCOUT_TITLE                  | Les Scientifiques Cataloguent un Nouveau Système Stellaire
 MAIN_SCOUT_SUBTITLE_1             | Nos vaisseaux ont repéré ce système
 MAIN_SCOUT_SUBTITLE_2             | Nos astronomes ont collecté ces données
@@ -950,7 +950,7 @@ MAIN_SCOUT_ULTRA_RICH_DESC        | Ressources : Ultra-Riche - La production in
 
 // Colonization prompt
 MAIN_COLONIZE_TITLE               | Nos colons sont en orbite autour de %1, un système non colonisé.
-MAIN_COLONIZE_PROMPT              | Établir une nouvelle colonie ?
+MAIN_COLONIZE_PROMPT              | Établir une nouvelle colonie ?
 MAIN_COLONIZE_YES                 | Oui
 MAIN_COLONIZE_NO                  | Non
 MAIN_COLONIZE_ANIMATION_TITLE     | En l'an %1, [player_empire] forme une nouvelle colonie.
@@ -1106,13 +1106,13 @@ PLANETS_HELP_1H                   | Prélevez une taxe sur vos colonies à ajout
 PLANETS_HELP_2A                   | Nom - Le nom de votre système. Modifiable.
 PLANETS_HELP_2B                   | Population - Population actuelle, y compris le changement par rapport au tour précédent.
 PLANETS_HELP_2C                   | Type - Type de terrain de la planète. Vert pour les planètes Fertiles.
-PLANETS_HELP_2D                   | Ressources - pour les planètes Riches, Pauvres et Artefacts.
+PLANETS_HELP_2D                   | Ressources - pour les planètes Riches, Pauvres et Artéfacts.
 PLANETS_HELP_2E                   | Taille - Taille actuelle de la planète.
 PLANETS_HELP_2F                   | Déchets - Niveau de déchets industriels sur la planète.
 PLANETS_HELP_2G                   | Notes - Notes du joueur sur le système. Modifiable.
 PLANETS_HELP_3A                   | Nom - Le nom de votre système. Modifiable.
 PLANETS_HELP_3B                   | Population - Population actuelle, y compris le changement par rapport au tour précédent.
-PLANETS_HELP_3C                   | Ressources - Pour les planètes Riches, Pauvres et Artefacts.
+PLANETS_HELP_3C                   | Ressources - Pour les planètes Riches, Pauvres et Artéfacts.
 PLANETS_HELP_3D                   | Usines- Nombre d'usines, y compris le changement par rapport au tour précédent.
 PLANETS_HELP_3E                   | Production - production totale de la colonie.
 PLANETS_HELP_3F                   | Réserve - réserve totale actuellement stockée sur la colonie.
@@ -1120,7 +1120,7 @@ PLANETS_HELP_3G                   | Notes - Notes du joueur sur le système. Mod
 PLANETS_HELP_3H                   | Capacité - pct de la production maximale possible.
 PLANETS_HELP_4A                   | Nom - Le nom de votre système. Modifiable.
 PLANETS_HELP_4B                   | Population - Population actuelle, y compris le changement par rapport au tour précédent.
-PLANETS_HELP_4C                   | Ressources - pour les planètes Riches, Pauvres et Artefacts.
+PLANETS_HELP_4C                   | Ressources - pour les planètes Riches, Pauvres et Artéfacts.
 PLANETS_HELP_4D                   | Production - production totale de la colonie.
 PLANETS_HELP_4E                   | Boucliers - niveau du bouclier planétaire.
 PLANETS_HELP_4F                   | Bases - bases de missiles sur la planète. Rouge si technologie obsolète.
@@ -1133,7 +1133,7 @@ MAIN_BOMBARDED_TITLE             | %1 a été bombardé par des forces [alien_ra
 MAIN_BOMBARD_TITLE               | Nos forces sont en orbite autour d'une colonie ennemie [alien_raceadjecF].
 NEUTRAL_BOMBARD_TITLE            | Nos forces sont en orbite autour d'une colonie neutre [alien_raceadjecF].
 MAIN_BOMBARD_TROOPS              | %1 troupes [alien_race_pluraladjecF] sont en orbite ou en transit vers cette colonie.
-MAIN_BOMBARD_PROMPT              | Bombarder la planète ?
+MAIN_BOMBARD_PROMPT              | Bombarder la planète ?
 MAIN_BOMBARD_TARGET              | Épargne %1 pop
 MAIN_BOMBARD_DROP_ALL            | Tout larguer
 MAIN_BOMBARD_YES                 | Oui
@@ -1262,7 +1262,7 @@ TECH_TRADED_TITLE                 | Les scientifiques [player_race_pluraladjec] 
 TECH_PLUNDERED_TITLE              | Pillage dans les ruines de %1
 TECH_DERELICT_TITLE               | Les explorateurs [player_race_pluraladjec] pillent une technologie ancienne
 TECH_GUARDIAN_TITLE               | Les soldats [player_race_pluraladjec] récupèrent une arme ancienne
-TECH_ALLOCATE_SHIELD              | Devrions-nous augmenter les ratios de défense de toutes nos colonies pour construire les nouveaux boucliers planétaires ?
+TECH_ALLOCATE_SHIELD              | Devrions-nous augmenter les ratios de défense de toutes nos colonies pour construire les nouveaux boucliers planétaires ?
 TECH_ALLOCATE_MISSILE_BASES       | Devrions-nous augmenter les ratios de défense de toutes nos colonies pour moderniser nos bases de missiles ?
 TECH_ALLOCATE_FACTORIES           | Devrions-nous augmenter les ratios industriels de toutes nos colonies pour améliorer nos contrôles d'usine ?
 TECH_ALLOCATE_CLEAN_WASTE         | Devrions-nous réduire les ratios écologiques de toutes nos colonies au minimum nécessaire pour les garder propres ?
@@ -1341,7 +1341,7 @@ GNN_EXPANSION_2                   | [expanding_empire] compte maintenant %1 syst
 GNN_EXPANSION_3                   | [expanding_empire] contrôle presque la majorité de la galaxie. Les dirigeants se préparent déjà à fusionner avec le puissant empire.
 GNN_ALLIANCE_FORMED               | [first_empire] a formé une alliance avec [second_empire].
 GNN_ALLIANCE_BROKEN               | L'alliance entre [first_empire] et [second_empire] a été rompue.
-GNN_FLEETS_RANKING                | Classement actuel des points forts de la flotte spatiale :
+GNN_FLEETS_RANKING                | Classement actuel par puissance de la flotte spatiale :
 GNN_CENSUS_RANKING                | Le classement censitaire des populations de l'empire :
 GNN_PRODUCTION_RANKING            | Classements actuels de la production de l'empire :
 GNN_TECHNOLOGY_RANKING            | Leaders actuels de la technologie de pointe :
@@ -1844,9 +1844,9 @@ SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_TITLE   | Configuration avancée de la Gal
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI      | Paramètres avancés Galaxie
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_DESC | Ouvre un sous-menu contenant des paramètres avancés Galaxie.
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_HELP | Ouvre un sous-menu contenant les paramètres avancés de Galaxie.<br> Ces paramètres sont définitifs.<br> Ces paramètres sont enregistrés avec le jeu.
-SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | Permettre à une planète ultra-pauvre, pauvre, riche, ou ultra-riche d'avoir aussi des artefacts.
-SETTINGS_MOD_RICH_POOR_ARTIFACT      | Riche / pauvre & Artefacts : %1
-SETTINGS_MOD_ARTIFACT_MULT_DESC      | Multiplicateur de probabilité de planète d'artefacts antariens.
+SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | Permettre à une planète ultra-pauvre, pauvre, riche, ou ultra-riche d'avoir aussi des artéfacts.
+SETTINGS_MOD_RICH_POOR_ARTIFACT      | Riche / pauvre & Artéfacts : %1
+SETTINGS_MOD_ARTIFACT_MULT_DESC      | Multiplicateur de probabilité de planète d'artéfacts antariens.
 SETTINGS_MOD_ARTIFACT_MULT           | Multiplicateur Antarien : %1%
 
 // modnar: add UI panel for modnar MOD game options
@@ -1875,7 +1875,7 @@ SETTINGS_MOD_RETREAT_BOTH_HELP       | Personne ne peut battre en retraite aussi
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS | Retraite restreinte pendant %1 tours
 SETTINGS_MOD_MAX_COMBAT_TURNS        | Tours de combat max. : %1
 SETTINGS_MOD_HOME_ORION              | Planète mère avec Vestiges : %1
-SETTINGS_MOD_HOME_ARTIFACT           | Planète mère avec Artefact : %1
+SETTINGS_MOD_HOME_ARTIFACT           | Planète mère avec Artéfact : %1
 SETTINGS_MOD_HOME_FERTILE            | Planète mère Fertile : %1
 SETTINGS_MOD_HOME_GAIA               | Planète mère Gaïa : %1
 SETTINGS_MOD_HOME_RICH               | Planète mère Riche : %1
@@ -1897,6 +1897,9 @@ SETTINGS_MOD_SHOW_ALL_SHIPS_HELP         | Montre tout ce qui bouge.
 SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS_HELP  | Montre les transports et les vaisseaux armés, et cache les vaisseaux désarmés.
 SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS_HELP  | Ne montre que les vaisseaux armés, et cache les transports et les vaisseaux désarmés.
 
+SETTINGS_MOD_SPY_OVERSPEND_DESC          | Utiliser tout le budget disponible pour espionner, ou arrêter de dépenser une fois le réseau au complet.
+SETTINGS_MOD_SPY_OVERSPEND               | Excédent Espionnage : %1
+
 SETTINGS_MOD_SCRAP_REFUND_ALLY_DESC     | Seuls les vaisseaux en orbite dans l'empire ou autour de mondes alliés seront valorisés.
 SETTINGS_MOD_SCRAP_REFUND_NEVER_DESC    | Nulle part, ne me dérangez pas avec ça !
 SETTINGS_MOD_SCRAP_REFUND_FACTOR_DESC   | Quel pourcentage de la valeur des vaisseaux peut être récupéré de leur ferraille?
@@ -1906,7 +1909,7 @@ SETTINGS_MOD_RETREAT_RESTRICTIONS_DESC | Indique qui sera restreint pour battre 
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS_DESC | Indique pendant combien de tours dure la restriction sur les retraites.
 SETTINGS_MOD_MAX_COMBAT_TURNS_DESC   | Définit la durée maximale des combats spatiaux. Ceci était fixé à 50 dans MoO1. Après cette durée, les agresseurs reculent. Choisi au hasard s'il n'y a pas de colonie.
 SETTINGS_MOD_HOME_ORION_DESC         | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère de type Orion avec Vestiges.
-SETTINGS_MOD_HOME_ARTIFACT_DESC      | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère avec Artefact.
+SETTINGS_MOD_HOME_ARTIFACT_DESC      | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère avec Artéfact.
 SETTINGS_MOD_HOME_FERTILE_DESC       | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère Fertile.
 SETTINGS_MOD_HOME_GAIA_DESC          | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère Gaïa.
 SETTINGS_MOD_HOME_RICH_DESC          | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère Riche.
@@ -1973,8 +1976,8 @@ SETTINGS_MOD_ALLOW_TECH_STEALING_HELP    | Pour activer ou désactiver les activ
 SETTINGS_MOD_ALLOW_TECH_STEALING_DESC    | Pour activer ou désactiver les activités de vol de technologies.<br>Lorsque désactivé, la moitié du bonus d'infiltration sera attribuée au bonus de recherche. (Jamais de bonus négatif)
 SETTINGS_MOD_ALLOW_TECH_STEALING         | Vol de Technologies: %1
 
-SETTINGS_MOD_MAX_TECH_CAPTURED_HELP      | Lors de l'invasion d'une colonie ennemie, quel est le nombre maximum de technologies pouvant être pillées ?<br><b>Rétrocompatibilité:</b> Si le vol de technologie était précédemment interdit, cette valeur sera initialisée à 0.
-SETTINGS_MOD_MAX_TECH_CAPTURED_DESC      | Lors de l'invasion d'une colonie ennemie, quel est le nombre maximum de technologies pouvant être pillées ?
+SETTINGS_MOD_MAX_TECH_CAPTURED_HELP      | Lors de l'invasion d'une colonie ennemie, quel est le nombre maximum de technologies pouvant être pillées ?<br><b>Rétrocompatibilité:</b> Si le vol de technologie était précédemment interdit, cette valeur sera initialisée à 0.
+SETTINGS_MOD_MAX_TECH_CAPTURED_DESC      | Lors de l'invasion d'une colonie ennemie, quel est le nombre maximum de technologies pouvant être pillées ?
 SETTINGS_MOD_MAX_TECH_CAPTURED           | Pillage max: %1
 
 SETTINGS_MOD_DEVELOPED_DEFINITION_DESC   | Quels sont les critères à appliquer lorsque "→PLANETS_RESERVE_ONLY_DEVELOPED←" est sélectionné?
@@ -2826,7 +2829,7 @@ GOVERNOR_TRANSPORT_UNGOVERNED_LABEL | Autoriser l'envoi de population depuis des
 
 GOVERNOR_TRANSPORT_RICH_OFF_DESC    | Don't send from Rich/Artifacts planets.
 GOVERNOR_TRANSPORT_RICH_OFF         | Spare Rich: %1
-GOVERNOR_TRANSPORT_RICH_OFF_LABEL   | Ne pas envoyer de transtorts depuis des planètes riches/artefacts.
+GOVERNOR_TRANSPORT_RICH_OFF_LABEL   | Ne pas envoyer de transports depuis des planètes riches / artéfacts.
 
 GOVERNOR_TRANSPORT_POOR_DBL_DESC    | Send double from Poor planets.
 GOVERNOR_TRANSPORT_POOR_DBL         | Double from Poor: %1
@@ -2841,7 +2844,7 @@ GOVERNOR_TRANSPORT_MAX_TURNS_NEBULA_TT     | →GOVERNOR_TRANSPORT_MAX_TURNS_DES
 HEADERS_GOVERNOR_STARGATES_OPTIONS_DESC | Options de portes des étoiles
 HEADERS_GOVERNOR_STARGATES_OPTIONS      | ~~~ PORTES DES ÉTOILES ~~~
 GOVERNOR_STARGATES_OPTIONS_LABEL        | Portes des étoiles
-GOVERNOR_STARGATES_OPTIONS_TT           | Où l'IA devrait-elle construire des portes des étoiles ?
+GOVERNOR_STARGATES_OPTIONS_TT           | Où l'IA devrait-elle construire des portes des étoiles ?
 
 GOVERNOR_STARGATES_OPTIONS_DESC      | To select when the stargates should be build automatically.
 GOVERNOR_STARGATES_OPTIONS           | Gates Built: %1
@@ -2926,15 +2929,15 @@ GOVERNOR_AUTO_ATTACK_DESC            | Lorsque cette option est activée, le gou
 GOVERNOR_AUTO_ATTACK                 | IA Extermine: %1
 GOVERNOR_AUTO_ATTACK_LABEL           | L'IA Extermine
 
-GOVERNOR_AUTO_SCOUT_COUNT_DESC       | De combien de vaisseaux de reconnaissance la flotte devrait-elle être constituée ?
+GOVERNOR_AUTO_SCOUT_COUNT_DESC       | De combien de vaisseaux de reconnaissance la flotte devrait-elle être constituée ?
 GOVERNOR_AUTO_SCOUT_COUNT            | Éclaireurs: %1
 GOVERNOR_AUTO_SCOUT_COUNT_LABEL      | Nombre d'éclaireurs à envoyer.
 
-GOVERNOR_AUTO_COLONY_COUNT_DESC      | De combien de vaisseaux de colonisation la flotte devrait-elle être constituée ?
+GOVERNOR_AUTO_COLONY_COUNT_DESC      | De combien de vaisseaux de colonisation la flotte devrait-elle être constituée ?
 GOVERNOR_AUTO_COLONY_COUNT           | Pionniers: %1
 GOVERNOR_AUTO_COLONY_COUNT_LABEL     | Nombre de pionniers à envoyer.
 
-GOVERNOR_AUTO_ATTACK_COUNT_DESC      | De combien de vaisseaux de guerre la flotte devrait-elle être constituée ?
+GOVERNOR_AUTO_ATTACK_COUNT_DESC      | De combien de vaisseaux de guerre la flotte devrait-elle être constituée ?
 GOVERNOR_AUTO_ATTACK_COUNT           | Baroudeurs: %1
 GOVERNOR_AUTO_ATTACK_COUNT_LABEL     | Nombre de baroudeurs à envoyer.
 
