@@ -16,7 +16,7 @@ fulltitle: Arbitre Suprême
 leader: CB-715, INT-986, MS-35, QX-537, TVC-15, TX-1138
 
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
-ship1: Byte, Transistor, Interrupteur, Composant, Circuit, Chiffre, Logique  
+ship1: Octet, Transistor, Interrupteur, Composant, Circuit, Chiffre, Logique
 ship2: Processeur, Calculatrice, Ordinateur, Algorithme, Réseau, Calcul
-ship3: Dynamo, Batterie, Ajax, Tornade, Nexus, Marauder, Drachme
+ship3: Dynamo, Batterie, Ajax, Tornade, Nexus, Maraudeur, Drachme
 ship4: Nemesis, Devastateur, Annihilateur, Intrus, Hyperion, Pénétrateur, Bourreau

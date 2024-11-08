@@ -18,5 +18,5 @@ leader: Dynalon, Kelvan, Meson, Quark, Tachaon, Zygot
 // ship names, by size: 1-small, 2-medium, 3-large, 4-huge
 ship1: Électron, Neutrino, Quark, Neutron, Proton, Atome, Molécule
 ship2: Sigma, Prime, Rayon, Hypoténuse, Algèbre, Tangente, Logarithme
-ship3: Parallaxe, Ellipse, Axe, Onde Sinusoïdale, Fractal, Calculu, Derivation
-ship4: Sun Fire, Constellation, Nova, Quasar, Galaxie, Nébuleuse, Couronne
+ship3: Parallaxe, Ellipse, Axe, Onde Sinusoïdale, Fractale, Calcul, Dérivation
+ship4: Feu Solaire, Constellation, Nova, Quasar, Galaxie, Nébuleuse, Couronne
