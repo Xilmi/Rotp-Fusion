@@ -169,7 +169,7 @@ BIOANTIDOTE_1_DETAIL  | Réduit les pertes causées par les armes biologiques de
 //
 // Biological weapon techs
 //
-BIOWEAPON_0_NAME     | Spores mortels
+BIOWEAPON_0_NAME     | Spores mortelles
 BIOWEAPON_0_BRIEF    | Arme biologique
 BIOWEAPON_0_DETAIL   | Une arme biologique horrible capable de réduire la populations planétaire maximale de 1M par attaque.
 
