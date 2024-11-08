@@ -49,6 +49,7 @@ import java.util.function.Function;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import rotp.Rotp;
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.Galaxy;
@@ -73,6 +74,8 @@ import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.GridCircularDisplaySprite;
 import rotp.ui.sprites.OptionsWidgetSprite;
 import rotp.ui.sprites.RangeDisplaySprite;
+import rotp.ui.sprites.RulesWidgetSprite;
+import rotp.ui.sprites.SettingsWidgetSprite;
 import rotp.ui.sprites.ShipDisplaySprite;
 import rotp.ui.sprites.SpyReportSprite;
 import rotp.ui.sprites.SystemNameDisplaySprite;
@@ -213,7 +216,12 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 //        showGridCircular = parent.defaultGridCircularDisplay();
 
         if (baseControls.isEmpty()) {
-            baseControls.add(new OptionsWidgetSprite(10,295,30,30));
+        	if (Rotp.isUnderTest()) { // TODO BR: REMOVE Rotp.isUnderTest()
+        		baseControls.add(new RulesWidgetSprite(10,330,30,30));
+        		baseControls.add(new SettingsWidgetSprite(10,295,30,30));
+        	}
+        	else
+        		baseControls.add(new OptionsWidgetSprite(10,295,30,30));
             baseControls.add(new ZoomOutWidgetSprite(10,260,30,30));
             baseControls.add(new ZoomInWidgetSprite(10,225,30,30));
             baseControls.add(new RangeDisplaySprite(10,190,30,30));
@@ -230,7 +238,10 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             baseControls.add(new TechStatusSprite(TechCategory.CONSTRUCTION, 10,y0+70, 30,30));
             baseControls.add(new TechStatusSprite(TechCategory.COMPUTER,     10,y0+35, 30,30));
             baseControls.add(new TreasurySprite(10,y0, 30,30));
-            baseControls.add(new SpyReportSprite(10,y0-70, 30,30));
+           	if (Rotp.isUnderTest()) // TODO BR: REMOVE Rotp.isUnderTest()
+           		baseControls.add(new SpyReportSprite(10, y0-65, 30, 30));
+           	else
+           		baseControls.add(new SpyReportSprite(10,y0-70, 30,30));
         }
         
         addMouseListener(this);
@@ -286,7 +297,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         int mapSizeX = getSize().width;
         int mapSizeY = getSize().height;
         if (scaleY != scale) {
-            clearRangeMap();
+            //clearRangeMap(); //redundant
             resetRangeAreas();
         }
         scaleY(scale);

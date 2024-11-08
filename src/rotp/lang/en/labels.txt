@@ -939,7 +939,8 @@ GOVERNOR_IS_ON_BUTTON             | Governor Active
 GOVERNOR_IS_OFF_BUTTON            | Governor Inactive
 //GOVERNOR_IS_ON_BUTTON             | Governor
 //GOVERNOR_IS_OFF_BUTTON            | Governor
-GOVERNOR_OPTIONS                  | Options
+//GOVERNOR_OPTIONS                  | Options
+GOVERNOR_OPTIONS                  | Mandate
 MAIN_COLONY_SPENDING_NONE         | None
 MAIN_COLONY_SPENDING_RESERVE      | Reserve
 MAIN_COLONY_SPENDING_TECH         | Tech
@@ -3043,6 +3044,20 @@ SETTINGS_MOD_IN_GAME_OPTIONS_UI          | Gameplay Options
 SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC     | Opens a submenu containing advanced rules and gameplay settings.
 SETTINGS_MOD_IN_GAME_OPTIONS_UI_HELP     | →SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC← These settings are saved with the game. This submenu is also available during gameplay.
 
+SETTINGS_MOD_RULES_OPTIONS_BUTTON        | Rules
+SETTINGS_MOD_RULES_OPTIONS_DETAIL        | Configure the Game Rules
+SETTINGS_MOD_RULES_OPTIONS_TITLE         | Game Rules Configuration
+SETTINGS_MOD_RULES_OPTIONS_UI            | Rules Options
+SETTINGS_MOD_RULES_OPTIONS_UI_DESC       | Opens a subpanel to configure the game rules.
+SETTINGS_MOD_RULES_OPTIONS_UI_HELP       | →SETTINGS_MOD_RULES_OPTIONS_UI_DESC←<br>These settings are saved inside the game file.<br>This submenu is also available during gameplay.
+
+SETTINGS_MOD_SETTINGS_OPTIONS_BUTTON     | Settings
+SETTINGS_MOD_SETTINGS_OPTIONS_DETAIL     | Configure User Interface and Automations
+SETTINGS_MOD_SETTINGS_OPTIONS_TITLE      | User Interface Configuration
+SETTINGS_MOD_SETTINGS_OPTIONS_UI         | User Interface
+SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC    | Opens a subpanel to configure User Interface and Automations.
+SETTINGS_MOD_SETTINGS_OPTIONS_UI_HELP    | →SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC←<br>Some of these settings are saved inside the game file, other in the "remnant.cfg" file.<br>This submenu is also available during gameplay.
+
 SETTINGS_MOD_BASE_MOD_OPTIONS_TITLE      | Base Mod Settings
 SETTINGS_MOD_BASE_MOD_OPTIONS_UI         | Base Mod Settings
 SETTINGS_MOD_BASE_MOD_OPTIONS_UI_DESC    | Opens a submenu containing Base mod options.<br>To be extended on demand.
@@ -3139,10 +3154,10 @@ SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developer's Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | Debug Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
 
-SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Combat Options Menu
-SETTINGS_MOD_ZOOM_OPTIONS_UI             | Combat Options
-SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse graphic combat options settings.
-SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects. Weapons sounds and Shields effects.
+SETTINGS_MOD_COMBAT_OPTIONS_TITLE        | Ship Combat Configuration
+SETTINGS_MOD_COMBAT_OPTIONS_UI           | Combat Control Panel
+SETTINGS_MOD_COMBAT_OPTIONS_UI_DESC      | Open a new control panel with various ship combat option settings.
+SETTINGS_MOD_COMBAT_OPTIONS_UI_HELP      | →SETTINGS_MOD_COMBAT_OPTIONS_UI_DESC←<br>Combat Shield Effects. Weapons sounds, asteroid placement, AI parameters.
 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
@@ -3583,6 +3598,26 @@ SETTINGS_MOD_IRONMAN_LOAD_DELAY          | Reload turn divider: %1
 
 SETTINGS_MOD_REPEATABLE_ARTIFACT_DESC    | Artifacts planets will constantly give the same tech on reload.
 SETTINGS_MOD_REPEATABLE_ARTIFACT         | Deterministic Artifacts: %1
+
+//
+// New sub panels UI
+//
+SETTINGS_MOD_WEAPON_ANIMATIONS_TITLE     | Sound Effects Configuration.
+SETTINGS_MOD_WEAPON_ANIMATIONS_UI        | Sound Effects
+SETTINGS_MOD_WEAPON_ANIMATIONS_UI_DESC   | Opens a new control panel to adjust sound settings.
+
+SETTINGS_MOD_SHIELD_ANIMATIONS_TITLE     | Shield Animations Configuration.
+SETTINGS_MOD_SHIELD_ANIMATIONS_UI        | Shield Animations
+SETTINGS_MOD_SHIELD_ANIMATIONS_UI_DESC   | Opens a new control panel to adjust sound settings.
+
+SETTINGS_MOD_SHIP_COMBAT_RULES_TITLE     | Space Combat Rules Configuration.
+SETTINGS_MOD_SHIP_COMBAT_RULES_UI        | Combat Rules Control Panel
+SETTINGS_MOD_SHIP_COMBAT_RULES_UI_DESC   | Open a new control panel with various ship combat option rules.<br> Duration, Asteroid placement, AI parameters.
+
+SETTINGS_MOD_SHIP_COMBAT_SETTINGS_TITLE   | Space Battle Appearance Configuration
+SETTINGS_MOD_SHIP_COMBAT_SETTINGS_UI      | Combat Settings Control Panel
+SETTINGS_MOD_SHIP_COMBAT_SETTINGS_UI_DESC | Open a new control panel with various ship combat option settings.<br> Combat Shield Effects, Weapons sounds.
+
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research
@@ -4471,9 +4506,9 @@ GAME_OVER_NO_COLONIES_LOSS2       | The rule of %2 has ended, undone by imperial
 //
 HEADERS_GOVERNOR_SETUP_MENU_DESC  | To set governor options before starting the game.
 HEADERS_GOVERNOR_SETUP_MENU       | ~~~ SETUP GOVERNOR ~~~
-GOVERNOR_SETUP_TITLE              | Governor Setup Panel
-GOVERNOR_SETUP_MENU_DESC          | Open Sub Menu to access Governor Options Setup.
-GOVERNOR_SETUP_MENU               | - Governor Menu -
+GOVERNOR_SETUP_TITLE              | Governor Configuration Panel
+GOVERNOR_SETUP_MENU_DESC          | Open the Governor Options Control Panel
+GOVERNOR_SETUP_MENU               | Governor Mandate
 
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | Auto Transport Options.
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ AUTO-TRANSPORT OPTIONS ~~~

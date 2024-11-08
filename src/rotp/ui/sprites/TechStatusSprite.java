@@ -18,14 +18,12 @@ package rotp.ui.sprites;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Stroke;
 
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.GalaxyMapPanel;
-import rotp.ui.main.SystemPanel;
 
 public class TechStatusSprite extends MapControlSprite {
     private static  final Color blueBucketC = new Color(100,100,255);
@@ -105,31 +103,6 @@ public class TechStatusSprite extends MapControlSprite {
                 drawString(g2,label2, x2, y2);
             }
         }
-        drawBorder(map,g2,w);
-    }
-    private void drawBackground(GalaxyMapPanel map, Graphics2D g2, int w) {
-        startX = xOffset >= 0 ? xOffset : map.getWidth()+xOffset;
-        startY = yOffset >= 0 ? yOffset : map.getHeight()+yOffset;
-        int s5 = scaled(5);
-        g2.setColor(map.parent().shadeC());
-        g2.fillRect(startX-s5, startY-s5, w+s5+s5, height+s5+s5);
-    }
-    private void drawBorder(GalaxyMapPanel map, Graphics2D g2, int w) {
-        Stroke str0 = g2.getStroke();
-
-        int cnr = BasePanel.s12;
-        
-        g2.setStroke(BasePanel.stroke1);
-        g2.setColor(map.parent().backC());
-        g2.drawRoundRect(startX, startY, width, height, cnr, cnr);
-        
-        boolean show = hovering || map.parent().showAllCurrentResearch();
-        
-        if (show) {
-            g2.setStroke(BasePanel.stroke2);
-            g2.setColor(SystemPanel.yellowText);
-            g2.drawRoundRect(startX, startY, w, height, cnr, cnr);
-            g2.setStroke(str0);
-        }
+        drawBorder(map, g2, w, map.parent().backC(), map.parent().showAllCurrentResearch());
     }
 }

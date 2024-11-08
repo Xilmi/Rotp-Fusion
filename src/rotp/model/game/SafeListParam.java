@@ -30,4 +30,9 @@ public class SafeListParam extends ArrayList<IParam>{
 			return super.get(0);
 		return super.get(id);
 	}
+	@Override public boolean addAll(Collection<? extends IParam> c) 	{
+		if (c == null)
+			return false;
+		return super.addAll(c);
+	}
 }

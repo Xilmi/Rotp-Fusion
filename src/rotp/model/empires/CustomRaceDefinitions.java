@@ -686,7 +686,7 @@ public class CustomRaceDefinitions  {
 //			race.setupName = settingValue();
 		}
 		@Override public void pullSetting() {
-			String raceNames = String.join(",", race.raceNames); // TODO BR: Validate
+			String raceNames = String.join(",", race.raceNames);
 			set(raceNames);
 //			if (race.setupName == null)
 //				set(race.setupName());

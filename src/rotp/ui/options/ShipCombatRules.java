@@ -6,36 +6,14 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class CombatOptions implements IOptionsSubUI {
-	static final String OPTION_ID = COMBAT_OPTIONS_UI_KEY;
+final class ShipCombatRules implements IOptionsSubUI {
+	static final String OPTION_ID = SHIP_COMBAT_RULES_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
-	@Override public boolean isCfgFile()		{ return true; }
+	@Override public boolean isCfgFile()		{ return false; }
 
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("WEAPON_ANIMATIONS"),
-				showResultDelay,
-				newWeaponSound, playerSoundEcho,
-				echoSoundDecay, echoSoundDelay, echoSoundHullDelay,
-
-				headerSpacer50,
-				beamWindupFrames, beamHoldFrames,
-				heavyBeamHoldFrames, shieldFadingFrames
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("SHIELD_ANIMATIONS"),
-				shieldType, alwaysShowsShield, 
-	
-				headerSpacer50,
-				beamAnimationFPS, shieldEnveloping, shieldBorder,
-				shieldTransparency, shieldFlickering, shieldNoisePct,
-				weaponZposition, weaponZRandom,
-	
-				headerSpacer50,
-				startShieldDemo
-				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ASTEROIDS"),
 				moo1PlanetLocation, moo1AsteroidsLocation,
@@ -58,6 +36,17 @@ final class CombatOptions implements IOptionsSubUI {
 				maxCombatTurns,
 				retreatRestrictions, retreatRestrictionTurns
 				)));
+		map.add(AllSubUI.getHandle(WEAPON_ANIMATION_UI_KEY).getUiExt());
+		map.add(AllSubUI.getHandle(SHIELD_ANIMATION_UI_KEY).getUiExt());
+
 		return map;
 	};
+	@Override public SafeListParam majorList()	{
+		SafeListParam majorList = new SafeListParam(uiMajorKey());
+		majorList.addAll(AllSubUI.getHandle(WEAPON_ANIMATION_UI_KEY).getUiExt());
+		majorList.add(headerSpacer50);
+		majorList.addAll(AllSubUI.getHandle(SHIELD_ANIMATION_UI_KEY).getUiExt());
+		return majorList;
+	}
+
 }

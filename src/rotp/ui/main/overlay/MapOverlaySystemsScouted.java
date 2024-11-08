@@ -646,6 +646,7 @@ public class MapOverlaySystemsScouted extends MapOverlay {
             //if (click)
             //    softClick();
             parent.advanceMap();
+            parent.parent.map().resetRangeAreas(); // TODO BR: Validate resetRangeAreas()
         };
     }
     class SystemFlagSprite extends MapSprite {

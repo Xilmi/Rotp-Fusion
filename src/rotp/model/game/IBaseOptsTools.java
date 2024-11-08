@@ -1,8 +1,9 @@
 package rotp.model.game;
 
+import rotp.ui.options.ISubUiKeys;
 import rotp.ui.util.ParamSpacer;
 
-public interface IBaseOptsTools {
+public interface IBaseOptsTools extends ISubUiKeys{
 	String BASE_UI				= "SETUP_";
 	String GAME_UI				= "GAME_SETTINGS_";
 	String ADV_UI				= "SETTINGS_";

@@ -59,4 +59,28 @@ public abstract class MapControlSprite extends MapSprite {
         g2.drawRoundRect(startX, startY, width, height, cnr, cnr);
         g2.setStroke(str0);
     }
+    public void drawBackground(GalaxyMapPanel map, Graphics2D g2, int w) {
+        startX = xOffset >= 0 ? xOffset : map.getWidth()+xOffset;
+        startY = yOffset >= 0 ? yOffset : map.getHeight()+yOffset;
+        int s5 = scaled(5);
+        g2.setColor(map.parent().shadeC());
+        g2.fillRect(startX-s5, startY-s5, w+s5+s5, height+s5+s5);
+    }
+    public void drawBorder(GalaxyMapPanel map, Graphics2D g2, int w, Color c, boolean show) {
+        Stroke str0 = g2.getStroke();
+
+        int cnr = BasePanel.s12;
+        
+        g2.setStroke(BasePanel.stroke1);
+        g2.setColor(c);
+        g2.drawRoundRect(startX, startY, width, height, cnr, cnr);
+        
+        
+        if (hovering || show) {
+            g2.setStroke(BasePanel.stroke2);
+            g2.setColor(SystemPanel.yellowText);
+            g2.drawRoundRect(startX, startY, w, height, cnr, cnr);
+            g2.setStroke(str0);
+        }
+    }
 }

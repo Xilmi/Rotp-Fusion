@@ -319,8 +319,8 @@ public class Galaxy implements Base, Serializable {
         // BR: Removed refreshViews from addColonizedSystem and removeColonizedSystem
         // the recalcDistances takes time and don't need to be called at each events
         // Grouped here. Only Removed refreshViews will be executed.
-        for (Empire e: empires)
-            e.refreshViews(true);
+//        for (Empire e: empires)
+//            e.refreshViews(true);
 
         NoticeMessage.resetSubstatus(text("TURN_SPIES"));
         for (Empire e: empires)
@@ -332,6 +332,13 @@ public class Galaxy implements Base, Serializable {
 
         NoticeMessage.resetSubstatus(text("TURN_COUNCIL"));
         council().checkIfDisband();
+    }
+    public void postNextTurn3() {
+        // BR: Removed refreshViews from addColonizedSystem and removeColonizedSystem
+        // the recalcDistances takes time and don't need to be called at each events
+        // Grouped here. Only Removed refreshViews will be executed.
+        for (Empire e: empires)
+            e.refreshViews(true);  	
     }
     private void checkForPlanetaryBombardment() {
         for (StarSystem sys: starSystems) {

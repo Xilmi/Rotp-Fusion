@@ -1,0 +1,18 @@
+package rotp.ui.options;
+
+public interface ISubUiKeys {
+	// Level 0
+	String SHIELD_ANIMATION_UI_KEY		= "SHIELD_ANIMATIONS";
+	String WEAPON_ANIMATION_UI_KEY		= "WEAPON_ANIMATIONS";
+	// Level 1
+	String SHIP_COMBAT_SETTINGS_UI_KEY	= "SHIP_COMBAT_SETTINGS";
+	String SHIP_COMBAT_RULES_UI_KEY		= "SHIP_COMBAT_RULES";
+	// Level 2
+	String COMBAT_OPTIONS_UI_KEY		= "COMBAT_OPTIONS";
+	
+	// Level Top
+	String RULES_OPTIONS_UI_KEY			= "RULES_OPTIONS";
+	String SETTINGS_OPTIONS_UI_KEY		= "SETTINGS_OPTIONS";
+	
+
+}

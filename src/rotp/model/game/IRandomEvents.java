@@ -2,17 +2,12 @@ package rotp.model.game;
 
 import static rotp.model.game.IPreGameOptions.guardianMonstersLevel;
 
-import java.util.Arrays;
-
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
-import rotp.ui.util.ParamSubUI;
-import rotp.ui.util.ParamTitle;
 
 public interface IRandomEvents extends IBaseOptsTools {
 
-	String RANDOM_EVENTS_GUI_ID	= "RANDOM_EVENTS";
 	String SPECIAL_MULTIPLE		= MOD_UI + "RANDOM_EVENT_MULTIPLE";
 	String SPECIAL_DISABLED		= MOD_UI + "RANDOM_EVENT_DISABLED";
 	String SPECIAL_UNIQUE		= MOD_UI + "RANDOM_EVENT_UNIQUE";
@@ -272,78 +267,4 @@ public interface IRandomEvents extends IBaseOptsTools {
 			.setLimits(0, MAX_RETURN_TURN)
 			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	
-	// ==================== GUI List Declarations ====================
-	//
-	ParamSubUI customRandomEventUI = customRandomEventUI();
-
-	static SafeListPanel customRandomEventMap() {
-		SafeListPanel map = new SafeListPanel("RANDOM_EVENTS");
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("RANDOM_EVENTS_GLOBAL"),
-				IAdvOptions.randomEvents,
-				eventsStartTurn, eventsPace,
-				eventsFavorWeak, fixedEventsMode,
-				monstersGiveLoots, monstersLevel,
-				monstersGNNNotification,
-
-				headerSpacer50,
-				guardianMonstersLevel,
-				isMoO1Monster,
-				
-				headerSpacer50,
-				new ParamTitle("RANDOM_EVENTS_MONSTERS"),
-				piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
-				headerSpacer50,
-				amoebaDelayTurn, amoebaReturnTurn, amoebaMaxSystems,
-				headerSpacer50,
-				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("RANDOM_EVENTS_DELAYS"),
-				donationDelayTurn,
-				depletedDelayTurn,
-				enrichedDelayTurn,
-				fertileDelayTurn,
-				virusDelayTurn,
-				earthquakeDelayTurn,
-				accidentDelayTurn,
-				rebellionDelayTurn,
-				derelictDelayTurn,
-				assassinDelayTurn,
-				plagueDelayTurn,
-				supernovaDelayTurn,
-				piracyDelayTurn,
-				cometDelayTurn,
-				relicDelayTurn,
-				sizeBoostDelayTurn,
-				gauntletDelayTurn
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("RANDOM_EVENTS_RETURNS"),
-				donationReturnTurn,
-				depletedReturnTurn,
-				enrichedReturnTurn,
-				fertileReturnTurn,
-				virusReturnTurn,
-				earthquakeReturnTurn,
-				accidentReturnTurn,
-				rebellionReturnTurn,
-				derelictReturnTurn,
-				assassinReturnTurn,
-				plagueReturnTurn,
-				supernovaReturnTurn,
-				piracyReturnTurn,
-				cometReturnTurn,
-				relicReturnTurn,
-				sizeBoostReturnTurn,
-				gauntletReturnTurn
-				)));
-		return map;
-	};
-	static ParamSubUI customRandomEventUI() {
-		return new ParamSubUI(MOD_UI, "RANDOM_EVENTS_UI", customRandomEventMap(),
-				"RANDOM_EVENTS_TITLE", RANDOM_EVENTS_GUI_ID);
-	}
-	static SafeListParam customRandomEventOptions() { return customRandomEventMap().getList(); }
 }

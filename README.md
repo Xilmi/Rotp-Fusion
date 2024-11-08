@@ -69,7 +69,15 @@ Later:
 
 ## What's New
 
-2024.11.05 (BR)
+2024.11.08 (BR)
+- Groundwork to split "InGameOption" to "Game Rules" and "User Preferences"
+- Fixed a rare issue where the map boundary would shift after new scouted stars popup.
+- Fixed stars scouted during colonisation not always showing up immediately.
+
+2024.11.07 (Frank Zago)
+- French translations and fixes.
+
+2024.11.06 (BR)
 - Options panels dynamic size.
   - Will follow the option requested size.
   - Header spacer are 50% of line size.

@@ -566,7 +566,7 @@ public final class GameSession implements Base, Serializable {
                     RotPUI.instance().selectMainPanel();
                 }
                 gal.refreshAllEmpireViews();
-                gal.postNextTurn2();
+                gal.postNextTurn2(); // Ship and colonies interaction
 
                 if (!inProgress())
                     return;
@@ -574,6 +574,12 @@ public final class GameSession implements Base, Serializable {
                     log("Notifications processed 3 - back to MainPanel");
                     RotPUI.instance().selectMainPanel();
                 }
+                gal.postNextTurn3(); // BR: post colonization scouting
+                if (processNotifications()) {
+                    log("Notifications processed 3a - back to MainPanel");
+                    RotPUI.instance().selectMainPanel();
+                }
+
                 // all diplomatic fallout: praise, warnings, treaty offers, war declarations + Research
                 gal.assessTurn();
 
@@ -611,6 +617,11 @@ public final class GameSession implements Base, Serializable {
                 log("NEXT TURN PROCESSING TIME: ", str(timeMs()-startMs));
                 NoticeMessage.resetSubstatus(text("TURN_SAVING") + " b");
                 ufs = instance.saveRecentSession(true);
+
+                if (processNotifications()) { // BR: to display scouted Stars after diplomacy
+                	log("Notifications processed 6 - back to MainPanel");
+                	RotPUI.instance().selectMainPanel();
+                }
 
                 log("Reselecting main panel");
                 RotPUI.instance().mainUI().showDisplayPanel();

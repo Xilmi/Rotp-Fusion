@@ -21,12 +21,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.LinearGradientPaint;
-import java.awt.Stroke;
 import java.awt.geom.Point2D;
+
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.GalaxyMapPanel;
-import rotp.ui.main.SystemPanel;
 
 
 public class SpyReportSprite extends MapControlSprite {
@@ -52,9 +51,10 @@ public class SpyReportSprite extends MapControlSprite {
         drawBackground(map,g2,width);
         g2.drawImage(img, startX, startY, width, height,null);
 
-        drawBorder(map,g2,width);
+        drawBorder(map, g2, width, Color.black, false);
     }
-    private void drawBackground(GalaxyMapPanel map, Graphics2D g2, int w) {
+    @Override
+	public void drawBackground(GalaxyMapPanel map, Graphics2D g2, int w) {
         startX = xOffset >= 0 ? xOffset : map.getWidth()+xOffset;
         startY = yOffset >= 0 ? yOffset : map.getHeight()+yOffset;
         if (alertBack == null) {
@@ -69,22 +69,5 @@ public class SpyReportSprite extends MapControlSprite {
         int cnr = BasePanel.s12;
         g2.setPaint(alertBack);
         g2.fillRoundRect(startX, startY, w, height, cnr, cnr);
-    }
-    private void drawBorder(GalaxyMapPanel map, Graphics2D g2, int w) {
-        Stroke str0 = g2.getStroke();
-
-        int cnr = BasePanel.s12;
-        
-        g2.setStroke(BasePanel.stroke1);
-        g2.setColor(Color.black);
-        g2.drawRoundRect(startX, startY, width, height, cnr, cnr);
-        
-        
-        if (hovering) {
-            g2.setStroke(BasePanel.stroke2);
-            g2.setColor(SystemPanel.yellowText);
-            g2.drawRoundRect(startX, startY, w, height, cnr, cnr);
-            g2.setStroke(str0);
-        }
     }
 }

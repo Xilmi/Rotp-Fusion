@@ -7,8 +7,8 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-public final class InGameOptions implements IOptionsSubUI {
-	static final String OPTION_ID = "IN_GAME_OPTIONS";
+public final class RulesOptions implements IOptionsSubUI {
+	static final String OPTION_ID = RULES_OPTIONS_UI_KEY;
 	
 	@Override public String optionId()			{ return OPTION_ID; }
 
@@ -43,9 +43,23 @@ public final class InGameOptions implements IOptionsSubUI {
 				aiHostility, techTrading,
 				allowTechStealing, maxTechsCaptured,
 				maxSecurityPct,
-				specialPeaceTreaty,
+				specialPeaceTreaty
 
+				)));
+		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("SUB_PANEL_OPTIONS"),
+				AllSubUI.randomEventsSubUI(),
+				randomEvents,
+				AllSubUI.governorSubUI(),
+				AllSubUI.getHandle(SHIP_COMBAT_RULES_UI_KEY).getUI(),
+//				AllSubUI.combatSubUI(),
+				AllSubUI.commonSubUI(),
+				
 				headerSpacer50,
+				new ParamTitle("BETA_TEST"),
+				debugAutoRun, darkGalaxy
+				)));
+		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("GAME_COMBAT"),
 				maxCombatTurns,
 				retreatRestrictions, retreatRestrictionTurns,
@@ -55,44 +69,9 @@ public final class InGameOptions implements IOptionsSubUI {
 				shipSpaceFactor,
 
 				headerSpacer50,
-				new ParamTitle("BETA_TEST"),
-				debugAutoRun, darkGalaxy
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("SUB_PANEL_OPTIONS"),
-				AllSubUI.randomEventsSubUI(),
-				randomEvents,
-				AllSubUI.flagSubUI(),
-				flagColorCount,
-				AllSubUI.governorSubUI(),
-				AllSubUI.combatSubUI(),
-				AllSubUI.commonSubUI(),
-
-				headerSpacer50,
-				new ParamTitle("GAME_AUTOMATION"),
-				autoBombard_, autoColonize_, spyOverSpend,
-				transportAutoEco, defaultForwardRally,
-				defaultChainRally, 	chainRallySpeed,
-				showAlliancesGNN, hideMinorReports,
-				showAllocatePopUp, showLimitedWarnings,
-				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
-				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("MENU_OPTIONS"),
-				divertExcessToResearch, defaultMaxBases, displayYear,
-				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
-				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
-				raceStatusLog, compactOptionOnly,
-				showPendingOrders,
-				
-				headerSpacer50,
 				new ParamTitle("XILMI_AI_OPTIONS"),
 				playerAttackConfidence, playerDefenseConfidence,
-				aiAttackConfidence, aiDefenseConfidence,
-
-				headerSpacer50,
-				new ParamTitle("ENOUGH_IS_ENOUGH"),
-				disableAutoHelp, disableAdvisor
+				aiAttackConfidence, aiDefenseConfidence
 				)));
 		return map;
 	}

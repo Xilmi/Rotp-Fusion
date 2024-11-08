@@ -142,6 +142,12 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 		ui = new BaseCompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap, true, location);
 		ui.start("", pUI);
 	}
+	public void start(BaseModPanel pUI)	{
+		updated(true);
+		BaseCompactOptionsUI ui;
+		ui = new BaseCompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);
+		ui.start("", pUI);
+	}
 	public String titleId() { return GUI_TITLE_ID; }
 	public SafeListParam optionsList() { return optionsList; }
 	public void updateList() {

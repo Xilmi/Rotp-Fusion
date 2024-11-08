@@ -2048,6 +2048,26 @@ SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Tout le monde est capable de contrôl
 SETTINGS_MOD_REPEATABLE_ARTIFACT_DESC    | Les planètes artéfacts donneront constamment la même technologie à chaque chargement de sauvegarde.
 SETTINGS_MOD_REPEATABLE_ARTIFACT         | Artéfacts déterministes : %1
 
+//
+// New sub panels UI
+//
+SETTINGS_MOD_WEAPON_ANIMATIONS_TITLE     | Configuration des Effets Sonores.
+SETTINGS_MOD_WEAPON_ANIMATIONS_UI        | Effets Sonores
+SETTINGS_MOD_WEAPON_ANIMATIONS_UI_DESC   | Ouvre un nouveau panneau de configuration pour ajuster les paramètres sonores.
+
+SETTINGS_MOD_SHIELD_ANIMATIONS_TITLE     | Configuration des Animations des boucliers.
+SETTINGS_MOD_SHIELD_ANIMATIONS_UI        | Animation des boucliers
+SETTINGS_MOD_SHIELD_ANIMATIONS_UI_DESC   | Ouvre un nouveau panneau de configuration pour ajuster les paramètres Animation des boucliers.
+
+SETTINGS_MOD_SHIP_COMBAT_RULES_TITLE     | Configuration des règles des combats spatiaux.
+SETTINGS_MOD_SHIP_COMBAT_RULES_UI        | Règles de combat
+SETTINGS_MOD_SHIP_COMBAT_RULES_UI_DESC   | Ouvre un nouveau panneau de configuration avec divers règlements des combats spatiaux.<br>Durée, placement des astéroïdes, paramètres de l'IA.
+
+SETTINGS_MOD_SHIP_COMBAT_SETTINGS_TITLE   | Configuration de l'apparence des combats spatiaux.
+SETTINGS_MOD_SHIP_COMBAT_SETTINGS_UI      | Paramètres de combat
+SETTINGS_MOD_SHIP_COMBAT_SETTINGS_UI_DESC | Ouvre un nouveau panneau de configuration avec divers paramètres des combats spatiaux.<br> Animation des boucliers, effets sonores.
+
+
 // Tech UI labels
 TECH_RESEARCH                     | Technologies Recherchées
 TECH_RESEARCH_POINTS              | Points de recherche

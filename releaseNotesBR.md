@@ -7,21 +7,14 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- Fixed a rare issue where the map boundary would shift after new scouted stars popup.
+- Fixed stars scouted during colonisation not always showing up immediately.
 - Option Panel minor improvements.
 - Fixed Planet Invasion title not updating at the end of the fight.
 - New Icon to identify links to sub panels.
 - Fixed wrong warning when loading a game.
 - Fixed [player_xxx] being translated to [alien_xxx] in label.txt
 - Fixed "!!! To Replay Last Turn !!!.rotp" file being saved too often.
-- Confidence-bonus is now applied during path-finding so that ships that are confident enough to retreat but are too afraid of moving anywhere near their enemies will no longer just hide in a corner. (Xilmi)
-  - Confidence-bonus is no longer applied for the check whether the whole stack will be oneshot.
-- Loop thru Idle fleets: "Shift-" = Auto but still idle.
-- New Max Techs capture option when invading a colony, which is independent of the tech stealing option.
-  - If technology theft was previously prohibited, then maximum number of technologies captured = 0.
-- Removed the "are you sure" popup when you scrap an unused ship design.
-- Replaced the Dialogue font set in languages ​​that required a more complete font set.
-- The Guide now display the Min and Max values.
-- Fixed all Combat result panels appearing before Combat animations end.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

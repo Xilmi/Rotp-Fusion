@@ -64,6 +64,7 @@ public class Rotp {
     public static boolean hadCfgFile = true;
     public static boolean countWords = false;
     private static String startupDir;
+    private static boolean underTest = false; // TODO BR: set to false
     private static Boolean isIDE;
     private static JFrame frame;
     public static String releaseId = version;
@@ -243,7 +244,7 @@ public class Rotp {
         }
         return resizeAmt;
     }
-    public static String jarPath()  {
+    public static String jarPath()		 {
         if (startupDir == null) {
             try {
                 File jarFile = new File(Rotp.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
@@ -255,7 +256,8 @@ public class Rotp {
         }
         return startupDir;
     }
-    public	static boolean isIDE() {
+    public	static boolean isUnderTest() { return underTest && isIDE(); }
+    public	static boolean isIDE()		 {
     	if (isIDE == null)
     		isIDE = jarPath().toUpperCase().endsWith("TARGET");
     	return isIDE;
