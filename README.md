@@ -71,6 +71,8 @@ Later:
 
 2024.11.09 (BR)
 - Research can also be prioritised. (Ctrl click on "Tech" left label of spending pane)
+- Fixed Ship Target Requirement returning max value when no target has been given.
+- Restored current ship spending to be equivalent as ship prioritization.
 
 2024.11.08 (BR)
 - Groundwork to split "InGameOption" to "Game Rules" and "User Preferences"

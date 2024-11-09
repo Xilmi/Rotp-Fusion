@@ -495,11 +495,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
         	int deltaTech = allocation(RESEARCH) - prevTech;
         	if (deltaTech > 0) { // Smart distribution of the decremented spending
         		allocation(RESEARCH, prevTech);
-        		redistributeSpending(category);
+        		redistributeSpending(category, allocation(SHIP) > 0);
         	}
         }
     }
-
     // modnar: add challengeMode option from UserPreferences to give AI more initial resources
 	private boolean challengeMode = options().selectedChallengeMode();
 	
@@ -925,7 +924,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
     }
     // BR: For spending panel UI
-    public void redistributeSpending(int category) {
+    public void redistributeSpending(int category, boolean hadShipSpending) {
         int maxAllocation = ColonySpendingCategory.MAX_TICKS;
 
         // determine how much categories are over/under spent
@@ -941,7 +940,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             if ((i != category) && !locked(i) && hasOrder(i)) {
             	ColonySpendingCategory currCat = spending[i];
             	int currentAllocation = currCat.allocation();
-            	int allocationNeeded  = currCat.smoothAllocationNeeded(true);
+            	int allocationNeeded  = currCat.refreshAllocationNeeded(true, hadShipSpending);
             	int increment = allocationNeeded - currentAllocation;
             	increment = bounds(0, increment, adj);
             	adj -= currCat.adjustValue(increment);
@@ -954,7 +953,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             if ((i != category) && !locked(i)) {
             	ColonySpendingCategory currCat = spending[i];
             	int currentAllocation = currCat.allocation();
-            	int allocationNeeded  = currCat.smoothAllocationNeeded(false);
+            	int allocationNeeded  = currCat.refreshAllocationNeeded(false, hadShipSpending);
             	int increment = allocationNeeded - currentAllocation;
             	increment = bounds(0, increment, adj);
             	adj -= currCat.adjustValue(increment);

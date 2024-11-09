@@ -696,6 +696,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             	return;
             }
             float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
+           	boolean hadsShipSpending = colony.allocation(Colony.SHIP) > 0;
         	
             // Specific optimizations
             
@@ -719,14 +720,14 @@ public class EmpireColonySpendingPane extends BasePanel {
                 	}
                 	else {
                 		colony.checkEcoAtClean();
-                		colony.redistributeSpending(category);
+                		colony.redistributeSpending(category, hadsShipSpending);
                 	}
                 }
         	}
             // Reset to AI Setting
             else if (e.isControlDown()) {
             	colony.clearUnlockedSpending();
-            	colony.redistributeSpending(-1);
+            	colony.redistributeSpending(-1, hadsShipSpending);
             	colony.checkEcoAtClean();
             }
 

@@ -510,4 +510,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
     		return maxAllocationNeeded();
     	return 0;
     }
+    @Override public int refreshAllocationNeeded(boolean prioritized, boolean hadShipSpending) {
+   		return smoothAllocationNeeded(prioritized || hadShipSpending);
+    }
 }
