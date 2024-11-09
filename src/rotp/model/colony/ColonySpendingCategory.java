@@ -106,7 +106,7 @@ public abstract class ColonySpendingCategory implements Base, Serializable {
         return allocation() - oldValue;
     }
     public float excessSpending()        { return 0; }
-    public int smoothAllocationNeeded()  { return 0; }
-    public int smartAllocationNeeded(MouseEvent e) { return 0; }
+    public int smoothAllocationNeeded(boolean prioritized)	{ return 0; }
+    public int smartAllocationNeeded(MouseEvent e)			{ return 0; }
     
 }

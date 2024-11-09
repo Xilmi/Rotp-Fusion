@@ -51,9 +51,6 @@ import rotp.util.Base;
 
 public final class Colony implements Base, IMappedObject, Serializable {
     private static final long serialVersionUID = 1L;
-    private static final int[] validationSeq = { 3, 2, 0, 1, 4 };
-    private static final int[] spendingSeq = { 4, 0, 1, 2, 3 };
-    // private static final int[] cleanupSeq =  { 2, 4, 1, 0, 3 };
     private static final String[] categoryNames = { "MAIN_COLONY_SHIP", "MAIN_COLONY_DEFENSE", "MAIN_COLONY_INDUSTRY",
                     "MAIN_COLONY_ECOLOGY", "MAIN_COLONY_TECHNOLOGY" };
 
@@ -69,6 +66,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public static final int ECOLOGY = 3;
     public static final int RESEARCH = 4;
 
+    // BR: Linked the sequence to the previous definitions
+    // private static final int[] cleanupSeq = {INDUSTRY, RESEARCH, DEFENSE, SHIP, ECOLOGY};
+    private static final int[] validationSeq = {ECOLOGY, INDUSTRY, SHIP, DEFENSE, RESEARCH};
+    private static final int[] spendingSeq   = {RESEARCH, SHIP, DEFENSE, INDUSTRY, ECOLOGY};
+    private static final int[] refreshSeq    = {ECOLOGY, INDUSTRY, SHIP, DEFENSE, RESEARCH};
+    
     private static final float TECH_PLUNDER_PCT = 0.02f;
     // private static final int MAX_TECHS_CAPTURED = 6;
     private static final int TARGETED_DAMAGE_FOR_POPLOSS = 400;
@@ -316,7 +319,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	    	case SHIP:
 	    		return priorizeShips();
 	    	case RESEARCH:
-	    		return priorizeResearch();
+	    		return prioritizeResearch();
     		default:
     			return false;
     	}
@@ -430,7 +433,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	    		priorizeShips(true);
 	    		return;
 	    	case RESEARCH:
-	    		priorizeResearch(true);
+	    		prioritizeResearch(true);
 	    		return;
 			default:
     	}
@@ -455,7 +458,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	    		priorizeShips(false);
 	    		return;
 	    	case RESEARCH:
-	    		priorizeResearch(false);
+	    		prioritizeResearch(false);
 	    		return;
 			default:
 		}
@@ -932,14 +935,13 @@ public final class Colony implements Base, IMappedObject, Serializable {
         int adj = maxAllocation - spendingTotal;
         if (adj==0)
     		return;
-        int[] sequence = {ECOLOGY, INDUSTRY, SHIP, DEFENSE, RESEARCH };
 
         // Look for orders
-        for (int i : sequence) {
+        for (int i : refreshSeq) {
             if ((i != category) && !locked(i) && hasOrder(i)) {
             	ColonySpendingCategory currCat = spending[i];
             	int currentAllocation = currCat.allocation();
-            	int allocationNeeded  = currCat.smoothAllocationNeeded();
+            	int allocationNeeded  = currCat.smoothAllocationNeeded(true);
             	int increment = allocationNeeded - currentAllocation;
             	increment = bounds(0, increment, adj);
             	adj -= currCat.adjustValue(increment);
@@ -948,11 +950,11 @@ public final class Colony implements Base, IMappedObject, Serializable {
             }
         }
         // distribute the remaining
-        for (int i : sequence) {
+        for (int i : refreshSeq) {
             if ((i != category) && !locked(i)) {
             	ColonySpendingCategory currCat = spending[i];
             	int currentAllocation = currCat.allocation();
-            	int allocationNeeded  = currCat.smoothAllocationNeeded();
+            	int allocationNeeded  = currCat.smoothAllocationNeeded(false);
             	int increment = allocationNeeded - currentAllocation;
             	increment = bounds(0, increment, adj);
             	adj -= currCat.adjustValue(increment);
@@ -1723,8 +1725,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
     private boolean governor = govOptions().isGovernorOnByDefault();
 //  TODO: For future use, flag allowing this colony to autobuild ships
     private boolean autoShips = govOptions().isAutoShipsByDefault();
-    private boolean priorizeShips = false;
-    private boolean priorizeResearch = false;
+    private boolean prioritizeShips = false;
+    private boolean prioritizeResearch = false;
 
     public boolean isGovernor() { return governor; }
     public void setDefaultGovernor() { setGovernor(govOptions().isGovernorOnByDefault()); }
@@ -1739,12 +1741,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
     }
 
-    public boolean isAutoShips()                   { return autoShips; }
-    public void setAutoShips(boolean autoShips)    { this.autoShips = autoShips; }
-    public boolean priorizeShips()                 { return priorizeShips; }
-    public void priorizeShips(boolean priorize)    { priorizeShips = priorize; }
-    public boolean priorizeResearch()              { return priorizeResearch; }
-    public void priorizeResearch(boolean priorize) { priorizeResearch = priorize; }
+    public boolean isAutoShips()                       { return autoShips; }
+    public void setAutoShips(boolean autoShips)        { this.autoShips = autoShips; }
+    public boolean priorizeShips()                     { return prioritizeShips; }
+    public void priorizeShips(boolean prioritize)      { prioritizeShips = prioritize; }
+    public boolean prioritizeResearch()                { return prioritizeResearch; }
+    public void prioritizeResearch(boolean prioritize) { prioritizeResearch = prioritize; }
 
     /**
      * Increment slider. Stop moving when results no longer contains "stopWhenDisappears".

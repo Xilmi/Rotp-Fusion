@@ -550,8 +550,11 @@ public class ColonyIndustry extends ColonySpendingCategory {
         p.addAlienFactories(randomEmpId, -1);
         newFactories++;
     }
-    @Override public int smoothAllocationNeeded() {
-        float needed = spendingNeeded();
+    @Override public int smoothAllocationNeeded(boolean prioritized) {
+    	if (prioritized)
+    		return maxAllocationNeeded();
+
+    	float needed = spendingNeeded();
         if (needed <= 0)
             return 0;
         float pctNeeded = min(1, needed / colony().totalIncome());
@@ -564,7 +567,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
     	if (SwingUtilities.isRightMouseButton(e))
     		return MAX_TICKS;
     	if (SwingUtilities.isMiddleMouseButton(e))
-    		return smoothAllocationNeeded();
+    		return smoothAllocationNeeded(false);
     	return 0;
     }
 }

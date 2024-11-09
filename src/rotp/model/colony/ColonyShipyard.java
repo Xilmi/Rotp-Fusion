@@ -487,12 +487,13 @@ public class ColonyShipyard extends ColonySpendingCategory {
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     } 
-    private int targetMaxAllocationNeeded() {
+    @Override public int smoothAllocationNeeded(boolean prioritized) {
     	int buildTarget = buildLimit();
     	if (buildingStargate)
     		buildTarget = 1;
-    	if (buildTarget == 0)
-    		buildTarget = Integer.MAX_VALUE;
+    	else if (buildTarget == 0)
+    			return prioritized? MAX_TICKS : 0;
+
     	// Start at 1 tick, as even if 0BC are needed, no tick = no ship
     	for (int tick=1; tick<=MAX_TICKS; tick++) {
     		if (upcomingShipCount((float) tick / MAX_TICKS) >= buildTarget)
@@ -500,17 +501,9 @@ public class ColonyShipyard extends ColonySpendingCategory {
     	}
         return MAX_TICKS;
     }
-/*    private int buildTarget() {
-    	if (buildingStargate)
-    		return 1;
-    	if (buildLimit() == 0)
-    		return Integer.MAX_VALUE;
-    	return buildLimit();
-    } */
-    @Override public int smoothAllocationNeeded() { return targetMaxAllocationNeeded(); }
     @Override public int smartAllocationNeeded(MouseEvent e) {
     	if (e==null || SwingUtilities.isLeftMouseButton(e)) // Target limit
-    		return targetMaxAllocationNeeded();
+    		return smoothAllocationNeeded(false);
     	if (SwingUtilities.isRightMouseButton(e)) // Max Available
     		return MAX_TICKS;
     	if (SwingUtilities.isMiddleMouseButton(e)) // AI suggestion, but free for future uses

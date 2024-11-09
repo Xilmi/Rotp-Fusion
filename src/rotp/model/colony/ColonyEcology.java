@@ -587,7 +587,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }
-    @Override public int smoothAllocationNeeded() { return maxAllocationNeeded(); }
+    @Override public int smoothAllocationNeeded(boolean prioritized) { return maxAllocationNeeded(); }
     @Override public int smartAllocationNeeded(MouseEvent e) {
     	if (e==null || SwingUtilities.isLeftMouseButton(e))
     		return maxAllocationNeeded();

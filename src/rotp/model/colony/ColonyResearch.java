@@ -101,7 +101,7 @@ public class ColonyResearch extends ColonySpendingCategory {
         projectBC = 0;
         unallocatedBC = 0;
     }
-    @Override public int smoothAllocationNeeded() { 
+    @Override public int smoothAllocationNeeded(boolean prioritized) { 
 		if (empire().tech().researchCompleted())
 			return 0;
 		else
@@ -109,7 +109,7 @@ public class ColonyResearch extends ColonySpendingCategory {
     }
     @Override public int smartAllocationNeeded(MouseEvent e) {
     	if (e==null || SwingUtilities.isLeftMouseButton(e))
-   			return smoothAllocationNeeded();
+   			return smoothAllocationNeeded(colony().prioritizeResearch());
     	if (SwingUtilities.isRightMouseButton(e))
     		return 0;
     	if (SwingUtilities.isMiddleMouseButton(e))
