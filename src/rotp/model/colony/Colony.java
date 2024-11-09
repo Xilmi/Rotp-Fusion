@@ -316,6 +316,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	    	case SHIP:
 	    		return priorizeShips();
 	    	case RESEARCH:
+	    		return priorizeResearch();
     		default:
     			return false;
     	}
@@ -429,6 +430,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	    		priorizeShips(true);
 	    		return;
 	    	case RESEARCH:
+	    		priorizeResearch(true);
+	    		return;
 			default:
     	}
     }
@@ -452,6 +455,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	    		priorizeShips(false);
 	    		return;
 	    	case RESEARCH:
+	    		priorizeResearch(false);
+	    		return;
 			default:
 		}
     }
@@ -1719,6 +1724,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 //  TODO: For future use, flag allowing this colony to autobuild ships
     private boolean autoShips = govOptions().isAutoShipsByDefault();
     private boolean priorizeShips = false;
+    private boolean priorizeResearch = false;
 
     public boolean isGovernor() { return governor; }
     public void setDefaultGovernor() { setGovernor(govOptions().isGovernorOnByDefault()); }
@@ -1733,10 +1739,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
     }
 
-    public boolean isAutoShips()                { return autoShips; }
-    public void setAutoShips(boolean autoShips) { this.autoShips = autoShips; }
-    public boolean priorizeShips()              { return priorizeShips; }
-    public void priorizeShips(boolean priorize) { priorizeShips = priorize; }
+    public boolean isAutoShips()                   { return autoShips; }
+    public void setAutoShips(boolean autoShips)    { this.autoShips = autoShips; }
+    public boolean priorizeShips()                 { return priorizeShips; }
+    public void priorizeShips(boolean priorize)    { priorizeShips = priorize; }
+    public boolean priorizeResearch()              { return priorizeResearch; }
+    public void priorizeResearch(boolean priorize) { priorizeResearch = priorize; }
 
     /**
      * Increment slider. Stop moving when results no longer contains "stopWhenDisappears".

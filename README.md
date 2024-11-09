@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.11.09 (BR)
+- Research can also be prioritised. (Ctrl click on "Tech" left label of spending pane)
+
 2024.11.08 (BR)
 - Groundwork to split "InGameOption" to "Game Rules" and "User Preferences"
 - Fixed a rare issue where the map boundary would shift after new scouted stars popup.

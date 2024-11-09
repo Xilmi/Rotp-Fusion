@@ -16,11 +16,8 @@
 package rotp.ui.main;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
-import static rotp.model.colony.Colony.DEFENSE;
 import static rotp.model.colony.Colony.ECOLOGY;
-import static rotp.model.colony.Colony.INDUSTRY;
 import static rotp.model.colony.Colony.RESEARCH;
-import static rotp.model.colony.Colony.SHIP;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -793,15 +790,17 @@ public class EmpireColonySpendingPane extends BasePanel {
             Colony colony = sys.colony();
             if (colony == null)
                 return;
-	            switch (category) {
-		    	case DEFENSE:
-		    	case INDUSTRY:
-		    	case ECOLOGY:
-		    	case SHIP:
-		    		colony.toggleOrder(category);
-		            repaint();
-		    		return;
-	            }
+    		colony.toggleOrder(category);
+            repaint();
+//	        switch (category) {
+//		    	case DEFENSE:
+//		    	case INDUSTRY:
+//		    	case ECOLOGY:
+//		    	case SHIP:
+//		    		colony.toggleOrder(category);
+//		            repaint();
+//		    		return;
+//	        }
         }
         @Override public void mouseClicked(MouseEvent arg0) {}
         @Override public void mouseEntered(MouseEvent arg0) {}

@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 
+- Research can also be prioritised. (Ctrl click on "Tech" left label of spending pane)
 - Fixed a rare issue where the map boundary would shift after new scouted stars popup.
 - Fixed stars scouted during colonisation not always showing up immediately.
 - Option Panel minor improvements.
