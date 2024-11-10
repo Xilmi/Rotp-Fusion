@@ -722,7 +722,7 @@ MAIN_HELP_3H                      | Année Suivante - Fait avancer le jeu à l'a
 MAIN_HELP_3I                      | Tour actuel - Affiche le tour actuel du jeu ou l'année en cours de votre empire. Cliquez pour basculer.
 MAIN_HELP_3J                      | Commandes de la carte - Cliquez pour parcourir les différents paramètres d'affichage de la carte de la galaxie.
 
-MAIN_HELP_4A                      | Les assistants Min/Max garderont toujours ECO propre.<br>- Smooth Min/Max: est équivalent à cliquer sur la flèche Haut/Bas jusqu'à atteindre la cible. Les BC libérés seront redistribués intelligemment. (Suivant la méthode de "Rafraîchir")<br>- Smart Min/Max: (Shift + Clic) effacera les dépenses débloquées, définira l'allocation Min/Max, nettoiera ECO, puis redistribuera intelligemment les BC restants.<br>- Rafraîchir: (Ctrl + Clic) effacera les dépenses débloquées puis redistribuera intelligemment les BC disponibles selon votre priorisation, dans la séquence : {ÉCOLOGIE, INDUSTRIE, FLOTTE, DÉFENSES, RECHERCHE}
+MAIN_HELP_4A                      | Les assistants Min/Max garderont toujours ECO propre.<br>- Smooth Min/Max: est équivalent à cliquer sur la flèche Haut/Bas jusqu'à atteindre la cible. Les BC libérés seront redistribués intelligemment. (Suivant la méthode de "Rafraîchir")<br>- Smart Min/Max: (Shift + Clic) effacera les dépenses débloquées, définira l'allocation Min/Max, nettoiera ECO, puis redistribuera intelligemment les BC restants.<br>- Rafraîchir: (Ctrl + Clic) effacera les dépenses débloquées puis redistribuera intelligemment les BC disponibles selon votre priorisation, dans la séquence : {ÉCOLOGIE, INDUSTRIE, FLOTTE, DÉFENSES, RECHERCHE}
 MAIN_HELP_4B                      | Chantier naval: <br> Clic-gauche : Allocation minimale nécessaire pour construire jusqu'à la limite.<br> Clic-droit : Allocation maximale disponible.
 MAIN_HELP_4C                      | Défenses: <br> Clic-gauche : Allocation minimale nécessaire pour construire les bases demandées.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu: Allocation minimale pour construire le bouclier.
 MAIN_HELP_4D                      | Industrie: <br> Clic-gauche : Allocation minimale nécessaire pour finaliser les usines.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu: Allocation minimale nécessaire pour suivre la croissance de la population.
@@ -1888,6 +1888,22 @@ SETTINGS_MOD_SCRAP_REFUND_ALL_DESC      | Option classique. Toute la ferraille s
 SETTINGS_MOD_SCRAP_REFUND_EMPIRE_DESC   | Seuls les vaisseaux en orbite sur les mondes de l'empire seront valorisés.
 SETTINGS_MOD_SHIP_SPACE_FACTOR_DESC     | Contrôle l'espace disponible dans les vaisseaux.
 
+SETTINGS_MOD_RACE_STATUS_LOG_HELP        | Les graphiques de statut Empire peuvent être affichés sur une échelle linéaire ou logarithmique.
+SETTINGS_MOD_RACE_STATUS_LOG_DESC        | Les graphiques d'état Empire peuvent être affichés sur une échelle linéaire ou logarithmique.
+SETTINGS_MOD_RACE_STATUS_LOG             | Log graphique de statut Empire : %1
+SETTINGS_MOD_RACE_STATUS_LOG_YES_DESC    | Échelle logarithmique
+SETTINGS_MOD_RACE_STATUS_LOG_NO_DESC     | Échelle linéaire
+SETTINGS_MOD_RACE_STATUS_LOG_YES_UI      | Échelle logarithmique
+SETTINGS_MOD_RACE_STATUS_LOG_NO_UI       | Échelle linéaire
+SETTINGS_MOD_RACE_STATUS_VIEW_HELP       | Les valeurs d'état de l'Empire peuvent être affichées comme absolues ou relatives.<br> Par rapport au total connu ou au joueur.
+SETTINGS_MOD_RACE_STATUS_VIEW_DESC       | Les valeurs d'état de l'Empire peuvent être affichées comme absolues ou relatives.<br> Par rapport au total connu ou au joueur.
+SETTINGS_MOD_RACE_STATUS_VIEW            | Valeur de statut Empire : %1
+SETTINGS_MOD_RACE_STATUS_VIEW_PCT_TOTAL  | % du total
+SETTINGS_MOD_RACE_STATUS_VIEW_PCT_PLAYER | % du joueur
+SETTINGS_MOD_RACE_STATUS_VIEW_VALUE      | Absolu
+SETTINGS_MOD_RACE_STATUS_VIEW_PCT_TOTAL_DESC  | Valeur relative en % du total de l'empire connu.
+SETTINGS_MOD_RACE_STATUS_VIEW_PCT_PLAYER_DESC | Valeur relative en % de la valeur du joueur.
+SETTINGS_MOD_RACE_STATUS_VIEW_VALUE_DESC      | Valeur absolue.
 SETTINGS_MOD_SHIP_DISPLAY_DESC           | Quels vaisseaux en mouvement doivent être affichés? (En lien avec le bouton icône à gauche dans la vue Galaxie)
 SETTINGS_MOD_SHIP_DISPLAY                | Affichage vaisseaux : %1
 SETTINGS_MOD_SHOW_ALL_SHIPS              | Tous
@@ -1900,6 +1916,10 @@ SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS_HELP  | Ne montre que les vaisseaux armés, e
 SETTINGS_MOD_SPY_OVERSPEND_DESC          | Utiliser tout le budget disponible pour espionner, ou arrêter de dépenser une fois le réseau au complet.
 SETTINGS_MOD_SPY_OVERSPEND               | Excédent Espionnage : %1
 
+SHIP_DESIGN_AUTO_BUTTON           | Automatique
+SHIP_DESIGN_AUTO_SCOUT            | Auto explore
+SHIP_DESIGN_AUTO_COLONIZE         | Auto colonise
+SHIP_DESIGN_AUTO_ATTACK           | Attaque Automatique
 SETTINGS_MOD_SCRAP_REFUND_ALLY_DESC     | Seuls les vaisseaux en orbite dans l'empire ou autour de mondes alliés seront valorisés.
 SETTINGS_MOD_SCRAP_REFUND_NEVER_DESC    | Nulle part, ne me dérangez pas avec ça !
 SETTINGS_MOD_SCRAP_REFUND_FACTOR_DESC   | Quel pourcentage de la valeur des vaisseaux peut être récupéré de leur ferraille?
@@ -2481,7 +2501,7 @@ RACES_INTEL_SECURITY_TAX          | Taxe sur la sécurité
 RACES_INTEL_TAX_DESC              | Taxez vos colonies pour augmenter vos chances de découvrir des espions étrangers.
 RACES_INTEL_TAX_OUT_OF_RANGE      | Les dépenses commencent lorsque vous êtes à portée de races extraterrestres.
 RACES_INTEL_SECURITY_BONUS_AMT    | +%1%
-RACES_INTEL_SECURITY_BONUS_NONE   | None
+RACES_INTEL_SECURITY_BONUS_NONE   | Aucun
 RACES_INTEL_REPORT_AGE            | Ancienneté du rapport
 RACES_INTEL_SPY_NETWORK           | Réseaux d'espionnage
 RACES_INTEL_SPENDING              | Dépenses
@@ -2503,7 +2523,7 @@ RACES_INTEL_COMPLETION_YEARS      | %1 Ans
 RACES_INTEL_COMPLETION_PER_YEAR   | %1/Année
 RACES_INTEL_BUREAU_TITLE          |  Bureau des Renseignements
 RACES_INTEL_BUREAU_DESC           | Affectez vos espions pour voler de la technologie ou saboter des races étrangères.
-RACES_INTEL_BUREAU_SPIES          | Total d'espions
+RACES_INTEL_BUREAU_SPIES          | Nombre d'espions
 RACES_INTEL_BUREAU_MANAGE         | Gérer les espions
 RACES_INTEL_BUREAU_SPENDING       | Dépenses totales
 RACES_INTEL_SPY_EFFICIENCY        | Bonus d'espionnage
