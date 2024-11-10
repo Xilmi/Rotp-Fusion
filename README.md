@@ -69,6 +69,12 @@ Later:
 
 ## What's New
 
+2024.11.10 (BR)
+- Fixed Bad custom species initialisation that could generate an empty "RACE_HUMAN.race" file.
+
+2024.11.09 (Frank Zago)
+- French translations and fixes.
+
 2024.11.09 (BR)
 - Research can also be prioritised. (Ctrl click on "Tech" left label of spending pane)
 - Fixed Ship Target Requirement returning max value when no target has been given.

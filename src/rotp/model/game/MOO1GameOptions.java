@@ -1262,10 +1262,18 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		return;
     	}
     }
-    private void setAllNonCfgGameSettingsToDefault() { // settings saved in game file.
-       	for (IParam param : AllSubUI.allModOptions(false))
-       		if (param != null && !param.isCfgFile()) // Exclude .cfg parameters
+    private void setAllNonCfgGameSettingsToDefault(boolean first) { // settings saved in game file.
+    	SafeListParam list = AllSubUI.allNotCfgOptions(false);
+    	list.remove(playerCustomRace);
+//    	if (first) {
+//    		list.remove(playerCustomRace);
+//    		System.out.println("list.remove(playerCustomRace);");
+//    	}
+       	for (IParam param : list) {
+       		if (param != null && !param.isCfgFile()) { // Exclude .cfg parameters
 	       		param.setFromDefault(true, false);
+       		}
+       	}
     }
     private void setAllNonCfgBaseSettingsToDefault() {
 		setAdvancedOptionsToDefault();
@@ -1278,7 +1286,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		return;
     	if (pList == AllSubUI.allModOptions(false)) { // Should no more be used
     		System.err.println("Old call of setModSettingsToDefault(allModOptions)");
-    		setAllNonCfgGameSettingsToDefault();
+    		setAllNonCfgGameSettingsToDefault(false);
     	}
     	else 
 	       	for (IParam param : pList)
@@ -1321,7 +1329,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     //
     @Override public void loadStartupOptions() {
         System.out.println("==================== reset all options() ====================");
-        resetAllNonCfgSettingsToDefault();
+        resetAllNonCfgSettingsToDefault(true);
         System.out.println("==================== loadStartupOptions() ====================");
     	if (menuStartup.isUser()) {
     		updateAllNonCfgFromFile(USER_OPTIONS_FILE);
@@ -1332,7 +1340,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		transfert(GAME_OPTIONS_FILE, true);
     	}
     	else if (menuStartup.isDefault())
-    		resetAllNonCfgSettingsToDefault();
+    		resetAllNonCfgSettingsToDefault(true);
     	else { // default = action.isLast()
     		updateAllNonCfgFromFile(LAST_OPTIONS_FILE);
     		transfert(LAST_OPTIONS_FILE, true);
@@ -1353,13 +1361,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0; i<d.specificOpponentAIOption.length; i++)
         	d.specificOpponentAIOption[i] = specificOpponentAIOption[i];
     }
-    @Override public void resetAllNonCfgSettingsToDefault() {
-    	setAllNonCfgGameSettingsToDefault();
+    private void resetAllNonCfgSettingsToDefault(boolean first)	{
+    	setAllNonCfgGameSettingsToDefault(first);
     	setAllNonCfgBaseSettingsToDefault();
        	if (!Rotp.noOptions) // Better safe than sorry
        		for (IParam param : AllSubUI.allModOptions(false))
         		param.initDependencies(IParam.VALID_DEPENDENCIES);
     }
+    @Override public void resetAllNonCfgSettingsToDefault()	{ resetAllNonCfgSettingsToDefault(false); }
     @Override public void resetPanelSettingsToDefault(SafeListParam pList,
     		boolean excludeCfg, boolean excludeSubMenu) {
     	setPanelGameSettingsToDefault(pList, excludeCfg, excludeSubMenu);

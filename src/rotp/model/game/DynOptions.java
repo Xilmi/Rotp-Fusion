@@ -159,15 +159,15 @@ public class DynOptions implements DynamicOptions, Serializable {
     // Load options from file
     public static DynOptions loadOptions(String path, String fileName) {
     	DynOptions newOptions;
-		File saveFile = new File(path, fileName);
-		if (saveFile.exists()) {
-			newOptions = loadOptionsTE(saveFile);
+		File loadFile = new File(path, fileName);
+		if (loadFile.exists()) {
+			newOptions = loadOptionsTE(loadFile);
             if (newOptions == null) {
-            	System.err.println("Bad option version: " + saveFile.getAbsolutePath());
+            	System.err.println("Bad option version: " + loadFile.getAbsolutePath());
             	newOptions = initMissingOptionFile(path, fileName);
             }
     	} else {
-			System.err.println("File not found: " + saveFile.getAbsolutePath());
+			System.err.println("File not found: " + loadFile.getAbsolutePath());
 			newOptions = initMissingOptionFile(path, fileName);
 		}
 		return newOptions;
