@@ -71,6 +71,7 @@ Later:
 
 2024.11.10 (BR)
 - Fixed Bad custom species initialisation that could generate an empty "RACE_HUMAN.race" file.
+- Added Empire Status View mode to the list of saved parameters.
 
 2024.11.09 (Frank Zago)
 - French translations and fixes.

@@ -80,10 +80,12 @@ public final class InGameOptions implements IOptionsSubUI {
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("MENU_OPTIONS"),
 				divertExcessToResearch, defaultMaxBases, displayYear,
-				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
-				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
-				raceStatusLog, compactOptionOnly,
-				showPendingOrders,
+				showNextCouncil, systemNameDisplay,
+				shipDisplay, flightPathDisplay,
+				showGridCircular, showShipRanges,
+				galaxyPreviewColorStarsSize,
+				raceStatusLog, raceStatusView,
+				compactOptionOnly, showPendingOrders,
 				
 				headerSpacer50,
 				new ParamTitle("XILMI_AI_OPTIONS"),

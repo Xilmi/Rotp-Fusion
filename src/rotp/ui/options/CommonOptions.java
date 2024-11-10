@@ -50,7 +50,8 @@ final class CommonOptions implements IOptionsSubUI {
 				headerSpacer50,
 				new ParamTitle("GAME_UI_PREFERENCES"),
 				showPendingOrders,
-				raceStatusLog, disableAdvisor, disableAutoHelp,
+				raceStatusLog, raceStatusView,
+				disableAdvisor, disableAutoHelp,
 				originalSpeciesOnly, displayFreeTech,
 
 				// headerSpacer,
