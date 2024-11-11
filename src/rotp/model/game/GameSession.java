@@ -613,6 +613,7 @@ public final class GameSession implements Base, Serializable {
                     player().setEmpireMapAvgCoordinates();
                 }
                 gal.refreshAllEmpireViews();
+                gal.refreshEmpireStatus(); // BR: was not up to date at the beginning of turns
                 log("Autosaving post-turn");
                 log("NEXT TURN PROCESSING TIME: ", str(timeMs()-startMs));
                 NoticeMessage.resetSubstatus(text("TURN_SAVING") + " b");

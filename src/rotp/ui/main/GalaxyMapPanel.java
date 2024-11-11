@@ -437,6 +437,8 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             maxMouseVelocity = 100;
         else
             maxMouseVelocity = -1;
+        RotPUI.instance().techUI().resetPlanetaryResearch();
+        //repaintTechStatus();
     }
     public void clearRangeMap()   { redrawRangeMap = true; }
     public void resetRangeAreas() {

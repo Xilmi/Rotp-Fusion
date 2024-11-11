@@ -6,7 +6,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
-
+- The Galaxy Map tech bar now updates more regularly.
+- Empire status values refresh when entering the panel.
+- New Empire status help on buttons.
 - Fixed Bad custom species initialisation that could generate an empty "RACE_HUMAN.race" file.
 - Fixed Ship "Refresh" asking for too much spending.
 - Research can also be prioritised. (Ctrl click on "Tech" left label of spending pane)

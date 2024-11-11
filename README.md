@@ -69,6 +69,11 @@ Later:
 
 ## What's New
 
+2024.11.11 (BR)
+- The Galaxy Map tech bar now updates more regularly.
+- Empire status values refresh when entering the panel.
+- New Empire status help on buttons.
+
 2024.11.10 (BR)
 - Fixed Bad custom species initialisation that could generate an empty "RACE_HUMAN.race" file.
 - Added Empire Status View mode to the list of saved parameters.

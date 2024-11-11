@@ -15,26 +15,48 @@
  */
 package rotp.ui.races;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.AlphaComposite;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Composite;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.LinearGradientPaint;
+import java.awt.RadialGradientPaint;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.geom.Area;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
-import javax.swing.border.Border;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 
 import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.TreatyAlliance;
-import rotp.ui.*;
+import rotp.ui.BasePanel;
+import rotp.ui.ExitButton;
+import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.game.HelpUI;
+import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
 import rotp.util.AnimationManager;
 
@@ -59,10 +81,10 @@ public class RacesUI extends BasePanel {
     static Color[] relationsC = new Color[40];
     public static BufferedImage raceBackImg;
     public static BufferedImage raceIconBackImg;
-    Rectangle diplomacyBox = new Rectangle();
-    Rectangle intelligenceBox = new Rectangle();
-    Rectangle militaryBox = new Rectangle();
-    Rectangle statusBox = new Rectangle();
+    Rect diplomacyBox = new Rect();
+    Rect intelligenceBox = new Rect();
+    Rect militaryBox = new Rect();
+    Rect statusBox = new Rect();
 
     private final List<Empire> empires = new ArrayList<>();
 
@@ -146,34 +168,37 @@ public class RacesUI extends BasePanel {
             return;
 
         switch(helpFrame) {
-            case 1: loadHelpUI0(); break;
+            case 1: loadHelpCommon(); break;
             case 2:
                 Empire emp = selectedEmpire();
                 switch(selectedPanel) {
                     case DIPLOMACY_PANEL:
                         if (emp.isPlayer())
-                            loadHelpUI1();
+                            loadHelpDiplomacyPlayer();
                         else
-                            loadHelpUI2(); 
+                            loadHelpDiplomacyAI(); 
                         break;
                     case INTELLIGENCE_PANEL:
                         if (emp.isPlayer())
-                            loadHelpUI3();
+                            loadHelpIntelligencePlayer();
                         else
-                            loadHelpUI4(); 
+                            loadHelpIntelligenceAI(); 
                         break;
                     case MILITARY_PANEL:
-                        loadHelpUI5(); 
+                        loadHelpMilitary(); 
                         break;
                     case STATUS_PANEL: 
-                        loadHelpUI6(); 
+                    	if (emp.isPlayer())
+                    		loadHelpStatusPlayer();
+                    	else
+                    		loadHelpSatusAI();
                         break;
                 }
                 break;
         }
         helpUI.open(this);
     }
-    private void loadHelpUI0() {
+    private void loadHelpCommon()				{ // Common Panel
         int w = getWidth();
         HelpUI helpUI = RotPUI.helpUI();
 
@@ -225,7 +250,7 @@ public class RacesUI extends BasePanel {
             sp8.setLine(x8 + w6*3/4, y8, x8a, y8a);
         }
     }
-    private void loadHelpUI1() {
+    private void loadHelpDiplomacyPlayer()		{ // Diplomacy Panel Player
         int w = getWidth();
         HelpUI helpUI = RotPUI.helpUI();
 
@@ -262,7 +287,7 @@ public class RacesUI extends BasePanel {
         HelpUI.HelpSpec sp7 = helpUI.addBrownHelpText(x7, y7, w7, 5, text("RACES_HELP_1E"));
         sp7.setLine(x7+(w7/2), y7, x7+(w7/2), scaled(400));
     }
-    private void loadHelpUI2() {
+    private void loadHelpDiplomacyAI()			{ // Diplomacy Panel AI
         int w = getWidth();
         HelpUI helpUI = RotPUI.helpUI();
 
@@ -298,7 +323,7 @@ public class RacesUI extends BasePanel {
         HelpUI.HelpSpec sp7 = helpUI.addBrownHelpText(x7,y7,w7, 2, text("RACES_HELP_2F"));
         sp7.setLine(x7+(w7/2), y7+sp7.height(), x7+(w7/2), scaled(315));
     }
-    private void loadHelpUI3() {
+    private void loadHelpIntelligencePlayer()	{ // Intelligence Panel Player
         int w = getWidth();
         HelpUI helpUI = RotPUI.helpUI();
 
@@ -319,7 +344,7 @@ public class RacesUI extends BasePanel {
         int y4 = scaled(445);
         helpUI.addBrownHelpText(x4, y4, w4, 4, text("RACES_HELP_3C"));
     }
-    private void loadHelpUI4() {
+    private void loadHelpIntelligenceAI()		{ // Intelligence Panel AI
         int w = getWidth();
         HelpUI helpUI = RotPUI.helpUI();
 
@@ -348,7 +373,7 @@ public class RacesUI extends BasePanel {
         HelpUI.HelpSpec sp5 = helpUI.addBrownHelpText(x5, y5, w5, 5, text("RACES_HELP_4D"));
         sp5.setLine(y5a, y5, y5a-s60, scaled(165));
     }
-    private void loadHelpUI5() {
+    private void loadHelpMilitary()				{ // Military panel
         int w = getWidth();
         HelpUI helpUI = RotPUI.helpUI();
 
@@ -369,51 +394,98 @@ public class RacesUI extends BasePanel {
         HelpUI.HelpSpec sp4 = helpUI.addBrownHelpText(x4, y4, w2, 3, text("RACES_HELP_5C"));
         sp4.setLine(x4+(w2/2), y4+sp4.height(), x4+(w2/3), y4+sp4.height()+s30);
     }
-    private void loadHelpUI6() {
+    private void loadHelpStatusPlayer()			{ // Status Panel Player
         int w = getWidth();
         int h = getHeight();
         HelpUI helpUI = RotPUI.helpUI();
 
         int barW = (w-scaled(410))/3;
         int barH = (h-scaled(350))/2;
-        boolean playerSelected = selectedEmpire().isPlayer();
-        if (playerSelected) {
-            int x2 = scaled(350);
-            int w2 = scaled(300);
-            int y2 = scaled(100);
-            helpUI.addBrownHelpText(x2, y2, w2, 5, text("RACES_HELP_6A"));
-        }
-        else {
-            int x2 = scaled(350);
-            int w2 = scaled(300);
-            int y2 = scaled(100);
-            helpUI.addBrownHelpText(x2, y2, w2, 5, text("RACES_HELP_6A2"));
-        }
+
+        int x2 = scaled(350);
+        int w2 = scaled(300);
+        int y2 = scaled(80);
+        helpUI.addBrownHelpText(x2, y2, w2, 0, text("RACES_HELP_6A"));	// Main Current ranking
         
-        int x3 = playerSelected ? scaled(140) : scaled(115);
+        int x3 = scaled(140);
         int w3 = scaled(190);
         int y3 = scaled(405);
-        helpUI.addBrownHelpText(x3, y3, w3, 3, text("RACES_HELP_6B"));
+        helpUI.addBrownHelpText(x3, y3, w3, 0, text("RACES_HELP_6B"));	// Fleet Strength
         
         int x4 = x3+barW;
-        helpUI.addBrownHelpText(x4, y3, w3, 3, text("RACES_HELP_6C"));
+        helpUI.addBrownHelpText(x4, y3, w3, 0, text("RACES_HELP_6C"));	// Population
         
         int x5 = x4+barW;
         int y5 = y3 - 3*s18;
-        if (selectedEmpire().isPlayer()) {
-            helpUI.addBrownHelpText(x5, y5, w3, 6, text("RACES_HELP_6D"));
-        }
-        else {
-            helpUI.addBrownHelpText(x5, y5, w3, 6, text("RACES_HELP_6Dg"));
-        }
+        helpUI.addBrownHelpText(x5, y5, w3, 0, text("RACES_HELP_6D"));	// Technology
         
         int y6 = y3+barH;
-        helpUI.addBrownHelpText(x3, y6, w3, 3, text("RACES_HELP_6E"));
+        helpUI.addBrownHelpText(x3, y6, w3, 0, text("RACES_HELP_6E"));	// Planets
         
-        helpUI.addBrownHelpText(x4, y6, w3, 3, text("RACES_HELP_6F"));
+        helpUI.addBrownHelpText(x4, y6, w3, 0, text("RACES_HELP_6F"));	// Production
         
-        helpUI.addBrownHelpText(x5, y6, w3, 3, text("RACES_HELP_6G"));
+        helpUI.addBrownHelpText(x5, y6, w3, 0, text("RACES_HELP_6G"));	// Total Power
+
+        int w7 = scaled(250);
+        int y7 = scaled(240);
+        int dx = (w7-w3)/2;
+        int dy = scaled(60);
+        //int lx2 = statusPanel.playerHistoryButton
+        HelpSpec sp7 = helpUI.addBrownHelpText(x3-dx-dx, y7, w7, 0, text("RACES_HELP_6HP"));	// History Player
+        sp7.setLine(sp7.xc(), y7, statusPanel.playerHistoryButton.xc(), statusPanel.playerHistoryButton.ye()+dy);
+
+        HelpSpec sp8 = helpUI.addBrownHelpText(x4-dx, y7, w7, 0, text("RACES_HELP_6J"));	// Linear/Log Scale
+        sp8.setLine(sp8.xc(), y7, statusPanel.scaleButton.xc(), statusPanel.scaleButton.ye()+dy);
+
+        HelpSpec sp9 = helpUI.addBrownHelpText(x5, y7, w7, 0, text("RACES_HELP_6K"));	// Absolute/Relative Scale
+        sp9.setLine(sp9.xc(), y7, statusPanel.valueButton.xc(), statusPanel.valueButton.ye()+dy);
     }
+    private void loadHelpSatusAI()				{ // Status Panel AI
+        int w = getWidth();
+        int h = getHeight();
+        HelpUI helpUI = RotPUI.helpUI();
+
+        int barW = (w-scaled(410))/3;
+        int barH = (h-scaled(350))/2;
+
+        int x2 = scaled(350);
+        int w2 = scaled(300);
+        int y2 = scaled(80);
+        helpUI.addBrownHelpText(x2, y2, w2, 0, text("RACES_HELP_6A2"));	// Main historical comparison
+        
+        int x3 = scaled(115);
+        int w3 = scaled(190);
+        int y3 = scaled(405);
+        helpUI.addBrownHelpText(x3, y3, w3, 0, text("RACES_HELP_6B"));	// Fleet Strength
+        
+        int x4 = x3+barW;
+        helpUI.addBrownHelpText(x4, y3, w3, 0, text("RACES_HELP_6C"));	// Population
+        
+        int x5 = x4+barW;
+        int y5 = y3 - 3*s18;
+        helpUI.addBrownHelpText(x5, y5, w3, 0, text("RACES_HELP_6DG"));	// Technology
+        
+        int y6 = y3+barH;
+        helpUI.addBrownHelpText(x3, y6, w3, 0, text("RACES_HELP_6E"));	// Planets
+        
+        helpUI.addBrownHelpText(x4, y6, w3, 0, text("RACES_HELP_6F"));	// Production
+        
+        helpUI.addBrownHelpText(x5, y6, w3, 0, text("RACES_HELP_6G"));	// Total Power
+
+        int w7 = scaled(250);
+        int y7 = scaled(240);
+        int dx = (w7-w3)/2;
+        int dy = scaled(60);
+        HelpSpec sp7 = helpUI.addBrownHelpText(x3-dx-dx, y7, w7, 0, text("RACES_HELP_6HP"));	// History Player
+        sp7.setLine(sp7.xc(), y7, statusPanel.playerHistoryButton.xc(), statusPanel.playerHistoryButton.ye()+dy);
+
+        HelpSpec sp8 = helpUI.addBrownHelpText(x4-dx, y7, w7, 0, text("RACES_HELP_6J"));	// Linear/Log Scale
+        sp8.setLine(sp8.xc(), y7, statusPanel.scaleButton.xc(), statusPanel.scaleButton.ye()+dy);
+
+        HelpSpec sp9 = helpUI.addBrownHelpText(x5, y7, w7, 0, text("RACES_HELP_6HA"));	// History AI
+        sp9.setLine(sp9.xc(), y7, statusPanel.aiHistoryButton.xc(), statusPanel.aiHistoryButton.ye()+dy);
+   }
+
     public void init() {
         diploPanel.init();
         intelPanel.init();
@@ -706,8 +778,8 @@ public class RacesUI extends BasePanel {
             titleKey = s;
             initModel();
         }
-        Rectangle hoverBox;
-        Rectangle helpBox = new Rectangle();
+        Rect hoverBox;
+        Rect helpBox = new Rect();
         Area textureArea;
 
         private void initModel() {
@@ -778,7 +850,7 @@ public class RacesUI extends BasePanel {
 
             drawString(g,"?", s16, s30);
         }
-        private void drawTab(Graphics2D g, int x, int y, int w, int h, String label, Rectangle box, boolean selected) {
+        private void drawTab(Graphics2D g, int x, int y, int w, int h, String label, Rect box, boolean selected) {
             // g.setFont(narrowFont(22));
             scaledFont(g, label, w-s10, 22, 10);
             if (selected)
@@ -883,7 +955,7 @@ public class RacesUI extends BasePanel {
         public void mouseMoved(MouseEvent e) {
             int x = e.getX();
             int y = e.getY();
-            Rectangle prevHover = hoverBox;
+            Rect prevHover = hoverBox;
             if (diplomacyBox.contains(x,y))
                 hoverBox = diplomacyBox;
             else if (intelligenceBox.contains(x,y))
@@ -918,14 +990,14 @@ public class RacesUI extends BasePanel {
     }
     final class RacePlayerRelationsPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
-        private final HashMap<Empire, Rectangle> contactBoxes = new HashMap<>();
+        private final HashMap<Empire, Rect> contactBoxes = new HashMap<>();
         private Empire hoverEmp;
         private boolean hoveringIcon;
         int dragY;
         int contactsY, contactsYMax;    
         int contactH, listH;
-        Rectangle contactsListBox = new Rectangle();
-        Rectangle contactsScroller = new Rectangle();
+        Rect contactsListBox = new Rect();
+        Rect contactsScroller = new Rect();
         Shape hoverShape;
 
         public RacePlayerRelationsPane() {
@@ -962,7 +1034,7 @@ public class RacesUI extends BasePanel {
             g.fillRect(0,0,w,h);
             if (UserPreferences.texturesInterface()) 
                 drawTexture(g,0,0,w,h);
-            for (Rectangle r: contactBoxes.values())
+            for (Rect r: contactBoxes.values())
                 r.setBounds(0,0,0,0);
 
             listH = h-y1-s10;
@@ -974,7 +1046,7 @@ public class RacesUI extends BasePanel {
             
             contactsListBox.setBounds(x1,y1,w1,listH);
             for (Empire e: empires) {
-                Rectangle contactClip = new Rectangle(x1, y2, w2, contactH+s3).intersection(contactsListBox);
+                Rect contactClip = new Rect(x1, y2, w2, contactH+s3).intersection(contactsListBox);
                 g.setClip(contactClip);
                 drawContact(g, e, x1, y2, w2, contactH);
                 if (e == selectedEmpire()) {
@@ -1232,9 +1304,9 @@ public class RacesUI extends BasePanel {
             g.fillRect(0, 0, w, h);
             g.dispose();
         }
-        private Rectangle boxFor(Empire emp) {
+        private Rect boxFor(Empire emp) {
             if (!contactBoxes.containsKey(emp))
-                contactBoxes.put(emp, new Rectangle());
+                contactBoxes.put(emp, new Rect());
             return contactBoxes.get(emp);
         }
         public void setColorIcon(Empire emp, Shape sh) {
@@ -1244,7 +1316,7 @@ public class RacesUI extends BasePanel {
         public void mouseWheelMoved(MouseWheelEvent e) {
             int count = e.getUnitsToScroll();           
             boolean hoveringEmp = false;
-            for (Rectangle rect: contactBoxes.values()) {
+            for (Rect rect: contactBoxes.values()) {
                 if (hoverShape == rect) {
                     hoveringEmp = true;
                     break;
@@ -1311,7 +1383,7 @@ public class RacesUI extends BasePanel {
             }
             if (hoverShape == null) {
                 for (Empire emp: contactBoxes.keySet()) {
-                    Rectangle rec = contactBoxes.get(emp);
+                    Rect rec = contactBoxes.get(emp);
                     if (rec.contains(x,y)) {
                         hoverShape = rec;
                         hoverEmp = emp;

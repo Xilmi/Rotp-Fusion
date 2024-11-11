@@ -194,11 +194,14 @@ public class HelpUI extends BasePanel implements MouseListener {
                 break;
             case KeyEvent.VK_SPACE:
             case KeyEvent.VK_ENTER:
+            case KeyEvent.VK_F1:
                 parent.advanceHelp();
                 break;
 			case KeyEvent.VK_L:
-				if (e.isAltDown())
+				if (e.isAltDown()) {
 					debugReloadLabels();
+					parent.repaint();
+				}
 				break;
         }
     }
@@ -234,9 +237,16 @@ public class HelpUI extends BasePanel implements MouseListener {
         public int y()	    { return y; }
         public int xe()		{ return x + w; }
         public int ye()		{ return y + height(); }
-        public void setLine(int x1, int y1, int x2, int y2) {
-            setLine(x1,y1,x2,y2,-1,-1);
+        public int xc()		{ return x + w/2; }
+        public int yc()		{ return y + height()/2; }
+        public void setLineColor(Color c)	{ lineC = c; }
+        public void setTextColor(Color c)	{ textC = c; }
+        public void setBackColor(Color c)	{ backC = c; }
+        public void setLineArr(int... arr)	{ lineArr = arr; }
+        public int[] rect(int x, int y, int w, int h)		{
+        	return new int[] {x, y, x+w, y, x+w, y+h, x, y+h, x, y};
         }
+        public void setLine(int x1, int y1, int x2, int y2) { setLine(x1, y1, x2, y2, -1, -1); }
         public void setLine(int x1a, int y1a, int x2a, int y2a, int x3a, int y3a) {
             x1 = x1a;
             y1 = y1a;
@@ -244,12 +254,6 @@ public class HelpUI extends BasePanel implements MouseListener {
             y2 = y2a;
             x3 = x3a;
             y3 = y3a;
-        }
-        public void setLineArr(int... arr) {
-        	lineArr = arr;
-        }
-        public int[] rect(int x, int y, int w, int h) {
-        	return new int[] {x, y, x+w, y, x+w, y+h, x, y+h, x, y};
         }
     }    
 }

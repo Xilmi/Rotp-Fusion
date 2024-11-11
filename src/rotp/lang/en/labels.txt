@@ -4179,10 +4179,14 @@ RACES_HELP_6A2                    | This screen provides a historical comparison
 RACES_HELP_6B                     | Fleet Strength - combines number and size of ships.
 RACES_HELP_6C                     | Population - total population of all colonized systems.
 RACES_HELP_6D                     | Technology - average level of technology in all areas of research.<br>The maximum level of technology is shown when "Absolute" value is selected.
-RACES_HELP_6Dg                    | Technology - average level of technology in all areas of research.<br> The dotted line shows the maximum level of technology.
+RACES_HELP_6DG                    | Technology - average level of technology in all areas of research.<br> The dotted line shows the maximum level of technology.
 RACES_HELP_6E                     | Planets - the number of colonized systems.
 RACES_HELP_6F                     | Production - total industrial production for the empire.
 RACES_HELP_6G                     | Total Power - a combination of fleet strength, technology and production levels.
+RACES_HELP_6HP                    | PLAYER →HISTORY_HELP_MAIN←
+RACES_HELP_6HA                    | AI →HISTORY_HELP_MAIN←
+RACES_HELP_6J                     | →SETTINGS_MOD_RACE_STATUS_LOG_DESC←
+RACES_HELP_6K                     | →SETTINGS_MOD_RACE_STATUS_VIEW_DESC←
 
 // Sabotage UI
 SABOTAGE_TITLE                    | Our spies have infiltrated [alien_race] colonies and are ready to carry out orders.

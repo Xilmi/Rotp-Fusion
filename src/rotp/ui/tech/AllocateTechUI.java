@@ -61,28 +61,28 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     private final Color darkBrownC = new Color(112,85,68);
     private final Color blueBucketC = new Color(32,132,132);
     private final Color subpanelBackC = new Color(178,124,87);
-    static final Color sliderHighlightColor = new Color(255,255,255);
-    static final Color sliderBoxEnabled = new Color(34,140,142);
-    static final Color sliderBoxDisabled = new Color(102,137,137);
-    static final Color sliderBackEnabled = Color.black;
-    static final Color sliderBackDisabled = new Color(65,65,65);
-    static final Color sliderTextEnabled = Color.black;
-    static final Color sliderTextDisabled = new Color(65,65,65);
-    static final Color eqButtonBorderC = new Color(166,153,145);
-    public static final Color tierBackC = new Color(24,18,14);
-//    public static final Color tierNumC = new Color(48,36,28);
-    public static final Color tierNumC = new Color(60,45,35);
-    public static final Color currentTechC = new Color(217,164,0);
-    public static final Color unknownTechC = new Color(145,102,72);
-    static final Color knownTechC = new Color(75,99,51);
-    static final Color techUnderscoreC = new Color(255,255,255,90);
+    // private static final Color sliderHighlightColor = new Color(255,255,255);
+    private static final Color sliderBoxEnabled = new Color(34,140,142);
+    private static final Color sliderBoxDisabled = new Color(102,137,137);
+    private static final Color sliderBackEnabled = Color.black;
+    private static final Color sliderBackDisabled = new Color(65,65,65);
+    private static final Color sliderTextEnabled = Color.black;
+    private static final Color sliderTextDisabled = new Color(65,65,65);
+    private static final Color eqButtonBorderC = new Color(166,153,145);
+    // private static final Color tierNumC = new Color(48,36,28);
+    private static final Color tierNumC = new Color(60,45,35);
+    private static final Color unknownTechC = new Color(145,102,72);
+    private static final Color knownTechC = new Color(75,99,51);
+    private static final Color techUnderscoreC = new Color(255,255,255,90);
+    static final Color currentTechC = new Color(217,164,0);
+    static final Color tierBackC = new Color(24,18,14);
 
     private LinearGradientPaint backGradient;
     private ExitTechButton exitButton;
     private final Rectangle equalizeButton = new Rectangle();
     private Shape hoverBox;
-    Rectangle techBox = new Rectangle();
-    Rectangle helpBox = new Rectangle();
+    private Rectangle techBox = new Rectangle();
+    private Rectangle helpBox = new Rectangle();
     private final Rectangle[] catBox = new Rectangle[TechTree.NUM_CATEGORIES];
     private final Polygon[] leftArrow = new Polygon[TechTree.NUM_CATEGORIES];
     private final Polygon[] rightArrow = new Polygon[TechTree.NUM_CATEGORIES];
@@ -94,12 +94,12 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     private final Map<RoundRectangle2D.Float,String> techForGuide = new HashMap<>();
     private Point2D.Float[] currentTechs = new Point2D.Float[TechTree.NUM_CATEGORIES];
     private BufferedImage visualTree;
-    int treeX, treeY;
-    int dragX, dragY;
-    float totalPlanetaryResearch = -1;
+    private int treeX, treeY;
+    private int dragX, dragY;
+    private float totalPlanetaryResearch = -1;
     public float totalPlanetaryResearchSpending = 0;
     private int altReturn = -1;
-//    private boolean showFreeTechs = false;
+    // private boolean showFreeTechs = false;
 
     public AllocateTechUI() {
         initModel();
@@ -136,10 +136,8 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         if (totalPlanetaryResearch != -1)
             totalPlanetaryResearch += amt;
     }
-    public void resetPlanetaryResearch() { 
-        totalPlanetaryResearch = -1;
-    }
-    public float totalPlanetaryResearch() {
+    public void resetPlanetaryResearch()	{  totalPlanetaryResearch = -1; }
+    public float totalPlanetaryResearch()	{
         if (totalPlanetaryResearch < 0)
             totalPlanetaryResearch = player().totalPlanetaryResearch();
         return totalPlanetaryResearch;
@@ -1212,7 +1210,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         cat.toggleLock();
         repaint();
     }
-    public void decrement(int i, boolean click) {
+    private void decrement(int i, boolean click) {
         if (player().tech().adjustTechAllocation(i, -1)) {
             if (click)
                 softClick();
@@ -1221,7 +1219,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         else if (click)
             misClick();
     }
-    public void increment(int i, boolean click) {
+    private void increment(int i, boolean click) {
         if (player().tech().adjustTechAllocation(i, 1)) {
             if (click)
                 softClick();
@@ -1438,9 +1436,9 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         }
         return null;
     }
-    class ExitTechButton extends rotp.ui.ExitButton {
+    private class ExitTechButton extends rotp.ui.ExitButton {
         private static final long serialVersionUID = 1L;
-        public ExitTechButton(int w, int h, int vMargin, int hMargin) {
+        private ExitTechButton(int w, int h, int vMargin, int hMargin) {
             super(w, h, vMargin, hMargin);
         }
         @Override

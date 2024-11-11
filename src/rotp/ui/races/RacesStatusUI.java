@@ -21,7 +21,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.LinearGradientPaint;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
@@ -35,6 +34,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireStatus;
 import rotp.model.game.IGameOptions;
@@ -59,13 +59,13 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
 
     int[] dataY = new int[6];
     int[] dataYMax = new int[6];
-    Rectangle[] fullBoxes = new Rectangle[6];
-    Rectangle[] dataBoxes = new Rectangle[6];
-    Rectangle[] dataScrollers = new Rectangle[6];
-    Rectangle playerHistoryButton = new Rectangle();
-    Rectangle aiHistoryButton = new Rectangle();;
-    Rectangle scaleButton = new Rectangle();;
-    Rectangle valueButton = new Rectangle();;
+    Rect[] fullBoxes = new Rect[6];
+    Rect[] dataBoxes = new Rect[6];
+    Rect[] dataScrollers = new Rect[6];
+    Rect playerHistoryButton = new Rect();
+    Rect aiHistoryButton = new Rect();;
+    Rect scaleButton = new Rect();;
+    Rect valueButton = new Rect();;
     
     private LinearGradientPaint backGradient;
     public RacesStatusUI(RacesUI p) {
@@ -75,6 +75,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         initModel();
     }
     public void init() {
+    	galaxy().refreshEmpireStatus(); // BR: always up to date
         for (int i=0; i<dataY.length; i++)
             dataY[i] = 0;
     }
@@ -106,11 +107,11 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
     }
     private void initModel() {
         for (int i=0;i<fullBoxes.length;i++) 
-            fullBoxes[i] = new Rectangle();
+            fullBoxes[i] = new Rect();
         for (int i=0;i<dataBoxes.length;i++) 
-            dataBoxes[i] = new Rectangle();
+            dataBoxes[i] = new Rect();
         for (int i=0;i<dataScrollers.length;i++) 
-            dataScrollers[i] = new Rectangle();
+            dataScrollers[i] = new Rect();
         
         setBackground(RacesUI.darkerBrown);
         setBorder(newEmptyBorder(5,5,5,5));
@@ -237,7 +238,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         int x0 = x+(w-sw)/2;
         drawString(g,text, x0, y+h-s6);
     }
-    private void drawHistoryButton(Graphics2D g, Empire emp, Rectangle button, int x, int y, int w, int h) {
+    private void drawHistoryButton(Graphics2D g, Empire emp, Rect button, int x, int y, int w, int h) {
         if (galaxy().numberTurns() == 0)
             return;
         g.setColor(RacesUI.darkBrown);

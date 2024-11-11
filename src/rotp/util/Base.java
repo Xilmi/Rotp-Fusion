@@ -17,15 +17,15 @@ package rotp.util;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.game.IGameOptions.DIFFICULTY_CUSTOM;
-import static rotp.model.game.IModOptions.playerCustomRace;
-import static rotp.model.game.IModOptions.playerIsCustom;
-
+import static rotp.model.game.IRaceOptions.playerCustomRace;
+import static rotp.model.game.IRaceOptions.playerIsCustom;
 
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Composite;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -33,7 +33,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Rectangle;
+//import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Toolkit;
@@ -1625,7 +1627,7 @@ public interface Base {
 						 Math.min(1f, color.getBlue()  * factor),
 						 color.getAlpha()/255f);
 	}
-    public default  Point2D center(Rectangle rect) {
+    public default  Point2D center(Rect rect) {
     	return new Point2D.Float((float) rect.getCenterX(), (float) rect.getCenterY());
     }
     default void memLog()	{ memLog(""); }
@@ -2125,5 +2127,25 @@ public interface Base {
     default void debugReloadLabels(Component component) {
     	debugReloadLabels();
     	component.repaint();
+    }
+    class Rect extends Rectangle {
+    	public Rect()				{ super(); }
+    	public Rect(Point p)		{ super(p); }
+    	public Rect(Dimension d)	{ super(d); }
+    	public Rect(Rectangle r)	{ super(r); }
+       	public Rect(Point p, Dimension d)	{ super(p, d); }
+      	public Rect(int width, int height)	{ super(width, height); }
+       	public Rect(int x, int y, int width, int height)	{ super(x, y, width, height); }
+
+       	public Rect intersection(Rect r)	{ return new Rect(super.intersection(r)); }
+       	public Rect union(Rect r)			{ return new Rect(super.union(r)); }
+       	
+       	public int xc() 	{ return (int) getCenterX(); }
+       	public int yc() 	{ return (int) getCenterY(); }
+       	public int xe() 	{ return x + width; }
+       	public int ye() 	{ return y + height; }
+       	
+       	public Rectangle rectangle()	{ return new Rectangle(x, y, width, height); }
+
     }
 }

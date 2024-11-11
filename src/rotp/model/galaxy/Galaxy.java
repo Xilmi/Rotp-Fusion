@@ -396,6 +396,10 @@ public class Galaxy implements Base, Serializable {
         for (Empire e: empires)
             e.acquireTradedTechs();
     }
+    public void refreshEmpireStatus()	{ // BR: was not up to date at the beginning of turns
+    	for (Empire e: empires)
+            e.status().assessTurn();
+    }
     public void makeNextTurnDecisions() {
         int num = empires.length;
         for (int i=0;i<num;i++) {
