@@ -15,19 +15,50 @@
  */
 package rotp.ui.design;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.LinearGradientPaint;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
-
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+
 import rotp.model.galaxy.Ships;
-import rotp.model.ships.*;
-import rotp.ui.*;
+import rotp.model.ships.ShipArmor;
+import rotp.model.ships.ShipComputer;
+import rotp.model.ships.ShipDesign;
+import rotp.model.ships.ShipDesignLab;
+import rotp.model.ships.ShipECM;
+import rotp.model.ships.ShipEngine;
+import rotp.model.ships.ShipImage;
+import rotp.model.ships.ShipManeuver;
+import rotp.model.ships.ShipShield;
+import rotp.model.ships.ShipSpecial;
+import rotp.model.ships.ShipWeapon;
+import rotp.ui.BasePanel;
+import rotp.ui.ExitButton;
+import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.combat.ShipBattleUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.main.SystemPanel;
@@ -1592,6 +1623,7 @@ public class DesignUI extends BasePanel {
             int y6 = y5+rowH;
             if (des.availableSpace() < 0)
                 g.setColor(errorRedC);
+            drawString(g,text("SHIP_DESIGN_AVAIL_SPACE_LABEL"), x1, y6);
 
             int autoScoutWidth;
             {
@@ -1691,7 +1723,6 @@ public class DesignUI extends BasePanel {
                     drawBorderedString(g, str, x2a, buttonY + buttonH - s5, SystemPanel.textShadowC, c0);
                 }
             }
-            drawString(g,text("SHIP_DESIGN_AVAIL_SPACE_LABEL"), x1, y6);
             
             if (!des.active())
                 drawColorOptions(g, x1, y6, w-s20, rowH);

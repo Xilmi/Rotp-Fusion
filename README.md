@@ -73,6 +73,7 @@ Later:
 - The Galaxy Map tech bar now updates more regularly.
 - Empire status values refresh when entering the panel.
 - New Empire status help on buttons.
+- Fixed Design UI "Space available" color.
 
 2024.11.10 (BR)
 - Fixed Bad custom species initialisation that could generate an empty "RACE_HUMAN.race" file.
