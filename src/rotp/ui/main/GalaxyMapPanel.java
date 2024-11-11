@@ -69,6 +69,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.history.HistoryUI.GalaxyMapPane;
 import rotp.ui.map.IMapHandler;
+import rotp.ui.sprites.AFewMoreTurnsSprite;
 import rotp.ui.sprites.FlightPathDisplaySprite;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.GridCircularDisplaySprite;
@@ -238,10 +239,14 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             baseControls.add(new TechStatusSprite(TechCategory.CONSTRUCTION, 10,y0+70, 30,30));
             baseControls.add(new TechStatusSprite(TechCategory.COMPUTER,     10,y0+35, 30,30));
             baseControls.add(new TreasurySprite(10,y0, 30,30));
-           	if (Rotp.isUnderTest()) // TODO BR: REMOVE Rotp.isUnderTest()
+           	if (Rotp.isUnderTest()) { // TODO BR: REMOVE Rotp.isUnderTest()
            		baseControls.add(new SpyReportSprite(10, y0-65, 30, 30));
-           	else
-           		baseControls.add(new SpyReportSprite(10,y0-70, 30,30));
+           		baseControls.add(new AFewMoreTurnsSprite(10, y0-100, 30,30));
+           	}
+           	else {
+           		baseControls.add(new SpyReportSprite(10, y0-70, 30,30));
+           		baseControls.add(new AFewMoreTurnsSprite(10, y0-105, 30,30));
+           	}
         }
         
         addMouseListener(this);

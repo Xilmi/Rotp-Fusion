@@ -1106,7 +1106,8 @@ public interface Base {
         return wrappedLines(g, text, maxWidth, 0);
     }
     public default List<String> wrappedLines(Graphics g, String text, int maxWidth, int line1Indent) {
-        
+    	// BR: Zero would lead to infinite loop
+        maxWidth = max(scaled(5), maxWidth);
         List<String> lines = new ArrayList<>();
 
         FontMetrics fm = g.getFontMetrics();

@@ -6,6 +6,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- Fixed "A Few More Turns" not always resetting.
+  - Once enabled, a red dot will appear above the spy icon.
+    - Hovering over it will show the win/loss status.
+    - Clicking on it will deactivate it and the "Game Over" panel will be displayed on the next turn.
 - Fixed Design UI "Space available" color.
 - The Galaxy Map tech bar now updates more regularly.
 - Empire status values refresh when entering the panel.

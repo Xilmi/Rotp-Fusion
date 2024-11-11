@@ -274,8 +274,8 @@ public final class GameOverUI extends FadeInPanel
     	String titleKey = titleBaseKey + options().gameOverTitlesKeyExt();
     	return text(titleKey);
     }
-    private String gameOverTitleKey() {
-    	GameStatus status = session().status();
+    public static String gameOverTitleKey() {
+    	GameStatus status = GameSession.instance().status();
         if (status.lostOverthrown())
             return "GAME_OVER_OVERTHROWN_LOSS";
         else if (status.lostMilitary())
@@ -501,7 +501,7 @@ public final class GameOverUI extends FadeInPanel
         }
         else if (hoverBox == continueBox) {
             softClick();
-            session().setAFewMoreTurns();
+            session().aFewMoreTurns(true);
             //options().continueAnyway(true);
             advanceMode();
             return;

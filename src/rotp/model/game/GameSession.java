@@ -74,6 +74,7 @@ import rotp.model.tech.TechTree;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.LoadGameUI;
 import rotp.ui.main.EmpireColonySpendingPane;
@@ -201,7 +202,7 @@ public final class GameSession implements Base, Serializable {
     }
     public void dismissAlert() { viewedAlerts++; }
 
-    public void setAFewMoreTurns() 		 { aFewMoreTurns = true; }
+    public void aFewMoreTurns(boolean b) { aFewMoreTurns = b; }
     public boolean aFewMoreTurns() 		 { return aFewMoreTurns; }
     public boolean performingTurn()      { return performingTurn; }
     @Override
@@ -350,6 +351,7 @@ public final class GameSession implements Base, Serializable {
     	autoRunning		= false;
     	ironmanLocked	= false;
     	viewedAlerts	= 0;
+    	aFewMoreTurns	= false;
     	RacesUI.instance.resetFinalVars();
     	EmpireColonySpendingPane.resetPanel();
     }
@@ -1124,6 +1126,11 @@ public final class GameSession implements Base, Serializable {
             RotPUI.instance().selectMainPanelLoadGame();
         }
         instance.getGovernorOptions().gameLoaded();
+        
+        // BR: To fix a previous bug.
+        if (instance.aFewMoreTurns() &&  GameOverUI.gameOverTitleKey().isEmpty())
+        	instance.aFewMoreTurns(false);
+        
         if (options.selectedShowVIPPanel())
         	VIPConsole.updateConsole();
     }

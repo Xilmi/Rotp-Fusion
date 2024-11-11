@@ -74,6 +74,10 @@ Later:
 - Empire status values refresh when entering the panel.
 - New Empire status help on buttons.
 - Fixed Design UI "Space available" color.
+- Fixed "A Few More Turns" not always resetting.
+  - Once enabled, a red dot will appear above the spy icon.
+    - Hovering over it will show the win/loss status.
+    - Clicking on it will deactivate it and the "Game Over" panel will be displayed on the next turn.
 
 2024.11.10 (BR)
 - Fixed Bad custom species initialisation that could generate an empty "RACE_HUMAN.race" file.

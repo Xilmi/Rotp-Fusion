@@ -16,6 +16,7 @@
 package rotp.model.game;
 
 import java.io.Serializable;
+
 import rotp.util.Base;
 
 public class GameStatus implements Base, Serializable {
@@ -33,7 +34,7 @@ public class GameStatus implements Base, Serializable {
         LOSS_NEW_REPUBLIC, LOSS_REBELLION, WIN_DIPLOMATIC, WIN_MILITARY, WIN_MILITARY_ALLIANCE, 
         WIN_NEW_REPUBLIC, WIN_REBELLION, WIN_REBELLION_ALLIANCE, WIN_COUNCIL_ALLIANCE, LOSS_NO_COLONIES; }
     private Status status = Status.NO_GAME;
-    // BR: changing Enu will break backward compatibility!
+    // BR: changing Enum will break backward compatibility!
     private int subStatus      = 0;
     private int playerStatus   = 0;
     private int playerStrength = 0;
