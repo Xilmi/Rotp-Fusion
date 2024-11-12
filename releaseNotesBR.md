@@ -6,6 +6,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- Ship set selection:
+  - Fixed Custom Species prefered shipset pop up clearing the fields.
+  - "Displayed species" & "Original" are no more hard coded"
+  - Changing Custom Species checkbox will update the shipset.
+  - Changed "Original" to "Default"
 - Fixed "A Few More Turns" not always resetting.
   - Once enabled, a red dot will appear above the spy icon.
     - Hovering over it will show the win/loss status.
@@ -17,14 +22,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Bad custom species initialisation that could generate an empty "RACE_HUMAN.race" file.
 - Fixed Ship "Refresh" asking for too much spending.
 - Research can also be prioritised. (Ctrl click on "Tech" left label of spending pane)
-- Fixed a rare issue where the map boundary would shift after new scouted stars popup.
-- Fixed stars scouted during colonisation not always showing up immediately.
-- Option Panel minor improvements.
-- Fixed Planet Invasion title not updating at the end of the fight.
-- New Icon to identify links to sub panels.
-- Fixed wrong warning when loading a game.
-- Fixed [player_xxx] being translated to [alien_xxx] in label.txt
-- Fixed "!!! To Replay Last Turn !!!.rotp" file being saved too often.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
