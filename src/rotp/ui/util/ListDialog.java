@@ -108,7 +108,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		JDialog temp = new JDialog();
 	}
 	public String getValue()		{ return value; }
-	public String showDialog()		{ // Can only be called once.
+	public String showDialog(int refreshLevel)	{ // Can only be called once.
 		value = null;
 		index = -1;
 		setVisible(true);
@@ -118,10 +118,10 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		}
         ModifierKeysState.reset();
         baseModPanel.initButtonBackImg();
-        baseModPanel.refreshGui();
+        baseModPanel.refreshGui(refreshLevel);
 		return value;
 	}
-	private void setValue(String newValue) {
+	private void setValue(String newValue)		{
 		value = newValue;
 		list.setSelectedValue(value, true);
 		index = Math.max(0, list.getSelectedIndex());

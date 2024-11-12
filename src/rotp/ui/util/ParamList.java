@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.model.game.IGameOptions.minListSizePopUp;
+import static rotp.model.game.IMainOptions.minListSizePopUp;
 import static rotp.ui.util.IParam.langLabel;
 import static rotp.ui.util.IParam.rowsSeparator;
 import static rotp.ui.util.IParam.tableFormat;
@@ -35,6 +35,7 @@ public class ParamList extends AbstractParam<String> {
 
 	private final IndexableMap valueLabelMap;
 	private boolean showFullGuide = false;
+	private int		refreshLevel  = 0;
 	
 	// ===== Constructors =====
 	//
@@ -140,7 +141,8 @@ public class ParamList extends AbstractParam<String> {
 	// ===== Initializers =====
 	//
 	public ParamList showFullGuide(boolean show) { showFullGuide = show; return this; }
- 	public void reInit(List<String> list) {
+	public ParamList refreshLevel(int level)	 { refreshLevel = level; return this; }
+ 	public void reInit(List<String> list)		 {
 		valueLabelMap.clear();
 		for (String element : list)
 			put(element, langLabel(element)); // "text" should now be available
@@ -249,7 +251,8 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Other Protected Methods =====
 	//
-	protected int getIndex(String value)		{
+	protected int refreshLevel()		 { return refreshLevel; }
+	protected int getIndex(String value) {
 		if (isDuplicate()) {
 			int idx = valueLabelMap.getLangLabelIndexIgnoreCase(value);
 			if (idx == -1)
@@ -330,7 +333,7 @@ public class ParamList extends AbstractParam<String> {
 				valueLabelMap.cfgValueList,	// Alternate return
 				this); 						// Parameter
 
-		String input = (String) dialog.showDialog();
+		String input = (String) dialog.showDialog(refreshLevel);
 		if (input != null && valueLabelMap.getValueIndexIgnoreCase(input) >= 0)
 			set(input);
 	}

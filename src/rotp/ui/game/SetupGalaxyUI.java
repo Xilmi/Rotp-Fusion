@@ -402,10 +402,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		playerMug  = null;
         initAIandAbilitiesList();
         opts.saveOptionsToFile(LIVE_OPTIONS_FILE);
-		refreshGui();
+		refreshGui(0);
 	}
 	@Override protected String GUI_ID() { return GUI_ID; }
-	@Override public void refreshGui() {
+	@Override public void refreshGui(int level) {
         opts.setAndGenerateGalaxy();
         clearMugs();
         backImg = null;
@@ -1059,7 +1059,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        null,							// Alternate return
 		        null); 							// Help parameter
 
-		String input = (String) dialog.showDialog();
+		String input = (String) dialog.showDialog(0);
 	    if (input == null)
 	    	return initialChoice;
 	    opts.selectedGalaxyShapeOption1(input);
@@ -1098,7 +1098,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				null, null,					// Font, Preview
 				returnList,					// Alternate return
 				specificAI);				// help parameter
-		String input = (String) dialog.showDialog();
+		String input = (String) dialog.showDialog(0);
 		ModifierKeysState.reset();
 		repaint();
 	    if (input == null)
@@ -1126,7 +1126,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				returnList,					// Alternate return
 				opponentAI);				// help parameter
 
-		String input = (String) dialog.showDialog();
+		String input = (String) dialog.showDialog(0);
 		ModifierKeysState.reset();
 		repaint();
 	    if (input == null)
@@ -1150,7 +1150,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				null, null, null,			// Font, Preview, Alternate return
 				specificAbilities); // help parameter
 
-		String input = (String) dialog.showDialog();
+		String input = (String) dialog.showDialog(0);
 		ModifierKeysState.reset();
 		repaint();
 	    if (input == null)
@@ -1173,7 +1173,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				null, null, null,			// Font, Preview, Alternate return
 				globalAbilities); // help parameter
 
-		String input = (String) dialog.showDialog();
+		String input = (String) dialog.showDialog(0);
 		ModifierKeysState.reset();
 		ModifierKeysState.reset();
 		repaint();

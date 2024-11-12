@@ -3300,6 +3300,11 @@ SETTINGS_MOD_TERRAFORM_CLEANED_HELP      | Don't bother terraforming, just keep 
 // Other base menu Mod settings
 SETTINGS_MOD_PLAYER_SHIP_SET_DESC        | Select the Player Ship Set.
 SETTINGS_MOD_PLAYER_SHIP_SET             | Player Ship Set: %1
+SETTINGS_MOD_PLAYER_SHIP_SET_ORIGINAL       | Default
+SETTINGS_MOD_PLAYER_SHIP_SET_DISPLAYED_RACE | No Preference
+SETTINGS_MOD_PLAYER_SHIP_SET_FORCED_SHIPSET | » %1
+SETTINGS_MOD_PLAYER_SHIP_SET_CUSTOM_SPECIES | cs: %1
+
 
 SETTINGS_MOD_GUARDIAN_MONSTERS_DESC      | Rich and Artifact planets can be guarded by Space Monsters.
 SETTINGS_MOD_GUARDIAN_MONSTERS           | Guardians: %1

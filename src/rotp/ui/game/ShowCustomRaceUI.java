@@ -141,7 +141,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	protected ModText malusCostText;
 	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
-	CustomRaceDefinitions cr;
+	private CustomRaceDefinitions cr;
 	protected boolean initialized = false;
 	protected boolean forceUpdate = true;
 
@@ -165,7 +165,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		if (initialized)
 			return this;
 		initialized = true;
-		cr = new CustomRaceDefinitions();		
+		cr(new CustomRaceDefinitions());		
 		maxLeftM	= scaled(80);
 		guiTitleID	= ROOT + "SHOW_TITLE";
 	    commonList	= settingList;
@@ -177,7 +177,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	public void loadRace(IGameOptions options)		{ // For Race Diplomatic UI Panel
 		forceUpdate = true;
-		cr.setFromRaceToShow(raceUI.selectedEmpire().dataRace());
+		cr().setFromRaceToShow(raceUI.selectedEmpire().dataRace());
 	}
 	public void init(RacesUI p)	{ // For Race Diplomatic UI Panel
 		forceUpdate = true;
@@ -186,9 +186,9 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	protected void initGUI()	{
 		colSettingsCount = new LinkedList<>();
-		columnList	= cr.columnList();
-		spacerList	= cr.spacerList();
-		settingList	= cr.settingList();
+		columnList	= cr().columnList();
+		spacerList	= cr().spacerList();
+		settingList	= cr().settingList();
 		settingSize	= settingList.size();
 	    mouseList	= settingList;
 	    forceUpdate = true;
@@ -234,6 +234,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	// ========== Other Methods ==========
 	//
+	CustomRaceDefinitions cr()			{ return cr; }
+	void cr(CustomRaceDefinitions cr)	{ this.cr = cr; }
 	protected void setDesc(String tt)	{
 		descBox.setText(tt);
 		loadGuide();
@@ -272,7 +274,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 				null, null,					// Font, Preview
 				returnList,					// Alternate return
 				param); 					// help parameter
-		String input = (String) dialog.showDialog();
+		String input = (String) dialog.showDialog(0);
 	    if (input == null)
 	    	return initialChoice;
 	    return input;
@@ -303,10 +305,10 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		repaint();
 	}
 	protected  String totalCostStr()	{
-		return text(totalCostKey, Math.round(cr.getTotalCost()));
+		return text(totalCostKey, Math.round(cr().getTotalCost()));
 	}
 	protected  String malusCostStr()	{
-		return text(malusCostKey, Math.round(cr.getMalusCost()));
+		return text(malusCostKey, Math.round(cr().getMalusCost()));
 	}
 
 	private boolean checkForHoveredSettings(LinkedList<SettingBase<?>> settings) {

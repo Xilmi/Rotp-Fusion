@@ -547,7 +547,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			if (mo.activeList() == null)
 				return;
 			mo.clearImages();
-			mo.refreshGui();
+			mo.refreshGui(0);
 		}
 	}
 	static int selectedColorSet()	{

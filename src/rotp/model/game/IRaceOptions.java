@@ -67,8 +67,7 @@ public interface IRaceOptions extends IBaseOptsTools {
 	// ==================== Race Menu addition ====================
 	//
    
-	PlayerShipSet playerShipSet		= new PlayerShipSet(
-			MOD_UI, "PLAYER_SHIP_SET");
+	PlayerShipSet playerShipSet		= new PlayerShipSet(MOD_UI, "PLAYER_SHIP_SET");
 	default int selectedPlayerShipSetId()			{ return playerShipSet.realShipSetId(); }
 
 	ParamBoolean playerIsCustom	= new ParamBoolean( BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false, false);

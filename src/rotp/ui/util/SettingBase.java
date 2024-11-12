@@ -17,8 +17,8 @@
 package rotp.ui.util;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
-import static rotp.model.game.IMainOptions.minListSizePopUp;
 import static rotp.Rotp.rand;
+import static rotp.model.game.IMainOptions.minListSizePopUp;
 import static rotp.ui.util.IParam.langHelp;
 import static rotp.ui.util.IParam.langLabel;
 import static rotp.ui.util.IParam.rowsSeparator;
@@ -66,17 +66,18 @@ public class SettingBase<T> implements IParam {
 	private final String guiLabel;
 
 	private boolean labelsAreFinals = defaultLabelsAreFinals;
-	private boolean isList			= defaultIsList;
 	private boolean isBullet		= defaultIsBullet;
 	private boolean allowListSelect	= false;
 	private boolean showFullGuide	= false;
 	private boolean isSpacer 		= false;
 	private boolean hasNoCost		= false;
-	private T		selectedValue	= null;
-	private T		defaultValue	= null;
+	private boolean isList			= defaultIsList;
+	private int		refreshLevel	= 0;
 	private int		bulletHFactor	= 1;
 	private int 	bulletMax   	= 25;
 	private int 	bulletStart 	= 0;
+	private T		selectedValue	= null;
+	private T		defaultValue	= null;
 	private ModText settingText;
 	private ModText[] optionsText;
 	private String	settingToolTip;
@@ -133,6 +134,7 @@ public class SettingBase<T> implements IParam {
 	public	void labelsAreFinals(boolean finals){ labelsAreFinals = finals; }
 	public	void showFullGuide(boolean show)	{ showFullGuide = show; }
 	protected void bulletHFactor(int factor)	{ bulletHFactor = factor; }
+	protected void refreshLevel(int level)		{ refreshLevel  = level; }
 	// ========== Public Interfaces ==========
 	//
 	@Override public void setFromCfgValue(String cfgValue) {
@@ -824,7 +826,7 @@ public class SettingBase<T> implements IParam {
 				null, null,	// Font, Preview
 				null, this);		// Alternate return
 
-		String input = (String) dialog.showDialog();
+		String input = (String) dialog.showDialog(refreshLevel);
 		// System.out.println("input = " + input);
 		if (input != null && getValueIndexIgnoreCase(input) >= 0)
 			set((T) input);

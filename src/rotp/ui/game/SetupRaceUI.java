@@ -228,7 +228,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
         shipSetTxt.setFont(labelFont); // BR:
         initShipBoxBounds();
-        refreshGui();
+        refreshGui(0);
         // Save initial options
         newGameOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
     }
@@ -446,7 +446,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
  	}
     @Override protected void doExitBoxAction() { doNextBoxAction(); }
 	@Override protected String GUI_ID() { return GUI_ID; }
-	@Override public void refreshGui() {
+	@Override public void refreshGui(int level) {
 		raceChanged();
 		repaint();
 	}
@@ -829,7 +829,10 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     	backImg = null;
         repaint();
    }
-    private void checkBoxChanged() { repaint(); }
+    private void checkBoxChanged() {
+    	shipSetChanged();
+    	repaint();
+    }
     void raceChanged() {
         Race r   =  Race.keyed(newGameOptions().selectedPlayerRace());
       	dataRace = playerCustomRace.getRace(); // BR:

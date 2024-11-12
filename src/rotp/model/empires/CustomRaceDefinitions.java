@@ -943,6 +943,7 @@ public class CustomRaceDefinitions  {
 			initOptionsText();
 			labelsAreFinals(true);
 			allowListSelect(true);
+			refreshLevel(1);
 			for (String s : ShipLibrary.current().styles) {
 				put(s, s, 0f, s);
 			}

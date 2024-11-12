@@ -479,7 +479,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		enableGlassPane(this);
 		forceUpdate = true;
-		refreshGui();
+		refreshGui(0);
 		forceUpdate = true;
 	}
 	// ========== Overriders ==========
@@ -558,8 +558,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		}
 		super.doLastBoxAction();
 	}
-	@Override public void refreshGui()	{
-		super.refreshGui();
+	@Override public void refreshGui(int level)	{
+		super.refreshGui(level);
 		for (int i=0; i<activeList.size(); i++) {
 			setValueColor(i);
 			btListLeft.get(i).displayText(activeList.get(i).getGuiDisplay(0));

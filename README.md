@@ -70,6 +70,13 @@ Later:
 ## What's New
 
 2024.11.11 (BR)
+- Ship set selection:
+  - Fixed Custom Species prefered shipset pop up clearing the fields.
+  - "Displayed species" & "Original" are no more hard coded"
+  - Changing Custom Species checkbox will update the shipset.
+  - Changed "Original" to "Default"
+
+2024.11.11 (BR)
 - The Galaxy Map tech bar now updates more regularly.
 - Empire status values refresh when entering the panel.
 - New Empire status help on buttons.

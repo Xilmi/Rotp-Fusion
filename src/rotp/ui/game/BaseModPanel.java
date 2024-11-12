@@ -207,7 +207,7 @@ public abstract class BaseModPanel extends BasePanel
 		return smallButtonMargin + result;
 	}
 	
-	public void refreshGui() {}
+	public void refreshGui(int level) {}
 
 	protected void init() {
 		//ModifierKeysState.reset();
@@ -492,7 +492,7 @@ public abstract class BaseModPanel extends BasePanel
 			case SHIFT: // setLocalUserKey
 			default:
 				guiOptions().updateFromFile(USER_OPTIONS_FILE, localOptions());
-				refreshGui();
+				refreshGui(0);
 				return;
 			}
 		else
@@ -505,7 +505,7 @@ public abstract class BaseModPanel extends BasePanel
 				return;
 			case SHIFT: // setLocalUserKey
 				guiOptions().updateFromFile(USER_OPTIONS_FILE, localOptions());
-				refreshGui();
+				refreshGui(0);
 				return;
 			default: // setGlobalUserKey
 				if (globalOptions) {
@@ -513,7 +513,7 @@ public abstract class BaseModPanel extends BasePanel
 				}
 				else
 					guiOptions().updateAllNonCfgFromFile(USER_OPTIONS_FILE);
-				refreshGui();
+				refreshGui(0);
 				return;
 			}
 	}	
@@ -562,31 +562,31 @@ public abstract class BaseModPanel extends BasePanel
 			case CTRL: // restoreGlobalKey
 			case CTRL_SHIFT: // restoreLocalKey
 				guiOptions().updateFromFile(LIVE_OPTIONS_FILE, localOptions());
-				refreshGui();
+				refreshGui(0);
 				return;
 			case SHIFT:
 			default: // setLocalDefaultKey
 				guiOptions().resetPanelSettingsToDefault(localOptions(), !globalOptions, isSubMenu);		
-				refreshGui();
+				refreshGui(0);
 				return;
 			}
 		else
 			switch (ModifierKeysState.get()) {
 			case CTRL: // restoreGlobalKey
 				guiOptions().updateAllNonCfgFromFile(LIVE_OPTIONS_FILE);		
-				refreshGui();
+				refreshGui(0);
 				return;
 			case CTRL_SHIFT: // restoreLocalKey
 				guiOptions().updateFromFile(LIVE_OPTIONS_FILE, localOptions());		
-				refreshGui();
+				refreshGui(0);
 				return;
 			case SHIFT: // setLocalDefaultKey
 				guiOptions().resetPanelSettingsToDefault(localOptions(), !globalOptions, isSubMenu);		
-				refreshGui();
+				refreshGui(0);
 				return;
 			default: // setGlobalDefaultKey
 				guiOptions().resetAllNonCfgSettingsToDefault();		
-				refreshGui();
+				refreshGui(0);
 				return;
 			}
 	}
@@ -649,7 +649,7 @@ public abstract class BaseModPanel extends BasePanel
 			default: // setGlobalLastKey
 				guiOptions().updateAllNonCfgFromFile(GAME_OPTIONS_FILE);
 			}
-		refreshGui();
+		refreshGui(0);
 	}
 	protected String lastButtonDescKey() {
 		return lastButtonKey() + LABEL_DESCRIPTION;

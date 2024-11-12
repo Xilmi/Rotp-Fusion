@@ -357,7 +357,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		forceUpdate = true;
 		enableGlassPane(this);
-		refreshGui();
+		refreshGui(0);
 		forceUpdate = true;
 	}
 	@Override protected void close() {
@@ -386,13 +386,13 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 				setLocalToDefault(false, isSubMenu); // Main panels (Race & Galaxy) reset their sub menus
 				break; 
 			}
-			refreshGui();
+			refreshGui(0);
 		}
 		else
 			super.doDefaultBoxAction();
 	}
-	@Override public void refreshGui()	{
-		super.refreshGui();
+	@Override public void refreshGui(int level)	{
+		super.refreshGui(level);
 		for (int i=0; i<activeList.size(); i++) {
 			IParam param = activeList.get(i);
 			if (param != null) {

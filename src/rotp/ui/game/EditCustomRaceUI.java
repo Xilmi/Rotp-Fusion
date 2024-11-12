@@ -17,7 +17,7 @@ package rotp.ui.game;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
-import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
+import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -75,7 +75,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		if (initialized)
 			return this;
 		initialized = true;
-		cr = new CustomRaceDefinitions();		
+		cr(new CustomRaceDefinitions());		
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
@@ -83,11 +83,11 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		guiTitleID	= ROOT + "GUI_TITLE";
 	    initGUI();		
 
-		guiList = cr.guiList();
+		guiList = cr().guiList();
 	    for(SettingBase<?> setting : guiList)
 	    	setting.settingText(new ModText(this, labelFontSize,
 					labelC, labelC, hoverC, depressedC, textC, false));
-	    raceList = cr.initRaceList();
+	    raceList = cr().initRaceList();
 	    initSetting(raceList);
 
 	    commonList = new LinkedList<>();
@@ -116,12 +116,12 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	public static void updatePlayerCustomRace() {
 		if (instance == null)
 			return;
-		if (instance.cr == null)
+		if (instance.cr() == null)
 			return;
-		instance.guiOptions().selectedPlayerCustomRace(instance.cr.getAsOptions());
+		instance.guiOptions().selectedPlayerCustomRace(instance.cr().getAsOptions());
 	}
-	private void saveCurrentRace() { cr.saveRace(); }
-	private void loadCurrentRace() { cr.loadRace(); }
+	private void saveCurrentRace() { cr().saveRace(); }
+	private void loadCurrentRace() { cr().loadRace(); }
 	private void doLoadBoxAction() { // Local to panel
 		buttonClick();
 		switch (ModifierKeysState.get()) {
@@ -138,7 +138,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	private void doSelectBoxAction() {
 		buttonClick();
-		guiOptions().selectedPlayerCustomRace(cr.getAsOptions());
+		guiOptions().selectedPlayerCustomRace(cr().getAsOptions());
 		guiOptions().selectedPlayerIsCustom(true);
 		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		close();
@@ -159,7 +159,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		init(); // Validate Init
 	}
 	private void randomizeRace() {
-		cr.randomizeRace(true);
+		cr().randomizeRace(true);
 		totalCostText.repaint(totalCostStr());
 	}
 	private String loadButtonKey() {
@@ -348,8 +348,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		return buttonBackImg;
     }
 
-	@Override public void refreshGui() {
-		cr.setSettingTools((DynOptions) guiOptions().selectedPlayerCustomRace());
+	@Override public void refreshGui(int level) {
+		if (level == 0)
+			cr().setSettingTools((DynOptions) guiOptions().selectedPlayerCustomRace());
 		repaint();
 	}
 	@Override protected void doDefaultBoxAction() {
@@ -369,14 +370,14 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			setToLocalDefault();
 			break; 
 		}
-		refreshGui();
+		refreshGui(0);
 	}
 	@Override public void open(BasePanel p) {
 		enableGlassPane(this);
 		ModifierKeysState.reset();
 		parent = p;
 
-		cr.setSettingTools((DynOptions) guiOptions().selectedPlayerCustomRace());
+		cr().setSettingTools((DynOptions) guiOptions().selectedPlayerCustomRace());
 		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		init();
 		reloadRaceList();
