@@ -69,10 +69,11 @@ Later:
 
 ## What's New
 
-2024.11.12 (BR)
+2024.11.13 (BR)
 - Ship set selection will uses the translated names.
+- Fixed Shipset selection not updating.
 
-2024.11.11 (BR)
+2024.11.12 (BR)
 - Ship set selection:
   - Fixed Custom Species prefered shipset pop up clearing the fields.
   - "Displayed species" & "Original" are no more hard coded"

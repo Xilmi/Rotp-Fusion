@@ -100,7 +100,7 @@ public class PlayerShipSet extends ParamList {
 		   		index = getIndex(preferredShipSet);
     	}
 		// Standard process
-    	else if (isOriginal() || isDisplaySet())
+    	else if (isOriginal())
 			index = getIndex(r.preferredShipSet);
 		else 
 			index = getIndex();

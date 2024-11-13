@@ -6,6 +6,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- Fixed Shipset selection not updating.
 - Ship set selection will uses the translated names.
 - Ship set selection:
   - Fixed Custom Species prefered shipset pop up clearing the fields.
