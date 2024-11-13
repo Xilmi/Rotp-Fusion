@@ -33,6 +33,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -62,6 +63,7 @@ public class SettingBase<T> implements IParam {
 	private final LinkedList<Float>	 costList	  = new LinkedList<>();
 	private final LinkedList<T> 	 valueList	  = new LinkedList<>();
 	private final LinkedList<String> tooltipList  = new LinkedList<>();
+	private final SafeList			 guiTextList  = new SafeList();
 	private final String nameLabel;
 	private final String guiLabel;
 
@@ -430,6 +432,10 @@ public class SettingBase<T> implements IParam {
 	public void clearImage()			{ img = null; }
 	// ===== Getters =====
 	//
+	protected String defaultLangLabel()	{
+		return langLabel(labelList.get(valueValidDefaultIndex()));
+	}
+	protected String getSelLangLabel()	{ return langLabel(labelList.get(getIndex())); }
 	public BufferedImage getImage()		{ return img; }
 	public int deltaYLines()			{ return deltaYLines; }
 	protected T	defaultValue()			{ return defaultValue; }
@@ -809,27 +815,46 @@ public class SettingBase<T> implements IParam {
 		}
 		return -1;
 	}
+	private void initMapGuiTexts() {
+		guiTextList.clear();
+		for (String label : labelList)
+			guiTextList.add(langLabel(label));
+	}
 	@SuppressWarnings("unchecked")
 	private void setFromList(BaseModPanel frame) {
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(getLangLabel(), "");
 		// System.out.println("getIndex() = " + getIndex());
 		// System.out.println("currentOption() = " + currentOption());
+		initMapGuiTexts();
+		String[] list = guiTextList.toArray(new String[listSize()]);
+		int height = 128 + (int)Math.ceil(18.5 * list.length);
+		height = Math.max(300, height);
+		height = Math.min(350, height);
 
-		String[] list = cfgValueList.toArray(new String[listSize()]);
 		ListDialog dialog = new ListDialog(
 				frame,	frame,					// Frame & Location component
 				message, title,					// Message & Title
 				list, selectedValue.toString(),	// List & Initial choice
 				null, true,						// long Dialogue & isVertical
-				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
-				null, null,	// Font, Preview
-				null, this);		// Alternate return
+				RotPUI.scaledSize(360), RotPUI.scaledSize(height),	// size
+				null, null,		// Font, Preview
+				cfgValueList,	// Alternate return
+				this);			// help parameter
 
 		String input = (String) dialog.showDialog(refreshLevel);
 		// System.out.println("input = " + input);
 		if (input != null && getValueIndexIgnoreCase(input) >= 0)
 			set((T) input);
 		// System.out.println("getIndex() = " + getIndex());
+	}
+	class SafeList extends ArrayList<String> {
+		@Override public String get(int id) {
+			if (id<0 || size() == 0)
+				return "";
+			if (id>=size())
+				return super.get(0);
+			return super.get(id);
+		}
 	}
 }

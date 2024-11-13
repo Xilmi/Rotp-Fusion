@@ -45,6 +45,7 @@ import rotp.model.game.DynamicOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.planet.PlanetType;
 import rotp.model.ships.ShipLibrary;
+import rotp.ui.util.PlayerShipSet;
 import rotp.ui.util.SettingBase;
 import rotp.ui.util.SettingBoolean;
 import rotp.ui.util.SettingFloat;
@@ -944,15 +945,18 @@ public class CustomRaceDefinitions  {
 			labelsAreFinals(true);
 			allowListSelect(true);
 			refreshLevel(1);
+			String root = PlayerShipSet.rootLabelKey();
 			for (String s : ShipLibrary.current().styles) {
-				put(s, s, 0f, s);
+				put(s, root + s.toUpperCase(), 0f, s);
 			}
-			put(DISPLAY_RACE_SET, DISPLAY_RACE_SET, 0f, DISPLAY_RACE_SET);
+			put(DISPLAY_RACE_SET, PlayerShipSet.displayLabelKey(), 0f, DISPLAY_RACE_SET);
 			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}
-		@Override public void pushSetting() { race.preferredShipSet = settingValue(); }
-		@Override public void pullSetting() { set(race.preferredShipSet); }
+		@Override public String guideDefaultValue()	{ return defaultLangLabel(); }
+		@Override public String guideValue()		{ return getSelLangLabel(); }
+		@Override public void pushSetting() 		{ race.preferredShipSet = settingValue(); }
+		@Override public void pullSetting() 		{ set(race.preferredShipSet); }
 	}
 	// ==================== CRObjective ====================
 	//
@@ -1240,6 +1244,7 @@ public class CustomRaceDefinitions  {
 			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}
+		
 		@Override public void pushSetting() {
 			race.planetRessource(settingValue());
 		}

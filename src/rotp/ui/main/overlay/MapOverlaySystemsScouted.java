@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
@@ -646,7 +647,7 @@ public class MapOverlaySystemsScouted extends MapOverlay {
             //if (click)
             //    softClick();
             parent.advanceMap();
-            parent.parent.map().resetRangeAreas(); // TODO BR: Validate resetRangeAreas()
+            parent.parent.map().resetRangeAreas();
         };
     }
     class SystemFlagSprite extends MapSprite {

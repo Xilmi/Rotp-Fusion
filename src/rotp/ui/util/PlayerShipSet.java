@@ -21,31 +21,39 @@ import static rotp.model.game.IRaceOptions.playerIsCustom;
 import static rotp.ui.util.IParam.langLabel;
 
 import rotp.model.empires.Race;
+import rotp.model.game.IBaseOptsTools;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.RotPUI;
 
 public class PlayerShipSet extends ParamList {
 	
-	private static final String FORCED_SHIPSET	= "_FORCED_SHIPSET";
-	private static final String CUSTOM_SPECIES	= "_CUSTOM_SPECIES";
-	public static final String ORIGINAL			= "Original";
-	public static final String DISPLAY_RACE_SET	= "Displayed Race";
+	private	static final String SHIPSET_GUI		 = IBaseOptsTools.MOD_UI;
+	private	static final String SHIPSET_NAME	 = "PLAYER_SHIP_SET";
+	private	static final String FORCED_SHIPSET	 = "_FORCED_SHIPSET";
+	private	static final String CUSTOM_SPECIES	 = "_CUSTOM_SPECIES";
+	private	static final String BASE_SPECIES	 = "BASE_SPECIES";
+	private	static final String DISPLAYED_KEY	 = "DISPLAY_SPECIES";
+	private	static final String ORIGINAL		 = "Original";
+	public	static final String DISPLAY_RACE_SET = "Displayed Race";
+
+	public static String rootLabelKey()		{ return SHIPSET_GUI + SHIPSET_NAME + "_"; }
+	public static String tokenLabelKey()	{ return rootLabelKey() + BASE_SPECIES; }
+	public static String displayLabelKey()	{ return rootLabelKey() + DISPLAYED_KEY; }
 
 	/**
 	 * @param gui  The label header
 	 * @param name The name
 	 */
-	public PlayerShipSet(String gui, String name) {
-		super(gui, name, "Original");
+	public PlayerShipSet() {
+		super(SHIPSET_GUI, SHIPSET_NAME, "Original");
 		refreshLevel(1);
+		String root = rootLabelKey();
 		for (String s : ShipLibrary.current().styles) {
-			put(s, s);
+			put(s, root + s.toUpperCase());
 		}
-//		put(DISPLAY_RACE_SET, DISPLAY_RACE_SET.toUpperCase());
-//		put(ORIGINAL, ORIGINAL.toUpperCase());
-//		put(DISPLAY_RACE_SET, DISPLAY_RACE_SET);
-		put(ORIGINAL, ORIGINAL);
+		put(ORIGINAL, root + ORIGINAL.toUpperCase());
 	}
+
 	// ========== Public Getters ==========
 	//
 	/**
@@ -58,12 +66,12 @@ public class PlayerShipSet extends ParamList {
 	 */
 	public String displaySet() {
 		if (playerIsCustom.get() && isOriginal()) {
-			String preferredShipSet = preferredShipSet();
-		   	if (preferredShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
-		   		return get();
+		   	if (isDisplaySet()) {
+		   		return shipsetName();
+		   	}
 		   	else {
     			String key = getLangLabel() + CUSTOM_SPECIES;
-    			String str = langLabel(key, preferredShipSet);
+    			String str = langLabel(key, preferredShipsetName());
     			return str;
 		   	}
 	    }
@@ -74,7 +82,7 @@ public class PlayerShipSet extends ParamList {
 		}
 		else {
 			String key = getLangLabel() + FORCED_SHIPSET;
-			String str = langLabel(key, get());
+			String str = langLabel(key, shipsetName());
 			return str;
 		}
 	}
@@ -100,5 +108,15 @@ public class PlayerShipSet extends ParamList {
 		if (index == -1) index = 0;
 		return index;
 	}
-	private String preferredShipSet() { return playerCustomRace.getRace().preferredShipSet; }
+	private String preferredShipSet() 		{ return playerCustomRace.getRace().preferredShipSet; }
+	private String preferredShipsetName()	{
+		String key = rootLabelKey() + preferredShipSet().toUpperCase();
+		String str = langLabel(key);
+   		return str;
+	}
+	private String shipsetName()			{
+		String key = rootLabelKey() + get().toUpperCase();
+		String str = langLabel(key);
+   		return str;
+	}
 }

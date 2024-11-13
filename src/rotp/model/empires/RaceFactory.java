@@ -20,9 +20,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import rotp.Rotp;
 import rotp.model.game.IGameOptions;
 import rotp.ui.util.ParamSpeciesName;
+import rotp.ui.util.PlayerShipSet;
 import rotp.util.AnimationManager;
 import rotp.util.Base;
 import rotp.util.ImageManager;
@@ -250,12 +252,16 @@ public enum RaceFactory implements Base {
         if (sNames != null)
             r.systemNames = sNames;
         LabelManager labels = r.raceLabels();
+        //
+        // Load Species Labels
+        //
         labels.labelFile(r.langKey+".labels.txt");
         labels.dialogueFile(r.langKey+".dialogue.txt");
         labels.introFile(r.langKey+".intro.txt");
         labels.loadIntroFile(dir);
         labels.loadDialogueFile(dir);
         labels.loadLabelFile(dir);
+
         // Update Species names if required.
         // Only for English and French language
         String[] speciesNames = null;
@@ -290,6 +296,9 @@ public enum RaceFactory implements Base {
             	speciesName = speciesNames[2];
             }
         }
+        //
+        // Load Species Names
+        //
         String filename = dir+r.langKey+".names.txt";
         BufferedReader in = reader(filename);
         if (in == null)
@@ -310,6 +319,26 @@ public enum RaceFactory implements Base {
         }
         if (Rotp.countWords)
             log("WORDS - "+filename+": "+wc);
+
+        //
+        // Update Ship set labels
+        //
+        String shipset;
+        String labelKey = PlayerShipSet.tokenLabelKey();
+        String tag = LabelManager.current().label(labelKey);
+        List<String> tokens = varTokens(tag, "base"); // Should be one token
+        if (tokens.size() >= 1) {
+        	String token = tokens.get(0);
+        	List<String> values = substrings(r.text(token), ',');
+        	if (values.size() >= 1)
+        		shipset = values.get(0);
+        	else
+        		shipset = r.name();
+        }
+        else 
+        	shipset = r.name();
+        String key = PlayerShipSet.rootLabelKey() + r.id.replace("RACE_", "");
+        LabelManager.current().addLabel(key, shipset);
     }
     private void loadRaceDataLine(Race r, String input) {
         if (isComment(input))

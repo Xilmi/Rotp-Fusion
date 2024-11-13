@@ -251,9 +251,19 @@ public class LabelManager implements Base {
             else {
             	testForDialogueFont(val);
             }
-       }
+        }
         try {
             labelMap.put(vals.get(0), val.getBytes("UTF-8"));
+            if (Rotp.countWords)
+                wc = substrings(val, ' ').size();
+        }
+        catch(UnsupportedEncodingException e) { }
+        return wc;
+    }
+    public int addLabel(String key, String val) {
+        int wc = 0;
+        try {
+            labelMap.put(key, val.getBytes("UTF-8"));
             if (Rotp.countWords)
                 wc = substrings(val, ' ').size();
         }

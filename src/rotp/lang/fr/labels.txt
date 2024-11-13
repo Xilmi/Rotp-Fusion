@@ -2065,6 +2065,18 @@ SETTINGS_MOD_TARGET_BOMBARD_AI_HELP      | L'IA est assez intelligente pour cont
 SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Le joueur est assez intelligent pour contrôler ses bombardements, mais l'IA n'est pas autorisée à le faire !
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Tout le monde est capable de contrôler ses bombardements.
 
+
+// Other base menu Mod settings
+SETTINGS_MOD_PLAYER_SHIP_SET_DESC            | Sélection du graphisme des vaisseaux du joueur.
+SETTINGS_MOD_PLAYER_SHIP_SET                 | Graphisme de votre armada: %1
+SETTINGS_MOD_PLAYER_SHIP_SET_ORIGINAL        | Modèles originaux
+SETTINGS_MOD_PLAYER_SHIP_SET_DISPLAY_SPECIES | Sans préférences
+SETTINGS_MOD_PLAYER_SHIP_SET_FORCED_SHIPSET  | » %1
+SETTINGS_MOD_PLAYER_SHIP_SET_CUSTOM_SPECIES  | ep: %1
+SETTINGS_MOD_PLAYER_SHIP_SET_BASE_SPECIES    | [base_raceadjec]
+
+
+
 SETTINGS_MOD_REPEATABLE_ARTIFACT_DESC    | Les planètes artéfacts donneront constamment la même technologie à chaque chargement de sauvegarde.
 SETTINGS_MOD_REPEATABLE_ARTIFACT         | Artéfacts déterministes : %1
 

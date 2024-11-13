@@ -326,7 +326,6 @@ public class ParamList extends AbstractParam<String> {
 				message, title,				// Message & Title
 				list, currentOption(),		// List & Initial choice
 				null, true,					// long Dialogue & isVertical
-//				RotPUI.scaledSize(350), RotPUI.scaledSize(238),	// size
 				RotPUI.scaledSize(350), RotPUI.scaledSize(height),	// size
 				null,						// Font
 				frame,						// Preview
@@ -359,6 +358,7 @@ public class ParamList extends AbstractParam<String> {
 		for (String label : valueLabelMap.langLabelList)
 			valueLabelMap.guiTextList.add(langLabel(label));
 	}
+	
 	protected int defaultValueIndex()			{
 		int id = getIndex(defaultValue());
 		if (id < 0)

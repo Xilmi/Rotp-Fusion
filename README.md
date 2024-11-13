@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.11.12 (BR)
+- Ship set selection will uses the translated names.
+
 2024.11.11 (BR)
 - Ship set selection:
   - Fixed Custom Species prefered shipset pop up clearing the fields.

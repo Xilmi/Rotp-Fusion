@@ -614,8 +614,9 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		totalCostText.setScaledXY(xCost, yCost);
 		totalCostText.draw(g);
 		// Malus cost
+		int sw = totalCostText.w();
 		malusCostText.displayText(malusCostStr());
-		malusCostText.setScaledXY(xCost + scaled(110), yCost);
+		malusCostText.setScaledXY(xCost + sw + s2, yCost);
 		malusCostText.draw(g);
 		
 		// Loop thru the parameters
