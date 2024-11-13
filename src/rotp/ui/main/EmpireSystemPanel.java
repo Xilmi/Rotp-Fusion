@@ -122,6 +122,7 @@ public class EmpireSystemPanel extends SystemPanel {
             case KeyEvent.VK_4:
             case KeyEvent.VK_5:
                 spendingPane.keyPressed(e);
+                return;
             case KeyEvent.VK_L:
             	if (e.isAltDown()) {
             		debugReloadLabels(this);

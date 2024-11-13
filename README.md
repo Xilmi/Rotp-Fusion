@@ -72,6 +72,7 @@ Later:
 2024.11.13 (BR)
 - Ship set selection will uses the translated names.
 - Fixed Shipset selection not updating.
+- Fixed wrong invalid input sound when using the 1/2/3/4/5 keys to adjust planetary spending.
 
 2024.11.12 (BR)
 - Ship set selection:
