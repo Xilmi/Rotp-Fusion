@@ -70,7 +70,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     // private static final int[] cleanupSeq = {INDUSTRY, RESEARCH, DEFENSE, SHIP, ECOLOGY};
     private static final int[] validationSeq = {ECOLOGY, INDUSTRY, SHIP, DEFENSE, RESEARCH};
     private static final int[] spendingSeq   = {RESEARCH, SHIP, DEFENSE, INDUSTRY, ECOLOGY};
-    private static final int[] refreshSeq    = {ECOLOGY, INDUSTRY, SHIP, DEFENSE, RESEARCH};
+    private static final int[] refreshSeq    = {INDUSTRY, ECOLOGY, SHIP, DEFENSE, RESEARCH};
     
     private static final float TECH_PLUNDER_PCT = 0.02f;
     // private static final int MAX_TECHS_CAPTURED = 6;
@@ -351,8 +351,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             return false;
 
         int newValue = allocation(catNum)+amt;
-        if ((newValue < 0)
-        || (newValue > MAX_TICKS))
+        if ((newValue < 0) || (newValue > MAX_TICKS))
             return false;
 
         if (catNum == ECOLOGY)
@@ -363,6 +362,22 @@ public final class Colony implements Base, IMappedObject, Serializable {
         spending[catNum].removeSpendingOrders();
         return true;
     }
+    public boolean smoothIncrement(int catNum, int amt) {
+        if (!canAdjust(catNum))
+            return false;
+
+        int newValue = allocation(catNum)+amt;
+        if ((newValue < 0) || (newValue > MAX_TICKS))
+            return false;
+
+        if (catNum == ECOLOGY)
+            keepEcoLockedToClean = false;
+
+        allocation(catNum, newValue);
+        redistributeSpending(catNum, -amt, allocation(SHIP) > 0, true);
+        return true;
+    }
+
     public String shipyardProject() {
         if (shipyard().allocation() > 0) {
             int limit = shipyard().buildLimit();
@@ -476,18 +491,23 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public void smoothMaxSlider(int category) {
     	if(locked(category))
     		return;
-    	verifiedSmoothMaxSlider(category, null);
+    	verifiedSmoothMaxSlider(category, null, false); // TODO BR: Validate to set it to true for better balance
     }
-    public void verifiedSmoothMaxSlider(int category, MouseEvent e) {
+    public void verifiedSmoothMaxSlider(int category, MouseEvent e, boolean v2) {
     	int prevTech = allocation(RESEARCH);
         checkEcoAtClean(); // BR: to avoid wrong setting if not clean!
         int allocationNeeded = category(category).smartAllocationNeeded(e);
         int prevAllocation = allocation(category);
-        int incr = allocationNeeded > prevAllocation ? 1 : -1;
+        boolean decr = allocationNeeded < prevAllocation;
+        int incr = decr ? -1 : 1;
         int lim = (allocationNeeded - prevAllocation) * incr;
         for (int i=0; i<lim; i++) {
-        	if(!increment(category, incr))
-        		break;
+        	if (v2 && decr) {
+        		if(!smoothIncrement(category, incr))
+            		break;
+        	}
+    		else if(!increment(category, incr))
+	        	break;
         }
         if(category != ECOLOGY)
         	checkEcoAtClean();
@@ -495,7 +515,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         	int deltaTech = allocation(RESEARCH) - prevTech;
         	if (deltaTech > 0) { // Smart distribution of the decremented spending
         		allocation(RESEARCH, prevTech);
-        		redistributeSpending(category, allocation(SHIP) > 0);
+        		redistributeSpending(category, allocation(SHIP) > 0, v2);
         	}
         }
     }
@@ -924,9 +944,19 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
     }
     // BR: For spending panel UI
-    public void redistributeSpending(int category, boolean hadShipSpending) {
+    private int smoothAdjust (int cat, int adj, boolean prioritized, boolean hadShipSpending) {
+    	ColonySpendingCategory currCat = spending[cat];
+    	int currentAllocation = currCat.allocation();
+    	int allocationNeeded  = currCat.refreshAllocationNeeded(prioritized, hadShipSpending);
+    	int increment = allocationNeeded - currentAllocation;
+    	increment = bounds(0, increment, adj);
+    	if (increment == 0)
+    		return 0;
+    	else
+    		return currCat.adjustValue(increment);
+    }
+    public void redistributeSpending(int cat, boolean hadShipSpending, boolean v2) {
         int maxAllocation = ColonySpendingCategory.MAX_TICKS;
-
         // determine how much categories are over/under spent
         int spendingTotal = 0;
         for (int i = 0; i < NUM_CATS; i++)
@@ -934,34 +964,43 @@ public final class Colony implements Base, IMappedObject, Serializable {
         int adj = maxAllocation - spendingTotal;
         if (adj==0)
     		return;
-
+        for (int i=0; i<adj; i++) {
+        	redistributeSpending(cat, 1, hadShipSpending, v2);
+        }
+    }
+    public void redistributeSpending(int category, int adj, boolean hadShipSpending, boolean v2) {
+        if (adj==0)
+    		return;
         // Look for orders
         for (int i : refreshSeq) {
             if ((i != category) && !locked(i) && hasOrder(i)) {
-            	ColonySpendingCategory currCat = spending[i];
-            	int currentAllocation = currCat.allocation();
-            	int allocationNeeded  = currCat.refreshAllocationNeeded(true, hadShipSpending);
-            	int increment = allocationNeeded - currentAllocation;
-            	increment = bounds(0, increment, adj);
-            	adj -= currCat.adjustValue(increment);
+            	adj -= smoothAdjust (i, adj, true, hadShipSpending);
             	if (adj==0)
             		return;
+            }
+        }
+        // If we where building ships then continue
+        if (!locked(SHIP) && (hadShipSpending || shipyard().buildLimit() > 0)) {
+        	adj -= smoothAdjust (SHIP, adj, false, hadShipSpending);
+        	if (adj==0)
+        		return;
+        }
+        if (!v2) {
+            // funnel excess to industry if it's not completed
+            if (!locked(INDUSTRY) && !industry().isCompleted()) {
+            	adj -= smoothAdjust (INDUSTRY, adj, true, hadShipSpending);
+	        	if (adj==0)
+	        		return;
             }
         }
         // distribute the remaining
         for (int i : refreshSeq) {
             if ((i != category) && !locked(i)) {
-            	ColonySpendingCategory currCat = spending[i];
-            	int currentAllocation = currCat.allocation();
-            	int allocationNeeded  = currCat.refreshAllocationNeeded(false, hadShipSpending);
-            	int increment = allocationNeeded - currentAllocation;
-            	increment = bounds(0, increment, adj);
-            	adj -= currCat.adjustValue(increment);
+            	adj -= smoothAdjust (i, adj, false, hadShipSpending);
             	if (adj==0)
             		return;
             }
         }
-
         // if any adj remaining, send back to original cat
         // this is always player-driver, so remove spending orders
         if (adj != 0)

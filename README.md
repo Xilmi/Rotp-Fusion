@@ -69,6 +69,11 @@ Later:
 
 ## What's New
 
+2024.11.14 (BR)
+- Planetary spending
+  - Restored the old redistribution on the "smooth max"
+  - Added a new redistribution that balance Industry and Ecology (Shift-Ctrl-Click)
+
 2024.11.13 (BR)
 - Ship set selection will uses the translated names.
 - Fixed Shipset selection not updating.

@@ -668,7 +668,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
 
             // Specific optimizations
-            colony.verifiedSmoothMaxSlider(category, e);
+            colony.verifiedSmoothMaxSlider(category, e, true);
 
             // Common End
         	if (mapListener == null)
@@ -699,8 +699,10 @@ public class EmpireColonySpendingPane extends BasePanel {
            	boolean hadsShipSpending = colony.allocation(Colony.SHIP) > 0;
         	
             // Specific optimizations
-            
-            if (e.isShiftDown()) { // Smart Max, clear the free spending
+           	if (e.isShiftDown() && e.isControlDown()) { // Smooth Max Under test
+           		colony.verifiedSmoothMaxSlider(category, e, true);
+           	}
+           	else if (e.isShiftDown()) { // Smart Max, clear the free spending
                 colony.clearUnlockedSpending();
                 if (e.isControlDown()) {
                 	colony.redistributeReducedEcoSpending();
@@ -720,20 +722,22 @@ public class EmpireColonySpendingPane extends BasePanel {
                 	}
                 	else {
                 		colony.checkEcoAtClean();
-                		colony.redistributeSpending(category, hadsShipSpending);
+                		colony.redistributeReducedEcoSpending();
                 	}
                 }
         	}
-            // Reset to AI Setting
+            // Refresh all
             else if (e.isControlDown()) {
             	colony.clearUnlockedSpending();
-            	colony.redistributeSpending(-1, hadsShipSpending);
+            	colony.redistributeSpending(-1, hadsShipSpending, true);
             	colony.checkEcoAtClean();
             }
 
             // Smooth Max
-            else
-        		colony.verifiedSmoothMaxSlider(category, e);
+            else {
+            	colony.verifiedSmoothMaxSlider(category, e, false);
+            	//colony.checkEcoAtClean();
+            }
 
             // Common End
         	if (mapListener == null)
