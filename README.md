@@ -69,6 +69,12 @@ Later:
 
 ## What's New
 
+2024.11.16 (BR)
+- New option for in transit rallied fleet to join a battle.
+- New option to split the loss between planetary guard and in transit rallied fleet.
+- Governor will wait for an empire to be in economical range before setting spy allocations.
+- Some guide text fix. 
+
 2024.11.14 (BR)
 - Planetary spending
   - Restored the old redistribution on the "smooth max"

@@ -200,7 +200,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	String CHAIN_RALLY_SPEED_FLEET	= "FLEET";
 	String CHAIN_RALLY_SPEED_MIN	= "MIN";
 	String CHAIN_RALLY_SPEED_TOP	= "TOP";
-	ParamList chainRallySpeed			= new ParamList( MOD_UI, "CHAIN_RALLY_SPEED", CHAIN_RALLY_SPEED_FLEET)
+	ParamList chainRallySpeed		= new ParamList( MOD_UI, "CHAIN_RALLY_SPEED", CHAIN_RALLY_SPEED_FLEET)
 			.showFullGuide(true)
 			.put(CHAIN_RALLY_SPEED_FLEET,	MOD_UI + "CHAIN_RALLY_SPEED_FLEET")
 			.put(CHAIN_RALLY_SPEED_MIN,		MOD_UI + "CHAIN_RALLY_SPEED_MIN")
@@ -289,4 +289,35 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 			.setLimits(0, 50)
 			.setIncrements(1, 5, 20);
 	default int maxMissingFactories()	{ return maxMissingFactories.get(); }	
+
+	String RALLY_COMBAT_NEVER	= "RALLY_COMBAT_NEVER";
+	String RALLY_COMBAT_BUILT	= "RALLY_COMBAT_BUILT";
+	String RALLY_COMBAT_ALL		= "RALLY_COMBAT_ALL";
+	String RALLY_COMBAT_PASS_BY	= "RALLY_COMBAT_PASS_BY";
+	ParamList rallyCombat			= new ParamList( MOD_UI, "RALLY_COMBAT", RALLY_COMBAT_BUILT)
+			.showFullGuide(true)
+			.put(RALLY_COMBAT_NEVER,	MOD_UI + RALLY_COMBAT_NEVER)
+			.put(RALLY_COMBAT_BUILT,	MOD_UI + RALLY_COMBAT_BUILT)
+			.put(RALLY_COMBAT_PASS_BY,	MOD_UI + RALLY_COMBAT_PASS_BY)
+			.put(RALLY_COMBAT_ALL,		MOD_UI + RALLY_COMBAT_ALL)
+			.setDefaultValue(FUSION_DEFAULT, RALLY_COMBAT_BUILT) // TOD BR: change to RALLY_COMBAT_ALL
+			.setDefaultValue(MOO1_DEFAULT,   RALLY_COMBAT_BUILT)
+			.setDefaultValue(ROTP_DEFAULT,   RALLY_COMBAT_BUILT);
+	default boolean rallyCombat()		{ return !rallyCombat.get().equals(RALLY_COMBAT_NEVER); }
+	default boolean rallyBuiltCombat()	{ return rallyCombat.get().equals(RALLY_COMBAT_BUILT) || rallyAllCombat(); }
+	default boolean rallyPassByCombat()	{ return rallyCombat.get().equals(RALLY_COMBAT_PASS_BY) || rallyAllCombat(); }
+	default boolean rallyAllCombat()	{ return rallyCombat.get().equals(RALLY_COMBAT_ALL); }
+
+	String COMBAT_LOSS_DEFENSES	= "COMBAT_LOSS_DEFENSE";
+	String COMBAT_LOSS_RALLY	= "COMBAT_LOSS_RALLY";
+	String COMBAT_LOSS_SHARED	= "COMBAT_LOSS_SHARED";
+	ParamList rallyCombatLoss	= new ParamList( MOD_UI, "RALLY_COMBAT_LOSS", COMBAT_LOSS_DEFENSES)
+			.showFullGuide(true)
+			.put(COMBAT_LOSS_DEFENSES,	MOD_UI + COMBAT_LOSS_DEFENSES)
+			.put(COMBAT_LOSS_RALLY,		MOD_UI + COMBAT_LOSS_RALLY)
+			.put(COMBAT_LOSS_SHARED,	MOD_UI + COMBAT_LOSS_SHARED);
+	default String rallyLosses()		{ return rallyCombatLoss.get(); }
+	default boolean rallyLossDefense()	{ return rallyCombatLoss.get().equals(COMBAT_LOSS_DEFENSES); }
+	default boolean rallyLossRally()	{ return rallyCombatLoss.get().equals(COMBAT_LOSS_RALLY); }
+	default boolean rallyLossShared()	{ return rallyCombatLoss.get().equals(COMBAT_LOSS_SHARED); }
 }

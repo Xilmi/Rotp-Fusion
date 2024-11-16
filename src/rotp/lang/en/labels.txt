@@ -2823,6 +2823,26 @@ SETTINGS_MOD_CHAIN_RALLY_SPEED_MIN       | Min
 SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP_DESC  | Based on the top speed allowed by currently known technologies.
 SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP       | Top
 
+SETTINGS_MOD_RALLY_COMBAT_DESC           | Should fleets with rallying orders take part to combat?
+SETTINGS_MOD_RALLY_COMBAT                | Rally join combat: %1
+SETTINGS_MOD_RALLY_COMBAT_NEVER_DESC     | No, that's the job of the planetary guard.
+SETTINGS_MOD_RALLY_COMBAT_NEVER          | None
+SETTINGS_MOD_RALLY_COMBAT_BUILT_DESC     | Only the recently produced fleet will help the defense.<br>(Original setting)
+SETTINGS_MOD_RALLY_COMBAT_BUILT          | Brand new
+SETTINGS_MOD_RALLY_COMBAT_PASS_BY_DESC   | Only ships that are in transit will lend a hand.
+SETTINGS_MOD_RALLY_COMBAT_PASS_BY        | In Transit
+SETTINGS_MOD_RALLY_COMBAT_ALL_DESC       | All the rallied fleets will help the defense.
+SETTINGS_MOD_RALLY_COMBAT_ALL            | All
+
+SETTINGS_MOD_RALLY_COMBAT_LOSS_DESC      | Which fleet will get the losses from the battle?
+SETTINGS_MOD_RALLY_COMBAT_LOSS           | Rally losses: %1
+SETTINGS_MOD_COMBAT_LOSS_DEFENSE_DESC    | Orbiting Defense fleet will takes all the losses.
+SETTINGS_MOD_COMBAT_LOSS_DEFENSE         | Defense
+SETTINGS_MOD_COMBAT_LOSS_RALLY_DESC      | Rallying fleet will takes all the losses.
+SETTINGS_MOD_COMBAT_LOSS_RALLY           | Rallied
+SETTINGS_MOD_COMBAT_LOSS_SHARED_DESC     | Losses will be shared proportionally to the contribution.
+SETTINGS_MOD_COMBAT_LOSS_SHARED          | Shared
+
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | To disable peace treaties or remove the ability to colonize when another fleet is orbiting the planet.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Peace Treaty: %1
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL_DESC | No change: The duration of peace treaties is randomly set between 10 and 15 years.<br>Planets can be colonized, in the presence of their armed fleet, and of course your armed fleet cannot prevent them from colonizing either.
@@ -3357,8 +3377,8 @@ SETTINGS_MOD_FIXED_EVENTS_MODE_HELP      | A seed is given at the beginning of a
 SETTINGS_MOD_FIXED_EVENTS_MODE_DESC      | A seed is given at the beginning of a game, and will be used to generate the random events. Target empire are no more determined by their powers.
 SETTINGS_MOD_FIXED_EVENTS_MODE           | Deterministic random events: %1
 
-SETTINGS_MOD_MONSTERS_GIVE_LOOTS_HELP    | A seed is given at the beginning of a game, and will be used to generate the random events.<br>- Target empires are no more determined by their powers.<br>- Same time, same event, same target on different play.<br>- Same Events on Reload.<br>- If an event is still active, it will be put on waiting list till the previous occurrence ends.<br>- If targeted empire is extinct, Monsters are directed to their former home world.
-SETTINGS_MOD_MONSTERS_GIVE_LOOTS_DESC     | Loots are given on Monster destruction.
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_HELP    | Prestige is good, but it doesn't always make up for ship damage.<br>The valiant hero who defeats a monster will also be rewarded with some nice loot.
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_DESC     | Loot will be given when killing a monster.
 SETTINGS_MOD_MONSTERS_GIVE_LOOTS          | Monsters give Loots: %1
 SETTINGS_MOD_MONSTERS_GIVE_LOOTS_YES      | →BOOLEAN_YES←
 SETTINGS_MOD_MONSTERS_GIVE_LOOTS_NO       | →BOOLEAN_NO←

@@ -960,7 +960,7 @@ public class ShipFleet extends FleetBase {
     public void disband() {
          galaxy().ships.deleteFleet(this);
     }
-    void addFleet(ShipFleet fl) {
+    public void addFleet(ShipFleet fl) {
         if (this != fl) {
             for (int i=0;i<num.length;i++) 
                 num[i] += fl.num[i];
@@ -987,6 +987,12 @@ public class ShipFleet extends FleetBase {
             log("disband#4 fleet: ", toString());
             disband();
         }
+    }
+    public int removeShips(int i, int count)  { // For unregistered fleet only
+    	count = max(0, count);
+    	count = min(count, num[i]);
+    	num[i] += count;
+    	return count;
     }
 /*    public int removeScrappedShips(int designId) {
         int scrappedCount = num[designId];

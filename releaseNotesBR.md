@@ -6,6 +6,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- New option for in transit rallied fleet to join a battle.
+- New option to split the loss between planetary guard and in transit rallied fleet.
+- Governor will wait for an empire to be in economical range before setting spy allocations.
 - Planetary spending
   - Restored the old redistribution on the "smooth max"
   - Added a new redistribution that balance Industry and Ecology (Shift-Ctrl-Click)
@@ -17,17 +20,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - "Displayed species" & "Original" are no more hard coded"
   - Changing Custom Species checkbox will update the shipset.
   - Changed "Original" to "Default"
-- Fixed "A Few More Turns" not always resetting.
-  - Once enabled, a red dot will appear above the spy icon.
-    - Hovering over it will show the win/loss status.
-    - Clicking on it will deactivate it and the "Game Over" panel will be displayed on the next turn.
-- Fixed Design UI "Space available" color.
-- The Galaxy Map tech bar now updates more regularly.
-- Empire status values refresh when entering the panel.
-- New Empire status help on buttons.
-- Fixed Bad custom species initialisation that could generate an empty "RACE_HUMAN.race" file.
-- Fixed Ship "Refresh" asking for too much spending.
-- Research can also be prioritised. (Ctrl click on "Tech" left label of spending pane)
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

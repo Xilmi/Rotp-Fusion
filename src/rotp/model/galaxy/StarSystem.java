@@ -43,8 +43,8 @@ import rotp.model.empires.SystemView;
 import rotp.model.events.StarSystemEvent;
 import rotp.model.game.IGameOptions; // modnar: use for shield display selection
 import rotp.model.planet.Planet;
-import rotp.model.planet.PlanetFactory;
 import rotp.model.planet.Planet.PlanetBaseData;
+import rotp.model.planet.PlanetFactory;
 import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipLibrary;

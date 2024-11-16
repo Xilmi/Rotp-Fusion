@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import rotp.model.galaxy.StarSystem;
 import rotp.model.incidents.EspionageTechIncident;
 import rotp.model.incidents.SpyConfessionIncident;
@@ -208,7 +209,7 @@ public final class SpyNetwork implements Base, Serializable {
         return possibleTechs;
     }
     public int allocation()             { return allocation; }
-    public void allocation(int i)       { 
+    public void allocation(int i)       {
         allocation = bounds(0,i,MAX_SPENDING_TICKS); 
         view().owner().flagColoniesToRecalcSpending();
     }

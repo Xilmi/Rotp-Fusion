@@ -15,19 +15,21 @@
  */
 package rotp.model.empires;
 
+import static rotp.model.empires.EmpireStatus.POWER;
+
 import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import static rotp.model.empires.EmpireStatus.POWER;
+
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GovernorOptions;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.ui.diplomacy.DialogueManager;
-import rotp.ui.diplomacy.DiplomaticReply;
 import rotp.ui.diplomacy.DiplomaticCounterReply;
+import rotp.ui.diplomacy.DiplomaticReply;
 import rotp.util.Base;
 
 public final class EmpireView implements Base, Serializable {
@@ -173,6 +175,8 @@ public final class EmpireView implements Base, Serializable {
 		        spies.maxSpies(0);
 		    return;
         }
+        if (!inEconomicRange())
+        	return;
         if(governor.isAutoSpy()) {
         	spies.setSuggestedAllocations();
 		    return;

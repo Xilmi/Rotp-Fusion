@@ -18,8 +18,10 @@ package rotp.model.galaxy;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.colony.ColonyShipyard;
 import rotp.model.empires.Empire;
+import rotp.model.game.IGameOptions;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
 import rotp.ui.sprites.ShipRelocationSprite;
@@ -27,9 +29,55 @@ import rotp.util.Base;
 
 public class Ships implements Base, Serializable {
     private static final long serialVersionUID = 1L;
+    public static boolean rallyPassByCombat = false;
     private final List<ShipFleet> allFleets = new ArrayList<>();
     private List<ShipFleet> allFleetsCopy() { return new ArrayList<>(allFleets); }
-    
+
+    public void rallyOrbitingShips(int empId, int sysId, int rallySysId, ShipFleet rallyCopy, ShipFleet orbitCopy) {
+        ShipFleet orbitingFleet = orbitingFleet(empId, sysId);
+        if (orbitingFleet == null)
+            return;   // no ships in orbit to rally
+
+        ShipFleet rallyingFleet = rallyingFleet(empId, sysId, rallySysId);
+        // if none, create one
+        boolean deployRallyingFleet = rallyingFleet == null;
+        if (deployRallyingFleet) {
+            StarSystem sys = galaxy().system(sysId);
+            rallyingFleet = new ShipFleet(empId, sys);
+            rallyingFleet.rallySysId(rallySysId);
+        }
+        IGameOptions opts = options();
+        boolean defenseGetLoss = opts.rallyLossDefense();
+        boolean rallyGetLoss   = opts.rallyLossRally();
+
+        // adjust the new rally size
+        for (int i=0; i<rallyCopy.num.length; i++) {
+            int orbitingCount = orbitingFleet.num(i);
+            int rallyCount    = rallyCopy.num(i);
+            int oldOrbitCount = orbitCopy.num(i);
+            int defenseCount  = oldOrbitCount - rallyCount;
+            if (orbitingCount < oldOrbitCount) { // some loss
+            	if (defenseGetLoss) {
+            		rallyCount   = min (rallyCount, orbitingCount);
+            		defenseCount = orbitingCount - rallyCount;
+            	} else if (rallyGetLoss) {
+            		defenseCount = min (defenseCount, orbitingCount);
+            		rallyCount   = orbitingCount - defenseCount;            		
+            	} else {
+            		rallyCount   = orbitingCount * rallyCount / oldOrbitCount;
+            		defenseCount = orbitingCount - rallyCount;
+            	}
+            }
+            rallyingFleet.addShips(i, rallyCount);
+            orbitingFleet.removeShips(i, rallyCount, true);
+        	orbitCopy.num(i, defenseCount);
+        }
+        if (deployRallyingFleet && rallyingFleet.numShips() >0) {
+            rallyingFleet.makeDeployed();
+            allFleets.add(rallyingFleet);
+        }
+    }
+
     public void rallyOrbitingShips(int empId, int sysId, int designId, int count, int rallySysId) {
         ShipFleet orbitingFleet = orbitingFleet(empId, sysId);
         if (orbitingFleet == null)
@@ -56,7 +104,7 @@ public class Ships implements Base, Serializable {
         rallyingFleet.addShips(designId, rallyCount);  
         orbitingFleet.removeShips(designId, rallyCount, true);
     }
-    private void forwardRallyFleet(ShipFleet fl, int empId, int sysId, int rallySysId) {
+    private ShipFleet forwardRallyFleet(ShipFleet fl, int empId, int sysId, int rallySysId) {
         ShipFleet existingFleet = rallyingFleet(empId, sysId, rallySysId);
         
         if (existingFleet == null) {
@@ -69,6 +117,7 @@ public class Ships implements Base, Serializable {
             existingFleet.addFleet(fl);
             fl.disband();
         }
+        return existingFleet;
     }
     public void buildShips(int empId, int sysId, int designId, int count) {
         // are we relocating new ships? If so, do so as long as dest is still allied with us
@@ -455,18 +504,16 @@ public class Ships implements Base, Serializable {
         for (Empire emp: g.empires())
             emp.visibleShips().remove(fl);
     }
-    void disembarkFleets() {
+    void launchFleets() { // For session nextTurn
         List<ShipFleet> fleetsAll = allFleetsCopy();
-        
-        for (ShipFleet fl: fleetsAll) {
-            if (fl != null && fl.isDeployed() && !fl.isRallied()) {
-                fl.launch();
-            }
-        }
+	        for (ShipFleet fl: fleetsAll) {
+	            if (fl != null && fl.isDeployed() && !fl.isRallied())
+	                fl.launch();
+	        }
     }
-    public void disembarkFleets(int sysId) {
+    public void launchFleets(int sysId) { // For combat retreat
         List<ShipFleet> fleetsAll = allFleetsCopy();
-        
+
         for (ShipFleet fl: fleetsAll) {
             if (fl != null && fl.isDeployed() && (id(fl.system()) == sysId) && !fl.isRallied()) {
                 fl.launch();
@@ -502,20 +549,27 @@ public class Ships implements Base, Serializable {
         // no need to emp-check the fleet or system
         // only players can set up rally points
         if (fleet.isRallied()) {
-            ShipRelocationSprite spr = sys.rallySprite();
+        	ShipRelocationSprite spr = sys.rallySprite();
             if (spr.isActive() && spr.forwardRallies()) {
-                fleet.arrive(sys, true);
-                forwardRallyFleet(fleet, fleet.empId(), sys.id, spr.rallySystem().id);
-                return false;
+                if (rallyPassByCombat) {	// Memorize the transit
+                	fleet.arrive(sys, true);
+                	sys.colony().shipyard().addToRallyFleetCopy(fleet);
+                	// Then continue to make them orbiting
+                }
+                else {
+                	fleet.arrive(sys, true);
+	            	forwardRallyFleet(fleet, fleet.empId(), sys.id, spr.rallySystem().id);
+	            	return false;
+                }
             }
         }
         // if an orbiting fleet already exists, merge with it
-        ShipFleet orbitingFleet = orbitingFleet(fleet.empId, sys.id);       
+        ShipFleet orbitingFleet = orbitingFleet(fleet.empId, sys.id);
         if (orbitingFleet == null) {
             fleet.arrive(sys, true);
             orbitingFleet = fleet;
         }
-        else {
+        else if (fleet != orbitingFleet) {
             for (int i=0;i<fleet.num.length;i++) {
                 int a = orbitingFleet.num(i);
                 int b = fleet.num(i);
@@ -539,10 +593,19 @@ public class Ships implements Base, Serializable {
             sys.empire().scanFleet(orbitingFleet);
         return false;
     }
-//    public List<ShipFleet> visibleFleets(int empId) { // ???
-//        List<ShipFleet> fleets = new ArrayList<>();
-//        return fleets;
-//    }
+    void mergeRallyAndOrbitFleets(StarSystem sys) {
+    	ColonyShipyard shipYard = sys.colony().shipyard();
+    	int empId = player().id;
+	    ShipFleet orbitingFleet = orbitingFleet(empId, sys.id);
+		if (orbitingFleet != null) {
+	        shipYard.saveOrbitFleetCopy(orbitingFleet);
+			shipYard.addToRallyFleetCopy(null); // to init if empty
+		}
+    }
+    /* public List<ShipFleet> visibleFleets(int empId) { // ???
+        List<ShipFleet> fleets = new ArrayList<>();
+        return fleets;
+    } */
     ShipFleet anyFleetAtSystem(int empId, int sysId) {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
@@ -731,28 +794,28 @@ public class Ships implements Base, Serializable {
         
         return new int[] {scrapCount, empCount, allyCount};
     }
-//    public int scrapDesign(int empireId, int designId) {
-//        int scrapCount = 0;
-//        List<ShipFleet> emptyFleets = new ArrayList<>();
-//        List<ShipFleet> fleetsAll = allFleetsCopy();
-//        
-//        for (ShipFleet fl: fleetsAll) {
-//            if (fl.empId == empireId) {
-//                int count = fl.num(designId);
-//                if (count > 0) {
-//                    scrapCount += count;
-//                    fl.num(designId, 0);
-//                    if (fl.isEmpty())
-//                        emptyFleets.add(fl);
-//                }
-//            }
-//        }
-//        
-//        for (ShipFleet fl: emptyFleets) 
-//            this.deleteFleet(fl);
-//        
-//        return scrapCount;
-//    }
+    /* public int scrapDesign(int empireId, int designId) {
+        int scrapCount = 0;
+        List<ShipFleet> emptyFleets = new ArrayList<>();
+        List<ShipFleet> fleetsAll = allFleetsCopy();
+        
+        for (ShipFleet fl: fleetsAll) {
+            if (fl.empId == empireId) {
+                int count = fl.num(designId);
+                if (count > 0) {
+                    scrapCount += count;
+                    fl.num(designId, 0);
+                    if (fl.isEmpty())
+                        emptyFleets.add(fl);
+                }
+            }
+        }
+        
+        for (ShipFleet fl: emptyFleets) 
+            this.deleteFleet(fl);
+        
+        return scrapCount;
+    } */
     public int[] shipDesignCounts(int empireId) {
         int[] count = new int[ShipDesignLab.MAX_DESIGNS];
         List<ShipFleet> fleetsAll = allFleetsCopy();

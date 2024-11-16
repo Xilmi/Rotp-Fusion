@@ -56,7 +56,8 @@ public final class InGameOptions implements IOptionsSubUI {
 
 				headerSpacer50,
 				new ParamTitle("BETA_TEST"),
-				debugAutoRun, darkGalaxy
+				//debugAutoRun, darkGalaxy,
+				rallyCombat, rallyCombatLoss // TODO BR: COMMENT before release
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("SUB_PANEL_OPTIONS"),

@@ -216,7 +216,7 @@ public class EmpireColonySpendingPane extends BasePanel {
     	return min(font1, font2);
     }
     private int initGovernorButton(Graphics2D g, int maxWidth, int maxFont)	{
-		int margin = iconWidth + buttonMargin;
+		int margin = iconWidth + buttonMargin/2;
 		int maxTitleWidth = maxWidth - margin;
 		String title1 = text("GOVERNOR_IS_ON_BUTTON");
 		int fontSize1 = scaledFont(g, title1, maxTitleWidth, maxFont, minButtonFontSize);

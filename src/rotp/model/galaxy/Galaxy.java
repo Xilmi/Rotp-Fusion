@@ -282,7 +282,7 @@ public class Galaxy implements Base, Serializable {
         for (StarSystem sys: starSystems)
         	if(sys != null)
         		sys.launchTransports();
-        ships.disembarkFleets();
+        ships.launchFleets(); // Launch deployed fleets tagged to be launched. (But not the rallied ones)
         ships.reloadBombs();
     }
     public void postNextTurn1() {
@@ -497,7 +497,15 @@ public class Galaxy implements Base, Serializable {
         	if (sh != null) {
 	            if (sh.arrivalTimeAdjusted() > currentTime)
 	                break;
-	            galaxy().ships.arriveFleet(sh);
+	            ships.arriveFleet(sh);
+        	}
+        }
+
+        // BR: Merge and Memorize copy of fleets in case of combat
+        IGameOptions opts = options();
+        if (opts.rallyPassByCombat() || !opts.rallyLossDefense()) {
+        	for (StarSystem sys : player().allColonizedSystems()) {
+        		ships.mergeRallyAndOrbitFleets(sys);
         	}
         }
     }

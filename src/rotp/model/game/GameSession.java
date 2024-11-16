@@ -63,6 +63,7 @@ import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.GalaxyFactory;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.ShipFleet;
+import rotp.model.galaxy.Ships;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.model.ships.ShipDesign;
@@ -521,8 +522,10 @@ public final class GameSession implements Base, Serializable {
                 clearAlerts();
                 clearNotificationLimits();
                 RotPUI.instance().repaint();
+                // BR: This could be called quite often, better make it quick.
+                Ships.rallyPassByCombat = options.rallyPassByCombat();
                 processNotifications();
-                gal.preNextTurn();
+                gal.preNextTurn(); // Launching deployed fleets
 
                 if (!inProgress())
                     return;
@@ -532,8 +535,8 @@ public final class GameSession implements Base, Serializable {
                 // playerViewAllHomeSystems();
 
                 // all intra-empire events: civ turns, ship movement, etc
-                gal.advanceTime();
-                gal.moveShipsInTransit();
+                gal.advanceTime();	// Clock only
+                gal.moveShipsInTransit(); // Move and arrival
 
                 gal.events().nextTurn();
                 RotPUI.instance().selectMainPanel();
@@ -559,7 +562,7 @@ public final class GameSession implements Base, Serializable {
                     log("Notifications processed 1 - back to MainPanel");
                     RotPUI.instance().selectMainPanel();
                 }
-                gal.postNextTurn1();
+                gal.postNextTurn1(); // ship combat & invasions at each system
                 if (!inProgress())
                     return;
 
@@ -583,7 +586,7 @@ public final class GameSession implements Base, Serializable {
                 }
 
                 // all diplomatic fallout: praise, warnings, treaty offers, war declarations + Research
-                gal.assessTurn();
+                gal.assessTurn();	// Start rallying
 
                 if (processNotifications()){
                     log("Notifications processed 4 - back to MainPanel");

@@ -40,7 +40,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
     private boolean stargateCompleted = false;
     private int buildLimit = 0;
     private boolean shipLimitReached = false;
-    private transient ShipFleet rallyFleet;
+    private transient ShipFleet rallyFleetCopy, orbitFleetCopy;
     private transient float maxAllowedShipBCProd;
     private transient int rallyCount = 0;
     private transient int rallyDesignId = 0;
@@ -59,7 +59,25 @@ public class ColonyShipyard extends ColonySpendingCategory {
     public void addQueuedBC(float d)          { queuedBC += d; }
     public int desiredShips()                 { return desiredShips; }
     public void addDesiredShips(int i)        { desiredShips += i; }
-    public ShipFleet rallyFleet()             { return rallyFleet; }
+    public ShipFleet rallyFleetCopy()         { return rallyFleetCopy; }
+    public ShipFleet orbitFleetCopy()         { return orbitFleetCopy; }
+    public void addToRallyFleetCopy(ShipFleet fl) {
+    	if (rallyFleetCopy == null)
+    		rallyFleetCopy = new ShipFleet(colony().empire().id, colony().starSystem());
+    	if (fl != null)
+    		rallyFleetCopy.addFleet(fl);
+    }
+    public void saveOrbitFleetCopy(ShipFleet fl) {
+    	if (fl == null) {
+    		orbitFleetCopy = new ShipFleet(colony().empire().id, colony().starSystem());
+    	}
+    	else
+    		orbitFleetCopy = ShipFleet.copy(fl);
+    }
+    public void clearFleetsCopy()             {
+    	rallyFleetCopy = null;
+    	orbitFleetCopy = null;
+    }
     public int buildLimit()                   { return buildLimit; }
     public void buildLimit(int i)             { buildLimit = max(0,i); }
     public String buildLimitStr() { return buildLimit == 0 ? text("MAIN_COLONY_SHIPYARD_LIMIT_NONE") : str(buildLimit); }
@@ -93,6 +111,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
         shipBC = 0;
         newShips = 0;
         maxAllowedShipBCProd = -1;
+        clearFleetsCopy();
     }
     @Override
     public int categoryType()            { return Colony.SHIP; }
@@ -106,10 +125,25 @@ public class ColonyShipyard extends ColonySpendingCategory {
     public void lowerMaintenance()       { hasStargate = false; }
     @Override
     public void assessTurn()             { 
-        if (rallyCount ==0)
+        if (rallyCount == 0 && rallyFleetCopy == null)
             return;
         Colony c = colony();
-        galaxy().ships.rallyOrbitingShips(c.empire().id, c.starSystem().id, rallyDesignId, rallyCount, rallyDestSysId);
+        int empId = c.empire().id;
+        int sysId = c.starSystem().id;
+
+        if (rallyFleetCopy == null) // no pass by => standard Method
+        	galaxy().ships.rallyOrbitingShips(empId, sysId, rallyDesignId, rallyCount, rallyDestSysId);
+        else {
+        	// Move build to rally
+        	int dec = orbitFleetCopy.removeShips(rallyDesignId, rallyCount);
+        	if (dec != rallyCount) {
+        		System.err.println("rallyCount too High: " + rallyCount + " / " + dec);
+        	}
+        	rallyFleetCopy.addShips(rallyDesignId, dec);
+        	// send fleet
+        	galaxy().ships.rallyOrbitingShips(empId, sysId, rallyDestSysId, rallyFleetCopy, orbitFleetCopy);
+            clearFleetsCopy();        	
+        }
     }
     public boolean building()            { return queuedBC > 0; }
     public boolean willingToBuild(Design d) {
@@ -181,10 +215,6 @@ public class ColonyShipyard extends ColonySpendingCategory {
 
         if (colony().allocation(categoryType()) == 0)
             return;
-
-//        if ((int)cost == 592)
-//        	System.out.println("(int)cost == 592");
-        
         // should never happen anymore, but hey
         if (buildingObsoleteDesign()) {
             empire().addReserve(newBC);
@@ -249,15 +279,20 @@ public class ColonyShipyard extends ColonySpendingCategory {
         StarSystem sys = colony().starSystem();
         int sysId = sys.id;
         int designId = d.id();
+
+        galaxy().ships.buildShips(emp.id, sysId, designId, count);
         
         // if we are rallying, note how many of which design we need to deploy later
         if ((emp.sv.hasRallyPoint(sysId)) && (emp.alliedWith(emp.sv.empId(sysId)))) {
             rallyCount = count;
             rallyDesignId = designId;
             rallyDestSysId = id(emp.sv.rallySystem(sysId));
+            // Freshly built rallying may not want to fight
+            if (empire().isPlayerControlled() && !options().rallyBuiltCombat()) {
+            	galaxy().ships.rallyOrbitingShips(emp.id, sysId, rallyDesignId, rallyCount, rallyDestSysId);
+                rallyCount = 0;
+            }
         }
-
-        galaxy().ships.buildShips(emp.id, sysId, designId, count);
     }
     public void capturedBy(Empire newCiv) {
         if (newCiv == empire())
@@ -272,7 +307,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
         buildLimit = 0;
         resetQueueData();
         shipLimitReached = false;
-        rallyFleet = null;
+        clearFleetsCopy();
         maxAllowedShipBCProd = -1;
     }
     public void goToPrevDesign() {

@@ -18,6 +18,7 @@ package rotp.model.combat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import rotp.model.empires.DiplomaticEmbassy;
 import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
@@ -53,7 +54,7 @@ public class ShipCombatManager implements Base {
     public boolean allowRetreat = false;
     public boolean performingStackTurn = false;
     public boolean showAnimations = true;
-    public boolean playerInBattle = false;
+    private boolean playerInBattle = false;
     private CombatStack currentStack;
     private ShipCombatResults results;
     private boolean finished = false;
@@ -65,9 +66,9 @@ public class ShipCombatManager implements Base {
     private int[][] initialMap       = new int[maxX+1][maxY+1];
     public boolean[][] asteroidMap = new boolean[maxX+1][maxY+1];
     private boolean initialPause;
-    public List<CombatStack> currentTurnList;
-    public boolean moO1Asteroids; // if true => impact beam and missiles
-    public boolean isAsteroid(float x, float y) { return asteroidMap[(int)(x+0.5)][(int)(y+0.5)]; }
+    private List<CombatStack> currentTurnList;
+    boolean moO1Asteroids; // if true => impact beam and missiles
+    boolean isAsteroid(float x, float y) { return asteroidMap[(int)(x+0.5)][(int)(y+0.5)]; }
     public int asteroidsInPath(float srcX, float srcY, float tarX, float tarY) {
     	// Maybe take spreading into account an fractional impact 
     	int count = 0;
@@ -97,10 +98,10 @@ public class ShipCombatManager implements Base {
        	}
     	return count;
     }
-    public boolean interdiction()              { return interdiction; }
+    boolean interdiction()                     { return interdiction; }
     public ShipCombatResults results()         { return results; }
     public StarSystem system()                 { return system; }
-    public void system(StarSystem sys)         { system = sys; }
+    void system(StarSystem sys)                { system = sys; }
     public CombatStack currentStack()          { return currentStack; }
     public List<CombatStack> activeStacks()    { return results.activeStacks(); }
     public void ui(ShipBattleUI panel)         { ui = panel; }
@@ -108,16 +109,16 @@ public class ShipCombatManager implements Base {
     public List<CombatStack> allStacks()       { return allStacks; }
     public void setInitialPause()              { initialPause = true; }
     
-    public boolean involves(Empire emp) {
+    /* public boolean involves(Empire emp) {
         return (results.attacker() == emp) || (results.defender() == emp);
-    }
+    } */
     public boolean redrawMap = false;
     public int turnCounter() { return turnCounter; }
     public void battle(StarSystem sys) {
         playerInBattle = false;
         if (sys.hasMonster()) {
             battle(sys, sys.monster());
-            galaxy().ships.disembarkFleets(system.id);
+            galaxy().ships.launchFleets(system.id); // Launch retreating fleets
             return;                   
         }
         empiresInConflict = sys.empiresInConflict();
@@ -132,14 +133,12 @@ public class ShipCombatManager implements Base {
                     for (EmpireMatchup m: matchups) {
                         if (m.matches(e1,e2))
                             alreadyAdded = true;
-                        
                     }
                     if (!alreadyAdded)
                         matchups.add(new EmpireMatchup(e1,e2));
                 }
             }
         }
-        
         // randomize the order that we do the potential combats
         Collections.shuffle(matchups);
         
@@ -189,7 +188,7 @@ public class ShipCombatManager implements Base {
                     retreatEmpire(emp1);
                 if (emp2 != victor)
                     retreatEmpire(emp2);
-                galaxy().ships.disembarkFleets(system.id);
+                galaxy().ships.launchFleets(system.id); // Launch retreating fleets
             }
         }
     }
@@ -338,7 +337,7 @@ public class ShipCombatManager implements Base {
         while (shouldContinue())
             performNextStackTurn();
     } 
-    public boolean shouldContinue() {
+    private boolean shouldContinue() {
         return autoComplete && !combatIsFinished();
     }
     public void continueToNextPlayerStack() {
@@ -376,7 +375,7 @@ public class ShipCombatManager implements Base {
             autoRunThread = null;
         };
     }
-    public boolean canScan(Empire civ, CombatStack st) {
+    /* public boolean canScan(Empire civ, CombatStack st) {
         if (st.empire() == civ)
             return true;
         if (st.cloaked)
@@ -389,7 +388,7 @@ public class ShipCombatManager implements Base {
                 return true;
         }
         return false;
-    }
+    } */
     public void setupBombardment(StarSystem sys, ShipFleet fleet) {
         ui = null;
         system = sys;
@@ -578,7 +577,7 @@ public class ShipCombatManager implements Base {
             }
         }
     }
-    public void initCombatStacks(Empire emp1, Empire emp2) {
+    private void initCombatStacks(Empire emp1, Empire emp2) {
         if (results.colonyStack != null)
             addStackToCombat(results.colonyStack);
 
@@ -618,7 +617,7 @@ public class ShipCombatManager implements Base {
             empiresInConflict.remove(passiveEmp);
         }
     }
-    public void initCombatStacks(Empire emp, SpaceMonster monster) {
+    private void initCombatStacks(Empire emp, SpaceMonster monster) {
         if (results.colonyStack != null)
             addStackToCombat(results.colonyStack);
 
@@ -660,7 +659,7 @@ public class ShipCombatManager implements Base {
             empiresInConflict.remove(passiveEmp);
         }
     }
-    public void retreatEmpire(Empire e) {
+    private void retreatEmpire(Empire e) {
         List<CombatStack> retreatingStacks = new ArrayList<>();
 
         List<CombatStack> activeStacks = new ArrayList<>(results.activeStacks());
@@ -675,7 +674,7 @@ public class ShipCombatManager implements Base {
         for (CombatStack st: retreatingStacks)
             results.activeStacks().remove(st);
     }
-    public void addEmpiresToCombat() {
+    private void addEmpiresToCombat() {
         boolean playerInCombat = false;
         List<Empire> empiresInCombat = new ArrayList<>();
         for (CombatStack st : results.activeStacks()) {
@@ -857,7 +856,7 @@ public class ShipCombatManager implements Base {
         //newStack.y = tgtY;
         return tgtStack;
     }
-    public void scanShips() {
+    private void scanShips() {
         // scan only if have scanners and NOT same civ as planet (already scanned)
         for (CombatStack st : results.activeStacks()) {
             if (st.canScan()) {
@@ -973,7 +972,7 @@ public class ShipCombatManager implements Base {
 
         return false;
     }
-    public boolean finished()    { return finished; }
+    // public boolean finished()    { return finished; }
     public boolean combatIsFinished() {
         if (finished)
             return true;
@@ -1042,11 +1041,11 @@ public class ShipCombatManager implements Base {
 
         currentStack.beginTurn();
     }
-    public void performNextStackTurn() {
+    private void performNextStackTurn() {
         generateRiskMap(currentStack);
         currentStack.performTurn();
     }
-    public void removeFromCombat(CombatStack st) {
+    void removeFromCombat(CombatStack st) {
         activeStacks().remove(st);
         if (currentStack == st)
             turnDone(st);
@@ -1063,7 +1062,7 @@ public class ShipCombatManager implements Base {
             allStacks.remove(st);
         
     }
-    public void removeMissilesLaunchedFromStack(CombatStack st) {
+    private void removeMissilesLaunchedFromStack(CombatStack st) {
         List<CombatStack> stacks = new ArrayList<>(allStacks());
         for (CombatStack stack: stacks) {
             List<CombatStackMissile> missiles = new ArrayList<>(stack.missiles());
@@ -1073,7 +1072,7 @@ public class ShipCombatManager implements Base {
             }
         }
     }
-    public void removeMissilesTargetingStack(CombatStack st) {
+    private void removeMissilesTargetingStack(CombatStack st) {
         List<CombatStackMissile> missiles = new ArrayList<>(st.missiles());
         for (CombatStackMissile miss: missiles) {
             removeMissileFromCombat(miss);
@@ -1121,7 +1120,7 @@ public class ShipCombatManager implements Base {
             CheckForReactionFire(st);
         return moved;
     }
-    public void teleportStack(CombatStack st, int x1, int y1) {
+    private void teleportStack(CombatStack st, int x1, int y1) {
         //log(currentStack.fullName() + " teleporting to: " + x1 + "," + y1);
         st.teleportTo(x1,y1, 0.1f);
     }
@@ -1129,9 +1128,9 @@ public class ShipCombatManager implements Base {
         while (st.selectBestWeapon(st.target)) 
             st.fireWeapon(st.target);
     }
-    public void attackTarget(CombatStack st) {
+    /* public void attackTarget(CombatStack st) {
         //log("mgr attackTarget done:" + st.civ.race.name + st.name());
-    }
+    } */
     private void generateRiskMap(CombatStack st) {
         for (int x=0;x<=maxX;x++) {
             for (int y=0;y<maxY;y++)
@@ -1181,7 +1180,7 @@ public class ShipCombatManager implements Base {
         }
         return valid;
     }
-    public void CheckForReactionFire(CombatStack stack)
+    private void CheckForReactionFire(CombatStack stack)
     {
         if(stack.cloaked)
             return;
@@ -1197,7 +1196,7 @@ public class ShipCombatManager implements Base {
             }
         }
     }
-    public void performReactionFire(CombatStack stack, CombatStack target)
+    private void performReactionFire(CombatStack stack, CombatStack target)
     {
         if(target == null)
             return;
@@ -1206,22 +1205,20 @@ public class ShipCombatManager implements Base {
                 stack.fireWeapon(target, i, true);
         }
     }
-    class EmpireMatchup {
-        Empire emp1;
-        Empire emp2;
-        public EmpireMatchup(Empire e1, Empire e2) {
+    private class EmpireMatchup {
+        private Empire emp1;
+        private Empire emp2;
+        private EmpireMatchup(Empire e1, Empire e2) {
             emp1 = e1;
             emp2 = e2;
         }
-        public boolean matches (Empire e1, Empire e2) {
+        private boolean matches (Empire e1, Empire e2) {
             if ((emp1 == e1) && (emp2 == e2))
                 return true;
             if ((emp1 == e2) && (emp2 == e1))
                 return true;
             return false;
         }
-        public boolean includes(Empire e1) {
-            return (emp1 == e1) || (emp2 == e1);
-        }
+        // public boolean includes(Empire e1) { return (emp1 == e1) || (emp2 == e1); }
     }
 }

@@ -2027,6 +2027,36 @@ SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST_DESC | Conservera le dernier paramètre de 
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Dernier
 
 CHAIN_RALLY_SPEED_HK                     | Vitesse des ralliements en chaîne
+SETTINGS_MOD_CHAIN_RALLY_SPEED_DESC      | Vitesse à utiliser lors de la sélection du chemin de ralliement optimal.
+SETTINGS_MOD_CHAIN_RALLY_SPEED           | →CHAIN_RALLY_SPEED_HK←: %1
+SETTINGS_MOD_CHAIN_RALLY_SPEED_FLEET_DESC | Basé sur la vitesse du vaisseau en construction ou du vaisseau le plus lent de la flotte sélectionnée.
+SETTINGS_MOD_CHAIN_RALLY_SPEED_FLEET     | Flotte
+SETTINGS_MOD_CHAIN_RALLY_SPEED_MIN_DESC  | Basé sur la vitesse de du modèle de navire actif la plus lente.
+SETTINGS_MOD_CHAIN_RALLY_SPEED_MIN       | Min
+SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP_DESC  | Basé sur la vitesse maximale autorisée par les technologies actuellement connues.
+SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP       | Top
+
+SETTINGS_MOD_RALLY_COMBAT_DESC           | Les flottes avec ordre de ralliement doivent-elles participer au combat ?
+SETTINGS_MOD_RALLY_COMBAT                | Ralliés aident: %1
+SETTINGS_MOD_RALLY_COMBAT_NEVER_DESC     | Non, c'est le boulot de la garde planétaire?
+SETTINGS_MOD_RALLY_COMBAT_NEVER          | Aucuns
+SETTINGS_MOD_RALLY_COMBAT_BUILT_DESC     | Seulement les vaisseaux nouvellement construits vont prêter main forte.<br>(Fonctionalité originale)
+SETTINGS_MOD_RALLY_COMBAT_BUILT          | Les nouveaux
+SETTINGS_MOD_RALLY_COMBAT_PASS_BY_DESC   | Seulement les vaisseaux faisant escale vont prêter main forte.
+SETTINGS_MOD_RALLY_COMBAT_PASS_BY        | En transit
+SETTINGS_MOD_RALLY_COMBAT_ALL_DESC       | Tout le monde met la main à la pâte.
+SETTINGS_MOD_RALLY_COMBAT_ALL            | Tous
+
+SETTINGS_MOD_RALLY_COMBAT_LOSS_DESC      | Quelle flotte subira les pertes de la bataille ?
+SETTINGS_MOD_RALLY_COMBAT_LOSS           | Pertes de combats: %1
+SETTINGS_MOD_COMBAT_LOSS_DEFENSE_DESC    | La flotte de défense en orbite subira toutes les pertes.
+SETTINGS_MOD_COMBAT_LOSS_DEFENSE         | Défense
+SETTINGS_MOD_COMBAT_LOSS_RALLY_DESC      | La flotte de ralliée assumera toutes les pertes.
+SETTINGS_MOD_COMBAT_LOSS_RALLY           | Ralliés
+SETTINGS_MOD_COMBAT_LOSS_SHARED_DESC     | Les pertes seront partagées proportionnellement à la contribution initiale.
+SETTINGS_MOD_COMBAT_LOSS_SHARED          | Partagée
+
+
 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | Désactiver les traités de paix ou supprimer la possibilité de coloniser losqu'une autre flotte est en orbite autour de la planète.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Traité de paix: %1
