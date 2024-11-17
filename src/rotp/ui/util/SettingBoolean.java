@@ -17,6 +17,8 @@
 package rotp.ui.util;
 
 import static rotp.ui.util.IParam.langLabel;
+import static rotp.ui.util.IParam.rowsSeparator;
+import static rotp.ui.util.IParam.tableFormat;
 
 import rotp.model.game.DynamicOptions;
 
@@ -30,6 +32,19 @@ public class SettingBoolean extends SettingBase<Boolean> {
 
 	// ========== constructors ==========
 	//
+	/**
+	 * @param guiLangLabel  The label header
+	 * @param nameLangLabel The nameLangLabel
+	 * @param defaultvalue The default value
+	 * @param costTrue 
+	 * @param costFalse 
+	 */
+	public SettingBoolean(String guiLangLabel, String nameLangLabel, Boolean defaultValue, Boolean showFullGuide) {
+		this(guiLangLabel, nameLangLabel, defaultValue, 0f, 0f, "YES", "NO", false, false);
+		hasNoCost(true);
+		showFullGuide(showFullGuide);
+	}
+
 	/**
 	 * @param guiLangLabel  The label header
 	 * @param nameLangLabel The nameLangLabel
@@ -82,10 +97,6 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	@Override public String guiOptionValue(int index) {
 		return langLabel(guiOptionLabel(index));
 	}
-//	@Override public void updateOption() {
-//		if (!isSpacer() && dynOpts() != null)
-//			dynOpts().setBoolean(getLangLabel(), settingValue());
-//	}
 	@Override public void updateOptionTool() {
 		if (!isSpacer() && dynOpts() != null)
 			set(dynOpts().getBoolean(getLangLabel(), defaultValue()));
@@ -95,8 +106,17 @@ public class SettingBoolean extends SettingBase<Boolean> {
 			options.setBoolean(getLangLabel(), settingValue());
 	}
 	@Override public void updateOptionTool(DynamicOptions options) {
-//		options(options);
 		if (!isSpacer() && options != null)
 			set(options.getBoolean(getLangLabel(), defaultValue()));
+	}
+	@Override protected String getTableHelp()		{
+		int size = listSize();
+		String rows = "";
+		if (size>0) {
+			rows = getRowGuide(0);
+			for (int i=1; i<size; i++)
+				rows += rowsSeparator() + getRowGuide(i);
+		}
+		return tableFormat(rows);
 	}
 }

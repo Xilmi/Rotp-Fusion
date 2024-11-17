@@ -73,13 +73,13 @@ public class CustomRaceDefinitions  {
 	private final SettingInteger randomTargetMin = new SettingInteger(
 			ROOT, "RANDOM_TARGET_MIN", 0, null, null, 1, 5, 20).pctValue(false);
 	private final SettingInteger randomMax = new SettingInteger(
-			ROOT, "RANDOM_MAX", 50, -100, 100, 1, 5, 20);
+			ROOT, "RANDOM_MAX", 25, -100, 100, 1, 5, 20);
 	private final SettingInteger randomMin = new SettingInteger(
-			ROOT, "RANDOM_MIN", -50, -100, 100, 1, 5, 20);
+			ROOT, "RANDOM_MIN", -25, -100, 100, 1, 5, 20);
 	private final SettingBoolean randomUseTarget = new SettingBoolean(
-			ROOT, "RANDOM_USE_TARGET", false);
+			ROOT, "RANDOM_USE_TARGET", false, true);
 	private final SettingBoolean randomSmoothEdges = new SettingBoolean(
-			ROOT, "RANDOM_EDGES", true);
+			ROOT, "RANDOM_EDGES", true, true);
 
 	private LinkedList<Integer> spacerList; // For UI
 	private LinkedList<Integer> columnList; // For UI

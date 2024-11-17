@@ -23,6 +23,7 @@ public interface IBaseOptsTools extends ISubUiKeys{
 	int GAME_ID  = 1;
 	int SETUP_ID = 2;
 
+	ParamSpacer headerSpacer100	= new ParamSpacer(1f);
 	ParamSpacer headerSpacer50	= new ParamSpacer(0.5f);
 	ParamSpacer lineSpacer25	= new ParamSpacer(0.25f);
 	default ParamSpacer headerSpacer()	{return headerSpacer50; }

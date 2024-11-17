@@ -29,9 +29,20 @@ public final class AllSubUI {
 	private void put(IOptionsSubUI ui)			{ uiMap.put(ui.optionId(), ui); }
 	private void init()							{
 		// Level 0 Panels
+		put(new CombatAsteroids());
+		put(new CombatTiming());
+		put(new CombatXilmiAI());
+		put(new CouncilOptions());
+		put(new DiplomacyOptions());
+		put(new NewOptionsBeta());
 		put(new ShieldAnimations());
+		put(new SpyOptions());
+		put(new VisualOptions());
 		put(new WeaponAnimation());
+
 		// Level 1 Panels
+		put(new DiplomacyOptions());
+		put(new GameAutomation());
 		put(new ShipCombatRules());
 		put(new ShipCombatSettings());
 

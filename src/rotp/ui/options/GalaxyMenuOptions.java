@@ -18,7 +18,7 @@ public final class GalaxyMenuOptions implements IOptionsSubUI {
 		return map;
 	}
 	static SafeListParam optionsGalaxy() {
-		GalaxyOption gal = GalaxyOption.instance;
+		GalaxyOption gal = GalaxyOption.instance();
 		return new SafeListParam(GALAXY_ID,
 			Arrays.asList(
 					gal.showNewRaces, gal.globalCROptions,

@@ -597,7 +597,7 @@ GAME_SETTINGS_MUSIC               | Music: %1
 GAME_SETTINGS_MUSIC_OFF           | Muted
 GAME_SETTINGS_MUSIC_ON            | %1/10
 GAME_SETTINGS_MUSIC_DESC          | Click to mute or unmute music within the game. Use the mouse wheel to raise or lower the volume. (Or right-click / shift-right-click)
-GAME_SETTINGS_AUTOCOLONIZE        | Colonize: %1
+GAME_SETTINGS_AUTOCOLONIZE        | Colonize on arrival: %1
 GAME_SETTINGS_AUTOCOLONIZE_YES_DESC | Automatically
 GAME_SETTINGS_AUTOCOLONIZE_NO_DESC  | Always Prompt
 GAME_SETTINGS_AUTOCOLONIZE_DESC   | Toggle to auto-colonize and name planets immediately when colony ships arrive. This can be time-saving on very large maps.
@@ -631,7 +631,7 @@ GAME_SETTINGS_SAVEDIR_DESC1       | The save directory is currently set to the s
 GAME_SETTINGS_SAVEDIR_DESC2       | The save directory is currently set to: %1
 GAME_SETTINGS_DISPLAY_YEAR        | Display Year: %1
 GAME_SETTINGS_DISPLAY_YEAR_DESC   | On the Galaxy map: Displays either the game's current turn or your empire's current year
-GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH          | To Research: %1
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH          | Excess to Research: %1
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_YES_DESC | Excess colony spending is diverted to research.
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_NO_DESC  | Excess colony spending is sent to treasury.
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC     | Divert excess colony spending from treasury reserve to research.
@@ -1904,12 +1904,38 @@ CUSTOM_RACE_GUI_SAVE_DESC         | Save the settings to the file specified in "
 CUSTOM_RACE_GUI_SAVE              | Save to File
 CUSTOM_RACE_RACE_LIST             | File List
 CUSTOM_RACE_RACE_LIST_DESC        | Custom species abilities file list. Click to load. (At the top is the one when opening the GUI.)
+CUSTOM_RACE_RANDOM_MAX_HELP       | Upper limit for the settings relative randomization window.<br>Related to the setting value, which is not always linearly related to the setting selection.
+CUSTOM_RACE_RANDOM_MAX_DESC       | Upper limit for the settings relative randomization window.<br>Related to the setting value, which is not always linearly related to the setting selection.
 CUSTOM_RACE_RANDOM_MAX            | Setting Max
+
+CUSTOM_RACE_RANDOM_MIN_HELP       | Lower limit for the settings relative randomization window.<br>Related to the setting value, which is not always linearly related to the setting selection.
+CUSTOM_RACE_RANDOM_MIN_DESC       | Lower limit for the settings relative randomization window.<br>Related to the setting value, which is not always linearly related to the setting selection.
 CUSTOM_RACE_RANDOM_MIN            | Setting Min
+
+CUSTOM_RACE_RANDOM_EDGES_HELP     | "Smooth Edges" defines the limits randomization distribution shape.<br>When "Smoothed" the values still have a small probability of going past the limits, the distribution will be bell shaped; 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)<br>When not, the value will be uniformly forced inside the limits.
+CUSTOM_RACE_RANDOM_EDGES_DESC     | Smooth edges allow 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)
 CUSTOM_RACE_RANDOM_EDGES          | Smooth Edges
-CUSTOM_RACE_RANDOM_TARGET_MAX     | Total Value Max
-CUSTOM_RACE_RANDOM_TARGET_MIN     | Total Value Min
-CUSTOM_RACE_RANDOM_USE_TARGET     | Force Target
+CUSTOM_RACE_RANDOM_EDGES_YES      | Smooth
+CUSTOM_RACE_RANDOM_EDGES_NO       | Sharp
+CUSTOM_RACE_RANDOM_EDGES_YES_DESC | Two thirds of the values will be within the limits, one sixth may be above the limit while another sixth may be below the limit.
+CUSTOM_RACE_RANDOM_EDGES_NO_DESC  | All values will be uniformly spread inside the fixed limits.
+
+CUSTOM_RACE_RANDOM_TARGET_MAX_HELP | When "→CUSTOM_RACE_RANDOM_USE_TARGET←" = Yes, each individual setting will be set within the given relative range. Then if the final result is not within the final "Target Range" the values will be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.<br>This is the upper limit for the Target Range.
+CUSTOM_RACE_RANDOM_TARGET_MAX_DESC | Upper limit for the Targeted total value.
+CUSTOM_RACE_RANDOM_TARGET_MAX      | Total Value Max
+
+CUSTOM_RACE_RANDOM_TARGET_MIN_HELP | When "→CUSTOM_RACE_RANDOM_USE_TARGET←" = Yes, each individual setting will be set within the given relative range. Then if the final result is not within the final "Target Range" the values will be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.<br>This is the lower limit for the Target Range.
+CUSTOM_RACE_RANDOM_TARGET_MIN_DESC | Lower limit for the Targeted total value.
+CUSTOM_RACE_RANDOM_TARGET_MIN      | Total Value Min
+
+CUSTOM_RACE_RANDOM_USE_TARGET_HELP | Each individual setting will be set within the given relative range, and may or may not be adjusted to reach The Target Range.
+CUSTOM_RACE_RANDOM_USE_TARGET_DESC | Force or ignore targeted value.
+CUSTOM_RACE_RANDOM_USE_TARGET      | Force Target
+CUSTOM_RACE_RANDOM_USE_TARGET_YES  | Forced
+CUSTOM_RACE_RANDOM_USE_TARGET_NO   | Ignored
+CUSTOM_RACE_RANDOM_USE_TARGET_YES_DESC | Force targeted value.
+CUSTOM_RACE_RANDOM_USE_TARGET_NO_DESC  | Ignore targeted value.
+
 CUSTOM_RACE_BASE_DATARACE         | Base Abilities
 CUSTOM_RACE_HOME_TYPE             | Planet Type
 CUSTOM_RACE_HOME_SIZE_DESC        | Starting Size of this Empire Home world.
@@ -3637,12 +3663,51 @@ SETTINGS_MOD_SHIELD_ANIMATIONS_UI        | Shield Animations
 SETTINGS_MOD_SHIELD_ANIMATIONS_UI_DESC   | Opens a new control panel to adjust sound settings.
 
 SETTINGS_MOD_SHIP_COMBAT_RULES_TITLE     | Space Combat Rules Configuration.
-SETTINGS_MOD_SHIP_COMBAT_RULES_UI        | Combat Rules Control Panel
+SETTINGS_MOD_SHIP_COMBAT_RULES_UI        | Space Combat Rules
 SETTINGS_MOD_SHIP_COMBAT_RULES_UI_DESC   | Open a new control panel with various ship combat option rules.<br> Duration, Asteroid placement, AI parameters.
 
-SETTINGS_MOD_SHIP_COMBAT_SETTINGS_TITLE   | Space Battle Appearance Configuration
+SETTINGS_MOD_SHIP_COMBAT_SETTINGS_TITLE   | Space Battle Appearance Configuration.
 SETTINGS_MOD_SHIP_COMBAT_SETTINGS_UI      | Combat Settings Control Panel
 SETTINGS_MOD_SHIP_COMBAT_SETTINGS_UI_DESC | Open a new control panel with various ship combat option settings.<br> Combat Shield Effects, Weapons sounds.
+
+SETTINGS_MOD_VISUAL_OPTIONS_TITLE        | Visual Options Configuration.
+SETTINGS_MOD_VISUAL_OPTIONS_UI           | Visual Options
+SETTINGS_MOD_VISUAL_OPTIONS_UI_DESC      | Opens a new control panel to adjust the appearance of the GUI.
+
+SETTINGS_MOD_GAME_AUTOMATION_TITLE       | Game Automation Configuration.
+SETTINGS_MOD_GAME_AUTOMATION_UI          | Game Automation
+SETTINGS_MOD_GAME_AUTOMATION_UI_DESC     | Opens a new control panel to configure tools that help with boring tasks.
+
+SETTINGS_MOD_COMBAT_ASTEROID_TITLE       | Placement and Behavior of Asteroids.
+SETTINGS_MOD_COMBAT_ASTEROID_UI          | Asteroids Configuration
+SETTINGS_MOD_COMBAT_ASTEROID_UI_DESC     | Opens a new control panel to configure the Asteroids density, location and behavior.
+
+SETTINGS_MOD_COMBAT_XILMI_AI_TITLE       | AI Level of Confidence.
+SETTINGS_MOD_COMBAT_XILMI_AI_UI          | AI Confidence
+SETTINGS_MOD_COMBAT_XILMI_AI_UI_DESC     | Opens a new control panel to adjust AI level of confidence.
+
+SETTINGS_MOD_COMBAT_TIMING_TITLE         | Combat Timing Configuration.
+SETTINGS_MOD_COMBAT_TIMING_UI            | Combat Timing
+SETTINGS_MOD_COMBAT_TIMING_UI_DESC       | Opens a new control panel to adjust Combat Timing.
+
+SETTINGS_MOD_SPY_OPTIONS_TITLE           | Espionage Configuration.
+SETTINGS_MOD_SPY_OPTIONS_UI              | Espionage
+SETTINGS_MOD_SPY_OPTIONS_UI_DESC         | Opens a new control panel to configure Espionage.
+
+SETTINGS_MOD_DIPLOMACY_OPTIONS_TITLE     | Diplomacy Configuration.
+SETTINGS_MOD_DIPLOMACY_OPTIONS_UI        | Diplomacy
+SETTINGS_MOD_DIPLOMACY_OPTIONS_UI_DESC   | Opens a new control panel to configure Diplomacy.
+
+SETTINGS_MOD_NEW_OPTIONS_BETA_TITLE      | New Options Configuration.
+SETTINGS_MOD_NEW_OPTIONS_BETA_UI         | New Options (Beta)
+SETTINGS_MOD_NEW_OPTIONS_BETA_UI_DESC    | Opens a new control panel to configure the New Options.
+
+SETTINGS_MOD_COUNCIL_OPTIONS_TITLE       | Council Rules Configuration.
+SETTINGS_MOD_COUNCIL_OPTIONS_UI          | Council Options
+SETTINGS_MOD_COUNCIL_OPTIONS_UI_DESC     | Opens a new control panel to configure Council options.
+
+
+
 
 
 // Tech UI labels

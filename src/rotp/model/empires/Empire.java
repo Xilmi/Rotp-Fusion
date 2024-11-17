@@ -68,8 +68,8 @@ import rotp.model.galaxy.Location;
 import rotp.model.galaxy.NamedObject;
 import rotp.model.galaxy.Ship;
 import rotp.model.galaxy.ShipFleet;
-import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.Ships;
+import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.galaxy.Transport;
@@ -757,7 +757,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         else
             return (int) sv.currentSize(sys.id);
     }
-    public void changeAllExistingRallies(StarSystem dest) { // TODO BR: Adapt to Chain
+    public void changeAllExistingRallies(StarSystem dest) {
         if (canRallyFleetsTo(id(dest))) {
             for (StarSystem sys: allColonizedSystems()) {
                 if (sys != null && sv.hasRallyPoint(sys.id))
@@ -767,10 +767,11 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public void changeRalliesFromAToB(StarSystem source, StarSystem dest) {
         if (canRallyFleetsFrom(id(source)) && canRallyFleetsTo(id(dest))) {
-            for (StarSystem sys: allColonizedSystems()) {
-                if (sys != null && sv.rallySystem(sys.id) == source)
-                    sv.rallySystem(sys.id, dest);
-            }
+        	if (!ModifierKeysState.isCtrlDown())
+	            for (StarSystem sys: allColonizedSystems()) {
+	                if (sys != null && sv.rallySystem(sys.id) == source)
+	                    sv.rallySystem(sys.id, dest);
+	            }
             boolean ChainRally = options().defaultChainRally();
             if (ModifierKeysState.isShiftDown())
             	ChainRally = !ChainRally;

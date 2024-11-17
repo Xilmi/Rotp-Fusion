@@ -226,11 +226,11 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 		return forbidden;
 	}
 
-	ParamInteger randomAlienRacesMin		 = new ParamInteger(MOD_UI, "RACES_RAND_MIN", -50)
+	ParamInteger randomAlienRacesMin		 = new ParamInteger(MOD_UI, "RACES_RAND_MIN", -25)
 			.setLimits(-100, 100)
 			.setIncrements(1, 5, 20)
 			.pctValue(true);
-	ParamInteger randomAlienRacesMax		 = new ParamInteger(MOD_UI, "RACES_RAND_MAX", 50)
+	ParamInteger randomAlienRacesMax		 = new ParamInteger(MOD_UI, "RACES_RAND_MAX", 25)
 			.setLimits(-100, 100)
 			.setIncrements(1, 5, 20)
 			.pctValue(true);

@@ -69,6 +69,11 @@ Later:
 
 ## What's New
 
+2024.11.17 (BR)
+- Groundwork to split "InGameOption" to "Game Rules" and "User Preferences".
+- Chain Rally: Ctrl-Click will forward rally instead of redirect.
+- Custom Species: Added Help text to the random settings and lowered default Max/Min.
+
 2024.11.16 (BR)
 - New option for in transit rallied fleet to join a battle.
 - New option to split the loss between planetary guard and in transit rallied fleet.

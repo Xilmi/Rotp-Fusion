@@ -2038,7 +2038,7 @@ SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP       | Top
 
 SETTINGS_MOD_RALLY_COMBAT_DESC           | Les flottes avec ordre de ralliement doivent-elles participer au combat ?
 SETTINGS_MOD_RALLY_COMBAT                | Ralliés aident: %1
-SETTINGS_MOD_RALLY_COMBAT_NEVER_DESC     | Non, c'est le boulot de la garde planétaire?
+SETTINGS_MOD_RALLY_COMBAT_NEVER_DESC     | Non, c'est le boulot de la garde planétaire.
 SETTINGS_MOD_RALLY_COMBAT_NEVER          | Aucuns
 SETTINGS_MOD_RALLY_COMBAT_BUILT_DESC     | Seulement les vaisseaux nouvellement construits vont prêter main forte.<br>(Fonctionalité originale)
 SETTINGS_MOD_RALLY_COMBAT_BUILT          | Les nouveaux

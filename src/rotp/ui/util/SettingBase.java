@@ -663,7 +663,7 @@ public class SettingBase<T> implements IParam {
 	}
 	// ========== Private Methods ==========
 	//
-	private String getTableHelp()		{
+	protected String getTableHelp()		{
 		int size = listSize();
 		String rows = "";
 		if (size>0) {

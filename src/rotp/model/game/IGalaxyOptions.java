@@ -1,7 +1,7 @@
 package rotp.model.game;
 
 import static rotp.model.game.DefaultValues.DEF_VAL;
-import static rotp.model.game.IGalaxyOptions.GalaxyOption.GOI;
+import static rotp.model.game.IGalaxyOptions.GalaxyOption.instance;
 import static rotp.model.game.IGameOptions.DIFFICULTY_NORMAL;
 import static rotp.model.game.IGameOptions.getGameDifficultyOptions;
 import static rotp.ui.util.IParam.langLabel;
@@ -66,44 +66,44 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 
 	// ==================== Galaxy Menu addition ====================
 	//
-	default int		selectedGalaxyRandSource()			{ return GOI().galaxyRandSource.get(); }
-	default boolean	selectedShowNewRaces()				{ return GOI().showNewRaces.get(); }
-	default String	selectedUseGlobalCROptions()		{ return GOI().globalCROptions.get(); }
-	default boolean	selectedUseSelectableAbilities()	{ return GOI().useSelectableAbilities.get(); }
-	default String	selectedGalaxyShapeOption3()		{ return GOI().shapeOption3.get(); }
-	default String	selectedShapeSelection()			{ return GOI().shapeSelection.get(); }
-	default	String	getGalaxyKey(int size)				{ return GOI().getGalaxyKey(size); }
+	default int		selectedGalaxyRandSource()			{ return instance().galaxyRandSource.get(); }
+	default boolean	selectedShowNewRaces()				{ return instance().showNewRaces.get(); }
+	default String	selectedUseGlobalCROptions()		{ return instance().globalCROptions.get(); }
+	default boolean	selectedUseSelectableAbilities()	{ return instance().useSelectableAbilities.get(); }
+	default String	selectedGalaxyShapeOption3()		{ return instance().shapeOption3.get(); }
+	default String	selectedShapeSelection()			{ return instance().shapeSelection.get(); }
+	default	String	getGalaxyKey(int size)				{ return instance().getGalaxyKey(size); }
 	
-	default ParamBoolean	previewNebula()				{ return GOI().previewNebula; }
-	default ParamBoolean	showNewRaces()				{ return GOI().showNewRaces; }
-	default List<String>	galaxyShapeOptions()		{ return GOI().getGalaxyShapeOptions(); }
-	default GlobalCROptions	globalCROptions()			{ return GOI().globalCROptions; }
-	default ParamInteger	galaxyRandSource()			{ return GOI().galaxyRandSource; }
-	default ParamBoolean	useSelectableAbilities()	{ return GOI().useSelectableAbilities; }
-	default ParamString		shapeOption3()				{ return GOI().shapeOption3; }
-	default ParamList		shapeOption2()				{ return GOI().shapeOption2; }
-	default ParamList		shapeOption1()				{ return GOI().shapeOption1; }
-	default ParamList		shapeSelection()			{ return GOI().shapeSelection; }
-	default ParamList		sizeSelection()				{ return GOI().sizeSelection; }
-	default ParamList		difficultySelection()		{ return GOI().difficultySelection; }
-	default ParamInteger	aliensNumber()				{ return GOI().aliensNumber; }
-	default ParamString 	bitmapGalaxyLastFolder()	{ return GOI().bitmapGalaxyLastFolder; }
+	default ParamBoolean	previewNebula()				{ return instance().previewNebula; }
+	default ParamBoolean	showNewRaces()				{ return instance().showNewRaces; }
+	default List<String>	galaxyShapeOptions()		{ return instance().getGalaxyShapeOptions(); }
+	default GlobalCROptions	globalCROptions()			{ return instance().globalCROptions; }
+	default ParamInteger	galaxyRandSource()			{ return instance().galaxyRandSource; }
+	default ParamBoolean	useSelectableAbilities()	{ return instance().useSelectableAbilities; }
+	default ParamString		shapeOption3()				{ return instance().shapeOption3; }
+	default ParamList		shapeOption2()				{ return instance().shapeOption2; }
+	default ParamList		shapeOption1()				{ return instance().shapeOption1; }
+	default ParamList		shapeSelection()			{ return instance().shapeSelection; }
+	default ParamList		sizeSelection()				{ return instance().sizeSelection; }
+	default ParamList		difficultySelection()		{ return instance().difficultySelection; }
+	default ParamInteger	aliensNumber()				{ return instance().aliensNumber; }
+	default ParamString 	bitmapGalaxyLastFolder()	{ return instance().bitmapGalaxyLastFolder; }
 
 	default LinkedHashMap<String, Integer> galaxySizeMap(boolean dynamic, IGameOptions opts) {
-		return GOI().sizeMap(dynamic, opts);
+		return instance().sizeMap(dynamic, opts);
 	}
 	default int numberStarSystems(String size, IGameOptions opts) {
-		return GOI().getNumberStarSystems(size, opts);
+		return instance().getNumberStarSystems(size, opts);
 	}
-	static ParamList		  getSizeSelection()		{ return GOI().sizeSelection; }
-	static ParamList		  getDifficultySelection()	{ return GOI().difficultySelection; }
-	static ParamInteger		  getAliensNumber()			{ return GOI().aliensNumber; }
-	static ParamInteger		  getGalaxyRandSource()		{ return GOI().galaxyRandSource; }
+	static ParamList		  getSizeSelection()		{ return instance().sizeSelection; }
+	static ParamList		  getDifficultySelection()	{ return instance().difficultySelection; }
+	static ParamInteger		  getAliensNumber()			{ return instance().aliensNumber; }
+	static ParamInteger		  getGalaxyRandSource()		{ return instance().galaxyRandSource; }
 
 	class GalaxyOption {
-		public static GalaxyOption instance;
+		private static GalaxyOption instance;
 		
-		static final GalaxyOption GOI() {
+		public static final GalaxyOption instance() {
 			if (instance == null)
 				instance = new GalaxyOption();
 			return instance;

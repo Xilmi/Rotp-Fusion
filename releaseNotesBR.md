@@ -6,6 +6,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- Chain Rally: Ctrl-Click will forward rally instead of redirect.
+- Custom Species: Added Help text to the random settings and lowered default Max/Min.
 - New option for in transit rallied fleet to join a battle.
 - New option to split the loss between planetary guard and in transit rallied fleet.
 - Governor will wait for an empire to be in economical range before setting spy allocations.
