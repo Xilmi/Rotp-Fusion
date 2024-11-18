@@ -7,7 +7,7 @@ import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
 final class CommonOptions implements IOptionsSubUI {
-	static final String OPTION_ID = "COMMON_OPTIONS";
+	static final String OPTION_ID = COMMON_OPTIONS_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
 

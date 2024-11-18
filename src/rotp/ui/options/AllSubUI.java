@@ -34,7 +34,12 @@ public final class AllSubUI {
 		put(new CombatXilmiAI());
 		put(new CouncilOptions());
 		put(new DiplomacyOptions());
+		put(new FlagOptions());
+		put(new GameDifficulty());
+		put(new HelpAndAdvice());
+		put(new IronmanLittle());
 		put(new NewOptionsBeta());
+		put(new NewRulesBeta());
 		put(new ShieldAnimations());
 		put(new SpyOptions());
 		put(new VisualOptions());
@@ -49,7 +54,6 @@ public final class AllSubUI {
 		put(new CombatOptions());
 		put(new CommonOptions());
 		put(new DebugOptions());
-		put(new FlagOptions());
 		put(new GalaxyMenuOptions());
 		put(new GovOptions());
 		put(new InGameOptions());

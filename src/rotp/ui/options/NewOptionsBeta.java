@@ -15,18 +15,14 @@ final class NewOptionsBeta implements IOptionsSubUI {
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
 				rallyCombat,
-				rallyCombatLoss,
-				debugAutoRun,
-				darkGalaxy
+				debugAutoRun
 				)));
 		return map;
 	}
 	@Override public SafeListParam majorList()	{
-		SafeListParam majorList = new SafeListParam(OPTION_ID,
+		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						debugAutoRun,
-						darkGalaxy,
-						rallyCombat,
 						rallyCombatLoss
 						));
 		return majorList;

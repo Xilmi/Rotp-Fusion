@@ -43,7 +43,7 @@ final class GameAutomation implements IOptionsSubUI {
 		return map;
 	}
 	@Override public SafeListParam majorList()	{
-		SafeListParam majorList = new SafeListParam(OPTION_ID,
+		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						autoBombard_,
 						autoColonize_,

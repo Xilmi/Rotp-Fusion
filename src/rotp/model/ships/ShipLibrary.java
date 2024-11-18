@@ -22,7 +22,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.ImageIcon;
+
 import rotp.ui.BasePanel;
 import rotp.util.Base;
 
@@ -217,6 +219,7 @@ public class ShipLibrary implements Base {
     }
     public ShipImage shipImage(int styleNum, int size, int num) {
         int shipSeq = (size * designsPerSize) + num;
+        styleNum = bounds(0, styleNum, shipStyles.size()-1);
         List<ShipImage> images = shipStyles.get(styleNum).images;
         return images.get(shipSeq);
     }

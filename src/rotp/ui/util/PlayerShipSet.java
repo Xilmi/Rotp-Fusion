@@ -59,7 +59,7 @@ public class PlayerShipSet extends ParamList {
 	/**
 	 * @return Original Status
 	 */
-	public boolean isOriginal()	  { return get().equalsIgnoreCase(ORIGINAL); }
+	public boolean isOriginal()	  { return get().equals(ORIGINAL) || get().equals(DISPLAY_RACE_SET); }
 	public boolean isDisplaySet() { return preferredShipSet().equalsIgnoreCase(DISPLAY_RACE_SET); }
 	/**
 	 * @return ShipSet Text to display translating Original option

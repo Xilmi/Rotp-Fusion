@@ -7,7 +7,7 @@ import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
 final class FlagOptions implements IOptionsSubUI {
-	static final String OPTION_ID = "AUTO_FLAG";
+	static final String OPTION_ID = FLAG_OPTIONS_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
 
@@ -53,4 +53,23 @@ final class FlagOptions implements IOptionsSubUI {
 				)));
 		return map;
 	}
+	@Override public SafeListParam majorList()	{
+		SafeListParam majorList = new SafeListParam(uiMajorKey(),
+				Arrays.asList(
+						flagColorCount,
+						autoFlagAssignation1,
+						autoFlagAssignation2,
+						autoFlagAssignation3,
+						autoFlagAssignation4
+						));
+		return majorList;
+	}
+	@Override public SafeListParam minorList()	{
+		SafeListParam minorList = new SafeListParam(uiMinorKey(),
+				Arrays.asList(
+						flagColorCount
+						));
+		return minorList;
+	}
+
 }

@@ -14,7 +14,7 @@ final class DiplomacyOptions implements IOptionsSubUI {
 
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
-		map.add(AllSubUI.getHandle(COUNCIL_OPTIONS_UI_KEY).getUiExt());
+		map.add(AllSubUI.getHandle(COUNCIL_OPTIONS_UI_KEY).getUiMajor());
 		map.add(new SafeListParam(Arrays.asList(
 				aiHostility,
 				techTrading,

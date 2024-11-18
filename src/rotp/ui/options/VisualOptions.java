@@ -29,7 +29,7 @@ final class VisualOptions implements IOptionsSubUI {
 		return map;
 	}
 	@Override public SafeListParam majorList()	{
-		SafeListParam majorList = new SafeListParam(OPTION_ID,
+		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						defaultMaxBases, displayYear,
 						showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,

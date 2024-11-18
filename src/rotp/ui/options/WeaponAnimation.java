@@ -31,7 +31,7 @@ final class WeaponAnimation implements IOptionsSubUI {
 	}
 
 	@Override public SafeListParam majorList()	{
-		SafeListParam majorList = new SafeListParam(OPTION_ID,
+		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						showResultDelay,
 						newWeaponSound,

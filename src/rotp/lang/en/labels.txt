@@ -1899,12 +1899,12 @@ CUSTOM_RACE_GUI_RANDOM_HELP       | Each individual setting will randomly be set
 CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the species following the above settings
 CUSTOM_RACE_GUI_RANDOM            | Randomize
 
-CUSTOM_RACE_GUI_RANDOM_GET_HELP   | Get Random Parameters from Setup Alien Random Parameters.
-CUSTOM_RACE_GUI_RANDOM_GET_DESC   | Get Random Parameters from Setup Alien Random Parameters.
+CUSTOM_RACE_GUI_RANDOM_GET_HELP   | Get Randomization Parameters from Setup Alien Randomization Parameters.
+CUSTOM_RACE_GUI_RANDOM_GET_DESC   | Get Randomization Parameters from Setup Alien Randomization Parameters.
 CUSTOM_RACE_GUI_RANDOM_GET        | Get
 
-CUSTOM_RACE_GUI_RANDOM_PUSH_HELP  | Push Random Parameters to Setup Alien Random Parameters
-CUSTOM_RACE_GUI_RANDOM_PUSH_DESC  | Push Random Parameters to Setup Alien Random Parameters.
+CUSTOM_RACE_GUI_RANDOM_PUSH_HELP  | Push Randomization Parameters to Setup Alien Randomization Parameters
+CUSTOM_RACE_GUI_RANDOM_PUSH_DESC  | Push Randomization Parameters to Setup Alien Randomization Parameters.
 CUSTOM_RACE_GUI_RANDOM_PUSH       | Push
 
 CUSTOM_RACE_GUI_LOAD_DESC         | Load the settings from the file specified in "File Name" Field, if none, create an empty one.
@@ -3707,14 +3707,29 @@ SETTINGS_MOD_DIPLOMACY_OPTIONS_TITLE     | Diplomacy Configuration.
 SETTINGS_MOD_DIPLOMACY_OPTIONS_UI        | Diplomacy
 SETTINGS_MOD_DIPLOMACY_OPTIONS_UI_DESC   | Opens a new control panel to configure Diplomacy.
 
-SETTINGS_MOD_NEW_OPTIONS_BETA_TITLE      | New Options Configuration.
-SETTINGS_MOD_NEW_OPTIONS_BETA_UI         | New Options (Beta)
-SETTINGS_MOD_NEW_OPTIONS_BETA_UI_DESC    | Opens a new control panel to configure the New Options.
+SETTINGS_MOD_NEW_OPTIONS_BETA_TITLE      | New Settings Configuration.
+SETTINGS_MOD_NEW_OPTIONS_BETA_UI         | New Settings (Beta)
+SETTINGS_MOD_NEW_OPTIONS_BETA_UI_DESC    | Opens a new control panel to configure the New Settings under construction.<br>Please test and report bugs and inconsistencies.
+
+SETTINGS_MOD_NEW_RULES_BETA_TITLE        | New Rules Configuration.
+SETTINGS_MOD_NEW_RULES_BETA_UI           | New Rules (Beta)
+SETTINGS_MOD_NEW_RULES_BETA_UI_DESC      | Opens a new control panel to configure the New Rules under construction.<br>Please test and report bugs and inconsistencies.
 
 SETTINGS_MOD_COUNCIL_OPTIONS_TITLE       | Council Rules Configuration.
 SETTINGS_MOD_COUNCIL_OPTIONS_UI          | Council Options
 SETTINGS_MOD_COUNCIL_OPTIONS_UI_DESC     | Opens a new control panel to configure Council options.
 
+SETTINGS_MOD_HELP_AND_ADVICE_TITLE       | Help and Advice Configuration.
+SETTINGS_MOD_HELP_AND_ADVICE_UI          | Help and Advice
+SETTINGS_MOD_HELP_AND_ADVICE_UI_DESC     | Opens a new control panel to configure Help and Advice options.
+
+SETTINGS_MOD_IRONMAN_LITTLE_TITLE        | Ironman Little Configuration.
+SETTINGS_MOD_IRONMAN_LITTLE_UI           | Ironman Little
+SETTINGS_MOD_IRONMAN_LITTLE_UI_DESC      | Opens a new control panel to configure Ironman Little options.
+
+SETTINGS_MOD_GAME_DIFFICULTY_TITLE       | Game Difficulty Configuration.
+SETTINGS_MOD_GAME_DIFFICULTY_UI          | Game Difficulty
+SETTINGS_MOD_GAME_DIFFICULTY_UI_DESC     | Opens a new control panel to configure Rules affecting the game difficulty level. Can be changed dynamically.
 
 
 
