@@ -68,17 +68,17 @@ public class CustomRaceDefinitions  {
 	private final LinkedList<SettingBase<?>> settingList = new LinkedList<>(); // !!! To be kept up to date !!!
 	private final LinkedList<SettingBase<?>> guiList	 = new LinkedList<>();
 
-	private final SettingInteger randomTargetMax = new SettingInteger(
+	public final SettingInteger randomTargetMax = new SettingInteger(
 			ROOT, "RANDOM_TARGET_MAX", 75, null, null, 1, 5, 20).pctValue(false);
-	private final SettingInteger randomTargetMin = new SettingInteger(
+	public final SettingInteger randomTargetMin = new SettingInteger(
 			ROOT, "RANDOM_TARGET_MIN", 0, null, null, 1, 5, 20).pctValue(false);
-	private final SettingInteger randomMax = new SettingInteger(
+	public final SettingInteger randomMax = new SettingInteger(
 			ROOT, "RANDOM_MAX", 25, -100, 100, 1, 5, 20);
-	private final SettingInteger randomMin = new SettingInteger(
+	public final SettingInteger randomMin = new SettingInteger(
 			ROOT, "RANDOM_MIN", -25, -100, 100, 1, 5, 20);
-	private final SettingBoolean randomUseTarget = new SettingBoolean(
+	public final SettingBoolean randomUseTarget = new SettingBoolean(
 			ROOT, "RANDOM_USE_TARGET", false, true);
-	private final SettingBoolean randomSmoothEdges = new SettingBoolean(
+	public final SettingBoolean randomSmoothEdges = new SettingBoolean(
 			ROOT, "RANDOM_EDGES", true, true);
 
 	private LinkedList<Integer> spacerList; // For UI
@@ -1403,7 +1403,8 @@ public class CustomRaceDefinitions  {
 	private class PopGrowRate extends SettingInteger {
 		private PopGrowRate() {
 			super(ROOT, "POP_GROW_RATE", 100, 50, 200, 1, 5, 20,
-					DIFFERENCE, new float[]{0f, .2f, .003f}, new float[]{0f, .3f});
+					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .3f});
+//			DIFFERENCE, new float[]{0f, .2f, .003f}, new float[]{0f, .3f});
 		}
 		@Override public void pushSetting() {
 			race.growthRateMod = (float) settingValue()/100;

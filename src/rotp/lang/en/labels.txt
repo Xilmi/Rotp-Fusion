@@ -1898,6 +1898,15 @@ CUSTOM_RACE_GUI_SELECT            | Set as Player
 CUSTOM_RACE_GUI_RANDOM_HELP       | Each individual setting will randomly be set within the given relative Setting range.<br> If "Force Target" = Yes, and the Total Value is not within the allowed Range: The values will progressively be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.
 CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the species following the above settings
 CUSTOM_RACE_GUI_RANDOM            | Randomize
+
+CUSTOM_RACE_GUI_RANDOM_GET_HELP   | Get Random Parameters from Setup Alien Random Parameters.
+CUSTOM_RACE_GUI_RANDOM_GET_DESC   | Get Random Parameters from Setup Alien Random Parameters.
+CUSTOM_RACE_GUI_RANDOM_GET        | Get
+
+CUSTOM_RACE_GUI_RANDOM_PUSH_HELP  | Push Random Parameters to Setup Alien Random Parameters
+CUSTOM_RACE_GUI_RANDOM_PUSH_DESC  | Push Random Parameters to Setup Alien Random Parameters.
+CUSTOM_RACE_GUI_RANDOM_PUSH       | Push
+
 CUSTOM_RACE_GUI_LOAD_DESC         | Load the settings from the file specified in "File Name" Field, if none, create an empty one.
 CUSTOM_RACE_GUI_LOAD              | Reload
 CUSTOM_RACE_GUI_SAVE_DESC         | Save the settings to the file specified in "File Name" Field, existing files will be overwritten.

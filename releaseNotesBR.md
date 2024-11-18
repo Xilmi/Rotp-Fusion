@@ -6,6 +6,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- Custom Species:
+  - New buttons to get/push Random parameters from/to Setup Alien Randomisation.
+  - Tuned the Grow value.
 - Chain Rally: Ctrl-Click will forward rally instead of redirect.
 - Custom Species: Added Help text to the random settings and lowered default Max/Min.
 - New option for in transit rallied fleet to join a battle.

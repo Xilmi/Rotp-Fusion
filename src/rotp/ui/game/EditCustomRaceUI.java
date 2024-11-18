@@ -48,9 +48,12 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	public  static final String GUI_ID			= "CUSTOM_RACE";
 	private static final String selectKey		= ROOT + "GUI_SELECT";
 	private static final String randomKey		= ROOT + "GUI_RANDOM";
+	private static final String randomGetKey	= ROOT + "GUI_RANDOM_GET";
+	private static final String randomPushKey	= ROOT + "GUI_RANDOM_PUSH";
 	private static final String saveCurrentKey	= ROOT + "GUI_SAVE";
 	private static final String loadCurrentKey	= ROOT + "GUI_LOAD";
 	private static final int	raceListW		= RotPUI.scaledSize(180);
+	
 	private static final ParamButtonHelp loadButtonHelp = new ParamButtonHelp( // For Help Do not add the list
 			"CUSTOM_RACE_BUTTON_LOAD",
 			saveCurrentKey,
@@ -59,13 +62,15 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			"");
 	private	static final EditCustomRaceUI instance		= new EditCustomRaceUI();
 	
-	private final Box selectBox	= new Box(selectKey);
-	private final Box randomBox	= new Box(randomKey);
-	private final Box loadBox	= new Box(loadButtonHelp);
+	private final Box selectBox		= new Box(selectKey);
+	private final Box randomBox		= new Box(randomKey);
+	private final Box randomGetBox	= new Box(randomGetKey);
+	private final Box randomPushBox	= new Box(randomPushKey);
+	private final Box loadBox		= new Box(loadButtonHelp);
 
 	private LinkedList<SettingBase<?>> guiList;
 	private RaceList raceList;
-	private int yRandB;
+	private int yRandB, yRandGetB, xRandPushB;
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -162,6 +167,25 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		cr().randomizeRace(true);
 		totalCostText.repaint(totalCostStr());
 	}
+	private void getRandomParam() {
+		IGameOptions opts = guiOptions();
+		cr().randomTargetMax.set(opts.randomAlienRacesTargetMax());
+		cr().randomTargetMin.set(opts.randomAlienRacesTargetMin());
+		cr().randomMax.set(opts.randomAlienRacesMax());
+		cr().randomMin.set(opts.randomAlienRacesMin());
+		cr().randomUseTarget.set(opts.randomAlienRacesUseTarget());
+		cr().randomSmoothEdges.set(opts.randomAlienRacesSmoothEdges());
+		repaint();
+	}
+	private void pushRandomParam() {
+		IGameOptions opts = guiOptions();
+		opts.randomAlienRacesTargetMax(cr().randomTargetMax.settingValue());
+		opts.randomAlienRacesTargetMin(cr().randomTargetMin.settingValue());
+		opts.randomAlienRacesMax(cr().randomMax.settingValue());
+		opts.randomAlienRacesMin(cr().randomMin.settingValue());
+		opts.randomAlienRacesUseTarget(cr().randomUseTarget.settingValue());
+		opts.randomAlienRacesSmoothEdges(cr().randomSmoothEdges.settingValue());
+	}
 	private String loadButtonKey() {
 		switch (ModifierKeysState.get()) {
 		case CTRL:
@@ -225,9 +249,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	//
 	@Override protected void drawFixButtons(Graphics2D g, boolean all) {
 		Stroke prev;
-		g.setFont(smallButtonFont());
 		// left button
 		if (hoverBox == randomBox || all) {
+			g.setFont(smallButtonFont());
 			String text = text(randomKey);
 			int sw = g.getFontMetrics().stringWidth(text);
 			int x = randomBox.x+((randomBox.width-sw)/2);
@@ -237,6 +261,32 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			prev = g.getStroke();
 			g.setStroke(stroke1);
 			g.drawRoundRect(randomBox.x, randomBox.y, randomBox.width, randomBox.height, cnr, cnr);
+			g.setStroke(prev);
+		}
+		if (hoverBox == randomGetBox || all) {
+			g.setFont(miniButtonFont());
+			String text = text(randomGetKey);
+			int sw = g.getFontMetrics().stringWidth(text);
+			int x = randomGetBox.x+((randomGetBox.width-sw)/2);
+			int y = randomGetBox.y+randomGetBox.height*75/100;
+			Color c = hoverBox == randomGetBox ? Color.yellow : GameUI.borderBrightColor();
+			drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
+			prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.drawRoundRect(randomGetBox.x, randomGetBox.y, randomGetBox.width, randomGetBox.height, cnr, cnr);
+			g.setStroke(prev);
+		}
+		if (hoverBox == randomPushBox || all) {
+			g.setFont(miniButtonFont());
+			String text = text(randomPushKey);
+			int sw = g.getFontMetrics().stringWidth(text);
+			int x = randomPushBox.x+((randomPushBox.width-sw)/2);
+			int y = randomPushBox.y+randomPushBox.height*75/100;
+			Color c = hoverBox == randomPushBox ? Color.yellow : GameUI.borderBrightColor();
+			drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
+			prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.drawRoundRect(randomPushBox.x, randomPushBox.y, randomPushBox.width, randomPushBox.height, cnr, cnr);
 			g.setStroke(prev);
 		}
 	}
@@ -286,6 +336,19 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		yRandB  = yDesc - buttonPadV - smallButtonH;
 		buttonW = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
 		randomBox.setBounds(xButton, yRandB, buttonW, smallButtonH);
+
+		// Randomize Get Button
+		text	  = text(randomGetKey);
+		xButton	  = leftM + buttonPad;
+		yRandGetB = yRandB - miniButtonH - 1*buttonPadV - 6*settingH - 0*settingHPad;
+		buttonW	  = g.getFontMetrics().stringWidth(text) + miniButtonMargin;
+		randomGetBox.setBounds(xButton, yRandGetB, buttonW, miniButtonH);
+
+		// Randomize Push Button
+		text	   = text(randomGetKey);
+		xRandPushB = xButton + buttonW + buttonPad;
+		buttonW	   = g.getFontMetrics().stringWidth(text) + miniButtonMargin;
+		randomPushBox.setBounds(xRandPushB, yRandGetB, buttonW, miniButtonH);
 	}
 	@Override protected void initFixButtons(Graphics2D g) {
 		// System.out.println("EDIT: initFixButtons(Graphics2D g) " + (randomBox.y-yButton));
@@ -293,6 +356,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
         Stroke prev = g.getStroke();
 		setSmallButtonGraphics(g);
 		g.fillRoundRect(randomBox.x, randomBox.y, randomBox.width, randomBox.height, cnr, cnr);
+		g.fillRoundRect(randomGetBox.x, randomGetBox.y, randomGetBox.width, randomGetBox.height, cnr, cnr);
+		g.fillRoundRect(randomPushBox.x, randomPushBox.y, randomPushBox.width, randomPushBox.height, cnr, cnr);
         drawFixButtons(g, true);
         g.setStroke(prev);
 	}
@@ -532,6 +597,43 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		g.setStroke(stroke1);
 		g.drawRoundRect(randomBox.x, randomBox.y, randomBox.width, randomBox.height, cnr, cnr);
 		g.setStroke(prev);
+
+		g.setFont(miniButtonFont());
+		// Random Get Button
+		text	= text(randomGetKey);
+		xButton = leftM + buttonPad;
+		yRandGetB = yRandB - miniButtonH - 1*buttonPadV - 6*settingH - 0*settingHPad;
+		sw		= g.getFontMetrics().stringWidth(text);
+		buttonW = g.getFontMetrics().stringWidth(text) + miniButtonMargin;
+		randomGetBox.setBounds(xButton, yRandGetB, buttonW, smallButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(randomGetBox.x, randomGetBox.y, buttonW, miniButtonH, cnr, cnr);
+		xT = randomGetBox.x+((randomGetBox.width-sw)/2);
+		yT = randomGetBox.y+randomGetBox.height-s8;
+		cB = hoverBox == randomGetBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(randomGetBox.x, randomGetBox.y, randomGetBox.width, randomGetBox.height, cnr, cnr);
+		g.setStroke(prev);
+
+		// Random Push Button
+		text	= text(randomPushKey);
+		xButton = leftM + buttonPad;
+		xRandPushB = xButton + buttonW + buttonPad;
+		sw		= g.getFontMetrics().stringWidth(text);
+		buttonW = g.getFontMetrics().stringWidth(text) + miniButtonMargin;
+		randomPushBox.setBounds(xRandPushB, yRandGetB, buttonW, miniButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(randomPushBox.x, randomPushBox.y, buttonW, smallButtonH, cnr, cnr);
+		xT = randomPushBox.x+((randomPushBox.width-sw)/2);
+		yT = randomPushBox.y+randomPushBox.height-s8;
+		cB = hoverBox == randomPushBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(randomPushBox.x, randomPushBox.y, randomPushBox.width, randomPushBox.height, cnr, cnr);
+		g.setStroke(prev);
 	}
 	@Override public void paintComponent(Graphics g0) {
 		// showTiming = true;
@@ -604,6 +706,14 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		}
 		if (hoverBox == randomBox) {
 			randomizeRace();			
+			return;
+		}
+		if (hoverBox == randomGetBox) {
+			getRandomParam();			
+			return;
+		}
+		if (hoverBox == randomPushBox) {
+			pushRandomParam();			
 			return;
 		}
 		mouseCommon(e, null);

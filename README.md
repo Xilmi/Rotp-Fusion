@@ -69,6 +69,11 @@ Later:
 
 ## What's New
 
+2024.11.18 (BR)
+- Custom Species:
+  - New buttons to get/push Random parameters from / to Setup Alien Randomisation.
+  - Tuned the Grow value.
+
 2024.11.17 (BR)
 - Groundwork to split "InGameOption" to "Game Rules" and "User Preferences".
 - Chain Rally: Ctrl-Click will forward rally instead of redirect.

@@ -33,10 +33,12 @@ public class RandomAlienRaces extends ParamList {
 		showFullGuide(true);
 	}
 
-	public boolean isSettingWindow() {
-		return get().equalsIgnoreCase(SETTING);
-	}
-	public boolean isTarget() {
-		return get().equalsIgnoreCase(TARGET);
+	public boolean isSettingWindow() { return get().equalsIgnoreCase(SETTING); }
+	public boolean isTarget() 		 { return get().equalsIgnoreCase(TARGET); }
+	public void isTarget(boolean b)	 {
+		if (b)
+			set(TARGET);
+		else
+			set(SETTING);
 	}
 }

@@ -230,20 +230,36 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 			.setLimits(-100, 100)
 			.setIncrements(1, 5, 20)
 			.pctValue(true);
+	default int randomAlienRacesMin()			{ return randomAlienRacesMin.get(); }
+	default void randomAlienRacesMin(int val)	{ randomAlienRacesMin.set(val); }
+
 	ParamInteger randomAlienRacesMax		 = new ParamInteger(MOD_UI, "RACES_RAND_MAX", 25)
 			.setLimits(-100, 100)
 			.setIncrements(1, 5, 20)
 			.pctValue(true);
+	default int randomAlienRacesMax()			{ return randomAlienRacesMax.get(); }
+	default void randomAlienRacesMax(int val)	{ randomAlienRacesMax.set(val); }
+
 	ParamInteger randomAlienRacesTargetMax	 = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MAX", 75)
 			.setLimits(null, null)
 			.setIncrements(1, 10, 100);
+	default int randomAlienRacesTargetMax()			{ return randomAlienRacesTargetMax.get(); }
+	default void randomAlienRacesTargetMax(int val)	{ randomAlienRacesTargetMax.set(val); }
+
 	ParamInteger randomAlienRacesTargetMin	 = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MIN", 0)
 			.setLimits(null, null)
 			.setIncrements(1, 10, 100);
+	default int randomAlienRacesTargetMin()			{ return randomAlienRacesTargetMin.get(); }
+	default void randomAlienRacesTargetMin(int val)	{ randomAlienRacesTargetMin.set(val); }
+
 	ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", true);
+	default boolean randomAlienRacesSmoothEdges()		{ return randomAlienRacesSmoothEdges.get(); }
+	default void randomAlienRacesSmoothEdges(boolean b)	{ randomAlienRacesSmoothEdges.set(b); }
 
 	RandomAlienRaces randomAlienRaces		 = new RandomAlienRaces(MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
-	default String selectedRandomAlienRaces()	{ return randomAlienRaces.get(); }
+	default String selectedRandomAlienRaces()			{ return randomAlienRaces.get(); }
+	default boolean randomAlienRacesUseTarget()			{ return randomAlienRaces.isTarget(); }
+	default void randomAlienRacesUseTarget(boolean b)	{ randomAlienRaces.isTarget(b); }
 
 	ParamList    guardianMonsters			 = new ParamList( MOD_UI, "GUARDIAN_MONSTERS", "None")
 		.showFullGuide(true)

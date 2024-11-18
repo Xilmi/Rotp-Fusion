@@ -84,9 +84,9 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private static final Color	settingNegC		= SettingBase.settingNegC; // Setting name color
 	private static final Color	settingC		= SettingBase.settingC; // Setting name color
 	private static final int	settingFont		= 14;
-	private static final int	settingH		= s16;
-	private static final int	spacerH			= s10;
-	private static final int	settingHPad		= s4;
+	protected static final int	settingH		= s16;
+	private	  static final int	spacerH			= s10;
+	protected static final int	settingHPad		= s4;
 	private static final int	frameShift		= s5;
 	private static final int	frameTopPad		= 0;
 	private static final int	frameSizePad	= s10;

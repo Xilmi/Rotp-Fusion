@@ -83,8 +83,8 @@ public abstract class BaseModPanel extends BasePanel
 							 userButtonWidth, defaultButtonWidth, lastButtonWidth;
 	protected static int	 mX, mY;
 //	protected static int	 w, h;
-	protected static int	 smallButtonMargin;
-	protected static int	 smallButtonH;
+	protected static int	 smallButtonMargin, smallButtonH;
+	protected static int	 miniButtonMargin, miniButtonH;
 	protected static int	 cnr;
 
 	public	  static int	 guideFontSize;
@@ -149,6 +149,7 @@ public abstract class BaseModPanel extends BasePanel
 	
 	public GuidePopUp guidePopUp;
 	
+	private Font miniButtonFont		= narrowFont(15);
 	private Font smallButtonFont	= narrowFont(20);
 	private Font smallButtonFontR	= narrowFont((int)(20*baseRF));
 	protected Font smallButtonFont(boolean retina)	{
@@ -165,6 +166,7 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	protected Font bigButtonFont()				{ return smallButtonFont; }
 	protected Font smallButtonFont()			{ return smallButtonFont; }
+	protected Font miniButtonFont()				{ return miniButtonFont; }
 	protected Box newExitBox()					{ return new Box(exitButton); }
 
 	protected Box exitBox		= newExitBox();
@@ -227,6 +229,8 @@ public abstract class BaseModPanel extends BasePanel
 		}
 		smallButtonMargin = s30;
 		smallButtonH	  = s30;
+		miniButtonMargin  = s22;
+		miniButtonH		  = s22;
 		cnr				  = s5;
 		if (!initialised) {
 			if (isSubMenu) {
