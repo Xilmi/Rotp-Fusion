@@ -616,7 +616,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     }
     public void forceAutoFlagColor() {
     	if (scouted()) 
-    		autoFlagPlanet(vPlanet);
+    		autoFlagPlanet(system().planet());
     }
     private void autoFlagPlanet(Planet p) {
     	autoFlagAssignation(p, options().selectedAutoFlagAssignation1(), 1);

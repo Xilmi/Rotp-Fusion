@@ -409,11 +409,11 @@ public class ShipCombatManager implements Base {
         if (emp1.isPlayerControlled())
             return;  // player can declare his own wars
         
-        // dont automaticall trigger war over uncolonized systems
+        // don't automatically trigger war over uncolonized systems
         if (!system.isColonized())
             return;
         
-        // don't automatially trigger when emp2 stumbled into our system
+        // don't automatically trigger when emp2 stumbled into our system
         if (system.empire() == emp1)
             return;
         DiplomaticEmbassy emb1 = emp1.viewForEmpire(emp2).embassy();

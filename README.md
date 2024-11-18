@@ -74,7 +74,8 @@ Later:
   - New buttons to get/push Random parameters from / to Setup Alien Randomisation.
   - Tuned the Grow value.
 - Groundwork to split "InGameOption" to "Game Rules" and "User Preferences".
-- Fixed potential crash on "New Game"
+- Fixed potential crash on "New Game".
+- Fixed mismatch between Flags and system right panel view.
 
 2024.11.17 (BR)
 - Groundwork to split "InGameOption" to "Game Rules" and "User Preferences".

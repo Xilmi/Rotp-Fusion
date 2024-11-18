@@ -6,6 +6,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- Fixed mismatch between Flags and system right panel view.
 - Fixed potential crash on "New Game"
 - Custom Species:
   - New buttons to get/push Random parameters from/to Setup Alien Randomisation.

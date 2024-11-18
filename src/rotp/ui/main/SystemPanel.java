@@ -26,9 +26,11 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
@@ -406,31 +408,32 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
     public boolean drawSystemResources(Graphics2D g2, StarSystem sys, Font textF, int y, int w, int h) {
         int rightMargin = s10;
         Empire pl = player();
+        Planet planet = sys.planet();
 
         g2.setFont(textF);
         String resourceStr = "";
         g2.setColor(blueText);
         // Case Resource alone
-        if (pl.sv.isUltraPoor(sys.id))
+        if (planet.isResourceUltraPoor())
             resourceStr = text("PLANET_ULTRA_POOR");
-        else if (pl.sv.isPoor(sys.id))
+        else if (planet.isResourcePoor())
             resourceStr = text("PLANET_POOR");
-        else if (pl.sv.isUltraRich(sys.id))
+        else if (planet.isResourceUltraRich())
             resourceStr = text("PLANET_ULTRA_RICH");
-        else if (pl.sv.isRich(sys.id))
+        else if (planet.isResourceRich())
             resourceStr = text("PLANET_RICH");
         
         // Check Artifacts
-        if (pl.sv.isArtifact(sys.id)) {
+        if (planet.isArtifact()) {
         	if (resourceStr.isEmpty()) { // Artifacts alone
         		g2.setColor(orangeText);
-                if (pl.sv.isOrionArtifact(sys.id))
+                if (planet.isOrionArtifact())
                 	resourceStr = text("PLANET_VESTIGES");
                 else
                 	resourceStr = text("PLANET_ARTIFACTS");
         	}
         	else { // Case Resource + Artifacts
-        		if (pl.sv.isOrionArtifact(sys.id))
+        		if (planet.isOrionArtifact())
                 	resourceStr = text("PLANET_VESTIGES") + " + " + resourceStr;
         		else
         			resourceStr = text("PLANET_ARTIFACTS") + " + " + resourceStr;
