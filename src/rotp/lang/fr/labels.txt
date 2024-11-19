@@ -1257,7 +1257,7 @@ TECH_CHOOSE_RESEARCH_TIER         | Niveau %1
 TECH_TRADE_TIER_COST_INFO         | (Niveau %1 - %2 RP)
 TECH_CONFIRM_CHOICE               | Sélectionner
 TECH_DISCOVERY_TITLE              | Les scientifiques [player_race_pluraladjec] réalisent une percée %1
-TECH_SCOUTED_TITLE                | Éclaireurs explorant les ruines de %1 découvrent
+TECH_SCOUTED_TITLE                | Les éclaireurs explorant les ruines de %1 découvrent
 TECH_STOLEN_TITLE                 | Nos espions ont infiltrés le centre de recherche [alien_race] à %2.
 TECH_TRADED_TITLE                 | Les scientifiques [player_race_pluraladjec] acquièrent la technologie des scientifiques [alien_race_pluraladjec]
 TECH_PLUNDERED_TITLE              | Pillage dans les ruines de %1
@@ -1505,9 +1505,9 @@ SETUP_OPPONENT_AI_PLAYER          | IA: Arrêt
 SETUP_OPPONENT_CR                 | Capacités:
 SETUP_AUTOPLAY_OFF_HELP           | Le joueur prend le commandement de l'empire.
 SETUP_AUTOPLAY_OFF                | Désactivé
-SETUP_AUTOPLAY_AI_BASE            | AI: Base
-SETUP_AUTOPLAY_AI_MODNAR          | AI: Modnar
-SETUP_AUTOPLAY_AI_XILMI           | AI: Xilmi
+SETUP_AUTOPLAY_AI_BASE            | IA: Base
+SETUP_AUTOPLAY_AI_MODNAR          | IA: Modnar
+SETUP_AUTOPLAY_AI_XILMI           | IA: Xilmi
 SETUP_GAME_DIFFICULTY_HELP        | La difficulté de réglage appliquera une prime ou une pénalité à la production des joueurs d'IA.<br> Avec Normale ou plus, les Monstres de l'Espace seront introduits parmi les événements aléatoires vers le milieu de la partie. Mais pour les niveaux de difficulté Faciles, Trés faciles et Trop Faciles, les Monstres de l'Espace seront retardés afin de donner aux joueurs plus de temps pour se développer.
 SETUP_GAME_DIFFICULTY_DESC        | Sélectionnez le niveau de difficulté du jeu.
 SETUP_GAME_DIFFICULTY             | Sélection des difficultés du jeu : %1
@@ -1920,7 +1920,7 @@ SETTINGS_MOD_SPY_OVERSPEND               | Excédent Espionnage : %1
 SHIP_DESIGN_AUTO_BUTTON           | Automatique
 SHIP_DESIGN_AUTO_SCOUT            | Auto explore
 SHIP_DESIGN_AUTO_COLONIZE         | Auto colonise
-SHIP_DESIGN_AUTO_ATTACK           | Attaque Automatique
+SHIP_DESIGN_AUTO_ATTACK           | Auto attaque
 SETTINGS_MOD_SCRAP_REFUND_ALLY_DESC     | Seuls les vaisseaux en orbite dans l'empire ou autour de mondes alliés seront valorisés.
 SETTINGS_MOD_SCRAP_REFUND_NEVER_DESC    | Nulle part, ne me dérangez pas avec ça !
 SETTINGS_MOD_SCRAP_REFUND_FACTOR_DESC   | Quel pourcentage de la valeur des vaisseaux peut être récupéré de leur ferraille?
@@ -1977,7 +1977,7 @@ SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST_DESC  | Le joueur votera toujours en derni
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST       | En dernier
 
 TECH_HEAD_HK                             | Inclure ou exclure la Technologie
-TECH_END_HK                              | dans l'arbre technique pour joueur/IA.
+TECH_END_HK                              | dans l'arbre technologique pour joueur / IA.
 TECH_VAL_HK                              | Inclure {Toujours, Jamais, Auto}
 TECH_LEVEL_HK                            | Cette technologie pourrait être disponible au niveau
 
