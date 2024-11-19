@@ -87,12 +87,8 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 	private final int wM = s30; // margin
 
 
-	public SelectRestartEmpireUI() {
-		initModel();
-	}
-	static SelectRestartEmpireUI instance() {
-		return instance;
-	}
+	public SelectRestartEmpireUI()			{ initModel(); }
+	static SelectRestartEmpireUI instance()	{ return instance; }
 	// BR: for restarting with new options
 	void init(GalaxyCopy oG, GameSession newSession) {
 		this.newSession = newSession;

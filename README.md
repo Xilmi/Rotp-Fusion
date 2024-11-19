@@ -69,6 +69,10 @@ Later:
 
 ## What's New
 
+2024.11.19 (BR)
+- Precursor Relic event will be logged in the improved star system.
+- Restart: Fixed possible bug when neighborhood size has been changed.
+
 2024.11.18 (BR)
 - Custom Species:
   - New buttons to get/push Random parameters from / to Setup Alien Randomisation.

@@ -234,6 +234,8 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	}
 	default int firstRingSystemNumber()	{ return firstRingSystemNumber.getValidValue(); }
 	default ParamInteger getFirstRingSystemNumber()	{ return firstRingSystemNumber; }
+	default void setFirstRingSystemNumber(int num)	{ firstRingSystemNumber.set(num); }
+	default String getFirstRingSystemNumberLabel()	{ return firstRingSystemNumber.getLangLabel(); }
 
 	ParamInteger secondRingSystemNumber = new SecondRingSystemNumber();
 	class SecondRingSystemNumber extends ParamInteger {
@@ -282,6 +284,8 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	}
 	default int secondRingSystemNumber() { return secondRingSystemNumber.getValidValue(); }
 	default ParamInteger getSecondRingSystemNumber()	{ return secondRingSystemNumber; }
+	default void setSecondRingSystemNumber(int num)		{ secondRingSystemNumber.set(num); }
+	default String getSecondRingSystemNumberLabel()		{ return secondRingSystemNumber.getLangLabel(); }
 
 	ParamInteger firstRingHabitable = new FirstRingHabitable();
 	class FirstRingHabitable extends ParamInteger {

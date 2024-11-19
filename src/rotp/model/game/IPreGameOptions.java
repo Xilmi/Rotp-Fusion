@@ -186,7 +186,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	ParamList    restartChangesPlayerRace	= new ParamList( MOD_UI, "RESTART_PLAYER_RACE", "Swap")
 		.showFullGuide(true)
 		.put("Last", 	MOD_UI + "RESTART_PLAYER_RACE_LAST")
-		.put("Swap",		MOD_UI + "RESTART_PLAYER_RACE_SWAP")
+		.put("Swap",	MOD_UI + "RESTART_PLAYER_RACE_SWAP")
 		.put("GuiSwap",	MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP")
 		.put("GuiLast",	MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
 	default String selectedRestartChangesPlayerRace()	{ return restartChangesPlayerRace.get(); }

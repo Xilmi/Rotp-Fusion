@@ -77,7 +77,9 @@ public class Galaxy implements Base, Serializable {
     private Integer lastHashCodeDesign				= 0;
     private Integer lastHashCodeShip				= 0;
     private Random	permRandom; // BR: for backward compatibility
-    private Rand	galRandom  = rng(); // BR: to memorize RNG state
+    private Rand	galRandom = rng(); // BR: to memorize RNG state
+    Boolean restartedGame	= false; // BR: To help debug
+    Boolean swappedPositions		= false; // BR: To help debug
 
     public	Integer nextHashCodeDiplomaticIncident() {
     	if (lastHashCodeDiplomaticIncident!=null)
@@ -417,7 +419,15 @@ public class Galaxy implements Base, Serializable {
     			galRandom = rng();
     		else
     			galRandom = new Rand(permRandom.nextLong());
-    	
+    	if (restartedGame == null) {
+    		restartedGame = false;
+    		swappedPositions = false;
+    	}
+    	else if (restartedGame) {
+        	System.out.println("!!! Restarted Game");
+    		if (swappedPositions)
+        		System.out.println("!!! Swapped Positions");
+    	}
     	if (options().persistentRNG())
     		Rotp.rand(galRandom);
     	orionEmpire = new Empire(this, -2, orionId(), 0, "Orion"); // to update tech

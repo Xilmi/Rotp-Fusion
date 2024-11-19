@@ -304,6 +304,7 @@ SYSEVENT_ENRICHED                 | Huge deposits of rich ore were discovered on
 SYSEVENT_DEPLETED                 | Ore deposits on the planet were depleted.
 SYSEVENT_ACCIDENT                 | A massive industrial accident irradiated the planet.
 SYSEVENT_SUPERNOVA                | The planet was irradiated by a supernova.
+SYSEVENT_PRECURSOR_RELIC          | A precursor relic has created a new planet.
 // modnar: add Boost Planet base Size random event
 SYSEVENT_SIZEBOOST                | The planet size has been boosted by underground caverns.
 

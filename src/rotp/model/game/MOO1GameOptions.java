@@ -354,6 +354,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         setGalaxyShape(); 
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
         selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
+        
+        String label = getFirstRingSystemNumberLabel();
+        int num = opt.dynOptions().getInteger(label, 2);
+        setFirstRingSystemNumber(num);
+
+        label = getSecondRingSystemNumberLabel();
+        num = opt.dynOptions().getInteger(label, 2);
+        setSecondRingSystemNumber(num);
     }
     @Override
     public GalaxyShape galaxyShape()   {

@@ -296,6 +296,7 @@ SYSEVENT_ENRICHED                 | D'énormes gisements riches en minerais ont 
 SYSEVENT_DEPLETED                 | Les gisements de minerai de la planète ont été épuisés.
 SYSEVENT_ACCIDENT                 | Un accident industriel massif a irradié la planète.
 SYSEVENT_SUPERNOVA                | La planète a été irradiée par une supernova.
+SYSEVENT_PRECURSOR_RELIC          | Une relique des précurseurs a créé une nouvelle planète dans ce système.
 SYSEVENT_SIZEBOOST                | La taille de la planète a été augmentée par des cavernes souterraines.
 
 // Diplomatic Incident titles & descriptions

@@ -68,6 +68,7 @@ public class GalaxyFactory implements Base {
 			r.loadHomeworldList();
 		}
 		IGameOptions opts = GameSession.instance().options();
+//		boolean swap = opts.s
 		LinkedList<String> alienRaces;
 		if (opts.selectedRestartAppliesSettings()) {
 			alienRaces = buildAlienRaces();
@@ -78,6 +79,8 @@ public class GalaxyFactory implements Base {
 		}
 		opts.randomizeColors();
 		Galaxy g = new Galaxy(gc);
+		g.restartedGame = true;
+		g.swappedPositions = src.swappedPositions;
 		GameSession.instance().galaxy(g);
 		
 		Race playerRace = Race.keyed(gc.empires[0].raceKey, gc.empires[0].raceOptions);
@@ -836,15 +839,20 @@ public class GalaxyFactory implements Base {
 		private GalaxyBaseData galSrc;
 		private float nebulaSizeMult;
 		private LinkedList<String> alienRaces;
-
+		private int nearbyStarSystemNumber;
+		private boolean swappedPositions = false;
+		
 		public GalaxyCopy (IGameOptions newOpts) { newOptions = newOpts; }
 		public void copy (GameSession oldS) { // Copy from the old session
 			galSrc			= new GalaxyBaseData(oldS.galaxy());
 			oldOptions		= oldS.options();
 			nebulaSizeMult	= oldOptions.nebulaSizeMult();
+			String label	= oldOptions.getSecondRingSystemNumberLabel();
+			nearbyStarSystemNumber = oldS.dynOptions().getInteger(label, 2);
 			newOptions.copyForRestart(oldOptions); // Copy galaxy settings from old options
 		}
 		public void selectEmpire(int index) {
+			swappedPositions = index>0;
 			galSrc.swapPlayer(index);
 			IGameOptions opts = GameSession.instance().options();
 
@@ -896,8 +904,9 @@ public class GalaxyFactory implements Base {
 			}
 		}
 		public	IGameOptions options()			{ return newOptions; }
-		private	int numNearBySystem()			{ return oldOptions.secondRingSystemNumber(); }
+		private	int numNearBySystem()			{ return nearbyStarSystemNumber; }
+		public	boolean swappedPositions()		{ return swappedPositions; }
 		public	EmpireBaseData[] empires()		{ return galSrc.empires; }
 		private	EmpireBaseData empires(int id)	{ return galSrc.empires[id]; }
-	}
+}
 }
