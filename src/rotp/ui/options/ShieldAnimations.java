@@ -5,7 +5,7 @@ import java.util.Arrays;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 
-final class ShieldAnimations implements IOptionsSubUI {
+final class ShieldAnimations extends AbstractOptionsSubUI {
 	static final String OPTION_ID = SHIELD_ANIMATION_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
@@ -21,14 +21,14 @@ final class ShieldAnimations implements IOptionsSubUI {
 				shieldFlickering,
 				shieldNoisePct,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				weaponZposition,
 				weaponZRandom
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				shieldType,
 				alwaysShowsShield,
-				headerSpacer100,
+				HEADER_SPACER_100,
 				startShieldDemo
 				)));
 		return map;
@@ -37,9 +37,9 @@ final class ShieldAnimations implements IOptionsSubUI {
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						shieldType,
-						alwaysShowsShield, 
+						alwaysShowsShield,
 						
-						headerSpacer50,
+						HEADER_SPACER_50,
 						beamAnimationFPS,
 						shieldEnveloping,
 						shieldBorder,
@@ -49,9 +49,17 @@ final class ShieldAnimations implements IOptionsSubUI {
 						weaponZposition,
 						weaponZRandom,
 			
-						headerSpacer50,
+						HEADER_SPACER_50,
 						startShieldDemo
 						));
 		return majorList;
+	}
+	@Override public SafeListParam minorList()	{
+		SafeListParam minorList = new SafeListParam(uiMinorKey(),
+				Arrays.asList(
+						shieldType,
+						alwaysShowsShield
+						));
+		return minorList;
 	}
 }

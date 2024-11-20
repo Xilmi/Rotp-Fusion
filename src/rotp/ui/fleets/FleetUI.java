@@ -952,20 +952,20 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         int x0 = scaled(75);
         int w0 = scaled(400);
         int y0 = scaled(600);
-        helpUI.addBrownHelpText(x0, y0, w0, 5, text("FLEETS_HELP_ALL"));
+        helpUI.addBrownHelpText(x0, y0, w0, 0, text("FLEETS_HELP_ALL"));
 
         int x1 = scaled(100);
         int w1 = scaled(350);
         int y1 = scaled(180);
         int x1a = scaled(530);
         int y1a = scaled(185);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 5, text("FLEETS_HELP_3A"));
+        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 0, text("FLEETS_HELP_3A"));
         sp1.setLine(x1+w1, y1+(sp1.height()/2), x1a, y1a);
         
         int x2 = x1;
         int w2 = w1;
         int y2 = y1 + sp1.height() + s25;
-        HelpUI.HelpSpec sp2 = helpUI.addBrownHelpText(x2, y2, w2, 5, text("FLEETS_HELP_3B"));
+        HelpUI.HelpSpec sp2 = helpUI.addBrownHelpText(x2, y2, w2, 0, text("FLEETS_HELP_3B"));
         sp2.setLine(x2+w2, y2+(sp2.height()/2), x1a+s60, y1a);
         
         int x3 = x2 + w2 + scaled(100);
@@ -973,7 +973,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         int y3 = y2;
         int x3a = scaled(780);
         int y3a = scaled(185);
-        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 7, text("FLEETS_HELP_3C"));
+        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 0, text("FLEETS_HELP_3C"));
         sp3.setLine(x3+w3/2, y3, x3a, y3a);
 
 //        int x4 = x3;

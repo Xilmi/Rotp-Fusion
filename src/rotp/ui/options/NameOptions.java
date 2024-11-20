@@ -5,8 +5,8 @@ import java.util.Arrays;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 
-final class NameOptions implements IOptionsSubUI {
-	static final String OPTION_ID = "NAME_OPTIONS";
+final class NameOptions extends AbstractOptionsSubUI {
+	static final String OPTION_ID = NAME_OPTIONS_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
 	@Override public boolean isCfgFile()		{ return true; }
@@ -20,11 +20,11 @@ final class NameOptions implements IOptionsSubUI {
 				fiershan, mentaran,
 				ssslaura, cryslonoid,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				moo1SpeciesName,
 				clearSpeciesName,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				activateSpeciesName
 				)));
 		return map;

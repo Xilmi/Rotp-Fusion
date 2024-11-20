@@ -1244,6 +1244,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float defenderCombatAdj() {
         return tech().troopCombatAdj(true);
     }
+    public boolean hasTransport()	{ return transport != null; }
     public Transport transport() {
         if (transport == null)
             transport = new Transport(starSystem());

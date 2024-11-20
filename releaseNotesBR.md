@@ -6,6 +6,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- Mass Transport:
+  - Population amount can now be adjusted if you select again the same target.
+  - Other GUI will no more be affected by wild change in this panel.
 - Fixed mismatch between Flags and system right panel view.
 - Fixed potential crash on "New Game"
 - Custom Species:
@@ -16,17 +19,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option for in transit rallied fleet to join a battle.
 - New option to split the loss between planetary guard and in transit rallied fleet.
 - Governor will wait for an empire to be in economical range before setting spy allocations.
-- Planetary spending
-  - Restored the old redistribution on the "smooth max"
-  - Added a new redistribution that balance Industry and Ecology (Shift-Ctrl-Click)
-- Fixed wrong invalid input sound when using the 1/2/3/4/5 keys to adjust planetary spending.
-- Fixed Shipset selection not updating.
-- Ship set selection will uses the translated names.
-- Ship set selection:
-  - Fixed Custom Species prefered shipset pop up clearing the fields.
-  - "Displayed species" & "Original" are no more hard coded"
-  - Changing Custom Species checkbox will update the shipset.
-  - Changed "Original" to "Default"
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

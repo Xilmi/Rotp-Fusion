@@ -6,8 +6,8 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.IParam;
 
-public final class MainOptions implements IOptionsSubUI {
-	static final String OPTION_ID = "MAIN_OPTIONS";
+public final class MainOptions extends AbstractOptionsSubUI {
+	static final String OPTION_ID = MAIN_OPTIONS_UI_KEY;
 
 	// ==================== GUI List Declarations ====================
 	//

@@ -6,8 +6,8 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class GovOptions implements IOptionsSubUI {
-	static final String OPTION_ID = "GOV_2";
+final class GovOptions extends AbstractOptionsSubUI {
+	static final String OPTION_ID = GOVERNOR_UI_KEY;
 	static final String HEAD_ID	  = GOV_UI;
 	static final String NAME_KEY  = "SETUP_MENU";
 	static final String TITLE_KEY = "SETUP_TITLE";
@@ -24,7 +24,7 @@ final class GovOptions implements IOptionsSubUI {
 				autoTransportAI, autotransportGov, autotransportAll,
 				transportNoRich, transportPoorX2, transportMaxDist,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle(HEAD_ID + "COLONY_OPTIONS"),
 				missileBasesMin, shieldAlones,
 				autoSpend, reserveForSlow, shipBuilding,
@@ -34,14 +34,14 @@ final class GovOptions implements IOptionsSubUI {
 				new ParamTitle(HEAD_ID + "INTELLIGENCE_OPTIONS"),
 				auto_Infiltrate, auto_Spy, respectPromises,
 				
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle(HEAD_ID + "FLEET_OPTIONS"),
 				// autoShipsByDefault,	// TODO: for future use
 				auto_Scout, autoScoutCount,
 				govAutoColonize, autoColonyCount,
 				auto_Attack, autoAttackCount,
 				
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle(HEAD_ID + "STARGATES_OPTIONS"),
 				starGateOption
 				)));
@@ -51,10 +51,17 @@ final class GovOptions implements IOptionsSubUI {
 				brightnessPct, sizeFactorPct,
 				horizontalPosition, verticalPosition,
 				
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle(HEAD_ID + "OTHER_OPTIONS"),
 				governorByDefault, auto_Apply
 				)));
 		return map;
 	};
+	@Override public SafeListParam minorList()	{
+		SafeListParam minorList = new SafeListParam(uiMinorKey(),
+				Arrays.asList(
+						auto_Infiltrate
+						));
+		return minorList;
+	}
 }

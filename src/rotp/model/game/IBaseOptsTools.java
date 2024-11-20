@@ -2,6 +2,7 @@ package rotp.model.game;
 
 import rotp.ui.options.ISubUiKeys;
 import rotp.ui.util.ParamSpacer;
+import rotp.ui.util.ParamTitle;
 
 public interface IBaseOptsTools extends ISubUiKeys{
 	String BASE_UI				= "SETUP_";
@@ -23,8 +24,17 @@ public interface IBaseOptsTools extends ISubUiKeys{
 	int GAME_ID  = 1;
 	int SETUP_ID = 2;
 
-	ParamSpacer headerSpacer100	= new ParamSpacer(1f);
-	ParamSpacer headerSpacer50	= new ParamSpacer(0.5f);
-	ParamSpacer lineSpacer25	= new ParamSpacer(0.25f);
-	default ParamSpacer headerSpacer()	{return headerSpacer50; }
+	ParamTitle RELEVANT_TITLE	= new ParamTitle("RELEVANT_PARAMETERS");
+
+	ParamSpacer HEADER_SPACER_100	= new ParamSpacer(1f);
+	ParamSpacer HEADER_SPACER_50	= new ParamSpacer(0.5f);
+	ParamSpacer LINE_SPACER_25		= new ParamSpacer(0.25f);
+	default ParamSpacer headerSpacer()	{ return HEADER_SPACER_50; }
+	default SafeListParam spacerList()	{
+		SafeListParam list = new SafeListParam("SPACERS");
+		list.add(HEADER_SPACER_100);
+		list.add(HEADER_SPACER_50);
+		list.add(LINE_SPACER_25);
+		return list;
+	}
 }

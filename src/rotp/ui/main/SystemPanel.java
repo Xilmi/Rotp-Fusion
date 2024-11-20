@@ -407,7 +407,6 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
     }
     public boolean drawSystemResources(Graphics2D g2, StarSystem sys, Font textF, int y, int w, int h) {
         int rightMargin = s10;
-        Empire pl = player();
         Planet planet = sys.planet();
 
         g2.setFont(textF);
@@ -438,10 +437,8 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
         		else
         			resourceStr = text("PLANET_ARTIFACTS") + " + " + resourceStr;
         	}
-            
         }
 
-        
         if (!resourceStr.isEmpty()) {
             int sw = g2.getFontMetrics().stringWidth(resourceStr);
             int x0 = w-rightMargin-sw;

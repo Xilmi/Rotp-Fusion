@@ -7,8 +7,8 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-public final class InGameOptions implements IOptionsSubUI {
-	static final String OPTION_ID = "IN_GAME_OPTIONS";
+public final class InGameOptions extends AbstractOptionsSubUI {
+	static final String OPTION_ID = IN_GAME_OPTIONS_UI_KEY;
 	
 	@Override public String optionId()			{ return OPTION_ID; }
 
@@ -21,7 +21,7 @@ public final class InGameOptions implements IOptionsSubUI {
 				IGalaxyOptions.getDifficultySelection(), customDifficulty,
 				dynamicDifficulty, challengeMode,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("GAME_VARIOUS"),
 				terraforming,
 				colonizing, researchRate,
@@ -31,7 +31,7 @@ public final class InGameOptions implements IOptionsSubUI {
 				developedDefinition,
 				maxMissingPopulation, maxMissingFactories,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("IRONMAN_BASIC"),
 				persistentArtifact,
 				ironmanNoLoad, ironmanLoadDelay,
@@ -45,7 +45,7 @@ public final class InGameOptions implements IOptionsSubUI {
 				maxSecurityPct,
 				specialPeaceTreaty,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("GAME_COMBAT"),
 				maxCombatTurns,
 				retreatRestrictions, retreatRestrictionTurns,
@@ -54,7 +54,7 @@ public final class InGameOptions implements IOptionsSubUI {
 				scrapRefundOption, scrapRefundFactor,
 				shipSpaceFactor,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("BETA_TEST"),
 				//debugAutoRun, darkGalaxy,
 				rallyCombat, rallyCombatLoss // TODO BR: COMMENT before release
@@ -69,7 +69,7 @@ public final class InGameOptions implements IOptionsSubUI {
 				AllSubUI.combatSubUI(),
 				AllSubUI.commonSubUI(),
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("GAME_AUTOMATION"),
 				autoBombard_, autoColonize_, spyOverSpend,
 				transportAutoEco, defaultForwardRally,
@@ -88,12 +88,12 @@ public final class InGameOptions implements IOptionsSubUI {
 				raceStatusLog, raceStatusView,
 				compactOptionOnly, showPendingOrders,
 				
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("XILMI_AI_OPTIONS"),
 				playerAttackConfidence, playerDefenseConfidence,
 				aiAttackConfidence, aiDefenseConfidence,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("ENOUGH_IS_ENOUGH"),
 				disableAutoHelp, disableAdvisor
 				)));

@@ -17,7 +17,7 @@ public final class AllSubUI {
 	public	static final String ALL_CFG_OPTIONS			= "ALL_CFG_OPTIONS";
 	public	static final String ALL_DUPLICATE_OPTIONS	= "ALL_DUPLICATE_OPTIONS";
 	public	static final String ALL_NOT_CFG_OPTIONS		= "ALL_NOT_CFG_OPTIONS";
-	private	final Map<String, IOptionsSubUI> uiMap = new HashMap<>();
+	private	final Map<String, AbstractOptionsSubUI> uiMap = new HashMap<>();
 	private static SafeListParam allModOptions;
 
 	public static AllSubUI instance()			{
@@ -26,26 +26,36 @@ public final class AllSubUI {
 		return instance;
 	}
 	private AllSubUI()							{ init(); }
-	private void put(IOptionsSubUI ui)			{ uiMap.put(ui.optionId(), ui); }
+	private void put(AbstractOptionsSubUI ui)			{ uiMap.put(ui.optionId(), ui); }
 	private void init()							{
 		// Level 0 Panels
+		put(new BackupOptions());
+		put(new ColonyRules());
+		put(new ColonySettings());
 		put(new CombatAsteroids());
 		put(new CombatTiming());
 		put(new CombatXilmiAI());
 		put(new CouncilOptions());
 		put(new DiplomacyOptions());
 		put(new FlagOptions());
+		put(new GalaxyRules());
 		put(new GameDifficulty());
+		put(new GameMenuPreferences());
+		put(new GNNandPopupFilter());
 		put(new HelpAndAdvice());
 		put(new IronmanLittle());
 		put(new NewOptionsBeta());
 		put(new NewRulesBeta());
+		put(new SetupMenuPreferences());
 		put(new ShieldAnimations());
+		put(new ShipRules());
 		put(new SpyOptions());
 		put(new VisualOptions());
 		put(new WeaponAnimation());
+		put(new ZoomOptions());
 
 		// Level 1 Panels
+		put(new ComputerOptions());
 		put(new DiplomacyOptions());
 		put(new GameAutomation());
 		put(new ShipCombatRules());
@@ -76,8 +86,8 @@ public final class AllSubUI {
 		if (refresh || allModOptions == null) {
 			// Start with a set to filter duplicates
 			LinkedHashSet<IParam> allOptions = new LinkedHashSet<>();
-			for (IOptionsSubUI ui : instance().uiMap.values())
-				allOptions.addAll(ui.getList());
+			for (AbstractOptionsSubUI ui : instance().uiMap.values())
+				allOptions.addAll(ui.getListNoSpacer());
 			// Remove the line separators
 			allOptions.remove(null);
 			// Then create the final list 
@@ -108,7 +118,7 @@ public final class AllSubUI {
 		return list;
 	}
 
-	public static IOptionsSubUI getHandle(String name)	{ return instance().uiMap.get(name); }
+	public static AbstractOptionsSubUI getHandle(String name)	{ return instance().uiMap.get(name); }
 	public static ParamSubUI	getUI(String name)		{ return getHandle(name).getUI(); }
 	// Minimal Panels
 	public static ParamSubUI shieldAnimSubUI()		{ return getUI(ShieldAnimations.OPTION_ID); }
@@ -153,10 +163,10 @@ public final class AllSubUI {
 	// TODO BR: May be Not!!!
 	public List<ParamSubUI> subPanelList()			{
 		List<ParamSubUI> list = new ArrayList<>();
-		for (IOptionsSubUI ui : uiMap.values())
+		for (AbstractOptionsSubUI ui : uiMap.values())
 			list.add(ui.getUI());
 		return list;
 	}
-	public SafeListParam getParamList(String name)	{ return uiMap.get(name).getList(); }
+	public SafeListParam getParamList(String name)	{ return uiMap.get(name).getListNoSpacer(); }
 
 }

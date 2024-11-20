@@ -34,8 +34,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+
 import rotp.model.empires.SystemView;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;

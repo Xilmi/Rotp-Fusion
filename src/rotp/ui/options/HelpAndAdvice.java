@@ -5,7 +5,7 @@ import java.util.Arrays;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 
-final class HelpAndAdvice implements IOptionsSubUI {
+final class HelpAndAdvice extends AbstractOptionsSubUI {
 	static final String OPTION_ID = HELP_AND_ADVICE_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }

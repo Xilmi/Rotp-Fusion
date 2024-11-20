@@ -1297,8 +1297,8 @@ FLEETS_HELP_2B                    | Filter By - select check boxes to narrow dow
 FLEETS_HELP_2C                    | Only Deploy Ships of Type - restrict the types of ships you want to deploy from your fleets.
 FLEETS_HELP_2D                    | Selected for Deployment - a count of ships, by type, that will be deployed.
 FLEETS_HELP_2E                    | Deploy Fleets - deploy the selected fleets to a single target system.
-FLEETS_HELP_3A                    | Stable:<br>The maximum number of population you can send from this planet while being able to regrowth to the same level, with ECO bar set to max.<br>It's up to the player or the governor to adjust the ECO bar.
-FLEETS_HELP_3B                    | Fill:<br>The maximum number of population you can send from this planet while being able to regrowth to fill the planet, with ECO bar set to max.<br>It's up to the player or the governor to adjust the ECO bar.
+FLEETS_HELP_3A                    | Stable:<br>The maximum number of population you can send from this planet while being able to growth again up to the current level, this when the ECO bar is set to max.<br>It's up to the player or the governor to adjust the ECO bar.
+FLEETS_HELP_3B                    | Fill:<br>The maximum number of population you can send from this planet while being able to growth to fill the planet, this when the ECO bar is set to max.<br>It's up to the player or the governor to adjust the ECO bar.
 FLEETS_HELP_3C                    | Population to send selection bars:<br>- Left click on slider = Normal percentage selection.<br>- Middle click on slider = "Stable"-value selection.<br>- Right click on slider = "Fill"-value selection.<br>Ctrl+Click to toggle auto-refill (Ungoverned only) shown as Green over Grey.<br>Default auto-refill state is set by option "→TRANSPORT_AUTO_ECO_HK←".
 FLEETS_HELP_3MAIN                 | OVERVIEW:<br> This screen allows the management of population and troops transport.<br>Select the destination colony and transport size.<br>Destination colony can be changed at will.
 
@@ -2200,13 +2200,16 @@ SETTINGS_FUEL_RANGE_HELP          | Increase or decrease the range of fuel range
 SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologies and reserve fuel tanks.
 SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien species.<br>When the hostility between two empires reach the level 30, a war declaration will follow!
 
+HEADERS_RELEVAN_PARAMETERST_DESC  | You may also be interested in knowing, or adjusting, these settings.
+HEADERS_RELEVANT_PARAMETERS       | ~~~ RELEVANT PARAMETERS ~~~
+
 HEADERS_COMPUTER_OPTIONS_DESC     | Options related to the hardware.
 HEADERS_COMPUTER_OPTIONS          | ~~~ COMPUTER OPTIONS ~~~
 HEADERS_BACKUP_OPTIONS_DESC       | Files related Options.
 HEADERS_BACKUP_OPTIONS            | ~~~ BACKUP OPTIONS ~~~
-HEADERS_MENU_APPEARANCE_DESC      | Settings menu personalisation.
+HEADERS_MENU_APPEARANCE_DESC      | Settings menu customization.
 HEADERS_MENU_APPEARANCE           | ~~~ MENU APPEARANCE ~~~
-HEADERS_GAME_UI_PREFERENCES_DESC  | Game UI personalisation..
+HEADERS_GAME_UI_PREFERENCES_DESC  | Game UI customization..
 HEADERS_GAME_UI_PREFERENCES       | ~~~ GAME UI PREFERENCES ~~~
 
 HEADERS_START_GALAXY_OPTIONS_DESC | Options used for galaxy buildings. Only read when starting a new game.
@@ -2883,10 +2886,10 @@ SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | To disable peace treaties or rem
 SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Peace Treaty: %1
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL_DESC | No change: The duration of peace treaties is randomly set between 10 and 15 years.<br>Planets can be colonized, in the presence of their armed fleet, and of course your armed fleet cannot prevent them from colonizing either.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_NORMAL      | Peace
-SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR_DESC  | This will end the war and go to the state: →RACES_NO_TREATY←.<br>Therefore, fleets can still engage in combat to protect colonizable planets.<br>For new treaties only, current treaties are not affected. (*Beta Test)
-SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR       | Armistice*
-SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE_DESC  | This is still a peace treaty with a standard duration of 10-15 years.<br>But you will not allow this empire to colonize a planet you protect with an armed fleet stationed in orbit. And of course they won't allow you to do this either.<br>The AIs are not aware of this limitation, so this option could disrupt their fleet's plans. (*Beta Test)
-SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE       | Cold War*
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR_DESC  | This will end the war and go to the state: →RACES_NO_TREATY←.<br>Therefore, fleets can still engage in combat to protect colonizable planets.<br>For new treaties only, current treaties are not affected.
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR       | Armistice
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE_DESC  | This is still a peace treaty with a standard duration of 10-15 years.<br>But you will not allow this empire to colonize a planet you protect with an armed fleet stationed in orbit. And of course they won't allow you to do this either.<br>The AIs are not aware of this limitation, so this option could disrupt their fleet's plans.
+SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE       | Cold War
 
 SETTINGS_MOD_RESEARCH_MOO1_DESC          | YES: Reload won't change research probability<br>NO: You may try to reload to get a new dice roll! (RotP default)
 SETTINGS_MOD_RESEARCH_MOO1               | Research Moo1: %1
@@ -3731,6 +3734,46 @@ SETTINGS_MOD_IRONMAN_LITTLE_UI_DESC      | Opens a new control panel to configur
 SETTINGS_MOD_GAME_DIFFICULTY_TITLE       | Game Difficulty Configuration.
 SETTINGS_MOD_GAME_DIFFICULTY_UI          | Game Difficulty
 SETTINGS_MOD_GAME_DIFFICULTY_UI_DESC     | Opens a new control panel to configure Rules affecting the game difficulty level. Can be changed dynamically.
+
+SETTINGS_MOD_GALAXY_RULES_TITLE          | Galaxy Rules Configuration.
+SETTINGS_MOD_GALAXY_RULES_UI             | Galaxy Rules
+SETTINGS_MOD_GALAXY_RULES_UI_DESC        | Opens a new control panel to configure Rules affecting the galaxy
+
+SETTINGS_MOD_COLONY_SETTINGS_TITLE       | Colony Automation Configuration.
+SETTINGS_MOD_COLONY_SETTINGS_UI          | Colony Automation
+SETTINGS_MOD_COLONY_SETTINGS_UI_DESC     | Opens a new control panel to configure colonies Automation
+
+SETTINGS_MOD_COLONY_RULES_TITLE          | Colony Rules Configuration.
+SETTINGS_MOD_COLONY_RULES_UI             | Colony Rules
+SETTINGS_MOD_COLONY_RULES_UI_DESC        | Opens a new control panel to configure Rules affecting the colonies
+
+SETTINGS_MOD_SHIP_RULES_TITLE            | Ships and Fleets Rules Configuration.
+SETTINGS_MOD_SHIP_RULES_UI               | Ships and Fleets Rules
+SETTINGS_MOD_SHIP_RULES_UI_DESC          | Opens a new control panel to configure Rules affecting Ships and Fleets
+
+SETTINGS_MOD_GNN_AND_POPUP_FILTER_TITLE  | GNN & Pop Up Filters Configuration.
+SETTINGS_MOD_GNN_AND_POPUP_FILTER_UI     | GNN & Pop Up Filters
+SETTINGS_MOD_GNN_AND_POPUP_FILTER_UI_DESC | Opens a new control panel to configure GNN & Pop Up Filters.
+
+SETTINGS_MOD_COMPUTER_OPTIONS_TITLE      | Computer Options Configuration.
+SETTINGS_MOD_COMPUTER_OPTIONS_UI         | Computer Options
+SETTINGS_MOD_COMPUTER_OPTIONS_UI_DESC    | Opens a new control panel to configure Computer Options.
+
+SETTINGS_MOD_BACKUP_OPTIONS_TITLE        | Backup Options Configuration.
+SETTINGS_MOD_BACKUP_OPTIONS_UI           | Backup Options
+SETTINGS_MOD_BACKUP_OPTIONS_UI_DESC      | Opens a new control panel to configure Backup Options.
+
+SETTINGS_MOD_GAME_MENU_PREF_TITLE        | Game UI Preferences Configuration.
+SETTINGS_MOD_GAME_MENU_PREF_UI           | Game UI Preferences
+SETTINGS_MOD_GAME_MENU_PREF_UI_DESC      | Opens a new control panel to configure Game UI Preferences.
+
+SETTINGS_MOD_SETUP_MENU_PREF_TITLE       | Setup UI Preferences Configuration.
+SETTINGS_MOD_SETUP_MENU_PREF_UI          | Setup UI Preferences
+SETTINGS_MOD_SETUP_MENU_PREF_UI_DESC     | Opens a new control panel to configure Setup UI Preferences.
+
+SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Zoom Options Configuration.
+SETTINGS_MOD_ZOOM_OPTIONS_UI             | Zoom Options
+SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Opens a new control panel to configure Zoom Options.
 
 
 

@@ -6,7 +6,7 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class CommonOptions implements IOptionsSubUI {
+final class CommonOptions extends AbstractOptionsSubUI {
 	static final String OPTION_ID = COMMON_OPTIONS_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
@@ -18,7 +18,7 @@ final class CommonOptions implements IOptionsSubUI {
 				graphicsMode, texturesMode, sensitivityMode,
 				soundVolume, musicVolume,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("MENU_APPEARANCE"),
 				colorSet, galaxyPreviewColorStarsSize,
 				minListSizePopUp, menuStartup,
@@ -30,15 +30,15 @@ final class CommonOptions implements IOptionsSubUI {
 				new ParamTitle("ZOOM_FONT"),
 				mapFontFactor, showNameMinFont, showInfoFontRatio,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("ZOOM_FLEET"),
 				showFleetFactor, showFlagFactor, showPathFactor,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("ZOOM_REPLAY"),
 				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("GAME_OTHER"),
 				shipBasedMissiles,
 				scoutAndColonyOnly
@@ -47,7 +47,7 @@ final class CommonOptions implements IOptionsSubUI {
 				new ParamTitle("BACKUP_OPTIONS"),
 				backupTurns, backupKeep, saveDirectory,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("GAME_UI_PREFERENCES"),
 				showPendingOrders,
 				raceStatusLog, raceStatusView,
@@ -56,7 +56,7 @@ final class CommonOptions implements IOptionsSubUI {
 
 				// headerSpacer,
 				// new ParamTitle("GAME_VARIOUS"),
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("SUB_PANEL_OPTIONS"),
 				AllSubUI.debugSubUI(),
 				AllSubUI.combatSubUI(),

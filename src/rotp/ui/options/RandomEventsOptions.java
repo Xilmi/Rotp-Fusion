@@ -2,13 +2,12 @@ package rotp.ui.options;
 
 import java.util.Arrays;
 
-import rotp.model.game.IAdvOptions;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class RandomEventsOptions implements IOptionsSubUI {
-	static final String OPTION_ID = "RANDOM_EVENTS";
+final class RandomEventsOptions extends AbstractOptionsSubUI {
+	static final String OPTION_ID = RANDOM_EVENTS_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
 
@@ -16,22 +15,22 @@ final class RandomEventsOptions implements IOptionsSubUI {
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_GLOBAL"),
-				IAdvOptions.randomEvents,
+				randomEvents,
 				eventsStartTurn, eventsPace,
 				eventsFavorWeak, fixedEventsMode,
 				monstersGiveLoots, monstersLevel,
 				monstersGNNNotification,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				guardianMonstersLevel,
 				isMoO1Monster,
 				
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("RANDOM_EVENTS_MONSTERS"),
 				piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
-				headerSpacer50,
+				HEADER_SPACER_50,
 				amoebaDelayTurn, amoebaReturnTurn, amoebaMaxSystems,
-				headerSpacer50,
+				HEADER_SPACER_50,
 				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems
 				)));
 		map.add(new SafeListParam(Arrays.asList(
@@ -75,5 +74,12 @@ final class RandomEventsOptions implements IOptionsSubUI {
 				gauntletReturnTurn
 				)));
 		return map;
+	}
+	@Override public SafeListParam minorList()	{
+		SafeListParam minorList = new SafeListParam(uiMinorKey(),
+				Arrays.asList(
+						randomEvents
+						));
+		return minorList;
 	}
 }

@@ -5,41 +5,43 @@ import java.util.Arrays;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 
-final class GameAutomation implements IOptionsSubUI {
+final class GameAutomation extends AbstractOptionsSubUI {
 	static final String OPTION_ID = GAME_AUTOMATION_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
-	@Override public boolean isCfgFile()		{ return true; }
 
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
-				AllSubUI.governorSubUI(),
-				
-				headerSpacer50,
+				//AllSubUI.getHandle(GOVERNOR_UI_KEY).getUI(),
+				HEADER_SPACER_50,
 				transportAutoEco,
 				autoTerraformEnding,
 				divertExcessToResearch,
+
+				LINE_SPACER_25,
+				autoBombard_,
+				autoColonize_,
 				techExchangeAutoRefuse
 				)));
-		map.add(new SafeListParam(Arrays.asList(
-				showAlliancesGNN,
-				hideMinorReports,
-				showAllocatePopUp,
-				showLimitedWarnings,
-
-				lineSpacer25,
-				autoBombard_,
-				autoColonize_
-				)));
-		map.add(new SafeListParam(Arrays.asList(
+		//map.add(list);
+		
+		SafeListParam list = new SafeListParam(Arrays.asList(
 				defaultForwardRally,
 				defaultChainRally,
 				chainRallySpeed,
-				
-				headerSpacer50,
-				trackUFOsAcrossTurns
-				)));
+
+				HEADER_SPACER_50,
+				scoutAndColonyOnly,
+
+				HEADER_SPACER_50,
+				trackUFOsAcrossTurns,
+				HEADER_SPACER_50
+				));
+		list.addAll(AllSubUI.getHandle(GOVERNOR_UI_KEY).getUiMinor(false));
+		map.add(list);
+
+		map.add(AllSubUI.getHandle(GNN_AND_POPUP_FILTER_UI_KEY).getUiMajor(true));
 		return map;
 	}
 	@Override public SafeListParam majorList()	{
@@ -47,30 +49,24 @@ final class GameAutomation implements IOptionsSubUI {
 				Arrays.asList(
 						autoBombard_,
 						autoColonize_,
+						techExchangeAutoRefuse,
 
-						lineSpacer25,
+						LINE_SPACER_25,
 						defaultForwardRally,
 						defaultChainRally,
 						chainRallySpeed,
-						
-						lineSpacer25,
+
+						LINE_SPACER_25,
 						transportAutoEco,
 						autoTerraformEnding,
-						showAlliancesGNN,
-						hideMinorReports,
-						showAllocatePopUp,
-						showLimitedWarnings,
 
-						lineSpacer25,
-						techExchangeAutoRefuse,
-
-						lineSpacer25,
+						LINE_SPACER_25,
 						divertExcessToResearch,
 						trackUFOsAcrossTurns,
-						
-						lineSpacer25,
-						AllSubUI.governorSubUI()
+
+						LINE_SPACER_25
 						));
+		majorList.addAll(AllSubUI.getHandle(GOVERNOR_UI_KEY).getUiMinor(false));
 		return majorList;
 	}
 }

@@ -1823,6 +1823,9 @@ SETTINGS_AUTOPLAY_WARNING         | Avertissement! La lecture automatique est ac
 SETTINGS_FUEL_RANGE_DESC          | Augmente la portée des technologies de carburant et des réservoirs de carburant supplémentaires.
 SETTINGS_AI_HOSTILITY_DESC        | Augmente ou diminue le niveau général d'hostilité entre les espèces extraterrestres.
 
+HEADERS_RELEVAN_PARAMETERST_DESC  | Vous serez peut-être aussi intéressé à connaître, ou ajuster ces paramètres.
+HEADERS_RELEVANT_PARAMETERS       | ~~~ PARAMETRES CONNEXES ~~~
+
 HEADERS_GAME_UI_PREFERENCES_DESC  | Personnalisation de l'interface de jeu.
 HEADERS_GAME_UI_PREFERENCES       | ~~~ PRÉFÉRENCES DE L'INTERFACE ~~~
 HEADERS_GAME_RELATIONS_DESC       | Options de contrôle des relations entre empires. Peut être changé dynamiquement.

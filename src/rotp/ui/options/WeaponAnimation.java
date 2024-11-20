@@ -5,7 +5,7 @@ import java.util.Arrays;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 
-final class WeaponAnimation implements IOptionsSubUI {
+final class WeaponAnimation extends AbstractOptionsSubUI {
 	static final String OPTION_ID = WEAPON_ANIMATION_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
@@ -40,12 +40,19 @@ final class WeaponAnimation implements IOptionsSubUI {
 						echoSoundDelay,
 						echoSoundHullDelay,
 
-						headerSpacer50,
+						HEADER_SPACER_50,
 						beamWindupFrames,
 						beamHoldFrames,
 						heavyBeamHoldFrames,
 						shieldFadingFrames
 						));
 		return majorList;
+	}
+	@Override public SafeListParam minorList()	{
+		SafeListParam minorList = new SafeListParam(uiMinorKey(),
+				Arrays.asList(
+						newWeaponSound
+						));
+		return minorList;
 	}
 }

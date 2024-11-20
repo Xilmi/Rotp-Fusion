@@ -6,8 +6,8 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class IronmanOptions implements IOptionsSubUI {
-	static final String OPTION_ID = "IRONMAN_OPTIONS";
+final class IronmanOptions extends AbstractOptionsSubUI {
+	static final String OPTION_ID = IRONMAN_OPTIONS_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
 	@Override public boolean isCfgFile()		{ return true; }

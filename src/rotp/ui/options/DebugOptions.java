@@ -6,7 +6,7 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class DebugOptions implements IOptionsSubUI {
+final class DebugOptions extends AbstractOptionsSubUI {
 	static final String OPTION_ID = "DEBUG_OPTIONS";
 	
 	@Override public String optionId()			{ return OPTION_ID; }
@@ -19,7 +19,7 @@ final class DebugOptions implements IOptionsSubUI {
 				debugShowMemory, debugConsoleMemory,
 				debugShowMoreMemory, debugFileMemory,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("DEBUG_RELEVANT"),
 				councilWin, autoplay,
 				backupTurns
@@ -38,5 +38,12 @@ final class DebugOptions implements IOptionsSubUI {
 				continueAnyway
 				)));
 		return map;
+	}
+	@Override public SafeListParam minorList()	{
+		SafeListParam minorList = new SafeListParam(uiMinorKey(),
+				Arrays.asList(
+						debugAutoRun
+						));
+		return minorList;
 	}
 }

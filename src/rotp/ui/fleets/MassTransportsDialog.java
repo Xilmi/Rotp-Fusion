@@ -34,6 +34,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.IGameOptions;
 import rotp.ui.BasePanel;
@@ -100,16 +101,24 @@ public class MassTransportsDialog extends BasePanel {
         List<StarSystem> launchPoints = new ArrayList<>();
         for (StarSystem sys : sourceSystems) {
             SystemTransportSprite spr = sys.transportSprite();
-            if ((spr.amt() > 0) && (spr.starSystem() == null)) {
-                sys.transportSprite().clickedDest(topParent.targetSystem);
-                launchPoints.add(sys);
+            StarSystem sprSys = spr.starSystem();
+            StarSystem tarSys = topParent.targetSystem;
+
+         	// BR: Same target is now allowed to change value
+            if (sprSys == null) { // New Transport
+                if (spr.amt() > 0) { // something to send
+	                sys.transportSprite().clickedDest(tarSys);
+	                launchPoints.add(sys);
+                }
             }
+            else if (sprSys == tarSys) // New amount
+                launchPoints.add(sys);
+            else // Wrong dest... Cancel any changes
+            	spr.cancel();
         }
         player().deployTransports(launchPoints, topParent.targetSystem, synched);
     }
-    void clickSynch() {
-        synched = !synched;
-    }
+    void clickSynch()	{ synched = !synched; }
     public void mouseWheelMoved(MouseWheelEvent e) {
         listingUI.mouseWheelMoved(e);
     }

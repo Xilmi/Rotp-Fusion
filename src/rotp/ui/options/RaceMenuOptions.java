@@ -5,8 +5,8 @@ import java.util.Arrays;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 
-public final class RaceMenuOptions implements IOptionsSubUI {
-	static final		String OPTION_ID = "RACE_SUBUI";
+public final class RaceMenuOptions extends AbstractOptionsSubUI {
+	static final		String OPTION_ID = RACE_MENU_OPTIONS_UI_KEY;
 	public static final String CUSTOM_ID = "CUSTOM_LIST";
 	public static final String RACE_ID	 = "RACE_LIST";
 	
@@ -21,10 +21,17 @@ public final class RaceMenuOptions implements IOptionsSubUI {
 	}
 	static SafeListParam optionsCustomRace() {
 		return new SafeListParam(CUSTOM_ID,
-				Arrays.asList(playerIsCustom, playerCustomRace));
+				Arrays.asList(
+						playerIsCustom,
+						playerCustomRace
+						));
 	}
 	static SafeListParam optionsRace() {
 		return new SafeListParam(RACE_ID,
-				Arrays.asList(playerShipSet, playerIsCustom, playerCustomRace));
+				Arrays.asList(
+						playerShipSet,
+						playerIsCustom,
+						playerCustomRace
+						));
 	}
 }

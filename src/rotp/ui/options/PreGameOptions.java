@@ -6,8 +6,8 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-public final class PreGameOptions implements IOptionsSubUI {
-	static final String OPTION_ID = "PRE_GAME_OPTIONS";
+public final class PreGameOptions extends AbstractOptionsSubUI {
+	static final String OPTION_ID = PRE_GAME_OPTIONS_UI_KEY;
 	
 	@Override public String optionId()			{ return OPTION_ID; }
 
@@ -22,7 +22,7 @@ public final class PreGameOptions implements IOptionsSubUI {
 				looseNeighborhood,
 				minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("NEBULAE_OPTION"),
 				nebulae, nebulaPlacing,
 				nebulaEnrichment, nebulaHomeworld,
@@ -37,7 +37,7 @@ public final class PreGameOptions implements IOptionsSubUI {
 				richHomeworld, ultraRichHomeworld,
 				companionWorlds, battleScout, randomTechStart, randomizeAI,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("START_PLANET_OPTIONS"),
 				planetQuality, minDistArtifactPlanet,
 				guardianMonsters, guardianMonstersLevel,
@@ -53,7 +53,7 @@ public final class PreGameOptions implements IOptionsSubUI {
 				techCloaking, techStargate, techGaia, techHyperspace,
 				techIndustry2, techThorium, techTransport,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("START_RANDOM_ALIENS"),
 				randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
 				randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges
@@ -63,18 +63,18 @@ public final class PreGameOptions implements IOptionsSubUI {
 				restartChangesPlayerRace, restartChangesPlayerAI,
 				restartChangesAliensAI, restartAppliesSettings,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("MENU_OPTIONS"),
 				useFusionFont, compactOptionOnly,
 				
 				// headerSpacer,
 				// new ParamTitle("MENU_OPTIONS"),
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("BETA_TEST"),
 				AllSubUI.ironmanSubUI(),
 				ironmanMode,	// ironmanOptionsUI,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("GAME_OTHER"),
 				showAllAI,
 				autoplay

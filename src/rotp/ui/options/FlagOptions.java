@@ -6,7 +6,7 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class FlagOptions implements IOptionsSubUI {
+final class FlagOptions extends AbstractOptionsSubUI {
 	static final String OPTION_ID = FLAG_OPTIONS_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
@@ -18,11 +18,11 @@ final class FlagOptions implements IOptionsSubUI {
 				autoFlagAssignation1, autoFlagAssignation2,
 				autoFlagAssignation3, autoFlagAssignation4,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("AUTO_FLAG_IN_NEBULA"),
 				flagInNebulaColor, flagNotNebulaColor,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("AUTO_FLAG_COLONY_TECH"),
 				flagTechGaiaColor, flagTechFertileColor, flagTechGoodColor,
 				flagTechStandardColor, flagTechBarrenColor, flagTechDeadColor,
@@ -32,13 +32,13 @@ final class FlagOptions implements IOptionsSubUI {
 				new ParamTitle("AUTO_FLAG_VESTIGES"),
 				flagRuinsOrionColor, flagRuinsAntaranColor, flagRuinsNoneColor,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("AUTO_FLAG_RESOURCES"),
 				flagOrionColor, flagAntaranColor,
 				flagUltraRichColor, flagRichColor, flagAssetNormalColor,
 				flagPoorColor, flagUltraPoorColor, flagNoneColor,
 				
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("AUTO_FLAG_ENVIRONMENT"),
 				flagEnvGaiaColor, flagEnvFertileColor,
 				flagEnvNormalColor,	flagEnvHostileColor, flagEnvNoneColor

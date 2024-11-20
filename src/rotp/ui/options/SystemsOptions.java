@@ -7,8 +7,8 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class SystemsOptions implements IOptionsSubUI {
-	static final String OPTION_ID = "SYSTEMS_OPTIONS";
+final class SystemsOptions extends AbstractOptionsSubUI {
+	static final String OPTION_ID = SYSTEMS_OPTIONS_UI_KEY;
 	
 	@Override public String optionId()			{ return OPTION_ID; }
 
@@ -17,12 +17,12 @@ final class SystemsOptions implements IOptionsSubUI {
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ARTIFACT_OPTIONS"),
 				artifactPlanetMult, artifactPlanetOffset,
-				lineSpacer25,
+				LINE_SPACER_25,
 				orionPlanetProb,
-				lineSpacer25,
+				LINE_SPACER_25,
 				allowRichPoorArtifact,
 				
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("GAME_OTHER"),
 				orionToEmpireModifier
 				)));
@@ -30,7 +30,7 @@ final class SystemsOptions implements IOptionsSubUI {
 				new ParamTitle("RICH_OPTIONS"),
 				ultraPoorPlanetMult, ultraPoorPlanetOffset,
 				poorPlanetMult, poorPlanetOffset,
-				lineSpacer25,
+				LINE_SPACER_25,
 				richPlanetMult, richPlanetOffset,
 				ultraRichPlanetMult, ultraRichPlanetOffset
 				)));
@@ -43,7 +43,7 @@ final class SystemsOptions implements IOptionsSubUI {
 				secondRingHabitable,
 				secondRingRadius,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("LINKED_OPTIONS"),
 				starDensity,
 				IGalaxyOptions.getSizeSelection(),

@@ -6,7 +6,7 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class CombatOptions implements IOptionsSubUI {
+final class CombatOptions extends AbstractOptionsSubUI {
 	static final String OPTION_ID = COMBAT_OPTIONS_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
@@ -20,7 +20,7 @@ final class CombatOptions implements IOptionsSubUI {
 				newWeaponSound, playerSoundEcho,
 				echoSoundDecay, echoSoundDelay, echoSoundHullDelay,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				beamWindupFrames, beamHoldFrames,
 				heavyBeamHoldFrames, shieldFadingFrames
 				)));
@@ -28,22 +28,22 @@ final class CombatOptions implements IOptionsSubUI {
 				new ParamTitle("SHIELD_ANIMATIONS"),
 				shieldType, alwaysShowsShield, 
 	
-				headerSpacer50,
+				HEADER_SPACER_50,
 				beamAnimationFPS, shieldEnveloping, shieldBorder,
 				shieldTransparency, shieldFlickering, shieldNoisePct,
 				weaponZposition, weaponZRandom,
 	
-				headerSpacer50,
+				HEADER_SPACER_50,
 				startShieldDemo
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ASTEROIDS"),
 				moo1PlanetLocation, moo1AsteroidsLocation,
 				asteroidsVanish, moo1AsteroidsProperties,
-				headerSpacer50,
+				HEADER_SPACER_50,
 				minLowAsteroids, maxLowAsteroids,
 				minHighAsteroids, maxHighAsteroids,
-				headerSpacer50,
+				HEADER_SPACER_50,
 				baseNoAsteroidsProbPct, stepNoAsteroidsProbPct,
 				baseLowAsteroidsProbPct, stepLowAsteroidsProbPct,
 				richNoAsteroidsModPct, ultraRichNoAsteroidsModPct
@@ -53,7 +53,7 @@ final class CombatOptions implements IOptionsSubUI {
 				playerAttackConfidence, playerDefenseConfidence,
 				aiAttackConfidence, aiDefenseConfidence,
 
-				headerSpacer50,
+				HEADER_SPACER_50,
 				new ParamTitle("GAME_OTHER"),
 				maxCombatTurns,
 				retreatRestrictions, retreatRestrictionTurns

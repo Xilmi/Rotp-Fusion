@@ -69,6 +69,15 @@ Later:
 
 ## What's New
 
+2024.11.20 (BR)
+- Groundwork to split "InGameOption" to "Game Rules" and "User Preferences".
+- Mass Transport:
+  - Population amount can now be adjusted if you select again the same target.
+  - Other GUI wil no more be affected by wild change in this panel.
+
+2024.11.19 (Frank Zago)
+- French translations and fixes.
+
 2024.11.19 (BR)
 - Precursor Relic event will be logged in the improved star system.
 - Restart: Fixed possible bug when neighborhood size has been changed.
