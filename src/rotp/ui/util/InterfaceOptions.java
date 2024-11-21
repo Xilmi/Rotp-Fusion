@@ -31,5 +31,7 @@ public interface InterfaceOptions {
 	// For settings only
 	public default void updateOption(DynamicOptions options) {};
 	public default void setFromDefault(boolean excludeCfg, boolean excludeSubMenu) { }
-	public default void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {}
+	// cascadeSubMenu as integer to avoid infinite loop!
+	public default void copyOption(IGameOptions src, IGameOptions dest,
+									boolean updateTool, int cascadeSubMenu) {}
 }

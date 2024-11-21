@@ -25,8 +25,8 @@ import java.awt.event.MouseWheelEvent;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
-import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.BaseCompactOptionsUI;
+import rotp.ui.game.BaseModPanel;
 
 
 public class ParamSubUI extends AbstractParam<SafeListPanel> {
@@ -68,8 +68,7 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 	 * @param guiTitleID Label for the GUI Title
 	 * @param guiID Unique GUI ID for load and save
 	 */
-	public ParamSubUI(String gui, String guiId,
-			SafeListPanel optionsMap) {
+	public ParamSubUI(String gui, String guiId, SafeListPanel optionsMap) {
 		this(gui, guiId+"_UI", optionsMap, guiId+"_TITLE", guiId);
 	}
 	// ===== Overriders =====
@@ -84,11 +83,17 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 				is &= param.isDefaultValue();
 		return is;
 	}
-	@Override public void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {
-		super.copyOption(src, dest, updateTool);
-		for (IParam param : optionsList)
-			if (param != null && !param.isCfgFile())
-				param.copyOption(src, dest, updateTool);
+	@Override public void copyOption(IGameOptions src, IGameOptions dest,
+									boolean updateTool, int cascadeSubMenu) {
+		super.copyOption(src, dest, updateTool, cascadeSubMenu);
+		for (IParam param : optionsList) {
+			if (param == null)
+				continue;
+			if (cascadeSubMenu<=0 && param instanceof ParamSubUI)
+				continue;
+			if (!param.isCfgFile())
+				param.copyOption(src, dest, updateTool, cascadeSubMenu-1);
+		}
 	}
 	@Override public void updateOptionTool() {
 		super.updateOptionTool();
@@ -104,12 +109,8 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 						&& !(excludeSubMenu && param.isSubMenu()))
 					param.setFromDefault(excludeCfg, excludeSubMenu);
 	}
-	@Override protected SafeListPanel getOptionValue(
-			IGameOptions options) {
-		return last();
-	}
-	@Override protected void setOptionValue(IGameOptions options,
-			SafeListPanel value) {}
+	@Override protected SafeListPanel getOptionValue(IGameOptions options) { return last(); }
+	@Override protected void setOptionValue(IGameOptions options, SafeListPanel value) {}
 	@Override public void setFromCfgValue(String val) {
 		for (IParam param : optionsList)
 			if (param != null && !param.isCfgFile())

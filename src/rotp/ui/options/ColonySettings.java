@@ -13,10 +13,11 @@ final class ColonySettings extends AbstractOptionsSubUI {
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
+				useSmartRefit,
+				LINE_SPACER_25,
 				developedDefinition,
 				maxMissingPopulation,
 				maxMissingFactories,
-				LINE_SPACER_25,
 				defaultMaxBases
 				)));
 		return map;
@@ -24,6 +25,7 @@ final class ColonySettings extends AbstractOptionsSubUI {
 	@Override public SafeListParam majorList()	{
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
+						useSmartRefit,
 						developedDefinition,
 						maxMissingPopulation,
 						maxMissingFactories

@@ -73,7 +73,7 @@ Later:
 - Groundwork to split "InGameOption" to "Game Rules" and "User Preferences".
 - Mass Transport:
   - Population amount can now be adjusted if you select again the same target.
-  - Other GUI wil no more be affected by wild change in this panel.
+  - Other GUI will no more be affected by wild change in this panel.
 
 2024.11.19 (Frank Zago)
 - French translations and fixes.

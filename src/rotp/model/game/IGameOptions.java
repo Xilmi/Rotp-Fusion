@@ -797,6 +797,7 @@ public interface IGameOptions extends IModOptions {
 	void resetPanelSettingsToDefault (SafeListParam paramList, boolean excludeCfg, boolean excludeSubMenu);
 
 	void resetAllNonCfgSettingsToDefault();
+	void updateAllFromFile(String fileName);
 	void updateAllNonCfgFromFile(String fileName);
 	void copyAliensAISettings(IGameOptions dest);
 	

@@ -700,6 +700,7 @@ public class EmpireColonySpendingPane extends BasePanel {
         	
             // Specific optimizations
            	if (e.isShiftDown() && e.isControlDown()) { // Smooth Max Under test
+            	boolean v2 = !options().useSmartRefit();
            		colony.verifiedSmoothMaxSlider(category, e, true);
            	}
            	else if (e.isShiftDown()) { // Smart Max, clear the free spending
@@ -735,7 +736,8 @@ public class EmpireColonySpendingPane extends BasePanel {
 
             // Smooth Max
             else {
-            	colony.verifiedSmoothMaxSlider(category, e, false);
+            	boolean v2 = options().useSmartRefit();
+            	colony.verifiedSmoothMaxSlider(category, e, v2);
             	//colony.checkEcoAtClean();
             }
 

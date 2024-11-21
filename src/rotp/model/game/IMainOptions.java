@@ -832,4 +832,10 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	ParamBoolean scoutAndColonyOnly	= new ParamBoolean(MOD_UI, "SCOUT_AND_COLONY_ONLY", false)
 			.isCfgFile(true);
 	default boolean scoutAndColonyOnly()		{ return scoutAndColonyOnly.get(); }
+
+	// TODO BR: Add this option to a panel to be saved
+	int MAX_CASCADE_PANEL_SAVE_LOAD = 10;
+	ParamBoolean cascadeSubPanelSaveLoad	= new ParamBoolean(MOD_UI, "CASCADE_SUBPANEL_SAVE_LOAD", false)
+			.isCfgFile(true);
+	default int cascadeSubPanelSaveLoad() { return cascadeSubPanelSaveLoad.get()? MAX_CASCADE_PANEL_SAVE_LOAD : 0; }
 }

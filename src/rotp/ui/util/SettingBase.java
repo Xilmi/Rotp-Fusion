@@ -196,7 +196,8 @@ public class SettingBase<T> implements IParam {
 		if (!isSpacer && srcOptions != null)
 			setFromCfgValue(srcOptions.getString(getLangLabel(), getDefaultCfgValue()));
 	}
-	@Override public void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {
+	@Override public void copyOption(IGameOptions src, IGameOptions dest,
+									boolean updateTool, int cascadeSubMenu) {
 		if (!isSpacer && src != null && dest != null)
 			dest.dynOpts().setString(getLangLabel(), getCfgValue());
 		dest.dynOpts().setString(getLangLabel(), src.dynOpts().getString(getLangLabel(), getDefaultCfgValue()));

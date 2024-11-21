@@ -1213,7 +1213,7 @@ FLEETS_TITLE                      | Fleets
 FLEETS_SELECT_SYSTEMS             | Select Systems
 FLEETS_SELECT_FLEETS              | Select Fleets
 FLEETS_SELECT_ALL                 | Select All
-FLEETS_DESELECT_ALL               | Deselect All
+FLEETS_DESELECT_ALL               | Unselect All
 FLEETS_FILTER_BY                  | Filter by:
 FLEETS_CONSTRUCTING_DESIGN        | And building:
 FLEETS_INCLUDES_SHIP_TYPE         | Only Deploy Ships of Type:
@@ -1283,7 +1283,7 @@ FLEETS_EXISTING_TRANSPORT         | Sending %1 transports to %2
 FLEETS_EXISTING_STOP              | Stop
 FLEETS_CANCEL                     | Cancel
 FLEETS_HELP_ALL                   | OVERVIEW - This screen allows the management of fleets, transports and shipbuilding on a large scale. In general, you will select a group of fleets or systems to manage, filter them to a smaller set, and then choose the action to perform on them.
-FLEETS_HELP_1A                    | Select Systems - there are three ways to select systems: 1) by clicking systems on the map, 2) by right-click dragging over the map, and 3) by using the "Select All" and "Deselect All" buttons.
+FLEETS_HELP_1A                    | Select Systems - there are three ways to select systems: 1) by clicking systems on the map, 2) by right-click dragging over the map, and 3) by using the "Select All" and "Unselect All" buttons.
 FLEETS_HELP_1B                    | Filter By - select check boxes to narrow down the list of selected systems. Filters can also be clicked to cycle through related options.
 FLEETS_HELP_1C                    | And building - filter systems according to the ship design being constructed.
 FLEETS_HELP_1D                    | Ship Design - change the ship design to build in the selected systems. A blank image means that the selected systems are currently building different designs. Caution! There is no confirmation prompt for this action.
@@ -1292,7 +1292,7 @@ FLEETS_HELP_1F                    | Set Rally Points - set the rally points for 
 FLEETS_HELP_1G                    | →FLEETS_RALLY_TO_STARGATES←<br>Start rallying selected systems to the nearest system with a stargate.<br>- Based on "→CHAIN_RALLY_SPEED_HK←" setting.<br>- Selected systems with Stargates are not affected.
 FLEETS_HELP_1H                   | →MAIN_RALLY_CHAIN←<br>To minimize travel time by taking a shortcut via the nearest stargate. (Based on "→CHAIN_RALLY_SPEED_HK←" setting)<br>This will also enable "Forward Rally" on intermediate stargate systems.
 
-FLEETS_HELP_2A                    | Select Fleets - there are three ways to select fleets: 1) by clicking fleets on the map, 2) by right-click dragging over the map, and 3) by using the "Select All" and "Deselect All" buttons.
+FLEETS_HELP_2A                    | Select Fleets - there are three ways to select fleets: 1) by clicking fleets on the map, 2) by right-click dragging over the map, and 3) by using the "Select All" and "Unselect All" buttons.
 FLEETS_HELP_2B                    | Filter By - select check boxes to narrow down the list of selected fleets. Filters can also be clicked to cycle through related options.
 FLEETS_HELP_2C                    | Only Deploy Ships of Type - restrict the types of ships you want to deploy from your fleets.
 FLEETS_HELP_2D                    | Selected for Deployment - a count of ships, by type, that will be deployed.
@@ -2815,6 +2815,10 @@ SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
 SETTINGS_MOD_MAX_TECH_CAPTURED_HELP      | When invading an enemy colony, what is the maximum number of technologies that can be plundered?<br><b>Backwards Compatibility:</b> If tech theft was previously prohibited, this value will be initialized to 0.
 SETTINGS_MOD_MAX_TECH_CAPTURED_DESC      | When invading an enemy colony, what is the maximum number of technologies that can be plundered?
 SETTINGS_MOD_MAX_TECH_CAPTURED           | Max techs captured: %1
+
+SETTINGS_MOD_USE_SMART_REFIT_HELP        | Smart spending tools will maintain a balance between industry and ecology to maximize efficiency, by matching the number of factories to the number of workers.<br>When a robotic upgrade is available, the growth/factory balance will continue until the colony is fully populated, at which point the factories will be upgraded.
+SETTINGS_MOD_USE_SMART_REFIT_DESC        | The Smart Spending Tools will balance Industry and Ecology to maximize efficiency.
+SETTINGS_MOD_USE_SMART_REFIT             | Use Smart Refit: %1
 
 SETTINGS_MOD_DEVELOPED_DEFINITION_DESC   | When "→PLANETS_RESERVE_ONLY_DEVELOPED←" is selected, what should be completed?
 SETTINGS_MOD_DEVELOPED_DEFINITION        | Developed = %1

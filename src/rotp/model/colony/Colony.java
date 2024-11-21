@@ -944,7 +944,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
     }
     // BR: For spending panel UI
-    private int smoothAdjust (int cat, int adj, boolean prioritized, boolean hadShipSpending) {
+    private int smoothAdjust(int cat, int adj, boolean prioritized, boolean hadShipSpending) {
     	ColonySpendingCategory currCat = spending[cat];
     	int currentAllocation = currCat.allocation();
     	int allocationNeeded  = currCat.refreshAllocationNeeded(prioritized, hadShipSpending);
@@ -974,21 +974,21 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // Look for orders
         for (int i : refreshSeq) {
             if ((i != category) && !locked(i) && hasOrder(i)) {
-            	adj -= smoothAdjust (i, adj, true, hadShipSpending);
+            	adj -= smoothAdjust(i, adj, true, hadShipSpending);
             	if (adj==0)
             		return;
             }
         }
         // If we where building ships then continue
         if (!locked(SHIP) && (hadShipSpending || shipyard().buildLimit() > 0)) {
-        	adj -= smoothAdjust (SHIP, adj, false, hadShipSpending);
+        	adj -= smoothAdjust(SHIP, adj, false, hadShipSpending);
         	if (adj==0)
         		return;
         }
         if (!v2) {
             // funnel excess to industry if it's not completed
             if (!locked(INDUSTRY) && !industry().isCompleted()) {
-            	adj -= smoothAdjust (INDUSTRY, adj, true, hadShipSpending);
+            	adj -= smoothAdjust(INDUSTRY, adj, true, hadShipSpending);
 	        	if (adj==0)
 	        		return;
             }
@@ -996,7 +996,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // distribute the remaining
         for (int i : refreshSeq) {
             if ((i != category) && !locked(i)) {
-            	adj -= smoothAdjust (i, adj, false, hadShipSpending);
+            	adj -= smoothAdjust(i, adj, false, hadShipSpending);
             	if (adj==0)
             		return;
             }

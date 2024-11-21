@@ -372,7 +372,59 @@ public class ColonyIndustry extends ColonySpendingCategory {
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }
-    private float spendingNeeded() {
+    private float smoothRefitSpendingNeeded() {
+        float planetSize = planet().currentSize();
+        float expectedMissingPopulation	= planetSize - expectedPopulation();
+    	if (expectedMissingPopulation == 0)
+    		return this.smoothSpendingNeeded();
+    	
+        int colonyControls		= robotControls;
+        int effectiveControls	= effectiveRobotControls();
+        float builtFactories	= factories;
+        float notTobuild		= expectedMissingPopulation * effectiveControls;
+        builtFactories += notTobuild;
+
+        float totalCost = 0;
+        float buildableFactories = planetSize * effectiveControls;;
+        int previouslyConvertedFactories = 0;
+            
+        // if we already have that many factories, then let pop growth
+        if (buildableFactories <= builtFactories)
+        	return 0;
+
+        // first, try to convert existing alien factories to our max build limit
+        if (builtFactories < buildableFactories) {
+            int convertableFactories = convertableAlienFactories(colonyControls)-previouslyConvertedFactories;
+            if (convertableFactories > 0) {
+                float convertCost = convertableFactories * factoryConversionCost();
+                float delta = convertCost/factoryConversionCost();
+                totalCost += convertCost;
+                builtFactories += delta;
+                previouslyConvertedFactories += delta;
+            }
+        }
+        // second, try to build new factories at current controls
+        if (builtFactories < buildableFactories) {
+            float costPerFactory = tech().newFactoryCost(colonyControls);
+            float factoriesToBuild = buildableFactories-builtFactories;
+            float buildCost = factoriesToBuild * costPerFactory;
+            float delta = buildCost/costPerFactory;
+            totalCost += buildCost;
+            builtFactories += delta;
+        }
+        totalCost = max(0, totalCost-industryReserveBC);
+ 
+        // adjust cost for planetary production
+        // assume any amount over current production comes from reserve (no adjustment)
+        float totalBC = (colony().totalProductionIncome() * planet().productionAdj()) + colony().maxReserveIncome();
+        if (totalCost > totalBC)
+            totalCost += colony().totalProductionIncome() * (1 - planet().productionAdj());
+        else
+            totalCost *= colony().totalIncome() / totalBC;
+
+        return totalCost;
+    }
+    private float smoothSpendingNeeded() {
         float builtFactories = factories;
         int colonyControls = robotControls;
         float expectedMissingPopulation = planet().currentSize() - expectedPopulation();
@@ -381,7 +433,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
 
         float totalCost = 0;
         int previouslyConvertedFactories = 0;
-        
+       
         // Cost of all
         while (colonyControls <= tech().topRobotControls()) {
             // how many total factories can we have at current controls?
@@ -396,7 +448,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
                     totalCost += refitCost;
                 }
                 colonyControls++;
-            }          
+            }
             // first, try to convert existing alien factories to our max build limit
             if (builtFactories < buildableFactories) {
                 int convertableFactories = convertableAlienFactories(colonyControls)-previouslyConvertedFactories;
@@ -550,11 +602,25 @@ public class ColonyIndustry extends ColonySpendingCategory {
         p.addAlienFactories(randomEmpId, -1);
         newFactories++;
     }
+    @Override public int refreshAllocationNeeded(boolean prioritized, boolean hadShipSpending) {
+    	if (prioritized)
+    		return maxAllocationNeeded();
+    	float needed;
+    	if (options().useSmartRefit())
+    		needed = smoothRefitSpendingNeeded();
+    	else
+    		needed = smoothSpendingNeeded();
+        if (needed <= 0)
+            return 0;
+        float pctNeeded = min(1, needed / colony().totalIncome());
+        int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
+        return ticks;
+    }
     @Override public int smoothAllocationNeeded(boolean prioritized) {
     	if (prioritized)
     		return maxAllocationNeeded();
 
-    	float needed = spendingNeeded();
+    	float needed = smoothSpendingNeeded();
         if (needed <= 0)
             return 0;
         float pctNeeded = min(1, needed / colony().totalIncome());

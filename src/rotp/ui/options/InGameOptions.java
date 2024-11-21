@@ -76,7 +76,8 @@ public final class InGameOptions extends AbstractOptionsSubUI {
 				defaultChainRally, 	chainRallySpeed,
 				showAlliancesGNN, hideMinorReports,
 				showAllocatePopUp, showLimitedWarnings,
-				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
+				techExchangeAutoRefuse, autoTerraformEnding,
+				trackUFOsAcrossTurns, useSmartRefit
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("MENU_OPTIONS"),

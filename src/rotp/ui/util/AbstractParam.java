@@ -16,10 +16,10 @@
 
 package rotp.ui.util;
 
+import static rotp.model.game.DefaultValues.DEF_VAL;
 import static rotp.model.game.DefaultValues.FUSION_DEFAULT;
 import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
-import static rotp.model.game.DefaultValues.DEF_VAL;
 import static rotp.model.game.IGovOptions.NOT_GOVERNOR;
 import static rotp.ui.util.IParam.langLabel;
 import static rotp.util.Base.textSubs;
@@ -153,17 +153,18 @@ public abstract class AbstractParam <T> implements IParam {
 		else
 			set(getOptionValue(opts()));
 	}
-	@Override public void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {
+	@Override public void copyOption(IGameOptions src, IGameOptions dest,
+									boolean updateTool, int cascadeSubMenu) { // TODO BR: Double check this
 		if (src == null || dest == null)
 			return;
 		T val;
-		if (isCfgFile && src == opts())
+		if (isCfgFile && src == opts()) // current option get current value
 			val = getOption();
-		else 
-			val = getOptionValue(src);
+		else
+			val = getOptionValue(src); // get from the source
 		if (updateTool)
 			set(val);
-		if (isCfgFile && dest == opts())
+		if (isCfgFile && dest == opts()) // dest = current: update cfg file
 			setOption(val);
 		else
 			setOptionValue(dest, val);

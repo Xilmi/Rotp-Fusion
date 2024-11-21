@@ -67,6 +67,7 @@ import rotp.ui.options.AllSubUI;
 import rotp.ui.options.GalaxyMenuOptions;
 import rotp.ui.options.RaceMenuOptions;
 import rotp.ui.util.IParam;
+import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
 import rotp.util.Rand;
@@ -349,7 +350,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         
         SafeListParam list = AllSubUI.systemSubUI().optionsList();
         for (IParam param : list)
-        	param.copyOption(oldOpt, this, true);
+        	param.copyOption(oldOpt, this, true, 5);
 
         setGalaxyShape(); 
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
@@ -1385,31 +1386,59 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        		for (IParam param : AllSubUI.allModOptions(false))
         		param.initDependencies(IParam.VALID_DEPENDENCIES);
     }
-    @Override public void saveOptionsToFile(String fileName) {
-    	saveOptions(this, fileName);
-    }
-    @Override public void saveOptionsToFile(String fileName, SafeListParam pList) {
+    @Override public void saveOptionsToFile(String fileName)	{ saveOptions(this, fileName); } // All
+    @Override public void saveOptionsToFile(String fileName, SafeListParam pList) { // Local
     	// No dependencies update on load... this will on final load.
     	if (pList == null)
     		return;
     	// Load the previous state
+    	int cascadeSubPanel = cascadeSubPanelSaveLoad();
+    	
     	MOO1GameOptions fileOptions = loadOptions(fileName);
     	// Then merge with the listed options
-       	for (IParam param : pList)
-       		if (param != null) {
-       			param.copyOption(this, fileOptions, false); // don't update tool
-       		}
+       	for (IParam param : pList) {
+       		if (param == null)
+				continue;
+       		if (cascadeSubPanel==0 && param instanceof ParamSubUI)
+				continue;
+     		param.copyOption(this, fileOptions, false, cascadeSubPanel); // don't update tool
+       	}
         saveOptions(fileOptions, fileName);
     }
-    @Override public void updateAllNonCfgFromFile(String fileName) {
+    @Override public void updateAllFromFile(String fileName) { // Only for restore!
     	MOO1GameOptions source = loadOptions(fileName);
        	for (IParam param : AllSubUI.allModOptions(false)) {
-       		if (param != null) {
+       		if (param == null)
+				continue;
+       		if (param instanceof ParamSubUI)
+				continue; // all sub-param are already in the list
+       		else {
 	       		if (param.isCfgFile()) { // Exclude .cfg parameters
 	       			param.updateOptionTool();
 	       		}
 	       		else {
-	       			param.copyOption(source, this, true); // Copy and update tool
+	       			param.copyOption(source, this, true, 0); // Copy and update tool
+	       		}
+       		}
+       	}
+       	if (!Rotp.noOptions) // Better safe than sorry
+       		for (IParam param : AllSubUI.allModOptions(false))
+        		param.initDependencies(IParam.VALID_DEPENDENCIES);
+        source.copyAllBaseSettings(this);
+    }
+    @Override public void updateAllNonCfgFromFile(String fileName) {
+    	MOO1GameOptions source = loadOptions(fileName);
+       	for (IParam param : AllSubUI.allModOptions(false)) {
+       		if (param == null)
+				continue;
+       		if (param instanceof ParamSubUI)
+				continue; // all sub-param are already in the list
+       		else {
+	       		if (param.isCfgFile()) { // Exclude .cfg parameters
+	       			param.updateOptionTool(); // TODO BR: Double check (exclude)
+	       		}
+	       		else {
+	       			param.copyOption(source, this, true, 0); // Copy and update tool
 	       		}
        		}
        	}
@@ -1419,26 +1448,35 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         source.copyAllBaseSettings(this);
     }
     @Override public void updateFromFile(String fileName, SafeListParam pList) {
-   	if (pList == null)
-    		return;
+	   	if (pList == null)
+	    		return;
+
+	   	int cascadeSubPanel = cascadeSubPanelSaveLoad();
     	MOO1GameOptions source = loadOptions(fileName);
     	
     	if (pList == RotPUI.mainOptionsUI().activeList()) {
            	for (IParam param : pList) {
-           		if (param != null) {
-           			param.copyOption(source, this, true); // update tool
-           		}
+           		if (param == null)
+    				continue;
+           		boolean paramIsSubUI = param instanceof ParamSubUI;
+           		if (cascadeSubPanel<=0 && paramIsSubUI)
+    				continue;
+       			param.copyOption(source, this, true, cascadeSubPanel); // update tool
            	}
     	}
     	else {
 	       	for (IParam param : pList) {
-	       		if (param != null) {
-		       		if (param.isCfgFile()) { // Exclude .cfg parameters
-		       			param.updateOptionTool();
-		       		}
-		       		else {
-		       			param.copyOption(source, this, true); // Copy and update tool
-		       		}
+           		if (param == null)
+    				continue;
+           		boolean paramIsSubUI = param instanceof ParamSubUI;
+           		if (cascadeSubPanel<=0 && paramIsSubUI)
+    				continue;
+	       		if (param.isCfgFile()) { // Exclude .cfg parameters
+	       			if (!paramIsSubUI)
+	       				param.updateOptionTool();
+	       		}
+	       		else {
+	       			param.copyOption(source, this, true, cascadeSubPanel); // Copy and update tool
 	       		}
 	       	}
     	}
@@ -1494,7 +1532,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	MOO1GameOptions live = loadOptions(LIVE_OPTIONS_FILE);
     	saveOptions(live, Rotp.jarPath(), LAST_OPTIONS_FILE);
     }
-    private static MOO1GameOptions loadOptions(String fileName) {
+    private static MOO1GameOptions loadOptions(String fileName) { // Just load, no param update
     	MOO1GameOptions dest = loadOptions(Rotp.jarPath(), fileName);
    		return dest;
     }
@@ -1547,7 +1585,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		return newOptions;    	
     }
     // BR: Load options from file
-    private static MOO1GameOptions loadOptions(String path, String fileName) {
+    private static MOO1GameOptions loadOptions(String path, String fileName) { // Just load, no param update
        	MOO1GameOptions newOptions;
 		File loadFile = new File(path, fileName);
 		if (loadFile.exists()) {

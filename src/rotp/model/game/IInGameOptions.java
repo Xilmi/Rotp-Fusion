@@ -320,4 +320,9 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	default boolean rallyLossDefense()	{ return rallyCombatLoss.get().equals(COMBAT_LOSS_DEFENSES); }
 	default boolean rallyLossRally()	{ return rallyCombatLoss.get().equals(COMBAT_LOSS_RALLY); }
 	default boolean rallyLossShared()	{ return rallyCombatLoss.get().equals(COMBAT_LOSS_SHARED); }
+
+	ParamBoolean useSmartRefit		= new ParamBoolean(MOD_UI, "USE_SMART_REFIT", true);
+	default boolean useSmartRefit()		{ return useSmartRefit.get(); }
+
+
 }
