@@ -372,11 +372,13 @@ public class ColonyIndustry extends ColonySpendingCategory {
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }
-    private float smoothRefitSpendingNeeded() {
+    private float smoothRefitSpendingNeeded(float targetPopPct) {
         float planetSize = planet().currentSize();
-        float expectedMissingPopulation	= planetSize - expectedPopulation();
-    	if (expectedMissingPopulation == 0)
-    		return this.smoothSpendingNeeded();
+        float expectedMissingPopulation	= planetSize - colony().expectedPopulationLongTerm();
+        float allowedMissingPopulation	= planetSize * (1-targetPopPct);
+        // You may want some natural growth
+    	if (expectedMissingPopulation <= allowedMissingPopulation)
+    		return smoothSpendingNeeded();
     	
         int colonyControls		= robotControls;
         int effectiveControls	= effectiveRobotControls();
@@ -602,12 +604,12 @@ public class ColonyIndustry extends ColonySpendingCategory {
         p.addAlienFactories(randomEmpId, -1);
         newFactories++;
     }
-    @Override public int refreshAllocationNeeded(boolean prioritized, boolean hadShipSpending) {
+    @Override public int refreshAllocationNeeded(boolean prioritized, boolean hadShipSpending, float targetPopPct) {
     	if (prioritized)
     		return maxAllocationNeeded();
     	float needed;
     	if (options().useSmartRefit())
-    		needed = smoothRefitSpendingNeeded();
+    		needed = smoothRefitSpendingNeeded(targetPopPct);
     	else
     		needed = smoothSpendingNeeded();
         if (needed <= 0)

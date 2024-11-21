@@ -7,6 +7,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
 - New option for the Smart spending tools to maintain a balance between industry and ecology to maximize efficiency, this by matching the number of factories to the number of workers. When a robotic upgrade is available, the growth/factory balance will continue until the colony is fully populated, at which point the factories will be upgraded.
+  - When selected, the Governor will also use it.
+  - Smart Spending "Refit" version will also take into account the incoming population.
 - Mass Transport:
   - Population amount can now be adjusted if you select again the same target.
   - Other GUI will no more be affected by wild change in this panel.

@@ -458,27 +458,26 @@ public class ColonyEcology extends ColonySpendingCategory {
         }
         return newPopPurchaseable;
     }
-    private float getNewPopPurchasableLongTerm() {
-        float maxPopSize = colony().maxSize();
+    private float getNewPopPurchasableLongTerm(float targetPopRatio) {
+        float maxPopSize = targetPopRatio * colony().maxSize();
         float newPopPurchaseable = maxPopSize - colony().expectedPopulationLongTerm();
         switch (options().selectedPopGrowthFactor()) {
             case "Reduced":
                 newPopPurchaseable = min(newPopPurchaseable, maxPopSize/tech().populationCost());
         }
-        if (newPopPurchaseable < 0) {
+        if (newPopPurchaseable < 0)
             return 0;
-        }
         return newPopPurchaseable;
     }
-
-    public float maxSpendingNeeded() {
+    private float targetSpendingNeeded(float targetPopPct) {
         // cost to terraform planet
         float tform = terraformSpendingNeeded();
         // try to buy new population
-        float newPopCost = getNewPopPurchasableLongTerm() * tech().populationCost();
+        float newPopCost = getNewPopPurchasableLongTerm(targetPopPct) * tech().populationCost();
         newPopCost = max(0,newPopCost);
         return tform + newPopCost;
     }
+    public float maxSpendingNeeded() { return targetSpendingNeeded(1.0f); }
     public float[] planetBoostCost() {
     	float[] planetBoostCost = new float[5];
         Empire emp = empire();
@@ -578,14 +577,18 @@ public class ColonyEcology extends ColonySpendingCategory {
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }
-    public int maxAllocationNeeded() {
-        float needed = maxSpendingNeeded();
+    public int maxAllocationNeeded()	{ return targetAllocationNeeded(1.0f); }
+    private int targetAllocationNeeded(float targetPopPct)	{
+        float needed = targetSpendingNeeded(targetPopPct);
         if (needed <= 0)
             return 0;
         float prod = colony().totalIncome();
         float pctNeeded = min(1, needed / prod);
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
+    }
+    @Override public int refreshAllocationNeeded(boolean prioritized, boolean hadShipSpending, float targetPopPct) {
+    	return targetAllocationNeeded(targetPopPct);
     }
     @Override public int smoothAllocationNeeded(boolean prioritized) { return maxAllocationNeeded(); }
     @Override public int smartAllocationNeeded(MouseEvent e) {
