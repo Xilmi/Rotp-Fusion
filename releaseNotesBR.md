@@ -90,7 +90,3 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs.
   - French translation improvement.
 - Plenty of little bug fixes.
-
-
-I don't know if thes massive invasion are part of Xilmi AI featured strategy, or just the result of selecting the best possible war action...
-All the limitations are easy to implements, but to not unbalance the game because the AI don't take the new rules into account is another thing
