@@ -1317,6 +1317,24 @@ public final class Empire implements Base, NamedObject, Serializable {
                 sv.colony(i).assessTurn();
         }
     }
+    public int[] needCleaning() {
+    	int unlockedDirty = 0;
+    	int lockedDirty   = 0;
+        List<StarSystem> systems = new ArrayList<>(colonizedSystems);
+        for (StarSystem sys: systems)
+            if (sys != null && sys.isColonized()) {
+            	int[] intArr = sys.colony().needCleaning();
+            	unlockedDirty += intArr[0];
+            	lockedDirty	  += intArr[1];
+            	}
+        return new int[] {unlockedDirty, lockedDirty};
+    }
+    public void checkEcoAtClean(boolean evenIfLocked) {
+        List<StarSystem> systems = new ArrayList<>(colonizedSystems);
+        for (StarSystem sys: systems)
+            if (sys != null && sys.isColonized())
+                sys.colony().checkEcoAtClean(evenIfLocked);
+    }
     public void lowerECOToCleanIfEcoComplete() {
         List<StarSystem> systems = new ArrayList<>(colonizedSystems);
         for (StarSystem sys: systems) {

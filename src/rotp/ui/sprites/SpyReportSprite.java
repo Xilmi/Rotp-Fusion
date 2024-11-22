@@ -30,11 +30,22 @@ import rotp.ui.main.GalaxyMapPanel;
 
 public class SpyReportSprite extends MapControlSprite {
     static LinearGradientPaint alertBack;
-    public SpyReportSprite(int xOff, int yOff, int w, int h) {
+    private int yOrigin, yShift;
+    public SpyReportSprite(int xOff, int yOff, int w, int h, int shift) {
         xOffset = scaled(xOff);
         yOffset = scaled(yOff);
-        width = scaled(w);
-        height = scaled(h);
+        width   = scaled(w);
+        height  = scaled(h);
+        yShift  = scaled(yOff-shift);
+        yOrigin = yOffset;
+    }
+    public void updateLocation() {
+    	if (session().aFewMoreTurns()) {
+    		yOffset = yOrigin;
+    	}
+    	else {
+    		yOffset = yShift;
+    	}
     }
     @Override
     public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {

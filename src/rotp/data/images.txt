@@ -11,6 +11,7 @@ DERELICT_SHIP       | images/Derelict_Ship.jpg
 SPY_REPORT          | images/spy-report.png
 DIPLOMAT_MUTED      | images/muted.png
 NO_GOVERNOR         | images/beach.png
+CLEAN_BUTTON        | images/cleanButton.png
 
 // modnar: add clean icons
 ROTP_MOD_ICON1      | images/rotp_custom_ico_4_medium.png

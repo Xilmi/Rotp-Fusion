@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.11.22 (BR)
+- New icon to inform about the presence of unclean colonies, and provide a way to clean them all.
+
 2024.11.21 (BR)
 - New option for the Smart spending tools to maintain a balance between industry and ecology to maximize efficiency, this by matching the number of factories to the number of workers. When a robotic upgrade is available, the growth/factory balance will continue until the colony is fully populated, at which point the factories will be upgraded.
   - When selected, the Governor will also use it.

@@ -493,7 +493,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public void smoothMaxSlider(int category) {
     	if(locked(category))
     		return;
-    	verifiedSmoothMaxSlider(category, null, false); // TODO BR: Validate to set it to true for better balance
+    	verifiedSmoothMaxSlider(category, null, true); // TODO BR: Validate to set it to true for better balance
     }
     public void verifiedSmoothMaxSlider(int category, MouseEvent e, boolean v2) {
     	int prevTech = allocation(RESEARCH);
@@ -738,6 +738,27 @@ public final class Colony implements Base, IMappedObject, Serializable {
             addColonyOrder(Colony.Orders.SHIELD, orderAmt);
         else if (!def.missileBasesCompleted())
             addColonyOrder(Colony.Orders.BASES, orderAmt/5);
+    }
+    public int[] needCleaning()	{
+    	int unlockedDirty = 0;
+    	int lockedDirty   = 0;
+        int cleanAlloc = ecology().cleanupAllocationNeeded();
+        if (allocation[ECOLOGY] < cleanAlloc) {
+        	if (locked[ECOLOGY])
+        		lockedDirty = 1;
+        	else
+        		unlockedDirty = 1;
+        }
+        return new int[] {unlockedDirty, lockedDirty};
+    }
+    public void checkEcoAtClean(boolean evenIfLocked) {
+    	if (evenIfLocked && locked[ECOLOGY]) {
+    		locked(ECOLOGY, false);
+    		checkEcoAtClean();
+    		locked(ECOLOGY, true);
+    	}
+    	else
+    		checkEcoAtClean();
     }
     public void checkEcoAtClean() {
         recalcSpendingForNewTaxRate = false;

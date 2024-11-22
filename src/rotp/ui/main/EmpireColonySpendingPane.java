@@ -809,12 +809,15 @@ public class EmpireColonySpendingPane extends BasePanel {
 //		    		return;
 //	        }
         }
-        @Override public void mouseClicked(MouseEvent arg0) {}
-        @Override public void mouseEntered(MouseEvent arg0) {}
-        @Override public void mouseExited(MouseEvent arg0) {
+        @Override public void mouseClicked(MouseEvent e) {}
+        @Override public void mouseEntered(MouseEvent e) {}
+        @Override public void mouseExited(MouseEvent e)  {
             if (hoverBox != null) {
                 hoverBox = null;
                 repaint();
+            }
+            if (!getVisibleRect().contains(e.getPoint()) ) {
+            	GalaxyMapPanel.checkForEcoClean();
             }
         }
         @Override public void mousePressed(MouseEvent ev) { }
@@ -881,7 +884,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                 }
             }
         }
-        @Override public void mouseDragged(MouseEvent arg0) { }
+        @Override public void mouseDragged(MouseEvent e) { }
         @Override public void mouseMoved(MouseEvent e) {
             int x = e.getX();
             int y = e.getY();

@@ -696,6 +696,12 @@ SAVE_GAME_OK                      | Save
 // Intro UI
 INTRO_BEGIN                       | Begin
 
+MOD_MAIN_COLONIES_ARE_CLEAN       | All your colonies are clean.
+MOD_MAIN_COLONIES_ARE_DIRTY_ALL1  | One colony needs cleaning.
+MOD_MAIN_COLONIES_ARE_DIRTY_ALL   | %1 colonies need cleaning.
+MOD_MAIN_COLONIES_ARE_DIRTY_LOCK1 | <br> One is locked.
+MOD_MAIN_COLONIES_ARE_DIRTY_LOCK  | <br> %1 are locked.
+
 // MAIN UI - Bottom Navigation options
 MAIN_NAVIGATION_GAME              | Game
 MAIN_NAVIGATION_DESIGN            | Designs

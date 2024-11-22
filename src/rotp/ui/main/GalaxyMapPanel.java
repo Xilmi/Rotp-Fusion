@@ -70,6 +70,7 @@ import rotp.ui.UserPreferences;
 import rotp.ui.history.HistoryUI.GalaxyMapPane;
 import rotp.ui.map.IMapHandler;
 import rotp.ui.sprites.AFewMoreTurnsSprite;
+import rotp.ui.sprites.CleanWidgetSprite;
 import rotp.ui.sprites.FlightPathDisplaySprite;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.GridCircularDisplaySprite;
@@ -120,6 +121,8 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     private static float scaleX, scaleY;
     private static float sizeX, sizeY;
     private static final List<Sprite> baseControls = new ArrayList<>();
+    private static CleanWidgetSprite cleanWidgetSprite;
+    private static SpyReportSprite   spyReportSprite;
 
     private float desiredScale;
     private Image mapBuffer;
@@ -149,7 +152,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     private static int targetSysId = NO_TARGET;
     private boolean lastHoverAltDown = false;
 
-    
+    public static void checkForEcoClean()	{ cleanWidgetSprite.checkForEcoClean(); }
     public static boolean isWarView()	 	{ return warView; }
     public static void toggleWarView()	 	{ warView = !warView; }
     private void clearWarView()				{
@@ -217,36 +220,83 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 //        showGridCircular = parent.defaultGridCircularDisplay();
 
         if (baseControls.isEmpty()) {
+        	int x = 10; // was 50
+        	int y = 40; // was 50
+        	int h = 30;
+        	int step = 35;
+        	int yOff = step-step/2;
+            baseControls.add(new SystemNameDisplaySprite(x, y, h, h));
+            y += step;
+            baseControls.add(new ShipDisplaySprite(x, y, h, h));
+            y += step;
+            baseControls.add(new FlightPathDisplaySprite(x, y, h, h));
+            y += step;
+            baseControls.add(new GridCircularDisplaySprite(x, y, h, h));
+            y += step;
+            baseControls.add(new RangeDisplaySprite(x, y, h, h));
+            y += step;
+            baseControls.add(new ZoomInWidgetSprite(x, y, h, h));
+            y += step;
+        	baseControls.add(new ZoomOutWidgetSprite(x, y, h, h));
+            y += step;
         	if (Rotp.isUnderTest()) { // TODO BR: REMOVE Rotp.isUnderTest()
-        		baseControls.add(new RulesWidgetSprite(10,330,30,30));
-        		baseControls.add(new SettingsWidgetSprite(10,295,30,30));
+        		yOff = 0;
+        		baseControls.add(new SettingsWidgetSprite(x, y, h, h));
+        		y += step;
+        		baseControls.add(new RulesWidgetSprite(x, y, h, h));
         	}
-        	else
-        		baseControls.add(new OptionsWidgetSprite(10,295,30,30));
-            baseControls.add(new ZoomOutWidgetSprite(10,260,30,30));
-            baseControls.add(new ZoomInWidgetSprite(10,225,30,30));
-            baseControls.add(new RangeDisplaySprite(10,190,30,30));
-            baseControls.add(new GridCircularDisplaySprite(10,155,30,30));
-            baseControls.add(new FlightPathDisplaySprite(10,120,30,30));
-            baseControls.add(new ShipDisplaySprite(10,85,30,30));
-            baseControls.add(new SystemNameDisplaySprite(10,50,30,30));
+        	else {
+        		baseControls.add(new OptionsWidgetSprite(x, y, h, h));
+        	}
+        	y += step + yOff;
+        	int shift = step-step/2;
+         	cleanWidgetSprite = new CleanWidgetSprite(x, y, h, h, shift);
+         	baseControls.add(cleanWidgetSprite);
+        	y += step;
+       		//baseControls.add(new OptionsWidgetSprite(x, y, h, h));
+       		baseControls.add(new AFewMoreTurnsSprite(x, y, h, h));
+        	y += step;
+        	spyReportSprite = new SpyReportSprite(x, y, h, h, step-shift);
+        	baseControls.add(spyReportSprite);
 
-            int y0 = unscaled(getHeight())-310;
-            baseControls.add(new TechStatusSprite(TechCategory.WEAPON,       10,y0+210,30,30));
-            baseControls.add(new TechStatusSprite(TechCategory.PROPULSION,   10,y0+175,30,30));
-            baseControls.add(new TechStatusSprite(TechCategory.PLANETOLOGY,  10,y0+140,30,30));
-            baseControls.add(new TechStatusSprite(TechCategory.FORCE_FIELD,  10,y0+105, 30,30));
-            baseControls.add(new TechStatusSprite(TechCategory.CONSTRUCTION, 10,y0+70, 30,30));
-            baseControls.add(new TechStatusSprite(TechCategory.COMPUTER,     10,y0+35, 30,30));
-            baseControls.add(new TreasurySprite(10,y0, 30,30));
-           	if (Rotp.isUnderTest()) { // TODO BR: REMOVE Rotp.isUnderTest()
-           		baseControls.add(new SpyReportSprite(10, y0-65, 30, 30));
-           		baseControls.add(new AFewMoreTurnsSprite(10, y0-100, 30,30));
-           	}
-           	else {
-           		baseControls.add(new SpyReportSprite(10, y0-70, 30,30));
-           		baseControls.add(new AFewMoreTurnsSprite(10, y0-105, 30,30));
-           	}
+       		int y0 = unscaled(getHeight())-98;
+        	baseControls.add(new TechStatusSprite(TechCategory.WEAPON, x, y0, h, h));
+        	y0 -= step;
+            baseControls.add(new TechStatusSprite(TechCategory.PROPULSION, x, y0, h, h));
+        	y0 -= step;
+            baseControls.add(new TechStatusSprite(TechCategory.PLANETOLOGY, x, y0, h, h));
+        	y0 -= step;
+            baseControls.add(new TechStatusSprite(TechCategory.FORCE_FIELD, x, y0, h, h));
+        	y0 -= step;
+            baseControls.add(new TechStatusSprite(TechCategory.CONSTRUCTION, x, y0, h, h));
+        	y0 -= step;
+            baseControls.add(new TechStatusSprite(TechCategory.COMPUTER, x, y0, h, h));
+        	y0 -= step;
+            baseControls.add(new TreasurySprite(x, y0, h, h));
+
+
+//        	baseControls.add(new ZoomOutWidgetSprite(10,260,30,30));
+//            baseControls.add(new ZoomInWidgetSprite(10,225,30,30));
+//            baseControls.add(new RangeDisplaySprite(10,190,30,30));
+//            baseControls.add(new GridCircularDisplaySprite(10,155,30,30));
+//            baseControls.add(new FlightPathDisplaySprite(10,120,30,30));
+//            baseControls.add(new ShipDisplaySprite(10,85,30,30));
+//            baseControls.add(new SystemNameDisplaySprite(10,50,30,30));
+//
+//            int y0 = unscaled(getHeight())-310;
+//            baseControls.add(new TechStatusSprite(TechCategory.WEAPON,       10,y0+210,30,30));
+//            baseControls.add(new TechStatusSprite(TechCategory.PROPULSION,   10,y0+175,30,30));
+//            baseControls.add(new TechStatusSprite(TechCategory.PLANETOLOGY,  10,y0+140,30,30));
+//            baseControls.add(new TechStatusSprite(TechCategory.FORCE_FIELD,  10,y0+105, 30,30));
+//            baseControls.add(new TechStatusSprite(TechCategory.CONSTRUCTION, 10,y0+70, 30,30));
+//            baseControls.add(new TechStatusSprite(TechCategory.COMPUTER,     10,y0+35, 30,30));
+//            baseControls.add(new TreasurySprite(10,y0, 30,30));
+//
+//            int yLow = y0 - yOff;
+//       		baseControls.add(new SpyReportSprite(10, yLow, 30, 30));
+//       		yLow-=35;
+//       		//baseControls.add(new AFewMoreTurnsSprite(10, yLow, 30, 30));
+//       		baseControls.add(new OptionsWidgetSprite(10, yLow, 30, 30));
         }
         
         addMouseListener(this);
@@ -443,6 +493,8 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         else
             maxMouseVelocity = -1;
         RotPUI.instance().techUI().resetPlanetaryResearch();
+        spyReportSprite.updateLocation();
+        cleanWidgetSprite.updateLocation();
         //repaintTechStatus();
     }
     public void clearRangeMap()   { redrawRangeMap = true; }

@@ -41,9 +41,9 @@ public class HelpSprite extends MapSprite {
     public HelpSprite(BasePanel p)  { 
         parent = p; 
         int x0 = BasePanel.s10;
-        int y0 = BasePanel.s10;
+        int y0 = BasePanel.s8;
         int w0 = BasePanel.s20;
-        int h0 = BasePanel.s25;
+        int h0 = BasePanel.s20;
 
         setBounds(x0,y0,w0,h0);
     }
@@ -60,11 +60,11 @@ public class HelpSprite extends MapSprite {
     @Override
     public void draw(GalaxyMapPanel map, Graphics2D g) {
         int x1 = BasePanel.s16;
-        int y1 = BasePanel.s30;
+        int y1 = BasePanel.s26;
         
         g.setColor(new Color(100,100,255,100));
         g.fillOval(mapX, mapY, buttonW, buttonH);
-        g.setFont(narrowFont(25));
+        g.setFont(narrowFont(20));
         if (hovering)
             g.setColor(Color.yellow);
         else

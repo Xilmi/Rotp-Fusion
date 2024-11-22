@@ -6,6 +6,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- New icon to inform about the presence of unclean colonies, and provide a way to clean them all.
 - New option for the Smart spending tools to maintain a balance between industry and ecology to maximize efficiency, this by matching the number of factories to the number of workers. When a robotic upgrade is available, the growth/factory balance will continue until the colony is fully populated, at which point the factories will be upgraded.
   - When selected, the Governor will also use it.
   - Smart Spending "Refit" version will also take into account the incoming population.
@@ -89,3 +90,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs.
   - French translation improvement.
 - Plenty of little bug fixes.
+
+
+I don't know if thes massive invasion are part of Xilmi AI featured strategy, or just the result of selecting the best possible war action...
+All the limitations are easy to implements, but to not unbalance the game because the AI don't take the new rules into account is another thing
