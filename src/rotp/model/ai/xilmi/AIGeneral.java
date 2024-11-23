@@ -372,7 +372,7 @@ public class AIGeneral implements Base, General {
         }
         if(techCount > 0)
             avgTechCost /= techCount;
-        float techCaptureCountEstimate = min(6, techCount, 0.02f * expectedFactoriesAtArrival);
+        float techCaptureCountEstimate = min(options().maxTechsCaptured(), techCount, 0.02f * expectedFactoriesAtArrival);
         float techCaputureGain = techCaptureCountEstimate * avgTechCost;
         invasionGain += techCaputureGain;
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+": Considering invasion of "+sys.name()+" invasionGain: "+invasionGain+" from Tech: "+techCaputureGain);
