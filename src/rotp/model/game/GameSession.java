@@ -571,7 +571,7 @@ public final class GameSession implements Base, Serializable {
                     RotPUI.instance().selectMainPanel();
                 }
                 gal.refreshAllEmpireViews();
-                gal.postNextTurn2(); // Ship and colonies interaction
+                gal.postNextTurn2(); // Ship and colonies interaction => Troop Invasion
 
                 if (!inProgress())
                     return;

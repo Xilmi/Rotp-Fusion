@@ -761,7 +761,7 @@ MAIN_HELP_MOD_1B                  | To access Governor's Options Menu.
 MAIN_HELP_MOD_1F                  | Turn alerts may appear there: Right click on them to center the map on the system. Left click to show the next alert.
 MAIN_HELP_MOD_1I                  | To access "Options" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
 MAIN_HELP_MOD_1J                  | To access "Options" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
-MAIN_HELP_MOD_1K                  | Colony Ecology Report.<br>Left-Click to clean all unlocked Eco.<br>Right-Click to also clean locked Eco.
+MAIN_HELP_MOD_1K                  | Colony Ecology Report.<br>No key modifier: Packages cleaning.<br>Shift: Minimal group cleaning.<br>Ctrl: Clean everything
 MAIN_HELP_MOD_1L                  | You are continuing a terminated game. Click to stop and see the Game-Over panel again.<br>(After triggering "Next-Turn")
 
 MAIN_HELP_1A                      | Each star system divides its production into five areas. Grayed bars indicate that the production bar has been locked and will not change. Click on the name to lock/unlock.

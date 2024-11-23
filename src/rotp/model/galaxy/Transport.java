@@ -18,6 +18,7 @@ package rotp.model.galaxy;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
+
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.tech.TechArmor;
@@ -219,18 +220,18 @@ public class Transport extends FleetBase {
         else
             return normalTime;
     }
-//    public float travelTime(IMappedObject fr, StarSystem to) {
-//        //float speed = empire.transportSpeed(fr, to);
-//        float normalTime = travelTimeAdjusted(fr ,to, travelSpeed);
-//
-//        if (fr instanceof StarSystem) {
-//            StarSystem fromSystem = (StarSystem) fr;
-//            if ((fromSystem.empire() == to.empire()) && (fromSystem.empire() == empire)
-//            && fromSystem.colony().shipyard().hasStargate() && to.colony().shipyard().hasStargate())
-//                return min(1, normalTime);
-//        }
-//        return normalTime;
-//    }
+    /* public float travelTime(IMappedObject fr, StarSystem to) {
+        //float speed = empire.transportSpeed(fr, to);
+        float normalTime = travelTimeAdjusted(fr ,to, travelSpeed);
+
+        if (fr instanceof StarSystem) {
+            StarSystem fromSystem = (StarSystem) fr;
+            if ((fromSystem.empire() == to.empire()) && (fromSystem.empire() == empire)
+            && fromSystem.colony().shipyard().hasStargate() && to.colony().shipyard().hasStargate())
+                return min(1, normalTime);
+        }
+        return normalTime;
+    } */
     
     // Why does Transport.travelTurnsRemaining() check whether it's inTransit?
     // It sort of works, since Transports don't have a "deployed, not in transit" state like ShipFleet,
@@ -246,15 +247,15 @@ public class Transport extends FleetBase {
         // take the worst time
         return galaxy().currentTime() + max(setTime, directTime);
     }
-//    public boolean  changeDestination(StarSystem to) {
-//        if (inTransit()
-//        && validDestination(id(to))) {
-//            setDest(to);
-//            targetEmp = to.empire();
-//            return true;
-//        }
-//        return false;
-//    }
+    /* public boolean  changeDestination(StarSystem to) {
+        if (inTransit()
+        && validDestination(id(to))) {
+            setDest(to);
+            targetEmp = to.empire();
+            return true;
+        }
+        return false;
+    } */
     void joinWith(Transport tr) {
         size += tr.size;
         originalSize += tr.originalSize;

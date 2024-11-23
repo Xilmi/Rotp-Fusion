@@ -69,9 +69,13 @@ Later:
 
 ## What's New
 
+2024.11.24 (BR)
+- Transport troop equipment is now displayed on the right side panel.
+
 2024.11.23 (BR)
 - Unclean Colony Icon gives more choice.
 - Fixed Smart spending not building enough factories.
+- The mouse event is now propagated up to the sprites.
 
 2024.11.23 (Xilmi)
 - Make AI aware of amount of capturable techs.

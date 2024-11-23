@@ -6,6 +6,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- Transport troop equipment is now displayed on the right side panel.
 - Make AI aware of amount of capturable techs. (Xilmi)
   - This should prevent the AI from going insane with invasions trying to capture techs when tech-capturing is disabled.
 - Unclean Colony Icon gives more choice.

@@ -23,6 +23,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
@@ -31,13 +32,15 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.List;
+
+import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.ui.BasePanel;
+import rotp.util.ModifierKeysState;
 
 public class TransportPanel extends BasePanel {
     private static final long serialVersionUID = 1L;
@@ -202,7 +205,6 @@ public class TransportPanel extends BasePanel {
             if (tr == null)
                 return;
 
-           
             drawTransports(g,tr,0,0,w,h-s80);
 
             // draw title
@@ -214,7 +216,27 @@ public class TransportPanel extends BasePanel {
             
             if (!tr.empire().isPlayer())
                 return;
+
+            // draw equipment
+            Colony col = tr.destination().colony();
+            if (col != null && (!col.empire().isPlayer() || ModifierKeysState.isAltDown())) {
+                int fontSize = 15;
+                int lineH = scaled(fontSize);
+                g.setFont(narrowFont(fontSize));
+                g.setColor(Color.gray);
+                int xe = s10;
+                int ye = s50;
+                String armorDesc = text("INVASION_TROOP_ARMOR_DESC", tr.armorDesc(), tr.battleSuitDesc());
+                String shieldDesc = tr.shieldDesc();
+                String wpnDesc = tr.weaponDesc();
+                drawString(g, armorDesc, xe, ye);
+                ye += lineH;
+                drawString(g, shieldDesc, xe, ye);
+                ye += lineH;
+                drawString(g, wpnDesc, xe, ye);
+            }
             
+            // draw surrender on arrival
             g.setColor(MainUI.shadeBorderC());
             g.fillRect(0, h-s50, w, s50);
             
