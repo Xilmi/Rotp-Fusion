@@ -69,6 +69,14 @@ Later:
 
 ## What's New
 
+2024.11.23 (BR)
+- Unclean Colony Icon gives more choice.
+- Fixed Smart spending not building enough factories.
+
+2024.11.23 (Xilmi)
+- Make AI aware of amount of capturable techs.
+  - This should prevent the AI from going insane with invasions trying to capture techs when tech-capturing is disabled.
+
 2024.11.22 (BR)
 - New icon to inform about the presence of unclean colonies, and provide a way to clean them all.
 

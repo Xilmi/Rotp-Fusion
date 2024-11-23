@@ -962,9 +962,9 @@ public final class SabotageUI extends BasePanel implements MouseListener, IVIPLi
         @Override
         public void hoveringOverSprite(Sprite o) { }
         @Override
-        public void clickingOnSprite(Sprite o, int cnt, boolean rightClick, boolean click, boolean middleClick) {
+        public void clickingOnSprite(Sprite o, int cnt, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
             if (controls.contains(o)) {
-                o.click(map, cnt, rightClick, click, middleClick);
+                o.click(map, cnt, rightClick, click, middleClick, e);
                 map.repaint();
             }
             if (o instanceof StarSystem) {
@@ -988,7 +988,7 @@ public final class SabotageUI extends BasePanel implements MouseListener, IVIPLi
         @Override
         public float startingScalePct() { return galaxy().maxScaleAdj(); }
         private void selectTargetSystem(StarSystem sys) {
-            clickingOnSprite(sys, 1, false, false, false);
+            clickingOnSprite(sys, 1, false, false, false, null);
             repaint();
         }
         @Override

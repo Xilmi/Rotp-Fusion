@@ -15,7 +15,7 @@
  */
 package rotp.model.empires;
 
-//import static rotp.model.game.IDebugOptions.AUTORUN_OTHERFILE;
+import static rotp.model.colony.Colony.DIRTY_TYPES_NUM;
 import static rotp.model.tech.Tech.miniFastRate;
 import static rotp.ui.util.PlayerShipSet.DISPLAY_RACE_SET;
 
@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Shape;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -113,7 +114,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public static final int SHAPE_DIAMOND = 2;
     public static final int SHAPE_TRIANGLE1 = 3;
     public static final int SHAPE_TRIANGLE2 = 4;
-
+    
     public static Empire thePlayer() { return Galaxy.current().player(); }
 
     public static long[] times = new long[6];
@@ -1318,23 +1319,34 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
     }
     public int[] needCleaning() {
-    	int unlockedDirty = 0;
-    	int lockedDirty   = 0;
+    	int[] needCleaning = new int[DIRTY_TYPES_NUM];
         List<StarSystem> systems = new ArrayList<>(colonizedSystems);
         for (StarSystem sys: systems)
             if (sys != null && sys.isColonized()) {
             	int[] intArr = sys.colony().needCleaning();
-            	unlockedDirty += intArr[0];
-            	lockedDirty	  += intArr[1];
+            	for (int i=0; i<DIRTY_TYPES_NUM; i++)
+            		needCleaning[i] = needCleaning[i] + intArr[i];
             	}
-        return new int[] {unlockedDirty, lockedDirty};
+        return needCleaning;
     }
-    public void checkEcoAtClean(boolean evenIfLocked) {
+//    public void checkEcoAtClean(boolean rightClick, boolean middleClick, boolean shiftDown) { // TODO BR: REMOVE
+//        List<StarSystem> systems = new ArrayList<>(colonizedSystems);
+//        for (StarSystem sys: systems)
+//            if (sys != null && sys.isColonized())
+//                sys.colony().checkEcoAtClean(rightClick, middleClick, shiftDown);
+//    }
+    public void checkEcoAtClean(MouseEvent e) {
         List<StarSystem> systems = new ArrayList<>(colonizedSystems);
         for (StarSystem sys: systems)
             if (sys != null && sys.isColonized())
-                sys.colony().checkEcoAtClean(evenIfLocked);
+                sys.colony().checkEcoAtClean(e);
     }
+//    public void checkEcoAtClean(boolean evenIfLocked) { // TODO BR: REMOVE
+//        List<StarSystem> systems = new ArrayList<>(colonizedSystems);
+//        for (StarSystem sys: systems)
+//            if (sys != null && sys.isColonized())
+//                sys.colony().checkEcoAtClean(evenIfLocked);
+//    }
     public void lowerECOToCleanIfEcoComplete() {
         List<StarSystem> systems = new ArrayList<>(colonizedSystems);
         for (StarSystem sys: systems) {

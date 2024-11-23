@@ -16,6 +16,7 @@
 package rotp.model;
 
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 
 import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.StarSystem;
@@ -36,7 +37,7 @@ public interface Sprite {
     default boolean hasDisplayPanel()            { return false; }
 
     default boolean acceptDoubleClicks()         { return false; }
-    default void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick)        { }
+    default void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e)        { }
     default void wheel(GalaxyMapPanel map, int count, boolean sound)        { }
     default boolean acceptWheel()                { return false; }
 

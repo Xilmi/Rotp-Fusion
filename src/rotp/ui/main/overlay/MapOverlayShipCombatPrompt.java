@@ -25,6 +25,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -650,7 +651,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
             startCombat(ShipBattleUI.AUTO_RESOLVE);
         };
     }
@@ -738,7 +739,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
             startCombat(ShipBattleUI.SMART_RESOLVE);
         };
     }
@@ -826,7 +827,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
             startCombat(ShipBattleUI.RETREAT_ALL);
         };
     }
@@ -1030,7 +1031,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             }
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
         	startWar();
         };
     }
@@ -1118,7 +1119,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
             startCombat(ShipBattleUI.ENTER_COMBAT);
         };
     }
@@ -1177,7 +1178,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             g.drawImage(flagImage, mapX, mapY, buttonW, buttonH, null);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
 	     	// BR: if 3 buttons:
 	     	//   - Middle click = Reset
 	     	//   - Right click = Reverse

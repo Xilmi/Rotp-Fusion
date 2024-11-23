@@ -18,19 +18,26 @@ package rotp.ui.sprites;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Stroke;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
+import rotp.model.colony.Colony;
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
+import rotp.ui.main.SystemPanel;
+import rotp.util.ModifierKeysState;
 
 public class CleanWidgetSprite extends MapControlSprite {
 	private Image image;
 	private int yOrigin, yShift;
-	private boolean unlockedClean = true;
-	private boolean lockedClean   = true;
-	private boolean clean   = true;
-	private int dirtyCount  = 0;
-	private int lockedCount = 0;
+	private boolean clean     = true;
+	private int dirtyCount		= 0;
+	private int lockedCount		= 0;
+	private int unlockedCount	= 0;
+	private int govLockCount	= 0;
+	private int govUnlockCount	= 0;
+	private int numLines	= 0;
 	
 	public CleanWidgetSprite(int xOff, int yOff, int w, int h, int shift) {
 		xOffset = scaled(xOff);
@@ -47,11 +54,12 @@ public class CleanWidgetSprite extends MapControlSprite {
 	}
 	public void checkForEcoClean ()	{
 		int[] needCleaning = player().needCleaning();
-		lockedCount	  = needCleaning[1];
-		lockedClean   = lockedCount == 0;
-		unlockedClean = needCleaning[0] == 0;
-		dirtyCount 	  = needCleaning[0] + lockedCount;
-		clean = unlockedClean && lockedClean;
+		govLockCount	= needCleaning[Colony.GOV_LOCKED_DIRTY];
+		govUnlockCount	= needCleaning[Colony.GOV_UNLOCKED_DIRTY];
+		lockedCount		= needCleaning[Colony.LOCKED_DIRTY];
+		unlockedCount	= needCleaning[Colony.UNLOCKED_DIRTY];
+		dirtyCount		= govLockCount + govUnlockCount + lockedCount + unlockedCount;
+		clean			= dirtyCount == 0;
 	}
 	public void updateLocation()	{
 		if (session().aFewMoreTurns())
@@ -63,57 +71,83 @@ public class CleanWidgetSprite extends MapControlSprite {
 	public void setCleanValue(boolean b) { clean = b; }
 	@Override
 	public boolean acceptDoubleClicks()	 { return false; }
-	@Override
-	public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
-		player().checkEcoAtClean(rightClick);
+	@Override public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
+		player().checkEcoAtClean(e);
+		//player().checkEcoAtClean(rightClick, middleClick, shiftDown);
+		//player().checkEcoAtClean(rightClick);
 	}
-	@Override
-	public void draw(GalaxyMapPanel map, Graphics2D g2) {
-		int w = width;
-		int s2 = BasePanel.s2;
-		String label;
+	private String toLabel(int count, String key, boolean shiftDown, boolean ctrlDown) {
+		if (count > 0) {
+			numLines += 1;
+			if (count == 1)
+				if (ctrlDown)
+					return text(key + "_C_1");
+				else if (shiftDown)
+					return text(key + "_S_1");
+				else
+					return text(key + "_1");
+			else
+				if (ctrlDown)
+					return text(key + "_C", count);
+				else if (shiftDown)
+					return text(key + "_S", count);
+				else
+					return text(key, count);
+		}
+		return "";
+	}
+	@Override public void draw(GalaxyMapPanel map, Graphics2D g2) {
 		int fontSize = 13;
+		int border	 = BasePanel.s2;
+		int lineH	 = BasePanel.s14;
+		int displayW = width;
+		int displayH = height;
 		int labelW;
+		String label;
 		List<String> detailLines = null;
+		boolean shiftDown = ModifierKeysState.isShiftDown();
+		boolean ctrlDown  = ModifierKeysState.isCtrlDown();
+		numLines = 1;
 		
 		if (hovering) {
 			checkForEcoClean ();
-			clean = unlockedClean && lockedClean;
 			g2.setFont(narrowFont(fontSize));
-			int w0;
+			int textW;
 			if (clean) {
-				label = text("MOD_MAIN_COLONIES_ARE_CLEAN");
-				labelW = g2.getFontMetrics().stringWidth(label);
-				w0 = labelW*3/5;
+				label	 = text("MOD_MAIN_COLONIES_ARE_CLEAN");
+				labelW	 = g2.getFontMetrics().stringWidth(label);
+				textW	 = labelW*3/5;
 			}
 			else {
 				if (dirtyCount == 1)
-					label = text("MOD_MAIN_COLONIES_ARE_DIRTY_ALL1");
+					label = text("MOD_MAIN_COLONIES_ARE_DIRTY_ALL_1");
 				else
 					label = text("MOD_MAIN_COLONIES_ARE_DIRTY_ALL", dirtyCount);
 				labelW = g2.getFontMetrics().stringWidth(label);
-				w0 = labelW*3/5;
-				if (!lockedClean) {
-					w0 = labelW;
-					if (dirtyCount == 1)
-						label += text("MOD_MAIN_COLONIES_ARE_DIRTY_LOCK1");
-					else
-						label += text("MOD_MAIN_COLONIES_ARE_DIRTY_LOCK", lockedCount);
-				}
+				textW  = labelW*3/5;
+				label += toLabel(unlockedCount,	 "MOD_MAIN_COL_DIRTY_UNLOCK",	  shiftDown, ctrlDown);
+				label += toLabel(govLockCount,	 "MOD_MAIN_COL_DIRTY_GOV_LOCK",	  shiftDown, ctrlDown);
+				label += toLabel(lockedCount,	 "MOD_MAIN_COL_DIRTY_LOCKED",	  shiftDown, ctrlDown);
+				label += toLabel(govUnlockCount, "MOD_MAIN_COL_DIRTY_GOV_UNLOCK", shiftDown, ctrlDown);
 			}
-			labelW = g2.getFontMetrics().stringWidth(label);
-			detailLines = wrappedLines(g2, label, w0);
-			while (detailLines.size() > 2) {
-				w0 += labelW/10;
-				detailLines = wrappedLines(g2, label, w0);
+			if (numLines == 1)
+				textW = labelW * 3/5;
+			else
+				textW = labelW;
+			numLines = max(2, numLines);
+			displayH += lineH * (numLines-2);
+			detailLines = wrappedLines(g2, label, textW);
+			while (detailLines.size() > numLines) {
+				textW += labelW/10;
+				detailLines = wrappedLines(g2, label, textW);
 			}
-			w = width + BasePanel.s15 + w0;
+			displayW = width + BasePanel.s15 + textW;
 		}
-		drawBackground(map, g2, w);
+		drawBackground(map, g2, displayW, displayH);
 		if (!clean)
 			drawRedBackground(map, g2);
 
-		g2.drawImage(image(), startX+s2, startY+s2, map);
+		g2.drawImage(image(), startX+border, startY+border, map);
 
 		if (hovering) {
 			g2.setColor(Color.lightGray);
@@ -124,10 +158,10 @@ public class CleanWidgetSprite extends MapControlSprite {
 				y1 += BasePanel.s8;
 			for (String line: detailLines) {
 				drawString(g2, line, x1, y1);
-				y1 += BasePanel.s14;
+				y1 += lineH;
 			}			
 		}
-		drawBorder(map, g2, w, map.parent().shadeC(), false);
+		drawBorder(map, g2, displayW, displayH, map.parent().shadeC(), false);
 	}
 	public void drawRedBackground(GalaxyMapPanel map, Graphics2D g2) {
 		int cnr = BasePanel.s12;
@@ -136,13 +170,30 @@ public class CleanWidgetSprite extends MapControlSprite {
 		g2.setColor(Color.RED);
 		g2.fillRoundRect(startX, startY, width, height, cnr, cnr);
 	}
-	@Override public void drawBackground(GalaxyMapPanel map, Graphics2D g2, int w) {
+	public void drawBackground(GalaxyMapPanel map, Graphics2D g2, int w, int h) {
 		int cnr = BasePanel.s12;
 		int brdr = BasePanel.s1;
 		startX = xOffset >= 0 ? xOffset : map.getWidth()+xOffset;
 		startY = yOffset >= 0 ? yOffset : map.getHeight()+yOffset;
 		g2.setColor(map.parent().shadeC());
-		g2.fillRoundRect(startX-brdr, startY-brdr, w+brdr+brdr, height+brdr+brdr, cnr, cnr);
+		g2.fillRoundRect(startX-brdr, startY-brdr, w+brdr+brdr, h+brdr+brdr, cnr, cnr);
 	}
+    public void drawBorder(GalaxyMapPanel map, Graphics2D g2, int w, int h, Color c, boolean show) {
+        Stroke str0 = g2.getStroke();
+
+        int cnr = BasePanel.s12;
+        
+        g2.setStroke(BasePanel.stroke1);
+        g2.setColor(c);
+        g2.drawRoundRect(startX, startY, width, height, cnr, cnr);
+        
+        
+        if (hovering || show) {
+            g2.setStroke(BasePanel.stroke2);
+            g2.setColor(SystemPanel.yellowText);
+            g2.drawRoundRect(startX, startY, w, h, cnr, cnr);
+            g2.setStroke(str0);
+        }
+    }
 
 }

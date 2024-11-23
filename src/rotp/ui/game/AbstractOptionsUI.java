@@ -195,7 +195,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		
 		// buttons location
 		int smallButtonW = scaled(180);
-		exitBox.setBounds(wFull-scaled(189)-rightM, yButton+s2, smallButtonW, smallButtonH);
+//		exitBox.setBounds(wFull-scaled(189)-rightM, yButton+s2, smallButtonW, smallButtonH);
+		exitBox.setBounds(wFull-scaled(189)-rightM, yButton, smallButtonW, smallButtonH);
 		smallButtonW = defaultButtonWidth(g);
 		defaultBox.setBounds(exitBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		smallButtonW = defaultButtonWidth(g);

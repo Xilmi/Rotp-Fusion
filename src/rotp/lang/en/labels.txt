@@ -697,10 +697,34 @@ SAVE_GAME_OK                      | Save
 INTRO_BEGIN                       | Begin
 
 MOD_MAIN_COLONIES_ARE_CLEAN       | All your colonies are clean.
-MOD_MAIN_COLONIES_ARE_DIRTY_ALL1  | One colony needs cleaning.
+MOD_MAIN_COLONIES_ARE_DIRTY_ALL_1 | One colony needs cleaning.
 MOD_MAIN_COLONIES_ARE_DIRTY_ALL   | %1 colonies need cleaning.
-MOD_MAIN_COLONIES_ARE_DIRTY_LOCK1 | <br> One is locked.
-MOD_MAIN_COLONIES_ARE_DIRTY_LOCK  | <br> %1 are locked.
+MOD_MAIN_COL_DIRTY_LOCKED_1       | <br> One is locked --> Right click to clean.
+MOD_MAIN_COL_DIRTY_LOCKED         | <br> %1 are locked --> Right click to clean.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_1     | <br> One is governed --> Left or Right click to clean.
+MOD_MAIN_COL_DIRTY_GOV_LOCK       | <br> %1 are governed --> Left or Right click to clean.
+MOD_MAIN_COL_DIRTY_UNLOCK_1       | <br> One is unlocked --> Left, Mid, or Right click to clean.
+MOD_MAIN_COL_DIRTY_UNLOCK         | <br> %1 are unlocked --> Left, Mid, or Right click to clean.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK_1   | <br> One is governed and unlocked --> Ctrl click to clean All.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK     | <br> %1 are governed and unlocked --> Ctrl click to clean All.
+
+MOD_MAIN_COL_DIRTY_LOCKED_S_1     | <br> One is locked --> Shift Right click to clean.
+MOD_MAIN_COL_DIRTY_LOCKED_S       | <br> %1 are locked --> Shift Right click to clean.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_S_1   | <br> One is governed --> Shift Left click to clean.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_S     | <br> %1 are governed --> Shift Left click to clean.
+MOD_MAIN_COL_DIRTY_UNLOCK_S_1     | <br> One is unlocked --> Shift Mid click to clean.
+MOD_MAIN_COL_DIRTY_UNLOCK_S       | <br> %1 are unlocked --> Shift Mid click to clean.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK_S_1 | <br> One is governed and unlocked --> Ctrl click to clean All.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK_S   | <br> %1 are governed and unlocked --> Ctrl click to clean All.
+
+MOD_MAIN_COL_DIRTY_LOCKED_C_1     | <br> One is locked --> Ctrl click to clean All.
+MOD_MAIN_COL_DIRTY_LOCKED_C       | <br> %1 are locked --> Ctrl click to clean All.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_C_1   | <br> One is governed --> Ctrl click to clean All.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_C     | <br> %1 are governed --> Ctrl click to clean All.
+MOD_MAIN_COL_DIRTY_UNLOCK_C_1     | <br> One is unlocked --> Ctrl click to clean All.
+MOD_MAIN_COL_DIRTY_UNLOCK_C       | <br> %1 are unlocked --> Ctrl click to clean All.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK_C_1 | <br> One is governed and unlocked --> Ctrl click to clean All.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK_C   | <br> %1 are governed and unlocked --> Ctrl click to clean All.
 
 // MAIN UI - Bottom Navigation options
 MAIN_NAVIGATION_GAME              | Game
@@ -736,6 +760,10 @@ MAIN_HELP_MOD_1A                  | To enable or disable the Governor for this s
 MAIN_HELP_MOD_1B                  | To access Governor's Options Menu.
 MAIN_HELP_MOD_1F                  | Turn alerts may appear there: Right click on them to center the map on the system. Left click to show the next alert.
 MAIN_HELP_MOD_1I                  | To access "Options" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
+MAIN_HELP_MOD_1J                  | To access "Options" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
+MAIN_HELP_MOD_1K                  | Colony Ecology Report.<br>Left-Click to clean all unlocked Eco.<br>Right-Click to also clean locked Eco.
+MAIN_HELP_MOD_1L                  | You are continuing a terminated game. Click to stop and see the Game-Over panel again.<br>(After triggering "Next-Turn")
+
 MAIN_HELP_1A                      | Each star system divides its production into five areas. Grayed bars indicate that the production bar has been locked and will not change. Click on the name to lock/unlock.
 MAIN_HELP_1B                      | Shipyard - constructs the selected ship design. Large ships may take multiple turns.
 MAIN_HELP_1C                      | Defenses - builds and upgrades missile bases up to the specified limit and planetary shields when available.
@@ -745,6 +773,7 @@ MAIN_HELP_1F                      | Technology - adds to the empire's overall re
 MAIN_HELP_1G                      | Ratio bars show the breakdown of a planet's production.  The spending for each bar can be adjusted by mouse wheel, clicking within the bar, or clicking on the left/right arrows for each bar.
 MAIN_HELP_1H                      | The expected result of spending for an area is displayed to the right of each bar. Overflow spending will be sent to the empire's treasury reserve.<br>Click to spend enough to finish current task.
 MAIN_HELP_1I                      | To access spy Reports. (If any)
+
 MAIN_HELP_2A                      | Planetary shield level for the colony. Shields cannot be constructed on planets within a nebula.
 MAIN_HELP_2B                      | Number of missile bases and the maximum desired for this planet. Click or use the mouse wheel to change the maximum.
 MAIN_HELP_2C                      | Total planetary production from industry and population.
@@ -2891,6 +2920,21 @@ SETTINGS_MOD_COMBAT_LOSS_RALLY_DESC      | Rallying fleet will takes all the los
 SETTINGS_MOD_COMBAT_LOSS_RALLY           | Rallied
 SETTINGS_MOD_COMBAT_LOSS_SHARED_DESC     | Losses will be shared proportionally to the contribution.
 SETTINGS_MOD_COMBAT_LOSS_SHARED          | Shared
+
+SETTINGS_MOD_MAX_LANDING_TROOPS_DESC     | Should the number of landing troops be limited? And how?
+SETTINGS_MOD_MAX_LANDING_TROOPS          | Max Landing Troop: %1
+SETTINGS_MOD_MAX_LANDING_UNLIMITED_DESC  | All troops that pass through the defenses are allowed to land.
+SETTINGS_MOD_MAX_LANDING_UNLIMITED       | Unlimited
+SETTINGS_MOD_MAX_LANDING_MULTIPLER_DESC  | The amount is proportional to the size of the planet.
+SETTINGS_MOD_MAX_LANDING_MULTIPLER       | Multiplier
+SETTINGS_MOD_MAX_LANDING_FIXED_DESC      | Limited landing troops, independent of planet size.
+SETTINGS_MOD_MAX_LANDING_FIXED           | Fixed
+
+SETTINGS_MOD_MAX_LANDING_AMOUNT_DESC     | When Max "Landing Troop: →SETTINGS_MOD_MAX_LANDING_FIXED←" is selected, how many invasion troops are able to land?
+SETTINGS_MOD_MAX_LANDING_AMOUNT          | Max Troop: %1
+SETTINGS_MOD_MAX_LANDING_FACTOR_DESC     | When Max "Landing Troop: →SETTINGS_MOD_MAX_LANDING_MULTIPLER←" is selected, What percentage of planet size will limit the size of invasion troops.
+SETTINGS_MOD_MAX_LANDING_FACTOR          | Size Multiplier: %1%
+
 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | To disable peace treaties or remove the ability to colonize when another fleet is orbiting the planet.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Peace Treaty: %1

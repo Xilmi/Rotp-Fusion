@@ -21,6 +21,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
@@ -618,7 +619,7 @@ public class MapOverlayBombardPrompt extends MapOverlay implements IVIPListener 
             g.drawImage(flagImage, mapX, mapY, buttonW, buttonH, null);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
         	// BR: if 3 buttons:
         	//   - Middle click = Reset
         	//   - Right click = Reverse

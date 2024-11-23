@@ -16,6 +16,7 @@
 package rotp.ui.sprites;
 
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 
 import rotp.model.Sprite;
 import rotp.model.galaxy.IMappedObject;
@@ -58,7 +59,7 @@ public abstract class MapSprite implements Base, Sprite {
     @Override
     public abstract void draw(GalaxyMapPanel map, Graphics2D g2);
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) { }
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) { }
     @Override
     public void wheel(GalaxyMapPanel map, int count, boolean sound)        { }
 }

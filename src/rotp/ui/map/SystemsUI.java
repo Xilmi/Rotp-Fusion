@@ -38,9 +38,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.JLayeredPane;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+
 import rotp.Rotp;
 import rotp.model.Sprite;
 import rotp.model.colony.Colony;
@@ -343,14 +345,14 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
         displayPanel.useNullClick(cnt, right);
     };
     @Override
-    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick) {
+    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
         if ((o instanceof ShipFleet) || (o instanceof Transport) || (o instanceof FlightPathSprite))
             return;
         
         boolean used = (displayPanel != null) && displayPanel.useClickedSprite(o, count, rightClick);
         hoveringOverSprite(null);
         if (!used)  {
-            o.click(map, count, rightClick, click, middleClick);
+            o.click(map, count, rightClick, click, middleClick, e);
             if (o.persistOnClick()) {
                 hoveringSprite(null);
                 clickedSprite(o);

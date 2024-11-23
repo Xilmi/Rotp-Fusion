@@ -1419,7 +1419,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 				if (f != null) {
 					selectedTransport = bounds(0, f, transports.size()-1);
 					Transport transport = transports.get(selectedTransport);
-					mainUI().selectSprite(transport, 1, false, true, false);
+					mainUI().selectSprite(transport, 1, false, true, false, null);
 					mainUI().map().recenterMapOn(transport);
 					mainUI().repaint();
 					out = transportInfo(transport, NEWLINE);

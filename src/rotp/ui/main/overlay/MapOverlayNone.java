@@ -18,6 +18,7 @@ package rotp.ui.main.overlay;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.List;
+
 import rotp.model.Sprite;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
@@ -323,7 +324,7 @@ public class MapOverlayNone extends MapOverlay {
     	StarSystem currSys = parent.lastSystemSelected();
         currSys = player().nextFlaggedSystems(currSys, flagId, ctrl, shift);
         if(currSys != null) {
-        	parent.clickingOnSprite(currSys, 1, false, true, false);
+        	parent.clickingOnSprite(currSys, 1, false, true, false, null);
         	parent.clickedSprite(currSys);
             parent.map().recenterMapOn(currSys);
             parent.repaint();
@@ -349,7 +350,7 @@ public class MapOverlayNone extends MapOverlay {
     private void goToSystem(StarSystem system) {
         if (parent.clickedSprite() instanceof SystemTransportSprite) {
             parent.hoveringOverSprite(system);
-            parent.clickingOnSprite(system, 1, false, false, false);
+            parent.clickingOnSprite(system, 1, false, false, false, null);
         }
         else if (parent.clickedSprite() instanceof ShipRelocationSprite) {
             parent.hoveringOverSprite(system);
@@ -395,7 +396,7 @@ public class MapOverlayNone extends MapOverlay {
             int index = fleets.indexOf(currFleet)+1;
             if (index == fleets.size())
                 index = 0;
-            parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
+            parent.clickingOnSprite(fleets.get(index), 1, false, true, false, null);
             parent.map().recenterMapOn(fleets.get(index));
             parent.repaint();
         }
@@ -410,7 +411,7 @@ public class MapOverlayNone extends MapOverlay {
             int index = fleets.indexOf(currFleet)-1;
             if (index < 0)
                 index = fleets.size()-1;
-            parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
+            parent.clickingOnSprite(fleets.get(index), 1, false, true, false, null);
             parent.map().recenterMapOn(fleets.get(index));
             parent.repaint();
         }

@@ -273,7 +273,7 @@ public class VIPFleetView implements IVIPConsole {
 			else
 				return "Invalid Fleet selection";
 			fleet = console().getFleet(selectedFleet);
-			mainUI().selectSprite(fleet, 1, false, true, false);
+			mainUI().selectSprite(fleet, 1, false, true, false, null);
 			mainUI().map().recenterMapOn(fleet);
 			mainUI().repaint();
 			init(selectedFleet);

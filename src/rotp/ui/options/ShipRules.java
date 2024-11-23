@@ -15,17 +15,25 @@ final class ShipRules extends AbstractOptionsSubUI {
 		map.add(new SafeListParam(Arrays.asList(
 				shipSpaceFactor,
 				missileShipModifier,
+
 				LINE_SPACER_25,
 				scrapRefundOption,
-				scrapRefundFactor,
-				LINE_SPACER_25,
+				scrapRefundFactor
+				)));
+		map.add(new SafeListParam(Arrays.asList(
 				targetBombard,
-				bombingTarget
+				bombingTarget,
+
+				LINE_SPACER_25,
+				maxLandingTroops,
+				maxLandingTroopsAmount,
+				maxLandingTroopsFactor
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				RELEVANT_TITLE,
 				warpSpeed,
 				fuelRange,
+
 				LINE_SPACER_25,
 				missileBaseModifier
 				)));
@@ -38,7 +46,10 @@ final class ShipRules extends AbstractOptionsSubUI {
 						missileBaseModifier,
 						missileShipModifier,
 						targetBombard,
-						bombingTarget
+						bombingTarget,
+						maxLandingTroops,
+						maxLandingTroopsAmount,
+						maxLandingTroopsFactor
 						));
 		return majorList;
 	}

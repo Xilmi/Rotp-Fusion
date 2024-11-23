@@ -17,6 +17,7 @@ package rotp.ui.sprites;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import rotp.ui.BasePanel;
@@ -39,7 +40,7 @@ public class ShipDisplaySprite extends MapControlSprite  {
         normColor = newColor(32,32,192,128);
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
         map.toggleShipDisplay(rightClick);
     }
     @Override

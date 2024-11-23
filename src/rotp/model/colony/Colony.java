@@ -22,6 +22,8 @@ import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
@@ -65,6 +67,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public static final int INDUSTRY = 2;
     public static final int ECOLOGY = 3;
     public static final int RESEARCH = 4;
+
+    public static final int DIRTY_TYPES_NUM		= 4;
+    public static final int UNLOCKED_DIRTY		= 0;
+    public static final int LOCKED_DIRTY		= 1;
+    public static final int GOV_LOCKED_DIRTY	= 2;
+    public static final int GOV_UNLOCKED_DIRTY	= 3;
 
     // BR: Linked the sequence to the previous definitions
     // private static final int[] cleanupSeq = {INDUSTRY, RESEARCH, DEFENSE, SHIP, ECOLOGY};
@@ -740,26 +748,76 @@ public final class Colony implements Base, IMappedObject, Serializable {
             addColonyOrder(Colony.Orders.BASES, orderAmt/5);
     }
     public int[] needCleaning()	{
-    	int unlockedDirty = 0;
-    	int lockedDirty   = 0;
-        int cleanAlloc = ecology().cleanupAllocationNeeded();
-        if (allocation[ECOLOGY] < cleanAlloc) {
-        	if (locked[ECOLOGY])
-        		lockedDirty = 1;
+        int[] needCleaning = new int[DIRTY_TYPES_NUM];
+        if (allocation[ECOLOGY] < ecology().cleanupAllocationNeeded()) {
+        	if (isGovernor())
+        		if (locked[ECOLOGY])
+            		needCleaning[GOV_LOCKED_DIRTY] = 1;
+            	else
+            		needCleaning[GOV_UNLOCKED_DIRTY] = 1;
+        	else if (locked[ECOLOGY])
+        		needCleaning[LOCKED_DIRTY] = 1;
         	else
-        		unlockedDirty = 1;
+        		needCleaning[UNLOCKED_DIRTY] = 1;
         }
-        return new int[] {unlockedDirty, lockedDirty};
+        return needCleaning;
     }
-    public void checkEcoAtClean(boolean evenIfLocked) {
-    	if (evenIfLocked && locked[ECOLOGY]) {
-    		locked(ECOLOGY, false);
-    		checkEcoAtClean();
-    		locked(ECOLOGY, true);
+    private void forceClean() {
+    	boolean oldState = locked[ECOLOGY];
+    	locked(ECOLOGY, false);
+		checkEcoAtClean();
+		locked(ECOLOGY, oldState);
+    }
+    public void checkEcoAtClean(MouseEvent e) {
+    	if (e.isControlDown()) { // All clean
+    		forceClean();
+    		return;
     	}
-    	else
-    		checkEcoAtClean();
+    	else if (e.isShiftDown()) { // Specific clean
+        	if (isGovernor()) {
+        		if (locked[ECOLOGY] && SwingUtilities.isLeftMouseButton(e))
+        			forceClean();
+   				return;
+        	}
+        	else {
+        		if (locked[ECOLOGY]) {
+        			if (SwingUtilities.isRightMouseButton(e))
+        				forceClean();
+        			return;
+        		}
+        		else if (SwingUtilities.isMiddleMouseButton(e))
+        			checkEcoAtClean();
+    			return;
+        	}
+    	}
+    	else { // Large Clean
+    		if (isGovernor()) {
+        		if (locked[ECOLOGY] &&
+        				(SwingUtilities.isLeftMouseButton(e) || SwingUtilities.isRightMouseButton(e)))
+        			forceClean();
+   				return;
+        	}
+    		else {
+    			if (locked[ECOLOGY]) {
+        			if (SwingUtilities.isRightMouseButton(e))
+        				forceClean();
+        			return;
+        		}
+        		else
+        			checkEcoAtClean();
+    			return;
+    		}
+    	}
     }
+//    public void checkEcoAtClean(boolean evenIfLocked) { // TODO BR: Remove
+//    	if (evenIfLocked && locked[ECOLOGY]) {
+//    		locked(ECOLOGY, false);
+//    		checkEcoAtClean();
+//    		locked(ECOLOGY, true);
+//    	}
+//    	else
+//    		checkEcoAtClean();
+//    }
     public void checkEcoAtClean() {
         recalcSpendingForNewTaxRate = false;
         if (locked[ECOLOGY]) 

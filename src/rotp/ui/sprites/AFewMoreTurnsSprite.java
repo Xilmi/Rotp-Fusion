@@ -17,6 +17,7 @@ package rotp.ui.sprites;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import rotp.ui.BasePanel;
@@ -34,7 +35,7 @@ public class AFewMoreTurnsSprite extends MapControlSprite {
     @Override
     public boolean acceptDoubleClicks()         { return false; }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
     	if (session().aFewMoreTurns()) {
     		session().aFewMoreTurns(false);
     	}

@@ -21,6 +21,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Stroke;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,10 +138,10 @@ public class FlightPathSprite extends MapSprite {
     @Override
     public boolean hasDisplayPanel()            { return true; }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
-        // clicking on a flight path is really clicking on its fleetsprite
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
+        // clicking on a flight path is really clicking on its fleet sprite
         if (ship() != null)
-            map.parent().clickingOnSprite(from(), count, rightClick, click, middleClick);
+            map.parent().clickingOnSprite(from(), count, rightClick, click, middleClick, e);
     }
     private void setSelectionArea(int x1, int y1, int x2, int y2) {
         Point pt1 = new Point();

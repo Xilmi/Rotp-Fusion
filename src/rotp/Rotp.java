@@ -64,7 +64,7 @@ public class Rotp {
     public static boolean hadCfgFile = true;
     public static boolean countWords = false;
     private static String startupDir;
-    private static boolean underTest = false; // TODO BR: set to false
+    private static boolean underTest = true; // TODO BR: set to false
     private static Boolean isIDE;
     private static JFrame frame;
     public static String releaseId = version;

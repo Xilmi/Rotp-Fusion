@@ -35,8 +35,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.JLayeredPane;
 import javax.swing.border.Border;
+
 import rotp.Rotp;
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
@@ -924,9 +926,9 @@ public final class HistoryUI extends BasePanel implements MouseListener {
             repaint();
         }
         @Override
-        public void clickingOnSprite(Sprite o, int cnt, boolean rightClick, boolean click, boolean middleClick) {
+        public void clickingOnSprite(Sprite o, int cnt, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
             if (controls.contains(o)) {
-                o.click(map, cnt, rightClick, click, middleClick);
+                o.click(map, cnt, rightClick, click, middleClick, e);
                 map.repaint();
             }
         }
@@ -952,7 +954,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         @Override
         public float startingScalePct() { return galaxy().maxScaleAdj(); }
         private void selectTargetSystem(StarSystem sys) {
-            clickingOnSprite(sys, 1, false, false, false);
+            clickingOnSprite(sys, 1, false, false, false, null);
             repaint();
         }
         @Override

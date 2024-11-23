@@ -239,6 +239,10 @@ public class HelpUI extends BasePanel implements MouseListener {
         public int ye()		{ return y + height(); }
         public int xc()		{ return x + w/2; }
         public int yc()		{ return y + height()/2; }
+        public int xcb()	{ return x + w/4; }
+        public int ycb()	{ return y + height()/4; }
+        public int xce()	{ return x + w*3/4; }
+        public int yce()	{ return y + height()*3/4; }
         public void setLineColor(Color c)	{ lineC = c; }
         public void setTextColor(Color c)	{ textC = c; }
         public void setBackColor(Color c)	{ backC = c; }

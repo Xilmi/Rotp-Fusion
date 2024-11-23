@@ -24,6 +24,7 @@ import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
@@ -824,7 +825,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         return dist <= max(BasePanel.s2, clickR);
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
 //        if (canShowDetail(map)) 
 //            RotPUI.instance().selectDisplaySystemPanel(this);
     }

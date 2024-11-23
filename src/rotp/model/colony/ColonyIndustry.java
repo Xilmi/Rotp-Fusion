@@ -374,7 +374,10 @@ public class ColonyIndustry extends ColonySpendingCategory {
     }
     private float smoothRefitSpendingNeeded(float targetPopPct) {
         float planetSize = planet().currentSize();
-        float expectedMissingPopulation	= planetSize - colony().expectedPopulationLongTerm();
+        float expectedPopulationLongTerm = expectedPopulation()
+        		+ galaxy().friendlyPopApproachingSystem(colony().starSystem());
+//        float expectedMissingPopulation	= planetSize - colony().expectedPopulationLongTerm();
+        float expectedMissingPopulation	= planetSize - expectedPopulationLongTerm;
         float allowedMissingPopulation	= planetSize * (1-targetPopPct);
         // You may want some natural growth
     	if (expectedMissingPopulation <= allowedMissingPopulation)

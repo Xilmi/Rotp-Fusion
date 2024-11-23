@@ -18,6 +18,7 @@ package rotp.ui.sprites;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.event.MouseEvent;
 
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
@@ -34,7 +35,7 @@ public class GridCircularDisplaySprite extends MapControlSprite  {
         normColor = newColor(32,32,192,128);
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
         map.toggleGridCircularDisplay();
     }
     @Override

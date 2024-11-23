@@ -22,6 +22,7 @@ import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -406,12 +407,12 @@ public class MainUI extends BasePanel implements IMapHandler {
         setOpaque(false);
     }
     public boolean enableButtons()   { return !session().performingTurn(); }
-    public void selectSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick) {
+    public void selectSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
         // if not in normal mode, then NextTurnControls are
         // the only sprites clickable
         if (overlay.consumesClicks(o)) {
             if (nextTurnControls.contains(o)) {
-                o.click(map, count, rightClick, click, middleClick);
+                o.click(map, count, rightClick, click, middleClick, e);
                 map.repaint();
             }
             return;
@@ -419,7 +420,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         boolean used = (displayPanel != null) && displayPanel.useClickedSprite(o, count, rightClick);
         hoveringOverSprite(null);
         if (!used)  {
-            o.click(map, count, rightClick, click, middleClick);
+            o.click(map, count, rightClick, click, middleClick, e);
 //            if (o.persistOnClick()) { // BR: For console, to validate displayed info
                 hoveringSprite(null);
                 if(rightClick == true)
@@ -432,7 +433,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     }
     public void selectSystem(StarSystem sys) {
         // main goal here is to trigger sprite click behavior with no click sound
-        sys.click(map, 1, false, false, false);
+        sys.click(map, 1, false, false, false, null);
         hoveringSprite(null);
         clickedSprite(sys);
         Empire emp = player();
@@ -446,7 +447,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         StarSystem sys = galaxy().system(pl.capitalSysId());
 
         // main goal here is to trigger sprite click behavior with no click sound
-        sys.click(map, 1, false, false, false);
+        sys.click(map, 1, false, false, false, null);
         hoveringSprite(null);
         clickedSprite(sys);
 
@@ -559,12 +560,12 @@ public class MainUI extends BasePanel implements IMapHandler {
         displayPanel.useNullClick(cnt, right);
     };
     @Override
-    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick) {
+    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
         // if not in normal mode, then NextTurnControls are
         // the only sprites clickable
         if (overlay.consumesClicks(o)) {
             if (nextTurnControls.contains(o)) {
-                o.click(map, count, rightClick, click, middleClick);
+                o.click(map, count, rightClick, click, middleClick, e);
                 map.repaint();
             }
             return;
@@ -572,7 +573,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         boolean used = (displayPanel != null) && displayPanel.useClickedSprite(o, count, rightClick);
         hoveringOverSprite(null);
         if (!used)  {
-            o.click(map, count, rightClick, click, middleClick);
+            o.click(map, count, rightClick, click, middleClick, e);
             if (o.persistOnClick()) {
                 hoveringSprite(null);
                 if(rightClick == true)
@@ -684,7 +685,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     public List<Sprite> controlSprites()     { return baseControls; }
     @Override
     public void reselectCurrentSystem()      {
-        clickingOnSprite(lastSystemSelected(), 1, false, true, false);
+        clickingOnSprite(lastSystemSelected(), 1, false, true, false, null);
         repaint();
     }
     @Override
@@ -907,7 +908,7 @@ public class MainUI extends BasePanel implements IMapHandler {
 
         helpUI.clear();
         HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 0, text("MAIN_HELP_ALL"));
-        s0.setLine(s100, s25, s30, s25);
+        s0.setLine(s100, s25, s30, s20);
         // BR: Main Mod Help
         helpUI.addBrownHelpText(w-scaled(334), s10, scaled(330), 0, text("MAIN_HELP_MOD"));
         
@@ -961,42 +962,72 @@ public class MainUI extends BasePanel implements IMapHandler {
         int x3 = w-scaled(254); // BR: was 304
         int y3 = scaled(470); // BR: was 490
         int w3 = scaled(250); // BR: was 300
-        HelpSpec sp8 = helpUI.addBlueHelpText(x3,y3,w3, 6, text("MAIN_HELP_1H"));
+        HelpSpec sp8 = helpUI.addBlueHelpText(x3,y3,w3, 0, text("MAIN_HELP_1H"));
         sp8.setLine(x3+(w3*3/4), y3, w-scaled(54), scaled(430));        
-        // sp8.setLine(x3+(w3*3/4), y3, w-scaled(54), scaled(430));
-        
+
         // BR: Added options panel
-        int sep = s30;
+        boolean moreIcon = session().aFewMoreTurns();
+//        moreIcon = true;
+        int yArrowOffset = moreIcon? 0 : s17;
+        int yArrowSep = s35;
+        int xBoxSep = moreIcon? s10 : s20;
+        int xAL = s40;
+        // Settings panel
         int x10 = scaled(115);
-        int y10 = scaled(220);
-        int w10 = scaled(225);
-        HelpSpec sp10 = helpUI.addBrownHelpText(x10, y10, w10, 6, text("MAIN_HELP_MOD_1I"));
-        sp10.setLine(x10, y10+(sp10.height()/2), s40, scaled(310));
+        int y10 = moreIcon? scaled(180) : scaled(200); // TODO BR
+        int w10 = scaled(250);
+        int y10a = scaled(300);
+        HelpSpec sp10 = helpUI.addBrownHelpText(x10, y10, w10, 0, text("MAIN_HELP_MOD_1I")); // Settings panel
+        sp10.setLine(x10, sp10.yce(), xAL, y10a);
+
+        // Rules panel
+//        int x20 = x10;
+        int w20 = w10;
+//        int y20 = y10; // sp10.ye() + sep; // TODO BR
+        int y20a = y10a; // + yaSep;
+        HelpSpec sp20 = sp10;
+//        HelpSpec sp20 = helpUI.addBrownHelpText(x20, y20, w20, 0, text("MAIN_HELP_MOD_1J")); // Rules panel
+//        sp20.setLine(x20, sp20.yc(), xAL, y20a);
+
+        // BR: Added Eco report icon
+        int x14 = x10;
+        int w14 = w10;
+        int y14 = sp20.ye() + xBoxSep;
+        int y14a = y20a + yArrowSep + s18; // TODO BR:
+        HelpSpec sp14 = helpUI.addBrownHelpText(x14, y14, w14, 0, text("MAIN_HELP_MOD_1K")); // ECO
+        sp14.setLine(x14, sp14.yc(), xAL, y14a+yArrowOffset);
+
+        // BR: Added "a Few More Turns" icon
+        int x15 = x10;
+        int w15 = w10;
+        int y15 = sp14.ye() + xBoxSep;
+        int y15a = y14a + yArrowSep;
+        HelpSpec sp15 = sp14;
+        if (moreIcon) {
+            sp15 = helpUI.addBrownHelpText(x15, y15, w15, 0, text("MAIN_HELP_MOD_1L")); // a Few More Turns
+            sp15.setLine(x15, sp15.yc(), xAL, y15a);        	
+        }
 
         // BR: Added Spy reports
-        int x9 = scaled(115);
-        int y9 = y10+sp10.height()+sep;;
+        int x9 = x10;
         int w9 = w10;
-        HelpSpec sp9 = helpUI.addBlueHelpText(x9, y9, w9, 2, text("MAIN_HELP_1I"));
-        sp9.setLine(x9, y9+(sp9.height()/2), s45, h-scaled(370));
-
+        int y9 = sp15.ye() + xBoxSep;
+        int y9a = y15a + yArrowSep;
+        HelpSpec sp9 = helpUI.addBlueHelpText(x9, y9, w9, 0, text("MAIN_HELP_1I")); // Spy reports
+        sp9.setLine(x9, sp9.ycb(), xAL, y9a-yArrowOffset);
         
         if (showTreasuryResearchBar()) {
-            // int x12 = scaled(80); // modnar: TreasuryResearchBar made horizontal, change help line/box
-            // int y12 = scaled(440); // modnar: TreasuryResearchBar made horizontal, change help line/box
-            int x12 = scaled(115); // BR restored original (As the bar are back in vertical mode!)
-            int y12 = y9+sp9.height()+sep; // BR restored original
-            int w12 = w10;
-            HelpSpec sp12 = helpUI.addBlueHelpText(x12, y12, w12, 3, text("MAIN_HELP_2L"));
-            //sp12.setLine(x12, y12+(sp12.height()/2), s35, scaled(655)); // modnar: TreasuryResearchBar made horizontal, change help line/box
-            sp12.setLine(x12, y12+(sp12.height()/2), s45, h-scaled(298)); // BR restored original
+            int x12 = x10;
+            int y12 = sp9.ye() + xBoxSep;
+            int w12 = w20;
+            HelpSpec sp12 = helpUI.addBlueHelpText(x12, y12, w12, 0, text("MAIN_HELP_2L")); // Treasury
+            sp12.setLine(x12, sp12.ycb(), xAL, h-scaled(290));
 
-            int x13 = scaled(120);
-            int y13 = y12+sp12.height()+sep;
-            int w13 = w10;
-            HelpSpec sp13 = helpUI.addBlueHelpText(x13, y13, w13, 3, text("MAIN_HELP_2M"));
-            // sp13.setLine(x13+sp13.height(), y13+sp13.height(), scaled(160), scaled(655)); // modnar: TreasuryResearchBar made horizontal, change help line/box
-            sp13.setLine(x13, y13+(sp13.height()/2), s45, h-scaled(173)); // BR restored original
+            int x13 = x10;
+            int y13 = sp12.ye() + xBoxSep;
+            int w13 = w20;
+            HelpSpec sp13 = helpUI.addBlueHelpText(x13, y13, w13, 0, text("MAIN_HELP_2M")); // Research State
+            sp13.setLine(x13, sp13.yc(), xAL, h-scaled(173));
         }
     }
     private void loadEmpireColonyHelpFrame2() {

@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.LinearGradientPaint;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
 import rotp.ui.BasePanel;
@@ -48,7 +49,7 @@ public class SpyReportSprite extends MapControlSprite {
     	}
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
         RotPUI.instance().showSpyReport();
         map.parent().hoveringOverSprite(null);
     }

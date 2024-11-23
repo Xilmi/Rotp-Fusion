@@ -651,6 +651,36 @@ SAVE_GAME_OK                      | Enregistrer
 // Intro UI
 INTRO_BEGIN                       | Commencer
 
+MOD_MAIN_COLONIES_ARE_CLEAN       | Toutes vos colonies profitent d'un air pur.
+MOD_MAIN_COLONIES_ARE_DIRTY_ALL_1 | Une colonie à besoin d'être néttoyée.
+MOD_MAIN_COLONIES_ARE_DIRTY_ALL   | %1 colonies ont besoin d'être néttoyées.
+MOD_MAIN_COL_DIRTY_LOCKED_1       | <br> Une est verrouillée --> Clic Droit pour nettoyer.
+MOD_MAIN_COL_DIRTY_LOCKED         | <br> %1 sont verrouillées --> Clic Droit pour nettoyer.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_1     | <br> Une est gouvernée --> Clic Gauche ou Droit pour nettoyer.
+MOD_MAIN_COL_DIRTY_GOV_LOCK       | <br> %1 sont gouvernées --> Clic Gauche ou Droit pour nettoyer.
+MOD_MAIN_COL_DIRTY_UNLOCK_1       | <br> Une est déverrouillée --> Clic Gauche, Centre ou Droit pour nettoyer.
+MOD_MAIN_COL_DIRTY_UNLOCK         | <br> %1 sont déverrouillées --> Clic Gauche, Centre ou Droit pour nettoyer.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK_1   | <br> Une est gouvernée et déverrouillée --> Ctrl clic pour nettoyer toutes les colonies.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK     | <br> %1 sont gouvernées et déverrouillées --> Ctrl clic pour nettoyer toutes les colonies.
+
+MOD_MAIN_COL_DIRTY_LOCKED_S_1     | <br> Une est verrouillée --> Shift Clic Droit pour nettoyer.
+MOD_MAIN_COL_DIRTY_LOCKED_S       | <br> %1 sont verrouillées --> Shift Clic Droit pour nettoyer.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_S_1   | <br> Une est gouvernée --> Shift Clic Gauche pour nettoyer.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_S     | <br> %1 sont gouvernées --> Shift Clic Gauche pour nettoyer.
+MOD_MAIN_COL_DIRTY_UNLOCK_S_1     | <br> Une est déverrouillée --> Shift Clic Centre pour nettoyer.
+MOD_MAIN_COL_DIRTY_UNLOCK_S       | <br> %1 sont déverrouillées --> Shift Clic Centre pour nettoyer.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK_S_1 | <br> Une est gouvernée et déverrouillée --> Ctrl clic pour nettoyer toutes les colonies.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK_S   | <br> %1 sont gouvernées et déverrouillées --> Ctrl clic pour nettoyer toutes les colonies.
+
+MOD_MAIN_COL_DIRTY_LOCKED_C_1     | <br> Une est verrouillée --> Ctrl clic pour nettoyer toutes les colonies.
+MOD_MAIN_COL_DIRTY_LOCKED_C       | <br> %1 sont verrouillée --> Ctrl clic pour nettoyer toutes les colonies.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_C_1   | <br> Une est gouvernée --> Ctrl clic pour nettoyer toutes les colonies.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_C     | <br> %1 sont gouvernées --> Ctrl clic pour nettoyer toutes les colonies.
+MOD_MAIN_COL_DIRTY_UNLOCK_C_1     | <br> Une est déverrouillée --> Ctrl clic pour nettoyer toutes les colonies.
+MOD_MAIN_COL_DIRTY_UNLOCK_C       | <br> %1 sont déverrouillées --> Ctrl clic pour nettoyer toutes les colonies.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK_C_1 | <br> Une est gouvernée et déverrouillée --> Ctrl clic pour nettoyer toutes les colonies.
+MOD_MAIN_COL_DIRTY_GOV_UNLOCK_C   | <br> %1 sont gouvernées et déverrouillées --> Ctrl clic pour nettoyer toutes les colonies.
+
 // MAIN UI - Bottom Navigation options
 MAIN_NAVIGATION_GAME              | Menu
 MAIN_NAVIGATION_DESIGN            | Conceptions
@@ -685,6 +715,9 @@ MAIN_HELP_MOD_1A                  | Pour activer ou désactiver le Gouverneur po
 MAIN_HELP_MOD_1B                  | Pour accéder au menu Options du gouverneur.
 MAIN_HELP_MOD_1F                  | Des alertes du tour peuvent y apparaître : Faites un clic droit sur elles pour centrer la carte sur le système. Cliquez à gauche pour afficher la prochaine alerte.
 MAIN_HELP_MOD_1I                  | Pour accéder au panneau «Options».<br>Utile pour se souvenir de nos choix de configuration.<br>Peut être modifié... Mais certaines options ne devraient pas l'être !
+MAIN_HELP_MOD_1J                  | Pour accéder au panneau «Options».<br>Utile pour se souvenir de nos choix de configuration.<br>Peut être modifié... Mais certaines options ne devraient pas l'être !
+MAIN_HELP_MOD_1K                  | Rapport d'écologie de la colonie.<br>Cliquez avec le bouton gauche pour nettoyer toutes les colonies déverrouillées.<br>Cliquez avec le bouton droit pour nettoyer également les colonies verrouillées.
+MAIN_HELP_MOD_1L                  | Vous continuez une partie terminée. Cliquez pour arrêter, et voir à nouveau le panneau Fin de partie.<br>(Après avoir activé « Tour Suivant »)
 MAIN_HELP_1A                      | Chaque star system divise sa production en cinq zones. Les barres grisées indiquent que la barre de production a été verrouillée et ne changera pas. Cliquez sur le nom pour verrouiller/déverrouiller.
 MAIN_HELP_1B                      | Chantier naval - construit le modèle de vaisseau sélectionné. Les gros vaisseaux peuvent prendre plusieurs tours.
 MAIN_HELP_1C                      | Défenses - construit et améliore les bases de missiles jusqu'à la limite spécifiée et les boucliers planétaires lorsqu'ils sont disponibles.
@@ -2025,14 +2058,14 @@ TRANSPORT_AUTO_ECO_HK                    | Transports ECO
 SETTINGS_MOD_TRANSPORT_AUTO_ECO          | →TRANSPORT_AUTO_ECO_HK←: %1
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES_DESC | La valeur par défaut sera de remplacer automatiquement la population de la colonie.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES      | Activé
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | La valeur par défaut sera : "Désactivé".
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | La valeur par défaut sera :  « Désactivé ».
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO       | Désactivé
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST_DESC | Conservera le dernier paramètre de colonie.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Dernier
 
 CHAIN_RALLY_SPEED_HK                     | Vitesse des ralliements en chaîne
 SETTINGS_MOD_CHAIN_RALLY_SPEED_DESC      | Vitesse à utiliser lors de la sélection du chemin de ralliement optimal.
-SETTINGS_MOD_CHAIN_RALLY_SPEED           | →CHAIN_RALLY_SPEED_HK←: %1
+SETTINGS_MOD_CHAIN_RALLY_SPEED           | →CHAIN_RALLY_SPEED_HK← : %1
 SETTINGS_MOD_CHAIN_RALLY_SPEED_FLEET_DESC | Basé sur la vitesse du vaisseau en construction ou du vaisseau le plus lent de la flotte sélectionnée.
 SETTINGS_MOD_CHAIN_RALLY_SPEED_FLEET     | Flotte
 SETTINGS_MOD_CHAIN_RALLY_SPEED_MIN_DESC  | Basé sur la vitesse de du modèle de navire actif la plus lente.
@@ -2041,7 +2074,7 @@ SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP_DESC  | Basé sur la vitesse maximale autoris
 SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP       | Top
 
 SETTINGS_MOD_RALLY_COMBAT_DESC           | Les flottes avec ordre de ralliement doivent-elles participer au combat ?
-SETTINGS_MOD_RALLY_COMBAT                | Ralliés aident: %1
+SETTINGS_MOD_RALLY_COMBAT                | Ralliés aident : %1
 SETTINGS_MOD_RALLY_COMBAT_NEVER_DESC     | Non, c'est le boulot de la garde planétaire.
 SETTINGS_MOD_RALLY_COMBAT_NEVER          | Aucuns
 SETTINGS_MOD_RALLY_COMBAT_BUILT_DESC     | Seulement les vaisseaux nouvellement construits vont prêter main forte.<br>(Fonctionalité originale)
@@ -2052,7 +2085,7 @@ SETTINGS_MOD_RALLY_COMBAT_ALL_DESC       | Tout le monde met la main à la pâte
 SETTINGS_MOD_RALLY_COMBAT_ALL            | Tous
 
 SETTINGS_MOD_RALLY_COMBAT_LOSS_DESC      | Quelle flotte subira les pertes de la bataille ?
-SETTINGS_MOD_RALLY_COMBAT_LOSS           | Pertes de combats: %1
+SETTINGS_MOD_RALLY_COMBAT_LOSS           | Pertes de combats : %1
 SETTINGS_MOD_COMBAT_LOSS_DEFENSE_DESC    | La flotte de défense en orbite subira toutes les pertes.
 SETTINGS_MOD_COMBAT_LOSS_DEFENSE         | Défense
 SETTINGS_MOD_COMBAT_LOSS_RALLY_DESC      | La flotte de ralliée assumera toutes les pertes.
@@ -2060,6 +2093,19 @@ SETTINGS_MOD_COMBAT_LOSS_RALLY           | Ralliés
 SETTINGS_MOD_COMBAT_LOSS_SHARED_DESC     | Les pertes seront partagées proportionnellement à la contribution initiale.
 SETTINGS_MOD_COMBAT_LOSS_SHARED          | Partagée
 
+SETTINGS_MOD_MAX_LANDING_TROOPS_DESC     | Faut-il limiter le nombre de troupes de débarquement ? Et de quelle manière?
+SETTINGS_MOD_MAX_LANDING_TROOPS          | Débarquement : %1
+SETTINGS_MOD_MAX_LANDING_UNLIMITED_DESC  | Toutes les troupes qui traversent les défenses sont autorisées à débarquer.
+SETTINGS_MOD_MAX_LANDING_UNLIMITED       | illimité
+SETTINGS_MOD_MAX_LANDING_MULTIPLER_DESC  | La quantité est proportionnelle à la taille de la planète.
+SETTINGS_MOD_MAX_LANDING_MULTIPLER       | Multiplicateur
+SETTINGS_MOD_MAX_LANDING_FIXED_DESC      | Troupes de débarquement limitées, et indépendantes de la taille de la planète.
+SETTINGS_MOD_MAX_LANDING_FIXED           | Valeur fixe
+
+SETTINGS_MOD_MAX_LANDING_AMOUNT_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_FIXED← » est sélectionnée, combien de troupes d’invasion sont capables de débarquer ?
+SETTINGS_MOD_MAX_LANDING_AMOUNT          | Nombre Maximal : %1
+SETTINGS_MOD_MAX_LANDING_FACTOR_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_MULTIPLER← » est sélectionné, Quel pourcentage de la taille de la planète limitera la taille des troupes d'invasion.
+SETTINGS_MOD_MAX_LANDING_FACTOR          | Multiplicateur : %1%
 
 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | Désactiver les traités de paix ou supprimer la possibilité de coloniser losqu'une autre flotte est en orbite autour de la planète.

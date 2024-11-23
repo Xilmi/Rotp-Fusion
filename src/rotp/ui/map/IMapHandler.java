@@ -19,10 +19,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.border.Border;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemView;
@@ -62,7 +65,7 @@ public interface IMapHandler {
     default public boolean dragSelect(int x0, int y0, int x1, int y, boolean shift) { return false; }
 
     default public void hoveringOverSprite(Sprite o)              { };
-    default public void clickingOnSprite(Sprite o, int cnt, boolean right, boolean click, boolean middleClick)       { };
+    default public void clickingOnSprite(Sprite o, int cnt, boolean right, boolean click, boolean middleClick, MouseEvent e)       { };
     default public void clickingOnSprite(Sprite o, int cnt, boolean right, boolean click, InputEvent e) { };
     default public void clickingNull(int cnt, boolean right) {  };
     default public boolean masksMouseOver(int x, int y)       { return false; }

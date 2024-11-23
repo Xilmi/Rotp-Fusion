@@ -749,7 +749,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
     @Override
     public boolean canChangeMapScales()                 { return true; }
     @Override
-    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick) {
+    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
         if (mapIsMasked())
             return;
         if (o instanceof StarSystem) {
@@ -762,7 +762,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
             repaint();
             return;
         }
-        o.click(map, count, rightClick, click, middleClick);
+        o.click(map, count, rightClick, click, middleClick, e);
         repaint();
     }
     public Sprite lastHoveringSprite()       { return (Sprite) sessionVar("MAINUI_LAST_HOVERING_SPRITE"); }

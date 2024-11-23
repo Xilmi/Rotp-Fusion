@@ -17,6 +17,7 @@ package rotp.ui.sprites;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class SettingsWidgetSprite extends MapControlSprite {
 	@Override
 	public boolean acceptDoubleClicks()		 { return false; }
 	@Override
-	public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+	public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
 		if (Rotp.isUnderTest()) { // TODO BR: REMOVE Rotp.isUnderTest()
 			ParamSubUI optionsUI = AllSubUI.settingsSubUI();
 			optionsUI.start(null);

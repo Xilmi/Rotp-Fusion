@@ -116,27 +116,27 @@ public class MapOverlayEspionageMission extends MapOverlay implements IVIPListen
         switch(e.getKeyCode()) {
             case KeyEvent.VK_1:
                 if (this.canSelect(0))  
-                    categorySprites[0].click(parent.map(), 1, false, true, false);
+                    categorySprites[0].click(parent.map(), 1, false, true, false, null);
                 break;
             case KeyEvent.VK_2:
                 if (this.canSelect(1))
-                    categorySprites[1].click(parent.map(), 1, false, true, false);
+                    categorySprites[1].click(parent.map(), 1, false, true, false, null);
                 break;
             case KeyEvent.VK_3:
                 if (this.canSelect(2))
-                    categorySprites[2].click(parent.map(), 1, false, true, false);
+                    categorySprites[2].click(parent.map(), 1, false, true, false, null);
                 break;
             case KeyEvent.VK_4:
                 if (this.canSelect(3))
-                    categorySprites[3].click(parent.map(), 1, false, true, false);
+                    categorySprites[3].click(parent.map(), 1, false, true, false, null);
                 break;
             case KeyEvent.VK_5:
                 if (this.canSelect(4))
-                    categorySprites[4].click(parent.map(), 1, false, true, false);
+                    categorySprites[4].click(parent.map(), 1, false, true, false, null);
                 break;
             case KeyEvent.VK_6:
                 if (this.canSelect(5))
-                    categorySprites[5].click(parent.map(), 1, false, true, false);
+                    categorySprites[5].click(parent.map(), 1, false, true, false, null);
                 break;
             case KeyEvent.VK_L:
             	if (e.isAltDown()) {

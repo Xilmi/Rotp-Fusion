@@ -644,7 +644,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 index = (index == 0) ? fleets.size()-1 : index -1;
 
             IMapHandler topPanel = parent.parent.parent;
-            topPanel.clickingOnSprite(fleets.get(index), 1, false, true, false);
+            topPanel.clickingOnSprite(fleets.get(index), 1, false, true, false, null);
             topPanel.map().recenterMapOn(fleets.get(index));
             topPanel.repaint();
         }

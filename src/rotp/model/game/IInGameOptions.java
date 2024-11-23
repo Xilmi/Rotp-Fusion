@@ -300,7 +300,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 			.put(RALLY_COMBAT_BUILT,	MOD_UI + RALLY_COMBAT_BUILT)
 			.put(RALLY_COMBAT_PASS_BY,	MOD_UI + RALLY_COMBAT_PASS_BY)
 			.put(RALLY_COMBAT_ALL,		MOD_UI + RALLY_COMBAT_ALL)
-			.setDefaultValue(FUSION_DEFAULT, RALLY_COMBAT_BUILT) // TOD BR: change to RALLY_COMBAT_ALL
+			.setDefaultValue(FUSION_DEFAULT, RALLY_COMBAT_BUILT) // TODO BR: change to RALLY_COMBAT_ALL
 			.setDefaultValue(MOO1_DEFAULT,   RALLY_COMBAT_BUILT)
 			.setDefaultValue(ROTP_DEFAULT,   RALLY_COMBAT_BUILT);
 	default boolean rallyCombat()		{ return !rallyCombat.get().equals(RALLY_COMBAT_NEVER); }
@@ -324,5 +324,31 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	ParamBoolean useSmartRefit		= new ParamBoolean(MOD_UI, "USE_SMART_REFIT", true);
 	default boolean useSmartRefit()		{ return useSmartRefit.get(); }
 
-
+	String MAX_LANDING_UNLIMITED	= "MAX_LANDING_UNLIMITED";
+	String MAX_LANDING_MULTIPLER	= "MAX_LANDING_MULTIPLER";
+	String MAX_LANDING_FIXED		= "MAX_LANDING_FIXED";
+	ParamList maxLandingTroops	= new ParamList( MOD_UI, "MAX_LANDING_TROOPS", MAX_LANDING_UNLIMITED)
+			.showFullGuide(true)
+			.setDefaultValue(MOO1_DEFAULT, MAX_LANDING_FIXED)
+			.put(MAX_LANDING_UNLIMITED,	MOD_UI + MAX_LANDING_UNLIMITED)
+			.put(MAX_LANDING_FIXED,		MOD_UI + MAX_LANDING_FIXED)
+			.put(MAX_LANDING_MULTIPLER,	MOD_UI + MAX_LANDING_MULTIPLER);
+	ParamInteger maxLandingTroopsAmount	= new ParamInteger(MOD_UI, "MAX_LANDING_AMOUNT", 300)
+			.setDefaultValue(MOO1_DEFAULT, 300)
+			.setLimits(10, 10000)
+			.setIncrements(10, 50, 200);
+	ParamInteger maxLandingTroopsFactor	= new ParamInteger(MOD_UI, "MAX_LANDING_FACTOR", 200)
+			.setLimits(10, 10000)
+			.setIncrements(10, 50, 200);
+	default int maxLandingTroops(int planetSize)	{
+		switch (maxLandingTroops.get()) {
+			case MAX_LANDING_FIXED:
+				return maxLandingTroopsAmount.get();
+			case MAX_LANDING_MULTIPLER:
+				return maxLandingTroopsFactor.get() * planetSize;
+			case MAX_LANDING_UNLIMITED:
+			default:
+				return Integer.MAX_VALUE;
+		}
+	}
 }

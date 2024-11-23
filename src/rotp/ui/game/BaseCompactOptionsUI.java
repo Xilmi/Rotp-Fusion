@@ -224,7 +224,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		int smallButtonW = exitWidth;
 		int xPos = xFull+rGist-smallButtonW-sep;
 		int ypos;
-		exitBox.setBounds(xPos, yButton+s2, smallButtonW, smallButtonH);
+		//exitBox.setBounds(xPos, yButton+s2, smallButtonW, smallButtonH);
+		exitBox.setBounds(xPos, yButton, smallButtonW, smallButtonH);
 		smallButtonW = guideButtonWidth(g);
 		guideBox.setBounds(xFull+xGist+sep, yButton, smallButtonW, smallButtonH);
 		smallButtonW = defaultButtonWidth(g);

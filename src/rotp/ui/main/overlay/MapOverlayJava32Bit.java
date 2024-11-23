@@ -21,8 +21,10 @@ import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.util.List;
+
 import rotp.model.Sprite;
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
@@ -217,7 +219,7 @@ public class MapOverlayJava32Bit extends MapOverlay {
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
             //if (click)
             //    softClick();
             parent.ok();

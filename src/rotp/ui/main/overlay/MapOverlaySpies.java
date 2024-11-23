@@ -15,17 +15,21 @@
  */
 package rotp.ui.main.overlay;
 
+import static rotp.ui.BasePanel.stroke2;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import rotp.Rotp;
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
@@ -34,7 +38,6 @@ import rotp.model.empires.SabotageMission;
 import rotp.model.empires.SpyReport;
 import rotp.model.tech.Tech;
 import rotp.ui.BasePanel;
-import static rotp.ui.BasePanel.stroke2;
 import rotp.ui.RotPUI;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomaticMessage;
@@ -499,7 +502,7 @@ public class MapOverlaySpies extends MapOverlay {
             drawString(g,empire.raceName(), tabX+scaled(5), tabY+tabH-scaled(3));
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
             //if (click)
             //    softClick();
             parent.selectEmpire(empire);
@@ -576,7 +579,7 @@ public class MapOverlaySpies extends MapOverlay {
 
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
             if (click)
                 softClick();
             parent.advanceMap();
@@ -653,7 +656,7 @@ public class MapOverlaySpies extends MapOverlay {
 
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
             if (click)
                 softClick();
             manageSpies();
@@ -729,7 +732,7 @@ public class MapOverlaySpies extends MapOverlay {
             }
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
             if (click)
                 softClick();
             threaten();

@@ -1483,7 +1483,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         if (newSelection == null) 
             parent.clickingNull(1, rightClick);
         else if ((clicks == 1) || newSelection.acceptDoubleClicks())
-            parent.clickingOnSprite(newSelection, 1, rightClick, true, middleClick);
+            parent.clickingOnSprite(newSelection, 1, rightClick, true, middleClick, e);
             
         parent.hoveringOverSprite(newSelection);
     }
