@@ -42,7 +42,7 @@ public final class InGameOptions extends AbstractOptionsSubUI {
 //				//debugAutoRun, darkGalaxy,
 //				rallyCombat, rallyCombatLoss // TODO BR: COMMENT before release
 				)));
-		map.add(new SafeListParam(Arrays.asList(
+		SafeListParam list = new SafeListParam(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
 				councilWin, counciRequiredPct, councilPlayerVote,
 				aiHostility, techTrading,
@@ -57,16 +57,18 @@ public final class InGameOptions extends AbstractOptionsSubUI {
 				missileBaseModifier, missileShipModifier,
 				targetBombard, bombingTarget,
 				scrapRefundOption, scrapRefundFactor,
-				shipSpaceFactor,
+				shipSpaceFactor
 //				maxLandingTroops,
 //				maxLandingTroopsAmount,
 //				maxLandingTroopsFactor
-
-				HEADER_SPACER_50,
-				new ParamTitle("BETA_TEST"),
-				//debugAutoRun, darkGalaxy,
-				rallyCombat, rallyCombatLoss // TODO BR: COMMENT before release
-				)));
+//
+//				HEADER_SPACER_50,
+//				new ParamTitle("BETA_TEST"),
+//				//debugAutoRun, darkGalaxy,
+//				rallyCombat, rallyCombatLoss // TODO BR: COMMENT before release
+				));
+		list.addAll(AllSubUI.getHandle(NEW_RULES_BETA_UI_KEY).getUiMinor(false));
+		map.add(list);
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("SUB_PANEL_OPTIONS"),
 				AllSubUI.randomEventsSubUI(),

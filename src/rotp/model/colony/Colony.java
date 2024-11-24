@@ -809,15 +809,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
     		}
     	}
     }
-//    public void checkEcoAtClean(boolean evenIfLocked) { // TODO BR: Remove
-//    	if (evenIfLocked && locked[ECOLOGY]) {
-//    		locked(ECOLOGY, false);
-//    		checkEcoAtClean();
-//    		locked(ECOLOGY, true);
-//    	}
-//    	else
-//    		checkEcoAtClean();
-//    }
     public void checkEcoAtClean() {
         recalcSpendingForNewTaxRate = false;
         if (locked[ECOLOGY]) 
@@ -1465,6 +1456,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
             lost += (int) (defenderDmg / tr.hitPoints());
         passed += max(0, (num - lost));
         lost = min(lost, num);
+
+        // BR: No more than allowed
+        // Removed the limit for to avoid impossible take back 
+        // passed = min(passed, (int)options().maxLandingTroops(starSystem()));
         tr.size(passed);
         if (lost > 0) {
             log(concat(str(tr.launchSize()), " ", tr.empire().raceName(), " transports perished at ", name()));
@@ -1571,6 +1566,9 @@ public final class Colony implements Base, IMappedObject, Serializable {
         passed += max(0, (num - lost));
         lost = min(lost, num);
 
+        // BR: No more than allowed
+        passed = min(passed, (int)options().maxLandingTroops(starSystem()));
+        lost = max(0, (num - passed));
         tr.size(passed);
 
         // if gauntlet not passed, stop and inform player (if player)

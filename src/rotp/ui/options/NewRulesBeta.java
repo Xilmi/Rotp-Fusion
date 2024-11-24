@@ -16,14 +16,34 @@ final class NewRulesBeta extends AbstractOptionsSubUI {
 				rallyCombat,
 				rallyCombatLoss
 				)));
+		map.add(new SafeListParam(Arrays.asList(
+				LINE_SPACER_25,
+				maxLandingTroops,
+				maxLandingTroopsAmount,
+				maxLandingTroopsFactor
+				)));
+		map.add(AllSubUI.getHandle(NEW_OPTIONS_BETA_UI_KEY).getUiMajor(true));
 		return map;
 	}
 	@Override public SafeListParam majorList()	{
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						rallyCombat,
-						rallyCombatLoss
+						rallyCombatLoss,
+						LINE_SPACER_25,
+						maxLandingTroops,
+						maxLandingTroopsAmount,
+						maxLandingTroopsFactor
 						));
 		return majorList;
+	}
+	@Override public SafeListParam minorList()	{
+		SafeListParam minorList = new SafeListParam(uiMinorKey(),
+				Arrays.asList(
+						maxLandingTroops,
+						maxLandingTroopsAmount,
+						maxLandingTroopsFactor
+						));
+		return minorList;
 	}
 }

@@ -357,8 +357,12 @@ public abstract class AbstractParam <T> implements IParam {
 		return this;
 	}
 	/**
-	 * true by default.
-	 * Should be set to false if this parameter change a previously constant value.
+	 * For backward compatibility
+	 * <br>Old save game are initialized with:
+	 * <br>true: The current value.
+	 * <br>false: The default value.
+	 * <br>true by default.
+	 * <br>Should be set to false if this parameter change a previously constant value.
 	 */
 	public AbstractParam<T> isValueInit(boolean is)	{ isValueInit = is ; return this; }
 	public AbstractParam<T> isDuplicate(boolean is)	{ isDuplicate = is ; return this; }

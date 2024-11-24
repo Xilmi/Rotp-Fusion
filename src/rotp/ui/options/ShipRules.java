@@ -46,10 +46,10 @@ final class ShipRules extends AbstractOptionsSubUI {
 						missileBaseModifier,
 						missileShipModifier,
 						targetBombard,
-						bombingTarget,
-						maxLandingTroops,
-						maxLandingTroopsAmount,
-						maxLandingTroopsFactor
+						bombingTarget
+//						maxLandingTroops,
+//						maxLandingTroopsAmount,
+//						maxLandingTroopsFactor
 						));
 		return majorList;
 	}

@@ -72,6 +72,13 @@ Later:
 2024.11.24 (BR)
 - Transport troop equipment is now displayed on the right side panel.
 - Empire Diplomacy panel: Asterisk is added when "A new trade" is available in the audience menu. (Trade*)
+- New option to limit the size of invasion troops that can land.
+  - Fixed size or proportional to the planet size.
+- The Options panel has been split into a Rules panel and a Settings panel.
+  - Two new icons to call them are added to the galaxy map.
+  - Former Option panel still available inside the Rules panel
+  - Former Option panel still respond to "O"
+
 
 2024.11.23 (BR)
 - Unclean Colony Icon gives more choice.

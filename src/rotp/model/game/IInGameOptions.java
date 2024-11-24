@@ -3,6 +3,7 @@ package rotp.model.game;
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
+import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.ships.ShipDesign;
 import rotp.ui.util.ParamBoolean;
@@ -330,22 +331,23 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	ParamList maxLandingTroops	= new ParamList( MOD_UI, "MAX_LANDING_TROOPS", MAX_LANDING_UNLIMITED)
 			.showFullGuide(true)
 			.setDefaultValue(MOO1_DEFAULT, MAX_LANDING_FIXED)
+			.isValueInit(false)
 			.put(MAX_LANDING_UNLIMITED,	MOD_UI + MAX_LANDING_UNLIMITED)
 			.put(MAX_LANDING_FIXED,		MOD_UI + MAX_LANDING_FIXED)
 			.put(MAX_LANDING_MULTIPLER,	MOD_UI + MAX_LANDING_MULTIPLER);
 	ParamInteger maxLandingTroopsAmount	= new ParamInteger(MOD_UI, "MAX_LANDING_AMOUNT", 300)
 			.setDefaultValue(MOO1_DEFAULT, 300)
-			.setLimits(10, 10000)
+			.setLimits(0, 10000)
 			.setIncrements(10, 50, 200);
 	ParamInteger maxLandingTroopsFactor	= new ParamInteger(MOD_UI, "MAX_LANDING_FACTOR", 200)
-			.setLimits(10, 10000)
+			.setLimits(0, 10000)
 			.setIncrements(10, 50, 200);
-	default int maxLandingTroops(int planetSize)	{
+	default float maxLandingTroops(StarSystem sys)	{
 		switch (maxLandingTroops.get()) {
 			case MAX_LANDING_FIXED:
 				return maxLandingTroopsAmount.get();
 			case MAX_LANDING_MULTIPLER:
-				return maxLandingTroopsFactor.get() * planetSize;
+				return maxLandingTroopsFactor.get() * sys.planet().currentSize() / 100;
 			case MAX_LANDING_UNLIMITED:
 			default:
 				return Integer.MAX_VALUE;

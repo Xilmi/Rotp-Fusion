@@ -49,7 +49,6 @@ import java.util.function.Function;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
-import rotp.Rotp;
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.Galaxy;
@@ -74,7 +73,6 @@ import rotp.ui.sprites.CleanWidgetSprite;
 import rotp.ui.sprites.FlightPathDisplaySprite;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.GridCircularDisplaySprite;
-import rotp.ui.sprites.OptionsWidgetSprite;
 import rotp.ui.sprites.RangeDisplaySprite;
 import rotp.ui.sprites.RulesWidgetSprite;
 import rotp.ui.sprites.SettingsWidgetSprite;
@@ -239,15 +237,15 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             y += step;
         	baseControls.add(new ZoomOutWidgetSprite(x, y, h, h));
             y += step;
-        	if (Rotp.isUnderTest()) { // TODO BR: REMOVE Rotp.isUnderTest()
+//        	if (Rotp.isUnderTest()) { // TO DO BR: REMOVE Rotp.isUnderTest()
         		yOff = 0;
         		baseControls.add(new SettingsWidgetSprite(x, y, h, h));
         		y += step;
         		baseControls.add(new RulesWidgetSprite(x, y, h, h));
-        	}
-        	else {
-        		baseControls.add(new OptionsWidgetSprite(x, y, h, h));
-        	}
+//        	}
+//        	else {
+//        		baseControls.add(new OptionsWidgetSprite(x, y, h, h));
+//        	}
         	y += step + yOff;
         	int shift = step-step/2;
          	cleanWidgetSprite = new CleanWidgetSprite(x, y, h, h, shift);

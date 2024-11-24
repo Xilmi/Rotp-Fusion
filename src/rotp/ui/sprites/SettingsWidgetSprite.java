@@ -21,7 +21,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import rotp.Rotp;
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.options.AllSubUI;
@@ -30,7 +29,7 @@ import rotp.ui.util.ParamSubUI;
 public class SettingsWidgetSprite extends MapControlSprite {
 	private BufferedImage image;
 	private BufferedImage image() {
-		//if (image == null)
+		if (image == null)
 			image = settingsIcon(width, height, BasePanel.s12);
 		return image;
 	}
@@ -44,16 +43,16 @@ public class SettingsWidgetSprite extends MapControlSprite {
 	public boolean acceptDoubleClicks()		 { return false; }
 	@Override
 	public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
-		if (Rotp.isUnderTest()) { // TODO BR: REMOVE Rotp.isUnderTest()
+//		if (Rotp.isUnderTest()) { // TO DO BR: REMOVE Rotp.isUnderTest()
 			ParamSubUI optionsUI = AllSubUI.settingsSubUI();
 			optionsUI.start(null);
-		}
+//		}
 	}
 	@Override
 	public void draw(GalaxyMapPanel map, Graphics2D g2) {
-		if (!Rotp.isUnderTest()) { // TODO BR: REMOVE Rotp.isUnderTest()
-			return;
-		}
+//		if (!Rotp.isUnderTest()) { // TO DO BR: REMOVE Rotp.isUnderTest()
+//			return;
+//		}
 		int w = width;
 		String label;
 		int fontSize = 13;

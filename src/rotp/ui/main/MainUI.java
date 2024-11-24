@@ -966,14 +966,17 @@ public class MainUI extends BasePanel implements IMapHandler {
         sp8.setLine(x3+(w3*3/4), y3, w-scaled(54), scaled(430));        
 
         // BR: Added options panel
+        // Setting panel
         boolean moreIcon = session().aFewMoreTurns();
 //        moreIcon = true;
         int yArrowOffset = moreIcon? 0 : s17;
         int yArrowSep = s35;
         int xBoxSep = moreIcon? s10 : s20;
+//        int xBoxSep = moreIcon? s10 : s20;
         int xAL = s40;
         // Settings panel
         int x10 = scaled(115);
+//        int y10 = moreIcon? scaled(180) : scaled(200); // TODO BR
         int y10 = moreIcon? scaled(180) : scaled(200); // TODO BR
         int w10 = scaled(250);
         int y10a = scaled(300);
@@ -981,19 +984,22 @@ public class MainUI extends BasePanel implements IMapHandler {
         sp10.setLine(x10, sp10.yce(), xAL, y10a);
 
         // Rules panel
-//        int x20 = x10;
+        int x20 = x10;
         int w20 = w10;
-//        int y20 = y10; // sp10.ye() + sep; // TODO BR
-        int y20a = y10a; // + yaSep;
-        HelpSpec sp20 = sp10;
-//        HelpSpec sp20 = helpUI.addBrownHelpText(x20, y20, w20, 0, text("MAIN_HELP_MOD_1J")); // Rules panel
-//        sp20.setLine(x20, sp20.yc(), xAL, y20a);
+        int y20 = sp10.ye() + xBoxSep; // TODO BR
+        int y20a = y10a + yArrowSep;
+//        int y20 = y10; // sp10.ye() + xBoxSep; // TODO BR
+//        int y20a = y10a; // + yArrowSep;
+//        HelpSpec sp20 = sp10;
+        HelpSpec sp20 = helpUI.addBrownHelpText(x20, y20, w20, 0, text("MAIN_HELP_MOD_1J")); // Rules panel
+        sp20.setLine(x20, sp20.yc(), xAL, y20a);
 
         // BR: Added Eco report icon
         int x14 = x10;
         int w14 = w10;
         int y14 = sp20.ye() + xBoxSep;
-        int y14a = y20a + yArrowSep + s18; // TODO BR:
+        int y14a = y20a + yArrowSep; // TODO BR:
+//        int y14a = y20a + yArrowSep + s18; // TODO BR:
         HelpSpec sp14 = helpUI.addBrownHelpText(x14, y14, w14, 0, text("MAIN_HELP_MOD_1K")); // ECO
         sp14.setLine(x14, sp14.yc(), xAL, y14a+yArrowOffset);
 

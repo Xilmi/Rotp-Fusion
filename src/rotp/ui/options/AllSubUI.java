@@ -6,7 +6,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
-import rotp.Rotp;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamSubUI;
@@ -75,11 +74,10 @@ public final class AllSubUI {
 		put(new RaceMenuOptions());
 		put(new RandomEventsOptions());
 		put(new SystemsOptions());
-		if (Rotp.isUnderTest()) { // TODO BR: REMOVE Rotp.isUnderTest()
+//		if (Rotp.isUnderTest()) { // TO DO BR: REMOVE Rotp.isUnderTest()
 			put(new RulesOptions());
 			put(new SettingsOptions());
-		}
-			
+//		}
 	}
 
 	public static SafeListParam allModOptions(boolean refresh)			{
@@ -142,19 +140,20 @@ public final class AllSubUI {
 	public static ParamSubUI randomEventsSubUI()	{ return getUI(RandomEventsOptions.OPTION_ID); }
 	public static ParamSubUI systemSubUI()			{ return getUI(SystemsOptions.OPTION_ID); }
 
-	public static ParamSubUI rulesSubUI()			{  // TODO BR: Validate Rotp.isUnderTest()
-		if (Rotp.isUnderTest())
-			return getUI(RulesOptions.OPTION_ID);
-		else
-			return getUI(InGameOptions.OPTION_ID);
-
-	}
-	public static ParamSubUI settingsSubUI()		{  // TODO BR: Validate  Rotp.isUnderTest()
-		if (Rotp.isUnderTest())
-			return getUI(SettingsOptions.OPTION_ID);
-		else
-			return getUI(InGameOptions.OPTION_ID);
-	}
+	public static ParamSubUI rulesSubUI()			{return getUI(RulesOptions.OPTION_ID); }
+	public static ParamSubUI settingsSubUI()		{ return getUI(SettingsOptions.OPTION_ID); }
+//	public static ParamSubUI rulesSubUI()			{  // TO DO BR: Validate Rotp.isUnderTest()
+//		if (Rotp.isUnderTest())
+//			return getUI(RulesOptions.OPTION_ID);
+//		else
+//			return getUI(InGameOptions.OPTION_ID);
+//	}
+//	public static ParamSubUI settingsSubUI()		{  // TO DO BR: Validate  Rotp.isUnderTest()
+//		if (Rotp.isUnderTest())
+//			return getUI(SettingsOptions.OPTION_ID);
+//		else
+//			return getUI(InGameOptions.OPTION_ID);
+//	}
 
 	public static SafeListParam optionsGalaxy() 	{ return GalaxyMenuOptions.optionsGalaxy(); }
 	public static SafeListParam optionsCustomRace() { return RaceMenuOptions.optionsCustomRace(); }

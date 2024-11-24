@@ -759,8 +759,9 @@ MAIN_HELP_MOD                     | Mod Help - "O" to bring the Game options Men
 MAIN_HELP_MOD_1A                  | To enable or disable the Governor for this star system.
 MAIN_HELP_MOD_1B                  | To access Governor's Options Menu.
 MAIN_HELP_MOD_1F                  | Turn alerts may appear there: Right click on them to center the map on the system. Left click to show the next alert.
-MAIN_HELP_MOD_1I                  | To access "Options" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
-MAIN_HELP_MOD_1J                  | To access "Options" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
+//MAIN_HELP_MOD_1I                  | To access "Options" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
+MAIN_HELP_MOD_1I                  | →SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC←
+MAIN_HELP_MOD_1J                  | →SETTINGS_MOD_RULES_OPTIONS_UI_DESC←
 MAIN_HELP_MOD_1K                  | Colony Ecology Report.<br>No key modifier: Packages cleaning.<br>Shift: Minimal group cleaning.<br>Ctrl: Clean everything
 MAIN_HELP_MOD_1L                  | You are continuing a terminated game. Click to stop and see the Game-Over panel again.<br>(After triggering "Next-Turn")
 
@@ -2235,7 +2236,7 @@ SETTINGS_FUEL_RANGE_HELP          | Increase or decrease the range of fuel range
 SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologies and reserve fuel tanks.
 SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien species.<br>When the hostility between two empires reach the level 30, a war declaration will follow!
 
-HEADERS_RELEVAN_PARAMETERST_DESC  | You may also be interested in knowing, or adjusting, these settings.
+HEADERS_RELEVANT_PARAMETERS_DESC  | You may also be interested in knowing, or adjusting, these settings.
 HEADERS_RELEVANT_PARAMETERS       | ~~~ RELEVANT PARAMETERS ~~~
 
 HEADERS_COMPUTER_OPTIONS_DESC     | Options related to the hardware.
@@ -3153,7 +3154,7 @@ SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC    | Opens a submenu containing advanced g
 SETTINGS_MOD_PRE_GAME_OPTIONS_UI_HELP    | →SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC←
 
 SETTINGS_MOD_IN_GAME_OPTIONS_TITLE       | Rules and Gameplay Settings
-SETTINGS_MOD_IN_GAME_OPTIONS_UI          | Gameplay Options
+SETTINGS_MOD_IN_GAME_OPTIONS_UI          | Former Option Panel
 SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC     | Opens a submenu containing advanced rules and gameplay settings.
 SETTINGS_MOD_IN_GAME_OPTIONS_UI_HELP     | →SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC← These settings are saved with the game. This submenu is also available during gameplay.
 
@@ -3161,14 +3162,14 @@ SETTINGS_MOD_RULES_OPTIONS_BUTTON        | Rules
 SETTINGS_MOD_RULES_OPTIONS_DETAIL        | Configure the Game Rules
 SETTINGS_MOD_RULES_OPTIONS_TITLE         | Game Rules Configuration
 SETTINGS_MOD_RULES_OPTIONS_UI            | Rules Options
-SETTINGS_MOD_RULES_OPTIONS_UI_DESC       | Opens a subpanel to configure the game rules.
+SETTINGS_MOD_RULES_OPTIONS_UI_DESC       | Opens a submenu to configure the game rules.
 SETTINGS_MOD_RULES_OPTIONS_UI_HELP       | →SETTINGS_MOD_RULES_OPTIONS_UI_DESC←<br>These settings are saved inside the game file.<br>This submenu is also available during gameplay.
 
 SETTINGS_MOD_SETTINGS_OPTIONS_BUTTON     | Settings
 SETTINGS_MOD_SETTINGS_OPTIONS_DETAIL     | Configure User Interface and Automations
 SETTINGS_MOD_SETTINGS_OPTIONS_TITLE      | User Interface Configuration
 SETTINGS_MOD_SETTINGS_OPTIONS_UI         | User Interface
-SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC    | Opens a subpanel to configure User Interface and Automations.
+SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC    | Opens a submenu to configure User Interface and Automations.
 SETTINGS_MOD_SETTINGS_OPTIONS_UI_HELP    | →SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC←<br>Some of these settings are saved inside the game file, other in the "remnant.cfg" file.<br>This submenu is also available during gameplay.
 
 SETTINGS_MOD_BASE_MOD_OPTIONS_TITLE      | Base Mod Settings
@@ -4373,7 +4374,7 @@ RACES_HELP_1E                     | Diplomatic incidents that affect how other e
 RACES_HELP_1F                     | Click to change the color assigned to the empire.
 RACES_HELP_2A                     | General information for selected empire.
 RACES_HELP_2B                     | Grants an audience with a diplomat for the selected empire.
-RACES_HELP_2C                     | Information about trade treaties signed with the selected empire.<br>* A new trade is available in the audience menu.
+RACES_HELP_2C                     | Information about trade treaties signed with the selected empire.<br>* "A new trade" is available in the audience menu.
 RACES_HELP_2D                     | Other empires that the selected empire has contacted.
 RACES_HELP_2E                     | Diplomatic incidents that affect how the selected empire reacts to you. The effects will move towards zero over time.
 RACES_HELP_2F                     | A measure of the current state of relations with the selected empire.

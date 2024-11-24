@@ -41,8 +41,6 @@ public final class RulesOptions extends AbstractOptionsSubUI {
 		list.add(HEADER_SPACER_50);
 		list.addAll(AllSubUI.getHandle(SHIP_COMBAT_RULES_UI_KEY).getUiMinor(false));
 		list.add(HEADER_SPACER_50);
-//		list.add(AllSubUI.getHandle(COMMON_OPTIONS_UI_KEY).getUI());
-//		list.add(HEADER_SPACER_50);
 		list.addAll(AllSubUI.getHandle(DEBUG_OPTIONS_UI_KEY).getUiMinor(false));
 		list.add(HEADER_SPACER_50);
 		list.addAll(AllSubUI.getHandle(NEW_RULES_BETA_UI_KEY).getUiMajor(false));

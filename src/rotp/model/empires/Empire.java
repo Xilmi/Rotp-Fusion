@@ -1329,24 +1329,12 @@ public final class Empire implements Base, NamedObject, Serializable {
             	}
         return needCleaning;
     }
-//    public void checkEcoAtClean(boolean rightClick, boolean middleClick, boolean shiftDown) { // TODO BR: REMOVE
-//        List<StarSystem> systems = new ArrayList<>(colonizedSystems);
-//        for (StarSystem sys: systems)
-//            if (sys != null && sys.isColonized())
-//                sys.colony().checkEcoAtClean(rightClick, middleClick, shiftDown);
-//    }
     public void checkEcoAtClean(MouseEvent e) {
         List<StarSystem> systems = new ArrayList<>(colonizedSystems);
         for (StarSystem sys: systems)
             if (sys != null && sys.isColonized())
                 sys.colony().checkEcoAtClean(e);
     }
-//    public void checkEcoAtClean(boolean evenIfLocked) { // TODO BR: REMOVE
-//        List<StarSystem> systems = new ArrayList<>(colonizedSystems);
-//        for (StarSystem sys: systems)
-//            if (sys != null && sys.isColonized())
-//                sys.colony().checkEcoAtClean(evenIfLocked);
-//    }
     public void lowerECOToCleanIfEcoComplete() {
         List<StarSystem> systems = new ArrayList<>(colonizedSystems);
         for (StarSystem sys: systems) {

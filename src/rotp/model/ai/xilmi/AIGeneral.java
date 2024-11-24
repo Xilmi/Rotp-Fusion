@@ -15,13 +15,16 @@
  */
 package rotp.model.ai.xilmi;
 
-import rotp.model.ai.FleetStats;
+import static rotp.model.tech.Tech.miniFastRate;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+
 import rotp.model.ai.FleetPlan;
+import rotp.model.ai.FleetStats;
 import rotp.model.ai.interfaces.General;
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
@@ -36,7 +39,6 @@ import rotp.model.incidents.DiplomaticIncident;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
 import rotp.model.tech.Tech;
-import static rotp.model.tech.Tech.miniFastRate;
 import rotp.model.tech.TechBombWeapon;
 import rotp.util.Base;
 
@@ -418,6 +420,10 @@ public class AIGeneral implements Base, General {
         if(target.empire().tech().subspaceInterdiction())
             combatTransport /= 2;
         float additional = expectedEnemyTransportKillPower(target) * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(target));
+        
+        // BR: To take into account the maxLandingTroops option
+        if ((needed + additional) > options().maxLandingTroops(target))
+        	return;
         if(combatTransport > 0)
             needed = max(needed + additional, needed / combatTransport);
         else
@@ -521,8 +527,9 @@ public class AIGeneral implements Base, General {
         return ev.spies().tech().weapon().techLevel() / empire.tech().construction().techLevel();
     }
     public float troopsNecessaryToTakePlanet(EmpireView ev, StarSystem sys, boolean atCurrentPop) {
-        int id = sys.id;
-        
+    	// BR: Modified to take account of maxLandingTroops limitation 
+    	int id = sys.id;
+        float killRatio;
         // modnar: (?) this old estimate gives completely wrong results for ground combat
         //return empire.sv.population(id) * (50 + ev.spies().tech().troopCombatAdj(true)) / (50 + empire.tech().troopCombatAdj(false));
         float expectedTargetPopulation = empire.sv.population(id);
@@ -562,15 +569,19 @@ public class AIGeneral implements Base, General {
         if (ev.spies().tech().troopCombatAdj(true) >= empire.tech().troopCombatAdj(false)) {
             float defAdv = ev.spies().tech().troopCombatAdj(true) - empire.tech().troopCombatAdj(false);
             // killRatio = attackerCasualties / defenderCasualties
-            float killRatio = (float) ((Math.pow(100,2) - Math.pow(100-defAdv,2)/2) / (Math.pow(100-defAdv,2)/2));
-            return expectedTargetPopulation * killRatio;
+            killRatio = (float) ((Math.pow(100,2) - Math.pow(100-defAdv,2)/2) / (Math.pow(100-defAdv,2)/2));
+            //return expectedTargetPopulation * killRatio;
         }
         else {
             float atkAdv = empire.tech().troopCombatAdj(false) - ev.spies().tech().troopCombatAdj(true);
             // killRatio = attackerCasualties / defenderCasualties
-            float killRatio = (float) ((Math.pow(100-atkAdv,2)/2) / (Math.pow(100,2) - Math.pow(100-atkAdv,2)/2));
-            return expectedTargetPopulation * killRatio;
+            killRatio = (float) ((Math.pow(100-atkAdv,2)/2) / (Math.pow(100,2) - Math.pow(100-atkAdv,2)/2));
+            //return expectedTargetPopulation * killRatio;
         }
+        float troop = empire.sv.population(id) * killRatio;
+        if (troop > options().maxLandingTroops(sys))
+        	return Float.MAX_VALUE;
+        return troop;
     }
     public int transportGauntletRounds(float speed) {
         switch((int)speed) {

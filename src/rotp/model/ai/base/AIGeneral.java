@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+
 import rotp.model.ai.FleetPlan;
 import rotp.model.ai.interfaces.General;
 import rotp.model.empires.Empire;
@@ -71,7 +72,7 @@ public class AIGeneral implements Base, General {
     // Desire value to invade planet, factor in both planet size and factories
     // Higher desire value for Rich, Ultra-Rich, Artifacts
     // Lower desire value for Poor, Ultra-Poor
-    public float takePlanetValue(StarSystem sys) {
+    private float takePlanetValue(StarSystem sys) {
         int sysId = sys.id;
         if (!empire.sv.inShipRange(sysId))  return 0.0f;
         if (!empire.sv.isScouted(sysId))    return 0.0f;
@@ -165,7 +166,7 @@ public class AIGeneral implements Base, General {
         pr /= Math.sqrt(max(1,empire.sv.bases(sysId)));
         return pr/10;
     }
-    public void reviseFleetPlan(StarSystem sys) {
+    private void reviseFleetPlan(StarSystem sys) {
         int sysId = sys.id;
         
         // if out of ship range, ignore
@@ -261,24 +262,26 @@ public class AIGeneral implements Base, General {
                 considerSneakAttackFleet(ev, sys, enemyFleetSize);
         }
     }
-    public boolean willingToInvade(EmpireView v, StarSystem sys) {
+    private boolean willingToInvade(EmpireView v, StarSystem sys) {
         if (!empire.canSendTransportsTo(sys))
             return false;
         float pop = empire.sv.population(sys.id);
-        float needed = troopsNecessaryToTakePlanet(v, sys);   
+        float needed = troopsNecessaryToTakePlanet(v, sys);
         // modnar: scale back willingness to take losses
         // Willing to take 1.1:1 losses to invade normal 100-pop size planet with 200 factories.
         // For invading normal 80-pop size planet with 320 factories, be willing to take ~1:1 losses.
         float value = takePlanetValue(sys) * 1.1f;
+        if (value > options().maxLandingTroops(sys))
+        	return false;
         return needed < pop * value;
     }
-    public void orderRebellionFleet(StarSystem sys, float enemyFleetSize) {
+    private void orderRebellionFleet(StarSystem sys, float enemyFleetSize) {
         if (enemyFleetSize == 0)
             launchRebellionTroops(sys);
         else
             setRepelFleetPlan(sys, enemyFleetSize);      
     }
-    public void orderInvasionFleet(EmpireView v, StarSystem sys, float enemyFleetSize) {
+    private void orderInvasionFleet(EmpireView v, StarSystem sys, float enemyFleetSize) {
         // modnar: scale up invasion multiplier with factories
         // to account for natural pop growth (enemy transport, etc.) with invasion troop travel time
         float size = empire.sv.currentSize(sys.id); // planet size
@@ -289,14 +292,19 @@ public class AIGeneral implements Base, General {
         EmpireView ev = empire.viewForEmpire(empire.sv.empId(sysId));
         float targetTech = ev.spies().tech().avgTechLevel(); // modnar: target tech level
 
+        // BR: moved transport size computation here to test for limits
+        float troops = mult*troopsNecessaryToTakePlanet(v, sys);
+        if (troops > options().maxLandingTroops(sys))
+        	return;
+
         if (empire.sv.orbitingFleet(sys.id) != null)
-            launchGroundTroops(v, sys, mult);
+            launchGroundTroops(v, sys, troops);
         else if (empire.combatTransportPct() > 0) {
             // adj pct if enemy has subspace interdictors: fix by ajkfreelance
             float transPct = empire.combatTransportPct();
             if (ev.spies().tech().subspaceInterdiction()) 
                 transPct /= 2;
-            launchGroundTroops(v, sys, mult/transPct);
+            launchGroundTroops(v, sys, troops/transPct);
         }
 
         float baseBCPresent = empire.sv.bases(sys.id)*empire.tech().newMissileBaseCost();
@@ -324,9 +332,9 @@ public class AIGeneral implements Base, General {
             fp.priority = FleetPlan.INVADE + invasionPriority(sys)/100;
         fp.stagingPointId = empire.optimalStagingPoint(sys, speed);
     }
-    public void launchGroundTroops(EmpireView v, StarSystem target, float mult) {
+    private void launchGroundTroops(EmpireView v, StarSystem target, float troops1) {
         //float troops0 = troopsNecessaryToBypassBases(target);
-        float troops1 = mult*troopsNecessaryToTakePlanet(v, target);
+        //float troops1 = mult*troopsNecessaryToTakePlanet(v, target);
         int alreadySent = empire.transportsInTransit(target);
         float troopsDesired = troops1 + empire.sv.currentSize(target.id) - alreadySent;
 
@@ -382,7 +390,7 @@ public class AIGeneral implements Base, General {
             sys.colony().scheduleTransportsToSystem(target, troops, maxTravelTime);
         }
     }
-    public void launchRebellionTroops(StarSystem target) {
+    private void launchRebellionTroops(StarSystem target) {
         float troops1 =  target.colony().rebels()*2;
         int alreadySent = empire.transportsInTransit(target);
         float troopsDesired = troops1 - alreadySent;
@@ -412,17 +420,18 @@ public class AIGeneral implements Base, General {
             sys.colony().scheduleTransportsToSystem(target, troops);
         }
     }
-    public float troopsNecessaryToBypassBases(StarSystem sys) {
+    /* public float troopsNecessaryToBypassBases(StarSystem sys) {
         return empire.sv.bases(sys.id) * troopToEnemyBaseRatio(sys);
-    }
-    public float troopToEnemyBaseRatio(StarSystem sys) {
+    } */
+    /* private float troopToEnemyBaseRatio(StarSystem sys) {
         int id = sys.id;
         EmpireView ev = empire.viewForEmpire(empire.sv.empire(id));
         return ev.spies().tech().weapon().techLevel() / empire.tech().construction().techLevel();
-    }
-    public float troopsNecessaryToTakePlanet(EmpireView ev, StarSystem sys) {
-        int id = sys.id;
-        
+    } */
+    private float troopsNecessaryToTakePlanet(EmpireView ev, StarSystem sys) {
+    	// BR: Modified to take account of maxLandingTroops limitation 
+    	int id = sys.id;
+        float killRatio;
         // modnar: (?) this old estimate gives completely wrong results for ground combat
         //return empire.sv.population(id) * (50 + ev.spies().tech().troopCombatAdj(true)) / (50 + empire.tech().troopCombatAdj(false));
         
@@ -430,17 +439,21 @@ public class AIGeneral implements Base, General {
         if (ev.spies().tech().troopCombatAdj(true) >= empire.tech().troopCombatAdj(false)) {
             float defAdv = ev.spies().tech().troopCombatAdj(true) - empire.tech().troopCombatAdj(false);
             // killRatio = attackerCasualties / defenderCasualties
-            float killRatio = (float) ((Math.pow(100,2) - Math.pow(100-defAdv,2)/2) / (Math.pow(100-defAdv,2)/2));
-            return empire.sv.population(id) * killRatio;
+            killRatio = (float) ((Math.pow(100,2) - Math.pow(100-defAdv,2)/2) / (Math.pow(100-defAdv,2)/2));
+            //return empire.sv.population(id) * killRatio;
         }
         else {
             float atkAdv = empire.tech().troopCombatAdj(false) - ev.spies().tech().troopCombatAdj(true);
             // killRatio = attackerCasualties / defenderCasualties
-            float killRatio = (float) ((Math.pow(100-atkAdv,2)/2) / (Math.pow(100,2) - Math.pow(100-atkAdv,2)/2));
-            return empire.sv.population(id) * killRatio;
+            killRatio = (float) ((Math.pow(100-atkAdv,2)/2) / (Math.pow(100,2) - Math.pow(100-atkAdv,2)/2));
+            //return empire.sv.population(id) * killRatio;
         }
+        float troop = empire.sv.population(id) * killRatio;
+        if (troop > options().maxLandingTroops(sys))
+        	return Float.MAX_VALUE;
+        return troop;
     }
-    public void orderBombardmentFleet(EmpireView v, StarSystem sys, float fleetSize) {
+    private void orderBombardmentFleet(EmpireView v, StarSystem sys, float fleetSize) {
         
         int sysId = sys.id;
         EmpireView ev = empire.viewForEmpire(empire.sv.empId(sysId));
@@ -471,7 +484,7 @@ public class AIGeneral implements Base, General {
         else
             fp.priority = FleetPlan.BOMB_ENEMY+ invasionPriority(sys)/100;
     }
-    public void orderBombEncroachmentFleet(EmpireView v, StarSystem sys, float fleetSize) {
+    private void orderBombEncroachmentFleet(EmpireView v, StarSystem sys, float fleetSize) {
         // set fleet orders for bombardment...
         int sysId = sys.id;
         EmpireView ev = empire.viewForEmpire(empire.sv.empId(sysId));
@@ -498,7 +511,7 @@ public class AIGeneral implements Base, General {
         fp.stagingPointId = empire.optimalStagingPoint(sys, speed);
         fp.priority = FleetPlan.BOMB_ENCROACHMENT;
     }
-    public void considerSneakAttackFleet(EmpireView v, StarSystem sys, float fleetSize) {
+    private void considerSneakAttackFleet(EmpireView v, StarSystem sys, float fleetSize) {
         // pacifist/honorable never sneak attack
         if (empire.leader().isPacifist()
         || empire.leader().isHonorable())

@@ -21,7 +21,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import rotp.Rotp;
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.options.AllSubUI;
@@ -45,17 +44,17 @@ public class RulesWidgetSprite extends MapControlSprite {
     @Override
     public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
     	if (options().isGameOptionsAllowed()) {
-    		if (Rotp.isUnderTest()) { // TODO BR: REMOVE Rotp.isUnderTest()
+//    		if (Rotp.isUnderTest()) { // TO DO BR: REMOVE Rotp.isUnderTest()
         		ParamSubUI optionsUI = AllSubUI.rulesSubUI();
     			optionsUI.start(null);
-        	}
+//        	}
     	}
     }
     @Override
     public void draw(GalaxyMapPanel map, Graphics2D g2) {
-    	if (!Rotp.isUnderTest()) { // TODO BR: REMOVE Rotp.isUnderTest()
-    		return;
-    	}
+//    	if (!Rotp.isUnderTest()) { // T ODO BR: REMOVE Rotp.isUnderTest()
+//    		return;
+//    	}
     	if (!options().isGameOptionsAllowed()) {
     		return;
     	}

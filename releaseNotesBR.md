@@ -6,6 +6,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- New option to limit the size of invasion troops that can land.
+  - Fixed size or proportional to the planet size.
+- The Options panel has been split into a Rules panel and a Settings panel.
+  - Two new icons to call them are added to the galaxy map.
+  - Former Option panel still available inside the Rules panel
+  - Former Option panel still respond to "O"
 - Empire Diplomacy panel: Asterisk is added when "A new trade" is available in the audience menu. (Trade*)
 - Transport troop equipment is now displayed on the right side panel.
 - Make AI aware of amount of capturable techs. (Xilmi)
