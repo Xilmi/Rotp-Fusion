@@ -71,6 +71,7 @@ Later:
 
 2024.11.24 (BR)
 - Transport troop equipment is now displayed on the right side panel.
+- Empire Diplomacy panel: Asterisk is added when "A new trade" is available in the audience menu. (Trade*)
 
 2024.11.23 (BR)
 - Unclean Colony Icon gives more choice.

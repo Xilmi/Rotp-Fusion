@@ -2701,7 +2701,7 @@ RACES_HELP_1E                     | Des incidents diplomatiques qui affectent la
 RACES_HELP_1F                     | Cliquez pour changer la couleur attribuée à l'empire.
 RACES_HELP_2A                     | Informations générales pour l'empire sélectionné.
 RACES_HELP_2B                     | Accorde une audience avec un diplomate de l'empire sélectionné.
-RACES_HELP_2C                     | Informations sur les traités commerciaux signés avec l'empire sélectionné.
+RACES_HELP_2C                     | Informations sur les traités commerciaux signés avec l'empire sélectionné.<br>* Proposer un traité comercieal" est disponible dans le menu "Audience".
 RACES_HELP_2D                     | Autres empires que l'empire sélectionné a contactés.
 RACES_HELP_2E                     | Incidents diplomatiques qui affectent la façon dont l'empire sélectionné réagit à votre égard. Les effets tendront vers zéro avec le temps.
 RACES_HELP_2F                     | Une mesure de l'état actuel des relations avec l'empire sélectionné.

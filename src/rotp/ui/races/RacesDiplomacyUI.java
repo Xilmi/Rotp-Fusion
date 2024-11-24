@@ -15,11 +15,14 @@
  */
 package rotp.ui.races;
 
+import static rotp.ui.races.RacesIntelligenceUI.sliderC;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.LinearGradientPaint;import java.awt.Polygon;
+import java.awt.LinearGradientPaint;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
@@ -35,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
 import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
@@ -47,7 +51,6 @@ import rotp.ui.diplomacy.DiplomaticMessage;
 import rotp.ui.game.ShowCustomRaceUI;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
-import static rotp.ui.races.RacesIntelligenceUI.sliderC;
 
 public final class RacesDiplomacyUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID = 1L;
@@ -1132,10 +1135,13 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         if (view == null)
             return;
         
+        boolean canOfferTradeTreaty = player().diplomatAI().canOfferTradeTreaty(emp);
         g.setFont(narrowFont(18));
-        String spies = text("RACES_DIPLOMACY_TRADE_TREATY");
+        String label = text("RACES_DIPLOMACY_TRADE_TREATY");
+        if (canOfferTradeTreaty)
+        	label += "*";
         int y2 = lines.size() <= 5 ? y0+h-s65 : y0+h-s55;
-        drawString(g,spies, x+s20, y2);
+        drawString(g, label, x+s20, y2);
         
         g.setFont(narrowFont(16));
         String s2 = text("RACES_DIPLOMACY_TRADE_AMT", view.trade().level());

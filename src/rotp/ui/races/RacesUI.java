@@ -300,22 +300,25 @@ public class RacesUI extends BasePanel {
         int x3 = w-scaled(780);
         int w3 = scaled(200);
         int y3 = scaled(65);
-        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 3, text("RACES_HELP_2B"));
+        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 3, text("RACES_HELP_2B")); // Audience
         sp3.setLine(x3+w3, y3+sp3.height(), w-scaled(525), scaled(165));
         
+        int x4 = w-scaled(830);
+        int w4 = scaled(250);
         int y4 = scaled(350);
-        HelpUI.HelpSpec sp4 = helpUI.addBrownHelpText(x3, y4, w3, 3, text("RACES_HELP_2C"));
-        sp4.setLine(x3+w3, y4+(sp4.height()/2), w-scaled(480), scaled(370));
+        HelpUI.HelpSpec sp4 = helpUI.addBrownHelpText(x4, y4, w4, 0, text("RACES_HELP_2C")); // Trade
+        sp4.setLine(x3+w3, sp4.yc(), w-scaled(480), scaled(370));
         
-        int y5 = scaled(450);
-        HelpUI.HelpSpec sp5 = helpUI.addBrownHelpText(x3, y5, w3, 3, text("RACES_HELP_2D"));
-        sp5.setLine(x3+w3, y5+(sp5.height()/2),  w-scaled(555),  y5+(sp5.height()/2));
+        int x5 = x4;
+        int y5 = sp4.ye() + s25;
+        HelpUI.HelpSpec sp5 = helpUI.addBrownHelpText(x5, y5, w3, 3, text("RACES_HELP_2D")); // Foreign relation
+        sp5.setLine(sp5.xe(), sp5.ycb(),  w-scaled(555),  scaled(470));
         
-        int x6 = scaled(150);
+        int x6 = scaled(50);
         int w6 = scaled(300);
         int y6 = scaled(460);
-        HelpUI.HelpSpec sp6 = helpUI.addBrownHelpText(x6, y6, w6, 5, text("RACES_HELP_2E"));
-        sp6.setLine(x6+(w6/2), y6, x6+(w6/2), scaled(400));
+        HelpUI.HelpSpec sp6 = helpUI.addBrownHelpText(x6, y6, w6, 0, text("RACES_HELP_2E")); // Diplomatic incident
+        sp6.setLine(sp6.xc(), y6, scaled(300), scaled(350));
         
         int x7 = scaled(340);
         int w7 = scaled(300);

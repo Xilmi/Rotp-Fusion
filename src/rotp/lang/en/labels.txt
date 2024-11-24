@@ -4373,7 +4373,7 @@ RACES_HELP_1E                     | Diplomatic incidents that affect how other e
 RACES_HELP_1F                     | Click to change the color assigned to the empire.
 RACES_HELP_2A                     | General information for selected empire.
 RACES_HELP_2B                     | Grants an audience with a diplomat for the selected empire.
-RACES_HELP_2C                     | Information about trade treaties signed with the selected empire.
+RACES_HELP_2C                     | Information about trade treaties signed with the selected empire.<br>* A new trade is available in the audience menu.
 RACES_HELP_2D                     | Other empires that the selected empire has contacted.
 RACES_HELP_2E                     | Diplomatic incidents that affect how the selected empire reacts to you. The effects will move towards zero over time.
 RACES_HELP_2F                     | A measure of the current state of relations with the selected empire.

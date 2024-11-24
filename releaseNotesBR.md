@@ -6,6 +6,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- Empire Diplomacy panel: Asterisk is added when "A new trade" is available in the audience menu. (Trade*)
 - Transport troop equipment is now displayed on the right side panel.
 - Make AI aware of amount of capturable techs. (Xilmi)
   - This should prevent the AI from going insane with invasions trying to capture techs when tech-capturing is disabled.
@@ -15,19 +16,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option for the Smart spending tools to maintain a balance between industry and ecology to maximize efficiency, this by matching the number of factories to the number of workers. When a robotic upgrade is available, the growth/factory balance will continue until the colony is fully populated, at which point the factories will be upgraded.
   - When selected, the Governor will also use it.
   - Smart Spending "Refit" version will also take into account the incoming population.
-- Mass Transport:
-  - Population amount can now be adjusted if you select again the same target.
-  - Other GUI will no more be affected by wild change in this panel.
-- Fixed mismatch between Flags and system right panel view.
-- Fixed potential crash on "New Game"
-- Custom Species:
-  - New buttons to get/push Random parameters from/to Setup Alien Randomisation.
-  - Tuned the Grow value.
-- Chain Rally: Ctrl-Click will forward rally instead of redirect.
-- Custom Species: Added Help text to the random settings and lowered default Max/Min.
-- New option for in transit rallied fleet to join a battle.
-- New option to split the loss between planetary guard and in transit rallied fleet.
-- Governor will wait for an empire to be in economical range before setting spy allocations.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
