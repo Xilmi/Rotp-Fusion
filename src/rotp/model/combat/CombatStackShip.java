@@ -15,7 +15,14 @@
  */
 package rotp.model.combat;
 
-import java.awt.*;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Composite;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +31,10 @@ import rotp.model.ai.interfaces.ShipCaptain;
 import rotp.model.empires.ShipView;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
-import rotp.model.ships.*;
+import rotp.model.ships.ShipComponent;
+import rotp.model.ships.ShipDesign;
+import rotp.model.ships.ShipWeapon;
+import rotp.model.ships.ShipWeaponMissileType;
 import rotp.model.tech.TechCloaking;
 import rotp.model.tech.TechStasisField;
 import rotp.ui.BasePanel;
@@ -423,7 +433,7 @@ public class CombatStackShip extends CombatStack {
         
         selectedWeaponIndex = index;
         target = targetStack;
-        if (target.mgr.ui != null)
+        if (target != null && target.mgr.ui != null)
         	target.mgr.ui.newAnimationStarted();
 
         target.damageSustained = 0;

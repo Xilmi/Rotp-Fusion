@@ -2936,6 +2936,9 @@ SETTINGS_MOD_MAX_LANDING_AMOUNT          | Max Troop: %1
 SETTINGS_MOD_MAX_LANDING_FACTOR_DESC     | When Max "Landing Troop: →SETTINGS_MOD_MAX_LANDING_MULTIPLER←" is selected, What percentage of planet size will limit the size of invasion troops.
 SETTINGS_MOD_MAX_LANDING_FACTOR          | Size Multiplier: %1%
 
+SETTINGS_MOD_MAX_LANDING_IA_FACTOR_DESC  | AI vs Player Modifier. This Percentage is applied to Max Troop before being used by AI.
+SETTINGS_MOD_MAX_LANDING_IA_FACTOR       | AI Percentage: %1%
+
 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | To disable peace treaties or remove the ability to colonize when another fleet is orbiting the planet.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Peace Treaty: %1
@@ -3750,9 +3753,9 @@ SETTINGS_MOD_COMBAT_ASTEROID_TITLE       | Placement and Behavior of Asteroids.
 SETTINGS_MOD_COMBAT_ASTEROID_UI          | Asteroids Configuration
 SETTINGS_MOD_COMBAT_ASTEROID_UI_DESC     | Opens a new control panel to configure the Asteroids density, location and behavior.
 
-SETTINGS_MOD_COMBAT_XILMI_AI_TITLE       | AI Level of Confidence.
-SETTINGS_MOD_COMBAT_XILMI_AI_UI          | AI Confidence
-SETTINGS_MOD_COMBAT_XILMI_AI_UI_DESC     | Opens a new control panel to adjust AI level of confidence.
+SETTINGS_MOD_COMBAT_XILMI_AI_TITLE       | AI Self-Confidence Levels.
+SETTINGS_MOD_COMBAT_XILMI_AI_UI          | AI Self-Confidence
+SETTINGS_MOD_COMBAT_XILMI_AI_UI_DESC     | Opens a new control panel to adjust AI level of self-confidence.
 
 SETTINGS_MOD_COMBAT_TIMING_TITLE         | Combat Timing Configuration.
 SETTINGS_MOD_COMBAT_TIMING_UI            | Combat Timing
@@ -3760,7 +3763,7 @@ SETTINGS_MOD_COMBAT_TIMING_UI_DESC       | Opens a new control panel to adjust C
 
 SETTINGS_MOD_SPY_OPTIONS_TITLE           | Espionage Configuration.
 SETTINGS_MOD_SPY_OPTIONS_UI              | Espionage
-SETTINGS_MOD_SPY_OPTIONS_UI_DESC         | Opens a new control panel to configure Espionage.
+SETTINGS_MOD_SPY_OPTIONS_UI_DESC         | Opens a new control panel to configure Espionnage.
 
 SETTINGS_MOD_DIPLOMACY_OPTIONS_TITLE     | Diplomacy Configuration.
 SETTINGS_MOD_DIPLOMACY_OPTIONS_UI        | Diplomacy
@@ -3782,9 +3785,9 @@ SETTINGS_MOD_HELP_AND_ADVICE_TITLE       | Help and Advice Configuration.
 SETTINGS_MOD_HELP_AND_ADVICE_UI          | Help and Advice
 SETTINGS_MOD_HELP_AND_ADVICE_UI_DESC     | Opens a new control panel to configure Help and Advice options.
 
-SETTINGS_MOD_IRONMAN_LITTLE_TITLE        | Ironman Little Configuration.
-SETTINGS_MOD_IRONMAN_LITTLE_UI           | Ironman Little
-SETTINGS_MOD_IRONMAN_LITTLE_UI_DESC      | Opens a new control panel to configure Ironman Little options.
+SETTINGS_MOD_IRONMAN_LITTLE_TITLE        | Ironman Light Configuration.
+SETTINGS_MOD_IRONMAN_LITTLE_UI           | Ironman Light
+SETTINGS_MOD_IRONMAN_LITTLE_UI_DESC      | Opens a new control panel to configure Ironman Light options.
 
 SETTINGS_MOD_GAME_DIFFICULTY_TITLE       | Game Difficulty Configuration.
 SETTINGS_MOD_GAME_DIFFICULTY_UI          | Game Difficulty

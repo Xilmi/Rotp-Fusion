@@ -18,11 +18,26 @@ package rotp.model.combat;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.ai.SpacePiratesCaptain;
 import rotp.model.empires.Empire;
-import rotp.model.galaxy.*;
-import rotp.model.ships.*;
-import rotp.model.tech.*;
+import rotp.model.galaxy.SpacePirates;
+import rotp.model.galaxy.StarSystem;
+import rotp.model.ships.ShipComponent;
+import rotp.model.ships.ShipSpecial;
+import rotp.model.ships.ShipSpecialBeamFocus;
+import rotp.model.ships.ShipSpecialInertial;
+import rotp.model.ships.ShipSpecialScanner;
+import rotp.model.ships.ShipWeaponBeam;
+import rotp.model.ships.ShipWeaponBomb;
+import rotp.model.ships.ShipWeaponMissile;
+import rotp.model.ships.ShipWeaponMissileType;
+import rotp.model.tech.TechBeamFocus;
+import rotp.model.tech.TechBombWeapon;
+import rotp.model.tech.TechMissileWeapon;
+import rotp.model.tech.TechScanner;
+import rotp.model.tech.TechShipInertial;
+import rotp.model.tech.TechShipWeapon;
 
 // modnar: add Space Pirates random event
 // modnar: Space Pirates combat stack, use CombatStackOrionGuardian.java as template
@@ -592,7 +607,7 @@ public class CombatStackSpacePirates extends CombatStack {
             return;
 
         target = targetStack;
-        if (target.mgr.ui != null)
+        if (target != null && target.mgr.ui != null)
         	target.mgr.ui.newAnimationStarted();
 
         target.damageSustained = 0;

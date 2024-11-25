@@ -63,7 +63,7 @@ public class CombatStackSpaceCrystal extends CombatStackMonster {
     public boolean selectBestWeapon(CombatStack target)       { return !weaponUsed; }
     @Override
     public void fireWeapon(CombatStack target)  {
-        if (target.mgr.ui != null)
+        if (target != null && target.mgr.ui != null)
         	target.mgr.ui.newAnimationStarted();
         weaponUsed = true;
         int maxWeaponDamage = (int) (MAX_WEAPON_DAMAGE * monsterLevel);

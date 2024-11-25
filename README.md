@@ -72,6 +72,7 @@ Later:
 2024.11.25 (BR)
 - New french translation.
 - Invasion troop limitation can now be unbalanced AI vs Player.
+- Fixed Crystal attack bug crashing the game.
 
 2024.11.24 (BR)
 - Transport troop equipment is now displayed on the right side panel.

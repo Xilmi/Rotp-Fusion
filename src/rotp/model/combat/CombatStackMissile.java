@@ -15,7 +15,10 @@
  */
 package rotp.model.combat;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.AffineTransform;
 
 import rotp.model.ships.ShipWeaponMissileType;
@@ -114,7 +117,7 @@ public class CombatStackMissile extends CombatStack {
     }
     @Override
     public void fireWeapon(CombatStack target) {
-        if (target.mgr.ui != null)
+        if (target != null && target.mgr.ui != null)
         	target.mgr.ui.newAnimationStarted();
         missile.fireUpon(this, target, num, mgr);
         //if (target.damageSustained > 0)
