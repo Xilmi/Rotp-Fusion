@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
 - New option to limit the size of invasion troops that can land.
   - Fixed size or proportional to the planet size.
+  - Invasion troop limitation can now be unbalanced AI vs Player.
 - The Options panel has been split into a Rules panel and a Settings panel.
   - Two new icons to call them are added to the galaxy map.
   - Former Option panel still available inside the Rules panel

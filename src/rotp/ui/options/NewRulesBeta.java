@@ -20,7 +20,8 @@ final class NewRulesBeta extends AbstractOptionsSubUI {
 				LINE_SPACER_25,
 				maxLandingTroops,
 				maxLandingTroopsAmount,
-				maxLandingTroopsFactor
+				maxLandingTroopsFactor,
+				maxLandingTroopsIAFactor
 				)));
 		map.add(AllSubUI.getHandle(NEW_OPTIONS_BETA_UI_KEY).getUiMajor(true));
 		return map;
@@ -33,7 +34,8 @@ final class NewRulesBeta extends AbstractOptionsSubUI {
 						LINE_SPACER_25,
 						maxLandingTroops,
 						maxLandingTroopsAmount,
-						maxLandingTroopsFactor
+						maxLandingTroopsFactor,
+						maxLandingTroopsIAFactor
 						));
 		return majorList;
 	}

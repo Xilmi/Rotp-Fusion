@@ -27,7 +27,8 @@ final class ShipRules extends AbstractOptionsSubUI {
 				LINE_SPACER_25,
 				maxLandingTroops,
 				maxLandingTroopsAmount,
-				maxLandingTroopsFactor
+				maxLandingTroopsFactor,
+				maxLandingTroopsIAFactor
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				RELEVANT_TITLE,

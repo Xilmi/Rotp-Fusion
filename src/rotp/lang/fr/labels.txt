@@ -714,8 +714,9 @@ MAIN_HELP_MOD                     | Aide Mod - « O » pour accéder au menu des
 MAIN_HELP_MOD_1A                  | Pour activer ou désactiver le Gouverneur pour ce système solaire.
 MAIN_HELP_MOD_1B                  | Pour accéder au menu Options du gouverneur.
 MAIN_HELP_MOD_1F                  | Des alertes du tour peuvent y apparaître : Faites un clic droit sur elles pour centrer la carte sur le système. Cliquez à gauche pour afficher la prochaine alerte.
-MAIN_HELP_MOD_1I                  | Pour accéder au panneau «Options».<br>Utile pour se souvenir de nos choix de configuration.<br>Peut être modifié... Mais certaines options ne devraient pas l'être !
-MAIN_HELP_MOD_1J                  | Pour accéder au panneau «Options».<br>Utile pour se souvenir de nos choix de configuration.<br>Peut être modifié... Mais certaines options ne devraient pas l'être !
+// MAIN_HELP_MOD_1I                  | Pour accéder au panneau «Options».<br>Utile pour se souvenir de nos choix de configuration.<br>Peut être modifié... Mais certaines options ne devraient pas l'être !
+MAIN_HELP_MOD_1I                  | →SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC←
+MAIN_HELP_MOD_1J                  | →SETTINGS_MOD_RULES_OPTIONS_UI_DESC←
 MAIN_HELP_MOD_1K                  | Rapport d'écologie de la colonie.<br>Cliquez avec le bouton gauche pour nettoyer toutes les colonies déverrouillées.<br>Cliquez avec le bouton droit pour nettoyer également les colonies verrouillées.
 MAIN_HELP_MOD_1L                  | Vous continuez une partie terminée. Cliquez pour arrêter, et voir à nouveau le panneau Fin de partie.<br>(Après avoir activé « Tour Suivant »)
 MAIN_HELP_1A                      | Chaque star system divise sa production en cinq zones. Les barres grisées indiquent que la barre de production a été verrouillée et ne changera pas. Cliquez sur le nom pour verrouiller/déverrouiller.
@@ -1257,7 +1258,7 @@ FLEETS_EXISTING_TRANSPORT         | En train d'envoyer %1 transports vers %2
 FLEETS_EXISTING_STOP              | Arrêter
 FLEETS_CANCEL                     | Annuler
 FLEETS_HELP_ALL                   | APERÇU - Cet écran permet la gestion des flottes, des transports et de la construction navale à grande échelle. En général, vous sélectionnerez un groupe de flottes ou de systèmes à gérer, les filtrerez en un ensemble plus petit, puis choisirez l'action à effectuer sur eux.
-FLEETS_HELP_1A                    | Sélectionner les systèmes - il existe trois façons de sélectionner les systèmes : 1) en cliquant sur les systèmes sur la carte, 2) en cliquant avec le bouton droit de la souris sur la carte et 3) en utilisant les boutons «Sélectionner tout» et «Désélectionner tout».
+FLEETS_HELP_1A                    | Sélectionner les systèmes - il existe trois façons de sélectionner les systèmes : 1) en cliquant sur les systèmes sur la carte, 2) en cliquant avec le bouton droit de la souris sur la carte et 3) en utilisant les boutons «Tout Sélectionner» et «Tout Désélectionner».
 FLEETS_HELP_1B                    | Filtrer par - cochez les cases pour affiner la liste des systèmes sélectionnés. Il est également possible de cliquer sur les filtres pour faire défiler les options associées.
 FLEETS_HELP_1C                    | Et en train de construire - filtrez les systèmes en fonction de la conception du vaisseau en cours de construction.
 FLEETS_HELP_1D                    | Conception du vaisseau - modifiez la conception du vaisseau pour l'intégrer aux systèmes sélectionnés. Une image vide signifie que les systèmes sélectionnés construisent actuellement des conceptions différentes. Attention ! Il n'y a pas d'invite de confirmation pour cette action.
@@ -1265,7 +1266,7 @@ FLEETS_HELP_1E                    | Envoyer des transports - envoyer des transpo
 FLEETS_HELP_1F                    | Définir pnts. ralliement - définissez les points de ralliement pour les systèmes sélectionnés sur un seul système cible.
 FLEETS_HELP_1G                    | →FLEETS_RALLY_TO_STARGATES←<br> Commencez à rallier les systèmes sélectionnés au système le plus proche avec une Porte des Étoile.<br>- Basé sur le paramètre «→CHAIN_RALLY_SPEED_HK←».<br>- Les systèmes sélectionnés avec une Porte des Étoile ne sont pas affectés.
 FLEETS_HELP_1H                   | →MAIN_RALLY_CHAIN←<br> Pour minimiser le temps de déplacement en prenant un raccourci par l'intermédiaire de la Porte des Étoile la plus proche. (Basé sur le paramètre «→CHAIN_RALLY_SPEED_HK←»)<br> Cela permettra également « Ralliement Avancé » sur les systèmes avec un Porte des Étoiles intermédiaires.
-FLEETS_HELP_2A                    | Sélectionner les flottes - il existe trois façons de sélectionner des flottes : 1) en cliquant sur les flottes sur la carte, 2) en cliquant avec le bouton droit de la souris sur la carte et 3) en utilisant les boutons «Sélectionner tout» et «Désélectionner tout».
+FLEETS_HELP_2A                    | Sélectionner les flottes - il existe trois façons de sélectionner des flottes : 1) en cliquant sur les flottes sur la carte, 2) en cliquant avec le bouton droit de la souris sur la carte et 3) en utilisant les boutons «Tout Sélectionner» et «Tout Désélectionner».
 FLEETS_HELP_2B                    | Filtrer par - cochez les cases pour réduire la liste des flottes sélectionnées. Il est également possible de cliquer sur les filtres pour faire défiler les options associées.
 FLEETS_HELP_2C                    | Déployer uniquement des vaisseaux de type - restreignez les types de vaisseaux que vous souhaitez déployer à partir de vos flottes.
 FLEETS_HELP_2D                    | Sélectionné pour le déploiement - un nombre de vaisseaux, par type, qui seront déployés.
@@ -1856,7 +1857,7 @@ SETTINGS_AUTOPLAY_WARNING         | Avertissement! La lecture automatique est ac
 SETTINGS_FUEL_RANGE_DESC          | Augmente la portée des technologies de carburant et des réservoirs de carburant supplémentaires.
 SETTINGS_AI_HOSTILITY_DESC        | Augmente ou diminue le niveau général d'hostilité entre les espèces extraterrestres.
 
-HEADERS_RELEVAN_PARAMETERST_DESC  | Vous serez peut-être aussi intéressé à connaître, ou ajuster ces paramètres.
+HEADERS_RELEVANT_PARAMETERS_DESC  | Vous serez peut-être aussi intéressé à connaître, ou ajuster ces paramètres.
 HEADERS_RELEVANT_PARAMETERS       | ~~~ PARAMETRES CONNEXES ~~~
 
 HEADERS_GAME_UI_PREFERENCES_DESC  | Personnalisation de l'interface de jeu.
@@ -2107,6 +2108,9 @@ SETTINGS_MOD_MAX_LANDING_AMOUNT          | Nombre Maximal : %1
 SETTINGS_MOD_MAX_LANDING_FACTOR_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_MULTIPLER← » est sélectionné, Quel pourcentage de la taille de la planète limitera la taille des troupes d'invasion.
 SETTINGS_MOD_MAX_LANDING_FACTOR          | Multiplicateur : %1%
 
+SETTINGS_MOD_MAX_LANDING_IA_FACTOR_DESC  | Modificateur IA contre joueur. Ce pourcentage est appliqué sur le débarquement maximal avant d'être utilisé par l'IA.
+SETTINGS_MOD_MAX_LANDING_IA_FACTOR       | Poucentage IA: %1%
+
 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | Désactiver les traités de paix ou supprimer la possibilité de coloniser losqu'une autre flotte est en orbite autour de la planète.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Traité de paix: %1
@@ -2132,6 +2136,52 @@ SETTINGS_MOD_DARK_GALAXY                 | Brouillard de Guerre : %1
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | Pour augmenter le pourcentage maximal d'impôt sur la sécurité. (Prime d'espionnage = 2 × taxe)
 SETTINGS_MOD_MAX_SECURITY_PCT            | Sécurité Max. : %1%
 
+SETTINGS_MOD_ASTEROIDS_VANISH            | Disparaître : %1
+SETTINGS_MOD_ASTEROIDS_VANISH_DESC       | Les astéroïdes disparaîtront au fur et à mesure que le combat progresse. (5%)
+
+SETTINGS_MOD_MOO1_PLANET_LOCATION           | Planète MoO1 : %1
+SETTINGS_MOD_MOO1_PLANET_LOCATION_DESC      | La planète MoO1 est située sur la deuxième rangée tandis que RotP la place sur la première rangée.
+
+SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION        | Placement MoO1 : %1
+SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION_DESC   | Les astéroïdes seront placés selon les règles MoO1 et ne disparaîtront pas pendant le combat.
+SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION_HELP   | Les astéroïdes seront placés selon les règles de MoO1 et ne disparaîtront pas pendant le combat.<br>La densité des astéroïdes dépendra du type de planète et sera fixée une fois pour toutes. Cela peut être : aucun astéroïde, faible densité ou haute densité.<br>Une ceinture d'astéroïdes de faible densité signifie qu'un nombre aléatoire de 1 à 5 cases astéroïdes apparaîtront sur l'écran d'affichage de combat spacial chaque fois que des vaisseaux engageront un combat sur cette planète.<br>Une ceinture d'astéroïdes de haute densité place un nombre aléatoire de 3 à 7 cases astéroïdes.
+SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES      | Affecte les tirs : %1
+SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_DESC | Les astéroïdes détruiront partiellement les missiles et réduiront l'efficacité des faisceaux, conformément aux règles de MoO1.
+SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_HELP | Les astéroïdes détruiront partiellement les missiles et réduiront l'efficacité des faisceaux, conformément aux règles de MoO1.<br>Lorsque les armes à faisceaux tirent à travers des cases d'astéroïdes, le défenseur ajoute +3 à son niveau de défense contre les faisceaux.<br>Chaque missile ou torpille qui traverse une case d'astéroïde a une chance d'être détruit :<br>Nucléaire et Hyper V : 80 %<br>Hyper X et Scatter Pack V : 72 %<br>Merculite et Scatter Pack VII : 64 %<br>Stinger, Scatter Pack X, Pulson et torpille antimatière : 56 %<br>Herculaire : 48 %<br>Torpilles Hellfire, Zeon et à protons : 40 %<br>Torpille à plasma : 32 %
+
+
+
+PLANET_TYPE_LIST                         | La séquence de type de planète est: <br>→PLANET_RADIATED←, →PLANET_TOXIC←, →PLANET_INFERNO←, →PLANET_DEAD←, →PLANET_TUNDRA←, →PLANET_BARREN←, →PLANET_MINIMAL←, →PLANET_DESERT←, →PLANET_STEPPE←, →PLANET_ARID←, →PLANET_OCEAN←, →PLANET_JUNGLE←, →PLANET_TERRAN←
+
+SETTINGS_MOD_BASE_NO_ASTEROIDS           | Base pour aucun : %1%
+SETTINGS_MOD_BASE_NO_ASTEROIDS_DESC      | Probabilité de base qu'il n'y ait pas d'astéroïdes autour des planètes, en fonction de leur type.
+SETTINGS_MOD_STEP_NO_ASTEROIDS           | Incrément pour aucun : %1%
+SETTINGS_MOD_STEP_NO_ASTEROIDS_DESC      | Probabilité incrémentale de ne pas avoir d'astéroïdes autour des planètes, en fonction de leur type.<br>Il existe 13 types de planètes. Lorsque l'étoile n'a pas de planètes, la densité d'astéroïdes est élevée.
+SETTINGS_MOD_STEP_NO_ASTEROIDS_HELP      | →SETTINGS_MOD_STEP_NO_ASTEROIDS_DESC←<br>→PLANET_TYPE_LIST←
+
+SETTINGS_MOD_BASE_LOW_ASTEROIDS          | Base pour peu : %1%
+SETTINGS_MOD_BASE_LOW_ASTEROIDS_DESC     | Base probability to have a low asteroid density around the planets, based on their type.
+SETTINGS_MOD_STEP_LOW_ASTEROIDS          | Incrément pour peu : %1%
+SETTINGS_MOD_STEP_LOW_ASTEROIDS_DESC     | Probabilité incrémentale d'avoir une faible densité d'astéroïdes autour des planètes, en fonction de leur type.<br>Il existe 13 types de planètes. Lorsque l'étoile n'a pas de planètes, la densité d'astéroïdes sera élevée.
+SETTINGS_MOD_STEP_LOW_ASTEROIDS_HELP     | →SETTINGS_MOD_STEP_LOW_ASTEROIDS_DESC←<br>→PLANET_TYPE_LIST←
+
+SETTINGS_MOD_RICH_NO_ASTEROIDS           | Incrément pour Riches : %1%
+SETTINGS_MOD_RICH_NO_ASTEROIDS_DESC      | Probabilité incrémentale d'avoir une faible densité d'astéroïdes autour de planètes riches.
+SETTINGS_MOD_U_RICH_NO_ASTEROIDS         | Incrément pour U-Riches : %1%
+SETTINGS_MOD_U_RICH_NO_ASTEROIDS_DESC    | Probabilité incrémentale d'avoir une faible densité d'astéroïdes autour de planètes ultra-riches.
+
+SETTINGS_MOD_MIN_LOW_ASTEROIDS           | Faible Min : %1
+SETTINGS_MOD_MIN_LOW_ASTEROIDS_DESC      | Faible densité d'astéroïdes : nombre minimal d'astéroïdes pouvant apparaître sur l'écran de bataille.
+SETTINGS_MOD_MAX_LOW_ASTEROIDS           | Faible Max : %1
+SETTINGS_MOD_MAX_LOW_ASTEROIDS_DESC      | Faible densité d'astéroïdes : nombre maximal d'astéroïdes pouvant apparaître sur l'écran de bataille.
+
+SETTINGS_MOD_MIN_HIGH_ASTEROIDS          | Élevée Min : %1
+SETTINGS_MOD_MIN_HIGH_ASTEROIDS_DESC     | Densité d'astéroïdes élevée : nombre minimal d'astéroïdes pouvant apparaître sur l'écran de bataille.
+SETTINGS_MOD_MAX_HIGH_ASTEROIDS          | Élevée Max : %1
+SETTINGS_MOD_MAX_HIGH_ASTEROIDS_DESC     | Densité d'astéroïdes élevée : nombre maximal d'astéroïdes pouvant apparaître sur l'écran de bataille.
+
+
+
 SETTINGS_MOD_BOMBING_TARGET_DESC         | Bombardement limité: Arrêtez de bombarder lorsque le niveau de la population atteint cette limite !!! De puissantes armes peuvent quand même anéantir la population !!!
 SETTINGS_MOD_BOMBING_TARGET              | Limite de bombardement : %1 pop
 SETTINGS_MOD_TARGET_BOMBARD_DESC         | Détermine qui est autorisé à limiter ses bombardements.
@@ -2145,6 +2195,207 @@ SETTINGS_MOD_TARGET_BOMBARD_AI_HELP      | L'IA est assez intelligente pour cont
 SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Le joueur est assez intelligent pour contrôler ses bombardements, mais l'IA n'est pas autorisée à le faire !
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Tout le monde est capable de contrôler ses bombardements.
 
+
+
+SETTINGS_MOD_PRE_GAME_OPTIONS_TITLE      | Paramètres de configuration de la Galaxie
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI         | Paramètres de configuration
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC    | Ouvre un sous-menu contenant des paramètres avancés de définissant la galaxie, ces paramètres ne sont utilisés qu'une seule fois, lors du démarrage ou du redémarrage d'un jeu.
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI_HELP    | →SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC←
+
+SETTINGS_MOD_IN_GAME_OPTIONS_TITLE       | Règles et paramètres de jeu
+SETTINGS_MOD_IN_GAME_OPTIONS_UI          | Ancien panneau d'options
+SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC     | Ouvre un sous-menu contenant des règles avancées et des paramètres de jeu.
+SETTINGS_MOD_IN_GAME_OPTIONS_UI_HELP     | →SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC←<br>Ces paramètres sont enregistrés avec le jeu. Ce sous-menu est également disponible pendant le jeu.
+
+SETTINGS_MOD_RULES_OPTIONS_BUTTON        | Règles du jeu
+SETTINGS_MOD_RULES_OPTIONS_DETAIL        | Configure the Game Rules
+SETTINGS_MOD_RULES_OPTIONS_TITLE         | Configurer les règles du jeu
+SETTINGS_MOD_RULES_OPTIONS_UI            | Règles du jeu
+SETTINGS_MOD_RULES_OPTIONS_UI_DESC       | Ouvre un sous-menu pour configurer les règles du jeu.
+SETTINGS_MOD_RULES_OPTIONS_UI_HELP       | →SETTINGS_MOD_RULES_OPTIONS_UI_DESC←<br>Ces paramètres sont enregistrés avec le jeu. Ce sous-menu est également disponible pendant le jeu.
+
+SETTINGS_MOD_SETTINGS_OPTIONS_BUTTON     | Préférences
+SETTINGS_MOD_SETTINGS_OPTIONS_DETAIL     | Configuration de l'interface utilisateur et des automatisations
+SETTINGS_MOD_SETTINGS_OPTIONS_TITLE      | Configuration de l'interface utilisateur
+SETTINGS_MOD_SETTINGS_OPTIONS_UI         | Interface utilisateur
+SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC    | Ouvre un sous-menu pour configurer l'interface utilisateur et les automatisations.
+SETTINGS_MOD_SETTINGS_OPTIONS_UI_HELP    | →SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC←<br>Certains de ces paramètres sont enregistrés dans le fichier du jeu, d'autres dans le fichier « Remnant.cfg ».<br>Ce sous-menu est également disponible pendant le jeu.
+
+SETTINGS_MOD_COMMON_OPTIONS_TITLE        | Paramètres étendus
+SETTINGS_MOD_COMMON_OPTIONS_UI           | Paramètres étendus « Remnant.cfg »
+SETTINGS_MOD_COMMON_OPTIONS_UI_DESC      | Ouvre un sous-menu contenant les paramètres« Remnant.cfg » et d'autres paramètres de performances et de présentation communs à tous les jeux.
+
+SETTINGS_MOD_NAME_OPTIONS_TITLE          | Désignation nominale des espèces de base
+SETTINGS_MOD_NAME_OPTIONS_UI             | Désignation des espèces de base
+SETTINGS_MOD_NAME_OPTIONS_UI_DESC        | Ouvrez le sous-menu pour afficher les désignations nominales des espèces de base. (Pour la configuration en anglais uniquement)
+
+SETTINGS_MOD_NAME_OPTIONS_FR_TITLE       | Désignation nominale des espèces de base Fr
+SETTINGS_MOD_NAME_OPTIONS_FR_UI          | Désignation des espèces de base Fr
+SETTINGS_MOD_NAME_OPTIONS_FR_UI_DESC     | Ouvrez le sous-menu pour afficher les désignations nominales des espèces de base. (Pour la configuration en français uniquement)
+
+SETTINGS_MOD_MOO1_SPECIES_NAME           | Désignation d'origine (MoO1) des espèces de base
+SETTINGS_MOD_MOO1_SPECIES_NAME_DESC      | Pour redonner les désignations d'origine de Master of Orion
+SETTINGS_MOD_CLEAR_SPECIES_NAME          | Tout effacer
+SETTINGS_MOD_CLEAR_SPECIES_NAME_DESC     | Pour effacer toute la liste ci-dessus
+SETTINGS_MOD_ACTIVATE_SPECIES_NAME       | Appliquer
+SETTINGS_MOD_ACTIVATE_SPECIES_NAME_DESC  | Pour mettre à jour les espèces actuelles avec les nouveaux paramètres ci-dessus.
+
+NAME_DESC0                | Saisissez les nouveaux "Empire name, Species name, Species Plural Name" pour cette espèce. Laissez vide pour conserver le nom actuel.<br>Example: Human Triumvirate, Human, Humans.
+NAME_HELP                 | →NAME_DESC0←<br>Les paramètres non valides sont affichés en rouge.
+
+NAME_FR_DESC0              | Saisissez les nouveaux "Empire name, Empire of name, Species adjective, Species adjective F, Species Plural Name, Species of Plural Name, Species to Plural Name, Species Plural adjective, Species Plural adjective F" pour cette espèce. Laissez vide pour conserver le nom actuel.<br>Example: Le Triumvirat Humain, du Triumvirat Humain, Humain, Humaine, les Humains, des Humains, aux Humains, Humains, Humaines.
+NAME_FR_HELP               | →NAME_FR_DESC0←<br>Les paramètres non valides sont affichés en rouge.
+
+SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Options pour les développeurs
+SETTINGS_MOD_DEBUG_OPTIONS_UI            | Options de débogage
+SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Ouvrir un sous-menu pour définir les outils de développement.
+
+SETTINGS_MOD_COMBAT_OPTIONS_TITLE        | Configuration dee combat de vaisseaux.
+SETTINGS_MOD_COMBAT_OPTIONS_UI           | Panneau de contrôle des combats
+SETTINGS_MOD_COMBAT_OPTIONS_UI_DESC      | Ouvrez un nouveau panneau de contrôle avec divers paramètres d’options de combat de vaisseaux.
+SETTINGS_MOD_COMBAT_OPTIONS_UI_HELP      | →SETTINGS_MOD_COMBAT_OPTIONS_UI_DESC←<br>Effets des boucliers. Sons des armes, placement des astéroïdes, paramètres de l'IA.
+
+SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | Combien de drapeaux doivent être déployés sur le mât du système stellaire ?
+SETTINGS_MOD_FLAG_COLOR_COUNT            | Nombre de drapeaux : %1
+
+SETTINGS_MOD_AUTO_FLAG_TITLE             | Configuration de l'automation des drapeaux.
+SETTINGS_MOD_AUTO_FLAG_UI_DESC           | Open Sub Menu to set the parameters that will be automatically associated with flags. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_UI                | Automation des Drapeaux
+
+SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | Pas d'automation
+SETTINGS_MOD_AUTO_FLAG_TYPE              | Type de planète
+SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Environment
+SETTINGS_MOD_AUTO_FLAG_RESOURCES         | Resources
+SETTINGS_MOD_AUTO_FLAG_RUINS             | Vestiges
+SETTINGS_MOD_AUTO_FLAG_TECH              | Tech. de Colonisation
+SETTINGS_MOD_AUTO_FLAG_NEBULA            | In Nebula
+SETTINGS_MOD_AUTO_FLAG_CLEAR             | Enlever les drapeaux
+
+FLAG_ASSIGN_SC1                          | Sélectionnez le paramètre qui sera automatiquement associé au drapeau
+FLAG_ASSIGN_SC2                          | . (Uniquement la première fois qu'un système stellaire est exploré)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | →FLAG_ASSIGN_SC1← en haut à gauche→FLAG_ASSIGN_SC2←
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Automation 1 : %1
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_2_DESC     | →FLAG_ASSIGN_SC1← en haut à droite→FLAG_ASSIGN_SC2←
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_2          | Automation 2 : %1
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_3_DESC     | →FLAG_ASSIGN_SC1← en bas à droite→FLAG_ASSIGN_SC2←
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_3          | Automation 3 : %1
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_4_DESC     | →FLAG_ASSIGN_SC1← en bas à gauche→FLAG_ASSIGN_SC2←
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_4          | Automation 4 : %1
+
+FLAG_SELECT_SC1                          | Sélectionnez la couleur du drapeau à définir automatiquement lorsque une planète
+FLAG_SELECT_SC2                          | est explorée.
+FLAG_ASTEROID_SC                         | Sélectionnez la couleur du drapeau à définir automatiquement lorsque des Astéroïdes sont explorés.
+SETTINGS_MOD_AUTO_FLAG_ARID_DESC         | →FLAG_SELECT_SC1← →PLANET_ARID← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_BARREN_DESC       | →FLAG_SELECT_SC1← →PLANET_BARREN← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_DEAD_DESC         | →FLAG_SELECT_SC1← →PLANET_DEAD← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_DESERT_DESC       | →FLAG_SELECT_SC1← →PLANET_DESERT← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_INFERNO_DESC      | →FLAG_SELECT_SC1← →PLANET_INFERNO← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_JUNGLE_DESC       | →FLAG_SELECT_SC1← →PLANET_JUNGLE← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_MINIMAL_DESC      | →FLAG_SELECT_SC1← →PLANET_MINIMAL← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_ASTEROID_DESC     | →FLAG_ASTEROID_SC←
+SETTINGS_MOD_AUTO_FLAG_OCEAN_DESC        | →FLAG_SELECT_SC1← →PLANET_OCEAN← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_RADIATED_DESC     | →FLAG_SELECT_SC1← →PLANET_RADIATED← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_STEPPE_DESC       | →FLAG_SELECT_SC1← →PLANET_STEPPE← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_TERRAN_DESC       | →FLAG_SELECT_SC1← →PLANET_TERRAN← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_TOXIC_DESC        | →FLAG_SELECT_SC1← →PLANET_TOXIC← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_TUNDRA_DESC       | →FLAG_SELECT_SC1← →PLANET_TUNDRA← →FLAG_SELECT_SC2←
+
+SETTINGS_MOD_AUTO_FLAG_ENV_GAIA_DESC      | →FLAG_SELECT_SC1← →PLANET_GAIA← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_ENV_FERTILE_DESC   | →FLAG_SELECT_SC1← →PLANET_FERTILE← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_ENV_NORMAL_DESC    | →FLAG_SELECT_SC1← Normal →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_ENV_HOSTILE_DESC   | →FLAG_SELECT_SC1← →PLANET_HOSTILE← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_ENV_NONE_DESC      | →FLAG_ASTEROID_SC←
+
+SETTINGS_MOD_AUTO_FLAG_RUINS_ORION_DESC   | →FLAG_SELECT_SC1← Orion →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_RUINS_ANTARAN_DESC | →FLAG_SELECT_SC1← →PLANET_ARTIFACTS← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_ULTRA_RICH_DESC    | →FLAG_SELECT_SC1← →PLANET_ULTRA_RICH← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_RICH_DESC          | →FLAG_SELECT_SC1← →PLANET_RICH← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_NORMAL_DESC        | →FLAG_SELECT_SC1← →← Normal →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_POOR_DESC          | →FLAG_SELECT_SC1← →PLANET_POOR← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_ULTRA_POOR_DESC    | →FLAG_SELECT_SC1← →PLANET_ULTRA_POOR← →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_NONE_DESC          | →FLAG_SELECT_SC1← Aucune resources n'a été détectée.
+
+FLAG_COLONY_SC                            | (Nécéssite un vaisseau avec la technologie pour coloniser les planètes
+SETTINGS_MOD_AUTO_FLAG_TECH_GAIA_DESC     | →FLAG_SELECT_SC1← a →PLANET_GAIA← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
+SETTINGS_MOD_AUTO_FLAG_TECH_FERTILE_DESC  | →FLAG_SELECT_SC1← a →PLANET_FERTILE← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
+SETTINGS_MOD_AUTO_FLAG_TECH_GOOD_DESC     | →FLAG_SELECT_SC1← a →PLANET_TERRAN←, a →PLANET_JUNGLE←, or an →PLANET_OCEAN← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
+SETTINGS_MOD_AUTO_FLAG_TECH_STANDARD_DESC | →FLAG_SELECT_SC1← an →PLANET_ARID←, a →PLANET_STEPPE←, a →PLANET_DESERT←, or a →PLANET_MINIMAL← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
+SETTINGS_MOD_AUTO_FLAG_TECH_BARREN_DESC   | →FLAG_SELECT_SC1← a →PLANET_BARREN← →FLAG_SELECT_SC2← →FLAG_COLONY_SC← →PLANET_BARREN←)
+SETTINGS_MOD_AUTO_FLAG_TECH_DEAD_DESC     | →FLAG_SELECT_SC1← a →PLANET_TUNDRA← or a →PLANET_DEAD← →FLAG_COLONY_SC← →PLANET_DEAD←)
+SETTINGS_MOD_AUTO_FLAG_TECH_TOXIC_DESC    | →FLAG_SELECT_SC1← an →PLANET_INFERNO← or a →PLANET_TOXIC← →FLAG_SELECT_SC2← →FLAG_COLONY_SC← →PLANET_TOXIC←)
+SETTINGS_MOD_AUTO_FLAG_TECH_RADIATED_DESC | →FLAG_SELECT_SC1← an →PLANET_RADIATED← →FLAG_SELECT_SC2← →FLAG_COLONY_SC← →PLANET_RADIATED←)
+SETTINGS_MOD_AUTO_FLAG_TECH_NONE_DESC     | →FLAG_ASTEROID_SC← (Aucun moyen des les coloniser!)
+
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_ORION_DESC   | →FLAG_SELECT_SC1← avec des artéfacts de la civilisation d'Orion →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_ANTARAN_DESC | →FLAG_SELECT_SC1← a Planet with artéfacts de la civilisation d'Antaran →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_NONE_DESC    | →FLAG_SELECT_SC1← Aucun artéfacts n'a été découvert.
+
+SETTINGS_MOD_AUTO_FLAG_IN_NEBULA_DESC        | →FLAG_SELECT_SC1← Le systèm stellaire est situé dans une nébuleuse.
+SETTINGS_MOD_AUTO_FLAG_NOT_NEBULA_DESC       | →FLAG_SELECT_SC1← Le systèm stellaire n'est pas situé dans une nébuleuse.
+
+
+SETTINGS_MOD_AUTO_FLAG_ARID              | →PLANET_ARID← : %1
+SETTINGS_MOD_AUTO_FLAG_BARREN            | →PLANET_BARREN← : %1
+SETTINGS_MOD_AUTO_FLAG_DEAD              | →PLANET_DEAD← : %1
+SETTINGS_MOD_AUTO_FLAG_DESERT            | →PLANET_DESERT← : %1
+SETTINGS_MOD_AUTO_FLAG_INFERNO           | →PLANET_INFERNO← : %1
+SETTINGS_MOD_AUTO_FLAG_JUNGLE            | →PLANET_JUNGLE← : %1
+SETTINGS_MOD_AUTO_FLAG_MINIMAL           | →PLANET_MINIMAL← : %1
+SETTINGS_MOD_AUTO_FLAG_ASTEROID          | Astéroïdes: %1
+SETTINGS_MOD_AUTO_FLAG_OCEAN             | →PLANET_OCEAN← : %1
+SETTINGS_MOD_AUTO_FLAG_RADIATED          | →PLANET_RADIATED← : %1
+SETTINGS_MOD_AUTO_FLAG_STEPPE            | →PLANET_STEPPE← : %1
+SETTINGS_MOD_AUTO_FLAG_TERRAN            | →PLANET_TERRAN← : %1
+SETTINGS_MOD_AUTO_FLAG_TOXIC             | →PLANET_TOXIC← : %1
+SETTINGS_MOD_AUTO_FLAG_TUNDRA            | →PLANET_TUNDRA← : %1
+
+
+SETTINGS_MOD_AUTO_FLAG_ENV_GAIA          | →PLANET_GAIA← : %1
+SETTINGS_MOD_AUTO_FLAG_ENV_FERTILE       | →PLANET_FERTILE← : %1
+SETTINGS_MOD_AUTO_FLAG_ENV_NORMAL        | Normale : %1
+SETTINGS_MOD_AUTO_FLAG_ENV_HOSTILE       | →PLANET_HOSTILE← : %1
+SETTINGS_MOD_AUTO_FLAG_ENV_NONE          | Aucun : %1
+
+SETTINGS_MOD_AUTO_FLAG_RUINS_ORION       | Orion : %1
+SETTINGS_MOD_AUTO_FLAG_RUINS_ANTARAN     | →PLANET_ARTIFACTS← : %1
+SETTINGS_MOD_AUTO_FLAG_ULTRA_RICH        | →PLANET_ULTRA_RICH← : %1
+SETTINGS_MOD_AUTO_FLAG_RICH              | →PLANET_RICH← : %1
+SETTINGS_MOD_AUTO_FLAG_NORMAL            | Normale : %1
+SETTINGS_MOD_AUTO_FLAG_POOR              | →PLANET_POOR← : %1
+SETTINGS_MOD_AUTO_FLAG_ULTRA_POOR        | →PLANET_ULTRA_POOR← : %1
+SETTINGS_MOD_AUTO_FLAG_NONE              | Astéroïdes : %1
+
+SETTINGS_MOD_AUTO_FLAG_TECH_GAIA         | →PLANET_GAIA← : %1
+SETTINGS_MOD_AUTO_FLAG_TECH_FERTILE      | →PLANET_FERTILE← : %1
+SETTINGS_MOD_AUTO_FLAG_TECH_GOOD         | Bonne : %1
+SETTINGS_MOD_AUTO_FLAG_TECH_STANDARD     | Standard : %1
+SETTINGS_MOD_AUTO_FLAG_TECH_BARREN       | →PLANET_BARREN← : %1
+SETTINGS_MOD_AUTO_FLAG_TECH_DEAD         | →PLANET_DEAD← : %1
+SETTINGS_MOD_AUTO_FLAG_TECH_TOXIC        | →PLANET_TOXIC← : %1
+SETTINGS_MOD_AUTO_FLAG_TECH_RADIATED     | →PLANET_RADIATED← : %1
+SETTINGS_MOD_AUTO_FLAG_TECH_NONE         | Astéroïdes : %1
+
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_ORION    | Orion : %1
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_ANTARAN  | Antaran : %1
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_NONE     | Aucun : %1
+
+SETTINGS_MOD_AUTO_FLAG_IN_NEBULA         | Dans Nébuleuses : %1
+SETTINGS_MOD_AUTO_FLAG_NOT_NEBULA        | Hors Nébuleuse : %1
+
+SETTINGS_MOD_GALAXY_RAND_SOURCE_HELP     | Par défaut, l'aperçu ne donne qu'une idée globale de la galaxie que vous obtiendrez. En définissant une valeur autre que "Aléatoire", l'aperçu affichera la galaxie finale. Utilisez ceci pour éviter les configurations qui ne vous plairont pas... Trop loin d'Orion... Trop près du centre... ou trop loin ! etc...
+SETTINGS_MOD_GALAXY_RAND_SOURCE_DESC     | si <> 0, ce nombre sera utilisé comme source pour le générateur aléatoire de galaxies. La galaxie finale sera celle de prévisualisation.<br>Cette option débloquera la limitation de taille de prévisualisation de la galaxie (5000). Préparez-vous à un long temps de génération avec les galaxies « Insane » et supérieures !
+SETTINGS_MOD_GALAXY_RAND_SOURCE          | Aléatoire ou WYSIWYG: %1
+SETTINGS_MOD_GALAXY_RAND_RANDOM          | Aléatoire
+SETTINGS_MOD_GALAXY_RAND_WYSIWYG         | WYSIWYG %1
+
+SETTINGS_MOD_AUTO_TERRAFORM_ENDING_DESC  | En mode terraformation, qu'est-ce qui déclenchera la fin du reinforcement Eco ?
+SETTINGS_MOD_AUTO_TERRAFORM_ENDING       | Fin de terraformation: %1
+SETTINGS_MOD_TERRAFORM_POPULATED         | Peuplée
+SETTINGS_MOD_TERRAFORM_TERRAFORMED       | Terraformé
+SETTINGS_MOD_TERRAFORM_CLEANED           | Nettoyé
+SETTINGS_MOD_TERRAFORM_POPULATED_HELP    | Maintenez l'ECO jusqu'à ce qu'il soit entièrement terraformé et entièrement peuplé.
+SETTINGS_MOD_TERRAFORM_TERRAFORMED_HELP  | Ne vous embêtez pas à peupler, arrêtez-vous à la fin de la terraformation, laissez la population croître normalement.
+SETTINGS_MOD_TERRAFORM_CLEANED_HELP      | Ne vous embêtez pas à terraformer, gardez-le simplement propre !
 
 // Other base menu Mod settings
 SETTINGS_MOD_PLAYER_SHIP_SET_DESC            | Sélection du graphisme des vaisseaux du joueur.
@@ -2178,6 +2429,98 @@ SETTINGS_MOD_SHIP_COMBAT_RULES_UI_DESC   | Ouvre un nouveau panneau de configura
 SETTINGS_MOD_SHIP_COMBAT_SETTINGS_TITLE   | Configuration de l'apparence des combats spatiaux.
 SETTINGS_MOD_SHIP_COMBAT_SETTINGS_UI      | Paramètres de combat
 SETTINGS_MOD_SHIP_COMBAT_SETTINGS_UI_DESC | Ouvre un nouveau panneau de configuration avec divers paramètres des combats spatiaux.<br> Animation des boucliers, effets sonores.
+
+SETTINGS_MOD_VISUAL_OPTIONS_TITLE        | Configuration des options visuelles.
+SETTINGS_MOD_VISUAL_OPTIONS_UI           | Options Visuelles
+SETTINGS_MOD_VISUAL_OPTIONS_UI_DESC      | Ouvre un nouveau panneau de contrôle pour ajuster l'apparence de l'interface graphique.
+
+SETTINGS_MOD_GAME_AUTOMATION_TITLE       | Configuration des automatisations.
+SETTINGS_MOD_GAME_AUTOMATION_UI          | Automatisations
+SETTINGS_MOD_GAME_AUTOMATION_UI_DESC     | Ouvre un nouveau panneau de configuration pour configurer des outils qui aident aux tâches ennuyeuses.
+
+SETTINGS_MOD_COMBAT_ASTEROID_TITLE       | Placement et impact des astéroïdes..
+SETTINGS_MOD_COMBAT_ASTEROID_UI          | Configuration des astéroïdes
+SETTINGS_MOD_COMBAT_ASTEROID_UI_DESC     | Ouvre un nouveau panneau de configuration pour configurer la densité, l'emplacement et l'impact des astéroïdes.
+
+SETTINGS_MOD_COMBAT_XILMI_AI_TITLE       | Niveaux de confiance en soi de l'IA.
+SETTINGS_MOD_COMBAT_XILMI_AI_UI          | Audace de l'IA
+SETTINGS_MOD_COMBAT_XILMI_AI_UI_DESC     | Ouvre un nouveau panneau de contrôle pour ajuster le niveau de confiance en soi de l'IA.
+
+SETTINGS_MOD_COMBAT_TIMING_TITLE         | Configuration de la cadence du combat.
+SETTINGS_MOD_COMBAT_TIMING_UI            | Cadence du Combat
+SETTINGS_MOD_COMBAT_TIMING_UI_DESC       | Ouvre un nouveau panneau de contrôle pour régler la cadence du combat.
+
+SETTINGS_MOD_SPY_OPTIONS_TITLE           | Configuration de l'espionnage.
+SETTINGS_MOD_SPY_OPTIONS_UI              | Espionnage
+SETTINGS_MOD_SPY_OPTIONS_UI_DESC         | Ouvre un nouveau panneau de contrôle pour configurer l'espionnage.
+
+SETTINGS_MOD_DIPLOMACY_OPTIONS_TITLE     | Configuration de la Diplomatie.
+SETTINGS_MOD_DIPLOMACY_OPTIONS_UI        | Diplomatie
+SETTINGS_MOD_DIPLOMACY_OPTIONS_UI_DESC   | Ouvre un nouveau panneau de contrôle pour configurer la Diplomatie.
+
+SETTINGS_MOD_NEW_OPTIONS_BETA_TITLE      | Configuration des nouveaux paramètres.
+SETTINGS_MOD_NEW_OPTIONS_BETA_UI         | Nouveaux paramètres (Beta)
+SETTINGS_MOD_NEW_OPTIONS_BETA_UI_DESC    | Ouvre un nouveau panneau de contrôle pour configurer les nouveaux paramètres en cours de construction.<br>Veuillez tester et signaler les bugs et les incohérences.
+
+SETTINGS_MOD_NEW_RULES_BETA_TITLE        | Configuration des nouvelles règles.
+SETTINGS_MOD_NEW_RULES_BETA_UI           | Nouvelles règles (Beta)
+SETTINGS_MOD_NEW_RULES_BETA_UI_DESC      | Ouvre un nouveau panneau de contrôle pour configurer les nouvelles règles en cours de construction.<br>Veuillez tester et signaler les bugs et les incohérences.
+
+SETTINGS_MOD_COUNCIL_OPTIONS_TITLE       | Configuration des règles du Sénat.
+SETTINGS_MOD_COUNCIL_OPTIONS_UI          | Règles du Sénat
+SETTINGS_MOD_COUNCIL_OPTIONS_UI_DESC     | Ouvre un nouveau panneau de contrôle pour configurer les règles du Sénat.
+
+SETTINGS_MOD_HELP_AND_ADVICE_TITLE       | Configuration de l'aide et des conseils
+SETTINGS_MOD_HELP_AND_ADVICE_UI          | Aide et Conseils
+SETTINGS_MOD_HELP_AND_ADVICE_UI_DESC     | Ouvre un nouveau panneau de contrôle pour configurer l'aide et les conseils.
+
+SETTINGS_MOD_IRONMAN_LITTLE_TITLE        | Configuration d' Ironman Léger.
+SETTINGS_MOD_IRONMAN_LITTLE_UI           | Ironman Léger
+SETTINGS_MOD_IRONMAN_LITTLE_UI_DESC      | Ouvre un nouveau panneau de contrôle pour configurer Ironman Léger.
+
+SETTINGS_MOD_GAME_DIFFICULTY_TITLE       | Configuration du Niveau de Difficulté.
+SETTINGS_MOD_GAME_DIFFICULTY_UI          | Niveau de Difficulté
+SETTINGS_MOD_GAME_DIFFICULTY_UI_DESC     | Ouvre un nouveau panneau de contrôle pour configurer les Règles agissant sur le Niveau de Difficulté.
+
+SETTINGS_MOD_GALAXY_RULES_TITLE          | Configuration des Règles Galactiques.
+SETTINGS_MOD_GALAXY_RULES_UI             | Règles Galactiques
+SETTINGS_MOD_GALAXY_RULES_UI_DESC        | Ouvre un nouveau panneau de contrôle pour configurer les Règles regissant la galaxie
+
+SETTINGS_MOD_COLONY_SETTINGS_TITLE       | Automation Configuration de l'Automatisation des Colonies.
+SETTINGS_MOD_COLONY_SETTINGS_UI          | Automatisation des Colonies
+SETTINGS_MOD_COLONY_SETTINGS_UI_DESC     | Ouvre un nouveau panneau de contrôle pour configurer l'Automatisation des Colonies.
+
+SETTINGS_MOD_COLONY_RULES_TITLE          | Colony Rules Configuration.
+SETTINGS_MOD_COLONY_RULES_UI             | Colony Rules
+SETTINGS_MOD_COLONY_RULES_UI_DESC        | Ouvre un nouveau panneau de contrôle pour configurer les Règles agissant sur the colonies
+
+SETTINGS_MOD_SHIP_RULES_TITLE            | Configuration des Règles Flottes et vaisseaux.
+SETTINGS_MOD_SHIP_RULES_UI               | Règles Flottes et vaisseaux
+SETTINGS_MOD_SHIP_RULES_UI_DESC          | Ouvre un nouveau panneau de contrôle pour configurer les Règles régissant les Flottes et vaisseaux.
+
+SETTINGS_MOD_GNN_AND_POPUP_FILTER_TITLE  | Configuration les Filtres GNN & Annonces.
+SETTINGS_MOD_GNN_AND_POPUP_FILTER_UI     | Filtres GNN & Annonces
+SETTINGS_MOD_GNN_AND_POPUP_FILTER_UI_DESC | Ouvre un nouveau panneau de contrôle pour configurer les Filtres GNN & Annonces.
+
+SETTINGS_MOD_COMPUTER_OPTIONS_TITLE      | Configuration des paramètres du system.
+SETTINGS_MOD_COMPUTER_OPTIONS_UI         | Paramètres du system.
+SETTINGS_MOD_COMPUTER_OPTIONS_UI_DESC    | Ouvre un nouveau panneau de contrôle pour configurer les paramètres du system.
+
+SETTINGS_MOD_BACKUP_OPTIONS_TITLE        | Configurationdes paramètres de sauvegarde.
+SETTINGS_MOD_BACKUP_OPTIONS_UI           | Paramètres de sauvegarde
+SETTINGS_MOD_BACKUP_OPTIONS_UI_DESC      | Ouvre un nouveau panneau de contrôle pour configurer les paramètres de sauvegarde.
+
+SETTINGS_MOD_GAME_MENU_PREF_TITLE        | Game UI Preferences Configuration.
+SETTINGS_MOD_GAME_MENU_PREF_UI           | Game UI Preferences
+SETTINGS_MOD_GAME_MENU_PREF_UI_DESC      | Ouvre un nouveau panneau de contrôle pour configurer Game UI Preferences.
+
+SETTINGS_MOD_SETUP_MENU_PREF_TITLE       | Configuration des préférences de l'interface utilisateur.
+SETTINGS_MOD_SETUP_MENU_PREF_UI          | Préférences utilisateur	
+SETTINGS_MOD_SETUP_MENU_PREF_UI_DESC     | Ouvre un nouveau panneau de contrôle pour configurer les préférences de l'interface utilisateur.
+
+SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Configuration des Options de zoom.
+SETTINGS_MOD_ZOOM_OPTIONS_UI             | Options de zoom
+SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Ouvre un nouveau panneau de contrôle pour configurer les Options de zoom.
 
 
 // Tech UI labels

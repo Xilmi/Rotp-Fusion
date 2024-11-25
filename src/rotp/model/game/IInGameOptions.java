@@ -342,15 +342,23 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	ParamInteger maxLandingTroopsFactor	= new ParamInteger(MOD_UI, "MAX_LANDING_FACTOR", 200)
 			.setLimits(0, 10000)
 			.setIncrements(10, 50, 200);
-	default float maxLandingTroops(StarSystem sys)	{
+	ParamInteger maxLandingTroopsIAFactor	= new ParamInteger(MOD_UI, "MAX_LANDING_IA_FACTOR", 100)
+			.setLimits(0, 1000)
+			.setIncrements(5, 20, 100);
+	default float maxLandingTroops(StarSystem sys, boolean isPlayer)	{
+		float playerLimit = 0;
 		switch (maxLandingTroops.get()) {
 			case MAX_LANDING_FIXED:
-				return maxLandingTroopsAmount.get();
+				playerLimit = maxLandingTroopsAmount.get();
 			case MAX_LANDING_MULTIPLER:
-				return maxLandingTroopsFactor.get() * sys.planet().currentSize() / 100;
+				playerLimit = maxLandingTroopsFactor.get() * sys.planet().currentSize() / 100;
 			case MAX_LANDING_UNLIMITED:
 			default:
-				return Integer.MAX_VALUE;
+				playerLimit = Integer.MAX_VALUE;
 		}
+		if (isPlayer)
+			return playerLimit;
+		else
+			return playerLimit * maxLandingTroopsIAFactor.get() / 100;
 	}
 }

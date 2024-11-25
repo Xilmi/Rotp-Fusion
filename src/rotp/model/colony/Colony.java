@@ -1567,7 +1567,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         lost = min(lost, num);
 
         // BR: No more than allowed
-        passed = min(passed, (int)options().maxLandingTroops(starSystem()));
+        passed = min(passed, (int)options().maxLandingTroops(starSystem(), tr.empire().isPlayer()));
         lost = max(0, (num - passed));
         tr.size(passed);
 

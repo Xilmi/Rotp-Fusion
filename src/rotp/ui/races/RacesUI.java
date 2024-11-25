@@ -465,8 +465,8 @@ public class RacesUI extends BasePanel {
         helpUI.addBrownHelpText(x4, y3, w3, 0, text("RACES_HELP_6C"));	// Population
         
         int x5 = x4+barW;
-        int y5 = y3 - 3*s18;
-        helpUI.addBrownHelpText(x5, y5, w3, 0, text("RACES_HELP_6DG"));	// Technology
+        int y5 = y3 - 2*s18;
+        helpUI.addBrownHelpText(x5, y5, scaled(250), 0, text("RACES_HELP_6DG"));	// Technology
         
         int y6 = y3+barH;
         helpUI.addBrownHelpText(x3, y6, w3, 0, text("RACES_HELP_6E"));	// Planets
