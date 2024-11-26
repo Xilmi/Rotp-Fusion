@@ -269,6 +269,13 @@ public class ParamList extends AbstractParam<String> {
 	protected String getMapValue(int id) { return valueLabelMap.cfgValueList.get(id); }
 	// ===== Other Public Methods =====
 	//
+	public String getLangLabelKey() {
+		int index = getIndex();
+		if (index >= listSize())
+			return "";
+		return valueLabelMap.getLangLabel(getValidIndex(index));
+	}
+	public String getLangLabel(String keyExt) { return langLabel(getLangLabelKey() + keyExt); }
 	public List<String> getOptions()	{
 		List<String> list = new ArrayList<String>();
 		if (isDuplicate()) // Values and labels are swap because values may be redundant

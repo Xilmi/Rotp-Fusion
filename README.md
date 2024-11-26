@@ -69,6 +69,10 @@ Later:
 
 ## What's New
 
+2024.11.26 (BR)
+- More info on galaxy side icons
+- New French translations
+
 2024.11.25 (BR)
 - New french translation.
 - Invasion troop limitation can now be unbalanced AI vs Player.

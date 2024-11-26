@@ -706,8 +706,8 @@ MAIN_TECH_COMPLETED               | Recherche Terminée
 MAIN_TECH_RP_REMAINING            | %1 RP Restant(s)
 MAIN_TECH_RP_DISCOVERY            | Découverte Imminente
 MAIN_TECH_RESERVE_BC              | %1 BC
-MAIN_TECH_RESERVE_TAX_ALL         | Taxer %1% de la production sur toutes les colonies
-MAIN_TECH_RESERVE_TAX             | Taxer %1% de la production sur les colonies développées
+MAIN_TECH_RESERVE_TAX_ALL         | Taxer %1 % de la production sur toutes les colonies
+MAIN_TECH_RESERVE_TAX             | Taxer %1 % de la production sur les colonies développées
 MAIN_TECH_RESERVE_TAX_NONE        | Aucune taxe prélevée sur la production des colonies
 MAIN_HELP_ALL                     | Aide - cliquez pour parcourir les informations d'aide pour un écran particulier. Escape pour annuler.
 MAIN_HELP_MOD                     | Aide Mod - « O » pour accéder au menu des options de jeu. « Home » pour appliquer Auto-Drapeau la planète sélectionnée. « Alt » + « Home » pour appliquer Auto-Drapeau à toutes les planètes déjà explorées.
@@ -1093,7 +1093,7 @@ PLANETS_RES_FULL_DEF_POP          | Peuple: %1
 PLANETS_RES_FULL_DEF_FACT         | Usines: %1
 PLANETS_BUTTON_TRANSFER           | TRANSFÉRER
 PLANETS_BUTTON_EXIT               | QUITTER
-PLANETS_AMT_PCT                   | %1%
+PLANETS_AMT_PCT                   | %1 %
 PLANETS_AMT_BC                    | %1 BC
 PLANETS_TRANSFER_DESC             | Transférer des fonds de l'Empire vers %1
 PLANETS_TRANSFER_CANCEL           | Annuler
@@ -1305,7 +1305,7 @@ TECH_ALLOCATE_ENRICH_SOIL         | Devrions-nous augmenter les ratios écologiq
 TECH_ALLOCATE_ATMOSPHERE          | Devrions-nous augmenter les ratios écologiques de nos colonies avec des environnements hostiles afin de commencer à terraformer nos planètes ?
 TECH_ALLOCATE_TERRAFORM           | Devrions-nous augmenter les ratios écologiques de toutes nos colonies afin de commencer à terraformer nos planètes ?
 TECH_ALLOCATE_NO                  | Non
-TECH_ALLOCATE_PCT                 | +%1%
+TECH_ALLOCATE_PCT                 | +%1 %
 TECH_COMPLETED_TITLE              | Recherche terminée !
 TECH_COMPLETED_COMPUTER           | Nous avons terminé toutes les recherches possibles en informatique! Aucune autre recherche dans ce domaine n'est possible.
 TECH_COMPLETED_CONSTRUCTION       | Nous avons terminé toutes les recherches possibles en technologie de la construction ! Aucune autre recherche dans ce domaine n'est possible.
@@ -1885,22 +1885,22 @@ SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_HELP | Ouvre un sous-menu contenant les
 SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | Permettre à une planète ultra-pauvre, pauvre, riche, ou ultra-riche d'avoir aussi des artéfacts.
 SETTINGS_MOD_RICH_POOR_ARTIFACT      | Riche / pauvre & Artéfacts : %1
 SETTINGS_MOD_ARTIFACT_MULT_DESC      | Multiplicateur de probabilité de planète d'artéfacts antariens.
-SETTINGS_MOD_ARTIFACT_MULT           | Multiplicateur Antarien : %1%
+SETTINGS_MOD_ARTIFACT_MULT           | Multiplicateur Antarien : %1 %
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_DYNAMIC_TITLE           | Règles et paramètres du jeu
 SETTINGS_MOD_CHALLENGE_MODE          | Mode défi : %1
-SETTINGS_MOD_CUSTOM_DIFFICULTY       | Difficulté personnalisée : %1%
+SETTINGS_MOD_CUSTOM_DIFFICULTY       | Difficulté personnalisée : %1 %
 SETTINGS_MOD_DYNAMIC_DIFFICULTY      | Difficulté dynamique : %1
 SETTINGS_MOD_SCRAP_REFUND            | Casse pour vaisseaux : %1
 SETTINGS_MOD_SCRAP_REFUND_ALL        | Partout
 SETTINGS_MOD_SCRAP_REFUND_EMPIRE     | Dans l'Empire
 SETTINGS_MOD_SCRAP_REFUND_ALLY       | Mondes alliés
 SETTINGS_MOD_SCRAP_REFUND_NEVER      | Nulle part
-SETTINGS_MOD_SCRAP_REFUND_FACTOR     | Prix de rachat : %1%
-SETTINGS_MOD_SHIP_SPACE_FACTOR       | Volume des vaisseaux : %1%
-SETTINGS_MOD_MISSILE_BASE_MODIFIER   | Coût base de missiles : %1%
-SETTINGS_MOD_MISSILE_SHIP_MODIFIER   | Coût missiles dans vaisseaux : %1%
+SETTINGS_MOD_SCRAP_REFUND_FACTOR     | Prix de rachat : %1 %
+SETTINGS_MOD_SHIP_SPACE_FACTOR       | Volume des vaisseaux : %1 %
+SETTINGS_MOD_MISSILE_BASE_MODIFIER   | Coût base de missiles : %1 %
+SETTINGS_MOD_MISSILE_SHIP_MODIFIER   | Coût missiles dans vaisseaux : %1 %
 SETTINGS_MOD_RETREAT_RESTRICTIONS    | Retraite restreinte pour : %1
 SETTINGS_MOD_RETREAT_NONE            | Personne
 SETTINGS_MOD_RETREAT_AI              | IA
@@ -2002,7 +2002,7 @@ SETTINGS_MOD_OPTION_ALWAYS_ALWAYS_DESC   | Toujours pour le joueur et l'IA.
 SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Toujours / Toujours
 
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Pourcentage nécessaire pour gagner l'élection au conseil.
-SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Exigences du Conseil: %1%
+SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Exigences du Conseil: %1 %
 
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_DESC       | Position du joueur pendant pendant la votation.
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE            | Vote du joueur : %1
@@ -2022,13 +2022,82 @@ FR_MISSILES_DESC_HK                      | Les bases sont équipées des meilleu
 FR_USINES_DESC_HK                        | La planète a achevé de construire ses usines (ou presque)
 FR_POPULATION_DESC_HK                    | La population est à son maximum (ou presque) + La planète est entèrement terraformée + Aucuns déchets (si affecté par les déchets)
 SETTINGS_MOD_OPTIONS_DEFAULT             | Paramètres par défaut
-SETTINGS_MOD_OPTIONS_LAST                | Dernière configuration de l'interface graphique
+SETTINGS_MOD_OPTIONS_LAST                | Dernier état dans l'interface graphique
 SETTINGS_MOD_OPTIONS_GAME                | Paramètres du jeu
 SETTINGS_MOD_OPTIONS_USER                | Paramètres de l'utilisateur
 SETTINGS_MOD_OPTIONS_DEFAULT_HELP        | Les options seront réinitialisées à leurs valeurs par défaut.
 SETTINGS_MOD_OPTIONS_LAST_HELP           | Les options seront celles utilisées lorsque ROTP a été fermé la dernière fois.
 SETTINGS_MOD_OPTIONS_GAME_HELP           | Les options seront celles du dernier jeu joué.
 SETTINGS_MOD_OPTIONS_USER_HELP           | Les options seront les préférences sauvées par l'utilisateur.
+
+SETTINGS_MOD_SHOW_ALL_AI_DESC            | IA:Base, IA:Modnar et IA:Rookies sont assez similaires. IA:Rookie est basé sur les deux autres, quelques bugs importants ayant été corrigés. Vous voudrez peut-être masquer l'IA non corrigée.
+SETTINGS_MOD_SHOW_ALL_AI                 | Afficher toutes les IAs : %1
+SETTINGS_MOD_SHOW_ALL_AI_YES_DESC        | Toutes les IA sont disponibles pour le joueur et les adversaires.
+SETTINGS_MOD_SHOW_ALL_AI_NO_DESC         | IA:Base and IA:Modnar ne seront pas disponibles
+
+
+SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Afficher les grilles circulaires sur la carte de la galaxie ?
+SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Grilles circulaires : %1
+
+
+SETTINGS_MOD_FLIGHT_PATH_DISPLAY_DESC    | Quel trajectoires de vols doivent être affichées ? (En relation avec l'icône à gauche de la Galaxie)
+SETTINGS_MOD_FLIGHT_PATH_DISPLAY         | Afficher les trajectoires : %1
+SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS        | Toutes
+SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS  | Importantes
+SETTINGS_MOD_SHOW_NO_FLIGHTPATHS         | Aucunes
+SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS_EXT        | Afficher toutes les trajectoires de vol
+SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS_EXT  | Afficher les trajectoires de vol importantes
+SETTINGS_MOD_SHOW_NO_FLIGHTPATHS_EXT         | Masquer toutes les trajectoires de vol
+SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS_HELP       | Afficher toutes les trajectoires de vol.
+SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS_HELP | Afficher uniquement les trajectoires de vol importantes. (Les flottes extraterrestres non menaçantes sont masquées)
+SETTINGS_MOD_SHOW_NO_FLIGHTPATHS_HELP        | Masquer toutes les trajectoires de vol.
+
+SETTINGS_MOD_SYSTEM_NAME_DISPLAY_DESC    | Que doit s'afficher sous les systèmes stellaires ? (En lien avec l'icône à gauche de la Galaxie)
+SETTINGS_MOD_SYSTEM_NAME_DISPLAY         | Texts des étoiles : %1
+SETTINGS_MOD_HIDE_SYSTEM_NAME            | Rien
+SETTINGS_MOD_SHOW_SYSTEM_NAME 	         | Le nom
+SETTINGS_MOD_SHOW_SYSTEM_DATA            | Nom et Données
+SETTINGS_MOD_HIDE_SYSTEM_NAME_EXT        | Masquer les textes sous les étoiles
+SETTINGS_MOD_SHOW_SYSTEM_NAME_EXT        | Afficher le nom du système stellaire
+SETTINGS_MOD_SHOW_SYSTEM_DATA_EXT        | Afficher le nom du système stellaire et les données de la colonie
+SETTINGS_MOD_HIDE_SYSTEM_NAME_HELP       | Tout masquer.
+SETTINGS_MOD_SHOW_SYSTEM_NAME_HELP       | Afficher uniquement le nom du système stellaire.
+SETTINGS_MOD_SHOW_SYSTEM_DATA_HELP       | Afficher le nom du système stellaire au-dessus des données de la colonie.
+
+SETTINGS_MOD_SHIP_DISPLAY_DESC           | Quels vaisseaux en mouvement doivent être affichés ? (En lien avec l'icône à gauche de la galaxie)
+SETTINGS_MOD_SHIP_DISPLAY                | Affichage des vaisseaux : %1
+SETTINGS_MOD_SHOW_ALL_SHIPS              | Tous
+SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS 	     | Transports
+SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS       | Armés
+SETTINGS_MOD_SHOW_ALL_SHIPS_EXT          | Afficher tout les vaisseaux
+SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS_EXT   | Afficher les transports et les vaisseaux armés
+SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS_EXT   | Afficher uniquement les bâtiments de guerre
+SETTINGS_MOD_SHOW_ALL_SHIPS_HELP         | Afficher tout ce qui bouge.
+SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS_HELP  | Afficher les transports et les vaisseaux armés, masquer les vaisseaux non armés.
+SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS_HELP  | Afficher uniquement les bâtiments de guerre, masquer les transports et les vaisseaux non armés.
+
+SETTINGS_MOD_SHOW_SHIP_RANGES_DESC       | Quels limites devraient être affichés à proximité des systèmes stellaires ? (En lien avec l'icône à gauche de la galaxie)
+SETTINGS_MOD_SHOW_SHIP_RANGES            | Fond & Zone : %1
+SETTINGS_MOD_SHOW_RANGES                 | Zone d'accès
+SETTINGS_MOD_SHOW_STARS_AND_RANGES 	     | Zone d'accès & fond étoilé
+SETTINGS_MOD_SHOW_STARS                  | Fond étoilé
+SETTINGS_MOD_SHOW_NO_STARS_AND_RANGES    | Rien
+SETTINGS_MOD_SHOW_RANGES_EXT              | Afficher uniquement la zone d'accès des vaisseaux
+SETTINGS_MOD_SHOW_STARS_AND_RANGES_EXT 	  | Afficher la zone d'accès & le fond étoilé
+SETTINGS_MOD_SHOW_STARS_EXT               | Afficher uniquement le fond étoilé
+SETTINGS_MOD_SHOW_NO_STARS_AND_RANGES_EXT | Tout masquer
+SETTINGS_MOD_SHOW_RANGES_HELP              | Show ship access areas without the starry background.
+SETTINGS_MOD_SHOW_STARS_AND_RANGES_HELP    | Show ship access areas with starry background.
+SETTINGS_MOD_SHOW_STARS_HELP               | Show the starry background, but hide the ship access areas.
+SETTINGS_MOD_SHOW_NO_STARS_AND_RANGES_HELP | Hide both the ship access areas and the starry background.
+
+SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS_HELP  | →SCANNER_2_NAME← or →SCANNER_3_NAME← can automatically determine ship destinations immediately. But even with the shorter ranges of →SCANNER_0_NAME← and →SCANNER_1_NAME←, often (slow) ships will be in range for two successive turns, so you can often determine ship trajectories anyway by squinting at a screenshot of last turn. This option just saves you the bother of squinting at last turn's screenshot. Two things to note. First, without →SCANNER_2_NAME←, the trajectories is displayed ending at the nearest star along the line. THIS IS NOT A GUARANTEE THAT THE SHIP WILL ACTUALLY STOP THERE (because you don't actually know that without →SCANNER_2_NAME←), only that the ship is moving in that direction. (Of course, for most galaxy shapes, close collinear stars are rare.) Second, while we want wonder whether scanners are "really" tracking ships continuously between turns, to allow this option to be enabled by default, this option will never give you any information you couldn't already have gotten by squinting at screenshots. That is, when there's a mess of ships of the same design close together such that you couldn't be completely sure which moved where by squinting at screenshots, no trajectories will be displayed. IN PROGRESS: Currently only for transports approaching your own colonies.<br>!!! May gives wrong destinations when stars are aligned !!!
+SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS_DESC  | Have →SCANNER_0_NAME← and →SCANNER_1_NAME← automatically track ship trajectories when ships can be unambiguously identified across successive turns. !!! May gives wrong destinations when stars are aligned !!!
+SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS       | Track ships across turns: %1
+
+
+
+
 
 SETTINGS_MOD_ALLOW_TECH_STEALING_HELP    | Pour activer ou désactiver les activités de vol de technologies.<br>Lorsque désactivé, la moitié du bonus d'infiltration sera attribuée au bonus de recherche.<br>La pénalité d'infiltration n'aura pas d'impact sur le bonus de recherche.
 SETTINGS_MOD_ALLOW_TECH_STEALING_DESC    | Pour activer ou désactiver les activités de vol de technologies.<br>Lorsque désactivé, la moitié du bonus d'infiltration sera attribuée au bonus de recherche. (Jamais de bonus négatif)
@@ -2106,10 +2175,10 @@ SETTINGS_MOD_MAX_LANDING_FIXED           | Valeur fixe
 SETTINGS_MOD_MAX_LANDING_AMOUNT_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_FIXED← » est sélectionnée, combien de troupes d’invasion sont capables de débarquer ?
 SETTINGS_MOD_MAX_LANDING_AMOUNT          | Nombre Maximal : %1
 SETTINGS_MOD_MAX_LANDING_FACTOR_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_MULTIPLER← » est sélectionné, Quel pourcentage de la taille de la planète limitera la taille des troupes d'invasion.
-SETTINGS_MOD_MAX_LANDING_FACTOR          | Multiplicateur : %1%
+SETTINGS_MOD_MAX_LANDING_FACTOR          | Multiplicateur : %1 %
 
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR_DESC  | Modificateur IA contre joueur. Ce pourcentage est appliqué sur le débarquement maximal avant d'être utilisé par l'IA.
-SETTINGS_MOD_MAX_LANDING_IA_FACTOR       | Poucentage IA: %1%
+SETTINGS_MOD_MAX_LANDING_IA_FACTOR       | Poucentage IA: %1 %
 
 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | Désactiver les traités de paix ou supprimer la possibilité de coloniser losqu'une autre flotte est en orbite autour de la planète.
@@ -2134,9 +2203,9 @@ SETTINGS_MOD_DARK_GALAXY_DESC            | Seuls les systèmes aux alentours son
 SETTINGS_MOD_DARK_GALAXY                 | Brouillard de Guerre : %1
 
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | Pour augmenter le pourcentage maximal d'impôt sur la sécurité. (Prime d'espionnage = 2 × taxe)
-SETTINGS_MOD_MAX_SECURITY_PCT            | Sécurité Max. : %1%
+SETTINGS_MOD_MAX_SECURITY_PCT            | Sécurité Max. : %1 %
 
-SETTINGS_MOD_ASTEROIDS_VANISH            | Disparaître : %1
+SETTINGS_MOD_ASTEROIDS_VANISH            | Disparaissent : %1
 SETTINGS_MOD_ASTEROIDS_VANISH_DESC       | Les astéroïdes disparaîtront au fur et à mesure que le combat progresse. (5%)
 
 SETTINGS_MOD_MOO1_PLANET_LOCATION           | Planète MoO1 : %1
@@ -2145,7 +2214,7 @@ SETTINGS_MOD_MOO1_PLANET_LOCATION_DESC      | La planète MoO1 est située sur l
 SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION        | Placement MoO1 : %1
 SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION_DESC   | Les astéroïdes seront placés selon les règles MoO1 et ne disparaîtront pas pendant le combat.
 SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION_HELP   | Les astéroïdes seront placés selon les règles de MoO1 et ne disparaîtront pas pendant le combat.<br>La densité des astéroïdes dépendra du type de planète et sera fixée une fois pour toutes. Cela peut être : aucun astéroïde, faible densité ou haute densité.<br>Une ceinture d'astéroïdes de faible densité signifie qu'un nombre aléatoire de 1 à 5 cases astéroïdes apparaîtront sur l'écran d'affichage de combat spacial chaque fois que des vaisseaux engageront un combat sur cette planète.<br>Une ceinture d'astéroïdes de haute densité place un nombre aléatoire de 3 à 7 cases astéroïdes.
-SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES      | Affecte les tirs : %1
+SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES      | Affectent les tirs : %1
 SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_DESC | Les astéroïdes détruiront partiellement les missiles et réduiront l'efficacité des faisceaux, conformément aux règles de MoO1.
 SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_HELP | Les astéroïdes détruiront partiellement les missiles et réduiront l'efficacité des faisceaux, conformément aux règles de MoO1.<br>Lorsque les armes à faisceaux tirent à travers des cases d'astéroïdes, le défenseur ajoute +3 à son niveau de défense contre les faisceaux.<br>Chaque missile ou torpille qui traverse une case d'astéroïde a une chance d'être détruit :<br>Nucléaire et Hyper V : 80 %<br>Hyper X et Scatter Pack V : 72 %<br>Merculite et Scatter Pack VII : 64 %<br>Stinger, Scatter Pack X, Pulson et torpille antimatière : 56 %<br>Herculaire : 48 %<br>Torpilles Hellfire, Zeon et à protons : 40 %<br>Torpille à plasma : 32 %
 
@@ -2153,21 +2222,21 @@ SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_HELP | Les astéroïdes détruiront parti
 
 PLANET_TYPE_LIST                         | La séquence de type de planète est: <br>→PLANET_RADIATED←, →PLANET_TOXIC←, →PLANET_INFERNO←, →PLANET_DEAD←, →PLANET_TUNDRA←, →PLANET_BARREN←, →PLANET_MINIMAL←, →PLANET_DESERT←, →PLANET_STEPPE←, →PLANET_ARID←, →PLANET_OCEAN←, →PLANET_JUNGLE←, →PLANET_TERRAN←
 
-SETTINGS_MOD_BASE_NO_ASTEROIDS           | Base pour aucun : %1%
+SETTINGS_MOD_BASE_NO_ASTEROIDS           | Base pour aucun : %1 %
 SETTINGS_MOD_BASE_NO_ASTEROIDS_DESC      | Probabilité de base qu'il n'y ait pas d'astéroïdes autour des planètes, en fonction de leur type.
-SETTINGS_MOD_STEP_NO_ASTEROIDS           | Incrément pour aucun : %1%
+SETTINGS_MOD_STEP_NO_ASTEROIDS           | Incrément pour aucun : %1 %
 SETTINGS_MOD_STEP_NO_ASTEROIDS_DESC      | Probabilité incrémentale de ne pas avoir d'astéroïdes autour des planètes, en fonction de leur type.<br>Il existe 13 types de planètes. Lorsque l'étoile n'a pas de planètes, la densité d'astéroïdes est élevée.
 SETTINGS_MOD_STEP_NO_ASTEROIDS_HELP      | →SETTINGS_MOD_STEP_NO_ASTEROIDS_DESC←<br>→PLANET_TYPE_LIST←
 
-SETTINGS_MOD_BASE_LOW_ASTEROIDS          | Base pour peu : %1%
+SETTINGS_MOD_BASE_LOW_ASTEROIDS          | Base pour peu : %1 %
 SETTINGS_MOD_BASE_LOW_ASTEROIDS_DESC     | Base probability to have a low asteroid density around the planets, based on their type.
-SETTINGS_MOD_STEP_LOW_ASTEROIDS          | Incrément pour peu : %1%
+SETTINGS_MOD_STEP_LOW_ASTEROIDS          | Incrément pour peu : %1 %
 SETTINGS_MOD_STEP_LOW_ASTEROIDS_DESC     | Probabilité incrémentale d'avoir une faible densité d'astéroïdes autour des planètes, en fonction de leur type.<br>Il existe 13 types de planètes. Lorsque l'étoile n'a pas de planètes, la densité d'astéroïdes sera élevée.
 SETTINGS_MOD_STEP_LOW_ASTEROIDS_HELP     | →SETTINGS_MOD_STEP_LOW_ASTEROIDS_DESC←<br>→PLANET_TYPE_LIST←
 
-SETTINGS_MOD_RICH_NO_ASTEROIDS           | Incrément pour Riches : %1%
+SETTINGS_MOD_RICH_NO_ASTEROIDS           | Incrément pour Riches : %1 %
 SETTINGS_MOD_RICH_NO_ASTEROIDS_DESC      | Probabilité incrémentale d'avoir une faible densité d'astéroïdes autour de planètes riches.
-SETTINGS_MOD_U_RICH_NO_ASTEROIDS         | Incrément pour U-Riches : %1%
+SETTINGS_MOD_U_RICH_NO_ASTEROIDS         | Incrément pour U-Riches : %1 %
 SETTINGS_MOD_U_RICH_NO_ASTEROIDS_DESC    | Probabilité incrémentale d'avoir une faible densité d'astéroïdes autour de planètes ultra-riches.
 
 SETTINGS_MOD_MIN_LOW_ASTEROIDS           | Faible Min : %1
@@ -2179,6 +2248,75 @@ SETTINGS_MOD_MIN_HIGH_ASTEROIDS          | Élevée Min : %1
 SETTINGS_MOD_MIN_HIGH_ASTEROIDS_DESC     | Densité d'astéroïdes élevée : nombre minimal d'astéroïdes pouvant apparaître sur l'écran de bataille.
 SETTINGS_MOD_MAX_HIGH_ASTEROIDS          | Élevée Max : %1
 SETTINGS_MOD_MAX_HIGH_ASTEROIDS_DESC     | Densité d'astéroïdes élevée : nombre maximal d'astéroïdes pouvant apparaître sur l'écran de bataille.
+
+SETTINGS_MOD_SHIELD_TYPE_NONE_DESC       | Aucune animation de bouclier (pour les ordinateurs de faible puissance)
+SETTINGS_MOD_SHIELD_TYPE_NONE            | Aucune
+SETTINGS_MOD_SHIELD_TYPE_3D_DESC         | Animations de boucliers semi-transparents en 3D. (Peut rencontrer des problèmes sur Mac OS)
+SETTINGS_MOD_SHIELD_TYPE_3D              | 3D
+SETTINGS_MOD_SHIELD_TYPE_2D_DESC         | Animations de bouclier 2D (pour Mac OS, si la 3D est trop instable)
+SETTINGS_MOD_SHIELD_TYPE_2D              | 2D
+SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS_DESC  | Animations de boucliers semi-transparents en 3D. Avec des tampons de mémoire supplémentaires pour minimiser les problèmes. Plus gourmand en ressources informatiques !
+SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS       | 3D Buff
+
+SETTINGS_MOD_NEW_WEAPON_ANIMATION_DESC   | Afficher le bouclier et les effets de ratés.
+SETTINGS_MOD_NEW_WEAPON_ANIMATION        | Effets de boucliers : %1
+SETTINGS_MOD_NEW_WEAPON_SOUND_DESC       | Des sons de tir d'armes distinctifs au lieu de seulement deux !
+SETTINGS_MOD_NEW_WEAPON_SOUND            | Sons distinctifs : %1
+SETTINGS_MOD_PLAYER_SOUND_ECHO_DESC      | Ajout d' échos au son des tirs d'armes lorsque le joueur est la cible.
+SETTINGS_MOD_PLAYER_SOUND_ECHO           | Échos de tir : %1
+SETTINGS_MOD_ECHO_SOUND_DELAY_DESC       | Retard de base de l'écho; pour les coques de petites tailles.
+SETTINGS_MOD_ECHO_SOUND_DELAY            | Retard de l'écho : %1 ms.
+SETTINGS_MOD_ECHO_SOUND_HULL_DELAY_DESC  | Retard d'écho supplémentaire, par taille de coque.
+SETTINGS_MOD_ECHO_SOUND_HULL_DELAY       | Incrément du retard d'écho : %1 ms.
+SETTINGS_MOD_ECHO_SOUND_DECAY_DESC       | Paramètre de déclin de l'écho: 0% = pas d'échos; 100% = Écho permanent!
+SETTINGS_MOD_ECHO_SOUND_DECAY            | Déclin de l'écho : %1 %
+
+SETTINGS_MOD_BEAM_WINDUP_FRAMES_DESC     | Durée de propagation du faisceau. (Elle devrait être instantanée, mais il est également agréable de voir la propagation du faisceau !)
+SETTINGS_MOD_BEAM_WINDUP_FRAMES          | Durée d'établissement : %1 x100 ms
+SETTINGS_MOD_BEAM_HOLD_FRAMES_DESC       | Après la phase d'établissement du faisceau, l'attaque peut être maintenue quelque temps. Cette valeur sera ajoutée à la valeur de maintien de base de l'arme.
+SETTINGS_MOD_BEAM_HOLD_FRAMES            | Durée de maintien : %1 x100 ms
+SETTINGS_MOD_BEAM_HOLD_FRAMES_HELP       | →SETTINGS_MOD_BEAM_HOLD_FRAMES_DESC←<br>Les valeurs négatives réduiront la durée des armes ayant déjà des préréglages de maintien :<br>- 600 ms : →SHIPWPN_16_NAME←, →SHIPWPN_6_NAME←, →SHIPWPN_9_NAME←, →SHIPWPN_12_NAME←.<br>- 400 ms : →SHIPWPN_18_NAME←, →SHIPWPN_20_NAME←, →SHIPWPN_21_NAME←.
+SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES_DESC | Les rayons lourds peuvent durer plus longtemps que leur modè de base. Cela s'ajoutera à la valeur de maintien du modèle de base de l'arme.
+SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES      | Maintiens rayons lourds : +%1 x100 ms
+SETTINGS_MOD_SHIELD_FADING_FRAMES_DESC   | Voir l'effet de déclin des bouclier.
+SETTINGS_MOD_SHIELD_FADING_FRAMES        | Déclin des boucliers : %1 x100 ms
+SETTINGS_MOD_SHIELD_ENVELOPING_DESC      | Effets de bouclier localisés ou effets de bouclier entièrement enveloppants.
+SETTINGS_MOD_SHIELD_ENVELOPING           | Bouclier enveloppants : %1
+SETTINGS_MOD_BEAM_ANIMATION_FPS_DESC     | Vitesse d'animation en images par seconde (ips). Cela permet de régler la durée de l'animation, conjointement avec les paramètres de durée. (remplacez 100 ms par 1/ips)
+SETTINGS_MOD_BEAM_ANIMATION_FPS          | Vitesse d'animation: %1 ips
+SETTINGS_MOD_BEAM_ANIMATION_DELAY_DESC   | Pause entre deux images. Vous pouvez avoir à ajuter cette cette valeur lorsque le  nombre d'images par seconde est élevé, dans le but d'obtenir obtenir une animation plus fluide.
+SETTINGS_MOD_BEAM_ANIMATION_DELAY        | Retard d'Animation: %1 ms.
+SETTINGS_MOD_SHOW_RESULT_DELAY_DESC      | Le panneau de résultats ne devrait plus apparaître avant la fin des animations. Il s'agit d'un délai de sécurité en cas de bug. Si le paramètre est réglé sur "0 ms", le panneau apparaîtra immédiatement, comme avant !
+SETTINGS_MOD_SHOW_RESULT_DELAY           | Retard Max des résultats: %1 ms
+SETTINGS_MOD_ALWAYS_SHOWS_SHIELD_DESC    | Les animations de bouclier seront toujours affichées, même si la cible n'a pas de bouclier !
+SETTINGS_MOD_ALWAYS_SHOWS_SHIELD         | Boucliers pour tous: %1
+SETTINGS_MOD_SHIELD_NOISE_PCT_DESC       | Ajoutez du bruit blanc aux animations de boucliers.
+SETTINGS_MOD_SHIELD_NOISE_PCT            | Bruit blanc : %1 %
+SETTINGS_MOD_SHIELD_TRANSPARENCY_DESC    | Valeur faible pour une opacité élevée du bouclier ; grande valeur pour plus de transparence.
+SETTINGS_MOD_SHIELD_TRANSPARENCY         | Transparence : %1 %
+SETTINGS_MOD_SHIELD_FLICKERING_DESC      | Ajouter une petite vibration d'intensité au bouclier pendant la phase de maintien.
+SETTINGS_MOD_SHIELD_FLICKERING           | Scintillement : %1 %
+SETTINGS_MOD_SHIELD_BORDER_DESC          | Épaisseur de la bordure du bouclier.
+SETTINGS_MOD_SHIELD_BORDER               | Bordures : %1
+SETTINGS_MOD_SHIELD_BORDER_SIZE          | Proportionelles.
+SETTINGS_MOD_SHIELD_BORDER_SIZE_DESC     | Les bordures du bouclier sont proportionnelles à la taille de la coque ; de 1 à 4.
+SETTINGS_MOD_SHIELD_BORDER_SIZE_2        | Proportionelles x2.
+SETTINGS_MOD_SHIELD_BORDER_SIZE_2_DESC   | Les bordures du bouclier sont proportionnelles à la taille de la coque ; de 2 à 8.
+SETTINGS_MOD_WEAPON_Z_POS_DESC           | Pour ajouter une vue de dessus sur l'effet de bouclier.
+SETTINGS_MOD_WEAPON_Z_POS                | Position Z de l'arme: %1
+SETTINGS_MOD_WEAPON_Z_RANDOM_DESC        | Pour rendre alàtoire la position Z de l'arme. Variabilité maximale autour de la valeur nominale.
+SETTINGS_MOD_WEAPON_Z_RANDOM             | Variabilité de position: %1
+SETTINGS_MOD_START_SHIELD_DEMO_DESC      | Démarrer une démonstration dans une fenêtre indépendante pour vous aider à ajuster les paramètres.
+SETTINGS_MOD_START_SHIELD_DEMO           | Démarrer la démo: %1
+SETTINGS_MOD_START_SHIELD_DEMO_HELP      | Lancez une démo sur une fenêtre indépendante pour vous aider à ajuster les paramètres.<br><b>Touches d'alternance</b><br>"R" Alterne les animations aléatoirement<br>"P" Alterne le joueur comme cible (ajoute un écho)<br>"Q" Alterne le silence (muet)<br><b>Touches de séquences</b><br>"C"/"Maj-C"/"Ctrl-C" : couleur du bouclier Suivant/Précédent/Boucle<br>"W"/"Maj-W"/"Ctrl-W" : sélection d'armes Suivant/Précédent/Boucle<br>"M"/"Maj-M" : modèle du vaisseau (forme) Suivant/Précédent<br>"H"/"Maj-H" : coque du vaisseau (taille) Suivant/Précédent<br>"T"/"Maj-T" : type de vaisseau (espèce) Suivant/Précédent<br>"<-"/"->" : Boucle sur tous les vaisseaux Suivant/Précédent<br>"Z"/"Maj-Z" : Zoom (taille de la fenêtre) Suivant/Précédent<br><b>Touches d'emplacement</b><br>Pavé numérique : Emplacement de l'arme ("5" = Boucle)
+
+SETTINGS_MOD_COLOR_SET_DESC         | Deux ensembles de couleurs d'interface utilisateur sont disponibles : marron (par défaut) ou gris.
+SETTINGS_MOD_COLOR_SET              | Couleurs de Interface: %1
+SETTINGS_MOD_COLOR_SET_BROWN        | Brunes
+SETTINGS_MOD_COLOR_SET_GREY         | Grises
+SETTINGS_MOD_COLOR_SET_BROWN_DESC   | Ensemble de couleurs marron. Couleurs originales.
+SETTINGS_MOD_COLOR_SET_GREY_DESC    | Ensemble alternatif de couleurs sombres.
+
 
 
 
@@ -2250,7 +2388,7 @@ SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Options pour les développeurs
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | Options de débogage
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Ouvrir un sous-menu pour définir les outils de développement.
 
-SETTINGS_MOD_COMBAT_OPTIONS_TITLE        | Configuration dee combat de vaisseaux.
+SETTINGS_MOD_COMBAT_OPTIONS_TITLE        | Configuration des combats de vaisseaux.
 SETTINGS_MOD_COMBAT_OPTIONS_UI           | Panneau de contrôle des combats
 SETTINGS_MOD_COMBAT_OPTIONS_UI_DESC      | Ouvrez un nouveau panneau de contrôle avec divers paramètres d’options de combat de vaisseaux.
 SETTINGS_MOD_COMBAT_OPTIONS_UI_HELP      | →SETTINGS_MOD_COMBAT_OPTIONS_UI_DESC←<br>Effets des boucliers. Sons des armes, placement des astéroïdes, paramètres de l'IA.
@@ -2533,7 +2671,7 @@ TECH_EMPIRE_BALANCED_DESC         | Des dépenses équilibrées augmentent les p
 TECH_EMPIRE_DETAIL_1              | %1 BC pour
 TECH_EMPIRE_DETAIL_2              | %2 RP / Année
 TECH_TOTAL_RP                     | %1 RP
-TECH_DISCOVERY_PCT                | %1%
+TECH_DISCOVERY_PCT                | %1 %
 TECH_CHANGE_RESEARCH              | Cliquez pour rechercher cette technologie
 TECH_NEXT_TIER_TITLE              | Pas encore disponible.
 TECH_FIRST_TIER_DESC              | Dépensez des points de recherche dans cette catégorie pour débloquer.
@@ -2549,7 +2687,7 @@ TECH_PLANETARY_SHIELDS_NONE       | Aucun
 TECH_PLANETARY_SHIELDS_CLASS      | Classe %1
 TECH_GROUND_COMBAT                | Combat au sol
 TECH_GROUND_COMBAT_NO_BONUS       | Aucun bonus
-TECH_GROUND_COMBAT_BONUS          | +%1%
+TECH_GROUND_COMBAT_BONUS          | +%1 %
 TECH_TERRAFORM                    | Terraformation
 TECH_TERRAFORM_NO_BONUS           | Aucun bonus
 TECH_TERRAFORM_BONUS              | +%1 Pop Max.
@@ -2560,7 +2698,7 @@ TECH_PLANET_SCANNER_NONE          | Aucun
 TECH_PLANET_SCANNER_RANGE         | %1 A.L.
 TECH_WASTE_REDUCTION              | Réduction des déchets
 TECH_WASTE_REDUCTION_NONE         | Aucune
-TECH_WASTE_REDUCTION_AMT          | -%1%
+TECH_WASTE_REDUCTION_AMT          | -%1 %
 TECH_WASTE_CLEANUP                | Décontamination
 TECH_WASTE_CLEANUP_BONUS          | %1 Déchets/BC
 TECH_SHIP_RANGE                   | Portée de vaisseaux
@@ -2935,16 +3073,16 @@ RACES_INTEL_TOTAL_SPENDING        | Dépenses totales
 RACES_INTEL_SECURITY_TAX          | Taxe sur la sécurité
 RACES_INTEL_TAX_DESC              | Taxez vos colonies pour augmenter vos chances de découvrir des espions étrangers.
 RACES_INTEL_TAX_OUT_OF_RANGE      | Les dépenses commencent lorsque vous êtes à portée de races extraterrestres.
-RACES_INTEL_SECURITY_BONUS_AMT    | +%1%
+RACES_INTEL_SECURITY_BONUS_AMT    | +%1 %
 RACES_INTEL_SECURITY_BONUS_NONE   | Aucun
 RACES_INTEL_REPORT_AGE            | Ancienneté du rapport
 RACES_INTEL_SPY_NETWORK           | Réseaux d'espionnage
 RACES_INTEL_SPENDING              | Dépenses
 RACES_INTEL_SPENDING_DESC         | Augmentez les dépenses pour ajouter des espions au réseau au fil du temps.
 RACES_INTEL_SPENDING_DESC_UNITY   | Les réseaux d'espionnage sont inutiles car la technologie est partagée librement entre les membres de la Nouvelle République.
-RACES_INTEL_SPENDING_CAPPED       | Limite de dépenses d'espionnage de l'Empire atteinte. Financement des réseaux d'espionnage réduit de %1%.
+RACES_INTEL_SPENDING_CAPPED       | Limite de dépenses d'espionnage de l'Empire atteinte. Financement des réseaux d'espionnage réduit de %1 %.
 RACES_INTEL_SPENDING_RANGE        | Impossible de créer des réseaux d'espionnage pour les empires hors de portée des vaisseaux.
-RACES_INTEL_PERCENT_AMT           | %1%
+RACES_INTEL_PERCENT_AMT           | %1 %
 RACES_INTEL_YEARS                 | %1 ans
 RACES_INTEL_NO_SPIES              | Pas d'espions
 RACES_INTEL_1_SPY                 | 1 espion
@@ -3367,7 +3505,7 @@ GOVERNOR_LEGACY_GROWTH_MODE          | Croissanse rapide: %1
 GOVERNOR_LEGACY_GROWTH_MODE_LABEL    | Développer les colonies le plus rapidement possible.
 
 GOVERNOR_TERRAFORM_EARLY_DESC        | Favoriser l'enrichissement de l'atmosphère et des sols, ainsi que la terraformation de la planète. <br>Pourrait être utilisé avant la scéance du conseil, pour augmenter votre pouvoir de vote.
-GOVERNOR_TERRAFORM_EARLY             | Terraformation rapide: %1%
+GOVERNOR_TERRAFORM_EARLY             | Terraformation rapide: %1 %
 GOVERNOR_TERRAFORM_EARLY_LABEL       | Terraformation rapide
 
 HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS_DESC | Mandats liés aux activités d'espionnage.
@@ -3437,11 +3575,11 @@ GOVERNOR_CUSTOM_SIZE                 | Custom Size: %1
 GOVERNOR_CUSTOM_SIZE_LABEL           | Taille Ajustée
 
 GOVERNOR_SIZE_FACTOR_DESC            | The factor used to adjust the font size.<br>The other parameters will follow; but with discrete increments, leading to jerky changes. (Available for the new design only)
-GOVERNOR_SIZE_FACTOR                 | Size Factor: %1%
+GOVERNOR_SIZE_FACTOR                 | Size Factor: %1 %
 GOVERNOR_SIZE_FACTOR_LABEL           | % Taille
 
 GOVERNOR_BRIGHTNESS_DESC             | The RotP panel have various brightness level... I will let you choose what this one should use!  (Available for the new design only)
-GOVERNOR_BRIGHTNESS                  | Brightness: %1%
+GOVERNOR_BRIGHTNESS                  | Brightness: %1 %
 GOVERNOR_BRIGHTNESS_LABEL            | % Luminosité
 
 GOVERNOR_POSITION_X_DESC             | Horizontal position of the Governor Panel.

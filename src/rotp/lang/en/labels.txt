@@ -2717,9 +2717,9 @@ SETTINGS_MOD_ZOOM_FINAL_REPLAY_DESC      | Final History replay start showing th
 SETTINGS_MOD_ZOOM_FINAL_REPLAY           | Final Replay show all: %1
 SETTINGS_MOD_ZOOM_EMPIRE_REPLAY_DESC     | Empire History replay start showing the full galaxy (Instead of being zoomed on selected empire)
 SETTINGS_MOD_ZOOM_EMPIRE_REPLAY          | Empire Replay show all: %1
-SETTINGS_MOD_REPLAY_TURN_PACE_HELP       | To slow down the pace of History replay. Approximate time between two turns in multiples of 100 ms.<br>Can be set in the history panel using the key "1" to "0" as multiple of 100 ms. ("0" = 10)<br> Use "SHIFT" to get multiple of 1 second.
-SETTINGS_MOD_REPLAY_TURN_PACE_DESC       | To slow down the pace of History replay. Approximate time between two turns in multiples of 100 ms.
-SETTINGS_MOD_REPLAY_TURN_PACE            | Replay pace: %1 x 100 ms.
+SETTINGS_MOD_REPLAY_TURN_PACE_HELP       | To slow down the pace of History replay. Approximate time between two turns in multiples of 100 ms.<br>Can be set in the history panel using the key "1" to "0" as multiple of 100 ms. ("0" = 10)<br> Use "SHIFT" to get multiple of 1 second.
+SETTINGS_MOD_REPLAY_TURN_PACE_DESC       | To slow down the pace of History replay. Approximate time between two turns in multiples of 100 ms.
+SETTINGS_MOD_REPLAY_TURN_PACE            | Replay pace: %1 x 100 ms.
 
 
 SETTINGS_MOD_DISPLAY_FREE_TECH_DESC      | To display free technologies in the technology panel. (Those available from the beginning, without having to search for them).
@@ -2803,11 +2803,18 @@ SETTINGS_MOD_SHOW_ALL_AI                 | Show all AIs: %1
 SETTINGS_MOD_SHOW_ALL_AI_YES_DESC        | All AIs are available for the player and the opponents.
 SETTINGS_MOD_SHOW_ALL_AI_NO_DESC         | AI:Base and AI:Modnar won't be available.
 
+
+SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map?
+SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Show circular grid: %1
+
 SETTINGS_MOD_FLIGHT_PATH_DISPLAY_DESC    | Which path should be shown? (Related to the icon button on the left of the Galaxy)
 SETTINGS_MOD_FLIGHT_PATH_DISPLAY         | Show flight path: %1
 SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS        | All
 SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS  | Important
 SETTINGS_MOD_SHOW_NO_FLIGHTPATHS         | None
+SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS_EXT        | Show All flight paths
+SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS_EXT  | Show Important flight paths
+SETTINGS_MOD_SHOW_NO_FLIGHTPATHS_EXT         | Hide all flight paths
 SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS_HELP       | Show all flight paths
 SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS_HELP | Show only important flight paths. (Non threatening alien fleets are hidden)
 SETTINGS_MOD_SHOW_NO_FLIGHTPATHS_HELP        | Hide all flight paths
@@ -2817,6 +2824,9 @@ SETTINGS_MOD_SYSTEM_NAME_DISPLAY         | Star Display: %1
 SETTINGS_MOD_HIDE_SYSTEM_NAME            | Nothing
 SETTINGS_MOD_SHOW_SYSTEM_NAME 	         | Name
 SETTINGS_MOD_SHOW_SYSTEM_DATA            | Name and Data
+SETTINGS_MOD_HIDE_SYSTEM_NAME_EXT        | Hide texts under the stars
+SETTINGS_MOD_SHOW_SYSTEM_NAME_EXT        | Show the Star name
+SETTINGS_MOD_SHOW_SYSTEM_DATA_EXT        | Show the Star name and Colony data
 SETTINGS_MOD_HIDE_SYSTEM_NAME_HELP       | Hide everything.
 SETTINGS_MOD_SHOW_SYSTEM_NAME_HELP       | Show only the star system name
 SETTINGS_MOD_SHOW_SYSTEM_DATA_HELP       | Show the star system name above the colony data.
@@ -2826,20 +2836,28 @@ SETTINGS_MOD_SHIP_DISPLAY                | Ship Display: %1
 SETTINGS_MOD_SHOW_ALL_SHIPS              | All
 SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS 	     | Transport
 SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS       | Armed
+SETTINGS_MOD_SHOW_ALL_SHIPS_EXT          | Every moving things
+SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS_EXT   | Transports and armed ships
+SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS_EXT   | Only displays warships
 SETTINGS_MOD_SHOW_ALL_SHIPS_HELP         | Show me every moving things.
 SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS_HELP  | Show transports and armed ships, hide unarmed ships.
 SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS_HELP  | Show only War ships, hide transports and unarmed ships.
 
 SETTINGS_MOD_SHOW_SHIP_RANGES_DESC       | Which ships should be displayed near the star systems? (Related to the icon button on the left of the Galaxy)
-SETTINGS_MOD_SHOW_SHIP_RANGES            | Stars & Ranges: %1
-SETTINGS_MOD_SHOW_RANGES                 | Ranges only
-SETTINGS_MOD_SHOW_STARS_AND_RANGES 	     | Ranges & stars
-SETTINGS_MOD_SHOW_STARS                  | Stars only
+SETTINGS_MOD_SHOW_SHIP_RANGES            | Starry bg & Areas: %1
+SETTINGS_MOD_SHOW_RANGES                 | Ship area only
+SETTINGS_MOD_SHOW_STARS_AND_RANGES 	     | Ship area & starry bg.
+SETTINGS_MOD_SHOW_STARS                  | starry background
 SETTINGS_MOD_SHOW_NO_STARS_AND_RANGES    | Nothing
-SETTINGS_MOD_SHOW_RANGES_HELP              | Show ship ranges without the stars background.
-SETTINGS_MOD_SHOW_STARS_AND_RANGES_HELP    | Show ship ranges with the stars background.
-SETTINGS_MOD_SHOW_STARS_HELP               | Show the stars background, but hide the ship range.
-SETTINGS_MOD_SHOW_NO_STARS_AND_RANGES_HELP | Hide both the ship ranges and the stars background.
+SETTINGS_MOD_SHOW_RANGES_EXT              | Show only the ship access area
+SETTINGS_MOD_SHOW_STARS_AND_RANGES_EXT 	  | Ship range area & starry background.
+SETTINGS_MOD_SHOW_STARS_EXT               | Show starry background
+SETTINGS_MOD_SHOW_NO_STARS_AND_RANGES_EXT | Show Nothing
+SETTINGS_MOD_SHOW_RANGES_HELP              | Show ship access areas without the starry background.
+SETTINGS_MOD_SHOW_STARS_AND_RANGES_HELP    | Show ship access areas with starry background.
+SETTINGS_MOD_SHOW_STARS_HELP               | Show the starry background, but hide the ship access areas.
+SETTINGS_MOD_SHOW_NO_STARS_AND_RANGES_HELP | Hide both the ship access areas and the starry background.
+
 SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS_HELP  | →SCANNER_2_NAME← or →SCANNER_3_NAME← can automatically determine ship destinations immediately. But even with the shorter ranges of →SCANNER_0_NAME← and →SCANNER_1_NAME←, often (slow) ships will be in range for two successive turns, so you can often determine ship trajectories anyway by squinting at a screenshot of last turn. This option just saves you the bother of squinting at last turn's screenshot. Two things to note. First, without →SCANNER_2_NAME←, the trajectories is displayed ending at the nearest star along the line. THIS IS NOT A GUARANTEE THAT THE SHIP WILL ACTUALLY STOP THERE (because you don't actually know that without →SCANNER_2_NAME←), only that the ship is moving in that direction. (Of course, for most galaxy shapes, close collinear stars are rare.) Second, while we want wonder whether scanners are "really" tracking ships continuously between turns, to allow this option to be enabled by default, this option will never give you any information you couldn't already have gotten by squinting at screenshots. That is, when there's a mess of ships of the same design close together such that you couldn't be completely sure which moved where by squinting at screenshots, no trajectories will be displayed. IN PROGRESS: Currently only for transports approaching your own colonies.<br>!!! May gives wrong destinations when stars are aligned !!!
 SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS_DESC  | Have →SCANNER_0_NAME← and →SCANNER_1_NAME← automatically track ship trajectories when ships can be unambiguously identified across successive turns. !!! May gives wrong destinations when stars are aligned !!!
 SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS       | Track ships across turns: %1
@@ -3027,41 +3045,41 @@ SETTINGS_MOD_SHIELD_TYPE_2D              | 2D
 SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS_DESC  | 3D semi transparent shield animations. With extra buffers to minimize glitches. More computer intensive!
 SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS       | 3D Buff
 
-SETTINGS_MOD_NEW_WEAPON_ANIMATION_DESC   | Show Shield and miss effect.
+SETTINGS_MOD_NEW_WEAPON_ANIMATION_DESC   | Show Shield and miss effects.
 SETTINGS_MOD_NEW_WEAPON_ANIMATION        | Shields Effects: %1
-SETTINGS_MOD_NEW_WEAPON_SOUND_DESC       | Distinct weapon sound instead of only two!
+SETTINGS_MOD_NEW_WEAPON_SOUND_DESC       | Distinctive gunshot sounds instead of just two!
 SETTINGS_MOD_NEW_WEAPON_SOUND            | New Weapon Sound: %1
-SETTINGS_MOD_PLAYER_SOUND_ECHO_DESC      | Add Echo to weapon sound if the player is the target!
+SETTINGS_MOD_PLAYER_SOUND_ECHO_DESC      | Added echoes to the sound of weapon fire when the player is the target.
 SETTINGS_MOD_PLAYER_SOUND_ECHO           | Player Target Echo: %1
-SETTINGS_MOD_ECHO_SOUND_DELAY_DESC       | Base Echo Delay, for small hull size!
-SETTINGS_MOD_ECHO_SOUND_DELAY            | Echo Base Delay: %1 ms.
-SETTINGS_MOD_ECHO_SOUND_HULL_DELAY_DESC  | Additional Echo Delay per Hull size!
-SETTINGS_MOD_ECHO_SOUND_HULL_DELAY       | Echo Hull Delay: %1 ms.
+SETTINGS_MOD_ECHO_SOUND_DELAY_DESC       | Basic echo duration; for small hulls.
+SETTINGS_MOD_ECHO_SOUND_DELAY            | Echo Base Delay: %1 ms.
+SETTINGS_MOD_ECHO_SOUND_HULL_DELAY_DESC  | Additional echo delay, per hull size.
+SETTINGS_MOD_ECHO_SOUND_HULL_DELAY       | Echo delay Increment: %1 ms.
 SETTINGS_MOD_ECHO_SOUND_DECAY_DESC       | Echo Decay parameter: 0% = no Echo; 100% = Permanent echo!
 SETTINGS_MOD_ECHO_SOUND_DECAY            | Echo Decay: %1%
 
-SETTINGS_MOD_BEAM_WINDUP_FRAMES_DESC     | Beam building duration. (Should be instantaneous, but seeing the beam propagation is nice too!)
+SETTINGS_MOD_BEAM_WINDUP_FRAMES_DESC     | Beam propagation duration. (Should be instantaneous, but seeing the beam propagation is nice too!)
 SETTINGS_MOD_BEAM_WINDUP_FRAMES          | Beam Windup Frames: %1
 SETTINGS_MOD_BEAM_HOLD_FRAMES_DESC       | After the beam building phase, the attack can be hold a little bit. This value will be added to the base weapon hold value.
 SETTINGS_MOD_BEAM_HOLD_FRAMES            | Beam Hold Frames: %1
-SETTINGS_MOD_BEAM_HOLD_FRAMES_HELP       | After the beam building phase, the attack can be hold a little bit. This value will be added to the base weapon hold value.<br>Negative values will lower the duration of weapons already having hold presets:<br>- 6 frames: Death Ray, Graviton Beam, Mega Bolt Cannon, Tachyon Beam.<br>- 4 frames: Pulse Phasor, Stellar Convertor, Mauler.
-SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES_DESC | Heavy beams could last longer than base beam weapons. This will be added to both base weapon hold value, and non-heavy Beam Hold Frames added value.
+SETTINGS_MOD_BEAM_HOLD_FRAMES_HELP       | After the beam building phase, the attack can be hold a little bit. This value will be added to the base weapon hold value.<br>Negative values will lower the duration of weapons already having hold presets:<br>- 6 frames: →SHIPWPN_16_NAME←, →SHIPWPN_6_NAME←, →SHIPWPN_9_NAME←, →SHIPWPN_12_NAME←.<br>- 4 frames : →SHIPWPN_18_NAME←, →SHIPWPN_20_NAME←, →SHIPWPN_21_NAME←.
+SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES_DESC | Heavy beams can last longer than their base model. This will be in addition to the hold value of the weapon's base model.
 SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES      | Heavy Beam Hold Frames: %1
 SETTINGS_MOD_SHIELD_FADING_FRAMES_DESC   | Show Shield fading effect.
 SETTINGS_MOD_SHIELD_FADING_FRAMES        | Shield Fading Frames: %1
-SETTINGS_MOD_SHIELD_ENVELOPING_DESC      | Local shield effects vs always enveloping shield effects.
-SETTINGS_MOD_SHIELD_ENVELOPING           | Shield Enveloping: %1
+SETTINGS_MOD_SHIELD_ENVELOPING_DESC      | Localized shield effects or fully enveloping shield effects.
+SETTINGS_MOD_SHIELD_ENVELOPING           | Enveloping Shield: %1
 SETTINGS_MOD_BEAM_ANIMATION_FPS_DESC     | Animation Speed in frames per second. This to tune the animation duration, jointly with the number of frames settings.
 SETTINGS_MOD_BEAM_ANIMATION_FPS          | Animation Speed: %1 fps
 SETTINGS_MOD_BEAM_ANIMATION_DELAY_DESC   | Pause between two frames. You may try to balance this value with higher frames number to get a smoother animation.
-SETTINGS_MOD_BEAM_ANIMATION_DELAY        | Animation Delay: %1 ms.
-SETTINGS_MOD_SHOW_RESULT_DELAY_DESC      | The results panel should no longer appear until the animations finish. This is a security delay in the event of a bug. If set to "0 ms", the panel will appear immediately, just like before!
-SETTINGS_MOD_SHOW_RESULT_DELAY           | Result Max Delay: %1 ms
+SETTINGS_MOD_BEAM_ANIMATION_DELAY        | Animation Delay: %1 ms.
+SETTINGS_MOD_SHOW_RESULT_DELAY_DESC      | The results panel should no longer appear before the animations finish. This is a security delay in the event of a bug. If set to "0 ms", the panel will appear immediately, just like before!
+SETTINGS_MOD_SHOW_RESULT_DELAY           | Result Max Delay: %1 ms
 SETTINGS_MOD_ALWAYS_SHOWS_SHIELD_DESC    | Shield animations will still be displayed, even if the target has no shield!
 SETTINGS_MOD_ALWAYS_SHOWS_SHIELD         | Always Shows Shield: %1
 SETTINGS_MOD_SHIELD_NOISE_PCT_DESC       | Add some noise to the shield animations.
 SETTINGS_MOD_SHIELD_NOISE_PCT            | Shield Noise: %1%
-SETTINGS_MOD_SHIELD_TRANSPARENCY_DESC    | Low value for high shield intensity; High value gives more transparency.
+SETTINGS_MOD_SHIELD_TRANSPARENCY_DESC    | Low value for high shield opacity; High value gives more transparency.
 SETTINGS_MOD_SHIELD_TRANSPARENCY         | Shield Transparency: %1%
 SETTINGS_MOD_SHIELD_FLICKERING_DESC      | Little shield intensity vibration during the holding phase.
 SETTINGS_MOD_SHIELD_FLICKERING           | Shield Flickering: %1%
@@ -3075,7 +3093,7 @@ SETTINGS_MOD_WEAPON_Z_POS_DESC           | To add a top view on shield Effect.
 SETTINGS_MOD_WEAPON_Z_POS                | Weapon Z Position: %1
 SETTINGS_MOD_WEAPON_Z_RANDOM_DESC        | To randomize the Weapon Z position. Max variability around the nominal value.
 SETTINGS_MOD_WEAPON_Z_RANDOM             | Weapon Z Randomness: %1
-SETTINGS_MOD_START_SHIELD_DEMO_DESC      | Start a demo on an independent window to help tuning parameters.
+SETTINGS_MOD_START_SHIELD_DEMO_DESC      | tart a demo in a separate window to help you adjust settings.
 SETTINGS_MOD_START_SHIELD_DEMO           | Start Demo: %1
 SETTINGS_MOD_START_SHIELD_DEMO_HELP      | Start a demo on an independent window to help tuning parameters.<br><b>Toggle Keys</b><br>"R" Toggle Random Animations<br>"P" Toggle Player is Target (Add Echo)<br>"Q" Toggle Quiet (mute)<br><b>Sequences Keys</b><br>"C"/"Shift-C"/"Ctrl-C": Shield color Next/Previous/Loop<br>"W"/"Shift-W"/"Ctrl-W": Weapon Selection Next/Previous/Loop<br>"M"/"Shift-M": Ship Model (shape) Next/Previous<br>"H"/"Shift-H": Ship Hull (size) Next/Previous<br>"T"/"Shift-T": Ship Type (species) Next/Previous<br>"<-"/"->": Loop thru all ships Next/Previous<br>"Z"/"Shift-Z": Zoom (window size) Next/Previous<br><b>Locations Keys</b><br>Num Pad: Weapon Location ("5" = Loop)
 
@@ -3083,8 +3101,8 @@ SETTINGS_MOD_COLOR_SET_DESC         | Two User Interface color set are available
 SETTINGS_MOD_COLOR_SET              | UI Color Set: %1
 SETTINGS_MOD_COLOR_SET_BROWN        | Brown
 SETTINGS_MOD_COLOR_SET_GREY         | Grey
-SETTINGS_MOD_COLOR_SET_BROWN_DESC   | Default vanilla Brown color set.
-SETTINGS_MOD_COLOR_SET_GREY_DESC    | Alternate Dark color set.
+SETTINGS_MOD_COLOR_SET_BROWN_DESC   | Default vanilla set of Brown colors.
+SETTINGS_MOD_COLOR_SET_GREY_DESC    | Alternative set of Dark colors.
 
 SETTINGS_MOD_REAL_NEBULAE_SIZE_DESC  | Use Real Nebulae images with this resolution factor.<br>Real Nebula distribution is non-overlapping.
 SETTINGS_MOD_REAL_NEBULAE_SIZE       | Real Nebula: %1
@@ -3099,8 +3117,7 @@ SETTINGS_MOD_PREVIEW_NEBULA_DESC         | Show the nebulas in the galaxy map pr
 SETTINGS_MOD_PREVIEW_NEBULA              | Preview nebulae: %1
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new species in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new species: %1
-SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)
-SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Show circular grid: %1
+
 SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Custom Species Menu: Show the lower box with Tooltips?
 SETTINGS_MOD_SHOW_TOOLTIPS               | Show Tooltips: %1
 SETTINGS_MOD_USE_FUSION_FONT_HELP        | To be used with <b>Text Shaped Galaxies</b>: On Windows computers you won't have access to all available chars... So I merged a bunch of "noto" fonts to a big package and included it to this mod. It's a mixt of monospaced and variable fonts (for a total of 153 fonts), I had to remove "advanced" table features because they were to big to be merged (There is a reason why Google don't offer the big merged one!). Consequently, it won't be a good idea to try to copy it into your font folder...

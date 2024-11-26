@@ -6,6 +6,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- More info on galaxy side icons.
 - Fixed Crystal attack bug crashing the game.
 - New option to limit the size of invasion troops that can land.
   - Fixed size or proportional to the planet size.

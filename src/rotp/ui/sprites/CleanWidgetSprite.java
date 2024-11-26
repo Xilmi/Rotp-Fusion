@@ -31,7 +31,7 @@ import rotp.util.ModifierKeysState;
 public class CleanWidgetSprite extends MapControlSprite {
 	private Image image;
 	private int yOrigin, yShift;
-	private boolean clean     = true;
+	private boolean clean	 = true;
 	private int dirtyCount		= 0;
 	private int lockedCount		= 0;
 	private int unlockedCount	= 0;
@@ -98,8 +98,8 @@ public class CleanWidgetSprite extends MapControlSprite {
 	}
 	@Override public void draw(GalaxyMapPanel map, Graphics2D g2) {
 		int fontSize = 13;
-		int border	 = BasePanel.s2;
 		int lineH	 = BasePanel.s14;
+		int border	 = BasePanel.s2;
 		int displayW = width;
 		int displayH = height;
 		int labelW;
@@ -108,7 +108,7 @@ public class CleanWidgetSprite extends MapControlSprite {
 		boolean shiftDown = ModifierKeysState.isShiftDown();
 		boolean ctrlDown  = ModifierKeysState.isCtrlDown();
 		numLines = 1;
-		
+
 		if (hovering) {
 			checkForEcoClean ();
 			g2.setFont(narrowFont(fontSize));
@@ -159,7 +159,7 @@ public class CleanWidgetSprite extends MapControlSprite {
 			for (String line: detailLines) {
 				drawString(g2, line, x1, y1);
 				y1 += lineH;
-			}			
+			}
 		}
 		drawBorder(map, g2, displayW, displayH, map.parent().shadeC(), false);
 	}
@@ -178,22 +178,20 @@ public class CleanWidgetSprite extends MapControlSprite {
 		g2.setColor(map.parent().shadeC());
 		g2.fillRoundRect(startX-brdr, startY-brdr, w+brdr+brdr, h+brdr+brdr, cnr, cnr);
 	}
-    public void drawBorder(GalaxyMapPanel map, Graphics2D g2, int w, int h, Color c, boolean show) {
-        Stroke str0 = g2.getStroke();
+	public void drawBorder(GalaxyMapPanel map, Graphics2D g2, int w, int h, Color c, boolean show) {
+		Stroke str0 = g2.getStroke();
 
-        int cnr = BasePanel.s12;
-        
-        g2.setStroke(BasePanel.stroke1);
-        g2.setColor(c);
-        g2.drawRoundRect(startX, startY, width, height, cnr, cnr);
-        
-        
-        if (hovering || show) {
-            g2.setStroke(BasePanel.stroke2);
-            g2.setColor(SystemPanel.yellowText);
-            g2.drawRoundRect(startX, startY, w, h, cnr, cnr);
-            g2.setStroke(str0);
-        }
-    }
+		int cnr = BasePanel.s12;
+		
+		g2.setStroke(BasePanel.stroke1);
+		g2.setColor(c);
+		g2.drawRoundRect(startX, startY, width, height, cnr, cnr);
 
+		if (hovering || show) {
+			g2.setStroke(BasePanel.stroke2);
+			g2.setColor(SystemPanel.yellowText);
+			g2.drawRoundRect(startX, startY, w, h, cnr, cnr);
+			g2.setStroke(str0);
+		}
+	}
 }
