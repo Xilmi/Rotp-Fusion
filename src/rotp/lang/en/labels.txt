@@ -559,7 +559,7 @@ SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_NEVER_DESC   | No, follow the rules and s
 SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_ALWAYS       | Always
 SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_ALWAYS_DESC  | Continue, I want to know who win!
 SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_BM_ONLY      | On Benchmark
-SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_BM_ONLY_DESC | Only continue in benchmark mode.)
+SETTINGS_MOD_DEBUG_AR_CONTINUE_ON_LOSS_BM_ONLY_DESC | Only continue in benchmark mode.
 
 SETTINGS_MOD_DEBUG_BM_SHOW_ALL            | Benchmark show all: %1
 SETTINGS_MOD_DEBUG_BM_SHOW_ALL_DESC       | When in Benchmark mode, galaxy will display things unknown to the player.
@@ -2291,7 +2291,7 @@ HEADERS_SUB_PANEL_OPTIONS_DESC    | Clicking the following options will open a s
 HEADERS_SUB_PANEL_OPTIONS         | §§~~ SUB PANEL OPTIONS ~~§§%1
 
 HEADERS_AUTO_FLAG_ID_SELECTION       | ~~~ AUTO-FLAG SELECTION ~~~
-HEADERS_AUTO_FLAG_ID_SELECTION_DESC  | To Associate Auto-Flag position with it's parameter. (Only the first time a Star System is scouted)
+HEADERS_AUTO_FLAG_ID_SELECTION_DESC  | To automatically associate colors with flags based on different criteria. (Only the first time a star system is scouted)
 HEADERS_AUTO_FLAG_TYPE_DESC          | Select Flags Color based on Planet Type.
 HEADERS_AUTO_FLAG_TYPE               | ~~~ PLANET TYPE ~~~
 HEADERS_AUTO_FLAG_ENVIRONMENT_DESC   | Set the color of the flags according to Planet Environment.
@@ -2313,7 +2313,6 @@ HEADERS_RANDOM_EVENTS_DELAYS_DESC    | Parameters related to random events activ
 HEADERS_RANDOM_EVENTS_DELAYS         | ~~~ DELAYS PARAMETERS ~~~
 HEADERS_RANDOM_EVENTS_RETURNS_DESC   | Parameters related to random events reiteration.
 HEADERS_RANDOM_EVENTS_RETURNS        | ~~~ RECURRING PARAMETERS ~~~
-
 
 HEADERS_DEBUG_MEMORY_DESC            | To enable or disable Memory monitoring.
 HEADERS_DEBUG_MEMORY                 | ~~~ MEMORY MONITORING ~~~
@@ -2338,7 +2337,6 @@ HEADERS_ASTEROIDS                    | ~~~ ASTEROIDS ~~~
 
 HEADERS_UNCLASSIFIED_DESC            | The right position has still to be found!
 HEADERS_UNCLASSIFIED                 | ~~~ UNCLASSIFIED MOD ~~~
-
 
 HEADERS_SPACER_DESC                  |
 HEADERS_SPACER                       |  %1
@@ -2400,19 +2398,19 @@ SETTINGS_MOD_ULTRA_RICH_OFFSET_DESC  | Ultra-Rich planet probability offset.
 SETTINGS_MOD_ULTRA_RICH_OFFSET       | Ultra-Rich Offset: %1%
 
 TAG_RED_DISPLAY  | Red display means incompatibility with other red options.
-SETTINGS_MOD_FIRST_RING_SYS_NUM_HELP    | Minimum number of star systems to be found in the immediate vicinity.<br>→TAG_RED_DISPLAY←<br>This value must be >= than the Min Nearby Livable.<br>This value must be <= than the Min Midrange Stars.
+SETTINGS_MOD_FIRST_RING_SYS_NUM_HELP    | →SETTINGS_MOD_FIRST_RING_SYS_NUM_DESC←<br>This value must be >= than the Min Nearby Livable.<br>This value must be <= than the Min Midrange Stars.
 SETTINGS_MOD_FIRST_RING_SYS_NUM_DESC    | Minimum number of star systems to be found in the immediate vicinity.<br>→TAG_RED_DISPLAY←
 SETTINGS_MOD_FIRST_RING_SYS_NUM         | Min Nearby Stars: %1
 
-SETTINGS_MOD_SECOND_RING_SYS_NUM_HELP   | Minimum number of star systems to be found in the extended neighborhood.<br>→TAG_RED_DISPLAY←<br>This value must be >= than the Min Midrange Livable<br>This value must be >= than the Min Nearby Star<br>This value must be lower than the number of stars per empire.
+SETTINGS_MOD_SECOND_RING_SYS_NUM_HELP   | →SETTINGS_MOD_SECOND_RING_SYS_NUM_DESC←<br>This value must be >= than the Min Midrange Livable<br>This value must be >= than the Min Nearby Star<br>This value must be lower than the number of stars per empire.
 SETTINGS_MOD_SECOND_RING_SYS_NUM_DESC   | Minimum number of star systems to be found in the extended neighborhood.<br>→TAG_RED_DISPLAY←
 SETTINGS_MOD_SECOND_RING_SYS_NUM        | Min Midrange Stars: %1
 
-SETTINGS_MOD_FIRST_RING_HABITABLE_HELP  | Minimum number of habitable planets to be found in the immediate vicinity.<br>→TAG_RED_DISPLAY←<br>This value must be <= than the Min Nearby Stars.<br>This value must be <= than Min Midrange Livable.
+SETTINGS_MOD_FIRST_RING_HABITABLE_HELP  | →SETTINGS_MOD_FIRST_RING_HABITABLE_DESC←<br>This value must be <= than the Min Nearby Stars.<br>This value must be <= than Min Midrange Livable.
 SETTINGS_MOD_FIRST_RING_HABITABLE_DESC  | Minimum number of habitable planets to be found in the immediate vicinity.<br>→TAG_RED_DISPLAY←
 SETTINGS_MOD_FIRST_RING_HABITABLE       | Min Nearby Livable: %1
 
-SETTINGS_MOD_SECOND_RING_HABITABLE_HELP | Minimum habitable planets to be found in the extended neighborhood.<br>→TAG_RED_DISPLAY←<br>This value must be <= than Min Midrange Stars.<br>This value must be >= Nearby Habitable.
+SETTINGS_MOD_SECOND_RING_HABITABLE_HELP | <br>→SETTINGS_MOD_SECOND_RING_HABITABLE_DESC←<br>This value must be <= than Min Midrange Stars.<br>This value must be >= Nearby Habitable.
 SETTINGS_MOD_SECOND_RING_HABITABLE_DESC | Minimum habitable planets to be found in the extended neighborhood.<br>→TAG_RED_DISPLAY←
 SETTINGS_MOD_SECOND_RING_HABITABLE      | Min Midrange Livable: %1
 
@@ -2436,29 +2434,28 @@ SETTINGS_MOD_NEBULA_POS_INSIST       | Insist
 SETTINGS_MOD_NEBULA_POS_EXTEND_DESC  | Insist twice, and allow nebulae to extend a little beyond the galaxy.<br>&emsp This to allow fine-shaped galaxies to have them.
 SETTINGS_MOD_NEBULA_POS_EXTEND       | Extend
 
-SETTINGS_MOD_NEBULA_ENRICHMENT_DESC        | Improvement of the planet in the center of the nebulae:
-SETTINGS_MOD_NEBULA_ENRICHMENT             | Nebula planet: %1
-SETTINGS_MOD_NEBULA_ENRICHMENT_NONE_DESC   | Nebulae have no impact on the central planet.
-SETTINGS_MOD_NEBULA_ENRICHMENT_NONE        | None
-SETTINGS_MOD_NEBULA_ENRICHMENT_LESS_DESC   | Enrich if Galaxy > 200 and at least 4 stars are inside the nebula.
-SETTINGS_MOD_NEBULA_ENRICHMENT_LESS        | Less
-SETTINGS_MOD_NEBULA_ENRICHMENT_NORMAL_DESC | Enrich if Galaxy > 100 and at least 3 stars are inside the nebula.
+SETTINGS_MOD_NEBULA_ENRICHMENT_DESC        | Enrichment of planets in the center of nebulae:
+SETTINGS_MOD_NEBULA_ENRICHMENT             | Nebulae enrich: %1
+SETTINGS_MOD_NEBULA_ENRICHMENT_NONE_DESC   | Nebulae have no impact on the central planet's resources.
+SETTINGS_MOD_NEBULA_ENRICHMENT_NONE        | Never
+SETTINGS_MOD_NEBULA_ENRICHMENT_LESS_DESC   | Enrich if the galaxy is composed of at least 200 star systems and the nebula contains at least 4.
+SETTINGS_MOD_NEBULA_ENRICHMENT_LESS        | Sometimes
+SETTINGS_MOD_NEBULA_ENRICHMENT_NORMAL_DESC | Enrich if the galaxy is composed of at least 100 star systems and the nebula contains at least 3.
 SETTINGS_MOD_NEBULA_ENRICHMENT_NORMAL      | Normal
-SETTINGS_MOD_NEBULA_ENRICHMENT_MORE_DESC   | Enrich if Galaxy > 50 and at least 2 stars are inside the nebula.
-SETTINGS_MOD_NEBULA_ENRICHMENT_MORE        | More
+SETTINGS_MOD_NEBULA_ENRICHMENT_MORE_DESC   | Enrich if the galaxy is composed of at least 50 star systems and the nebula contains at least 2.
+SETTINGS_MOD_NEBULA_ENRICHMENT_MORE        | Often
 SETTINGS_MOD_NEBULA_ENRICHMENT_ALWAYS_DESC | Nebulae always enrich the central planet.
 SETTINGS_MOD_NEBULA_ENRICHMENT_ALWAYS      | Always
 
-SETTINGS_MOD_NEBULA_HOMEWORLD_DESC         | Do you allow a nebula to be above an empire's neighborhood?
+SETTINGS_MOD_NEBULA_HOMEWORLD_DESC         | Is it possible for a nebula to encompass part of an empire's neighborhood?
 SETTINGS_MOD_NEBULA_HOMEWORLD              | Home worlds Nebula: %1
-SETTINGS_MOD_NEBULA_HOMEWORLD_ALLOW_DESC   | No restrictions on a nebula being above an empire's neighborhood.
-SETTINGS_MOD_NEBULA_HOMEWORLD_ALLOW        | Allow
+SETTINGS_MOD_NEBULA_HOMEWORLD_ALLOW_DESC   | No restrictions on the presence of a nebula in the vicinity of an empire.
+SETTINGS_MOD_NEBULA_HOMEWORLD_ALLOW        | Possible
 SETTINGS_MOD_NEBULA_HOMEWORLD_NEVER_DESC   | Never let a nebula be too close to an empire's neighborhood.
 SETTINGS_MOD_NEBULA_HOMEWORLD_NEVER        | Never
 
-SETTINGS_MOD_LOOSE_NEIGHBORHOOD_DESC       | To allow neighboring stars getting out of the galaxy limits.
+SETTINGS_MOD_LOOSE_NEIGHBORHOOD_DESC       | A nebula should never be placed too close to the vicinity of an empire.
 SETTINGS_MOD_LOOSE_NEIGHBORHOOD            | Loose Limits: %1
-
 
 // Xilmi-AI-options
 HEADERS_XILMI_AI_OPTIONS_DESC               | Options affecting AI decisions.
@@ -2610,12 +2607,12 @@ SETTINGS_MOD_DYN_STARS_PER_EMPIRE        | Stars per empire: %1
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_HELP | When starting a new game based on a previously played game, the opponents can either keep their previous AI or change to the new GUI global one.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | Should "Restart" Change the Aliens AI?
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI      | Restart Changes Aliens AI: %1
-SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_YES_DESC | Opponent empires will use the current GUI Opponent AI (Play against) on Restart.
+SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_YES_DESC | Opponent empires will use the current GUI settings.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_NO_DESC  | Opponent empires will use keep their former AI on Restart.
 
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_HELP | When starting a new game based on a previously played game, you can either keep the previous auto-play option, or use the current GUI one. This option is not very useful anymore, since it's now easy to change this setting while playing the game (Ctrl-o)
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_DESC | Should "Restart" Change the Player AI?
-SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI      | Restart Changes AutoPlay: %1
+SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI      | Restart changes autoPlay: %1
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_YES_DESC | Use the current GUI Auto-play setting on Restart.
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_NO_DESC  | Keep the former Auto-play setting on Restart.
 
@@ -2721,13 +2718,12 @@ SETTINGS_MOD_REPLAY_TURN_PACE_HELP       | To slow down the pace of History repl
 SETTINGS_MOD_REPLAY_TURN_PACE_DESC       | To slow down the pace of History replay. Approximate time between two turns in multiples of 100 ms.
 SETTINGS_MOD_REPLAY_TURN_PACE            | Replay pace: %1 x 100 ms.
 
-
 SETTINGS_MOD_DISPLAY_FREE_TECH_DESC      | To display free technologies in the technology panel. (Those available from the beginning, without having to search for them).
 SETTINGS_MOD_DISPLAY_FREE_TECH           | Show Free Techs: %1
 
 SETTINGS_MOD_ORIGINAL_SPECIES_ONLY_DESC  | The character setting panel will only show the then original species (Yes).<br>The six new species will be shown too (No).
 SETTINGS_MOD_ORIGINAL_SPECIES_ONLY       | 10 Species only: %1
-SETTINGS_MOD_SHOW_ALT_ANIMATION_DESC     | Select between vanilla animations (No) or Zestyclose Art work (Yes).<br>(Younger Human diplomat)
+SETTINGS_MOD_SHOW_ALT_ANIMATION_DESC     | Select between vanilla animations (No) or Zestyclose Artwork (Yes).<br>(Younger Human diplomat)
 SETTINGS_MOD_SHOW_ALT_ANIMATION          | Alt Diplomat: %1
 SETTINGS_MOD_SHOW_FLEET_FACTOR_DESC      | To adjust the galaxy map fleets disappearance while zooming. Bigger factor means stay longer to the screen.
 SETTINGS_MOD_SHOW_FLEET_FACTOR           | Show Fleet Factor: %1%
@@ -2753,7 +2749,6 @@ SETTINGS_MOD_LOAD_SAVE_WIDE              | Wide
 SETTINGS_MOD_LOAD_SAVE_FULL_DESC         | ~185% of the original width.
 SETTINGS_MOD_LOAD_SAVE_FULL              | Full
 
-
 SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic configuration menus (six menus) and Compact configuration menus (2 menus). Both provide a distinction between:<br><b>Setup Settings:</b>&nbsp which are only read once, when a game starts (or restarts).<br><b>Rules and gameplay settings:</b>&nbsp which can be changed while playing a game. (Ctrl-o) to call the rules and gameplay configuration menu.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC     | Show multiple configuration Menus at standard size, or only one compacted configuration menu?
 SETTINGS_MOD_COMPACT_OPTION_ONLY          | Settings Buttons: %1
@@ -2765,7 +2760,7 @@ SETTINGS_MOD_COMPACT_OPTION_ONLY_NO       | Vanilla
 SETTINGS_MOD_GAME_OVER_TITLE_DESC          | To switch between original Game Over panels Titles, extended ones (more specific), or the Realms Beyond community ones
 SETTINGS_MOD_GAME_OVER_TITLE               | Game Over Titles: %1
 SETTINGS_MOD_GAME_OVER_TITLE_ORIGINAL_DESC | Original Game Over panels Titles.
-SETTINGS_MOD_GAME_OVER_TITLE_EXTENDED_DESC | Extended Game Over panels Titles. More detailed info on victory conditions
+SETTINGS_MOD_GAME_OVER_TITLE_EXTENDED_DESC | Extended Game Over panels Titles. More detailed info on victory conditions.
 SETTINGS_MOD_GAME_OVER_TITLE_RB_DESC       | Realms Beyond community inspired titles.
 SETTINGS_MOD_GAME_OVER_TITLE_ORIGINAL      | Originals
 SETTINGS_MOD_GAME_OVER_TITLE_EXTENDED      | Extended
@@ -3113,7 +3108,7 @@ SETTINGS_MOD_REAL_NEBULAE_SHAPE      | Real Nebula Shape: %1
 SETTINGS_MOD_REAL_NEBULAE_OPACITY_DESC | Opacity of the new real image based nebulae. 100% = No transparency.
 SETTINGS_MOD_REAL_NEBULAE_OPACITY      | Real Nebula Opacity: %1%
 
-SETTINGS_MOD_PREVIEW_NEBULA_DESC         | Show the nebulas in the galaxy map preview? (Can slow refresh, especially with the real nebulae option.)
+SETTINGS_MOD_PREVIEW_NEBULA_DESC         | Show the nebulae in the galaxy map preview? (Can slow refresh, especially with the real nebulae option.)
 SETTINGS_MOD_PREVIEW_NEBULA              | Preview nebulae: %1
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new species in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new species: %1
@@ -3460,7 +3455,7 @@ SETTINGS_MOD_IS_MOO1_MONSTER_DESC         | To get the MoO1 Space Monster weapon
 SETTINGS_MOD_IS_MOO1_MONSTER              | MoO1 Monsters: %1
 
 // ========== Random Events sub Panel
-SETTINGS_MOD_RANDOM_EVENTS_TITLE         | Random Event Customization
+SETTINGS_MOD_RANDOM_EVENTS_TITLE         | Random Events Customization
 SETTINGS_MOD_RANDOM_EVENTS_UI_DESC       | Open Sub Menu to get more random events customization options.
 SETTINGS_MOD_RANDOM_EVENTS_UI            | Random Events
 SETTINGS_MOD_RANDOM_EVENT_DISABLED       | Off
@@ -3718,8 +3713,8 @@ HEADERS_IRONMAN_FORMER                   | ~~~ FORMER OPTION ~~~
 HEADERS_IRONMAN_CUSTOM_DESC              | To allow full or partial Ironman.
 HEADERS_IRONMAN_CUSTOM                   | ~~~ INDIVIDUAL OPTIONS ~~~
 
-SETTINGS_MOD_IRONMAN_MODE_HELP           | Though for challenges between players on the same starting galaxy.<br>Remove the access to in-game options to avoid easy cheating.<br>The activation of "Fixed random events" is strongly recommended.<br>More options will be added.
-SETTINGS_MOD_IRONMAN_MODE_DESC           | Though for challenges between players on the same starting galaxy. Remove the access to in-game options.
+SETTINGS_MOD_IRONMAN_MODE_HELP           | Thought for challenges between players on the same starting galaxy.<br>Remove the access to in-game options to avoid easy cheating.<br>The activation of "Fixed random events" is strongly recommended.<br>More options will be added.
+SETTINGS_MOD_IRONMAN_MODE_DESC           | Thought for challenges between players on the same starting galaxy. Remove the access to in-game options.
 SETTINGS_MOD_IRONMAN_MODE                | Ironman Hide Options: %1
 SETTINGS_MOD_IRONMAN_OFF                 | Off
 SETTINGS_MOD_IRONMAN_OFF_HELP            | Disabled
@@ -4895,13 +4890,13 @@ GOVERNOR_ORIGINAL_PANEL_DESC         | How the panel should be displayed? Old wa
 GOVERNOR_ORIGINAL_PANEL              | Original View: %1
 GOVERNOR_ORIGINAL_PANEL_LABEL        | Original View
 
-GOVERNOR_ORIGINAL_PANEL_YES_DESC     | The panel will be displayed in its gray color as originally designed.<br>No size or brightness control.
-GOVERNOR_ORIGINAL_PANEL_NO_DESC      | The panel will copy the RotP fonts, colors and icons.<br>It will be resizable, and the brightness can be adjusted.
+GOVERNOR_ORIGINAL_PANEL_YES_DESC     | The panel will display in its originally designed gray color.<br>No size nor brightness control.
+GOVERNOR_ORIGINAL_PANEL_NO_DESC      | The panel will be inspired by RotP fonts, colors and icons.<br>It will be resizable and the brightness can be adjusted.
 GOVERNOR_CUSTOM_SIZE_DESC            | Quick way to activate or deactivate the resizing.  (Available for the new design only)
 GOVERNOR_CUSTOM_SIZE                 | Custom Size: %1
 GOVERNOR_CUSTOM_SIZE_LABEL           | Custom Size
 
-GOVERNOR_SIZE_FACTOR_DESC            | The factor used to adjust the font size.<br>The other parameters will follow; but with discrete increments, leading to jerky changes. (Available for the new design only)
+GOVERNOR_SIZE_FACTOR_DESC            | The factor used to adjust the size of fonts.<br>The other settings will follow; but with discrete increments, resulting in jerky changes. (Only available for the new look)
 GOVERNOR_SIZE_FACTOR                 | Size Factor: %1%
 GOVERNOR_SIZE_FACTOR_LABEL           | % Size
 
@@ -4920,7 +4915,7 @@ GOVERNOR_AUTO_APPLY_DESC            | Apply the option on the fly, without havin
 GOVERNOR_AUTO_APPLY                 | Auto Apply: %1
 GOVERNOR_AUTO_APPLY_LABEL           | Auto Apply
 
-GOVERNOR_ON_BY_DEFAULT_DESC         | This will activate the governor for all new colonies, created or invaded.
+GOVERNOR_ON_BY_DEFAULT_DESC         | To automatically appoint a governor to all new colonies, created or invaded.
 GOVERNOR_ON_BY_DEFAULT              | On By Default: %1
 GOVERNOR_ON_BY_DEFAULT_LABEL        | Governor is on by default
 
