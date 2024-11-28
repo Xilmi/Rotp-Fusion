@@ -69,8 +69,9 @@ Later:
 
 ## What's New
 
-2024.11.8 (BR)
+2024.11.28 (BR)
 - New French translations
+- Fixed crash when sending troops to an abandoned colonies.
 
 2024.11.27 (BR)
 - New French translations

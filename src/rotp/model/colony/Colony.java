@@ -1395,7 +1395,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
         governIfNeeded();
 
         // recalculate destination colony
-        dest.colony().governIfNeeded();
+        if (dest.colony() != null) // BR: For abandoned colonies
+        	dest.colony().governIfNeeded();
     }
     private float fleetDamagePerRoundToArrivingTransports(int empId) {
         float defenderDmg = 0;
