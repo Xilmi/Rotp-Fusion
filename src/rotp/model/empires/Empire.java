@@ -2669,6 +2669,12 @@ public final class Empire implements Base, NamedObject, Serializable {
         addVisibleShips(sv.orbitingFleets(sysId));
         addVisibleShips(sv.exitingFleets(sysId));
     }
+    public void updateScoutMessages() { // For player only
+    	 List<ShipFleet> myOrbitingShips = galaxy().ships.allOrbitingFleets(id);
+    	 for (ShipFleet sh : myOrbitingShips) {
+    		 sv.refreshFullScan(sh.sysId());
+    	 }
+    }
     public void setVisibleShips() {
         Galaxy gal = galaxy();
         // This takes advantage of the fact that setVisibleShips() is called exactly once per turn.
@@ -2683,16 +2689,14 @@ public final class Empire implements Base, NamedObject, Serializable {
 
         // get transports in transit
         for (Transport tr : gal.transports()) {
-            if (tr != null
-            		&& (canSeeShips(tr.empId())
-            				|| (tr.visibleTo(id) && canScanTo(tr, mySystems, myShips) )))
+            if (tr != null && (canSeeShips(tr.empId())
+            			|| (tr.visibleTo(id) && canScanTo(tr, mySystems, myShips) )))
                 addVisibleShip(tr);
         }
 
         // get fleets in transit
         for (ShipFleet sh : gal.ships.allFleets()) {
-            if (sh != null
-            		&& (canSeeShips(sh.empId())
+            if (sh != null && (canSeeShips(sh.empId())
             			|| (sh.visibleTo(id) && canScanTo(sh, mySystems, myShips) )))
                 addVisibleShip(sh);
         }

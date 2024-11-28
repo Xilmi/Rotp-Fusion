@@ -6,6 +6,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 (Ongoing)
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
+- Systems are scouted before the player is asked to bombard them.
 - Fixed crash when sending troops to an abandoned colonies.
 - More info on galaxy side icons.
 - Fixed Crystal attack bug crashing the game.

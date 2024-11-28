@@ -72,6 +72,7 @@ Later:
 2024.11.28 (BR)
 - New French translations
 - Fixed crash when sending troops to an abandoned colonies.
+- Systems are scouted before the player is asked to bombard them.
 
 2024.11.27 (BR)
 - New French translations

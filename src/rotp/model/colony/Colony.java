@@ -1359,7 +1359,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
     }
     public void scheduleTransportsToSystem(StarSystem dest, int pop) {
-
     	if (dest == null) {
     		// BR: Should not happen! but it happens!
     		// little fix while searching for the initial bug to be fixed! 

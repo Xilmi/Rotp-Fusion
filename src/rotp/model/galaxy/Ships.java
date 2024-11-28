@@ -548,7 +548,7 @@ public class Ships implements Base, Serializable {
         
         // no need to emp-check the fleet or system
         // only players can set up rally points
-        if (fleet.isRallied()) {
+        if (fleet.isRallied() && player().sv.isScouted(sys.id)) {
         	ShipRelocationSprite spr = sys.rallySprite();
             if (spr.isActive() && spr.forwardRallies()) {
                 if (rallyPassByCombat) {	// Memorize the transit
@@ -763,6 +763,17 @@ public class Ships implements Base, Serializable {
         }
         return fleets;
     }
+    public List<ShipFleet> allOrbitingFleets(int empireId) {
+        List<ShipFleet> fleets = new ArrayList<>();
+        List<ShipFleet> fleetsAll = allFleetsCopy();
+        
+        for (ShipFleet fl: fleetsAll) {
+            if (fl != null && fl.empId == empireId && fl.isOrbiting())
+                fleets.add(fl);
+        }
+        return fleets;
+    }
+
     public int[] scrapDesign(int empireId, int designId) {
         int scrapCount = 0;
         int empCount   = 0;
