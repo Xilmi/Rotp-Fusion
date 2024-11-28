@@ -308,7 +308,6 @@ SYSEVENT_PRECURSOR_RELIC          | A precursor relic has created a new planet.
 // modnar: add Boost Planet base Size random event
 SYSEVENT_SIZEBOOST                | The planet size has been boosted by underground caverns.
 
-
 // Diplomatic Incident titles & descriptions
 INC_ASSASSINATION_TITLE           | Assassination
 INC_ASSASSINATION_DESC            | A terrorist from the [assassin_empire] assassinated the [victim_race] diplomat.
@@ -630,6 +629,7 @@ GAME_SETTINGS_SAVEDIR_CUSTOM      | Custom
 GAME_SETTINGS_SAVEDIR_HELP        | To select a custom directory to save your files: By default, it's the same directory as the game.
 GAME_SETTINGS_SAVEDIR_DESC1       | The save directory is currently set to the same directory as the game.
 GAME_SETTINGS_SAVEDIR_DESC2       | The save directory is currently set to: %1
+
 GAME_SETTINGS_DISPLAY_YEAR        | Display Year: %1
 GAME_SETTINGS_DISPLAY_YEAR_DESC   | On the Galaxy map: Displays either the game's current turn or your empire's current year
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH          | Excess to Research: %1
@@ -869,7 +869,6 @@ TURN_DESIGN_SHIPS                 | Designing Ships
 TURN_COLONY_SPENDING              | Colony Allocations
 
 COLONY_VIEW_HELP_1                | Nothing fancy there...<br><br>Just enjoy the view.<br><br>"Z" to see the background alone.<br>→HK_ESCAPE←
-
 HISTORY_HELP_MAIN                 | HISTORY VIEW:<br>To see how the galaxy has developed since the first turn.<br>This lets you see it all! Provided, of course, you have the necessary intel.
 HISTORY_HELP_HK                   | →HK_HEADER← →HK_F1←<br>1-0 : To set the pace.→HK_MAP_ZOOM←→HK_MAP_ARROWS←<br>B / F : Previous / Next Turn<br>P : Pause <br>R : Reset<br>→HK_ESCAPE←
 // Fleet labels
@@ -966,18 +965,10 @@ MAIN_COLONY_INDUSTRY              | Ind
 MAIN_COLONY_ECOLOGY               | Eco
 MAIN_COLONY_TECHNOLOGY            | Tech
 MAIN_COLONY_ALLOCATE_SPENDING     | Allocate Spending
-//GOVERNOR_IS_ON_BUTTON             | Governor Toggle
-//GOVERNOR_IS_OFF_BUTTON            | Governor Toggle
-//GOVERNOR_IS_ON_BUTTON             | Governor Enabled
-//GOVERNOR_IS_OFF_BUTTON            | Governor Disabled
-//GOVERNOR_IS_ON_BUTTON             | Governor On Duty
-//GOVERNOR_IS_OFF_BUTTON            | Appoint Governor
 GOVERNOR_IS_ON_BUTTON             | Governor Active
 GOVERNOR_IS_OFF_BUTTON            | Governor Inactive
-//GOVERNOR_IS_ON_BUTTON             | Governor
-//GOVERNOR_IS_OFF_BUTTON            | Governor
-//GOVERNOR_OPTIONS                  | Options
 GOVERNOR_OPTIONS                  | Mandate
+
 MAIN_COLONY_SPENDING_NONE         | None
 MAIN_COLONY_SPENDING_RESERVE      | Reserve
 MAIN_COLONY_SPENDING_TECH         | Tech
@@ -1333,6 +1324,7 @@ FLEETS_HELP_2B                    | Filter By - select check boxes to narrow dow
 FLEETS_HELP_2C                    | Only Deploy Ships of Type - restrict the types of ships you want to deploy from your fleets.
 FLEETS_HELP_2D                    | Selected for Deployment - a count of ships, by type, that will be deployed.
 FLEETS_HELP_2E                    | Deploy Fleets - deploy the selected fleets to a single target system.
+
 FLEETS_HELP_3A                    | Stable:<br>The maximum number of population you can send from this planet while being able to growth again up to the current level, this when the ECO bar is set to max.<br>It's up to the player or the governor to adjust the ECO bar.
 FLEETS_HELP_3B                    | Fill:<br>The maximum number of population you can send from this planet while being able to growth to fill the planet, this when the ECO bar is set to max.<br>It's up to the player or the governor to adjust the ECO bar.
 FLEETS_HELP_3C                    | Population to send selection bars:<br>- Left click on slider = Normal percentage selection.<br>- Middle click on slider = "Stable"-value selection.<br>- Right click on slider = "Fill"-value selection.<br>Ctrl+Click to toggle auto-refill (Ungoverned only) shown as Green over Grey.<br>Default auto-refill state is set by option "→TRANSPORT_AUTO_ECO_HK←".
@@ -1452,7 +1444,6 @@ GNN_ALLY_AT_WAR                   | Our ally, the [ally_empire], has entered int
 
 // Error UI text
 ERROR_TITLE                       | An Error has occurred  :(
-//ERROR_MESSAGE                     | If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to Ray Fowler, or bring it to his attention on the RotP subreddit.
 ERROR_MESSAGE                     | If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to BrokenRegistry, or bring it to his attention on the RotP subreddit.
 ERROR_EMAIL                       | Email: Broken.Registry@protonmail.com
 ERROR_REDDIT                      | Reddit: www.Reddit.com/r/rotp
@@ -1471,6 +1462,7 @@ SETUP_RULESET_SIRIUS              | Sirius
 SETUP_GALAXY_SIZE_LABEL           | Size
 SETUP_RACE_MULTIPLIER             | x%1
 SETUP_GALAXY_SHAPE_LABEL          | Shape
+
 SETUP_GALAXY_SIZE_HELP            | The galaxy size will determine the number of stars and therefore the maximum player count.<br>Note that there are multiple star counts for some size settings. For instance, an average sized galaxy can have 100 or 150 stars. A large galaxy can have 225 or 333 stars.<br> Each selection will change the number of opponents to its default setting, which can then be adjusted on the "Select Opponents" panel.
 SETUP_GALAXY_SIZE_DESC            | Select the Galaxy Size
 SETUP_GALAXY_SIZE                 | Galaxy Size: %1
@@ -1607,6 +1599,9 @@ SETUP_OPP_CR_OPTIONS_HELP         | Default abilities for alien Species:<br> 'Or
 
 SETUP_AUTOPLAY_OFF_HELP           | The player takes command of the empire.
 SETUP_AUTOPLAY_OFF                | Off
+SETUP_AUTOPLAY_AI_BASE            | AI : Base
+SETUP_AUTOPLAY_AI_MODNAR          | AI : Modnar
+SETUP_AUTOPLAY_AI_XILMI           | AI : Xilmi
 SETUP_GAME_DIFFICULTY_HELP        | The difficulty setting will apply a boost or penalty to AI players' production.<br>On normal or higher, Space Monsters will be introduced among the random events somewhere during the mid-game. But on the easy, easier, and easiest difficulty levels, Space Monsters will be delayed to give players more time to build up.
 SETUP_GAME_DIFFICULTY_DESC        | Select The Game Difficulty Level.
 SETUP_GAME_DIFFICULTY             | Game Difficulty Selection: %1
@@ -1627,8 +1622,6 @@ SETUP_DIFFICULTY_HARD_HELP        | Hard (110%)
 SETUP_DIFFICULTY_HARDER_HELP      | Harder (125%)
 SETUP_DIFFICULTY_HARDEST_HELP     | Hardest (145%)
 SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found at the top Left of "Options" panel
-// SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found either:<br>&ensp - at the top left of "Options A" (6 option buttons)<br>&ensp - or at the top Left of "Options" (2 option buttons)
-
 
 SETUP_RESEARCH_RATE_NORMAL_HELP   | Research costs factors = 1.
 SETUP_RESEARCH_RATE_NORMAL        | Normal
@@ -1646,6 +1639,7 @@ SETUP_RESEARCH_RATE_IMPEDED_HELP  | Research costs factors:<br>134% at level 2;&
 SETUP_RESEARCH_RATE_IMPEDED       | Crawling
 SETUP_RESEARCH_RATE_LETHARGIC_HELP | Research costs factors:<br>141% at level 2;&ensp 21 at level 11;&ensp 38 at level 20;<br>50 at level 27;&ensp 80 at level 51;&ensp 125 at level 100.
 SETUP_RESEARCH_RATE_LETHARGIC      | Impeded
+
 SETUP_TECH_TRADING_YES            | Yes
 SETUP_TECH_TRADING_ALLIES         | Allies Only
 SETUP_TECH_TRADING_ALLIES_AID     | Allies Only**
@@ -1662,6 +1656,7 @@ SETUP_WARP_SPEED_FAST_HELP        | Warp Speed progression: 1, 2, 3, 5, 7, 10, 1
 SETUP_WARP_SPEED_FAST             | Fast
 SETUP_WARP_SPEED_FAST_F_HELP      | Warp Speed progression: 1, 2, 3, 5, 8, 13, 21, 34, 55 (original Fibonacci progression)
 SETUP_WARP_SPEED_FAST_F           | Fastest
+
 SETUP_NEBULA_NONE                 | None
 SETUP_NEBULA_RARE                 | Rare
 SETUP_NEBULA_UNCOMMON             | Uncommon
@@ -1691,7 +1686,6 @@ SETUP_STAR_DENSITY_V_WIDE         | Very wide
 SETUP_STAR_DENSITY_WIDER          | Wider
 SETUP_STAR_DENSITY_WIDE           | Wide
 SETUP_STAR_DENSITY_LOWEST         | Very low
-//-SETUP_STAR_DENSITY_LOWEST         | Lowest
 SETUP_STAR_DENSITY_LOWER          | Lower
 SETUP_STAR_DENSITY_LOW            | Low
 SETUP_STAR_DENSITY_NORMAL         | Normal
@@ -1748,6 +1742,7 @@ SETUP_PLANET_QUALITY_NORMAL       | Normal
 SETUP_PLANET_QUALITY_GOOD         | Good
 SETUP_PLANET_QUALITY_GREAT        | Great
 SETUP_PLANET_QUALITY_HEAVEN       | Heaven
+
 SETUP_TERRAFORMING_NORMAL_HELP    | Terraforming technologies work at 100% on hostile planets.
 SETUP_TERRAFORMING_NORMAL         | Normal
 SETUP_TERRAFORMING_REDUCED_HELP   | Improved Terraforming technologies that increase the size of your planets will only have half effectiveness on Hostile planets,  until you've applied Atmosphere Terraforming to remove the Hostile trait.
@@ -1758,6 +1753,7 @@ SETUP_COLONIZING_NORMAL_HELP      | Any special colony base can colonize a plane
 SETUP_COLONIZING_NORMAL           | Normal
 SETUP_COLONIZING_RESTRICTED_HELP  | Hostile environment will need a colony base of that specific type. Now the Irradiated Colony Base you'll need to settle the most hostile of planets is no longer the be-all and end-all of colony bases.
 SETUP_COLONIZING_RESTRICTED       | Restricted
+
 SETUP_FUEL_RANGE_CUT              | Cut
 SETUP_FUEL_RANGE_LOW              | Low
 SETUP_FUEL_RANGE_NORMAL           | Normal
@@ -1792,7 +1788,6 @@ SETUP_BUTTON_NEXT                 | Next
 SETUP_BUTTON_START                | Start
 SETUP_BUTTON_RESTART              | Restart
 SETUP_BUTTON_SETTINGS             | Advanced Options
-// BR: add UI panel for modnar MOD game options
 
 SETUP_BUTTON_TUNE_GALAXY             | Tune Galaxy
 SETUP_BUTTON_MERGED_STATIC_SETTINGS  | Setup
@@ -1916,10 +1911,8 @@ SETUP_PLAYER_HOMEWORLD            | Player Home World
 SETUP_PLAYER_LEADER_DESC          | Select the name of your leader.
 SETUP_PLAYER_LEADER               | Player Leader
 
-
 SETUP_NO_FOG_ON_ICONS             | Remove diplomat fog: %1
 SETUP_NO_FOG_ON_ICONS_DESC        | Remove the fog hiding the diplomat icons in the Character settings panel and in the Galaxy settings panel.
-
 
 // BR: config Player Race
 SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Species
@@ -1950,12 +1943,12 @@ CUSTOM_RACE_GUI_SAVE_DESC         | Save the settings to the file specified in "
 CUSTOM_RACE_GUI_SAVE              | Save to File
 CUSTOM_RACE_RACE_LIST             | File List
 CUSTOM_RACE_RACE_LIST_DESC        | Custom species abilities file list. Click to load. (At the top is the one when opening the GUI.)
-CUSTOM_RACE_RANDOM_MAX_HELP       | Upper limit for the settings relative randomization window.<br>Related to the setting value, which is not always linearly related to the setting selection.
-CUSTOM_RACE_RANDOM_MAX_DESC       | Upper limit for the settings relative randomization window.<br>Related to the setting value, which is not always linearly related to the setting selection.
+CUSTOM_RACE_RANDOM_MAX_HELP       | Upper relative limit of the parameter random generation window.<br>Related to the parameter cost; and is not necessarily linearly related to the selected percentage of the parameter.
+CUSTOM_RACE_RANDOM_MAX_DESC       | Upper relative limit of the parameter random generation window.<br>Related to the parameter cost; and is not necessarily linearly related to the selected percentage of the parameter.
 CUSTOM_RACE_RANDOM_MAX            | Setting Max
 
-CUSTOM_RACE_RANDOM_MIN_HELP       | Lower limit for the settings relative randomization window.<br>Related to the setting value, which is not always linearly related to the setting selection.
-CUSTOM_RACE_RANDOM_MIN_DESC       | Lower limit for the settings relative randomization window.<br>Related to the setting value, which is not always linearly related to the setting selection.
+CUSTOM_RACE_RANDOM_MIN_HELP       | Lower relative limit of the parameter random generation window.<br>Related to the parameter cost; and is not necessarily linearly related to the selected percentage of the parameter.
+CUSTOM_RACE_RANDOM_MIN_DESC       | Lower relative limit of the parameter random generation window.<br>Related to the parameter cost; and is not necessarily linearly related to the selected percentage of the parameter.
 CUSTOM_RACE_RANDOM_MIN            | Setting Min
 
 CUSTOM_RACE_RANDOM_EDGES_HELP     | "Smooth Edges" defines the limits randomization distribution shape.<br>When "Smoothed" the values still have a small probability of going past the limits, the distribution will be bell shaped; 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)<br>When not, the value will be uniformly forced inside the limits.
@@ -1982,6 +1975,9 @@ CUSTOM_RACE_RANDOM_USE_TARGET_NO   | Ignored
 CUSTOM_RACE_RANDOM_USE_TARGET_YES_DESC | Force targeted value.
 CUSTOM_RACE_RANDOM_USE_TARGET_NO_DESC  | Ignore targeted value.
 
+
+
+
 CUSTOM_RACE_BASE_DATARACE         | Base Abilities
 CUSTOM_RACE_HOME_TYPE             | Planet Type
 CUSTOM_RACE_HOME_SIZE_DESC        | Starting Size of this Empire Home world.
@@ -1994,12 +1990,14 @@ CUSTOM_RACE_HOME_ENVIRONMENT_DESC | This selection will affect the growth rate o
 CUSTOM_RACE_HOME_ENVIRONMENT      | Planet Environment
 CUSTOM_RACE_RACE_KEY              | File Name
 CUSTOM_RACE_RACE_KEY_DESC         | This is the place to enter the filename, it's also used as the key for the standard species... Don't use them, or keep the default "SPECIES_xxx" to set the "Reworked"-Abilities.
+// Unused for now
 CUSTOM_RACE_RACE_TYPE             | Species Type
 CUSTOM_RACE_RACE_TERRAN           | Terran
 CUSTOM_RACE_RACE_AQUATIC          | Aquatic
 CUSTOM_RACE_RACE_SILICATE         | Silicate
 CUSTOM_RACE_RACE_ROBOTIC          | Robotic
-CUSTOM_RACE_IGNORES_ECO_DESC      | Will be able to colonize any planet, and wont be impaired by their Hostility.
+// \Unused for now
+CUSTOM_RACE_IGNORES_ECO_DESC      | Will be able to colonize any planet, and won't be impaired by their Hostility.
 CUSTOM_RACE_IGNORES_ECO           | Species Ignores Eco
 CUSTOM_RACE_PROPERTIE             | Species Properties
 CUSTOM_RACE_CREDIT_DESC           | Easy Money! Gives each turn: Population * Credit Bonus / 100
@@ -2024,13 +2022,15 @@ CUSTOM_RACE_SPY_SECURITY_DESC     | Spy security percentage modifier.
 CUSTOM_RACE_SPY_SECURITY          | Spy Security
 CUSTOM_RACE_SPY_INFILTRATION_DESC | Spy Infiltration percentage modifier.
 CUSTOM_RACE_SPY_INFILTRATION      | Spy Infiltration
+// Unused for now
 CUSTOM_RACE_SPY_TELEPATHY_DESC    | Spy Telepathy percentage modifier.
 CUSTOM_RACE_SPY_TELEPATHY         | Spy Telepathy
 CUSTOM_RACE_SPY_RELATIONS_DESC    | Spy Relations percentage modifier.
 CUSTOM_RACE_SPY_RELATIONS         | Spy Relations
+// \Unused for now
 CUSTOM_RACE_PROD_WORKER_DESC      | Worker Production Percentage.
 CUSTOM_RACE_PROD_WORKER           | Worker Production
-CUSTOM_RACE_PROD_CONTROL_DESC     | How many additional Factory ca be controlled.
+CUSTOM_RACE_PROD_CONTROL_DESC     | How many additional Factory can be controlled.
 CUSTOM_RACE_PROD_CONTROL          | Factory Control
 CUSTOM_RACE_PROD_REFIT_COST_DESC  | When new robotic control are discovered, upgrading Factories cos nothing.
 CUSTOM_RACE_PROD_REFIT_COST       | Ignores Refit Cost
@@ -2039,17 +2039,23 @@ CUSTOM_RACE_TECH_DISCOVERY_DESC   | The base probability of getting a tech avail
 CUSTOM_RACE_TECH_RESEARCH         | Tech Research
 CUSTOM_RACE_TECH_RESEARCH_DESC    | Revenue multiplier for researching technology. Cost is linked to the research cost multiplier. Displayed cost is the sum of specific tech research cost.
 CUSTOM_RACE_POP_GROW_RATE         | Population Grow Rate
+CUSTOM_RACE_POP_GROW_RATE_DESC    | Multiplier factor of the population growth rate.
 CUSTOM_RACE_DIPLOMACY_TRADE       | Trade Bonus
+// Unused for now
 CUSTOM_RACE_DIPLO_POS_DP          | Diplo Pos DP
+// \Unused for now
 CUSTOM_RACE_DIPLOMACY_BONUS       | Diplomacy Bonus
 CUSTOM_RACE_DIPLOMACY_COUNCIL     | Council Bonus
 CUSTOM_RACE_RELATION_DEFAULT      | Default Species Relation
+
 CUSTOM_RACE_DISCOVERY_COMPUTER    | Disc. Computer
 CUSTOM_RACE_DISCOVERY_CONSTRUCTION | Disc. Construction
 CUSTOM_RACE_DISCOVERY_FORCEFIELD  | Disc. Force Field
 CUSTOM_RACE_DISCOVERY_PLANET      | Disc. Planet
 CUSTOM_RACE_DISCOVERY_PROPULSION  | Disc. Propulsion
 CUSTOM_RACE_DISCOVERY_WEAPON      | Disc. Weapon
+
+
 CUSTOM_RACE_DIPLOMACY_TRADE_DESC        | Probability offset of getting better trades.
 CUSTOM_RACE_DIPLO_POS_DP_DESC           | Probability offset of getting better diplomacy relation.
 CUSTOM_RACE_DIPLOMACY_BONUS_DESC        | Probability offset of getting better diplomacy relation.
@@ -2067,6 +2073,8 @@ CUSTOM_RACE_RESEARCH_FORCEFIELD        | Cost Force Field
 CUSTOM_RACE_RESEARCH_PLANET            | Cost Planet
 CUSTOM_RACE_RESEARCH_PROPULSION        | Cost Propulsion
 CUSTOM_RACE_RESEARCH_WEAPON            | Cost Weapon
+
+
 CUSTOM_RACE_RESEARCH_COMPUTER_DESC     | Cost multiplier for researching Computer tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
 CUSTOM_RACE_RESEARCH_CONSTRUCTION_DESC | Cost multiplier for researching Construction tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
 CUSTOM_RACE_RESEARCH_FORCEFIELD_DESC   | Cost multiplier for researching Force Field tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
@@ -2132,6 +2140,10 @@ CUSTOM_RACE_DIPLOMAT              | Diplomat
 CUSTOM_RACE_INDUSTRIALIST         | Industrialist
 CUSTOM_RACE_EXPANSIONIST          | Expansionist
 CUSTOM_RACE_TECHNOLOGIST          | Technologist
+
+
+
+
 CUSTOM_RACE_ERRATIC_DESC          | Relative probability of random "Personality" being "Erratic". (Max personality is used for non random)
 CUSTOM_RACE_PACIFIST_DESC         | Relative probability of random "Personality" being "Pacifist". (Max personality is used for non random)
 CUSTOM_RACE_HONORABLE_DESC        | Relative probability of random "Personality" being "Honorable". (Max personality is used for non random)
@@ -2148,7 +2160,9 @@ CUSTOM_RACE_TECHNOLOGIST_DESC     | Relative probability of random "Objective" b
 CUSTOM_RACE_AVAILABLE_AI          | Available to AI
 CUSTOM_RACE_AVAILABLE_AI_DESC     | Should this file be available to Alien?
 CUSTOM_RACE_RESOURCES_NORMAL      | Normal
+CUSTOM_RACE_RESOURCES_NORMAL_DESC | Normal Resources
 CUSTOM_RACE_ENVIRONMENT_NORMAL    | Normal
+CUSTOM_RACE_ENVIRONMENT_NORMAL_DESC | Normal growth
 CUSTOM_RACE_ARTIFACTS_NONE        | None
 CUSTOM_RACE_ARTIFACTS_NONE_DESC   | Normal Research
 CUSTOM_RACE_ARTIFACTS_ORION       | Orion Ruin
@@ -2179,6 +2193,7 @@ SETTINGS_TITLE                    | Advanced Game Options
 SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.
 SETTINGS_GUIDE                    | Guide
 SETTINGS_EXIT                     | Exit
+SETTINGS_DEFAULT                  | Default values
 SETTINGS_APPLY                    | Apply Changes
 SETTINGS_CANCEL                   | Cancel Changes
 SETTINGS_LOCAL_RESTORE            | Restore Local
@@ -2208,7 +2223,7 @@ SETTINGS_TERRAFORMING             | Hostile Terraforming: %1
 SETTINGS_COLONIZING               | Colonizing: %1
 SETTINGS_FUEL_RANGE               | Fuel Range: %1
 SETTINGS_AI_HOSTILITY             | Hostility: %1
-SETTINGS_RANDOM_EVENTS_HELP       | There are twenty random events in Remnants of the Precursors <i> (sixteen vanilla and four from the Modnar)</i>, some favorable and some unfavorable. As of turn 50 <i> (this value can be changed) </i>, the percentage chance that a random event will occur somewhere in the galaxy begins to climb. After a random event occurs, the percentage chance resets to zero and begins climbing again next turn.<br>Random events are a catch-up mechanic that favors weaker factions. Once the event is determined, it will target a player based on how well they're doing in the game. Favorable events are more likely to happen to players with lower overall production, whereas unfavorable events are more likely to happen to players with higher overall production. Some event can only happen once.
+SETTINGS_RANDOM_EVENTS_HELP       | There are twenty random events in Remnants of the Precursors <i> (sixteen vanilla and four from the Modnar)</i>, some favorable and some unfavorable. As of turn 50 <i> (this value can be changed) </i>, the percentage chance that a random event will occur somewhere in the galaxy begins to climb. After a random event occurs, the percentage chance resets to zero and begins climbing again next turn.<br>Random events are a catch-up mechanic that favors weaker factions <i> (this can be changed) </i>. Once the event is determined, it will target a player based on how well they're doing in the game. Favorable events are more likely to happen to players with lower overall production, whereas unfavorable events are more likely to happen to players with higher overall production. Some event can only happen once.
 SETTINGS_RANDOM_EVENTS_DESC       | Space Monsters are random events and considerable mid-game threats.<br> Turn off space monsters or all random events.
 SETTINGS_WARP_SPEED_DESC          | Increase the speed of more advanced warp technologies. This can be desirable on very large maps.
 SETTINGS_GALAXY_AGE_DESC          | Compared to normal galaxies, young galaxies have more white and blue stars while old galaxies have more red and neutron stars.
@@ -2218,9 +2233,7 @@ SETTINGS_STAR_DENSITY_DESC        | Set to high to reduce the chance of empires 
 SETTINGS_RESEARCH_RATE_HELP       | If you like savoring your new technologies, if you want to delay being distracted by science's newest shinnies, you can slow the rate of research
 SETTINGS_RESEARCH_RATE_DESC       | Slow the research rate of new technologies, lengthening the useful life of current technologies.<br> [Asymptotic in modnar MOD]
 SETTINGS_NEBULAE_DESC             | Nebulae slow down ship travel and render shields useless. Increase or decrease their frequency.
-// modnar: change PLANET_QUALITY settings, only Normal, Larger, and Richer
-//-SETTINGS_PLANET_QUALITY_DESC    | [modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich;<br> "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
-SETTINGS_PLANET_QUALITY_HELP      |  Do you want your galaxy to lean more terran or more barren?<br>After the stars have been placed, each star has a percentage chance based on its type of getting a single planet. The star type then determines the environment of its planet. The environment sets the range of sizes available for a planet, with unfriendly environments tending to smaller planets. However, the formula allows planets to sometimes stray dramatically from their default ranges. It's possible, but unlikely, to find massive barren planets and tiny fertile planets. Finally, the star type determines the chance that its planet will have a special trait like poor, rich, or artifact.
+SETTINGS_PLANET_QUALITY_HELP      | Do you want your galaxy to lean more terran or more barren?<br>After the stars have been placed, each star has a percentage chance based on its type of getting a single planet. The star type then determines the environment of its planet. The environment sets the range of sizes available for a planet, with unfriendly environments tending to smaller planets. However, the formula allows planets to sometimes stray dramatically from their default ranges. It's possible, but unlikely, to find massive barren planets and tiny fertile planets. Finally, the star type determines the chance that its planet will have a special trait like poor, rich, or artifact.
 SETTINGS_PLANET_QUALITY_DESC      | Increases or decreases the frequency of higher quality planets.
 SETTINGS_TERRAFORMING_HELP        | When this is set to Normal, once you've colonized a Hostile planet with the required colony base, the only difference from non-Hostile planets is a 50% penalty to population growth. This can be removed with Atmospheric Terraforming, at which points the Hostile trait is removed and the colony is like any other environment. But if you'd like your Hostile planets to have more bite, put this setting on Reduced. Now the Improved Terraforming technologies that increase the size of your planets will only have half effectiveness on Hostile planets. For instance, the first step of Improved Terraforming lets you add +10 to a planet's size to represent more hospitable conditions. But with this setting at Reduced, a Hostile planet will only get +5 size. And if you want really hostile Hostile planets, put this setting on None. Now you can't apply any terraforming size upgrades until you've applied Atmosphere Terraforming to remove the Hostile trait.
 SETTINGS_TERRAFORMING_DESC        | Reduce or eliminate the benefits of the Improved Terraforming technologies on hostile planets.
@@ -2248,14 +2261,14 @@ HEADERS_MENU_APPEARANCE           | ~~~ MENU APPEARANCE ~~~
 HEADERS_GAME_UI_PREFERENCES_DESC  | Game UI customization..
 HEADERS_GAME_UI_PREFERENCES       | ~~~ GAME UI PREFERENCES ~~~
 
-HEADERS_START_GALAXY_OPTIONS_DESC | Options used for galaxy buildings. Only read when starting a new game.
+HEADERS_START_GALAXY_OPTIONS_DESC | Settings used when creating the galaxy. Will only be read when starting a new game.
 HEADERS_START_GALAXY_OPTIONS      | ~~~ GALAXY OPTIONS ~~~
-HEADERS_START_PLANET_OPTIONS_DESC | Options used for planet generation. Only read when starting a new game.
+HEADERS_START_PLANET_OPTIONS_DESC | Settings used when generating planets. Will only be read when starting a new game.
 HEADERS_START_PLANET_OPTIONS      | ~~~ PLANETS OPTIONS ~~~
-HEADERS_START_EMPIRE_OPTIONS_DESC | Options used for empire generation. Only read when starting or restarting a game.
+HEADERS_START_EMPIRE_OPTIONS_DESC | Settings used when generating empires. Will only be read when starting or restarting a new game.
 HEADERS_START_EMPIRE_OPTIONS      | ~~~ EMPIRES OPTIONS ~~~
 HEADERS_START_TECH_CONTROL_HELP   | Some technologies may be considered essential, and others boring, here is a way to personalize them, by forcing them to be available for research, or by preventing them!
-HEADERS_START_TECH_CONTROL_DESC   | Options used while generating technologies lists. Only read when starting or restarting a game.
+HEADERS_START_TECH_CONTROL_DESC   | Options used when generating technology lists. Will only be read when starting or restarting a new game.
 HEADERS_START_TECH_CONTROL        | ~~ ALLOWED AND FORBIDDEN TECH ~~
 HEADERS_START_RANDOM_ALIENS_HELP  | When opponent abilities are set to 'Random' the following settings will be used:
 HEADERS_START_RANDOM_ALIENS_DESC  | Options used for the generation of random species. Only read when starting or restarting a game.
@@ -2797,7 +2810,6 @@ SETTINGS_MOD_SHOW_ALL_AI_DESC            | AI:Base, AI:Modnar, and AI:Rookies ar
 SETTINGS_MOD_SHOW_ALL_AI                 | Show all AIs: %1
 SETTINGS_MOD_SHOW_ALL_AI_YES_DESC        | All AIs are available for the player and the opponents.
 SETTINGS_MOD_SHOW_ALL_AI_NO_DESC         | AI:Base and AI:Modnar won't be available.
-
 
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map?
 SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Show circular grid: %1
@@ -3972,7 +3984,6 @@ SHIP_DESIGN_RENAME_BUTTON         | Rename
 SHIP_DESIGN_DEPLOY_BUTTON         | Deploy Design
 SHIP_DESIGN_DEPLOY_DESC           | Once deployed, you can construct this ship on your colonies and this design can only be renamed or scrapped.
 SHIP_DESIGN_SCRAP_BUTTON          | Scrap Design
-SHIP_DESIGN_AUTO_BUTTON           | Auto
 SHIP_DESIGN_SCRAP_CONFIRM1        | Are you sure you want to scrap the %1 design?
 SHIP_DESIGN_SCRAP_CONFIRM2        | This will destroy %1 ships in your fleet and place %2 BC into the planetary reserve.
 SHIP_DESIGN_SCRAP_CONFIRM3        | You currently have no constructed ships of this design.
@@ -3985,6 +3996,7 @@ SHIP_DESIGN_DEPLOY_OK             | Deploy
 SHIP_DESIGN_RENAME_OK             | Rename
 SHIP_DESIGN_UNNAMED_DESIGN        | Unnamed
 SHIP_DESIGN_COMPONENT_NONE        | None
+SHIP_DESIGN_AUTO_BUTTON           | Auto
 SHIP_DESIGN_AUTO_SCOUT            | Auto Scout
 SHIP_DESIGN_AUTO_COLONIZE         | Auto Colonize
 SHIP_DESIGN_AUTO_ATTACK           | Auto Attack

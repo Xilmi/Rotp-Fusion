@@ -69,7 +69,10 @@ Later:
 
 ## What's New
 
-2024.11.26 (BR)
+2024.11.8 (BR)
+- New French translations
+
+2024.11.27 (BR)
 - New French translations
 
 2024.11.26 (BR)

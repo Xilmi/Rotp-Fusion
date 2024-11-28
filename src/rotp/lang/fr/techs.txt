@@ -1150,7 +1150,7 @@ SOILENRICH_1_DETAIL   | Convertit les planètes standard et fertiles en gaïas, 
 //
 // Stargate tech
 //
-STARGATE_0_NAME      | Portes des étoiles intergalactiques
+STARGATE_0_NAME      | Portes des étoiles
 STARGATE_0_DETAIL    | Permet à vos vaisseaux de se déplacer entre deux planètes équipées de portes stellaires en un seul tour. Coût 3000 BC à construire.
 
 

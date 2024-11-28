@@ -17,6 +17,7 @@
 package rotp.ui.util;
 
 import static rotp.ui.util.IParam.langLabel;
+import static rotp.ui.util.IParam.realLangLabel;
 import static rotp.ui.util.IParam.rowsSeparator;
 import static rotp.ui.util.IParam.tableFormat;
 
@@ -91,13 +92,10 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public String guideValue() {
-		return langLabel(guiOptionLabel());
-	}
-	@Override public String guiOptionValue(int index) {
-		return langLabel(guiOptionLabel(index));
-	}
-	@Override public void updateOptionTool() {
+	@Override public String guideValue() 				{ return langLabel(guiOptionLabel()); }
+	@Override public String	guideDefaultValue()			{ return guiValue(defaultValue()); }
+	@Override public String guiOptionValue(int index)	{ return langLabel(guiOptionLabel(index)); }
+	@Override public void updateOptionTool()			{
 		if (!isSpacer() && dynOpts() != null)
 			set(dynOpts().getBoolean(getLangLabel(), defaultValue()));
 	}
@@ -109,7 +107,7 @@ public class SettingBoolean extends SettingBase<Boolean> {
 		if (!isSpacer() && options != null)
 			set(options.getBoolean(getLangLabel(), defaultValue()));
 	}
-	@Override protected String getTableHelp()		{
+	@Override protected String getTableHelp()	{
 		int size = listSize();
 		String rows = "";
 		if (size>0) {
@@ -119,4 +117,15 @@ public class SettingBoolean extends SettingBase<Boolean> {
 		}
 		return tableFormat(rows);
 	}
+	private	String	guiValue(boolean b)		{
+		String label = getValueLabel(b);
+		String value = realLangLabel(label);
+		if (value == null)
+			value = defaultGuiVal(b);
+		return value;
+	}
+	private String defaultGuiVal(boolean b)	{ return realLangLabel(defaultLabel(b)); }
+	private String getValueLabel(boolean b) { return getLangLabel() + valExt(b); }
+	private String valExt(boolean b)		{ return b? "_YES" : "_NO"; }
+	private String defaultLabel(boolean b)	{ return b? "BOOLEAN_YES" : "BOOLEAN_NO"; }
 }
