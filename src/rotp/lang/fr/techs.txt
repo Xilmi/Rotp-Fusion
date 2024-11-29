@@ -991,12 +991,12 @@ MISSWPN_3_DETAIL    | Versions mirvage des fusées Hyper-V, se divisant en cinq 
 MISSWPN_4_NAME      | Missiles Merculite
 MISSWPN_4_BRIEF     | 2 coups, Ciblage +2
 MISSWPN_4_BRIEF2    | 5 coups, Ciblage +2
-MISSWPN_4_DETAIL    |Des missiles rapides et percutants qui explosent en infligeant 10 points de dégâts, se déplacent à une vitesse de 3 et sont contrôlés par un ordinateur de ciblage +2.
+MISSWPN_4_DETAIL    | Des missiles rapides et percutants qui explosent en infligeant 10 points de dégâts, se déplacent à une vitesse de 3 et sont contrôlés par un ordinateur de ciblage +2.
 
 MISSWPN_5_NAME      | Missiles Stinger
 MISSWPN_5_BRIEF     | 2 coups, Ciblage +3
 MISSWPN_5_BRIEF2    | 5 coups, Ciblage +3
-MISSWPN_5_DETAIL    | Des missiles lents et hyper-précis pour infliger 15 points de dégâts, se déplacer à une vitesse de 3,5 et sont contrôlés par un ordinateur de ciblage sophistiqué +3.
+MISSWPN_5_DETAIL    | Des missiles lents et hyper-précis qui infligent 15 points de dégâts, se déplacent à une vitesse de 3,5 et sont contrôlés par un ordinateur de ciblage +3.
 
 MISSWPN_6_NAME      | Missiles à têtes multiples VII
 MISSWPN_6_BRIEF     | 2 coups, Mirvage VII
