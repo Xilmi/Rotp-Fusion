@@ -402,7 +402,7 @@ public class ShipCombatManager implements Base {
         addInitialStacks(fleet.empire());
         scanShips();
         addEmpiresToCombat();
-        results().defender = system.empire();
+        results().defender(system.empire());
     }
     private void checkDeclareWar(Empire emp1, Empire emp2) {
         // decide if we should declare war

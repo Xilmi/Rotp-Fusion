@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
@@ -32,34 +33,45 @@ import rotp.model.ships.ShipDesign;
 import rotp.util.Base;
 
 public final class ShipCombatResults implements Base {
-    StarSystem system;
+    private StarSystem system;
     public CombatStackColony colonyStack;
-    Empire defender, attacker;
+    private Empire attacker, defender;
     private final SpaceMonster monster;
-    List<Empire> empires = new ArrayList<>();
-    List<CombatStack> activeStacks = new ArrayList<>();
-    Map<ShipDesign, Integer> shipsDestroyed = new HashMap<>();
-    Map<ShipDesign, Integer> shipsDamaged   = new HashMap<>();
-    Map<ShipDesign, Integer> shipsRetreated = new HashMap<>();
+    private List<Empire> empires = new ArrayList<>();
+    private List<CombatStack> activeStacks = new ArrayList<>();
+    private Map<ShipDesign, Integer> shipsDestroyed = new HashMap<>();
+    //private Map<ShipDesign, Integer> shipsDamaged = new HashMap<>();
+    private Map<ShipDesign, Integer> shipsRetreated = new HashMap<>();
     int basesDestroyed = 0;
-    List<Empire> usedBioweapons = new ArrayList<>();
+    private List<Empire> usedBioweapons = new ArrayList<>();
+    private Float currentFactories  = null; // BR: for bioweapons destruction only, null otherwise
+    private Float startingFactories = null; // BR: for bioweapons destruction only, null otherwise
 
-    public StarSystem system()            { return system; }
-    public Empire defender()              { return defender; }
-    public Empire attacker()              { return attacker; }
-    public SpaceMonster monster()         { return monster; }
-    public List<Empire> empires()         { return empires; }
-    public int basesDestroyed()           { return basesDestroyed; }
-    public int popDestroyed()             { return colonyStack == null ? 0 : (int) Math.ceil(colonyStack.populationLost()); }
-    public int factoriesDestroyed()       { return colonyStack == null ? 0 : (int) Math.ceil(colonyStack.factoriesLost()); }
-    public void killRebels()              { if (colonyStack != null) colonyStack.killRebels(); }
+    public StarSystem system()        { return system; }
+    public Empire defender()          { return defender; }
+    public Empire attacker()          { return attacker; }
+    public SpaceMonster monster()     { return monster; }
+    public List<Empire> empires()     { return empires; }
+    public int basesDestroyed()       { return basesDestroyed; }
+    public int popDestroyed()         { return colonyStack == null ? 0 : ceil(colonyStack.populationLost()); }
+    public int factoriesDestroyed()   { return colonyStack == null ? 0 : ceil(colonyStack.factoriesLost()); }
+    public Float startingFactories()  { return startingFactories; } // BR: for bioweapons destruction only, null otherwise
+    public Float currentFactories()   { return currentFactories; } // BR: for bioweapons destruction only, null otherwise
+    public boolean bioDestroyed()     { return currentFactories != null; }
 
-    public List<CombatStack> activeStacks()  { return activeStacks; }
+    void killRebels()                 { if (colonyStack != null) colonyStack.killRebels(); }
+    void defender(Empire emp)         { defender = emp; }
+    void bioDestruction(float destroyed, float start) { // BR: for bioweapons destruction only, null otherwise
+    	startingFactories  = start;
+    	currentFactories   = destroyed;
+    }
+
+    public List<CombatStack> activeStacks()           { return activeStacks; }
     public Map<ShipDesign, Integer> shipsDestroyed()  { return shipsDestroyed; }
-    public Map<ShipDesign, Integer> shipsDamaged()    { return shipsDamaged; }
+    //public Map<ShipDesign, Integer> shipsDamaged()  { return shipsDamaged; }
     public Map<ShipDesign, Integer> shipsRetreated()  { return shipsRetreated; }
 
-    public float shipHullPointsDestroyed(Empire e) {
+    float shipHullPointsDestroyed(Empire e) {
         float bc = 0;
         for (ShipDesign d: shipsDestroyed.keySet()) {
             if (d.empire() == e) {
@@ -88,7 +100,7 @@ public final class ShipCombatResults implements Base {
         else
             return empires.get(0);
     }
-    public String victorName() {
+    /* public String victorName() {
         Empire victor = victor();
         if (victor != null)
             return victor.raceName();
@@ -96,8 +108,8 @@ public final class ShipCombatResults implements Base {
             return monster.name();
         else 
             return "";
-    }
-    public void addBioweaponUse(Empire e) {
+    } */
+    void addBioweaponUse(Empire e) {
         if (!usedBioweapons.contains(e))
             usedBioweapons.add(e);
     }
@@ -116,14 +128,16 @@ public final class ShipCombatResults implements Base {
         float prod = e == null ? 0 : e.totalPlanetaryProduction();
         return prod <= 0 ? 1.0f : min(1.0f, bc / prod);
     }
-    public ShipCombatResults(ShipCombatManager mgr, StarSystem s, Empire emp1, Empire emp2) {
+    ShipCombatResults(ShipCombatManager mgr, StarSystem s, Empire emp1, Empire emp2) {
         system = s;
         monster = null;
-        
+        currentFactories = null;
+        startingFactories  = null;
+
         // set up default attacker/defender assignment. 
         attacker = emp1;
         defender = emp2;
-        
+
         boolean neutralSystem = !system.isColonized();
 
         // if system is colonized and one of the fleet is allied to it,
@@ -151,7 +165,7 @@ public final class ShipCombatResults implements Base {
             else
                 neutralSystem = true;
         }
-        
+
         // when there are two fleets in combat over a neutral colony (or in an
         // uncolonized system), then randomize which fleet is the "attacker" and
         // which is the "defender". This prevents using the combat turn limit as 
@@ -172,9 +186,11 @@ public final class ShipCombatResults implements Base {
         if (emp2 != null)
             empires.add(emp2);
     }
-    public ShipCombatResults(ShipCombatManager mgr, StarSystem s, Empire emp, SpaceMonster m) {
+    ShipCombatResults(ShipCombatManager mgr, StarSystem s, Empire emp, SpaceMonster m) {
         system = s;
         monster = m;
+        currentFactories = null;
+        startingFactories  = null;
 
         // set up default attacker/defender assignment
         defender = emp;
@@ -200,34 +216,34 @@ public final class ShipCombatResults implements Base {
         }
         return activeStacks.isEmpty() ? null : activeStacks.get(0).empire();
     }
-    public void addEmpire(Empire e)  { empires.add(e);  }
-    public void clearEmpires()       { empires.clear(); }
-    public void addBasesDestroyed(int num) {
+    void addEmpire(Empire e)  { empires.add(e);  }
+    void clearEmpires()       { empires.clear(); }
+    void addBasesDestroyed(int num) {
         basesDestroyed += num;
     }
-    public void addShipDestroyed(ShipDesign d, int count) {
+    void addShipDestroyed(ShipDesign d, int count) {
         // called when individual ships in a stack are destroyed
         if (shipsDestroyed.containsKey(d))
             shipsDestroyed.put(d, count+shipsDestroyed.get(d));
         else
             shipsDestroyed.put(d, count);
     }
-    public void addShipStackDestroyed(ShipDesign d, int count) {
+    void addShipStackDestroyed(ShipDesign d, int count) {
         shipsDestroyed.put(d, count);
     }
-    public void addShipsDamaged(ShipDesign d, int count) {
+    /* public void addShipsDamaged(ShipDesign d, int count) {
         if (shipsDamaged.containsKey(d))
             shipsDamaged.put(d, count+shipsDamaged.get(d));
         else
             shipsDamaged.put(d, count);
-    }
-    public void addShipsRetreated(ShipDesign d, int count) {
+    } */
+    void addShipsRetreated(ShipDesign d, int count) {
         if (shipsRetreated.containsKey(d))
             shipsRetreated.put(d, count+shipsRetreated.get(d));
         else
             shipsRetreated.put(d, count);
     }
-    public void logIncidents() {
+    void logIncidents() {
         for (Empire e: usedBioweapons)
             BioweaponIncident.create(defender(), e, system());
 

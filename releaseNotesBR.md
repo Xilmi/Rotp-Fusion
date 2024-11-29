@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Fixed the combat result diplay factories number when a colony is bio destroyed.
 - Fixed null pointer exception in rally
 - Systems are scouted before the player is asked to bombard them.
   - Removed to fixe wrongly given Orion Tech.

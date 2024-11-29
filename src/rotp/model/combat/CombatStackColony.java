@@ -18,6 +18,7 @@ package rotp.model.combat;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+
 import rotp.model.colony.Colony;
 import rotp.model.colony.MissileBase;
 import rotp.model.ships.ShipComponent;
@@ -96,7 +97,7 @@ public class CombatStackColony extends CombatStack {
     public String name()              { return colony.name(); }
     final public MissileBase missileBase()  { return colony.defense().missileBase(); }
     @Override
-    public float designCost()          { return  missileBase().cost(colony.empire()); }
+    public float designCost()         { return  missileBase().cost(colony.empire()); }
     @Override
     public float initiative()         { return isArmed() ? TechScanner.BATTLE_SCANNER_INITIATIVE : -1; }
     @Override
@@ -148,9 +149,11 @@ public class CombatStackColony extends CombatStack {
     }
     @Override
     public void takeBioweaponDamage(float damage) {
+    	float currentFactories = colony.industry().factories();
         colony.takeBioweaponDamage(damage);
         
         if (colony.destroyed()) {
+        	mgr.results().bioDestruction(currentFactories, startingFactories); // BR: For result panel
             mgr.destroyStack(this);
             colonyDestroyed = true;
         }

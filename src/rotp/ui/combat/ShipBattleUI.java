@@ -15,7 +15,18 @@
  */
 package rotp.ui.combat;
 
-import java.awt.*;
+import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.LinearGradientPaint;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -26,22 +37,34 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import rotp.model.combat.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+
+import rotp.model.colony.Colony;
+import rotp.model.combat.CombatStack;
+import rotp.model.combat.CombatStackColony;
+import rotp.model.combat.CombatStackMissile;
+import rotp.model.combat.CombatStackShip;
+import rotp.model.combat.FlightPath;
+import rotp.model.combat.ShipCombatManager;
+import rotp.model.combat.ShipCombatResults;
 import rotp.model.empires.Empire;
 import rotp.model.empires.ShipView;
 import rotp.model.galaxy.ShipFleet;
+import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
-import rotp.model.ships.*;
+import rotp.model.ships.ShipComponent;
+import rotp.model.ships.ShipDesign;
+import rotp.model.ships.ShipDesignLab;
+import rotp.model.ships.ShipSpecial;
+import rotp.model.ships.ShipWeapon;
 import rotp.ui.FadeInPanel;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.vipconsole.IVIPConsole;
 import rotp.ui.vipconsole.IVIPListener;
 import rotp.util.LanguageManager;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-import rotp.model.colony.Colony;
-import rotp.model.galaxy.SpaceMonster;
 
 public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMotionListener, IVIPListener {
     private static final long serialVersionUID = 1L;
@@ -1490,6 +1513,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     private void drawPlanetResult(Graphics2D g, String name, boolean reverse, int x, int y, int r) {
         if (renderedPlanetImage == null)
             return;
+        ShipCombatResults res = mgr.results();
         planetX = x;
         planetY = y;
         planetR = r;
@@ -1517,12 +1541,17 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         g.setColor(SystemPanel.whiteText);
         
         Colony col = mgr.system().colony();
-        int popLost = mgr.results().popDestroyed();
-        int factLost = mgr.results().factoriesDestroyed();
-        int baseLost = mgr.results().basesDestroyed();
-        int currPop = col == null ? 0 : (int) Math.ceil(col.population());
+        int popLost  = res.popDestroyed();
+        int factLost = res.factoriesDestroyed();
+        int baseLost = res.basesDestroyed();
+        int currPop  = col == null ? 0 : (int) Math.ceil(col.population());
         int currFact = (col == null) || (currPop == 0) ? 0 : (int) col.industry().factories();
         int currBase = (col == null) || (currPop == 0) ? 0 : (int) col.defense().bases();
+        int startFact = currFact + factLost;
+        if (res.bioDestroyed()) {
+         	startFact = res.startingFactories().intValue();
+        	currFact  = res.currentFactories().intValue();
+       }
         
         drawString(g,text("SHIP_COMBAT_SYSTEM_POP"), popX, headerY);
         String amt = str(currPop+popLost);
@@ -1537,7 +1566,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         drawString(g,str(currPop), popX+sw+s22, dataY);
 
         drawString(g,text("SHIP_COMBAT_SYSTEM_FACT"), factX, headerY);
-        amt = str(currFact+factLost);
+        amt = str(startFact);
         sw = g.getFontMetrics().stringWidth(amt);
         drawString(g,amt, factX, dataY);
         g.fillRect(factX+sw+s4, dataY-s6, s12, s3);
@@ -1548,7 +1577,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         g.fill(rightArrow);
         drawString(g,str(currFact), factX+sw+s22, dataY);
 
-        if ((currBase+baseLost) > 0) {
+        if ((startFact) > 0) {
             drawString(g,text("SHIP_COMBAT_SYSTEM_BASE"), baseX, headerY); 
             amt = str(currBase+baseLost);
             sw = g.getFontMetrics().stringWidth(amt);
@@ -2463,19 +2492,26 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         return out;
     }
     private String drawPlanetResult( String name) {
+    	ShipCombatResults res = mgr.results();
         Colony col = mgr.system().colony();
-        int popLost = mgr.results().popDestroyed();
-        int factLost = mgr.results().factoriesDestroyed();
-        int baseLost = mgr.results().basesDestroyed();
-        int currPop = col == null ? 0 : (int) Math.ceil(col.population());
+        int popLost  = res.popDestroyed();
+        int factLost = res.factoriesDestroyed();
+        int baseLost = res.basesDestroyed();
+        int currPop  = col == null ? 0 : (int) Math.ceil(col.population());
         int currFact = (col == null) || (currPop == 0) ? 0 : (int) col.industry().factories();
         int currBase = (col == null) || (currPop == 0) ? 0 : (int) col.defense().bases();
+        int startFact = currFact + factLost;
+        if (res.bioDestroyed()) {
+         	startFact = res.startingFactories().intValue();
+        	currFact  = res.currentFactories().intValue();
+       }
+        	
         String out = "Planet Results";
         out += NEWLINE + text("SHIP_COMBAT_SYSTEM_POP");
         out += " from " + str(currPop+popLost);
         out += " to " +  str(currPop);
         out += NEWLINE + text("SHIP_COMBAT_SYSTEM_FACT");
-        out += " from " + str(currFact+factLost);
+        out += " from " + str(startFact);
         out += " to " +  str(currFact);
         if ((currBase+baseLost) > 0) {
             out += NEWLINE + text("SHIP_COMBAT_SYSTEM_BASE");
