@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.11.29 (BR)
+- Completed the French translation of labels.txt and techs.txt
+
 2024.11.28 (BR)
 - New French translations
 - Fixed crash when sending troops to an abandoned colonies.

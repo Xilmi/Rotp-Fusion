@@ -111,6 +111,7 @@ import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.FontManager;
+import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
 
 public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelListener {
@@ -867,7 +868,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	        }
 	        if(comp[i] instanceof JButton){
 	            String txt = ((JButton)comp[i]).getText();
-	            if (txt!=null && ("Cancel".equals(txt) || "Open".equals(txt))) {
+	            String cancel = LabelManager.current().label("BUTTON_TEXT_CANCEL");
+	            String open = LabelManager.current().label("BUTTON_TEXT_OPEN");
+	            if (txt!=null && (cancel.equals(txt) || open.equals(txt))) {
 		            ((JButton)comp[i]).setMargin(new Insets(topInset, sideInset, 0, sideInset));
 		            ((JButton)comp[i]).setBackground(GameUI.buttonBackgroundColor());
 		            ((JButton)comp[i]).setForeground(GameUI.buttonTextColor());

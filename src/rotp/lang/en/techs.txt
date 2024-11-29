@@ -1,5 +1,4 @@
 
-
 //
 // Armor techs
 // 
@@ -42,6 +41,7 @@ ARMOR_6_BRIEF    | Hit Points %1
 ARMOR_6_DETAIL   | Increases the hit points of ships and transports by 300%. Personal combat armor is also enhanced, adding 30 to all ground attacks.
 ARMOR_6_INFO     | This is the top level Armor.
 
+
 //
 // Atmospheric Terraforming techs
 // 
@@ -51,10 +51,11 @@ ATMOSPHERE_DETAIL      | <br>Remove the Hostile trait from the planet:<br>- Chan
 ATMOSPHERE_0_NAME      | Atmospheric Terraforming
 ATMOSPHERE_0_DETAIL    | Converts Hostile environments to Normal environments for a cost of 150 BCs.
 
+
 //
 // Automated Repair techs
 // 
-AUTOREPAIR_NAME        | Automated Repair Special Devices
+AUTOREPAIR_NAME        | Special auto repair devices
 AUTOREPAIR_DETAIL      | Automated Repair Systems (level-14) and Advanced Damage Control  (level-36) make ships harder to destroy. With these special devices, undestroyed ships will automatically repair up to 15% or 30%, respectively, of their pre-battle hit points at the end of each combat turn.<br>When attacking ships with these systems, you cannot destroy them unless you can inflict more damage on them than they can repair each turn.<br>Note that these repair and damage control systems really pay off on larger ship types, as they can repair more points of damage per turn.
 
 AUTOREPAIR_0_NAME      | Automated Repair System
@@ -143,6 +144,7 @@ COMPUTER_11_BRIEF  | Attack Level XI
 COMPUTER_11_DETAIL | Increases weapon accuracy to Level 11.
 COMPUTER_11_INFO   | This is the top level Battle Computer.
 
+
 //
 // Battle Suit techs for ground combat
 // 
@@ -163,6 +165,7 @@ BATTLESUIT_3_NAME    | Powered Armor
 BATTLESUIT_3_DETAIL  | Combines high mobility, anti-grav flight, and heavy armored plating to form the most advanced armor available for ground troops. Adds 30 to all ground combat rolls.
 BATTLESUIT_3_INFO    | This is the top level Personal Armor.
 
+
 //
 // Energy Focus techs for beam weapons
 // 
@@ -175,6 +178,7 @@ BEAMFOCUS_1_NAME    | Oracle Interface
 BEAMFOCUS_1_BRIEF   | Concentrate beam weapons, halve enemy's shield
 BEAMFOCUS_1_DETAIL  | Coordinates all beam weapon attacks into one simultaneous burst of concentrated fire, halving the enemy's shield strength.
 BEAMFOCUS_1_INFO    | The Oracle Interface is a nifty little piece of computer technology that allows all beam weapons on every ship in the firegroup to simultaneously hit an enemy target at a specific point. Its effect is to halve the enemy target's shields.<br>Note that weapons that already halve enemy shields, when supplemented with an Oracle Interface, will halve them twice.
+
 
 //
 // Biological antidote techs 
@@ -207,12 +211,14 @@ BIOWEAPON_2_NAME     | Bio Terminator
 BIOWEAPON_2_BRIEF    | Biological Weapon
 BIOWEAPON_2_DETAIL   | Abominable biological weapons capable of reducing planetary population by 3M per attack.
 
+
 //
 // Black Hole Generator tech
 //
 BLACKHOLE_0_NAME     | Black Hole Generator
 BLACKHOLE_0_DETAIL   | Creates a sub-space field that warps normal space, creating a black hole that destroys 25% to 100% of enemy ships or missile bases, less 2% per shield class.
 BLACKHOLE_0_INFO     | The advantage of this weapon is that it leaves the factories and population of the defended planet intact; it does not cause any collateral damage.<br>More specifically, this special weapon does not destroy the habitability of a planet, nor does it incite the anger of other players like biological weapons do. It allows you to focus on destroying enemy missile bases, while leaving their population intact for your armies to conquer so that you can reap the benefits of the factories the enemy has there.
+
 
 //
 // Monster Special tech
@@ -237,7 +243,6 @@ RESISTSPECIAL_1_DETAIL | Target are immune to the effects of a stasis field atta
 //
 // Bomb weapon tech
 //
-
 BOMB_NAME       | Bombs
 BOMB_DETAIL     | Bombs have only one purpose: to attack colonies. And they are very effective at this task. Bombs come in five different types and deal increasing damage (Nuclear 3-12, Fusion 5-20, Anti-Matter 10-40, Omega V 20-50, Neutronium 40-70).<br>Note that each bomb rack only allows 10 attacks.<br>Bombs only have a range of 1 tile and can miss their target when a planet is defended by missile bases. Each base has a bomb defense level of 1 plus its ECM rating.
 
@@ -269,9 +274,10 @@ CLOAK_0_NAME     | Cloaking Device
 CLOAK_0_BRIEF    | Renders ship nearly invisible
 CLOAK_0_DETAIL   | Renders ship nearly invisible until they attack, improving their defenses by +5. Ships must uncloak to attack and will automatically recloak on any turn in which they don't attack.
 // !!!
-// Do not remove the space between ">" & "=" because of confusion with ">=" wish is replaced by "&gt;="
+// Do not remove the space between ">" & "=" because of confusion with ">=" which is replaced by "&gt;="
 // !!!
 CLOAK_0_INFO     | Cloaking Device is a level 27 force field technology that adds 5 to a group of ships' defense against beam and missile weapon attacks.<br>With the exception of Stasis Field Generators, it does not affect special weapon attacks.<br>Ships must decloak to fire, but will always be the first to fire. This is a way to ensure that you will land the first hit against an enemy with a higher initiative. In fact, it will even lose its defensive reaction fire capability while you are cloaked. Enemy ships will also not get their reaction fire against a ship that has just decloaked, provided that it does not move after decloaking. After a turn without firing, ships equipped with cloaking devices will automatically recloak.<br>Cloaking is ideal for ships armed with short-range weapons (beams and bombs), as it allows them to close in on the enemy with less risk. Additionally, cloaked ships cannot be targeted by enemy attacks from stasis field generators.<br><br> ==> These ships are no longer visible on the galaxy map.
+
 
 //
 // Cloning tech
@@ -292,6 +298,7 @@ CLONE_1_DETAIL   | Allows bio-engineered colonists to be grown at a rate of 1M p
 COMBATTRANSPORT_0_NAME     | Combat Transporters
 COMBATTRANSPORT_0_DETAIL   | Transports equipped with these devices have a 50% chance of beaming down onto enemy surfaces before they can be attacked by enemy ships and missile defense bases.
 COMBATTRANSPORT_0_INFO     | Combat Transporters give each transport a 50% chance to avoid combat (reduced to 25% if you attack a faction with Subspace Interdictors).<br>Stealth invasions are a great strategy to use after discovering this technology. This is especially true when your ground troops have a technological advantage over an opponent or when you can replace your population faster than they can.
+
 
 //
 // Control Environment tech
@@ -338,7 +345,6 @@ CONTROLENV_6_DETAIL  | Permits the colonization of all hostile planets.
 //
 // Deflector Shield tech
 //
-
 DEFLECTOR_NAME        | Deflector Shields
 DEFLECTOR_DETAIL      | Depending on their level, deflector shields may absorb up to 15 point of attack. Some weapons will halve their effectiveness, and they are totally ineffective in nebula
 
@@ -403,6 +409,7 @@ DEFLECTOR_11_ITEM     | Class XV
 DEFLECTOR_11_BRIEF    | Absorbs 15 hits
 DEFLECTOR_11_DETAIL   | Absorbs 15 points of damage from all attacks.
 DEFLECTOR_11_INFO     | This is the top level Deflector Shield.
+
 
 //
 // Displacement tech
@@ -476,6 +483,7 @@ ECMJAMMER_10_BRIEF    | Missile Def 10
 ECMJAMMER_10_DETAIL   | Adds 10 levels to defense against enemy missile attacks.
 ECMJAMMER_10_INFO     | This is the top level ECM Jammer.
 
+
 //
 // Ecological Restoration techs
 //
@@ -531,6 +539,7 @@ ENGINE_0_ITEM2   | Class 1
 ENGINE_0_BRIEF   | Warp 1  Def %1
 ENGINE_0_BRIEF2  | Combat Speed %1
 
+// Nuclear = implied Fission.
 ENGINE_1_NAME    | Nuclear Engines 
 ENGINE_1_DETAIL  | Moves ships at Warp %1, and allows a maximum maneuverability of class II in combat.
 ENGINE_1_ITEM    | Nuclear
@@ -538,6 +547,8 @@ ENGINE_1_ITEM2   | Class 2
 ENGINE_1_BRIEF   | Warp 2  Def %1
 ENGINE_1_BRIEF2  | Combat Speed %1
 
+//
+//
 ENGINE_2_NAME    | Subspace Drives 
 ENGINE_2_DETAIL  | Moves ships at Warp %1, and allows a maximum maneuverability of class III in combat.
 ENGINE_2_ITEM    | Subspace
@@ -595,6 +606,7 @@ ENGINE_8_INFO    | These are the top level Engines.
 FUELRANGE_0_NAME   | Fuel Cells
 FUELRANGE_0_DETAIL | Fuel reserves allow ships to move up to %1 light-years away from colony planets.
 
+//
 FUELRANGE_1_NAME   | Hydrogen Fuel Cells
 FUELRANGE_1_DETAIL | Fuel reserves allow ships to move up to %1 light-years away from colony planets.
 
@@ -1015,10 +1027,10 @@ MISSWPN_10_DETAIL    | MIRV versions of Stinger Missiles, splitting into 10 sepa
 //
 // Personal Shield techs for ground combat
 //
-// default "no shield" tech that each player starts with
 PERSSHIELD_NAME       | Personal protection technologies
 PERSSHIELD_DETAIL     | Ground troops equipment
 
+// default "no shield" tech that each player starts with
 PERSSHIELD_0_NAME     | Light cape
 PERSSHIELD_0_DETAIL   | Nice bullfighter cape, but doesn't really protect.
 
@@ -1067,7 +1079,6 @@ RSRVFUEL_0_INFO    | +3 light-year range, can not be miniaturized.
 //
 // Robotic Controls techs 
 //
-
 ROBOTCTRL_NAME       | Robotic Controls Technologies
 ROBOTCTRL_DETAIL     | Your workers start with the ability to operate two factories. The refit cost to upgrade a factory to a higher level is half the standard cost of each factory.
 
@@ -1138,7 +1149,7 @@ SHIPNULLIFIER_1_INFO     | The Warp Dissipator has a range of three square and a
 
 SHIPNULLIFIER_2_NAME     | Crystal Nullifier
 SHIPNULLIFIER_2_BRIEF    | Destroys enemy computers and repair abilities 
-SHIPNULLIFIER_2_DETAIL   | Scrambles enemy Battle Computers, ECM, and Auto Repair, Each attack takes 1 computer level and 5% healing ability. 
+SHIPNULLIFIER_2_DETAIL   | Scrambles enemy Battle Computers, ECM, and Auto Repair, Each attack takes 1 computer level and 5% healing ability.
 
 
 //
@@ -1249,7 +1260,7 @@ SHIPWPN_23_NAME        | The Crystal Ray
 SHIPWPN_23_DETAIL      | A beam that surrounds a target's shields, delivering 4 attacks for 100-300 points of damage each. It has a range of 3 spaces.
 
 SHIPWPN_24_NAME        | Jellyfish Darts
-SHIPWPN_24_DETAIL      | A dart streaming weapon that fift the effectiveness of enemy deflector shields to a fifth, and inflicts 1-5 points of damage. It has a range of 3 spaces.
+SHIPWPN_24_DETAIL      | A dart streaming weapon that fifth the effectiveness of enemy deflector shields to a fifth, and inflicts 1-5 points of damage. It has a range of 3 spaces.
 
 
 //
@@ -1270,7 +1281,7 @@ SOILENRICH_1_DETAIL   | Converts standard and fertile planets to gaias, doubling
 //
 STARGATE_0_NAME      | Star Gates
 STARGATE_0_DETAIL    | Allows your ships to move between any two planets equipped with star gates in only one turn. Costs 3000 BC to build.
-STARGATE_0_INFO      | Stargates are built on your planets like any other ship design, but they are expensive: 3000 BC to build and 300 BC per turn to maintain.<br>This maintenance cost (10% of their cost) is never reduced by miniaturization. In comparison, maintaining ships and missile bases only costs 2% of their cost per turn.<br>You cannot use Star Gates from other empires or unowned stars, and Star Gates are never captured when their planet is conquered.
+STARGATE_0_INFO      | Stargates are built on your planets like any other ship design, but they are expensive: 3000 BC to build and 300 BC per turn to maintain.<br>This maintenance cost (10% of their cost) is never reduced by miniaturization. In comparison, maintaining ships and missile bases only costs 2% of their cost per turn.<br>You cannot use Star Gates from other empires or unowned stars. Star Gates are never captured when their planet is conquered.
 
 
 //
@@ -1312,12 +1323,12 @@ SUBSPACETEL_0_BRIEF   | Teleports ship in combat
 SUBSPACETEL_0_DETAIL  | Teleports ships to any space on the combat map and before determining combat initiative normally.
 SUBSPACETEL_0_INFO    | Subspace teleporters are not affected by repulsors and will not trigger automatic defensive reaction fire.<br>Incorporate Subspace Teleporters into new ship designs quickly, as their period of greatest utility ends once enemies discover the Subspace Interdictor.
 
+
 //
 // Ship Torpedo Weapon techs
 //
 TORPEDO_NAME          | Torpedoes
 TORPEDO_DETAIL        | Torpedoes have a lot of power and can be fired an unlimited number of times in combat.<br>They also have good tracking computers that add to the firing ship's combat computer level (if the ship is hit by a computer nullifier, it will also affect the torpedoes).<br>They do have one small drawback, however: They can only fire once every two turns, so it takes a turn to reload them after firing them.
-
 
 TORPEDO_0_NAME        | Anti-Matter Torpedoes
 TORPEDO_0_BRIEF       | Fires one per 2 turns

@@ -69,6 +69,7 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.GameUI;
 import rotp.util.Base;
+import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
 
 /*
@@ -174,7 +175,10 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		helpButton.addActionListener(this);
 		//
 		sideInset = s15;
-		final JButton cancelButton = new JButton("Cancel");
+        String cancel = LabelManager.current().label("BUTTON_TEXT_CANCEL");
+        String set = LabelManager.current().label("BUTTON_TEXT_SET");
+
+		final JButton cancelButton = new JButton(cancel);
 		cancelButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
 		cancelButton.setFont(narrowFont(15));
 		cancelButton.setVerticalAlignment(SwingConstants.TOP);
@@ -182,7 +186,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		cancelButton.setForeground(GameUI.buttonTextColor());
 		cancelButton.addActionListener(this);
 		//
-		final JButton setButton = new JButton("Set");
+		final JButton setButton = new JButton(set);
 		setButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
 		setButton.setFont(narrowFont(15));
 		setButton.setVerticalAlignment(SwingConstants.TOP);
@@ -298,13 +302,15 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 			}
 			return;
 		}		
-		if ("Set".equals(e.getActionCommand())) {
+        String set = LabelManager.current().label("BUTTON_TEXT_SET");
+		if (set.equals(e.getActionCommand())) {
 			index = list.getSelectedIndex();
 			value = (String)(list.getSelectedValue());
 			dispose();
 			return;
 		}
-		if ("Cancel".equals(e.getActionCommand())) {
+		String cancel = LabelManager.current().label("BUTTON_TEXT_CANCEL");
+		if (cancel.equals(e.getActionCommand())) {
 			index = initialIndex;
 			value = initialValue;
 			dispose();

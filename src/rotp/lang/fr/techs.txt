@@ -1,5 +1,4 @@
 
-
 //
 // Armor techs
 //
@@ -40,17 +39,25 @@ ARMOR_6_NAME     | Blindage en Neutronium
 ARMOR_6_ITEM     | Neutronium
 ARMOR_6_BRIEF    | %1 pts de structure
 ARMOR_6_DETAIL   | Augmente les points de structure des vaisseaux et des transports de 300%. Les armures de combat de vos troupes ajoutent un bonus de 30 points à toutes les attaques au sol.
+ARMOR_6_INFO     | Il s'agit de l'armure la plus performante.
 
 
 //
 // Atmospheric Terraforming techs
 //
+ATMOSPHERE_NAME        | Technologies de terraformation atmosphérique
+ATMOSPHERE_DETAIL      | <br>Supprime le trait Hostile de la planète :<br>- Modifie l'environnement de la planète pour le rendre normal.<br>- Défini le type de planète à minimal.<br>- Augmente la taille de la planète de 20.<br>Avantages :<br>- Supprime la pénalité de croissance démographique de 50 %.<br>- Supprime la limitation « Terraformation hostile ».
+
 ATMOSPHERE_0_NAME      | Terraformation atmosphérique
 ATMOSPHERE_0_DETAIL    | Convertit les environnements hostiles en environnements normaux pour un coût de 150 BC.
+
 
 //
 // Automated Repair techs
 //
+AUTOREPAIR_NAME        | Appareils spéciaux de réparation automatique
+AUTOREPAIR_DETAIL      | Les systèmes de réparation automatique (niveau 14) et le contrôle avancé des dégâts (niveau 36) rendent les vaisseaux plus difficiles à détruire. Grâce à ces dispositifs spéciaux, les vaisseaux non détruits répareront automatiquement jusqu'à 15 % ou 30 % respectivement de leurs points de structure d'avant la bataille à la fin de chaque tour de combat.<br>Lorsque vous attaquez des vaisseaux avec ces systèmes, vous ne pouvez pas les détruire à moins de pouvoir leur infliger plus de dégâts qu'ils ne peuvent réparer à chaque tour.<br>Notez que ces systèmes de réparation et de contrôle des dégâts sont vraiment rentables sur les types de vaisseaux plus gros, car ils peuvent réparer plus de points de dégâts par tour.
+
 AUTOREPAIR_0_NAME      | Robots de maintenance automatique
 AUTOREPAIR_0_BRIEF     | Répare 15 % des coups du vaisseau par tour
 AUTOREPAIR_0_DETAIL    | À la fin de chaque tour, les vaisseaux non détruits peuvent réparer jusqu'à 15 % de la totalité de leurs points de structure.
@@ -58,11 +65,23 @@ AUTOREPAIR_0_DETAIL    | À la fin de chaque tour, les vaisseaux non détruits p
 AUTOREPAIR_1_NAME      | Maîtrise avancée des dommages
 AUTOREPAIR_1_BRIEF     | Répare 30 % des coups du vaisseau par tour
 AUTOREPAIR_1_DETAIL    | À la fin de chaque tour, les vaisseaux non détruits peuvent réparer jusqu'à 30 % de la totalité de leurs points de structure.
+AUTOREPAIR_1_INFO      | Il s’agit du système de réparation automatisé le plus performant.
+
+AUTOREPAIR_2_NAME      | Max 500 points de structure par tour
+AUTOREPAIR_2_BRIEF     | Limite les dégâts à 500 points de structure par tour
+AUTOREPAIR_2_DETAIL    | Ne subi jamais plus de 500 dégâts par tour.
+
+AUTOREPAIR_3_NAME      | Mitose de l'amibe
+AUTOREPAIR_3_BRIEF     | Se duplique après 500 points dégâts.
+AUTOREPAIR_3_DETAIL    | Une fois les dégâts maximum atteints, l'amibe se divise en deux amibes plus petites.
 
 
 //
 // Battle Computer techs
 //
+COMPUTER_NAME      | Ordinateurs de combat
+COMPUTER_DETAIL    | Vaisseaux : les ordinateurs détermineront le niveau d'attaque de votre vaisseau, qui sera comparé à la défense antimissile ou anti-rayon de la cible lors d'un combat.<br>Les bases de missiles sont toujours équipées de vos meilleurs ordinateurs de combat.
+
 // this is the Ship Design entry for selecting no battle computer
 COMPUTER_0_NAME    | Règle à calcul
 COMPUTER_0_ITEM    | Mark 0
@@ -123,6 +142,7 @@ COMPUTER_11_NAME   | Ordinateur de Combat Mark XI
 COMPUTER_11_ITEM   | Mark XI
 COMPUTER_11_BRIEF  | Niveau d'attaque XI
 COMPUTER_11_DETAIL | Augmente la précision de l'arme au niveau 11.
+COMPUTER_11_INFO   | Il s'agit de l'ordinateur de combat le plus performant.
 
 
 //
@@ -130,6 +150,7 @@ COMPUTER_11_DETAIL | Augmente la précision de l'arme au niveau 11.
 //
 BATTLESUIT_NAME      | Technologies des armures de combats au sol.
 BATTLESUIT_DETAIL    | Donne un bonus de combat au sol :<br>+10 pour les tenues de combat (niveau 11)<br>+20 pour les exosquelettes blindés (niveau 24)<br>+30 pour les armures motorisées (niveau 40)
+
 // this is for default, no-bonus armor that player starts with
 BATTLESUIT_0_NAME    | Habit de cuir.
 BATTLESUIT_0_DETAIL  | Beau, confortable, mais pas de bonus d'armure.
@@ -142,6 +163,7 @@ BATTLESUIT_2_DETAIL  | Des tenues mobiles avancées qui non seulement augmentent
 
 BATTLESUIT_3_NAME    | Armure motorisée
 BATTLESUIT_3_DETAIL  | Combine une grande mobilité, un vol anti-gravité et un blindage lourd pour former l'armure la plus avancée disponible pour les troupes au sol. Ajoute 30 points aux combats au sol.
+BATTLESUIT_3_INFO    | Il s'agit de l'armure personnelle la plus performante.
 
 
 //
@@ -150,15 +172,20 @@ BATTLESUIT_3_DETAIL  | Combine une grande mobilité, un vol anti-gravité et un 
 BEAMFOCUS_0_NAME    | Concentration à haute énergie
 BEAMFOCUS_0_BRIEF   | Ajoute +3 à la portée des armes énergétiques
 BEAMFOCUS_0_DETAIL  | Augmente la portée de tir de toutes les armes à énergie de trois.
+BEAMFOCUS_0_INFO    | Une Focalisation à haute énergie est un merveilleux complément à toutes les armes à faisceau/tir direct normales dont un vaisseau pourrait être armé.<br>Il augmente toutes leurs portées maximales de trois cases sur l'écran de combat.<br>Cependant, n'oubliez pas que pour chaque case qu'une arme à faisceau tire au-delà de un, +1 est ajouté à la valeur de défense de la cible.
 
 BEAMFOCUS_1_NAME    | Interface Oracle
 BEAMFOCUS_1_BRIEF   | Concentrez les armes à faisceau, divisez par deux le bouclier de l'ennemi
 BEAMFOCUS_1_DETAIL  | Coordonne toutes les attaques d'armes à faisceau en une rafale simultanée de tir concentré, réduisant de moitié la force du bouclier de l'ennemi.
+BEAMFOCUS_1_INFO    | L'interface Oracle est une petite technologie informatique astucieuse qui permet à toutes les armes à faisceau de chaque vaisseau du groupe de frapper simultanément une cible ennemie à un point précis. Son effet est de réduire de moitié les boucliers de la cible ennemie.<br>Notez que les armes qui réduisent déjà de moitié les boucliers ennemis, lorsqu'elles sont complétées par une interface Oracle, les réduiront de moitié deux fois.
 
 
 //
 // Biological antidote techs
 //
+BIOANTIDOTE_NAME      | Biotoxine et antidote universel
+BIOANTIDOTE_DETAIL    | Développer la biotoxine (niveau 17) et les antidotes universels (niveau 36) est essentiel. En effet, de nombreux types de personnalité dans la galaxie utilisent les armes biologiques trop librement, et leurs effets peuvent être dévastateurs à moins que vous n'ayez un remède.<br>Malheureusement, aucun de ces éléments ne réduira les dégâts causés par les attaques biologiques à l'habitabilité d'une planète.
+
 BIOANTIDOTE_0_NAME    | Antidote aux toxines biologiques
 BIOANTIDOTE_0_DETAIL  | Réduit les pertes causées par les armes biologiques de 1M par attaque.
 
@@ -169,6 +196,9 @@ BIOANTIDOTE_1_DETAIL  | Réduit les pertes causées par les armes biologiques de
 //
 // Biological weapon techs
 //
+BIOWEAPON_NAME        | Armes biologiques
+BIOWEAPON_DETAIL      | Comme les bombes, les armes biologiques ont une portée de 1 case et sont conçues exclusivement pour attaquer les planètes. Lorsqu'elles sont larguées, elles ont les mêmes chances de rater leur cible que les bombes. Contrairement aux bombes, la quantité de dégâts infligés par les armes biologiques lorsqu'elles touchent n'est pas déterminée par leur probabilité de toucher. Au lieu de cela, si elles touchent, elles ont une chance égale d'infliger une quantité aléatoire de dégâts, de 1 à leur montant maximum. Ainsi, même si une arme biologique touche à peine, elle peut toujours infliger ses dégâts maximum ; à l'inverse, un jet de touche parfait de 100 peut n'infliger que ses dégâts minimum de 1 point.<br>Il est important de se rappeler que, contrairement à toutes les autres armes, les armes biologiques ne causent pas de dommages collatéraux aux bases de missiles ou aux usines. Au lieu de cela, elles ne font que trois choses :<br>- Éliminer les points de population de la planète ciblée<br>- Réduire sa taille de population maximale<br>- Bouleverser tous les autres empires du jeu.
+
 BIOWEAPON_0_NAME     | Spores mortelles
 BIOWEAPON_0_BRIEF    | Arme biologique
 BIOWEAPON_0_DETAIL   | Une arme biologique horrible capable de réduire la populations planétaire maximale de 1M par attaque.
@@ -181,16 +211,41 @@ BIOWEAPON_2_NAME     | Terminateur Bio
 BIOWEAPON_2_BRIEF    | Arme biologique
 BIOWEAPON_2_DETAIL   | Une arme biologique abominable capable de réduire la population planétaire de 3M par attaque.
 
+
 //
 // Black Hole Generator tech
 //
 BLACKHOLE_0_NAME     | Générateur de trous noirs
 BLACKHOLE_0_DETAIL   | Crée un champ sous-espace qui déforme l'espace normal, créant un trou noir qui détruit 25 % à 100 % des vaisseaux ennemis ou des bases de missiles, moins 2 % par Classe de bouclier.
+BLACKHOLE_0_INFO     | L'avantage de cette arme est qu'elle laisse intactes les usines et la population de la planète défendue ; elle ne cause aucun dommage collatéral.<br>Plus précisément, cette arme spéciale ne détruit pas l'habitabilité d'une planète, ni n'incite les autres joueurs à la colère comme le font les armes biologiques. Elle vous permet de vous concentrer sur la destruction des bases de missiles ennemies, tout en laissant leur population intacte pour que vos armées puissent la conquérir afin de pouvoir profiter des avantages des usines que l'ennemi y possède.
+
+
+//
+// Monster Special tech
+//
+SQUIDINK_0_NAME     | Encre de calmar
+SQUIDINK_0_BRIEF    | Spécial monstre
+SQUIDINK_0_DETAIL   | Substance enveloppante qui détruit 10 à 30 % des vaisseaux ennemis.
+
+EATSHIPS_0_NAME     | Mange vaisseaux
+EATSHIPS_0_BRIEF    | Spécial monstre
+EATSHIPS_0_DETAIL   | Peut dévorer une pile complète de vaisseaux spatiaux.
+
+RESISTSPECIAL_0_NAME   | Résiste aux répulseurs
+RESISTSPECIAL_0_BRIEF  | Spécial monstre
+RESISTSPECIAL_0_DETAIL | Les répulseurs n'ont aucun effet.
+
+RESISTSPECIAL_1_NAME   | Immunisé contre la stase
+RESISTSPECIAL_1_BRIEF  | Spécial monstre
+RESISTSPECIAL_1_DETAIL | Les cibles sont immunisées contre les effets d'une attaque de champ de stase.
 
 
 //
 // Bomb weapon tech
 //
+BOMB_NAME       | Bombes
+BOMB_DETAIL     | Les bombes n'ont qu'un seul but : attaquer les colonies. Et elles sont très efficaces dans ce domaine. Les bombes sont de cinq types différents et infligent des dégâts croissants (Nucléaire 3-12, Fusion 5-20, Anti-Matière 10-40, Oméga V 20-50, Neutronium 40-70).<br>Notez que chaque support de bombes ne permet que 10 attaques.<br>Les bombes n'ont qu'une portée de 1 case et peuvent rater leur cible lorsqu'une planète est défendue par des bases de missiles. Chaque base a un niveau de défense contre les bombes de 1 plus son indice ECM.
+
 BOMB_0_NAME     | Bombe nucléaire
 BOMB_0_BRIEF    | Attaques au sol uniquement
 BOMB_0_DETAIL   | Des bombes qui explosent et causent 3 à 12 points de dégâts sur des cibles au sol uniquement.
@@ -218,11 +273,18 @@ BOMB_4_DETAIL   | Des bombes qui explosent et causent 40 à 70 points de dégât
 CLOAK_0_NAME     | Bouclier occulteur
 CLOAK_0_BRIEF    | Rend le vaisseau presque invisible
 CLOAK_0_DETAIL   | Les vaisseaux rendus sont presque invisibles jusqu'à ce qu'ils attaquent, améliorant leurs défenses de +5. Les vaisseaux doivent se dévoiler pour attaquer et se recouvrent automatiquement à chaque tour pendant lequel ils n'attaquent pas.
+// !!!
+// Ne supprimez pas l'espace entre ">" et "=" en raison d'une confusion avec ">=" lequel sera remplacé par "&gt;="
+// !!!
+CLOAK_0_INFO     | Le bouclier occulteur est une technologie de champ de force de niveau 27 qui ajoute 5 à la défense d'un groupe de vaisseaux contre les attaques d'armes à rayons et à missiles.<br>À l'exception des générateurs de champ de stase, elle n'affecte pas les attaques d'armes spéciales.<br>Les vaisseaux doivent se désocculter pour tirer, mais seront toujours les premiers à tirer. C'est une façon de s'assurer que vous porterez le premier coup contre un ennemi avec une initiative plus élevée. En fait, il perdra même sa capacité de tir de réaction défensive pendant que vous êtes occulté. Les vaisseaux ennemis n'obtiendront pas non plus leur tir de réaction contre un vaisseau qui vient de se désocculter, à condition qu'il ne bouge pas après s'être désocculté. Après un tour sans tirer, les vaisseaux équipés de dispositifs de camouflage se réocculteront automatiquement.<br>Le camouflage est idéal pour les vaisseaux armés d'armes à courte portée (rayons et bombes), car il leur permet de se rapprocher de l'ennemi avec moins de risques. De plus, les vaisseaux camouflés ne peuvent pas être ciblés par les attaques ennemies provenant de générateurs de champ de stase.<br><br> ==> Ces vaisseaux ne sont plus visibles sur la carte de la galaxie.
 
 
 //
 // Cloning tech
 //
+CLONE_NAME       | Technologies de clonage
+CLONE_DETAIL     | Au début du jeu, le coût d'achat d'un point de population est de 20 BC. Une fois la technologie de clonage découverte, ce coût tombe à 10 BC, et seulement à 5 BC avec une technologie de clonage avancée.<br>Ainsi, avec les technologies de clonage, il devient moins cher et plus facile de maintenir les planètes à leur niveau de population maximum ainsi que de remplacer les points de population perdus.
+
 CLONE_0_NAME     | Clonage
 CLONE_0_DETAIL   | Permet aux colons bio-conçus d'être cultivés à un taux de 1M par 10 BC.
 
@@ -235,11 +297,15 @@ CLONE_1_DETAIL   | Permet aux colons bio-conçus d'être cultivés à un taux de
 //
 COMBATTRANSPORT_0_NAME     | Transporteurs de combat
 COMBATTRANSPORT_0_DETAIL   | Les transports équipés de ces dispositifs ont 50 % de chances de se téléporter sur les surfaces ennemies avant de pouvoir être attaqués par des vaisseaux et des bases de défense antimissile ennemis.
+COMBATTRANSPORT_0_INFO     | Les transporteurs de combat donnent à chaque transport 50 % de chances d'éviter le combat (réduites à 25 % si vous attaquez une faction avec des interdicteurs subspatiaux).<br>Les invasions furtives sont une excellente stratégie à utiliser après avoir découvert cette technologie. Cela est particulièrement vrai lorsque vos troupes terrestres ont un avantage technologique sur un adversaire ou lorsque vous pouvez remplacer votre population plus rapidement qu'eux.
 
 
 //
 // Control Environment tech
 //
+CONTROLENV_NAME      | Colonisation
+CONTROLENV_DETAIL    | Par défaut, toute module de colonisation spéciale peut coloniser une planète de cette hostilité ou d'un niveau inférieur dans la « hiérarchie des hostilités » de Stérile à Irradié. Mais si vous définissez l'option « Restreint », un environnement hostile aura besoin d'une base de colonie de ce type spécifique. Désormais, le module de colonisation irradiée dont vous aurez besoin pour coloniser la planète la plus hostile n'est plus la base de colonie par excellence.<br> Séquence d'hostilité : Stérile, Toundra, Morte, Enfer, Toxique et Irradié.
+
 CONTROLENV_0_NAME    | Maîtrise des environnements normaux
 CONTROLENV_0_ITEM    | Module de colonisation standard
 CONTROLENV_0_BRIEF   | Autorise les atterrissages sur des planètes standard
@@ -342,6 +408,7 @@ DEFLECTOR_11_NAME     | Boucliers déflecteurs de Classe XV
 DEFLECTOR_11_ITEM     | Classe XV
 DEFLECTOR_11_BRIEF    | Absorbent 15 points
 DEFLECTOR_11_DETAIL   | Absorbe 15 points de dégâts de toutes les attaques.
+DEFLECTOR_11_INFO     | Il s'agit du bouclier déflecteur le plus performant.
 
 
 //
@@ -350,6 +417,8 @@ DEFLECTOR_11_DETAIL   | Absorbe 15 points de dégâts de toutes les attaques.
 DISPLACEMENT_0_NAME   | Dispositif de déplacement
 DISPLACEMENT_0_BRIEF  | 1/3 de toutes les attaques ennemies ratent
 DISPLACEMENT_0_DETAIL | Déplace aléatoirement les vaisseaux équipés dans et hors de l'espace normal, leur permettant d'éviter 1/3 de toutes les attaques d'armes hors zone.
+ISPLACEMENT_0_INFO   | Cette arme spéciale relativement bon marché peut être particulièrement utile pour protéger vos bombardiers...
+
 
 //
 // ECM Jammer tech
@@ -412,11 +481,15 @@ ECMJAMMER_10_NAME     | Brouilleurs(ECM) Mark X
 ECMJAMMER_10_ITEM     | Brouilleur X
 ECMJAMMER_10_BRIEF    | Déf. antimissile 10
 ECMJAMMER_10_DETAIL   | Ajoute 10 niveau à la défense contre les attaques de missiles ennemis.
+ECMJAMMER_10_INFO     | Il s'agit du brouilleurs(ECM) le plus performant.
 
 
 //
 // Ecological Restoration techs
 //
+ECORESTORATION_NAME     | Technologies de restauration écologique
+ECORESTORATION_DETAIL   | Le coût initial du nettoyage des déchets industriels est de 1 BC pour 2 unités de déchets. Avec la bonne technologie, vous pourez nettoyer jusqu'à 20 unités de déchets par BC.
+
 ECORESTORATION_0_NAME   | Restauration écologique
 ECORESTORATION_0_DETAIL | Élimine 2 unités de déchets industriels pour un coût de 1 BC.
 
@@ -431,23 +504,34 @@ ECORESTORATION_3_DETAIL | Élimine 10 unités de déchets industriels pour un co
 
 ECORESTORATION_4_NAME   | Restauration écologique complète
 ECORESTORATION_4_DETAIL | Élimine 20 unités de déchets industriels pour un coût de 1 BC.
+ECORESTORATION_4_INFO   | Il s'agit de la restauration écologique la plus performante.
 
 
 //
 // Energy Pulsar techs
 //
+PULSAR_NAME       | Technologies des Pulsar
+PULSAR_DETAIL     | Les pulsars d'énergie (niveau 16) et les pulsars ioniques (niveau 40) sont des technologies de propulsion qui étendent une sphère d'énergie à partir des vaisseaux qui tirent vers toutes les cases adjacentes, touchant les alliés comme les ennemis.<br>Une attaque de pulsar inflige une quantité identique de dégâts à tous les vaisseaux d'un groupe. La force d'une attaque de pulsar varie aléatoirement de 1 à 5 (2 à 10) pour le premier vaisseau du groupe, + 1 pour chaque paire de vaisseaux du groupe effectuant l'attaque de pulsar.<br>Notez que les boucliers ennemis réduiront les dégâts de l'attaque de pulsar.
+
 PULSAR_0_NAME     | Pulsar d'énergie
-PULSAR_0_BRIEF    | S'étend pour infliger 1 à 5 coups
+PULSAR_0_BRIEF    | S'étend pour infliger 1 à 5 dégats
 PULSAR_0_DETAIL   | Une puissante modification du moteur qui génère une explosion d'énergie sphérique soudaine frappant tous les vaisseaux adjacents, infligeant jusqu'à 5 points de dégâts +1 pour deux vaisseaux.
 
 PULSAR_1_NAME     | Pulsar ionique
-PULSAR_1_BRIEF    | S'étend pour infliger 2 à 10 coups
+PULSAR_1_BRIEF    | S'étend pour infliger 2 à 10 dégats
 PULSAR_1_DETAIL   | Une puissante modification de moteur capable de générer une rafale sphérique d'énergie phasée frappant tous les vaisseaux adjacents et infligeant jusqu'à 10 points de dégâts +1 par vaisseau attaquant.
+
+PULSAR_2_NAME     | Pulsar Cristallin
+PULSAR_2_BRIEF    | S'étend pour infliger 1 à 1 000 dégats
+PULSAR_2_DETAIL   | Une puissante modification de moteur capable de générer une explosion sphérique d'énergie phasée frappant tous les vaisseaux adjacents pour un maximum de 1 000 points de dégâts +1 par navire attaquant.
 
 
 //
 // Engine techs
 //
+ENGINE_NAME      | Technologies de Propulsion 
+ENGINE_DETAIL    | Une différence importante entre Vestige des Precurseurs et d'autres jeux de conception de vaisseaux est que les moteurs sont entièrement autonomes. Vous choisissez simplement le type de moteur que vous souhaitez (ce sera presque toujours le meilleur type disponible) et le concepteur ajoute automatiquement des moteurs pour répondre à vos besoins en énergie, en tenant compte de tous les autres paramètres de l'écran de conception du vaisseau et en affichant toutes les informations pertinentes sur le panneau Moteurs. Il ajoute même des « moteurs partiels », comme vous pouvez le voir à côté de la statistique Moteurs requis. Il s'agira généralement d'un nombre avec une décimale. Le moteur de votre vaisseau détermine sa vitesse de distorsion, qui correspond à la vitesse à laquelle il se déplace sur la carte principale, mesurée en années-lumières par an. La vitesse de combat de votre vaisseau, qui correspond au nombre d'espaces qu'il parcourt pendant le combat, est déterminée par sa classe de manœuvre. La classe de manœuvre est un paramètre qui détermine la quantité de puissance du vaisseau qui sera détournée pour se déplacer pendant le combat. La classe de manœuvre est limitée par le type de moteur d'un navire, et tous les deux points dans la classe de manœuvre d'un navire lui donnent un point de vitesse de combat.<br>Les transports se déplacent à un point plus lentement que vos moteurs les plus rapides.
+
 ENGINE_0_NAME    | Moteurs rétro
 ENGINE_0_DETAIL  | Déplace les vaisseaux à Distorsion %1, et permet une maniabilité maximale de Classe I en combat.
 ENGINE_0_ITEM    | Rétro
@@ -513,6 +597,7 @@ ENGINE_8_ITEM    | Hyper-espace
 ENGINE_8_ITEM2   | Classe 9
 ENGINE_8_BRIEF   | Distorsion 9  Def %1
 ENGINE_8_BRIEF2  | Vitesse de combat %1
+ENGINE_8_INFO    | Ce sont les moteurs les plus performants.
 
 
 //
@@ -861,6 +946,9 @@ INDWASTE_4_DETAIL       | Les usines cessent de polluer.
 //
 // Missile Defense techs
 //
+MISSDEF_NAME        | Technologies Anti-Missiles
+MISSDEF_DETAIL      | Les roquettes anti-missiles (niveau 6), le bouclier Zyro (niveau 31) et le bouclier de foudre (niveau 46) offrent une défense ponctuelle contre les attaques de missiles et de torpilles. Ils ont respectivement 40 %, 75 % et 100 % de chances d'arrêter une attaque de missiles ou de torpilles, moins 1 % par niveau de technologie du missile ou de la torpille attaquants.
+
 MISSDEF_0_NAME      | Fusées anti-missiles
 MISSDEF_0_BRIEF     | 40 % de chances que les missiles soient détruits
 MISSDEF_0_DETAIL    | Roquettes trans-légères capables de détruire les missiles ennemis entrants 40 % du temps, -1 % par niveau de technologie du missile.
@@ -877,6 +965,9 @@ MISSDEF_2_DETAIL    | Un champ d'énergie qui détruit les missiles et torpilles
 //
 // Missile Weapon techs
 //
+MISSWPN_NAME        | Missiles et Roquettes
+MISSWPN_DETAIL      | Leur niveau d'attaque est égal au niveau de l'ordinateur de combat du vaisseau qui les tire, plus le bonus d'attaque de l'arme.
+
 MISSWPN_0_NAME      | Missiles nucléaires
 MISSWPN_0_BRIEF     | 2 coups, +1 vitesse
 MISSWPN_0_BRIEF2    | 5 coups
@@ -936,6 +1027,9 @@ MISSWPN_10_DETAIL    | Les versions Mirvage des missiles Stinger, se divisant en
 //
 // Personal Shield techs for ground combat
 //
+PERSSHIELD_NAME       | Technologies de protection individuelle
+PERSSHIELD_DETAIL     | Équipement des troupes au sol
+
 // default "no shield" tech that each player starts with
 PERSSHIELD_0_NAME     | Cape
 PERSSHIELD_0_DETAIL   | Belle cape de torero, mais ne protège pas vraiment.
@@ -985,6 +1079,9 @@ RSRVFUEL_0_DETAIL  | Les réservoirs de carburant supplémentaires augmentent la
 //
 // Robotic Controls techs
 //
+ROBOTCTRL_NAME       | Technologies de Commandes Robotiques
+ROBOTCTRL_DETAIL     | Vos ouvriers commencent avec la capacité d'exploiter deux usines. Le coût de réaménagement pour mettre à niveau une usine à un niveau supérieur est la moitié du coût standard de chaque usine.
+
 ROBOTCTRL_0_NAME     | Commandes robotiques améliorées III
 ROBOTCTRL_0_DETAIL   | Permet de faire fonctionner 3 usines par habitant. Le coût de la mise à niveau est la moitié du coût standard de chaque usine.
 
@@ -1004,9 +1101,13 @@ ROBOTCTRL_4_DETAIL   | Permet de faire fonctionner 7 usines par habitant. Le co�
 //
 // Scanner techs
 //
+SCANNER_NAME         | Technologie des Scanner
+SCANNER_DETAIL       | Les scanners de départ sont très limités. Ils ne peuvent détecter les vaisseaux ennemis que jusqu'à 3 années-lumière de distance, sans pouvoir vous dire où ils vont.<br>Vos vaisseaux ne détectent pas les vaisseaux ennemis à moins qu'ils ne soient en orbite autour de la même planète, auquel cas vous en serez généralement informé lorsqu'une bataille aura lieu.<br>Au fur et à mesure que vous développez les scanners de l'espace lointain, ces portées augmentent, donnant aux planètes et aux flottes un peu plus de temps pour prévenir les mouvements ennemis. Les scanners spatiaux améliorés et avancés fourniront également la destination du vaisseau et estimeront l'heure d'arrivée.
+
 SCANNER_0_NAME       | Scanner de combat
 SCANNER_0_BRIEF      | Scanne les vaisseaux ennemis au combat
 SCANNER_0_DETAIL     | Révèle les spécifications techniques des vaisseaux spatiaux ennemis au combat.
+SCANNER_0_INFO       | En plus de vous permettre d'examiner les caractéristiques d'une flotte ennemie, les scanners de combat ajoutent également +3 à l'indice d'initiative d'une groupe de vaisseau. Cela signifie que vous pouvez avoir un tir de réaction défensif face à l'ennemi qui approche ! Cela peut être un avantage formidable. (Et cela donne également un bonus d'attaque de +1)
 
 SCANNER_1_NAME       | Scanner de l'espace lointain
 SCANNER_1_BRIEF      | Détecte les vaisseaux jusqu'à 5 années-lumière
@@ -1034,15 +1135,21 @@ SHIPINERTIAL_1_DETAIL   | Annule l'inertie des vaisseaux, ajoutant 4 classes de 
 
 
 //
-// Ship Inertial techs
+// Technology Nullifier techs
 //
 SHIPNULLIFIER_0_NAME     | Annulateur de technologie
 SHIPNULLIFIER_0_BRIEF    | Détruit les ordinateurs ennemis
 SHIPNULLIFIER_0_DETAIL   | Brouille les ordinateurs de combat et l'ECM ennemis, les réduisant de 2 à 6 niveaux par attaque. Sa portée dépasse la plupart des armes des vaisseaux.
+SHIPNULLIFIER_0_INFO     | Il n'existe aucune défense ni contre-mesure contre les neutralisateurs technologiques. Ils frappent automatiquement tout groupe de vaisseaux ennemis ciblés dans un rayon de quatre cases, brouillant leurs ordinateurs de combat et leurs systèmes ECM. Les coups sont cumulatifs et réduisent les ordinateurs de combat et les systèmes ECM de la cible de deux à six niveaux.<br>Notez que si les vaisseaux ennemis sont endommagés par des neutralisateurs technologiques alors que leurs missiles ou torpilles sont en route vers l'un de vos groupes de vaisseaux, cela réduira leur niveau d'attaque. Par conséquent, c'est toujours une bonne tactique de détruire les bases de missiles et les vaisseaux ennemis armés de missiles/torpilles avec des neutralisateurs technologiques à chaque occasion.
 
 SHIPNULLIFIER_1_NAME     | Dissipateur de distorsion
 SHIPNULLIFIER_1_BRIEF    | Réduit la vitesse des vaisseaux ennemis
 SHIPNULLIFIER_1_DETAIL   | Les dissipateurs de distorsion sont des armes à longue portée qui perturbent les moteurs des vaisseaux ennemis, réduisant leur vitesse à chaque attaque.
+SHIPNULLIFIER_1_INFO     | Le dissipateur de distorsion a une portée de trois cases et 50 % de chances de toucher. Les vaisseaux touchés par un dissipateur de distorsion voient leur vitesse de combat réduite de un et leur manœuvrabilité réduite de deux (ce qui réduit également leurs niveaux de base de défense contre les rayons et les missiles !).<br>Les dégâts infligés par les dissipateurs de distorsion sont cumulatifs au cours d'une bataille.
+
+SHIPNULLIFIER_2_NAME     | Annulateur Cristallin
+SHIPNULLIFIER_2_BRIEF    | Détruit les ordinateurs ennemis et la réparation automatique
+SHIPNULLIFIER_2_DETAIL   | Brouille les ordinateurs de combat ennemis, l'ECM et la réparation automatique. Chaque attaque prend 1 niveau d'ordinateur et 5 % de capacité de guérison.
 
 
 //
@@ -1055,10 +1162,12 @@ SHIPWPN_0_DETAIL       | Arme à faisceau à tir direct qui inflige 1 à 4 point
 SHIPWPN_1_NAME         | Laser Gatling
 SHIPWPN_1_BRIEF        | Tire 4 fois/tour
 SHIPWPN_1_DETAIL       | Un laser avancé qui tire jusqu'à quatre fois par tour et inflige 1 à 4 points de dégâts à chaque coup.
+SHIPWPN_1_INFO         | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_2_NAME         | Canon à neutrons
 SHIPWPN_2_BRIEF        | Réduit de moitié la force du bouclier
 SHIPWPN_2_DETAIL       | Arme à flux de particules lourdes qui réduit de moitié l'efficacité des boucliers déflecteurs ennemis et inflige 2 à 5 points de dégâts.
+SHIPWPN_2_INFO         | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_3_NAME         | Canon à ions
 SHIPWPN_3_ITEM2        | Canon à ions lourds
@@ -1067,6 +1176,7 @@ SHIPWPN_3_DETAIL       | Armes à faisceau de haute intensité capables d'inflig
 SHIPWPN_4_NAME         | Canon à projectiles
 SHIPWPN_4_BRIEF        | Réduit de moitié la force du bouclier
 SHIPWPN_4_DETAIL       | Un accélérateur linéaire qui divise par deux l'efficacité des boucliers déflecteurs ennemis et inflige 5 à 8 points de dégâts.
+SHIPWPN_4_INFO         | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_5_NAME         | Pulseur à neutrons
 SHIPWPN_5_ITEM2        | Blaster lourd à neutrons
@@ -1075,10 +1185,12 @@ SHIPWPN_5_DETAIL       | Armes à faisceau puissant capables d'infliger 3 à 12 
 SHIPWPN_6_NAME         | Faisceau gravitonnel
 SHIPWPN_6_BRIEF        | Attaque en continu
 SHIPWPN_6_DETAIL       | Faisceau tracteur-répulseur capable de réduire les vaisseaux en pièces. Il frappe pour 1 à 15 points de dégâts, et l'effet de flux continu permet aux dégâts excédentaires de se propager à d'autres vaisseaux.
+SHIPWPN_6_INFO         | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_7_NAME         | Faisceau rigidifié
 SHIPWPN_7_BRIEF        | Réduit de moitié la force du bouclier
 SHIPWPN_7_DETAIL       | Une arme à faisceau énergétique-matière qui réduit de moitié l'efficacité des boucliers déflecteurs ennemis et inflige 8 à 12 points de dégâts.
+SHIPWPN_7_INFO         | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_8_NAME         | Faisceau de fusion
 SHIPWPN_8_ITEM2        | Faisceau de fusion lourd
@@ -1087,6 +1199,7 @@ SHIPWPN_8_DETAIL       | Arme à faisceau de haute intensité capable de faire 4
 SHIPWPN_9_NAME         | Canon mégaéclair
 SHIPWPN_9_BRIEF        | +3 niveaux à toucher.
 SHIPWPN_9_DETAIL       | Libère plusieurs éclairs d'énergie pure dans un large champ. Il a +30% de chances supplémentaires de toucher et inflige 2 à 20 points de dégâts.
+SHIPWPN_9_INFO         | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_10_NAME        | Phaseur
 SHIPWPN_10_ITEM2       | Phaseur lourd
@@ -1095,24 +1208,30 @@ SHIPWPN_10_DETAIL      | Rayons à énergie phasée capables d'infliger 5 à 20 
 SHIPWPN_11_NAME        | Pulseur automatique
 SHIPWPN_11_BRIEF       | Tire 3 fois/tour
 SHIPWPN_11_DETAIL      | Un pulseur à neutrons évolué qui tire jusqu'à trois fois par tour pour 4 à 16 points de dégâts par coup.
+SHIPWPN_11_INFO        | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_12_NAME        | Faisceau Tachyon
 SHIPWPN_12_BRIEF       | Attaque en continu
 SHIPWPN_12_DETAIL      | Tire un flux intense de particules de tachyons qui frappent les vaisseaux ennemis pendant 1 à 25 coups. L'effet de flux continu permet aux dommages excédentaires de se propager à d'autres vaisseaux.
+SHIPWPN_12_INFO        | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_13_NAME        | Canon automatique Gauss
 SHIPWPN_13_BRIEF       | 1/2 Boucliers, tire 4x
 SHIPWPN_13_DETAIL      | Un accélérateur linéaire avancé capable de tirer 4 obus explosifs par tour qui infligent 7 à 10 points de dégâts chacun. Ces cartouches de projectiles réduisent également de moitié l'efficacité des boucliers ennemis.
+SHIPWPN_13_INFO        | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_14_NAME        | Faisceau de particules
 SHIPWPN_14_BRIEF       | Réduit de moitié la force du bouclier
 SHIPWPN_14_DETAIL      | Accélérateurs de particules à haute intensité capables de frapper les vaisseaux ennemis pour 10 à 20 points de dégâts et de réduire de moitié l'efficacité des boucliers déflecteurs.
+SHIPWPN_14_INFO        | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_15_NAME        | Canon à plasma
 SHIPWPN_15_DETAIL      | Tire des éclairs d'énergie intenses qui infligent 6 à 30 points de dégâts à une distance de 1.
+SHIPWPN_15_INFO        | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_16_NAME        | Rayon de la mort
 SHIPWPN_16_DETAIL      | Une arme ancienne d'une puissance incroyablement destructrice qui inflige 200 à 1000 points de dégâts et a une portée d'un espace.
+SHIPWPN_16_INFO        | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_17_NAME        | Disrupteur
 SHIPWPN_17_DETAIL      | Libère d'énormes éclairs d'énergie pure qui peuvent frapper des cibles ennemies jusqu'à deux espaces et leur infliger 10 à 40 points de dégâts.
@@ -1120,9 +1239,11 @@ SHIPWPN_17_DETAIL      | Libère d'énormes éclairs d'énergie pure qui peuvent
 SHIPWPN_18_NAME        | Phaseur d'impulsion
 SHIPWPN_18_BRIEF       | Tire 3 fois/tour
 SHIPWPN_18_DETAIL      | Un phaseur avancé capable de tirer 3 rafales par tour pour 5 à 20 points de dégâts à chaque coup.
+SHIPWPN_18_INFO        | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_19_NAME        | Canon à plasma tri-focus
 SHIPWPN_19_DETAIL      | Tire une triade de faisceaux de plasma à haute intensité capables d'infliger 20 à 50 points de dégâts.
+SHIPWPN_19_INFO        | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_20_NAME        | Convertisseur stellaire
 SHIPWPN_20_BRIEF       | Frappe les quatre boucliers
@@ -1130,6 +1251,7 @@ SHIPWPN_20_DETAIL      | Entoure la cible d'un champ de conversion matière-éne
 
 SHIPWPN_21_NAME        | Appareil mutilateur
 SHIPWPN_21_DETAIL      | Libère d'énormes quantités d'énergie concentrée sur les cibles ennemies, infligeant 20 à 100 points de dégâts.
+SHIPWPN_21_INFO        | Disponible uniquement avec une portée de 1. (Pas de version longue portée)
 
 SHIPWPN_22_NAME        | Le flux amibe
 SHIPWPN_22_DETAIL      | Un flux qui fait 250-1000 points de dégâts et a une portée de 3 cases. Son effet de flux continu lui permet de transporter les dégâts d'un vaisseau à l'autre.
@@ -1137,9 +1259,16 @@ SHIPWPN_22_DETAIL      | Un flux qui fait 250-1000 points de dégâts et a une p
 SHIPWPN_23_NAME        | Le rayon de cristal
 SHIPWPN_23_DETAIL      | Un rayon qui entoure les boucliers d'une cible, délivrant 4 attaques pour 100-300 points de dégâts chacune. Il dispose d'une portée de 3 espaces.
 
+SHIPWPN_24_NAME        | Fléchettes de méduses
+SHIPWPN_24_DETAIL      | Une arme à fléchettes qui divise par cinq l'efficacité des boucliers déflecteurs ennemis et inflige 1 à 5 points de dégâts. Sa portée est de 3 cases.
+
+
 //
 // Soil Enrichment techs
 //
+SOILENRICH_NAME       | Technologies d'enrichissement des sols
+SOILENRICH_DETAIL     | L'enrichissement (avancé) de sole ajoute le trait Fertile (Gaia) qui augmente la croissance démographique de  50% (100%) et augmente également la taille d'une planète de 25% (50%). Notez que les tailles des planètes sont arrondies par multiples de cinq, donc l'enrichissement du sol ne vous laissera pas avec une multitude de planètes ayant des tailles ridicules comme 63.<br>Notez que si une planète est déjà fertile, l'enrichissement avancé Gaia n'ajoutera que les 25% de taille manquants.
+
 SOILENRICH_0_NAME     | Fertilisation du sol
 SOILENRICH_0_DETAIL   | Convertit les planètes standard en environnements fertiles, augmentant la croissance démographique de 50 % et augmentant la taille planétaire de base de + 25 % pour un coût unique de 150 BC.
 
@@ -1152,6 +1281,7 @@ SOILENRICH_1_DETAIL   | Convertit les planètes standard et fertiles en gaïas, 
 //
 STARGATE_0_NAME      | Portes des étoiles
 STARGATE_0_DETAIL    | Permet à vos vaisseaux de se déplacer entre deux planètes équipées de portes stellaires en un seul tour. Coût 3000 BC à construire.
+STARGATE_0_INFO      | Les portes des étoiles sont construites sur vos planètes comme n'importe quel autre modèle de vaisseau, mais elles sont coûteuses : 3000 BC pour leur construction et 300 BC par tour pour leur entretien.<br>Ce coût d'entretien (10 % de leur coût) n'est jamais réduit par la miniaturisation. En comparaison, l'entretien des vaisseaux et des bases de missiles ne coûte que 2 % de leur coût par tour.<br>Vous ne pouvez pas utiliser les portes des étoiles des autres empires ou d'étoiles que vous ne possédez pas. Les portes des étoiles ne sont jamais capturées lorsque leur planète est conquise.
 
 
 //
@@ -1160,11 +1290,15 @@ STARGATE_0_DETAIL    | Permet à vos vaisseaux de se déplacer entre deux planè
 STASIS_0_NAME      | Champ de stase
 STASIS_0_BRIEF     | Ennemi figé pendant 1 tour
 STASIS_0_DETAIL    | Fige un groupe de vaisseaux ennemis, jusqu'à une case de distance, pendant un tour. Les vaisseaux figés ne peuvent ni attaquer ni être attaqués.
+STASIS_0_INFO      | Il est préférable d'éviter de geler les navires ciblés par vos missiles ou torpilles, car cela protégera les navires ennemis de vos propres armes.
 
 
 //
 // Stream Weapon techs
 //
+STREAMWPN_NAME      | Technologies Projecteur de flux
+STREAMWPN_DETAIL    | Les armes spéciales projecterices de flux ionique et de neutrons touchent toutes les vaisseaux du groupe de ciblé, contournant leurs boucliers.
+
 STREAMWPN_0_NAME    | Projecteur de flux ionique
 STREAMWPN_0_BRIEF   | Réduit l'armure ennemie de 20%
 STREAMWPN_0_DETAIL  | Tire une explosion ionique intense, réduisant l'armure de chaque cible du groupe adverse de 20 % plus 1 % pour 2 vaisseaux qui tirent, jusqu'à un maximum de 50 % de ses points de vie de départ par attaque.
@@ -1180,17 +1314,22 @@ STREAMWPN_1_DETAIL  | Tire une explosion de neutrinos concentrés, réduisant l'
 SUBSPACEINT_0_NAME    | Interdicteur sub-spatial
 SUBSPACEINT_0_DETAIL  | Empêche l'utilisation de téléporteurs subspatiaux ennemis et de transporteurs de combat. L'appareil est automatiquement ajouté aux bases de missiles.
 
+
 //
 // Subspace Teleporter tech
 //
 SUBSPACETEL_0_NAME    | Téléporteur subspatial
 SUBSPACETEL_0_BRIEF   | Téléporte le vaisseau au combat
 SUBSPACETEL_0_DETAIL  | Téléporte les vaisseaux dans n'importe quel espace de la carte de combat et avant de déterminer normalement l'initiative de combat.
+SUBSPACETEL_0_INFO    | Les téléporteurs subspatiaux ne sont pas affectés par les répulseurs et ne déclencheront pas de tir de réaction défensive automatique.<br>Incorporez rapidement les téléporteurs subspatiaux dans les nouvelles conceptions de vaisseaux, car leur période de plus grande utilité se termine une fois que les ennemis découvrent l'interdicteur subspatial.
 
 
 //
 // Ship Torpedo Weapon techs
 //
+TORPEDO_NAME          | Technologie des Torpilles
+TORPEDO_DETAIL        | Les torpilles ont beaucoup de puissance et peuvent être tirées un nombre illimité de fois en combat.<br>Elles disposent également de bons ordinateurs de suivi qui s'ajoutent au niveau de l'ordinateur de combat du navire qui tire (si le navire est touché par un annulateur de technologie, cela affectera également les torpilles).<br>Elles ont cependant un petit inconvénient : elles ne peuvent tirer qu'une fois tous les deux tours, il faut donc un tour pour les recharger après les avoir tirées.
+
 TORPEDO_0_NAME        | Torpilles anti-matière
 TORPEDO_0_BRIEF       | Tire un tous les 2 tours
 TORPEDO_0_DETAIL      | Des torpilles de poursuite à haute énergie qui infligent 30 points de dégâts mais ne peuvent être tirées qu'un tour sur deux. Chaque torpille est équipée d'un ordinateur de ciblage de niveau +4.

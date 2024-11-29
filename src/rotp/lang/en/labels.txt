@@ -68,6 +68,12 @@ BOOLEAN_NO_DESC                   | To disable this option.
 SUB_UI_DEFAULT_YES                | Default
 SUB_UI_DEFAULT_NO                 | Custom
 
+// Basic Dialog Button Text
+BUTTON_TEXT_CANCEL                | Cancel
+BUTTON_TEXT_SET                   | Set
+BUTTON_TEXT_OPEN                  | Open
+BUTTON_TEXT_CLOSE                 | Close
+
 // Star descriptions
 RED_STAR_DESCRIPTION              | Red stars are old and dull stars that commonly have poor planets.
 YELLOW_STAR_DESCRIPTION           | Yellow stars offer the best chance of discovering terran and sub-terran planets.
@@ -1580,8 +1586,8 @@ SETUP_OPPONENT_AI_CRUEL_HELP      | AI-Family: Xilmi (No relationship bar, no al
 SETUP_OPPONENT_AI_CRUEL           | AI: Fusion
 SETUP_OPPONENT_AI_FUN_HELP        | AI-Family: Xilmi (No relationship bar, no alliances)<br> Plays the game in a sort of "king-of-the-hill"-style. It's more concerned about preventing others from winning than it is concerned about winning itself. It will choose the strongest enemy available but takes into account when they are already at war. It creates some sort of tournament-like bracket-gameplay with separate 1v1s, that also can turn into 1vX for someone who's becoming too successful. Note that once a war is declared they are not easily made to stop it. This prevents swingy-situations where it would become an eternal back-and-forth changing their current enemy with the situation. Basically: A former super-power being tackled from three sides will not simply be left alone when it's not a superpower anymore.
 SETUP_OPPONENT_AI_FUN             | AI: Fun
-SETUP_OPPONENT_AI_PERSONALITY_HELP | AI-Family: Xilmi (No relationship bar, no alliances)<br> This one doesn't care about being fair when choosing their opponent. It is highly opportunistic and definitely wants to win. However, it's aggressiveness is heavily dependent on their empire's species and leader's personality. They can be anything from suicidal to overly careful. However, experience has shown that the more careful approach does a lot better on average. <br><b><u>Brief overview of how each personality-trait impacts the AI's behaviour:</u></b><br><b>Aggressive:</b> They go to war pretty easily, including situations that don't look too well.<br><b>Erratic:</b> How likely they are to declare war varies from turn to turn.<br><b>Honorable:</b> They will not declare war by themselves. They have to be asked in order to do it. They will not sue for peace if things aren't going their way, as this would be dishonorable.<br><b>Pacifist:</b> They will never declare any war. Not by themselves and not when asked. They also are easy to make peace with again. They only decline a peace-offer if they still have invasions inbound.<br><b>Ruthless:</b> Nothing prevents them from going to war if they want one. Not even if it would be completely suicidal to do so. They also won't sue for peace when they are losing.<br><b>Xenophobic:</b> Someone's got to be not special. They would only declare war if they think it's looking reasonably doable.<br><b>Diplomat:</b> Caution is advised with these ones. They are opportunistic and take the path of least resistance, when it comes to whom to declare war on while playing nice to everyone who could be a threat. They are strong contenders for the victory. They particularly like force-field-techs.<br><b>Ecologist:</b> Their goal is to keep a balance between the species in the galaxy. So they would only ever attack whoever has most population. Except if it's themselves. In this case the best balance is already established and war is unnecessary. They particularly like planetology-techs.<br><b>Expansionist:</b> They do not think in "empires", they think in planets. So whoever owns the juiciest target nearby is considered a good potential victim. Defend your planets to make them look less juicy and they'll look elsewhere. They particularly like propulsion-techs.<br><b>Industrialist:</b> Protection of their industrial core is the primary goal of industrialists. So whoever settles closest to their core must be removed first in order to secure the future of their productivity. Their strategy is mostly a defensive one. They particularly like construction-techs.<br><b>Militarist:</b> They enjoy wars and the best opponent is the one that can actually fight back. They generally pick on whoever is the strongest overall. Removing the biggest obstacle for their domination first. They particularly like weapon-techs.<br><b>Technologist:</b> As long as they have all the techs out there, they are perfectly happy and will leave others alone. However, if someone beats them in their field, they become jealous. And the more stuff you have that they don't, the more interesting your worlds become for invasion to integrate your tech into their portfolio. You can appease them by gifting them all your techs for free. They particularly like computer-techs.
 SETUP_OPPONENT_AI_PERSONALITY     | AI: Character
+SETUP_OPPONENT_AI_PERSONALITY_HELP | AI-Family: Xilmi (No relationship bar, no alliances)<br> This one doesn't care about being fair when choosing their opponent. It is highly opportunistic and definitely wants to win. However, it's aggressiveness is heavily dependent on their empire's species and leader's personality. They can be anything from suicidal to overly careful. However, experience has shown that the more careful approach does a lot better on average. <br><b><u>Brief overview of how each personality-trait impacts the AI's behaviour:</u></b><br><b>Aggressive:</b> They go to war pretty easily, including situations that don't look too well.<br><b>Erratic:</b> How likely they are to declare war varies from turn to turn.<br><b>Honorable:</b> They will not declare war by themselves. They have to be asked in order to do it. They will not sue for peace if things aren't going their way, as this would be dishonorable.<br><b>Pacifist:</b> They will never declare any war. Not by themselves and not when asked. They also are easy to make peace with again. They only decline a peace-offer if they still have invasions inbound.<br><b>Ruthless:</b> Nothing prevents them from going to war if they want one. Not even if it would be completely suicidal to do so. They also won't sue for peace when they are losing.<br><b>Xenophobic:</b> Someone's got to be not special. They would only declare war if they think it's looking reasonably doable.<br><b>Diplomat:</b> Caution is advised with these ones. They are opportunistic and take the path of least resistance, when it comes to whom to declare war on while playing nice to everyone who could be a threat. They are strong contenders for the victory. They particularly like force-field-techs.<br><b>Ecologist:</b> Their goal is to keep a balance between the species in the galaxy. So they would only ever attack whoever has most population. Except if it's themselves. In this case the best balance is already established and war is unnecessary. They particularly like planetology-techs.<br><b>Expansionist:</b> They do not think in "empires", they think in planets. So whoever owns the juiciest target nearby is considered a good potential victim. Defend your planets to make them look less juicy and they'll look elsewhere. They particularly like propulsion-techs.<br><b>Industrialist:</b> Protection of their industrial core is the primary goal of industrialists. So whoever settles closest to their core must be removed first in order to secure the future of their productivity. Their strategy is mostly a defensive one. They particularly like construction-techs.<br><b>Militarist:</b> They enjoy wars and the best opponent is the one that can actually fight back. They generally pick on whoever is the strongest overall. Removing the biggest obstacle for their domination first. They particularly like weapon-techs.<br><b>Technologist:</b> As long as they have all the techs out there, they are perfectly happy and will leave others alone. However, if someone beats them in their field, they become jealous. And the more stuff you have that they don't, the more interesting your worlds become for invasion to integrate your tech into their portfolio. You can appease them by gifting them all your techs for free. They particularly like computer-techs.
 SETUP_OPPONENT_AI_RANDOM_HELP     | Randomly selected from: Base, Modnar, Rookie, Roleplay, Hybrid, Fusion, Fun, or Character.
 SETUP_OPPONENT_AI_RANDOM          | AI: Random
 SETUP_OPPONENT_AI_RANDOM_BASIC_HELP | Randomly selected from: Base, Modnar, or Rookie.
@@ -2289,6 +2295,7 @@ HEADERS_BETA_TEST_DESC            | New options under construction.<br>Please te
 HEADERS_BETA_TEST                 | ~~~ NEW OPTIONS (BETA) ~~~
 HEADERS_GAME_DIFFICULTY_DESC      | Options affecting the game difficulty level. Can be changed dynamically.
 HEADERS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~
+
 HEADERS_RESTART_OPTIONS_HELP      | Hidden behind the&nbsp <b>Start</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>Restart</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swap it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
 HEADERS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
 HEADERS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~
@@ -2344,13 +2351,11 @@ HEADERS_WEAPON_ANIMATIONS_DESC       | To set combat beam animations parameters.
 HEADERS_WEAPON_ANIMATIONS            | ~~~ BEAM WEAPON ANIMATIONS ~~~
 HEADERS_SHIELD_ANIMATIONS_DESC       | To set combat shield animations parameters.
 HEADERS_SHIELD_ANIMATIONS            | ~~~ SHIELD ANIMATIONS ~~~
-
 HEADERS_ASTEROIDS_DESC               | To set Asteroids placements and properties.
 HEADERS_ASTEROIDS                    | ~~~ ASTEROIDS ~~~
 
 HEADERS_UNCLASSIFIED_DESC            | The right position has still to be found!
 HEADERS_UNCLASSIFIED                 | ~~~ UNCLASSIFIED MOD ~~~
-
 HEADERS_SPACER_DESC                  |
 HEADERS_SPACER                       |  %1
 
@@ -2379,7 +2384,6 @@ HEADERS_LINKED_OPTIONS_DESC          | These options are linked to the ones abov
 HEADERS_LINKED_OPTIONS               | ~~~ LINKED OPTIONS ~~~
 HEADERS_GALAXY_SHAPE_DESC            | Galaxy Shape selections. Text and Bitmap options are not implemented.
 HEADERS_GALAXY_SHAPE                 | ~~~ GALAXY SHAPE ~~~
-
 
 SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | To allow a planet Ultra-poor, Poor, Rich ,or Ultra-rich to also have artifacts.
 SETTINGS_MOD_RICH_POOR_ARTIFACT      | Rich/Poor & Artifacts: %1
@@ -2432,8 +2436,6 @@ SETTINGS_MOD_FIRST_RING_RADIUS          | Nearby Radius: %1 ly
 SETTINGS_MOD_SECOND_RING_RADIUS_DESC    | Radius of the extended neighborhood circle.(→TAG_RED_DISPLAY←)<br>This radius must be >= than the nearby radius.
 SETTINGS_MOD_SECOND_RING_RADIUS         | Midrange Radius: %1 ly
 
-
-
 SETTINGS_MOD_ORION_TO_EMPIRE_MODIFIER_HELP | Minimum distance modifier between Orion and Empires:<br>Original Distance = 150% of minimum distance between two Empires, but never below 400% of minimum distance between two star systems.<br> - 100% = Original Distance.<br> - 67% = Minimum distance between two Empires.<br> - 0% = Minimum distance between two star systems. (MoO1 distance)
 SETTINGS_MOD_ORION_TO_EMPIRE_MODIFIER_DESC | Minimum distance modifier between Orion and Empires.
 SETTINGS_MOD_ORION_TO_EMPIRE_MODIFIER      | Orion to Empires Factor: %1%
@@ -2484,7 +2486,7 @@ SETTINGS_MOD_AI_DEFENSE_CONFIDENCE_DESC     | Determines how confident the AI is
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
-SETTINGS_MOD_STATIC_TITLE            | Galaxy Build Setup
+SETTINGS_MOD_STATIC_TITLE            | Galaxy Configuration
 SETTINGS_MOD_DYNAMIC_TITLE           | Game Rules and Settings
 SETTINGS_MOD_DIST_ARTIFACT_PLANET    | Min Artifact distance: %1
 SETTINGS_MOD_NEW_RACES_ON            | Include New Species: %1
@@ -2520,6 +2522,7 @@ SETTINGS_MOD_HOME_FERTILE            | Get Fertile HomeWorld: %1
 SETTINGS_MOD_HOME_GAIA               | Get Gaia HomeWorld: %1
 SETTINGS_MOD_HOME_RICH               | Get Rich HomeWorld: %1
 SETTINGS_MOD_HOME_ULTRA_RICH         | Get Ultra-Rich HomeWorld: %1
+
 SETTINGS_MOD_DIST_ARTIFACT_PLANET_HELP | This will force a minimal distance between all Home worlds and their nearest artifact planet.<br> The purpose is to avoid a random boost to early in the game for some empires.
 SETTINGS_MOD_DIST_ARTIFACT_PLANET_DESC | Minimal distance between Home worlds and the nearest artifact planet.
 SETTINGS_MOD_CHALLENGE_MODE_DESC     | Give AI Empires additional starting resources (more Population, Factories, and Ships).
@@ -2580,19 +2583,8 @@ SETTINGS_MOD_OPTION_ALWAYS_AUTO          | Always/Auto
 SETTINGS_MOD_OPTION_ALWAYS_ALWAYS_DESC   | Always for both the Player and the AI.
 SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Always/Always
 
-SETTINGS_MOD_IRONMAN_MODE_HELP           | Though for challenges between players on the same starting galaxy.<br>Remove the access to in-game options to avoid easy cheating.<br>The activation of "Fixed random events" is strongly recommended.<br>More options will be added.
-SETTINGS_MOD_IRONMAN_MODE_DESC           | Though for challenges between players on the same starting galaxy. Remove the access to in-game options.
-SETTINGS_MOD_IRONMAN_MODE                | Ironman mode: %1
-SETTINGS_MOD_IRONMAN_OFF                 | Off
-SETTINGS_MOD_IRONMAN_OFF_HELP            | Disabled
-SETTINGS_MOD_IRONMAN_NO_OPTIONS          | No options
-SETTINGS_MOD_IRONMAN_NO_OPTIONS_HELP     | Options won't be accessible In-game.
-SETTINGS_MOD_IRONMAN_NO_SAVE             | No save
-SETTINGS_MOD_IRONMAN_NO_SAVE_HELP        | No save game allowed
-
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Percentage needed to win the council vote.
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Council Requirement: %1%
-
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_DESC       | During councils, when should the player cast his vote.
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE            | Player vote: %1
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_FIRST_DESC | The player will always vote first.
@@ -2606,7 +2598,6 @@ SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_HELP | To adjust the Empire Home worlds sp
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_DESC | Minimum distance between Empire Home worlds Factor in %.(Not allowed on "complex galaxies")
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR      | Empires Spreading: %1%
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_MAP  | Minimum Empires Spacing: %1% (%2 ly)
-
 SETTINGS_MOD_GALAXY_SIZE                   | Galaxy size: %1 ly x %2 ly
 
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | To help defining the maximum opponent number from the size of the galaxy.
@@ -2651,6 +2642,9 @@ TECH_HEAD_HK                             | To force Include or Exclude the Techn
 TECH_END_HK                              | in the Tech Tree for Player/AI.
 TECH_VAL_HK                              | {Always, Never, Auto} Include
 TECH_LEVEL_HK                            | This technology could be available at Level
+
+
+
 SETTINGS_MOD_TECH_IRRADIATED_HELP        | →TECH_HEAD_HK← <b>→CONTROLENV_6_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CONTROLENV_6_DETAIL←</i><br>→TECH_LEVEL_HK← 18.<br>It could be very frustrating not being able to colonize all the planet late in the game!
 SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18)→TECH_VAL_HK← "→CONTROLENV_6_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_IRRADIATED             | Radiated Colony: %1
@@ -2685,6 +2679,11 @@ SETTINGS_MOD_TECH_GAIA_HELP              | →TECH_HEAD_HK← <b>→SOILENRICH_1
 SETTINGS_MOD_TECH_GAIA_DESC              | (Level 30) →TECH_VAL_HK← "→SOILENRICH_1_NAME←" (Gaia Terraforming) →TECH_END_HK←
 SETTINGS_MOD_TECH_GAIA                   | Gaia Improvement: %1
 
+
+
+
+
+
 SETTINGS_MOD_RACES_RAND_MIN_HELP         | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Setting Range, each individual setting will be set within a relative range. This is the lower limit of this range.
 SETTINGS_MOD_RACES_RAND_MIN_DESC         | Alien species randomization: Lower limit for the settings relative randomization window.
 SETTINGS_MOD_RACES_RAND_MIN              | Settings % Min: %1
@@ -2696,7 +2695,9 @@ SETTINGS_MOD_RACES_RAND_MAX              | Settings % Max: %1
 SETTINGS_MOD_RACES_RAND_EDGES_HELP       | Setting used when opponents 'Random' abilities are selected: "Smooth Edges" defines the limits randomization distribution shape; when "Smooth" the values still have a small probability of going past the limits, the distribution will be bell shaped.
 SETTINGS_MOD_RACES_RAND_EDGES_DESC       | Alien species randomization: Smooth edges allow 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)
 SETTINGS_MOD_RACES_RAND_EDGES            | Smooth Edges: %1
+SETTINGS_MOD_RACES_RAND_EDGES_YES        | →CUSTOM_RACE_RANDOM_EDGES_YES←
 SETTINGS_MOD_RACES_RAND_EDGES_YES_DESC   | Two thirds of the values will be within the limits, one sixth may be above the limit while another sixth may be below the limit.
+SETTINGS_MOD_RACES_RAND_EDGES_NO         | →CUSTOM_RACE_RANDOM_EDGES_NO←
 SETTINGS_MOD_RACES_RAND_EDGES_NO_DESC    | All values will be uniformly spread inside the fixed limits.
 
 SETTINGS_MOD_RACES_RAND_TARGET_MIN_HELP  | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Target Range, each individual setting will be set within the given relative range. Then if the final result is not within the final "Target Range" the values will be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.<br>This is the lower limit for the Target Range.
@@ -2706,10 +2707,6 @@ SETTINGS_MOD_RACES_RAND_TARGET_MIN       | Target Min: %1
 SETTINGS_MOD_RACES_RAND_TARGET_MAX_HELP  | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Target Range, each individual setting will be set within the given relative range. Then if the final result is not within the final "Target Range" the values will be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.<br>This is the upper limit for the Target Range.
 SETTINGS_MOD_RACES_RAND_TARGET_MAX_DESC  | Alien species randomization: Upper limit for the Targeted total value.
 SETTINGS_MOD_RACES_RAND_TARGET_MAX       | Target Max: %1
-
-SETTINGS_MOD_RACES_RAND_USE_TARGET_HELP  | Setting used when opponents 'Random' abilities are selected. Each individual setting will be set within the given relative range, and may or may not be adjusted to reach The Target Range.
-SETTINGS_MOD_RACES_RAND_USE_TARGET_DESC  | Alien species randomization: Force or ignore targeted value.
-SETTINGS_MOD_RACES_RAND_USE_TARGET       | Force Target Value: %1
 
 SETTINGS_MOD_RACES_ARE_RANDOM_HELP       | Setting used when opponents 'Random' abilities are selected. Each individual setting will be set within the given relative range, and may or may not be adjusted to reach The Target Range.
 SETTINGS_MOD_RACES_ARE_RANDOM_DESC       | Alien species randomization: Select the way.
@@ -2722,7 +2719,6 @@ SETTINGS_MOD_RACES_ARE_RANDOM_TARGET_DESC  | If the final result is not within t
 
 // BR: Global Settings UI panel for MOD game options
 SETTINGS_MOD_TITLE_GLOBAL                | In-Game Convenience Options
-
 SETTINGS_MOD_ZOOM_FINAL_REPLAY_DESC      | Final History replay start showing the full galaxy (Instead of being zoomed on player empire)
 SETTINGS_MOD_ZOOM_FINAL_REPLAY           | Final Replay show all: %1
 SETTINGS_MOD_ZOOM_EMPIRE_REPLAY_DESC     | Empire History replay start showing the full galaxy (Instead of being zoomed on selected empire)
@@ -2896,7 +2892,6 @@ SETTINGS_MOD_DEV_MAX_MISSING_POP         | Max missing Pop: %1
 SETTINGS_MOD_DEV_MAX_MISSING_FACT_DESC   | What is the maximum number of factories missing to obtain the status of "developed colony" and for the taxman to do his job.<br>A fully developed colony could be the target of a spy mission destroying a few factories, without it being an excuse not to pay their taxes.
 SETTINGS_MOD_DEV_MAX_MISSING_FACT        | Max missing Fact: %1
 
-
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_HELP     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the Mass Transport Panel.<br>The slider will be set to green to confirm the auto refill status.<br> Ctrl+Click on sliders to toggle.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_DESC     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the transport panel.
 TRANSPORT_AUTO_ECO_HK                    | Transport ECO
@@ -2907,7 +2902,6 @@ SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | Default will be set to No.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO       | Off
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST_DESC | Will keep the last colony setting.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Last
-
 SETTINGS_MOD_SPY_OVERSPEND_DESC          | Use all the available budget to by spy, or stop spending once the team is complete.
 SETTINGS_MOD_SPY_OVERSPEND               | Spy Overspend: %1
 
@@ -3010,7 +3004,6 @@ SETTINGS_MOD_MOO1_PLANET_LOCATION_DESC      | MoO1 Planet is located in the seco
 SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION        | MoO1 Placement: %1
 SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION_DESC   | Asteroids will be placed according to MoO1 rules and will not be removed during combat.
 SETTINGS_MOD_MOO1_ASTEROIDS_LOCATION_HELP   | Asteroids will be placed according to MoO1 rules and will not be removed during combat.<br>The asteroid density will depends on planet type, and are fixed once. It could either be: No asteroids, low-density or high-density.<br>A low-density asteroid belt means that a random 1 to 5 asteroid squares will appear on the Ship Combat Display screen whenever ships engage in combat over that planet.<br>A high-density asteroid belt places a random 3 to 7 asteroid squares in the vicinity.
-
 SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES      | Impact weapons: %1
 SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_DESC | Asteroids will partially destroy missiles and reduce beam effectiveness, per MoO 1 rules.
 SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_HELP | Asteroids will partially destroy missiles and reduce beam effectiveness, per MoO 1 rules.<br>When beam weapons fire through any asteroid squares, the defender gets +3 added to his Beam Defense Level.<br> Each missile or torpedo that moves through an asteroid square has a chance to be destroyed:<br>Nuclear and Hyper V: 80%<br>Hyper X and Scatter Pack V : 72%<br>Merculite and Scatter Pack VII : 64%<br>Stinger, Scatter Pack X, Pulson, and Anti-Matter Torpedo: 56%<br>Hercular: 48%<br>Hellfire, Zeon, and Proton Torpedoes: 40%<br>Plasma Torpedo: 32%
@@ -3161,7 +3154,6 @@ SETTINGS_MOD_SHIP_BASED_MISSILES         | Shipset missiles: %1
 SETTINGS_MOD_SCOUT_AND_COLONY_ONLY_DESC  | The default ship designs may not appeal to experienced players. To avoid the hassle of deleting them, you can choose to disable their initialization. Only scout ships and colony ships will be enabled.
 SETTINGS_MOD_SCOUT_AND_COLONY_ONLY       | Minimal designs: %1
 
-
 SETTINGS_MOD_BOMBING_TARGET_DESC         | Limited Bombing: Stop Bombing the population level reach this limit. !!! Powerful weapons may still annihilate the population !!!
 SETTINGS_MOD_BOMBING_TARGET              | Bombing Limit: %1 pop
 SETTINGS_MOD_TARGET_BOMBARD_DESC         | Sets who is allowed to use Limited Bombing. (scroll the mouse wheel to change)
@@ -3221,7 +3213,6 @@ SETTINGS_MOD_CLEAR_SPECIES_NAME          | Clear All
 SETTINGS_MOD_CLEAR_SPECIES_NAME_DESC     | To clear all the list above
 SETTINGS_MOD_ACTIVATE_SPECIES_NAME       | Force Activate
 SETTINGS_MOD_ACTIVATE_SPECIES_NAME_DESC  | To update the current Species with the new settings above.
-
 
 NAME_RACE_ALKARI          | Altairi: %1
 NAME_RACE_BULRATHI        | Ursinathi: %1
@@ -3329,6 +3320,7 @@ SETTINGS_MOD_AUTO_FLAG_ASSIGN_4          | Auto-Flag 4: %1
 
 FLAG_SELECT_SC1                          | Select the Flag Color to set automatically when
 FLAG_SELECT_SC2                          | Planet is scouted.
+
 SETTINGS_MOD_AUTO_FLAG_ARID_DESC         | →FLAG_SELECT_SC1← an →PLANET_ARID← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_BARREN_DESC       | →FLAG_SELECT_SC1← a →PLANET_BARREN← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_DEAD_DESC         | →FLAG_SELECT_SC1← a →PLANET_DEAD← →FLAG_SELECT_SC2←
@@ -3358,6 +3350,7 @@ SETTINGS_MOD_AUTO_FLAG_NORMAL_DESC        | →FLAG_SELECT_SC1← a →← Norma
 SETTINGS_MOD_AUTO_FLAG_POOR_DESC          | →FLAG_SELECT_SC1← a →PLANET_POOR← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_ULTRA_POOR_DESC    | →FLAG_SELECT_SC1← an →PLANET_ULTRA_POOR← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_NONE_DESC          | →FLAG_SELECT_SC1← No resources are found.
+
 
 SETTINGS_MOD_AUTO_FLAG_TECH_GAIA_DESC     | →FLAG_SELECT_SC1← a →PLANET_GAIA← →FLAG_SELECT_SC2← (Standard colony ship)
 SETTINGS_MOD_AUTO_FLAG_TECH_FERTILE_DESC  | →FLAG_SELECT_SC1← a →PLANET_FERTILE← →FLAG_SELECT_SC2← (Standard colony ship)
@@ -3446,7 +3439,6 @@ SETTINGS_MOD_PLAYER_SHIP_SET_DISPLAY_SPECIES | No Preference
 SETTINGS_MOD_PLAYER_SHIP_SET_FORCED_SHIPSET  | » %1
 SETTINGS_MOD_PLAYER_SHIP_SET_CUSTOM_SPECIES  | cs: %1
 SETTINGS_MOD_PLAYER_SHIP_SET_BASE_SPECIES    | [base_race]
-
 
 SETTINGS_MOD_GUARDIAN_MONSTERS_DESC      | Rich and Artifact planets can be guarded by Space Monsters.
 SETTINGS_MOD_GUARDIAN_MONSTERS           | Guardians: %1
@@ -3732,7 +3724,6 @@ SETTINGS_MOD_IRONMAN_OFF                 | Off
 SETTINGS_MOD_IRONMAN_OFF_HELP            | Disabled
 SETTINGS_MOD_IRONMAN_NO_OPTIONS          | On
 SETTINGS_MOD_IRONMAN_NO_OPTIONS_HELP     | Options won't be accessible In-game.
-
 SETTINGS_MOD_IRONMAN_NO_SAVE_HELP        | No save game allowed
 SETTINGS_MOD_IRONMAN_NO_SAVE_DESC        | No save game allowed
 SETTINGS_MOD_IRONMAN_NO_SAVE             | No save
@@ -3858,8 +3849,6 @@ SETTINGS_MOD_ZOOM_OPTIONS_UI             | Zoom Options
 SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Opens a new control panel to configure Zoom Options.
 
 
-
-
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research
 TECH_RESEARCH_POINTS              | Research Points
@@ -3920,7 +3909,6 @@ TECH_HELP_1H                      | Each tech area has a spending bar.<br>Click 
 TECH_HELP_1I                      | Equalize the spending allocations for the unlocked bars.
 TECH_HELP_1J                      | - MINIATURIZATION -<br>All ship components get smaller and cheaper as you research other technologies in the same category as that component.<br>For every technology level above a non-weapon component's level, its size is reduced by 2.5% and its cost is reduced by 5%.<br>Weapon components shrink more quickly. For every technology level above a weapon's level, its size is reduced by 5% and its cost is reduced by 5%.<br> This means your designs will get cheaper as you learn more technologies, and as weapons recede from the cutting edge, more of them will fit onto your ships.
 TECH_HELP_1K                      | Technology levels are determined by multiplying your highest known tech's level by 0.80 and adding 1 for every technology you know in that category.
-
 
 // =========================================================================
 //   ALPHA 4
@@ -4134,8 +4122,6 @@ SHIP_COMBAT_NEXT                  | Next Ship
 SHIP_COMBAT_AUTO_RESOLVE          | Auto-Resolve
 SHIP_COMBAT_SMART_RESOLVE         | Smart-Resolve
 SHIP_COMBAT_START_WAR             | Click the icon to declare War.
-
-
 SHIP_COMBAT_AUTO_RESOLVING        | Resolving Combat...
 SHIP_COMBAT_PLAY_BATTLE           | Auto-Play Battle
 SHIP_COMBAT_PAUSE_BATTLE          | Pause Battle
@@ -4569,7 +4555,6 @@ SYSTEMS_STATUS_SPACE_PIRATES      | A fleet of space pirates are headed towards 
 
 // War View UI
 WAR_VIEW_TITLE                    | Years · Incoming Fleets
-
 
 DIPLOMACY_RECEIVING               | Translating Incoming Message...
 DIPLOMACY_MENU_CONTINUE           | Continue
@@ -5018,7 +5003,7 @@ SETUP_RACE_HOMEWORLD_HELP         | You can set your home world name here, or ch
 SETUP_GALAXY_MAIN_DESC            | OVERVIEW<br> This screen allows you to select your Galaxy and your Opponents.<br> Use "Ctrl" and "Shift" to change the buttons functions. Global = All options. Local = Options from this panel.
 SETUP_START_DESC                  | Save options and Start the Game.<br> "Ctrl" => Restart a new game based on and old save game.
 SETUP_BUTTON_START_DESC           | Save the current options and Start the Game.
-SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swap it with a previous opponent.
+SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swap it with a previous opponent.
 SETUP_GALAXY_BACK_DESC            | Cancel options and go back to the Player options menu.
 SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "Setup" contains parameters being set once when starting or restarting a game.<br> "Options" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Press "B" or go to "Setup" and set "Show Compact Options" to "No".
 SETUP_GALAXY_VANILLA_OPTIONS_HELP | This button open Advanced options configuration Menu.<br> Press "B" to toggle the submenus call buttons.
@@ -5041,7 +5026,7 @@ SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 'Selection'_DESC        | Same abilities as the global abilities selected on the top.
 'Original Species'_DESC | Original abilities of the selected species (the one on the icon)
 'Reworked'_DESC         | Reworked abilities of the selected species (the one on the icon), modified and saved by the player (in the Species Customization Panel) with the respectively named species files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
-'Player'_DESC           | Same abilities as the selected player race.
+'Player'_DESC           | Same abilities as the selected player species.
 'Random'_DESC           | Abilities will be randomly generated using the "Setup" parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
 'Random 10'_DESC        | Abilities randomly selected within the ten original species abilities.
 'Random 16'_DESC        | Abilities randomly selected within the sixteen species abilities. <i>(The ten original species and the six Modnar species)</i>
@@ -5156,9 +5141,9 @@ SETUP_GALAXY_SHAPE_GRID_O1          | Grid galaxy option.
 SETUP_GALAXY_SHAPE_GRID_O1_HELP     | Galaxies distribution selection.
 SETUP_GRID_0_HELP            | The galaxies are only on some intersections.
 SETUP_GRID_1_HELP            | The galaxies are on every intersections.
-SETUP_GRID_2_HELP            | Only the grid line!
+SETUP_GRID_2_HELP            | Only the grid lines!
 SETUP_GALAXY_SHAPE_CLUSTER_HELP     | Why not spread the fight over several galaxies? 3, 6, or 8 clusters are available.
-SETUP_GALAXY_SHAPE_CLUSTER_O1       |Cluster galaxy option.
+SETUP_GALAXY_SHAPE_CLUSTER_O1       | Cluster galaxy option.
 SETUP_GALAXY_SHAPE_CLUSTER_O1_HELP  | Number of cluster selection.
 SETUP_CLUSTER_0_HELP         | Star systems are spread over 4 clusters.
 SETUP_CLUSTER_1_HELP         | Star systems are spread over 6 clusters.
@@ -5183,7 +5168,6 @@ SETUP_SPIRALARMS_NORMAL_HELP    | Normal, as non symmetric!
 SETUP_SPIRALARMS_SYMMETRIC_HELP | Galaxy with circular symmetry, each empire has the same home world and the same neighborhood. Orion is at the center point.
 
 SETUP_GALAXY_SHAPE_BITMAP_HELP      | Build your own galaxy shape, based on a Bitmap.<ul><li>Real shots of galaxies gives nice results.</li><li>You can draw your own galaxies, in shades of gray or colors.</li><li>With colored galaxies, you can define regions where Orion, Player and Aliens stars systems should be.</li><li>An advanced color mode allows you to define the regions of each Aliens, as well as Nebula regions!</li><li>Some examples can be found in BitmapGalaxyExamples.zip</li></ul>Preferably use a small bitmap image to define the galaxy; VGA size is more than enough... Galaxies are still randomly generated!
-
 SETUP_GALAXY_SHAPE_BITMAP_O1        | First bitmap galaxy option.
 SETUP_GALAXY_SHAPE_BITMAP_O2        | Second bitmap galaxy option.
 SETUP_GALAXY_SHAPE_BITMAP_O1_HELP   | How to convert the Image file.
@@ -5193,9 +5177,7 @@ SETUP_BITMAP_GREY_MAX_DESC      | Color bitmaps will be converted to grayscale w
 SETUP_BITMAP_GREY_INVERSE_DESC  | Because some nice pictures have a white background.
 SETUP_BITMAP_COLOR_DESC         | The colors of the images are interpreted: Blue for Orion, Green for the Player. The remaining stars and nebulae are distributed over these three regions
 SETUP_BITMAP_COLOR_HELP         | The colors of the images are interpreted:<ul><li>Blue for Orion.</li><li>Green for the Player.</li><li>Red for the Aliens.</li><li>The remaining stars and nebulae are distributed over these three regions.</li><li>If one color is missing: it will be replaced by global grayscale.</li></ul>
-
 SETUP_BITMAP_ADVANCED_HELP      | It uses multiple sub-bitmaps grouped vertically in a single Bitmap file.<br>Start with Black as background (sub-bitmap separator)<br>Fist Sub-Bitmap: Definition of lone star systems:<ul><li>Add Blue rectangle to define the limits of the sub-bitmap.</li><li>Add Green inside the first rectangle to define the density of lone stars.</li><ul><li>Can be mixed with blue, or replace it.</li><li>The intensity of green defines the probability of having a star:<br>(255 = Max; 0 = no stars)</li></ul></ul><i>Other Sub-Bitmaps:<ul><li>Copy the Lone star sub-bitmap, as often as necessary, keeping a few black lines as separators.</li><li>Blue is still needed to fill the gap and avoid black lines in the middle of the sub-bitmap.</li><li>The Green color is then ignored, but you may will to keep it as repair point.</li><li>The intensity of Red will be used to defines the next probabilities.</li><li>You can use White instead of Red, as White contains Red, and other colors are ignored.</li><li>All invalid Sub-Bitmaps will be replaced by the first one.</li></ul></i>Second Sub-Bitmap: Preferred location of nebulae:<ul><li>No Red = same as lone star systems.</li><li>For "No Nebulas" use the already existing option in the good old Advanced Options" panel.</li></ul>Third Sub-Bitmap: Orion's favourite location:<br>Fourth Sub-Bitmap: Preferred location of Player:<br>Following Sub-Bitmap: Preferred location of aliens:<ul><li>Up to 49 Alien's sub-bitmap can be defined.</li><li>If there are more Aliens than sub-bitmap, the galaxy factory will loop on the available Alien sub-bitmap.</li></ul>
-
 SETUP_BITMAP_ADVANCED_MASK_HELP  | Same as "Advanced" with the option to allow you to define the color gradients only once, on the first sub-bitmap, and uses uniform colors to define the regions on the following maps.<br>The two maps are then multiplied to define a resulting map.
 SETUP_BITMAP_ADVANCED_MASK2_HELP | Same as "Advanced/Mask" with an additional sharpening effect to keeps the Empires well inside the other stars.
 SETUP_BITMAP_NORMAL_HELP         | Don't change the bitmap contrast.
@@ -5203,7 +5185,6 @@ SETUP_BITMAP_SHARP1_HELP         | Increase the contrast a little bit.
 SETUP_BITMAP_SHARP2_HELP         | Increase the contrast twice.
 SETUP_BITMAP_SHARP3_HELP         | Sharply increase the contrast.
 SETUP_BITMAP_SHARP4_HELP         | Almost convert the bitmap to black and white!
-
 SETUP_GALAXY_SHAPE_RANDOM_HELP   | Galaxy randomly selected from grouped stars galaxies.<br>→SETUP_GALAXY_SHAPE_RECTANGLE←, →SETUP_GALAXY_SHAPE_ELLIPSE←, →SETUP_GALAXY_SHAPE_SPIRAL←, →SETUP_GALAXY_SHAPE_CLUSTER←, →SETUP_GALAXY_SHAPE_SPIRALARMS←, →SETUP_GALAXY_SHAPE_SHURIKEN← <br>(Pairs well with the dark galaxy option)
 SETUP_GALAXY_SHAPE_RANDOM_2_HELP | Galaxy randomly selected from almost all galaxies.<br> Excluded: →SETUP_GALAXY_SHAPE_TEXT←, →SETUP_GALAXY_SHAPE_BITMAP←. <br>(Pairs well with dark galaxy option)
 
@@ -5212,7 +5193,6 @@ SETUP_GALAXY_SHAPE_RANDOM_2_HELP | Galaxy randomly selected from almost all gala
 HK_HEADER      | HOTKEYS: (Available by right-clicking the Help button)<br>→HK_SHIFT_F1←
 HK_SHIFT_F1    | <br>Shift+F1 : Show Hotkeys List (This)
 HK_F1          | <br>F1 : Show Help.
-// HK_F1_?        | <br>F1, ? : Show Help.
 HK_ESCAPE      | <br>Escape : Exit this panel.
 HK_FLAG        | <br>F : Toggle Flag Color.
 HK_HOME        | <br>Home : Set Auto-Flag Color.
@@ -5241,6 +5221,7 @@ MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Next/Previous play
 PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Multi selection too)<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S→HK_SEL_B← Ship →HK_SEL_E←<br>D→HK_SEL_B← Defense →HK_SEL_E←<br>W→HK_SEL_B← Industry →HK_SEL_E←<br>E→HK_SEL_B← Ecology →HK_SEL_E←<br>R→HK_SEL_B← Research →HK_SEL_E←<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
 
 FLEETS_HELP_HK       | →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
+
 // !!!
 // Do not remove the space between ">" & "=" because of confusion with ">=" wish is replaced by "&gt;="
 // !!!

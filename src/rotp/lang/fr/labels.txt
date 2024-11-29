@@ -68,6 +68,12 @@ BOOLEAN_NO_DESC                   | Pour désactiver cette option.
 SUB_UI_DEFAULT_YES                | Par défaut
 SUB_UI_DEFAULT_NO                 | Personnalisé
 
+// Basic Button Text
+BUTTON_TEXT_CANCEL                | Annuler
+BUTTON_TEXT_SET                   | Sélectionner
+BUTTON_TEXT_OPEN                  | Ouvrir
+BUTTON_TEXT_CLOSE                 | Fermer
+
 // Star descriptions
 RED_STAR_DESCRIPTION              | Les étoiles rouges sont vieilles et ternes, elles n'abritent généralement que des planètes pauvres.
 YELLOW_STAR_DESCRIPTION           | Les étoiles jaunes offrent les meilleures chances de découvrir des planètes accueillantes.
@@ -1573,15 +1579,15 @@ SETUP_OPPONENT_AI_MODNAR          | IA : Modnar
 SETUP_OPPONENT_AI_ROOKIE_HELP     | Famille IA : Base<br> Utilise un livre d'ouverture pour les premières technologies. Il construit moins de bases de missiles. Utilise une plus grande variété de modèles de vaisseaux. L'agressivité est fonction de la difficulté.<br> Un bug important sur le comportement en retraite est corrigé. Il n'y a aucun intérêt à avoir les deux autres IA de base. C'est juste pour que le Mod ne manque pas d'eux comme une fonctionnalité.
 SETUP_OPPONENT_AI_ROOKIE          | IA : Débutant
 SETUP_OPPONENT_AI_XILMI_HELP      | Famille IA : Xilmi<br> Utilise un module diplomatique semblable à celui de la Famille-Base en ce sens qu'il utilise les valeurs relationnelles pour la prise de décisions. Cependant, il diffère aussi de ceux-ci en ce qu'il n'y a pas de hasard impliqué et plutôt des seuils pour les PAN et les Alliances s'ajuster dynamiquement sur la base d'une comparaison de puissance. Essentiellement : Plus une IA est faible, plus elle est disposée à signer des alliances même si la relation n'est pas cordiale. Basé sur des alliances de personnalité peut être beaucoup plus stable.
-SETUP_OPPONENT_AI_XILMI           | IA : Xilmi
+SETUP_OPPONENT_AI_XILMI           | IA : Tiens le Rôle
 SETUP_OPPONENT_AI_HYBRID_HELP     | Famille IA : Xilmi<br> Utilise le même module de diplomatie et d'espionnage que la IA-base pour présenter fondamentalement une IA qui agit diplomatiquement comme une IA-base, mais a toujours tous les avantages dans les autres aspects du jeu.
 SETUP_OPPONENT_AI_HYBRID          | IA : Hybride
 SETUP_OPPONENT_AI_CRUEL_HELP      | Famille IA : Xilmi (Pas de barre de relations, pas d'alliances)<br> ... ces IAs jouent toutes plus prudentes qu'agressives alors que certaines différences raciales sont encore appliquées. Il est très similaire dans le comportement à ce dernier, mais généralement les jeux sont beaucoup plus paisibles tant que personne n'a un avantage massif. Elles sont également très opportunistes. La raison pour laquelle «Amusant«» a été créé parce que jouer contre ce genre d'IA peut être extrêmement frustrant. Vous pouvez avoir un long jeu où rien ne se passe vraiment et puis être effacé en quelques tours par plusieurs adversaires à la fois. Il y a un algorithme en jeu qui devine la chance d'être rétrogradé en cas de déclaration de guerre. Et à cause de cela, il est fort probable que l'IA pense que l'autre parti sera plus susceptible d'être rétrogradé et non pas eux, s'ils déclarent la guerre. Oh... Elles ignoreront tout dans les cas où elles devraient finalement atteindre la fin de l'arbre technologique. Donc le jeu ne sera pas techniquement sans fin, même si cela pourrait le paraître.
 SETUP_OPPONENT_AI_CRUEL           | IA : Fusion
-SETUP_OPPONENT_AI_FUN_HELP        | AI-Family: Xilmi (pas de barre de relation, pas d'alliances)<br> Joue le jeu dans un style du "roi de la colline". Il se préoccupe davantage d'empêcher les autres de gagner plutôt que de gagner lui-même. Il choisira l'ennemi le plus fort disponible, mais prendra en compte le moment où ils sont déjà en guerre. Il crée une sorte de tournoi de type tournoi avec des 1 contre 1 séparés, qui peuvent également se transformer en 1 contre X pour quelqu'un qui devient trop performant. Notez qu'une fois qu'une guerre est déclarée, il n'est pas facile de l'arrêter. Cela évite les situations instables où on se retrouverait avec un éternel va-et-vient de changement d'ennemis en fonction de la situation. En gros : une ancienne superpuissance attaquée de trois côtés ne sera pas simplement laissée tranquille lorsqu'elle ne sera plus une superpuissance.
+SETUP_OPPONENT_AI_FUN_HELP        | Famille IA : Xilmi (pas de barre de relation, pas d'alliances)<br> Joue le jeu dans un style du "roi de la colline". Il se préoccupe davantage d'empêcher les autres de gagner plutôt que de gagner lui-même. Il choisira l'ennemi le plus fort disponible, mais prendra en compte le moment où ils sont déjà en guerre. Il crée une sorte de tournoi de type tournoi avec des 1 contre 1 séparés, qui peuvent également se transformer en 1 contre X pour quelqu'un qui devient trop performant. Notez qu'une fois qu'une guerre est déclarée, il n'est pas facile de l'arrêter. Cela évite les situations instables où on se retrouverait avec un éternel va-et-vient de changement d'ennemis en fonction de la situation. En gros : une ancienne superpuissance attaquée de trois côtés ne sera pas simplement laissée tranquille lorsqu'elle ne sera plus une superpuissance.
 SETUP_OPPONENT_AI_FUN             | IA : Amusant
 SETUP_OPPONENT_AI_PERSONALITY     | IA : Personnalité
-// SETUP_OPPONENT_AI_PERSONALITY_HELP | // TODO
+// SETUP_OPPONENT_AI_PERSONALITY_HELP | Famille IA : Xilmi (pas de barre de relation, pas d'alliances)<br> Celle-ci ne se soucie pas d'être juste dans le choix de son adversaire. Elle est très opportuniste et veut absolument gagner. Cependant, son agressivité dépend fortement de l'espèce de son empire et de la personnalité de son chef. Elle peut être suicidaire ou trop prudente. Cependant, l'expérience a montré que l'approche la plus prudente donne en moyenne de bien meilleurs résultats. <br><b><u>Bref aperçu de la façon dont chaque trait de personnalité affecte le comportement de l'IA :</u></b><br><b>Agressif :</b> elle part en guerre assez facilement, y compris dans des situations qui ne semblent pas très bonnes. <br><b>Erratique :</b> la probabilité qu'elle déclare la guerre varie d'un tour à l'autre. <br><b>Honorable :</b> elle ne déclarera pas de guerre d'elle-même. Il faut la lui demander pour le faire. Elle ne demandera pas la paix si les choses ne se passent pas comme elle le souhaite, car ce serait déshonorant. <br><b>Pacifiste :</b> elle ne déclarera jamais la guerre. Ni d'elle-même, ni lorsqu'on la lui demande. Il est également facile de faire la paix avec elles. Elles ne déclinent une offre de paix que s'elles ont encore des invasions en vue. <br><b>Impitoyable :</b> Rien ne les empêche de faire la guerre s'ils le souhaitent. Même si cela serait complètement suicidaire. Ils ne demanderont pas non plus la paix lorsqu'ils sont en train de perdre. <br><b>Xénophobe :</b> Il faut que quelqu'un ne soit pas spécial. Elles ne déclareront la guerre que si elles pensent que cela semble raisonnablement faisable. <br><b>Diplomate :</b> La prudence est de mise avec ces gens-là. Elles sont opportunistes et prennent le chemin de la moindre résistance, lorsqu'il s'agit de savoir à qui déclarer la guerre tout en se montrant gentilles avec tous ceux qui pourraient être une menace. Elles sont de sérieuses prétendantes à la victoire. Elles aiment particulièrement les technologies des champs de force. <br><b>Écologiste :</b> Leur objectif est de maintenir un équilibre entre les espèces de la galaxie. Elles n'attaqueront donc que ceux qui ont le plus de population. Sauf s'il s'agit d'elles-mêmes. Dans ce cas, le meilleur équilibre est déjà établi et la guerre est inutile. Elles aiment particulièrement les technologies planétologiques.<br><b>Expansionnistes :</b> Elles ne pensent pas en « empires », mais en planètes. Ainsi, quiconque possède la cible la plus juteuse à proximité est considéré comme une bonne victime potentielle. Défendez vos planètes pour les rendre moins juteuses et elles iront voir ailleurs. Elles aiment particulièrement les technologies de propulsion.<br><b>Industriels :</b> La protection de leur noyau industriel est l'objectif principal des industrielles. Ainsi, quiconque s'installe le plus près de leur noyau doit être éliminé en premier afin de garantir l'avenir de leur productivité. Leur stratégie est principalement défensive. Elles aiment particulièrement les technologies de construction.<br><b>Militaristes :</b> Elles aiment les guerres et le meilleur adversaire est celui qui peut réellement riposter. Elles s'en prennent généralement à celui qui est le plus fort dans l'ensemble. Elles éliminent d'abord le plus gros obstacle à leur domination. Elles aiment particulièrement les technologies d'armement.<br><b>Technologue :</b> Tant qu'elles ont toutes les technologies disponibles, elles sont parfaitement heureuses et laisseront les autres tranquilles. Cependant, si quelqu'un les bat dans leur domaine, elles deviennent jalouse. Et plus vous avez de choses qu'elles n'ont pas, plus vos colonies deviennent intéressantes pour une invasion, afin d'intégrer vos technologies dans leur portefeuille. Vous pouvez les apaiser en leur offrant gratuitement toutes vos technologies. Elles aiment particulièrement les technologies informatiques.
 SETUP_OPPONENT_AI_RANDOM_HELP     | Sélection aléatoire parmi : Base, Modnar, Débutant, Xilmi, Hybride, Fusion, Amusant ou Personnalité.
 SETUP_OPPONENT_AI_RANDOM          | IA : Aléatoire
 SETUP_OPPONENT_AI_RANDOM_BASIC_HELP | Sélection aléatoire parmi : Base, Modnar ou Débutant.
@@ -1989,7 +1995,7 @@ CUSTOM_RACE_HOME_RESOURCES        | Ressources planètaires
 CUSTOM_RACE_HOME_ENVIRONMENT_DESC | Ce paramètre affecte le taux de croissance du monde d’origine.
 CUSTOM_RACE_HOME_ENVIRONMENT      | Environement planétaire
 CUSTOM_RACE_RACE_KEY              | Nom du fichier
-CUSTOM_RACE_RACE_KEY_DESC         | C'est ici que vous devez saisir le nom du fichier, il est également utilisé comme clé pour les espèces standard... Ne les utilisez pas ou conservez la valeur par défaut "SPECIES_xxx" pour définir les capacités →FR_REWORKED←.
+CUSTOM_RACE_RACE_KEY_DESC         | C'est ici que vous devez saisir le nom du fichier, il est également utilisé comme clé pour les espèces standard... Ne les utilisez pas ou conservez la valeur par défaut "SPECIES_xxx" pour définir les aptitudes →FR_REWORKED←.
 // Inutilisé pour le moment
 CUSTOM_RACE_RACE_TYPE             | Species Type
 CUSTOM_RACE_RACE_TERRAN           | Terran
@@ -2242,7 +2248,7 @@ SETTINGS_COLONIZING_DESC          | Limiter la colonisation des systèmes à ceu
 SETTINGS_COUNCIL_WIN_HELP         | Cela détermine si les factions peuvent rejeter une victoire du conseil, ou si une telle victoire est même possible.
 SETTINGS_COUNCIL_DESC             | Désactiver la victoire par le Haut Conseil, ou permet aux empires ennemis de se rebeller contre le joueur gagnant.
 SETTINGS_RANDOMIZE_AI_HELP        | « Option avancée » originale pour changer aléatoirement les personnalités jouées par l'IA, les aptitudes des espèces ou les deux.<br><i>En cas de conflit avec les aptitudes sélectionnées dans le menu Galaxie, le menu Galaxie gagne.</i>(Doit être défini sur « Espèce originale » pour que cette option fonctionne.)
-SETTINGS_RANDOMIZE_AI_DESC        | Choisir au hasard les personnalités des joueurs IA, les capacités raciales ou les deux.
+SETTINGS_RANDOMIZE_AI_DESC        | Choisir au hasard les personnalités des joueurs IA, les aptitudes raciales ou les deux.
 SETTINGS_AUTOPLAY_DESC            | Automatiser complètement le jeu en faisant jouer une IA pour le joueur. Ceci est utile pour une vue de première main du fonctionnement de l'IA.
 SETTINGS_AUTOPLAY_WARNING         | Avertissement! La lecture automatique est actuellement activée, ce qui empêchera le jeu de l'utilisateur. Utilisez «Options avancées» pour désactiver.
 SETTINGS_FUEL_RANGE_HELP          | Augmente ou diminuer la gamme des technologies d'autonomie en carburant et les réservoirs de carburant. Les espèces tolérantes bénéficieront des autonomies réduites, tandis que les espèces à croissance rapide apprécieront des autonomies accrues...
@@ -2251,8 +2257,16 @@ SETTINGS_AI_HOSTILITY_DESC        | Augmente ou diminue le niveau général d'ho
 
 HEADERS_RELEVANT_PARAMETERS_DESC  | Vous serez peut-être aussi intéressé à connaître, ou ajuster ces paramètres.
 HEADERS_RELEVANT_PARAMETERS       | ~~~ PARAMETRES CONNEXES ~~~
+
+HEADERS_COMPUTER_OPTIONS_DESC     | Options liées au matériel.
+HEADERS_COMPUTER_OPTIONS          | ~~~ OPTIONS MATÉRIELLE ~~~
+HEADERS_BACKUP_OPTIONS_DESC       | Options liées aux fichiers.
+HEADERS_BACKUP_OPTIONS            | ~~~ OPTIONS DE SAUVEGARDE ~~~
+HEADERS_MENU_APPEARANCE_DESC      | Paramètres de personnalisation des interfaces.
+HEADERS_MENU_APPEARANCE           | ~~~ OPTIONS DES INTERFACES ~~~
 HEADERS_GAME_UI_PREFERENCES_DESC  | Personnalisation de l'interface de jeu.
 HEADERS_GAME_UI_PREFERENCES       | ~~~ PRÉFÉRENCES DE L'INTERFACE ~~~
+
 HEADERS_START_GALAXY_OPTIONS_DESC | Paramètres utilisés lors de la création de la galaxie. Ne seront lus que lors du démarrage d'une nouvelle partie.
 HEADERS_START_GALAXY_OPTIONS      | ~~~ PARAMÈTRES DE LA GALAXIE ~~~
 HEADERS_START_PLANET_OPTIONS_DESC | Paramètres utilisés lors de la génération de planètes. Ne seront lus que lors du démarrage d'une nouvelle partie.
@@ -2262,11 +2276,13 @@ HEADERS_START_EMPIRE_OPTIONS      | ~~~ PARAMÈTRES DES EMPIRES ~~~
 HEADERS_START_TECH_CONTROL_HELP   | Certaines technologies peuvent être considérées comme essentielles, et d'autres ennuyeuses, voici un moyen de les personnaliser, en les forçant à être disponibles pour la recherche, ou en les empêchant !
 HEADERS_START_TECH_CONTROL_DESC   | Options utilisées lors de la génération des listes de technologies. Ne seront lues que lors du démarrage ou redémarrage d'une nouvelle partie.
 HEADERS_START_TECH_CONTROL        | ~~ TECH AUTORISÉES ET INTERDITES ~~
-HEADERS_START_RANDOM_ALIENS_HELP  | Lorsque les capacités de l'adversaire sont établie aléatoirement, les paramètres suivants seront utilisés :
+HEADERS_START_RANDOM_ALIENS_HELP  | Lorsque les aptitudes de l'adversaire sont établie aléatoirement, les paramètres suivants seront utilisés :
 HEADERS_START_RANDOM_ALIENS_DESC  | Options utilisées pour la génération d'espèces aléatoires. Ne seront lus que lors du démarrage ou redémarrage d'une nouvelle partie.
 HEADERS_START_RANDOM_ALIENS       | ~~~ ADVERSAIRES ALEATOIRES ~~~
 HEADERS_GAME_RELATIONS_DESC       | Options de contrôle des relations entre empires. Peut être changé dynamiquement.
 HEADERS_GAME_RELATIONS            | ~~~ RELATIONS AVEC LES EMPIRES ~~~
+HEADERS_RANDOM_EVENTS_OPT_DESC    | Options des événements aléatoires. Peuvent être modifiées de manière dynamique.
+HEADERS_RANDOM_EVENTS_OPT         | ~~~ ÉVÉNEMENTS ALÉATOIRES ~~~
 HEADERS_GAME_VARIOUS_DESC         | Options diverses. Peut être changé dynamiquement.
 HEADERS_GAME_VARIOUS              | ~~~ OPTIONS DIVERSES ~~~
 HEADERS_GAME_OTHER_DESC           | Autres options. Peut être changé dynamiquement.
@@ -2287,7 +2303,6 @@ HEADERS_ZOOM_FACTORS_DESC         | Ouvre un sous-menu pour définir plusieurs p
 HEADERS_ZOOM_FACTORS              | ~~~ PRÉFÉRENCES D'AFFICHAGE ~~~
 HEADERS_MENU_OPTIONS_DESC         | Options contrôlant les paramètres du menu. Peuvent être modifiées de manière dynamique. (Options Remnant.cfg)
 HEADERS_MENU_OPTIONS              | ~~~ OPTIONS D'AFFICHAGE ~~~
-
 HEADERS_ENOUGH_IS_ENOUGH_DESC     | Enlèvez-moi ces pop-ups de ma vue !
 HEADERS_ENOUGH_IS_ENOUGH          | ~~~ OPTIONS D'AIDE ~~~
 HEADERS_PLANETS_FLAG_OPTIONS_DESC | Pour permettre une plus grande personnalisation du ou des drapeaux des planètes.
@@ -2339,10 +2354,17 @@ HEADERS_SHIELD_ANIMATIONS            | ~~~ ANIMATION DES BOUCLIERS ~~~
 HEADERS_ASTEROIDS_DESC               | Pour définir les emplacements et les propriétés des astéroïdes.
 HEADERS_ASTEROIDS                    | ~~~ ASTÉROÏDES ~~~
 
+HEADERS_UNCLASSIFIED_DESC            | Il reste encore à trouver la bonnne position !
+HEADERS_UNCLASSIFIED                 | ~~~ NON-CLASSIFIÉ ~~~
+HEADERS_SPACER_DESC                  |
+HEADERS_SPACER                       |  %1
+
+// BR: add UI panel for Systems options
 SETTINGS_MOD_SYSTEMS_OPTIONS_TITLE   | Configuration avancée des Étoiles et des Planètes
-SETTINGS_MOD_SYSTEMS_OPTIONS_UI      | - Menu des options avancées de planète -
+SETTINGS_MOD_SYSTEMS_OPTIONS_UI      | - Options avancées de planète -
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI_DESC | Ouvre un sous-menu contenant des paramètres Planétaires plus avancés.
 SETTINGS_MOD_SYSTEMS_OPTIONS_UI_HELP | Ouvre un sous-menu contenant des paramètres Planétaires plus avancés.<br>Ces paramètres sont définitifs.<br>Ces paramètres sont enregistrés avec le jeu.
+
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_TITLE   | Configuration avancée de la Galaxie
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI      | Paramètres avancés Galaxie
 SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_DESC | Ouvre un sous-menu contenant des paramètres avancés Galaxie.
@@ -2367,7 +2389,6 @@ SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | Permettre à une planète ultra-pauvre, p
 SETTINGS_MOD_RICH_POOR_ARTIFACT      | Riche / pauvre & Artéfacts : %1
 SETTINGS_MOD_ARTIFACT_MULT_DESC      | Multiplicateur de probabilité pour la planète d'avoir des artéfacts antariens.
 SETTINGS_MOD_ARTIFACT_MULT           | Multiplicateur Antarien : %1 %
-
 SETTINGS_MOD_ARTIFACT_OFFSET_DESC    | Décalage de probabilité pour la planète d'avoir des artéfacts antariens.
 SETTINGS_MOD_ARTIFACT_OFFSET         | Décalage Antarien : %1%
 SETTINGS_MOD_ARTIFACT_ORION_DESC     | Probabilté pour la planète d'avoir des artéfacts d'Orion.
@@ -2464,8 +2485,9 @@ SETTINGS_MOD_AI_DEFENSE_CONFIDENCE          | Assurance défensive de l'IA : %1
 SETTINGS_MOD_AI_DEFENSE_CONFIDENCE_DESC     | En mode Auto-Combat, détermine le degré de confiance de l'IA, des oppposants au joueur, dans la capacité de combat de ses navires par rapport à leur force réelle.<br>L'augmentation de cette valeur rend l'IA plus susceptible d'accepter des pertes au combat avant de battre en retraite.
 
 // modnar : add UI panel for modnar MOD game options
+SETTINGS_MOD_TITLE                   | Options de Modnar
+SETTINGS_MOD_STATIC_TITLE            | Configuration de la galaxie
 SETTINGS_MOD_DYNAMIC_TITLE           | Règles et paramètres du jeu
-SETTINGS_MOD_CHALLENGE_MODE          | Mode défi : %1
 SETTINGS_MOD_DIST_ARTIFACT_PLANET    | Distance min. Artéfacts : %1
 SETTINGS_MOD_NEW_RACES_ON            | Nouvelles espèces : %1
 SETTINGS_MOD_CHALLENGE_MODE          | Mode Défi : %1
@@ -2500,9 +2522,17 @@ SETTINGS_MOD_HOME_FERTILE            | Planète mère Fertile : %1
 SETTINGS_MOD_HOME_GAIA               | Planète mère Gaïa : %1
 SETTINGS_MOD_HOME_RICH               | Planète mère Riche : %1
 SETTINGS_MOD_HOME_ULTRA_RICH         | Planète mère Ultra-Riche : %1
-SETTINGS_MOD_CHALLENGE_MODE_DESC     | Donnez aux Empires d'IA des ressources supplémentaires au début (plus de population, de usines et de vaisseaux.)
-SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC  | Définit le Modificateur de Production de l'IA de 20 % à 500 %. Assurez-vous de sélectionner "Difficulté : Personnalisé". (Presser Shift / Ctrl, puis faire défiler la molette de la souris pour changer en unités de 5 % / 20 %.)
-SETTINGS_MOD_DYNAMIC_DIFFICULTY_DESC | Adapte la production des IA à la force du joueur. L'effet augmente vers le 150ème tour. (L'ajustement n'est pas infini. Les Empires d'IA très forts seront presque inchangés.)
+
+SETTINGS_MOD_DIST_ARTIFACT_PLANET_HELP | Pour forcer une distance minimale entre les mondes d'origine et la planète artéfact la plus proche.<br> Le but est d'éviter que certains empires soient aléatoiremetn survolté en début de partie.
+SETTINGS_MOD_DIST_ARTIFACT_PLANET_DESC | Distance minimale entre les mondes d'origine et la planète artéfact la plus proche.
+SETTINGS_MOD_CHALLENGE_MODE_DESC       | Donnez aux Empires d'IA des ressources supplémentaires au début (plus de population, de usines et de vaisseaux.)
+SETTINGS_MOD_NEW_RACES_ON_DESC         | Inclure les nouvelles espèces comme adversaires potentiels.
+SETTINGS_MOD_BATTLE_SCOUT_DESC         | Conception d'un éclaireur armé, à coque moyenne, pour le joueur en début de partie. Constructible malgré le non-respect des limitations d'espace du vaisseau.
+SETTINGS_MOD_COMPANION_WORLDS_HELP     | Ajoute 0 à 6 colonies supplémentaires, en début de partie, à <b>TOUS<\b> les mondes d'origine.<br> - Utilisez des valeurs négatives, de -1 à -4, pour conserver la disposition pré-assignée d'origine.<br> - Utilisez des valeurs positives, de 1 à 6, pour activer la nouvelle disposition attribuée aléatoirement.
+SETTINGS_MOD_COMPANION_WORLDS_DESC     | Ajoute 0 à 6 colonies supplémentaires, en début de partie, à tous les mondes d'origine. (Valeur négative pour la disposition d'origine)
+SETTINGS_MOD_RANDOM_TECH_START_DESC    | En début de partie, donne aléatoirement à <b>TOUS<\b> les empires 2 technologies de premier niveau. Aucune planète artéfact ne sera alors présente dans la galaxie. (Les technologies peuvent différer d'un empire à l'autre.)
+SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC    | Définit le Modificateur de Production de l'IA de 20 % à 500 %. Assurez-vous de sélectionner "Difficulté : Personnalisé". (Presser Shift / Ctrl, puis faire défiler la molette de la souris pour changer en unités de 5 % / 20 %.)
+SETTINGS_MOD_DYNAMIC_DIFFICULTY_DESC   | Adapte la production des IA à la force du joueur. L'effet augmente vers le 150ème tour. (L'ajustement n'est pas infini. Les Empires d'IA très forts seront presque inchangés.)
 SETTINGS_MOD_SCRAP_REFUND_DESC          | La valeur de la ferraille sera-t-elle récupérée sur les vaisseaux déclassés partout dans la galaxie?
 SETTINGS_MOD_SCRAP_REFUND_ALL_DESC      | Option classique. Toute la ferraille sera récupérée.
 SETTINGS_MOD_SCRAP_REFUND_EMPIRE_DESC   | Seuls les vaisseaux en orbite sur les mondes de l'empire seront valorisés.
@@ -2512,7 +2542,7 @@ SETTINGS_MOD_SCRAP_REFUND_FACTOR_DESC   | Quel pourcentage de la valeur des vais
 SETTINGS_MOD_SHIP_SPACE_FACTOR_DESC     | Contrôle l'espace disponible dans les vaisseaux.
 SETTINGS_MOD_MISSILE_BASE_MODIFIER_DESC | Change le coût des bases de missiles de 10 % à 200 % du prix de base.
 SETTINGS_MOD_MISSILE_SHIP_MODIFIER_DESC | Change la taille, le coût et la consommation des missiles de 10 % à 200 %.
-SETTINGS_MOD_RETREAT_RESTRICTIONS_DESC | Indique qui sera restreint pour battre en retraite.
+SETTINGS_MOD_RETREAT_RESTRICTIONS_DESC  | Indique qui sera restreint pour battre en retraite.
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS_DESC | Indique pendant combien de tours dure la restriction sur les retraites.
 SETTINGS_MOD_MAX_COMBAT_TURNS_DESC   | Définit la durée maximale des combats spatiaux. Ceci était fixé à 50 dans MoO1. Après cette durée, les agresseurs reculent. Choisi au hasard s'il n'y a pas de colonie.
 SETTINGS_MOD_HOME_ORION_DESC         | {Toujours, Jamais, Auto} donne au joueur / IA une planète mère de type Orion avec Vestiges.
@@ -2528,6 +2558,9 @@ SETTINGS_MOD_POP_GROWTH_NORMAL       | Normale
 SETTINGS_MOD_POP_GROWTH_NORMAL_DESC  | Croissance normale
 SETTINGS_MOD_POP_GROWTH_REDUCED      | Réduite
 SETTINGS_MOD_POP_GROWTH_REDUCED_DESC | Croissance demographique à 50 %, coût d'achat doublé, achat colons plafonné à une valeur égale à la taille maximale de la colonie
+
+// BR: Second UI panel for MOD game options
+SETTINGS_MOD_TITLE_B                     | Options MOD secondaires
 SETTINGS_MOD_OPTION_NEVER                | Jamais
 SETTINGS_MOD_OPTION_AUTO                 | Auto.
 SETTINGS_MOD_OPTION_ALWAYS               | Toujours
@@ -2552,7 +2585,6 @@ SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Toujours / Toujours
 
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Pourcentage nécessaire pour gagner l'élection au conseil.
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Exigences du Conseil : %1 %
-
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_DESC       | Position du joueur pendant pendant la votation.
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE            | Vote du joueur : %1
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_FIRST_DESC | Le joueur votera toujours en premier.
@@ -2566,7 +2598,6 @@ SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_HELP | Pour ajuster l'écartement des mond
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_DESC | Distance minimale entre les mondes d'Empire Home Facteur en %. (Non autorisé sur les « galaxies complexes »)
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR      | Écartement des empires : %1%
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_MAP  | Écartement Minimal : %1% (%2 ly)
-
 SETTINGS_MOD_GALAXY_SIZE                   | Taille de la galaxie : %1 al x %2 al
 
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | Pour aider à définir le nombre maximum d'adversaires en fonction de la taille de la galaxie.
@@ -2611,7 +2642,6 @@ TECH_HEAD_HK                             | Inclure ou exclure la Technologie
 TECH_END_HK                              | dans l'arbre technologique pour joueur / IA.
 TECH_VAL_HK                              | Inclure {Toujours, Jamais, Auto}
 TECH_LEVEL_HK                            | Cette technologie pourrait être disponible au niveau
-
 FR_MISSILES_DESC_HK                      | Les bases sont équipées des meilleurs boucliers ainsi que des meilleurs missiles (si > 0)
 FR_USINES_DESC_HK                        | La planète a achevé de construire ses usines (ou presque)
 FR_POPULATION_DESC_HK                    | La population est à son maximum (ou presque) + La planète est entèrement terraformée + Aucuns déchets (si affecté par les déchets)
@@ -2649,7 +2679,6 @@ SETTINGS_MOD_TECH_GAIA_HELP              | →TECH_HEAD_HK← <b>→SOILENRICH_1
 SETTINGS_MOD_TECH_GAIA_DESC              | (Level 30) →TECH_VAL_HK← "→SOILENRICH_1_NAME←" (Gaia Terraforming) →TECH_END_HK←
 SETTINGS_MOD_TECH_GAIA                   | Planètes Gaia: %1
 
-
 // Pas encore certain de la traduction finale...
 // Des racourcis sont créés pour garantir l'uniformité en cas de changement.
 FR_CUSTOM_ALIENS                         | Aptitudes aléatoires
@@ -2676,7 +2705,6 @@ SETTINGS_MOD_RACES_RAND_TARGET_MIN_DESC  | Génération aléatoire des espèces 
 SETTINGS_MOD_RACES_RAND_TARGET_MIN       | Cible basse : %1
 
 SETTINGS_MOD_RACES_RAND_TARGET_MAX_HELP  | →FR_APTITUDE_SELECTION←.<br>Lorsque « →FR_CUSTOM_ALIENS← » = « →SETTINGS_MOD_RACES_ARE_RANDOM_TARGET← » : <br>→CUSTOM_RACE_RANDOM_USE_TARGET_HELP← <br>→CUSTOM_RACE_RANDOM_TARGET_MAX_DESC←
-
 SETTINGS_MOD_RACES_RAND_TARGET_MAX_DESC  | Génération aléatoire des espèces des adversaires : <br>→CUSTOM_RACE_RANDOM_TARGET_MAX_DESC←
 SETTINGS_MOD_RACES_RAND_TARGET_MAX       | Cible haute : %1
 
@@ -2691,7 +2719,6 @@ SETTINGS_MOD_RACES_ARE_RANDOM_TARGET_DESC  | Si le coût total n'est pas dans la
 
 // BR: Global Settings UI panel for MOD game options
 SETTINGS_MOD_TITLE_GLOBAL                | Options de confort du le jeu
-
 SETTINGS_MOD_ZOOM_FINAL_REPLAY_DESC      | La rediffusion de l'histoire finale commence à montrer la galaxie complète (au lieu d'être zoomée sur l'empire du joueur)
 SETTINGS_MOD_ZOOM_FINAL_REPLAY           | Rediff. finale affiche tout : %1
 SETTINGS_MOD_ZOOM_EMPIRE_REPLAY_DESC     | La rediffusion de l'histoire de l'Empire commence à montrer la galaxie complète (au lieu d'être zoomée sur l'empire sélectionné)
@@ -2716,11 +2743,9 @@ SETTINGS_MOD_SHOW_PATH_FACTOR            | Taille min. Trajectoires : %1%
 SETTINGS_MOD_SHOW_NAME_MIN_FONT_DESC     | Pour régler la disparition des noms d'étoiles de la carte de la galaxie lors du zoom. Un facteur plus grand signifie qu'ils resteront plus longtemps à l'écran.
 SETTINGS_MOD_SHOW_NAME_MIN_FONT          | Taille min. noms d'étoiles : %1
 SETTINGS_MOD_SHOW_INFO_FONT_RATIO_DESC   | Pour régler la disparition des données des colonnies de la carte de la galaxie lors du zoom. Un facteur plus grand signifie qu'elles resteront plus longtemps à l'écran.
-
 SETTINGS_MOD_SHOW_INFO_FONT_RATIO        | Taille infos colonies : %1%
 SETTINGS_MOD_MAP_FONT_FACTOR_DESC        | Pour ajuster la taille de la police de caratères de la carte de la galaxie. Un facteur plus grand signifie des caratères plus grands.
 SETTINGS_MOD_MAP_FONT_FACTOR             | Taille des caractères : %1%
-
 SETTINGS_MOD_MENU_STARTUP_DESC           | Comment les paramètres du jeu doivent-ils être initialisés lors du lancement de RotP ?
 SETTINGS_MOD_MENU_STARTUP                | Options de démarrage : %1
 
@@ -2757,6 +2782,7 @@ SETTINGS_MOD_RACE_STATUS_LOG_YES_DESC    | Échelle logarithmique
 SETTINGS_MOD_RACE_STATUS_LOG_NO_DESC     | Échelle linéaire
 SETTINGS_MOD_RACE_STATUS_LOG_YES_UI      | Échelle logarithmique
 SETTINGS_MOD_RACE_STATUS_LOG_NO_UI       | Échelle linéaire
+
 SETTINGS_MOD_RACE_STATUS_VIEW_HELP       | Les valeurs d'état de l'Empire peuvent être affichées comme absolues ou relatives.<br> Par rapport au total connu ou au joueur.
 SETTINGS_MOD_RACE_STATUS_VIEW_DESC       | Les valeurs d'état de l'Empire peuvent être affichées comme absolues ou relatives.<br> Par rapport au total connu ou au joueur.
 SETTINGS_MOD_RACE_STATUS_VIEW            | Valeur de statut Empire : %1
@@ -2941,6 +2967,13 @@ SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR_DESC  | Cela mettra fin à la guerre et 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_NOWAR       | Armistice
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE_DESC  | Il s'agit encore d'un traité de paix d'une durée normale de 10 à 15 ans.<br> Mais vous ne permettrez pas à cet empire de coloniser une planète que vous protégez avec une flotte armée en orbite. Et bien sûr, ils ne vous permettront pas non plus de le faire. Les IAs ne sont pas au courant de cette limitation, donc cette option pourrait perturber les plans de leur flotte.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_TRUCE       | Guerre froide
+
+SETTINGS_MOD_RESEARCH_MOO1_DESC          | OUI : recharger ne changera pas la probabilité de recherche<br>NON : vous pouvez essayer de recharger pour obtenir un nouveau jet de dés ! (RotP par défaut)
+SETTINGS_MOD_RESEARCH_MOO1               | Recherche Moo1: %1
+
+SETTINGS_MOD_PERSISTENT_RNG_DESC         | Pour rendre le Générateur Aléatoire de base persistant. Le rechargement ne changera pas le caractère aléatoire du jeu.
+SETTINGS_MOD_PERSISTENT_RNG              | GAL persistant : %1
+
 SETTINGS_MOD_ALLOW_SPECIES_DETAILS_DESC  | Dans le panneau de diplomatie de l'Empire, permet ou interdit de demander des informations plus détaillées sur les espèces.
 SETTINGS_MOD_ALLOW_SPECIES_DETAILS       | Autoriser les détails de l'espèce : %1
 
@@ -2957,6 +2990,7 @@ SETTINGS_MOD_DARK_GALAXY_SHRINK_DESC     | Ne montre que les systèmes à porté
 SETTINGS_MOD_DARK_GALAXY_SHRINK          | Vue Brouillée
 SETTINGS_MOD_DARK_GALAXY_DESC            | Seuls les systèmes aux alentours sont montrés.
 SETTINGS_MOD_DARK_GALAXY                 | Brouillard de Guerre : %1
+SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Pourquoi ? par u/dweller_below</b><br><br><b>Ennuyeux :</b> Nous sommes tous dans une nébuleuse particulièrement épaisse. La supernova qui a créé cette nébuleuse a craché des éléments lourds PARTOUT. La combinaison particulière d'éléments dans notre nébuleuse locale bloque TOUT.<br><br><b>Plus drôle/autoréférentiel :</b> Nous participons à une vaste simulation créée par les Orions/Antarans. Naturellement, la simulation doit être suffisamment bonne pour que nous exprimions tous notre sensibilité/sapience. Dans l'itération 42 de la simulation, nos Dieux/Maîtres ont décidé d'isoler chaque race jusqu'à ce que nous nous rencontrions.<br><br><b>Le plus drôle :</b> Les Antarans ont gagné la guerre Orion/Antaran et ont décidé d'exterminer TOUT. Nos races ont toutes été récemment secourues/déplacées/copiées dans notre ARC (Antaran Rescue Craft) par les Orions. L'ARC ressemble juste à une petite galaxie. L'ARC est en fait une dimension de poche/un vaisseau de sauvetage. Cela explique plusieurs choses :<br>- La forte densité de races intelligentes au sein de notre ARC.<br>- Pourquoi les Orions ne dominent pas notre ARC. Les Orions s'opposent aux Antarans. L'une des différences est que les Orions ne dominent pas/exterminent pas les autres races. Cela correspond à l'histoire précédente.<br>- Pourquoi nous n'avons pas ressenti d'émissions radio les uns des autres. Ou de lumière provenant de l'étoile de l'autre. Le jeu commence à la création de l'ARC. Nous avions l'habitude de voir d'autres étoiles. Mais, maintenant, tout est différent. Maintenant, lorsque nous commençons à sortir de nos petites bulles de lumière, nous constatons que tout est différent. En fait, chaque étoile émet une bulle de lumière décroissante pleine d'informations obsolètes/sans signification. Mais, lorsque vous vous rapprochez des étoiles adjacentes, vous pouvez voir ce qui est vraiment là MAINTENANT.<br>- Pourquoi la loi physique change. Les Orions ont fabriqué différentes lois physiques dans chaque jeu/ARC pour des « raisons ». À chaque fois que nous jouons, l'ARC peut être légèrement différent. Les Orions avaient suffisamment de ressources pour copier nos races plusieurs fois et créer plusieurs ARC. Chaque partie/ARC est une tentative de créer une combinaison différente de survivants.
 
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | Pour augmenter le pourcentage maximal d'impôt sur la sécurité. (Prime d'espionnage = 2 × taxe)
 SETTINGS_MOD_MAX_SECURITY_PCT            | Sécurité Max. : %1 %
@@ -2974,10 +3008,7 @@ SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES      | Affectent les tirs : %1
 SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_DESC | Les astéroïdes détruiront partiellement les missiles et réduiront l'efficacité des faisceaux, conformément aux règles de MoO1.
 SETTINGS_MOD_MOO1_ASTEROIDS_PROPERTIES_HELP | Les astéroïdes détruiront partiellement les missiles et réduiront l'efficacité des faisceaux, conformément aux règles de MoO1.<br>Lorsque les armes à faisceaux tirent à travers des cases d'astéroïdes, le défenseur ajoute +3 à son niveau de défense contre les faisceaux.<br>Chaque missile ou torpille qui traverse une case d'astéroïde a une chance d'être détruit :<br>Nucléaire et Hyper V : 80 %<br>Hyper X et Scatter Pack V : 72 %<br>Merculite et Scatter Pack VII : 64 %<br>Stinger, Scatter Pack X, Pulson et torpille antimatière : 56 %<br>Herculaire : 48 %<br>Torpilles Hellfire, Zeon et à protons : 40 %<br>Torpille à plasma : 32 %
 
-
-
 PLANET_TYPE_LIST                         | La séquence de type de planète est : <br>→PLANET_RADIATED←, →PLANET_TOXIC←, →PLANET_INFERNO←, →PLANET_DEAD←, →PLANET_TUNDRA←, →PLANET_BARREN←, →PLANET_MINIMAL←, →PLANET_DESERT←, →PLANET_STEPPE←, →PLANET_ARID←, →PLANET_OCEAN←, →PLANET_JUNGLE←, →PLANET_TERRAN←
-
 SETTINGS_MOD_BASE_NO_ASTEROIDS           | Base pour aucun : %1 %
 SETTINGS_MOD_BASE_NO_ASTEROIDS_DESC      | Probabilité de base qu'il n'y ait pas d'astéroïdes autour des planètes, en fonction de leur type.
 SETTINGS_MOD_STEP_NO_ASTEROIDS           | Incrément pour aucun : %1 %
@@ -3087,6 +3118,8 @@ SETTINGS_MOD_PREVIEW_NEBULA              | Aperçu des nébuleuses : %1
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Afficher les nouvelles espèces dans la liste des adversaires ?
 SETTINGS_MOD_SHOW_NEW_RACES              | Toutes les espèces : %1
 
+SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Menu Espèces personnalisées : afficher la case inférieure avec les info ?
+SETTINGS_MOD_SHOW_TOOLTIPS               | Afficher la barre d'info: %1
 SETTINGS_MOD_USE_FUSION_FONT_HELP        | A utiliser avec <b>Galaxies Texte</b> : Sur les ordinateurs Windows, vous n'aurez pas accès à tous les caractères disponibles... J'ai donc fusionné un tas de polices "noto" en un seul paquet et je l'ai inclus dans ce mod. C'est un mélange de polices monospace et variables (pour un total de 153 polices), j'ai dû supprimer les fonctions de tableau "avancées" car elles étaient trop grandes pour être fusionnées (il y a une raison pour laquelle Google ne propose pas la grande fusionnée !). Par conséquent, ce ne sera pas une bonne idée d'essayer de le copier dans votre dossier de polices...
 SETTINGS_MOD_USE_FUSION_FONT_DESC        | Les galaxies en forme texte utiliseront la police Fusion.
 SETTINGS_MOD_USE_FUSION_FONT             | Uiliser la police Fusion: %1
@@ -3134,8 +3167,6 @@ SETTINGS_MOD_TARGET_BOMBARD_AI_HELP      | L'IA est assez intelligente pour cont
 SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Le joueur est assez intelligent pour contrôler ses bombardements, mais l'IA n'est pas autorisée à le faire !
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Tout le monde est capable de contrôler ses bombardements.
 
-
-
 SETTINGS_MOD_PRE_GAME_OPTIONS_TITLE      | Paramètres de configuration de la Galaxie
 SETTINGS_MOD_PRE_GAME_OPTIONS_UI         | Paramètres de configuration
 SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC    | Ouvre un sous-menu contenant des paramètres avancés de définissant la galaxie, ces paramètres ne sont utilisés qu'une seule fois, lors du démarrage ou du redémarrage d'un jeu.
@@ -3160,6 +3191,10 @@ SETTINGS_MOD_SETTINGS_OPTIONS_UI         | Interface utilisateur
 SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC    | Ouvre un sous-menu pour configurer l'interface utilisateur et les automatisations.
 SETTINGS_MOD_SETTINGS_OPTIONS_UI_HELP    | →SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC←<br>Certains de ces paramètres sont enregistrés dans le fichier du jeu, d'autres dans le fichier « Remnant.cfg ».<br>Ce sous-menu est également disponible pendant le jeu.
 
+SETTINGS_MOD_BASE_MOD_OPTIONS_TITLE      | Paramètres Mod de base
+SETTINGS_MOD_BASE_MOD_OPTIONS_UI         | Base Options Mod
+SETTINGS_MOD_BASE_MOD_OPTIONS_UI_DESC    | Ouvre un sous-menu contenant les options du mod de base.<br>À étendre sur demande.
+
 SETTINGS_MOD_COMMON_OPTIONS_TITLE        | Paramètres étendus
 SETTINGS_MOD_COMMON_OPTIONS_UI           | Paramètres étendus « Remnant.cfg »
 SETTINGS_MOD_COMMON_OPTIONS_UI_DESC      | Ouvre un sous-menu contenant les paramètres« Remnant.cfg » et d'autres paramètres de performances et de présentation communs à tous les jeux.
@@ -3179,11 +3214,73 @@ SETTINGS_MOD_CLEAR_SPECIES_NAME_DESC     | Pour effacer toute la liste ci-dessus
 SETTINGS_MOD_ACTIVATE_SPECIES_NAME       | Appliquer
 SETTINGS_MOD_ACTIVATE_SPECIES_NAME_DESC  | Pour mettre à jour les espèces actuelles avec les nouveaux paramètres ci-dessus.
 
-NAME_DESC0                | Saisissez les nouveaux "Empire name, Species name, Species Plural Name" pour cette espèce. Laissez vide pour conserver le nom actuel.<br>Example : Human Triumvirate, Human, Humans.
+NAME_RACE_ALKARI          | Altairi: %1
+NAME_RACE_BULRATHI        | Ursinathi: %1
+NAME_RACE_DARLOK          | Nazlok: %1
+NAME_RACE_HUMAN           | Human: %1
+NAME_RACE_KLACKON         | Kholdan: %1
+NAME_RACE_MEKLAR          | Meklonar: %1
+NAME_RACE_MRRSHAN         | Fiershan: %1
+NAME_RACE_PSILON          | Mentaran: %1
+NAME_RACE_SAKKRA          | Ssslaura: %1
+NAME_RACE_SILICOID        | Cryslonoid: %1
+NAME_RACE_ALKARI_FR       | Altairi: %1
+NAME_RACE_BULRATHI_FR     | Ursinathi: %1
+NAME_RACE_DARLOK_FR       | Nazlok: %1
+NAME_RACE_HUMAN_FR        | Human: %1
+NAME_RACE_KLACKON_FR      | Kholdan: %1
+NAME_RACE_MEKLAR_FR       | Meklonar: %1
+NAME_RACE_MRRSHAN_FR      | Fiershan: %1
+NAME_RACE_PSILON_FR       | Mentaran: %1
+NAME_RACE_SAKKRA_FR       | Ssslaura: %1
+NAME_RACE_SILICOID_FR     | Cryslonoid: %1
+NAME_DESC0                | Saisissez les nouveaux "Empire name, Species name, Species Plural Name" pour cette espèce. Laissez vide pour conserver le nom actuel.<br>Example : Human Triumvirate, Human, Humans.NAME_DESC                 | →NAME_DESC0← (Invalid settings are displayed in red)
+NAME_DESC                 | →NAME_DESC0← (Les paramètres non valides sont affichés en rouge)
+NAME_RACE_ALKARI_DESC     | →NAME_DESC←
+NAME_RACE_BULRATHI_DESC   | →NAME_DESC←
+NAME_RACE_DARLOK_DESC     | →NAME_DESC←
+NAME_RACE_HUMAN_DESC      | →NAME_DESC←
+NAME_RACE_KLACKON_DESC    | →NAME_DESC←
+NAME_RACE_MEKLAR_DESC     | →NAME_DESC←
+NAME_RACE_MRRSHAN_DESC    | →NAME_DESC←
+NAME_RACE_PSILON_DESC     | →NAME_DESC←
+NAME_RACE_SAKKRA_DESC     | →NAME_DESC←
+NAME_RACE_SILICOID_DESC   | →NAME_DESC←
 NAME_HELP                 | →NAME_DESC0←<br>Les paramètres non valides sont affichés en rouge.
+NAME_RACE_ALKARI_HELP     | →NAME_HELP←
+NAME_RACE_BULRATHI_HELP   | →NAME_HELP←
+NAME_RACE_DARLOK_HELP     | →NAME_HELP←
+NAME_RACE_HUMAN_HELP      | →NAME_HELP←
+NAME_RACE_KLACKON_HELP    | →NAME_HELP←
+NAME_RACE_MEKLAR_HELP     | →NAME_HELP←
+NAME_RACE_MRRSHAN_HELP    | →NAME_HELP←
+NAME_RACE_PSILON_HELP     | →NAME_HELP←
+NAME_RACE_SAKKRA_HELP     | →NAME_HELP←
+NAME_RACE_SILICOID_HELP   | →NAME_HELP←
 
 NAME_FR_DESC0              | Saisissez les nouveaux "Empire name, Empire of name, Species adjective, Species adjective F, Species Plural Name, Species of Plural Name, Species to Plural Name, Species Plural adjective, Species Plural adjective F" pour cette espèce. Laissez vide pour conserver le nom actuel.<br>Example : Le Triumvirat Humain, du Triumvirat Humain, Humain, Humaine, les Humains, des Humains, aux Humains, Humains, Humaines.
+NAME_FR_DESC               | →NAME_FR_DESC0← (Les paramètres non valides sont affichés en rouge)
+NAME_RACE_ALKARI_FR_DESC   | →NAME_FR_DESC←
+NAME_RACE_BULRATHI_FR_DESC | →NAME_FR_DESC←
+NAME_RACE_DARLOK_FR_DESC   | →NAME_FR_DESC←
+NAME_RACE_HUMAN_FR_DESC    | →NAME_FR_DESC←
+NAME_RACE_KLACKON_FR_DESC  | →NAME_FR_DESC←
+NAME_RACE_MEKLAR_FR_DESC   | →NAME_FR_DESC←
+NAME_RACE_MRRSHAN_FR_DESC  | →NAME_FR_DESC←
+NAME_RACE_PSILON_FR_DESC   | →NAME_FR_DESC←
+NAME_RACE_SAKKRA_FR_DESC   | →NAME_FR_DESC←
+NAME_RACE_SILICOID_FR_DESC | →NAME_FR_DESC←
 NAME_FR_HELP               | →NAME_FR_DESC0←<br>Les paramètres non valides sont affichés en rouge.
+NAME_RACE_ALKARI_FR_HELP   | →NAME_FR_HELP←
+NAME_RACE_BULRATHI_FR_HELP | →NAME_FR_HELP←
+NAME_RACE_DARLOK_FR_HELP   | →NAME_FR_HELP←
+NAME_RACE_HUMAN_FR_HELP    | →NAME_FR_HELP←
+NAME_RACE_KLACKON_FR_HELP  | →NAME_FR_HELP←
+NAME_RACE_MEKLAR_FR_HELP   | →NAME_FR_HELP←
+NAME_RACE_MRRSHAN_FR_HELP  | →NAME_FR_HELP←
+NAME_RACE_PSILON_FR_HELP   | →NAME_FR_HELP←
+NAME_RACE_SAKKRA_FR_HELP   | →NAME_FR_HELP←
+NAME_RACE_SILICOID_FR_HELP | →NAME_FR_HELP←
 
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Options pour les développeurs
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | Options de débogage
@@ -3272,7 +3369,6 @@ SETTINGS_MOD_AUTO_FLAG_VESTIGES_NONE_DESC    | →FLAG_SELECT_SC1← Aucun arté
 SETTINGS_MOD_AUTO_FLAG_IN_NEBULA_DESC        | →FLAG_SELECT_SC1← Le systèm stellaire est situé dans une nébuleuse.
 SETTINGS_MOD_AUTO_FLAG_NOT_NEBULA_DESC       | →FLAG_SELECT_SC1← Le systèm stellaire n'est pas situé dans une nébuleuse.
 
-
 SETTINGS_MOD_AUTO_FLAG_ARID              | →PLANET_ARID← : %1
 SETTINGS_MOD_AUTO_FLAG_BARREN            | →PLANET_BARREN← : %1
 SETTINGS_MOD_AUTO_FLAG_DEAD              | →PLANET_DEAD← : %1
@@ -3287,7 +3383,6 @@ SETTINGS_MOD_AUTO_FLAG_STEPPE            | →PLANET_STEPPE← : %1
 SETTINGS_MOD_AUTO_FLAG_TERRAN            | →PLANET_TERRAN← : %1
 SETTINGS_MOD_AUTO_FLAG_TOXIC             | →PLANET_TOXIC← : %1
 SETTINGS_MOD_AUTO_FLAG_TUNDRA            | →PLANET_TUNDRA← : %1
-
 
 SETTINGS_MOD_AUTO_FLAG_ENV_GAIA          | →PLANET_GAIA← : %1
 SETTINGS_MOD_AUTO_FLAG_ENV_FERTILE       | →PLANET_FERTILE← : %1
@@ -3381,7 +3476,6 @@ REF_RETURN_2     | Occurrence d'événements. (0 = Événement unique ; -1 = Sim
 REF_MAX_SYS_1    | Pour définir le nombre de systèmes stellaires attaqués par le
 REF_MAX_SYS_2    | avant de partir. (0 = Non limité)
 REF_INTRO        | <br><u>Description de l'événement :</u><br>
-
 
 // ========== RANDOM EVENT GLOBAL PARAMETERS
 SETTINGS_MOD_EVENTS_START_TURN_DESC      | Pour définir le tour de départ des événements aléatoires. Si un événement a déjà été démarré, il ne sera pas arrêté.
@@ -3630,7 +3724,6 @@ SETTINGS_MOD_IRONMAN_OFF                 | Accessibles
 SETTINGS_MOD_IRONMAN_OFF_HELP            | Les règles seront accessibles durant le jeu.
 SETTINGS_MOD_IRONMAN_NO_OPTIONS          | Masquées
 SETTINGS_MOD_IRONMAN_NO_OPTIONS_HELP     | Les règles ne seront pas accessibles durant le jeu.
-
 SETTINGS_MOD_IRONMAN_NO_SAVE_HELP        | Aucune sauvegarde autorisée
 SETTINGS_MOD_IRONMAN_NO_SAVE_DESC        | Aucune sauvegarde autorisée
 SETTINGS_MOD_IRONMAN_NO_SAVE             | Aucune sauvegarde
@@ -3766,6 +3859,7 @@ TECH_EMPIRE_BALANCED_DESC         | Des dépenses équilibrées augmentent les p
 TECH_EMPIRE_DETAIL_1              | %1 BC pour
 TECH_EMPIRE_DETAIL_2              | %2 RP / Année
 TECH_TOTAL_RP                     | %1 RP
+TECH_LEVEL                        | Niveau %1
 TECH_DISCOVERY_PCT                | %1 %
 TECH_CHANGE_RESEARCH              | Cliquez pour rechercher cette technologie
 TECH_NEXT_TIER_TITLE              | Pas encore disponible.
@@ -4011,6 +4105,7 @@ SHIP_COMBAT_FACTORIES             | %1 Usines
 SHIP_COMBAT_ENTER_BATTLE          | Bataille
 SHIP_COMBAT_MISS                  | Manqué
 SHIP_COMBAT_DEFLECTED             | Dévié
+SHIP_COMBAT_IMMUNE                | Sans effets
 SHIP_COMBAT_DESTROYED             | Détruit!
 SHIP_COMBAT_STASIS                | Stase
 SHIP_COMBAT_TITLE                 | Bataille à %1
@@ -4026,6 +4121,7 @@ SHIP_COMBAT_RETREAT_ALL           | Se retirer
 SHIP_COMBAT_NEXT                  | Vaisseau suivant
 SHIP_COMBAT_AUTO_RESOLVE          | Réso. automatique
 SHIP_COMBAT_SMART_RESOLVE         | Réso. intelligente
+SHIP_COMBAT_START_WAR             | Cliquez sur l'icône pour déclarer la guerre.
 SHIP_COMBAT_AUTO_RESOLVING        | En train de résoudre le combat...
 SHIP_COMBAT_PLAY_BATTLE           | Bataille en lecture automatique
 SHIP_COMBAT_PAUSE_BATTLE          | Interrompre la bataille
@@ -4034,6 +4130,8 @@ SHIP_COMBAT_STATS_OFF             | Statistiques de combat : désactivées
 SHIP_COMBAT_EXIT                  | Quitter
 SHIP_COMBAT_COUNT_NAME            | %1  %2
 SHIP_COMBAT_MONSTER_TARGET        | Monstre spatial ciblé.
+// modnar: add space pirate random event
+SHIP_COMBAT_PIRATES_TARGET        | Pirates de l'espace ciblés.
 SHIP_COMBAT_ENEMY_TARGET          | Flotte ennemie ciblée.
 SHIP_COMBAT_ALLY_TARGET           | Flotte amie ciblée.
 SHIP_COMBAT_ENEMY_COLONY          | Planète ennemie ciblée.
@@ -4109,6 +4207,7 @@ RACES_RECALLED_DIPLOMATS          | %1 ont rappelé des diplomates
 RACES_NO_TREATY                   | Sans traité diplomatique
 RACES_AT_FINAL_WAR                | Guerre finale
 RACES_AT_WAR                      | En guerre
+RACES_COLD_WAR                    | (Guerre froide)
 RACES_PEACE                       | Traité de paix
 RACES_PACT                        | Pacte de non-agression
 RACES_ALLY                        | Alliance
@@ -4164,6 +4263,8 @@ RACES_MANAGE_RECALL_DIPLOMAT      | Rappeler votre Diplomate
 RACES_MANAGE_OUR_RECALLED         | Notre diplomate est rappelé
 RACES_MANAGE_THEIR_RECALLED       | Leur diplomate est rappelé
 RACES_MANAGE_BOTH_RECALLED        | Les deux diplomates sont rappelés
+RACES_MANAGE_MUTE_WARNING_SPY     | Désactiver les avertissements
+RACES_MANAGE_UNMUTE_WARNING_SPY   | Activer les avertissement
 
 RACES_INTEL_TITLE                 | Rapport de renseignement [alien_raceadjec]
 RACES_COUNTER_INTEL_TITLE         | Rapport de contre-espionnage
@@ -4181,6 +4282,10 @@ RACES_INTEL_SPENDING_DESC         | Augmentez les dépenses pour ajouter des esp
 RACES_INTEL_SPENDING_DESC_UNITY   | Les réseaux d'espionnage sont inutiles car la technologie est partagée librement entre les membres de la Nouvelle République.
 RACES_INTEL_SPENDING_CAPPED       | Limite de dépenses d'espionnage de l'Empire atteinte. Financement des réseaux d'espionnage réduit de %1 %.
 RACES_INTEL_SPENDING_RANGE        | Impossible de créer des réseaux d'espionnage pour les empires hors de portée des vaisseaux.
+RACES_INTEL_GOVERNOR_INSTRUCTIONS | Instructions au gouverneur
+RACES_INTEL_GOVERNOR_IGNORE       | Ignorer
+RACES_INTEL_GOVERNOR_HIDE         | Dissimuler
+RACES_INTEL_GOVERNOR_SHUTDOWN     | Stopper tout
 RACES_INTEL_PERCENT_AMT           | %1 %
 RACES_INTEL_YEARS                 | %1 ans
 RACES_INTEL_NO_SPIES              | Pas d'espions
@@ -4256,6 +4361,7 @@ RACES_STATUS_OLD_DATA             | Anciennes données
 RACES_STATUS_FLEET_STRENGTH       | Force de la flotte
 RACES_STATUS_POPULATION           | Population
 RACES_STATUS_TECHNOLOGY           | Technologies
+RACES_STATUS_TECHNOLOGY_MAX       | Technologies Max
 RACES_STATUS_PLANETS              | Planètes
 RACES_STATUS_PRODUCTION           | Production
 RACES_STATUS_TOTAL_POWER          | Pouvoir total
@@ -4300,10 +4406,14 @@ RACES_HELP_6A2                    | Cet écran fournit une comparaison historiqu
 RACES_HELP_6B                     | Force de la Flotte - combine le nombre et la taille des vaisseaux.
 RACES_HELP_6C                     | Population - population totale de tous les systèmes colonisés.
 RACES_HELP_6D                     | Technologie - niveau moyen de technologie dans tous les domaines de la recherche.
-RACES_HELP_6Dg                    | Technologie - niveau moyen de technologie dans tous les domaines de recherche.<br> La ligne pointillée montre le niveau maximal de technologie.
+RACES_HELP_6DG                    | Technologie - niveau moyen de technologie dans tous les domaines de recherche.<br> La ligne pointillée montre le niveau maximal de technologie.
 RACES_HELP_6E                     | Planètes - le nombre de systèmes colonisés.
 RACES_HELP_6F                     | Production - production industrielle totale pour l'empire.
 RACES_HELP_6G                     | Puiss. totale - une combinaison de la force de la flotte, de la technologie et des niveaux de production.
+RACES_HELP_6HP                    | JOUEUR →HISTORY_HELP_MAIN←
+RACES_HELP_6HA                    | IA →HISTORY_HELP_MAIN←
+RACES_HELP_6J                     | →SETTINGS_MOD_RACE_STATUS_LOG_DESC←
+RACES_HELP_6K                     | →SETTINGS_MOD_RACE_STATUS_VIEW_DESC←
 
 // Sabotage UI
 SABOTAGE_TITLE                    | Nos espions ont infiltré les colonies [alien_race_pluraladjecF] et sont prêts à exécuter vos ordres.
@@ -4328,6 +4438,7 @@ NOTICE_SPYING_MISSION_SABOTAGE    | Sabotage
 HISTORY_TITLE                     | Histoire galactique connue
 HISTORY_TITLE_ALL                 | Histoire galactique complète
 HISTORY_TURN_DESC                 | Tour %1 sur %2
+// modnar: add media control symbols for history buttons
 HISTORY_FORWARD                   | En avant
 HISTORY_BACK                      | Retour
 HISTORY_PLAY                      | Lire
@@ -4338,14 +4449,14 @@ HISTORY_EXTINCT                   | Disparus
 HISTORY_SYSTEMS                   | Systèmes
 HISTORY_EMPIRE                    | Empire
 
-
-
 // Council UIs
 COUNCIL_CONVENE_TITLE             | Le Haut Conseil se réunit
 COUNCIL_CONVENE                   | Le Haut Conseil s'est réuni pour élire un dirigeant qui sera le Souverain de la Galaxie.
-COUNCIL_CONVENE2                  | Chaque empire émet un nombre de voix proportionnel à sa population. Un candidat doit recueillir au moins les deux tiers de tous les suffrages pour être élu. Les candidats sont les dirigeants des deux empires les plus peuplés : [first_name] [first_empireof] et [second_name] [second_empireof].
+COUNCIL_CONVENE2                  | Chaque empire émet un nombre de voix proportionnel à sa population. Un candidat doit recueillir au moins %1 % de tous les suffrages pour être élu. Les candidats sont les dirigeants des deux empires les plus peuplés : [first_name] [first_empireof] et [second_name] [second_empireof].
+COUNCIL_CONVENE2_MOD              | Chaque empire émet un nombre de voix proportionnel à sa population. Un candidat doit recueillir au moins les deux tiers de tous les suffrages pour être élu. Les candidats sont les dirigeants des deux empires les plus peuplés : [first_name] [first_empireof] et [second_name] [second_empireof].
 COUNCIL_ADJOURN_TITLE             | Le Haut Conseil s'ajourne
 COUNCIL_ADJOURN                   | Le vote est terminé et aucun des candidats n'a recueilli les deux tiers des voix. Aucun dirigeant n'a été nommé. Le Haut Conseil se réunira à nouveau pour un autre vote dans 25 ans.
+COUNCIL_ADJOURN_MOD               | Le vote est terminé et aucun des candidats n'a recueilli  %1 % des voix. Aucun dirigeant n'a été nommé. Le Haut Conseil se réunira à nouveau pour un autre vote dans 25 ans.
 COUNCIL_SUMMARY_TITLE             | Résumé des candidats
 COUNCIL_SUMMARY                   | Les votes sont exprimés par ordre de population. %1 votes sont requis pour remporter l'élection.
 COUNCIL_BEGIN_VOTING              | Commencer à voter
@@ -4373,7 +4484,7 @@ COUNCIL_CONTINUE                  | Continuer
 COUNCIL_ELECTED_TITLE             | Élu Souverain de la Galaxie !
 COUNCIL_ACCEPT_RULING             | Accepter la décision
 COUNCIL_REJECT_RULING             | Rejeter la décision
-
+COUNCIL_SKIP_NEXT_TECHS           | Sauter les rapports commerciaux
 
 // Credit text
 CREDITS_DEVELOPER                 | Ray Fowler, Développeur
@@ -4439,9 +4550,13 @@ SYSTEMS_STATUS_PLAGUE             | La colonie connaît un fléau planétaire n�
 SYSTEMS_STATUS_PIRACY             | Les pirates affectent les routes commerciales dans ce système.
 SYSTEMS_STATUS_SPACE_AMOEBA       | Une Amibe Spatiale géante se dirige vers ce système.
 SYSTEMS_STATUS_SPACE_CRYSTAL      | Un gigantesque cristal spatial se dirige vers ce système.
+// modnar: add space pirate random event
+SYSTEMS_STATUS_SPACE_PIRATES      | Une flotte de pirates de l'espace se dirige vers ce système.
 
+// War View UI
+WAR_VIEW_TITLE                    | Années · Flottes approchantes
 
-DIPLOMACY_RECEIVING               | En train de traduire message entrant ...
+DIPLOMACY_RECEIVING               | En train de traduire le message entrant ...
 DIPLOMACY_MENU_CONTINUE           | Continuer
 DIPLOMACY_MENU_ACKNOWLEDGE        | Reconnaître
 DIPLOMACY_MENU_ACCEPT             | Accepter
@@ -4462,6 +4577,7 @@ DIPLOMACY_MENU_STOP_ATTACKING     | Arrêter d'attaquer
 DIPLOMACY_MENU_GOODBYE            | Au revoir
 DIPLOMACY_MENU_PACT               | Proposer un pacte de non-agression
 DIPLOMACY_MENU_ALLIANCE           | Proposer une alliance
+DIPLOMACY_MENU_ARMISTICE          | Proposer un armistice
 DIPLOMACY_MENU_PEACE              | Proposer un traité de paix
 DIPLOMACY_MENU_TRADE              | Proposer un traité commercial
 DIPLOMACY_MENU_JOINT_WAR          | Déclaration conjointe de guerre contre une autre race
@@ -4489,23 +4605,127 @@ DIPLOMACY_SHUTDOWN_SPIES          | Arrêtez tous les réseaux d'espionnage dans
 DIPLOMACY_HIDE_SPIES              | Ordonnez à tous les espions [alien_empireof] de se dissimuler
 DIPLOMACY_RETREAT_SHIPS           | Ordonnez à tous les vaisseaux en orbite ou en transit vers les systèmes [alien_race_pluraladjec] de battre en retraite
 
-// types of endings
-GAME_OVER_OVERTHROWN_LOSS         | Défaite vous avez été détrôné
-GAME_OVER_MILITARY_LOSS           | Défaite militaire
-GAME_OVER_NO_COLONIES_LOSS        | Défaite par effondrement sociétal
-GAME_OVER_DIPLOMATIC_LOSS         | Défaite diplomatique
-GAME_OVER_NEW_REPUBLIC_LOSS       | Défaite de la Nouvelle République
-GAME_OVER_REBELLION_LOSS          | Défaite due à une rébellion
-GAME_OVER_MILITARY_WIN            | Victoire militaire
-GAME_OVER_MILITARY_ALLIANCE_WIN   | Victoire de l'alliance militaire
-GAME_OVER_DIPLOMATIC_WIN          | Victoire diplomatique
-GAME_OVER_ALLIANCE_WIN            | Victoire par alliance
-GAME_OVER_NEW_REPUBLIC_WIN        | Victoire de la Nouvelle République
-GAME_OVER_REBELLION_WIN           | Victoire de la rébellion
-GAME_OVER_REBEL_ALLIANCE_WIN      | Victoire de l'alliance rebelle
+// types of endings: Original
+GAME_OVER_OVERTHROWN_LOSS               | Défaite vous avez été détrôné
+GAME_OVER_MILITARY_LOSS                 | Défaite militaire
+GAME_OVER_NO_COLONIES_LOSS              | Défaite par effondrement sociétal
+GAME_OVER_DIPLOMATIC_LOSS               | Défaite diplomatique
+GAME_OVER_DIPLOMATIC_LOSS_FEARED        | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_LEADER        | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER    | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE  | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_NEW_REPUBLIC_LOSS             | Défaite de la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_LOSS_FEARED      | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_NEW_REPUBLIC_LOSS_LEADER      | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_NEW_REPUBLIC_LOSS_MAJOR       | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_NEW_REPUBLIC_LOSS_MINOR       | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_NEW_REPUBLIC_ALLY_LOSS        | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_REBELLION_LOSS                | Défaite due à une rébellion
+GAME_OVER_REBELLION_LEADER_LOSS         | →GAME_OVER_REBELLION_LOSS←
+GAME_OVER_REBELLION_CHALLENGER_LOSS     | →GAME_OVER_REBELLION_LOSS←
+GAME_OVER_REBELLION_FOLLOWER_LOSS       | →GAME_OVER_REBELLION_LOSS←
+GAME_OVER_MILITARY_WIN                  | Victoire militaire
+GAME_OVER_MILITARY_ALLIANCE_WIN         | Victoire de l'alliance militaire
+GAME_OVER_DIPLOMATIC_WIN                | Victoire diplomatique
+GAME_OVER_DIPLO_FEARED_WIN              | →GAME_OVER_DIPLOMATIC_WIN←
+GAME_OVER_DIPLO_MAJOR_WIN               | →GAME_OVER_DIPLOMATIC_WIN←
+GAME_OVER_DIPLO_MINOR_WIN               | →GAME_OVER_DIPLOMATIC_WIN←
+GAME_OVER_ALLIANCE_WIN                  | Victoire par alliance
+GAME_OVER_NEW_REPUBLIC_WIN              | Victoire de la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_WIN_FEARED       | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_MAJOR        | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_MINOR        | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_ALLIED       | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_CHAMPION     | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_REBELLION_WIN                 | Victoire de la rébellion
+GAME_OVER_REBELLION_CRAZY_WIN           | →GAME_OVER_REBELLION_WIN←
+GAME_OVER_REBELLION_CHALLENGER_WIN      | →GAME_OVER_REBELLION_WIN←
+GAME_OVER_REBELLION_FOLLOWER_WIN        | →GAME_OVER_REBELLION_WIN←
+GAME_OVER_REBEL_ALLIANCE_WIN            | Victoire de l'alliance rebelle
+GAME_OVER_REBEL_ALLIANCE_CHALLENGER_WIN | →GAME_OVER_REBEL_ALLIANCE_WIN←
+GAME_OVER_REBEL_ALLIANCE_FOLLOWER_WIN   | →GAME_OVER_REBEL_ALLIANCE_WIN←
+
+// types of endings: Extended
+GAME_OVER_OVERTHROWN_LOSS_E               | →GAME_OVER_MILITARY_LOSS←
+GAME_OVER_MILITARY_LOSS_E                 | Exterminé
+GAME_OVER_NO_COLONIES_LOSS_E              | Effondrement Sociétal
+GAME_OVER_DIPLOMATIC_LOSS_E               | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_FEARED_E        | Lié aux Seigneurs Extraterrestres
+GAME_OVER_DIPLOMATIC_LOSS_LEADER_E        | Lié aux Seigneurs Extraterrestres
+GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER_E    | Seigneurs Extraterrestres
+GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE_E  | Soumission aux Seigneurs Extraterrestres
+GAME_OVER_NEW_REPUBLIC_LOSS_E             | Cute de la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_LOSS_LEADER_E      | Fiasco de la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_LOSS_FEARED_E      | Chute de la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_LOSS_MAJOR_E       | Chute de la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_LOSS_MINOR_E       | Raté de la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_ALLY_LOSS_E        | Tentative de Contribuer à la Nouvelle République
+GAME_OVER_REBELLION_LOSS_E                | Destruction de la Rébellion
+GAME_OVER_REBELLION_LEADER_LOSS_E         | Dirigeant Fou vaincu pendant sa rébellion
+GAME_OVER_REBELLION_CHALLENGER_LOSS_E     | Opposant vaincu pendant sa rébellion
+GAME_OVER_REBELLION_FOLLOWER_LOSS_E       | Détruit suite à la rébellion
+GAME_OVER_MILITARY_WIN_E                  | Extermination Galactique 
+GAME_OVER_MILITARY_ALLIANCE_WIN_E         | Survivant Graçe à une Alliance
+GAME_OVER_DIPLOMATIC_WIN_E                | →GAME_OVER_DIPLOMATIC_WIN←
+GAME_OVER_DIPLO_FEARED_WIN_E              | Dirigeant Redouté d'une Galaxie Unie
+GAME_OVER_DIPLO_MAJOR_WIN_E               | Dirigeant d'une galaxie unie
+GAME_OVER_DIPLO_MINOR_WIN_E               | Dirigeant d'une galaxie démocratique
+GAME_OVER_ALLIANCE_WIN_E                  | Alliés du Dirigeant Galactique
+GAME_OVER_NEW_REPUBLIC_WIN_E              | Chef de la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_WIN_FEARED_E       | Seigneur redouté de la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_WIN_MAJOR_E        | Souverain Confirmé de la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_WIN_MINOR_E        | Chef Célébré de la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_WIN_ALLIED_E       | Allié à la Nouvelle République
+GAME_OVER_NEW_REPUBLIC_WIN_CHAMPION_E     | Champion de la Nouvelle République
+GAME_OVER_REBELLION_WIN_E                 | →GAME_OVER_REBELLION_WIN←
+GAME_OVER_REBELLION_CRAZY_WIN_E           | Conquète Folle de la Nouvelle République
+GAME_OVER_REBELLION_CHALLENGER_WIN_E      | Conquète de la Nouvelle République
+GAME_OVER_REBELLION_FOLLOWER_WIN_E        | Conquète du Champion de la Nouvelle République
+GAME_OVER_REBEL_ALLIANCE_WIN_E            | →GAME_OVER_REBEL_ALLIANCE_WIN←
+GAME_OVER_REBEL_ALLIANCE_CHALLENGER_WIN_E | Chef de l'Alliance Rebelle
+GAME_OVER_REBEL_ALLIANCE_FOLLOWER_WIN_E   | Membre de l'Alliance Rebelle
+
+// types of endings: Realms Beyond
+GAME_OVER_OVERTHROWN_LOSS_RB               | →GAME_OVER_OVERTHROWN_LOSS←
+GAME_OVER_MILITARY_LOSS_RB                 | →GAME_OVER_MILITARY_LOSS←
+GAME_OVER_NO_COLONIES_LOSS_RB              | →GAME_OVER_NO_COLONIES_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_RB               | →GAME_OVER_DIPLOMATIC_LOSS←
+GAME_OVER_DIPLOMATIC_LOSS_LEADER_RB        | →GAME_OVER_DIPLOMATIC_LOSS_LEADER←
+GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER_RB    | →GAME_OVER_DIPLOMATIC_LOSS_CHALLENGER←
+GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE_RB  | →GAME_OVER_DIPLOMATIC_LOSS_NONCANDIDATE←
+GAME_OVER_NEW_REPUBLIC_LOSS_RB             | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_NEW_REPUBLIC_LOSS_LEADER_RB      | →GAME_OVER_DIPLO_FEARED_WIN_RB← Overthrown
+GAME_OVER_NEW_REPUBLIC_LOSS_MAJOR_RB       | →GAME_OVER_DIPLO_MAJOR_WIN_RB← Overthrown
+GAME_OVER_NEW_REPUBLIC_LOSS_MINOR_RB       | →GAME_OVER_DIPLOMATIC_WIN_RB← Overthrown
+GAME_OVER_NEW_REPUBLIC_ALLY_LOSS_RB        | →GAME_OVER_NEW_REPUBLIC_LOSS←
+GAME_OVER_REBELLION_LOSS_RB                | →GAME_OVER_REBELLION_LOSS←
+GAME_OVER_REBELLION_LEADER_LOSS_RB         | →GAME_OVER_REBELLION_LEADER_LOSS←
+GAME_OVER_REBELLION_CHALLENGER_LOSS_RB     | →GAME_OVER_REBELLION_CHALLENGER_LOSS←
+GAME_OVER_REBELLION_FOLLOWER_LOSS_RB       | →GAME_OVER_REBELLION_FOLLOWER_LOSS←
+GAME_OVER_MILITARY_WIN_RB                  | Victoire par Extermination
+GAME_OVER_MILITARY_ALLIANCE_WIN_RB         | →GAME_OVER_MILITARY_ALLIANCE_WIN←
+GAME_OVER_DIPLOMATIC_WIN_RB                | →GAME_OVER_DIPLOMATIC_WIN←
+GAME_OVER_DIPLO_FEARED_WIN_RB              | Victoire par Conquète
+GAME_OVER_DIPLO_MAJOR_WIN_RB               | Victoire par Domination
+GAME_OVER_DIPLO_MINOR_WIN_RB               | Victoire Diplomatique
+GAME_OVER_ALLIANCE_WIN_RB                  | →GAME_OVER_ALLIANCE_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_RB              | →GAME_OVER_NEW_REPUBLIC_WIN←
+GAME_OVER_NEW_REPUBLIC_WIN_FEARED_RB       | →GAME_OVER_DIPLO_FEARED_WIN_RB← Upheld
+GAME_OVER_NEW_REPUBLIC_WIN_MAJOR_RB        | →GAME_OVER_DIPLO_MAJOR_WIN_RB← Upheld
+GAME_OVER_NEW_REPUBLIC_WIN_MINOR_RB        | →GAME_OVER_DIPLOMATIC_WIN_RB← Upheld
+GAME_OVER_NEW_REPUBLIC_WIN_ALLIED_RB       | →GAME_OVER_NEW_REPUBLIC_WIN_ALLIED←
+GAME_OVER_NEW_REPUBLIC_WIN_CHAMPION_RB     | →GAME_OVER_NEW_REPUBLIC_WIN_CHAMPION←
+GAME_OVER_REBELLION_WIN_RB                 | →GAME_OVER_REBELLION_WIN←
+GAME_OVER_REBELLION_CRAZY_WIN_RB           | →GAME_OVER_REBELLION_CRAZY_WIN←
+GAME_OVER_REBELLION_CHALLENGER_WIN_RB      | →GAME_OVER_REBELLION_CHALLENGER_WIN←
+GAME_OVER_REBELLION_FOLLOWER_WIN_RB        | →GAME_OVER_REBELLION_FOLLOWER_WIN←
+GAME_OVER_REBEL_ALLIANCE_WIN_RB            | →GAME_OVER_REBEL_ALLIANCE_WIN←
+GAME_OVER_REBEL_ALLIANCE_CHALLENGER_WIN_RB | →GAME_OVER_REBEL_ALLIANCE_CHALLENGER_WIN←
+GAME_OVER_REBEL_ALLIANCE_FOLLOWER_WIN_RB   | →GAME_OVER_REBEL_ALLIANCE_FOLLOWER_WIN←
 
 GAME_OVER_EXIT                    | Quitter
 GAME_OVER_REPLAY                  | Rejouer
+GAME_OVER_CONTINUE                | Encore quelques tours...
 
 // text for race-generic endings
 // %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 special text
@@ -4750,9 +4970,223 @@ SETTINGS_BUTTON_DEFAULT_DESC      | Recharger les options par défaut ou restaur
 SETTINGS_BUTTON_GUIDE_DESC        | Activer / Désactiver l'aide contextuelle automatisée sur tous les panneaux de configuration.
 SETTINGS_BUTTON_HELP_DESC         | Cette touche ou <b>« F1 »</b> affichera un aperçu global du panneau.<br>Si une option est survolée lors de l'appui sur <b>« F1 »</b>, une aide plus spécifique sera affichée.
 
+SETTINGS_GUIDE_HELP               | <b>Activer/désactiver</b> l'aide contextuelle automatisée sur tous les panneaux de configuration.<br> Une courte explication apparaîtra lorsque la souris survolera une option.<br> Une explication plus longue peut parfois être disponible en appuyant sur <b>"F1"</b> (lorsque vous survolez l'option). Ailleurs, <b>"F1"</b> affichera un aperçu global du panneau.<br>Le guide peut également être activé/désactivé avec la touche <b>"G"</b>.
+SETTINGS_GUIDE_DESC               | Activer / Désactiver l'aide contextuelle automatisée sur tous les panneaux de configuration.
+SETTINGS_EXIT_DESC                | Enregistrer les paramètres actuels puis quitter le panneau.
+SETTINGS_APPLY_DESC               | Enregistrer les paramètres actuels.
+SETTINGS_CANCEL_DESC              | Annuler les modifications des paramètres puis quitter le panneau.
+SETTINGS_LOCAL_RESTORE_DESC       | Restaurer les options de ce panneau à leur état lors de l'entrée dans ce panneau.
+SETTINGS_GLOBAL_RESTORE_DESC      | Restaurer les options de toutes les interfaces graphiques à leur état lors de l'entrée dans ce panneau.
+SETTINGS_LOCAL_DEFAULT_DESC       | Définir les options de ce panneau à leurs valeurs par défaut.
+SETTINGS_GLOBAL_DEFAULT_DESC      | Définir les options de toutes les interfaces graphiques à leurs valeurs par défaut.
+SETTINGS_LOCAL_LAST_GAME_DESC     | Définir les options de ce panneau en fonction de la dernière partie jouée.
+SETTINGS_GLOBAL_LAST_GAME_DESC    | Définir les options de toutes les interfaces graphiques en fonction des valeurs de la dernière partie jouée.
+SETTINGS_LOCAL_LAST_SET_DESC      | Définir les options de ce panneau en fonction des valeurs de la dernière interface utilisateur graphique (à partir du fichier).
+SETTINGS_GLOBAL_LAST_SET_DESC     | Définir les options de toutes les interfaces utilisateur graphiques en fonction des valeurs de la dernière interface utilisateur graphique (à partir du fichier).
+SETTINGS_LOCAL_USER_SET_DESC      | Définir les options de ce panneau en fonction des valeurs préférées de l'utilisateur (à partir du fichier).
+SETTINGS_GLOBAL_USER_SET_DESC     | Définir les options de toutes les interfaces utilisateur graphiques en fonction des valeurs préférées de l'utilisateur (à partir du fichier).
+SETTINGS_LOCAL_USER_SAVE_DESC     | Enregistrer les options de ce panneau comme valeurs préférées de l'utilisateur (vers le fichier).
+SETTINGS_GLOBAL_USER_SAVE_DESC    | Enregistrer les options de toutes les interfaces utilisateur graphiques comme valeurs préférées de l'utilisateur (vers le fichier).
 
+// Race Menu Guides and Help
+SETUP_RACE_MAIN_DESC              | VUE D'ENSEMBLE<br> Cet écran vous permet de régler les paramètres de l'Empire du joueur de base.<br> Utilisez « Ctrl » et « Shift » pour modifier la fonctionalité des boutons.<br> Global = Toutes les options. Local = Options de ce panneau.<br>« R » sélectionnera une nouvelle espèce au hasard.
+SETUP_RACE_NEXT_DESC              | Enregistrer les options et accéder au menu de configuration de la galaxie.
+SETUP_RACE_CANCEL_DESC            | Annuler les options et revenir au menu principal.
+SETUP_RACE_CUSTOM_DESC            | Entrer dans le menu de personnalisation des espèces.<br> (Pour les joueurs ou les extraterrestres)
+SETUP_RACE_CHECK_BOX_DESC         | Sélectionner l'espèce personnalisée définie comme espèce du joueur.
+SETUP_RACE_SHIPSET_DESC           | Sélectionner le modèle de vaisseaux utilisé par le joueur.<br> « Original » = Celui associé par défaut à l'espèce sélectionnée.
+SETUP_RACE_RACES_DESC             | La représentation graphique de l'espèce du joueur, avec ses animations et par défaut ses aptitudes. (Les aptitudes peuvent également être générées aléatoirement ou personnalisées)
+SETUP_RACE_LEADER_HELP            | Nommez votre dirigeant ici, réfléchissez-y à deux fois, car vous ne pourrez pas le changer plus tard.
+SETUP_RACE_HOMEWORLD_HELP         | Vous pouvez définir le nom de votre planète d'origine ici, ou le modifier plus tard dans l'onglet colonie du jeu.
 
+// Galaxy Menu Guides and Help
+SETUP_GALAXY_MAIN_DESC            | VUE D'ENSEMBLE<br> Cet écran vous permet de sélectionner votre galaxie et vos adversaires.<br> Utilisez « Ctrl » et « Shift » pour modifier la fonctionalité des boutons. Global = Toutes les options. Local = Options de ce panneau.
+SETUP_START_DESC                  | Options de sauvegarde et démarrage du jeu.<br> « Ctrl » => Relancer une nouvelle partie basée sur une ancienne sauvegarde.
+SETUP_BUTTON_START_DESC           | Sauvegarder la configuration actuelle et démarrer le jeu.
+SETUP_BUTTON_RESTART_DESC         | Il vous sera demandé de sélectionner une précédente partie pour en démarrer une nouvelle sur la même galaxie.<br>- Avec les mêmes adversaires ou des nouveaux.<br>- Avec la même espèce du joueur, une nouvelle ou échangée avec un adversaire précédent.<br> Vous pouvez conserver votre monde d'origine ou l'échanger avec un adversaire précédent.
+SETUP_GALAXY_BACK_DESC            | Annuler les options et revenir au menu Options du joueur.
+SETUP_GALAXY_COMPACT_OPTIONS_HELP | Ces boutons ouvrent le menu Options avancées.<br> "Configuration" contient des paramètres définis une fois au démarrage ou au redémarrage d'un jeu.<br> "Options" contient des paramètres réglables dans le jeu.<br>Pour revenir aux 6 menus d'options classiques :<br> - Appuyez sur "B" ou allez dans "Configuration" et définissez "Afficher les options compactes" sur "Non".
+SETUP_GALAXY_VANILLA_OPTIONS_HELP | Ce bouton ouvre le menu de configuration des options avancées.<br> Appuyez sur "B" pour basculer les boutons d'appel des sous-menus.
+SETUP_TUNE_GALAXY_OPTIONS_HELP    | Ce bouton ouvre un panneau de contrôle de survol pour affiner les paramètres de la galaxie. <br>L'aperçu de la carte de la galaxie sera mis à jour en direct.
+SETUP_GALAXY_ABILITIES_DESC       | Aptitudes par défaut des empires extraterrestres :<br> 'Espèce originale' = Aptitudes originales de l'espèce sélectionnée (dans les cases ci-dessous) ;<br> 'Retravaillée' = Nouvelles aptitudes que vous avez enregistrées avec le nom de l'espèce originale.<br> (ex : RACE_DARLOK pour les Nasloks) ;<br> *Espèce = Espèce originale spécifique ; ou toute autre espèce personnalisée que vous avez créée.
+SETUP_GALAXY_SELECTABLE_DESC      | "Oui" => Une ligne de sélection apparaîtra en haut des cases ci-dessous, permettant la sélection d'une aptitude individuelle.
+SETUP_GALAXY_SELECTABLE            | Aptitudes sélectionnables
+SETUP_GALAXY_RACE_LIST_HELP        | <b>Sélection de la liste des espèces</b><br> Modnar a étendu la liste des espèces originales avec six nouvelles espèces. Si vous n'êtes pas d'humeur à les voir, vous pouvez les exclure de la sélection.<hr><b>Par défaut :</b>&nbsp Original<hr><b>Original :</b>&nbsp Les 6 espèces de Modnar sont exclues.<br> <b>Toutes les espèces</b> : Les 6 espèces de Modnar peuvent également être sélectionnées ou attribuées au hasard.
+SETUP_GALAXY_RACE_LIST_DESC        | "Original" = Les 6 espèces de Modnar sont exclues.<br> "Toutes les espèces" = Les 6 espèces de Modnar peuvent également être sélectionnées ou attribuées au hasard.
+SETUP_GALAXY_AGAINST_DESC          | Pour sélectionner l'IA des Aliens.<br> "AI:Selectable" => Une ligne de sélection apparaîtra en bas des cases ci-dessous, permettant la sélection d'IA des Aliens individuels.
+SETUP_GALAXY_PREVIEW_DESC          | Voici ce à quoi ressemblera la galaxie.<br>Point bleu = Orion.<br>Points verts = Monde natal du joueur et systèmes voisins.<br>Points rouges = Mondes natals des adversaires et leurs systèmes voisins.<br>Points gris = autres systèmes stellaires.<br>Cliquez pour afficher/masquer une grille espacée de 10 al.<br>Faites défiler pour modifier la propagation des empires.<br>Cliquez au milieu pour restaurer les distances minimales par défaut entre les empires.
 
+SETUP_SELECT_CR_OPTIONS_DESC       | si "Oui", une ligne de sélection apparaîtra en haut des cases ci-dessous, permettant la sélection de l'aptitude individuelle.
+SETUP_SELECT_CR_OPTIONS_YES_DESC   | Une ligne de sélection apparaîtra en haut des cases de l'adversaire, permettant la sélection de l'aptitude individuelle.
+SETUP_SELECT_CR_OPTIONS_NO_DESC    | L'aptitude globale sélectionnée (à gauche) sera appliquée à tous les adversaires.
+SETUP_SELECT_CR_OPTIONS            | Aptitudes sélectionnables.
+???                                | ???
+???_DESC                           | ???_DESCXXX
+
+'Selection'_DESC        | Mêmes aptitudes que les aptitudes globales sélectionnées ci-dessus.
+'Original Species'_DESC | Aptitudes originales de l'espèce sélectionnée (celle sur l'icône)
+'Reworked'_DESC         | Aptitudes retravaillées de l'espèce sélectionnée (celle sur l'icône), modifiées et sauvegardées par le joueur (dans le panneau de personnalisation des espèces) avec les fichiers d'espèces respectivement nommés : RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
+'Player'_DESC           | Mêmes aptitudes que l'espèce du joueur sélectionné.
+'Random'_DESC           | Les aptitudes seront générées aléatoirement à l'aide des paramètres « Configuration » : <b>OPTIONS D'ALIENS ALÉATOIRES</b> : « Cible max », « Cible min », « Aliens personnalisés », « Réglage % max », « Réglage % min » et « Bords lisses ».
+'Random 10'_DESC        | Aptitudes sélectionnées aléatoirement parmi les aptitudes des dix espèces originales.
+'Random 16'_DESC        | Aptitudes sélectionnées aléatoirement parmi les aptitudes des seize espèces. <i>(Les dix espèces originales et les six espèces de Modnar)</i>
+'Files'_DESC            | Aptitudes sélectionnées aléatoirement parmi les fichiers d'espèces personnalisés, avec l'option « Disponible pour l'IA » activée. Si cette liste est vide, la sélection sera effectuée dans les limites des aptitudes d'origine des espèces.
+'All Files'_DESC        | Aptitudes sélectionnées aléatoirement parmi les fichier d'espèce personnalisé, en ignorant l'option « Disponible pour l'IA ». Si cette liste est vide, la sélection sera effectuée dans le cadre des aptitudes d'origine de l'espèce.
+'Files Races'_DESC      | Aptitudes sélectionnées aléatoirement parmi les aptitudes des espèces originales et les fichiers d'espèces personnalisés, avec l'option « Disponible pour l'IA » activée.
+'All'_DESC              | Aptitudes sélectionnées aléatoirement parmi les aptitudes des espèces originales et les fichiers d'espèces personnalisés, en ignorant l'option « Disponible pour l'IA ».
+
+SETUP_GALAXY_SHAPE_RECTANGLE_HELP    | Galaxies rectangulaires ou carrées originales avec jusqu'à cinq vides.
+SETUP_GALAXY_SHAPE_RECTANGLE_O1_HELP | Ajustement du rapport de forme.
+SETUP_GALAXY_SHAPE_RECTANGLE_O2_HELP | Sélection de la distribution des vides.
+SETUP_GALAXY_SHAPE_RECTANGLE_O1      | Première option champ d'étoiles.
+SETUP_GALAXY_SHAPE_RECTANGLE_O2      | Seconde option champ d'étoiles
+SETUP_RECTANGLE_0_HELP             | Galaxie de forme rectangulaire avec un rapport de 3:4.
+SETUP_RECTANGLE_1_HELP             | Galaxie de forme carrée.
+SETUP_VOID_0_HELP                  | Galaxie simple, sans vide.
+SETUP_VOID_1_HELP                  | Galaxie avec un vide central.
+SETUP_VOID_2_HELP                  | Galaxie avec deux vides en diagonale.
+SETUP_VOID_5_HELP                  | Ajouter cinq vides à la galaxie
+SETUP_GALAXY_SHAPE_ELLIPSE_HELP    | Galaxies originale de forme elliptiques, de circulaire à aplatie dans un rapport de 5:1. Un vide peut être placé au centre, de petit à annulaire.
+SETUP_GALAXY_SHAPE_ELLIPSE_O1_HELP | Ajustement du rapport de forme et de la symétrie.
+SETUP_GALAXY_SHAPE_ELLIPSE_O2_HELP | Sélection de la distribution des vides.
+SETUP_GALAXY_SHAPE_ELLIPSE_O1      | Première option de galaxie elliptique.
+SETUP_GALAXY_SHAPE_ELLIPSE_O2      | Seconde option de galaxie elliptique.
+SETUP_ELLIPSE_0_HELP               | Galaxie en forme de disque.
+SETUP_ELLIPSE_1_HELP               | Galaxie légèrement elliptique avec un rapport de 3:2.
+SETUP_ELLIPSE_2_HELP               | Galaxie elliptique avec un rapport de 2:1.
+SETUP_ELLIPSE_3_HELP               | Galaxie elliptique comprimée avec un rapport de 3:1.
+SETUP_ELLIPSE_4_HELP               | Galaxie elliptique aplatie avec un rapport de 5:1.
+SETUP_ELLIPSE_SYMMETRIC_HELP       | Galaxie à symétrie circulaire, chaque empire a le même type de monde d'origine et le même voisinage. Orion est au point central.
+SETUP_VOID_2_HELP                  | Galaxie avec un vide central plus grand.
+SETUP_VOID_3_HELP                  | Galaxie avec un vide central encore plus grand.
+SETUP_VOID_4_HELP                  | Galaxie annulaire.
+SETUP_GALAXY_SHAPE_SPIRAL_HELP     | Galaxies originales en forme de spirale, jusqu'à 8 bras et 7 niveaux de courbure. Cette galaxie a une option symétrique pour que chaque empire ait le même monde d'origine et le même voisinage, il y a autant de bras que d'empires.
+SETUP_GALAXY_SHAPE_SPIRAL_O1_HELP  | Sélection du nombre de bras.
+SETUP_GALAXY_SHAPE_SPIRAL_O2_HELP  | Réglage de la courbure des bras.
+SETUP_GALAXY_SHAPE_SPIRAL_O1       | Première option de la galaxie spirale.
+SETUP_GALAXY_SHAPE_SPIRAL_O2       | Seconde option de la  galaxie spirale.
+SETUP_SPIRAL_2_ARMS_HELP           | Galaxie classique à deux bras.
+SETUP_SPIRAL_3_ARMS_HELP           | Galaxie moins classique à trois bras.
+SETUP_SPIRAL_4_ARMS_HELP           | Une galaxie à quatre bras, semblable à la Voie Lactée.
+SETUP_SPIRAL_5_ARMS_HELP           | Une galaxie frénétique à cinq bras.
+SETUP_SPIRAL_6_ARMS_HELP           | Une galaxie surprenante à six bras.
+SETUP_SPIRAL_7_ARMS_HELP           | Une galaxie à sept bras très exotique.
+SETUP_SPIRAL_8_ARMS_HELP           | Une galaxie chanceuse à huit bras.
+SETUP_SPIRAL_SYMMETRIC_HELP        | Galaxie à symétrie circulaire, chaque empire a le même monde d'origine et le même voisinage. Orion est au point central.
+SETUP_SPIRAL_ROTATION_0_HELP       | Une galaxie droite.
+SETUP_SPIRAL_ROTATION_1_HELP       | Une galaxie légèrement courbée&nbsp <i>(~30°)</i>.
+SETUP_SPIRAL_ROTATION_2_HELP       | Une galaxie timidement courbée&nbsp <i>(~60°)</i>.
+SETUP_SPIRAL_ROTATION_3_HELP       | Une galaxie légèrement courbée&nbsp <i>(~90°)</i>.
+SETUP_SPIRAL_ROTATION_4_HELP       | Une galaxie bien courbée&nbsp <i>(~120°)</i>.
+SETUP_SPIRAL_ROTATION_5_HELP       | Une galaxie fortement courbée&nbsp <i>(~150°)</i>.
+SETUP_SPIRAL_ROTATION_6_HELP       | Une galaxie indécemment courbée&nbsp <i>(~180°)</i>.
+SETUP_GALAXY_SHAPE_TEXT_HELP       | La liste proposée est extraite du fichier "Galaxy.txt", n'hésitez pas à la compléter. Si vous voyez trop de cases vides essayez de paramétrer l'option "Utiliser la police Fusion"
+SETUP_GALAXY_SHAPE_TEXT_O1         | Première option de la galaxie en forme de Texte.
+SETUP_GALAXY_SHAPE_TEXT_O1_HELP    | Sélection du texte (à partir du fichier "Galaxy.txt").
+SETUP_GALAXY_SHAPE_TEXT_O2         | Seconde option de la galaxie en forme de Texte.
+SETUP_GALAXY_SHAPE_TEXT_O2_HELP    | Sélection du nombre de lignes.
+SETUP_1_LINE_HELP                  | Juste le texte sélectionné.
+SETUP_2_LINE_HELP                  | Le texte sélectionné est répété sur deux lignes.
+SETUP_3_LINE_HELP                  | Le texte sélectionné est répété sur trois lignes.
+SETUP_GALAXY_SHAPE_LORENZ_HELP     | Une autre galaxie chaotique basée sur l'attracteur de Lorenz. <i>(Modèle de convection atmosphérique également connu sous le nom d'"effet papillon")</i>
+SETUP_GALAXY_SHAPE_LORENZ_O1       | Première option de la galaxie de Lorentz.
+SETUP_GALAXY_SHAPE_LORENZ_O2       | Seconde option de la galaxie de Lorentz.
+SETUP_GALAXY_SHAPE_LORENZ_O1_HELP  | Sélection de l'attracteur.
+SETUP_GALAXY_SHAPE_LORENZ_O2_HELP  | Sélection du point de vue.
+SETUP_LORENZ_0_HELP                | Premier attracteur.
+SETUP_LORENZ_1_HELP                | Deuxième attracteur.
+SETUP_VIEW_0_HELP                  | Premier point de vue.
+SETUP_VIEW_1_HELP                  | Deuxième point de vue.
+SETUP_VIEW_2_HELP                  | Troisième point de vue.
+SETUP_GALAXY_SHAPE_FRACTAL_HELP    | Galaxies ordonnées et désordonnées.
+SETUP_GALAXY_SHAPE_FRACTAL_O1      | Première option de la galaxie fractale.
+SETUP_GALAXY_SHAPE_FRACTAL_O2      | Seconde option de la galaxie fractale.
+SETUP_GALAXY_SHAPE_FRACTAL_O1_HELP | Type de fractale.
+SETUP_GALAXY_SHAPE_FRACTAL_O2_HELP | Spécificité fractale.
+SETUP_FRACTAL_0_HELP               | Triangle de Sierpinski
+SETUP_FRACTAL_1_HELP               | Jeu du chaos restreint
+SETUP_GALAXY_MAP_OPTION_A0_HELP    | Sierpinski Carpet.
+SETUP_GALAXY_MAP_OPTION_B0_HELP    | Sierpinski Carpet chaos game.
+SETUP_GALAXY_MAP_OPTION_C0_HELP    | Barnsley Fern.
+SETUP_GALAXY_MAP_OPTION_A1_HELP    | Jeu du chaos restreint : Le sommet actuellement choisi ne peut pas être voisin du sommet précédemment choisi si les deux sommets précédemment choisis sont identiques.
+SETUP_GALAXY_MAP_OPTION_B1_HELP    | Jeu du chaos restreint : Le sommet actuel ne peut pas être choisi dans l'itération suivante.
+SETUP_GALAXY_MAP_OPTION_C1_HELP    | Jeu du chaos restreint : Le sommet actuel ne peut pas être à un endroit (dans le sens inverse des aiguilles d'une montre) du sommet précédemment choisi, cette fractale apparaît :
+SETUP_GALAXY_SHAPE_MAZE_HELP       | Galaxie étonnante générée à l'aide de l'algorithme de Prim.
+SETUP_GALAXY_SHAPE_MAZE_O1         | Option de galaxie labyrinthe
+SETUP_GALAXY_SHAPE_MAZE_O1_HELP    | Modificateur d'amorce pour le labyrinthe.
+SETUP_MAZE_0_HELP                  | Aucun modificateur.
+SETUP_MAZE_1_HELP                  | Lancé 10 fois.
+SETUP_MAZE_2_HELP                  | Lancé 20 fois.
+SETUP_GALAXY_SHAPE_SHURIKEN_HELP    | Un shuriken à six bras avec une forme de bras aléatoire.
+SETUP_GALAXY_SHAPE_SHURIKEN_O1      | Première option de la galaxie shuriken.
+SETUP_GALAXY_SHAPE_SHURIKEN_O2      | Seconde option de la galaxie shuriken.
+SETUP_GALAXY_SHAPE_SHURIKEN_O1_HELP | Ajustement de la complexité de la forme des bras.
+SETUP_GALAXY_SHAPE_SHURIKEN_O2_HELP | Sélection de la génération aléatoire des bras.
+SETUP_SHURIKEN_A_HELP               | Sept points.
+SETUP_SHURIKEN_0_HELP               | Neuf points.
+SETUP_SHURIKEN_1_HELP               | Onze points.
+SETUP_SHURIKEN_2_HELP               | Treize points.
+SETUP_SHURIKEN_3_HELP               | Quinze points.
+SETUP_SHURIKEN_4_HELP               | Dix-sept points.
+SETUP_SHURIKEN_ORIGINAL_HELP        | Bras originaux de forme étrange.
+SETUP_SHURIKEN_ALTERNATIVE_HELP     | Nouvelle forme de bras moins complexe.
+SETUP_GALAXY_SHAPE_BULLSEYE_HELP    | Galaxies en forme de cible de fléchettes.
+SETUP_GALAXY_SHAPE_BULLSEYE_O1      | Option galaxie en œil de bœuf.
+SETUP_GALAXY_SHAPE_BULLSEYE_O1_HELP | Sélection de la forme de la cible.
+SETUP_BULLSEYE_0_HELP               | Cible de fléchettes standard ; Ou exclusif.
+SETUP_BULLSEYE_1_HELP               | Cible en anneau concentrique
+SETUP_BULLSEYE_2_HELP               | Cible carrée concentrique
+SETUP_GALAXY_SHAPE_GRID_HELP        | Une autre forme surréaliste... Les galaxies sont alignées le long des lignes de la grille.
+SETUP_GALAXY_SHAPE_GRID_O1          | Option galaxie en grille.
+SETUP_GALAXY_SHAPE_GRID_O1_HELP     | Sélection de la distribution des galaxies.
+SETUP_GRID_0_HELP                   | Les galaxies ne se trouvent que sur certaines intersections.
+SETUP_GRID_1_HELP                   | Les galaxies sont à toutes les intersections.
+SETUP_GRID_2_HELP                   | Seulement les lignes de la grille !
+SETUP_GALAXY_SHAPE_CLUSTER_HELP     | Pourquoi ne pas répartir le combat sur plusieurs galaxies ? 3, 6 ou 8 amas sont disponibles.
+SETUP_GALAXY_SHAPE_CLUSTER_O1       | Option amas de galaxies.
+SETUP_GALAXY_SHAPE_CLUSTER_O1_HELP  | Sélection du nombre d'amas.
+SETUP_CLUSTER_0_HELP                | Les systèmes stellaires sont répartis sur 4 amas.
+SETUP_CLUSTER_1_HELP                | Les systèmes stellaires sont répartis sur 6 amas.
+SETUP_CLUSTER_2_HELP                | Les systèmes stellaires sont répartis sur 8 amas.
+SETUP_GALAXY_SHAPE_SWIRLCLUSTERS_HELP    | Une autre forme surréaliste... Les galaxies sont alignées le long d'une ligne tourbillonnante.
+SETUP_GALAXY_SHAPE_SWIRLCLUSTERS_O1      | Option amas de galaxies tourbillonnantes.
+SETUP_GALAXY_SHAPE_SWIRLCLUSTERS_O1_HELP | Sélection de la position des galaxies.
+SETUP_SWIRLCLUSTERS_0_HELP            | La ligne tourbillonnante traverse les galaxies.
+SETUP_SWIRLCLUSTERS_1_HELP            | Les galaxies sont placées entre les lignes tourbillonnantes.
+SETUP_SWIRLCLUSTERS_2_HELP            | Seulement la ligne tourbillonnante !
+SETUP_GALAXY_SHAPE_SPIRALARMS_HELP    | Un autre type de galaxie spirale. Le nombre de bras est basé sur sa taille : <i>la quatrième racine du nombre de systèmes stellaires</i> ; sauf pour l'option symétrique, où il dépend du nombre d'empires.
+SETUP_GALAXY_SHAPE_SPIRALARMS_O1      | Première option de la galaxie à bras spiral.
+SETUP_GALAXY_SHAPE_SPIRALARMS_O2      | Seconde option de la galaxie à bras spiral.
+SETUP_GALAXY_SHAPE_SPIRALARMS_O1_HELP | Sélection de la courbure du bras.
+SETUP_GALAXY_SHAPE_SPIRALARMS_O2_HELP | Sélection normale ou symétrique.
+SETUP_SPIRALARMS_0_HELP               | Une galaxie spirale droite.
+SETUP_SPIRALARMS_1_HELP               | Une galaxie spirale très lâche <i>(~60°)</i>.
+SETUP_SPIRALARMS_2_HELP               | Une galaxie spirale lâche <i>(~120°)</i>.
+SETUP_SPIRALARMS_3_HELP               | Une galaxie spirale normale <i>(~1 tour)</i>.
+SETUP_SPIRALARMS_4_HELP               | Une galaxie spirale serrée <i>(~1,5 tour)</i>.
+SETUP_SPIRALARMS_NORMAL_HELP          | Normale, car non symétrique !
+SETUP_SPIRALARMS_SYMMETRIC_HELP       | Galaxie à symétrie circulaire, chaque empire a le même monde d'origine et le même voisinage. Orion est au point central.
+
+SETUP_GALAXY_SHAPE_BITMAP_HELP    | Construisez votre propre forme de galaxie, basée sur un bitmap.<ul><li>Des prises de vue réelles de galaxies donnent de bons résultats.</li><li>Vous pouvez dessiner vos propres galaxies, en nuances de gris ou en couleurs.</li><li>Avec des galaxies colorées, vous pouvez définir des régions où les systèmes stellaires Orion, Player et Aliens devraient se trouver.</li><li>Un mode couleur avancé vous permet de définir les régions de chaque Aliens, ainsi que les régions de nébuleuses !</li><li>Quelques exemples peuvent être trouvés dans BitmapGalaxyExamples.zip</li></ul>Utilisez de préférence une petite image bitmap pour définir la galaxie ; la taille VGA est largement suffisante... Les galaxies sont toujours générées aléatoirement !
+SETUP_GALAXY_SHAPE_BITMAP_O1      | Première option de galaxie bitmap.
+SETUP_GALAXY_SHAPE_BITMAP_O2      | Seconde option de galaxie bitmap.
+SETUP_GALAXY_SHAPE_BITMAP_O1_HELP | Comment convertir le fichier image.
+SETUP_GALAXY_SHAPE_BITMAP_O2_HELP | Réglage fin de l'image.
+SETUP_BITMAP_GREY_SUM_DESC        | Les images en couleur seront converties en niveaux de gris en additionnant les trois couleurs. (Méthodes standard)
+SETUP_BITMAP_GREY_MAX_DESC        | Les images en couleur seront converties en niveaux de gris avec le maximum des trois couleurs. (Cela donne parfois de meilleurs résultats)
+SETUP_BITMAP_GREY_INVERSE_DESC    | Parce que certaines belles images ont un fond blanc.
+SETUP_BITMAP_COLOR_DESC           | Les couleurs des images sont interprétées : Bleu pour Orion, Vert pour le Joueur. Les étoiles et nébuleuses restantes sont réparties sur ces trois régions
+SETUP_BITMAP_COLOR_HELP           | Les couleurs des images sont interprétées :<ul><li>Bleu pour Orion.</li><li>Vert pour le joueur.</li><li>Rouge pour les extraterrestres.</li><li>Les étoiles et nébuleuses restantes sont réparties sur ces trois régions.</li><li>Si une couleur manque : elle sera remplacée par une échelle de gris globale.</li></ul>
+SETUP_BITMAP_ADVANCED_HELP        | Il utilise plusieurs sous-bitmaps groupés verticalement dans un seul fichier Bitmap.<br>Commencez avec le noir comme arrière-plan (séparateur de sous-bitmap)<br>Premier sous-bitmap : Définition des systèmes d'étoiles solitaires :<ul><li>Ajoutez un rectangle bleu pour définir les limites du sous-bitmap.</li><li>Ajoutez du vert à l'intérieur du premier rectangle pour définir la densité des étoiles solitaires.</li><ul><li>Peut être mélangé avec du bleu ou le remplacer.</li><li>L'intensité du vert définit la probabilité d'avoir une étoile :<br>(255 = Max ; 0 = aucune étoile)</li></ul></ul><i>Autres sous-bitmaps :<ul><li>Copiez le sous-bitmap d'étoile solitaire, aussi souvent que nécessaire, en gardant quelques lignes noires comme séparateurs.</li><li>Le bleu est toujours nécessaire pour combler l'espace et éviter les lignes noires au milieu du sous-bitmap.</li><li>La couleur verte est alors ignorée, mais vous pouvez la conserver comme réparation point.</li><li>L'intensité du rouge sera utilisée pour définir les probabilités suivantes.</li><li>Vous pouvez utiliser du blanc à la place du rouge, car le blanc contient du rouge et les autres couleurs sont ignorées.</li><li>Tous les sous-bitmaps invalides seront remplacés par le premier.</li></ul></i>Deuxième sous-bitmap : Emplacement préféré des nébuleuses :<ul><li>Pas de rouge = même chose que les systèmes d'étoiles solitaires.</li><li>Pour « Pas de nébuleuses », utilisez l'option déjà existante dans le bon vieux panneau « Options avancées ».</li></ul>Troisième sous-bitmap : Emplacement préféré d'Orion :<br>Quatrième sous-bitmap : Emplacement préféré du joueur :<br>Sous-bitmap suivant : Emplacement préféré des extraterrestres :<ul><li>Jusqu'à 49 sous-bitmaps d'extraterrestres peuvent être définis.</li><li>S'il y a plus d'extraterrestres que de sous-bitmaps, l'usine de galaxies bouclera sur l'extraterrestre disponible sous-bitmap.</li></ul>
+SETUP_BITMAP_ADVANCED_MASK_HELP   | Identique à "Avancé" avec l'option permettant de définir les dégradés de couleurs une seule fois, sur le premier sous-bitmap, et utilise des couleurs uniformes pour définir les régions sur les cartes suivantes.<br>Les deux cartes sont ensuite multipliées pour définir une carte résultante.
+SETUP_BITMAP_ADVANCED_MASK2_HELP  | Identique à "Avancé/Masque" avec un effet de netteté supplémentaire pour garder les empires bien à l'intérieur des autres étoiles.
+SETUP_BITMAP_NORMAL_HELP          | Ne pas modifier le contraste de l'image.
+SETUP_BITMAP_SHARP1_HELP          | Augmenter un peu le contraste.
+SETUP_BITMAP_SHARP2_HELP          | Augmenter deux fois le contraste.
+SETUP_BITMAP_SHARP3_HELP          | Augmenter fortement le contraste.
+SETUP_BITMAP_SHARP4_HELP          | Presque convertir l'image en noir et blanc !
+SETUP_GALAXY_SHAPE_RANDOM_HELP    | Galaxie sélectionnée aléatoirement parmi des galaxies d'étoiles groupées.<br>→SETUP_GALAXY_SHAPE_RECTANGLE←, →SETUP_GALAXY_SHAPE_ELLIPSE←, →SETUP_GALAXY_SHAPE_SPIRAL←, →SETUP_GALAXY_SHAPE_CLUSTER←, →SETUP_GALAXY_SHAPE_SPIRALARMS←, →SETUP_GALAXY_SHAPE_SHURIKEN← <br>(Se combine bien avec l'option galaxie sombre)
+SETUP_GALAXY_SHAPE_RANDOM_2_HELP  | Galaxie sélectionnée au hasard parmi presque toutes les galaxies.<br>Exclus : →SETUP_GALAXY_SHAPE_TEXT←, →SETUP_GALAXY_SHAPE_BITMAP←. <br>(Se marie bien avec l'option galaxie sombre)
 
 // Shortcuts / Hotkeys list  (use cross-references →←) →HK_←
 // Shortcuts Cross referenced
@@ -4772,6 +5206,7 @@ HK_MAP_ZOOM    | <br>+/- : Zoomer la carte. («Alt-» : Vue complète de la ga
 HK_TAB         | <br>Tab/+Shift : Onglet suivant/précédent.
 HK_YEAR        | <br>Y : Alterner l'année / le tour.
 HK_FLAG_LOOP   | <br>(Num) * - 9 + : Drapeau suivant («Shift-» Précédent) («Ctrl-» Même couleur de drapeau)
+
 HK_FOG         | <br>F : Afficher / Cacher le brouillard sur les icônes diplomatiques.
 HK_GUIDE       | <br>G : Afficher / Cacher le Guide
 HK_SEL_B       | /+Alt/+Ctrl/+Shift : Sélection actuelle
@@ -4785,9 +5220,23 @@ MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre colonie Sui
 
 PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>Ctrl+A : Sélectionner tous les systèmes<br>Q/+Ctrl : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+Ctrl : Planète en manque de population / + Dépenses ECO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +Ctrl /+Shift : Basculer activation du gouverneur / Avtivé / Désactivé <br>→HK_ESCAPE←
 
+FLEETS_HELP_HK       | →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
+
 // !!!
 // Do not remove the space between ">" & "=" because of confusion with ">=" wish is replaced by "&gt;="
 // !!!
 TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>Ctrl+1-6 : (dé)verrouiller les curseurs.<br>Flèches : Déplacer l'arbre / Catégories<br> = : Égaliser<br>Molette souris : Changer l'allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit : Montre plus d'info sur la tech survolée <br> →HK_ESCAPE←
 
 SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1← <br><br>Flèches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+Ctrl) : Purger le modèle / (Juste l'armement)<br><br>ALT-A : Construction automatique<br>ALT-B : Construction automatique Bombardier<br>ALT-F : Construction automatique Chasseur<br>ALT-E : Construction automatique Éclaireur.<br>ALT-P : Construction automatique Colonisateur. <br>→HK_ESCAPE←
+
+RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Empire. →HK_TAB←<br><br>A : →RACES_DIPLOMACY_AUDIENCE← with the selected Empire.<br><br>When the player's empire is selected:<br>D : →RACES_DIPLOMACY_MANAGE_DIPLOMATS←.<br>S : →RACES_INTEL_BUREAU_MANAGE←. <br>→HK_ESCAPE←
+
+SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_YEAR← →HK_FLAG← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
+
+SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_GUIDE← <br><br>B : Toggle submenus call buttons. →HK_FOG← <br>T : Go to Tune Galaxy Menu. <br>→HK_SET_DEFAULT← <br><br>Enter : Start a new Game. <br><br>M : Go to Main Menu.<br>Escape : Go to Player Setup Panel.
+
+SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>N : Open Name Player Species Sub Menu. <br>R : Random Species.<br>→HK_SET_DEFAULT← <br><br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
+
+MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. <br>→HK_SET_DEFAULT←<br>→HK_GUIDE← <br>→HK_ESCAPE←
+
+SETUP_GAME_HELP_HK   | H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N : New Game.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.<br><br>PAGE_UP / PAGE_DOWN: (Work in progress)<br>      Open / Close Console for the visually impaired people.
