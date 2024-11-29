@@ -1577,7 +1577,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         g.fill(rightArrow);
         drawString(g,str(currFact), factX+sw+s22, dataY);
 
-        if ((startFact) > 0) {
+        if ((currBase+baseLost) > 0) {
             drawString(g,text("SHIP_COMBAT_SYSTEM_BASE"), baseX, headerY); 
             amt = str(currBase+baseLost);
             sw = g.getFontMetrics().stringWidth(amt);

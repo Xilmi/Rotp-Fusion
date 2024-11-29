@@ -77,6 +77,7 @@ Later:
 - Fixed wrongly given Orion Tech (from previous release).
 - Fixed null pointer exception in rally.
 - Fixed the combat result diplay factories number when a colony is bio destroyed.
+  - Fixed the fix!
 
 2024.11.28 (BR)
 - New French translations
