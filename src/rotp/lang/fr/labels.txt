@@ -256,7 +256,7 @@ EVENT_SUPERNOVA_3                 | En travaillant fébrilement, les physiciens 
 EVENT_SUPERNOVA_4                 | L'étoile du système [system] est devenue une supernova, irradiant le monde [target_raceadjec], dévastant son environnement et tuant des millions de personnes.
 EVENT_VIRUS                       | Un virus informatique hautement destructeur frappe les centres de recherche [target_race_pluraladjec], détruisant des années de recherche en [technology].
 
-EVENT_SPACE_AMOEBA                | Une forme biologique monstrueuse surnommée «l'Amibe Spatiale» a été repérée s'approchant du système [system]. Les colons et les flottes [victim_race_pluraladjec] se préparent au pire.
+EVENT_SPACE_AMOEBA                | Une forme biologique monstrueuse surnommée «l'Amibe Spatiale» a été repérée s'approchant du système [system]. Les colons et les flottes [victim_race_pluraladjecF] se préparent au pire.
 EVENT_SPACE_AMOEBA_1              | Une forme biologique monstrueuse surnommée «l'Amibe Spatiale» a été repérée s'approchant du système non colonisé [system].
 EVENT_SPACE_AMOEBA_2              | L'Amibe Spatiale a complètement détruit la colonie [victim_raceadjecF] dans le système [system].
 EVENT_SPACE_AMOEBA_3              | L'Amibe Spatiale a été détruite par les défenseurs [victim_race_pluraladjec] dans le système [system].
@@ -264,7 +264,7 @@ EVENT_SPACE_AMOEBA_4              | Les scanners qui ont suivi les progrès d'un
 EVENT_SPACE_AMOEBA_TRIG           | La SCT (Société qui Clone Tout) a incarné avec succès une horreur transdimensionnelle. Lorsqu'on leur a demandé des commentaires, les porte-parole ont dit : AAAAAAAAHHHHHHHHH !! ÇA BRÛLE !
 EVENT_SPACE_AMOEBA_PLUNDER        | →EVENT_SPACE_AMOEBA_3←. L'étude de la monstruosité visqueuse a permis aux scientifiques de faire avancer leurs recherches en planétologie, et la vente de sa chair très prisée apporte [amt] BC aux coffres de l'empire.
 
-EVENT_SPACE_CRYSTAL               | Une gigantesque entité cristalline appelée «le Cristal Spatial» a été repérée s'approchant du système [system]. Les colons et les flottes [victim_race_pluraladjec] se préparent au pire.
+EVENT_SPACE_CRYSTAL               | Une gigantesque entité cristalline appelée «le Cristal Spatial» a été repérée s'approchant du système [system]. Les colons et les flottes [victim_race_pluraladjecF] se préparent au pire.
 EVENT_SPACE_CRYSTAL_1             | Une gigantesque entité cristalline appelée «le Cristal Spatial» a été repérée s'approchant du système non colonisé [system].
 EVENT_SPACE_CRYSTAL_2             | Le Cristal Spatial a complètement détruit toute vie sur la colonie [victim_raceadjecF] dans le système [system].
 EVENT_SPACE_CRYSTAL_3             | Le Cristal Spatial a été détruit par les défenseurs [victim_race_pluraladjec] dans le système [system].
@@ -366,7 +366,7 @@ INC_ENCROACHING_TITLE             | Empiètement
 INC_ENCROACHING_DESC              | [your_empire] a colonisé le système [system], empiétant sur les frontières [my_empireof].
 INC_TECH_STOLEN_TITLE             | Technologie volée
 INC_TECH_STOLEN_DESC              | Des espions [spy_race_pluraladjec] ont volé les secrets de [tech] à [victim_race_pluraladjec].
-INC_TECH_FRAMED_DESC              | Des espions inconnus ont volé des secrets technologiques à la [victim_race_pluraladjec]. (Vous avez été piégé)
+INC_TECH_FRAMED_DESC              | Des espions inconnus ont volé des secrets technologiques [victim_race_pluralnounto]. (Vous avez été piégé)
 INC_TECH_EXCHANGE_TITLE           | Technologie échangée
 INC_TECH_EXCHANGE_DESC            | [my_empire] a enseigné les secrets de [techGiven] à [your_empire] en échange des secrets de [techReceived].
 INC_FINANCIAL_AID_TITLE           | Aide financière
@@ -810,7 +810,7 @@ MAIN_HELP_3H                      | Année Suivante - Fait avancer le jeu à l'a
 MAIN_HELP_3I                      | Tour actuel - Affiche le tour actuel du jeu ou l'année en cours de votre empire. Cliquez pour basculer.
 MAIN_HELP_3J                      | Commandes de la carte - Cliquez pour parcourir les différents paramètres d'affichage de la carte de la galaxie.
 // Smart-Max Help
-MAIN_HELP_4A                      | Les assistants Min/Max garderont toujours ECO propre.<br>- Smooth Min/Max : est équivalent à cliquer sur la flèche Haut/Bas jusqu'à atteindre la cible. Les BC libérés seront redistribués intelligemment. (Suivant la méthode de "Rafraîchir")<br>- Smart Min/Max : (Shift + Clic) effacera les dépenses débloquées, définira l'allocation Min/Max, nettoiera ECO, puis redistribuera intelligemment les BC restants.<br>- Rafraîchir : (Ctrl + Clic) effacera les dépenses débloquées puis redistribuera intelligemment les BC disponibles selon votre priorisation, dans la séquence : {ÉCOLOGIE, INDUSTRIE, FLOTTE, DÉFENSES, RECHERCHE}
+MAIN_HELP_4A                      | Les assistants Min/Max garderont toujours ÉCO propre.<br>- Smooth Min/Max : est équivalent à cliquer sur la flèche Haut/Bas jusqu'à atteindre la cible. Les BC libérés seront redistribués intelligemment. (Suivant la méthode de "Rafraîchir")<br>- Smart Min/Max : (Shift + Clic) effacera les dépenses débloquées, définira l'allocation Min/Max, nettoiera ÉCO, puis redistribuera intelligemment les BC restants.<br>- Rafraîchir : (Ctrl + Clic) effacera les dépenses débloquées puis redistribuera intelligemment les BC disponibles selon votre priorisation, dans la séquence : {ÉCOLOGIE, INDUSTRIE, FLOTTE, DÉFENSES, RECHERCHE}
 MAIN_HELP_4B                      | Chantier naval : <br> Clic-gauche : Allocation minimale nécessaire pour construire jusqu'à la limite.<br> Clic-droit : Allocation maximale disponible.
 MAIN_HELP_4C                      | Défenses : <br> Clic-gauche : Allocation minimale nécessaire pour construire les bases demandées.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu : Allocation minimale pour construire le bouclier.
 MAIN_HELP_4D                      | Industrie : <br> Clic-gauche : Allocation minimale nécessaire pour finaliser les usines.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu : Allocation minimale nécessaire pour suivre la croissance de la population.
@@ -968,7 +968,7 @@ MAIN_COLONY_PRODUCTION            | Production - Nette (Brute)
 MAIN_COLONY_SHIP                  | Flotte
 MAIN_COLONY_DEFENSE               | Def
 MAIN_COLONY_INDUSTRY              | Ind
-MAIN_COLONY_ECOLOGY               | Eco
+MAIN_COLONY_ECOLOGY               | Éco
 MAIN_COLONY_TECHNOLOGY            | Tech
 MAIN_COLONY_ALLOCATE_SPENDING     | Allouez les Dépenses
 GOVERNOR_IS_ON_BUTTON             | Gouverneur
@@ -1090,7 +1090,7 @@ MAIN_JAVA_32BIT_OK                | OK
 
 // Memory Low Warning
 MAIN_MEMORY_LOW_TITLE             | Avertissement! Mémoire de jeu faible
-MAIN_MEMORY_LOW_DESC              | La mémoire disponible pour ce jeu est faible. Cela peut être dû à une lecture prolongée ou à un démarrage insuffisant avec suffisamment de mémoire libre.
+MAIN_MEMORY_LOW_DESC              | La mémoire disponible pour ce jeu est faible. Cela peut être dû à un jeu prolongé ou à un démarrage avec insuffisamment de mémoire libre.
 MAIN_MEMORY_LOW_DESC_2            | Appuyez sur «Redémarrer» pour redémarrer ce jeu et reprendre à partir de ce point. Continuer à jouer sans redémarrer peut entraîner un comportement imprévisible, y compris la perte de données de sauvegarde.
 MAIN_MEMORY_LOW_DESC_3            | Si vous voyez ce message à plusieurs reprises, essayez de fermer d'autres applications sur votre ordinateur avant de redémarrer.
 MAIN_MEMORY_LOW_RESTART           | Redémarrer
@@ -1331,8 +1331,8 @@ FLEETS_HELP_2C                    | Déployer uniquement des vaisseaux de type -
 FLEETS_HELP_2D                    | Sélectionné pour le déploiement - un nombre de vaisseaux, par type, qui seront déployés.
 FLEETS_HELP_2E                    | Déployer des flottes - déployer les flottes sélectionnées sur un seul système cible.
 
-FLEETS_HELP_3A                    | Stable :<br> Le nombre maximum de populations que vous pouvez envoyer de cette planète tout en étant en mesure de recroître au même niveau, avec la barre ECO réglée à max.<br>Il revient au joueur ou au gouverneur d'ajuster la barre ECO.
-FLEETS_HELP_3B                    | Remplir :<br>Le nombre maximum de population que vous pouvez envoyer de cette planète tout en étant capable de recroissance pour remplir la planète, avec la barre ECO définie à max.<br>Il revient au joueur ou au gouverneur d'ajuster la barre ECO.
+FLEETS_HELP_3A                    | Stable :<br> Le nombre maximum de populations que vous pouvez envoyer de cette planète tout en étant en mesure de recroître au même niveau, avec la barre ÉCO réglée à max.<br>Il revient au joueur ou au gouverneur d'ajuster la barre ÉCO.
+FLEETS_HELP_3B                    | Remplir :<br>Le nombre maximum de population que vous pouvez envoyer de cette planète tout en étant capable de recroissance pour remplir la planète, avec la barre ÉCO définie à max.<br>Il revient au joueur ou au gouverneur d'ajuster la barre ÉCO.
 FLEETS_HELP_3C                    | Barres de sélection des populations à envoyer :<br>- Cliquez à gauche sur le curseur = sélection de pourcentage normale.<br>- Cliquez au milieu sur le curseur = sélection de la valeur «Stable».<br>- Cliquez avec le bouton droit sur le curseur = sélection de la valeur «Remplir».<br>Ctrl+Cliquez pour basculer le remplissage automatique (Sans gouverneur) affiché en Vert sur Gris.<br>L'état de remplissage automatique par défaut est défini par l'option «→TRANSPORT_AUTO_ECO_HK←».
 FLEETS_HELP_3MAIN                 | APERÇU :<br> Cet écran permet de gérer le transport de la population et des troupes.<br>Sélectionnez la colonie de destination et la capacité du transport.<br>La colonie de destination peut être changée à volonté.
 
@@ -1788,7 +1788,7 @@ SETUP_SHIP_SET_LABEL              | Modèles de vaisseaux :
 SETUP_SHIPSET_ORIGINAL            | Original
 SETUP_FLAG_LABEL                  | Bannière
 SETUP_BUTTON_CANCEL               | Annuler
-SETUP_BUTTON_RESTORE              | Restorer
+SETUP_BUTTON_RESTORE              | Restaurer
 SETUP_BUTTON_BACK                 | Retour
 SETUP_BUTTON_NEXT                 | Suivant
 SETUP_BUTTON_START                | Commencer
@@ -1851,7 +1851,7 @@ SETUP_BULLSEYE_2                  | Carrés
 SETUP_CLUSTER_0                   | 4 Amas
 SETUP_CLUSTER_1                   | 6 Amas
 SETUP_CLUSTER_2                   | 8 Amas
-SETUP_FRACTAL_0                   | Sierpinski
+SETUP_FRACTAL_0                   | Sierpiński
 SETUP_FRACTAL_1                   | Jeux du Chaos
 SETUP_GRID_0                      | Quelques Amas
 SETUP_GRID_1                      | Remplis d'Amas
@@ -2248,9 +2248,9 @@ SETTINGS_COLONIZING_DESC          | Limiter la colonisation des systèmes à ceu
 SETTINGS_COUNCIL_WIN_HELP         | Cela détermine si les factions peuvent rejeter une victoire du conseil, ou si une telle victoire est même possible.
 SETTINGS_COUNCIL_DESC             | Désactiver la victoire par le Haut Conseil, ou permet aux empires ennemis de se rebeller contre le joueur gagnant.
 SETTINGS_RANDOMIZE_AI_HELP        | « Option avancée » originale pour changer aléatoirement les personnalités jouées par l'IA, les aptitudes des espèces ou les deux.<br><i>En cas de conflit avec les aptitudes sélectionnées dans le menu Galaxie, le menu Galaxie gagne.</i>(Doit être défini sur « Espèce originale » pour que cette option fonctionne.)
-SETTINGS_RANDOMIZE_AI_DESC        | Choisir au hasard les personnalités des joueurs IA, les aptitudes raciales ou les deux.
+SETTINGS_RANDOMIZE_AI_DESC        | Choisir au hasard les personnalités des joueurs IA, les aptitudes des espèces ou les deux.
 SETTINGS_AUTOPLAY_DESC            | Automatiser complètement le jeu en faisant jouer une IA pour le joueur. Ceci est utile pour une vue de première main du fonctionnement de l'IA.
-SETTINGS_AUTOPLAY_WARNING         | Avertissement! La lecture automatique est actuellement activée, ce qui empêchera le jeu de l'utilisateur. Utilisez «Options avancées» pour désactiver.
+SETTINGS_AUTOPLAY_WARNING         | Avertissement! Le jeu est en mode automatique. Utilisez «Options avancées» pour désactiver.
 SETTINGS_FUEL_RANGE_HELP          | Augmente ou diminuer la gamme des technologies d'autonomie en carburant et les réservoirs de carburant. Les espèces tolérantes bénéficieront des autonomies réduites, tandis que les espèces à croissance rapide apprécieront des autonomies accrues...
 SETTINGS_FUEL_RANGE_DESC          | Augmente la portée des technologies de carburant et des réservoirs de carburant supplémentaires.
 SETTINGS_AI_HOSTILITY_DESC        | Augmente ou diminue le niveau général d'hostilité entre les espèces extraterrestres.
@@ -2316,14 +2316,14 @@ HEADERS_AUTO_FLAG_TYPE_DESC          | Sélectionnez la couleur des drapeaux en 
 HEADERS_AUTO_FLAG_TYPE               | ~~~ TYPE DE PLANÈTES ~~~
 HEADERS_AUTO_FLAG_ENVIRONMENT_DESC   | Définissez la couleur des drapeaux en fonction de l'environnement planétaire.
 HEADERS_AUTO_FLAG_ENVIRONMENT        | ~~~ ENVIRONMENT ~~~
-HEADERS_AUTO_FLAG_RESOURCES_DESC     | Définissez la couleur des drapeaux en fonction des resources de la planète.
-HEADERS_AUTO_FLAG_RESOURCES          | ~~~ RESOURCES DES PLANÈTES ~~~
+HEADERS_AUTO_FLAG_RESSOURCES_DESC     | Définissez la couleur des drapeaux en fonction des resources de la planète.
+HEADERS_AUTO_FLAG_RESOURCES          | ~~~ RESSOURCES DES PLANÈTES ~~~
 HEADERS_AUTO_FLAG_COLONY_TECH_DESC   | Définissez la couleur des drapeaux en fonction de l'environnement et des technologies de vaisseau de colonie requises.
 HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ TECH. DE COLONIZATION ~~~
 HEADERS_AUTO_FLAG_VESTIGES_DESC      | Définissez la couleur des drapeaux en fonction des vestiges de civilisation.
 HEADERS_AUTO_FLAG_VESTIGES           | ~~~ ARTÉFACTS ~~~
 HEADERS_AUTO_FLAG_IN_NEBULA_DESC     | Définissez la couleur des drapeaux en fonction du fait que vous vous trouvez dans une nébuleuse ou pas.
-HEADERS_AUTO_FLAG_IN_NEBULA          | ~~~ DANS NEBULEUSE ~~~
+HEADERS_AUTO_FLAG_IN_NEBULA          | ~~~ DANS NÉBULEUSE ~~~
 
 HEADERS_RANDOM_EVENTS_GLOBAL_DESC    | Paramètres affectant tous les événements aléatoires.
 HEADERS_RANDOM_EVENTS_GLOBAL         | ~~~ PARAMETERS GLOBAUX ~~~
@@ -2375,7 +2375,7 @@ HEADERS_ARTIFACT_OPTIONS_DESC        | Personnalisation des probabilités des ar
 HEADERS_ARTIFACT_OPTIONS             | ~~~ ARTÉFACTs ~~~
 HEADERS_RICH_OPTIONS_HELP            | To customize Ultra-Poor, Poor, Rich, and Ultra-Rich Resources probabilities.<br>The first resource to be set win! (From Ultra-Poor to Ultra-Rich). The default probability is first multiplied by the modifier, then the offset is added.
 HEADERS_RICH_OPTIONS_DESC            | Personnalisation des probabilités des ressources ultra-pauvres, pauvres, riches et ultra-riches.
-HEADERS_RICH_OPTIONS                 | ~~~ RESOURCES ~~~
+HEADERS_RICH_OPTIONS                 | ~~~ RESSOURCES ~~~
 HEADERS_NEBULAE_OPTION_DESC          | Personnalisation du placement des nébuleuses et leurs impact sur les planètes.
 HEADERS_NEBULAE_OPTION               | ~~~ NÉBULEUSES ~~~
 HEADERS_HOMEWORLD_NEIGHBORHOOD_DESC  | Personnalisation des distances et du contenu du voisinage des mondes d'origine.
@@ -2645,6 +2645,7 @@ TECH_LEVEL_HK                            | Cette technologie pourrait être disp
 FR_MISSILES_DESC_HK                      | Les bases sont équipées des meilleurs boucliers ainsi que des meilleurs missiles (si > 0)
 FR_USINES_DESC_HK                        | La planète a achevé de construire ses usines (ou presque)
 FR_POPULATION_DESC_HK                    | La population est à son maximum (ou presque) + La planète est entèrement terraformée + Aucuns déchets (si affecté par les déchets)
+
 SETTINGS_MOD_TECH_IRRADIATED_HELP        | →TECH_HEAD_HK← <b>→CONTROLENV_6_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CONTROLENV_6_DETAIL←</i><br>→TECH_LEVEL_HK← 18.<br>Cela pourrait être très frustrant de ne pas pouvoir coloniser toute la planète en fin de partie !
 SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18)→TECH_VAL_HK← "→CONTROLENV_6_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_IRRADIATED             | Maîtrise Env. Irradiés : %1
@@ -2695,9 +2696,7 @@ SETTINGS_MOD_RACES_RAND_MAX              | Limite haute: %1%
 SETTINGS_MOD_RACES_RAND_EDGES_HELP       | →FR_APTITUDE_SELECTION←:<br>→CUSTOM_RACE_RANDOM_EDGES_HELP←
 SETTINGS_MOD_RACES_RAND_EDGES_DESC       | →CUSTOM_RACE_RANDOM_EDGES_DESC←
 SETTINGS_MOD_RACES_RAND_EDGES            | →CUSTOM_RACE_RANDOM_EDGES← : %1
-SETTINGS_MOD_RACES_RAND_EDGES_YES        | →CUSTOM_RACE_RANDOM_EDGES_YES←
 SETTINGS_MOD_RACES_RAND_EDGES_YES_DESC   | →CUSTOM_RACE_RANDOM_EDGES_YES_DESC←
-SETTINGS_MOD_RACES_RAND_EDGES_NO         | →CUSTOM_RACE_RANDOM_EDGES_NO←
 SETTINGS_MOD_RACES_RAND_EDGES_NO_DESC    | →CUSTOM_RACE_RANDOM_EDGES_NO_DESC←
 
 SETTINGS_MOD_RACES_RAND_TARGET_MIN_HELP  | →FR_APTITUDE_SELECTION←.<br>Lorsque « →FR_CUSTOM_ALIENS← » = « →SETTINGS_MOD_RACES_ARE_RANDOM_TARGET← » : <br>→CUSTOM_RACE_RANDOM_USE_TARGET_HELP← <br>→CUSTOM_RACE_RANDOM_TARGET_MIN_DESC←
@@ -2877,7 +2876,7 @@ SETTINGS_MOD_USE_SMART_REFIT_HELP        | Les outils de dépenses intelligents 
 SETTINGS_MOD_USE_SMART_REFIT_DESC        | Les outils de dépenses intelligentes équilibreront l’industrie et l’écologie pour maximiser l’efficacité.
 SETTINGS_MOD_USE_SMART_REFIT             | Activer Smart Refit: %1
 
-SETTINGS_MOD_DEVELOPED_DEFINITION_DESC   | Quels sont les critères à appliquer lorsque "→PLANETS_RESERVE_ONLY_DEVELOPED←" est sélectionné?
+SETTINGS_MOD_DEVELOPED_DEFINITION_DESC   | Quels sont les critères à appliquer lorsque «→PLANETS_RESERVE_ONLY_DEVELOPED←» est sélectionné?
 SETTINGS_MOD_DEVELOPED_DEFINITION        | Developpé = %1
 SETTINGS_MOD_DEVELOPED_ALL_DESC          | →FR_MISSILES_DESC_HK← + →FR_USINES_DESC_HK← + →FR_POPULATION_DESC_HK←.
 SETTINGS_MOD_DEVELOPED_ALL               | {→MAIN_COLONY_DEFENSE←, →MAIN_COLONY_INDUSTRY←, →MAIN_COLONY_ECOLOGY←}
@@ -2892,13 +2891,13 @@ SETTINGS_MOD_DEV_MAX_MISSING_POP         | Pop manquante <= %1
 SETTINGS_MOD_DEV_MAX_MISSING_FACT_DESC   | Quel est le nombre maximum d'usines manquantes pour obtenir le status de « colonie développée » et que le fisc fasse son office.<br>Une colonie pleinement développée pourrait être la cible d'une mission d'espionnage détruisant quelques usines, sans que ce soit une excuse pour ne pas de payer leurs impôts.
 SETTINGS_MOD_DEV_MAX_MISSING_FACT        | Usines manquantes <= %1
 
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_HELP     | Les colonies sans gouverneur peuvent avoir leurs barres d'ajustement Eco réglés sur « Croissance » après l'envoi des transports. Sélectionnez la valeur par défaut à définir dans le panneau de transport de masse.<br>Le curseur sera réglé sur vert pour confirmer l'état de remplissage automatique.<br>Ctrl+Clic sur les barres d'ajustements pour inverser.
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_DESC     | Les colonies sans gouverneur peuvent avoir leurs barres d'ajustement Eco réglés sur « Croissance » après l'envoi des transports. Sélectionnez la valeur par défaut d'initialisation dans le panneau de transport.
-TRANSPORT_AUTO_ECO_HK                    | Transports ECO
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_HELP     | Les colonies sans gouverneur peuvent avoir leurs barres d'ajustement ÉCO réglés sur « Croissance » après l'envoi des transports. Sélectionnez la valeur par défaut à définir dans le panneau de transport de masse.<br>Le curseur sera réglé sur vert pour confirmer l'état de remplissage automatique.<br>Ctrl+Clic sur les barres d'ajustements pour inverser.
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_DESC     | Les colonies sans gouverneur peuvent avoir leurs barres d'ajustement ÉCO réglés sur « Croissance » après l'envoi des transports. Sélectionnez la valeur par défaut d'initialisation dans le panneau de transport.
+TRANSPORT_AUTO_ECO_HK                    | Transports ÉCO
 SETTINGS_MOD_TRANSPORT_AUTO_ECO          | →TRANSPORT_AUTO_ECO_HK← : %1
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES_DESC | La valeur par défaut sera de remplacer automatiquement la population de la colonie.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES      | Activé
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | La valeur par défaut sera :  « Désactivé ».
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | La valeur par défaut sera : « Désactivé ».
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO       | Désactivé
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST_DESC | Conservera le dernier paramètre de colonie.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Dernier
@@ -3301,10 +3300,10 @@ SETTINGS_MOD_AUTO_FLAG_UI                | Automation des Drapeaux
 SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | Pas d'automation
 SETTINGS_MOD_AUTO_FLAG_TYPE              | Type de planète
 SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Environment
-SETTINGS_MOD_AUTO_FLAG_RESOURCES         | Resources
+SETTINGS_MOD_AUTO_FLAG_RESOURCES         | Ressources
 SETTINGS_MOD_AUTO_FLAG_RUINS             | Vestiges
 SETTINGS_MOD_AUTO_FLAG_TECH              | Tech. de Colonisation
-SETTINGS_MOD_AUTO_FLAG_NEBULA            | In Nebula
+SETTINGS_MOD_AUTO_FLAG_NEBULA            | Dans une Nébuleuse
 SETTINGS_MOD_AUTO_FLAG_CLEAR             | Enlever les drapeaux
 
 FLAG_ASSIGN_SC1                          | Sélectionnez le paramètre qui sera automatiquement associé au drapeau
@@ -3318,9 +3317,8 @@ SETTINGS_MOD_AUTO_FLAG_ASSIGN_3          | Automation 3 : %1
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_4_DESC     | →FLAG_ASSIGN_SC1← en bas à gauche→FLAG_ASSIGN_SC2←
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_4          | Automation 4 : %1
 
-FLAG_SELECT_SC1                          | Sélectionnez la couleur du drapeau à définir automatiquement lorsque une planète
+FLAG_SELECT_SC1                          | Sélectionnez la couleur du drapeau à définir automatiquement lorsqu'une planète
 FLAG_SELECT_SC2                          | est explorée.
-FLAG_ASTEROID_SC                         | Sélectionnez la couleur du drapeau à définir automatiquement lorsque des Astéroïdes sont explorés.
 SETTINGS_MOD_AUTO_FLAG_ARID_DESC         | →FLAG_SELECT_SC1← →PLANET_ARID← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_BARREN_DESC       | →FLAG_SELECT_SC1← →PLANET_BARREN← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_DEAD_DESC         | →FLAG_SELECT_SC1← →PLANET_DEAD← →FLAG_SELECT_SC2←
@@ -3328,7 +3326,7 @@ SETTINGS_MOD_AUTO_FLAG_DESERT_DESC       | →FLAG_SELECT_SC1← →PLANET_DESER
 SETTINGS_MOD_AUTO_FLAG_INFERNO_DESC      | →FLAG_SELECT_SC1← →PLANET_INFERNO← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_JUNGLE_DESC       | →FLAG_SELECT_SC1← →PLANET_JUNGLE← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_MINIMAL_DESC      | →FLAG_SELECT_SC1← →PLANET_MINIMAL← →FLAG_SELECT_SC2←
-SETTINGS_MOD_AUTO_FLAG_ASTEROID_DESC     | →FLAG_ASTEROID_SC←
+SETTINGS_MOD_AUTO_FLAG_ASTEROID_DESC     | →FLAG_SELECT_SC1←
 SETTINGS_MOD_AUTO_FLAG_OCEAN_DESC        | →FLAG_SELECT_SC1← →PLANET_OCEAN← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_RADIATED_DESC     | →FLAG_SELECT_SC1← →PLANET_RADIATED← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_STEPPE_DESC       | →FLAG_SELECT_SC1← →PLANET_STEPPE← →FLAG_SELECT_SC2←
@@ -3340,31 +3338,32 @@ SETTINGS_MOD_AUTO_FLAG_ENV_GAIA_DESC      | →FLAG_SELECT_SC1← →PLANET_GAIA
 SETTINGS_MOD_AUTO_FLAG_ENV_FERTILE_DESC   | →FLAG_SELECT_SC1← →PLANET_FERTILE← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_ENV_NORMAL_DESC    | →FLAG_SELECT_SC1← Normal →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_ENV_HOSTILE_DESC   | →FLAG_SELECT_SC1← →PLANET_HOSTILE← →FLAG_SELECT_SC2←
-SETTINGS_MOD_AUTO_FLAG_ENV_NONE_DESC      | →FLAG_ASTEROID_SC←
+SETTINGS_MOD_AUTO_FLAG_ENV_NONE_DESC      | →FLAG_SELECT_SC1←
 
 SETTINGS_MOD_AUTO_FLAG_RUINS_ORION_DESC   | →FLAG_SELECT_SC1← Orion →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_RUINS_ANTARAN_DESC | →FLAG_SELECT_SC1← →PLANET_ARTIFACTS← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_ULTRA_RICH_DESC    | →FLAG_SELECT_SC1← →PLANET_ULTRA_RICH← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_RICH_DESC          | →FLAG_SELECT_SC1← →PLANET_RICH← →FLAG_SELECT_SC2←
-SETTINGS_MOD_AUTO_FLAG_NORMAL_DESC        | →FLAG_SELECT_SC1← →← Normal →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_NORMAL_DESC        | →FLAG_SELECT_SC1← →← Normale →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_POOR_DESC          | →FLAG_SELECT_SC1← →PLANET_POOR← →FLAG_SELECT_SC2←
 SETTINGS_MOD_AUTO_FLAG_ULTRA_POOR_DESC    | →FLAG_SELECT_SC1← →PLANET_ULTRA_POOR← →FLAG_SELECT_SC2←
-SETTINGS_MOD_AUTO_FLAG_NONE_DESC          | →FLAG_SELECT_SC1← Aucune resources n'a été détectée.
+SETTINGS_MOD_AUTO_FLAG_NONE_DESC          | Sélectionnez la couleur du drapeau à définir automatiquement lorsqu'aucune ressource n'a été détectée.
 
-FLAG_COLONY_SC                            | (Nécéssite un vaisseau avec la technologie pour coloniser les planètes
-SETTINGS_MOD_AUTO_FLAG_TECH_GAIA_DESC     | →FLAG_SELECT_SC1← a →PLANET_GAIA← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
-SETTINGS_MOD_AUTO_FLAG_TECH_FERTILE_DESC  | →FLAG_SELECT_SC1← a →PLANET_FERTILE← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
-SETTINGS_MOD_AUTO_FLAG_TECH_GOOD_DESC     | →FLAG_SELECT_SC1← a →PLANET_TERRAN←, a →PLANET_JUNGLE←, or an →PLANET_OCEAN← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
-SETTINGS_MOD_AUTO_FLAG_TECH_STANDARD_DESC | →FLAG_SELECT_SC1← an →PLANET_ARID←, a →PLANET_STEPPE←, a →PLANET_DESERT←, or a →PLANET_MINIMAL← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
-SETTINGS_MOD_AUTO_FLAG_TECH_BARREN_DESC   | →FLAG_SELECT_SC1← a →PLANET_BARREN← →FLAG_SELECT_SC2← →FLAG_COLONY_SC← →PLANET_BARREN←)
-SETTINGS_MOD_AUTO_FLAG_TECH_DEAD_DESC     | →FLAG_SELECT_SC1← a →PLANET_TUNDRA← or a →PLANET_DEAD← →FLAG_COLONY_SC← →PLANET_DEAD←)
-SETTINGS_MOD_AUTO_FLAG_TECH_TOXIC_DESC    | →FLAG_SELECT_SC1← an →PLANET_INFERNO← or a →PLANET_TOXIC← →FLAG_SELECT_SC2← →FLAG_COLONY_SC← →PLANET_TOXIC←)
-SETTINGS_MOD_AUTO_FLAG_TECH_RADIATED_DESC | →FLAG_SELECT_SC1← an →PLANET_RADIATED← →FLAG_SELECT_SC2← →FLAG_COLONY_SC← →PLANET_RADIATED←)
-SETTINGS_MOD_AUTO_FLAG_TECH_NONE_DESC     | →FLAG_ASTEROID_SC← (Aucun moyen des les coloniser!)
+
+FR_SETTING_MOD_AUTO_FLAG_COLO_TECH        | (Nécéssite un vaisseau avec un module de colonisation adéquat pour coloniser ces planètes)
+SETTINGS_MOD_AUTO_FLAG_TECH_GAIA_DESC     | →FLAG_SELECT_SC1← →PLANET_GAIA← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
+SETTINGS_MOD_AUTO_FLAG_TECH_FERTILE_DESC  | →FLAG_SELECT_SC1← →PLANET_FERTILE← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
+SETTINGS_MOD_AUTO_FLAG_TECH_GOOD_DESC     | →FLAG_SELECT_SC1← →PLANET_TERRAN←, →PLANET_JUNGLE←, ou →PLANET_OCEAN← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
+SETTINGS_MOD_AUTO_FLAG_TECH_STANDARD_DESC | →FLAG_SELECT_SC1← →PLANET_ARID←, →PLANET_STEPPE←, →PLANET_DESERT←, ou →PLANET_MINIMAL← →FLAG_SELECT_SC2← (Vaisseau de colonisation standard)
+SETTINGS_MOD_AUTO_FLAG_TECH_BARREN_DESC   | →FLAG_SELECT_SC1← →PLANET_BARREN← →FLAG_SELECT_SC2← →FR_SETTING_MOD_AUTO_FLAG_COLO_TECH←
+SETTINGS_MOD_AUTO_FLAG_TECH_DEAD_DESC     | →FLAG_SELECT_SC1← →PLANET_TUNDRA← ou →PLANET_DEAD← →FLAG_SELECT_SC2← →FR_SETTING_MOD_AUTO_FLAG_COLO_TECH←
+SETTINGS_MOD_AUTO_FLAG_TECH_TOXIC_DESC    | →FLAG_SELECT_SC1← →PLANET_INFERNO← ou →PLANET_TOXIC← →FLAG_SELECT_SC2← →FR_SETTING_MOD_AUTO_FLAG_COLO_TECH←
+SETTINGS_MOD_AUTO_FLAG_TECH_RADIATED_DESC | →FLAG_SELECT_SC1← →PLANET_RADIATED← →FLAG_SELECT_SC2← →FR_SETTING_MOD_AUTO_FLAG_COLO_TECH←
+SETTINGS_MOD_AUTO_FLAG_TECH_NONE_DESC     | Sélectionnez la couleur du drapeau à définir automatiquement lorsqu'un système ne contient aucune planète. (Aucun moyen de les coloniser!)
 
 SETTINGS_MOD_AUTO_FLAG_VESTIGES_ORION_DESC   | →FLAG_SELECT_SC1← avec des artéfacts de la civilisation d'Orion →FLAG_SELECT_SC2←
-SETTINGS_MOD_AUTO_FLAG_VESTIGES_ANTARAN_DESC | →FLAG_SELECT_SC1← a Planet with artéfacts de la civilisation d'Antaran →FLAG_SELECT_SC2←
-SETTINGS_MOD_AUTO_FLAG_VESTIGES_NONE_DESC    | →FLAG_SELECT_SC1← Aucun artéfacts n'a été découvert.
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_ANTARAN_DESC | →FLAG_SELECT_SC1← avec des artéfacts de la civilisation d'Antaran →FLAG_SELECT_SC2←
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_NONE_DESC    | Sélectionnez la couleur du drapeau à définir automatiquement lorsqu'aucun artéfacts n'a été découvert.
 
 SETTINGS_MOD_AUTO_FLAG_IN_NEBULA_DESC        | →FLAG_SELECT_SC1← Le systèm stellaire est situé dans une nébuleuse.
 SETTINGS_MOD_AUTO_FLAG_NOT_NEBULA_DESC       | →FLAG_SELECT_SC1← Le systèm stellaire n'est pas situé dans une nébuleuse.
@@ -3422,12 +3421,12 @@ SETTINGS_MOD_GALAXY_RAND_SOURCE          | Aléatoire ou WYSIWYG : %1
 SETTINGS_MOD_GALAXY_RAND_RANDOM          | Aléatoire
 SETTINGS_MOD_GALAXY_RAND_WYSIWYG         | WYSIWYG %1
 
-SETTINGS_MOD_AUTO_TERRAFORM_ENDING_DESC  | En mode terraformation, qu'est-ce qui déclenchera la fin du reinforcement Eco ?
+SETTINGS_MOD_AUTO_TERRAFORM_ENDING_DESC  | En mode terraformation, qu'est-ce qui déclenchera la fin du reinforcement ÉCO ?
 SETTINGS_MOD_AUTO_TERRAFORM_ENDING       | Fin de terraformation : %1
 SETTINGS_MOD_TERRAFORM_POPULATED         | Peuplée
 SETTINGS_MOD_TERRAFORM_TERRAFORMED       | Terraformé
 SETTINGS_MOD_TERRAFORM_CLEANED           | Nettoyé
-SETTINGS_MOD_TERRAFORM_POPULATED_HELP    | Maintenez l'ECO jusqu'à ce qu'il soit entièrement terraformé et entièrement peuplé.
+SETTINGS_MOD_TERRAFORM_POPULATED_HELP    | Maintenez l'ÉCO jusqu'à ce qu'il soit entièrement terraformé et entièrement peuplé.
 SETTINGS_MOD_TERRAFORM_TERRAFORMED_HELP  | Ne vous embêtez pas à peupler, arrêtez-vous à la fin de la terraformation, laissez la population croître normalement.
 SETTINGS_MOD_TERRAFORM_CLEANED_HELP      | Ne vous embêtez pas à terraformer, gardez-le simplement propre !
 
@@ -3677,7 +3676,7 @@ SETTINGS_MOD_COMET_RETURN_TURN_DESC      | →REF_RETURN_1← →REF_COMET← �
 SETTINGS_MOD_COMET_RETURN_TURN           | →REF_COMET← →REF_RETURN←
 
 REF_RELIC                                | Relique
-REF_RELIC_2                              | Relique de précurseur 
+REF_RELIC_2                              | Relique de précurseur
 SETTINGS_MOD_RELIC_DELAY_TURN_HELP       | →SETTINGS_MOD_RELIC_DELAY_TURN_DESC← →REF_INTRO← →EVENT_RELIC_PLANETS←
 SETTINGS_MOD_RELIC_DELAY_TURN_DESC       | →REF_DELAY_1← →REF_RELIC← →REF_DELAY_2←
 SETTINGS_MOD_RELIC_DELAY_TURN            | →REF_RELIC← →REF_DELAY←
@@ -3841,7 +3840,7 @@ SETTINGS_MOD_GAME_MENU_PREF_UI           | Game UI Preferences
 SETTINGS_MOD_GAME_MENU_PREF_UI_DESC      | Ouvre un nouveau panneau de contrôle pour configurer Game UI Preferences.
 
 SETTINGS_MOD_SETUP_MENU_PREF_TITLE       | Configuration des préférences de l'interface utilisateur.
-SETTINGS_MOD_SETUP_MENU_PREF_UI          | Préférences utilisateur	
+SETTINGS_MOD_SETUP_MENU_PREF_UI          | Préférences utilisateur
 SETTINGS_MOD_SETUP_MENU_PREF_UI_DESC     | Ouvre un nouveau panneau de contrôle pour configurer les préférences de l'interface utilisateur.
 
 SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Configuration des Options de zoom.
@@ -4664,7 +4663,7 @@ GAME_OVER_REBELLION_LOSS_E                | Destruction de la Rébellion
 GAME_OVER_REBELLION_LEADER_LOSS_E         | Dirigeant Fou vaincu pendant sa rébellion
 GAME_OVER_REBELLION_CHALLENGER_LOSS_E     | Opposant vaincu pendant sa rébellion
 GAME_OVER_REBELLION_FOLLOWER_LOSS_E       | Détruit suite à la rébellion
-GAME_OVER_MILITARY_WIN_E                  | Extermination Galactique 
+GAME_OVER_MILITARY_WIN_E                  | Extermination Galactique
 GAME_OVER_MILITARY_ALLIANCE_WIN_E         | Survivant Graçe à une Alliance
 GAME_OVER_DIPLOMATIC_WIN_E                | →GAME_OVER_DIPLOMATIC_WIN←
 GAME_OVER_DIPLO_FEARED_WIN_E              | Dirigeant Redouté d'une Galaxie Unie
@@ -5103,10 +5102,10 @@ SETUP_GALAXY_SHAPE_FRACTAL_O1      | Première option de la galaxie fractale.
 SETUP_GALAXY_SHAPE_FRACTAL_O2      | Seconde option de la galaxie fractale.
 SETUP_GALAXY_SHAPE_FRACTAL_O1_HELP | Type de fractale.
 SETUP_GALAXY_SHAPE_FRACTAL_O2_HELP | Spécificité fractale.
-SETUP_FRACTAL_0_HELP               | Triangle de Sierpinski
+SETUP_FRACTAL_0_HELP               | Triangle de Sierpiński
 SETUP_FRACTAL_1_HELP               | Jeu du chaos restreint
-SETUP_GALAXY_MAP_OPTION_A0_HELP    | Sierpinski Carpet.
-SETUP_GALAXY_MAP_OPTION_B0_HELP    | Sierpinski Carpet chaos game.
+SETUP_GALAXY_MAP_OPTION_A0_HELP    | tapis de Sierpiński.
+SETUP_GALAXY_MAP_OPTION_B0_HELP    | Jeu du chaos du tapis de Sierpiński.
 SETUP_GALAXY_MAP_OPTION_C0_HELP    | Barnsley Fern.
 SETUP_GALAXY_MAP_OPTION_A1_HELP    | Jeu du chaos restreint : Le sommet actuellement choisi ne peut pas être voisin du sommet précédemment choisi si les deux sommets précédemment choisis sont identiques.
 SETUP_GALAXY_MAP_OPTION_B1_HELP    | Jeu du chaos restreint : Le sommet actuel ne peut pas être choisi dans l'itération suivante.
@@ -5218,7 +5217,7 @@ MAIN_HELP_SHIPFLEET_HK | Raccourcis clavier QUAND LA FLOTTE EST SÉLECTIONNÉE 
 
 MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n'affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n'est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Space/Page Down/Page Up : Votre flotte inactive Suivante/Précédente<br>«Shift-» Space/Page Down/Page Up : Votre flotte Auto. mais inactive Suivante/Précédente→HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d'Option →HK_YEAR←<br>Shift-S : Rapport d'espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
 
-PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>Ctrl+A : Sélectionner tous les systèmes<br>Q/+Ctrl : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+Ctrl : Planète en manque de population / + Dépenses ECO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +Ctrl /+Shift : Basculer activation du gouverneur / Avtivé / Désactivé <br>→HK_ESCAPE←
+PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>Ctrl+A : Sélectionner tous les systèmes<br>Q/+Ctrl : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+Ctrl : Planète en manque de population / + Dépenses ÉCO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +Ctrl /+Shift : Basculer activation du gouverneur / Avtivé / Désactivé <br>→HK_ESCAPE←
 
 FLEETS_HELP_HK       | →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
 

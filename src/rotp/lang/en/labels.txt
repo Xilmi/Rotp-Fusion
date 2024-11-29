@@ -583,9 +583,9 @@ SETTINGS_MOD_DEBUG_NO_AUTOSAVE_DESC  | Disable background security auto saving. 
 GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Log to console: %1
 GAME_SETTINGS_CONSOLE_AUTO_PLAY_DESC | When enabled, the logged data are also shown on the console.
 GAME_SETTINGS_DEBUG_LOG_NOTIF        | Log Notifications: %1
-GAME_SETTINGS_DEBUG_LOG_NOTIF_DESC   | Toggles the Notification logging  when in Debug AutoPlay.
+GAME_SETTINGS_DEBUG_LOG_NOTIF_DESC   | Toggles the Notification logging when in Debug AutoPlay.
 GAME_SETTINGS_DEBUG_LOG_EVENTS       | Log Random Events: %1
-GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Toggles the Random Events logging  when in Debug AutoPlay.
+GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Toggles the Random Events logging when in Debug AutoPlay.
 
 GAME_SETTINGS_CONTINUE_ANYWAY        | Continue Anyway: %1
 GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | The Game will continue after victory or defeat, this while the player is alive!
@@ -5013,7 +5013,7 @@ SETUP_GALAXY_SELECTABLE_DESC      | "Yes" => A selection line will appear at the
 SETUP_GALAXY_SELECTABLE		      | Selectable Abilities
 SETUP_GALAXY_RACE_LIST_HELP       | <b>Species list selection</b><br> Modnar has extended the original species list with six new species. If you are not in the mood to see them, you can exclude them from the selection.<hr><b>Default:</b>&nbsp Original<hr><b>Original:</b>&nbsp The 6 Modnar Species are excluded.<br> <b>All Species</b>:&nbsp The 6 Modnar Species can also be selected or randomly assigned.
 SETUP_GALAXY_RACE_LIST_DESC       | "Original" = The 6 Modnar Species are excluded.<br> "All Species" = The 6 Modnar Species can also be selected or randomly assigned.
-SETUP_GALAXY_AGAINST_DESC         | To select Aliens AI.<br> "AI:Selectable" => A selection line will appear on the bottom of the Boxes bellow, allowing the selection of individual Aliens AI.
+SETUP_GALAXY_AGAINST_DESC         | To select Aliens AI.<br> "AI:Selectable" => A selection line will appear on the bottom of the Boxes below, allowing the selection of individual Aliens AI.
 SETUP_GALAXY_PREVIEW_DESC         | This is what the Galaxy will look like.<br>Blue dot = Orion.<br>Green dots = Player Homeworld and neighbor systems.<br>Red dots = Opponents Home worlds and their neighbor systems.<br>Grey dots = other star systems.<br>Click to show/hide a 10 ly spaced grid.<br>Scroll to change the empires spreading.<br>Middle Click to restore the default minimal distances between empires.
 
 SETUP_SELECT_CR_OPTIONS_DESC      | if "Yes", a selection line will appear at the top of the boxes below, allowing the selection of individual ability.
@@ -5025,7 +5025,7 @@ SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 
 'Selection'_DESC        | Same abilities as the global abilities selected on the top.
 'Original Species'_DESC | Original abilities of the selected species (the one on the icon)
-'Reworked'_DESC         | Reworked abilities of the selected species (the one on the icon), modified and saved by the player (in the Species Customization Panel) with the respectively named species files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
+'Reworked'_DESC         | Reworked abilities of the selected species (the one on the icon), modified and saved by the player (in the Species Customization Panel) with the respectively named species files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA, RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
 'Player'_DESC           | Same abilities as the selected player species.
 'Random'_DESC           | Abilities will be randomly generated using the "Setup" parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
 'Random 10'_DESC        | Abilities randomly selected within the ten original species abilities.
@@ -5113,7 +5113,7 @@ SETUP_GALAXY_MAP_OPTION_B1_HELP | Restricted chaos game: The current vertex cann
 SETUP_GALAXY_MAP_OPTION_C1_HELP | Restricted chaos game: The current vertex cannot be one place away (anti-clockwise) from the previously chosen vertex, this fractal appears:
 SETUP_GALAXY_SHAPE_MAZE_HELP      | Amazing Galaxy generated using Prim's algorithm.
 SETUP_GALAXY_SHAPE_MAZE_O1        | Maze galaxy option
-SETUP_GALAXY_SHAPE_MAZE_O1_HELP   | Seed modifier for the  maze.
+SETUP_GALAXY_SHAPE_MAZE_O1_HELP   | Seed modifier for the maze.
 SETUP_MAZE_0_HELP             | No modifier.
 SETUP_MAZE_1_HELP             | Rolled 10 times.
 SETUP_MAZE_2_HELP             | Rolled 20 times.
