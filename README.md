@@ -79,6 +79,7 @@ Later:
 - Fixed the combat result diplay factories number when a colony is bio destroyed.
   - Fixed the fix!
 - Systems are scouted before the player is asked to bombard them. (Fixed)
+- Fixed a rare bug where an empire could be placed outside the bounds given by galaxy shapes.
 
 2024.11.28 (BR)
 - New French translations

@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import rotp.model.game.IGameOptions;
 import rotp.util.Base;
 import rotp.util.Rand;
@@ -697,7 +698,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private Point.Float findSpecificValidLocation(Point.Float p) {
 		setSpecific(p);
 		//indexWorld++; // modnar: increment indexWorld for subsequent homeworld locations
-		while (!valid(p) && indexWorld++<1000) {
+		while (!valid(p) && indexWorld++<2000) {
 			setSpecific(p);
 			// modnar: incrementing indexWorld here to prevent accidental infinite loop of bad locations,
 			// but need setSpecific to have some form of repeating modulo cut-off
@@ -706,6 +707,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 		if (!valid(p)) { // to avoid infinite loop
 			p.x = cx;
 			p.y = cy;
+			System.err.println("Center point generated");
+			return null;
 		}
 		return p;
 	}
@@ -990,9 +993,11 @@ public abstract class GalaxyShape implements Base, Serializable {
 			int attempts = 0;
 			Point.Float pt = new Point.Float();
 			while (attempts++ < 100) {
-				findSpecificValidLocation(pt); // modnar: add specific placement of homeworld locations
+				pt = findSpecificValidLocation(pt); // modnar: add specific placement of homeworld locations
 				//findAnyValidLocation(pt);
-				if (!sp.isTooNearExistingSystem(pt.x,pt.y,true)) {
+				if (pt == null)
+					pt = new Point.Float();
+				else if (!sp.isTooNearExistingSystem(pt.x,pt.y,true)) {
 					addSystem(pt.x,pt.y);
 					return true;
 				}

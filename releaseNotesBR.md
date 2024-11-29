@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Fixed a rare bug where an empire could be placed outside the bounds given by galaxy shapes.
 - Fixed the combat result diplay factories number when a colony is bio destroyed.
 - Fixed null pointer exception in rally
 - Systems are scouted before the player is asked to bombard them. (Fixed version)
