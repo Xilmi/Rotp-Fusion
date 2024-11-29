@@ -1595,7 +1595,7 @@ SETUP_OPPONENT_AI_RANDOM_BASIC    | IA : A.Basic
 SETUP_OPPONENT_AI_RANDOM_ADV_HELP | Sélection aléatoire parmi : Xilmi, Hybrid, Fusion, Amusant ou Personnalité.
 SETUP_OPPONENT_AI_RANDOM_ADV      | IA : A.Xilmi
 SETUP_OPPONENT_AI_RANDOM_NOBAR_HELP | Sélection aléatoire parmi : Fusion, Amusant ou Personnalité.<br> Ces IA sont opportunistes et n'affichent pas la barre de relation.
-SETUP_OPPONENT_AI_RANDOM_NOBAR    | AI: Alea\rel
+SETUP_OPPONENT_AI_RANDOM_NOBAR    | IA: Aléa\rel
 SETUP_OPPONENT_AI_SELECT_HELP     | Pour pouvoir sélectionner une IA différente pour chaque adversaire. <br> Un nouveau champ de sélection sera ajouté au bas de chaque icône adverse.
 SETUP_OPPONENT_AI_SELECT          | IA : Sélectionnable
 SETUP_OPPONENT_AI_PLAYER_HELP     | Le contrôle est entre vos mains.
@@ -1993,7 +1993,7 @@ CUSTOM_RACE_HOME_ARTIFACTS        | Planète avec artéfacts
 CUSTOM_RACE_HOME_RESOURCES_DESC   | Ce paramètre affecte la production du monde d’origine.
 CUSTOM_RACE_HOME_RESOURCES        | Ressources planètaires
 CUSTOM_RACE_HOME_ENVIRONMENT_DESC | Ce paramètre affecte le taux de croissance du monde d’origine.
-CUSTOM_RACE_HOME_ENVIRONMENT      | Environement planétaire
+CUSTOM_RACE_HOME_ENVIRONMENT      | Environnement planétaire
 CUSTOM_RACE_RACE_KEY              | Nom du fichier
 CUSTOM_RACE_RACE_KEY_DESC         | C'est ici que vous devez saisir le nom du fichier, il est également utilisé comme clé pour les espèces standard... Ne les utilisez pas ou conservez la valeur par défaut "SPECIES_xxx" pour définir les aptitudes →FR_REWORKED←.
 // Inutilisé pour le moment
@@ -2315,8 +2315,8 @@ HEADERS_AUTO_FLAG_ID_SELECTION_DESC  | Pour associer automatiquement des couleur
 HEADERS_AUTO_FLAG_TYPE_DESC          | Sélectionnez la couleur des drapeaux en fonction du type de planète.
 HEADERS_AUTO_FLAG_TYPE               | ~~~ TYPE DE PLANÈTES ~~~
 HEADERS_AUTO_FLAG_ENVIRONMENT_DESC   | Définissez la couleur des drapeaux en fonction de l'environnement planétaire.
-HEADERS_AUTO_FLAG_ENVIRONMENT        | ~~~ ENVIRONMENT ~~~
-HEADERS_AUTO_FLAG_RESSOURCES_DESC     | Définissez la couleur des drapeaux en fonction des resources de la planète.
+HEADERS_AUTO_FLAG_ENVIRONMENT        | ~~~ ENVIRONNEMENT ~~~
+HEADERS_AUTO_FLAG_RESOURCES_DESC     | Définissez la couleur des drapeaux en fonction des resources de la planète.
 HEADERS_AUTO_FLAG_RESOURCES          | ~~~ RESSOURCES DES PLANÈTES ~~~
 HEADERS_AUTO_FLAG_COLONY_TECH_DESC   | Définissez la couleur des drapeaux en fonction de l'environnement et des technologies de vaisseau de colonie requises.
 HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ TECH. DE COLONIZATION ~~~
@@ -3301,7 +3301,7 @@ SETTINGS_MOD_AUTO_FLAG_UI                | Automation des Drapeaux
 
 SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | Pas d'automation
 SETTINGS_MOD_AUTO_FLAG_TYPE              | Type de planète
-SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Environment
+SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Environnement
 SETTINGS_MOD_AUTO_FLAG_RESOURCES         | Ressources
 SETTINGS_MOD_AUTO_FLAG_RUINS             | Vestiges
 SETTINGS_MOD_AUTO_FLAG_TECH              | Tech. de Colonisation
@@ -5014,7 +5014,7 @@ SETUP_GALAXY_SELECTABLE_DESC      | "Oui" => Une ligne de sélection apparaîtra
 SETUP_GALAXY_SELECTABLE            | Aptitudes sélectionnables
 SETUP_GALAXY_RACE_LIST_HELP        | <b>Sélection de la liste des espèces</b><br> Modnar a étendu la liste des espèces originales avec six nouvelles espèces. Si vous n'êtes pas d'humeur à les voir, vous pouvez les exclure de la sélection.<hr><b>Par défaut :</b>&nbsp Original<hr><b>Original :</b>&nbsp Les 6 espèces de Modnar sont exclues.<br> <b>Toutes les espèces</b> : Les 6 espèces de Modnar peuvent également être sélectionnées ou attribuées au hasard.
 SETUP_GALAXY_RACE_LIST_DESC        | "Original" = Les 6 espèces de Modnar sont exclues.<br> "Toutes les espèces" = Les 6 espèces de Modnar peuvent également être sélectionnées ou attribuées au hasard.
-SETUP_GALAXY_AGAINST_DESC          | Pour sélectionner l'IA des Aliens.<br> "AI:Selectable" => Une ligne de sélection apparaîtra en bas des cases ci-dessous, permettant la sélection d'IA des Aliens individuels.
+SETUP_GALAXY_AGAINST_DESC          | Pour sélectionner l'IA des adversaires.<br> "IA : Sélectionnable" => Une ligne de sélection apparaîtra en bas des cases ci-dessous, permettant la sélection des IA adversaires.
 SETUP_GALAXY_PREVIEW_DESC          | Voici ce à quoi ressemblera la galaxie.<br>Point bleu = Orion.<br>Points verts = Monde natal du joueur et systèmes voisins.<br>Points rouges = Mondes natals des adversaires et leurs systèmes voisins.<br>Points gris = autres systèmes stellaires.<br>Cliquez pour afficher/masquer une grille espacée de 10 al.<br>Faites défiler pour modifier la propagation des empires.<br>Cliquez au milieu pour restaurer les distances minimales par défaut entre les empires.
 
 SETUP_SELECT_CR_OPTIONS_DESC       | si "Oui", une ligne de sélection apparaîtra en haut des cases ci-dessous, permettant la sélection de l'aptitude individuelle.
