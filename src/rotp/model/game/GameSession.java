@@ -549,7 +549,6 @@ public final class GameSession implements Base, Serializable {
 
                 gal.nextEmpireTurns();
                 gal.clearSpaceMonsters();
-                // player().updateScoutMessages();
                 player().setVisibleShips();
                 player().setVisibleMonsters();
 
@@ -567,6 +566,7 @@ public final class GameSession implements Base, Serializable {
                 if (!inProgress())
                     return;
 
+                player().updateScoutMessages();
                 if (processNotifications()) {
                     log("Notifications processed 2 - back to MainPanel");
                     RotPUI.instance().selectMainPanel();

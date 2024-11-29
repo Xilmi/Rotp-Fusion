@@ -15,15 +15,16 @@
  */
 package rotp.model.events;
 
-import rotp.model.empires.Empire;
-import rotp.model.galaxy.SpaceMonster;
-import rotp.model.game.IGameOptions;
-import rotp.util.Base;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+import rotp.model.empires.Empire;
+import rotp.model.galaxy.SpaceMonster;
+import rotp.model.game.IGameOptions;
+import rotp.util.Base;
 
 public class RandomEvents implements Base, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -118,9 +119,9 @@ public class RandomEvents implements Base, Serializable {
 	public void empireIdTechTriggerSpaceAmoeba(int id)	{ empireIdTechTriggerSpaceAmoeba  = id; }
 	public void empireIdTechTriggerSpaceCrystal(int id)	{ empireIdTechTriggerSpaceCrystal = id; }
 	public void empireIdTechTriggerSpacePirates(int id)	{ empireIdTechTriggerSpacePirates = id; }
-	public boolean spaceAmoebaNotTriggered()	{ return empireIdTechTriggerSpaceAmoeba == Empire.NULL_ID; }
-	public boolean spaceCrystalNotTriggered()	{ return empireIdTechTriggerSpaceCrystal == Empire.NULL_ID; }
-	public boolean spacePiratesNotTriggered()	{ return empireIdTechTriggerSpacePirates == Empire.NULL_ID; }
+	public boolean spaceAmoebaNotTriggered()	{ return empireIdTechTriggerSpaceAmoeba() == Empire.NULL_ID; }
+	public boolean spaceCrystalNotTriggered()	{ return empireIdTechTriggerSpaceCrystal() == Empire.NULL_ID; }
+	public boolean spacePiratesNotTriggered()	{ return empireIdTechTriggerSpacePirates() == Empire.NULL_ID; }
 
 	public void addActiveEvent(RandomEvent ev)		{ activeEvents.add(ev); }
 	public boolean isActiveEvent(RandomEvent ev)	{ return activeEvents.contains(ev); }

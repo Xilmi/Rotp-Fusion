@@ -78,6 +78,7 @@ Later:
 - Fixed null pointer exception in rally.
 - Fixed the combat result diplay factories number when a colony is bio destroyed.
   - Fixed the fix!
+- Systems are scouted before the player is asked to bombard them. (Fixed)
 
 2024.11.28 (BR)
 - New French translations

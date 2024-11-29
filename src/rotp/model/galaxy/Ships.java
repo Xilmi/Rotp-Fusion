@@ -743,7 +743,7 @@ public class Ships implements Base, Serializable {
     public List<ShipFleet> notInTransitFleets(int empireId) {
         List<ShipFleet> fleets = new ArrayList<>();
         List<ShipFleet> fleetsAll = allFleetsCopy();
-        
+
         for (ShipFleet fl: fleetsAll) {
             if (fl != null && (fl.empId == empireId) && !fl.isInTransit())
                 fleets.add(fl);
@@ -756,7 +756,7 @@ public class Ships implements Base, Serializable {
     public List<ShipFleet> allFleets(int empireId) {
         List<ShipFleet> fleets = new ArrayList<>();
         List<ShipFleet> fleetsAll = allFleetsCopy();
-        
+
         for (ShipFleet fl: fleetsAll) {
             if (fl != null && fl.empId == empireId)
                 fleets.add(fl);
@@ -766,7 +766,7 @@ public class Ships implements Base, Serializable {
     public List<ShipFleet> allOrbitingFleets(int empireId) {
         List<ShipFleet> fleets = new ArrayList<>();
         List<ShipFleet> fleetsAll = allFleetsCopy();
-        
+
         for (ShipFleet fl: fleetsAll) {
             if (fl != null && fl.empId == empireId && fl.isOrbiting())
                 fleets.add(fl);
@@ -780,7 +780,7 @@ public class Ships implements Base, Serializable {
         int allyCount  = 0;
         List<ShipFleet> emptyFleets = new ArrayList<>();
         List<ShipFleet> fleetsAll = allFleetsCopy();
-        
+
         for (ShipFleet fl: fleetsAll) {
             if (fl != null && fl.empId == empireId) {
             	int count = fl.num(designId);
@@ -799,10 +799,10 @@ public class Ships implements Base, Serializable {
                 }
             }
         }
-        
+
         for (ShipFleet fl: emptyFleets) 
             this.deleteFleet(fl);
-        
+
         return new int[] {scrapCount, empCount, allyCount};
     }
     /* public int scrapDesign(int empireId, int designId) {
