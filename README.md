@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.11.29 (Frank Zago)
+- French translations and fixes.
+
 2024.11.29 (BR)
 - Completed the French translation of labels.txt and techs.txt
 - Fixed wrongly given Orion Tech (from previous release).
@@ -99,7 +102,6 @@ Later:
   - Two new icons to call them are added to the galaxy map.
   - Former Option panel still available inside the Rules panel
   - Former Option panel still respond to "O"
-
 
 2024.11.23 (BR)
 - Unclean Colony Icon gives more choice.

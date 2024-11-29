@@ -2696,7 +2696,9 @@ SETTINGS_MOD_RACES_RAND_MAX              | Limite haute: %1%
 SETTINGS_MOD_RACES_RAND_EDGES_HELP       | →FR_APTITUDE_SELECTION←:<br>→CUSTOM_RACE_RANDOM_EDGES_HELP←
 SETTINGS_MOD_RACES_RAND_EDGES_DESC       | →CUSTOM_RACE_RANDOM_EDGES_DESC←
 SETTINGS_MOD_RACES_RAND_EDGES            | →CUSTOM_RACE_RANDOM_EDGES← : %1
+SETTINGS_MOD_RACES_RAND_EDGES_YES        | →CUSTOM_RACE_RANDOM_EDGES_YES←
 SETTINGS_MOD_RACES_RAND_EDGES_YES_DESC   | →CUSTOM_RACE_RANDOM_EDGES_YES_DESC←
+SETTINGS_MOD_RACES_RAND_EDGES_NO         | →CUSTOM_RACE_RANDOM_EDGES_NO←
 SETTINGS_MOD_RACES_RAND_EDGES_NO_DESC    | →CUSTOM_RACE_RANDOM_EDGES_NO_DESC←
 
 SETTINGS_MOD_RACES_RAND_TARGET_MIN_HELP  | →FR_APTITUDE_SELECTION←.<br>Lorsque « →FR_CUSTOM_ALIENS← » = « →SETTINGS_MOD_RACES_ARE_RANDOM_TARGET← » : <br>→CUSTOM_RACE_RANDOM_USE_TARGET_HELP← <br>→CUSTOM_RACE_RANDOM_TARGET_MIN_DESC←
@@ -3294,7 +3296,7 @@ SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | Combien de drapeaux doivent être dé
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Nombre de drapeaux : %1
 
 SETTINGS_MOD_AUTO_FLAG_TITLE             | Configuration de l'automation des drapeaux.
-SETTINGS_MOD_AUTO_FLAG_UI_DESC           | Open Sub Menu to set the parameters that will be automatically associated with flags. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_UI_DESC           | Ouvrez le sous-menu pour définir les paramètres qui seront automatiquement associés aux drapeaux. (Uniquement la première fois qu'un système stellaire est exploré)
 SETTINGS_MOD_AUTO_FLAG_UI                | Automation des Drapeaux
 
 SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | Pas d'automation
@@ -4451,8 +4453,8 @@ HISTORY_EMPIRE                    | Empire
 // Council UIs
 COUNCIL_CONVENE_TITLE             | Le Haut Conseil se réunit
 COUNCIL_CONVENE                   | Le Haut Conseil s'est réuni pour élire un dirigeant qui sera le Souverain de la Galaxie.
-COUNCIL_CONVENE2                  | Chaque empire émet un nombre de voix proportionnel à sa population. Un candidat doit recueillir au moins %1 % de tous les suffrages pour être élu. Les candidats sont les dirigeants des deux empires les plus peuplés : [first_name] [first_empireof] et [second_name] [second_empireof].
-COUNCIL_CONVENE2_MOD              | Chaque empire émet un nombre de voix proportionnel à sa population. Un candidat doit recueillir au moins les deux tiers de tous les suffrages pour être élu. Les candidats sont les dirigeants des deux empires les plus peuplés : [first_name] [first_empireof] et [second_name] [second_empireof].
+COUNCIL_CONVENE2                  | Chaque empire émet un nombre de voix proportionnel à sa population. Un candidat doit recueillir au moins les deux tiers de tous les suffrages pour être élu. Les candidats sont les dirigeants des deux empires les plus peuplés : [first_name] [first_empireof] et [second_name] [second_empireof].
+COUNCIL_CONVENE2_MOD              | Chaque empire émet un nombre de voix proportionnel à sa population. Un candidat doit recueillir au moins %1 % de tous les suffrages pour être élu. Les candidats sont les dirigeants des deux empires les plus peuplés : [first_name] [first_empireof] et [second_name] [second_empireof].
 COUNCIL_ADJOURN_TITLE             | Le Haut Conseil s'ajourne
 COUNCIL_ADJOURN                   | Le vote est terminé et aucun des candidats n'a recueilli les deux tiers des voix. Aucun dirigeant n'a été nommé. Le Haut Conseil se réunira à nouveau pour un autre vote dans 25 ans.
 COUNCIL_ADJOURN_MOD               | Le vote est terminé et aucun des candidats n'a recueilli  %1 % des voix. Aucun dirigeant n'a été nommé. Le Haut Conseil se réunira à nouveau pour un autre vote dans 25 ans.
@@ -5228,7 +5230,7 @@ TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augment
 
 SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1← <br><br>Flèches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+Ctrl) : Purger le modèle / (Juste l'armement)<br><br>ALT-A : Construction automatique<br>ALT-B : Construction automatique Bombardier<br>ALT-F : Construction automatique Chasseur<br>ALT-E : Construction automatique Éclaireur.<br>ALT-P : Construction automatique Colonisateur. <br>→HK_ESCAPE←
 
-RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Empire. →HK_TAB←<br><br>A : →RACES_DIPLOMACY_AUDIENCE← with the selected Empire.<br><br>When the player's empire is selected:<br>D : →RACES_DIPLOMACY_MANAGE_DIPLOMATS←.<br>S : →RACES_INTEL_BUREAU_MANAGE←. <br>→HK_ESCAPE←
+RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Flèches Down/Up : Empire Suivant/Précédent. →HK_TAB←<br><br>A : →RACES_DIPLOMACY_AUDIENCE← avec l'empire sélectionné.<br><br>Lorsque l'empire du joueur est sélectionné:<br>D : →RACES_DIPLOMACY_MANAGE_DIPLOMATS←.<br>S : →RACES_INTEL_BUREAU_MANAGE←. <br>→HK_ESCAPE←
 
 SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_YEAR← →HK_FLAG← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
 
