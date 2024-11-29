@@ -75,6 +75,7 @@ Later:
 2024.11.29 (BR)
 - Completed the French translation of labels.txt and techs.txt
 - Fixed wrongly given Orion Tech (from previous release).
+- Fixed null pointer exception in rally
 
 2024.11.28 (BR)
 - New French translations

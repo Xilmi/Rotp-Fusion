@@ -211,7 +211,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     public float spyTurn()                   { return spyTime - galaxy().beginningYear(); }
     public float scoutTurn()                 { return scoutTime - galaxy().beginningYear(); }
     public StarSystem rallyNearestStarGate(int action, Float speed) {
-    	return rallyNearestSystem(owner.systemsWithStargate(), action, speed);
+    	return rallyNearestSystem(owner().systemsWithStargate(), action, speed);
     }
     public StarSystem rallyNearestSystem(List<StarSystem> destList, int action, Float speed)  {
     	if (action == CLEAR_PREVIEW)
@@ -221,9 +221,9 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 
     	StarSystem from = system();
     	if (speed == null)
-    		speed = options().chainRallySpeed(owner);
+    		speed = options().chainRallySpeed(owner());
     	
-    	//float topSpeed = owner.tech().topSpeed();
+    	//float topSpeed = owner().tech().topSpeed();
     	int destSize = destList.size();
     	int minTime = Integer.MAX_VALUE;
     	float minDist = Float.MAX_VALUE;

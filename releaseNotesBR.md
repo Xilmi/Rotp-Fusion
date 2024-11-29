@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Fixed null pointer exception in rally
 - Systems are scouted before the player is asked to bombard them.
   - Removed to fixe wrongly given Orion Tech.
 - Fixed crash when sending troops to an abandoned colonies.
@@ -20,16 +21,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Two new icons to call them are added to the galaxy map.
   - Former Option panel still available inside the Rules panel
   - Former Option panel still respond to "O"
-- Empire Diplomacy panel: Asterisk is added when "A new trade" is available in the audience menu. (Trade*)
-- Transport troop equipment is now displayed on the right side panel.
-- Make AI aware of amount of capturable techs. (Xilmi)
-  - This should prevent the AI from going insane with invasions trying to capture techs when tech-capturing is disabled.
-- Unclean Colony Icon gives more choice.
-- Fixed Smart spending not building enough factories.
-- New icon to inform about the presence of unclean colonies, and provide a way to clean them all.
-- New option for the Smart spending tools to maintain a balance between industry and ecology to maximize efficiency, this by matching the number of factories to the number of workers. When a robotic upgrade is available, the growth/factory balance will continue until the colony is fully populated, at which point the factories will be upgraded.
-  - When selected, the Governor will also use it.
-  - Smart Spending "Refit" version will also take into account the incoming population.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

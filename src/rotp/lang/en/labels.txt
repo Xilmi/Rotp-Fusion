@@ -2645,6 +2645,7 @@ TECH_LEVEL_HK                            | This technology could be available at
 
 
 
+
 SETTINGS_MOD_TECH_IRRADIATED_HELP        | →TECH_HEAD_HK← <b>→CONTROLENV_6_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CONTROLENV_6_DETAIL←</i><br>→TECH_LEVEL_HK← 18.<br>It could be very frustrating not being able to colonize all the planet late in the game!
 SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18)→TECH_VAL_HK← "→CONTROLENV_6_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_IRRADIATED             | Radiated Colony: %1
