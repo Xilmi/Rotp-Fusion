@@ -549,7 +549,7 @@ public final class GameSession implements Base, Serializable {
 
                 gal.nextEmpireTurns();
                 gal.clearSpaceMonsters();
-                player().updateScoutMessages();
+                // player().updateScoutMessages();
                 player().setVisibleShips();
                 player().setVisibleMonsters();
 
