@@ -273,9 +273,9 @@ EVENT_SPACE_CRYSTAL_TRIG          | Les scientifiques responsables de la nouvell
 EVENT_SPACE_CRYSTAL_PLUNDER       | →EVENT_SPACE_CRYSTAL_3←.<br> La recherche actuelle en matière de propulsion pourrait être complétée par l'analyse des restes cristallins, et la vente de cristaux inférieurs rapporte [amt] BC à la réserve planétaire de l'empire.
 
 // modnar: add space pirate random event
-EVENT_SPACE_PIRATES               | Une flotte de pirates maraudeurs a été repérée près du système [système]. Les colons [race] et les flottes de défense se préparent au pire.
+EVENT_SPACE_PIRATES               | Une flotte de pirates maraudeurs a été repérée près du système [system]. Les colons [race] et les flottes de défense se préparent au pire.
 EVENT_SPACE_PIRATES_1             | Une flotte de pirates maraudeurs a été repérée près du système non colonisé [system].
-EVENT_SPACE_PIRATES_2             | Les redoutables pirates spatiaux ont ravagé la population et pillé toute l'industrie sur la colonie [race] dans le système [systeme], dévastant l'écologie locale.
+EVENT_SPACE_PIRATES_2             | Les redoutables pirates spatiaux ont ravagé la population et pillé toute l'industrie sur la colonie [race] dans le système [system], dévastant l'écologie locale.
 EVENT_SPACE_PIRATES_3             | La flotte de pirates a été détruite par les défenseurs [race] dans le système [system]. Des richesses importantes trouvées dans les épaves ont été saisies par l'armée [race] pour renforcer la réserve planétaire par [amt] BC.
 EVENT_SPACE_PIRATES_4             | Les pirates spatiaux ont quittés notre insignifiante galaxie ! Où sont-ils passé ? On s'en fiche, bon débarras !
 EVENT_SPACE_PIRATES_TRIG          | La récente découverte de la Propulsion Hyperspatiale va tout changer. Par exemple, les criminels se réjouissent de leur nouvelle mobilité.
@@ -2415,7 +2415,7 @@ SETTINGS_MOD_ULTRA_RICH_MULT         | Multiplicateur Ultra-Riche: %1%
 SETTINGS_MOD_ULTRA_RICH_OFFSET_DESC  | Décalage de probabilité pour la planète d'être Ultra-Riche.
 SETTINGS_MOD_ULTRA_RICH_OFFSET       | Décalage Ultra-Riche: %1%
 
-TAG_RED_DISPLAY  | Les texts en rouge impliquent une incompatibilité avec d'autres options en rouges.
+TAG_RED_DISPLAY  | Les textes en rouge impliquent une incompatibilité avec d'autres options en rouges.
 SETTINGS_MOD_FIRST_RING_SYS_NUM_HELP    | →SETTINGS_MOD_FIRST_RING_SYS_NUM_DESC←<br>Ce nombre doit être >= au nombre minimal d'étoiles habitables des environs immédiats.<br>Ce nombre doit être <= au nombre minimal d'étoiles du voisinage étendu.
 SETTINGS_MOD_FIRST_RING_SYS_NUM_DESC    | Nombre minimal de systèmes stellaires devant se trouver dans les environs immédiats des mondes d'origine.<br>→TAG_RED_DISPLAY←
 SETTINGS_MOD_FIRST_RING_SYS_NUM         | Min. étoiles proches : %1
@@ -2836,7 +2836,7 @@ SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS_HELP | Afficher uniquement les trajectoi
 SETTINGS_MOD_SHOW_NO_FLIGHTPATHS_HELP        | Masquer toutes les trajectoires de vol.
 
 SETTINGS_MOD_SYSTEM_NAME_DISPLAY_DESC    | Que doit s'afficher sous les systèmes stellaires ? (En lien avec l'icône à gauche de la Galaxie)
-SETTINGS_MOD_SYSTEM_NAME_DISPLAY         | Texts des étoiles : %1
+SETTINGS_MOD_SYSTEM_NAME_DISPLAY         | Textes des étoiles : %1
 SETTINGS_MOD_HIDE_SYSTEM_NAME            | Rien
 SETTINGS_MOD_SHOW_SYSTEM_NAME 	         | Le nom
 SETTINGS_MOD_SHOW_SYSTEM_DATA            | Nom et Données
