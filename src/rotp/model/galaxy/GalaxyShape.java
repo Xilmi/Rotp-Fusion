@@ -707,7 +707,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		if (!valid(p)) { // to avoid infinite loop
 			p.x = cx;
 			p.y = cy;
-			System.err.println("Center point generated");
+			//System.err.println("Center point generated");
 			return null;
 		}
 		return p;

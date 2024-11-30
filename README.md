@@ -69,6 +69,13 @@ Later:
 
 ## What's New
 
+2024.11.30 (BR)
+- Fixed “half” selected fleets Bug. This could result in a fleet being unintentionally sent to the planet you clicked on.
+  - Selecting an orbiting fleet, followed by selecting its star system will show an unselected fleet, but the fleet management (the fleet panel on the right) will still identify it as selected.
+  - Then, when hovering over another orbiting fleet, the buttons on the fleet panel will be incorrect.
+  - Then, hovering over the planet will incorrectly activate the fleet sending information.
+  - And finally clicking on the star system will send the last selected fleet to it.
+
 2024.11.29 (Frank Zago)
 - French translations and fixes.
 

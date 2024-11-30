@@ -156,11 +156,13 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 return false;
             if (!fleet.canBeSentBy(player()))
                 return false;
-            if ((fleet.system() == s) && !fleet.isInTransit()) {
-                tentativeDest(null);
-                FlightPathSprite.clearWorkingPaths();
-                return false;                
-            }
+            // BR: Removed this exception
+            // This was preventing the selected fleet from being notified of its deselection.
+            // if ((fleet.system() == s) && !fleet.isInTransit()) {
+            //     tentativeDest(null);
+            //     FlightPathSprite.clearWorkingPaths();
+            //     return false;                
+            // }
             return true;
         }
         
@@ -176,6 +178,9 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
 
         return newFleet.canReach(selectedDest());
     }
+    /*
+     * Player's resized fleet (Right Panel)
+     */
     private ShipFleet newAdjustedFleet() {
         ShipFleet selectedFleet = selectedFleet();
         if (selectedFleet == null) {
@@ -356,10 +361,10 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         // here when the last selected system is reselected
         if (selectedFleet() == null) 
             return false;
-        
+
         if (selectedFleet().empire() != player())
             return false;
-        
+
         StarSystem sys = (StarSystem) o;
 
         if (selectedFleet().destSysId() == sys.id) 
@@ -374,6 +379,15 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         if (!adjustedFleet.canReach(sys)) { 
             misClick();
             return true;
+        }
+        // BR: Allow the selection of the originating system
+        // The fleet selection may have been the result
+        // of missing the system on the previous click
+        if (sys == adjustedFleet.system()) {
+        	System.out.println("sys == adjustedFleet.system()");
+        	selectedFleet(null);
+        	cancel();
+        	return false;
         }
         if (!adjustedFleet.canSendTo(id(sys))) {
             misClick();
@@ -1578,7 +1592,8 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             boolean hovering = (actionBox != null) && (actionBox == hoverBox);
             Color c0 = hovering ? SystemPanel.yellowText : SystemPanel.whiteText;
 
-            g.setFont(narrowFont(22));
+            //g.setFont(narrowFont(22));
+            scaledFont(g, label, w-s10, 22, 14);
             int sw = g.getFontMetrics().stringWidth(label);
             int x0 = x1+((w-sw)/2);
             drawShadowedString(g, label, 3, x0, y+h-s11, SystemPanel.textShadowC, c0);
