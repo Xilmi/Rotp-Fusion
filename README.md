@@ -71,6 +71,7 @@ Later:
 
 2024.12.01 (BR)
 - Moved AI options text to the label file.
+- New game will ignore previous state of "Visible Ships" and will always start with all ships visible.
 
 2024.11.30 (BR)
 - Fixed “half” selected fleets Bug. This could result in a fleet being unintentionally sent to the planet you clicked on.

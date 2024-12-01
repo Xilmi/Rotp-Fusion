@@ -327,6 +327,7 @@ public class GalaxyFactory implements Base {
 		PlanetImager.current().finished();
 		
 		MOO1GameOptions opts = (MOO1GameOptions) GameSession.instance().options();
+		opts.resetShipDisplay();
 		opts.dynOpts().setObject(Galaxy.EMPIRES_KEY, g.empires());
 		// Save initial state
 		g.backupStarSystem();

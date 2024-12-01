@@ -48,6 +48,7 @@ public interface IMapOptions extends IBaseOptsTools {
 			put("Armed",	 MOD_UI + "SHOW_ONLY_ARMED_SHIPS");
 		}
 	};
+	default void resetShipDisplay()					{ shipDisplay.set("All");}
 	default void toggleShipDisplay(boolean reverse)	{ shipDisplay.toggle(reverse);}
 	default boolean showFriendlyTransports()		{ return !shipDisplay.get().equals("Armed"); }
 	default boolean showUnarmedShips()				{ return shipDisplay.get().equals("All"); }
