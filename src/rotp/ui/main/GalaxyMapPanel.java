@@ -219,34 +219,30 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 
         if (baseControls.isEmpty()) {
         	int x = 10; // was 50
-        	int y = 40; // was 50
+        	int yi = 320;
+        	int y = yi;
         	int h = 30;
         	int step = 35;
-        	int yOff = step-step/2;
-            baseControls.add(new SystemNameDisplaySprite(x, y, h, h));
-            y += step;
-            baseControls.add(new ShipDisplaySprite(x, y, h, h));
-            y += step;
-            baseControls.add(new FlightPathDisplaySprite(x, y, h, h));
-            y += step;
-            baseControls.add(new GridCircularDisplaySprite(x, y, h, h));
-            y += step;
-            baseControls.add(new RangeDisplaySprite(x, y, h, h));
-            y += step;
-            baseControls.add(new ZoomInWidgetSprite(x, y, h, h));
-            y += step;
+
+    		baseControls.add(new RulesWidgetSprite(x, y, h, h));
+        	y -= step;
+            baseControls.add(new SettingsWidgetSprite(x, y, h, h));
+    		y -= step;
         	baseControls.add(new ZoomOutWidgetSprite(x, y, h, h));
-            y += step;
-//        	if (Rotp.isUnderTest()) { // TO DO BR: REMOVE Rotp.isUnderTest()
-        		yOff = 0;
-        		baseControls.add(new SettingsWidgetSprite(x, y, h, h));
-        		y += step;
-        		baseControls.add(new RulesWidgetSprite(x, y, h, h));
-//        	}
-//        	else {
-//        		baseControls.add(new OptionsWidgetSprite(x, y, h, h));
-//        	}
-        	y += step + yOff;
+            y -= step;
+            baseControls.add(new ZoomInWidgetSprite(x, y, h, h));
+            y -= step;
+            baseControls.add(new RangeDisplaySprite(x, y, h, h));
+            y -= step;
+            baseControls.add(new GridCircularDisplaySprite(x, y, h, h));
+            y -= step;
+            baseControls.add(new FlightPathDisplaySprite(x, y, h, h));
+            y -= step;
+            baseControls.add(new ShipDisplaySprite(x, y, h, h));
+            y -= step;
+            baseControls.add(new SystemNameDisplaySprite(x, y, h, h));
+ 
+            y = yi+step;
         	int shift = step-step/2;
          	cleanWidgetSprite = new CleanWidgetSprite(x, y, h, h, shift);
          	baseControls.add(cleanWidgetSprite);
