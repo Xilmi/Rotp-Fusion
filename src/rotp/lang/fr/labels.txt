@@ -1571,7 +1571,7 @@ SETUP_OPPONENTS_HEADER_1          | %1 contre
 SETUP_OPPONENTS_HEADER_2          | Empires rivaux
 SETUP_OPPONENT_RANDOM             | ???
 SETUP_OPPONENT_AI_DESC            | Sélectionnez l'IA qui sera utilisée par tous vos opposants.
-SETUP_OPPONENT_AI                 | Jouer contre :
+SETUP_OPPONENT_AI                 | IA adversaire :
 SETUP_OPPONENT_AI_BASE_HELP       | Famille IA : Base<br> Plus défensif que les autres base-famille-IA.
 SETUP_OPPONENT_AI_BASE            | IA : Base
 SETUP_OPPONENT_AI_MODNAR_HELP     | Famille IA : Base<br> Utilise un livre d'ouverture pour les premières technologies. Il construit moins de bases de missiles. Utilise une plus grande variété de modèles de vaisseaux. L'agressivité est fonction de la difficulté. La diplomatie est un peu plus excentrique en raison de quelques corrections de bug manquantes.
@@ -1902,7 +1902,7 @@ SETUP_GLOBAL_AI_DESC              | Choisir une IA...
 SETUP_GLOBAL_AI                   | IA des Opposants
 SETUP_SPECIFIC_ABILITY_DESC       | Choisir l'aptitude de cet opposant
 SETUP_SPECIFIC_ABILITY            | Aptitudes spécifiques des opposants
-SETUP_GLOBAL_ABILITY_DESC         | Choisir les aptitudes de vos opposants. Par défaut, les aptitudes standards de l'espèce seront utilisées.
+SETUP_GLOBAL_ABILITY_DESC         | Choisir les aptitudes de vos opposants.<br>Les aptitudes standards de l'espèce seront utilisées par défaut.
 SETUP_GLOBAL_ABILITY              | Aptitudes globales
 SETUP_SPECIFIC_OPPONENT_DESC      | Vous pouvez choisir individuellement vos opposants, ou laisser le jeu les choisir aléatoirement...<br>Un maximum de 5 opposants de la même espèce sont autorisés.
 SETUP_SPECIFIC_OPPONENT           | Opposant Spécifique
@@ -3282,6 +3282,18 @@ NAME_RACE_MRRSHAN_FR_HELP  | →NAME_FR_HELP←
 NAME_RACE_PSILON_FR_HELP   | →NAME_FR_HELP←
 NAME_RACE_SAKKRA_FR_HELP   | →NAME_FR_HELP←
 NAME_RACE_SILICOID_FR_HELP | →NAME_FR_HELP←
+
+LIST_DIALOG_'SELECTION'        | 'Sélection'
+LIST_DIALOG_'ORIGINAL SPECIES' | 'Espèces Originales'
+LIST_DIALOG_'REWORKED'         | 'Retravaillées'
+LIST_DIALOG_'PLAYER'           | 'Joueur'
+LIST_DIALOG_'RANDOM'           | 'Aléatoire'
+LIST_DIALOG_'RANDOM 10'        | 'Aléatoire 10'
+LIST_DIALOG_'RANDOM 16'        | 'Aléatoire 16'
+LIST_DIALOG_'FILES'            | 'Fichiers'
+LIST_DIALOG_'ALL FILES'        | 'Tous les Fichiers'
+LIST_DIALOG_'FILES RACES'      | 'Fichiers Espèces'
+LIST_DIALOG_'All'              | 'Toutes'
 
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Options pour les développeurs
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | Options de débogage

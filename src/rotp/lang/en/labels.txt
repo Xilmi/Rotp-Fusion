@@ -3283,6 +3283,18 @@ NAME_RACE_PSILON_FR_HELP   | →NAME_FR_HELP←
 NAME_RACE_SAKKRA_FR_HELP   | →NAME_FR_HELP←
 NAME_RACE_SILICOID_FR_HELP | →NAME_FR_HELP←
 
+LIST_DIALOG_'SELECTION'        | 'Selection'
+LIST_DIALOG_'ORIGINAL SPECIES' | 'Original Species'
+LIST_DIALOG_'REWORKED'         | 'Reworked'
+LIST_DIALOG_'PLAYER'           | 'Player'
+LIST_DIALOG_'RANDOM'           | 'Random'
+LIST_DIALOG_'RANDOM 10'        | 'Random 10'
+LIST_DIALOG_'RANDOM 16'        | 'Random 16'
+LIST_DIALOG_'FILES'            | 'Files'
+LIST_DIALOG_'ALL FILES'        | 'All Files'
+LIST_DIALOG_'FILES RACES'      | 'Files Species'
+LIST_DIALOG_'All'              | 'All'
+
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developer's Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | Debug Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.

@@ -238,7 +238,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		//Lay out the label and scroll pane from top to bottom.
 		JPanel listPane = new JPanel();
 		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
-		JLabel label = new JLabel(labelText);
+		JLabel label = new JLabel("<html>" + labelText + "</html>");
 		label.setFont(narrowFont(15));
 		label.setLabelFor(list);
 		label.setForeground(Color.BLACK);

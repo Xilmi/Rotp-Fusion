@@ -128,6 +128,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private static final String SPECIFIC_ABILITY = "SETUP_SPECIFIC_ABILITY";
 	private static final String GLOBAL_ABILITIES = "SETUP_GLOBAL_ABILITY";
 	private static final String OPPONENT_RANDOM	 = "SETUP_OPPONENT_RANDOM";
+	private	static final String LANG_LIST_KEY    = "LIST_DIALOG_";
 	private static final String ADVANCED_SYSTEMS_GUI_ID	= "ADVANCED_SYSTEMS_OPTIONS";
  	private static final int    buttonFont		= 30;
 	private	static final Font   bigButtonFont	= FontManager.current().narrowFont(buttonFont);
@@ -317,7 +318,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		globalAbilities.reInit(globalAbilitiesList);
 		globalAbilitiesArray = globalAbilitiesList.toArray(new String[globalAbilitiesList.size()]);
 	}
-	private SafeListPanel advancedSystemMap()	{ // TODO BR: Centralize
+	private SafeListPanel advancedSystemMap()	{
 		SafeListPanel map = new SafeListPanel("ADVANCED_SYSTEM");
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("NEBULAE_OPTION"),
@@ -1161,19 +1162,35 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	    opts.specificOpponentCROption(input, i);
 	    return input;
 	}
+	private String dialogLang(String src)	{
+		String langKey = LANG_LIST_KEY + src.toUpperCase();
+		String langTxt = text(langKey);
+		if (langTxt.equals(langKey))
+			return src;
+		return langTxt;
+	}
+	private String[] selectionList(String[] srcList) {
+		List<String> langList = new ArrayList<>();
+		for (String src : srcList)
+			langList.add(dialogLang(src));
+		String[] langArr = new String[langList.size()];
+		return langList.toArray(langArr);
+	}
 	private String selectAlienAbilityFromList() {
 		String title   = text(GLOBAL_ABILITIES);
 		String message = text(GLOBAL_ABILITIES + LABEL_DESCRIPTION);
 		String initialChoice = opts.selectedUseGlobalCROptions();
+		String[] srcList  = selectionList(globalAbilitiesArray);
 		ListDialog dialog = new ListDialog(
 			    this, getParent(),	// Frame & Location component
 		    	message, title,				// Message, Title
-		        globalAbilitiesArray,		// List
+		    	srcList,					// List
 		        initialChoice, 				// Initial choice
 		        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 		        false,						// isVerticalWrap
 		        scaled(500), scaled(450),	// size
-				null, null, null,			// Font, Preview, Alternate return
+				null, null,					// Font, Preview
+				Arrays.asList(globalAbilitiesArray),	//Alternate return
 				globalAbilities); // help parameter
 
 		String input = (String) dialog.showDialog(0);
@@ -1271,17 +1288,21 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				g.setColor(SystemPanel.whiteText);
 				String aiText = text(opts.specificOpponentAIOption(i+1));
 				g.setFont(narrowFont(fSize)); // BR: Adjusted to fit the box
+				scaledFont(g, aiText, mugW-s2, fSize, fSize-4);
 				int aiSW = g.getFontMetrics().stringWidth(aiText);
 				int x2b = x2+(mugW-aiSW)/2;
 				drawString(g,aiText, x2b, y2+mugH-offset1);
 			}
 			if (selectableCR) {
 				g.setColor(SystemPanel.whiteText);
-				String crText = text(opts.specificOpponentCROption(i+1));
+				//String crText = text(opts.specificOpponentCROption(i+1));
+				String crText = dialogLang(opts.specificOpponentCROption(i+1));
 				g.setFont(narrowFont(fSize));
+				int fontSize = scaledFont(g, crText, mugW-s2, fSize, fSize-4);
+				int dy = scaled(fSize-fontSize)/2;
 				int crSW = g.getFontMetrics().stringWidth(crText);
 				int x2b = x2+(mugW-crSW)/2;
-				drawString(g,crText, x2b, y2+offset2);
+				drawString(g,crText, x2b, y2+offset2-dy);
 			}
 			g.setStroke(stroke1);
 			g.setColor(borderC);
@@ -1386,7 +1407,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// draw Opponent CR text
 		if (opts.globalCROptions().isBaseRace()) // for backward compatibility
 			opts.globalCROptions().setFromDefault(false, true);
-		String crLbl = text(opts.selectedUseGlobalCROptions());
+		// String crLbl = text(opts.selectedUseGlobalCROptions());
+		String crLbl = dialogLang(opts.selectedUseGlobalCROptions());
 		int crSW = g.getFontMetrics().stringWidth(crLbl);
 		int x4cr = abilitiesBox.x+((aiBox.width-crSW)/2);
 		int y4cr = abilitiesBox.y+abilitiesBox.height-s3;
@@ -2950,6 +2972,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     private class ParamListGlobalAbilities extends ParamList { // For Guide
     	private ParamListGlobalAbilities(String gui, String name, List<String> list, String defaultValue) {
 			super(gui, name, list, defaultValue);
+			// TODO BR: Language compatible list
 		}
 		@Override public String	getOptionValue(IGameOptions options) {
 			return guiOptions().selectedUseGlobalCROptions();

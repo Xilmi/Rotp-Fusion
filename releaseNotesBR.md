@@ -12,6 +12,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Selecting an orbiting fleet, followed by selecting its star system will show an unselected fleet, but the fleet management (the fleet panel on the right) will still identify it as selected.
   - Then, when hovering over another orbiting fleet, the buttons on the fleet panel will be incorrect.
   - Then, hovering over the planet will incorrectly activate the fleet sending information.
+  - And finally clicking on the star system will send the last selected fleet to it.
 - Fixed a rare bug where an empire could be placed outside the bounds given by galaxy shapes.
 - Fixed the combat result diplay factories number when a colony is bio destroyed.
 - Fixed null pointer exception in rally

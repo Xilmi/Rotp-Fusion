@@ -68,7 +68,6 @@ public class GalaxyFactory implements Base {
 			r.loadHomeworldList();
 		}
 		IGameOptions opts = GameSession.instance().options();
-//		boolean swap = opts.s
 		LinkedList<String> alienRaces;
 		if (opts.selectedRestartAppliesSettings()) {
 			alienRaces = buildAlienRaces();
