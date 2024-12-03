@@ -473,6 +473,7 @@ GAME_VERSION                      | Version: %1
 GAME_SHRINK                       | Shrink -
 GAME_ENLARGE                      | Expand
 GAME_MENU_REPLAY_LAST_TURN        | Replay Last Turn
+GAME_WINDOW_SIZE                  | (%1%)
 GAME_MENU_CHECK_FOR_UPDATE        | Click to check if a new version is available on Github (Xilmi & BrokenRegistry).<br>Links to more up-to-date versions will be displayed.
 GAME_MENU_NO_NEW_VERSION          | There is no new version available.
 GAME_MENU_GOT_NEW_VERSION         | A new version is available.
@@ -2758,6 +2759,17 @@ SETTINGS_MOD_LOAD_SAVE_WIDE_DESC         | ~130% of the original width.
 SETTINGS_MOD_LOAD_SAVE_WIDE              | Wide
 SETTINGS_MOD_LOAD_SAVE_FULL_DESC         | ~185% of the original width.
 SETTINGS_MOD_LOAD_SAVE_FULL              | Full
+
+SETTINGS_MOD_PANEL_ALIGN_DESC         | Settings panels visual presentation.
+SETTINGS_MOD_PANEL_ALIGN              | Settings Format: %1
+SETTINGS_MOD_PANEL_ALIGN_LEFT_DESC    | Aligned to the left.
+SETTINGS_MOD_PANEL_ALIGN_LEFT         | Left aligned
+SETTINGS_MOD_PANEL_ALIGN_RIGHT_DESC   | Aligned to the right.
+SETTINGS_MOD_PANEL_ALIGN_RIGHT        | Right aligned
+SETTINGS_MOD_PANEL_ALIGN_CENTER_DESC  | In the center of the column.
+SETTINGS_MOD_PANEL_ALIGN_CENTER       | Centered
+SETTINGS_MOD_PANEL_ALIGN_JUSTIFY_DESC | Labels are left aligned and their values ​​are right aligned.
+SETTINGS_MOD_PANEL_ALIGN_JUSTIFY      | Justify
 
 SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic configuration menus (six menus) and Compact configuration menus (2 menus). Both provide a distinction between:<br><b>Setup Settings:</b>&nbsp which are only read once, when a game starts (or restarts).<br><b>Rules and gameplay settings:</b>&nbsp which can be changed while playing a game. (Ctrl-o) to call the rules and gameplay configuration menu.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC     | Show multiple configuration Menus at standard size, or only one compacted configuration menu?

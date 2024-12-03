@@ -2151,7 +2151,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
          		// Test for partial buy
         		if (needTerraform) {
-					float buyFactor = earlyFactor; // TODO BR: Tune Governor terraformEarly factors
+					float buyFactor = earlyFactor;
 					float limSize	= 20.0f;
 					if(originalBC == remainingBC) { // There was no instant buy
         				switch (mistId) {

@@ -2972,7 +2972,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     private class ParamListGlobalAbilities extends ParamList { // For Guide
     	private ParamListGlobalAbilities(String gui, String name, List<String> list, String defaultValue) {
 			super(gui, name, list, defaultValue);
-			// TODO BR: Language compatible list
 		}
 		@Override public String	getOptionValue(IGameOptions options) {
 			return guiOptions().selectedUseGlobalCROptions();

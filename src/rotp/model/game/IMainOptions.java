@@ -838,4 +838,22 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	ParamBoolean cascadeSubPanelSaveLoad	= new ParamBoolean(MOD_UI, "CASCADE_SUBPANEL_SAVE_LOAD", false)
 			.isCfgFile(true);
 	default int cascadeSubPanelSaveLoad() { return cascadeSubPanelSaveLoad.get()? MAX_CASCADE_PANEL_SAVE_LOAD : 0; }
+
+	String PANEL_ALIGNMENT	= "PANEL_ALIGN";
+	String LEFT_ALIGN		= "LEFT";
+	String RIGHT_ALIGN		= "RIGHT";
+	String CENTERED			= "CENTER";
+	String JUSTIFIED		= "JUSTIFY";
+	ParamList optionPanelAlignment	= new ParamList( MOD_UI, PANEL_ALIGNMENT, CENTERED)
+			.isCfgFile(true)
+			.showFullGuide(true)
+			.forcedRefresh(true)
+			.put(CENTERED,		MOD_UI + PANEL_ALIGNMENT + "_" + CENTERED)
+			.put(LEFT_ALIGN,	MOD_UI + PANEL_ALIGNMENT + "_" + LEFT_ALIGN)
+			.put(RIGHT_ALIGN,	MOD_UI + PANEL_ALIGNMENT + "_" + RIGHT_ALIGN)
+			.put(JUSTIFIED,		MOD_UI + PANEL_ALIGNMENT + "_" + JUSTIFIED);
+	default boolean optionPanelIsCentered()		{ return optionPanelAlignment.get().equals(CENTERED); }
+	default boolean optionPanelIsLeftAlign()	{ return optionPanelAlignment.get().equals(LEFT_ALIGN); }
+	default boolean optionPanelIsRightAlign()	{ return optionPanelAlignment.get().equals(RIGHT_ALIGN); }
+	default boolean optionPanelIsJustified()	{ return optionPanelAlignment.get().equals(JUSTIFIED); }
 }

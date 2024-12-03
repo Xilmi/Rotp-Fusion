@@ -14,8 +14,13 @@ final class NewOptionsBeta extends AbstractOptionsSubUI {
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
-				rallyCombat,
+				rallyCombat
+				)));
+		map.add(new SafeListParam(Arrays.asList(
 				debugAutoRun
+				)));
+		map.add(new SafeListParam(Arrays.asList(
+				optionPanelAlignment
 				)));
 		return map;
 	}
@@ -23,7 +28,8 @@ final class NewOptionsBeta extends AbstractOptionsSubUI {
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						debugAutoRun,
-						rallyCombatLoss
+						rallyCombatLoss,
+						optionPanelAlignment
 						));
 		return majorList;
 	}

@@ -22,14 +22,15 @@ final class SetupMenuPreferences extends AbstractOptionsSubUI {
 		map.add(new SafeListParam(Arrays.asList(
 				minListSizePopUp,
 				compactOptionOnly,
-				loadSaveWidth
+				loadSaveWidth,
+				optionPanelAlignment
 				)));
 		return map;
 	}
 	@Override public SafeListParam minorList()	{
 		SafeListParam minorList = new SafeListParam(uiMinorKey(),
 				Arrays.asList(
-						compactOptionOnly
+						optionPanelAlignment
 						));
 		return minorList;
 	}

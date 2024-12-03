@@ -472,6 +472,7 @@ GAME_MENU_RESTART                 | Redémarrer
 GAME_VERSION                      | Version : %1
 GAME_SHRINK                       | Rétrécir -
 GAME_ENLARGE                      | Élargir
+GAME_WINDOW_SIZE                  | ( %1 % )
 GAME_MENU_REPLAY_LAST_TURN        | Rejouer le tour
 GAME_MENU_CHECK_FOR_UPDATE        | Cliquez pour vérifier si une nouvelle version est disponible sur Github (Xilmi & BrokenRegistry).<br>Les liens vers les versions plus à jours seront affichés.
 GAME_MENU_NO_NEW_VERSION          | Il n'y a pas de nouvelle version disponible.
@@ -1003,7 +1004,7 @@ MAIN_COLONY_SHIPYARD_COMPLETED    | Complété : %1
 MAIN_COLONY_SHIPYARD_LIMIT        | Limite :
 MAIN_COLONY_SHIPYARD_LIMIT_NONE   | Aucune
 MAIN_COLONY_SHIPYARD_CONSTRUCTION | Flotte en Construction
-MAIN_COLONY_RELOCATE_LABEL        | Fixer Pt. Ralliement
+MAIN_COLONY_RELOCATE_LABEL        | Point de Ralliement
 MAIN_COLONY_TRANSPORTS_LABEL      | Transporter
 MAIN_COLONY_ABANDON_LABEL         | Abandonner
 MAIN_COLONY_SHIP_SCRAPPED         | Supprimé
@@ -1635,16 +1636,16 @@ SETUP_RESEARCH_RATE_NORMAL        | Normale
 SETUP_RESEARCH_RATE_FAST_HELP     | Facteurs des coûts de la recherche : <br>75 % au niveau 2;&ensp 65 % au niveau 6;&ensp 60 % au niveau 8;<br>55 % au niveau 20;&ensp 52 % au niveau 50;&ensp 51 % au niveau 100.
 SETUP_RESEARCH_RATE_FAST          | Rapide
 SETUP_RESEARCH_RATE_SLOW_HELP     | Facteurs des coûts de la recherche :<br>1,15 au niveau 2;&ensp 2 au niveau 12;&ensp 2,5 au niveau 20;<br>3 au niveau 28;&ensp 4 au niveau 50;&ensp 6 au niveau 100.
-SETUP_RESEARCH_RATE_SLOW          | Lent
+SETUP_RESEARCH_RATE_SLOW          | Lente
 SETUP_RESEARCH_RATE_SLOWER_HELP   | Facteurs des coûts de la recherche : <br>1,2 au niveau 2;&ensp 2,5 au niveau 10;&ensp 4 au niveau 20;<br>5 au niveau 29;&ensp 7 au niveau 50;&ensp 10 au niveau 100.
-SETUP_RESEARCH_RATE_SLOWER        | Plus lent
+SETUP_RESEARCH_RATE_SLOWER        | Plus lente
 SETUP_RESEARCH_RATE_SLOWEST_HELP  | Ancien facteur « le plus faible »<br> Facteurs des coûts de la recherche :<br>1,27 au niveau 2;&ensp 5 au niveau 11;&ensp 8 au niveau 20;<br>10 au niveau 26;&ensp 16 au niveau 51;&ensp 25 au niveau 100.
 // BR: Reorganized the naming; Keys and values will not match anymore
-SETUP_RESEARCH_RATE_SLOWEST       | Encore plus lent
+SETUP_RESEARCH_RATE_SLOWEST       | Encore plus lente
 SETUP_RESEARCH_RATE_IMPEDED_HELP  | Facteurs des coûts de la recherche : <br>1,34 au niveau 2;&ensp 10 au niveau 11;&ensp 17 au niveau 20;<br>23 au niveau 28;&ensp 36 au niveau 51;&ensp 55 au niveau 100.
-SETUP_RESEARCH_RATE_IMPEDED       | Traînant
+SETUP_RESEARCH_RATE_IMPEDED       | Traînante
 SETUP_RESEARCH_RATE_LETHARGIC_HELP | Facteurs des coûts de la recherche :<br>1,41 au niveau 2;&ensp 21 au niveau 11;&ensp 38 au niveau 20;<br>50 au niveau 27;&ensp 80 au niveau 51;&ensp 125 au niveau 100.
-SETUP_RESEARCH_RATE_LETHARGIC      | Glacial
+SETUP_RESEARCH_RATE_LETHARGIC      | Glaciale
 
 SETUP_TECH_TRADING_YES            | Oui
 SETUP_TECH_TRADING_ALLIES         | Alliés uniquement
@@ -2759,6 +2760,17 @@ SETTINGS_MOD_LOAD_SAVE_WIDE              | Large
 SETTINGS_MOD_LOAD_SAVE_FULL_DESC         | ~185% de la largeur originale.
 SETTINGS_MOD_LOAD_SAVE_FULL              | Maximale
 
+SETTINGS_MOD_PANEL_ALIGN_DESC         | Apparence visuelle des panneaux de paramètres.
+SETTINGS_MOD_PANEL_ALIGN              | Format des paramètres: %1
+SETTINGS_MOD_PANEL_ALIGN_LEFT_DESC    | Aligné à gauche
+SETTINGS_MOD_PANEL_ALIGN_LEFT         | À gauche
+SETTINGS_MOD_PANEL_ALIGN_RIGHT_DESC   | Aligné à droite.
+SETTINGS_MOD_PANEL_ALIGN_RIGHT        | À droite.
+SETTINGS_MOD_PANEL_ALIGN_CENTER_DESC  | Aligné au centre de la colonne.
+SETTINGS_MOD_PANEL_ALIGN_CENTER       | Centré
+SETTINGS_MOD_PANEL_ALIGN_JUSTIFY_DESC | Les étiquettes sont alignées à gauche et leurs valeurs sont alignées à droite.
+SETTINGS_MOD_PANEL_ALIGN_JUSTIFY      | Justifié
+
 SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | Pour basculer entre les menus de configuration classiques (six menus) et les menus de configuration compacts (2 menus). Les deux font une distinction entre :<br><b>Paramètres de configuration :</b> qui ne sont lus qu'une seule fois, au démarrage (ou au redémarrage) d'une partie.<br><b>Paramètres des règles et du gameplay :</b> qui peuvent être modifiés pendant une partie. (Ctrl-o) pour appeler le menu de configuration des règles et du gameplay.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC     | Afficher plusieurs menus de configuration à une taille standard ou un seul menu de configuration compacté ?
 SETTINGS_MOD_COMPACT_OPTION_ONLY          | Buttons d'options : %1
@@ -3179,7 +3191,7 @@ SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC     | Ouvre un sous-menu contenant des règ
 SETTINGS_MOD_IN_GAME_OPTIONS_UI_HELP     | →SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC←<br>Ces paramètres sont enregistrés avec le jeu. Ce sous-menu est également disponible pendant le jeu.
 
 SETTINGS_MOD_RULES_OPTIONS_BUTTON        | Règles du jeu
-SETTINGS_MOD_RULES_OPTIONS_DETAIL        | Configure the Game Rules
+SETTINGS_MOD_RULES_OPTIONS_DETAIL        | Configurer les règles du jeu
 SETTINGS_MOD_RULES_OPTIONS_TITLE         | Configurer les règles du jeu
 SETTINGS_MOD_RULES_OPTIONS_UI            | Règles du jeu
 SETTINGS_MOD_RULES_OPTIONS_UI_DESC       | Ouvre un sous-menu pour configurer les règles du jeu.
@@ -3829,8 +3841,8 @@ SETTINGS_MOD_COLONY_SETTINGS_TITLE       | Configuration de l'Automatisation des
 SETTINGS_MOD_COLONY_SETTINGS_UI          | Automatisation des Colonies
 SETTINGS_MOD_COLONY_SETTINGS_UI_DESC     | Ouvre un nouveau panneau de contrôle pour configurer l'Automatisation des Colonies.
 
-SETTINGS_MOD_COLONY_RULES_TITLE          | Colony Rules Configuration.
-SETTINGS_MOD_COLONY_RULES_UI             | Colony Rules
+SETTINGS_MOD_COLONY_RULES_TITLE          | Configuration des Règles des Colonies.
+SETTINGS_MOD_COLONY_RULES_UI             | Règles des Colonies
 SETTINGS_MOD_COLONY_RULES_UI_DESC        | Ouvre un nouveau panneau de contrôle pour configurer les Règles agissant sur the colonies
 
 SETTINGS_MOD_SHIP_RULES_TITLE            | Configuration des Règles Flottes et vaisseaux.
@@ -3849,11 +3861,11 @@ SETTINGS_MOD_BACKUP_OPTIONS_TITLE        | Configurationdes paramètres de sauve
 SETTINGS_MOD_BACKUP_OPTIONS_UI           | Paramètres de sauvegarde
 SETTINGS_MOD_BACKUP_OPTIONS_UI_DESC      | Ouvre un nouveau panneau de contrôle pour configurer les paramètres de sauvegarde.
 
-SETTINGS_MOD_GAME_MENU_PREF_TITLE        | Game UI Preferences Configuration.
-SETTINGS_MOD_GAME_MENU_PREF_UI           | Game UI Preferences
+SETTINGS_MOD_GAME_MENU_PREF_TITLE        | Configuration des Interfaces de Jeu.
+SETTINGS_MOD_GAME_MENU_PREF_UI           | Préférences de Jeu
 SETTINGS_MOD_GAME_MENU_PREF_UI_DESC      | Ouvre un nouveau panneau de contrôle pour configurer Game UI Preferences.
 
-SETTINGS_MOD_SETUP_MENU_PREF_TITLE       | Configuration des préférences de l'interface utilisateur.
+SETTINGS_MOD_SETUP_MENU_PREF_TITLE       | Configuration des Interfaces des Préférences.
 SETTINGS_MOD_SETUP_MENU_PREF_UI          | Préférences utilisateur
 SETTINGS_MOD_SETUP_MENU_PREF_UI_DESC     | Ouvre un nouveau panneau de contrôle pour configurer les préférences de l'interface utilisateur.
 

@@ -35,6 +35,7 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 	private final String GUI_ID;
 	public  final SafeListPanel optionsMap;
 	private final SafeListParam optionsList;
+	private int unSeen = 0;
 	
 	// ===== Constructors =====
 	//
@@ -116,6 +117,7 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 			if (param != null && !param.isCfgFile())
 				param.setFromCfgValue(val);
 	}
+	@Override public int getIndex() { return unSeen; } // BR: may need its own dedicated function
 	@Override public boolean next() { return false; }
 	@Override public boolean prev() { return false; }
 	@Override public boolean toggle(MouseWheelEvent e) { return false; }
@@ -165,4 +167,5 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 		optionsMap.addAll(newMap);
 		updateList();
 	}
+	public void unseen(int count)	{ unSeen = count; }
 }

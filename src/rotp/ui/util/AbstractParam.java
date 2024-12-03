@@ -68,6 +68,7 @@ public abstract class AbstractParam <T> implements IParam {
 	private String	formerName;	// Link to another option for initialization (when upgrading)
 	private List<LinkData> linkList;
 	private boolean processingToggle = false;
+	private boolean	forcedRefresh	 = false;
 
 	@Override public void updated(boolean val)	{ updated = val; }
 	@Override public boolean updated()			{ return updated; }
@@ -101,7 +102,7 @@ public abstract class AbstractParam <T> implements IParam {
 	 * @param shiftCtrlInc  The increment when Ctrl and Shift are hold
 	 * @return this for chaining purpose
 	 */
-	protected AbstractParam <T> setIncrements(T baseInc, T shiftInc, T ctrlInc, T shiftCtrlInc) {
+	protected AbstractParam<T> setIncrements(T baseInc, T shiftInc, T ctrlInc, T shiftCtrlInc) {
 		this.baseInc	  = baseInc;
 		this.shiftInc	  = shiftInc;
 		this.ctrlInc	  = ctrlInc;
@@ -115,7 +116,7 @@ public abstract class AbstractParam <T> implements IParam {
 	 * @param max The upper limit, no limit if the value is null
 	 * @return this for chaining purpose
 	 */
-	protected AbstractParam <T> setLimits(T min, T max) {
+	protected AbstractParam<T> setLimits(T min, T max) {
 		minValue = min;
 		maxValue = max;
 		return this;
@@ -212,7 +213,7 @@ public abstract class AbstractParam <T> implements IParam {
 		processingToggle = true;
 
 		LinkValue lastValue = linkValue(get());
-		boolean forceUpdate = !isValidValue(); // To refresh display if become valid.
+		boolean forceUpdate = forcedRefresh || !isValidValue(); // To refresh display if become valid.
 
 		// Set the new value for testing purpose
 		if (e == null)
@@ -307,6 +308,7 @@ public abstract class AbstractParam <T> implements IParam {
 	// ========== Public Getters ==========
 	//
 	protected boolean processingToggle()	{ return processingToggle; }
+	protected boolean forcedRefresh()		{ return forcedRefresh; }
 	public String getLabel()		{ return langLabel(getLangLabel()); }
 	protected String formerName()	{ return formerName; }
 	protected T creationValue()		{ return isValueInit? value : defaultValue(); }
@@ -356,6 +358,10 @@ public abstract class AbstractParam <T> implements IParam {
 		value = defaultValue();
 		return this;
 	}
+	public AbstractParam<T> forcedRefresh(boolean forced) {
+		forcedRefresh = forced;
+		return this;
+	}
 	/**
 	 * For backward compatibility
 	 * <br>Old save game are initialized with:
@@ -367,6 +373,7 @@ public abstract class AbstractParam <T> implements IParam {
 	public AbstractParam<T> isValueInit(boolean is)	{ isValueInit = is ; return this; }
 	public AbstractParam<T> isDuplicate(boolean is)	{ isDuplicate = is ; return this; }
 	public AbstractParam<T> isCfgFile(boolean is)	{ isCfgFile   = is ; return this; }
+	
 	// ========== Private Methods ==========
 	//
 	private void badClick() { SoundManager.current().playAudioClip("MisClick"); }

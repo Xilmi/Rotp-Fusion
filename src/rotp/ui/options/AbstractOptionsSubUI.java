@@ -55,7 +55,9 @@ public abstract class AbstractOptionsSubUI implements IModOptions {
 		SafeListParam buildList = new SafeListParam(key);
 		if (relevant)
 			buildList.add(RELEVANT_TITLE);
-		buildList.add(getUI());
+		ParamSubUI ui = getUI();
+		ui.unseen(fullSize-listSize);
+		buildList.add(ui);
 		buildList.addAll(list);
 		return buildList;
 	}

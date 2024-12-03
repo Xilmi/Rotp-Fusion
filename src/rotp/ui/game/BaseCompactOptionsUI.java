@@ -37,6 +37,7 @@ import java.util.LinkedList;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
+import rotp.model.game.IGameOptions;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.RotPUI;
@@ -79,15 +80,15 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private static final int	subMenuIconH	= RotPUI.scaledSize(settingFontSize-4);
 	private static final int	subMenuIconW	= subMenuIconH;
 	private static final int	subMenuIconPad	= s3;
+	private static final int	maxColumnWidth	= RotPUI.scaledSize(300);
 	private	static final Font	descFont		= FontManager.current().narrowFont(descFontSize);
 	private	static final Font	titleFont		= FontManager.current().narrowFont(titleFontSize);
-	private	static BufferedImage subMenuIcon;
 	
 	private	final	JTextPane	descBox			= new JTextPane();
 	private int yTop;
 	private int numColumns, numRows, hSettingsTotal;
 	private int yTitle;
-	private int xSetting, ySetting, columnWidth; // settings var
+	private int settingLeft, xSetting, ySetting, columnWidth; // settings var
 	private int index, column;
 	private int xDesc, yDesc, descWidth;
 	
@@ -96,10 +97,15 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private final LinkedList<ModText>	btListRight	= new LinkedList<>(); // right part
 	private final LinkedList<ModText>	btListBoth	= new LinkedList<>();
 	private final LinkedHashMap<Integer, BufferedImage>	imgList	= new LinkedHashMap<>();
-	private SafeListPanel	optionsList;
+	private	BufferedImage subMenuIcon, subMenuMoreIcon, eyeIcon;
+	private SafeListPanel optionsList;
 	private BaseModPanel parentUI;
-	private boolean forceUpdate = true;
-	private boolean callPreview = false;
+	private boolean forceUpdate	 = true;
+	private boolean callPreview	 = false;
+	private boolean isCentered	 = true;
+	private boolean isLeftAlign	 = false;
+	//private boolean isRightAlign = false;
+	private boolean isJustified	 = false;
 
 	// ========== Constructors and initializers ==========
 	//
@@ -253,12 +259,36 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
     }
 	// ========== Other Methods ==========
 	//
+    private boolean forceUpdate()		{ return forceUpdate; }
+    private void forceUpdate(boolean b)	{
+    	forceUpdate = b;
+    	if (forceUpdate)
+    		clearIcons();
+    }
+    private void clearIcons()			{
+    	subMenuIcon		= null;
+    	subMenuMoreIcon	= null;
+    	eyeIcon			= null;
+    }
 	private BufferedImage subMenuIcon() {
-		subMenuIcon = null;
+		// subMenuIcon = null; // TO DO BR: Comment
 		if (subMenuIcon == null)
 			subMenuIcon = subMenuIcon(retina(subMenuIconW), retina(subMenuIconH),
 					subMenuIconColor, subMenuIconColor2, subMenuIconColor3);
 		return subMenuIcon;
+	}
+	private BufferedImage subMenuMoreIcon() {
+		// subMenuMoreIcon = null; // TO DO BR: Comment
+		if (subMenuMoreIcon == null)
+			subMenuMoreIcon = subMenuMoreIcon(retina(subMenuIconW), retina(subMenuIconH),
+					subMenuIconColor, subMenuIconColor2, subMenuIconColor3);
+		return subMenuMoreIcon;
+	}
+	private BufferedImage eyeIcon() {
+		// eyeIcon = null; // TO DO BR: Comment
+		if (eyeIcon == null)
+			eyeIcon = eyeIcon(retina(subMenuIconW), retina(subMenuIconH), subMenuIconColor2);
+		return eyeIcon;
 	}
 
 	private ModText newBT(boolean disabled) {
@@ -290,8 +320,15 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			txt2.enabledC(customValuesColor);
 	}
 	private void paintSetting(Graphics2D g, IParam param) {
-		boolean refresh = forceUpdate || param.updated();
+		boolean refresh = forceUpdate() || param.updated();
 		if (refresh) { // Update imgList
+			int xRight	= 0;
+			int xLeft	= 0;
+			int bRight	= 0;
+			int bLeft	= 0;
+			int bMargin = s7;
+			int margin	= subMenuIconW + subMenuIconPad;
+			int width	= retina(columnWidth-margin-margin);
 			if(hovering && param.trueChange())
 				callPreview = true; // To refresh visible parent panel
 			float hFactor = param.heightFactor();
@@ -304,7 +341,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			txtLeft.repaint(activeList.get(index).getGuiDisplay(0));
 			ModText txtRight = btListRight.get(index);
 			txtRight.repaint(activeList.get(index).getGuiDisplay(1));
-			if ((txtLeft.box() == hoverBox) || (txtRight.box() == hoverBox)) {
+			boolean isHovered = (txtLeft.box() == hoverBox) || (txtRight.box() == hoverBox);
+			if (isHovered) {
 				txtLeft.forceHover  = true;
 				txtRight.forceHover = true;
 			}
@@ -319,16 +357,39 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 				txtLeft.fontMult(retinaFactor);
 				txtRight.fontMult(retinaFactor);
 			}
-				
 			if (param.isSubMenu()) {
+				boolean hasMore = param.getIndex() > 0; 
 				txtLeft.enabledC(GameUI.textColor());
 				txtRight.forceHover = false;				
 				int sw	= txtLeft.stringWidth(gi);
-				int margin = subMenuIconW + subMenuIconPad;
-				int dxIcon	= (retina(columnWidth-margin) - sw)/2;
-				gi.drawImage(subMenuIcon(), dxIcon, retina(s3), null);
-				int dx = dxIcon + margin;
-				txtLeft.setScaledXY(dx, retina(rowPad+s7));
+				int dxIconFolder = 0;
+				if (isCentered || isJustified) {
+					xLeft	= max(0, retina(margin) + (width + - sw)/2);
+					dxIconFolder	= xLeft - retina(margin);
+					bLeft	= dxIconFolder;
+					bRight	= xLeft + sw + bMargin;
+				}
+				else if (isLeftAlign) {
+					xLeft	= retina(margin);
+					dxIconFolder = 0;
+					bLeft	= 0;
+					bRight	= xLeft + sw + bMargin;
+				}
+				else { // if (isRightAlign)
+					dxIconFolder	= retina(columnWidth - margin);
+					xLeft	= dxIconFolder - sw;
+					bLeft	= xLeft;
+					bRight	= retina(columnWidth);
+				}
+				if (hasMore)
+					if (isHovered)
+						gi.drawImage(eyeIcon(), (dxIconFolder), retina(s3), null);
+					else
+						gi.drawImage(subMenuMoreIcon(), (dxIconFolder), retina(s3), null);
+				else
+					gi.drawImage(subMenuIcon(), (dxIconFolder), retina(s3), null);
+
+				txtLeft.setScaledXY(xLeft, retina(rowPad+s7));
 				txtLeft.draw(gi);
 				gi.dispose();
 				if (retina) {
@@ -344,18 +405,34 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 
 				param.updated(false);
 				imgList.put(index, img);
-				txtLeft.setFixedWidth(true, -margin);
-				txtLeft.setScaledXY(xSetting+invRetina(dx), ySetting+s7);
+				txtLeft.setLeftMargin(0);
+				txtLeft.setFixedWidth(true,  invRetina(bRight-bLeft));
+				txtLeft.setScaledXY(xSetting + invRetina(bLeft), ySetting+s7);
 				txtLeft.updateBounds(g);
 				txtLeft.forceHover  = false;
 			}
-			else {
+			else { // Not sub-menu
 				int swLeft	= txtLeft.stringWidth(gi);
 				int swRight	= txtRight.stringWidth(gi);
 				int sw		= swLeft + swRight;
-				int dx		= max(0, (retina(columnWidth) - sw)/2);
-				txtLeft.setScaledXY(dx, retina(rowPad+s7));
-				txtRight.setScaledXY(dx + swLeft, retina(rowPad+s7));
+				if (isCentered || param.isTitle()) {
+					xLeft	= max(retina(margin), (retina(columnWidth-margin) - sw)/2);
+					xRight	= xLeft + swLeft;
+				}
+				else  if (isLeftAlign) {
+					xLeft	= retina(margin);
+					xRight	= xLeft + swLeft;
+				}
+				else if (isJustified) {
+					xRight	= retina(columnWidth-margin) - swRight;
+					xLeft	= retina(margin);
+				}
+				else { // if (isRightAlign)
+					xRight	= retina(columnWidth-margin) - swRight;
+					xLeft	= xRight - swLeft;
+				}
+				txtLeft.setScaledXY(xLeft, retina(rowPad+s7));
+				txtRight.setScaledXY(xRight, retina(rowPad+s7));
 				txtLeft.draw(gi);
 				txtRight.draw(gi);
 				gi.dispose();
@@ -372,11 +449,18 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 
 				param.updated(false);
 				imgList.put(index, img);
-				txtLeft.setScaledXY(xSetting+invRetina(dx), ySetting+s7);
-				txtRight.setScaledXY(xSetting+invRetina(dx+swLeft), ySetting+s7);
+				int mid	= invRetina((xRight+xLeft+swLeft)/2);
+				bLeft	= invRetina(xLeft - bMargin);
+				bRight	= mid;
+				txtLeft.setFixedWidth(true,  bRight-bLeft);
+				txtLeft.setScaledXY(xSetting+bLeft, ySetting+s7);
 				txtLeft.updateBounds(g);
-				txtRight.updateBounds(g);			
 				txtLeft.forceHover  = false;
+				bLeft	= mid;
+				bRight	= invRetina(xRight + swRight + bMargin);
+				txtRight.setFixedWidth(true,  bRight-bLeft);
+				txtRight.setScaledXY(xSetting+bLeft, ySetting+s7);
+				txtRight.updateBounds(g);			
 				txtRight.forceHover = false;				
 			}
 		}
@@ -416,7 +500,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			        param.toggle(e, GUI_ID, this);
 					return;
 				}			
-				forceUpdate |= param.toggle(e, w, this);
+				forceUpdate(forceUpdate() || param.toggle(e, w, this));
 				param.updated(true);
 				setValueColor(i);
 				btListLeft.get(i).repaint(activeList.get(i).getGuiDisplay(0));
@@ -470,7 +554,10 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 				rGist = wFull - xGist;	
 			}
 		}
-		columnWidth = ((wGist-columnPad)/numColumns);
+		columnWidth	= ((wGist-columnPad)/numColumns);
+		int wCorr	= max(0, columnWidth - maxColumnWidth);
+		settingLeft	= xFull+xGist + columnPad/2 + wCorr*numColumns/2;
+		columnWidth	= min(columnWidth, maxColumnWidth);
 		yTitle		= yGist + titleOffset;
 		yTop		= yGist + titlePad; // First setting top position
 		descWidth	= wGist - 2 * columnPad;
@@ -479,9 +566,9 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 
 		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		enableGlassPane(this);
-		forceUpdate = true;
+		forceUpdate(true);
 		refreshGui(0);
-		forceUpdate = true;
+		forceUpdate(true);
 	}
 	// ========== Overriders ==========
 	//
@@ -576,6 +663,11 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		long timeStart = System.currentTimeMillis();
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
+		IGameOptions opts = options();
+		isCentered	 = opts.optionPanelIsCentered();
+		isLeftAlign	 = opts.optionPanelIsLeftAlign();
+		//isRightAlign = opts.optionPanelIsRightAlign();
+		isJustified	 = opts.optionPanelIsJustified();
 		
         // background image
         g.drawImage(backImg(), xFull, yFull, this);
@@ -589,7 +681,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		// Loop thru the parameters
 		index	 = 0;
 		column	 = 0;
-		xSetting = xFull+xGist + columnPad/2;
+		xSetting = settingLeft;
 		ySetting = yFull+yTop;
 		while (index<activeList.size()) {
 			IParam param = activeList.get(index);
@@ -600,7 +692,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			parentUI.preview("quickGenerate");
 			callPreview = false;
 		}
-		forceUpdate = false;
+		forceUpdate(false);
 		g.setStroke(prev);
 		showGuide(g);
 		if (showTiming)

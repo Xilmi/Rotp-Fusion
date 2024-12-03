@@ -15,20 +15,24 @@
  */
 package rotp.ui;
 
+import static rotp.ui.BasePanel.s5;
+import static rotp.ui.BasePanel.s50;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+
 import rotp.util.Base;
 import rotp.util.LanguageManager;
+
 
 public class BaseText implements Base {
     static int ST_NORMAL = 0;
     static int ST_LOCKED = 1;
     static int ST_HOVER = 1;
     static int ST_PRESSED = 1;
-
 
     private final BasePanel panel;
     protected Color enabledC, disabledC, hoverC, depressedC, shadeC; // BR not final
@@ -48,13 +52,18 @@ public class BaseText implements Base {
     private int xOrig;
     private int yOrig;
     BaseText preceder;
-    // BR: fixed Width for easy scrolling 
-    // even if the text is short
+    // BR: For boundaries only
+    // Fixed Width for easy scrolling even if the text is short
     // No need to put the mouse on the text
-    private int width  = 200;
+    // Margins to include some icons
+    private int width = 200;
+    private int rightMargin	= 0;
+    private int leftMargin	= 0;
     private boolean fixedWidth = false;
     public BasePanel panel() { return panel; } // BR:
-    public void setFixedWidth(boolean b, int w) {
+    public void setRightMargin(int margin) 		{ rightMargin = margin; }
+    public void setLeftMargin(int margin) 		{ leftMargin  = margin; }
+    public void setFixedWidth(boolean b, int w)	{
     	fixedWidth = b;
     	width = w;
     }
@@ -125,6 +134,7 @@ public class BaseText implements Base {
     public void visible(boolean b)    { visible = b; }
     public void bordered(boolean b)   { bordered = b; }
     public void preceder(BaseText t)  { preceder = t; }
+    public boolean isHovered()        { return hovered; }
     public boolean isEmpty()          { return text.isEmpty(); }
     public void setBounds(int x, int y, int w, int h) {
         bounds.setBounds(x,y,w,h);
@@ -151,7 +161,7 @@ public class BaseText implements Base {
         int newW = stringWidth(g);
         g.dispose();
         if (!fixedWidth) // BR: fixed Width for scrolling
-        	bounds.width = max(oldW, newW)+scaled(5);
+        	bounds.width = max(oldW, newW) + s5;
         repaint();
     }
     public void repaint(String s1, String s2) {
@@ -162,11 +172,11 @@ public class BaseText implements Base {
         int newW = stringWidth(g);
         g.dispose();
         if (!fixedWidth) // BR: fixed Width for scrolling
-        	bounds.width = max(oldW, newW)+scaled(5);
+        	bounds.width = max(oldW, newW) + s5;
         repaint();
     }
     public void repaint() {
-        panel.repaint(bounds.x, bounds.y, bounds.width+scaled(50), bounds.height);
+        panel.repaint(bounds.x, bounds.y, bounds.width+s50, bounds.height);
     }
     public void mousePressed() {
         depressed = true;
@@ -223,14 +233,14 @@ public class BaseText implements Base {
         g.setColor(textColor());
         int sw = stringWidth(g);
         int fontH = g.getFontMetrics().getHeight();
-     // BR: fixed Width for scrolling
+        // BR: fixed Width for scrolling
         if (!fixedWidth)
-        	setBounds(x1, y1-fontH, sw+scaled(5), fontH+(fontH/5));
+        	setBounds(x1-leftMargin, y1-fontH, sw+leftMargin+rightMargin+s5, fontH+(fontH/5));
         else {
         	if (width > 0)
-        		setBounds(x1, y1-fontH-1, width, fontH+(fontH/5)+2);
+        		setBounds(x1-leftMargin, y1-fontH-1, width, fontH+(fontH/5)+2);
         	else // offset
-        		setBounds(x1+width, y1-fontH, sw+scaled(5)-width, fontH+(fontH/5));
+        		setBounds(x1+width, y1-fontH, sw+s5-width, fontH+(fontH/5));
         }
         if (draw) {
             if (bordered)
@@ -252,7 +262,7 @@ public class BaseText implements Base {
         int sp = fontH/4;
         int hPad = sw/20;
         int vPad = fontH/5;
-        setBounds(x1,y1+sp-fontH,sw+scaled(5),fontH-sp/2);
+        setBounds(x1,y1+sp-fontH,sw+s5,fontH-sp/2);
         
         int shadowImgW = sw+hPad+hPad;
         if ((textShadow == null)                                      // first time through?

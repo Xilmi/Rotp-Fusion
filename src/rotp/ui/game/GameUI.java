@@ -130,7 +130,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     BaseText discussText, continueText, newGameText, loadGameText, saveGameText, settingsText, exitText, restartText;
     BaseText versionText, manualText;
     BaseText developerText, artistText, graphicDsnrText, writerText, soundText, translatorText, slideshowText;
-    BaseText shrinkText, enlargeText;
+    BaseText shrinkText, enlargeText, winSizeText;
     BaseText lastVersionText, newVersionText;
     BaseText hoverBox;
     Rectangle languageBox = new Rectangle();
@@ -411,6 +411,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         shrinkText      = new BaseText(this, false,20,   10,24,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
         enlargeText     = new BaseText(this, false,20,    0,24,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
         enlargeText.preceder(shrinkText);
+        winSizeText        = new BaseText(this, false,20,    0,24,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
+        winSizeText.preceder(enlargeText);
         continueText    = new BaseText(this, true, 45,   0, 340,  enabledC, disabledC, hoverC, depressedC, shadedC, 1, 1, 8);
         newGameText     = new BaseText(this, true, 45,   0, 385,  enabledC, disabledC, hoverC, depressedC, shadedC, 1, 1, 8);
         loadGameText    = new BaseText(this, true, 45,   0, 430,  enabledC, disabledC, hoverC, depressedC, shadedC, 1, 1, 8);
@@ -454,6 +456,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         discussText.bordered(true);
         shrinkText.bordered(true);
         enlargeText.bordered(true);
+        winSizeText.bordered(true);
         setTextValues();
         initModel();
     }
@@ -687,10 +690,13 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             exitText.drawCentered(g);
         }
         // draw Shrink/Enlarge at top Right
+        winSizeText.displayText(text("GAME_WINDOW_SIZE", UserPreferences.screenSizePct()));
+        winSizeText.visible(shrinkText.isHovered() || enlargeText.isHovered());
         shrinkText.visible(UserPreferences.windowed());
         enlargeText.visible(UserPreferences.windowed());
         shrinkText.draw(g);
         enlargeText.draw(g);
+        winSizeText.draw(g);
         
         // draw version at bottom right, then go up for other values
         developerText.draw(g);

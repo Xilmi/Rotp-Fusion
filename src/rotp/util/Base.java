@@ -21,7 +21,6 @@ import static rotp.model.game.IRaceOptions.playerCustomRace;
 import static rotp.model.game.IRaceOptions.playerIsCustom;
 
 import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Composite;
@@ -37,14 +36,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 //import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.Transparency;
 import java.awt.event.InputEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.BufferedOutputStream;
@@ -100,7 +95,6 @@ import rotp.model.tech.TechLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
-import rotp.ui.game.GameUI;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.sound.SoundClip;
 import rotp.util.sound.SoundManager;
@@ -1745,349 +1739,20 @@ public interface Base {
     			remain--;
     	return remain;
     }
-    default BufferedImage optionsIconBG() {
-    	int cnr = 3;
-     	int bh  = 5;
-     	int bw1 = 8;
-    	int sp1 = 12;
-    	int bw2 = 12;
-    	int sp2 = 5;
-    	int descH   = 8;
-    	int descSep = 3;
-    	
-    	int w = bw1 + sp1 + 3*sp2 + 4*bw2;
-    	int h = w;
-
-    	BufferedImage img = new BufferedImage(w, h, TYPE_INT_ARGB);
-    	Graphics2D g = getGraphicsRH(img);
-//    	g.setColor(GameUI.raceCenterColor());
-//        g.fillRect(0, 0, w, h);
-        
-    	// button row
-    	g.setColor(GameUI.buttonBackgroundColor());
-    	int x = 0;
-    	int y = h - bh;
-    	g.fillRoundRect(x, y, bw1, bh, cnr, cnr);
-    	x += bw1 + sp1;
-    	g.fillRoundRect(x, y, bw2, bh, cnr, cnr);
-    	x += bw2 + sp2;
-    	g.fillRoundRect(x, y, bw2, bh, cnr, cnr);
-    	x += bw2 + sp2;
-    	g.fillRoundRect(x, y, bw2, bh, cnr, cnr);
-    	x += bw2 + sp2;
-    	g.fillRoundRect(x, y, bw2, bh, cnr, cnr);
-    	
-    	// Description bar
-    	g.setColor(GameUI.setupFrame());
-    	x = 0;
-    	y -= descSep + descH;
-    	g.fillRect(x, y, w, descH);
-
-    	// Title bar
-    	g.setColor(Color.lightGray);
-    	int th = 4;
-    	x = w/4;
-    	int tw = w-x-x;
-    	y = 0;
-    	g.fillRect(x, y, tw, th);
-
-        g.dispose();
-    	return img;
-    }
-    default BufferedImage rulesImage() {
-    	int n  = 4;
-        int bh = 5;
-        int dh = 8;
-        int dy = bh + dh;
-    	int w1 = 16;
-    	int w2 = w1;
-        int dx = 8;
-        int xL = 0;
-        int xR = w1 + dx;
-        int w  = xR + w2;
-        int h  = bh*n + dh*(n-1);
-    	BufferedImage img = new BufferedImage(w, h, TYPE_INT_ARGB);
-    	Graphics2D g = getGraphicsRH(img);
-    	g.setColor(GameUI.raceCenterColor());
-        g.fillRect(0, 0, w, h);
-        
-        g.setColor(Color.orange);
-        int y = 0;
-        for (int i=0; i<n; i++) {
-            g.fillRect(xL, y, w1, bh);
-            g.fillRect(xR, y, w2, bh);
-            y += dy;
-        }
-
-        g.dispose();
-        return img;
-    }
-    default BufferedImage rulesImage(Color color) {
-    	Graphics2D g;
-    	int anvilW1	 = 35;
-    	int anvilH1	 = 10;
-    	int anvilW2	 = 50;
-    	int anvilH2	 = 10;
-    	int anvilGap = -3;
-    	int anvilCnr = 5;
-
-    	int armW	= 60;
-    	int armH	= 10;
-    	int armGap	= 2;
-    	int armCnr	= 10;
-
-    	int bodyH	= 30;
-    	int bodyW	= 25;
-    	int bodyCnr	= 5;
-
-    	int sideW	= bodyW + 10;
-    	int sideH	= 7;
-    	int sideGap	= 2;
-    	int sideCnr = 5;
-    	int sideDX	= (sideW-bodyW)/2;
-
-       	double armRot	 = Math.toRadians(2);
-       	double armSin	 = Math.sin(armRot);
-       	float  armShift	 = (float) (armSin*armW);
-       	int	armShiftCeil = max (1, ceil(armShift));
-       	int	armShiftRnd	 = max (1, round(armShift));
-
-       	// create arm
-    	int armHeight = armH + 2 * armShiftCeil;
-    	int armWidth  = armW + armGap;
-    	BufferedImage arm = new BufferedImage(armWidth, armHeight, TYPE_INT_ARGB);
-    	g = getGraphicsRH(arm);
-    	g.setColor(color);
-    	AffineTransform at = new AffineTransform();
-    	at.rotate(armRot, 0, armShiftRnd);
-    	RoundRectangle2D armHalf = new RoundRectangle2D.Float(0, 0, armW, armH, armCnr, armCnr);
-    	Shape armHalfRot = at.createTransformedShape(armHalf);
-    	g.fill(armHalfRot);
-    	g.drawImage(arm, 0, armHeight, armWidth, 0, 0, 0, armWidth, armHeight, null);
-    	g.dispose();
-
-    	// create mallet
-    	int malletH = bodyH + 2*(sideGap+sideH);
-    	int malletW = armW + armGap + bodyW + sideDX;
-    	BufferedImage mallet = new BufferedImage(malletW, malletH, TYPE_INT_ARGB);
-    	g = getGraphicsRH(mallet);
-    	g.setColor(color);
-    	// add arm
-    	int x = 0;
-    	int y = (malletH - armHeight)/2;
-    	g.drawImage(arm, x, y, null);
-    	// add body
-    	x = armW + armGap;
-    	y = (malletH - bodyH)/2;
-    	g.fillRoundRect(x, y, bodyW, bodyH, bodyCnr, bodyCnr);
-    	// add Top Side
-    	x -= sideDX;
-    	y -= sideGap + sideH;
-    	g.fillRoundRect(x, y, sideW, sideH, sideCnr, sideCnr);
-    	// add Bottom Side
-    	y = (malletH + bodyH)/2 + sideGap;
-    	g.fillRoundRect(x, y, sideW, sideH, sideCnr, sideCnr);
-    	g.dispose();
-    	
-    	// Create image
-    	double malletRot = Math.toRadians(-140);
-    	int malletDX = 20;
-    	int	malletDY = (anvilH1 + anvilGap + anvilH2);
-    	at = new AffineTransform();
-    	at.rotate(malletRot, malletW, malletH);
-    	
-        int w  = malletW + anvilW2 - 2*malletDX;
-        int h  = malletH + 3*malletDY;
-    	BufferedImage rulesImage = new BufferedImage(w, h, TYPE_INT_ARGB);
-    	g = getGraphicsRH(rulesImage);
-    	g.setColor(color);
-    	// add mallet
-    	at = new AffineTransform();
-    	at.translate(malletDX*4/5, malletDY*6/4);
-    	at.rotate(malletRot, malletW/2, malletH/2);
-    	g.drawRenderedImage(mallet, at);
-    	// add anvil bottom
-    	x = 0;
-    	y = h - anvilH2;
-    	g.fillRoundRect(x, y, anvilW2, anvilH2, anvilCnr, anvilCnr);
-    	x += (anvilW2 - anvilW1)/2;
-    	y -= anvilH1 + anvilGap;
-    	g.fillRoundRect(x, y, anvilW1, anvilH1, anvilCnr, anvilCnr);
-
-    	g.dispose();
-        return rulesImage;
-    }
     default BufferedImage rulesIcon(int width, int height, int cnr) {
-        // Create image and fill background color
-    	BufferedImage rulesIcon = new BufferedImage(width, height, TYPE_INT_ARGB);
-    	Graphics2D g = getGraphicsRH(rulesIcon);
-    	g.setColor(multColor(GameUI.raceCenterColor(), 0.8f));
-        g.fillRoundRect(0, 0, width, height, cnr, cnr);
-
-        // Add background image
-        BufferedImage img = optionsIconBG();
-    	int x1 = cnr/4;
-    	int y1 = x1;
-    	int x2 = width - x1;
-    	int y2 = height - y1;
-        int imgW = img.getWidth();
-        int imgH = img.getHeight();
-        g.drawImage(img, x1, y1, x2, y2, 0, 0, imgW, imgH, null);
-
-        // Add specific graphics
-    	x1 = width/6;
-    	y1 = height/5;
-    	x2 = width - x1;
-    	y2 = height - height/3;
-        img  = rulesImage(GameUI.saveGameBackgroundColor());
-        img  = resizeImage(img, x2-x1, y2-y1);
-        imgW = img.getWidth();
-        imgH = img.getHeight();
-        g.drawImage(img, x1, y1, x2, y2, 0, 0, imgW, imgH, null);
-        
-    	g.dispose();
-    	return rulesIcon;
-    }
-    default BufferedImage settingsImage(Color color)	{
-    	int lineNum = 3;
-    	int lineH	= 4;
-    	int circR	= 2 * lineH;
-    	int circD	= 2 * circR;
-    	int lineSp	= 4 * circR;
-    	int height	= lineSp * (lineNum-1) + circD;
-    	int width	= height;
-
-    	int circX	= width/5;
-    	int circY	= 0;
-    	int lineX1	= 0;
-    	int lineX4	= width;
-    	int dy		= circR;
-    	int lineY	= circY + dy;
-
-    	BufferedImage settingsImage = new BufferedImage(width, height, TYPE_INT_ARGB);
-    	Graphics2D g = getGraphicsRH(settingsImage);
-    	g.setColor(color);
-    	g.setStroke(new BasicStroke(lineH, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-    	for (int i=0; i<lineNum; i++) {
-    		int lineX2 = circX;
-    		int lineX3 = circX + circD;
-    		g.draw(new Ellipse2D.Float(circX, circY, circD, circD));
-    		g.drawLine(lineX1, lineY, lineX2, lineY);
-    		g.drawLine(lineX3, lineY, lineX4, lineY);
-    		circX = width - circX - circD;
-    		circY += lineSp;
-    		lineY	= circY + dy;
-    	}
-    	g.dispose();
-        return settingsImage;
+    	return CustomIcons.instance.rulesIcon(width, height, cnr);
     }
     default BufferedImage settingsIcon(int width, int height, int cnr) {
-    	// Create image and fill background color
-    	BufferedImage settingsIcon = new BufferedImage(width, height, TYPE_INT_ARGB);
-    	Graphics2D g = getGraphicsRH(settingsIcon);
-    	g.setColor(multColor(GameUI.raceCenterColor(), 0.8f));
-        g.fillRoundRect(0, 0, width, height, cnr, cnr);
-
-        // Add background image
-        BufferedImage img = optionsIconBG();
-    	int x1 = cnr/4;
-    	int y1 = x1;
-    	int x2 = width - x1;
-    	int y2 = height - y1;
-        int imgW = img.getWidth();
-        int imgH = img.getHeight();
-        g.drawImage(img, x1, y1, x2, y2, 0, 0, imgW, imgH, null);
-        
-        // Add specific graphics
-    	x1 = width/6;
-    	y1 = height/4;
-    	x2 = width - x1;
-    	y2 = height *2/3;
-    	int w1	= x2-x1;
-    	int h1	= y2-y1;
-    	int side = min(w1, h1);
-    	int dx	= (w1-side)/2;
-    	int dy	= (h1-side)/2;
-    	x1 += dx;
-    	x2 = x1 + side;
-    	y1 += dy;
-    	y2 = y1 + side;
-
-    	img  = settingsImage(GameUI.saveGameBackgroundColor());
-        img	 = resizeImage(img, side, side);
-        g.drawImage(img, x1, y1, x2, y2, 0, 0, side, side, null);
-
-        g.dispose();
-    	return settingsIcon;
+    	return CustomIcons.instance.settingsIcon(width, height, cnr);
     }
     default BufferedImage subMenuIcon(int wi, int hi, Color rectCol, Color barCol, Color lineCol) {
-    	int lineThick = 4;
-    	int barThick  = 6;
-    	int rectThick = 18;
-    	int rectGap   = 21;
-    	int arcD  = 12;
-    	int leftW = 32;
-    	int yBar  = 6;
-    	int yLine = 7;
-    	int xLine = 7;
-    	int barVL = barThick;
-    	int barVR = barVL + barThick;
-    	int barVC = (barVL + barVR)/2;
-    	int barHR = leftW - barThick;
-    	
-    	int h = rectThick*3 + rectGap*2;
-    	int w = h;
-
-    	BufferedImage img = new BufferedImage(w, h, TYPE_INT_ARGB);
-    	Graphics2D g = getGraphicsRH(img);
-
-    	// top bar
-    	int rectW = w;
-    	int x = 0;
-    	int y = 0;
-    	g.setColor(rectCol);
-    	g.fillRoundRect(x, y, rectW, rectThick, arcD, arcD);
-    	g.setColor(lineCol);
-    	g.fillRect(x+xLine+leftW, y+yLine, rectW-2*xLine-leftW, lineThick);
-
-    	// center bar
-    	y += rectThick+rectGap;
-    	x = leftW;
-    	rectW = w - x;
-    	g.setColor(rectCol);
-    	g.fillRoundRect(x, y, rectW, rectThick, arcD, arcD);
-    	g.setColor(lineCol);
-    	g.fillRect(x+xLine, y+yLine, rectW-2*xLine, lineThick);
-    	int xl = barVR;
-    	int lineW = barHR - xl;
-    	int lineH = barThick;
-    	g.setColor(barCol);
-    	g.fillRect(xl, y+yBar, lineW, lineH);
-    	
-    	// bottom bar
-    	y += rectThick+rectGap;
-    	x = leftW;
-    	rectW = w - x;
-    	g.setColor(rectCol);
-    	g.fillRoundRect(x, y, rectW, rectThick, arcD, arcD);
-    	g.setColor(lineCol);
-    	g.fillRect(x+xLine, y+yLine, rectW-2*xLine, lineThick);
-    	xl = barVC;
-    	lineW = barHR - xl;
-    	lineH = barThick;
-    	g.setColor(barCol);
-    	g.fillRect(xl, y+yBar, lineW, lineH);
-    	
-    	// vertical Bar
-    	x = barVL;
-    	y = rectThick + barThick;
-    	lineW = barThick;
-    	lineH = h - y - barThick;
-    	g.fillRoundRect(x, y, lineW, lineH, arcD, arcD);
-    	g.fillRect(x, y, lineW, lineW);
-
-    	g.dispose();
-    	return resizeImage(img, wi, hi);
+    	return CustomIcons.instance.subMenuIcon(wi, hi, rectCol, barCol, lineCol);
+    }
+    default BufferedImage subMenuMoreIcon(int wi, int hi, Color rectCol, Color barCol, Color lineCol) {
+    	return CustomIcons.instance.subMenuMoreIcon(wi, hi, rectCol, barCol, lineCol);
+    }
+    default BufferedImage eyeIcon(int wi, int hi, Color lineCol) {
+    	return CustomIcons.instance.eyeIcon(wi, hi, lineCol);
     }
     default void copyLabels(String baseName) {
 		// First copy file from the modified source to final destination

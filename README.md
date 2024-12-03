@@ -70,6 +70,12 @@ Later:
 ## What's New
 
 2024.12.01 (BR)
+- Added Window size percentage when hovering Shrink/Expand
+- New Configuration panels alignment option.
+- Distinct icons when sub panels have additional paramenters.
+- French language translation fixes.
+
+2024.12.01 (BR)
 - Moved AI options text to the label file.
 - New game will ignore previous state of "Visible Ships" and will always start with all ships visible.
 - Fixed masked yellow borders on left icon bar display bubbles.

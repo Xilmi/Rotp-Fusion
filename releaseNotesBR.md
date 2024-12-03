@@ -8,6 +8,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- New Configuration panels alignment option.
+- Distinct icons when sub panels have additional parameters.
+- Added Window size percentage when hovering Shrink/Expand.
 - Fixed masked yellow borders on left icon bar display bubbles.
 - New game will ignore previous state of "Visible Ships" and will always start with all ships visible.
 - Fixed “half” selected fleets Bug. This could result in a fleet being unintentionally sent to the planet you clicked on.
