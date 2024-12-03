@@ -17,11 +17,16 @@
 package rotp.ui.util;
 
 import static rotp.ui.util.IParam.langLabel;
+import static rotp.ui.util.IParam.rowsSeparator;
+import static rotp.ui.util.IParam.tableFormat;
 
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.ArrayList;
+import java.util.List;
 
+import rotp.model.game.IDebugOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
@@ -117,9 +122,9 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 			if (param != null && !param.isCfgFile())
 				param.setFromCfgValue(val);
 	}
-	@Override public int getIndex() { return unSeen; } // BR: may need its own dedicated function
-	@Override public boolean next() { return false; }
-	@Override public boolean prev() { return false; }
+	@Override public int getUnseen()	{ return unSeen; }
+	@Override public boolean next()		{ return false; }
+	@Override public boolean prev()		{ return false; }
 	@Override public boolean toggle(MouseWheelEvent e) { return false; }
 	@Override public boolean toggle(MouseEvent e, BaseModPanel frame) { return false; }
 	@Override public boolean toggle(MouseEvent e, String p, BaseModPanel pUI) {
@@ -136,6 +141,11 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 	@Override public String getCfgLabel()	{ return super.getCfgLabel(); }
 	@Override public boolean isSubMenu()	{ return true; }
 	@Override public String getHeadGuide()	{ return headerHelp(true); }
+	@Override public String	getGuide()	{
+		String help = getHeadGuide();
+		help += getTableHelp();
+		return help;
+	}
 
 	// ===== Other Methods =====
 	//
@@ -168,4 +178,45 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 		updateList();
 	}
 	public void unseen(int count)	{ unSeen = count; }
+
+	// ===== Private Methods =====
+	//
+	private String getTableHelp()		{
+		List<String> rowList = getRowList();
+		int size = rowList.size();
+		int maxSize = 30;
+		int lim = Math.min(maxSize, size);
+		String rows = "";
+		if (size>0) {
+			if (IDebugOptions.showVIPPanel.get()) {
+				rows = "(0) " + rowList.get(0);
+				for (int i=1; i<size; i++)
+					rows += rowsSeparator() + "(" + i + ") " + rowList.get(i);
+			}
+			else {
+				rows = rowList.get(0);
+				for (int i=1; i<lim; i++)
+					rows += rowsSeparator() + rowList.get(i);
+				if (maxSize==lim)
+					rows += rowsSeparator() + "<b>...</b>";
+			}
+		}
+		return tableFormat(rows);
+	}
+	private String getRowOption(int id)	{
+		IParam param = optionsList.get(id);
+		String str = param.getGuiDisplay();
+		return str;
+	}
+	List<String> getRowList() {
+		List<String> strList = new ArrayList<>();
+		for ( IParam param : optionsMap.getListNoTitle()) {
+			if (param.isSubMenu()) {
+				strList.add("<b>" + param.getGuiDisplay() + "</b>");
+			}
+			else
+				strList.add(param.getGuiDisplay());
+		}
+		return strList;
+	}
 }

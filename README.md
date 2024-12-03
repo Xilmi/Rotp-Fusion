@@ -69,11 +69,12 @@ Later:
 
 ## What's New
 
-2024.12.01 (BR)
+2024.12.03 (BR)
 - Added Window size percentage when hovering Shrink/Expand
 - New Configuration panels alignment option.
 - Distinct icons when sub panels have additional paramenters.
 - French language translation fixes.
+- The Guide will now list the content of a sub-panel.
 
 2024.12.01 (BR)
 - Moved AI options text to the label file.

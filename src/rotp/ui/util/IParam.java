@@ -57,6 +57,7 @@ public interface IParam extends InterfaceOptions{
 	public default boolean	isTitle()				{ return false; }
 	public default boolean	isSubMenu()				{ return false; }
 	public default boolean	isDefaultValue()		{ return false; }
+	public default int		getUnseen()				{ return 0; }
 	/**
 	 * To check if the currently set value is still locally valid
 	 */

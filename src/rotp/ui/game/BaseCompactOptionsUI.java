@@ -358,7 +358,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 				txtRight.fontMult(retinaFactor);
 			}
 			if (param.isSubMenu()) {
-				boolean hasMore = param.getIndex() > 0; 
+				boolean hasMore = param.getUnseen() > 0; 
 				txtLeft.enabledC(GameUI.textColor());
 				txtRight.forceHover = false;				
 				int sw	= txtLeft.stringWidth(gi);
