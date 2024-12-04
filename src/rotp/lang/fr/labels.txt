@@ -763,7 +763,7 @@ MAIN_TECH_RESERVE_TAX             | Taxer %1 % de la production sur les colonie
 MAIN_TECH_RESERVE_TAX_NONE        | Aucune taxe prélevée sur la production des colonies
 MAIN_HELP_ALL                     | Aide - cliquez pour parcourir les informations d’aide pour un écran particulier. Escape pour annuler.
 MAIN_HELP_MOD                     | Aide Mod - « O » pour accéder au menu des options de jeu. « Home » pour appliquer Auto-Drapeau la planète sélectionnée. « Alt » + « Home » pour appliquer Auto-Drapeau à toutes les planètes déjà explorées.
-MAIN_HELP_MOD_1A                  | Pour activer ou désactiver le Gouverneur pour ce système solaire.
+MAIN_HELP_MOD_1A                  | Pour activer ou désactiver le Gouverneur de cette colonie.
 MAIN_HELP_MOD_1B                  | Pour accéder au menu Options du gouverneur.
 MAIN_HELP_MOD_1F                  | Des alertes du tour peuvent y apparaître : Faites un clic droit sur elles pour centrer la carte sur le système. Cliquez à gauche pour afficher la prochaine alerte.
 // MAIN_HELP_MOD_1I                  | Pour accéder au panneau «Options».<br>Utile pour se souvenir de nos choix de configuration.<br>Peut être modifié... Mais certaines options ne devraient pas l’être !
@@ -772,7 +772,7 @@ MAIN_HELP_MOD_1J                  | →SETTINGS_MOD_RULES_OPTIONS_UI_DESC←
 MAIN_HELP_MOD_1K                  | Rapport d’écologie de la colonie.<br>Cliquez avec le bouton gauche pour nettoyer toutes les colonies déverrouillées.<br>Cliquez avec le bouton droit pour nettoyer également les colonies verrouillées.
 MAIN_HELP_MOD_1L                  | Vous continuez une partie terminée. Cliquez pour arrêter, et voir à nouveau le panneau Fin de partie.<br>(Après avoir activé « Tour Suivant »)
 
-MAIN_HELP_1A                      | Chaque système solaire divise sa production en cinq zones. Les barres grisées indiquent que la barre de production a été verrouillée et ne changera pas. Cliquez sur le nom pour verrouiller/déverrouiller.
+MAIN_HELP_1A                      | Chaque colonie divise sa production en cinq zones. Les barres grisées indiquent que la barre de production a été verrouillée et ne changera pas. Cliquez sur le nom pour verrouiller/déverrouiller.
 MAIN_HELP_1B                      | Chantier naval - construit le modèle de vaisseau sélectionné. Les gros vaisseaux peuvent prendre plusieurs tours.
 MAIN_HELP_1C                      | Défenses - construit et améliore les bases de missiles jusqu’à la limite spécifiée et les boucliers planétaires lorsqu’ils sont disponibles.
 MAIN_HELP_1D                      | Industrie - construit des usines qui augmentent la production globale de la colonie.
@@ -801,7 +801,7 @@ MAIN_HELP_2K_2F_HOLD              | («Ctrl» pour les drapeaux de droite, «Shi
 MAIN_HELP_2L                      | Le montant de la réserve stockée dans le trésor de l’empire.
 MAIN_HELP_2M                      | L’état actuel de la recherche pour chacun des six domaines technologiques.
 MAIN_HELP_3A                      | Jeu - revient au menu d’ouverture. Vous permet d’ajuster les paramètres ou d’enregistrer, de charger et de démarrer des jeux.
-MAIN_HELP_3B                      | Systèmes - Cartographie de la galaxie indiquant le statut des systèmes selon différents critères
+MAIN_HELP_3B                      | Systèmes - Cartographie des galaxies incluant des informations pertinentes sur les systèmes selon différents critères.
 MAIN_HELP_3C                      | Flottes - permet un contrôle à grande échelle de vos flottes et de la construction navale au sein de votre empire.
 MAIN_HELP_3D                      | Conceptions - Créez des modèles de vaisseaux pour votre flotte en utilisant vos dernières technologies. Les vaisseaux obsolètes peuvent être supprimés.
 MAIN_HELP_3E                      | Empires - Des informations détaillées et des options diplomatiques pour toutes les espèces extraterrestres que vous avez rencontrées.
@@ -2385,6 +2385,53 @@ HEADERS_LINKED_OPTIONS_DESC          | Ces options sont liées à celles ci-dess
 HEADERS_LINKED_OPTIONS               | ~~~ OPTIONS RELIÉES ~~~
 HEADERS_GALAXY_SHAPE_DESC            | Sélections de la forme de la galaxie. Les options Texte et Bitmap ne sont pas implémentées.
 HEADERS_GALAXY_SHAPE                 | ~~~ FORMES DES GALAXIES ~~~
+HEADERS_PANEL_CONTENTS               | ~~~ CONTENUS DES MENUS ~~~
+HEADERS_PANEL_CONTENTS_DESC          | Paramètres de contenu des menus.
+HEADERS_PANEL_FORMAT                 | ~~~ FORMATAGE DES MENUS ~~~
+HEADERS_PANEL_FORMAT_DESC            | Paramètres de formatage des menus.
+HEADERS_GAME_PANEL_CONTENTS          | ~~~ CONTENUS DES PANNEAUX DE JEUX ~~~
+HEADERS_GAME_PANEL_CONTENTS_DESC     | Configuration du contenu des panneaux de jeux.
+HEADERS_GAME_PANEL_FORMAT            | ~~~ FORMAT DES PANNEAUX DE JEUX ~~~
+HEADERS_GAME_PANEL_FORMAT_DESC       | Configuration de l'apparance des panneaux de jeux.
+HEADERS_GALAXY_PANEL                 | ~~~ CARTE DE LA GALAXIE ~~~
+HEADERS_GALAXY_PANEL_DESC            | Configuration des paramètres de la carte de la galaxie. (Aussi accessibles avec les icônes de gauche)
+
+HEADERS_NEW_SAFE                     | ~~~ Sécuritaires ~~~
+HEADERS_NEW_SAFE_DESC                | Validés, vous pourriez être intéressé à les essayer.
+HEADERS_NEW_BETA                     | ~~~ BETA ~~~
+HEADERS_NEW_BETA_DESC                | Pas entièrement qualifiée, merci de signaler d'éventuels petits problèmes. (Et les plus gros aussi)
+HEADERS_NEW_ALPHA                    | ~~~ ALPHA ~~~
+HEADERS_NEW_ALPHA_DESC               | Pour les développeurs et les joueurs curieux... Sauvez souvent!
+
+HEADERS_AUTO_COMBAT_PLAYER           | ~~~ PARAMÈTRES DU JOUEUR ~~~
+HEADERS_AUTO_COMBAT_PLAYER_DESC      | IA attribuée au joueur en mode de combat de vaisseaux automatisé.
+HEADERS_AUTO_COMBAT_AI               | ~~~ PARAMÈTRES DES ADVERSAIRES ~~~
+HEADERS_AUTO_COMBAT_AI_DESC          | IA des adversaires lors des combats de vaisseaux.
+HEADERS_MISCELLANEOUS                | ~~~ DIVERS ~~~
+HEADERS_MISCELLANEOUS_DESC           | Divers.
+HEADERS_SHIP_DESIGN                  | ~~~ CONCEPTION ~~~
+HEADERS_SHIP_DESIGN_DESC             | Configuration des paramètres de conception des vaisseaux.
+HEADERS_BOMBARD_AND_LANDING          | ~~~ PILLONNAGE ET INVASION ~~~
+HEADERS_BOMBARD_AND_LANDING_DESC     | Configuration du pillonnage des planètes et de leur invasion.
+
+HEADERS_SHIELD_LOOK                  | ~~~ APPARENCE DES BOUCLIERS ~~~
+HEADERS_SHIELD_LOOK_DESC             | Configuration de l'apparence des boucliers.
+HEADERS_WEAPON_POSITION              | ~~~ POSITION DES ARMES ~~~
+HEADERS_WEAPON_POSITION_DESC         | Configuration de la position des armes de tir.
+HEADERS_SHIELD_ACTIVATION            | ~~~ SHIELD ACTIVATION ~~~
+HEADERS_SHIELD_ACTIVATION_DESC       | Configuration du type de bouclier à utiliser, et quand les activer.
+HEADERS_WEAPON_LOOK                  | ~~~ APPARENCE DES TIRS ~~~
+HEADERS_WEAPON_LOOK_DESC             | Configuration de l'apparence des tirs d'armes à faisceaux.
+HEADERS_WEAPON_ANIMATION             | ~~~ ANIMATION DES ARMES ~~~
+HEADERS_WEAPON_ANIMATION_DESC        | Configuration d'animation de la trajectoire des faisceau tirés.
+
+HEADERS_ASTEROID_DENSITY             | ~~~ DENSITÉ DES ASTÉROÏDES ~~~
+HEADERS_ASTEROID_DENSITY_DESC        | Quantité d'astéroïdes en fonction de leur densité.
+HEADERS_ASTEROID_PROBABILITY         | ~~~ PROBABILITÉ DES ASTÉROÏDES ~~~
+HEADERS_ASTEROID_PROBABILITY_DESC    | Probabilité d'obtenir des astéroïdes et l'impact des ressources planétaires sur cette probabilité.
+HEADERS_ASTEROID_IMPACT              | ~~~ IMPACT AND PLANET LOCATION ~~~
+HEADERS_ASTEROID_IMPACT_DESC         | Localisation de la planète et effet des astéroïdes.
+
 
 SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | Permettre à une planète ultra-pauvre, pauvre, riche, ou ultra-riche d’avoir aussi des artéfacts.
 SETTINGS_MOD_RICH_POOR_ARTIFACT      | Riche / pauvre & Artéfacts : %1
@@ -2957,16 +3004,16 @@ SETTINGS_MOD_COMBAT_LOSS_SHARED          | Partagée
 SETTINGS_MOD_MAX_LANDING_TROOPS_DESC     | Faut-il limiter le nombre de troupes de débarquement ? Et de quelle manière?
 SETTINGS_MOD_MAX_LANDING_TROOPS          | Débarquement : %1
 SETTINGS_MOD_MAX_LANDING_UNLIMITED_DESC  | Toutes les troupes qui traversent les défenses sont autorisées à débarquer.
-SETTINGS_MOD_MAX_LANDING_UNLIMITED       | illimité
+SETTINGS_MOD_MAX_LANDING_UNLIMITED       | Illimité
 SETTINGS_MOD_MAX_LANDING_MULTIPLER_DESC  | La quantité est proportionnelle à la taille de la planète.
 SETTINGS_MOD_MAX_LANDING_MULTIPLER       | Multiplicateur
 SETTINGS_MOD_MAX_LANDING_FIXED_DESC      | Troupes de débarquement limitées, et indépendantes de la taille de la planète.
 SETTINGS_MOD_MAX_LANDING_FIXED           | Valeur fixe
 
 SETTINGS_MOD_MAX_LANDING_AMOUNT_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_FIXED← » est sélectionnée, combien de troupes d’invasion sont capables de débarquer ?
-SETTINGS_MOD_MAX_LANDING_AMOUNT          | Nombre Maximal : %1
-SETTINGS_MOD_MAX_LANDING_FACTOR_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_MULTIPLER← » est sélectionné, Quel pourcentage de la taille de la planète limitera la taille des troupes d’invasion.
-SETTINGS_MOD_MAX_LANDING_FACTOR          | Multiplicateur : %1 %
+SETTINGS_MOD_MAX_LANDING_AMOUNT          | Débarquement Maximal : %1 Soldats
+SETTINGS_MOD_MAX_LANDING_FACTOR_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_MULTIPLER← » est sélectionné, quel pourcentage de la taille de la planète limitera la taille des troupes d’invasion.
+SETTINGS_MOD_MAX_LANDING_FACTOR          | Facteur de taille de la planète : %1 %
 
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR_DESC  | Modificateur IA contre joueur. Ce pourcentage est appliqué sur le débarquement maximal avant d’être utilisé par l’IA.
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR       | Pourcentage IA : %1 %
@@ -3845,7 +3892,7 @@ SETTINGS_MOD_COLONY_RULES_TITLE          | Configuration des Règles des Colonie
 SETTINGS_MOD_COLONY_RULES_UI             | Règles des Colonies
 SETTINGS_MOD_COLONY_RULES_UI_DESC        | Ouvre un nouveau panneau de contrôle pour configurer les Règles agissant sur the colonies
 
-SETTINGS_MOD_SHIP_RULES_TITLE            | Configuration des Règles Flottes et vaisseaux.
+SETTINGS_MOD_SHIP_RULES_TITLE            | Configuration des Règles des Flottes et Vaisseaux.
 SETTINGS_MOD_SHIP_RULES_UI               | Règles Flottes et vaisseaux
 SETTINGS_MOD_SHIP_RULES_UI_DESC          | Ouvre un nouveau panneau de contrôle pour configurer les Règles régissant les Flottes et vaisseaux.
 

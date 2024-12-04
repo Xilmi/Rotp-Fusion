@@ -2385,6 +2385,53 @@ HEADERS_LINKED_OPTIONS_DESC          | These options are linked to the ones abov
 HEADERS_LINKED_OPTIONS               | ~~~ LINKED OPTIONS ~~~
 HEADERS_GALAXY_SHAPE_DESC            | Galaxy Shape selections. Text and Bitmap options are not implemented.
 HEADERS_GALAXY_SHAPE                 | ~~~ GALAXY SHAPE ~~~
+HEADERS_PANEL_CONTENTS               | ~~~ PANEL CONTENTS ~~~
+HEADERS_PANEL_CONTENTS_DESC          | Panel contents settings.
+HEADERS_PANEL_FORMAT                 | ~~~ PANEL FORMAT ~~~
+HEADERS_PANEL_FORMAT_DESC            | Panel formatting settings.
+HEADERS_GAME_PANEL_CONTENTS          | ~~~ GAME PANEL CONTENTS ~~~
+HEADERS_GAME_PANEL_CONTENTS_DESC     | Game panel contents Configuration.
+HEADERS_GAME_PANEL_FORMAT            | ~~~ GAME PANEL FORMAT ~~~
+HEADERS_GAME_PANEL_FORMAT_DESC       | Game panel format Configuration.
+HEADERS_GALAXY_PANEL                 | ~~~ GALAXY MAP ~~~
+HEADERS_GALAXY_PANEL_DESC            | Configuration of galaxy map settings. (Also accessible with the icons on the left)
+
+HEADERS_NEW_SAFE                     | ~~~ SAFE ~~~
+HEADERS_NEW_SAFE_DESC                | Validated, you might be interested in trying them.
+HEADERS_NEW_BETA                     | ~~~ BETA ~~~
+HEADERS_NEW_BETA_DESC                | Not fully qualified, please report any small glitches. (And the bigger ones too)
+HEADERS_NEW_ALPHA                    | ~~~ ALPHA ~~~
+HEADERS_NEW_ALPHA_DESC               | For developers and curious gamers... Save often!
+
+HEADERS_AUTO_COMBAT_PLAYER           | ~~~ AUTO COMBAT PLAYER ~~~
+HEADERS_AUTO_COMBAT_PLAYER_DESC      | AI assigned to player in automated ship combat mode.
+HEADERS_AUTO_COMBAT_AI               | ~~~ COMBAT OPPONENTS ~~~
+HEADERS_AUTO_COMBAT_AI_DESC          | Opponent AI during ship battles.
+HEADERS_MISCELLANEOUS                | ~~~ MISCELLANEOUS ~~~
+HEADERS_MISCELLANEOUS_DESC           | Miscellaneous.
+HEADERS_SHIP_DESIGN                  | ~~~ SHIP DESIGN ~~~
+HEADERS_SHIP_DESIGN_DESC             | Configuration of ships design parameters.
+HEADERS_BOMBARD_AND_LANDING          | ~~~ BOMBING AND LANDING ~~~
+HEADERS_BOMBARD_AND_LANDING_DESC     | Planet bombing and invasion configuration.
+
+HEADERS_SHIELD_LOOK                  | ~~~ SHIELDS LOOK ~~~
+HEADERS_SHIELD_LOOK_DESC             | The appearance of shields.
+HEADERS_WEAPON_POSITION              | ~~~ WEAPON POSITION ~~~
+HEADERS_WEAPON_POSITION_DESC         | The position of the firing weapons.
+HEADERS_SHIELD_ACTIVATION            | ~~~ SHIELD ACTIVATION ~~~
+HEADERS_SHIELD_ACTIVATION_DESC       | What type of shield to use, and when to activate them.
+HEADERS_WEAPON_LOOK                  | ~~~ WEAPON FIRING LOOK ~~~
+HEADERS_WEAPON_LOOK_DESC             | Configuration of the appearance of beam weapon shots.
+HEADERS_WEAPON_ANIMATION             | ~~~ WEAPON ANIMATION ~~~
+HEADERS_WEAPON_ANIMATION_DESC        | Animation of the trajectory of the fired beams.
+
+HEADERS_ASTEROID_DENSITY             | ~~~ ASTEROID DENSITY ~~~
+HEADERS_ASTEROID_DENSITY_DESC        | Quantity of asteroids based on their density.
+HEADERS_ASTEROID_PROBABILITY         | ~~~ ASTEROID PROBABILITY ~~~
+HEADERS_ASTEROID_PROBABILITY_DESC    | Probability of obtaining asteroids and the impact of planetary resources on this probability.
+HEADERS_ASTEROID_IMPACT              | ~~~ IMPACT AND PLANET LOCATION ~~~
+HEADERS_ASTEROID_IMPACT_DESC         | Location of the planet and effect of asteroids.
+
 
 SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | To allow a planet Ultra-poor, Poor, Rich ,or Ultra-rich to also have artifacts.
 SETTINGS_MOD_RICH_POOR_ARTIFACT      | Rich/Poor & Artifacts: %1

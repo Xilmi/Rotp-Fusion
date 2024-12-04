@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.ui.util.ParamTitle;
 
 final class CombatXilmiAI extends AbstractOptionsSubUI {
 	static final String OPTION_ID = COMBAT_XILMI_AI_UI_KEY;
@@ -14,10 +15,12 @@ final class CombatXilmiAI extends AbstractOptionsSubUI {
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("AUTO_COMBAT_PLAYER"),
 				playerAttackConfidence,
 				playerDefenseConfidence
 				)));
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("AUTO_COMBAT_AI"),
 				aiAttackConfidence,
 				aiDefenseConfidence
 				)));

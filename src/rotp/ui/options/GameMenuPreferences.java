@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.ui.util.ParamTitle;
 
 final class GameMenuPreferences extends AbstractOptionsSubUI {
 	static final String OPTION_ID = GAME_MENU_PREF_UI_KEY;
@@ -14,6 +15,7 @@ final class GameMenuPreferences extends AbstractOptionsSubUI {
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("GAME_PANEL_FORMAT"),
 				showPendingOrders,
 				displayFreeTech,
 
@@ -24,6 +26,7 @@ final class GameMenuPreferences extends AbstractOptionsSubUI {
 				raceStatusView
 				)));
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("GAME_PANEL_CONTENTS"),
 				minListSizePopUp,
 				showAlternateAnimation,
 
@@ -31,6 +34,7 @@ final class GameMenuPreferences extends AbstractOptionsSubUI {
 				shipBasedMissiles
 				)));
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("GALAXY_PANEL"),
 				systemNameDisplay,
 				shipDisplay,
 				flightPathDisplay,

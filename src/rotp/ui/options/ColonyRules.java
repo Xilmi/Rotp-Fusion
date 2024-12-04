@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.ui.util.ParamTitle;
 
 final class ColonyRules extends AbstractOptionsSubUI {
 	static final String OPTION_ID = COLONY_RULES_UI_KEY;
@@ -13,6 +14,7 @@ final class ColonyRules extends AbstractOptionsSubUI {
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("MISCELLANEOUS"),
 				terraforming,
 				colonizing,
 				popGrowthFactor,

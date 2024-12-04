@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.ui.util.ParamTitle;
 
 final class ShipRules extends AbstractOptionsSubUI {
 	static final String OPTION_ID = SHIP_RULES_UI_KEY;
@@ -13,6 +14,7 @@ final class ShipRules extends AbstractOptionsSubUI {
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("SHIP_DESIGN"),
 				shipSpaceFactor,
 				missileShipModifier,
 
@@ -21,6 +23,7 @@ final class ShipRules extends AbstractOptionsSubUI {
 				scrapRefundFactor
 				)));
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("BOMBARD_AND_LANDING"),
 				targetBombard,
 				bombingTarget,
 

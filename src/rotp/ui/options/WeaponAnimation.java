@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.ui.util.ParamTitle;
 
 final class WeaponAnimation extends AbstractOptionsSubUI {
 	static final String OPTION_ID = WEAPON_ANIMATION_UI_KEY;
@@ -14,6 +15,7 @@ final class WeaponAnimation extends AbstractOptionsSubUI {
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("WEAPON_LOOK"),
 				showResultDelay,
 				newWeaponSound,
 				playerSoundEcho,
@@ -22,6 +24,7 @@ final class WeaponAnimation extends AbstractOptionsSubUI {
 				echoSoundHullDelay
 				)));
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("WEAPON_ANIMATION"),
 				beamWindupFrames,
 				beamHoldFrames,
 				heavyBeamHoldFrames,
