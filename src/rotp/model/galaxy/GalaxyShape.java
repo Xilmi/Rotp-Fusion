@@ -514,13 +514,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 		height = galaxyHeightLY();
 		fullWidth  = width  + (2 * galaxyEdgeBuffer());
 		fullHeight = height + (2 * galaxyEdgeBuffer());
-		if (opts.looseNeighborhood()) {
-			float radius2 = opts.secondRingRadius();
-			int shrink	= (int) (2*radius2);
-			int minSize	= (int) Math.ceil(empireBuffer);
-			fullWidth	= max(minSize, fullWidth-shrink);
-			fullHeight	= max(minSize, fullHeight-shrink);
-		}
+//		if (opts.looseNeighborhood()) {
+//			float radius2 = opts.secondRingRadius();
+//			int shrink	= (int) (0*radius2);
+//			int minSize	= (int) Math.ceil(empireBuffer);
+//			fullWidth	= max(minSize, fullWidth+shrink);
+//			fullHeight	= max(minSize, fullHeight+shrink);
+//		}
 		// BR: for symmetric galaxy
 		cx = fullWidth  / 2.0f;
 		cy = fullHeight / 2.0f;
@@ -634,25 +634,26 @@ public abstract class GalaxyShape implements Base, Serializable {
 		return true;
 	}
 	protected int galaxyEdgeBuffer() {
+		int minEdge =  opts.looseNeighborhood()? (int) opts.secondRingRadius() : 1;
 		switch(opts.selectedGalaxySize()) {
-			case IGameOptions.SIZE_MICRO:	  return 1;
-			case IGameOptions.SIZE_TINY:	  return 1;
-			case IGameOptions.SIZE_SMALL:	  return 1;
-			case IGameOptions.SIZE_SMALL2:	  return 1;
-			case IGameOptions.SIZE_MEDIUM:	  return 2;
-			case IGameOptions.SIZE_MEDIUM2:   return 2;
-			case IGameOptions.SIZE_LARGE:	  return 2;
-			case IGameOptions.SIZE_LARGE2:	  return 2;
-			case IGameOptions.SIZE_HUGE:	  return 3;
-			case IGameOptions.SIZE_HUGE2:	  return 3;
-			case IGameOptions.SIZE_MASSIVE:   return 3;
-			case IGameOptions.SIZE_MASSIVE2:  return 3;
-			case IGameOptions.SIZE_MASSIVE3:  return 3;
-			case IGameOptions.SIZE_MASSIVE4:  return 4;
-			case IGameOptions.SIZE_MASSIVE5:  return 4;
-			case IGameOptions.SIZE_INSANE:    return 5;
-			case IGameOptions.SIZE_LUDICROUS: return 8;
-			case IGameOptions.SIZE_DYNAMIC:   return max(1, (int) (Math.log10(maxStars)));
+			case IGameOptions.SIZE_MICRO:	  return max(minEdge, 1);
+			case IGameOptions.SIZE_TINY:	  return max(minEdge, 1);
+			case IGameOptions.SIZE_SMALL:	  return max(minEdge, 1);
+			case IGameOptions.SIZE_SMALL2:	  return max(minEdge, 1);
+			case IGameOptions.SIZE_MEDIUM:	  return max(minEdge, 2);
+			case IGameOptions.SIZE_MEDIUM2:   return max(minEdge, 2);
+			case IGameOptions.SIZE_LARGE:	  return max(minEdge, 2);
+			case IGameOptions.SIZE_LARGE2:	  return max(minEdge, 2);
+			case IGameOptions.SIZE_HUGE:	  return max(minEdge, 3);
+			case IGameOptions.SIZE_HUGE2:	  return max(minEdge, 3);
+			case IGameOptions.SIZE_MASSIVE:   return max(minEdge, 3);
+			case IGameOptions.SIZE_MASSIVE2:  return max(minEdge, 3);
+			case IGameOptions.SIZE_MASSIVE3:  return max(minEdge, 3);
+			case IGameOptions.SIZE_MASSIVE4:  return max(minEdge, 4);
+			case IGameOptions.SIZE_MASSIVE5:  return max(minEdge, 4);
+			case IGameOptions.SIZE_INSANE:    return max(minEdge, 5);
+			case IGameOptions.SIZE_LUDICROUS: return max(minEdge, 8);
+			case IGameOptions.SIZE_DYNAMIC:   return max(minEdge, (int) (Math.log10(maxStars)));
 		}
 		return GALAXY_EDGE_BUFFER;
 	}

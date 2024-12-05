@@ -93,8 +93,10 @@ public class GalaxyGridShape extends GalaxyShape {
 	            break;
 		}
 		
-		gW = (float) galaxyWidthLY() - 2.0f*clusterR - 2.0f*galaxyEdgeBuffer();
-		gH = (float) galaxyHeightLY() - 2.0f*clusterR - 2.0f*galaxyEdgeBuffer();
+//		gW = (float) galaxyWidthLY() - 2.0f*clusterR - 2.0f*galaxyEdgeBuffer();
+//		gH = (float) galaxyHeightLY() - 2.0f*clusterR - 2.0f*galaxyEdgeBuffer();
+		gW = (float) galaxyWidthLY() - 2.0f*clusterR;
+		gH = (float) galaxyHeightLY() - 2.0f*clusterR;
 		gW = Math.max(5, gW); // BR: for very small galaxies
 		gH = Math.max(5, gH); // BR: for very small galaxies
 		

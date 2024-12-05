@@ -69,6 +69,13 @@ Later:
 
 ## What's New
 
+2024.12.04 (BR)
+- Added Headers in new sub-panel.
+- Fixed Galaxy "Loose limit" on galaxy with void, and Fractal galaxy.
+
+2024.12.04 (Frank Zago)
+- French translation fixes.
+
 2024.12.03 (BR)
 - Added Window size percentage when hovering Shrink/Expand
 - New Configuration panels alignment option.

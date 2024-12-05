@@ -18,6 +18,7 @@ package rotp.model.galaxy;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.game.IGameOptions;
 
 // modnar: custom map shape, Fractal
@@ -111,7 +112,8 @@ public class GalaxyFractalShape extends GalaxyShape {
                     case 0: {
                         // Sierpinski Triangle
                         // set Sierpinski dimensions
-                        float triangleWidth = (float) galaxyWidthLY() - 8*galaxyEdgeBuffer();
+                        float triangleWidth = (float) galaxyWidthLY();
+//                        float triangleWidth = (float) galaxyWidthLY() - 8*galaxyEdgeBuffer();
                         float triangleHeight = (float) Math.ceil(triangleWidth * Math.sqrt(3.0f/4.0f));
 
                         // outer Sierpinski triangle vertex points
@@ -143,8 +145,10 @@ public class GalaxyFractalShape extends GalaxyShape {
                             i++;
                         }
                         
-                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + randX.sym(0.5f);
-                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + randY.sym(0.5f);
+                        pt.x = (float) pnew.x + galaxyEdgeBuffer() + randX.sym(0.5f);
+                        pt.y = (float) pnew.y + galaxyEdgeBuffer() + randY.sym(0.5f);
+//                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + randX.sym(0.5f);
+//                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + randY.sym(0.5f);
                         break;
                     }
                     
@@ -152,8 +156,10 @@ public class GalaxyFractalShape extends GalaxyShape {
                         // Sierpinski Carpet
                         // (?) perhaps too "full"? maybe use Vicsek fractal (?)
                         // set Chaos game boundary dimensions
-                        float boxWidth = (float) galaxyWidthLY() - 8*galaxyEdgeBuffer();
-                        float boxHeight = (float) galaxyHeightLY() - 8*galaxyEdgeBuffer();
+//                        float boxWidth = (float) galaxyWidthLY() - 8*galaxyEdgeBuffer();
+//                        float boxHeight = (float) galaxyHeightLY() - 8*galaxyEdgeBuffer();
+                        float boxWidth = (float) galaxyWidthLY();
+                        float boxHeight = (float) galaxyHeightLY();
 
                         // box vertex points
                         Point.Float p1 = new Point.Float(0.0f, 0.0f);
@@ -213,8 +219,10 @@ public class GalaxyFractalShape extends GalaxyShape {
                             i++;
                         }
                         
-                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + randX.sym(0.1f);
-                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + randY.sym(0.1f);
+//                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + randX.sym(0.1f);
+//                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + randY.sym(0.1f);
+                        pt.x = (float) pnew.x + galaxyEdgeBuffer() + randX.sym(0.1f);
+                        pt.y = (float) pnew.y + galaxyEdgeBuffer() + randY.sym(0.1f);
                         break;
                     }
                     
@@ -258,8 +266,10 @@ public class GalaxyFractalShape extends GalaxyShape {
                             i++;
                         }
                         
-                        pt.x = (float) ((pnew.x-0.55f)*1.9f+0.55f)*(galaxyWidthLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + randX.sym(0.25f);
-                        pt.y = (float) (pnew.y+0.02f)*0.95f*(galaxyHeightLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + randY.sym(0.25f);
+                        pt.x = (float) ((pnew.x-0.55f)*1.9f+0.55f)*(galaxyWidthLY()) + randX.sym(0.25f);
+                        pt.y = (float) (pnew.y+0.02f)*0.95f*(galaxyHeightLY()) + randY.sym(0.25f);
+//                        pt.x = (float) ((pnew.x-0.55f)*1.9f+0.55f)*(galaxyWidthLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + randX.sym(0.25f);
+//                        pt.y = (float) (pnew.y+0.02f)*0.95f*(galaxyHeightLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + randY.sym(0.25f);
                         break;
                     }
                 }
@@ -270,8 +280,10 @@ public class GalaxyFractalShape extends GalaxyShape {
                 // reset w/h vars since aspect ratio may have changed
                 initWidthHeight();
                 // set Chaos game boundary dimensions
-                float boxWidth = (float) galaxyWidthLY() - 8*galaxyEdgeBuffer();
-                float boxHeight = (float) galaxyHeightLY() - 8*galaxyEdgeBuffer();
+                float boxWidth = (float) galaxyWidthLY();
+                float boxHeight = (float) galaxyHeightLY();
+//                float boxWidth = (float) galaxyWidthLY() - 8*galaxyEdgeBuffer();
+//                float boxHeight = (float) galaxyHeightLY() - 8*galaxyEdgeBuffer();
 
                 // box vertex points
                 Point.Float p1 = new Point.Float(0.0f, 0.0f);
@@ -385,8 +397,10 @@ public class GalaxyFractalShape extends GalaxyShape {
                     }
                 }
                 
-                pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + randX.sym(0.5f);
-                pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + randY.sym(0.5f);
+                pt.x = (float) pnew.x + galaxyEdgeBuffer() + randX.sym(0.5f);
+                pt.y = (float) pnew.y + galaxyEdgeBuffer() + randY.sym(0.5f);
+//                pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + randX.sym(0.5f);
+//                pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + randY.sym(0.5f);
                 break;
             }
 		}
