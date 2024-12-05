@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.12.05 (BR)
+- Fixed Governor auto-Transport inverted.
+
 2024.12.04 (BR)
 - Added Headers in new sub-panel.
 - Fixed Galaxy "Loose limit" on galaxy with void, and Fractal galaxy.

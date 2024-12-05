@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Fixed Governor auto-Transport inverted.
 - Fixed Galaxy "Loose limit" on galaxy with void, and Fractal galaxy.
 - The Guide will now list the content of a sub-panel.
 - New Configuration panels alignment option.

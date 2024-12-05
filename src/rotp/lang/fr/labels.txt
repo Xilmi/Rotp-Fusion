@@ -35,8 +35,8 @@
 // SETTINGS_MOD_Parameter_Options_HELP | To replace _DESC if HTML control are used.
 //
 // Why both _DESC and _HELP instead of always _HELP ?
-// Only _DESC can be cross-referenced (with →←) by the "F1" help, which does not support HTML.
-// So if _HELP is needed you it's a good idea to also create a _DESC simplified text to be cross-referenced by the "F1" help.
+// Only _DESC can be cross-referenced (with →←) by the « F1 » help, which does not support HTML.
+// So if _HELP is needed you it's a good idea to also create a _DESC simplified text to be cross-referenced by the « F1 » help.
 //
 // Label used by parameters of the type "Boolean"
 //
@@ -4827,7 +4827,7 @@ GOVERNOR_AUTOTRANSPORT_GOV_DESC     | Migrations automatisées du gouverneur ori
 GOVERNOR_AUTOTRANSPORT_GOV          | Migrations surplus : %1
 GOVERNOR_AUTOTRANSPORT_GOV_LABEL    | Migrations automatisées depuis les colonies ayant une population proche de la taille maximale.
 
-GOVERNOR_TRANSPORT_UNGOVERNED_DESC  | Autoriser la migration depuis des colonies non gouvernées.
+GOVERNOR_TRANSPORT_UNGOVERNED_DESC  | Autoriser la migration depuis des colonies non gouvernées.<br>« →GOVERNOR_AUTO_TRANSPORT_LABEL← » doit également être activé.
 GOVERNOR_TRANSPORT_UNGOVERNED       | Toutes les colonies : %1
 GOVERNOR_TRANSPORT_UNGOVERNED_LABEL | Autoriser la migration depuis des colonies non gouvernées.
 
