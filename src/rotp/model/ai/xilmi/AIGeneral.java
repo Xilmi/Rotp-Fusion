@@ -122,8 +122,6 @@ public class AIGeneral implements Base, General {
         for (int id=0;id<empire.sv.count();id++) 
             reviseFleetPlan(gal.system(id));
         additionalColonizersToBuild = additionalColonizersToBuild(false);
-        if(myFighterCost() < visibleEnemyFighterCost())
-            additionalColonizersToBuild = 0;
         ShipDesign design = empire.shipDesignerAI().BestDesignToColonize();
         Location colonyShipGoalCenter = uncolonizedCenter(empire);
         while (additionalColonizersToBuild > 0)
