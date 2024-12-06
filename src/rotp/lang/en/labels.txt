@@ -4827,7 +4827,7 @@ GOVERNOR_AUTOTRANSPORT_GOV_DESC     | Original Governor Automated Transport.<br>
 GOVERNOR_AUTOTRANSPORT_GOV          | Gov Autotransport: %1
 GOVERNOR_AUTOTRANSPORT_GOV_LABEL    | Population automatically transported from colonies close to max population capacity
 
-GOVERNOR_TRANSPORT_UNGOVERNED_DESC  | Allow sending population from ungoverned colonies.
+GOVERNOR_TRANSPORT_UNGOVERNED_DESC  | Allow sending population from ungoverned colonies.<br>"→GOVERNOR_AUTO_TRANSPORT_LABEL←" must also be activated.
 GOVERNOR_TRANSPORT_UNGOVERNED       | From Ungoverned: %1
 GOVERNOR_TRANSPORT_UNGOVERNED_LABEL | Allow sending population from ungoverned colonies
 

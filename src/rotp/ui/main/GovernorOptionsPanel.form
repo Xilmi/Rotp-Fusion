@@ -157,7 +157,7 @@
                       </Group>
                       <Component id="autotransportAI" alignment="0" max="-2" attributes="0"/>
                       <Component id="allowUngoverned" alignment="0" max="-2" attributes="0"/>
-                      <Component id="autotransportGovernor" alignment="0" max="-2" attributes="0"/>
+                      <Component id="autotransportFull" alignment="0" max="-2" attributes="0"/>
                       <Component id="transportRichDisabled" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -171,7 +171,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="allowUngoverned" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="autotransportGovernor" min="-2" max="-2" attributes="0"/>
+                  <Component id="autotransportFull" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="transportMaxTurns" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -188,7 +188,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JCheckBox" name="autotransportGovernor">
+        <Component class="javax.swing.JCheckBox" name="autotransportFull">
           <Properties>
             <Property name="text" type="java.lang.String" value="Population automatically transported from colonies close to max population capacity"/>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -197,7 +197,7 @@
             <Property name="name" type="java.lang.String" value="AUTOTRANSPORT_GOV" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autotransportGovernorActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autotransportFullActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="transportMaxTurns">

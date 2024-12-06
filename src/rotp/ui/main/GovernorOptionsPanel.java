@@ -669,7 +669,7 @@ public class GovernorOptionsPanel extends BasePanel{
 		
 		// AutoTransport Options
 		this.autotransportAI.setSelected(options.isAutotransportAI());
-		this.autotransportGovernor.setSelected(options.isAutotransportGovernor());
+		this.autotransportFull.setSelected(options.isAutotransportFull());
 		this.allowUngoverned.setSelected(options.isAutotransportUngoverned());
 		this.transportMaxTurns.setValue(options.getTransportMaxTurns());
 		this.transportRichDisabled.setSelected(options.isTransportRichDisabled());
@@ -723,7 +723,7 @@ public class GovernorOptionsPanel extends BasePanel{
 		
 		// AutoTransport Options
 		options.setAutotransportAI(autotransportAI.isSelected());
-		options.setAutotransportGovernor(autotransportGovernor.isSelected());
+		options.setAutotransportFull(autotransportFull.isSelected());
 		options.setAutotransportUngoverned(allowUngoverned.isSelected());
 		options.setTransportMaxTurns((Integer)transportMaxTurns.getValue());
 		options.setTransportRichDisabled(transportRichDisabled.isSelected());
@@ -823,7 +823,7 @@ public class GovernorOptionsPanel extends BasePanel{
         stargateOptions = new javax.swing.ButtonGroup();
         governorDefault = new javax.swing.JCheckBox();
         javax.swing.JPanel autotransportPanel = new javax.swing.JPanel();
-        autotransportGovernor = new javax.swing.JCheckBox();
+        autotransportFull = new javax.swing.JCheckBox();
         transportMaxTurns = new GovernorJSpinner();
         javax.swing.JLabel transportMaxTurnsLabel = new javax.swing.JLabel();
         javax.swing.JLabel transportMaxTurnsNebula = new javax.swing.JLabel();
@@ -881,8 +881,7 @@ public class GovernorOptionsPanel extends BasePanel{
         governorDefault.setText("Governor is on by default");
         governorDefault.setName("ON_BY_DEFAULT"); // NOI18N
         governorDefault.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 governorDefaultActionPerformed(evt);
             }
         });
@@ -890,26 +889,23 @@ public class GovernorOptionsPanel extends BasePanel{
         autotransportPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Autotransport Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13))); // NOI18N
         autotransportPanel.setName("TRANSPORT_OPTIONS"); // NOI18N
 
-        autotransportGovernor.setText("Population automatically transported from colonies close to max population capacity");
-        autotransportGovernor.setMinimumSize(new java.awt.Dimension(0, 0));
-        autotransportGovernor.setName("AUTOTRANSPORT_GOV"); // NOI18N
-        autotransportGovernor.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autotransportGovernorActionPerformed(evt);
+        autotransportFull.setText("Population automatically transported from colonies close to max population capacity");
+        autotransportFull.setMinimumSize(new java.awt.Dimension(0, 0));
+        autotransportFull.setName("AUTOTRANSPORT_GOV"); // NOI18N
+        autotransportFull.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autotransportFullActionPerformed(evt);
             }
         });
 
         transportMaxTurns.setModel(new javax.swing.SpinnerNumberModel(15, 1, 15, 1));
         transportMaxTurns.addChangeListener(new javax.swing.event.ChangeListener() {
-            @Override
-			public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 transportMaxTurnsStateChanged(evt);
             }
         });
         transportMaxTurns.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            @Override
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 transportMaxTurnsMouseWheelMoved(evt);
             }
         });
@@ -917,8 +913,7 @@ public class GovernorOptionsPanel extends BasePanel{
         transportMaxTurnsLabel.setText("Maximum transport distance in turns");
         transportMaxTurnsLabel.setName("TRANSPORT_MAX_TURNS"); // NOI18N
         transportMaxTurnsLabel.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            @Override
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 transportMaxTurnsLabelMouseWheelMoved(evt);
             }
         });
@@ -929,8 +924,7 @@ public class GovernorOptionsPanel extends BasePanel{
         transportRichDisabled.setText("Don't send from Rich/Artifacts planets");
         transportRichDisabled.setName("TRANSPORT_RICH_OFF"); // NOI18N
         transportRichDisabled.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 transportRichDisabledActionPerformed(evt);
             }
         });
@@ -938,8 +932,7 @@ public class GovernorOptionsPanel extends BasePanel{
         transportPoorDouble.setText("Send double from Poor planets");
         transportPoorDouble.setName("TRANSPORT_POOR_DBL"); // NOI18N
         transportPoorDouble.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 transportPoorDoubleActionPerformed(evt);
             }
         });
@@ -947,8 +940,7 @@ public class GovernorOptionsPanel extends BasePanel{
         autotransportAI.setText("Let AI handle population transportation (Xilmi AI)");
         autotransportAI.setName("AUTO_TRANSPORT"); // NOI18N
         autotransportAI.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autotransportAIActionPerformed(evt);
             }
         });
@@ -956,8 +948,7 @@ public class GovernorOptionsPanel extends BasePanel{
         allowUngoverned.setText("Allow sending population from ungoverned colonies");
         allowUngoverned.setName("TRANSPORT_UNGOVERNED"); // NOI18N
         allowUngoverned.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 allowUngovernedActionPerformed(evt);
             }
         });
@@ -977,7 +968,7 @@ public class GovernorOptionsPanel extends BasePanel{
                         .addComponent(transportMaxTurnsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(autotransportAI)
                     .addComponent(allowUngoverned)
-                    .addComponent(autotransportGovernor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(autotransportFull, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(transportRichDisabled))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -988,7 +979,7 @@ public class GovernorOptionsPanel extends BasePanel{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(allowUngoverned)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autotransportGovernor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(autotransportFull, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(autotransportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(transportMaxTurns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1004,8 +995,7 @@ public class GovernorOptionsPanel extends BasePanel{
         allGovernorsOn.setText("All Governors ON");
         allGovernorsOn.setName("ALL_GOVERNORS_ON"); // NOI18N
         allGovernorsOn.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 allGovernorsOnActionPerformed(evt);
             }
         });
@@ -1013,8 +1003,7 @@ public class GovernorOptionsPanel extends BasePanel{
         allGovernorsOff.setText("All Governors OFF");
         allGovernorsOff.setName("ALL_GOVERNORS_OFF"); // NOI18N
         allGovernorsOff.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 allGovernorsOffActionPerformed(evt);
             }
         });
@@ -1026,8 +1015,7 @@ public class GovernorOptionsPanel extends BasePanel{
         stargateOff.setText("Never build stargates");
         stargateOff.setName("STARGATES_NONE"); // NOI18N
         stargateOff.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stargateOffActionPerformed(evt);
             }
         });
@@ -1036,8 +1024,7 @@ public class GovernorOptionsPanel extends BasePanel{
         stargateRich.setText("Build stargates on Rich");
         stargateRich.setName("STARGATES_RICH_1"); // NOI18N
         stargateRich.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stargateRichActionPerformed(evt);
             }
         });
@@ -1046,8 +1033,7 @@ public class GovernorOptionsPanel extends BasePanel{
         stargateOn.setText("Always build stargates");
         stargateOn.setName("STARGATES_ALL"); // NOI18N
         stargateOn.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stargateOnActionPerformed(evt);
             }
         });
@@ -1089,8 +1075,7 @@ public class GovernorOptionsPanel extends BasePanel{
         okButton.setToolTipText("Apply settings and close the GUI");
         okButton.setName("OK_BUTTON"); // NOI18N
         okButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
         });
@@ -1098,8 +1083,7 @@ public class GovernorOptionsPanel extends BasePanel{
         cancelButton.setText("Cancel");
         cancelButton.setName("CANCEL_BUTTON"); // NOI18N
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
@@ -1108,8 +1092,7 @@ public class GovernorOptionsPanel extends BasePanel{
         completionist.setToolTipText("<html>\nI like completing games fully. <br/>\nAllow all Empires to Research the following Technologies:<br/>\n<br/>\nControlled Irradiated Environment<br/>\nAtmospheric Terraforming<br/>\nComplete Terraforming<br/>\nAdvanced Soil Enrichment<br/>\nIntergalactic Star Gates<br/>\n<br/>\nMore than 30% of the Galaxy needs to be colonized.<br/>\nPlayer must control more than 50% of colonized systems.<br/>\nPlayer must have completed all Research in their Tech Tree (Future Techs too).<br/>\n</html>");
         completionist.setName("COMPLETIONIST_TECHNOLOGIES"); // NOI18N
         completionist.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 completionistActionPerformed(evt);
             }
         });
@@ -1118,8 +1101,7 @@ public class GovernorOptionsPanel extends BasePanel{
         applyButton.setToolTipText("Apply settings and keep GUI open");
         applyButton.setName("APPLY_BUTTON"); // NOI18N
         applyButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 applyButtonActionPerformed(evt);
             }
         });
@@ -1129,8 +1111,7 @@ public class GovernorOptionsPanel extends BasePanel{
         autoApplyToggleButton.setToolTipText("For the settings to be applied live.");
         autoApplyToggleButton.setName("AUTO_APPLY"); // NOI18N
         autoApplyToggleButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoApplyToggleButtonActionPerformed(evt);
             }
         });
@@ -1141,8 +1122,7 @@ public class GovernorOptionsPanel extends BasePanel{
         autoScout.setText("Auto Scout");
         autoScout.setName("AUTO_SCOUT"); // NOI18N
         autoScout.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoScoutActionPerformed(evt);
             }
         });
@@ -1150,8 +1130,7 @@ public class GovernorOptionsPanel extends BasePanel{
         autoColonize.setText("Auto Colonize");
         autoColonize.setName("AUTO_COLONIZE"); // NOI18N
         autoColonize.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoColonizeActionPerformed(evt);
             }
         });
@@ -1159,8 +1138,7 @@ public class GovernorOptionsPanel extends BasePanel{
         autoAttack.setText("Auto Attack");
         autoAttack.setName("AUTO_ATTACK"); // NOI18N
         autoAttack.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoAttackActionPerformed(evt);
             }
         });
@@ -1168,14 +1146,12 @@ public class GovernorOptionsPanel extends BasePanel{
         autoColonyShipCount.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9999, 1));
         autoColonyShipCount.setName("AUTO_COLONY_COUNT"); // NOI18N
         autoColonyShipCount.addChangeListener(new javax.swing.event.ChangeListener() {
-            @Override
-			public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 autoColonyShipCountStateChanged(evt);
             }
         });
         autoColonyShipCount.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            @Override
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 autoColonyShipCountMouseWheelMoved(evt);
             }
         });
@@ -1186,14 +1162,12 @@ public class GovernorOptionsPanel extends BasePanel{
         autoScoutShipCount.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9999, 1));
         autoScoutShipCount.setName("AUTO_SCOUT_COUNT"); // NOI18N
         autoScoutShipCount.addChangeListener(new javax.swing.event.ChangeListener() {
-            @Override
-			public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 autoScoutShipCountStateChanged(evt);
             }
         });
         autoScoutShipCount.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            @Override
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 autoScoutShipCountMouseWheelMoved(evt);
             }
         });
@@ -1201,14 +1175,12 @@ public class GovernorOptionsPanel extends BasePanel{
         autoAttackShipCount.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9999, 1));
         autoAttackShipCount.setName("AUTO_ATTACK_COUNT"); // NOI18N
         autoAttackShipCount.addChangeListener(new javax.swing.event.ChangeListener() {
-            @Override
-			public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 autoAttackShipCountStateChanged(evt);
             }
         });
         autoAttackShipCount.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            @Override
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 autoAttackShipCountMouseWheelMoved(evt);
             }
         });
@@ -1277,8 +1249,7 @@ public class GovernorOptionsPanel extends BasePanel{
         autospend.setToolTipText("Automatically spend reserve on planets with lowest production");
         autospend.setName("AUTOSPEND"); // NOI18N
         autospend.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autospendActionPerformed(evt);
             }
         });
@@ -1286,14 +1257,12 @@ public class GovernorOptionsPanel extends BasePanel{
         reserve.setModel(new javax.swing.SpinnerNumberModel(1000, 0, 100000, 10));
         reserve.setName("RESERVE"); // NOI18N
         reserve.addChangeListener(new javax.swing.event.ChangeListener() {
-            @Override
-			public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 reserveStateChanged(evt);
             }
         });
         reserve.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            @Override
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 reserveMouseWheelMoved(evt);
             }
         });
@@ -1305,8 +1274,7 @@ public class GovernorOptionsPanel extends BasePanel{
         shipbuilding.setToolTipText("Divert resources into shipbuilding and not research if planet is already building ships");
         shipbuilding.setName("SHIP_BUILDING"); // NOI18N
         shipbuilding.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 shipbuildingActionPerformed(evt);
             }
         });
@@ -1314,8 +1282,7 @@ public class GovernorOptionsPanel extends BasePanel{
         shieldWithoutBases.setText("Allow shields without bases");
         shieldWithoutBases.setName("SHIELD_WITHOUT_BASES"); // NOI18N
         shieldWithoutBases.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 shieldWithoutBasesActionPerformed(evt);
             }
         });
@@ -1323,8 +1290,7 @@ public class GovernorOptionsPanel extends BasePanel{
         legacyGrowthMode.setText("Develop colonies as quickly as possible");
         legacyGrowthMode.setName("LEGACY_GROWTH_MODE"); // NOI18N
         legacyGrowthMode.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 legacyGrowthModeActionPerformed(evt);
             }
         });
@@ -1332,14 +1298,12 @@ public class GovernorOptionsPanel extends BasePanel{
         missileBases.setModel(new javax.swing.SpinnerNumberModel(0, 0, 1000, 1));
         missileBases.setName("MIN_MISSILE_BASES"); // NOI18N
         missileBases.addChangeListener(new javax.swing.event.ChangeListener() {
-            @Override
-			public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 missileBasesStateChanged(evt);
             }
         });
         missileBases.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            @Override
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 missileBasesMouseWheelMoved(evt);
             }
         });
@@ -1350,14 +1314,12 @@ public class GovernorOptionsPanel extends BasePanel{
         terraformEarly.setModel(new javax.swing.SpinnerNumberModel(0, 0, 400, 1));
         terraformEarly.setName("TERRAFORM_EARLY"); // NOI18N
         terraformEarly.addChangeListener(new javax.swing.event.ChangeListener() {
-            @Override
-			public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 terraformEarlyStateChanged(evt);
             }
         });
         terraformEarly.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            @Override
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 terraformEarlyMouseWheelMoved(evt);
             }
         });
@@ -1432,8 +1394,7 @@ public class GovernorOptionsPanel extends BasePanel{
         spareXenophobes.setToolTipText("Once enjoined to stop espionage by an alien empire, the Governor will follow the player's choice for the time necessary for the empire to calm down.");
         spareXenophobes.setName("SPARE_XENOPHOBES"); // NOI18N
         spareXenophobes.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 spareXenophobesActionPerformed(evt);
             }
         });
@@ -1442,8 +1403,7 @@ public class GovernorOptionsPanel extends BasePanel{
         autoSpy.setToolTipText("Hand control over spies to AI");
         autoSpy.setName("AUTO_SPY"); // NOI18N
         autoSpy.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoSpyActionPerformed(evt);
             }
         });
@@ -1452,8 +1412,7 @@ public class GovernorOptionsPanel extends BasePanel{
         autoInfiltrate.setToolTipText("Automatically sends spies to infiltrate other empires");
         autoInfiltrate.setName("AUTO_INFILTRATE"); // NOI18N
         autoInfiltrate.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoInfiltrateActionPerformed(evt);
             }
         });
@@ -1487,8 +1446,7 @@ public class GovernorOptionsPanel extends BasePanel{
         isOriginal.setText("Original View");
         isOriginal.setName("ORIGINAL_PANEL"); // NOI18N
         isOriginal.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 isOriginalActionPerformed(evt);
             }
         });
@@ -1496,8 +1454,7 @@ public class GovernorOptionsPanel extends BasePanel{
         customSize.setText("CustomSize");
         customSize.setName("CUSTOM_SIZE"); // NOI18N
         customSize.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customSizeActionPerformed(evt);
             }
         });
@@ -1506,14 +1463,12 @@ public class GovernorOptionsPanel extends BasePanel{
         sizePct.setToolTipText("Size Factor");
         sizePct.setName("SIZE_FACTOR"); // NOI18N
         sizePct.addChangeListener(new javax.swing.event.ChangeListener() {
-            @Override
-			public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sizePctStateChanged(evt);
             }
         });
         sizePct.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            @Override
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 sizePctMouseWheelMoved(evt);
             }
         });
@@ -1525,14 +1480,12 @@ public class GovernorOptionsPanel extends BasePanel{
         brightnessPct.setToolTipText("Color Brightness");
         brightnessPct.setName("BRIGHTNESS"); // NOI18N
         brightnessPct.addChangeListener(new javax.swing.event.ChangeListener() {
-            @Override
-			public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 brightnessPctStateChanged(evt);
             }
         });
         brightnessPct.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            @Override
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 brightnessPctMouseWheelMoved(evt);
             }
         });
@@ -1594,8 +1547,7 @@ public class GovernorOptionsPanel extends BasePanel{
         raceImage.setRequestFocusEnabled(false);
         raceImage.setVerifyInputWhenFocusTarget(false);
         raceImage.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 raceImageMouseClicked(evt);
             }
         });
@@ -1751,7 +1703,7 @@ public class GovernorOptionsPanel extends BasePanel{
 
 	private void autotransportAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportAIActionPerformed
 		if (isAutoApply())
-			govOptions().setAutotransportGovernor(autotransportAI.isSelected());
+			govOptions().setAutotransportAI(autotransportAI.isSelected());
 	}//GEN-LAST:event_autotransportAIActionPerformed
 
 	private void transportMaxTurnsLabelMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_transportMaxTurnsLabelMouseWheelMoved
@@ -1772,10 +1724,10 @@ public class GovernorOptionsPanel extends BasePanel{
 			govOptions().setAutotransportUngoverned(allowUngoverned.isSelected());
 	}//GEN-LAST:event_allowUngovernedActionPerformed
 
-	private void autotransportGovernorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportGovernorActionPerformed
+	private void autotransportFullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportFullActionPerformed
 		if (isAutoApply())
-			govOptions().setAutotransportAI(autotransportAI.isSelected());
-	}//GEN-LAST:event_autotransportGovernorActionPerformed
+			govOptions().setAutotransportFull(autotransportAI.isSelected());
+	}//GEN-LAST:event_autotransportFullActionPerformed
 
 	private void transportRichDisabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportRichDisabledActionPerformed
 		if (isAutoApply())
@@ -1979,7 +1931,7 @@ public class GovernorOptionsPanel extends BasePanel{
     javax.swing.JCheckBox autoSpy;
     javax.swing.JCheckBox autospend;
     javax.swing.JCheckBox autotransportAI;
-    javax.swing.JCheckBox autotransportGovernor;
+    javax.swing.JCheckBox autotransportFull;
     javax.swing.JLabel brightnessLabel;
     javax.swing.JSpinner brightnessPct;
     javax.swing.JButton cancelButton;

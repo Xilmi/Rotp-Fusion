@@ -20,7 +20,7 @@ public interface IGovOptions {
 	
 	// AutoTransport Options
 	ParamBoolean autoTransportAI	= new ParamBoolean(GOV_UI, "AUTO_TRANSPORT", false);
-	ParamBoolean autotransportGov	= new ParamBoolean(GOV_UI, "AUTOTRANSPORT_GOV", false);
+	ParamBoolean autotransportFull	= new ParamBoolean(GOV_UI, "AUTOTRANSPORT_GOV", false);
 	ParamBoolean autotransportAll	= new ParamBoolean(GOV_UI, "TRANSPORT_UNGOVERNED", false);
 	ParamBoolean transportNoRich	= new ParamBoolean(GOV_UI, "TRANSPORT_RICH_OFF", true);
 	ParamBoolean transportPoorX2	= new ParamBoolean(GOV_UI, "TRANSPORT_POOR_DBL", true);

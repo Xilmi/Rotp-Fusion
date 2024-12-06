@@ -21,7 +21,7 @@ final class GovOptions extends AbstractOptionsSubUI {
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle(HEAD_ID + "TRANSPORT_OPTIONS"),
-				autoTransportAI, autotransportGov, autotransportAll,
+				autoTransportAI, autotransportFull, autotransportAll,
 				transportNoRich, transportPoorX2, transportMaxDist,
 
 				HEADER_SPACER_50,

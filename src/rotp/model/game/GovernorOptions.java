@@ -61,8 +61,8 @@ public class GovernorOptions implements Serializable, IGovOptions {
 //	private int autoAttackShipCount = 1;
 	private boolean governorOnByDefault		= isGovernorOnByDefault();
 	private boolean legacyGrowthMode		= legacyGrowthMode();
-	private boolean autotransport			= isAutotransportAI();
-	private boolean autotransportXilmi		= isAutotransportGovernor();
+	private boolean autotransport			= isAutotransportFull();
+	private boolean autotransportXilmi		= isAutotransportAI();
 	private boolean autotransportUngoverned	= isAutotransportUngoverned();
 	private GatesGovernor gates				= getGates();
 
@@ -121,8 +121,8 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public void gameLoaded()  {
 		// System.out.println("autoShipsByDefault = " + autoShipsByDefault);
 		if (autoShipsByDefault) {
-			autoTransportAI.silentSet(autotransport);
-			autotransportGov.silentSet(autotransportXilmi);
+			autoTransportAI.silentSet(autotransportXilmi);
+			autotransportFull.silentSet(autotransport);
 			autotransportAll.silentSet(autotransportUngoverned);
 			transportNoRich.silentSet(transportRichDisabled);
 			transportPoorX2.silentSet(transportPoorDouble);
@@ -223,10 +223,10 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public String	autotransportAITT()				{ return autoTransportAI.govTooltips(); }
 	public String	autotransportAIText()			{ return autoTransportAI.govLabelTxt(); }
 
-	public boolean	isAutotransportGovernor()		{ return autotransportGov.get(); }
-	public void	setAutotransportGovernor(boolean b)	{ autotransportGov.silentSet(b); }
-	public String	autotransportGovernorTT()		{ return autotransportGov.govTooltips(); }
-	public String	autotransportGovernorText()		{ return autotransportGov.govLabelTxt(); }
+	public boolean	isAutotransportFull()			{ return autotransportFull.get(); }
+	public void		setAutotransportFull(boolean b)	{ autotransportFull.silentSet(b); }
+	public String	autotransportFullTT()			{ return autotransportFull.govTooltips(); }
+	public String	autotransportFullText()			{ return autotransportFull.govLabelTxt(); }
 
 	public boolean	isAutotransportUngoverned()		{ return autotransportAll.get(); }
 	public void	setAutotransportUngoverned(boolean b)	{ autotransportAll.silentSet(b); }

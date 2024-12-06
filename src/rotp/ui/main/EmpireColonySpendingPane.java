@@ -710,8 +710,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                 }
                 else {
                     int allocation = colony.allocationRemaining();
-                    int allocationNeeded =  colony.category(category).smartAllocationNeeded(e);
-                    
+                    int allocationNeeded = colony.category(category).smartAllocationNeeded(e);
                     allocation = min(allocation, allocationNeeded);
                     if(allocation == 0 && category != RESEARCH)
                         allocation = colony.allocationRemaining();

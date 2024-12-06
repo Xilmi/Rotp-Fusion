@@ -506,7 +506,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public void verifiedSmoothMaxSlider(int category, MouseEvent e, boolean v2) {
     	int prevTech = allocation(RESEARCH);
         checkEcoAtClean(); // BR: to avoid wrong setting if not clean!
-        int allocationNeeded = category(category).smartAllocationNeeded(e);
+//        int allocationNeeded = category(category).smartAllocationNeeded(e);
+        int allocationNeeded;
+        if (category == SHIP && shipyard().buildLimit() == 0)
+        	allocationNeeded = MAX_TICKS;
+        else
+        	allocationNeeded = category(category).smartAllocationNeeded(e);
         int prevAllocation = allocation(category);
         boolean decr = allocationNeeded < prevAllocation;
         int incr = decr ? -1 : 1;
@@ -1931,7 +1936,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 //            balanceEcoAndInd(1, buildingShips, true);
 
         // Leave some room for normal population growth if we're auto transporting
-        if (session().getGovernorOptions().isAutotransportAI())
+        if (session().getGovernorOptions().isAutotransportFull())
             balanceEcoAndInd(1 - max(normalPopGrowth(), 3) / maxSize(), buildingShips, false);
         else
             balanceEcoAndInd(1, buildingShips, false);

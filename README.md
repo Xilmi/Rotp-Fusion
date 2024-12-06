@@ -71,6 +71,7 @@ Later:
 
 2024.12.05 (BR)
 - Fixed Governor auto-Transport inverted.
+- Left smart-click on ship without "Build Limit" will now allocate max available BC. 
 
 2024.12.04 (BR)
 - Added Headers in new sub-panel.
