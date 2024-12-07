@@ -501,7 +501,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public void smoothMaxSlider(int category) {
     	if(locked(category))
     		return;
-    	verifiedSmoothMaxSlider(category, null, true); // TODO BR: Validate to set it to true for better balance
+    	verifiedSmoothMaxSlider(category, null, true);
     }
     public void verifiedSmoothMaxSlider(int category, MouseEvent e, boolean v2) {
     	int prevTech = allocation(RESEARCH);
@@ -1056,6 +1056,13 @@ public final class Colony implements Base, IMappedObject, Serializable {
     		boolean v2, boolean ignoreOrders, float targetPopPct) {
         if (adj==0)
     		return;
+        
+        // If a fixed number of ship is requested, then do it
+        if (!locked(SHIP) && shipyard().buildLimit() > 0) {
+        	adj -= smoothAdjust(SHIP, adj, false, hadShipSpending, targetPopPct);
+        	if (adj==0)
+        		return;
+        }
         // Look for orders
         if(!ignoreOrders)
 	        for (int i : refreshSeq) {
@@ -1066,7 +1073,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	            }
 	        }
         // If we where building ships then continue
-        if (!locked(SHIP) && (hadShipSpending || shipyard().buildLimit() > 0)) {
+        if (!locked(SHIP) && hadShipSpending) {
         	adj -= smoothAdjust(SHIP, adj, false, hadShipSpending, targetPopPct);
         	if (adj==0)
         		return;
@@ -1873,11 +1880,83 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
      */
 
-    public void governIfNeeded() {
-        if (!this.isAutopilot() && this.isGovernor()) {
-            govern();
-        }
+    public void governIfNeeded(boolean lowerShipPriority) {
+        if (!this.isAutopilot() && this.isGovernor())
+            govern(lowerShipPriority);
     }
+    public void governIfNeeded() {
+        if (!this.isAutopilot() && this.isGovernor())
+            govern(false);
+    }
+    /**
+     * Manage the colony following the Player Request for each individual colony.
+     * Will Govern when nothing specific is requested.
+     * - Always start by balancing ECO
+     * - Then use the remaining BC to fulfill the player requests
+     * - Then Govern with the remaining BC.
+     * - ...
+     * - Send auto transports if enabled
+     * - Then balance ecology and industry spending for maximum production
+     * - Then set defense to maximum.
+     * - Then build a stargate if applicable
+     *
+     * This is quite crude- works by moving slider by 1 tick until desired results happen.
+     * Better way would be to calculate and set each slider directly to the right percentage.
+     *
+     */
+    public void manage(boolean lowerShipPriority) {
+        GovernorOptions gov = govOptions();
+        // Set max missile bases if minimum is set
+    	if (gov.getMinimumMissileBases() > 0) {
+            if (defense().maxBases() < gov.getMinimumMissileBases()) {
+                defense().maxBases(gov.getMinimumMissileBases());
+            }
+        }
+        // unlock always managed sliders
+        locked(DEFENSE,  false);
+        locked(INDUSTRY, false);
+        locked(ECOLOGY,  false);
+        locked(RESEARCH, false);
+
+        // remember if the planet was building a stargate (might have been manually started by the player)
+        boolean buildingStargate = allocation[SHIP] > 0 &&
+                shipyard().design().equals(empire.shipLab().stargateDesign()) &&
+                !shipyard().stargateCompleted();
+        // remember if this planet was building ships. Stargate doesn't count
+        // if we just finished building a stargate, we're not building ships
+        boolean wasBuildingShips    = allocation[SHIP] > 0 && !buildingStargate;
+        boolean indirectShipRequest = shipyard().buildLimit() > 0 || priorizeShips();
+        boolean directShipRequest   = !lowerShipPriority && wasBuildingShips && !indirectShipRequest;
+        boolean preventiveShiedLock = !gov.getShieldWithoutBases() && defense().maxBases() == 0;
+
+        if (!locked(SHIP))
+        	allocation(SHIP, 0);
+    	allocation(DEFENSE, 0);
+    	if (preventiveShiedLock)
+    		locked(DEFENSE, true);
+        allocation(INDUSTRY, 0);
+        allocation(ECOLOGY, 0);
+        allocation(RESEARCH, 0);
+
+        float targetPopPercent = 1;
+        if (session().getGovernorOptions().isAutotransportFull())
+        	targetPopPercent = bounds(0, 1 - max(normalPopGrowth(), 3)/maxSize(), 1);
+
+        // ECO and Mandatory task
+        float totalBC = totalIncome();
+        float cleanupCost = minimumCleanupCost();
+        int ecoAll = ceil(cleanupCost/totalBC * MAX_TICKS);
+		allocation(ECOLOGY, ecoAll);
+        redistributeSpending(-1, directShipRequest, true, false, targetPopPercent);
+
+        // if (this.isCapital())
+        	// System.out.println("Allocation = " + Arrays.toString(allocation));
+        // To prevent change!
+        locked(DEFENSE, allocation(DEFENSE) != 0);
+        locked(ECOLOGY, true);
+        locked(INDUSTRY, true);
+    }
+    public void govern() { govern(false); }
     /**
      * Govern the colony.
      * - First, send auto transports if enabled
@@ -1889,18 +1968,23 @@ public final class Colony implements Base, IMappedObject, Serializable {
      * Better way would be to calculate and set each slider directly to the right percentage.
      *
      */
-    public void govern() {
+    private void govern(boolean lowerShipPriority) {
         // don't govern if it hasn't been fully initialized
         // I added this due to adding governor logic in clearTransports which is called
         // during the initialization process
         for (int i = 0; i < spending.length; i++)
             if (spending[i] == null || spending[i].colony() == null)
                 return;
+        GovernorOptions gov = govOptions();
+        if (gov.isFollowingColonyRequests()) {
+        	manage(lowerShipPriority);
+        	return;
+        }
         // Set max missile bases if minimum is set
         float prevTech = totalPlanetaryResearch();
-        if (session().getGovernorOptions().getMinimumMissileBases() > 0) {
-            if (defense().maxBases() < session().getGovernorOptions().getMinimumMissileBases()) {
-                defense().maxBases(session().getGovernorOptions().getMinimumMissileBases());
+        if (gov.getMinimumMissileBases() > 0) {
+            if (defense().maxBases() < gov.getMinimumMissileBases()) {
+                defense().maxBases(gov.getMinimumMissileBases());
             }
         }
         // unlock all sliders
@@ -1917,7 +2001,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
                 !shipyard().design().equals(empire.shipLab().stargateDesign()) &&
                 !buildingStargate;
 
-        int shipAllocNeeded = shipyard().maxAllocationNeeded();        
+        int shipAllocNeeded = shipyard().maxAllocationNeeded();
         // start from scratch
         clearSpending();
         /**
@@ -1948,7 +2032,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // don't allocate just for "upgrades" if there are no bases or if there are more bases than we want
         if (!defense().isCompleted()
         		&& (defense().maxBases() > 0 && defense().maxBases() >= defense().bases())
-        		|| session().getGovernorOptions().getShieldWithoutBases()) {
+        		|| gov.getShieldWithoutBases()) {
             int allocationAvailableForDefense = allocation(RESEARCH) + allocationRemaining();
             if(allocation(SHIP) > 1)
                 allocationAvailableForDefense += allocation(SHIP) - 1;
@@ -1958,7 +2042,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
         // Build gate if tech is available. Also add a system property to turn it off.
         // Don't build gate if shipbuilding on governor is enabled, and planet is already building ships
-        if (!buildingShips || !session().getGovernorOptions().isShipbuilding()) {
+        if (!buildingShips || !gov.isShipbuilding()) {
             buildStargate(buildingStargate);
         }
 
@@ -1968,13 +2052,13 @@ public final class Colony implements Base, IMappedObject, Serializable {
             allocation(RESEARCH, allocationRemaining());
 
         // if we were building ships, or a stargate, keep 1 tick in shipbuilding
-        if ((buildingShips && session().getGovernorOptions().isShipbuilding()) ||
-            (buildingStargate && session().getGovernorOptions().getGates() != GovernorOptions.GatesGovernor.None)) {
+        if ((buildingShips && gov.isShipbuilding()) ||
+            (buildingStargate && gov.getGates() != GovernorOptions.GatesGovernor.None)) {
             if(allocation(SHIP) < 1 && shipAllocNeeded < 1) //only do it if we aren't already spending into ship as we otherwise could get waste
                 increment(SHIP, 1);
         }
         if ((buildingStargate || buildingShips)
-                && session().getGovernorOptions().isShipbuilding() && allocation[RESEARCH] > 0) {
+                && gov.isShipbuilding() && allocation[RESEARCH] > 0) {
             // if we were building ships, push all research into shipbuilding.
             locked(Colony.SHIP, false);
             int allocForShips = allocation(RESEARCH);
@@ -2094,7 +2178,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // Any leftovers go to ECO up to max.
         // To properly balance this would require changes to ColonyIndustry to expose some internal numbers.
 
-        boolean boostedAction = false;
         if ( !industry().isCompleted() && refit && !needTerraform
         		&& baseNewPop >= factories / empire().maxRobotControls() ) {
         	if (options().useSmartRefit()) {
@@ -2134,7 +2217,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             // balance ECO and IND spend to get max production next turn
 
         	// Check for planet boost priority
-        	boostedAction = needTerraform && terraformEarly;
+        	boolean boostedAction = needTerraform && terraformEarly;
         	if (boostedAction && !test) {
         		// Do instant Buy
         		float originalBC = remainingBC;

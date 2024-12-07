@@ -1457,6 +1457,8 @@ public final class Empire implements Base, NamedObject, Serializable {
                 }
             }
             // If planets are governed, redo allocations now
+            // BR: I don't know why!? But done at this time, this gives the wrong result!!!
+            // For "isFollowingColonyRequests" Governor, the valid allocations will be redone later
             for (int i = 0; i < this.sv.count(); ++i) {
                 if (this.sv.empire(i) == this && this.sv.isColonized(i)) {
                     this.sv.colony(i).governIfNeeded();
@@ -1467,10 +1469,18 @@ public final class Empire implements Base, NamedObject, Serializable {
         // colony development (sometimes done for player if auto-pilot)
         NoticeMessage.setSubstatus(text("TURN_COLONY_SPENDING"));
         for (int n=0; n<sv.count(); n++) {
-            if (sv.empId(n) == id)
+        	if (sv.empId(n) == id)
                 if(!sv.colony(n).isGovernor() || isAIControlled() || sv.colony(n).shipyard().shipLimitReached() || sv.colony(n).shipyard().stargateCompleted()) //do not overrule the governor if it is enabled, except it's for ship-limit-reached
                     governorAI().setColonyAllocations(sv.colony(n));
         }
+    }
+    public void redoGovTurnDecisions() { // Only for player
+    	if (govOptions().isFollowingColonyRequests())
+	    	for (int i = 0; i < this.sv.count(); ++i) {
+	            if (this.sv.empire(i) == this && this.sv.isColonized(i)) {
+	                this.sv.colony(i).governIfNeeded();
+	            }
+	        }
     }
     /**
      * Spend reserve automatically (if enabled).

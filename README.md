@@ -71,6 +71,7 @@ Later:
 
 2024.12.07 (BR)
 - By default, Rallied Fleet will now join the combat. And the option is saved in "Remnant.cfg"
+- New Governor option: "Follow Colony Request"... This will put in place sort of an obedient junior governor. He'll first respond to your request, then do his best to minimize micromanagement, like his big brother... If a "Ship Build Limit" is set, it will be built first. If you lock ship allocations: He won't change them. He'll also follow the priority indicated in blue (Ctrl-Click on the text on the left).
 
 2024.12.06 (Xilmi)
 - Colony Ships in wars

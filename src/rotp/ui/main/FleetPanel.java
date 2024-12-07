@@ -384,7 +384,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         // The fleet selection may have been the result
         // of missing the system on the previous click
         if (sys == adjustedFleet.system()) {
-        	System.out.println("sys == adjustedFleet.system()");
+        	//System.out.println("sys == adjustedFleet.system()");
         	selectedFleet(null);
         	cancel();
         	return false;

@@ -4891,6 +4891,15 @@ GOVERNOR_SHIP_BUILDING_DESC          | Shipbuilding with Governor enabled. Diver
 GOVERNOR_SHIP_BUILDING               | Shipbuilding: %1
 GOVERNOR_SHIP_BUILDING_LABEL         | Shipbuilding with Governor enabled
 
+GOVERNOR_FOLLOW_COLONY_REQUESTS_HELP     | He's sort of an obedient junior governor. He'll first respond to your request, then do his best to minimize micromanagement, like his big brother... If a "→MAIN_COLONY_SHIPYARD_LIMIT←" is set, it will be built first. If you lock ship allocations: He won't change them. He'll also follow the priority indicated in blue (Ctrl-Click on the text on the left)
+GOVERNOR_FOLLOW_COLONY_REQUESTS_DESC     | If a "→MAIN_COLONY_SHIPYARD_LIMIT←" is set, it will be built first. If you lock ship allocations: He won't change them. He'll also follow the priority indicated in blue (Ctrl-Click on the text on the left)
+GOVERNOR_FOLLOW_COLONY_REQUESTS          | Colony Requests: %1
+GOVERNOR_FOLLOW_COLONY_REQUESTS_LABEL    | Follow Colony Request
+GOVERNOR_FOLLOW_COLONY_REQUESTS_YES      | Follow
+GOVERNOR_FOLLOW_COLONY_REQUESTS_NO       | Ignore
+GOVERNOR_FOLLOW_COLONY_REQUESTS_YES_DESC | The Player still have some control over the Governor.
+GOVERNOR_FOLLOW_COLONY_REQUESTS_NO_DESC  | The Governor know what is good for the colonies.
+
 GOVERNOR_LEGACY_GROWTH_MODE_DESC     | Develop colonies as quickly as possible.
 GOVERNOR_LEGACY_GROWTH_MODE          | Rapid growth: %1
 GOVERNOR_LEGACY_GROWTH_MODE_LABEL    | Develop colonies as quickly as possible

@@ -27,7 +27,8 @@ final class GovOptions extends AbstractOptionsSubUI {
 				HEADER_SPACER_50,
 				new ParamTitle(HEAD_ID + "COLONY_OPTIONS"),
 				missileBasesMin, shieldAlones,
-				autoSpend, reserveForSlow, shipBuilding,
+				autoSpend, reserveForSlow,
+				shipBuilding, followColonyRequests,
 				maxGrowthMode, terraformEarly
 				)));
 		map.add(new SafeListParam(Arrays.asList(				

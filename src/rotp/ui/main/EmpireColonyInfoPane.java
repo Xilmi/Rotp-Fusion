@@ -33,7 +33,9 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JPanel;
+
 import rotp.model.colony.Colony;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
@@ -313,8 +315,10 @@ public class EmpireColonyInfoPane extends BasePanel {
             else if (maxBasesValue < 0) 
             	maxBasesValue = MAX_BASES;
 
-            for (Colony c: colonies)
-                c.defense().maxBases(maxBasesValue);
+            for (Colony c: colonies) {
+            	c.defense().maxBases(maxBasesValue);
+            	c.governIfNeeded();
+            }
             softClick();
             repaint();            
         }

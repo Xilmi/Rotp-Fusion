@@ -35,6 +35,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.util.List;
+
 import rotp.model.colony.Colony;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
@@ -246,6 +247,7 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
             Colony c = sys.colony();
             if (c != null) {
             	c.defense().incrMaxBases(1, false, false);
+            	c.governIfNeeded();
             	//c.defense().incrMaxBases(1, e.isShiftDown(), e.isControlDown());
             }
         }
@@ -257,6 +259,7 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
             Colony c = sys.colony();
             if (c != null) {
             	c.defense().incrMaxBases(-1, false, false);
+            	c.governIfNeeded();
             	//c.defense().incrMaxBases(-1, e.isShiftDown(), e.isControlDown());
             }
         }

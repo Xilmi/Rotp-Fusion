@@ -144,6 +144,8 @@ public class EmpireSystemPanel extends SystemPanel {
         else {
             softClick();
             c.shipyard().goToNextDesign();
+            if (c.shipyard().buildLimit()>0)
+            	c.governIfNeeded();
             parentSpritePanel.repaint();
         }
     }
@@ -160,6 +162,8 @@ public class EmpireSystemPanel extends SystemPanel {
         else {
             softClick();
             c.shipyard().goToPrevDesign();
+            if (c.shipyard().buildLimit()>0)
+            	c.governIfNeeded();
             parentSpritePanel.repaint();
         }
     }
@@ -667,7 +671,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 return;
             boolean updated = col.shipyard().decrementBuildLimit(amt);
             if (updated) {
-                col.governIfNeeded();
+                col.governIfNeeded(true);
                 softClick();
                 parent.repaint();
             }
@@ -681,6 +685,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 return;
             boolean updated = col.shipyard().resetBuildLimit();
             if (updated) {
+            	col.governIfNeeded(true);
                 softClick();
                 repaint();
             }

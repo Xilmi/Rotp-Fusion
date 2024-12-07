@@ -18,6 +18,7 @@ package rotp.ui.main;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.colony.Colony.ECOLOGY;
 import static rotp.model.colony.Colony.RESEARCH;
+import static rotp.model.colony.Colony.SHIP;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -71,6 +72,7 @@ public class EmpireColonySpendingPane extends BasePanel {
     static final Color sliderTextEnabled	= Color.black;
     static final Color sliderTextDisabled	= new Color(65,65,65);
     static final Color sliderTextHasOrder	= new Color(0,0,142);
+    static final Color sliderTextHasOrderD	= new Color(65,65,142);
 
     private static BufferedImage governorImage;
     private static BufferedImage noGovernorImage;
@@ -481,7 +483,9 @@ public class EmpireColonySpendingPane extends BasePanel {
             		textC = sliderTextHasOrder;
             	else
             		textC = sliderTextEnabled;
-            else
+            else if (colony.hasOrder(category) && options().showPendingOrders())
+        		textC = sliderTextHasOrderD;
+        	else
                 textC = sliderTextDisabled;
             
             String labelText = text(text);
@@ -797,6 +801,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             if (colony == null)
                 return;
     		colony.toggleOrder(category);
+    		colony.governIfNeeded(category == SHIP);
             repaint();
 //	        switch (category) {
 //		    	case DEFENSE:

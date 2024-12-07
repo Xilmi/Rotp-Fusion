@@ -630,6 +630,13 @@ public final class GameSession implements Base, Serializable {
                 	RotPUI.instance().selectMainPanel();
                 }
 
+                // Previous Governor call was too early for "isFollowingColonyRequests"
+                // So it's redone there so the player doesn't have to loop through
+                // the colonies to refresh them.
+                // Only this specific governor is called, as I don't want to
+                // revalidates the possible impacts on the other one.
+                player().redoGovTurnDecisions();
+                
                 log("Reselecting main panel");
                 RotPUI.instance().mainUI().showDisplayPanel();
                 RotPUI.instance().selectMainPanel();

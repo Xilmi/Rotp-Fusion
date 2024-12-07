@@ -203,11 +203,6 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 		}
 		return tableFormat(rows);
 	}
-	private String getRowOption(int id)	{
-		IParam param = optionsList.get(id);
-		String str = param.getGuiDisplay();
-		return str;
-	}
 	List<String> getRowList() {
 		List<String> strList = new ArrayList<>();
 		for ( IParam param : optionsMap.getListNoTitle()) {

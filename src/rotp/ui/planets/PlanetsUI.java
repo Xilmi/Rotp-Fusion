@@ -15,6 +15,9 @@
  */
 package rotp.ui.planets;
 
+import static rotp.ui.fleets.SystemListingUI.LEFT;
+import static rotp.ui.fleets.SystemListingUI.RIGHT;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -26,6 +29,7 @@ import java.awt.Insets;
 import java.awt.LinearGradientPaint;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
@@ -42,10 +46,10 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
@@ -54,6 +58,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
@@ -68,8 +73,6 @@ import rotp.ui.fleets.FleetUI;
 import rotp.ui.fleets.SystemListingUI;
 import rotp.ui.fleets.SystemListingUI.Column;
 import rotp.ui.fleets.SystemListingUI.DataView;
-import static rotp.ui.fleets.SystemListingUI.LEFT;
-import static rotp.ui.fleets.SystemListingUI.RIGHT;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.EmpireColonyFoundedPane;
@@ -1812,7 +1815,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             softClick();
             for (Colony c: colonies) {
                 c.shipyard().buildLimit(currBuildLimit);
-                c.governIfNeeded();
+                c.governIfNeeded(true);
             }
             
             parent.repaint();

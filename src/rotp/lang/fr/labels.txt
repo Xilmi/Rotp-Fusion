@@ -1733,12 +1733,12 @@ SETUP_GAME_NUMBER_OPPONENTS       | Adversaires
 SETUP_PLANET_QUALITY_NORMAL_HELP  | Paramètre de qualité de base.<br>Basé sur un facteur aléatoire compris entre 0 % et 100 %.
 SETUP_PLANET_QUALITY_LARGER_HELP  | Ajoute +50 % à la taille de la planète,<br>mais également +20 % de planètes pauvres et -20 % de planètes riches.
 SETUP_PLANET_QUALITY_RICHER_HELP  | Donne +50 % de planètes riches, -20 % de planètes pauvres et +50 % de planètes avec artéfacts,<br> mais également des tailles de planète diminuées de 20 %.
-SETUP_PLANET_QUALITY_HELL_HELP    | Qualité épouvantable.<br>Basé sur un facteur aléatoire entre 0 % et 50 %.
-SETUP_PLANET_QUALITY_POOR_HELP    | Faible qualité.<br>Basé sur un facteur aléatoire compris entre 0 % et 80 %.
-SETUP_PLANET_QUALITY_MEDIOCRE_HELP | Médiocre qualité.<br>Basé sur un facteur aléatoire compris entre 0 % et 90 %.
-SETUP_PLANET_QUALITY_GOOD_HELP    | Bonne qualité.<br>Basé sur un facteur aléatoire compris entre 10 % et 100 %.
-SETUP_PLANET_QUALITY_GREAT_HELP   | Grande qualité.<br>Basé sur un facteur aléatoire compris entre 20 % et 100 %.
-SETUP_PLANET_QUALITY_HEAVEN_HELP  | Qualité paradisiaque.<br>Basé sur un facteur aléatoire compris entre 50 % et 100 %.
+SETUP_PLANET_QUALITY_HELL_HELP    | Qualité épouvantable.<br>Basée sur un facteur aléatoire entre 0 % et 50 %.
+SETUP_PLANET_QUALITY_POOR_HELP    | Faible qualité.<br>Basée sur un facteur aléatoire compris entre 0 % et 80 %.
+SETUP_PLANET_QUALITY_MEDIOCRE_HELP | Médiocre qualité.<br>Basée sur un facteur aléatoire compris entre 0 % et 90 %.
+SETUP_PLANET_QUALITY_GOOD_HELP    | Bonne qualité.<br>Basée sur un facteur aléatoire compris entre 10 % et 100 %.
+SETUP_PLANET_QUALITY_GREAT_HELP   | Excellente qualité.<br>Basée sur un facteur aléatoire compris entre 20 % et 100 %.
+SETUP_PLANET_QUALITY_HEAVEN_HELP  | Qualité paradisiaque.<br>Basée sur un facteur aléatoire compris entre 50 % et 100 %.
 
 SETUP_PLANET_QUALITY_LARGER       | Grande et Pauvre
 SETUP_PLANET_QUALITY_RICHER       | Petite et Riche
@@ -1747,7 +1747,7 @@ SETUP_PLANET_QUALITY_POOR         | Pauvre
 SETUP_PLANET_QUALITY_MEDIOCRE     | Médiocre
 SETUP_PLANET_QUALITY_NORMAL       | Normale
 SETUP_PLANET_QUALITY_GOOD         | Bonne
-SETUP_PLANET_QUALITY_GREAT        | Grande
+SETUP_PLANET_QUALITY_GREAT        | Excellente
 SETUP_PLANET_QUALITY_HEAVEN       | Divine
 
 SETUP_TERRAFORMING_NORMAL_HELP    | Les technologies de terraformation fonctionnent à 100 % sur les planètes hostiles.
@@ -4890,6 +4890,15 @@ GOVERNOR_RESERVE_LABEL               | Fond de secours
 GOVERNOR_SHIP_BUILDING_DESC          | Construction navale avec gouverneur activé. Détournez les ressources vers la construction navale et ne faites pas de recherches si la planète construit déjà des vaisseaux.
 GOVERNOR_SHIP_BUILDING               | Chantiers navals : %1
 GOVERNOR_SHIP_BUILDING_LABEL         | Construction navale avec gouverneur activé.
+
+GOVERNOR_FOLLOW_COLONY_REQUESTS_HELP     | Il est en quelque sorte un gouverneur junior obéissant. Il répondra d’abord à votre demande, puis fera de son mieux pour minimiser la micro-gestion, comme son grand frère... Si une « →MAIN_COLONY_SHIPYARD_LIMIT← » est définie, elle sera construite en priorité. Si vous verrouillez les allocations de navires : Il ne les modifiera pas. Il suivra également la priorité indiquée en bleu (Ctrl-Clic sur le texte à gauche)
+GOVERNOR_FOLLOW_COLONY_REQUESTS_DESC     | Si une « →MAIN_COLONY_SHIPYARD_LIMIT← » est définie, elle sera construite en priorité. Si vous verrouillez les allocations de navires : Il ne les modifiera pas. Il suivra également la priorité indiquée en bleu (Ctrl-Clic sur le texte à gauche)
+GOVERNOR_FOLLOW_COLONY_REQUESTS          | Requêtes des colonies : %1
+GOVERNOR_FOLLOW_COLONY_REQUESTS_LABEL    | Prioriser les requêtes des colonies.
+GOVERNOR_FOLLOW_COLONY_REQUESTS_YES      | Prioriser
+GOVERNOR_FOLLOW_COLONY_REQUESTS_NO       | Ignorer
+GOVERNOR_FOLLOW_COLONY_REQUESTS_YES_DESC | Le joueur garde un certain contrôle sur le gouverneur.
+GOVERNOR_FOLLOW_COLONY_REQUESTS_NO_DESC  | Le gouverneur sait ce qui est bon pour les colonies.
 
 GOVERNOR_LEGACY_GROWTH_MODE_DESC     | Développer les colonies le plus rapidement possible.
 GOVERNOR_LEGACY_GROWTH_MODE          | Croissance rapide : %1

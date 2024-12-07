@@ -80,6 +80,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	private int		reserve					= getReserve();
  
 	private boolean shipbuilding			= isShipbuilding();
+	private boolean colonyRequests			= isFollowingColonyRequests();
 
 	// if true, automatically scout new planets
 	private boolean autoScout				= isAutoScout();
@@ -133,6 +134,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 			autoSpend.silentSet(autospend);
 			reserveForSlow.silentSet(reserve);
 			shipBuilding.silentSet(shipbuilding);
+			followColonyRequests.silentSet(colonyRequests);
 			maxGrowthMode.silentSet(legacyGrowthMode);
 			auto_Infiltrate.silentSet(autoInfiltrate);
 			auto_Spy.silentSet(autoSpy);
@@ -297,6 +299,11 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public void		setShipbuilding(boolean b)		{ shipBuilding.silentSet(b); }
 	public String	shipbuildingTT()				{ return shipBuilding.govTooltips(); }
 	public String	shipbuildingText()				{ return shipBuilding.govLabelTxt(); }
+
+	public boolean	isFollowingColonyRequests()		{ return followColonyRequests.get(); }
+	public void	setfollowColonyRequests(boolean b)	{ followColonyRequests.silentSet(b); }
+	public String	followColonyRequestsTT()		{ return followColonyRequests.govTooltips(); }
+	public String	followColonyRequestsText()		{ return followColonyRequests.govLabelTxt(); }
 
 	public boolean	isAutoInfiltrate()				{ return auto_Infiltrate.get(); }
 	public void		setAutoInfiltrate(boolean b)	{ auto_Infiltrate.silentSet(b); }

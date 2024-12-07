@@ -89,9 +89,9 @@
                   <Component id="raceImage" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="spyPanel" linkSize="2" alignment="2" max="32767" attributes="0"/>
-                  <Component id="colonyPanel" linkSize="2" alignment="2" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="colonyPanel" min="-2" max="-2" attributes="0"/>
+                  <Component id="spyPanel" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -642,11 +642,7 @@
                           <Component id="missileBasesLabel" max="32767" attributes="0"/>
                       </Group>
                       <Component id="shieldWithoutBases" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="terraformEarly" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="terraformEarlyLabel" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="followColonyRequests" alignment="0" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -657,6 +653,11 @@
                       </Group>
                       <Component id="legacyGrowthMode" min="-2" max="-2" attributes="0"/>
                       <Component id="autospend" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="terraformEarly" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="terraformEarlyLabel" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -672,31 +673,31 @@
                               <Component id="missileBases" linkSize="18" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="missileBasesLabel" linkSize="18" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="autospend" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="shieldWithoutBases" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="legacyGrowthMode" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="shipbuilding" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="terraformEarly" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="terraformEarlyLabel" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="terraformEarlyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="terraformEarly" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="followColonyRequests" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="reserve" linkSize="19" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="reserveLabel" linkSize="19" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="2" attributes="0">
+                          <Component id="reserve" linkSize="19" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="reserveLabel" linkSize="19" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -802,6 +803,16 @@
             <Property name="text" type="java.lang.String" value="Boost Planet Early"/>
             <Property name="name" type="java.lang.String" value="TERRAFORM_EARLY" noResource="true"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="followColonyRequests">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Follow Colony Requests"/>
+            <Property name="toolTipText" type="java.lang.String" value="Follow Colony Requests"/>
+            <Property name="name" type="java.lang.String" value="FOLLOW_COLONY_REQUESTS" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="followColonyRequestsActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

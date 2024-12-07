@@ -54,6 +54,7 @@ public interface IGovOptions {
 			.setLimits(0, 400)
 			.setIncrements(1, 5, 20)
 			.pctValue(true);
+	ParamBoolean followColonyRequests	= new ParamBoolean(GOV_UI, "FOLLOW_COLONY_REQUESTS", false);
 
 	// Intelligence Options
 	ParamBoolean auto_Infiltrate	= new ParamBoolean(GOV_UI, "AUTO_INFILTRATE", true);
