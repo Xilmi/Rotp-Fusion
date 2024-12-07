@@ -20,7 +20,8 @@ final class NewOptionsBeta extends AbstractOptionsSubUI {
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("NEW_BETA"),
-				rallyCombat
+				rallyCombat,
+				rallyCombatLoss
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("NEW_SAFE"),
@@ -32,7 +33,7 @@ final class NewOptionsBeta extends AbstractOptionsSubUI {
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						debugAutoRun,
-						rallyCombatLoss,
+						rallyCombat,
 						optionPanelAlignment
 						));
 		return majorList;

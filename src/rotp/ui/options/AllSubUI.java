@@ -74,10 +74,8 @@ public final class AllSubUI {
 		put(new RaceMenuOptions());
 		put(new RandomEventsOptions());
 		put(new SystemsOptions());
-//		if (Rotp.isUnderTest()) { // TO DO BR: REMOVE Rotp.isUnderTest()
-			put(new RulesOptions());
-			put(new SettingsOptions());
-//		}
+		put(new RulesOptions());
+		put(new SettingsOptions());
 	}
 
 	public static SafeListParam allModOptions(boolean refresh)			{

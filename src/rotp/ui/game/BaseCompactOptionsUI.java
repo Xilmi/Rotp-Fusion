@@ -67,6 +67,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private static final int	descLineH		= RotPUI.scaledSize(descFontSize+2);
 	private static final int	titleOffset		= s40; // Offset from Margin
 	private static final int	titlePad		= s70; // Offset of first setting
+	private static final int	minFontSize		= 8;
 	private static final int	settingFontSize	= 19;
 	private static final int	settingH		= RotPUI.scaledSize(settingFontSize);
 	private static final int	settingpadH		= s5;
@@ -319,6 +320,23 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		else
 			txt2.enabledC(customValuesColor);
 	}
+	private boolean setFontSize(Graphics g, int width, int minSize, ModText... txtArr) {
+		for (ModText txt : txtArr)
+			txt.fontMult(1);
+
+		while (true) {
+			int txtW = 0;
+			for (ModText txt : txtArr)
+				txtW += txt.stringWidth(g);
+
+			if (txtW <= width)
+				return true;
+			
+			for (ModText txt : txtArr)
+				if (!txt.decrFontSize(minSize))
+					return false;
+		}
+	}
 	private void paintSetting(Graphics2D g, IParam param) {
 		boolean refresh = forceUpdate() || param.updated();
 		if (refresh) { // Update imgList
@@ -360,7 +378,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			if (param.isSubMenu()) {
 				boolean hasMore = param.getUnseen() > 0; 
 				txtLeft.enabledC(GameUI.textColor());
-				txtRight.forceHover = false;				
+				txtRight.forceHover = false;
+				setFontSize(gi, width, minFontSize, txtLeft);
 				int sw	= txtLeft.stringWidth(gi);
 				int dxIconFolder = 0;
 				if (isCentered || isJustified) {
@@ -412,6 +431,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 				txtLeft.forceHover  = false;
 			}
 			else { // Not sub-menu
+				setFontSize(gi, width, minFontSize, txtLeft, txtRight);
 				int swLeft	= txtLeft.stringWidth(gi);
 				int swRight	= txtRight.stringWidth(gi);
 				int sw		= swLeft + swRight;
@@ -431,6 +451,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 					xRight	= retina(columnWidth-margin) - swRight;
 					xLeft	= xRight - swLeft;
 				}
+				xLeft  = max(0, xLeft);
+				xRight = max(swLeft, xRight);
 				txtLeft.setScaledXY(xLeft, retina(rowPad+s7));
 				txtRight.setScaledXY(xRight, retina(rowPad+s7));
 				txtLeft.draw(gi);
@@ -711,6 +733,30 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_ESCAPE:
 				doExitBoxAction();
+				return;
+			case KeyEvent.VK_C:
+				if (e.isControlDown()) {
+					IGameOptions.optionPanelAlignment.set(IGameOptions.CENTERED);
+					forceUpdate(true);
+				}
+				return;
+			case KeyEvent.VK_J:
+				if (e.isControlDown()) {
+					IGameOptions.optionPanelAlignment.set(IGameOptions.JUSTIFIED);
+					forceUpdate(true);
+				}
+				return;
+			case KeyEvent.VK_L:
+				if (e.isControlDown()) {
+					IGameOptions.optionPanelAlignment.set(IGameOptions.LEFT_ALIGN);
+					forceUpdate(true);
+				}
+				return;
+			case KeyEvent.VK_R:
+				if (e.isControlDown()) {
+					IGameOptions.optionPanelAlignment.set(IGameOptions.RIGHT_ALIGN);
+					forceUpdate(true);
+				}
 				return;
 		}
 	}

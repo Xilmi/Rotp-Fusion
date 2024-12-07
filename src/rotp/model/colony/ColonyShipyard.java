@@ -130,9 +130,17 @@ public class ColonyShipyard extends ColonySpendingCategory {
         Colony c = colony();
         int empId = c.empire().id;
         int sysId = c.starSystem().id;
+        int rallyId = rallyDestSysId;
+        if (rallyId == StarSystem.NULL_ID) {
+        	StarSystem rallySys = player().sv.rallySystem(sysId);
+        	if (rallySys != null)
+        		rallyId = rallySys.id;
+        	else
+        		rallyId = sysId; // Should never happen
+        }
 
         if (rallyFleetCopy == null) // no pass by => standard Method
-        	galaxy().ships.rallyOrbitingShips(empId, sysId, rallyDesignId, rallyCount, rallyDestSysId);
+        	galaxy().ships.rallyOrbitingShips(empId, sysId, rallyDesignId, rallyCount, rallyId);
         else {
         	// Move build to rally
         	int dec = orbitFleetCopy.removeShips(rallyDesignId, rallyCount);
@@ -141,7 +149,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
         	}
         	rallyFleetCopy.addShips(rallyDesignId, dec);
         	// send fleet
-        	galaxy().ships.rallyOrbitingShips(empId, sysId, rallyDestSysId, rallyFleetCopy, orbitFleetCopy);
+        	galaxy().ships.rallyOrbitingShips(empId, sysId, rallyId, rallyFleetCopy, orbitFleetCopy);
             clearFleetsCopy();        	
         }
     }

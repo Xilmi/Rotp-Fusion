@@ -115,6 +115,14 @@ public class BaseText implements Base {
         y = scaled(y1);
     }
     protected void newFontSize(int fSize) { fontSize = fSize; }
+    public boolean decrFontSize(int minSize) {
+    	fontSize -= 1;
+    	if (fontSize < minSize) {
+    		fontSize = minSize;
+    		return false;
+    	}
+    	return true;
+    }
     private Font font() {
         return logoFont ? logoFont(fontSize) : narrowFont(fontSize);
     }

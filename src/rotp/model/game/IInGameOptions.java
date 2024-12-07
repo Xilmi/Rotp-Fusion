@@ -314,6 +314,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	String COMBAT_LOSS_RALLY	= "COMBAT_LOSS_RALLY";
 	String COMBAT_LOSS_SHARED	= "COMBAT_LOSS_SHARED";
 	ParamList rallyCombatLoss	= new ParamList( MOD_UI, "RALLY_COMBAT_LOSS", COMBAT_LOSS_DEFENSES)
+			.isCfgFile(true)
 			.showFullGuide(true)
 			.put(COMBAT_LOSS_DEFENSES,	MOD_UI + COMBAT_LOSS_DEFENSES)
 			.put(COMBAT_LOSS_RALLY,		MOD_UI + COMBAT_LOSS_RALLY)

@@ -19,7 +19,8 @@ final class SetupMenuPreferences extends AbstractOptionsSubUI {
 				useFusionFont,
 				galaxyPreviewColorStarsSize,
 				noFogOnIcons,
-				showAlternateAnimation
+				showAlternateAnimation,
+				showGuide
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("PANEL_FORMAT"),
