@@ -295,13 +295,14 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	String RALLY_COMBAT_BUILT	= "RALLY_COMBAT_BUILT";
 	String RALLY_COMBAT_ALL		= "RALLY_COMBAT_ALL";
 	String RALLY_COMBAT_PASS_BY	= "RALLY_COMBAT_PASS_BY";
-	ParamList rallyCombat			= new ParamList( MOD_UI, "RALLY_COMBAT", RALLY_COMBAT_BUILT)
+	ParamList rallyCombat			= new ParamList( MOD_UI, "RALLY_COMBAT", RALLY_COMBAT_ALL)
+			.isCfgFile(true)
 			.showFullGuide(true)
 			.put(RALLY_COMBAT_NEVER,	MOD_UI + RALLY_COMBAT_NEVER)
 			.put(RALLY_COMBAT_BUILT,	MOD_UI + RALLY_COMBAT_BUILT)
 			.put(RALLY_COMBAT_PASS_BY,	MOD_UI + RALLY_COMBAT_PASS_BY)
 			.put(RALLY_COMBAT_ALL,		MOD_UI + RALLY_COMBAT_ALL)
-			.setDefaultValue(FUSION_DEFAULT, RALLY_COMBAT_BUILT) // TODO BR: change to RALLY_COMBAT_ALL
+			.setDefaultValue(FUSION_DEFAULT, RALLY_COMBAT_ALL)
 			.setDefaultValue(MOO1_DEFAULT,   RALLY_COMBAT_BUILT)
 			.setDefaultValue(ROTP_DEFAULT,   RALLY_COMBAT_BUILT);
 	default boolean rallyCombat()		{ return !rallyCombat.get().equals(RALLY_COMBAT_NEVER); }

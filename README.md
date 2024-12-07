@@ -69,6 +69,14 @@ Later:
 
 ## What's New
 
+2024.12.07 (BR)
+- By default, Rallied Fleet will now join the combat. And the option is saved in "Remnant.cfg"
+
+2024.12.06 (Xilmi)
+- Colony Ships in wars
+  - Reverted a previous change that prevented the AI from building colony-ships when it had fewer military than their enemies.
+  - Rationale: While those colony ships seem like a waste of resources, the wars are not so much about direct fights anyways. What is important is being able to reach the enemies' colonies. So a small but constant flow of colonizers can be necessary to get access deeper into the enemies' territory.
+
 2024.12.05 (BR)
 - Fixed Governor auto-Transport inverted.
 - Left smart-click on ship without "Build Limit" will now allocate max available BC. 

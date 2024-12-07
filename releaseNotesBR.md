@@ -8,6 +8,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- By default, Rallied Fleet will now join the combat. And the option is saved in "Remnant.cfg"
+- Colony Ships in wars (Xilmi)
+  - Reverted a previous change that prevented the AI from building colony-ships when it had fewer military than their enemies.
+  - Rationale: While those colony ships seem like a waste of resources, the wars are not so much about direct fights anyways. What is important is being able to reach the enemies' colonies. So a small but constant flow of colonizers can be necessary to get access deeper into the enemies' territory.
 - Left smart-click on ship without "Build Limit" will now allocate max available BC.
 - Fixed Governor auto-Transport inverted.
 - Fixed Galaxy "Loose limit" on galaxy with void, and Fractal galaxy.
@@ -22,20 +26,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Then, when hovering over another orbiting fleet, the buttons on the fleet panel will be incorrect.
   - Then, hovering over the planet will incorrectly activate the fleet sending information.
   - And finally clicking on the star system will send the last selected fleet to it.
-- Fixed a rare bug where an empire could be placed outside the bounds given by galaxy shapes.
-- Fixed the combat result diplay factories number when a colony is bio destroyed.
-- Fixed null pointer exception in rally
-- Systems are scouted before the player is asked to bombard them. (Fixed version)
-- Fixed crash when sending troops to an abandoned colonies.
-- More info on galaxy side icons.
-- Fixed Crystal attack bug crashing the game.
-- New option to limit the size of invasion troops that can land.
-  - Fixed size or proportional to the planet size.
-  - Invasion troop limitation can now be unbalanced AI vs Player.
-- The Options panel has been split into a Rules panel and a Settings panel.
-  - Two new icons to call them are added to the galaxy map.
-  - Former Option panel still available inside the Rules panel
-  - Former Option panel still respond to "O"
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
