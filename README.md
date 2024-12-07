@@ -75,6 +75,7 @@ Later:
 - Fixed occasional null destination Id after fight with transit rally alone.
 - Resize long text in compact menu.
 - The option Rally combat loss is now saved in "Remnant.cfg"
+- Fixed rally possibly being forwarded to a lost colony after a battle.
 
 2024.12.06 (Xilmi)
 - Colony Ships in wars

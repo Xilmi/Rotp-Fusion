@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Fixed rally possibly being forwarded to a lost colony after a battle.
 - Fixed occasional null destination Id after fight with transit rally alone.
 - New Governor option: "Follow Colony Request"... This will put in place sort of an obedient junior governor. He'll first respond to your request, then do his best to minimize micromanagement, like his big brother... If a "Ship Build Limit" is set, it will be built first. If you lock ship allocations: He won't change them. He'll also follow the priority indicated in blue (Ctrl-Click on the text on the left).
 - By default, Rallied Fleet will now join the combat. And the option is saved in "Remnant.cfg"

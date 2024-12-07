@@ -44,7 +44,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
     private transient float maxAllowedShipBCProd;
     private transient int rallyCount = 0;
     private transient int rallyDesignId = 0;
-    private transient int rallyDestSysId = StarSystem.NULL_ID;
+    // private transient int rallyDestSysId = StarSystem.NULL_ID; // BR: useless and misleading
 
     // used by the AI when determining what to build
     private float queuedBC = 0;
@@ -128,16 +128,13 @@ public class ColonyShipyard extends ColonySpendingCategory {
         if (rallyCount == 0 && rallyFleetCopy == null)
             return;
         Colony c = colony();
-        int empId = c.empire().id;
+        Empire emp = c.empire();
+        int empId = emp.id;
         int sysId = c.starSystem().id;
-        int rallyId = rallyDestSysId;
-        if (rallyId == StarSystem.NULL_ID) {
-        	StarSystem rallySys = player().sv.rallySystem(sysId);
-        	if (rallySys != null)
-        		rallyId = rallySys.id;
-        	else
-        		rallyId = sysId; // Should never happen
-        }
+        if (!(emp.sv.hasRallyPoint(sysId) && emp.alliedWith(emp.sv.empId(sysId))))
+        	return;
+        StarSystem rallySys = emp.sv.rallySystem(sysId);
+        int rallyId = rallySys == null? sysId : rallySys.id;
 
         if (rallyFleetCopy == null) // no pass by => standard Method
         	galaxy().ships.rallyOrbitingShips(empId, sysId, rallyDesignId, rallyCount, rallyId);
@@ -202,7 +199,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
         stargateCompleted = false;
         rallyCount = 0;
         rallyDesignId = 0;
-        rallyDestSysId = StarSystem.NULL_ID;
+        //rallyDestSysId = StarSystem.NULL_ID;
         maxAllowedShipBCProd = -1;
         // if we switched designs, send previous ship BC to shipyard reserve
         if (design != prevDesign) {
@@ -294,7 +291,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
         if ((emp.sv.hasRallyPoint(sysId)) && (emp.alliedWith(emp.sv.empId(sysId)))) {
             rallyCount = count;
             rallyDesignId = designId;
-            rallyDestSysId = id(emp.sv.rallySystem(sysId));
+            int rallyDestSysId = id(emp.sv.rallySystem(sysId));
             // Freshly built rallying may not want to fight
             if (empire().isPlayerControlled() && !options().rallyBuiltCombat()) {
             	galaxy().ships.rallyOrbitingShips(emp.id, sysId, rallyDesignId, rallyCount, rallyDestSysId);
