@@ -13,7 +13,7 @@ final class VisualOptions extends AbstractOptionsSubUI {
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(AllSubUI.getHandle(GAME_MENU_PREF_UI_KEY).getUiMajor(false));
-		map.add(AllSubUI.getHandle(SETUP_MENU_PREF_UI_KEY).getUiMajor(false));
+		map.add(AllSubUI.getHandle(SETTING_MENU_PREF_UI_KEY).getUiMajor(false));
 		map.add(AllSubUI.getHandle(ZOOM_OPTIONS_UI_KEY).getUiMajor(false));
 		return map;
 	}

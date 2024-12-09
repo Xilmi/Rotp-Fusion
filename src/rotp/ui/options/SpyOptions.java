@@ -14,7 +14,9 @@ final class SpyOptions extends AbstractOptionsSubUI {
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
 				allowTechStealing,
-				maxTechsCaptured,
+				maxTechsCaptured
+				)));
+		map.add(new SafeListParam(Arrays.asList(
 				maxSecurityPct,
 				spyOverSpend
 				)));

@@ -6,8 +6,8 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class SetupMenuPreferences extends AbstractOptionsSubUI {
-	static final String OPTION_ID = SETUP_MENU_PREF_UI_KEY;
+final class SettingMenuPreferences extends AbstractOptionsSubUI {
+	static final String OPTION_ID = SETTING_MENU_PREF_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
 	@Override public boolean isCfgFile()		{ return true; }

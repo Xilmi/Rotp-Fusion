@@ -1776,11 +1776,14 @@ public interface Base {
 			}
 		}
 	}
-    default void debugReloadLabels() {
+    default void debugReloadLabels(String langDir) {
 		if (!Rotp.isIDE()) {
 			// BR: Intended to only To be used from IDE
 			Toolkit.getDefaultToolkit().beep();
-			LanguageManager.current().reloadLanguage();
+			if (langDir == null || langDir.isEmpty())
+				LanguageManager.current().reloadLanguage();
+			else
+				LanguageManager.selectLanguage(langDir);
 			return;
 		}
 		Toolkit.getDefaultToolkit().beep();
@@ -1788,10 +1791,14 @@ public interface Base {
 		copyLabels("rotp/lang/en/techs.txt");
 		copyLabels("rotp/lang/fr/labels.txt");
 		copyLabels("rotp/lang/fr/techs.txt");
-		LanguageManager.current().reloadLanguage();
+		if (langDir == null || langDir.isEmpty())
+			LanguageManager.current().reloadLanguage();
+		else
+			LanguageManager.selectLanguage(langDir);
+		return;
     }
     default void debugReloadLabels(Component component) {
-    	debugReloadLabels();
+    	debugReloadLabels("");
     	component.repaint();
     }
     class Rect extends Rectangle {

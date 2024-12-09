@@ -124,7 +124,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
     @Override
     public void lowerMaintenance()       { hasStargate = false; }
     @Override
-    public void assessTurn()             { 
+    public void assessTurn()             {
         if (rallyCount == 0 && rallyFleetCopy == null)
             return;
         Colony c = colony();
@@ -201,6 +201,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
         rallyDesignId = 0;
         //rallyDestSysId = StarSystem.NULL_ID;
         maxAllowedShipBCProd = -1;
+        clearFleetsCopy();
         // if we switched designs, send previous ship BC to shipyard reserve
         if (design != prevDesign) {
             if (prevDesign instanceof DesignStargate)

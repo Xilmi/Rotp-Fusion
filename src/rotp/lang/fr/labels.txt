@@ -2355,6 +2355,24 @@ HEADERS_SHIELD_ANIMATIONS            | ~~~ ANIMATION DES BOUCLIERS ~~~
 HEADERS_ASTEROIDS_DESC               | Pour définir les emplacements et les propriétés des astéroïdes.
 HEADERS_ASTEROIDS                    | ~~~ ASTÉROÏDES ~~~
 
+HEADERS_DIRECT_DIFFICULTY_DESC       | Ajustement du niveau de jeu au moyen d'avantages ou de handicaps.
+HEADERS_DIRECT_DIFFICULTY            | ~~~ NIVEAU DE JEU ~~~
+HEADERS_GAME_VARIANS_DESC            | Ajustement de la difficulté en variant les règles du jeu.
+HEADERS_GAME_VARIANS                 | ~~~ VARIANTES DU JEU ~~~
+
+HEADERS_PLANET_RULES_DESC            | Réglementations planétaires.
+HEADERS_PLANET_RULES                 | ~~~ PLANÈTES ~~~
+HEADERS_SPACE_RULES_DESC             | Réglementations interstellaires.
+HEADERS_SPACE_RULES                  | ~~~ ESPACE ~~~
+
+HEADERS_RELATION_DIPLO_DESC          | Parfois, on se chicane entre voisins.
+HEADERS_RELATION_DIPLO               | ~~~ RELATIONS DIPLOMATIQUES ~~~
+HEADERS_TECH_DIPLO_DESC              | Les sciences et les technologies sont des affaires sérieuses.
+HEADERS_TECH_DIPLO                   | ~~~ RELATIONS SCIENTIFIQUES ~~~
+
+
+
+
 HEADERS_UNCLASSIFIED_DESC            | Il reste encore à trouver la bonne position !
 HEADERS_UNCLASSIFIED                 | ~~~ NON-CLASSIFIÉ ~~~
 HEADERS_SPACER_DESC                  |
@@ -2373,7 +2391,7 @@ SETTINGS_MOD_ADVANCED_SYSTEMS_OPTIONS_UI_HELP | Ouvre un sous-menu contenant les
 
 HEADERS_ARTIFACT_OPTIONS_HELP        | →HEADERS_ARTIFACT_OPTIONS_DESC←.<br>Le premier artéfact à être placé gagne ! (Antaran First). La probabilité par défaut est d’abord multipliée par le modificateur, puis le décalage est ajouté.
 HEADERS_ARTIFACT_OPTIONS_DESC        | Personnalisation des probabilités des artéfacts antariens et d’Orion.
-HEADERS_ARTIFACT_OPTIONS             | ~~~ ARTÉFACTs ~~~
+HEADERS_ARTIFACT_OPTIONS             | ~~~ ARTÉFACTS ~~~
 HEADERS_RICH_OPTIONS_HELP            | To customize Ultra-Poor, Poor, Rich, and Ultra-Rich Resources probabilities.<br>The first resource to be set win! (From Ultra-Poor to Ultra-Rich). The default probability is first multiplied by the modifier, then the offset is added.
 HEADERS_RICH_OPTIONS_DESC            | Personnalisation des probabilités des ressources ultra-pauvres, pauvres, riches et ultra-riches.
 HEADERS_RICH_OPTIONS                 | ~~~ RESSOURCES ~~~
@@ -2431,6 +2449,20 @@ HEADERS_ASTEROID_PROBABILITY         | ~~~ PROBABILITÉ DES ASTÉROÏDES ~~~
 HEADERS_ASTEROID_PROBABILITY_DESC    | Probabilité d'obtenir des astéroïdes et l'impact des ressources planétaires sur cette probabilité.
 HEADERS_ASTEROID_IMPACT              | ~~~ IMPACT AND PLANET LOCATION ~~~
 HEADERS_ASTEROID_IMPACT_DESC         | Localisation de la planète et effet des astéroïdes.
+
+HEADERS_TECH_PLANET                  | ~~~ TECHNOLOGIES PLANÉTAIRES ~~~
+HEADERS_TECH_PLANET_DESC             | Technologies planétaires requises ou interdites.
+HEADERS_TECH_SPACE                   | ~~~ TECHNOLOGIES SPATIALES ~~~
+HEADERS_TECH_SPACE_DESC              | Technologies spatiales requises ou interdites.
+HEADERS_TECH_COMBAT                  | ~~~ TECHNOLOGIES DE COMBAT ~~~
+HEADERS_TECH_COMBAT_DESC             | Technologies de combat requises ou interdites.
+
+HEADERS_PLANET_ENV                   | ~~~ ENVIRONNEMENT PLANÉTAIRE ~~~
+HEADERS_PLANET_ENV_DESC              | Quelques paramètres environnementaux.
+HEADERS_PLANET_RESOURCES             | ~~~ RESSOURCES PLANÉTAIRES ~~~
+HEADERS_PLANET_RESOURCES_DESC        | Quelques paramètres de ressources planétaires.
+HEADERS_EMPIRE_OTHER                 | ~~~ AUTRES PARAMÈTRES ~~~
+HEADERS_EMPIRE_OTHER_DESC            | Autres options de démarrage des Empires.
 
 
 SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | Permettre à une planète ultra-pauvre, pauvre, riche, ou ultra-riche d’avoir aussi des artéfacts.
@@ -3228,7 +3260,7 @@ SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Le joueur est assez intelligent pour 
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Tout le monde est capable de contrôler ses bombardements.
 
 SETTINGS_MOD_PRE_GAME_OPTIONS_TITLE      | Paramètres de configuration de la Galaxie
-SETTINGS_MOD_PRE_GAME_OPTIONS_UI         | Paramètres de configuration
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI         | Anciens Paramètres de configuration
 SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC    | Ouvre un sous-menu contenant des paramètres avancés de définissant la galaxie, ces paramètres ne sont utilisés qu’une seule fois, lors du démarrage ou du redémarrage d’un jeu.
 SETTINGS_MOD_PRE_GAME_OPTIONS_UI_HELP    | →SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC←
 
@@ -3788,10 +3820,12 @@ HEADERS_IRONMAN_FORMER_DESC              | Ancienne option pour la compatibilit�
 HEADERS_IRONMAN_FORMER                   | ~~~ OPTIONS PRÉCEDENTES ~~~
 HEADERS_IRONMAN_CUSTOM_DESC              | Permettre un Ironman complet ou partiel.
 HEADERS_IRONMAN_CUSTOM                   | ~~~ OPTIONS INDIVIDUELLES ~~~
+HEADERS_IRONMAN_RANDOM_DESC              | Le chargement d'un jeu modifie t-il les paramètres aléatoires ?
+HEADERS_IRONMAN_RANDOM                   | ~~~ PARAMÈTRES ALEATOIRES ~~~
 
 SETTINGS_MOD_IRONMAN_MODE_HELP           | Pensé pour les défis entre joueurs sur la même galaxie de départ.<br>Supprimez l’accès aux options du jeu pour éviter la triche facile.<br>L’activation des "Événements aléatoires fixes" est fortement recommandée.<br>D’autres options seront ajoutées.
-SETTINGS_MOD_IRONMAN_MODE_DESC           | Pensé pour les défis entre joueurs de la même galaxie de départ, supprimez l’accès aux options du jeu.
-SETTINGS_MOD_IRONMAN_MODE                | Options Masquées: %1
+SETTINGS_MOD_IRONMAN_MODE_DESC           | Pensé pour les défis entre joueurs de la même galaxie de départ, supprimez l’accès aux règles du jeu.
+SETTINGS_MOD_IRONMAN_MODE                | Règles Masquées: %1
 SETTINGS_MOD_IRONMAN_OFF                 | Accessibles
 SETTINGS_MOD_IRONMAN_OFF_HELP            | Les règles seront accessibles durant le jeu.
 SETTINGS_MOD_IRONMAN_NO_OPTIONS          | Masquées
@@ -3912,13 +3946,26 @@ SETTINGS_MOD_GAME_MENU_PREF_TITLE        | Configuration des Interfaces de Jeu.
 SETTINGS_MOD_GAME_MENU_PREF_UI           | Préférences de Jeu
 SETTINGS_MOD_GAME_MENU_PREF_UI_DESC      | Ouvre un nouveau panneau de contrôle pour configurer Game UI Préférences.
 
-SETTINGS_MOD_SETUP_MENU_PREF_TITLE       | Configuration des Interfaces des Préférences.
-SETTINGS_MOD_SETUP_MENU_PREF_UI          | Préférences utilisateur
-SETTINGS_MOD_SETUP_MENU_PREF_UI_DESC     | Ouvre un nouveau panneau de contrôle pour configurer les préférences de l’interface utilisateur.
+SETTINGS_MOD_SETTING_MENU_PREF_TITLE     | Configuration des Interfaces des Préférences.
+SETTINGS_MOD_SETTING_MENU_PREF_UI        | Préférences utilisateur
+SETTINGS_MOD_SETTING_MENU_PREF_UI_DESC   | Ouvre un nouveau panneau de contrôle pour configurer les préférences de l’interface utilisateur.
 
 SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Configuration des Options de zoom.
 SETTINGS_MOD_ZOOM_OPTIONS_UI             | Options de zoom
 SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Ouvre un nouveau panneau de contrôle pour configurer les Options de zoom.
+
+SETTINGS_MOD_SETUP_PARAMETERS_TITLE      | Configuration des Paramètres de la Galaxie.
+SETTINGS_MOD_SETUP_PARAMETERS_UI         | Paramètres de la Galaxie
+SETTINGS_MOD_SETUP_PARAMETERS_UI_DESC    | Ouvre un nouveau panneau de contrôle pour configurer les Paramètres de la Galaxie.
+
+SETTINGS_MOD_SETUP_TECH_OPTIONS_TITLE    | Technologies obligatoires ou interdites.
+SETTINGS_MOD_SETUP_TECH_OPTIONS_UI       | Arbre technologique
+SETTINGS_MOD_SETUP_TECH_OPTIONS_UI_DESC  | Options permettant d'exiger ou d'interdire l'ajout de certaines technologies à l'arbre technologique.
+SETTINGS_MOD_SETUP_TECH_OPTIONS_UI_HELP  | Certaines technologies peuvent être considérées comme essentielles, et d'autres ennuyeuses, voici un moyen de les personnaliser, en les forçant à être disponibles pour la recherche, ou en les empêchant !
+
+SETTINGS_MOD_SETUP_HOMEWORLD_TITLE       | Configuration des Mondes d'Origine.
+SETTINGS_MOD_SETUP_HOMEWORLD_UI          | Mondes d'Origine
+SETTINGS_MOD_SETUP_HOMEWORLD_UI_DESC     | Paramètres utilisés lors de la génération des mondes d'origine des empires.
 
 
 // Tech UI labels

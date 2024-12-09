@@ -6,52 +6,56 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class IronmanOptions extends AbstractOptionsSubUI {
-	static final String OPTION_ID = IRONMAN_OPTIONS_UI_KEY;
+final class SetupTechOptions extends AbstractOptionsSubUI {
+	static final String OPTION_ID = SETUP_TECH_OPTIONS_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
-	@Override public boolean isCfgFile()		{ return true; }
 
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("IRONMAN_MAIN"),
-				ironmanMode
+				new ParamTitle("TECH_PLANET"),
+				techIrradiated,
+				techCloning,
+				techAtmospheric,
+				techGaia,
+				techIndustry2
 				)));
 		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("IRONMAN_CUSTOM"),
-				ironmanNoLoad,
-				ironmanLoadDelay,
-				allowSpeciesDetails
+				new ParamTitle("TECH_SPACE"),
+				techStargate,
+				techHyperspace,
+				techThorium
 				)));
 		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("IRONMAN_RANDOM"),
-				fixedEventsMode,
-				persistentArtifact,
-				researchMoo1,
-				persistentRNG
+				new ParamTitle("TECH_COMBAT"),
+				techCloaking,
+				techTransport
 				)));
 		return map;
 	};
 	@Override public SafeListParam minorList()	{
 		SafeListParam minorList = new SafeListParam(uiMinorKey(),
 				Arrays.asList(
-						ironmanMode
+						techIrradiated,
+						techAtmospheric,
+						techStargate
 						));
 		return minorList;
 	}
 	@Override public SafeListParam majorList()	{
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
-						ironmanMode,
-						ironmanNoLoad,
-						ironmanLoadDelay,
-						allowSpeciesDetails,
-						LINE_SPACER_25,
-						fixedEventsMode,
-						persistentArtifact,
-						researchMoo1,
-						persistentRNG
+						techIrradiated,
+						techCloning,
+						techAtmospheric,
+						techGaia,
+						techIndustry2,
+						techStargate,
+						techHyperspace,
+						techThorium,
+						techCloaking,
+						techTransport
 						));
 		return majorList;
 	}

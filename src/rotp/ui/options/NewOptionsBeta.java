@@ -34,6 +34,7 @@ final class NewOptionsBeta extends AbstractOptionsSubUI {
 				Arrays.asList(
 						debugAutoRun,
 						rallyCombat,
+						rallyCombatLoss,
 						optionPanelAlignment
 						));
 		return majorList;

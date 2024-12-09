@@ -991,7 +991,7 @@ public class ShipFleet extends FleetBase {
     public int removeShips(int i, int count)  { // For unregistered fleet only
     	count = max(0, count);
     	count = min(count, num[i]);
-    	num[i] += count;
+    	num[i] -= count;
     	return count;
     }
 /*    public int removeScrappedShips(int designId) {

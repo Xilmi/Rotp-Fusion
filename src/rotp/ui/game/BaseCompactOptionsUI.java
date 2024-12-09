@@ -261,7 +261,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	// ========== Other Methods ==========
 	//
     private boolean forceUpdate()		{ return forceUpdate; }
-    private void forceUpdate(boolean b)	{
+    @Override protected void forceUpdate(boolean b)	{
     	forceUpdate = b;
     	if (forceUpdate)
     		clearIcons();

@@ -15,9 +15,11 @@ final class IronmanLittle extends AbstractOptionsSubUI {
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
 				persistentArtifact,
-				ironmanNoLoad,
-				ironmanLoadDelay,
 				allowSpeciesDetails
+				)));
+		map.add(new SafeListParam(Arrays.asList(
+				ironmanNoLoad,
+				ironmanLoadDelay
 				)));
 		return map;
 	}

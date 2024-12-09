@@ -183,8 +183,9 @@ public abstract class BaseModPanel extends BasePanel
 		guidePopUp.init();
 	}
 	protected abstract String GUI_ID();
-	protected SafeListParam localOptions() { return activeList; };
-	private void localInit(Graphics2D g) {
+	protected void forceUpdate(boolean b)	{}
+	protected SafeListParam localOptions()	{ return activeList; };
+	private void localInit(Graphics2D g)	{
 		Font prevFont = g.getFont();
 		
 		g.setFont(bigButtonFont());
@@ -719,15 +720,27 @@ public abstract class BaseModPanel extends BasePanel
 					return;
 				showHelp(); // Panel Help
 				return;
+			case KeyEvent.VK_E:
+				if (e.isAltDown() && e.isControlDown()) {
+					debugReloadLabels("en");
+					forceUpdate(true);
+				}
+				return;
 			case KeyEvent.VK_G:
 				doGuideBoxAction();
 				return;
 			case KeyEvent.VK_L:
-				if (e.isAltDown())
-					debugReloadLabels();
+				if (e.isAltDown()) {
+					debugReloadLabels("");
+					forceUpdate(true);
+				}
 				return;
 			case KeyEvent.VK_F:
-				if (e.isAltDown())
+				if (e.isAltDown() && e.isControlDown()) {
+					debugReloadLabels("fr");
+					forceUpdate(true);
+				}
+				else if (e.isAltDown())
 					IMainOptions.defaultSettings.set(FUSION_DEFAULT);
 				return;
 			case KeyEvent.VK_M:

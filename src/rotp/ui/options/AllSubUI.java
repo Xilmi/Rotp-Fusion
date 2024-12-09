@@ -45,7 +45,9 @@ public final class AllSubUI {
 		put(new IronmanLittle());
 		put(new NewOptionsBeta());
 		put(new NewRulesBeta());
-		put(new SetupMenuPreferences());
+		put(new SettingMenuPreferences());
+		put(new SetupHomeworldOptions());
+		put(new SetupTechOptions());
 		put(new ShieldAnimations());
 		put(new ShipRules());
 		put(new SpyOptions());

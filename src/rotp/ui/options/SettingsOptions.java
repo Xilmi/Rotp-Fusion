@@ -39,7 +39,7 @@ public final class SettingsOptions extends AbstractOptionsSubUI {
 		list.add(HEADER_SPACER_50);
 		list.add(AllSubUI.getHandle(GAME_MENU_PREF_UI_KEY).getUI());
 		list.add(HEADER_SPACER_50);
-		list.addAll(AllSubUI.getHandle(SETUP_MENU_PREF_UI_KEY).getUiMinor(false));
+		list.addAll(AllSubUI.getHandle(SETTING_MENU_PREF_UI_KEY).getUiMinor(false));
 		list.add(HEADER_SPACER_50);
 		list.addAll(AllSubUI.getHandle(ZOOM_OPTIONS_UI_KEY).getUiMinor(false));
 		if (!Rotp.noOptions) {

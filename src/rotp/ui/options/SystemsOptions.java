@@ -51,4 +51,16 @@ final class SystemsOptions extends AbstractOptionsSubUI {
 				)));
 		return map;
 	}
+	@Override public SafeListParam majorList()	{
+		SafeListParam majorList = new SafeListParam(uiMajorKey(),
+				Arrays.asList(
+						planetQuality,
+						minDistArtifactPlanet,
+						LINE_SPACER_25,
+						guardianMonsters,
+						guardianMonstersLevel,
+						guardianMonstersProbability
+						));
+		return majorList;
+	}
 }

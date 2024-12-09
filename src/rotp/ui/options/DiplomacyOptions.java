@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.ui.util.ParamTitle;
 
 final class DiplomacyOptions extends AbstractOptionsSubUI {
 	static final String OPTION_ID = DIPLOMACY_OPTIONS_UI_KEY;
@@ -14,10 +15,14 @@ final class DiplomacyOptions extends AbstractOptionsSubUI {
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(AllSubUI.getHandle(COUNCIL_OPTIONS_UI_KEY).getUiMajor(false));
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("RELATION_DIPLO"),
 				aiHostility,
-				techTrading,
-				allowTechStealing,
 				specialPeaceTreaty
+				)));
+		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("TECH_DIPLO"),
+				techTrading,
+				allowTechStealing
 				)));
 		return map;
 	}

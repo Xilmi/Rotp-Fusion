@@ -24,7 +24,7 @@ public class CompactSetupUI extends BaseCompactOptionsUI {
 	
 	public CompactSetupUI() { super(guiTitleID, GUI_ID); }
 	@Override protected SafeListPanel getList() {
-//		return rotp.model.game.IPreGameOptions.preGameOptionsMap();
-		return rotp.ui.options.PreGameOptions.preGameOptionsMap();
+//		return rotp.ui.options.PreGameOptions.preGameOptionsMap();
+		return rotp.ui.options.SetupParameters.setupParametersMap();
 	}
 }

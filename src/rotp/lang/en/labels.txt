@@ -2355,6 +2355,24 @@ HEADERS_SHIELD_ANIMATIONS            | ~~~ SHIELD ANIMATIONS ~~~
 HEADERS_ASTEROIDS_DESC               | To set Asteroids placements and properties.
 HEADERS_ASTEROIDS                    | ~~~ ASTEROIDS ~~~
 
+HEADERS_DIRECT_DIFFICULTY_DESC       | Adjust the level of play using advantages or handicaps.
+HEADERS_DIRECT_DIFFICULTY            | ~~~ GAME LEVEL ~~~
+HEADERS_GAME_VARIANS_DESC            | Adjust the difficulty by varying the rules of the game.
+HEADERS_GAME_VARIANS                 | ~~~ GAME VARIANS ~~~
+
+HEADERS_PLANET_RULES_DESC            | Planetary regulations.
+HEADERS_PLANET_RULES                 | ~~~ RULES OF THE PLANETS ~~~
+HEADERS_SPACE_RULES_DESC             | Interstellar regulations.
+HEADERS_SPACE_RULES                  | ~~~ RULES OF THE SPACE ~~~
+
+HEADERS_RELATION_DIPLO_DESC          | Sometimes we argue among neighbors.
+HEADERS_RELATION_DIPLO               | ~~~ DIPLOMATIC RELATIONS ~~~
+HEADERS_TECH_DIPLO_DESC              | Science and technology are serious business.
+HEADERS_TECH_DIPLO                   | ~~~ TECH RELATIONS ~~~
+
+
+
+
 HEADERS_UNCLASSIFIED_DESC            | The right position has still to be found!
 HEADERS_UNCLASSIFIED                 | ~~~ UNCLASSIFIED MOD ~~~
 HEADERS_SPACER_DESC                  |
@@ -2431,6 +2449,20 @@ HEADERS_ASTEROID_PROBABILITY         | ~~~ ASTEROID PROBABILITY ~~~
 HEADERS_ASTEROID_PROBABILITY_DESC    | Probability of obtaining asteroids and the impact of planetary resources on this probability.
 HEADERS_ASTEROID_IMPACT              | ~~~ IMPACT AND PLANET LOCATION ~~~
 HEADERS_ASTEROID_IMPACT_DESC         | Location of the planet and effect of asteroids.
+
+HEADERS_TECH_PLANET                  | ~~~ TECH PLANET ~~~
+HEADERS_TECH_PLANET_DESC             | Planetary technologies required or prohibited.
+HEADERS_TECH_SPACE                   | ~~~ TECH SPACE ~~~
+HEADERS_TECH_SPACE_DESC              | Space technologies required or prohibited.
+HEADERS_TECH_COMBAT                  | ~~~ TECH COMBAT ~~~
+HEADERS_TECH_COMBAT_DESC             | Required or prohibited combat technologies.
+
+HEADERS_PLANET_ENV                   | ~~~ PLANETARY ENVIRONMENT ~~~
+HEADERS_PLANET_ENV_DESC              | Some Homeworld Environmental Settings.
+HEADERS_PLANET_RESOURCES             | ~~~ PLANETARY RESOURCES ~~~
+HEADERS_PLANET_RESOURCES_DESC        | Some Homeworld Resources Settings.
+HEADERS_EMPIRE_OTHER                 | ~~~ EMPIRE OTHER ~~~
+HEADERS_EMPIRE_OTHER_DESC            | Other options for starting Empires.
 
 
 SETTINGS_MOD_RICH_POOR_ARTIFACT_DESC | To allow a planet Ultra-poor, Poor, Rich ,or Ultra-rich to also have artifacts.
@@ -3228,7 +3260,7 @@ SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Player is smart enough to control its
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Everyone is able to control their bombing.
 
 SETTINGS_MOD_PRE_GAME_OPTIONS_TITLE      | Galaxy Set Up Parameters
-SETTINGS_MOD_PRE_GAME_OPTIONS_UI         | Setup Parameters
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI         | Former Setup Parameters
 SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC    | Opens a submenu containing advanced galaxy building settings, these parameters are only used once, when starting or restarting a game.
 SETTINGS_MOD_PRE_GAME_OPTIONS_UI_HELP    | →SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC←
 
@@ -3788,10 +3820,12 @@ HEADERS_IRONMAN_FORMER_DESC              | Former option for backward compatibil
 HEADERS_IRONMAN_FORMER                   | ~~~ FORMER OPTION ~~~
 HEADERS_IRONMAN_CUSTOM_DESC              | To allow full or partial Ironman.
 HEADERS_IRONMAN_CUSTOM                   | ~~~ INDIVIDUAL OPTIONS ~~~
+HEADERS_IRONMAN_RANDOM_DESC              | Does loading a game change the random settings?
+HEADERS_IRONMAN_RANDOM                   | ~~~ RANDOMIZATION OPTIONS ~~~
 
 SETTINGS_MOD_IRONMAN_MODE_HELP           | Thought for challenges between players on the same starting galaxy.<br>Remove the access to in-game options to avoid easy cheating.<br>The activation of "Fixed random events" is strongly recommended.<br>More options will be added.
-SETTINGS_MOD_IRONMAN_MODE_DESC           | Thought for challenges between players on the same starting galaxy. Remove the access to in-game options.
-SETTINGS_MOD_IRONMAN_MODE                | Ironman Hide Options: %1
+SETTINGS_MOD_IRONMAN_MODE_DESC           | Thought for challenges between players on the same starting galaxy. Remove the access to game rules.
+SETTINGS_MOD_IRONMAN_MODE                | Ironman Hide Rules: %1
 SETTINGS_MOD_IRONMAN_OFF                 | Off
 SETTINGS_MOD_IRONMAN_OFF_HELP            | Disabled
 SETTINGS_MOD_IRONMAN_NO_OPTIONS          | On
@@ -3912,13 +3946,26 @@ SETTINGS_MOD_GAME_MENU_PREF_TITLE        | Game UI Preferences Configuration.
 SETTINGS_MOD_GAME_MENU_PREF_UI           | Game UI Preferences
 SETTINGS_MOD_GAME_MENU_PREF_UI_DESC      | Opens a new control panel to configure Game UI Preferences.
 
-SETTINGS_MOD_SETUP_MENU_PREF_TITLE       | Setup UI Preferences Configuration.
-SETTINGS_MOD_SETUP_MENU_PREF_UI          | Setup UI Preferences
-SETTINGS_MOD_SETUP_MENU_PREF_UI_DESC     | Opens a new control panel to configure Setup UI Preferences.
+SETTINGS_MOD_SETTING_MENU_PREF_TITLE     | Setup UI Preferences Configuration.
+SETTINGS_MOD_SETTING_MENU_PREF_UI        | Setup UI Preferences
+SETTINGS_MOD_SETTING_MENU_PREF_UI_DESC   | Opens a new control panel to configure Setup UI Preferences.
 
 SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Zoom Options Configuration.
 SETTINGS_MOD_ZOOM_OPTIONS_UI             | Zoom Options
 SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Opens a new control panel to configure Zoom Options.
+
+SETTINGS_MOD_SETUP_PARAMETERS_TITLE      | Galaxy Setup Configuration.
+SETTINGS_MOD_SETUP_PARAMETERS_UI         | Galaxy Setup
+SETTINGS_MOD_SETUP_PARAMETERS_UI_DESC    | Opens a new control panel to configure Galaxy setup.
+
+SETTINGS_MOD_SETUP_TECH_OPTIONS_TITLE    | Required or prohibited Technologies.
+SETTINGS_MOD_SETUP_TECH_OPTIONS_UI       | Technology tree
+SETTINGS_MOD_SETUP_TECH_OPTIONS_UI_DESC  | Options to require or prohibit adding technologies to the tech tree.
+SETTINGS_MOD_SETUP_TECH_OPTIONS_UI_HELP  | Some technologies can be considered essential, and others annoying, here is a way to customize them, by forcing them to be available for search, or preventing them!
+
+SETTINGS_MOD_SETUP_HOMEWORLD_TITLE       | Homeworlds Configuration.
+SETTINGS_MOD_SETUP_HOMEWORLD_UI          | Homeworlds Options
+SETTINGS_MOD_SETUP_HOMEWORLD_UI_DESC     | Settings used when generating empires' home worlds.
 
 
 // Tech UI labels
