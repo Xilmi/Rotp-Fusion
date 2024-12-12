@@ -766,7 +766,7 @@ MAIN_HELP_MOD                     | Mod Help - "O" to bring the Game options Men
 MAIN_HELP_MOD_1A                  | To enable or disable the Governor for this star system.
 MAIN_HELP_MOD_1B                  | To access Governor's Options Menu.
 MAIN_HELP_MOD_1F                  | Turn alerts may appear there: Right click on them to center the map on the system. Left click to show the next alert.
-//MAIN_HELP_MOD_1I                  | To access "Options" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
+//MAIN_HELP_MOD_1I                  | To access "→SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS←" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
 MAIN_HELP_MOD_1I                  | →SETTINGS_MOD_SETTINGS_OPTIONS_UI_DESC←
 MAIN_HELP_MOD_1J                  | →SETTINGS_MOD_RULES_OPTIONS_UI_DESC←
 MAIN_HELP_MOD_1K                  | Colony Ecology Report.<br>No key modifier: Packages cleaning.<br>Shift: Minimal group cleaning.<br>Ctrl: Clean everything
@@ -1628,7 +1628,7 @@ SETUP_DIFFICULTY_NORMAL_HELP      | Normal (100%)
 SETUP_DIFFICULTY_HARD_HELP        | Hard (110%)
 SETUP_DIFFICULTY_HARDER_HELP      | Harder (125%)
 SETUP_DIFFICULTY_HARDEST_HELP     | Hardest (145%)
-SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found at the top Left of "Options" panel
+SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found at the top Left of "→SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS←" panel
 
 SETUP_RESEARCH_RATE_NORMAL_HELP   | Research costs factors = 1.
 SETUP_RESEARCH_RATE_NORMAL        | Normal
@@ -1798,7 +1798,7 @@ SETUP_BUTTON_SETTINGS             | Advanced Options
 
 SETUP_BUTTON_TUNE_GALAXY             | Tune Galaxy
 SETUP_BUTTON_MERGED_STATIC_SETTINGS  | Setup
-SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS | Options
+SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS | Rules
 // BR: Restart swap empire
 SETUP_SELECT_EMPIRE_TITLE         | Select Player Empire
 SETUP_SELECT_EMPIRE_SELECT_BUTTON | Select
@@ -2369,6 +2369,26 @@ HEADERS_RELATION_DIPLO_DESC          | Sometimes we argue among neighbors.
 HEADERS_RELATION_DIPLO               | ~~~ DIPLOMATIC RELATIONS ~~~
 HEADERS_TECH_DIPLO_DESC              | Science and technology are serious business.
 HEADERS_TECH_DIPLO                   | ~~~ TECH RELATIONS ~~~
+
+HEADERS_GALAXY_CONTENT_DESC          | Parameters related to the characteristics of galaxies.
+HEADERS_GALAXY_CONTENT               | ~~~ GALAXY CONTENT ~~~
+HEADERS_GALAXY_SIZE_DESC             | Parameters related to the size of galaxies.
+HEADERS_GALAXY_SIZE                  | ~~~ GALAXY SIZE ~~~
+
+HEADERS_RESTART_OPTIONS_DESC         | Restart options
+HEADERS_RESTART_OPTIONS              | ~~~ RESTART OPTIONS ~~~
+HEADERS_RESTART_AI_DESC              | Keep or change AIs.
+HEADERS_RESTART_AI                   | ~~~ RESTART AI ~~~
+
+HEADERS_NEBULA_EFFECT_DESC           | Number, position and effects of nebulae.
+HEADERS_NEBULA_EFFECT                | ~~~ NEBULAE IMPACTS ~~~
+HEADERS_NEBULA_TYPE_DESC             | Characteristics of nebulae.
+HEADERS_NEBULA_TYPE                  | ~~~ NEBULAE TYPES ~~~
+
+HEADERS_RANDOM_OPP_DEF_DESC          | Limits to use when generating random species.
+HEADERS_RANDOM_OPP_DEF               | ~~~ DEFINITION ~~~
+HEADERS_RANDOM_OPP_DIST_DESC         | Characteristics of the statistical distribution of random species parameters.
+HEADERS_RANDOM_OPP_DIST              | ~~~ DISTRIBUTION ~~~
 
 
 
@@ -3064,7 +3084,7 @@ SETTINGS_MOD_RESEARCH_MOO1_DESC          | YES: Reload won't change research pro
 SETTINGS_MOD_RESEARCH_MOO1               | Research Moo1: %1
 
 SETTINGS_MOD_PERSISTENT_RNG_DESC         | To make the base Random Generator Persistent. Reload won't change game randomness.
-SETTINGS_MOD_PERSISTENT_RNG              | persistent RNG: %1
+SETTINGS_MOD_PERSISTENT_RNG              | Persistent RNG: %1
 
 SETTINGS_MOD_ALLOW_SPECIES_DETAILS_DESC  | In the Empire Diplomacy panel, allows or prohibits calling for more detailed species information.
 SETTINGS_MOD_ALLOW_SPECIES_DETAILS       | Allow Species Details: %1
@@ -3966,6 +3986,23 @@ SETTINGS_MOD_SETUP_TECH_OPTIONS_UI_HELP  | Some technologies can be considered e
 SETTINGS_MOD_SETUP_HOMEWORLD_TITLE       | Homeworlds Configuration.
 SETTINGS_MOD_SETUP_HOMEWORLD_UI          | Homeworlds Options
 SETTINGS_MOD_SETUP_HOMEWORLD_UI_DESC     | Settings used when generating empires' home worlds.
+
+SETTINGS_MOD_SETUP_GALAXY_TITLE          | Star Systems Configuration.
+SETTINGS_MOD_SETUP_GALAXY_UI             | Star Systems
+SETTINGS_MOD_SETUP_GALAXY_UI_DESC        | Basic configuration of star systems.
+
+SETTINGS_MOD_SETUP_NEBULA_TITLE          | Nebulae Configuration.
+SETTINGS_MOD_SETUP_NEBULA_UI             | Nebulae Options
+SETTINGS_MOD_SETUP_NEBULA_UI_DESC        | Quantities, shape and impact of nebulae.
+
+SETTINGS_MOD_SETUP_RANDOM_OPP_TITLE      | Opponents Random Species Configuration.
+SETTINGS_MOD_SETUP_RANDOM_OPP_UI         | Random Species
+SETTINGS_MOD_SETUP_RANDOM_OPP_UI_DESC    | Random opponents species statistics configuration.
+
+SETTINGS_MOD_SETUP_RESTART_TITLE         | Restart Configuration.
+SETTINGS_MOD_SETUP_RESTART_UI            | Restart Options
+SETTINGS_MOD_SETUP_RESTART_UI_DESC       | Options controlling the way a game will be restarted. Only read when restarting a game.
+SETTINGS_MOD_SETUP_RESTART_UI_HELP       | Hidden behind the&nbsp <b>→SETUP_BUTTON_START←</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>→SETUP_BUTTON_RESTART←</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swap it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
 
 
 // Tech UI labels
@@ -5133,7 +5170,7 @@ SETUP_START_DESC                  | Save options and Start the Game.<br> "Ctrl" 
 SETUP_BUTTON_START_DESC           | Save the current options and Start the Game.
 SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swap it with a previous opponent.
 SETUP_GALAXY_BACK_DESC            | Cancel options and go back to the Player options menu.
-SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "Setup" contains parameters being set once when starting or restarting a game.<br> "Options" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Press "B" or go to "Setup" and set "Show Compact Options" to "No".
+SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "→SETUP_BUTTON_MERGED_STATIC_SETTINGS←" contains parameters being set once when starting or restarting a game.<br> "→SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS←" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Press "B" or go to "Setup" and set "Show Compact Options" to "No".
 SETUP_GALAXY_VANILLA_OPTIONS_HELP | This button open Advanced options configuration Menu.<br> Press "B" to toggle the submenus call buttons.
 SETUP_TUNE_GALAXY_OPTIONS_HELP    | This button opens a hover control panel to fine-tune galaxy settings. <br>The galaxy map preview will update live.
 SETUP_GALAXY_ABILITIES_DESC       | Default abilities for alien Empires:<br> 'Original Species' = Original abilities of the selected Species (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the original species name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Species = specific Original Species; or any other customized species you have built.

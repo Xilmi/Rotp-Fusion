@@ -38,6 +38,7 @@ public class HelpUI extends BasePanel implements MouseListener {
     private static final int FONT_SIZE		= 16;
     private static final int MIN_FONT_SIZE	= 10;
     private static final BufferedImage fakeGraphic = new BufferedImage(16, 16, TYPE_INT_ARGB);
+    private static int margin = s30;
     private final Color blueBackC  = new Color(78,101,155);
     private final Color brownBackC = new Color(240,240,240);
     private final Color brownTextC = new Color(45,14,5);
@@ -78,6 +79,17 @@ public class HelpUI extends BasePanel implements MouseListener {
     }
     public HelpSpec addBlueHelpText(int x, int y, int w, int num, String text, int x1, int y1, int x2, int y2, int x3, int y3) {
         HelpSpec sp = new HelpSpec();
+        sp.text = text;
+        sp.x = x;
+        sp.w = w;
+        sp.x1 = x1;
+        sp.y1 = y1;
+        sp.x2 = x2;
+        sp.y2 = y2;
+        sp.x3 = x3;
+        sp.y3 = y3;
+        sp.backC = blueBackC;
+
         if (num==0) {
         	sp.lines = getLineNumber(text, w);
         	sp.hMax  = sp.height();
@@ -85,11 +97,13 @@ public class HelpUI extends BasePanel implements MouseListener {
         else if (num<0) {
         	sp.lines = -num;
         	sp.hMax  = sp.height();
+        	sp.init();
         	//sp.lines = getLineNumber(text, w, sp.hMax);
         }
         else {
         	sp.lines = num;
         	sp.hMax  = sp.height();
+        	sp.init();
         }
         sp.hMax = sp.height();
  
@@ -97,17 +111,7 @@ public class HelpUI extends BasePanel implements MouseListener {
         	sp.y = -y - sp.height();
         else
         	sp.y = y;
-        sp.x = x;
-        sp.w = w;
         	
-        sp.x1 = x1;
-        sp.y1 = y1;
-        sp.x2 = x2;
-        sp.y2 = y2;
-        sp.x3 = x3;
-        sp.y3 = y3;
-        sp.text = text;
-        sp.backC = blueBackC;
         specs.add(sp);
         return sp;
     }
@@ -118,7 +122,7 @@ public class HelpUI extends BasePanel implements MouseListener {
     	}
         int fontSize = FONT_SIZE;
         g.setFont(narrowFont(fontSize));
-        List<String> lines = wrappedLines(g, str, maxWidth - s30);
+        List<String> lines = wrappedLines(g, str, maxWidth - margin);
         g.dispose();
         return lines.size();
     }
@@ -136,14 +140,15 @@ public class HelpUI extends BasePanel implements MouseListener {
             int maxHeight = spec.hMax();
 
             // Text formating
-            int fontSize = FONT_SIZE;
+//            int fontSize = FONT_SIZE;
+            int fontSize = spec.fontSize;
             g.setFont(narrowFont(fontSize));
-            List<String> lines = wrappedLines(g, spec.text, spec.w - s30);
+            List<String> lines = wrappedLines(g, spec.text, spec.w - margin);
             int specH = height(lines.size(), fontSize);
             while ((specH > maxHeight) && (fontSize > MIN_FONT_SIZE)) {
                 fontSize--;
                 g.setFont(narrowFont(fontSize));
-                lines = wrappedLines(g, spec.text, spec.w - s30);
+                lines = wrappedLines(g, spec.text, spec.w - margin);
                 specH = height(lines.size(), fontSize);
             }
             // draw background box
@@ -270,6 +275,24 @@ public class HelpUI extends BasePanel implements MouseListener {
             y2 = y2a;
             x3 = x3a;
             y3 = y3a;
+        }
+        private void init()	{
+        	Graphics g = getGraphics();
+        	if (g==null) {// BR: because this may happen !?
+        		g = (Graphics2D) fakeGraphic.getGraphics();
+        	}
+            fontSize = FONT_SIZE;
+            g.setFont(narrowFont(fontSize));
+            List<String> linesList = wrappedLines(g, text, w - margin);
+            lines = linesList.size();
+            int specH = height();
+            while ((specH > hMax) && (fontSize > MIN_FONT_SIZE)) {
+                fontSize--;
+                g.setFont(narrowFont(fontSize));
+                linesList = wrappedLines(g, text, w - margin);
+                lines = linesList.size();
+                specH = height();
+            }
         }
     }    
 }

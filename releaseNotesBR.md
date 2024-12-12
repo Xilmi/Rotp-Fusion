@@ -8,6 +8,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Added new sub panels for galaxy setup.
+- Governor actions will update the technology icons on the left side.
+- Wider central space on two column option panels.
+- Improved automatic connection of lines on help panels.
 - Fixed Rallied fleet not always being sent.
 - New Options Panels are now the standard panels.
 - Fixed rally possibly being forwarded to a lost colony after a battle.
@@ -17,20 +21,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Colony Ships in wars (Xilmi)
   - Reverted a previous change that prevented the AI from building colony-ships when it had fewer military than their enemies.
   - Rationale: While those colony ships seem like a waste of resources, the wars are not so much about direct fights anyways. What is important is being able to reach the enemies' colonies. So a small but constant flow of colonizers can be necessary to get access deeper into the enemies' territory.
-- Left smart-click on ship without "Build Limit" will now allocate max available BC.
-- Fixed Governor auto-Transport inverted.
-- Fixed Galaxy "Loose limit" on galaxy with void, and Fractal galaxy.
-- The Guide will now list the content of a sub-panel.
-- New Configuration panels alignment option.
-- Distinct icons when sub panels have additional parameters.
-- Added Window size percentage when hovering Shrink/Expand.
-- Fixed masked yellow borders on left icon bar display bubbles.
-- New game will ignore previous state of "Visible Ships" and will always start with all ships visible.
-- Fixed “half” selected fleets Bug. This could result in a fleet being unintentionally sent to the planet you clicked on.
-  - Selecting an orbiting fleet, followed by selecting its star system will show an unselected fleet, but the fleet management (the fleet panel on the right) will still identify it as selected.
-  - Then, when hovering over another orbiting fleet, the buttons on the fleet panel will be incorrect.
-  - Then, hovering over the planet will incorrectly activate the fleet sending information.
-  - And finally clicking on the star system will send the last selected fleet to it.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

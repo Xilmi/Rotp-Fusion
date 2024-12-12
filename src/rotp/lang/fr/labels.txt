@@ -35,8 +35,8 @@
 // SETTINGS_MOD_Parameter_Options_HELP | To replace _DESC if HTML control are used.
 //
 // Why both _DESC and _HELP instead of always _HELP ?
-// Only _DESC can be cross-referenced (with →←) by the « F1 » help, which does not support HTML.
-// So if _HELP is needed you it's a good idea to also create a _DESC simplified text to be cross-referenced by the « F1 » help.
+// Only _DESC can be cross-referenced (with →←) by the « F1 » help, which does not support HTML.
+// So if _HELP is needed you it's a good idea to also create a _DESC simplified text to be cross-referenced by the « F1 » help.
 //
 // Label used by parameters of the type "Boolean"
 //
@@ -76,11 +76,11 @@ BUTTON_TEXT_CLOSE                 | Fermer
 
 // Star descriptions
 RED_STAR_DESCRIPTION              | Les étoiles rouges sont vieilles et ternes, elles n’abritent généralement que des planètes pauvres.
-YELLOW_STAR_DESCRIPTION           | Les étoiles jaunes offrent les meilleures chances de découvrir des planètes accueillantes.
-ORANGE_STAR_DESCRIPTION           | Les étoiles oranges, modérément brillantes possèdent un large éventail de types de planètes.
-BLUE_STAR_DESCRIPTION             | Les étoiles bleues sont relativement jeunes avec des planètes inhabitées, riches en minéraux.
-WHITE_STAR_DESCRIPTION            | Les étoiles blanches, extrêmement chaudes n’abritent généralement que des planètes hostiles.
-PURPLE_STAR_DESCRIPTION           | Les étoiles à neutrons sont rares et offrent les meilleures chances de trouver des planètes riches.
+YELLOW_STAR_DESCRIPTION           | Les étoiles jaunes sont plus propices à la découverte des planètes accueillantes.
+ORANGE_STAR_DESCRIPTION           | Les étoiles oranges, modérément brillantes, présentent un large éventail de types de planètes.
+BLUE_STAR_DESCRIPTION             | Les étoiles bleues sont relativement jeunes, avec des planètes inhabitées riches en minéraux.
+WHITE_STAR_DESCRIPTION            | Les étoiles blanches, extrêmement chaudes, n’abritent généralement que des planètes hostiles.
+PURPLE_STAR_DESCRIPTION           | Les étoiles à neutrons sont rares, et offrent les meilleures chances de trouver des planètes riches.
 
 // Planet Types
 PLANET_ARID                       | Aride
@@ -116,25 +116,25 @@ FLAG_COLOR_PINK                   | Rose
 SPY_HIDE                          | Dormant
 SPY_ESPIONAGE                     | Espionnage
 SPY_SABOTAGE                      | Sabotage
-SPY_CAUGHT                        | [Vos espions ont été pris.]
+SPY_CAUGHT                        | [Vos espions ont été démasqués.]
 SPY_FRAMED                        | [Vous avez été piégé]
 SPY_FORCED_CONFESSION             | [De faux aveux ont été obtenus sous la contrainte.]
 SPY_WARNING                       | [Vous avez reçu un avertissement.]
 
-ARID_DESC_BIOLOGICAL              | Les planètes arides sont des mondes terrestres secs, avec une végétation limitée et moins de 40% de couverture océanique.
+ARID_DESC_BIOLOGICAL              | Les planètes arides sont des mondes telluriques secs, avec une végétation limitée et moins de 40% de couverture océanique.
 BARREN_DESC_BIOLOGICAL            | Les planètes stériles sont des mondes secs et poussiéreux, n’ayant qu’une atmosphère ténue, sans eau de surface.
-DEAD_DESC_BIOLOGICAL              | Les planètes mortes sont des mondes terrestres froids et morts depuis longtemps, avec des atmosphères ténues et aucune eau de surface.
-DESERT_DESC_BIOLOGICAL            | Les planètes désertiques sont des mondes terrestres secs avec une végétation très clairsemée et pas plus de 20% de surface d’eau.
-INFERNO_DESC_BIOLOGICAL           | Les planètes Infernales sont des mondes extrêmement chauds avec des atmosphères épaisses et des tempêtes violentes.
-JUNGLE_DESC_BIOLOGICAL            | Les planètes jungle sont des mondes tropicaux luxuriants recouverts de forêts épaisses, de jungles et de marécages.
-MINIMAL_DESC_BIOLOGICAL           | Les planètes minimales sont des mondes terrestres desséchés et désolés pratiquement inhabitables.
+DEAD_DESC_BIOLOGICAL              | Les planètes mortes sont des mondes telluriques froids et morts depuis longtemps, avec des atmosphères ténues et aucune eau de surface.
+DESERT_DESC_BIOLOGICAL            | Les planètes désertiques sont des mondes telluriques secs avec une végétation très clairsemée et pas plus de 20% de surface d’eau.
+INFERNO_DESC_BIOLOGICAL           | Les planètes infernales sont des mondes extrêmement chauds avec des atmosphères épaisses propices à de violentes tempêtes.
+JUNGLE_DESC_BIOLOGICAL            | Les planètes jungle sont des mondes tropicaux luxuriants recouverts d'épaisses forêts, de jungles et de marécages.
+MINIMAL_DESC_BIOLOGICAL           | Les planètes minimales sont des mondes telluriques desséchés et désolés, pratiquement inhabitables.
 NONE_DESC_BIOLOGICAL              | Sans planètes rocheuses, ces systèmes remplis d’astéroïdes défient toutes les théories sur la formation planétaire.
 OCEAN_DESC_BIOLOGICAL             | Les planètes océaniques sont presque entièrement recouvertes d’eau, ce qui rend l’accès aux ressources souvent difficile.
 RADIATED_DESC_BIOLOGICAL          | Les planètes irradiées sont des mondes sans atmosphères et sans vie, inondées par le rayonnement des étoiles proches.
-STEPPE_DESC_BIOLOGICAL            | Les planètes steppiques sont des mondes terrestres glacés, dominés par des hivers rigoureux et des environnements arctiques.
+STEPPE_DESC_BIOLOGICAL            | Les planètes steppiques sont des mondes telluriques glacés, dominés par des hivers rigoureux et des environnements arctiques.
 TERRAN_DESC_BIOLOGICAL            | Les planètes terriennes sont des paradis terrestres, avec de vastes zones tempérées supportant une grande variété de biomes.
-TOXIC_DESC_BIOLOGICAL             | Les planètes toxiques sont des mondes gelés avec des écosystèmes glacials à base de méthane.
-TUNDRA_DESC_BIOLOGICAL            | Les planètes toundra sont des mondes terrestres dormants, piégés dans un stade glaciaire.
+TOXIC_DESC_BIOLOGICAL             | Les planètes toxiques sont des mondes gelés, avec des écosystèmes glacials à base de méthane.
+TUNDRA_DESC_BIOLOGICAL            | Les planètes toundra sont des mondes telluriques dormants, piégés dans un stade glaciaire.
 
 // Planet Specials
 PLANET_VESTIGES_SHORT             | V +
@@ -216,41 +216,41 @@ TECH_PROPULSION                   | Propulsion
 TECH_WEAPONS                      | Armement
 
 TECH_CURRENT_LEVEL                | Niveau technologique actuel %1
-TECH_NEXT_LEVEL                   | Niveau après la découverte technologique sélectionnée %1 (+%2)
-TECH_HOVER_LEVEL                  | Niveau après la découverte technologique en vol stationnaire %1 (+%2)
+TECH_NEXT_LEVEL                   | Niveau après la découverte de la technologie sélectionnée %1 (+%2)
+TECH_HOVER_LEVEL                  | Niveau après la découverte de la technologie survolée %1 (+%2)
 TECH_LEVEL_HEADER                 | Impact sur le niveau technologique :
 TECH_LEVEL_VALUE                  | Niveau technologique %1
 TECH_CATEGORY_HEADER              | CATÉGORIE %1
 TECH_LEVEL_OF_TECH                | Niveau %1
-TECH_COMPUTERS_LEVEL_DESC         | Lors des missions d’espionnage, la différence entre votre niveau technologique d’ordinateur et celui de l’empire ciblé modifie la probabilité de réussite de la mission.
-TECH_CONSTRUCTION_LEVEL_DESC      | Chaque niveau de construction augmente de 2% l’espace disponible pour tous les types de coques.
+TECH_COMPUTERS_LEVEL_DESC         | Lors des missions d’espionnage, la différence entre votre niveau technologique informatique et celui de l’empire ciblé modifie la probabilité de réussite de la mission.
+TECH_CONSTRUCTION_LEVEL_DESC      | Chaque niveau de construction augmente l’espace disponible, pour toutes les tailles de coques, de 2%.
 TECH_FORCE_FIELDS_LEVEL_DESC      |
 
 TECH_PLANETOLOGY_LEVEL_DESC       | En début de partie, chaque colon produit 0,5BC. À mesure que votre niveau de technologie de Planétologie augmente, leur productivité suit. L’augmentation est progressive, et atteint une valeur double au niveau 17, triple au niveau 33 et quadruple au niveau 50.
 TECH_PROPULSION_LEVEL_DESC        |
-TECH_WEAPONS_LEVEL_DESC           | Les dommages que vos espions infligent pendant les missions de sabotage augmentent avec votre niveau de technologie de l’armement. Davantage d’usines et de bases de missiles seront détruites.
+TECH_WEAPONS_LEVEL_DESC           | Les dommages que vos espions infligent lors les missions de sabotage augmentent avec votre niveau technologique d’armement. Davantage d’usines et de bases de missiles seront détruites.
 
 // Random Events
-EVENT_ACCIDENT                    | Un accident industriel majeur pollue la colonie [target_raceadjec] dans le système [system] avec des déchets industriels, endommageant gravement son écologie et irradiant la planète de manière permanente.
+EVENT_ACCIDENT                    | Un accident industriel majeur dans le système [system] pollue la colonie [target_raceadjec], générant des déchets industriels, endommageant gravement son environement écologique et irradiant la planète de manière permanente.
 EVENT_ASSASSINATION               | Un terroriste [assassin_empireof] a assassiné le diplomate [victim_race_pluralnounof], plaçant les deux empires au bord de la guerre.
-EVENT_COMET                       | Une gigantesque comète a été détectée, approchant le système [system] et entrera en collision avec la colonie [target_raceadjecF] dans [years] ans. À moins qu’une flotte de vaisseaux suffisante ne soit déployée pour la détruire.
-EVENT_COMET_2                     | Une gigantesque comète devrait anéantir toute vie sur le monde [target_raceadjec] dans le système [system] en seulement [years] ans. Plus de vaisseaux armés sont nécessaires pour éviter cette catastrophe.
-EVENT_COMET_3                     | La comète du système [system] a été détruite, grâce aux efforts de la flotte [target_raceadjecF].
-EVENT_COMET_4                     | La comète mortelle a détruit le monde [target_raceadjec] dans le système [system].
-EVENT_DONATION                    | Un riche marchand désireux de soutenir la cause fait un don substantiel de [amt] BC à la réserve planétaire [target_raceadjecF].
+EVENT_COMET                       | Une gigantesque comète approchant le système [system] a été détectée, elle entrera en collision avec la colonie [target_raceadjecF] dans [years] ans. À moins qu’une flotte de vaisseaux suffisante ne soit déployée pour la détruire.
+EVENT_COMET_2                     | Une gigantesque comète devrait anéantir toute vie sur le monde [target_raceadjec] dans le système [system] dans seulement [years] ans. Davantage de vaisseaux armés sont nécessaires pour éviter cette catastrophe.
+EVENT_COMET_3                     | La comète menaçant le système [system] a été détruite, grâce aux efforts de la flotte [target_raceadjecF].
+EVENT_COMET_4                     | La comète fatale a détruit le monde [target_raceadjec] dans le système [system].
+EVENT_DONATION                    | Un riche marchand, désireux de soutenir la cause [target_raceadjecF], fait un don substantiel de [amt] BC. Ce montant est ajouté à la réserve planétaire.
 EVENT_DEPLETED                    | La colonie [target_raceadjecF] du [system] a épuisé ses gisements de métaux lourds, rendant la planète pauvre en minéraux.
-EVENT_DERELICT                    | La flotte [target_empireof] a découvert un ancien vaisseau abandonné. Les scientifiques [target_race_pluralnounof] ont depuis récolté plusieurs technologies de champ de force et d’armement à partir du vaisseau.
-EVENT_EARTHQUAKE                  | Un tremblement de terre dévastateur frappe la colonie [target_raceadjecF] dans le système [system], tuant [amt] millions de colons, tout en endommageant de vastes zones d’activité industrielle.
-EVENT_ENRICHED                    | L’exploration minière en profondeur dans la colonie [target_raceadjecF] dans le système [system] révèle un énorme gisement de métaux lourds jusque-là non détecté, rendant la planète riche en minéraux.
-EVENT_FERTILE                     | Un changement soudain de l’axe planétaire de la planète [target_raceadjecF] du [system] a changé son environnement, le rendant plus fertile. La croissance démographique augmente de 50 %.
+EVENT_DERELICT                    | La flotte [target_empireof] a découvert un ancien vaisseau abandonné. Les scientifiques [target_race_pluralnounof] ont pu extraire de l'épave plusieurs technologies de champ de force et d’armement.
+EVENT_EARTHQUAKE                  | Un tremblement de terre dévastateur a frappé la colonie [target_raceadjecF] dans le système [system], tuant [amt] millions de colons, et endommageant de vastes zones d’activités industrielle.
+EVENT_ENRICHED                    | L’exploration minière en grande profondeur a révélé un énorme gisement de métaux lourds dans la colonie [target_raceadjecF] du système [system].
+EVENT_FERTILE                     | Un changement soudain de l’axe de rotation de la planète [target_raceadjecF] du [system] a modifié son environnement, le rendant plus fertile. La croissance démographique augmente de 50 %.
 EVENT_PIRACY                      | Des pirates ont commencé à perturber le commerce global entre les systèmes [target_race_pluraladjec], réduisant les revenus commerciaux de [amt]%. Des vaisseaux armés sont nécessaires dans le système [system] pour interrompre leur base d’opérations.
 EVENT_PIRACY_2                    | Les pirates basés dans le système [system] continuent de perturber l’activité commerciale [target_race_pluralnounof], réduisant les niveaux commerciaux globaux d’environ [amt]%.
 EVENT_PIRACY_3                    | La flotte [target_raceadjecF] a détruit une opération de piratage majeure basée dans le système [system]. Dans l’ensemble, les échanges commerciaux sont revenus à leurs niveaux normaux.
 EVENT_PLAGUE                      | Une pandémie mortelle frappe la colonie [target_raceadjecF] dans le système [system]. La colonie a été mise en quarantaine, et on s’attend à des millions de morts par année, jusqu’à ce que les scientifiques réussissent à trouver un remède.
-EVENT_PLAGUE_2                    | La pandémie mortelle dans le système [system] persiste. Les scientifiques estiment qu’il faudra encore [amt] RP pour trouver un remède.
-EVENT_PLAGUE_3                    | Les scientifiques [target_race_pluraladjec] ont trouvé un remède contre la pandémie mortelle qui affligeait le système [system]. La quarantaine du système a été levée.
+EVENT_PLAGUE_2                    | La pandémie mortelle dans le système [system] persiste. Les scientifiques estiment avoir besoin d’encore [amt] RP pour trouver un remède.
+EVENT_PLAGUE_3                    | Les scientifiques [target_race_pluraladjec] ont réussi à trouver un remède contre la pandémie mortelle qui affligeait le système [system]. La quarantaine du système a été levée.
 EVENT_REBELLION                   | La colonie [target_raceadjecF] dans le système [system] s’est révoltée, cessant toute production planétaire. La révolte se poursuivra jusqu’à ce que la rébellion soit vaincue militairement.
-EVENT_SUPERNOVA                   | Les scientifiques [target_race_pluraladjec] prédisent que l’étoile du système [system] deviendra une supernova d’ici [years] ans. Ils recommandent de détourner toutes les recherches du système vers la recherche d’une solution.
+EVENT_SUPERNOVA                   | Les scientifiques [target_race_pluraladjec] prédisent que l’étoile du système [system] deviendra une supernova d’ici [years] ans. Ils recommandent de rediriger toutes les recherches du système vers la recherche d’une solution.
 EVENT_SUPERNOVA_2                 | La menace d’une supernova dans le système [system] d’ici [years] ans demeure. Les scientifiques estiment qu’il faudra encore [amt] RP pour prévenir cette catastrophe.
 EVENT_SUPERNOVA_3                 | En travaillant fébrilement, les physiciens [target_race_pluraladjec] dans le système [system] ont trouvé un moyen de retarder la supernova de leur étoile proche dans un avenir prévisible.
 EVENT_SUPERNOVA_4                 | L’étoile du système [system] est devenue une supernova, irradiant le monde [target_raceadjec], dévastant son environnement et tuant des millions de personnes.
@@ -268,14 +268,14 @@ EVENT_SPACE_CRYSTAL               | Une gigantesque entité cristalline appelée
 EVENT_SPACE_CRYSTAL_1             | Une gigantesque entité cristalline appelée «le Cristal Spatial» a été repérée s’approchant du système non colonisé [system].
 EVENT_SPACE_CRYSTAL_2             | Le Cristal Spatial a complètement détruit toute vie sur la colonie [victim_raceadjecF] dans le système [system].
 EVENT_SPACE_CRYSTAL_3             | Le Cristal Spatial a été détruit par les défenseurs [victim_race_pluraladjec] dans le système [system].
-EVENT_SPACE_CRYSTAL_4             | Le cristal spatial hideux a quitté notre galaxie. Pourquoi ? Pourquoi est-ce parti ? La galaxie ne le saura peut-être jamais.
+EVENT_SPACE_CRYSTAL_4             | Le hideux Cristal Spatial a quitté notre galaxie. Pourquoi ? Pourquoi est-ce parti ? La galaxie ne le saura peut-être jamais.
 EVENT_SPACE_CRYSTAL_TRIG          | Les scientifiques responsables de la nouvelle technologie de la Porte des Étoiles ont déclaré : Nous regardions l’abîme, et l’abîme gronde Nom Nom Nom!
-EVENT_SPACE_CRYSTAL_PLUNDER       | →EVENT_SPACE_CRYSTAL_3←.<br> La recherche actuelle en matière de propulsion pourrait être complétée par l’analyse des restes cristallins, et la vente de cristaux inférieurs rapporte [amt] BC à la réserve planétaire de l’empire.
+EVENT_SPACE_CRYSTAL_PLUNDER       | →EVENT_SPACE_CRYSTAL_3←.<br> La recherche actuelle en matière de propulsion pourrait être complétée par l’analyse des restes cristallins, et la vente des cristaux secondaires rapporte [amt] BC à la réserve de l’empire.
 
 // modnar: add space pirate random event
 EVENT_SPACE_PIRATES               | Une flotte de pirates maraudeurs a été repérée près du système [system]. Les colons [race] et les flottes de défense se préparent au pire.
 EVENT_SPACE_PIRATES_1             | Une flotte de pirates maraudeurs a été repérée près du système non colonisé [system].
-EVENT_SPACE_PIRATES_2             | Les redoutables pirates spatiaux ont ravagé la population et pillé toute l’industrie sur la colonie [race] dans le système [system], dévastant l’écologie locale.
+EVENT_SPACE_PIRATES_2             | Les redoutables pirates spatiaux ont ravagé la population et pillé toute l’industrie sur la colonie [race] dans le système [system], dévastant également l’écologie locale.
 EVENT_SPACE_PIRATES_3             | La flotte de pirates a été détruite par les défenseurs [race] dans le système [system]. Des richesses importantes trouvées dans les épaves ont été saisies par l’armée [race] pour renforcer la réserve planétaire par [amt] BC.
 EVENT_SPACE_PIRATES_4             | Les pirates spatiaux ont quittés notre insignifiante galaxie ! Où sont-ils passé ? On s’en fiche, bon débarras !
 EVENT_SPACE_PIRATES_TRIG          | La récente découverte de la Propulsion Hyperspatiale va tout changer. Par exemple, les criminels se réjouissent de leur nouvelle mobilité.
@@ -292,7 +292,7 @@ EVENT_RELIC_GAUNTLET_NO_CONTACT   | La moitié de toute la vie galactique a ét�
 EVENT_SIZEBOOST                   | Les archéologues explorant le monde [target_race] dans le système [system] ont révélé des cavernes souterraines massives. Ces chambres géologiquement stables sont habitables et ont considérablement augmenté la taille de la planète.
 
 SYSEVENT_HOMEWORLD                | Monde d’origine [alien_race_pluralnounof].
-SYSEVENT_SCOUTED                  | D’abord repéré par [alien_race_pluralnoun].
+SYSEVENT_SCOUTED                  | Initialement repéré par [alien_race_pluralnoun].
 SYSEVENT_COLONIZED                | Colonisé par [alien_race_pluralnoun].
 SYSEVENT_CAPTURED                 | Capturé par des forces [alien_race_pluraladjecF].
 SYSEVENT_ABANDONED                | Abandonné par [alien_race_pluralnoun].
@@ -762,7 +762,7 @@ MAIN_TECH_RESERVE_TAX_ALL         | Taxer %1 % de la production sur toutes les 
 MAIN_TECH_RESERVE_TAX             | Taxer %1 % de la production sur les colonies développées
 MAIN_TECH_RESERVE_TAX_NONE        | Aucune taxe prélevée sur la production des colonies
 MAIN_HELP_ALL                     | Aide - cliquez pour parcourir les informations d’aide pour un écran particulier. Escape pour annuler.
-MAIN_HELP_MOD                     | Aide Mod - « O » pour accéder au menu des options de jeu. « Home » pour appliquer Auto-Drapeau la planète sélectionnée. « Alt » + « Home » pour appliquer Auto-Drapeau à toutes les planètes déjà explorées.
+MAIN_HELP_MOD                     | Aide Mod - « O » pour accéder au menu des options de jeu. « Home » pour appliquer Auto-Drapeau la planète sélectionnée. « Alt » + « Home » pour appliquer Auto-Drapeau à toutes les planètes déjà explorées.
 MAIN_HELP_MOD_1A                  | Pour activer ou désactiver le Gouverneur de cette colonie.
 MAIN_HELP_MOD_1B                  | Pour accéder au menu Options du gouverneur.
 MAIN_HELP_MOD_1F                  | Des alertes du tour peuvent y apparaître : Faites un clic droit sur elles pour centrer la carte sur le système. Cliquez à gauche pour afficher la prochaine alerte.
@@ -1054,24 +1054,24 @@ MAIN_COLONIZE_NAME_OK             | OK
 // Reasons to ask player to reallocate a system (during next turn)
 MAIN_ALLOCATE_TITLE               | Ajustements des Dépenses
 MAIN_ALLOCATE_DESIGN_SCRAPPED     | Le modèle de vaisseau en cours de construction à %1 a été supprimé
-MAIN_ALLOCATE_COLONIZED           | • %1 a été colonisé.
+MAIN_ALLOCATE_COLONIZED           | • %1 a été colonisée.
 MAIN_ALLOCATE_STARGATE_COMPLETE   | • %1 a terminé la construction d’une Porte des Étoiles.
 MAIN_ALLOCATE_SHIPS_COMPLETE      | • %1 a terminé la construction du nombre demandé de vaisseaux %2.
 MAIN_ALLOCATE_SHIELD_COMPLETE     | • %1 a terminé la construction de %2.
 MAIN_ALLOCATE_BASES_COMPLETE      | • %1 a terminé la construction de %2 bases de missiles.
 MAIN_ALLOCATE_BASES_UPGRADED      | • %1 a terminé la mise à niveau de ses bases de missiles.
-MAIN_ALLOCATE_MAX_FACTORIES       | • %1 a atteint son maximum industriel de %2 usines à construire.
+MAIN_ALLOCATE_MAX_FACTORIES       | • %1 a atteint son maximum industriel de %2 usines constructibles.
 MAIN_ALLOCATE_MAX_POPULATION      | • %1 a atteint son maximum de population de %2 colons.
-MAIN_ALLOCATE_TERRAFORM_COMPLETE  | • %1 a terminé la terraformation de l’environnement.
-MAIN_ALLOCATE_ATMOSPHERE_COMPLETE | • %1 a été terraformé dans un environnement normal avec le taux de croissance standard.
-MAIN_ALLOCATE_FERTILE_COMPLETE    | • %1 a été terraformé en un environnement fertile avec 150 % du taux de croissance standard.
-MAIN_ALLOCATE_GAIA_COMPLETE       | • %1 a été terraformé en un environnement gaïa avec le double du taux de croissance standard.
+MAIN_ALLOCATE_TERRAFORM_COMPLETE  | • %1 a terminé la terraformation de son environnement.
+MAIN_ALLOCATE_ATMOSPHERE_COMPLETE | • %1 a été terraformée dans un environnement normal avec le taux de croissance standard.
+MAIN_ALLOCATE_FERTILE_COMPLETE    | • %1 a été terraformée en un environnement fertile avec 150 % du taux de croissance standard.
+MAIN_ALLOCATE_GAIA_COMPLETE       | • %1 a été terraformée en un environnement gaïa avec le double du taux de croissance standard.
 MAIN_ALLOCATE_SABOTAGE_BASES      | • %1 a eu %2 bases de missiles détruites par des saboteurs [spy_race_pluraladjec].
 MAIN_ALLOCATE_SABOTAGE_FACTORIES  | • %1 a vu %2 usines détruites par des saboteurs [spy_race_pluraladjec].
 MAIN_ALLOCATE_COLONY_CAPTURED     | • %1 a été récemment capturé par les troupes %2.
-MAIN_ALLOCATE_ECO_LOCKED_WASTE    | • %1 a des dépenses écologiques verrouillées manuellement à un niveau insuffisant pour nettoyer la pollution.
+MAIN_ALLOCATE_ECO_LOCKED_WASTE    | • Les dépense écologiques de %1 sont manuellement verrouillées à un niveau insuffisant pour se débarasser de la pollution.
 MAIN_ALLOCATE_PROJECT_ENDED       | • %1 ne recherche plus de projet spécial : %2
-MAIN_ALLOCATE_CHANGE_SPENDING     | Les allocations de dépenses du système peuvent être ajustées à ce moment.
+MAIN_ALLOCATE_CHANGE_SPENDING     | Les allocations de dépenses du système peuvent être ajustées maintenant.
 MAIN_ALLOCATE_NOTICE_NUMBER       | Avis %1 sur %2
 MAIN_ALLOCATE_BRIEF_NUMBER        | %1 sur %2
 MAIN_ALLOCATE_PREV_SYSTEM         | Précédent
@@ -1324,7 +1324,7 @@ FLEETS_HELP_1D                    | Conception du vaisseau - modifiez la concept
 FLEETS_HELP_1E                    | Envoyer des transports - envoyer des transports depuis les systèmes sélectionnés vers un seul système cible.
 FLEETS_HELP_1F                    | Définir pnts. ralliement - définissez les points de ralliement pour les systèmes sélectionnés sur un seul système cible.
 FLEETS_HELP_1G                    | →FLEETS_RALLY_TO_STARGATES←<br> Commencez à rallier les systèmes sélectionnés au système le plus proche avec une Porte des Étoile.<br>- Basé sur le paramètre «→CHAIN_RALLY_SPEED_HK←».<br>- Les systèmes sélectionnés avec une Porte des Étoile ne sont pas affectés.
-FLEETS_HELP_1H                   | →MAIN_RALLY_CHAIN←<br> Pour minimiser le temps de déplacement en prenant un raccourci par l’intermédiaire de la Porte des Étoile la plus proche. (Basé sur le paramètre «→CHAIN_RALLY_SPEED_HK←»)<br> Cela permettra également « Ralliement Avancé » sur les systèmes avec un Porte des Étoiles intermédiaires.
+FLEETS_HELP_1H                   | →MAIN_RALLY_CHAIN←<br> Pour minimiser le temps de déplacement en prenant un raccourci par l’intermédiaire de la Porte des Étoile la plus proche. (Basé sur le paramètre «→CHAIN_RALLY_SPEED_HK←»)<br> Cela permettra également « Ralliement Avancé » sur les systèmes avec un Porte des Étoiles intermédiaires.
 
 FLEETS_HELP_2A                    | Sélectionner les flottes - il existe trois façons de sélectionner des flottes : 1) en cliquant sur les flottes sur la carte, 2) en cliquant avec le bouton droit de la souris sur la carte et 3) en utilisant les boutons «Tout Sélectionner» et «Tout Désélectionner».
 FLEETS_HELP_2B                    | Filtrer par - cochez les cases pour réduire la liste des flottes sélectionnées. Il est également possible de cliquer sur les filtres pour faire défiler les options associées.
@@ -1756,7 +1756,7 @@ SETUP_TERRAFORMING_REDUCED_HELP   | Les technologies de terraformation amélior�
 SETUP_TERRAFORMING_REDUCED        | Réduite
 SETUP_TERRAFORMING_NONE_HELP      | Les technologies de terraformation améliorées qui augmentent la taille de vos planètes n’agiront pas les planètes hostiles, jusqu’à ce que vous ayez appliqué la terraformation atmosphérique pour supprimer le trait hostile.
 SETUP_TERRAFORMING_NONE           | Aucune
-SETUP_COLONIZING_NORMAL_HELP      | Tout module de colonisation spécial peut coloniser une planète de cette hostilité ou d’un niveau inférieur dans la « hiérarchie des hostilités » de Stérile à Irradié.
+SETUP_COLONIZING_NORMAL_HELP      | Tout module de colonisation spécial peut coloniser une planète de cette hostilité ou d’un niveau inférieur dans la « hiérarchie des hostilités » de Stérile à Irradié.
 SETUP_COLONIZING_NORMAL           | Normale
 SETUP_COLONIZING_RESTRICTED_HELP  | Un environnement hostile nécessitera un module de colonisation de ce type spécifique. Désormais, le module de colonisation pour planètes irradiées n’est plus le module de colonisation par excellence.
 SETUP_COLONIZING_RESTRICTED       | restreinte
@@ -1797,8 +1797,8 @@ SETUP_BUTTON_RESTART              | Recommencer
 SETUP_BUTTON_SETTINGS             | Options avancées
 
 SETUP_BUTTON_TUNE_GALAXY             | Ajuster la galaxie
-SETUP_BUTTON_MERGED_STATIC_SETTINGS  | Setup
-SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS | Options
+SETUP_BUTTON_MERGED_STATIC_SETTINGS  | Configuration
+SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS | Règles du Jeu
 // BR: Restart swap empire
 SETUP_SELECT_EMPIRE_TITLE         | Sélectionnez l’empire du joueur
 SETUP_SELECT_EMPIRE_SELECT_BUTTON | Sélectionner
@@ -1983,8 +1983,8 @@ CUSTOM_RACE_RANDOM_USE_TARGET_YES_DESC | Il est indispensable que le coût se si
 CUSTOM_RACE_RANDOM_USE_TARGET_NO_DESC  | Ignorer les limites.
 
 // BR: Ne pas traduire maintenant...
-//FR_REWORKED                     | « ’Retravaillées’ » →FR_REWORKED←
-FR_REWORKED                       | « 'Reworked' »
+//FR_REWORKED                     | « ’Retravaillées’ » →FR_REWORKED←
+FR_REWORKED                       | « 'Reworked' »
 CUSTOM_RACE_BASE_DATARACE         | Aptitudes de base
 CUSTOM_RACE_HOME_TYPE             | Type de planète
 CUSTOM_RACE_HOME_SIZE_DESC        | Taille de départ du monde d’origine de cet empire.
@@ -2097,15 +2097,15 @@ CUSTOM_RACE_LEADER_TITLE_DESC     | L’équivalent du paramètre « titre » 
 CUSTOM_RACE_LABEL_TITLE           | Titre du chef 2
 CUSTOM_RACE_LABEL_TITLE_DESC      | L’équivalent du paramètre « _title » dans les fichiers Species.labels.txt.
 CUSTOM_RACE_LEADER_FULLTITLE      | Titre du chef complet
-CUSTOM_RACE_LEADER_FULLTITLE_DESC | L’équivalent du paramètre « fulltitle » dans les fichiers Species.names.txt.
+CUSTOM_RACE_LEADER_FULLTITLE_DESC | L’équivalent du paramètre « fulltitle » dans les fichiers Species.names.txt.
 CUSTOM_RACE_LEADER_NAMETITLE      | Titre du chef complet 2
 CUSTOM_RACE_LEADER_NAMETITLE_DESC | L’équivalent du paramètre « _nameTitle » dans les fichiers Species.labels.txt.
 CUSTOM_RACE_RACE_EMPIRE_NAME      | Désignation de l’empire
 CUSTOM_RACE_RACE_EMPIRE_NAME_DESC | Le pendant du paramètre « _empire » dans les fichiers Species.labels.txt.
 CUSTOM_RACE_HOME_WORLDS           | Mondes d’origines
-CUSTOM_RACE_HOME_WORLDS_DESC      | Noms possibles des systèmes domestiques.<br>L’équivalent du paramètre « home » dans les fichiers Species.names.txt
+CUSTOM_RACE_HOME_WORLDS_DESC      | Noms possibles des systèmes domestiques.<br>L’équivalent du paramètre « home » dans les fichiers Species.names.txt
 CUSTOM_RACE_LEADER_NAMES          | Nom des chefs
-CUSTOM_RACE_LEADER_NAMES_DESC     | Noms de leaders possibles.<br>La contrepartie du paramètre « leader » dans les fichiers Species.names.txt
+CUSTOM_RACE_LEADER_NAMES_DESC     | Noms de leaders possibles.<br>La contrepartie du paramètre « leader » dans les fichiers Species.names.txt
 CUSTOM_RACE_SHIP_NAME_1           | Noms des petits vaisseaux
 CUSTOM_RACE_SHIP_NAME_1_DESC      | Tous les noms possibles de petits navires.<br>La contrepartie du paramètre « ship1 » dans les fichiers Species.names.txt
 CUSTOM_RACE_SHIP_NAME_2           | Noms des vaisseaux moyens
@@ -2116,13 +2116,13 @@ CUSTOM_RACE_SHIP_NAME_4           | Noms des énormes vaisseaux
 CUSTOM_RACE_SHIP_NAME_4_DESC      | Tous les noms possibles d’énormes vaisseaux.<br>La contrepartie du paramètre « ship1 » dans les fichiers Species.names.txt
 
 CUSTOM_RACE_RACE_DESC_1           | Description de l’humeur de l’espèce
-CUSTOM_RACE_RACE_DESC_1_DESC      | L’équivalent du paramètre « desc1 » dans les fichiers Species.names.txt
+CUSTOM_RACE_RACE_DESC_1_DESC      | L’équivalent du paramètre « desc1 » dans les fichiers Species.names.txt
 CUSTOM_RACE_RACE_DESC_2           | Description des aptitudes de l’espèce
-CUSTOM_RACE_RACE_DESC_2_DESC      | L’équivalent du paramètre « desc2 » dans les fichiers Species.names.txt
+CUSTOM_RACE_RACE_DESC_2_DESC      | L’équivalent du paramètre « desc2 » dans les fichiers Species.names.txt
 CUSTOM_RACE_RACE_DESC_3           | Description globale de l’espèce
-CUSTOM_RACE_RACE_DESC_3_DESC      | L’équivalent du paramètre « desc3 » dans les fichiers Species.names.txt
+CUSTOM_RACE_RACE_DESC_3_DESC      | L’équivalent du paramètre « desc3 » dans les fichiers Species.names.txt
 CUSTOM_RACE_RACE_DESC_4           | Description spécifique de l’espèce
-CUSTOM_RACE_RACE_DESC_4_DESC      | L’équivalent du paramètre « desc4 » dans les fichiers Species.names.txt
+CUSTOM_RACE_RACE_DESC_4_DESC      | L’équivalent du paramètre « desc4 » dans les fichiers Species.names.txt
 CUSTOM_RACE_RACE_PREFIX           | Préfixe de l’espèce
 CUSTOM_RACE_RACE_SUFFIX           | Suffixe de l’espèce
 CUSTOM_RACE_LEADER_PREFIX         | Préfixe du chef
@@ -2147,10 +2147,10 @@ CUSTOM_RACE_DIPLOMAT              | Diplomate
 CUSTOM_RACE_INDUSTRIALIST         | Industriel
 CUSTOM_RACE_EXPANSIONIST          | Expansioniste
 CUSTOM_RACE_TECHNOLOGIST          | Technologue
-FR_RAND_PERSO_1                   | Probabilité relative qu’une « personnalité » aléatoire soit «
-FR_RAND_PERSO_2                   | ». (La personnalité maximale est utilisée pour les cas non aléatoires)
+FR_RAND_PERSO_1                   | Probabilité relative qu’une « personnalité » aléatoire soit «
+FR_RAND_PERSO_2                   | ». (La personnalité maximale est utilisée pour les cas non aléatoires)
 FR_RAND_OBJ_1                     | Probabilité relative que l’« objectif » aléatoire soit «
-FR_RAND_OBJ_2                     | ». (L’objectif maximal est utilisé pour les cas non aléatoires)
+FR_RAND_OBJ_2                     | ». (L’objectif maximal est utilisé pour les cas non aléatoires)
 CUSTOM_RACE_ERRATIC_DESC          | →FR_RAND_PERSO_1← →CUSTOM_RACE_ERRATIC← →FR_RAND_PERSO_2←
 CUSTOM_RACE_PACIFIST_DESC         | →FR_RAND_PERSO_1← →CUSTOM_RACE_PACIFIST← →FR_RAND_PERSO_2←
 CUSTOM_RACE_HONORABLE_DESC        | →FR_RAND_PERSO_1← →CUSTOM_RACE_HONORABLE← →FR_RAND_PERSO_2←
@@ -2205,16 +2205,16 @@ SETTINGS_APPLY                    | Appliquer
 SETTINGS_CANCEL                   | Annuler
 SETTINGS_LOCAL_RESTORE            | Rétablir Local
 SETTINGS_GLOBAL_RESTORE           | Rétablir Global
-SETTINGS_LOCAL_DEFAULT            | Défaut »» Local
-SETTINGS_GLOBAL_DEFAULT           | Défaut »» Global
-SETTINGS_LOCAL_LAST_GAME          | Jeu »» Local
-SETTINGS_GLOBAL_LAST_GAME         | Jeu »» Global
-SETTINGS_LOCAL_LAST_SET           | Dernier »» Local
-SETTINGS_GLOBAL_LAST_SET          | Dernier »» Global
-SETTINGS_LOCAL_USER_SET           | Perso. »» Local
-SETTINGS_GLOBAL_USER_SET          | Perso. »» Global
-SETTINGS_LOCAL_USER_SAVE          | Local »» Perso.
-SETTINGS_GLOBAL_USER_SAVE         | Global »» Perso.
+SETTINGS_LOCAL_DEFAULT            | Défaut »» Local
+SETTINGS_GLOBAL_DEFAULT           | Défaut »» Global
+SETTINGS_LOCAL_LAST_GAME          | Jeu »» Local
+SETTINGS_GLOBAL_LAST_GAME         | Jeu »» Global
+SETTINGS_LOCAL_LAST_SET           | Dernier »» Local
+SETTINGS_GLOBAL_LAST_SET          | Dernier »» Global
+SETTINGS_LOCAL_USER_SET           | Perso. »» Local
+SETTINGS_GLOBAL_USER_SET          | Perso. »» Global
+SETTINGS_LOCAL_USER_SAVE          | Local »» Perso.
+SETTINGS_GLOBAL_USER_SAVE         | Global »» Perso.
 SETTINGS_STAR_DENSITY             | Densité des étoiles : %1
 SETTINGS_RANDOM_EVENTS            | Événements aléatoires : %1
 SETTINGS_RESEARCH_RATE            | Vitesse de la recherche : %1
@@ -2244,7 +2244,7 @@ SETTINGS_PLANET_QUALITY_HELP      | Aimeriez-vous que votre galaxie soit plus te
 SETTINGS_PLANET_QUALITY_DESC      | Augmente ou diminue la fréquence des planètes de meilleure qualité.
 SETTINGS_TERRAFORMING_HELP        | Lorsque ce paramètre est réglé sur Normal, après que vous ayez colonisé une planète hostile avec le module de colonisation requis, la seule différence avec les planètes non hostiles est une pénalité de 50 % sur la démographie. Cela peut être supprimé avec la terraformation atmosphérique, auquel cas le trait hostile est supprimé et la colonie devient comme n’importe quel autre environnement. Mais si vous souhaitez que vos planètes hostiles aient plus de mordant, réglez ce paramètre sur Réduit. Désormais, les technologies de terraformation améliorée qui augmentent la taille de vos planètes n’auront que la moitié de leur efficacité sur les planètes hostiles. Par exemple, la première étape de la terraformation améliorée vous permet d’ajouter +10 à la taille d’une planète pour représenter des conditions plus hospitalières. Mais avec ce paramètre sur Réduit, une planète hostile n’obtiendra que +5 de taille. Et si vous voulez des planètes hostiles vraiment hostiles, réglez ce paramètre sur Aucun. Désormais, vous ne pouvez appliquer aucune amélioration de taille de terraformation tant que vous n’avez pas appliqué la terraformation atmosphérique pour supprimer le trait hostile.
 SETTINGS_TERRAFORMING_DESC        | Réduisez ou éliminez les avantages des technologies de terraformation améliorées sur les planètes hostiles.
-SETTINGS_COLONIZING_HELP          | Par défaut, tout module de colonisation spécial peut coloniser une planète de ce type d’hostilité ou d’un niveau inférieur dans la « hiérarchie des hostilités » de stérile à irradiée. Mais si vous définissez ce paramètre sur restreint, un environnement hostile aura besoin d’un module de colonisation de ce type spécifique. Désormais, le module de colonisation irradié dont vous aurez besoin pour coloniser la planète la plus hostile n’est plus la base de colonie par excellence.
+SETTINGS_COLONIZING_HELP          | Par défaut, tout module de colonisation spécial peut coloniser une planète de ce type d’hostilité ou d’un niveau inférieur dans la « hiérarchie des hostilités » de stérile à irradiée. Mais si vous définissez ce paramètre sur restreint, un environnement hostile aura besoin d’un module de colonisation de ce type spécifique. Désormais, le module de colonisation irradié dont vous aurez besoin pour coloniser la planète la plus hostile n’est plus la base de colonie par excellence.
 SETTINGS_COLONIZING_DESC          | Limiter la colonisation des systèmes à ceux pour lesquels vous avez acquis la technologie spécifique.
 SETTINGS_COUNCIL_WIN_HELP         | Cela détermine si les factions peuvent rejeter une victoire du conseil, ou si une telle victoire est même possible.
 SETTINGS_COUNCIL_DESC             | Désactiver la victoire par le Haut Conseil, ou permet aux empires ennemis de se rebeller contre le joueur gagnant.
@@ -2369,6 +2369,26 @@ HEADERS_RELATION_DIPLO_DESC          | Parfois, on se chicane entre voisins.
 HEADERS_RELATION_DIPLO               | ~~~ RELATIONS DIPLOMATIQUES ~~~
 HEADERS_TECH_DIPLO_DESC              | Les sciences et les technologies sont des affaires sérieuses.
 HEADERS_TECH_DIPLO                   | ~~~ RELATIONS SCIENTIFIQUES ~~~
+
+HEADERS_GALAXY_CONTENT_DESC          | Paramètres liés aux caractéristiques des galaxies.
+HEADERS_GALAXY_CONTENT               | ~~~ GALAXY CONTENT ~~~
+HEADERS_GALAXY_SIZE_DESC             | Paramètres liés à la taille des galaxies.
+HEADERS_GALAXY_SIZE                  | ~~~ GALAXY SIZE ~~~
+
+HEADERS_RESTART_OPTIONS_DESC         | Options de redémarrage.
+HEADERS_RESTART_OPTIONS              | ~~~ RESTART OPTIONS ~~~
+HEADERS_RESTART_AI_DESC              | Conserver ou modifier les IA.
+HEADERS_RESTART_AI                   | ~~~ RESTART AI ~~~
+
+HEADERS_NEBULA_EFFECT_DESC           | Nombre, position et effets des nébuleuses.
+HEADERS_NEBULA_EFFECT                | ~~~ EFFETS & POSITIONS ~~~
+HEADERS_NEBULA_TYPE_DESC             | Caractéristiques des nébuleuses.
+HEADERS_NEBULA_TYPE                  | ~~~ CARACTÉRISTIQUES ~~~
+
+HEADERS_RANDOM_OPP_DEF_DESC          | Limites à utiliser lors de la génération des espèces aléatoires.
+HEADERS_RANDOM_OPP_DEF               | ~~~ DÉFINITIONS ~~~
+HEADERS_RANDOM_OPP_DIST_DESC         | Caractéristiques de la distribution statistique des paramètres des espèces aléatoires.
+HEADERS_RANDOM_OPP_DIST              | ~~~ DISTRIBUTIONS ~~~
 
 
 
@@ -2675,7 +2695,7 @@ SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST_DESC  | Le joueur votera toujours en derni
 SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST       | En dernier
 
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_HELP | Pour ajuster l’écartement des mondes d’origine de l’Empire ; (la valeur d’origine est de 100 %).<br>Une petite valeur permettra aux mondes d’origine d’être plus proches, ce qui entraînera une grande variété de distances.<br>L’augmentation de cette valeur éloignera les mondes d’origine, ce qui entraînera des distances plus uniformes.<br>Ce paramètre peut être ajusté sur l’aperçu de la carte de la galaxie.
-SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_DESC | Distance minimale entre les mondes d’Empire Home Facteur en %. (Non autorisé sur les « galaxies complexes »)
+SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_DESC | Distance minimale entre les mondes d’Empire Home Facteur en %. (Non autorisé sur les « galaxies complexes »)
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR      | Écartement des empires : %1%
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_MAP  | Écartement Minimal : %1% (%2 ly)
 SETTINGS_MOD_GALAXY_SIZE                   | Taille de la galaxie : %1 al x %2 al
@@ -2710,9 +2730,9 @@ SETTINGS_MOD_RESTART_PLAYER_RACE_HELP    | Lorsque vous démarrez une nouvelle p
 SETTINGS_MOD_RESTART_PLAYER_RACE_DESC    | Lorsque vous démarrez une nouvelle partie basée sur une partie précédemment jouée, vous pouvez conserver l’espèce d’origine, utiliser les options courantes ou, si vous choisissez d’échanger le monde d’origine avec un autre empire, vous pouvez également voler l’espèce de l’adversaire échangé.
 SETTINGS_MOD_RESTART_PLAYER_RACE         | Espèce du joueur : %1
 SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_LAST  | GUI & Dernier
-SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP  | GUI & Échange
+SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP  | GUI & Échanger
 SETTINGS_MOD_RESTART_PLAYER_RACE_LAST      | Dernier
-SETTINGS_MOD_RESTART_PLAYER_RACE_SWAP      | Échange
+SETTINGS_MOD_RESTART_PLAYER_RACE_SWAP      | Échanger
 SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_LAST_DESC | Le joueur prendra l’espèce courante et, en cas d’échange de mondes d’origine, l’adversaire échangé conservera sa dernière espèce.
 SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP_DESC | Le joueur prendra l’espèce actuelle et, en cas d’échange de mondes d’origine, l’adversaire échangé prendra l’espèce de l’ancien joueur.
 SETTINGS_MOD_RESTART_PLAYER_RACE_LAST_DESC     | Le joueur conservera l’espèce d’origine.
@@ -2953,7 +2973,7 @@ SETTINGS_MOD_SHOW_STARS_AND_RANGES_HELP    | Afficher les zones d’accès des n
 SETTINGS_MOD_SHOW_STARS_HELP               | Afficher l’arrière-plan étoilé, mais masquer les zones d’accès aux navires.
 SETTINGS_MOD_SHOW_NO_STARS_AND_RANGES_HELP | Masquez à la fois les zones d’accès au navire et l’arrière-plan étoilé.
 
-SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS_HELP  | →SCANNER_2_NAME← ou →SCANNER_3_NAME← peuvent déterminer automatiquement et immédiatement la destination du vaisseau. Mais même avec les portées plus courtes de →SCANNER_0_NAME← et →SCANNER_1_NAME←, les vaisseaux (lents) seront souvent à portée pendant deux tours successifs, vous pouvez donc souvent déterminer les trajectoires des vaisseaux de toute façon en plissant les yeux sur une capture d’écran du dernier tour. Cette option vous évite simplement d’avoir à plisser les yeux sur la capture d’écran du dernier tour. Deux choses à noter. Tout d’abord, sans →SCANNER_2_NAME←, les trajectoires sont affichées se terminant à l’étoile la plus proche le long de la ligne. CECI N’EST PAS UNE GARANTIE QUE LE VAISSEAU S’ARRÊTERA RÉELLEMENT LÀ (car vous ne le savez pas réellement sans →SCANNER_2_NAME←), seulement que le vaisseau se déplace dans cette direction. (Bien sûr, pour la plupart des formes de galaxies, les étoiles colinéaires proches sont rares.) Deuxièmement, alors que nous voulons nous demander si les scanners suivent « vraiment » les vaisseaux en continu entre les tours, pour permettre à cette option d’être activée par défaut, cette option ne vous donnera jamais aucune information que vous n’auriez pas déjà pu obtenir en plissant les yeux sur les captures d’écran. C’est-à-dire que lorsqu’il y a un fouillis de vaisseaux de la même conception proches les uns des autres de telle sorte que vous ne pouvez pas être complètement sûr de savoir lequel s’est déplacé où en plissant les yeux sur les captures d’écran, aucune trajectoire ne sera affichée. EN COURS : Actuellement uniquement pour les transports approchant vos propres colonies.<br>!!! Peut donner de mauvaises destinations lorsque les étoiles sont alignées !!!
+SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS_HELP  | →SCANNER_2_NAME← ou →SCANNER_3_NAME← peuvent déterminer automatiquement et immédiatement la destination du vaisseau. Mais même avec les portées plus courtes de →SCANNER_0_NAME← et →SCANNER_1_NAME←, les vaisseaux (lents) seront souvent à portée pendant deux tours successifs, vous pouvez donc souvent déterminer les trajectoires des vaisseaux de toute façon en plissant les yeux sur une capture d’écran du dernier tour. Cette option vous évite simplement d’avoir à plisser les yeux sur la capture d’écran du dernier tour. Deux choses à noter. Tout d’abord, sans →SCANNER_2_NAME←, les trajectoires sont affichées se terminant à l’étoile la plus proche le long de la ligne. CECI N’EST PAS UNE GARANTIE QUE LE VAISSEAU S’ARRÊTERA RÉELLEMENT LÀ (car vous ne le savez pas réellement sans →SCANNER_2_NAME←), seulement que le vaisseau se déplace dans cette direction. (Bien sûr, pour la plupart des formes de galaxies, les étoiles colinéaires proches sont rares.) Deuxièmement, alors que nous voulons nous demander si les scanners suivent « vraiment » les vaisseaux en continu entre les tours, pour permettre à cette option d’être activée par défaut, cette option ne vous donnera jamais aucune information que vous n’auriez pas déjà pu obtenir en plissant les yeux sur les captures d’écran. C’est-à-dire que lorsqu’il y a un fouillis de vaisseaux de la même conception proches les uns des autres de telle sorte que vous ne pouvez pas être complètement sûr de savoir lequel s’est déplacé où en plissant les yeux sur les captures d’écran, aucune trajectoire ne sera affichée. EN COURS : Actuellement uniquement pour les transports approchant vos propres colonies.<br>!!! Peut donner de mauvaises destinations lorsque les étoiles sont alignées !!!
 SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS_DESC  | Faites en sorte que →SCANNER_0_NAME← et →SCANNER_1_NAME← suivent automatiquement les trajectoires des navires lorsque les navires peuvent être identifiés sans ambiguïté au cours de tours successifs. !!! Peut donner de mauvaises destinations lorsque les étoiles sont alignées !!!
 SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS       | Traquer les OVNI : %1
 
@@ -2978,19 +2998,19 @@ SETTINGS_MOD_DEVELOPED_NO_BASE           | {→MAIN_COLONY_INDUSTRY←, →MAIN_
 SETTINGS_MOD_DEVELOPED_INDUSTRY_DESC     | →FR_USINES_DESC_HK←.
 SETTINGS_MOD_DEVELOPED_INDUSTRY          | {→MAIN_COLONY_INDUSTRY←}
 
-SETTINGS_MOD_DEV_MAX_MISSING_POP_DESC    | Quel est le nombre maximum d’habitants manquants pour obtenir le statut de « colonie développée » et que le fisc fasse son office.<br>Le gouverneur peut envoyer une partie de la population des colonies déjà développées pour aider à peupler les nouvelles. Cela ne dispense pas le paiement des impôts.
+SETTINGS_MOD_DEV_MAX_MISSING_POP_DESC    | Quel est le nombre maximum d’habitants manquants pour obtenir le statut de « colonie développée » et que le fisc fasse son office.<br>Le gouverneur peut envoyer une partie de la population des colonies déjà développées pour aider à peupler les nouvelles. Cela ne dispense pas le paiement des impôts.
 SETTINGS_MOD_DEV_MAX_MISSING_POP         | Pop manquante <= %1
 
-SETTINGS_MOD_DEV_MAX_MISSING_FACT_DESC   | Quel est le nombre maximum d’usines manquantes pour être qualifié de « colonie développée » et que le fisc fasse son office.<br>Une colonie pleinement développée pourrait être la cible d’une mission d’espionnage détruisant quelques usines, sans que ce soit une excuse pour ne pas de payer leurs impôts.
+SETTINGS_MOD_DEV_MAX_MISSING_FACT_DESC   | Quel est le nombre maximum d’usines manquantes pour être qualifié de « colonie développée » et que le fisc fasse son office.<br>Une colonie pleinement développée pourrait être la cible d’une mission d’espionnage détruisant quelques usines, sans que ce soit une excuse pour ne pas de payer leurs impôts.
 SETTINGS_MOD_DEV_MAX_MISSING_FACT        | Usines manquantes <= %1
 
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_HELP     | Les colonies sans gouverneur peuvent avoir leurs barres d’ajustement ÉCO réglés sur « Croissance » après l’envoi des transports. Sélectionnez la valeur par défaut à définir dans le panneau de transport de masse.<br>Le curseur sera réglé sur vert pour confirmer l’état de remplissage automatique.<br>Ctrl+Clic sur les barres d’ajustements pour inverser.
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_DESC     | Les colonies sans gouverneur peuvent avoir leurs barres d’ajustement ÉCO réglés sur « Croissance » après l’envoi des transports. Sélectionnez la valeur par défaut d’initialisation dans le panneau de transport.
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_DESC     | Les colonies sans gouverneur peuvent avoir leurs barres d’ajustement ÉCO réglés sur « Croissance » après l’envoi des transports. Sélectionnez la valeur par défaut d’initialisation dans le panneau de transport.
 TRANSPORT_AUTO_ECO_HK                    | Transports ÉCO
 SETTINGS_MOD_TRANSPORT_AUTO_ECO          | →TRANSPORT_AUTO_ECO_HK← : %1
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES_DESC | La valeur par défaut sera de remplacer automatiquement la population de la colonie.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES      | Activé
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | La valeur par défaut sera : « Désactivé ».
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | La valeur par défaut sera : « Désactivé ».
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO       | Désactivé
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST_DESC | Conservera le dernier paramètre de colonie.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Dernier
@@ -3042,9 +3062,9 @@ SETTINGS_MOD_MAX_LANDING_MULTIPLER       | Multiplicateur
 SETTINGS_MOD_MAX_LANDING_FIXED_DESC      | Troupes de débarquement limitées, et indépendantes de la taille de la planète.
 SETTINGS_MOD_MAX_LANDING_FIXED           | Valeur fixe
 
-SETTINGS_MOD_MAX_LANDING_AMOUNT_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_FIXED← » est sélectionnée, combien de troupes d’invasion sont capables de débarquer ?
+SETTINGS_MOD_MAX_LANDING_AMOUNT_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_FIXED← » est sélectionnée, combien de troupes d’invasion sont capables de débarquer ?
 SETTINGS_MOD_MAX_LANDING_AMOUNT          | Débarquement Maximal : %1 Soldats
-SETTINGS_MOD_MAX_LANDING_FACTOR_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_MULTIPLER← » est sélectionné, quel pourcentage de la taille de la planète limitera la taille des troupes d’invasion.
+SETTINGS_MOD_MAX_LANDING_FACTOR_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_MULTIPLER← » est sélectionné, quel pourcentage de la taille de la planète limitera la taille des troupes d’invasion.
 SETTINGS_MOD_MAX_LANDING_FACTOR          | Facteur de taille de la planète : %1 %
 
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR_DESC  | Modificateur IA contre joueur. Ce pourcentage est appliqué sur le débarquement maximal avant d’être utilisé par l’IA.
@@ -3082,7 +3102,7 @@ SETTINGS_MOD_DARK_GALAXY_SHRINK_DESC     | Ne montre que les systèmes à porté
 SETTINGS_MOD_DARK_GALAXY_SHRINK          | Vue Brouillée
 SETTINGS_MOD_DARK_GALAXY_DESC            | Seuls les systèmes aux alentours sont montrés.
 SETTINGS_MOD_DARK_GALAXY                 | Brouillard de Guerre : %1
-SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Pourquoi ? par u/dweller_below</b><br><br><b>Ennuyeux :</b> Nous sommes tous dans une nébuleuse particulièrement épaisse. La supernova qui a créé cette nébuleuse a craché des éléments lourds PARTOUT. La combinaison particulière d’éléments dans notre nébuleuse locale bloque TOUT.<br><br><b>Plus drôle/autoréférentiel :</b> Nous participons à une vaste simulation créée par les Orions/Antarans. Naturellement, la simulation doit être suffisamment bonne pour que nous exprimions tous notre sensibilité/sapience. Dans l’itération 42 de la simulation, nos Dieux/Maîtres ont décidé d’isoler chaque race jusqu’à ce que nous nous rencontrions.<br><br><b>Le plus drôle :</b> Les Antarans ont gagné la guerre Orion/Antaran et ont décidé d’exterminer TOUT. Nos races ont toutes été récemment secourues/déplacées/copiées dans notre ARC (Antaran Rescue Craft) par les Orions. L’ARC ressemble juste à une petite galaxie. L’ARC est en fait une dimension de poche/un vaisseau de sauvetage. Cela explique plusieurs choses :<br>- La forte densité de races intelligentes au sein de notre ARC.<br>- Pourquoi les Orions ne dominent pas notre ARC. Les Orions s’opposent aux Antarans. L’une des différences est que les Orions ne dominent pas/exterminent pas les autres races. Cela correspond à l’histoire précédente.<br>- Pourquoi nous n’avons pas ressenti d’émissions radio les uns des autres. Ou de lumière provenant de l’étoile de l’autre. Le jeu commence à la création de l’ARC. Nous avions l’habitude de voir d’autres étoiles. Mais, maintenant, tout est différent. Maintenant, lorsque nous commençons à sortir de nos petites bulles de lumière, nous constatons que tout est différent. En fait, chaque étoile émet une bulle de lumière décroissante pleine d’informations obsolètes/sans signification. Mais, lorsque vous vous rapprochez des étoiles adjacentes, vous pouvez voir ce qui est vraiment là MAINTENANT.<br>- Pourquoi la loi physique change. Les Orions ont fabriqué différentes lois physiques dans chaque jeu/ARC pour des « raisons ». À chaque fois que nous jouons, l’ARC peut être légèrement différent. Les Orions avaient suffisamment de ressources pour copier nos races plusieurs fois et créer plusieurs ARC. Chaque partie/ARC est une tentative de créer une combinaison différente de survivants.
+SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Pourquoi ? par u/dweller_below</b><br><br><b>Ennuyeux :</b> Nous sommes tous dans une nébuleuse particulièrement épaisse. La supernova qui a créé cette nébuleuse a craché des éléments lourds PARTOUT. La combinaison particulière d’éléments dans notre nébuleuse locale bloque TOUT.<br><br><b>Plus drôle/autoréférentiel :</b> Nous participons à une vaste simulation créée par les Orions/Antarans. Naturellement, la simulation doit être suffisamment bonne pour que nous exprimions tous notre sensibilité/sapience. Dans l’itération 42 de la simulation, nos Dieux/Maîtres ont décidé d’isoler chaque race jusqu’à ce que nous nous rencontrions.<br><br><b>Le plus drôle :</b> Les Antarans ont gagné la guerre Orion/Antaran et ont décidé d’exterminer TOUT. Nos races ont toutes été récemment secourues/déplacées/copiées dans notre ARC (Antaran Rescue Craft) par les Orions. L’ARC ressemble juste à une petite galaxie. L’ARC est en fait une dimension de poche/un vaisseau de sauvetage. Cela explique plusieurs choses :<br>- La forte densité de races intelligentes au sein de notre ARC.<br>- Pourquoi les Orions ne dominent pas notre ARC. Les Orions s’opposent aux Antarans. L’une des différences est que les Orions ne dominent pas/exterminent pas les autres races. Cela correspond à l’histoire précédente.<br>- Pourquoi nous n’avons pas ressenti d’émissions radio les uns des autres. Ou de lumière provenant de l’étoile de l’autre. Le jeu commence à la création de l’ARC. Nous avions l’habitude de voir d’autres étoiles. Mais, maintenant, tout est différent. Maintenant, lorsque nous commençons à sortir de nos petites bulles de lumière, nous constatons que tout est différent. En fait, chaque étoile émet une bulle de lumière décroissante pleine d’informations obsolètes/sans signification. Mais, lorsque vous vous rapprochez des étoiles adjacentes, vous pouvez voir ce qui est vraiment là MAINTENANT.<br>- Pourquoi la loi physique change. Les Orions ont fabriqué différentes lois physiques dans chaque jeu/ARC pour des « raisons ». À chaque fois que nous jouons, l’ARC peut être légèrement différent. Les Orions avaient suffisamment de ressources pour copier nos races plusieurs fois et créer plusieurs ARC. Chaque partie/ARC est une tentative de créer une combinaison différente de survivants.
 
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | Pour augmenter le pourcentage maximal d’impôt sur la sécurité. (Prime d’espionnage = 2 × taxe)
 SETTINGS_MOD_MAX_SECURITY_PCT            | Sécurité Max. : %1 %
@@ -3215,8 +3235,8 @@ SETTINGS_MOD_SHOW_TOOLTIPS               | Afficher la barre d’info: %1
 SETTINGS_MOD_USE_FUSION_FONT_HELP        | A utiliser avec <b>Galaxies Texte</b> : Sur les ordinateurs Windows, vous n’aurez pas accès à tous les caractères disponibles... J’ai donc fusionné un tas de polices "noto" en un seul paquet et je l’ai inclus dans ce mod. C’est un mélange de polices monospace et variables (pour un total de 153 polices), j’ai dû supprimer les fonctions de tableau "avancées" car elles étaient trop grandes pour être fusionnées (il y a une raison pour laquelle Google ne propose pas la grande fusionnée !). Par conséquent, ce ne sera pas une bonne idée d’essayer de le copier dans votre dossier de polices...
 SETTINGS_MOD_USE_FUSION_FONT_DESC        | Les galaxies en forme texte utiliseront la police Fusion.
 SETTINGS_MOD_USE_FUSION_FONT             | Utiliser la police Fusion: %1
-SETTINGS_MOD_USE_FUSION_FONT_YES_DESC    | Remplace les polices standard « monospace » d’origine par celles dédiées « Fusion ».
-SETTINGS_MOD_USE_FUSION_FONT_NO_DESC     | Conservez les polices standard « monospace » d’origine.
+SETTINGS_MOD_USE_FUSION_FONT_YES_DESC    | Remplace les polices standard « monospace » d’origine par celles dédiées « Fusion ».
+SETTINGS_MOD_USE_FUSION_FONT_NO_DESC     | Conservez les polices standard « monospace » d’origine.
 SETTINGS_MOD_SHOW_NEXT_COUNCIL_DESC      | Afficher les années restantes jusqu’au prochain conseil. (Sur le panneau Galaxie, à côté de l’année)
 SETTINGS_MOD_SHOW_NEXT_COUNCIL           | Afficher le prochain conseil : %1
 SETTINGS_MOD_LOAD_LOCAL_DESC             | Les paramètres sont chargés uniquement pour le panneau actuel (Oui), ou tous les paramètres sont chargés ensemble (Non)
@@ -3521,7 +3541,7 @@ SETTINGS_MOD_AUTO_FLAG_IN_NEBULA         | Dans Nébuleuses : %1
 SETTINGS_MOD_AUTO_FLAG_NOT_NEBULA        | Hors Nébuleuse : %1
 
 SETTINGS_MOD_GALAXY_RAND_SOURCE_HELP     | Par défaut, l’aperçu ne donne qu’une idée globale de la galaxie que vous obtiendrez. En définissant une valeur autre que "Aléatoire", l’aperçu affichera la galaxie finale. Utilisez ceci pour éviter les configurations qui ne vous plairont pas... Trop loin d’Orion... Trop près du centre... ou trop loin ! etc...
-SETTINGS_MOD_GALAXY_RAND_SOURCE_DESC     | si <> 0, ce nombre sera utilisé comme source pour le générateur aléatoire de galaxies. La galaxie finale sera celle de prévisualisation.<br>Cette option débloquera la limitation de taille de prévisualisation de la galaxie (5000). Préparez-vous à un long temps de génération avec les galaxies « Insane » et supérieures !
+SETTINGS_MOD_GALAXY_RAND_SOURCE_DESC     | si <> 0, ce nombre sera utilisé comme source pour le générateur aléatoire de galaxies. La galaxie finale sera celle de prévisualisation.<br>Cette option débloquera la limitation de taille de prévisualisation de la galaxie (5000). Préparez-vous à un long temps de génération avec les galaxies « Insane » et supérieures !
 SETTINGS_MOD_GALAXY_RAND_SOURCE          | Aléatoire ou WYSIWYG : %1
 SETTINGS_MOD_GALAXY_RAND_RANDOM          | Aléatoire
 SETTINGS_MOD_GALAXY_RAND_WYSIWYG         | WYSIWYG %1
@@ -3540,7 +3560,7 @@ SETTINGS_MOD_PLAYER_SHIP_SET_DESC            | Sélection du graphisme des vaiss
 SETTINGS_MOD_PLAYER_SHIP_SET                 | Graphisme de votre armada : %1
 SETTINGS_MOD_PLAYER_SHIP_SET_ORIGINAL        | Modèles originaux
 SETTINGS_MOD_PLAYER_SHIP_SET_DISPLAY_SPECIES | Sans préférences
-SETTINGS_MOD_PLAYER_SHIP_SET_FORCED_SHIPSET  | » %1
+SETTINGS_MOD_PLAYER_SHIP_SET_FORCED_SHIPSET  | » %1
 SETTINGS_MOD_PLAYER_SHIP_SET_CUSTOM_SPECIES  | ep : %1
 SETTINGS_MOD_PLAYER_SHIP_SET_BASE_SPECIES    | [base_raceadjec]
 
@@ -3966,6 +3986,23 @@ SETTINGS_MOD_SETUP_TECH_OPTIONS_UI_HELP  | Certaines technologies peuvent être 
 SETTINGS_MOD_SETUP_HOMEWORLD_TITLE       | Configuration des Mondes d'Origine.
 SETTINGS_MOD_SETUP_HOMEWORLD_UI          | Mondes d'Origine
 SETTINGS_MOD_SETUP_HOMEWORLD_UI_DESC     | Paramètres utilisés lors de la génération des mondes d'origine des empires.
+
+SETTINGS_MOD_SETUP_GALAXY_TITLE          | Paramètres Stellaires de Base.
+SETTINGS_MOD_SETUP_GALAXY_UI             | Systèmes Stellaires
+SETTINGS_MOD_SETUP_GALAXY_UI_DESC        | Configuration de base des systèmes stellaires.
+
+SETTINGS_MOD_SETUP_NEBULA_TITLE          | Configuration des Nébuleuses.
+SETTINGS_MOD_SETUP_NEBULA_UI             | Nébuleuses
+SETTINGS_MOD_SETUP_NEBULA_UI_DESC        | Quantités, forme et impact des nébuleuses.
+
+SETTINGS_MOD_SETUP_RANDOM_OPP_TITLE      | Statistiques des Adversaires.
+SETTINGS_MOD_SETUP_RANDOM_OPP_UI         | Espèces Aléatoire
+SETTINGS_MOD_SETUP_RANDOM_OPP_UI_DESC    | Configuration des statistiques des espèces d'adversaires aléatoires.
+
+SETTINGS_MOD_SETUP_RESTART_TITLE         | Configuration de options de redémarrage.
+SETTINGS_MOD_SETUP_RESTART_UI            | Options de Redémarrage
+SETTINGS_MOD_SETUP_RESTART_UI_DESC       | Options contrôlant la manière dont un jeu sera redémarré.
+SETTINGS_MOD_SETUP_RESTART_UI_HELP       | Derrière le bouton <b>→SETUP_BUTTON_START←</b>, en utilisant la touche <b>Ctrl</b>, vous trouverez le bouton <b>→SETUP_BUTTON_RESTART←</b>.<br>Il vous sera demandé de sélectionner une ancienne partie pour en démarrer une nouvelle en réutilisant la même galaxie.<br>- Avec les mêmes adversaires ou de nouveaux.<br>- Avec la même espèce pour le joueur, une nouvelle, ou échangée avec celle d'un précédent adversaire.<br>Vous pouvez conserver votre monde d’origine ou l’échanger avec celui d'un précédent adversaire.<br>Les options suivantes contrôlent la manière dont une partie sera redémarrée.
 
 
 // Tech UI labels
@@ -4874,7 +4911,7 @@ GOVERNOR_AUTOTRANSPORT_GOV_DESC     | Migrations automatisées du gouverneur ori
 GOVERNOR_AUTOTRANSPORT_GOV          | Migrations surplus : %1
 GOVERNOR_AUTOTRANSPORT_GOV_LABEL    | Migrations automatisées depuis les colonies ayant une population proche de la taille maximale.
 
-GOVERNOR_TRANSPORT_UNGOVERNED_DESC  | Autoriser la migration depuis des colonies non gouvernées.<br>« →GOVERNOR_AUTO_TRANSPORT_LABEL← » doit également être activé.
+GOVERNOR_TRANSPORT_UNGOVERNED_DESC  | Autoriser la migration depuis des colonies non gouvernées.<br>« →GOVERNOR_AUTO_TRANSPORT_LABEL← » doit également être activé.
 GOVERNOR_TRANSPORT_UNGOVERNED       | Toutes les colonies : %1
 GOVERNOR_TRANSPORT_UNGOVERNED_LABEL | Autoriser la migration depuis des colonies non gouvernées.
 
@@ -4938,8 +4975,8 @@ GOVERNOR_SHIP_BUILDING_DESC          | Construction navale avec gouverneur activ
 GOVERNOR_SHIP_BUILDING               | Chantiers navals : %1
 GOVERNOR_SHIP_BUILDING_LABEL         | Construction navale avec gouverneur activé.
 
-GOVERNOR_FOLLOW_COLONY_REQUESTS_HELP     | Il est en quelque sorte un gouverneur junior obéissant. Il répondra d’abord à votre demande, puis fera de son mieux pour minimiser la micro-gestion, comme son grand frère... Si une « →MAIN_COLONY_SHIPYARD_LIMIT← » est définie, elle sera construite en priorité. Si vous verrouillez les allocations de navires : Il ne les modifiera pas. Il suivra également la priorité indiquée en bleu (Ctrl-Clic sur le texte à gauche)
-GOVERNOR_FOLLOW_COLONY_REQUESTS_DESC     | Si une « →MAIN_COLONY_SHIPYARD_LIMIT← » est définie, elle sera construite en priorité. Si vous verrouillez les allocations de navires : Il ne les modifiera pas. Il suivra également la priorité indiquée en bleu (Ctrl-Clic sur le texte à gauche)
+GOVERNOR_FOLLOW_COLONY_REQUESTS_HELP     | Il est en quelque sorte un gouverneur junior obéissant. Il répondra d’abord à votre demande, puis fera de son mieux pour minimiser la micro-gestion, comme son grand frère... Si une « →MAIN_COLONY_SHIPYARD_LIMIT← » est définie, elle sera construite en priorité. Si vous verrouillez les allocations de navires : Il ne les modifiera pas. Il suivra également la priorité indiquée en bleu (Ctrl-Clic sur le texte à gauche)
+GOVERNOR_FOLLOW_COLONY_REQUESTS_DESC     | Si une « →MAIN_COLONY_SHIPYARD_LIMIT← » est définie, elle sera construite en priorité. Si vous verrouillez les allocations de navires : Il ne les modifiera pas. Il suivra également la priorité indiquée en bleu (Ctrl-Clic sur le texte à gauche)
 GOVERNOR_FOLLOW_COLONY_REQUESTS          | Requêtes des colonies : %1
 GOVERNOR_FOLLOW_COLONY_REQUESTS_LABEL    | Prioriser les requêtes des colonies.
 GOVERNOR_FOLLOW_COLONY_REQUESTS_YES      | Prioriser
@@ -5046,7 +5083,7 @@ GOVERNOR_ON_BY_DEFAULT_LABEL        | Actif par défaut
 
 GOVERNOR_ANIMATED_IMAGE_DESC        | Si l’animation vous dérange, vous pouvez l’arrêter en cliquant dessus !<br>un autre clic la réactivera.
 GOVERNOR_ANIMATED_IMAGE             | Animer l’image : %1
-GOVERNOR_FULL_REFRESH_ON_LOAD_HELP  | Sur certains ordinateurs, le chargement et la mise à jour de l’apparence du panneau du gouverneur, lorsque le panneau se trouve derrière la fenêtre principale peuvent entraîner des problèmes d’affichage. Par conséquent, par défaut, seules les valeurs sont mises à jour. « Oui » permettra une mise à jour complète du panneau du gouverneur.
+GOVERNOR_FULL_REFRESH_ON_LOAD_HELP  | Sur certains ordinateurs, le chargement et la mise à jour de l’apparence du panneau du gouverneur, lorsque le panneau se trouve derrière la fenêtre principale peuvent entraîner des problèmes d’affichage. Par conséquent, par défaut, seules les valeurs sont mises à jour. « Oui » permettra une mise à jour complète du panneau du gouverneur.
 GOVERNOR_FULL_REFRESH_ON_LOAD_DESC  | La position, la taille et la couleur seront actualisées lors du chargement d’une nouvelle partie.<br>Définissez sur faux en cas de problèmes d’affichage.
 GOVERNOR_FULL_REFRESH_ON_LOAD       | Réinitialisation complète : %1
 
@@ -5091,10 +5128,10 @@ GUIDE_KEY_MODIFIER_SEPARATOR      | &nbsp : &nbsp
 GUIDE_INTEGER_PCT_VALUE           | %1 %
 
 // Common Guides and Help
-SETTINGS_BUTTON_EXIT_DESC         | Quitter / Appliquer / Annuler <br> (Basculer avec « Ctrl » ou « Shift »)
-SETTINGS_BUTTON_USER_DESC         | Enregistrer ou recharger les options de l’utilisateur.<br> (Basculer avec « Ctrl » ou « Maj »)
-SETTINGS_BUTTON_LAST_DESC         | Recharger les options de la dernière session ou du dernier jeu.<br> (Basculer avec « Ctrl » ou « Maj »)
-SETTINGS_BUTTON_DEFAULT_DESC      | Recharger les options par défaut ou restaurer les options initiales.<br> (Basculer avec « Ctrl » ou « Maj »)
+SETTINGS_BUTTON_EXIT_DESC         | Quitter / Appliquer / Annuler <br> (Basculer avec « Ctrl » ou « Shift »)
+SETTINGS_BUTTON_USER_DESC         | Enregistrer ou recharger les options de l’utilisateur.<br> (Basculer avec « Ctrl » ou « Maj »)
+SETTINGS_BUTTON_LAST_DESC         | Recharger les options de la dernière session ou du dernier jeu.<br> (Basculer avec « Ctrl » ou « Maj »)
+SETTINGS_BUTTON_DEFAULT_DESC      | Recharger les options par défaut ou restaurer les options initiales.<br> (Basculer avec « Ctrl » ou « Maj »)
 SETTINGS_BUTTON_GUIDE_DESC        | Activer / Désactiver l’aide contextuelle automatisée sur tous les panneaux de configuration.
 SETTINGS_BUTTON_HELP_DESC         | Cette touche ou <b>« F1 »</b> affichera un aperçu global du panneau.<br>Si une option est survolée lors de l’appui sur <b>« F1 »</b>, une aide plus spécifique sera affichée.
 
@@ -5117,31 +5154,31 @@ SETTINGS_LOCAL_USER_SAVE_DESC     | Enregistrer les options de ce panneau comme 
 SETTINGS_GLOBAL_USER_SAVE_DESC    | Enregistrer les options de toutes les interfaces utilisateur graphiques comme valeurs préférées de l’utilisateur (vers le fichier).
 
 // Race Menu Guides and Help
-SETUP_RACE_MAIN_DESC              | VUE D’ENSEMBLE<br> Cet écran vous permet de régler les paramètres de l’Empire du joueur de base.<br> Utilisez « Ctrl » et « Shift » pour modifier la fonctionnalité des boutons.<br> Global = Toutes les options. Local = Options de ce panneau.<br>« R » sélectionnera une nouvelle espèce au hasard.
+SETUP_RACE_MAIN_DESC              | VUE D’ENSEMBLE<br> Cet écran vous permet de régler les paramètres de l’Empire du joueur de base.<br> Utilisez « Ctrl » et « Shift » pour modifier la fonctionnalité des boutons.<br> Global = Toutes les options. Local = Options de ce panneau.<br>« R » sélectionnera une nouvelle espèce au hasard.
 SETUP_RACE_NEXT_DESC              | Enregistrer les options et accéder au menu de configuration de la galaxie.
 SETUP_RACE_CANCEL_DESC            | Annuler les options et revenir au menu principal.
 SETUP_RACE_CUSTOM_DESC            | Entrer dans le menu de personnalisation des espèces.<br> (Pour les joueurs ou les extraterrestres)
 SETUP_RACE_CHECK_BOX_DESC         | Sélectionner l’espèce personnalisée définie comme espèce du joueur.
-SETUP_RACE_SHIPSET_DESC           | Sélectionner le modèle de vaisseaux utilisé par le joueur.<br> « Original » = Celui associé par défaut à l’espèce sélectionnée.
+SETUP_RACE_SHIPSET_DESC           | Sélectionner le modèle de vaisseaux utilisé par le joueur.<br> « Original » = Celui associé par défaut à l’espèce sélectionnée.
 SETUP_RACE_RACES_DESC             | La représentation graphique de l’espèce du joueur, avec ses animations et par défaut ses aptitudes. (Les aptitudes peuvent également être générées aléatoirement ou personnalisées)
 SETUP_RACE_LEADER_HELP            | Nommez votre dirigeant ici, réfléchissez-y à deux fois, car vous ne pourrez pas le changer plus tard.
 SETUP_RACE_HOMEWORLD_HELP         | Vous pouvez définir le nom de votre planète d’origine ici, ou le modifier plus tard dans l’onglet colonie du jeu.
 
 // Galaxy Menu Guides and Help
-SETUP_GALAXY_MAIN_DESC            | VUE D’ENSEMBLE<br> Cet écran vous permet de sélectionner votre galaxie et vos adversaires.<br> Utilisez « Ctrl » et « Shift » pour modifier la fonctionnalité des boutons. Global = Toutes les options. Local = Options de ce panneau.
-SETUP_START_DESC                  | Options de sauvegarde et démarrage du jeu.<br> « Ctrl » => Relancer une nouvelle partie basée sur une ancienne sauvegarde.
+SETUP_GALAXY_MAIN_DESC            | VUE D’ENSEMBLE<br> Cet écran vous permet de sélectionner votre galaxie et vos adversaires.<br> Utilisez « Ctrl » et « Shift » pour modifier la fonctionnalité des boutons. Global = Toutes les options. Local = Options de ce panneau.
+SETUP_START_DESC                  | Options de sauvegarde et démarrage du jeu.<br> « Ctrl » => Relancer une nouvelle partie basée sur une ancienne sauvegarde.
 SETUP_BUTTON_START_DESC           | Sauvegarder la configuration actuelle et démarrer le jeu.
 SETUP_BUTTON_RESTART_DESC         | Il vous sera demandé de sélectionner une précédente partie pour en démarrer une nouvelle sur la même galaxie.<br>- Avec les mêmes adversaires ou des nouveaux.<br>- Avec la même espèce du joueur, une nouvelle ou échangée avec un adversaire précédent.<br> Vous pouvez conserver votre monde d’origine ou l’échanger avec un adversaire précédent.
 SETUP_GALAXY_BACK_DESC            | Annuler les options et revenir au menu Options du joueur.
-SETUP_GALAXY_COMPACT_OPTIONS_HELP | Ces boutons ouvrent le menu Options avancées.<br> "Configuration" contient des paramètres définis une fois au démarrage ou au redémarrage d’un jeu.<br> "Options" contient des paramètres réglables dans le jeu.<br>Pour revenir aux 6 menus d’options classiques :<br> - Appuyez sur "B" ou allez dans "Configuration" et définissez "Afficher les options compactes" sur "Non".
-SETUP_GALAXY_VANILLA_OPTIONS_HELP | Ce bouton ouvre le menu de configuration des options avancées.<br> Appuyez sur "B" pour basculer les boutons d’appel des sous-menus.
+SETUP_GALAXY_COMPACT_OPTIONS_HELP | Ces boutons ouvrent le menu Options avancées.<br> « →SETUP_BUTTON_MERGED_STATIC_SETTINGS← » contient des paramètres définis une fois au démarrage ou au redémarrage d’un jeu.<br> « →SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS← » contient des paramètres réglables dans le jeu.<br>Pour revenir aux 6 menus d’options classiques :<br> - Appuyez sur « B » ou allez dans « →SETUP_BUTTON_MERGED_STATIC_SETTINGS← » et définissez « Afficher les options compactes » sur « Non ».
+SETUP_GALAXY_VANILLA_OPTIONS_HELP | Ce bouton ouvre le menu de configuration des options avancées.<br> Appuyez sur « B » pour basculer les boutons d’appel des sous-menus.
 SETUP_TUNE_GALAXY_OPTIONS_HELP    | Ce bouton ouvre un panneau de contrôle de survol pour affiner les paramètres de la galaxie. <br>L’aperçu de la carte de la galaxie sera mis à jour en direct.
 SETUP_GALAXY_ABILITIES_DESC       | Aptitudes par défaut des empires extraterrestres :<br> ’Espèce originale’ = Aptitudes originales de l’espèce sélectionnée (dans les cases ci-dessous) ;<br> ’Retravaillée’ = Nouvelles aptitudes que vous avez enregistrées avec le nom de l’espèce originale.<br> (ex : RACE_DARLOK pour les Nasloks) ;<br> *Espèce = Espèce originale spécifique ; ou toute autre espèce personnalisée que vous avez créée.
-SETUP_GALAXY_SELECTABLE_DESC      | "Oui" => Une ligne de sélection apparaîtra en haut des cases ci-dessous, permettant la sélection d’une aptitude individuelle.
+SETUP_GALAXY_SELECTABLE_DESC      | « Oui » => Une ligne de sélection apparaîtra en haut des cases ci-dessous, permettant la sélection d’une aptitude individuelle.
 SETUP_GALAXY_SELECTABLE            | Aptitudes sélectionnables
 SETUP_GALAXY_RACE_LIST_HELP        | <b>Sélection de la liste des espèces</b><br> Modnar a étendu la liste des espèces originales avec six nouvelles espèces. Si vous n’êtes pas d’humeur à les voir, vous pouvez les exclure de la sélection.<hr><b>Par défaut :</b>&nbsp Original<hr><b>Original :</b>&nbsp Les 6 espèces de Modnar sont exclues.<br> <b>Toutes les espèces</b> : Les 6 espèces de Modnar peuvent également être sélectionnées ou attribuées au hasard.
-SETUP_GALAXY_RACE_LIST_DESC        | "Original" = Les 6 espèces de Modnar sont exclues.<br> "Toutes les espèces" = Les 6 espèces de Modnar peuvent également être sélectionnées ou attribuées au hasard.
-SETUP_GALAXY_AGAINST_DESC          | Pour sélectionner l’IA des adversaires.<br> "IA : Sélectionnable" => Une ligne de sélection apparaîtra en bas des cases ci-dessous, permettant la sélection des IA adversaires.
+SETUP_GALAXY_RACE_LIST_DESC        | "Original" = Les 6 espèces de Modnar sont exclues.<br> « Toutes les espèces » = Les 6 espèces de Modnar peuvent également être sélectionnées ou attribuées au hasard.
+SETUP_GALAXY_AGAINST_DESC          | Pour sélectionner l’IA des adversaires.<br> « IA : Sélectionnable » => Une ligne de sélection apparaîtra en bas des cases ci-dessous, permettant la sélection des IA adversaires.
 SETUP_GALAXY_PREVIEW_DESC          | Voici ce à quoi ressemblera la galaxie.<br>Point bleu = Orion.<br>Points verts = Monde natal du joueur et systèmes voisins.<br>Points rouges = Mondes natals des adversaires et leurs systèmes voisins.<br>Points gris = autres systèmes stellaires.<br>Cliquez pour afficher/masquer une grille espacée de 10 al.<br>Faites défiler pour modifier la propagation des empires.<br>Cliquez au milieu pour restaurer les distances minimales par défaut entre les empires.
 
 SETUP_SELECT_CR_OPTIONS_DESC       | si "Oui", une ligne de sélection apparaîtra en haut des cases ci-dessous, permettant la sélection de l’aptitude individuelle.
@@ -5158,9 +5195,9 @@ SETUP_SELECT_CR_OPTIONS            | Aptitudes sélectionnables.
 ’Random’_DESC           | Les aptitudes seront générées aléatoirement à l’aide des paramètres « Configuration » : <b>OPTIONS D’ALIENS ALÉATOIRES</b> : « Cible max », « Cible min », « Aliens personnalisés », « Réglage % max », « Réglage % min » et « Bords lisses ».
 ’Random 10’_DESC        | Aptitudes sélectionnées aléatoirement parmi les aptitudes des dix espèces originales.
 ’Random 16’_DESC        | Aptitudes sélectionnées aléatoirement parmi les aptitudes des seize espèces. <i>(Les dix espèces originales et les six espèces de Modnar)</i>
-’Files’_DESC            | Aptitudes sélectionnées aléatoirement parmi les fichiers d’espèces personnalisées, avec l’option « Disponible pour l’IA » activée. Si cette liste est vide, la sélection sera effectuée dans les limites des aptitudes d’origine des espèces.
-’All Files’_DESC        | Aptitudes sélectionnées aléatoirement parmi les fichiers d’espèce personnalisé, en ignorant l’option « Disponible pour l’IA ». Si cette liste est vide, la sélection sera effectuée dans le cadre des aptitudes d’origine de l’espèce.
-’Files Races’_DESC      | Aptitudes sélectionnées aléatoirement parmi les aptitudes des espèces originales et les fichiers d’espèces personnalisées, avec l’option « Disponible pour l’IA » activée.
+’Files’_DESC            | Aptitudes sélectionnées aléatoirement parmi les fichiers d’espèces personnalisées, avec l’option « Disponible pour l’IA » activée. Si cette liste est vide, la sélection sera effectuée dans les limites des aptitudes d’origine des espèces.
+’All Files’_DESC        | Aptitudes sélectionnées aléatoirement parmi les fichiers d’espèce personnalisé, en ignorant l’option « Disponible pour l’IA ». Si cette liste est vide, la sélection sera effectuée dans le cadre des aptitudes d’origine de l’espèce.
+’Files Races’_DESC      | Aptitudes sélectionnées aléatoirement parmi les aptitudes des espèces originales et les fichiers d’espèces personnalisées, avec l’option « Disponible pour l’IA » activée.
 ’All’_DESC              | Aptitudes sélectionnées aléatoirement parmi les aptitudes des espèces originales et les fichiers d’espèces personnalisées, en ignorant l’option « Disponible pour l’IA ».
 
 SETUP_GALAXY_SHAPE_RECTANGLE_HELP    | Galaxie rectangulaire ou carrée originale avec jusqu’à cinq vides.

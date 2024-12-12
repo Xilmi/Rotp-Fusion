@@ -25,7 +25,7 @@ public final class AllSubUI {
 		return instance;
 	}
 	private AllSubUI()							{ init(); }
-	private void put(AbstractOptionsSubUI ui)			{ uiMap.put(ui.optionId(), ui); }
+	private void put(AbstractOptionsSubUI ui)	{ uiMap.put(ui.optionId(), ui); }
 	private void init()							{
 		// Level 0 Panels
 		put(new BackupOptions());
@@ -46,7 +46,11 @@ public final class AllSubUI {
 		put(new NewOptionsBeta());
 		put(new NewRulesBeta());
 		put(new SettingMenuPreferences());
+		put(new SetupGalaxyOptions());
 		put(new SetupHomeworldOptions());
+		put(new SetupNebulaOptions());
+		put(new SetupRandomOpponents());
+		put(new SetupRestartOptions());
 		put(new SetupTechOptions());
 		put(new ShieldAnimations());
 		put(new ShipRules());
@@ -78,6 +82,7 @@ public final class AllSubUI {
 		put(new SystemsOptions());
 		put(new RulesOptions());
 		put(new SettingsOptions());
+		put(new SetupParameters());
 	}
 
 	public static SafeListParam allModOptions(boolean refresh)			{
@@ -90,6 +95,7 @@ public final class AllSubUI {
 			allOptions.remove(null);
 			// Then create the final list 
 			allModOptions = new SafeListParam(ALL_MOD_OPTIONS);
+			allModOptions.add(rotp.model.game.IMainOptions.showGuide);
 			allModOptions.addAll(allOptions);
 		}
 		return allModOptions;

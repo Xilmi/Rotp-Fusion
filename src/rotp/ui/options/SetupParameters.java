@@ -17,21 +17,10 @@ public final class SetupParameters extends AbstractOptionsSubUI {
 
 	public static SafeListPanel setupParametersMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
-		SafeListParam list = new SafeListParam(Arrays.asList(
-				new ParamTitle("START_GALAXY_OPTIONS"),
-				galaxyAge, starDensity,
-				empiresSpreadingFactor,
-				looseNeighborhood,
-				minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
-
-				HEADER_SPACER_100,
-				new ParamTitle("NEBULAE_OPTION"),
-				nebulae, nebulaPlacing,
-				nebulaEnrichment, nebulaHomeworld,
-				realNebulaSize,
-				realNebulaShape,
-				realNebulaeOpacity
-				));
+		
+		SafeListParam list = new SafeListParam(AllSubUI.getHandle(SETUP_GALAXY_OPTIONS_UI_KEY).getUiMajor(false));
+		list.add(HEADER_SPACER_100);
+		list.addAll(AllSubUI.getHandle(SETUP_NEBULA_OPTIONS_UI_KEY).getUiMajor(false));
 		map.add(list);
 
 		list = new SafeListParam(AllSubUI.getHandle(SETUP_HOMEWORLD_UI_KEY).getUiMajor(false));
@@ -41,24 +30,10 @@ public final class SetupParameters extends AbstractOptionsSubUI {
 
 		list = new SafeListParam(AllSubUI.getHandle(SETUP_TECH_OPTIONS_UI_KEY).getUiMajor(false));
 		list.add(HEADER_SPACER_100);
-		list.addAll(Arrays.asList(
-				new ParamTitle("START_RANDOM_ALIENS"),
-				randomAlienRacesTargetMax,
-				randomAlienRacesTargetMin,
-				randomAlienRaces,
-				randomAlienRacesMax,
-				randomAlienRacesMin,
-				randomAlienRacesSmoothEdges
-				));
+		list.addAll(AllSubUI.getHandle(SETUP_RANDOM_OPP_UI_KEY).getUiMajor(false));
 		map.add(list);
 
-		list = new SafeListParam(Arrays.asList(
-				new ParamTitle("RESTART_OPTIONS"),
-				restartChangesPlayerRace,
-				restartChangesPlayerAI,
-				restartChangesAliensAI,
-				restartAppliesSettings
-				));
+		list = new SafeListParam(AllSubUI.getHandle(SETUP_RESTART_OPTIONS_UI_KEY).getUiMajor(false));
 		list.add(HEADER_SPACER_100);
 		list.addAll(AllSubUI.getHandle(IRONMAN_OPTIONS_UI_KEY).getUiMinor(false));
 		list.add(HEADER_SPACER_100);

@@ -69,6 +69,13 @@ Later:
 
 ## What's New
 
+2024.12.12 (BR)
+- French translation improvement.
+- Added new sub panels for galaxy setup.
+- Governor actions will update the technology icons on the left side.
+- Wider central space on two column option panels.
+- Improved automatic connection of lines on help panels.
+
 2024.12.09 (BR)
 - Fixed Rallied fleet not always being sent.
 

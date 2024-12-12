@@ -49,7 +49,7 @@ OFFER_PACT_01              | Plus nous passons de temps parmi vous, plus nous va
 OFFER_ALLIANCE_01          | Le temps est venu ambassadeur : une alliance entre [my_empire] et [your_empire] doit être forgée. A travers nous, la galaxie verra que la coexistence pacifique est le seul choix acceptable !
 
 WARN_TRESPASSING_01        | Votre présence sur [system] a fait sourciller le conseil. S'il vous plaît, retirez-vous immédiatement avant que la paix pour laquelle nous avons travaillé si dur ne soit rompue.
-WARN_EXPANSION_01          | Il y a peu de façons pour nous de vous interpréter si rapidement... en élargissant votre sphère d'influence. Aucun d'eux n'est bon pour maintenir la paix entre nos peuples.
+WARN_EXPANSION_01          | Il y a peu de façons d'interpréter votre si rapide... expansion de votre sphère d'influence. Aucune d'entre elles n'est propice pour maintenir la paix entre nos peuples.
 WARN_BUILDUP_01            | Construire vos flottes de cette façon pourrait s'avérer... un mauvais présage pour la paix, ambassadeur. Méfiez-vous de la façon dont une flotte aussi intimidante sera interprétée par d'autres, y compris la République.
 WARN_SKIRMISH_01           | L'escarmouche à [system] est... gênante. Devons-nous interpréter cela comme un congé temporaire de santé mentale ? Ou un signe que quelque chose de bien plus dangereux pourrait bientôt se produire ?
 WARN_ATTACKED_01           | C'est scandaleux! De telles attaques ne peuvent pas continuer ! Je vous préviens ambassadeur : ne mettez pas en danger la paix entre [attacker_empire] et la République à la légère.

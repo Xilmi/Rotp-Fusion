@@ -89,7 +89,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private int yTop;
 	private int numColumns, numRows, hSettingsTotal;
 	private int yTitle;
-	private int settingLeft, xSetting, ySetting, columnWidth; // settings var
+	private int settingLeft, xSetting, ySetting, columnWidth, extraSep; // settings var
 	private int index, column;
 	private int xDesc, yDesc, descWidth;
 	
@@ -501,7 +501,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		index++;
 		if (index >= lastRowList.get(column)) {
 			column++;
-			xSetting = xSetting + columnWidth;
+			xSetting = xSetting + columnWidth + extraSep;
 			ySetting = yFull+yTop;
 		} else
 			ySetting += hSetting;
@@ -550,7 +550,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		prevHover = null;
 		descBox.setVisible(true);
 		//int hSettingTotal = hDistSetting * numRows;
-
+		extraSep = 0;
 		int minH = titlePad + hSettingsTotal + descHeigh + buttonPadV + smallButtonH + bottomPad;
 		if (hovering)
 			if (scaled(minWidth) > wGist)
@@ -573,12 +573,14 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			if (numColumns < 4) { // to adjust the panel width
 				wGist = (columnWidth + columnPad) * 3; // below 3 the buttons will be squeezed!
 				xGist = (wFull - wGist)/2;
-				rGist = wFull - xGist;	
+				rGist = wFull - xGist;
+				if (numColumns == 2)
+					extraSep = 6 * columnPad;
 			}
 		}
 		columnWidth	= ((wGist-columnPad)/numColumns);
 		int wCorr	= max(0, columnWidth - maxColumnWidth);
-		settingLeft	= xFull+xGist + columnPad/2 + wCorr*numColumns/2;
+		settingLeft	= xFull+xGist + columnPad/2 + wCorr*numColumns/2 - extraSep/2;
 		columnWidth	= min(columnWidth, maxColumnWidth);
 		yTitle		= yGist + titleOffset;
 		yTop		= yGist + titlePad; // First setting top position

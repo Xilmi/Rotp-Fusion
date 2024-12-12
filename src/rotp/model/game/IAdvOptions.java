@@ -417,10 +417,11 @@ public interface IAdvOptions extends IBaseOptsTools {
 						fuelRange, techTrading,
 						colonizing,
 						null,
+						AllSubUI.getHandle(SETUP_PARAMETERS_UI_KEY).getUI(),
+						AllSubUI.getHandle(RULES_OPTIONS_UI_KEY).getUI(),
+						AllSubUI.getHandle(SETTINGS_OPTIONS_UI_KEY).getUI(),
 						AllSubUI.preGameSubUI(),
-						AllSubUI.inGameSubUI(),
-						AllSubUI.commonSubUI(),
-						AllSubUI.combatSubUI()
+						AllSubUI.inGameSubUI()
 						));
 		return options;
 	}

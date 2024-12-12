@@ -1975,6 +1975,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         for (int i = 0; i < spending.length; i++)
             if (spending[i] == null || spending[i].colony() == null)
                 return;
+        RotPUI.instance().techUI().resetPlanetaryResearch();
         GovernorOptions gov = govOptions();
         if (gov.isFollowingColonyRequests()) {
         	manage(lowerShipPriority);

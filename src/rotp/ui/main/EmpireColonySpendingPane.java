@@ -831,7 +831,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             int x = e.getX();
             int y = e.getY();
             if (labelBox.contains(x,y))
-            	if (e.isControlDown())
+            	if (e.isControlDown() || SwingUtilities.isRightMouseButton(e))
            		 	toggleOrder();
             	else
             		toggleLock();

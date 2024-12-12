@@ -6,48 +6,47 @@ import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
 
-final class SettingMenuPreferences extends AbstractOptionsSubUI {
-	static final String OPTION_ID = SETTING_MENU_PREF_UI_KEY;
+final class SetupNebulaOptions extends AbstractOptionsSubUI {
+	static final String OPTION_ID = SETUP_NEBULA_OPTIONS_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
-	@Override public boolean isCfgFile()		{ return true; }
 
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("PANEL_CONTENTS"),
-				useFusionFont,
-				galaxyPreviewColorStarsSize,
-				noFogOnIcons,
-				showAlternateAnimation
+				new ParamTitle("NEBULA_EFFECT"),
+				nebulae,
+				nebulaPlacing,
+				nebulaEnrichment,
+				nebulaHomeworld
 				)));
 		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("PANEL_FORMAT"),
-				minListSizePopUp,
-				compactOptionOnly,
-				loadSaveWidth,
-				optionPanelAlignment
+				new ParamTitle("NEBULA_TYPE"),
+				realNebulaSize,
+				realNebulaShape,
+				realNebulaeOpacity
 				)));
 		return map;
-	}
+	};
 	@Override public SafeListParam minorList()	{
 		SafeListParam minorList = new SafeListParam(uiMinorKey(),
 				Arrays.asList(
-						optionPanelAlignment
+						nebulae
 						));
 		return minorList;
 	}
 	@Override public SafeListParam majorList()	{
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
-						galaxyPreviewColorStarsSize,
-						minListSizePopUp,
-						showAlternateAnimation,
-						noFogOnIcons,
-						compactOptionOnly,
-						useFusionFont,
-						loadSaveWidth
+						nebulae,
+						nebulaPlacing,
+						nebulaEnrichment,
+						nebulaHomeworld,
+						realNebulaSize,
+						realNebulaShape,
+						realNebulaeOpacity
 						));
 		return majorList;
 	}
+
 }

@@ -24,7 +24,7 @@ public abstract class AbstractOptionsSubUI implements IModOptions {
 	BufferedImage getIcon()		{ return null; }
 
 	// Constructor
-	ParamSubUI getUI()			{
+	public ParamSubUI getUI()	{
 		return new ParamSubUI(
 				headId(),
 				uiNameKey(),
