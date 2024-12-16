@@ -24,9 +24,11 @@ final class FlagOptions extends AbstractOptionsSubUI {
 
 				HEADER_SPACER_50,
 				new ParamTitle("AUTO_FLAG_COLONY_TECH"),
-				flagTechGaiaColor, flagTechFertileColor, flagTechGoodColor,
-				flagTechStandardColor, flagTechBarrenColor, flagTechDeadColor,
-				flagTechToxicColor, flagTechRadiatedColor, flagTechNoneColor
+				flagTechGaiaColor, flagTechFertileColor,
+				flagTechGoodColor, flagTechStandardColor,
+				flagTechBarrenColor, flagTechTundraColor,
+				flagTechDeadColor, flagTechToxicColor,
+				flagTechRadiatedColor, flagTechNoneColor
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_VESTIGES"),

@@ -157,13 +157,12 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     private transient PlanetType vPlanetType;
     private transient FleetPlan fleetPlan;
 
-//    /**
-//     * @return Ordered List of Flag Colors // BR:
-//     */
-//    public static List<String> getFlagList() {
-//    	return Arrays.asList("NONE", "WHITE", "RED", "BLUE", "GREEN", "YELLOW"
-//    				 , "AQUA", "ORANGE", "LIGHT BLUE", "PURPLE", "PINK");
-//    }
+    /**
+     * @return Ordered List of Flag Colors // BR:
+    public static List<String> getFlagList() {
+    	return Arrays.asList("NONE", "WHITE", "RED", "BLUE", "GREEN", "YELLOW"
+    				 , "AQUA", "ORANGE", "LIGHT BLUE", "PURPLE", "PINK");
+    } */
     public List<ShipFleet> orbitingFleets()  { return vOrbitingFleets; }
     public List<ShipFleet> exitingFleets()   { return vExitingFleets; }
     public StarSystem system()               { return galaxy().system(sysId); }
@@ -289,16 +288,6 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
         clearHostility();
     }
     public int flagColorId()  { return flagColor; }
-//    public Color flagColor() { // BR: not used!
-//        switch(flagColor) {
-//            case FLAG_RED:    return Color.red;
-//            case FLAG_WHITE:  return Color.white;
-//            case FLAG_BLUE:   return Color.blue;
-//            case FLAG_GREEN:  return Color.green;
-//            case FLAG_YELLOW: return Color.yellow;
-//        }
-//        return null; 
-//    }
     private void setVestigesFlagColor(Planet planet, int id) {
     	int color = flagRuinsNoneColor.getIndex();
     	if (planet.isAntaran())
@@ -409,8 +398,10 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 	    	color = flagTechToxicColor.getIndex();
 	    	break;
 	    case DEAD :
-	    case TUNDRA:
 	    	color = flagTechDeadColor.getIndex();
+	    	break;
+	    case TUNDRA:
+	    	color = flagTechTundraColor.getIndex();
 	    	break;
 	    case BARREN:
 	    	color = flagTechBarrenColor.getIndex();

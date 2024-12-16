@@ -510,9 +510,10 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
             g.fill(fillRect);
 
             if (category == Colony.ECOLOGY)  {
-                int popGrowth = colony.ecology().upcomingPopGrowth();
+            	float popGrowth = colony.ecology().upcomingPopGrowthFloat();
                 g.setFont(narrowFont(14));
-                String popStr = text("MAIN_COLONY_SPENDING_ECO_GROWTH",strFormat("%+3d", popGrowth));
+                String valStr = String.format("%+3.1f", popGrowth);
+                String popStr = text("MAIN_COLONY_SPENDING_ECO_GROWTH", valStr);
                 int sw1 = g.getFontMetrics().stringWidth(popStr);
                 int x1 = (boxW-sw1)/2;
                 

@@ -1574,7 +1574,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             if (this.sv.empire(i) == this && this.sv.isColonized(i)) {
                 Colony c = this.sv.colony(i);
                 // don't send population from planets with governor off
-                if (!c.isGovernor()) {
+                if (!c.isGovernor() || c.noGovAutoTransport()) {
                     continue;
                 }
                 if (c.transporting() || !c.canTransport() || c.maxTransportsAllowed() < 1) {

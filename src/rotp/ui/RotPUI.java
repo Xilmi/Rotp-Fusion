@@ -270,10 +270,6 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final HelpUI helpUI = new HelpUI();
 
     private final AdvancedOptionsUI advancedOptionsUI = new AdvancedOptionsUI();
-    // BR: Compact Mod Game options
-//    private final CompactSetupUI   compactSetupUI   = new CompactSetupUI();
-//    private final CompactOptionsUI compactOptionsUI = new CompactOptionsUI();
-    private final MainOptionsUI    mainOptionsUI    = new MainOptionsUI();
     private final LargeDialogPane  dialogPane       = new LargeDialogPane();
 
     private final CardLayout layout = new CardLayout();
@@ -376,11 +372,9 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static HelpUI helpUI()   { return instance.helpUI; }
 
     public static AdvancedOptionsUI advancedOptionsUI() { return instance.advancedOptionsUI; }
-//    public static CompactSetupUI    compactSetupUI()    { return instance.compactSetupUI; }
     public static CompactSetupUI    compactSetupUI()    { return new CompactSetupUI(); }
-//    public static CompactOptionsUI  compactOptionsUI()  { return instance.compactOptionsUI; }
     public static CompactOptionsUI  compactOptionsUI()  { return new CompactOptionsUI(); }
-    public static MainOptionsUI     mainOptionsUI()     { return instance.mainOptionsUI; }
+    public static MainOptionsUI     mainOptionsUI()     { return new MainOptionsUI(); }
     public static SetupRaceUI       setupRaceUI()       { return instance.setupRaceUI; }
     public static SetupGalaxyUI     setupGalaxyUI()     { return instance.setupGalaxyUI; }
 

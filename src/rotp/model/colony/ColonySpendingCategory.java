@@ -18,6 +18,7 @@ package rotp.model.colony;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
+import rotp.model.colony.Colony.GovWorksheet;
 import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechTree;
@@ -85,15 +86,13 @@ public abstract class ColonySpendingCategory implements Base, Serializable {
         else
             return text(techText);
     }
-    public void init(Colony c) {
-        colony = c;
-    }
+    public void init(Colony c)        { colony = c; }
     public Colony colony()            { return colony; }
     public Planet planet()            { return colony().planet(); }
     public Empire empire()            { return colony().empire(); }
     public TechTree tech()            { return empire().tech(); }
     public String name()              { return ""; }
-    public float orderedValue()      { return colony.locked(categoryType()) ? pct() : 0; }
+    public float orderedValue()       { return colony.locked(categoryType()) ? pct() : 0; }
     public void removeSpendingOrders() { }
     public boolean canLowerMaintenance() { return false; }
     public void lowerMaintenance()       { }
@@ -110,5 +109,8 @@ public abstract class ColonySpendingCategory implements Base, Serializable {
     public int smartAllocationNeeded(MouseEvent e)			{ return 0; }
     public int refreshAllocationNeeded(boolean prioritized, boolean hadShipSpending, float targetPopPct) {
     	return smoothAllocationNeeded(prioritized);
+    }
+    public int govAllocationNeeded(boolean prioritized, GovWorksheet gws) {
+    	return refreshAllocationNeeded(prioritized, gws.keepDirectShipAlloc, gws.targetPopPercent);
     }
 }

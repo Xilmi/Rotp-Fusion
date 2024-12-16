@@ -52,10 +52,13 @@ public final class MainOptions extends AbstractOptionsSubUI {
 						originalSpeciesOnly, showAllAI,
 
 						null,
-						disableAutoHelp, disableAdvisor,
-						AllSubUI.commonSubUI(),
-						AllSubUI.combatSubUI(),
-						AllSubUI.debugSubUI()
+						disableAutoHelp,
+						disableAdvisor,
+						AllSubUI.getHandle(SETTINGS_OPTIONS_UI_KEY).getUI(),
+						AllSubUI.getHandle(DEBUG_OPTIONS_UI_KEY).getUI()
+						// AllSubUI.commonSubUI(),
+						// AllSubUI.combatSubUI(),
+						// AllSubUI.debugSubUI()
 						));
 		return options;
 	}

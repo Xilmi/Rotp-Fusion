@@ -110,9 +110,10 @@ public interface IFlagOptions extends IBaseOptsTools {
 	ParamFlagColor flagTechGaiaColor 	= new ParamFlagColor("AUTO_FLAG_TECH_GAIA",		FLAG_COLOR_GREEN);
 	ParamFlagColor flagTechFertileColor = new ParamFlagColor("AUTO_FLAG_TECH_FERTILE",	FLAG_COLOR_DKGREEN);
 	ParamFlagColor flagTechGoodColor 	= new ParamFlagColor("AUTO_FLAG_TECH_GOOD",		FLAG_COLOR_BLUE);
-	ParamFlagColor flagTechStandardColor= new ParamFlagColor("AUTO_FLAG_TECH_STANDARD",	FLAG_COLOR_YELLOW);
-	ParamFlagColor flagTechBarrenColor 	= new ParamFlagColor("AUTO_FLAG_TECH_BARREN",	FLAG_COLOR_ORANGE);
-	ParamFlagColor flagTechDeadColor 	= new ParamFlagColor("AUTO_FLAG_TECH_DEAD",		FLAG_COLOR_WHITE);
+	ParamFlagColor flagTechStandardColor= new ParamFlagColor("AUTO_FLAG_TECH_STANDARD",	FLAG_COLOR_AQUA);
+	ParamFlagColor flagTechBarrenColor 	= new ParamFlagColor("AUTO_FLAG_TECH_BARREN",	FLAG_COLOR_WHITE);
+	ParamFlagColor flagTechTundraColor 	= new ParamFlagColor("AUTO_FLAG_TECH_TUNDRA",	FLAG_COLOR_YELLOW);
+	ParamFlagColor flagTechDeadColor 	= new ParamFlagColor("AUTO_FLAG_TECH_DEAD",		FLAG_COLOR_ORANGE);
 	ParamFlagColor flagTechToxicColor 	= new ParamFlagColor("AUTO_FLAG_TECH_TOXIC",	FLAG_COLOR_RED);
 	ParamFlagColor flagTechRadiatedColor= new ParamFlagColor("AUTO_FLAG_TECH_RADIATED",	FLAG_COLOR_PURPLE);
 	ParamFlagColor flagTechNoneColor 	= new ParamFlagColor("AUTO_FLAG_TECH_NONE",		FLAG_COLOR_PINK);

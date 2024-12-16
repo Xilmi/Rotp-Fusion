@@ -125,6 +125,11 @@ public class EmpireColonySpendingPane extends BasePanel {
         isRound  = round;
         init();
     }
+    BufferedImage governorImage()	{
+    	if (governorImage == null)
+    		initGovernorImage();
+    	return governorImage;
+    }
     public void mapListener(GalaxyMapPanel map)  { mapListener = map; }
     @Override
     public String textureName()            { return parent.subPanelTextureName(); }
@@ -578,9 +583,10 @@ public class EmpireColonySpendingPane extends BasePanel {
             }
             
             if (category == Colony.ECOLOGY)  {
-                int popGrowth = colony.ecology().upcomingPopGrowth();
+                float popGrowth = colony.ecology().upcomingPopGrowthFloat();
                 g.setFont(narrowFont(14));
-                String popStr = text("MAIN_COLONY_SPENDING_ECO_GROWTH",strFormat("%+3d", popGrowth));
+                String valStr = String.format("%+3.1f", popGrowth);
+                String popStr = text("MAIN_COLONY_SPENDING_ECO_GROWTH", valStr);
                 int sw1 = g.getFontMetrics().stringWidth(popStr);
                 int x1 = (boxW-sw1)/2;
                 
@@ -733,8 +739,9 @@ public class EmpireColonySpendingPane extends BasePanel {
             // Refresh all
             else if (e.isControlDown()) {
             	colony.clearUnlockedSpending();
+            	if (!colony.locked(ECOLOGY))
+            		colony.allocation(ECOLOGY, colony.ecology().cleanupAllocationNeeded());
             	colony.redistributeSpending(-1, hadsShipSpending, true);
-            	colony.checkEcoAtClean();
             }
 
             // Smooth Max

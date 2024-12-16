@@ -265,6 +265,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public String	gatesOnTT()						{ return text("GOVERNOR_STARGATES_ALL_HELP"); }
 	public String	gatesOnText()					{ return text("GOVERNOR_STARGATES_ALL_LABEL"); }
 
+	/** Develop colonies as quickly as possible */
 	public boolean	legacyGrowthMode()				{ return maxGrowthMode.get(); }
 	public void		setLegacyGrowthMode(boolean b)	{ maxGrowthMode.silentSet(b); }
 	public String	legacyGrowthModeTT()			{ return maxGrowthMode.govTooltips(); }
@@ -295,6 +296,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public String	reserveTT()						{ return reserveForSlow.govTooltips(); }
 	public String	reserveText()					{ return reserveForSlow.govLabelTxt(); }
 
+	/** Shipbuilding with Governor enabled */
 	public boolean	isShipbuilding()				{ return shipBuilding.get(); }
 	public void		setShipbuilding(boolean b)		{ shipBuilding.silentSet(b); }
 	public String	shipbuildingTT()				{ return shipBuilding.govTooltips(); }

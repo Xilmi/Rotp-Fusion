@@ -19,6 +19,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
+import rotp.model.colony.Colony.GovWorksheet;
 import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechRoboticControls;
@@ -376,13 +377,11 @@ public class ColonyIndustry extends ColonySpendingCategory {
         float planetSize = planet().currentSize();
         float expectedPopulationLongTerm = expectedPopulation()
         		+ galaxy().friendlyPopApproachingSystem(colony().starSystem());
-//        float expectedMissingPopulation	= planetSize - colony().expectedPopulationLongTerm();
         float expectedMissingPopulation	= planetSize - expectedPopulationLongTerm;
         float allowedMissingPopulation	= planetSize * (1-targetPopPct);
         // You may want some natural growth
     	if (expectedMissingPopulation <= allowedMissingPopulation)
     		return smoothSpendingNeeded();
-    	
         int colonyControls		= robotControls;
         int effectiveControls	= effectiveRobotControls();
         float builtFactories	= factories;
@@ -489,7 +488,8 @@ public class ColonyIndustry extends ColonySpendingCategory {
     }
     private float expectedPopulation() {
     	float curentPopulation	 = colony().population();
-       	float upcomingPopGrowth  = colony().ecology().upcomingPopGrowth(); // Next Turn
+//       	float upcomingPopGrowth  = colony().ecology().upcomingPopGrowth(); // Next Turn
+       	float upcomingPopGrowth  = colony().ecology().upcomingPopGrowthFloat(); // Next Turn
     	float expectedPopulation = curentPopulation + upcomingPopGrowth;
     	expectedPopulation		 = min(expectedPopulation, colony().maxSize());
     	return expectedPopulation;
@@ -640,5 +640,15 @@ public class ColonyIndustry extends ColonySpendingCategory {
     	if (SwingUtilities.isMiddleMouseButton(e))
     		return smoothAllocationNeeded(false);
     	return 0;
+    }
+    @Override public int govAllocationNeeded(boolean prioritized, GovWorksheet gws) {
+    	if (prioritized || gws.keepDirectShipAlloc)
+    		return maxAllocationNeeded();
+    	float needed = smoothRefitSpendingNeeded(gws.targetPopPercent);
+        if (needed <= 0)
+            return 0;
+        float pctNeeded = min(1, needed / colony().totalIncome());
+        int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
+        return ticks;
     }
 }

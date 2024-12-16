@@ -237,6 +237,8 @@ public class AI implements Base {
         List<ColonyTransporter> needy = new ArrayList<>();
         List<ColonyTransporter> givey = new ArrayList<>();
         for (StarSystem sys: empire.allColonizedSystems()) {
+        	if (sys.colony().noGovAutoTransport())
+        		continue;
             ColonyTransporter col = createColony(sys, minTransportSize);
             if (col != null) {
                 if((col.popNeeded >= minTransportSize) && (col.popNeeded >= col.maxPopToGive)

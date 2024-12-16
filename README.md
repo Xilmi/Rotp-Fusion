@@ -70,6 +70,23 @@ Later:
 ## What's New
 
 2024.12.12 (BR)
+- Eco growth is now displayed with one decimal.
+- Obedient Governor improvement:
+  - Will follow the request "Develop colonies as quickly as possible".
+  - Eco growth is no more rounded, for a more precise adjustment.
+  - Mandatory growth while bellow 50% filled.
+  - Keep a minimal growth of 2pop/years.
+  - New prioritization sequence:
+    - Defense if more than minimal base, and defense is tagged.
+    - Ship if build ship limit is given.
+    - Terraform, grow and update the colony factories.
+    - Tagged fields.
+    - Defenses and research.
+- New option to block governor from sending transport from a colony.
+  - Ctrl-Click on "Send Transports" Button.
+- Added Missing Tundra tech Flag
+
+2024.12.12 (BR)
 - French translation improvement.
 - Added new sub panels for galaxy setup.
 - Governor actions will update the technology icons on the left side.

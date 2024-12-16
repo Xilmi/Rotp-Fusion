@@ -19,6 +19,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
+import rotp.model.colony.Colony.GovWorksheet;
 import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechAtmosphereEnrichment;
@@ -41,6 +42,7 @@ public class ColonyEcology extends ColonySpendingCategory {
     private boolean terraformCompleted = false;
     private boolean populationGrowthCompleted = false;
     private int expectedPopGrowth = 0;
+    private float floatPopGrowth = 0;
 
     public boolean atmosphereCompletedThisTurn()        { return atmosphereCompleted; }
     public boolean soilEnrichCompletedThisTurn()        { return soilEnrichCompleted; }
@@ -292,6 +294,10 @@ public class ColonyEcology extends ColonySpendingCategory {
         upcomingResult();
         return expectedPopGrowth;
     }
+    public float upcomingPopGrowthFloat() {
+        upcomingResult();
+        return floatPopGrowth;
+    }
     @Override
     public boolean warning() {
         if (empire().ignoresPlanetEnvironment())
@@ -312,9 +318,10 @@ public class ColonyEcology extends ColonySpendingCategory {
         float currentPop = c.population();
         // Currently, this assumes that all incoming transports will not be shot down.
         float workingPop = c.populationAfterNextTurnTransports();
-        float expGrowth = c.normalPopGrowthAfterNextTurnTransports();
+        float expGrowth  = c.normalPopGrowth();
         float expPop = min(workingPop+expGrowth, planet().currentSize());
-        expectedPopGrowth = (int) (expPop) - (int) currentPop;
+        floatPopGrowth = expPop - currentPop;  // BR: To allow fine tuning
+        expectedPopGrowth = (int) (expPop) - (int) currentPop; // BR: ?!
        
         // check for waste cleanup
         cost = c.wasteCleanupCost();
@@ -367,13 +374,17 @@ public class ColonyEcology extends ColonySpendingCategory {
         if (newPopPurchaseable > 0) {
             float newPopCost = tr.populationCost();
             cost = newPopPurchaseable * newPopCost;
-            expectedPopGrowth = (int) (workingPop+expGrowth+min(newPopPurchaseable,newBC/newPopCost)) - (int) currentPop;
+            float pop = workingPop + expGrowth + min(newPopPurchaseable, newBC/newPopCost);
+            floatPopGrowth = pop - currentPop;
+            expectedPopGrowth = (int) pop - (int) currentPop;
             if (newBC < cost)
                 return text(growthText);
             newBC -= cost;
         }
-        else
-            expectedPopGrowth = (int) maxPopSize - (int) currentPop;
+        else {
+        	floatPopGrowth = maxPopSize - currentPop;
+        	expectedPopGrowth = (int) maxPopSize - (int) currentPop;
+        }
 
         // if less <1% of income, show "Clean", else show "Reserve"
         if (newBC <= (c.totalIncome()/100))
@@ -599,5 +610,21 @@ public class ColonyEcology extends ColonySpendingCategory {
     	if (SwingUtilities.isMiddleMouseButton(e))
     		return cleanupAllocationNeeded();
     	return 0;
+    }
+    @Override public int govAllocationNeeded(boolean prioritized, GovWorksheet gws) {
+        if (prioritized)
+        	return maxAllocationNeeded();
+    	// cost to terraform planet
+        float needed = terraformSpendingNeeded();
+        float popToBuy = getNewPopPurchasableLongTerm(gws.targetPopPercent);
+        if (!gws.urgePopGrowth) {
+        	popToBuy = min(popToBuy, gws.minPopGrowth - colony().normalPopGrowth());
+        	popToBuy = max(0, popToBuy);
+        }
+        if (popToBuy>0)
+        	needed += popToBuy * tech().populationCost();
+        float pctNeeded = min(1, needed / gws.totalIncome);
+        int ticks = ceil(pctNeeded * MAX_TICKS);
+        return ticks;
     }
 }

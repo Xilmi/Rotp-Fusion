@@ -68,6 +68,7 @@ public class EmpireSystemPanel extends SystemPanel {
     // private static final Color gray150C = new Color(150,150,150);
     private static final Color gray175C = new Color(175,175,175);
     private static final Color gray190C = new Color(190,190,190);
+    private static final Color darkYellow = new Color(110, 110, 55);
 
     private SystemViewInfoPane topPane;
     private EmpireColonySpendingPane spendingPane;
@@ -583,6 +584,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 return 20;
 
             boolean enabled = transportEnabled();
+            boolean noGovAutoTransport = sys.colony().noGovAutoTransport();
             transportBox.setBounds(x, y, w, h);
             g.setColor(darkShadingC);
             g.fillRect(x+s2,y+s5,w-s2,h-s5);
@@ -590,6 +592,25 @@ public class EmpireSystemPanel extends SystemPanel {
             g.fillRect(x+s2,y+s5, w-s3, h-s7);
             g.setColor(buttonC);
             g.fillRect(x+s3,y+s6, w-s5, h-s9);
+            int iconW = 0;
+
+            if (noGovAutoTransport) {
+            	BufferedImage img = spendingPane.governorImage();
+            	int imgW = img.getWidth();
+            	int imgH = img.getHeight();
+            	int margin = (h-imgH)/2;
+            	int govX = x + margin;
+            	int govY = y + margin + s2;
+            	iconW = imgW + margin;
+            	g.drawImage(img, govX, govY, imgW, imgH, null);
+            	g.setColor(new Color(210, 0, 0));
+            	Stroke prevStroke = g.getStroke();
+            	g.setStroke(stroke2);
+            	g.drawOval(govX-s1, govY-s1, imgW+s2, imgH+s2);
+            	g.drawLine(govX-s1, govY+imgH+s2, govX+imgW+s2, govY-s1);
+            	g.setStroke(prevStroke);
+            }
+
             if (!enabled)
                 g.setColor(gray70C);
             else if (hoverBox == transportBox)
@@ -597,11 +618,12 @@ public class EmpireSystemPanel extends SystemPanel {
             else
                 g.setColor(textColor);
             String s = text("MAIN_COLONY_TRANSPORTS_LABEL");
-            int fontSize = scaledFont(g, s, w-s10, maxSize, 14);
-            
+            int w2 = w-iconW;
+            int fontSize = scaledFont(g, s, w2-s10, maxSize, 14);
             g.setFont(narrowFont(fontSize));
             int sw = g.getFontMetrics().stringWidth(s);
-            drawString(g,s, x+((w-sw)/2),y+s25);
+            drawString(g,s, x+iconW+((w2-sw)/2),y+s25);
+
             if ((hoverBox == transportBox)
             && enabled) {
                 Stroke prevStroke = g.getStroke();
@@ -808,8 +830,12 @@ public class EmpireSystemPanel extends SystemPanel {
                 if (transportEnabled()) {
                     StarSystem sys =  parentSpritePanel.systemViewToDisplay();
                     if (sys != null) {
-                        TransportDeploymentPanel.enableAbandon = false; 
-                        parentSpritePanel.parent.clickedSprite(sys.transportSprite());
+                    	if (e.isControlDown())
+                    		sys.colony().toggleGovAutoTransport();
+                    	else {
+	                        TransportDeploymentPanel.enableAbandon = false; 
+	                        parentSpritePanel.parent.clickedSprite(sys.transportSprite());
+                    	}
                     }
                     parentSpritePanel.repaint();
                 }
