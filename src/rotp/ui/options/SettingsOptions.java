@@ -37,7 +37,7 @@ public final class SettingsOptions extends AbstractOptionsSubUI {
 
 		list = AllSubUI.getHandle(VISUAL_OPTIONS_UI_KEY).getUiMajor(false);
 		list.add(HEADER_SPACER_50);
-		list.add(AllSubUI.getHandle(GAME_MENU_PREF_UI_KEY).getUI());
+		list.addAll(AllSubUI.getHandle(GAME_MENU_PREF_UI_KEY).getUiMinor(false));
 		list.add(HEADER_SPACER_50);
 		list.addAll(AllSubUI.getHandle(SETTING_MENU_PREF_UI_KEY).getUiMinor(false));
 		list.add(HEADER_SPACER_50);

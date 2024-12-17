@@ -34,7 +34,7 @@
 //
 // SETTINGS_MOD_Parameter_Options_HELP | To replace _DESC if HTML control are used.
 //
-// Why both _DESC and _HELP instead of always _HELP ?
+// Why both _DESC and _HELP instead of always _HELP ?
 // Only _DESC can be cross-referenced (with →←) by the « F1 » help, which does not support HTML.
 // So if _HELP is needed you it's a good idea to also create a _DESC simplified text to be cross-referenced by the « F1 » help.
 //
@@ -1570,7 +1570,7 @@ SETUP_NEW_RACES_ON                | Toutes
 SETUP_NEW_RACES_OFF               | Original
 SETUP_OPPONENTS_HEADER_1          | %1 contre
 SETUP_OPPONENTS_HEADER_2          | Empires rivaux
-SETUP_OPPONENT_RANDOM             | ???
+SETUP_OPPONENT_RANDOM             | ???
 SETUP_OPPONENT_AI_DESC            | Sélectionnez l’IA qui sera utilisée par tous vos opposants.
 SETUP_OPPONENT_AI                 | IA adversaire :
 SETUP_OPPONENT_AI_BASE_HELP       | Famille IA : Base<br> Plus défensif que les autres base-famille-IA.
@@ -2176,9 +2176,9 @@ CUSTOM_RACE_ARTIFACTS_ORION       | Vestiges d’Orion
 CUSTOM_RACE_ARTIFACTS_ORION_DESC  | Recherche quadruplée
 
 CUSTOM_RACE_FAVORED_SHIPSET       | Modèle de vaisseaux
-CUSTOM_RACE_FAVORED_SHIPSET_DESC  | Quel est le modèle de vaisseau préféré utilisé par cette espèce ? (Si toujours disponible)
+CUSTOM_RACE_FAVORED_SHIPSET_DESC  | Quel est le modèle de vaisseau préféré utilisé par cette espèce ? (Si toujours disponible)
 CUSTOM_RACE_FAVORED_SHIP_SIZE     | Taille de Vaisseaux
-CUSTOM_RACE_FAVORED_SHIP_SIZE_DESC | Quelle est la taille de navire préférée utilisée par cette espèce ? (IA : Base, IA : Modnar, IA : Rookie et IA : Roleplay utiliseront ces informations)
+CUSTOM_RACE_FAVORED_SHIP_SIZE_DESC | Quelle est la taille de navire préférée utilisée par cette espèce ? (IA : Base, IA : Modnar, IA : Rookie et IA : Roleplay utiliseront ces informations)
 CUSTOM_RACE_SHIP_SIZE_SMALL       | Petite
 CUSTOM_RACE_SHIP_SIZE_MEDIUM      | Moyenne
 CUSTOM_RACE_SHIP_SIZE_LARGE       | Grande
@@ -2871,7 +2871,7 @@ SETTINGS_MOD_PANEL_ALIGN_JUSTIFY_DESC | Les étiquettes sont alignées à gauche
 SETTINGS_MOD_PANEL_ALIGN_JUSTIFY      | Justifié
 
 SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | Pour basculer entre les menus de configuration classiques (six menus) et les menus de configuration compacts (2 menus). Les deux font une distinction entre :<br><b>Paramètres de configuration :</b> qui ne sont lus qu’une seule fois, au démarrage (ou au redémarrage) d’une partie.<br><b>Paramètres des règles et du gameplay :</b> qui peuvent être modifiés pendant une partie. (Ctrl-o) pour appeler le menu de configuration des règles et du gameplay.
-SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC     | Afficher plusieurs menus de configuration à une taille standard ou un seul menu de configuration compacté ?
+SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC     | Afficher plusieurs menus de configuration à une taille standard ou un seul menu de configuration compacté ?
 SETTINGS_MOD_COMPACT_OPTION_ONLY          | Buttons d’options : %1
 SETTINGS_MOD_COMPACT_OPTION_ONLY_YES_DESC | Affiche les deux boutons d’accès aux menus de configuration compacts (qui contiennet un espace de description), permettant plus de réglages par menu.<br>Un pour les paramètres de construction de la Galaxie, l’autre pour les règles et les paramètres de jeu.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_NO_DESC  | Display the vanilla Advanced Options Button which includes both vanilla and mod options.
@@ -2919,10 +2919,14 @@ SETTINGS_MOD_SHOW_ALL_AI                 | Afficher toutes les IAs : %1
 SETTINGS_MOD_SHOW_ALL_AI_YES_DESC        | Toutes les IA sont disponibles pour le joueur et les adversaires.
 SETTINGS_MOD_SHOW_ALL_AI_NO_DESC         | IA :Base and IA :Modnar ne seront pas disponibles
 
-SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Afficher les grilles circulaires sur la carte de la galaxie ?
+SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Afficher les grilles circulaires sur la carte de la galaxie ?
 SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Grilles circulaires : %1
+SETTINGS_MOD_SHOW_SQUARE_GRID_DESC       | Afficher la grille carrée sur la carte de la galaxie ? (Basculer avec Alt-W)
+SETTINGS_MOD_SHOW_SQUARE_GRID            | Grille carrée: %1
+SETTINGS_MOD_SQUARE_GRID_SIZE_DESC       | Quel est l'espacement de la grille carrée sur la carte de la galaxie ? (Basculer avec Alt-W)
+SETTINGS_MOD_SQUARE_GRID_SIZE            | Taille de la grille : %1
 
-SETTINGS_MOD_FLIGHT_PATH_DISPLAY_DESC    | Quel trajectoires de vols doivent être affichées ? (En relation avec l’icône à gauche de la Galaxie)
+SETTINGS_MOD_FLIGHT_PATH_DISPLAY_DESC    | Quel trajectoires de vols doivent être affichées ? (En relation avec l’icône à gauche de la Galaxie)
 SETTINGS_MOD_FLIGHT_PATH_DISPLAY         | Afficher les trajectoires : %1
 SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS        | Toutes
 SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS  | Importantes
@@ -2934,7 +2938,7 @@ SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS_HELP       | Afficher toutes les trajectoires 
 SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS_HELP | Afficher uniquement les trajectoires de vol importantes. (Les flottes extraterrestres non menaçantes sont masquées)
 SETTINGS_MOD_SHOW_NO_FLIGHTPATHS_HELP        | Masquer toutes les trajectoires de vol.
 
-SETTINGS_MOD_SYSTEM_NAME_DISPLAY_DESC    | Que doit s’afficher sous les systèmes stellaires ? (En lien avec l’icône à gauche de la Galaxie)
+SETTINGS_MOD_SYSTEM_NAME_DISPLAY_DESC    | Que doit s’afficher sous les systèmes stellaires ? (En lien avec l’icône à gauche de la Galaxie)
 SETTINGS_MOD_SYSTEM_NAME_DISPLAY         | Textes des étoiles : %1
 SETTINGS_MOD_HIDE_SYSTEM_NAME            | Rien
 SETTINGS_MOD_SHOW_SYSTEM_NAME 	         | Le nom
@@ -2946,7 +2950,7 @@ SETTINGS_MOD_HIDE_SYSTEM_NAME_HELP       | Tout masquer.
 SETTINGS_MOD_SHOW_SYSTEM_NAME_HELP       | Afficher uniquement le nom du système stellaire.
 SETTINGS_MOD_SHOW_SYSTEM_DATA_HELP       | Afficher le nom du système stellaire au-dessus des données de la colonie.
 
-SETTINGS_MOD_SHIP_DISPLAY_DESC           | Quels vaisseaux en mouvement doivent être affichés ? (En lien avec l’icône à gauche de la galaxie)
+SETTINGS_MOD_SHIP_DISPLAY_DESC           | Quels vaisseaux en mouvement doivent être affichés ? (En lien avec l’icône à gauche de la galaxie)
 SETTINGS_MOD_SHIP_DISPLAY                | Affichage des vaisseaux : %1
 SETTINGS_MOD_SHOW_ALL_SHIPS              | Tous
 SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS 	     | Transports
@@ -2958,7 +2962,7 @@ SETTINGS_MOD_SHOW_ALL_SHIPS_HELP         | Afficher tout ce qui bouge.
 SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS_HELP  | Afficher les transports et les vaisseaux armés, masquer les vaisseaux non armés.
 SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS_HELP  | Afficher uniquement les bâtiments de guerre, masquer les transports et les vaisseaux non armés.
 
-SETTINGS_MOD_SHOW_SHIP_RANGES_DESC       | Quels limites devraient être affichés à proximité des systèmes stellaires ? (En lien avec l’icône à gauche de la galaxie)
+SETTINGS_MOD_SHOW_SHIP_RANGES_DESC       | Quels limites devraient être affichés à proximité des systèmes stellaires ? (En lien avec l’icône à gauche de la galaxie)
 SETTINGS_MOD_SHOW_SHIP_RANGES            | Fond & Zone : %1
 SETTINGS_MOD_SHOW_RANGES                 | Zone d’accès
 SETTINGS_MOD_SHOW_STARS_AND_RANGES 	     | Zone d’accès & fond étoilé
@@ -3017,7 +3021,7 @@ SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Dernier
 SETTINGS_MOD_SPY_OVERSPEND_DESC          | Utiliser tout le budget disponible pour espionner, ou arrêter de dépenser une fois le réseau au complet.
 SETTINGS_MOD_SPY_OVERSPEND               | Excédent Espionnage : %1
 
-SETTINGS_MOD_DEFAULT_FORWARD_RALLY_DESC  | Action par défaut lors de la configuration d’un rallye : les autres flottes ralliées entrantes doivent-elles être propagée ?
+SETTINGS_MOD_DEFAULT_FORWARD_RALLY_DESC  | Action par défaut lors de la configuration d’un rallye : les autres flottes ralliées entrantes doivent-elles être propagée ?
 SETTINGS_MOD_DEFAULT_FORWARD_RALLY       | Propager Ralliements: %1
 
 SETTINGS_MOD_DEFAULT_CHAIN_RALLY_DESC    | Valeur par défaut pour les rassemblements enchaînés à travers les portes des étoiles pour minimiser le temps de trajet ?
@@ -3033,7 +3037,7 @@ SETTINGS_MOD_CHAIN_RALLY_SPEED_MIN       | Min
 SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP_DESC  | Basé sur la vitesse maximale autorisée par les technologies actuellement connues.
 SETTINGS_MOD_CHAIN_RALLY_SPEED_TOP       | Top
 
-SETTINGS_MOD_RALLY_COMBAT_DESC           | Les flottes avec ordre de ralliement doivent-elles participer au combat ?
+SETTINGS_MOD_RALLY_COMBAT_DESC           | Les flottes avec ordre de ralliement doivent-elles participer au combat ?
 SETTINGS_MOD_RALLY_COMBAT                | Ralliés aident : %1
 SETTINGS_MOD_RALLY_COMBAT_NEVER_DESC     | Non, c’est le boulot de la garde planétaire.
 SETTINGS_MOD_RALLY_COMBAT_NEVER          | Aucuns
@@ -3044,7 +3048,7 @@ SETTINGS_MOD_RALLY_COMBAT_PASS_BY        | En transit
 SETTINGS_MOD_RALLY_COMBAT_ALL_DESC       | Tout le monde met la main à la pâte.
 SETTINGS_MOD_RALLY_COMBAT_ALL            | Tous
 
-SETTINGS_MOD_RALLY_COMBAT_LOSS_DESC      | Quelle flotte subira les pertes de la bataille ?
+SETTINGS_MOD_RALLY_COMBAT_LOSS_DESC      | Quelle flotte subira les pertes de la bataille ?
 SETTINGS_MOD_RALLY_COMBAT_LOSS           | Pertes de combats : %1
 SETTINGS_MOD_COMBAT_LOSS_DEFENSE_DESC    | La flotte de défense en orbite subira toutes les pertes.
 SETTINGS_MOD_COMBAT_LOSS_DEFENSE         | Défense
@@ -3053,7 +3057,7 @@ SETTINGS_MOD_COMBAT_LOSS_RALLY           | Ralliés
 SETTINGS_MOD_COMBAT_LOSS_SHARED_DESC     | Les pertes seront partagées proportionnellement à la contribution initiale.
 SETTINGS_MOD_COMBAT_LOSS_SHARED          | Partagée
 
-SETTINGS_MOD_MAX_LANDING_TROOPS_DESC     | Faut-il limiter le nombre de troupes de débarquement ? Et de quelle manière?
+SETTINGS_MOD_MAX_LANDING_TROOPS_DESC     | Faut-il limiter le nombre de troupes de débarquement ? Et de quelle manière?
 SETTINGS_MOD_MAX_LANDING_TROOPS          | Débarquement : %1
 SETTINGS_MOD_MAX_LANDING_UNLIMITED_DESC  | Toutes les troupes qui traversent les défenses sont autorisées à débarquer.
 SETTINGS_MOD_MAX_LANDING_UNLIMITED       | Illimité
@@ -3062,7 +3066,7 @@ SETTINGS_MOD_MAX_LANDING_MULTIPLER       | Multiplicateur
 SETTINGS_MOD_MAX_LANDING_FIXED_DESC      | Troupes de débarquement limitées, et indépendantes de la taille de la planète.
 SETTINGS_MOD_MAX_LANDING_FIXED           | Valeur fixe
 
-SETTINGS_MOD_MAX_LANDING_AMOUNT_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_FIXED← » est sélectionnée, combien de troupes d’invasion sont capables de débarquer ?
+SETTINGS_MOD_MAX_LANDING_AMOUNT_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_FIXED← » est sélectionnée, combien de troupes d’invasion sont capables de débarquer ?
 SETTINGS_MOD_MAX_LANDING_AMOUNT          | Débarquement Maximal : %1 Soldats
 SETTINGS_MOD_MAX_LANDING_FACTOR_DESC     | Lorsque « Débarquement : →SETTINGS_MOD_MAX_LANDING_MULTIPLER← » est sélectionné, quel pourcentage de la taille de la planète limitera la taille des troupes d’invasion.
 SETTINGS_MOD_MAX_LANDING_FACTOR          | Facteur de taille de la planète : %1 %
@@ -3102,7 +3106,7 @@ SETTINGS_MOD_DARK_GALAXY_SHRINK_DESC     | Ne montre que les systèmes à porté
 SETTINGS_MOD_DARK_GALAXY_SHRINK          | Vue Brouillée
 SETTINGS_MOD_DARK_GALAXY_DESC            | Seuls les systèmes aux alentours sont montrés.
 SETTINGS_MOD_DARK_GALAXY                 | Brouillard de Guerre : %1
-SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Pourquoi ? par u/dweller_below</b><br><br><b>Ennuyeux :</b> Nous sommes tous dans une nébuleuse particulièrement épaisse. La supernova qui a créé cette nébuleuse a craché des éléments lourds PARTOUT. La combinaison particulière d’éléments dans notre nébuleuse locale bloque TOUT.<br><br><b>Plus drôle/autoréférentiel :</b> Nous participons à une vaste simulation créée par les Orions/Antarans. Naturellement, la simulation doit être suffisamment bonne pour que nous exprimions tous notre sensibilité/sapience. Dans l’itération 42 de la simulation, nos Dieux/Maîtres ont décidé d’isoler chaque race jusqu’à ce que nous nous rencontrions.<br><br><b>Le plus drôle :</b> Les Antarans ont gagné la guerre Orion/Antaran et ont décidé d’exterminer TOUT. Nos races ont toutes été récemment secourues/déplacées/copiées dans notre ARC (Antaran Rescue Craft) par les Orions. L’ARC ressemble juste à une petite galaxie. L’ARC est en fait une dimension de poche/un vaisseau de sauvetage. Cela explique plusieurs choses :<br>- La forte densité de races intelligentes au sein de notre ARC.<br>- Pourquoi les Orions ne dominent pas notre ARC. Les Orions s’opposent aux Antarans. L’une des différences est que les Orions ne dominent pas/exterminent pas les autres races. Cela correspond à l’histoire précédente.<br>- Pourquoi nous n’avons pas ressenti d’émissions radio les uns des autres. Ou de lumière provenant de l’étoile de l’autre. Le jeu commence à la création de l’ARC. Nous avions l’habitude de voir d’autres étoiles. Mais, maintenant, tout est différent. Maintenant, lorsque nous commençons à sortir de nos petites bulles de lumière, nous constatons que tout est différent. En fait, chaque étoile émet une bulle de lumière décroissante pleine d’informations obsolètes/sans signification. Mais, lorsque vous vous rapprochez des étoiles adjacentes, vous pouvez voir ce qui est vraiment là MAINTENANT.<br>- Pourquoi la loi physique change. Les Orions ont fabriqué différentes lois physiques dans chaque jeu/ARC pour des « raisons ». À chaque fois que nous jouons, l’ARC peut être légèrement différent. Les Orions avaient suffisamment de ressources pour copier nos races plusieurs fois et créer plusieurs ARC. Chaque partie/ARC est une tentative de créer une combinaison différente de survivants.
+SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Pourquoi ? par u/dweller_below</b><br><br><b>Ennuyeux :</b> Nous sommes tous dans une nébuleuse particulièrement épaisse. La supernova qui a créé cette nébuleuse a craché des éléments lourds PARTOUT. La combinaison particulière d’éléments dans notre nébuleuse locale bloque TOUT.<br><br><b>Plus drôle/autoréférentiel :</b> Nous participons à une vaste simulation créée par les Orions/Antarans. Naturellement, la simulation doit être suffisamment bonne pour que nous exprimions tous notre sensibilité/sapience. Dans l’itération 42 de la simulation, nos Dieux/Maîtres ont décidé d’isoler chaque race jusqu’à ce que nous nous rencontrions.<br><br><b>Le plus drôle :</b> Les Antarans ont gagné la guerre Orion/Antaran et ont décidé d’exterminer TOUT. Nos races ont toutes été récemment secourues/déplacées/copiées dans notre ARC (Antaran Rescue Craft) par les Orions. L’ARC ressemble juste à une petite galaxie. L’ARC est en fait une dimension de poche/un vaisseau de sauvetage. Cela explique plusieurs choses :<br>- La forte densité de races intelligentes au sein de notre ARC.<br>- Pourquoi les Orions ne dominent pas notre ARC. Les Orions s’opposent aux Antarans. L’une des différences est que les Orions ne dominent pas/exterminent pas les autres races. Cela correspond à l’histoire précédente.<br>- Pourquoi nous n’avons pas ressenti d’émissions radio les uns des autres. Ou de lumière provenant de l’étoile de l’autre. Le jeu commence à la création de l’ARC. Nous avions l’habitude de voir d’autres étoiles. Mais, maintenant, tout est différent. Maintenant, lorsque nous commençons à sortir de nos petites bulles de lumière, nous constatons que tout est différent. En fait, chaque étoile émet une bulle de lumière décroissante pleine d’informations obsolètes/sans signification. Mais, lorsque vous vous rapprochez des étoiles adjacentes, vous pouvez voir ce qui est vraiment là MAINTENANT.<br>- Pourquoi la loi physique change. Les Orions ont fabriqué différentes lois physiques dans chaque jeu/ARC pour des « raisons ». À chaque fois que nous jouons, l’ARC peut être légèrement différent. Les Orions avaient suffisamment de ressources pour copier nos races plusieurs fois et créer plusieurs ARC. Chaque partie/ARC est une tentative de créer une combinaison différente de survivants.
 
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | Pour augmenter le pourcentage maximal d’impôt sur la sécurité. (Prime d’espionnage = 2 × taxe)
 SETTINGS_MOD_MAX_SECURITY_PCT            | Sécurité Max. : %1 %
@@ -3227,7 +3231,7 @@ SETTINGS_MOD_REAL_NEBULAE_OPACITY      | Opacité des Nébuleuses : %1%
 
 SETTINGS_MOD_PREVIEW_NEBULA_DESC         | Afficher les nébuleuses dans l’aperçu de la carte de la galaxie ? (Le rafraîchissement peut être lent, en particulier avec l’option de vraies nébuleuses.)
 SETTINGS_MOD_PREVIEW_NEBULA              | Aperçu des nébuleuses : %1
-SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Afficher les nouvelles espèces dans la liste des adversaires ?
+SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Afficher les nouvelles espèces dans la liste des adversaires ?
 SETTINGS_MOD_SHOW_NEW_RACES              | Toutes les espèces : %1
 
 SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Menu Espèces personnalisées : afficher la case inférieure avec les info ?
@@ -3415,7 +3419,7 @@ SETTINGS_MOD_COMBAT_OPTIONS_UI           | Panneau de contrôle des combats
 SETTINGS_MOD_COMBAT_OPTIONS_UI_DESC      | Ouvrez un nouveau panneau de contrôle avec divers paramètres d’options de combat de vaisseaux.
 SETTINGS_MOD_COMBAT_OPTIONS_UI_HELP      | →SETTINGS_MOD_COMBAT_OPTIONS_UI_DESC←<br>Effets des boucliers. Sons des armes, placement des astéroïdes, paramètres de l’IA.
 
-SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | Combien de drapeaux doivent être déployés sur le mât du système stellaire ?
+SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | Combien de drapeaux doivent être déployés sur le mât du système stellaire ?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Nombre de drapeaux : %1
 
 SETTINGS_MOD_AUTO_FLAG_TITLE             | Configuration de l’automation des drapeaux.
@@ -3548,7 +3552,7 @@ SETTINGS_MOD_GALAXY_RAND_SOURCE          | Aléatoire ou WYSIWYG : %1
 SETTINGS_MOD_GALAXY_RAND_RANDOM          | Aléatoire
 SETTINGS_MOD_GALAXY_RAND_WYSIWYG         | WYSIWYG %1
 
-SETTINGS_MOD_AUTO_TERRAFORM_ENDING_DESC  | En mode terraformation, qu’est-ce qui déclenchera la fin du renforcement ÉCO ?
+SETTINGS_MOD_AUTO_TERRAFORM_ENDING_DESC  | En mode terraformation, qu’est-ce qui déclenchera la fin du renforcement ÉCO ?
 SETTINGS_MOD_AUTO_TERRAFORM_ENDING       | Fin de terraformation : %1
 SETTINGS_MOD_TERRAFORM_POPULATED         | Peuplée
 SETTINGS_MOD_TERRAFORM_TERRAFORMED       | Terraformé
@@ -3842,7 +3846,7 @@ HEADERS_IRONMAN_FORMER_DESC              | Ancienne option pour la compatibilit�
 HEADERS_IRONMAN_FORMER                   | ~~~ OPTIONS PRÉCEDENTES ~~~
 HEADERS_IRONMAN_CUSTOM_DESC              | Permettre un Ironman complet ou partiel.
 HEADERS_IRONMAN_CUSTOM                   | ~~~ OPTIONS INDIVIDUELLES ~~~
-HEADERS_IRONMAN_RANDOM_DESC              | Le chargement d'un jeu modifie t-il les paramètres aléatoires ?
+HEADERS_IRONMAN_RANDOM_DESC              | Le chargement d'un jeu modifie t-il les paramètres aléatoires ?
 HEADERS_IRONMAN_RANDOM                   | ~~~ PARAMÈTRES ALEATOIRES ~~~
 
 SETTINGS_MOD_IRONMAN_MODE_HELP           | Pensé pour les défis entre joueurs sur la même galaxie de départ.<br>Supprimez l’accès aux options du jeu pour éviter la triche facile.<br>L’activation des "Événements aléatoires fixes" est fortement recommandée.<br>D’autres options seront ajoutées.
@@ -4325,7 +4329,7 @@ SHIP_COMBAT_SCAN_WEAPONS          | Armes
 SHIP_COMBAT_SCAN_DEVICES          | Dispositifs
 SHIP_COMBAT_SCAN_HITS_VALUE       | %1/%2
 SHIP_COMBAT_SCAN_WEAPON_CNT       | %1 x %2
-SHIP_COMBAT_SCAN_UNSCANNED_VALUE  | ???
+SHIP_COMBAT_SCAN_UNSCANNED_VALUE  | ???
 SHIP_COMBAT_COLONY_LABEL          | Informations sur la colonie
 SHIP_COMBAT_COLONY_SCAN_LABEL     | Informations sur l’analyse des colonies
 SHIP_COMBAT_COLONY_POPULATION     | Population
@@ -4473,7 +4477,7 @@ RACES_INTEL_UNKNOWN_TECH_DESC     | Nos espions rapportent que les races étrang
 
 RACES_MILITARY_TITLE              | Flotte de vaisseaux [alien_race_pluraladjecF]
 RACES_MILITARY_SUBTITLE           | Vaisseaux par taille de coque
-RACES_MILITARY_UNSCANNED          | ??
+RACES_MILITARY_UNSCANNED          | ??
 RACES_MILITARY_UNSCANNED_LONG     | Non scanné
 RACES_MILITARY_SMALL              | Petit
 RACES_MILITARY_MEDIUM             | Moyen
@@ -4523,7 +4527,7 @@ RACES_STATUS_TECHNOLOGY_MAX       | Technologies Max
 RACES_STATUS_PLANETS              | Planètes
 RACES_STATUS_PRODUCTION           | Production
 RACES_STATUS_TOTAL_POWER          | Pouvoir total
-RACES_UNKNOWN_DATA                | ???
+RACES_UNKNOWN_DATA                | ???
 
 RACES_SET_COLOR_TITLE             | Choisissez une nouvelle couleur pour [alien_empire]
 RACES_SET_COLOR_DESC              | Si la couleur et la forme sélectionnées sont utilisées par un autre empire, les couleurs seront inversées.
@@ -5050,7 +5054,7 @@ HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~
 GOVERNOR_ASPECT_OPTIONS_LABEL        | Apparence
 GOVERNOR_ASPECT_OPTIONS_TT           | Options liées à l’apparence de ce panneau de configuration.
 
-GOVERNOR_ORIGINAL_PANEL_DESC         | Comment le panneau doit-il être affiché ? Ancienne apparence ou similaire à RotP ?
+GOVERNOR_ORIGINAL_PANEL_DESC         | Comment le panneau doit-il être affiché ? Ancienne apparence ou similaire à RotP ?
 GOVERNOR_ORIGINAL_PANEL              | Vue Originale : %1
 GOVERNOR_ORIGINAL_PANEL_LABEL        | Vue Originale
 
@@ -5187,8 +5191,8 @@ SETUP_SELECT_CR_OPTIONS_DESC       | si "Oui", une ligne de sélection apparaît
 SETUP_SELECT_CR_OPTIONS_YES_DESC   | Une ligne de sélection apparaîtra en haut des cases de l’adversaire, permettant la sélection de l’aptitude individuelle.
 SETUP_SELECT_CR_OPTIONS_NO_DESC    | L’aptitude globale sélectionnée (à gauche) sera appliquée à tous les adversaires.
 SETUP_SELECT_CR_OPTIONS            | Aptitudes sélectionnables.
-???                                | ???
-???_DESC                           | ???_DESCXXX
+???                                | ???
+???_DESC                           | ???_DESCXXX
 
 ’Selection’_DESC        | Mêmes aptitudes que les aptitudes globales sélectionnées ci-dessus.
 ’Original Species’_DESC | Aptitudes originales de l’espèce sélectionnée (celle sur l’icône)
@@ -5309,7 +5313,7 @@ SETUP_GALAXY_SHAPE_GRID_O1_HELP     | Sélection de la distribution des galaxies
 SETUP_GRID_0_HELP                   | Les galaxies ne se trouvent que sur certaines intersections.
 SETUP_GRID_1_HELP                   | Les galaxies sont à toutes les intersections.
 SETUP_GRID_2_HELP                   | Seulement les lignes de la grille !
-SETUP_GALAXY_SHAPE_CLUSTER_HELP     | Pourquoi ne pas répartir le combat sur plusieurs galaxies ? 3, 6 ou 8 amas sont disponibles.
+SETUP_GALAXY_SHAPE_CLUSTER_HELP     | Pourquoi ne pas répartir le combat sur plusieurs galaxies ? 3, 6 ou 8 amas sont disponibles.
 SETUP_GALAXY_SHAPE_CLUSTER_O1       | Option amas de galaxies.
 SETUP_GALAXY_SHAPE_CLUSTER_O1_HELP  | Sélection du nombre d’amas.
 SETUP_CLUSTER_0_HELP                | Les systèmes stellaires sont répartis sur 4 amas.
@@ -5383,7 +5387,7 @@ HK_SET_DEFAULT | <br>Alt-F : Définir les valeurs par défaut à →FUSION_HK�
 // Shortcuts Full lists*
 MAIN_HELP_SHIPFLEET_HK | Raccourcis clavier QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d’informations détaillées (si elles sont connues)<br><br> MODE DE REDIRECTION DES FLOTTES :<br><br>Appuyez sur «Alt» pour montrer des informations sur l’étoile ou la flotte survolée par la souris.
 
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n’affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n’est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Espace/Page Down/Page Up : Votre flotte inactive Suivante/Précédente<br>«Shift-» Espace/Page Down/Page Up : Votre flotte Auto. mais inactive Suivante/Précédente→HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d’Option →HK_YEAR←<br>Shift-S : Rapport d’espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n’affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n’est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Espace/Page Down/Page Up : Votre flotte inactive Suivante/Précédente<br>«Shift-» Espace/Page Down/Page Up : Votre flotte Auto. mais inactive Suivante/Précédente→HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d’Option →HK_YEAR←<br>Shift-S : Rapport d’espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br>ALT-W : Afficher/Cacher la grille carrée <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
 
 PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>Ctrl+A : Sélectionner tous les systèmes<br>Q/+Ctrl : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+Ctrl : Planète en manque de population / + Dépenses ÉCO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +Ctrl /+Shift : Basculer activation du gouverneur / Activé / Désactivé <br>→HK_ESCAPE←
 

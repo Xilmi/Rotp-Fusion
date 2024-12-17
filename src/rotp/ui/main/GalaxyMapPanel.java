@@ -636,6 +636,8 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             drawGridCircularDisplayDark(g);
             //drawGridCircularDisplayLight(g);
         }
+        if (showSquareGrid())
+        	drawSquareGridDisplayDark(g);
     }
     private void drawOwnershipDisplay(Graphics2D g) { // BR: Dark Galaxy
         int r0 = scale(1.0f);
@@ -823,6 +825,32 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             e.printStackTrace();
             throw new RuntimeException(e.getMessage(), e);
         }
+    }
+    private void drawSquareGridDisplayDark(Graphics2D g) {
+    	Galaxy gal = galaxy();
+    	int w = gal.width();
+    	int h = gal.height();
+    	int step = squareGridSize();
+    	int xL = mapX(0);
+        int xR = mapX(w);
+    	int yU = mapY(0);
+        int yL = mapY(h);
+        int x0 = (w % step)/2;
+        int y0 = (h % step)/2;
+    	
+        Stroke prevStroke = g.getStroke();
+        g.setStroke(stroke1);
+        g.setColor(gridDark);
+
+    	for (int x=x0; x<w; x+=step) {
+    		int xMap = mapX(x);
+    		g.drawLine(xMap, yL, xMap, yU);
+    	}
+    	for (int y=y0; y<h; y+=step) {
+    		int yMap = mapY(y);
+    		g.drawLine(xL, yMap, xR, yMap);
+    	}
+        g.setStroke(prevStroke);
     }
     private void drawGridCircularDisplayDark(Graphics2D g) {
         Galaxy gal = galaxy();

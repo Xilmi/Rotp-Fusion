@@ -228,6 +228,11 @@ public class MapOverlayNone extends MapOverlay {
             	options().toggleYearDisplay();
                 break;
             case KeyEvent.VK_W: // BR:
+            	if (e.isAltDown()) {
+            		options().toggleSquareGridDisplay();
+                    parent.repaint();
+                    break;
+            	}
             	GalaxyMapPanel.toggleWarView();
             	// Refresh to force activation
             	StarSystem currSys = null;

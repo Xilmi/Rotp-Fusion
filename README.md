@@ -69,7 +69,7 @@ Later:
 
 ## What's New
 
-2024.12.12 (BR)
+2024.12.16 (BR)
 - Eco growth is now displayed with one decimal.
 - Obedient Governor improvement:
   - Will follow the request "Develop colonies as quickly as possible".
@@ -85,6 +85,7 @@ Later:
 - New option to block governor from sending transport from a colony.
   - Ctrl-Click on "Send Transports" Button.
 - Added Missing Tundra tech Flag
+- New Square grid available with alt-W
 
 2024.12.12 (BR)
 - French translation improvement.

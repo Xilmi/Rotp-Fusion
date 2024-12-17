@@ -9,7 +9,16 @@ public interface IMapOptions extends IBaseOptsTools {
 	// ========================================================================
 	// Galaxy Map options
 	// Parameters not available in specific option panel.
-	
+
+	ParamInteger squareGridSize	= new ParamInteger( MOD_UI, "SQUARE_GRID_SIZE", 5)
+			.setLimits(5, 100)
+			.setIncrements(5, 10, 20);
+	default int	squareGridSize() { return squareGridSize.get(); }
+
+	ParamBoolean showSquareGrid	= new ParamBoolean(MOD_UI, "SHOW_SQUARE_GRID", false);
+	default void toggleSquareGridDisplay()		{ showSquareGrid.toggle();}
+	default boolean showSquareGrid()			{ return showSquareGrid.get();}
+
 	ParamBoolean showGridCircular	= new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false);
 	default void toggleGridCircularDisplay()	{ showGridCircular.toggle();}
 	default boolean showGridCircular()			{ return showGridCircular.get();}

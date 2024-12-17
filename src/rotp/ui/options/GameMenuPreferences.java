@@ -39,9 +39,19 @@ final class GameMenuPreferences extends AbstractOptionsSubUI {
 				shipDisplay,
 				flightPathDisplay,
 				showGridCircular,
-				showShipRanges
+				showShipRanges,
+				LINE_SPACER_25,
+				showSquareGrid,
+				squareGridSize
 				)));
 		return map;
+	}
+	@Override public SafeListParam minorList()	{
+		SafeListParam minorList = new SafeListParam(uiMinorKey(),
+				Arrays.asList(
+						squareGridSize
+						));
+		return minorList;
 	}
 	@Override public SafeListParam majorList()	{
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
