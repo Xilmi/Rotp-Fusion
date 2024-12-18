@@ -789,7 +789,7 @@ MAIN_HELP_2D                      | Actual production adjusted for empire-wide t
 MAIN_HELP_2E                      | Change ship design to build in the planet's orbiting shipyard. Production accrued for unfinished ships will accelerate production of new ships by 50% until spent. Click or use the mouse wheel to change the ship design.
 MAIN_HELP_2F                      | Set a rally point to automatically send newly constructed ships to another colony.
 MAIN_HELP_2FSG                    | Rally to the nearest stargate.<br>(Based on "→CHAIN_RALLY_SPEED_HK←" setting)
-MAIN_HELP_2G                      | Transport population to fortify another colony or send troops to invade an enemy planet. The colony incurs a one-time production cost for transporting.
+MAIN_HELP_2G                      | Transport population to fortify another colony or send troops to invade an enemy planet. The colony incurs a one-time production cost for transporting.<br>"Ctrl-Click" will prevent/allow the governor from sending transports from this colony.
 MAIN_HELP_2H                      | Completely abandon a planet by transferring all population from it to another colony.
 MAIN_HELP_2I                      | Current and maximum planet population. 100 represents a full home planet that has not been terraformed.
 MAIN_HELP_2J                      | Current and maximum factories allowed. Maximum factories based on population and robotic controls technology.
@@ -1002,6 +1002,8 @@ MAIN_COLONY_COMPLETION_CENTURY    | %1 Yrs
 MAIN_COLONY_COMPLETION_PER_YEAR   | %1/Year
 MAIN_COLONY_SHIPYARD_COMPLETED    | Completed: %1
 MAIN_COLONY_SHIPYARD_LIMIT        | Build Limit:
+MAIN_COLONY_SHIPYARD_GOV_PCT      | Gov Pct:
+MAIN_COLONY_SHIPYARD_GOV_PCT_VAL  | %1%
 MAIN_COLONY_SHIPYARD_LIMIT_NONE   | None
 MAIN_COLONY_SHIPYARD_CONSTRUCTION | Ship Build Queue
 MAIN_COLONY_RELOCATE_LABEL        | Set Rally Point

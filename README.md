@@ -69,6 +69,11 @@ Later:
 
 ## What's New
 
+2024.12.18 (BR)
+- Updated Help for "block governor from sending transport".
+- Groundwork for more governor customisation
+- Updated Zip files to JRE21
+
 2024.12.16 (BR)
 - Eco growth is now displayed with one decimal.
 - Obedient Governor improvement:

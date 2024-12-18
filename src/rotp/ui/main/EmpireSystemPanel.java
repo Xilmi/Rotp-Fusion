@@ -47,6 +47,7 @@ import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
+import rotp.util.ModifierKeysState;
 
 public class EmpireSystemPanel extends SystemPanel {
     private static final long serialVersionUID = 1L;
@@ -68,7 +69,6 @@ public class EmpireSystemPanel extends SystemPanel {
     // private static final Color gray150C = new Color(150,150,150);
     private static final Color gray175C = new Color(175,175,175);
     private static final Color gray190C = new Color(190,190,190);
-    private static final Color darkYellow = new Color(110, 110, 55);
 
     private SystemViewInfoPane topPane;
     private EmpireColonySpendingPane spendingPane;
@@ -384,14 +384,22 @@ public class EmpireSystemPanel extends SystemPanel {
         private void drawShipCompletion(Graphics2D g, Colony c, int x, int y, int w, int h) {
             if (c == null)
                 return;
+            int buildLimit = c.shipyard().buildLimit();
+            int buildPct   = c.govShipBuildPct();
+            boolean showBuildPct = ModifierKeysState.isAltDown() &&
+            		((hoverBox == limitBox) || (hoverBox == upArrow) || (hoverBox == downArrow));
 
             g.setFont(narrowFont(16));
             g.setColor(Color.black);
-            String label = text("MAIN_COLONY_SHIPYARD_LIMIT");
+            String label = showBuildPct ?
+            		text("MAIN_COLONY_SHIPYARD_GOV_PCT") :
+            		text("MAIN_COLONY_SHIPYARD_LIMIT");
             int sw1 = g.getFontMetrics().stringWidth(label);
             String none = text("MAIN_COLONY_SHIPYARD_LIMIT_NONE");
             int sw2 = g.getFontMetrics().stringWidth(none);           
-            String amt = c.shipyard().buildLimitStr();
+            String amt = showBuildPct ?
+            		text("MAIN_COLONY_SHIPYARD_GOV_PCT_VAL", buildPct) :
+            		c.shipyard().buildLimitStr();
             int sw3 = g.getFontMetrics().stringWidth(amt);
             
             int x1 = x+s12;
@@ -420,7 +428,7 @@ public class EmpireSystemPanel extends SystemPanel {
             g.setColor(enabledArrowColor);
             g.fillPolygon(upButtonX, upButtonY, 3);
 
-            if (c.shipyard().buildLimit() == 0)
+            if (!showBuildPct && buildLimit == 0)
                 g.setColor(disabledArrowColor);
             else
                 g.setColor(enabledArrowColor);
@@ -439,7 +447,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 g.drawPolygon(upArrow);
             }
             else if ((hoverBox == downArrow)
-                && (c.shipyard().buildLimit() > 0)) {
+                && (buildLimit > 0 || showBuildPct)) {
                 g.setColor(SystemPanel.yellowText);
                 g.drawPolygon(downArrow);
             }
@@ -672,6 +680,26 @@ public class EmpireSystemPanel extends SystemPanel {
             }
             return fontSize;
         }
+        private void incrementGovBuildPct(int amt) {
+            StarSystem sys = parentSpritePanel.systemViewToDisplay();
+            Colony col = sys == null ? null : sys.colony();
+            if (col == null)
+                return;
+            col.incrShipBuildPct(amt);
+            col.governIfNeeded();
+            softClick();
+            parent.repaint();
+        }
+        private void resetGovBuildPct() {
+            StarSystem sys = parentSpritePanel.systemViewToDisplay();
+            Colony col = sys == null ? null : sys.colony();
+            if (col == null)
+                return;
+            col.resetShipBuildPct();
+        	col.governIfNeeded(true);
+            softClick();
+            repaint();
+        }
         private void incrementBuildLimit(int amt) {
             StarSystem sys = parentSpritePanel.systemViewToDisplay();
             Colony col = sys == null ? null : sys.colony();
@@ -777,6 +805,8 @@ public class EmpireSystemPanel extends SystemPanel {
             boolean rightClick = SwingUtilities.isRightMouseButton(e);
             boolean shiftPressed = e.isShiftDown();
             boolean ctrlPressed = e.isControlDown();
+//            boolean altPressed = e.isAltDown();
+//            System.out.println("altPressed: " + altPressed);
             
             int adjAmt = 1;
             if (shiftPressed)
@@ -895,7 +925,19 @@ public class EmpireSystemPanel extends SystemPanel {
             if (limitBox.contains(x,y)) {
                 boolean shiftPressed = e.isShiftDown();
                 boolean ctrlPressed = e.isControlDown();
-
+                boolean altPressed = e.isAltDown();
+                if (altPressed) {
+                    int adjAmt = 10;
+                    if (shiftPressed)
+                        adjAmt = 20;
+                    else if (ctrlPressed)
+                        adjAmt = 50;
+                    if (e.getWheelRotation() < 0)
+                    	incrementGovBuildPct(adjAmt);
+                    else
+                    	incrementGovBuildPct(-adjAmt);
+                    return;
+                }
                 int adjAmt = 1;
                 if (shiftPressed)
                     adjAmt = 5;

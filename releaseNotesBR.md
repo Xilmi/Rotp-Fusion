@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Updated Help for "block governor from sending transport".
 - New Square grid available with alt-W
 - Eco growth is now displayed with one decimal.
 - Obedient Governor improvement:

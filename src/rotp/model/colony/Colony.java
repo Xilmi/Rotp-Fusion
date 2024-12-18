@@ -127,12 +127,23 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public  boolean keepEcoLockedToClean;
     private boolean transportAutoEco = false;
     private boolean noGovAutoTransport	= false;
+    private int govShipBuildPct	= 100;
 
     private transient boolean hasNewOrders = false;
     private transient int cleanupAllocation = 0;
     private transient boolean recalcSpendingForNewTaxRate;
     public  transient boolean reallocationRequired = false;
 
+    public int     govShipBuildPct()           { return govShipBuildPct; }
+    public void    resetShipBuildPct()         { govShipBuildPct = 100; }
+    public int     incrShipBuildPct(int incr)  {
+   		govShipBuildPct += incr;
+		if (govShipBuildPct > 100)
+			govShipBuildPct = 10;
+    	else if (govShipBuildPct < 10)
+    		govShipBuildPct = 100;
+    	return govShipBuildPct;
+    }
     public boolean noGovAutoTransport()        { return noGovAutoTransport && governor; }
     public void    toggleGovAutoTransport()    { noGovAutoTransport = !noGovAutoTransport; }
     public boolean transportAutoEco()          { return transportAutoEco && !governor; }
@@ -1889,43 +1900,53 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
      */
 
-    private int adjustGovSpending(int cat, int adj, boolean prioritized, GovWorksheet gws) {
+    private int adjustGovSpending(int cat, int alloc, int maxAlloc, boolean prioritized, GovWorksheet gws) {
     	ColonySpendingCategory currCat = spending[cat];
     	int currentAllocation = currCat.allocation();
     	int allocationNeeded  = currCat.govAllocationNeeded(prioritized, gws);
+    	allocationNeeded = min(allocationNeeded, maxAlloc);
     	int increment = allocationNeeded - currentAllocation;
-    	increment = bounds(0, increment, adj);
+    	increment = bounds(0, increment, alloc);
     	if (increment == 0)
     		return 0;
     	else
     		return currCat.adjustValue(increment);
     }
-    private void handleGovSpending(int adj, GovWorksheet gws) {
-        if (adj==0)
+    private void handleGovSpending(int alloc, GovWorksheet gws) {
+        if (alloc==0)
     		return;
         // First priority: Requested Defense update
         if (gws.urgeDefense) {
-        	adj -= adjustGovSpending(DEFENSE, adj, true, gws);
+        	alloc -= adjustGovSpending(DEFENSE, alloc, MAX_TICKS, true, gws);
         }
         // Second priority: Requested Fixed Number of ship
+        // Limited by max allocation
         if (!locked(SHIP) && gws.urgeShips) {
-        	adj -= adjustGovSpending(SHIP, adj, false, gws);
-        	if (adj==0)
+        	alloc -= adjustGovSpending(SHIP, alloc, gws.limitedShipAllocation ,false, gws);
+        	if (alloc==0)
         		return;
         }
         // Third priority build and upgrade the colony: Terraform, Industry and balance Population
         for (int i : govBuildSeq) {
             if (!locked(i)) {
-            	adj -= adjustGovSpending(i, adj, false, gws);
-            	if (adj==0)
+            	alloc -= adjustGovSpending(i, alloc, MAX_TICKS, false, gws);
+            	if (alloc==0)
             		return;
             }
         }
+        // Back to Second priority: Requested Fixed Number of ship
+        // no more Limited by max allocation
+        if (!locked(SHIP) && gws.urgeShips) {
+        	alloc -= adjustGovSpending(SHIP, alloc, MAX_TICKS, false, gws);
+        	if (alloc==0)
+        		return;
+        }
+        
         // Then follow tag preferences: Defense / Ship / Research
         for (int i : govTagSeq) {
         	if (!locked(i) && hasOrder(i)) {
-            	adj -= adjustGovSpending(i, adj, true, gws);
-            	if (adj==0)
+            	alloc -= adjustGovSpending(i, alloc, MAX_TICKS, true, gws);
+            	if (alloc==0)
             		return;
             }
         }
@@ -1938,25 +1959,26 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // The remaining goes to defense then research
         for (int i : govFinalSeq) {
         	if (!locked(i)) {
-            	adj -= adjustGovSpending(i, adj, false, gws);
-            	if (adj==0)
+            	alloc -= adjustGovSpending(i, alloc, MAX_TICKS, false, gws);
+            	if (alloc==0)
             		return;
             }
         }
         // This code should never be reached, but...
-        if (adj != 0)
+        if (alloc != 0)
            	redistributeReducedEcoSpending();
     }
     private void handleGovSpending(GovWorksheet gws) {
-        int maxAllocation = ColonySpendingCategory.MAX_TICKS;
-        // determine how much categories are over/under spent
-        int spendingTotal = 0;
-        for (int i = 0; i < NUM_CATS; i++)
-            spendingTotal += spending[i].allocation();
-        int adj = maxAllocation - spendingTotal;
-        if (adj==0)
+//        int maxAllocation = ColonySpendingCategory.MAX_TICKS;
+//        // determine how much categories are over/under spent
+//        int spendingTotal = 0;
+//        for (int i = 0; i < NUM_CATS; i++)
+//            spendingTotal += spending[i].allocation();
+//        int alloc = maxAllocation - spendingTotal;
+        int alloc = gws.getRemainingAllocation();
+        if (alloc==0)
     		return;
-        for (int i=0; i<adj; i++) {
+        for (int i=0; i<alloc; i++) {
         	handleGovSpending(1, gws);
         }
     }
@@ -2614,6 +2636,18 @@ public final class Colony implements Base, IMappedObject, Serializable {
         private boolean isDirectShipAlloc, urgeDefense;
 		boolean keepDirectShipAlloc;
         boolean urgePopGrowth	= gov.legacyGrowthMode() || initialUrgeGrowth;
+        int limitedShipAllocation;
+        
+        int getRemainingAllocation() {
+            int maxAllocation = MAX_TICKS;
+            // determine how much categories are over/under spent
+            int spendingTotal = 0;
+            for (int i = 0; i < NUM_CATS; i++)
+                spendingTotal += spending[i].allocation();
+            int alloc = maxAllocation - spendingTotal;
+            limitedShipAllocation = alloc * govShipBuildPct / 100;
+            return alloc;
+        }
 
         private GovWorksheet (boolean loweredShipPriority)	{
         	// Defense management

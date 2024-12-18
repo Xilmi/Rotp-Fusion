@@ -788,8 +788,8 @@ MAIN_HELP_2C                      | Production planétaire totale de l’industr
 MAIN_HELP_2D                      | Production réelle ajustée en fonction des revenus commerciaux à l’échelle de l’empire, des coûts d’espionnage et de sécurité, ainsi que de la maintenance des bases de missiles et des vaisseaux.
 MAIN_HELP_2E                      | Modifiez la conception du vaisseau pour le construire dans le chantier naval en orbite de la planète. La production accumulée pour les vaisseaux inachevés accélérera la production de nouveaux vaisseaux de 50 % jusqu’à leur épuisement. Cliquez ou utilisez la molette de la souris pour modifier la conception du vaisseau.
 MAIN_HELP_2F                      | Définissez un point de ralliement pour envoyer automatiquement les vaisseaux nouvellement construits vers une autre colonie.
-MAIN_HELP_2FSG                    | Ralliement à la Porte des Étoiles la plus proche.<br>(Basé sur «→CHAIN_RALLY_SPEED_HK←»)
-MAIN_HELP_2G                      | Transportez de la population pour fortifier une autre colonie ou envoyez des troupes envahir une planète ennemie. La colonie engage un coût de production unique pour le transport.
+MAIN_HELP_2FSG                    | Ralliement à la Porte des Étoiles la plus proche.<br>(Basé sur « →CHAIN_RALLY_SPEED_HK← »)
+MAIN_HELP_2G                      | Transportez de la population pour fortifier une autre colonie ou envoyez des troupes envahir une planète ennemie. La colonie engage un coût de production unique pour le transport.<br>« Ctrl-Clic » Empêchera / Autorisera le gouverneur d'envoyer des transports depuis cette colonie.
 MAIN_HELP_2H                      | Abandonnez complètement une planète en transférant toute sa population vers une autre colonie.
 MAIN_HELP_2I                      | Population actuelle et maximale de la planète. 100 représente une planète d’origine complète qui n’a pas été terraformée.
 MAIN_HELP_2J                      | Usines actuelles et maximales autorisées. Usines maximales basées sur la population et la technologie des contrôles robotiques.

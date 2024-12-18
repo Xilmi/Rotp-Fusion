@@ -560,7 +560,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             	float balance   = factoryBalance[0];
             	Float refitFlag = factoryBalance[1];
             	boolean rightAmount = (balance == 0);
-            	boolean warning = !rightAmount && !colony.isGovernor();
+            	boolean warning = !rightAmount;// && !colony.isGovernor();
             	if (warning) {
             		String indStr = "";
             		if (balance > 0) {

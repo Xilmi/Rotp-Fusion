@@ -379,11 +379,13 @@
 				</executions>
 				<configuration>
 					<url>
-						https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.7%2B7/OpenJDK17U-jre_x64_windows_hotspot_17.0.7_7.zip
+						https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.5%2B11/OpenJDK21U-jre_x64_windows_hotspot_21.0.5_11.zip
+						<!-- https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.7%2B7/OpenJDK17U-jre_x64_windows_hotspot_17.0.7_7.zip -->
 					</url>
 					<unpack>true</unpack>
 					<outputDirectory>${project.build.directory}/jre-win</outputDirectory>
-					<sha256>62e82c1afa7509424813e9cb22d8becfec4346d7505e6d2fc8770af4dcd5b9a0</sha256>
+					<sha256>1749b36cfac273cee11802bf3e90caada5062de6a3fef1a3814c0568b25fd654</sha256>
+					<!-- <sha256>62e82c1afa7509424813e9cb22d8becfec4346d7505e6d2fc8770af4dcd5b9a0</sha256> -->
 				</configuration>
 			</plugin>
 			<!-- Windows executable creation -->
