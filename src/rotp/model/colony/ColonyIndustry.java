@@ -168,6 +168,13 @@ public class ColonyIndustry extends ColonySpendingCategory {
         
         c.addFollowUpSpendingOrder(orderAmt);
     }
+    float bestFactoryCost(float bc) {
+    	float totalConvertCost = convertableAlienFactories() * factoryConversionCost();
+    	if (totalConvertCost < bc)
+    		return factoryConversionCost();
+    	else
+    		return newFactoryCost();
+    }
     public void commitTurn() {
         factories += newFactories;
         if (!empire().divertColonyExcessToResearch())
@@ -365,12 +372,13 @@ public class ColonyIndustry extends ColonySpendingCategory {
 
         return totalCost;
     }
-    public int maxAllocationNeeded() {
+    public int maxAllocationNeeded() { return maxAllocationNeeded(colony().totalIncome()); }
+    public int maxAllocationNeeded(float totalIncome) {
         float needed = maxSpendingNeeded();
         if (needed <= 0)
             return 0;
-        float pctNeeded = min(1, needed / colony().totalIncome());
-        int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
+        float pctNeeded = min(1, needed / totalIncome);
+        int ticks = ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }
     private float smoothRefitSpendingNeeded(float targetPopPct) {
@@ -642,12 +650,12 @@ public class ColonyIndustry extends ColonySpendingCategory {
     	return 0;
     }
     @Override public int govAllocationNeeded(boolean prioritized, GovWorksheet gws) {
-    	if (prioritized || gws.keepDirectShipAlloc)
+    	if (prioritized)
     		return maxAllocationNeeded();
     	float needed = smoothRefitSpendingNeeded(gws.targetPopPercent);
         if (needed <= 0)
             return 0;
-        float pctNeeded = min(1, needed / colony().totalIncome());
+        float pctNeeded = min(1, needed / gws.totalIncome);
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }

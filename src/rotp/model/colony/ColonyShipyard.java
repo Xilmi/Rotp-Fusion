@@ -520,11 +520,12 @@ public class ColonyShipyard extends ColonySpendingCategory {
 
         return totalCost;
     }
-    public int maxAllocationNeeded() {
+    public int maxAllocationNeeded() { return maxAllocationNeeded(colony().totalIncome()); }
+    public int maxAllocationNeeded(float totalIncome) {
         float needed = maxSpendingNeeded();
         if (needed <= 0)
             return 0;
-        float pctNeeded = min(1, needed / colony().totalIncome());
+        float pctNeeded = min(1, needed / totalIncome);
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     } 

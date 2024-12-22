@@ -764,6 +764,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	}
 	@Override public void mouseEntered(MouseEvent e)	{
 		//super.mouseEntered(e);
+		setModifierKeysState(e);
 		repaint();
 	}
 	@Override public void mouseMoved(MouseEvent e)		{

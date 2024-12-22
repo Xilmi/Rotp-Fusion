@@ -43,7 +43,8 @@ public class MapOverlayNone extends MapOverlay {
     @Override public void advanceMap()                    { parent.resumeTurn(); }
     @Override public void paintOverMap(MainUI parent, GalaxyMapPanel ui, Graphics2D g2) { }
     @Override public boolean handleKeyPress(KeyEvent e) {
-    	setModifierKeysState(e); // BR: For the Flag color selection
+    	// BR: For the Flag color selection
+    	// setModifierKeysState(e); // Already done in MainUI
     	if(session().autoRunning() && (e.getKeyCode() == KeyEvent.VK_ESCAPE)) {
     		session().pauseAutoRun();
     		return true;

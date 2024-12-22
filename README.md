@@ -70,6 +70,15 @@ Later:
 ## What's New
 
 2024.12.18 (BR)
+- Obedient governor finalisation and documentation.
+- Updated to Java 11.
+- Updated Zip files to JRE23.
+- Improved key state management to get the real Alt key state with mouse events.
+- Splitted InputEventUtil from Base.
+- When Alt is down, population display is replaced by workers display.
+- Changed Governor tooltip dismiss delay to 10 seconds
+
+2024.12.18 (BR)
 - Updated Help for "block governor from sending transport".
 - Groundwork for more governor customisation
 - Updated Zip files to JRE21

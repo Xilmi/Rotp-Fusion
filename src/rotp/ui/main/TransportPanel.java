@@ -40,7 +40,6 @@ import rotp.model.empires.Race;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.ui.BasePanel;
-import rotp.util.ModifierKeysState;
 
 public class TransportPanel extends BasePanel {
     private static final long serialVersionUID = 1L;
@@ -219,7 +218,7 @@ public class TransportPanel extends BasePanel {
 
             // draw equipment
             Colony col = tr.destination().colony();
-            if (col != null && (!col.empire().isPlayer() || ModifierKeysState.isAltDown())) {
+            if (col != null && (!col.empire().isPlayer() || isAltDown())) {
                 int fontSize = 15;
                 int lineH = scaled(fontSize);
                 g.setFont(narrowFont(fontSize));

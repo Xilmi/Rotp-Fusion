@@ -370,20 +370,22 @@ public class ColonyDefense extends ColonySpendingCategory {
 
         return totalCost;
     }
-    public int maxAllocationNeeded() {
+    public int maxAllocationNeeded() { return maxAllocationNeeded(colony().totalIncome()); }
+    public int maxAllocationNeeded(float totalIncome) {
         float needed = maxSpendingNeeded();
         if (needed <= 0)
             return 0;
-        float pctNeeded = min(1, needed / colony().totalIncome());
-        int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
+        float pctNeeded = min(1, needed / totalIncome);
+        int ticks = ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }
-    public int shieldAllocationNeeded() {
+    public int shieldAllocationNeeded() { return shieldAllocationNeeded(colony().totalIncome()); }
+    public int shieldAllocationNeeded(float totalIncome) {
         float needed = (maxShieldLevel() - shield) * 100;
         if (needed <= 0)
             return 0;
-        float pctNeeded = min(1, needed / colony().totalIncome());
-        int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
+        float pctNeeded = min(1, needed / totalIncome);
+        int ticks = ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }
     @Override public int smoothAllocationNeeded(boolean prioritized) { return maxAllocationNeeded(); }

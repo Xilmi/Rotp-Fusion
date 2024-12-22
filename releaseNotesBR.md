@@ -8,7 +8,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
-- Updated Help for "block governor from sending transport".
+- Obedient governor finalisation and documentation.
+- Updated to Java 11.
 - New Square grid available with alt-W
 - Eco growth is now displayed with one decimal.
 - Obedient Governor improvement:
@@ -24,20 +25,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - Defenses and research.
 - New option to block governor from sending transport from a colony.
   - Ctrl-Click on "Send Transports" Button.
-- Added Missing Tundra tech Flag
-- Added new sub panels for galaxy setup.
-- Governor actions will update the technology icons on the left side.
-- Wider central space on two column option panels.
-- Improved automatic connection of lines on help panels.
-- Fixed Rallied fleet not always being sent.
-- New Options Panels are now the standard panels.
-- Fixed rally possibly being forwarded to a lost colony after a battle.
-- Fixed occasional null destination Id after fight with transit rally alone.
-- New Governor option: "Follow Colony Request"... This will put in place sort of an obedient junior governor. He'll first respond to your request, then do his best to minimize micromanagement, like his big brother... If a "Ship Build Limit" is set, it will be built first. If you lock ship allocations: He won't change them. He'll also follow the priority indicated in blue (Ctrl-Click on the text on the left).
-- By default, Rallied Fleet will now join the combat. And the option is saved in "Remnant.cfg"
-- Colony Ships in wars (Xilmi)
-  - Reverted a previous change that prevented the AI from building colony-ships when it had fewer military than their enemies.
-  - Rationale: While those colony ships seem like a waste of resources, the wars are not so much about direct fights anyways. What is important is being able to reach the enemies' colonies. So a small but constant flow of colonizers can be necessary to get access deeper into the enemies' territory.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

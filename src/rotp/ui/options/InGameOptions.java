@@ -36,11 +36,6 @@ public final class InGameOptions extends AbstractOptionsSubUI {
 				persistentArtifact,
 				ironmanNoLoad, ironmanLoadDelay,
 				allowSpeciesDetails
-
-//				HEADER_SPACER_50,
-//				new ParamTitle("BETA_TEST"),
-//				//debugAutoRun, darkGalaxy,
-//				rallyCombat, rallyCombatLoss // TODO BR: COMMENT before release
 				)));
 		SafeListParam list = new SafeListParam(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
@@ -58,14 +53,6 @@ public final class InGameOptions extends AbstractOptionsSubUI {
 				targetBombard, bombingTarget,
 				scrapRefundOption, scrapRefundFactor,
 				shipSpaceFactor
-//				maxLandingTroops,
-//				maxLandingTroopsAmount,
-//				maxLandingTroopsFactor
-//
-//				HEADER_SPACER_50,
-//				new ParamTitle("BETA_TEST"),
-//				//debugAutoRun, darkGalaxy,
-//				rallyCombat, rallyCombatLoss // TODO BR: COMMENT before release
 				));
 		list.addAll(AllSubUI.getHandle(NEW_RULES_BETA_UI_KEY).getUiMinor(false));
 		map.add(list);

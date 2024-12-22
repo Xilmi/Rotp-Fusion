@@ -818,6 +818,19 @@ MAIN_HELP_4D                      | Industry:<br> Left-Click: Min Allocation Nee
 MAIN_HELP_4E                      | Ecology:<br> Left-Click: Min Allocation Needed to finalize Growth.<br> Right-Click: Min Allocation Needed to finalize terraform. <br>Mid-Click: Min Allocation Needed to stay clean.
 MAIN_HELP_4F                      | Technology:<br> Left-Click: Max Allocation Available.<br> Right-Click: 0 Allocation --> full reallocation.
 MAIN_HELP_4G                      | Click here to lock / Unlock the spending. (Greyed when locked)<br>Ctrl-Click to cancel or restore colony orders. (The ones you can gives after a Technology update)<br> These fields are prioritized during the "Next Turn" process.<br> An option is available to show them in blue... or not.
+
+MAIN_HELP_5A                      | Options to direct the governor's tasks.<br>When enabled, the governor will change the priorities of this colony, and will do his best to carry out your orders.
+MAIN_HELP_5B                      | Select these fields, blue when enabled, to define an emergency.<br>Once the emergency is resolved, the governor will deactivate the selection.
+MAIN_HELP_5C                      | It is urgent to increase our population.<br>To counter an invasion, or to increase the number of votes in the upcoming council.
+MAIN_HELP_5D                      | It is urgent to produce factories.<br>(I plan to send you population as reinforcements.)
+MAIN_HELP_5E                      | It is urgent to update our protective shields...<br>(Our neighbors are a little aggressive)
+MAIN_HELP_5F                      | It is urgent to finalize our missile bases.<br> (Enemy ships are approaching)
+MAIN_HELP_5G                      | Do not let yourself be distracted by anything other than building and populating this colony.
+MAIN_HELP_5H                      | Once your main tasks (building and populating) are completed, use the remaining BC to build ships. (Blue when enabled)
+MAIN_HELP_5I                      | Prioritize Research (blue when enabled). Once your main tasks are done (building and populating), assign the remaining BCs to science.<br>It is Priority to continue our research (purple when enabled). Keep the colony clean and give the priority percentage of the rest to our scientists.
+MAIN_HELP_5J                      | It is a priority to complete this number of ships. Keep the colony clean and give the specified percentage of the remainder to our yards.<br>When Alt is pressed: Percentage to give to priority tasks. (Default 100%)
+MAIN_HELP_5K                      | We are short of manpower. Don't take the initiative to send our workers to other planets.
+
 // modnar: shorten System Data display
 MAIN_SYSTEM_DETAIL_PFB            | P:%1  F:%2  B:%3
 MAIN_SYSTEM_DETAIL_PF             | P:%1  F:%2
@@ -959,6 +972,7 @@ MAIN_TRANSPORT_INCOMING_POP       | Pop(%1)
 // Colony labels
 MAIN_COLONY_HOMEWORLD             | %1 Homeworld
 MAIN_COLONY_FOUNDED               | %1 Colony
+MAIN_COLONY_WORKING_POPULATION    | Workers
 MAIN_COLONY_POPULATION            | Population
 MAIN_COLONY_FACTORIES             | Factories
 MAIN_COLONY_ALIEN_FACTORIES       | %1 [alien_race] →MAIN_COLONY_FACTORIES←
@@ -1002,7 +1016,7 @@ MAIN_COLONY_COMPLETION_CENTURY    | %1 Yrs
 MAIN_COLONY_COMPLETION_PER_YEAR   | %1/Year
 MAIN_COLONY_SHIPYARD_COMPLETED    | Completed: %1
 MAIN_COLONY_SHIPYARD_LIMIT        | Build Limit:
-MAIN_COLONY_SHIPYARD_GOV_PCT      | Gov Pct:
+MAIN_COLONY_SHIPYARD_GOV_PCT      | Take:
 MAIN_COLONY_SHIPYARD_GOV_PCT_VAL  | %1%
 MAIN_COLONY_SHIPYARD_LIMIT_NONE   | None
 MAIN_COLONY_SHIPYARD_CONSTRUCTION | Ship Build Queue

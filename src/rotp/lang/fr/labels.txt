@@ -818,6 +818,19 @@ MAIN_HELP_4D                      | Industrie : <br> Clic-gauche : Allocation 
 MAIN_HELP_4E                      | Écologie : <br> Clic-gauche : Allocation minimale nécessaire pour finaliser la croissance.<br> Clic-droit : Allocation minimale nécessaire pour finaliser la terraformation. <br>Clic-milieu : Allocation minimale nécessaire pour rester propre.
 MAIN_HELP_4F                      | Technologie : <br>Clic-gauche : Allocation maximale disponible.<br> Clic-droit : 0 Allocation --> réallocation complète.
 MAIN_HELP_4G                      | Cliquez ici pour verrouiller / déverrouiller les dépenses. (en gris lorsque verrouillé)<br>Clique + Ctrl pour annuler ou restaurer les ordres des colonies. (Que vous pouvez fixer après une mise à jour technologique)<br> Ces champs sont classés par ordre de priorité lors du processus de «Tour suivant».<br> Une option est disponible pour les afficher en bleu... ou pas.
+
+MAIN_HELP_5A                      | Options pour orienter les tâches du gouverneur.<br>Lorsque activées, le gouverneur changera les priorités de cette colonie, et fera de son mieux pour exécuter vos ordres.
+MAIN_HELP_5B                      | Sélectionner ces champs, en bleu lorsque activés, pour définir une urgence.<br>Une fois l'urgence résolue, le gouverneur désactivera la sélection.
+MAIN_HELP_5C                      | Il est urgent de faire croître lnotre population.<br>Pour contrer une invasion, ou pour augmenter le nombre de voix lors du vote qui s'en vient.
+MAIN_HELP_5D                      | Il est urgent de produire des usines.<br>(Je prévois de vous envoyer de la population en renfort.)
+MAIN_HELP_5E                      | Il est urgent de mettre à jour nos boucliers protecteurs...<br>(Nos voisins sont un peu agressif)
+MAIN_HELP_5F                      | Il est urgent de finaliser nos bases de missiles.<br> (Des vaisseaux ennemis approchent)
+MAIN_HELP_5G                      | Ne vous laissez pas ditraire par autre chose que de bâtir et populer cette colonie.
+MAIN_HELP_5H                      | Une fois vos tâches principales exécutées (bâtir et peuplement), utilisez les BC restants pour construire des vaisseaux. (En bleu lorsque activé)
+MAIN_HELP_5I                      | Favoriser la recherche (en bleu lorsque activé). Une fois vos tâches principales exécutées (bâtir et peuplement), attribuez les BC restants à la science.<br>Il est Prioritaire de poursuivre nos recherches (en pourpre lorsque activé). Gardez la colonie propre et donnez le pourcentage prioritaire du reste à nos scientifiques.
+MAIN_HELP_5J                      | Il est prioritaire de finaliser ce nombre de vaisseaux. Gardez la colonie propre et donnez le pourcentage spécifié du reste à nos chantiers.<br>Lorsque la touche Alt est pressée: Pourcentage à accorder au tâches prioritaires. (100 % par défaut)
+MAIN_HELP_5K                      | On manque de main d'oeuvre. Ne prennez pas l'initiative d'envoyer nos travailleurs sur d'autre planètes.
+
 // modnar: shorten System Data display
 MAIN_SYSTEM_DETAIL_PFB            | Pop %1  Usi %2  Base %3
 MAIN_SYSTEM_DETAIL_PF             | Pop %1  Usi %2
@@ -959,6 +972,7 @@ MAIN_TRANSPORT_INCOMING_POP       | Pop(%1)
 // Colony labels
 MAIN_COLONY_HOMEWORLD             | Planète %1
 MAIN_COLONY_FOUNDED               | Colonie %1
+MAIN_COLONY_WORKING_POPULATION    | Travailleurs
 MAIN_COLONY_POPULATION            | Population
 MAIN_COLONY_FACTORIES             | Usines
 MAIN_COLONY_ALIEN_FACTORIES       | %1 Usines [alien_race_pluraladjecF]
@@ -983,7 +997,7 @@ MAIN_COLONY_SPENDING_CONVERT      | Convertir
 MAIN_COLONY_SPENDING_REFIT        | Rénove
 MAIN_COLONY_SPENDING_MAX_FACT     | Max
 MAIN_COLONY_SPENDING_UNUSED_FACT  | %1 extra
-MAIN_COLONY_SPENDING_NEEDED_FACT  | Demande %1
+MAIN_COLONY_SPENDING_NEEDED_FACT  | besoin %1
 MAIN_COLONY_SPENDING_WASTE        | Déchets
 MAIN_COLONY_SPENDING_ECO_GROWTH   | Croissance %1
 MAIN_COLONY_SPENDING_ATMOSPHERE   | Atmo
@@ -996,12 +1010,14 @@ MAIN_COLONY_SPENDING_UPG_BASES    | Rénove
 MAIN_COLONY_SPENDING_PLAGUE       | Pandémies
 MAIN_COLONY_SPENDING_SUPERNOVA    | Supernova
 MAIN_COLONY_SPENDING_RP           | %1 RP
-MAIN_COLONY_COMPLETION_YEAR       | 1 An
-MAIN_COLONY_COMPLETION_YEARS      | %1 Ans
-MAIN_COLONY_COMPLETION_CENTURY    | %1 Ans
+MAIN_COLONY_COMPLETION_YEAR       | 1 An
+MAIN_COLONY_COMPLETION_YEARS      | %1 Ans
+MAIN_COLONY_COMPLETION_CENTURY    | %1 Ans
 MAIN_COLONY_COMPLETION_PER_YEAR   | %1/An
 MAIN_COLONY_SHIPYARD_COMPLETED    | Complété : %1
 MAIN_COLONY_SHIPYARD_LIMIT        | Limite :
+MAIN_COLONY_SHIPYARD_GOV_PCT      | Utiliser :
+MAIN_COLONY_SHIPYARD_GOV_PCT_VAL  | %1 %
 MAIN_COLONY_SHIPYARD_LIMIT_NONE   | Aucune
 MAIN_COLONY_SHIPYARD_CONSTRUCTION | Flotte en Construction
 MAIN_COLONY_RELOCATE_LABEL        | Point de Ralliement

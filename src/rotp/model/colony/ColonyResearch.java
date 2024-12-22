@@ -108,6 +108,8 @@ public class ColonyResearch extends ColonySpendingCategory {
 			return MAX_TICKS;
     }
     @Override public int smartAllocationNeeded(MouseEvent e) {
+    	if (empire().tech().researchCompleted())
+			return 0;
     	if (e==null || SwingUtilities.isLeftMouseButton(e))
    			return smoothAllocationNeeded(colony().prioritizeResearch());
     	if (SwingUtilities.isRightMouseButton(e))

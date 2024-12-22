@@ -282,7 +282,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         if (spr instanceof StarSystem) {
             StarSystem sys = (StarSystem) spr;
             if (sys.empire() == player())
-                numHelpFrames = 4;
+                numHelpFrames = 5;
         }
         
         loadHelpUI();
@@ -292,7 +292,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     public void advanceHelp() {
         if (helpFrame == 0)
             return;
-        helpFrame++;
+        helpFrame++; // TO DO BR: UNCOMMENT
         if (helpFrame > numHelpFrames)
         	cancelHelp();
         else
@@ -505,6 +505,7 @@ public class MainUI extends BasePanel implements IMapHandler {
                     case 1: loadEmpireColonyHelpFrame1(); break;
                     case 2: loadEmpireColonyHelpFrame2(); break;
                     case 3: loadEmpireColonyHelpFrame3(); break;
+                    case 4: loadEmpireColonyHelpFrame4(); break;
                     default: loadButtonBarHelpFrame(); break;
                 }
             }
@@ -1210,6 +1211,109 @@ public class MainUI extends BasePanel implements IMapHandler {
         ye += dye;
         HelpSpec sp6s = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_4F"));
         sp6s.setLine(x1+w1, y1+(sp6s.height()/2), xe, ye);
+    }
+    private void loadEmpireColonyHelpFrame4() { // BR: Obedient Governor max help
+        HelpUI helpUI = RotPUI.helpUI();
+        helpUI.clear();
+        int x0 = s100;
+        int y0 = s10;
+        int w0 = scaled(350);
+        HelpSpec s0 = helpUI.addBlueHelpText(x0, y0, w0, 0, text("MAIN_HELP_ALL"));
+        s0.setLine(s100, s25, s30, s25);
+
+        Sprite spr = this.clickedSprite();
+        if (!(spr instanceof StarSystem))
+        	return;
+        if (((StarSystem) spr).empire() != player())
+        	return;
+
+        int w = getWidth();
+        
+        int sep = s5;
+        int border = s10;
+
+        int w1 = scaled(400);
+        int x1 = w - w1 - scaled(290);
+        int y1 = border;
+        int xe = w-scaled(73);
+        int ye = scaled(310);
+
+        // Intermediate boxes
+        int wBox = scaled(240);
+        int hBox = scaled(70);
+        int xBox = w-wBox-s10;
+        int yBox = scaled(200);
+
+        // Top of the window
+        y0 = s0.ye() + s100;
+        helpUI.addBrownHelpText(x0, y0, w0, 0, text("MAIN_HELP_5A"));
+
+        // Box Global Help (5 fields)
+        HelpSpec spB = helpUI.addBrownHelpText(xBox, y1, wBox, 0, text("MAIN_HELP_5B"));
+        spB.setLine(spB.xc(), spB.ye(), xBox+wBox*3/4, yBox);
+        spB.setLineArr(spB.rect(xBox, yBox, wBox, hBox));
+
+        // Factories
+        xe = xBox + wBox/2 + s4;
+        ye = yBox + s4;
+        HelpSpec spFact = helpUI.addBrownHelpText(x1, y1, w1-s50, 0, text("MAIN_HELP_5D"));
+        spFact.setLine(spFact.xe(), spFact.yc(), xe, ye);
+
+        // Bases
+        y1 = spFact.ye() + sep;
+        xe = xBox + wBox/2 + s3;
+        ye = yBox + s35;
+        HelpSpec spBases = helpUI.addBrownHelpText(x1, y1, w1-s25, 0, text("MAIN_HELP_5F"));
+        spBases.setLine(spBases.xe(), spBases.yc(), xe, ye);
+     
+        // Population
+        y1 = spBases.ye() + sep;
+        xe = xBox + s4;
+        ye = yBox + s4;
+        HelpSpec spPop = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_5C"));
+        spPop.setLine(spPop.xe(), spPop.yc(), xe, ye);
+
+        // Shield
+        y1 = spPop.ye() + sep;
+        xe = xBox + s3;
+        ye = yBox + s35;
+        HelpSpec spShield = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_5E"));
+        spShield.setLine(spShield.xe(), spShield.yc(), xe, ye);
+
+        // Build and Grow
+        y1 = spShield.ye() + sep;
+        xe = xBox + s4;
+        ye = yBox + hBox - s4;
+        HelpSpec spBuild = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_5G"));
+        spBuild.setLine(spBuild.xe(), spBuild.yc(), xe, ye);
+
+        // Fleet
+        y1 = spBuild.ye() + sep;
+        xe = xBox + s10;
+        ye = scaled(315);
+        HelpSpec spFleet = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_5H"));
+        spFleet.setLine(spFleet.xe(), spFleet.yc(), xe, ye);
+
+        // Tech
+        y1 = spFleet.ye() + sep;
+        xe = xBox + s10;
+        ye = scaled(425);
+        HelpSpec spTech = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_5I"));
+        spTech.setLine(spTech.xe(), spTech.yc(), xe, ye);
+
+        // Ships
+        y1 = spTech.ye() + sep;
+        xe = xBox + wBox/2 - s5;
+        ye = scaled(477);
+        HelpSpec spShips = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_5J"));
+        spShips.setLine(spShips.xe(), spShips.yc(), xe, ye);
+
+        // Transports
+        y1 = spShips.ye() + sep;
+        xe = xBox + s3;
+        ye = scaled(580);
+        HelpSpec spTrans = helpUI.addBrownHelpText(x1, y1, w1, 0, text("MAIN_HELP_5K"));
+        spTrans.setLine(spTrans.xe(), spTrans.yc(), xe, ye);
     }
     private void loadButtonBarHelpFrame() {
         HelpUI helpUI = RotPUI.helpUI();

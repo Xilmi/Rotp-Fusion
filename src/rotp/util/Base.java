@@ -38,7 +38,6 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.Transparency;
-import java.awt.event.InputEvent;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -99,7 +98,7 @@ import rotp.ui.util.planets.PlanetImager;
 import rotp.util.sound.SoundClip;
 import rotp.util.sound.SoundManager;
 
-public interface Base {
+public interface Base extends InputEventUtil {
     public static String[] monthName = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
     public static String[] letter = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N" };
     //public static Random random = new Random(); // Moved to Rotp for reset purpose
@@ -1529,33 +1528,6 @@ public interface Base {
 		}
 		return name;
     }
-    // BR:
-    public default void setModifierKeysState(InputEvent e) { ModifierKeysState.set(e); }
-    public default boolean checkForChange(InputEvent e) {
-    	return ModifierKeysState.checkForChange(e);
-    }
-    // BR: Only use if initialized first
-    /**
-     * Only valid if previously initialized in the panel or parent panel
-     * with setModifierKeysState(InputEvent e)
-     * 
-     * @return true if Shift Key is down
-     */
-    public default boolean isShiftDown() { return ModifierKeysState.isShiftDown(); }
-    /**
-     * Only valid if previously initialized in the panel or parent panel
-     * with setModifierKeysState(InputEvent e)
-     * 
-     * @return true if Ctrl Key is down
-     */
-    public default boolean isCtrlDown()  { return ModifierKeysState.isCtrlDown(); }
-    /**
-     * Only valid if previously initialized in the panel or parent panel
-     * with setModifierKeysState(InputEvent e)
-     * 
-     * @return true if Alt Key is down
-     */
-    public default boolean isAltDown()   { return ModifierKeysState.isAltDown(); }
     public default boolean has3Buttons() {
     	return MouseInfo.getNumberOfButtons() >= 3;
     	//return false;

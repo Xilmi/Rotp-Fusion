@@ -33,28 +33,28 @@ public enum ModifierKeysState {
 	private ModifierKeysState(String opt) { helpLine = opt; }
 
 	private static ModifierKeysState lastState = ModifierKeysState.NONE;
-	private static boolean isShiftDown;
-	private static boolean isCtrlDown;
 	private static boolean isAltDown;
+	private static boolean isAltGrDown;
+	private static boolean isCtrlDown;
+	private static boolean isMetaDown;
+	private static boolean isShiftDown;
 
-	public static boolean isShiftDown()	{ return isShiftDown; }
-	public static boolean isCtrlDown()	{ return isCtrlDown; }
 	public static boolean isAltDown()	{ return isAltDown; }
+	public static boolean isAltGrDown()	{ return isAltGrDown; }
+	public static boolean isCtrlDown()	{ return isCtrlDown; }
+	public static boolean isMetaDown()	{ return isMetaDown; }
+	public static boolean isShiftDown()	{ return isShiftDown; }
 	public static boolean isShiftOrCtrlDown()	{ return isShiftDown || isCtrlDown; }
 
-	public static void set(InputEvent e) {
-		setKeysState(e);
-//		lastState = analyze(e);
-//		return lastState;
-	}
-	public static ModifierKeysState get() {
-		return lastState;
-	}
+	public static void set(InputEvent e)	{ setKeysState(e); }
+	public static ModifierKeysState get()	{ return lastState; }
 	public static void reset() {
 		lastState	= ModifierKeysState.NONE;
-		isShiftDown	= false;
-		isCtrlDown	= false;
 		isAltDown	= false;
+		isAltGrDown	= false;
+		isCtrlDown	= false;
+		isMetaDown	= false;
+		isShiftDown	= false;
 	}
 	public static boolean checkForChange(InputEvent e) {
 		ModifierKeysState newState = analyze(e);
@@ -68,9 +68,11 @@ public enum ModifierKeysState {
 			reset();
 			return true;
 		}
-		isShiftDown	= e.isShiftDown();
-		isCtrlDown	= e.isControlDown();
 		isAltDown	= e.isAltDown();
+		isAltGrDown	= e.isAltGraphDown();
+		isCtrlDown	= e.isControlDown();
+		isMetaDown	= e.isMetaDown();
+		isShiftDown	= e.isShiftDown();
 		return false;
 	}
 	
@@ -87,29 +89,4 @@ public enum ModifierKeysState {
 			return ModifierKeysState.CTRL;
 		return ModifierKeysState.NONE;
 	}
-// !!! Middle-click wrongly generate alt alt action !!!
-//
-//	private static ModifierKeysState analyze(InputEvent e) {
-//		setKeysState(e);
-//		if (setKeysState(e))
-//			return lastState;
-//		if (isShiftDown)
-//			if (isCtrlDown)
-//				if (isAltDown)
-//					return ModifierKeysState.ALT_CTRL_SHIFT;
-//				else
-//					return ModifierKeysState.CTRL_SHIFT;
-//			else if (isAltDown)
-//				return ModifierKeysState.ALT_SHIFT;
-//			else
-//				return ModifierKeysState.SHIFT;
-//		if (isCtrlDown)
-//			if (isAltDown)
-//				return ModifierKeysState.ALT_CTRL;
-//			else
-//				return ModifierKeysState.CTRL;
-//		if (isAltDown)
-//			return ModifierKeysState.ALT;
-//		return ModifierKeysState.NONE;
-//	}
 }

@@ -672,7 +672,7 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	@Override public void mouseClicked(MouseEvent e) {  }
 	@Override public void mousePressed(MouseEvent e) {  }
-	@Override public void mouseEntered(MouseEvent e) { repaint(); }
+	@Override public void mouseEntered(MouseEvent e) { setModifierKeysState(e); repaint(); }
 	@Override public void mouseExited(MouseEvent e)	 { clearGuide(); }
 	@Override public void mouseDragged(MouseEvent e) {  }
 	@Override public void mouseMoved(MouseEvent e)	 {

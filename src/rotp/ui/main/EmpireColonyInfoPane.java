@@ -48,7 +48,9 @@ public class EmpireColonyInfoPane extends BasePanel {
     static final Color disabledArrowColor = new Color(65,65,65);
     static final Color sliderHighlightColor = new Color(255,255,255);
     static final Color productionGreenColor = new Color(89, 240, 46);
-    static final Color dataBorders = new Color(160,160,160);
+    static final Color dataBorders	= new Color(160, 160, 160);
+    static final Color urgedColor	= new Color(0, 0, 142);
+    static final Color mixedColor	= new Color(64, 64, 64);
 
     Color borderC;
     Color darkC;
@@ -100,39 +102,128 @@ public class EmpireColonyInfoPane extends BasePanel {
     public void decrementBases(InputEvent e) {
         basesPane.incrBases(-1, e.isShiftDown(), e.isControlDown());
     }
-    abstract class EmpireDataPane extends BasePanel {
+    abstract class EmpireDataPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
         protected Shape hoverBox;
         protected Rectangle basesBox = new Rectangle();
-        EmpireDataPane() {
-            init();
-        }
-        private void init() {
+        protected Rectangle titleBox = new Rectangle();
+        EmpireDataPane()	{ init(); }
+        private void init()	{
             setOpaque(true);
             setBackground(backC);
+            addMouseListener(this);
+            addMouseMotionListener(this);
+            addMouseWheelListener(this);
         }
-        @Override
-        public void paintComponent(Graphics g0) {
-            Graphics2D g = (Graphics2D) g0;
-            
-            List<StarSystem> systems = parentUI.systemsToDisplay();
+        protected List<Colony> colonies()	{
+        	List<StarSystem> systems = parentUI.systemsToDisplay();
+        	List<Colony> colonies = new ArrayList<>();
             if (systems == null) {
                 systems = new ArrayList<>();
                 StarSystem sys = parentUI.systemViewToDisplay();
                 if (sys != null)
                     systems.add(sys);
             }
-            
             if (systems.isEmpty())
-                return;           
-            
-            List<Colony> colonies = new ArrayList<>();
+                return colonies;
             for (StarSystem sys1: systems) {
                 Colony c = sys1.colony();
                 if (c != null)
                     colonies.add(c);
             }
-           
+            return colonies;
+        }
+        protected int rightMargin()			{ return s5; }
+        protected void urge(boolean b)		{
+        	List<Colony> colonies = colonies();
+        	if (colonies.isEmpty())
+        		return;
+        	for (Colony c : colonies) {
+        		if (urged(c) != b) {
+        			urge(c, b);
+        			c.governIfNeeded();
+        		}
+        	}
+        }
+        protected void urgeToggle()			{
+        	List<Colony> colonies = colonies();
+        	if (colonies.isEmpty())
+        		return;
+        	Boolean urged = urged(colonies);
+        	if (urged == null)
+        		urge(true);
+        	else
+        		urge(!urged);
+        }
+        protected void superPaintComponent(Graphics g)		{ super.paintComponent(g); }
+        protected String valueString(List<Colony> c)		{ return str(value(c)); }
+        protected String maxValueString(List<Colony> c)		{ return str(maxValue(c)); }
+        protected String resultString(List<Colony> c)		{
+        	if (value(c) == maxValue(c))
+        		return "";
+        	return concat("/", maxValueString(c));
+        }
+        protected String dataLabelString(List<Colony> c)	{ return null; }
+        protected boolean governed(List<Colony> colonies)	{
+        	for (Colony c: colonies)
+        		if (c.isGovernor())
+        			return true;
+            return false;
+        }
+        protected Boolean urged(List<Colony> colonies)		{
+        	boolean yes = false;
+        	boolean no  = false;
+        	for (Colony c: colonies) {
+        		if (urged(c))
+        			yes = true;
+        		else
+        			no = true;
+        		if (yes && no)
+        			return null;
+        	}
+            return yes;
+        }
+        abstract protected boolean urged(Colony c);
+        abstract protected void urge(Colony c, boolean b);
+        abstract protected String titleString();
+        abstract protected int value(List<Colony> c);
+        abstract protected int maxValue(List<Colony> c);
+        @Override public void mouseClicked(MouseEvent e)	{ }
+        @Override public void mouseEntered(MouseEvent e)	{ setModifierKeysState(e); }
+        @Override public void mouseExited(MouseEvent e)		{
+            if (hoverBox != null) {
+                hoverBox = null;
+                repaint();
+            }
+        }
+        @Override public void mousePressed(MouseEvent e)	{ }
+        @Override public void mouseReleased(MouseEvent e)	{
+            if (e.getButton() > 3)
+                return;
+            int x = e.getX();
+            int y = e.getY();
+            if (titleBox.contains(x,y)) {
+            	urgeToggle();
+            	parentUI.repaint();
+            }
+        }
+        @Override public void mouseDragged(MouseEvent e)	{ }
+        @Override public void mouseMoved(MouseEvent e)		{
+            int x = e.getX();
+            int y = e.getY();
+            Shape newHover = null;
+            if (titleBox.contains(x,y))
+                newHover = titleBox;
+            if (newHover != hoverBox) {
+                hoverBox = newHover;
+                repaint();
+            }
+        }
+        @Override public void mouseWheelMoved(MouseWheelEvent e)	{ }
+        @Override public void paintComponent(Graphics g0)	{
+            Graphics2D g = (Graphics2D) g0;
+
+            List<Colony> colonies = colonies();
             if (colonies.isEmpty())
                 return;
             super.paintComponent(g);
@@ -140,7 +231,9 @@ public class EmpireColonyInfoPane extends BasePanel {
             String strTitle = titleString();
             String strDataLabel = dataLabelString(colonies);
             String strData1 = valueString(colonies);
-            String strData2 = value(colonies) == maxValue(colonies) ? "" : concat("/", maxValueString(colonies));
+            String strData2 = resultString(colonies);
+            Boolean urged = urged(colonies);
+            boolean governed = governed(colonies);
 
             int x0 = s5;
             int y0 = getHeight()-s6;
@@ -152,6 +245,7 @@ public class EmpireColonyInfoPane extends BasePanel {
             int sw2 = 0;
             int fontSize = 17;
             boolean textFits = false;
+            int titleMaxW = 0;
             while (!textFits && (fontSize >12)) {
                 fontSize--;
                 g.setFont(narrowFont(fontSize));
@@ -164,12 +258,24 @@ public class EmpireColonyInfoPane extends BasePanel {
                     x2 = getWidth()-rightMargin()-sw2;
                     x1 = x2-sw1;
                 }
-                int titleMaxW = x1-x0-s2;
+                titleMaxW = x1-x0-s2;
                 textFits = g.getFontMetrics().stringWidth(strTitle) <= titleMaxW;
             }
+            titleBox.setBounds(x0, y0-s17, titleMaxW, s20);
 
-            g.setColor(SystemPanel.blackText);
-            drawString(g,strTitle, x0, y0);
+            if (governed) {
+	            if (hoverBox == titleBox)
+	            	g.setColor(Color.yellow);
+	            else if (urged == null)
+	            	g.setColor(mixedColor);
+	            else if (urged)
+	            	g.setColor(urgedColor);
+	            else
+	            	g.setColor(SystemPanel.blackText);
+            }
+            else
+            	g.setColor(SystemPanel.blackText);
+            drawString(g, strTitle, x0, y0);
 
             if (strDataLabel != null) {
                 drawShadowedString(g, strDataLabel, 1, x1, y0, darkC, textC);
@@ -188,29 +294,29 @@ public class EmpireColonyInfoPane extends BasePanel {
                 }
             }
         }
-        protected int rightMargin()   { return s5; }
-        protected String valueString(List<Colony> c)  { return str(value(c)); }
-        protected String maxValueString(List<Colony> c) { return str(maxValue(c)); }
-        protected String dataLabelString(List<Colony> c)   { return null; }
-        abstract protected String titleString();
-        abstract int value(List<Colony> c);
-        abstract int maxValue(List<Colony> c);
     }
     class EmpirePopPane extends EmpireDataPane {
         private static final long serialVersionUID = 1L;
-        @Override
-        public String textureName()            { return parentUI.subPanelTextureName(); }
-        @Override
-        protected String titleString()      { return text("MAIN_COLONY_POPULATION"); }
-        @Override
-        protected int value(List<Colony> colonies) { 
+        @Override public String textureName()		{ return parentUI.subPanelTextureName(); }
+        @Override protected String titleString()	{
+            if (isAltDown())
+            	return text("MAIN_COLONY_WORKING_POPULATION");
+            else
+            	return text("MAIN_COLONY_POPULATION");
+        }
+        @Override protected boolean urged(Colony c)	{ return c.govUrgePop(); }
+        @Override protected void urge(Colony c, boolean b)		{ c.govUrgePop(b); }
+        @Override protected int value(List<Colony> colonies)	{
             int val = 0;
-            for (Colony c: colonies)
-                val += c.displayPopulation(); 
+            if (isAltDown())
+            	for (Colony c: colonies)
+                    val += c.workingPopulation(); 
+            else
+	            for (Colony c: colonies)
+	                val += c.displayPopulation(); 
             return val;
         }
-        @Override
-        protected int maxValue(List<Colony> colonies) { 
+        @Override protected int maxValue(List<Colony> colonies)	{ 
             int val = 0;
             for (Colony c: colonies)
                 val += c.maxSize(); 
@@ -219,26 +325,23 @@ public class EmpireColonyInfoPane extends BasePanel {
     }
     class EmpireFactoriesPane extends EmpireDataPane {
         private static final long serialVersionUID = 1L;
-        @Override
-        public String textureName()            { return parentUI.subPanelTextureName(); }
-        @Override
-        protected String titleString()   { return text("MAIN_COLONY_FACTORIES"); }
-        @Override
-        protected int value(List<Colony> colonies) { 
+        @Override public String textureName()		{ return parentUI.subPanelTextureName(); }
+        @Override protected String titleString()	{ return text("MAIN_COLONY_FACTORIES"); }
+        @Override protected boolean urged(Colony c)	{ return c.govUrgeFactories(); }
+        @Override protected void urge(Colony c, boolean b)		{ c.govUrgeFactories(b); }
+        @Override protected int value(List<Colony> colonies)	{ 
             int val = 0;
             for (Colony c: colonies)
                 val += (int) c.industry().factories(); 
             return val;
         }
-        @Override
-        protected int maxValue(List<Colony> colonies) { 
+        @Override protected int maxValue(List<Colony> colonies)	{ 
             int val = 0;
             for (Colony c: colonies)
                 val += c.industry().maxBuildableFactories(); 
             return val;
         }
-        @Override
-        protected String maxValueString(List<Colony> c) { 
+        @Override protected String maxValueString(List<Colony> c)	{ 
             if (c.size()> 1)
                 return str(maxValue(c));
             Planet p = c.get(0).planet();
@@ -250,26 +353,23 @@ public class EmpireColonyInfoPane extends BasePanel {
     }
     class EmpireShieldPane extends EmpireDataPane {
         private static final long serialVersionUID = 1L;
-        @Override
-        public String textureName()            { return parentUI.subPanelTextureName(); }
-        @Override
-        protected String titleString()   { return text("MAIN_COLONY_SHIELD"); }
-        @Override
-        protected int value(List<Colony> colonies) { 
+        @Override public String textureName()		{ return parentUI.subPanelTextureName(); }
+        @Override protected String titleString()	{ return text("MAIN_COLONY_SHIELD"); }
+        @Override protected boolean urged(Colony c)	{ return c.govUrgeShield(); }
+        @Override protected void urge(Colony c, boolean b)		{ c.govUrgeShield(b); }
+        @Override protected int value(List<Colony> colonies)	{ 
             int val = 0;
             for (Colony c: colonies)
                 val += (int) c.defense().shieldLevel(); 
             return val;
         }
-        @Override
-        protected int maxValue(List<Colony> colonies) { 
+        @Override protected int maxValue(List<Colony> colonies)	{ 
             int val = 0;
             for (Colony c: colonies)
                 val += c.defense().maxShieldLevel(); 
             return val;
         }
-        @Override
-        protected String dataLabelString(List<Colony> colonies)   { 
+        @Override protected String dataLabelString(List<Colony> colonies)	{ 
             for (Colony c: colonies) {
                 if (!c.starSystem().inNebula())
                     return null;
@@ -277,7 +377,7 @@ public class EmpireColonyInfoPane extends BasePanel {
             return text("MAIN_COLONY_NO_SHIELD");
         }
     }
-    class EmpireBasesPane extends EmpireDataPane  implements MouseListener, MouseMotionListener, MouseWheelListener {
+    class EmpireBasesPane extends EmpireDataPane {
         private static final long serialVersionUID = 1L;
         private final Polygon upArrow = new Polygon();
         private final Polygon downArrow = new Polygon();
@@ -288,15 +388,7 @@ public class EmpireColonyInfoPane extends BasePanel {
         private boolean allowAdjust = true;
         List<Colony> colonies = new ArrayList<>();
         private int maxBasesValue = 0;
-        public EmpireBasesPane() {
-            super();
-            init();
-        }
-        private void init() {
-            addMouseListener(this);
-            addMouseMotionListener(this);
-            addMouseWheelListener(this);
-        }
+        public EmpireBasesPane() { super(); }
         public void incrBases(int inc, boolean shiftDown, boolean ctrlDown)  {
             StarSystem sys = parentUI.systemViewToDisplay();
             if (sys == null)
@@ -322,78 +414,33 @@ public class EmpireColonyInfoPane extends BasePanel {
             softClick();
             repaint();            
         }
-//        private void incrementBases() {
-//            maxBasesValue++;
-//            for (Colony c: colonies)
-//                c.defense().maxBases(maxBasesValue);
-//            softClick();
-//            repaint();
-//        }
-//        private void decrementBases() {
-//            StarSystem sys = parentUI.systemViewToDisplay();
-//            if (sys == null)
-//                return;
-//            Colony colony = sys.colony();
-//            if  (colony == null)
-//                return;
-//            if (maxBasesValue == 0) {
-//                misClick();
-//                return;
-//            }
-//            maxBasesValue--;
-//            for (Colony c: colonies)
-//                c.defense().maxBases(maxBasesValue);
-//            softClick();
-//            repaint();
-//        }
-        @Override
-        public String textureName()      { return parentUI.subPanelTextureName(); }
-        @Override
-        protected int rightMargin()      { return allowAdjust ? s20 : s5; }
-        @Override
-        protected String titleString()   { return text("MAIN_COLONY_BASES"); }
-        @Override
-        protected int value(List<Colony> colonies) { 
+        @Override public String textureName()		{ return parentUI.subPanelTextureName(); }
+        @Override protected int rightMargin()		{ return allowAdjust ? s20 : s5; }
+        @Override protected String titleString()	{ return text("MAIN_COLONY_BASES"); }
+        @Override protected boolean urged(Colony c)	{ return c.govUrgeBases(); }
+        @Override protected void urge(Colony c, boolean b)		{ c.govUrgeBases(b); }
+        @Override protected int value(List<Colony> colonies)	{ 
             int val = 0;
             for (Colony c: colonies)
                 val += (int) c.defense().bases(); 
             return val;
         }
-        @Override
-        protected int maxValue(List<Colony> colonies) { 
+        @Override protected int maxValue(List<Colony> colonies)	{ 
             int val = 0;
             for (Colony c: colonies)
                 val = max(val,c.defense().maxBases()); 
             maxBasesValue = val;
             return val;
         }
-        @Override
-        public void paintComponent(Graphics g0) {
+        @Override public void paintComponent(Graphics g0)	{
             Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
 
-            List<StarSystem> systems = parentUI.systemsToDisplay();
-            colonies.clear();
-            if (systems == null) {
-                systems = new ArrayList<>();
-                StarSystem sys = parentUI.systemViewToDisplay();
-                if (sys != null) 
-                    systems.add(sys);
-            }
-            
-            for (StarSystem sys: systems) {
-                if (sys.isColonized())
-                    colonies.add(sys.colony());
-            }
-            
+            colonies = colonies();
             if (colonies.isEmpty())
-                return;           
-            
+                return;
+
             allowAdjust = true;
-//            allowAdjust = systems.size() == 1;
-//            if (!allowAdjust)
-//                return;
-            
             int w = getWidth();
             int h = getHeight();
 
@@ -430,21 +477,14 @@ public class EmpireColonyInfoPane extends BasePanel {
             }
             g.setStroke(prevStroke);
         }
-        @Override
-        public void mouseClicked(MouseEvent arg0) {}
-        @Override
-        public void mouseEntered(MouseEvent arg0) {}
-        @Override
-        public void mouseExited(MouseEvent arg0) {
+        @Override public void mouseExited(MouseEvent e)		{
             if (hoverBox != null) {
                 hoverBox = null;
                 repaint();
             }
+            colonies.clear();
         }
-        @Override
-        public void mousePressed(MouseEvent arg0) {}
-        @Override
-        public void mouseReleased(MouseEvent e) {
+        @Override public void mouseReleased(MouseEvent e)	{
             if (e.getButton() > 3)
                 return;
             int x = e.getX();
@@ -453,16 +493,20 @@ public class EmpireColonyInfoPane extends BasePanel {
                 incrementBases(e);
             else if (downArrow.contains(x,y)) 
                 decrementBases(e);
+            else if (titleBox.contains(x,y))
+                urgeToggle();
+            else
+            	return;
+            parentUI.repaint();
         }
-        @Override
-        public void mouseDragged(MouseEvent e) { }
-        @Override
-        public void mouseMoved(MouseEvent e) {
+        @Override public void mouseMoved(MouseEvent e)		{
             int x = e.getX();
             int y = e.getY();
 
             Shape newHover = null;
-            if (upArrow.contains(x,y))
+            if (titleBox.contains(x,y))
+                newHover = titleBox;
+            else if (upArrow.contains(x,y))
                 newHover = upArrow;
             else if (downArrow.contains(x,y))
                 newHover = downArrow;
@@ -474,65 +518,42 @@ public class EmpireColonyInfoPane extends BasePanel {
                 repaint();
             }
         }
-        @Override
-        public void mouseWheelMoved(MouseWheelEvent e) {
+        @Override public void mouseWheelMoved(MouseWheelEvent e)	{
             if (e.getWheelRotation() < 0)
                 incrementBases(e);
             else
                 decrementBases(e);
         }
     }
-    class EmpireProductionPane extends BasePanel {
+    class EmpireProductionPane extends EmpireDataPane {
         private static final long serialVersionUID = 1L;
-        EmpireProductionPane() {
-            init();
-        }
-        private void init() {
+        EmpireProductionPane()	{ init(); }
+        private void init()		{
             setBackground(backC);
             setOpaque(true);
         }
-        @Override
-        public String textureName()            { return parentUI.subPanelTextureName(); }
-        @Override
-        public void paintComponent(Graphics g) {
-            List<StarSystem> systems = parentUI.systemsToDisplay();
-            if (systems == null) {
-                systems = new ArrayList<>();
-                StarSystem sys = parentUI.systemViewToDisplay();
-                if (sys != null)
-                    systems.add(sys);
-            }
-            
-            if (systems.isEmpty())
-                return;           
-
-            super.paintComponent(g);
-            
-            int income = 0;
-            int prod = 0;
-            for (StarSystem sys: systems) {
-                Colony c = sys.colony();
-                if (c != null) {
-                    income += (int)c.totalIncome();
-                    prod += (int)c.production();
-                }
-            }
-
-            String str1 = text("MAIN_COLONY_PRODUCTION");
-            String str2 = str(income);
-            String str3 = concat("(", str(prod), ")");
-
-            int y0 = getHeight()-s6;
-            g.setColor(SystemPanel.blackText);
-            g.setFont(narrowFont(16));
-            drawString(g,str1, s5, y0);
-            int sw2 = g.getFontMetrics().stringWidth(str2);
-            int sw3 = g.getFontMetrics().stringWidth(str3);
-
-            g.setFont(narrowFont(15));
-            drawShadowedString(g, str3, 1, getWidth()-sw3-s10, y0, darkC, textC);
-            g.setColor(textC);
-            drawShadowedString(g, str2, 1, getWidth()-sw2-sw3-s15, y0, darkC, textC);
-        }
+        @Override public String textureName()		{ return parentUI.subPanelTextureName(); }
+		@Override protected String titleString()	{ return text("MAIN_COLONY_PRODUCTION"); }
+		@Override protected boolean urged(Colony c) { return c.govUrgeBuildUp(); }
+		@Override protected String valueString(List<Colony> c)	{
+			String income = str(value(c));
+			String prod   = str(maxValue(c));
+			//return str(value(c));
+			return concat(income, "  (", prod, ")");
+		}
+		@Override protected String resultString(List<Colony> c)	{ return ""; }
+		@Override protected void urge(Colony c, boolean b)		{ c.govUrgeBuildUp(b); }
+		@Override protected int value(List<Colony> cols)		{
+            int val = 0;
+            for (Colony c: cols)
+                val += (int) c.totalIncome();
+            return val;
+		}
+		@Override protected int maxValue(List<Colony> cols)		{
+            int val = 0;
+            for (Colony c: cols)
+                val += (int) c.production();
+            return val;
+		}
     }
 }

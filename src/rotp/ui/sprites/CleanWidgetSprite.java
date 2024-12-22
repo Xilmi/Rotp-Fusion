@@ -26,7 +26,6 @@ import rotp.model.colony.Colony;
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.SystemPanel;
-import rotp.util.ModifierKeysState;
 
 public class CleanWidgetSprite extends MapControlSprite {
 	private Image image;
@@ -105,8 +104,8 @@ public class CleanWidgetSprite extends MapControlSprite {
 		int labelW;
 		String label;
 		List<String> detailLines = null;
-		boolean shiftDown = ModifierKeysState.isShiftDown();
-		boolean ctrlDown  = ModifierKeysState.isCtrlDown();
+		boolean shiftDown = isShiftDown();
+		boolean ctrlDown  = isCtrlDown();
 		numLines = 1;
 
 		if (hovering) {

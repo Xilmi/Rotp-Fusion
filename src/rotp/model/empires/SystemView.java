@@ -52,7 +52,6 @@ import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.util.Base;
 import rotp.util.ImageManager;
-import rotp.util.ModifierKeysState;
 
 public class SystemView implements IMappedObject, IFlagOptions, Base, Serializable {
     private static final long serialVersionUID = 1L;
@@ -768,19 +767,19 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     public boolean environmentGaia()         { return (planet() != null) && planet().isEnvironmentGaia(); }
 
     public void resetFlagColor()			 {
-		if(ModifierKeysState.isShiftOrCtrlDown() && scouted())
+		if(isShiftOrCtrlDown() && scouted())
     		autoFlagPlanet(vPlanet);
     	else
     		flagColor = FLAG_NONE;
     }
     private int getFlagId()					 {
-    	if(ModifierKeysState.isCtrlDown()) // Left - Right
-        	if(ModifierKeysState.isShiftDown()) // Top - Bottom
+    	if(isCtrlDown()) // Left - Right
+        	if(isShiftDown()) // Top - Bottom
         		return 3;
         	else
         		return 2;
     	else
-        	if(ModifierKeysState.isShiftDown()) // Top - Bottom
+        	if(isShiftDown()) // Top - Bottom
         		return 4;
         	else
         		return 1;

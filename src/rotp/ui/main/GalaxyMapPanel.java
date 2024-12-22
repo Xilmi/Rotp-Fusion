@@ -1458,7 +1458,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     @Override
     public void mouseClicked(MouseEvent e)     {}
     @Override
-    public void mouseEntered(MouseEvent arg0)  { }
+    public void mouseEntered(MouseEvent e)     { setModifierKeysState(e); }
     @Override
     public void mouseExited(MouseEvent e)      {
         if (parent.hoveringSprite() != null)

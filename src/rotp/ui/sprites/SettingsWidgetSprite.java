@@ -43,23 +43,19 @@ public class SettingsWidgetSprite extends MapControlSprite {
 	public boolean acceptDoubleClicks()		 { return false; }
 	@Override
 	public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
-//		if (Rotp.isUnderTest()) { // TO DO BR: REMOVE Rotp.isUnderTest()
-			ParamSubUI optionsUI = AllSubUI.settingsSubUI();
-			optionsUI.start(null);
-//		}
+		setModifierKeysState(e);
+		ParamSubUI optionsUI = AllSubUI.settingsSubUI();
+		optionsUI.start(null);
 	}
 	@Override
 	public void draw(GalaxyMapPanel map, Graphics2D g2) {
-//		if (!Rotp.isUnderTest()) { // TO DO BR: REMOVE Rotp.isUnderTest()
-//			return;
-//		}
 		int w = width;
 		String label;
 		int fontSize = 13;
 		int labelW;
 		String detail;
 		List<String> detailLines = null;
-		
+
 		if (hovering) {
 			g2.setFont(narrowFont(fontSize));
 			label  = text("SETTINGS_MOD_SETTINGS_OPTIONS_BUTTON");
@@ -78,16 +74,16 @@ public class SettingsWidgetSprite extends MapControlSprite {
 		g2.drawImage(image(), startX, startY, map);
 
 		if (hovering) {
-            g2.setColor(Color.lightGray);
-            g2.setFont(narrowFont(fontSize));
-            int y1 = startY + height - BasePanel.s17;
-            int x1 = startX + width + BasePanel.s10;
-            if (detailLines.size() == 1)
-                y1 += BasePanel.s8;
-            for (String line: detailLines) {
-                drawString(g2, line, x1, y1);
-                y1 += BasePanel.s14;
-            }			
+			g2.setColor(Color.lightGray);
+			g2.setFont(narrowFont(fontSize));
+			int y1 = startY + height - BasePanel.s17;
+			int x1 = startX + width + BasePanel.s10;
+			if (detailLines.size() == 1)
+				y1 += BasePanel.s8;
+			for (String line: detailLines) {
+				drawString(g2, line, x1, y1);
+				y1 += BasePanel.s14;
+			}			
 		}
 		drawBorder(map, g2, w, map.parent().shadeC(), false);
 	}

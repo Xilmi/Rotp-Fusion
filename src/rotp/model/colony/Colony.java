@@ -79,7 +79,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
     private static final int[] validationSeq = {ECOLOGY, INDUSTRY, SHIP, DEFENSE, RESEARCH};
     private static final int[] spendingSeq   = {RESEARCH, SHIP, DEFENSE, INDUSTRY, ECOLOGY};
     private static final int[] refreshSeq    = {INDUSTRY, ECOLOGY, SHIP, DEFENSE, RESEARCH};
-    private static final int[] govBuildSeq   = {INDUSTRY, ECOLOGY};
+    private static final int[] govBuildSeq   = {INDUSTRY, ECOLOGY}; // To promote balance
+    private static final int[] govBuildSeqW  = {ECOLOGY, INDUSTRY}; // To promote workers
     private static final int[] govTagSeq     = {ECOLOGY, DEFENSE, SHIP, RESEARCH};
     private static final int[] govFinalSeq   = {DEFENSE, RESEARCH};
     
@@ -125,34 +126,74 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
     private boolean underSiege = false;
     public  boolean keepEcoLockedToClean;
-    private boolean transportAutoEco = false;
+    private boolean transportAutoEco	= false;
     private boolean noGovAutoTransport	= false;
-    private int govShipBuildPct	= 100;
+    private boolean govUrgeShield		= false;
+    private boolean govUrgeBases		= false;
+    private boolean govUrgePop			= false;
+    private boolean govUrgeFactories	= false;
+    private boolean govUrgeShips		= false;
+    private boolean govUrgeBuildUp		= false;
+    private boolean govUrgeResearch		= false;
+    private boolean prioritizeShips		= false;
+    private boolean prioritizeResearch	= false;
+    private boolean governor = govOptions().isGovernorOnByDefault();
+    // TODO: For future use, flag allowing this colony to autobuild ships
+    private boolean autoShips = govOptions().isAutoShipsByDefault();
+    private int govShipBuildSparePct	= 0;
 
     private transient boolean hasNewOrders = false;
     private transient int cleanupAllocation = 0;
     private transient boolean recalcSpendingForNewTaxRate;
     public  transient boolean reallocationRequired = false;
 
-    public int     govShipBuildPct()           { return govShipBuildPct; }
-    public void    resetShipBuildPct()         { govShipBuildPct = 100; }
-    public int     incrShipBuildPct(int incr)  {
-   		govShipBuildPct += incr;
-		if (govShipBuildPct > 100)
-			govShipBuildPct = 10;
-    	else if (govShipBuildPct < 10)
-    		govShipBuildPct = 100;
-    	return govShipBuildPct;
+
+    public int     govShipBuildSparePct()		{ return govShipBuildSparePct; }
+    public void    resetShipBuildSparePct()		{ govShipBuildSparePct = 0; }
+    public int     incrShipBuildSparePct(int i)	{
+   		govShipBuildSparePct += i;
+		if (govShipBuildSparePct > 90)
+			govShipBuildSparePct = 0;
+    	else if (govShipBuildSparePct < 0)
+    		govShipBuildSparePct = 90;
+    	return govShipBuildSparePct;
     }
-    public boolean noGovAutoTransport()        { return noGovAutoTransport && governor; }
-    public void    toggleGovAutoTransport()    { noGovAutoTransport = !noGovAutoTransport; }
-    public boolean transportAutoEco()          { return transportAutoEco && !governor; }
-    public void    transportAutoEco(boolean b) { transportAutoEco = b; }
-    public boolean toggleTransportAutoEco()	   {
+    public boolean govUrgeShield()				{ return govUrgeShield; }
+    public void    govUrgeShield(boolean b)		{ govUrgeShield = b; }
+    public boolean govUrgeBases()				{ return govUrgeBases; }
+    public void    govUrgeBases(boolean b)		{ govUrgeBases = b; }
+    public boolean govUrgePop()					{ return govUrgePop; }
+    public void    govUrgePop(boolean b)		{ govUrgePop = b; }
+    public boolean govUrgeFactories()			{ return govUrgeFactories; }
+    public void    govUrgeFactories(boolean b)	{ govUrgeFactories = b; }
+    public boolean govUrgeShips()				{ return govUrgeShips; }
+    public void    govUrgeShips(boolean b)		{ govUrgeShips = b; }
+    public boolean govUrgeBuildUp()				{ return govUrgeBuildUp; }
+    public void    govUrgeBuildUp(boolean b)	{ govUrgeBuildUp = b; }
+    public boolean govUrgeResearch()			{ return govUrgeResearch; }
+    public void    govUrgeResearch(boolean b)	{ govUrgeResearch = b; }
+
+    private boolean hasCustomRequest() {
+    	return govUrgeShield
+    			|| govUrgeBases
+    			|| govUrgePop
+    			|| govUrgeFactories
+    			|| govUrgeShips
+    			|| govUrgeBuildUp
+    			|| prioritizeShips
+    			|| prioritizeResearch;
+    }
+    private boolean governorGotPlayerRequest()	{ return govOptions().isFollowingColonyRequests() || hasCustomRequest(); }
+    public boolean isObedientGovernor()			{ return isGovernor() && governorGotPlayerRequest(); }
+    public boolean noGovAutoTransport()			{ return noGovAutoTransport && governor; }
+    public void    toggleGovAutoTransport()		{ noGovAutoTransport = !noGovAutoTransport; }
+    public boolean transportAutoEco()			{ return transportAutoEco && !governor; }
+    public void    transportAutoEco(boolean b)	{ transportAutoEco = b; }
+    public boolean toggleTransportAutoEco()		{
     	transportAutoEco(!transportAutoEco());
     	return !governor;
     }
-    public void toggleRecalcSpending()         { recalcSpendingForNewTaxRate = true; }
+    public void    toggleRecalcSpending()		{ recalcSpendingForNewTaxRate = true; }
     private boolean underSiege()               { return underSiege; }
     public float reserveIncome()               { return reserveIncomeBC; }
     private void clearReserveIncome()          { reserveIncomeBC = 0; }
@@ -287,7 +328,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         return amt;
     }
     public int allocationRemaining()      { return MAX_TICKS - totalAmountAllocated(); }
-    public float totalPlanetaryResearch() { 
+    public float totalPlanetaryResearch() {
         float totalBC = research().totalSpending();
         float productAdj = planet().productionAdj();
         if (empire.divertColonyExcessToResearch()) {
@@ -299,7 +340,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         float totalRP = totalBC * research().researchBonus();
         return max(0, totalRP-research().projectRemainingBC());
     }
-    public float totalPlanetaryResearchSpending() { 
+    public float totalPlanetaryResearchSpending() {
         float totalBC = research().totalSpending(); 
         float productAdj = planet().productionAdj();
         if (empire.divertColonyExcessToResearch()) {
@@ -331,6 +372,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public boolean inRebellion()            { return rebellion && (rebels > 0); }
     public float rebellionPct()             { return rebels / population(); }
     // public boolean hasOrders()              { return !orders.isEmpty(); }
+    public boolean isUrged(int cat)			{ return cat==RESEARCH && govUrgeResearch(); }
     public boolean hasOrder(int cat)		{ // BR:
     	switch (cat) {
 	    	case DEFENSE:
@@ -506,16 +548,25 @@ public final class Colony implements Base, IMappedObject, Serializable {
 			default:
 		}
     }
-    public boolean toggleOrder(int cat)	{ // BR:
-	    if (hasOrder(cat)) {
-	    	removeOrder(cat);
-	    	return false;
-	    }
-	    else {
-	    	forceOrder(cat);
-	    	return true;
-	    }
-    }
+	public void toggleOrder(int cat)	{ // BR:
+		switch (cat) {
+			case RESEARCH:
+				if (prioritizeResearch()) {
+					prioritizeResearch(false);
+					govUrgeResearch(true);
+				}
+				else if (govUrgeResearch())
+					govUrgeResearch(false);
+				else
+					prioritizeResearch(true);
+				return;
+			default:
+				if (hasOrder(cat))
+					removeOrder(cat);
+				else
+					forceOrder(cat);
+		}
+	}
     public void smoothMaxSlider(int category) {
     	if(locked(category))
     		return;
@@ -589,7 +640,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	        lab.recordConstruction(colony, 2);
 		}
 	}
-    
+
     // modnar: add option to start game with additional colonies
     public void setCompanionWorldValues() {
         Empire emp = empire();
@@ -1295,6 +1346,15 @@ public final class Colony implements Base, IMappedObject, Serializable {
         float mod = empire().isPlayer() ? 1.0f : options().aiWasteModifier();
         return max(0, usedFactories() * tech().factoryWasteMod() * mod);
     }
+    private float wastePerFactory()	{
+        float mod = empire().isPlayer() ? 1.0f : options().aiWasteModifier();
+        return max(0, tech().factoryWasteMod() * mod);
+    }
+    private float factoryNetProd()	{
+    	if (empire.ignoresPlanetEnvironment())
+            return 1;
+    	return 1 - wastePerFactory() / tech().wasteElimination();
+    }
     public float wasteCleanupCost() {
         if (empire.ignoresPlanetEnvironment())
             return 0;
@@ -1346,7 +1406,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         return transport.destination();
     }
     public boolean transporting()	{ return (transport().isActive()); }
-    public boolean canTransport()	{ return (!inRebellion() && !transporting()); } // TODO BR: Add Gov Validation
+    public boolean canTransport()	{ return (!inRebellion() && !transporting()); }
     public float inTransport()		{ return transporting() ? transport().size() : 0; }
     private float transportCost()	{ return inTransport(); }
     public void clearTransport() {
@@ -1848,12 +1908,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
     }
 
-    private boolean governor = govOptions().isGovernorOnByDefault();
-//  TODO: For future use, flag allowing this colony to autobuild ships
-    private boolean autoShips = govOptions().isAutoShipsByDefault();
-    private boolean prioritizeShips = false;
-    private boolean prioritizeResearch = false;
-
     public boolean isGovernor() { return governor; }
     private void setDefaultGovernor()	{ setGovernor(govOptions().isGovernorOnByDefault()); }
     public void setGovernor(boolean governor) {
@@ -1874,7 +1928,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     boolean prioritizeResearch()                        { return prioritizeResearch; }
     private void prioritizeResearch(boolean prioritize) { prioritizeResearch = prioritize; }
 
-    /**
+    /*
      * Increment slider. Stop moving when results no longer contains "stopWhenDisappears".
      * Stop when results contain "stopWhenAppears".
      * If moving slider doesn't change production, stop as well.
@@ -1900,6 +1954,112 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
      */
 
+    private boolean balanceCategories(int[] categories, GovWorksheet gws)	{
+    	for (int cat : categories)
+            if (!locked(cat))
+            	if (adjustGovSpending(cat, 1, MAX_TICKS, false, gws) == 1)
+            		return true;
+    	return false;
+    }
+    private int urgeShieldSpending(int maxAlloc, GovWorksheet gws) {
+    	ColonyDefense currCat = defense();
+    	int currentAllocation = currCat.allocation();
+    	int allocationNeeded  = currCat.shieldAllocationNeeded(gws.totalIncome);
+    	allocationNeeded = min(allocationNeeded, maxAlloc);
+    	if (allocationNeeded == 0) {
+    		govUrgeShield(false);
+    		return 0;
+    	}
+    	int increment = allocationNeeded - currentAllocation;
+    	increment = max(0, increment);
+    	if (increment == 0)
+    		return 0;
+    	else
+    		return currCat.adjustValue(increment);
+    }
+    private int urgeBasesSpending(int maxAlloc, GovWorksheet gws) {
+    	ColonyDefense currCat = defense();
+    	int currentAllocation = currCat.allocation();
+    	int allocationNeeded  = currCat.maxAllocationNeeded(gws.totalIncome);
+    	allocationNeeded = min(allocationNeeded, maxAlloc);
+    	if (allocationNeeded == 0) {
+    		govUrgeBases(false);
+    		return 0;
+    	}
+    	int increment = allocationNeeded - currentAllocation;
+    	increment = max(0, increment);
+    	if (increment == 0)
+    		return 0;
+    	else
+    		return currCat.adjustValue(increment);
+    }
+    private int urgePopSpending(int maxAlloc, GovWorksheet gws) {
+    	ColonyEcology currCat = ecology();
+    	int currentAllocation = currCat.allocation();
+    	int allocationNeeded  = currCat.maxAllocationNeeded(gws);
+    	int increment = allocationNeeded - currentAllocation;
+    	increment = min(increment, maxAlloc);
+    	increment = max(0, increment);
+    	if (increment == 0) {
+    		govUrgePop(false);
+    		return 0;
+    	}
+    	else
+    		return currCat.adjustValue(increment);
+    }
+    private int urgeFactoriesSpending(int maxAlloc, GovWorksheet gws) {
+    	ColonyIndustry currCat = industry();
+    	int currentAllocation = currCat.allocation();
+    	int allocationNeeded  = currCat.maxAllocationNeeded(gws.totalIncome);
+    	allocationNeeded = min(allocationNeeded, maxAlloc);
+    	if (allocationNeeded == 0) {
+    		govUrgeFactories(false);
+    		return 0;
+    	}
+    	int increment = allocationNeeded - currentAllocation;
+    	increment = max(0, increment);
+    	if (increment == 0)
+    		return 0;
+    	else
+    		return currCat.adjustValue(increment);
+    }
+    private int urgeBuildUpSpending(int maxAlloc, GovWorksheet gws) {
+    	int alloc = maxAlloc;
+		while (balanceCategories(gws.govBuildSeq(), gws)) {
+			alloc--;
+			if (alloc==0)
+        		return maxAlloc;
+		}
+    	return maxAlloc - alloc;
+    }
+    private int urgeShipSpending(int maxAlloc, GovWorksheet gws) {
+    	ColonyShipyard currCat = shipyard();
+    	int currentAllocation = currCat.allocation();
+    	int allocationNeeded  = currCat.maxAllocationNeeded(gws.totalIncome);
+    	allocationNeeded = min(allocationNeeded, maxAlloc);
+    	if (allocationNeeded == 0) {
+    		govUrgeShips(false);
+    		return 0;
+    	}
+    	int increment = allocationNeeded - currentAllocation;
+    	increment = max(0, increment);
+    	if (increment == 0)
+    		return 0;
+    	else
+    		return currCat.adjustValue(increment);
+    }
+    private int urgeResearchSpending(int maxAlloc, GovWorksheet gws) {
+    	if (empire().tech().researchCompleted()) {
+    		govUrgeResearch(false);
+    		return 0;
+    	}
+    	ColonyResearch currCat = research();
+    	int increment = max(0, maxAlloc - currCat.allocation());
+    	if (increment == 0)
+    		return 0;
+    	else
+    		return currCat.adjustValue(increment);
+    }
     private int adjustGovSpending(int cat, int alloc, int maxAlloc, boolean prioritized, GovWorksheet gws) {
     	ColonySpendingCategory currCat = spending[cat];
     	int currentAllocation = currCat.allocation();
@@ -1912,22 +2072,22 @@ public final class Colony implements Base, IMappedObject, Serializable {
     	else
     		return currCat.adjustValue(increment);
     }
-    private void handleGovSpending(int alloc, GovWorksheet gws) {
+    private void handleGovSpending(int alloc, GovWorksheet gws)	{
         if (alloc==0)
     		return;
         // First priority: Requested Defense update
-        if (gws.urgeDefense) {
+        if (gws.promoteDefense) {
         	alloc -= adjustGovSpending(DEFENSE, alloc, MAX_TICKS, true, gws);
         }
         // Second priority: Requested Fixed Number of ship
         // Limited by max allocation
-        if (!locked(SHIP) && gws.urgeShips) {
-        	alloc -= adjustGovSpending(SHIP, alloc, gws.limitedShipAllocation ,false, gws);
+        if (!locked(SHIP) && gws.promoteShips) {
+        	alloc -= adjustGovSpending(SHIP, alloc, gws.limitedAllocation ,false, gws);
         	if (alloc==0)
         		return;
         }
         // Third priority build and upgrade the colony: Terraform, Industry and balance Population
-        for (int i : govBuildSeq) {
+        for (int i : gws.govBuildSeq()) {
             if (!locked(i)) {
             	alloc -= adjustGovSpending(i, alloc, MAX_TICKS, false, gws);
             	if (alloc==0)
@@ -1936,7 +2096,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
         // Back to Second priority: Requested Fixed Number of ship
         // no more Limited by max allocation
-        if (!locked(SHIP) && gws.urgeShips) {
+        if (!locked(SHIP) && gws.promoteShips) {
         	alloc -= adjustGovSpending(SHIP, alloc, MAX_TICKS, false, gws);
         	if (alloc==0)
         		return;
@@ -1969,18 +2129,52 @@ public final class Colony implements Base, IMappedObject, Serializable {
            	redistributeReducedEcoSpending();
     }
     private void handleGovSpending(GovWorksheet gws) {
-//        int maxAllocation = ColonySpendingCategory.MAX_TICKS;
-//        // determine how much categories are over/under spent
-//        int spendingTotal = 0;
-//        for (int i = 0; i < NUM_CATS; i++)
-//            spendingTotal += spending[i].allocation();
-//        int alloc = maxAllocation - spendingTotal;
-        int alloc = gws.getRemainingAllocation();
-        if (alloc==0)
+        int maxAlloc = gws.getRemainingAllocation();
+        if (maxAlloc==0)
     		return;
-        for (int i=0; i<alloc; i++) {
+        if (govUrgeShield) {
+        	maxAlloc -= urgeShieldSpending(maxAlloc, gws);
+        	if (maxAlloc==0)
+        		return;
+        }
+        if (govUrgeBases) {
+        	maxAlloc -= urgeBasesSpending(maxAlloc, gws);
+        	if (maxAlloc==0)
+        		return;
+        }
+        if (govUrgePop) {
+        	maxAlloc -= urgePopSpending(maxAlloc, gws);
+        	if (maxAlloc==0)
+        		return;
+        }
+        if (govUrgeFactories) {
+        	maxAlloc -= urgeFactoriesSpending(maxAlloc, gws);
+        	if (maxAlloc==0)
+        		return;
+        }
+        if (govUrgeBuildUp) {
+        	maxAlloc -= urgeBuildUpSpending(maxAlloc, gws);
+        	if (maxAlloc==0)
+        		return;
+        }
+        if (govUrgeShips) {
+        	maxAlloc -= urgeShipSpending(gws.updateLimitedAllocation(maxAlloc), gws);
+        	if (maxAlloc==0)
+        		return;
+        }
+        if (govUrgeResearch) {
+        	maxAlloc -= urgeResearchSpending(gws.updateLimitedAllocation(maxAlloc), gws);
+        	if (maxAlloc==0)
+        		return;
+        }
+        gws.updateLimitedAllocation(maxAlloc);
+        for (int i=0; i<maxAlloc; i++) {
         	handleGovSpending(1, gws);
         }
+    }
+    public void governIfPlayerHasRequest() {
+        if (isObedientGovernor())
+            govern(false);
     }
     public void governIfNeeded(boolean lowerShipPriority) {
         if (!this.isAutopilot() && this.isGovernor())
@@ -2063,7 +2257,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
                 return;
         RotPUI.instance().techUI().resetPlanetaryResearch();
         GovernorOptions gov = govOptions();
-        if (gov.isFollowingColonyRequests()) {
+        if (governorGotPlayerRequest()) {
         	manage(loweredShipPriority);
         	return;
         }
@@ -2564,7 +2758,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
     private int incomingTransportsNextTurn() {
         return galaxy().friendlyPopApproachingSystemNextTurn(starSystem());
     }
-
     private void buildStargate(final boolean wasPreviouslyBuildingStargate) {
         if (!this.shipyard().canBuildStargate()) {
             return;
@@ -2605,47 +2798,58 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
 
     final class GovWorksheet {
-    	float totalIncome		= totalIncome();
-        float targetPopPercent	= 1.0f;
-        float minPopGrowth		= max (2.0f, planet.currentSize()/50f);
-    	private GovernorOptions gov		= govOptions();
-        private float cleanupCost		= minimumCleanupCost();
-        private float minUrgePercent	= 0.5f; // TODO BR: OPTIMIZE
-        private float workingPopulation	= workingPopulation();
-//        private float planetProdAdj		= planet.productionAdj();
-//        private float populationCost	= empire.tech().populationCost();
-//        private float factoryCost		= industry().newFactoryCost();
-//        private float robotControls		= industry().effectiveRobotControls();
-//        private float workerFullProd	= (empire.workerProductivity() + robotControls) * planetProdAdj;
-//        private float workerFullCost	= populationCost + factoryCost * robotControls;
-//        float naturalGrowth		= normalPopGrowth();
-//        float expectedGrowth		= unrestrictedPopGrowth();
-//        float planetMaxSize		= ultimateMaxSize();
-//        float planetCurrentSize	= planet.currentSize();
-//        float factories			= industry().factories();
-//        float workerROITime		= workerFullCost / workerFullProd;
-    	private boolean buildingStargate	= allocation[SHIP] > 0 &&
+    	private final GovernorOptions gov		= govOptions();
+        private final float cleanupCost			= minimumCleanupCost();
+        private final float planetProdAdj		= planet.productionAdj();
+        private final float populationCost		= empire.tech().populationCost();
+        private final float factoryNetProd		= factoryNetProd();
+        private final float workerBaseProd		= empire.workerProductivity();
+        private final float workerBaseROI		= workerBaseProd / populationCost;
+    	private final boolean buildingStargate	= allocation[SHIP] > 0 &&
                 shipyard().design().equals(empire.shipLab().stargateDesign()) &&
                 !shipyard().stargateCompleted();
-        // remember if this planet was building ships. Stargate doesn't count
-        // if we just finished building a stargate, we're not building ships
-        private boolean wasBuildingShips	= allocation[SHIP] > 0 && !buildingStargate;
-        private boolean urgeShips			= shipyard().buildLimit() > 0;
-        private boolean initialUrgeGrowth	= (workingPopulation / planet().maxSize()) < minUrgePercent;
-        private boolean wasShipRequest		= urgeShips || prioritizeShips();
-        private boolean isDirectShipAlloc, urgeDefense;
+        private final boolean wasBuildingShips	= allocation[SHIP] > 0 && !buildingStargate;
+        private boolean promoteShips			= shipyard().buildLimit() > 0;
+        private final boolean wasShipRequest	= promoteShips || prioritizeShips();
+        private final boolean promoteDefense;
+        private final boolean isDirectShipAlloc;
+
+        final float totalIncome	= totalIncome();
+        float targetPopPercent	= 1.0f;
 		boolean keepDirectShipAlloc;
-        boolean urgePopGrowth	= gov.legacyGrowthMode() || initialUrgeGrowth;
-        int limitedShipAllocation;
-        
-        int getRemainingAllocation() {
+		boolean oldPromoteGrowth	= workerBaseProd > normalPopGrowth();
+        private boolean promotePopGrowth	= gov.legacyGrowthMode(); // || startPromoteGrowth;
+        boolean promoteWorkers;
+        private int limitedAllocation;
+
+        private int[] govBuildSeq()	{
+        	if (promoteWorkers())
+        		return govBuildSeqW;
+        	else
+        		return govBuildSeq;
+        }
+        private boolean promoteWorkers()	{
+        	float industryBC = totalIncome*allocation(INDUSTRY)/MAX_TICKS;
+        	float factoryNetCost = industry().bestFactoryCost(industryBC) * planetProdAdj / empire.workerProductivityMod();
+        	float factoryNetROI	 = factoryNetProd / factoryNetCost;
+        	promoteWorkers = workerBaseROI > factoryNetROI;
+        	return promoteWorkers;
+        }
+        private int updateLimitedAllocation(int alloc)	{
+        	int spare = (alloc * govShipBuildSparePct) / 100;
+        	limitedAllocation = alloc - spare;
+        	return limitedAllocation;
+        }
+        private int getRemainingAllocation() {
             int maxAllocation = MAX_TICKS;
             // determine how much categories are over/under spent
             int spendingTotal = 0;
             for (int i = 0; i < NUM_CATS; i++)
                 spendingTotal += spending[i].allocation();
             int alloc = maxAllocation - spendingTotal;
-            limitedShipAllocation = alloc * govShipBuildPct / 100;
+            int spare = (alloc * govShipBuildSparePct) / 100;
+            limitedAllocation = alloc - spare;
+            //hasPlayerRequest = shipyard().buildLimit() > 0 || ;
             return alloc;
         }
 
@@ -2658,47 +2862,14 @@ public final class Colony implements Base, IMappedObject, Serializable {
         	if (minBase > 0 && maxBase < minBase)
                 defense.maxBases(minBase);
         	// Did the player increased the number of bases
-        	urgeDefense			= maxBase > minBase && defense.bases()<maxBase && hasOrder(DEFENSE);
+        	promoteDefense		= maxBase > minBase && defense.bases()<maxBase && hasOrder(DEFENSE);
         	// Ships management
             isDirectShipAlloc	= !loweredShipPriority && wasBuildingShips && !wasShipRequest;
             keepDirectShipAlloc	= isDirectShipAlloc && gov.isShipbuilding();
-            urgeShips			= urgeShips || keepDirectShipAlloc;
-            urgePopGrowth |= (!urgeShips && empire.tech().researchCompleted());
-
-//            System.out.println("Colony: " + name());
-//            System.out.println("  workerROITime: " + workerROITime);
-
-//            float popGrowthROI	= Float.MAX_VALUE;
-//            if (naturalGrowth > 0)
-//                popGrowthROI = populationCost / naturalGrowth;
-
-//            System.out.println("  popGrowthROI: " + popGrowthROI);
-//            System.out.println("  naturalGrowth: " + naturalGrowth);
-//            System.out.println("  naturalGrowth * populationCost: " + (naturalGrowth * populationCost));
-
-//            urgePopGrowth |= popGrowthROI > workerROITime;
-
-            // Pop Management
-//            if (gov.isAutotransportFull())
-//            	targetPopPercent = bounds(0, 1 - max(naturalGrowth, 3)/maxSize(), 1);
-//            int incomingTransportsNextTurn = incomingTransportsNextTurn();
-//            float futureTransports	= max(incomingTransports() - incomingTransportsNextTurn, 0);
-//            float baseNewPop	= min(planetCurrentSize, workingPopulation + naturalGrowth + incomingTransportsNextTurn);
-//            float canBeUsed		= baseNewPop * robotControls;
-//            float maxPopTarget	= min(planetMaxSize * targetPopPercent, planetMaxSize - futureTransports);
-//            float maxPopGrowth	= max(maxPopTarget - baseNewPop, 0);
-//            float overFactories	= max(factories - canBeUsed, 0);
-//            float popNeeded		= min(overFactories / robotControls, maxPopGrowth);
-//            float maxExtraPop	= max(maxPopGrowth - popNeeded, 0);
-//            maxExtraPop = min(0, maxExtraPop, factories / empire.maxRobotControls() - workingPopulation - naturalGrowth);
-//            if(urgePopGrowth)
-//            	maxExtraPop = planetMaxSize - workingPopulation;
-//            maxExtraPop -= futureTransports;
-//            maxExtraPop = max(0, maxExtraPop);
-//            float rawNexturnPop	= populationAfterNextTurnTransports();
-//            float expectedPop	= min(rawNexturnPop + naturalGrowth, planet.currentSize());
-//            float transportGrowth	= rawNexturnPop - population();
-//            float expectedGrowth	= expectedPop - population();
+            promoteShips		= promoteShips || keepDirectShipAlloc;
+            promotePopGrowth |= (!promoteShips && empire.tech().researchCompleted());
+            boolean refit = industry().effectiveRobotControls() < empire().maxRobotControls() && !empire.ignoresFactoryRefit();
+            promotePopGrowth |= refit;
         }
     }
 }

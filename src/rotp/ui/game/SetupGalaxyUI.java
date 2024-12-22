@@ -1958,7 +1958,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (mid)
 			opts.selectedOpponentAIOption(opponentAI.defaultValue());
 		else if (opts.opponentAIOptions().size() >= opts.minListSizePopUp().get()
-					|| ModifierKeysState.isCtrlDown())
+					|| isCtrlDown())
 			selectGlobalAIFromList();
 		else if (up)
 			opts.selectedOpponentAIOption(opts.nextOpponentAI());
@@ -1997,7 +1997,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (mid)
 			opts.globalCROptions().setFromDefault(false, true);
 		else if (globalAbilitiesArray.length >= opts.minListSizePopUp().get()
-				|| ModifierKeysState.isCtrlDown())
+				|| isCtrlDown())
 			selectAlienAbilityFromList();
 		else if (up)
 			nextGlobalAbilities(false);
@@ -2013,14 +2013,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private void nextSpecificOpponentAI(int i, boolean click) {
 		if (click) softClick();
-		if (click || ModifierKeysState.isCtrlDown())
+		if (click || isCtrlDown())
 			selectSpecificAIFromList(i);
 		else
 			opts.nextSpecificOpponentAI(i+1);
 	}
 	private void prevSpecificOpponentAI(int i, boolean click) {
 		if (click) softClick();
-		if (click || ModifierKeysState.isCtrlDown())
+		if (click || isCtrlDown())
 			selectSpecificAIFromList(i);
 		else
 			opts.prevSpecificOpponentAI(i+1);
@@ -2037,7 +2037,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private void toggleShowAbility(boolean click) {
 		if (click) softClick();
-		if (click && ModifierKeysState.isCtrlDown()) {
+		if (click && isCtrlDown()) {
 			String defVal = SpecificCROption.defaultSpecificValue().value;
             for (int i=0;i<oppAbilities.length;i++)
             	opts.specificOpponentCROption(defVal,i+1);
@@ -2048,7 +2048,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private void nextSpecificOpponentAbilities(int i, boolean click) {
 		if (click) softClick();
-		if (click || ModifierKeysState.isCtrlDown())
+		if (click || isCtrlDown())
 			selectSpecificAbilityFromList(i+1);
 		else {
 			String currCR = opts.specificOpponentCROption(i+1);
@@ -2063,7 +2063,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private void prevSpecificOpponentAbilities(int i, boolean click) {
 		if (click) softClick();
-		if (click || ModifierKeysState.isCtrlDown())
+		if (click || isCtrlDown())
 			selectSpecificAbilityFromList(i+1);
 		else {
 			String currCR = opts.specificOpponentCROption(i+1);

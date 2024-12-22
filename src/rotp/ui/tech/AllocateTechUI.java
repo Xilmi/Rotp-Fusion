@@ -15,6 +15,9 @@
  */
 package rotp.ui.tech;
 
+import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
+import static java.awt.event.InputEvent.SHIFT_DOWN_MASK;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -1154,49 +1157,49 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
             case KeyEvent.VK_1:
                 if (mods == 0)
                     increment(0, true);
-                else if (mods == 64)
+                else if (mods == SHIFT_DOWN_MASK)
                     decrement(0, true);
-                else if (mods == 128)
+                else if (mods == CTRL_DOWN_MASK)
                     toggleCategoryLock(0);
                 return;
             case KeyEvent.VK_2:
                 if (mods == 0)
                     increment(1, true);
-                else if (mods == 64)
+                else if (mods == SHIFT_DOWN_MASK)
                     decrement(1, true);
-                else if (mods == 128)
+                else if (mods == CTRL_DOWN_MASK)
                     toggleCategoryLock(1);
                 return;
             case KeyEvent.VK_3:
                 if (mods == 0)
                     increment(2, true);
-                else if (mods == 64)
+                else if (mods == SHIFT_DOWN_MASK)
                     decrement(2, true);
-                else if (mods == 128)
+                else if (mods == CTRL_DOWN_MASK)
                     toggleCategoryLock(2);
                 return;
             case KeyEvent.VK_4:
                 if (mods == 0)
                     increment(3, true);
-                else if (mods == 64)
+                else if (mods == SHIFT_DOWN_MASK)
                     decrement(3, true);
-                else if (mods == 128)
+                else if (mods == CTRL_DOWN_MASK)
                     toggleCategoryLock(3);
                 return;
             case KeyEvent.VK_5:
                 if (mods == 0)
                     increment(4, true);
-                else if (mods == 64)
+                else if (mods == SHIFT_DOWN_MASK)
                     decrement(4, true);
-                else if (mods == 128)
+                else if (mods == CTRL_DOWN_MASK)
                     toggleCategoryLock(4);
                 return;
             case KeyEvent.VK_6:
                 if (mods == 0)
                     increment(5, true);
-                else if (mods == 64)
+                else if (mods == SHIFT_DOWN_MASK)
                     decrement(5, true);
-                else if (mods == 128)
+                else if (mods == CTRL_DOWN_MASK)
                     toggleCategoryLock(5);
                 return;
             case KeyEvent.VK_ESCAPE:

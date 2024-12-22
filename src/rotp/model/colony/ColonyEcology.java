@@ -588,18 +588,19 @@ public class ColonyEcology extends ColonySpendingCategory {
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }
-    public int maxAllocationNeeded()	{ return targetAllocationNeeded(1.0f); }
-    private int targetAllocationNeeded(float targetPopPct)	{
+    public int maxAllocationNeeded(GovWorksheet gws)	{
+    	return targetAllocationNeeded(gws.targetPopPercent, gws.totalIncome); }
+    public int maxAllocationNeeded()	{ return targetAllocationNeeded(1.0f, colony().totalIncome()); }
+    private int targetAllocationNeeded(float targetPopPct, float totalIncome)	{
         float needed = targetSpendingNeeded(targetPopPct);
         if (needed <= 0)
             return 0;
-        float prod = colony().totalIncome();
-        float pctNeeded = min(1, needed / prod);
+        float pctNeeded = min(1, needed / totalIncome);
         int ticks = (int) Math.ceil(pctNeeded * MAX_TICKS);
         return ticks;
     }
     @Override public int refreshAllocationNeeded(boolean prioritized, boolean hadShipSpending, float targetPopPct) {
-    	return targetAllocationNeeded(targetPopPct);
+    	return targetAllocationNeeded(targetPopPct, colony().totalIncome());
     }
     @Override public int smoothAllocationNeeded(boolean prioritized) { return maxAllocationNeeded(); }
     @Override public int smartAllocationNeeded(MouseEvent e) {
@@ -612,15 +613,15 @@ public class ColonyEcology extends ColonySpendingCategory {
     	return 0;
     }
     @Override public int govAllocationNeeded(boolean prioritized, GovWorksheet gws) {
-        if (prioritized)
-        	return maxAllocationNeeded();
+        if (prioritized || gws.promoteWorkers || colony().govUrgeBuildUp())
+        	return targetAllocationNeeded(gws.targetPopPercent, gws.totalIncome);
     	// cost to terraform planet
         float needed = terraformSpendingNeeded();
         float popToBuy = getNewPopPurchasableLongTerm(gws.targetPopPercent);
-        if (!gws.urgePopGrowth) {
-        	popToBuy = min(popToBuy, gws.minPopGrowth - colony().normalPopGrowth());
-        	popToBuy = max(0, popToBuy);
-        }
+//        if (!gws.promotePopGrowth) {
+//        	popToBuy = min(popToBuy, gws.minPopGrowth - colony().normalPopGrowth());
+//        	popToBuy = max(0, popToBuy);
+//        }
         if (popToBuy>0)
         	needed += popToBuy * tech().populationCost();
         float pctNeeded = min(1, needed / gws.totalIncome);

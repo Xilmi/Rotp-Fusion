@@ -97,7 +97,6 @@ import rotp.ui.notifications.GNNNotification;
 import rotp.ui.notifications.PlunderShipTechNotification;
 import rotp.ui.notifications.PlunderTechNotification;
 import rotp.util.Base;
-import rotp.util.ModifierKeysState;
 import rotp.util.Rand;
 
 public final class Empire implements Base, NamedObject, Serializable {
@@ -768,13 +767,13 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public void changeRalliesFromAToB(StarSystem source, StarSystem dest) {
         if (canRallyFleetsFrom(id(source)) && canRallyFleetsTo(id(dest))) {
-        	if (!ModifierKeysState.isCtrlDown())
+        	if (!isCtrlDown())
 	            for (StarSystem sys: allColonizedSystems()) {
 	                if (sys != null && sv.rallySystem(sys.id) == source)
 	                    sv.rallySystem(sys.id, dest);
 	            }
             boolean ChainRally = options().defaultChainRally();
-            if (ModifierKeysState.isShiftDown())
+            if (isShiftDown())
             	ChainRally = !ChainRally;
             if (ChainRally) {
             	ColonyShipyard shipyard = source.colony().shipyard();
@@ -1475,12 +1474,9 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
     }
     public void redoGovTurnDecisions() { // Only for player
-    	if (govOptions().isFollowingColonyRequests())
-	    	for (int i = 0; i < this.sv.count(); ++i) {
-	            if (this.sv.empire(i) == this && this.sv.isColonized(i)) {
-	                this.sv.colony(i).governIfNeeded();
-	            }
-	        }
+    	for (int i = 0; i < sv.count(); ++i)
+            if (sv.empire(i) == this && sv.isColonized(i))
+                sv.colony(i).governIfPlayerHasRequest();
     }
     /**
      * Spend reserve automatically (if enabled).

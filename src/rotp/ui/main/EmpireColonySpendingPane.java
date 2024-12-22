@@ -73,6 +73,8 @@ public class EmpireColonySpendingPane extends BasePanel {
     static final Color sliderTextDisabled	= new Color(65,65,65);
     static final Color sliderTextHasOrder	= new Color(0,0,142);
     static final Color sliderTextHasOrderD	= new Color(65,65,142);
+    static final Color sliderTextUrged		= new Color(96,0,128);
+    static final Color sliderTextUrgedD		= new Color(96,65,128);
 
     private static BufferedImage governorImage;
     private static BufferedImage noGovernorImage;
@@ -484,11 +486,15 @@ public class EmpireColonySpendingPane extends BasePanel {
             if (hoverBox == labelBox)
                 textC = SystemPanel.yellowText;
             else if (colony.canAdjust(category))
-            	if (colony.hasOrder(category) && options().showPendingOrders())
+            	if (colony.isUrged(category))
+            		textC = new Color(142,0,142);
+            	else if (colony.hasOrder(category) && options().showPendingOrders())
             		textC = sliderTextHasOrder;
             	else
             		textC = sliderTextEnabled;
-            else if (colony.hasOrder(category) && options().showPendingOrders())
+            else if (colony.isUrged(category))
+        		textC = sliderTextUrgedD;
+        	else if (colony.hasOrder(category) && options().showPendingOrders())
         		textC = sliderTextHasOrderD;
         	else
                 textC = sliderTextDisabled;
@@ -575,26 +581,29 @@ public class EmpireColonySpendingPane extends BasePanel {
 	                }
 					if (refitFlag == null)
 						indStr = text("MAIN_COLONY_SPENDING_REFIT") + ", " + indStr;
-	            	g.setFont(narrowFont(14));
+	            	//g.setFont(narrowFont(14));
+	            	int fontSize = scaledFont(g, indStr, boxW-s5, 14, 10);
+	            	int yOff = scaled(4 + (14-fontSize)/2);
 	            	int sw1 = g.getFontMetrics().stringWidth(indStr);
 	            	int x1 = (boxW-sw1)/2;
-	            	drawString(g, indStr, boxL+x1, boxTopY+boxH-s4);
+	            	drawString(g, indStr, boxL+x1, boxTopY+boxH-yOff);
             	}
             }
             
             if (category == Colony.ECOLOGY)  {
                 float popGrowth = colony.ecology().upcomingPopGrowthFloat();
-                g.setFont(narrowFont(14));
                 String valStr = String.format("%+3.1f", popGrowth);
                 String popStr = text("MAIN_COLONY_SPENDING_ECO_GROWTH", valStr);
-                int sw1 = g.getFontMetrics().stringWidth(popStr);
-                int x1 = (boxW-sw1)/2;
-                
                 if (popGrowth < 0)
                     g.setColor(SystemPanel.darkOrangeText);
                 else
                     g.setColor(Color.gray);
-                 drawString(g,popStr, boxL+x1, boxTopY+boxH-s4);
+                //g.setFont(narrowFont(14));
+                int fontSize = scaledFont(g, popStr, boxW-s5, 14, 10);
+                int yOff = scaled(4 + (14-fontSize)/2);
+                int sw1 = g.getFontMetrics().stringWidth(popStr);
+                int x1 = (boxW-sw1)/2;
+                drawString(g,popStr, boxL+x1, boxTopY+boxH-yOff);
                 
                 if (popGrowth < 0)
                     g.setColor(SystemPanel.orangeText);
@@ -602,7 +611,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                     g.setColor(Color.lightGray);
                 Shape prevClip = g.getClip();
                 g.setClip(fillRect);
-                drawString(g,popStr, boxL+x1, boxTopY+boxH-s4);
+                drawString(g,popStr, boxL+x1, boxTopY+boxH-yOff);
                 g.setClip(prevClip);
             }
 
@@ -806,10 +815,10 @@ public class EmpireColonySpendingPane extends BasePanel {
                 return;
             Colony colony = sys.colony();
             if (colony == null)
-                return;
+                return;	
     		colony.toggleOrder(category);
     		colony.governIfNeeded(category == SHIP);
-            repaint();
+            parent.repaint();
 //	        switch (category) {
 //		    	case DEFENSE:
 //		    	case INDUSTRY:

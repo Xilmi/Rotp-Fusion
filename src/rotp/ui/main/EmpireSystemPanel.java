@@ -47,7 +47,6 @@ import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
-import rotp.util.ModifierKeysState;
 
 public class EmpireSystemPanel extends SystemPanel {
     private static final long serialVersionUID = 1L;
@@ -75,6 +74,7 @@ public class EmpireSystemPanel extends SystemPanel {
     private EmpireShipPane shipPane;
     private EmpireColonyFoundedPane foundedPane;
     private EmpireColonyInfoPane infoPane;
+    private boolean lastAltIsDown = false;
     
     public EmpireSystemPanel(SpriteDisplayPanel p) {
         parentSpritePanel = p;
@@ -103,6 +103,7 @@ public class EmpireSystemPanel extends SystemPanel {
     	setModifierKeysState(e); // BR: For the Flag color selection
         int k = e.getKeyCode();
         boolean shift = e.isShiftDown();
+        boolean isAltDown = e.isAltDown();
         switch (k) {
             case KeyEvent.VK_B:
                 if (shift)
@@ -125,12 +126,16 @@ public class EmpireSystemPanel extends SystemPanel {
                 spendingPane.keyPressed(e);
                 return;
             case KeyEvent.VK_L:
-            	if (e.isAltDown()) {
+            	if (isAltDown) {
             		debugReloadLabels(this);
-            		break;
+            		return;
             	}
             	misClick();
-            	break;
+            	return;
+        }
+        if (isAltDown != lastAltIsDown) {
+        	lastAltIsDown = isAltDown;
+        	repaint();
         }
     }
     public void nextShipDesign() {
@@ -242,7 +247,8 @@ public class EmpireSystemPanel extends SystemPanel {
         private final int upButtonY[] = new int[3];
         private final int downButtonX[] = new int[3];
         private final int downButtonY[] = new int[3];
-        protected Rectangle limitBox = new Rectangle();
+        private boolean inGovLimitBox = false;;
+        private Rectangle limitBox = new Rectangle();
         private boolean hasPreview = false;
 
         Color textColor = newColor(204,204,204);
@@ -384,30 +390,38 @@ public class EmpireSystemPanel extends SystemPanel {
         private void drawShipCompletion(Graphics2D g, Colony c, int x, int y, int w, int h) {
             if (c == null)
                 return;
+            //govLimitBox.setBounds(x, y, w, h);
             int buildLimit = c.shipyard().buildLimit();
-            int buildPct   = c.govShipBuildPct();
-            boolean showBuildPct = ModifierKeysState.isAltDown() &&
-            		((hoverBox == limitBox) || (hoverBox == upArrow) || (hoverBox == downArrow));
+            int buildSparePct = c.govShipBuildSparePct();
+            int buildUsePct   = 100 - buildSparePct;
+            boolean noSparePct = buildSparePct != 0;
+            boolean showBuildSparePct = isAltDown() && inGovLimitBox;
 
             g.setFont(narrowFont(16));
-            g.setColor(Color.black);
-            String label = showBuildPct ?
+            String label = showBuildSparePct ?
             		text("MAIN_COLONY_SHIPYARD_GOV_PCT") :
             		text("MAIN_COLONY_SHIPYARD_LIMIT");
             int sw1 = g.getFontMetrics().stringWidth(label);
             String none = text("MAIN_COLONY_SHIPYARD_LIMIT_NONE");
-            int sw2 = g.getFontMetrics().stringWidth(none);           
-            String amt = showBuildPct ?
-            		text("MAIN_COLONY_SHIPYARD_GOV_PCT_VAL", buildPct) :
+            int sw2 = g.getFontMetrics().stringWidth(none);
+            String amt = showBuildSparePct ?
+            		text("MAIN_COLONY_SHIPYARD_GOV_PCT_VAL", buildUsePct) :
             		c.shipyard().buildLimitStr();
             int sw3 = g.getFontMetrics().stringWidth(amt);
-            
+
             int x1 = x+s12;
             int y1 = y+s8;
             int x2 = x1+sw1+s5;
             int x3 = x1+sw1+s5+max(sw2,sw3)+s5;
             int y3 = y1+s2;
+            if (noSparePct && (c.isGovernor() || showBuildSparePct)) {
+            	int r = 100 + (120*buildSparePct)/100;
+            	g.setColor(new Color(r, r/3, 0));
+            }
+            else
+            	g.setColor(Color.black);
             drawString(g,label, x1, y1);
+            g.setColor(Color.black);
             drawString(g,amt, x2, y1);  
             
             limitBox.setBounds(x2-s3,y1-s15,x3-x2,s18);
@@ -428,7 +442,7 @@ public class EmpireSystemPanel extends SystemPanel {
             g.setColor(enabledArrowColor);
             g.fillPolygon(upButtonX, upButtonY, 3);
 
-            if (!showBuildPct && buildLimit == 0)
+            if (!showBuildSparePct && buildLimit == 0)
                 g.setColor(disabledArrowColor);
             else
                 g.setColor(enabledArrowColor);
@@ -447,7 +461,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 g.drawPolygon(upArrow);
             }
             else if ((hoverBox == downArrow)
-                && (buildLimit > 0 || showBuildPct)) {
+                && (buildLimit > 0 || showBuildSparePct)) {
                 g.setColor(SystemPanel.yellowText);
                 g.drawPolygon(downArrow);
             }
@@ -685,7 +699,7 @@ public class EmpireSystemPanel extends SystemPanel {
             Colony col = sys == null ? null : sys.colony();
             if (col == null)
                 return;
-            col.incrShipBuildPct(amt);
+            col.incrShipBuildSparePct(-amt); // negative because Use is displayed
             col.governIfNeeded();
             softClick();
             parent.repaint();
@@ -695,7 +709,7 @@ public class EmpireSystemPanel extends SystemPanel {
             Colony col = sys == null ? null : sys.colony();
             if (col == null)
                 return;
-            col.resetShipBuildPct();
+            col.resetShipBuildSparePct();
         	col.governIfNeeded(true);
             softClick();
             repaint();
@@ -786,9 +800,15 @@ public class EmpireSystemPanel extends SystemPanel {
         @Override
         public void mouseClicked(MouseEvent arg0) { }
         @Override
-        public void mouseEntered(MouseEvent arg0) {}
+        public void mouseEntered(MouseEvent arg0)	{
+        	inGovLimitBox = true;
+        	setModifierKeysState(arg0);
+        	repaint();
+        }
         @Override
-        public void mouseExited(MouseEvent arg0) {
+        public void mouseExited(MouseEvent arg0)	{
+        	inGovLimitBox = false;
+        	setModifierKeysState(arg0);
             if (hoverBox != null) {
                 hoverBox = null;
                 repaint();
@@ -805,9 +825,20 @@ public class EmpireSystemPanel extends SystemPanel {
             boolean rightClick = SwingUtilities.isRightMouseButton(e);
             boolean shiftPressed = e.isShiftDown();
             boolean ctrlPressed = e.isControlDown();
-//            boolean altPressed = e.isAltDown();
-//            System.out.println("altPressed: " + altPressed);
-            
+            if (isAltDown()) {
+                int adjAmt = 5;
+                if (shiftPressed)
+                    adjAmt = 20;
+                else if (ctrlPressed)
+                    adjAmt = 50;
+                if (upArrow.contains(x,y))
+                	incrementGovBuildPct(adjAmt);
+                else if (downArrow.contains(x,y)) 
+                	incrementGovBuildPct(-adjAmt);
+                else if (limitBox.contains(x,y))
+                	resetGovBuildPct();
+                return;
+            }
             int adjAmt = 1;
             if (shiftPressed)
                 adjAmt *= 5;
@@ -888,7 +919,6 @@ public class EmpireSystemPanel extends SystemPanel {
             int x = e.getX();
             int y = e.getY();
             Shape prevHover = hoverBox;
-
             hoverBox = null;
 
             if (upArrow.contains(x,y))
@@ -927,7 +957,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 boolean ctrlPressed = e.isControlDown();
                 boolean altPressed = e.isAltDown();
                 if (altPressed) {
-                    int adjAmt = 10;
+                    int adjAmt = 5;
                     if (shiftPressed)
                         adjAmt = 20;
                     else if (ctrlPressed)

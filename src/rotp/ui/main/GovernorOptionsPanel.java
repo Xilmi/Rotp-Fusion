@@ -32,6 +32,7 @@ import javax.swing.JSpinner;
 import javax.swing.JSpinner.NumberEditor;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -264,6 +265,7 @@ public class GovernorOptionsPanel extends BasePanel{
 		UIManager.put("ToolTip.font", tooltipFont);
 		UIManager.put("ToolTip.background", tooltipBgColor);
 		UIManager.put("ToolTip.foreground", tooltipTxtColor);
+		ToolTipManager.sharedInstance().setDismissDelay(10000);
 	}
 	// ========== Local tools ==========
 	//
