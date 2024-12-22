@@ -69,7 +69,10 @@ Later:
 
 ## What's New
 
-2024.12.18 (BR)
+2024.12.22 (BR)
+- Fixed obedient governor not always activated by requests.
+
+2024.12.21 (BR)
 - Obedient governor finalisation and documentation.
 - Updated to Java 11.
 - Updated Zip files to JRE23.

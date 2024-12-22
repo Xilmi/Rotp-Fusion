@@ -180,8 +180,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
     			|| govUrgeFactories
     			|| govUrgeShips
     			|| govUrgeBuildUp
+    			|| govUrgeResearch
     			|| prioritizeShips
-    			|| prioritizeResearch;
+    			|| prioritizeResearch
+    			|| shipyard().buildLimit() > 0;
     }
     private boolean governorGotPlayerRequest()	{ return govOptions().isFollowingColonyRequests() || hasCustomRequest(); }
     public boolean isObedientGovernor()			{ return isGovernor() && governorGotPlayerRequest(); }
@@ -2866,7 +2868,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         	// Ships management
             isDirectShipAlloc	= !loweredShipPriority && wasBuildingShips && !wasShipRequest;
             keepDirectShipAlloc	= isDirectShipAlloc && gov.isShipbuilding();
-            promoteShips		= promoteShips || keepDirectShipAlloc;
+            //promoteShips		= promoteShips || keepDirectShipAlloc;
             promotePopGrowth |= (!promoteShips && empire.tech().researchCompleted());
             boolean refit = industry().effectiveRobotControls() < empire().maxRobotControls() && !empire.ignoresFactoryRefit();
             promotePopGrowth |= refit;
