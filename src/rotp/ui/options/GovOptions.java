@@ -46,7 +46,7 @@ final class GovOptions extends AbstractOptionsSubUI {
 				new ParamTitle(HEAD_ID + "STARGATES_OPTIONS"),
 				starGateOption
 				)));
-		map.add(new SafeListParam(Arrays.asList(
+		SafeListParam list = new SafeListParam(Arrays.asList(
 				new ParamTitle(HEAD_ID + "ASPECT_OPTIONS"),
 				originalPanel, customSize, animatedImage,
 				brightnessPct, sizeFactorPct,
@@ -55,7 +55,10 @@ final class GovOptions extends AbstractOptionsSubUI {
 				HEADER_SPACER_50,
 				new ParamTitle(HEAD_ID + "OTHER_OPTIONS"),
 				governorByDefault, auto_Apply
-				)));
+				));
+		list.add(HEADER_SPACER_50);
+		list.add(AllSubUI.getHandle(GOVERNOR_SPECIAL_KEY).getUI());
+		map.add(list);
 		return map;
 	};
 	@Override public SafeListParam minorList()	{

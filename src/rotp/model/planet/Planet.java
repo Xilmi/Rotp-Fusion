@@ -25,10 +25,13 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+
 import rotp.model.colony.Colony;
+import rotp.model.colony.GovWorksheet;
 import rotp.model.empires.Empire;
 import rotp.model.events.SystemTerraformingEvent;
 import rotp.model.galaxy.IMappedObject;
+import rotp.model.galaxy.NamedObject;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
@@ -274,10 +277,11 @@ public class Planet implements Base, IMappedObject, Serializable {
         waste = min(waste, maxWaste());
     	initTerrain(type()); // BR: Make the environment follow!
     }
-    public void sufferImpactEvent() {
+    public void sufferImpactEvent(NamedObject impactor) {
         Empire systemEmp = null;
         if (colony != null) {
             systemEmp = colony.empire();
+            systemEmp.lastAttacker(impactor);
             colony.destroy();
         }
 
@@ -401,6 +405,73 @@ public class Planet implements Base, IMappedObject, Serializable {
     		return newSize;
     	}
     	return newSize;
+    }
+    public void potentialImprovement(TechTree tech, GovWorksheet gws)	{
+    	TechSoilEnrichment soil = tech.topSoilEnrichmentTech();
+    	TechAtmosphereEnrichment atmo = tech.topAtmoEnrichmentTech();
+    	float terraformAdj = tech.terraformAdj();
+    	float newSize = baseSize();
+    	int level = -1;
+    	if (soil != null)
+    		level = soil.typeSeq;
+    	if (isEnvironmentHostile()) {
+    		if (atmo != null) {
+        		gws.canTerraformAtmosphere = true;
+        		gws.anyTerraform = true;
+        		gws.atmosphereIncrease = atmosphereIncrease(); 
+    			newSize += gws.atmosphereIncrease;
+        		if (level >= 0) {
+        			gws.canEnrichSoil = true;
+        			gws.enrichIncrease = fertileIncrease(newSize);
+        			newSize += gws.enrichIncrease;
+        		}
+        		if (level >= 1)
+        			gws.enrichIncrease += gaiaIncrease(newSize);
+        		if (terraformAdj > terraformLevel) {
+        			gws.canTerraform = true;
+        			gws.anyTerraform = true;
+        			gws.terraformIncrease = terraformAdj - terraformLevel;
+        		}
+        		return;
+    		}
+    		else {
+    			terraformAdj *= options().hostileTerraformingPct();
+    	    	if (terraformAdj > terraformLevel) {
+    				gws.canTerraform = true;
+    				gws.anyTerraform = true;
+    				gws.terraformIncrease = terraformAdj - terraformLevel;
+    			}
+    		}
+    	}
+    	else if (isEnvironmentNormal()) {
+    		if (level >= 0) {
+    			gws.canEnrichSoil = true;
+    			gws.anyTerraform = true;
+    			gws.enrichIncrease = fertileIncrease(newSize);
+    			newSize += gws.enrichIncrease;
+    		}
+    		if (level >= 1)
+    			gws.enrichIncrease += gaiaIncrease(newSize);
+    		if (terraformAdj > terraformLevel) {
+    			gws.canTerraform = true;
+    			gws.anyTerraform = true;
+    			gws.terraformIncrease = terraformAdj - terraformLevel;
+    		}
+    		return;
+    	}
+    	else if (isEnvironmentFertile()) {
+    		if (level >= 1) {
+    			gws.canEnrichSoil = true;
+    			gws.anyTerraform = true;
+    			gws.enrichIncrease = gaiaIncrease(newSize);
+    		}
+    		if (terraformAdj > terraformLevel) {
+    			gws.canTerraform = true;
+    			gws.anyTerraform = true;
+    			gws.terraformIncrease = terraformAdj - terraformLevel;
+    		}
+    		return;
+    	}
     }
     private float fertileIncrease(float size) { return (float)Math.ceil(size/20.0f) * 5; }
     private float gaiaIncrease(float size)    { return (float)Math.ceil((size-10)/20.0f) * 5; }

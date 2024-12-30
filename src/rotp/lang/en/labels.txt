@@ -829,7 +829,7 @@ MAIN_HELP_5G                      | Do not let yourself be distracted by anythin
 MAIN_HELP_5H                      | Once your main tasks (building and populating) are completed, use the remaining BC to build ships. (Blue when enabled)
 MAIN_HELP_5I                      | Prioritize Research (blue when enabled). Once your main tasks are done (building and populating), assign the remaining BCs to science.<br>It is Priority to continue our research (purple when enabled). Keep the colony clean and give the priority percentage of the rest to our scientists.
 MAIN_HELP_5J                      | It is a priority to complete this number of ships. Keep the colony clean and give the specified percentage of the remainder to our yards.<br>When Alt is pressed: Percentage to give to priority tasks. (Default 100%)
-MAIN_HELP_5K                      | We are short of manpower. Don't take the initiative to send our workers to other planets.
+MAIN_HELP_5K                      | “Ctrl-click”: To allow/disallow sending transports. We are short of manpower. Don't take the initiative to send our workers to other planets.
 
 // modnar: shorten System Data display
 MAIN_SYSTEM_DETAIL_PFB            | P:%1  F:%2  B:%3
@@ -4026,6 +4026,9 @@ SETTINGS_MOD_SETUP_RESTART_UI            | Restart Options
 SETTINGS_MOD_SETUP_RESTART_UI_DESC       | Options controlling the way a game will be restarted. Only read when restarting a game.
 SETTINGS_MOD_SETUP_RESTART_UI_HELP       | Hidden behind the&nbsp <b>→SETUP_BUTTON_START←</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>→SETUP_BUTTON_RESTART←</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swap it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
 
+SETTINGS_MOD_GOV_SPECIAL_TITLE          | Advanced Governor Configurations.
+SETTINGS_MOD_GOV_SPECIAL_UI             | Fine Tuning
+SETTINGS_MOD_GOV_SPECIAL_UI_DESC        | Options not displayed on the main panel... Reserved for experts.
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research
@@ -4997,8 +5000,8 @@ GOVERNOR_SHIP_BUILDING_DESC          | Shipbuilding with Governor enabled. Diver
 GOVERNOR_SHIP_BUILDING               | Shipbuilding: %1
 GOVERNOR_SHIP_BUILDING_LABEL         | Shipbuilding with Governor enabled
 
-GOVERNOR_FOLLOW_COLONY_REQUESTS_HELP     | He's sort of an obedient junior governor. He'll first respond to your request, then do his best to minimize micromanagement, like his big brother... If a "→MAIN_COLONY_SHIPYARD_LIMIT←" is set, it will be built first. If you lock ship allocations: He won't change them. He'll also follow the priority indicated in blue (Ctrl-Click on the text on the left)
-GOVERNOR_FOLLOW_COLONY_REQUESTS_DESC     | If a "→MAIN_COLONY_SHIPYARD_LIMIT←" is set, it will be built first. If you lock ship allocations: He won't change them. He'll also follow the priority indicated in blue (Ctrl-Click on the text on the left)
+GOVERNOR_FOLLOW_COLONY_REQUESTS_HELP     | He is sort of an obedient junior governor.<br>- He first makes sure the colony remains clean.<br>- Then he takes care of your urgent requests, in order: Shields, Bases, Population, Factories, Colony Growth.<br>- Then he carries out your priority tasks, assigning them the percentage of funds allocated. In order: Specified quantity of ships, Research (Purple)<br>- Then comes the time to grow the colony by balancing factory construction and population growth.<br>- If there are funds left, they will be assigned to the priority tasks again<br>- Then come the lower priority tasks following your instructions (Blue). In order: Defenses, Ships, Research.<br>- If there are no instructions, the sequence will be: Defense, Research.<br>Note: If you lock Ship allocations: He will not change them.
+GOVERNOR_FOLLOW_COLONY_REQUESTS_DESC     | If a "→MAIN_COLONY_SHIPYARD_LIMIT←" is set, it will be built first. If you lock ship allocations: It will not change them. It will also follow the priority shown in blue (Ctrl-Click on the text on the left)
 GOVERNOR_FOLLOW_COLONY_REQUESTS          | Colony Requests: %1
 GOVERNOR_FOLLOW_COLONY_REQUESTS_LABEL    | Follow Colony Request
 GOVERNOR_FOLLOW_COLONY_REQUESTS_YES      | Follow
@@ -5124,6 +5127,50 @@ GOVERNOR_CANCEL_BUTTON_TT            | Close the GUI
 // Leave empty
 GOVERNOR_RACE_IMAGE_LABEL            |
 GOVERNOR_RACE_IMAGE_TT               | If the animation is disturbing you, you can stop it by clicking on it!<br>another click will reactivate it.
+
+GOVERNOR_WORKER_TO_FACTORY_ROI_HELP  | It is generally more profitable to produce factories than to grow the population. However, this may not always be the case.<br>This parameter sets the yield limit to favor population growth.<br>The real cost of a factory depends on the planet's resources and the technology level.<br>The real production of factories is affected by the cost of cleaning up pollution. The net return is equal to the real production divided by the real cost.<br>The real cost of a population depends on the planet's ecology and the technology level. The return on investment of a worker depends on the characteristics of the species and the planet's technology level.<br>It is possible that the return on investment of a worker is higher than that of a factory (this is the case for ants). If the difference is small, it is better to favor the construction of factories, because the natural growth of the population costs nothing. This ratio is multiplied by three on an ultra-poor planet, and it then becomes more advantageous to delay the construction of factories.
+GOVERNOR_WORKER_TO_FACTORY_ROI_DESC  | It is generally more profitable to produce factories than to grow the population. However, this may not always be the case. This parameter sets the yield limit to favor population growth.
+GOVERNOR_WORKER_TO_FACTORY_ROI       | Pop/Factory ROI limit: %1%
+GOVERNOR_WORKER_TO_FACTORY_ROI_LABEL | Pop/Factory ROI limit
+
+GOVERNOR_SUBSIDY_NORMAL_DESC         | What should the money sent to the colony be mainly used for?
+GOVERNOR_SUBSIDY_NORMAL              | Subsidy Use: %1
+SUBSIDY_NORMAL_INDUSTRY              | Industry
+SUBSIDY_NORMAL_ECOLOGY               | Ecology
+SUBSIDY_NORMAL_PLANET_BASED          | Planet Based
+SUBSIDY_NORMAL_GOV_CHOICE            | Governor wisdom
+SUBSIDY_NORMAL_INDUSTRY_HELP         | Focus on building factories.
+SUBSIDY_NORMAL_ECOLOGY_HELP          | Focus on growing population.
+SUBSIDY_NORMAL_PLANET_BASED_HELP     | It will depend on the resources of the planet:<br>- factories for poor planets, because the cost of the factory is lower for subsidies,<br>- population for rich planets, because the cost of the factory is not reduced for subsidies.
+SUBSIDY_NORMAL_GOV_CHOICE_HELP       | The governor does not care about the origin of the credits.
+
+GOVERNOR_SUBSIDY_TFORM_DESC          | When any planet terraforming is available, what should the money sent to the colony primarily be used for?
+GOVERNOR_SUBSIDY_TFORM               | Subsidy Terraform Use: %1
+SUBSIDY_TFORM_INDUSTRY               | →SUBSIDY_NORMAL_INDUSTRY←
+SUBSIDY_TFORM_ECOLOGY                | →SUBSIDY_NORMAL_ECOLOGY←
+SUBSIDY_TFORM_PLANET_BASED           | →SUBSIDY_NORMAL_PLANET_BASED←
+SUBSIDY_TFORM_GOV_CHOICE             | →SUBSIDY_NORMAL_GOV_CHOICE←
+SUBSIDY_TFORM_INDUSTRY_HELP          | →SUBSIDY_NORMAL_INDUSTRY_HELP←
+SUBSIDY_TFORM_ECOLOGY_HELP           | Focus on improving the planet quality.
+SUBSIDY_TFORM_PLANET_BASED_HELP      | →SUBSIDY_NORMAL_PLANET_BASED_HELP←
+SUBSIDY_TFORM_GOV_CHOICE_HELP        | →SUBSIDY_NORMAL_GOV_CHOICE_HELP←
+
+GOVERNOR_TERRAFORM_FACTORY_PCT_DESC  | Terraforming of the planet will be triggered when this percentage of factories are built.
+GOVERNOR_TERRAFORM_FACTORY_PCT       | Factory Pct Trigger: %1%
+GOVERNOR_TERRAFORM_POP_PCT_DESC      | Terraforming of the planet will be triggered when this population percentage is reached.
+GOVERNOR_TERRAFORM_POP_PCT           | Population Pct Trigger: %1%
+GOVERNOR_TERRAFORM_POPULATION_DESC   | Terraforming of the planet will be triggered when the population missing to fill the planet reaches this value.
+GOVERNOR_TERRAFORM_POPULATION        | Full Population Trigger: %1
+GOVERNOR_TERRAFORM_COST_DESC         | Terraforming of the planet will be triggered if the cost/income ratio (~Number of years of construction) is below this percentage.
+GOVERNOR_TERRAFORM_COST              | Cost / Income Trigger: %1
+
+HEADERS_GOVERNOR_TERRAFORM_DESC      | Triggers for planet terraforming.
+HEADERS_GOVERNOR_TERRAFORM           | ~~~ TERRAFORMING TRIGGERS ~~~
+HEADERS_GOVERNOR_SUBSIDIES_DESC      | What to do with the funds allocated to the colony?
+HEADERS_GOVERNOR_SUBSIDIES           | ~~~ DESTINATION OF FUNDS ~~~
+HEADERS_GOVERNOR_OTHER_LIMITS_DESC   | Unclassified Options.
+HEADERS_GOVERNOR_OTHER_LIMITS        | ~~~ OTHER LIMITS ~~~
+
 
 // BR: Tech Trigger Add-on
 //

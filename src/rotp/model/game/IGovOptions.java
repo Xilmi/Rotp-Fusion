@@ -101,4 +101,52 @@ public interface IGovOptions {
 	ParamBoolean governorByDefault	= new ParamBoolean(GOV_UI, "ON_BY_DEFAULT", true)
 			.setDefaultValue(MOO1_DEFAULT, false)
 			.setDefaultValue(ROTP_DEFAULT, false);
+
+	// Advanced Tuning options: Not in the floating windows
+	ParamInteger workerToFactoryROI	= new ParamInteger(GOV_UI, "WORKER_TO_FACTORY_ROI", 140)
+			.setLimits(100, 1000)
+			.setIncrements(5, 20, 100);
+
+	String INDUSTRY			= "INDUSTRY";
+	String ECOLOGY			= "ECOLOGY";
+	String PLANET_BASED		= "PLANET_BASED";
+	String GOV_CHOICE		= "GOV_CHOICE";
+	String SUBSIDY_NORMAL	= "SUBSIDY_NORMAL";
+	ParamList subsidyNormalUse	= new ParamList(GOV_UI, SUBSIDY_NORMAL, GOV_CHOICE)
+			.showFullGuide(true)
+			.put(INDUSTRY,		SUBSIDY_NORMAL + "_" + INDUSTRY)
+			.put(ECOLOGY,		SUBSIDY_NORMAL + "_" + ECOLOGY)
+			.put(PLANET_BASED,	SUBSIDY_NORMAL + "_" + PLANET_BASED)
+			.put(GOV_CHOICE,	SUBSIDY_NORMAL + "_" + GOV_CHOICE);
+//	default String	subsidyNormalUse()			{ return subsidyNormalUse.get(); }
+//	default boolean	subsidyNormalIndustry()		{ return subsidyNormalUse.get().equals(INDUSTRY); }
+//	default boolean	subsidyNormalEcology()		{ return subsidyNormalUse.get().equals(ECOLOGY); }
+//	default boolean	subsidyNormalRessources()	{ return subsidyNormalUse.get().equals(PLANET_BASED); }
+//	default boolean	subsidyNormalGovChoice()	{ return subsidyNormalUse.get().equals(GOV_CHOICE); }
+
+	String SUBSIDY_TERRAFORM	= "SUBSIDY_TFORM";
+	ParamList subsidyTerraformUse	= new ParamList(GOV_UI, SUBSIDY_TERRAFORM, GOV_CHOICE)
+			.showFullGuide(true)
+			.put(INDUSTRY,		SUBSIDY_TERRAFORM + "_" + INDUSTRY)
+			.put(ECOLOGY,		SUBSIDY_TERRAFORM + "_" + ECOLOGY)
+			.put(PLANET_BASED,	SUBSIDY_TERRAFORM + "_" + PLANET_BASED)
+			.put(GOV_CHOICE,	SUBSIDY_TERRAFORM + "_" + GOV_CHOICE);
+//	default String	subsidyTerraformUse()			{ return subsidyTerraformUse.get(); }
+//	default boolean	subsidyTerraformIndustry()		{ return subsidyTerraformUse.get().equals(INDUSTRY); }
+//	default boolean	subsidyTerraformEcology()		{ return subsidyTerraformUse.get().equals(ECOLOGY); }
+//	default boolean	subsidyTerraformRessources()	{ return subsidyTerraformUse.get().equals(PLANET_BASED); }
+//	default boolean	subsidyTerraformGovChoice()		{ return subsidyTerraformUse.get().equals(GOV_CHOICE); }
+
+	ParamInteger terraformFactoryPct	= new ParamInteger(GOV_UI, "TERRAFORM_FACTORY_PCT", 60)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20);
+	ParamInteger terraformPopulationPct	= new ParamInteger(GOV_UI, "TERRAFORM_POP_PCT", 75)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20);
+	ParamInteger terraformPopulation	= new ParamInteger(GOV_UI, "TERRAFORM_POPULATION", 5)
+			.setLimits(0, 300)
+			.setIncrements(1, 5, 20);
+	ParamInteger terraformCost2Income	= new ParamInteger(GOV_UI, "TERRAFORM_COST", 100)
+			.setLimits(0, 500)
+			.setIncrements(1, 5, 20);
 }

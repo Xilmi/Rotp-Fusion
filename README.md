@@ -69,6 +69,12 @@ Later:
 
 ## What's New
 
+2024.12.30 (BR)
+- Governor new advanced options to set when terraforming should be started.
+- Governor new advanced options to set what to do with funding.
+- Governor new advanced options to set when to grow vs when to build factories.
+- Fixed Comet event not being set as the last aggressor.
+
 2024.12.22 (BR)
 - Fixed obedient governor not always activated by requests.
 

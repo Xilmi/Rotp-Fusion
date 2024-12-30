@@ -19,7 +19,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
-import rotp.model.colony.Colony.GovWorksheet;
 import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechAtmosphereEnrichment;
@@ -78,6 +77,19 @@ public class ColonyEcology extends ColonySpendingCategory {
     		return colony().population() >= colony().planet().maxSize()
             		&& (empire().ignoresPlanetEnvironment() || waste() == 0);
     	}
+    }
+    void checkPlanetImprovement(GovWorksheet gws)	{
+    	planet().potentialImprovement(tech(), gws);
+    	if (gws.canTerraformAtmosphere)
+            gws.atmosphereCost = max(0, atmosphereTerraformCost() - hostileBC);
+
+    	if (gws.canEnrichSoil) {
+    		//gws.enrichSoilCost = enrichSoilCost() - soilEnrichBC;
+    		gws.nextEnrichSoilCost = SOIL_UPGRADE_BC - soilEnrichBC;
+    	}
+
+    	if (gws.canTerraform)
+    		gws.terraformCost = tech().popIncreaseCost() * gws.terraformIncrease;
     }
     @Override
     public int categoryType()    { return Colony.ECOLOGY; }

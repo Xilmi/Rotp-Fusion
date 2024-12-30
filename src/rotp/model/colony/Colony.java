@@ -79,11 +79,11 @@ public final class Colony implements Base, IMappedObject, Serializable {
     private static final int[] validationSeq = {ECOLOGY, INDUSTRY, SHIP, DEFENSE, RESEARCH};
     private static final int[] spendingSeq   = {RESEARCH, SHIP, DEFENSE, INDUSTRY, ECOLOGY};
     private static final int[] refreshSeq    = {INDUSTRY, ECOLOGY, SHIP, DEFENSE, RESEARCH};
-    private static final int[] govBuildSeq   = {INDUSTRY, ECOLOGY}; // To promote balance
-    private static final int[] govBuildSeqW  = {ECOLOGY, INDUSTRY}; // To promote workers
     private static final int[] govTagSeq     = {ECOLOGY, DEFENSE, SHIP, RESEARCH};
     private static final int[] govFinalSeq   = {DEFENSE, RESEARCH};
-    
+    static final int[] govBuildSeq   = {INDUSTRY, ECOLOGY}; // To promote balance
+    static final int[] govBuildSeqW  = {ECOLOGY, INDUSTRY}; // To promote workers
+
     private static final float TECH_PLUNDER_PCT = 0.02f;
     // private static final int MAX_TECHS_CAPTURED = 6;
     private static final int TARGETED_DAMAGE_FOR_POPLOSS = 400;
@@ -140,7 +140,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     private boolean governor = govOptions().isGovernorOnByDefault();
     // TODO: For future use, flag allowing this colony to autobuild ships
     private boolean autoShips = govOptions().isAutoShipsByDefault();
-    private int govShipBuildSparePct	= 0;
+    int govShipBuildSparePct	= 0;
 
     private transient boolean hasNewOrders = false;
     private transient int cleanupAllocation = 0;
@@ -173,7 +173,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public boolean govUrgeResearch()			{ return govUrgeResearch; }
     public void    govUrgeResearch(boolean b)	{ govUrgeResearch = b; }
 
-    private boolean hasCustomRequest() {
+    /* private boolean hasCustomRequest() {
     	return govUrgeShield
     			|| govUrgeBases
     			|| govUrgePop
@@ -184,9 +184,13 @@ public final class Colony implements Base, IMappedObject, Serializable {
     			|| prioritizeShips
     			|| prioritizeResearch
     			|| shipyard().buildLimit() > 0;
-    }
-    private boolean governorGotPlayerRequest()	{ return govOptions().isFollowingColonyRequests() || hasCustomRequest(); }
-    public boolean isObedientGovernor()			{ return isGovernor() && governorGotPlayerRequest(); }
+    } */
+//    private boolean governorGotPlayerRequest()	{ return govOptions().isFollowingColonyRequests() || hasCustomRequest(); }
+//    public boolean isObedientGovernor()			{ return isGovernor() && governorGotPlayerRequest(); }
+//    private boolean governorGotPlayerRequest()	{ return govOptions().isFollowingColonyRequests() && hasCustomRequest(); }
+//    public boolean isObedientGovernor()			{ return govOptions().isFollowingColonyRequests() && hasCustomRequest(); }
+    private boolean governorGotPlayerRequest()	{ return govOptions().isFollowingColonyRequests(); }
+    public boolean isObedientGovernor()			{ return govOptions().isFollowingColonyRequests(); }
     public boolean noGovAutoTransport()			{ return noGovAutoTransport && governor; }
     public void    toggleGovAutoTransport()		{ noGovAutoTransport = !noGovAutoTransport; }
     public boolean transportAutoEco()			{ return transportAutoEco && !governor; }
@@ -1352,7 +1356,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         float mod = empire().isPlayer() ? 1.0f : options().aiWasteModifier();
         return max(0, tech().factoryWasteMod() * mod);
     }
-    private float factoryNetProd()	{
+    float factoryNetProductivity()	{
     	if (empire.ignoresPlanetEnvironment())
             return 1;
     	return 1 - wastePerFactory() / tech().wasteElimination();
@@ -1925,7 +1929,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
     public boolean isAutoShips()                        { return autoShips; }
     public void setAutoShips(boolean autoShips)         { this.autoShips = autoShips; }
-    private boolean prioritizeShips()                   { return prioritizeShips; }
+    boolean prioritizeShips()                           { return prioritizeShips; }
     private void prioritizeShips(boolean prioritize)    { prioritizeShips = prioritize; }
     boolean prioritizeResearch()                        { return prioritizeResearch; }
     private void prioritizeResearch(boolean prioritize) { prioritizeResearch = prioritize; }
@@ -2025,8 +2029,29 @@ public final class Colony implements Base, IMappedObject, Serializable {
     	else
     		return currCat.adjustValue(increment);
     }
+    private int urgeTerraformSpending(int maxAlloc, GovWorksheet gws) {
+    	ColonyEcology currCat = ecology();
+    	int currentAllocation = currCat.allocation();
+    	int allocationNeeded  = currCat.terraformAllocationNeeded();
+    	allocationNeeded = min(allocationNeeded, maxAlloc);
+    	if (allocationNeeded == 0) {
+    		govUrgeFactories(false);
+    		return 0;
+    	}
+    	int increment = allocationNeeded - currentAllocation;
+    	increment = max(0, increment);
+    	if (increment == 0)
+    		return 0;
+    	else
+    		return currCat.adjustValue(increment);
+    }
     private int urgeBuildUpSpending(int maxAlloc, GovWorksheet gws) {
     	int alloc = maxAlloc;
+    	if (gws.promoteTerraform) {
+    		alloc -= urgeTerraformSpending(alloc, gws);
+    		if (alloc==0)
+        		return maxAlloc;
+    	}
 		while (balanceCategories(gws.govBuildSeq(), gws)) {
 			alloc--;
 			if (alloc==0)
@@ -2074,66 +2099,11 @@ public final class Colony implements Base, IMappedObject, Serializable {
     	else
     		return currCat.adjustValue(increment);
     }
-    private void handleGovSpending(int alloc, GovWorksheet gws)	{
-        if (alloc==0)
-    		return;
-        // First priority: Requested Defense update
-        if (gws.promoteDefense) {
-        	alloc -= adjustGovSpending(DEFENSE, alloc, MAX_TICKS, true, gws);
-        }
-        // Second priority: Requested Fixed Number of ship
-        // Limited by max allocation
-        if (!locked(SHIP) && gws.promoteShips) {
-        	alloc -= adjustGovSpending(SHIP, alloc, gws.limitedAllocation ,false, gws);
-        	if (alloc==0)
-        		return;
-        }
-        // Third priority build and upgrade the colony: Terraform, Industry and balance Population
-        for (int i : gws.govBuildSeq()) {
-            if (!locked(i)) {
-            	alloc -= adjustGovSpending(i, alloc, MAX_TICKS, false, gws);
-            	if (alloc==0)
-            		return;
-            }
-        }
-        // Back to Second priority: Requested Fixed Number of ship
-        // no more Limited by max allocation
-        if (!locked(SHIP) && gws.promoteShips) {
-        	alloc -= adjustGovSpending(SHIP, alloc, MAX_TICKS, false, gws);
-        	if (alloc==0)
-        		return;
-        }
-        
-        // Then follow tag preferences: Defense / Ship / Research
-        for (int i : govTagSeq) {
-        	if (!locked(i) && hasOrder(i)) {
-            	alloc -= adjustGovSpending(i, alloc, MAX_TICKS, true, gws);
-            	if (alloc==0)
-            		return;
-            }
-        }
-//        // Then, if we where building ships then continue
-//        if (!locked(SHIP) && gws.keepDirectShipAlloc) {
-//        	adj -= adjustGovSpending(SHIP, adj, true, gws);
-//        	if (adj==0)
-//        		return;
-//        }
-        // The remaining goes to defense then research
-        for (int i : govFinalSeq) {
-        	if (!locked(i)) {
-            	alloc -= adjustGovSpending(i, alloc, MAX_TICKS, false, gws);
-            	if (alloc==0)
-            		return;
-            }
-        }
-        // This code should never be reached, but...
-        if (alloc != 0)
-           	redistributeReducedEcoSpending();
-    }
     private void handleGovSpending(GovWorksheet gws) {
         int maxAlloc = gws.getRemainingAllocation();
         if (maxAlloc==0)
     		return;
+        // First the Emergencies
         if (govUrgeShield) {
         	maxAlloc -= urgeShieldSpending(maxAlloc, gws);
         	if (maxAlloc==0)
@@ -2159,7 +2129,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
         	if (maxAlloc==0)
         		return;
         }
-        if (govUrgeShips) {
+        // Then the prioritized, with limited allocation 
+        if (!locked(SHIP) && gws.promoteShips) {
         	maxAlloc -= urgeShipSpending(gws.updateLimitedAllocation(maxAlloc), gws);
         	if (maxAlloc==0)
         		return;
@@ -2169,14 +2140,44 @@ public final class Colony implements Base, IMappedObject, Serializable {
         	if (maxAlloc==0)
         		return;
         }
-        gws.updateLimitedAllocation(maxAlloc);
-        for (int i=0; i<maxAlloc; i++) {
-        	handleGovSpending(1, gws);
+        // Then the normal growth
+        maxAlloc -= urgeBuildUpSpending(maxAlloc, gws);
+    	if (maxAlloc==0)
+    		return;
+    	// then back to prioritized task, but without fund limits
+    	if (!locked(SHIP) && gws.promoteShips) {
+        	maxAlloc -= urgeShipSpending(maxAlloc, gws);
+        	if (maxAlloc==0)
+        		return;
         }
+        if (govUrgeResearch) {
+        	maxAlloc -= urgeResearchSpending(maxAlloc, gws);
+        	if (maxAlloc==0)
+        		return;
+        }
+        // Then follow tag preferences: Defense / Ship / Research
+        for (int i : govTagSeq) {
+        	if (!locked(i) && hasOrder(i)) {
+        		maxAlloc -= adjustGovSpending(i, maxAlloc, MAX_TICKS, true, gws);
+            	if (maxAlloc==0)
+            		return;
+            }
+        }
+        // The remaining goes to defense then research
+        for (int i : govFinalSeq) {
+        	if (!locked(i)) {
+        		maxAlloc -= adjustGovSpending(i, maxAlloc, MAX_TICKS, false, gws);
+            	if (maxAlloc==0)
+            		return;
+            }
+        }
+        // This code should never be reached, but...
+        if (maxAlloc != 0)
+           	redistributeReducedEcoSpending();
     }
     public void governIfPlayerHasRequest() {
         if (isObedientGovernor())
-            govern(false);
+        	governIfNeeded(false);
     }
     public void governIfNeeded(boolean lowerShipPriority) {
         if (!this.isAutopilot() && this.isGovernor())
@@ -2204,7 +2205,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
      */
     private void manage(boolean loweredShipPriority) {
         GovernorOptions gov = govOptions();
-        GovWorksheet gws	= new GovWorksheet(loweredShipPriority);
+        GovWorksheet gws	= new GovWorksheet(this, loweredShipPriority);
     	// optimized for No Ship guessing: To build ship, the player should ask for it.
     	// Either by setting a target number
     	// or by tagging the field. (blue)
@@ -2796,82 +2797,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
             int needed = shipyard().maxAllocationNeeded();
             needed = min(needed, allocationRemaining() + allocation(RESEARCH));
             allocation(SHIP, needed);
-        }
-    }
-
-    final class GovWorksheet {
-    	private final GovernorOptions gov		= govOptions();
-        private final float cleanupCost			= minimumCleanupCost();
-        private final float planetProdAdj		= planet.productionAdj();
-        private final float populationCost		= empire.tech().populationCost();
-        private final float factoryNetProd		= factoryNetProd();
-        private final float workerBaseProd		= empire.workerProductivity();
-        private final float workerBaseROI		= workerBaseProd / populationCost;
-    	private final boolean buildingStargate	= allocation[SHIP] > 0 &&
-                shipyard().design().equals(empire.shipLab().stargateDesign()) &&
-                !shipyard().stargateCompleted();
-        private final boolean wasBuildingShips	= allocation[SHIP] > 0 && !buildingStargate;
-        private boolean promoteShips			= shipyard().buildLimit() > 0;
-        private final boolean wasShipRequest	= promoteShips || prioritizeShips();
-        private final boolean promoteDefense;
-        private final boolean isDirectShipAlloc;
-
-        final float totalIncome	= totalIncome();
-        float targetPopPercent	= 1.0f;
-		boolean keepDirectShipAlloc;
-		boolean oldPromoteGrowth	= workerBaseProd > normalPopGrowth();
-        private boolean promotePopGrowth	= gov.legacyGrowthMode(); // || startPromoteGrowth;
-        boolean promoteWorkers;
-        private int limitedAllocation;
-
-        private int[] govBuildSeq()	{
-        	if (promoteWorkers())
-        		return govBuildSeqW;
-        	else
-        		return govBuildSeq;
-        }
-        private boolean promoteWorkers()	{
-        	float industryBC = totalIncome*allocation(INDUSTRY)/MAX_TICKS;
-        	float factoryNetCost = industry().bestFactoryCost(industryBC) * planetProdAdj / empire.workerProductivityMod();
-        	float factoryNetROI	 = factoryNetProd / factoryNetCost;
-        	promoteWorkers = workerBaseROI > factoryNetROI;
-        	return promoteWorkers;
-        }
-        private int updateLimitedAllocation(int alloc)	{
-        	int spare = (alloc * govShipBuildSparePct) / 100;
-        	limitedAllocation = alloc - spare;
-        	return limitedAllocation;
-        }
-        private int getRemainingAllocation() {
-            int maxAllocation = MAX_TICKS;
-            // determine how much categories are over/under spent
-            int spendingTotal = 0;
-            for (int i = 0; i < NUM_CATS; i++)
-                spendingTotal += spending[i].allocation();
-            int alloc = maxAllocation - spendingTotal;
-            int spare = (alloc * govShipBuildSparePct) / 100;
-            limitedAllocation = alloc - spare;
-            //hasPlayerRequest = shipyard().buildLimit() > 0 || ;
-            return alloc;
-        }
-
-        private GovWorksheet (boolean loweredShipPriority)	{
-        	// Defense management
-        	// Set max missile bases if minimum is set
-        	ColonyDefense defense = defense();
-        	int minBase = gov.getMinimumMissileBases();
-        	int maxBase = defense.maxBases();
-        	if (minBase > 0 && maxBase < minBase)
-                defense.maxBases(minBase);
-        	// Did the player increased the number of bases
-        	promoteDefense		= maxBase > minBase && defense.bases()<maxBase && hasOrder(DEFENSE);
-        	// Ships management
-            isDirectShipAlloc	= !loweredShipPriority && wasBuildingShips && !wasShipRequest;
-            keepDirectShipAlloc	= isDirectShipAlloc && gov.isShipbuilding();
-            //promoteShips		= promoteShips || keepDirectShipAlloc;
-            promotePopGrowth |= (!promoteShips && empire.tech().researchCompleted());
-            boolean refit = industry().effectiveRobotControls() < empire().maxRobotControls() && !empire.ignoresFactoryRefit();
-            promotePopGrowth |= refit;
         }
     }
 }

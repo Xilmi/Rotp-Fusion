@@ -18,7 +18,6 @@ package rotp.model.colony;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
-import rotp.model.colony.Colony.GovWorksheet;
 import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechTree;

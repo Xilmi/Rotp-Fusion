@@ -8,6 +8,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Governor new advanced options to set when terraforming should be started.
+- Governor new advanced options to set what to do with funding.
+- Governor new advanced options to set when to grow vs when to build factories.
+- Fixed Comet event not being set as the last aggressor.
 - Obedient governor finalisation and documentation.
 - Updated to Java 11.
 - New Square grid available with alt-W

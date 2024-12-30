@@ -357,6 +357,14 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public String	autoShipsByDefaultTT()			{ return autoShipsDefault.govTooltips(); }
 	public String	autoShipsByDefaultText()		{ return autoShipsDefault.govLabelTxt(); }
 
-    private String text(String key) { return LabelManager.current().label(key); }
+	private String text(String key) { return LabelManager.current().label(key); }
 
+	// Fine Tuning options: Not in the floating windows
+	public String	subsidyNormalUse()				{ return subsidyNormalUse.get(); }
+	public String	subsidyTerraformUse()			{ return subsidyTerraformUse.get(); }
+	public float	workerToFactoryROILimit()		{ return workerToFactoryROI.get()/100f; }
+	public float	terraformFactoryPct()			{ return terraformFactoryPct.get()/100f; }
+	public float	terraformPopulationPct()		{ return terraformPopulationPct.get()/100f; }
+	public float	terraformMissingPopulation()	{ return terraformPopulation.get(); }
+	public float	terraformCost2Income()			{ return terraformCost2Income.get()/100f; }
 }

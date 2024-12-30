@@ -18,6 +18,7 @@ package rotp.model.events;
 import java.util.List;
 
 import rotp.model.empires.Empire;
+import rotp.model.galaxy.ObjectNamedByKey;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.IGameOptions;
@@ -140,7 +141,7 @@ public class RandomEventComet extends AbstractRandomEvent {
         StarSystem sys = galaxy().system(sysId);       
         sys.addEvent(new SystemRandomEvent("SYSEVENT_COMET"));
         sys.clearEvent();
-        sys.planet().sufferImpactEvent(); // destroys colony, downgrades planet type to Barren
+        sys.planet().sufferImpactEvent(new ObjectNamedByKey(systemKey())); // destroys colony, downgrades planet type to Barren
         if ((empId != Empire.NULL_ID) && !player().sv.name(sysId).isEmpty())
             GNNNotification.notifyRandomEvent(badEndText(), "GNN_Event_Comet");
     }

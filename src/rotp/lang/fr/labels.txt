@@ -829,7 +829,7 @@ MAIN_HELP_5G                      | Ne vous laissez pas ditraire par autre chose
 MAIN_HELP_5H                      | Une fois vos tâches principales exécutées (bâtir et peuplement), utilisez les BC restants pour construire des vaisseaux. (En bleu lorsque activé)
 MAIN_HELP_5I                      | Favoriser la recherche (en bleu lorsque activé). Une fois vos tâches principales exécutées (bâtir et peuplement), attribuez les BC restants à la science.<br>Il est Prioritaire de poursuivre nos recherches (en pourpre lorsque activé). Gardez la colonie propre et donnez le pourcentage prioritaire du reste à nos scientifiques.
 MAIN_HELP_5J                      | Il est prioritaire de finaliser ce nombre de vaisseaux. Gardez la colonie propre et donnez le pourcentage spécifié du reste à nos chantiers.<br>Lorsque la touche Alt est pressée: Pourcentage à accorder au tâches prioritaires. (100 % par défaut)
-MAIN_HELP_5K                      | On manque de main d'oeuvre. Ne prennez pas l'initiative d'envoyer nos travailleurs sur d'autre planètes.
+MAIN_HELP_5K                      | « Ctrl-clic » : Pour autoriser / interdire l'envoi de transports. On manque de main d'oeuvre. Ne prennez pas l'initiative d'envoyer nos travailleurs sur d'autre planètes.
 
 // modnar: shorten System Data display
 MAIN_SYSTEM_DETAIL_PFB            | Pop %1  Usi %2  Base %3
@@ -4026,6 +4026,9 @@ SETTINGS_MOD_SETUP_RESTART_UI            | Options de Redémarrage
 SETTINGS_MOD_SETUP_RESTART_UI_DESC       | Options contrôlant la manière dont un jeu sera redémarré.
 SETTINGS_MOD_SETUP_RESTART_UI_HELP       | Derrière le bouton <b>→SETUP_BUTTON_START←</b>, en utilisant la touche <b>Ctrl</b>, vous trouverez le bouton <b>→SETUP_BUTTON_RESTART←</b>.<br>Il vous sera demandé de sélectionner une ancienne partie pour en démarrer une nouvelle en réutilisant la même galaxie.<br>- Avec les mêmes adversaires ou de nouveaux.<br>- Avec la même espèce pour le joueur, une nouvelle, ou échangée avec celle d'un précédent adversaire.<br>Vous pouvez conserver votre monde d’origine ou l’échanger avec celui d'un précédent adversaire.<br>Les options suivantes contrôlent la manière dont une partie sera redémarrée.
 
+SETTINGS_MOD_GOV_SPECIAL_TITLE          | Configurations Avancées du Gouverneur.
+SETTINGS_MOD_GOV_SPECIAL_UI             | Réglages Avancés
+SETTINGS_MOD_GOV_SPECIAL_UI_DESC        | Options non affichées sur le panneau principal... Réservé aux experts.
 
 // Tech UI labels
 TECH_RESEARCH                     | Technologies Recherchées
@@ -4997,7 +5000,7 @@ GOVERNOR_SHIP_BUILDING_DESC          | Construction navale avec gouverneur activ
 GOVERNOR_SHIP_BUILDING               | Chantiers navals : %1
 GOVERNOR_SHIP_BUILDING_LABEL         | Construction navale avec gouverneur activé.
 
-GOVERNOR_FOLLOW_COLONY_REQUESTS_HELP     | Il est en quelque sorte un gouverneur junior obéissant. Il répondra d’abord à votre demande, puis fera de son mieux pour minimiser la micro-gestion, comme son grand frère... Si une « →MAIN_COLONY_SHIPYARD_LIMIT← » est définie, elle sera construite en priorité. Si vous verrouillez les allocations de navires : Il ne les modifiera pas. Il suivra également la priorité indiquée en bleu (Ctrl-Clic sur le texte à gauche)
+GOVERNOR_FOLLOW_COLONY_REQUESTS_HELP     | Il est en quelque sorte un gouverneur junior obéissant.<br>- Il s'assure d'abord que la colonie reste propre.<br>- Ensuite, il s'occupe de vos demandes urgentes, dans l'ordre : Boucliers, Bases, Population, Usines, Croissance de la colonie.<br>- Ensuite, il exécute vos tâches prioritaires, en leur attribuant le pourcentage de fonds alloués. Dans l'ordre : Quantité spécifiée de navires, Recherche (Violet)<br>- Vient ensuite le moment de faire grandir la colonie en équilibrant la construction d'usines et la croissance de la population.<br>- S'il reste des fonds, ils seront à nouveau assignés aux tâches prioritaires<br>- Viennent ensuite les tâches de moindre priorité en suivant vos instructions (Bleu). Dans l'ordre : Défenses, Navires, Recherche.<br>- S'il n'y a pas d'instructions, la séquence sera : Défense, Recherche.<br>Note: Si vous verrouillez les allocations des Vaisseaux : Il ne les modifiera pas
 GOVERNOR_FOLLOW_COLONY_REQUESTS_DESC     | Si une « →MAIN_COLONY_SHIPYARD_LIMIT← » est définie, elle sera construite en priorité. Si vous verrouillez les allocations de navires : Il ne les modifiera pas. Il suivra également la priorité indiquée en bleu (Ctrl-Clic sur le texte à gauche)
 GOVERNOR_FOLLOW_COLONY_REQUESTS          | Requêtes des colonies : %1
 GOVERNOR_FOLLOW_COLONY_REQUESTS_LABEL    | Prioriser les requêtes des colonies.
@@ -5124,6 +5127,50 @@ GOVERNOR_CANCEL_BUTTON_TT            | Fermer l’interface graphique sans appli
 // Leave empty
 GOVERNOR_RACE_IMAGE_LABEL            |
 GOVERNOR_RACE_IMAGE_TT               | Si l’animation vous dérange, vous pouvez l’arrêter en cliquant dessus !<br>un autre clic la réactivera.
+
+GOVERNOR_WORKER_TO_FACTORY_ROI_HELP  | Il est généralement plus rentable de produire des usines que de faire croître la population. Cependant, ce n'est pas toujours le cas.<br>Ce paramètre fixe la limite de rendement pour favoriser la croissance démographique.<br>Le coût réel d'une usine dépend des ressources de la planète et du niveau technologique.<br>La production réelle des usines est affectée par le coût de dépollution. Le rendement net est égal à la production réelle divisée par le coût réel.<br>Le coût réel d'une population dépend de l'écologie de la planète et du niveau technologique. Le retour sur investissement d'un travailleur dépend des caractéristiques de l'espèce et du niveau technologique de la planète.<br>Il est possible que le retour sur investissement d'un travailleur soit supérieur à celui d'une usine (c'est le cas pour les fourmis). Si la différence est faible, mieux vaut privilégier la construction d'usines, car la croissance naturelle de la population ne coûte rien. Ce ratio est multiplié par trois sur une planète ultra-pauvre, et il devient alors plus avantageux de retarder la construction d'usines.
+GOVERNOR_WORKER_TO_FACTORY_ROI_DESC  | Il est généralement plus rentable de produire des usines que de faire croître la population. Cependant, il peut arriver que ce ne soit pas toujours le cas. Ce paramètre établi la limite de rendement pour favoriser la croissance de la population.  
+GOVERNOR_WORKER_TO_FACTORY_ROI       | ROI Limite Pop/Usines : %1 %
+GOVERNOR_WORKER_TO_FACTORY_ROI_LABEL | ROI Limite Pop/Usines
+
+GOVERNOR_SUBSIDY_NORMAL_DESC         | À quoi devrait servir principalement les fonds envoyés à la colonie ?
+GOVERNOR_SUBSIDY_NORMAL              | Utilisation des fonds : %1
+SUBSIDY_NORMAL_INDUSTRY              | Industrie
+SUBSIDY_NORMAL_ECOLOGY               | Ecologie
+SUBSIDY_NORMAL_PLANET_BASED          | Ressources
+SUBSIDY_NORMAL_GOV_CHOICE            | Gouverneur
+SUBSIDY_NORMAL_INDUSTRY_HELP         | Se concentrer sur la construction d’usines.
+SUBSIDY_NORMAL_ECOLOGY_HELP          | Mettre l’accent sur la croissance démographique.
+SUBSIDY_NORMAL_PLANET_BASED_HELP     | Cela dépendra des ressources de la planète :<br>- des usines pour les planètes pauvres, car le coût de l'usine est inférieur pour les subventions,<br>- de la population pour les planètes riches, car le coût de l'usine n'est pas réduit pour les subventions.
+SUBSIDY_NORMAL_GOV_CHOICE_HELP       | Le gouverneur ne se préoccupe pas de l'origine des crédits.
+
+GOVERNOR_SUBSIDY_TFORM_DESC          | Lorsqu'une terraformation de planète est disponible, à quoi devrait servir principalement les fonds envoyés à la colonie ?
+GOVERNOR_SUBSIDY_TFORM               | Fonds de terraformation : %1
+SUBSIDY_TFORM_INDUSTRY               | →SUBSIDY_NORMAL_INDUSTRY←
+SUBSIDY_TFORM_ECOLOGY                | →SUBSIDY_NORMAL_ECOLOGY←
+SUBSIDY_TFORM_PLANET_BASED           | →SUBSIDY_NORMAL_PLANET_BASED←
+SUBSIDY_TFORM_GOV_CHOICE             | →SUBSIDY_NORMAL_GOV_CHOICE←
+SUBSIDY_TFORM_INDUSTRY_HELP          | →SUBSIDY_NORMAL_INDUSTRY_HELP←
+SUBSIDY_TFORM_ECOLOGY_HELP           | Se concentrer sur l’amélioration de la qualité de la planète.
+SUBSIDY_TFORM_PLANET_BASED_HELP      | →SUBSIDY_NORMAL_PLANET_BASED_HELP←
+SUBSIDY_TFORM_GOV_CHOICE_HELP        | →SUBSIDY_NORMAL_GOV_CHOICE_HELP←
+
+GOVERNOR_TERRAFORM_FACTORY_PCT_DESC  | La terraformation de la planète sera déclenchée lorsque ce pourcentage d’usines sera construit.
+GOVERNOR_TERRAFORM_FACTORY_PCT       | Le nombre d'usines dépasse : %1 %
+GOVERNOR_TERRAFORM_POP_PCT_DESC      | La terraformation de la planète sera déclenchée lorsque ce pourcentage de population sera atteint.
+GOVERNOR_TERRAFORM_POP_PCT           | La population dépasse : %1 %
+GOVERNOR_TERRAFORM_POPULATION_DESC   | La terraformation de la planète sera déclenchée lorsque la population manquante pour remplir la planète atteindra cette valeur.
+GOVERNOR_TERRAFORM_POPULATION        | Espace restant pour : %1 habitants
+GOVERNOR_TERRAFORM_COST_DESC         | La terraformation de la planète sera déclenchée si le rapport coût/revenu (~ Nombre d'années de construction) est inférieur à ce pourcentage.
+GOVERNOR_TERRAFORM_COST              | Le rapport coût/revenu : %1< %1 %
+
+HEADERS_GOVERNOR_TERRAFORM_DESC      | Déclencheurs de la terraformation de la planète.
+HEADERS_GOVERNOR_TERRAFORM           | ~~~ DÉCLENCHEURS DE TERRAFORMATION ~~~
+HEADERS_GOVERNOR_SUBSIDIES_DESC      | Que faire des fonds alloués à la colonie ?
+HEADERS_GOVERNOR_SUBSIDIES           | ~~~ DESTINATION DES FONDS ~~~
+HEADERS_GOVERNOR_OTHER_LIMITS_DESC   | Unclassified Options.
+HEADERS_GOVERNOR_OTHER_LIMITS        | ~~~ AUTRES LIMITES ~~~
+
 
 // BR: Tech Trigger Add-on
 //

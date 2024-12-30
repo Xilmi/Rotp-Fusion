@@ -19,7 +19,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
-import rotp.model.colony.Colony.GovWorksheet;
 import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechRoboticControls;
@@ -58,6 +57,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
     public int maxRobotControls()          { return tech().topRobotControls() + empire().robotControlsAdj(); }
     @Override
     public float totalBC()              { return super.totalBC() * planet().productionAdj(); }
+    int currentBuildableFactories()     { return maxBuildableFactories(robotControls); }
     public float maxFactories()         { return planet().maxSize() * maxRobotControls(); }
     public float maxFactories(int rc)   { return planet().maxSize() * rc; }
     public int maxBuildableFactories()  { return (int) (planet().currentSize() * maxRobotControls()); }
@@ -170,7 +170,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
     }
     float bestFactoryCost(float bc) {
     	float totalConvertCost = convertableAlienFactories() * factoryConversionCost();
-    	if (totalConvertCost < bc)
+    	if (totalConvertCost < bc && convertableAlienFactories() > 0)
     		return factoryConversionCost();
     	else
     		return newFactoryCost();

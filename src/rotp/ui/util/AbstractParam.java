@@ -178,6 +178,9 @@ public abstract class AbstractParam <T> implements IParam {
 	@Override public String getGuiDisplay()		{ return langLabel(getLangLabel(), guideValue()) + END; }
 	@Override public String getGuiDisplay(int idx)	{
 		String str = langLabel(getLangLabel()); // Get from label.txt
+//		String[] strArr = str.split("%%");
+//		if (strArr.length == 1)
+//			strArr = str.split(textSubs[0]);
 		String[] strArr = str.split(textSubs[0]);
 
 		switch(idx) {
@@ -187,8 +190,10 @@ public abstract class AbstractParam <T> implements IParam {
 			else
 				return "";
 		case 1:
-			if (strArr.length > 1)
+			if (strArr.length == 2)
 				return guideValue() + strArr[1];
+			else if (strArr.length == 3)
+				return strArr[1] + guideValue() + strArr[2];
 			else
 				return guideValue();
 		default:
