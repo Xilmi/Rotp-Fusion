@@ -37,6 +37,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import rotp.model.colony.Colony;
+import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.ui.BasePanel;
@@ -533,9 +534,24 @@ public class EmpireColonyInfoPane extends BasePanel {
             setOpaque(true);
         }
         @Override public String textureName()		{ return parentUI.subPanelTextureName(); }
-		@Override protected String titleString()	{ return text("MAIN_COLONY_PRODUCTION"); }
+		@Override protected String titleString()	{
+			if (isAltDown())
+				return text("MAIN_COLONY_PRODUCTION_ALT");
+			else
+				return text("MAIN_COLONY_PRODUCTION");
+		}
 		@Override protected boolean urged(Colony c) { return c.govUrgeBuildUp(); }
 		@Override protected String valueString(List<Colony> c)	{
+			if (isAltDown()) {
+				if (c.isEmpty())
+					return "?";
+				Colony col = c.get(0);
+				Empire e =col.empire();
+				String workerProd = fmt(e.workerProductivity(), 2);
+				String factoryProd = fmt(col.factoryNetProductivity(), 1);
+				//return str(value(c));
+				return concat(workerProd, "  (", factoryProd, ")");
+			}
 			String income = str(value(c));
 			String prod   = str(maxValue(c));
 			//return str(value(c));

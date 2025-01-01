@@ -980,6 +980,7 @@ MAIN_COLONY_VALUE+                | %1+
 MAIN_COLONY_SHIELD                | Boucliers
 MAIN_COLONY_BASES                 | Bases
 MAIN_COLONY_PRODUCTION            | Production - Nette (Brute)
+MAIN_COLONY_PRODUCTION_ALT        | Production par Travailleur (Usine)
 MAIN_COLONY_SHIP                  | Flotte
 MAIN_COLONY_DEFENSE               | Def
 MAIN_COLONY_INDUSTRY              | Ind

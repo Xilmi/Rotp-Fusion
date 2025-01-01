@@ -1356,7 +1356,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         float mod = empire().isPlayer() ? 1.0f : options().aiWasteModifier();
         return max(0, tech().factoryWasteMod() * mod);
     }
-    float factoryNetProductivity()	{
+    public float factoryNetProductivity()	{
     	if (empire.ignoresPlanetEnvironment())
             return 1;
     	return 1 - wastePerFactory() / tech().wasteElimination();

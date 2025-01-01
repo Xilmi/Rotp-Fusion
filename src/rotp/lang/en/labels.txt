@@ -980,6 +980,7 @@ MAIN_COLONY_VALUE+                | %1+
 MAIN_COLONY_SHIELD                | Shield Level
 MAIN_COLONY_BASES                 | Bases
 MAIN_COLONY_PRODUCTION            | Production - Net (Gross)
+MAIN_COLONY_PRODUCTION_ALT        | Production per Worker (Factory)
 MAIN_COLONY_SHIP                  | Ship
 MAIN_COLONY_DEFENSE               | Def
 MAIN_COLONY_INDUSTRY              | Ind
