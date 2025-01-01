@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Random;
 
 public class Rand extends Random {
+	// Some games were saved before this value initialization!
+	static final long serialVersionUID = 7106727373175051028L;
 	// Kept for backward compatibility
 	@SuppressWarnings("unused")
 	private double[] CRND;
