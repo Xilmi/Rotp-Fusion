@@ -30,8 +30,10 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
+
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.PlanetType;
 import rotp.ui.BasePanel;
@@ -116,7 +118,8 @@ public class ExploredSystemPanel extends SystemPanel {
                 label = text("MAIN_ABANDONED");
             else
                 label = text("MAIN_NO_COLONIES");
-            g.setFont(narrowFont(24));
+            //g.setFont(narrowFont(24));
+            scaledFont(g, label, w-s60, 24, 12);
             drawShadowedString(g, label, 2, s10, topH-s15, MainUI.shadeBorderC(), SystemPanel.whiteLabelText);
 
             // draw system banner

@@ -841,7 +841,7 @@ MAIN_SYSTEM_RANGE                 | %1 A.L.
 MAIN_OUT_OF_RANGE_DESC            | Hors de portée
 MAIN_SCOUT_RANGE_DESC             | Besoin réservoirs carburant
 MAIN_IN_RANGE_DESC                | À portée
-MAIN_NO_PLANETS                   | Pas de Planètes Colonisables
+MAIN_NO_PLANETS                   | Aucune Planète Colonisable
 MAIN_NO_COLONIES                  | Non colonisé
 MAIN_UNSCOUTED                    | Inconnue
 MAIN_ABANDONED                    | Abandonné

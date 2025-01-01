@@ -76,6 +76,8 @@ Later:
 - Help Update.
 - Fixed possible "Error saving: recent.rotp" Bug.
 - Fixed potential issue in future update (missing serialVersionUID)
+- Added "serialVersionUID" to all serialisable class, even if not saved, as some may be include in a save game later... That was the case for the random generator
+- French translation improvement.
 
 2024.12.30 (BR)
 - Governor new advanced options to set when terraforming should be started.
