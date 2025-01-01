@@ -784,14 +784,14 @@ MAIN_HELP_1I                      | To access spy Reports. (If any)
 
 MAIN_HELP_2A                      | Planetary shield level for the colony. Shields cannot be constructed on planets within a nebula.
 MAIN_HELP_2B                      | Number of missile bases and the maximum desired for this planet. Click or use the mouse wheel to change the maximum.
-MAIN_HELP_2C                      | Total planetary production from industry and population.
-MAIN_HELP_2D                      | Actual production adjusted for empire-wide trade income, spy and security costs, as well as missile base and ship maintenance.
+MAIN_HELP_2C                      | Total planetary production from industry and population.<br>Press "Shift" to view production by factory. (After cleaning pollution)
+MAIN_HELP_2D                      | Actual production adjusted for empire-wide trade income, spy and security costs, as well as missile base and ship maintenance.<br>Press "Shift" to display production per worker. (Without factory)
 MAIN_HELP_2E                      | Change ship design to build in the planet's orbiting shipyard. Production accrued for unfinished ships will accelerate production of new ships by 50% until spent. Click or use the mouse wheel to change the ship design.
 MAIN_HELP_2F                      | Set a rally point to automatically send newly constructed ships to another colony.
 MAIN_HELP_2FSG                    | Rally to the nearest stargate.<br>(Based on "→CHAIN_RALLY_SPEED_HK←" setting)
 MAIN_HELP_2G                      | Transport population to fortify another colony or send troops to invade an enemy planet. The colony incurs a one-time production cost for transporting.<br>"Ctrl-Click" will prevent/allow the governor from sending transports from this colony.
 MAIN_HELP_2H                      | Completely abandon a planet by transferring all population from it to another colony.
-MAIN_HELP_2I                      | Current and maximum planet population. 100 represents a full home planet that has not been terraformed.
+MAIN_HELP_2I                      | Current and maximum planet population. 100 represents a full home planet that has not been terraformed.<br>Press "Shift" to display the active population. (Excluding outgoing transports)
 MAIN_HELP_2J                      | Current and maximum factories allowed. Maximum factories based on population and robotic controls technology.
 MAIN_HELP_2K                      | Place a flag on the system to help it stand out on the galaxy map.
 MAIN_HELP_2K_2F                   | Place up to 4 flags on the system to help it stand out on the galaxy map.

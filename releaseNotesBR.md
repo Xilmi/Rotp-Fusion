@@ -8,7 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
-- Production per Worker (Factory) is displayed when Alt is down (instead of Production - Net (Gross))
+- Production per Worker (Factory) is displayed when Shift is down (instead of Production - Net (Gross))
 - Governor new advanced options to set when terraforming should be started.
 - Governor new advanced options to set what to do with funding.
 - Governor new advanced options to set when to grow vs when to build factories.

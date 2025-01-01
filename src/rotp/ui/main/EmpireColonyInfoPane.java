@@ -300,7 +300,7 @@ public class EmpireColonyInfoPane extends BasePanel {
         private static final long serialVersionUID = 1L;
         @Override public String textureName()		{ return parentUI.subPanelTextureName(); }
         @Override protected String titleString()	{
-            if (isAltDown())
+            if (isShiftDown() || isAltDown())
             	return text("MAIN_COLONY_WORKING_POPULATION");
             else
             	return text("MAIN_COLONY_POPULATION");
@@ -309,7 +309,7 @@ public class EmpireColonyInfoPane extends BasePanel {
         @Override protected void urge(Colony c, boolean b)		{ c.govUrgePop(b); }
         @Override protected int value(List<Colony> colonies)	{
             int val = 0;
-            if (isAltDown())
+            if (isShiftDown() || isAltDown())
             	for (Colony c: colonies)
                     val += c.workingPopulation(); 
             else
@@ -535,14 +535,14 @@ public class EmpireColonyInfoPane extends BasePanel {
         }
         @Override public String textureName()		{ return parentUI.subPanelTextureName(); }
 		@Override protected String titleString()	{
-			if (isAltDown())
+			if (isShiftDown() || isAltDown())
 				return text("MAIN_COLONY_PRODUCTION_ALT");
 			else
 				return text("MAIN_COLONY_PRODUCTION");
 		}
 		@Override protected boolean urged(Colony c) { return c.govUrgeBuildUp(); }
 		@Override protected String valueString(List<Colony> c)	{
-			if (isAltDown()) {
+			if (isShiftDown() || isAltDown()) {
 				if (c.isEmpty())
 					return "?";
 				Colony col = c.get(0);

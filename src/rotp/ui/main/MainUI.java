@@ -1041,71 +1041,88 @@ public class MainUI extends BasePanel implements IMapHandler {
 
         addHotKeysFrame();
 
+        int sep = s5;
         int x1= w-scaled(700);
-        int y1 = scaled(175);
-        int w1= scaled(400);
-        HelpSpec sp1 = helpUI.addBlueHelpText(x1, y1, w1, 2, text("MAIN_HELP_2A"));
-        sp1.setLine(x1+w1, y1+sp1.height()-s5, w-scaled(169), y1+sp1.height()-s5, w-scaled(159), scaled(230));
 
-        int x2= x1;
-        int y2 = scaled(235);
-        int w2= scaled(400);
-        HelpSpec sp2 = helpUI.addBlueHelpText(x2, y2, w2, 2, text("MAIN_HELP_2B"));
-        sp2.setLine(x2+w2, y2+s15, w-scaled(64), y2+s15, w-scaled(49), scaled(245));
+        // Factories
+        int x10 = x1;
+        int y10 = scaled(25);
+        int w10 = scaled(420);
+        HelpSpec sp10 = helpUI.addBlueHelpText(x10, y10, w10, 0, text("MAIN_HELP_2J"));
+        sp10.setLine(sp10.xe(), sp10.ye()-s5, w-scaled(255), scaled(155), w-scaled(49), scaled(205));
 
-        int x4= x1;
-        int y4 = scaled(294);
-        int w4= scaled(400);
-        HelpSpec sp4 = helpUI.addBlueHelpText(x4, y4, w4, 3, text("MAIN_HELP_2D"));
-        sp4.setLine(x4+w4, y4+(sp4.height()/2), w-scaled(69), scaled(265));
+        // Population
+        int x9 = x1;
+        int y9 = sp10.ye() + sep;
+        int w9 = w10;
+        HelpSpec sp9 = helpUI.addBlueHelpText(x9, y9, w9, 0, text("MAIN_HELP_2I"));
+        sp9.setLine(x9+w9, sp9.ye()-s5, w-scaled(174), scaled(205));
 
-        int x3= x1;
-        int y3 = scaled(372);
-        int w3= scaled(400);
-        HelpSpec sp3 = helpUI.addBlueHelpText(x3, y3, w3, 2, text("MAIN_HELP_2C"));
-        sp3.setLine(x3+w3, y3+(sp3.height()/2), w-scaled(44), scaled(265));
+        // Shields
+        int y1 = sp9.ye() + sep;
+        int w1 = w10;
+        HelpSpec sp1 = helpUI.addBlueHelpText(x1, y1, w1, 0, text("MAIN_HELP_2A"));
+        sp1.setLine(sp1.xe(), sp1.yce(), w-scaled(159), scaled(230));
+        //sp1.setLine(sp1.xe(), sp1.ye()-s5, w-scaled(169), sp1.ye()-s5, w-scaled(159), scaled(230));
 
-        int x5= x1;
-        int y5 = scaled(433);
-        int w5 = scaled(400);
-        HelpSpec sp5 = helpUI.addBlueHelpText(x5, y5, w5, 5, text("MAIN_HELP_2E"));
-        sp5.setLine(x5+w5, y5+(sp5.height()/2), w-scaled(214), scaled(502));
+        // Bases
+        int x2 = x1;
+        int y2 = sp1.ye() + sep;
+        int w2 = w10;
+        HelpSpec sp2 = helpUI.addBlueHelpText(x2, y2, w2, 0, text("MAIN_HELP_2B"));
+        sp2.setLine(sp2.xe(), sp2.yce(), w-scaled(49), scaled(240));
+        //sp2.setLine(sp2.xe(), y2+s15, w-scaled(64), y2+s15, w-scaled(49), scaled(245));
 
-        int x6 = x1; //+s50;
-        int y6 = scaled(545); int y6a = scaled(555);
+        // Production
+        int x4 = x1;
+        int y4 = sp2.ye() + sep;
+        int w4 = w10;
+        HelpSpec sp4 = helpUI.addBlueHelpText(x4, y4, w4, 0, text("MAIN_HELP_2D"));
+        sp4.setLine(sp4.xe(), sp4.ycb(), w-scaled(69), scaled(265));
+
+        int x3 = x1;
+        int y3 = sp4.ye() + sep;
+        int w3 = w10;
+        HelpSpec sp3 = helpUI.addBlueHelpText(x3, y3, w3, 0, text("MAIN_HELP_2C"));
+        sp3.setLine(sp3.xe(), sp3.ycb(), w-scaled(44), scaled(265));
+
+        // Fleet
+        int x5 = x1;
+        int y5 = sp3.ye() + sep;
+        int w5 = w10;
+        HelpSpec sp5 = helpUI.addBlueHelpText(x5, y5, w5, 0, text("MAIN_HELP_2E"));
+        sp5.setLine(sp5.xe(), sp5.yce(), w-scaled(144), scaled(502));
+
+        // Rally
+        int x6 = x1;
+        int y6 = sp5.ye() + sep;
+        int y6a = scaled(555);
         int w6 = w5;
-        HelpSpec sp6 = helpUI.addBlueHelpText(x6, y6, w6, 2, text("MAIN_HELP_2F"));
-        sp6.setLine(x6+w6, y6a, w-scaled(154), y6a, w-scaled(144), scaled(545));
+        HelpSpec sp6 = helpUI.addBlueHelpText(x6, y6, w6, 0, text("MAIN_HELP_2F"));
+        sp6.setLine(sp6.xe(), sp6.yc(), w-scaled(144), scaled(535));
+        //sp6.setLine(sp6.xe(), sp6.ycb(), w-scaled(154), y6a, w-scaled(144), scaled(545));
+        //sp6.setLine(x6+w6, y6a, w-scaled(154), y6a, w-scaled(144), scaled(545));
 
+        // Rally Stargate
         int w6sg = scaled(270);
         int x6sg = w-w6sg-s4;;
         int y6sg = y5 - s30;
         HelpSpec sp6sg = helpUI.addBrownHelpText(x6sg, y6sg, w6sg, 0, text("MAIN_HELP_2FSG"));
         sp6sg.setLine(x6sg+w6sg*3/4, y6sg+sp6sg.height(), w-scaled(30), scaled(520));
 
-        int x7 = x1;//+s50;
-        int y7 = scaled(605);
+        // Transport
+        int x7 = x1;
+        int y7 = sp6.ye() + sep;
         int w7 = w5;
         HelpSpec sp7 = helpUI.addBlueHelpText(x7,y7,w7, 0, text("MAIN_HELP_2G"));
-        sp7.setLine(x7+w7, y7+s10, w-scaled(244), scaled(580));
+        sp7.setLine(x7+w7, y7+s10, w-scaled(200), scaled(585));
 
-        int x8 = w-scaled(269);
-        int y8 = scaled(605);
+        // Abandon
+        int x8 = w-scaled(259);
+        int y8 = scaled(630);
         int w8 = scaled(250);
         HelpSpec sp8 = helpUI.addBlueHelpText(x8,y8,w8, 0, text("MAIN_HELP_2H"));
         sp8.setLine(w-scaled(64), y8, w-scaled(64), scaled(582));    
-
-        int x9 = x1;
-        int y9 = scaled(115);
-        int w9 = scaled(400);
-        HelpSpec sp9 = helpUI.addBlueHelpText(x9, y9, w9, 2, text("MAIN_HELP_2I"));
-        sp9.setLine(x9+w9, y9+(sp9.height()-s5), w-scaled(174), scaled(205));
-
-        int x10 = x1;
-        int y10 = scaled(55);
-        int w10 = scaled(400);
-        HelpSpec sp10 = helpUI.addBlueHelpText(x10, y10, w10, 2, text("MAIN_HELP_2J"));
-        sp10.setLine(x10+w10, y10+(sp10.height()-s5), w-scaled(260), scaled(160), w-scaled(49), scaled(205));
 
         int w11;
         int y11;
