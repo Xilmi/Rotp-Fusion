@@ -2047,8 +2047,15 @@ public class DesignUI extends BasePanel {
                     str = text("SHIP_DESIGN_PROTOTYPE_DESC");
                     int labelW = g.getFontMetrics().stringWidth(str);
                     int maxLabelW = min(labelW, scaled(200));
-                    List<String> lines = wrappedLines(g, str, maxLabelW);
                     int lineX = x+w-maxLabelW;
+                    // Adjust for other languages
+                    int buttonRight = autoButtonArea.x + autoButtonArea.width;
+                    int languageFix = buttonRight + s10 - lineX;
+                    if (languageFix > 0) {
+                    	lineX += languageFix;
+                    	maxLabelW -= languageFix;
+                    }
+                    List<String> lines = wrappedLines(g, str, maxLabelW);
                     int lineY = lines.size() == 1 ? y+h-s15 : y+h-s25;
                     for (String line: lines) {
                         drawString(g,line, lineX, lineY);

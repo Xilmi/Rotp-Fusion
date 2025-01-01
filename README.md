@@ -71,6 +71,7 @@ Later:
 
 2024.12.01 (BR)
 - Fixed initial tech tree alignment when free tech are shown.
+- Fixed Design UI possible text overlap in foreign languages.
 
 2024.12.30 (BR)
 - Governor new advanced options to set when terraforming should be started.
