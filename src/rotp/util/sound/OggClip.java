@@ -15,16 +15,24 @@
  */
 package rotp.util.sound;
 
-import rotp.util.Base;
-
-import javax.sound.sampled.*;
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map.Entry;
-
 import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 import static javax.sound.sampled.FloatControl.Type.MASTER_GAIN;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map.Entry;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import rotp.util.Base;
 
 public class OggClip implements SoundClip, Base {
     private static OggMap loadedClips = new OggMap();
@@ -249,4 +257,6 @@ public class OggClip implements SoundClip, Base {
             return filenameWithExtension;
     }
 }
-class OggMap extends HashMap<String, OggClip> { }
+class OggMap extends HashMap<String, OggClip> {
+	private static final long serialVersionUID = 1L;
+}

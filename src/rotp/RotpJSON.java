@@ -1,6 +1,15 @@
 package rotp;
 
-import com.fasterxml.jackson.core.*;
+import java.awt.Color;
+import java.io.IOException;
+import java.lang.reflect.Field;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,16 +18,13 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.Ships;
 import rotp.model.game.GameSession;
 import rotp.model.game.GameStatus;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
-
-import java.awt.*;
-import java.io.IOException;
-import java.lang.reflect.Field;
 
 public class RotpJSON {
 
@@ -44,6 +50,7 @@ public class RotpJSON {
     }
 
     public static class GameSessionSerializer extends StdSerializer<GameSession> {
+    	private static final long serialVersionUID = 1L;
         protected GameSessionSerializer() {
             super(GameSession.class);
         }
@@ -150,6 +157,7 @@ public class RotpJSON {
         }
     */
     public static class ColorSerializer extends StdSerializer<java.awt.Color> {
+    	private static final long serialVersionUID = 1L;
         protected ColorSerializer() {
             super(java.awt.Color.class);
         }
@@ -167,7 +175,7 @@ public class RotpJSON {
     }
 
     public static class ColorDeserializer extends StdDeserializer<Color> {
-
+    	private static final long serialVersionUID = 1L;
         protected ColorDeserializer() {
             super(java.awt.Color.class);
         }
@@ -232,6 +240,7 @@ public class RotpJSON {
         }
     */
     public static class GalaxySerializer extends StdSerializer<Galaxy> {
+    	private static final long serialVersionUID = 1L;
         protected GalaxySerializer() {
             super(Galaxy.class);
         }
@@ -256,6 +265,7 @@ public class RotpJSON {
     }
 
     public static class ShipsSerializer extends StdSerializer<Ships> {
+    	private static final long serialVersionUID = 1L;
         protected ShipsSerializer() {
             super(Ships.class);
         }
@@ -271,6 +281,7 @@ public class RotpJSON {
     }
 
     public static class GameStatusSerializer extends StdSerializer<GameStatus> {
+    	private static final long serialVersionUID = 1L;
         protected GameStatusSerializer() {
             super(GameStatus.class);
         }

@@ -61,7 +61,7 @@ import rotp.util.ModifierKeysState;
 
 public abstract class BaseModPanel extends BasePanel
 		implements MouseListener, MouseMotionListener {
- 
+	private static final long serialVersionUID = 1L;
 	private static final String setGlobalDefaultKey	= "SETTINGS_GLOBAL_DEFAULT";
 	private static final String setLocalDefaultKey	= "SETTINGS_LOCAL_DEFAULT";
 	private static final String setGlobalGameKey	= "SETTINGS_GLOBAL_LAST_GAME";
@@ -785,6 +785,7 @@ public abstract class BaseModPanel extends BasePanel
 	// ========== Sub Classes ==========
 	//
 	class Box extends Rectangle {
+		private static final long serialVersionUID = 1L;
 		private IParam	param;
 		private String	label;
 		private ModText modText;
@@ -943,6 +944,7 @@ public abstract class BaseModPanel extends BasePanel
 	}
 
 	class PolyBox extends Polygon {
+		private static final long serialVersionUID = 1L;
 		// ========== Constructors ==========
 		//
 		PolyBox() { polyBoxList.add(this); }

@@ -415,6 +415,7 @@ public interface IVIPConsole extends Base {
 	default String viewEmpiresContactInfo()	{ return viewEmpiresContactInfo(player().contactedEmpires()); }
 
 	public class Entries extends ArrayList<String> {
+		private static final long serialVersionUID = 1L;
 		private final String entry;
 		private int	index;
 		Entries(String str)			{

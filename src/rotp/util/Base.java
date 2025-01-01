@@ -1774,6 +1774,7 @@ public interface Base extends InputEventUtil {
     	component.repaint();
     }
     class Rect extends Rectangle {
+    	private static final long serialVersionUID = 1L;
     	public Rect()				{ super(); }
     	public Rect(Point p)		{ super(p); }
     	public Rect(Dimension d)	{ super(d); }

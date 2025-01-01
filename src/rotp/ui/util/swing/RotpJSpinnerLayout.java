@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 
 class RotpJSpinnerLayout extends BorderLayout {
-	
+	private static final long serialVersionUID = 1L;
 	RotpJSpinnerLayout() { }
 	@Override
 	public void addLayoutComponent(Component comp, Object constraints) {

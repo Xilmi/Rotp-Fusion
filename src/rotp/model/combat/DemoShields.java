@@ -41,7 +41,7 @@ import rotp.model.ships.ShipLibrary;
 import rotp.util.Base;
 
 public class DemoShields extends JPanel implements Base, ActionListener {
-//public class TestShields extends JPanel implements ActionListener {
+	private static final long serialVersionUID = 1L;
 	private int screenWidth	= 3840, screenHeight;
 	private static final int COLUMNS_NUM = 10; 
 	private static final int ROWS_NUM	 = 8;

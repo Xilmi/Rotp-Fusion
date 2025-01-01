@@ -55,6 +55,7 @@ import rotp.util.FontManager;
  * Produced using Netbeans Swing GUI builder.
  */
 public class GovernorOptionsPanel extends BasePanel{
+	private static final long serialVersionUID = 1L;
 	private static final String HEADER  = "GOVERNOR_";
 	private static final String DESC    = IParam.LABEL_DESCRIPTION;
 	private static final String HELP    = IParam.LABEL_HELP;
@@ -2190,6 +2191,7 @@ public class GovernorOptionsPanel extends BasePanel{
 	// ==================== Spinners ====================
 	//
 	private class GovernorJSpinner extends RotpJSpinner {
+		private static final long serialVersionUID = 1L;
 		@Override public	boolean isNewFormat()	{ return isNewFormat; }
 		@Override public	int		arrowSize()		{ return arrowHeight; }
 		@Override protected Color	borderColor()	{ return borderColor; }

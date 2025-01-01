@@ -1096,7 +1096,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         // Rally
         int x6 = x1;
         int y6 = sp5.ye() + sep;
-        int y6a = scaled(555);
+        //int y6a = scaled(555);
         int w6 = w5;
         HelpSpec sp6 = helpUI.addBlueHelpText(x6, y6, w6, 0, text("MAIN_HELP_2F"));
         sp6.setLine(sp6.xe(), sp6.yc(), w-scaled(144), scaled(535));

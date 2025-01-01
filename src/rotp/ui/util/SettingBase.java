@@ -850,6 +850,7 @@ public class SettingBase<T> implements IParam {
 		// System.out.println("getIndex() = " + getIndex());
 	}
 	class SafeList extends ArrayList<String> {
+		private static final long serialVersionUID = 1L;
 		@Override public String get(int id) {
 			if (id<0 || size() == 0)
 				return "";

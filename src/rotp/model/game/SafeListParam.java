@@ -7,6 +7,7 @@ import rotp.ui.util.IParam;
 import rotp.ui.util.ParamSpacer;
 
 public class SafeListParam extends ArrayList<IParam>{
+	private static final long serialVersionUID = 1L;
 	public final String name;
     public SafeListParam(String name) { this.name = name; }
     public SafeListParam(String name, Collection<IParam> c) {

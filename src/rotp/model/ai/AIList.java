@@ -15,15 +15,16 @@
  */
 package rotp.model.ai;
 
+import static rotp.Rotp.rand;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import rotp.model.game.IGameOptions;
 
-import static rotp.Rotp.rand;
-
 public class AIList extends LinkedList<AIEntry>{
+	private static final long serialVersionUID = 1L;
 	public AIEntry entry(int id)		{
 		for (AIEntry entry : this)
 			if (entry.id == id)

@@ -7,7 +7,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 public class RotpJSpinner extends JSpinner {
-
+	private static final long serialVersionUID = 1L;
 	protected RotpJSpinner() {
 		//super();
 		if (isNewFormat()) {

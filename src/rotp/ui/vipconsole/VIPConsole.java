@@ -58,6 +58,7 @@ import rotp.ui.util.ParamString;
 import rotp.ui.util.ParamSubUI;
 
 public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
+	private static final long serialVersionUID = 1L;
 	private static final String GAME_CONTINUE	= "C";
 	private static final String GAME_LOAD_FILE	= "L";
 	private static final String GAME_NEXT_TURN	= "N";
@@ -212,6 +213,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 
 		resultLabel	= new JLabel("Result: ");
 		resultPane	= new JTextPane() {
+			private static final long serialVersionUID = 1L;
 			@Override public void setText(String t) { if (!errorDisplayed) super.setText(t); }
 		};
 		resultLabel.setLabelFor(resultPane);
@@ -490,6 +492,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 	}
 	// ################### SUB CLASS GUI PROMPT MESSAGE MENU ######################
 	public class GuiPromptMessages extends LinkedList<GuiPromptMenu> {
+		private static final long serialVersionUID = 1L;
 		private final CommandMenu topMenu;
 		private int waitCounter = 0;
 		GuiPromptMessages(CommandMenu menu)	{ topMenu = menu; }

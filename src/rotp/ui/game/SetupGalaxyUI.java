@@ -3042,8 +3042,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 	};
 	private class BitmapFileChooser extends JFileChooser {
-		@Override
-		protected JDialog createDialog(Component parent)
+		private static final long serialVersionUID = 1L;
+		@Override protected JDialog createDialog(Component parent)
                 throws HeadlessException {
             JDialog dlg = super.createDialog(parent);
             dlg.setLocation(scaled(300), scaled(200));

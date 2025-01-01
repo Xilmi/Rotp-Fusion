@@ -958,6 +958,7 @@ public class EmpireColonySpendingPane extends BasePanel {
 
     GovernorFrame governorOptionsFrame = null;
     public class GovernorFrame extends JFrame implements KeyListener {
+    	private static final long serialVersionUID = 1L;
     	GovernorFrame (String title)	{
     		super(title);
     		addKeyListener(this);

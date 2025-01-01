@@ -15,10 +15,9 @@
  */
 package rotp.util.sound;
 
-import java.io.BufferedInputStream;
-import rotp.util.Base;
-import javax.sound.sampled.*;
 import static javax.sound.sampled.FloatControl.Type.MASTER_GAIN;
+
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,7 +26,17 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import rotp.Rotp;
+import rotp.util.Base;
 
 public class WavClip  implements SoundClip, Base {
     private static WavMap loadedClips = new WavMap();
@@ -239,4 +248,6 @@ public class WavClip  implements SoundClip, Base {
         }
     }
 }
-class WavMap extends HashMap<String, WavClip> { }
+class WavMap extends HashMap<String, WavClip> {
+	private static final long serialVersionUID = 1L;
+}

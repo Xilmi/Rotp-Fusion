@@ -93,7 +93,7 @@ import rotp.util.ModifierKeysState;
  * </pre>
  */
 public class ListDialog extends JDialog implements ActionListener, Base {
-
+	private static final long serialVersionUID = 1L;
 	private String initialValue;
 	private String value = null;
 	private int index    = -1;
@@ -340,6 +340,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		//of the list.  An alternative would be to set the unitIncrement
 		//of the JScrollBar to a fixed value. You wouldn't get the nice
 		//aligned scrolling, but it should work.
+		private static final long serialVersionUID = 1L;
 		private DialJList (Object[] data ) {
 			super(data);
 		}

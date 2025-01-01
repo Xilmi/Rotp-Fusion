@@ -520,6 +520,7 @@ public class ParamList extends AbstractParam<String> {
 			return -1;
 		}
 		class SafeList extends ArrayList<String> {
+			private static final long serialVersionUID = 1L;
 			@Override public String get(int id) {
 				if (id<0 || size() == 0)
 					return "";

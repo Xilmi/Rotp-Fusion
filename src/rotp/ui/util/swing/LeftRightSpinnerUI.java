@@ -53,6 +53,7 @@ class LeftRightSpinnerUI extends BasicSpinnerUI {
 
 }
 	class LeftRightSpinnerBorderLayout extends BorderLayout {
+		private static final long serialVersionUID = 1L;
 		@Override public void addLayoutComponent(Component comp, Object constraints) {
 			if (constraints.equals("Editor"))
 				constraints = CENTER;

@@ -133,8 +133,12 @@ public class WarViewPanel extends SystemPanel {
 			return report;
 		}
 	}
-	final class FleetRecordMap extends TreeMap<Integer, FleetRecord> { }
-	final class YearRecordMap extends HashMap<String, Integer> { }
+	final class FleetRecordMap extends TreeMap<Integer, FleetRecord> {
+		private static final long serialVersionUID = 1L;
+	}
+	final class YearRecordMap extends HashMap<String, Integer> {
+		private static final long serialVersionUID = 1L;
+	}
 	
 	final class IncomingFleetsPane extends BasePanel implements MouseListener, MouseWheelListener {
 		private static final long serialVersionUID = 1L;

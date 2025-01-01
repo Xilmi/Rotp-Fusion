@@ -46,6 +46,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.game.HelpUI;
 
 public class ColonyViewUI extends BasePanel implements MouseListener {
+	private static final long serialVersionUID = 1L;
 	private static final int NUM_BY_ICON = 10;
 	private static final Color ownerTextColor	= Color.YELLOW;
 	private static final Color allyTextColor	= Color.GREEN;

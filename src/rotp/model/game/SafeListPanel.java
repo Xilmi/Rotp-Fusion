@@ -3,6 +3,7 @@ package rotp.model.game;
 import java.util.ArrayList;
 
 public class SafeListPanel extends ArrayList<SafeListParam>{
+	private static final long serialVersionUID = 1L;
 	public final String name;
 	public SafeListPanel(String name) {
 		this.name = name;
