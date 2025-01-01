@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2024.12.01 (BR)
+- Fixed initial tech tree alignment when free tech are shown.
+
 2024.12.30 (BR)
 - Governor new advanced options to set when terraforming should be started.
 - Governor new advanced options to set what to do with funding.

@@ -1098,8 +1098,10 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         Tech currentTech = tech(player().tech().category(selectedCategory).currentTech());
         if (currentTech == null)
             return;
-
+        
         int quintile = currentTech.quintile;
+        if (options().displayFreeTech())
+        	quintile++;
         // 400px per quintile, 1 starts at 0.  2 & up start at visual 200
         if (quintile > 1) 
             treeX = scaled((400*quintile)-600);
@@ -1254,7 +1256,9 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         BufferedImage img = visualTree();
         int w = img.getWidth();
         int h = img.getHeight();
-        g.drawImage(img, treeBox.x-treeX,treeBox.y-treeY,treeBox.x-treeX+w,treeBox.y-treeY+h, 0,0,w,h, null);
+        int x = treeBox.x - treeX;
+        int y = treeBox.y - treeY;
+        g.drawImage(img, x, y, x+w, y+h, 0, 0, w, h, null);
         g.setClip(null);
     }
     public void exit(boolean disableNextTurn) {
