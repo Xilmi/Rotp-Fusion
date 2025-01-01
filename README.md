@@ -74,6 +74,7 @@ Later:
 - Fixed Design UI possible text overlap in foreign languages.
 - Production per Worker (Factory) is displayed when Shift is down (instead of Production - Net (Gross))
 - Help Update.
+- Fixed possible "Error saving: recent.rotp" Bug.
 
 2024.12.30 (BR)
 - Governor new advanced options to set when terraforming should be started.
