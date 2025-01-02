@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Transport path from system to system will now be displayed for Governor sent troops.
 - Fixed possible "Error saving: recent.rotp" Bug.
 - Production per Worker (Factory) is displayed when Shift is down (instead of Production - Net (Gross))
 - Governor new advanced options to set when terraforming should be started.

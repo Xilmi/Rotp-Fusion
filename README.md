@@ -69,7 +69,10 @@ Later:
 
 ## What's New
 
-2024.12.01 (BR)
+2025.12.02 (BR)
+- Transport path from system to system will now be displayed for Governor sent troops.
+
+2025.12.01 (BR)
 - Fixed initial tech tree alignment when free tech are shown.
 - Fixed Design UI possible text overlap in foreign languages.
 - Production per Worker (Factory) is displayed when Shift is down (instead of Production - Net (Gross))

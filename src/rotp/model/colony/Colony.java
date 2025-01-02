@@ -1484,6 +1484,9 @@ public final class Colony implements Base, IMappedObject, Serializable {
         checkEcoAtClean();
         // reset ship views
         if (empire.isPlayerControlled()) {
+        	// To activate the path
+        	starSystem().transportDestId = dest.id;
+        	starSystem().transportSprite().clickedDest(dest);
         	empire.setVisibleShips();
         	if (transportAutoEco())
         		smoothMaxSlider(ECOLOGY);
