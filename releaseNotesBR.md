@@ -8,6 +8,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Fixed invisible ship in combat bug.
+- Fixed an issue that caused the AI not to attack with player-designed ships when handing control over to AI in an ongoing playthrough. (Xilmi)
 - Transport path from system to system will now be displayed for Governor sent troops.
 - Fixed possible "Error saving: recent.rotp" Bug.
 - Production per Worker (Factory) is displayed when Shift is down (instead of Production - Net (Gross))

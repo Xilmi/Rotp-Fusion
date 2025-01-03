@@ -69,10 +69,18 @@ Later:
 
 ## What's New
 
-2025.12.02 (BR)
+2025.01.03 (BR)
+- Fixed invisible ship in combat bug.
+  - When the fleet has a design with negative value, partial retreat could trigger this bug.
+
+2025.01.03 (Xilmi)
+- Fixed an issue that caused the AI not to attack with player-designed ships when handing control over to AI in an ongoing playthrough.
+  - The scoring for what colonies to attack no longer takes the value-ratio of population to missile-bases into account. This change means you can no longer simply build a missile-base to force the AI to ignore the closest colonies.
+
+2025.01.02 (BR)
 - Transport path from system to system will now be displayed for Governor sent troops.
 
-2025.12.01 (BR)
+2025.01.01 (BR)
 - Fixed initial tech tree alignment when free tech are shown.
 - Fixed Design UI possible text overlap in foreign languages.
 - Production per Worker (Factory) is displayed when Shift is down (instead of Production - Net (Gross))

@@ -545,6 +545,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             	startWar();
                 break;
             case KeyEvent.VK_H:
+            case KeyEvent.VK_I:
             	switch (showInfo) {
 	            	case 0: showInfo = 1; break;
 	            	case 1: showInfo = 2; break;

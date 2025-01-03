@@ -898,7 +898,7 @@ public class ShipFleet extends FleetBase {
     public int numShips ()   {
         int count = 0;
         for (int i=0;i<num.length;i++)
-            count += num[i];
+            count += max(0, num[i]); // BR sometime num=-1 !?
         return count;
     }
     private int numShipType(int missionType) {
