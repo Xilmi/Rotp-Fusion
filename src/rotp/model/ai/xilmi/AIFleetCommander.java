@@ -400,7 +400,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             //If we already sent a fleet to an enemy system out of our scanner-range we don't send more there to reinforce as long as we don't get better information
             if((myPower > 0 || bombardDamage > 0 || myRetreatingPower > 0) && !canScanTo && empire.aggressiveWith(empire.sv.empId(id)))
             {
-                //System.out.print("\n"+fleet.empire().name()+" check if I can attack "+empire.sv.name(current.id)+" out of range expected bombard: "+fleet.expectedBombardDamage(empire.sv.system(id))+" HP: "+empire.sv.system(id).colony().untargetedHitPoints());
+                //System.out.print("\n"+fleet.empire().name()+" check if I can attack "+empire.sv.name(current.id)+" out of range expected bombard: "+bombardDamage+" HP: "+empire.sv.system(id).colony().untargetedHitPoints());
                 if(empire.sv.system(id).colony() != null && empire.governorAI().expectedBombardDamageAsIfBasesWereThere(fleet, empire.sv.system(id), 0) < empire.sv.system(id).colony().untargetedHitPoints())
                     continue;
             }
@@ -421,10 +421,6 @@ public class AIFleetCommander implements Base, FleetCommander {
             if(empire.sv.isColonized(id))
             {
                 score = 10;
-                float baseBc = empire.sv.bases(current.id)*currEmp.tech().newMissileBaseCost();
-                float popBc = empire.sv.population(current.id) * empire.sv.empire(current.id).tech().populationCost();
-                score /= (baseBc + popBc) / popBc;
-                //System.out.print("\n"+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" => "+empire.sv.name(current.id)+" score: "+score);
                 if(onlyColonizerTargets && !(empire.generalAI().allowedToBomb(current) && bombardDamage > 0))
                 {
                     continue;
@@ -544,7 +540,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                 score /= pow(max(1, fleet.travelTurnsAdjusted(current)), 2) + 1;
             }
             /*if(score > 0)
-                System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" => "+empire.sv.name(current.id)+" score: "+score+" enemy-transports: "+transports+" colonizerEnroute: "+colonizerEnroute);*/
+                System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" => "+empire.sv.name(current.id)+" score: "+score+" enemy-transports: "+transports+" colonizerEnroute: "+colonizerEnroute+" travelTurns: "+fleet.travelTurnsAdjusted(current));*/
             if(score > bestScore)
             {
                 bestScore = score;
@@ -817,13 +813,20 @@ public class AIFleetCommander implements Base, FleetCommander {
                     float sendAmount = 1.0f;
                     float sendBombAmount = 1.0f;
                     float keepAmount = 0.0f;
-                    boolean onlyColonizerTargets = false;
+                    boolean onlyColonizerTargets = true;
                     boolean targetIsGatherPoint = false;
                     boolean onlyAllowRealTarget = false;
                     boolean targetIsPreviousBest = false;
                     
-                    if(fleet.numFighters() == 0 && fleet.numBombers() == 0)
-                        onlyColonizerTargets = true;
+                    for (int i=0;i<fleet.num.length;i++) 
+                    {
+                        ShipDesign d = fleet.design(i);
+                        if(d.colonySpecial() == null && fleet.num(i) > 0)
+                        {
+                            onlyColonizerTargets = false;
+                            break;
+                        }
+                    }
                     
                     StarSystem target = findBestTarget(fleet, false, onlyColonizerTargets);
                     if(previousBest == target)
