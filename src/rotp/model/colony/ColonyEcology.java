@@ -404,21 +404,20 @@ public class ColonyEcology extends ColonySpendingCategory {
         else
             return overflowText();
     }
-    @Override
-    public float excessSpending() {
+    @Override public float[] excessSpending() {
         Colony c = colony();
         if (c.allocation(categoryType()) == 0)
-            return 0;
-        
+            return new float[] {0, 0};
+
         float totalBC = totalAvailableBCthisCategory(colony().totalProductionIncome(), colony().maxReserveIncome());
         
         // deduct cost to clean industrial waste
         float cleanCost = c.wasteCleanupCost();
         if (totalBC <= cleanCost)
-            return 0;
+            return new float[] {0, 0};
 
         totalBC -= cleanCost;
-        
+
         Planet p = c.planet();
         Empire emp = c.empire();
         boolean canTerraformAtmosphere = p.canTerraformAtmosphere(emp);
@@ -426,7 +425,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         if (canTerraformAtmosphere) {
             float atmoCost = atmosphereTerraformCost() - hostileBC;
             if (totalBC <= atmoCost)
-                return 0;
+                return new float[] {0, 0};
             totalBC -= atmoCost;
         }
 
@@ -439,33 +438,34 @@ public class ColonyEcology extends ColonySpendingCategory {
                     if (envUpgrade > 0) {
                         float enrichCost = (envUpgrade * SOIL_UPGRADE_BC) - soilEnrichBC;
                         if (totalBC < enrichCost)
-                            return 0;
+                            return new float[] {0, 0};
                         totalBC -= enrichCost;
                     }
                 }
             }
-        }        
-        
+        }
+
         // deduct cost for size terraforming
         float maxPopSize = c.maxSize();
         float roomToGrow = maxPopSize - p.currentSize();
         if (roomToGrow > 0) {
             float tformCost = roomToGrow * tr.topTerraformingTech().costPerMillion;
             if (totalBC < tformCost) 
-                return 0;
+                return new float[] {0, 0};
             totalBC -= tformCost;
         }
-        
+
         // deduct cost for purchasing new pop
         float newPopPurchaseable = getNewPopPurchasableShortTerm();
         if (newPopPurchaseable > 0) {
             float growthCost = newPopPurchaseable * tr.populationCost();
             if (totalBC < growthCost)
-                return 0;
+                return new float[] {0, 0};
             totalBC -= growthCost;
         } 
-        
-        return max(0,totalBC);
+
+        float reserveBC  = max(0,totalBC);
+        return new float[] {reserveBC, reserveBC};
     }
 
     // get how many pops purchasable

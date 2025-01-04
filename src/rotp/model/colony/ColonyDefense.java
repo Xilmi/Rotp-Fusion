@@ -253,24 +253,25 @@ public class ColonyDefense extends ColonySpendingCategory {
     public int missileShieldLevel() {
         return (colony().starSystem().inNebula() || empire() == null) ? 0 : shieldLevel() + (int) tech().maxDeflectorShieldLevel();
     }
-    @Override
-    public float excessSpending() {
+    @Override public float[] excessSpending() {
         if (colony().allocation(categoryType()) == 0)
-            return 0;
-        
-        float prodBC = pct()* colony().totalProductionIncome() * planet().productionAdj();
+            return new float[] {0, 0};
+
+        float rawProdBC = pct() * colony().totalProductionIncome();
+        float prodBC = rawProdBC * planet().productionAdj();
         float rsvBC = pct() * colony().maxReserveIncome();
-        float totalBC = prodBC+rsvBC;        
-        
+        float totalBC = prodBC+rsvBC;
+        float researchFactor = (rawProdBC+rsvBC) / totalBC;
+
         // deduct cost to finish shield
         float shieldCost = (maxShieldLevel() - shield) * 100;
         if (shieldCost >= totalBC)
-            return 0;
-        
-        totalBC -= shieldCost;      
+            return new float[] {0, 0};
+
+        totalBC -= shieldCost;
         if (maxBases == 0)
-            return totalBC;
-               
+            return new float[] {totalBC, researchFactor * totalBC};
+
         // deduct cost to upgrade existing bases
         float bestBaseCost = 0;
         if ((bases > 0) && (missileBase != tech().bestMissileBase())) {
@@ -279,22 +280,24 @@ public class ColonyDefense extends ColonySpendingCategory {
             if (bestBaseCost > baseCost) {
                 float upgradeCost = (bases*(bestBaseCost-baseCost))-baseUpgradeBC;
                 if (upgradeCost > totalBC)
-                    return 0;
+                    return new float[] {0, 0};
                 totalBC -= upgradeCost;
             }
         }
-        
-        // deduct cost to build remaining bses
+
+        // deduct cost to build remaining bases
         if (bases < maxBases) {
             if (bestBaseCost == 0)
                 bestBaseCost = tech().bestMissileBase().cost(empire());
             float buildCost = (maxBases - bases) * bestBaseCost;
             if (buildCost > totalBC)
-                return 0;
+                return new float[] {0, 0};
             totalBC -= buildCost;
         }
-        
-        return max(0,totalBC);
+
+        float reserveBC  = max(0,totalBC);
+        float researchBC = reserveBC * researchFactor;
+        return new float[] {reserveBC, researchBC};
     }
     @Override
     public String upcomingResult() {

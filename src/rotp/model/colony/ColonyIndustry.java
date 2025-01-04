@@ -181,22 +181,24 @@ public class ColonyIndustry extends ColonySpendingCategory {
            empire().addReserve(unallocatedBC);
         unallocatedBC = 0;
     }
-    @Override
-    public float excessSpending() {
+    @Override public float[] excessSpending() {
         if (colony().allocation(categoryType()) == 0)
-            return 0;
-        
-        float prodBC = pct()* colony().totalProductionIncome() * planet().productionAdj();
+            return new float[] {0, 0};
+
+        float rawProdBC = pct() * colony().totalProductionIncome();
+        float prodBC = rawProdBC * planet().productionAdj();
         float rsvBC = pct() * colony().maxReserveIncome();
-        float totalBC = prodBC+rsvBC+industryReserveBC;        
-        
+        float totalBC = prodBC + rsvBC;
+        float researchFactor = (rawProdBC+rsvBC) / totalBC;
+        totalBC += industryReserveBC;
+
         // deduct cost to convert alien factories
         float convertCost = totalAlienConversionCost();
         if (totalBC <= convertCost)
-            return 0;
+            return new float[] {0, 0};
 
         totalBC -= convertCost;
-        
+
         // deduct cost to build remaining factories at current robot controls level
         float maxBuildable = maxBuildableFactories(robotControls);
         float possibleNewFactories = 0;
@@ -204,8 +206,8 @@ public class ColonyIndustry extends ColonySpendingCategory {
             possibleNewFactories = maxBuildable-factories;
             float buildCost = possibleNewFactories*newFactoryCost();
             if (totalBC <= buildCost)
-                return 0;
-            totalBC -= buildCost;      
+                return new float[] {0, 0};
+            totalBC -= buildCost;
         }
 
         int colonyControls = robotControls;
@@ -216,23 +218,25 @@ public class ColonyIndustry extends ColonySpendingCategory {
             if (!empire().ignoresFactoryRefit())
                 upgradeCost = factoriesToUpgrade * tech().bestFactoryCost() / 2;
             // not enough to upgrade? save off BC for next turn and exit
-            if (upgradeCost > totalBC) 
-                return 0;
+            if (upgradeCost > totalBC)
+                return new float[] {0, 0};
             // pay to upgrade all factories to new RC at once
             totalBC -= upgradeCost;
             colonyControls++;
-            //after refitting, build up to max useable factories at current robot controls level
+            //after refitting, build up to max usable factories at current robot controls level
             float factoriesToBuild = max(0, maxBuildableFactories(colonyControls)-factories-possibleNewFactories);
             if (factoriesToBuild > 0) {
                 float costPerFactory = tech().newFactoryCost(colonyControls);
                 float buildCost = factoriesToBuild * costPerFactory;
                 if (buildCost > totalBC)
-                    return 0;
+                    return new float[] {0, 0};
                 possibleNewFactories += factoriesToBuild;
                 totalBC -= buildCost;
             }
         }
-        return max(0,totalBC);
+        float reserveBC  = max(0,totalBC);
+        float researchBC = reserveBC * researchFactor;
+        return new float[] {reserveBC, researchBC};
     }
     @Override
     public String upcomingResult() {

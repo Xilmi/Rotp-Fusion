@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Fixed exploit that can be used to boost research with poor/ultra-poor colonies.
 - Fixed the bug of negative ship value in fleet.
 - Fixed invisible ship in combat bug.
 - Fixed an issue that caused the AI not to attack with player-designed ships when handing control over to AI in an ongoing playthrough. (Xilmi)

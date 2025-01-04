@@ -335,25 +335,31 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
     public int allocationRemaining()      { return MAX_TICKS - totalAmountAllocated(); }
     public float totalPlanetaryResearch() {
-        float totalBC = research().totalSpending();
-        float productAdj = planet().productionAdj();
-        if (empire.divertColonyExcessToResearch()) {
-            totalBC += shipyard().excessSpending() / productAdj;
-            totalBC += defense().excessSpending() / productAdj;
-            totalBC += industry().excessSpending() / productAdj;
-            totalBC += ecology().excessSpending();
-        }        
+    	float totalBC = totalPlanetaryResearchSpending();
+        // float totalBC = research().totalSpending();
+        // float productAdj = planet().productionAdj();
+        // if (empire.divertColonyExcessToResearch()) {
+        //     totalBC += shipyard().excessSpending() / productAdj;
+        //     totalBC += defense().excessSpending() / productAdj;
+        //     totalBC += industry().excessSpending() / productAdj;
+        //     totalBC += ecology().excessSpending();
+        // }        
         float totalRP = totalBC * research().researchBonus();
         return max(0, totalRP-research().projectRemainingBC());
     }
     public float totalPlanetaryResearchSpending() {
         float totalBC = research().totalSpending(); 
-        float productAdj = planet().productionAdj();
+        // float productAdj = planet().productionAdj();
         if (empire.divertColonyExcessToResearch()) {
-            totalBC += shipyard().excessSpending() / productAdj;
-            totalBC += defense().excessSpending() / productAdj;
-            totalBC += industry().excessSpending() / productAdj;
-            totalBC += ecology().excessSpending();
+        	int id = 1;
+            totalBC += shipyard().excessSpending()[id];
+            totalBC += defense().excessSpending()[id];
+            totalBC += industry().excessSpending()[id];
+            totalBC += ecology().excessSpending()[id];
+            // totalBC += shipyard().excessSpending() / productAdj;
+            // totalBC += defense().excessSpending() / productAdj;
+            // totalBC += industry().excessSpending() / productAdj;
+            // totalBC += ecology().excessSpending();
         }
         return totalBC;
     }  

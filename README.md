@@ -65,6 +65,11 @@ Later:
 - Governor: Individual disable receive troops
   - The AI is bombing my world, killing 7 or so colonists per turn. Every turn, my healthy planets send colonists to 'help', which ALL get killed by the orbiting enemy fleet. I would like to be able to prevent this while still allowing transport between my other planets.
 - Are there any plans to give the player an option whether to drop Death Spores or not, when they are present? (Or to only use Death Spores, and not bombs)?
+- A way to prioritize automatic colonization would be nice.
+  - Weight "nearest my borders" vs "best planet"
+    - if i'm trying to expand rapidly, that size 30 poor at the edge of my fuel range might be more valuable than a size 60 abundant in my core 
+  - 3rd colonization weight for "flight time" would be useful as well.  if I've got 2 worlds building ships and 2 worlds to colonize, the first ship built might fly to the planet over by the 2nd shipbuilding world.
+  - Colonize closest.
 
 
 ## What's New
@@ -72,6 +77,7 @@ Later:
 2025.01.04 (BR)
 - Fixed the bug of negative ship value in fleet.
   - The origin of the bug is still unknown, but the num array is now private and the access methods check the validity of the values.
+- Fixed exploit that can be used to boost research with poor/ultra-poor colonies.
 
 2025.01.03 (BR)
 - Fixed invisible ship in combat bug.

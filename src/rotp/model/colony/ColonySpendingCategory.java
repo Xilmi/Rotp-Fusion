@@ -103,7 +103,7 @@ public abstract class ColonySpendingCategory implements Base, Serializable {
         colony.allocation(categoryType(), bounds(0,oldValue+amt,MAX_TICKS));
         return allocation() - oldValue;
     }
-    public float excessSpending()        { return 0; }
+    public float[] excessSpending()        { return new float[] {0, 0}; }
     public int smoothAllocationNeeded(boolean prioritized)	{ return 0; }
     public int smartAllocationNeeded(MouseEvent e)			{ return 0; }
     public int refreshAllocationNeeded(boolean prioritized, boolean hadShipSpending, float targetPopPct) {

@@ -375,33 +375,36 @@ public class ColonyShipyard extends ColonySpendingCategory {
     /* public String buildLimitResult() { // BR: Commented Unused
         return text("MAIN_COLONY_SHIPYARD_LIMIT",buildLimit());
     } */
-    @Override
-    public float excessSpending() {
+    @Override public float[] excessSpending() {
         if (colony().allocation(categoryType()) == 0)
-            return 0;
-        
-        float prodBC = pct()* colony().totalProductionIncome() * planet().productionAdj();
+            return new float[] {0, 0};
+
+        float rawProdBC = pct() * colony().totalProductionIncome();
+        float prodBC = rawProdBC * planet().productionAdj();
         float rsvBC = pct() * colony().maxReserveIncome();
-        float totalBC = prodBC+rsvBC;   
-        
+        float totalBC = prodBC+rsvBC;
+        float researchFactor = (rawProdBC+rsvBC) / totalBC;
+
         // if building ships with no build limit, then no possible overflow
         if (!buildingStargate && (buildLimit == 0))
-            return 0;
-        
+            return new float[] {0, 0};
+
         int numBuild = buildLimit;
         if (buildingStargate) {
-            totalBC += stargateBC;   
+            totalBC += stargateBC;
             numBuild = 1;
         }
         else
             totalBC += shipBC;
-        
+
         float buildCost = numBuild * design.cost();
-        
+
         if (buildCost > totalBC)
-            return 0;
-        
-        return totalBC - buildCost;
+            return new float[] {0, 0};
+
+        float reserveBC  = totalBC - buildCost;
+        float researchBC = reserveBC * researchFactor;
+        return new float[] {reserveBC, researchBC};
     }
     @Override
     public String upcomingResult() {
