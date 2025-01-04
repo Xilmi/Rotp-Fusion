@@ -15,10 +15,13 @@
  */
 package rotp.model.ai.fusion;
 
+import static rotp.model.tech.TechTree.NUM_CATEGORIES;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import rotp.model.ai.interfaces.Diplomat;
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.ShipCombatResults;
@@ -55,8 +58,8 @@ import rotp.model.incidents.SpyConfessionIncident;
 import rotp.model.incidents.TechnologyAidIncident;
 import rotp.model.incidents.TrespassingIncident;
 import rotp.model.ships.ShipDesign;
+import rotp.model.ships.ShipDesignLab;
 import rotp.model.tech.Tech;
-import static rotp.model.tech.TechTree.NUM_CATEGORIES;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyTechOfferMenu;
 import rotp.ui.diplomacy.DiplomaticCounterReply;
@@ -2119,7 +2122,7 @@ public class AIDiplomat implements Base, Diplomat {
             if(empire.canScanTo(sys)) {
                 ShipFleet fl = empire.sv.orbitingFleet(sys.id);
                 if(fl != null) {
-                    for (int i=0;i<fl.num.length;i++) {
+                    for (int i=0;i<ShipDesignLab.MAX_DESIGNS;i++) {
                         int num = fl.num(i);
                         if (num > 0) {
                             ShipDesign des = empire.shipLab().design(i);

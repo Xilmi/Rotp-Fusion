@@ -15,6 +15,8 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.model.ships.ShipDesignLab.MAX_DESIGNS;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +53,7 @@ public class Ships implements Base, Serializable {
         boolean rallyGetLoss   = opts.rallyLossRally();
 
         // adjust the new rally size
-        for (int i=0; i<rallyCopy.num.length; i++) {
+        for (int i=0; i<MAX_DESIGNS; i++) {
             int orbitingCount = orbitingFleet.num(i);
             int rallyCount    = rallyCopy.num(i);
             int oldOrbitCount = orbitCopy.num(i);
@@ -227,7 +229,7 @@ public class Ships implements Base, Serializable {
         }   
         
         // transfer ships from source to deployed fleet
-        for (int i=0; i<sourceFleet.num.length; i++) {
+        for (int i=0; i<MAX_DESIGNS; i++) {
             int a = sourceFleet.num(i);
             int b = deployedFleet.num(i);
             deployedFleet.num(i, a+b);
@@ -244,7 +246,7 @@ public class Ships implements Base, Serializable {
         return deployedFleet;
     }
     public boolean deploySubfleet(ShipFleet sourceFleet, List<ShipDesign> designs, int destSysId) {  
-        int[] counts = new int[sourceFleet.num.length];
+        int[] counts = new int[MAX_DESIGNS];
         for (ShipDesign d: designs) 
             counts[d.id()] = sourceFleet.num(d.id());
         
@@ -252,8 +254,8 @@ public class Ships implements Base, Serializable {
     }
     public boolean deploySubfleet(ShipFleet sourceFleet, int[] counts, int destSysId) {   
         // returns true if a new subfleet was created
-         // adjust ship counts
-        int[] actual = new int[counts.length];
+        // adjust ship counts
+        int[] actual = new int[MAX_DESIGNS];
         int totalDeployed = 0;
         int totalOrbiting = 0;
         for (int i=0;i<actual.length;i++) {
@@ -345,7 +347,7 @@ public class Ships implements Base, Serializable {
         }
         
         // transfer ships from orbiting to retreating fleet
-        for (int i=0; i<sourceFleet.num.length; i++) {
+        for (int i=0; i<MAX_DESIGNS; i++) {
             int a = sourceFleet.num(i);
             int b = retreatingFleet.num(i);
             retreatingFleet.num(i, a+b);
@@ -421,7 +423,7 @@ public class Ships implements Base, Serializable {
                 orbitingFleet.destSysId(StarSystem.NULL_ID);
             }
             else {
-                for (int i=0;i<fl.num.length;i++) {
+                for (int i=0;i<MAX_DESIGNS;i++) {
                     int a = fl.num(i);
                     int b = orbitingFleet.num(i);
                     orbitingFleet.num(i, a+b);
@@ -447,7 +449,7 @@ public class Ships implements Base, Serializable {
             return false;
         }        
         
-        for (int i=0;i<sourceFleet.num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             int a = sourceFleet.num(i);
             int b = orbitingFleet.num(i);
             orbitingFleet.num(i, a+b);
@@ -497,7 +499,7 @@ public class Ships implements Base, Serializable {
         }
     }
     public void deleteFleet(ShipFleet fl) {
-        fl.reset();
+        fl.clear();
         allFleets.remove(fl);
         
         Galaxy g = galaxy();
@@ -570,7 +572,7 @@ public class Ships implements Base, Serializable {
             orbitingFleet = fleet;
         }
         else if (fleet != orbitingFleet) {
-            for (int i=0;i<fleet.num.length;i++) {
+            for (int i=0;i<MAX_DESIGNS;i++) {
                 int a = orbitingFleet.num(i);
                 int b = fleet.num(i);
                 orbitingFleet.num(i, a+b);
@@ -728,14 +730,14 @@ public class Ships implements Base, Serializable {
         return fleets;
     }
     public List<ShipFleet> inTransitNotRetreatingFleets(int empId, int designId) {
-        // this specific piece of code is used to find any colony ships stiil 
+        // this specific piece of code is used to find any colony ships still 
         // en route to their dest so the AI doesn't prematurely scrap them
         List<ShipFleet> fleets = new ArrayList<>();
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
         for (ShipFleet fl: fleetsAll) {
             if (fl != null && (fl.empId == empId) && fl.isInTransit() 
-            		&& !fl.retreating() && (fl.num[designId] > 0))
+            		&& !fl.retreating() && (fl.num(designId) > 0))
             	fleets.add(fl);
         }
         return fleets;

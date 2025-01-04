@@ -15,17 +15,21 @@
  */
 package rotp.model.ai.xilmi;
 
-import rotp.model.ai.FleetStats;
+import static rotp.model.ships.ShipDesign.COLONY;
+import static rotp.model.ships.ShipDesignLab.MAX_DESIGNS;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import rotp.model.ai.interfaces.FleetCommander;
+
 import rotp.model.ai.FleetOrders;
 import rotp.model.ai.FleetPlan;
+import rotp.model.ai.FleetStats;
 import rotp.model.ai.ShipDecision;
 import rotp.model.ai.ShipPlan;
+import rotp.model.ai.interfaces.FleetCommander;
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackColony;
 import rotp.model.combat.ShipCombatManager;
@@ -38,7 +42,6 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.model.ships.ShipDesign;
-import static rotp.model.ships.ShipDesign.COLONY;
 import rotp.model.ships.ShipDesignLab;
 import rotp.ui.NoticeMessage;
 import rotp.util.Base;
@@ -818,7 +821,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                     boolean onlyAllowRealTarget = false;
                     boolean targetIsPreviousBest = false;
                     
-                    for (int i=0;i<fleet.num.length;i++) 
+                    for (int i=0;i<ShipDesignLab.MAX_DESIGNS;i++) 
                     {
                         ShipDesign d = fleet.design(i);
                         if(d.colonySpecial() == null && fleet.num(i) > 0)
@@ -1158,7 +1161,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         float topSpeedVal = 0;
         float fullPowerValue = combatPower(fl, target.empire());
         
-        for (int i=0;i<fl.num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             int num = fl.num(i);
             ShipDesign d = lab.design(i); 
             totalVal += num * d.cost();
@@ -1199,7 +1202,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         {
             boolean haveToDeploy = false;
             int[] counts = new int[ShipDesignLab.MAX_DESIGNS];
-            for (int i=0;i<fl.num.length;i++) {
+            for (int i=0;i<MAX_DESIGNS;i++) {
                 int num = fl.num(i);
                 ShipDesign d = lab.design(i); 
                 if(d.warpSpeed()!=speed && splitBySpeed)
@@ -1270,7 +1273,7 @@ public class AIFleetCommander implements Base, FleetCommander {
     public float bcValue(ShipFleet fl, boolean countScouts, boolean countFighters, boolean countBombers, boolean countColonizers) {
         float bc = 0;
         ShipDesignLab lab = fl.empire().shipLab();
-        for (int i=0;i<fl.num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             int num = fl.num(i);
             if (num > 0) {
                 ShipDesign des = lab.design(i);
@@ -1563,7 +1566,7 @@ public class AIFleetCommander implements Base, FleetCommander {
     float avgFleetShield(ShipFleet fl) {
         float totalShield = 0;
         float totalVal = 0;
-        for (int i=0;i<fl.num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             int num = fl.num(i);
             if (num > 0) {
                 ShipDesign des = empire.shipLab().design(i);
@@ -1579,7 +1582,7 @@ public class AIFleetCommander implements Base, FleetCommander {
     }
     float totalFleetHealth(ShipFleet fl) {
         float totalHP = 0;
-        for (int i=0;i<fl.num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             int num = fl.num(i);
             if (num > 0) {
                 ShipDesign des = empire.shipLab().design(i);
@@ -1601,7 +1604,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         float totalCombatSpeed = 0;
         float totalWeighedHP = 0;
         float totalArmor = 0;
-        for (int i=0;i<fl.num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             int num = fl.num(i);
             if (num > 0) {
                 ShipDesign des = empire.shipLab().design(i);

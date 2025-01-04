@@ -16,6 +16,7 @@
 package rotp.model.ai.base;
 
 import java.util.List;
+
 import rotp.model.ai.interfaces.ShipDesigner;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
@@ -71,8 +72,8 @@ public class AIShipDesigner implements Base, ShipDesigner {
         // if that ties, pick the one with the worst colony module.
         ShipDesignLab lab = lab();
         ShipDesign bestDesign = null;
-        for (int i=0;i<fl.num.length;i++) {
-            if (fl.num[i] > 0) {
+        for (int i=0;i<ShipDesignLab.MAX_DESIGNS;i++) {
+            if (fl.num(i) > 0) {
                 ShipDesign design = lab.design(i);
                 ShipSpecialColony special = design.colonySpecial();
                 if (special != null) {

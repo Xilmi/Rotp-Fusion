@@ -69,6 +69,10 @@ Later:
 
 ## What's New
 
+2025.01.04 (BR)
+- Fixed the bug of negative ship value in fleet.
+  - The origin of the bug is still unknown, but the num array is now private and the access methods check the validity of the values.
+
 2025.01.03 (BR)
 - Fixed invisible ship in combat bug.
   - When the fleet has a design with negative value, partial retreat could trigger this bug.

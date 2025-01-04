@@ -214,7 +214,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             cancelFleet();
         }
         else {
-            boolean newFleetCreated = galaxy().ships.deploySubfleet(displayedFleet, newFleet.num, selectedDest().id);
+            boolean newFleetCreated = galaxy().ships.deploySubfleet(displayedFleet, newFleet.numCopy(), selectedDest().id);
             // newFleet isEmpty if it was the entire fleet selected
             if (newFleetCreated) {
                 if (displayedFleet.isEmpty()) 

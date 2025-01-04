@@ -4760,7 +4760,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 boolean allDesignsAuto = true;
                 for(int i = 0; i < ShipDesignLab.MAX_DESIGNS; ++i)
                 {
-                    if(fl.num[i] > 0)
+                    if(fl.num(i) > 0)
                     {
                         ShipDesign d = shipLab.design(i);
                         if(!d.isAutoScout() && !d.isAutoAttack() && !d.isAutoColonize())
@@ -4791,7 +4791,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 boolean allDesignsAuto = true;
                 for(int i = 0; i < ShipDesignLab.MAX_DESIGNS; ++i)
                 {
-                    if(fl.num[i] > 0)
+                    if(fl.num(i) > 0)
                     {
                         ShipDesign d = shipLab.design(i);
                         if(!d.isAutoScout() && !d.isAutoAttack() && !d.isAutoColonize())

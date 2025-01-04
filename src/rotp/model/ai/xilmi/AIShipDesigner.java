@@ -15,7 +15,11 @@
  */
 package rotp.model.ai.xilmi;
 
+import static rotp.model.ships.ShipDesign.maxSpecials;
+import static rotp.model.ships.ShipDesign.maxWeapons;
+
 import java.util.List;
+
 import rotp.model.ai.interfaces.ShipDesigner;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
@@ -23,8 +27,6 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.PlanetType;
 import rotp.model.ships.ShipDesign;
-import static rotp.model.ships.ShipDesign.maxSpecials;
-import static rotp.model.ships.ShipDesign.maxWeapons;
 import rotp.model.ships.ShipDesignLab;
 import rotp.model.ships.ShipSpecial;
 import rotp.model.ships.ShipSpecialColony;
@@ -87,8 +89,8 @@ public class AIShipDesigner implements Base, ShipDesigner {
         // if that ties, pick the one with the worst colony module.
         ShipDesignLab lab = lab();
         ShipDesign bestDesign = null;
-        for (int i=0;i<fl.num.length;i++) {
-            if (fl.num[i] > 0) {
+        for (int i=0;i<ShipDesignLab.MAX_DESIGNS;i++) {
+            if (fl.num(i) > 0) {
                 ShipDesign design = lab.design(i);
                 ShipSpecialColony special = design.colonySpecial();
                 if (special != null) {

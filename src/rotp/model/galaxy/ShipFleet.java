@@ -15,10 +15,11 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.model.ships.ShipDesignLab.MAX_DESIGNS;
+
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -34,7 +35,6 @@ import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
 import rotp.model.empires.ShipView;
 import rotp.model.ships.ShipDesign;
-import rotp.model.ships.ShipDesignLab;
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.map.IMapHandler;
@@ -48,7 +48,7 @@ public class ShipFleet extends FleetBase {
     private int sysId;
     private int destSysId = StarSystem.NULL_ID;
     private int rallySysId = StarSystem.NULL_ID;
-    public  int[] num = new int[ShipDesignLab.MAX_DESIGNS];
+    private int[] num = new int[MAX_DESIGNS];
     private Status status = Status.ORBITING;
 
     private boolean retreating = false;
@@ -57,7 +57,7 @@ public class ShipFleet extends FleetBase {
 
     private transient FleetOrders orders;
     private transient FlightPathSprite pathSprite;
-    private transient int[] bombardCount = new int[ShipDesignLab.MAX_DESIGNS];
+    private transient int[] bombardCount = new int[MAX_DESIGNS];
     //private transient FleetStats fleetStats;
     private transient boolean isCopy = false;
 
@@ -144,9 +144,9 @@ public class ShipFleet extends FleetBase {
         if (emp == empId)
             return true;
 
-        for (int i=0;i<num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             ShipDesign d = design(i);
-            if ((num[i] > 0) && (d != null) && !d.allowsCloaking())
+            if ((num(i) > 0) && (d != null) && !d.allowsCloaking())
                 return true;
         }
         return false;
@@ -167,7 +167,7 @@ public class ShipFleet extends FleetBase {
     }
     final void reloadBombs() {
         if (bombardCount == null)
-            bombardCount = new int[ShipDesignLab.MAX_DESIGNS];
+            bombardCount = new int[MAX_DESIGNS];
         
         for (int i=0;i<bombardCount.length;i++)
             bombardCount[i]=0;
@@ -175,8 +175,8 @@ public class ShipFleet extends FleetBase {
     private int bombardCount(int i)    { return bombardCount[i]; }
     public void bombarded(int i)      { bombardCount[i]++; }
     public void clear() {
-        for (int i=0;i<num.length;i++)
-            num[i]=0;
+        for (int i=0;i<MAX_DESIGNS;i++)
+            num(i, 0);
     }
     
     @Override
@@ -185,7 +185,7 @@ public class ShipFleet extends FleetBase {
         // returns a new ship fleet with identical stacks & count
         ShipFleet temp = new ShipFleet(fl.empId, fl);
         
-        System.arraycopy(fl.num, 0, temp.num, 0, fl.num.length);
+        System.arraycopy(fl.num, 0, temp.num, 0, MAX_DESIGNS);
         return temp;
     }
 /*    public static ShipFleet copy(ShipFleet fl, List<ShipDesign> designs) {
@@ -258,12 +258,12 @@ public class ShipFleet extends FleetBase {
     public String toString() {
         StringBuilder sb = new StringBuilder(Integer.toHexString(hashCode()));
         sb.append('(');
-        for (int i=0;i<num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             ShipDesign d = design(i);
-            if ((num[i] > 0) && (d != null)){
+            if ((num(i) > 0) && (d != null)){
                 sb.append(d.name());
                 sb.append('-');
-                sb.append(num[i]);
+                sb.append(num(i));
                 sb.append('.');
             }
         }
@@ -324,24 +324,21 @@ public class ShipFleet extends FleetBase {
     public boolean inTransit()      { return isInTransit(); }
     public boolean isActive()       { return hasShips(); }
 
-    public int num(int i)           { return num[i]; }
+    public int[] numCopy()          { return num.clone(); }
+    public int num(int i)           { return max(0, num[i]); } // BR for backward fix
     void validate()                 { // BR: For backward compatibility with monsters
     	if (num == null) {
-    		num = new int[ShipDesignLab.MAX_DESIGNS];
+    		num = new int[MAX_DESIGNS];
     		if (this instanceof OrionGuardianShip)
     			system(galaxy().orionSystem());
     	}
     }
-    void num(int i, int count)      { num[i] = count; }
-    void reset() {
-        for (int i=0;i<num.length;i++)
-            num[i] = 0;
-    }
+    void num(int i, int count)      { num[i] = max(0, count); }
 /*    public int visibleNum(int emp, int i) {
         ShipDesign d = design(i);
         if ((emp == empId)
         || ((d != null) && !d.allowsCloaking()))
-            return num[i];
+            return num(i);
         else
             return 0;
     } */
@@ -349,17 +346,17 @@ public class ShipFleet extends FleetBase {
         if (emp.canSeeShips(empId))
             return true;
 
-        for (int i=0;i<num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             ShipDesign d = design(i);
-            if ((num[i] > 0) && (d != null) && !d.allowsCloaking())
+            if ((num(i) > 0) && (d != null) && !d.allowsCloaking())
                 return true;
         }
         return false;
     }
     public boolean allowsScanning() {
-        for (int i=0;i<num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             ShipDesign d = design(i);
-            if ((num[i] > 0) && (d != null) && d.allowsScanning())
+            if ((num(i) > 0) && (d != null) && d.allowsScanning())
                 return true;
         }
         return false;
@@ -392,13 +389,13 @@ public class ShipFleet extends FleetBase {
     }
     public int[] visibleShips(int emp) {
         if (empId == emp)
-            return num;
+            return numCopy();
 
-        int[] visible = new int[num.length];
-        for (int i=0;i<num.length;i++) {
+        int[] visible = new int[MAX_DESIGNS];
+        for (int i=0;i<MAX_DESIGNS;i++) {
             ShipDesign d = design(i);
-            if ((num[i] > 0) && (d != null) && !d.allowsCloaking())
-                visible[i] = num[i];
+            if ((num(i) > 0) && (d != null) && !d.allowsCloaking())
+                visible[i] = num(i);
             else
                 visible[i] = 0;
         }
@@ -486,16 +483,16 @@ public class ShipFleet extends FleetBase {
         empire().shipLab().recordUse(d, 1);
     }
     public boolean canAttackPlanets() {
-        for (int i=0;i<num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             ShipDesign d = design(i);
-            if ((num[i]>0) && (d != null) && d.canAttackPlanets())
+            if (num(i)>0 && d != null && d.canAttackPlanets())
                 return true;
         }
         return false;
     }
     public boolean isArmed() {
-        for (int i=0;i<num.length;i++) {
-            if (num[i] > 0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i) > 0) {
                 ShipDesign d = design(i);
                 if ((d != null) && d.isArmed())
                     return true;
@@ -504,8 +501,8 @@ public class ShipFleet extends FleetBase {
         return false;
     }
     public boolean isArmedForShipCombat() {
-        for (int i=0;i<num.length;i++) {
-            if (num[i] > 0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i) > 0) {
                 ShipDesign d = design(i);
                 if ((d != null) && d.isArmedForShipCombat())
                     return true;
@@ -514,9 +511,9 @@ public class ShipFleet extends FleetBase {
         return false;
     }
     public boolean isArmed(StarSystem sys) {
-        for (int i=0;i<num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             ShipDesign d = design(i);
-            if ((num[i]>0) && (d != null)) {
+            if ((num(i)>0) && (d != null)) {
                 for (int j=0;j<ShipDesign.maxWeapons();j++) {
                     if (!d.weapon(j).isNone()) {
                         if (d.weapon(j).canAttackShips())
@@ -541,8 +538,8 @@ public class ShipFleet extends FleetBase {
         // only return as definitely unarmed if every
         // ship design in this fleet has been scanned
         // by Empire e and is known to be unarmed
-        for (int i=0;i<num.length;i++) {
-            if (num[i] > 0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i) > 0) {
                 ShipDesign des = design(i);
                 ShipView sv = e.shipViewFor(des);
                 if ((sv == null) || sv.isPotentiallyArmed())
@@ -552,14 +549,14 @@ public class ShipFleet extends FleetBase {
         return false;
     }
     public boolean hasShips()  {
-        for (int i=0;i<num.length;i++) {
-            if (num[i]>0)
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i)>0)
                 return true;
         }
         return false;
     }
     public boolean hasShip(ShipDesign d)  {
-            return (d == null) || !d.active() ? false : num[d.id()] > 0;
+        return (d == null) || !d.active() ? false : num(d.id()) > 0;
     }
     @Override
     public float calculateAdjustedArrivalTime() {
@@ -649,11 +646,11 @@ public class ShipFleet extends FleetBase {
     @Override
     public float hullPoints() {
         float pts = 0;
-        for (int i=0;i<num.length;i++) {
-            if (num[i] > 0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i) > 0) {
                 ShipDesign d = design(i);
                 if (d != null)
-                    pts += (num[i] * d.hullPoints());
+                    pts += (num(i) * d.hullPoints());
             }
         }
         return pts;
@@ -662,8 +659,8 @@ public class ShipFleet extends FleetBase {
         if (isEmpty())
             return 0;
 
-        for (int i=0;i<num.length;i++) {
-            if (num[i]>0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i)>0) {
                 ShipDesign des = design(i);
                 if (!des.isExtendedRange())
                     return empire().tech().shipRange();
@@ -674,8 +671,8 @@ public class ShipFleet extends FleetBase {
     @Override public float travelSpeed() { return slowestStackSpeed(); }
     public float slowestStackSpeed() {
         float maxSpeed = Integer.MAX_VALUE;
-        for (int i=0;i<num.length;i++) {
-            if (num[i]>0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i)>0) {
                 ShipDesign des = design(i);
                 if (des != null)
                     maxSpeed = min(maxSpeed, des.engine().warp());
@@ -685,8 +682,8 @@ public class ShipFleet extends FleetBase {
     }
 /*    private int bestBeamCombatSpeed() {
         int speed = 1;
-        for (int i=0;i<num.length;i++) {
-            if (num[i]>0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i)>0) {
                 ShipDesign des = design(i);
                 if (des != null && des.hasBeamWeapon())
                     speed = max(speed, des.combatSpeed());
@@ -696,8 +693,8 @@ public class ShipFleet extends FleetBase {
     } */
 /*    private int bestBeamWeaponRange(int minRange) {
         int rng = 1;
-        for (int i=0;i<num.length;i++) {
-            if (num[i]>0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i)>0) {
                 ShipDesign des = design(i);
                 if (des != null)
                     rng = max(rng, des.bestBeamWeaponRange(minRange));
@@ -708,11 +705,11 @@ public class ShipFleet extends FleetBase {
     // modnar: add firepowerAntiShip to only count weapons that can attack ships
     public float firepowerAntiShip(float shield) {
         float dmg = 0;
-        for (int i=0;i<num.length;i++) {
-            if (num[i]>0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i)>0) {
                 ShipDesign des = design(i);
                 if (des != null)
-                    dmg += (num[i] * des.firepowerAntiShip(shield));
+                    dmg += (num(i) * des.firepowerAntiShip(shield));
             }
         }
         return dmg;
@@ -720,22 +717,22 @@ public class ShipFleet extends FleetBase {
     // modnar: add firepowerAntiShip to only count weapons that can attack ships
     public float firepowerAntiShip(float shield, float defense, float missileDefense) {
         float dmg = 0;
-        for (int i=0;i<num.length;i++) {
-            if (num[i]>0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i)>0) {
                 ShipDesign des = design(i);
                 if (des != null)
-                    dmg += (num[i] * des.firepowerAntiShip(shield, defense, missileDefense));
+                    dmg += (num(i) * des.firepowerAntiShip(shield, defense, missileDefense));
             }
         }
         return dmg;
     }
     public float firepower(float shield) {
         float dmg = 0;
-        for (int i=0;i<num.length;i++) {
-            if (num[i]>0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i)>0) {
                 ShipDesign des = design(i);
                 if (des != null)
-                    dmg += (num[i] * des.firepower(shield));
+                    dmg += (num(i) * des.firepower(shield));
             }
         }
         return dmg;
@@ -744,11 +741,11 @@ public class ShipFleet extends FleetBase {
     // BR: tools against space monsters
 /*    public float firepowerAntiMonster(float shield, float defense, float missileDefense, int speed, int beamRange) {
         float dmg = 0 + 0;
-        for (int i=0;i<num.length;i++) {
-            if (num[i]>0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i)>0) {
                 ShipDesign des = design(i);
                 if (des != null)
-                    dmg += (num[i] * des.firepowerAntiMonster(shield, defense, missileDefense, speed, beamRange));
+                    dmg += (num(i) * des.firepowerAntiMonster(shield, defense, missileDefense, speed, beamRange));
             }
         }
 //        if (dmg == 0) {
@@ -772,7 +769,7 @@ public class ShipFleet extends FleetBase {
         float totalHP		= 0;
         int shipDefenseBonus  = fl.empire().shipDefenseBonus();
         int otherSpecialCount = fl.otherSpecialCount();
-        for (int i=0;i<fl.num.length;i++) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
             int num = fl.num(i);
             if (num > 0) {
                 ShipDesign des = fl.design(i);
@@ -815,25 +812,25 @@ public class ShipFleet extends FleetBase {
         return attackerDefenderRatio < securityFactor;
     }
 
-//    public boolean monsterStrongerThan(ShipFleet attacker, float securityFactor) {
-//        FleetStats defenderStats = getFleetStats();
-//        FleetStats attackerStats = getFleetStats(attacker);
-//        float attackerPower = attacker.firepowerAntiMonster(defenderStats.avgShield, defenderStats.avgDefense,
-//        		defenderStats.avgMissileDefense, bestBeamCombatSpeed(), bestBeamWeaponRange(1));
-//        attackerPower *= Math.pow(1.26, attackerStats.avgSpecials);
-//        attackerPower *= attackerStats.totalHP;
-//        float defenderPower = firepowerAntiMonster(attackerStats.avgShield, attackerStats.avgDefense,
-//        		attackerStats.avgMissileDefense, attacker.bestBeamCombatSpeed(), attacker.bestBeamWeaponRange(1));
-//        defenderPower *= Math.pow(1.26, defenderStats.avgSpecials);
-//        defenderPower *= defenderStats.totalHP;
-//        if (defenderPower == 0)
-//        	return attackerPower == 0;
-//        float attackerDefenderRatio = attackerPower/defenderPower;
-////        if (attackerDefenderRatio > 0) // TO DO BR: Comment
-////        	System.out.println(getTurn() + " System " + sysId +
-////        			" attacker (" + attacker.empId + ") / Defender Ratio = " + attackerDefenderRatio);
-//        return attackerDefenderRatio < securityFactor;
-//    }
+/*    public boolean monsterStrongerThan(ShipFleet attacker, float securityFactor) {
+        FleetStats defenderStats = getFleetStats();
+        FleetStats attackerStats = getFleetStats(attacker);
+        float attackerPower = attacker.firepowerAntiMonster(defenderStats.avgShield, defenderStats.avgDefense,
+        		defenderStats.avgMissileDefense, bestBeamCombatSpeed(), bestBeamWeaponRange(1));
+        attackerPower *= Math.pow(1.26, attackerStats.avgSpecials);
+        attackerPower *= attackerStats.totalHP;
+        float defenderPower = firepowerAntiMonster(attackerStats.avgShield, attackerStats.avgDefense,
+        		attackerStats.avgMissileDefense, attacker.bestBeamCombatSpeed(), attacker.bestBeamWeaponRange(1));
+        defenderPower *= Math.pow(1.26, defenderStats.avgSpecials);
+        defenderPower *= defenderStats.totalHP;
+        if (defenderPower == 0)
+        	return attackerPower == 0;
+        float attackerDefenderRatio = attackerPower/defenderPower;
+//        if (attackerDefenderRatio > 0) // TO DO BR: Comment
+//        	System.out.println(getTurn() + " System " + sysId +
+//        			" attacker (" + attacker.empId + ") / Defender Ratio = " + attackerDefenderRatio);
+        return attackerDefenderRatio < securityFactor;
+    } */
 /*    public float combatPower(ShipFleet attacker) {
         FleetStats defenderStats = getFleetStats();
         FleetStats attackerStats = getFleetStats(attacker);
@@ -843,12 +840,8 @@ public class ShipFleet extends FleetBase {
         return power;
     } */
     // \BR:
-    public boolean canReach(StarSystem dest) {
-        return empire().sv.withinRange(dest.id, range());
-    }
-    public float travelTimeAdjusted(StarSystem to) {
-        return travelTimeAdjusted(to, travelSpeed());
-    }
+    public boolean canReach(StarSystem dest)	{ return empire().sv.withinRange(dest.id, range()); }
+    public float travelTimeAdjusted(StarSystem to)	{ return travelTimeAdjusted(to, travelSpeed()); }
     public float travelTimeAdjusted(StarSystem dest, float speed) {
         if (inOrbit() || deployed()
         || (isInTransit() && (travelPct() == 0 && system() != null))) {
@@ -858,14 +851,12 @@ public class ShipFleet extends FleetBase {
         }
         return travelTimeAdjusted(this,dest,speed);
     }
-    public int travelTurnsAdjusted(StarSystem dest) { 
-        return (int)Math.ceil(travelTimeAdjusted(dest));  
-    }
+    public int travelTurnsAdjusted(StarSystem dest)	{ return ceil(travelTimeAdjusted(dest)); }
     // BR: Not used! Have to be tested before uncommenting and using it
 /*    private int travelTurns(StarSystem dest, float speed) { 
         return (int)Math.ceil(travelTime(dest, speed));  
-    }
-    public int fullTravelTurns(StarSystem finalDest, ShipDesign design) {
+    } */
+/*    public int fullTravelTurns(StarSystem finalDest, ShipDesign design) {
         // calculate full travel turns for a ship in this fleet of type design
         // to travel from its current position (may be in transit to another 
         // system) to the requested finalDest
@@ -892,40 +883,40 @@ public class ShipFleet extends FleetBase {
 //  public int numScouts()   { return numShipType(ShipDesign.SCOUT); }
     public int numFighters() { return numShipType(ShipDesign.FIGHTER); }
     public int numBombers()  { return numShipType(ShipDesign.BOMBER); }
-//     public int numDestroyers()  { return numShipType(ShipDesign.DESTROYER); } // modnar: add in destroyer number, not used anywhere (?)
-//     public int numColonies() { return numShipType(ShipDesign.COLONY); }
-    public boolean isEmpty()  { return numShips() == 0; }
+//  public int numDestroyers()  { return numShipType(ShipDesign.DESTROYER); } // modnar: add in destroyer number, not used anywhere (?)
+//  public int numColonies() { return numShipType(ShipDesign.COLONY); }
+    public boolean isEmpty() { return numShips() == 0; }
     public int numShips ()   {
         int count = 0;
-        for (int i=0;i<num.length;i++)
-            count += max(0, num[i]); // BR sometime num=-1 !?
+        for (int i=0;i<MAX_DESIGNS;i++)
+            count += num(i);
         return count;
     }
     private int numShipType(int missionType) {
         int count = 0;
-        for (int i=0;i<num.length;i++)
-            if (num[i]>0) {
+        for (int i=0;i<MAX_DESIGNS;i++)
+            if (num(i)>0) {
                 ShipDesign des = design(i);
                 if ((des != null) && (des.mission() == missionType))
-                    count += num[i];
+                    count += num(i);
             }
         return count;
     }
     public float bcValue() {
         float bc = 0;
-        for (int i=0;i<num.length;i++) {
-            if (num[i] > 0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i) > 0) {
                 ShipDesign des = design(i);
                 if (des != null)
-                    bc += (num[i] * des.cost());
+                    bc += (num(i) * des.cost());
             }
         }
         return bc;
     }
     public ShipDesign newestOfType (int missionType) {
         ShipDesign newestDesign = null;
-        for (int i=0;i<num.length;i++) {
-            if (num[i] > 0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i) > 0) {
                 ShipDesign desn = design(i);
                 if ((desn != null) && (desn.mission() == missionType)) {
                     if ((newestDesign == null) || (newestDesign.seq() < desn.seq()))
@@ -936,8 +927,8 @@ public class ShipFleet extends FleetBase {
         return newestDesign;
     }
     public boolean hasColonyShip() {
-        for (int i=0;i<num.length;i++) {
-            if (num[i] > 0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i) > 0) {
                 ShipDesign des = design(i);
                 if ((des != null) && des.hasColonySpecial())
                     return true;
@@ -947,42 +938,34 @@ public class ShipFleet extends FleetBase {
     }
 /*    public int[] colonyShips() {
         // return the ship stacks which have colony ships
-        int[] colony = new int[num.length];
-        for (int i=0;i<num.length;i++) {
-            if (num[i] > 0) {
+        int[] colony = new int[MAX_DESIGNS];
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i) > 0) {
                 ShipDesign des = design(i);
                 if ((des != null) && des.hasColonySpecial())
-                    colony[i] = num[i];
+                    colony[i] = num(i);
             }
         }
         return colony;
     } */
-    public void disband() {
-         galaxy().ships.deleteFleet(this);
+    public void disband()	{ galaxy().ships.deleteFleet(this); }
+    public boolean addFleet(ShipFleet fl)	{
+    	if (this == fl)
+    		return false;
+        for (int id=0; id<MAX_DESIGNS; id++)
+        	addShips(id, fl.num(id));
+        return true;
     }
-    public void addFleet(ShipFleet fl) {
-        if (this != fl) {
-            for (int i=0;i<num.length;i++) 
-                num[i] += fl.num[i];
-        }
+    public void addShips(int id, int n)		{ num(id, max(0, num(id) + n)); }
+    void addFleetAndDisband(ShipFleet fl)	{
+    	if (addFleet(fl)) {
+    		session().replaceVarValue(fl, this);
+            log("disband#3 fleet: ", fl.toString());
+            fl.disband();
+    	}
     }
-    public void addShips(int designId, int n) {
-        num[designId] = max(0, num[designId]+n);
-    }
-    void addShips(ShipFleet otherFleet) {
-        if (otherFleet == this)
-            return;
-
-        for (int i=0;i<num.length;i++)
-            num[i] += otherFleet.num(i);
-
-        session().replaceVarValue(otherFleet, this);
-        log("disband#3 fleet: ", otherFleet.toString());
-        otherFleet.disband();
-    }
-    public void removeShips(int designId, int n, boolean disbandIfEmpty) {
-        num[designId] = max(0, num[designId]-n);
-
+    public void removeShips(int designId, int n, boolean disbandIfEmpty)	{
+    	addShips(designId, -n);
         if (disbandIfEmpty && !hasShips()) {
             log("disband#4 fleet: ", toString());
             disband();
@@ -990,8 +973,8 @@ public class ShipFleet extends FleetBase {
     }
     public int removeShips(int i, int count)  { // For unregistered fleet only
     	count = max(0, count);
-    	count = min(count, num[i]);
-    	num[i] -= count;
+    	count = min(count, num(i));
+    	addShips(i, -count);
     	return count;
     }
 /*    public int removeScrappedShips(int designId) {
@@ -1004,8 +987,8 @@ public class ShipFleet extends FleetBase {
         return scrappedCount;
     } */
 /*    public void removeShips(ShipFleet subfleet) {
-        for (int i=0;i<num.length;i++)
-            num[i] = max(0, num[i]-subfleet.num(i));
+        for (int i=0;i<MAX_DESIGNS;i++)
+            num(i) = max(0, num(i)-subfleet.num(i));
     } */
     public void targetBombard(float popLim) { // BR:
         StarSystem sys = system();
@@ -1019,8 +1002,8 @@ public class ShipFleet extends FleetBase {
         mgr.setupBombardment(system(), this);
 
         CombatStackColony colonyStack = mgr.results().colonyStack;
-        for (int i=0;i<num.length;i++) {
-            if (num[i] > 0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i) > 0) {
                 ShipDesign d = design(i);
                 if (d != null) {
                     CombatStackShip shipStack = new CombatStackShip(this, i, mgr);
@@ -1028,7 +1011,7 @@ public class ShipFleet extends FleetBase {
                         int wpnCount = d.wpnCount(j);
                         int attackCount = d.weapon(j).attacksPerRound() * d.weapon(j).scatterAttacks();
                         int bombAtt = d.weapon(j).bombardAttacks() - bombardCount(i);
-                        int numAttacks = num[i] * attackCount * wpnCount * bombAtt;
+                        int numAttacks = num(i) * attackCount * wpnCount * bombAtt;
                         for (int k=0; k<numAttacks && system().population()>popLim; k++)
                             d.weapon(j).fireUpon(shipStack, colonyStack, 1, mgr);
                     }
@@ -1056,8 +1039,8 @@ public class ShipFleet extends FleetBase {
         mgr.setupBombardment(system(), this);
 
         CombatStackColony colonyStack = mgr.results().colonyStack;
-        for (int i=0;i<num.length;i++) {
-            if (num[i] > 0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i) > 0) {
                 ShipDesign d = design(i);
                 if (d != null) {
                     CombatStackShip shipStack = new CombatStackShip(this, i, mgr);
@@ -1065,7 +1048,7 @@ public class ShipFleet extends FleetBase {
                         int wpnCount = d.wpnCount(j);
                         int attackCount = d.weapon(j).attacksPerRound() * d.weapon(j).scatterAttacks();
                         int bombAtt = d.weapon(j).bombardAttacks() - bombardCount(i);
-                        int numAttacks = num[i] * attackCount * wpnCount * bombAtt;
+                        int numAttacks = num(i) * attackCount * wpnCount * bombAtt;
                         for (int k=0;k<numAttacks && system().isColonized();k++)
                             d.weapon(j).fireUpon(shipStack, colonyStack, 1, mgr);
                     }
@@ -1090,13 +1073,13 @@ public class ShipFleet extends FleetBase {
         ShipCombatManager mgr = galaxy().shipCombat();
         CombatStackColony planetStack = new CombatStackColony(sys.colony(), mgr);
 
-        for (int i=0;i<num.length;i++) {
-            if (num[i] > 0) {
+        for (int i=0;i<MAX_DESIGNS;i++) {
+            if (num(i) > 0) {
                 ShipDesign d = design(i);
                 for (int j=0;j<ShipDesign.maxWeapons();j++) {
                     if(d.weapon(j).isBioWeapon() && ignoreBio)
                         continue;
-                    damage += (num[i] * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, planetStack));
+                    damage += (num(i) * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, planetStack));
                 }
                 for (int j=0;j<d.maxSpecials();j++)
                     damage += d.special(j).estimatedBombardDamage(d, planetStack);
@@ -1314,9 +1297,6 @@ public class ShipFleet extends FleetBase {
     @Override
     public IMappedObject source() { return this; }
 
-    public boolean isOneShip() {
-        int count = Arrays.stream(this.num).sum();
-        return count == 1;
-    }
+    public boolean isOneShip()	{ return numShips() == 1; }
     public void degradePlanet(StarSystem sys)	{  } // BR:
 }

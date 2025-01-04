@@ -470,7 +470,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         List<ShipFleet> fleets = orbitingFleets();
         for (ShipFleet fleet: fleets) {
             if (fl.empId() == fleet.empId()) {
-                fleet.addShips(fl);
+                fleet.addFleetAndDisband(fl);
                 fl.clear();
                 return fleet;
             }

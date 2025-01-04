@@ -15,11 +15,12 @@
  */
 package rotp.model.ai.xilmi;
 
+import static rotp.model.colony.ColonySpendingCategory.MAX_TICKS;
+
 import rotp.model.ai.ShipPlan;
 import rotp.model.ai.interfaces.Governor;
 import rotp.model.colony.Colony;
 import rotp.model.colony.ColonySpendingCategory;
-import static rotp.model.colony.ColonySpendingCategory.MAX_TICKS;
 import rotp.model.combat.CombatStackColony;
 import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
@@ -650,8 +651,8 @@ public class AIGovernor implements Base, Governor {
         CombatStackColony planetStack = new CombatStackColony(sys.colony(), mgr);
         planetStack.num = 1;
 
-        for (int i=0;i<fl.num.length;i++) {
-            if (fl.num[i] > 0) {
+        for (int i=0;i<ShipDesignLab.MAX_DESIGNS;i++) {
+            if (fl.num(i) > 0) {
                 ShipDesign d = fl.empire().shipLab().design(i);
                 for (int j=0;j<ShipDesign.maxWeapons();j++)
                 {
@@ -659,7 +660,7 @@ public class AIGovernor implements Base, Governor {
                         planetStack.num = baseCount;
                     else
                         planetStack.num = 1;
-                    damage += (fl.num[i] * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, planetStack));
+                    damage += (fl.num(i) * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, planetStack));
                 }
                 for (int j=0;j<d.maxSpecials();j++)
                     damage += d.special(j).estimatedBombardDamage(d, planetStack);
