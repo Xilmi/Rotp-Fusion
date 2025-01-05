@@ -74,6 +74,9 @@ Later:
 
 ## What's New
 
+2025.01.05 (BR)
+- Fixed JRE number in the window.xml assembly file
+
 2025.01.04 (BR)
 - Fixed the bug of negative ship value in fleet.
   - The origin of the bug is still unknown, but the num array is now private and the access methods check the validity of the values.
