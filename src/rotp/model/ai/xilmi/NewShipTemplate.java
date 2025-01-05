@@ -341,9 +341,11 @@ public class NewShipTemplate implements Base {
         }
         //if opponent has repulsors we can't fire missiles point blank so they must be faster to compensate
         if(needRange)
-            topSpeed++;
+            topSpeed += 0.5;
         //when ships move diagonally they can outrun same-speed missiles so missiles must be faster
         topSpeed *= sqrt(2);
+        //missile doesn't need to get to center of target, only within 0.7 range of it. Since it has 2 turns time we can subtract 0.35 from the required speed
+        topSpeed -= 0.35;
         if(totalCost > 0)
         {
             longRangePct /= totalCost;
@@ -868,7 +870,7 @@ public class NewShipTemplate implements Base {
         {
             for (ShipWeapon wpn: allWeapons) {
                 if (wpn.canAttackShips() && mustTargetShips || !mustTargetShips) {
-                    //System.out.print("\n"+ai.empire().name()+" "+d.name()+" wpn: "+wpn.name()+" air: "+mustTargetShips+" shd: "+shield+" spc: "+wpn.space(d)+"/"+spaceAllowed);
+                    //System.out.print("\n"+ai.empire().name()+" "+d.name()+" wpn: "+wpn.name()+" air: "+mustTargetShips+" shd: "+shield+" spc: "+wpn.space(d)+"/"+spaceAllowed+" range: "+wpn.range());
                     //We don't want missiles: Can be outrun, can run out and strong counters exist
                     if(wpn.space(d) > spaceAllowed && downSize)
                         continue;
@@ -882,7 +884,7 @@ public class NewShipTemplate implements Base {
                     if(wpn.isMissileWeapon())
                     {
                         ShipWeaponMissileType swm = (ShipWeaponMissileType)wpn;
-                        //System.out.print("\n"+ai.empire().name()+" "+d.name()+" wpn: "+wpn.name()+" speed: "+swm.speed());
+                        //System.out.print("\n"+ai.empire().name()+" "+d.name()+" wpn: "+wpn.name()+" speed: "+swm.speed()+" / "+missileSpeedMinimum);
                         if(swm.speed() <= missileSpeedMinimum)
                             continue;
                         if(prohibitTwoRackMissiles && swm.shots() < 5)

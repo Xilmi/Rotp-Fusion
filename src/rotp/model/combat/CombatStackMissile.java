@@ -126,6 +126,8 @@ public class CombatStackMissile extends CombatStack {
         mgr.destroyStack(this);
     }
     public boolean pursue(float tgtMoveDist) {
+        if(!mgr.activeStacks().contains(target))
+            return true;
         if (mgr.moO1Asteroids)
         	return pursueMoO1(tgtMoveDist);
         if (!target.visible)
