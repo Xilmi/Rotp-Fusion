@@ -1,5 +1,7 @@
 package rotp.model.game;
 
+import static rotp.model.game.IMapOptions.divertExcessToResearch;
+
 import java.awt.Point;
 import java.io.Serializable;
 
@@ -295,6 +297,16 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public void		setReserve(int i)				{ reserveForSlow.silentSet(i); }
 	public String	reserveTT()						{ return reserveForSlow.govTooltips(); }
 	public String	reserveText()					{ return reserveForSlow.govLabelTxt(); }
+
+	public boolean	isReserveFromRich()				{ return reserveFromRich.get(); }
+	public void		setReserveFromRich(boolean b)	{ reserveFromRich.silentSet(b); }
+	public String	reserveFromRichTT()				{ return reserveFromRich.govTooltips(); }
+	public String	reserveFromRichText()			{ return reserveFromRich.govLabelTxt(); }
+
+	public boolean	isExcessToResearch()			{ return divertExcessToResearch.get(); }
+	public void		setExcessToResearch(boolean b)	{ divertExcessToResearch.silentSet(b); }
+	public String	excessToResearchTT()			{ return divertExcessToResearch.govTooltips(); }
+	public String	excessToResearchText()			{ return divertExcessToResearch.govLabelTxt(); }
 
 	/** Shipbuilding with Governor enabled */
 	public boolean	isShipbuilding()				{ return shipBuilding.get(); }

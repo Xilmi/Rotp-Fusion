@@ -370,9 +370,20 @@ public final class Empire implements Base, NamedObject, Serializable {
     public float maxX()                           { return maxX; }
     public float minY()                           { return minY; }
     public float maxY()                           { return maxY; }
-    public boolean divertColonyExcessToResearch() { return divertColonyExcessToResearch; }
-    public void toggleColonyExcessToResearch()    { divertColonyExcessToResearch = !divertColonyExcessToResearch; }
-    
+	public boolean divertColonyExcessToResearch() {
+		if (isPlayer())
+			return options().divertColonyExcessToResearch();
+		else
+			return divertColonyExcessToResearch;
+	}
+	public void toggleColonyExcessToResearch()    {
+		if (isPlayer()) {
+			divertColonyExcessToResearch = options().toggleDivertColonyExcessToResearch();
+			redoGovTurnDecisionsRich();
+		}
+		else
+			divertColonyExcessToResearch = !divertColonyExcessToResearch;
+	}
     public void changeColorId(int newColor) {
         int oldColor = colorId();
         
@@ -1478,6 +1489,13 @@ public final class Empire implements Base, NamedObject, Serializable {
             if (sv.empire(i) == this && sv.isColonized(i))
                 sv.colony(i).governIfPlayerHasRequest();
     }
+	public void redoGovTurnDecisionsRich() { // Only for player
+		for (int i = 0; i < sv.count(); ++i)
+			if (sv.empire(i) == this && sv.isColonized(i))
+				if (sv.isRich(i) || sv.isUltraRich(i))
+					sv.colony(i).governIfNeeded();
+	}
+
     /**
      * Spend reserve automatically (if enabled).
      *

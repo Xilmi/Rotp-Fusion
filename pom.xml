@@ -378,6 +378,7 @@
 					</execution>
 				</executions>
 				<configuration>
+					<!-- ##### Think to also update the version number in Windows.xml ##### -->
 					<url>
 						https://github.com/adoptium/temurin23-binaries/releases/download/jdk-23.0.1%2B11/OpenJDK23U-jre_x64_windows_hotspot_23.0.1_11.zip
 					</url>

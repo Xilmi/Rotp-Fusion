@@ -695,6 +695,8 @@ public class GovernorOptionsPanel extends BasePanel{
 		this.missileBases.setValue(options.getMinimumMissileBases());
 		this.shieldWithoutBases.setSelected(options.getShieldWithoutBases());
 		this.autospend.setSelected(options.isAutospend());
+		this.reserveFromRich.setSelected(options.isReserveFromRich());
+		this.excessToResearch.setSelected(options.isExcessToResearch());
 		this.reserve.setValue(options.getReserve());
 		this.shipbuilding.setSelected(options.isShipbuilding());
 		this.followColonyRequests.setSelected(options.isFollowingColonyRequests());
@@ -740,6 +742,8 @@ public class GovernorOptionsPanel extends BasePanel{
 		options.setMinimumMissileBases((Integer)missileBases.getValue());
 		options.setShieldWithoutBases(shieldWithoutBases.isSelected());
 		options.setAutospend(autospend.isSelected());
+		options.setReserveFromRich(reserveFromRich.isSelected());
+		options.setExcessToResearch(excessToResearch.isSelected());
 		options.setReserve((Integer)reserve.getValue());
 		options.setShipbuilding(shipbuilding.isSelected());
 		options.setfollowColonyRequests(followColonyRequests.isSelected());
@@ -858,7 +862,7 @@ public class GovernorOptionsPanel extends BasePanel{
         autoAttackShipCount = new GovernorJSpinner();
         autoScoutShipCountLabel = new javax.swing.JLabel();
         autoAttackShipCountLabel = new javax.swing.JLabel();
-        javax.swing.JPanel colonyPanel = new javax.swing.JPanel();
+        colonyPanel = new javax.swing.JPanel();
         autospend = new javax.swing.JCheckBox();
         reserve = new GovernorJSpinner();
         reserveLabel = new javax.swing.JLabel();
@@ -870,6 +874,8 @@ public class GovernorOptionsPanel extends BasePanel{
         terraformEarly = new GovernorJSpinner();
         terraformEarlyLabel = new javax.swing.JLabel();
         followColonyRequests = new javax.swing.JCheckBox();
+        reserveFromRich = new javax.swing.JCheckBox();
+        excessToResearch = new javax.swing.JCheckBox();
         javax.swing.JPanel spyPanel = new javax.swing.JPanel();
         spareXenophobes = new javax.swing.JCheckBox();
         autoSpy = new javax.swing.JCheckBox();
@@ -1381,6 +1387,26 @@ public class GovernorOptionsPanel extends BasePanel{
             }
         });
 
+        reserveFromRich.setText("Reserve from Rich and Ultra Rich colonies");
+        reserveFromRich.setToolTipText("Automatically spend reserve on planets with lowest production");
+        reserveFromRich.setName("RESERVE_FROM_RICH"); // NOI18N
+        reserveFromRich.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reserveFromRichActionPerformed(evt);
+            }
+        });
+
+        excessToResearch.setText("Excess to Research");
+        excessToResearch.setToolTipText("Automatically spend reserve on planets with lowest production");
+        excessToResearch.setName("DIVERT_EXCESS_TO_RESEARCH"); // NOI18N
+        excessToResearch.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excessToResearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout colonyPanelLayout = new javax.swing.GroupLayout(colonyPanel);
         colonyPanel.setLayout(colonyPanelLayout);
         colonyPanelLayout.setHorizontalGroup(
@@ -1388,26 +1414,35 @@ public class GovernorOptionsPanel extends BasePanel{
             .addGroup(colonyPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(shipbuilding)
                     .addGroup(colonyPanelLayout.createSequentialGroup()
                         .addComponent(missileBases)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(missileBasesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(shieldWithoutBases)
-                    .addComponent(followColonyRequests))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(colonyPanelLayout.createSequentialGroup()
+                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(colonyPanelLayout.createSequentialGroup()
+                                .addComponent(terraformEarly, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(terraformEarlyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(shipbuilding)
+                            .addComponent(shieldWithoutBases)
+                            .addComponent(legacyGrowthMode))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(colonyPanelLayout.createSequentialGroup()
-                        .addComponent(reserve, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(reserveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(legacyGrowthMode)
-                    .addComponent(autospend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(colonyPanelLayout.createSequentialGroup()
+                                .addComponent(reserve, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(reserveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(autospend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(reserveFromRich, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(excessToResearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(colonyPanelLayout.createSequentialGroup()
-                        .addComponent(terraformEarly)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(terraformEarlyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(followColonyRequests)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         colonyPanelLayout.setVerticalGroup(
             colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1423,24 +1458,31 @@ public class GovernorOptionsPanel extends BasePanel{
                             .addComponent(autospend)
                             .addComponent(shieldWithoutBases))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(legacyGrowthMode)
+                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(reserveFromRich)
                             .addComponent(shipbuilding))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(terraformEarlyLabel)
-                                .addComponent(terraformEarly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(followColonyRequests)))
+                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(excessToResearch)
+                            .addComponent(legacyGrowthMode)))
                     .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(reserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(reserveLabel)))
-                .addGap(2, 2, 2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(followColonyRequests)
+                    .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(terraformEarlyLabel)
+                        .addComponent(terraformEarly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, 0))
         );
 
         colonyPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {missileBases, missileBasesLabel});
 
         colonyPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {reserve, reserveLabel});
+
+        reserveFromRich.getAccessibleContext().setAccessibleDescription("Allocate spending from fully built rich and ultra-rich colonies to “industry” in order to redirect credit production to the empire reserve.");
+        excessToResearch.getAccessibleContext().setAccessibleDescription("Divert excess colony spending from treasury reserve to research.");
 
         spyPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Intelligence Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13))); // NOI18N
         spyPanel.setName("INTELLIGENCE_OPTIONS"); // NOI18N
@@ -1678,9 +1720,9 @@ public class GovernorOptionsPanel extends BasePanel{
                         .addComponent(autotransportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(raceImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(colonyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(spyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fleetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1905,6 +1947,16 @@ public class GovernorOptionsPanel extends BasePanel{
 		protectedUpdateColor();
 	}//GEN-LAST:event_brightnessPctStateChanged
 
+    private void excessToResearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excessToResearchActionPerformed
+        if (isAutoApply())
+        govOptions().setExcessToResearch(excessToResearch.isSelected());;
+    }//GEN-LAST:event_excessToResearchActionPerformed
+
+    private void reserveFromRichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reserveFromRichActionPerformed
+        if (isAutoApply())
+        govOptions().setReserveFromRich(reserveFromRich.isSelected());;
+    }//GEN-LAST:event_reserveFromRichActionPerformed
+
     private void followColonyRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_followColonyRequestsActionPerformed
         if (isAutoApply())
         govOptions().setfollowColonyRequests(followColonyRequests.isSelected());
@@ -2003,8 +2055,10 @@ public class GovernorOptionsPanel extends BasePanel{
     javax.swing.JLabel brightnessLabel;
     javax.swing.JSpinner brightnessPct;
     javax.swing.JButton cancelButton;
+    javax.swing.JPanel colonyPanel;
     javax.swing.JButton completionist;
     javax.swing.JCheckBox customSize;
+    javax.swing.JCheckBox excessToResearch;
     javax.swing.JCheckBox followColonyRequests;
     javax.swing.JCheckBox governorDefault;
     javax.swing.JCheckBox isOriginal;
@@ -2016,6 +2070,7 @@ public class GovernorOptionsPanel extends BasePanel{
     javax.swing.JButton okButton;
     javax.swing.JLabel raceImage;
     javax.swing.JSpinner reserve;
+    javax.swing.JCheckBox reserveFromRich;
     javax.swing.JLabel reserveLabel;
     javax.swing.JCheckBox shieldWithoutBases;
     javax.swing.JCheckBox shipbuilding;

@@ -27,7 +27,7 @@ final class GovOptions extends AbstractOptionsSubUI {
 				HEADER_SPACER_50,
 				new ParamTitle(HEAD_ID + "COLONY_OPTIONS"),
 				missileBasesMin, shieldAlones,
-				autoSpend, reserveForSlow,
+				autoSpend, reserveForSlow, reserveFromRich,
 				shipBuilding, followColonyRequests,
 				maxGrowthMode, terraformEarly
 				)));
@@ -44,7 +44,11 @@ final class GovOptions extends AbstractOptionsSubUI {
 				
 				HEADER_SPACER_50,
 				new ParamTitle(HEAD_ID + "STARGATES_OPTIONS"),
-				starGateOption
+				starGateOption,
+
+				HEADER_SPACER_50,
+				new ParamTitle("RELEVANT_PARAMETERS"),
+				divertExcessToResearch
 				)));
 		SafeListParam list = new SafeListParam(Arrays.asList(
 				new ParamTitle(HEAD_ID + "ASPECT_OPTIONS"),

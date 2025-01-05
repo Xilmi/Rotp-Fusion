@@ -639,10 +639,14 @@ GAME_SETTINGS_SAVEDIR_DESC2       | The save directory is currently set to: %1
 
 GAME_SETTINGS_DISPLAY_YEAR        | Display Year: %1
 GAME_SETTINGS_DISPLAY_YEAR_DESC   | On the Galaxy map: Displays either the game's current turn or your empire's current year
+
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH          | Excess to Research: %1
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_YES_DESC | Excess colony spending is diverted to research.
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_NO_DESC  | Excess colony spending is sent to treasury.
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC     | Divert excess colony spending from treasury reserve to research.
+GOVERNOR_DIVERT_EXCESS_TO_RESEARCH_LABEL         | Excess to Research
+GOVERNOR_DIVERT_EXCESS_TO_RESEARCH_DESC          | →GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC←
+
 GAME_SETTINGS_DEFAULT_MAX_BASES              | Max Bases: %1
 GAME_SETTINGS_DEFAULT_MAX_BASES_DESC         | Default Maximum Missile Bases for New Colonies.
 
@@ -5009,6 +5013,10 @@ GOVERNOR_FOLLOW_COLONY_REQUESTS_YES      | Follow
 GOVERNOR_FOLLOW_COLONY_REQUESTS_NO       | Ignore
 GOVERNOR_FOLLOW_COLONY_REQUESTS_YES_DESC | The Player still have some control over the Governor.
 GOVERNOR_FOLLOW_COLONY_REQUESTS_NO_DESC  | The Governor know what is good for the colonies.
+
+GOVERNOR_RESERVE_FROM_RICH_DESC      | Allocate spending from fully built rich and ultra-rich colonies to “industry” in order to redirect credit production to their planetary reserve.
+GOVERNOR_RESERVE_FROM_RICH           | Reserve from Rich: %1
+GOVERNOR_RESERVE_FROM_RICH_LABEL     | Reserve from Rich and Ultra Rich colonies.
 
 GOVERNOR_LEGACY_GROWTH_MODE_DESC     | Develop colonies as quickly as possible.
 GOVERNOR_LEGACY_GROWTH_MODE          | Rapid growth: %1

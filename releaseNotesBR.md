@@ -8,6 +8,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- New Governor option to tell the rich colonies to build up their reserve.
+- Fixed missiles hitting retreated targets (Xilmi)
+- AI improvement: Speed-requirement for missiles in ship-designs reduced (Xilmi)
+- Fixed missing JRE in Zip file.
 - Fixed exploit that can be used to boost research with poor/ultra-poor colonies.
 - Fixed the bug of negative ship value in fleet.
 - Fixed invisible ship in combat bug.
@@ -23,19 +27,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Updated to Java 11.
 - New Square grid available with alt-W
 - Eco growth is now displayed with one decimal.
-- Obedient Governor improvement:
-  - Will follow the request "Develop colonies as quickly as possible".
-  - Eco growth is no more rounded, for a more precise adjustment.
-  - Mandatory growth while bellow 50% filled.
-  - Keep a minimal growth of 2pop/years.
-  - New prioritization sequence:
-    - Defense if more than minimal base, and defense is tagged.
-    - Ship if build ship limit is given.
-    - Terraform, grow and update the colony factories.
-    - Tagged fields.
-    - Defenses and research.
-- New option to block governor from sending transport from a colony.
-  - Ctrl-Click on "Send Transports" Button.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

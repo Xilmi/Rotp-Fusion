@@ -89,9 +89,9 @@
                   <Component id="raceImage" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="colonyPanel" min="-2" max="-2" attributes="0"/>
-                  <Component id="spyPanel" max="32767" attributes="0"/>
+                  <Component id="spyPanel" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -632,34 +632,48 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="shipbuilding" alignment="0" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="missileBases" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="missileBasesLabel" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="shieldWithoutBases" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="followColonyRequests" alignment="0" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="terraformEarly" min="-2" pref="55" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="terraformEarlyLabel" min="-2" pref="144" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="shipbuilding" alignment="0" max="-2" attributes="0"/>
+                              <Component id="shieldWithoutBases" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="legacyGrowthMode" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="reserve" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="reserveLabel" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="reserve" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="reserveLabel" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="autospend" max="32767" attributes="0"/>
+                              <Component id="reserveFromRich" max="32767" attributes="0"/>
+                              <Component id="excessToResearch" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
-                      <Component id="legacyGrowthMode" min="-2" max="-2" attributes="0"/>
-                      <Component id="autospend" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="terraformEarly" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="terraformEarlyLabel" max="32767" attributes="0"/>
+                          <Component id="followColonyRequests" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -679,17 +693,14 @@
                               <Component id="shieldWithoutBases" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="legacyGrowthMode" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="shipbuilding" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="reserveFromRich" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="shipbuilding" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="terraformEarlyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="terraformEarly" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="followColonyRequests" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="excessToResearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="legacyGrowthMode" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="2" attributes="0">
@@ -697,7 +708,15 @@
                           <Component id="reserveLabel" linkSize="19" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="followColonyRequests" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                          <Component id="terraformEarlyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="terraformEarly" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -812,6 +831,32 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="followColonyRequestsActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="reserveFromRich">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Reserve from Rich and Ultra Rich colonies"/>
+            <Property name="toolTipText" type="java.lang.String" value="Automatically spend reserve on planets with lowest production"/>
+            <Property name="name" type="java.lang.String" value="RESERVE_FROM_RICH" noResource="true"/>
+          </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Allocate spending from fully built rich and ultra-rich colonies to &#x201c;industry&#x201d; in order to redirect credit production to the empire reserve."/>
+          </AccessibilityProperties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reserveFromRichActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="excessToResearch">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Excess to Research"/>
+            <Property name="toolTipText" type="java.lang.String" value="Automatically spend reserve on planets with lowest production"/>
+            <Property name="name" type="java.lang.String" value="DIVERT_EXCESS_TO_RESEARCH" noResource="true"/>
+          </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Divert excess colony spending from treasury reserve to research."/>
+          </AccessibilityProperties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excessToResearchActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

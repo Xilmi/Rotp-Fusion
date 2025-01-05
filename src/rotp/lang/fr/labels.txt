@@ -639,10 +639,14 @@ GAME_SETTINGS_SAVEDIR_DESC2       | Le répertoire de sauvegarde est actuellemen
 
 GAME_SETTINGS_DISPLAY_YEAR        | Afficher l’Année : %1
 GAME_SETTINGS_DISPLAY_YEAR_DESC   | Sur l’écran Galaxie : Affiche soit le tour actuel du jeu ou l’année en cours de votre empire
-GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH          | Rechercher : %1
+
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH          | Les excédents vont à la recherche : %1
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_YES_DESC | Les dépenses excédentaires des colonies sont détournées vers la recherche.
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_NO_DESC  | Les dépenses excédentaires des colonies sont versées au Trésor.
 GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC     | Les dépenses excédentaires des colonies sont reversées à la recherche.
+GOVERNOR_DIVERT_EXCESS_TO_RESEARCH_LABEL         | Les excédents vont à la recherche
+GOVERNOR_DIVERT_EXCESS_TO_RESEARCH_DESC          | →GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC←
+
 GAME_SETTINGS_DEFAULT_MAX_BASES              | Nombre max. de bases : %1
 GAME_SETTINGS_DEFAULT_MAX_BASES_DESC         | Nombre maximal de bases de missiles par défaut pour les nouvelles colonies.
 
@@ -4961,7 +4965,7 @@ GOVERNOR_STARGATES_OPTIONS_LABEL        | Portes des étoiles
 GOVERNOR_STARGATES_OPTIONS_TT           | Où l’IA devrait-elle construire des portes des étoiles ?
 
 GOVERNOR_STARGATES_OPTIONS_DESC      | Quelles colonies vont construire automatiquement des portes des étoiles? automatiquement.
-GOVERNOR_STARGATES_OPTIONS           | Gates Built : %1
+GOVERNOR_STARGATES_OPTIONS           | Construire les portes des étoiles : %1
 GOVERNOR_STARGATES_NONE              | Aucunes
 GOVERNOR_STARGATES_RICH              | Riches
 GOVERNOR_STARGATES_ALL               | Toutes
@@ -5009,6 +5013,10 @@ GOVERNOR_FOLLOW_COLONY_REQUESTS_YES      | Prioriser
 GOVERNOR_FOLLOW_COLONY_REQUESTS_NO       | Ignorer
 GOVERNOR_FOLLOW_COLONY_REQUESTS_YES_DESC | Le joueur garde un certain contrôle sur le gouverneur.
 GOVERNOR_FOLLOW_COLONY_REQUESTS_NO_DESC  | Le gouverneur sait ce qui est bon pour les colonies.
+
+GOVERNOR_RESERVE_FROM_RICH_DESC      | Affecter les dépenses des colonies riches et ultra-riches entièrement construites à « l’industrie » afin de rediriger la production de crédit vers les réserves de la colonie. Seulement activé lorque les crédits ne sont pas redirigé vers la recherche.
+GOVERNOR_RESERVE_FROM_RICH           | Les colonies riches épargnent : %1
+GOVERNOR_RESERVE_FROM_RICH_LABEL     | Assigner les colonies riches à la création de réserves.
 
 GOVERNOR_LEGACY_GROWTH_MODE_DESC     | Développer les colonies le plus rapidement possible.
 GOVERNOR_LEGACY_GROWTH_MODE          | Croissance rapide : %1

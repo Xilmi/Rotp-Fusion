@@ -2215,11 +2215,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
     private void manage(boolean loweredShipPriority) {
         GovernorOptions gov = govOptions();
         GovWorksheet gws	= new GovWorksheet(this, loweredShipPriority);
-    	// optimized for No Ship guessing: To build ship, the player should ask for it.
-    	// Either by setting a target number
-    	// or by tagging the field. (blue)
-    	// or by locking it
-    	// Will still try to keep direct allocations.
+		float prevTech		= totalPlanetaryResearch();
+		// optimized for No Ship guessing: To build ship, the player should ask for it.
+		// Either by setting a target number
+		// or by tagging the field. (blue)
+		// or by locking it
+		// Will still try to keep direct allocations.
 
     	// unlock always managed sliders
         locked(DEFENSE,  false);
@@ -2243,11 +2244,31 @@ public final class Colony implements Base, IMappedObject, Serializable {
 		allocation(ECOLOGY, ecoAll);
         handleGovSpending(gws);
 
+		// Check if Rich and Ultra contribute to reserve
+		checkForReserveFromRich();
+
         // To prevent change!
         locked(DEFENSE, allocation(DEFENSE) != 0);
         locked(ECOLOGY, true);
         locked(INDUSTRY, true);
+
+		float techAdj = totalPlanetaryResearch() - prevTech;
+		RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
+
     }
+	private void checkForReserveFromRich() {
+		// Check if Rich and Ultra contribute to reserve
+		if (planet.isResourceRich() || planet.isResourceUltraRich()) {
+			if(!govUrgeResearch()
+					&& !prioritizeResearch()
+					&& govOptions().isReserveFromRich()
+					&& !options().divertColonyExcessToResearch()) {
+				int research = allocation(RESEARCH);
+				addAllocation(INDUSTRY, research);
+				allocation(RESEARCH, 0);
+			}
+		}
+	}
     public void govern() { govern(false); }
     /**
      * Govern the colony.
@@ -2360,7 +2381,11 @@ public final class Colony implements Base, IMappedObject, Serializable {
             increment(Colony.SHIP, allocForShips);
         }
         locked(Colony.ECOLOGY, true);
-        float techAdj = totalPlanetaryResearch() - prevTech;
+
+		// Check if Rich and Ultra contribute to reserve
+		checkForReserveFromRich();
+
+		float techAdj = totalPlanetaryResearch() - prevTech;
         RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
         /*System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+name()+" After Govern:");
         System.out.println(galaxy().currentTurn()+" "+empire.name()+" Ship: "+allocation(SHIP));

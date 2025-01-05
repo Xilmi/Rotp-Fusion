@@ -74,8 +74,17 @@ Later:
 
 ## What's New
 
+2025.01.05 (Xilmi)
+- Fixed missiles hitting retreated targets
+  - Fixed a bug which caused missiles still hitting targets that have already retreated in auto- or smart-resolve.
+- Speed-requirement for missiles in ship-designs reduced
+  - When considering whether to use missiles for their ship-designs the AI now has a lower speed-requirement for the missiles based on the enemie's designs speeds.
+  - The distance-advantage of repulsors is split above the two turns the missile will travel instead being considered twice.
+  - It is also taken into consideration that the missile only needs to get into 0.7 range instead of having to catch up to the target's center.
+
 2025.01.05 (BR)
 - Fixed JRE number in the window.xml assembly file
+- New Governor option to tell the rich colonies to build up their reserve.
 
 2025.01.04 (BR)
 - Fixed the bug of negative ship value in fleet.

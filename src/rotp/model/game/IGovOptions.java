@@ -3,6 +3,7 @@ package rotp.model.game;
 import static rotp.model.game.DefaultValues.MOO1_DEFAULT;
 import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
 
+import rotp.model.galaxy.Galaxy;
 import rotp.model.game.GovernorOptions.GatesGovernor;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
@@ -55,6 +56,17 @@ public interface IGovOptions {
 			.setIncrements(1, 5, 20)
 			.pctValue(true);
 	ParamBoolean followColonyRequests	= new ParamBoolean(GOV_UI, "FOLLOW_COLONY_REQUESTS", false);
+	ParamBoolean reserveFromRich	= new ReserveFromRich();
+	class ReserveFromRich extends ParamBoolean {
+		ReserveFromRich() { super(GOV_UI, "RESERVE_FROM_RICH", false); }
+		@Override public Boolean set(Boolean b)	{
+			Boolean val = super.set(b);
+			Galaxy galaxy = GameSession.instance().galaxy();
+			if (galaxy != null)
+				galaxy.player().redoGovTurnDecisionsRich();
+			return val;
+		}
+	}
 
 	// Intelligence Options
 	ParamBoolean auto_Infiltrate	= new ParamBoolean(GOV_UI, "AUTO_INFILTRATE", true);

@@ -1,5 +1,6 @@
 package rotp.model.game;
 
+import rotp.model.galaxy.Galaxy;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -80,15 +81,31 @@ public interface IMapOptions extends IBaseOptsTools {
 		return (showShipRanges.get().equals("S"))
 				|| (showShipRanges.get().equals("SR"));
 	}
-	
+
 	ParamInteger defaultMaxBases	= new ParamInteger( GAME_UI, "DEFAULT_MAX_BASES", 0)
 			.setDefaultValue(ROTP_DEFAULT, 1)
 			.setLimits(0, 5000)
 			.setIncrements(1, 5, 20);
 	default int	defaultMaxBases() { return defaultMaxBases.get(); }
 
-	ParamBoolean divertExcessToResearch	= new ParamBoolean( GAME_UI, "DIVERT_EXCESS_TO_RESEARCH", true);
-	default boolean	divertColonyExcessToResearch()	{ return divertExcessToResearch.get(); }
+	ParamBoolean divertExcessToResearch	= new DivertExcessToResearch();
+	default boolean	divertColonyExcessToResearch()				{ return divertExcessToResearch.get(); }
+	default boolean	setDivertColonyExcessToResearch(boolean b)	{ return divertExcessToResearch.set(b); }
+	default boolean	toggleDivertColonyExcessToResearch()		{
+		divertExcessToResearch.next();
+		return divertExcessToResearch.get();
+	}
+	class DivertExcessToResearch extends ParamBoolean {
+		DivertExcessToResearch() { super(GAME_UI, "DIVERT_EXCESS_TO_RESEARCH", true); }
+		@Override public Boolean set(Boolean b)	{
+			Boolean val = super.set(b);
+			Galaxy galaxy = GameSession.instance().galaxy();
+			if (galaxy != null)
+				if (IGameOptions.reserveFromRich.get())
+					galaxy.player().redoGovTurnDecisionsRich();
+			return val;
+		}
+	}
 
 	ParamBoolean displayYear	= new ParamBoolean( // Duplicate Do not add the list
 			GAME_UI, "DISPLAY_YEAR", false);
