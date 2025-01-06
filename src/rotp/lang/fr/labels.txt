@@ -1621,7 +1621,7 @@ SETUP_OPPONENT_AI_RANDOM_NOBAR    | IA: Aléa\rel
 SETUP_OPPONENT_AI_SELECT_HELP     | Pour pouvoir sélectionner une IA différente pour chaque adversaire. <br> Un nouveau champ de sélection sera ajouté au bas de chaque icône adverse.
 SETUP_OPPONENT_AI_SELECT          | IA : Sélectionnable
 SETUP_OPPONENT_AI_PLAYER_HELP     | Le contrôle est entre vos mains.
-SETUP_OPPONENT_AI_PLAYER          | IA : Arrêt
+SETUP_OPPONENT_AI_PLAYER          | IA : Aucune
 SETUP_OPPONENT_CR                 | Aptitudes :
 SETUP_OPP_CR_OPTIONS_HELP         | Aptitudes par défaut pour les adversaires aux espèces personnalisées :<br> « Espèce originale » = Aptitudes standard de l’espèce sélectionnée (dans les cases ci-dessous) ;<br> « Retravaillée » = Nouvelles aptitudes que vous avez enregistrées avec le nom par défaut de l’espèce.<br> (ex : RACE_DARLOK pour les Darloks) ;<br> *Espèce = Espèce originale spécifique ; ou toute autre espèce personnalisée que vous avez créée.
 

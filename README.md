@@ -74,6 +74,10 @@ Later:
 
 ## What's New
 
+2025.01.06 (BR)
+- Improved mouse Alt key management.
+- Colony panel: Ship build limit "Take" percentage can be adjusted on multi selection.
+
 2025.01.05 (Xilmi)
 - Fixed missiles hitting retreated targets
   - Fixed a bug which caused missiles still hitting targets that have already retreated in auto- or smart-resolve.

@@ -189,15 +189,16 @@ public class EmpireColonyInfoPane extends BasePanel {
         abstract protected String titleString();
         abstract protected int value(List<Colony> c);
         abstract protected int maxValue(List<Colony> c);
-        @Override public void mouseClicked(MouseEvent e)	{ }
-        @Override public void mouseEntered(MouseEvent e)	{ setModifierKeysState(e); }
-        @Override public void mouseExited(MouseEvent e)		{
+		@Override public void mouseClicked(MouseEvent e)	{ parentUI.enterCurrentPane(this); }
+		@Override public void mouseEntered(MouseEvent e)	{ parentUI.enterCurrentPane(this); }
+		@Override public void mouseExited(MouseEvent e)		{
+			parentUI.exitCurrentPane(this);
             if (hoverBox != null) {
                 hoverBox = null;
                 repaint();
             }
         }
-        @Override public void mousePressed(MouseEvent e)	{ }
+		@Override public void mousePressed(MouseEvent e)	{ parentUI.enterCurrentPane(this); }
         @Override public void mouseReleased(MouseEvent e)	{
             if (e.getButton() > 3)
                 return;
@@ -208,8 +209,9 @@ public class EmpireColonyInfoPane extends BasePanel {
             	parentUI.repaint();
             }
         }
-        @Override public void mouseDragged(MouseEvent e)	{ }
-        @Override public void mouseMoved(MouseEvent e)		{
+		@Override public void mouseDragged(MouseEvent e)	{ parentUI.enterCurrentPane(this); }
+		@Override public void mouseMoved(MouseEvent e)		{
+			parentUI.enterCurrentPane(this);
             int x = e.getX();
             int y = e.getY();
             Shape newHover = null;
@@ -220,7 +222,7 @@ public class EmpireColonyInfoPane extends BasePanel {
                 repaint();
             }
         }
-        @Override public void mouseWheelMoved(MouseWheelEvent e)	{ }
+		@Override public void mouseWheelMoved(MouseWheelEvent e)	{ parentUI.enterCurrentPane(this); }
         @Override public void paintComponent(Graphics g0)	{
             Graphics2D g = (Graphics2D) g0;
 
@@ -479,6 +481,7 @@ public class EmpireColonyInfoPane extends BasePanel {
             g.setStroke(prevStroke);
         }
         @Override public void mouseExited(MouseEvent e)		{
+        	parentUI.exitCurrentPane(this);
             if (hoverBox != null) {
                 hoverBox = null;
                 repaint();
@@ -486,6 +489,7 @@ public class EmpireColonyInfoPane extends BasePanel {
             colonies.clear();
         }
         @Override public void mouseReleased(MouseEvent e)	{
+        	parentUI.enterCurrentPane(this);
             if (e.getButton() > 3)
                 return;
             int x = e.getX();
@@ -501,6 +505,7 @@ public class EmpireColonyInfoPane extends BasePanel {
             parentUI.repaint();
         }
         @Override public void mouseMoved(MouseEvent e)		{
+        	parentUI.enterCurrentPane(this);
             int x = e.getX();
             int y = e.getY();
 
@@ -520,6 +525,7 @@ public class EmpireColonyInfoPane extends BasePanel {
             }
         }
         @Override public void mouseWheelMoved(MouseWheelEvent e)	{
+        	parentUI.enterCurrentPane(this);
             if (e.getWheelRotation() < 0)
                 incrementBases(e);
             else

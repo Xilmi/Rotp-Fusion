@@ -16,11 +16,14 @@
 package rotp.ui;
 
 import java.awt.event.KeyEvent;
+
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
+
+import rotp.util.ModifierKeysState;
 
 public class BaseTextField extends JTextField {
     private static final long serialVersionUID = 1L;
@@ -42,6 +45,7 @@ public class BaseTextField extends JTextField {
     public void setLimit(int i )   { limit = i; }
     @Override
     protected void processKeyEvent(KeyEvent k) {
+    	ModifierKeysState.set(k);
         if ((k.getKeyCode() == KeyEvent.VK_TAB) && (tabNotifier != null)) {
             System.out.println("Tab for: "+this.getSelectedText());
             tabNotifier.keyPressed(k);

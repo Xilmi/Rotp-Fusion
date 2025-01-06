@@ -405,8 +405,8 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
     }
 
     // used for keyEvents sent from RotPUI
-    public void keyPressed(KeyEvent e) { }
-    public void keyReleased(KeyEvent e) { }
+    public void keyPressed(KeyEvent e) { setModifierKeysState(e); }
+    public void keyReleased(KeyEvent e) { setModifierKeysState(e); }
     public void keyTyped(KeyEvent e) { }
     public void playAmbience() {
             playAmbience(ambienceSoundKey());

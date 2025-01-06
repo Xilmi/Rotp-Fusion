@@ -17,6 +17,7 @@ package rotp.ui.main.overlay;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+
 import rotp.model.Sprite;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
@@ -28,6 +29,7 @@ public abstract class MapOverlay implements Base {
     abstract public void paintOverMap(MainUI parent, GalaxyMapPanel ui, Graphics2D g2);
     abstract public boolean handleKeyPress(KeyEvent e);
 
+	public boolean handleKeyReleased(KeyEvent e)   { return false; }
     public boolean consumesClicks(Sprite spr)      { return true; }
     public boolean masksMouseOver(int x, int y)    { return false; }
     public boolean canChangeMapScale()             { return false; }

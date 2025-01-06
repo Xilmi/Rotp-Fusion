@@ -148,16 +148,17 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public  transient boolean reallocationRequired = false;
 
 
-    public int     govShipBuildSparePct()		{ return govShipBuildSparePct; }
-    public void    resetShipBuildSparePct()		{ govShipBuildSparePct = 0; }
-    public int     incrShipBuildSparePct(int i)	{
+	public int     govShipBuildSparePct()		{ return govShipBuildSparePct; }
+	public void    govShipBuildSparePct(int i)	{ govShipBuildSparePct = i; }
+	public void    resetShipBuildSparePct()		{ govShipBuildSparePct = 0; }
+	public int     incrShipBuildSparePct(int i)	{
    		govShipBuildSparePct += i;
 		if (govShipBuildSparePct > 90)
 			govShipBuildSparePct = 0;
-    	else if (govShipBuildSparePct < 0)
-    		govShipBuildSparePct = 90;
-    	return govShipBuildSparePct;
-    }
+		else if (govShipBuildSparePct < 0)
+			govShipBuildSparePct = 90;
+		return govShipBuildSparePct;
+	}
     public boolean govUrgeShield()				{ return govUrgeShield; }
     public void    govUrgeShield(boolean b)		{ govUrgeShield = b; }
     public boolean govUrgeBases()				{ return govUrgeBases; }

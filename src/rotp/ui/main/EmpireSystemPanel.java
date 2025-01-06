@@ -75,14 +75,27 @@ public class EmpireSystemPanel extends SystemPanel {
     private EmpireColonyFoundedPane foundedPane;
     private EmpireColonyInfoPane infoPane;
     private boolean lastAltIsDown = false;
-    
+	private BasePanel currentPane = null;
+
     public EmpireSystemPanel(SpriteDisplayPanel p) {
         parentSpritePanel = p;
         init();
     }
-    private void init() {
-        initModel();
-    }
+	private void init()	{ initModel(); }
+	@Override public void enterCurrentPane(BasePanel pane)	{ currentPane = pane; }
+	@Override public void exitCurrentPane(BasePanel pane)	{
+		if (currentPane == pane)
+			currentPane = null;
+	}
+	private void repaintOnAltChange() {
+		if (lastAltIsDown == isAltDown())
+			return;
+		lastAltIsDown = !lastAltIsDown;
+		if (currentPane != null)
+			currentPane.repaint();
+		else
+			repaint();
+	}
     public void releaseObjects() { }
 
     @Override
@@ -101,6 +114,7 @@ public class EmpireSystemPanel extends SystemPanel {
     @Override
     public void keyPressed(KeyEvent e) {
     	setModifierKeysState(e); // BR: For the Flag color selection
+    	repaintOnAltChange();
         int k = e.getKeyCode();
         boolean shift = e.isShiftDown();
         boolean isAltDown = e.isAltDown();
@@ -133,11 +147,11 @@ public class EmpireSystemPanel extends SystemPanel {
             	misClick();
             	return;
         }
-        if (isAltDown != lastAltIsDown) {
-        	lastAltIsDown = isAltDown;
-        	repaint();
-        }
     }
+	@Override public void keyReleased(KeyEvent e) {
+		setModifierKeysState(e);
+		repaintOnAltChange();
+	}
     public void nextShipDesign() {
         StarSystem sys = parentSpritePanel.systemViewToDisplay();
         if (sys == null)
@@ -247,7 +261,7 @@ public class EmpireSystemPanel extends SystemPanel {
         private final int upButtonY[] = new int[3];
         private final int downButtonX[] = new int[3];
         private final int downButtonY[] = new int[3];
-        private boolean inGovLimitBox = false;;
+        private boolean inGovLimitBox = false;
         private Rectangle limitBox = new Rectangle();
         private boolean hasPreview = false;
 
@@ -797,27 +811,23 @@ public class EmpireSystemPanel extends SystemPanel {
         	return !sys.hasStargate(player()) && rallyPointEnabled() && hasStargate(); }
         private boolean rallyPointEnabled() { return !session().performingTurn() && player().canRallyFleetsFrom(id(parentSpritePanel.systemViewToDisplay())); }
         private boolean transportEnabled() { return !session().performingTurn() && player().canSendTransportsFrom(parentSpritePanel.systemViewToDisplay()); }
-        @Override
-        public void mouseClicked(MouseEvent arg0) { }
-        @Override
-        public void mouseEntered(MouseEvent arg0)	{
-        	inGovLimitBox = true;
-        	setModifierKeysState(arg0);
-        	repaint();
-        }
-        @Override
-        public void mouseExited(MouseEvent arg0)	{
-        	inGovLimitBox = false;
-        	setModifierKeysState(arg0);
-            if (hoverBox != null) {
-                hoverBox = null;
-                repaint();
-            }
-        }
-        @Override
-        public void mousePressed(MouseEvent arg0) { }
-        @Override
-        public void mouseReleased(MouseEvent e) {
+		@Override public void mouseClicked(MouseEvent arg0)	{ enterCurrentPane(this); }
+		@Override public void mouseEntered(MouseEvent arg0)	{
+			enterCurrentPane(this);
+			inGovLimitBox = true;
+			repaint();
+		}
+		@Override  public void mouseExited(MouseEvent arg0)	{
+			exitCurrentPane(this);
+			inGovLimitBox = false;
+			if (hoverBox != null) {
+				hoverBox = null;
+				repaint();
+			}
+		}
+		@Override public void mousePressed(MouseEvent arg0)	{ enterCurrentPane(this); }
+		@Override public void mouseReleased(MouseEvent e)	{
+			enterCurrentPane(this);
             if (e.getButton() > 3)
                 return;
             int x = e.getX();
@@ -844,7 +854,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 adjAmt *= 5;
             if (ctrlPressed)
                 adjAmt *= 20;
-                    
+
             if (upArrow.contains(x,y))
                 incrementBuildLimit(adjAmt);
             else if (downArrow.contains(x,y)) 
@@ -912,10 +922,9 @@ public class EmpireSystemPanel extends SystemPanel {
                 }
             }
         }
-        @Override
-        public void mouseDragged(MouseEvent arg0) { }
-        @Override
-        public void mouseMoved(MouseEvent e) {
+		@Override public void mouseDragged(MouseEvent arg0) { enterCurrentPane(this); }
+		@Override public void mouseMoved(MouseEvent e)		{
+			enterCurrentPane(this);
             int x = e.getX();
             int y = e.getY();
             Shape prevHover = hoverBox;
@@ -947,8 +956,8 @@ public class EmpireSystemPanel extends SystemPanel {
             if (prevHover != hoverBox)
                 repaint();
         }
-        @Override
-        public void mouseWheelMoved(MouseWheelEvent e) {
+		@Override public void mouseWheelMoved(MouseWheelEvent e) {
+			enterCurrentPane(this);
             int x = e.getX();
             int y = e.getY();
             

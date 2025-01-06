@@ -23,6 +23,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.Ship;
@@ -280,6 +281,10 @@ public class SpriteDisplayPanel extends BasePanel implements SystemViewer, Mouse
         if (currentPanel != null)
             currentPanel.keyPressed(e);
     }
+	@Override public void keyReleased(KeyEvent e) {
+		if (currentPanel != null)
+			currentPanel.keyReleased(e);
+	}
     private void initModel() {
         setBackground(MainUI.paneBackground());
         setLayout(layout);

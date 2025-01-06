@@ -42,6 +42,10 @@ public class MapOverlayNone extends MapOverlay {
     @Override public boolean hoveringOverSprite(Sprite o) { return false; }
     @Override public void advanceMap()                    { parent.resumeTurn(); }
     @Override public void paintOverMap(MainUI parent, GalaxyMapPanel ui, Graphics2D g2) { }
+	@Override public boolean handleKeyReleased(KeyEvent e) {
+		parent.displayPanel().keyReleased(e);
+		return true;
+	}
     @Override public boolean handleKeyPress(KeyEvent e) {
     	// BR: For the Flag color selection
     	// setModifierKeysState(e); // Already done in MainUI

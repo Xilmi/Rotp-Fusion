@@ -16,6 +16,7 @@
 package rotp.ui;
 
 import java.util.List;
+
 import rotp.model.galaxy.StarSystem;
 
 public interface SystemViewer {
@@ -24,4 +25,7 @@ public interface SystemViewer {
     default String subPanelTextureName()            { return null; }
     default List<StarSystem> systemsToDisplay()     { return null; }
     default void repaintAll()                       { repaint(); }
+	// BR: added for Alt Key management with mouse
+	default void enterCurrentPane(BasePanel pane)   { };
+	default void exitCurrentPane(BasePanel pane)    { };
 }

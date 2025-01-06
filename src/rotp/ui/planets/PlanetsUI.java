@@ -95,24 +95,24 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
     private static final Color selectedC = new Color(178,124,87);
     private static final Color unselectedC = new Color(112,85,68);
     private static final Color sliderBoxBlue = new Color(34,140,142);
-    static final Color enabledArrowColor = Color.black;
-    static final Color disabledArrowColor = new Color(65,65,65);
+    private static final Color enabledArrowColor = Color.black;
+    private static final Color disabledArrowColor = new Color(65,65,65);
 
     private static Palette palette;
     private static BaseTextField notesField;
     private static BaseTextField nameField;
-    final static int UP_ACTION = 1;
-    final static int DOWN_ACTION = 2;
-    final static String CANCEL_ACTION = "cancel-input";
+    private final static int UP_ACTION = 1;
+    private final static int DOWN_ACTION = 2;
+    private final static String CANCEL_ACTION = "cancel-input";
 
     private int pad = 10;
     private int helpFrame = 0;
     private List<StarSystem> displayedSystems;
     private final HashMap<Integer, DataView> views = new HashMap<>();
 
-    Rectangle ecologyBox = new Rectangle();
-    Rectangle industryBox = new Rectangle();
-    Rectangle militaryBox = new Rectangle();
+    private Rectangle ecologyBox = new Rectangle();
+    private Rectangle industryBox = new Rectangle();
+    private Rectangle militaryBox = new Rectangle();
 
     private final TransferReserveUI transferReservePane;
     private final PlanetDisplayPanel planetDisplayPane;
@@ -122,13 +122,16 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
     private EmpireColonyFoundedPane colonyFoundedPane;
     private MultiColonySpendingPane multiSpendingPane;
 
-    BasePanel rightPlanetPanel;
+    private BasePanel rightPlanetPanel;
     private final CardLayout planetCardLayout = new CardLayout();
 
     private final PlanetsUI instance;
     private final PlanetListingUI planetListing;
     private PlanetDataListingUI listingUI;
     private LinearGradientPaint backGradient;
+
+	private boolean lastAltIsDown = false;
+	private BasePanel currentPane = null;
 
     public PlanetsUI() {
         palette = Palette.named("Brown");
@@ -181,6 +184,18 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
 
         initDataViews();
     }
+	@Override public void enterCurrentPane(BasePanel pane)	{ currentPane = pane; }
+	@Override public void exitCurrentPane(BasePanel pane)	{
+		if (currentPane == pane)
+			currentPane = null;
+	}
+	private void repaintOnAltChange() {
+		if (lastAltIsDown == isAltDown())
+			return;
+		lastAltIsDown = !lastAltIsDown;
+		if (currentPane != null)
+			currentPane.repaint();
+	}
     private void showSinglePlanetPanel() { planetCardLayout.show(rightPlanetPanel, SINGLE_PLANET_PANEL); }
     private void showMultiPlanetPanel() { planetCardLayout.show(rightPlanetPanel, MULTI_PLANET_PANEL); }
     private void initTextFields() {
@@ -630,9 +645,9 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         g.setPaint(backGradient);
         g.fillRect(s10,getHeight()-scaled(200),getWidth()-s20, scaled(190));
     }
-    @Override
-    public void keyPressed(KeyEvent e) {
-    	setModifierKeysState(e); // BR: For the Flag color selection
+	@Override public void keyPressed(KeyEvent e) {
+		setModifierKeysState(e); // BR: For the Flag color selection
+		repaintOnAltChange();
         boolean repaint = false;
         boolean shift = e.isShiftDown();
         boolean control = e.isControlDown();
@@ -801,6 +816,10 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         if (repaint)
             repaint();
     }
+	@Override public void keyReleased(KeyEvent e) {
+		setModifierKeysState(e);
+		repaintOnAltChange();
+	}
     private void nextSystem() {
     	List<StarSystem> systems = listingUI.systems();
     	int selectedIndex = systems.indexOf(lastSelectedSystem());
@@ -1058,9 +1077,9 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         buttonClick();
         RotPUI.instance().selectMainPanel(disableNextTurn);
     }
-    class PlanetListingUI extends BasePanel {
+    private class PlanetListingUI extends BasePanel {
         private static final long serialVersionUID = 1L;
-        public PlanetListingUI(PlanetsUI p) {
+        private PlanetListingUI(PlanetsUI p) {
             init(p);
         }
         private void init(PlanetsUI p) {
@@ -1082,13 +1101,13 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             planetDisplayPane.animate();
         }
     }
-    class PlanetViewSelectionPanel extends BasePanel implements MouseMotionListener, MouseListener {
+    private class PlanetViewSelectionPanel extends BasePanel implements MouseMotionListener, MouseListener {
         private static final long serialVersionUID = 1L;
-        PlanetsUI parent;
-        Rectangle hoverBox;
-        Rectangle helpBox = new Rectangle();
-        Area textureArea;
-        public PlanetViewSelectionPanel(PlanetsUI p) {
+        private PlanetsUI parent;
+        private Rectangle hoverBox;
+        private Rectangle helpBox = new Rectangle();
+        private Area textureArea;
+        private PlanetViewSelectionPanel(PlanetsUI p) {
             parent = p;
             initModel();
         }
@@ -1183,14 +1202,14 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             Color c0 = (box == hoverBox) ? Color.yellow : SystemPanel.whiteLabelText;
             drawShadowedString(g, label, 3, x0, y0, SystemPanel.textShadowC, c0);
         }
-        public void selectNextTab() {
+        private void selectNextTab() {
             switch(selectedMode) {
                 case ECOLOGY_MODE: selectTab(INDUSTRY_MODE); break;
                 case INDUSTRY_MODE: selectTab(MILITARY_MODE); break;
                 case MILITARY_MODE: selectTab(ECOLOGY_MODE); break;
             }
         }
-        public void selectPreviousTab() {
+        private void selectPreviousTab() {
             switch(selectedMode) {
                 case ECOLOGY_MODE: selectTab(MILITARY_MODE); break;
                 case INDUSTRY_MODE: selectTab(ECOLOGY_MODE); break;
@@ -1207,15 +1226,14 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         }
         @Override
         public void mouseClicked(MouseEvent e) {}
-        @Override
-        public void mouseEntered(MouseEvent e) {}
-        @Override
-        public void mouseExited(MouseEvent e) {
-            if (hoverBox != null) {
-                hoverBox = null;
-                repaint();
-            }
-        }
+		@Override public void mouseEntered(MouseEvent arg0)	{ enterCurrentPane(this); }
+		@Override public void mouseExited(MouseEvent arg0)	{
+			exitCurrentPane(this);
+			if (hoverBox != null) {
+				hoverBox = null;
+				repaint();
+			}
+		}
         @Override
         public void mousePressed(MouseEvent e) {}
         @Override
@@ -1260,11 +1278,11 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 repaint();
         }
     }
-    class PlanetDisplayPanel extends SystemPanel {
+    private class PlanetDisplayPanel extends SystemPanel {
         private static final long serialVersionUID = 1L;
-        EmpireInfoGraphicPane graphicPane;
-        PlanetsUI parent;
-        public PlanetDisplayPanel(PlanetsUI p) {
+        private EmpireInfoGraphicPane graphicPane;
+        private PlanetsUI parent;
+        private PlanetDisplayPanel(PlanetsUI p) {
             parent = p;
             init();
         }
@@ -1283,6 +1301,11 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             add(topPane(), BorderLayout.NORTH);
             add(detailPane(), BorderLayout.CENTER);
         }
+		@Override public void enterCurrentPane(BasePanel pane)	{ currentPane = pane; }
+		@Override public void exitCurrentPane(BasePanel pane)	{
+			if (currentPane == pane)
+				currentPane = null;
+		}
         @Override
         public String subPanelTextureName()    { return TEXTURE_BROWN; }
         @Override
@@ -1326,12 +1349,12 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             return empireDetailPane;
         }
     }
-    class MultiPlanetDisplayPanel extends SystemPanel {
+    private class MultiPlanetDisplayPanel extends SystemPanel {
         private static final long serialVersionUID = 1L;
-        EmpireInfoGraphicPane graphicPane;
-        PlanetsUI parent;
-        public MultiPlanetDisplayPanel(PlanetsUI p) {
-            parent = p;
+        private EmpireInfoGraphicPane graphicPane;
+        // private PlanetsUI parent;
+        private MultiPlanetDisplayPanel(PlanetsUI p) {
+            // parent = p;
             init();
         }
         private void init() {
@@ -1349,7 +1372,12 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             add(topPane(), BorderLayout.NORTH);
             add(detailPane(), BorderLayout.CENTER);
         }
-        @Override
+		@Override public void enterCurrentPane(BasePanel pane)	{ currentPane = pane; }
+		@Override public void exitCurrentPane(BasePanel pane)	{
+			if (currentPane == pane)
+				currentPane = null;
+		}
+    	@Override
         public String subPanelTextureName()    { return TEXTURE_BROWN; }
         @Override
         public List<StarSystem> systemsToDisplay() { return instance.selectedSystems(); }
@@ -1393,13 +1421,13 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             return empireDetailPane;
         }
     }
-    class EmpireInfoGraphicPane extends BasePanel implements ActionListener {
+    private class EmpireInfoGraphicPane extends BasePanel implements ActionListener {
         private static final long serialVersionUID = 1L;
-        SystemPanel parent;
-        Ellipse2D starCircle = new Ellipse2D.Float();
-        Ellipse2D planetCircle = new Ellipse2D.Float();
-        int currentHover = 0;
-        EmpireInfoGraphicPane(SystemPanel p) {
+        private SystemPanel parent;
+        private Ellipse2D starCircle = new Ellipse2D.Float();
+        private Ellipse2D planetCircle = new Ellipse2D.Float();
+        // private int currentHover = 0;
+        private EmpireInfoGraphicPane(SystemPanel p) {
             parent = p;
             init();
         }
@@ -1467,11 +1495,13 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             }
         }
     }
-    class ColonyShipPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+    private class ColonyShipPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
-        SystemPanel parent;
-        public Design currDesign;
-        public int currBuildLimit;
+        private SystemPanel parent;
+        private Design currDesign;
+        private int currBuildLimit;
+		private int currentBuildSparePct;
+
         // polygon coordinates for left & right increment buttons
         private final int leftButtonX[] = new int[3];
         private final int leftButtonY[] = new int[3];
@@ -1489,11 +1519,11 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         private final int upButtonY[] = new int[3];
         private final int downButtonX[] = new int[3];
         private final int downButtonY[] = new int[3];
-        protected Rectangle limitBox = new Rectangle();
+        private Rectangle limitBox = new Rectangle();
 
 
         private final Color textColor = newColor(204,204,204);
-        ColonyShipPane(SystemPanel p) {
+        private ColonyShipPane(SystemPanel p) {
             parent = p;
             init();
         }
@@ -1505,7 +1535,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             addMouseListener(this);
             addMouseMotionListener(this);
             addMouseWheelListener(this);
-        }
+       }
         @Override
         public void paintComponent(Graphics g0) {
             super.paintComponent(g0);
@@ -1519,6 +1549,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             drawShipCompletion(g,midMargin,h-s75,w-s10-midMargin,s30);
             drawNameSelector(g,midMargin,h-s60,w-s10-midMargin,s30);
         }
+
         private void drawTitle(Graphics g) {
             g.setFont(narrowFont(20));
             g.setColor(Color.black);
@@ -1623,29 +1654,48 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             if (colonies.isEmpty())
                 return;
 
-            currBuildLimit = colonies.get(0).shipyard().buildLimit();
-            for (Colony c: colonies) 
-                currBuildLimit = min(currBuildLimit,c.shipyard().buildLimit());
-            
-            String limitStr = currBuildLimit == 0 ? text("MAIN_COLONY_SHIPYARD_LIMIT_NONE") : str(currBuildLimit); 
+			Colony colony	= colonies.get(0);
+			currBuildLimit	= colony.shipyard().buildLimit();
+			currentBuildSparePct = colony.govShipBuildSparePct();
+			for (Colony c : colonies) {
+				currBuildLimit = min(currBuildLimit, c.shipyard().buildLimit());
+				currentBuildSparePct = min(currentBuildSparePct, c.govShipBuildSparePct());
+			}
 
-            g.setFont(narrowFont(16));
-            g.setColor(Color.black);
-            String label = text("MAIN_COLONY_SHIPYARD_LIMIT");
-            int sw1 = g.getFontMetrics().stringWidth(label);
-            String none = text("MAIN_COLONY_SHIPYARD_LIMIT_NONE");
-            int sw2 = g.getFontMetrics().stringWidth(none);           
-            String amt = limitStr;
-            int sw3 = g.getFontMetrics().stringWidth(amt);
-            
-            int x1 = x+s12;
-            int y1 = y+s8;
-            int x2 = x1+sw1+s5;
-            int x3 = x1+sw1+s5+max(sw2,sw3)+s5;
-            int y3 = y1+s2;
-            drawString(g,label, x1, y1);
-            drawString(g,amt, x2, y1);  
-            
+			int buildUsePct	= 100 - currentBuildSparePct;
+			boolean noSparePct	= currentBuildSparePct != 0;
+			boolean showBuildSparePct = isAltDown();
+
+			g.setFont(narrowFont(16));
+			String label = showBuildSparePct ?
+					text("MAIN_COLONY_SHIPYARD_GOV_PCT") :
+					text("MAIN_COLONY_SHIPYARD_LIMIT");
+			int sw1 = g.getFontMetrics().stringWidth(label);
+			String none = text("MAIN_COLONY_SHIPYARD_LIMIT_NONE");
+			int sw2 = g.getFontMetrics().stringWidth(none);
+			
+			String limitStr = currBuildLimit == 0 ? none : str(currBuildLimit); 
+			String amt = showBuildSparePct ?
+					text("MAIN_COLONY_SHIPYARD_GOV_PCT_VAL", buildUsePct) :
+					limitStr;
+			g.setColor(Color.black);
+			int sw3 = g.getFontMetrics().stringWidth(amt);
+
+			int x1 = x+s12;
+			int y1 = y+s8;
+			int x2 = x1+sw1+s5;
+			int x3 = x1+sw1+s5+max(sw2,sw3)+s5;
+			int y3 = y1+s2;
+			if (noSparePct && (colony.isGovernor() || showBuildSparePct)) {
+				int r = 100 + (120*currentBuildSparePct)/100;
+				g.setColor(new Color(r, r/3, 0));
+			}
+			else
+				g.setColor(Color.black);
+			drawString(g,label, x1, y1);
+			g.setColor(Color.black);
+			drawString(g,amt, x2, y1);  
+
             limitBox.setBounds(x2-s3,y1-s15,x3-x2,s18);
             if (hoverBox == limitBox) {
                 Stroke prevStroke = g.getStroke();
@@ -1769,7 +1819,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             }
             return false;
         }
-        public void nextShipDesign(boolean click) {
+        private void nextShipDesign(boolean click) {
             boolean hasStargate = anyHaveStargate();
             Design prev = currDesign;
             currDesign = player().shipLab().nextDesignFrom(currDesign, hasStargate);
@@ -1780,7 +1830,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 instance.repaint();
             }
         }
-        public void prevShipDesign(boolean click) {
+        private void prevShipDesign(boolean click) {
             boolean hasStargate = anyHaveStargate();
             Design prev = currDesign;
             currDesign = player().shipLab().prevDesignFrom(currDesign, hasStargate);
@@ -1796,28 +1846,49 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             for (Colony c: colonies) 
                 c.shipyard().switchToDesign(currDesign);
         }
-        private void incrementBuildLimit() {
-            currBuildLimit++;
+		private void incrementGovBuildPct(int amt) {
+			currentBuildSparePct -= amt; // negative because Use is displayed
+			if (currentBuildSparePct > 90)
+				currentBuildSparePct = 0;
+			else if (currentBuildSparePct < 0)
+				currentBuildSparePct = 90;
+			List<Colony> colonies = colonies();
+			softClick();
+			for (Colony col: colonies) {
+				col.govShipBuildSparePct(currentBuildSparePct);
+				col.governIfNeeded();
+			}
+			parent.repaint();
+		}
+		private void resetGovBuildPct() {
+			List<Colony> colonies = colonies();
+			softClick();
+			for (Colony col: colonies) {
+				col.resetShipBuildSparePct();
+				col.governIfNeeded();
+			}
+			repaint();
+		}
+		private void incrementBuildLimit(int amt) {
+            currBuildLimit += amt;
             List<Colony> colonies = colonies();
             softClick();
             for (Colony c: colonies) {
                 c.shipyard().buildLimit(currBuildLimit);
                 c.governIfNeeded();
             }
-            
             parent.repaint();
         }
-        private void decrementBuildLimit() {
+		private void decrementBuildLimit(int amt) {
             if (currBuildLimit == 0)
                 return;
-            currBuildLimit--;
+            currBuildLimit = max(0, currBuildLimit-amt);
             List<Colony> colonies = colonies();
             softClick();
             for (Colony c: colonies) {
                 c.shipyard().buildLimit(currBuildLimit);
                 c.governIfNeeded(true);
             }
-            
             parent.repaint();
         }
         private void resetBuildLimit() {
@@ -1833,31 +1904,57 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             else
                 misClick();
         }
-        @Override
-        public void mouseClicked(MouseEvent arg0) { }
-        @Override
-        public void mouseEntered(MouseEvent arg0) { }
-        @Override
-        public void mouseExited(MouseEvent arg0) {
-            if (hoverBox != null) {
-                hoverBox = null;
-                repaint();
-            }
-        }
-        @Override
-        public void mousePressed(MouseEvent arg0) { }
-        @Override
-        public void mouseReleased(MouseEvent e) {
+		@Override public void mouseClicked(MouseEvent arg0)	{ enterCurrentPane(this); }
+		@Override public void mouseEntered(MouseEvent arg0)	{
+			enterCurrentPane(this);
+			repaint();
+		}
+		@Override public void mouseExited(MouseEvent arg0)	{
+			exitCurrentPane(this);
+			if (hoverBox != null) {
+				hoverBox = null;
+				repaint();
+			}
+		}
+		@Override public void mousePressed(MouseEvent arg0)	{
+			enterCurrentPane(this);
+			repaintOnAltChange();
+		}
+		@Override public void mouseReleased(MouseEvent e)	{
+			enterCurrentPane(this);
+			repaintOnAltChange();
             if (e.getButton() > 3)
                 return;
             int x = e.getX();
             int y = e.getY();
             boolean rightClick = SwingUtilities.isRightMouseButton(e);
+			boolean shiftPressed = e.isShiftDown();
+			boolean ctrlPressed  = e.isControlDown();
+
+			if (isAltDown()) {
+				int adjAmt = 5;
+				if (shiftPressed)
+					adjAmt = 20;
+				else if (ctrlPressed)
+					adjAmt = 50;
+				if (upArrow.contains(x,y))
+					incrementGovBuildPct(adjAmt);
+				else if (downArrow.contains(x,y)) 
+					incrementGovBuildPct(-adjAmt);
+				else if (limitBox.contains(x,y))
+					resetGovBuildPct();
+				return;
+			}
+			int adjAmt = 1;
+			if (shiftPressed)
+				adjAmt *= 5;
+			if (ctrlPressed)
+				adjAmt *= 20;
 
             if (upArrow.contains(x,y))
-                incrementBuildLimit();
+                incrementBuildLimit(adjAmt);
             else if (downArrow.contains(x,y)) 
-                decrementBuildLimit();
+                decrementBuildLimit(adjAmt);
             else if (limitBox.contains(x,y))
                 resetBuildLimit();
             else if (shipDesignBox.contains(x,y)){
@@ -1883,10 +1980,10 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 instance.repaint();
             }
         }
-        @Override
-        public void mouseDragged(MouseEvent arg0) { }
-        @Override
-        public void mouseMoved(MouseEvent e) {
+		@Override public void mouseDragged(MouseEvent arg0)	{ enterCurrentPane(this); }
+		@Override public void mouseMoved(MouseEvent e)		{
+			enterCurrentPane(this);
+			repaintOnAltChange();
             int x = e.getX();
             int y = e.getY();
             Shape prevHover = hoverBox;
@@ -1911,17 +2008,38 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             if (prevHover != hoverBox)
                 repaint();
         }
-        @Override
-        public void mouseWheelMoved(MouseWheelEvent e) {
+		@Override public void mouseWheelMoved(MouseWheelEvent e) {
+			enterCurrentPane(this);
+			repaintOnAltChange();
             int x = e.getX();
             int y = e.getY();
             
             if (limitBox.contains(x,y)) {
-                if (e.getWheelRotation() < 0)
-                    incrementBuildLimit();
-                else
-                    decrementBuildLimit();
-                return;
+				boolean shiftPressed = e.isShiftDown();
+				boolean ctrlPressed = e.isControlDown();
+				boolean altPressed = e.isAltDown();
+				if (altPressed) {
+					int adjAmt = 5;
+					if (shiftPressed)
+						adjAmt = 20;
+					else if (ctrlPressed)
+						adjAmt = 50;
+					if (e.getWheelRotation() < 0)
+						incrementGovBuildPct(adjAmt);
+					else
+						incrementGovBuildPct(-adjAmt);
+					return;
+				}
+				int adjAmt = 1;
+				if (shiftPressed)
+					adjAmt = 5;
+				else if (ctrlPressed)
+					adjAmt = 20;
+				if (e.getWheelRotation() < 0)
+					incrementBuildLimit(adjAmt);
+				else
+					decrementBuildLimit(adjAmt);
+				return;
             }
             if (shipDesignBox.contains(x,y) 
             || shipNameBox.contains(x,y)) {
@@ -1933,14 +2051,14 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             }
         }
     }
-    class ColonyTransferFunds extends BasePanel implements MouseListener, MouseMotionListener {
+    private class ColonyTransferFunds extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
-        SystemPanel parent;
+        private SystemPanel parent;
         private final Rectangle transferBox = new Rectangle();
         private Shape hoverBox;
 
         private final Color textColor = newColor(204,204,204);
-        ColonyTransferFunds(SystemPanel p) {
+        private ColonyTransferFunds(SystemPanel p) {
             parent = p;
             init();
         }
@@ -2012,7 +2130,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             g.setStroke(prev);
         }
         public boolean isButtonEnabled() { return (int)player().totalReserve() > 0; }
-        public void buttonClicked() {
+        private void buttonClicked() {
             if (isButtonEnabled() && !selectedSystems().isEmpty()) {
                 softClick();
                 transferReservePane.targetSystems(selectedSystems());
@@ -2062,9 +2180,9 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 repaint();
         }
     }
-    final class PlanetDataListingUI extends SystemListingUI {
+    private final class PlanetDataListingUI extends SystemListingUI {
         private static final long serialVersionUID = 1L;
-        PlanetDataListingUI(BasePanel p) {
+        private PlanetDataListingUI(BasePanel p) {
             super(p);
             setBorder(BorderFactory.createMatteBorder(scaled(3), 0,0,0, selectedC));
         }
@@ -2100,7 +2218,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             add(notesField);
         }
     }
-    class EmpireRevenueUI extends BasePanel {
+    private class EmpireRevenueUI extends BasePanel {
         private static final long serialVersionUID = 1L;
         public EmpireRevenueUI() {
             initModel();
@@ -2114,9 +2232,9 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             add(new TotalIncomeUI(), BorderLayout.WEST);
         }
     }
-    class SpendingCostsUI extends BasePanel {
+    private class SpendingCostsUI extends BasePanel {
         private static final long serialVersionUID = 1L;
-        Shape textureClip;
+        private Shape textureClip;
         public SpendingCostsUI() {
             init();
         }
@@ -2225,9 +2343,9 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             drawString(g,val, x2+w2-sw, y1);
         }
     }
-    class TotalIncomeUI extends BasePanel {
+    private class TotalIncomeUI extends BasePanel {
         private static final long serialVersionUID = 1L;
-        Shape textureClip;
+        private Shape textureClip;
         public TotalIncomeUI() {
             initModel();
         }
@@ -2299,11 +2417,11 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             drawString(g,val, amtP-sw, y1);
         }
     }
-    class ReserveUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+    private class ReserveUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
-        final Color sliderHighlightColor = new Color(255,255,255);
-        final Color sliderBoxEnabled = new Color(34,140,142);
-        final Color sliderBackEnabled = Color.black;
+        // private final Color sliderHighlightColor = new Color(255,255,255);
+        private final Color sliderBoxEnabled = new Color(34,140,142);
+        private final Color sliderBackEnabled = Color.black;
         private final Polygon leftArrow = new Polygon();
         private final Polygon rightArrow = new Polygon();
         private final Rectangle reserveBox = new Rectangle();
@@ -2316,7 +2434,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         private final int leftButtonY[] = new int[3];
         private final int rightButtonX[] = new int[3];
         private final int rightButtonY[] = new int[3];
-        Shape textureClip;
+        private Shape textureClip;
         public ReserveUI() {
             initModel();
         }
@@ -2605,7 +2723,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 g.setStroke(prev);
             }
         }
-        public void decrement(boolean click) {
+        private void decrement(boolean click) {
             if (player().decrementEmpireTaxLevel()) {
                 if (click)
                     softClick();
@@ -2616,7 +2734,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             else if (click)
                 misClick();
         }
-        public void increment(boolean click) {
+        private void increment(boolean click) {
             if (player().incrementEmpireTaxLevel()) {
                 if (click)
                     softClick();
@@ -2626,7 +2744,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             else if (click)
                 misClick();
         }
-        public float pctBoxSelected(int x, int y) {
+        private float pctBoxSelected(int x, int y) {
             int bw = s3; // border width
             int minX = sliderBox.x+bw;
             int maxX = sliderBox.x+sliderBox.width-bw;
@@ -2743,9 +2861,9 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             }
         }
     }
-    class ExitPlanetsButton extends ExitButton {
+    private class ExitPlanetsButton extends ExitButton {
         private static final long serialVersionUID = 1L;
-        public ExitPlanetsButton(int w, int h, int vMargin, int hMargin) {
+        private ExitPlanetsButton(int w, int h, int vMargin, int hMargin) {
             super(w, h, vMargin, hMargin);
         }
         @Override
@@ -2754,7 +2872,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             finish(true);
         }
     }
-    class UpAction extends AbstractAction {
+    private class UpAction extends AbstractAction {
         private static final long serialVersionUID = 1L;
         @Override
         public void actionPerformed(ActionEvent ev) {
@@ -2762,7 +2880,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 instance.repaint();
         }
     }
-    class DownAction extends AbstractAction {
+    private class DownAction extends AbstractAction {
         private static final long serialVersionUID = 1L;
         @Override
         public void actionPerformed(ActionEvent ev) {
@@ -2770,7 +2888,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 instance.repaint();
         }
     }
-    class CancelAction extends AbstractAction {
+    private class CancelAction extends AbstractAction {
         private static final long serialVersionUID = 1L;
         @Override
         public void actionPerformed(ActionEvent ev) {
@@ -2779,7 +2897,10 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             finish(false);
         }
     }
-    private class LastKeyAdapter extends KeyAdapter {
-    	@Override public void keyReleased(KeyEvent e) { setFieldValues(lastSelectedSystem()); }
-    }
+	private class LastKeyAdapter extends KeyAdapter {
+		@Override public void keyReleased(KeyEvent e) {
+			setModifierKeysState(e);
+			setFieldValues(lastSelectedSystem());
+		}
+	}
 }
