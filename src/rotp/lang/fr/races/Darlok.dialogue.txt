@@ -39,7 +39,7 @@ DECLAREWAR_SPYING_02       | La punition pour l'échec, cependant, sera nettemen
 DECLAREWAR_SPYING_03       | Croyez-vous que ce bourdonnement grossier échapperait à notre regard vigilant ? Si vous êtes si arrogant que vous pensez que votre espionnage pourrait passer inaperçu, vous êtes suffisamment arrogant pour que nous puissions vous écraser au combat.
 DECLAREWAR_ATTACK_01       | De l'impudence! Nous attaquer si ouvertement ne peut que signifier que vous souhaitez l'anéantissement total !
 DECLAREWAR_ATTACK_02       | Des voyous insupportables ! Nous saurons bientôt si la confiance qui vient de frapper contre nous s'accompagne d'une force à la hauteur !
-DECLAREWAR_ATTACK_03       | Du fleáu ! Des méchants ! Nous ne céderons pas à vous ou à quelqu'un d'autre jusqu'à ce que notre grand travail soit terminé ! Préparez-vous à notre châtiment !
+DECLAREWAR_ATTACK_03       | Fléaux ! Méchants ! Nous ne céderons pas à vous ou à quelqu'un d'autre jusqu'à ce que notre grand travail soit terminé ! Préparez-vous à notre châtiment !
 DECLAREWAR_OPPORTUNITY_01  | La politique ne sont que des jeux d'opportunités. Nous constatons que celui qui capitalise le plus sur leurs opportunités est celui qui en sort victorieux. Il en a toujours été ainsi et il en sera toujours ainsi.
 DECLAREWAR_ASSASSIN_01     | Outrageant, tuer sciemment un ambassadeur qui vient à vous sans armes ! Nous prendrons vos secrets pour nous-mêmes et disperserons les corps de votre peuple comme de la cendre sur les vents solaires !
 
