@@ -536,7 +536,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 			default:
     	}
     }
-    private void removeOrder(int cat)	{ // BR:
+    public void removeOrder(int cat)	{ // BR:
     	switch (cat) {
 	    	case DEFENSE:
 	   			removeColonyOrder(Orders.BASES);
@@ -557,6 +557,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	    		return;
 	    	case RESEARCH:
 	    		prioritizeResearch(false);
+	    		govUrgeResearch(false);
 	    		return;
 			default:
 		}

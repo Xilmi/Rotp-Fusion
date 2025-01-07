@@ -75,7 +75,7 @@ public class EmpireColonySpendingPane extends BasePanel {
     static final Color sliderTextDisabled	= new Color(65,65,65);
     static final Color sliderTextHasOrder	= new Color(0,0,142);
     static final Color sliderTextHasOrderD	= new Color(65,65,142);
-    static final Color sliderTextUrged		= new Color(96,0,128);
+    static final Color sliderTextUrged		= new Color(142,0,142);
     static final Color sliderTextUrgedD		= new Color(96,65,128);
 
     private static BufferedImage governorImage;
@@ -489,7 +489,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                 textC = SystemPanel.yellowText;
             else if (colony.canAdjust(category))
             	if (colony.isUrged(category))
-            		textC = new Color(142,0,142);
+            		textC = sliderTextUrged;
             	else if (colony.hasOrder(category) && options().showPendingOrders())
             		textC = sliderTextHasOrder;
             	else

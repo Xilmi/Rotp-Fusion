@@ -1397,7 +1397,6 @@ public class MainUI extends BasePanel implements IMapHandler {
     	setModifierKeysState(e); // BR: For the Flag color selection
     	if (e.getKeyCode() == KeyEvent.VK_ALT && !lastHoverAltDown) {
             map.altToggled(true);
-            //return; // TODO BR: VALIDATE
         }
         if (!overlay.handleKeyPress(e))
             overlayNone.handleKeyPress(e);
@@ -1406,7 +1405,6 @@ public class MainUI extends BasePanel implements IMapHandler {
     	setModifierKeysState(e); // BR: For the Flag color selection
     	if (e.getKeyCode() == KeyEvent.VK_ALT && lastHoverAltDown) {
             map.altToggled(false);
-            //return; // TODO BR: VALIDATE
         }
         if (!overlay.handleKeyReleased(e))
             overlayNone.handleKeyReleased(e);

@@ -8,7 +8,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
-- Colony panel: Ship build limit "Take" percentage can be adjusted on multi selection.
+- Colonies panel:
+  - Ship build limit "Take" percentage can be adjusted on multi selection.
+  - Spending priority can be set on multi selection.
 - New Governor option to tell the rich colonies to build up their reserve.
 - Fixed missiles hitting retreated targets (Xilmi)
 - AI improvement: Speed-requirement for missiles in ship-designs reduced (Xilmi)

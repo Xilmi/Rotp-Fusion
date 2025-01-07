@@ -74,6 +74,12 @@ Later:
 
 ## What's New
 
+2025.01.07 (BR)
+- Colony panel: Spending priority can be set on multi selection.
+
+2025.01.07 (Frank Zago)
+- French translation fixes.
+
 2025.01.06 (BR)
 - Improved mouse Alt key management.
 - Colony panel: Ship build limit "Take" percentage can be adjusted on multi selection.
