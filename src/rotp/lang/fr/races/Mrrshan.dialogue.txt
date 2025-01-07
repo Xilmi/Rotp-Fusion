@@ -46,7 +46,7 @@ DECLAREWAR_ATTACK_01       | Ha! Ici, nous vous avons pris pour des lâches faib
 DECLAREWAR_ATTACK_02       | Vous nous avez rendu service en amenant le combat à notre porte ! Nous vous rembourserons en nature en veillant à ce que votre peuple finisse sur le champ de bataille comme de vrais guerriers !
 DECLAREWAR_ATTACK_03       | J'éviterais l'arrogance si j'étais vous, ambassadeur. La fureur de nos guerriers ne sera jamais battue par la technologie, peu importe à quel point vous avez fait la vôtre !
 //
-DECLAREWAR_OPPORTUNITY_01  | Votre espèce a depuis longtemps depassé à son utilité. Mais soyez assuré que vous offrirez un sport adéquat aux plus jeunes et aux moins expérimentés de nos guerriers pendant qu'ils perfectionnent leurs compétences au combat.
+DECLAREWAR_OPPORTUNITY_01  | Votre espèce a depuis longtemps dépassé son utilité. Mais soyez assuré que vous offrirez un sport adéquat aux plus jeunes et aux moins expérimentés de nos guerriers pendant qu'ils perfectionnent leurs compétences au combat.
 DECLAREWAR_ASSASSIN_01     | Je ne suis pas du tout choqué que votre espèce se comporte de manière aussi molle. Assassiner un ambassadeur est le plus grave déshonneur que vous puissiez vous attirer, et dans l'agonie votre peuple maudira votre nom pour avoir ordonné cela !
 
 

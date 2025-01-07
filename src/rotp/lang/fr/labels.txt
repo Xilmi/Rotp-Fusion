@@ -2718,7 +2718,7 @@ SETTINGS_MOD_COUNCIL_PLAYER_VOTE_LAST       | En dernier
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_HELP | Pour ajuster l’écartement des mondes d’origine de l’Empire ; (la valeur d’origine est de 100 %).<br>Une petite valeur permettra aux mondes d’origine d’être plus proches, ce qui entraînera une grande variété de distances.<br>L’augmentation de cette valeur éloignera les mondes d’origine, ce qui entraînera des distances plus uniformes.<br>Ce paramètre peut être ajusté sur l’aperçu de la carte de la galaxie.
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_DESC | Distance minimale entre les mondes d’Empire Home Facteur en %. (Non autorisé sur les « galaxies complexes »)
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR      | Écartement des empires : %1%
-SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_MAP  | Écartement Minimal : %1% (%2 ly)
+SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_MAP  | Écartement Minimal : %1% (%2 al)
 SETTINGS_MOD_GALAXY_SIZE                   | Taille de la galaxie : %1 al x %2 al
 
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | Pour aider à définir le nombre maximum d’adversaires en fonction de la taille de la galaxie.
@@ -5138,7 +5138,7 @@ GOVERNOR_RACE_IMAGE_LABEL            |
 GOVERNOR_RACE_IMAGE_TT               | Si l’animation vous dérange, vous pouvez l’arrêter en cliquant dessus !<br>un autre clic la réactivera.
 
 GOVERNOR_WORKER_TO_FACTORY_ROI_HELP  | Il est généralement plus rentable de produire des usines que de faire croître la population. Cependant, ce n'est pas toujours le cas.<br>Ce paramètre fixe la limite de rendement pour favoriser la croissance démographique.<br>Le coût réel d'une usine dépend des ressources de la planète et du niveau technologique.<br>La production réelle des usines est affectée par le coût de dépollution. Le rendement net est égal à la production réelle divisée par le coût réel.<br>Le coût réel d'une population dépend de l'écologie de la planète et du niveau technologique. Le retour sur investissement d'un travailleur dépend des caractéristiques de l'espèce et du niveau technologique de la planète.<br>Il est possible que le retour sur investissement d'un travailleur soit supérieur à celui d'une usine (c'est le cas pour les fourmis). Si la différence est faible, mieux vaut privilégier la construction d'usines, car la croissance naturelle de la population ne coûte rien. Ce ratio est multiplié par trois sur une planète ultra-pauvre, et il devient alors plus avantageux de retarder la construction d'usines.
-GOVERNOR_WORKER_TO_FACTORY_ROI_DESC  | Il est généralement plus rentable de produire des usines que de faire croître la population. Cependant, il peut arriver que ce ne soit pas toujours le cas. Ce paramètre établi la limite de rendement pour favoriser la croissance de la population.  
+GOVERNOR_WORKER_TO_FACTORY_ROI_DESC  | Il est généralement plus rentable de produire des usines que de faire croître la population. Cependant, il peut arriver que ce ne soit pas toujours le cas. Ce paramètre établi la limite de rendement pour favoriser la croissance de la population.
 GOVERNOR_WORKER_TO_FACTORY_ROI       | ROI Limite Pop/Usines : %1 %
 GOVERNOR_WORKER_TO_FACTORY_ROI_LABEL | ROI Limite Pop/Usines
 

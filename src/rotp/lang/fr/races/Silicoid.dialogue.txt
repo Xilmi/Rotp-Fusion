@@ -21,7 +21,7 @@ CONTACT_AGGRESSIVE         | Nous sommes [my_race_pluralnoun], pauvre [your_race
 //
 GREETING_01                | Salutations, ambassadeur. Dites ce que vous demandez à [my_title], et s'il vous juge digne, nous suspendrons notre guerre sainte pour vous aider.
 GREETING_04                | Soyez bref, ambassadeur : [my_title] arrête notre croisade pour rien.
-GREETING_07                | Miserable [your_raceadjec]! Interrompre notre guerre sacrée, c'est inviter notre colère sur vous !
+GREETING_07                | Misérable [your_raceadjec]! Interrompre notre guerre sacrée, c'est inviter notre colère sur vous !
 //
 DECLAREWAR_HATE_01         | Il est plus clair que jamais que votre peuple est les Enfants de Quaralone tant recherchés ! Nous prendrons le plus grand plaisir à retirer votre espèce de cette galaxie comme le fléau que vous êtes !
 DECLAREWAR_HATE_02         | Le moment cité dans la légende est enfin arrivée ! Préparez-vous, La Couvée de Quaralone ! Car quel que soit le vainqueur, notre croisade prendra bientôt fin !
