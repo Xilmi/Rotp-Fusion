@@ -139,8 +139,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
     private boolean prioritizeResearch	= false;
     private boolean governor = govOptions().isGovernorOnByDefault();
     // TODO: For future use, flag allowing this colony to autobuild ships
-    private boolean autoShips = govOptions().isAutoShipsByDefault();
-    int govShipBuildSparePct	= 0;
+    private boolean autoShips	= govOptions().isAutoShipsByDefault();
+    int govShipBuildSparePct	= 100 - govOptions().defaultShipTakePct();
 
     private transient boolean hasNewOrders = false;
     private transient int cleanupAllocation = 0;
@@ -150,7 +150,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
 	public int     govShipBuildSparePct()		{ return govShipBuildSparePct; }
 	public void    govShipBuildSparePct(int i)	{ govShipBuildSparePct = i; }
-	public void    resetShipBuildSparePct()		{ govShipBuildSparePct = 0; }
+	public void    resetShipBuildSparePct()		{ govShipBuildSparePct = 100 - govOptions().defaultShipTakePct(); }
 	public int     incrShipBuildSparePct(int i)	{
    		govShipBuildSparePct += i;
 		if (govShipBuildSparePct > 90)

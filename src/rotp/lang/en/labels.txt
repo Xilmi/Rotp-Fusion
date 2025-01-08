@@ -5173,6 +5173,9 @@ GOVERNOR_TERRAFORM_POPULATION        | Full Population Trigger: %1
 GOVERNOR_TERRAFORM_COST_DESC         | Terraforming of the planet will be triggered if the cost/income ratio (~Number of years of construction) is below this percentage.
 GOVERNOR_TERRAFORM_COST              | Cost / Income Trigger: %1
 
+GOVERNOR_DEFAULT_SHIP_TAKE_DESC      | Default percentage to allocate to priority fleet building, and priority research, when founding new colonies.
+GOVERNOR_DEFAULT_SHIP_TAKE           | Default priority takes: %1%
+
 HEADERS_GOVERNOR_TERRAFORM_DESC      | Triggers for planet terraforming.
 HEADERS_GOVERNOR_TERRAFORM           | ~~~ TERRAFORMING TRIGGERS ~~~
 HEADERS_GOVERNOR_SUBSIDIES_DESC      | What to do with the funds allocated to the colony?

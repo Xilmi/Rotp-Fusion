@@ -5173,6 +5173,9 @@ GOVERNOR_TERRAFORM_POPULATION        | Espace restant pour : %1 habitants
 GOVERNOR_TERRAFORM_COST_DESC         | La terraformation de la planète sera déclenchée si le rapport coût/revenu (~ Nombre d'années de construction) est inférieur à ce pourcentage.
 GOVERNOR_TERRAFORM_COST              | Le rapport coût/revenu : %1< %1 %
 
+GOVERNOR_DEFAULT_SHIP_TAKE_DESC      | Pourcentage par défaut à attribuer à la construction de flottes prioritaires, et à la recherche prioritaire, lors de la fondation de nouvelles colonies.
+GOVERNOR_DEFAULT_SHIP_TAKE           | Allocation prioritaire par défaut : %1 %
+
 HEADERS_GOVERNOR_TERRAFORM_DESC      | Déclencheurs de la terraformation de la planète.
 HEADERS_GOVERNOR_TERRAFORM           | ~~~ DÉCLENCHEURS DE TERRAFORMATION ~~~
 HEADERS_GOVERNOR_SUBSIDIES_DESC      | Que faire des fonds alloués à la colonie ?

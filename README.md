@@ -74,6 +74,9 @@ Later:
 
 ## What's New
 
+2025.01.08 (BR)
+- The default value of “Ship build limit ‘Take’ percentage”, for new colonies, can be set in Settings -> Governor Mandate -> Fine Tuning.
+
 2025.01.07 (BR)
 - Colony panel: Spending priority can be set on multi selection.
 

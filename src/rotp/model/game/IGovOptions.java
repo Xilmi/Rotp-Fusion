@@ -161,4 +161,7 @@ public interface IGovOptions {
 	ParamInteger terraformCost2Income	= new ParamInteger(GOV_UI, "TERRAFORM_COST", 100)
 			.setLimits(0, 500)
 			.setIncrements(1, 5, 20);
+	ParamInteger defaultShipTakePct		= new ParamInteger(GOV_UI, "DEFAULT_SHIP_TAKE", 100)
+			.setLimits(10, 100)
+			.setIncrements(1, 5, 20);
 }

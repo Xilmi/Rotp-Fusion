@@ -27,6 +27,7 @@ final class GovSpecialOptions extends AbstractOptionsSubUI {
 
 				HEADER_SPACER_100,
 				new ParamTitle("GOVERNOR_OTHER_LIMITS"),
+				defaultShipTakePct,
 				workerToFactoryROI
 				)));
 		return map;
