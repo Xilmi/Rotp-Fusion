@@ -89,6 +89,7 @@ import rotp.ui.notifications.SpyReportAlert;
 import rotp.ui.notifications.StealTechNotification;
 import rotp.ui.notifications.SystemsScoutedNotification;
 import rotp.ui.notifications.TurnNotification;
+import rotp.ui.planets.MultiColonySpendingPane;
 import rotp.ui.races.RacesUI;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.vipconsole.VIPConsole;
@@ -355,6 +356,7 @@ public final class GameSession implements Base, Serializable {
     	aFewMoreTurns	= false;
     	RacesUI.instance.resetFinalVars();
     	EmpireColonySpendingPane.resetPanel();
+    	MultiColonySpendingPane.resetPanel();
     }
     private void stopCurrentGame() {
         RotPUI.instance().mainUI().clearAdvice();
@@ -1435,6 +1437,7 @@ public final class GameSession implements Base, Serializable {
             // RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment
         }
         EmpireColonySpendingPane.resetPanel();
+        MultiColonySpendingPane.resetPanel();
     }
     static ThreadFactory minThreadFactory() {
         return (Runnable r) -> {

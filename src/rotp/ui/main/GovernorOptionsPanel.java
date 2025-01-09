@@ -46,7 +46,6 @@ import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.game.GameUI;
-import rotp.ui.main.EmpireColonySpendingPane.GovernorFrame;
 import rotp.ui.util.IParam;
 import rotp.ui.util.swing.RotpJSpinner;
 import rotp.ui.util.swing.RotpJSpinnerButton;

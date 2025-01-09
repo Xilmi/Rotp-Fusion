@@ -993,6 +993,7 @@ MAIN_COLONY_TECHNOLOGY            | Tech
 MAIN_COLONY_ALLOCATE_SPENDING     | Allouez les Dépenses
 GOVERNOR_IS_ON_BUTTON             | Gouverneur
 GOVERNOR_IS_OFF_BUTTON            | Gouverneur
+GOVERNOR_IS_ON_AND_OFF_BUTTON     | Gouverneur
 GOVERNOR_OPTIONS                  | Mandat
 
 MAIN_COLONY_SPENDING_NONE         | Aucune

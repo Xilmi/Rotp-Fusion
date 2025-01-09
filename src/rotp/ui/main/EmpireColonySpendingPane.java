@@ -28,15 +28,12 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Paint;
-import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.event.ComponentAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -47,13 +44,12 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList; // modnar: change to cleaner icon set
 import java.util.List; // modnar: change to cleaner icon set
 
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import rotp.model.colony.Colony;
 import rotp.model.colony.ColonyIndustry;
 import rotp.model.galaxy.StarSystem;
-import rotp.model.game.GovernorOptions;
+import rotp.model.game.GameSession;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.SystemViewer;
@@ -237,9 +233,13 @@ public class EmpireColonySpendingPane extends BasePanel {
 		int fontSize2 = scaledFont(g, title2, maxTitleWidth, maxFont, minButtonFontSize);
 		int titleW2   = g.getFontMetrics().stringWidth(title2);
 
-		int titleW = max(titleW1, titleW2);
+		String title3 = text("GOVERNOR_IS_ON_AND_OFF_BUTTON");
+		int fontSize3 = scaledFont(g, title3, maxTitleWidth, maxFont, minButtonFontSize);
+		int titleW3   = g.getFontMetrics().stringWidth(title3);
+
+		int titleW = max(titleW1, titleW2, titleW3);
 		govButtonW = titleW + margin;
-		return min(fontSize1, fontSize2);
+		return min(fontSize1, fontSize2, fontSize3);
     }
     private int initOptionsButtonW(Graphics2D g, int maxWidth, int maxFont) {
 		int maxTitleWidth = maxWidth - buttonMargin;
@@ -866,13 +866,9 @@ public class EmpireColonySpendingPane extends BasePanel {
                 	if (e.isShiftDown()) {
                 		ParamSubUI optionsUI = AllSubUI.governorSubUI();
                 		optionsUI.start(null);
-//                		GovernorAlternativeUI ui = new GovernorAlternativeUI();
-//                		ui.start("???", null);
-//                		ParamSubUI subUI = AllSubUI.getHandle(ISubUiKeys.GOVERNOR_UI_KEY).getUI();
-//                		subUI.start(null);
                 	}
                 	else
-                		governorOptions();	
+                		governorOptions();
             } else {
 //                if (this.category < 0) {
 //// TODO: for future use
@@ -966,49 +962,68 @@ public class EmpireColonySpendingPane extends BasePanel {
             return num/den;
         }
     }
-
-    GovernorFrame governorOptionsFrame = null;
-    public class GovernorFrame extends JFrame implements KeyListener {
-    	private static final long serialVersionUID = 1L;
-    	GovernorFrame (String title)	{
-    		super(title);
-    		addKeyListener(this);
-    		setFocusable(true);
-            setFocusTraversalKeysEnabled(false);
-    	}
-    	@Override public void keyTyped(KeyEvent e)		{ }
-    	@Override public void keyPressed(KeyEvent e)	{ }
-    	@Override public void keyReleased(KeyEvent e)	{
-    		checkModifierKey(e);
-    		switch(e.getKeyCode()) {
-    		case KeyEvent.VK_L:
-    			if (e.isAltDown()) {
-    				debugReloadLabels("");
-    			}
-    			return;
-    		}
-    	}
+    // BR: made static because there is two instances of EmpireColonySpendingPane
+    static GovernorFrame governorOptionsFrame = null;
+    static void openGovernorOptions() {
+    	
     }
-    private class GovernorComponentAdapter extends ComponentAdapter {
-    	@Override public void componentMoved(java.awt.event.ComponentEvent evt) {
-        	GovernorOptions options = govOptions();
-        	Point pt = evt.getComponent().getLocation();
-			options.setPosition(pt);
+//    public class GovernorFrame extends JFrame implements KeyListener {
+//    	private static final long serialVersionUID = 1L;
+//    	GovernorFrame (String title)	{
+//    		super(title);
+//    		addKeyListener(this);
+//    		setFocusable(true);
+//            setFocusTraversalKeysEnabled(false);
+//    	}
+//    	@Override public void keyTyped(KeyEvent e)		{ }
+//    	@Override public void keyPressed(KeyEvent e)	{ ModifierKeysState.set(e); }
+//    	@Override public void keyReleased(KeyEvent e)	{
+//    		checkModifierKey(e);
+//    		switch(e.getKeyCode()) {
+//    		case KeyEvent.VK_L:
+//    			if (e.isAltDown()) {
+//    				debugReloadLabels("");
+//    			}
+//    			return;
+//    		}
+//    	}
+//    }
+//    private class GovernorComponentAdapter extends ComponentAdapter {
+//    	@Override public void componentMoved(java.awt.event.ComponentEvent evt) {
+//        	GovernorOptions options = govOptions();
+//        	Point pt = evt.getComponent().getLocation();
+//			options.setPosition(pt);
+//        }
+//    }
+    private void toggleGovernor() {
+        if (parent.systemViewToDisplay() != null && parent.systemViewToDisplay().colony() != null) {
+            Colony colony = parent.systemViewToDisplay().colony();
+            colony.setGovernor(!colony.isGovernor());
+            if (colony.isGovernor()) {
+                colony.govern();
+            }
+            parent.repaint();
         }
     }
-    private void governorOptions() {
+    private void toggleAutoShips() {
+        if (parent.systemViewToDisplay() != null && parent.systemViewToDisplay().colony() != null) {
+            Colony colony = parent.systemViewToDisplay().colony();
+            colony.setAutoShips(!colony.isAutoShips());
+            parent.repaint();
+        }
+    }
+    public static void governorOptions() {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
 			public void run() {
                 if (governorOptionsFrame == null) {
-                    governorOptionsFrame = new GovernorFrame("GovernorOptions")
+                    governorOptionsFrame = new GovernorFrame("GovernorOptions");
 //                    {
 //                    	{
 //                    		addComponentListener(new GovernorComponentAdapter());
 //                    	}
-//                    }
-                    ;
-                    governorOptionsFrame.addComponentListener(new GovernorComponentAdapter());
+//                    };
+                    governorOptionsFrame.addComponentListener(governorOptionsFrame.new GovernorComponentAdapter());
                     // make this window have an icon, same as main window
                     // modnar: change to cleaner icon set
                     List<Image> iconImages = new ArrayList<Image>();
@@ -1030,26 +1045,9 @@ public class EmpireColonySpendingPane extends BasePanel {
                 //Display the window.
                 governorOptionsFrame.pack();
                 governorOptionsFrame.setVisible(true);
-                governorOptionsFrame.setLocation(govOptions().getPosition());
+                governorOptionsFrame.setLocation(GameSession.instance().getGovernorOptions().getPosition());
                 ((GovernorOptionsPanel) governorOptionsFrame.getContentPane()).reOpen();
             }
         });
-    }
-    private void toggleGovernor() {
-        if (parent.systemViewToDisplay() != null && parent.systemViewToDisplay().colony() != null) {
-            Colony colony = parent.systemViewToDisplay().colony();
-            colony.setGovernor(!colony.isGovernor());
-            if (colony.isGovernor()) {
-                colony.govern();
-            }
-            parent.repaint();
-        }
-    }
-    private void toggleAutoShips() {
-        if (parent.systemViewToDisplay() != null && parent.systemViewToDisplay().colony() != null) {
-            Colony colony = parent.systemViewToDisplay().colony();
-            colony.setAutoShips(!colony.isAutoShips());
-            parent.repaint();
-        }
     }
 }

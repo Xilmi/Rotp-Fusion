@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
 import rotp.Rotp;
 import rotp.model.empires.Race;
 import rotp.model.empires.RaceFactory;
@@ -34,6 +35,7 @@ import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGovOptions;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.EmpireColonySpendingPane;
+import rotp.ui.planets.MultiColonySpendingPane;
 
 public class LanguageManager implements Base {
     static LanguageManager instance = new LanguageManager();
@@ -129,8 +131,10 @@ public class LanguageManager implements Base {
             return;
         loadLanguage(i);
         validateDialogueTokens(false); // TO DO BR: change to false (true for debug)
-        if (!Rotp.noOptions("selectLanguage(" + i + ")"))
+        if (!Rotp.noOptions("selectLanguage(" + i + ")")) {
         	EmpireColonySpendingPane.resetPanel();
+        	MultiColonySpendingPane.resetPanel();
+        }
         GovernorOptions.callForRefresh(IGovOptions.GOV_REFRESH);
     }
     private void validateDialogueTokens(boolean doIt) {

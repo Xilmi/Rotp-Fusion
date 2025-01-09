@@ -15,14 +15,18 @@
  */
 package rotp.ui.planets;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.colony.Colony.ECOLOGY;
 import static rotp.model.colony.Colony.RESEARCH;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.InputEvent;
@@ -30,6 +34,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
@@ -38,10 +44,12 @@ import rotp.model.colony.Colony;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.SystemViewer;
-import rotp.ui.main.MainUI;
+import rotp.ui.main.EmpireColonySpendingPane;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.options.AllSubUI;
+import rotp.ui.util.ParamSubUI;
 
-class MultiColonySpendingPane extends BasePanel implements MouseListener, MouseMotionListener {
+public class MultiColonySpendingPane extends BasePanel implements MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
     private static final Color buttonTextHasOrder	= new Color(0, 0, 255);
     private static final Color buttonTextHasOrderD	= new Color(65, 65, 192);
@@ -49,9 +57,30 @@ class MultiColonySpendingPane extends BasePanel implements MouseListener, MouseM
     private static final Color buttonTextUrgedD		= new Color(142, 65, 192);
     private static final Color buttonTextMixed		= new Color(128, 0, 255);
     private static final Color buttonTextMixedD		= new Color(65, 32, 96);
+	private static final Color textColorOn			= new Color(209, 209, 209);
+	private static final Color textColorOff			= new Color(178, 124, 87);
+	private static final Color buttonColor			= new Color(209, 209, 209);
+
+	private static BufferedImage governorImage, noGovernorImage, mixedGovernorImage;
+	private static int govMaxW, optMaxW;
+	private static int govButtonW, optButtonW;
+	private static int govButtonX, optButtonX;
+	private static int maxButtonFontSize = 17;
+	private static int minButtonFontSize = 12;
+	private static int govFontSize;
+	private static int iconWidth	= s25;
+	private static int buttonH		= s25;
+	private static int buttonY;
+	private static int buttonMargin	= s20;
+	private static int buttonOffset	= s10;
+	private static boolean needInitialization = true;
+	private final Rectangle governorBox	= new Rectangle();
+	private final Rectangle optionsBox	= new Rectangle();
+
+	public static void resetPanel()	{ needInitialization = true; }
 
     private LinearGradientPaint greenBackC;
-    private Color textC, backC;
+    private Color backC;
     private Rectangle spending0Box = new Rectangle();
     private Rectangle spending25Box = new Rectangle();
     private Rectangle spending50Box = new Rectangle();
@@ -64,7 +93,6 @@ class MultiColonySpendingPane extends BasePanel implements MouseListener, MouseM
     private final SystemViewer parent;
     MultiColonySpendingPane(SystemViewer p, Color c0, Color text, Color hi, Color lo) {
         parent = p;
-        textC = text;
         backC = c0;
         init();
     }
@@ -79,20 +107,216 @@ class MultiColonySpendingPane extends BasePanel implements MouseListener, MouseM
         addMouseMotionListener(this);
         setBackground(backC);
     }
-    @Override
-    public void paintComponent(Graphics g0) {
+	private void reinitPanel(Graphics2D g)	{
+		buttonY = getHeight() - buttonH - s1;
+		int w = getWidth();
+		initGovernorImage();
+		initNoGovernorImage();
+		initMixedGovernorImage();
+		govFontSize = maxButtonFontSize;
+		int maxFont;
+		govMaxW = scaled(150);
+		optMaxW = scaled(75);
+		do {
+			maxFont = govFontSize;
+			govFontSize = initButtons(g, maxFont);
+		}
+		while(maxFont != govFontSize);
+		govButtonX = buttonOffset;
+		int x2 = govButtonX + govButtonW;
+		x2 = w - buttonOffset;
+		optButtonX = x2 - optButtonW;
+		needInitialization = false;
+	}
+	private void initMixedGovernorImage()		{
+		int mugH = s20;
+		int mugW = mugH;
+		mixedGovernorImage = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) mixedGovernorImage.getGraphics();
+		g.setComposite(AlphaComposite.SrcOver);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+		Image img = player().race().flagNorm();
+		int imgW = img.getWidth(null);
+		int imgH = img.getHeight(null);
+		g.setColor(Color.darkGray);
+		g.fillRoundRect(0, 0, mugW, mugH, s8, s8);
+		g.drawImage(img, 0, 0, mugW, mugH, 0, 0, imgW, imgH, null);
+		g.dispose();
+	}
+	private void initGovernorImage()		{
+		int mugH = s20; // s82
+		int mugW = mugH * 76 / 82; // s76
+		governorImage = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) governorImage.getGraphics();
+		g.setComposite(AlphaComposite.SrcOver);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+		Image img = player().race().diploMugshotQuiet();
+		int imgW = img.getWidth(null);
+		int imgH = img.getHeight(null);
+		g.drawImage(img, 0, 0, mugW, mugH, 0, 0, imgW, imgH, null);
+		g.dispose();
+	}
+	private void initNoGovernorImage()		{
+		int mugH = s22;
+		int mugW = mugH;
+		noGovernorImage = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) noGovernorImage.getGraphics();
+		g.setComposite(AlphaComposite.SrcOver);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+		Image img = image("NO_GOVERNOR");
+		int imgW = img.getWidth(null);
+		int imgH = img.getHeight(null);
+		g.drawImage(img, 0, 0, mugW, mugH, 0, 0, imgW, imgH, null);
+		g.dispose();
+	}
+	private int initButtons(Graphics2D g, int maxFont)	{
+		int font1 = initGovernorButton(g, govMaxW, maxFont);
+		int font2 = initOptionsButtonW(g, optMaxW, font1);
+		return min(font1, font2);
+	}
+	private int initGovernorButton(Graphics2D g, int maxWidth, int maxFont)	{
+		int margin = iconWidth + buttonMargin/2;
+		int maxTitleWidth = maxWidth - margin;
+		String title1 = text("GOVERNOR_IS_ON_BUTTON");
+		int fontSize1 = scaledFont(g, title1, maxTitleWidth, maxFont, minButtonFontSize);
+		int titleW1   = g.getFontMetrics().stringWidth(title1);
+
+		String title2 = text("GOVERNOR_IS_OFF_BUTTON");
+		int fontSize2 = scaledFont(g, title2, maxTitleWidth, maxFont, minButtonFontSize);
+		int titleW2   = g.getFontMetrics().stringWidth(title2);
+
+		String title3 = text("GOVERNOR_IS_ON_AND_OFF_BUTTON");
+		int fontSize3 = scaledFont(g, title3, maxTitleWidth, maxFont, minButtonFontSize);
+		int titleW3   = g.getFontMetrics().stringWidth(title3);
+
+		int titleW = max(titleW1, titleW2, titleW3);
+		govButtonW = titleW + margin;
+		return min(fontSize1, fontSize2, fontSize3);
+	}
+	private int initOptionsButtonW(Graphics2D g, int maxWidth, int maxFont)	{
+		int maxTitleWidth = maxWidth - buttonMargin;
+		String title = text("GOVERNOR_OPTIONS");
+		int fontSize = scaledFont(g, title, maxTitleWidth, maxFont, minButtonFontSize);
+		int titleW   = g.getFontMetrics().stringWidth(title);
+		optButtonW = titleW + buttonMargin;
+		return fontSize;
+	}
+	private void drawGovernorButton(Graphics2D g, boolean hovered)	{
+		Color borderC, titleC;
+		Boolean isGovernor = isGovernor();
+		String title;
+		if (isGovernor == null)
+			title = text("GOVERNOR_IS_ON_AND_OFF_BUTTON");
+		else if (isGovernor)
+			title = text("GOVERNOR_IS_ON_BUTTON");
+		else
+			title = text("GOVERNOR_IS_OFF_BUTTON");
+		int titleDx = iconWidth/2;
+		g.setFont(narrowFont(govFontSize));
+		Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
+
+		int titleW     = (int) Math.ceil(bound.getWidth());
+		double titleH  = bound.getHeight();
+		double descent = g.getFontMetrics().getDescent();
+		double titleDy = (buttonH-titleH)/2;
+		int titleX = round(govButtonX + (govButtonW-titleW)/2) - titleDx;
+		int titleY = round(buttonY + buttonH - descent-titleDy);
+
+		if (hovered) {
+			borderC = SystemPanel.yellowText;
+			titleC  = SystemPanel.yellowText;
+		}
+		else {
+			borderC = buttonColor;
+			if (isGovernor == null)
+				titleC = textColorOff;
+			else if (isGovernor)
+				titleC = textColorOn;
+			else
+				titleC = textColorOff;
+		}
+		governorBox.setBounds(govButtonX, buttonY, govButtonW, buttonH);
+
+		Stroke prevStroke = g.getStroke();
+		g.setStroke(stroke2);
+		g.setColor(borderC);
+		g.drawRect(govButtonX, buttonY, govButtonW, buttonH);
+		g.setStroke(prevStroke);
+		g.setColor(titleC);
+		g.drawString(title, titleX, titleY);
+
+		if (isGovernor == null)
+			g.drawImage(mixedGovernorImage, govButtonX+govButtonW-iconWidth, buttonY+s3, null);
+		else if (isGovernor)
+			g.drawImage(governorImage, govButtonX+govButtonW-iconWidth, buttonY+s3, null);
+		else
+			g.drawImage(noGovernorImage, govButtonX+govButtonW-iconWidth, buttonY+s2, null);
+	}
+	private void drawOptionsButton(Graphics2D g, boolean hovered)	{
+		Color borderC, titleC;
+		String title = text("GOVERNOR_OPTIONS");
+		g.setFont(narrowFont(govFontSize));
+		Rectangle2D bound = g.getFontMetrics().getStringBounds(title, g);
+		int titleW  = (int) Math.ceil(bound.getWidth());
+		double titleH  = bound.getHeight();
+		double descent = g.getFontMetrics().getDescent();
+		double titleDy = (buttonH-titleH)/2;
+		int titleX = round(optButtonX + (optButtonW-titleW)/2);
+		int titleY = round(buttonY + buttonH - descent-titleDy);
+		
+		if (hovered) {
+			borderC = SystemPanel.yellowText;
+			titleC  = SystemPanel.yellowText;
+		}
+		else {
+			borderC = buttonColor;
+			titleC  = textColorOn;
+		}
+		optionsBox.setBounds(optButtonX, buttonY, optButtonW, buttonH);
+		
+		Stroke prevStroke = g.getStroke();
+		g.setStroke(stroke2);
+		g.setColor(borderC);
+		g.drawRect(optButtonX, buttonY, optButtonW, buttonH);
+		g.setStroke(prevStroke);
+		
+		g.setColor(titleC);
+		g.drawString(title, titleX, titleY);
+	}
+	@Override public void paintComponent(Graphics g0) {
         Graphics2D g = (Graphics2D) g0;
         super.paintComponent(g);
-
+		if (needInitialization)
+			reinitPanel(g);
         int w = getWidth();
         
         if (greenBackC == null)
             initGradients();
 
+    	
         g.setFont(narrowFont(20));
-        String titleText = text("MAIN_COLONY_ALLOCATE_SPENDING");
-        int y0 = s22;
-        drawShadowedString(g, titleText, 2, s5, y0, MainUI.shadeBorderC(), textC);
+//        String titleText = text("MAIN_COLONY_ALLOCATE_SPENDING");
+//        drawShadowedString(g, titleText, 2, s5, y0, MainUI.shadeBorderC(), textC);
+
+		buttonY = s8;
+		drawGovernorButton(g, hoverBox == governorBox);
+		drawOptionsButton(g, hoverBox == optionsBox);
+		int y0 = 2 * buttonY + buttonH;
 
         int n = catBox.length;
         int gap = s5;
@@ -100,7 +324,7 @@ class MultiColonySpendingPane extends BasePanel implements MouseListener, MouseM
 
         int x0 = s10;
         int h0 = s20;
-        y0 += s8;
+        //y0 += s7;
         
         boolean showPendingOrders = options().showPendingOrders();
         for (int i=0;i<n;i++) {
@@ -108,21 +332,21 @@ class MultiColonySpendingPane extends BasePanel implements MouseListener, MouseM
             x0 = x0+w0+gap;
         }
 
+		int buttonSep = s29;
         String catName = text(Colony.categoryName(selectedCat));
-        int buttonH = s30;
-        y0 += s30;
+        y0 += buttonSep;
         drawGreenButton(g,text("PLANETS_SPENDING_0",catName), spending0Box, hoverBox, y0);
-        y0 += buttonH;
+        y0 += buttonSep;
         drawGreenButton(g,text("PLANETS_SPENDING_25",catName), spending25Box, hoverBox, y0);
-        y0 += buttonH;
+        y0 += buttonSep;
         drawGreenButton(g,text("PLANETS_SPENDING_50",catName), spending50Box, hoverBox, y0);
-        y0 += buttonH;
+        y0 += buttonSep;
         drawGreenButton(g,text("PLANETS_SPENDING_75",catName), spending75Box, hoverBox, y0);
-        y0 += buttonH;
+        y0 += buttonSep;
         drawGreenButton(g,text("PLANETS_SPENDING_MAX",catName), spendingMaxBox, hoverBox, y0);
-        y0 += buttonH;
+        y0 += buttonSep;
 
-        y0 += s15;
+        y0 += s12;
         g.setColor(SystemPanel.blackText);            
         String desc = text("FLEETS_ADJUST_SPENDING_DESC2");
         if (!player().ignoresPlanetEnvironment())
@@ -131,9 +355,23 @@ class MultiColonySpendingPane extends BasePanel implements MouseListener, MouseM
         List<String> descLines = wrappedLines(g, desc, w-s20);
         for (String line: descLines) {
             drawString(g,line, s10, y0);
-            y0 += s16;
+            y0 += s15;
         }
     }
+	private Boolean isGovernor()	{
+		List<StarSystem> systems = parent.systemsToDisplay();
+		boolean yes = false;
+		boolean no  = false;
+		for (StarSystem sys: systems) {
+			if (sys.colony().isGovernor())
+				yes = true;
+			else
+				no = true;
+			if (yes && no)
+				return null;
+		}
+		return yes;
+	}
 	private Boolean isUrged(List<StarSystem> systems, int cat)	{
 		boolean yes = false;
 		boolean no  = false;
@@ -301,7 +539,15 @@ class MultiColonySpendingPane extends BasePanel implements MouseListener, MouseM
 			}
 		repaint();
 	}
-    void toggleGovernor() {
+
+	private void mouseToggleGovernor() {
+		Boolean isGovernor = isGovernor();
+		if (isGovernor == null)
+			setGovernor(true);
+		else
+			setGovernor(!isGovernor);
+	}
+	void toggleGovernor() {
         List<StarSystem> systems = parent.systemsToDisplay();
         for (StarSystem sys: systems) {
             Colony c = sys.colony();
@@ -421,6 +667,15 @@ class MultiColonySpendingPane extends BasePanel implements MouseListener, MouseM
             setSpendingLevel(0.75f);
         else if (hoverBox == spendingMaxBox) 
             setSpendingLevel(1);
+		else if (hoverBox == governorBox)
+			mouseToggleGovernor();
+		else if (hoverBox == optionsBox)
+			if (e.isShiftDown()) {
+				ParamSubUI optionsUI = AllSubUI.governorSubUI();
+				optionsUI.start(null);
+			}
+			else
+				EmpireColonySpendingPane.governorOptions();
     }
 	@Override public void mouseDragged(MouseEvent arg0) { parent.enterCurrentPane(this); }
 	@Override public void mouseMoved(MouseEvent e) {
@@ -429,7 +684,11 @@ class MultiColonySpendingPane extends BasePanel implements MouseListener, MouseM
         int y = e.getY();
 
         Rectangle newHover = null;
-        if (spending0Box.contains(x,y))
+		if (governorBox.contains(x,y))
+			newHover = governorBox;
+		else if (optionsBox.contains(x,y))
+			newHover = optionsBox;
+		else if (spending0Box.contains(x,y))
             newHover = spending0Box;
         else if (spending25Box.contains(x,y))
             newHover = spending25Box;
