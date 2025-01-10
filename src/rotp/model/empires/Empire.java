@@ -2051,14 +2051,19 @@ public final class Empire implements Base, NamedObject, Serializable {
             return;
         }
 
+        // Build the colonyship list
         List<ShipDesign> designs = new ArrayList<>();
-
         for (ShipDesign sd: shipLab().designs()) {
             // ignore design if it's not a colony ship, even if it's market autocolonize
-            if (sd.isAutoColonize() && sd.hasColonySpecial()) {
+            if (sd.isAutoColonize() && sd.hasColonySpecial())
                 designs.add(sd);
-            }
         }
+        // no colony ship designs
+        if (designs.isEmpty()) {
+            // System.out.println("No Colony ship designs"); // BR: //
+            return;
+        }
+
         // non-extended range to extended range
         // least hostile to most hostile colony bases, send out least hostile colony bases first
         // sort ships fastest to slowest, send out fastest colony ships first
@@ -2074,22 +2079,15 @@ public final class Empire implements Base, NamedObject, Serializable {
                 return d2.warpSpeed() - d1.warpSpeed();
             }
         } );
-
-        // no colony ship designs
-        if (designs.isEmpty()) {
-            // System.out.println("No Colony ship designs"); // BR: //
-            return;
-        }
-//        else {
-//            for (ShipDesign sd: designs) {
-//                System.out.println("Colony Design "+sd.name()+" "+sd.isExtendedRange()+" sz="+sd.sizeDesc()+" warp="+sd.warpSpeed());
-//            }
-//        }
+        // for (ShipDesign sd: designs) {
+        //     System.out.println("Colony Design "+sd.name()+" "+sd.isExtendedRange()+" sz="+sd.sizeDesc()+" warp="+sd.warpSpeed());
+        // }
 
         BiPredicate<ShipDesign, Integer> designFitForSystem =
             (sd, si) -> (ignoresPlanetEnvironment() && acceptedPlanetEnvironment(sv.system(si).planet().type())) ||
                     (canColonize(si) && sd.colonySpecial().canColonize(sv.system(si).planet().type()));
 
+        // Build the list of colonizable planets
         boolean extendedRange = hasExtendedRange(designs);
         List<Integer> targets = filterTargets(i -> {
             // only colonize scouted systems, systems with planets, unguarded systems.
@@ -2371,7 +2369,10 @@ public final class Empire implements Base, NamedObject, Serializable {
         float valuePercent = 1 - planetValue(targetId) / maxValue;
         float distancePercent = source.travelTimeTo(sv.system(targetId), warpSpeed) / maxDistance;
         // so distance is worth 50% of weight, value 50%
-        return valuePercent * 0.5 + distancePercent * 0.5;
+        float distanceWeight = govOptions().colonyDistanceWeight();
+        float valueWeight = 1 - distanceWeight;
+        return valuePercent * valueWeight + distancePercent * distanceWeight;
+        // return valuePercent * 0.5 + distancePercent * 0.5;
     }
 
     // taken from AIFleetCommander.setColonyFleetPlan()

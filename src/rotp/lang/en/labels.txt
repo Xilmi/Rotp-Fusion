@@ -5183,6 +5183,10 @@ GOVERNOR_TERRAFORM_COST              | Cost / Income Trigger: %1
 GOVERNOR_DEFAULT_SHIP_TAKE_DESC      | Default percentage to allocate to priority fleet building, and priority research, when founding new colonies.
 GOVERNOR_DEFAULT_SHIP_TAKE           | Default priority takes: %1%
 
+GOVERNOR_COLONY_DISTANCE_WEIGHT_HELP | When selecting the best planet by automatic colonization: Planetary distance weighting.<br>Planetary value weighting = 100% - planetary distance weighting.<br>This parameter is shared by to all game. (Saved in Remnant.cfg)
+GOVERNOR_COLONY_DISTANCE_WEIGHT_DESC | When selecting the best planet by automatic colonization: Planetary distance weighting. (Planetary value weighting = 100% - planetary distance weighting)
+GOVERNOR_COLONY_DISTANCE_WEIGHT      | Planet distance weight: %1%
+
 HEADERS_GOVERNOR_TERRAFORM_DESC      | Triggers for planet terraforming.
 HEADERS_GOVERNOR_TERRAFORM           | ~~~ TERRAFORMING TRIGGERS ~~~
 HEADERS_GOVERNOR_SUBSIDIES_DESC      | What to do with the funds allocated to the colony?

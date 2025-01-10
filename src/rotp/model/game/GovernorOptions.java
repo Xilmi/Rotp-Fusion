@@ -382,4 +382,5 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public float	terraformMissingPopulation()	{ return terraformPopulation.get(); }
 	public float	terraformCost2Income()			{ return terraformCost2Income.get()/100f; }
 	public int		defaultShipTakePct()			{ return defaultShipTakePct.get(); }
+	public float	colonyDistanceWeight()			{ return colonyDistanceWeight.get()/100f; }
 }

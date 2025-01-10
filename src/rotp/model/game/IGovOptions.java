@@ -158,4 +158,9 @@ public interface IGovOptions {
 	ParamInteger defaultShipTakePct		= new ParamInteger(GOV_UI, "DEFAULT_SHIP_TAKE", 100)
 			.setLimits(10, 100)
 			.setIncrements(1, 5, 20);
+
+	ParamInteger colonyDistanceWeight	= new ParamInteger(GOV_UI, "COLONY_DISTANCE_WEIGHT", 50)
+			.isCfgFile(true)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20);
 }

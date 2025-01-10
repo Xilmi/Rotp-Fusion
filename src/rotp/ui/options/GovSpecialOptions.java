@@ -30,7 +30,10 @@ final class GovSpecialOptions extends AbstractOptionsSubUI {
 				defaultShipTakePct,
 				workerToFactoryROI,
 				maxColoniesForROI,
-				showTriggeredROI
+				showTriggeredROI,
+
+				LINE_SPACER_25,
+				colonyDistanceWeight
 				)));
 		return map;
 	};

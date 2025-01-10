@@ -11,6 +11,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New governor "advanced options":
   - to disable the "Pop/Factory ROI limit" after the empire has grown pas a limit. (Sending transport is then more efficient.)
   - to display production in green when "Pop/Factory ROI limit" has been reached.
+  - to set auto-colonization planet distance vs value weighting.
 - Governor buttons are now available on Colony panel - Multiple selection.
 - The default value of “Ship build limit ‘Take’ percentage”, for new colonies, can be set in Settings -> Governor Mandate -> Fine Tuning.
 - Colonies panel:

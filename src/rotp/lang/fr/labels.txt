@@ -5183,6 +5183,10 @@ GOVERNOR_TERRAFORM_COST              | Le rapport coût/revenu : %1< %1 %
 GOVERNOR_DEFAULT_SHIP_TAKE_DESC      | Pourcentage par défaut à attribuer à la construction de flottes prioritaires, et à la recherche prioritaire, lors de la fondation de nouvelles colonies.
 GOVERNOR_DEFAULT_SHIP_TAKE           | Allocation prioritaire par défaut : %1 %
 
+GOVERNOR_COLONY_DISTANCE_WEIGHT_HELP | Lors de la sélection de  la meilleure planète par la colonisation automatique : Pondération de la distance planétaire.<br>Pondération de la valeur planétaire = 100 % - pondération de la distance planétaire.<br>Ce paramètre est partagé par tous les jeux. (Enregistré dans Remnant.cfg)
+GOVERNOR_COLONY_DISTANCE_WEIGHT_DESC | Lors de la sélection de  la meilleure planète par la colonisation automatique : Pondération de la distance planétaire. (Pondération de la valeur planétaire = 100 % - pondération de la distance planétaire)
+GOVERNOR_COLONY_DISTANCE_WEIGHT      | Pondération de la distance : %1 %
+
 HEADERS_GOVERNOR_TERRAFORM_DESC      | Déclencheurs de la terraformation de la planète.
 HEADERS_GOVERNOR_TERRAFORM           | ~~~ DÉCLENCHEURS DE TERRAFORMATION ~~~
 HEADERS_GOVERNOR_SUBSIDIES_DESC      | Que faire des fonds alloués à la colonie ?
