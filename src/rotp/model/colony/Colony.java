@@ -2835,4 +2835,15 @@ public final class Colony implements Base, IMappedObject, Serializable {
             allocation(SHIP, needed);
         }
     }
+	public boolean showTriggeredROI()	{
+		GovernorOptions gov = govOptions();
+		if (!gov.showTriggeredROI())
+			return false;
+		float industryBC = totalIncome() * allocation(Colony.INDUSTRY)/MAX_TICKS;
+		float factoryNetCost = industry().bestFactoryCost(industryBC) / planet().productionAdj();
+		float factoryNetROI	 = factoryNetProductivity() / factoryNetCost;
+		float workerToFactoryROI = empire.workerProductivity() / tech().populationCost() / factoryNetROI;
+		float workerToFactoryROILimit = gov.workerToFactoryROILimit();
+		return workerToFactoryROI > workerToFactoryROILimit;
+	}
 }

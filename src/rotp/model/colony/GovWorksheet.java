@@ -18,7 +18,7 @@ public final class GovWorksheet {
 	private final float planetProdAdj, factoryNetYield, workerBaseROI;
 	private final float maxReserveIncome;
 	private final float workerToFactoryROILimit;
-	private final boolean wasShipRequest, hasSubsidies;
+	private final boolean wasShipRequest, hasSubsidies, useROILimit;
 	final boolean promoteShips, keepDirectShipAlloc;
 	final float totalIncome, cleanupCost;
 	final float targetPopPercent	= 1.0f;
@@ -53,6 +53,7 @@ public final class GovWorksheet {
 		hasSubsidies	 = c.maxReserveIncome() > 0;
 		promoteTerraform = c.ultimateMaxSize() > p.currentSize();
 		workerToFactoryROILimit = gov.workerToFactoryROILimit();
+		useROILimit	= e.numColonies() < gov.maxColoniesForROI();
 		// Defense management
 		// Set max missile bases if minimum is set
 		ColonyDefense defense = c.defense();
@@ -107,7 +108,7 @@ public final class GovWorksheet {
 			}
 		}
 		promoteWorkers = workerToFactoryROI() > workerToFactoryROILimit;
-		return promoteWorkers;
+		return promoteWorkers && useROILimit;
 	}
 	int updateLimitedAllocation(int alloc)	{
 		int spare = (alloc * c.govShipBuildSparePct) / 100;

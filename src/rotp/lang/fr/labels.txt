@@ -5143,6 +5143,12 @@ GOVERNOR_WORKER_TO_FACTORY_ROI_DESC  | Il est généralement plus rentable de pr
 GOVERNOR_WORKER_TO_FACTORY_ROI       | ROI Limite Pop/Usines : %1 %
 GOVERNOR_WORKER_TO_FACTORY_ROI_LABEL | ROI Limite Pop/Usines
 
+GOVERNOR_SHOW_TRIGGERED_ROI_DESC     | Lorsque le ratio ROI atteint le niveau de déclenchement, la production sera affichée en vert.
+GOVERNOR_SHOW_TRIGGERED_ROI          | Afficher si la limite est atteinte: %1
+
+GOVERNOR_MAX_COLONIES_FOR_ROI_DESC   | Une fois que le joueur a suffisamment de colonies pour envoyer des transports vers les nouvelles colonies, la croissance de la population n'est plus priorisée par le facteur ROI. Une fois que l'empire atteint ce nombre de colonies, le déclencheur est désactivé.
+GOVERNOR_MAX_COLONIES_FOR_ROI        | Désactiver si l'empire %1 > %1 colonies
+
 GOVERNOR_SUBSIDY_NORMAL_DESC         | À quoi devrait servir principalement les fonds envoyés à la colonie ?
 GOVERNOR_SUBSIDY_NORMAL              | Utilisation des fonds : %1
 SUBSIDY_NORMAL_INDUSTRY              | Industrie

@@ -5143,6 +5143,12 @@ GOVERNOR_WORKER_TO_FACTORY_ROI_DESC  | It is generally more profitable to produc
 GOVERNOR_WORKER_TO_FACTORY_ROI       | Pop/Factory ROI limit: %1%
 GOVERNOR_WORKER_TO_FACTORY_ROI_LABEL | Pop/Factory ROI limit
 
+GOVERNOR_SHOW_TRIGGERED_ROI_DESC     | When the ROI ratio reaches the trigger level, the production will be displayed in green.
+GOVERNOR_SHOW_TRIGGERED_ROI          | Display triggered ROI: %1
+
+GOVERNOR_MAX_COLONIES_FOR_ROI_DESC   | Once the player has enough colonies to send transports to the new colonies, population growth is no longer prioritized by the ROI factor. Once the empire reaches this number of colonies, the trigger is deactivated.
+GOVERNOR_MAX_COLONIES_FOR_ROI        | Max Colonies for ROI trigger: %1
+
 GOVERNOR_SUBSIDY_NORMAL_DESC         | What should the money sent to the colony be mainly used for?
 GOVERNOR_SUBSIDY_NORMAL              | Subsidy Use: %1
 SUBSIDY_NORMAL_INDUSTRY              | Industry

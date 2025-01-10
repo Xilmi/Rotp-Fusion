@@ -375,6 +375,8 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public String	subsidyNormalUse()				{ return subsidyNormalUse.get(); }
 	public String	subsidyTerraformUse()			{ return subsidyTerraformUse.get(); }
 	public float	workerToFactoryROILimit()		{ return workerToFactoryROI.get()/100f; }
+	public int		maxColoniesForROI()				{ return maxColoniesForROI.get(); }
+	public boolean	showTriggeredROI()				{ return showTriggeredROI.get(); }
 	public float	terraformFactoryPct()			{ return terraformFactoryPct.get()/100f; }
 	public float	terraformPopulationPct()		{ return terraformPopulationPct.get()/100f; }
 	public float	terraformMissingPopulation()	{ return terraformPopulation.get(); }

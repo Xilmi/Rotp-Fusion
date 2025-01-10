@@ -74,7 +74,13 @@ Later:
 
 ## What's New
 
+2025.01.10 (BR)
+- New governor "advanced options":
+  - to disable the "Pop/Factory ROI limit" after the empire has grown pas a limit. (Sending transport is then more efficient.)
+  - to display production in green when "Pop/Factory ROI limit" has been reached.
+
 2025.01.09 (BR)
+- Fixed potential double instance of governor panel. (made static)
 - Governor buttons are now available on Colony panel - Multiple selection.
 
 2025.01.08 (BR)

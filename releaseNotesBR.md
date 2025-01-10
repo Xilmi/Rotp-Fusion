@@ -8,6 +8,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- New governor "advanced options":
+  - to disable the "Pop/Factory ROI limit" after the empire has grown pas a limit. (Sending transport is then more efficient.)
+  - to display production in green when "Pop/Factory ROI limit" has been reached.
 - Governor buttons are now available on Colony panel - Multiple selection.
 - The default value of “Ship build limit ‘Take’ percentage”, for new colonies, can be set in Settings -> Governor Mandate -> Fine Tuning.
 - Colonies panel:

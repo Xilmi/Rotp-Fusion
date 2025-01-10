@@ -115,9 +115,13 @@ public interface IGovOptions {
 			.setDefaultValue(ROTP_DEFAULT, false);
 
 	// Advanced Tuning options: Not in the floating windows
-	ParamInteger workerToFactoryROI	= new ParamInteger(GOV_UI, "WORKER_TO_FACTORY_ROI", 140)
+	ParamInteger workerToFactoryROI	= new ParamInteger(GOV_UI, "WORKER_TO_FACTORY_ROI", 150)
 			.setLimits(100, 1000)
 			.setIncrements(5, 20, 100);
+	ParamInteger maxColoniesForROI	= new ParamInteger(GOV_UI, "MAX_COLONIES_FOR_ROI", 6)
+			.setLimits(0, 1000)
+			.setIncrements(1, 5, 20);
+	ParamBoolean showTriggeredROI	= new ParamBoolean(GOV_UI, "SHOW_TRIGGERED_ROI", true);
 
 	String INDUSTRY			= "INDUSTRY";
 	String ECOLOGY			= "ECOLOGY";
@@ -130,11 +134,6 @@ public interface IGovOptions {
 			.put(ECOLOGY,		SUBSIDY_NORMAL + "_" + ECOLOGY)
 			.put(PLANET_BASED,	SUBSIDY_NORMAL + "_" + PLANET_BASED)
 			.put(GOV_CHOICE,	SUBSIDY_NORMAL + "_" + GOV_CHOICE);
-//	default String	subsidyNormalUse()			{ return subsidyNormalUse.get(); }
-//	default boolean	subsidyNormalIndustry()		{ return subsidyNormalUse.get().equals(INDUSTRY); }
-//	default boolean	subsidyNormalEcology()		{ return subsidyNormalUse.get().equals(ECOLOGY); }
-//	default boolean	subsidyNormalRessources()	{ return subsidyNormalUse.get().equals(PLANET_BASED); }
-//	default boolean	subsidyNormalGovChoice()	{ return subsidyNormalUse.get().equals(GOV_CHOICE); }
 
 	String SUBSIDY_TERRAFORM	= "SUBSIDY_TFORM";
 	ParamList subsidyTerraformUse	= new ParamList(GOV_UI, SUBSIDY_TERRAFORM, GOV_CHOICE)
@@ -143,11 +142,6 @@ public interface IGovOptions {
 			.put(ECOLOGY,		SUBSIDY_TERRAFORM + "_" + ECOLOGY)
 			.put(PLANET_BASED,	SUBSIDY_TERRAFORM + "_" + PLANET_BASED)
 			.put(GOV_CHOICE,	SUBSIDY_TERRAFORM + "_" + GOV_CHOICE);
-//	default String	subsidyTerraformUse()			{ return subsidyTerraformUse.get(); }
-//	default boolean	subsidyTerraformIndustry()		{ return subsidyTerraformUse.get().equals(INDUSTRY); }
-//	default boolean	subsidyTerraformEcology()		{ return subsidyTerraformUse.get().equals(ECOLOGY); }
-//	default boolean	subsidyTerraformRessources()	{ return subsidyTerraformUse.get().equals(PLANET_BASED); }
-//	default boolean	subsidyTerraformGovChoice()		{ return subsidyTerraformUse.get().equals(GOV_CHOICE); }
 
 	ParamInteger terraformFactoryPct	= new ParamInteger(GOV_UI, "TERRAFORM_FACTORY_PCT", 60)
 			.setLimits(0, 100)
