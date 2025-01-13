@@ -266,16 +266,16 @@ EVENT_SPACE_AMOEBA_PLUNDER        | →EVENT_SPACE_AMOEBA_3←. L’étude de la
 
 EVENT_SPACE_CRYSTAL               | Une gigantesque entité cristalline appelée «le Cristal Spatial» a été repérée s’approchant du système [system]. Les colons et les flottes [victim_race_pluraladjecF] se préparent au pire.
 EVENT_SPACE_CRYSTAL_1             | Une gigantesque entité cristalline appelée «le Cristal Spatial» a été repérée s’approchant du système non colonisé [system].
-EVENT_SPACE_CRYSTAL_2             | Le Cristal Spatial a complètement détruit toute vie sur la colonie [victim_raceadjecF] dans le système [system].
+EVENT_SPACE_CRYSTAL_2             | Le Cristal Spatial a complètement détruit toute vie dans la colonie [victim_raceadjecF] dans le système [system].
 EVENT_SPACE_CRYSTAL_3             | Le Cristal Spatial a été détruit par les défenseurs [victim_race_pluraladjec] dans le système [system].
 EVENT_SPACE_CRYSTAL_4             | Le hideux Cristal Spatial a quitté notre galaxie. Pourquoi ? Pourquoi est-ce parti ? La galaxie ne le saura peut-être jamais.
-EVENT_SPACE_CRYSTAL_TRIG          | Les scientifiques responsables de la nouvelle technologie de la Porte des Étoiles ont déclaré : Nous regardions l’abîme, et l’abîme gronde Nom Nom Nom!
+EVENT_SPACE_CRYSTAL_TRIG          | Les scientifiques responsables de la nouvelle technologie de la Porte des Étoiles ont déclaré : Nous regardions l’abîme, et l’abîme gronde Miam Miam Miam !
 EVENT_SPACE_CRYSTAL_PLUNDER       | →EVENT_SPACE_CRYSTAL_3←.<br> La recherche actuelle en matière de propulsion pourrait être complétée par l’analyse des restes cristallins, et la vente des cristaux secondaires rapporte [amt] BC à la réserve de l’empire.
 
 // modnar: add space pirate random event
-EVENT_SPACE_PIRATES               | Une flotte de pirates maraudeurs a été repérée près du système [system]. Les colons [race] et les flottes de défense se préparent au pire.
+EVENT_SPACE_PIRATES               | Une flotte de pirates maraudeurs a été repérée près du système [system]. Les colons [victim_race_pluraladjec] et les flottes de défense se préparent au pire.
 EVENT_SPACE_PIRATES_1             | Une flotte de pirates maraudeurs a été repérée près du système non colonisé [system].
-EVENT_SPACE_PIRATES_2             | Les redoutables pirates spatiaux ont ravagé la population et pillé toute l’industrie sur la colonie [race] dans le système [system], dévastant également l’écologie locale.
+EVENT_SPACE_PIRATES_2             | Les redoutables pirates spatiaux ont ravagé la population et pillé toute l’industrie de la colonie [victim_raceadjecF] dans le système [system], dévastant également l’écologie locale.
 EVENT_SPACE_PIRATES_3             | La flotte de pirates a été détruite par les défenseurs [race] dans le système [system]. Des richesses importantes trouvées dans les épaves ont été saisies par l’armée [race] pour renforcer la réserve planétaire par [amt] BC.
 EVENT_SPACE_PIRATES_4             | Les pirates spatiaux ont quittés notre insignifiante galaxie ! Où sont-ils passé ? On s’en fiche, bon débarras !
 EVENT_SPACE_PIRATES_TRIG          | La récente découverte de la Propulsion Hyperspatiale va tout changer. Par exemple, les criminels se réjouissent de leur nouvelle mobilité.
@@ -1046,7 +1046,7 @@ MAIN_ADVISOR_SHIP_WEAPON          | Nos chercheurs ont eu une percée en matièr
 MAIN_ADVISOR_COUNCIL              | Le Conseil Galactique se réunira bientôt, et notre présence sera sans doute très souhaitée. Nos diplomates saisiront cette occasion pour faire en sorte que tout ce qui est décidé contribue au bien de la souveraineté.
 MAIN_ADVISOR_REBELLION            | Ah, une rébellion sur %1. Comme c’est bizarre. Je suppose que cela devait arriver à un certain moment, mon seigneur, mais nous devrions quand même la réprimer avant que le mécontentement ne s’étende à nos autres colonies.
 MAIN_ADVISOR_RESIST_COUNCIL       | Seigneur ! Nous sommes avec vous ! Il n’y aura pas de paix dans cette galaxie jusqu’à ce que tu prennes ta place légitime sur son trône suprême !
-MAIN_ADVISOR_COUNCIL_RESISTED     | Pathétique. Voyez comment les imbéciles luttent contre l’inévitable ? Donnez-nous l’ordre d’écraser ces rebelles, et nous le ferrons!
+MAIN_ADVISOR_COUNCIL_RESISTED     | Pathétique. Voyez comment les imbéciles luttent contre l’inévitable ? Donnez-nous l’ordre d’écraser ces rebelles, et nous le ferons!
 // System Scouted Notification
 MAIN_SCOUT_TITLE                  | Les Scientifiques Cataloguent un Nouveau Système Stellaire
 MAIN_SCOUT_SUBTITLE_1             | Nos vaisseaux ont repéré ce système
@@ -2942,9 +2942,9 @@ SETTINGS_MOD_RACE_STATUS_VIEW_PCT_TOTAL_DESC  | Valeur relative en % du total de
 SETTINGS_MOD_RACE_STATUS_VIEW_PCT_PLAYER_DESC | Valeur relative en % de la valeur du joueur.
 SETTINGS_MOD_RACE_STATUS_VIEW_VALUE_DESC      | Valeur absolue.
 
-SETTINGS_MOD_KEEP_SHIP_NAME_DESC         | L'emplacement de conception des vaisseaux mémorisera le nom du dernier model de vaisseau au lieu d'en obtenir un nouveau à partir de la liste associée à l'espèce.
+SETTINGS_MOD_KEEP_SHIP_NAME_DESC         | L'emplacement de conception des vaisseaux mémorisera le nom du dernier modèle de vaisseau au lieu d'en obtenir un nouveau à partir de la liste associée à l'espèce.
 SETTINGS_MOD_KEEP_SHIP_NAME              | Conserver le nom des vaisseaux : %1
-SETTINGS_MOD_KEEP_SHIP_NAME_YES_DESC     | Conserver le nom du model de vaisseau après sa mise au rebut, et copier aussi le nom lors de la copie d'un model de vaisseau.
+SETTINGS_MOD_KEEP_SHIP_NAME_YES_DESC     | Conserver le nom du modèle de vaisseau après sa mise au rebut, et copier aussi le nom lors de la copie d'un modèle de vaisseau.
 SETTINGS_MOD_KEEP_SHIP_NAME_NO_DESC      | Attribuer un nouveau nom en fonction de la taille de la coque et de l'espèce.
 
 SETTINGS_MOD_OPTIONS_DEFAULT             | Par défaut
@@ -3718,7 +3718,7 @@ SETTINGS_MOD_AMOEBA_RETURN_TURN          | →REF_AMOEBA← →REF_RETURN←
 SETTINGS_MOD_AMOEBA_MAX_SYSTEMS_DESC     | →REF_MAX_SYS_1← →REF_AMOEBA_2← →REF_RETURN_2←
 SETTINGS_MOD_AMOEBA_MAX_SYSTEMS          | Max →REF_AMOEBA← Attaque: %1
 REF_CRYSTAL                              | Cristal
-REF_CRYSTAL_2                            | Cristal spatial
+REF_CRYSTAL_2                            | Cristal Spatial
 SETTINGS_MOD_CRYSTAL_DELAY_TURN_DESC     | →REF_DELAY_1← →REF_CRYSTAL_2← →REF_DELAY_2←
 SETTINGS_MOD_CRYSTAL_DELAY_TURN          | →REF_CRYSTAL← →REF_DELAY←
 SETTINGS_MOD_CRYSTAL_RETURN_TURN_DESC    | →REF_RETURN_1← Espace →REF_CRYSTAL_2← →REF_RETURN_2←
@@ -4382,7 +4382,7 @@ SHIP_COMBAT_SCAN_WEAPONS          | Armes
 SHIP_COMBAT_SCAN_DEVICES          | Dispositifs
 SHIP_COMBAT_SCAN_HITS_VALUE       | %1/%2
 SHIP_COMBAT_SCAN_WEAPON_CNT       | %1 x %2
-SHIP_COMBAT_SCAN_UNSCANNED_VALUE  | ???
+SHIP_COMBAT_SCAN_UNSCANNED_VALUE  | ???
 SHIP_COMBAT_COLONY_LABEL          | Informations sur la colonie
 SHIP_COMBAT_COLONY_SCAN_LABEL     | Informations sur l’analyse des colonies
 SHIP_COMBAT_COLONY_POPULATION     | Population
@@ -4764,9 +4764,9 @@ SYSTEMS_STATUS_SUPERNOVA          | L’étoile du système deviendra une supern
 SYSTEMS_STATUS_PLAGUE             | La colonie connaît un fléau planétaire nécessitant %1 RP pour y remédier.
 SYSTEMS_STATUS_PIRACY             | Les pirates affectent les routes commerciales dans ce système.
 SYSTEMS_STATUS_SPACE_AMOEBA       | Une Amibe Spatiale géante se dirige vers ce système.
-SYSTEMS_STATUS_SPACE_CRYSTAL      | Un gigantesque cristal spatial se dirige vers ce système.
+SYSTEMS_STATUS_SPACE_CRYSTAL      | Un gigantesque Cristal Spatial se dirige vers ce système.
 // modnar: add space pirate random event
-SYSTEMS_STATUS_SPACE_PIRATES      | Une flotte de pirates de l’espace se dirige vers ce système.
+SYSTEMS_STATUS_SPACE_PIRATES      | Une flotte de Pirates de l’Espace se dirige vers ce système.
 
 // War View UI
 WAR_VIEW_TITLE                    | Années · Flottes approchantes
@@ -4993,7 +4993,7 @@ HEADERS_GOVERNOR_STARGATES_OPTIONS      | ~~~ PORTES DES ÉTOILES ~~~
 GOVERNOR_STARGATES_OPTIONS_LABEL        | Portes des étoiles
 GOVERNOR_STARGATES_OPTIONS_TT           | Où l’IA devrait-elle construire des portes des étoiles ?
 
-GOVERNOR_STARGATES_OPTIONS_DESC      | Quelles colonies vont construire automatiquement des portes des étoiles? automatiquement.
+GOVERNOR_STARGATES_OPTIONS_DESC      | Quelles colonies vont construire automatiquement des portes des étoiles?
 GOVERNOR_STARGATES_OPTIONS           | Construire les portes des étoiles : %1
 GOVERNOR_STARGATES_NONE              | Aucunes
 GOVERNOR_STARGATES_RICH              | Riches
