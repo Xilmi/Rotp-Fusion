@@ -138,7 +138,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 		@Override public Integer set(Integer value)	{
 			super.set(value);
 			if (RotPUI.instance() != null)
-				RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+				RotPUI.setupGalaxyUI().postGalaxySizeSelection(false);
 			return value;
 		}
 		@Override public boolean prev() {

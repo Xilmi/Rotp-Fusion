@@ -200,7 +200,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			@Override public Integer	set(Integer value)	{
 				super.set(value);
 				if (RotPUI.instance() != null)
-					RotPUI.setupGalaxyUI().postSelectionMedium(true);
+					RotPUI.setupGalaxyUI().postSelectionMedium(false);
 				return value;
 			}
 		}
@@ -509,7 +509,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			}
 			private void postGalaxySizeSelection() {
 				if (allowRefresh)
-					RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+					RotPUI.setupGalaxyUI().postGalaxySizeSelection(false);
 			}
 		}
 	
@@ -545,7 +545,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			@Override public String	set(String value)	{
 				super.set(value);
 				if (RotPUI.instance() != null)
-					RotPUI.setupGalaxyUI().postSelectionLight(true);
+					RotPUI.setupGalaxyUI().postSelectionLight(false);
 				return get();
 			}
 		}

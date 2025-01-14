@@ -74,6 +74,10 @@ Later:
 
 ## What's New
 
+2025.01.14 (BR)
+- Fixed some Galaxy text getting out of the field.
+- Removed some excess click sound on "Replay last turn".
+
 2025.01.10 (BR)
 - New governor "advanced options":
   - to disable the "Pop/Factory ROI limit" after the empire has grown pas a limit. (Sending transport is then more efficient.)

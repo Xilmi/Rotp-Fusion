@@ -38,6 +38,8 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.Transparency;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -203,9 +205,18 @@ public interface Base extends InputEventUtil {
         str = str.replace("%2", val2);
         return str.replace("%3", String.valueOf(val3));
     }
-    public default Font galaxyFont(int size) { // BR: MonoSpaced font for Galaxy
-        return FontManager.current().galaxyFont(size);
-    }
+	public default Font galaxyFont(int size) { return FontManager.current().galaxyFont(size); }
+	public default int scaledGalaxyFont(Graphics2D g2, String str, int maxHeight, int desiredFont, int minFont) {
+		int size = desiredFont;
+		g2.setFont(galaxyFont(size));
+		int height = getStringBounds(g2, str, 0, 0).height;
+		while (height>maxHeight && size>minFont) {
+			size--;
+			g2.setFont(galaxyFont(size));
+			height = getStringBounds(g2, str, 0, 0).height;
+		}
+	 	 return size;
+	}
     /**
      * First choice is dialogue font... But if the dialogue font
      * can not display the String str, return the narrow font
@@ -1773,6 +1784,11 @@ public interface Base extends InputEventUtil {
     	debugReloadLabels("");
     	component.repaint();
     }
+	default Rectangle getStringBounds(Graphics2D g2, String str, float x, float y) {
+		FontRenderContext frc = g2.getFontRenderContext();
+		GlyphVector gv = g2.getFont().createGlyphVector(frc, str);
+		return gv.getPixelBounds(null, x, y);
+	}
     class Rect extends Rectangle {
     	private static final long serialVersionUID = 1L;
     	public Rect()				{ super(); }
@@ -1785,13 +1801,12 @@ public interface Base extends InputEventUtil {
 
        	public Rect intersection(Rect r)	{ return new Rect(super.intersection(r)); }
        	public Rect union(Rect r)			{ return new Rect(super.union(r)); }
-       	
+	
        	public int xc() 	{ return (int) getCenterX(); }
        	public int yc() 	{ return (int) getCenterY(); }
        	public int xe() 	{ return x + width; }
        	public int ye() 	{ return y + height; }
-       	
-       	public Rectangle rectangle()	{ return new Rectangle(x, y, width, height); }
 
+       	public Rectangle rectangle()	{ return new Rectangle(x, y, width, height); }
     }
 }

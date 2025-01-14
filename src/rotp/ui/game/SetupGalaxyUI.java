@@ -218,13 +218,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private String[] galaxyTextArray;
     private Font dialogMonoFont;
     private int  dialogMonoFontSize = 20;
-    private Font boxMonoFont;
-    private int  boxMonoFontSize  = 15;
-    
+
     private int  galaxyGrid  = 10;
     private boolean showGrid = false;
     private boolean prevShowGrid = false;
-    
+
     private int wSmallMug	= s54;
     private int hSmallMug 	= s58;
     private int rShSmallMug	= s56;
@@ -246,7 +244,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     // Local copy of the good sized race Mug, to avoid depending SetupRaceUI
     private BufferedImage[] bigOppMugs;
     private BufferedImage[] smallOppMugs;
-    
+
     // Buttons Parameters
     private int buttonSep	= s15;
     private Box	helpBox		= new Box("SETTINGS_BUTTON_HELP");
@@ -271,11 +269,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     public static ParamList opponentAI() { return instance.opponentAI; }
     private static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
 
- 	private Font boxMonoFont() {
-    	if (boxMonoFont == null)
-    		boxMonoFont = galaxyFont(scaled(boxMonoFontSize));
-    	return boxMonoFont;
-    }
 	private Font dialogMonoFont() {
     	if (dialogMonoFont == null)
     		dialogMonoFont = galaxyFont(scaled(dialogMonoFontSize));
@@ -359,7 +352,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				opts.aliensNumber()
 				)));
 		return map;
-	};	
+	}
 	@Override protected void singleInit() {
 		//startBox			= new Box(startButtonHelp);
 		showAbilitiesBox	= new Box(opts.useSelectableAbilities());
@@ -372,7 +365,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		diffBox				= new Box(opts.difficultySelection());
 		wysiwygBox			= new Box(opts.galaxyRandSource());
 		oppBox				= new Box(opts.aliensNumber());
-		
+
 		paramList = AllSubUI.optionsGalaxy();
 		for (int i=0;i<oppSet.length;i++)
 			oppSet[i] = new Box(specificOpponent, i);
@@ -399,7 +392,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		opts = guiOptions();
 		isOnTop = true;
 		super.init();
-		boxMonoFont    = null;
 		dialogMonoFont = null;
 		playerMug  = null;
         initAIandAbilitiesList();
@@ -416,7 +408,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	@Override public void clearImages() {
 		super.clearImages();
-		boxMonoFont		= null;
 		dialogMonoFont	= null;
 		galaxyTextArray	= null;
       	nebulas 		= null;
@@ -435,7 +426,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     	IGameOptions.noFogOnIcons.toggle();
     	clearMugs();
         repaint();
-   }   
+    }
     private BufferedImage getMug(BufferedImage diplo, BufferedImage back) {
     	int bw = back.getWidth();
     	int bh = back.getHeight();
@@ -597,7 +588,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		xe   = dest.x + dest.width/2;
 		ye   = dest.y;
 		sp.setLine(xb, yb, xe, ye);
-		
+
 		// Back button; left Galaxy
 		dest = backBox;
 		txt  = dest.getDescription();
@@ -612,7 +603,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		xe   = dest.x - s25;
 		ye   = dest.y;
 		sp.setLineArr(new int[] {xb, yb, xb+s15, yb, xe, ye, dest.x, dest.y+s10});
-		
+
 		// User button: Left of Last button
 		dest = userBox;
 		txt  = dest.getDescription();
@@ -687,7 +678,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		ye   = dest.y;
 		sp.setLine(xb, yb, xe, ye);
 		// int y3 = yBox;
-		
+
 		// Opponents parameters
 		wBox   = scaled(250);
 		hShift = s60;  
@@ -775,7 +766,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		xe = xBox;
 		ye = yBox;
 		yb = yBox - s80;
-	   
+
 		hBox = HelpUI.height(nL);
 		wBox = scaled(440);
 		xBox = rightBoxX - scaled(210);
@@ -783,7 +774,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, -nL, txt);
 		xb   = xBox + wBox*6/7;
 		yb   = yBox + sp.height();
-		
+
 		switch (opts.compactOptionOnly().get().toUpperCase()) {
 			case "NO": {
 				xe = settingsBox.x;
@@ -797,7 +788,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			}
 		}
 		sp.setLine(xb, yb, xe, ye);
-
 
 		helpUI.open(this);
 	}
@@ -1310,7 +1300,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			g.setColor(borderC);
 			g.drawRect(x2, y2, mugW, mugH);
 			g.setStroke(prevStroke);
-
 		}
 		// draw galaxy
 		drawGalaxyShape(g, opts.galaxyShape(), galaxyX, galaxyY, galaxyW, galaxyH);
@@ -1443,12 +1432,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int shapeSW = g.getFontMetrics().stringWidth(shapeLbl);
 		int x5a =shapeBox.x+((shapeBox.width-shapeSW)/2);
 		drawString(g,shapeLbl, x5a, y5);
-		
+
 		if (opts.numGalaxyShapeOption1() > 0) {
 			if (isShapeTextGalaxy()) {
 				String label1 = opts.selectedGalaxyShapeOption1();
 				Font prevFont = g.getFont();
-				g.setFont(boxMonoFont());
+				scaledGalaxyFont(g, label1, s16, s15, s10);
 				int sw1 = g.getFontMetrics().stringWidth(label1);
 				int x5d = mapOption1Box.x+((mapOption1Box.width-sw1)/2);
 				drawString(g,label1, x5d, y5+s20);
@@ -1485,7 +1474,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				drawString(g,label2, x5e, y5+s40);	
 			}		 
 		}
-		
+
 		String sizeLbl = text(opts.selectedGalaxySize());
 		int sizeSW = g.getFontMetrics().stringWidth(sizeLbl);
 		int x5b =sizeBox.x+((sizeBox.width-sizeSW)/2);
@@ -1497,7 +1486,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			int x5b1 =sizeOptionBox.x+((sizeOptionBox.width-sw2)/2);
 			drawString(g,label, x5b1, y5+s20);		   
 		}
-		
+
 		String diffLbl = text(opts.selectedGameDifficulty());
 		// modnar: add custom difficulty level option, set in Remnants.cfg
 		// append this custom difficulty percentage to diffLbl if selected
@@ -1506,11 +1495,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		} else {
 			diffLbl = diffLbl + " (" + Integer.toString(Math.round(100 * opts.aiProductionModifier())) + "%)";
 		}
-		
+
 		int diffSW = g.getFontMetrics().stringWidth(diffLbl);
 		int x5c =diffBox.x+((diffBox.width-diffSW)/2);
 		drawString(g,diffLbl, x5c, y5);
-		
+
 		String wysiwygLbl;
 		if (opts.selectedGalaxyRandSource() == 0)
 			wysiwygLbl = text("SETTINGS_MOD_GALAXY_RAND_RANDOM");
@@ -1523,7 +1512,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		int x5d =wysiwygBox.x+((wysiwygBox.width-wysiwygSW)/2);
 		drawString(g,wysiwygLbl, x5d, y5+s20);
-		
+
 		// draw autoplay warning
 		if (opts.isAutoPlay()) {
 			g.setFont(narrowFont(16));
@@ -1664,14 +1653,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		float fullGw = sh.width()  + 2*radius;
 		float fullGh = sh.height() + 2*radius;
 		float factor = min(w/fullGw, h/fullGh);
-		
+
 		// Conversion in pixels
 		int dispNomW = Math.round(sh.width() * factor);
 		int dispNomH = Math.round(sh.height() * factor);
 		int xOff = x + Math.round((w - sh.width()*factor) / 2f);
 		int yOff = y + Math.round((h - sh.height()*factor) / 2f);
 		int grid = Math.round(galaxyGrid * factor);
-		
+
 		// Work in pixel
 		int starSize    = s2;
 		int worldsSize  = 0;
@@ -2184,7 +2173,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			backImg = null;
 			nebulas = null;
 			playerMug  = null;
-			boxMonoFont    = null;
 			dialogMonoFont = null;
 			galaxyTextArray = null;
 		};
@@ -2223,7 +2211,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			race = Race.keyed(opts.selectedPlayerRace());
 			setupName = race.setupName();
 		}
-		
+
 		// background image
 		Image back = GameUI.defaultBackground;
 		int imgW = back.getWidth(null);
@@ -2438,7 +2426,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.fill(shapeBoxR);
 		shapeBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
 		g.fill(shapeBox);
-		
+
 	mapOption1BoxL.reset();
 		mapOption1BoxR.reset();
 		mapOption1Box.setBounds(0,0,0,0);
@@ -2542,7 +2530,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.fill(wysiwygBoxR);
 		wysiwygBox.setBounds(sliderX, sliderYAI+s20, sliderW, sliderH);
 		g.fill(wysiwygBox);
-		
+
 		// draw settings button
 		int smallButtonH = s27; // 27 for 3 buttons // 30 for 2 buttons
 		int smallButtonW = scaled(160); // 150 for 3 buttons // 180 for 2 buttons
@@ -2557,7 +2545,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.setPaint(GameUI.buttonBackgroundColor());
 		tuneGalaxyBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
 		tuneGalaxyBox.fillButtonFullImg(g);
-		
+
 		switch (opts.compactOptionOnly().get().toUpperCase()) {
 			case "YES": {
 				int bw = 110;

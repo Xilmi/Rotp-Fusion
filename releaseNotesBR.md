@@ -8,6 +8,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
 
+- Fixed some Galaxy text getting out of the field.
+- Removed some excess click sound on "Replay last turn".
 - New governor "advanced options":
   - to disable the "Pop/Factory ROI limit" after the empire has grown pas a limit. (Sending transport is then more efficient.)
   - to display production in green when "Pop/Factory ROI limit" has been reached.
