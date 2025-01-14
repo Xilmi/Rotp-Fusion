@@ -85,11 +85,12 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 	@Override public String statusMessage()		{ return text(statusMessageKey()); }
 	@Override public String systemKey()			{ return "MAIN_PLANET_EVENT_" + name() + monsterId(); }
 	@Override public String notificationText()	{
-		String s1 = text("EVENT_SPACE_" + name());
+		String s1 = text(eventName());
 		Empire emp = galaxy().empire(targetEmpId);
 		s1 = s1.replace("[system]", emp.sv.name(targetSysId));
 		s1 = s1.replace("[race]", emp.raceName());
 		s1 = emp.replaceTokens(s1, "victim");
+		s1 = emp.replaceTokens(s1, "");
 		return s1;
 	}
 	@Override public void trigger(Empire emp)	{
@@ -422,6 +423,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 			s1 = s1.replace("[system]", emp.sv.name(targetSysId));
 			s1 = s1.replace("[race]", emp.raceName());
 			s1 = emp.replaceTokens(s1, "victim");
+			s1 = emp.replaceTokens(s1, "");
 		}
 		else 
 			s1 = s1.replace("[system]", player().sv.name(targetSysId));

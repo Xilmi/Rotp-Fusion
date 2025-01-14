@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
   - Fixed "Recent" in backup folder crashing on load.
+  - Removed duplicates "Hostile Terraforming" and "Colonizing" from Rules options panel.
 
 - Fixed some Galaxy text getting out of the field.
 - Removed some excess click sound on "Replay last turn".

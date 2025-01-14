@@ -44,8 +44,6 @@ final class GalaxyRules extends AbstractOptionsSubUI {
 				Arrays.asList(
 						warpSpeed,
 						fuelRange,
-						terraforming,
-						colonizing,
 						realNebulaSize,
 						realNebulaShape,
 						realNebulaeOpacity,
