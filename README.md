@@ -77,6 +77,7 @@ Later:
 2025.01.14 (BR)
 - Fixed some Galaxy text getting out of the field.
 - Removed some excess click sound on "Replay last turn".
+- Fixed "Recent" in backup folder crashing on load.
 
 2025.01.10 (BR)
 - New governor "advanced options":

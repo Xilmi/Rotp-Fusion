@@ -7,6 +7,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed plenty of language translation bugs, and UI display.
   - French translation improvement. (BR & Frank Zago)
   - Completed the French translation of labels.txt and techs.txt
+  - Fixed "Recent" in backup folder crashing on load.
 
 - Fixed some Galaxy text getting out of the field.
 - Removed some excess click sound on "Replay last turn".
