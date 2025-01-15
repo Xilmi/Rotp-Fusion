@@ -2927,6 +2927,11 @@ SETTINGS_MOD_RACE_STATUS_VIEW_PCT_TOTAL_DESC  | Relative value in % of the total
 SETTINGS_MOD_RACE_STATUS_VIEW_PCT_PLAYER_DESC | Relative value in % of the player value.
 SETTINGS_MOD_RACE_STATUS_VIEW_VALUE_DESC      | Absolute Value.
 
+SETTINGS_MOD_KEEP_SHIP_NAME_DESC         | The ship design slot will memorize the last ship design name instead of getting a new one from the species ship name list.
+SETTINGS_MOD_KEEP_SHIP_NAME              | Keep ship design name: %1
+SETTINGS_MOD_KEEP_SHIP_NAME_YES_DESC     | Keep the ship design name after deleting, and keep the name of a copied design.
+SETTINGS_MOD_KEEP_SHIP_NAME_NO_DESC      | Give a new name based on hull size and species.
+
 SETTINGS_MOD_OPTIONS_DEFAULT             | Default Settings
 SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings

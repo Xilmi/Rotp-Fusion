@@ -1192,6 +1192,8 @@ public class DesignUI extends BasePanel {
             if (hoverTarget == copyButtonArea[designNum]) {
                 softClick();
                 configPanel.shipDesign().copyFrom(slotDesign());
+                if (options().keepShipDesignName())
+                	configPanel.shipDesign().name(slotDesign().name());
                 configPanel.loadShipImages();
                 instance.repaint();
                 return;
@@ -1291,7 +1293,8 @@ public class DesignUI extends BasePanel {
 	            int seq = shipDesign().seq();
 	            int color = shipDesign().shipColor();
 	            shipDesign().copyFrom(auto);
-	            shipDesign().name(name);
+	            if (!options().keepShipDesignName())
+	            	shipDesign().name(name);
 	            shipDesign().seq(seq);
 	            shipDesign().setIconKey();
 	            shipDesign().shipColor(color);
@@ -1320,7 +1323,8 @@ public class DesignUI extends BasePanel {
 	            int seq = shipDesign().seq();
 	            int color = shipDesign().shipColor();
 	            shipDesign().copyFrom(auto);
-	            shipDesign().name(name);
+	            if (!options().keepShipDesignName())
+	            	shipDesign().name(name);
 	            shipDesign().seq(seq);
 	            shipDesign().setIconKey();
 	            shipDesign().shipColor(color);
@@ -1333,7 +1337,8 @@ public class DesignUI extends BasePanel {
 	            int seq = shipDesign().seq();
 	            int color = shipDesign().shipColor();
 	            shipDesign().copyFrom(auto);
-	            shipDesign().name(name);
+	            if (!options().keepShipDesignName())
+	            	shipDesign().name(name);
 	            shipDesign().seq(seq);
 	            shipDesign().setIconKey();
 	            shipDesign().shipColor(color);
@@ -1358,7 +1363,8 @@ public class DesignUI extends BasePanel {
 	            int seq = shipDesign().seq();
 	            int color = shipDesign().shipColor();
 	            shipDesign().copyFrom(auto);
-	            shipDesign().name(name);
+	            if (!options().keepShipDesignName())
+	            	shipDesign().name(name);
 	            shipDesign().seq(seq);
 	            shipDesign().setIconKey();
 	            shipDesign().shipColor(color);
@@ -3285,7 +3291,10 @@ public class DesignUI extends BasePanel {
         	}
         }
         private void scrapAction() {
+        	String previousName = shipDesign().name();
             player().shipLab().scrapDesign(shipDesign());
+            if (options().keepShipDesignName())
+            	shipDesign().name(previousName);
             // mark the player's empire economic stats to be
             // recalculated since ship maintenance costs may change
             player().recalcPlanetaryProduction();

@@ -31,7 +31,10 @@ final class GameMenuPreferences extends AbstractOptionsSubUI {
 				showAlternateAnimation,
 
 				LINE_SPACER_25,
-				shipBasedMissiles
+				shipBasedMissiles,
+
+				LINE_SPACER_25,
+				keepShipDesignName
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("GALAXY_PANEL"),

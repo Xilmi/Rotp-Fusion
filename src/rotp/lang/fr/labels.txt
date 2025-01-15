@@ -2927,6 +2927,11 @@ SETTINGS_MOD_RACE_STATUS_VIEW_PCT_TOTAL_DESC  | Valeur relative en % du total de
 SETTINGS_MOD_RACE_STATUS_VIEW_PCT_PLAYER_DESC | Valeur relative en % de la valeur du joueur.
 SETTINGS_MOD_RACE_STATUS_VIEW_VALUE_DESC      | Valeur absolue.
 
+SETTINGS_MOD_KEEP_SHIP_NAME_DESC         | L'emplacement de conception des vaisseaux mémorisera le nom du dernier model de vaisseau au lieu d'en obtenir un nouveau à partir de la liste associée à l'espèce.
+SETTINGS_MOD_KEEP_SHIP_NAME              | Conserver le nom des vaisseaux : %1
+SETTINGS_MOD_KEEP_SHIP_NAME_YES_DESC     | Conserver le nom du model de vaisseau après sa mise au rebut, et copier aussi le nom lors de la copie d'un model de vaisseau.
+SETTINGS_MOD_KEEP_SHIP_NAME_NO_DESC      | Attribuer un nouveau nom en fonction de la taille de la coque et de l'espèce.
+
 SETTINGS_MOD_OPTIONS_DEFAULT             | Par défaut
 SETTINGS_MOD_OPTIONS_LAST                | Dernier état
 SETTINGS_MOD_OPTIONS_GAME                | Partie en cours

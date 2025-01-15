@@ -856,4 +856,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default boolean optionPanelIsLeftAlign()	{ return optionPanelAlignment.get().equals(LEFT_ALIGN); }
 	default boolean optionPanelIsRightAlign()	{ return optionPanelAlignment.get().equals(RIGHT_ALIGN); }
 	default boolean optionPanelIsJustified()	{ return optionPanelAlignment.get().equals(JUSTIFIED); }
+
+	ParamBoolean keepShipDesignName	= new ParamBoolean(MOD_UI, "KEEP_SHIP_NAME", false).isCfgFile(true);
+	default boolean keepShipDesignName()	{ return keepShipDesignName.get(); }
 }
