@@ -74,6 +74,10 @@ Later:
 
 ## What's New
 
+2025.01.18 (BR)
+- Galaxy Text shaped: New multi-line option with custom line spacing.
+- All selection popup are slightly shifted to the left to not mask the galaxy preview.
+
 2025.01.15 (BR)
 -  New option: The ship design slot will memorize the last ship design name instead of getting a new one from the species ship name list, also keep the name of a copied design.
 

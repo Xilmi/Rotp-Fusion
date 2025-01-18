@@ -270,6 +270,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		        initialChoice, 				// Initial choice
 		        "XXXXXXXXXXXXXXXX",			// long Dialogue
 		        true,						// isVertical
+		        -1, -1,						// Position
 		        scaled(220), scaled(220),	// size
 				null, null,					// Font, Preview
 				returnList,					// Alternate return

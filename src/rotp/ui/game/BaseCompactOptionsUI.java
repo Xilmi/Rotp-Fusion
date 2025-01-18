@@ -44,6 +44,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.IParam;
+import rotp.ui.util.ParamList;
 import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
 
@@ -103,6 +104,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private BaseModPanel parentUI;
 	private boolean forceUpdate	 = true;
 	private boolean callPreview	 = false;
+	private IParam  callParam	 = null;
 	private boolean isCentered	 = true;
 	private boolean isLeftAlign	 = false;
 	//private boolean isRightAlign = false;
@@ -347,8 +349,10 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			int bMargin = s7;
 			int margin	= subMenuIconW + subMenuIconPad;
 			int width	= retina(columnWidth-margin-margin);
-			if(hovering && param.trueChange())
+			if(hovering && param.trueChange()) {
 				callPreview = true; // To refresh visible parent panel
+				callParam = param;
+			}
 			float hFactor = param.heightFactor();
 			int boxH = (int) (textBoxH * hFactor);
 			BufferedImage img = new BufferedImage(retina(columnWidth), retina(boxH), TYPE_INT_ARGB);
@@ -596,6 +600,14 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	}
 	// ========== Overriders ==========
 	//
+	@Override public void preview(String s, IParam param) {
+		if (parentUI == null)
+			return;
+		if (s != null && !s.equalsIgnoreCase("quickGenerate"))
+			if (param instanceof ParamList)
+				((ParamList) param).set(s);
+		parentUI.preview(s, param);
+	}
 	@Override protected String exitButtonKey() {
 		switch (ModifierKeysState.get()) {
 		case CTRL:		 return cancelKey;
@@ -713,8 +725,9 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			goToNextSetting(param);
 		}
 		if (callPreview) {
-			parentUI.preview("quickGenerate");
+			parentUI.preview("quickGenerate", callParam);
 			callPreview = false;
+			callParam = null;
 		}
 		forceUpdate(false);
 		g.setStroke(prev);

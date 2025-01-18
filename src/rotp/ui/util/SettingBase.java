@@ -838,6 +838,7 @@ public class SettingBase<T> implements IParam {
 				message, title,					// Message & Title
 				list, selectedValue.toString(),	// List & Initial choice
 				null, true,						// long Dialogue & isVertical
+				-1, -1,						// Position
 				RotPUI.scaledSize(360), RotPUI.scaledSize(height),	// size
 				null, null,		// Font, Preview
 				cfgValueList,	// Alternate return

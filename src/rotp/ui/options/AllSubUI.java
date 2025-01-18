@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 
+import rotp.model.game.IGalaxyOptions;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamSubUI;
@@ -89,6 +90,8 @@ public final class AllSubUI {
 			LinkedHashSet<IParam> allOptions = new LinkedHashSet<>();
 			for (AbstractOptionsSubUI ui : instance().uiMap.values())
 				allOptions.addAll(ui.getListNoSpacer());
+			allOptions.add(IGalaxyOptions.getGalaxyShapeOption4());
+			allOptions.add(IGalaxyOptions.getGalaxyShapeLineSpacing());
 			// Remove the line separators
 			allOptions.remove(null);
 			// Then create the final list 

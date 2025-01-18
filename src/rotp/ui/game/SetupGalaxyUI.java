@@ -146,7 +146,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			RESTART_KEY,
 			"");
 	}
-	public final  ParamListOpponentAI opponentAI		= new ParamListOpponentAI( // For Guide
+	public final  ParamListOpponentAI opponentAI	= new ParamListOpponentAI( // For Guide
 			BASE_UI, "OPPONENT_AI",
 			IGameOptions.globalAIset().getAliens(),
 			IGameOptions.defaultAI.aliensKey);
@@ -156,13 +156,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			IGameOptions.defaultAI.aliensKey);
 	private final ParamListSpecificOpponent specificOpponent	= new ParamListSpecificOpponent( // For Guide
 			BASE_UI, "SPECIFIC_OPPONENT", guiOptions().allRaceOptions(), opponentRandom);
-    public final  ParamListGlobalAbilities globalAbilities		= new ParamListGlobalAbilities( // For Guide
+    public  final ParamListGlobalAbilities  globalAbilities		= new ParamListGlobalAbilities(  // For Guide
 			BASE_UI, "GLOBAL_ABILITY", globalAbilitiesList,
 			SpecificCROption.BASE_RACE.value);
 	private final ParamListSpecificAbilities specificAbilities	= new ParamListSpecificAbilities( // For Guide
 			BASE_UI, "SPECIFIC_ABILITY", specificAbilitiesList,
 			SpecificCROption.defaultSpecificValue().value);
-	private ParamSubUI advancedSystemOptionsUI;
+	private boolean popupPositionsInitialised = false;
 
 	private Box tuneGalaxyBox		= new Box("SETUP_TUNE_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
 	private Box compactSetupBox		= new Box("SETUP_GALAXY_COMPACT_OPTIONS"); // BR add UI panel for MOD game options
@@ -182,6 +182,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private Polygon	mapOption2BoxL	= new PolyBox();
 	private Polygon	mapOption2BoxR	= new PolyBox();			 
 	private Box		mapOption3Box; // BR:
+	private Box		mapOption4Box;
+	private Polygon	mapOption4BoxL	= new PolyBox();
+	private Polygon	mapOption4BoxR	= new PolyBox();			 
 	private Box		sizeOptionBox; // BR:
 	private Polygon	sizeOptionBoxL	= new PolyBox();   // BR:
 	private Polygon	sizeOptionBoxR	= new PolyBox();   // BR:
@@ -329,11 +332,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				opts.galaxyRandSource(),
 
 				opts.headerSpacer(),
-				new ParamTitle("GALAXY_SHAPE"),
-				opts.shapeSelection(),
-				opts.shapeOption1(),
-				opts.shapeOption2(),
-				opts.shapeOption3()
+				new ParamTitle("LINKED_OPTIONS"),
+				opts.starDensity(),
+				opts.sizeSelection(),
+				opts.dynStarsPerEmpire(),
+				opts.aliensNumber()
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("HOMEWORLD_NEIGHBORHOOD"),
@@ -345,11 +348,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				opts.getSecondRingRadius(),
 
 				opts.headerSpacer(),
-				new ParamTitle("LINKED_OPTIONS"),
-				opts.starDensity(),
-				opts.sizeSelection(),
-				opts.dynStarsPerEmpire(),
-				opts.aliensNumber()
+				new ParamTitle("GALAXY_SHAPE"),
+				opts.shapeSelection(),
+				opts.shapeOption1(),
+				opts.shapeOption2(),
+				opts.shapeOption3(),
+				opts.shapeOption4(),
+				opts.shapeLineSpacing()
 				)));
 		return map;
 	}
@@ -360,6 +365,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		mapOption1Box		= new Box(opts.shapeOption1());
 		mapOption2Box		= new Box(opts.shapeOption2());
 		mapOption3Box		= new Box(opts.shapeOption3());
+		mapOption4Box		= new Box(opts.shapeOption4());
 		sizeOptionBox		= new Box(opts.dynStarsPerEmpire());
 		sizeBox				= new Box(opts.sizeSelection());
 		diffBox				= new Box(opts.difficultySelection());
@@ -384,8 +390,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		for (IParam param : duplicateList)
 			for (int i=0; i<2; i++)
 				param.initDependencies(i);
-
-		advancedSystemOptionsUI	= new ParamSubUI( MOD_UI, ADVANCED_SYSTEMS_GUI_ID, advancedSystemMap());
 	}
 	@Override public void init() {
 		showGrid = prevShowGrid;
@@ -413,6 +417,19 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
       	nebulas 		= null;
       	clearMugs();
     }
+	private void initPopupPositions()	{
+		if (popupPositionsInitialised)
+			return;
+		SafeListParam list = advancedSystemMap().getListNoTitle();
+		int boxX = galaxyBox.x - scaled(360);
+		for ( IParam param : list) {
+			if (param instanceof ParamList) {
+				ParamList p = (ParamList) param;
+				p.setPosition(boxX, -1);
+			}
+		}
+		popupPositionsInitialised = true;
+	}
     private void clearMugs() {
     	playerMug		= null;
     	smallBackMug	= null;
@@ -933,7 +950,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		repaint();
 	}
 	private int currentGalaxyTextIndex(String s) {
-		String[] textList = getGalaxyTextList();
+		String[] textList = getGalaxyTextList(false);
+		for (int i=0; i<textList.length; i++) {
+			if (s.equals((String) textList[i]))
+				return i;
+		}
+		// Second chance by ignoring case
 		for (int i=0; i<textList.length; i++) {
 			if (s.equalsIgnoreCase((String) textList[i]))
 				return i;
@@ -1007,8 +1029,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			System.err.println("GalaxyTextFile.save -- IOException: "+ e.toString());
 		}
 	}
-	private String[] getGalaxyTextList() {
-		if (galaxyTextArray != null)
+	private String[] getGalaxyTextList(boolean reload) {
+		if (!reload && galaxyTextArray != null)
 			return galaxyTextArray;
 		LinkedList<String> list = new LinkedList<>();
 		// list.add(opts.selectedHomeWorldName());
@@ -1037,44 +1059,101 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		galaxyTextArray = list.toArray(new String[list.size()]);
 		return galaxyTextArray;
 	}
-	public  String selectGalaxyTextFromList() {
-		String initialChoice = opts.selectedGalaxyShapeOption1();
-		String message = "Make your choice, (This list can be edited in the file) " + GALAXY_TEXT_FILE;
+	public  void selectGalaxyTextFromList() {
+		String initialChoice = baseGalaxyText();
+		String message = text("SETUP_SHAPE_MESSAGE");
+		String title  = text("SETUP_SHAPE_TITLE");
+		int boxWidth  = scaled(430);
+		int boxHeight = scaled(360);
+		int boxX = galaxyBox.x - boxWidth - s10;
+		int boxY = (getHeight() - boxHeight)/2;
 		ListDialog dialog = new ListDialog(
-		    	this,							// Frame component
-		    	getParent(),					// Location component
-		    	message,						// Message
-		        "Galaxy Text selection",		// Title
-		        (String[]) getGalaxyTextList(),	// List
-		        initialChoice, 					// Initial choice
-		        null,							// long Dialogue
-		        false,							// isVerticalWrap
-		        scaled(430), scaled(360),		// size
-		        dialogMonoFont(),				// Font
-		        this,							// for listener
-		        null,							// Alternate return
-		        null); 							// Help parameter
+				this,					// Frame component
+				getParent(),			// Location component
+				message,				// Message
+				title,					// Title
+				(String[]) getGalaxyTextList(true),	// List
+				initialChoice, 			// Initial choice
+				null,					// long Dialogue
+				false,					// isVerticalWrap
+				boxX, boxY,				// Position
+				boxWidth, boxHeight,	// size
+				dialogMonoFont(),		// Font
+				this,					// for listener
+				null,					// Alternate return
+				null); 					// Help parameter
 
 		String input = (String) dialog.showDialog(0);
-	    if (input == null)
-	    	return initialChoice;
-	    opts.selectedGalaxyShapeOption1(input);
-	    opts.galaxyShape().quickGenerate();
-		repaint();
-	    return input;
+		if (input == null)
+			return;
+		opts.selectedGalaxyShapeOption1(input);
+		updateGalaxyText();
+		postSelectionMedium(false);
 	}
-	@Override public void preview(String s) {
+	private String baseGalaxyText()	{
+		return opts.selectedGalaxyShapeOption1().split(System.lineSeparator())[0];
+	}
+	public  void updateGalaxyText()	{
+		String str = baseGalaxyText();
+		if (isShapeTextMulti()) {
+			String[] textList = getGalaxyTextList(false);
+			int id = max(0, currentGalaxyTextIndex(str));
+			int num = opts.selectedGalaxyTextOption4();
+			while (num > 1) {
+				//str += NEWLINE;
+				str += System.lineSeparator();
+				id++;
+				if (id >= textList.length)
+					id = 0;
+				str += textList[id];
+				num--;
+			}
+		}
+		opts.selectedGalaxyShapeOption1(str);
+	}
+	@Override public void preview(String s, IParam param) {
 		if (s == null)
 			return;
 		if (!s.equalsIgnoreCase("quickGenerate")) {
-			if (isShapeTextGalaxy())
+			if (opts.shapeSelection() == param) {
+				opts.shapeSelection().set(s);
+				return;
+			}
+			else if (opts.sizeSelection() == param) {
+				opts.sizeSelection().set(s);
+				return;
+			}
+			else if (isShapeTextGalaxy()) {
+				if (opts.shapeOption1() == param) {
+					opts.selectedGalaxyShapeOption1(s);
+					updateGalaxyText();
+					postSelectionMedium(false);
+					return;
+				}
+				else if (opts.shapeOption2() == param) {
+					opts.selectedGalaxyShapeOption2(s);
+					updateGalaxyText();
+					postSelectionFull(false);
+					return;
+				}
+			}
+			else if (opts.shapeOption1() == param) {
 				opts.selectedGalaxyShapeOption1(s);
-			else if (isShapeBitmapGalaxy()){
+				postSelectionMedium(false);
+				return;
+			}
+			else if (opts.shapeOption2() == param) {
+				opts.selectedGalaxyShapeOption2(s);
+				postSelectionMedium(false);
+				return;
+			}
+			else if (isShapeBitmapGalaxy() && opts.shapeOption3() == param){
 				opts.shapeOption3().set(s);
+				postSelectionMedium(false);
+				return;
 			}			
 		}
 		postSelectionMedium(false);
-		repaint();
 	}	
 	private String selectSpecificAIFromList(int i) {
 		String title			= text(SPECIFIC_AI);
@@ -1090,6 +1169,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        initialChoice, 				// Initial choice
 		        "XX_AI: Character_XX",		// long Dialogue
 		        true,						// isVerticalWrap
+				-1, -1,						// Position
 		        scaled(350), scaled(250),	// size Width, Height
 				null, null,					// Font, Preview
 				returnList,					// Alternate return
@@ -1117,6 +1197,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        initialChoice, 				// Initial choice
 		        "XX_AI:Character_XX",		// long Dialogue
 		        true,						// isVerticalWrap
+				-1, -1,						// Position
 		        scaled(350), scaled(270),	// size Width, Height
 				null, null,					// Font, Preview
 				returnList,					// Alternate return
@@ -1142,6 +1223,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        initialChoice, 				// Initial choice
 		        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 		        false,						// isVerticalWrap
+				-1, -1,						// Position
 		        scaled(500), scaled(450),	// size
 				null, null, null,			// Font, Preview, Alternate return
 				specificAbilities); // help parameter
@@ -1180,6 +1262,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        initialChoice, 				// Initial choice
 		        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 		        false,						// isVerticalWrap
+				-1, -1,						// Position
 		        scaled(500), scaled(450),	// size
 				null, null,					// Font, Preview
 				Arrays.asList(globalAbilitiesArray),	//Alternate return
@@ -1328,6 +1411,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			||  (hoverPolyBox == abilitiesBoxL)	 || (hoverPolyBox == abilitiesBoxR)
 			||  (hoverPolyBox == mapOption1BoxL) || (hoverPolyBox == mapOption1BoxR)
 			||  (hoverPolyBox == mapOption2BoxL) || (hoverPolyBox == mapOption2BoxR)
+			||  (hoverPolyBox == mapOption4BoxL) || (hoverPolyBox == mapOption4BoxR)
 			||  (hoverPolyBox == sizeOptionBoxL) || (hoverPolyBox == sizeOptionBoxR)
 			||  (hoverPolyBox == oppBoxU)		 || (hoverPolyBox == oppBoxD)) {
 			g.setColor(Color.yellow);
@@ -1335,11 +1419,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if ((hoverBox == shapeBox)		|| (hoverBox == sizeBox)
 			|| (hoverBox == mapOption1Box)	|| (hoverBox == mapOption2Box)
+			|| (hoverBox == mapOption3Box)	|| (hoverBox == mapOption4Box)
 			|| (hoverBox == sizeOptionBox)	|| (hoverBox == abilitiesBox)
 			|| (hoverBox == aiBox)			|| (hoverBox == newRacesBox)
-			|| (hoverBox == mapOption3Box)	|| (hoverBox == showAbilitiesBox)
-			|| (hoverBox == diffBox)		|| (hoverBox == wysiwygBox)
-			|| (hoverBox == oppBox)) {
+			|| (hoverBox == oppBox)			|| (hoverBox == showAbilitiesBox)
+			|| (hoverBox == diffBox)		|| (hoverBox == wysiwygBox)) {
 			Stroke prev = g.getStroke();
 			g.setStroke(stroke2);
 			g.setColor(Color.yellow);
@@ -1433,11 +1517,18 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int x5a =shapeBox.x+((shapeBox.width-shapeSW)/2);
 		drawString(g,shapeLbl, x5a, y5);
 
-		if (opts.numGalaxyShapeOption1() > 0) {
+		if (opts.numGalaxyShapeOption1() > 0) { // TODO
 			if (isShapeTextGalaxy()) {
+				if (isShapeTextMulti()) {
+					int lineCount = opts.selectedGalaxyTextOption4();
+					String label1 = text("SETUP_GALAXY_SHAPE_OPTION_4", lineCount);
+					int sw1 = g.getFontMetrics().stringWidth(label1);
+					int x5d = mapOption4Box.x+((mapOption4Box.width-sw1)/2);
+					drawString(g,label1, x5d, y5+s60);
+				}
 				String label1 = opts.selectedGalaxyShapeOption1();
 				Font prevFont = g.getFont();
-				scaledGalaxyFont(g, label1, s16, s15, s10);
+				scaledGalaxyFont(g, label1, mapOption1Box.width-s20, s16, s15, s6);
 				int sw1 = g.getFontMetrics().stringWidth(label1);
 				int x5d = mapOption1Box.x+((mapOption1Box.width-sw1)/2);
 				drawString(g,label1, x5d, y5+s20);
@@ -1541,18 +1632,18 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (showTiming)
 			System.out.println("Galaxy paintComponent() Time = " + (System.currentTimeMillis()-timeStart));
 	}
-    private void drawHelpButton(Graphics2D g) {
-        helpBox.setBounds(s20,s20,s20,s25);
-        g.setColor(darkBrownC);
-        g.fillOval(s20, s20, s20, s25);
-        g.setFont(narrowFont(25));
-        if (helpBox == hoverBox)
-            g.setColor(Color.yellow);
-        else
-            g.setColor(Color.white);
+	private void drawHelpButton(Graphics2D g) {
+		helpBox.setBounds(s20,s20,s20,s25);
+		g.setColor(darkBrownC);
+		g.fillOval(s20, s20, s20, s25);
+		g.setFont(narrowFont(25));
+		if (helpBox == hoverBox)
+			g.setColor(Color.yellow);
+		else
+			g.setColor(Color.white);
 
-        drawString(g,"?", s26, s40);
-    }
+		drawString(g,"?", s26, s40);
+	}
 	private void drawFixButtons(Graphics2D g, boolean all) {
 		Stroke prev;
 		switch (opts.compactOptionOnly().get().toUpperCase()) {
@@ -1846,24 +1937,21 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private boolean isDynamic() {
 		return opts.selectedGalaxySize().equals(IGameOptions.SIZE_DYNAMIC);
 	}
-	private boolean isShapeTextGalaxy() {
-		return opts.selectedGalaxyShape().equals(IGameOptions.SHAPE_TEXT);
-	}
-	private boolean isShapeBitmapGalaxy() {
-		return opts.selectedGalaxyShape().equals(IGameOptions.SHAPE_BITMAP);
-	}
+	public  boolean isShapeTextGalaxy()	{ return opts.selectedGalaxyShape().equals(IGameOptions.SHAPE_TEXT); }
+	public  boolean isShapeTextMulti()	{ return opts.selectedGalaxyShapeOption2().contains("MULTI"); }
+	private boolean isShapeBitmapGalaxy() { return opts.selectedGalaxyShape().equals(IGameOptions.SHAPE_BITMAP); }
 	private String getNameFromPath(String path) {
 		File file = new File(path);
 		if (file.exists())
 			return file.getName();
 		return path;
 	}
-    private boolean isRandomGalaxy(String galaxyShape) {
-    	return galaxyShape.equals(IGameOptions.SHAPE_RANDOM)
-    			|| galaxyShape.equals(IGameOptions.SHAPE_RANDOM_2);
-    }
- 	public	void postGalaxySizeSelection(boolean click) {
- 		opts = guiOptions();
+	private boolean isRandomGalaxy(String galaxyShape) {
+		return galaxyShape.equals(IGameOptions.SHAPE_RANDOM)
+				|| galaxyShape.equals(IGameOptions.SHAPE_RANDOM_2);
+	}
+	public	void postGalaxySizeSelection(boolean click) {
+		opts = guiOptions();
 		if (click) softClick();
 		int numOpps = opts.selectedNumberOpponents();
 		if(numOpps<0) {
@@ -1886,7 +1974,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	public	void postSelectionFull(boolean click) {
 		opts = guiOptions();
-		if (click) softClick();
+		if (click)
+			softClick();
 		opts.galaxyShape().quickGenerate();
 		backImg = null;
 		nebulas = null;
@@ -1900,35 +1989,40 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		postSelectionLight(false);
 	}
 	public	void postSelectionLight(boolean click) {
-		if (click) softClick();
+		if (click)
+			softClick();
 		loadGuide();
 		repaint();
 	}
 	public  void nextMapOption1(boolean click) {
 		if (isShapeTextGalaxy()) {
-			String currText = opts.selectedGalaxyShapeOption1();
+			String currText = baseGalaxyText();
 			int nextIndex = 0;
 			if (currText != null)
 				nextIndex = currentGalaxyTextIndex(currText)+1;
-			if (nextIndex >= getGalaxyTextList().length)
+			if (nextIndex >= getGalaxyTextList(false).length)
 				nextIndex = 0;
-			String nextText = (String) getGalaxyTextList()[nextIndex];
+			String nextText = (String) getGalaxyTextList(false)[nextIndex];
 			opts.selectedGalaxyShapeOption1(nextText);
-		} else
+			updateGalaxyText();
+		}
+		else
 			opts.shapeOption1().next();
 		postSelectionMedium(click);
 	}
 	public  void prevMapOption1(boolean click) {
 		if (isShapeTextGalaxy()) {
-			String currText = opts.selectedGalaxyShapeOption1();
+			String currText = baseGalaxyText();
 			int prevIndex = 0;
 			if (currText != null)
 				prevIndex = currentGalaxyTextIndex(currText)-1;
 			if (prevIndex < 0)
-				prevIndex = getGalaxyTextList().length-1;
-			String prevText = (String) getGalaxyTextList()[prevIndex];
+				prevIndex = getGalaxyTextList(false).length-1;
+			String prevText = (String) getGalaxyTextList(false)[prevIndex];
 			opts.selectedGalaxyShapeOption1(prevText);
-		} else
+			updateGalaxyText();
+		}
+		else
 			opts.shapeOption1().prev();
 		postSelectionMedium(click);
 	}
@@ -2181,7 +2275,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private void goToTuneGalaxyOptions() {
 		prevShowGrid = showGrid;
 		showGrid = true;
-		ParamSubUI subUI = advancedSystemOptionsUI;
+		ParamSubUI subUI = new ParamSubUI( MOD_UI, ADVANCED_SYSTEMS_GUI_ID, advancedSystemMap());
 		int x = scaled(20);
 		int y = scaled(50);
 		int w = scaled(660);
@@ -2389,6 +2483,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		galaxyBox.setBounds(galaxyX, galaxyY, galaxyW, galaxyH);
 		g.fill(galaxyBox);
 
+		initPopupPositions();
+
 		// draw 3 galaxy option labels
 		int sectionW = (boxW-s40) / 3;
 		int y5 = galaxyY+galaxyH+s45;
@@ -2427,7 +2523,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		shapeBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
 		g.fill(shapeBox);
 
-	mapOption1BoxL.reset();
+		mapOption1BoxL.reset();
 		mapOption1BoxR.reset();
 		mapOption1Box.setBounds(0,0,0,0);
 		if (opts.numGalaxyShapeOption1() > 0) {
@@ -2443,12 +2539,15 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			g.fill(mapOption1Box);
 		}
 
-	mapOption2BoxL.reset();
+		mapOption2BoxL.reset();
 		mapOption2BoxR.reset();
 		mapOption2Box.setBounds(0,0,0,0);
 		mapOption3Box.setBounds(0,0,0,0);
+		mapOption4BoxL.reset();
+		mapOption4BoxR.reset();
+		mapOption4Box.setBounds(0,0,0,0);
 		if (opts.numGalaxyShapeOption2() > 0) {
-			if (this.isShapeBitmapGalaxy()) {
+			if (isShapeBitmapGalaxy()) {
 				switch (opts.compactOptionOnly().get().toUpperCase()) {
 					case "NO":
 					case "YES": {
@@ -2463,13 +2562,38 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				}
 				g.fill(mapOption3Box);
 			}
-			mapOption2BoxL.addPoint(sliderX-s4,sliderYAI+s1+s40);
-			mapOption2BoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2+s40);
-			mapOption2BoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2)+s40);
+			else if (isShapeTextGalaxy() && isShapeTextMulti()) {
+				int o4X, o4Y;
+				switch (opts.compactOptionOnly().get().toUpperCase()) {
+					case "NO":
+					case "YES":
+						o4X = sliderX;
+						o4Y = sliderYAI+s60;
+						break;
+					case "6":
+					default:
+						o4X = sliderX+sectionW;
+						o4Y = sliderYAI+s40;
+						break;
+				}
+				mapOption4BoxL.addPoint(o4X-s4, o4Y+s1);
+				mapOption4BoxL.addPoint(o4X-s4, o4Y+sliderH-s2);
+				mapOption4BoxL.addPoint(o4X-s13, o4Y+(sliderH/2));
+				g.fill(mapOption4BoxL);
+				mapOption4BoxR.addPoint(o4X+sliderW+s4, o4Y+s1);
+				mapOption4BoxR.addPoint(o4X+sliderW+s4, o4Y+sliderH-s2);
+				mapOption4BoxR.addPoint(o4X+sliderW+s13, o4Y+(sliderH/2));
+				g.fill(mapOption4BoxR);
+				mapOption4Box.setBounds(o4X, o4Y, sliderW, sliderH);
+				g.fill(mapOption4Box);
+			}
+			mapOption2BoxL.addPoint(sliderX-s4, sliderYAI+s1+s40);
+			mapOption2BoxL.addPoint(sliderX-s4, sliderYAI+sliderH-s2+s40);
+			mapOption2BoxL.addPoint(sliderX-s13, sliderYAI+(sliderH/2)+s40);
 			g.fill(mapOption2BoxL);
-			mapOption2BoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1+s40);
-			mapOption2BoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2+s40);
-			mapOption2BoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2)+s40);
+			mapOption2BoxR.addPoint(sliderX+sliderW+s4, sliderYAI+s1+s40);
+			mapOption2BoxR.addPoint(sliderX+sliderW+s4, sliderYAI+sliderH-s2+s40);
+			mapOption2BoxR.addPoint(sliderX+sliderW+s13, sliderYAI+(sliderH/2)+s40);
 			g.fill(mapOption2BoxR);
 			mapOption2Box.setBounds(sliderX, sliderYAI+s40, sliderW, sliderH);
 			g.fill(mapOption2Box);
@@ -2694,7 +2818,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		else if (hoverPolyBox == shapeBoxL)
 			opts.shapeSelection().prev();
 		else if (hoverBox == shapeBox)
-			opts.shapeSelection().toggle(e,  this);
+			opts.shapeSelection().toggle(e, this);
 		else if (hoverPolyBox == shapeBoxR)
 			opts.shapeSelection().next();
 		else if (hoverPolyBox == mapOption1BoxL)
@@ -2711,6 +2835,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			opts.shapeOption2().next();
 		else if (hoverBox == mapOption3Box)
 			opts.shapeOption3().toggle(e, this);
+		else if (hoverPolyBox == mapOption4BoxL)
+			opts.shapeOption4().prev();
+		else if (hoverBox == mapOption4Box)
+			opts.shapeOption4().toggle(e, this);
+		else if (hoverPolyBox == mapOption4BoxR)
+			opts.shapeOption4().next();
 		else if (hoverPolyBox == sizeBoxL)
 			opts.sizeSelection().prev();
 		else if (hoverBox == sizeBox)
@@ -2793,6 +2923,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverBox == mapOption2Box) {
 			opts.shapeOption2().toggle(e);
+		}
+		else if (hoverBox == mapOption4Box) {
+			opts.shapeOption4().toggle(e);
 		}
 		else if (hoverBox == sizeBox) {
 			opts.sizeSelection().toggle(e);
@@ -3048,7 +3181,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		@Override
         public void propertyChange(PropertyChangeEvent evt) {
 			if (bmFileChooser.getSelectedFile() != null) {
-				preview(bmFileChooser.getSelectedFile().getPath());
+				preview(bmFileChooser.getSelectedFile().getPath(), opts.shapeOption3());
 			}
         }
 	}

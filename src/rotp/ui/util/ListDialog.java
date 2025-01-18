@@ -145,6 +145,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 					   String initialValue,
 					   String longValue,
 					   boolean isVerticalWrap,
+					   int x, int y,
 					   int width, int height,
 					   Font listFont,
 					   InterfacePreview panel,
@@ -277,6 +278,14 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 
 		setSize(width, height);
 		setLocationRelativeTo(locationComp);
+		if (x>0 || y>0) {
+			Point location = getLocation();
+			if (x>0)
+				location.x = x;
+			if (y>0)
+				location.y = y;
+			setLocation(location);
+		}
 
 		if (dialGuide && param != null) {// For Help
 			showHelp(index);
@@ -381,7 +390,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 	    			if (param != null)
 	    				param.setFromCfgValue(value);
 
-		    		panel.preview(value);
+		    		panel.preview(value, param);
 	    		}
 	    		if (dialGuide && param != null) { // For Help
 	    			showHelp(index);

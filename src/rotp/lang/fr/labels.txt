@@ -1528,6 +1528,10 @@ SETUP_GALAXY_SHAPE_OPTION_1_DESC  | Sélectionnez la première option de forme d
 SETUP_GALAXY_SHAPE_OPTION_1       | Sélection de la première option de forme de la Galaxie %1
 SETUP_GALAXY_SHAPE_OPTION_2_DESC  | Sélectionnez la seconde option de forme de la Galaxie
 SETUP_GALAXY_SHAPE_OPTION_2       | Sélection de la seconde option de forme de la Galaxie %1
+SETUP_GALAXY_SHAPE_OPTION_4_DESC  | Sélectionnez la quatrième option de forme de la Galaxie
+SETUP_GALAXY_SHAPE_OPTION_4       | %1 lignes
+SETUP_GALAXY_SHAPE_LINE_SPACING_DESC | Sélectionnez l'espace séparant les lignes de la Galaxie en forme de Texte.
+SETUP_GALAXY_SHAPE_LINE_SPACING   | %1 pixels
 SETUP_GALAXY_SHAPE_RECTANGLE      | Rectangulaire
 SETUP_GALAXY_SHAPE_CIRCULAR       | Circulaire
 SETUP_GALAXY_SHAPE_RING           | Anneau
@@ -1557,6 +1561,12 @@ SETUP_SHAPE_OPTION_2              | Option 2 : %1
 SETUP_SHAPE_OPTION_2_DESC         | Choisir la seconde option pour cette forme de galaxie.
 SETUP_SHAPE_OPTION_3              | Option 3 : %1
 SETUP_SHAPE_OPTION_3_DESC         | Nom du fichier de l’image associée à la galaxie Bitmap.
+SETUP_SHAPE_OPTION_4              | Nombre de lines : %1
+SETUP_SHAPE_OPTION_4_DESC         | Nombre de lignes à saisir dans le fichier « Galaxy.txt ».
+SETUP_SHAPE_LINE_SPACING          | Espace interligne : %1 Pixels
+SETUP_SHAPE_LINE_SPACING_DESC     | Sélectionnez l'espace séparant les lignes de la Galaxie en forme de Texte.
+SETUP_SHAPE_MESSAGE               | Faites votre choix. (Cette liste peut être modifiée dans le fichier « Galaxy.txt »)
+SETUP_SHAPE_TITLE                 | Sélection du texte formant la galaxie
 SETUP_GALAXY_MAP_OPTION_LABEL     | Option
 SETUP_GALAXY_MAP_OPTION_A         | Option A
 SETUP_GALAXY_MAP_OPTION_B         | Option B
@@ -1688,7 +1698,7 @@ SETUP_WARP_SPEED_FAST_F           | Plus rapide
 
 SETUP_NEBULA_NONE                 | Aucune
 SETUP_NEBULA_RARE                 | Rare
-SETUP_NEBULA_UNCOMMON             | Rare
+SETUP_NEBULA_UNCOMMON             | Éparse
 SETUP_NEBULA_NORMAL               | Normale
 SETUP_NEBULA_COMMON               | Commune
 SETUP_NEBULA_FREQUENT             | Fréquente
@@ -1868,6 +1878,9 @@ SETUP_TEXT_2                      | MoO1
 SETUP_1_LINE                      | Simple Ligne
 SETUP_2_LINE                      | Double Ligne
 SETUP_3_LINE                      | Triple Ligne
+SETUP_MULTI_LINE_LEFT             | Aligné à Gauche
+SETUP_MULTI_LINE_CENTER           | Centré
+SETUP_MULTI_LINE_RIGHT            | Aligné à Droite
 SETUP_BULLSEYE_0                  | Cible
 SETUP_BULLSEYE_1                  | Anneaux
 SETUP_BULLSEYE_2                  | Carrés
@@ -5350,6 +5363,9 @@ SETUP_GALAXY_SHAPE_TEXT_O2_HELP    | Sélection du nombre de lignes.
 SETUP_1_LINE_HELP                  | Juste le texte sélectionné.
 SETUP_2_LINE_HELP                  | Le texte sélectionné est répété sur deux lignes.
 SETUP_3_LINE_HELP                  | Le texte sélectionné est répété sur trois lignes.
+SETUP_MULTI_LINE_LEFT_HELP         | Les lignes sélectionnées sont alignée à gauche.
+SETUP_MULTI_LINE_CENTER_HELP       | Les lignes sélectionnées sont centrées.
+SETUP_MULTI_LINE_RIGHT_HELP        | Les lignes sélectionnées sont alignée à droites.
 SETUP_GALAXY_SHAPE_LORENZ_HELP     | Une autre galaxie chaotique basée sur l’attracteur de Lorenz. <i>(Modèle de convection atmosphérique également connu sous le nom d’"effet papillon")</i>
 SETUP_GALAXY_SHAPE_LORENZ_O1       | Première option de la galaxie de Lorentz.
 SETUP_GALAXY_SHAPE_LORENZ_O2       | Seconde option de la galaxie de Lorentz.

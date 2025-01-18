@@ -2252,7 +2252,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // To prevent change!
         locked(DEFENSE, allocation(DEFENSE) != 0);
         locked(ECOLOGY, true);
-        locked(INDUSTRY, true);
+        //locked(INDUSTRY, true);
 
 		float techAdj = totalPlanetaryResearch() - prevTech;
 		RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);

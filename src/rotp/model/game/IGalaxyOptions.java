@@ -71,6 +71,8 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	default String	selectedUseGlobalCROptions()		{ return instance().globalCROptions.get(); }
 	default boolean	selectedUseSelectableAbilities()	{ return instance().useSelectableAbilities.get(); }
 	default String	selectedGalaxyShapeOption3()		{ return instance().shapeOption3.get(); }
+	default int		selectedGalaxyTextOption4()			{ return instance().shapeOption4.get(); }
+	default int		selectedShapeLineSpacing()			{ return instance().shapeLineSpacing.get(); }
 	default String	selectedShapeSelection()			{ return instance().shapeSelection.get(); }
 	default	String	getGalaxyKey(int size)				{ return instance().getGalaxyKey(size); }
 	
@@ -80,6 +82,8 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	default GlobalCROptions	globalCROptions()			{ return instance().globalCROptions; }
 	default ParamInteger	galaxyRandSource()			{ return instance().galaxyRandSource; }
 	default ParamBoolean	useSelectableAbilities()	{ return instance().useSelectableAbilities; }
+	default ParamInteger	shapeLineSpacing()			{ return instance().shapeLineSpacing; }
+	default ParamInteger	shapeOption4()				{ return instance().shapeOption4; }
 	default ParamString		shapeOption3()				{ return instance().shapeOption3; }
 	default ParamList		shapeOption2()				{ return instance().shapeOption2; }
 	default ParamList		shapeOption1()				{ return instance().shapeOption1; }
@@ -95,10 +99,12 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	default int numberStarSystems(String size, IGameOptions opts) {
 		return instance().getNumberStarSystems(size, opts);
 	}
-	static ParamList		  getSizeSelection()		{ return instance().sizeSelection; }
-	static ParamList		  getDifficultySelection()	{ return instance().difficultySelection; }
-	static ParamInteger		  getAliensNumber()			{ return instance().aliensNumber; }
-	static ParamInteger		  getGalaxyRandSource()		{ return instance().galaxyRandSource; }
+	static ParamList	getSizeSelection()			{ return instance().sizeSelection; }
+	static ParamList	getDifficultySelection()	{ return instance().difficultySelection; }
+	static ParamInteger	getAliensNumber()			{ return instance().aliensNumber; }
+	static ParamInteger	getGalaxyRandSource()		{ return instance().galaxyRandSource; }
+	static ParamInteger	getGalaxyShapeOption4()		{ return instance().shapeOption4; }
+	static ParamInteger	getGalaxyShapeLineSpacing()	{ return instance().shapeLineSpacing; }
 
 	class GalaxyOption {
 		private static GalaxyOption instance;
@@ -220,6 +226,76 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 		public final GlobalCROptions globalCROptions 	= new GlobalCROptions (BASE_UI, "OPP_CR_OPTIONS",
 				SpecificCROption.BASE_RACE.value);
 		public final ParamBoolean useSelectableAbilities	= new ParamBoolean(BASE_UI, "SELECT_CR_OPTIONS", false);
+		public final ParamInteger shapeLineSpacing   		= new ShapeLineSpacing();
+		private final class ShapeLineSpacing extends ParamInteger {
+			ShapeLineSpacing() {
+				super(BASE_UI, "SHAPE_LINE_SPACING", 5);
+				setLimits(-100, 100);
+				setIncrements(1, 5, 20);
+				loop(true);
+			}
+			@Override public Integer	setFromIndex(int value)	{
+				super.setFromIndex(value);
+				if (RotPUI.instance() != null && RotPUI.setupGalaxyUI().isShapeTextGalaxy()) {
+					RotPUI.setupGalaxyUI().updateGalaxyText();
+					RotPUI.setupGalaxyUI().postSelectionMedium(true);
+				}
+				return get();
+			}
+			@Override public Integer	set(Integer value)	{
+				super.set(value);
+				if (RotPUI.instance() != null && RotPUI.setupGalaxyUI().isShapeTextGalaxy()) {
+					RotPUI.setupGalaxyUI().updateGalaxyText();
+					RotPUI.setupGalaxyUI().postSelectionMedium(true);
+				}
+				return get();
+			}
+			@Override public String getGuiDisplay(int idx)	{
+				if (RotPUI.setupGalaxyUI().isShapeTextGalaxy())
+					return super.getGuiDisplay(idx);
+				return "---";
+			}
+			@Override public String getGuiDisplay()	{
+				if (RotPUI.setupGalaxyUI().isShapeTextGalaxy())
+					return super.getGuiDisplay();
+				return "---";
+			}
+		}
+		public final ParamInteger shapeOption4   		= new ShapeOption4();
+		private final class ShapeOption4 extends ParamInteger {
+			ShapeOption4() {
+				super(BASE_UI, "SHAPE_OPTION_4", 2);
+				setLimits(2, 10);
+				setIncrements(1, 2, 5);
+				loop(true);
+			}
+			@Override public Integer	setFromIndex(int value)	{
+				super.setFromIndex(value);
+				if (RotPUI.instance() != null) {
+					RotPUI.setupGalaxyUI().updateGalaxyText();
+					RotPUI.setupGalaxyUI().postSelectionMedium(true);
+				}
+				return get();
+			}
+			@Override public Integer	set(Integer value)	{
+				super.set(value);
+				if (RotPUI.instance() != null) {
+					RotPUI.setupGalaxyUI().updateGalaxyText();
+					RotPUI.setupGalaxyUI().postSelectionMedium(true);
+				}
+				return get();
+			}
+			@Override public String getGuiDisplay(int idx)	{
+				if (RotPUI.setupGalaxyUI().isShapeTextGalaxy() && RotPUI.setupGalaxyUI().isShapeTextMulti())
+					return super.getGuiDisplay(idx);
+				return "---";
+			}
+			@Override public String getGuiDisplay()	{
+				if (RotPUI.setupGalaxyUI().isShapeTextGalaxy() && RotPUI.setupGalaxyUI().isShapeTextMulti())
+					return super.getGuiDisplay();
+				return "---";
+			}
+		}
 		public final ParamString  shapeOption3   		= new ShapeOption3();
 		private final class ShapeOption3 extends ParamString {
 			ShapeOption3() { super(BASE_UI, "SHAPE_OPTION_3", ""); }
@@ -280,13 +356,23 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			@Override public String	setFromIndex(int value)	{
 				super.setFromIndex(value);
 				if (RotPUI.instance() != null)
-					RotPUI.setupGalaxyUI().postSelectionMedium(true);
+					if (RotPUI.setupGalaxyUI().isShapeTextGalaxy()) {
+						RotPUI.setupGalaxyUI().updateGalaxyText();
+						RotPUI.setupGalaxyUI().postSelectionFull(true);
+					}
+					else
+						RotPUI.setupGalaxyUI().postSelectionMedium(true);
 				return get();
 			}
 			@Override public String	set(String value)	{
 				super.set(value);
 				if (RotPUI.instance() != null)
-					RotPUI.setupGalaxyUI().postSelectionMedium(true);
+					if (RotPUI.setupGalaxyUI().isShapeTextGalaxy()) {
+						RotPUI.setupGalaxyUI().updateGalaxyText();
+						RotPUI.setupGalaxyUI().postSelectionFull(true);
+					}
+					else
+						RotPUI.setupGalaxyUI().postSelectionMedium(true);
 				return get();
 			}
 			@Override public String getGuiDisplay(int idx)	{
@@ -360,6 +446,9 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			@Override public String getGuiDisplay(int idx)	{
 				if (listSize()==0)
 					return "---";
+				if (idx == 1 && shapeSelection.get().equals(SHAPE_TEXT)) {
+					return get();
+				}
 				return super.getGuiDisplay(idx);
 			}
 		}

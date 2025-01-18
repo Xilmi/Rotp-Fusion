@@ -3,13 +3,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-(Ongoing)
-- Fixed plenty of language translation bugs, and UI display.
-  - French translation improvement. (BR & Frank Zago)
-  - Completed the French translation of labels.txt and techs.txt
-  - Fixed "Recent" in backup folder crashing on load.
-  - Removed duplicates "Hostile Terraforming" and "Colonizing" from Rules options panel.
-
+- Galaxy Text shaped: New multi-line option with custom line spacing.
+- All selection popup are slightly shifted to the left to not mask the galaxy preview.
 - New option: The ship design slot will memorize the last ship design name instead of getting a new one from the species ship name list, also keep the name of a copied design.
 - Fixed some Galaxy text getting out of the field.
 - Removed some excess click sound on "Replay last turn".
@@ -23,24 +18,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Ship build limit "Take" percentage can be adjusted on multi selection.
   - Spending priority can be set on multi selection.
 - New Governor option to tell the rich colonies to build up their reserve.
-- Fixed missiles hitting retreated targets (Xilmi)
-- AI improvement: Speed-requirement for missiles in ship-designs reduced (Xilmi)
-- Fixed missing JRE in Zip file.
-- Fixed exploit that can be used to boost research with poor/ultra-poor colonies.
-- Fixed the bug of negative ship value in fleet.
-- Fixed invisible ship in combat bug.
-- Fixed an issue that caused the AI not to attack with player-designed ships when handing control over to AI in an ongoing playthrough. (Xilmi)
-- Transport path from system to system will now be displayed for Governor sent troops.
-- Fixed possible "Error saving: recent.rotp" Bug.
-- Production per Worker (Factory) is displayed when Shift is down (instead of Production - Net (Gross))
-- Governor new advanced options to set when terraforming should be started.
-- Governor new advanced options to set what to do with funding.
-- Governor new advanced options to set when to grow vs when to build factories.
-- Fixed Comet event not being set as the last aggressor.
-- Obedient governor finalisation and documentation.
-- Updated to Java 11.
-- New Square grid available with alt-W
-- Eco growth is now displayed with one decimal.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

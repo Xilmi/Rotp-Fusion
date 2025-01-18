@@ -206,14 +206,14 @@ public interface Base extends InputEventUtil {
         return str.replace("%3", String.valueOf(val3));
     }
 	public default Font galaxyFont(int size) { return FontManager.current().galaxyFont(size); }
-	public default int scaledGalaxyFont(Graphics2D g2, String str, int maxHeight, int desiredFont, int minFont) {
+	public default int scaledGalaxyFont(Graphics2D g2, String str, int maxWidth, int maxHeight, int desiredFont, int minFont) {
 		int size = desiredFont;
 		g2.setFont(galaxyFont(size));
-		int height = getStringBounds(g2, str, 0, 0).height;
-		while (height>maxHeight && size>minFont) {
+		Rectangle bounds = getStringBounds(g2, str, 0, 0);
+		while ((bounds.height>maxHeight || bounds.width>maxWidth) && size>minFont) {
 			size--;
 			g2.setFont(galaxyFont(size));
-			height = getStringBounds(g2, str, 0, 0).height;
+			bounds = getStringBounds(g2, str, 0, 0);
 		}
 	 	 return size;
 	}

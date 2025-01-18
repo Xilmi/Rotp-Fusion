@@ -1528,6 +1528,10 @@ SETUP_GALAXY_SHAPE_OPTION_1_DESC  | Select The First Galaxy Shape Option
 SETUP_GALAXY_SHAPE_OPTION_1       | Galaxy Shape First Option Selection %1
 SETUP_GALAXY_SHAPE_OPTION_2_DESC  | Select The Second Galaxy Shape Option
 SETUP_GALAXY_SHAPE_OPTION_2       | Galaxy Shape Second Option Selection %1
+SETUP_GALAXY_SHAPE_OPTION_4_DESC  | Select The Fourth Galaxy Shape Option
+SETUP_GALAXY_SHAPE_OPTION_4       | %1 lines
+SETUP_GALAXY_SHAPE_LINE_SPACING_DESC | Select The Galaxy Text Shape line separator
+SETUP_GALAXY_SHAPE_LINE_SPACING   | %1 pixels
 SETUP_GALAXY_SHAPE_RECTANGLE      | Star Field
 SETUP_GALAXY_SHAPE_CIRCULAR       | Circular
 SETUP_GALAXY_SHAPE_RING           | Ring
@@ -1557,6 +1561,12 @@ SETUP_SHAPE_OPTION_2              | Option 2: %1
 SETUP_SHAPE_OPTION_2_DESC         | Select the second shape option
 SETUP_SHAPE_OPTION_3              | Option 3: %1
 SETUP_SHAPE_OPTION_3_DESC         | File name associated with the Bitmap Galaxy.
+SETUP_SHAPE_OPTION_4              | Number of lines: %1
+SETUP_SHAPE_OPTION_4_DESC         | Number of lines to get from the file "Galaxy.txt".
+SETUP_SHAPE_LINE_SPACING          | Line spacing: %1 Pixels
+SETUP_SHAPE_LINE_SPACING_DESC     | Select The Galaxy Text Shape line spacing.
+SETUP_SHAPE_MESSAGE               | Make your choice. (This list can be edited in the file "Galaxy.txt")
+SETUP_SHAPE_TITLE                 | Galaxy Text selection
 SETUP_GALAXY_MAP_OPTION_LABEL     | Option
 SETUP_GALAXY_MAP_OPTION_A         | Option A
 SETUP_GALAXY_MAP_OPTION_B         | Option B
@@ -1868,6 +1878,9 @@ SETUP_TEXT_2                      | MoO1
 SETUP_1_LINE                      | Single Line
 SETUP_2_LINE                      | Double Line
 SETUP_3_LINE                      | Triple Line
+SETUP_MULTI_LINE_LEFT             | Align Left
+SETUP_MULTI_LINE_CENTER           | Align Center
+SETUP_MULTI_LINE_RIGHT            | Align Right
 SETUP_BULLSEYE_0                  | Dartboard
 SETUP_BULLSEYE_1                  | Rings
 SETUP_BULLSEYE_2                  | Squares
@@ -5342,14 +5355,17 @@ SETUP_SPIRAL_ROTATION_3_HELP  | A mildly curved galaxy&nbsp <i>(~90°)</i>.
 SETUP_SPIRAL_ROTATION_4_HELP  | A well curved galaxy&nbsp <i>(~120°)</i>.
 SETUP_SPIRAL_ROTATION_5_HELP  | A strongly curved galaxy&nbsp <i>(~150°)</i>.
 SETUP_SPIRAL_ROTATION_6_HELP  | An indecently curved galaxy&nbsp <i>(~180°)</i>.
-SETUP_GALAXY_SHAPE_TEXT_HELP      | The proposed list is extracted from the "Galaxy.txt" file, do not hesitate to complete it. If you see to many blank squares try to set the option "Use Fusion Font"
-SETUP_GALAXY_SHAPE_TEXT_O1        | First Text Shaped galaxy option.
-SETUP_GALAXY_SHAPE_TEXT_O1_HELP   | Text selection (from the "Galaxy.txt" file).
-SETUP_GALAXY_SHAPE_TEXT_O2        | Second Text Shaped galaxy option.
-SETUP_GALAXY_SHAPE_TEXT_O2_HELP   | Number of line Selection.
+SETUP_GALAXY_SHAPE_TEXT_HELP    | The proposed list is extracted from the "Galaxy.txt" file, do not hesitate to complete it. If you see to many blank squares try to set the option "Use Fusion Font"
+SETUP_GALAXY_SHAPE_TEXT_O1      | First Text Shaped galaxy option.
+SETUP_GALAXY_SHAPE_TEXT_O1_HELP | Text selection (from the "Galaxy.txt" file).
+SETUP_GALAXY_SHAPE_TEXT_O2      | Second Text Shaped galaxy option.
+SETUP_GALAXY_SHAPE_TEXT_O2_HELP | Number of line Selection.
 SETUP_1_LINE_HELP             | Just the selected text.
 SETUP_2_LINE_HELP             | The selected text is repeated over two lines.
 SETUP_3_LINE_HELP             | The selected text is repeated over three lines.
+SETUP_MULTI_LINE_LEFT_HELP    | The selected lines will be aligned to the left.
+SETUP_MULTI_LINE_CENTER_HELP  | The selected lines will be aligned to the center.
+SETUP_MULTI_LINE_RIGHT_HELP   | The selected lines will be aligned to the right.
 SETUP_GALAXY_SHAPE_LORENZ_HELP    | Another chaotic Galaxy based on Lorenz attractor. <i>(Atmospheric convection model also known as "Butterfly effect")</i>
 SETUP_GALAXY_SHAPE_LORENZ_O1      | First Lorentz galaxy option.
 SETUP_GALAXY_SHAPE_LORENZ_O2      | Second Lorentz galaxy option.

@@ -35,7 +35,9 @@ public class ParamList extends AbstractParam<String> {
 
 	private final IndexableMap valueLabelMap;
 	private boolean showFullGuide = false;
-	private int		refreshLevel  = 0;
+	private int	refreshLevel = 0;
+	private int	boxPosX	= -1;
+	private int	boxPosY	= -1;
 	
 	// ===== Constructors =====
 	//
@@ -142,7 +144,8 @@ public class ParamList extends AbstractParam<String> {
 	//
 	public ParamList showFullGuide(boolean show) { showFullGuide = show; return this; }
 	public ParamList refreshLevel(int level)	 { refreshLevel = level; return this; }
- 	public void reInit(List<String> list)		 {
+ 	public void setPosition (int x, int y)		 { boxPosX = x; boxPosY = y; }
+	public void reInit(List<String> list)		 {
 		valueLabelMap.clear();
 		for (String element : list)
 			put(element, langLabel(element)); // "text" should now be available
@@ -158,7 +161,7 @@ public class ParamList extends AbstractParam<String> {
 		return this;
 	}
 
- 	@Override public boolean isActive()					{ return listSize()>0; }
+	@Override public boolean isActive()					{ return listSize()>0; }
 	@Override public String guideDefaultValue()			{ return name(defaultValueIndex()); }
 	@Override public String getCfgValue(String value)	{ return validateValue(value); }
 	@Override public String	guideValue()				{
@@ -334,6 +337,7 @@ public class ParamList extends AbstractParam<String> {
 				message, title,				// Message & Title
 				list, currentOption(),		// List & Initial choice
 				null, true,					// long Dialogue & isVertical
+				boxPosX, boxPosY,			// Position
 				RotPUI.scaledSize(350), RotPUI.scaledSize(height),	// size
 				null,						// Font
 				frame,						// Preview
