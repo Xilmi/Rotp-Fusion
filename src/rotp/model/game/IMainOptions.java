@@ -267,8 +267,8 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 
 	//	default int backupTurns()		{ return backupTurns.get(); }
 	ParamInteger backupKeep	= new ParamInteger(GAME_UI, "BACKUP_KEEP", -1)
-			.setLimits(-1, 100)
-			.setIncrements(1, 5, 10)
+			.setLimits(-1, 1000)
+			.setIncrements(1, 5, 20)
 			.isDuplicate(false)
 			.isCfgFile(true)
 			.specialNegative(GAME_UI + "BACKUP_KEEP_ALL")
@@ -514,6 +514,18 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			.isCfgFile(true);
 	default ParamInteger galaxyPreviewColorStarsSize()	{ return galaxyPreviewColorStarsSize; }
 
+	ParamBoolean galaxyPreviewAI		= new ParamBoolean(MOD_UI, "GALAXY_PREVIEW_AI", true)
+			.isCfgFile(true);
+	default boolean galaxyPreviewAI()		{ return galaxyPreviewAI.get(); }
+
+	ParamBoolean galaxyPreviewPlayer	= new ParamBoolean(MOD_UI, "GALAXY_PREVIEW_PLAYER", true)
+			.isCfgFile(true);
+	default boolean galaxyPreviewPlayer()	{ return galaxyPreviewPlayer.get(); }
+
+	ParamBoolean galaxyPreviewOrion		= new ParamBoolean(MOD_UI, "GALAXY_PREVIEW_ORION", true)
+			.isCfgFile(true);
+	default boolean galaxyPreviewOrion()	{ return galaxyPreviewOrion.get(); }
+
 	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 8)
 			.setLimits(0, 10)
 			.loop(true)
@@ -521,11 +533,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
 	default ParamInteger minListSizePopUp()	{ return minListSizePopUp; }
 
-	ParamList colorSet = new ColorSet() {
-	}		.isCfgFile(true)
-			.showFullGuide(true)
-			.put("Brown",	MOD_UI + "COLOR_SET_BROWN")
-			.put("Grey",		MOD_UI + "COLOR_SET_GREY");
+	ParamList colorSet = new ColorSet();
 	class ColorSet extends ParamList {
 		ColorSet() {
 			super(MOD_UI, "COLOR_SET", "Brown");

@@ -2454,6 +2454,8 @@ HEADERS_NEBULAE_OPTION_DESC          | To customize nebulae placement and impact
 HEADERS_NEBULAE_OPTION               | ~~~ NEBULAE ~~~
 HEADERS_HOMEWORLD_NEIGHBORHOOD_DESC  | To customize distances and contents of home world neighborhood.
 HEADERS_HOMEWORLD_NEIGHBORHOOD       | ~~~ NEIGHBORHOOD ~~~
+HEADERS_GALAXY_PREVIEW_DESC          | How to display stars in the Galaxy preview.
+HEADERS_GALAXY_PREVIEW               | ~~~ GALAXY PREVIEW ~~~
 HEADERS_LINKED_OPTIONS_DESC          | These options are linked to the ones above.
 HEADERS_LINKED_OPTIONS               | ~~~ LINKED OPTIONS ~~~
 HEADERS_GALAXY_SHAPE_DESC            | Galaxy Shape selections. Text and Bitmap options are not implemented.
@@ -3287,8 +3289,16 @@ SETTINGS_MOD_LOAD_LOCAL_DESC             | Settings are loaded for current panel
 SETTINGS_MOD_LOAD_LOCAL                  | Load Local Only: %1
 SETTINGS_MOD_SAVE_LOCAL_DESC             | Settings are saved for current panel only (Yes), or all settings are saved altogether (No)
 SETTINGS_MOD_SAVE_LOCAL                  | Save Local Only: %1
-SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE_DESC | Galaxy preview: Orion, Player, and Aliens Star size. (0 = No Color and same size "2" as before)
-SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE      | Stars Size: %1
+
+SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE_DESC | Size of the homeworlds and Orion in the galaxy overview.<br>(0 = No Color and same size "2" as before)
+SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE      | Homeworlds Size: %1
+SETTINGS_MOD_GALAXY_PREVIEW_AI_DESC      | Galaxy preview will display Empire locations in Red.
+SETTINGS_MOD_GALAXY_PREVIEW_AI           | Show Empires in Red: %1
+SETTINGS_MOD_GALAXY_PREVIEW_PLAYER_DESC  | Galaxy preview will display Player's location in Green.
+SETTINGS_MOD_GALAXY_PREVIEW_PLAYER       | Show Player in Green: %1
+SETTINGS_MOD_GALAXY_PREVIEW_ORION_DESC   | Galaxy preview will display Orion's location in Blue.
+SETTINGS_MOD_GALAXY_PREVIEW_ORION        | Show Orion in Blue: %1
+
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP_DESC   | Minimum List size for the selection panel to Pop-Up.
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP        | Min List Size: %1
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP_NEVER  | Never

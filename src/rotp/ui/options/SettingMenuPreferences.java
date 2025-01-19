@@ -18,6 +18,9 @@ final class SettingMenuPreferences extends AbstractOptionsSubUI {
 				new ParamTitle("PANEL_CONTENTS"),
 				useFusionFont,
 				galaxyPreviewColorStarsSize,
+				galaxyPreviewAI,
+				galaxyPreviewPlayer,
+				galaxyPreviewOrion,
 				noFogOnIcons,
 				showAlternateAnimation
 				)));

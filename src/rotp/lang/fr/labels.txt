@@ -2454,6 +2454,8 @@ HEADERS_NEBULAE_OPTION_DESC          | Personnalisation du placement des nébule
 HEADERS_NEBULAE_OPTION               | ~~~ NÉBULEUSES ~~~
 HEADERS_HOMEWORLD_NEIGHBORHOOD_DESC  | Personnalisation des distances et du contenu du voisinage des mondes d’origine.
 HEADERS_HOMEWORLD_NEIGHBORHOOD       | ~~~ VOISINAGE ~~~
+HEADERS_GALAXY_PREVIEW_DESC          | Comment afficher les étoiles dans l'aperçu de la galaxie.
+HEADERS_GALAXY_PREVIEW               | ~~~ APERÇU DE LA GALAXIE ~~~
 HEADERS_LINKED_OPTIONS_DESC          | Ces options sont liées à celles ci-dessus.
 HEADERS_LINKED_OPTIONS               | ~~~ OPTIONS RELIÉES ~~~
 HEADERS_GALAXY_SHAPE_DESC            | Sélections de la forme de la galaxie. Les options Texte et Bitmap ne sont pas implémentées.
@@ -3287,8 +3289,16 @@ SETTINGS_MOD_LOAD_LOCAL_DESC             | Les paramètres sont chargés uniquem
 SETTINGS_MOD_LOAD_LOCAL                  | Charger en local : %1
 SETTINGS_MOD_SAVE_LOCAL_DESC             | Les paramètres sont enregistrés uniquement pour le panneau actuel (Oui), ou tous les paramètres sont enregistrés ensemble (Non)
 SETTINGS_MOD_SAVE_LOCAL                  | Sauver en local : %1
-SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE_DESC | Aperçu de la galaxie : Orion, Joueur et Opposants, Taille des étoiles. (0 = Aucune couleur et même taille « 2 » qu’avant)
-SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE      | Taille des étoiles : %1
+
+SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE_DESC | Taille des mondes d'origine et d'Orion dans l’aperçu de la galaxie.<br>(0 = Aucune couleur et même taille qu’avant « 2 »)
+SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE      | Taille des mondes d'origine : %1
+SETTINGS_MOD_GALAXY_PREVIEW_AI_DESC      | L'aperçu de la galaxie affiche la position des Empires en rouge.
+SETTINGS_MOD_GALAXY_PREVIEW_AI           | Révéler les Empires en Rouge : %1
+SETTINGS_MOD_GALAXY_PREVIEW_PLAYER_DESC  | L'aperçu de la galaxie affiche la position du Joueur en vert.
+SETTINGS_MOD_GALAXY_PREVIEW_PLAYER       | Révéler le Joueur en Vert : %1
+SETTINGS_MOD_GALAXY_PREVIEW_ORION_DESC   | L'aperçu de la galaxie affiche la position d'Orion en bleu.
+SETTINGS_MOD_GALAXY_PREVIEW_ORION        | Révéler Orion en Bleu : %1
+
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP_DESC   | Taille minimale de la liste pour que le panneau de sélection s’affiche.
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP        | Taille min. des listes : %1
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP_NEVER  | Jamais

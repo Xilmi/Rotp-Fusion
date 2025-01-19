@@ -74,6 +74,12 @@ Later:
 
 ## What's New
 
+2025.01.19 (BR)
+- New options to customize what is displayed on the galaxy preview.
+  - Orion On/Off
+  - Player On/Off
+  - Empires On/Off
+
 2025.01.18 (BR)
 - Galaxy Text shaped: New multi-line option with custom line spacing.
 - All selection popup are slightly shifted to the left to not mask the galaxy preview.

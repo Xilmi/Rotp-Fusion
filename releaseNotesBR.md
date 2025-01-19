@@ -1,8 +1,12 @@
+New Java requirement: minimum JRE-11, recommended JRE-23.
+
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
 
+- New options to customize what is displayed on the galaxy preview.
+  - Orion On/Off; Player On/Off; Empires On/Off
 - Galaxy Text shaped: New multi-line option with custom line spacing.
 - All selection popup are slightly shifted to the left to not mask the galaxy preview.
 - New option: The ship design slot will memorize the last ship design name instead of getting a new one from the species ship name list, also keep the name of a copied design.

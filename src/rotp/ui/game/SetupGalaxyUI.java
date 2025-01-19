@@ -325,11 +325,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				opts.previewNebula(),
 
 				opts.headerSpacer(),
-				new ParamTitle("GAME_OTHER"),
-				opts.getLooseNeighborhood(),
-				opts.getOrionToEmpireModifier(),
-				opts.getEmpiresSpreadingFactor(),
-				opts.galaxyRandSource(),
+				new ParamTitle("GALAXY_SHAPE"),
+				opts.shapeSelection(),
+				opts.shapeOption1(),
+				opts.shapeOption2(),
+				opts.shapeOption3(),
+				opts.shapeOption4(),
+				opts.shapeLineSpacing(),
 
 				opts.headerSpacer(),
 				new ParamTitle("LINKED_OPTIONS"),
@@ -348,13 +350,18 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				opts.getSecondRingRadius(),
 
 				opts.headerSpacer(),
-				new ParamTitle("GALAXY_SHAPE"),
-				opts.shapeSelection(),
-				opts.shapeOption1(),
-				opts.shapeOption2(),
-				opts.shapeOption3(),
-				opts.shapeOption4(),
-				opts.shapeLineSpacing()
+				new ParamTitle("GAME_OTHER"),
+				opts.getLooseNeighborhood(),
+				opts.getOrionToEmpireModifier(),
+				opts.getEmpiresSpreadingFactor(),
+				opts.galaxyRandSource(),
+
+				opts.headerSpacer(),
+				new ParamTitle("GALAXY_PREVIEW"),
+				IGameOptions.galaxyPreviewColorStarsSize,
+				IGameOptions.galaxyPreviewAI,
+				IGameOptions.galaxyPreviewPlayer,
+				IGameOptions.galaxyPreviewOrion
 				)));
 		return map;
 	}
@@ -1081,7 +1088,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				dialogMonoFont(),		// Font
 				this,					// for listener
 				null,					// Alternate return
-				null); 					// Help parameter
+				opts.shapeOption1()); 	// Help parameter
 
 		String input = (String) dialog.showDialog(0);
 		if (input == null)
@@ -1762,6 +1769,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int nearShift   = 0;
 		int compShift   = 0;
 		boolean colored = opts.galaxyPreviewColorStarsSize().get() != 0;
+		boolean showPlayer = opts.galaxyPreviewPlayer();
+		boolean showAI     = opts.galaxyPreviewAI();
+		boolean showOrion  = opts.galaxyPreviewOrion();
 		if (colored) {
 			xOff += starShift;
 			yOff += starShift;
@@ -1789,16 +1799,18 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				int yG = ctr + Math.round(i*grid);
 				g.drawLine(xOff, yG, xEnd, yG);
 			}
-			// Neighbors circle around player home world
-			EmpireSystem player = sh.empireSystems().get(0);
-			int x0 = xOff + (int) (player.x(0)*factor);
-			int y0 = yOff + (int) (player.y(0)*factor);
-			int r1 = Math.round(opts.firstRingRadius() * factor);
-			int d1 = r1+r1;
-			g.drawRoundRect(x0-r1, y0-r1, d1, d1, d1, d1);
-			int r2 = Math.round(opts.secondRingRadius() * factor);
-			int d2 = r2+r2;
-			g.drawRoundRect(x0-r2, y0-r2, d2, d2, d2, d2);
+			if (showPlayer) {
+				// Neighbors circle around player home world
+				EmpireSystem player = sh.empireSystems().get(0);
+				int x0 = xOff + (int) (player.x(0)*factor);
+				int y0 = yOff + (int) (player.y(0)*factor);
+				int r1 = Math.round(opts.firstRingRadius() * factor);
+				int d1 = r1+r1;
+				g.drawRoundRect(x0-r1, y0-r1, d1, d1, d1, d1);
+				int r2 = Math.round(opts.secondRingRadius() * factor);
+				int d2 = r2+r2;
+				g.drawRoundRect(x0-r2, y0-r2, d2, d2, d2, d2);
+			}
 		}
 		// BR: Add Nebulae
 //		System.out.println("Galaxy size x=" + fmt(sh.width(), 1) + " y=" + fmt(sh.height(), 1)
@@ -1819,7 +1831,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				g.fillRect(x0, y0, starSize, starSize);
 		}
 		// Add Orion over the other stars
-		if (colored) {
+		if (colored && showOrion) {
 			g.setColor(new Color(64, 64, 255)); // Start with Orion
 			sh.coords(0, pt);
 			int x0 = xOff + (int) (pt.x*factor);
@@ -1831,13 +1843,20 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int numCompWorlds = sh.numCompanionWorld();
 		int iColor = 0;
 		int iEmp   = 0;
-		if (colored)
-			g.setColor(Color.green); // Start with Player
+		boolean showHomeworld = false;
+		if (colored) {
+			showHomeworld = showPlayer || showAI;
+			if (showPlayer)
+				g.setColor(Color.green); // Start with Player
+			else
+				g.setColor(Color.red); // Player will be red too
+		}
+
 		for (EmpireSystem emp : sh.empireSystems()) {
 			// Home worlds
 			int x0 = xOff + (int) (emp.x(0)*factor);
 			int y0 = yOff + (int) (emp.y(0)*factor);
-			if (colored)
+			if (showHomeworld)
 				g.fillRoundRect(x0-worldsShift, y0-worldsShift, worldsSize, worldsSize, worldsSize, worldsSize);
 			else {
 				g.setColor(starColor(iColor));
@@ -1848,7 +1867,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			for (int iSys=1; iSys<emp.numSystems();iSys++) {
 				x0 = xOff + (int) (emp.x(iSys)*factor);
 				y0 = yOff + (int) (emp.y(iSys)*factor);
-				if (colored)
+				if (showHomeworld)
 					g.fillRoundRect(x0-nearShift, y0-nearShift, nearSize, nearSize, nearSize, nearSize);
 				else {
 					g.setColor(starColor(iColor));
@@ -1862,7 +1881,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 					pt = sh.getCompanion(iEmp, iCW);
 					x0 = xOff + (int) (pt.x*factor);
 					y0 = yOff + (int) (pt.y*factor);
-					if (colored)
+					if (showHomeworld)
 						g.fillRoundRect(x0-compShift, y0-compShift, compSize, compSize, compSize, compSize);
 					else {
 						g.setColor(starColor(iColor));
@@ -1871,8 +1890,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 					}
 				}
 			}
-			if (colored)
+			if (colored) {
 				g.setColor(Color.red); // Start with Player, continue with aliens
+				showHomeworld = showAI;
+			}
 			iEmp++;
 		}
 		// BR: Add Empire distance
