@@ -201,14 +201,15 @@ public class MapOverlayAllocateSystems extends MapOverlay {
         //g.setFont(narrowFont(16));
         int textW = w2+x2-x2a-s10;
         g.setFont(narrowFont(15));
-        for (String reason: reasons) {
-            List<String> lines = this.wrappedLines(g, reason, textW);
-            for (String line: lines) {
-                //scaledFont(g, line, textW, 16, 12);
-                drawString(g,line, x2a, y2a);
-                y2a += lineH;
-            }
-        }
+        if (reasons != null && !reasons.isEmpty())
+	        for (String reason: reasons) {
+	            List<String> lines = this.wrappedLines(g, reason, textW);
+	            for (String line: lines) {
+	                //scaledFont(g, line, textW, 16, 12);
+	                drawString(g,line, x2a, y2a);
+	                y2a += lineH;
+	            }
+	        }
 
         // init and draw continue button sprite
         parent.addNextTurnControl(continueButton);

@@ -74,6 +74,10 @@ Later:
 
 ## What's New
 
+2025.01.20 (BR)
+- Fixed null pointer exception in allocate spending notification.
+  - It's still unclear why the pointer is null... I added a test to prevent the crash.
+
 2025.01.19 (BR)
 - New options to customize what is displayed on the galaxy preview.
   - Orion On/Off
