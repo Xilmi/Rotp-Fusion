@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
@@ -401,15 +402,22 @@ public class EmpireColonyInfoPane extends BasePanel {
             if  (colony == null)
                 return;
 
-            if (shiftDown)
-           		inc *= 5;
-           	if (ctrlDown)
-           		inc *= 20;
-           	maxBasesValue += inc;
-            if (maxBasesValue > MAX_BASES)
-            	maxBasesValue = 0;
-            else if (maxBasesValue < 0) 
-            	maxBasesValue = MAX_BASES;
+			if (inc == 0) {
+				maxBasesValue = (int) colony.defense().bases();
+			}
+			else {
+				if (shiftDown)
+					inc *= 5;
+				if (ctrlDown)
+					inc *= 20;
+				maxBasesValue += inc;
+				// BR: don't loop anymore
+				maxBasesValue = bounds(0, maxBasesValue, MAX_BASES);
+//				if (maxBasesValue > MAX_BASES)
+//					maxBasesValue = 0;
+//				else if (maxBasesValue < 0) 
+//					maxBasesValue = MAX_BASES;
+			}
 
             for (Colony c: colonies) {
             	c.defense().maxBases(maxBasesValue);
@@ -499,6 +507,8 @@ public class EmpireColonyInfoPane extends BasePanel {
                 incrementBases(e);
             else if (downArrow.contains(x,y)) 
                 decrementBases(e);
+            else if (basesBox.contains(x,y) && SwingUtilities.isRightMouseButton(e)) 
+            	incrBases(0, e.isShiftDown(), e.isControlDown());
             else if (titleBox.contains(x,y))
                 urgeToggle();
             else
