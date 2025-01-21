@@ -71,7 +71,8 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
     private static final int SORT_SZ_UP = 5;
     private static final int SORT_SZ_DN = 6;
     
-    private static final SimpleDateFormat fileDateFmt = new SimpleDateFormat("MMM dd, HH:mm");
+    private static final SimpleDateFormat fileDateFmtN = new SimpleDateFormat("MMM dd, HH:mm");
+    private static final SimpleDateFormat fileDateFmtY = new SimpleDateFormat("yyyy MMM dd, HH:mm");
     static LoadGameUI current;
 
     LoadListingPanel listingPanel;
@@ -138,6 +139,8 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         saveSizes.clear();
         saveDates.clear();
         String ext = GameSession.SAVEFILE_EXTENSION;
+        SimpleDateFormat fileDateFmt = options().isLoadSaveWidthNormal()? fileDateFmtN : fileDateFmtY;
+
         // check for autosave
         String saveDirPath = UserPreferences.saveDirectoryPath();
         String backupDirPath = UserPreferences.backupDirectoryPath();
@@ -177,7 +180,7 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         if (!showingBackups && autoSave.isFile()) {
             hasAutosave = true;
             saveFiles.add(text("LOAD_GAME_AUTOSAVE"));
-            saveDates.add(fileDateFmt.format(autoSave.lastModified()));
+            saveDates.add(fileDateFmt.format(autoSave.lastModified())); // TODO
             saveSizes.add(autoSave.length());        
         }
         
@@ -380,12 +383,14 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
             case KeyEvent.VK_RIGHT:
             	if (e.isControlDown()) {
             		IGameOptions.loadSaveWidth.next();
+            		sortListing();
             		repaint();
             	}
             	return;
             case KeyEvent.VK_LEFT:
             	if (e.isControlDown()) {
             		IGameOptions.loadSaveWidth.prev();
+            		sortListing();
             		repaint();
             	}
             	return;
@@ -526,6 +531,7 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
             end = min(saveFiles.size(), start+MAX_FILES);
 
             //int w0 = scaled(650);
+            boolean showYear = !options().isLoadSaveWidthNormal();
             int w0 = scaled(options().loadSaveWidth());
             int x0 = (w-w0)/2;
             int h0 = s5+(MAX_FILES*lineH);
@@ -578,7 +584,10 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
             g.setColor(GameUI.sortLabelBackColor());
             g.fillRect(x0, y0, w0, lineH);
             drawFilenameButton(g, x0+s30, y0+lineH);
-            drawSizeButton(g, x0+w0-scaled(150), y0+lineH);
+            if (showYear)
+                drawSizeButton(g, x0+w0-scaled(185), y0+lineH);
+            else
+                drawSizeButton(g, x0+w0-scaled(150), y0+lineH);
             drawDateButton(g, x0+w0-s30, y0+lineH);
             // draw list of games to load
             int lineY = y0+s5+lineH;
@@ -594,7 +603,7 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
                     g.fillRect(x0+s20, lineY-s4, w0-s40, lineH);
                 }
                 if (i<end) {
-                    drawSaveGame(g, boxIndex, saveFiles.get(i), saveSizes.get(i), saveDates.get(i), x0, lineY, w0, lineH);
+                    drawSaveGame(g, boxIndex, saveFiles.get(i), saveSizes.get(i), saveDates.get(i), x0, lineY, w0, lineH, showYear);
                     gameBox[boxIndex].setBounds(x0,lineY,w0,lineH);
                 }
                 lineY += lineH;
@@ -692,12 +701,15 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
                 yOffset += lineH;
             }
         }
-        private void drawSaveGame(Graphics2D g, int index, String filename, long sz, String dt, int x, int y, int w, int h) {
+        private void drawSaveGame(Graphics2D g, int index, String filename, long sz, String dt, int x, int y, int w, int h, boolean showYear) {
             Color c0 = (index != selectIndex) && (hoverBox == gameBox[index]) ? GameUI.loadHoverBackground() : Color.black;
             g.setColor(c0);
             g.setFont(narrowFont(20));
+            int yearW = showYear? s35 : 0;
             int sw0 = g.getFontMetrics().stringWidth(filename);
-            int maxW = w-scaled(250);
+            int maxW = w-scaled(250)-yearW;
+            int sizeRight = x+w-scaled(150)-yearW;
+            int dateRight = x+w-s30;
             g.setClip(x+s25, y+h-s30, maxW, s30);
             drawString(g,filename, x+s30, y+h-s8);
             g.setClip(null);
@@ -706,10 +718,12 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
             
             String szStr = shortFmt(sz);
             int sw1 = g.getFontMetrics().stringWidth(szStr);
-            drawString(g,szStr, x+w-scaled(150)-sw1, y+h-s8);
+//            drawString(g,szStr, x+w-scaled(150)-sw1, y+h-s8);
+            drawString(g,szStr, sizeRight-sw1, y+h-s8);
 
             int sw2 = g.getFontMetrics().stringWidth(dt);
-            drawString(g,dt, x+w-s30-sw2, y+h-s8);
+//            drawString(g,dt, x+w-s30-sw2, y+h-s8);
+            drawString(g,dt, dateRight-sw2, y+h-s8);
         }
         @Override
         public void mouseDragged(MouseEvent e) {

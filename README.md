@@ -74,6 +74,16 @@ Later:
 
 ## What's New
 
+2025.01.21 (BR)
+- Max Bases don't loop anymore.
+  - Right-click will set the max to the current value.
+- Updated the fix of null pointer exception in allocate spending notification. The value should not be null anymore.
+- Fixed duplicate in Rules panel.
+- Load file panel date column will display files years when the display is extended.
+
+2025.01.20 (Frank Zago)
+- French translation fixes and improvement.
+
 2025.01.20 (BR)
 - Fixed null pointer exception in allocate spending notification.
   - It's still unclear why the pointer is null... I added a test to prevent the crash.

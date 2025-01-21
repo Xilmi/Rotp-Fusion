@@ -374,6 +374,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		else
 			return 650;
 	}
+	default boolean isLoadSaveWidthNormal()	{ return loadSaveWidth.get().equals(LOAD_SAVE_NORMAL); }
 
 	ParamList compactOptionOnly = new ParamList( MOD_UI, "COMPACT_OPTION_ONLY", "Yes")
 			.isCfgFile(true)

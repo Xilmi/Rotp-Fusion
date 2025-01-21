@@ -31,8 +31,7 @@ final class ColonyRules extends AbstractOptionsSubUI {
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						terraforming,
-						colonizing,
-						researchRate
+						colonizing
 						));
 		return majorList;
 	}

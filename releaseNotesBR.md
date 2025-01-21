@@ -5,6 +5,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Max Bases don't loop anymore.
+  - Right-click will set the max to the current value.
+- Minor fixes.
 - New options to customize what is displayed on the galaxy preview.
   - Orion On/Off; Player On/Off; Empires On/Off
 - Galaxy Text shaped: New multi-line option with custom line spacing.
@@ -17,12 +20,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - to display production in green when "Pop/Factory ROI limit" has been reached.
   - to set auto-colonization planet distance vs value weighting.
 - Governor buttons are now available on Colony panel - Multiple selection.
-- The default value of “Ship build limit ‘Take’ percentage”, for new colonies, can be set in Settings -> Governor Mandate -> Fine Tuning.
-- Colonies panel:
-  - Ship build limit "Take" percentage can be adjusted on multi selection.
-  - Spending priority can be set on multi selection.
-- New Governor option to tell the rich colonies to build up their reserve.
-
+- The default value of “Ship build limit ‘Take’ percentage”, for new colonies, can be set in Settings -> Governor 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 
