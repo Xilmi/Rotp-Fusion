@@ -34,7 +34,10 @@ final class GameMenuPreferences extends AbstractOptionsSubUI {
 				shipBasedMissiles,
 
 				LINE_SPACER_25,
-				keepShipDesignName
+				keepShipDesignName,
+
+				LINE_SPACER_25,
+				showTechProgress
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("GALAXY_PANEL"),
@@ -61,10 +64,13 @@ final class GameMenuPreferences extends AbstractOptionsSubUI {
 				Arrays.asList(
 						showNextCouncil,
 						showPendingOrders,
+						showTechProgress,
+
 						LINE_SPACER_25,
 						displayFreeTech,
 						raceStatusLog,
 						raceStatusView,
+
 						LINE_SPACER_25,
 						shipBasedMissiles
 						));

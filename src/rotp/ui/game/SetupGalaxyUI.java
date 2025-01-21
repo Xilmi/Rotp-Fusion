@@ -1524,7 +1524,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int x5a =shapeBox.x+((shapeBox.width-shapeSW)/2);
 		drawString(g,shapeLbl, x5a, y5);
 
-		if (opts.numGalaxyShapeOption1() > 0) { // TODO
+		if (opts.numGalaxyShapeOption1() > 0) {
 			if (isShapeTextGalaxy()) {
 				if (isShapeTextMulti()) {
 					int lineCount = opts.selectedGalaxyTextOption4();

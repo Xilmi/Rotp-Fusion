@@ -62,8 +62,9 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     private final Color yellowTextC = new Color(255,192,0);
     private final Color whiteTextC = new Color(239,239,239);
     private final Color darkBrownC = new Color(112,85,68);
-    private final Color blueBucketC = new Color(32,132,132);
-    private final Color subpanelBackC = new Color(178,124,87);
+    private final Color darkBlueBucketC	= new Color(16, 66, 66);
+    private final Color blueBucketC		= new Color(32, 132, 132);
+    private final Color subpanelBackC	= new Color(178, 124, 87);
     // private static final Color sliderHighlightColor = new Color(255,255,255);
     private static final Color sliderBoxEnabled = new Color(34,140,142);
     private static final Color sliderBoxDisabled = new Color(102,137,137);
@@ -774,7 +775,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         String title = text(TechCategory.id(catNum));
         drawShadowedString(g, title, 1, x+s20, y0, Color.black, whiteTextC);
 
-        drawResearchBubble(g, cat, false, Color.black, blueBucketC, Color.black, x+scaled(180), y0);
+        drawResearchBubble(g, cat, false, Color.black, Color.black, darkBlueBucketC, blueBucketC, x+scaled(180), y0);
 
         int fontSize = 18;
         g.setColor(Color.black);
@@ -813,32 +814,55 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
             drawString(g,detail2Value, x3b, y0);
         }
     }
-    public void drawResearchBubble(Graphics2D g, TechCategory cat, boolean showMinimum, Color textC, Color backC1, Color backC2, int x, int y) {
-        if (!cat.researchCompleted()) {
-            float chance = cat.upcomingDiscoveryChance(totalPlanetaryResearch());
-            if (showMinimum)
-                chance = max(.15f, chance);
-            int r = s19;
-            if (chance <= 1) {
-                g.setColor(backC2);
-                g.fillOval(x-s10, y-s16, r, r);
-                int lvl = (int)(chance*r);
-                g.setColor(backC1);
-                g.setClip(x-s10,y+s4-lvl,r+r,r);
-                g.fillOval(x-s10, y-s16, r, r);
-                g.setClip(null);
-            }
-            else {
-                int pct = (int) (100* (chance -1));
-                String strPct = text("TECH_DISCOVERY_PCT",pct);
-                g.setFont(narrowFont(18));
-                g.setColor(textC);
-                int swPct = g.getFontMetrics().stringWidth(strPct);
-                drawString(g,strPct, x-(swPct/2), y);
-            }
-        }
+	public void drawResearchBubble(Graphics2D g, TechCategory cat, boolean showMinimum, Color textC, Color backC, Color curC, Color upC, int x, int y) {
+		if (cat.researchCompleted())
+			return;
 
-    }
+		boolean showProgress = options().showTechProgress();
+		float currentChance  = cat.upcomingDiscoveryChance(0);
+		float upcomingChance = cat.upcomingDiscoveryChance(totalPlanetaryResearch());
+		if (showMinimum)
+			upcomingChance = max(.15f, upcomingChance);
+		int r = s19;
+
+		if (upcomingChance <= 1) {
+			g.setColor(backC);
+			g.fillOval(x-s10, y-s16, r, r);
+
+			int lvl = (int)(upcomingChance*r);
+			g.setColor(upC);
+			g.setClip(x-s10, y+s4-lvl, r+r, r);
+			g.fillOval(x-s10, y-s16, r, r);
+
+			if (showProgress) {
+				lvl = (int)(currentChance*r);
+				g.setColor(curC);
+				g.setClip(x-s10, y+s4-lvl, r+r, r);
+				g.fillOval(x-s10, y-s16, r, r);
+			}
+			g.setClip(null);
+		}
+		else {
+			if (showProgress && currentChance <= 1) {
+				g.setColor(backC);
+				g.fillOval(x-s10, y-s16, r, r);
+				int lvl = (int)(currentChance*r);
+				g.setColor(curC);
+				g.setClip(x-s10, y+s4-lvl, r+r, r);
+				g.fillOval(x-s10, y-s16, r, r);
+				g.setClip(null);
+				g.setColor(Color.lightGray);
+			}
+			else
+				g.setColor(textC);
+
+			int pct = (int) (100* (upcomingChance -1));
+			String strPct = text("TECH_DISCOVERY_PCT", pct);
+			g.setFont(narrowFont(18));
+			int swPct = g.getFontMetrics().stringWidth(strPct);
+			drawString(g,strPct, x-(swPct/2), y);
+		}
+	}
     private BufferedImage visualTree() {
         if (visualTree == null) 
             initVisualTree();        

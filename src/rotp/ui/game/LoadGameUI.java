@@ -180,7 +180,7 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         if (!showingBackups && autoSave.isFile()) {
             hasAutosave = true;
             saveFiles.add(text("LOAD_GAME_AUTOSAVE"));
-            saveDates.add(fileDateFmt.format(autoSave.lastModified())); // TODO
+            saveDates.add(fileDateFmt.format(autoSave.lastModified()));
             saveSizes.add(autoSave.length());        
         }
         

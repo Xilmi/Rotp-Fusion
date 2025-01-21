@@ -5,6 +5,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed text clipping in options panel.
+- Technology bubble now display both current and expected state of research.
 - Max Bases don't loop anymore.
   - Right-click will set the max to the current value.
 - Minor fixes.

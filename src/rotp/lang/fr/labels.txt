@@ -2947,6 +2947,11 @@ SETTINGS_MOD_KEEP_SHIP_NAME              | Conserver le nom des vaisseaux : %1
 SETTINGS_MOD_KEEP_SHIP_NAME_YES_DESC     | Conserver le nom du modèle de vaisseau après sa mise au rebut, et copier aussi le nom lors de la copie d'un modèle de vaisseau.
 SETTINGS_MOD_KEEP_SHIP_NAME_NO_DESC      | Attribuer un nouveau nom en fonction de la taille de la coque et de l'espèce.
 
+SETTINGS_MOD_SHOW_TECH_PROGRESS_DESC     | Que faut-il afficher dans les bulles de Recherche.
+SETTINGS_MOD_SHOW_TECH_PROGRESS          | Afficher l'évolution de la recherche : %1
+SETTINGS_MOD_SHOW_TECH_PROGRESS_YES_DESC | Afficher l’état actuel et attendu de la recherche.
+SETTINGS_MOD_SHOW_TECH_PROGRESS_NO_DESC  | N'afficher que l’état attendu de la recherche.
+
 SETTINGS_MOD_OPTIONS_DEFAULT             | Par défaut
 SETTINGS_MOD_OPTIONS_LAST                | Dernier état
 SETTINGS_MOD_OPTIONS_GAME                | Partie en cours

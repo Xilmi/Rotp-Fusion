@@ -27,7 +27,8 @@ final class VisualOptions extends AbstractOptionsSubUI {
 						displayYear,
 						showNextCouncil, 
 						raceStatusLog, 
-						showPendingOrders
+						showPendingOrders,
+						showTechProgress
 						));
 		return majorList;
 	}

@@ -76,7 +76,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private static final int	tooltipLines	= 2;
 	private static final int	descHeigh		= tooltipLines * descLineH + descPadM;
 	private static final int	bottomPad		= rowPad;
-	private static final int	textBoxH		= settingH;
+	private static final int	textBoxH		= settingH + s3;
 	private static final int	hDistSetting	= settingH + settingpadH; // distance between two setting top corner
 	private static final int	minWidth		= 710;
 	private static final int	subMenuIconH	= RotPUI.scaledSize(settingFontSize-4);

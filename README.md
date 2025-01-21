@@ -80,6 +80,8 @@ Later:
 - Updated the fix of null pointer exception in allocate spending notification. The value should not be null anymore.
 - Fixed duplicate in Rules panel.
 - Load file panel date column will display files years when the display is extended.
+- Fixed text clipping in options panel.
+- Technology bubble now display both current and expected state of research.
 
 2025.01.20 (Frank Zago)
 - French translation fixes and improvement.

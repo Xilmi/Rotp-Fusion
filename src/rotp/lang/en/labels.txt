@@ -2947,6 +2947,11 @@ SETTINGS_MOD_KEEP_SHIP_NAME              | Keep ship design name: %1
 SETTINGS_MOD_KEEP_SHIP_NAME_YES_DESC     | Keep the ship design name after deleting, and keep the name of a copied design.
 SETTINGS_MOD_KEEP_SHIP_NAME_NO_DESC      | Give a new name based on hull size and species.
 
+SETTINGS_MOD_SHOW_TECH_PROGRESS_DESC     | What to display in the Research bubbles.
+SETTINGS_MOD_SHOW_TECH_PROGRESS          | Show Research Progress: %1
+SETTINGS_MOD_SHOW_TECH_PROGRESS_YES_DESC | Show both current and expected state of research.
+SETTINGS_MOD_SHOW_TECH_PROGRESS_NO_DESC  | Only show expected state of research.
+
 SETTINGS_MOD_OPTIONS_DEFAULT             | Default Settings
 SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings

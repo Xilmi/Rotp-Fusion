@@ -868,4 +868,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 
 	ParamBoolean keepShipDesignName	= new ParamBoolean(MOD_UI, "KEEP_SHIP_NAME", false).isCfgFile(true);
 	default boolean keepShipDesignName()	{ return keepShipDesignName.get(); }
+
+	ParamBoolean showTechProgress	= new ParamBoolean(MOD_UI, "SHOW_TECH_PROGRESS", true).isCfgFile(true);
+	default boolean showTechProgress()		{ return showTechProgress.get(); }
 }
