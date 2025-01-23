@@ -1072,6 +1072,7 @@ MAIN_COLONIZE_NO                  | →BOOLEAN_NO←
 MAIN_COLONIZE_ANIMATION_TITLE     | In the year %1, the [player_empire] forms a new colony.
 MAIN_COLONIZE_NAME_PROMPT         | Colony Name
 MAIN_COLONIZE_NAME_OK             | OK
+MAIN_COLONIZE_PLAGUE              | This planet is still infested with dangerous bacteria capable of infecting our people. We recommend quarantining it for a year before colonizing it.
 
 // Reasons to ask player to reallocate a system (during next turn)
 MAIN_ALLOCATE_TITLE               | Spending Adjustments

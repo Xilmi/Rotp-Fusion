@@ -5,6 +5,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Added a warning in the colonisation popup when the planet is still plagued (Just destroyed), suggesting to wait one year before colonising.
+  - Will Force the popup even in auto-colonisation mode.
 - Fixed text clipping in options panel.
 - Technology bubble now display both current and expected state of research.
 - Max Bases don't loop anymore.
@@ -17,12 +19,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option: The ship design slot will memorize the last ship design name instead of getting a new one from the species ship name list, also keep the name of a copied design.
 - Fixed some Galaxy text getting out of the field.
 - Removed some excess click sound on "Replay last turn".
-- New governor "advanced options":
-  - to disable the "Pop/Factory ROI limit" after the empire has grown pas a limit. (Sending transport is then more efficient.)
-  - to display production in green when "Pop/Factory ROI limit" has been reached.
-  - to set auto-colonization planet distance vs value weighting.
-- Governor buttons are now available on Colony panel - Multiple selection.
-- The default value of “Ship build limit ‘Take’ percentage”, for new colonies, can be set in Settings -> Governor 
+
 
 <b><ins>Updates since last Reddit announcement:</ins></b>
 

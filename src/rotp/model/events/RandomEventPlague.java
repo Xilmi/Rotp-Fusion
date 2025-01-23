@@ -28,13 +28,14 @@ import rotp.ui.util.ParamInteger;
 
 public class RandomEventPlague extends AbstractRandomEvent implements ColonyResearchProject {
     private static final long serialVersionUID = 1L;
+    public  static final String eventKey = "MAIN_PLANET_EVENT_PLAGUE";
     private int empId;
     private int sysId;
     private float researchNeeded = 0;
     private int turnCount = 0;
     private float researchRemaining = 0;
     @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_PLAGUE", str((int)Math.ceil(researchRemaining))); }
-    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_PLAGUE"; }
+	@Override public String systemKey()		{ return eventKey; }
     @Override ParamInteger delayTurn()		{ return IGameOptions.plagueDelayTurn; }
     @Override ParamInteger returnTurn()		{ return IGameOptions.plagueReturnTurn; }
     @Override public boolean goodEvent()	{ return false; }

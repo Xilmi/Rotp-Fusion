@@ -74,6 +74,10 @@ Later:
 
 ## What's New
 
+2025.01.22 (BR)
+- Added a warning in the colonisation popup when the planet is still plagued (Just destroyed), suggesting to wait one year before colonising.
+  - Will Force the popup even in auto-colonisation mode.
+
 2025.01.21 (BR)
 - Max Bases don't loop anymore.
   - Right-click will set the max to the current value.

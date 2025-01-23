@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
@@ -123,6 +124,7 @@ public class MapOverlayColonizePrompt extends MapOverlay {
     @Override
     public void paintOverMap(MainUI parent, GalaxyMapPanel ui, Graphics2D g) {
         StarSystem sys = galaxy().system(sysId);
+        boolean hasPlague = sys.hasPlague();
         Empire pl = player();
 
         int s7 = BasePanel.s7;
@@ -330,7 +332,20 @@ public class MapOverlayColonizePrompt extends MapOverlay {
         y1 -= scaled(5);
         g.setFont(narrowFont(40));
         drawBorderedString(g, sysName, 1, x1, y1, Color.darkGray, SystemPanel.orangeText);
-        
+
+		// draw plague warning if one
+		if (hasPlague) {
+			int xP = boxX + s10;
+			int yP = boxY + boxH1 + s15;
+			g.setColor(SystemPanel.redText);
+			String s1 = text("MAIN_COLONIZE_PLAGUE");
+			List<String> list = scaledNarrowWrappedLines(g, s1, boxW-s20, 3, desiredFont, 10);
+			for (String str : list) {
+				drawBorderedString(g, str, 1, xP, yP, Color.white, Color.red);
+				yP += lineH;
+			}
+		}
+
         // planet flag
         parent.addNextTurnControl(flagButton);
         flagButton.init(this, g);
@@ -355,6 +370,7 @@ public class MapOverlayColonizePrompt extends MapOverlay {
             case KeyEvent.VK_L:
             	if (e.isAltDown()) {
             		debugReloadLabels(parent);
+            		parent.repaint();
             		break;
             	}
             default:

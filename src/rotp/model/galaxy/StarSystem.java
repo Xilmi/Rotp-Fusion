@@ -41,6 +41,7 @@ import rotp.model.Sprite;
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemView;
+import rotp.model.events.RandomEventPlague;
 import rotp.model.events.StarSystemEvent;
 import rotp.model.game.IGameOptions; // modnar: use for shield display selection
 import rotp.model.planet.Planet;
@@ -241,6 +242,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     public void eventKey(String s)              { eventKey = s.replaceAll("\\d",""); }
     public boolean hasEvent()                   { return eventKey != null; }
     public void clearEvent()                    { eventKey = null; }
+	public boolean hasPlague()					{ return RandomEventPlague.eventKey == eventKey; }
     public boolean hasMonster()                 { return monster != null; }
     public void addEvent(StarSystemEvent e)     { events.add(e); }
     public List<StarSystemEvent> events()       { return events; }

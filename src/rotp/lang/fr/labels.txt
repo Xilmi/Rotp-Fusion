@@ -1072,6 +1072,7 @@ MAIN_COLONIZE_NO                  | Non
 MAIN_COLONIZE_ANIMATION_TITLE     | En l’an %1, [player_empire] forme une nouvelle colonie.
 MAIN_COLONIZE_NAME_PROMPT         | Nom de la Colonie
 MAIN_COLONIZE_NAME_OK             | OK
+MAIN_COLONIZE_PLAGUE              | Cette planète est encore infestée de dangereuses bactéries, capables d'infecter nos colons. Nous recommandons de la mettre en quarantaine durant un an avant de la coloniser.
 
 // Reasons to ask player to reallocate a system (during next turn)
 MAIN_ALLOCATE_TITLE               | Ajustements des Dépenses
@@ -1137,7 +1138,7 @@ MAIN_ALERT_FACTORIES_DESTROYED2   | Des saboteurs inconnus ont détruit %1 usine
 MAIN_ALERT_BASES_DESTROYED2       | Des saboteurs inconnus ont détruit %1 bases de missiles défendant le système %2.
 MAIN_ALERT_TRANSPORTS_PERISHED    | La colonie du système %1 a été détruite. Nos transports tentant d’y débarquer ont péri.
 MAIN_ALERT_TRANSPORTS_CAPTURED    | Nos %2 transports arrivant dans le système %1 se sont rendus aux forces [alien_race_pluraladjecF].
-MAIN_ALERT_TRANSPORTS_KILLED      | Nos %2 transports tentant d’atteindre %1 ont été détruits par les forces de défense [alien_race_pluraladjecF].
+MAIN_ALERT_TRANSPORTS_KILLED      | %2 transports tentant d’atteindre %1 ont été détruits par des forces ennemies.
 MAIN_ALERT_INVADERS_CAPTURED      | %2 transports [alien_race_pluraladjec] arrivant dans le système %1 se sont rendus à nos forces défensives.
 MAIN_ALERT_INVADERS_KILLED        | %2 transports [alien_race_pluraladjec] tentant d’envahir %1 ont été complètement détruits par nos forces défensives.
 MAIN_ALERT_TRESPASSING1           | Des vaisseaux [alien_race_pluraladjec] ont été repérés en train de s’introduire près de notre colonie dans le système %1.
