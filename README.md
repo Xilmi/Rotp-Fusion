@@ -74,8 +74,9 @@ Later:
 
 ## What's New
 
-2025.01.22 (BR)
+2025.01.25 (BR)
 - Fixed Rallied fleets not always being forwarded.
+- Research bubbles have more contrasted colors.
 
 2025.01.22 (BR)
 - Added a warning in the colonisation popup when the planet is still plagued (Just destroyed), suggesting to wait one year before colonising.

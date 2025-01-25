@@ -775,7 +775,8 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         String title = text(TechCategory.id(catNum));
         drawShadowedString(g, title, 1, x+s20, y0, Color.black, whiteTextC);
 
-        drawResearchBubble(g, cat, false, Color.black, Color.black, darkBlueBucketC, blueBucketC, x+scaled(180), y0);
+        drawResearchBubble(g, cat, false, Color.black, Color.black, Color.black,
+        		Color.black, Color.black, darkBlueBucketC, blueBucketC, x+scaled(180), y0);
 
         int fontSize = 18;
         g.setColor(Color.black);
@@ -814,53 +815,72 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
             drawString(g,detail2Value, x3b, y0);
         }
     }
-	public void drawResearchBubble(Graphics2D g, TechCategory cat, boolean showMinimum, Color textC, Color backC, Color curC, Color upC, int x, int y) {
+	public void drawResearchBubble(Graphics2D g, TechCategory cat, boolean showMinimum,
+			Color textCol, Color textBackCol, Color textForeCol,
+			Color backCol, Color borderCol, Color lightCol, Color darkCol, int x0, int y0) {
 		if (cat.researchCompleted())
 			return;
 
-		boolean showProgress = options().showTechProgress();
+		boolean showProgress = showMinimum && options().showTechProgress();
 		float currentChance  = cat.upcomingDiscoveryChance(0);
 		float upcomingChance = cat.upcomingDiscoveryChance(totalPlanetaryResearch());
 		if (showMinimum)
 			upcomingChance = max(.15f, upcomingChance);
-		int r = s19;
+		int dr = showProgress? s1 : 0;
+		int d1 = s19;
+		int x1 = x0 - s10;
+		int y1 = y0 - s16;
+		int d2 = d1 - dr-dr;
+		int x2 = x1 + dr;
+		int y2 = y1 + dr;
+		int yClip = y0 + s4 - dr;
+		int wClip = d1 + d1;
 
 		if (upcomingChance <= 1) {
-			g.setColor(backC);
-			g.fillOval(x-s10, y-s16, r, r);
+			g.setColor(borderCol);
+			g.fillOval(x1, y1, d1, d1);
+			g.setColor(backCol);
+			g.fillOval(x2, y2, d2, d2);
 
-			int lvl = (int)(upcomingChance*r);
-			g.setColor(upC);
-			g.setClip(x-s10, y+s4-lvl, r+r, r);
-			g.fillOval(x-s10, y-s16, r, r);
+			int lvl = (int)(upcomingChance*d2);
+			g.setColor(darkCol);
+			g.setClip(x1, yClip-lvl, wClip, d1);
+			g.fillOval(x2, y2, d2, d2);
 
 			if (showProgress) {
-				lvl = (int)(currentChance*r);
-				g.setColor(curC);
-				g.setClip(x-s10, y+s4-lvl, r+r, r);
-				g.fillOval(x-s10, y-s16, r, r);
+				lvl = (int)(currentChance*d2);
+				g.setColor(lightCol);
+				g.setClip(x1, yClip-lvl, wClip, d1);
+				g.fillOval(x2, y2, d2, d2);
 			}
 			g.setClip(null);
 		}
 		else {
-			if (showProgress && currentChance <= 1) {
-				g.setColor(backC);
-				g.fillOval(x-s10, y-s16, r, r);
-				int lvl = (int)(currentChance*r);
-				g.setColor(curC);
-				g.setClip(x-s10, y+s4-lvl, r+r, r);
-				g.fillOval(x-s10, y-s16, r, r);
-				g.setClip(null);
-				g.setColor(Color.lightGray);
-			}
-			else
-				g.setColor(textC);
-
 			int pct = (int) (100* (upcomingChance -1));
 			String strPct = text("TECH_DISCOVERY_PCT", pct);
-			g.setFont(narrowFont(18));
+			if (showProgress)
+				g.setFont(narrowFont(18));
+			else
+				g.setFont(narrowFont(18));
 			int swPct = g.getFontMetrics().stringWidth(strPct);
-			drawString(g,strPct, x-(swPct/2), y);
+
+			if (showProgress && currentChance <= 1) {
+				g.setColor(borderCol);
+				g.fillOval(x1, y1, d1, d1);
+				g.setColor(backCol);
+				g.fillOval(x2, y2, d2, d2);
+
+				int lvl = (int)(currentChance*d2);
+				g.setColor(lightCol);
+				g.setClip(x1, yClip+dr-lvl, wClip, d1);
+				g.fillOval(x2, y2, d2, d2);
+				g.setClip(null);
+				drawShadowedString(g, strPct, x0-(swPct/2), y0, textBackCol, textForeCol);
+			}
+			else {
+				g.setColor(textCol);
+				drawString(g,strPct, x0-(swPct/2), y0);
+			}
 		}
 	}
     private BufferedImage visualTree() {

@@ -27,9 +27,9 @@ import rotp.ui.RotPUI;
 import rotp.ui.main.GalaxyMapPanel;
 
 public class TechStatusSprite extends MapControlSprite {
-    private static final Color blueBucketCurrentC	= new Color(75, 75, 255);
-    private static final Color blueBucketUpcomingC	= new Color(100,100,255);
-    private static final Color blueBucketBackC		= new Color(50, 50, 128);
+    private static final Color blueBucketBgC	= new Color(4, 4, 16);
+    private static final Color lightBlueBucketC	= new Color(100,100,255);
+    private static final Color darkBlueBucketC	= new Color(50, 50, 128);
     private final int category;
     public TechStatusSprite(int catNum, int xOff, int yOff, int w, int h) {
         category = catNum;
@@ -86,9 +86,15 @@ public class TechStatusSprite extends MapControlSprite {
         g2.setColor(background);
         g2.fillRoundRect(startX, startY, width, height, cnr, cnr);
 
-        
         if (tech != null)
-            RotPUI.instance().techUI().drawResearchBubble(g2, cat, true, Color.lightGray, blueBucketBackC, blueBucketCurrentC, blueBucketUpcomingC, startX+BasePanel.s1+(width/2), startY+BasePanel.s7+(height/2));
+        	if (options().showTechProgress())
+        		RotPUI.instance().techUI().drawResearchBubble(g2, cat, true, Color.lightGray, Color.black, Color.lightGray, 
+        				blueBucketBgC, darkBlueBucketC, lightBlueBucketC, darkBlueBucketC,
+        				startX+BasePanel.s1+(width/2), startY+BasePanel.s7+(height/2));
+        	else
+        		RotPUI.instance().techUI().drawResearchBubble(g2, cat, true, Color.lightGray, Color.lightGray, Color.lightGray,
+        				darkBlueBucketC, darkBlueBucketC, lightBlueBucketC, lightBlueBucketC,
+        				startX+BasePanel.s1+(width/2), startY+BasePanel.s7+(height/2));
 
         if (show) {
             g2.setColor(Color.lightGray);
