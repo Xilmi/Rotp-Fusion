@@ -16,7 +16,7 @@
 
 CONTACT_AGGRESSIVE         | Salut ! Nous sommes connus sous le nom [my_race_pluraladjec], mais ce n'est pas important. Ce qui est important, c'est que vous sachiez que nous prévoyons de perfectionner l'écologie de chaque planète de la galaxie par tous les moyens nécessaires, d'accord ? Salut !
 CONTACT_RUTHLESS           | Hey ! Nous sommes [my_race_pluralnoun] ! J'espère que vous n'ayez pas maltraité les écosystèmes de vos planètes. Nous serions obligés de résoudre ce problème immédiatement et ce ne serait probablement pas très amusant pour vous, n'est-ce pas ?
-CONTACT_ERRATIC            | Ouah, une nouvelle espèce ! Nous sommes [my_race_pluralnoun], et vous êtes ? [your_race_pluralnoun]? Incroyable ! Juste pour que vous sachiez que vous devez garder vos planètes propres, d'accord ? Nous veillerons à ce que vous le fassiez en gardant un œil très attentif sur vous.
+CONTACT_ERRATIC            | Ouah, une nouvelle espèce ! Nous sommes [my_race_pluralnoun], et vous êtes ? [your_race_pluralnoun] ? Incroyable ! Juste pour que vous sachiez que vous devez garder vos planètes propres, d'accord ? Nous veillerons à ce que vous le fassiez en gardant un œil très attentif sur vous.
 //
 GREETING_01                | Hey, ambassadeur ! Toujours heureux d'avoir des nouvelles d'un ami comme vous ! Besoin d'aide pour quelque chose ?
 GREETING_04                | C'est l'ambassadeur [your_empireof] ! Nous sommes occupés à peaufiner certains écosystèmes planétaires, mais nous écouterons ce que vous avez à dire.

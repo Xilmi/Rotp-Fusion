@@ -8,7 +8,7 @@
 //
 // To cross reference labels put the key between →←
 // Used these char because they are not available in MyriadPro fonts anyways!
-// example :
+// example :
 // CROSS_REFERENCED_EXAMPLE | blablabla either →BOOLEAN_YES← or →BOOLEAN_NO←
 // ALT 8594 →
 // ALT 8582 ←
@@ -2300,10 +2300,10 @@ SETTINGS_FUEL_RANGE_DESC          | Augmente la portée des technologies de carb
 SETTINGS_AI_HOSTILITY_DESC        | Augmente ou diminue le niveau général d’hostilité entre les espèces extraterrestres.
 
 HEADERS_RELEVANT_PARAMETERS_DESC  | Vous serez peut-être aussi intéressé à connaître, ou ajuster ces paramètres.
-HEADERS_RELEVANT_PARAMETERS       | ~~~ PARAMETRES CONNEXES ~~~
+HEADERS_RELEVANT_PARAMETERS       | ~~~ PARAMÈTRES CONNEXES ~~~
 
 HEADERS_COMPUTER_OPTIONS_DESC     | Options liées au matériel.
-HEADERS_COMPUTER_OPTIONS          | ~~~ OPTIONS MATÉRIELLE ~~~
+HEADERS_COMPUTER_OPTIONS          | ~~~ OPTIONS MATÉRIELLES ~~~
 HEADERS_BACKUP_OPTIONS_DESC       | Options liées aux fichiers.
 HEADERS_BACKUP_OPTIONS            | ~~~ OPTIONS DE SAUVEGARDE ~~~
 HEADERS_MENU_APPEARANCE_DESC      | Paramètres de personnalisation des interfaces.
@@ -2322,7 +2322,7 @@ HEADERS_START_TECH_CONTROL_DESC   | Options utilisées lors de la génération d
 HEADERS_START_TECH_CONTROL        | ~~ TECH AUTORISÉES ET INTERDITES ~~
 HEADERS_START_RANDOM_ALIENS_HELP  | Lorsque les aptitudes de l’adversaire sont établies aléatoirement, les paramètres suivants seront utilisés :
 HEADERS_START_RANDOM_ALIENS_DESC  | Options utilisées pour la génération d’espèces aléatoires. Ne seront lus que lors du démarrage ou redémarrage d’une nouvelle partie.
-HEADERS_START_RANDOM_ALIENS       | ~~~ ADVERSAIRES ALEATOIRES ~~~
+HEADERS_START_RANDOM_ALIENS       | ~~~ ADVERSAIRES ALÉATOIRES ~~~
 HEADERS_GAME_RELATIONS_DESC       | Options de contrôle des relations entre empires. Peut être changé dynamiquement.
 HEADERS_GAME_RELATIONS            | ~~~ RELATIONS AVEC LES EMPIRES ~~~
 HEADERS_RANDOM_EVENTS_OPT_DESC    | Options des événements aléatoires. Peuvent être modifiées de manière dynamique.
@@ -2363,7 +2363,7 @@ HEADERS_AUTO_FLAG_ENVIRONMENT        | ~~~ ENVIRONNEMENT ~~~
 HEADERS_AUTO_FLAG_RESOURCES_DESC     | Définissez la couleur des drapeaux en fonction des ressources de la planète.
 HEADERS_AUTO_FLAG_RESOURCES          | ~~~ RESSOURCES DES PLANÈTES ~~~
 HEADERS_AUTO_FLAG_COLONY_TECH_DESC   | Définissez la couleur des drapeaux en fonction de l’environnement et des technologies de vaisseau de colonie requises.
-HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ TECH. DE COLONIZATION ~~~
+HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ TECH. DE COLONISATION ~~~
 HEADERS_AUTO_FLAG_VESTIGES_DESC      | Définissez la couleur des drapeaux en fonction des vestiges de civilisation.
 HEADERS_AUTO_FLAG_VESTIGES           | ~~~ ARTÉFACTS ~~~
 HEADERS_AUTO_FLAG_IN_NEBULA_DESC     | Définissez la couleur des drapeaux en fonction du fait que vous vous trouvez dans une nébuleuse ou pas.
@@ -2414,12 +2414,12 @@ HEADERS_TECH_DIPLO_DESC              | Les sciences et les technologies sont des
 HEADERS_TECH_DIPLO                   | ~~~ RELATIONS SCIENTIFIQUES ~~~
 
 HEADERS_GALAXY_CONTENT_DESC          | Paramètres liés aux caractéristiques des galaxies.
-HEADERS_GALAXY_CONTENT               | ~~~ GALAXY CONTENT ~~~
+HEADERS_GALAXY_CONTENT               | ~~~ CARACTÉRISTIQUES GALAXIE ~~~
 HEADERS_GALAXY_SIZE_DESC             | Paramètres liés à la taille des galaxies.
-HEADERS_GALAXY_SIZE                  | ~~~ GALAXY SIZE ~~~
+HEADERS_GALAXY_SIZE                  | ~~~ TAILLE GALAXIE ~~~
 
 HEADERS_RESTART_OPTIONS_DESC         | Options de redémarrage.
-HEADERS_RESTART_OPTIONS              | ~~~ RESTART OPTIONS ~~~
+HEADERS_RESTART_OPTIONS              | ~~~ OPTIONS DE REDÉMARRAGE ~~~
 HEADERS_RESTART_AI_DESC              | Conserver ou modifier les IA.
 HEADERS_RESTART_AI                   | ~~~ RESTART AI ~~~
 
@@ -2479,7 +2479,7 @@ HEADERS_GAME_PANEL_FORMAT_DESC       | Configuration de l’apparance des pannea
 HEADERS_GALAXY_PANEL                 | ~~~ CARTE DE LA GALAXIE ~~~
 HEADERS_GALAXY_PANEL_DESC            | Configuration des paramètres de la carte de la galaxie. (Aussi accessibles avec les icônes de gauche)
 
-HEADERS_NEW_SAFE                     | ~~~ Sécuritaires ~~~
+HEADERS_NEW_SAFE                     | ~~~ SÉCURITAIRES ~~~
 HEADERS_NEW_SAFE_DESC                | Validés, vous pourriez être intéressé à les essayer.
 HEADERS_NEW_BETA                     | ~~~ BETA ~~~
 HEADERS_NEW_BETA_DESC                | Pas entièrement qualifiée, merci de signaler d’éventuels petits problèmes. (Et les plus gros aussi)
@@ -2501,7 +2501,7 @@ HEADERS_SHIELD_LOOK                  | ~~~ APPARENCE DES BOUCLIERS ~~~
 HEADERS_SHIELD_LOOK_DESC             | Configuration de l’apparence des boucliers.
 HEADERS_WEAPON_POSITION              | ~~~ POSITION DES ARMES ~~~
 HEADERS_WEAPON_POSITION_DESC         | Configuration de la position des armes de tir.
-HEADERS_SHIELD_ACTIVATION            | ~~~ SHIELD ACTIVATION ~~~
+HEADERS_SHIELD_ACTIVATION            | ~~~ ACTIVATION BOUCLIERS ~~~
 HEADERS_SHIELD_ACTIVATION_DESC       | Configuration du type de bouclier à utiliser, et quand les activer.
 HEADERS_WEAPON_LOOK                  | ~~~ APPARENCE DES TIRS ~~~
 HEADERS_WEAPON_LOOK_DESC             | Configuration de l’apparence des tirs d’armes à faisceaux.
@@ -2512,7 +2512,7 @@ HEADERS_ASTEROID_DENSITY             | ~~~ DENSITÉ DES ASTÉROÏDES ~~~
 HEADERS_ASTEROID_DENSITY_DESC        | Quantité d’astéroïdes en fonction de leur densité.
 HEADERS_ASTEROID_PROBABILITY         | ~~~ PROBABILITÉ DES ASTÉROÏDES ~~~
 HEADERS_ASTEROID_PROBABILITY_DESC    | Probabilité d’obtenir des astéroïdes et l’impact des ressources planétaires sur cette probabilité.
-HEADERS_ASTEROID_IMPACT              | ~~~ IMPACT AND PLANET LOCATION ~~~
+HEADERS_ASTEROID_IMPACT              | ~~~ POSITION ET IMPACT ASTÉROÏDES ~~~
 HEADERS_ASTEROID_IMPACT_DESC         | Localisation de la planète et effet des astéroïdes.
 
 HEADERS_TECH_PLANET                  | ~~~ TECHNOLOGIES PLANÉTAIRES ~~~
@@ -3656,7 +3656,7 @@ SETTINGS_MOD_RANDOM_EVENTS_TITLE         | Personnalisation des événements al�
 SETTINGS_MOD_RANDOM_EVENTS_UI_DESC       | Ouvrez le sous-menu pour obtenir plus d’options de personnalisation d’événements aléatoires.
 SETTINGS_MOD_RANDOM_EVENTS_UI            | Événements aléatoires
 SETTINGS_MOD_RANDOM_EVENT_DISABLED       | Désactivés
-SETTINGS_MOD_RANDOM_EVENT_UNIQUE         | Évènement unique
+SETTINGS_MOD_RANDOM_EVENT_UNIQUE         | Événement unique
 SETTINGS_MOD_RANDOM_EVENT_UNLIMITED      | Illimités
 SETTINGS_MOD_RANDOM_EVENT_MULTIPLE       | Concurrents
 
@@ -5104,7 +5104,7 @@ GOVERNOR_TRANSPORT_POOR_DBL         | Pauvres x2 : %1
 GOVERNOR_TRANSPORT_POOR_DBL_LABEL   | Les planètes pauvres contribuent doublement aux migrations.
 
 GOVERNOR_TRANSPORT_MAX_TURNS_DESC   | Distance de migration maximale (en années).<br>(Distance 1,5 fois plus élevée lorsque des nébuleuses sont traversées)
-GOVERNOR_TRANSPORT_MAX_TURNS        | Max Distance : %1 turn(s)
+GOVERNOR_TRANSPORT_MAX_TURNS        | Distance Maximale : %1 tour(s)
 GOVERNOR_TRANSPORT_MAX_TURNS_LABEL  | Distance de migration maximale (en années)
 GOVERNOR_TRANSPORT_MAX_TURNS_NEBULA_LABEL  | (Distance 1,5 fois plus élevée lorsque des nébuleuses sont traversées).
 GOVERNOR_TRANSPORT_MAX_TURNS_NEBULA_TT     | →GOVERNOR_TRANSPORT_MAX_TURNS_DESC←
@@ -5130,13 +5130,13 @@ GOVERNOR_STARGATES_RICH_2_LABEL      | et ultra riches
 GOVERNOR_STARGATES_RICH_1_TT         | →GOVERNOR_STARGATES_RICH_HELP←
 GOVERNOR_STARGATES_RICH_2_TT         | →GOVERNOR_STARGATES_RICH_HELP←
 
-HEADERS_GOVERNOR_COLONY_OPTIONS_DESC | Colony Options.
-HEADERS_GOVERNOR_COLONY_OPTIONS      | ~~~ COLONY OPTIONS ~~~
+HEADERS_GOVERNOR_COLONY_OPTIONS_DESC | Options des colonies.
+HEADERS_GOVERNOR_COLONY_OPTIONS      | ~~~ OPTIONS DES COLONIES ~~~
 GOVERNOR_COLONY_OPTIONS_LABEL        | Paramètres des colonies
 GOVERNOR_COLONY_OPTIONS_TT           | Comment l’IA devrait-elle gérer les colonies ?
 
 GOVERNOR_MIN_MISSILE_BASES_DESC      | Nombre minimal de bases de missiles à construire automatiquement.
-GOVERNOR_MIN_MISSILE_BASES           | Min Bases : %1
+GOVERNOR_MIN_MISSILE_BASES           | Bases minimum : %1
 GOVERNOR_MIN_MISSILE_BASES_LABEL     | Bases de missile minimum.
 
 GOVERNOR_SHIELD_WITHOUT_BASES_DESC   | Autoriser les boucliers sans bases.
@@ -5194,7 +5194,7 @@ GOVERNOR_SPARE_XENOPHOBES            | Promesses tenues : %1
 GOVERNOR_SPARE_XENOPHOBES_LABEL      | Promesses tenues
 
 HEADERS_GOVERNOR_FLEET_OPTIONS_DESC  | Comment l’IA doit-elle gérer les activités des flottes.
-HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~
+HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ OPTIONS DES FLOTTES ~~~
 GOVERNOR_FLEET_OPTIONS_LABEL         | Paramètres des Flottes
 GOVERNOR_FLEET_OPTIONS_TT            | Comment l’IA doit-elle gérer les activités des flottes.
 
@@ -5228,7 +5228,7 @@ GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset auto Ships : %1
 GOVERNOR_AUTOSHIPS_BY_DEFAULT_LABEL  | Auto Ships is "On" by Default
 
 HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Options liées à l’apparence du panneau de configuration.
-HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~
+HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ OPTIONS D'AFFICHAGE ~~~
 GOVERNOR_ASPECT_OPTIONS_LABEL        | Apparence
 GOVERNOR_ASPECT_OPTIONS_TT           | Options liées à l’apparence de ce panneau de configuration.
 

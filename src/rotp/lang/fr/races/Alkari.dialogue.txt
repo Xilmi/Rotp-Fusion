@@ -16,7 +16,7 @@
 
 CONTACT_HONORABLE          | Salut à vous, ô [your_nameTitle] [your_name] [your_empireof] ! Nous [my_empireof] vous adressons des salutations cordiales et attendons avec impatience des relations honorables avec votre espèce.
 CONTACT_PACIFIST           | Salutations les plus sincères à vous, [your_title] [your_empireof]. N'amenez pas la guerre aux portes de notre Souveraineté, et nous prospérerons tous les deux dans l'amitié l'un de l'autre.
-CONTACT_ERRATIC            | Je suis un ambassadeur du longtemps vécu [my_empire]. Mon peuple salue comme c'est notre coutume. Votre espèce est connue comme [your_race_pluralnoun]? Comme c'est très... intriguant.
+CONTACT_ERRATIC            | Je suis un ambassadeur du longtemps vécu [my_empire]. Mon peuple salue comme c'est notre coutume. Votre espèce est connue comme [your_race_pluralnoun] ? Comme c'est très... intriguant.
 
 //
 GREETING_01                | Salut à vous, ambassadeur ! Quel service la Souveraineté pourrait-elle rendre à un allié aussi vénéré en ce jour ?
@@ -87,6 +87,6 @@ PRAISE_TRADE_02            | Il y a plusieurs façons de prouver son honneur, am
 PRAISE_REBELLING_WITH_01   | Ces brutes du conseil nous sous-estiment, ambassadeur ! Ensemble, nous allons leur montrer ce que signifie vraiment le terme « faute fatale » !
 
 ACCEPT_TRADE_01            | La Souveraineté est toujours heureuse de traiter avec [your_empire]. Un montant annuel de [amt] BC est tout à fait agréable, merci.
-RESPOND_IGNORE_THREAT_01   | Vous osez essayer de provoquer [my_empire]? Emportez vos plaisanteries risibles ailleurs avant qu'elles cessent d'être amusantes.
+RESPOND_IGNORE_THREAT_01   | Vous osez essayer de provoquer [my_empire] ? Emportez vos plaisanteries risibles ailleurs avant qu'elles cessent d'être amusantes.
 RESPOND_STOP_SPYING_01     | Vos yeux semblent aussi aiguisés que les nôtres lorsqu'il s'agit de trouver des espions. Considérez nos efforts de subterfuge comme terminés.
 RESPOND_STOP_ATTACKING_01  | Maintenant, voyez-vous la puissance de notre souveraineté ? Tant que vous n'oubliez pas notre puissance, nous ne vous dérangerons plus avec ces flottes.

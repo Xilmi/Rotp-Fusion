@@ -15,7 +15,7 @@
 // Human specific dialogue
 
 CONTACT_HONORABLE          | Nous sommes [my_race_pluralnoun] de la Terre, [your_title], et nous sommes très heureux de prendre contact avec vous. Si vous avez besoin de quoi que ce soit du Triumvirat, quoi que ce soit, n'hésitez pas à demander.
-CONTACT_PACIFIST           | Un accueil chaleureux, [your_name]. Vous êtes [your_empire]? Je représente [my_empire], et j'espère que ce sera le premier d'innombrables échanges amicaux entre nos peuples.
+CONTACT_PACIFIST           | Un accueil chaleureux, [your_name]. Vous êtes [your_empire] ? Je représente [my_empire], et j'espère que ce sera le premier d'innombrables échanges amicaux entre nos peuples.
 CONTACT_ERRATIC            | Les habitants de la Terre préfèrent généralement résoudre nos problèmes par la négociation et la diplomatie. Si votre peuple préfère des méthodes plus violentes, nous serions plus qu'heureux de vous accueillir, [your_raceadjec].
 //
 GREETING_01                | Ah ! L'ambassadeur [your_empireof] est là ! Puis-je vous apporter à manger ou à boire ? Mettez-vous à l'aise et dites-moi ce que nous pouvons faire pour vous aujourd'hui.
