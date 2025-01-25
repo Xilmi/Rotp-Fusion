@@ -75,6 +75,9 @@ Later:
 ## What's New
 
 2025.01.22 (BR)
+- Fixed Rallied fleets not always being forwarded.
+
+2025.01.22 (BR)
 - Added a warning in the colonisation popup when the planet is still plagued (Just destroyed), suggesting to wait one year before colonising.
   - Will Force the popup even in auto-colonisation mode.
 

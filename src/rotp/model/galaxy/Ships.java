@@ -554,7 +554,6 @@ public class Ships implements Base, Serializable {
         	ShipRelocationSprite spr = sys.rallySprite();
             if (spr.isActive() && spr.forwardRallies()) {
                 if (rallyPassByCombat) {	// Memorize the transit
-                	fleet.arrive(sys, true);
                 	sys.colony().shipyard().addToRallyFleetCopy(fleet);
                 	// Then continue to make them orbiting
                 }

@@ -192,8 +192,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
     public float maintenanceCost() {
         return 0;
     }
-    @Override
-    public void nextTurn(float totalProd, float totalReserve) {
+    @Override public void nextTurn(float totalProd, float totalReserve) {
         //xilmi: setting those to false before potentially leaving function as otherwise the message will keep coming every turn
         shipLimitReached = false;
         stargateCompleted = false;
@@ -201,7 +200,6 @@ public class ColonyShipyard extends ColonySpendingCategory {
         rallyDesignId = 0;
         //rallyDestSysId = StarSystem.NULL_ID;
         maxAllowedShipBCProd = -1;
-        clearFleetsCopy();
         // if we switched designs, send previous ship BC to shipyard reserve
         if (design != prevDesign) {
             if (prevDesign instanceof DesignStargate)

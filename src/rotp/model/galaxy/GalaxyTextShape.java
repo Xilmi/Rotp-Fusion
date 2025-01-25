@@ -87,7 +87,6 @@ public class GalaxyTextShape extends GalaxyShape {
 		}
 		textShape = new Area();
 		boolean isEmpty	= true;
-		System.out.println();
 		String[] txtArr	= s.split(System.lineSeparator());
 		int moveY = 0;
 		for (String txt : txtArr) {

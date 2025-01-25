@@ -286,6 +286,9 @@ public class Galaxy implements Base, Serializable {
         		sys.launchTransports();
         ships.launchFleets(); // Launch deployed fleets tagged to be launched. (But not the rallied ones)
         ships.reloadBombs();
+        for (StarSystem sys: starSystems)
+        	if(sys != null && sys.colony() != null)
+        		sys.colony().shipyard().clearFleetsCopy();
     }
     public void postNextTurn1() {
         // check ship combat & invasions at each system
