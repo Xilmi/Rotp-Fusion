@@ -1494,6 +1494,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         if (empire.isPlayerControlled()) {
         	// To activate the path
         	starSystem().transportDestId = dest.id;
+        	starSystem().transportAmt	 = pop;
         	starSystem().transportSprite().clickedDest(dest);
         	empire.setVisibleShips();
         	if (transportAutoEco())
@@ -2752,9 +2753,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
     public boolean showTransports() {
         if (isPlayer(empire())) {
+        	int sentPop   = (int) inTransport();
         	int friendPop = playerPopApproachingSystem();
             int enemyPop  = enemyPopApproachingPlayerSystem();
-    		return (friendPop>0 || enemyPop>0);
+    		return (friendPop>0 || enemyPop>0 || sentPop>0);
     	}
         else {
         	int playerPop  = playerPopApproachingSystem();

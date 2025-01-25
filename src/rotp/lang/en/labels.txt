@@ -972,6 +972,7 @@ MAIN_TRANSPORT_CLEAR              | Clear Transports
 MAIN_TRANSPORT_SURRENDER          | Automatically surrender upon arrival
 MAIN_TRANSPORT_INCOMING_TROOP     | Troops(%1)
 MAIN_TRANSPORT_INCOMING_POP       | Pop(%1)
+MAIN_TRANSPORT_OUTGOING_POP       | (%1)
 
 // Colony labels
 MAIN_COLONY_HOMEWORLD             | %1 Homeworld

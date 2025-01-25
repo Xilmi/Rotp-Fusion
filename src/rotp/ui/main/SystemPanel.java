@@ -251,7 +251,8 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
     	boolean isPlayer = isPlayer(sys.empire());
         int y0 = s54;
         int x0 = s25;
-        if (sys.canShowIncomingTransports()) { // This test can't be removed! We cannot dereference colony() in an uncolonized system.
+//        if (sys.canShowIncomingTransports()) { // This test can't be removed! We cannot dereference colony() in an uncolonized system.
+        if (showTransports) { // This test can't be removed! We cannot dereference colony() in an uncolonized system.
         	if (!isPlayer) {
             	int playerPop = sys.colony().playerPopApproachingSystem();;
                 g.setFont(narrowFont(20));
@@ -260,6 +261,7 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
         		drawString(g, str, x0, y0);
         	} 
         	else {
+        		int sentPop   = (int) sys.colony().inTransport();
             	int friendPop = sys.colony().playerPopApproachingSystem();;
                 int enemyPop  = sys.colony().enemyPopApproachingPlayerSystem();
             	String str;
@@ -271,8 +273,22 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             		g.setColor(Color.green);
             		drawString(g, str, x0, y0);
             		sw = g.getFontMetrics().stringWidth(str);
+            		if (sentPop > 0) {
+            			x0 += sw;
+            			str = text("MAIN_TRANSPORT_OUTGOING_POP", -sentPop);
+            			g.setColor(Color.yellow);
+            			drawString(g, str, x0, y0);
+                		sw = g.getFontMetrics().stringWidth(str);
+            		}
             		x0 += sw + s4;
             	}
+            	else if (sentPop > 0) {
+            		str = text("MAIN_TRANSPORT_INCOMING_POP", -sentPop);
+            		g.setColor(Color.yellow);
+            		drawString(g, str, x0, y0);
+            		sw = g.getFontMetrics().stringWidth(str);
+            		x0 += sw + s4;
+        		}
             	if (enemyPop > 0) {
             		str = text("MAIN_TRANSPORT_INCOMING_TROOP", enemyPop);
             		g.setColor(Color.red);

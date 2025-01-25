@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Outgoing transport are now displayed in the System view panel.
 - Research bubbles have more contrasted colors.
 - Fixed Rallied fleets not always being forwarded.
 - Added a warning in the colonisation popup when the planet is still plagued (Just destroyed), suggesting to wait one year before colonising.

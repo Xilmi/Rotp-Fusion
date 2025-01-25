@@ -457,6 +457,13 @@ public final class GameSession implements Base, Serializable {
         }
 
     }
+	public void debugAddOn() {
+		// BR: easy to track temporary test code.
+//		StarSystem sys = galaxy().system("Koch");
+//		if (sys == null)
+//			return;
+//		sys.eventKey(RandomEventPlague.eventKey);
+	}
     @SuppressWarnings("unused") private void ModnarPrivateLogging() {
 		String LogPath = Rotp.jarPath();
 		File TestLogFile = new File(LogPath, "TestLogFile.txt");
@@ -1438,6 +1445,8 @@ public final class GameSession implements Base, Serializable {
         }
         EmpireColonySpendingPane.resetPanel();
         MultiColonySpendingPane.resetPanel();
+
+        //debugAddOn(); // TO DO BR: Comment
     }
     static ThreadFactory minThreadFactory() {
         return (Runnable r) -> {

@@ -151,6 +151,20 @@ public class Galaxy implements Base, Serializable {
             neb.noteStarSystem(s);
     }
     public StarSystem system(int i)          { return (i < 0) || (i >= numStarSystems()) ? null : starSystems[i]; }
+	// BR: for debug purpose
+	public StarSystem system(String name)	 {
+		for (StarSystem sys : starSystems)
+			if (sys.name().equals(name))
+				return sys;
+		return null;
+	}
+	// BR: for debug purpose
+	public int systemId(String name)		 {
+		for (StarSystem sys : starSystems)
+			if (sys.name().equals(name))
+				return sys.id;
+		return -1;
+	}
 
     public int width()                       { return widthLY; }
     public int height()                      { return heightLY; }

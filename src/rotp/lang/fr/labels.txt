@@ -972,6 +972,7 @@ MAIN_TRANSPORT_CLEAR              | Annuler Transports
 MAIN_TRANSPORT_SURRENDER          | Capitulation Automatique à l’Arrivée
 MAIN_TRANSPORT_INCOMING_TROOP     | Troupes(%1)
 MAIN_TRANSPORT_INCOMING_POP       | Pop(%1)
+MAIN_TRANSPORT_OUTGOING_POP       | (%1)
 
 // Colony labels
 MAIN_COLONY_HOMEWORLD             | Planète %1
