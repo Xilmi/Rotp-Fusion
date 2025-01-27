@@ -74,6 +74,10 @@ Later:
 
 ## What's New
 
+2025.01.27 (BR)
+- Changed "Leather Suits" to "Suits"
+- Fixed Restart with companion worlds misplacement bug.
+
 2025.01.25 (BR)
 - Fixed Rallied fleets not always being forwarded.
 - Research bubbles have more contrasted colors.

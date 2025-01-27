@@ -152,8 +152,8 @@ BATTLESUIT_NAME      | Personal Armor Technologies
 BATTLESUIT_DETAIL    | Gives Ground combat bonus:<br>+10 for Battle Suits (Tech level 11)<br>+20 for Armored Exoskeletons (Tech level 24)<br>+30 for Powered Armor (Tech level 40)
 
 // this is for default, no-bonus armor that player starts with
-BATTLESUIT_0_NAME    | Leather Suits
-BATTLESUIT_0_DETAIL  | Nice looking, comfortable, but no armor bonus.
+BATTLESUIT_0_NAME    | Suits
+BATTLESUIT_0_DETAIL  | Nice looking, comfortable, but no base armor bonus.
 
 BATTLESUIT_1_NAME    | Battle Suits
 BATTLESUIT_1_DETAIL  | Armor that not only protects but also boosts strength. Adds 10 to all ground combat rolls.

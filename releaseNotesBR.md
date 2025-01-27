@@ -5,6 +5,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed Restart with companion worlds misplacement bug.
+- Changed "Leather Suits" to "Suits"
 - Outgoing transport are now displayed in the System view panel.
 - Research bubbles have more contrasted colors.
 - Fixed Rallied fleets not always being forwarded.
@@ -14,14 +16,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Technology bubble now display both current and expected state of research.
 - Max Bases don't loop anymore.
   - Right-click will set the max to the current value.
-- Minor fixes.
-- New options to customize what is displayed on the galaxy preview.
-  - Orion On/Off; Player On/Off; Empires On/Off
-- Galaxy Text shaped: New multi-line option with custom line spacing.
-- All selection popup are slightly shifted to the left to not mask the galaxy preview.
-- New option: The ship design slot will memorize the last ship design name instead of getting a new one from the species ship name list, also keep the name of a copied design.
-- Fixed some Galaxy text getting out of the field.
-- Removed some excess click sound on "Replay last turn".
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

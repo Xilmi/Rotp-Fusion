@@ -152,8 +152,8 @@ BATTLESUIT_NAME      | Technologies des armures de combats au sol.
 BATTLESUIT_DETAIL    | Donne un bonus de combat au sol :<br>+10 pour les tenues de combat (niveau 11)<br>+20 pour les exosquelettes blindés (niveau 24)<br>+30 pour les armures motorisées (niveau 40)
 
 // this is for default, no-bonus armor that player starts with
-BATTLESUIT_0_NAME    | Habit de cuir.
-BATTLESUIT_0_DETAIL  | Beau, confortable, mais pas de bonus d'armure.
+BATTLESUIT_0_NAME    | Tenue légère
+BATTLESUIT_0_DETAIL  | Beau, confortable, mais pas de bonus d'armure additionnel.
 
 BATTLESUIT_1_NAME    | Tenue de Combat
 BATTLESUIT_1_DETAIL  | Une armure qui non seulement protège mais renforce également la force. Ajoute 10 points aux combats au sol.
