@@ -198,6 +198,12 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient String empireName;
     private transient List<SpaceMonster> visibleMonsters = new ArrayList<>();
 
+//	public Integer defaultDesignId()			{ return shipLab.defaultDesignId(); }
+//	public void defaultDesignId(Integer id)		{ shipLab.defaultDesignId(id); }
+//	public void clearColoniesDefaultDesignId()	{
+//		for (StarSystem sys : allColonizedSystems())
+//			sys.colony().shipyard().defaultDesignId(null);
+//	}
     public float benchmark() { return benchmark; }
         public void setBenchmark() {
     	if (extinct()) {
@@ -3192,6 +3198,8 @@ public final class Empire implements Base, NamedObject, Serializable {
 	            if (shipyard.design() == oldDesign) {
 	                if ((newDesign != null) && newDesign.active())
 	                    shipyard.switchToDesign(newDesign);
+//	                else if (isPlayer())
+//	                	shipyard.goToDefaultDesign();
 	                else
 	                    shipyard.goToNextDesign();
 	            }
@@ -5070,7 +5078,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 			if(compSysId != null) {
 				companions = new SystemBaseData[compNum];
 				for (int i=0; i<compNum; i++)
-					companions[i] = systems[i];
+					companions[i] = systems[compSysId[i]];
 			}
 		}
 		public void setRace(String r, String dr, boolean isCR,
