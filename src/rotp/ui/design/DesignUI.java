@@ -1021,7 +1021,8 @@ public class DesignUI extends BasePanel {
     }
     final class DesignSlotPanel extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
-        private int designNum = 0;
+        private final int designNum;
+        private final Rectangle defaultDesignArea = new Rectangle();
         public DesignSlotPanel(int i) {
             designNum = i;
             init();
@@ -1030,6 +1031,7 @@ public class DesignUI extends BasePanel {
             setBackground(darkBrown);
             addMouseListener(this);
             addMouseMotionListener(this);
+            defaultDesignArea.setBounds(s8, s8, s10, s10);
         }
         @Override
         public void animate() {
@@ -1108,7 +1110,7 @@ public class DesignUI extends BasePanel {
             }
             // draw copy button
             copyButtonArea[designNum].setBounds(0, 0, 0, 0);
-            if (slotDesign().active() && !configPanel.shipDesign().active()) {
+            if (des.active() && !configPanel.shipDesign().active()) {
                 g.setFont(narrowFont(18));
                 String str = text("SHIP_DESIGN_COPY_BUTTON");
                 int sw = g.getFontMetrics().stringWidth(str);
@@ -1137,9 +1139,43 @@ public class DesignUI extends BasePanel {
                 int x2a = buttonX + ((buttonW - sw) / 2);
                 drawBorderedString(g, str, x2a, buttonY + buttonH - s7, SystemPanel.textShadowC, c0);
             }
-
-        }
-        private ShipDesign slotDesign()   { return player().shipLab().design(designNum); }
+			// TODO BR: Default Design icons
+            if (defaultDesignArea == hoverTarget) {
+            	if (des.isDefaultDesign())
+					drawDefaultDesignIcon(g, Color.yellow, text("SHIP_DESIGN_UNSET_DEFAULT"));
+				else
+					drawDefaultDesignIcon(g, Color.yellow, text("SHIP_DESIGN_SET_DEFAULT"));
+            }
+            else if (des.active())
+				if (des.isDefaultDesign())
+					drawDefaultDesignIcon(g, Color.green, "");
+				else
+					drawDefaultDesignIcon(g, Color.gray, "");
+			else
+				if (des.isDefaultDesign())
+					drawDefaultDesignIcon(g, new Color(0, 96, 0), "");
+				else
+					drawDefaultDesignIcon(g, Color.darkGray, "");
+		}
+		private ShipDesign slotDesign()   { return player().shipLab().design(designNum); }
+		private void drawDefaultDesignIcon(Graphics g, Color col, String str) {
+			int x = defaultDesignArea.x;
+			int y = defaultDesignArea.y;
+			int w = defaultDesignArea.width;
+			//defaultDesignArea.setBounds(x, y, w, w);
+			BufferedImage img = globalDefaultDesignIcon(w, col);
+			g.drawImage(img, x, y, null);
+			if (str.isEmpty())
+				return;
+			g.setFont(narrowFont(14));
+			int sw = g.getFontMetrics().stringWidth(str);
+			x += w + s4;
+			//y += s9;
+			g.setColor(Color.black);
+			g.fillRect(x, y-s3, sw+s4, s17);
+			g.setColor(col);
+			g.drawString(str, x, y+s9);
+		}
         private void drawShip(Graphics g) {
             int boxH = getHeight()-s10;
             int boxW = boxH*6/5;
@@ -1198,13 +1234,18 @@ public class DesignUI extends BasePanel {
                 instance.repaint();
                 return;
             }
+			if (hoverTarget == defaultDesignArea) {
+				softClick();
+				slotDesign().toggleDefaultDesign();
+				instance.repaint();
+                return;
+			}
             if (selectedSlot != designNum) {
                 softClick();
                 selectedSlot = designNum;
                 configPanel.loadShipImages();
                 instance.repaint();
             }
-
         }
         @Override
         public void mouseEntered(MouseEvent mouseEvent) {}
@@ -1225,6 +1266,8 @@ public class DesignUI extends BasePanel {
             hoverTarget = null;
             if (copyButtonArea[designNum].contains(x,y)) 
                 hoverTarget = copyButtonArea[designNum];
+            else if (defaultDesignArea.contains(x,y))
+            	hoverTarget = defaultDesignArea;
                 
             if (hoverTarget != prevHover)
                 repaint();

@@ -99,6 +99,14 @@ public class CustomIcons implements Base {
 		BufferedImage img = eyeImage(96, 96, lineCol);
 		return resizeImage(img, wi, hi);
 	}
+	@Override public BufferedImage globalDefaultDesignIcon(int side, Color lineCol) {
+		BufferedImage img = globalDefaultDesignImage(96, lineCol);
+		return resizeImage(img, side, side);
+	}
+	@Override public BufferedImage localDefaultDesignIcon(int side, Color lineCol) {
+		BufferedImage img = localDefaultDesignImage(96, 96, lineCol);
+		return resizeImage(img, side, side);
+	}
 
 	private BufferedImage optionsIconBG() {
 		int cnr = 3;
@@ -386,6 +394,66 @@ public class CustomIcons implements Base {
 		return img;
 	}
 	private BufferedImage eyeImage(int width, int height, Color lineCol) {
+		int strokeW	= width/12;
+		int xCtr = width/2 -1;
+		int yCtr = height/2 -1;
+		width	 = (xCtr+1)*2 + 1;
+		height	 = (yCtr+1)*2 + 1;
+		int xRay = xCtr;
+		int yRay = xCtr *7/10;
+		int rayExt = round(Math.sqrt(yRay*yRay + xRay*xRay))+1;
+		int diaExt	= rayExt+rayExt;
+		int yCtrUp	= yCtr - yRay -1;
+		int yCtrLow	= yCtr + yRay +1;
+		int rayIris	= 20;
+		int diaIris	= rayIris+rayIris;
+		int rayPup	= 6;
+		int diaPup	= rayPup+rayPup;
+
+		BufferedImage img = new BufferedImage(width, height, TYPE_INT_ARGB);
+		Graphics2D g = getGraphicsRH(img);
+		g.setColor(lineCol);
+		g.setStroke(new BasicStroke(strokeW, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g.drawOval(xCtr-rayExt, yCtrUp-rayExt, diaExt, diaExt);
+		g.drawOval(xCtr-rayExt, yCtrLow-rayExt, diaExt, diaExt);
+
+		strokeW	= width/24;
+		g.setStroke(new BasicStroke(strokeW, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g.drawOval(xCtr-rayIris+1, yCtr-rayIris, diaIris, diaIris);
+		g.setColor(Color.black);
+		g.fillOval(xCtr-rayPup+1, yCtr-rayPup, diaPup, diaPup);
+
+		g.dispose();
+		return img;
+	}
+	private BufferedImage globalDefaultDesignImage(int side, Color lineCol) {
+		int strokeW	= side/12;
+		int ctr = side/2 -1;
+		side	= (ctr+1)*2 + 1;
+		int tlArrow	= strokeW/2;
+		int dArrow	= side - strokeW;
+		int start	= -135;
+		int length	= 270;
+		int xArrow	= tlArrow;
+		int yArrow	= (int) (tlArrow + dArrow * (2-sqrt(2))/2);
+		int lArrow	= side/4;
+		int rayDot	= side/8;
+		int diaDot	= 2 * rayDot;
+		int tlDot	= ctr - rayDot;
+
+		BufferedImage img = new BufferedImage(side, side, TYPE_INT_ARGB);
+		Graphics2D g = getGraphicsRH(img);
+		g.setColor(lineCol);
+		g.setStroke(new BasicStroke(strokeW, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g.drawArc(tlArrow, tlArrow, dArrow, dArrow, start, length);
+		g.drawLine(xArrow, yArrow, xArrow+lArrow,yArrow);
+		g.drawLine(xArrow, yArrow, xArrow, yArrow-lArrow);
+		g.drawRoundRect(tlDot, tlDot, diaDot, diaDot, diaDot, diaDot);
+		
+		g.dispose();
+		return img;
+	}
+	private BufferedImage localDefaultDesignImage(int width, int height, Color lineCol) {
 		int strokeW	= width/12;
 		int xCtr = width/2 -1;
 		int yCtr = height/2 -1;

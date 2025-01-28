@@ -839,8 +839,8 @@ FUTUREWEAPON_9_DETAIL  | General Improvements in Weapon Technology.
 //
 // Hand Weapon techs
 //
-HANDWEAPON_0_NAME      | Bare hands
-HANDWEAPON_0_DETAIL    | Your ground troops fight with their bare hands.
+HANDWEAPON_0_NAME      | Assault Rifle
+HANDWEAPON_0_DETAIL    | Your ground troops have very basic gunpowder weapons.
 
 HANDWEAPON_1_NAME      | Hand Lasers
 HANDWEAPON_1_DETAIL    | Personal lasers that add 5 to your ground combat rolls.

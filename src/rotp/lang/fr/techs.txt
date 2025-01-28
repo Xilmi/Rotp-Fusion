@@ -839,8 +839,8 @@ FUTUREWEAPON_9_DETAIL  | Améliorations générales de la technologie des armes.
 //
 // Hand Weapon techs
 //
-HANDWEAPON_0_NAME      | À main nue
-HANDWEAPON_0_DETAIL    | Vos troupes terrestres combattent à mains nues.
+HANDWEAPON_0_NAME      | Fusil d'assaut
+HANDWEAPON_0_DETAIL    | Vos troupes terrestres combattent avec des armes très rustiques.
 
 HANDWEAPON_1_NAME      | Pistolet lasers
 HANDWEAPON_1_DETAIL    | Des lasers personnels qui ajoutent 5 points à vos attaques au sol.

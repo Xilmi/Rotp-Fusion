@@ -335,11 +335,8 @@ public class EmpireSystemPanel extends SystemPanel {
 			// modnar: draw ship design icons in System information panel on main map screen
             g.setColor(Color.black);
             g.fillRect(x, y, w, h);
-
             shipDesignBox.setBounds(x,y,w,h);
-
             g.drawImage(initializedBackgroundImage(w, h), x,y, null);
-
             if (c == null)
                 return;
 
@@ -372,7 +369,12 @@ public class EmpireSystemPanel extends SystemPanel {
 			// modnar: use (slightly) better downsampling
 			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 			g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g.drawImage(img, x1, y1, x1+w1, y1+h1, 0, 0, w0, h0, this);
+			g.drawImage(img, x1, y1, x1+w1, y1+h1, 0, 0, w0, h0, this);
+			// Draw default design
+			if (d.isDefaultDesign()) {
+				img = globalDefaultDesignIcon(s10, Color.green);
+				g.drawImage(img, x+s2, y+s2, null);
+			}
 
             if (hoverBox == shipDesignBox) {
                 Stroke prev = g.getStroke();

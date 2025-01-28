@@ -246,29 +246,6 @@ public class GalaxyFactory implements Base {
 		// after systems created, add system views for each empire
 		for (Empire e: g.empires()) {
 			e.loadStartingTechs();
-			
-//			if (e.isPlayer()) { // TO DO BR: REMOVE
-//				Tech t;
-//				String id;
-//				id = TechLibrary.techMatching(Tech.IMPROVED_TERRAFORMING, 0);
-//				t = tech(id);
-//				System.out.println(id + " = " + t.level);
-//				e.tech().learnTech(id);
-//				id = TechLibrary.techMatching(Tech.IMPROVED_TERRAFORMING, 1);
-//				t = tech(id);
-//				System.out.println(id + " = " + t.level);
-//				e.tech().learnTech(id);
-//				id = TechLibrary.techMatching(Tech.CONTROL_ENVIRONMENT, 1);
-//				t = tech(id);
-//				System.out.println(id + " = " + t.level);
-//				id = TechLibrary.techMatching(Tech.CONTROL_ENVIRONMENT, 2);
-//				t = tech(id);
-//				System.out.println(id + " = " + t.level);
-//				id = TechLibrary.techMatching(Tech.CONTROL_ENVIRONMENT, 3);
-//				t = tech(id);
-//				System.out.println(id + " = " + t.level);
-//				//e.tech().learnTech(id);
-//			}
 			// modnar: add game mode to start all Empires with 2 random techs
 			if (options().selectedRandomTechStart()) {
 				// randomUnknownTech, somewhat awkward to use in succession
@@ -930,5 +907,5 @@ public class GalaxyFactory implements Base {
 		public	boolean swappedPositions()		{ return swappedPositions; }
 		public	EmpireBaseData[] empires()		{ return galSrc.empires; }
 		private	EmpireBaseData empires(int id)	{ return galSrc.empires[id]; }
-}
+	}
 }

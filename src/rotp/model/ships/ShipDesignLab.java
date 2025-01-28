@@ -52,6 +52,7 @@ public class ShipDesignLab implements Base, Serializable {
     private final List<ShipSpecial> special = new ArrayList<>();
 
     private int scoutDesignId, bomberDesignId, fighterDesignId, colonyDesignId, destroyerDesignId;
+    private Integer defaultDesignId = null;
 
     private float bestEnemyShieldLevel = 0;
     private float bestEnemyPlanetaryShieldLevel = 0;
@@ -86,7 +87,9 @@ public class ShipDesignLab implements Base, Serializable {
 
     public ShipWeapon noWeapon()                  { return weapons().get(0); }
     public ShipSpecial noSpecial()                { return specials().get(0); }
-    
+	public void    defaultDesignId(Integer id)	  { defaultDesignId = id; }
+	public Integer defaultDesignId()			  { return defaultDesignId; }
+
     public ShipDesign prototypeDesign() {
         if (prototypeDesign == null)
             prototypeDesign = newBlankDesign(ShipDesign.SMALL);
@@ -446,6 +449,20 @@ public class ShipDesignLab implements Base, Serializable {
                 return design;
         }
     }
+	public Design defaultDesign(Integer id)	{
+		if (id != null) {
+			ShipDesign design = design(id);
+			if (design.active())
+				return design;
+		}
+		id = defaultDesignId();
+		if (id == null)
+			return nextDesignFrom(null, false);
+		ShipDesign design = design(id);
+		if (design.active())
+			return design;
+		return nextDesignFrom(null, false);
+	}
     public ShipDesign newBlankDesign(int numSpecial, int hullHitPoints) {
         ShipDesign design = new ShipDesign(numSpecial, hullHitPoints);
         design.active(false);
@@ -462,7 +479,7 @@ public class ShipDesignLab implements Base, Serializable {
             design.special(i, specials().get(0));
         return design;
     }
-   public ShipDesign newBlankDesign(int size) {
+    public ShipDesign newBlankDesign(int size) {
         ShipDesign design = new ShipDesign(size);
         design.active(false);
         design.lab(this);

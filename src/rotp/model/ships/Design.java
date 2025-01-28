@@ -17,7 +17,9 @@ package rotp.model.ships;
 
 import java.awt.Image;
 import java.io.Serializable;
+
 import javax.swing.ImageIcon;
+
 import rotp.model.empires.Empire;
 import rotp.util.Base;
 
@@ -60,7 +62,17 @@ public class Design implements Base, Serializable {
     public Design() {
     	hashCode = galaxy().nextHashCodeDesign();
     }
-
+	public boolean isDefaultDesign()	 {
+		if (lab == null || lab.defaultDesignId() == null)
+			return false;
+		return lab.defaultDesignId().equals((Integer) id);
+	}
+	public void toggleDefaultDesign()	 {
+		if (isDefaultDesign())
+			lab.defaultDesignId(null);
+		else
+			lab.defaultDesignId(id);
+	}
     public ShipDesignLab lab()           { return lab; }
     public void lab(ShipDesignLab l)     { lab = l; }
     public String name()                 { return name == null ? "" : name; }

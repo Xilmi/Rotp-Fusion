@@ -1737,6 +1737,12 @@ public interface Base extends InputEventUtil {
     default BufferedImage eyeIcon(int wi, int hi, Color lineCol) {
     	return CustomIcons.instance.eyeIcon(wi, hi, lineCol);
     }
+    default BufferedImage globalDefaultDesignIcon(int side, Color lineCol) {
+    	return CustomIcons.instance.globalDefaultDesignIcon(side, lineCol);
+    }
+    default BufferedImage localDefaultDesignIcon(int side, Color lineCol) {
+    	return CustomIcons.instance.localDefaultDesignIcon(side, lineCol);
+    }
     default void copyLabels(String baseName) {
 		// First copy file from the modified source to final destination
 		// Validated for eclipse IDE

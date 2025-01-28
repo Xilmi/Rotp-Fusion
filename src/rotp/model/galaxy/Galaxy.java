@@ -170,6 +170,18 @@ public class Galaxy implements Base, Serializable {
     public int height()                      { return heightLY; }
     public float maxScaleAdj()               { return maxScaleAdj; }
 
+	// For debug only
+	public void setPlayerEmpire(int id)		 {
+		Empire oldPlayerEmpire = playerEmpire;
+		int oldPlayerAI = playerEmpire.selectedAI;
+		Empire.PLAYER_ID = id;
+		playerEmpire = empire(id);
+		oldPlayerEmpire.resetAI();
+		oldPlayerEmpire.selectedAI = playerEmpire.selectedAI;
+		playerEmpire.resetAI();
+		playerEmpire.selectedAI = oldPlayerAI;
+	}
+
     public void player(Empire d)             { playerEmpire = d; }
     @Override
     public Empire player()                   { return playerEmpire; }

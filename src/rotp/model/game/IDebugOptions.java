@@ -140,4 +140,10 @@ public interface IDebugOptions extends IBaseOptsTools {
 	ParamBoolean continueAnyway		= new ParamBoolean(GAME_UI, "CONTINUE_ANYWAY", false, false);
 	default void continueAnyway(boolean b)	{ continueAnyway.set(b); }
 	default boolean continueAnyway()		{ return continueAnyway.get(); }
+
+	ParamInteger debugPlayerEmpire	= new ParamInteger(MOD_UI, "DEBUG_PLAYER_EMPIRE", 0)
+			.isCfgFile(true)
+			.setLimits(0, 49)
+			.setIncrements(1, 5, 20);
+	default int debugPlayerEmpire()			{ return debugPlayerEmpire.get(); }
 }

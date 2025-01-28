@@ -35,7 +35,11 @@ final class DebugOptions extends AbstractOptionsSubUI {
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("GAME_OTHER"),
 				menuStartup,
-				continueAnyway
+				continueAnyway,
+				
+				HEADER_SPACER_100,
+				HEADER_SPACER_100,
+				debugPlayerEmpire
 				)));
 		return map;
 	}

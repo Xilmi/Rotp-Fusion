@@ -147,7 +147,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
     private transient boolean recalcSpendingForNewTaxRate;
     public  transient boolean reallocationRequired = false;
 
-
 	public int     govShipBuildSparePct()		{ return govShipBuildSparePct; }
 	public void    govShipBuildSparePct(int i)	{ govShipBuildSparePct = i; }
 	public void    resetShipBuildSparePct()		{ govShipBuildSparePct = 100 - govOptions().defaultShipTakePct(); }
@@ -288,7 +287,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
             spending[i].init(this);
 
         setPopulation(2);
-        shipyard().goToNextDesign();
+		if (empire().isPlayer())
+			shipyard().goToDefaultDesign();
+		else
+			shipyard().goToNextDesign();
         defense().updateMissileBase();
         defense().maxBases(empire().defaultMaxBases());
         cleanupAllocation = -1;
@@ -1792,7 +1794,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
         empire = tr.empire();
         defense().maxBases(empire.defaultMaxBases());
         buildFortress();
-        shipyard().goToNextDesign();
+		if (tr.empire().isPlayer())
+			shipyard().goToDefaultDesign();
+		else
+			shipyard().goToNextDesign();
 
         rebels = 0;
         rebellion = false;
@@ -2111,7 +2116,13 @@ public final class Colony implements Base, IMappedObject, Serializable {
     	else
     		return currCat.adjustValue(increment);
     }
-    private void handleGovSpending(GovWorksheet gws) {
+	private int urgeStargate(int maxAlloc, GovWorksheet gws)	{
+		if (!shipyard().buildingStargate())
+			if (!shipyard().buildStargate())
+				return maxAlloc;
+		return urgeShipSpending(maxAlloc, gws);
+	}
+    private void handleGovSpending(GovWorksheet gws)	{
         int maxAlloc = gws.getRemainingAllocation();
         if (maxAlloc==0)
     		return;
@@ -2147,6 +2158,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
         	if (maxAlloc==0)
         		return;
         }
+		if (gws.shouldBuildGate) {
+			maxAlloc -= urgeStargate(gws.updateLimitedAllocation(maxAlloc), gws);
+			if (maxAlloc==0)
+				return;
+		}
+        // Check for stargate auto-build
         if (govUrgeResearch) {
         	maxAlloc -= urgeResearchSpending(gws.updateLimitedAllocation(maxAlloc), gws);
         	if (maxAlloc==0)

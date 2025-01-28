@@ -177,6 +177,7 @@ public class Rotp {
 
         becomeVisible();
         installGCMonitoring();
+        isIDE();
     }
     private static void installGCMonitoring() { memoryTracker = new MemoryTracker(maxHeapMemory); }
     private static GraphicsDevice device() {
@@ -258,8 +259,11 @@ public class Rotp {
     }
     public	static boolean isUnderTest() { return underTest && isIDE(); }
     public	static boolean isIDE()		 {
-    	if (isIDE == null)
+    	if (isIDE == null) {
     		isIDE = jarPath().toUpperCase().endsWith("TARGET");
+    		if (isIDE)
+    			System.out.println("IDE detected");
+    	}
     	return isIDE;
     }
     private static void stopIfInsufficientMemory(JFrame frame, int allocMb) {

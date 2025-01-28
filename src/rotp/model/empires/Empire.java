@@ -104,7 +104,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private static final float SHIP_MAINTENANCE_PCT = .02f;
     private static final float SECURITY_COST_RATIO = 2f;
     private static final int MAX_DEFAULT_MAX_BASES = 999; // BR:
-    public static final int PLAYER_ID = 0;
+    public static int PLAYER_ID = 0;
     public static final int NULL_ID = -1;
     public static final int ABSTAIN_ID = -2;
     
@@ -198,12 +198,12 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient String empireName;
     private transient List<SpaceMonster> visibleMonsters = new ArrayList<>();
 
-//	public Integer defaultDesignId()			{ return shipLab.defaultDesignId(); }
-//	public void defaultDesignId(Integer id)		{ shipLab.defaultDesignId(id); }
-//	public void clearColoniesDefaultDesignId()	{
-//		for (StarSystem sys : allColonizedSystems())
-//			sys.colony().shipyard().defaultDesignId(null);
-//	}
+	public Integer defaultDesignId()			{ return shipLab.defaultDesignId(); }
+	public void defaultDesignId(Integer id)		{ shipLab.defaultDesignId(id); }
+	public void clearColoniesDefaultDesignId()	{
+		for (StarSystem sys : allColonizedSystems())
+			sys.colony().shipyard().defaultDesignId(null);
+	}
     public float benchmark() { return benchmark; }
         public void setBenchmark() {
     	if (extinct()) {
@@ -3198,8 +3198,8 @@ public final class Empire implements Base, NamedObject, Serializable {
 	            if (shipyard.design() == oldDesign) {
 	                if ((newDesign != null) && newDesign.active())
 	                    shipyard.switchToDesign(newDesign);
-//	                else if (isPlayer())
-//	                	shipyard.goToDefaultDesign();
+	                else if (isPlayer())
+	                	shipyard.goToDefaultDesign();
 	                else
 	                    shipyard.goToNextDesign();
 	            }

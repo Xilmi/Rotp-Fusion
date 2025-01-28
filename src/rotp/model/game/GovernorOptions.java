@@ -5,6 +5,8 @@ import static rotp.model.game.IMapOptions.divertExcessToResearch;
 import java.awt.Point;
 import java.io.Serializable;
 
+import rotp.model.colony.Colony;
+import rotp.model.planet.Planet;
 import rotp.ui.options.AllSubUI;
 import rotp.ui.util.AbstractParam;
 import rotp.ui.util.IParam;
@@ -266,6 +268,18 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public String	gatesRichText()					{ return text("GOVERNOR_STARGATES_RICH_LABEL"); }
 	public String	gatesOnTT()						{ return text("GOVERNOR_STARGATES_ALL_HELP"); }
 	public String	gatesOnText()					{ return text("GOVERNOR_STARGATES_ALL_LABEL"); }
+	public boolean	shouldBuildGate(Colony col)		{
+		if (!col.shipyard().canBuildStargate())
+			return false;
+		switch (getGates()) {
+			case All:	return true;
+			case None:	return false;
+			case Rich:
+				Planet p = col.planet();
+				return p.isResourceRich() || p.isResourceUltraRich();
+		}
+		return false;
+	}
 
 	/** Develop colonies as quickly as possible */
 	public boolean	legacyGrowthMode()				{ return maxGrowthMode.get(); }

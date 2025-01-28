@@ -40,6 +40,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
     private boolean stargateCompleted = false;
     private int buildLimit = 0;
     private boolean shipLimitReached = false;
+	private Integer defaultDesignId  = null; // If null Get the one from the Empire
     private transient ShipFleet rallyFleetCopy, orbitFleetCopy;
     private transient float maxAllowedShipBCProd;
     private transient int rallyCount = 0;
@@ -233,7 +234,10 @@ public class ColonyShipyard extends ColonySpendingCategory {
                 newShips++;
                 if (!empire().divertColonyExcessToResearch())
                     empire().addReserve(stargateBC - cost);
-                goToNextDesign();
+				if (empire().isPlayer())
+					goToDefaultDesign();
+				else
+					goToNextDesign();
                 stargateBC = 0;
             }
             prevDesign = design;
@@ -313,6 +317,8 @@ public class ColonyShipyard extends ColonySpendingCategory {
         shipLimitReached = false;
         clearFleetsCopy();
         maxAllowedShipBCProd = -1;
+        if (newCiv.isPlayer())
+        	goToDefaultDesign(); 
     }
     public void goToPrevDesign() {
         design = empire().shipLab().prevDesignFrom(design, hasStargate);
@@ -326,8 +332,28 @@ public class ColonyShipyard extends ColonySpendingCategory {
         design = d;
         buildingStargate = d instanceof DesignStargate;
     }
+	public void goToDefaultDesign()	{
+		design = empire().shipLab().defaultDesign(defaultDesignId);
+		buildingStargate = design == empire().shipLab().stargateDesign();
+	}
+	public void defaultDesignId(Integer id)	{ defaultDesignId = id; }
+	public Integer defaultDesignId()  { return defaultDesignId==null? empire().defaultDesignId(): defaultDesignId; }
+
     public boolean canCycleDesign()   { return design.scrapped() || (empire().shipLab().numDesigns() > 1) || canBuildStargate(); }
     public boolean canBuildStargate() { return tech().canBuildStargate() && !hasStargate; }
+    public boolean buildingStargate() { return buildingStargate; }
+	public boolean buildStargate()	  {
+		Design stargate	= empire().shipLab().stargateDesign();
+		Design first	= design();
+		while (!stargate.equals(design)) {
+			goToNextDesign();
+			if (design.equals(first)) {
+				System.out.println("unable to cycle to Shargate design");
+				return false;
+			}
+		}
+		return true;
+	}
     public int upcomingShipCount()    {
         if (buildingObsoleteDesign())
             return 0;

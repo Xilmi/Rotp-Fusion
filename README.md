@@ -74,6 +74,12 @@ Later:
 
 ## What's New
 
+2025.01.28 (BR)
+- Changed "Bare Hand" to "Assault Riffle"
+- Fixed Obedient Governor not following the "buid stargates" options
+  - Default design can be set by the player, and will be selected after the stargates are built.
+- New ALPHA OPTION to swap player on load.
+
 2025.01.27 (BR)
 - Changed "Leather Suits" to "Suits"
 - Fixed Restart with companion worlds misplacement bug.

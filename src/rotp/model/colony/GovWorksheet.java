@@ -19,7 +19,7 @@ public final class GovWorksheet {
 	private final float maxReserveIncome;
 	private final float workerToFactoryROILimit;
 	private final boolean wasShipRequest, hasSubsidies, useROILimit;
-	final boolean promoteShips, keepDirectShipAlloc;
+	final boolean promoteShips, keepDirectShipAlloc, shouldBuildGate;
 	final float totalIncome, cleanupCost;
 	final float targetPopPercent	= 1.0f;
 
@@ -47,6 +47,7 @@ public final class GovWorksheet {
 				!shipyard.stargateCompleted();
 		boolean wasBuildingShips	= c.allocation(Colony.SHIP) > 0 && !buildingStargate;
 		promoteShips	 = shipyard.buildLimit() > 0;
+		shouldBuildGate	 = !promoteShips && gov.shouldBuildGate(c);		
 		wasShipRequest	 = promoteShips || c.prioritizeShips();
 		maxReserveIncome = c.maxReserveIncome();
 		totalIncome		 = c.totalIncome();
@@ -124,7 +125,7 @@ public final class GovWorksheet {
 		int alloc = maxAllocation - spendingTotal;
 		return alloc;
 	}
-	private boolean promoteTerraform() {
+	private boolean promoteTerraform()	{
 		if (hasSubsidies) {
 			switch (gov.subsidyTerraformUse()) {
 				case IGovOptions.INDUSTRY:
@@ -182,4 +183,5 @@ public final class GovWorksheet {
 			return true;
 		return false;
 	}
+	boolean shouldBuildGate()			{ return shouldBuildGate; }
 }
