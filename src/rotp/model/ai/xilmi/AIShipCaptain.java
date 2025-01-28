@@ -552,7 +552,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 {
                     if(st.movePointsTo(coord.x, coord.y) <= st.maxFiringRange(stack))
                     {
-                        pathSafety -= st.estimatedKillPct(stack, true) / getApplicableConfidence(stack);
+                        pathSafety /= (1 + st.estimatedKillPct(stack, true) / getApplicableConfidence(stack));
                     }
                 }
             }
