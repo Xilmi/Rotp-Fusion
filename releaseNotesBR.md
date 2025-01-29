@@ -5,6 +5,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed Restart not using the turn 1 System values when available.
+- Start and restart will reinitialise Empire.PLAYER_ID modified by the swap player options.
 - New Debug Option (!Alpha!) to swap player when loading or continuing a game.
   - The list of available empire is listed in the Guide.
 - Fixed misevaluation of Monster strength.

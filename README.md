@@ -82,6 +82,8 @@ Later:
   - Also swap on "Continue"
 - Fixed wrong call to fleet design.
   - Made the AI and events use the dedicated call: fleet.design(i)
+- Fixed Restart not using the turn 1 System values when available.
+- Start and restart will reinitialise Empire.PLAYER_ID modified by the swap player options.
 
 2025.01.28 (Xilmi)
 - Fixed an issue that could cause the combat-AI to just run away from enemy ships instead of attacking them.

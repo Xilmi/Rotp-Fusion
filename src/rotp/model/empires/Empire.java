@@ -198,6 +198,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient String empireName;
     private transient List<SpaceMonster> visibleMonsters = new ArrayList<>();
 
+	public static void resetPlayerId()			{ PLAYER_ID = 0; }
 	public Integer defaultDesignId()			{ return shipLab.defaultDesignId(); }
 	public void defaultDesignId(Integer id)		{ shipLab.defaultDesignId(id); }
 	public void clearColoniesDefaultDesignId()	{

@@ -116,7 +116,10 @@ public class Galaxy implements Base, Serializable {
     	dynamicOptions.setObject(SYSTEMS_KEY, (Serializable) deepCopy(starSystems));
     }
     public StarSystem[] originalStarSystem() {
-    	return (StarSystem[]) dynamicOptions.getObject(SYSTEMS_KEY);
+    	StarSystem[] originalStarSystem = (StarSystem[]) dynamicOptions.getObject(SYSTEMS_KEY);
+    	if (originalStarSystem == null)
+    		return starSystems();
+    	return originalStarSystem;
     }
     public DynOptions dynamicOptions()		 { return dynamicOptions; } // BR:
     public int beginningYear()               { return player().race().startingYear; }
@@ -806,8 +809,9 @@ public class Galaxy implements Base, Serializable {
 
 			numStarSystems = src.numStarSystems();
 			starSystems	   = new SystemBaseData[numStarSystems];
+			StarSystem[] originalSystems = src.originalStarSystem();
 			for (int i=0; i<src.systemCount; i++ )
-				starSystems[i] = new SystemBaseData(src.system(i));
+				starSystems[i] = new SystemBaseData(originalSystems[i]);
 
 			numEmpires = src.numEmpires();
 			empires	   = new EmpireBaseData[numEmpires];

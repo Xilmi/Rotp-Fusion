@@ -87,6 +87,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import rotp.Rotp;
 import rotp.model.ai.AIList;
 import rotp.model.empires.CustomRaceDefinitions;
+import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
@@ -2258,7 +2259,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		RotPUI.instance().selectGamePanel();
 	}
 	// BR: For restarting with new options
-	private void restartGame() { 
+	private void restartGame() {
+		Empire.resetPlayerId();
 		opts.saveOptionsToFile(LIVE_OPTIONS_FILE);
 		starting = true;
 		buttonClick();
@@ -2271,6 +2273,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		starting = false;
 	}
 	public	void startGame() {
+		Empire.resetPlayerId();
 		opts.saveOptionsToFile(LIVE_OPTIONS_FILE);
 		starting = true;
 		buttonClick();
