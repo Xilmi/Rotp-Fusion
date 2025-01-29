@@ -171,15 +171,21 @@ public class Galaxy implements Base, Serializable {
     public float maxScaleAdj()               { return maxScaleAdj; }
 
 	// For debug only
-	public void setPlayerEmpire(int id)		 {
+	public boolean setPlayerEmpire(int id)		 {
+		Empire newPlayerEmpire = empire(id);
+		if (newPlayerEmpire.extinct()) {
+			System.out.println("!!!!!! Selected Empire is extinct !!!!!!");
+			return false;
+		}
 		Empire oldPlayerEmpire = playerEmpire;
 		int oldPlayerAI = playerEmpire.selectedAI;
 		Empire.PLAYER_ID = id;
-		playerEmpire = empire(id);
+		playerEmpire = newPlayerEmpire;
 		oldPlayerEmpire.resetAI();
 		oldPlayerEmpire.selectedAI = playerEmpire.selectedAI;
 		playerEmpire.resetAI();
 		playerEmpire.selectedAI = oldPlayerAI;
+		return true;
 	}
 
     public void player(Empire d)             { playerEmpire = d; }

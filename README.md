@@ -74,9 +74,17 @@ Later:
 
 ## What's New
 
+2025.01.29 (BR)
+- Option to swap player on load.
+  - Fixed crash when selecting extinct empires.
+  - Empires will be listed on the console.
+
+2025.01.28 (Xilmi)
+- Fixed an issue that could cause the combat-AI to just run away from enemy ships instead of attacking them.
+
 2025.01.28 (BR)
 - Changed "Bare Hand" to "Assault Riffle"
-- Fixed Obedient Governor not following the "buid stargates" options
+- Fixed Obedient Governor not following the "build stargates" options
   - Default design can be set by the player, and will be selected after the stargates are built.
 - New ALPHA OPTION to swap player on load.
 
