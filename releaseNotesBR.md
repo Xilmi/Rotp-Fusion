@@ -5,7 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- New Debug Option (!Alpha!) to swap player when loading a game.
+- New Debug Option (!Alpha!) to swap player when loading or continuing a game.
   - The list of available empire is listed in the Guide.
 - Fixed misevaluation of Monster strength.
 - Fixed an issue that could cause the combat-AI to just run away from enemy ships instead of attacking them. (Xilmi)

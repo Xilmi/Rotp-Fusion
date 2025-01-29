@@ -50,6 +50,7 @@ import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import rotp.Rotp;
+import rotp.model.empires.Empire;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.ui.BasePanel;
@@ -1108,7 +1109,19 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             }
         	RotPUI.currentOptions(IGameOptions.GAME_ID);
         	UserPreferences.load();
-            RotPUI.instance().selectMainPanel();
+
+        	int newPlayerEmpire = session().options().debugPlayerEmpire();
+    		if (newPlayerEmpire != 0 || Empire.PLAYER_ID != 0 || session().galaxy().player().id !=0) {
+    			for (Empire emp : session().galaxy().empires()) {
+    				if (emp.extinct())
+    					System.out.println("(" + emp.id + ") " + emp.name() + " -> Extinct");
+    				else
+    					System.out.println("(" + emp.id + ") " + emp.name());
+    			}
+    			session().galaxy().setPlayerEmpire(newPlayerEmpire);
+    		}
+
+    		RotPUI.instance().selectMainPanel();
             RotPUI.instance().mainUI().showDisplayPanel();
             if (gameName == "")
         		gameName = generateGameName(options());

@@ -592,7 +592,7 @@ GAME_SETTINGS_CONTINUE_ANYWAY        | Continue Anyway: %1
 GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | The Game will continue after victory or defeat, this while the player is alive!
 
 SETTINGS_MOD_DEBUG_PLAYER_EMPIRE      | Player Empire: %1
-SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_DESC | !!! ALPHA TESTING !!! Activated when loading a game. To swap the empire with an opponent ... Will corrupt the next saved game !!! ALPHA TESTING !!!
+SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_DESC | !!! ALPHA TESTING !!! To swap the empire with an opponent. Activated when loading or continuing a game ... May corrupt the next saved games !!! ALPHA TESTING !!!
 
 GAME_SETTINGS_SCREEN               | Selected Screen: %1
 GAME_SETTINGS_SELECTED_SCREEN      | Selected Screen: %1

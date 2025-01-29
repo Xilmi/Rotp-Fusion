@@ -79,6 +79,7 @@ Later:
   - Fixed crash when selecting extinct empires.
   - Empires will be listed on the console.
   - Empires will be listed on the Guide.
+  - Also swap on "Continue"
 - Fixed wrong call to fleet design.
   - Made the AI and events use the dedicated call: fleet.design(i)
 
