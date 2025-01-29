@@ -525,6 +525,9 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return reachColor;
     }
+	public void resetDivertColonyExcessToResearch()	{
+		divertColonyExcessToResearch = options().divertColonyExcessToResearch();
+	}
     // modnar: add option to start game with additional colonies
     // modnar: compId is the System ID array for these additional colonies
     // BR: For Restart with new options and random races
@@ -552,7 +555,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         sv = new SystemInfo(this);
         // many things need to know if this is the player civ, so set it early
         if (empId == Empire.PLAYER_ID) {
-            divertColonyExcessToResearch = options().divertColonyExcessToResearch();
+			resetDivertColonyExcessToResearch();
             g.player(this);
         }
         

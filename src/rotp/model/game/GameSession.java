@@ -1142,14 +1142,14 @@ public final class GameSession implements Base, Serializable {
         instance.options().saveOptionsToFile(GAME_OPTIONS_FILE);
 
 		int newPlayerEmpire = instance.options().debugPlayerEmpire();
-		if (newPlayerEmpire != 0) {
+		if (newPlayerEmpire != 0 || Empire.PLAYER_ID != 0 || instance.galaxy.player().id !=0) {
 			for (Empire emp : instance.galaxy.empires()) {
 				if (emp.extinct())
 					System.out.println("(" + emp.id + ") " + emp.name() + " -> Extinct");
 				else
 					System.out.println("(" + emp.id + ") " + emp.name());
 			}
-			instance.galaxy.setPlayerEmpire(newPlayerEmpire); // TODO BR: Validate
+			instance.galaxy.setPlayerEmpire(newPlayerEmpire);
 		}
 
 		if (showInfo) 

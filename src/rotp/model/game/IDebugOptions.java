@@ -2,6 +2,7 @@ package rotp.model.game;
 
 import static rotp.ui.UserPreferences.showMemory;
 
+import rotp.Rotp;
 import rotp.ui.RotPUI;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
@@ -141,9 +142,25 @@ public interface IDebugOptions extends IBaseOptsTools {
 	default void continueAnyway(boolean b)	{ continueAnyway.set(b); }
 	default boolean continueAnyway()		{ return continueAnyway.get(); }
 
-	ParamInteger debugPlayerEmpire	= new ParamInteger(MOD_UI, "DEBUG_PLAYER_EMPIRE", 0)
-			.isCfgFile(true)
-			.setLimits(0, 49)
-			.setIncrements(1, 5, 20);
+	ParamInteger debugPlayerEmpire	= new DebugPlayerEmpire();
 	default int debugPlayerEmpire()			{ return debugPlayerEmpire.get(); }
+	class DebugPlayerEmpire extends ParamInteger {
+		DebugPlayerEmpire() {
+			super(MOD_UI, "DEBUG_PLAYER_EMPIRE", 0);
+			isCfgFile(true);
+			setLimits(0, 49);
+			setIncrements(1, 5, 20);
+		}
+		@Override public String guideSelectedValue()		{
+			String str = super.guideSelectedValue();
+			if (Rotp.noOptions)
+				return str;
+			else {
+				GameSession session = GameSession.instance();
+				if (session.status().inProgress())
+					str += session.galaxy().getEmpireList();
+				}
+			return str;
+		}
+	}
 }

@@ -185,7 +185,19 @@ public class Galaxy implements Base, Serializable {
 		oldPlayerEmpire.selectedAI = playerEmpire.selectedAI;
 		playerEmpire.resetAI();
 		playerEmpire.selectedAI = oldPlayerAI;
+		playerEmpire.resetDivertColonyExcessToResearch();
 		return true;
+	}
+	public String getEmpireList()	{
+		String str = " (" + text("SETTINGS_MOD_DEBUG_PLAYER_EMPIRE", playerEmpire.id)+")";
+		//str += NEWLINE + "<b>Empires:</b>";
+		for (Empire emp : empires()) {
+			str += NEWLINE;
+			str += "(" + emp.id + ") " + emp.name();
+			if (emp.extinct())
+				str +=  " -> " + text("HISTORY_EXTINCT");
+		}
+		return str;
 	}
 
     public void player(Empire d)             { playerEmpire = d; }
