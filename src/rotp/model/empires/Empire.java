@@ -4599,7 +4599,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         int[] visible = fl.visibleShips(id);
         for (int i=0;i<visible.length;i++) {
             if (visible[i] > 0)
-                cv.spies().detectShip(fl.empire().shipLab().design(i));
+                cv.spies().detectShip(fl.design(i));
         }
     }
     public Shape drawShape(Graphics2D g, int x, int y, int w, int h) {
@@ -4653,7 +4653,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         int[] visible = fl.visibleShips(id);
         for (int i=0;i<visible.length;i++) {
             if (visible[i] > 0)
-                cv.spies().encounterShip(fl.empire().shipLab().design(i));
+                cv.spies().encounterShip(fl.design(i));
         }
     }
     public void scanFleet(ShipFleet fl) {
@@ -4664,7 +4664,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         int[] visible = fl.visibleShips(id);
         for (int i=0;i<visible.length;i++) {
             if (visible[i] > 0)
-                cv.spies().scanShip(fl.empire().shipLab().design(i));
+                cv.spies().scanShip(fl.design(i));
         }
     }
     public void scanDesign(ShipDesign st, Empire emp) {

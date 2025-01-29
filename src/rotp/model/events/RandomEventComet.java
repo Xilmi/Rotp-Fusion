@@ -98,10 +98,10 @@ public class RandomEventComet extends AbstractRandomEvent {
     }
     private void inflictDmgFromFleet(ShipFleet fl) {
         float dmgInflicted = 0.0f;
-        Empire empire = galaxy().empire(empId);
+        //Empire empire = galaxy().empire(empId);
         for (int i = 0; i< ShipDesignLab.MAX_DESIGNS; i++) {
             if (fl.num(i) > 0) {
-                int size = empire.shipLab().design(i).size();
+                int size = fl.design(i).size();
                 float weight = pow(5, size);
                 dmgInflicted += (fl.num(i)*weight);
             }

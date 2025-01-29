@@ -567,7 +567,8 @@ public class ShipCombatManager implements Base {
         fl.retreating(false);
         for (int i=0;i<ShipDesignLab.MAX_DESIGNS;i++) {
             if (fl.num(i) > 0) {
-                ShipDesign d = fl.empire().shipLab().design(i);
+                //ShipDesign d = fl.empire().shipLab().design(i);
+                ShipDesign d = fl.design(i);
                 if (d != null) {
                     CombatStackShip stack = new CombatStackShip(fl, i, this);
                     if (stack.isArmed())

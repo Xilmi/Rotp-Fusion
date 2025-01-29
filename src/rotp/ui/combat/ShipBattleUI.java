@@ -500,7 +500,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         // add uncloaked stacks first
         for (int i=0;i<ShipDesignLab.MAX_DESIGNS;i++) {
             if (fl.num(i) > 0) {
-                ShipDesign d = fl.empire().shipLab().design(i);
+                ShipDesign d = fl.design(i);
                 counts.put(d, fl.num(i));
                 if (!d.allowsCloaking())
                     map.put(d, fl.num(i));
@@ -509,7 +509,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         // add cloaked stacks last
         for (int i=0;i<ShipDesignLab.MAX_DESIGNS;i++) {
             if (fl.num(i) > 0) {
-                ShipDesign d = fl.empire().shipLab().design(i);
+                ShipDesign d = fl.design(i);
                 if (d.allowsCloaking())
                     map.put(d, fl.num(i));
             }

@@ -240,7 +240,7 @@ public class ShipFleet extends FleetBase {
         return pathSprite;
     }
     public ShipDesign design(int i)		 { return empire().shipLab().design(i); }
-    protected ShipDesign[] designs()	 {return empire().shipLab().designs(); }
+    protected ShipDesign[] designs()	 { return empire().shipLab().designs(); }
 
 /*    public ShipFleet matchingFleetWithin(List<ShipFleet> fleets, StarSystem dest) {
         for (ShipFleet fl: fleets) {

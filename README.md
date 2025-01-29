@@ -78,6 +78,8 @@ Later:
 - Option to swap player on load.
   - Fixed crash when selecting extinct empires.
   - Empires will be listed on the console.
+- Fixed wrong call to fleet design.
+  - Made the AI and events use the dedicated call: fleet.design(i)
 
 2025.01.28 (Xilmi)
 - Fixed an issue that could cause the combat-AI to just run away from enemy ships instead of attacking them.

@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed misevaluation of Monster strength.
 - Fixed an issue that could cause the combat-AI to just run away from enemy ships instead of attacking them. (Xilmi)
 - Fixed Obedient Governor not following the "build stargates" options
   - Default design can be set by the player, and will be selected after the stargates are built.

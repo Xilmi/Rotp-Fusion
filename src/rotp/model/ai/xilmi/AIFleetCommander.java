@@ -1155,7 +1155,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             System.out.println(empire.name()+" fleet at "+fl.system().name()+" sent to "+target.name()+" amount: "+amount+" bomb-amount: "+bombAmount+" keepBc: "+needToKeep);*/
         if(fl.system() == target)
             return;
-        ShipDesignLab lab = empire.shipLab();
+        //ShipDesignLab lab = empire.shipLab();
     
         float totalVal = 0;
         float topSpeedVal = 0;
@@ -1163,7 +1163,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         
         for (int i=0;i<MAX_DESIGNS;i++) {
             int num = fl.num(i);
-            ShipDesign d = lab.design(i); 
+            ShipDesign d = fl.design(i); 
             totalVal += num * d.cost();
             if(d.warpSpeed() == empire.tech().topSpeed())
                 topSpeedVal += num * d.cost();
@@ -1204,7 +1204,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             int[] counts = new int[ShipDesignLab.MAX_DESIGNS];
             for (int i=0;i<MAX_DESIGNS;i++) {
                 int num = fl.num(i);
-                ShipDesign d = lab.design(i); 
+                ShipDesign d = fl.design(i); 
                 if(d.warpSpeed()!=speed && splitBySpeed)
                     continue;
                 if(!d.isArmed() && !d.hasColonySpecial() && !includeScouts)
@@ -1272,11 +1272,11 @@ public class AIFleetCommander implements Base, FleetCommander {
     @Override
     public float bcValue(ShipFleet fl, boolean countScouts, boolean countFighters, boolean countBombers, boolean countColonizers) {
         float bc = 0;
-        ShipDesignLab lab = fl.empire().shipLab();
+        //ShipDesignLab lab = fl.empire().shipLab();
         for (int i=0;i<MAX_DESIGNS;i++) {
             int num = fl.num(i);
             if (num > 0) {
-                ShipDesign des = lab.design(i);
+                ShipDesign des = fl.design(i);
                 float bcValueFactor = 1;
                 if(des == null)
                     continue;
@@ -1569,7 +1569,8 @@ public class AIFleetCommander implements Base, FleetCommander {
         for (int i=0;i<MAX_DESIGNS;i++) {
             int num = fl.num(i);
             if (num > 0) {
-                ShipDesign des = empire.shipLab().design(i);
+                //ShipDesign des = empire.shipLab().design(i);
+                ShipDesign des = fl.design(i);
                 if(des == null)
                     continue;
                 totalVal += num * des.cost();
@@ -1585,7 +1586,8 @@ public class AIFleetCommander implements Base, FleetCommander {
         for (int i=0;i<MAX_DESIGNS;i++) {
             int num = fl.num(i);
             if (num > 0) {
-                ShipDesign des = empire.shipLab().design(i);
+                //ShipDesign des = empire.shipLab().design(i);
+            	ShipDesign des = fl.design(i);
                 if(des == null)
                     continue;
                 totalHP += num * des.hits();
@@ -1607,7 +1609,8 @@ public class AIFleetCommander implements Base, FleetCommander {
         for (int i=0;i<MAX_DESIGNS;i++) {
             int num = fl.num(i);
             if (num > 0) {
-                ShipDesign des = empire.shipLab().design(i);
+                //ShipDesign des = empire.shipLab().design(i);
+                ShipDesign des = fl.design(i);
                 if(des == null)
                     continue;
                 totalHP += num * des.hits();
