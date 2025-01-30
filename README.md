@@ -74,6 +74,17 @@ Later:
 
 ## What's New
 
+2025.01.30 (BR)
+- Updated Option to swap player on load.
+  - No more stored in "remnant.cfg".
+  - Stored in game, swapped player will then reload swapped.
+  - Ironman mode will not be able to swap.
+  - Can be swapped from inside the game.
+    - In Debug Panel (All empire available).
+    - In Empire panel "Ctrl-Shift-Right Click" on the color circle.
+  - Game that had the player swapped are tagged. (Mandatory info when debugging)
+    - The tag is displayed on the console on load (the current player id too, if not 0)
+
 2025.01.29 (BR)
 - Option to swap player on load.
   - Fixed crash when selecting extinct empires.

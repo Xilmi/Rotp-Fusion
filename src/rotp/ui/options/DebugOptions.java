@@ -2,6 +2,7 @@ package rotp.ui.options;
 
 import java.util.Arrays;
 
+import rotp.model.game.GameSession;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
@@ -32,15 +33,18 @@ final class DebugOptions extends AbstractOptionsSubUI {
 				debugBMZoomOut, debugBMShowAll,
 				consoleAutoRun, debugLogNotif, debugLogEvents
 				)));
-		map.add(new SafeListParam(Arrays.asList(
+		SafeListParam list = new SafeListParam(Arrays.asList(
 				new ParamTitle("GAME_OTHER"),
 				menuStartup,
-				continueAnyway,
-				
-				HEADER_SPACER_100,
-				HEADER_SPACER_100,
-				debugPlayerEmpire
-				)));
+				continueAnyway
+				));
+		GameSession session = GameSession.instance();
+		if (session.status().inProgress()) {
+			list.add(HEADER_SPACER_100);
+			list.add(HEADER_SPACER_100);
+			list.add(debugPlayerEmpire);
+		}
+		map.add(list);
 		return map;
 	}
 	@Override public SafeListParam minorList()	{

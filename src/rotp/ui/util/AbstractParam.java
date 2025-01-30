@@ -298,6 +298,7 @@ public abstract class AbstractParam <T> implements IParam {
 		formerName = link;
 		return this;
 	}
+	public void resetToDefaultValue()	{ set(defaultValue()); }
 	public T defaultValue()				{ return defaultValue.get(DEF_VAL.defVal()); }
 	public T get()						{
 		if (isCfgFile) {

@@ -243,6 +243,7 @@ public class GalaxyFactory implements Base {
 	}
 	// BR: Common part of "Restart" standard "Start"
 	private void init(Galaxy g, long tm2) {
+		g.ironmanLockedOptions = !options().isGameOptionsAllowed();
 		// after systems created, add system views for each empire
 		for (Empire e: g.empires()) {
 			e.loadStartingTechs();

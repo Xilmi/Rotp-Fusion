@@ -591,8 +591,10 @@ GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Active la journalisation des événements
 GAME_SETTINGS_CONTINUE_ANYWAY        | Continuer quand même : %1
 GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | Le jeu continuera après la victoire ou la défaite, tant que le joueur est vivant !
 
-SETTINGS_MOD_DEBUG_PLAYER_EMPIRE      | Empire du Joueur: %1
-SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_DESC | !!! ALPHA TESTING !!! Pour échanger l'empire avec un adversaire. Activé lors du chargement ou de la continuation d'une partie ... Pourrai Corrompre les futures parties sauvegardées !!! ALPHA TESTING !!!
+SETTINGS_MOD_DEBUG_PLAYER_EMPIRE         | Empire du Joueur: %1
+SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_DESC    | !!! ALPHA TESTING !!! Pour échanger l'empire avec un adversaire. Activé lors du chargement ou de la continuation d'une partie ... Pourrai Corrompre les futures parties sauvegardées !!! ALPHA TESTING !!!
+SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_EXTINCT | →HISTORY_EXTINCT←
+SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_IRONMAN | Désactivé en raison du mode Ironman.
 
 GAME_SETTINGS_SCREEN               | Écran sélectionné : %1
 GAME_SETTINGS_SELECTED_SCREEN      | Écran sélectionné : %1
@@ -722,12 +724,12 @@ MOD_MAIN_COL_DIRTY_UNLOCK         | <br> %1 sont déverrouillées --> Clic Gauch
 MOD_MAIN_COL_DIRTY_GOV_UNLOCK_1   | <br> Une est gouvernée et déverrouillée --> Ctrl clic pour nettoyer toutes les colonies.
 MOD_MAIN_COL_DIRTY_GOV_UNLOCK     | <br> %1 sont gouvernées et déverrouillées --> Ctrl clic pour nettoyer toutes les colonies.
 
-MOD_MAIN_COL_DIRTY_LOCKED_S_1     | <br> Une est verrouillée --> Shift Clic Droit pour nettoyer.
-MOD_MAIN_COL_DIRTY_LOCKED_S       | <br> %1 sont verrouillées --> Shift Clic Droit pour nettoyer.
-MOD_MAIN_COL_DIRTY_GOV_LOCK_S_1   | <br> Une est gouvernée --> Shift Clic Gauche pour nettoyer.
-MOD_MAIN_COL_DIRTY_GOV_LOCK_S     | <br> %1 sont gouvernées --> Shift Clic Gauche pour nettoyer.
-MOD_MAIN_COL_DIRTY_UNLOCK_S_1     | <br> Une est déverrouillée --> Shift Clic Centre pour nettoyer.
-MOD_MAIN_COL_DIRTY_UNLOCK_S       | <br> %1 sont déverrouillées --> Shift Clic Centre pour nettoyer.
+MOD_MAIN_COL_DIRTY_LOCKED_S_1     | <br> Une est verrouillée --> Maj Clic Droit pour nettoyer.
+MOD_MAIN_COL_DIRTY_LOCKED_S       | <br> %1 sont verrouillées --> Maj Clic Droit pour nettoyer.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_S_1   | <br> Une est gouvernée --> Maj Clic Gauche pour nettoyer.
+MOD_MAIN_COL_DIRTY_GOV_LOCK_S     | <br> %1 sont gouvernées --> Maj Clic Gauche pour nettoyer.
+MOD_MAIN_COL_DIRTY_UNLOCK_S_1     | <br> Une est déverrouillée --> Maj Clic Centre pour nettoyer.
+MOD_MAIN_COL_DIRTY_UNLOCK_S       | <br> %1 sont déverrouillées --> Maj Clic Centre pour nettoyer.
 MOD_MAIN_COL_DIRTY_GOV_UNLOCK_S_1 | <br> Une est gouvernée et déverrouillée --> Ctrl clic pour nettoyer toutes les colonies.
 MOD_MAIN_COL_DIRTY_GOV_UNLOCK_S   | <br> %1 sont gouvernées et déverrouillées --> Ctrl clic pour nettoyer toutes les colonies.
 
@@ -791,20 +793,20 @@ MAIN_HELP_1I                      | Pour accéder aux rapports d’espionnage. (
 
 MAIN_HELP_2A                      | Niveau du bouclier planétaire de la colonie. Les boucliers ne peuvent pas être construits sur les planètes dans une nébuleuse.
 MAIN_HELP_2B                      | Nombre de bases de missiles et le maximum souhaité pour cette planète. Cliquez ou utilisez la molette de la souris pour modifier le maximum.
-MAIN_HELP_2C                      | Production planétaire totale de l’industrie et de la population.<br>Pressez « Shift » pour afficher la production par usine. (Après nettoyage de la pollution)
-MAIN_HELP_2D                      | Production réelle ajustée en fonction des revenus commerciaux à l’échelle de l’empire, des coûts d’espionnage et de sécurité, ainsi que de la maintenance des bases de missiles et des vaisseaux.<br>Pressez « Shift » pour afficher la production par travailleur. (Sans usine)
+MAIN_HELP_2C                      | Production planétaire totale de l’industrie et de la population.<br>Pressez « Maj » pour afficher la production par usine. (Après nettoyage de la pollution)
+MAIN_HELP_2D                      | Production réelle ajustée en fonction des revenus commerciaux à l’échelle de l’empire, des coûts d’espionnage et de sécurité, ainsi que de la maintenance des bases de missiles et des vaisseaux.<br>Pressez « Maj » pour afficher la production par travailleur. (Sans usine)
 MAIN_HELP_2E                      | Changez le modèle de vaisseau à construire dans le chantier naval orbitant la planète. La production accumulée pour les vaisseaux inachevés accélérera la production de nouveaux vaisseaux de 50 % jusqu’à leur épuisement. Cliquez ou utilisez la molette de la souris pour changer le modèle de vaisseau.
 MAIN_HELP_2F                      | Définissez un point de ralliement pour envoyer automatiquement les vaisseaux nouvellement construits vers une autre colonie.
 MAIN_HELP_2FSG                    | Ralliement à la Porte des Étoiles la plus proche.<br>(Basé sur « →CHAIN_RALLY_SPEED_HK← »)
 MAIN_HELP_2G                      | Transportez de la population pour fortifier une autre colonie ou envoyez des troupes envahir une planète ennemie. La colonie engage un coût de production unique pour le transport.<br>« Ctrl-Clic » Empêchera / Autorisera le gouverneur d'envoyer des transports depuis cette colonie.
 MAIN_HELP_2H                      | Abandonnez complètement une planète en transférant toute sa population vers une autre colonie.
-MAIN_HELP_2I                      | Population actuelle et maximale de la planète. 100 représente une planète d’origine complète qui n’a pas été terraformée. Pressez « Shift » pour afficher la population active. (Hors transports en partance)
+MAIN_HELP_2I                      | Population actuelle et maximale de la planète. 100 représente une planète d’origine complète qui n’a pas été terraformée. Pressez « Maj » pour afficher la population active. (Hors transports en partance)
 MAIN_HELP_2J                      | Usines actuelles et maximales autorisées. Usines maximales basées sur la population et la technologie des contrôles robotiques.
 MAIN_HELP_2K                      | Associez un drapeau au système pour le démarquer sur la carte de la galaxie.
 MAIN_HELP_2K_2F                   | Attribuez jusqu’à 4 drapeaux au système pour le démarquer sur la carte de la galaxie.
-MAIN_HELP_2K_M2                   | Clic-gauche = Suivant / Clic-droite = Réinitialiser / «Home» = Auto-Drapeau.
-MAIN_HELP_2K_M3                   | Clic-gauche = Suivant / Clic-droit = Précédent / Clic-milieu = Réinitialiser / «Home» = Auto-Drapeau.
-MAIN_HELP_2K_2F_HOLD              | («Ctrl» pour les drapeaux de droite, «Shift» pour les drapeaux du bas)
+MAIN_HELP_2K_M2                   | Clic-gauche = Suivant / Clic-droite = Réinitialiser / « Home » = Auto-Drapeau.
+MAIN_HELP_2K_M3                   | Clic-gauche = Suivant / Clic-droit = Précédent / Clic-milieu = Réinitialiser / « Home » = Auto-Drapeau.
+MAIN_HELP_2K_2F_HOLD              | (« Ctrl » pour les drapeaux de droite, « Maj » pour les drapeaux du bas)
 MAIN_HELP_2L                      | Le montant de la réserve stockée dans le trésor de l’empire.
 MAIN_HELP_2M                      | L’état actuel de la recherche pour chacun des six domaines technologiques.
 MAIN_HELP_3A                      | Jeu - revient au menu d’ouverture. Vous permet d’ajuster les paramètres ou d’enregistrer, de charger et de démarrer des jeux.
@@ -818,7 +820,7 @@ MAIN_HELP_3H                      | Année Suivante - Fait avancer le jeu à l�
 MAIN_HELP_3I                      | Tour actuel - Affiche le tour actuel du jeu ou l’année en cours de votre empire. Cliquez pour basculer.
 MAIN_HELP_3J                      | Commandes de la carte - Cliquez pour parcourir les différents paramètres d’affichage de la carte de la galaxie.
 // Smart-Max Help
-MAIN_HELP_4A                      | Les assistants Min/Max garderont toujours ÉCO propre.<br>- Smooth Min/Max : est équivalent à cliquer sur la flèche Haut/Bas jusqu’à atteindre la cible. Les BC libérés seront redistribués intelligemment. (Suivant la méthode de "Rafraîchir")<br>- Smart Min/Max : (Shift + Clic) effacera les dépenses débloquées, définira l’allocation Min/Max, nettoiera ÉCO, puis redistribuera intelligemment les BC restants.<br>- Rafraîchir : (Ctrl + Clic) effacera les dépenses débloquées puis redistribuera intelligemment les BC disponibles selon votre priorisation, dans la séquence : {ÉCOLOGIE, INDUSTRIE, FLOTTE, DÉFENSES, RECHERCHE}
+MAIN_HELP_4A                      | Les assistants Min/Max garderont toujours ÉCO propre.<br>- Smooth Min/Max : est équivalent à cliquer sur la flèche Haut/Bas jusqu’à atteindre la cible. Les BC libérés seront redistribués intelligemment. (Suivant la méthode de "Rafraîchir")<br>- Smart Min/Max : (Maj + Clic) effacera les dépenses débloquées, définira l’allocation Min/Max, nettoiera ÉCO, puis redistribuera intelligemment les BC restants.<br>- Rafraîchir : (Ctrl + Clic) effacera les dépenses débloquées puis redistribuera intelligemment les BC disponibles selon votre priorisation, dans la séquence : {ÉCOLOGIE, INDUSTRIE, FLOTTE, DÉFENSES, RECHERCHE}
 MAIN_HELP_4B                      | Chantier naval : <br> Clic-gauche : Allocation minimale nécessaire pour construire jusqu’à la limite.<br> Clic-droit : Allocation maximale disponible.
 MAIN_HELP_4C                      | Défenses : <br> Clic-gauche : Allocation minimale nécessaire pour construire les bases demandées.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu : Allocation minimale pour construire le bouclier.
 MAIN_HELP_4D                      | Industrie : <br> Clic-gauche : Allocation minimale nécessaire pour finaliser les usines.<br> Clic-droit : Allocation maximale disponible. <br>Clic-milieu : Allocation minimale nécessaire pour suivre la croissance de la population.
@@ -2673,7 +2675,7 @@ SETTINGS_MOD_BATTLE_SCOUT_DESC         | Conception d’un éclaireur armé, à 
 SETTINGS_MOD_COMPANION_WORLDS_HELP     | Ajoute 0 à 6 colonies supplémentaires, en début de partie, à <b>TOUS<\b> les mondes d’origine.<br> - Utilisez des valeurs négatives, de -1 à -4, pour conserver la disposition pré-assignée d’origine.<br> - Utilisez des valeurs positives, de 1 à 6, pour activer la nouvelle disposition attribuée aléatoirement.
 SETTINGS_MOD_COMPANION_WORLDS_DESC     | Ajoute 0 à 6 colonies supplémentaires, en début de partie, à tous les mondes d’origine. (Valeur négative pour la disposition d’origine)
 SETTINGS_MOD_RANDOM_TECH_START_DESC    | En début de partie, donne aléatoirement à <b>TOUS<\b> les empires 2 technologies de premier niveau. Aucune planète artéfact ne sera alors présente dans la galaxie. (Les technologies peuvent différer d’un empire à l’autre.)
-SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC    | Définit le Modificateur de Production de l’IA de 20 % à 500 %. Assurez-vous de sélectionner "Difficulté : Personnalisé". (Presser Shift / Ctrl, puis faire défiler la molette de la souris pour changer en unités de 5 % / 20 %.)
+SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC    | Définit le Modificateur de Production de l’IA de 20 % à 500 %. Assurez-vous de sélectionner "Difficulté : Personnalisé". (Presser Maj / Ctrl, puis faire défiler la molette de la souris pour changer en unités de 5 % / 20 %.)
 SETTINGS_MOD_DYNAMIC_DIFFICULTY_DESC   | Adapte la production des IA à la force du joueur. L’effet augmente vers le 150ème tour. (L’ajustement n’est pas infini. Les Empires d’IA très forts seront presque inchangés.)
 SETTINGS_MOD_SCRAP_REFUND_DESC          | La valeur de la ferraille sera-t-elle récupérée sur les vaisseaux déclassés partout dans la galaxie ?
 SETTINGS_MOD_SCRAP_REFUND_ALL_DESC      | Option classique. Toute la ferraille sera récupérée.
@@ -4605,7 +4607,7 @@ RACES_HELP_0D                     | Armée - Affichez les conceptions de la flot
 RACES_HELP_0E                     | Statut - Comparaison entre plusieurs catégories.
 RACES_HELP_0F                     | La sélection de votre empire vous permet de gérer les informations de toutes les races contactées sur chaque onglet.
 RACES_HELP_0G                     | La sélection d’un empire extraterrestre affiche des informations plus détaillées pour cette race sur chaque onglet.
-RACES_HELP_0H                     | S’il n’est pas à jour, âge du dernier rapport d’espionnage.<br> (« - » S’il n’y en a jamais eu)
+RACES_HELP_0H                     | S’il n’est pas à jour, âge du dernier rapport d’espionnage.<br> (« - » S’il n’y en a jamais eu)<br><br>« Ctrl-Maj-Clic droit » pour définir cet empire comme empire du joueur. (BETA)
 RACES_HELP_1A                     | Informations générales pour l’empire sélectionné.
 RACES_HELP_1B                     | Fournit un accès direct aux diplomates de tous les empires contactés.
 RACES_HELP_1C                     | Augmentez la taxe de sécurité pour améliorer vos chances de déjouer les espions ennemis.
@@ -5253,14 +5255,14 @@ GUIDE_MAXIMUM_VALUE_LABEL         | Max
 GUIDE_SET_WITH_MID_CLICK          | (activé par le bouton de souris central)
 GUIDE_KEY_MODIFIER_LABEL          | Touches de modification
 GUIDE_KEY_MODIFIER_NONE           | Aucunes
-GUIDE_KEY_MODIFIER_SHIFT          | Shift
+GUIDE_KEY_MODIFIER_SHIFT          | Maj
 GUIDE_KEY_MODIFIER_CTRL           | Ctrl
-GUIDE_KEY_MODIFIER_CTRL_SHIFT     | Ctrl+Shift
+GUIDE_KEY_MODIFIER_CTRL_SHIFT     | Ctrl+Maj
 GUIDE_KEY_MODIFIER_SEPARATOR      | &nbsp : &nbsp
 GUIDE_INTEGER_PCT_VALUE           | %1 %
 
 // Common Guides and Help
-SETTINGS_BUTTON_EXIT_DESC         | Quitter / Appliquer / Annuler <br> (Basculer avec « Ctrl » ou « Shift »)
+SETTINGS_BUTTON_EXIT_DESC         | Quitter / Appliquer / Annuler <br> (Basculer avec « Ctrl » ou « Maj »)
 SETTINGS_BUTTON_USER_DESC         | Enregistrer ou recharger les options de l’utilisateur.<br> (Basculer avec « Ctrl » ou « Maj »)
 SETTINGS_BUTTON_LAST_DESC         | Recharger les options de la dernière session ou du dernier jeu.<br> (Basculer avec « Ctrl » ou « Maj »)
 SETTINGS_BUTTON_DEFAULT_DESC      | Recharger les options par défaut ou restaurer les options initiales.<br> (Basculer avec « Ctrl » ou « Maj »)
@@ -5286,7 +5288,7 @@ SETTINGS_LOCAL_USER_SAVE_DESC     | Enregistrer les options de ce panneau comme 
 SETTINGS_GLOBAL_USER_SAVE_DESC    | Enregistrer les options de toutes les interfaces utilisateur graphiques comme valeurs préférées de l’utilisateur (vers le fichier).
 
 // Race Menu Guides and Help
-SETUP_RACE_MAIN_DESC              | VUE D’ENSEMBLE<br> Cet écran vous permet de régler les paramètres de l’Empire du joueur de base.<br> Utilisez « Ctrl » et « Shift » pour modifier la fonctionnalité des boutons.<br> Global = Toutes les options. Local = Options de ce panneau.<br>« R » sélectionnera une nouvelle espèce au hasard.
+SETUP_RACE_MAIN_DESC              | VUE D’ENSEMBLE<br> Cet écran vous permet de régler les paramètres de l’Empire du joueur de base.<br> Utilisez « Ctrl » et « Maj » pour modifier la fonctionnalité des boutons.<br> Global = Toutes les options. Local = Options de ce panneau.<br>« R » sélectionnera une nouvelle espèce au hasard.
 SETUP_RACE_NEXT_DESC              | Enregistrer les options et accéder au menu de configuration de la galaxie.
 SETUP_RACE_CANCEL_DESC            | Annuler les options et revenir au menu principal.
 SETUP_RACE_CUSTOM_DESC            | Entrer dans le menu de personnalisation des espèces.<br> (Pour les joueurs ou les extraterrestres)
@@ -5297,7 +5299,7 @@ SETUP_RACE_LEADER_HELP            | Nommez votre dirigeant ici, réfléchissez-y
 SETUP_RACE_HOMEWORLD_HELP         | Vous pouvez définir le nom de votre planète d’origine ici, ou le modifier plus tard dans l’onglet colonie du jeu.
 
 // Galaxy Menu Guides and Help
-SETUP_GALAXY_MAIN_DESC            | VUE D’ENSEMBLE<br> Cet écran vous permet de sélectionner votre galaxie et vos adversaires.<br> Utilisez « Ctrl » et « Shift » pour modifier la fonctionnalité des boutons. Global = Toutes les options. Local = Options de ce panneau.
+SETUP_GALAXY_MAIN_DESC            | VUE D’ENSEMBLE<br> Cet écran vous permet de sélectionner votre galaxie et vos adversaires.<br> Utilisez « Ctrl » et « Maj » pour modifier la fonctionnalité des boutons. Global = Toutes les options. Local = Options de ce panneau.
 SETUP_START_DESC                  | Options de sauvegarde et démarrage du jeu.<br> « Ctrl » => Relancer une nouvelle partie basée sur une ancienne sauvegarde.
 SETUP_BUTTON_START_DESC           | Sauvegarder la configuration actuelle et démarrer le jeu.
 SETUP_BUTTON_RESTART_DESC         | Il vous sera demandé de sélectionner une précédente partie pour en démarrer une nouvelle sur la même galaxie.<br>- Avec les mêmes adversaires ou des nouveaux.<br>- Avec la même espèce du joueur, une nouvelle ou échangée avec un adversaire précédent.<br> Vous pouvez conserver votre monde d’origine ou l’échanger avec un adversaire précédent.
@@ -5490,35 +5492,35 @@ SETUP_GALAXY_SHAPE_RANDOM_2_HELP  | Galaxie sélectionnée au hasard parmi presq
 
 // Shortcuts / Hotkeys list  (use cross-references →←) →HK_←
 // Shortcuts Cross referenced
-HK_HEADER      | Raccourcis clavier : (Disponible en cliquant Aide avec le bouton droit)<br>→HK_SHIFT_F1←
-HK_SHIFT_F1    | <br>Shift+F1 : Afficher la liste des raccourcis clavier
+HK_HEADER      | Raccourcis clavier : (Disponible en cliquant Aide avec le bouton droit)→HK_SHIFT_F1←
+HK_SHIFT_F1    | <br>Maj+F1 : Afficher la liste des raccourcis clavier
 HK_F1          | <br>F1 : Afficher l’aide.
 HK_ESCAPE      | <br>Escape : Quitter ce panneau.
 HK_FLAG        | <br>F : Changer la couleur du drapeau.
 HK_HOME        | <br>Home : Définir automatiquement la couleur des drapeaux.
 HK_ALT_HOME    | <br>Alt-Home : Redéfinir automatiquement la couleur drapeau pour tous les systèmes explorés.
-HK_B_SHIFT_B   | <br>B/Shift-B : Incrémente / Décrémente Bases Max.
-HK_1_5         | <br>1-5/+Shift : Incrémente / Décrémente dépenses pour vaisseaux, transport, environnement, technologie
+HK_B_SHIFT_B   | <br>B/Maj-B : Incrémente / Décrémente Bases Max.
+HK_1_5         | <br>1-5/+Maj : Incrémente / Décrémente dépenses pour vaisseaux, transport, environnement, technologie
 HK_CTRL_1_5    | <br>Ctrl+1-5 : Verrouiller le curseur de dépenses.
 HK_ALT_1_5     | <br>Alt+1-5 : Max-Intel.
 HK_MAP_ARROWS  | <br>Flèches : Déplacer la carte.
 HK_MAP_ZOOM    | <br>+/- : Zoomer la carte. («Alt-» : Vue complète de la galaxie) <br>Molette de la souris : Zoomer sur la carte.
-HK_TAB         | <br>Tab/+Shift : Onglet suivant/précédent.
+HK_TAB         | <br>Tab/+Maj : Onglet suivant/précédent.
 HK_YEAR        | <br>Y : Alterner l’année / le tour.
-HK_FLAG_LOOP   | <br>(Num) * - 9 + : Drapeau suivant («Shift-» Précédent) («Ctrl-» Même couleur de drapeau)
+HK_FLAG_LOOP   | <br>(Num) * - 9 + : Drapeau suivant («Maj-» Précédent) («Ctrl-» Même couleur de drapeau)
 
 HK_FOG         | <br>F : Afficher / Cacher le brouillard sur les icônes diplomatiques.
 HK_GUIDE       | <br>G : Afficher / Cacher le Guide
-HK_SEL_B       | /+Alt/+Ctrl/+Shift : Sélection actuelle
+HK_SEL_B       | /+Alt/+Ctrl/+Maj : Sélection actuelle
 HK_SEL_E       | Dépenses à 100% / Max-Intel. / Verrouillage / Déverrouillage
 HK_SET_DEFAULT | <br>Alt-F : Définir les valeurs par défaut à →FUSION_HK←.<br>Alt-M : Définir les valeurs par défaut à →MOO1_HK←.<br>Alt-R : Définir les valeurs par défaut à →CLASSIC_HK←.
 
 // Shortcuts Full lists*
 MAIN_HELP_SHIPFLEET_HK | Raccourcis clavier QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d’informations détaillées (si elles sont connues)<br><br> MODE DE REDIRECTION DES FLOTTES :<br><br>Appuyez sur «Alt» pour montrer des informations sur l’étoile ou la flotte survolée par la souris.
 
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n’affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n’est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Espace/Page Down/Page Up : Votre flotte inactive Suivante/Précédente<br>«Shift-» Espace/Page Down/Page Up : Votre flotte Auto. mais inactive Suivante/Précédente→HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d’Option →HK_YEAR←<br>Shift-S : Rapport d’espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br>ALT-W : Afficher/Cacher la grille carrée <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>H : Afficher les caractéristiques connues de la flotte sous le curseur<br><br>F2/F3 Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n’affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n’est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Espace/Page Down/Page Up : Votre flotte inactive Suivante/Précédente<br>«Maj-» Espace/Page Down/Page Up : Votre flotte Auto. mais inactive Suivante/Précédente→HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d’Option →HK_YEAR←<br>Maj-S : Rapport d’espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br>ALT-W : Afficher/Cacher la grille carrée <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
 
-PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>Ctrl+A : Sélectionner tous les systèmes<br>Q/+Ctrl : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+Ctrl : Planète en manque de population / + Dépenses ÉCO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +Ctrl /+Shift : Basculer activation du gouverneur / Activé / Désactivé <br>→HK_ESCAPE←
+PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>Ctrl+A : Sélectionner tous les systèmes<br>Q/+Ctrl : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+Ctrl : Planète en manque de population / + Dépenses ÉCO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +Ctrl /+Maj : Basculer activation du gouverneur / Activé / Désactivé <br>→HK_ESCAPE←
 
 FLEETS_HELP_HK       | →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
 

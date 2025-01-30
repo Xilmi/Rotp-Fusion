@@ -80,6 +80,10 @@ public class Galaxy implements Base, Serializable {
     private Rand	galRandom = rng(); // BR: to memorize RNG state
     Boolean restartedGame	= false; // BR: To help debug
     Boolean swappedPositions		= false; // BR: To help debug
+    private boolean	hadLivePlayerSwap; // BR: History in case of strange bugs.
+    private boolean	requestToSwapPlayer;
+    private int		requestedSwapPlayer;
+    boolean	ironmanLockedOptions;
 
     public	Integer nextHashCodeDiplomaticIncident() {
     	if (lastHashCodeDiplomaticIncident!=null)
@@ -174,12 +178,28 @@ public class Galaxy implements Base, Serializable {
     public float maxScaleAdj()               { return maxScaleAdj; }
 
 	// For debug only
-	public boolean setPlayerEmpire(int id)		 {
-		Empire newPlayerEmpire = empire(id);
-		if (newPlayerEmpire.extinct()) {
-			System.out.println("!!!!!! Selected Empire is extinct !!!!!!");
+	public void playerSwapRequest(int id)	 {
+		requestToSwapPlayer = true;
+		requestedSwapPlayer = id;
+	}
+	public boolean playerSwapRequest()	 	 { return requestToSwapPlayer; }
+	public boolean swapPlayerEmpire()		 { return swapPlayerEmpire(requestedSwapPlayer); }
+	public boolean swapPlayerEmpire(int id)	 {
+		if (ironmanLockedOptions) {
+			misClick();
 			return false;
 		}
+		Empire newPlayerEmpire = empire(id);
+		if (newPlayerEmpire.extinct()) {
+			System.err.println("!!!!!! Selected Empire is extinct !!!!!!");
+			requestToSwapPlayer = false;
+			return false;
+		}
+		// update current options (may have been asked out of the game)
+		options().debugPlayerEmpire(id);
+		requestToSwapPlayer = false;
+		hadLivePlayerSwap   = true;
+
 		Empire oldPlayerEmpire = playerEmpire;
 		int oldPlayerAI = playerEmpire.selectedAI;
 		Empire.PLAYER_ID = id;
@@ -192,8 +212,10 @@ public class Galaxy implements Base, Serializable {
 		return true;
 	}
 	public String getEmpireList()	{
+		if (ironmanLockedOptions)
+			return text("SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_IRONMAN");
+
 		String str = " (" + text("SETTINGS_MOD_DEBUG_PLAYER_EMPIRE", playerEmpire.id)+")";
-		//str += NEWLINE + "<b>Empires:</b>";
 		for (Empire emp : empires()) {
 			str += NEWLINE;
 			str += "(" + emp.id + ") " + emp.name();
@@ -494,9 +516,17 @@ public class Galaxy implements Base, Serializable {
     				monster.setXY(sys);
     			}
     		}
-    }    
+		ironmanLockedOptions = !options().isGameOptionsAllowed();
+		Empire.updatePlayerId(player().id);
+
+		// Console Info to help debug
+		if (hadLivePlayerSwap)
+			System.err.println("Warning: This save once had the player swapped");
+		if (player().id != Empire.DEFAULT_PLAYER_ID)
+			System.out.println("Player Empire Id: " + player().id);
+	}
     public void validate() {
-       for (Empire emp: empires())
+        for (Empire emp: empires())
             emp.validate();
     }
     public int currentYear() {

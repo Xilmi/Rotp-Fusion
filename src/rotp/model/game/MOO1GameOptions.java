@@ -1363,6 +1363,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (!selectedPlayerIsCustom()) {
     		setRandomPlayerRace();
     	}
+    	debugPlayerEmpire.resetToDefaultValue();
     }
     @Override public void copyAliensAISettings(IGameOptions dest) { // BR:
     	MOO1GameOptions d = (MOO1GameOptions) dest; 	

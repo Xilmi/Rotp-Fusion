@@ -591,8 +591,10 @@ GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Toggles the Random Events logging when in
 GAME_SETTINGS_CONTINUE_ANYWAY        | Continue Anyway: %1
 GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | The Game will continue after victory or defeat, this while the player is alive!
 
-SETTINGS_MOD_DEBUG_PLAYER_EMPIRE      | Player Empire: %1
-SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_DESC | !!! ALPHA TESTING !!! To swap the empire with an opponent. Activated when loading or continuing a game ... May corrupt the next saved games !!! ALPHA TESTING !!!
+SETTINGS_MOD_DEBUG_PLAYER_EMPIRE         | Player Empire: %1
+SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_DESC    | !!! ALPHA TESTING !!! To swap the empire with an opponent. Activated when loading or continuing a game ... May corrupt the next saved games !!! ALPHA TESTING !!!
+SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_EXTINCT | →HISTORY_EXTINCT←
+SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_IRONMAN | Disabled because of Ironman mode.
 
 GAME_SETTINGS_SCREEN               | Selected Screen: %1
 GAME_SETTINGS_SELECTED_SCREEN      | Selected Screen: %1
@@ -4605,7 +4607,7 @@ RACES_HELP_0D                     | Military - Display fleet and ship designs.
 RACES_HELP_0E                     | Status - Comparison across several categories.
 RACES_HELP_0F                     | Selecting your empire allows you to manage information for all contacted empires on each tab.
 RACES_HELP_0G                     | Selecting an alien empire shows more detailed information for that empire on each tab.
-RACES_HELP_0H                     | When not up to date:<br> Last spy report age.<br> ("-" for never)
+RACES_HELP_0H                     | When not up to date:<br> Last spy report age.<br> ("-" for never)<br><br>"Ctrl-Shift-Right Click" to set this empire as the player empire. (BETA)
 RACES_HELP_1A                     | General information for selected empire.
 RACES_HELP_1B                     | Provides direct access to diplomats for all contacted empires.
 RACES_HELP_1C                     | Increase the security tax to improve your chances of thwarting enemy spies.
@@ -5490,7 +5492,7 @@ SETUP_GALAXY_SHAPE_RANDOM_2_HELP | Galaxy randomly selected from almost all gala
 
 // Shortcuts / Hotkeys list  (use cross-references →←) →HK_←
 // Shortcuts Cross referenced
-HK_HEADER      | HOTKEYS: (Available by right-clicking the Help button)<br>→HK_SHIFT_F1←
+HK_HEADER      | HOTKEYS: (Available by right-clicking the Help button)→HK_SHIFT_F1←
 HK_SHIFT_F1    | <br>Shift+F1 : Show Hotkeys List (This)
 HK_F1          | <br>F1 : Show Help.
 HK_ESCAPE      | <br>Escape : Exit this panel.
@@ -5516,7 +5518,7 @@ HK_SET_DEFAULT | <br>Alt-F : Set Default Values to →FUSION_HK←.<br>Alt-M : S
 // Shortcuts Full lists*
 MAIN_HELP_SHIPFLEET_HK | HOTKEY WHEN FLEET IS SELECTED:<br><br>H : Show more detailed info (if known)<br><br><br>SHIP RELOCATION MODE:<br><br>Press "ALT" to show info on the hovered star or fleet.
 
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>W : Toggle war view mode showing only the fleets targeting the planet in danger.<br>        (Auto off when selected planet is not in danger)<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/Page Down/Page Up : Next/Previous player Idle fleet (Shift: Auto but Idle) →HK_FLAG_LOOP←<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br>ALT-W : Toggle square grid <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mouse wheel : Increment quantities/moves slider<br>→HK_ESCAPE←
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>H : Show known characteristics of fleet under the cursor<br><br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>W : Toggle war view mode showing only the fleets targeting the planet in danger.<br>        (Auto off when selected planet is not in danger)<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/Page Down/Page Up : Next/Previous player Idle fleet (Shift: Auto but Idle) →HK_FLAG_LOOP←<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br>ALT-W : Toggle square grid <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mouse wheel : Increment quantities/moves slider<br>→HK_ESCAPE←
 
 PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Multi selection too)<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S→HK_SEL_B← Ship →HK_SEL_E←<br>D→HK_SEL_B← Defense →HK_SEL_E←<br>W→HK_SEL_B← Industry →HK_SEL_E←<br>E→HK_SEL_B← Ecology →HK_SEL_E←<br>R→HK_SEL_B← Research →HK_SEL_E←<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
 

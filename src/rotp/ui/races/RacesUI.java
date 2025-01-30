@@ -246,7 +246,7 @@ public class RacesUI extends BasePanel {
             int w8 = scaled(210);
             int x8a = w-scaled(38);
             int y8a = scaled(190);
-            HelpUI.HelpSpec sp8 = helpUI.addBrownHelpText(x8, y8, w8, 4, text("RACES_HELP_0H"));
+            HelpUI.HelpSpec sp8 = helpUI.addBrownHelpText(x8, y8, w8, 0, text("RACES_HELP_0H"));
             sp8.setLine(x8 + w6*3/4, y8, x8a, y8a);
         }
     }
@@ -1425,11 +1425,18 @@ public class RacesUI extends BasePanel {
 
             if (hoverEmp != null) {
                 softClick();
-                if (hoveringIcon) {
-                    hoveringIcon = false;
-                    selectedIconEmpire(hoverEmp);
-                    enableGlassPane(setColorPanel);
-                }
+				if (hoveringIcon) {
+					if (SwingUtilities.isRightMouseButton(e) && e.isShiftDown() && e.isControlDown()) {
+						galaxy().playerSwapRequest(hoverEmp.id);
+						if (galaxy().swapPlayerEmpire())
+							exit(true);
+					}
+					else {
+						hoveringIcon = false;
+						selectedIconEmpire(hoverEmp);
+						enableGlassPane(setColorPanel);
+					}
+				}
                 else if (hoverEmp != selectedEmpire())
                     selectedEmpire(hoverEmp);
                 instance.repaint();                    

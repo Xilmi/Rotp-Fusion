@@ -5,6 +5,14 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Updated Option to swap player on load.
+  - Stored in game, swapped player will then reload swapped.
+  - Ironman mode will not be able to swap.
+  - Can be swapped from inside the game.
+    - In Debug Panel (All empire available).
+    - In Empire panel "Ctrl-Shift-Right Click" on the color circle.
+  - Game that had the player swapped are tagged. (Mandatory info when debugging)
+    - The tag is displayed on the console on load (the current player id too, if not 0)
 - Fixed Restart not using the turn 1 System values when available.
 - Start and restart will reinitialise Empire.PLAYER_ID modified by the swap player options.
 - New Debug Option (!Alpha!) to swap player when loading or continuing a game.
@@ -17,14 +25,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Restart with companion worlds misplacement bug.
 - Changed "Leather Suits" to "Suits"
 - Outgoing transport are now displayed in the System view panel.
-- Research bubbles have more contrasted colors.
-- Fixed Rallied fleets not always being forwarded.
-- Added a warning in the colonisation popup when the planet is still plagued (Just destroyed), suggesting to wait one year before colonising.
-  - Will Force the popup even in auto-colonisation mode.
-- Fixed text clipping in options panel.
-- Technology bubble now display both current and expected state of research.
-- Max Bases don't loop anymore.
-  - Right-click will set the max to the current value.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

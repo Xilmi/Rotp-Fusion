@@ -1135,22 +1135,8 @@ public final class GameSession implements Base, Serializable {
     private void loadPreviousSession(GameSession gs, boolean startUp) {
         stopCurrentGame();
         instance = gs;
-        // BR: save the last loaded game initial parameters
-        instance.options().setAsGame();
-    	resolveOptionsDiscrepansies(gs);
-    	RotPUI.currentOptions(IGameOptions.GAME_ID);
-        instance.options().saveOptionsToFile(GAME_OPTIONS_FILE);
-
-		int newPlayerEmpire = instance.options().debugPlayerEmpire();
-		if (newPlayerEmpire != 0 || Empire.PLAYER_ID != 0 || instance.galaxy.player().id !=0) {
-			for (Empire emp : instance.galaxy.empires()) {
-				if (emp.extinct())
-					System.out.println("(" + emp.id + ") " + emp.name() + " -> Extinct");
-				else
-					System.out.println("(" + emp.id + ") " + emp.name());
-			}
-			instance.galaxy.setPlayerEmpire(newPlayerEmpire);
-		}
+		// BR: save the last loaded game initial parameters
+		instance.options().saveOptionsToFile(GAME_OPTIONS_FILE);
 
 		if (showInfo) 
 			showInfo(gs.galaxy());
@@ -1355,6 +1341,14 @@ public final class GameSession implements Base, Serializable {
             	if (newSession.options.dynOpts() == null)
             		System.err.println("newSession.options.dynOpts() == null ==> Not RotP-Fusion");
             }
+
+			// BR: save the last loaded game initial parameters
+			instance.options().setAsGame();
+			resolveOptionsDiscrepansies(newSession);
+			RotPUI.currentOptions(IGameOptions.GAME_ID);
+
+			if (instance.galaxy.playerSwapRequest())
+				instance.galaxy.swapPlayerEmpire();
             newSession.validate();
             newSession.validateOnLoadOnly();
 

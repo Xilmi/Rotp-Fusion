@@ -104,7 +104,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     private static final float SHIP_MAINTENANCE_PCT = .02f;
     private static final float SECURITY_COST_RATIO = 2f;
     private static final int MAX_DEFAULT_MAX_BASES = 999; // BR:
-    public static int PLAYER_ID = 0;
+    public static final int DEFAULT_PLAYER_ID = 0;
+    public static int PLAYER_ID = DEFAULT_PLAYER_ID;
     public static final int NULL_ID = -1;
     public static final int ABSTAIN_ID = -2;
     
@@ -198,7 +199,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient String empireName;
     private transient List<SpaceMonster> visibleMonsters = new ArrayList<>();
 
-	public static void resetPlayerId()			{ PLAYER_ID = 0; }
+	public static void resetPlayerId()			{ PLAYER_ID = DEFAULT_PLAYER_ID; }
+	public static void updatePlayerId(int id)	{ PLAYER_ID = id; }
 	public Integer defaultDesignId()			{ return shipLab.defaultDesignId(); }
 	public void defaultDesignId(Integer id)		{ shipLab.defaultDesignId(id); }
 	public void clearColoniesDefaultDesignId()	{
@@ -615,12 +617,12 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public boolean isMonster(int id)     { return id < NULL_ID; };
     public boolean isNull(int id)        { return id == NULL_ID; };
-    public boolean isEmpire(int id)      { return id >= 0; };
-    public boolean isNotEmpire(int id)   { return id < 0; };
+    public boolean isEmpire(int id)      { return id >= DEFAULT_PLAYER_ID; };
+    public boolean isNotEmpire(int id)   { return id < DEFAULT_PLAYER_ID; };
     public boolean isMonster()           { return id < NULL_ID; };
-    public boolean isEmpire()            { return id >= 0; };
+    public boolean isEmpire()            { return id >= DEFAULT_PLAYER_ID; };
     public boolean isNull()              { return id == NULL_ID; };
-    public boolean isNotEmpire()         { return id < 0; };
+    public boolean isNotEmpire()         { return id < DEFAULT_PLAYER_ID; };
     public boolean isPlayer()            { return id == PLAYER_ID; };
     public boolean isAI()                { return id != PLAYER_ID; };
     public boolean isPlayerControlled()  { return !isAIControlled(); }

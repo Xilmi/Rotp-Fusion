@@ -628,8 +628,15 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			else
 				parentUI.init();
 		}
-		else
-			RotPUI.instance().mainUI().map().resetRangeAreas();
+		else {
+			if (session().galaxy().playerSwapRequest()) {
+				session().galaxy().swapPlayerEmpire();
+				RotPUI.instance().selectMainPanel();
+				RotPUI.instance().mainUI().showDisplayPanel();
+			}
+			else
+				RotPUI.instance().mainUI().map().resetRangeAreas();
+		}
 	}
 	@Override protected void doExitBoxAction()		{
 		buttonClick();
