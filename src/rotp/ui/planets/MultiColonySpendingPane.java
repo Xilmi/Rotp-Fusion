@@ -62,6 +62,7 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
 	private static final Color buttonColor			= new Color(209, 209, 209);
 
 	private static BufferedImage governorImage, noGovernorImage, mixedGovernorImage;
+	private static int governorImageEmpireId;
 	private static int govMaxW, optMaxW;
 	private static int govButtonW, optButtonW;
 	private static int govButtonX, optButtonX;
@@ -128,7 +129,22 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
 		optButtonX = x2 - optButtonW;
 		needInitialization = false;
 	}
-	private void initMixedGovernorImage()		{
+	private BufferedImage governorImage()	{
+		if (governorImage == null || governorImageEmpireId != player().id) {
+			initGovernorImage();
+			initMixedGovernorImage();
+		}
+		return governorImage;
+	}
+	private BufferedImage mixedGovernorImage()	{
+		if (mixedGovernorImage == null || governorImageEmpireId != player().id) {
+			initGovernorImage();
+			initMixedGovernorImage();
+		}
+		return mixedGovernorImage;
+	}
+	private void initMixedGovernorImage()	{
+		governorImageEmpireId = player().id;
 		int mugH = s20;
 		int mugW = mugH;
 		mixedGovernorImage = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
@@ -149,6 +165,7 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
 		g.dispose();
 	}
 	private void initGovernorImage()		{
+		governorImageEmpireId = player().id;
 		int mugH = s20; // s82
 		int mugW = mugH * 76 / 82; // s76
 		governorImage = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
@@ -261,9 +278,9 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
 		g.drawString(title, titleX, titleY);
 
 		if (isGovernor == null)
-			g.drawImage(mixedGovernorImage, govButtonX+govButtonW-iconWidth, buttonY+s3, null);
+			g.drawImage(mixedGovernorImage(), govButtonX+govButtonW-iconWidth, buttonY+s3, null);
 		else if (isGovernor)
-			g.drawImage(governorImage, govButtonX+govButtonW-iconWidth, buttonY+s3, null);
+			g.drawImage(governorImage(), govButtonX+govButtonW-iconWidth, buttonY+s3, null);
 		else
 			g.drawImage(noGovernorImage, govButtonX+govButtonW-iconWidth, buttonY+s2, null);
 	}

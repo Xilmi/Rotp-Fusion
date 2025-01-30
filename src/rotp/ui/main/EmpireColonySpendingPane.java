@@ -76,6 +76,7 @@ public class EmpireColonySpendingPane extends BasePanel {
 
     private static BufferedImage governorImage;
     private static BufferedImage noGovernorImage;
+    private static int governorImageEmpireId;
     private static int govMaxW, optMaxW;
     private static int govButtonW, optButtonW;
     private static int govButtonX, optButtonX;
@@ -126,7 +127,7 @@ public class EmpireColonySpendingPane extends BasePanel {
         init();
     }
     BufferedImage governorImage()	{
-    	if (governorImage == null)
+    	if (governorImage == null || governorImageEmpireId != player().id)
     		initGovernorImage();
     	return governorImage;
     }
@@ -182,6 +183,7 @@ public class EmpireColonySpendingPane extends BasePanel {
     		needInitializationSquare = false;
     }
     private void initGovernorImage()	{
+    	governorImageEmpireId = player().id;
 		int mugH = s20; // s82
 		int mugW = mugH * 76 / 82; // s76
 		governorImage = new BufferedImage(mugW, mugH, TYPE_INT_ARGB);
@@ -294,7 +296,7 @@ public class EmpireColonySpendingPane extends BasePanel {
         g.drawString(title, titleX, titleY);
 
         if (isGovernor)
-        	g.drawImage(governorImage, govButtonX+govButtonW-iconWidth, buttonY+s3, null);
+        	g.drawImage(governorImage(), govButtonX+govButtonW-iconWidth, buttonY+s3, null);
         else
         	g.drawImage(noGovernorImage, govButtonX+govButtonW-iconWidth, buttonY+s2, null);
     }

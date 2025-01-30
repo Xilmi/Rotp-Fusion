@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Governor Button Icon will be updated after Swapping Player.
 - Updated Option to swap player on load.
   - Stored in game, swapped player will then reload swapped.
   - Ironman mode will not be able to swap.

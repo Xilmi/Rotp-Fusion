@@ -84,6 +84,7 @@ Later:
     - In Empire panel "Ctrl-Shift-Right Click" on the color circle.
   - Game that had the player swapped are tagged. (Mandatory info when debugging)
     - The tag is displayed on the console on load (the current player id too, if not 0)
+  - Governor Button Icon will be updated.
 
 2025.01.29 (BR)
 - Option to swap player on load.
