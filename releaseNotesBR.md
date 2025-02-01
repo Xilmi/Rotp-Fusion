@@ -5,6 +5,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fleet Deployment Panel: Key press to select ships based on their speed.
+  - Only ships with a warp speed >= of the Pressed Key will be selected.
+- Fixed several issues that lead to Sakkra- and Bulrathi-AI not Transport-rushing other empires in the early-game when they should (Xilmi)
 - Governor Button Icon will be updated after Swapping Player.
 - Updated Option to swap player on load.
   - Stored in game, swapped player will then reload swapped.
@@ -20,12 +23,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - The list of available empire is listed in the Guide.
 - Fixed misevaluation of Monster strength.
 - Fixed an issue that could cause the combat-AI to just run away from enemy ships instead of attacking them. (Xilmi)
-- Fixed Obedient Governor not following the "build stargates" options
-  - Default design can be set by the player, and will be selected after the stargates are built.
-- Changed "Bare Hand" to "Assault Riffle".
-- Fixed Restart with companion worlds misplacement bug.
-- Changed "Leather Suits" to "Suits"
-- Outgoing transport are now displayed in the System view panel.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

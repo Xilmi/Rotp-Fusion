@@ -74,6 +74,15 @@ Later:
 
 ## What's New
 
+2025.02.01 (BR)
+- Fleet Deployment Panel: Key press to select ships based on their speed.
+  - Only ships with a warp speed >= of the Pressed Key will be selected.
+
+2025.02.01 (Xilmi)
+- Fixed several issues that lead to Sakkra- and Bulrathi-AI not Transport-rushing other empires in the early-game when they should
+  - Population currently flying around in transports is now considered when evaluating the aggressiveness of Bulrathi- or Sakkra-like empires.
+  - Invasions are now considered for all enemy-empires and not only the ones that we are already at war with.
+  - For the calculation of an empires' power-level the population that is currently flying around in transports is now taken into consideration too.
 2025.01.30 (BR)
 - Updated Option to swap player on load.
   - No more stored in "remnant.cfg".

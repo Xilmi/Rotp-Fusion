@@ -54,7 +54,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
     private static final long serialVersionUID = 1L;
     private final SpriteDisplayPanel parent;
     protected BasePanel topPane;
-    protected BasePanel detailPane;
+    protected FleetDetailPane detailPane;
     protected BasePanel bottomPane;
     String nebulaText;
     private final int[] stackAdjustment = new int[ShipDesignLab.MAX_DESIGNS];
@@ -454,6 +454,33 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             	toggleShowFleetInfo();
             	parent.repaint();
                 return;
+			case KeyEvent.VK_1:
+				detailPane().selectSpeed(1);
+				return;
+			case KeyEvent.VK_2:
+				detailPane().selectSpeed(2);
+				return;
+			case KeyEvent.VK_3:
+				detailPane().selectSpeed(3);
+				return;
+			case KeyEvent.VK_4:
+				detailPane().selectSpeed(4);
+				return;
+			case KeyEvent.VK_5:
+				detailPane().selectSpeed(5);
+				return;
+			case KeyEvent.VK_6:
+				detailPane().selectSpeed(6);
+				return;
+			case KeyEvent.VK_7:
+				detailPane().selectSpeed(7);
+				return;
+			case KeyEvent.VK_8:
+				detailPane().selectSpeed(8);
+				return;
+			case KeyEvent.VK_9:
+				detailPane().selectSpeed(9);
+				return;
         }
     }
     private void initModel() {
@@ -479,7 +506,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             topPane = new FleetGraphicPane(this);
         return topPane;
     }
-    protected BasePanel detailPane() {
+    protected FleetDetailPane detailPane() {
         if (detailPane == null)
             detailPane = new FleetDetailPane(this);
         return detailPane;
@@ -692,6 +719,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         private final Rectangle downBoxH[]	= new Rectangle[ShipDesignLab.MAX_DESIGNS];
         private final Rectangle upBoxH[]	= new Rectangle[ShipDesignLab.MAX_DESIGNS];
         protected Shape textureClip;
+		private boolean showAdjust;
 
         public FleetDetailPane(FleetPanel p) {
             parent = p;
@@ -713,6 +741,27 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             addMouseMotionListener(this);
             addMouseWheelListener(this);
         }
+		private void selectSpeed(int speed) {
+			if (!showAdjust) {
+				misClick();
+				return;
+			}
+			int playerId = player().id;
+			ShipFleet fl = selectedFleet();
+			for (int i=0; i<ShipDesignLab.MAX_DESIGNS; i++) {
+				ShipDesign d = fl.visibleDesign(playerId, i);
+				if(d!=null) {
+					int index = d.id();
+					if (d.warpSpeed() >= speed)
+						stackAdjustment[index] = 0;
+					else
+						stackAdjustment[index] = 0-fl.num(index);
+				}
+			}
+			adjustedFleet(newAdjustedFleet());
+			softClick();
+			repaint();
+		}
         private void selectAll() {
         	int playerId = player().id;
         	ShipFleet fl = selectedFleet();
@@ -726,7 +775,6 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             adjustedFleet(newAdjustedFleet());
             softClick();
             repaint();
-        	
         }
         private void selectNone() {
         	int playerId = player().id;
@@ -772,7 +820,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             boolean sameFleet = (origFleet.empId() == displayFleet.empId())
 			            		&& (origFleet.sysId() == displayFleet.sysId())
 			            		&& (origFleet.destSysId() == displayFleet.destSysId());
-            boolean showAdjust = canAdjust && sameFleet;
+            showAdjust = canAdjust && sameFleet;
 
             if (showAdjust)
                 drawInfo(g,displayFleet, showAdjust, 0,0,w,h1);
