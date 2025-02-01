@@ -379,7 +379,7 @@ public class AIGeneral implements Base, General {
         return invasionGain;
     }
     public boolean willingToInvade(EmpireView v, StarSystem sys) {
-        if(!empire.warEnemies().contains(sys.empire()) && !empire.generalAI().strongEnoughToAttack())
+        if(!empire.enemies().contains(sys.empire()) && !empire.generalAI().strongEnoughToAttack())
             return false;
         if (!empire.canSendTransportsTo(sys))
             return false;

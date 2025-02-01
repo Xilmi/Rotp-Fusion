@@ -2049,7 +2049,7 @@ public class AIDiplomat implements Base, Diplomat {
         if(empire.growthRateMod() > 1.0f)
             racialMod *= 5f / 4f;
         if(empire.groundAttackBonus() > 0 || empire.growthRateMod() > 1.0f)
-            aggressiveness = empire.totalPlanetaryPopulation() / empire.generalAI().totalEmpirePopulationCapacity(empire);
+            aggressiveness = empire.totalEmpirePopulation() / empire.generalAI().totalEmpirePopulationCapacity(empire);
 //        }
         // BR: Trade-off between what was intended and what was implemented:
         // Mitigation for custom species

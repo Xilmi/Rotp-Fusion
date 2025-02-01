@@ -3261,6 +3261,12 @@ public final class Empire implements Base, NamedObject, Serializable {
     public float industrialPowerLevel(Empire e) {
         // TechTree t0 = e == this ? tech() : viewForEmpire(e).spies().tech();
         float prod = totalPlanetaryProduction(e);
+        float transportModifier = 1;
+        if(totalPlanetaryPopulation() > 0)
+        {
+            transportModifier = totalEmpirePopulation() / totalPlanetaryPopulation();
+            prod *= transportModifier;
+        }
         float techLvl = (float)Math.pow(1 / miniFastRate, tech().avgTechLevel());
         return prod*techLvl;
     }
