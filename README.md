@@ -83,6 +83,8 @@ Later:
   - Population currently flying around in transports is now considered when evaluating the aggressiveness of Bulrathi- or Sakkra-like empires.
   - Invasions are now considered for all enemy-empires and not only the ones that we are already at war with.
   - For the calculation of an empires' power-level the population that is currently flying around in transports is now taken into consideration too.
+- Fixed player AI controlled not sending troops without Governor on.
+
 2025.01.30 (BR)
 - Updated Option to swap player on load.
   - No more stored in "remnant.cfg".

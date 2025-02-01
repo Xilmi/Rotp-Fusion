@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed player AI controlled not sending troops without Governor on.
 - Fleet Deployment Panel: Key press to select ships based on their speed.
   - Only ships with a warp speed >= of the Pressed Key will be selected.
 - Fixed several issues that lead to Sakkra- and Bulrathi-AI not Transport-rushing other empires in the early-game when they should (Xilmi)

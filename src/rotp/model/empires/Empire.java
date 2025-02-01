@@ -624,7 +624,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public boolean isNull()              { return id == NULL_ID; };
     public boolean isNotEmpire()         { return id < DEFAULT_PLAYER_ID; };
     public boolean isPlayer()            { return id == PLAYER_ID; };
-    public boolean isAI()                { return id != PLAYER_ID; };
+    public boolean isAI()                { return id != PLAYER_ID; }; // !!! FOR UI ONLY
     public boolean isPlayerControlled()  { return !isAIControlled(); }
     public boolean isAIControlled()      { return isAI() || options().isAutoPlay(); }
     //public boolean isAIControlled()      { return true; } //for quick switch to test how the AI would have fared in a game

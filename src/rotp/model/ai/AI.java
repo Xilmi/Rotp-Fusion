@@ -190,8 +190,8 @@ public class AI implements Base {
     }
 
     // MISC INTERFACE
-    public boolean isAI()     {  return empire.isAI(); }
-    public boolean isPlayer() {  return empire.isPlayer(); }
+    // public boolean isAI()     {  return empire.isAI(); }
+    // public boolean isPlayer() {  return empire.isPlayer(); }
     
     // direct
     public ShipCaptain shipCaptain()                   { return captain; }
@@ -248,7 +248,7 @@ public class AI implements Base {
                 {
                     if(empire.isPlayerControlled() && session().getGovernorOptions().isTransportRichDisabled() && (sys.planet().productionAdj() > 1 || sys.planet().researchAdj() > 1))
                         continue;
-                    if(empire.isAI() || sys.colony().isGovernor() || GameSession.instance().getGovernorOptions().isAutotransportUngoverned())
+                    if(empire.isAIControlled() || sys.colony().isGovernor() || GameSession.instance().getGovernorOptions().isAutotransportUngoverned())
                         givey.add(col);
                 }
             }
