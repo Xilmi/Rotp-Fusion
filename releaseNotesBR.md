@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed rounding error preventing refit when big colonies were auto sending small troops. (Governor and smart tools)
 - Fixed player AI controlled not sending troops without Governor on.
 - Fleet Deployment Panel: Key press to select ships based on their speed.
   - Only ships with a warp speed >= of the Pressed Key will be selected.

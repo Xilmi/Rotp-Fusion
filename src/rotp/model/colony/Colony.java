@@ -627,7 +627,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         ShipDesignLab lab = emp.shipLab();
         ShipDesign scout = lab.scoutDesign();
         ShipDesign colony = lab.colonyDesign();
-        
+
 		if (emp.isPlayer())
 			setDefaultGovernor();
 		// modnar: normal resources for player or non-challengeMode
@@ -660,7 +660,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     // modnar: add option to start game with additional colonies
     public void setCompanionWorldValues() {
         Empire emp = empire();
-		
+
 		if (emp.isPlayer())
 			setDefaultGovernor();
 		// modnar: normal resources for player or non-challengeMode
@@ -757,7 +757,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
                     , str(research().allocation()) , "]");
         keepEcoLockedToClean = empire().isPlayerControlled() && (allocation[ECOLOGY] <= cleanupAllocation());
         previousPopulation = population;
-        reallocationRequired = false;          
+        reallocationRequired = false;
         ensureProperSpendingRates();
         validateOnLoad();
 
@@ -812,10 +812,9 @@ public final class Colony implements Base, IMappedObject, Serializable {
         ecology().assessTurn();
         research().assessTurn();
         checkEcoAtClean();
-        
+
         if (reallocationRequired)
             empire().governorAI().setColonyAllocations(this);
-
     }
     void addFollowUpSpendingOrder(float orderAmt) {
         if (orderAmt <= 0)
@@ -903,7 +902,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         recalcSpendingForNewTaxRate = false;
         if (locked[ECOLOGY]) 
             return;
-        
+
         int cleanAlloc = ecology().cleanupAllocationNeeded();
         if (allocation[ECOLOGY] == cleanAlloc)
             return;
@@ -914,7 +913,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             redistributeReducedEcoSpending();
             return;
         }
-        
+
         // if we are over clean but the colony started its turn at clean
         // then lower
         if ((allocation[ECOLOGY] > cleanAlloc) && keepEcoLockedToClean) {
@@ -937,11 +936,11 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // or manually set to level lower than clean
         if (locked[ECOLOGY])
             return;
-        
+
         int cleanAlloc = ecology().cleanupAllocationNeeded();
         if (allocation[ECOLOGY] < cleanAlloc)
             return;
-        
+
         // if ECO spending is complete, just lower ECO to clean
         // and auto-realign the other categories
 //        if (ecology().isCompleted()) {
@@ -952,7 +951,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             }
             return;
         }
-            
+
         // if ECO is not complete, then if it exceeds
         // maxAlloc, then lower it to that and realign
         int maxAlloc = ecology().maxAllocationNeeded();
@@ -1068,7 +1067,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // funnel excess to industry if it's not completed
         if (!industry().isCompleted() && adj > 0)
             adj -= spending[INDUSTRY].adjustValue(min(industry().maxAllocationNeeded() - industry().allocation(), adj));
-        
 
         if (adj == 0)
             return;
@@ -1141,7 +1139,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     		boolean v2, boolean ignoreOrders, float targetPopPct) {
         if (adj==0)
     		return;
-        
+
         // If a fixed number of ship is requested, then do it
         if (!locked(SHIP) && shipyard().buildLimit() > 0) {
         	adj -= smoothAdjust(SHIP, adj, false, hadShipSpending, targetPopPct);
@@ -1223,7 +1221,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float production() {
         if (inRebellion())
             return 0.0f;
-        
+
         // modnar: add dynamic difficulty option, change AI colony production
         float dynaMod = 1.0f;
         float scaleMod = 1.0f;
@@ -1234,23 +1232,23 @@ public final class Colony implements Base, IMappedObject, Serializable {
             float playerIndPowerLevel = player().nonDynaIndPowerLevel();
             // r_empInd > 1 means more powerful than player, r_empInd < 1 means less powerful than player
             float r_empInd = empIndPowerLevel / playerIndPowerLevel;
-            
+
             /*
             // relative empire industrialPowerLevel compared with galactic average
             float galIndPowerLevel = 0.0f;
             for (Empire emp: galaxy().empires()) {
-                galIndPowerLevel += emp.nonDynaIndPowerLevel(emp);                 
+                galIndPowerLevel += emp.nonDynaIndPowerLevel(emp);
             }
             // multiply numActiveEmpires to assess against balanced power distribution relative to galaxy
             // r_empInd > 1 means more powerful than average, r_empInd < 1 means less powerful than average
             float r_empInd = galaxy().numActiveEmpires() * empIndPowerLevel / galIndPowerLevel;
             */
-            
+
             // scale with turns, between 0 to 1, ramp up at around turn 150
             // (little to no dynamic production change in early turns)
             // turnMod(0)=2.12%, turnMod(50)=3.17%, turnMod(100)=6.28%, turnMod(150)=50.0%, turnMod(200)=93.7%, 
             float turnMod = (float) (0.5f + Math.atan(galaxy().currentTurn()/10 - 15)/Math.PI);
-            
+
             // scaling with base function: f(x) = x^3/(x^2+1), asymptotically approach f(x)=x, with flattening near x=0
             // adjust scaling with base function: g(x) = 1-1/(x+1), to get g(0)=0
             if (r_empInd > 1.0f) {
@@ -1259,15 +1257,15 @@ public final class Colony implements Base, IMappedObject, Serializable {
             else {
                 scaleMod = (float) ((1.01f - 1.01f/(100*r_empInd+1)) * (1 + Math.pow(r_empInd-1, 3) / (Math.pow(r_empInd-1, 2) + 0.25f)) / r_empInd);
             }
-            
+
             // put it all together with: h(x,t) = 1+(scaleMod-1)*turnMod, h(x,t) will then multiply onto mod
             // at turns << 150, turnMod ~ 0, h(x,t) ~ 1
             // at turns >> 150, turnMod ~ 1, h(x,t) ~ scaleMod
             dynaMod = 1.0f + (scaleMod - 1.0f) * turnMod;
         }
-        
+
         float mod = empire().isPlayer() ? 1.0f : (options().aiProductionModifier()*dynaMod);
-        
+
         float workerProd = workingPopulation() * empire.workerProductivity();
         float factoryOutput = mod*(workerProd + usedFactories());
         return factoryOutput - transportCost();
@@ -1318,7 +1316,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float totalProductionIncome() {
         if (inRebellion())
             return 0.1f;
-        
+
         ensureProperSpendingRates();
 
         float prod = production();       
@@ -1374,7 +1372,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float wasteCleanupCost() {
         if (empire.ignoresPlanetEnvironment())
             return 0;
-        
+
         return (min(planet.maxWaste(), planet.waste()) + newWaste()) / tech().wasteElimination();
     }
     public float minimumCleanupCost() {
@@ -1390,7 +1388,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float ultimateMaxSize() { // After Enrichment
         float terraformAdj  = tech().terraformAdj();
         float potentialBaseSize = planet.potentialSize(tech());
-        
+
         if (planet.isEnvironmentHostile() && tech().topAtmoEnrichmentTech() == null)
        		terraformAdj *= options().hostileTerraformingPct();
         return max(planet.currentSize(), potentialBaseSize+terraformAdj);
@@ -1437,7 +1435,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         	smoothMaxSlider(ECOLOGY);
         	redistributeReducedEcoSpending();
         }
-        
+
         governIfNeeded();
     }
     public int maxTransportsAllowed() {
@@ -1582,7 +1580,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             if(tr.size() == 0)
                 return;
         }
-        
+
         captives = population() - rebels;
         setPopulation(rebels);
 
@@ -1746,7 +1744,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         Empire loser = empire();
         if (isCapital())
             loser.chooseNewCapital();
-        
+
         loser.lastAttacker(tr.empire());
         starSystem().addEvent(new SystemCapturedEvent(tr.empId()));
         tr.empire().lastAttacker(loser);
@@ -1805,7 +1803,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         clearTransport();
         loser.sv.refreshFullScan(sys.id);
         empire.sv.refreshFullScan(sys.id);
-        
+
         // empires of orbiting fleets should see ownership change
         List<ShipFleet> fleets = sys.orbitingFleets();
         for (ShipFleet fl: fleets) {
@@ -1874,7 +1872,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     private void abandon() {
         if (isCapital())
             empire.chooseNewCapital();
-        
+
         StarSystem sys = starSystem();
         sys.addEvent(new SystemAbandonedEvent(empire.id));
         sys.abandoned(true);
@@ -1895,16 +1893,16 @@ public final class Colony implements Base, IMappedObject, Serializable {
         List<ShipFleet> fleets = sys.orbitingFleets();
         for (ShipFleet fl : fleets) 
             fl.empire().sv.refreshFullScan(sys.id);
-        
+
         for (Empire emp: galaxy().empires()) {
             if (emp.knowsOf(empire) && !emp.sv.name(sys.id).isEmpty()) 
-                emp.sv.view(sys.id).setEmpire();                   
+                emp.sv.view(sys.id).setEmpire();
         }
     }
     public void destroy() {
         if (isCapital())
             empire.chooseNewCapital();
-        
+
         StarSystem sys = starSystem();
         sys.addEvent(new SystemDestroyedEvent(empire.lastAttacker()));
 
@@ -1924,10 +1922,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
         List<ShipFleet> fleets = sys.orbitingFleets();
         for (ShipFleet fl : fleets) 
             fl.empire().sv.refreshFullScan(sys.id);
-        
+
         for (Empire emp: galaxy().empires()) {
             if (emp.knowsOf(empire) && !emp.sv.name(sys.id).isEmpty()) 
-                emp.sv.view(sys.id).setEmpire();                   
+                emp.sv.view(sys.id).setEmpire();
         }
     }
 
@@ -2274,7 +2272,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
 		float techAdj = totalPlanetaryResearch() - prevTech;
 		RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
-
     }
 	private void checkForReserveFromRich() {
 		// Check if Rich and Ultra contribute to reserve
@@ -2523,7 +2520,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         		allocation(ECOLOGY, ecoAll);
                 locked(SHIP, true);
                 locked(DEFENSE, true);
-                redistributeSpending(-1, false, true, true, 1.0f);
+                redistributeSpending(-1, false, true, true, targetPopPercent);
                 locked(SHIP, false);
                 locked(DEFENSE, false);
 
@@ -2644,7 +2641,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             		|| gov.legacyGrowthMode() || terraformEarly
             		|| (!buildingShip && empire.tech().researchCompleted()))
                 maxGrowth = maxSize - workingPopulation();
-            
+
             maxGrowth -= additionalTransports;
             maxGrowth = max(0, maxGrowth);
             //System.out.println("balance "+this.name()+" maxGrowth "+maxGrowth);
@@ -2706,7 +2703,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
         if (test)
         	return;
-        	
+	
         allocation(ECOLOGY, 0);
         locked(ECOLOGY, false);
         allocation(ECOLOGY, ecoAll);

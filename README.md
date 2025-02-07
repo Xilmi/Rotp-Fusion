@@ -74,6 +74,9 @@ Later:
 
 ## What's New
 
+2025.02.07 (BR)
+- Fixed rounding error preventing refit when big colonies were auto sending small troops.  (Governor and smart tools)
+
 2025.02.01 (BR)
 - Fleet Deployment Panel: Key press to select ships based on their speed.
   - Only ships with a warp speed >= of the Pressed Key will be selected.

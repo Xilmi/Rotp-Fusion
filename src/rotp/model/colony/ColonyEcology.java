@@ -322,7 +322,7 @@ public class ColonyEcology extends ColonySpendingCategory {
     @Override
     public String upcomingResult(){
         Colony c = colony();
-        
+
         float newBC = totalAvailableBCthisCategory(colony().totalProductionIncome(), colony().maxReserveIncome());
         float cost;
 
@@ -334,16 +334,18 @@ public class ColonyEcology extends ColonySpendingCategory {
         float expPop = min(workingPop+expGrowth, planet().currentSize());
         floatPopGrowth = expPop - currentPop;  // BR: To allow fine tuning
         expectedPopGrowth = (int) (expPop) - (int) currentPop; // BR: ?!
-       
+
         // check for waste cleanup
         cost = c.wasteCleanupCost();
         if (newBC < cost) 
             return text(wasteText);
-        
+
         if (c.allocation(categoryType()) == 0)
             return text(noneText);
-        if (allocation() == cleanupAllocationNeeded())
-            return text(cleanupText);
+		// BR: Moved at the end to allow the return of the real pop growth
+		//if (allocation() == cleanupAllocationNeeded())
+		if (newBC == cost)
+			return text(cleanupText);
 
         newBC -= cost;
         // check for atmospheric terraforming
@@ -397,6 +399,9 @@ public class ColonyEcology extends ColonySpendingCategory {
         	floatPopGrowth = maxPopSize - currentPop;
         	expectedPopGrowth = (int) maxPopSize - (int) currentPop;
         }
+
+		if (allocation() == cleanupAllocationNeeded())
+			return text(cleanupText);
 
         // if less <1% of income, show "Clean", else show "Reserve"
         if (newBC <= (c.totalIncome()/100))
