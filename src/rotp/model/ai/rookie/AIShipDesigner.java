@@ -15,6 +15,8 @@
  */
 package rotp.model.ai.rookie;
 
+import static rotp.model.ai.rookie.NewShipTemplate.newShipTemplate;
+
 import java.util.List;
 
 import rotp.model.ai.interfaces.ShipDesigner;
@@ -207,7 +209,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
         float armorImprv = (float) Math.sqrt(newDesign.hits() / currDesign.hits());
         
         // modnar: factor in cost with firepower
-        // modnar: NewShipTemplate.perTurnDamage was already done in NewShipTemplate to ensure better damage
+        // modnar: newShipTemplate.perTurnDamage was already done in NewShipTemplate to ensure better damage
         // use slightly different damage measure for balance
         float oppShield = lab.bestEnemyPlanetaryShieldLevel();
         float newDmgPerBC = newDesign.firepower(oppShield) / newDesign.cost();
@@ -292,7 +294,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
         }
         
         // ShipFighterTemplate.setPerTurnDamage(currDesign, empire());
-        // NewShipTemplate.setPerTurnShipDamage(currDesign, empire()); // modnar: not needed
+        // newShipTemplate.setPerTurnShipDamage(currDesign, empire()); // modnar: not needed
         
         // find best hypothetical design vs current targets
         ShipDesign newDesign = newFighterDesign(currDesign.size());
@@ -311,7 +313,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
         float armorImprv = (float) Math.sqrt(newDesign.hits() / currDesign.hits());
         
         // modnar: use firepowerAntiShip, factor in cost
-        // modnar: NewShipTemplate.perTurnDamage was already done in NewShipTemplate to ensure better damage
+        // modnar: newShipTemplate.perTurnDamage was already done in NewShipTemplate to ensure better damage
         // use slightly different damage measure for balance
         float oppShield = lab.bestEnemyShieldLevel();
         float newDmgPerBC = newDesign.firepowerAntiShip(oppShield) / newDesign.cost();
@@ -396,7 +398,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
         }
         
         // ShipDestroyerTemplate.setPerTurnDamage(currDesign, empire());
-        // NewShipTemplate.setPerTurnShipDamage(currDesign, empire); // modnar: not needed
+        // newShipTemplate.setPerTurnShipDamage(currDesign, empire); // modnar: not needed
         
         // find best hypothetical design vs current targets
         ShipDesign newDesign = newDestroyerDesign(currDesign.size());
@@ -415,7 +417,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
         float armorImprv = (float) Math.sqrt(newDesign.hits() / currDesign.hits());
         
         // modnar: use firepowerAntiShip, factor in cost
-        // modnar: NewShipTemplate.perTurnDamage was already done in NewShipTemplate to ensure better damage
+        // modnar: newShipTemplate.perTurnDamage was already done in NewShipTemplate to ensure better damage
         // use slightly different damage measure for balance
         float oppShield = lab.bestEnemyShieldLevel();
         float newDmgPerBC = newDesign.firepowerAntiShip(oppShield) / newDesign.cost();
@@ -587,7 +589,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
     @Override
     public ShipDesign newFighterDesign(int size) {
     //    ShipDesign design = ShipFighterTemplate.newDesign(this);
-        ShipDesign design = NewShipTemplate.newFighterDesign(this);
+        ShipDesign design = newShipTemplate.newFighterDesign(this);
         design.mission(ShipDesign.FIGHTER);
         design.maxUnusedTurns(OBS_FIGHTER_TURNS);
         return design;
@@ -595,7 +597,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
     @Override
     public ShipDesign newBomberDesign(int size) {
     //    ShipDesign design = ShipBomberTemplate.newDesign(this);
-        ShipDesign design = NewShipTemplate.newBomberDesign(this);
+        ShipDesign design = newShipTemplate.newBomberDesign(this);
         design.mission(ShipDesign.BOMBER);
         design.maxUnusedTurns(OBS_BOMBER_TURNS);
         return design;
@@ -603,7 +605,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
     @Override
     public ShipDesign newDestroyerDesign(int size) {
     //    ShipDesign design = ShipDestroyerTemplate.newDesign(this);
-        ShipDesign design = NewShipTemplate.newDestroyerDesign(this);
+        ShipDesign design = newShipTemplate.newDestroyerDesign(this);
         design.mission(ShipDesign.DESTROYER);
         design.maxUnusedTurns(OBS_DESTROYER_TURNS);
         return design;

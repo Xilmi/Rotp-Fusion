@@ -30,6 +30,7 @@ import rotp.model.game.IDebugOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.ui.BasePanel;
 import rotp.ui.game.BaseCompactOptionsUI;
 import rotp.ui.game.BaseModPanel;
 
@@ -77,6 +78,13 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 	public ParamSubUI(String gui, String guiId, SafeListPanel optionsMap) {
 		this(gui, guiId+"_UI", optionsMap, guiId+"_TITLE", guiId);
 	}
+//	public ParamSubUI(String gui, String guiId) {
+//		this(gui,
+//				guiId+"_UI",
+//				AllSubUI.getHandle(guiId).optionsMap(),
+//				guiId+"_TITLE",
+//				guiId);
+//	}
 	// ===== Overriders =====
 	//
 	@Override public ParamSubUI isValueInit(boolean is) { super.isValueInit(is) ; return this; }
@@ -155,7 +163,7 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 		ui = new BaseCompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap, true, location);
 		ui.start("", pUI);
 	}
-	public void start(BaseModPanel pUI)	{
+	public void start(BasePanel pUI)	{
 		updated(true);
 		BaseCompactOptionsUI ui;
 		ui = new BaseCompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);

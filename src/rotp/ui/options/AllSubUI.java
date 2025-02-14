@@ -52,6 +52,7 @@ public final class AllSubUI {
 		put(new SetupRestartOptions());
 		put(new SetupTechOptions());
 		put(new ShieldAnimations());
+		put(new ShipDesignOption());
 		put(new ShipRules());
 		put(new SpyOptions());
 		put(new VisualOptions());

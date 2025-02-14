@@ -1223,7 +1223,7 @@ PLANETS_HELP_1B                   | Industry - Click this tab to show industrial
 PLANETS_HELP_1C                   | Military - Click this tab to show military data for colonies.
 PLANETS_HELP_1D                   | Colony spending can be adjusted as on main screen.
 PLANETS_HELP_1E                   | Increase colony production by up to 50% by transferring funds from the empire treasury.
-PLANETS_HELP_1F                   | Total Income for your empire.
+PLANETS_HELP_1F                   | Total Income for your empire.<br>Trade income are redistributed to the colonies proportionally to their production.
 PLANETS_HELP_1G                   | Total Spending for your empire expressed as a pct. of income.
 PLANETS_HELP_1H                   | Levy a tax on your colonies to add to the empire treasury. Optionally restrict this tax to only colonies that have completed their Ecology, Industry and Defense spending.
 PLANETS_HELP_2A                   | Name - The name for your system. Editable.
@@ -4072,9 +4072,12 @@ SETTINGS_MOD_SETUP_RESTART_UI            | Restart Options
 SETTINGS_MOD_SETUP_RESTART_UI_DESC       | Options controlling the way a game will be restarted. Only read when restarting a game.
 SETTINGS_MOD_SETUP_RESTART_UI_HELP       | Hidden behind the&nbsp <b>→SETUP_BUTTON_START←</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>→SETUP_BUTTON_RESTART←</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swap it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
 
-SETTINGS_MOD_GOV_SPECIAL_TITLE          | Advanced Governor Configurations.
-SETTINGS_MOD_GOV_SPECIAL_UI             | Fine Tuning
-SETTINGS_MOD_GOV_SPECIAL_UI_DESC        | Options not displayed on the main panel... Reserved for experts.
+SETTINGS_MOD_GOV_SPECIAL_TITLE				| Advanced Governor Configurations.
+SETTINGS_MOD_GOV_SPECIAL_UI					| Fine Tuning
+SETTINGS_MOD_GOV_SPECIAL_UI_DESC			| Options not displayed on the main panel... Use with caution.
+SETTINGS_MOD_SHIP_DESIGN_OPTIONS_TITLE		| Automatic Ship Design Configuration.
+SETTINGS_MOD_SHIP_DESIGN_OPTIONS_UI			| Automatic ship design settings
+SETTINGS_MOD_SHIP_DESIGN_OPTIONS_UI_DESC	| Options to change the settings controlling automatic ship design.
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research
@@ -4279,6 +4282,107 @@ SHIP_DESIGN_SPECIAL_SIZE          | Size
 SHIP_DESIGN_SPECIAL_POWER         | Power
 SHIP_DESIGN_SPECIAL_SPACE         | Space
 
+// Auto Design
+AUTO_SD_AI						| Trust AI
+AUTO_SD_AI_DESC					| Inspired by the tools used by Xilmi's AI family.
+AUTO_SD_SPECIES					| Species Attributes
+AUTO_SD_SPECIES_DESC			| Follow the instructions given to the species in their configuration files.
+AUTO_SD_USER					| Users Preferences
+AUTO_SD_USER_DESC				| Follow the instructions in this Panel.
+
+AUTO_SD_SIZE					| Auto Mode Size: %1
+AUTO_SD_SIZE_DESC				| What are the rules that the automatic ship designer should follow when choosing the hull dimension?
+AUTO_SD_SPACE					| Auto Mode Space: %1
+AUTO_SD_SPACE_DESC				| What are the rules that the automatic ship designer should follow when distributing available space?
+AUTO_SD_BOOLEAN					| Auto Mode Misc: %1
+AUTO_SD_BOOLEAN_DESC			| What are the rules that the automatic ship designer must follow when choosing other devices? (Maneuvers, chemical weapons, reinforced structure)
+AUTO_SD_SPECIAL					| Auto Mode Specials: %1
+AUTO_SD_SPECIAL_DESC			| What are the rules that the automatic ship designer should follow when choosing special devices?
+
+AUTO_SD_SPECIAL_TRUE			| Species Mode "Prioritize" Pct: %1%
+AUTO_SD_SPECIAL_TRUE_DESC		| When →AUTO_SD_SPECIES← are selected for the Specials: What weight should be given to the value "True"?
+AUTO_SD_SPECIAL_FALSE			| Species Mode "Avoid" Pct: %1%
+AUTO_SD_SPECIAL_FALSE_DESC		| When →AUTO_SD_SPECIES← are selected for the Specials: What weight should be given to the value "False"?
+
+AUTO_SD_COST_MULT_SMALL			| Small Hull Toll: %1%
+AUTO_SD_COST_MULT_MEDIUM		| Medium Hull Toll: %1%
+AUTO_SD_COST_MULT_LARGE			| Large Hull Toll: %1%
+AUTO_SD_COST_MULT_HUGE			| Huge Hull Toll: %1%
+AUTO_SD_COST_MULT_DESC			| hull Cost Adjustments. The higher the toll, the higher the estimated costs, the less likely that hull will be chosen.
+AUTO_SD_COST_MULT_SMALL_DESC	| Small →AUTO_SD_COST_MULT_DESC←
+AUTO_SD_COST_MULT_MEDIUM_DESC	| Medium →AUTO_SD_COST_MULT_DESC←
+AUTO_SD_COST_MULT_LARGE_DESC	| Large →AUTO_SD_COST_MULT_DESC←
+AUTO_SD_COST_MULT_HUGE_DESC		| Huge →AUTO_SD_COST_MULT_DESC←
+
+AUTO_SD_MODULE_SPACE			| Non Weapon Space: %1%
+AUTO_SD_MODULE_SPACE_DESC		| Distribution of remaining space after placing engines and computer.<br>Module space = space reserved for non weapons devices.
+
+AUTO_SD_WEIGHT_DESC				| Initial weighting of what isn't weapons for
+AUTO_SD_SHIELD_WEIGHT_FB		| Fighter & Bomber Shield: %1%
+AUTO_SD_SHIELD_WEIGHT_FB_DESC	| →AUTO_SD_WEIGHT_DESC← Fighter and Bomber Shields.
+AUTO_SD_SHIELD_WEIGHT_D			| Destroyer Shield: %1%
+AUTO_SD_SHIELD_WEIGHT_D_DESC	| →AUTO_SD_WEIGHT_DESC← Destroyer Shields.
+
+AUTO_SD_ECM_WEIGHT_FD			| Fighter & Destroyer ECM: %1%
+AUTO_SD_ECM_WEIGHT_FD_DESC		| →AUTO_SD_WEIGHT_DESC← Fighter and Destroyer ECM.
+AUTO_SD_ECM_WEIGHT_B			| Bomber ECM: %1%
+AUTO_SD_ECM_WEIGHT_B_DESC		| →AUTO_SD_WEIGHT_DESC← Bomber ECM.
+
+AUTO_SD_MANEUVER_WEIGHT_BD		| Bomber & Destroyer Maneuver: %1%
+AUTO_SD_MANEUVER_WEIGHT_BD_DESC	| →AUTO_SD_WEIGHT_DESC← Bomber and Destroyer Maneuver.
+AUTO_SD_MANEUVER_WEIGHT_F		| Fighter Maneuver: %1%
+AUTO_SD_MANEUVER_WEIGHT_F_DESC	| →AUTO_SD_WEIGHT_DESC← Fighter Maneuver.
+
+AUTO_SD_ARMOR_WEIGHT_FB			| Bomber & Destroyer Armor: %1%
+AUTO_SD_ARMOR_WEIGHT_FB_DESC	| →AUTO_SD_WEIGHT_DESC← Bomber and Destroyer Armor.
+AUTO_SD_ARMOR_WEIGHT_D			| Destroyer Armor: %1%
+AUTO_SD_ARMOR_WEIGHT_D_DESC		| →AUTO_SD_WEIGHT_DESC← Destroyer Armor.
+
+AUTO_SD_SPECIALS_WEIGHT			| Special Devices: %1%
+AUTO_SD_SPECIALS_WEIGHT_DESC	| →AUTO_SD_WEIGHT_DESC← Special Devices.
+
+AUTO_SD_SPEED_MATCHING			| Same Combat Speed: %1%
+AUTO_SD_SPEED_MATCHING_DESC		| Are higher maneuver level with same combat speed allowed?<br>When choosing maneuver engine, increasing the level may not result in an increased combat speed.
+AUTO_SD_REINFORCED_ARMOR		| Reinforced Armor: %1%
+AUTO_SD_REINFORCED_ARMOR_DESC	| Are Reinforced Armor allowed?
+AUTO_SD_BIO_WEAPONS				| Biological Weapons: %1%
+AUTO_SD_BIO_WEAPONS_DESC		| Are Biological Weapons allowed?
+
+AUTO_SD_PREF_DESC				| What priority should be given to these special devices?
+AUTO_SD_PREF_PULSARS			| Pulsars: %1%
+AUTO_SD_PREF_PULSARS_DESC		| →AUTO_SD_PREF_DESC← Pulsars devices
+AUTO_SD_PREF_CLOAK				| Cloaking devices: %1%
+AUTO_SD_PREF_CLOAK_DESC			| →AUTO_SD_PREF_DESC← Cloaking devices
+AUTO_SD_PREF_REPAIR				| Auto Repair: %1%
+AUTO_SD_PREF_REPAIR_DESC		| →AUTO_SD_PREF_DESC← Auto Repair devices
+AUTO_SD_PREF_INERTIAL			| Inertial devices: %1%
+AUTO_SD_PREF_INERTIAL_DESC		| →AUTO_SD_PREF_DESC← Inertial devices
+AUTO_SD_PREF_MISS_SHIELD		| Missile shields: %1%
+AUTO_SD_PREF_MISS_SHIELD_DESC	| →AUTO_SD_PREF_DESC← Missile shields devices
+AUTO_SD_PREF_REPULSOR			| Repulsor: %1%
+AUTO_SD_PREF_REPULSOR_DESC		| →AUTO_SD_PREF_DESC← Repulsor devices
+AUTO_SD_PREF_STASIS				| Stasis Fields: %1%
+AUTO_SD_PREF_STASIS_DESC		| →AUTO_SD_PREF_DESC← Stasis Fields devices
+AUTO_SD_PREF_STREAM_PROJ		| Stream Projector: %1%
+AUTO_SD_PREF_STREAM_PROJ_DESC	| →AUTO_SD_PREF_DESC← Stream Projector devices
+AUTO_SD_PREF_WARP_DISSIP		| Warp Dissipator: %1%
+AUTO_SD_PREF_WARP_DISSIP_DESC	| →AUTO_SD_PREF_DESC← Warp Dissipator devices
+AUTO_SD_PREF_TECH_NULLIF		| Technology Nullifier: %1%
+AUTO_SD_PREF_TECH_NULLIF_DESC	| →AUTO_SD_PREF_DESC← Technology Nullifier devices
+AUTO_SD_PREF_BEAM_FOCUS			| Beam Focus: %1%
+AUTO_SD_PREF_BEAM_FOCUS_DESC	| →AUTO_SD_PREF_DESC← High Energy Focus and Oracle Interface devices
+
+HEADERS_AUTO_SD_SIZE			| ~~~ HULL COST ADJUSTMENTS ~~~
+HEADERS_AUTO_SD_SIZE_DESC		| Hull cost adjustments. Higher means estimated costs more, means less likely to build.
+HEADERS_AUTO_SD_SPACE			| ~~~ SPACE DISTRIBUTION ~~~
+HEADERS_AUTO_SD_SPACE_DESC		| Arbitrary initial weighting of what isn't weapons.
+HEADERS_AUTO_SD_SPECIAL			| ~~~ SPECIAL DEVICES PREFERENCES ~~~
+HEADERS_AUTO_SD_SPECIAL_DESC	| To add these devices to the list of preferred special devices.
+HEADERS_AUTO_SD_PREF			| ~~~ FUNCTIONALITY PREFERENCES ~~~
+HEADERS_AUTO_SD_PREF_DESC		| Preferences for general ship functionality.
+HEADERS_AUTO_SD_MODE			| ~~~ AUTO DESIGN MODE ~~~
+HEADERS_AUTO_SD_MODE_DESC		| Which design tool to use?
+
 // Ship Design help
 SHIP_DESIGN_HELP_ALL              | OVERVIEW - an empire can have up to six active ship designs. For each design, choose a hull size then fill it with various components such as armor, shields and weapons. Each component has a size, power and cost. The total space required for a component is its size plus the size of the number of engines needed to power it. Once deployed, a ship design can be constructed in any of your colonies.
 SHIP_DESIGN_HELP_1A               | Size - larger hull sizes add cost but provide more space.
@@ -4321,6 +4425,7 @@ SHIP_DESIGN_HELP_4G               | Deploy Design - when your new design is comp
 SHIP_DESIGN_HELP_4H               | Auto Scout - →GOVERNOR_AUTO_SCOUT_DESC←
 SHIP_DESIGN_HELP_4I               | Auto Attack - →GOVERNOR_AUTO_ATTACK_DESC←
 SHIP_DESIGN_HELP_4J               | Auto Colonize - →GOVERNOR_AUTO_COLONIZE_DESC←
+SHIP_DESIGN_HELP_4K               | Default Design selection:<br>When deleting a design, colonies linked to it will replace it with the default design. Likewise after building a Stargate.<br>When no active default design is selected, the first active design (from top to bottom) will be used.
 
 // Ship Combat UI
 SHIP_COMBAT_TITLE_SYSTEM          | Ship Combat at %1!
@@ -5516,29 +5621,29 @@ HK_SEL_E       | Spending to 100% / Smart Max / Lock / Unlock
 HK_SET_DEFAULT | <br>Alt-F : Set Default Values to →FUSION_HK←.<br>Alt-M : Set Default Values to →MOO1_HK←.<br>Alt-R : Set Default Values to →CLASSIC_HK←.
 
 // Shortcuts Full lists*
-MAIN_HELP_SHIPFLEET_HK | HOTKEY WHEN FLEET IS SELECTED:<br><br>H : Show more detailed info (if known)<br><br><br>SHIP RELOCATION MODE:<br><br>Press "ALT" to show info on the hovered star or fleet.
+MAIN_HELP_SHIPFLEET_HK	| HOTKEY WHEN FLEET IS SELECTED:<br><br>H : Show more detailed info (if known)<br><br><br>SHIP RELOCATION MODE:<br><br>Press "ALT" to show info on the hovered star or fleet.
 
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>H : Show known characteristics of fleet under the cursor<br><br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>W : Toggle war view mode showing only the fleets targeting the planet in danger.<br>        (Auto off when selected planet is not in danger)<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/Page Down/Page Up : Next/Previous player Idle fleet (Shift: Auto but Idle) →HK_FLAG_LOOP←<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br>ALT-W : Toggle square grid <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mouse wheel : Increment quantities/moves slider<br>→HK_ESCAPE←
+MAIN_HELP_HK			| →HK_HEADER← →HK_F1←<br>H : Show known characteristics of fleet under the cursor<br><br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>W : Toggle war view mode showing only the fleets targeting the planet in danger.<br>        (Auto off when selected planet is not in danger)<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/Page Down/Page Up : Next/Previous player Idle fleet (Shift: Auto but Idle) →HK_FLAG_LOOP←<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br>ALT-W : Toggle square grid <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mouse wheel : Increment quantities/moves slider<br>→HK_ESCAPE←
 
-PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Multi selection too)<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S→HK_SEL_B← Ship →HK_SEL_E←<br>D→HK_SEL_B← Defense →HK_SEL_E←<br>W→HK_SEL_B← Industry →HK_SEL_E←<br>E→HK_SEL_B← Ecology →HK_SEL_E←<br>R→HK_SEL_B← Research →HK_SEL_E←<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
+PLANETS_HELP_HK			| →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Multi selection too)<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S→HK_SEL_B← Ship →HK_SEL_E←<br>D→HK_SEL_B← Defense →HK_SEL_E←<br>W→HK_SEL_B← Industry →HK_SEL_E←<br>E→HK_SEL_B← Ecology →HK_SEL_E←<br>R→HK_SEL_B← Research →HK_SEL_E←<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
 
-FLEETS_HELP_HK       | →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
+FLEETS_HELP_HK			| →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
 
 // !!!
 // Do not remove the space between ">" & "=" because of confusion with ">=" wish is replaced by "&gt;="
 // !!!
-TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : Increment/Decrement categories.<br>CTRL+1-6 : Lock sliders.<br>Arrows : Move Tree / Categories<br> = : Equalize<br>mouse wheel : Increment quantities/moves slider.<br><br>A, F : Show/Hide Free tech<br>G, H, I, or Right Click: Show more info on hovered tech <br> →HK_ESCAPE←
+TECH_HELP_HK			| →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : Increment/Decrement categories.<br>CTRL+1-6 : Lock sliders.<br>Arrows : Move Tree / Categories<br> = : Equalize<br>mouse wheel : Increment quantities/moves slider.<br><br>A, F : Show/Hide Free tech<br>G, H, I, or Right Click: Show more info on hovered tech <br> →HK_ESCAPE←
 
-SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Slot.<br><br>S : Scrap Design.<br>R : Rename Design.<br>D : Create Design.<br>C / (+CTRL) : Clear Design / (Only Weapons)<br><br>ALT-A : Auto build.<br>ALT-B : Auto build Bomber.<br>ALT-F : Auto build Fighter.<br>ALT-E : Auto build Scout (Explorer).<br>ALT-P : Auto build Colony (Pioneer). <br>→HK_ESCAPE←
+SHIP_DESIGN_HELP_HK		| →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Slot<br><br>S : Scrap Design<br>R : Rename Design<br>D : Create Design<br>C / (+CTRL) : Clear Design / (Only Weapons)<br>O : Open the Ship Design Options Panel<br><br>(Shift) Alt-A : Auto build<br>(Shift) Alt-B : Auto build Bomber ship<br>(Shift) Alt-E : Auto build Scout ship (Explorer)<br>(Shift) Alt-F : Auto build Fighter ship<br>(Shift) Alt-G : Auto build Beam ship (Gun)<br>(Shift) Alt-H : Auto build Hybrid ship (Bomb + Beam + Missile)<br>(Shift) Alt-I : Auto build Interceptor ship (Quick Hybrid, few Bombs)<br>(Shift) Alt-M : Auto build Missile ship<br>(Shift) Alt-P : Auto build Colony ship (Pioneer)<br>Shift-Alt : Allows changing the hull size<br>→HK_ESCAPE←
 
-RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Empire. →HK_TAB←<br><br>A : →RACES_DIPLOMACY_AUDIENCE← with the selected Empire.<br><br>When the player's empire is selected:<br>D : →RACES_DIPLOMACY_MANAGE_DIPLOMATS←.<br>S : →RACES_INTEL_BUREAU_MANAGE←. <br>→HK_ESCAPE←
+RACES_HELP_HK			| →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Empire. →HK_TAB←<br><br>A : →RACES_DIPLOMACY_AUDIENCE← with the selected Empire.<br><br>When the player's empire is selected:<br>D : →RACES_DIPLOMACY_MANAGE_DIPLOMATS←.<br>S : →RACES_INTEL_BUREAU_MANAGE←. <br>→HK_ESCAPE←
 
-SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_YEAR← →HK_FLAG← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
+SYSTEMS_HELP_HK			| →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_YEAR← →HK_FLAG← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
 
-SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_GUIDE← <br><br>B : Toggle submenus call buttons. →HK_FOG← <br>T : Go to Tune Galaxy Menu. <br>→HK_SET_DEFAULT← <br><br>Enter : Start a new Game. <br><br>M : Go to Main Menu.<br>Escape : Go to Player Setup Panel.
+SETUP_GALAXY_HELP_HK	| →HK_HEADER← →HK_F1← →HK_GUIDE← <br><br>B : Toggle submenus call buttons. →HK_FOG← <br>T : Go to Tune Galaxy Menu. <br>→HK_SET_DEFAULT← <br><br>Enter : Start a new Game. <br><br>M : Go to Main Menu.<br>Escape : Go to Player Setup Panel.
 
-SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>N : Open Name Player Species Sub Menu. <br>R : Random Species.<br>→HK_SET_DEFAULT← <br><br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
+SETUP_RACE_HELP_HK		| →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>N : Open Name Player Species Sub Menu. <br>R : Random Species.<br>→HK_SET_DEFAULT← <br><br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
 
-MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. <br>→HK_SET_DEFAULT←<br>→HK_GUIDE← <br>→HK_ESCAPE←
+MOD_OPTIONS_HELP_HK		| <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. <br>→HK_SET_DEFAULT←<br>→HK_GUIDE← <br>→HK_ESCAPE←
 
-SETUP_GAME_HELP_HK   | H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N : New Game.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.<br><br>PAGE_UP / PAGE_DOWN: (Work in progress)<br>      Open / Close Console for the visually impaired people.
+SETUP_GAME_HELP_HK		| H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N : New Game.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.<br><br>PAGE_UP / PAGE_DOWN: (Work in progress)<br>      Open / Close Console for the visually impaired people.

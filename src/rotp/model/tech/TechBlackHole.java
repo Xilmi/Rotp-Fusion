@@ -15,13 +15,16 @@
  */
 package rotp.model.tech;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Stroke;
+
 import rotp.model.combat.CombatStack;
 import rotp.model.empires.Empire;
 import rotp.model.ships.ShipSpecialBlackHole;
 import rotp.ui.BasePanel;
 import rotp.ui.combat.ShipBattleUI;
-
-import java.awt.*;
 
 public final class TechBlackHole extends Tech {
     public int range = 1;
@@ -59,6 +62,7 @@ public final class TechBlackHole extends Tech {
         super.provideBenefits(c);
         ShipSpecialBlackHole sh = new ShipSpecialBlackHole(this);
         c.shipLab().addSpecial(sh);
+        c.tech().hasBlackHoleTech(true);
     }
 
     @Override

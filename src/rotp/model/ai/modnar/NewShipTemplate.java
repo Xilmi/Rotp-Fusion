@@ -18,19 +18,16 @@ package rotp.model.ai.modnar;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.SortedMap; 
+import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.Iterator;
 
-import rotp.model.ai.EnemyShipTarget;
 import rotp.model.ai.EnemyColonyTarget;
+import rotp.model.ai.EnemyShipTarget;
 import rotp.model.ai.interfaces.ShipDesigner;
-
+import rotp.model.ai.interfaces.ShipTemplate;
 import rotp.model.empires.Empire;
-import rotp.model.empires.EmpireView;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.StarSystem;
-
 import rotp.model.ships.ShipArmor;
 import rotp.model.ships.ShipComputer;
 import rotp.model.ships.ShipDesign;
@@ -41,71 +38,27 @@ import rotp.model.ships.ShipSpecial;
 import rotp.model.ships.ShipWeapon;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechTree;
-import rotp.util.Base;
 
-public class NewShipTemplate implements Base {
-    private static final List<DesignDamageSpec> dmgSpecs = new ArrayList<>();
-    private static final NewShipTemplate instance = new NewShipTemplate();
-    private static final ShipDesign mockDesign = new ShipDesign();
+public class NewShipTemplate extends ShipTemplate {
+    public static final NewShipTemplate newShipTemplate = new NewShipTemplate();
 
-    enum DesignType { FIGHTER, BOMBER, DESTROYER };
-
-    // indices for race shipDesignMods
-    public static final int COST_MULT_S = 0;
-    public static final int COST_MULT_M = 1;
-    public static final int COST_MULT_L = 2;
-    public static final int COST_MULT_H = 3;
-    public static final int MODULE_SPACE = 4;
-    public static final int SHIELD_WEIGHT_FB = 5;
-    public static final int SHIELD_WEIGHT_D = 6;
-    public static final int ECM_WEIGHT_FD = 7;
-    public static final int ECM_WEIGHT_B = 8;
-    public static final int MANEUVER_WEIGHT_BD = 9;
-    public static final int MANEUVER_WEIGHT_F = 10;
-    public static final int ARMOR_WEIGHT_FB = 11;
-    public static final int ARMOR_WEIGHT_D = 12;
-    public static final int SPECIALS_WEIGHT = 13;
-    public static final int SPEED_MATCHING = 14;
-    public static final int REINFORCED_ARMOR = 15;
-    public static final int BIO_WEAPONS = 16;
-    public static final int PREF_PULSARS = 17;
-    public static final int PREF_CLOAK = 18;
-    public static final int PREF_REPAIR = 19;
-    public static final int PREF_INERTIAL = 20;
-    public static final int PREF_MISS_SHIELD = 21;
-    public static final int PREF_REPULSOR = 22;
-    public static final int PREF_STASIS = 23;
-    public static final int PREF_STREAM_PROJECTOR = 24;
-    public static final int PREF_WARP_DISSIPATOR = 25;
-    public static final int PREF_TECH_NULLIFIER = 26;
-    public static final int PREF_BEAM_FOCUS = 27;
-    
-
-    public static ShipDesign newFighterDesign(ShipDesigner ai) {
-        return instance.bestDesign(ai, DesignType.FIGHTER);
-    }
-    public static ShipDesign newBomberDesign(ShipDesigner ai) {
-        return instance.bestDesign(ai, DesignType.BOMBER);
-    }
-    public static ShipDesign newDestroyerDesign(ShipDesigner ai) {
-        return instance.bestDesign(ai, DesignType.DESTROYER);
-    }
-
-    private ShipDesign bestDesign(ShipDesigner ai, DesignType role) {
+    @Override protected ShipDesign bestDesign(ShipDesigner ai, DesignType role) {
         // up to three empires with worst relations, may include allies and ourselves
         List<TechTree> rivalsTech = assessRivalsTech(ai.empire(), 3);
         List<EnemyShipTarget> shipTargets = buildShipTargetList(rivalsTech);
         List<EnemyColonyTarget> colonyTargets = buildColonyTargetList(rivalsTech);
         
         Race race = ai.empire().dataRace();
-        
+
         // get the current design that we are considering replace
         ShipDesign currentDesign = null;
         switch (role) {
-            case FIGHTER:   currentDesign = ai.lab().fighterDesign(); break;
             case BOMBER:    currentDesign = ai.lab().bomberDesign(); break;
             case DESTROYER: currentDesign = ai.lab().destroyerDesign(); break;
-        }
+            case FIGHTER:
+            default:
+            	currentDesign = ai.lab().fighterDesign(); break;
+         }
 
         // create a blank design, one for each size. Add the current design as a 5th entry
         ShipDesign[] shipDesigns = new ShipDesign[5];
@@ -131,7 +84,7 @@ public class NewShipTemplate implements Base {
             costMultiplier[3] *= 1.05f;
             costMultiplier[4] = (float) (costMultiplier[4] * (1.0f + 0.05f*(currentDesign.size() - 2)));
         }
-        
+
         // how many ships of each design can we build for virtual tests?
         // use top 5 colonies, with 50% production for ships
         
@@ -148,24 +101,24 @@ public class NewShipTemplate implements Base {
         
         for (int i = 0; i<costMultiplier.length; i++) {
             ShipDesign design = shipDesigns[i];
-            
+
             // number of whole designs we can build within our budget
             // modnar: change to float, in order to consider fractional damage/BC
             float count = (float) (shipBudgetBC / (design.cost() * costMultiplier[i]));
             // modnar: do not consider designs which cannot be build with shipBudgetBC
             if (count < 1.0f)
                 count = 0.0f;
-            
+
             // modnar: add in warp speed improvement factor here
             // otherwise a faster ship design would never make it out for the ship designer to consider!
             // one level increase in engine == ~1.22x (from warp-1 to warp 2), ~1.12x (from warp-3 to warp 4), ~1.07x (from warp-6 to warp 7)
             float engineImprv = (float) Math.sqrt( (design.warpSpeed() + 1) / (currentDesign.warpSpeed() + 1) );
-            
+
             // total damage output for this design
             // modnar: adjust by warp speed improvement factor
             float designDamage = count * design.perTurnDamage() * engineImprv; 
             designSorter.put(designDamage, design);
-        }     
+        }
         // lastKey is design with greatest damage
         return designSorter.get(designSorter.lastKey()); 
     }
@@ -180,7 +133,7 @@ public class NewShipTemplate implements Base {
         // modnar: due to possible cost/space issues at different hull sizes,
         // don't set best computer, and don't set computers here
         //setBestBattleComputer(ai, d); 
-        
+
         float totalSpace = d.availableSpace();
         Race race = ai.empire().dataRace();
 
@@ -200,7 +153,7 @@ public class NewShipTemplate implements Base {
         int shieldWeight = role == DesignType.DESTROYER ? (int) race.shipDesignMods[SHIELD_WEIGHT_D]: (int) race.shipDesignMods[SHIELD_WEIGHT_FB] ;
         // ECM Weight: default 1, bombers 3
         int ecmWeight = role == DesignType.BOMBER ? (int) race.shipDesignMods[ECM_WEIGHT_B]: (int) race.shipDesignMods[ECM_WEIGHT_FD];    
-        // Maneuver Weight: default 2, figters/alkari/mrrshan 4
+        // Maneuver Weight: default 2, fighters/alkari/mrrshan 4
         int maneuverWeight = role == DesignType.FIGHTER ? (int) race.shipDesignMods[MANEUVER_WEIGHT_F]: (int) race.shipDesignMods[MANEUVER_WEIGHT_BD];
         // Armor Weight: default 2, destroyers/bulrathi/silicoid 3
         int armorWeight = role == DesignType.DESTROYER ? (int) race.shipDesignMods[ARMOR_WEIGHT_D]: (int) race.shipDesignMods[ARMOR_WEIGHT_FB]; 
@@ -215,11 +168,11 @@ public class NewShipTemplate implements Base {
         // modnar: don't allow Reinforced Armor, force reinforcedArmorAllowed to be false
         // reinforcedArmorAllowed = false;
         // Allow Bio Weapons: default false, silicoid true  (adjusted elsewhere for leader type)
-        boolean allowBioWeapons = race.shipDesignMods[BIO_WEAPONS] > 0;  
-        
+        boolean allowBioWeapons = race.shipDesignMods[BIO_WEAPONS] > 0;
+
         // if we have a large ship, let's let the AI use more specials; it may have to differentiate designs more
         if (size >= ShipDesign.LARGE)
-            specialsWeight += 1; 
+            specialsWeight += 1;
 
         // xenophobes will bio-bomb regardless of racial preferences
         if (role == DesignType.BOMBER) {
@@ -243,7 +196,7 @@ public class NewShipTemplate implements Base {
         // after installing a system we'll inevitably have leftovers
         // so the order of placing the systems will have a minor impact on the ship's design
         // the systems that come first will be most tightly constrained, the systems that come in the end will be more free
-        
+
         // modnar: seems like only the first system in the order will be constrained
         // other later systems will have extra space but the amount will be uncertain
         // (depending on how well the previous component was able to fit)
@@ -266,7 +219,7 @@ public class NewShipTemplate implements Base {
                 leftovers += setFittingManeuver(ai, d, maneuverSpace + leftovers, sameSpeedAllowed);
                 setFittingECM(ai, d, ecmSpace + leftovers);
                 break;
-            case FIGHTER:
+            case DESTROYER: 
                 //leftovers += setFittingArmor(ai, d, armorSpace + leftovers, reinforcedArmorAllowed);
                 leftovers += setFittingSpecial(ai, d, specialsSpace, raceSpecials);
                 leftovers += setFittingBattleComputer(ai, d, computerSpace + leftovers);
@@ -274,7 +227,8 @@ public class NewShipTemplate implements Base {
                 leftovers += setFittingManeuver(ai, d, maneuverSpace + leftovers, sameSpeedAllowed);
                 setFittingECM(ai, d, ecmSpace + leftovers);
                 break;
-            case DESTROYER: 
+            case FIGHTER:
+            default:
                 //leftovers += setFittingArmor(ai, d, armorSpace + leftovers, reinforcedArmorAllowed);
                 leftovers += setFittingSpecial(ai, d, specialsSpace, raceSpecials);
                 leftovers += setFittingBattleComputer(ai, d, computerSpace + leftovers);
@@ -290,7 +244,7 @@ public class NewShipTemplate implements Base {
         // what's left will be used on non-bombs for bombers, second best weapon for destroyers
         // repeat calls of setOptimalShipCombatWeapon() will result in a weapon from another category (beam, missile, streaming) than already installed
         // fighters will have a single best weapon over all four slots
-        
+
         // modnar: change weapon space ratios for different Hull sizes, adjust bomb space
         // Bomber:     Small (1.0f)  Medium (0.8f)  Large (0.6f)  Huge (0.4f)
         // add some bombs for Destroyers
@@ -329,11 +283,6 @@ public class NewShipTemplate implements Base {
                 setOptimalShipCombatWeapon(ai, d, shipTargets, d.availableSpace(), 1); // uses slot 1
                 setPerTurnBombDamage(d, ai.empire());
                 break;
-            case FIGHTER:
-                setOptimalShipCombatWeapon(ai, d, shipTargets, d.availableSpace(), 4); // uses slots 0-3
-                upgradeBeamRangeSpecial(ai, d);
-                setPerTurnShipDamage(d, ai.empire());
-                break;
             case DESTROYER:
                 setOptimalBombardmentWeapon(ai, d, colonyTargets, destroyerBombSpaceRatio*d.availableSpace(), false); // modnar: include some bombs on destroyers, uses slot 0
                 setOptimalShipCombatWeapon(ai, d, shipTargets, firstWeaponSpaceRatio * d.availableSpace(), 2); // uses slots 1-2
@@ -341,8 +290,14 @@ public class NewShipTemplate implements Base {
                 upgradeBeamRangeSpecial(ai, d);
                 setPerTurnShipDamage(d, ai.empire());
                 break;
+            case FIGHTER:
+            default:
+                setOptimalShipCombatWeapon(ai, d, shipTargets, d.availableSpace(), 4); // uses slots 0-3
+                upgradeBeamRangeSpecial(ai, d);
+                setPerTurnShipDamage(d, ai.empire());
+                break;
         }
-        
+
         // modnar: "loop" through key components a second time
         // allow same speed maneuver
         switch (role) {
@@ -352,20 +307,21 @@ public class NewShipTemplate implements Base {
                 setFittingECM(ai, d, d.availableSpaceForECMSlot());
                 setFittingShields(ai, d, d.availableSpaceForShieldSlot());
                 break;
-            case FIGHTER:
-                setFittingManeuver(ai, d, d.availableSpaceForManeuverSlot(), true);
-                setFittingBattleComputer(ai, d, d.availableSpaceForComputerSlot());
-                setFittingShields(ai, d, d.availableSpaceForShieldSlot());
-                setFittingECM(ai, d, d.availableSpaceForECMSlot());
-                break;
             case DESTROYER:
                 setFittingManeuver(ai, d, d.availableSpaceForManeuverSlot(), true);
                 setFittingBattleComputer(ai, d, d.availableSpaceForComputerSlot());
                 setFittingShields(ai, d, d.availableSpaceForShieldSlot());
                 setFittingECM(ai, d, d.availableSpaceForECMSlot());
                 break;
+            case FIGHTER:
+            default:
+                setFittingManeuver(ai, d, d.availableSpaceForManeuverSlot(), true);
+                setFittingBattleComputer(ai, d, d.availableSpaceForComputerSlot());
+                setFittingShields(ai, d, d.availableSpaceForShieldSlot());
+                setFittingECM(ai, d, d.availableSpaceForECMSlot());
+                break;
         }
-        
+
         ai.lab().nameDesign(d);
         ai.lab().iconifyDesign(d);
         return d;
@@ -387,7 +343,7 @@ public class NewShipTemplate implements Base {
                 return;
         }
     } */
-    
+
     // modnar: add setFittingBattleComputer
     private float setFittingBattleComputer(ShipDesigner ai, ShipDesign d, float spaceAllowed) {
         float initialSpace = d.availableSpace();
@@ -444,7 +400,7 @@ public class NewShipTemplate implements Base {
         for (int i=armors.size()-1; (i >=0) && (!foundIt); i--) {
             ShipArmor arm = armors.get(i);
 
-            // as we go backwards from the bestest armor to the worsest,
+            // as we go backwards from the best armor to the worst,
             // a better armor should always be chosen before the reinforced one if it exists due to smaller size
             // some races will just never use reinforced armor, I believe, the ones that prefer smaller ships
             if (!arm.reinforced() || (reinforcedArmorAllowed)) {
@@ -550,56 +506,56 @@ public class NewShipTemplate implements Base {
         boolean preferTechNullifier = race.shipDesignMods[PREF_TECH_NULLIFIER] > 0;
         // Psilon
         boolean preferBeamFocus = race.shipDesignMods[PREF_BEAM_FOCUS] > 0;
-        
+
         // 3 - Racially preferred specials
         for (ShipSpecial spec: allSpecials) {
             Tech tech = spec.tech();
             if ((tech != null) && !spec.isColonySpecial() && !spec.isFuelRange() ) {
                 if (preferPulsars && tech.isType(Tech.ENERGY_PULSAR))
-                    specials.add(spec); 
+                    specials.add(spec);
                 if (preferCloak && tech.isType(Tech.CLOAKING))
-                    specials.add(spec); 
+                    specials.add(spec);
                 if (preferRepair  && tech.isType(Tech.AUTOMATED_REPAIR))
-                    specials.add(spec); 
+                    specials.add(spec);
                 if (preferInertial && tech.isType(Tech.SHIP_INERTIAL))
-                    specials.add(spec); 
+                    specials.add(spec);
                 if (preferMissileShield && tech.isType(Tech.MISSILE_SHIELD))
-                    specials.add(spec); 
+                    specials.add(spec);
                 if (preferRepulsor && tech.isType(Tech.REPULSOR))
-                    specials.add(spec); 
+                    specials.add(spec);
                 if (preferStasisField && tech.isType(Tech.STASIS_FIELD))
-                    specials.add(spec); 
+                    specials.add(spec);
                 if (preferStreamProjector && tech.isType(Tech.STREAM_PROJECTOR))
-                    specials.add(spec); 
+                    specials.add(spec);
                 if (preferWarpDissipator && tech.isWarpDissipator())
-                    specials.add(spec); 
+                    specials.add(spec);
                 if (preferTechNullifier && tech.isTechNullifier())
-                    specials.add(spec); 
+                    specials.add(spec);
                 if (preferBeamFocus && tech.isType(Tech.BEAM_FOCUS))
-                    specials.add(spec); 
+                    specials.add(spec);
             }
         }
 
         // 4 - Subspace Teleporter & Black Hole Generator
         for (ShipSpecial spec: allSpecials) {
-            if (spec.allowsTeleporting() || spec.createsBlackHole()) 
+            if (spec.allowsTeleporting() || spec.createsBlackHole())
                 specials.add(spec);
         }
-        return specials; 
+        return specials;
     }
 
     private float setFittingSpecial(ShipDesigner ai, ShipDesign d, float spaceAllowed, ArrayList<ShipSpecial> specials) {
         int nextSlot = d.nextEmptySpecialSlot();
         if (nextSlot < 0)
             return spaceAllowed;
-        
-        float initialSpace = d.availableSpace();  
+
+        float initialSpace = d.availableSpace();
         boolean foundIt = false;
-        
+
         for (int i=specials.size()-1; (i >=0) && (!foundIt); i--) {
             d.special(nextSlot,specials.get(i));
             if ((initialSpace - d.availableSpace()) <= spaceAllowed)
-                foundIt = true;           
+                foundIt = true;
         }
         return (spaceAllowed - (initialSpace - d.availableSpace()));
     }
@@ -670,51 +626,6 @@ public class NewShipTemplate implements Base {
             totalShipProduction += systemsProduction.get(i);
 
         return totalShipProduction;
-    }
-
-    public static List<TechTree> assessRivalsTech(Empire emp, int rivalsNum) {
-        List<TechTree> rivalTech = new ArrayList<>();
-        SortedMap<Float, EmpireView> relationsMap = new TreeMap<>();
-
-        // sorting all known empires by the relations with them, ascending
-        for (EmpireView ev : emp.empireViews()) {
-            if (ev != null)
-                relationsMap.put(ev.embassy().relations(), ev);
-        }
-
-        // yeah, sorry, that was the most straightforward Java-ish method I found to get top three
-        if (!relationsMap.isEmpty()) { 
-            Iterator<EmpireView> worstNeighbors = relationsMap.values().iterator();
-            for (int i = 0; (i < rivalsNum) && (worstNeighbors.hasNext()); i++) {
-                rivalTech.add(worstNeighbors.next().spies().tech());
-            }
-        }
-        
-        // if we have less known empires than rivalsNum, add ourselves into the list
-        if (rivalTech.size() < rivalsNum) {
-            rivalTech.add(emp.tech());
-        }
-        return rivalTech;
-    }
-
-    // probably both buildShipTargetList and buildColonyTargetList should be templated or something
-    public static List<EnemyShipTarget> buildShipTargetList(List<TechTree> rivals) {
-        List<EnemyShipTarget> shipTargets = new ArrayList<>();
-
-        for (TechTree tt : rivals) {
-            if (tt != null)
-                shipTargets.add(new EnemyShipTarget(tt));
-        }
-        return shipTargets;
-    }
-    public static List<EnemyColonyTarget> buildColonyTargetList(List<TechTree> rivals) {
-        List<EnemyColonyTarget> colonyTargets = new ArrayList<>();
-        
-        for (TechTree tt : rivals) {
-            if (tt != null)
-                colonyTargets.add(new EnemyColonyTarget(tt));
-        }
-        return colonyTargets;
     }
 ////////////////////////////////////////////////////
 
@@ -788,7 +699,7 @@ public class NewShipTemplate implements Base {
             int maxSlots = weaponSlotsOccupied + numSlotsToUse;
             if (maxSlots > ShipDesign.maxWeapons)
                 maxSlots = ShipDesign.maxWeapons;
-            
+
             for (int slot=weaponSlotsOccupied; slot<maxSlots;slot++) {
                 int numSlot = (int) Math.ceil((float)num/(maxSlots-slot));
                 if (numSlot > 0) {
@@ -917,7 +828,7 @@ public class NewShipTemplate implements Base {
         return spec;
     }
 
-    public static void setPerTurnShipDamage(ShipDesign d, Empire emp) {
+    private void setPerTurnShipDamage(ShipDesign d, Empire emp) {
         List<EnemyShipTarget> targets = buildShipTargetList(assessRivalsTech(emp, 3)); // may prove a source of bugs, needs access to a built target list
         float minDamage = Float.MAX_VALUE;
         for (EnemyShipTarget tgt: targets) {
@@ -926,7 +837,7 @@ public class NewShipTemplate implements Base {
         }
         d.perTurnDamage(minDamage);
     }
-    public static void setPerTurnBombDamage(ShipDesign d, Empire emp) {
+    private void setPerTurnBombDamage(ShipDesign d, Empire emp) {
         List<EnemyColonyTarget> targets = buildColonyTargetList(assessRivalsTech(emp,3));  // may prove a source of bugs, needs access to a built target list
         float minDamage = Float.MAX_VALUE;
         for (EnemyColonyTarget tgt: targets) {
@@ -936,7 +847,7 @@ public class NewShipTemplate implements Base {
         d.perTurnDamage(minDamage);
     }
 
-    public static float estimatedShipDamage(ShipDesign d, EnemyShipTarget target) {
+    private float estimatedShipDamage(ShipDesign d, EnemyShipTarget target) {
         List<ShipSpecial> rangeSpecials = new ArrayList<>();
         for (int i=0;i<d.maxSpecials();i++) {
             ShipSpecial sp = d.special(i);
@@ -968,56 +879,4 @@ public class NewShipTemplate implements Base {
         }
         return totalDamage;
     }
-    public static float estimatedBombDamage(ShipDesign d, EnemyColonyTarget target) {
-        float totalDamage = 0;
-        for (int i=0;i<ShipDesign.maxWeapons();i++) {
-            float wpnDamage;
-            ShipWeapon wpn = d.weapon(i);
-            if (!wpn.groundAttacksOnly())
-                wpnDamage = 0;
-            else {
-                wpnDamage = d.wpnCount(i) * wpn.firepower(target.shieldLevel);
-                // +15% damage for each weapon computer level
-                // this estimates increased dmg from +hit
-                wpnDamage *= (1+ (.15*wpn.computerLevel()));
-            }
-            totalDamage += wpnDamage;
-        }
-        return totalDamage;
-    }
-////////////////////////////////////////////////////
-
-
-// ********** DESIGNDAMAGESPEC-RELATED ********** //
-
-    private DesignDamageSpec newDamageSpec() {
-        if (dmgSpecs.isEmpty())
-            return new DesignDamageSpec();
-        else
-            return dmgSpecs.remove(0);
-    }
-    /* private boolean ineffective(ShipDesign d) {
-        return d.perTurnDamage() == 0;
-    } */
-    class DesignDamageSpec {
-        public int numWeapons = 0;
-        public ShipWeapon weapon;
-        public ShipSpecial special;
-        public float damage;
-        public void set(DesignDamageSpec spec) {
-            numWeapons = spec.numWeapons;
-            weapon = spec.weapon;
-            special = spec.special;
-            damage = spec.damage;
-            spec.reclaim();
-        }
-        public void reclaim() {
-            numWeapons = 0;
-            weapon = null;
-            special = null;
-            damage = 0;
-            dmgSpecs.add(this);
-        }
-    }
-////////////////////////////////////////////////////
 }

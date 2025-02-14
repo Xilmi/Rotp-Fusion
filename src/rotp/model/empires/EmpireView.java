@@ -61,7 +61,11 @@ public final class EmpireView implements Base, Serializable {
             otherView = empire.viewForEmpire(owner);
         return otherView;
     }
-    public void validateOnLoad() { embassy.validateOnLoad(); } // For backward compatibility
+	public void validateOnLoad() { // For backward compatibility
+		embassy.validateOnLoad();
+		if (owner().isPlayer()) // Variables not used by AI
+			spies.validateOnLoad();
+	}
     public EmpireView(Empire o, Empire c) {
         empire = c;
         owner = o;

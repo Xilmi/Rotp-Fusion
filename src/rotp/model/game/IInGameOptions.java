@@ -11,7 +11,7 @@ import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 
-public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICombatOptions {
+public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICombatOptions, IShipDesignOption {
 
 	// ========================================================================
 	// GamePlay options

@@ -5,6 +5,8 @@ import static rotp.model.ships.ShipDesign.maxSpecials;
 import static rotp.model.ships.ShipDesign.maxWeapons;
 import static rotp.model.ships.ShipDesignLab.MAX_DESIGNS;
 
+import java.awt.event.KeyEvent;
+
 import rotp.model.ships.ShipComponent;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipEngine;
@@ -135,7 +137,7 @@ public class VIPDesignView implements IVIPConsole {
 	private String processAutoBuild(Entries param)	{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
-		configPanel().autoDesign();
+		configPanel().autoDesign(KeyEvent.VK_A, false);
 		designUI().repaint();
 		String out = "New suitable design";
 		out += NEWLINE + designComponents();
@@ -145,7 +147,7 @@ public class VIPDesignView implements IVIPConsole {
 	private String processFighter(Entries param)	{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
-		configPanel().autoDesignFighter();
+		configPanel().autoDesign(KeyEvent.VK_F, false);
 		designUI().repaint();
 		String out = "New Fighter design";
 		out += NEWLINE + designComponents();
@@ -155,7 +157,7 @@ public class VIPDesignView implements IVIPConsole {
 	private String processColony(Entries param)		{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
-		configPanel().autoDesignColony();
+		configPanel().autoDesign(KeyEvent.VK_C, false);
 		designUI().repaint();
 		String out = "New Colony design";
 		out += NEWLINE + designComponents();
@@ -165,7 +167,7 @@ public class VIPDesignView implements IVIPConsole {
 	private String processScout(Entries param)		{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
-		configPanel().autoDesignScout();
+		configPanel().autoDesign(KeyEvent.VK_P, false);
 		designUI().repaint();
 		String out = "New Scout design";
 		out += NEWLINE + designComponents();
@@ -175,7 +177,7 @@ public class VIPDesignView implements IVIPConsole {
 	private String processBomber(Entries param)		{
 		if (!param.isEmpty())
 			return "error: No parameters expected." + param.toString();
-		configPanel().autoDesignBomber();
+		configPanel().autoDesign(KeyEvent.VK_B, false);
 		designUI().repaint();
 		String out = "New Bomber design";
 		out += NEWLINE + designComponents();

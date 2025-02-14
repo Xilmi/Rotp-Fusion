@@ -9,6 +9,7 @@ public interface IBaseOptsTools extends ISubUiKeys{
 	String GAME_UI				= "GAME_SETTINGS_";
 	String ADV_UI				= "SETTINGS_";
 	String MOD_UI				= "SETTINGS_MOD_";
+	String AUTO_SHIP_DESIGN		= "AUTO_SD_";
 	String HEADERS				= "HEADERS_";	
 	String OPTIONFILE_EXTENSION	= ".options";
 	String GAME_OPTIONS_FILE	= "Game" + OPTIONFILE_EXTENSION;

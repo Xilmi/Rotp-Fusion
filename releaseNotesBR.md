@@ -5,26 +5,22 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Fixed rounding error preventing refit when big colonies were auto sending small troops. (Governor and smart tools)
-- Fixed player AI controlled not sending troops without Governor on.
-- Fleet Deployment Panel: Key press to select ships based on their speed.
-  - Only ships with a warp speed >= of the Pressed Key will be selected.
-- Fixed several issues that lead to Sakkra- and Bulrathi-AI not Transport-rushing other empires in the early-game when they should (Xilmi)
-- Governor Button Icon will be updated after Swapping Player.
-- Updated Option to swap player on load.
-  - Stored in game, swapped player will then reload swapped.
-  - Ironman mode will not be able to swap.
-  - Can be swapped from inside the game.
-    - In Debug Panel (All empire available).
-    - In Empire panel "Ctrl-Shift-Right Click" on the color circle.
-  - Game that had the player swapped are tagged. (Mandatory info when debugging)
-    - The tag is displayed on the console on load (the current player id too, if not 0)
-- Fixed Restart not using the turn 1 System values when available.
-- Start and restart will reinitialise Empire.PLAYER_ID modified by the swap player options.
-- New Debug Option (!Alpha!) to swap player when loading or continuing a game.
-  - The list of available empire is listed in the Guide.
-- Fixed misevaluation of Monster strength.
-- Fixed an issue that could cause the combat-AI to just run away from enemy ships instead of attacking them. (Xilmi)
+- DesignUI new features:
+  - Unified auto Ship design methods.
+  - More auto Ship design.
+  - Call for a new auto Ship design Options Panel.
+    - Alt-A : Auto build.
+    - Alt-B : Auto build Bomber ship.
+    - Alt-E : Auto build Scout ship (Explorer).
+    - Alt-F : Auto build Fighter ship.
+    - Alt-G : Auto build Beam ship (Gun).
+    - Alt-H : Auto build Hybrid ship (Bomb + Beam + Missile).
+    - Alt-I : Auto build Iterceptor ship (Best manoeuver Hybrid with minimal bomb).
+    - Alt-M : Auto build Missile ship.
+    - Alt-P : Auto build Colony (Pioneer).
+    - Shift-Alt "" : to also select the best design size.
+  - Shift-Auto will also select the best design size.
+  - Updated Help pop-up
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

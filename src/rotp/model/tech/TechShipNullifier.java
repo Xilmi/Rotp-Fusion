@@ -21,6 +21,7 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+
 import rotp.model.combat.CombatStack;
 import rotp.model.empires.Empire;
 import rotp.model.ships.ShipSpecialShipNullifier;
@@ -55,7 +56,7 @@ public final class TechShipNullifier extends Tech {
         super.init();
         techType = Tech.SHIP_NULLIFIER;
         switch(typeSeq) {
-            case 0:
+            case 0:	// Technology Nullifier
                 cost = 300;
                 size = 750;
                 power = 1000;
@@ -67,7 +68,7 @@ public final class TechShipNullifier extends Tech {
                 range = 4;
                 beamColor = new Color(170,170,170,64);
                 break;
-            case 1:
+            case 1:	// Warp Dissipator
                 cost = 65;
                 size = 100;
                 power = 300;

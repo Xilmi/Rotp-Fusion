@@ -40,8 +40,10 @@ import javax.swing.JTextPane;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.design.DesignUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamList;
@@ -101,7 +103,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private final LinkedHashMap<Integer, BufferedImage>	imgList	= new LinkedHashMap<>();
 	private	BufferedImage subMenuIcon, subMenuMoreIcon, eyeIcon;
 	private SafeListPanel optionsList;
-	private BaseModPanel parentUI;
+	private BasePanel parentUI;
 	private boolean forceUpdate	 = true;
 	private boolean callPreview	 = false;
 	private IParam  callParam	 = null;
@@ -544,7 +546,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 					&& !(excludeSubMenu && param.isSubMenu()))
 			param.setFromDefault(excludeCfg, excludeSubMenu);
 	}
-	public  void start(String p, BaseModPanel ui) { // Called from subUI
+	public  void start(String p, BasePanel ui) { // Called from subUI
 		parentUI = ui;
 		start();
 	}
@@ -620,13 +622,14 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		super.close();
 		hoverBox = null;
 		prevHover = null;
-		
 
 		if (parentUI != null) {
-			if(parentUI instanceof BaseCompactOptionsUI)
+			if (parentUI instanceof BaseCompactOptionsUI)
 				((BaseCompactOptionsUI) parentUI).start();
-			else
-				parentUI.init();
+			else if (parentUI instanceof BaseModPanel)
+				((BaseModPanel) parentUI).init();
+			else  if (parentUI instanceof DesignUI)
+				RotPUI.instance().selectDesignPanel();
 		}
 		else {
 			if (session().galaxy().playerSwapRequest()) {
@@ -822,7 +825,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		if (hoverBox == exitBox) {
 			doExitBoxAction();
 			if (parentUI!=null)
-				parentUI.mouseMoved(e);
+				if (parentUI instanceof BaseModPanel)
+					((BaseModPanel) parentUI).mouseMoved(e);
 			return;
 		}
 		else if (hoverBox == defaultBox)

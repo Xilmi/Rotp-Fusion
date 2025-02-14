@@ -57,6 +57,7 @@ public final class TechCloaking extends Tech {
         super.provideBenefits(c);
         ShipSpecialCloaking sh = new ShipSpecialCloaking(this);
         c.shipLab().addSpecial(sh);
+        c.tech().hasCloakingTech(true);
     }
     @Override
     public float baseCost(ShipDesign d) {

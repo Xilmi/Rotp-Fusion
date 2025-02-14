@@ -15,6 +15,8 @@ public final class SettingsOptions extends AbstractOptionsSubUI {
 	public static SafeListPanel inGameOptionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		SafeListParam list = AllSubUI.getHandle(GAME_AUTOMATION_UI_KEY).getUiMajor(false);
+		list.add(HEADER_SPACER_50);
+		list.addAll(AllSubUI.getHandle(SHIP_DESIGN_OPTIONS_UI_KEY).getUiMinor(false));
 		map.add(list);
 
 		list = new SafeListParam("GAME_VARIOUS");

@@ -38,10 +38,10 @@ public final class TechBeamFocus extends Tech {
         super.init();
         techType = Tech.BEAM_FOCUS;
         switch(typeSeq) {
-            case 0:
+            case 0:	// TECH_HIGH_ENERGY_FOCUS
                 rangeAdj = 3;
                 break;
-            case 1:
+            case 1:	// TECH_ORACLE_INTERFACE
                 shieldAdj = 0.5f;
                 break;
         }
@@ -55,6 +55,7 @@ public final class TechBeamFocus extends Tech {
         super.provideBenefits(c);
         ShipSpecialBeamFocus sh = new ShipSpecialBeamFocus(this);
         c.shipLab().addSpecial(sh);
+        c.tech().hasEnergyFocusTech(true);
     }
     @Override
     public float baseCost(ShipDesign d) {

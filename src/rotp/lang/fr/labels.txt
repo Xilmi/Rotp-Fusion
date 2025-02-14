@@ -1,8 +1,8 @@
 // This is the label text file for Remnants of the Precursors
-// comment lines should start with '/'  they are ignored
+// comment lines should start with ’/’  they are ignored
 //
 // the format for each line is   key | label
-//    where 'key' is the code used by the game to retrieve the label
+//    where ’key’ is the code used by the game to retrieve the label
 //    You cannot create new keys! The game will not use them
 //    You can only use keys that the game is looking for.
 //
@@ -20,31 +20,31 @@
 // _HELP | The help text displayed in the Guide pop up. Can use some basic HTML controls <br> <i></i> <u></u> <b></b> etc...In the absence of _HELP, _DESC will be displayed.
 // Translators can always add a _HELP label even if not present in the English file.
 //
-// SETTINGS_MOD_Parameter              | The parameter's name shown on the options panel. Try to limit their length to max 20 chars.
+// SETTINGS_MOD_Parameter              | The parameter’s name shown on the options panel. Try to limit their length to max 20 chars.
 //
-// SETTINGS_MOD_Parameter_DESC         | The parameter's description displayed in the two lines box at the bottom of the option panel. <br> can be used to force line split.
+// SETTINGS_MOD_Parameter_DESC         | The parameter’s description displayed in the two lines box at the bottom of the option panel. <br> can be used to force line split.
 //
-// SETTINGS_MOD_Parameter_HELP         | A more complete parameter's description, displayed in the Guide pop up. Can use some basic HTML controls. This label is optional and will be replaced by _DESC if missing.
+// SETTINGS_MOD_Parameter_HELP         | A more complete parameter’s description, displayed in the Guide pop up. Can use some basic HTML controls. This label is optional and will be replaced by _DESC if missing.
 //
 // Label used by parameters of the type "List"
 //
 // SETTINGS_MOD_Parameter_Options      | The name of this parameter option, displayed at the right of the parameter name. It should be short, especially if the parameter name is long.
 //
-// SETTINGS_MOD_Parameter_Options_DESC | The description of the parameter's option, displayed in the guide. <br> can be used to force line split.
+// SETTINGS_MOD_Parameter_Options_DESC | The description of the parameter’s option, displayed in the guide. <br> can be used to force line split.
 //
 // SETTINGS_MOD_Parameter_Options_HELP | To replace _DESC if HTML control are used.
 //
 // Why both _DESC and _HELP instead of always _HELP ?
 // Only _DESC can be cross-referenced (with →←) by the « F1 » help, which does not support HTML.
-// So if _HELP is needed you it's a good idea to also create a _DESC simplified text to be cross-referenced by the « F1 » help.
+// So if _HELP is needed you it’s a good idea to also create a _DESC simplified text to be cross-referenced by the « F1 » help.
 //
 // Label used by parameters of the type "Boolean"
 //
 // SETTINGS_MOD_Parameter_YES          | The text to display when the parameter is "true". In its absence "BOOLEAN_YES" will be used.
 // SETTINGS_MOD_Parameter_NO           | The text to display when the parameter is "false". In its absence "BOOLEAN_NO" will be used.
 // SETTINGS_MOD_Parameter_YES_HELP or
-// SETTINGS_MOD_Parameter_YES_DESC     | The description of the parameter's "true", displayed in the guide. In its absence "BOOLEAN_YES_HELP" will be used.
-// SETTINGS_MOD_Parameter_NO           | The description of the parameter's "false", displayed in the guide. In its absence "BOOLEAN_NO_HELP" will be used.
+// SETTINGS_MOD_Parameter_YES_DESC     | The description of the parameter’s "true", displayed in the guide. In its absence "BOOLEAN_YES_HELP" will be used.
+// SETTINGS_MOD_Parameter_NO           | The description of the parameter’s "false", displayed in the guide. In its absence "BOOLEAN_NO_HELP" will be used.
 //
 // Label used by parameters of the type "Sub-Panel"
 //
@@ -126,7 +126,7 @@ BARREN_DESC_BIOLOGICAL            | Les planètes stériles sont des mondes secs
 DEAD_DESC_BIOLOGICAL              | Les planètes mortes sont des mondes telluriques froids et morts depuis longtemps, avec des atmosphères ténues et aucune eau de surface.
 DESERT_DESC_BIOLOGICAL            | Les planètes désertiques sont des mondes telluriques secs avec une végétation très clairsemée et pas plus de 20% de surface d’eau.
 INFERNO_DESC_BIOLOGICAL           | Les planètes infernales sont des mondes extrêmement chauds avec des atmosphères épaisses propices à de violentes tempêtes.
-JUNGLE_DESC_BIOLOGICAL            | Les planètes jungle sont des mondes tropicaux luxuriants recouverts d'épaisses forêts, de jungles et de marécages.
+JUNGLE_DESC_BIOLOGICAL            | Les planètes jungle sont des mondes tropicaux luxuriants recouverts d’épaisses forêts, de jungles et de marécages.
 MINIMAL_DESC_BIOLOGICAL           | Les planètes minimales sont des mondes telluriques desséchés et désolés, pratiquement inhabitables.
 NONE_DESC_BIOLOGICAL              | Sans planètes rocheuses, ces systèmes remplis d’astéroïdes défient toutes les théories sur la formation planétaire.
 OCEAN_DESC_BIOLOGICAL             | Les planètes océaniques sont presque entièrement recouvertes d’eau, ce qui rend l’accès aux ressources souvent difficile.
@@ -170,7 +170,7 @@ PLANET_SPACE_CUTTLEFISH           | Seiche Spatiale
 NEBULA_NAME                       | Nébuleuse %1
 NEBULA_ID                         | NGC %1
 
-// %2 is the leader's actual name
+// %2 is the leader’s actual name
 TITLE_LEADERNAME                  | [alien_nameTitle] %2
 
 // Extended Colony Name prefix when we run out of names
@@ -239,7 +239,7 @@ EVENT_COMET_3                     | La comète menaçant le système [system] a 
 EVENT_COMET_4                     | La comète fatale a détruit le monde [target_raceadjec] dans le système [system].
 EVENT_DONATION                    | Un riche marchand, désireux de soutenir la cause [target_raceadjecF], fait un don substantiel de [amt] BC. Ce montant est ajouté à la réserve planétaire.
 EVENT_DEPLETED                    | La colonie [target_raceadjecF] du [system] a épuisé ses gisements de métaux lourds, rendant la planète pauvre en minéraux.
-EVENT_DERELICT                    | La flotte [target_empireof] a découvert un ancien vaisseau abandonné. Les scientifiques [target_race_pluralnounof] ont pu extraire de l'épave plusieurs technologies de champ de force et d’armement.
+EVENT_DERELICT                    | La flotte [target_empireof] a découvert un ancien vaisseau abandonné. Les scientifiques [target_race_pluralnounof] ont pu extraire de l’épave plusieurs technologies de champ de force et d’armement.
 EVENT_EARTHQUAKE                  | Un tremblement de terre dévastateur a frappé la colonie [target_raceadjecF] dans le système [system], tuant [amt] millions de colons, et endommageant de vastes zones d’activités industrielle.
 EVENT_ENRICHED                    | L’exploration minière en grande profondeur a révélé un énorme gisement de métaux lourds dans la colonie [target_raceadjecF] du système [system].
 EVENT_FERTILE                     | Un changement soudain de l’axe de rotation de la planète [target_raceadjecF] du [system] a modifié son environnement, le rendant plus fertile. La croissance démographique augmente de 50 %.
@@ -592,7 +592,7 @@ GAME_SETTINGS_CONTINUE_ANYWAY        | Continuer quand même : %1
 GAME_SETTINGS_CONTINUE_ANYWAY_DESC   | Le jeu continuera après la victoire ou la défaite, tant que le joueur est vivant !
 
 SETTINGS_MOD_DEBUG_PLAYER_EMPIRE         | Empire du Joueur: %1
-SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_DESC    | !!! ALPHA TESTING !!! Pour échanger l'empire avec un adversaire. Activé lors du chargement ou de la continuation d'une partie ... Pourrai Corrompre les futures parties sauvegardées !!! ALPHA TESTING !!!
+SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_DESC    | !!! ALPHA TESTING !!! Pour échanger l’empire avec un adversaire. Activé lors du chargement ou de la continuation d’une partie ... Pourrai Corrompre les futures parties sauvegardées !!! ALPHA TESTING !!!
 SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_EXTINCT | →HISTORY_EXTINCT←
 SETTINGS_MOD_DEBUG_PLAYER_EMPIRE_IRONMAN | Désactivé en raison du mode Ironman.
 
@@ -798,7 +798,7 @@ MAIN_HELP_2D                      | Production réelle ajustée en fonction des 
 MAIN_HELP_2E                      | Changez le modèle de vaisseau à construire dans le chantier naval orbitant la planète. La production accumulée pour les vaisseaux inachevés accélérera la production de nouveaux vaisseaux de 50 % jusqu’à leur épuisement. Cliquez ou utilisez la molette de la souris pour changer le modèle de vaisseau.
 MAIN_HELP_2F                      | Définissez un point de ralliement pour envoyer automatiquement les vaisseaux nouvellement construits vers une autre colonie.
 MAIN_HELP_2FSG                    | Ralliement à la Porte des Étoiles la plus proche.<br>(Basé sur « →CHAIN_RALLY_SPEED_HK← »)
-MAIN_HELP_2G                      | Transportez de la population pour fortifier une autre colonie ou envoyez des troupes envahir une planète ennemie. La colonie engage un coût de production unique pour le transport.<br>« Ctrl-Clic » Empêchera / Autorisera le gouverneur d'envoyer des transports depuis cette colonie.
+MAIN_HELP_2G                      | Transportez de la population pour fortifier une autre colonie ou envoyez des troupes envahir une planète ennemie. La colonie engage un coût de production unique pour le transport.<br>« Ctrl-Clic » Empêchera / Autorisera le gouverneur d’envoyer des transports depuis cette colonie.
 MAIN_HELP_2H                      | Abandonnez complètement une planète en transférant toute sa population vers une autre colonie.
 MAIN_HELP_2I                      | Population actuelle et maximale de la planète. 100 représente une planète d’origine complète qui n’a pas été terraformée. Pressez « Maj » pour afficher la population active. (Hors transports en partance)
 MAIN_HELP_2J                      | Usines actuelles et maximales autorisées. Usines maximales basées sur la population et la technologie des contrôles robotiques.
@@ -829,8 +829,8 @@ MAIN_HELP_4F                      | Technologie : <br>Clic-gauche : Allocation
 MAIN_HELP_4G                      | Cliquez ici pour verrouiller / déverrouiller les dépenses. (en gris lorsque verrouillé)<br>Clique + Ctrl pour annuler ou restaurer les ordres des colonies. (Que vous pouvez fixer après une mise à jour technologique)<br> Ces champs sont classés par ordre de priorité lors du processus de «Tour suivant».<br> Une option est disponible pour les afficher en bleu... ou pas.
 
 MAIN_HELP_5A                      | Options pour orienter les tâches du gouverneur.<br>Lorsque activées, le gouverneur changera les priorités de cette colonie, et fera de son mieux pour exécuter vos ordres.
-MAIN_HELP_5B                      | Sélectionner ces champs, en bleu lorsque activés, pour définir une urgence.<br>Une fois l'urgence résolue, le gouverneur désactivera la sélection.
-MAIN_HELP_5C                      | Il est urgent de faire croître lnotre population.<br>Pour contrer une invasion, ou pour augmenter le nombre de voix lors du vote qui s'en vient.
+MAIN_HELP_5B                      | Sélectionner ces champs, en bleu lorsque activés, pour définir une urgence.<br>Une fois l’urgence résolue, le gouverneur désactivera la sélection.
+MAIN_HELP_5C                      | Il est urgent de faire croître lnotre population.<br>Pour contrer une invasion, ou pour augmenter le nombre de voix lors du vote qui s’en vient.
 MAIN_HELP_5D                      | Il est urgent de produire des usines.<br>(Je prévois de vous envoyer de la population en renfort.)
 MAIN_HELP_5E                      | Il est urgent de mettre à jour nos boucliers protecteurs...<br>(Nos voisins sont un peu agressif)
 MAIN_HELP_5F                      | Il est urgent de finaliser nos bases de missiles.<br> (Des vaisseaux ennemis approchent)
@@ -838,7 +838,7 @@ MAIN_HELP_5G                      | Ne vous laissez pas ditraire par autre chose
 MAIN_HELP_5H                      | Une fois vos tâches principales exécutées (bâtir et peuplement), utilisez les BC restants pour construire des vaisseaux. (En bleu lorsque activé)
 MAIN_HELP_5I                      | Favoriser la recherche (en bleu lorsque activé). Une fois vos tâches principales exécutées (bâtir et peuplement), attribuez les BC restants à la science.<br>Il est Prioritaire de poursuivre nos recherches (en pourpre lorsque activé). Gardez la colonie propre et donnez le pourcentage prioritaire du reste à nos scientifiques.
 MAIN_HELP_5J                      | Il est prioritaire de finaliser ce nombre de vaisseaux. Gardez la colonie propre et donnez le pourcentage spécifié du reste à nos chantiers.<br>Lorsque la touche Alt est pressée: Pourcentage à accorder au tâches prioritaires. (100 % par défaut)
-MAIN_HELP_5K                      | « Ctrl-clic » : Pour autoriser / interdire l'envoi de transports. On manque de main d'oeuvre. Ne prennez pas l'initiative d'envoyer nos travailleurs sur d'autre planètes.
+MAIN_HELP_5K                      | « Ctrl-clic » : Pour autoriser / interdire l’envoi de transports. On manque de main d’oeuvre. Ne prennez pas l’initiative d’envoyer nos travailleurs sur d’autre planètes.
 
 // modnar: shorten System Data display
 MAIN_SYSTEM_DETAIL_PFB            | Pop %1  Usi %2  Base %3
@@ -1078,7 +1078,7 @@ MAIN_COLONIZE_NO                  | Non
 MAIN_COLONIZE_ANIMATION_TITLE     | En l’an %1, [player_empire] forme une nouvelle colonie.
 MAIN_COLONIZE_NAME_PROMPT         | Nom de la Colonie
 MAIN_COLONIZE_NAME_OK             | OK
-MAIN_COLONIZE_PLAGUE              | Cette planète est encore infestée de dangereuses bactéries, capables d'infecter nos colons. Nous recommandons de la mettre en quarantaine durant un an avant de la coloniser.
+MAIN_COLONIZE_PLAGUE              | Cette planète est encore infestée de dangereuses bactéries, capables d’infecter nos colons. Nous recommandons de la mettre en quarantaine durant un an avant de la coloniser.
 
 // Reasons to ask player to reallocate a system (during next turn)
 MAIN_ALLOCATE_TITLE               | Ajustements des Dépenses
@@ -1223,7 +1223,7 @@ PLANETS_HELP_1B                   | Industrie - Cliquez sur cet onglet pour affi
 PLANETS_HELP_1C                   | Armée - Cliquez sur cet onglet pour afficher les données militaires des colonies.
 PLANETS_HELP_1D                   | Les dépenses de la colonie peuvent être ajustées comme sur l’écran principal.
 PLANETS_HELP_1E                   | Augmentez la production de la colonie jusqu’à 50 % en transférant des fonds du trésor de l’empire.
-PLANETS_HELP_1F                   | Revenu total pour votre empire.
+PLANETS_HELP_1F                   | Revenu total de votre empire.<br>Les revenus commerciaux sont redistribués aux colonies proportionnellement à leur production.
 PLANETS_HELP_1G                   | Dépenses totales pour votre empire exprimées en pourcentage de revenu.
 PLANETS_HELP_1H                   | Prélevez une taxe sur vos colonies à ajouter au trésor de l’empire. En option, limitez cette taxe aux seules colonies qui ont terminé leurs dépenses d’écologie, d’industrie et de défense.
 PLANETS_HELP_2A                   | Nom - Le nom de votre système. Modifiable.
@@ -1537,7 +1537,7 @@ SETUP_GALAXY_SHAPE_OPTION_2_DESC  | Sélectionnez la seconde option de forme de 
 SETUP_GALAXY_SHAPE_OPTION_2       | Sélection de la seconde option de forme de la Galaxie %1
 SETUP_GALAXY_SHAPE_OPTION_4_DESC  | Sélectionnez la quatrième option de forme de la Galaxie
 SETUP_GALAXY_SHAPE_OPTION_4       | %1 lignes
-SETUP_GALAXY_SHAPE_LINE_SPACING_DESC | Sélectionnez l'espace séparant les lignes de la Galaxie en forme de Texte.
+SETUP_GALAXY_SHAPE_LINE_SPACING_DESC | Sélectionnez l’espace séparant les lignes de la Galaxie en forme de Texte.
 SETUP_GALAXY_SHAPE_LINE_SPACING   | %1 pixels
 SETUP_GALAXY_SHAPE_RECTANGLE      | Rectangulaire
 SETUP_GALAXY_SHAPE_CIRCULAR       | Circulaire
@@ -1571,7 +1571,7 @@ SETUP_SHAPE_OPTION_3_DESC         | Nom du fichier de l’image associée à la 
 SETUP_SHAPE_OPTION_4              | Nombre de lines : %1
 SETUP_SHAPE_OPTION_4_DESC         | Nombre de lignes à saisir dans le fichier « Galaxy.txt ».
 SETUP_SHAPE_LINE_SPACING          | Espace interligne : %1 Pixels
-SETUP_SHAPE_LINE_SPACING_DESC     | Sélectionnez l'espace séparant les lignes de la Galaxie en forme de Texte.
+SETUP_SHAPE_LINE_SPACING_DESC     | Sélectionnez l’espace séparant les lignes de la Galaxie en forme de Texte.
 SETUP_SHAPE_MESSAGE               | Faites votre choix. (Cette liste peut être modifiée dans le fichier « Galaxy.txt »)
 SETUP_SHAPE_TITLE                 | Sélection du texte formant la galaxie
 SETUP_GALAXY_MAP_OPTION_LABEL     | Option
@@ -2026,7 +2026,7 @@ CUSTOM_RACE_RANDOM_USE_TARGET_NO_DESC  | Ignorer les limites.
 
 // BR: Ne pas traduire maintenant...
 //FR_REWORKED                     | « ’Retravaillées’ » →FR_REWORKED←
-FR_REWORKED                       | « 'Reworked' »
+FR_REWORKED                       | « ’Reworked’ »
 CUSTOM_RACE_BASE_DATARACE         | Aptitudes de base
 CUSTOM_RACE_HOME_TYPE             | Type de planète
 CUSTOM_RACE_HOME_SIZE_DESC        | Taille de départ du monde d’origine de cet empire.
@@ -2397,7 +2397,7 @@ HEADERS_SHIELD_ANIMATIONS            | ~~~ ANIMATION DES BOUCLIERS ~~~
 HEADERS_ASTEROIDS_DESC               | Pour définir les emplacements et les propriétés des astéroïdes.
 HEADERS_ASTEROIDS                    | ~~~ ASTÉROÏDES ~~~
 
-HEADERS_DIRECT_DIFFICULTY_DESC       | Ajustement du niveau de jeu au moyen d'avantages ou de handicaps.
+HEADERS_DIRECT_DIFFICULTY_DESC       | Ajustement du niveau de jeu au moyen d’avantages ou de handicaps.
 HEADERS_DIRECT_DIFFICULTY            | ~~~ NIVEAU DE JEU ~~~
 HEADERS_GAME_VARIANS_DESC            | Ajustement de la difficulté en variant les règles du jeu.
 HEADERS_GAME_VARIANS                 | ~~~ VARIANTES DU JEU ~~~
@@ -2461,7 +2461,7 @@ HEADERS_NEBULAE_OPTION_DESC          | Personnalisation du placement des nébule
 HEADERS_NEBULAE_OPTION               | ~~~ NÉBULEUSES ~~~
 HEADERS_HOMEWORLD_NEIGHBORHOOD_DESC  | Personnalisation des distances et du contenu du voisinage des mondes d’origine.
 HEADERS_HOMEWORLD_NEIGHBORHOOD       | ~~~ VOISINAGE ~~~
-HEADERS_GALAXY_PREVIEW_DESC          | Comment afficher les étoiles dans l'aperçu de la galaxie.
+HEADERS_GALAXY_PREVIEW_DESC          | Comment afficher les étoiles dans l’aperçu de la galaxie.
 HEADERS_GALAXY_PREVIEW               | ~~~ APERÇU DE LA GALAXIE ~~~
 HEADERS_LINKED_OPTIONS_DESC          | Ces options sont liées à celles ci-dessus.
 HEADERS_LINKED_OPTIONS               | ~~~ OPTIONS RELIÉES ~~~
@@ -2474,14 +2474,14 @@ HEADERS_PANEL_FORMAT_DESC            | Paramètres de formatage des menus.
 HEADERS_GAME_PANEL_CONTENTS          | ~~~ CONTENUS DES PANNEAUX DE JEUX ~~~
 HEADERS_GAME_PANEL_CONTENTS_DESC     | Configuration du contenu des panneaux de jeux.
 HEADERS_GAME_PANEL_FORMAT            | ~~~ FORMAT DES PANNEAUX DE JEUX ~~~
-HEADERS_GAME_PANEL_FORMAT_DESC       | Configuration de l'apparance des panneaux de jeux.
+HEADERS_GAME_PANEL_FORMAT_DESC       | Configuration de l’apparance des panneaux de jeux.
 HEADERS_GALAXY_PANEL                 | ~~~ CARTE DE LA GALAXIE ~~~
 HEADERS_GALAXY_PANEL_DESC            | Configuration des paramètres de la carte de la galaxie. (Aussi accessibles avec les icônes de gauche)
 
 HEADERS_NEW_SAFE                     | ~~~ Sécuritaires ~~~
 HEADERS_NEW_SAFE_DESC                | Validés, vous pourriez être intéressé à les essayer.
 HEADERS_NEW_BETA                     | ~~~ BETA ~~~
-HEADERS_NEW_BETA_DESC                | Pas entièrement qualifiée, merci de signaler d'éventuels petits problèmes. (Et les plus gros aussi)
+HEADERS_NEW_BETA_DESC                | Pas entièrement qualifiée, merci de signaler d’éventuels petits problèmes. (Et les plus gros aussi)
 HEADERS_NEW_ALPHA                    | ~~~ ALPHA ~~~
 HEADERS_NEW_ALPHA_DESC               | Pour les développeurs et les joueurs curieux... Sauvez souvent !
 
@@ -2497,20 +2497,20 @@ HEADERS_BOMBARD_AND_LANDING          | ~~~ PILLONNAGE ET INVASION ~~~
 HEADERS_BOMBARD_AND_LANDING_DESC     | Configuration du pillonnage des planètes et de leur invasion.
 
 HEADERS_SHIELD_LOOK                  | ~~~ APPARENCE DES BOUCLIERS ~~~
-HEADERS_SHIELD_LOOK_DESC             | Configuration de l'apparence des boucliers.
+HEADERS_SHIELD_LOOK_DESC             | Configuration de l’apparence des boucliers.
 HEADERS_WEAPON_POSITION              | ~~~ POSITION DES ARMES ~~~
 HEADERS_WEAPON_POSITION_DESC         | Configuration de la position des armes de tir.
 HEADERS_SHIELD_ACTIVATION            | ~~~ SHIELD ACTIVATION ~~~
 HEADERS_SHIELD_ACTIVATION_DESC       | Configuration du type de bouclier à utiliser, et quand les activer.
 HEADERS_WEAPON_LOOK                  | ~~~ APPARENCE DES TIRS ~~~
-HEADERS_WEAPON_LOOK_DESC             | Configuration de l'apparence des tirs d'armes à faisceaux.
+HEADERS_WEAPON_LOOK_DESC             | Configuration de l’apparence des tirs d’armes à faisceaux.
 HEADERS_WEAPON_ANIMATION             | ~~~ ANIMATION DES ARMES ~~~
-HEADERS_WEAPON_ANIMATION_DESC        | Configuration d'animation de la trajectoire des faisceau tirés.
+HEADERS_WEAPON_ANIMATION_DESC        | Configuration d’animation de la trajectoire des faisceau tirés.
 
 HEADERS_ASTEROID_DENSITY             | ~~~ DENSITÉ DES ASTÉROÏDES ~~~
-HEADERS_ASTEROID_DENSITY_DESC        | Quantité d'astéroïdes en fonction de leur densité.
+HEADERS_ASTEROID_DENSITY_DESC        | Quantité d’astéroïdes en fonction de leur densité.
 HEADERS_ASTEROID_PROBABILITY         | ~~~ PROBABILITÉ DES ASTÉROÏDES ~~~
-HEADERS_ASTEROID_PROBABILITY_DESC    | Probabilité d'obtenir des astéroïdes et l'impact des ressources planétaires sur cette probabilité.
+HEADERS_ASTEROID_PROBABILITY_DESC    | Probabilité d’obtenir des astéroïdes et l’impact des ressources planétaires sur cette probabilité.
 HEADERS_ASTEROID_IMPACT              | ~~~ IMPACT AND PLANET LOCATION ~~~
 HEADERS_ASTEROID_IMPACT_DESC         | Localisation de la planète et effet des astéroïdes.
 
@@ -2949,15 +2949,15 @@ SETTINGS_MOD_RACE_STATUS_VIEW_PCT_TOTAL_DESC  | Valeur relative en % du total de
 SETTINGS_MOD_RACE_STATUS_VIEW_PCT_PLAYER_DESC | Valeur relative en % de la valeur du joueur.
 SETTINGS_MOD_RACE_STATUS_VIEW_VALUE_DESC      | Valeur absolue.
 
-SETTINGS_MOD_KEEP_SHIP_NAME_DESC         | L'emplacement de conception des vaisseaux mémorisera le nom du dernier modèle de vaisseau au lieu d'en obtenir un nouveau à partir de la liste associée à l'espèce.
+SETTINGS_MOD_KEEP_SHIP_NAME_DESC         | L’emplacement de conception des vaisseaux mémorisera le nom du dernier modèle de vaisseau au lieu d’en obtenir un nouveau à partir de la liste associée à l’espèce.
 SETTINGS_MOD_KEEP_SHIP_NAME              | Conserver le nom des vaisseaux : %1
-SETTINGS_MOD_KEEP_SHIP_NAME_YES_DESC     | Conserver le nom du modèle de vaisseau après sa mise au rebut, et copier aussi le nom lors de la copie d'un modèle de vaisseau.
-SETTINGS_MOD_KEEP_SHIP_NAME_NO_DESC      | Attribuer un nouveau nom en fonction de la taille de la coque et de l'espèce.
+SETTINGS_MOD_KEEP_SHIP_NAME_YES_DESC     | Conserver le nom du modèle de vaisseau après sa mise au rebut, et copier aussi le nom lors de la copie d’un modèle de vaisseau.
+SETTINGS_MOD_KEEP_SHIP_NAME_NO_DESC      | Attribuer un nouveau nom en fonction de la taille de la coque et de l’espèce.
 
 SETTINGS_MOD_SHOW_TECH_PROGRESS_DESC     | Que faut-il afficher dans les bulles de Recherche.
-SETTINGS_MOD_SHOW_TECH_PROGRESS          | Afficher l'évolution de la recherche : %1
+SETTINGS_MOD_SHOW_TECH_PROGRESS          | Afficher l’évolution de la recherche : %1
 SETTINGS_MOD_SHOW_TECH_PROGRESS_YES_DESC | Afficher l’état actuel et attendu de la recherche.
-SETTINGS_MOD_SHOW_TECH_PROGRESS_NO_DESC  | N'afficher que l’état attendu de la recherche.
+SETTINGS_MOD_SHOW_TECH_PROGRESS_NO_DESC  | N’afficher que l’état attendu de la recherche.
 
 SETTINGS_MOD_OPTIONS_DEFAULT             | Par défaut
 SETTINGS_MOD_OPTIONS_LAST                | Dernier état
@@ -2977,7 +2977,7 @@ SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Afficher les grilles circulaires sur 
 SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Grilles circulaires : %1
 SETTINGS_MOD_SHOW_SQUARE_GRID_DESC       | Afficher la grille carrée sur la carte de la galaxie ? (Basculer avec Alt-W)
 SETTINGS_MOD_SHOW_SQUARE_GRID            | Grille carrée: %1
-SETTINGS_MOD_SQUARE_GRID_SIZE_DESC       | Quel est l'espacement de la grille carrée sur la carte de la galaxie ? (Basculer avec Alt-W)
+SETTINGS_MOD_SQUARE_GRID_SIZE_DESC       | Quel est l’espacement de la grille carrée sur la carte de la galaxie ? (Basculer avec Alt-W)
 SETTINGS_MOD_SQUARE_GRID_SIZE            | Taille de la grille : %1
 
 SETTINGS_MOD_FLIGHT_PATH_DISPLAY_DESC    | Quel trajectoires de vols doivent être affichées ? (En relation avec l’icône à gauche de la Galaxie)
@@ -3302,13 +3302,13 @@ SETTINGS_MOD_LOAD_LOCAL                  | Charger en local : %1
 SETTINGS_MOD_SAVE_LOCAL_DESC             | Les paramètres sont enregistrés uniquement pour le panneau actuel (Oui), ou tous les paramètres sont enregistrés ensemble (Non)
 SETTINGS_MOD_SAVE_LOCAL                  | Sauver en local : %1
 
-SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE_DESC | Taille des mondes d'origine et d'Orion dans l’aperçu de la galaxie.<br>(0 = Aucune couleur et même taille qu’avant « 2 »)
-SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE      | Taille des mondes d'origine : %1
-SETTINGS_MOD_GALAXY_PREVIEW_AI_DESC      | L'aperçu de la galaxie affiche la position des Empires en rouge.
+SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE_DESC | Taille des mondes d’origine et d’Orion dans l’aperçu de la galaxie.<br>(0 = Aucune couleur et même taille qu’avant « 2 »)
+SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE      | Taille des mondes d’origine : %1
+SETTINGS_MOD_GALAXY_PREVIEW_AI_DESC      | L’aperçu de la galaxie affiche la position des Empires en rouge.
 SETTINGS_MOD_GALAXY_PREVIEW_AI           | Révéler les Empires en Rouge : %1
-SETTINGS_MOD_GALAXY_PREVIEW_PLAYER_DESC  | L'aperçu de la galaxie affiche la position du Joueur en vert.
+SETTINGS_MOD_GALAXY_PREVIEW_PLAYER_DESC  | L’aperçu de la galaxie affiche la position du Joueur en vert.
 SETTINGS_MOD_GALAXY_PREVIEW_PLAYER       | Révéler le Joueur en Vert : %1
-SETTINGS_MOD_GALAXY_PREVIEW_ORION_DESC   | L'aperçu de la galaxie affiche la position d'Orion en bleu.
+SETTINGS_MOD_GALAXY_PREVIEW_ORION_DESC   | L’aperçu de la galaxie affiche la position d’Orion en bleu.
 SETTINGS_MOD_GALAXY_PREVIEW_ORION        | Révéler Orion en Bleu : %1
 
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP_DESC   | Taille minimale de la liste pour que le panneau de sélection s’affiche.
@@ -3908,7 +3908,7 @@ HEADERS_IRONMAN_FORMER_DESC              | Ancienne option pour la compatibilit�
 HEADERS_IRONMAN_FORMER                   | ~~~ OPTIONS PRÉCEDENTES ~~~
 HEADERS_IRONMAN_CUSTOM_DESC              | Permettre un Ironman complet ou partiel.
 HEADERS_IRONMAN_CUSTOM                   | ~~~ OPTIONS INDIVIDUELLES ~~~
-HEADERS_IRONMAN_RANDOM_DESC              | Le chargement d'un jeu modifie t-il les paramètres aléatoires ?
+HEADERS_IRONMAN_RANDOM_DESC              | Le chargement d’un jeu modifie t-il les paramètres aléatoires ?
 HEADERS_IRONMAN_RANDOM                   | ~~~ PARAMÈTRES ALEATOIRES ~~~
 
 SETTINGS_MOD_IRONMAN_MODE_HELP           | Pensé pour les défis entre joueurs sur la même galaxie de départ.<br>Supprimez l’accès aux options du jeu pour éviter la triche facile.<br>L’activation des "Événements aléatoires fixes" est fortement recommandée.<br>D’autres options seront ajoutées.
@@ -4048,12 +4048,12 @@ SETTINGS_MOD_SETUP_PARAMETERS_UI_DESC    | Ouvre un nouveau panneau de contrôle
 
 SETTINGS_MOD_SETUP_TECH_OPTIONS_TITLE    | Technologies obligatoires ou interdites.
 SETTINGS_MOD_SETUP_TECH_OPTIONS_UI       | Arbre technologique
-SETTINGS_MOD_SETUP_TECH_OPTIONS_UI_DESC  | Options permettant d'exiger ou d'interdire l'ajout de certaines technologies à l'arbre technologique.
-SETTINGS_MOD_SETUP_TECH_OPTIONS_UI_HELP  | Certaines technologies peuvent être considérées comme essentielles, et d'autres ennuyeuses, voici un moyen de les personnaliser, en les forçant à être disponibles pour la recherche, ou en les empêchant !
+SETTINGS_MOD_SETUP_TECH_OPTIONS_UI_DESC  | Options permettant d’exiger ou d’interdire l’ajout de certaines technologies à l’arbre technologique.
+SETTINGS_MOD_SETUP_TECH_OPTIONS_UI_HELP  | Certaines technologies peuvent être considérées comme essentielles, et d’autres ennuyeuses, voici un moyen de les personnaliser, en les forçant à être disponibles pour la recherche, ou en les empêchant !
 
-SETTINGS_MOD_SETUP_HOMEWORLD_TITLE       | Configuration des Mondes d'Origine.
-SETTINGS_MOD_SETUP_HOMEWORLD_UI          | Mondes d'Origine
-SETTINGS_MOD_SETUP_HOMEWORLD_UI_DESC     | Paramètres utilisés lors de la génération des mondes d'origine des empires.
+SETTINGS_MOD_SETUP_HOMEWORLD_TITLE       | Configuration des Mondes d’Origine.
+SETTINGS_MOD_SETUP_HOMEWORLD_UI          | Mondes d’Origine
+SETTINGS_MOD_SETUP_HOMEWORLD_UI_DESC     | Paramètres utilisés lors de la génération des mondes d’origine des empires.
 
 SETTINGS_MOD_SETUP_GALAXY_TITLE          | Paramètres Stellaires de Base.
 SETTINGS_MOD_SETUP_GALAXY_UI             | Systèmes Stellaires
@@ -4065,16 +4065,19 @@ SETTINGS_MOD_SETUP_NEBULA_UI_DESC        | Quantités, forme et impact des nébu
 
 SETTINGS_MOD_SETUP_RANDOM_OPP_TITLE      | Statistiques des Adversaires.
 SETTINGS_MOD_SETUP_RANDOM_OPP_UI         | Espèces Aléatoire
-SETTINGS_MOD_SETUP_RANDOM_OPP_UI_DESC    | Configuration des statistiques des espèces d'adversaires aléatoires.
+SETTINGS_MOD_SETUP_RANDOM_OPP_UI_DESC    | Configuration des statistiques des espèces d’adversaires aléatoires.
 
 SETTINGS_MOD_SETUP_RESTART_TITLE         | Configuration de options de redémarrage.
 SETTINGS_MOD_SETUP_RESTART_UI            | Options de Redémarrage
 SETTINGS_MOD_SETUP_RESTART_UI_DESC       | Options contrôlant la manière dont un jeu sera redémarré.
-SETTINGS_MOD_SETUP_RESTART_UI_HELP       | Derrière le bouton <b>→SETUP_BUTTON_START←</b>, en utilisant la touche <b>Ctrl</b>, vous trouverez le bouton <b>→SETUP_BUTTON_RESTART←</b>.<br>Il vous sera demandé de sélectionner une ancienne partie pour en démarrer une nouvelle en réutilisant la même galaxie.<br>- Avec les mêmes adversaires ou de nouveaux.<br>- Avec la même espèce pour le joueur, une nouvelle, ou échangée avec celle d'un précédent adversaire.<br>Vous pouvez conserver votre monde d’origine ou l’échanger avec celui d'un précédent adversaire.<br>Les options suivantes contrôlent la manière dont une partie sera redémarrée.
+SETTINGS_MOD_SETUP_RESTART_UI_HELP       | Derrière le bouton <b>→SETUP_BUTTON_START←</b>, en utilisant la touche <b>Ctrl</b>, vous trouverez le bouton <b>→SETUP_BUTTON_RESTART←</b>.<br>Il vous sera demandé de sélectionner une ancienne partie pour en démarrer une nouvelle en réutilisant la même galaxie.<br>- Avec les mêmes adversaires ou de nouveaux.<br>- Avec la même espèce pour le joueur, une nouvelle, ou échangée avec celle d’un précédent adversaire.<br>Vous pouvez conserver votre monde d’origine ou l’échanger avec celui d’un précédent adversaire.<br>Les options suivantes contrôlent la manière dont une partie sera redémarrée.
 
-SETTINGS_MOD_GOV_SPECIAL_TITLE          | Configurations Avancées du Gouverneur.
-SETTINGS_MOD_GOV_SPECIAL_UI             | Réglages Avancés
-SETTINGS_MOD_GOV_SPECIAL_UI_DESC        | Options non affichées sur le panneau principal... Réservé aux experts.
+SETTINGS_MOD_GOV_SPECIAL_TITLE				| Configurations Avancées du Gouverneur.
+SETTINGS_MOD_GOV_SPECIAL_UI					| Réglages Avancés
+SETTINGS_MOD_GOV_SPECIAL_UI_DESC			| Options non affichées sur le panneau principal... À utiliser prudemment.
+SETTINGS_MOD_SHIP_DESIGN_OPTIONS_TITLE		| Conception Automatique des Vaisseaux.
+SETTINGS_MOD_SHIP_DESIGN_OPTIONS_UI			| Concepteur de Vaisseaux
+SETTINGS_MOD_SHIP_DESIGN_OPTIONS_UI_DESC	| Options pour modifier les paramètres contrôlant la conception automatique des vaisseaux.
 
 // Tech UI labels
 TECH_RESEARCH                     | Technologies Recherchées
@@ -4216,7 +4219,7 @@ SHIP_DESIGN_AUTO_SCOUT            | Auto explore
 SHIP_DESIGN_AUTO_COLONIZE         | Auto colonise
 SHIP_DESIGN_AUTO_ATTACK           | Auto attaque
 SHIP_DESIGN_SET_DEFAULT           | Définir comme « modèle par défaut »
-SHIP_DESIGN_UNSET_DEFAULT         | Retirer l'étiquette « modèle par défaut »
+SHIP_DESIGN_UNSET_DEFAULT         | Retirer l’étiquette « modèle par défaut »
 
 
 // ship design selection dialogs
@@ -4279,6 +4282,107 @@ SHIP_DESIGN_SPECIAL_SIZE          | Taille
 SHIP_DESIGN_SPECIAL_POWER         | Puiss.
 SHIP_DESIGN_SPECIAL_SPACE         | Espace
 
+// Auto Design
+AUTO_SD_AI						| Aie confiance
+AUTO_SD_AI_DESC					| Inspiré par les outils utilisés par la famille d’AI de Xilmi.
+AUTO_SD_SPECIES					| Attributs de l’espèce
+AUTO_SD_SPECIES_DESC			| Suivre les instructions données aux espèces dans leurs fichiers de configuration.
+AUTO_SD_USER					| Préférence de l’utilisateur
+AUTO_SD_USER_DESC				| Suivre les instructions dans ce panneau de configuration.
+
+AUTO_SD_SIZE					| Taille de la Coque : %1
+AUTO_SD_SIZE_DESC				| Quelles sont les règles que doit suivre le concepteur automatique de vaisseaux lors du choix de la dimension de la coque ?
+AUTO_SD_SPACE					| Répartition de l’espace : %1
+AUTO_SD_SPACE_DESC				| Quelles sont les règles que doit suivre le concepteur automatique de vaisseaux lors de la répartion de l’espace disponible ?
+AUTO_SD_BOOLEAN					| Dispositifs Divers : %1
+AUTO_SD_BOOLEAN_DESC			| Quelles sont les règles que doit suivre le concepteur automatique de vaisseaux lors du choix des autres dispositifs ? (Manoeuvres, armes chimiques, stucture renforcée)
+AUTO_SD_SPECIAL					| Dispositifs Spéciaux : %1
+AUTO_SD_SPECIAL_DESC			| Quelles sont les règles que doit suivre le concepteur automatique de vaisseaux lors du choix des dispositifs spéciaux ?
+
+AUTO_SD_SPECIAL_TRUE			| Attributs de l’espèce « Prioriser » : %1 %
+AUTO_SD_SPECIAL_TRUE_DESC		| Lorsque →AUTO_SD_SPECIES← sont sélectionnés pour les dispositifs spéciaux : quel poids faut-il accorder à la valeur « Vrai » ?
+AUTO_SD_SPECIAL_FALSE			| Attributs de l’espèce « Éviter » : %1 %
+AUTO_SD_SPECIAL_FALSE_DESC		| Lorsque →AUTO_SD_SPECIES← sont sélectionnés pour les dispositifs spéciaux : quel poids faut-il accorder à la valeur « Faux » ?
+
+AUTO_SD_COST_MULT_SMALL			| Surcoût Petite Coque : %1 %
+AUTO_SD_COST_MULT_MEDIUM		| Surcoût Coque Moyenne : %1 %
+AUTO_SD_COST_MULT_LARGE			| Surcoût Grande Coque : %1 %
+AUTO_SD_COST_MULT_HUGE			| Surcoût Énorme Coque : %1 %
+AUTO_SD_COST_MULT_DESC			| plus le Surcoût est élevé, plus les coûts estimés sont élevés, et moins il sera probable que cette coque soit choisie.
+AUTO_SD_COST_MULT_SMALL_DESC	| Ajustements des coûts des petites coques : →AUTO_SD_COST_MULT_DESC←
+AUTO_SD_COST_MULT_MEDIUM_DESC	| Ajustements des coûts des coques moyennes :  →AUTO_SD_COST_MULT_DESC←
+AUTO_SD_COST_MULT_LARGE_DESC	| Ajustements des coûts des grandes coques :  →AUTO_SD_COST_MULT_DESC←
+AUTO_SD_COST_MULT_HUGE_DESC		| Ajustements des coûts des énormes coques :  →AUTO_SD_COST_MULT_DESC←
+
+AUTO_SD_MODULE_SPACE			| Espace sans armes : %1 %
+AUTO_SD_MODULE_SPACE_DESC		| Répartition de l’espace restant après le placement des moteurs et de l’ordinateur.<br>Quel pourcentage de l’espace peut être utilisé pour ce qui n’est pas de l’armement ?
+
+AUTO_SD_WEIGHT_DESC				| Pondération initiale de ce qui n’est pas une arme pour
+AUTO_SD_SHIELD_WEIGHT_FB		| Bouclier des chasseurs et bombardiers : %1 %
+AUTO_SD_SHIELD_WEIGHT_FB_DESC	| →AUTO_SD_WEIGHT_DESC← les boucliers des chasseurs et bombardiers.
+AUTO_SD_SHIELD_WEIGHT_D			| Bouclier des destroyer : %1 %
+AUTO_SD_SHIELD_WEIGHT_D_DESC	| →AUTO_SD_WEIGHT_DESC← les boucliers des destroyers.
+
+AUTO_SD_ECM_WEIGHT_FD			| ECM des chasseurs et destroyers : %1 %
+AUTO_SD_ECM_WEIGHT_FD_DESC		| →AUTO_SD_WEIGHT_DESC← les contre mesures électroniques des chasseurs et destroyers.
+AUTO_SD_ECM_WEIGHT_B			| ECM des bombardiers : %1 %
+AUTO_SD_ECM_WEIGHT_B_DESC		| →AUTO_SD_WEIGHT_DESC← les contre mesures électroniques des bombardiers.
+
+AUTO_SD_MANEUVER_WEIGHT_BD		| Mobilité des bombardiers et destroyers : %1 %
+AUTO_SD_MANEUVER_WEIGHT_BD_DESC	| →AUTO_SD_WEIGHT_DESC← la mobilité des bombardiers et destroyers.
+AUTO_SD_MANEUVER_WEIGHT_F		| Mobilité des chasseurs : %1 %
+AUTO_SD_MANEUVER_WEIGHT_F_DESC	| →AUTO_SD_WEIGHT_DESC← la mobilité des chasseurs.
+
+AUTO_SD_ARMOR_WEIGHT_FB			| Blindage des bombardiers et destroyers: %1%
+AUTO_SD_ARMOR_WEIGHT_FB_DESC	| →AUTO_SD_WEIGHT_DESC← le blindage des bombardiers et destroyers.
+AUTO_SD_ARMOR_WEIGHT_D			| Blindage des destroyers : %1 %
+AUTO_SD_ARMOR_WEIGHT_D_DESC		| →AUTO_SD_WEIGHT_DESC← le blindage des destroyers.
+
+AUTO_SD_SPECIALS_WEIGHT			| Dispositifs Spéciaux : %1 %
+AUTO_SD_SPECIALS_WEIGHT_DESC	| →AUTO_SD_WEIGHT_DESC← des dispositifs Spéciaux.
+
+AUTO_SD_SPEED_MATCHING			| Même vitesse de Combat : %1 %
+AUTO_SD_SPEED_MATCHING_DESC		| Des niveaux de maniabilité plus élevés avec la même vitesse de combat sont-ils autorisés ?<br>Lors du choix du système de propulsion de combat, l’augmentation du niveau peut ne pas entraîner une augmentation de la vitesse de combat.
+AUTO_SD_REINFORCED_ARMOR		| Blindage renforcé : %1 %
+AUTO_SD_REINFORCED_ARMOR_DESC	| Peut-on utiliser des blindages renforcés ?
+AUTO_SD_BIO_WEAPONS				| Armes biologiques : %1 %
+AUTO_SD_BIO_WEAPONS_DESC		| Peut-on inclure des armes biologiques ?
+
+AUTO_SD_PREF_DESC				| Quelle Priorité faut-il accorder à ces dispositifs spéciaux ?
+AUTO_SD_PREF_PULSARS			| Pulsars : %1 %
+AUTO_SD_PREF_PULSARS_DESC		| →AUTO_SD_PREF_DESC← Les pulsars ?
+AUTO_SD_PREF_CLOAK				| Bouclier occulteur : %1 %
+AUTO_SD_PREF_CLOAK_DESC			| →AUTO_SD_PREF_DESC← Les boucliers occulteurs ?
+AUTO_SD_PREF_REPAIR				| réparation automatique : %1 %
+AUTO_SD_PREF_REPAIR_DESC		| →AUTO_SD_PREF_DESC← les dispositifs de réparation automatique ?
+AUTO_SD_PREF_INERTIAL			| Réduction d’inertie : %1 %
+AUTO_SD_PREF_INERTIAL_DESC		| →AUTO_SD_PREF_DESC← les dispositifs de réduction d’inertie ?
+AUTO_SD_PREF_MISS_SHIELD		| Boucliers anti-missiles : %1 %
+AUTO_SD_PREF_MISS_SHIELD_DESC	| →AUTO_SD_PREF_DESC← des boucliers anti-missiles ?
+AUTO_SD_PREF_REPULSOR			| Répulseurs : %1 %
+AUTO_SD_PREF_REPULSOR_DESC		| →AUTO_SD_PREF_DESC← les dispositifs répulseurs ?
+AUTO_SD_PREF_STASIS				| Champ de stase : %1 %
+AUTO_SD_PREF_STASIS_DESC		| →AUTO_SD_PREF_DESC← les dispositifs de champ de stase ?
+AUTO_SD_PREF_STREAM_PROJ		| Projecteur de flux : %1 %
+AUTO_SD_PREF_STREAM_PROJ_DESC	| →AUTO_SD_PREF_DESC← les dispositifs projecteurs de flux ?
+AUTO_SD_PREF_WARP_DISSIP		| Dissipateur de distorsion : %1 %
+AUTO_SD_PREF_WARP_DISSIP_DESC	| →AUTO_SD_PREF_DESC← les dispositifs dissipateurs de distorsion ?
+AUTO_SD_PREF_TECH_NULLIF		| Annulateur de technologie : %1 %
+AUTO_SD_PREF_TECH_NULLIF_DESC	| →AUTO_SD_PREF_DESC← les dispositifs annulateurs de technologie ?
+AUTO_SD_PREF_BEAM_FOCUS			| Focalisateurs d'énergie : %1 %
+AUTO_SD_PREF_BEAM_FOCUS_DESC	| →AUTO_SD_PREF_DESC← les dispositifs focalisateurs d'énergie ? (Concentration à haute énergie et Interface Oracle)
+
+HEADERS_AUTO_SD_SIZE			| ~~~ SURCOÛT DES COQUES ~~~
+HEADERS_AUTO_SD_SIZE_DESC		| Ajustements des coûts des coques. Plus le Surcoût est élevé, plus les coûts estimés sont élevés, et moins il sera probable que cette coque soit choisie.
+HEADERS_AUTO_SD_SPACE			| ~~~ RÉPARTITION DES ESPACES ~~~
+HEADERS_AUTO_SD_SPACE_DESC		| Pondération initiale arbitraire de ce qui n’est pas une arme.
+HEADERS_AUTO_SD_SPECIAL			| ~~~ PRIORITÉ DES DISPOSITIFS SPÉCIAUX ~~~
+HEADERS_AUTO_SD_SPECIAL_DESC	| Quelle Priorité faut-il accorder à ces dispositifs spéciaux ?
+HEADERS_AUTO_SD_PREF			| ~~~ CHOIX DE FONCTIONNALITÉS ~~~
+HEADERS_AUTO_SD_PREF_DESC		| Préférences pour les fonctionnalités générales des vaisseaux.
+HEADERS_AUTO_SD_MODE			| ~~~ RÈGLES POUR LE CONCEPTEUR ~~~
+HEADERS_AUTO_SD_MODE_DESC		| Quelles sont les règles à suivre par le concepteur de vaisseaux ?
+
 // Ship Design help
 SHIP_DESIGN_HELP_ALL              | APERÇU - Un empire peut avoir jusqu’à six modèles de vaisseaux actifs. Pour chaque conception, choisissez une taille de coque puis remplissez-la de divers composants tels que des armures, des boucliers et des armes. Chaque composant a une taille, une Puiss. et un coût. L’espace total requis pour un composant est sa taille plus la taille du nombre de moteurs nécessaires pour l’alimenter. Une fois déployé, un modèle de vaisseau peut être construit dans n’importe laquelle de vos colonies.
 SHIP_DESIGN_HELP_1A               | Taille - Les grandes tailles de coque augmentent les coûts mais offrent plus d’espace.
@@ -4321,6 +4425,7 @@ SHIP_DESIGN_HELP_4G               | Déployer conception - Lorsque votre nouvell
 SHIP_DESIGN_HELP_4H               | Exploration auto. - →GOVERNOR_AUTO_SCOUT_DESC←
 SHIP_DESIGN_HELP_4I               | Attaque auto. - →GOVERNOR_AUTO_ATTACK_DESC←
 SHIP_DESIGN_HELP_4J               | Colonisation auto. - →GOVERNOR_AUTO_COLONIZE_DESC←
+SHIP_DESIGN_HELP_4K               | Sélection du modèle par défaut :<br>Lors de la suppression d’un modèle, les colonies liées à celui-ci le remplaceront par le modèle par défaut. De même après la construction d’une Porte des étoiles.<br>Lorsqu’aucun modèle par défaut actif n’est sélectionné, le premier modèle actif (de haut en bas) sera utilisé.
 
 // Ship Combat UI
 SHIP_COMBAT_TITLE_SYSTEM          | Combat de vaisseaux à %1!
@@ -5048,7 +5153,7 @@ GOVERNOR_SHIP_BUILDING_DESC          | Construction navale avec gouverneur activ
 GOVERNOR_SHIP_BUILDING               | Chantiers navals : %1
 GOVERNOR_SHIP_BUILDING_LABEL         | Construction navale avec gouverneur activé.
 
-GOVERNOR_FOLLOW_COLONY_REQUESTS_HELP     | Il est en quelque sorte un gouverneur junior obéissant.<br>- Il s'assure d'abord que la colonie reste propre.<br>- Ensuite, il s'occupe de vos demandes urgentes, dans l'ordre : Boucliers, Bases, Population, Usines, Croissance de la colonie.<br>- Ensuite, il exécute vos tâches prioritaires, en leur attribuant le pourcentage de fonds alloués. Dans l'ordre : Quantité spécifiée de navires, Recherche (Violet)<br>- Vient ensuite le moment de faire grandir la colonie en équilibrant la construction d'usines et la croissance de la population.<br>- S'il reste des fonds, ils seront à nouveau assignés aux tâches prioritaires<br>- Viennent ensuite les tâches de moindre priorité en suivant vos instructions (Bleu). Dans l'ordre : Défenses, Navires, Recherche.<br>- S'il n'y a pas d'instructions, la séquence sera : Défense, Recherche.<br>Note: Si vous verrouillez les allocations des Vaisseaux : Il ne les modifiera pas
+GOVERNOR_FOLLOW_COLONY_REQUESTS_HELP     | Il est en quelque sorte un gouverneur junior obéissant.<br>- Il s’assure d’abord que la colonie reste propre.<br>- Ensuite, il s’occupe de vos demandes urgentes, dans l’ordre : Boucliers, Bases, Population, Usines, Croissance de la colonie.<br>- Ensuite, il exécute vos tâches prioritaires, en leur attribuant le pourcentage de fonds alloués. Dans l’ordre : Quantité spécifiée de navires, Recherche (Violet)<br>- Vient ensuite le moment de faire grandir la colonie en équilibrant la construction d’usines et la croissance de la population.<br>- S’il reste des fonds, ils seront à nouveau assignés aux tâches prioritaires<br>- Viennent ensuite les tâches de moindre priorité en suivant vos instructions (Bleu). Dans l’ordre : Défenses, Navires, Recherche.<br>- S’il n’y a pas d’instructions, la séquence sera : Défense, Recherche.<br>Note: Si vous verrouillez les allocations des Vaisseaux : Il ne les modifiera pas
 GOVERNOR_FOLLOW_COLONY_REQUESTS_DESC     | Si une « →MAIN_COLONY_SHIPYARD_LIMIT← » est définie, elle sera construite en priorité. Si vous verrouillez les allocations de navires : Il ne les modifiera pas. Il suivra également la priorité indiquée en bleu (Ctrl-Clic sur le texte à gauche)
 GOVERNOR_FOLLOW_COLONY_REQUESTS          | Requêtes des colonies : %1
 GOVERNOR_FOLLOW_COLONY_REQUESTS_LABEL    | Prioriser les requêtes des colonies.
@@ -5180,7 +5285,7 @@ GOVERNOR_CANCEL_BUTTON_TT            | Fermer l’interface graphique sans appli
 GOVERNOR_RACE_IMAGE_LABEL            |
 GOVERNOR_RACE_IMAGE_TT               | Si l’animation vous dérange, vous pouvez l’arrêter en cliquant dessus !<br>un autre clic la réactivera.
 
-GOVERNOR_WORKER_TO_FACTORY_ROI_HELP  | Il est généralement plus rentable de produire des usines que de faire croître la population. Cependant, ce n'est pas toujours le cas.<br>Ce paramètre fixe la limite de rendement pour favoriser la croissance démographique.<br>Le coût réel d'une usine dépend des ressources de la planète et du niveau technologique.<br>La production réelle des usines est affectée par le coût de dépollution. Le rendement net est égal à la production réelle divisée par le coût réel.<br>Le coût réel d'une population dépend de l'écologie de la planète et du niveau technologique. Le retour sur investissement d'un travailleur dépend des caractéristiques de l'espèce et du niveau technologique de la planète.<br>Il est possible que le retour sur investissement d'un travailleur soit supérieur à celui d'une usine (c'est le cas pour les fourmis). Si la différence est faible, mieux vaut privilégier la construction d'usines, car la croissance naturelle de la population ne coûte rien. Ce ratio est multiplié par trois sur une planète ultra-pauvre, et il devient alors plus avantageux de retarder la construction d'usines.
+GOVERNOR_WORKER_TO_FACTORY_ROI_HELP  | Il est généralement plus rentable de produire des usines que de faire croître la population. Cependant, ce n’est pas toujours le cas.<br>Ce paramètre fixe la limite de rendement pour favoriser la croissance démographique.<br>Le coût réel d’une usine dépend des ressources de la planète et du niveau technologique.<br>La production réelle des usines est affectée par le coût de dépollution. Le rendement net est égal à la production réelle divisée par le coût réel.<br>Le coût réel d’une population dépend de l’écologie de la planète et du niveau technologique. Le retour sur investissement d’un travailleur dépend des caractéristiques de l’espèce et du niveau technologique de la planète.<br>Il est possible que le retour sur investissement d’un travailleur soit supérieur à celui d’une usine (c’est le cas pour les fourmis). Si la différence est faible, mieux vaut privilégier la construction d’usines, car la croissance naturelle de la population ne coûte rien. Ce ratio est multiplié par trois sur une planète ultra-pauvre, et il devient alors plus avantageux de retarder la construction d’usines.
 GOVERNOR_WORKER_TO_FACTORY_ROI_DESC  | Il est généralement plus rentable de produire des usines que de faire croître la population. Cependant, il peut arriver que ce ne soit pas toujours le cas. Ce paramètre établi la limite de rendement pour favoriser la croissance de la population.
 GOVERNOR_WORKER_TO_FACTORY_ROI       | ROI Limite Pop/Usines : %1 %
 GOVERNOR_WORKER_TO_FACTORY_ROI_LABEL | ROI Limite Pop/Usines
@@ -5188,8 +5293,8 @@ GOVERNOR_WORKER_TO_FACTORY_ROI_LABEL | ROI Limite Pop/Usines
 GOVERNOR_SHOW_TRIGGERED_ROI_DESC     | Lorsque le ratio ROI atteint le niveau de déclenchement, la production sera affichée en vert.
 GOVERNOR_SHOW_TRIGGERED_ROI          | Afficher si la limite est atteinte: %1
 
-GOVERNOR_MAX_COLONIES_FOR_ROI_DESC   | Une fois que le joueur a suffisamment de colonies pour envoyer des transports vers les nouvelles colonies, la croissance de la population n'est plus priorisée par le facteur ROI. Une fois que l'empire atteint ce nombre de colonies, le déclencheur est désactivé.
-GOVERNOR_MAX_COLONIES_FOR_ROI        | Désactiver si l'empire %1 > %1 colonies
+GOVERNOR_MAX_COLONIES_FOR_ROI_DESC   | Une fois que le joueur a suffisamment de colonies pour envoyer des transports vers les nouvelles colonies, la croissance de la population n’est plus priorisée par le facteur ROI. Une fois que l’empire atteint ce nombre de colonies, le déclencheur est désactivé.
+GOVERNOR_MAX_COLONIES_FOR_ROI        | Désactiver si l’empire %1 > %1 colonies
 
 GOVERNOR_SUBSIDY_NORMAL_DESC         | À quoi devrait servir principalement les fonds envoyés à la colonie ?
 GOVERNOR_SUBSIDY_NORMAL              | Utilisation des fonds : %1
@@ -5199,10 +5304,10 @@ SUBSIDY_NORMAL_PLANET_BASED          | Ressources
 SUBSIDY_NORMAL_GOV_CHOICE            | Gouverneur
 SUBSIDY_NORMAL_INDUSTRY_HELP         | Se concentrer sur la construction d’usines.
 SUBSIDY_NORMAL_ECOLOGY_HELP          | Mettre l’accent sur la croissance démographique.
-SUBSIDY_NORMAL_PLANET_BASED_HELP     | Cela dépendra des ressources de la planète :<br>- des usines pour les planètes pauvres, car le coût de l'usine est inférieur pour les subventions,<br>- de la population pour les planètes riches, car le coût de l'usine n'est pas réduit pour les subventions.
-SUBSIDY_NORMAL_GOV_CHOICE_HELP       | Le gouverneur ne se préoccupe pas de l'origine des crédits.
+SUBSIDY_NORMAL_PLANET_BASED_HELP     | Cela dépendra des ressources de la planète :<br>- des usines pour les planètes pauvres, car le coût de l’usine est inférieur pour les subventions,<br>- de la population pour les planètes riches, car le coût de l’usine n’est pas réduit pour les subventions.
+SUBSIDY_NORMAL_GOV_CHOICE_HELP       | Le gouverneur ne se préoccupe pas de l’origine des crédits.
 
-GOVERNOR_SUBSIDY_TFORM_DESC          | Lorsqu'une terraformation de planète est disponible, à quoi devrait servir principalement les fonds envoyés à la colonie ?
+GOVERNOR_SUBSIDY_TFORM_DESC          | Lorsqu’une terraformation de planète est disponible, à quoi devrait servir principalement les fonds envoyés à la colonie ?
 GOVERNOR_SUBSIDY_TFORM               | Fonds de terraformation : %1
 SUBSIDY_TFORM_INDUSTRY               | →SUBSIDY_NORMAL_INDUSTRY←
 SUBSIDY_TFORM_ECOLOGY                | →SUBSIDY_NORMAL_ECOLOGY←
@@ -5214,12 +5319,12 @@ SUBSIDY_TFORM_PLANET_BASED_HELP      | →SUBSIDY_NORMAL_PLANET_BASED_HELP←
 SUBSIDY_TFORM_GOV_CHOICE_HELP        | →SUBSIDY_NORMAL_GOV_CHOICE_HELP←
 
 GOVERNOR_TERRAFORM_FACTORY_PCT_DESC  | La terraformation de la planète sera déclenchée lorsque ce pourcentage d’usines sera construit.
-GOVERNOR_TERRAFORM_FACTORY_PCT       | Le nombre d'usines dépasse : %1 %
+GOVERNOR_TERRAFORM_FACTORY_PCT       | Le nombre d’usines dépasse : %1 %
 GOVERNOR_TERRAFORM_POP_PCT_DESC      | La terraformation de la planète sera déclenchée lorsque ce pourcentage de population sera atteint.
 GOVERNOR_TERRAFORM_POP_PCT           | La population dépasse : %1 %
 GOVERNOR_TERRAFORM_POPULATION_DESC   | La terraformation de la planète sera déclenchée lorsque la population manquante pour remplir la planète atteindra cette valeur.
 GOVERNOR_TERRAFORM_POPULATION        | Espace restant pour : %1 habitants
-GOVERNOR_TERRAFORM_COST_DESC         | La terraformation de la planète sera déclenchée si le rapport coût/revenu (~ Nombre d'années de construction) est inférieur à ce pourcentage.
+GOVERNOR_TERRAFORM_COST_DESC         | La terraformation de la planète sera déclenchée si le rapport coût/revenu (~ Nombre d’années de construction) est inférieur à ce pourcentage.
 GOVERNOR_TERRAFORM_COST              | Le rapport coût/revenu : %1< %1 %
 
 GOVERNOR_DEFAULT_SHIP_TAKE_DESC      | Pourcentage par défaut à attribuer à la construction de flottes prioritaires, et à la recherche prioritaire, lors de la fondation de nouvelles colonies.
@@ -5516,29 +5621,29 @@ HK_SEL_E       | Dépenses à 100% / Max-Intel. / Verrouillage / Déverrouillage
 HK_SET_DEFAULT | <br>Alt-F : Définir les valeurs par défaut à →FUSION_HK←.<br>Alt-M : Définir les valeurs par défaut à →MOO1_HK←.<br>Alt-R : Définir les valeurs par défaut à →CLASSIC_HK←.
 
 // Shortcuts Full lists*
-MAIN_HELP_SHIPFLEET_HK | Raccourcis clavier QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d’informations détaillées (si elles sont connues)<br><br> MODE DE REDIRECTION DES FLOTTES :<br><br>Appuyez sur «Alt» pour montrer des informations sur l’étoile ou la flotte survolée par la souris.
+MAIN_HELP_SHIPFLEET_H	| Raccourcis clavier QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d’informations détaillées (si elles sont connues)<br><br> MODE DE REDIRECTION DES FLOTTES :<br><br>Appuyez sur «Alt» pour montrer des informations sur l’étoile ou la flotte survolée par la souris.
 
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1←<br>H : Afficher les caractéristiques connues de la flotte sous le curseur<br><br>F2/F3 Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n’affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n’est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Espace/Page Down/Page Up : Votre flotte inactive Suivante/Précédente<br>«Maj-» Espace/Page Down/Page Up : Votre flotte Auto. mais inactive Suivante/Précédente→HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d’Option →HK_YEAR←<br>Maj-S : Rapport d’espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br>ALT-W : Afficher/Cacher la grille carrée <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
+MAIN_HELP_HK			| →HK_HEADER← →HK_F1←<br>H : Afficher les caractéristiques connues de la flotte sous le curseur<br><br>F2/F3 Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n’affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n’est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Espace/Page Down/Page Up : Votre flotte inactive Suivante/Précédente<br>«Maj-» Espace/Page Down/Page Up : Votre flotte Auto. mais inactive Suivante/Précédente→HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d’Option →HK_YEAR←<br>Maj-S : Rapport d’espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br>ALT-W : Afficher/Cacher la grille carrée <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
 
-PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>Ctrl+A : Sélectionner tous les systèmes<br>Q/+Ctrl : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+Ctrl : Planète en manque de population / + Dépenses ÉCO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +Ctrl /+Maj : Basculer activation du gouverneur / Activé / Désactivé <br>→HK_ESCAPE←
+PLANETS_HELP_HK			| →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>Ctrl+A : Sélectionner tous les systèmes<br>Q/+Ctrl : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+Ctrl : Planète en manque de population / + Dépenses ÉCO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +Ctrl /+Maj : Basculer activation du gouverneur / Activé / Désactivé <br>→HK_ESCAPE←
 
-FLEETS_HELP_HK       | →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
+FLEETS_HELP_HK			| →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
 
 // !!!
 // Do not remove the space between ">" & "=" because of confusion with ">=" wish is replaced by "&gt;="
 // !!!
-TECH_HELP_HK         | →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>Ctrl+1-6 : (dé)verrouiller les curseurs.<br>Flèches : Déplacer l’arbre / Catégories<br> = : Égaliser<br>Molette souris : Changer l’allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit : Montre plus d’info sur la tech survolée <br> →HK_ESCAPE←
+TECH_HELP_HK			| →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>Ctrl+1-6 : (dé)verrouiller les curseurs.<br>Flèches : Déplacer l’arbre / Catégories<br> = : Égaliser<br>Molette souris : Changer l’allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit : Montre plus d’info sur la tech survolée <br> →HK_ESCAPE←
 
-SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1← <br><br>Flèches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+Ctrl) : Purger le modèle / (Juste l’armement)<br><br>ALT-A : Construction automatique<br>ALT-B : Construction automatique Bombardier<br>ALT-F : Construction automatique Chasseur<br>ALT-E : Construction automatique Éclaireur.<br>ALT-P : Construction automatique Colonisateur. <br>→HK_ESCAPE←
+SHIP_DESIGN_HELP_HK		| →HK_HEADER← →HK_F1← <br><br>Flèches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+Ctrl) : Purger le modèle / (Juste l’armement)<br>O : Ouvrir le panneau d'options de conception des vaisseaux<br><br>(Shift) Alt-A : Conception automatique<br>(Shift) Alt-B : Conception automatique Bombardier<br>(Shift) Alt-E : Conception automatique Éclaireur<br>(Shift) Alt-F : Conception automatique Chasseur<br>(Shift) Alt-G : Conception automatique Faisceaux<br>(Shift) Alt-H : Conception automatique Hybride<br>(Shift) Alt-I : Conception automatique Intercepteur<br>(Shift) Alt-M : Conception automatique Missiles.<br>(Shift) Alt-P : Conception automatique Colonisateur.<br>Shift-Alt : Autorise le changement de la taille de la coque<br>→HK_ESCAPE←
 
-RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Flèches Down/Up : Empire Suivant/Précédent. →HK_TAB←<br><br>A : →RACES_DIPLOMACY_AUDIENCE← avec l’empire sélectionné.<br><br>Lorsque l’empire du joueur est sélectionné:<br>D : →RACES_DIPLOMACY_MANAGE_DIPLOMATS←.<br>S : →RACES_INTEL_BUREAU_MANAGE←. <br>→HK_ESCAPE←
+RACES_HELP_HK			| →HK_HEADER← →HK_F1← <br><br>Flèches Down/Up : Empire Suivant/Précédent. →HK_TAB←<br><br>A : →RACES_DIPLOMACY_AUDIENCE← avec l’empire sélectionné.<br><br>Lorsque l’empire du joueur est sélectionné:<br>D : →RACES_DIPLOMACY_MANAGE_DIPLOMATS←.<br>S : →RACES_INTEL_BUREAU_MANAGE←. <br>→HK_ESCAPE←
 
-SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_YEAR← →HK_FLAG← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
+SYSTEMS_HELP_HK			| →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_YEAR← →HK_FLAG← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
 
-SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_GUIDE← <br><br>B : Toggle submenus call buttons. →HK_FOG← <br>T : Go to Tune Galaxy Menu. <br>→HK_SET_DEFAULT← <br><br>Enter : Start a new Game. <br><br>M : Go to Main Menu.<br>Escape : Go to Player Setup Panel.
+SETUP_GALAXY_HELP_HK	| →HK_HEADER← →HK_F1← →HK_GUIDE← <br><br>B : Toggle submenus call buttons. →HK_FOG← <br>T : Go to Tune Galaxy Menu. <br>→HK_SET_DEFAULT← <br><br>Enter : Start a new Game. <br><br>M : Go to Main Menu.<br>Escape : Go to Player Setup Panel.
 
-SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>N : Open Name Player Species Sub Menu. <br>R : Random Species.<br>→HK_SET_DEFAULT← <br><br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
+SETUP_RACE_HELP_HK		| →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>N : Open Name Player Species Sub Menu. <br>R : Random Species.<br>→HK_SET_DEFAULT← <br><br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
 
-MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. <br>→HK_SET_DEFAULT←<br>→HK_GUIDE← <br>→HK_ESCAPE←
+MOD_OPTIONS_HELP_HK		| <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. <br>→HK_SET_DEFAULT←<br>→HK_GUIDE← <br>→HK_ESCAPE←
 
-SETUP_GAME_HELP_HK   | H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N : New Game.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.<br><br>PAGE_UP / PAGE_DOWN: (Work in progress)<br>      Open / Close Console for the visually impaired people.
+SETUP_GAME_HELP_HK		| H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N : New Game.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.<br><br>PAGE_UP / PAGE_DOWN: (Work in progress)<br>      Open / Close Console for the visually impaired people.

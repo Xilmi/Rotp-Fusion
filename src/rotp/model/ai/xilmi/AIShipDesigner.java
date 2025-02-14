@@ -15,6 +15,7 @@
  */
 package rotp.model.ai.xilmi;
 
+import static rotp.model.ai.xilmi.NewShipTemplate.newShipTemplate;
 import static rotp.model.ships.ShipDesign.maxSpecials;
 import static rotp.model.ships.ShipDesign.maxWeapons;
 
@@ -510,7 +511,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
         design.mission(ShipDesign.SCOUT);
         design.maxUnusedTurns(OBS_SCOUT_TURNS);
         lab.nameDesign(design);
-        //NewShipTemplate.nameShipDesign(this, design);
+        //newShipTemplate.nameShipDesign(this, design);
         lab.iconifyDesign(design);
         return design;
     }
@@ -536,7 +537,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
         ShipDesignLab lab = lab();
         ShipDesign design = lab.newBlankDesign(ShipDesign.LARGE);
         lab().nameDesign(design);
-        //NewShipTemplate.nameShipDesign(this, design);
+        //newShipTemplate.nameShipDesign(this, design);
         design.special(0, bestColonySpecial());
         design.engine(lab.fastestEngine());
         design.mission(ShipDesign.COLONY);
@@ -627,7 +628,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
     @Override
     public ShipDesign newFighterDesign(int size) {
     //    ShipDesign design = ShipFighterTemplate.newDesign(this);
-        ShipDesign design = NewShipTemplate.newFighterDesign(this);
+        ShipDesign design = newShipTemplate.newFighterDesign(this);
         design.mission(ShipDesign.FIGHTER);
         design.maxUnusedTurns(OBS_FIGHTER_TURNS);
         return design;
@@ -635,14 +636,14 @@ public class AIShipDesigner implements Base, ShipDesigner {
     @Override
     public ShipDesign newBomberDesign(int size) {
     //    ShipDesign design = ShipBomberTemplate.newDesign(this);
-        ShipDesign design = NewShipTemplate.newBomberDesign(this);
+        ShipDesign design = newShipTemplate.newBomberDesign(this);
         design.mission(ShipDesign.BOMBER);
         design.maxUnusedTurns(OBS_BOMBER_TURNS);
         return design;
     }
     @Override
     public ShipDesign newDestroyerDesign(int size) {
-        ShipDesign design = NewShipTemplate.newDestroyerDesign(this);
+        ShipDesign design = newShipTemplate.newDestroyerDesign(this);
         design.mission(ShipDesign.DESTROYER);
         design.maxUnusedTurns(OBS_DESTROYER_TURNS);
         return design;

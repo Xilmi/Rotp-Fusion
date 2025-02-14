@@ -18,6 +18,7 @@ package rotp.model.tech;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.colony.MissileBase;
 import rotp.model.empires.Empire;
 import rotp.model.game.GameSession;
@@ -36,6 +37,10 @@ public final class TechTree implements Base, Serializable {
     private boolean spy = false;
     private boolean canBuildStargate = false;
     private boolean hyperspaceCommunications = false;
+	private boolean hasRepulsorTech;
+	private boolean hasEnergyFocusTech;
+	private boolean hasCloakingTech;
+	private boolean hasBlackHoleTech;
 
     private String topArmorTech;
     private String topAtmoEnrichmentTech;
@@ -84,7 +89,15 @@ public final class TechTree implements Base, Serializable {
     public void canBuildStargate(boolean b)                           { canBuildStargate = b; }
     public boolean hyperspaceCommunications()                         { return hyperspaceCommunications; }
     public void hyperspaceCommunications(boolean b)                   { hyperspaceCommunications = b; }
-    
+	public boolean hasRepulsorTech()								  { return hasRepulsorTech; }
+	public void hasRepulsorTech(boolean b)							  { hasRepulsorTech = b; }
+	public boolean hasEnergyFocusTech()								  { return hasEnergyFocusTech; }
+	public void hasEnergyFocusTech(boolean b)						  { hasEnergyFocusTech = b; }
+	public boolean hasCloakingTech()								  { return hasCloakingTech; }
+	public void hasCloakingTech(boolean b)							  { hasCloakingTech = b; }
+	public boolean hasBlackHoleTech()								  { return hasBlackHoleTech; }
+	public void hasBlackHoleTech(boolean b)							  { hasBlackHoleTech = b; }
+
     public boolean researchCompleted() {
         for (TechCategory cat: category) {
             if (!cat.researchCompleted())
@@ -171,6 +184,23 @@ public final class TechTree implements Base, Serializable {
     public TechSubspaceInterdictor topSubspaceInterdictorTech()       { return (TechSubspaceInterdictor) tech(topSubspaceInterdictorTech); }
     public void topSubspaceInterdictorTech(TechSubspaceInterdictor t) { topSubspaceInterdictorTech = t.id();	}
 
+	public void validateOnLoad()	{
+		for (String id : allKnownTechs()) {
+			Tech tech = tech(id);
+			int techType = tech.techType;
+			if (techType == Tech.REPULSOR)
+				hasRepulsorTech = true;
+			else if (techType == Tech.BEAM_FOCUS)
+				hasEnergyFocusTech = true;
+			else if (techType == Tech.CLOAKING)
+				hasCloakingTech = true;
+			else if (techType == Tech.BLACK_HOLE)
+				hasBlackHoleTech = true;
+			else if (techType == Tech.STARGATE && empire.isPlayer())
+				// In case of Empire swapping, as some AI remove this info.
+				canBuildStargate = true;
+		}
+	}
     public boolean[] colonizableHostility() {
         if (colonizableHostility == null) {
             colonizableHostility = new boolean[13];
@@ -249,6 +279,14 @@ public final class TechTree implements Base, Serializable {
         topSoilEnrichmentTech = tree.topSoilEnrichmentTech;
         topSubspaceInterdictorTech = tree.topSubspaceInterdictorTech;
         topBaseMissileTech = tree.topBaseMissileTech;
+        topBaseScatterPackTech = tree.topBaseScatterPackTech;
+        topReserveFuelRangeTech = tree.topReserveFuelRangeTech;
+        topShipWeaponTech = tree.topShipWeaponTech;
+
+		hasRepulsorTech	 = tree.hasRepulsorTech;
+		hasEnergyFocusTech = tree.hasEnergyFocusTech;
+		hasCloakingTech	 = tree.hasCloakingTech;
+		hasBlackHoleTech = tree.hasBlackHoleTech;
 
         newTechs().clear();
         newTechs().addAll(tree.newTechs());

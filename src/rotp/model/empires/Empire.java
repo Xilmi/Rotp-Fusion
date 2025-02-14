@@ -1043,6 +1043,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void validateOnLoad() {
     	if (dynamicOptions == null)
     		dynamicOptions = new DynOptions();
+		tech().validateOnLoad();
         for(EmpireView view : this.empireViews)
             if(view != null)
                 view.validateOnLoad();

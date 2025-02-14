@@ -101,8 +101,9 @@ public final class SpyNetwork implements Base, Serializable {
         view = v;
         tech.init(empire(), true);
     }
+	void validateOnLoad()	{ tech.validateOnLoad(); }
 
-    public void nextPromise() 	          {
+	public void nextPromise() 	          {
     	switch(lastSpyThreatReply()) {
     	case GOV_SPY_IGNORE:
     		lastSpyThreatReply = GOV_SPY_HIDE;

@@ -21,6 +21,7 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+
 import rotp.model.combat.CombatStack;
 import rotp.model.empires.Empire;
 import rotp.model.ships.ShipSpecialRepulsor;
@@ -69,6 +70,7 @@ public final class TechRepulsor extends Tech {
         super.provideBenefits(c);
         ShipSpecialRepulsor sh = new ShipSpecialRepulsor(this);
         c.shipLab().addSpecial(sh);
+        c.tech().hasRepulsorTech(true);
     }
     @Override
     public void drawSpecialAttack(CombatStack source, CombatStack target, int wpnNum, float dmg) {

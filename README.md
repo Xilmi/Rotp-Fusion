@@ -74,6 +74,28 @@ Later:
 
 ## What's New
 
+2025.02.14 (BR)
+- NewShipTemplate: New abstract class to unify them all.
+  - Config file related constants are now unique.
+  - Auto Design method calls are now common.
+  - Enum DesignType has been extended for UI needs.
+- DesignUI new features:
+  - Unified auto Ship design methods.
+  - More auto Ship design.
+  - Call for a new auto Ship design Options Panel.
+    - Alt-A : Auto build.
+    - Alt-B : Auto build Bomber ship.
+    - Alt-E : Auto build Scout ship (Explorer).
+    - Alt-F : Auto build Fighter ship.
+    - Alt-G : Auto build Beam ship (Gun).
+    - Alt-H : Auto build Hybrid ship (Bomb + Beam + Missile).
+    - Alt-I : Auto build Iterceptor ship (Best manoeuver Hybrid with minimal bomb).
+    - Alt-M : Auto build Missile ship.
+    - Alt-P : Auto build Colony (Pioneer).
+    - Shift-Alt "" : to also select the best design size.
+  - Shift-Auto will also select the best design size.
+  - Updated Help pop-up.
+
 2025.02.07 (BR)
 - Fixed rounding error preventing refit when big colonies were auto sending small troops.  (Governor and smart tools)
 
