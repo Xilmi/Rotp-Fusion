@@ -1131,7 +1131,7 @@ public class NewShipTemplateUser extends ShipTemplate { // For Player auto Desig
 					if (wpn.isMissileWeapon()) {
 						ShipWeaponMissileType swm = (ShipWeaponMissileType)wpn;
 						//System.out.print("\n"+ai.empire().name()+" "+d.name()+" wpn: "+wpn.name()+" speed: "+swm.speed()+" / "+missileSpeedMinimum);
-						if (swm.speed() <= missileSpeedMinimum)
+						if (!mustBeMissiles && swm.speed() <= missileSpeedMinimum)
 							continue;
 						if (prohibitTwoRackMissiles && swm.shots() < 5)
 							continue;
