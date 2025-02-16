@@ -74,6 +74,9 @@ Later:
 
 ## What's New
 
+2025.02.16 (BR)
+- Fixed issue with multi-shot beam weapons. They will now follow MoO1 rules and fire all their shots on the same stack.
+
 2025.02.14 (BR)
 - NewShipTemplate: New abstract class to unify them all.
   - Config file related constants are now unique.

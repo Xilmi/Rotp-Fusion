@@ -100,9 +100,6 @@ public final class TechShipWeapon extends Tech {
         cat = c;
         free = b;
         init();
-//        System.out.println(soundEffect); // TO DO BR: COMMENT
-//        playAudioClip(soundEffect);
-//        sleep(1500);
     }
     @Override
     public boolean canBeMiniaturized()      { return true; }

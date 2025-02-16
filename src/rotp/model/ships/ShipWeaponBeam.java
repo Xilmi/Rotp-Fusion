@@ -16,6 +16,7 @@
 package rotp.model.ships;
 
 import java.awt.BasicStroke;
+
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackColony;
 import rotp.model.combat.ShipCombatManager;
@@ -67,10 +68,10 @@ public final class ShipWeaponBeam extends ShipWeapon {
     }
     @Override
     public void fireUpon(CombatStack source, CombatStack target, int count, ShipCombatManager mgr) {
-//        if (random() < target.autoMissPct()) {
-//           	drawUnsuccessfulAttack(source, target, count);
-//            return;
-//        }
+        if (random() < target.autoMissPct()) {
+           	drawUnsuccessfulAttack(source, target, count);
+            return;
+        }
         float totalDamage = 0;
         float totalLatent = 0; // BR: Damages if not shielded
         float asteroidsMod = 0;
@@ -78,8 +79,6 @@ public final class ShipWeaponBeam extends ShipWeapon {
         	int numAsteroids = mgr.asteroidsInPath(source.x(), source.y(), target.x(), target.y());
         	asteroidsMod = 3 * numAsteroids * shieldMod();
         }
-        
-       	//float shieldMod = (asteroidsMod + source.targetShieldMod(this))*shieldMod();
         float shieldMod = asteroidsMod + source.targetShieldMod(this)*shieldMod();
         
         // use attack/defense values to determine chance that weapon will hit

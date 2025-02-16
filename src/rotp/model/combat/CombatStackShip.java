@@ -441,11 +441,15 @@ public class CombatStackShip extends CombatStack {
 
         // only fire if we have shots remaining... this is a missile concern
         if ((roundsRemaining[index] > 0) && (shotsRemaining[index] > 0)) {
+			ShipComponent selectedWeapon = selectedWeapon();
+			// some weapons (beams) can fire multiple per round
+			// BR: Multi-fire must target the same stack.
+			if (selectedWeapon().isBeamWeapon())	
+				shotsTaken = shotsRemaining[index];
+			int count = num*shotsTaken*weaponCount[index];
+
             shotsRemaining[index] = shotsRemaining[index]-shotsTaken;
             uncloak();
-            ShipComponent selectedWeapon = selectedWeapon();
-            // some weapons (beams) can fire multiple per round
-            int count = num*shotsTaken*weaponCount[index];
             if (selectedWeapon.isMissileWeapon()) {
                 CombatStackMissile missile = new CombatStackMissile(this, (ShipWeaponMissileType) selectedWeapon, count);
                 //log(fullName(), " launching ", missile.fullName(), " at ", targetStack.fullName());
@@ -461,8 +465,8 @@ public class CombatStackShip extends CombatStack {
                 //log("TARGET IS NULL AFTER BEING FIRED UPON!");
                 return;
             }
-            if (target.damageSustained > 0)
-               ; //log("weapon damage: ", str(target.damageSustained));
+            // if (target.damageSustained > 0)
+            //    log("weapon damage: ", str(target.damageSustained));
         }
 
         if (shotsRemaining[index] == 0)

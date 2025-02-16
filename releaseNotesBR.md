@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed issue with multi-shot beam weapons. They will now follow MoO1 rules and fire all their shots on the same stack.
 - DesignUI new features:
   - Unified auto Ship design methods.
   - More auto Ship design.
