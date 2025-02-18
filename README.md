@@ -83,6 +83,8 @@ Later:
 - Fixed Obedient Governor building stargates too early.
 - Fixed Ship Design Size, Power and cost values sometime overlapping with Huge hulls.
   - Values greater than 1000 will not display decimals.
+- Removed unused classes
+  - And changing the file serialization will break backward compatibility anyway.
 
 2025.02.16 (BR)
 - Fixed issue with multi-shot beam weapons. They will now follow MoO1 rules and fire all their shots on the same stack.
