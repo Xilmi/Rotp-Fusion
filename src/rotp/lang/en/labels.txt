@@ -896,6 +896,7 @@ TURN_DEPLOY_FLEET_X               | Deploying Ships (%1/%2 completed)
 TURN_RETREAT_FLEETS               | Retreating Fleets
 TURN_DESIGN_SHIPS                 | Designing Ships
 TURN_COLONY_SPENDING              | Colony Allocations
+COUNCIL_ESTABLISH_UNITY			| Establishing Unity
 
 COLONY_VIEW_HELP_1                | Nothing fancy there...<br><br>Just enjoy the view.<br><br>"Z" to see the background alone.<br>→HK_ESCAPE←
 HISTORY_HELP_MAIN                 | HISTORY VIEW:<br>To see how the galaxy has developed since the first turn.<br>This lets you see it all! Provided, of course, you have the necessary intel.
@@ -1467,8 +1468,8 @@ GNN_EXPANSION_3                   | The [expanding_empire] nearly controls a maj
 GNN_ALLIANCE_FORMED               | The [first_empire] has formed an Alliance with the [second_empire].
 GNN_ALLIANCE_BROKEN               | The Alliance between the [first_empire] and the [second_empire] has been broken.
 GNN_FLEETS_RANKING                | Current ranking of space fleet strengths:
-GNN_CENSUS_RANKING                | The census ranking of empire populations:
-GNN_PRODUCTION_RANKING            | Current rankings of empire production:
+GNN_CENSUS_RANKING                | The census ranking of empires' populations:
+GNN_PRODUCTION_RANKING            | Current rankings of empires' production:
 GNN_TECHNOLOGY_RANKING            | Current leaders of advanced technology:
 GNN_PLAYER_REBELLION              | %1 has rebelled and refuses to contribute to the [rebelling_empire]. At least %2 million rebels control the colony. Troops must be sent to quell the uprising.
 GNN_ALIEN_REBELLION               | %1 has rebelled and refused to contribute to the [rebelling_empire]. At least %2 million rebels control the colony.
@@ -4818,7 +4819,7 @@ COUNCIL_CONTINUE                  | Continue
 COUNCIL_ELECTED_TITLE             | Ruler of the Galaxy Elected!
 COUNCIL_ACCEPT_RULING             | Accept Ruling
 COUNCIL_REJECT_RULING             | Reject Ruling
-COUNCIL_SKIP_NEXT_TECHS           | Skip Trade Report
+COUNCIL_SKIP_NEXT_TECHS           | Skip Next Reports
 
 // Credit text
 CREDITS_DEVELOPER                 | Ray Fowler, Developer

@@ -1238,7 +1238,7 @@ public final class GalacticCouncilUI extends FadeInPanel
         dragY = 0;
         if ((e.getButton() > 3) || e.getClickCount() > 1)
             return;
-        
+
         GalacticCouncil c = galaxy().council();
         if (showVoterSummary) {
             if (hoverTarget == continueBox) {
@@ -1295,7 +1295,7 @@ public final class GalacticCouncilUI extends FadeInPanel
                     c.acceptRuling(player());
                 else if (hoverTarget == rejectBox)
                     c.defyRuling(player());
-                else 
+                else
                     return;
                 advanceScreen();
                 return;

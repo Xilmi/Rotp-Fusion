@@ -366,12 +366,13 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
             y1 += lineHeight;
         }
         if (showSkipNextButton()) {
+            String str = text("COUNCIL_SKIP_NEXT_TECHS");
+            int sw = g.getFontMetrics().stringWidth(str);
             int buttonH = s35;
-            int buttonW = scaled(200);
+            int buttonW = sw + s20;
             int buttonPad = s10;
             int xB = w - buttonW - buttonPad;
             int yB = h - buttonH - buttonPad;
-            String str = text("COUNCIL_SKIP_NEXT_TECHS");
             drawButton(g, allocateBackC, "", str, skipButton, xB, yB, buttonW, buttonH);        	
         }
     }

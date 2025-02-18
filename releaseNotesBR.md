@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Added a unification notice after accepting or rejecting the vote, as sharing knowledge across empires can take a long time for very large galaxies.
 - Fixed issue with multi-shot beam weapons. They will now follow MoO1 rules and fire all their shots on the same stack.
 - DesignUI new features:
   - Unified auto Ship design methods.

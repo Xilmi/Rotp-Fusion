@@ -896,6 +896,8 @@ TURN_DEPLOY_FLEET_X               | Déployer des vaisseaux (%1/%2 terminé)
 TURN_RETREAT_FLEETS               | Flottes en Retraite
 TURN_DESIGN_SHIPS                 | Concevoir des Vaisseaux
 TURN_COLONY_SPENDING              | Allocations de Colonie
+COUNCIL_ESTABLISH_UNITY			| Unification de l'Alliance
+
 
 COLONY_VIEW_HELP_1                | Rien de fantaisiste là-bas...<br><br>Profitez juste de la vue.<br><br>«Z» pour voir uniquement le fond.<br>→HK_ESCAPE←
 HISTORY_HELP_MAIN                 | HISTORIQUE : <br>Pour voir comment la galaxie s’est développée depuis le premier tour.<br>Cela vous permet de voir tout ça ! À condition, bien sûr, que vous ayez les informations nécessaires.
@@ -1466,16 +1468,16 @@ GNN_EXPANSION_2                   | [expanding_empire] compte maintenant %1 syst
 GNN_EXPANSION_3                   | [expanding_empire] contrôle presque la majorité de la galaxie. Les dirigeants se préparent déjà à fusionner avec le puissant empire.
 GNN_ALLIANCE_FORMED               | [first_empire] a formé une alliance avec [second_empire].
 GNN_ALLIANCE_BROKEN               | L’alliance entre [first_empire] et [second_empire] a été rompue.
-GNN_FLEETS_RANKING                | Classement actuel par puissance de la flotte spatiale :
-GNN_CENSUS_RANKING                | Le classement censitaire des populations de l’empire :
-GNN_PRODUCTION_RANKING            | Classements actuels de la production de l’empire :
-GNN_TECHNOLOGY_RANKING            | Leaders actuels de la technologie de pointe :
+GNN_FLEETS_RANKING                | Classement actuel par puissance des flottes spatiales :
+GNN_CENSUS_RANKING                | Classement des populations des empires selon le dernier recensement :
+GNN_PRODUCTION_RANKING            | Classements actuels de la production des empires :
+GNN_TECHNOLOGY_RANKING            | Classement actuel des empires technologiquement les plus avancés :
 GNN_PLAYER_REBELLION              | %1 s’est rebellé et refuse de contribuer à [rebelling_empire]. Au moins %2 millions de rebelles contrôlent la colonie. Des troupes doivent être envoyées pour réprimer le soulèvement.
 GNN_ALIEN_REBELLION               | %1 s’est rebellé et a refusé de contribuer à [rebelling_empire]. Au moins %2 millions de rebelles contrôlent la colonie.
 GNN_PLAYER_REBELLION_SPREAD       | La rébellion continue de se propager dans tout le [rebelling_empire]. Au moins %2 millions de rebelles contrôlent désormais la colonie de %1.
 GNN_OVERTHROW                     | Un nouveau chef a émergé de l’intérieur [alien_empireof]. Les rumeurs indiquent que le nouvel empereur est %1. Les relations sont devenues neutres et les échanges ont été perturbés.
 GNN_END_COUNCIL                   | Avec seulement deux Empires restants, les tentatives d’unification de la galaxie avec un Conseil Galactique ont pris fin. De nombreux dirigeants débattent maintenant du type de solution finale qui peut apporter une paix durable.
-GNN_FORM_COUNCIL                  | Dans la poursuite de la paix, des représentants de chaque race se réuniront bientôt pour élire un empereur galactique à choisir parmi les dirigeants des deux empires les plus peuplés.
+GNN_FORM_COUNCIL                  | En quête de paix, les représentants de chaque espèce se réuniront bientôt pour tenter d'élire un empereur galactique. Les candidats seront les dirigeants des deux empires les plus peuplés.
 GNN_ALLY_AT_WAR                   | Notre allié, [ally_empire], est entré en guerre contre [other_empire].
 
 // Error UI text
@@ -4818,7 +4820,7 @@ COUNCIL_CONTINUE                  | Continuer
 COUNCIL_ELECTED_TITLE             | Élu Souverain de la Galaxie !
 COUNCIL_ACCEPT_RULING             | Accepter la décision
 COUNCIL_REJECT_RULING             | Rejeter la décision
-COUNCIL_SKIP_NEXT_TECHS           | Sauter les rapports commerciaux
+COUNCIL_SKIP_NEXT_TECHS           | Éluder les rapports
 
 // Credit text
 CREDITS_DEVELOPER                 | Ray Fowler, Développeur

@@ -18,7 +18,7 @@ CONTACT_AGGRESSIVE         | I am ambassador of the [my_empire]. I advise you to
 CONTACT_RUTHLESS           | Such small creatures you are! You need only know two things: first, that we are called "[my_race]", and second, that opposing our conquest only guarantees your demise!
 CONTACT_ERRATIC            | We of the [my_empire] greet you, little ones. Our destiny lies somewhere among these scattered worlds and burning stars. It'll be interesting to see where you will fit in our grand design.
 //
-GREETING_01                | So you have acted with honor, and so we shall act to honor you. Tell us what you need, little friend. 
+GREETING_01                | So you have acted with honor, and so we shall act to honor you. Tell us what you need, little friend.
 GREETING_04                | Speak quickly, little [your_race]. Do not tempt our anger with false promises and one-sided deals.
 GREETING_07                | To come and speak with us shows great bravery for one so little. That bravery earns your safety for now.
 
@@ -35,7 +35,7 @@ DECLAREWAR_ALLIANCE_01     | An ally of the Empire has requested our aid! We wil
 DECLAREWAR_ALLIANCE_02     | You make war on our ally, doubtless unaware that you make war on us as well. This is a fight from which your people will not emerge victorious, ambassador. Count on it.
 DECLAREWAR_ALLIANCE_03     | Even with all your might, you stand no chance against the [defender_race] if we [my_race] join with them! Prepare yourself, little [your_race]!
 DECLAREWAR_SPYING_01       | Such treachery! But when you must exist in so small a body you must have little other choice: you obviously stand no chance on the field of battle, as we will now so easily prove.
-DECLAREWAR_SPYING_02       | To think that people so small cannot succeed in such covert operations. Hang your spies high for your worlds to see; you will pay for their blunders with your life! 
+DECLAREWAR_SPYING_02       | To think that people so small cannot succeed in such covert operations. Hang your spies high for your worlds to see; you will pay for their blunders with your life!
 DECLAREWAR_SPYING_03       | You think we are too weak to respond to such underhanded actions, little one? We will show you just how grave a misjudgment you have made!
 DECLAREWAR_ATTACK_01       | If you wish to fight so much, you need only ask, little [your_race]. We will crush everything you hold dear before your very eyes in a single strike!
 DECLAREWAR_ATTACK_02       | To attack us so brazenly, as though you were much stronger than you are. Commendable, but mistaken in the end.
@@ -45,35 +45,35 @@ DECLAREWAR_ASSASSIN_01     | We expected nothing less: a race so physically infe
 
 OFFER_PEACE_01             | Your people fight well, little one, but more than enough blood has been shed in this war. We are prepared to leave our disputes in the past and move towards peace, if you are brave enough to do so as well.
 OFFER_TRADE_01             | What you lack in size you seem to make up for in your resourcefulness. Our people propose a trade of [amt] BC, every year, in the hope that trade proves more beneficial than conflict for both of us.
-OFFER_PACT_01              | We [my_race_plural] have varied opinions for the numerous races we've encountered. Your kind in particular amuses the [my_title], and he wishes us you to sign a non-aggression pact with us to prevent any unnecessary disputes in the future. 
+OFFER_PACT_01              | We [my_race_plural] have varied opinions for the numerous races we've encountered. Your kind in particular amuses the [my_title], and he wishes you to sign a non-aggression pact with us to prevent any unnecessary disputes in the future.
 OFFER_ALLIANCE_01          | Though we are unmatched in combat, we are not so barbarous that we would throw away our ties with a race such as yours merely to feel the thrill of victory. Little ambassador, let us formalize an alliance, and meet on the battlefield as friends instead of foes.
 //
-WARN_TRESPASSING_01        | Your presence at [system] has begun to annoy us. It would be wise for you to leave before you tempt our anger any further. 
-WARN_EXPANSION_01          | To take territory is the right of the strongest empires. We warn you against further expansion, little one, unless you wish us to defend future [my_race] territory before it is formally made ours. 
-WARN_BUILDUP_01            | Space is the theater of cowards: true bravery can only be proven on a planet's surface. Though your fleet grows vast, you cannot use it to hide from our fury should you continue to grow it even larger. 
+WARN_TRESPASSING_01        | Your presence at [system] has begun to annoy us. It would be wise for you to leave before you tempt our anger any further.
+WARN_EXPANSION_01          | To take territory is the right of the strongest empires. We warn you against further expansion, little one, unless you wish us to defend future [my_race] territory before it is formally made ours.
+WARN_BUILDUP_01            | Space is the theater of cowards: true bravery can only be proven on a planet's surface. Though your fleet grows vast, you cannot use it to hide from our fury should you continue to grow it even larger.
 WARN_SKIRMISH_01           | The skirmish at [system] is little more than nuisance to us. Bother us no more, or we will crush you like the pest you seem so insistent on being!
-WARN_ATTACKED_01           | A pathetic display from an equally pathetic race! Count your blessings that the [defender_title] has more important matters to tend to than your meager show of force, but know that if you wish for a war we are happy to oblige you, little one. 
-WARN_INVADED_01            | Ha! Such bravery from so small a people. Leave our territories now little one, before you do something you are certain to regret soon after. 
+WARN_ATTACKED_01           | A pathetic display from an equally pathetic race! Count your blessings that the [defender_title] has more important matters to tend to than your meager show of force, but know that if you wish for a war we are happy to oblige you, little one.
+WARN_INVADED_01            | Ha! Such bravery from so small a people. Leave our territories now little one, before you do something you are certain to regret soon after.
 WARN_ESPIONAGE_01          | Cowards! To sneak amongst [victim_race_plural] like chommkas escaping their tubes. Be grateful we did not crush your spy, and do not force us to respond to such spinelessness again! [framed]
-WARN_SABOTAGE_01           | Why not face us in combat, little one? It would bore us to battle a race timid enough to rely on sabotage, but if you do this again we may endure that boredom just to be rid of you! [forced] 
-WARN_BIOWEAPON_01          | The ultimate act of cowardice, to use a bioweapon against those who cannot even defend themselves! Your people will bear this shame until the end of your empire, little one: nothing you do will ever wipe this slate clean. 
+WARN_SABOTAGE_01           | Why not face us in combat, little one? It would bore us to battle a race timid enough to rely on sabotage, but if you do this again we may endure that boredom just to be rid of you! [forced]
+WARN_BIOWEAPON_01          | The ultimate act of cowardice, to use a bioweapon against those who cannot even defend themselves! Your people will bear this shame until the end of your empire, little one: nothing you do will ever wipe this slate clean.
 WARN_GENOCIDE_01           | The [victim_race_plural] were weak and frail, and are no great loss to the galaxy. That a people as insignificant as yours would be the ones responsible for their extinction is what we find most disconcerting.
-WARN_FINAL_WAR_01          | We admire the bravery of those who seek to stand against the galaxy when it has chosen to unite in peace? We will record your boldness in our histories, little one, after we have crushed you down to the very last child! 
+WARN_FINAL_WAR_01          | We admire the bravery of those who seek to stand against the galaxy when it has chosen to unite in peace? We will record your boldness in our histories, little one, after we have crushed you down to the very last child!
 WARN_COUNCIL_VOTE_01       | This council is a gathering of simpering fools who would rather discuss their grievances than settle them like warriors! But just because we have such disdain for these proceedings does not mean we will readily forgive your opposition during them!
 WARN_OATHBREAKER_01        | Little one! To break your word is the ultimate shame! We know your kind to be feeble in body, but to be feeble in word as well surprises even us! [spiesCaught]
 WARN_ATTACKED_ALLY_01      | The little [defender_race] are under our protection! Cease your war and make amends, or you will die by our hand before you know what hits you!
 WARN_REBELLING_AGAINST_01    | The Grand Hierarch is the only one fit to sit upon the throne of the Galactic Council! We will never accept your vile usurpation!
 //
-PRAISE_COUNCIL_VOTE_01     | Ha! The looks on their faces as you sided with us proves very amusing. But now they know where the true power lies, and we thank our little friends for helping them to learn! 
+PRAISE_COUNCIL_VOTE_01     | Ha! The looks on their faces as you sided with us proves very amusing. But now they know where the true power lies, and we thank our little friends for helping them to learn!
 PRAISE_COUNCIL_VOTE_02     | It's quite tedious to be forced to endure babbling dotards during these meetings. Whether you aided us to end it quicker or because you are aware of our power, we recognize what you have done today.
-PRAISE_COUNCIL_VOTE_03     | You intrigue us, little one. But it is good for your people that you have chosen to recognize our might this day. For your sake, I hope you continue to do so. 
+PRAISE_COUNCIL_VOTE_03     | You intrigue us, little one. But it is good for your people that you have chosen to recognize our might this day. For your sake, I hope you continue to do so.
 
-PRAISE_ATTACKED_ENEMY_01   | Ha ha! Good to see you on the battlefield today, little friend! Let us crush these pathetic [defender_race] together! Let their blood flow over their worlds until not a single one of them remain! 
-PRAISE_ATTACKED_ENEMY_02   | What glorious battle we will make today, little one! Show us how you fight against the [defender_race], so that we may give you the proper respect from this day forward!  
+PRAISE_ATTACKED_ENEMY_01   | Ha ha! Good to see you on the battlefield today, little friend! Let us crush these pathetic [defender_race] together! Let their blood flow over their worlds until not a single one of them remain!
+PRAISE_ATTACKED_ENEMY_02   | What glorious battle we will make today, little one! Show us how you fight against the [defender_race], so that we may give you the proper respect from this day forward!
 PRAISE_ATTACKED_ENEMY_03   | It's painfully obvious that you only fight against the [defender_race] because we also do so. Still, that you do not shy away from the fight entirely... perhaps we have misjudged you after all.
 
 PRAISE_TRADE_01            | Our trade agreement has been most profitable for both our races, little friend. But trust is the most valuable coin, and we will continue to trust you so long as you act thusly.
-PRAISE_TRADE_02            | While war may be the most exhilarating way to advance, it is not the only way, as our trade agreement proves. Long may it continue so both our people may prosper! 
+PRAISE_TRADE_02            | While war may be the most exhilarating way to advance, it is not the only way, as our trade agreement proves. Long may it continue so both our people may prosper!
 
 PRAISE_REBELLING_WITH_01   | Ha ha! So you think to stand against the galaxy on your own? Did you think we would shy away from such a glorious battle? Stand tall, for the [my_empire] stands with you!
 

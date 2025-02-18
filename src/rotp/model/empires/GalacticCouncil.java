@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameStatus;
@@ -26,6 +27,8 @@ import rotp.model.game.IGameOptions;
 import rotp.model.incidents.CouncilVoteIncident;
 import rotp.model.incidents.FinalWarIncident;
 import rotp.model.tech.Tech;
+import rotp.ui.NoticeMessage;
+import rotp.ui.RotPUI;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.notifications.CouncilVoteNotification;
 import rotp.ui.notifications.GNNNotification;
@@ -251,7 +254,7 @@ public class GalacticCouncil implements Base, Serializable {
             rebels.clear();
             rebels.add(crazyEmpire);
         }
-        
+
         // if player won the vote and no rebels, game over
         if (leader.isPlayer()) {
             if (rebels.isEmpty() || options().immediateCouncilWin() || options().realmsBeyondCouncil()) {
@@ -284,16 +287,18 @@ public class GalacticCouncil implements Base, Serializable {
                 FinalWarIncident.create(ally, leader, rebel);
             }
         }
-        
+
         // all members of alliance declare final war on player or all rebels
         for (Empire rebel: rebels) {
             for (Empire ally: allies) {
                 ally.viewForEmpire(rebel).embassy().declareFinalWar();
             }
         }
-        
+        NoticeMessage.resetSubstatus(text("COUNCIL_ESTABLISH_UNITY"));
+        RotPUI.instance().paintCouncilNotice();
         // all members of alliance establish unity with each other
         // this ensures no spying costs and all learned techs traded freely
+
         for (Empire ally1: allies) {
             for (Empire ally2: allies) {
                 if (ally1 != ally2) {
