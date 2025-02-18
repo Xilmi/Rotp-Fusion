@@ -79,6 +79,10 @@ Later:
 - Fixed the "Skip Tech Report" button size and text.
 - Added a unification notice after accepting or rejecting the vote, as sharing knowledge across empires can take a long time for very large galaxies.
   - Added more progressive notice.
+- Fixed Auto Ship Design not loading user request.
+- Fixed Obedient Governor building stargates too early.
+- Fixed Ship Design Size, Power and cost values sometime overlapping with Huge hulls.
+  - Values greater than 1000 will not display decimals.
 
 2025.02.16 (BR)
 - Fixed issue with multi-shot beam weapons. They will now follow MoO1 rules and fire all their shots on the same stack.

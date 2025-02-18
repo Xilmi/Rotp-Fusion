@@ -5,6 +5,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed Ship Design Size, Power and cost values sometime overlapping with Huge hulls. 
+- Fixed Auto Ship Design not loading user request.
+- Fixed Obedient Governor building stargates too early.
 - Added a unification notice after accepting or rejecting the vote, as sharing knowledge across empires can take a long time for very large galaxies.
   - Added more progressive notice.
 - Fixed issue with multi-shot beam weapons. They will now follow MoO1 rules and fire all their shots on the same stack.

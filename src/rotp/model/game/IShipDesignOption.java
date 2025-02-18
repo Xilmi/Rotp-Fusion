@@ -148,13 +148,13 @@ public interface IShipDesignOption extends IBaseOptsTools {
 
 	default float[] shipDesignMod(float[] species)	{
 		boolean	customSize		= autoShipDesignSize.get().equals(ASD_USER);
-		boolean	customSpace		= autoShipDesignSize.get().equals(ASD_USER);
-		boolean	customBoolean	= autoShipDesignSize.get().equals(ASD_USER);
-		boolean	customSpecial	= autoShipDesignSize.get().equals(ASD_USER);
+		boolean	customSpace		= autoShipDesignSpace.get().equals(ASD_USER);
+		boolean	customBoolean	= autoShipDesignBoolean.get().equals(ASD_USER);
+		boolean	customSpecial	= autoShipDesignSpecial.get().equals(ASD_USER);
 		boolean	speciesSize		= autoShipDesignSize.get().equals(ASD_SPECIES);
-		boolean	speciesSpace	= autoShipDesignSize.get().equals(ASD_SPECIES);
-		boolean	speciesBoolean	= autoShipDesignSize.get().equals(ASD_SPECIES);
-		boolean	speciesSpecial	= autoShipDesignSize.get().equals(ASD_SPECIES);
+		boolean	speciesSpace	= autoShipDesignSpace.get().equals(ASD_SPECIES);
+		boolean	speciesBoolean	= autoShipDesignBoolean.get().equals(ASD_SPECIES);
+		boolean	speciesSpecial	= autoShipDesignSpecial.get().equals(ASD_SPECIES);
 		float	trueValue		= shipDesignSpecialTruePct.get()/100f;
 		float	falseValue		= shipDesignSpecialFalsePct.get()/100f;
 		float[] shipDesignMod	= new float[28];

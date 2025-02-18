@@ -2156,12 +2156,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         	if (maxAlloc==0)
         		return;
         }
-		if (gws.shouldBuildGate) {
-			maxAlloc -= urgeStargate(gws.updateLimitedAllocation(maxAlloc), gws);
-			if (maxAlloc==0)
-				return;
-		}
-        // Check for stargate auto-build
         if (govUrgeResearch) {
         	maxAlloc -= urgeResearchSpending(gws.updateLimitedAllocation(maxAlloc), gws);
         	if (maxAlloc==0)
@@ -2182,6 +2176,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
         	if (maxAlloc==0)
         		return;
         }
+		// Check for stargate auto-build
+		if (gws.shouldBuildGate) {
+			maxAlloc -= urgeStargate(gws.updateLimitedAllocation(maxAlloc), gws);
+			if (maxAlloc==0)
+				return;
+		}
         // Then follow tag preferences: Defense / Ship / Research
         for (int i : govTagSeq) {
         	if (!locked(i) && hasOrder(i)) {

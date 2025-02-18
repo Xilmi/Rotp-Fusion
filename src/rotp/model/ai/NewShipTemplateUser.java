@@ -182,7 +182,6 @@ public class NewShipTemplateUser extends ShipTemplate { // For Player auto Desig
 				else
 					weaponSizeMod *= ai.empire().generalAI().defenseRatio(); 
 			score *= weaponSizeMod;
-//			score /= shipDesignMods[i];
 			designSorter.put(score, design);
 			// For bombers we want the smallest that has the best bomb because it's easiest to "dose"
 			if (role.isBomber() && weaponSizeMod == 1)
