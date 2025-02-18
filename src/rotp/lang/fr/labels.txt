@@ -896,8 +896,7 @@ TURN_DEPLOY_FLEET_X               | Déployer des vaisseaux (%1/%2 terminé)
 TURN_RETREAT_FLEETS               | Flottes en Retraite
 TURN_DESIGN_SHIPS                 | Concevoir des Vaisseaux
 TURN_COLONY_SPENDING              | Allocations de Colonie
-COUNCIL_ESTABLISH_UNITY			| Unification de l'Alliance
-
+COUNCIL_ESTABLISH_UNITY			| Création des liens entre les %3 Alliés : %1 avec %2
 
 COLONY_VIEW_HELP_1                | Rien de fantaisiste là-bas...<br><br>Profitez juste de la vue.<br><br>«Z» pour voir uniquement le fond.<br>→HK_ESCAPE←
 HISTORY_HELP_MAIN                 | HISTORIQUE : <br>Pour voir comment la galaxie s’est développée depuis le premier tour.<br>Cela vous permet de voir tout ça ! À condition, bien sûr, que vous ayez les informations nécessaires.

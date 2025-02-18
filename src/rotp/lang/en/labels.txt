@@ -896,7 +896,7 @@ TURN_DEPLOY_FLEET_X               | Deploying Ships (%1/%2 completed)
 TURN_RETREAT_FLEETS               | Retreating Fleets
 TURN_DESIGN_SHIPS                 | Designing Ships
 TURN_COLONY_SPENDING              | Colony Allocations
-COUNCIL_ESTABLISH_UNITY			| Establishing Unity
+COUNCIL_ESTABLISH_UNITY			| Creating links between %3 Allies: %1 with %2
 
 COLONY_VIEW_HELP_1                | Nothing fancy there...<br><br>Just enjoy the view.<br><br>"Z" to see the background alone.<br>→HK_ESCAPE←
 HISTORY_HELP_MAIN                 | HISTORY VIEW:<br>To see how the galaxy has developed since the first turn.<br>This lets you see it all! Provided, of course, you have the necessary intel.

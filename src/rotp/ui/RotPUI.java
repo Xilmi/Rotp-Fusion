@@ -508,9 +508,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             selectPanel(COUNCIL_PANEL, galacticCouncilUI);
         session().waitUntilNextTurnCanProceed();
     }
-	public void paintCouncilNotice()  {
+	public void paintCouncilNotice(boolean shading)  {
+		//galacticCouncilUI.repaint();
 		Graphics g = galacticCouncilUI.getGraphics();
-		drawNotice(g, 28, -s100);
+		drawNotice(g, 28, -s100, shading);
+		g.dispose();
 	}
     private void benchmarkGameOver()  {
     	List<Empire> sortedEmpires = new ArrayList<>();

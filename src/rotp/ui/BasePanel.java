@@ -243,14 +243,15 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
     public void drawNotice(Graphics g, int fontSize) {
         drawNotice(g, fontSize, 0);
     }
-    public void drawNotice(Graphics g, int fontSize, int yAdj) {
+	public void drawNotice(Graphics g, int fontSize, int yAdj)	{ drawNotice(g, fontSize, yAdj, true); }
+    public void drawNotice(Graphics g, int fontSize, int yAdj, boolean shading)	{
         int w = getWidth();
         int h = getHeight();
         int bdrW = s7;
         boolean autoRun = options().debugAutoRun();
 
         g.setColor(backShade);
-        if (!autoRun) // BR: No shading when auto-run
+        if (shading && !autoRun) // BR: No shading when auto-run
         	g.fillRect(0,0,getWidth(), getHeight());
 
         String title = NoticeMessage.title();

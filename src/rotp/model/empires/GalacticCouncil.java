@@ -294,19 +294,31 @@ public class GalacticCouncil implements Base, Serializable {
                 ally.viewForEmpire(rebel).embassy().declareFinalWar();
             }
         }
-        NoticeMessage.resetSubstatus(text("COUNCIL_ESTABLISH_UNITY"));
-        RotPUI.instance().paintCouncilNotice();
         // all members of alliance establish unity with each other
         // this ensures no spying costs and all learned techs traded freely
-
-        for (Empire ally1: allies) {
-            for (Empire ally2: allies) {
-                if (ally1 != ally2) {
-                    EmpireView v = ally1.viewForEmpire(ally2);
-                    v.embassy().establishUnity();
-                }
-            }
-        }
+		int numAllies = allies.size();
+		int emp1 = 1;
+		long minDelay = 250;
+		Long lastTime = System.currentTimeMillis()-minDelay;
+		boolean shading = true;
+		for (Empire ally1: allies) {
+			int emp2 = 1;
+			for (Empire ally2: allies) {
+				if (ally1 != ally2) {
+					if (System.currentTimeMillis() - lastTime >= minDelay) {
+						String str = text("COUNCIL_ESTABLISH_UNITY", emp1, emp2, numAllies);
+						NoticeMessage.resetSubstatus(str);
+						RotPUI.instance().paintCouncilNotice(shading);
+						shading = false;
+						lastTime = System.currentTimeMillis();
+					}
+					EmpireView v = ally1.viewForEmpire(ally2);
+					v.embassy().establishUnity();
+				}
+				emp2++;
+			}
+			emp1++;
+		}
         // all members of alliance share techs with leader
         for (Empire ally: allies) {
             for (Tech tech : ally.tech().techsUnknownTo(leader, false))
