@@ -74,6 +74,10 @@ Later:
 
 ## What's New
 
+2025.02.19 (BR)
+- Added default design icon in colony panel.
+- Fixed Rally not always rallying.
+
 2025.02.18 (BR)
 - Fixed some dialogue error.
 - Fixed the "Skip Tech Report" button size and text.

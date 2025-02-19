@@ -140,15 +140,17 @@ public class ColonyShipyard extends ColonySpendingCategory {
         if (rallyFleetCopy == null) // no pass by => standard Method
         	galaxy().ships.rallyOrbitingShips(empId, sysId, rallyDesignId, rallyCount, rallyId);
         else {
-        	// Move build to rally
-        	int dec = orbitFleetCopy.removeShips(rallyDesignId, rallyCount);
-        	if (dec != rallyCount) {
-        		System.err.println("rallyCount too High: " + rallyCount + " / " + dec);
-        	}
-        	rallyFleetCopy.addShips(rallyDesignId, dec);
-        	// send fleet
-        	galaxy().ships.rallyOrbitingShips(empId, sysId, rallyId, rallyFleetCopy, orbitFleetCopy);
-            clearFleetsCopy();        	
+			// Move build to rally
+			int dec = orbitFleetCopy.removeShips(rallyDesignId, rallyCount);
+			if (dec != rallyCount) {
+				galaxy().ships.rallyOrbitingShips(empId, sysId, rallyDesignId, rallyCount, rallyId);
+			}
+			else {
+				rallyFleetCopy.addShips(rallyDesignId, dec);
+				// send fleet
+				galaxy().ships.rallyOrbitingShips(empId, sysId, rallyId, rallyFleetCopy, orbitFleetCopy);
+			}
+            clearFleetsCopy();
         }
     }
     public boolean building()            { return queuedBC > 0; }
@@ -295,10 +297,15 @@ public class ColonyShipyard extends ColonySpendingCategory {
             rallyCount = count;
             rallyDesignId = designId;
             int rallyDestSysId = id(emp.sv.rallySystem(sysId));
+//            if (empire().isPlayerControlled()) {
+//            	System.out.println("Freshly built rallying may not want to fight");
+//            }
             // Freshly built rallying may not want to fight
-            if (empire().isPlayerControlled() && !options().rallyBuiltCombat()) {
-            	galaxy().ships.rallyOrbitingShips(emp.id, sysId, rallyDesignId, rallyCount, rallyDestSysId);
-                rallyCount = 0;
+            if (empire().isPlayerControlled()) {
+				if (!options().rallyBuiltCombat()) {
+				galaxy().ships.rallyOrbitingShips(emp.id, sysId, rallyDesignId, rallyCount, rallyDestSysId);
+					rallyCount = 0;
+				}
             }
         }
     }

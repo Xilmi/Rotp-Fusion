@@ -1627,6 +1627,11 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                 g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
                 g.drawImage(img, x1, y1, x1+w1, y1+h1, 0, 0, w0, h0, this);
+				// Draw default design
+				if (currDesign.isDefaultDesign()) {
+					img = globalDefaultDesignIcon(s10, Color.green);
+					g.drawImage(img, x+s2, y+s2, null);
+				}
             }
 
             if (hoverBox == shipDesignBox) {
