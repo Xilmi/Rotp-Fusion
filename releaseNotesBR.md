@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed a rare crash occurring when a flight path is changed while it is displayed.
 - Fixed Rally not always rallying.
 - Added default design icon in colony panel.
 - Fixed Ship Design Size, Power and cost values sometime overlapping with Huge hulls. 

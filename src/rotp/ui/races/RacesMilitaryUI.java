@@ -41,6 +41,7 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.ShipView;
 import rotp.model.empires.SpyNetwork;
+import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesign;
 import rotp.model.tech.TechTree;
 import rotp.ui.BasePanel;
@@ -697,7 +698,8 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         g.drawImage(shipIconBackImg(), x, y, this);
         g.setClip(prevClip);
 
-        Image img = view.design().image();
+        Design d = view.design();
+        Image img = d.image();
 
         int w0 = img.getWidth(null);
         int h0 = img.getHeight(null);
@@ -709,6 +711,11 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         int x1 = x+((w-w1)/2);
         int y1 = y+((h-h1)/2);
         g.drawImage(img, x1, y1, x1+w1, y1+h1, 0, 0, w0, h0, this);
+
+		if (d.empire().isPlayer() && d.active() && d.isDefaultDesign()) {
+			img = globalDefaultDesignIcon(s10, Color.green);
+			g.drawImage(img, x1+s2, y1+s2, this);
+		}
     }
     private void drawShipTactical1(Graphics2D g, ShipView view, int x, int y, int w, int h) { 
         String unk = text("RACES_MILITARY_UNSCANNED");

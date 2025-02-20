@@ -74,8 +74,13 @@ Later:
 
 ## What's New
 
+2025.02.20 (BR)
+- Added default design icon in Empire Military panel.
+- Fixed a rare crash occurring when a flight path is changed while it is displayed.
+  - The path list was changed during a for loop.
+
 2025.02.19 (BR)
-- Added default design icon in colony panel.
+- Added default design icon in Colonies panel.
 - Fixed Rally not always rallying.
 
 2025.02.18 (BR)

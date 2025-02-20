@@ -1123,10 +1123,13 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         }
     }
     private void drawWorkingFlightPaths(Graphics2D g) {
-        for (FlightPathSprite spr: FlightPathSprite.workingPaths()) {
+		// BR: a concurrent modification crash happened here.
+		// So I added a copy before the loop
+		List<FlightPathSprite> paths = new ArrayList<>(FlightPathSprite.workingPaths());
+//		List<FlightPathSprite> paths = FlightPathSprite.workingPaths();
+        for (FlightPathSprite spr: paths)
             if (parent.shouldDrawSprite(spr) || debugShowAll) 
                 spr.draw(this, g);
-        }
     }
     private void drawControlSprites(Graphics2D g) {
         for (Sprite sprite: baseControls) {
