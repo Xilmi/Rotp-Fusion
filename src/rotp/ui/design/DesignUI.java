@@ -97,6 +97,8 @@ public class DesignUI extends BasePanel {
     private final Color grayShadeC = new Color(255,255,255,60);
     private final Color yellowShadeC = new Color(255, 255, 0, 108);
     private final Color errorRedC = new Color(224,0,0);
+	private final Color swapDesignC	= new Color(255, 127, 0);
+	private final Color darkGreenC	= new Color(0, 96, 0);
 
     private int selectedSlot = 0;
     private int helpFrame = 0;
@@ -751,12 +753,19 @@ public class DesignUI extends BasePanel {
         g.setPaint(backGradient);
         g.fillRect(s10,getHeight()-scaled(200),getWidth()-s20, scaled(190));
     }
+	@Override public void keyReleased(KeyEvent e)	{
+		if (hoverTarget instanceof RectDefDes) // Hovering default design area
+			((RectDefDes) hoverTarget).slot.repaint();
+	}
 	@Override public void keyPressed(KeyEvent e)	{
 		if (frame().getGlassPane().isVisible()) {
 			BasePanel selectionPane = (BasePanel) frame().getGlassPane();
 			selectionPane.keyPressed(e);
 			return;
 		}
+		if (hoverTarget instanceof RectDefDes) // Hovering default design area
+			((RectDefDes) hoverTarget).slot.repaint();
+
 		int k = e.getKeyCode();
 		boolean ctrlPressed = e.isControlDown();
 		if (e.getKeyChar() == '?') {
@@ -1037,12 +1046,21 @@ public class DesignUI extends BasePanel {
                 instance.repaint();
         }
     }
+	private final class RectDefDes extends Rectangle {
+		private static final long serialVersionUID = 1L;
+		private final DesignSlotPanel slot;
+		private RectDefDes(DesignSlotPanel parent)	{
+			super();
+			slot = parent;
+		}
+	}
     private final class DesignSlotPanel extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
         private final int designNum;
-        private final Rectangle defaultDesignArea = new Rectangle();
+		private final RectDefDes defaultDesignArea;
         private DesignSlotPanel(int i) {
             designNum = i;
+			defaultDesignArea = new RectDefDes(this);
             init();
         }
         private void init() {
@@ -1161,7 +1179,10 @@ public class DesignUI extends BasePanel {
 				if (des.isDefaultDesign())
 					drawDefaultDesignIcon(g, Color.yellow, text("SHIP_DESIGN_UNSET_DEFAULT"));
 				else
-					drawDefaultDesignIcon(g, Color.yellow, text("SHIP_DESIGN_SET_DEFAULT"));
+					if (des.canReplaceDefault() && isShiftDown())
+						drawDefaultDesignIcon(g, swapDesignC, text("SHIP_DESIGN_SWAP_DEFAULT"));
+					else
+						drawDefaultDesignIcon(g, Color.yellow, text("SHIP_DESIGN_SET_DEFAULT"));
 			}
 			else if (des.active())
 				if (des.isDefaultDesign())
@@ -1170,7 +1191,7 @@ public class DesignUI extends BasePanel {
 					drawDefaultDesignIcon(g, Color.gray, "");
 			else
 				if (des.isDefaultDesign())
-					drawDefaultDesignIcon(g, new Color(0, 96, 0), "");
+					drawDefaultDesignIcon(g, darkGreenC, "");
 				else
 					drawDefaultDesignIcon(g, Color.darkGray, "");
 		}
@@ -1184,14 +1205,17 @@ public class DesignUI extends BasePanel {
 			g.drawImage(img, x, y, null);
 			if (str.isEmpty())
 				return;
-			g.setFont(narrowFont(14));
-			int sw = g.getFontMetrics().stringWidth(str);
 			x += w + s4;
-			//y += s9;
-			g.setColor(Color.black);
-			g.fillRect(x, y-s3, sw+s4, s17);
-			g.setColor(col);
-			g.drawString(str, x, y+s9);
+			g.setFont(narrowFont(14));
+			String[] list = str.split("<br>");
+			for (String s: list) {
+				int sw = g.getFontMetrics().stringWidth(s);
+				g.setColor(Color.black);
+				g.fillRect(x, y-s3, sw+s4, s17);
+				g.setColor(col);
+				g.drawString(s, x, y+s9);
+				y += s17;
+			}
 		}
         private void drawShip(Graphics g) {
             int boxH = getHeight()-s10;
@@ -1241,7 +1265,7 @@ public class DesignUI extends BasePanel {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {}
         @Override
-        public void mouseReleased(MouseEvent mouseEvent) {
+        public void mouseReleased(MouseEvent e) {
             if (hoverTarget == copyButtonArea[designNum]) {
                 softClick();
                 configPanel.shipDesign().copyFrom(slotDesign());
@@ -1253,9 +1277,9 @@ public class DesignUI extends BasePanel {
             }
 			if (hoverTarget == defaultDesignArea) {
 				softClick();
-				slotDesign().toggleDefaultDesign();
+				slotDesign().toggleDefaultDesign(e.isShiftDown());
 				instance.repaint();
-                return;
+				return;
 			}
             if (selectedSlot != designNum) {
                 softClick();
@@ -1283,8 +1307,11 @@ public class DesignUI extends BasePanel {
             hoverTarget = null;
             if (copyButtonArea[designNum].contains(x,y)) 
                 hoverTarget = copyButtonArea[designNum];
-            else if (defaultDesignArea.contains(x,y))
-            	hoverTarget = defaultDesignArea;
+            else if (defaultDesignArea.contains(x,y)) {
+				hoverTarget = defaultDesignArea;
+				repaint(); // To react to shift press / depress
+				return;
+            }
                 
             if (hoverTarget != prevHover)
                 repaint();

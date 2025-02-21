@@ -4219,8 +4219,9 @@ SHIP_DESIGN_AUTO_BUTTON           | Automatique
 SHIP_DESIGN_AUTO_SCOUT            | Auto explore
 SHIP_DESIGN_AUTO_COLONIZE         | Auto colonise
 SHIP_DESIGN_AUTO_ATTACK           | Auto attaque
-SHIP_DESIGN_SET_DEFAULT           | Définir comme « modèle par défaut »
-SHIP_DESIGN_UNSET_DEFAULT         | Retirer l’étiquette « modèle par défaut »
+SHIP_DESIGN_SET_DEFAULT			| Définir comme « modèle par défaut »
+SHIP_DESIGN_UNSET_DEFAULT		| Retirer l’étiquette « modèle par défaut »
+SHIP_DESIGN_SWAP_DEFAULT		| Définir comme « modèle par défaut »<br>      et changer la production
 
 
 // ship design selection dialogs
@@ -4426,7 +4427,7 @@ SHIP_DESIGN_HELP_4G               | Déployer conception - Lorsque votre nouvell
 SHIP_DESIGN_HELP_4H               | Exploration auto. - →GOVERNOR_AUTO_SCOUT_DESC←
 SHIP_DESIGN_HELP_4I               | Attaque auto. - →GOVERNOR_AUTO_ATTACK_DESC←
 SHIP_DESIGN_HELP_4J               | Colonisation auto. - →GOVERNOR_AUTO_COLONIZE_DESC←
-SHIP_DESIGN_HELP_4K               | Sélection du modèle par défaut :<br>Lors de la suppression d’un modèle, les colonies liées à celui-ci le remplaceront par le modèle par défaut. De même après la construction d’une Porte des étoiles.<br>Lorsqu’aucun modèle par défaut actif n’est sélectionné, le premier modèle actif (de haut en bas) sera utilisé.
+SHIP_DESIGN_HELP_4K				| Sélection du modèle par défaut :<br>Lors de la suppression d’un modèle, les colonies liées à celui-ci le remplaceront par le modèle par défaut. De même après la construction d’une Porte des étoiles.<br>Lorsqu’aucun modèle par défaut actif n’est sélectionné, le premier modèle actif (de haut en bas) sera utilisé.<br>« Maj » pour également changer la production.
 
 // Ship Combat UI
 SHIP_COMBAT_TITLE_SYSTEM          | Combat de vaisseaux à %1!

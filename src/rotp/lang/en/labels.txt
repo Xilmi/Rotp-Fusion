@@ -4219,8 +4219,9 @@ SHIP_DESIGN_AUTO_BUTTON           | Auto
 SHIP_DESIGN_AUTO_SCOUT            | Auto Scout
 SHIP_DESIGN_AUTO_COLONIZE         | Auto Colonize
 SHIP_DESIGN_AUTO_ATTACK           | Auto Attack
-SHIP_DESIGN_SET_DEFAULT           | Set as "Default Design"
-SHIP_DESIGN_UNSET_DEFAULT         | Remove "Default Design" tag
+SHIP_DESIGN_SET_DEFAULT			| Set as "Default Design"
+SHIP_DESIGN_UNSET_DEFAULT		| Remove "Default Design" tag
+SHIP_DESIGN_SWAP_DEFAULT 		| Set as "Default" and Swap Production
 
 
 // ship design selection dialogs
@@ -4426,7 +4427,7 @@ SHIP_DESIGN_HELP_4G               | Deploy Design - when your new design is comp
 SHIP_DESIGN_HELP_4H               | Auto Scout - →GOVERNOR_AUTO_SCOUT_DESC←
 SHIP_DESIGN_HELP_4I               | Auto Attack - →GOVERNOR_AUTO_ATTACK_DESC←
 SHIP_DESIGN_HELP_4J               | Auto Colonize - →GOVERNOR_AUTO_COLONIZE_DESC←
-SHIP_DESIGN_HELP_4K               | Default Design selection:<br>When deleting a design, colonies linked to it will replace it with the default design. Likewise after building a Stargate.<br>When no active default design is selected, the first active design (from top to bottom) will be used.
+SHIP_DESIGN_HELP_4K				| Default Design selection:<br>When deleting a design, colonies linked to it will replace it with the default design. Likewise after building a Stargate.<br>When no active default design is selected, the first active design (from top to bottom) will be used.<br>"Shift" will also change shipyard production.
 
 // Ship Combat UI
 SHIP_COMBAT_TITLE_SYSTEM          | Ship Combat at %1!

@@ -89,6 +89,16 @@ public class ShipDesignLab implements Base, Serializable {
     public ShipSpecial noSpecial()                { return specials().get(0); }
 	public void    defaultDesignId(Integer id)	  { defaultDesignId = id; }
 	public Integer defaultDesignId()			  { return defaultDesignId; }
+	public void    replaceDefault(Integer id)	  {
+		ShipDesign oldDesign = design(defaultDesignId);
+		ShipDesign newDesign = design(id);
+		if (oldDesign.active() && newDesign.active())
+			empire().swapShipConstruction(oldDesign, newDesign);
+		defaultDesignId(id);
+	}
+	public boolean canReplaceDefault(Integer id)  {
+		return design(defaultDesignId).active() && design(id).active();
+	}
 
     public ShipDesign prototypeDesign() {
         if (prototypeDesign == null)

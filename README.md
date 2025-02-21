@@ -78,6 +78,7 @@ Later:
 - Added default design icon in Empire Military panel.
 - Fixed a rare crash occurring when a flight path is changed while it is displayed.
   - The path list was changed during a for loop.
+- Fixed some shifted ship range area.
 
 2025.02.19 (BR)
 - Added default design icon in Colonies panel.

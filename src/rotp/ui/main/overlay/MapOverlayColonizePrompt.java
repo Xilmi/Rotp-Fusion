@@ -77,6 +77,7 @@ public class MapOverlayColonizePrompt extends MapOverlay {
         origMapScale = parent.map().scaleY();
         parent.map().setScale(20);
         parent.map().recenterMapOn(sys);
+        parent.map().resetRangeAreas();
         parent.mapFocus(sys);
         parent.clickedSprite(sys);
         parent.repaint();

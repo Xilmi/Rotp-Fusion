@@ -67,9 +67,12 @@ public class Design implements Base, Serializable {
 			return false;
 		return lab.defaultDesignId().equals((Integer) id);
 	}
-	public void toggleDefaultDesign()	 {
-		if (isDefaultDesign())
+	public boolean canReplaceDefault()	 { return lab.canReplaceDefault(id); }
+	public void toggleDefaultDesign(boolean replace)	{
+		if (isDefaultDesign()) // then toggle off
 			lab.defaultDesignId(null);
+		else if (replace)
+			lab.replaceDefault(id);
 		else
 			lab.defaultDesignId(id);
 	}
