@@ -74,6 +74,9 @@ Later:
 
 ## What's New
 
+2025.02.21 (BR)
+- Extended "Default Design" feature: New default will be applied to shipyards if "Shift" is down.
+
 2025.02.20 (BR)
 - Added default design icon in Empire Military panel.
 - Fixed a rare crash occurring when a flight path is changed while it is displayed.
