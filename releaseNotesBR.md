@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- "Colonies Building:" values will be updated after a new "Default Design" is asked to swap shipyard production.
 - Extended "Default Design" feature: New default will be applied to shipyards if "Shift" is down.
 - Fixed a rare crash occurring when a flight path is changed while it is displayed.
 - Fixed Rally not always rallying.

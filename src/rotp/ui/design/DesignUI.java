@@ -248,6 +248,9 @@ public class DesignUI extends BasePanel {
             orbitCounts[i] = shipCounts[i] - inTransitCounts[i];
         }
     }
+	private void refreshConstructionCounts() {
+		constructionCounts = galaxy().ships.shipDesignConstructionCounts(player().id);
+	}
     @Override
     public boolean drawMemory()            { return true; }
     @Override
@@ -1278,6 +1281,8 @@ public class DesignUI extends BasePanel {
 			if (hoverTarget == defaultDesignArea) {
 				softClick();
 				slotDesign().toggleDefaultDesign(e.isShiftDown());
+				if (e.isShiftDown())
+					refreshConstructionCounts();
 				instance.repaint();
 				return;
 			}
