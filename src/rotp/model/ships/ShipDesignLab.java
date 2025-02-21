@@ -90,6 +90,10 @@ public class ShipDesignLab implements Base, Serializable {
 	public void    defaultDesignId(Integer id)	  { defaultDesignId = id; }
 	public Integer defaultDesignId()			  { return defaultDesignId; }
 	public void    replaceDefault(Integer id)	  {
+		if (defaultDesignId == null || id == null) {
+			defaultDesignId(id);
+			return;
+		}
 		ShipDesign oldDesign = design(defaultDesignId);
 		ShipDesign newDesign = design(id);
 		if (oldDesign.active() && newDesign.active())
@@ -97,6 +101,8 @@ public class ShipDesignLab implements Base, Serializable {
 		defaultDesignId(id);
 	}
 	public boolean canReplaceDefault(Integer id)  {
+		if (defaultDesignId == null || id == null)
+			return false;
 		return design(defaultDesignId).active() && design(id).active();
 	}
 

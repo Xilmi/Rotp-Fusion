@@ -76,6 +76,7 @@ Later:
 
 2025.02.21 (BR)
 - Extended "Default Design" feature: New default will be applied to shipyards if "Shift" is down.
+- Fixed crash when loading a game without default design.
 
 2025.02.20 (BR)
 - Added default design icon in Empire Military panel.
