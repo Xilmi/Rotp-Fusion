@@ -634,7 +634,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         	return targetAllocationNeeded(gws.targetPopPercent, gws.totalIncome);
     	// cost to terraform planet
         float needed = terraformSpendingNeeded();
-        float popToBuy = getNewPopPurchasableLongTerm(gws.targetPopPercent);
+        float popToBuy = getNewPopPurchasableLongTerm(gws.targetPopPctToBuy);
 //        if (!gws.promotePopGrowth) {
 //        	popToBuy = min(popToBuy, gws.minPopGrowth - colony().normalPopGrowth());
 //        	popToBuy = max(0, popToBuy);

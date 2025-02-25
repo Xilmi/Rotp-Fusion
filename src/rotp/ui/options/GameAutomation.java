@@ -30,6 +30,8 @@ final class GameAutomation extends AbstractOptionsSubUI {
 				defaultForwardRally,
 				defaultChainRally,
 				chainRallySpeed,
+				rallyCombat,
+				rallyCombatLoss,
 
 				HEADER_SPACER_50,
 				scoutAndColonyOnly,
@@ -55,6 +57,8 @@ final class GameAutomation extends AbstractOptionsSubUI {
 						defaultForwardRally,
 						defaultChainRally,
 						chainRallySpeed,
+						rallyCombat,
+						rallyCombatLoss,
 
 						LINE_SPACER_25,
 						transportAutoEco,

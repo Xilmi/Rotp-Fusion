@@ -159,6 +159,11 @@ public class ParamFloat extends AbstractParam<Float> {
 			return GO_DOWN;
 		return null;
 	}
+	@Override public Float set(Float newValue)	{	// to avoid cumulative rounding errors
+		int invInc	= Math.round(1/baseInc());
+		float value	= Math.round(newValue*invInc);
+		return super.set(value/invInc);
+	}
 	// ========== Overridable Methods ==========
 	//
 	protected Float dynMinValue()	{ return minValue(); }

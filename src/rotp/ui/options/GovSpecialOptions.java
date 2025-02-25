@@ -18,7 +18,18 @@ final class GovSpecialOptions extends AbstractOptionsSubUI {
 				terraformFactoryPct,
 				terraformPopulationPct,
 				terraformPopulation,
-				terraformCost2Income
+				terraformCost2Income,
+
+				HEADER_SPACER_100,
+				new ParamTitle("GOVERNOR_COLONY_GROWTH"),
+				maxGrowthMode,
+				compensateGrowth,
+				minColonyGrowth,
+				colonyEarlyBoostPct,
+
+				LINE_SPACER_25,
+				earlyBaseBuilding,
+				earlyBaseBoostPct
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("GOVERNOR_SUBSIDIES"),

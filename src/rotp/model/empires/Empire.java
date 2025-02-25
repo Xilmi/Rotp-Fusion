@@ -1870,7 +1870,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 	                // System.out.println("Deploying ships from Fleet " + sf + " " + sf.system().name());
 	                int warpSpeed = warpSpeed(sf, designs, sendCount);
 	                systemsSorter.sort(sf.sysId(), targets, warpSpeed);
-	
+
 	                for (ShipDesign sd: designs) {
 	                    // don't send same fleet to multiple destinations by mistake
 	                    if (!sf.isOrbiting()) {
@@ -2193,7 +2193,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         // non-extended range to extended range
         // Cheapest to most expensive
-        // sort ships fastest to slowest, send out fastest colony ships first
+        // sort ships fastest to slowest, send out fastest Attack ships first
         designs.sort((d1, d2) -> {
             int rangeDiff = Boolean.compare(d1.isExtendedRange(), d2.isExtendedRange() );
             // desc order
@@ -2209,7 +2209,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             }
         } );
 
-        // no colony ship designs
+        // no Attack ship designs
         if (designs.isEmpty()) {
             // System.out.println("No Attack ship designs");
             return;
@@ -2290,6 +2290,76 @@ public final class Empire implements Base, NamedObject, Serializable {
         autoSendShips(designs, targets, new ColonizePriority("toAttack"), fleetsSorter,
                 designFitForSystem, defendFirstPredicate(), sendCount);
     }
+	// similar to autocolonize. Send ships to enemy planets and systems with enemy ships in orbit
+	public void autoattackMixed() {
+		GovernorOptions options = session().getGovernorOptions();
+		if (isAIControlled() || !options.isAutoAttack())
+			return;
+		List<ShipDesign> designs = new ArrayList<>();
+
+		for (ShipDesign sd: shipLab().designs())
+			if (sd.isAutoAttack() && sd.isArmed()) // ignore design if it doesn't have weapons
+				designs.add(sd);
+
+		// no Attack ship designs
+		if (designs.isEmpty())
+			return;
+
+		BiPredicate<ShipDesign, Integer> designFitForSystem = (sd, si) -> true;
+		boolean extendedRange = hasExtendedRange(designs);
+		List<Integer> hostileEmpires = new ArrayList<>();
+		for (EmpireView enemy: enemyViews())
+			hostileEmpires.add(enemy.empId());
+
+		int sendCount = Math.max(1, govOptions().getAutoAttackShipCount());
+		List<Integer> targets = filterTargets(i -> {
+			// consider both scouted and unscouted systems if they belong to the enemy
+			boolean inRange;
+			if (extendedRange)
+				inRange = sv.inScoutRange(i);
+			else
+				inRange = sv.inShipRange(i);
+			if (!inRange)
+				return false;
+
+			List<ShipFleet> fleets = sv.orbitingFleets(i);
+			if (fleets != null)
+				for (ShipFleet sf: fleets)
+					if (sf != null && sf.empire() == this && sf.isArmed())
+						// don't target planets which already have own armed fleets in orbit
+						return false;
+
+			// armed ships already on route- no need to send more
+			for (ShipFleet sf: ownFleetsTargetingSystem(sv.system(i))) {
+				int attCount = 0;
+				for (ShipDesign sd: designs)
+					attCount += sf.num(sd.id());
+				// attack fleet already on its way, don't send more
+				if (attCount >= sendCount)
+					return false;
+			}
+			if (sv.empire(i) != null && hostileEmpires.contains(sv.empire(i).id))
+				return true;
+
+			// This will send ships to own colonies that have enemy ships in orbit. I guess that's OK
+			if (fleets != null)
+				for (ShipFleet f: fleets)
+					if (f != null && hostileEmpires.contains(f.empId) && !f.retreating())
+						return true;
+			return false;
+		});
+
+		// No systems to colonize
+		if (targets.isEmpty())
+			return;
+	
+		FleetsSorter fleetsSorter = (targetSysten, fleets, warpSpeed) -> fleets.sort((f1, f2) ->
+				(int)Math.signum(f1.travelTimeAdjusted(sv.system(targetSysten), warpSpeed) -
+						f2.travelTimeAdjusted(sv.system(targetSysten), warpSpeed)) );
+
+		autoSendShips(designs, targets, new ColonizePriority("toAttack"), fleetsSorter,
+				designFitForSystem, defendFirstPredicate(), sendCount);
+	}
 
     private BiPredicate<ShipFleet, ShipDesign> defendFirstPredicate() {
         // check if we have hostile incoming fleets. If so, don't send out ships

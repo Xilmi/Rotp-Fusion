@@ -47,10 +47,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-- Some Achievements options.
+- Auto-Attack with multiple designs
 - Add option to limit random event tech generosity... (For slow research, etc...)
+- Adapt Modnar's species.
 
 Later:
+- Some Achievements options.
 - Monsters:
   - More Planet Monsters Guardian.
 - Add a temerity setting to custom species.
@@ -73,6 +75,15 @@ Later:
 
 
 ## What's New
+
+2025.02.25 (BR)
+- The "fine tuning" options are now available from the "original" governor panel.
+- Improved "Obedient Governor" response to "Develop colonies as quickly as possible".
+  - For planets and species with reduced growth, there is an option to boost natural growth to match normal growth.
+  - New option to set a minimal growth, as the natural growth can be very low once the planet is almost full.
+  - New option to force "Develop colonies as quickly as possible" until the colony has reached a minimum industrial level. (This way you can predefine the production when colonizing a rich planet... and production will not be started too early)
+  - Similarly, new option to define when missile bases should be built. By default, they are only built after all factories are built... But in case of war, or a neighbor who is a bit too nosy, it may be interesting to build them earlier.
+- "Float" option will no more have cumulative rounding errors.
 
 2025.02.21 (BR)
 - Extended "Default Design" feature: New default will be applied to shipyards if "Shift" is down.

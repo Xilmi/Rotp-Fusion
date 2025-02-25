@@ -2161,6 +2161,11 @@ public final class Colony implements Base, IMappedObject, Serializable {
         	if (maxAlloc==0)
         		return;
         }
+		if (gws.promoteBases) {
+			maxAlloc -= urgeBasesSpending(maxAlloc, gws);
+			if (maxAlloc==0)
+				return;
+		}
         // Then the normal growth
         maxAlloc -= urgeBuildUpSpending(maxAlloc, gws);
     	if (maxAlloc==0)

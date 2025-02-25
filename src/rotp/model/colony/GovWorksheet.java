@@ -19,15 +19,30 @@ public final class GovWorksheet {
 	private final float maxReserveIncome;
 	private final float workerToFactoryROILimit;
 	private final boolean wasShipRequest, hasSubsidies, useROILimit;
-	final boolean promoteShips, keepDirectShipAlloc, shouldBuildGate;
+	final boolean promoteShips, keepDirectShipAlloc, shouldBuildGate, promoteBases;
 	final float totalIncome, cleanupCost;
-	final float targetPopPercent	= 1.0f;
+	final float targetPopPercent;
+
+	//
+	float maxSize;
+	float targetPopMin, initialPop, targetPopPctToBuy;
+	float minGrowth = 2.0f;
 
 	float atmosphereCost, nextEnrichSoilCost, terraformCost;
 	boolean promoteWorkers, promoteTerraform;
 
 	public boolean canTerraformAtmosphere, canEnrichSoil, canTerraform, anyTerraform;
 	public float atmosphereIncrease, enrichIncrease, terraformIncrease;
+
+	public float minGrowth()	{
+		return minGrowth;
+	}
+	public float targetPopMin()	{
+		return initialPop + minGrowth;
+	}
+	public float targetPopPctToBuy()	{
+		return targetPopPctToBuy;
+	}
 
 	GovWorksheet (Colony colony, boolean loweredShipPriority)	{
 		ColonyShipyard shipyard	= colony.shipyard();
@@ -38,6 +53,28 @@ public final class GovWorksheet {
 		industry = c.industry();
 		ecology	 = c.ecology();
 		tech	 = e.tech();
+
+		maxSize		= c.ultimateMaxSize();
+		initialPop	= c.population();
+		targetPopPercent	= 1.0f;
+		float neutralGrowth	= p.normalPopGrowth(initialPop, null);
+		boolean hasRequest	= c.prioritizeShips() || c.prioritizeResearch();
+		if (gov.legacyGrowthMode() || !hasRequest) { // Force boost
+			minGrowth		= maxSize - initialPop;
+			targetPopMin	= maxSize;
+		}
+		else {
+			float workable	= Math.min(maxSize, industry.factories() / industry.robotControls());
+			float boostLim	= Math.max(workable, maxSize * gov.colonyEarlyBoostPct());
+			if (gov.compensateGrowth())
+				minGrowth	= Math.max(neutralGrowth, gov.minColonyGrowth());
+			else
+				minGrowth	= gov.minColonyGrowth();
+			targetPopMin	= Math.min(maxSize, initialPop + minGrowth);
+			targetPopMin	= Math.max(targetPopMin, boostLim);
+		}
+		targetPopPctToBuy	= targetPopMin/maxSize;
+
 		cleanupCost		= c.minimumCleanupCost();
 		planetProdAdj	= p.productionAdj();
 		factoryNetYield	= c.factoryNetProductivity();
@@ -62,14 +99,14 @@ public final class GovWorksheet {
 		int maxBase = defense.maxBases();
 		if (minBase > 0 && maxBase < minBase)
 			defense.maxBases(minBase);
+		promoteBases = gov.earlyBaseBuilding() && !defense.isCompleted();
+
 		// Ships management
 		boolean isDirectShipAlloc	= !loweredShipPriority && wasBuildingShips && !wasShipRequest;
 		keepDirectShipAlloc	= isDirectShipAlloc && gov.isShipbuilding();
 
 		c.ecology().checkPlanetImprovement(this);
 		promoteTerraform = promoteTerraform();
-//		System.out.println("workerBaseProd: " + e.workerProductivity());
-//		System.out.println("workerBaseROI: " + workerBaseROI);
 	}
 	int[] govBuildSeq()	{
 		if (promoteWorkers())

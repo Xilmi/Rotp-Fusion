@@ -46,7 +46,10 @@ import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.game.GameUI;
+import rotp.ui.options.AllSubUI;
+import rotp.ui.options.ISubUiKeys;
 import rotp.ui.util.IParam;
+import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.swing.RotpJSpinner;
 import rotp.ui.util.swing.RotpJSpinnerButton;
 import rotp.util.FontManager;
@@ -861,7 +864,7 @@ public class GovernorOptionsPanel extends BasePanel{
         autoAttackShipCount = new GovernorJSpinner();
         autoScoutShipCountLabel = new javax.swing.JLabel();
         autoAttackShipCountLabel = new javax.swing.JLabel();
-        colonyPanel = new javax.swing.JPanel();
+        javax.swing.JPanel colonyPanel = new javax.swing.JPanel();
         autospend = new javax.swing.JCheckBox();
         reserve = new GovernorJSpinner();
         reserveLabel = new javax.swing.JLabel();
@@ -887,6 +890,7 @@ public class GovernorOptionsPanel extends BasePanel{
         brightnessPct = new GovernorJSpinner();
         brightnessLabel = new javax.swing.JLabel();
         raceImage = new javax.swing.JLabel();
+        fineTuningButton = new javax.swing.JButton();
 
         governorDefault.setSelected(true);
         governorDefault.setText("Governor is on by default");
@@ -1468,11 +1472,11 @@ public class GovernorOptionsPanel extends BasePanel{
                         .addComponent(reserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(reserveLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(followColonyRequests)
+                .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(terraformEarlyLabel)
-                        .addComponent(terraformEarly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(terraformEarly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(followColonyRequests))
                 .addGap(0, 0, 0))
         );
 
@@ -1658,6 +1662,15 @@ public class GovernorOptionsPanel extends BasePanel{
             }
         });
 
+        fineTuningButton.setText("Fine Tuning");
+        fineTuningButton.setName("FINE_TUNING_BUTTON"); // NOI18N
+        fineTuningButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fineTuningButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -1695,11 +1708,11 @@ public class GovernorOptionsPanel extends BasePanel{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(allGovernorsOff)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(stargatePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(spyPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(raceImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(stargatePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(spyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(raceImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(fineTuningButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -1719,9 +1732,12 @@ public class GovernorOptionsPanel extends BasePanel{
                         .addComponent(autotransportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(raceImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(colonyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(spyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(fineTuningButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fleetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1746,13 +1762,13 @@ public class GovernorOptionsPanel extends BasePanel{
     }// </editor-fold>//GEN-END:initComponents
 
 	private void allGovernorsOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allGovernorsOnActionPerformed
-		for (StarSystem ss : GameSession.instance().galaxy().player().orderedColonies()) {
-			if (!ss.isColonized()) {
+		for (StarSystem sys : GameSession.instance().galaxy().player().orderedColonies()) {
+			if (!sys.isColonized()) {
 				// shouldn't happen
 				continue;
 			}
-			ss.colony().setGovernor(true);
-			ss.colony().governIfNeeded();
+			sys.colony().setGovernor(true);
+			sys.colony().governIfNeeded();
 			if (isAutoApply())
 				govOptions().setGovernorOnByDefault(governorDefault.isSelected());
 		}
@@ -2008,6 +2024,12 @@ public class GovernorOptionsPanel extends BasePanel{
         govOptions().setAutospend(autospend.isSelected());
     }//GEN-LAST:event_autospendActionPerformed
 
+    private void fineTuningButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fineTuningButtonActionPerformed
+		ParamSubUI subUI = AllSubUI.getHandle(ISubUiKeys.GOVERNOR_SPECIAL_KEY).getUI();
+		subUI.start(this);
+		frame.setVisible(false);
+    }//GEN-LAST:event_fineTuningButtonActionPerformed
+
 	private  void mouseWheel(JSpinner spinner, java.awt.event.MouseWheelEvent evt) {
 		if (evt.getScrollType() != MouseWheelEvent.WHEEL_UNIT_SCROLL) {
 			return;
@@ -2054,10 +2076,10 @@ public class GovernorOptionsPanel extends BasePanel{
     javax.swing.JLabel brightnessLabel;
     javax.swing.JSpinner brightnessPct;
     javax.swing.JButton cancelButton;
-    javax.swing.JPanel colonyPanel;
     javax.swing.JButton completionist;
     javax.swing.JCheckBox customSize;
     javax.swing.JCheckBox excessToResearch;
+    javax.swing.JButton fineTuningButton;
     javax.swing.JCheckBox followColonyRequests;
     javax.swing.JCheckBox governorDefault;
     javax.swing.JCheckBox isOriginal;
@@ -2088,28 +2110,28 @@ public class GovernorOptionsPanel extends BasePanel{
     // End of variables declaration//GEN-END:variables
 
 	// Just test the layout
-//	public static void main(String arg[]) {
-//		// initialize everything
-//		RotPUI.instance();
-//
-//		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-//			@Override
-//			public void run() {
-//				JFrame frame = new JFrame("GovernorOptions");
-//				frame.setDefaultCloseOperation(GovernorFrame.EXIT_ON_CLOSE);
-//
-//				//Create and set up the content pane.
-//				GovernorOptionsPanel newContentPane = new GovernorOptionsPanel(frame);
-//				newContentPane.setOpaque(true); //content panes must be opaque
-//				frame.setContentPane(newContentPane);
-//
-//				//Display the window.
-//				frame.pack();
-//				frame.setVisible(true);
-//			}
-//		});
-//
-//	}
+	/* public static void main(String arg[]) {
+		// initialize everything
+		RotPUI.instance();
+
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				JFrame frame = new JFrame("GovernorOptions");
+				frame.setDefaultCloseOperation(GovernorFrame.EXIT_ON_CLOSE);
+
+				//Create and set up the content pane.
+				GovernorOptionsPanel newContentPane = new GovernorOptionsPanel(frame);
+				newContentPane.setOpaque(true); //content panes must be opaque
+				frame.setContentPane(newContentPane);
+
+				//Display the window.
+				frame.pack();
+				frame.setVisible(true);
+			}
+		});
+
+	} */
 	
 	// ========== Nested Class ==========
 	//

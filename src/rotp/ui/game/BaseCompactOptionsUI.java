@@ -44,6 +44,8 @@ import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.design.DesignUI;
+import rotp.ui.main.EmpireColonySpendingPane;
+import rotp.ui.main.GovernorOptionsPanel;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamList;
@@ -825,7 +827,9 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		if (hoverBox == exitBox) {
 			doExitBoxAction();
 			if (parentUI!=null)
-				if (parentUI instanceof BaseModPanel)
+				if (parentUI instanceof GovernorOptionsPanel)
+					EmpireColonySpendingPane.governorOptions();
+				else if (parentUI instanceof BaseModPanel)
 					((BaseModPanel) parentUI).mouseMoved(e);
 			return;
 		}

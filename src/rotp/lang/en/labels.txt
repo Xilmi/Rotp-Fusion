@@ -5283,7 +5283,9 @@ GOVERNOR_COMPLETIONIST_TECHNOLOGIES_LABEL | Completionist Technologies
 GOVERNOR_COMPLETIONIST_TECHNOLOGIES_TT    | I like completing games fully. <br> Allow all Empires to Research the following Technologies:<br><br> Controlled Irradiated Environment<br> Atmospheric Terraforming<br> Complete Terraforming<br> Advanced Soil Enrichment<br> Intergalactic Star Gates<br><br> More than 30% of the Galaxy needs to be colonized.<br> Player must control more than 50% of colonized systems.<br> Player must have completed all Research in their Tech Tree (Future Techs too).<br>
 GOVERNOR_CANCEL_BUTTON_LABEL         | Cancel
 GOVERNOR_CANCEL_BUTTON_TT            | Close the GUI
-// Leave empty
+GOVERNOR_FINE_TUNING_BUTTON_LABEL	| →SETTINGS_MOD_GOV_SPECIAL_UI←
+GOVERNOR_FINE_TUNING_BUTTON_TT		| →SETTINGS_MOD_GOV_SPECIAL_UI_DESC←
+// Leave label empty
 GOVERNOR_RACE_IMAGE_LABEL            |
 GOVERNOR_RACE_IMAGE_TT               | If the animation is disturbing you, you can stop it by clicking on it!<br>another click will reactivate it.
 
@@ -5336,12 +5338,25 @@ GOVERNOR_COLONY_DISTANCE_WEIGHT_HELP | When selecting the best planet by automat
 GOVERNOR_COLONY_DISTANCE_WEIGHT_DESC | When selecting the best planet by automatic colonization: Planetary distance weighting. (Planetary value weighting = 100% - planetary distance weighting)
 GOVERNOR_COLONY_DISTANCE_WEIGHT      | Planet distance weight: %1%
 
-HEADERS_GOVERNOR_TERRAFORM_DESC      | Triggers for planet terraforming.
-HEADERS_GOVERNOR_TERRAFORM           | ~~~ TERRAFORMING TRIGGERS ~~~
-HEADERS_GOVERNOR_SUBSIDIES_DESC      | What to do with the funds allocated to the colony?
-HEADERS_GOVERNOR_SUBSIDIES           | ~~~ DESTINATION OF FUNDS ~~~
-HEADERS_GOVERNOR_OTHER_LIMITS_DESC   | Unclassified Options.
-HEADERS_GOVERNOR_OTHER_LIMITS        | ~~~ OTHER LIMITS ~~~
+GOVERNOR_COMPENSATE_GROWTH_DESC		| Compensate the species or planetary reduced growth.
+GOVERNOR_COMPENSATE_GROWTH			| Compensate reduced growth: %1
+GOVERNOR_COLONY_MIN_GROWTH_DESC		| Minimum growth (per year) of colonies.
+GOVERNOR_COLONY_MIN_GROWTH			| Colonies min growth: %1 Pop
+GOVERNOR_COLONY_EARLY_BOOST_DESC	| Enable →GOVERNOR_LEGACY_GROWTH_MODE_LABEL← for colonies that have not reached the specified population level.
+GOVERNOR_COLONY_EARLY_BOOST			| Early boost percentage: %1%
+GOVERNOR_EARLY_BASE_BUILDING_DESC	| Start building missile bases as soon as the specified industrial level is reached.
+GOVERNOR_EARLY_BASE_BUILDING		| Build Bases Early: %1
+GOVERNOR_EARLY_BASE_BOOST_PCT_DESC	| Level of industrialization that will trigger the construction of the missile base.
+GOVERNOR_EARLY_BASE_BOOST_PCT		| Industry Trigger Level: %1%
+
+HEADERS_GOVERNOR_TERRAFORM_DESC		| Triggers for planet terraforming.
+HEADERS_GOVERNOR_TERRAFORM			| ~~~ TERRAFORMING TRIGGERS ~~~
+HEADERS_GOVERNOR_SUBSIDIES_DESC		| What to do with the funds allocated to the colony?
+HEADERS_GOVERNOR_SUBSIDIES			| ~~~ DESTINATION OF FUNDS ~~~
+HEADERS_GOVERNOR_OTHER_LIMITS_DESC	| Unclassified Options.
+HEADERS_GOVERNOR_OTHER_LIMITS		| ~~~ OTHER LIMITS ~~~
+HEADERS_GOVERNOR_COLONY_GROWTH_DESC	| Settings when →GOVERNOR_LEGACY_GROWTH_MODE_LABEL← option is disabled.
+HEADERS_GOVERNOR_COLONY_GROWTH		| ~~~ COLONIES GROWTH ~~~
 
 
 // BR: Tech Trigger Add-on

@@ -59,12 +59,11 @@
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="stargatePanel" linkSize="12" alignment="1" max="32767" attributes="0"/>
-                              <Component id="spyPanel" linkSize="12" alignment="1" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="raceImage" linkSize="12" alignment="1" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="stargatePanel" linkSize="12" alignment="0" max="32767" attributes="0"/>
+                          <Component id="spyPanel" linkSize="12" alignment="0" max="32767" attributes="0"/>
+                          <Component id="raceImage" linkSize="12" alignment="0" max="32767" attributes="0"/>
+                          <Component id="fineTuningButton" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -89,9 +88,13 @@
                   <Component id="raceImage" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="colonyPanel" min="-2" max="-2" attributes="0"/>
-                  <Component id="spyPanel" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="spyPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="fineTuningButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -709,12 +712,12 @@
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="followColonyRequests" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="terraformEarlyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="terraformEarly" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="followColonyRequests" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
@@ -1084,6 +1087,15 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="raceImageMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="fineTuningButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Fine Tuning"/>
+        <Property name="name" type="java.lang.String" value="FINE_TUNING_BUTTON" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fineTuningButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

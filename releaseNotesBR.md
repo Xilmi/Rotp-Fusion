@@ -5,7 +5,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- "Colonies Building:" values will be updated after a new "Default Design" is asked to swap shipyard production.
+- The "fine tuning" options are now available from the "original" governor panel.
+- Improved "Obedient Governor" response to "Develop colonies as quickly as possible".
+  - For planets and species with reduced growth, there is an option to boost natural growth to match normal growth.
+  - New option to set a minimal growth, as the natural growth can be very low once the planet is almost full.
+  - New option to force "Develop colonies as quickly as possible" until the colony has reached a minimum industrial level. (This way you can predefine the production when colonizing a rich planet... and production will not be started too early)
+  - Similarly, new option to define when missile bases should be built. By default, they are only built after all factories are built... But in case of war, or a neighbor who is a bit too nosy, it may be interesting to build them earlier.
+- "Colonies Building:" values will now also be updated after a new "Default Design" is told to swap shipyard production.
 - Extended "Default Design" feature: New default will be applied to shipyards if "Shift" is down.
 - Fixed a rare crash occurring when a flight path is changed while it is displayed.
 - Fixed Rally not always rallying.
@@ -13,25 +19,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Ship Design Size, Power and cost values sometime overlapping with Huge hulls. 
 - Fixed Auto Ship Design not loading user request.
 - Fixed Obedient Governor building stargates too early.
-- Added a unification notice after accepting or rejecting the vote, as sharing knowledge across empires can take a long time for very large galaxies.
-  - Added more progressive notice.
-- Fixed issue with multi-shot beam weapons. They will now follow MoO1 rules and fire all their shots on the same stack.
-- DesignUI new features:
-  - Unified auto Ship design methods.
-  - More auto Ship design.
-  - Call for a new auto Ship design Options Panel.
-    - Alt-A : Auto build.
-    - Alt-B : Auto build Bomber ship.
-    - Alt-E : Auto build Scout ship (Explorer).
-    - Alt-F : Auto build Fighter ship.
-    - Alt-G : Auto build Beam ship (Gun).
-    - Alt-H : Auto build Hybrid ship (Bomb + Beam + Missile).
-    - Alt-I : Auto build Iterceptor ship (Best manoeuver Hybrid with minimal bomb).
-    - Alt-M : Auto build Missile ship.
-    - Alt-P : Auto build Colony (Pioneer).
-    - Shift-Alt "" : to also select the best design size.
-  - Shift-Auto will also select the best design size.
-  - Updated Help pop-up
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

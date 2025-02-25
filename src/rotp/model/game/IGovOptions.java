@@ -6,6 +6,7 @@ import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.game.GovernorOptions.GatesGovernor;
 import rotp.ui.util.ParamBoolean;
+import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 
@@ -161,6 +162,19 @@ public interface IGovOptions {
 
 	ParamInteger colonyDistanceWeight	= new ParamInteger(GOV_UI, "COLONY_DISTANCE_WEIGHT", 50)
 			.isCfgFile(true)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20);
+
+	ParamBoolean compensateGrowth		= new ParamBoolean(GOV_UI, "COMPENSATE_GROWTH", true);
+	ParamFloat minColonyGrowth			= new ParamFloat(GOV_UI, "COLONY_MIN_GROWTH", 2.0f)
+			.setLimits(0f, 10f)
+			.setIncrements(0.1f, 0.5f, 2f)
+			.guiFormat("0.0");
+	ParamInteger colonyEarlyBoostPct	= new ParamInteger(GOV_UI, "COLONY_EARLY_BOOST", 50)
+			.setLimits(0, 100)
+			.setIncrements(1, 5, 20);
+	ParamBoolean earlyBaseBuilding		= new ParamBoolean(GOV_UI, "EARLY_BASE_BUILDING", false);
+	ParamInteger earlyBaseBoostPct		= new ParamInteger(GOV_UI, "EARLY_BASE_BOOST_PCT", 50)
 			.setLimits(0, 100)
 			.setIncrements(1, 5, 20);
 }

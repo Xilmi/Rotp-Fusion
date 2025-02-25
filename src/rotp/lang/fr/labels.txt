@@ -5283,7 +5283,9 @@ GOVERNOR_COMPLETIONIST_TECHNOLOGIES_LABEL | Perfectionnistes
 GOVERNOR_COMPLETIONIST_TECHNOLOGIES_TT    | J’aime terminer les jeux entièrement. <br> Autoriser tous les empires à rechercher les technologies suivantes :<br><br> Environnement irradié contrôlé<br> Terraformation atmosphérique<br> Terminer la terraformation<br> Enrichissement avancé du sol<br> Portes des étoiles<br><br> Plus de 30 % de la galaxie doit être colonisée.<br> Le joueur doit contrôler plus de 50 % des systèmes colonisés.<br> Le joueur doit avoir terminé toutes les recherches de son arbre technologique (Incluant les technologies futures).<br>
 GOVERNOR_CANCEL_BUTTON_LABEL         | Annuler
 GOVERNOR_CANCEL_BUTTON_TT            | Fermer l’interface graphique sans appliquer les changements.
-// Leave empty
+GOVERNOR_FINE_TUNING_BUTTON_LABEL	| →SETTINGS_MOD_GOV_SPECIAL_UI←
+GOVERNOR_FINE_TUNING_BUTTON_TT		| →SETTINGS_MOD_GOV_SPECIAL_UI_DESC←
+// Leave label empty
 GOVERNOR_RACE_IMAGE_LABEL            |
 GOVERNOR_RACE_IMAGE_TT               | Si l’animation vous dérange, vous pouvez l’arrêter en cliquant dessus !<br>un autre clic la réactivera.
 
@@ -5336,12 +5338,25 @@ GOVERNOR_COLONY_DISTANCE_WEIGHT_HELP | Lors de la sélection de  la meilleure pl
 GOVERNOR_COLONY_DISTANCE_WEIGHT_DESC | Lors de la sélection de  la meilleure planète par la colonisation automatique : Pondération de la distance planétaire. (Pondération de la valeur planétaire = 100 % - pondération de la distance planétaire)
 GOVERNOR_COLONY_DISTANCE_WEIGHT      | Pondération de la distance : %1 %
 
-HEADERS_GOVERNOR_TERRAFORM_DESC      | Déclencheurs de la terraformation de la planète.
-HEADERS_GOVERNOR_TERRAFORM           | ~~~ DÉCLENCHEURS DE TERRAFORMATION ~~~
-HEADERS_GOVERNOR_SUBSIDIES_DESC      | Que faire des fonds alloués à la colonie ?
-HEADERS_GOVERNOR_SUBSIDIES           | ~~~ DESTINATION DES FONDS ~~~
-HEADERS_GOVERNOR_OTHER_LIMITS_DESC   | Unclassified Options.
-HEADERS_GOVERNOR_OTHER_LIMITS        | ~~~ AUTRES LIMITES ~~~
+GOVERNOR_COMPENSATE_GROWTH_DESC		| Compenser la croissance réduite des espèces ou des planètes.
+GOVERNOR_COMPENSATE_GROWTH			| Compenser la croissance réduite : %1
+GOVERNOR_COLONY_MIN_GROWTH_DESC		| Croissance minimale (par année) des colonies.
+GOVERNOR_COLONY_MIN_GROWTH			| Croissance minimale des colonies : %1 Hab.
+GOVERNOR_COLONY_EARLY_BOOST_DESC	| Activer →GOVERNOR_LEGACY_GROWTH_MODE_LABEL← pour les colonies n’ayant pas atteint le niveau de peuplement spécifié.
+GOVERNOR_COLONY_EARLY_BOOST			| Requis de population : %1 %
+GOVERNOR_EARLY_BASE_BUILDING_DESC	| Commencer à construire des bases de missiles dès que le niveau industriel spécifié est atteint.
+GOVERNOR_EARLY_BASE_BUILDING		| Construire les bases rapidement : %1
+GOVERNOR_EARLY_BASE_BOOST_PCT_DESC	| Niveau d'industrialisation qui déclenchera la construction de la base de missiles.
+GOVERNOR_EARLY_BASE_BOOST_PCT		| Requis industriel : %1 %
+
+HEADERS_GOVERNOR_TERRAFORM_DESC		| Déclencheurs de la terraformation de la planète.
+HEADERS_GOVERNOR_TERRAFORM			| ~~~ DÉCLENCHEURS DE TERRAFORMATION ~~~
+HEADERS_GOVERNOR_SUBSIDIES_DESC		| Que faire des fonds alloués à la colonie ?
+HEADERS_GOVERNOR_SUBSIDIES			| ~~~ DESTINATION DES FONDS ~~~
+HEADERS_GOVERNOR_OTHER_LIMITS_DESC	| Unclassified Options.
+HEADERS_GOVERNOR_OTHER_LIMITS		| ~~~ AUTRES LIMITES ~~~
+HEADERS_GOVERNOR_COLONY_GROWTH_DESC	| Paramètres lorsque l'option →GOVERNOR_LEGACY_GROWTH_MODE_LABEL← est désactivée.
+HEADERS_GOVERNOR_COLONY_GROWTH		| ~~~ CROISSANCE DES COLONIES ~~~
 
 
 // BR: Tech Trigger Add-on
