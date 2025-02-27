@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Improved the appearance of Tech bubbles.
 - The "fine tuning" options are now available from the "original" governor panel.
 - Improved "Obedient Governor" response to "Develop colonies as quickly as possible".
   - For planets and species with reduced growth, there is an option to boost natural growth to match normal growth.

@@ -76,6 +76,9 @@ Later:
 
 ## What's New
 
+2025.02.27 (BR)
+- Improved the appearance of Tech bubbles.
+
 2025.02.25 (BR)
 - The "fine tuning" options are now available from the "original" governor panel.
 - Improved "Obedient Governor" response to "Develop colonies as quickly as possible".

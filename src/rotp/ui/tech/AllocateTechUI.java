@@ -824,8 +824,12 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
 		boolean showProgress = showMinimum && options().showTechProgress();
 		float currentChance  = cat.upcomingDiscoveryChance(0);
 		float upcomingChance = cat.upcomingDiscoveryChance(totalPlanetaryResearch());
-		if (showMinimum)
-			upcomingChance = max(.15f, upcomingChance);
+		float minDisplayValue = 0.15f;
+		if (showMinimum && currentChance < minDisplayValue) {
+			float delta = upcomingChance - currentChance;
+			currentChance = minDisplayValue;
+			upcomingChance = max(minDisplayValue + delta/2, upcomingChance);
+		}
 		int dr = showProgress? s1 : 0;
 		int d1 = s19;
 		int x1 = x0 - s10;
@@ -833,6 +837,9 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
 		int d2 = d1 - dr-dr;
 		int x2 = x1 + dr;
 		int y2 = y1 + dr;
+		int d3 = d2 - dr-dr;
+		int x3 = x2 + dr;
+		int y3 = y2 + dr;
 		int yClip = y0 + s4 - dr;
 		int wClip = d1 + d1;
 
@@ -842,10 +849,10 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
 			g.setColor(backCol);
 			g.fillOval(x2, y2, d2, d2);
 
-			int lvl = (int)(upcomingChance*d2);
+			int lvl = (int)(upcomingChance*d3);
 			g.setColor(darkCol);
 			g.setClip(x1, yClip-lvl, wClip, d1);
-			g.fillOval(x2, y2, d2, d2);
+			g.fillOval(x3, y3, d3, d3);
 
 			if (showProgress) {
 				lvl = (int)(currentChance*d2);
