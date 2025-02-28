@@ -855,10 +855,10 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
 			g.fillOval(x3, y3, d3, d3);
 
 			if (showProgress) {
-				lvl = (int)(currentChance*d2);
+				lvl = (int)(currentChance*d1);
 				g.setColor(lightCol);
 				g.setClip(x1, yClip-lvl, wClip, d1);
-				g.fillOval(x2, y2, d2, d2);
+				g.fillOval(x1, y1, d1, d1);
 			}
 			g.setClip(null);
 		}

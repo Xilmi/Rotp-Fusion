@@ -76,6 +76,9 @@ Later:
 
 ## What's New
 
+2025.02.28 (BR)
+- Minor improvement to the appearance of Tech bubbles.
+
 2025.02.27 (BR)
 - Improved the appearance of Tech bubbles.
 
