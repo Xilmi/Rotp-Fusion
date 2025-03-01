@@ -15,9 +15,6 @@ Description of the different AI-options in Fusion-Mod:
 The decription of the additions/changes by Modnar can be found there: <br/>
 	[https://github.com/modnar-hajile/rotp/releases](https://github.com/modnar-hajile/rotp/releases) <br/>
 
-The description of the additions/changes by BrokenRegistry can be found there: <br/>
-	[https://brokenregistry.github.io](https://brokenregistry.github.io) <br/>
-	[Also available as pdf file (User Manual)](https://brokenregistry.github.io/pdf/Profiles.pdf) <br/>
 
 ### To build and run locally:
 
@@ -75,6 +72,9 @@ Later:
 
 
 ## What's New
+
+2025.02.29 (BR)
+- Fixed Bitmap Galaxy "Guide" text, that was too wide to be displayed.
 
 2025.02.28 (BR)
 - Minor improvement to the appearance of Tech bubbles.

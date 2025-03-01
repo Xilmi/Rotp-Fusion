@@ -4222,6 +4222,9 @@ SHIP_DESIGN_AUTO_ATTACK           | Auto Attack
 SHIP_DESIGN_SET_DEFAULT			| Set as "Default Design"
 SHIP_DESIGN_UNSET_DEFAULT		| Remove "Default Design" tag
 SHIP_DESIGN_SWAP_DEFAULT 		| Set as "Default" and Swap Production
+SHIP_DESIGN_AUTO_SCOUT_TAG		| %1 A S
+SHIP_DESIGN_AUTO_COLONIZE_TAG	| %1 A C
+SHIP_DESIGN_AUTO_ATTACK_TAG		| %1 A A
 
 
 // ship design selection dialogs
@@ -5349,6 +5352,21 @@ GOVERNOR_EARLY_BASE_BUILDING		| Build Bases Early: %1
 GOVERNOR_EARLY_BASE_BOOST_PCT_DESC	| Level of industrialization that will trigger the construction of the missile base.
 GOVERNOR_EARLY_BASE_BOOST_PCT		| Industry Trigger Level: %1%
 
+GOVERNOR_FLEET_AUTO_SCOUT_DESC		| When automatically sending exploration squadrons, what should be the composition of the squadrons?
+GOVERNOR_FLEET_AUTO_SCOUT			| Scout squadrons: %1
+GOVERNOR_FLEET_AUTO_COLONIZE_DESC	| When automatically sending colony convoys, what should be the composition of the convoys?
+GOVERNOR_FLEET_AUTO_COLONIZE		| Colony convoys: %1
+GOVERNOR_FLEET_AUTO_ATTACK_DESC		| When automatically sending warships, what should be the composition of the fleets?
+GOVERNOR_FLEET_AUTO_ATTACK			| Warships fleets: %1
+FLEET_AUTO_SEND_ANY					| Any
+FLEET_AUTO_SEND_ANY_HELP			| Fleets must include at least one of the selected models, with the specified number of ships.
+FLEET_AUTO_SEND_ALONE				| Alone
+FLEET_AUTO_SEND_ALONE_HELP			| Fleets will consist of a single selected model, with the requested number of ships. If multiple models are selected, each of them can be used to build different fleets.
+FLEET_AUTO_SEND_TEAMS				| Teams
+FLEET_AUTO_SEND_TEAMS_HELP			| Fleets must include at least two of the selected models, each having the specified number of ships.
+FLEET_AUTO_SEND_ALL					| All
+FLEET_AUTO_SEND_ALL_HELP			| Fleets will need to include all selected models, each having the specified number of ships.
+
 HEADERS_GOVERNOR_TERRAFORM_DESC		| Triggers for planet terraforming.
 HEADERS_GOVERNOR_TERRAFORM			| ~~~ TERRAFORMING TRIGGERS ~~~
 HEADERS_GOVERNOR_SUBSIDIES_DESC		| What to do with the funds allocated to the colony?
@@ -5602,7 +5620,7 @@ SETUP_BITMAP_GREY_INVERSE_DESC  | Because some nice pictures have a white backgr
 SETUP_BITMAP_COLOR_DESC         | The colors of the images are interpreted: Blue for Orion, Green for the Player. The remaining stars and nebulae are distributed over these three regions
 SETUP_BITMAP_COLOR_HELP         | The colors of the images are interpreted:<ul><li>Blue for Orion.</li><li>Green for the Player.</li><li>Red for the Aliens.</li><li>The remaining stars and nebulae are distributed over these three regions.</li><li>If one color is missing: it will be replaced by global grayscale.</li></ul>
 SETUP_BITMAP_ADVANCED_HELP      | It uses multiple sub-bitmaps grouped vertically in a single Bitmap file.<br>Start with Black as background (sub-bitmap separator)<br>Fist Sub-Bitmap: Definition of lone star systems:<ul><li>Add Blue rectangle to define the limits of the sub-bitmap.</li><li>Add Green inside the first rectangle to define the density of lone stars.</li><ul><li>Can be mixed with blue, or replace it.</li><li>The intensity of green defines the probability of having a star:<br>(255 = Max; 0 = no stars)</li></ul></ul><i>Other Sub-Bitmaps:<ul><li>Copy the Lone star sub-bitmap, as often as necessary, keeping a few black lines as separators.</li><li>Blue is still needed to fill the gap and avoid black lines in the middle of the sub-bitmap.</li><li>The Green color is then ignored, but you may will to keep it as repair point.</li><li>The intensity of Red will be used to defines the next probabilities.</li><li>You can use White instead of Red, as White contains Red, and other colors are ignored.</li><li>All invalid Sub-Bitmaps will be replaced by the first one.</li></ul></i>Second Sub-Bitmap: Preferred location of nebulae:<ul><li>No Red = same as lone star systems.</li><li>For "No Nebulas" use the already existing option in the good old Advanced Options" panel.</li></ul>Third Sub-Bitmap: Orion's favourite location:<br>Fourth Sub-Bitmap: Preferred location of Player:<br>Following Sub-Bitmap: Preferred location of aliens:<ul><li>Up to 49 Alien's sub-bitmap can be defined.</li><li>If there are more Aliens than sub-bitmap, the galaxy factory will loop on the available Alien sub-bitmap.</li></ul>
-SETUP_BITMAP_ADVANCED_MASK_HELP  | Same as "Advanced" with the option to allow you to define the color gradients only once, on the first sub-bitmap, and uses uniform colors to define the regions on the following maps.<br>The two maps are then multiplied to define a resulting map.
+SETUP_BITMAP_ADVANCED_MASK_HELP  | Same as "Advanced" with the option to allow you to define the color gradients only once,<br>on the first sub-bitmap and uses uniform colors to define the regions on the following maps.<br>The two maps are then multiplied to define a resulting map.
 SETUP_BITMAP_ADVANCED_MASK2_HELP | Same as "Advanced/Mask" with an additional sharpening effect to keeps the Empires well inside the other stars.
 SETUP_BITMAP_NORMAL_HELP         | Don't change the bitmap contrast.
 SETUP_BITMAP_SHARP1_HELP         | Increase the contrast a little bit.
