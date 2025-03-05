@@ -50,7 +50,7 @@
 		<BaseFileName>rotp-${revision}</BaseFileName>
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<junit.jupiter.version>5.9.0</junit.jupiter.version>
 		<junit.platform.version>1.9.0</junit.platform.version>
 		<GITHUB_TOKEN></GITHUB_TOKEN>
@@ -399,7 +399,7 @@
 							</classPath>
 							<jre>
 								<path>jre</path>
-								<minVersion>11</minVersion>
+								<minVersion>17</minVersion>
 								<bundledJre64Bit>true</bundledJre64Bit>
 								<runtimeBits>64</runtimeBits>
 								<jdkPreference>preferJre</jdkPreference>

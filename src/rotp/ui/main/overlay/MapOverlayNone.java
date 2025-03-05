@@ -62,7 +62,7 @@ public class MapOverlayNone extends MapOverlay {
         boolean shift = e.isShiftDown();
         boolean ctrl  = e.isControlDown();
         int s40 = BasePanel.s40;
-        
+
         if (e.getKeyChar() == '?') {
             parent.showHelp();
             return true;
@@ -74,6 +74,10 @@ public class MapOverlayNone extends MapOverlay {
                 else
                 	parent.selectGamePanel();
                 break;
+			case KeyEvent.VK_NUMBER_SIGN:
+//				player().autoscout();
+				player().govAI().fleetCommander().nextTurn();
+				break;
             case KeyEvent.VK_EQUALS:
                 if (e.isShiftDown())  
                     parent.map().adjustZoom(-1);

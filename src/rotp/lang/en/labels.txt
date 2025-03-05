@@ -796,7 +796,7 @@ MAIN_HELP_2B                      | Number of missile bases and the maximum desi
 MAIN_HELP_2C                      | Total planetary production from industry and population.<br>Press "Shift" to view production by factory. (After cleaning pollution)
 MAIN_HELP_2D                      | Actual production adjusted for empire-wide trade income, spy and security costs, as well as missile base and ship maintenance.<br>Press "Shift" to display production per worker. (Without factory)
 MAIN_HELP_2E                      | Change ship design to build in the planet's orbiting shipyard. Production accrued for unfinished ships will accelerate production of new ships by 50% until spent. Click or use the mouse wheel to change the ship design.
-MAIN_HELP_2F                      | Set a rally point to automatically send newly constructed ships to another colony.
+MAIN_HELP_2F                      | Set a rally point to automatically send newly constructed ships to another colony.<br>(Or Ctrl-Right-Click to the targeted system to set the Rally.)<br>Right-Click to the targeted system will set the rally, and redirect all the Rally to this system.
 MAIN_HELP_2FSG                    | Rally to the nearest stargate.<br>(Based on "→CHAIN_RALLY_SPEED_HK←" setting)
 MAIN_HELP_2G                      | Transport population to fortify another colony or send troops to invade an enemy planet. The colony incurs a one-time production cost for transporting.<br>"Ctrl-Click" will prevent/allow the governor from sending transports from this colony.
 MAIN_HELP_2H                      | Completely abandon a planet by transferring all population from it to another colony.
@@ -1687,22 +1687,22 @@ SETUP_RESEARCH_RATE_IMPEDED       | Crawling
 SETUP_RESEARCH_RATE_LETHARGIC_HELP | Research costs factors:<br>141% at level 2;&ensp 21 at level 11;&ensp 38 at level 20;<br>50 at level 27;&ensp 80 at level 51;&ensp 125 at level 100.
 SETUP_RESEARCH_RATE_LETHARGIC      | Impeded
 
-SETUP_TECH_TRADING_YES            | Yes
-SETUP_TECH_TRADING_ALLIES         | Allies Only
-SETUP_TECH_TRADING_ALLIES_AID     | Allies Only**
-SETUP_TECH_TRADING_NO             | No
-SETUP_TECH_TRADING_NO_AID         | No**
-SETUP_TECH_TRADING_YES_HELP       | Anyone can trade with anyone, as long as their relationship is good enough.<br>Empires at war won't trade!
-SETUP_TECH_TRADING_ALLIES_HELP    | Trade is limited between allies only.
-SETUP_TECH_TRADING_ALLIES_AID_HELP | Trade and aid are limited between allies only.
-SETUP_TECH_TRADING_NO_HELP        | Trade is disabled.
-SETUP_TECH_TRADING_NO_AID_HELP    | Both trade and aid are disabled.
-SETUP_WARP_SPEED_NORMAL_HELP      | Warp Speed progression: 1, 2, 3, 4, 5,  6,  7,  8,  9
-SETUP_WARP_SPEED_NORMAL           | Normal
-SETUP_WARP_SPEED_FAST_HELP        | Warp Speed progression: 1, 2, 3, 5, 7, 10, 13, 17, 21
-SETUP_WARP_SPEED_FAST             | Fast
-SETUP_WARP_SPEED_FAST_F_HELP      | Warp Speed progression: 1, 2, 3, 5, 8, 13, 21, 34, 55 (original Fibonacci progression)
-SETUP_WARP_SPEED_FAST_F           | Fastest
+SETUP_TECH_TRADING_YES				| Yes
+SETUP_TECH_TRADING_ALLIES			| Allies Only
+SETUP_TECH_TRADING_ALLIES_AID		| Allies Only**
+SETUP_TECH_TRADING_NO				| No
+SETUP_TECH_TRADING_NO_AID			| No**
+SETUP_TECH_TRADING_YES_HELP			| Anyone can trade with anyone, as long as their relationship is good enough.<br>Empires at war won't trade!
+SETUP_TECH_TRADING_ALLIES_HELP		| Trade is limited between allies only.
+SETUP_TECH_TRADING_ALLIES_AID_HELP	| Trade and aid are limited between allies only.
+SETUP_TECH_TRADING_NO_HELP			| Trade is disabled.
+SETUP_TECH_TRADING_NO_AID_HELP		| Both trade and aid are disabled.
+SETUP_WARP_SPEED_NORMAL_HELP		| Warp Speed progression: 1, 2, 3, 4, 5,  6,  7,  8,  9
+SETUP_WARP_SPEED_NORMAL				| Normal
+SETUP_WARP_SPEED_FAST_HELP			| Warp Speed progression: 1, 2, 3, 5, 7, 10, 13, 17, 21
+SETUP_WARP_SPEED_FAST				| Fast
+SETUP_WARP_SPEED_FAST2_HELP			| Warp Speed progression: 1, 2, 3, 5, 8, 13, 21, 34, 55 (original Fibonacci progression)
+SETUP_WARP_SPEED_FAST2				| Fastest
 
 SETUP_NEBULA_NONE                 | None
 SETUP_NEBULA_RARE                 | Rare
@@ -1798,7 +1798,7 @@ SETUP_TERRAFORMING_NONE_HELP      | Improved Terraforming technologies that incr
 SETUP_TERRAFORMING_NONE           | None
 SETUP_COLONIZING_NORMAL_HELP      | Any special colony base can colonize a planet of that hostility or lower on the "hierarchy of hostilities" from Barren to Irradiated.
 SETUP_COLONIZING_NORMAL           | Normal
-SETUP_COLONIZING_RESTRICTED_HELP  | Hostile environment will need a colony base of that specific type. Now the Irradiated Colony Base you'll need to settle the most hostile of planets is no longer the be-all and end-all of colony bases.
+SETUP_COLONIZING_RESTRICTED_HELP  | In addition to the appropriate colonization module (greater than or equal to the planet's hostility level), the empire must also have gained mastery of environmental control of the planet to be colonized.
 SETUP_COLONIZING_RESTRICTED       | Restricted
 
 SETUP_FUEL_RANGE_CUT              | Cut
@@ -5375,6 +5375,8 @@ HEADERS_GOVERNOR_OTHER_LIMITS_DESC	| Unclassified Options.
 HEADERS_GOVERNOR_OTHER_LIMITS		| ~~~ OTHER LIMITS ~~~
 HEADERS_GOVERNOR_COLONY_GROWTH_DESC	| Settings when →GOVERNOR_LEGACY_GROWTH_MODE_LABEL← option is disabled.
 HEADERS_GOVERNOR_COLONY_GROWTH		| ~~~ COLONIES GROWTH ~~~
+HEADERS_GOVERNOR_AUTO_SEND_DESC		| Auto fleet sending parameters.
+HEADERS_GOVERNOR_AUTO_SEND			| ~~~ FLEET AUTO SEND ~~~
 
 
 // BR: Tech Trigger Add-on

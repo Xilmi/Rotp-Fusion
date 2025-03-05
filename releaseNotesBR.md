@@ -1,26 +1,23 @@
-New Java requirement: minimum JRE-11, recommended JRE-23.
+New Java requirement: minimum JRE-17, recommended JRE-23.
 
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 
 <b><ins>Very last changes:</ins></b>
 
+- Moved to java 17
+- Added help on Right-Click-Rally.
+- Fixed WarpSpeed not showing the fastest option.
+- New option for auto-scout, auto-colonize and auto-Attack:
+  - Each design can be given its own number of sip to be sent.
+    - Scroll over the button to change the value.
+    - Middle click to assign the governor common value.
+    - Right click to toggle the governor automation.
+  - The "auto" states are displayed on the design slots.
+  - Option to select the number of design to send at once.
 - Fixed Bitmap Galaxy "Guide" text, that was too wide to be displayed.
 - Improved the appearance of Tech bubbles.
 - The "fine tuning" options are now available from the "original" governor panel.
-- Improved "Obedient Governor" response to "Develop colonies as quickly as possible".
-  - For planets and species with reduced growth, there is an option to boost natural growth to match normal growth.
-  - New option to set a minimal growth, as the natural growth can be very low once the planet is almost full.
-  - New option to force "Develop colonies as quickly as possible" until the colony has reached a minimum industrial level. (This way you can predefine the production when colonizing a rich planet... and production will not be started too early)
-  - Similarly, new option to define when missile bases should be built. By default, they are only built after all factories are built... But in case of war, or a neighbor who is a bit too nosy, it may be interesting to build them earlier.
-- "Colonies Building:" values will now also be updated after a new "Default Design" is told to swap shipyard production.
-- Extended "Default Design" feature: New default will be applied to shipyards if "Shift" is down.
-- Fixed a rare crash occurring when a flight path is changed while it is displayed.
-- Fixed Rally not always rallying.
-- Added default design icon in colony panel.
-- Fixed Ship Design Size, Power and cost values sometime overlapping with Huge hulls. 
-- Fixed Auto Ship Design not loading user request.
-- Fixed Obedient Governor building stargates too early.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

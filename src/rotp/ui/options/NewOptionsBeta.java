@@ -33,8 +33,7 @@ final class NewOptionsBeta extends AbstractOptionsSubUI {
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						debugAutoRun,
-						optionPanelAlignment,
-						showTechProgress
+						optionPanelAlignment
 						));
 		return majorList;
 	}

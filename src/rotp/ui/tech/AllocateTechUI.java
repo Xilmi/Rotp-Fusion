@@ -775,8 +775,12 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         String title = text(TechCategory.id(catNum));
         drawShadowedString(g, title, 1, x+s20, y0, Color.black, whiteTextC);
 
-        drawResearchBubble(g, cat, false, Color.black, Color.black, Color.black,
-        		Color.black, Color.black, darkBlueBucketC, blueBucketC, x+scaled(180), y0);
+		if (options().showTechProgress())
+			drawResearchBubble(g, cat, false, Color.black, Color.black, Color.lightGray,
+					Color.black, Color.black, blueBucketC, darkBlueBucketC, x+scaled(180), y0);
+		else
+			drawResearchBubble(g, cat, false, Color.black, Color.black, Color.black,
+					Color.black, Color.black, darkBlueBucketC, blueBucketC, x+scaled(180), y0);
 
         int fontSize = 18;
         g.setColor(Color.black);
@@ -821,7 +825,8 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
 		if (cat.researchCompleted())
 			return;
 
-		boolean showProgress = showMinimum && options().showTechProgress();
+		// boolean showProgress = showMinimum && options().showTechProgress();
+		boolean showProgress = options().showTechProgress();
 		float currentChance  = cat.upcomingDiscoveryChance(0);
 		float upcomingChance = cat.upcomingDiscoveryChance(totalPlanetaryResearch());
 		float minDisplayValue = 0.15f;
@@ -830,18 +835,23 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
 			currentChance = minDisplayValue;
 			upcomingChance = max(minDisplayValue + delta/2, upcomingChance);
 		}
-		int dr = showProgress? s1 : 0;
+		int dr2 = showProgress? s1 : 0;
+		int dr = showProgress && showMinimum? s1 : 0;
 		int d1 = s19;
 		int x1 = x0 - s10;
 		int y1 = y0 - s16;
 		int d2 = d1 - dr-dr;
 		int x2 = x1 + dr;
 		int y2 = y1 + dr;
-		int d3 = d2 - dr-dr;
-		int x3 = x2 + dr;
-		int y3 = y2 + dr;
+		int d3 = d2 - dr2-dr2;
+		int x3 = x2 + dr2;
+		int y3 = y2 + dr2;
 		int yClip = y0 + s4 - dr;
 		int wClip = d1 + d1;
+		int currentLevel = (int)(currentChance*d1);
+		int upcomingLevel = (int)(upcomingChance*d2);
+		if (showProgress && upcomingChance > currentChance )
+			upcomingLevel = max(upcomingLevel, currentLevel+1);
 
 		if (upcomingChance <= 1) {
 			g.setColor(borderCol);
@@ -849,15 +859,13 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
 			g.setColor(backCol);
 			g.fillOval(x2, y2, d2, d2);
 
-			int lvl = (int)(upcomingChance*d3);
 			g.setColor(darkCol);
-			g.setClip(x1, yClip-lvl, wClip, d1);
+			g.setClip(x1, yClip-upcomingLevel, wClip, d1);
 			g.fillOval(x3, y3, d3, d3);
 
 			if (showProgress) {
-				lvl = (int)(currentChance*d1);
 				g.setColor(lightCol);
-				g.setClip(x1, yClip-lvl, wClip, d1);
+				g.setClip(x1, yClip-currentLevel, wClip, d1);
 				g.fillOval(x1, y1, d1, d1);
 			}
 			g.setClip(null);
@@ -874,8 +882,8 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
 			if (showProgress && currentChance <= 1) {
 				g.setColor(borderCol);
 				g.fillOval(x1, y1, d1, d1);
-				g.setColor(backCol);
-				g.fillOval(x2, y2, d2, d2);
+				g.setColor(darkCol);
+				g.fillOval(x3, y3, d3, d3);
 
 				int lvl = (int)(currentChance*d2);
 				g.setColor(lightCol);

@@ -42,11 +42,19 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## To-Do list
 Bug to fix:
-
+- Dark mode: Sabotage see to far away
 Very soon:
-- Auto-Attack with multiple designs
+- More Spy AI choice to sabotage the same planet.
 - Add option to limit random event tech generosity... (For slow research, etc...)
 - Adapt Modnar's species.
+  - early-gamers could be called the Peak or Peakers
+  - Jack-trades maybe Traders or Jackals
+  - New Star System names
+  - New pictures
+- is there any way of setting up alliances before the game, so you could e.g. have two teams of three ?
+  - Starting alliances (free for the ai to dismiss)
+  - Starting factions (Stronger than alliance, but breakable at very low diplomacy level)
+  - Immuable faction (Like final war)
 
 Later:
 - Some Achievements options.
@@ -73,7 +81,29 @@ Later:
 
 ## What's New
 
-2025.02.29 (BR)
+2025.03.05 (BR)
+- Fixed WarpSpeed not showing the fastest option.
+- Added help on Right-Click-Rally.
+
+2025.03.04 (BR)
+- New option for auto-scout, auto-colonize and auto-Attack:
+  - Each design can be given its own number of sip to be sent.
+    - Scroll over the button to change the value.
+    - Middle click to assign the governor common value.
+    - Right click to toggle the governor automation.
+  - The "auto" states are displayed on the design slots.
+  - Option to select the number of design to send at once.
+
+2025.03.03 (BR)
+- Fixed "Restricted Environment" Guide description.
+- Tech Bubble - show progress:
+  - in tech panel too.
+  - filled when % is shown.
+
+2025.03.02 (BR)
+- Moved to java 17
+
+2025.03.01 (BR)
 - Fixed Bitmap Galaxy "Guide" text, that was too wide to be displayed.
 
 2025.02.28 (BR)

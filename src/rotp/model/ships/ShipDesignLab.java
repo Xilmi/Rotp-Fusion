@@ -105,7 +105,27 @@ public class ShipDesignLab implements Base, Serializable {
 			return false;
 		return design(defaultDesignId).active() && design(id).active();
 	}
-
+	public int[]   autoScoutShipCount()			  {
+		int[] counts = new int[MAX_DESIGNS];
+		for (int i = 0; i < MAX_DESIGNS; i++)
+			if (design(i).active())
+				counts[i] = design(i).autoScoutShipCount();
+		return counts;
+	}
+	public int[]   autoColonizeShipCount()		  {
+		int[] counts = new int[MAX_DESIGNS];
+		for (int i = 0; i < MAX_DESIGNS; i++)
+			if (design(i).active())
+				counts[i] = design(i).autoColonizeShipCount();
+		return counts;
+	}
+	public int[]   autoAttackShipCount()		  {
+		int[] counts = new int[MAX_DESIGNS];
+		for (int i = 0; i < MAX_DESIGNS; i++)
+			if (design(i).active())
+				counts[i] = design(i).autoAttackShipCount();
+		return counts;
+	}
     public ShipDesign prototypeDesign() {
         if (prototypeDesign == null)
             prototypeDesign = newBlankDesign(ShipDesign.SMALL);

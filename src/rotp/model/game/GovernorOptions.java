@@ -350,16 +350,19 @@ public class GovernorOptions implements Serializable, IGovOptions {
 
 	public boolean	isAutoScout()					{ return auto_Scout.get(); }
 	public void		setAutoScout(boolean b)			{ auto_Scout.silentSet(b); }
+	public void		toggleAutoScout()				{ auto_Scout.toggle(); }
 	public String	autoScoutTT()					{ return auto_Scout.govTooltips(); }
 	public String	autoScoutText()					{ return auto_Scout.govLabelTxt(); }
 
 	public boolean	isAutoColonize()				{ return govAutoColonize.get(); }
 	public void		setAutoColonize(boolean b)		{ govAutoColonize.silentSet(b); }
+	public void		toggleAutoColonize()			{ govAutoColonize.toggle(); }
 	public String	autoColonizeTT()				{ return govAutoColonize.govTooltips(); }
 	public String	autoColonizeText()				{ return govAutoColonize.govLabelTxt(); }
 
 	public boolean	isAutoAttack()					{ return auto_Attack.get(); }
 	public void		setAutoAttack(boolean b)		{ auto_Attack.silentSet(b); }
+	public void		toggleAutoAttack()				{ auto_Attack.toggle(); }
 	public String	autoAttackTT()					{ return auto_Attack.govTooltips(); }
 	public String	autoAttackText()				{ return auto_Attack.govLabelTxt(); }
 

@@ -18,6 +18,7 @@ package rotp.model.ai;
 import static rotp.model.game.IGameOptions.BASE;
 import static rotp.model.game.IGameOptions.FUN;
 import static rotp.model.game.IGameOptions.FUSION;
+import static rotp.model.game.IGameOptions.GOVERNOR;
 import static rotp.model.game.IGameOptions.HYBRID;
 import static rotp.model.game.IGameOptions.MODNAR;
 import static rotp.model.game.IGameOptions.PERSONALITY;
@@ -77,7 +78,7 @@ public class AI implements Base {
 
     public AI (Empire e, int aiType) {
         empire = e;
-        
+
         switch (aiType) {
             case RANDOM:
                 aiType = allAIset().random();
@@ -94,9 +95,20 @@ public class AI implements Base {
             default:
                 break;
         }
-        if(empire.selectedAI < 0)
+        if(empire.selectedAI < 0 && aiType != GOVERNOR)
             empire.selectedAI = aiType;
         switch(aiType) {
+	        case GOVERNOR:	// TODO BR: progressively move to governor
+	            general =        new rotp.model.ai.xilmi.AIGeneral(empire);
+	            captain =        new rotp.model.ai.xilmi.AIShipCaptain(empire);
+	            governor =       new rotp.model.ai.xilmi.AIGovernor(empire);
+	            scientist =      new rotp.model.ai.xilmi.AIScientist(empire);
+	            diplomat =       new rotp.model.ai.xilmi.AIDiplomat(empire);
+	            shipDesigner =   new rotp.model.ai.xilmi.AIShipDesigner(empire);
+	            fleetCommander = new rotp.model.ai.governor.AIFleetCommander(empire);
+	            spyMaster =      new rotp.model.ai.xilmi.AISpyMaster(empire);
+	            treasurer =      new rotp.model.ai.xilmi.AITreasurer(empire);
+	            break;
             case BASE: // BR: Tentative
                 general =        new rotp.model.ai.base.AIGeneral(empire);
                 captain =        new rotp.model.ai.base.AIShipCaptain(empire);

@@ -206,6 +206,7 @@ public interface IGameOptions extends IModOptions {
     public static final int RANDOM_BASIC	= 9;
     public static final int RANDOM_ADVANCED	= 10;
     public static final int RANDOM_NO_RELATIONBAR = 11;
+    public static final int GOVERNOR	= 12;	// Not a selectable AI
     // Base AI Entries
     AIEntry selectableAI  = new AIEntry(-1,						OPPONENT_AI_SELECTABLE,		OPPONENT_AI_SELECTABLE);
     AIEntry offAI		  = new AIEntry(FUSION,					AUTOPLAY_OFF,				AUTOPLAY_OFF);

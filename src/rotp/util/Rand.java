@@ -82,28 +82,28 @@ public class Rand extends Random {
 	/**
 	 * @return  double: 0 <= random value < max
 	 */
-	public double nextDouble (double max) { return rng().nextDouble(max);  }
+	@Override public double nextDouble (double max) { return rng().nextDouble(max);  }
 	/**
 	 * @return  float: 0 <= random value < max
 	 */
-	public float nextFloat (float max) { return (float) rng().nextDouble(max);  }
+	@Override public float nextFloat (float max) { return (float) rng().nextDouble(max);  }
 	// ===== Getters with limits =====
 	/**
 	 * @return  min(lim1, lim2) <= random double < max(lim1, lim2)
 	 */
-	public double nextDouble(double lim1, double lim2) {
+	@Override public double nextDouble(double lim1, double lim2) {
 		return nextDouble(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 	/**
 	 * @return  min(lim1, lim2) <= random float < max(lim1, lim2)
 	 */
-	public float nextFloat(float lim1, float lim2) {
+	@Override public float nextFloat(float lim1, float lim2) {
 		return nextFloat(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 	/**
 	 * @return  min(lim1, lim2) <= random int < max(lim1, lim2)
 	 */
-	public int nextInt(int lim1, int lim2) {
+	@Override public int nextInt(int lim1, int lim2) {
 		return nextInt(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 

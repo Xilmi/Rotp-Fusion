@@ -793,18 +793,18 @@ MAIN_HELP_1I                      | Pour accéder aux rapports d’espionnage. (
 
 MAIN_HELP_2A                      | Niveau du bouclier planétaire de la colonie. Les boucliers ne peuvent pas être construits sur les planètes dans une nébuleuse.
 MAIN_HELP_2B                      | Nombre de bases de missiles et le maximum souhaité pour cette planète. Cliquez ou utilisez la molette de la souris pour modifier le maximum.
-MAIN_HELP_2C                      | Production planétaire totale de l’industrie et de la population.<br>Pressez « Maj » pour afficher la production par usine. (Après nettoyage de la pollution)
+MAIN_HELP_2C                      | Production planétaire totale de l’industrie et de la population.<br>« Maj » pour afficher la production par usine. (Après nettoyage de la pollution)
 MAIN_HELP_2D                      | Production réelle ajustée en fonction des revenus commerciaux à l’échelle de l’empire, des coûts d’espionnage et de sécurité, ainsi que de la maintenance des bases de missiles et des vaisseaux.<br>Pressez « Maj » pour afficher la production par travailleur. (Sans usine)
 MAIN_HELP_2E                      | Changez le modèle de vaisseau à construire dans le chantier naval orbitant la planète. La production accumulée pour les vaisseaux inachevés accélérera la production de nouveaux vaisseaux de 50 % jusqu’à leur épuisement. Cliquez ou utilisez la molette de la souris pour changer le modèle de vaisseau.
-MAIN_HELP_2F                      | Définissez un point de ralliement pour envoyer automatiquement les vaisseaux nouvellement construits vers une autre colonie.
-MAIN_HELP_2FSG                    | Ralliement à la Porte des Étoiles la plus proche.<br>(Basé sur « →CHAIN_RALLY_SPEED_HK← »)
+MAIN_HELP_2F                      | Définir un point de ralliement pour envoyer automatiquement les vaisseaux nouvellement construits vers une autre colonie. (Ou « Ctrl-Clic-droit » sur la colonie de destination.)<br>« Clic-droit » sur une colonie de destination pour définir un ralliement et redéfinir les ralliements arrivant à cette colonie.
+MAIN_HELP_2FSG                    | Ralliement à la Porte des Étoiles la plus proche. (Basé sur « →CHAIN_RALLY_SPEED_HK← »)
 MAIN_HELP_2G                      | Transportez de la population pour fortifier une autre colonie ou envoyez des troupes envahir une planète ennemie. La colonie engage un coût de production unique pour le transport.<br>« Ctrl-Clic » Empêchera / Autorisera le gouverneur d’envoyer des transports depuis cette colonie.
 MAIN_HELP_2H                      | Abandonnez complètement une planète en transférant toute sa population vers une autre colonie.
 MAIN_HELP_2I                      | Population actuelle et maximale de la planète. 100 représente une planète d’origine complète qui n’a pas été terraformée. Pressez « Maj » pour afficher la population active. (Hors transports en partance)
 MAIN_HELP_2J                      | Usines actuelles et maximales autorisées. Usines maximales basées sur la population et la technologie des contrôles robotiques.
 MAIN_HELP_2K                      | Associez un drapeau au système pour le démarquer sur la carte de la galaxie.
 MAIN_HELP_2K_2F                   | Attribuez jusqu’à 4 drapeaux au système pour le démarquer sur la carte de la galaxie.
-MAIN_HELP_2K_M2                   | Clic-gauche = Suivant / Clic-droite = Réinitialiser / « Home » = Auto-Drapeau.
+MAIN_HELP_2K_M2                   | Clic-gauche = Suivant / Clic-droit = Réinitialiser / « Home » = Auto-Drapeau.
 MAIN_HELP_2K_M3                   | Clic-gauche = Suivant / Clic-droit = Précédent / Clic-milieu = Réinitialiser / « Home » = Auto-Drapeau.
 MAIN_HELP_2K_2F_HOLD              | (« Ctrl » pour les drapeaux de droite, « Maj » pour les drapeaux du bas)
 MAIN_HELP_2L                      | Le montant de la réserve stockée dans le trésor de l’empire.
@@ -1476,7 +1476,7 @@ GNN_ALIEN_REBELLION               | %1 s’est rebellé et a refusé de contribu
 GNN_PLAYER_REBELLION_SPREAD       | La rébellion continue de se propager dans tout le [rebelling_empire]. Au moins %2 millions de rebelles contrôlent désormais la colonie de %1.
 GNN_OVERTHROW                     | Un nouveau chef a émergé de l’intérieur [alien_empireof]. Les rumeurs indiquent que le nouvel empereur est %1. Les relations sont devenues neutres et les échanges ont été perturbés.
 GNN_END_COUNCIL                   | Avec seulement deux Empires restants, les tentatives d’unification de la galaxie avec un Conseil Galactique ont pris fin. De nombreux dirigeants débattent maintenant du type de solution finale qui peut apporter une paix durable.
-GNN_FORM_COUNCIL                  | En quête de paix, les représentants de chaque espèce se réuniront bientôt pour tenter d'élire un empereur galactique. Les candidats seront les dirigeants des deux empires les plus peuplés.
+GNN_FORM_COUNCIL                  | En quête de paix, les représentants de chaque espèce se réuniront bientôt pour tenter d’élire un empereur galactique. Les candidats seront les dirigeants des deux empires les plus peuplés.
 GNN_ALLY_AT_WAR                   | Notre allié, [ally_empire], est entré en guerre contre [other_empire].
 
 // Error UI text
@@ -1687,22 +1687,22 @@ SETUP_RESEARCH_RATE_IMPEDED       | Traînante
 SETUP_RESEARCH_RATE_LETHARGIC_HELP | Facteurs des coûts de la recherche :<br>1,41 au niveau 2;&ensp 21 au niveau 11;&ensp 38 au niveau 20;<br>50 au niveau 27;&ensp 80 au niveau 51;&ensp 125 au niveau 100.
 SETUP_RESEARCH_RATE_LETHARGIC      | Glaciale
 
-SETUP_TECH_TRADING_YES            | Oui
-SETUP_TECH_TRADING_ALLIES         | Alliés uniquement
-SETUP_TECH_TRADING_ALLIES_AID     | Alliés seulement**
-SETUP_TECH_TRADING_NO             | Non
-SETUP_TECH_TRADING_NO_AID         | Non**
-SETUP_TECH_TRADING_YES_HELP       | N’importe qui peut échanger avec n’importe qui, tant que leur relation est assez bonne.<br>Les empires en guerre ne feront pas de commerce !
-SETUP_TECH_TRADING_ALLIES_HELP    | Le commerce est limité entre alliés seulement.
-SETUP_TECH_TRADING_ALLIES_AID_HELP | Le commerce et l’aide sont limités entre les seuls alliés.
-SETUP_TECH_TRADING_NO_HELP        | Il n’y a aucun commerce.
-SETUP_TECH_TRADING_NO_AID_HELP    | Il n’y a ni commerce ni aide.
-SETUP_WARP_SPEED_NORMAL_HELP      | Progression de la vitesse de distorsion : 1, 2, 3, 4, 5, 6, 7, 8, 9
-SETUP_WARP_SPEED_NORMAL           | Normale
-SETUP_WARP_SPEED_FAST_HELP        | Progression de la vitesse de distorsion : 1, 2, 3, 5, 7, 10, 13, 17, 21
-SETUP_WARP_SPEED_FAST             | Rapide
-SETUP_WARP_SPEED_FAST_F_HELP      | Progression de la vitesse de distorsion : 1, 2, 3, 5, 8, 13, 21, 34, 55 (progression initiale de Fibonacci)
-SETUP_WARP_SPEED_FAST_F           | Plus rapide
+SETUP_TECH_TRADING_YES				| Oui
+SETUP_TECH_TRADING_ALLIES			| Alliés uniquement
+SETUP_TECH_TRADING_ALLIES_AID		| Alliés seulement**
+SETUP_TECH_TRADING_NO 				| Non
+SETUP_TECH_TRADING_NO_AID			| Non**
+SETUP_TECH_TRADING_YES_HELP			| N’importe qui peut échanger avec n’importe qui, tant que leur relation est assez bonne.<br>Les empires en guerre ne feront pas de commerce !
+SETUP_TECH_TRADING_ALLIES_HELP		| Le commerce est limité entre alliés seulement.
+SETUP_TECH_TRADING_ALLIES_AID_HELP	| Le commerce et l’aide sont limités entre les seuls alliés.
+SETUP_TECH_TRADING_NO_HELP			| Il n’y a aucun commerce.
+SETUP_TECH_TRADING_NO_AID_HELP		| Il n’y a ni commerce ni aide.
+SETUP_WARP_SPEED_NORMAL_HELP		| Progression de la vitesse de distorsion : 1, 2, 3, 4, 5, 6, 7, 8, 9
+SETUP_WARP_SPEED_NORMAL				| Normale
+SETUP_WARP_SPEED_FAST_HELP			| Progression de la vitesse de distorsion : 1, 2, 3, 5, 7, 10, 13, 17, 21
+SETUP_WARP_SPEED_FAST				| Rapide
+SETUP_WARP_SPEED_FAST2_HELP			| Progression de la vitesse de distorsion : 1, 2, 3, 5, 8, 13, 21, 34, 55 (progression initiale de Fibonacci)
+SETUP_WARP_SPEED_FAST2				| Plus rapide
 
 SETUP_NEBULA_NONE                 | Aucune
 SETUP_NEBULA_RARE                 | Rare
@@ -1798,7 +1798,7 @@ SETUP_TERRAFORMING_NONE_HELP      | Les technologies de terraformation amélior�
 SETUP_TERRAFORMING_NONE           | Aucune
 SETUP_COLONIZING_NORMAL_HELP      | Tout module de colonisation spécial peut coloniser une planète de cette hostilité ou d’un niveau inférieur dans la « hiérarchie des hostilités » de Stérile à Irradié.
 SETUP_COLONIZING_NORMAL           | Normale
-SETUP_COLONIZING_RESTRICTED_HELP  | Un environnement hostile nécessitera un module de colonisation de ce type spécifique. Désormais, le module de colonisation pour planètes irradiées n’est plus le module de colonisation par excellence.
+SETUP_COLONIZING_RESTRICTED_HELP  | En plus du module de colonisation approprié (supérieur ou égal au niveau d'hostilité de la planète), l'empire doit également avoir acquis la maîtrise du contrôle environnemental de la planète à coloniser.
 SETUP_COLONIZING_RESTRICTED       | restreinte
 
 SETUP_FUEL_RANGE_CUT              | Faible
@@ -4222,6 +4222,9 @@ SHIP_DESIGN_AUTO_ATTACK           | Auto attaque
 SHIP_DESIGN_SET_DEFAULT			| Définir comme « modèle par défaut »
 SHIP_DESIGN_UNSET_DEFAULT		| Retirer l’étiquette « modèle par défaut »
 SHIP_DESIGN_SWAP_DEFAULT		| Définir comme « modèle par défaut »<br>      et changer la production
+SHIP_DESIGN_AUTO_SCOUT_TAG		| %1 A S
+SHIP_DESIGN_AUTO_COLONIZE_TAG	| %1 A C
+SHIP_DESIGN_AUTO_ATTACK_TAG		| %1 A A
 
 
 // ship design selection dialogs
@@ -4371,8 +4374,8 @@ AUTO_SD_PREF_WARP_DISSIP		| Dissipateur de distorsion : %1 %
 AUTO_SD_PREF_WARP_DISSIP_DESC	| →AUTO_SD_PREF_DESC← les dispositifs dissipateurs de distorsion ?
 AUTO_SD_PREF_TECH_NULLIF		| Annulateur de technologie : %1 %
 AUTO_SD_PREF_TECH_NULLIF_DESC	| →AUTO_SD_PREF_DESC← les dispositifs annulateurs de technologie ?
-AUTO_SD_PREF_BEAM_FOCUS			| Focalisateurs d'énergie : %1 %
-AUTO_SD_PREF_BEAM_FOCUS_DESC	| →AUTO_SD_PREF_DESC← les dispositifs focalisateurs d'énergie ? (Concentration à haute énergie et Interface Oracle)
+AUTO_SD_PREF_BEAM_FOCUS			| Focalisateurs d’énergie : %1 %
+AUTO_SD_PREF_BEAM_FOCUS_DESC	| →AUTO_SD_PREF_DESC← les dispositifs focalisateurs d’énergie ? (Concentration à haute énergie et Interface Oracle)
 
 HEADERS_AUTO_SD_SIZE			| ~~~ SURCOÛT DES COQUES ~~~
 HEADERS_AUTO_SD_SIZE_DESC		| Ajustements des coûts des coques. Plus le Surcoût est élevé, plus les coûts estimés sont élevés, et moins il sera probable que cette coque soit choisie.
@@ -5346,8 +5349,23 @@ GOVERNOR_COLONY_EARLY_BOOST_DESC	| Activer →GOVERNOR_LEGACY_GROWTH_MODE_LABEL�
 GOVERNOR_COLONY_EARLY_BOOST			| Requis de population : %1 %
 GOVERNOR_EARLY_BASE_BUILDING_DESC	| Commencer à construire des bases de missiles dès que le niveau industriel spécifié est atteint.
 GOVERNOR_EARLY_BASE_BUILDING		| Construire les bases rapidement : %1
-GOVERNOR_EARLY_BASE_BOOST_PCT_DESC	| Niveau d'industrialisation qui déclenchera la construction de la base de missiles.
+GOVERNOR_EARLY_BASE_BOOST_PCT_DESC	| Niveau d’industrialisation qui déclenchera la construction de la base de missiles.
 GOVERNOR_EARLY_BASE_BOOST_PCT		| Requis industriel : %1 %
+
+GOVERNOR_FLEET_AUTO_SCOUT_DESC		| Lors de l’envoi automatique de escadrons d’exploration, quel doit être la composition des escadrons ?
+GOVERNOR_FLEET_AUTO_SCOUT			| Escadrons d’exploration : %1
+GOVERNOR_FLEET_AUTO_COLONIZE_DESC	| Lors de l’envoi automatique de convois de colonies, quel doit être la composition des convois ?
+GOVERNOR_FLEET_AUTO_COLONIZE		| Convois de Colonies : %1
+GOVERNOR_FLEET_AUTO_ATTACK_DESC		| Lors de l’envoi automatique de vaisseau de guerre, quel doit être la composition des flottes ?
+GOVERNOR_FLEET_AUTO_ATTACK			| Flottes de Guerres : %1
+FLEET_AUTO_SEND_ANY					| Quelconque
+FLEET_AUTO_SEND_ANY_HELP			| Les flottes devront inclure au moins un des modèles sélectionnés, avec le nombre vaisseaux spécifiés.
+FLEET_AUTO_SEND_ALONE				| Solitaire
+FLEET_AUTO_SEND_ALONE_HELP			| Les flottes seront composées d'un seul modèle sélectionné, avec le nombre de vaisseau demandé. Si plusieurs modèles sont sélectionnés, ils pouront être utilisés pour construire des différentes flottes.
+FLEET_AUTO_SEND_TEAMS				| Groupés
+FLEET_AUTO_SEND_TEAMS_HELP			| Les flottes devront inclure au moins deux des modèles sélectionnés, chacun ayant le nombre vaisseaux spécifiés.
+FLEET_AUTO_SEND_ALL					| Tous
+FLEET_AUTO_SEND_ALL_HELP			| Les flottes devront inclure tous les modèles sélectionnés, chacun ayant le nombre vaisseaux spécifiés.
 
 HEADERS_GOVERNOR_TERRAFORM_DESC		| Déclencheurs de la terraformation de la planète.
 HEADERS_GOVERNOR_TERRAFORM			| ~~~ DÉCLENCHEURS DE TERRAFORMATION ~~~
@@ -5355,8 +5373,10 @@ HEADERS_GOVERNOR_SUBSIDIES_DESC		| Que faire des fonds alloués à la colonie ?
 HEADERS_GOVERNOR_SUBSIDIES			| ~~~ DESTINATION DES FONDS ~~~
 HEADERS_GOVERNOR_OTHER_LIMITS_DESC	| Unclassified Options.
 HEADERS_GOVERNOR_OTHER_LIMITS		| ~~~ AUTRES LIMITES ~~~
-HEADERS_GOVERNOR_COLONY_GROWTH_DESC	| Paramètres lorsque l'option →GOVERNOR_LEGACY_GROWTH_MODE_LABEL← est désactivée.
+HEADERS_GOVERNOR_COLONY_GROWTH_DESC	| Paramètres lorsque l’option →GOVERNOR_LEGACY_GROWTH_MODE_LABEL← est désactivée.
 HEADERS_GOVERNOR_COLONY_GROWTH		| ~~~ CROISSANCE DES COLONIES ~~~
+HEADERS_GOVERNOR_AUTO_SEND_DESC		| Paramètres d’envoi automatisé des flottes.
+HEADERS_GOVERNOR_AUTO_SEND			| ~~~ AUTOMATION DES FLOTTES ~~~
 
 
 // BR: Tech Trigger Add-on
@@ -5651,7 +5671,7 @@ FLEETS_HELP_HK			| →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP
 // !!!
 TECH_HELP_HK			| →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>Ctrl+1-6 : (dé)verrouiller les curseurs.<br>Flèches : Déplacer l’arbre / Catégories<br> = : Égaliser<br>Molette souris : Changer l’allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit : Montre plus d’info sur la tech survolée <br> →HK_ESCAPE←
 
-SHIP_DESIGN_HELP_HK		| →HK_HEADER← →HK_F1← <br><br>Flèches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+Ctrl) : Purger le modèle / (Juste l’armement)<br>O : Ouvrir le panneau d'options de conception des vaisseaux<br><br>(Shift) Alt-A : Conception automatique<br>(Shift) Alt-B : Conception automatique Bombardier<br>(Shift) Alt-E : Conception automatique Éclaireur<br>(Shift) Alt-F : Conception automatique Chasseur<br>(Shift) Alt-G : Conception automatique Faisceaux<br>(Shift) Alt-H : Conception automatique Hybride<br>(Shift) Alt-I : Conception automatique Intercepteur<br>(Shift) Alt-M : Conception automatique Missiles.<br>(Shift) Alt-P : Conception automatique Colonisateur.<br>Shift-Alt : Autorise le changement de la taille de la coque<br>→HK_ESCAPE←
+SHIP_DESIGN_HELP_HK		| →HK_HEADER← →HK_F1← <br><br>Flèches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+Ctrl) : Purger le modèle / (Juste l’armement)<br>O : Ouvrir le panneau d’options de conception des vaisseaux<br><br>(Shift) Alt-A : Conception automatique<br>(Shift) Alt-B : Conception automatique Bombardier<br>(Shift) Alt-E : Conception automatique Éclaireur<br>(Shift) Alt-F : Conception automatique Chasseur<br>(Shift) Alt-G : Conception automatique Faisceaux<br>(Shift) Alt-H : Conception automatique Hybride<br>(Shift) Alt-I : Conception automatique Intercepteur<br>(Shift) Alt-M : Conception automatique Missiles.<br>(Shift) Alt-P : Conception automatique Colonisateur.<br>Shift-Alt : Autorise le changement de la taille de la coque<br>→HK_ESCAPE←
 
 RACES_HELP_HK			| →HK_HEADER← →HK_F1← <br><br>Flèches Down/Up : Empire Suivant/Précédent. →HK_TAB←<br><br>A : →RACES_DIPLOMACY_AUDIENCE← avec l’empire sélectionné.<br><br>Lorsque l’empire du joueur est sélectionné:<br>D : →RACES_DIPLOMACY_MANAGE_DIPLOMATS←.<br>S : →RACES_INTEL_BUREAU_MANAGE←. <br>→HK_ESCAPE←
 

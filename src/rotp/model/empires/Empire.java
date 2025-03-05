@@ -199,6 +199,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient String empireName;
     private transient List<SpaceMonster> visibleMonsters = new ArrayList<>();
 
+	private transient AI govAI;
+
 	public static void resetPlayerId()			{ PLAYER_ID = DEFAULT_PLAYER_ID; }
 	public static void updatePlayerId(int id)	{ PLAYER_ID = id; }
 	public Integer defaultDesignId()			{ return shipLab.defaultDesignId(); }
@@ -249,6 +251,11 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return ai;
     }
+	public AI govAI() {
+		if (govAI == null)
+			govAI = new AI(this, IGameOptions.GOVERNOR);
+		return govAI;
+	}
     public String getAiKey()					  { return IGameOptions.allAIset().aliensKey(selectedAI); } // BR:
     public String getAiName() 					  { return text(getAiKey()); } // BR:
     public Diplomat diplomatAI()                  { return ai().diplomat(); }
@@ -1469,9 +1476,12 @@ public final class Empire implements Base, NamedObject, Serializable {
             autospend();
             autotransport();
             // colonize first, then attack, then scout
-            autocolonize();
-            autoattack();
-            autoscout();
+//            autocolonize();
+//            autoattack();
+//            autoscout();
+			// TODO BR: move to Governor AI
+			govAI().fleetCommander().nextTurn();
+
             if(session().getGovernorOptions().isAutoSpy() || session().getGovernorOptions().isAutoInfiltrate())
             {
                 for (EmpireView ev : empireViews()) {
@@ -1686,6 +1696,9 @@ public final class Empire implements Base, NamedObject, Serializable {
                     (Colony o1, Colony o2) -> (int)Math.signum(o1.expectedPopPct() - o2.expectedPopPct()));
         }
     }
+
+    // TODO BR: Moved to rotp.model.ai.governor.AIFleetCommander
+// /*
     private List<ShipDesign> scoutDesigns() {
         // Pick scout designs
         List<ShipDesign> scoutDesigns = new ArrayList<>();
@@ -1824,16 +1837,16 @@ public final class Empire implements Base, NamedObject, Serializable {
         return success;
     }
 
-    /**
-     * Sort targets to by value and to be as close to source system as possible
-     */
+//    /**
+//     * Sort targets to by value and to be as close to source system as possible
+//     * /
     private interface SystemsSorter {
         void sort(Integer sourceSystem, List<Integer> targets, int warpSpeed);
     }
 
-    /**
-     * Sort fleets by value and to be as close to target system as possible
-     */
+//    /**
+//     * Sort fleets by value and to be as close to target system as possible
+//     * /
     private interface FleetsSorter {
         void sort(Integer targetSysten, List<ShipFleet> fleets, int warpSpeed);
     }
@@ -2490,7 +2503,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             value /= 3;
         return value;
     }
-
+// */
     public String decode(String s, Empire listener) {
         String s1 = this.replaceTokens(s, "my");
         s1 = listener.replaceTokens(s1, "your");
@@ -4079,6 +4092,9 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return fleets1;
     }
+	public List<ShipFleet> ownFleetsDeployedToSystem(StarSystem target) {
+		return galaxy().ships.deployedFleetsTo(id, target.id);
+	}
     public void scrapExcessBases(StarSystem sys, int max) {
         if (sv.empire(sys.id) == this) {
             Colony col = sys.colony();

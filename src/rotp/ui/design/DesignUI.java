@@ -97,8 +97,12 @@ public class DesignUI extends BasePanel {
     private final Color grayShadeC = new Color(255,255,255,60);
     private final Color yellowShadeC = new Color(255, 255, 0, 108);
     private final Color errorRedC = new Color(224,0,0);
-	private final Color swapDesignC	= new Color(255, 127, 0);
-	private final Color darkGreenC	= new Color(0, 96, 0);
+	private final Color swapDesignC		= new Color(255, 127, 0);
+	private final Color darkGreenC		= new Color(0, 96, 0);
+	private final Color autoOnDefaultC	= new Color(0, 192, 0);
+	private final Color autoOffDefaultC	= new Color(0, 96, 0);
+	private final Color autoOnCustomC	= new Color(128, 128, 255);
+	private final Color autoOffCustomC	= new Color(64, 64, 128);
 
     private int selectedSlot = 0;
     private int helpFrame = 0;
@@ -1178,6 +1182,24 @@ public class DesignUI extends BasePanel {
                 int x2a = buttonX + ((buttonW - sw) / 2);
                 drawBorderedString(g, str, x2a, buttonY + buttonH - s7, SystemPanel.textShadowC, c0);
             }
+			if (des.isAutoScout()) {
+				String str = text("SHIP_DESIGN_AUTO_SCOUT_TAG", des.autoScoutShipCount());
+				boolean govDef = des.isDefaultAutoScoutShipCount();
+				boolean autoOn = govOptions().isAutoScout();
+				drawAutomationIcon(g, str, 0.1f, govDef, autoOn);
+			}
+			if (des.isAutoColonize()) {
+				String str = text("SHIP_DESIGN_AUTO_COLONIZE_TAG", des.autoColonizeShipCount());
+				boolean govDef = des.isDefaultAutoColonizeShipCount();
+				boolean autoOn = govOptions().isAutoColonize();
+				drawAutomationIcon(g, str, 0.8f, govDef, autoOn);
+			}
+			if (des.isAutoAttack()) {
+				String str = text("SHIP_DESIGN_AUTO_ATTACK_TAG", des.autoAttackShipCount());
+				boolean govDef = des.isDefaultAutoAttackShipCount();
+				boolean autoOn = govOptions().isAutoAttack();
+				drawAutomationIcon(g, str, 0.45f, govDef, autoOn);
+			}
 			if (defaultDesignArea == hoverTarget) {
 				if (des.isDefaultDesign())
 					drawDefaultDesignIcon(g, Color.yellow, text("SHIP_DESIGN_UNSET_DEFAULT"));
@@ -1199,11 +1221,24 @@ public class DesignUI extends BasePanel {
 					drawDefaultDesignIcon(g, Color.darkGray, "");
 		}
 		private ShipDesign slotDesign()   { return player().shipLab().design(designNum); }
+		private void drawAutomationIcon(Graphics g, String str, float pos, boolean govDef, boolean autoOn) {
+			int boxH = getHeight()-s10;
+			int boxW = boxH*6/5;
+			int y = boxH + s3;
+			int x = (int) (boxW * pos);
+			Color col;
+			if (govDef)
+				col = autoOn? autoOnDefaultC : autoOffDefaultC;
+			else
+				col = autoOn? autoOnCustomC : autoOffCustomC;
+			g.setFont(narrowFont(12));
+			g.setColor(col);
+			g.drawString(str, x, y);
+		}
 		private void drawDefaultDesignIcon(Graphics g, Color col, String str) {
 			int x = defaultDesignArea.x;
 			int y = defaultDesignArea.y;
 			int w = defaultDesignArea.width;
-			//defaultDesignArea.setBounds(x, y, w, w);
 			BufferedImage img = globalDefaultDesignIcon(w, col);
 			g.drawImage(img, x, y, null);
 			if (str.isEmpty())
@@ -1412,7 +1447,7 @@ public class DesignUI extends BasePanel {
 		}
 		private ShipDesign rawAutoDesign(int keyEvent, boolean autoSize)	{
 			ShipDesign auto;
-			ShipTemplate nst = new rotp.model.ai.NewShipTemplateUser();
+			ShipTemplate nst = new rotp.model.ai.governor.NewShipTemplate();
 			ShipDesigner shipDesigner = player().shipDesignerAI();
 			int size = shipDesign().size();
 			switch (keyEvent) {
@@ -3712,10 +3747,38 @@ public class DesignUI extends BasePanel {
             ShipDesign des =  shipDesign();
             des.shipColor(ShipDesign.shipColors[i]);
         }
-        @Override
-        public void mouseDragged(MouseEvent e) { }
-        @Override
-        public void mouseMoved(MouseEvent e) {
+		private void autoScoutIncrement(boolean down, boolean shift, boolean ctrl) {
+			int incr = down? -1 : 1;
+			if (shift)
+				incr *= 5;
+			if (ctrl)
+				incr *= 20;
+			shipDesign().autoScoutCountIncr(incr);
+			repaint();
+			designSlotsPanel.repaint();
+		}
+		private void autoColonizeIncrement(boolean down, boolean shift, boolean ctrl) {
+			int incr = down? -1 : 1;
+			if (shift)
+				incr *= 5;
+			if (ctrl)
+				incr *= 20;
+			shipDesign().autoColonizeCountIncr(incr);
+			repaint();
+			designSlotsPanel.repaint();
+		}
+		private void autoAttackIncrement(boolean down, boolean shift, boolean ctrl) {
+			int incr = down? -1 : 1;
+			if (shift)
+				incr *= 5;
+			if (ctrl)
+				incr *= 20;
+			shipDesign().autoAttackCountIncr(incr);
+			repaint();
+			designSlotsPanel.repaint();
+		}
+		@Override public void mouseDragged(MouseEvent e)	{ }
+		@Override public void mouseMoved(MouseEvent e)		{
             int x = e.getX();
             int y = e.getY();
 
@@ -3851,12 +3914,9 @@ public class DesignUI extends BasePanel {
             if (prevHover != hoverTarget)
                 repaint();
         }
-        @Override
-        public void mouseClicked(MouseEvent mouseEvent) { }
-        @Override
-        public void mousePressed(MouseEvent mouseEvent) { }
-        @Override
-        public void mouseReleased(MouseEvent e) {
+		@Override public void mouseClicked(MouseEvent e)	{ }
+		@Override public void mousePressed(MouseEvent e)	{ }
+		@Override public void mouseReleased(MouseEvent e)	{
             boolean shiftPressed = e.isShiftDown();
             boolean ctrlPressed = e.isControlDown();
             
@@ -3882,40 +3942,56 @@ public class DesignUI extends BasePanel {
                 else
                     clearDesign(false); 
                 return;
-            }
-            else if (hoverTarget == scoutButtonArea) {
-                softClick();
-                shipDesign().setAutoScout(!shipDesign().isAutoScout());
-                repaint();
-                return;
-            }
-            else if (hoverTarget == colonizeButtonArea) {
-                softClick();
-                if (shipDesign().isAutoColonize()) {
-                    shipDesign().setAutoColonize(false);
-                    repaint();
-                } else {
-                    // don't set autocolonize to true for non-colony ships
-                    if (shipDesign().hasColonySpecial()) {
-                        shipDesign().setAutoColonize(true);
-                        repaint();
-                    }
-                }
-                return;
-            } else if (hoverTarget == attackButtonArea) {
-                softClick();
-                if (shipDesign().isAutoAttack()) {
-                    shipDesign().setAutoAttack(false);
-                    repaint();
-                } else {
-                    // don't set autoattack to true for unarmed
-                    if (shipDesign().isArmed()) {
-                        shipDesign().setAutoAttack(true);
-                        repaint();
-                    }
-                }
-                return;
-            }
+			}
+			else if (hoverTarget == scoutButtonArea) {
+				softClick();
+				ShipDesign des = shipDesign();
+				if (SwingUtilities.isMiddleMouseButton(e)) {
+					des.setDefaultAutoScoutShipCount();
+					des.setAutoScout(true);
+				}
+				else if (SwingUtilities.isRightMouseButton(e))
+					govOptions().toggleAutoScout();
+				else
+					des.setAutoScout(!des.isAutoScout());
+				repaint();
+				designSlotsPanel.repaint();
+				return;
+			}
+			else if (hoverTarget == colonizeButtonArea) {
+				softClick();
+				ShipDesign des = shipDesign();
+				if (des.hasColonySpecial()) { // don't set autoColonize to true if no special
+					if (SwingUtilities.isMiddleMouseButton(e)) {
+						des.setDefaultAutoColonizeShipCount();
+						des.setAutoColonize(true);
+					}
+					else if (SwingUtilities.isRightMouseButton(e))
+						govOptions().toggleAutoColonize();
+					else
+						des.setAutoColonize(!des.isAutoColonize());
+					repaint();
+					designSlotsPanel.repaint();
+				}
+				return;
+			}
+			else if (hoverTarget == attackButtonArea) {
+				softClick();
+				ShipDesign des = shipDesign();
+				if (des.isArmed()) { // don't set autoattack to true for unarmed
+					if (SwingUtilities.isMiddleMouseButton(e)) {
+						des.setDefaultAutoAttackShipCount();
+						des.setAutoAttack(true);
+					}
+					else if (SwingUtilities.isRightMouseButton(e))
+						govOptions().toggleAutoAttack();
+					else
+						des.setAutoAttack(!des.isAutoAttack());
+					repaint();
+					designSlotsPanel.repaint();
+				}
+				return;
+			}
 
             if (shipDesign().active())
                 return;
@@ -4038,24 +4114,26 @@ public class DesignUI extends BasePanel {
                 }
             }
         }
-        @Override
-        public void mouseEntered(MouseEvent mouseEvent) {}
-        @Override
-        public void mouseExited(MouseEvent mouseEvent) {
+		@Override public void mouseEntered(MouseEvent e)	{}
+		@Override public void mouseExited(MouseEvent e)		{
             if (hoverTarget != null) {
                 hoverTarget = null;
                 repaint();
             }
         }
-        @Override
-        public void mouseWheelMoved(MouseWheelEvent e) {
-            int count = e.getUnitsToScroll();
-            if (shipDesign().active())
-                return;
-            
-            boolean shiftPressed = e.isShiftDown();
-            boolean ctrlPressed = e.isControlDown();
-            
+		@Override public void mouseWheelMoved(MouseWheelEvent e)	{
+			int count = e.getUnitsToScroll();
+			boolean shiftPressed = e.isShiftDown();
+			boolean ctrlPressed = e.isControlDown();
+			if (shipDesign().active()) {
+				if (hoverTarget == scoutButtonArea )
+					autoScoutIncrement(count < 0, shiftPressed, ctrlPressed);
+				else if (hoverTarget == colonizeButtonArea )
+					autoColonizeIncrement(count < 0, shiftPressed, ctrlPressed);
+				else if (hoverTarget == attackButtonArea )
+					autoAttackIncrement(count < 0, shiftPressed, ctrlPressed);
+				return;
+			}
             if (hoverTarget == shipImageArea) {
                 if (count < 0)
                     shipImageDecr();
@@ -4063,55 +4141,56 @@ public class DesignUI extends BasePanel {
                     shipImageIncr();
                 return;
             }
-            if (hoverTarget == sizeFieldArea) {
+            else if (hoverTarget == sizeFieldArea) {
                 if (count < 0)
                     shipSizeDecrement();
                 else
                     shipSizeIncrement();
                 return;
             }
-            if (hoverTarget == engineFieldArea) {
+            else if (hoverTarget == engineFieldArea) {
                 if (count < 0)
                     shipEngineDecrement();
                 else
                     shipEngineIncrement();
                 return;
             }
-            if (hoverTarget == computerFieldArea) {
+            else if (hoverTarget == computerFieldArea) {
                 if (count < 0)
                     shipComputerDecrement();
                 else
                     shipComputerIncrement();
                 return;
             }
-            if (hoverTarget == armorFieldArea) {
+            else if (hoverTarget == armorFieldArea) {
                 if (count < 0)
                     shipArmorDecrement();
                 else
                     shipArmorIncrement();
                 return;
             }
-            if (hoverTarget == shieldsFieldArea) {
+            else if (hoverTarget == shieldsFieldArea) {
                 if (count < 0)
                     shipShieldsDecrement();
                 else
                     shipShieldsIncrement();
                 return;
             }
-            if (hoverTarget == ecmFieldArea) {
+            else if (hoverTarget == ecmFieldArea) {
                 if (count < 0)
                     shipECMDecrement();
                 else
                     shipECMIncrement();
                 return;
             }
-            if (hoverTarget == maneuverFieldArea) {
+            else if (hoverTarget == maneuverFieldArea) {
                 if (count < 0)
                     shipManeuverDecrement();
                 else
                     shipManeuverIncrement();
                 return;
             }
+
             for (int i=0;i<weaponFieldArea.length;i++) {
                 if (hoverTarget == weaponFieldArea[i]) {
                     if (count < 0)
@@ -4124,7 +4203,7 @@ public class DesignUI extends BasePanel {
                 // scrolling up increases count, scrolling down decreases count
                 if (hoverTarget == weaponCountArea[i]) {
                     if (count < 0) {
-						if (shiftPressed && ctrlPressed) 
+						if (shiftPressed && ctrlPressed)
 							shipWeaponCountIncrement(i,100);
 						else if (shiftPressed) 
                             shipWeaponCountIncrement(i,5);
@@ -4134,7 +4213,7 @@ public class DesignUI extends BasePanel {
                             shipWeaponCountIncrement(i,1);
                     }
                     else {
-						if (shiftPressed && ctrlPressed) 
+						if (shiftPressed && ctrlPressed)
 							shipWeaponCountDecrement(i,100);
 						else if (shiftPressed) 
                             shipWeaponCountDecrement(i,5);

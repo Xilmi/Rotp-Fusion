@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package rotp.model.ai;
+package rotp.model.ai.governor;
 
 import static rotp.model.ships.ShipDesign.maxWeapons;
 
@@ -43,7 +43,7 @@ import rotp.model.tech.TechBiologicalWeapon;
 import rotp.model.tech.TechShipInertial;
 import rotp.model.tech.TechTree;
 
-public class NewShipTemplateUser extends ShipTemplate { // For Player auto Design
+public class NewShipTemplate extends ShipTemplate { // For Player auto Design
 	// BR: easiest way to share between methods
 	private float totalSpace;
 	//ail: looking at the stats of our enemies

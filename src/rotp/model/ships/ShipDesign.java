@@ -19,7 +19,9 @@ package rotp.model.ships;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.ImageIcon;
+
 import rotp.model.combat.CombatStack;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
@@ -46,6 +48,8 @@ public final class ShipDesign extends Design {
     public static final int LARGE = 2;
     public static final int HUGE = 3;
 
+	public static final int DEFAULT_SHIP_COUNT = 0; // => Follow the default governor value
+
     public int maxSpecials()                { return special.length; }
 
     private ShipComputer computer;
@@ -67,6 +71,9 @@ public final class ShipDesign extends Design {
     private boolean autoScout = false;
     private boolean autoColonize = false;
     private boolean autoAttack = false;
+	private int autoScoutShipCount	  = DEFAULT_SHIP_COUNT;
+	private int autoColonizeShipCount = DEFAULT_SHIP_COUNT;
+	private int autoAttackShipCount	  = DEFAULT_SHIP_COUNT;
     private String iconKey;
     private int shipColor;
     private final Integer hashCode;
@@ -808,31 +815,61 @@ public final class ShipDesign extends Design {
         resetBuildCount();
         usedCount = 0;
     }
+	public int autoShipCount(int id)	{
+		switch (id) {
+			case SCOUT:	 return autoScoutShipCount();
+			case COLONY: return autoColonizeShipCount();
+			default:	 return autoAttackShipCount();
+		}
+	}
+	public boolean isAutoScout()					{ return autoScout; }
+	public void setAutoScout(boolean auto)			{ autoScout = auto; }
+	public void autoScoutShipCount(int shipCount)	{ autoScoutShipCount = shipCount; }
+	public void setDefaultAutoScoutShipCount()		{ autoScoutShipCount(DEFAULT_SHIP_COUNT); }	
+	public boolean isDefaultAutoScoutShipCount()	{ return autoScoutShipCount == 0; }	
+	public void autoScoutCountIncr(int incr)		{ autoScoutShipCount(max(1, autoScoutShipCount()+incr)); }	
+	public int autoScoutShipCount()					{
+		if (autoScout)
+			if (autoScoutShipCount==0)
+				return govOptions().getAutoScoutShipCount();
+			else
+				return autoScoutShipCount;
+		else
+			return 0;
+	}
 
-    public boolean isAutoScout() {
-        return autoScout;
-    }
+	public boolean isAutoColonize()					{ return autoColonize; }
+	public void setAutoColonize(boolean auto)		{ autoColonize = auto; }
+	public void autoColonizeShipCount(int shipCount){ autoColonizeShipCount = shipCount; }
+	public void setDefaultAutoColonizeShipCount()	{ autoColonizeShipCount(DEFAULT_SHIP_COUNT); }	
+	public boolean isDefaultAutoColonizeShipCount()	{ return autoColonizeShipCount == 0; }	
+	public void autoColonizeCountIncr(int incr)		{ autoColonizeShipCount(max(1, autoColonizeShipCount()+incr)); }	
+	public int autoColonizeShipCount()				{
+		if (autoColonize)
+			if (autoColonizeShipCount==0)
+				return govOptions().getAutoColonyShipCount();
+			else
+				return autoColonizeShipCount;
+		else
+			return 0;
+	}
 
-    public void setAutoScout(boolean autoScout) {
-        this.autoScout = autoScout;
-    }
+	public boolean isAutoAttack()					{ return autoAttack; }
+	public void setAutoAttack(boolean auto)			{ autoAttack = auto; }
+	public void autoAttackShipCount(int shipCount)	{ autoAttackShipCount = shipCount; }
+	public void setDefaultAutoAttackShipCount()		{ autoAttackShipCount(DEFAULT_SHIP_COUNT); }	
+	public boolean isDefaultAutoAttackShipCount()	{ return autoAttackShipCount == 0; }	
+	public void autoAttackCountIncr(int incr)		{ autoAttackShipCount(max(1, autoAttackShipCount()+incr)); }	
+	public int autoAttackShipCount()				{
+		if (autoAttack)
+			if (autoAttackShipCount==0)
+				return govOptions().getAutoAttackShipCount();
+			else
+				return autoAttackShipCount;
+		else
+			return 0;
+	}
 
-    public boolean isAutoColonize() {
-        return autoColonize;
-    }
-
-    public void setAutoColonize(boolean autoColonize) {
-        this.autoColonize = autoColonize;
-    }
-
-    public boolean isAutoAttack() {
-        return autoAttack;
-    }
-
-    public void setAutoAttack(boolean autoAttack) {
-        this.autoAttack = autoAttack;
-    }
-    
     public int getSpecialCount(boolean ignoreNonCombatAndStats) {
         int specialCount = 0;
         for(ShipSpecial spec : special) {

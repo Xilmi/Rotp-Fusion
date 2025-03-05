@@ -15,13 +15,27 @@ final class ShipDesignOption extends AbstractOptionsSubUI {
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("GOVERNOR_AUTO_SEND"),
+				fleetAutoScoutMode,
+				fleetAutoColonizeMode,
+				fleetAutoAttackMode,
+
+				HEADER_SPACER_100,
 				new ParamTitle(AUTO_SHIP_DESIGN + "SIZE"),
 				autoShipDesignSize,
 				HEADER_SPACER_50,
 				shipDesignCostMultSmall,
 				shipDesignCostMultMedium,
 				shipDesignCostMultLarge,
-				shipDesignCostMultHuge
+				shipDesignCostMultHuge,
+
+				HEADER_SPACER_100,
+				new ParamTitle(AUTO_SHIP_DESIGN + "PREF"),
+				autoShipDesignBoolean,
+				HEADER_SPACER_50,
+				shipDesignSpeedMatching,
+				shipDesignReinforcedArmor,
+				shipDesignBioWeapon
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle(AUTO_SHIP_DESIGN + "SPACE"),
@@ -39,14 +53,6 @@ final class ShipDesignOption extends AbstractOptionsSubUI {
 				shipDesignSpecialWeight
 				)));
 		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle(AUTO_SHIP_DESIGN + "PREF"),
-				autoShipDesignBoolean,
-				HEADER_SPACER_50,
-				shipDesignSpeedMatching,
-				shipDesignReinforcedArmor,
-				shipDesignBioWeapon,
-
-				HEADER_SPACER_50,
 				new ParamTitle(AUTO_SHIP_DESIGN + "SPECIAL"),
 				autoShipDesignSpecial,
 				shipDesignSpecialTruePct,
