@@ -14,12 +14,12 @@
 
 // Klackon specific dialogue
 
-CONTACT_AGGRESSIVE         | Je suis le [my_name], et vous êtes le... [your_name]? Un nom étrange pour un autre comme moi, mais vous dites que vous n'êtes pas comme moi ? Cela devient une rencontre des plus... irritantes.
-CONTACT_RUTHLESS           | Je suis connu comme [my_name]. Vous êtes le [your_name]? Qu'est-ce qu'un [your_name]? J'ai peu besoin d'un genre qui se nourrit d'une telle circonvolution !
+CONTACT_AGGRESSIVE         | Je suis le [my_name], et vous êtes le... [your_name] ? Un nom étrange pour un autre comme moi, mais vous dites que vous n'êtes pas comme moi ? Cela devient une rencontre des plus... irritantes.
+CONTACT_RUTHLESS           | Je suis connu comme [my_name]. Vous êtes le [your_name] ? Qu'est-ce qu'un [your_name] ? J'ai peu besoin d'un genre qui se nourrit d'une telle circonvolution !
 CONTACT_XENOPHOBIC         | Je savais quand j'ai commencé mon voyage qu'il doit y avoir un autre comme moi, mais vous n'êtes pas du tout comme moi... Vous êtes différent... étranger... et dangereux.
 //
 GREETING_01                | Mon ami ! Je suis content que vous soyez venu ! J'espère pouvoir vous fournir tout ce que vous cherchez.
-GREETING_04                | L'étrange [your_name] m'appelle. De quoi avez-vous besoin, étrange [your_name]?
+GREETING_04                | L'étrange [your_name] m'appelle. De quoi avez-vous besoin, étrange [your_name] ?
 GREETING_07                | Vous vous comportez bizarrement et je n'aime pas ça. Dites simplement ce que vous êtes venu dire et partez.
 //
 
@@ -30,7 +30,7 @@ DECLAREWAR_ERRATIC_01      | Vous ne pouvez pas me tromper avec votre supercheri
 DECLAREWAR_ERRATIC_02      | Votre comportement est étrange et imprévisible. L'incertitude que vous me faites me tourmente ainsi, et je ne vois pas pourquoi j'aurais à la subir plus longtemps. Préparez-vous à l'oubli !
 DECLAREWAR_ERRATIC_03      | Pourquoi faites-vous ce que vous faites ? Qu'est-ce qui vous pousse ? Et cela vous poussera-t-il à m'apporter la guerre un jour ? Je ne peux simplement pas attendre de voir ce que tu vas faire ensuite : pour mon avenir je dois vous faire la guerre immédiatement !
 DECLAREWAR_MILITARY_01     | Je n'ai toujours pas trouvé celui qui me ressemble. Je sais qu'ils doivent exister, et je les chercherai sur chacun de vos mondes une fois que je vous les aurai pris !
-DECLAREWAR_MILITARY_02     | Que me cachez-vous, [your_name]? Je ne le saurai pas avec certitude jusqu'à ce que j'examine chacun de vos mondes, et je vais vous les prendre maintenant afin que je puisse le faire !
+DECLAREWAR_MILITARY_02     | Que me cachez-vous, [your_name] ? Je ne le saurai pas avec certitude jusqu'à ce que j'examine chacun de vos mondes, et je vais vous les prendre maintenant afin que je puisse le faire !
 DECLAREWAR_MILITARY_03     | Je ne vous laisserai plus cacher l'objet de ma recherche ! Je sais que celui que je cherche est sur l'un de vos mondes. Je ne me reposerai pas tant que vous ne me les aurez pas donnés !
 DECLAREWAR_ALLIANCE_01     | Mon ami appelé [other_name] m'a aidé dans ma quête plus que vous ne pourriez le savoir. Je suis heureux de les rembourser en me débarrassant de vous !
 DECLAREWAR_ALLIANCE_02     | Ceux qui m'aident dans ma recherche ont mon appréciation éternelle, et je serai heureux de donner ce que je peux pour honorer mon ami [other_name]. Préparez-vous à mourir, [your_name] !
@@ -38,7 +38,7 @@ DECLAREWAR_ALLIANCE_03     | Vous poussez tout le monde dans la galaxie parce qu
 DECLAREWAR_SPYING_01       | Il ne se passe rien sur un de mes mondes qui échappe à mon regard. Puisque vous insistez pour vous comporter d'une manière si infâme, vous ne me laissez pas d'autre choix que de vous détruire.
 DECLAREWAR_SPYING_02       | [your_name] idiot, J'en ai assez de vos jeux ! Vous n'aurez pas le temps pour des intrigues aussi sournoises si vous devez repousser mes armées ! Préparez-vous à la guerre !
 DECLAREWAR_SPYING_03       | Qu'espériez-vous gagner à agir ainsi contre moi ? Maintenant je n'ai pas d'autre choix que de te combattre, peu importe la différence entre nos armées !
-DECLAREWAR_ATTACK_01       | Qu'est-ce que c'est, [your_name]? Voulez-vous me gêner dans ma recherche en attaquant l'un de mes mondes ? Je suppose que vous détruire fournira une distraction amusante, quoique courte.
+DECLAREWAR_ATTACK_01       | Qu'est-ce que c'est, [your_name] ? Voulez-vous me gêner dans ma recherche en attaquant l'un de mes mondes ? Je suppose que vous détruire fournira une distraction amusante, quoique courte.
 DECLAREWAR_ATTACK_02       | Est-ce ce qu'on appelle un acte de guerre ? Vous souhaitez que vos armées et votre flotte se battent contre les miennes ? Allons donc à la guerre : j'ai hâte d'en savoir plus !
 DECLAREWAR_ATTACK_03       | Comment osez-vous lancer une telle frappe contre moi ?! Vous voulez m'empêcher de terminer ma recherche, mais à la place, vous connaîtrez maintenant toute ma fureur !
 DECLAREWAR_OPPORTUNITY_01  | Quand quelque chose s'avère être un obstacle, le meilleur moyen de s'en débarrasser est de l'éliminer complètement. Je ne connais pas toutes les voies de la diplomatie, mais je sais que vous éliminer de mon chemin sera une chose ridiculement simple.
@@ -61,8 +61,8 @@ WARN_BIOWEAPON_01          | Votre arme est absolument horrifiante. L'utiliser d
 WARN_GENOCIDE_01           | Quelle insensibilité ! Je n'aurais jamais pensé que vous iriez jusqu'à détruire complètement celui connu sous le nom de [victim_name]. Je n'oublierai jamais la barbarie dont vous avez fait preuve aujourd'hui.
 WARN_FINAL_WAR_01          | Je vois maintenant que pour que je réalise mon rêve, la galaxie doit être en paix. Mais tant que vous existerez, cette paix ne pourra jamais être réalisée. La réponse est évidente : le [rebel_name] doit être détruit !
 WARN_COUNCIL_VOTE_01       | J'avoue que je ne connais pas les nuances de ce que vous appelez des « manœuvres politiques ». Mais je sais qu'en votant pour [other_name] vous avez fait un geste contre moi, et je n'oublie pas ceux qui m'y empêchent ainsi.
-WARN_OATHBREAKER_01        | Est-ce ainsi que vous fonctionnez, [your_name]? Faire un accord pour le rompre quand bon vous semble ? Je savais que vous n'étiez pas comme moi, et vos actions le prouvent sans l'ombre d'un doute ! [spiesCaught]
-WARN_ATTACKED_ALLY_01      | Pourquoi attaquez-vous mon ami [defender_name], [your_name]? Trouvez un autre moyen de résoudre vos différends : Je n'aimerai pas être obligé d'intervenir !
+WARN_OATHBREAKER_01        | Est-ce ainsi que vous fonctionnez, [your_name] ? Faire un accord pour le rompre quand bon vous semble ? Je savais que vous n'étiez pas comme moi, et vos actions le prouvent sans l'ombre d'un doute ! [spiesCaught]
+WARN_ATTACKED_ALLY_01      | Pourquoi attaquez-vous mon ami [defender_name], [your_name] ? Trouvez un autre moyen de résoudre vos différends : Je n'aimerai pas être obligé d'intervenir !
 WARN_REBELLING_AGAINST_01  | Je n'aime pas le [your_name], et j'aime encore moins que vous ayez été choisi comme chef du conseil ! Je dois réfléchir à ce qui s'est passé aujourd'hui, et vous devriez réfléchir à la façon dont je pourrais bientôt être obligé de répondre !
 
 PRAISE_COUNCIL_VOTE_01     | [voter_name] ! Ne pensez pas que je considère votre vote au Conseil comme acquis ! Bien que vous et moi soyons très différents, je suis vraiment heureux d'avoir pu rencontrer un ami aussi merveilleux que vous au cours de mon voyage.
@@ -72,7 +72,7 @@ PRAISE_ATTACKED_ENEMY_01   | Oui ! Je suis attaqué et mon ami vient à mon aid
 PRAISE_ATTACKED_ENEMY_02   | Merci, [attacker_name] ! Il est bon de voir qu'il y en a un autre qui reconnaît la menace que représente celui connu sous le nom de « [defender_name] ». Venez ! Nous l'attaquerons ensemble jusqu'à ce qu'il ne reste plus rien !
 PRAISE_ATTACKED_ENEMY_03   | Je ne sais pas ce que vous espérez gagner en attaquant [defender_name], [attacker_name]. Vous êtes erratique et pas digne de confiance, mais je m'en souviendrai tout de même.
 PRAISE_TRADE_01            | Nous n'avons réussi à aller si loin qu'en travaillant ensemble pour un bénéfice mutuel. Que la prospérité acquise grâce à nos métiers dure jusqu'à ce que nous trouvions tous les deux ce que nous cherchons !
-PRAISE_TRADE_02            | Cela me plaît à quel point notre accord commercial nous aide tous les deux. Vous êtes également satisfait de cela, n'est-ce pas, [your_name]?
+PRAISE_TRADE_02            | Cela me plaît à quel point notre accord commercial nous aide tous les deux. Vous êtes également satisfait de cela, n'est-ce pas, [your_name] ?
 PRAISE_REBELLING_WITH_01   | Le [your_name] appelle à l'aide ! Je me joins à vous pour prendre les armes contre ce conseil ridicule ! Vous êtes mon ami, et cela signifie que vous ne vous battrez jamais seul !
 
 DIPLO_TECH_REQUEST_MENU_01   | Quel type de technologie vous intéresse ?
@@ -121,7 +121,7 @@ DECLINE_ESPIONAGE_01       | Retirez vos espions, puis nous parlerons.
 
 DECLINE_SABOTAGE_01        | Je n'ai pas oublié votre dernier incident de sabotage. Tant que vous n'aurez pas prouvé que vous êtes plus digne de confiance, je ne traiterai pas avec vous.
 DECLINE_SABOTAGE_01        | J'ai souffert de votre sabotage. Je ne traiterai pas avec vous jusqu'à ce que cela cesse.
-DECLINE_SABOTAGE_01        | Quoi ! Vous voulez que je sois d'accord quand vous sabotez mon [target]?
+DECLINE_SABOTAGE_01        | Quoi ! Vous voulez que je sois d'accord quand vous sabotez mon [target] ?
 DECLINE_SABOTAGE_01        | Vous détruisez mon [target]. Pourquoi devrais-je traiter avec vous ?
 DECLINE_SABOTAGE_01        | Lorsque vous arrêterez de saboter mon [target], je pourrai réfléchir davantage à la question.
 

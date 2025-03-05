@@ -14,8 +14,8 @@
 
 // Psilon specific dialogue
 CONTACT_PACIFIST           | Salutations ! Nous, [my_empireof], avons appris il y a longtemps les avantages d'une coopération pacifique. Nous espérons que nos relations diplomatiques avec vous seront aussi harmonieuses que nos propres affaires intérieures.
-CONTACT_HONORABLE          | Quelle joyeuse occasion de rencontrer d'autres personnes parcourant cette étendue infinie ! On nous appelle [my_race_pluralnoun], et nous ferons ce que nous pouvons pour nous servir de vous à chaque occasion.
-CONTACT_ERRATIC            | [my_empire] vous adresse les meilleurs vœux. Nous devrions connaître votre peuple comme... [your_empire], n'est-ce pas ? Comme c'est fascinant. Oui... assez fascinant en effet.
+CONTACT_HONORABLE          | Quelle joyeuse occasion de rencontrer d'autres personnes parcourant cette étendue infinie ! On nous appelle [my_race_pluralnoun], et nous ferons tout notre possible pour être à votre disposition à chaque occasion.
+CONTACT_ERRATIC            | [my_empire] vous adresse les meilleurs vœux. Nous devrions connaître votre peuple comme... [your_empire], n'est-ce pas ? Comme c'est fascinant. Oui ... assez fascinant en effet.
 
 //
 GREETING_01                | Nous sommes ravis d'entendre un ami si estimé. Comment [my_empire] peut-il être utile ?

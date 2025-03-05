@@ -39,7 +39,7 @@ DECLAREWAR_ALLIANCE_02     | Notre allié, [other_race_pluralnoun], est un peupl
 DECLAREWAR_ALLIANCE_03     | Nous aurions préféré avoir l'honneur de renverser votre empire pour nous tous seuls. Il semble que nous devrons partager la gloire et le butin avec [other_race_pluralnoun] cette fois-ci.
 //
 DECLAREWAR_SPYING_01       | Lâche, de s'engager dans le secret plutôt que de se battre avec honneur ! Vos actions correspondent à votre faiblesse, et maintenant vous en paierez le prix !
-DECLAREWAR_SPYING_02       | Comment se sent-il, [your_raceadjec]? Risquer autant pour n'apporter que la guerre à votre peuple ?
+DECLAREWAR_SPYING_02       | Comment se sent-il, [your_raceadjec] ? Risquer autant pour n'apporter que la guerre à votre peuple ?
 DECLAREWAR_SPYING_03       | Dites à [your_nameTitle], [your_name], ceci : le secret est le théâtre des chiens lâches. Que vous agissiez d'une manière aussi lâche signifie que notre férocité seule nous mènera à la victoire !
 //
 DECLAREWAR_ATTACK_01       | Ha ! Ici, nous vous avons pris pour des lâches faibles, mais il semble que vous ayez du combat en vous après tout ! Dommage que vous ne soyez pas là longtemps pour fêter cette maigre victoire !
@@ -81,7 +81,7 @@ PRAISE_TRADE_01            | Rappelez-vous quand j'ai commencé notre accord com
 PRAISE_TRADE_02            | C'est toujours plus amusant de se battre pour la richesse et de rentrer chez soi avec des vaisseaux chargés du butin de la victoire ! Eh bien, je suppose que cet accord commercial est au moins un peu plus rentable lorsque l'on tient compte des coûts. Assurez-vous que cela reste ainsi, ambassadeur.
 PRAISE_REBELLING_WITH_01   | C'est mieux comme ça. Il n'y a rien comme un bon combat, hein ? Et tant de butin ne demandant qu'à être acquis... J'espère que cela ne vous dérange pas que le Khanat veuille se joindre à la fête !
 
-ACCEPT_TRADE_01            | Je suppose que nous ne pouvons pas piller toutes les civilisations que nous rencontrons. Vous voulez échanger combien de BC par an ? [amt]? Très bien.
+ACCEPT_TRADE_01            | Je suppose que nous ne pouvons pas piller toutes les civilisations que nous rencontrons. Vous voulez échanger combien de BC par an ? [amt] ? Très bien.
 RESPOND_IGNORE_THREAT_01   | Pardonnez-moi de rire, vos menaces sont juste comiquement vides. Courez maintenant avant que nos pillards ne décident d'aiguiser leurs griffes sur vos colonies.
 RESPOND_STOP_SPYING_01     | Vous avez trouvé un espion qui, selon vous, nous appartient ? Sûrement pas. Nous n'aurions jamais songé à espionner l'exalté [your_empire]. Faites ce que vous voulez de l'espion, cela n'a aucune importance pour nous.
-RESPOND_STOP_ATTACKING_01  | Inquiet d'un raid, [your_race]? Ne vous inquiétez pas, nous n'avons aucun intérêt à ce que vous possédez. Nous allons les déplacer maintenant. Nous ne voudrions pas vous effrayer, après tout.
+RESPOND_STOP_ATTACKING_01  | Inquiet d'un raid, [your_race] ? Ne vous inquiétez pas, nous n'avons aucun intérêt à ce que vous possédez. Nous allons les déplacer maintenant. Nous ne voudrions pas vous effrayer, après tout.

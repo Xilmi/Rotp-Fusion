@@ -309,7 +309,7 @@ CONTROLENV_DETAIL    | Par défaut, toute module de colonisation spéciale peut 
 CONTROLENV_0_NAME    | Maîtrise des environnements normaux
 CONTROLENV_0_ITEM    | Module de colonisation standard
 CONTROLENV_0_BRIEF   | Autorise les atterrissages sur des planètes standard
-CONTROLENV_0_DETAIL  | Permits the colonization of standard planets.
+CONTROLENV_0_DETAIL  | Permet la colonisation des planètes standard.
 
 CONTROLENV_1_NAME    | Maîtrise des environnements stériles
 CONTROLENV_1_ITEM    | Module de colonisation «stérile»
@@ -529,7 +529,7 @@ PULSAR_2_DETAIL   | Une puissante modification de moteur capable de générer un
 //
 // Engine techs
 //
-ENGINE_NAME      | Technologies de Propulsion 
+ENGINE_NAME      | Technologies de Propulsion
 ENGINE_DETAIL    | Une différence importante entre Vestige des Precurseurs et d'autres jeux de conception de vaisseaux est que les moteurs sont entièrement autonomes. Vous choisissez simplement le type de moteur que vous souhaitez (ce sera presque toujours le meilleur type disponible) et le concepteur ajoute automatiquement des moteurs pour répondre à vos besoins en énergie, en tenant compte de tous les autres paramètres de l'écran de conception du vaisseau et en affichant toutes les informations pertinentes sur le panneau Moteurs. Il ajoute même des « moteurs partiels », comme vous pouvez le voir à côté de la statistique Moteurs requis. Il s'agira généralement d'un nombre avec une décimale. Le moteur de votre vaisseau détermine sa vitesse de distorsion, qui correspond à la vitesse à laquelle il se déplace sur la carte principale, mesurée en années-lumières par an. La vitesse de combat de votre vaisseau, qui correspond au nombre d'espaces qu'il parcourt pendant le combat, est déterminée par sa classe de manœuvre. La classe de manœuvre est un paramètre qui détermine la quantité de puissance du vaisseau qui sera détournée pour se déplacer pendant le combat. La classe de manœuvre est limitée par le type de moteur d'un navire, et tous les deux points dans la classe de manœuvre d'un navire lui donnent un point de vitesse de combat.<br>Les transports se déplacent à un point plus lentement que vos moteurs les plus rapides.
 
 ENGINE_0_NAME    | Moteurs rétro
