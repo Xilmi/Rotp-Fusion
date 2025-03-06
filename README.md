@@ -81,9 +81,16 @@ Later:
 
 ## What's New
 
+2025.03.06 (BR)
+- added Help for new auto fleet sending features.
+- Fixed smooth Min/Max being confused by both terraforming and soil improvement when capturing a colony.
+
 2025.03.05 (BR)
 - Fixed WarpSpeed not showing the fastest option.
 - Added help on Right-Click-Rally.
+
+2025.03.04 (Frank Zago)
+- French translation fixes and improvement.
 
 2025.03.04 (BR)
 - New option for auto-scout, auto-colonize and auto-Attack:

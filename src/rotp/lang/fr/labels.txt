@@ -1798,7 +1798,7 @@ SETUP_TERRAFORMING_NONE_HELP      | Les technologies de terraformation amélior�
 SETUP_TERRAFORMING_NONE           | Aucune
 SETUP_COLONIZING_NORMAL_HELP      | Tout module de colonisation spécial peut coloniser une planète de cette hostilité ou d’un niveau inférieur dans la « hiérarchie des hostilités » de Stérile à Irradié.
 SETUP_COLONIZING_NORMAL           | Normale
-SETUP_COLONIZING_RESTRICTED_HELP  | En plus du module de colonisation approprié (supérieur ou égal au niveau d'hostilité de la planète), l'empire doit également avoir acquis la maîtrise du contrôle environnemental de la planète à coloniser.
+SETUP_COLONIZING_RESTRICTED_HELP  | En plus du module de colonisation approprié (supérieur ou égal au niveau d’hostilité de la planète), l’empire doit également avoir acquis la maîtrise du contrôle environnemental de la planète à coloniser.
 SETUP_COLONIZING_RESTRICTED       | restreinte
 
 SETUP_FUEL_RANGE_CUT              | Faible
@@ -4420,16 +4420,17 @@ SHIP_DESIGN_HELP_3D               | Les contre-mesures électroniques amélioren
 SHIP_DESIGN_HELP_3E               | Manœuvre - Augmente la manœuvrabilité et les défenses du vaisseau.
 SHIP_DESIGN_HELP_3F               | Armes - Peuvent infliger des dégâts aux vaisseaux et colonies ennemis. Jusqu’à quatre types d’armes différents peuvent être ajoutés à une conception de vaisseau.
 SHIP_DESIGN_HELP_3G               | Spéciaux - Appareils qui offrent des capacités uniques à votre vaisseau. Jusqu’à trois dispositifs spéciaux peuvent être ajoutés à une conception de vaisseau.
-SHIP_DESIGN_HELP_4A               | Renommer - Vous permet de renommer un dessein existant.
+SHIP_DESIGN_HELP_4A               | Renommer - Vous permet de changer la désignation d’un modèle existant.
 SHIP_DESIGN_HELP_4B               | Supprimer conception - Supprime une conception existante. Les vaisseaux démolis retournent 25% de leur valeur de construction au trésor.
 SHIP_DESIGN_HELP_4C               | Les conceptions de vaisseaux déployés peuvent être construites sur n’importe laquelle de vos colonies.
 SHIP_DESIGN_HELP_4D               | Les emplacements de conception de vaisseau disponibles peuvent être sélectionnés afin de créer un nouveau design.
 SHIP_DESIGN_HELP_4E               | Copier - Copier une conception existante pour servir de point de départ à une nouvelle conception.
 SHIP_DESIGN_HELP_4F               | Effacer - Réinitialise tous les composants sélectionnés.
 SHIP_DESIGN_HELP_4G               | Déployer conception - Lorsque votre nouvelle conception est terminée, son déploiement vous permet de la nommer et de la rendre disponible pour la construction.
-SHIP_DESIGN_HELP_4H               | Exploration auto. - →GOVERNOR_AUTO_SCOUT_DESC←
-SHIP_DESIGN_HELP_4I               | Attaque auto. - →GOVERNOR_AUTO_ATTACK_DESC←
-SHIP_DESIGN_HELP_4J               | Colonisation auto. - →GOVERNOR_AUTO_COLONIZE_DESC←
+SHIP_DESIGN_HELP_AUTO			| <br>« Défiler » pour changer le nombre de vaisseaux de ce modèle.<br>« Clic-Milieu » pour lier à la valeur du gouverneur.<br>« Clic-Droit » pour basculer l’action du gouverneur.
+SHIP_DESIGN_HELP_4H				| Exploration auto. - →GOVERNOR_AUTO_SCOUT_DESC← →SHIP_DESIGN_HELP_AUTO←
+SHIP_DESIGN_HELP_4I				| Attaque auto. - →GOVERNOR_AUTO_ATTACK_DESC← →SHIP_DESIGN_HELP_AUTO←
+SHIP_DESIGN_HELP_4J				| Colonisation auto. - →GOVERNOR_AUTO_COLONIZE_DESC← →SHIP_DESIGN_HELP_AUTO←
 SHIP_DESIGN_HELP_4K				| Sélection du modèle par défaut :<br>Lors de la suppression d’un modèle, les colonies liées à celui-ci le remplaceront par le modèle par défaut. De même après la construction d’une Porte des étoiles.<br>Lorsqu’aucun modèle par défaut actif n’est sélectionné, le premier modèle actif (de haut en bas) sera utilisé.<br>« Maj » pour également changer la production.
 
 // Ship Combat UI
@@ -5231,7 +5232,7 @@ GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset auto Ships : %1
 GOVERNOR_AUTOSHIPS_BY_DEFAULT_LABEL  | Auto Ships is "On" by Default
 
 HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Options liées à l’apparence du panneau de configuration.
-HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ OPTIONS D'AFFICHAGE ~~~
+HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ OPTIONS D’AFFICHAGE ~~~
 GOVERNOR_ASPECT_OPTIONS_LABEL        | Apparence
 GOVERNOR_ASPECT_OPTIONS_TT           | Options liées à l’apparence de ce panneau de configuration.
 
@@ -5361,7 +5362,7 @@ GOVERNOR_FLEET_AUTO_ATTACK			| Flottes de Guerres : %1
 FLEET_AUTO_SEND_ANY					| Quelconque
 FLEET_AUTO_SEND_ANY_HELP			| Les flottes devront inclure au moins un des modèles sélectionnés, avec le nombre vaisseaux spécifiés.
 FLEET_AUTO_SEND_ALONE				| Solitaire
-FLEET_AUTO_SEND_ALONE_HELP			| Les flottes seront composées d'un seul modèle sélectionné, avec le nombre de vaisseau demandé. Si plusieurs modèles sont sélectionnés, ils pouront être utilisés pour construire des différentes flottes.
+FLEET_AUTO_SEND_ALONE_HELP			| Les flottes seront composées d’un seul modèle sélectionné, avec le nombre de vaisseau demandé. Si plusieurs modèles sont sélectionnés, ils pouront être utilisés pour construire des différentes flottes.
 FLEET_AUTO_SEND_TEAMS				| Groupés
 FLEET_AUTO_SEND_TEAMS_HELP			| Les flottes devront inclure au moins deux des modèles sélectionnés, chacun ayant le nombre vaisseaux spécifiés.
 FLEET_AUTO_SEND_ALL					| Tous

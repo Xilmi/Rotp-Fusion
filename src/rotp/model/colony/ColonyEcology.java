@@ -578,7 +578,7 @@ public class ColonyEcology extends ColonySpendingCategory {
             }
         // }
         // try to terraform planet to maxSize (currently not counting incr from previous terraforms)
-        float roomToGrow = colony().ultimateMaxSize() - planet.currentSize();
+        float roomToGrow = colony().maxSize() - planet.currentSize();
         float terraformCost = 0;
 
         if (roomToGrow > 0) {

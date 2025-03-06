@@ -5,6 +5,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- added help for new auto-send-fleet features.
+- Fixed Smoth Min/Man wrong allocation.
 - Moved to java 17
 - Added help on Right-Click-Rally.
 - Fixed WarpSpeed not showing the fastest option.

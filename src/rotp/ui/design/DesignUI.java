@@ -579,36 +579,40 @@ public class DesignUI extends BasePanel {
         int y1 = scaled(470);
         helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
 
-        int x2 = scaled(30);
-        int w2 = scaled(280);
-        int y2 = scaled(350);
-        HelpUI.HelpSpec sp2 = helpUI.addBrownHelpText(x2, y2, w2, 3, text("SHIP_DESIGN_HELP_4A"));
-        sp2.setLine(x2+w2, y2, scaled(342), scaled(320));
+		int x3 = scaled(380);
+		int w3 = scaled(280);
+		int y3 = scaled(350);
+		HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 0, text("SHIP_DESIGN_HELP_4B"));
+		sp3.setLine(x3+(w3*2/3), y3, scaled(580), scaled(319));
 
-        int x3 = scaled(380);
-        int w3 = scaled(280);
-        int y3 = scaled(350);
-        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 3, text("SHIP_DESIGN_HELP_4B"));
-        sp3.setLine(x3+(w3*2/3), y3, scaled(580), scaled(320));
+		// Auto attack
+		int x7 = scaled(20);
+		int w7 = scaled(310);
+		int y7 = scaled(200);
+		HelpUI.HelpSpec sp7 = helpUI.addBrownHelpText(x7, -y7, w7, 0, text("SHIP_DESIGN_HELP_4I"));
+		sp7.setLine(sp7.xe(), sp7.ye(), scaled(455), scaled(261));
 
-        int x6 = x2;
-        int w6 = scaled(280);
-        int y6 = scaled(225);
-        HelpUI.HelpSpec sp6 = helpUI.addBrownHelpText(x6, y6, w6, 3, text("SHIP_DESIGN_HELP_4H"));
-        sp6.setLine(x6+w6, y6+sp6.height()/2, scaled(342), scaled(271));
+		// Auto colonize
+		int x8 = sp7.xe() + s20;
+		int w8 = scaled(300);
+		int y8 = y7;
+		HelpUI.HelpSpec sp8 = helpUI.addBrownHelpText(x8, -y8, w8, 0, text("SHIP_DESIGN_HELP_4J"));
+		sp8.setLine(sp8.xce(), sp8.ye(), scaled(600), scaled(261));
 
-        int x7 = x6;
-        int w7 = w6;
-        int y7 = scaled(100);
-        HelpUI.HelpSpec sp7 = helpUI.addBrownHelpText(x7, y7, w7, 3, text("SHIP_DESIGN_HELP_4I"));
-        sp7.setLine(x7+w7, y7+sp7.height(), scaled(443), scaled(261));
+		// Auto scout
+		int x6 = x7;
+		int w6 = scaled(300);
+		int y6 = sp7.ye() + s10;;
+		HelpUI.HelpSpec sp6 = helpUI.addBrownHelpText(x6, y6, w6, 0, text("SHIP_DESIGN_HELP_4H"));
+		sp6.setLine(sp6.xe(), sp6.yc(), scaled(342), scaled(271));
 
-        int x8 = scaled(350);
-        int w8 = w6;
-        int y8 = y7;
-        HelpUI.HelpSpec sp8 = helpUI.addBrownHelpText(x8, y8, w8, 3, text("SHIP_DESIGN_HELP_4J"));
-        sp8.setLine(x8+w8*3/4, y8+sp8.height(), scaled(600), scaled(261));
-
+		// Rename
+		int x2 = x7;
+		int w2 = scaled(320);
+		int y2 = max(scaled(350), sp6.ye() + s10);
+		HelpUI.HelpSpec sp2 = helpUI.addBrownHelpText(x2, y2, w2, 0, text("SHIP_DESIGN_HELP_4A"));
+		sp2.setLine(sp2.xe()-s5, y2, scaled(347), scaled(319));
+		
 		int boxH = 94;
 		int boxY = 120;
 		int y[] = new int[MAX_DESIGNS];
@@ -703,7 +707,9 @@ public class DesignUI extends BasePanel {
 			if (firstActive == 0) {
 				if (firstAvailable != 2)
 					offset = s35;
-				if (firstAvailable < 3)
+				if (firstAvailable == -1)
+					defaultId = firstActive + 2;
+				else if (firstAvailable < 3)
 					defaultId = firstAvailable + 1;
 			}
 			else {

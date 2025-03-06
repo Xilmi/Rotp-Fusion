@@ -4427,9 +4427,10 @@ SHIP_DESIGN_HELP_4D               | Available ship design slots can be selected 
 SHIP_DESIGN_HELP_4E               | Copy - copy an existing design to serve as a starting point for a new design.
 SHIP_DESIGN_HELP_4F               | Clear - resets all of the selected components.<br>Ctrl-Clear to reset weapons only.
 SHIP_DESIGN_HELP_4G               | Deploy Design - when your new design is complete, deploying it allows you to name it and makes it available for construction.
-SHIP_DESIGN_HELP_4H               | Auto Scout - →GOVERNOR_AUTO_SCOUT_DESC←
-SHIP_DESIGN_HELP_4I               | Auto Attack - →GOVERNOR_AUTO_ATTACK_DESC←
-SHIP_DESIGN_HELP_4J               | Auto Colonize - →GOVERNOR_AUTO_COLONIZE_DESC←
+SHIP_DESIGN_HELP_AUTO			| <br>Scroll to set the number of ship for this design.<br>Mid-Click to bind to the Governor value.<br>Right-Click to toggle the governor global action.
+SHIP_DESIGN_HELP_4H				| Auto Scout - →GOVERNOR_AUTO_SCOUT_DESC← →SHIP_DESIGN_HELP_AUTO←
+SHIP_DESIGN_HELP_4I				| Auto Attack - →GOVERNOR_AUTO_ATTACK_DESC← →SHIP_DESIGN_HELP_AUTO←
+SHIP_DESIGN_HELP_4J				| Auto Colonize - →GOVERNOR_AUTO_COLONIZE_DESC← →SHIP_DESIGN_HELP_AUTO←
 SHIP_DESIGN_HELP_4K				| Default Design selection:<br>When deleting a design, colonies linked to it will replace it with the default design. Likewise after building a Stargate.<br>When no active default design is selected, the first active design (from top to bottom) will be used.<br>"Shift" will also change shipyard production.
 
 // Ship Combat UI

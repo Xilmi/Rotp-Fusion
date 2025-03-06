@@ -969,34 +969,6 @@ public class EmpireColonySpendingPane extends BasePanel {
     static void openGovernorOptions() {
     	
     }
-//    public class GovernorFrame extends JFrame implements KeyListener {
-//    	private static final long serialVersionUID = 1L;
-//    	GovernorFrame (String title)	{
-//    		super(title);
-//    		addKeyListener(this);
-//    		setFocusable(true);
-//            setFocusTraversalKeysEnabled(false);
-//    	}
-//    	@Override public void keyTyped(KeyEvent e)		{ }
-//    	@Override public void keyPressed(KeyEvent e)	{ ModifierKeysState.set(e); }
-//    	@Override public void keyReleased(KeyEvent e)	{
-//    		checkModifierKey(e);
-//    		switch(e.getKeyCode()) {
-//    		case KeyEvent.VK_L:
-//    			if (e.isAltDown()) {
-//    				debugReloadLabels("");
-//    			}
-//    			return;
-//    		}
-//    	}
-//    }
-//    private class GovernorComponentAdapter extends ComponentAdapter {
-//    	@Override public void componentMoved(java.awt.event.ComponentEvent evt) {
-//        	GovernorOptions options = govOptions();
-//        	Point pt = evt.getComponent().getLocation();
-//			options.setPosition(pt);
-//        }
-//    }
     private void toggleGovernor() {
         if (parent.systemViewToDisplay() != null && parent.systemViewToDisplay().colony() != null) {
             Colony colony = parent.systemViewToDisplay().colony();
