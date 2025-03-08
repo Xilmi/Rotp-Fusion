@@ -5383,6 +5383,9 @@ AUTO_ATTACK_NO_ENTENTE_HELP			| All the empires we have not signed treaties with
 AUTO_ATTACK_ALL						| All
 AUTO_ATTACK_ALL_HELP				| Let us send our ships to all the empires, the time of war is not so far away.
 
+GOVERNOR_ARMED_SCOUT_GUARD_DESC		| Armed scouts will guard uncolonized planets they discover.
+GOVERNOR_ARMED_SCOUT_GUARD			| Armed Scouts Guard: %1
+
 HEADERS_GOVERNOR_TERRAFORM_DESC		| Triggers for planet terraforming.
 HEADERS_GOVERNOR_TERRAFORM			| ~~~ TERRAFORMING TRIGGERS ~~~
 HEADERS_GOVERNOR_SUBSIDIES_DESC		| What to do with the funds allocated to the colony?
@@ -5395,6 +5398,12 @@ HEADERS_GOVERNOR_AUTO_SEND_DESC		| Auto fleet sending parameters.
 HEADERS_GOVERNOR_AUTO_SEND			| ~~~ FLEET AUTO SEND ~~~
 HEADERS_GOVERNOR_TARGET_DESC		| How to choose targets for our fleets.
 HEADERS_GOVERNOR_TARGET				| ~~~ TARGETS SELECTION ~~~
+HEADERS_GOVERNOR_AUTO_SCOUT_DESC	| Options related to Governor Auto Scout.
+HEADERS_GOVERNOR_AUTO_SCOUT			| ~~~ AUTO SCOUT ~~~
+HEADERS_GOVERNOR_AUTO_ATTACK_DESC	| Options related to Governor Auto Attack.
+HEADERS_GOVERNOR_AUTO_ATTACK		| ~~~ AUTO ATTACK ~~~
+HEADERS_GOVERNOR_AUTO_COLONIZE_DESC	| Options related to Governor Auto Colonize.
+HEADERS_GOVERNOR_AUTO_COLONIZE		| ~~~ AUTO COLONIZE ~~~
 
 SETTINGS_MOD_AUTO_SEND_FLEET_TITLE		| Governor Auto Send Fleets.
 SETTINGS_MOD_AUTO_SEND_FLEET_UI			| Auto Send Fleets

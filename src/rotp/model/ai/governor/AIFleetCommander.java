@@ -155,19 +155,8 @@ public class AIFleetCommander implements Base, FleetCommander {
 		}
 		return targets;
 	}
-	private void autoscout()	{
-		GovernorOptions options = session().getGovernorOptions();
-		if (!options.isAutoScout())
-			return;
-
-		ParamFleetAuto rules = IGovOptions.fleetAutoScoutMode;
-		SubFleetList subFleetList = filterFleets(rules);
-		if (subFleetList.isEmpty())
-			return;
-		subFleetList.sortByWarpSpeed();
-
-		boolean extendedRange = subFleetList.hasExtendedRange();
-		List<Integer> targets = filterTargets(sysId -> {
+	private Predicate<Integer> filterScoutTarget(boolean extendedRange) {
+		return (sysId)  -> {
 			// scout time only gets set for scouted systems, not ones we were forced to retreat from, don't use scout time
 			if (empire.sv.view(sysId).scouted() || empire.sv.view(sysId).isGuarded())
 				return false;
@@ -207,18 +196,38 @@ public class AIFleetCommander implements Base, FleetCommander {
 				}
 			}
 			return true;
-		});
+		};
+	}
+	private void autoscout()	{
+		GovernorOptions options = session().getGovernorOptions();
+		if (!options.isAutoScout())
+			return;
+
+		ParamFleetAuto rules = IGovOptions.fleetAutoScoutMode;
+		SubFleetList subFleetList = filterFleets(rules);
+		if (subFleetList.isEmpty())
+			return;
+		subFleetList.sortByWarpSpeed();
+
+		boolean extendedRange = subFleetList.hasExtendedRange();
+		List<Integer> targets = filterTargets(filterScoutTarget(extendedRange));
 		// No systems to scout
 		if (targets.isEmpty())
 			return;
 
-		// shuffle toScout list. empire is to prevent colony ship with autoscouting on from going directly to the habitable planet.
+		// shuffle toScout list. empire is to prevent colony ship with auto-scouting on from going directly to the habitable planet.
 		// That's because AFAIK map generation sets one of the 2 nearby planets to be habitable, and it's always first one in the list
 		// So if we keep default order, that's cheating
 		Collections.shuffle(targets);
 
+		SystemsSorter systemsSorter = (sourceSystem, targets1, warpSpeed) -> {
+			StarSystem source = empire.sv.system(sourceSystem);
+			targets1.sort((s1, s2) ->
+					(int)Math.signum(source.travelTimeTo(empire.sv.system(s1), warpSpeed) -
+							source.travelTimeTo(empire.sv.system(s2), warpSpeed)) );
+		};
 		// don't send out armed scout ships when enemy fleet is incoming, hence the need for defend predicate
-		autoSendShips(targets, new ColonizePriority("toAttack"), subFleetList, rules);
+		autoSendShips(targets, systemsSorter, subFleetList, rules);
 	}
 	private void autocolonize()	{
 		GovernorOptions options = session().getGovernorOptions();

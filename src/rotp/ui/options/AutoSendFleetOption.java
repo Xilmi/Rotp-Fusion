@@ -15,14 +15,19 @@ final class AutoSendFleetOption extends AbstractOptionsSubUI {
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("GOVERNOR_AUTO_SEND"),
+				new ParamTitle("GOVERNOR_AUTO_SCOUT"),
 				fleetAutoScoutMode,
-				fleetAutoColonizeMode,
-				fleetAutoAttackMode
+				armedScoutGuard
 				)));
 		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("GOVERNOR_TARGET"),
+				new ParamTitle("AUTO_ATTACK"),
+				fleetAutoAttackMode,
 				autoAttackEmpire
+				)));
+		map.add(new SafeListParam(Arrays.asList(
+				new ParamTitle("AUTO_COLONIZE"),
+				fleetAutoColonizeMode,
+				autoColonize_
 				)));
 		return map;
 	};
@@ -39,7 +44,10 @@ final class AutoSendFleetOption extends AbstractOptionsSubUI {
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						fleetAutoScoutMode,
+						armedScoutGuard,
+						LINE_SPACER_25,
 						fleetAutoColonizeMode,
+						autoColonize_,
 						LINE_SPACER_25,
 						fleetAutoAttackMode,
 						autoAttackEmpire

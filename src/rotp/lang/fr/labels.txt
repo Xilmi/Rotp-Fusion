@@ -911,7 +911,7 @@ MAIN_FLEET_RETREATING             | En Retraite
 MAIN_FLEET_LOCATION               | par %1
 MAIN_FLEET_ORIGIN                 | de %1
 MAIN_FLEET_DESTINATION            | à %1
-MAIN_FLEET_DEST_UNSCOUTED         | à Inexploré
+MAIN_FLEET_DEST_UNSCOUTED         | à inexploré
 MAIN_FLEET_ALLY                   | Allié
 MAIN_FLEET_ENEMY                  | Ennemi
 MAIN_FLEET_DEPLOYMENT             | Déploiement de Flotte
@@ -1043,7 +1043,7 @@ MAIN_COLONY_NO_SHIELD             | Nébuleuse
 // Advisor text
 MAIN_ADVISOR_TITLE                | %1 Conseiller
 MAIN_ADVISOR_BUTTON_OK            | Vous pouvez disposer
-MAIN_ADVISOR_SCOUT                | Monseigneur, nos explorateurs se tiennent prêts à découvrir un nouveau monde afin que nos vaisseaux de colonies ajoutent le territoire à notre illustre souveraineté.
+MAIN_ADVISOR_SCOUT                | Monseigneur, nos éclaireurs se tiennent prêts à découvrir un nouveau monde afin que nos vaisseaux de colonies ajoutent le territoire à notre illustre souveraineté.
 MAIN_ADVISOR_TRANSPORT            | Un monde nouveau porte notre bannière, mais il grandit à un rythme inhibé. L’envoi d’un transport dans la colonie lui permettra de croître à un rythme beaucoup plus rapide.
 MAIN_ADVISOR_DIPLOMACY            | Une autre civilisation spatiale s’est révélée ! Nos diplomates observeront tous les décorums appropriés en votre nom, et prendront note avec attention s’ils répondent de la même manière.
 MAIN_ADVISOR_SHIP_ENGINE          | Nos plus grands esprits ont conçu un nouveau moteur plus efficace. Ils souhaitent que vous revoyiez les schémas existants et que vous décidiez de la meilleure façon d’appliquer les nouveaux moteurs à nos flottes.
@@ -5353,8 +5353,8 @@ GOVERNOR_EARLY_BASE_BUILDING		| Construire les bases rapidement : %1
 GOVERNOR_EARLY_BASE_BOOST_PCT_DESC	| Niveau d’industrialisation qui déclenchera la construction de la base de missiles.
 GOVERNOR_EARLY_BASE_BOOST_PCT		| Requis industriel : %1 %
 
-GOVERNOR_FLEET_AUTO_SCOUT_DESC		| Lors de l’envoi automatique de escadrons d’exploration, quel doit être la composition des escadrons ?
-GOVERNOR_FLEET_AUTO_SCOUT			| Escadrons d’exploration : %1
+GOVERNOR_FLEET_AUTO_SCOUT_DESC		| Lors de l’envoi automatique de escadrons d’éclaireurs, quel doit être la composition des escadrons ?
+GOVERNOR_FLEET_AUTO_SCOUT			| Escadrons d’éclaireurs : %1
 GOVERNOR_FLEET_AUTO_COLONIZE_DESC	| Lors de l’envoi automatique de convois de colonies, quel doit être la composition des convois ?
 GOVERNOR_FLEET_AUTO_COLONIZE		| Convois de Colonies : %1
 GOVERNOR_FLEET_AUTO_ATTACK_DESC		| Lors de l’envoi automatique de vaisseau de guerre, quel doit être la composition des flottes ?
@@ -5383,6 +5383,9 @@ AUTO_ATTACK_NO_ENTENTE_HELP			| Tous les empires avec lesquels nous n’avons pa
 AUTO_ATTACK_ALL						| Tous
 AUTO_ATTACK_ALL_HELP				| Envoyons nos vaisseaux vers tous les empires, le temps de la guerre n'est plus si lointain.
 
+GOVERNOR_ARMED_SCOUT_GUARD_DESC		| Les éclaireurs armés garderont les planètes non colonisées qu'ils ont découvertes.
+GOVERNOR_ARMED_SCOUT_GUARD			| Les éclaireurs armés guardent : %1
+
 HEADERS_GOVERNOR_TERRAFORM_DESC		| Déclencheurs de la terraformation de la planète.
 HEADERS_GOVERNOR_TERRAFORM			| ~~~ DÉCLENCHEURS DE TERRAFORMATION ~~~
 HEADERS_GOVERNOR_SUBSIDIES_DESC		| Que faire des fonds alloués à la colonie ?
@@ -5395,6 +5398,12 @@ HEADERS_GOVERNOR_AUTO_SEND_DESC		| Paramètres d’envoi automatisé des flottes
 HEADERS_GOVERNOR_AUTO_SEND			| ~~~ AUTOMATION DES FLOTTES ~~~
 HEADERS_GOVERNOR_TARGET_DESC		| Comment choisir les cibles pour nos flottes.
 HEADERS_GOVERNOR_TARGET				| ~~~ SÉLECTION DES CIBLES ~~~
+HEADERS_GOVERNOR_AUTO_SCOUT_DESC	| Paramètres d'envois automatisés des vaisseaux éclaireurs.
+HEADERS_GOVERNOR_AUTO_SCOUT			| ~~~ ÉCLAIREURS AUTOMATISÉS ~~~
+HEADERS_GOVERNOR_AUTO_ATTACK_DESC	| Paramètres d'envois automatisés des vaisseaux de guerre.
+HEADERS_GOVERNOR_AUTO_ATTACK		| ~~~ ATTAQUES AUTOMATISÉES ~~~
+HEADERS_GOVERNOR_AUTO_COLONIZE_DESC	| Paramètres d'envois automatisés des vaisseaux de colons.
+HEADERS_GOVERNOR_AUTO_COLONIZE		| ~~~ COLONISATION AUTOMATISÉE ~~~
 
 SETTINGS_MOD_AUTO_SEND_FLEET_TITLE		| Envoi automatisé des flottes
 SETTINGS_MOD_AUTO_SEND_FLEET_UI			| Envoi automatisé des flottes.

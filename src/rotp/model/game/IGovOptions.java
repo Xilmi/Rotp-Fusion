@@ -194,6 +194,7 @@ public interface IGovOptions {
 			.setLimits(0, 100)
 			.setIncrements(1, 5, 20);
 
+	ParamBoolean armedScoutGuard		= new ParamBoolean(GOV_UI, "ARMED_SCOUT_GUARD", false);
 	AutoAttackEmpire autoAttackEmpire	= new AutoAttackEmpire();
 	class AutoAttackEmpire extends ParamList	{
 		static final String AUTO_ATTACK_EMPIRE		= "AUTO_ATTACK_EMPIRE";
@@ -275,6 +276,9 @@ public interface IGovOptions {
 		@Override public SubFleetList newSubFleetList(Empire empire) {
 			return new SubFleetList(empire);
 		}
+		@Override protected BiPredicate<ShipFleet, ShipDesign> notOnDefenseMission()	{
+			return notOnDefenseMission (armedScoutGuard.get());
+		}
 	}
 	class ParamFleetAutoColonize extends ParamFleetAuto	{
 		static final String FLEET_AUTO_COLONIZE = "FLEET_AUTO_COLONIZE";
@@ -337,7 +341,8 @@ public interface IGovOptions {
 			BiPredicate<ShipDesign, Integer> designFitForSystem = (sd, si) -> true;
 			return designFitForSystem;
 		}
-		private   BiPredicate<ShipFleet, ShipDesign> notOnDefenseMission()	{
+		protected BiPredicate<ShipFleet, ShipDesign> notOnDefenseMission()	{ return notOnDefenseMission (false); }
+		protected BiPredicate<ShipFleet, ShipDesign> notOnDefenseMission(boolean defendUncolonized)	{
 			// check if we have hostile incoming fleets. If so, don't send out ships
 			// there's no method to do that, so let's build one.
 			Galaxy galaxy = GameSession.instance().galaxy();
@@ -355,13 +360,15 @@ public interface IGovOptions {
 				}
 			}
 			// also, don't send out fleet if orbiting enemy planet
-			BiPredicate<ShipFleet, ShipDesign> defendFirst = (sf,sd) -> {
+			BiPredicate<ShipFleet, ShipDesign> notOnDefense = (sf,sd) -> {
 				// unarmed ships don't contribute to defense
 				if (!sd.isArmed())
 					return true;
 				if (systemHasHostileIncoming.contains(sf.system().id))
 					return false;
-				else if (sf.system().empire() != null && empire != sf.system().empire())
+				if (defendUncolonized && sf.system().empire() == null && sf.system().hasPlanet())
+					return false;
+				if (sf.system().empire() != null && empire != sf.system().empire())
 					// Don't send out armed ships orbiting enemy systems.
 					// It's OK to send away armed ships orbiting uncolonized planets if there are no incoming
 					// enemy fleets and that's checked above.
@@ -369,7 +376,7 @@ public interface IGovOptions {
 				else
 					return true;
 			};
-			return defendFirst;
+			return notOnDefense;
 		}
 		public AutoSendFleet getAutoSendFleet(ShipFleet fleet)	{
 			return new AutoSendFleet(fleet);

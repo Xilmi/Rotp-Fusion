@@ -5,6 +5,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- New auto-scout option to tell armed scout to guard uncolonized planet.
+- Design Panel: Alt-Scroll on auto buttons to change the governor common auto-count value.
+- When an attacking fleet can not deal damage to a colony and also won't lose any ships, it will now still retreat as it would have to do so at the turn-limit anyways. (Xilmi)
 - Fixed a crash when the transport button was drawn for a non existing colony.
 - Restored former look of tech bubble.
 - Fixed armed auto scout protecting planet instead of scouting.

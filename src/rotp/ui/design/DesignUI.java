@@ -1972,7 +1972,7 @@ public class DesignUI extends BasePanel {
                     drawBorderedString(g, str, x2a, buttonY + buttonH - s5, SystemPanel.textShadowC, c0);
                 }
             }
-            
+
             if (!des.active())
                 drawColorOptions(g, x1, y6, w-s20, rowH);
 
@@ -3836,33 +3836,48 @@ public class DesignUI extends BasePanel {
             ShipDesign des =  shipDesign();
             des.shipColor(ShipDesign.shipColors[i]);
         }
-		private void autoScoutIncrement(boolean down, boolean shift, boolean ctrl) {
-			int incr = down? -1 : 1;
-			if (shift)
-				incr *= 5;
-			if (ctrl)
-				incr *= 20;
-			shipDesign().autoScoutCountIncr(incr);
+		private void autoScoutIncrement(MouseWheelEvent e) {
+			if (e.isAltDown())
+				govOptions().autoScout(e);
+			else {
+				boolean down = e.getUnitsToScroll() < 0;
+				int incr = down? -1 : 1;
+				if (e.isShiftDown())
+					incr *= 5;
+				if (e.isControlDown())
+					incr *= 20;
+				shipDesign().autoScoutCountIncr(incr);
+			}
 			repaint();
 			designSlotsPanel.repaint();
 		}
-		private void autoColonizeIncrement(boolean down, boolean shift, boolean ctrl) {
-			int incr = down? -1 : 1;
-			if (shift)
-				incr *= 5;
-			if (ctrl)
-				incr *= 20;
-			shipDesign().autoColonizeCountIncr(incr);
+		private void autoColonizeIncrement(MouseWheelEvent e) {
+			if (e.isAltDown())
+				govOptions().autoColony(e);
+			else {
+				boolean down = e.getUnitsToScroll() < 0;
+				int incr = down? -1 : 1;
+				if (e.isShiftDown())
+					incr *= 5;
+				if (e.isControlDown())
+					incr *= 20;
+				shipDesign().autoColonizeCountIncr(incr);
+			}
 			repaint();
 			designSlotsPanel.repaint();
 		}
-		private void autoAttackIncrement(boolean down, boolean shift, boolean ctrl) {
-			int incr = down? -1 : 1;
-			if (shift)
-				incr *= 5;
-			if (ctrl)
-				incr *= 20;
-			shipDesign().autoAttackCountIncr(incr);
+		private void autoAttackIncrement(MouseWheelEvent e) {
+			if (e.isAltDown())
+				govOptions().autoAttack(e);
+			else {
+				boolean down = e.getUnitsToScroll() < 0;
+				int incr = down? -1 : 1;
+				if (e.isShiftDown())
+					incr *= 5;
+				if (e.isControlDown())
+					incr *= 20;
+				shipDesign().autoAttackCountIncr(incr);
+			}
 			repaint();
 			designSlotsPanel.repaint();
 		}
@@ -4216,11 +4231,11 @@ public class DesignUI extends BasePanel {
 			boolean ctrlPressed = e.isControlDown();
 			if (shipDesign().active()) {
 				if (hoverTarget == scoutButtonArea )
-					autoScoutIncrement(count < 0, shiftPressed, ctrlPressed);
+					autoScoutIncrement(e);
 				else if (hoverTarget == colonizeButtonArea )
-					autoColonizeIncrement(count < 0, shiftPressed, ctrlPressed);
+					autoColonizeIncrement(e);
 				else if (hoverTarget == attackButtonArea )
-					autoAttackIncrement(count < 0, shiftPressed, ctrlPressed);
+					autoAttackIncrement(e);
 				return;
 			}
             if (hoverTarget == shipImageArea) {

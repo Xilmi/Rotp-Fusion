@@ -3,6 +3,7 @@ package rotp.model.game;
 import static rotp.model.game.IMapOptions.divertExcessToResearch;
 
 import java.awt.Point;
+import java.awt.event.MouseWheelEvent;
 import java.io.Serializable;
 
 import rotp.model.colony.Colony;
@@ -370,16 +371,19 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public void		setAutoScoutShipCount(int i)	{ autoScoutCount.silentSet(i); }
 	public String	autoScoutShipCountTT()			{ return autoScoutCount.govTooltips(); }
 	public String	autoScoutShipCountText()		{ return autoScoutCount.govLabelTxt(); }
+	public void		autoScout(MouseWheelEvent e)	{ autoScoutCount.toggle(e); }
 
 	public int		getAutoColonyShipCount()		{ return autoColonyCount.get(); }
 	public void		setAutoColonyShipCount(int i)	{ autoColonyCount.silentSet(i); }
 	public String	autoColonyShipCountTT()			{ return autoColonyCount.govTooltips(); }
 	public String	autoColonyShipCountText()		{ return autoColonyCount.govLabelTxt(); }
+	public void		autoColony(MouseWheelEvent e)	{ autoColonyCount.toggle(e); }
 
 	public int		getAutoAttackShipCount()		{ return autoAttackCount.get(); }
 	public void		setAutoAttackShipCount(int i)	{ autoAttackCount.silentSet(i); }
 	public String	autoAttackShipCountTT()			{ return autoAttackCount.govTooltips(); }
 	public String	autoAttackShipCountText()		{ return autoAttackCount.govLabelTxt(); }
+	public void		autoAttack(MouseWheelEvent e)	{ autoAttackCount.toggle(e); }
 
 	public boolean	isAutoShipsByDefault()			{ return autoShipsDefault.get(); }
 	public void		setAutoShipsByDefault(boolean b){ autoShipsDefault.silentSet(b); }
@@ -405,4 +409,5 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public float	colonyEarlyBoostPct()			{ return colonyEarlyBoostPct.get()/100f; }
 	public boolean	earlyBaseBuilding()				{ return earlyBaseBuilding.get(); }
 	public float	earlyBaseBoostPct()				{ return earlyBaseBoostPct.get()/100f; }
+	public boolean	armedScoutGuard()				{ return armedScoutGuard.get(); }
 }

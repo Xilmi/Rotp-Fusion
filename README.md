@@ -81,6 +81,9 @@ Later:
 
 ## What's New
 
+2025.03.08 (Xilmi)
+- When an attacking fleet can not deal damage to a colony and also won't lose any ships, it will now still retreat as it would have to do so at the turn-limit anyways.
+
 2025.03.08 (BR)
 - Fixed a crash when the transport button was drawn for a non existing colony.
 - Restored former look of tech bubble.
@@ -90,6 +93,8 @@ Later:
   - Auto-scout = Eye
   - Auto-Attack = Target
   - Auto-Colonize = Specie's city
+  - Alt-Scroll on auto buttons to change the governor common auto-count value.
+- New auto-scout option to tell armed scout to guard uncolonized planet.
 
 2025.03.06 (BR)
 - added Help for new auto fleet sending features.
@@ -104,7 +109,7 @@ Later:
 
 2025.03.04 (BR)
 - New option for auto-scout, auto-colonize and auto-Attack:
-  - Each design can be given its own number of sip to be sent.
+  - Each design can be given its own number of ships to be sent.
     - Scroll over the button to change the value.
     - Middle click to assign the governor common value.
     - Right click to toggle the governor automation.
