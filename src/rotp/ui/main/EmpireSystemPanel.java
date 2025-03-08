@@ -618,7 +618,7 @@ public class EmpireSystemPanel extends SystemPanel {
         }
         private int drawTransportButton(Graphics2D g, int x, int y, int w, int h, int maxSize) {
             StarSystem sys = parentSpritePanel.systemViewToDisplay();
-            if (sys == null)
+            if (sys == null || sys.colony() == null)
                 return 20;
 
             boolean enabled = transportEnabled();

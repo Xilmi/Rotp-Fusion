@@ -81,6 +81,9 @@ Later:
 
 ## What's New
 
+2025.03.08 (BR)
+- Fixed a crash when the transport button was drawn for a non existing colony.
+
 2025.03.06 (BR)
 - added Help for new auto fleet sending features.
 - Fixed smooth Min/Max being confused by both terraforming and soil improvement when capturing a colony.
