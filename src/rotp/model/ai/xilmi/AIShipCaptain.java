@@ -982,6 +982,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
 
         int foesBlockPlanet = 0;
         CombatStackColony col = combat().results().colonyStack;
+        float highestDamage = 0;
         
         for (CombatStack st1 : foes) {
             if(st1.repulsorRange() > 0)
@@ -1033,7 +1034,11 @@ public class AIShipCaptain implements Base, ShipCaptain {
             damagePerTurn -= healPerTurn;
             //System.out.println(stack.mgr.system().name()+" "+st1.fullName()+" takes "+damagePerTurn+" damage per turn with heal. heal per turn: "+healPerTurn);
             if(damagePerTurn > 0)
+            {
                 allyKillTime += pctOfMaxHP / min(damagePerTurn, 1.0f);
+                if(damagePerTurn > highestDamage)
+                    highestDamage = damagePerTurn;
+            }
             else
             {
                 allyKillTime = Float.MAX_VALUE;
@@ -1041,6 +1046,10 @@ public class AIShipCaptain implements Base, ShipCaptain {
             }
             st1.cloaked = previousCloakingState;
         }
+        
+        //If we can't deal any damage and are attacking an enemy colony, we might as well retreat even if we could stay till timeout cause we'll have to retreat anyways
+        if(highestDamage == 0 && col != null && col.empire() != empire)
+            return true;
         
         CombatStack invulnerableFriend = null;
         
