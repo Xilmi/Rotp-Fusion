@@ -84,6 +84,12 @@ Later:
 2025.03.08 (BR)
 - Fixed a crash when the transport button was drawn for a non existing colony.
 - Restored former look of tech bubble.
+- Fixed armed auto scout protecting planet instead of scouting.
+- New auto-attack option to select relation level of target empires.
+- Design UI: changed some text by icons:
+  - Auto-scout = Eye
+  - Auto-Attack = Target
+  - Auto-Colonize = Specie's city
 
 2025.03.06 (BR)
 - added Help for new auto fleet sending features.
