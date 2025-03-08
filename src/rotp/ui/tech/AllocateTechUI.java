@@ -835,7 +835,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
 			currentChance = minDisplayValue;
 			upcomingChance = max(minDisplayValue + delta/2, upcomingChance);
 		}
-		int dr2 = showProgress? s1 : 0;
+		int dr2 = 0;
 		int dr = showProgress && showMinimum? s1 : 0;
 		int d1 = s19;
 		int x1 = x0 - s10;
