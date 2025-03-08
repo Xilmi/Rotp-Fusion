@@ -2818,38 +2818,38 @@ FR_USINES_DESC_HK                        | La planète a achevé de construire s
 FR_POPULATION_DESC_HK                    | La population est à son maximum (ou presque) + La planète est entièrement terraformée + Aucuns déchets (si affecté par les déchets)
 
 SETTINGS_MOD_TECH_IRRADIATED_HELP        | →TECH_HEAD_HK← <b>→CONTROLENV_6_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CONTROLENV_6_DETAIL←</i><br>→TECH_LEVEL_HK← 18.<br>Cela pourrait être très frustrant de ne pas pouvoir coloniser toute la planète en fin de partie !
-SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18)→TECH_VAL_HK← "→CONTROLENV_6_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Niveau 18)→TECH_VAL_HK← "→CONTROLENV_6_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_IRRADIATED             | Maîtrise Env. Irradiés : %1
 SETTINGS_MOD_TECH_CLOAKING_HELP          | →TECH_HEAD_HK← <b>→CLOAK_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CLOAK_0_DETAIL←</i><br>→TECH_LEVEL_HK← 27.<br>Vous l’aimez ! ou pas ! Utilisées en conjonction avec la communication hyperspatiale, les fins de jeu peuvent devenir très ennuyeuses.
-SETTINGS_MOD_TECH_CLOAKING_DESC          | (Level 27) →TECH_VAL_HK← "→CLOAK_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_CLOAKING_DESC          | (Niveau 27) →TECH_VAL_HK← "→CLOAK_0_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_CLOAKING               | →CLOAK_0_NAME←: %1
 SETTINGS_MOD_TECH_STARGATES_HELP         | →TECH_HEAD_HK← <b>→STARGATE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→STARGATE_0_DETAIL←</i><br>→TECH_LEVEL_HK← 27.<br>Les immenses galaxies sans elles ne me conviennent pas !
-SETTINGS_MOD_TECH_STARGATES_DESC         | (Level 27) →TECH_VAL_HK← "→STARGATE_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_STARGATES_DESC         | (Niveau 27) →TECH_VAL_HK← "→STARGATE_0_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_STARGATES              | →STARGATE_0_NAME←: %1
 SETTINGS_MOD_TECH_HYPERSPACE_HELP        | →TECH_HEAD_HK← <b>→HYPERSPACE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→HYPERSPACE_0_DETAIL←</i><br>→TECH_LEVEL_HK← 34.<br>On aime ! ou pas ! Certains aiment le jeu du chat et de la souris...
-SETTINGS_MOD_TECH_HYPERSPACE_DESC        | (Level 34) →TECH_VAL_HK← "→HYPERSPACE_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_HYPERSPACE_DESC        | (Niveau 34) →TECH_VAL_HK← "→HYPERSPACE_0_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_HYPERSPACE             | Comm. hyperespace: %1
 SETTINGS_MOD_TECH_INDUSTRY_2_HELP        | →TECH_HEAD_HK← <b>→IMPRINDUSTRY_7_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→IMPRINDUSTRY_7_DETAIL←</i><br>→TECH_LEVEL_HK← 38.<br>Pour accélérer la construction de nouvelles usines en fin de partie !
-SETTINGS_MOD_TECH_INDUSTRY_2_DESC        | (Level 38) →TECH_VAL_HK← "→IMPRINDUSTRY_7_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_INDUSTRY_2_DESC        | (Niveau 38) →TECH_VAL_HK← "→IMPRINDUSTRY_7_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_INDUSTRY_2             | Coût des Usines 2: %1
 SETTINGS_MOD_TECH_THORIUM_HELP           | →TECH_HEAD_HK← <b>→FUELRANGE_8_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→FUELRANGE_8_DETAIL←</i><br>→TECH_LEVEL_HK← 41.<br>Indispensable pour atteindre Orion dans certaines galaxies annulaires et symétriques... Mais parfois on ne souhaite que protéger ses lignes arrières...
-SETTINGS_MOD_TECH_THORIUM_DESC           | (Level 41) →TECH_VAL_HK← "→FUELRANGE_8_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_THORIUM_DESC           | (Niveau 41) →TECH_VAL_HK← "→FUELRANGE_8_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_THORIUM                | →FUELRANGE_8_NAME←: %1
 SETTINGS_MOD_TECH_TRANSPORTERS_HELP      | →TECH_HEAD_HK← <b>→COMBATTRANSPORT_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→COMBATTRANSPORT_0_DETAIL←</i> <br>→TECH_LEVEL_HK← 45.<br>Un remède possible contre les invasions sauvages...
-SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) →TECH_VAL_HK← "→COMBATTRANSPORT_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Niveau 45) →TECH_VAL_HK← "→COMBATTRANSPORT_0_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_TRANSPORTERS           | →COMBATTRANSPORT_0_NAME←: %1
 
 SETTINGS_MOD_TECH_CLONING_HELP           | →TECH_HEAD_HK← <b>→CLONE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CLONE_0_DETAIL←</i> <br>→TECH_LEVEL_HK← 21. <br>Une contribution possible contre les invasions sauvages...
-SETTINGS_MOD_TECH_CLONING_DESC           | (Level 21) →TECH_VAL_HK← "→CLONE_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_CLONING_DESC           | (Niveau 21) →TECH_VAL_HK← "→CLONE_0_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_CLONING                | →CLONE_0_NAME←: %1
 
 SETTINGS_MOD_TECH_ATMOSPHERIC_HELP       | →TECH_HEAD_HK← <b>→ATMOSPHERE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→ATMOSPHERE_0_DETAIL←</i> <br>→TECH_LEVEL_HK← 22.<br> Pour supprimer la pénalité de 50% des planètes hostiles...
-SETTINGS_MOD_TECH_ATMOSPHERIC_DESC       | (Level 22) →TECH_VAL_HK← "→ATMOSPHERE_0_NAME←" →TECH_END_HK←
+SETTINGS_MOD_TECH_ATMOSPHERIC_DESC       | (Niveau 22) →TECH_VAL_HK← "→ATMOSPHERE_0_NAME←" →TECH_END_HK←
 SETTINGS_MOD_TECH_ATMOSPHERIC            | Conversion Atmosphère: %1
 
-SETTINGS_MOD_TECH_GAIA_HELP              | →TECH_HEAD_HK← <b>→SOILENRICH_1_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→SOILENRICH_1_DETAIL←</i> <br>→TECH_LEVEL_HK← 30.<br>Pour garantir la terraformation en Gaia...
-SETTINGS_MOD_TECH_GAIA_DESC              | (Level 30) →TECH_VAL_HK← "→SOILENRICH_1_NAME←" (terraformation en Gaia) →TECH_END_HK←
-SETTINGS_MOD_TECH_GAIA                   | Planètes Gaia: %1
+SETTINGS_MOD_TECH_GAIA_HELP              | →TECH_HEAD_HK← <b>→SOILENRICH_1_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→SOILENRICH_1_DETAIL←</i> <br>→TECH_LEVEL_HK← 30.<br>Pour garantir la terraformation en Gaïa...
+SETTINGS_MOD_TECH_GAIA_DESC              | (Niveau 30) →TECH_VAL_HK← "→SOILENRICH_1_NAME←" (terraformation en Gaïa) →TECH_END_HK←
+SETTINGS_MOD_TECH_GAIA                   | Planètes Gaïa: %1
 
 // Pas encore certain de la traduction finale...
 // Des racourcis sont créés pour garantir l’uniformité en cas de changement.

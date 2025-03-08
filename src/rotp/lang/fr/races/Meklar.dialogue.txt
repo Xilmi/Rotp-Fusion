@@ -15,7 +15,7 @@
 // Meklar specific dialogue
 
 CONTACT_ERRATIC            | Espèce : [your_raceadjecF]. Désignation du leader : [your_title]. Innovations technologiques : variées. Évaluation de la menace : non concluante.
-CONTACT_HONORABLE          | L'espèce [your_raceadjecF] présente un intérêt. [my_empire] il sent le potentiel de coopérer pour un bénéfice mutuel. Les résultats restent à voir.
+CONTACT_HONORABLE          | L'espèce [your_raceadjecF] présente un intérêt. [my_empire] sent le potentiel de coopérer pour un bénéfice mutuel. Les résultats restent à voir.
 CONTACT_RUTHLESS           | [my_empire] est maintenant au courant de l'existence [your_race_pluralnounof]. [my_title] lance un avertissement à toute l'espèce [your_raceadjecF] : n'interférez pas avec les objectifs du Dominion. Cela entraînera l'extinction [your_race_pluralnounof].
 //
 GREETING_01                | Identité de l'ambassadeur allié confirmée. Énoncez la demande au Dominion. Dominion aidera si possible.
