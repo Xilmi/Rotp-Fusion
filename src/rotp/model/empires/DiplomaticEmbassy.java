@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.IGameOptions;
 import rotp.model.incidents.BreakAllianceIncident;
@@ -427,6 +428,9 @@ public class DiplomaticEmbassy implements Base, Serializable {
     public boolean isEnemy()     { return anyWar() || onWarFooting(); }
     public boolean anyWar()      { return war() || finalWar(); }
     public boolean atPeace()     { return peaceTreatyInEffect(); }
+	public boolean menacing()	 { return anyWar() || onWarFooting(); }
+	public boolean hostile()	 { return !isFriend(); }
+	public boolean noEntente()	 { return !isFriend() && !atPeace(); }
 
     public DiplomaticIncident exchangeTechnology(Tech offeredTech, Tech requestedTech) {
         // civ() is the requestor, and will be learning the requested tech

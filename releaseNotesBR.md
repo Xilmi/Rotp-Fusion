@@ -5,8 +5,16 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed a crash when the transport button was drawn for a non existing colony.
+- Restored former look of tech bubble.
+- Fixed armed auto scout protecting planet instead of scouting.
+- New auto-attack option to select relation level of target empires.
+- Design UI: changed some text by icons:
+  - Auto-scout = Eye
+  - Auto-Attack = Target
+  - Auto-Colonize = Specie's city
 - added help for new auto-send-fleet features.
-- Fixed Smoth Min/Man wrong allocation.
+- Fixed Smooth Min/Man wrong allocation.
 - Moved to java 17
 - Added help on Right-Click-Rally.
 - Fixed WarpSpeed not showing the fastest option.

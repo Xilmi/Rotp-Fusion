@@ -1734,9 +1734,12 @@ public interface Base extends InputEventUtil {
     default BufferedImage subMenuMoreIcon(int wi, int hi, Color rectCol, Color barCol, Color lineCol) {
     	return CustomIcons.instance.subMenuMoreIcon(wi, hi, rectCol, barCol, lineCol);
     }
-    default BufferedImage eyeIcon(int wi, int hi, Color lineCol) {
-    	return CustomIcons.instance.eyeIcon(wi, hi, lineCol);
+    default BufferedImage eyeIcon(int wi, int hi, Color lineCol, boolean fillIris) {
+    	return CustomIcons.instance.eyeIcon(wi, hi, lineCol, fillIris);
     }
+	default BufferedImage targetIcon(int wi, int hi, Color lineCol, int CircleNum) {
+		return CustomIcons.instance.targetIcon(wi, hi, lineCol, CircleNum);
+	}
     default BufferedImage globalDefaultDesignIcon(int side, Color lineCol) {
     	return CustomIcons.instance.globalDefaultDesignIcon(side, lineCol);
     }

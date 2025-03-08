@@ -2,6 +2,7 @@ package rotp.ui.options;
 
 public interface ISubUiKeys {
 	// Level 0
+	String AUTO_SEND_FLEET_UI_KEY		= "AUTO_SEND_FLEET";
 	String BACKUP_OPTIONS_UI_KEY		= "BACKUP_OPTIONS";
 	String COLONY_SETTINGS_UI_KEY		= "COLONY_SETTINGS";
 	String COMBAT_ASTEROID_UI_KEY		= "COMBAT_ASTEROID";

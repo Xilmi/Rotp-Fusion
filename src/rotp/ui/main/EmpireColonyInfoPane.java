@@ -312,20 +312,20 @@ public class EmpireColonyInfoPane extends BasePanel {
         @Override protected boolean urged(Colony c)	{ return c.govUrgePop(); }
         @Override protected void urge(Colony c, boolean b)		{ c.govUrgePop(b); }
         @Override protected int value(List<Colony> colonies)	{
-            int val = 0;
+            float val = 0;
             if (isShiftDown() || isAltDown())
             	for (Colony c: colonies)
                     val += c.workingPopulation(); 
             else
 	            for (Colony c: colonies)
 	                val += c.displayPopulation(); 
-            return val;
+            return (int) (val + 0.01f);
         }
         @Override protected int maxValue(List<Colony> colonies)	{ 
-            int val = 0;
+        	float val = 0;
             for (Colony c: colonies)
                 val += c.maxSize(); 
-            return val;
+            return (int) (val + 0.01f);
         }
     }
     private class EmpireFactoriesPane extends EmpireDataPane {
@@ -335,10 +335,10 @@ public class EmpireColonyInfoPane extends BasePanel {
         @Override protected boolean urged(Colony c)	{ return c.govUrgeFactories(); }
         @Override protected void urge(Colony c, boolean b)		{ c.govUrgeFactories(b); }
         @Override protected int value(List<Colony> colonies)	{ 
-            int val = 0;
+            float val = 0;
             for (Colony c: colonies)
-                val += (int) c.industry().factories(); 
-            return val;
+                val += c.industry().factories(); 
+            return (int) (val + 0.01f);
         }
         @Override protected int maxValue(List<Colony> colonies)	{ 
             int val = 0;
@@ -432,10 +432,10 @@ public class EmpireColonyInfoPane extends BasePanel {
         @Override protected boolean urged(Colony c)	{ return c.govUrgeBases(); }
         @Override protected void urge(Colony c, boolean b)		{ c.govUrgeBases(b); }
         @Override protected int value(List<Colony> colonies)	{ 
-            int val = 0;
+            float val = 0;
             for (Colony c: colonies)
-                val += (int) c.defense().bases(); 
-            return val;
+                val += c.defense().bases(); 
+            return (int) (val + 0.01f);
         }
         @Override protected int maxValue(List<Colony> colonies)	{ 
             int val = 0;
@@ -577,16 +577,16 @@ public class EmpireColonyInfoPane extends BasePanel {
 		@Override protected String resultString(List<Colony> c)	{ return ""; }
 		@Override protected void urge(Colony c, boolean b)		{ c.govUrgeBuildUp(b); }
 		@Override protected int value(List<Colony> cols)		{
-            int val = 0;
+            float val = 0;
             for (Colony c: cols)
-                val += (int) c.totalIncome();
-            return val;
+                val += c.totalIncome();
+            return (int) (val + 0.01f);
 		}
 		@Override protected int maxValue(List<Colony> cols)		{
-            int val = 0;
+            float val = 0;
             for (Colony c: cols)
-                val += (int) c.production();
-            return val;
+                val += c.production();
+            return (int) (val + 0.01f);
 		}
 		@Override protected Color data2Color(List<Colony> cols)	{
 			boolean yes = false;

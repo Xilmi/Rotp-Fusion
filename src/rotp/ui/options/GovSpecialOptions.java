@@ -46,12 +46,14 @@ final class GovSpecialOptions extends AbstractOptionsSubUI {
 				LINE_SPACER_25,
 				colonyDistanceWeight
 				)));
-		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("GOVERNOR_AUTO_SEND"),
-				fleetAutoScoutMode,
-				fleetAutoColonizeMode,
-				fleetAutoAttackMode
-				)));
+
+		map.add(AllSubUI.getHandle(AUTO_SEND_FLEET_UI_KEY).getUiMajor(false));
+//		map.add(new SafeListParam(Arrays.asList(
+//				new ParamTitle("GOVERNOR_AUTO_SEND"),
+//				fleetAutoScoutMode,
+//				fleetAutoColonizeMode,
+//				fleetAutoAttackMode
+//				)));
 		return map;
 	};
 	@Override public SafeListParam minorList()	{

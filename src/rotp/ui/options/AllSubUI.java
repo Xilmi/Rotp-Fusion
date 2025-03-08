@@ -26,6 +26,7 @@ public final class AllSubUI {
 	private void put(AbstractOptionsSubUI ui)	{ uiMap.put(ui.optionId(), ui); }
 	private void init()							{
 		// Level 0 Panels
+		put(new AutoSendFleetOption());
 		put(new BackupOptions());
 		put(new ColonyRules());
 		put(new ColonySettings());

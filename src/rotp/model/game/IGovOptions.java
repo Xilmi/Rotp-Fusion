@@ -6,12 +6,14 @@ import static rotp.model.ships.ShipDesignLab.MAX_DESIGNS;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import rotp.model.empires.Empire;
+import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
@@ -192,6 +194,68 @@ public interface IGovOptions {
 			.setLimits(0, 100)
 			.setIncrements(1, 5, 20);
 
+	AutoAttackEmpire autoAttackEmpire	= new AutoAttackEmpire();
+	class AutoAttackEmpire extends ParamList	{
+		static final String AUTO_ATTACK_EMPIRE		= "AUTO_ATTACK_EMPIRE";
+		static final String AUTO_ATTACK_NONE		= "AUTO_ATTACK_NONE";
+		static final String AUTO_ATTACK_WAR			= "AUTO_ATTACK_WAR";
+		static final String AUTO_ATTACK_MENACING	= "AUTO_ATTACK_MENACING";
+		static final String AUTO_ATTACK_HOSTILE		= "AUTO_ATTACK_HOSTILE";
+		static final String AUTO_ATTACK_NO_ENTENTE	= "AUTO_ATTACK_NO_ENTENTE";
+		static final String AUTO_ATTACK_ALL			= "AUTO_ATTACK_ALL";
+		
+		public AutoAttackEmpire()	{
+			super(GOV_UI, AUTO_ATTACK_EMPIRE, AUTO_ATTACK_MENACING);
+			showFullGuide(true);
+			put(AUTO_ATTACK_NONE,		AUTO_ATTACK_NONE);
+			put(AUTO_ATTACK_WAR,		AUTO_ATTACK_WAR);
+			put(AUTO_ATTACK_MENACING,	AUTO_ATTACK_MENACING);
+			put(AUTO_ATTACK_HOSTILE,	AUTO_ATTACK_HOSTILE);
+			put(AUTO_ATTACK_NO_ENTENTE,	AUTO_ATTACK_NO_ENTENTE);
+			put(AUTO_ATTACK_ALL,		AUTO_ATTACK_ALL);
+		}
+		public List<Integer> targetEmpires(Empire empire)	{
+			List<Integer> targetEmpires = new ArrayList<>();
+			if (empire == null)
+				return targetEmpires;
+			switch (get()) {
+				case AUTO_ATTACK_NONE:
+					return targetEmpires;
+				case AUTO_ATTACK_WAR:
+					for (EmpireView v : empire.empireViews()) {
+					 	if ((v!= null) && !v.extinct() && v.embassy().anyWar())
+					 		targetEmpires.add(v.empId());
+					}
+					return targetEmpires;
+				case AUTO_ATTACK_MENACING:
+					for (EmpireView v : empire.empireViews()) {
+					 	if ((v!= null) && !v.extinct() && v.embassy().menacing())
+					 		targetEmpires.add(v.empId());
+					}
+					return targetEmpires;
+				case AUTO_ATTACK_HOSTILE:
+					for (EmpireView v : empire.empireViews()) {
+					 	if ((v!= null) && !v.extinct() && v.embassy().hostile())
+					 		targetEmpires.add(v.empId());
+					}
+					return targetEmpires;
+				case AUTO_ATTACK_NO_ENTENTE:
+					for (EmpireView v : empire.empireViews()) {
+					 	if ((v!= null) && !v.extinct() && v.embassy().noEntente())
+					 		targetEmpires.add(v.empId());
+					}
+					return targetEmpires;
+				case AUTO_ATTACK_ALL:
+					for (EmpireView v : empire.empireViews()) {
+					 	if ((v!= null) && !v.extinct() && v.empId() != empire.id)
+					 		targetEmpires.add(v.empId());
+					}
+					return targetEmpires;
+			}
+			return targetEmpires;
+		}
+		
+	}
 
 	ParamFleetAutoScout	   fleetAutoScoutMode	 = new ParamFleetAutoScout();
 	ParamFleetAutoColonize fleetAutoColonizeMode = new ParamFleetAutoColonize();
@@ -297,7 +361,7 @@ public interface IGovOptions {
 					return true;
 				if (systemHasHostileIncoming.contains(sf.system().id))
 					return false;
-				else if (empire != sf.system().empire())
+				else if (sf.system().empire() != null && empire != sf.system().empire())
 					// Don't send out armed ships orbiting enemy systems.
 					// It's OK to send away armed ships orbiting uncolonized planets if there are no incoming
 					// enemy fleets and that's checked above.

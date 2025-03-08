@@ -329,7 +329,7 @@ public final class ImageColorizer implements Base {
         }
     }
 
-    private BufferedImage makeGray(Image base) {
+    public BufferedImage makeGray(Image base) {
         BufferedImage img = newBufferedImage(base);
 
         //Rectangle rect = getScope(img);
@@ -356,7 +356,7 @@ public final class ImageColorizer implements Base {
         reset();
         return img;
     }
-    private BufferedImage makeRed(Image base) {
+    public BufferedImage makeRed(Image base) {
         BufferedImage img = newBufferedImage(base);
 
         int w = img.getWidth();
@@ -383,7 +383,7 @@ public final class ImageColorizer implements Base {
         reset();
         return img;
     }
-    private BufferedImage makeGreen(Image base) {
+    public BufferedImage makeGreen(Image base) {
         BufferedImage img = newBufferedImage(base);
 
         int w = img.getWidth();
@@ -589,7 +589,7 @@ public final class ImageColorizer implements Base {
         reset();
         return img;
     }
-    private BufferedImage makeMagenta(Image base) {
+    public BufferedImage makeMagenta(Image base) {
         BufferedImage img = newBufferedImage(base);
 
         int w = img.getWidth();

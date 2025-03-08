@@ -1157,7 +1157,47 @@ public class DesignUI extends BasePanel {
                     drawString(g,val4, leftM+sw4+s5, s82);
                 }
             }
-            // draw copy button
+			// Automation icons
+			if (des.isAutoScout()) {
+				drawScoutIcon(g, des, 0.1f);
+//				String str = text("SHIP_DESIGN_AUTO_SCOUT_TAG", des.autoScoutShipCount());
+//				boolean govDef = des.isDefaultAutoScoutShipCount();
+//				boolean autoOn = govOptions().isAutoScout();
+//				drawAutomationIcon(g, str, 0.1f, govDef, autoOn);
+			}
+			if (des.isAutoColonize()) {
+				drawColonizeIcon(g, des, 1f);
+//				String str = text("SHIP_DESIGN_AUTO_COLONIZE_TAG", des.autoColonizeShipCount());
+//				boolean govDef = des.isDefaultAutoColonizeShipCount();
+//				boolean autoOn = govOptions().isAutoColonize();
+//				drawAutomationIcon(g, str, 0.8f, govDef, autoOn);
+			}
+			if (des.isAutoAttack()) {
+				drawAttackIcon(g, des, 0.55f);
+//				String str = text("SHIP_DESIGN_AUTO_ATTACK_TAG", des.autoAttackShipCount());
+//				boolean govDef = des.isDefaultAutoAttackShipCount();
+//				boolean autoOn = govOptions().isAutoAttack();
+//				drawAutomationIcon(g, str, 0.45f, govDef, autoOn);
+			}
+			if (defaultDesignArea == hoverTarget) {
+				if (des.isDefaultDesign())
+					drawDefaultDesignIcon(g, Color.yellow, text("SHIP_DESIGN_UNSET_DEFAULT"));
+				else
+					if (des.canReplaceDefault() && isShiftDown())
+						drawDefaultDesignIcon(g, swapDesignC, text("SHIP_DESIGN_SWAP_DEFAULT"));
+					else
+						drawDefaultDesignIcon(g, Color.yellow, text("SHIP_DESIGN_SET_DEFAULT"));
+			}
+			else if (des.active())
+				if (des.isDefaultDesign())
+					drawDefaultDesignIcon(g, Color.green, "");
+				else
+					drawDefaultDesignIcon(g, Color.gray, "");
+			else
+				if (des.isDefaultDesign())
+					drawDefaultDesignIcon(g, darkGreenC, "");
+				else
+					drawDefaultDesignIcon(g, Color.darkGray, "");            // draw copy button
             copyButtonArea[designNum].setBounds(0, 0, 0, 0);
             if (des.active() && !configPanel.shipDesign().active()) {
                 g.setFont(narrowFont(18));
@@ -1188,46 +1228,10 @@ public class DesignUI extends BasePanel {
                 int x2a = buttonX + ((buttonW - sw) / 2);
                 drawBorderedString(g, str, x2a, buttonY + buttonH - s7, SystemPanel.textShadowC, c0);
             }
-			if (des.isAutoScout()) {
-				String str = text("SHIP_DESIGN_AUTO_SCOUT_TAG", des.autoScoutShipCount());
-				boolean govDef = des.isDefaultAutoScoutShipCount();
-				boolean autoOn = govOptions().isAutoScout();
-				drawAutomationIcon(g, str, 0.1f, govDef, autoOn);
-			}
-			if (des.isAutoColonize()) {
-				String str = text("SHIP_DESIGN_AUTO_COLONIZE_TAG", des.autoColonizeShipCount());
-				boolean govDef = des.isDefaultAutoColonizeShipCount();
-				boolean autoOn = govOptions().isAutoColonize();
-				drawAutomationIcon(g, str, 0.8f, govDef, autoOn);
-			}
-			if (des.isAutoAttack()) {
-				String str = text("SHIP_DESIGN_AUTO_ATTACK_TAG", des.autoAttackShipCount());
-				boolean govDef = des.isDefaultAutoAttackShipCount();
-				boolean autoOn = govOptions().isAutoAttack();
-				drawAutomationIcon(g, str, 0.45f, govDef, autoOn);
-			}
-			if (defaultDesignArea == hoverTarget) {
-				if (des.isDefaultDesign())
-					drawDefaultDesignIcon(g, Color.yellow, text("SHIP_DESIGN_UNSET_DEFAULT"));
-				else
-					if (des.canReplaceDefault() && isShiftDown())
-						drawDefaultDesignIcon(g, swapDesignC, text("SHIP_DESIGN_SWAP_DEFAULT"));
-					else
-						drawDefaultDesignIcon(g, Color.yellow, text("SHIP_DESIGN_SET_DEFAULT"));
-			}
-			else if (des.active())
-				if (des.isDefaultDesign())
-					drawDefaultDesignIcon(g, Color.green, "");
-				else
-					drawDefaultDesignIcon(g, Color.gray, "");
-			else
-				if (des.isDefaultDesign())
-					drawDefaultDesignIcon(g, darkGreenC, "");
-				else
-					drawDefaultDesignIcon(g, Color.darkGray, "");
+
 		}
 		private ShipDesign slotDesign()   { return player().shipLab().design(designNum); }
-		private void drawAutomationIcon(Graphics g, String str, float pos, boolean govDef, boolean autoOn) {
+		/* private void drawAutomationIcon(Graphics g, String str, float pos, boolean govDef, boolean autoOn) {
 			int boxH = getHeight()-s10;
 			int boxW = boxH*6/5;
 			int y = boxH + s3;
@@ -1240,7 +1244,86 @@ public class DesignUI extends BasePanel {
 			g.setFont(narrowFont(12));
 			g.setColor(col);
 			g.drawString(str, x, y);
+		} */
+		private void drawScoutIcon(Graphics g, ShipDesign des, float xPos) {
+			int boxHeight	= getHeight()-s10;
+			int boxWidth	= boxHeight*6/5;
+			String shipNum	= "" + des.autoScoutShipCount();
+			boolean autoOn	= govOptions().isAutoScout();
+			int y = boxHeight + s3;
+			int x = (int) (boxWidth * xPos);
+			Color col;
+			if (des.isDefaultAutoScoutShipCount())
+				col = autoOn? autoOnDefaultC : autoOffDefaultC;
+			else
+				col = autoOn? autoOnCustomC : autoOffCustomC;
+			g.setFont(narrowFont(12));
+			int sw = g.getFontMetrics().stringWidth(shipNum);
+			g.setColor(col);
+			g.drawString(shipNum, x, y);
+			x += sw + s2;
+			y -= s11;
+			g.drawImage(eyeIcon(s14, s14, col, true), x, y, null);
 		}
+		private void drawColonizeIcon(Graphics g, ShipDesign des, float xPos) {
+			int boxHeight	= getHeight()-s10;
+			int boxWidth	= boxHeight*6/5;
+			String shipNum	= "" + des.autoColonizeShipCount();
+			boolean autoOn	= govOptions().isAutoColonize();
+			boolean govDef	= des.isDefaultAutoColonizeShipCount();
+			int iconSize = s16;
+			int y = boxHeight + s5 - iconSize;
+			int x = (int) (boxWidth * xPos) + s4 - iconSize;
+			BufferedImage img1 = player().race().fortress(0);
+			BufferedImage img2;
+			if (govDef)
+				if (autoOn)
+					img2 = Base.colorizer.makeGreen(img1);
+				else
+					img2 = Base.colorizer.makeDarkGreen(img1);
+			else
+				if (autoOn)
+					img2 = Base.colorizer.makeLightBlue(img1);
+				else
+					img2 = Base.colorizer.makeBlue(img1);
+			BufferedImage img = resizeImage(img2, iconSize, iconSize);
+			g.drawImage(img, x, y, null);
+
+			Color col;
+			if (govDef)
+				col = autoOn? autoOnDefaultC : autoOffDefaultC;
+			else
+				col = autoOn? autoOnCustomC : autoOffCustomC;
+			g.setColor(col);
+			g.setFont(narrowFont(12));
+			int sw = g.getFontMetrics().stringWidth(shipNum);
+			x -= sw + s2;
+			y = boxHeight + s3;
+			g.drawString(shipNum, x, y);
+		}
+		private void drawAttackIcon(Graphics g, ShipDesign des, float xPos) {
+			int boxHeight	= getHeight()-s10;
+			int boxWidth	= boxHeight*6/5;
+			String shipNum	= "" + des.autoAttackShipCount();
+			boolean autoOn	= govOptions().isAutoAttack();
+			Color col;
+			if (des.isDefaultAutoAttackShipCount())
+				col = autoOn? autoOnDefaultC : autoOffDefaultC;
+			else
+				col = autoOn? autoOnCustomC : autoOffCustomC;
+			g.setColor(col);
+
+			int y = boxHeight - s8;
+			int x = (int) (boxWidth * xPos);
+			g.drawImage(targetIcon(s12, s12, col, 4), x, y, null);
+
+			g.setFont(narrowFont(12));
+			int sw = g.getFontMetrics().stringWidth(shipNum);
+			y = boxHeight + s3;
+			x -= sw + s2;
+			g.drawString(shipNum, x, y);
+		}
+
 		private void drawDefaultDesignIcon(Graphics g, Color col, String str) {
 			int x = defaultDesignArea.x;
 			int y = defaultDesignArea.y;
@@ -1418,7 +1501,7 @@ public class DesignUI extends BasePanel {
             addMouseListener(this);
             addMouseWheelListener(this);
         }
-		void autoDesign(boolean autoSize) {
+		private void autoDesign(boolean autoSize) {
 			if(shipDesign() == null)
 				return;
 			rotp.model.ai.xilmi.NewShipTemplate nst = new rotp.model.ai.xilmi.NewShipTemplate();
@@ -2598,7 +2681,7 @@ public class DesignUI extends BasePanel {
 					return false;
 			return true;
 		}
-		String valueFmt (float value)	{ return value >= 1000? fmt(value, 0) : fmt(value, 1); }
+		private String valueFmt (float value)	{ return value >= 1000? fmt(value, 0) : fmt(value, 1); }
         private void drawLeftComponentInfo(Graphics2D g, ShipDesign des, int x, int y, int w0, int h) {
             g.setColor(darkBrown);
             g.fillRect(x, y+s25, w0, h-s25);

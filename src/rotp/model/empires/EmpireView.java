@@ -43,8 +43,8 @@ public final class EmpireView implements Base, Serializable {
 
     public Empire empire()                { return empire; }
     public Empire owner()                 { return owner; }
-    public int empId()                    { return empire.id; }
-    public int ownerId()                  { return owner.id; }
+    public int empId()                    { return empire.id; }	// Viewed
+    public int ownerId()                  { return owner.id; }	// Viewer
     public DiplomaticEmbassy embassy()    { return embassy; }
     public SpyNetwork spies()             { return spies; }
     public TradeRoute trade()             { return trade; }

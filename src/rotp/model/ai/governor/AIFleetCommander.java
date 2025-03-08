@@ -1,6 +1,5 @@
 package rotp.model.ai.governor;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -50,7 +49,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 				return pr / 2;
 			else
 				return pr;
-		}
+	}
 	@Override public float maxShipMaintainance()	{ return MAX_ALLOWED_SHIP_MAINT; }
 
 	/**
@@ -287,12 +286,9 @@ public class AIFleetCommander implements Base, FleetCommander {
 			return;
 		subFleetList.sortForAttack();
 
+		// TODO BR: Customize Empire target
 		boolean extendedRange = subFleetList.hasExtendedRange();
-		List<Integer> hostileEmpires = new ArrayList<>();
-		for (EmpireView enemy: empire.enemyViews()) {
-			//System.out.println("autoattack Enemy "+enemy.toString());
-			hostileEmpires.add(enemy.empId());
-		}
+		List<Integer> hostileEmpires = IGovOptions.autoAttackEmpire.targetEmpires(empire);
 
 		List<Integer> targets = filterTargets(sysId -> {
 			// consider both scouted and unscouted systems if they belong to the enemy

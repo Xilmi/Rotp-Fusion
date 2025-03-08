@@ -33,15 +33,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
-import java.util.function.BiPredicate;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import rotp.Rotp;
@@ -1697,8 +1694,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
     }
 
-    // TODO BR: Moved to rotp.model.ai.governor.AIFleetCommander
-// /*
+    // TO DO BR: Moved to rotp.model.ai.governor.AIFleetCommander
+/*
     private List<ShipDesign> scoutDesigns() {
         // Pick scout designs
         List<ShipDesign> scoutDesigns = new ArrayList<>();
@@ -5190,7 +5187,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 		}
 		public void raceAI(int ai)	{ raceAI = ai; }
 		public int  raceAI()		{ return raceAI; }
-		public Long randomSource()	{ return randomSource == null? Rotp.rand().nextLong() : randomSource; }
+		private Long randomSource()	{ return randomSource == null? Rotp.rand().nextLong() : randomSource; }
 		
 	}
 }

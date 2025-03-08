@@ -95,8 +95,12 @@ public class CustomIcons implements Base {
 		BufferedImage img = subMenuMoreImage(rectCol, barCol, lineCol);
 		return resizeImage(img, wi, hi);
 	}
-	@Override public BufferedImage eyeIcon(int wi, int hi, Color lineCol) {
-		BufferedImage img = eyeImage(96, 96, lineCol);
+	@Override public BufferedImage eyeIcon(int wi, int hi, Color lineCol, boolean fillIris) {
+		BufferedImage img = eyeImage(96, 96, lineCol, fillIris);
+		return resizeImage(img, wi, hi);
+	}
+	@Override public BufferedImage targetIcon(int wi, int hi, Color lineCol, int CircleNum) {
+		BufferedImage img = targetImage(96, 96, lineCol, CircleNum);
 		return resizeImage(img, wi, hi);
 	}
 	@Override public BufferedImage globalDefaultDesignIcon(int side, Color lineCol) {
@@ -393,7 +397,7 @@ public class CustomIcons implements Base {
 		g.dispose();
 		return img;
 	}
-	private BufferedImage eyeImage(int width, int height, Color lineCol) {
+	private BufferedImage eyeImage(int width, int height, Color lineCol, boolean fillIris) {
 		int strokeW	= width/12;
 		int xCtr = width/2 -1;
 		int yCtr = height/2 -1;
@@ -419,9 +423,43 @@ public class CustomIcons implements Base {
 
 		strokeW	= width/24;
 		g.setStroke(new BasicStroke(strokeW, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-		g.drawOval(xCtr-rayIris+1, yCtr-rayIris, diaIris, diaIris);
+		if (fillIris)
+			g.fillOval(xCtr-rayIris+1, yCtr-rayIris, diaIris, diaIris);
+		else
+			g.drawOval(xCtr-rayIris+1, yCtr-rayIris, diaIris, diaIris);
 		g.setColor(Color.black);
 		g.fillOval(xCtr-rayPup+1, yCtr-rayPup, diaPup, diaPup);
+
+		g.dispose();
+		return img;
+	}
+	private BufferedImage targetImage(int width, int height, Color lineCol, int CircleNum) {
+		int strokeW	= width/24;
+		int xCtr = width/2 -1;
+		int yCtr = height/2 -1;
+		width	 = (xCtr+1)*2 + 1;
+		height	 = (yCtr+1)*2 + 1;
+//		int start = strokeW;
+//		int stop  = width - strokeW - 1;
+		int start = 0;
+		int stop  = width - 1;
+
+		BufferedImage img = new BufferedImage(width, height, TYPE_INT_ARGB);
+		Graphics2D g = getGraphicsRH(img);
+		g.setColor(lineCol);
+		g.setStroke(new BasicStroke(strokeW, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+
+		int step = width / (2*CircleNum + 1);
+		int ray = step;
+		g.drawLine(start, yCtr, xCtr-ray, yCtr);
+		g.drawLine(xCtr+ray, yCtr, stop, yCtr);
+		g.drawLine(xCtr, start, xCtr, yCtr-ray);
+		g.drawLine(xCtr, yCtr+ray, xCtr, stop);
+		
+		for (int i = 0; i < CircleNum; i++) {
+			g.drawOval(xCtr-ray, yCtr-ray, 2*ray, 2*ray);
+			ray += step;
+		}
 
 		g.dispose();
 		return img;

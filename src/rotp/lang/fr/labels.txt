@@ -5368,6 +5368,21 @@ FLEET_AUTO_SEND_TEAMS_HELP			| Les flottes devront inclure au moins deux des mod
 FLEET_AUTO_SEND_ALL					| Tous
 FLEET_AUTO_SEND_ALL_HELP			| Les flottes devront inclure tous les modèles sélectionnés, chacun ayant le nombre vaisseaux spécifiés.
 
+GOVERNOR_AUTO_ATTACK_EMPIRE_DESC	| Vers quels empires devons-nous envoyer nos vaisseaux de guerre ?
+GOVERNOR_AUTO_ATTACK_EMPIRE			| Empires ciblés : %1
+AUTO_ATTACK_NONE					| Aucuns (Défense)
+AUTO_ATTACK_NONE_HELP				| Concentrons-nous sur la défense de nos précieuses colonies.
+AUTO_ATTACK_WAR						| En Guerre
+AUTO_ATTACK_WAR_HELP				| N’attaquons que les empires avec lesquels nous sommes déjà en guerre.
+AUTO_ATTACK_MENACING				| Menaçants
+AUTO_ATTACK_MENACING_HELP			| Les empires contre lesquels nous sommes en guerre et ceux qui ont été agressifs envers nous.
+AUTO_ATTACK_HOSTILE					| Pas Amis
+AUTO_ATTACK_HOSTILE_HELP			| Nous laissons tranquilles les empires avec lesquels nous avons signé un pacte de non-agression, une alliance ou avec lesquels nous sommes unis.
+AUTO_ATTACK_NO_ENTENTE				| Sans Traités
+AUTO_ATTACK_NO_ENTENTE_HELP			| Tous les empires avec lesquels nous n’avons pas signé de traités.
+AUTO_ATTACK_ALL						| Tous
+AUTO_ATTACK_ALL_HELP				| Envoyons nos vaisseaux vers tous les empires, le temps de la guerre n'est plus si lointain.
+
 HEADERS_GOVERNOR_TERRAFORM_DESC		| Déclencheurs de la terraformation de la planète.
 HEADERS_GOVERNOR_TERRAFORM			| ~~~ DÉCLENCHEURS DE TERRAFORMATION ~~~
 HEADERS_GOVERNOR_SUBSIDIES_DESC		| Que faire des fonds alloués à la colonie ?
@@ -5378,7 +5393,12 @@ HEADERS_GOVERNOR_COLONY_GROWTH_DESC	| Paramètres lorsque l’option →GOVERNOR
 HEADERS_GOVERNOR_COLONY_GROWTH		| ~~~ CROISSANCE DES COLONIES ~~~
 HEADERS_GOVERNOR_AUTO_SEND_DESC		| Paramètres d’envoi automatisé des flottes.
 HEADERS_GOVERNOR_AUTO_SEND			| ~~~ AUTOMATION DES FLOTTES ~~~
+HEADERS_GOVERNOR_TARGET_DESC		| Comment choisir les cibles pour nos flottes.
+HEADERS_GOVERNOR_TARGET				| ~~~ SÉLECTION DES CIBLES ~~~
 
+SETTINGS_MOD_AUTO_SEND_FLEET_TITLE		| Envoi automatisé des flottes
+SETTINGS_MOD_AUTO_SEND_FLEET_UI			| Envoi automatisé des flottes.
+SETTINGS_MOD_AUTO_SEND_FLEET_UI_DESC	| Paramètres du gouverneur pour l’envoi automatisé des flottes.
 
 // BR: Tech Trigger Add-on
 //

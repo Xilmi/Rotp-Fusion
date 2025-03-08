@@ -5368,6 +5368,21 @@ FLEET_AUTO_SEND_TEAMS_HELP			| Fleets must include at least two of the selected 
 FLEET_AUTO_SEND_ALL					| All
 FLEET_AUTO_SEND_ALL_HELP			| Fleets will need to include all selected models, each having the specified number of ships.
 
+GOVERNOR_AUTO_ATTACK_EMPIRE_DESC	| Which empires should we send our warships to?
+GOVERNOR_AUTO_ATTACK_EMPIRE			| Targeted Empires: %1
+AUTO_ATTACK_NONE					| None (Defend)
+AUTO_ATTACK_NONE_HELP				| Let's focus on defending our precious colonies.
+AUTO_ATTACK_WAR						| At War
+AUTO_ATTACK_WAR_HELP				| Let us only attack empires with which we are already at war.
+AUTO_ATTACK_MENACING				| Menacing
+AUTO_ATTACK_MENACING_HELP			| The empires we are at war with and those that have been aggressive towards us.
+AUTO_ATTACK_HOSTILE					| Not Friends
+AUTO_ATTACK_HOSTILE_HELP			| We leave alone the empires with which we have signed a non-aggression pact, an alliance or with which we are united.
+AUTO_ATTACK_NO_ENTENTE				| Without treaty
+AUTO_ATTACK_NO_ENTENTE_HELP			| All the empires we have not signed treaties with.
+AUTO_ATTACK_ALL						| All
+AUTO_ATTACK_ALL_HELP				| Let us send our ships to all the empires, the time of war is not so far away.
+
 HEADERS_GOVERNOR_TERRAFORM_DESC		| Triggers for planet terraforming.
 HEADERS_GOVERNOR_TERRAFORM			| ~~~ TERRAFORMING TRIGGERS ~~~
 HEADERS_GOVERNOR_SUBSIDIES_DESC		| What to do with the funds allocated to the colony?
@@ -5378,7 +5393,12 @@ HEADERS_GOVERNOR_COLONY_GROWTH_DESC	| Settings when →GOVERNOR_LEGACY_GROWTH_MO
 HEADERS_GOVERNOR_COLONY_GROWTH		| ~~~ COLONIES GROWTH ~~~
 HEADERS_GOVERNOR_AUTO_SEND_DESC		| Auto fleet sending parameters.
 HEADERS_GOVERNOR_AUTO_SEND			| ~~~ FLEET AUTO SEND ~~~
+HEADERS_GOVERNOR_TARGET_DESC		| How to choose targets for our fleets.
+HEADERS_GOVERNOR_TARGET				| ~~~ TARGETS SELECTION ~~~
 
+SETTINGS_MOD_AUTO_SEND_FLEET_TITLE		| Governor Auto Send Fleets.
+SETTINGS_MOD_AUTO_SEND_FLEET_UI			| Auto Send Fleets
+SETTINGS_MOD_AUTO_SEND_FLEET_UI_DESC	| Auto fleet sending parameters.
 
 // BR: Tech Trigger Add-on
 //

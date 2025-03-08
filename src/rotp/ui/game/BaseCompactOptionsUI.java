@@ -294,7 +294,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private BufferedImage eyeIcon() {
 		// eyeIcon = null; // TO DO BR: Comment
 		if (eyeIcon == null)
-			eyeIcon = eyeIcon(retina(subMenuIconW), retina(subMenuIconH), subMenuIconColor2);
+			eyeIcon = eyeIcon(retina(subMenuIconW), retina(subMenuIconH), subMenuIconColor2, true);
 		return eyeIcon;
 	}
 
