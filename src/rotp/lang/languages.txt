@@ -10,12 +10,12 @@
 
 
 en,  English          ,  ,   , 
+fr,  Français         ,  ,   ,  , ; _race , _raceadjec; _race_plural, _race_pluraladjec; _empireof, _empire; _raceadjec, _race; _raceadjecF, _race; _race_pluralnoun, _race_plural; _race_pluralnounof, _race_plural; _race_pluralnounto, _race_plural; _race_pluraladjec, _race_plural; _race_pluraladjecF, _race_plural
 bg,  българин         ,  ,   , 
 #bn,  বাংলা            ,  ,   ,  , ০১২৩৪৫৬৭৮৯
 de,  Deutsch          ,  ,   , 
 el,  Ελληνικά         ,  ,   , 
 es,  Español          ,  ,   , ; _race , _raceadjec; _race_plural, _race_pluraladjec; _empireof, _empire; _raceadjec, _race; _raceadjecF, _race; _race_pluralnoun, _race_plural; _race_pluralnounF, _race_plural; _race_pluralnounof, _race_plural; _race_pluralnounto, _race_plural; _race_pluraladjec, _race_plural; _race_pluraladjecF, _race_plural
-fr,  Français         ,  ,   ,  , ; _race , _raceadjec; _race_plural, _race_pluraladjec; _empireof, _empire; _raceadjec, _race; _raceadjecF, _race; _race_pluralnoun, _race_plural; _race_pluralnounof, _race_plural; _race_pluralnounto, _race_plural; _race_pluraladjec, _race_plural; _race_pluraladjecF, _race_plural
 hu,  Magyar           ,  ,   ,  , ; _race_plural, _race; _empire_prefix_lowercase, _empire; _empire_prefix_uppercase, _empire; _empire_originating_prefix_lowercase, _empire; _empire_taking_prefix_lowercase, _empire; _empire_relational, _empire; _empire_relational_prefix_lowercase, _empire; _empire_giving_prefix_lowercase, _empire; _empire_giving_prefix_uppercase, _empire; _empire_addressing_prefix_lowercase, _empire; _empire_approaching_prefix_lowercase, _empire; _empire_lean_prefix_lowercase, _empire; _empire_containing_prefix_lowercase, _empire; _empire_within_prefix_lowercase, _empire; _race_prefix_lowercase, _race; _race_prefix_uppercase, _race; _race_whose_lowercase, _race; _race_whose_uppercase, _race; _race_whose_prefix_lowercase, _race; _race_whose_prefix_uppercase, _race; _race_possessive, _race; _race_possessive_prefix_lowercase, _race; _race_possessive_prefix_uppercase, _race; _race_relational, _race; _race_relational_prefix_lowercase, _race; _race_giving, _race; _race_giving_prefix_lowercase, _race; _race_regarding, _race; _race_regarding_prefix_lowercase, _race; _race_taking_prefix_lowercase, _race; _race_approaching_prefix_lowercase, _race
 id,  Indonesia        ,  ,   , 
 it,  Italiana         ,  ,   ,; _race , _raceadjec; _race_plural, _race_pluraladjec; _empireof, _empire; _raceadjec, _race; _raceadjecF, _race; _race_pluralnoun, _race_plural; _race_pluralnounof, _race_plural; _race_pluralnounF, _race_plural; _race_pluraladjec, _race_plural; _race_pluraladjecF, _race_plural
