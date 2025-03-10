@@ -593,8 +593,8 @@ public class DesignUI extends BasePanel {
 		sp7.setLine(sp7.xe(), sp7.ye(), scaled(455), scaled(261));
 
 		// Auto colonize
-		int x8 = sp7.xe() + s20;
-		int w8 = scaled(300);
+		int x8 = sp7.xe() + s15;
+		int w8 = scaled(310);
 		int y8 = y7;
 		HelpUI.HelpSpec sp8 = helpUI.addBrownHelpText(x8, -y8, w8, 0, text("SHIP_DESIGN_HELP_4J"));
 		sp8.setLine(sp8.xce(), sp8.ye(), scaled(600), scaled(261));
@@ -3840,8 +3840,8 @@ public class DesignUI extends BasePanel {
 			if (e.isAltDown())
 				govOptions().autoScout(e);
 			else {
-				boolean down = e.getUnitsToScroll() < 0;
-				int incr = down? -1 : 1;
+				boolean up = e.getUnitsToScroll() < 0;
+				int incr = up? 1 : -1;
 				if (e.isShiftDown())
 					incr *= 5;
 				if (e.isControlDown())
@@ -3855,8 +3855,8 @@ public class DesignUI extends BasePanel {
 			if (e.isAltDown())
 				govOptions().autoColony(e);
 			else {
-				boolean down = e.getUnitsToScroll() < 0;
-				int incr = down? -1 : 1;
+				boolean up = e.getUnitsToScroll() < 0;
+				int incr = up? 1 : -1;
 				if (e.isShiftDown())
 					incr *= 5;
 				if (e.isControlDown())
@@ -3870,8 +3870,8 @@ public class DesignUI extends BasePanel {
 			if (e.isAltDown())
 				govOptions().autoAttack(e);
 			else {
-				boolean down = e.getUnitsToScroll() < 0;
-				int incr = down? -1 : 1;
+				boolean up = e.getUnitsToScroll() < 0;
+				int incr = up? 1 : -1;
 				if (e.isShiftDown())
 					incr *= 5;
 				if (e.isControlDown())

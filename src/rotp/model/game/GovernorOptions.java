@@ -410,4 +410,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public boolean	earlyBaseBuilding()				{ return earlyBaseBuilding.get(); }
 	public float	earlyBaseBoostPct()				{ return earlyBaseBoostPct.get()/100f; }
 	public boolean	armedScoutGuard()				{ return armedScoutGuard.get(); }
+	public boolean	autoScoutSmart()				{ return autoScoutSmart.get(); }
+	public boolean	autoScoutNearFirst()			{ return autoScoutNearFirst.get(); }
+	public int		autoScoutMaxTime()				{ return autoScoutMaxTime.get(); }
 }

@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import rotp.model.ai.governor.ParamFleetAuto.SubFleet;
+import rotp.model.ai.governor.ParamFleetAuto.SubFleetList;
 import rotp.model.ai.interfaces.FleetCommander;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
@@ -13,12 +15,9 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGovOptions;
-import rotp.model.game.IGovOptions.ParamFleetAuto;
-import rotp.model.game.IGovOptions.ParamFleetAuto.SubFleet;
-import rotp.model.game.IGovOptions.ParamFleetAuto.SubFleetList;
 import rotp.util.Base;
 
-// BR: Moved Governor Ship automations from empire to here
+// BR: Moved Governor Ship automation from empire to here
 public class AIFleetCommander implements Base, FleetCommander {
 	private static final float MAX_ALLOWED_SHIP_MAINT = 0.35f;
 	private final Empire empire;
@@ -101,7 +100,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 			//}
 		}
 	}
-	public double autocolonizeWeight(StarSystem source, int targetId, float maxDistance, float maxValue, int warpSpeed) {
+	private double autocolonizeWeight(StarSystem source, int targetId, float maxDistance, float maxValue, int warpSpeed) {
 		// let's flip value percent and sort by descending order. That's because in rare cases distancePercent could be
 		// greater than 1
 		float valuePercent = 1 - planetValue(targetId) / maxValue;
@@ -113,7 +112,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 		// return valuePercent * 0.5 + distancePercent * 0.5;
 	}
 	// taken from AIFleetCommander.setColonyFleetPlan()
-	public float planetValue(int sid) {
+	private float planetValue(int sid) {
 		float value = empire.sv.currentSize(sid);
 
 		//increase value by 5 for each of our systems it is near, and
@@ -155,7 +154,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 		}
 		return targets;
 	}
-	private Predicate<Integer> filterScoutTarget(boolean extendedRange) {
+	private Predicate<Integer> filterScoutTarget(boolean extendedRange, float maxArrivalTime) {
 		return (sysId)  -> {
 			// scout time only gets set for scouted systems, not ones we were forced to retreat from, don't use scout time
 			if (empire.sv.view(sysId).scouted() || empire.sv.view(sysId).isGuarded())
@@ -171,11 +170,17 @@ public class AIFleetCommander implements Base, FleetCommander {
 			if (empire.sv.view(sysId).empire() != null)
 				return false;
 			// ships already on route- no need to scout
-			if (!empire.ownFleetsTargetingSystem(empire.sv.system(sysId)).isEmpty())
-				return false;
+			List<ShipFleet> ownFleets = empire.ownFleetsTargetingSystem(empire.sv.system(sysId));
+			if (!ownFleets.isEmpty())
+				for (ShipFleet fl : ownFleets)
+					if (fl.arrivalTimeAdjusted() <= maxArrivalTime)
+						return false;
 			// ships already deployed to - no need to scout // BR: For redeployment
-			if (!empire.ownFleetsDeployedToSystem(empire.sv.system(sysId)).isEmpty())
-				return false;
+			ownFleets = empire.ownFleetsDeployedToSystem(empire.sv.system(sysId));
+			if (!ownFleets.isEmpty())
+				for (ShipFleet fl : ownFleets)
+					if (fl.arrivalTimeAdjusted() <= maxArrivalTime)
+						return false;
 			if (empire.sv.view(sysId).orbitingFleets() != null && !empire.sv.view(sysId).orbitingFleets().isEmpty()) {
 				//	System.out.println("System "+i+" "+empire.sv.descriptiveName(i)+" has ships in orbit");
 				for (ShipFleet fleet: empire.sv.view(sysId).orbitingFleets()) {
@@ -199,18 +204,38 @@ public class AIFleetCommander implements Base, FleetCommander {
 		};
 	}
 	private void autoscout()	{
-		GovernorOptions options = session().getGovernorOptions();
-		if (!options.isAutoScout())
+		GovernorOptions gov = session().getGovernorOptions();
+		if (!gov.isAutoScout())
 			return;
-
 		ParamFleetAuto rules = IGovOptions.fleetAutoScoutMode;
-		SubFleetList subFleetList = filterFleets(rules);
+		boolean smart = gov.autoScoutSmart();
+		int maxTime = gov.autoScoutMaxTime();
+
+		if (smart && maxTime > 0) {
+			SubFleetList subFleetList = filterFleets(rules, false);
+			if (subFleetList.isEmpty())
+				return;
+			subFleetList.sortByWarpSpeed();
+			if (!gov.autoScoutNearFirst()) {
+				// Send to not already targeted nearby stars
+				autoscout(rules, subFleetList, 9999, maxTime);
+				if (subFleetList.isEmpty())
+					return;
+			}
+			// Send to already targeted nearby star
+			autoscout(rules, subFleetList, maxTime, maxTime);
+		}
+
+		// Send to all other
+		SubFleetList subFleetList = filterFleets(rules, smart);
 		if (subFleetList.isEmpty())
 			return;
 		subFleetList.sortByWarpSpeed();
-
+		autoscout(rules, subFleetList, 9999, 9999);
+	}
+	private void autoscout(ParamFleetAuto rules, SubFleetList subFleetList, float inTurn, float goTurn)	{
 		boolean extendedRange = subFleetList.hasExtendedRange();
-		List<Integer> targets = filterTargets(filterScoutTarget(extendedRange));
+		List<Integer> targets = filterTargets(filterScoutTarget(extendedRange, galaxy().currentTime() + inTurn));
 		// No systems to scout
 		if (targets.isEmpty())
 			return;
@@ -222,12 +247,12 @@ public class AIFleetCommander implements Base, FleetCommander {
 
 		SystemsSorter systemsSorter = (sourceSystem, targets1, warpSpeed) -> {
 			StarSystem source = empire.sv.system(sourceSystem);
-			targets1.sort((s1, s2) ->
-					(int)Math.signum(source.travelTimeTo(empire.sv.system(s1), warpSpeed) -
-							source.travelTimeTo(empire.sv.system(s2), warpSpeed)) );
+			targets1.sort((s1, s2) -> (int) Math.signum(
+					source.travelTimeTo(empire.sv.system(s1), warpSpeed) -
+					source.travelTimeTo(empire.sv.system(s2), warpSpeed)));
 		};
 		// don't send out armed scout ships when enemy fleet is incoming, hence the need for defend predicate
-		autoSendShips(targets, systemsSorter, subFleetList, rules);
+		autoSendShips(targets, systemsSorter, subFleetList, rules, goTurn);
 	}
 	private void autocolonize()	{
 		GovernorOptions options = session().getGovernorOptions();
@@ -235,7 +260,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 			return;
 
 		ParamFleetAuto rules = IGovOptions.fleetAutoColonizeMode;
-		SubFleetList subFleetList = filterFleets(rules);
+		SubFleetList subFleetList = filterFleets(rules, false);
 		if (subFleetList.isEmpty())
 			return;
 		subFleetList.sortForColonize();
@@ -265,8 +290,8 @@ public class AIFleetCommander implements Base, FleetCommander {
 					return false;
 				// colony ship already on route- no need to send more
 				for (ShipFleet sf: empire.ownFleetsTargetingSystem(empire.sv.system(sysId)))
-					if (sf != null && rules.alreadyHasDesignsOnRoute(sf, sysId))
-							return false;
+					if (sf != null && sf.canColonizeSystem(empire.sv.system(sysId)))
+						return false;
 				return true;
 			}
 			else
@@ -281,7 +306,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 		//	System.out.println("ToColonize "+empire.sv.name(i) + " scouted="+empire.sv.view(i).scouted()+" extrange=" + empire.sv.inScoutRange(i) + " range=" + empire.sv.inShipRange(i) + " type"+empire.sv.planetType(i));
 		//}
 		// don't send out armed colony ships when enemy fleet is incoming, hence the need for defend predicate
-		autoSendShips(targets, new ColonizePriority("toColonize"), subFleetList, rules);
+		autoSendShips(targets, new ColonizePriority("toColonize"), subFleetList, rules, 999);
 	}
 	// similar to autocolonize. Send ships to enemy planets and systems with enemy ships in orbit
 	private void autoattack()	{
@@ -290,7 +315,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 			return;
 
 		ParamFleetAuto rules = IGovOptions.fleetAutoAttackMode;
-		SubFleetList subFleetList = filterFleets(rules);
+		SubFleetList subFleetList = filterFleets(rules, false);
 		if (subFleetList.isEmpty())
 			return;
 		subFleetList.sortForAttack();
@@ -346,14 +371,18 @@ public class AIFleetCommander implements Base, FleetCommander {
 		//for (Integer i: targets)
 		//	System.out.println("ToAttack "+empire.sv.name(i) + " scouted="+empire.sv.view(i).scouted()+" extrange=" + empire.sv.inScoutRange(i) + " range=" + empire.sv.inShipRange(i));
 
-		autoSendShips(targets, new ColonizePriority("toAttack"), subFleetList, rules);
+		autoSendShips(targets, new ColonizePriority("toAttack"), subFleetList, rules, 999);
 	}
-	private SubFleetList filterFleets(ParamFleetAuto rules)	{
+	private SubFleetList filterFleets(ParamFleetAuto rules, boolean colonyOnly)	{
 		SubFleetList subFleetList = rules.newSubFleetList(empire);
 		List<ShipFleet> allFleets = galaxy().ships.notInTransitFleets(empire.id);
 		for (ShipFleet fleet : allFleets) {
-			if (fleet != null && (!fleet.isOrbiting() || !fleet.canSend()))
-				continue;	// we only use idle (orbiting) fleets
+			if (fleet == null)
+				continue;
+			if (!fleet.isOrbiting() || !fleet.canSend())	// we only use idle (orbiting) fleets
+				continue;
+			if (colonyOnly && empire != fleet.system().empire())
+				continue;
 			subFleetList.add(fleet);
 		}
 		return subFleetList;
@@ -368,7 +397,8 @@ public class AIFleetCommander implements Base, FleetCommander {
 	private void autoSendShips(List<Integer> targets,
 							  SystemsSorter systemsSorter,
 							  SubFleetList subFleetList,
-							  ParamFleetAuto rules)	{
+							  ParamFleetAuto rules,
+							  float maxTravelTime)	{
 
 		if (subFleetList.isEmpty())
 			return;
@@ -383,17 +413,20 @@ public class AIFleetCommander implements Base, FleetCommander {
 					break;
 
 				if (subFleet != null) {
-					// System.out.println("Deploying ships from Fleet " + fleet + " " + fleet.system().name());
-					systemsSorter.sort(subFleet.fleet().sysId(), targets, subFleet.warpSpeed());
 					// don't send same fleet to multiple destinations by mistake
 					if (!subFleet.fleet().isOrbiting())
 						continue;
+					// System.out.println("Deploying ships from Fleet " + fleet + " " + fleet.system().name());
+					int warpSpeed = subFleet.warpSpeed();
+					systemsSorter.sort(subFleet.fleet().sysId(), targets, warpSpeed);
 
 					for (Iterator<Integer> iTarget = targets.iterator(); iTarget.hasNext(); ) {
 						int sysId = iTarget.next();
 						if (alreadyHasDesignsOrbiting(sysId, rules) || !rules.fitForSystem(subFleet, sysId))
 							continue;
-
+						float travelTime = subFleet.fleet().travelTimeTo(empire.sv.system(sysId), warpSpeed);
+						if (travelTime > maxTravelTime)
+							continue;
 						boolean deployed = false;
 						if (!subFleet.isExtendedRange() && empire.sv.inShipRange(sysId))
 							deployed = deploy(subFleet, sysId);	// deploy
@@ -426,6 +459,9 @@ public class AIFleetCommander implements Base, FleetCommander {
 					SubFleet subFleet = iFleet.next();
 					// if fleet was sent elsewhere during previous iteration, don't redirect it again
 					if (!rules.fitForSystem(subFleet, sysId))
+						continue;
+					float travelTime = subFleet.fleet().travelTimeTo(empire.sv.system(sysId), warpSpeed);
+					if (travelTime > maxTravelTime)
 						continue;
 
 					boolean deployed = false;

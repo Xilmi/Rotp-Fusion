@@ -5,6 +5,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Moved "French" selection to second position, as English and French are the only fully supported language of RotP-Fusion.
+- New option "Less zealous scouts" to prevent our auto sent scouts from constantly crossing our space from one end to the other, scouts already deployed will have a more limited range of action. Later, if a scout is closer to a star already targeted, it will also be directed towards this star in order to discover it as quickly as possible. (This last feature can be disabled independently)
 - New auto-scout option to tell armed scout to guard uncolonized planet.
 - Design Panel: Alt-Scroll on auto buttons to change the governor common auto-count value.
 - When an attacking fleet can not deal damage to a colony and also won't lose any ships, it will now still retreat as it would have to do so at the turn-limit anyways. (Xilmi)
@@ -19,18 +21,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - added help for new auto-send-fleet features.
 - Fixed Smooth Min/Man wrong allocation.
 - Moved to java 17
-- Added help on Right-Click-Rally.
-- Fixed WarpSpeed not showing the fastest option.
-- New option for auto-scout, auto-colonize and auto-Attack:
-  - Each design can be given its own number of sip to be sent.
-    - Scroll over the button to change the value.
-    - Middle click to assign the governor common value.
-    - Right click to toggle the governor automation.
-  - The "auto" states are displayed on the design slots.
-  - Option to select the number of design to send at once.
-- Fixed Bitmap Galaxy "Guide" text, that was too wide to be displayed.
-- Improved the appearance of Tech bubbles.
-- The "fine tuning" options are now available from the "original" governor panel.
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

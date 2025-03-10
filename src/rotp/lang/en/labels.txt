@@ -4427,7 +4427,7 @@ SHIP_DESIGN_HELP_4D               | Available ship design slots can be selected 
 SHIP_DESIGN_HELP_4E               | Copy - copy an existing design to serve as a starting point for a new design.
 SHIP_DESIGN_HELP_4F               | Clear - resets all of the selected components.<br>Ctrl-Clear to reset weapons only.
 SHIP_DESIGN_HELP_4G               | Deploy Design - when your new design is complete, deploying it allows you to name it and makes it available for construction.
-SHIP_DESIGN_HELP_AUTO			| <br>Scroll to set the number of ship for this design.<br>Mid-Click to bind to the Governor value.<br>Right-Click to toggle the governor global action.
+SHIP_DESIGN_HELP_AUTO			| <br>Scroll to set the number of ship for this design.<br>Alt-Scroll to set the Governor number of ship.<br>Mid-Click to bind to the Governor value.<br>Right-Click to toggle the governor global action.
 SHIP_DESIGN_HELP_4H				| Auto Scout - →GOVERNOR_AUTO_SCOUT_DESC← →SHIP_DESIGN_HELP_AUTO←
 SHIP_DESIGN_HELP_4I				| Auto Attack - →GOVERNOR_AUTO_ATTACK_DESC← →SHIP_DESIGN_HELP_AUTO←
 SHIP_DESIGN_HELP_4J				| Auto Colonize - →GOVERNOR_AUTO_COLONIZE_DESC← →SHIP_DESIGN_HELP_AUTO←
@@ -5385,6 +5385,13 @@ AUTO_ATTACK_ALL_HELP				| Let us send our ships to all the empires, the time of 
 
 GOVERNOR_ARMED_SCOUT_GUARD_DESC		| Armed scouts will guard uncolonized planets they discover.
 GOVERNOR_ARMED_SCOUT_GUARD			| Armed Scouts Guard: %1
+GOVERNOR_AUTO_SCOUT_SMART_HELP		| To prevent our scouts from constantly crossing our space from one end to the other, scouts already deployed will have a more limited range of action.<br>Those from colonies can still be deployed over long distances.<br>Later, if a scout is closer to a star already targeted, it will also be directed towards this star in order to discover it as quickly as possible.
+GOVERNOR_AUTO_SCOUT_SMART_DESC		| To prevent our scouts from constantly crossing our space from one end to the other, scouts already deployed will have a more limited range of action. Those from colonies can still be deployed over long distances. Later, if a scout is closer to a star already targeted, it will also be directed towards this star in order to discover it as quickly as possible.
+GOVERNOR_AUTO_SCOUT_SMART			| Less zealous scouts: %1
+GOVERNOR_AUTO_SCOUT_NEAR_FIRST_DESC	| Scouts will be deployed as a priority to the closest stars, even if they are already targeted by scouts from very distant origins. (Less zealous scouts only)
+GOVERNOR_AUTO_SCOUT_NEAR_FIRST		| Nearby planets first: %1
+GOVERNOR_AUTO_SCOUT_MAX_TIME_DESC	| To establish a maximum distance to the scouts already deployed, in order to prevent them from constantly crossing our space from one end to the other. (Less zealous scouts only)
+GOVERNOR_AUTO_SCOUT_MAX_TIME		| Max Flight Duration: %1
 
 HEADERS_GOVERNOR_TERRAFORM_DESC		| Triggers for planet terraforming.
 HEADERS_GOVERNOR_TERRAFORM			| ~~~ TERRAFORMING TRIGGERS ~~~

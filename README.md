@@ -81,6 +81,10 @@ Later:
 
 ## What's New
 
+2025.03.10 (BR)
+- Moved "French" selection to second position, as English and French are the only fully supported language of RotP-Fusion.
+- New option "Less zealous scouts" to prevent our auto sent scouts from constantly crossing our space from one end to the other, scouts already deployed will have a more limited range of action. Later, if a scout is closer to a star already targeted, it will also be directed towards this star in order to discover it as quickly as possible. (This last feature can be disabled independently)
+
 2025.03.08 (Xilmi)
 - When an attacking fleet can not deal damage to a colony and also won't lose any ships, it will now still retreat as it would have to do so at the turn-limit anyways.
 
@@ -95,6 +99,8 @@ Later:
   - Auto-Colonize = Specie's city
   - Alt-Scroll on auto buttons to change the governor common auto-count value.
 - New auto-scout option to tell armed scout to guard uncolonized planet.
+- Finer Auto-Scout Eye rendering.
+- Completed help for new Alt-Scroll in Design UI
 
 2025.03.06 (BR)
 - added Help for new auto fleet sending features.

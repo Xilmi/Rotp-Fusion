@@ -17,6 +17,10 @@ final class AutoSendFleetOption extends AbstractOptionsSubUI {
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("GOVERNOR_AUTO_SCOUT"),
 				fleetAutoScoutMode,
+				autoScoutSmart,
+				autoScoutNearFirst,
+				autoScoutMaxTime,
+				LINE_SPACER_25,
 				armedScoutGuard
 				)));
 		map.add(new SafeListParam(Arrays.asList(
@@ -44,6 +48,9 @@ final class AutoSendFleetOption extends AbstractOptionsSubUI {
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
 						fleetAutoScoutMode,
+						autoScoutSmart,
+						autoScoutNearFirst,
+						autoScoutMaxTime,
 						armedScoutGuard,
 						LINE_SPACER_25,
 						fleetAutoColonizeMode,

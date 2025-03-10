@@ -398,7 +398,7 @@ public class CustomIcons implements Base {
 		return img;
 	}
 	private BufferedImage eyeImage(int width, int height, Color lineCol, boolean fillIris) {
-		int strokeW	= width/12;
+		int strokeW	= fillIris? width/24 : width/12;
 		int xCtr = width/2 -1;
 		int yCtr = height/2 -1;
 		width	 = (xCtr+1)*2 + 1;

@@ -26,15 +26,7 @@ final class ShipDesignOption extends AbstractOptionsSubUI {
 				shipDesignCostMultSmall,
 				shipDesignCostMultMedium,
 				shipDesignCostMultLarge,
-				shipDesignCostMultHuge,
-
-				HEADER_SPACER_100,
-				new ParamTitle(AUTO_SHIP_DESIGN + "PREF"),
-				autoShipDesignBoolean,
-				LINE_SPACER_25,
-				shipDesignSpeedMatching,
-				shipDesignReinforcedArmor,
-				shipDesignBioWeapon
+				shipDesignCostMultHuge
 				)));
 		map.add(list);
 
@@ -51,7 +43,15 @@ final class ShipDesignOption extends AbstractOptionsSubUI {
 				shipDesignManeuverFighter,
 				shipDesignArmorFightBomb,
 				shipDesignArmorDestroyer,
-				shipDesignSpecialWeight
+				shipDesignSpecialWeight,
+
+				HEADER_SPACER_100,
+				new ParamTitle(AUTO_SHIP_DESIGN + "PREF"),
+				autoShipDesignBoolean,
+				LINE_SPACER_25,
+				shipDesignSpeedMatching,
+				shipDesignReinforcedArmor,
+				shipDesignBioWeapon
 				)));
 
 		map.add(new SafeListParam(Arrays.asList(

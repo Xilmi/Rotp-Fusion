@@ -4427,7 +4427,7 @@ SHIP_DESIGN_HELP_4D               | Les emplacements de conception de vaisseau d
 SHIP_DESIGN_HELP_4E               | Copier - Copier une conception existante pour servir de point de départ à une nouvelle conception.
 SHIP_DESIGN_HELP_4F               | Effacer - Réinitialise tous les composants sélectionnés.
 SHIP_DESIGN_HELP_4G               | Déployer conception - Lorsque votre nouvelle conception est terminée, son déploiement vous permet de la nommer et de la rendre disponible pour la construction.
-SHIP_DESIGN_HELP_AUTO			| <br>« Défiler » pour changer le nombre de vaisseaux de ce modèle.<br>« Clic-Milieu » pour lier à la valeur du gouverneur.<br>« Clic-Droit » pour basculer l’action du gouverneur.
+SHIP_DESIGN_HELP_AUTO			| <br>« Défiler (Alt) » pour changer le nombre de vaisseaux de ce modèle (Valeur commune du Gouverneur).<br>« Clic-Milieu » pour lier à la valeur du gouverneur.<br>« Clic-Droit » pour basculer l’action du gouverneur.
 SHIP_DESIGN_HELP_4H				| Exploration auto. - →GOVERNOR_AUTO_SCOUT_DESC← →SHIP_DESIGN_HELP_AUTO←
 SHIP_DESIGN_HELP_4I				| Attaque auto. - →GOVERNOR_AUTO_ATTACK_DESC← →SHIP_DESIGN_HELP_AUTO←
 SHIP_DESIGN_HELP_4J				| Colonisation auto. - →GOVERNOR_AUTO_COLONIZE_DESC← →SHIP_DESIGN_HELP_AUTO←
@@ -5381,10 +5381,17 @@ AUTO_ATTACK_HOSTILE_HELP			| Nous laissons tranquilles les empires avec lesquels
 AUTO_ATTACK_NO_ENTENTE				| Sans Traités
 AUTO_ATTACK_NO_ENTENTE_HELP			| Tous les empires avec lesquels nous n’avons pas signé de traités.
 AUTO_ATTACK_ALL						| Tous
-AUTO_ATTACK_ALL_HELP				| Envoyons nos vaisseaux vers tous les empires, le temps de la guerre n'est plus si lointain.
+AUTO_ATTACK_ALL_HELP				| Envoyons nos vaisseaux vers tous les empires, le temps de la guerre n’est plus si lointain.
 
-GOVERNOR_ARMED_SCOUT_GUARD_DESC		| Les éclaireurs armés garderont les planètes non colonisées qu'ils ont découvertes.
+GOVERNOR_ARMED_SCOUT_GUARD_DESC		| Les éclaireurs armés garderont les planètes non colonisées qu’ils ont découvertes.
 GOVERNOR_ARMED_SCOUT_GUARD			| Les éclaireurs armés guardent : %1
+GOVERNOR_AUTO_SCOUT_SMART_HELP		| Pour éviter que nos éclaireurs ne traversent sans cesse notre espace d’un bout à l’autre, les éclaireurs déjà déployés auront un rayon d’action plus limité.<br>Ceux des colonies pourront toujours être déployés sur de longues distances.<br>Plus tard, si un éclaireur est plus proche d’une étoile déjà ciblée, il sera également dirigé vers cette étoile afin de la découvrir au plus vite.
+GOVERNOR_AUTO_SCOUT_SMART_DESC		| Pour éviter que nos éclaireurs ne traversent sans cesse notre espace d’un bout à l’autre, les éclaireurs déjà déployés auront un rayon d’action plus limité. Ceux des colonies pourront toujours être déployés sur de longues distances. Plus tard, si un éclaireur est plus proche d’une étoile déjà ciblée, il sera également dirigé vers cette étoile afin de la découvrir au plus vite.
+GOVERNOR_AUTO_SCOUT_SMART			| Éclaireurs moins zèlés : %1
+GOVERNOR_AUTO_SCOUT_NEAR_FIRST_DESC	| Les éclaireurs seront déployés en priorité vers les étoiles les plus proches, même si elles sont déjà ciblées par des éclaireurs d’origines très lointaines. (Seulement avec l’option : Éclaireurs moins zèlés)
+GOVERNOR_AUTO_SCOUT_NEAR_FIRST		| Les planètes proches d’abord : %1
+GOVERNOR_AUTO_SCOUT_MAX_TIME_DESC	| Pour établir une distance maximale aux éclaireurs déjà déployés, afin d’éviter qu’ils ne traversent en constamment notre espace d’un bout à l’autre. (Seulement avec l’option : Éclaireurs moins zèlés)
+GOVERNOR_AUTO_SCOUT_MAX_TIME		| Durée de vol maximal : %1
 
 HEADERS_GOVERNOR_TERRAFORM_DESC		| Déclencheurs de la terraformation de la planète.
 HEADERS_GOVERNOR_TERRAFORM			| ~~~ DÉCLENCHEURS DE TERRAFORMATION ~~~
@@ -5398,11 +5405,11 @@ HEADERS_GOVERNOR_AUTO_SEND_DESC		| Paramètres d’envoi automatisé des flottes
 HEADERS_GOVERNOR_AUTO_SEND			| ~~~ AUTOMATION DES FLOTTES ~~~
 HEADERS_GOVERNOR_TARGET_DESC		| Comment choisir les cibles pour nos flottes.
 HEADERS_GOVERNOR_TARGET				| ~~~ SÉLECTION DES CIBLES ~~~
-HEADERS_GOVERNOR_AUTO_SCOUT_DESC	| Paramètres d'envois automatisés des vaisseaux éclaireurs.
+HEADERS_GOVERNOR_AUTO_SCOUT_DESC	| Paramètres d’envois automatisés des vaisseaux éclaireurs.
 HEADERS_GOVERNOR_AUTO_SCOUT			| ~~~ ÉCLAIREURS AUTOMATISÉS ~~~
-HEADERS_GOVERNOR_AUTO_ATTACK_DESC	| Paramètres d'envois automatisés des vaisseaux de guerre.
+HEADERS_GOVERNOR_AUTO_ATTACK_DESC	| Paramètres d’envois automatisés des vaisseaux de guerre.
 HEADERS_GOVERNOR_AUTO_ATTACK		| ~~~ ATTAQUES AUTOMATISÉES ~~~
-HEADERS_GOVERNOR_AUTO_COLONIZE_DESC	| Paramètres d'envois automatisés des vaisseaux de colons.
+HEADERS_GOVERNOR_AUTO_COLONIZE_DESC	| Paramètres d’envois automatisés des vaisseaux de colons.
 HEADERS_GOVERNOR_AUTO_COLONIZE		| ~~~ COLONISATION AUTOMATISÉE ~~~
 
 SETTINGS_MOD_AUTO_SEND_FLEET_TITLE		| Envoi automatisé des flottes
