@@ -794,9 +794,16 @@ public class AIScientist implements Base, Scientist {
     public float baseValue(TechControlEnvironment t) {
         if (empire.ignoresPlanetEnvironment())
             return 0;
-        List<StarSystem> possible = empire.uncolonizedPlanetsInRange(empire.scoutRange());
-        List<StarSystem> newPossible = empire.uncolonizedPlanetsInExtendedShipRange(t.environment());
-        float newPlanets = newPossible.size() - possible.size();
+        float range = empire.shipRange();
+        if(empire.shipDesignerAI().BestDesignToColonize() != null)
+            range = empire.shipDesignerAI().BestDesignToColonize().range();
+        List<StarSystem> possible = empire.uncolonizedPlanetsInRange(range);
+        List<StarSystem> newPossible;
+        if(range > empire.shipRange())
+            newPossible = empire.uncolonizedPlanetsInExtendedShipRange(t.environment());
+        else 
+            newPossible = empire.uncolonizedPlanetsInShipRange(t.environment());
+        int newPlanets = newPossible.size() - possible.size();
         if (newPlanets < 1)
             return 1;
         float val = 3;
@@ -839,6 +846,8 @@ public class AIScientist implements Base, Scientist {
         if (newPlanets > 0 && empire.fleetCommanderAI().inExpansionMode())
         {
             val += 1;
+            if(possible.isEmpty())
+                val += 1;
         }
         return val;
     }
