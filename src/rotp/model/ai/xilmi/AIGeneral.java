@@ -1219,6 +1219,8 @@ public class AIGeneral implements Base, General {
                     return 1;
             }
         }
+        if(empire.diplomatAI().getVariant() == 1 && empire.leader().isExpansionist())
+            return 1;
         float myProduction = empire.totalPlanetaryProduction();
         float myDistance = colonyCenter(empire).distanceTo(sys);
         float myScore = myProduction / myDistance;
