@@ -266,20 +266,6 @@ public class AIGeneral implements Base, General {
         // if out of ship range, ignore
         if (!empire.sv.inShipRange(sysId))
             return;
-
-        if(needScoutRepellers(false) && (sys.empire() == empire || !empire.sv.isColonized(sysId)) && !sys.hasMonster() && !sys.enemyShipsInOrbit(empire))
-        {
-            //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" making repel-plan for "+sys.name());
-            if(empire.shipDesignerAI().BestDesignToRepell() != null)
-            {
-                FleetPlan fp = empire.sv.fleetPlan(sys.id);
-                fp.priority = 1100;
-                if(empire.sv.isBorderSystem(sysId))
-                    fp.priority += 50;
-                //System.out.print("\n"+galaxy().currentTurn()+" "+sys.name()+" wants: "+empire.shipDesignerAI().BestDesignToRepell().name());
-                fp.addShips(empire.shipDesignerAI().BestDesignToRepell(), 1);
-            }
-        }
         
         // for uncolonized systems
         if (!empire.sv.isColonized(sysId)) {
