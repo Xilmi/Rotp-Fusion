@@ -1297,15 +1297,15 @@ STASIS_0_INFO      | It is best to avoid freezing ships targeted by your missile
 // Stream Weapon techs
 //
 STREAMWPN_NAME    | Stream Projectors
-STREAMWPN_DETAIL  | Ion and Neutron Stream Projectors Special weapons hit every target in the defending group, bypassing target shields.
+STREAMWPN_DETAIL  | Ion and Neutron Stream Projectors Special weapons hit every target in the defending group, bypassing target shields. They have a maximum range of two squares.
 
 STREAMWPN_0_NAME    | Ion Stream Projector
 STREAMWPN_0_BRIEF   | Reduces enemy armor by 20%
-STREAMWPN_0_DETAIL  | Fires an intense ionic blast, reducing the armor of every target in the opponent's group by 20% plus 1% per 2 firing ships, up to a maximum of 50% of its starting hit points per attack.
+STREAMWPN_0_DETAIL  | Fires an intense ionic blast, reducing the armor of every target in the opponent's group by 20% plus 1% per 2 firing ships, up to a maximum of 50% of its starting hit points per attack. They have a maximum range of two squares.
 
 STREAMWPN_1_NAME    | Neutron Stream Projector
 STREAMWPN_1_BRIEF   | Reduces enemy armor by 40%
-STREAMWPN_1_DETAIL  | Fires a blast of concentrated neutrinos, reducing the armor of every target in the opposing group by 40% plus 1% per firing ship, up to a maximum of 75% of its hit points per attack.
+STREAMWPN_1_DETAIL  | Fires a blast of concentrated neutrinos, reducing the armor of every target in the opposing group by 40% plus 1% per firing ship, up to a maximum of 75% of its hit points per attack. They have a maximum range of two squares.
 
 
 //

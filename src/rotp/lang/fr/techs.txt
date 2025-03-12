@@ -1297,15 +1297,15 @@ STASIS_0_INFO      | Il est préférable d'éviter de geler les navires ciblés 
 // Stream Weapon techs
 //
 STREAMWPN_NAME      | Technologies Projecteur de flux
-STREAMWPN_DETAIL    | Les armes spéciales projecterices de flux ionique et de neutrons touchent toutes les vaisseaux du groupe de ciblé, contournant leurs boucliers.
+STREAMWPN_DETAIL    | Les armes spéciales projecterices de flux ionique et de neutrons touchent toutes les vaisseaux du groupe de ciblé, contournant leurs boucliers. Elles ont une portée maximale de deux cases.
 
 STREAMWPN_0_NAME    | Projecteur de flux ionique
 STREAMWPN_0_BRIEF   | Réduit l'armure ennemie de 20%
-STREAMWPN_0_DETAIL  | Tire une explosion ionique intense, réduisant l'armure de chaque cible du groupe adverse de 20 % plus 1 % pour 2 vaisseaux qui tirent, jusqu'à un maximum de 50 % de ses points de vie de départ par attaque.
+STREAMWPN_0_DETAIL  | Tire une explosion ionique intense, réduisant l'armure de chaque cible du groupe adverse de 20 % plus 1 % pour 2 vaisseaux qui tirent, jusqu'à un maximum de 50 % de ses points de vie de départ par attaque. Ils ont une portée maximale de deux cases.
 
 STREAMWPN_1_NAME    | Projecteur de flux de neutrons
 STREAMWPN_1_BRIEF   | Réduit l'armure ennemie de 40%
-STREAMWPN_1_DETAIL  | Tire une explosion de neutrinos concentrés, réduisant l'armure de chaque cible du groupe adverse de 40 % plus 1 % par vaisseau qui tire, jusqu'à un maximum de 75 % de ses points de vie par attaque.
+STREAMWPN_1_DETAIL  | Tire une explosion de neutrinos concentrés, réduisant l'armure de chaque cible du groupe adverse de 40 % plus 1 % par vaisseau qui tire, jusqu'à un maximum de 75 % de ses points de vie par attaque. Ils ont une portée maximale de deux cases.
 
 
 //
