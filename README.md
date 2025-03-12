@@ -51,10 +51,13 @@ Very soon:
   - Jack-trades maybe Traders or Jackals
   - New Star System names
   - New pictures
-- is there any way of setting up alliances before the game, so you could e.g. have two teams of three ?
+- Is there any way of setting up alliances before the game, so you could e.g. have two teams of three ?
   - Starting alliances (free for the ai to dismiss)
   - Starting factions (Stronger than alliance, but breakable at very low diplomacy level)
   - Immuable faction (Like final war)
+  -
+  - Peaceful mode
+- Search tools for options.
 
 Later:
 - Some Achievements options.
@@ -80,6 +83,15 @@ Later:
 
 
 ## What's New
+
+2025.03.11 (Xilmi)
+- Expansion-phase-research-tweeks
+  - AI will no longer commit to getting improved environment-techs for systems that are outside of their range.
+  - AI will now favor range-techs over engine-techs if they are in the expansion-phase and the range tech is the only way for them to obtain more planets.
+- Expansionsts more expansionistic for Character-AI:
+  - AIs with the "Expansionist" personality-trait will assume they can get all the uncolonized planets they know about instead of making assumptions about opponents getting some of them too. So they rather risk overbuilding on colonizers instead of putting their resources elsewhere.
+- Scout repelling (Xilmi)
+  - Fixed an issue causing the AI not having built Fighters to repel enemy scouts anymore in the early-game for the last 9 months.
 
 2025.03.10 (BR)
 - Moved "French" selection to second position, as English and French are the only fully supported language of RotP-Fusion.

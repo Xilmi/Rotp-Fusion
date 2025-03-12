@@ -5,21 +5,16 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Scout repelling (Xilmi)
+  - Fixed an issue causing the AI not having built Fighters to repel enemy scouts anymore in the early-game for the last 9 months.
+- Expansionsts more expansionistic for Character-AI: (Xilmi)
+  - AIs with the "Expansionist" personality-trait will assume they can get all the uncolonized planets they know about instead of making assumptions about opponents getting some of them too. So they rather risk overbuilding on colonizers instead of putting their resources elsewhere.
+- Expansion-phase-research-tweeks (Xilmi)
+  - AI will no longer commit to getting improved environment-techs for systems that are outside of their range.
+  - AI will now favor range-techs over engine-techs if they are in the expansion-phase and the range tech is the only way for them to obtain more planets.
 - Moved "French" selection to second position, as English and French are the only fully supported language of RotP-Fusion.
 - New option "Less zealous scouts" to prevent our auto sent scouts from constantly crossing our space from one end to the other, scouts already deployed will have a more limited range of action. Later, if a scout is closer to a star already targeted, it will also be directed towards this star in order to discover it as quickly as possible. (This last feature can be disabled independently)
-- New auto-scout option to tell armed scout to guard uncolonized planet.
-- Design Panel: Alt-Scroll on auto buttons to change the governor common auto-count value.
-- When an attacking fleet can not deal damage to a colony and also won't lose any ships, it will now still retreat as it would have to do so at the turn-limit anyways. (Xilmi)
-- Fixed a crash when the transport button was drawn for a non existing colony.
-- Restored former look of tech bubble.
-- Fixed armed auto scout protecting planet instead of scouting.
-- New auto-attack option to select relation level of target empires.
-- Design UI: changed some text by icons:
-  - Auto-scout = Eye
-  - Auto-Attack = Target
-  - Auto-Colonize = Specie's city
-- added help for new auto-send-fleet features.
-- Fixed Smooth Min/Man wrong allocation.
+
 - Moved to java 17
 
 
