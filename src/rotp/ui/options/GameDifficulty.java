@@ -33,8 +33,7 @@ final class GameDifficulty extends AbstractOptionsSubUI {
 						IGalaxyOptions.getDifficultySelection(),
 						customDifficulty,
 						dynamicDifficulty,
-						challengeMode,
-						darkGalaxy
+						challengeMode
 						));
 		return majorList;
 	}

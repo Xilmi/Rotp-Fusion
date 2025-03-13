@@ -84,6 +84,9 @@ Later:
 
 ## What's New
 
+2025.03.12 (BR)
+- Moved Dark galaxy option to "Galaxy Rules"
+
 2025.03.11 (Xilmi)
 - Expansion-phase-research-tweeks
   - AI will no longer commit to getting improved environment-techs for systems that are outside of their range.

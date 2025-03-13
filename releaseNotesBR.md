@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Moved Dark galaxy option to "Galaxy Rules"
 - Scout repelling (Xilmi)
   - Fixed an issue causing the AI not having built Fighters to repel enemy scouts anymore in the early-game for the last 9 months.
 - Expansionsts more expansionistic for Character-AI: (Xilmi)

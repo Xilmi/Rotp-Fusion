@@ -24,6 +24,7 @@ final class GalaxyRules extends AbstractOptionsSubUI {
 				new ParamTitle("SPACE_RULES"),
 				warpSpeed,
 				fuelRange,
+				darkGalaxy,
 
 				LINE_SPACER_25,
 				realNebulaSize,
@@ -42,6 +43,7 @@ final class GalaxyRules extends AbstractOptionsSubUI {
 	@Override public SafeListParam majorList()	{
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
+						darkGalaxy,
 						warpSpeed,
 						fuelRange,
 						realNebulaSize,
