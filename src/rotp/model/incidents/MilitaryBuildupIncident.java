@@ -28,7 +28,7 @@ public class MilitaryBuildupIncident extends DiplomaticIncident {
     public MilitaryBuildupIncident(EmpireView ev, StarSystem sys, float sev) {
         sysId = sys.id;
         empMe = ev.owner().id;
-        empYou = ev.empire().id;
+        empYou = ev.empId();
         dateOccurred = galaxy().currentYear();
         duration = 3;
         severity = max(-10, sev);

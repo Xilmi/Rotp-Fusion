@@ -377,7 +377,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
         
         for(EmpireView ev : empire().contacts())
         {
-            for(ShipDesign enemyDesign : ev.empire().shipLab().designs())
+            for(ShipDesign enemyDesign : ev.designsUncut())
             {
                 if(enemyDesign.scrapped())
                 {

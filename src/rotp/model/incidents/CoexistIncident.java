@@ -30,7 +30,7 @@ public class CoexistIncident extends DiplomaticIncident {
     public boolean triggeredByAction()   { return false; }
     private CoexistIncident(EmpireView ev) {
         iev = ev;
-        empYou = iev.empire().id;
+        empYou = iev.empId();
         empMe = iev.ownerId();
         severity = 0;
     }

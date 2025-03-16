@@ -40,10 +40,10 @@ public class SabotageRebellionIncident extends DiplomaticIncident {
     }
     private SabotageRebellionIncident(EmpireView ev, SabotageMission m) {
         dateOccurred = galaxy().currentYear();
-        duration = ev.empire().leader().isXenophobic()? 20 : 10;
+        duration = ev.leader().isXenophobic()? 20 : 10;
 
         empVictim = ev.owner().id;
-        empSpy = ev.empire().id;
+        empSpy = ev.empId();
         sysId = m.starSystem().id;
         incited = m.rebelsIncited();
         severity = max(-25,(-2*incited)+ev.embassy().currentSpyIncidentSeverity());

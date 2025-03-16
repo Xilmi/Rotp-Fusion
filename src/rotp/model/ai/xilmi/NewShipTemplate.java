@@ -225,7 +225,7 @@ public class NewShipTemplate extends ShipTemplate {
                 antiDote = ev.spies().tech().antidoteLevel();
             if(ev.spies().tech().bestMissileBase().scatterPack() != null || ev.spies().tech().topPlanetaryShieldTech() != null)
                needDefenses = true; 
-            for(ShipDesign enemyDesign : ev.empire().shipLab().designs())
+            for(ShipDesign enemyDesign : ev.designsUncut())
             {
                 if(enemyDesign.scrapped())
                 {
@@ -263,7 +263,7 @@ public class NewShipTemplate extends ShipTemplate {
                 }
                 if(enemyDesign.combatSpeed() > topSpeed)
                     topSpeed = enemyDesign.combatSpeed();
-                float count = ev.empire().shipDesignCount(enemyDesign.id());
+                float count = ev.shipDesignCount(enemyDesign.id());
                 avgECM += enemyDesign.ecm().level() * enemyDesign.cost() * count;
                 avgHP += enemyDesign.hits() * enemyDesign.cost() * count;
                 if(enemyDesign.shieldLevel() > bestSHD)
@@ -272,9 +272,11 @@ public class NewShipTemplate extends ShipTemplate {
                     longRangePct += enemyDesign.cost() * count;
                 totalCost += enemyDesign.cost() * count;
             }
-            if(ev.empire().shipMaintCostPerBC()+ev.empire().missileBaseCostPerBC() > 0)
+			float missileBaseCostPerBC = ev.missileBaseCostPerBC();
+			float shipMaintCostPerBC = ev.shipMaintCostPerBC();
+            if(shipMaintCostPerBC+missileBaseCostPerBC > 0)
             {
-                enemyMissilePercentage = max((enemyMissilePercentage * ev.empire().shipMaintCostPerBC() + ev.empire().missileBaseCostPerBC()) / (ev.empire().shipMaintCostPerBC() + ev.empire().missileBaseCostPerBC()), enemyMissilePercentage);
+                enemyMissilePercentage = max((enemyMissilePercentage * shipMaintCostPerBC + missileBaseCostPerBC) / (shipMaintCostPerBC + missileBaseCostPerBC), enemyMissilePercentage);
             }
         }
         //if opponent has repulsors we can't fire missiles point blank so they must be faster to compensate

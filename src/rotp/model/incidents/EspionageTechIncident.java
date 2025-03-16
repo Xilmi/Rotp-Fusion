@@ -44,7 +44,7 @@ public class EspionageTechIncident extends DiplomaticIncident {
         if (ev.owner().diplomatAI().setSeverityAndDuration(this, ev.embassy().currentSpyIncidentSeverity()))
             return;
         severity = max(-20,-10+ev.embassy().currentSpyIncidentSeverity());
-        duration = ev.empire().leader().isTechnologist()? 20 : 10;
+        duration = ev.leader().isTechnologist()? 20 : 10;
     }
     @Override
     public boolean isSpying()         { return true; }

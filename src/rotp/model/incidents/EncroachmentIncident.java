@@ -25,12 +25,12 @@ public class EncroachmentIncident extends DiplomaticIncident {
     final int empYou;
     final int sysId;
     public static void create(EmpireView ev, StarSystem sys, float sev) {
-        ev.owner().diplomatAI().noticeIncident(new EncroachmentIncident(ev,sys,sev), ev.empire());
+        ev.owner().diplomatAI().noticeIncident(new EncroachmentIncident(ev,sys,sev), ev.empireUncut());
     }
     public int sysId()                  { return sysId; }
     private EncroachmentIncident(EmpireView ev, StarSystem sys, float sev) {
         empMe = ev.owner().id;
-        empYou = ev.empire().id;
+        empYou = ev.empId();
         sysId = sys.id;
         dateOccurred = galaxy().currentYear();
         severity = max(-10, sev);

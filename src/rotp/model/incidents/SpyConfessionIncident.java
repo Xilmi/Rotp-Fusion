@@ -30,7 +30,7 @@ public class SpyConfessionIncident extends DiplomaticIncident {
     public SpyConfessionIncident(EmpireView ev, SpyNetwork spies) {
         remainingSpies = spies.numActiveSpies();
         empVictim = ev.owner().id;
-        empSpy = ev.empire().id;
+        empSpy = ev.empId();
         
         if (spies.isEspionage()) {
             mission = text("NOTICE_SPYING_MISSION_ESPIONAGE");

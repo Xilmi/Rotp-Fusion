@@ -31,13 +31,13 @@ public class CouncilVoteIncident extends DiplomaticIncident {
 
     public static void create(EmpireView ev, Empire votee, Empire rival) {
         // don't care if he voted for himself
-        if ((ev == null) || (ev.empire() == votee))
+        if ((ev == null) || (ev.is(votee)))
             return;
-        ev.owner().diplomatAI().noticeIncident(new CouncilVoteIncident(ev, votee, rival), ev.empire());
+        ev.owner().diplomatAI().noticeIncident(new CouncilVoteIncident(ev, votee, rival), ev.empireUncut());
     }
     private CouncilVoteIncident(EmpireView ev, Empire votee, Empire rival) {
         empVotee = votee == null ? Empire.NULL_ID : votee.id;
-        empVoter = ev.empire().id;
+        empVoter = ev.empId();
         empCandidate = ev.owner().id;
         empRival = rival.id;
         severity = calculateSeverity();

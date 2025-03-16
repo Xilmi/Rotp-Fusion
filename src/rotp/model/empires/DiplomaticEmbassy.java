@@ -103,7 +103,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
     private boolean threatened = false;
     private boolean muted = false;
 
-    public Empire empire()                               { return view.empire(); }
+    public Empire empire()                               { return view.empireUncut(); }
     public Empire owner()                                { return view.owner(); }
     public float treatyDate()                            { return treatyDate; }
     public DiplomaticTreaty treaty()                     { return treaty; }
@@ -179,7 +179,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
         setNoTreaty();
     }
     public final void setNoTreaty() {
-        treaty = new TreatyNone(view.owner(), view.empire());
+        treaty = new TreatyNone(view.ownerId(), view.empId());
     }
     public float currentSpyIncidentSeverity() {
         float sev = 0;
@@ -458,7 +458,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
         otherEmbassy().beginFinalWar();
     }
     public void beginFinalWar() {
-        treaty = new TreatyFinalWar(view.owner(), view.empire());
+        treaty = new TreatyFinalWar(view.ownerId(), view.empId());
         view.trade().stopRoute();
         if (empire().isPlayerControlled())
             galaxy().giveAdvice("MAIN_ADVISOR_RALLY_POINTS");
@@ -493,7 +493,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
 
         // if we're not at war yet, start it and inform player if he is involved
         if (!anyWar()) {
-            setTreaty(new TreatyWar(view.owner(), view.empire()));
+            setTreaty(new TreatyWar(view.ownerId(), view.empId()));
             if (view.isPlayerControlled()) {
                 if ((casusBelli == null) || casusBelli.isEmpty())
                     DiplomaticNotification.createAndNotify(view, DialogueManager.DECLARE_HATE_WAR);
@@ -594,7 +594,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
         endWarPreparations();
         owner().hideSpiesAgainst(empire().id);
         empire().hideSpiesAgainst(owner().id);
-        setTreaty(new TreatyPact(view.owner(), view.empire()));
+        setTreaty(new TreatyPact(view.ownerId(), view.empId()));
         DiplomaticIncident inc = SignPactIncident.create(owner(), empire());
         addIncident(inc);
         otherEmbassy().addIncident(SignPactIncident.create(empire(), owner()));
@@ -609,7 +609,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
     public DiplomaticIncident breakPact() { return breakPact(false); }
     public DiplomaticIncident breakPact(boolean caughtSpying) {
         endTreaty();
-        setTreaty(new TreatyNone(view.owner(), view.empire()));
+        setTreaty(new TreatyNone(view.ownerId(), view.empId()));
         DiplomaticIncident inc = BreakPactIncident.create(owner(), empire(), caughtSpying);
         otherEmbassy().addIncident(inc);
         OathBreakerIncident.alertBrokenPact(owner(),empire(), caughtSpying);
@@ -620,7 +620,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
         endWarPreparations();
         //BR: In case of accepting alliance after accepting a war!? (On the same turn)
         empire().viewForEmpire(owner()).embassy().endWarPreparations();
-        setTreaty(new TreatyAlliance(view.owner(), view.empire()));
+        setTreaty(new TreatyAlliance(view.ownerId(), view.empId()));
         owner().setRecalcDistances();
         empire().setRecalcDistances();
         owner().shareSystemInfoWithAlly(empire());
@@ -640,7 +640,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
     public DiplomaticIncident breakAlliance() { return breakAlliance(false); }
     public DiplomaticIncident breakAlliance(boolean caughtSpying) {
         endTreaty();
-        setTreaty(new TreatyNone(view.owner(), view.empire()));
+        setTreaty(new TreatyNone(view.ownerId(), view.empId()));
         DiplomaticIncident inc = BreakAllianceIncident.create(owner(), empire(), caughtSpying);
         otherEmbassy().addIncident(inc);
         GNNAllianceBrokenNotice.create(owner(), empire());
@@ -668,7 +668,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
         setContact();
         otherEmbassy().setContact();
         endWarPreparations();
-        setTreaty(new TreatyUnity(view.owner(), view.empire()));
+        setTreaty(new TreatyUnity(view.ownerId(), view.empId()));
         owner().setRecalcDistances();
         empire().setRecalcDistances();
         owner().joinGalacticAlliance();
@@ -716,7 +716,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
         if (otherEmbassy().contact)
             otherEmbassy().removeContact();
     }
-    public void resetTreaty()   { setTreaty(new TreatyNone(view.owner(), view.empire())); }
+    public void resetTreaty()   { setTreaty(new TreatyNone(view.ownerId(), view.empId())); }
     public void addIncident(DiplomaticIncident inc) {
         // add new incidents to current list
         // hash by incident key to filter out overlapping events
@@ -813,7 +813,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
         empire().setRecalcDistances();
     }
     private void beginPeace(int duration) {
-        treaty = new TreatyPeace(view.empire(), view.owner(), duration);
+        treaty = new TreatyPeace(view.ownerId(), view.empId(), duration);
         view.setSuggestedAllocations();
     }
     public void validateOnLoad() { treaty.validateOnLoad(); } // For backward compatibility

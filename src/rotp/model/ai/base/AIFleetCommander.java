@@ -18,11 +18,12 @@ package rotp.model.ai.base;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import rotp.model.ai.interfaces.FleetCommander;
+
 import rotp.model.ai.FleetOrders;
 import rotp.model.ai.FleetPlan;
 import rotp.model.ai.ShipDecision;
 import rotp.model.ai.ShipPlan;
+import rotp.model.ai.interfaces.FleetCommander;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.Galaxy;
@@ -351,7 +352,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             boolean needEscort = false;
             for (EmpireView ev: empire.enemyViews()) {
                 float range = ev.spies().tech().shipRange();
-                if (ev.empire().sv.withinRange(id, range))
+                if (ev.withinRange(id, range))
                     needEscort = true;
             }
             log(empire.sv.name(id), ": setting Colony Plan: ", str(plan.priority), "  staged at:", str(plan.stagingPointId));

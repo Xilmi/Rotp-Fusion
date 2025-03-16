@@ -102,11 +102,11 @@ public class AI implements Base {
 	            general =        new rotp.model.ai.xilmi.AIGeneral(empire);
 	            captain =        new rotp.model.ai.xilmi.AIShipCaptain(empire);
 	            governor =       new rotp.model.ai.xilmi.AIGovernor(empire);
-	            diplomat =       new rotp.model.ai.xilmi.AIDiplomat(empire);
+	            diplomat =       new rotp.model.ai.fusion.AIDiplomat(empire);
 	            shipDesigner =   new rotp.model.ai.xilmi.AIShipDesigner(empire);
 	            scientist =      new rotp.model.ai.xilmi.AIScientist(empire);
-                    fleetCommander = new rotp.model.ai.governor.AIFleetCommander(empire);
-	            spyMaster =      new rotp.model.ai.xilmi.AISpyMaster(empire);
+	            fleetCommander = new rotp.model.ai.governor.AIFleetCommander(empire);
+	            spyMaster =      new rotp.model.ai.governor.AISpyMaster(empire);
 	            treasurer =      new rotp.model.ai.xilmi.AITreasurer(empire);
 	            break;
             case BASE: // BR: Tentative
@@ -219,7 +219,7 @@ public class AI implements Base {
     // uncategorized
     public List<StarSystem> bestSystemsForInvasion(EmpireView v) {
         // invoked when going to war
-        List<StarSystem> systems = empire.systemsInShipRange(v.empire());
+        List<StarSystem> systems = empire.systemsInShipRange(v);
         Collections.sort(systems,StarSystem.INVASION_PRIORITY);
         return systems;
     }

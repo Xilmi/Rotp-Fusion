@@ -16,6 +16,7 @@
 package rotp.model.empires;
 
 import java.io.Serializable;
+
 import rotp.model.incidents.TradeIncomeIncident;
 import rotp.ui.notifications.TradeTreatyMaturedAlert;
 import rotp.util.Base;
@@ -36,7 +37,7 @@ public class TradeRoute implements Base, Serializable {
     public boolean atFullLevel()     { return profit >= maxProfit(); }
     public TradeRoute (EmpireView v) {
         emp1 = v.owner().id;
-        emp2 = v.empire().id;
+        emp2 = v.empId();
     }
     private EmpireView view()        { return galaxy().empire(emp1).viewForEmpire(emp2); }
     private EmpireView otherView()   { return galaxy().empire(emp2).viewForEmpire(emp1); }
@@ -46,9 +47,9 @@ public class TradeRoute implements Base, Serializable {
             stopRoute();
             return;
         }
-        float relationBonus = max(view.owner().diplomacyBonus(), view.empire().diplomacyBonus());
+        float relationBonus = max(view.owner().diplomacyBonus(), view.diplomacyBonus());
         float pct = (roll(1,200) + relationBonus + 25) / 6000.0f;
-        civProd = view.empire().totalPlanetaryProduction();
+        civProd = view.totalPlanetaryProductionUncut();
         ownerProd = view.owner().totalPlanetaryProduction();
         float prevProfit = profit;
         

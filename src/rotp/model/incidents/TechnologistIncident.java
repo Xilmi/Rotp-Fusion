@@ -32,7 +32,7 @@ public class TechnologistIncident extends DiplomaticIncident {
     public boolean triggeredByAction()   { return false; }
     private TechnologistIncident(EmpireView ev) {
         iev = ev;
-        empYou = iev.empire().id;
+        empYou = iev.empId();
         empMe = iev.ownerId();
         severity = 0;
     }
@@ -71,7 +71,7 @@ public class TechnologistIncident extends DiplomaticIncident {
                 score -= t.cost;
             }
 
-            if(emp == iev.empire())
+            if(iev.is(emp))
                 currentScore = score;
             if(score >= max)
                 max = score;

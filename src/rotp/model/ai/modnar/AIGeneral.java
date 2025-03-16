@@ -596,7 +596,7 @@ public class AIGeneral implements Base, General {
         
         // modnar: change sneak attack chance by number of our wars vs. number of their wars
         // try not to get into too many wars, and pile on if target is in many wars
-        float enemyMod = (float) (0.2f * (v.empire().numEnemies() - empire.numEnemies()));
+        float enemyMod = (float) (0.2f * (v.numEnemies() - empire.numEnemies()));
         baseChance += enemyMod;
 
         float value = (empire.sv.factories(sys.id) * 10);

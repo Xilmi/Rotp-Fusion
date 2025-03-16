@@ -714,7 +714,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                 fp.priority = 1100;
                 if(empire.sv.isBorderSystem(sysId))
                     fp.priority += 50;
-                System.out.print("\n"+galaxy().currentTurn()+" "+empire.sv.name(sysId)+" wants: "+empire.shipDesignerAI().BestDesignToRepell().name());
+                // System.out.print("\n"+galaxy().currentTurn()+" "+empire.sv.name(sysId)+" wants: "+empire.shipDesignerAI().BestDesignToRepell().name());
                 fp.addShips(empire.shipDesignerAI().BestDesignToRepell(), 1);
             }
         }
@@ -1024,7 +1024,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                                 EmpireView ev = empire.viewForEmpire(empire.sv.empId(target.id));
                                 if(ev != null)
                                 {
-                                    enemyBaseHP = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().maxHits();
+                                    enemyBaseHP = empire.sv.bases(target.id)*ev.techUncut().newMissileBase().maxHits();
                                     enemyPop = empire.sv.population(target.id);
                                     float ourShield = avgFleetShield(fleet);
                                     float timeToReachColony = (float) Math.ceil(8.0 / getFleetStats(fleet).avgCombatSpeed);
@@ -1032,7 +1032,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                                     float timeToKillPop = (float) Math.ceil(enemyPop / killPower);
                                     if(target.inNebula())
                                         ourShield = 0;
-                                    enemyBaseDamage = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().firepower(ourShield) * (timeToReachColony + Math.min(timeToKillBases, timeToKillPop));
+                                    enemyBaseDamage = empire.sv.bases(target.id)*ev.techUncut().newMissileBase().firepower(ourShield) * (timeToReachColony + Math.min(timeToKillBases, timeToKillPop));
                                     //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+fleet.system().name()+" => "+empire.sv.name(target.id)+" avgShield: "+avgFleetShield(fleet)+" missile-bases at target deal damage: "+enemyBaseDamage+" Fleet-Health: "+totalFleetHealth(fleet)+ " Time to kill bases: "+(timeToReachColony + timeToKillBases)+" move: "+timeToReachColony+" kill: "+timeToKillBases);
                                 }
                             }

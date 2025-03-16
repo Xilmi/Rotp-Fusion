@@ -30,7 +30,7 @@ public class ErraticIncident extends DiplomaticIncident {
     public boolean triggeredByAction()   { return false; }
     private ErraticIncident(EmpireView ev) {
         iev = ev;
-        empYou = iev.empire().id;
+        empYou = iev.empId();
         empMe = iev.ownerId();
         severity = 0;
     }

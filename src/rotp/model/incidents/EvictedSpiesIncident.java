@@ -15,7 +15,6 @@
  */
 package rotp.model.incidents;
 
-import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 
 public class EvictedSpiesIncident extends DiplomaticIncident {
@@ -23,12 +22,12 @@ public class EvictedSpiesIncident extends DiplomaticIncident {
     final int empBreaker;
     final int empMe;
     public static EvictedSpiesIncident create(EmpireView ev) {
-        EvictedSpiesIncident inc = new EvictedSpiesIncident(ev.empire(), ev.owner());
+        EvictedSpiesIncident inc = new EvictedSpiesIncident(ev.empId(), ev.owner().id);
         return inc;
     }
-    private EvictedSpiesIncident(Empire e1, Empire e2) {
-        empBreaker = e1.id;
-        empMe = e2.id;
+    private EvictedSpiesIncident(int e1, int e2) {
+        empBreaker = e1;
+        empMe = e2;
         severity = -10;
         dateOccurred = galaxy().currentYear();
         duration = 10;

@@ -50,10 +50,10 @@ public class SabotageFactoriesIncident extends DiplomaticIncident {
     }
     private SabotageFactoriesIncident(EmpireView ev, SabotageMission m) {
         dateOccurred = galaxy().currentYear();
-        duration = ev.empire().leader().isIndustrialist() ? 20 : 10;
+        duration = ev.leader().isIndustrialist() ? 20 : 10;
 
         empVictim = ev.owner().id;
-        empSpy = ev.empire().id;
+        empSpy = ev.empId();
         sysId = m.starSystem().id;
         destroyed = m.factoriesDestroyed();
         severity = max(-20,(-1*destroyed)+ev.embassy().currentSpyIncidentSeverity());
@@ -61,10 +61,10 @@ public class SabotageFactoriesIncident extends DiplomaticIncident {
         if (ev.owner().isPlayerControlled()
         && (destroyed > 0)) {
             StarSystem sys = m.starSystem();
-            FactoriesDestroyedAlert.create(ev.empire(), destroyed, sys);
+            FactoriesDestroyedAlert.create(ev.empireUncut(), destroyed, sys);
             if (sys.isColonized() && sys.colony().defense().allocation() == 0) {
-                String str1 = text("MAIN_ALLOCATE_SABOTAGE_FACTORIES", systemName(), str(destroyed), ev.empire().raceName());
-                str1 = ev.empire().replaceTokens(str1, "spy");
+                String str1 = text("MAIN_ALLOCATE_SABOTAGE_FACTORIES", systemName(), str(destroyed), ev.empireUncut().raceName());
+                str1 = ev.empireUncut().replaceTokens(str1, "spy");
                 session().addSystemToAllocate(sys, str1);
             }
         }

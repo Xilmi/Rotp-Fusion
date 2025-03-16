@@ -31,7 +31,7 @@ public class ExpansionIncident extends DiplomaticIncident {
     private ExpansionIncident(EmpireView ev, int num, float max) {
         numSystems = num;
         maxSystems = max;
-        empYou = ev.empire().id;
+        empYou = ev.empId();
         dateOccurred = galaxy().currentYear();
         duration = 1;
 

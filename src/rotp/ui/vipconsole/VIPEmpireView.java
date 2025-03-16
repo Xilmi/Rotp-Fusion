@@ -422,7 +422,7 @@ public class VIPEmpireView implements IVIPConsole {
 			for (DiplomaticIncident inc : view.otherView().embassy().allIncidents()) {
 				if ((inc.currentSeverity() != 0) && inc.triggeredByAction()) {
 					incidents.add(inc);
-					incidentMap.put(inc, view.empire());
+					incidentMap.put(inc, view.empireUncut());
 				}
 			}
 		}
@@ -584,7 +584,7 @@ public class VIPEmpireView implements IVIPConsole {
 		Collections.sort(contacts, EmpireView.PLAYER_LIST_ORDER);
 		for (EmpireView contact: contacts) {
 			if (contact.inEconomicRange()) {
-				out += NEWLINE + contact.empire().raceName();
+				out += NEWLINE + contact.raceName();
 				DiplomaticTreaty treaty = contact.embassy().treaty();
 				String str = treaty.status(player());
 				if (treaty.isPeace() && options().isColdWarMode())
@@ -890,7 +890,7 @@ public class VIPEmpireView implements IVIPConsole {
 		}
 		if (!view.embassy().anyWar() && (spies.maxSpies() > 0)
 				&& view.otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING)) {
-			if (!spies.isHide() || (view.empire().leader().isXenophobic())) {
+			if (!spies.isHide() || (view.leader().isXenophobic())) {
 				triggerWar = true;
 			}
 		}

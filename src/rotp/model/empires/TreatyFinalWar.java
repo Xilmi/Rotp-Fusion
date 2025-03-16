@@ -20,6 +20,7 @@ public class TreatyFinalWar extends DiplomaticTreaty {
     public TreatyFinalWar(Empire e1, Empire e2) {
         super(e1,e2,"RACES_AT_FINAL_WAR");
     }
+    public TreatyFinalWar(int e1, int e2) { super(e1, e2, "RACES_AT_FINAL_WAR"); }
     @Override
     public boolean isFinalWar()               { return true; }
     @Override

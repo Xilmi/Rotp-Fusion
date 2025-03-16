@@ -76,7 +76,8 @@ public class MapOverlayNone extends MapOverlay {
                 break;
 			case KeyEvent.VK_NUMBER_SIGN:
 //				player().autoscout();
-				player().govAI().fleetCommander().nextTurn();
+//				player().govAI().fleetCommander().nextTurn();
+				player().fleetCommanderAI().nextTurn();
 				break;
             case KeyEvent.VK_EQUALS:
                 if (e.isShiftDown())  

@@ -570,7 +570,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             return;
 
         // Get extended Star System
-        List<StarSystem> systems = pl.systemsForCiv(pl);
+        List<StarSystem> systems = pl.systemsForCiv(pl.id);
         List<StarSystem> alliedSystems = new ArrayList<>();
         for (Empire ally: pl.allies())
             for (StarSystem sys: ally.allColonizedSystems()) {
@@ -707,14 +707,15 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         Color extendedBorder = emp.scoutBorderColor();
         Color normalBackground = emp.empireRangeColor();
         boolean isPlayer = emp.isPlayer();
-        IGameOptions opts = options();
 
         // draw extended range
-        List<StarSystem> systems;
-        if (!isPlayer && opts.selectedDarkGalaxy() && !opts.darkGalaxySpy())
-        	systems = player().systemsForCivDark(emp);
-        else
-        	systems = player().systemsForCiv(emp);
+//        IGameOptions opts = options();
+//        List<StarSystem> systems; // TODO BR: Validate
+//        if (!isPlayer && opts.selectedDarkGalaxy() && !opts.darkGalaxySpy())
+//        	systems = pl.systemsForCivDark(emp.id);
+//        else
+//        	systems = pl.systemsForCiv(emp.id);
+        List<StarSystem> systems = pl.systemsForCivNoSpy(emp.id);
         List<StarSystem> alliedSystems = new ArrayList<>();
         // only show range for allied systems when player is selected
         if (isPlayer) {
@@ -742,15 +743,17 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             g.setTransform(xForm);
         }
         float extR = scoutRange*scale;
+        float extD = 2*extR;
         float baseR = shipRange*scale;
+        float baseD = 2*baseR;
         Area tmpRangeArea = scoutRangeArea;
         if (tmpRangeArea == null) {
 //            long time1 = System.nanoTime();
             List<Area> toAdd = new ArrayList<>();
             for (StarSystem sv: alliedSystems)
-                toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-extR, fMapY(sv.y())-extR, 2*extR, 2*extR) )); 
+                toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-extR, fMapY(sv.y())-extR, extD, extD) )); 
             for (StarSystem sv: systems)
-                toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-extR, fMapY(sv.y())-extR, 2*extR, 2*extR) )); 
+                toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-extR, fMapY(sv.y())-extR, extD, extD) )); 
             tmpRangeArea = parallelAdd(toAdd);
             scoutRangeArea = tmpRangeArea;
 //            long time2 = System.nanoTime();
@@ -767,9 +770,9 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 //            long time1 = System.nanoTime();
             List<Area> toAdd = new ArrayList<>();
             for (StarSystem sv: alliedSystems)
-                toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-baseR, fMapY(sv.y())-baseR, 2*baseR, 2*baseR) )); 
+                toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-baseR, fMapY(sv.y())-baseR, baseD, baseD))); 
             for (StarSystem sv: systems)
-                toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-baseR, fMapY(sv.y())-baseR, 2*baseR, 2*baseR) ));
+                toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-baseR, fMapY(sv.y())-baseR, baseD, baseD)));
             tmpRangeArea = parallelAdd(toAdd);
             shipRangeArea = tmpRangeArea;
 //            long time2 = System.nanoTime();

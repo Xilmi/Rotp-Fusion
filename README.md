@@ -3,7 +3,7 @@
 Remnants of the Precursors is a Java-based modernization of the original Master of Orion game from 1993. <br/>
 
 ### Mixt of of Xilmi Fusion with Modnar new races
-### With BrokenRegistry Profiles Manager. <br/>
+### With BrokenRegistry Options Manager. <br/>
 ... and some more features
 
 Summary of the differences of Fusion-Mod to the base-game:
@@ -43,6 +43,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## To-Do list
 Bug to fix:
 - Dark mode: Sabotage see to far away
+
 Very soon:
 - More Spy AI choice to sabotage the same planet.
 - Add option to limit random event tech generosity... (For slow research, etc...)
@@ -58,6 +59,9 @@ Very soon:
   -
   - Peaceful mode
 - Search tools for options.
+- add a "Randomness Management" sub-panel in the "Setup" panel
+  - Limit for Galaxy Size
+  - Limit for number of opponents
 
 Later:
 - Some Achievements options.
@@ -83,6 +87,20 @@ Later:
 
 
 ## What's New
+
+2025.03.15 (BR)
+- The Dark galaxy apply to AI too.
+- Fixed Dark Galaxy sabotage preselecting a dark system. 
+- Grouped Sabotage target lists in a class.
+- Sabotage target lists will be updated if called after a reload.
+  - If the player asked for "Stop spying" AI would be given empty target list for their response analysis.
+
+2025.03.14 (BR)
+- Added Methods in EmpireView to avoid direct call to the unflitered Empire class
+- UIs and AI will now use these new methods.
+- Renamed empire() to empireUncut() to avoid confusion.
+- Renamed tech() to techUncut() to avoid confusion.
+- Error Messages and Warning Messages will now display the OS.
 
 2025.03.12 (BR)
 - Moved Dark galaxy option to "Galaxy Rules"

@@ -28,7 +28,7 @@ public class AtWarWithAllyIncident extends DiplomaticIncident {
 
     public AtWarWithAllyIncident(EmpireView ev, Empire other) {
         empMe = ev.owner().id;
-        empYou = ev.empire().id;
+        empYou = ev.empId();
         empOther = other.id;
         dateOccurred = galaxy().currentYear();
         duration = 1;

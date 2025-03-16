@@ -16,8 +16,8 @@
 package rotp.model.ai.base;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 import rotp.model.ai.interfaces.SpyMaster;
 import rotp.model.empires.DiplomaticEmbassy;
 import rotp.model.empires.Empire;
@@ -25,7 +25,6 @@ import rotp.model.empires.EmpireView;
 import rotp.model.empires.Leader;
 import rotp.model.empires.SpyNetwork;
 import rotp.model.empires.SpyNetwork.Sabotage;
-import rotp.model.galaxy.StarSystem;
 import rotp.model.tech.Tech;
 import rotp.util.Base;
 
@@ -72,7 +71,7 @@ public class AISpyMaster implements Base, SpyMaster {
         SpyNetwork spies = v.spies();
 
         // situations where no spies are ever needed
-        if (!emb.contact() || v.empire().extinct() || !v.inEconomicRange() || emb.unity()) {
+        if (!emb.contact() || v.extinct() || !v.inEconomicRange() || emb.unity()) {
             spies.allocation(0);
             return;
         }
@@ -83,7 +82,7 @@ public class AISpyMaster implements Base, SpyMaster {
         if (!v.embassy().anyWar() && (v.spies().maxSpies() > 0)
         && v.otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING)) {
             if (!v.spies().isHide()
-            || (v.empire().leader().isXenophobic())) {
+            || (v.leader().isXenophobic())) {
                 shouldHide = true;
             }
         }
@@ -123,7 +122,7 @@ public class AISpyMaster implements Base, SpyMaster {
         SpyNetwork spies = v.spies();
 
         // extinct or no contact = hide
-        if (v.empire().extinct() || !emb.contact()) {
+        if (v.extinct() || !emb.contact()) {
             spies.beginHide();
             return;
         }
@@ -139,7 +138,7 @@ public class AISpyMaster implements Base, SpyMaster {
         if (!v.embassy().anyWar() && (v.spies().maxSpies() > 0)
         && v.otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING)) {
             if (!v.spies().isHide()
-            || (v.empire().leader().isXenophobic())) {
+            || (v.leader().isXenophobic())) {
                 shouldHide = true;
             }
         }
@@ -213,68 +212,6 @@ public class AISpyMaster implements Base, SpyMaster {
         
         // default for any other treaty state (??) is to hide
        spies.beginHide();
-    }
-    @Override
-    public Sabotage bestSabotageChoice(EmpireView v) {
-        // invoked when a Sabotage attempt is successful
-        // unfinished - AI needs to choose best sabotage type
-
-        if (v.embassy().anyWar()) {
-            if (!v.spies().baseTargets().isEmpty())
-                return Sabotage.MISSILES;
-            else if (!v.spies().factoryTargets().isEmpty())
-                return Sabotage.FACTORIES;
-            else if (!v.spies().rebellionTargets().isEmpty())
-                return Sabotage.REBELS;
-            else
-                return null;
-        }
-        else {
-            if (!v.spies().rebellionTargets().isEmpty())
-                return Sabotage.REBELS;
-            else if (!v.spies().factoryTargets().isEmpty())
-                return Sabotage.FACTORIES;
-            else if (!v.spies().baseTargets().isEmpty())
-                return Sabotage.MISSILES;
-            else
-                return null;
-        }
-    }
-    @Override
-    public StarSystem bestSystemForSabotage(EmpireView v, Sabotage choice) {
-        // invoked when a Sabotage attempt is successful
-        // choice: 1 - factories, 2 - missiles, 3 - rebellion
-
-        List<StarSystem> targets = v.empire().allColonizedSystems();
-
-        switch(choice){
-            case FACTORIES:
-                StarSystem.VIEWING_EMPIRE = empire;
-                Collections.sort(targets, StarSystem.VDISTANCE);
-                for (StarSystem tgt: targets) {
-                    if (empire.sv.canSabotageFactories(tgt.id))
-                        return tgt;
-                }
-                return null;
-            case MISSILES:
-                StarSystem.VIEWING_EMPIRE = empire;
-                Collections.sort(targets, StarSystem.VDISTANCE);
-                for (StarSystem tgt: targets) {
-                    if (empire.sv.canSabotageBases(tgt.id))
-                        return tgt;
-                }
-                return null;
-            case REBELS:
-            default:
-                StarSystem.VIEWING_EMPIRE = empire;
-                Collections.sort(targets, StarSystem.VPOPULATION);
-                for (int i=(targets.size()-1);i>=0;i--) {
-                    StarSystem tgt = targets.get(i);
-                    if (empire.sv.canInciteRebellion(tgt.id))
-                        return tgt;
-                }
-                return null;
-        }
     }
     @Override
     public Empire suggestToFrame(List<Empire> empires) {

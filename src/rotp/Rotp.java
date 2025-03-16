@@ -44,6 +44,7 @@ import rotp.ui.UserPreferences;
 import rotp.ui.options.AllSubUI;
 import rotp.util.FontManager;
 import rotp.util.ImageManager;
+import rotp.util.OSUtil;
 import rotp.util.Rand;
 
 public class Rotp {
@@ -177,6 +178,7 @@ public class Rotp {
 
         becomeVisible();
         installGCMonitoring();
+		System.out.println("OS = " + OSUtil.getOS());
         isIDE();
     }
     private static void installGCMonitoring() { memoryTracker = new MemoryTracker(maxHeapMemory); }

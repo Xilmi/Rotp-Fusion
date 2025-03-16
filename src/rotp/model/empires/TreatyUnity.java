@@ -19,7 +19,8 @@ public class TreatyUnity extends DiplomaticTreaty {
     private static final long serialVersionUID = 1L;
     public TreatyUnity(Empire e1, Empire e2) {
         super(e1,e2,"RACES_UNITY");
-    }    
+    }
+    public TreatyUnity(int e1, int e2) { super(e1, e2, "RACES_UNITY"); }
     @Override
     public boolean isUnity()                    { return true; }
     @Override

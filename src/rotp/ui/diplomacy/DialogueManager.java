@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.incidents.DiplomaticIncident;
@@ -166,7 +167,6 @@ public class DialogueManager implements Base {
     }
     public String randomMessage(String type, EmpireView view) {
         // find all dialog strings of proper type
-        Empire diplomat = view.empire();
         List<DialogString> matchingStrings = new ArrayList<>();
         for (DialogString str: strings) {
             if (str.matchesType(type) && str.fitsContext(view))
@@ -175,7 +175,7 @@ public class DialogueManager implements Base {
         if (matchingStrings.isEmpty())
             return concat("Message not found. type:", type);
         else 
-            return diplomat.race().dialogue(random(matchingStrings).key());
+            return view.race().dialogue(random(matchingStrings).key());
     }
     private void loadMessages() {
         addMessage(new TurnNotificationMessage(CONTACT_DIPLOMATIC));

@@ -15,6 +15,8 @@
  */
 package rotp.model.empires;
 
+import rotp.model.galaxy.Galaxy;
+
 public class TreatyPeace extends DiplomaticTreaty {
     private static final long serialVersionUID = 1L;
     private int duration;
@@ -22,7 +24,13 @@ public class TreatyPeace extends DiplomaticTreaty {
         super(e1,e2,"RACES_PEACE");
         duration = d;
         recallAttackingForces(e1, e2);
-    }    
+    }
+	public TreatyPeace(int e1, int e2, int d) {
+		super(e1,e2,"RACES_PEACE");
+		duration = d;
+		Galaxy gal = galaxy();
+		recallAttackingForces(gal.empire(e1), gal.empire(e2));
+	}
     @Override
     public void nextTurn(Empire emp)      { 
         duration--;

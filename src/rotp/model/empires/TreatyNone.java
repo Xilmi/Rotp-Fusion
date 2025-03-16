@@ -19,7 +19,8 @@ public class TreatyNone extends DiplomaticTreaty {
     private static final long serialVersionUID = 1L;
     public TreatyNone(Empire e1, Empire e2) {
         super(e1,e2,"RACES_NO_TREATY");
-    }    
+    }
+	public TreatyNone(int e1, int e2) { super(e1, e2, "RACES_NO_TREATY"); }
     @Override
     public boolean isNoTreaty()               { return true; }
     @Override

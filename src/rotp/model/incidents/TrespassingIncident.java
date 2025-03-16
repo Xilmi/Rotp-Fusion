@@ -31,7 +31,7 @@ public class TrespassingIncident extends DiplomaticIncident {
     public TrespassingIncident(EmpireView ev, StarSystem sys, ShipFleet fl) {
         sysId = sys.id;
         empMe = ev.owner().id;
-        empYou = ev.empire().id;
+        empYou = ev.empId();
         dateOccurred = galaxy().currentYear();
         duration = 2;
 
@@ -48,7 +48,7 @@ public class TrespassingIncident extends DiplomaticIncident {
         if (ev.owner().isPlayerControlled())
             TrespassingAlert.create(empMe, empYou, sysId);
         // if it is player's ships in orbit, notify player only if not at war
-        else if (ev.empire().isPlayerControlled() && !ev.embassy().anyWar())
+        else if (ev.isPlayerControlled() && !ev.embassy().anyWar())
             TrespassingAlert.create(empMe, empYou, sysId);
     }
     private String systemName()         { return player().sv.name(sysId); }

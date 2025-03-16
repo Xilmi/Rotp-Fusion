@@ -26,14 +26,14 @@ public class TradeIncomeIncident extends DiplomaticIncident {
     private final float profit;
 
     public static void create(EmpireView ev, float profit, float pct) {
-        ev.owner().diplomatAI().noticeIncident(new TradeIncomeIncident(ev, profit, pct), ev.empire());
+        ev.owner().diplomatAI().noticeIncident(new TradeIncomeIncident(ev, profit, pct), ev.empireUncut());
     }
     public TradeIncomeIncident(EmpireView ev, float p, float pct) {
         profit = p;
         severity = min(30, max(0,pct*50));
         dateOccurred = galaxy().currentYear();
         empMe = ev.owner().id;
-        empYou = ev.empire().id;
+        empYou = ev.empId();
         
         if (ev.owner().diplomatAI().setSeverityAndDuration(this))
             return;

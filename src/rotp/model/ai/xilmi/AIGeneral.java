@@ -348,7 +348,7 @@ public class AIGeneral implements Base, General {
         
         float facSavings = expectedFactoriesAtArrival * (empire.tech().bestFactoryCost() - 2) + sys.planet().alienFactories(empire.id) * empire.tech().bestFactoryCost();
         float invasionGain = facSavings;
-        List<Tech> possibleTechs = v.empire().tech().techsUnknownTo(empire, true);
+        List<Tech> possibleTechs = v.techUncut().techsUnknownTo(empire, true);
         float avgTechCost = 0;
         int techCount = 0;
         for(Tech possi:possibleTechs)
@@ -540,7 +540,7 @@ public class AIGeneral implements Base, General {
             killed *= empire.fleetCommanderAI().bridgeHeadConfidence(sys); //multiply with bridge-head-confidence to take into account we might be shooed away
             float born = 0;
             born += sys.colony().normalPopGrowth() * turnsTillInvasion;
-            born += (sys.colony().totalIncome() / ev.empire().tech().populationCost()) * turnsTillInvasion;
+            born += (sys.colony().totalIncome() / ev.techUncut().populationCost()) * turnsTillInvasion;
             //System.out.println(galaxy().currentTurn()+" "+empire.name()+" considering invasion of "+sys.name()+" born per year: "+(sys.colony().normalPopGrowth()+(sys.colony().totalIncome() / ev.empire().tech().populationCost()))+" in "+turnsTillInvasion+" years resulting in total born: "+born);
             expectedTargetPopulation += born;
             //Xilmi: when we would kill everyone in a single turn we cannot bomb and thus also not substract how much we would have killed
@@ -697,7 +697,7 @@ public class AIGeneral implements Base, General {
         
         // modnar: change sneak attack chance by number of our wars vs. number of their wars
         // try not to get into too many wars, and pile on if target is in many wars
-        float enemyMod = (float) (0.2f * (v.empire().numEnemies() - empire.numEnemies()));
+        float enemyMod = (float) (0.2f * (v.numEnemies() - empire.numEnemies()));
         baseChance += enemyMod;
 
         float value = (empire.sv.factories(sys.id) * 10);
@@ -1168,7 +1168,7 @@ public class AIGeneral implements Base, General {
         {
             if(!empire.inShipRange(contact.empId()))
                 continue;
-            if(!contact.empire().warEnemies().isEmpty())
+            if(!contact.warEnemies().isEmpty())
                 knowSomeoneAtWar = true;
         }
         if(knowSomeoneAtWar)

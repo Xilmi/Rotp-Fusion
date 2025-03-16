@@ -500,7 +500,7 @@ public class RacesUI extends BasePanel {
         List<EmpireView> contacts = player().contacts();
         Collections.sort(contacts, EmpireView.PLAYER_LIST_ORDER);
         for (EmpireView v: contacts) 
-            empires.add(v.empire());
+            empires.add(v.empireUncut());
         
         // auto-select the last selected empire
         // this will automatically weed out empires that have become extinct

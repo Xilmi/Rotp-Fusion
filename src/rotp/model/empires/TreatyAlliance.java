@@ -16,6 +16,7 @@
 package rotp.model.empires;
 
 import java.util.List;
+
 import rotp.model.incidents.AttackedAllyIncident;
 import rotp.model.incidents.AttackedEnemyIncident;
 import rotp.model.incidents.DiplomaticIncident;
@@ -33,7 +34,11 @@ public class TreatyAlliance extends DiplomaticTreaty {
     public TreatyAlliance(Empire e1, Empire e2) {
         super(e1,e2,"RACES_ALLY");
         initStandings();
-    }    
+    }
+	public TreatyAlliance(int e1, int e2) {
+		super(e1, e2, "RACES_ALLY");
+		initStandings();
+	}
     @Override
     public boolean isAlliance()               { return true; }
     @Override

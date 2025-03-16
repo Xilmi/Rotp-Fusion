@@ -31,7 +31,7 @@ public class EcologistIncident extends DiplomaticIncident {
     public boolean triggeredByAction()   { return false; }
     private EcologistIncident(EmpireView ev) {
         iev = ev;
-        empYou = ev.empire().id;
+        empYou = ev.empId();
         empMe = ev.ownerId();
         severity = 0;
     }
@@ -62,7 +62,7 @@ public class EcologistIncident extends DiplomaticIncident {
                 continue;
             float score = emp.tech().planetology().techLevel();
 
-            if(emp == iev.empire())
+            if(iev.is(emp))
                 currentScore = score;
             if(score >= max)
                 max = score;

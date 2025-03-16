@@ -22,10 +22,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
+
 import rotp.Rotp;
+import rotp.util.OSUtil;
 
 public class ErrorUI extends BasePanel implements MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
+    private final String osTxt = "OS = " + OSUtil.getOS();
     private Throwable exception;
     public ErrorUI() {
         init();
@@ -43,18 +46,23 @@ public class ErrorUI extends BasePanel implements MouseListener, MouseMotionList
     public void paint(Graphics g) {
         super.paint(g);
         int w = getWidth();
-        //int h = getHeight();
+        int h = getHeight();
 
         g.setColor(Color.lightGray);
 
+		int x0 = w/10;
+		int w0 = w*4/5;
+		int y0 = BasePanel.s50;
         g.setFont(narrowFont(40));
         String title = "An Error has occurred  :(";
-        int sw0 = g.getFontMetrics().stringWidth(title);
-        drawString(g,title, (w-sw0)/2, BasePanel.s50);
+        drawString(g,title, x0, y0);
 
-        int x0 = w/10;
-        int w0 = w*4/5;
-        int y0 = BasePanel.s80;
+		g.setFont(narrowFont(30));
+		int sw = g.getFontMetrics().stringWidth(osTxt);
+		drawString(g, osTxt, (w-x0-sw), y0);
+
+        w0 = w*4/5;
+        y0 = BasePanel.s80;
         g.setFont(narrowFont(30));
         String desc = "If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to BrokenRegistry, or bring it to his attention on the ROTP subreddit.";
         List<String> lines = wrappedLines(g, desc, w0);
@@ -68,24 +76,26 @@ public class ErrorUI extends BasePanel implements MouseListener, MouseMotionList
 
         g.setFont(narrowFont(24));
         y0 += BasePanel.s60;
-        //drawString(g,"Email: ail.st@gmx.de", x0, y0);
-        drawString(g,"Email: Broken.Registry@protonmail.com", x0, y0);
-        y0 += BasePanel.s30;
-        drawString(g,"Reddit: www.Reddit.com/r/rotp", x0, y0);
-
+		String str = "Email: Broken.Registry@protonmail.com";
+		//String str = "Email: ail.st@gmx.de";
+		sw = g.getFontMetrics().stringWidth(str);
+		drawString(g, str, x0, y0);
+		//y0 += BasePanel.s30;
+		str = "Reddit: www.Reddit.com/r/rotp";
+		drawString(g, str, x0+sw+BasePanel.s50, y0);
 
         g.setFont(narrowFont(24));
-        y0 += BasePanel.s70;
-        drawString(g,exception.toString(), x0, y0);
+        y0 += BasePanel.s60;
+        drawString(g, exception.toString(), x0, y0);
         for (StackTraceElement line : exception.getStackTrace()) {
             y0 += BasePanel.s27;
-            drawString(g,line.toString(), x0, y0);
+            drawString(g, line.toString(), x0, y0);
         }
 
         g.setFont(narrowFont(20));
         String ver = "Version:"+ Rotp.releaseId;
-        int sw = g.getFontMetrics().stringWidth(ver);
-        drawString(g,ver, getWidth()-sw-s20, getHeight()-s30);
+        sw = g.getFontMetrics().stringWidth(ver);
+        drawString(g, ver, w-sw-s20, h-s30);
 
         drawMemory(g);
         drawSkipText(g, true);

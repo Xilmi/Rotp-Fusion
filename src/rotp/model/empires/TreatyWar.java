@@ -15,6 +15,8 @@
  */
 package rotp.model.empires;
 
+import rotp.model.galaxy.Galaxy;
+
 public class TreatyWar extends DiplomaticTreaty {
     private static final long serialVersionUID = 1L;
     int[] coloniesStart = new int[2];
@@ -27,15 +29,20 @@ public class TreatyWar extends DiplomaticTreaty {
     float[] populationNow = new float[2];
     float[] factoriesNow = new float[2];
     float[] fleetSizeNow = new float[2];
-    
+
     float[] populationLost = new float[2];
     float[] factoriesLost = new float[2];
     float[] fleetSizeLost = new float[2];
-    
+
     public TreatyWar(Empire e1, Empire e2) {
         super(e1,e2,"RACES_AT_WAR");
         initValues(e1, e2);
     }
+	public TreatyWar(int e1, int e2) {
+		super(e1,e2,"RACES_AT_WAR");
+		Galaxy gal = galaxy();
+		initValues(gal.empire(e1), gal.empire(e2));
+	}
     @Override public void validateOnLoad() { // BR: Backward compatibility tentative
     	if (contactsNow == null)
     		contactsNow = new int[2];
@@ -54,8 +61,9 @@ public class TreatyWar extends DiplomaticTreaty {
     public float populationNow(Empire e)        { return populationNow[index(e)]; }
     public float factoriesNow(Empire e)         { return factoriesNow[index(e)]; }
     public float fleetSizeNow(Empire e)         { return fleetSizeNow[index(e)]; }
-    
-    public float colonyChange(Empire e)         { return (float) coloniesNow[index(e)]/coloniesStart[index(e)]; }
+
+    public float colonyChange(int empId)        { return (float) coloniesNow[index(empId)]/coloniesStart[index(empId)]; }
+    //public float colonyChange(Empire e)         { return (float) coloniesNow[index(e)]/coloniesStart[index(e)]; }
     public float contactsChange(Empire e)       { return (float) contactsNow[index(e)]/contactsStart[index(e)]; }
     public float populationChange(Empire e)     { return populationNow[index(e)]/populationStart[index(e)]; }
     public float factoryChange(Empire e)        { return factoriesNow[index(e)]/factoriesStart[index(e)]; }
@@ -63,16 +71,16 @@ public class TreatyWar extends DiplomaticTreaty {
     public float populationLostPct(Empire e)    { return populationLost[index(e)]/populationStart[index(e)]; }
     public float factoryLostPct(Empire e)       { return factoriesLost[index(e)]/factoriesStart[index(e)]; }
     public float fleetSizeLostPct(Empire e)     { return fleetSizeLost[index(e)]/fleetSizeStart[index(e)]; }
-           
+
     @Override
     public void nextTurn(Empire emp) {
         // this will be called separately for each empire from their diplomatic
         // embassy for the other empire
         coloniesNow[index(emp)] = emp.numColonizedSystems();
         contactsNow[index(emp)] = emp.contacts().size();
-        populationNow[index(emp)] = emp.totalPlanetaryPopulation();     
+        populationNow[index(emp)] = emp.totalPlanetaryPopulation();
         factoriesNow[index(emp)] = emp.totalPlanetaryFactories();
-        fleetSizeNow[index(emp)] = emp.totalFleetSize();     
+        fleetSizeNow[index(emp)] = emp.totalFleetSize();
     }
     @Override
     public void losePopulation(Empire e, float amt) { populationLost[index(e)] += amt; }
@@ -80,28 +88,28 @@ public class TreatyWar extends DiplomaticTreaty {
     public void loseFactories(Empire e, float amt)  { factoriesLost[index(e)] += amt; }
     @Override
     public void loseFleet(Empire e, float amt)    { fleetSizeLost[index(e)] += amt; }
-    
-    private int index(Empire e)  { return e.id == empire1 ? 0 : 1; }    
+
+    private int index(int empId) { return empId == empire1 ? 0 : 1; }
+    private int index(Empire e)  { return e.id == empire1 ? 0 : 1; }
     private void initValues(Empire e1, Empire e2) {
         coloniesStart[0] = coloniesNow[0] = e1.numColonizedSystems();
         coloniesStart[1] = coloniesNow[1] = e2.numColonizedSystems();
-        
+
         contactsStart[0] = contactsNow[0] = e1.contacts().size();
         contactsStart[1] = contactsNow[1] = e2.contacts().size();
-        
+
         populationStart[0] = populationNow[0] = e1.totalPlanetaryPopulation();
-        populationStart[1] = populationNow[1] = e2.totalPlanetaryPopulation();     
-         
+        populationStart[1] = populationNow[1] = e2.totalPlanetaryPopulation();
+
         factoriesStart[0] = factoriesNow[0] = e1.totalPlanetaryFactories();
         factoriesStart[1] = factoriesNow[1] = e2.totalPlanetaryFactories();
-       
+
         // minimum 1 to avoid potential /0 when going to war with no ships
         fleetSizeStart[0] = fleetSizeNow[0] = max(1, e1.totalFleetSize());
-        fleetSizeStart[1] = fleetSizeNow[1] = max(1, e2.totalFleetSize());  
-        
+        fleetSizeStart[1] = fleetSizeNow[1] = max(1, e2.totalFleetSize());
+
         populationLost[0] = populationLost[1] = 0;
         factoriesLost[0] = factoriesLost[1] = 0;
         fleetSizeLost[0] = fleetSizeLost[1] = 0;
-    }    
-  
+    }
 }

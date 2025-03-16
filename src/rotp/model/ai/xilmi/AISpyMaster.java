@@ -15,16 +15,21 @@
  */
 package rotp.model.ai.xilmi;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import rotp.model.ai.interfaces.SpyMaster;
 import rotp.model.empires.DiplomaticEmbassy;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.SpyNetwork;
 import rotp.model.empires.SpyNetwork.Sabotage;
-import rotp.model.galaxy.StarSystem;
+import rotp.model.empires.SpyNetwork.SabotageTargets;
+import rotp.model.empires.SystemInfo;
 import rotp.model.galaxy.Location;
+import rotp.model.galaxy.StarSystem;
 import rotp.util.Base;
 
 public class AISpyMaster implements Base, SpyMaster {
@@ -47,9 +52,9 @@ public class AISpyMaster implements Base, SpyMaster {
         float opponentCount = 0;
         for (EmpireView cv : empire.empireViews()) {
             if ((cv != null) && cv.embassy().contact() && cv.inEconomicRange()) {
-                if(empire.allies().contains(cv.empire()))
+                if(cv.isMember(empire.allies()))
                     continue;
-                avgOpponentTechLevel += cv.empire().tech().maxTechLevel();
+                avgOpponentTechLevel += cv.techUncut().maxTechLevel();
                 opponentCount++;
             }
         }
@@ -68,19 +73,19 @@ public class AISpyMaster implements Base, SpyMaster {
         // invoked after nextTurn() processing is complete on each civ's turn
         // also invoked when contact is made in mid-turn
         // how much allocation for the spyNetwork?
-        // each pt of allocatoin represents .005 of total civ production
+        // each pt of allocation represents .005 of total civ production
         // max allocation is 25, or 10% of total civ production
 
         DiplomaticEmbassy emb = v.embassy();
         SpyNetwork spies = v.spies();
 
         // situations where no spies are ever needed
-        if (!emb.contact() || v.empire().extinct() || !v.inEconomicRange() || emb.unity()) {
+        if (!emb.contact() || v.extinct() || !v.inEconomicRange() || emb.unity()) {
             spies.allocation(0);
             return;
         }
 
-            
+
         int maxSpiesNeeded = 0;
 
         if (emb.finalWar())
@@ -115,12 +120,12 @@ public class AISpyMaster implements Base, SpyMaster {
         // invoked for each CivView for each civ after nextTurn() processing is complete on each civ's turn
         // also invoked when contact is made in mid-turn
         // 0 = hide; 1 = sabotage; 2 = espionage
-        
+
         DiplomaticEmbassy emb = v.embassy();
         SpyNetwork spies = v.spies();
 
         // extinct or no contact = hide
-        if (v.empire().extinct() || !emb.contact()) {
+        if (v.extinct() || !emb.contact()) {
             spies.beginHide();
             spies.maxSpies(0);
             return;
@@ -138,7 +143,7 @@ public class AISpyMaster implements Base, SpyMaster {
         boolean canEspionage = !spies.possibleTechs().isEmpty();
         Sabotage sabMission = bestSabotageChoice(v);
         boolean canSabotage = spies.canSabotage() && (sabMission != null);
-        
+
         // we are in a pact or at peace
         // ail: according to official strategy-guide two spies is supposedly the ideal number for tech-stealing etc, so always setting it to two except for hiding
         // let's see what happens, if we just non-chalantly spy on everyone regardless of anything considering they won't declare war unless they would do so anyways
@@ -173,7 +178,7 @@ public class AISpyMaster implements Base, SpyMaster {
             }
             return;
         }
-        
+
         // default for any other treaty state (??) is to hide
        spies.beginHide();
     }
@@ -181,21 +186,23 @@ public class AISpyMaster implements Base, SpyMaster {
     public Sabotage bestSabotageChoice(EmpireView v) {
         // invoked when a Sabotage attempt is successful
         // unfinished - AI needs to choose best sabotage type
-        if (!v.spies().rebellionTargets().isEmpty())
+        SabotageTargets targets = v.spies().sabotageTargets();
+        if (!targets.rebellionTargets.isEmpty())
             return Sabotage.REBELS;
-        else if (!v.spies().baseTargets().isEmpty())
+        else if (!targets.baseTargets.isEmpty())
             return Sabotage.MISSILES;
-        else if (!v.spies().factoryTargets().isEmpty())
+        else if (!targets.factoryTargets.isEmpty())
             return Sabotage.FACTORIES;
         else
             return null;
     }
+/*
     @Override
     public StarSystem bestSystemForSabotage(EmpireView v, Sabotage choice) {
         // invoked when a Sabotage attempt is successful
         // choice: 1 - factories, 2 - missiles, 3 - rebellion
 
-        List<StarSystem> targets = v.empire().allColonizedSystems();
+        List<StarSystem> targets = v.empireUncut().allColonizedSystems();
         
         // if there are unexplored systems, we'll prefer those and start with the closest
         StarSystem best = null;
@@ -246,6 +253,39 @@ public class AISpyMaster implements Base, SpyMaster {
                 return null;
         }
     }
+*/
+    @Override
+    public StarSystem bestSystemForSabotage(EmpireView v, Sabotage choice) {
+        // invoked when a Sabotage attempt is successful
+        // choice: 1 - factories, 2 - missiles, 3 - rebellion
+        // BR: replaced by the call that will follow the Dark Galaxy rules (if any)
+
+        // if there are unexplored systems, we'll prefer those and start with the closest
+        SabotageTargets targets = v.spies().sabotageTargets();
+        Set<StarSystem> allTargets = new HashSet<>();
+        allTargets.addAll(targets.rebellionTargets);
+        allTargets.addAll(targets.factoryTargets);
+        allTargets.addAll(targets.baseTargets);
+
+        SystemInfo sv = empire.sv;
+        List<StarSystem> unscouteds = allTargets.stream().filter(
+                sys -> !sv.isScouted(sys.id)).collect(Collectors.toList());
+        if (unscouteds.isEmpty())
+            return SpyMaster.super.bestSystemForSabotage(v, choice);
+
+        // Some are reachable, choose the closest to our center for a more massive attack
+        StarSystem best = null;
+        Location colonyCenter = empire.generalAI().colonyCenter(empire);
+        float lowestDistance = Float.MAX_VALUE;
+        for (StarSystem tgt: unscouteds) {
+            float distance = colonyCenter.distanceTo(tgt);
+            if (distance < lowestDistance) {
+                lowestDistance = distance;
+                best = tgt;
+            }
+        }
+        return best;
+    }
     @Override
     public Empire suggestToFrame(List<Empire> empires) {
         if (empires.size() < 2)
@@ -268,7 +308,8 @@ public class AISpyMaster implements Base, SpyMaster {
             return e1;
 
         // throw the stronger guy under the bus
-        if (v1.empire().powerLevel(v1.empire()) > v2.empire().powerLevel(v2.empire()))
+        //if (v1.empireUncut().powerLevel(v1.empireUncut()) > v2.empireUncut().powerLevel(v2.empireUncut()))
+        if (v1.powerLevelUncut() > v2.powerLevelUncut())
             return e1;
         else
             return e2;

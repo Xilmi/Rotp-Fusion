@@ -24,9 +24,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import rotp.model.ai.interfaces.Diplomat;
+import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.galaxy.Transport;
 import rotp.model.game.GovernorOptions;
 import rotp.model.incidents.DiplomaticIncident;
+import rotp.model.ships.ShipDesign;
+import rotp.model.ships.ShipDesignLab;
+import rotp.model.tech.TechTree;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomaticCounterReply;
 import rotp.ui.diplomacy.DiplomaticReply;
@@ -41,32 +47,85 @@ public final class EmpireView implements Base, Serializable {
     private final TradeRoute trade;
     private transient EmpireView otherView;
 
-    public Empire empire()                { return empire; }
-    public Empire owner()                 { return owner; }
+	// Dangerous unlimited calls that returns more than the view from the owner
+	public Empire empireUncut()				{ return empire; }		// Viewed
+	public TechTree spiedTech()				{ return spies.tech(); } // Should be used instead of
+	public TechTree techUncut()				{ return empire.tech(); }
+	public ShipDesignLab shipLabUncut()		{ return empire.shipLab(); }
+	public ShipDesign[] designsUncut()		{ return empire.shipLab().designs(); }
+
+	// May be a little bit too much - should check if already spied on once.
+	// and to return a list of empireId should be safer...
+	// public List<StarSystem> allColonizedSystems()	{ return empire.allColonizedSystems(); }
+	public List<Empire> allies()					{ return empire.allies(); }
+	// Probably too informative... onWarFooting() is not public info
+	public List<Empire> enemies()					{ return empire.enemies(); }
+	public List<Empire> warEnemies()				{ return empire.warEnemies(); }
+	public List<Transport> transports()				{ return empire.transports(); }
+	public int numEnemies()							{ return empire.numEnemies(); }
+	public int shipDesignCount(int desId)			{ return empire.shipDesignCount(desId); }
+	public float missileBaseCostPerBC()				{ return empire.missileBaseCostPerBC(); }
+	public float shipMaintCostPerBC()				{ return empire.shipMaintCostPerBC(); }
+	public float totalPlanetaryPopulation()			{ return empire.totalPlanetaryPopulation(); }
+	public float totalPlanetaryProductionUncut()	{ return empire.totalPlanetaryProduction(); }
+	public float powerLevelUncut()					{ return empire.powerLevel(empire); }
+	public float militaryPowerLevelUncut()			{ return empire.militaryPowerLevel(); }
+	public boolean inShipRange(int empId)			{ return empire.inShipRange(empId); }
+	public boolean alliedWith(int empId)			{ return empire.alliedWith(empId); }
+
+	// To be reviewed
+	public int numSystemsForIncidents()				{ return empire.numSystemsForCiv(empire.id); }
+	public int numSystemsForCiv()					{ return owner.numSystemsForCiv(empire.id); }
+	// public int numSystemsForCivDark()				{ return owner.numSystemsForCivDark(empire.id); }
+	//public List<StarSystem> systemsForCiv()			{ return owner.systemsForCiv(empire.id); }
+	//public List<StarSystem> systemsForCivDark()		{ return owner.systemsForCivDark(empire.id); }
+
+
+	// These calls are fair
+    public Empire owner()                 { return owner; }		// Viewer
     public int empId()                    { return empire.id; }	// Viewed
     public int ownerId()                  { return owner.id; }	// Viewer
     public DiplomaticEmbassy embassy()    { return embassy; }
     public SpyNetwork spies()             { return spies; }
     public TradeRoute trade()             { return trade; }
-    public EmpireStatus status()          { return empire().status(); }
-    public String raceName()              { return empire().raceName(); }
-    public Leader leader()                { return empire().leader(); }
-    public boolean extinct()              { return empire().extinct(); }
-    public int homeSysId()                { return empire().homeSysId(); }
-    public boolean isPlayer()             { return empire().isPlayer(); }
-    public boolean isPlayerControlled()   { return empire().isPlayerControlled(); }
+    public EmpireStatus status()          { return empire.status(); }
+    public String raceName()              { return empire.raceName(); }
+    public Leader leader()                { return empire.leader(); }
+    public boolean extinct()              { return empire.extinct(); }
+    public int homeSysId()                { return empire.homeSysId(); }
+    public boolean isPlayer()             { return empire.isPlayer(); }
+    public boolean isPlayerControlled()   { return empire.isPlayerControlled(); }
+
+    void clearDataForExtinctEmpire(int id)		{ empire.clearDataForExtinctEmpire(id); }
+	public boolean is(Empire emp)				{ return empire == emp; }
+	public boolean wantToBreakTreaty()			{ return embassy.treaty().wantToBreak(empire); }
+	public boolean isMember(List<Empire> l)		{ return l != null && l.contains(empire); }
+	public boolean withinRange(int i, float r)	{ return empire.sv.withinRange(i, r); }
+	public Race race()							{ return empire.race(); }
+	public Race dataRace()						{ return empire.dataRace(); }
+	public Diplomat diplomatAI()				{ return empire.diplomatAI(); }
+	public float tradePctBonus()				{ return empire.tradePctBonus(); }
+	public float diplomacyBonus()				{ return empire.diplomacyBonus(); }
+	public float militaryPowerLevel()			{ return owner().militaryPowerLevel(empire); }
+	public float powerLevel()					{ return owner().powerLevel(empire); }
+	public List<ShipFleet> empireFleets()		{ return owner().fleetsForEmpire(empire); }
+	public List<StarSystem> empireSystems()		{ return owner().systemsForCiv(empire.id); }
+	public int empireNumSystems()				{ return owner().numSystemsForCiv(empire.id); }
+	public int lastCouncilVoteEmpId()			{ return empire.lastCouncilVoteEmpId(); }
+
+	EmpireView viewForEmpire(Empire e)	{ return empire.viewForEmpire(e); }
 
     public EmpireView otherView() {
         if (otherView == null)
             otherView = empire.viewForEmpire(owner);
         return otherView;
     }
-	public void validateOnLoad() { // For backward compatibility
+	void validateOnLoad() { // For backward compatibility
 		embassy.validateOnLoad();
 		if (owner().isPlayer()) // Variables not used by AI
 			spies.validateOnLoad();
 	}
-    public EmpireView(Empire o, Empire c) {
+    EmpireView(Empire o, Empire c) {
         empire = c;
         owner = o;
         spies = new SpyNetwork(this);
@@ -77,8 +136,8 @@ public final class EmpireView implements Base, Serializable {
     @Override
     public String toString()   { return concat(owner.raceName(), " View of: ", empire.raceName()); }
     
-    public Integer listOrder() {
-        int rangeMod = this.inEconomicRange() ? 0 : 100;
+    private Integer listOrder() {
+        int rangeMod = inEconomicRange() ? 0 : 100;
         return rangeMod + embassy().treaty().listOrder();
     }
     public boolean diplomats() {
@@ -86,11 +145,11 @@ public final class EmpireView implements Base, Serializable {
     }
     public Image flag() {
         if (embassy().anyWar())
-            return empire().race().flagWar();
+            return empire.race().flagWar();
         else if (embassy().isFriend())
-            return empire().race().flagPact();
+            return empire.race().flagPact();
         else
-            return empire().race().flagNorm();
+            return empire.race().flagNorm();
     }
     public Image dialogueBox() {
         if (embassy().anyWar())
@@ -103,7 +162,7 @@ public final class EmpireView implements Base, Serializable {
     public float scaleOfContempt() {
         // returns 0 if equal power
         // returns 1, 2, 3 if we are 2x,3x,4x more powerful
-        // reutrns -1,-2,-3 if we are 1/2x, 1/3x, 1/4x as powerful
+        // returns -1,-2,-3 if we are 1/2x, 1/3x, 1/4x as powerful
         float ourPower = empireWeakness();
         if (ourPower == 1)
             return 0;
@@ -112,7 +171,7 @@ public final class EmpireView implements Base, Serializable {
         else
             return -(1/ourPower)+1;
     }
-    public float empireWeakness() { return 1 / empirePower(); }
+    private float empireWeakness() { return 1 / empirePower(); }
     public float empirePower() {
         // This returns the estimated strength of the view.civ vs. the view.owner
         // > 1 means empire is STRONGER than view.owner
@@ -124,7 +183,7 @@ public final class EmpireView implements Base, Serializable {
             num = den;
         return num / den;
     }
-    public void refresh() {
+    void refresh() {
         if (!embassy.contact()) {
             float range = owner.shipRange();
             for (int id=0; id<owner.sv.count();id++) {
@@ -136,7 +195,7 @@ public final class EmpireView implements Base, Serializable {
             return;
     }
     public boolean inEconomicRange() { return owner().inEconomicRange(empId()); }
-    public void breakAllTreaties() {
+    void breakAllTreaties() {
         trade.stopRoute();
         embassy.resetTreaty();
     }
@@ -161,7 +220,7 @@ public final class EmpireView implements Base, Serializable {
         		&& otherView().embassy() != null
         		&& otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING);
     }
-    public void setSuggestedAllocations() { // BR: added Xenophobic management
+    void setSuggestedAllocations() { // BR: added Xenophobic management
         if (owner.isAIControlled()) {
             spies.setSuggestedAllocations();
             return;
@@ -192,41 +251,8 @@ public final class EmpireView implements Base, Serializable {
         		spies.maxSpies(1);
         	return;
         }
-
-//        if (empire.leader().isXenophobic()
-//				&& governor.isSpareXenophobes()
-//				&& otherView() != null
-//				&& otherView().embassy() != null
-//				&& otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING)) {        
-//        	if(spies.allocation() > 0)
-//		        spies.allocation(0);
-//		    if(spies.maxSpies() > 0)
-//		        spies.maxSpies(0);
-//		    return;
-//        }
-//        if(governor.isAutoSpy()) {
-//        	spies.setSuggestedAllocations();
-//		    return;
-//        }
-//        if(governor.isAutoInfiltrate()) {
-//        	if(spies.allocation() < 1)
-//        		spies.allocation(1);
-//        	if(spies.maxSpies() < 1)
-//        		spies.maxSpies(1);
-//        	return;
-//        }
-        
-//        if (owner.isAIControlled() || owner.session().getGovernorOptions().isAutoSpy()) {
-//            spies.setSuggestedAllocations();
-//        } else if(owner.session().getGovernorOptions().isAutoInfiltrate())
-//        {
-//            if(spies.allocation() < 1)
-//                spies.allocation(1);
-//            if(spies.maxSpies() < 1)
-//                spies.maxSpies(1);
-//        }
     }
-    public void setContact() {
+    void setContact() {
         if (owner.extinct() || empire.extinct())
             return;
         // when civ is within propulsion range
@@ -242,22 +268,22 @@ public final class EmpireView implements Base, Serializable {
 
         setSuggestedAllocations();
     }
-    public void refreshSystemSpyViews() {
+    void refreshSystemSpyViews() {
         // this method is called once during the SpyNetwork nextTurn method
         // it is responsible for updating the spy views for an empire
-        
+
         // if in unity, it refreshes views for all of the empire's colonies
-        
+
         // all other cases, it only refreshes the views for the empire's 
         // known colonies, PLUS one additional previously-unknown colony
         // per spy network. Unknown colonies closest in distance to this
         // empire are learned first
-        
-        
+
+
         // get all #empire views AND all views we think belong to #empire
         // this keeps us from sabotaging #empire colonies that have been destroyed
-        List<StarSystem> allKnownSystems = owner.systemsForCiv(empire);
-        
+        List<StarSystem> allKnownSystems = owner.systemsForCiv(empire.id);
+
         // build list of unknown systems  (all minus known)
         List<StarSystem> allUnknownSystems = new ArrayList<>(empire.allColonizedSystems());
         allUnknownSystems.removeAll(allKnownSystems);
@@ -287,11 +313,11 @@ public final class EmpireView implements Base, Serializable {
                 }
             }
         }
-        
+
         for (StarSystem sys : allKnownSystems)
             owner.sv.refreshSpyScan(sys.id);
     }
-    public void nextTurn(float prod, float spyMod) {
+    void nextTurn(float prod, float spyMod) {
         log(this+": nextTurn");
         if (empire.extinct())
             return;
@@ -299,7 +325,7 @@ public final class EmpireView implements Base, Serializable {
         embassy.nextTurn(prod);
         spies.nextTurn(prod, spyMod);
     }
-    public void makeDiplomaticOffers() {
+    void makeDiplomaticOffers() {
         log(this+": makeDiplomaticOffers");
         if (owner.isAIControlled())
             owner.diplomatAI().makeDiplomaticOffers(this);
@@ -309,7 +335,7 @@ public final class EmpireView implements Base, Serializable {
         s1 = empire.replaceTokens(s1, "your");
         return s1;
     }
-    public String decode(String s, Empire other) {
+    private String decode(String s, Empire other) {
         String s1 = owner.replaceTokens(s, "my");
         s1 = empire.replaceTokens(s1, "your");
         if (other != null)
@@ -347,5 +373,5 @@ public final class EmpireView implements Base, Serializable {
         return DiplomaticCounterReply.answer(true, decodedMessage(reason, target), id(target), techs, bribeAmt);
     }
     public static Comparator<EmpireView> PLAYER_LIST_ORDER = (EmpireView o1, EmpireView o2) -> o1.listOrder().compareTo(o2.listOrder());
-    public static Comparator<EmpireView> BY_RACENAME       = (EmpireView o1, EmpireView o2) -> o1.empire().raceName().compareTo(o2.empire().raceName());
+    public static Comparator<EmpireView> BY_RACENAME       = (EmpireView o1, EmpireView o2) -> o1.empire.raceName().compareTo(o2.empire.raceName());
 }

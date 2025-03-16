@@ -16,6 +16,7 @@
 package rotp.model.incidents;
 
 import java.util.List;
+
 import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.StarSystem;
 
@@ -29,9 +30,9 @@ public class ParanoiaIncident extends DiplomaticIncident {
     }
     private ParanoiaIncident(EmpireView ev) {
         empMe = ev.owner().id;
-        empYou = ev.empire().id;
+        empYou = ev.empId();
         
-        List<StarSystem> yourSystems = ev.owner().systemsForCiv(ev.empire());   
+        List<StarSystem> yourSystems = ev.empireSystems();   
         for (StarSystem sys: yourSystems) {
             if (sys.planet().founderId() == empMe)
                 numOccupiedSystems++;

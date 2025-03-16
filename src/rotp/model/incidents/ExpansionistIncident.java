@@ -31,7 +31,7 @@ public class ExpansionistIncident extends DiplomaticIncident {
     public boolean triggeredByAction()   { return false; }
     private ExpansionistIncident(EmpireView ev) {
         iev = ev;
-        empYou = iev.empire().id;
+        empYou = iev.empId();
         empMe = iev.ownerId();
         severity = 0;
     }
@@ -62,7 +62,7 @@ public class ExpansionistIncident extends DiplomaticIncident {
                 continue;
             float score = iev.owner().generalAI().colonyCenter(iev.owner()).distanceTo(iev.owner().generalAI().colonyCenter(emp));
 
-            if(emp == iev.empire())
+            if(iev.is(emp))
                 currentScore = score;
             if(score >= max)
                 max = score;

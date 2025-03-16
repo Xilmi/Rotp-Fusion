@@ -790,9 +790,10 @@ public final class GameSession implements Base, Serializable {
         Empire pl = player();
         if (pl.hostiles().isEmpty())
             return;
-        Empire emp = random(pl.hostiles()).empire();
+        EmpireView ev = random(pl.hostiles());
         StarSystem sys = galaxy().system(pl.homeSysId());
 
+        Empire emp = galaxy().empire(ev.empId());
         Transport tr = emp.allColonizedSystems().get(0).colony().transport();
         tr.setDest(sys);
         tr.size(30); // better hope you're playing the Bulrathi
@@ -805,7 +806,7 @@ public final class GameSession implements Base, Serializable {
         Empire pl = player();
         if (pl.hostiles().isEmpty())
             return;
-        Empire emp = random(pl.hostiles()).empire();
+        EmpireView ev = random(pl.hostiles());
         StarSystem sys = galaxy().system(pl.homeSysId());
         sys.colony().defense().bases(3);
 
@@ -821,9 +822,9 @@ public final class GameSession implements Base, Serializable {
             sys.acceptFleet(plFl);
         }
 
-        ShipDesign enSh = emp.shipLab().fighterDesign();
-        ShipDesign enSh2 = emp.shipLab().bomberDesign();
-        ShipFleet enFl = new ShipFleet(emp.id, sys);
+        ShipDesign enSh = ev.shipLabUncut().fighterDesign();
+        ShipDesign enSh2 = ev.shipLabUncut().bomberDesign();
+        ShipFleet enFl = new ShipFleet(ev.empId(), sys);
         enFl.addShips(enSh.id(), 5);
         enFl.addShips(enSh2.id(), 3);
         sys.acceptFleet(enFl);
@@ -834,7 +835,7 @@ public final class GameSession implements Base, Serializable {
         Empire pl = player();
         if (pl.hostiles().isEmpty())
             return;
-        Empire emp = random(pl.hostiles()).empire();
+        EmpireView ev = random(pl.hostiles());
         StarSystem sys = galaxy().system(pl.homeSysId());
         sys.colony().defense().bases(1);
         ShipDesign plCo= pl.shipLab().colonyDesign();
@@ -852,10 +853,10 @@ public final class GameSession implements Base, Serializable {
             sys.acceptFleet(plFl);
         }
 
-        ShipDesign enSh = emp.shipLab().fighterDesign();
-        ShipWeapon miss = emp.shipLab().missileWeapon(0, 5);
+        ShipDesign enSh = ev.shipLabUncut().fighterDesign();
+        ShipWeapon miss = ev.shipLabUncut().missileWeapon(0, 5);
         enSh.addWeapon(miss, 20);
-        ShipFleet enFl = new ShipFleet(emp.id, sys);
+        ShipFleet enFl = new ShipFleet(ev.empId(), sys);
         enFl.addShips(enSh.id(), 5);
         //enFl.addShips(enSh2, 3);
         sys.acceptFleet(enFl);
@@ -944,7 +945,7 @@ public final class GameSession implements Base, Serializable {
         Empire pl = player();
         if (pl.hostiles().isEmpty())
             return;
-        Empire emp = random(pl.hostiles()).empire();
+        EmpireView ev = random(pl.hostiles());
         StarSystem sys = galaxy().system(pl.homeSysId());
         sys.colony().defense().bases(3);
 
@@ -996,9 +997,9 @@ public final class GameSession implements Base, Serializable {
         pl.shipViewFor(plBo).scan();
 
 
-        ShipDesign enSh = emp.shipLab().fighterDesign();
-        ShipDesign enSh2 = emp.shipLab().bomberDesign();
-        ShipFleet enFl = new ShipFleet(emp.id, sys);
+        ShipDesign enSh = ev.shipLabUncut().fighterDesign();
+        ShipDesign enSh2 = ev.shipLabUncut().bomberDesign();
+        ShipFleet enFl = new ShipFleet(ev.empId(), sys);
         enFl.addShips(enSh.id(), 100);
         enFl.addShips(enSh2.id(), 30);
         sys.acceptFleet(enFl);
@@ -1007,25 +1008,25 @@ public final class GameSession implements Base, Serializable {
         EmpireView view = random(player().empireViews());
         if (view != null) {
             StarSystem espionageSystem = galaxy().system(view.homeSysId());
-            Empire espionageEmpire = view.empire();
 
             List<Tech> techs = new ArrayList<>();
             for (int i=0;i<TechTree.NUM_CATEGORIES;i++)
-                techs.add(tech(random(view.empire().tech().category(i).allTechs())));
+                techs.add(tech(random(view.techUncut().category(i).allTechs())));
             techs.remove(random(techs)); // one blank category
             Spy spy = (new Spy(view.spies())).makeSuper();
             EspionageMission mission = new EspionageMission(view.spies(), spy, techs,espionageSystem, techs);
-            StealTechNotification.create(mission, espionageEmpire.id);
+            StealTechNotification.create(mission, view.empId());
             for (EmpireView v: player().empireViews())
-                if ((v != null) && (v.empire() != view.empire()))
-                    mission.empiresToFrame().add(v.empire());
+                if ((v != null) && (v.empId() != view.empId()))
+                    mission.empiresToFrame().add(v.empireUncut());
         }
     }
     public void randomlyCommitSabotage() {
         EmpireView view = random(player().empireViews());
         if (view != null) {
             view.embassy().makeFirstContact();
-            StarSystem sys = random(view.empire().allColonizedSystems());
+            Empire emp = galaxy().empire(view.empId());
+            StarSystem sys = random(emp.allColonizedSystems());
             player().sv.refreshFullScan(sys.id);
             Spy spy = (new Spy(view.spies())).makeSuper();
             SabotageMission mission = new SabotageMission(view.spies(), spy);

@@ -49,10 +49,10 @@ public class SabotageBasesIncident extends DiplomaticIncident {
     private SabotageBasesIncident(EmpireView ev, SabotageMission m) {
 
         dateOccurred = galaxy().currentYear();
-        duration = ev.empire().leader().isPacifist() ? 20 : 10;
+        duration = ev.leader().isPacifist() ? 20 : 10;
 
         empVictim = ev.owner().id;
-        empSpy = ev.empire().id;
+        empSpy = ev.empId();
         sysId = m.starSystem().id;
         destroyed = m.missileBasesDestroyed();
         severity = max(-30, (-2 * destroyed) + ev.embassy().currentSpyIncidentSeverity());
@@ -60,10 +60,10 @@ public class SabotageBasesIncident extends DiplomaticIncident {
         if (ev.owner().isPlayerControlled()
         && (destroyed > 0)) {
             StarSystem sys = m.starSystem();
-            BasesDestroyedAlert.create(ev.empire(), destroyed, sys);
+            BasesDestroyedAlert.create(ev.empireUncut(), destroyed, sys);
             if (sys.isColonized() && sys.colony().defense().allocation() == 0) {
-                String str1 = text("MAIN_ALLOCATE_SABOTAGE_BASES", systemName(), str(destroyed), ev.empire().raceName());
-                str1 = ev.empire().replaceTokens(str1, "spy");
+                String str1 = text("MAIN_ALLOCATE_SABOTAGE_BASES", systemName(), str(destroyed), ev.empireUncut().raceName());
+                str1 = ev.empireUncut().replaceTokens(str1, "spy");
                 session().addSystemToAllocate(sys, str1);
             }
         }

@@ -628,14 +628,14 @@ public class AIScientist implements Base, Scientist {
         {
             if(!ev.inEconomicRange())
                 continue;
-            if(!galaxy().options().canTradeTechs(empire, ev.empire()))
+            if(!galaxy().options().canTradeTechs(empire, ev.empireUncut()))
                 continue;
-            if(ev.empire().dataRace().internalSecurityAdj() > empire.dataRace().spyInfiltrationAdj())
+            if(ev.dataRace().internalSecurityAdj() > empire.dataRace().spyInfiltrationAdj())
                 continue;
             if(isImportant(t))
                 continue;
             //If others, who we are not at war with, have it, we value it lower because in that case we can try and trade for it
-            if(!empire.atWarWith(ev.empId()) && ev.empire().diplomatAI().techsAvailableForRequest(empire).contains(t))
+            if(!empire.atWarWith(ev.empId()) && ev.diplomatAI().techsAvailableForRequest(empire).contains(t))
                 ownerFactor /= 2;
             else if(ev.spies().possibleTechs().contains(t.id()) && ev.spies().isEspionage() && ev.spies().hasSpies())
                 ownerFactor /= 2;
@@ -1069,7 +1069,7 @@ public class AIScientist implements Base, Scientist {
     public boolean needRange()
     {
         for(EmpireView ev : empire.contacts())
-            for(ShipDesign enemyDesign : ev.empire().shipLab().designs())
+            for(ShipDesign enemyDesign : ev.designsUncut())
                 if(enemyDesign.repulsorRange() > 0)
                     return true;
         return false;

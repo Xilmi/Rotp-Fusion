@@ -31,7 +31,7 @@ public class MilitaristIncident extends DiplomaticIncident {
     public boolean triggeredByAction()   { return false; }
     private MilitaristIncident(EmpireView ev) {
         iev = ev;
-        empYou = iev.empire().id;
+        empYou = iev.empId();
         empMe = iev.ownerId();
         severity = 0;
     }
@@ -62,7 +62,7 @@ public class MilitaristIncident extends DiplomaticIncident {
                 continue;
             float score = emp.shipMaintCostPerBC();
 
-            if(emp == iev.empire())
+            if(iev.is(emp))
                 currentScore = score;
             if(score >= max)
                 max = score;

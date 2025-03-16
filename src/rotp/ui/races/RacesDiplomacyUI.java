@@ -488,7 +488,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
             for (DiplomaticIncident inc : view.otherView().embassy().allIncidents()) {
                 if ((inc.currentSeverity() != 0) && inc.triggeredByAction()) {
                     incidents.add(inc);
-                    incidentMap.put(inc, view.empire());
+                    incidentMap.put(inc, view.empireUncut());
                 }
             }
         }

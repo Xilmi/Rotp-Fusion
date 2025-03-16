@@ -35,10 +35,12 @@ import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.sprites.MapSprite;
+import rotp.util.OSUtil;
 
 public class MapOverlayMemoryLow extends MapOverlay {
     final Color edgeC = new Color(44,59,30);
     final Color midC = new Color(70,93,48);
+    final String osTxt = " OS = " + OSUtil.getOS(); 
     MainUI parent;
     RestartButtonSprite restartButton = new RestartButtonSprite();
     SkipButtonSprite skipButton = new SkipButtonSprite();
@@ -161,7 +163,7 @@ public class MapOverlayMemoryLow extends MapOverlay {
             lines = wrappedLines(g, desc4, textW);
         }
         y2a += s10;
-        drawString(g,"Last " + Rotp.getMemoryInfo(true), x2a, y2a);
+        drawString(g,"Last " + Rotp.getMemoryInfo(true) + osTxt, x2a, y2a);
 
         // init and draw continue button sprite
         parent.addNextTurnControl(restartButton);

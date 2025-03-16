@@ -31,7 +31,7 @@ public class DiplomatIncident extends DiplomaticIncident {
     public boolean triggeredByAction()   { return false; }
     private DiplomatIncident(EmpireView ev) {
         iev = ev;
-        empYou = iev.empire().id;
+        empYou = iev.empId();
         empMe = iev.ownerId();
         severity = 0;
     }
@@ -73,7 +73,7 @@ public class DiplomatIncident extends DiplomaticIncident {
                 else
                     score += 1;
             }
-            if(emp == iev.empire())
+            if(iev.is(emp))
                 currentDiploScore = score;
             if(score >= maxPopularity)
                 maxPopularity = score;

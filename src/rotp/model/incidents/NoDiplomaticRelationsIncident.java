@@ -24,7 +24,7 @@ public class NoDiplomaticRelationsIncident extends DiplomaticIncident {
     
     public NoDiplomaticRelationsIncident(EmpireView ev) {
         empMe = ev.owner().id;
-        empYou = ev.empire().id;
+        empYou = ev.empId();
         dateOccurred = galaxy().currentYear();
         duration = 1;
         severity = -5;

@@ -19,7 +19,8 @@ public class TreatyPact extends DiplomaticTreaty {
     private static final long serialVersionUID = 1L;
     public TreatyPact(Empire e1, Empire e2) {
         super(e1,e2,"RACES_PACT");
-    }    
+    }
+    public TreatyPact(int e1, int e2) { super(e1, e2, "RACES_PACT"); }
     @Override
     public boolean isPact()                   { return true; }
     @Override

@@ -214,7 +214,8 @@ public abstract class ParamFleetAuto extends ParamList	{
 		private int[] shipCounts;
 		private int[] requests;
 		private int[] nextCounts;
-		private int designCount, fleetCount, requestNum, warpSpeed, fleetCost, environment;
+		private int designCount, requestNum, warpSpeed, fleetCost, environment;
+		// private int fleetCount;
 		private boolean isExtRange;
 
 		private AutoSendFleet(ShipFleet fleet)	{
@@ -231,7 +232,7 @@ public abstract class ParamFleetAuto extends ParamList	{
 			requests	= getautoShipRequest(fleet.empire().shipLab());
 			nextCounts	= null;
 			designCount	= 0;
-			fleetCount	= 0;
+			//fleetCount	= 0;
 			requestNum	= 0;
 			environment = -1;
 			for (int i=0; i<MAX_DESIGNS; i++) {
@@ -260,7 +261,7 @@ public abstract class ParamFleetAuto extends ParamList	{
 			// evaluate sub fleet potential (will consume shipCounts)
 			int[] shipCopy = shipCounts.clone();
 			while (buildNextFleet()) {
-				fleetCount++;
+				//fleetCount++;
 				getSubFleet();
 			}
 			// Restore shipCounts
@@ -273,7 +274,13 @@ public abstract class ParamFleetAuto extends ParamList	{
 			nextCounts = null;
 			return subFleet;
 		}
-		public boolean fitForSystem(int id)	{
+		public boolean hasSubFleet()		{
+			if (nextCounts != null)
+				return true;
+			buildNextFleet();
+			return nextCounts != null;
+		}
+/*		public boolean fitForSystem(int id)	{
 			return new AutoSendFleet(fleet, id).hasSubFleet();
 		}
 		public boolean alreadyFit(ShipFleet fleet, int sysId)	{
@@ -281,12 +288,6 @@ public abstract class ParamFleetAuto extends ParamList	{
 		}
 		public int subFleetCount()			{ return fleetCount; }
 		public ShipFleet fleet()			{ return fleet; }
-		public boolean hasSubFleet()		{
-			if (nextCounts != null)
-				return true;
-			buildNextFleet();
-			return nextCounts != null;
-		}
 		public int warpSpeed()				{
 			if (buildNextFleet())
 				return warpSpeed;
@@ -310,7 +311,7 @@ public abstract class ParamFleetAuto extends ParamList	{
 			}
 			else 
 				return new int[MAX_DESIGNS];
-		}
+		} */
 		private boolean buildNextFleet()	{
 			if (nextCounts != null)
 				return true;

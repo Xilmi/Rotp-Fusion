@@ -15,11 +15,19 @@
  */
 package rotp.model.ai.xilmi;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
 import rotp.model.ai.interfaces.ShipCaptain;
-import rotp.model.combat.*;
+import rotp.model.combat.CombatStack;
+import rotp.model.combat.CombatStackColony;
+import rotp.model.combat.CombatStackMissile;
+import rotp.model.combat.CombatStackShip;
+import rotp.model.combat.FlightPath;
+import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.StarSystem;
@@ -902,7 +910,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         
         // if stack is pacted with colony and doesn't want war, then retreat
         // ail: Whether I want a war or not depends on whether the other faction is an enemy, not on relation!
-        if ((colView != null) && !empire.enemies().contains(colView.empire()))  
+        if ((colView != null) && !colView.isMember(empire.enemies()))
             return true;
         
         // don't retreat if all enemies can only target planets
