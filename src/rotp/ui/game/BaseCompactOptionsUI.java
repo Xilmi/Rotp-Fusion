@@ -113,7 +113,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private boolean isLeftAlign	 = false;
 	//private boolean isRightAlign = false;
 	private boolean isJustified	 = false;
-
+	private boolean initialised = false;
 	// ========== Constructors and initializers ==========
 	//
 	public BaseCompactOptionsUI(String guiTitle_ID, String guiId,
@@ -121,12 +121,12 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
 		optionsList = paramList;
-		init_0();
+		//init_0();
 	}
 	BaseCompactOptionsUI(String guiTitle_ID, String guiId) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
-		init_0();
+		// init_0();
 	}
 	public BaseCompactOptionsUI(String guiTitle_ID, String guiId,
 			SafeListPanel paramList, boolean hovering,
@@ -148,7 +148,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		rGist = xGist + wGist;
 		bGist = yGist + hGist;
 //		hovLoc = location;
-		init_0();
+//		init_0();
 	}
 	
 	protected SafeListPanel getList() { return optionsList; }
@@ -187,6 +187,8 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		btListBoth.addAll(btListRight);
 	}
 	private void init_0() {
+		if (initialised)
+			return;
 		setOpaque(false);
 		add(descBox);
 		descBox.setOpaque(true);
@@ -195,7 +197,18 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
+		initialised = true;
+		// System.out.println("init_0() " + text (guiTitleID));
 	}
+	private void terminate() {
+		remove(descBox);
+		removeMouseListener(this);
+		removeMouseMotionListener(this);
+		removeMouseWheelListener(this);
+		initialised = false;
+		// System.out.println("terminate() " + text(guiTitleID));
+	}
+
 	// ========== Optimization Methods ==========
 	//
     @Override protected void initBackImg() {
@@ -554,6 +567,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	}
 	private void start() { // Called from subUI
 		super.init();
+		init_0();
 		hoverBox = null;
 		prevHover = null;
 		descBox.setVisible(true);
@@ -642,6 +656,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 			else
 				RotPUI.instance().mainUI().map().resetRangeAreas();
 		}
+		terminate();
 	}
 	@Override protected void doExitBoxAction()		{
 		buttonClick();

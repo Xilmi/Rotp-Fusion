@@ -5,6 +5,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Fixed a potential memory leak with options screens.
+- More colony-ships for everyone (Xilmi)
+  - The AI will no longer be as conservative about building colony-ships once they have the techs needed for going to war.
+  - This was meant for them to not overbuild early on but they limited themselves too much later on so someone who would just stay out of conflicts while having a lo of colony-ships could more easily take over everything for themselves.
 - Improved Governor Contextual help for Auto-Scout Auto-Colonize and Auto-Attack.
 - Ufo tracker: Fixed crash on vertical or horizontal travels.
 - Ufo tracker: Fixed transport not identifying destinations.
@@ -15,15 +19,6 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Moved Dark galaxy option to "Galaxy Rules"
 - Scout repelling (Xilmi)
   - Fixed an issue causing the AI not having built Fighters to repel enemy scouts anymore in the early-game for the last 9 months.
-- Expansionsts more expansionistic for Character-AI: (Xilmi)
-  - AIs with the "Expansionist" personality-trait will assume they can get all the uncolonized planets they know about instead of making assumptions about opponents getting some of them too. So they rather risk overbuilding on colonizers instead of putting their resources elsewhere.
-- Expansion-phase-research-tweeks (Xilmi)
-  - AI will no longer commit to getting improved environment-techs for systems that are outside of their range.
-  - AI will now favor range-techs over engine-techs if they are in the expansion-phase and the range tech is the only way for them to obtain more planets.
-- Moved "French" selection to second position, as English and French are the only fully supported language of RotP-Fusion.
-- New option "Less zealous scouts" to prevent our auto sent scouts from constantly crossing our space from one end to the other, scouts already deployed will have a more limited range of action. Later, if a scout is closer to a star already targeted, it will also be directed towards this star in order to discover it as quickly as possible. (This last feature can be disabled independently)
-
-- Moved to java 17
 
 
 <b><ins>Updates since last Reddit announcement:</ins></b>

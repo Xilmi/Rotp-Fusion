@@ -88,6 +88,11 @@ Later:
 
 ## What's New
 
+2025.03.17 (Xilmi)
+- More colony-ships for everyone
+  - The AI will no longer be as conservative about building colony-ships once they have the techs needed for going to war.
+  - This was meant for them to not overbuild early on but they limited themselves too much later on so someone who would just stay out of conflicts while having a lo of colony-ships could more easily take over everything for themselves.
+
 2025.03.17 (BR)
 - Fixed Ufo tracker showing the wrong destination when retreating.
 - Ufo Tracker has now its own class.
@@ -99,7 +104,9 @@ Later:
 - Ufo tracker: Fixed crash on vertical or horizontal travels.
 - Ufo tracker: Fixed transport not identifying destinations.
 - Improved Governor Contextual help for Auto-Scout Auto-Colonize and Auto-Attack.
-
+- Fixed a potential memory leak with options screens.
+  - Some JPanel share their instance to get Mouse and keyboard action, without removing them. The Garbage collector may not removed them from memory, as the mouse and keyboard drivers still have a link on them.
+  - The options panels have now a "Terminate" method to remove these links.
 
 2025.03.15 (BR)
 - The Dark galaxy apply to AI too.
