@@ -135,6 +135,7 @@ public interface Scientist {
     //Xilmi-AI
     default boolean isImportant(Tech t) { return true; }
     default boolean isOptional(Tech t) { return false; }
+    default boolean minimalTechForRush() { return true; }
     
     // Monster tech
     float baseValue(TechResistSpecial t);
