@@ -5,6 +5,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Ufo tracker: Fixed crash on vertical or horizontal travels.
+- Ufo tracker: Fixed transport not identifying destinations.
 - Fixed Ufo tracker showing the wrong destination when retreating.
 - The Dark galaxy apply to AI too.
 - Fixed Dark Galaxy sabotage preselecting a dark system.

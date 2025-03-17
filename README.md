@@ -96,6 +96,9 @@ Later:
 - Cleaned the empire class from the moved method.
 - Player AI is now the new Governor AI, which is a copy of the Xilmi AI, except for some specific Governor features.
   - Player dedicated functions should not bloat the Empire class... They will be progressively moved to the player dedicated AI.
+- Ufo tracker: Fixed crash on vertical or horizontal travels.
+- Ufo tracker: Fixed transport not identifying destinations.
+
 
 2025.03.15 (BR)
 - The Dark galaxy apply to AI too.

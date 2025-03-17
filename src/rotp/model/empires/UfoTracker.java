@@ -223,15 +223,46 @@ public final class UfoTracker {
 		// For simplicity, we completely ignore scan coverage from ships.
 		return empire.distanceTo(ufo) + maxSpeedShipMightHave(ufo) < empire.planetScanningRange();
 	}
+	/**
+	 * This function uses only information available to the empire.
+	 * This function should never be used to for game purposes, because when systems are collinear the answer it returns can be,
+	 * and sometimes will be, wrong.
+	 */
 	private StarSystem starSystemInLineIfAny(float firstX, float firstY, float secondX, float secondY) {
-		/**
-		 * This function uses only information available to the empire.
-		 * This function should never be used to for game purposes, because when systems are collinear the answer it returns can be,
-		 * and sometimes will be, wrong.
-		 */
-		final int MAX_LOOKAHEAD = 8; // just to ensure we don't somehow infinite-loop
+		// BR: fixed wrong destination when retreating.
+		// Fixed crash on vertical or horizontal travels
+		// Fixed transport without destinations
+		final float strideMin = 0.05f; // To avoid division by something to small to be significant
+		final float maxYears = 8f;
+		final float offsetMax = 0.05f;
 		float strideX = secondX - firstX;
 		float strideY = secondY - firstY;
+		if (Math.abs(strideX) > strideMin) {
+			for (StarSystem sys: empire.allColonizedSystems()) {
+				float years = (sys.x()-secondX)/strideX;
+				// Negative years = wrong direction
+				// years > maxYears means to far away
+				if (years < 0 || years > maxYears)
+					continue;
+				if (Math.abs(sys.y() - (secondY + years * strideY)) < offsetMax )
+					return sys;
+			}
+		}
+		else if (Math.abs(strideY) >  strideMin) {
+			for (StarSystem sys: empire.allColonizedSystems()) {
+				float years = (sys.y()-secondY)/strideY;
+				// Negative years = wrong direction
+				// years > maxYears means to far away
+				if (years < 0 || years > maxYears)
+					continue;
+				if (Math.abs(sys.x() - (secondX + years * strideX)) < offsetMax )
+					return sys;
+			}
+		}
+		else // This should never happen
+			return null;
+		return null;
+		//final int MAX_LOOKAHEAD = 8; // just to ensure we don't somehow infinite-loop
 		// Typically, minLookahead is 0.
 		// We start at 0 just so that we store the "destination" of a stationary ship in orbit as its location, for completeness.
 		// This allows e.g. knowing whether we've been tracking a ship across turns just by checking whether it's in suspectedDestinationsOfVisibleShips.
@@ -240,21 +271,21 @@ public final class UfoTracker {
 		// but it's not in orbit at that system! It's headed *away* from that system!
 		// But we don't check for that in this function, because in that case, in fact, it is *impossible* to guess its destination (using only Deep Space Scanner).
 		// So instead, at a higher level, those cases are dropped.
-		for (int i=0; i<MAX_LOOKAHEAD; i++)
-			for (StarSystem sys: empire.allColonizedSystems())
-				// Strictly speaking, there's no reason the suspected-destination system needs to be colonized;
-				// it doesn't even need to be in scanner range. But this saves time and it's going to be rare for
-				// a ship to be observed far outside the empire when Improved Space Scanner is not researched.
-				// BR: fixed retreating fleets wrong destination
-				// BR: it worth nothing to start from the previous location as it could be the origin System
-				//	if (sys != null && 
-				//	Math.abs((sys.x() - firstX - i*strideX)/strideX) < 0.125 &&
-				//	Math.abs((sys.y() - firstY - i*strideY)/strideY) < 0.125)
-				if (sys != null && 
-						Math.abs((sys.x() - secondX - i*strideX)/strideX) < 0.125f &&
-						Math.abs((sys.y() - secondY - i*strideY)/strideY) < 0.125f)
-					return sys;
-		return null;
+//		for (int i=0; i<MAX_LOOKAHEAD; i++)
+//			for (StarSystem sys: empire.allColonizedSystems())
+//				// Strictly speaking, there's no reason the suspected-destination system needs to be colonized;
+//				// it doesn't even need to be in scanner range. But this saves time and it's going to be rare for
+//				// a ship to be observed far outside the empire when Improved Space Scanner is not researched.
+//				// BR: fixed retreating fleets wrong destination
+//				// BR: it worth nothing to start from the previous location as it could be the origin System
+//				//	if (sys != null && 
+//				//	Math.abs((sys.x() - firstX - i*strideX)/strideX) < 0.125 &&
+//				//	Math.abs((sys.y() - firstY - i*strideY)/strideY) < 0.125)
+//				if (sys != null && 
+//						Math.abs((sys.x() - secondX - i*strideX)/strideX) < 0.125f &&
+//						Math.abs((sys.y() - secondY - i*strideY)/strideY) < 0.125f)
+//					return sys;
+//		return null;
 	}
 	private boolean knowsShipIsLeavingSystemThisTurn(Ship sh, StarSystem sys) {
 		// The fact of whether a ship is retreating or not is always visible to the player if the ship itself is visible.
