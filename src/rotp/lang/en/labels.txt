@@ -4428,9 +4428,9 @@ SHIP_DESIGN_HELP_4E               | Copy - copy an existing design to serve as a
 SHIP_DESIGN_HELP_4F               | Clear - resets all of the selected components.<br>Ctrl-Clear to reset weapons only.
 SHIP_DESIGN_HELP_4G               | Deploy Design - when your new design is complete, deploying it allows you to name it and makes it available for construction.
 SHIP_DESIGN_HELP_AUTO			| <br>Scroll to set the number of ship for this design.<br>Alt-Scroll to set the Governor number of ship.<br>Mid-Click to bind to the Governor value.<br>Right-Click to toggle the governor global action.
-SHIP_DESIGN_HELP_4H				| Auto Scout - →GOVERNOR_AUTO_SCOUT_DESC← →SHIP_DESIGN_HELP_AUTO←
-SHIP_DESIGN_HELP_4I				| Auto Attack - →GOVERNOR_AUTO_ATTACK_DESC← →SHIP_DESIGN_HELP_AUTO←
-SHIP_DESIGN_HELP_4J				| Auto Colonize - →GOVERNOR_AUTO_COLONIZE_DESC← →SHIP_DESIGN_HELP_AUTO←
+SHIP_DESIGN_HELP_4H				| Auto Scout - →GOVERNOR_AUTO_SCOUT_DESC_0← →SHIP_DESIGN_HELP_AUTO←
+SHIP_DESIGN_HELP_4I				| Auto Attack - →GOVERNOR_AUTO_ATTACK_DESC_0← →SHIP_DESIGN_HELP_AUTO←
+SHIP_DESIGN_HELP_4J				| Auto Colonize - →GOVERNOR_AUTO_COLONIZE_DESC_0← →SHIP_DESIGN_HELP_AUTO←
 SHIP_DESIGN_HELP_4K				| Default Design selection:<br>When deleting a design, colonies linked to it will replace it with the default design. Likewise after building a Stargate.<br>When no active default design is selected, the first active design (from top to bottom) will be used.<br>"Shift" will also change shipyard production.
 
 // Ship Combat UI
@@ -5202,29 +5202,35 @@ HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~
 GOVERNOR_FLEET_OPTIONS_LABEL         | Fleet Options
 GOVERNOR_FLEET_OPTIONS_TT            | How AI should manage fleet operations.
 
-GOVERNOR_AUTO_SCOUT_DESC             | When enabled, the Governor will automatically send ships to scout new planets.
-GOVERNOR_AUTO_SCOUT                  | Auto Scout: %1
-GOVERNOR_AUTO_SCOUT_LABEL            | Auto Scout
+GOVERNOR_AUTO_SCOUT_DESC_0			| The Governor will automatically send ships to explore new planets.
+GOVERNOR_AUTO_SCOUT_DESC_1			| (Ships that are labeled as "→SHIP_DESIGN_AUTO_SCOUT←" in the ship design screen.)
+GOVERNOR_AUTO_SCOUT_DESC			| →GOVERNOR_AUTO_SCOUT_DESC_0← →GOVERNOR_AUTO_SCOUT_DESC_1←
+GOVERNOR_AUTO_SCOUT 				| Auto Scout: %1
+GOVERNOR_AUTO_SCOUT_LABEL			| Auto Scout
 
-GOVERNOR_AUTO_COLONIZE_DESC          | When enabled, the Governor will automatically send ships to colonize new planets.
-GOVERNOR_AUTO_COLONIZE               | Auto Colonize: %1
-GOVERNOR_AUTO_COLONIZE_LABEL         | Auto Colonize
+GOVERNOR_AUTO_COLONIZE_DESC_0		| The Governor will automatically send ships to colonize new planets.
+GOVERNOR_AUTO_COLONIZE_DESC_1		| (Ships that are labeled as "→SHIP_DESIGN_AUTO_COLONIZE←" in the ship design screen.)
+GOVERNOR_AUTO_COLONIZE_DESC			| →GOVERNOR_AUTO_COLONIZE_DESC_0← →GOVERNOR_AUTO_COLONIZE_DESC_1←
+GOVERNOR_AUTO_COLONIZE				| Auto Colonize: %1
+GOVERNOR_AUTO_COLONIZE_LABEL		| Auto Colonize
 
-GOVERNOR_AUTO_ATTACK_DESC            | When enabled, the Governor will automatically send ships to enemy colonies.
-GOVERNOR_AUTO_ATTACK                 | Auto Attack: %1
-GOVERNOR_AUTO_ATTACK_LABEL           | Auto Attack
+GOVERNOR_AUTO_ATTACK_DESC_0 		| The Governor will automatically send ships to enemy colonies.
+GOVERNOR_AUTO_ATTACK_DESC_1 		| (Ships that are labeled as "→SHIP_DESIGN_AUTO_ATTACK←" in the ship design screen.)
+GOVERNOR_AUTO_ATTACK_DESC			| →GOVERNOR_AUTO_ATTACK_DESC_0← →GOVERNOR_AUTO_ATTACK_DESC_1←
+GOVERNOR_AUTO_ATTACK				| Auto Attack: %1
+GOVERNOR_AUTO_ATTACK_LABEL			| Auto Attack
 
-GOVERNOR_AUTO_SCOUT_COUNT_DESC       | Number of scout ships to send.
-GOVERNOR_AUTO_SCOUT_COUNT            | Scout Count: %1
-GOVERNOR_AUTO_SCOUT_COUNT_LABEL      | Number of scout ships to send
+GOVERNOR_AUTO_SCOUT_COUNT_DESC		| Number of scout ships to send. →GOVERNOR_AUTO_SCOUT_DESC_1←
+GOVERNOR_AUTO_SCOUT_COUNT			| Scout Count: %1
+GOVERNOR_AUTO_SCOUT_COUNT_LABEL		| Number of scout ships to send
 
-GOVERNOR_AUTO_COLONY_COUNT_DESC      | Number of Colony ships to send.
-GOVERNOR_AUTO_COLONY_COUNT           | Colony Count: %1
-GOVERNOR_AUTO_COLONY_COUNT_LABEL     | Number of Colony ships to send
+GOVERNOR_AUTO_COLONY_COUNT_DESC		| Number of Colony ships to send. →GOVERNOR_AUTO_COLONIZE_DESC_1←
+GOVERNOR_AUTO_COLONY_COUNT			| Colony Count: %1
+GOVERNOR_AUTO_COLONY_COUNT_LABEL	| Number of Colony ships to send
 
-GOVERNOR_AUTO_ATTACK_COUNT_DESC      | Number of Attack ships to send.
-GOVERNOR_AUTO_ATTACK_COUNT           | Attack Count: %1
-GOVERNOR_AUTO_ATTACK_COUNT_LABEL     | Number of Attack ships to send
+GOVERNOR_AUTO_ATTACK_COUNT_DESC		| Number of Attack ships to send. →GOVERNOR_AUTO_ATTACK_DESC_1←
+GOVERNOR_AUTO_ATTACK_COUNT			| Attack Count: %1
+GOVERNOR_AUTO_ATTACK_COUNT_LABEL	| Number of Attack ships to send
 
 // Not yet implemented
 GOVERNOR_AUTOSHIPS_BY_DEFAULT_DESC   | Auto Ships is set to "On" by Default: If true, new colonies will have auto ship building set to "on".

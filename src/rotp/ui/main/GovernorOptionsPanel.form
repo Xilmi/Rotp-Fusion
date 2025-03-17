@@ -648,7 +648,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="terraformEarly" min="-2" pref="55" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="terraformEarlyLabel" min="-2" pref="144" max="-2" attributes="0"/>
+                                  <Component id="terraformEarlyLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="shipbuilding" alignment="0" max="-2" attributes="0"/>
                               <Component id="shieldWithoutBases" alignment="0" min="-2" max="-2" attributes="0"/>

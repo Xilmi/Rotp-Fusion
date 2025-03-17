@@ -98,6 +98,7 @@ Later:
   - Player dedicated functions should not bloat the Empire class... They will be progressively moved to the player dedicated AI.
 - Ufo tracker: Fixed crash on vertical or horizontal travels.
 - Ufo tracker: Fixed transport not identifying destinations.
+- Improved Governor Contextual help for Auto-Scout Auto-Colonize and Auto-Attack.
 
 
 2025.03.15 (BR)

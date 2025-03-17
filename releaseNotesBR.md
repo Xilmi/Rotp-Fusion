@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- Improved Governor Contextual help for Auto-Scout Auto-Colonize and Auto-Attack.
 - Ufo tracker: Fixed crash on vertical or horizontal travels.
 - Ufo tracker: Fixed transport not identifying destinations.
 - Fixed Ufo tracker showing the wrong destination when retreating.

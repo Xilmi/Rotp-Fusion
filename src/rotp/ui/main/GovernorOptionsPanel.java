@@ -1426,7 +1426,7 @@ public class GovernorOptionsPanel extends BasePanel{
                             .addGroup(colonyPanelLayout.createSequentialGroup()
                                 .addComponent(terraformEarly, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(terraformEarlyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(terraformEarlyLabel))
                             .addComponent(shipbuilding)
                             .addComponent(shieldWithoutBases)
                             .addComponent(legacyGrowthMode))
