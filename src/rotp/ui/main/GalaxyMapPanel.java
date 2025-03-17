@@ -167,7 +167,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     	clearWarView();
     	return false;
     }
-    
 
     public IMapHandler parent()     { return parent; }
     public boolean showArmedShips() { return true; }
@@ -241,7 +240,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             baseControls.add(new ShipDisplaySprite(x, y, h, h));
             y -= step;
             baseControls.add(new SystemNameDisplaySprite(x, y, h, h));
- 
+
             y = yi+step;
         	int shift = step-step/2;
          	cleanWidgetSprite = new CleanWidgetSprite(x, y, h, h, shift);
@@ -267,32 +266,8 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             baseControls.add(new TechStatusSprite(TechCategory.COMPUTER, x, y0, h, h));
         	y0 -= step;
             baseControls.add(new TreasurySprite(x, y0, h, h));
-
-
-//        	baseControls.add(new ZoomOutWidgetSprite(10,260,30,30));
-//            baseControls.add(new ZoomInWidgetSprite(10,225,30,30));
-//            baseControls.add(new RangeDisplaySprite(10,190,30,30));
-//            baseControls.add(new GridCircularDisplaySprite(10,155,30,30));
-//            baseControls.add(new FlightPathDisplaySprite(10,120,30,30));
-//            baseControls.add(new ShipDisplaySprite(10,85,30,30));
-//            baseControls.add(new SystemNameDisplaySprite(10,50,30,30));
-//
-//            int y0 = unscaled(getHeight())-310;
-//            baseControls.add(new TechStatusSprite(TechCategory.WEAPON,       10,y0+210,30,30));
-//            baseControls.add(new TechStatusSprite(TechCategory.PROPULSION,   10,y0+175,30,30));
-//            baseControls.add(new TechStatusSprite(TechCategory.PLANETOLOGY,  10,y0+140,30,30));
-//            baseControls.add(new TechStatusSprite(TechCategory.FORCE_FIELD,  10,y0+105, 30,30));
-//            baseControls.add(new TechStatusSprite(TechCategory.CONSTRUCTION, 10,y0+70, 30,30));
-//            baseControls.add(new TechStatusSprite(TechCategory.COMPUTER,     10,y0+35, 30,30));
-//            baseControls.add(new TreasurySprite(10,y0, 30,30));
-//
-//            int yLow = y0 - yOff;
-//       		baseControls.add(new SpyReportSprite(10, yLow, 30, 30));
-//       		yLow-=35;
-//       		//baseControls.add(new AFewMoreTurnsSprite(10, yLow, 30, 30));
-//       		baseControls.add(new OptionsWidgetSprite(10, yLow, 30, 30));
         }
-        
+
         addMouseListener(this);
         addMouseWheelListener(this);
         addMouseMotionListener(this);

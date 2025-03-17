@@ -88,6 +88,15 @@ Later:
 
 ## What's New
 
+2025.03.17 (BR)
+- Fixed Ufo tracker showing the wrong destination when retreating.
+- Ufo Tracker has now its own class.
+- Ufo tracker will be disabled once Scanner showing ETA are discovered.
+- Ufo tracker is called only once a turn, as it was intended.
+- Cleaned the empire class from the moved method.
+- Player AI is now the new Governor AI, which is a copy of the Xilmi AI, except for some specific Governor features.
+  - Player dedicated functions should not bloat the Empire class... They will be progressively moved to the player dedicated AI.
+
 2025.03.15 (BR)
 - The Dark galaxy apply to AI too.
 - Fixed Dark Galaxy sabotage preselecting a dark system. 

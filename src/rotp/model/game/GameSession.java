@@ -558,7 +558,7 @@ public final class GameSession implements Base, Serializable {
 
                 gal.nextEmpireTurns();
                 gal.clearSpaceMonsters();
-                player().setVisibleShips();
+                player().setVisibleShips(true); // BR: To make the call to ufo tracking unique.
                 player().setVisibleMonsters();
 
                 // test game over conditions
@@ -1442,7 +1442,7 @@ public final class GameSession implements Base, Serializable {
         minY = max(0,minY-r);
         maxY = min(gal.height(), maxY+r);
         pl.setBounds(minX, maxX, minY, maxY);
-        pl.setVisibleShips();
+        pl.setVisibleShips(true);
         // BR: Backward compatibility tentative
         galaxy().validateOnLoad();
         ((MOO1GameOptions) options).validateOnLoad();
