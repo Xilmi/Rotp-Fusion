@@ -1074,6 +1074,7 @@ public class AIScientist implements Base, Scientist {
                     return true;
         return false;
     }
+    @Override
     public boolean minimalTechForRush()
     {
         return (empire.tech().topShipWeaponTech().quintile() > 1 
