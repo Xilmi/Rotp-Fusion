@@ -268,6 +268,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final GameOverUI gameOverUI = new GameOverUI();
     private final ErrorUI errorUI = new ErrorUI();
     private final HelpUI helpUI = new HelpUI();
+    private ListDialog listDialog;
 
     private final AdvancedOptionsUI advancedOptionsUI = new AdvancedOptionsUI();
     private final LargeDialogPane  dialogPane       = new LargeDialogPane();
@@ -332,9 +333,6 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         timer.start();
     }
     private void init() {
-    	// Fake Dialog used to load the code and accelerate the future calls
-		ListDialog dialog = new ListDialog(true);
-    	dialog.getValue();
         // Copy the former "Live.Option" to new "Last.Option"
         MOO1GameOptions.copyOptionsFromLiveToLast();
         newOptions().loadStartupOptions();
@@ -346,7 +344,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             selectCurrentPanel();
 
         timer.start();
-        //toggleAnimations();
+		//toggleAnimations();
+		listDialog = new ListDialog(Rotp.getFrame());
         repaint();
     }
     public static IGameOptions newOptions() {
@@ -371,6 +370,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static RotPUI instance() { return instance; }
     public static HelpUI helpUI()   { return instance.helpUI; }
 
+	public static ListDialog		listDialog()		{
+		if (instance.listDialog == null)
+			instance.listDialog = new ListDialog(Rotp.getFrame());
+		return instance.listDialog;
+	}
     public static AdvancedOptionsUI advancedOptionsUI() { return instance.advancedOptionsUI; }
     public static CompactSetupUI    compactSetupUI()    { return new CompactSetupUI(); }
     public static CompactOptionsUI  compactOptionsUI()  { return new CompactOptionsUI(); }

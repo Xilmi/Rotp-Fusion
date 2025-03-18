@@ -198,13 +198,14 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
 		initialised = true;
-		// System.out.println("init_0() " + text (guiTitleID));
+		// System.out.println("init_0() " + text(guiTitleID));
 	}
-	private void terminate() {
+	@Override protected void terminate() {
 		remove(descBox);
 		removeMouseListener(this);
 		removeMouseMotionListener(this);
 		removeMouseWheelListener(this);
+		super.terminate();
 		initialised = false;
 		// System.out.println("terminate() " + text(guiTitleID));
 	}

@@ -147,7 +147,7 @@ public abstract class BaseModPanel extends BasePanel
 	protected void singleInit() {} // To avoid call to options during class creation
 	public SafeListParam activeList() { return activeList; }
 	
-	public GuidePopUp guidePopUp;
+	public final GuidePopUp guidePopUp;
 	
 	private Font miniButtonFont		= narrowFont(15);
 	private Font smallButtonFont	= narrowFont(20);
@@ -178,9 +178,16 @@ public abstract class BaseModPanel extends BasePanel
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 
 	protected BaseModPanel () {
-		if (guidePopUp == null)
-			guidePopUp = new GuidePopUp();
+		guidePopUp = new GuidePopUp();
 		guidePopUp.init();
+	}
+	protected void terminate() {
+		removeMouseListener(this);
+		removeMouseMotionListener(this);
+		if (guidePopUp != null)
+			guidePopUp.terminate();
+		initialised = false;
+		// System.out.println("terminate() " + "Base Mod Panel");
 	}
 	protected abstract String GUI_ID();
 	protected void forceUpdate(boolean b)	{}
@@ -784,7 +791,7 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	// ========== Sub Classes ==========
 	//
-	class Box extends Rectangle {
+	final class Box extends Rectangle {
 		private static final long serialVersionUID = 1L;
 		private IParam	param;
 		private String	label;
@@ -943,13 +950,13 @@ public abstract class BaseModPanel extends BasePanel
 		}
 	}
 
-	class PolyBox extends Polygon {
+	final class PolyBox extends Polygon {
 		private static final long serialVersionUID = 1L;
 		// ========== Constructors ==========
 		//
 		PolyBox() { polyBoxList.add(this); }
 	}
-	public class ModText extends BaseText {
+	public final class ModText extends BaseText {
 		
 		private final Box box;
 		private final int baseFontsize;
@@ -985,7 +992,7 @@ public abstract class BaseModPanel extends BasePanel
 		}
 	}
 	// ===============================================================================
-	public class GuidePopUp {
+	public final class GuidePopUp {
 		private static final int FONT_SIZE	= 16;
 		private final int maxWidth      = scaled(400);
 		private final Color helpColor	= new Color(240,240,240);
@@ -1000,11 +1007,14 @@ public abstract class BaseModPanel extends BasePanel
 		private Color bgC		= GameUI.setupFrame();;
 		private Color bdrC		= new Color(bgC.getRed(), bgC.getGreen(), bgC.getBlue(), 160);
 		private Color lineColor	= bgC;
+		private boolean initialised = false;
 
 		// ========== Constructors and initializers ==========
 		//	
 		GuidePopUp()		{ }
 		private void init() {
+			if (initialised)
+				return;
 			add(border, 0);
 			add(margin, 0);
 			add(pane, 0);
@@ -1015,6 +1025,15 @@ public abstract class BaseModPanel extends BasePanel
 			pane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
 			hide();
 			guideFontSize = FONT_SIZE;
+			initialised = true;
+			// System.out.println("init_0() " + "Guide PopUp");
+		}
+		private void terminate() {
+			remove(border);
+			remove(margin);
+			remove(pane);
+			initialised = false;
+			// System.out.println("terminate() " + "Guide PopUp");
 		}
 		private void setText(String newText)	{
 			text = newText;

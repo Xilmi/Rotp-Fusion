@@ -1075,7 +1075,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int boxHeight = scaled(360);
 		int boxX = galaxyBox.x - boxWidth - s10;
 		int boxY = (getHeight() - boxHeight)/2;
-		ListDialog dialog = new ListDialog(
+		ListDialog dialog = RotPUI.listDialog();
+		dialog.init(
 				this,					// Frame component
 				getParent(),			// Location component
 				message,				// Message
@@ -1170,7 +1171,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		AIList list				= IGameOptions.specificAIset();
 		List<String> returnList = list.getAliens();
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
-		ListDialog dialog		= new ListDialog(
+		ListDialog dialog = RotPUI.listDialog();
+		dialog.init(
 		    	this, getParent(),			// Frame & Location component
 		    	message, title,				// Message, Title
 		    	choiceArray,				// List
@@ -1198,7 +1200,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		AIList list				= IGameOptions.globalAIset();
 		List<String> returnList = list.getAliens();
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
-		ListDialog dialog		= new ListDialog(
+		ListDialog dialog = RotPUI.listDialog();
+		dialog.init(
 		    	this, getParent(),			// Frame & Location component
 		    	message, title,				// Message, Title
 		    	choiceArray,				// List
@@ -1224,7 +1227,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		String title   = text(SPECIFIC_ABILITY);
 		String message = text(SPECIFIC_ABILITY + LABEL_DESCRIPTION);
 		String initialChoice = opts.specificOpponentCROption(i);
-		ListDialog dialog = new ListDialog(
+		ListDialog dialog = RotPUI.listDialog();
+		dialog.init(
 		    	this, getParent(),	// Frame & Location component
 		    	message, title,				// Message, Title
 		        specificAbilitiesArray,		// List
@@ -1263,8 +1267,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		String message = text(GLOBAL_ABILITIES + LABEL_DESCRIPTION);
 		String initialChoice = opts.selectedUseGlobalCROptions();
 		String[] srcList  = selectionList(globalAbilitiesArray);
-		ListDialog dialog = new ListDialog(
-			    this, getParent(),	// Frame & Location component
+		ListDialog dialog = RotPUI.listDialog();
+		dialog.init(
+			    this, getParent(),			// Frame & Location component
 		    	message, title,				// Message, Title
 		    	srcList,					// List
 		        initialChoice, 				// Initial choice

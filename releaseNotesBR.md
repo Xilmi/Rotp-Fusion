@@ -5,7 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-- Fixed a potential memory leak with options screens.
+- Fixed several potential memory leak with options screens.
 - More colony-ships for everyone (Xilmi)
   - The AI will no longer be as conservative about building colony-ships once they have the techs needed for going to war.
   - This was meant for them to not overbuild early on but they limited themselves too much later on so someone who would just stay out of conflicts while having a lo of colony-ships could more easily take over everything for themselves.

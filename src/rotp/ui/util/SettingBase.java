@@ -833,7 +833,8 @@ public class SettingBase<T> implements IParam {
 		height = Math.max(300, height);
 		height = Math.min(350, height);
 
-		ListDialog dialog = new ListDialog(
+		ListDialog dialog = RotPUI.listDialog();
+		dialog.init(
 				frame,	frame,					// Frame & Location component
 				message, title,					// Message & Title
 				list, selectedValue.toString(),	// List & Initial choice

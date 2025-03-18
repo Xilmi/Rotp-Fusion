@@ -55,6 +55,7 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -103,10 +104,174 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 	private Frame frame;
 	private BaseModPanel baseModPanel;
 	private IParam param;
+	private JButton helpButton, cancelButton, setButton;
+	private JScrollPane listScroller;
+	private JPanel listPane, buttonPane;
+	private JLabel label;
+	private final int s5 = scaled(5);
+	private final int s10 = scaled(10);
+	private final int s15 = scaled(15);
+	private final int topInset  = scaled(6);
 
-	public ListDialog(boolean fake)	{ // Fake Dialog used to load the code and accelerate the future calls
-		@SuppressWarnings("unused")
-		JDialog temp = new JDialog();
+	public ListDialog(JFrame frame)	{
+		super(frame, true);
+		int sideInset = s10;
+		//Create and initialize the buttons.
+		helpButton = new JButton("?");
+		helpButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
+		helpButton.setFont(narrowFont(15));
+		helpButton.setVerticalAlignment(SwingConstants.TOP);
+		helpButton.setBackground(GameUI.buttonBackgroundColor());
+		helpButton.setForeground(GameUI.buttonTextColor());
+		helpButton.setActionCommand("Guide");
+		helpButton.addActionListener(this);
+		
+		sideInset = s15;
+		String cancel = LabelManager.current().label("BUTTON_TEXT_CANCEL");
+		cancelButton = new JButton(cancel);
+		cancelButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
+		cancelButton.setFont(narrowFont(15));
+		cancelButton.setVerticalAlignment(SwingConstants.TOP);
+		cancelButton.setBackground(GameUI.buttonBackgroundColor());
+		cancelButton.setForeground(GameUI.buttonTextColor());
+		cancelButton.addActionListener(this);
+
+		String set = LabelManager.current().label("BUTTON_TEXT_SET");
+		setButton = new JButton(set);
+		setButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
+		setButton.setFont(narrowFont(15));
+		setButton.setVerticalAlignment(SwingConstants.TOP);
+		setButton.setBackground(GameUI.buttonBackgroundColor());
+		setButton.setForeground(GameUI.buttonTextColor());
+		setButton.addActionListener(this);
+
+		list = new DialJList();
+		list.addMouseListener(new DialMouseAdapter(setButton));
+		list.setVisibleRowCount(-1);
+		list.setBackground(GameUI.setupFrame());
+		list.setForeground(Color.BLACK);
+		list.setSelectionBackground(GameUI.borderMidColor());
+		list.setSelectionForeground(Color.WHITE);
+
+		listScroller = new JScrollPane(list);
+		listScroller.setAlignmentX(LEFT_ALIGNMENT);
+		listScroller.getVerticalScrollBar().setBackground(GameUI.borderMidColor());
+		listScroller.getVerticalScrollBar().setUI(new DarkScrollBarUI());
+		listScroller.getHorizontalScrollBar().setBackground(GameUI.borderMidColor());
+		listScroller.getHorizontalScrollBar().setUI(new DarkScrollBarUI());
+
+		//Create a container so that we can add a title around
+		//the scroll pane.  Can't add a title directly to the
+		//scroll pane because its background would be white.
+		//Lay out the label and scroll pane from top to bottom.
+		label = new JLabel();
+		label.setFont(narrowFont(15));
+		label.setLabelFor(list);
+		label.setForeground(Color.BLACK);
+
+		listPane = new JPanel();
+		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
+		listPane.setBackground(GameUI.borderMidColor());
+		listPane.add(label);
+		listPane.add(Box.createRigidArea(new Dimension(0,s5)));
+		listPane.add(listScroller);
+		listPane.setBorder(BorderFactory.createEmptyBorder(s10,s10,s10,s10));
+
+		//Lay out the buttons from left to right.
+		buttonPane = new JPanel();
+		buttonPane.setFont(narrowFont(15));
+		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, s10, s10, s10));
+		buttonPane.setBackground(GameUI.borderMidColor());
+		buttonPane.setForeground(Color.WHITE);
+
+		//Lay out the buttons from left to right.
+		buttonPane.add(helpButton);
+		buttonPane.add(Box.createHorizontalGlue());
+		buttonPane.add(cancelButton);
+		buttonPane.add(Box.createRigidArea(new Dimension(s10, 0)));
+		buttonPane.add(setButton);
+
+		//Put everything together, using the content pane's BorderLayout.
+		Container contentPane = getContentPane();
+		contentPane.add(listPane, BorderLayout.CENTER);
+		contentPane.add(buttonPane, BorderLayout.PAGE_END);
+
+	}
+	/**
+	 * Set up the dialog.  The first Component argument
+	 * determines which frame the dialog depends on; it should be
+	 * a component in the dialog's controlling frame. The second
+	 * Component argument should be null if you want the dialog
+	 * to come up with its left corner in the center of the screen;
+	 * otherwise, it should be the component on top of which the
+	 * dialog should appear.
+	 */	
+	public void init(BaseModPanel frameComp,
+			   Component locationComp,
+			   String labelText,
+			   String title,
+			   Object[] data,
+			   String initialValue,
+			   String longValue,
+			   boolean isVerticalWrap,
+			   int x, int y,
+			   int width, int height,
+			   Font listFont,
+			   InterfacePreview panel,
+			   List<String> alternateReturn,
+			   IParam param) {
+		setTitle(title);
+		baseModPanel		 = frameComp;
+		frame				 = JOptionPane.getFrameForComponent(frameComp.getParent());
+		this.alternateReturn = alternateReturn;
+		this.param 			 = param;
+		this.initialValue	 = initialValue;
+		dialGuide			 = BaseModPanel.showGuide(); // Always reinitialize.
+		getRootPane().setDefaultButton(setButton);
+
+		//main part of the dialog
+		list.setListData(data);
+		if (listFont == null)
+			list.setFont(narrowFont(14));
+		else {
+			list.setFont(listFont);
+			DefaultListCellRenderer renderer = (DefaultListCellRenderer) list.getCellRenderer();
+			renderer.setHorizontalAlignment(SwingConstants.CENTER);
+		}
+		list.addListSelectionListener(new DialListSelectionListener(panel));
+		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		if (longValue != null)
+			list.setPrototypeCellValue(longValue); //get extra space
+		if (isVerticalWrap)
+			list.setLayoutOrientation(JList.VERTICAL_WRAP);
+		else
+			list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+
+		if (width<=0)
+			width = scaled(300);
+		if (height<=0)
+			height = scaled(150);
+		listScroller.setPreferredSize(new Dimension(width, height));
+		label.setText("<html>" + labelText + "</html>");
+
+		//Initialize values.
+		setValue(initialValue);
+		pack();
+		initialIndex = list.getSelectedIndex();
+
+		setSize(width, height);
+		setLocationRelativeTo(locationComp);
+		if (x>0 || y>0) {
+			Point location = getLocation();
+			if (x>0)
+				location.x = x;
+			if (y>0)
+				location.y = y;
+			setLocation(location);
+		}
+		if (dialGuide && param != null)// For Help
+			showHelp(index);
 	}
 	public String getValue()		{ return value; }
 	public String showDialog(int refreshLevel)	{ // Can only be called once.
@@ -128,169 +293,6 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		index = Math.max(0, list.getSelectedIndex());
 	}
 
-	/**
-	 * Set up the dialog.  The first Component argument
-	 * determines which frame the dialog depends on; it should be
-	 * a component in the dialog's controlling frame. The second
-	 * Component argument should be null if you want the dialog
-	 * to come up with its left corner in the center of the screen;
-	 * otherwise, it should be the component on top of which the
-	 * dialog should appear.
-	 */	
-	public ListDialog( BaseModPanel frameComp,
-					   Component locationComp,
-					   String labelText,
-					   String title,
-					   Object[] data,
-					   String initialValue,
-					   String longValue,
-					   boolean isVerticalWrap,
-					   int x, int y,
-					   int width, int height,
-					   Font listFont,
-					   InterfacePreview panel,
-					   List<String> alternateReturn,
-					   IParam param) {
-
-		super(JOptionPane.getFrameForComponent(frameComp.getParent()), title, true);
-		baseModPanel		 = frameComp;
-		frame				 = JOptionPane.getFrameForComponent(frameComp.getParent());
-		this.alternateReturn = alternateReturn;
-		this.param 			 = param;
-		this.initialValue	 = initialValue;
-		dialGuide			 = BaseModPanel.showGuide(); // Always reinitialize.
-
-		int s5 = scaled(5);
-		int s10 = scaled(10);
-		int s15 = scaled(15);
-		int topInset  = scaled(6);
-		int sideInset = s10;
-		//Create and initialize the buttons.
-		final JButton helpButton = new JButton("?");
-		helpButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
-		helpButton.setFont(narrowFont(15));
-		helpButton.setVerticalAlignment(SwingConstants.TOP);
-		helpButton.setBackground(GameUI.buttonBackgroundColor());
-		helpButton.setForeground(GameUI.buttonTextColor());
-		helpButton.setActionCommand("Guide");
-		helpButton.addActionListener(this);
-		//
-		sideInset = s15;
-        String cancel = LabelManager.current().label("BUTTON_TEXT_CANCEL");
-        String set = LabelManager.current().label("BUTTON_TEXT_SET");
-
-		final JButton cancelButton = new JButton(cancel);
-		cancelButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
-		cancelButton.setFont(narrowFont(15));
-		cancelButton.setVerticalAlignment(SwingConstants.TOP);
-		cancelButton.setBackground(GameUI.buttonBackgroundColor());
-		cancelButton.setForeground(GameUI.buttonTextColor());
-		cancelButton.addActionListener(this);
-		//
-		final JButton setButton = new JButton(set);
-		setButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
-		setButton.setFont(narrowFont(15));
-		setButton.setVerticalAlignment(SwingConstants.TOP);
-		setButton.setBackground(GameUI.buttonBackgroundColor());
-		setButton.setForeground(GameUI.buttonTextColor());
-		setButton.addActionListener(this);
-		getRootPane().setDefaultButton(setButton);
-
-		//main part of the dialog
-		list = new DialJList(data);
-
-		if (listFont == null)
-			list.setFont(narrowFont(14));
-		else {
-			list.setFont(listFont);
-			DefaultListCellRenderer renderer = (DefaultListCellRenderer) list.getCellRenderer();
-			renderer.setHorizontalAlignment(SwingConstants.CENTER);
-		}
-		list.addListSelectionListener(new DialListSelectionListener(panel));
-		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		if (longValue != null)
-			list.setPrototypeCellValue(longValue); //get extra space
-		if (isVerticalWrap)
-			list.setLayoutOrientation(JList.VERTICAL_WRAP);
-		else
-			list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		list.setVisibleRowCount(-1);
-		list.addMouseListener(new DialMouseAdapter(setButton));
-		list.setBackground(GameUI.setupFrame());
-		list.setForeground(Color.BLACK);
-		list.setSelectionBackground(GameUI.borderMidColor());
-		list.setSelectionForeground(Color.WHITE);
-
-		if (width<=0)
-			width = scaled(300);
-		if (height<=0)
-			height = scaled(150);
-		JScrollPane listScroller = new JScrollPane(list);
-		listScroller.setPreferredSize(new Dimension(width, height));
-		listScroller.setAlignmentX(LEFT_ALIGNMENT);
-		listScroller.getVerticalScrollBar().setBackground(GameUI.borderMidColor());
-		listScroller.getVerticalScrollBar().setUI(new DarkScrollBarUI());
-		listScroller.getHorizontalScrollBar().setBackground(GameUI.borderMidColor());
-		listScroller.getHorizontalScrollBar().setUI(new DarkScrollBarUI());
-		
-		//Create a container so that we can add a title around
-		//the scroll pane.  Can't add a title directly to the
-		//scroll pane because its background would be white.
-		//Lay out the label and scroll pane from top to bottom.
-		JPanel listPane = new JPanel();
-		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
-		JLabel label = new JLabel("<html>" + labelText + "</html>");
-		label.setFont(narrowFont(15));
-		label.setLabelFor(list);
-		label.setForeground(Color.BLACK);
-
-		//listPane.setFont(narrowFont(20));
-		listPane.setBackground(GameUI.borderMidColor());
-		//listPane.setForeground(Color.BLACK);
-		listPane.add(label);
-		listPane.add(Box.createRigidArea(new Dimension(0,s5)));
-		listPane.add(listScroller);
-		listPane.setBorder(BorderFactory.createEmptyBorder(s10,s10,s10,s10));
-
-		//Lay out the buttons from left to right.
-		JPanel buttonPane = new JPanel();
-		buttonPane.setFont(narrowFont(15));
-		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
-		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, s10, s10, s10));
-		buttonPane.setBackground(GameUI.borderMidColor());
-		buttonPane.setForeground(Color.WHITE);
-
-		buttonPane.add(helpButton);
-		buttonPane.add(Box.createHorizontalGlue());
-		buttonPane.add(cancelButton);
-		buttonPane.add(Box.createRigidArea(new Dimension(s10, 0)));
-		buttonPane.add(setButton);
-
-		//Put everything together, using the content pane's BorderLayout.
-		Container contentPane = getContentPane();
-		contentPane.add(listPane, BorderLayout.CENTER);
-		contentPane.add(buttonPane, BorderLayout.PAGE_END);
-
-		//Initialize values.
-		setValue(initialValue);
-		pack();
-		initialIndex = list.getSelectedIndex();
-
-		setSize(width, height);
-		setLocationRelativeTo(locationComp);
-		if (x>0 || y>0) {
-			Point location = getLocation();
-			if (x>0)
-				location.x = x;
-			if (y>0)
-				location.y = y;
-			setLocation(location);
-		}
-
-		if (dialGuide && param != null) {// For Help
-			showHelp(index);
-		}
-	}
 	@Override public void dispose() {
 		clearHelp();
 		dialGuide = false;
@@ -350,6 +352,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		//of the JScrollBar to a fixed value. You wouldn't get the nice
 		//aligned scrolling, but it should work.
 		private static final long serialVersionUID = 1L;
+		private DialJList () { super(); }
 		private DialJList (Object[] data ) {
 			super(data);
 		}

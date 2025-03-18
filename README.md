@@ -88,6 +88,11 @@ Later:
 
 ## What's New
 
+2025.03.17 (BR)
+- List Dialogue for options panels is now unique (reused).
+  - more reactive.
+  - less prone to memory leak.
+
 2025.03.17 (Xilmi)
 - More colony-ships for everyone
   - The AI will no longer be as conservative about building colony-ships once they have the techs needed for going to war.
