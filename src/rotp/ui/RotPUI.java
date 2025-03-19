@@ -93,7 +93,7 @@ import rotp.ui.tech.DiplomaticMessageUI;
 import rotp.ui.tech.DiscoverTechUI;
 import rotp.ui.tech.SelectNewTechUI;
 import rotp.ui.util.IParam;
-import rotp.ui.util.ListDialog;
+import rotp.ui.util.ListDialogUI;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.AnimationManager;
@@ -270,7 +270,7 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
     private final ErrorUI errorUI = new ErrorUI();
     private final HelpUI helpUI = new HelpUI();
     private final MainOptionsUI mainOptionsUI = new MainOptionsUI();
-    private ListDialog listDialog;
+    private ListDialogUI listDialog;
     private final List<BaseCompactOptionsUI> optionsPanels = new ArrayList<>();
 
     private final AdvancedOptionsUI advancedOptionsUI = new AdvancedOptionsUI();
@@ -349,7 +349,7 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
 
         timer.start();
 		//toggleAnimations();
-		listDialog = new ListDialog(Rotp.getFrame());
+		listDialog = new ListDialogUI(Rotp.getFrame());
         repaint();
     }
     public static IGameOptions newOptions() {
@@ -375,39 +375,36 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
     public static HelpUI helpUI()   { return instance.helpUI; }
 
 	public static BaseCompactOptionsUI getOptionPanel()	{ return instance.nextOptionPanel(); }
-	public static void releaseOptionPanel()	{
-	System.out.println("release optionPanel Id: " + instance.optionPanelId);
-	instance.optionPanelId--; }
-	private BaseCompactOptionsUI nextOptionPanel()		{
-		optionPanelId ++;
-		System.out.println("Get optionPanel Id: " + optionPanelId);
-		if (optionsPanels.size() == optionPanelId)
-			optionsPanels.add(new BaseCompactOptionsUI());
-		return optionsPanels.get(optionPanelId);
-	}
-	public static ListDialog		listDialog()		{
-		if (instance.listDialog == null)
-			instance.listDialog = new ListDialog(Rotp.getFrame());
-		return instance.listDialog;
-	}
-	public static BaseCompactOptionsUI setupUI()		{
+	public static void releaseOptionPanel()				{ instance.optionPanelId--; }
+	public static BaseCompactOptionsUI	setupUI()		{
 		BaseCompactOptionsUI ui = getOptionPanel();
 		ui.initUI("SETTINGS_MOD_STATIC_TITLE",
 				"MERGED_STATIC_OPTIONS",
 				SetupParameters.setupParametersMap());
 		return ui;
 	}
-	public static BaseCompactOptionsUI rulesUI()		{
+	public static BaseCompactOptionsUI	rulesUI()		{
 		BaseCompactOptionsUI ui = getOptionPanel();
 		ui.initUI("SETTINGS_MOD_DYNAMIC_TITLE",
 				"MERGED_DYNAMIC_OPTIONS",
 				RulesOptions.rulesOptionsMap());
 		return ui;
 	}
-	public static AdvancedOptionsUI advancedOptionsUI()	{ return instance.advancedOptionsUI; }
-	public static MainOptionsUI     mainOptionsUI()		{ return instance.mainOptionsUI; }
-    public static SetupRaceUI       setupRaceUI()       { return instance.setupRaceUI; }
-    public static SetupGalaxyUI     setupGalaxyUI()     { return instance.setupGalaxyUI; }
+	public static ListDialogUI		listDialog()		{
+		if (instance.listDialog == null)
+			instance.listDialog = new ListDialogUI(Rotp.getFrame());
+		return instance.listDialog;
+	}
+	public static AdvancedOptionsUI	advancedOptionsUI()	{ return instance.advancedOptionsUI; }
+	public static MainOptionsUI		mainOptionsUI()		{ return instance.mainOptionsUI; }
+	public static SetupRaceUI		setupRaceUI()		{ return instance.setupRaceUI; }
+	public static SetupGalaxyUI		setupGalaxyUI()		{ return instance.setupGalaxyUI; }
+	private BaseCompactOptionsUI nextOptionPanel()		{
+		optionPanelId ++;
+		if (optionsPanels.size() == optionPanelId)
+			optionsPanels.add(new BaseCompactOptionsUI());
+		return optionsPanels.get(optionPanelId);
+	}
 
     @Override
     public void paint(Graphics g) {

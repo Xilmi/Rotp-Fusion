@@ -2753,6 +2753,15 @@ SETTINGS_MOD_PREF_STARS_PER_EMPIRE       | Nb d’étoiles préféré : %1
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE_DESC   | Nombre d’étoiles par empire pour une taille de galaxie dynamique.
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE        | Étoiles par empire : %1
 
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM1_DESC		| Valeurs limites du nombre de systèmes stellaires lorsque « Taille de galaxie aléatoire limitée » est sélectionnée.<br>Les valeurs minimales et maximales peuvent être interverties.
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM1			| Taille aléatoire minimale : %1
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM2_DESC		| →SETTINGS_MOD_RANDOM_NUM_STARS_LIM1_DESC←
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM2			| Taille aléatoire maximale : %1
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1_DESC	| Valeurs limites du nombre d’opposants lorsque « Nombre aléatoire d’adversaires » est sélectionné.<br>Les valeurs minimales et maximales peuvent être interverties.
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1			| Nombre minimal d'opposants : %1
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM2_DESC	| →SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1_DESC←
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM2			| Nombre maximal d'opposants : %1
+
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_HELP | Lors du démarrage d’une nouvelle partie, basée sur une partie précédemment jouée, les adversaires peuvent soit conserver leur IA précédente, soit utiliser les options actuelles.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | « Redémarrer » doit-il modifier l’IA des extraterrestres ?
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI      | Redémarrer change E.T. IA : %1

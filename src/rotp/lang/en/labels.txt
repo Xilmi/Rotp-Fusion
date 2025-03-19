@@ -2753,6 +2753,15 @@ SETTINGS_MOD_PREF_STARS_PER_EMPIRE       | Favored Stars Number: %1
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE_DESC   | Number of Stars per Empire for dynamic galaxy size.
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE        | Stars per empire: %1
 
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM1_DESC		| Limits on the number of star systems when "Limited random galaxy size" is selected.<br> Minimum and maximum values ​​can be swapped.
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM1			| Random Size Min: %1
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM2_DESC		| →SETTINGS_MOD_RANDOM_NUM_STARS_LIM1_DESC←
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM2			| Random Size Max: %1
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1_DESC	| Limits on the number of alien species when "Random number of opponents" is selected.<br> Minimum and maximum values ​​can be interchanged.
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1			| Random Aliens Min: %1
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM2_DESC	| →SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1_DESC←
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM2			| Random Aliens Max: %1
+
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_HELP | When starting a new game based on a previously played game, the opponents can either keep their previous AI or change to the new GUI global one.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | Should "Restart" Change the Aliens AI?
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI      | Restart Changes Aliens AI: %1

@@ -90,6 +90,7 @@ Later:
 
 2025.03.19 (BR)
 - Ufo Tracker: Loop thru all the colonies to get the closest one to the path (instead of stopping to the first being close enough.
+- Galaxy Setup UI: Split paintComponents, for better readability.
 
 2025.03.18 (BR)
 - List Dialogue for options panels is now unique (reused).

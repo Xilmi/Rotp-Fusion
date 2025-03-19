@@ -105,7 +105,7 @@ import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.options.AllSubUI;
 import rotp.ui.util.IParam;
-import rotp.ui.util.ListDialog;
+import rotp.ui.util.ListDialogUI;
 import rotp.ui.util.ParamButtonHelp;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
@@ -1075,7 +1075,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int boxHeight = scaled(360);
 		int boxX = galaxyBox.x - boxWidth - s10;
 		int boxY = (getHeight() - boxHeight)/2;
-		ListDialog dialog = RotPUI.listDialog();
+		ListDialogUI dialog = RotPUI.listDialog();
 		dialog.init(
 				this,					// Frame component
 				getParent(),			// Location component
@@ -1171,7 +1171,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		AIList list				= IGameOptions.specificAIset();
 		List<String> returnList = list.getAliens();
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
-		ListDialog dialog = RotPUI.listDialog();
+		ListDialogUI dialog = RotPUI.listDialog();
 		dialog.init(
 		    	this, getParent(),			// Frame & Location component
 		    	message, title,				// Message, Title
@@ -1200,7 +1200,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		AIList list				= IGameOptions.globalAIset();
 		List<String> returnList = list.getAliens();
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
-		ListDialog dialog = RotPUI.listDialog();
+		ListDialogUI dialog = RotPUI.listDialog();
 		dialog.init(
 		    	this, getParent(),			// Frame & Location component
 		    	message, title,				// Message, Title
@@ -1227,7 +1227,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		String title   = text(SPECIFIC_ABILITY);
 		String message = text(SPECIFIC_ABILITY + LABEL_DESCRIPTION);
 		String initialChoice = opts.specificOpponentCROption(i);
-		ListDialog dialog = RotPUI.listDialog();
+		ListDialogUI dialog = RotPUI.listDialog();
 		dialog.init(
 		    	this, getParent(),	// Frame & Location component
 		    	message, title,				// Message, Title
@@ -1267,7 +1267,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		String message = text(GLOBAL_ABILITIES + LABEL_DESCRIPTION);
 		String initialChoice = opts.selectedUseGlobalCROptions();
 		String[] srcList  = selectionList(globalAbilitiesArray);
-		ListDialog dialog = RotPUI.listDialog();
+		ListDialogUI dialog = RotPUI.listDialog();
 		dialog.init(
 			    this, getParent(),			// Frame & Location component
 		    	message, title,				// Message, Title
@@ -1290,38 +1290,40 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	    opts.globalCROptions().set(input);
 	    return input;
 	}
-	@Override public void paintComponent(Graphics g0) {
+	// ==============================================================
+	// Paint components sub sections
+	// ==============================================================
+	Graphics2D paintInit(Graphics g0) {
 		// showTiming = true;
-		if (showTiming)
-			System.out.println("===== Galaxy PaintComponents =====");
-		if (!isOnTop)
-			return;
-		long timeStart = System.currentTimeMillis();
-		super.paintComponent(g0);
-		Graphics2D g = (Graphics2D) g0;
-		// modnar: use (slightly) better upsampling
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		int w = getWidth();
-		int h = getHeight();
+				if (showTiming)
+					System.out.println("===== Galaxy PaintComponents =====");
+				super.paintComponent(g0);
+				Graphics2D g = (Graphics2D) g0;
+				// modnar: use (slightly) better upsampling
+				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+				g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+				g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+				g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+				int w = getWidth();
+				int h = getHeight();
 
-		for (Box box: oppSet)
-			box.setBounds(0,0,0,0);
-		for (Box box: oppAI)
-			box.setBounds(0,0,0,0);
-		for (Box box: oppAbilities)
-			box.setBounds(0,0,0,0);
-		// background image
-		// this.backImg = null; // TO DO BR: Remove
-		g.drawImage(backImg(), 0, 0, w, h, this);
-//		drawFixButtons(g, false);
-		drawFixButtons(g, forceUpdate);
-		forceUpdate = false;
-        drawButtons(g);
-
+				for (Box box: oppSet)
+					box.setBounds(0,0,0,0);
+				for (Box box: oppAI)
+					box.setBounds(0,0,0,0);
+				for (Box box: oppAbilities)
+					box.setBounds(0,0,0,0);
+				// background image
+				// this.backImg = null;			// TO DO BR: Remove
+				g.drawImage(backImg(), 0, 0, w, h, this);
+				// drawFixButtons(g, false);	// TO DO BR: Remove
+				drawFixButtons(g, forceUpdate);
+				forceUpdate = false;
+				drawButtons(g);
+				return g;
+	}
+	private void drawOpponentCount(Graphics2D g) {
 		// draw number of opponents
 		int maxOpp = opts.maximumOpponentsOptions();
 		int numOpp = opts.selectedNumberOpponents();
@@ -1397,6 +1399,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			g.drawRect(x2, y2, mugW, mugH);
 			g.setStroke(prevStroke);
 		}
+	}
+	private void drawGalaxy(Graphics2D g) {
 		// draw galaxy
 		drawGalaxyShape(g, opts.galaxyShape(), galaxyX, galaxyY, galaxyW, galaxyH);
 
@@ -1414,7 +1418,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int sw4 = g.getFontMetrics().stringWidth(maxOppsLbl);
 		int x4 = rightBoxX+s20+(galaxyBoxW/2)+((galaxyBoxW/2)-sw4)/2;
 		drawString(g,maxOppsLbl, x4,y3);
-
+	}
+	private void highlightHovered(Graphics2D g) {
 		// highlight any controls that are hovered
 		if ((	 hoverPolyBox == shapeBoxL)		 || (hoverPolyBox == shapeBoxR)
 			||  (hoverPolyBox == sizeBoxL)		 || (hoverPolyBox == sizeBoxR)
@@ -1487,7 +1492,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				}
 			}
 		}
-		
+	}
+	private void drawOpponentTopSection(Graphics2D g) {
 		// draw top opponents selections options
 		g.setColor(Color.black);
 		g.setFont(narrowFont(15));
@@ -1522,7 +1528,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int x4c = newRacesBox.x+((newRacesBox.width-newRacesSW)/2);
 		int y4c = newRacesBox.y+newRacesBox.height-s3;
 		drawString(g, newRacesLbl, x4c, y4c);
-
+	}
+	private int  drawGalaxyTopOptions(Graphics2D g) {
 		// draw galaxy options text
 		int y5 = shapeBox.y+shapeBox.height-s4;
 		String shapeLbl = text(opts.selectedGalaxyShape());
@@ -1578,7 +1585,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				drawString(g,label2, x5e, y5+s40);	
 			}		 
 		}
-
+		return y5;
+	}
+	private void drawGalaxySizeAndDiff(Graphics2D g, int y5) {
 		String sizeLbl = text(opts.selectedGalaxySize());
 		int sizeSW = g.getFontMetrics().stringWidth(sizeLbl);
 		int x5b =sizeBox.x+((sizeBox.width-sizeSW)/2);
@@ -1599,7 +1608,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		} else {
 			diffLbl = diffLbl + " (" + Integer.toString(Math.round(100 * opts.aiProductionModifier())) + "%)";
 		}
-
 		int diffSW = g.getFontMetrics().stringWidth(diffLbl);
 		int x5c =diffBox.x+((diffBox.width-diffSW)/2);
 		drawString(g,diffLbl, x5c, y5);
@@ -1616,7 +1624,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		int x5d =wysiwygBox.x+((wysiwygBox.width-wysiwygSW)/2);
 		drawString(g,wysiwygLbl, x5d, y5+s20);
-
+	}
+	private void drawAutoplayWarning(Graphics2D g, int y5) {
 		// draw autoplay warning
 		if (opts.isAutoPlay()) {
 			g.setFont(narrowFont(16));
@@ -1635,6 +1644,22 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				warnY += s18;
 			}
 		}
+	}
+	@Override public void paintComponent(Graphics g0) {
+		if (!isOnTop)
+			return;
+		long timeStart = System.currentTimeMillis();
+		Graphics2D g = paintInit(g0);
+
+		drawOpponentCount(g);
+		drawGalaxy(g);
+		highlightHovered(g);
+		drawOpponentTopSection(g);
+
+		int y5 = drawGalaxyTopOptions(g);
+		drawGalaxySizeAndDiff(g, y5);
+		drawAutoplayWarning(g, y5);
+
 		drawHelpButton(g);
 		showGuide(g);
 
@@ -1977,6 +2002,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		return galaxyShape.equals(IGameOptions.SHAPE_RANDOM)
 				|| galaxyShape.equals(IGameOptions.SHAPE_RANDOM_2);
 	}
+
+	// ==============================================================
+	// Post selection tasks
+	// ==============================================================
 	public	void postGalaxySizeSelection(boolean click) {
 		opts = guiOptions();
 		if (click) softClick();
@@ -2222,6 +2251,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		opts.toggleEmpireSpreadingFactor(e);
 		postSelectionMedium(false);
 	}
+
+	// ==============================================================
+	// Actions Methods
+	// ==============================================================
 	private void goToOptions() {
 		buttonClick();
 		isOnTop = false;
@@ -2312,6 +2345,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		Rectangle rec = new Rectangle(x, y, w, h);
 		subUI.hovering(this, rec);
 	}
+
 	@Override protected void initBackImg() {
 		int w = getWidth();
 		int h = getHeight();

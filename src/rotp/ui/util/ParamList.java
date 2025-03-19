@@ -332,7 +332,7 @@ public class ParamList extends AbstractParam<String> {
 		int height = 128 + (int)Math.ceil(18.5 * list.length);
 		height = Math.max(300, height);
 		height = Math.min(350, height);
-		ListDialog dialog = RotPUI.listDialog();
+		ListDialogUI dialog = RotPUI.listDialog();
 		dialog.init(
 				frame,	frame.getParent(),	// Frame & Location component
 				message, title,				// Message & Title

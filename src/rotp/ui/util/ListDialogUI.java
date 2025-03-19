@@ -93,7 +93,7 @@ import rotp.util.ModifierKeysState;
 								choices[0]);
  * </pre>
  */
-public class ListDialog extends JDialog implements ActionListener, Base {
+public class ListDialogUI extends JDialog implements ActionListener, Base {
 	private static final long serialVersionUID = 1L;
 	private String initialValue;
 	private String value = null;
@@ -113,7 +113,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 	private final int s15 = scaled(15);
 	private final int topInset  = scaled(6);
 
-	public ListDialog(JFrame frame)	{
+	public ListDialogUI(JFrame frame)	{
 		super(frame, true);
 		int sideInset = s10;
 		//Create and initialize the buttons.

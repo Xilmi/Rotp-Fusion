@@ -261,6 +261,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return "---";
 			}
 		}
+
 		public final ParamInteger shapeOption4   		= new ShapeOption4();
 		private final class ShapeOption4 extends ParamInteger {
 			ShapeOption4() {
@@ -381,7 +382,6 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return super.getGuiDisplay(idx);
 			}
 		}
-
 		private final ParamList	shapeOption1   		= new ShapeOption1(); // Duplicate Do not add the list
 		private final class ShapeOption1 extends ParamList {
 			ShapeOption1() {
