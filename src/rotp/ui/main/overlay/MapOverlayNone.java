@@ -24,7 +24,7 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.game.CompactOptionsUI;
+import rotp.ui.game.BaseCompactOptionsUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.TransportDeploymentPanel;
@@ -230,7 +230,7 @@ public class MapOverlayNone extends MapOverlay {
                 break;
             case KeyEvent.VK_O: // BR:
             	if (options().isGameOptionsAllowed()) {
-            		CompactOptionsUI optionsUI = RotPUI.compactOptionsUI();
+            		BaseCompactOptionsUI optionsUI = RotPUI.rulesUI();
         			optionsUI.start("", null);
             	}
             	break;

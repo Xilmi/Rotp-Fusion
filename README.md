@@ -88,10 +88,11 @@ Later:
 
 ## What's New
 
-2025.03.17 (BR)
+2025.03.18 (BR)
 - List Dialogue for options panels is now unique (reused).
   - more reactive.
   - less prone to memory leak.
+- Options JPanels are now reused. Because they are built over BasePanel, wich was not though to be easyly disposed. It's then safer to follow the original way.
 
 2025.03.17 (Xilmi)
 - More colony-ships for everyone

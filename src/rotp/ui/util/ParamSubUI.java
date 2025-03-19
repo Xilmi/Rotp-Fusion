@@ -31,6 +31,7 @@ import rotp.model.game.IGameOptions;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.BasePanel;
+import rotp.ui.RotPUI;
 import rotp.ui.game.BaseCompactOptionsUI;
 import rotp.ui.game.BaseModPanel;
 
@@ -39,7 +40,7 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 	
 	private final String GUI_TITLE_ID;
 	private final String GUI_ID;
-	public  final SafeListPanel optionsMap;
+	private final SafeListPanel optionsMap;
 	private final SafeListParam optionsList;
 	private int unSeen = 0;
 	
@@ -137,7 +138,8 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 	@Override public boolean toggle(MouseEvent e, BaseModPanel frame) { return false; }
 	@Override public boolean toggle(MouseEvent e, String p, BaseModPanel pUI) {
 		updated(true);
-		BaseCompactOptionsUI ui = new BaseCompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);
+		BaseCompactOptionsUI ui = RotPUI.getOptionPanel();
+		ui.initUI(GUI_TITLE_ID, GUI_ID, optionsMap);
 		ui.start(p, pUI);
 		return false;
 	};
@@ -159,14 +161,14 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 	//
 	public void hovering(BaseModPanel pUI, Rectangle location)	{
 		updated(true);
-		BaseCompactOptionsUI ui;
-		ui = new BaseCompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap, true, location);
+		BaseCompactOptionsUI ui = RotPUI.getOptionPanel();
+		ui.initUI(GUI_TITLE_ID, GUI_ID, optionsMap, true, location);
 		ui.start("", pUI);
 	}
 	public void start(BasePanel pUI)	{
 		updated(true);
-		BaseCompactOptionsUI ui;
-		ui = new BaseCompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);
+		BaseCompactOptionsUI ui = RotPUI.getOptionPanel();
+		ui.initUI(GUI_TITLE_ID, GUI_ID, optionsMap);
 		ui.start("", pUI);
 	}
 	public String titleId() { return GUI_TITLE_ID; }
@@ -211,7 +213,7 @@ public class ParamSubUI extends AbstractParam<SafeListPanel> {
 		}
 		return tableFormat(rows);
 	}
-	List<String> getRowList() {
+	private List<String> getRowList() {
 		List<String> strList = new ArrayList<>();
 		for ( IParam param : optionsMap.getListNoTitle()) {
 			if (param.isSubMenu()) {

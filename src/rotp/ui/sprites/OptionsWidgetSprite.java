@@ -21,7 +21,7 @@ import java.awt.event.MouseEvent;
 
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.game.CompactOptionsUI;
+import rotp.ui.game.BaseCompactOptionsUI;
 import rotp.ui.main.GalaxyMapPanel;
 
 public class OptionsWidgetSprite extends MapControlSprite {
@@ -36,7 +36,7 @@ public class OptionsWidgetSprite extends MapControlSprite {
     @Override
     public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
     	if (options().isGameOptionsAllowed()) {
-    		CompactOptionsUI optionsUI = RotPUI.compactOptionsUI();
+    		BaseCompactOptionsUI optionsUI = RotPUI.rulesUI();
 			optionsUI.start("", null);
     	}
     }

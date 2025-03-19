@@ -24,7 +24,6 @@ import static rotp.model.game.IBaseOptsTools.LAST_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.USER_OPTIONS_FILE;
 import static rotp.model.game.IMainOptions.showGuide;
-import static rotp.ui.util.IParam.LABEL_DESCRIPTION;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -113,7 +112,7 @@ public abstract class BaseModPanel extends BasePanel
 	// Debug Parameter
 	protected boolean showTiming = false;
 
-	private boolean initialised = false;
+	private	  boolean initialised = false;
 	SafeListParam paramList;
 	SafeListParam duplicateList;
 	SafeListParam activeList;
@@ -181,12 +180,32 @@ public abstract class BaseModPanel extends BasePanel
 		guidePopUp = new GuidePopUp();
 		guidePopUp.init();
 	}
+	protected void reInit()	{
+		boxBaseList.clear();
+		exitBox		= newExitBox();
+		defaultBox	= new Box(defaultButton);
+		userBox		= new Box(userButton);
+		guideBox	= new Box(guideKey);
+		paramList	= null;
+		duplicateList	= null;
+		activeList	= null;
+		isSubMenu	= true;
+		isOnTop		= true;
+		retina		= false;
+		hovering	= false;
+		cnrR		= cnr;
+		initialised	= false;
+		backImg		= null;
+		buttonBackImg	= null;
+		bg	= null;
+	}
 	protected void terminate() {
-		removeMouseListener(this);
-		removeMouseMotionListener(this);
-		if (guidePopUp != null)
-			guidePopUp.terminate();
-		initialised = false;
+		reInit();
+//		removeMouseListener(this);
+//		removeMouseMotionListener(this);
+//		if (guidePopUp != null)
+//			guidePopUp.terminate();
+//		initialised = false;
 		// System.out.println("terminate() " + "Base Mod Panel");
 	}
 	protected abstract String GUI_ID();
@@ -413,9 +432,6 @@ public abstract class BaseModPanel extends BasePanel
 			clearGuide();
 		paintComponent(getGraphics());
 	}	
-	protected String guideButtonDescKey() {
-		return guideButtonKey() + LABEL_DESCRIPTION;
-	}
 
 	// ==================== Exit Button ====================
 	//
@@ -460,9 +476,6 @@ public abstract class BaseModPanel extends BasePanel
 			break; 
 		}
 		close();
-	}
-	protected String exitButtonDescKey() {
-		return exitButtonKey() + LABEL_DESCRIPTION;
 	}
 
 	// ==================== User Button ====================
@@ -529,9 +542,6 @@ public abstract class BaseModPanel extends BasePanel
 				return;
 			}
 	}	
-	protected String userButtonDescKey() {
-		return userButtonKey() + LABEL_DESCRIPTION;
-	}
 
 	// ==================== Default Button ====================
 	//
@@ -602,9 +612,6 @@ public abstract class BaseModPanel extends BasePanel
 				return;
 			}
 	}
-	protected String defaultButtonDescKey() {
-		return defaultButtonKey() + LABEL_DESCRIPTION;
-	}
 
 	// ==================== Last Button ====================
 	//
@@ -662,9 +669,6 @@ public abstract class BaseModPanel extends BasePanel
 				guiOptions().updateAllNonCfgFromFile(GAME_OPTIONS_FILE);
 			}
 		refreshGui(0);
-	}
-	protected String lastButtonDescKey() {
-		return lastButtonKey() + LABEL_DESCRIPTION;
 	}
 
 	// ---------- Events management
@@ -797,7 +801,6 @@ public abstract class BaseModPanel extends BasePanel
 		private String	label;
 		private ModText modText;
 		private int 	mouseBoxIndex;
-		private LinearGradientPaint lbg;
 
 		// ========== Constructors ==========
 		//
@@ -826,13 +829,6 @@ public abstract class BaseModPanel extends BasePanel
 		private void initGuide(String label) { this.label = label; }
 		private void initGuide(IParam param) { this.param = param; }
 		private void mouseBoxIndex(int idx)	 { mouseBoxIndex = idx; }
-		protected LinearGradientPaint lbg() {
-			if (lbg == null) {
-				int xRel = x-xButton;
-				lbg = GameUI.buttonBackground(xRel, xRel+width);
-			}
-			return lbg;
-		}
 
 		// ========== Doers ==========
 		//
@@ -1027,13 +1023,6 @@ public abstract class BaseModPanel extends BasePanel
 			guideFontSize = FONT_SIZE;
 			initialised = true;
 			// System.out.println("init_0() " + "Guide PopUp");
-		}
-		private void terminate() {
-			remove(border);
-			remove(margin);
-			remove(pane);
-			initialised = false;
-			// System.out.println("terminate() " + "Guide PopUp");
 		}
 		private void setText(String newText)	{
 			text = newText;

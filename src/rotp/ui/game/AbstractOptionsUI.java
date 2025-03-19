@@ -77,31 +77,11 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		GUI_ID = guiId;
 	}
 	@Override protected void singleInit() {
-		setOpaque(false);
-		textC = SystemPanel.whiteText;
-		numColumns = 0;
-		// Call for filling the settings
-		init0();
-		
-		if (paramList == null) 
-			activeList = duplicateList;
-		else
-			activeList = paramList;
-		
-		buildRowCountList();
-		
-		for (int i=0; i<activeList.size(); i++)
-			btList.add(newBT().initGuide(activeList.get(i)));
-
-		// numRows = Max column length
-		numRows	 = lastRowList.getFirst();
-		for (int i=1; i<lastRowList.size(); i++) {
-			numRows = max(numRows, lastRowList.get(i)-lastRowList.get(i-1));
-		}
-
+		System.out.println("AbstractOptionsUI SingleInit()");
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
+		reset();
 	}
 	private void elementsPositioning()	{
 		// Elements positioning
@@ -149,6 +129,28 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		}
 		lastRowList.add(numParam);
 		while (activeList.remove(null));
+	}
+	void reset() {
+		setOpaque(false);
+		textC = SystemPanel.whiteText;
+		numColumns = 0;
+		// Call for filling the settings
+		init0();
+		
+		if (paramList == null) 
+			activeList = duplicateList;
+		else
+			activeList = paramList;
+		
+		buildRowCountList();
+		
+		for (int i=0; i<activeList.size(); i++)
+			btList.add(newBT().initGuide(activeList.get(i)));
+
+		// numRows = Max column length
+		numRows	 = lastRowList.getFirst();
+		for (int i=1; i<lastRowList.size(); i++)
+			numRows = max(numRows, lastRowList.get(i)-lastRowList.get(i-1));
 	}
 	// ========== Abstract Methods Request ==========
 	//
@@ -349,6 +351,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	// ========== Overriders ==========
 	//
 	@Override public void init()	 {
+		reset();
 		super.init();
 		wFull	= RotPUI.setupRaceUI().getWidth();
 		hFull	= RotPUI.setupRaceUI().getHeight();
