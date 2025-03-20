@@ -37,9 +37,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 ```
 
 # Other Links
-Official website: https://www.remnantsoftheprecursors.org/<br/>
-Community subreddit: https://www.reddit.com/r/rotp/<br/>
-Download build: https://rayfowler.itch.io/remnants-of-the-precursors
+[Official website](https://www.remnantsoftheprecursors.org/) <br/>
+[Community subreddit](https://www.reddit.com/r/rotp/) <br/>
+[Download build](https://rayfowler.itch.io/remnants-of-the-precursors)
 
 
 ## What's New
@@ -48,12 +48,8 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 - Github presentation reorganisation.
 - "Check for Updates" will provide direct links to download files.
 
-### Historic
-
-https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges.md
+[### Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges)
 
 
-## To-Do list
-
-https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/TodoList.md
+[## To-Do list](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/TodoList)
 
