@@ -1,4 +1,4 @@
-[Official website] (https://www.remnantsoftheprecursors.org/) <br/>
+[Official website](https://www.remnantsoftheprecursors.org) <br/>
 
 New Java requirement: minimum JRE-17, recommended JRE-23.
 
