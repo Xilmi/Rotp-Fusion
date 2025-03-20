@@ -474,12 +474,20 @@ GAME_SHRINK                       | Shrink -
 GAME_ENLARGE                      | Expand
 GAME_MENU_REPLAY_LAST_TURN        | Replay Last Turn
 GAME_WINDOW_SIZE                  | (%1%)
-GAME_MENU_CHECK_FOR_UPDATE        | Click to check if a new version is available on Github (Xilmi & BrokenRegistry).<br>Links to more up-to-date versions will be displayed.
-GAME_MENU_NO_NEW_VERSION          | There is no new version available.
-GAME_MENU_GOT_NEW_VERSION         | A new version is available.
-GAME_MENU_LAST_VERSION            | There is a new version available.<br>This is the most recent version.
-GAME_MENU_NEWER_VERSION           | There is a new version available.<br>This is not the most recent version, but its newer than the running one.
-GAME_MENU_GITHUB_REPOSITORY       | Github Repository: %1
+GAME_MENU_CHECK_FOR_UPDATE		| Click to check if a new version is available on Github (Xilmi & BrokenRegistry).<br>Links to more up-to-date versions will be displayed.
+GAME_MENU_NO_NEW_VERSION		| There is no new version available.
+GAME_MENU_GOT_NEW_VERSION		| A new version is available.
+GAME_MENU_LAST_VERSION			| There is a new version available at %1 repository.<br>This is the most recent version.
+GAME_MENU_NEWER_VERSION			| There is a new version available at %1 repository.<br>This is not the most recent version, but its newer than the running one.
+GAME_MENU_GITHUB_REPOSITORY		| Github Repository: %1
+GAME_MENU_NEW_RELEASE			| Go to Other Github release
+GAME_MENU_LAST_RELEASE			| Go to Last Github release
+GAME_MENU_LAST_JAR				| Download last .jar file
+GAME_MENU_LAST_MINI_JAR			| Download last -mini.jar file
+GAME_MENU_LAST_ZIP				| Download last -windows.zip file
+GAME_MENU_JAR_DESC				| Java JRE (or JDK) must be installed on your computer for this file to run.
+GAME_MENU_MINI_JAR_DESC			| Like .jar, with image and sound files compressed to minimize file size.
+GAME_MENU_ZIP_DESC				| Contains a standalone executable for Windows, including Java.
 
 // Game Settings UI
 GAME_SETTINGS_TITLE               | Game Settings

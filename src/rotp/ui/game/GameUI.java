@@ -106,8 +106,6 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     private static final Color[] loadHoverBackgroundColor = { new Color(219,167,122), new Color(160,172,170) };
     private static final Color[] loadListMask = { new Color(0,0,0,120), new Color(0,0,0,120) };
     private static final Color[] sortLabelBackColor = { new Color(100,70,50), new Color(59,66,65) };
-    private static final String checkLinkXilmi = "https://github.com/Xilmi/Rotp-Fusion/releases/latest/";
-    private static final String checkLinkBR = "https://github.com/BrokenRegistry/Rotp-Fusion/releases/latest/";
     private static LinearGradientPaint[] loadBackground;
     private static LinearGradientPaint[] raceLeftBackground;
     private static LinearGradientPaint[] raceRightBackground;
@@ -131,7 +129,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     BaseText versionText, manualText;
     BaseText developerText, artistText, graphicDsnrText, writerText, soundText, translatorText, slideshowText;
     BaseText shrinkText, enlargeText, winSizeText;
-    BaseText lastVersionText, newVersionText;
+	BaseText lastVersionText, newVersionText, lastVerJarText, lastVerMiniText, lastVerExeText;
     BaseText hoverBox;
     Rectangle languageBox = new Rectangle();
     boolean mouseDepressed = false;
@@ -150,7 +148,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     private boolean showLastUpdatedLink = false;
     private boolean showNewUpdatedLink  = false;
     private boolean checkedForUpdate    = false;
-    private long currentVersion, brVersion, xilmiVersion;
+    private long currentVersion;
+    private GitInfo	gitInfoBR, gitInfoXilmi, gitInfoLast, gitInfoNew;
 
     public static void  colorSet(int set)		  { colorSet = set; }
     public static Color langShade()               { return langShade[opt()]; }
@@ -432,6 +431,9 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         slideshowText   = new BaseText(this, false,16, -210,-10,  enabledC,  enabledC, hoverC, depressedC, Color.black, 1, 1, 1);
         lastVersionText = new BaseText(this, false,15,   5, -75,  enabledC,  enabledC, hoverC, depressedC, Color.black, 1, 0, 1);
         newVersionText  = new BaseText(this, false,15,   5, -55,  enabledC,  enabledC, hoverC, depressedC, Color.black, 1, 0, 1);
+		lastVerJarText	= new BaseText(this, false,15,   5, -95,  enabledC,  enabledC, hoverC, depressedC, Color.black, 1, 0, 1);
+		lastVerMiniText	= new BaseText(this, false,15,   5, -115, enabledC,  enabledC, hoverC, depressedC, Color.black, 1, 0, 1);
+		lastVerExeText	= new BaseText(this, false,15,   5, -135, enabledC,  enabledC, hoverC, depressedC, Color.black, 1, 0, 1);
 
         developerText.disabled(true);
         artistText.disabled(true);
@@ -441,8 +443,11 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         translatorText.disabled(true);
         slideshowText.disabled(true);
         versionText.disabled(false);
-        lastVersionText.disabled(false);
         newVersionText.disabled(false);
+		lastVersionText.disabled(false);
+		lastVerJarText.disabled(false);
+		lastVerMiniText.disabled(false);
+        lastVerExeText.disabled(false);
         developerText.bordered(true);
         artistText.bordered(true);
         graphicDsnrText.bordered(true);
@@ -452,6 +457,9 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         slideshowText.bordered(true);
         versionText.bordered(true);
         lastVersionText.bordered(true);
+		lastVerJarText.bordered(true);
+		lastVerMiniText.bordered(true);
+		lastVerExeText.bordered(true);
         newVersionText.bordered(true);
         discussText.bordered(true);
         shrinkText.bordered(true);
@@ -697,7 +705,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         shrinkText.draw(g);
         enlargeText.draw(g);
         winSizeText.draw(g);
-        
+
         // draw version at bottom right, then go up for other values
         developerText.draw(g);
         artistText.draw(g);
@@ -706,17 +714,21 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         soundText.draw(g);
         translatorText.draw(g);
         versionText.draw(g);
-        
-//        lastVersionText.displayText(checkLinkBR);
-//        newVersionText.displayText(checkLinkXilmi);
-//        showLastUpdatedLink = true;
-//        showNewUpdatedLink = true;
-        if (showLastUpdatedLink) {
-        	lastVersionText.draw(g);
-        }
-        if (showNewUpdatedLink) {
-       		newVersionText.draw(g);
-        }
+
+		if (showLastUpdatedLink) {
+			lastVersionText.displayText(text("GAME_MENU_LAST_RELEASE"));
+			lastVerJarText.displayText(text("GAME_MENU_LAST_JAR"));
+			lastVerMiniText.displayText(text("GAME_MENU_LAST_MINI_JAR"));
+			lastVerExeText.displayText(text("GAME_MENU_LAST_ZIP"));
+			lastVersionText.draw(g);
+			lastVerJarText.draw(g);
+			lastVerMiniText.draw(g);
+			lastVerExeText.draw(g);
+		}
+		if (showNewUpdatedLink) {
+			newVersionText.displayText(text("GAME_MENU_NEW_RELEASE"));
+			newVersionText.draw(g);
+		}
 
     	int boxW  = scaled(450);
         if (versionText == hoverBox) {
@@ -729,15 +741,29 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         			info += NEWLINE + NEWLINE + text("GAME_MENU_NO_NEW_VERSION");
         	drawInfo(g, info, versionText.x(), versionText.y(), boxW);
         }
-        if (showLastUpdatedLink && lastVersionText == hoverBox) {
-        	String info = text("GAME_MENU_LAST_VERSION");
-        	drawInfo(g, info, lastVersionText.x(), lastVersionText.y(), boxW);
-        }
-        if (showNewUpdatedLink && newVersionText == hoverBox) {
-        	String info =  text("GAME_MENU_NEWER_VERSION");
-        	drawInfo(g, info, newVersionText.x(), newVersionText.y(), boxW);
-        }
-        
+		int offsetX = scaled(180);
+		int offsetY = s25;
+		if (showLastUpdatedLink && lastVerExeText == hoverBox) {
+			String info = text("GAME_MENU_ZIP_DESC", gitInfoLast.githubRepo());
+			drawInfo(g, info, lastVerExeText.x()+offsetX, lastVerExeText.y()+offsetY, boxW);
+		}
+		if (showLastUpdatedLink && lastVerMiniText == hoverBox) {
+			String info = text("GAME_MENU_MINI_JAR_DESC", gitInfoLast.githubRepo());
+			drawInfo(g, info, lastVerMiniText.x()+offsetX, lastVerMiniText.y()+offsetY, boxW);
+		}
+		if (showLastUpdatedLink && lastVerJarText == hoverBox) {
+			String info = text("GAME_MENU_JAR_DESC", gitInfoLast.githubRepo());
+			drawInfo(g, info, lastVerJarText.x()+offsetX, lastVerJarText.y()+offsetY, boxW);
+		}
+		if (showLastUpdatedLink && lastVersionText == hoverBox) {
+			String info = text("GAME_MENU_LAST_VERSION", gitInfoLast.githubRepo());
+			drawInfo(g, info, lastVersionText.x()+offsetX, lastVersionText.y()+offsetY, boxW);
+		}
+		if (showNewUpdatedLink && newVersionText == hoverBox) {
+			String info =  text("GAME_MENU_NEWER_VERSION", gitInfoNew.githubRepo());
+			drawInfo(g, info, newVersionText.x()+offsetX, newVersionText.y()+offsetY, boxW);
+		}
+
         g.setComposite(prevComp);
     }
     private void drawInfo(Graphics2D g, String info, int xLeft, int yBottom, int w) {
@@ -799,47 +825,53 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 			return "";
 		}
     }
-    private String getVersion (String rawResult) {
-//    	String result = rawResult.replaceAll("<[^>]*>", "");
-//    	String[] resArr = result.split(",");
-    	String[] resArr = rawResult.split(",|\\<|\\>");
-    	List <String> version = new ArrayList<>();
-
-    	for (String line : resArr) {
-//    		if (line.contains("BrokenRegistry")) {
-//    			System.out.println(line);
-//    		if (line.contains("Fusion")) {
-//    			System.out.println(line);
-    		if (line.contains("app-argument=")) {
-    			// System.out.println(line);
-    			boolean ok = false;
-    			String[] keyArr = line.split("/");
-    			for (String key : keyArr) {
-    				if (ok) {
-    					version.add(key.replace("\"", ""));
-    				}
-    				else
-    					ok = key.equals("tag");
-    			}
-    		}
-    	}
-    	String lastVersion = "";
-    	if (version.size() >3) {
-//    		lastVersion = "Fusion-" + version.get(0) + "-"
-//					+ version.get(1) + "-" + version.get(2)
-//					+ version.get(2).substring(0, 2);
-    		lastVersion = version.get(0) + "."
+	private GitInfo getGitInfo (String repo) {
+		String baseLink = "https://github.com/" + repo + "/Rotp-Fusion/releases/";
+		String githubLink	= baseLink + "latest/";
+		String rawResult	= getPage(githubLink);
+		String[] resArr		= rawResult.split(",|\\<|\\>");
+		List <String> version = new ArrayList<>();
+	
+		for (String line : resArr) {
+			if (line.contains("app-argument=")) {
+				boolean ok = false;
+				String[] keyArr = line.split("/");
+				for (String key : keyArr) {
+					if (ok)
+						version.add(key.replace("\"", ""));
+					else
+						ok = key.equals("tag");
+				}
+			}
+		}
+		String linkRoot	= "";
+		String shortVersion	= "";
+		String longVersion	= "";
+		if (version.size() >3) {
+			longVersion = version.get(0) + "/"
+					+ version.get(1) + "/" + version.get(2)
+					+ "/" + version.get(3);
+			shortVersion = version.get(0) + "."
 					+ version.get(1) + "." + version.get(2)
 					+ "." + version.get(3).substring(0, 2);
-    		// isLastVersion = lastVersion.equalsIgnoreCase(Rotp.releaseId);
-    	}
-//    	System.out.println("version: " + version);
-//    	System.out.println("Current Version: " + Rotp.releaseId);
-//    	System.out.println("Last Version: " + lastVersion);
-//    	System.out.println("isLastVersion: " + isLastVersion);
-//    	System.out.println();
-    	return lastVersion;
-    }
+			linkRoot = baseLink + "download/" + longVersion + "/" + "rotp-Fusion-"
+					+ version.get(0) + "-" + version.get(1) + "-" + version.get(2);
+		}
+		String jarFile		= linkRoot + ".jar";
+		String jarMiniFile	= linkRoot + "-mini.jar";
+		String zipFile		= linkRoot + "-windows.zip";
+		Long value = getValue(shortVersion);
+		//String folder = 
+		return new GitInfo (value, repo, githubLink, jarFile, jarMiniFile, zipFile) ;
+	}
+	private record GitInfo (
+			Long version,
+			String githubRepo,
+			String githubLink,
+			String jarFile,
+			String jarMiniFile,
+			String zipFile) {}
+
     private Long getValue(String version) {
     	Long val = 0L;
     	if (version.isEmpty())
@@ -863,36 +895,37 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     	val = ((year*100L + month)*100L + day)*100L + hour;
     	return val;
     }
-    private void checkForUpdate() {
-    	lastVersionText.displayText("");
-    	newVersionText.displayText("");
-    	currentVersion = getValue(Rotp.buildTime);
-    	String rawStr  = getPage(checkLinkBR);
-    	String verStr  = getVersion(rawStr);
-    	brVersion      = getValue(verStr);
-    	rawStr         = getPage(checkLinkXilmi);
-    	verStr         = getVersion(rawStr);
-    	xilmiVersion   = getValue(verStr);
-    	
-    	showNewUpdatedLink = false;
-    	showLastUpdatedLink = brVersion > currentVersion || xilmiVersion > currentVersion;
-    	if (showLastUpdatedLink) {
-    		if (brVersion > xilmiVersion) {
-    			lastVersionText.displayText(checkLinkBR);
-    			if (xilmiVersion > currentVersion) {
-    				newVersionText.displayText(checkLinkXilmi);
-    				showNewUpdatedLink = true;
-    			}
-    		}
-    		else {
-    			lastVersionText.displayText(checkLinkXilmi);
-    			if (brVersion > currentVersion) {
-    				newVersionText.displayText(checkLinkBR);
-    				showNewUpdatedLink = true;
-    			}
-    		}
-    	}
-    }
+	private void checkForUpdate() {
+		lastVersionText.displayText("");
+		lastVerJarText.displayText("");
+		lastVerMiniText.displayText("");
+		lastVerExeText.displayText("");
+		newVersionText.displayText("");
+		gitInfoLast		= null;
+		gitInfoNew		= null;
+		currentVersion	= getValue(Rotp.buildTime);
+		gitInfoXilmi	= getGitInfo("Xilmi");
+		gitInfoBR		= getGitInfo("BrokenRegistry");
+
+		showNewUpdatedLink  = false;
+		showLastUpdatedLink = gitInfoBR.version() > currentVersion || gitInfoXilmi.version() > currentVersion;
+		if (showLastUpdatedLink) {
+			if (gitInfoBR.version() > gitInfoXilmi.version()) {
+				gitInfoLast = gitInfoBR;
+				if (gitInfoXilmi.version() > currentVersion) {
+					gitInfoNew = gitInfoXilmi;
+					showNewUpdatedLink = true;
+				}
+			}
+			else {
+				gitInfoLast = gitInfoXilmi;
+				if (gitInfoBR.version() > currentVersion) {
+					gitInfoNew = gitInfoBR;
+					showNewUpdatedLink = true;
+				}
+			}
+		}
+	}
     private void versionAction(MouseEvent e) {
     		buttonClick();
     		checkForUpdate();
@@ -1219,10 +1252,16 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             expandFrame();
         else if (versionText.contains(x,y))
         	versionAction(e);
-        else if (lastVersionText.contains(x,y))
-        	openUrlPage(lastVersionText.displayText());
-        else if (newVersionText.contains(x,y))
-        	openUrlPage(newVersionText.displayText());;
+		else if (lastVersionText.contains(x,y))
+			openUrlPage(gitInfoLast.githubLink());
+		else if (lastVerJarText.contains(x,y))
+			openUrlPage(gitInfoLast.jarFile());
+		else if (lastVerMiniText.contains(x,y))
+			openUrlPage(gitInfoLast.jarMiniFile());
+		else if (lastVerExeText.contains(x,y))
+			openUrlPage(gitInfoLast.zipFile());
+		else if (newVersionText.contains(x,y))
+			openUrlPage(gitInfoNew.githubLink());;
     }
     @Override public void mouseDragged(MouseEvent e)  { mouseMoved(e); }
     @Override public void mouseMoved(MouseEvent e)    {
@@ -1260,23 +1299,40 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             newHover = shrinkText;
         else if (enlargeText.contains(x,y))
             newHover = enlargeText;
-        else if (versionText.contains(x,y)) {
-        	newHover = versionText;
-        	repaint = true;
-        }
-        else if (lastVersionText.contains(x,y)) {
-        	newHover = lastVersionText;
-        	repaint = true;
-        }
-        else if (newVersionText.contains(x,y)) {
-        	newHover = newVersionText;
-        	repaint = true;
-        }
+		else if (versionText.contains(x,y)) {
+			newHover = versionText;
+			repaint = true;
+		}
+		else if (lastVersionText.contains(x,y)) {
+			newHover = lastVersionText;
+			repaint = true;
+		}
+		else if (lastVerJarText.contains(x,y)) {
+			newHover = lastVerJarText;
+			repaint = true;
+		}
+		else if (lastVerMiniText.contains(x,y)) {
+			newHover = lastVerMiniText;
+			repaint = true;
+		}
+		else if (lastVerExeText.contains(x,y)) {
+			newHover = lastVerExeText;
+			repaint = true;
+		}
+		else if (newVersionText.contains(x,y)) {
+			newHover = newVersionText;
+			repaint = true;
+		}
 
-        if (hoverBox != newHover) {
-            if (hoverBox != null) {
-            	if (hoverBox == versionText || hoverBox == lastVersionText || hoverBox == newVersionText)
-            		repaint = true;
+		if (hoverBox != newHover) {
+			if (hoverBox != null) {
+				if (hoverBox == versionText
+						|| hoverBox == lastVersionText
+						|| hoverBox == lastVerJarText
+						|| hoverBox == lastVerMiniText
+						|| hoverBox == lastVerExeText
+						|| hoverBox == newVersionText)
+					repaint = true;
                 hoverBox.mouseExit();
                 repaint(hoverBox.bounds());
             }

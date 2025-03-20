@@ -64,6 +64,9 @@ Very soon:
   - Limit for number of opponents
 
 Later:
+- Declare war and ask join war the same turn:
+  - Swap the messages
+  - Option to remove "Ask join war"
 - Some Achievements options.
 - Monsters:
   - More Planet Monsters Guardian.
@@ -87,6 +90,9 @@ Later:
 
 
 ## What's New
+
+2025.03.20 (BR)
+- "Check for Updates" will provide direct links to download files.
 
 2025.03.19 (BR)
 - Ufo Tracker: Loop thru all the colonies to get the closest one to the path (instead of stopping to the first being close enough.

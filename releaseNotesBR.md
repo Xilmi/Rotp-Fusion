@@ -5,6 +5,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
+- "Check for Updates" will provide direct links to download files.
 - Fixed several potential memory leak with options screens.
 - More colony-ships for everyone (Xilmi)
   - The AI will no longer be as conservative about building colony-ships once they have the techs needed for going to war.

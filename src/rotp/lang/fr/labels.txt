@@ -472,14 +472,22 @@ GAME_MENU_RESTART                 | Redémarrer
 GAME_VERSION                      | Version : %1
 GAME_SHRINK                       | Rétrécir -
 GAME_ENLARGE                      | Élargir
-GAME_WINDOW_SIZE                  | ( %1 % )
 GAME_MENU_REPLAY_LAST_TURN        | Rejouer le tour
-GAME_MENU_CHECK_FOR_UPDATE        | Cliquez pour vérifier si une nouvelle version est disponible sur Github (Xilmi & BrokenRegistry).<br>Les liens vers les versions plus à jours seront affichés.
-GAME_MENU_NO_NEW_VERSION          | Il n’y a pas de nouvelle version disponible.
-GAME_MENU_GOT_NEW_VERSION         | Une nouvelle version est disponible.
-GAME_MENU_LAST_VERSION            | Une nouvelle version est disponible.<br>Il s’agit de la version la plus récente.
-GAME_MENU_NEWER_VERSION           | Une nouvelle version est disponible.<br>Ce n’est pas la version la plus récente, mais elle est plus récente que celle en cours d’exécution.
-GAME_MENU_GITHUB_REPOSITORY       | Github Repository : %1
+GAME_WINDOW_SIZE                  | ( %1 % )
+GAME_MENU_CHECK_FOR_UPDATE		| Cliquez pour vérifier si une nouvelle version est disponible sur Github (Xilmi & BrokenRegistry).<br>Les liens vers les versions plus à jours seront affichés.
+GAME_MENU_NO_NEW_VERSION		| Il n’y a pas de nouvelle version disponible.
+GAME_MENU_GOT_NEW_VERSION		| Une nouvelle version est disponible.
+GAME_MENU_LAST_VERSION			| Une nouvelle version est disponible au dépot de %1.<br>Il s’agit de la version la plus récente.
+GAME_MENU_NEWER_VERSION			| Une nouvelle version est disponible au dépot de %1.<br>Ce n’est pas la version la plus récente, mais elle est plus récente que celle en cours d’exécution.
+GAME_MENU_GITHUB_REPOSITORY		| Github Repository : %1
+GAME_MENU_NEW_RELEASE			| Aller à l'autre relâche
+GAME_MENU_LAST_RELEASE			| Aller à la dernière relâche
+GAME_MENU_LAST_JAR				| Télécharger le dernier fichier .jar
+GAME_MENU_LAST_MINI_JAR			| Télécharger le dernier fichier -mini.jar
+GAME_MENU_LAST_ZIP				| Télécharger le dernier fichier -windows.zip
+GAME_MENU_JAR_DESC				| Java JRE (ou JDK) doit être installé sur votre ordinateur pour que ce fichier puisse être exécuter.
+GAME_MENU_MINI_JAR_DESC			| Comme le .jar, avec les fichiers d'images et de sons compressés pour minimiser la taille du fichier.
+GAME_MENU_ZIP_DESC				| Contient un exécutable autonome pour Windows, incluant Java.
 
 // Game Settings UI
 GAME_SETTINGS_TITLE               | Paramètres de Jeu
