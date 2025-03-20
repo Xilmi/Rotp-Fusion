@@ -1,3 +1,5 @@
+Official website: https://www.remnantsoftheprecursors.org/<br/>
+
 New Java requirement: minimum JRE-17, recommended JRE-23.
 
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
