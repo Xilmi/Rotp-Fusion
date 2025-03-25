@@ -2,6 +2,9 @@
 
 ## What's New
 
+2025.03.25 (BR)
+- Removed Altair from the Mrrshan list of systems.
+
 2025.03.20 (BR)
 - Github presentation reorganisation.
 - "Check for Updates" will provide direct links to download files.
