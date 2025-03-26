@@ -1824,7 +1824,18 @@ public class AIDiplomat implements Base, Diplomat {
         if(!empire.inShipRange(v.empId()))
         {
             //System.out.println(galaxy().currentTurn()+" "+empire.name()+" is war-weary because "+v.empire().name()+" is not in range.");
-            return true;
+            boolean orbitingSystemsThatMightIncreaseRange = false;
+            for(ShipFleet fl : empire.allFleets())
+            {
+                if(fl.inOrbit() && fl.system() != null)
+                {
+                    StarSystem sys = fl.system();
+                    if(empire.canColonize(sys) && !sys.isColonized())
+                        orbitingSystemsThatMightIncreaseRange = true;
+                }
+            }
+            if(!orbitingSystemsThatMightIncreaseRange || !empire.inEconomicRange(v.empId()))
+                return true;
         }
         //ail: no war-weariness in always-war-mode
         if(galaxy().options().baseAIRelationsAdj() <= -30)
