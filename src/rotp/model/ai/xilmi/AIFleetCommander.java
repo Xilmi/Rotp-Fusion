@@ -460,6 +460,10 @@ public class AIFleetCommander implements Base, FleetCommander {
                 if(enemyFightingPower > 0)
                     score /= enemyFightingPower;
             }
+            else if(empire.canColonize(current))
+            {
+                score = 1.0f;
+            }
             if(empire.alliedWith(empire.sv.empId(id)))
             {
                 //attacking is a lot better than defending, so defending should have a lower score in general. Unless there's incoming transports, that is.
@@ -862,14 +866,18 @@ public class AIFleetCommander implements Base, FleetCommander {
                             requiredBombardDamage *= 0.9f;
                         }
                         float expectedBombardDamage = fleet.expectedBombardDamage(false);
-                        //System.out.print("\n"+fleet.empire().name()+" Fleet at "+fleet.system().name()+" raw keepAmount: "+requiredBombardDamage / expectedBombardDamage+" expected: "+expectedBombardDamage+" required: "+requiredBombardDamage);
+                        //System.out.println(fleet.empire().name()+" Fleet at "+fleet.system().name()+" raw keepAmount: "+requiredBombardDamage / expectedBombardDamage+" expected: "+expectedBombardDamage+" required: "+requiredBombardDamage);
                         if(expectedBombardDamage > 0)
                             keepAmount = min(1, requiredBombardDamage / expectedBombardDamage);
                         if(keepAmount < 1)
                             onlyAllowRealTarget = true;
                     }
+                    else if(fleet.system().colony() == null && empire.canColonize(fleet.system()))
+                    {
+                        keepAmount = 0.01f;
+                    }
                    
-                    //System.out.print("\n"+fleet.empire().name()+" Fleet at "+fleet.system().name()+" keep: "+keepAmount);
+                    //System.out.println(fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.sysId())+" keep: "+keepAmount);
                     if(keepAmount >= 1)
                         break;
 
@@ -939,7 +947,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                             keepPower = combatPower;
                         //convert keepPower to keepAmount
                         if(combatPower > 0)
-                            keepAmount = keepPower / combatPower;
+                            keepAmount = max(keepAmount, keepPower / combatPower);
                         //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+fleet.system().name()+" keepPower: "+keepPower);
                         if(targetIsGatherPoint)
                         {
