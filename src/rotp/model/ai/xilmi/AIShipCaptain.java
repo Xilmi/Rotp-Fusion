@@ -873,6 +873,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         float maxHit = 0;
         List<CombatStack> activeStacks = new ArrayList<>(currStack.mgr.activeStacks());
         for (CombatStack st: activeStacks) {
+            float ourOwnMissileHit = 0;
             for (CombatStackMissile miss: st.missiles()) {
                 if (miss.target == currStack && (st.isShip() || st.isMonster()))
                 {
@@ -901,8 +902,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 // If our missiles are about to kill something, we must not retreat!
                 if (miss.owner == currStack)
                 {
-                    maxHit += (miss.maxDamage() - currStack.shieldLevel()) * miss.num;
-                    if(maxHit > miss.target.hits())
+                    ourOwnMissileHit += (miss.maxDamage() - currStack.shieldLevel()) * miss.num;
+                    if(ourOwnMissileHit > miss.target.hits())
                         return false;
                 }
             }
@@ -1015,13 +1016,6 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 {
                     killPct = 0;
                 }
-                if(st2.maxMove < st1.maxMove && (st2.isShip() || st2.isMonster()))
-                {
-                    float mySpeedRange = st2.maxMove + maxFiringRange(st2, st1, true);
-                    float enemySpeedRange = st1.maxMove + maxFiringRange(st1, st2, true);
-                    if(st2.initiative() <= st1.initiative() || maxFiringRange(st2, st1, true) < maxFiringRange(st1, st2, true))
-                        killPct *= max(0, (2 * mySpeedRange - enemySpeedRange) / mySpeedRange);
-                }
                 damagePerTurn += killPct;
                 if(st1.maxFiringRange(st2) <= st2.repulsorRange() && st2.maxFiringRange(st1) > 1 && !st1.canCloak && !st1.canTeleport())
                 {
@@ -1078,13 +1072,6 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 if(st2.maxFiringRange(st1) <= st1.repulsorRange() && st1.maxFiringRange(st2) > 1 && !st2.canCloak && !st2.canTeleport())
                 {
                     killPct = 0;
-                }
-                if(st2.maxMove < st1.maxMove && (st2.isShip() || st2.isMonster()))
-                {
-                    float mySpeedRange = st2.maxMove + maxFiringRange(st2, st1, true);
-                    float enemySpeedRange = st1.maxMove + maxFiringRange(st1, st2, true);
-                    if(st2.initiative() <= st1.initiative() || maxFiringRange(st2, st1, true) < maxFiringRange(st1, st2, true))
-                        killPct *= max(0, (2 * mySpeedRange - enemySpeedRange) / mySpeedRange);
                 }
                 //System.out.println(stack.mgr.system().name()+" "+stack.fullName()+" kite-adapted killpct: "+killPct);
                 damagePerTurn += killPct;
