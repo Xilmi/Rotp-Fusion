@@ -44,6 +44,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+2025.03.26 (BR)
+- Restored Altair to the Mrrshan list of systems. It will only be removed if Altairi are on the map.
+
 2025.03.25 (BR)
 - Removed Altair from the Mrrshan list of systems.
 
