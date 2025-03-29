@@ -2,6 +2,9 @@
 
 ## What's New
 
+2025.03.29 (BR)
+  - Fixed a rare "Concurrent Modification Exception" crash when starting a combat.
+
 2025.03.26 (Xilmi)
 - Bugfixes in retreat-logic
   - Fixed a bug where the AI counted the damage of their own missiles towards the damage they would receive when it came to whether they should retreat from incoming missiles. This caused them to flee from fights they were winning.
