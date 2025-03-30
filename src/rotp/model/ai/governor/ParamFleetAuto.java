@@ -94,7 +94,7 @@ public abstract class ParamFleetAuto extends ParamList	{
 			super();
 			this.empire = empire;
 		}
-		public boolean add(ShipFleet fleet)	{
+		public boolean splitAndAdd(ShipFleet fleet)	{
 			AutoSendFleet autoSendFleet = new AutoSendFleet(fleet);
 			boolean hasSubFleet = false;
 			while (autoSendFleet.hasSubFleet()) {

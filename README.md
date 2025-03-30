@@ -44,8 +44,11 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-2025.03.29 (BR)
-  - Fixed a rare "Concurrent Modification Exception" crash when starting a combat.
+2025.03.30 (BR)
+- Added an option for armed auto-colonizer to guard or not their colonies. (If tagged as Attack, they will always guard.)
+
+2025.03.30 (Xilmi)
+- Deliberately keeping fleets at uncolonized systems had too much of an opportunity-cost. So it was reverted.
 
 
 [### Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges)

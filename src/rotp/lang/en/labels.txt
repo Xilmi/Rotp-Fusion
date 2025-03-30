@@ -5406,6 +5406,8 @@ AUTO_ATTACK_NO_ENTENTE_HELP			| All the empires we have not signed treaties with
 AUTO_ATTACK_ALL						| All
 AUTO_ATTACK_ALL_HELP				| Let us send our ships to all the empires, the time of war is not so far away.
 
+GOVERNOR_ARMED_COLONIZER_GUARD_DESC	| Armed Colonizers will guard planets.
+GOVERNOR_ARMED_COLONIZER_GUARD		| Armed Colonizers Guard: %1
 GOVERNOR_ARMED_SCOUT_GUARD_DESC		| Armed scouts will guard uncolonized planets they discover.
 GOVERNOR_ARMED_SCOUT_GUARD			| Armed Scouts Guard: %1
 GOVERNOR_AUTO_SCOUT_SMART_HELP		| To prevent our scouts from constantly crossing our space from one end to the other, scouts already deployed will have a more limited range of action.<br>Those from colonies can still be deployed over long distances.<br>Later, if a scout is closer to a star already targeted, it will also be directed towards this star in order to discover it as quickly as possible.

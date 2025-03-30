@@ -75,6 +75,7 @@ public class MapOverlayNone extends MapOverlay {
                 	parent.selectGamePanel();
                 break;
 			case KeyEvent.VK_NUMBER_SIGN:
+			case KeyEvent.VK_DEAD_TILDE:
 //				player().autoscout();
 //				player().govAI().fleetCommander().nextTurn();
 				player().fleetCommanderAI().nextTurn();

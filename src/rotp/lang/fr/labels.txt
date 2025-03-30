@@ -5406,8 +5406,10 @@ AUTO_ATTACK_NO_ENTENTE_HELP			| Tous les empires avec lesquels nous n’avons pa
 AUTO_ATTACK_ALL						| Tous
 AUTO_ATTACK_ALL_HELP				| Envoyons nos vaisseaux vers tous les empires, le temps de la guerre n’est plus si lointain.
 
+GOVERNOR_ARMED_COLONIZER_GUARD_DESC	| Les vaisseaux armés ayant des modules de colonisation garderont les planètes.
+GOVERNOR_ARMED_COLONIZER_GUARD		| Les colonisateurs armés gardent :: %1
 GOVERNOR_ARMED_SCOUT_GUARD_DESC		| Les éclaireurs armés garderont les planètes non colonisées qu’ils ont découvertes.
-GOVERNOR_ARMED_SCOUT_GUARD			| Les éclaireurs armés guardent : %1
+GOVERNOR_ARMED_SCOUT_GUARD			| Les éclaireurs armés gardent : %1
 GOVERNOR_AUTO_SCOUT_SMART_HELP		| Pour éviter que nos éclaireurs ne traversent sans cesse notre espace d’un bout à l’autre, les éclaireurs déjà déployés auront un rayon d’action plus limité.<br>Ceux des colonies pourront toujours être déployés sur de longues distances.<br>Plus tard, si un éclaireur est plus proche d’une étoile déjà ciblée, il sera également dirigé vers cette étoile afin de la découvrir au plus vite.
 GOVERNOR_AUTO_SCOUT_SMART_DESC		| Pour éviter que nos éclaireurs ne traversent sans cesse notre espace d’un bout à l’autre, les éclaireurs déjà déployés auront un rayon d’action plus limité. Ceux des colonies pourront toujours être déployés sur de longues distances. Plus tard, si un éclaireur est plus proche d’une étoile déjà ciblée, il sera également dirigé vers cette étoile afin de la découvrir au plus vite.
 GOVERNOR_AUTO_SCOUT_SMART			| Éclaireurs moins zèlés : %1

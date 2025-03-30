@@ -31,6 +31,7 @@ final class AutoSendFleetOption extends AbstractOptionsSubUI {
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("AUTO_COLONIZE"),
 				fleetAutoColonizeMode,
+				armedColonizerGuard,
 				autoColonize_
 				)));
 		return map;
@@ -54,6 +55,7 @@ final class AutoSendFleetOption extends AbstractOptionsSubUI {
 						armedScoutGuard,
 						LINE_SPACER_25,
 						fleetAutoColonizeMode,
+						armedColonizerGuard,
 						autoColonize_,
 						LINE_SPACER_25,
 						fleetAutoAttackMode,

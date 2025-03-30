@@ -194,7 +194,9 @@ public interface IGovOptions {
 	ParamInteger autoScoutMaxTime		= new ParamInteger(GOV_UI, "AUTO_SCOUT_MAX_TIME", 5)
 			.setLimits(0, 100)
 			.setIncrements(1, 5, 20);
-	
+
+	ParamBoolean armedColonizerGuard	= new ParamBoolean(GOV_UI, "ARMED_COLONIZER_GUARD", false);
+
 	AutoAttackEmpire autoAttackEmpire	= new AutoAttackEmpire();
 	class AutoAttackEmpire extends ParamList	{
 		static final String AUTO_ATTACK_EMPIRE		= "AUTO_ATTACK_EMPIRE";
@@ -204,7 +206,7 @@ public interface IGovOptions {
 		static final String AUTO_ATTACK_HOSTILE		= "AUTO_ATTACK_HOSTILE";
 		static final String AUTO_ATTACK_NO_ENTENTE	= "AUTO_ATTACK_NO_ENTENTE";
 		static final String AUTO_ATTACK_ALL			= "AUTO_ATTACK_ALL";
-		
+
 		public AutoAttackEmpire()	{
 			super(GOV_UI, AUTO_ATTACK_EMPIRE, AUTO_ATTACK_MENACING);
 			showFullGuide(true);
@@ -273,11 +275,11 @@ public interface IGovOptions {
 		@Override public int[] getautoShipRequest(ShipDesignLab lab)	{
 			return lab.autoScoutShipCount();
 		}
-		@Override public SubFleetList newSubFleetList(Empire empire) {
+		@Override public SubFleetList newSubFleetList(Empire empire)	{
 			return new SubFleetList(empire);
 		}
 		@Override protected BiPredicate<ShipFleet, ShipDesign> notOnDefenseMission()	{
-			return notOnDefenseMission (armedScoutGuard.get());
+			return notOnDefenseMission(armedScoutGuard.get());
 		}
 	}
 	final class ParamFleetAutoColonize extends ParamFleetAuto	{
@@ -291,7 +293,7 @@ public interface IGovOptions {
 		@Override public int[] getautoShipRequest(ShipDesignLab lab)	{
 			return lab.autoColonizeShipCount();
 		}
-		@Override public SubFleetList newSubFleetList(Empire empire) {
+		@Override public SubFleetList newSubFleetList(Empire empire)	{
 			return new SubFleetList(empire);
 		}
 		@Override protected BiPredicate<ShipDesign, Integer> designFitForSystem()	{
@@ -303,7 +305,11 @@ public interface IGovOptions {
 						&& sd.colonySpecial().canColonize(empire.sv.system(si).planet().type()));
 			return designFitForSystem;
 		}
-				
+		@Override protected BiPredicate<ShipFleet, ShipDesign> notOnDefenseMission()	{
+			if(armedColonizerGuard.get())
+				return notOnDefenseMission(false);
+			return null;
+		}
 	}
 	final class ParamFleetAutoAttack extends ParamFleetAuto	{
 		static final String FLEET_AUTO_ATTACK = "FLEET_AUTO_ATTACK";
