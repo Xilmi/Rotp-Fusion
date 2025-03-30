@@ -872,10 +872,6 @@ public class AIFleetCommander implements Base, FleetCommander {
                         if(keepAmount < 1)
                             onlyAllowRealTarget = true;
                     }
-                    else if(fleet.system().colony() == null && empire.canColonize(fleet.system()))
-                    {
-                        keepAmount = 0.01f;
-                    }
                    
                     //System.out.println(fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.sysId())+" keep: "+keepAmount);
                     if(keepAmount >= 1)
