@@ -19,13 +19,25 @@ import static java.awt.MultipleGradientPaint.CycleMethod.NO_CYCLE;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.ships.ShipDesign.MAX_SIZE;
 
-import java.awt.*;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Composite;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RadialGradientPaint;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
 import rotp.model.ai.interfaces.ShipCaptain;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
@@ -446,6 +458,9 @@ public class CombatStack implements Base {
             return 0;
         float damageTaken = 0;
         attacked = true;
+		// TODO BR: Option for MoO1 Rules
+        // BR: Also check Stream weapons
+		// float dmg = max(0, damage - Math.floor(shieldLevel() * shieldAdj));
         float dmg = max(0, damage - (shieldLevel() * shieldAdj));
         damageTaken += dmg;
         if (dmg == 0)

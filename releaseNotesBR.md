@@ -7,12 +7,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-2025.03.30 (BR)
-- Added an option for armed auto-colonizer to guard or not their colonies. (If tagged as Attack, they will always guard.)
+2025.03.31 (BR)
+- Humanised fire power estimation and made it ready fo an option to comply with MoO1 rules.
 
-2025.03.30 (Xilmi)
-- Deliberately keeping fleets at uncolonized systems had too much of an opportunity-cost. So it was reverted.
+2025.03.31 (Xilmi)
+- Improved accuracy of beam weapon fire power estimation.
 
+[#### Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges)
 
-
-[Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges)
+[#### Detailed Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges)

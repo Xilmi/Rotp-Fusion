@@ -1,23 +1,24 @@
 # Remnants of the Precursors
 
-## What's New
+[New Features](#Features:)
+[AI Improvement](#AI-Improvement)
+[Governor](#Governor:)
+[Miscellaneous](#Miscellaneous:)
+[User Interfaces](#User-Interfaces:)
+[Guide and Help](#Guide-and-Help:)
+[Other Language](#Other-Language:)
+[Fixes](#Fixes:)
+[To categorize](#To-categorize:)
 
-2025.03.31 (BR)
-- Humanised fire power estimation and made it ready fo an option to comply with MoO1 rules.
 
-2025.03.31 (Xilmi)
+### Features:
+- "Check for Updates" will provide direct links to download files.
+- The Dark galaxy apply to AI too.
+
+
+### AI Improvement:
 - Improved accuracy of beam weapon fire power estimation.
-
-2025.03.30 (BR)
-- Added an option for armed auto-colonizer to guard or not their colonies. (If tagged as Attack, they will always guard.)
-
-2025.03.30 (Xilmi)
 - Deliberately keeping fleets at uncolonized systems had too much of an opportunity-cost. So it was reverted.
-
-2025.03.29 (BR)
-- Fixed a rare "Concurrent Modification Exception" crash when starting a combat.
-
-2025.03.26 (Xilmi)
 - Bugfixes in retreat-logic
   - Fixed a bug where the AI counted the damage of their own missiles towards the damage they would receive when it came to whether they should retreat from incoming missiles. This caused them to flee from fights they were winning.
   - Range- and speed-advantages no longer arbitrarily impact the combat-outcome calculations of the retreat-logic. This caused faster ships to sometimes not retreat when they should in order to prevent from being killed.
@@ -30,65 +31,9 @@
 - Avoid premature peace-treaties
   - The Xilmi-AIs will no longer automatically make peace once it's ships can no longer reach colonies of their enemies.
   - Instead the AI will check whether they are currently hovering colonizable systems with their fleets and only consider war when there are none.
-
-2025.03.26 (BR)
-- Restored Altair to the Mrrshan list of systems. It will only be removed if Altairi are on the map.
-
-2025.03.25 (BR)
-- Removed Altair from the Mrrshan list of systems.
-
-2025.03.20 (BR)
-- Github presentation reorganisation.
-- "Check for Updates" will provide direct links to download files.
-
-2025.03.19 (BR)
-- Ufo Tracker: Loop thru all the colonies to get the closest one to the path (instead of stopping to the first being close enough.
-- Galaxy Setup UI: Split paintComponents, for better readability.
-
-2025.03.18 (BR)
-- List Dialogue for options panels is now unique (reused).
-  - more reactive.
-  - less prone to memory leak.
-- Options JPanels are now reused. Because they are built over BasePanel, wich was not though to be easyly disposed. It's then safer to follow the original way.
-
-2025.03.17 (Xilmi)
 - More colony-ships for everyone
   - The AI will no longer be as conservative about building colony-ships once they have the techs needed for going to war.
   - This was meant for them to not overbuild early on but they limited themselves too much later on so someone who would just stay out of conflicts while having a lo of colony-ships could more easily take over everything for themselves.
-
-2025.03.17 (BR)
-- Fixed Ufo tracker showing the wrong destination when retreating.
-- Ufo Tracker has now its own class.
-- Ufo tracker will be disabled once Scanner showing ETA are discovered.
-- Ufo tracker is called only once a turn, as it was intended.
-- Cleaned the empire class from the moved method.
-- Player AI is now the new Governor AI, which is a copy of the Xilmi AI, except for some specific Governor features.
-  - Player dedicated functions should not bloat the Empire class... They will be progressively moved to the player dedicated AI.
-- Ufo tracker: Fixed crash on vertical or horizontal travels.
-- Ufo tracker: Fixed transport not identifying destinations.
-- Improved Governor Contextual help for Auto-Scout Auto-Colonize and Auto-Attack.
-- Fixed a potential memory leak with options screens.
-  - Some JPanel share their instance to get Mouse and keyboard action, without removing them. The Garbage collector may not removed them from memory, as the mouse and keyboard drivers still have a link on them.
-  - The options panels have now a "Terminate" method to remove these links.
-
-2025.03.15 (BR)
-- The Dark galaxy apply to AI too.
-- Fixed Dark Galaxy sabotage preselecting a dark system. 
-- Grouped Sabotage target lists in a class.
-- Sabotage target lists will be updated if called after a reload.
-  - If the player asked for "Stop spying" AI would be given empty target list for their response analysis.
-
-2025.03.14 (BR)
-- Added Methods in EmpireView to avoid direct call to the unflitered Empire class
-- UIs and AI will now use these new methods.
-- Renamed empire() to empireUncut() to avoid confusion.
-- Renamed tech() to techUncut() to avoid confusion.
-- Error Messages and Warning Messages will now display the OS.
-
-2025.03.12 (BR)
-- Moved Dark galaxy option to "Galaxy Rules"
-
-2025.03.11 (Xilmi)
 - Expansion-phase-research-tweeks
   - AI will no longer commit to getting improved environment-techs for systems that are outside of their range.
   - AI will now favor range-techs over engine-techs if they are in the expansion-phase and the range tech is the only way for them to obtain more planets.
@@ -96,40 +41,16 @@
   - AIs with the "Expansionist" personality-trait will assume they can get all the uncolonized planets they know about instead of making assumptions about opponents getting some of them too. So they rather risk overbuilding on colonizers instead of putting their resources elsewhere.
 - Scout repelling (Xilmi)
   - Fixed an issue causing the AI not having built Fighters to repel enemy scouts anymore in the early-game for the last 9 months.
-
-2025.03.10 (BR)
-- Moved "French" selection to second position, as English and French are the only fully supported language of RotP-Fusion.
-- New option "Less zealous scouts" to prevent our auto sent scouts from constantly crossing our space from one end to the other, scouts already deployed will have a more limited range of action. Later, if a scout is closer to a star already targeted, it will also be directed towards this star in order to discover it as quickly as possible. (This last feature can be disabled independently)
-
-2025.03.08 (Xilmi)
 - When an attacking fleet can not deal damage to a colony and also won't lose any ships, it will now still retreat as it would have to do so at the turn-limit anyways.
 
-2025.03.08 (BR)
-- Fixed a crash when the transport button was drawn for a non existing colony.
-- Restored former look of tech bubble.
+
+### Governor:
+- Added an option for armed auto-colonizer to guard or not their colonies. (If tagged as Attack, they will always guard.)
+- Improved Governor Contextual help for Auto-Scout Auto-Colonize and Auto-Attack.
+- New option "Less zealous scouts" to prevent our auto sent scouts from constantly crossing our space from one end to the other, scouts already deployed will have a more limited range of action. Later, if a scout is closer to a star already targeted, it will also be directed towards this star in order to discover it as quickly as possible. (This last feature can be disabled independently)
 - Fixed armed auto scout protecting planet instead of scouting.
 - New auto-attack option to select relation level of target empires.
-- Design UI: changed some text by icons:
-  - Auto-scout = Eye
-  - Auto-Attack = Target
-  - Auto-Colonize = Specie's city
-  - Alt-Scroll on auto buttons to change the governor common auto-count value.
 - New auto-scout option to tell armed scout to guard uncolonized planet.
-- Finer Auto-Scout Eye rendering.
-- Completed help for new Alt-Scroll in Design UI
-
-2025.03.06 (BR)
-- added Help for new auto fleet sending features.
-- Fixed smooth Min/Max being confused by both terraforming and soil improvement when capturing a colony.
-
-2025.03.05 (BR)
-- Fixed WarpSpeed not showing the fastest option.
-- Added help on Right-Click-Rally.
-
-2025.03.04 (Frank Zago)
-- French translation fixes and improvement.
-
-2025.03.04 (BR)
 - New option for auto-scout, auto-colonize and auto-Attack:
   - Each design can be given its own number of ships to be sent.
     - Scroll over the button to change the value.
@@ -137,37 +58,68 @@
     - Right click to toggle the governor automation.
   - The "auto" states are displayed on the design slots.
   - Option to select the number of design to send at once.
-
-2025.03.03 (BR)
-- Fixed "Restricted Environment" Guide description.
-- Tech Bubble - show progress:
-  - in tech panel too.
-  - filled when % is shown.
-
-2025.03.02 (BR)
-- Moved to java 17
-
-2025.03.01 (BR)
-- Fixed Bitmap Galaxy "Guide" text, that was too wide to be displayed.
-
-2025.02.28 (BR)
-- Minor improvement to the appearance of Tech bubbles.
-
-2025.02.27 (BR)
-- Improved the appearance of Tech bubbles.
-
-2025.02.25 (BR)
 - The "fine tuning" options are now available from the "original" governor panel.
 - Improved "Obedient Governor" response to "Develop colonies as quickly as possible".
   - For planets and species with reduced growth, there is an option to boost natural growth to match normal growth.
   - New option to set a minimal growth, as the natural growth can be very low once the planet is almost full.
   - New option to force "Develop colonies as quickly as possible" until the colony has reached a minimum industrial level. (This way you can predefine the production when colonizing a rich planet... and production will not be started too early)
   - Similarly, new option to define when missile bases should be built. By default, they are only built after all factories are built... But in case of war, or a neighbor who is a bit too nosy, it may be interesting to build them earlier.
-- "Float" option will no more have cumulative rounding errors.
+  
+
+### Miscellaneous:
+- Error Messages and Warning Messages will now display the OS.
+- Moved Dark galaxy option to "Galaxy Rules"
+- Restored former look of tech bubble.
+- Moved to java 17
+
+
+### User Interfaces:
+- Design UI: changed some text by icons:
+  - Auto-scout = Eye
+  - Auto-Attack = Target
+  - Auto-Colonize = Specie's city
+  - Alt-Scroll on auto buttons to change the governor common auto-count value.
+- Tech Bubble - show progress:
+  - in tech panel too.
+  - filled when % is shown.
+- Improved the appearance of Tech bubbles.
+
+
+### Guide and Help:
+- Completed help for new Alt-Scroll in Design UI
+- Added Help for new auto fleet sending features.
+- Added help on Right-Click-Rally.
+- Fixed "Restricted Environment" Guide description.
+- Fixed Bitmap Galaxy "Guide" text, that was too wide to be displayed.
+
+
+### Other Language:
+- Moved "French" selection to second position, as English and French are the only fully supported language of RotP-Fusion.
+- French translation fixes and improvement.
+
+
+### Fixes:
+- Fixed a rare "Concurrent Modification Exception" crash when starting a combat.
+- Altair system name will be removed from the Mrrshan list of systems when Altairi are on the map.
+- Ufo Tracker: Loop thru all the colonies to get the closest one to the path (instead of stopping to the first being close enough.
+- Fixed Ufo tracker showing the wrong destination when retreating.
+- Ufo tracker: Fixed transport not identifying destinations.
+- Fixed a potential memory leak with options screens.
+- Fixed a crash when the transport button was drawn for a non existing colony.
+- Fixed smooth Min/Max being confused by both terraforming and soil improvement when capturing a colony.
+- Fixed WarpSpeed not showing the fastest option.
+- Fixed crash when loading a game without default design.
+
+
+
+
+
+
+### To categorize:
+
 
 2025.02.21 (BR)
 - Extended "Default Design" feature: New default will be applied to shipyards if "Shift" is down.
-- Fixed crash when loading a game without default design.
 - "Colonies Building:" values will be updated after a new "Default Design" is asked to swap shipyard production.
 
 2025.02.20 (BR)
