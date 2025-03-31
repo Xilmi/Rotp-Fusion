@@ -12,7 +12,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 2025.03.31 (Xilmi)
 - Improved accuracy of beam weapon fire power estimation.
+- The AI will no longer interrupt building a colonizer to squeeze out repellant-fighters. Those are nice to have but not crucial enough to delay a colony-ship.
 
-[#### Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges)
+[#### Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 
-[#### Detailed Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges)
+[#### Detailed Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges.md)

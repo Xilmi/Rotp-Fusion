@@ -49,11 +49,12 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 2025.03.31 (Xilmi)
 - Improved accuracy of beam weapon fire power estimation.
+- The AI will no longer interrupt building a colonizer to squeeze out repellant-fighters. Those are nice to have but not crucial enough to delay a colony-ship.
 
-[### Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges)
+[### Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 
-[### Timed Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges)
+[### Timed Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges.md)
 
 
-[## To-Do list](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/TodoList)
+[## To-Do list](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/TodoList.md)
 

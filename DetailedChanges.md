@@ -7,6 +7,7 @@
 
 2025.03.31 (Xilmi)
 - Improved accuracy of beam weapon fire power estimation.
+- The AI will no longer interrupt building a colonizer to squeeze out repellant-fighters. Those are nice to have but not crucial enough to delay a colony-ship.
 
 2025.03.30 (BR)
 - Added an option for armed auto-colonizer to guard or not their colonies. (If tagged as Attack, they will always guard.)

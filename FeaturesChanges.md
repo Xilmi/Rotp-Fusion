@@ -17,6 +17,7 @@
 
 
 ### AI Improvement:
+- The AI will no longer interrupt building a colonizer to squeeze out repellant-fighters. Those are nice to have but not crucial enough to delay a colony-ship.
 - Improved accuracy of beam weapon fire power estimation.
 - Deliberately keeping fleets at uncolonized systems had too much of an opportunity-cost. So it was reverted.
 - Bugfixes in retreat-logic
