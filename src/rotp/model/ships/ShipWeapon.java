@@ -37,10 +37,32 @@ public class ShipWeapon extends ShipComponent {
     public boolean canAttackPlanets() { return (!noWeapon() && (maxDamage() > 0)); }
     public float firepower()          { return firepower(0); }
     public float firepower(float shield) {
-        float min = minDamage();
-        float max = maxDamage();
-        float shd = shield * shieldMod();
-        float dmg = (summate(max-shd) - summate(min-shd-1)) / (max-min+1);
+        // Use double for intermediate calculations for precision
+        double minD = (double) minDamage();
+        double maxD = (double) maxDamage();
+
+        if (minD < 0 || maxD < minD) return 0.0f; // Basic validation
+
+        double numOutcomes = maxD - minD + 1.0; // Total integer outcomes
+        if (numOutcomes <= 0) return 0.0f;
+
+        double effShield = (double)shield * shieldMod(); // Can be float
+
+        // --- Calculation for DISCRETE integer damage rolls ---
+
+        // Find the first integer damage D (>= minD) that is strictly > effShield
+        double startD = Math.max(minD, Math.floor(effShield) + 1.0);
+
+        // Count the number of integer damage values that penetrate
+        double numPenetratingOutcomes = Math.max(0.0, maxD - startD + 1.0);
+
+        // Calculate the sum of penetrating damages (using arithmetic series)
+        double totalPenetratingDamageSum = numPenetratingOutcomes * (startD + maxD - 2.0 * effShield) / 2.0;
+
+        // Average damage per shot = Sum / Total Possible Outcomes
+        float dmg = (float)Math.max(0.0, totalPenetratingDamageSum / numOutcomes);
+        // --- End of Discrete calculation block ---
+
         return attacksPerRound() * dmg * scatterAttacks();
     }
     public float max(ShipDesign d, int i) {
