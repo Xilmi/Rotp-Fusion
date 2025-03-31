@@ -139,8 +139,6 @@ public class AIGeneral implements Base, General {
                 float turnsToMove = max(1f, (float)Math.ceil(max(1, sys.distanceTo(colonyShipGoalCenter)) / design.warpSpeed()));
                 float score = 1f / (turnsToBuild + turnsToMove);
                 //System.out.println(empire.name()+" "+col.name()+" score: "+score+" turnsToBuild: "+turnsToBuild+" turnsToMove: "+turnsToMove+" uncolonizedCenter: x: "+uncolonizedCenter.x()+" y: "+uncolonizedCenter.y());
-                if(col.shipyard().building())
-                    continue;
                 if(score > highestScore)
                 {
                     bestCol = col;
@@ -149,17 +147,14 @@ public class AIGeneral implements Base, General {
             }
             if(bestCol == null)
                 break;
-            if(!bestCol.shipyard().building() || bestCol.shipyard().design().cost() >= design.cost())
-            {
-                bestCol.shipyard().design(design);
-                bestCol.shipyard().addQueuedBC(design.cost());
-                float colonyProduction = (bestCol.totalIncome() - bestCol.minimumCleanupCost()) * bestCol.planet().productionAdj();
-                int desiredCount = min(additionalColonizersToBuild, (int)Math.floor((float)colonyProduction / (float)design.cost()));
-                desiredCount = max(1, desiredCount);
-                bestCol.shipyard().addDesiredShips(desiredCount);
-                //System.out.println(galaxy().currentTurn()+" "+empire.name()+" should order "+desiredCount+" colonizers at "+bestCol.name());
-                additionalColonizersToBuild-=desiredCount;
-            }
+            bestCol.shipyard().design(design);
+            bestCol.shipyard().addQueuedBC(design.cost());
+            float colonyProduction = (bestCol.totalIncome() - bestCol.minimumCleanupCost()) * bestCol.planet().productionAdj();
+            int desiredCount = min(additionalColonizersToBuild, (int)Math.floor((float)colonyProduction / (float)design.cost()));
+            desiredCount = max(1, desiredCount);
+            bestCol.shipyard().addDesiredShips(desiredCount);
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" should order "+desiredCount+" colonizers at "+bestCol.name());
+            additionalColonizersToBuild-=desiredCount;
         }
     }
     // modnar: adjustments to invasion valuation
