@@ -17,7 +17,7 @@ public final class SetupParameters extends AbstractOptionsSubUI {
 
 	public static SafeListPanel setupParametersMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
-		
+
 		SafeListParam list = new SafeListParam(AllSubUI.getHandle(SETUP_GALAXY_OPTIONS_UI_KEY).getUiMajor(false));
 		list.add(HEADER_SPACER_100);
 		list.addAll(AllSubUI.getHandle(SETUP_NEBULA_OPTIONS_UI_KEY).getUiMajor(false));

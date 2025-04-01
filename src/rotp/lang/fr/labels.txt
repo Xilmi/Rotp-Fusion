@@ -472,14 +472,22 @@ GAME_MENU_RESTART                 | Redémarrer
 GAME_VERSION                      | Version : %1
 GAME_SHRINK                       | Rétrécir -
 GAME_ENLARGE                      | Élargir
-GAME_WINDOW_SIZE                  | ( %1 % )
 GAME_MENU_REPLAY_LAST_TURN        | Rejouer le tour
-GAME_MENU_CHECK_FOR_UPDATE        | Cliquez pour vérifier si une nouvelle version est disponible sur Github (Xilmi & BrokenRegistry).<br>Les liens vers les versions plus à jours seront affichés.
-GAME_MENU_NO_NEW_VERSION          | Il n’y a pas de nouvelle version disponible.
-GAME_MENU_GOT_NEW_VERSION         | Une nouvelle version est disponible.
-GAME_MENU_LAST_VERSION            | Une nouvelle version est disponible.<br>Il s’agit de la version la plus récente.
-GAME_MENU_NEWER_VERSION           | Une nouvelle version est disponible.<br>Ce n’est pas la version la plus récente, mais elle est plus récente que celle en cours d’exécution.
-GAME_MENU_GITHUB_REPOSITORY       | Github Repository : %1
+GAME_WINDOW_SIZE                  | ( %1 % )
+GAME_MENU_CHECK_FOR_UPDATE		| Cliquez pour vérifier si une nouvelle version est disponible sur Github (Xilmi & BrokenRegistry).<br>Les liens vers les versions plus à jours seront affichés.
+GAME_MENU_NO_NEW_VERSION		| Il n’y a pas de nouvelle version disponible.
+GAME_MENU_GOT_NEW_VERSION		| Une nouvelle version est disponible.
+GAME_MENU_LAST_VERSION			| Une nouvelle version est disponible au dépot de %1.<br>Il s’agit de la version la plus récente.
+GAME_MENU_NEWER_VERSION			| Une nouvelle version est disponible au dépot de %1.<br>Ce n’est pas la version la plus récente, mais elle est plus récente que celle en cours d’exécution.
+GAME_MENU_GITHUB_REPOSITORY		| Github Repository : %1
+GAME_MENU_NEW_RELEASE			| Aller à l'autre relâche
+GAME_MENU_LAST_RELEASE			| Aller à la dernière relâche
+GAME_MENU_LAST_JAR				| Télécharger le dernier fichier .jar
+GAME_MENU_LAST_MINI_JAR			| Télécharger le dernier fichier -mini.jar
+GAME_MENU_LAST_ZIP				| Télécharger le dernier fichier -windows.zip
+GAME_MENU_JAR_DESC				| Java JRE (ou JDK) doit être installé sur votre ordinateur pour que ce fichier puisse être exécuter.
+GAME_MENU_MINI_JAR_DESC			| Comme le .jar, avec les fichiers d'images et de sons compressés pour minimiser la taille du fichier.
+GAME_MENU_ZIP_DESC				| Contient un exécutable autonome pour Windows, incluant Java.
 
 // Game Settings UI
 GAME_SETTINGS_TITLE               | Paramètres de Jeu
@@ -2752,6 +2760,15 @@ SETTINGS_MOD_PREF_STARS_PER_EMPIRE_DESC  | Pour aider à définir le nombre d’
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE       | Nb d’étoiles préféré : %1
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE_DESC   | Nombre d’étoiles par empire pour une taille de galaxie dynamique.
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE        | Étoiles par empire : %1
+
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM1_DESC		| Valeurs limites du nombre de systèmes stellaires lorsque « Taille de galaxie aléatoire limitée » est sélectionnée.<br>Les valeurs minimales et maximales peuvent être interverties.
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM1			| Taille aléatoire minimale : %1
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM2_DESC		| →SETTINGS_MOD_RANDOM_NUM_STARS_LIM1_DESC←
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM2			| Taille aléatoire maximale : %1
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1_DESC	| Valeurs limites du nombre d’opposants lorsque « Nombre aléatoire d’adversaires » est sélectionné.<br>Les valeurs minimales et maximales peuvent être interverties.
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1			| Nombre minimal d'opposants : %1
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM2_DESC	| →SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1_DESC←
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM2			| Nombre maximal d'opposants : %1
 
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_HELP | Lors du démarrage d’une nouvelle partie, basée sur une partie précédemment jouée, les adversaires peuvent soit conserver leur IA précédente, soit utiliser les options actuelles.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | « Redémarrer » doit-il modifier l’IA des extraterrestres ?
@@ -5389,8 +5406,10 @@ AUTO_ATTACK_NO_ENTENTE_HELP			| Tous les empires avec lesquels nous n’avons pa
 AUTO_ATTACK_ALL						| Tous
 AUTO_ATTACK_ALL_HELP				| Envoyons nos vaisseaux vers tous les empires, le temps de la guerre n’est plus si lointain.
 
+GOVERNOR_ARMED_COLONIZER_GUARD_DESC	| Les vaisseaux armés ayant des modules de colonisation garderont les planètes.
+GOVERNOR_ARMED_COLONIZER_GUARD		| Les colonisateurs armés gardent :: %1
 GOVERNOR_ARMED_SCOUT_GUARD_DESC		| Les éclaireurs armés garderont les planètes non colonisées qu’ils ont découvertes.
-GOVERNOR_ARMED_SCOUT_GUARD			| Les éclaireurs armés guardent : %1
+GOVERNOR_ARMED_SCOUT_GUARD			| Les éclaireurs armés gardent : %1
 GOVERNOR_AUTO_SCOUT_SMART_HELP		| Pour éviter que nos éclaireurs ne traversent sans cesse notre espace d’un bout à l’autre, les éclaireurs déjà déployés auront un rayon d’action plus limité.<br>Ceux des colonies pourront toujours être déployés sur de longues distances.<br>Plus tard, si un éclaireur est plus proche d’une étoile déjà ciblée, il sera également dirigé vers cette étoile afin de la découvrir au plus vite.
 GOVERNOR_AUTO_SCOUT_SMART_DESC		| Pour éviter que nos éclaireurs ne traversent sans cesse notre espace d’un bout à l’autre, les éclaireurs déjà déployés auront un rayon d’action plus limité. Ceux des colonies pourront toujours être déployés sur de longues distances. Plus tard, si un éclaireur est plus proche d’une étoile déjà ciblée, il sera également dirigé vers cette étoile afin de la découvrir au plus vite.
 GOVERNOR_AUTO_SCOUT_SMART			| Éclaireurs moins zèlés : %1

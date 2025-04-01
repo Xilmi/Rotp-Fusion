@@ -75,7 +75,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	default int		selectedShapeLineSpacing()			{ return instance().shapeLineSpacing.get(); }
 	default String	selectedShapeSelection()			{ return instance().shapeSelection.get(); }
 	default	String	getGalaxyKey(int size)				{ return instance().getGalaxyKey(size); }
-	
+
 	default ParamBoolean	previewNebula()				{ return instance().previewNebula; }
 	default ParamBoolean	showNewRaces()				{ return instance().showNewRaces; }
 	default List<String>	galaxyShapeOptions()		{ return instance().getGalaxyShapeOptions(); }
@@ -108,7 +108,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 
 	class GalaxyOption {
 		private static GalaxyOption instance;
-		
+
 		public static final GalaxyOption instance() {
 			if (instance == null)
 				instance = new GalaxyOption();
@@ -169,7 +169,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			return null;
 		}
 		private final int getNumberStarSystems(String size, IGameOptions opts) { return sizeMap(true, opts).get(size); }
-	
+
 		private final List<String> getGalaxyShapeOptions() {
 			List<String> list = new ArrayList<>();
 			list.add(SHAPE_RECTANGLE);
@@ -261,6 +261,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return "---";
 			}
 		}
+
 		public final ParamInteger shapeOption4   		= new ShapeOption4();
 		private final class ShapeOption4 extends ParamInteger {
 			ShapeOption4() {
@@ -381,7 +382,6 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return super.getGuiDisplay(idx);
 			}
 		}
-	
 		private final ParamList	shapeOption1   		= new ShapeOption1(); // Duplicate Do not add the list
 		private final class ShapeOption1 extends ParamList {
 			ShapeOption1() {
@@ -452,7 +452,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return super.getGuiDisplay(idx);
 			}
 		}
-	
+
 		private final ParamList	shapeSelection			= new ShapeSelection(); // Duplicate Do not add the list
 		private final class ShapeSelection extends ParamList {
 			ShapeSelection() {
@@ -488,7 +488,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return get();
 			}
 		}
-	
+
 		private final ParamList sizeSelection 			= new SizeSelection(); // Duplicate Do not add the list
 		private final class SizeSelection extends ParamList {
 			private static final int MIN_SIZE = 4;
@@ -601,7 +601,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 					RotPUI.setupGalaxyUI().postGalaxySizeSelection(false);
 			}
 		}
-	
+
 		private final ParamList difficultySelection	= new DifficultySelection(); // Duplicate Do not add the list
 		private final class DifficultySelection extends ParamList {
 			DifficultySelection() {
@@ -638,7 +638,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return get();
 			}
 		}
-	
+
 		private final ParamInteger aliensNumber = new AliensNumber(); // Duplicate Do not add the list
 		private final class AliensNumber extends ParamInteger {
 			AliensNumber() {
@@ -673,7 +673,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return value;
 			}
 		}
-	
+
 		private final ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath())
 					.isCfgFile(true);
 	}

@@ -42,10 +42,10 @@ public class HelpUI extends BasePanel implements MouseListener {
     private final Color blueBackC  = new Color(78,101,155);
     private final Color brownBackC = new Color(240,240,240);
     private final Color brownTextC = new Color(45,14,5);
-    
+
     private List<HelpSpec> specs = new ArrayList<>();
     private BasePanel parent;
-    
+
     public HelpUI() {
         init();
     }
@@ -64,7 +64,7 @@ public class HelpUI extends BasePanel implements MouseListener {
     public void clear() {
         specs.clear();
     }
-    
+
     public HelpSpec addBrownHelpText(int x, int y, int w, int num, String text) {
         HelpSpec sp = addBlueHelpText(x,y,w,num,text);
         sp.backC = brownBackC;
@@ -106,7 +106,7 @@ public class HelpUI extends BasePanel implements MouseListener {
         	sp.init();
         }
         sp.hMax = sp.height();
- 
+
         if (y<0)
         	sp.y = -y - sp.height();
         else
@@ -126,10 +126,10 @@ public class HelpUI extends BasePanel implements MouseListener {
         g.dispose();
         return lines.size();
     }
-   
+
     @Override public void paintComponent(Graphics g0)	{
         super.paintComponent(g0);
-        
+
         int w = getWidth();
         int h = getHeight();
         Graphics2D g = (Graphics2D) g0;
@@ -140,7 +140,6 @@ public class HelpUI extends BasePanel implements MouseListener {
             int maxHeight = spec.hMax();
 
             // Text formating
-//            int fontSize = FONT_SIZE;
             int fontSize = spec.fontSize;
             g.setFont(narrowFont(fontSize));
             List<String> lines = wrappedLines(g, spec.text, spec.w - margin);
@@ -158,7 +157,7 @@ public class HelpUI extends BasePanel implements MouseListener {
             g.fillRect(spec.x, spec.y, spec.w, specH);
             g.setColor(backC);
             g.fillRect(spec.x+s5, spec.y+s5, spec.w-s10, specH-s10);
-            
+
             // draw box text
             g.setColor(spec.textC);
             int lineH = lineH(fontSize);
@@ -231,7 +230,7 @@ public class HelpUI extends BasePanel implements MouseListener {
     private static int height(int lines, int fontSize)	{ return s2 + (lines + 1) * lineH(fontSize) ; }
     static int lineH()									{ return lineH(FONT_SIZE); }
     static int height(int lines)						{ return height(lines, FONT_SIZE); }
- 
+
     public class HelpSpec {
         private int x, y, w;
         private int lines, hMax;
@@ -294,6 +293,6 @@ public class HelpUI extends BasePanel implements MouseListener {
                 specH = height();
             }
         }
-    }    
+    }
 }
 

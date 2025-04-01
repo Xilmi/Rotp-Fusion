@@ -37,27 +37,27 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	ParamAAN2 ultraRichHomeworld		= new ParamAAN2("HOME_ULTRA_RICH");
 	default ParamAAN2 selectedUltraRichHomeworld()	{ return ultraRichHomeworld; }
 
-	ParamFloat minDistArtifactPlanet	= new ParamFloat( MOD_UI, "DIST_ARTIFACT_PLANET", 0.0f)
+	ParamFloat minDistArtifactPlanet	= new ParamFloat(MOD_UI, "DIST_ARTIFACT_PLANET", 0.0f)
 			.setLimits(0.0f, null)
 			.setIncrements(0.2f, 1f, 5f)
 			.cfgFormat("0.##")
 			.guiFormat("0.0");
 	default float selectedMinDistArtifactPlanet() { return minDistArtifactPlanet.get(); }
 
-	ParamBoolean battleScout		= new ParamBoolean( MOD_UI, "BATTLE_SCOUT", false);
+	ParamBoolean battleScout		= new ParamBoolean(MOD_UI, "BATTLE_SCOUT", false);
 	default boolean selectedBattleScout()		{ return battleScout.get(); }
 
-	ParamBoolean randomTechStart	= new ParamBoolean( MOD_UI, "RANDOM_TECH_START", false);
+	ParamBoolean randomTechStart	= new ParamBoolean(MOD_UI, "RANDOM_TECH_START", false);
 	default boolean selectedRandomTechStart()	{ return randomTechStart.get(); }
 
-	ParamInteger companionWorlds	= new ParamInteger( MOD_UI, "COMPANION_WORLDS" , 0)
+	ParamInteger companionWorlds	= new ParamInteger(MOD_UI, "COMPANION_WORLDS" , 0)
 			.setLimits(-4, 6)
 			.setIncrements(1, 1, 1)
 			.loop(true);
 	default int selectedCompanionWorlds() 		{ return Math.abs(companionWorlds.get()); }
 	default int signedCompanionWorlds() 		{ return companionWorlds.get(); }
 
-	ParamInteger empiresSpreadingFactor	= new ParamInteger( MOD_UI, "EMPIRES_SPREADING_FACTOR", 100)
+	ParamInteger empiresSpreadingFactor	= new ParamInteger(MOD_UI, "EMPIRES_SPREADING_FACTOR", 100)
 			.setDefaultValue(MOO1_DEFAULT, 125)
 			.setLimits(10, 1000)
 			.setIncrements(1, 5, 20)
@@ -69,6 +69,19 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default void	toggleEmpireSpreadingFactor(MouseWheelEvent e)	{ empiresSpreadingFactor.toggle(e); }
 	default String	empireSpreadingFactorMapKey()	{ return MOD_UI + "EMPIRES_SPREADING_FACTOR_MAP"; }
 	default ParamInteger getEmpiresSpreadingFactor()	{ return empiresSpreadingFactor; }
+
+	ParamInteger randomNumStarsLim1		= new ParamInteger (MOD_UI, "RANDOM_NUM_STARS_LIM1", 50)
+			.setLimits(10, Rotp.maximumSystems-1)
+			.setIncrements(1, 5, 20);
+	ParamInteger randomNumStarsLim2		= new ParamInteger (MOD_UI, "RANDOM_NUM_STARS_LIM2", 250)
+			.setLimits(10, Rotp.maximumSystems-1)
+			.setIncrements(1, 5, 20);
+	ParamInteger randomNumAliensLim1	= new ParamInteger (MOD_UI, "RANDOM_NUM_ALIENS_LIM1", 4)
+			.setLimits(0, Rotp.maximumSystems-1)
+			.setIncrements(1, 5, 20);
+	ParamInteger randomNumAliensLim2	= new ParamInteger (MOD_UI, "RANDOM_NUM_ALIENS_LIM2", 20)
+			.setLimits(0, Rotp.maximumSystems-1)
+			.setIncrements(1, 5, 20);
 
 	ParamInteger minStarsPerEmpire	= new MinStarsPerEmpire();
 	class MinStarsPerEmpire extends ParamInteger {

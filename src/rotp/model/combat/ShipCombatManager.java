@@ -595,7 +595,9 @@ public class ShipCombatManager implements Base {
 
         while (retreating) {
             retreatingFleets.clear();
-            for (CombatStack st : results.activeStacks()) {
+			// BR: already crashed there because of ConcurrentModificationException 
+			List<CombatStack> as = new ArrayList<>(results.activeStacks());
+			for (CombatStack st : as) {
                 if (st.usingAI() && st.wantToRetreat()) {
                     if (st.retreat())
                         retreatingFleets.add(st);

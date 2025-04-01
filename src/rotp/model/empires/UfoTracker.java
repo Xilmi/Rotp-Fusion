@@ -237,6 +237,9 @@ public final class UfoTracker {
 		final float offsetMax = 0.05f;
 		float strideX = secondX - firstX;
 		float strideY = secondY - firstY;
+		StarSystem target = null;
+		float minDistance = Float.MAX_VALUE;
+		
 		if (Math.abs(strideX) > strideMin) {
 			for (StarSystem sys: empire.allColonizedSystems()) {
 				float years = (sys.x()-secondX)/strideX;
@@ -244,8 +247,12 @@ public final class UfoTracker {
 				// years > maxYears means to far away
 				if (years < 0 || years > maxYears)
 					continue;
-				if (Math.abs(sys.y() - (secondY + years * strideY)) < offsetMax )
-					return sys;
+				float dist = Math.abs(sys.y() - (secondY + years * strideY));
+				if (dist < offsetMax)
+					if (dist < minDistance) {
+						target = sys;
+						minDistance = dist;
+					}
 			}
 		}
 		else if (Math.abs(strideY) >  strideMin) {
@@ -255,13 +262,16 @@ public final class UfoTracker {
 				// years > maxYears means to far away
 				if (years < 0 || years > maxYears)
 					continue;
-				if (Math.abs(sys.x() - (secondX + years * strideX)) < offsetMax )
-					return sys;
+				float dist = Math.abs(sys.x() - (secondX + years * strideX));
+				if (dist < offsetMax)
+					if (dist < minDistance) {
+						target = sys;
+						minDistance = dist;
+					}
 			}
 		}
-		else // This should never happen
-			return null;
-		return null;
+		return target;
+		
 		//final int MAX_LOOKAHEAD = 8; // just to ensure we don't somehow infinite-loop
 		// Typically, minLookahead is 0.
 		// We start at 0 just so that we store the "destination" of a stationary ship in orbit as its location, for completeness.

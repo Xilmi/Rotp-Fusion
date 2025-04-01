@@ -52,7 +52,7 @@ import rotp.ui.util.ParamList;
 import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
 
-public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelListener {
+public final class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	private String guiTitleID;
 	private String GUI_ID;
@@ -113,24 +113,28 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	private boolean isLeftAlign	 = false;
 	//private boolean isRightAlign = false;
 	private boolean isJustified	 = false;
-	private boolean initialised = false;
 	// ========== Constructors and initializers ==========
 	//
-	public BaseCompactOptionsUI(String guiTitle_ID, String guiId,
-			SafeListPanel paramList) {
+	public BaseCompactOptionsUI() {
+		setOpaque(false);
+		add(descBox);
+		descBox.setOpaque(true);
+		descBox.setContentType("text/html");
+		descBox.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+		addMouseListener(this);
+		addMouseMotionListener(this);
+		addMouseWheelListener(this);
+	}
+	public void initUI(String guiTitle_ID, String guiId, SafeListPanel paramList) {
+		init_0();
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
 		optionsList = paramList;
-		//init_0();
+		reInit();
 	}
-	BaseCompactOptionsUI(String guiTitle_ID, String guiId) {
-		guiTitleID = guiTitle_ID;
-		GUI_ID = guiId;
-		// init_0();
-	}
-	public BaseCompactOptionsUI(String guiTitle_ID, String guiId,
-			SafeListPanel paramList, boolean hovering,
-			Rectangle location) {
+	public void initUI(String guiTitle_ID, String guiId, SafeListPanel paramList,
+						boolean hovering, Rectangle location) {
+		init_0();
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
 		optionsList	  = paramList;
@@ -147,11 +151,10 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		hGist = hFull;
 		rGist = xGist + wGist;
 		bGist = yGist + hGist;
-//		hovLoc = location;
-//		init_0();
+		reInit();
 	}
 	
-	protected SafeListPanel getList() { return optionsList; }
+	private SafeListPanel getList() { return optionsList; }
 	@Override protected void singleInit() {
 		optionsList		= getList();
 		activeList		= new SafeListParam(optionsList.name);
@@ -187,27 +190,30 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		btListBoth.addAll(btListRight);
 	}
 	private void init_0() {
-		if (initialised)
-			return;
-		setOpaque(false);
-		add(descBox);
-		descBox.setOpaque(true);
-		descBox.setContentType("text/html");
-		descBox.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
-		addMouseListener(this);
-		addMouseMotionListener(this);
-		addMouseWheelListener(this);
-		initialised = true;
-		// System.out.println("init_0() " + text (guiTitleID));
+		optionsList	= null;
+		lastRowList.clear();
+		btListLeft.clear();
+		btListRight.clear();
+		btListBoth.clear();
+		imgList.clear();
+		forceUpdate	= true;
+		numColumns	= 0;
+		numRows		= 0;
+		hSettingsTotal	= 0;
+		settingLeft	= 0;
+		xSetting	= 0;
+		ySetting	= 0;
+		columnWidth	= 0;
+		extraSep	= 0;
+		index		= 0;
+		column		= 0;
+		xDesc		= 0;
+		yDesc		= 0;
+		descWidth	= 0;
+		callPreview	= false;
+		callParam	= null;
 	}
-	private void terminate() {
-		remove(descBox);
-		removeMouseListener(this);
-		removeMouseMotionListener(this);
-		removeMouseWheelListener(this);
-		initialised = false;
-		// System.out.println("terminate() " + text(guiTitleID));
-	}
+	@Override protected void terminate()	{ RotPUI.releaseOptionPanel(); }
 
 	// ========== Optimization Methods ==========
 	//
@@ -250,7 +256,6 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		int smallButtonW = exitWidth;
 		int xPos = xFull+rGist-smallButtonW-sep;
 		int ypos;
-		//exitBox.setBounds(xPos, yButton+s2, smallButtonW, smallButtonH);
 		exitBox.setBounds(xPos, yButton, smallButtonW, smallButtonH);
 		smallButtonW = guideButtonWidth(g);
 		guideBox.setBounds(xFull+xGist+sep, yButton, smallButtonW, smallButtonH);
@@ -567,11 +572,9 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 	}
 	private void start() { // Called from subUI
 		super.init();
-		init_0();
 		hoverBox = null;
 		prevHover = null;
 		descBox.setVisible(true);
-		//int hSettingTotal = hDistSetting * numRows;
 		extraSep = 0;
 		int minH = titlePad + hSettingsTotal + descHeigh + buttonPadV + smallButtonH + bottomPad;
 		if (hovering)
@@ -808,6 +811,7 @@ public class BaseCompactOptionsUI extends BaseModPanel implements MouseWheelList
 		repaint();
 	}
 	@Override public void mouseMoved(MouseEvent e)		{
+		//super.mouseMoved(e);
 		mX = e.getX();
 		mY = e.getY();
 		if (hoverBox != null && hoverBox.contains(mX,mY)) {

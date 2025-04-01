@@ -64,8 +64,7 @@ import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.fleets.FleetUI;
 import rotp.ui.game.AdvancedOptionsUI;
-import rotp.ui.game.CompactOptionsUI;
-import rotp.ui.game.CompactSetupUI;
+import rotp.ui.game.BaseCompactOptionsUI;
 import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.HelpUI;
@@ -81,6 +80,8 @@ import rotp.ui.map.SystemsUI;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.TurnNotification;
 import rotp.ui.options.AllSubUI;
+import rotp.ui.options.RulesOptions;
+import rotp.ui.options.SetupParameters;
 import rotp.ui.planets.ColonizePlanetUI;
 import rotp.ui.planets.ColonyViewUI;
 import rotp.ui.planets.GroundBattleUI;
@@ -92,7 +93,7 @@ import rotp.ui.tech.DiplomaticMessageUI;
 import rotp.ui.tech.DiscoverTechUI;
 import rotp.ui.tech.SelectNewTechUI;
 import rotp.ui.util.IParam;
-import rotp.ui.util.ListDialog;
+import rotp.ui.util.ListDialogUI;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.AnimationManager;
@@ -101,7 +102,7 @@ import rotp.util.LanguageManager;
 import rotp.util.Logger;
 import rotp.util.sound.SoundManager;
 
-public class RotPUI extends BasePanel implements ActionListener, KeyListener {
+public final class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private static final long serialVersionUID = 1L;
     private static int FPS = 10;
     public static int ANIMATION_TIMER = 100;
@@ -268,6 +269,9 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final GameOverUI gameOverUI = new GameOverUI();
     private final ErrorUI errorUI = new ErrorUI();
     private final HelpUI helpUI = new HelpUI();
+    private final MainOptionsUI mainOptionsUI = new MainOptionsUI();
+    private ListDialogUI listDialog;
+    private final List<BaseCompactOptionsUI> optionsPanels = new ArrayList<>();
 
     private final AdvancedOptionsUI advancedOptionsUI = new AdvancedOptionsUI();
     private final LargeDialogPane  dialogPane       = new LargeDialogPane();
@@ -276,6 +280,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private String currentPane = GAME_PANEL;
     private BasePanel selectedPanel;
 
+    private int optionPanelId = -1;
     private Timer timer;
     private int animationCount = 0;
     private long animationMs = 0;
@@ -332,9 +337,6 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         timer.start();
     }
     private void init() {
-    	// Fake Dialog used to load the code and accelerate the future calls
-		ListDialog dialog = new ListDialog(true);
-    	dialog.getValue();
         // Copy the former "Live.Option" to new "Last.Option"
         MOO1GameOptions.copyOptionsFromLiveToLast();
         newOptions().loadStartupOptions();
@@ -346,7 +348,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             selectCurrentPanel();
 
         timer.start();
-        //toggleAnimations();
+		//toggleAnimations();
+		listDialog = new ListDialogUI(Rotp.getFrame());
         repaint();
     }
     public static IGameOptions newOptions() {
@@ -371,12 +374,37 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static RotPUI instance() { return instance; }
     public static HelpUI helpUI()   { return instance.helpUI; }
 
-    public static AdvancedOptionsUI advancedOptionsUI() { return instance.advancedOptionsUI; }
-    public static CompactSetupUI    compactSetupUI()    { return new CompactSetupUI(); }
-    public static CompactOptionsUI  compactOptionsUI()  { return new CompactOptionsUI(); }
-    public static MainOptionsUI     mainOptionsUI()     { return new MainOptionsUI(); }
-    public static SetupRaceUI       setupRaceUI()       { return instance.setupRaceUI; }
-    public static SetupGalaxyUI     setupGalaxyUI()     { return instance.setupGalaxyUI; }
+	public static BaseCompactOptionsUI getOptionPanel()	{ return instance.nextOptionPanel(); }
+	public static void releaseOptionPanel()				{ instance.optionPanelId--; }
+	public static BaseCompactOptionsUI	setupUI()		{
+		BaseCompactOptionsUI ui = getOptionPanel();
+		ui.initUI("SETTINGS_MOD_STATIC_TITLE",
+				"MERGED_STATIC_OPTIONS",
+				SetupParameters.setupParametersMap());
+		return ui;
+	}
+	public static BaseCompactOptionsUI	rulesUI()		{
+		BaseCompactOptionsUI ui = getOptionPanel();
+		ui.initUI("SETTINGS_MOD_DYNAMIC_TITLE",
+				"MERGED_DYNAMIC_OPTIONS",
+				RulesOptions.rulesOptionsMap());
+		return ui;
+	}
+	public static ListDialogUI		listDialog()		{
+		if (instance.listDialog == null)
+			instance.listDialog = new ListDialogUI(Rotp.getFrame());
+		return instance.listDialog;
+	}
+	public static AdvancedOptionsUI	advancedOptionsUI()	{ return instance.advancedOptionsUI; }
+	public static MainOptionsUI		mainOptionsUI()		{ return instance.mainOptionsUI; }
+	public static SetupRaceUI		setupRaceUI()		{ return instance.setupRaceUI; }
+	public static SetupGalaxyUI		setupGalaxyUI()		{ return instance.setupGalaxyUI; }
+	private BaseCompactOptionsUI nextOptionPanel()		{
+		optionPanelId ++;
+		if (optionsPanels.size() == optionPanelId)
+			optionsPanels.add(new BaseCompactOptionsUI());
+		return optionsPanels.get(optionPanelId);
+	}
 
     @Override
     public void paint(Graphics g) {

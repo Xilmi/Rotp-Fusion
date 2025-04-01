@@ -88,7 +88,8 @@ public class Rotp {
     public static MemoryTracker memoryTracker;
 
     private static GraphicsDevice device;
-    
+
+	public static JFrame getFrame()		{ return frame; }
     public static boolean memoryLow() { return memoryTracker.memoryLow(); }
     public static String getMemoryInfo(boolean screen) { return(memoryTracker.getMemoryInfo(screen)); }
     public static boolean noOptions(String id) {

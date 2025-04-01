@@ -45,7 +45,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.races.RacesUI;
 import rotp.ui.util.IParam;
-import rotp.ui.util.ListDialog;
+import rotp.ui.util.ListDialogUI;
 import rotp.ui.util.SettingBase;
 import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
@@ -262,7 +262,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 									String initialLabel, IParam param) {
 		String message = "Make your choice";
 		String initialChoice = text(initialLabel);
-		ListDialog dialog = new ListDialog(
+		ListDialogUI dialog = RotPUI.listDialog();
+		dialog.init(
 		    	this, getParent(),			// Frame & Location component
 		    	message,					// Message
 		        "Empire AI selection",		// Title

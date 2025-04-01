@@ -383,7 +383,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 				continue;
 			if (colonyOnly && empire != fleet.system().empire())
 				continue;
-			subFleetList.add(fleet);
+			subFleetList.splitAndAdd(fleet);
 		}
 		return subFleetList;
 	}

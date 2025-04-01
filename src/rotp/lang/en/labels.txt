@@ -474,12 +474,20 @@ GAME_SHRINK                       | Shrink -
 GAME_ENLARGE                      | Expand
 GAME_MENU_REPLAY_LAST_TURN        | Replay Last Turn
 GAME_WINDOW_SIZE                  | (%1%)
-GAME_MENU_CHECK_FOR_UPDATE        | Click to check if a new version is available on Github (Xilmi & BrokenRegistry).<br>Links to more up-to-date versions will be displayed.
-GAME_MENU_NO_NEW_VERSION          | There is no new version available.
-GAME_MENU_GOT_NEW_VERSION         | A new version is available.
-GAME_MENU_LAST_VERSION            | There is a new version available.<br>This is the most recent version.
-GAME_MENU_NEWER_VERSION           | There is a new version available.<br>This is not the most recent version, but its newer than the running one.
-GAME_MENU_GITHUB_REPOSITORY       | Github Repository: %1
+GAME_MENU_CHECK_FOR_UPDATE		| Click to check if a new version is available on Github (Xilmi & BrokenRegistry).<br>Links to more up-to-date versions will be displayed.
+GAME_MENU_NO_NEW_VERSION		| There is no new version available.
+GAME_MENU_GOT_NEW_VERSION		| A new version is available.
+GAME_MENU_LAST_VERSION			| There is a new version available at %1 repository.<br>This is the most recent version.
+GAME_MENU_NEWER_VERSION			| There is a new version available at %1 repository.<br>This is not the most recent version, but its newer than the running one.
+GAME_MENU_GITHUB_REPOSITORY		| Github Repository: %1
+GAME_MENU_NEW_RELEASE			| Go to Other Github release
+GAME_MENU_LAST_RELEASE			| Go to Last Github release
+GAME_MENU_LAST_JAR				| Download last .jar file
+GAME_MENU_LAST_MINI_JAR			| Download last -mini.jar file
+GAME_MENU_LAST_ZIP				| Download last -windows.zip file
+GAME_MENU_JAR_DESC				| Java JRE (or JDK) must be installed on your computer for this file to run.
+GAME_MENU_MINI_JAR_DESC			| Like .jar, with image and sound files compressed to minimize file size.
+GAME_MENU_ZIP_DESC				| Contains a standalone executable for Windows, including Java.
 
 // Game Settings UI
 GAME_SETTINGS_TITLE               | Game Settings
@@ -2752,6 +2760,15 @@ SETTINGS_MOD_PREF_STARS_PER_EMPIRE_DESC  | To help defining the default opponent
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE       | Favored Stars Number: %1
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE_DESC   | Number of Stars per Empire for dynamic galaxy size.
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE        | Stars per empire: %1
+
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM1_DESC		| Limits on the number of star systems when "Limited random galaxy size" is selected.<br> Minimum and maximum values ​​can be swapped.
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM1			| Random Size Min: %1
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM2_DESC		| →SETTINGS_MOD_RANDOM_NUM_STARS_LIM1_DESC←
+SETTINGS_MOD_RANDOM_NUM_STARS_LIM2			| Random Size Max: %1
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1_DESC	| Limits on the number of alien species when "Random number of opponents" is selected.<br> Minimum and maximum values ​​can be interchanged.
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1			| Random Aliens Min: %1
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM2_DESC	| →SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1_DESC←
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM2			| Random Aliens Max: %1
 
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_HELP | When starting a new game based on a previously played game, the opponents can either keep their previous AI or change to the new GUI global one.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | Should "Restart" Change the Aliens AI?
@@ -5389,6 +5406,8 @@ AUTO_ATTACK_NO_ENTENTE_HELP			| All the empires we have not signed treaties with
 AUTO_ATTACK_ALL						| All
 AUTO_ATTACK_ALL_HELP				| Let us send our ships to all the empires, the time of war is not so far away.
 
+GOVERNOR_ARMED_COLONIZER_GUARD_DESC	| Armed Colonizers will guard planets.
+GOVERNOR_ARMED_COLONIZER_GUARD		| Armed Colonizers Guard: %1
 GOVERNOR_ARMED_SCOUT_GUARD_DESC		| Armed scouts will guard uncolonized planets they discover.
 GOVERNOR_ARMED_SCOUT_GUARD			| Armed Scouts Guard: %1
 GOVERNOR_AUTO_SCOUT_SMART_HELP		| To prevent our scouts from constantly crossing our space from one end to the other, scouts already deployed will have a more limited range of action.<br>Those from colonies can still be deployed over long distances.<br>Later, if a scout is closer to a star already targeted, it will also be directed towards this star in order to discover it as quickly as possible.

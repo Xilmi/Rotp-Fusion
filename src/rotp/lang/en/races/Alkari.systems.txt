@@ -18,6 +18,7 @@ Doi
 Endo
 Enya
 Goto
+Fierias
 Hara
 Harada
 Hatano

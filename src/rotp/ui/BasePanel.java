@@ -132,7 +132,6 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
         p.setVisible(true);
     }
     public void disableGlassPane()  { frame().getGlassPane().setVisible(false); }
-    
     public void showError(String s) {
         disableGlassPane();
         ErrorDialogPanel err = new ErrorDialogPanel(s);
