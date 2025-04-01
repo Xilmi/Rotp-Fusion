@@ -1077,12 +1077,16 @@ public class ShipFleet extends FleetBase {
             if (num(i) > 0) {
                 ShipDesign d = design(i);
                 for (int j=0;j<ShipDesign.maxWeapons();j++) {
-                    if(d.weapon(j).isBioWeapon() && ignoreBio)
+                    if(d.weapon(j).isBioWeapon() && ignoreBio || d.weapon(j).bombardAttacks() == 0)
                         continue;
-                    damage += (num(i) * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, planetStack));
+                    damage += (num(i) * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, planetStack) * ((float)(d.weapon(j).bombardAttacks() - bombardCount(i)) / d.weapon(j).bombardAttacks()));
                 }
                 for (int j=0;j<d.maxSpecials();j++)
-                    damage += d.special(j).estimatedBombardDamage(d, planetStack);
+                {
+                    if(d.special(j).bombardAttacks() == 0)
+                        continue;
+                    damage += d.special(j).estimatedBombardDamage(d, planetStack) * ((float)(d.special(j).bombardAttacks() - bombardCount(i)) / d.special(j).bombardAttacks());
+                }
             }
         }
         return damage;
