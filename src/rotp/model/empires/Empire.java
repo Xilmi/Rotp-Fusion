@@ -194,9 +194,12 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient String empireName;
     private transient List<SpaceMonster> visibleMonsters = new ArrayList<>();
     private transient UfoTracker ufoTracker;
+    private transient boolean spendingNotYetMade;
 
 	public static void resetPlayerId()			{ PLAYER_ID = DEFAULT_PLAYER_ID; }
 	public static void updatePlayerId(int id)	{ PLAYER_ID = id; }
+	public void startingNextTurnProcess()		{ spendingNotYetMade = true; }
+	public boolean spendingNotYetMade()			{ return spendingNotYetMade; }
 	public Integer defaultDesignId()			{ return shipLab.defaultDesignId(); }
 	public void defaultDesignId(Integer id)		{ shipLab.defaultDesignId(id); }
 	public void clearColoniesDefaultDesignId()	{
@@ -1305,6 +1308,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         // BR: direct call to Race
         addToTreasury(bCBonus() * totalPlanetaryPopulation());
         recalcPlanetaryProduction();
+        spendingNotYetMade = false;
     }
     public void postNextTurn() {
         log(this + ": postNextTurn");
@@ -1456,7 +1460,8 @@ public final class Empire implements Base, NamedObject, Serializable {
                 if ((ev != null) && ev.embassy().contact())
                     ev.setSuggestedAllocations();
             }
-        } else {
+        }
+        else {
             autospend();
             autotransport();
             // colonize first, then attack, then scout
@@ -1464,16 +1469,17 @@ public final class Empire implements Base, NamedObject, Serializable {
 //            autoattack();
 //            autoscout();
 			// TODO BR: VALIDATE move to Governor AI
-			//govAI().fleetCommander().nextTurn();
 			fleetCommanderAI().nextTurn();
-
-            if(session().getGovernorOptions().isAutoSpy() || session().getGovernorOptions().isAutoInfiltrate())
-            {
-                for (EmpireView ev : empireViews()) {
-                    if ((ev != null) && ev.embassy().contact())
-                        ev.setSuggestedAllocations();
-                }
-            }
+			for (EmpireView ev : empireViews()) {
+				if ((ev != null) && ev.embassy().contact())
+					ev.setSuggestedAllocations();
+			}
+//            if(session().getGovernorOptions().isAutoSpy() || session().getGovernorOptions().isAutoInfiltrate()) {
+//                for (EmpireView ev : empireViews()) {
+//                    if ((ev != null) && ev.embassy().contact())
+//                        ev.setSuggestedAllocations();
+//                }
+//            }
             // If planets are governed, redo allocations now
             // BR: I don't know why!? But done at this time, this gives the wrong result!!!
             // For "isFollowingColonyRequests" Governor, the valid allocations will be redone later
@@ -1483,7 +1489,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 }
             }
         }
-        
+
         // colony development (sometimes done for player if auto-pilot)
         NoticeMessage.setSubstatus(text("TURN_COLONY_SPENDING"));
         for (int n=0; n<sv.count(); n++) {

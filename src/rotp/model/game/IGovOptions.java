@@ -197,6 +197,9 @@ public interface IGovOptions {
 
 	ParamBoolean armedColonizerGuard	= new ParamBoolean(GOV_UI, "ARMED_COLONIZER_GUARD", false);
 
+	ParamBoolean trainSpiesASAP			= new ParamBoolean(GOV_UI, "TRAIN_SPIES_ASAP", true);
+	ParamBoolean contactUpdateSpending	= new ParamBoolean(GOV_UI, "CONTACT_UPDATE_SPENDING", false);
+
 	AutoAttackEmpire autoAttackEmpire	= new AutoAttackEmpire();
 	class AutoAttackEmpire extends ParamList	{
 		static final String AUTO_ATTACK_EMPIRE		= "AUTO_ATTACK_EMPIRE";

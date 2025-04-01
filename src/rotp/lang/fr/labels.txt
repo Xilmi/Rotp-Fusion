@@ -5214,6 +5214,14 @@ GOVERNOR_SPARE_XENOPHOBES_DESC       | Une fois appelé de mettre un terme à l�
 GOVERNOR_SPARE_XENOPHOBES            | Promesses tenues : %1
 GOVERNOR_SPARE_XENOPHOBES_LABEL      | Promesses tenues
 
+GOVERNOR_TRAIN_SPIES_ASAP_DESC			| Entraînez les espions dès que possible lorsqu’un nouveau contact se produit.<br>Attention, cela réduira les autres allocations prédéfinies.
+GOVERNOR_TRAIN_SPIES_ASAP				| Entraînez les espions immédiatement : %1
+GOVERNOR_TRAIN_SPIES_ASAP_LABEL			| Entraînez les espions immédiatemen
+
+GOVERNOR_CONTACT_UPDATE_SPENDING_DESC	| Après avoir modifié les dépenses d’espionnage suite à un contact avec un nouvel empire, le gouverneur réexaminera les autres dépenses pour les équilibrer. !!! Cela pourrait perturber les réglages du joueur !!!.
+GOVERNOR_CONTACT_UPDATE_SPENDING		| Réajuster les dépenses après contact : %1
+GOVERNOR_CONTACT_UPDATE_SPENDING_LABEL	| Réajuster les dépenses après contact
+
 HEADERS_GOVERNOR_FLEET_OPTIONS_DESC  | Comment l’IA doit-elle gérer les activités des flottes.
 HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ OPTIONS DES FLOTTES ~~~
 GOVERNOR_FLEET_OPTIONS_LABEL         | Paramètres des Flottes

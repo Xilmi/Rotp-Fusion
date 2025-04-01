@@ -88,6 +88,7 @@ import rotp.ui.notifications.ShipConstructionNotification;
 import rotp.ui.notifications.SpyReportAlert;
 import rotp.ui.notifications.StealTechNotification;
 import rotp.ui.notifications.SystemsScoutedNotification;
+import rotp.ui.notifications.TradeTechNotification;
 import rotp.ui.notifications.TurnNotification;
 import rotp.ui.planets.MultiColonySpendingPane;
 import rotp.ui.races.RacesUI;
@@ -510,7 +511,8 @@ public final class GameSession implements Base, Serializable {
     private Runnable nextTurnProcess() {
         return () -> {
             try {
-                rotp.ui.notifications.TradeTechNotification.resetSkipButton();
+				TradeTechNotification.resetSkipButton();
+				player().startingNextTurnProcess();
                 performingTurn = true;
                 Galaxy gal = galaxy();
                 String turnTitle = nextTurnTitle();

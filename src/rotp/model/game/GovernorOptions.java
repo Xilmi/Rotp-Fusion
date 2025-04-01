@@ -413,4 +413,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public boolean	autoScoutSmart()				{ return autoScoutSmart.get(); }
 	public boolean	autoScoutNearFirst()			{ return autoScoutNearFirst.get(); }
 	public int		autoScoutMaxTime()				{ return autoScoutMaxTime.get(); }
+	public boolean	armedColonizerGuard()			{ return armedColonizerGuard.get(); }
+	public boolean	trainSpiesASAP()				{ return trainSpiesASAP.get(); }
+	public boolean	contactUpdateSpending()			{ return contactUpdateSpending.get(); }
 }

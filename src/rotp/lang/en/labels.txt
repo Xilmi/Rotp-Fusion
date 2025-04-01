@@ -5214,6 +5214,14 @@ GOVERNOR_SPARE_XENOPHOBES_DESC       | Once enjoined to stop espionage by an ali
 GOVERNOR_SPARE_XENOPHOBES            | Respect promises: %1
 GOVERNOR_SPARE_XENOPHOBES_LABEL      | Respect promises
 
+GOVERNOR_TRAIN_SPIES_ASAP_DESC			| Train spies as soon as possible when a new contact occurs.<br>Be careful, this will reduce other preset allocations.
+GOVERNOR_TRAIN_SPIES_ASAP				| Train Spies ASAP: %1
+GOVERNOR_TRAIN_SPIES_ASAP_LABEL			| Train Spies ASAP
+
+GOVERNOR_CONTACT_UPDATE_SPENDING_DESC	| After changing espionage expenses due to contact with a new empire, the governor will re-examine other expenses to balance them. !!! This may disrupt the player's fine-tuning !!!
+GOVERNOR_CONTACT_UPDATE_SPENDING		| Update spending after contact: %1
+GOVERNOR_CONTACT_UPDATE_SPENDING_LABEL	| Update spending after contact
+
 HEADERS_GOVERNOR_FLEET_OPTIONS_DESC  | Fleet Options.
 HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~
 GOVERNOR_FLEET_OPTIONS_LABEL         | Fleet Options

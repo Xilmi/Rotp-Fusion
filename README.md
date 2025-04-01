@@ -44,12 +44,12 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-2025.03.31 (BR)
-- Humanised fire power estimation and made it ready fo an option to comply with MoO1 rules.
+2025.04.01 (BR)
+- Moved Governor spies mangement in GovernorAI SpyMaster
+- New option to delay spy training when in contact with an empire. This is to avoid any changes to spending allocations.
 
-2025.03.31 (Xilmi)
-- Improved accuracy of beam weapon fire power estimation.
-- The AI will no longer interrupt building a colonizer to squeeze out repellant-fighters. Those are nice to have but not crucial enough to delay a colony-ship.
+2025.04.01 (Xilmi)
+- The bombardment-prediction now takes into consideration how many bombard-attacks were performed during tactical-combat and reduces the predicted amount accordingly.
 
 [### Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 

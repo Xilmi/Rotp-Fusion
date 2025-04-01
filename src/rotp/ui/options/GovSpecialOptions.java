@@ -44,7 +44,11 @@ final class GovSpecialOptions extends AbstractOptionsSubUI {
 				showTriggeredROI,
 
 				LINE_SPACER_25,
-				colonyDistanceWeight
+				colonyDistanceWeight,
+
+				LINE_SPACER_25,
+				trainSpiesASAP
+				// contactUpdateSpending
 				)));
 
 		map.add(AllSubUI.getHandle(AUTO_SEND_FLEET_UI_KEY).getUiMajor(false));

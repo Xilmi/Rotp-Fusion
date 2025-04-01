@@ -31,6 +31,7 @@ import rotp.model.empires.SpyNetwork.SabotageTargets;
 import rotp.model.empires.SystemInfo;
 import rotp.model.galaxy.Location;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.GovernorOptions;
 import rotp.util.Base;
 
 public class AISpyMaster implements Base, SpyMaster {
@@ -68,13 +69,16 @@ public class AISpyMaster implements Base, SpyMaster {
 		//System.out.println(empire.galaxy().currentTurn()+" "+ empire.name()+" counter-espionage: "+paranoia+" mt: "+empire.tech().avgTechLevel()+" ot: "+avgOpponentTechLevel);
 		return min(10, (int)Math.round(paranoia)); // modnar: change max to 10, MAX_SECURITY_TICKS = 10
 	}
-	// Copied from Xilmi's AISpyMaster No changes
+	// Copied from Xilmi's AISpyMaster Then moved/added governor code
 	@Override public void setSpyingAllocation(EmpireView v)	{
 		// invoked after nextTurn() processing is complete on each civ's turn
 		// also invoked when contact is made in mid-turn
 		// how much allocation for the spyNetwork?
 		// each pt of allocation represents .005 of total civ production
 		// max allocation is 25, or 10% of total civ production
+		GovernorOptions governor = govOptions();
+		if (v.owner().spendingNotYetMade() && !governor.trainSpiesASAP())
+			return;
 
 		DiplomaticEmbassy emb = v.embassy();
 		SpyNetwork spies = v.spies();
@@ -84,6 +88,33 @@ public class AISpyMaster implements Base, SpyMaster {
 			spies.allocation(0);
 			return;
 		}
+		if (governor.respectPromises()
+				&& !spies.govIgnoreThreat()
+				&& v.timerIsActive()) {
+			// Then respect your promise
+			// Cut allocation for hide and ShutDown
+			if(spies.allocation() > 0)
+				spies.allocation(0);
+			// Remove the spies if ShutDown
+			if(spies.maxSpies() > 0 && spies.govShutdownSpy())
+				spies.maxSpies(0);
+			return;
+		}
+		if(governor.isAutoSpy()) {
+			setAutoSpyAllocation(v);
+			return;
+		}
+		if(governor.isAutoInfiltrate()) {
+			if(spies.allocation() < 1)
+				spies.allocation(1);
+			if(spies.maxSpies() < 1)
+				spies.maxSpies(1);
+			return;
+		}
+	}
+	private void setAutoSpyAllocation(EmpireView v) { // Copied from Xilmi's AISpyMaster
+		DiplomaticEmbassy emb = v.embassy();
+		SpyNetwork spies = v.spies();
 
 		int maxSpiesNeeded = 0;
 
@@ -102,10 +133,9 @@ public class AISpyMaster implements Base, SpyMaster {
 		
 		if (spies.numActiveSpies() >= spies.maxSpies())
 			spies.allocation(0);
-		else
-		{
+		else {
 			maxSpiesNeeded *= 2;
-			//ail: avoid inefficient overspening by adjusting to spy-costs
+			//ail: avoid inefficient overspending by adjusting to spy-costs
 			float bcPerTick = empire.totalPlanetaryProduction() * empire.spySpendingModifier() / 200.0f;
 			float maxTicksNeeded = spies.maxSpies() * empire.baseSpyCost() / bcPerTick;
 			maxSpiesNeeded = min(maxSpiesNeeded, (int)Math.ceil(maxTicksNeeded));
@@ -114,12 +144,17 @@ public class AISpyMaster implements Base, SpyMaster {
 			spies.allocation(maxSpiesNeeded);
 		}
 	}
-	// Copied from Xilmi's AISpyMaster No changes
+	// Copied from Xilmi's AISpyMaster, adapted for Governor
 	@Override public void setSpyingMission(EmpireView v)	{
 		// invoked for each CivView for each civ after nextTurn() processing is complete on each civ's turn
 		// also invoked when contact is made in mid-turn
 		// 0 = hide; 1 = sabotage; 2 = espionage
-		
+		GovernorOptions governor = govOptions();
+		if (!governor.isAutoSpy())
+			return;
+		if (v.owner().spendingNotYetMade() && !governor.trainSpiesASAP())
+			return;
+
 		DiplomaticEmbassy emb = v.embassy();
 		SpyNetwork spies = v.spies();
 

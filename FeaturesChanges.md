@@ -25,6 +25,7 @@
 
 
 ### AI Improvement:
+- The bombardment-prediction now takes into consideration how many bombard-attacks were performed during tactical-combat and reduces the predicted amount accordingly.
 - The AI will no longer interrupt building a colonizer to squeeze out repellant-fighters. Those are nice to have but not crucial enough to delay a colony-ship.
 - Improved accuracy of beam weapon fire power estimation.
 - Deliberately keeping fleets at uncolonized systems had too much of an opportunity-cost. So it was reverted.
@@ -54,6 +55,7 @@
 
 
 ### Governor:
+- New option to delay spy training when in contact with an empire. This is to avoid any changes to spending allocations.
 - Added an option for armed auto-colonizer to guard or not their colonies. (If tagged as Attack, they will always guard.)
 - Improved Governor Contextual help for Auto-Scout Auto-Colonize and Auto-Attack.
 - New option "Less zealous scouts" to prevent our auto sent scouts from constantly crossing our space from one end to the other, scouts already deployed will have a more limited range of action. Later, if a scout is closer to a star already targeted, it will also be directed towards this star in order to discover it as quickly as possible. (This last feature can be disabled independently)
@@ -92,6 +94,11 @@
   - in tech panel too.
   - filled when % is shown.
 - Improved the appearance of Tech bubbles.
+- Extended "Default Design" feature: New default will be applied to shipyards if "Shift" is down.
+- "Colonies Building:" values will be updated after a new "Default Design" is asked to swap shipyard production.
+- Added default design icon in Empire Military panel.
+- Added default design icon in Colonies panel.
+- Added a unification notice after accepting or rejecting the vote, as sharing knowledge across empires can take a long time for very large galaxies.
 
 
 ### Guide and Help:
@@ -118,43 +125,18 @@
 - Fixed smooth Min/Max being confused by both terraforming and soil improvement when capturing a colony.
 - Fixed WarpSpeed not showing the fastest option.
 - Fixed crash when loading a game without default design.
-
-
-
-
+- Fixed a rare crash occurring when a flight path is changed while it is displayed.
+- Fixed Rally not always rallying.
+- Fixed some dialogue error.
+- Fixed the "Skip Tech Report" button size and text.
+- Fixed Auto Ship Design not loading user request.
+- Fixed Obedient Governor building stargates too early.
+- Fixed Ship Design Size, Power and cost values sometime overlapping with Huge hulls.
+- Fixed issue with multi-shot beam weapons. They will now follow MoO1 rules and fire all their shots on the same stack.
 
 
 ### To categorize:
 
-
-2025.02.21 (BR)
-- Extended "Default Design" feature: New default will be applied to shipyards if "Shift" is down.
-- "Colonies Building:" values will be updated after a new "Default Design" is asked to swap shipyard production.
-
-2025.02.20 (BR)
-- Added default design icon in Empire Military panel.
-- Fixed a rare crash occurring when a flight path is changed while it is displayed.
-  - The path list was changed during a for loop.
-- Fixed some shifted ship range area.
-
-2025.02.19 (BR)
-- Added default design icon in Colonies panel.
-- Fixed Rally not always rallying.
-
-2025.02.18 (BR)
-- Fixed some dialogue error.
-- Fixed the "Skip Tech Report" button size and text.
-- Added a unification notice after accepting or rejecting the vote, as sharing knowledge across empires can take a long time for very large galaxies.
-  - Added more progressive notice.
-- Fixed Auto Ship Design not loading user request.
-- Fixed Obedient Governor building stargates too early.
-- Fixed Ship Design Size, Power and cost values sometime overlapping with Huge hulls.
-  - Values greater than 1000 will not display decimals.
-- Removed unused classes
-  - And changing the file serialization will break backward compatibility anyway.
-
-2025.02.16 (BR)
-- Fixed issue with multi-shot beam weapons. They will now follow MoO1 rules and fire all their shots on the same stack.
 
 2025.02.14 (BR)
 - NewShipTemplate: New abstract class to unify them all.
