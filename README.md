@@ -46,7 +46,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 2025.04.01 (BR)
 - Moved Governor spies mangement in GovernorAI SpyMaster
-- New option to delay spy training when in contact with an empire. This is to avoid any changes to spending allocations.
+- New governor option to delay spy training when in contact with an empire. This is to avoid any changes to spending allocations.
+- New governor option to update spendings after spy allocation is increased.
+  - This may disrupt the player's spending fine-tuning.
 
 2025.04.01 (Xilmi)
 - The bombardment-prediction now takes into consideration how many bombard-attacks were performed during tactical-combat and reduces the predicted amount accordingly.

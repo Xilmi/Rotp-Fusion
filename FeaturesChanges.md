@@ -22,6 +22,20 @@
 ### Features:
 - "Check for Updates" will provide direct links to download files.
 - The Dark galaxy apply to AI too.
+- Option to swap player on load.
+  - No more stored in "remnant.cfg".
+  - Stored in game, swapped player will then reload swapped.
+  - Ironman mode will not be able to swap.
+  - Can be swapped from inside the game.
+    - In Debug Panel (All empire available).
+    - In Empire panel "Ctrl-Shift-Right Click" on the color circle.
+  - Game that had the player swapped are tagged. (Mandatory info when debugging)
+    - The tag is displayed on the console on load (the current player id too, if not 0)
+  - Fixed crash when selecting extinct empires.
+  - Empires will be listed on the console.
+  - Empires will be listed on the Guide.
+  - Also swap on "Continue"
+- New ALPHA OPTION to swap player on load.
 
 
 ### AI Improvement:
@@ -52,9 +66,14 @@
 - Scout repelling (Xilmi)
   - Fixed an issue causing the AI not having built Fighters to repel enemy scouts anymore in the early-game for the last 9 months.
 - When an attacking fleet can not deal damage to a colony and also won't lose any ships, it will now still retreat as it would have to do so at the turn-limit anyways.
+- Fixed several issues that lead to Sakkra- and Bulrathi-AI not Transport-rushing other empires in the early-game when they should
+  - Population currently flying around in transports is now considered when evaluating the aggressiveness of Bulrathi- or Sakkra-like empires.
+  - Invasions are now considered for all enemy-empires and not only the ones that we are already at war with.
+  - For the calculation of an empires' power-level the population that is currently flying around in transports is now taken into consideration too.
 
 
 ### Governor:
+- New governor option to update spendings after spy allocation is increased.
 - New option to delay spy training when in contact with an empire. This is to avoid any changes to spending allocations.
 - Added an option for armed auto-colonizer to guard or not their colonies. (If tagged as Attack, they will always guard.)
 - Improved Governor Contextual help for Auto-Scout Auto-Colonize and Auto-Attack.
@@ -99,6 +118,24 @@
 - Added default design icon in Empire Military panel.
 - Added default design icon in Colonies panel.
 - Added a unification notice after accepting or rejecting the vote, as sharing knowledge across empires can take a long time for very large galaxies.
+- DesignUI new features:
+  - Unified auto Ship design methods.
+  - More auto Ship design.
+  - Call for a new auto Ship design Options Panel.
+    - Alt-A : Auto build.
+    - Alt-B : Auto build Bomber ship.
+    - Alt-E : Auto build Scout ship (Explorer).
+    - Alt-F : Auto build Fighter ship.
+    - Alt-G : Auto build Beam ship (Gun).
+    - Alt-H : Auto build Hybrid ship (Bomb + Beam + Missile).
+    - Alt-I : Auto build Iterceptor ship (Best manoeuver Hybrid with minimal bomb).
+    - Alt-M : Auto build Missile ship.
+    - Alt-P : Auto build Colony (Pioneer).
+    - Shift-Alt "" : to also select the best design size.
+  - Shift-Auto will also select the best design size.
+  - Updated Help pop-up.
+- Fleet Deployment Panel: Key press to select ships based on their speed.
+  - Only ships with a warp speed >= of the Pressed Key will be selected.
 
 
 ### Guide and Help:
@@ -107,6 +144,7 @@
 - Added help on Right-Click-Rally.
 - Fixed "Restricted Environment" Guide description.
 - Fixed Bitmap Galaxy "Guide" text, that was too wide to be displayed.
+- Updated DesignUI Help pop-up.
 
 
 ### Other Language:
@@ -133,82 +171,21 @@
 - Fixed Obedient Governor building stargates too early.
 - Fixed Ship Design Size, Power and cost values sometime overlapping with Huge hulls.
 - Fixed issue with multi-shot beam weapons. They will now follow MoO1 rules and fire all their shots on the same stack.
-
-
-### To categorize:
-
-
-2025.02.14 (BR)
-- NewShipTemplate: New abstract class to unify them all.
-  - Config file related constants are now unique.
-  - Auto Design method calls are now common.
-  - Enum DesignType has been extended for UI needs.
-- DesignUI new features:
-  - Unified auto Ship design methods.
-  - More auto Ship design.
-  - Call for a new auto Ship design Options Panel.
-    - Alt-A : Auto build.
-    - Alt-B : Auto build Bomber ship.
-    - Alt-E : Auto build Scout ship (Explorer).
-    - Alt-F : Auto build Fighter ship.
-    - Alt-G : Auto build Beam ship (Gun).
-    - Alt-H : Auto build Hybrid ship (Bomb + Beam + Missile).
-    - Alt-I : Auto build Iterceptor ship (Best manoeuver Hybrid with minimal bomb).
-    - Alt-M : Auto build Missile ship.
-    - Alt-P : Auto build Colony (Pioneer).
-    - Shift-Alt "" : to also select the best design size.
-  - Shift-Auto will also select the best design size.
-  - Updated Help pop-up.
-
-2025.02.07 (BR)
 - Fixed rounding error preventing refit when big colonies were auto sending small troops.  (Governor and smart tools)
-
-2025.02.01 (BR)
-- Fleet Deployment Panel: Key press to select ships based on their speed.
-  - Only ships with a warp speed >= of the Pressed Key will be selected.
-
-2025.02.01 (Xilmi)
-- Fixed several issues that lead to Sakkra- and Bulrathi-AI not Transport-rushing other empires in the early-game when they should
-  - Population currently flying around in transports is now considered when evaluating the aggressiveness of Bulrathi- or Sakkra-like empires.
-  - Invasions are now considered for all enemy-empires and not only the ones that we are already at war with.
-  - For the calculation of an empires' power-level the population that is currently flying around in transports is now taken into consideration too.
 - Fixed player AI controlled not sending troops without Governor on.
-
-2025.01.30 (BR)
-- Updated Option to swap player on load.
-  - No more stored in "remnant.cfg".
-  - Stored in game, swapped player will then reload swapped.
-  - Ironman mode will not be able to swap.
-  - Can be swapped from inside the game.
-    - In Debug Panel (All empire available).
-    - In Empire panel "Ctrl-Shift-Right Click" on the color circle.
-  - Game that had the player swapped are tagged. (Mandatory info when debugging)
-    - The tag is displayed on the console on load (the current player id too, if not 0)
-  - Governor Button Icon will be updated.
-
-2025.01.29 (BR)
-- Option to swap player on load.
-  - Fixed crash when selecting extinct empires.
-  - Empires will be listed on the console.
-  - Empires will be listed on the Guide.
-  - Also swap on "Continue"
 - Fixed wrong call to fleet design.
   - Made the AI and events use the dedicated call: fleet.design(i)
 - Fixed Restart not using the turn 1 System values when available.
 - Start and restart will reinitialise Empire.PLAYER_ID modified by the swap player options.
-
-2025.01.28 (Xilmi)
 - Fixed an issue that could cause the combat-AI to just run away from enemy ships instead of attacking them.
-
-2025.01.28 (BR)
-- Changed "Bare Hand" to "Assault Riffle"
 - Fixed Obedient Governor not following the "build stargates" options
   - Default design can be set by the player, and will be selected after the stargates are built.
-- New ALPHA OPTION to swap player on load.
-
-2025.01.27 (BR)
-- Changed "Leather Suits" to "Suits"
 - Fixed Restart with companion worlds misplacement bug.
+
+
+
+### To categorize:
+
 
 2025.01.25 (BR)
 - Fixed Rallied fleets not always being forwarded.

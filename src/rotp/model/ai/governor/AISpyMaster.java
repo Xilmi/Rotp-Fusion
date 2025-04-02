@@ -116,6 +116,7 @@ public class AISpyMaster implements Base, SpyMaster {
 		DiplomaticEmbassy emb = v.embassy();
 		SpyNetwork spies = v.spies();
 
+		int previousSpiesAllocation = spies.allocation();
 		int maxSpiesNeeded = 0;
 
 		if (emb.finalWar())
@@ -142,6 +143,11 @@ public class AISpyMaster implements Base, SpyMaster {
 			if(spies.lastSpyDate() == -1)
 				maxSpiesNeeded = (int)Math.ceil(max(maxSpiesNeeded, spies.realCostForNextSpy() / bcPerTick));
 			spies.allocation(maxSpiesNeeded);
+		}
+		if (spies.allocation() > previousSpiesAllocation
+				&& v.owner().spendingNotYetMade()
+				&& govOptions().contactUpdateSpending()) {
+			v.owner().redoGovTurnDecisions();
 		}
 	}
 	// Copied from Xilmi's AISpyMaster, adapted for Governor
