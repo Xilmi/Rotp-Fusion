@@ -17,6 +17,7 @@ package rotp.model.ships;
 
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackColony;
+import rotp.model.game.ICombatOptions;
 import rotp.model.tech.TechBiologicalWeapon;
 
 public class ShipWeapon extends ShipComponent {
@@ -37,40 +38,23 @@ public class ShipWeapon extends ShipComponent {
     public boolean canAttackPlanets() { return (!noWeapon() && (maxDamage() > 0)); }
     public float firepower()          { return firepower(0); }
     public float firepower(float shield) {
-		// Use double for intermediate calculations for precision
-		double minWeaponDamage = (double) minDamage();
-		double maxWeaponDamage = (double) maxDamage();
-		
-		double numWeaponOutcomes = maxWeaponDamage - minWeaponDamage + 1.0; // Total integer outcomes
-		if (numWeaponOutcomes <= 0) { // BR: Should never happen
-			System.err.println("ERROR: Weapon " + name() + " has wrong damage setting");
-			return 0.0f;
-		}
-		
-		// TODO BR: Option for MoO1 Rules
-		double effShield = (double)(shield * shieldMod()); // Can be float
-		// double effShield = Math.floor(shield * shieldMod()); // To follow MoO1 rules 
-		
-		// --- Calculation for DISCRETE integer damage rolls ---
-		
-		// Find the first penetrating outcomes damage (>= minWeaponDamage) that is strictly > effShield
-		double firstPenetratingWeaponDamage = Math.max(minWeaponDamage, Math.floor(effShield) + 1.0);
-		
-		// Count the number of outcomes damage values that penetrate the shield
-		double numPenetratingOutcomes = maxWeaponDamage - firstPenetratingWeaponDamage + 1.0;
-		if (numPenetratingOutcomes <= 0)
-			return 0.0f; // the weapon is too weak
-		
-		// Calculate the average impact of penetrating damages
-		double averagePenetratingWeaponDamage = (firstPenetratingWeaponDamage + maxWeaponDamage)/2;
-		double averagePenetratingTargetDamage = averagePenetratingWeaponDamage - effShield;
-		
-		// Weighting with the total possible outcomes
-		double averageTargetDamage = averagePenetratingTargetDamage * numPenetratingOutcomes / numWeaponOutcomes;
-		
-		// --- End of Discrete calculation block ---
-		
-		return (float) (attacksPerRound() * averageTargetDamage * scatterAttacks());
+		int maxAttackPower = maxDamage();
+		float ensuingShield = (shield * shieldMod());
+		if (ICombatOptions.moo1ShieldRules.get())	// To follow MoO1 rules
+			ensuingShield = (int) ensuingShield;
+		if (ensuingShield >= maxAttackPower)
+			return 0.0f; // The weapon is too weak
+		int minAttackPower = minDamage();
+
+		// The first attack power that can penetrate the shield
+		int minPowerToHit = Math.max(minAttackPower, (int) ensuingShield + 1);
+		// Average damage when the attack hit the target
+		float averageHitDamage = (minPowerToHit + maxAttackPower)/2f - ensuingShield;
+		// Average Damage including the non hit
+		float hitProbability = (float) (maxAttackPower - minPowerToHit + 1) / (maxAttackPower - minAttackPower + 1);
+		float averageDamage = averageHitDamage * hitProbability;
+
+		return attacksPerRound() * averageDamage * scatterAttacks();
     }
     public float max(ShipDesign d, int i) {
         return noWeapon() ? 0 : max(0, (float)Math.floor(d.availableSpaceForWeaponSlot(i) / space(d))) ;

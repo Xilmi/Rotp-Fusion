@@ -20,6 +20,8 @@
 
 
 ### Features:
+
+- New ship combat option to set MoO1 rules on Shields (Rounded down when halved).
 - "Check for Updates" will provide direct links to download files.
 - The Dark galaxy apply to AI too.
 - Option to swap player on load.
@@ -36,9 +38,13 @@
   - Empires will be listed on the Guide.
   - Also swap on "Continue"
 - New ALPHA OPTION to swap player on load.
-
+- New options to customize what is displayed on the galaxy preview.
+  - Orion On/Off
+  - Player On/Off
+  - Empires On/Off
 
 ### AI Improvement:
+
 - The bombardment-prediction now takes into consideration how many bombard-attacks were performed during tactical-combat and reduces the predicted amount accordingly.
 - The AI will no longer interrupt building a colonizer to squeeze out repellant-fighters. Those are nice to have but not crucial enough to delay a colony-ship.
 - Improved accuracy of beam weapon fire power estimation.
@@ -73,6 +79,7 @@
 
 
 ### Governor:
+
 - New governor option to update spendings after spy allocation is increased.
 - New option to delay spy training when in contact with an empire. This is to avoid any changes to spending allocations.
 - Added an option for armed auto-colonizer to guard or not their colonies. (If tagged as Attack, they will always guard.)
@@ -97,6 +104,7 @@
   
 
 ### Miscellaneous:
+
 - Error Messages and Warning Messages will now display the OS.
 - Moved Dark galaxy option to "Galaxy Rules"
 - Restored former look of tech bubble.
@@ -104,6 +112,7 @@
 
 
 ### User Interfaces:
+
 - Design UI: changed some text by icons:
   - Auto-scout = Eye
   - Auto-Attack = Target
@@ -136,9 +145,17 @@
   - Updated Help pop-up.
 - Fleet Deployment Panel: Key press to select ships based on their speed.
   - Only ships with a warp speed >= of the Pressed Key will be selected.
+- Outgoing transport are now displayed in the System view panel.
+- Added a warning in the colonisation popup when the planet is still plagued (Just destroyed), suggesting to wait one year before colonising.
+  - Will Force the popup even in auto-colonisation mode.
+- Technology bubble now display both current and expected state of research.
+- Load file panel date column will display files years when the display is extended.
+- Max Bases don't loop anymore.
+  - Right-click will set the max to the current value.
 
 
 ### Guide and Help:
+
 - Completed help for new Alt-Scroll in Design UI
 - Added Help for new auto fleet sending features.
 - Added help on Right-Click-Rally.
@@ -148,11 +165,14 @@
 
 
 ### Other Language:
+
 - Moved "French" selection to second position, as English and French are the only fully supported language of RotP-Fusion.
 - French translation fixes and improvement.
 
 
 ### Fixes:
+
+- Fixed the random event "The Gauntlet of the precursors" generating asteroid systems resource rich or with artefact.
 - Fixed a rare "Concurrent Modification Exception" crash when starting a combat.
 - Altair system name will be removed from the Mrrshan list of systems when Altairi are on the map.
 - Ufo Tracker: Loop thru all the colonies to get the closest one to the path (instead of stopping to the first being close enough.
@@ -181,43 +201,16 @@
 - Fixed Obedient Governor not following the "build stargates" options
   - Default design can be set by the player, and will be selected after the stargates are built.
 - Fixed Restart with companion worlds misplacement bug.
-
+- Fixed Rallied fleets not always being forwarded.
+- Fixed duplicate in Rules panel.
+- Fixed text clipping in options panel.
+- Updated the fix of null pointer exception in allocate spending notification. The value should not be null anymore.
+- Fixed null pointer exception in allocate spending notification.
 
 
 ### To categorize:
 
 
-2025.01.25 (BR)
-- Fixed Rallied fleets not always being forwarded.
-- Research bubbles have more contrasted colors.
-- New debug tools to track star systems by name.
-- Outgoing transport are now displayed in the System view panel.
-
-2025.01.22 (BR)
-- Added a warning in the colonisation popup when the planet is still plagued (Just destroyed), suggesting to wait one year before colonising.
-  - Will Force the popup even in auto-colonisation mode.
-
-2025.01.21 (BR)
-- Max Bases don't loop anymore.
-  - Right-click will set the max to the current value.
-- Updated the fix of null pointer exception in allocate spending notification. The value should not be null anymore.
-- Fixed duplicate in Rules panel.
-- Load file panel date column will display files years when the display is extended.
-- Fixed text clipping in options panel.
-- Technology bubble now display both current and expected state of research.
-
-2025.01.20 (Frank Zago)
-- French translation fixes and improvement.
-
-2025.01.20 (BR)
-- Fixed null pointer exception in allocate spending notification.
-  - It's still unclear why the pointer is null... I added a test to prevent the crash.
-
-2025.01.19 (BR)
-- New options to customize what is displayed on the galaxy preview.
-  - Orion On/Off
-  - Player On/Off
-  - Empires On/Off
 
 2025.01.18 (BR)
 - Galaxy Text shaped: New multi-line option with custom line spacing.

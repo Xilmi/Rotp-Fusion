@@ -740,7 +740,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case GALAXY_AGE_OLD:    pcts = oldPcts; break;
             default:                pcts = normalPcts; break;
         }
-        
+
         float r = random();
         for (int i=0;i<pcts.length;i++) {
             if (r <= pcts[i]) {
@@ -783,7 +783,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
 
         float r;
-        
+
         // modnar: change PLANET_QUALITY settings, comment out poor to great settings
         // BR: restored; both are compatible ==> Player choice!
         // BR: added Hell and Heaven!
@@ -797,7 +797,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case PLANET_QUALITY_NORMAL:
             default:					  r = random(); break;
         }
-        
+
         for (int i=0;i<pcts.length;i++) {
             if (r <= pcts[i]) {
                 typeIndex = i;

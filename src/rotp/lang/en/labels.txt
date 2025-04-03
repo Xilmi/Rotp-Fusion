@@ -2522,6 +2522,8 @@ HEADERS_ASTEROID_PROBABILITY         | ~~~ ASTEROID PROBABILITY ~~~
 HEADERS_ASTEROID_PROBABILITY_DESC    | Probability of obtaining asteroids and the impact of planetary resources on this probability.
 HEADERS_ASTEROID_IMPACT              | ~~~ IMPACT AND PLANET LOCATION ~~~
 HEADERS_ASTEROID_IMPACT_DESC         | Location of the planet and effect of asteroids.
+HEADERS_SHIELD_OPTIONS				| ~~~ SHIELD OPTIONS ~~~
+HEADERS_SHIELD_OPTIONST_DESC		| Parameters affecting shields effectiveness.
 
 HEADERS_TECH_PLANET                  | ~~~ TECH PLANET ~~~
 HEADERS_TECH_PLANET_DESC             | Planetary technologies required or prohibited.
@@ -2667,8 +2669,11 @@ SETTINGS_MOD_RETREAT_NONE_HELP       | Everyone is allowed to retreat!
 SETTINGS_MOD_RETREAT_AI_HELP         | AI can't retreat that easily, but Player is allowed to do so!
 SETTINGS_MOD_RETREAT_PLAYER_HELP     | Player can't retreat that easily, but AI is allowed to do so!
 SETTINGS_MOD_RETREAT_BOTH_HELP       | Nobody can retreat that easily!
-SETTINGS_MOD_RETREAT_RESTRICTION_TURNS | Retreat restricted turns: %1
-SETTINGS_MOD_MAX_COMBAT_TURNS        | Max combat turns: %1
+SETTINGS_MOD_RETREAT_RESTRICTION_TURNS	| Retreat restricted turns: %1
+SETTINGS_MOD_MAX_COMBAT_TURNS			| Max combat turns: %1
+SETTINGS_MOD_MOO1_SHIELD_RULES_DESC		| When some weapons reduce shield effectiveness, RotP keeps the fractional part, while MoO1 rounds the result down.
+SETTINGS_MOD_MOO1_SHIELD_RULES			| MoO1 Shields Rules: %1
+
 SETTINGS_MOD_HOME_ORION              | Orion Ruin HomeWorld: %1
 SETTINGS_MOD_HOME_ARTIFACT           | Get Artifact HomeWorld: %1
 SETTINGS_MOD_HOME_FERTILE            | Get Fertile HomeWorld: %1

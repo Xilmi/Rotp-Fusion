@@ -2,6 +2,10 @@
 
 ## What's New
 
+2025.04.03 (BR)
+- Fixed the random event "The Gauntlet of the precursors" generating asteroid systems resource rich or with artefact.
+- New ship combat option to set MoO1 rules on Shields (Rounded down when halved).
+
 2025.04.01 (BR)
 - Moved Governor spies mangement in GovernorAI SpyMaster
 - New option to delay spy training when in contact with an empire. This is to avoid any changes to spending allocations.

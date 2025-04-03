@@ -2522,6 +2522,8 @@ HEADERS_ASTEROID_PROBABILITY         | ~~~ PROBABILITÉ DES ASTÉROÏDES ~~~
 HEADERS_ASTEROID_PROBABILITY_DESC    | Probabilité d’obtenir des astéroïdes et l’impact des ressources planétaires sur cette probabilité.
 HEADERS_ASTEROID_IMPACT              | ~~~ POSITION ET IMPACT ASTÉROÏDES ~~~
 HEADERS_ASTEROID_IMPACT_DESC         | Localisation de la planète et effet des astéroïdes.
+HEADERS_SHIELD_OPTIONS				| ~~~ BOUCLIERS ~~~
+HEADERS_SHIELD_OPTIONST_DESC		| Paramètres affectant l’efficacité des boucliers.
 
 HEADERS_TECH_PLANET                  | ~~~ TECHNOLOGIES PLANÉTAIRES ~~~
 HEADERS_TECH_PLANET_DESC             | Technologies planétaires requises ou interdites.
@@ -2667,8 +2669,11 @@ SETTINGS_MOD_RETREAT_NONE_HELP       | Tout le monde est autorisé à battre en 
 SETTINGS_MOD_RETREAT_AI_HELP         | L’IA ne peut pas battre en retraite si facilement, mais le joueur est autorisé à le faire !
 SETTINGS_MOD_RETREAT_PLAYER_HELP     | Le joueur ne peut pas battre en retraite si facilement, mais l’IA est autorisée à le faire !
 SETTINGS_MOD_RETREAT_BOTH_HELP       | Personne ne peut battre en retraite aussi facilement !
-SETTINGS_MOD_RETREAT_RESTRICTION_TURNS | Retraite restreinte pendant %1 tours
-SETTINGS_MOD_MAX_COMBAT_TURNS        | Tours de combat max. : %1
+SETTINGS_MOD_RETREAT_RESTRICTION_TURNS	| Retraite restreinte pendant %1 tours
+SETTINGS_MOD_MAX_COMBAT_TURNS			| Tours de combat max. : %1
+SETTINGS_MOD_MOO1_SHIELD_RULES_DESC		| Lorsque certaines armes réduisent l’efficacité des boucliers, RotP conserve la partie fractionaire, alors que MoO1 arrondi le résultat vers le bas. 
+SETTINGS_MOD_MOO1_SHIELD_RULES			| Règles des boucliers de MoO1: : %1
+
 SETTINGS_MOD_HOME_ORION              | Planète mère avec Vestiges : %1
 SETTINGS_MOD_HOME_ARTIFACT           | Planète mère avec Artéfact : %1
 SETTINGS_MOD_HOME_FERTILE            | Planète mère Fertile : %1

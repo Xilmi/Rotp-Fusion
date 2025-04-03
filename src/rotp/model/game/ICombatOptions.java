@@ -163,7 +163,7 @@ public interface ICombatOptions extends IBaseOptsTools {
 	default boolean shieldType3D()			{ return shieldType.get().equalsIgnoreCase("Yes"); }
 	default boolean shieldType2D()			{ return shieldType.get().equalsIgnoreCase("2D"); }
 	default boolean shieldType3Buffer()		{ return shieldType.get().equalsIgnoreCase("3B"); }
-	
+
 	ParamInteger playerAttackConfidence		= new ParamInteger(MOD_UI, "PLAYER_ATTACK_CONFIDENCE", 100)
 			.setLimits(100, 500)
 			.setIncrements(1, 5, 20)
@@ -184,6 +184,10 @@ public interface ICombatOptions extends IBaseOptsTools {
 	default float playerDefenseConfidence()	{ return playerDefenseConfidence.get()/100f; }
 	default float aiAttackConfidence()		{ return aiAttackConfidence.get()/100f; }
 	default float aiDefenseConfidence()		{ return aiDefenseConfidence.get()/100f; }
+
+	ParamBoolean moo1ShieldRules			= new ParamBoolean(MOD_UI, "MOO1_SHIELD_RULES", false)
+			.setDefaultValue(MOO1_DEFAULT, true);
+	default boolean moo1ShieldRules()		{ return moo1ShieldRules.get(); }
 
 	ParamInteger retreatRestrictionTurns	= new ParamInteger(MOD_UI, "RETREAT_RESTRICTION_TURNS", 100)
 			.setDefaultValue(MOO1_DEFAULT, 1)

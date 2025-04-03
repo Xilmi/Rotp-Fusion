@@ -41,6 +41,7 @@ import java.util.List;
 import rotp.model.ai.interfaces.ShipCaptain;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.ICombatOptions;
 import rotp.model.ships.ShipComponent;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipWeapon;
@@ -458,10 +459,11 @@ public class CombatStack implements Base {
             return 0;
         float damageTaken = 0;
         attacked = true;
-		// TODO BR: Option for MoO1 Rules
-        // BR: Also check Stream weapons
-		// float dmg = max(0, damage - Math.floor(shieldLevel() * shieldAdj));
-        float dmg = max(0, damage - (shieldLevel() * shieldAdj));
+		float ensuingShield = shieldLevel() * shieldAdj;
+		if (ICombatOptions.moo1ShieldRules.get())	// To follow MoO1 rules
+			ensuingShield = (int) ensuingShield;
+		float dmg = max(0, damage - ensuingShield);
+
         damageTaken += dmg;
         if (dmg == 0)
             return damageTaken;
@@ -499,8 +501,11 @@ public class CombatStack implements Base {
         float damageTaken = 0;
         attacked = true;
         float damageLeft = damage*beamDamageMod();
-        while ((damageLeft > 0) && !destroyed()) {
-            float dmg = max(0, damageLeft - (shieldLevel() * shieldAdj));
+		float ensuingShield = shieldLevel() * shieldAdj;
+		if (ICombatOptions.moo1ShieldRules.get())	// To follow MoO1 rules
+			ensuingShield = (int) ensuingShield;
+		while ((damageLeft > 0) && !destroyed()) {
+			float dmg = max(0, damageLeft - ensuingShield);
             damageTaken += dmg;
             damageSustained += min(dmg, hits);
             hits -= dmg;

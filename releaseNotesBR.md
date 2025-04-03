@@ -7,14 +7,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Very last changes:</ins></b>
 
-2025.04.01 (BR)
-- Moved Governor spies mangement in GovernorAI SpyMaster
-- New option to delay spy training when in contact with an empire. This is to avoid any changes to spending allocations.
-- New governor option to update spendings after spy allocation is increased.
-  - This may disrupt the player's spending fine-tuning.
+2025.04.03 (BR)
+- Fixed the random event "The Gauntlet of the precursors" generating asteroid systems resource rich or with artefact.
+- New ship combat option to set MoO1 rules on Shields (Rounded down when halved).
 
-2025.04.01 (Xilmi)
-- The bombardment-prediction now takes into consideration how many bombard-attacks were performed during tactical-combat and reduces the predicted amount accordingly.
 
 [#### Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 

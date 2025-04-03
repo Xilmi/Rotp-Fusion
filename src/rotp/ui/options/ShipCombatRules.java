@@ -2,6 +2,7 @@ package rotp.ui.options;
 
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.ui.util.ParamTitle;
 
 final class ShipCombatRules extends AbstractOptionsSubUI {
 	static final String OPTION_ID = SHIP_COMBAT_RULES_UI_KEY;
@@ -16,6 +17,9 @@ final class ShipCombatRules extends AbstractOptionsSubUI {
 		list1.addAll(AllSubUI.getHandle(COMBAT_XILMI_AI_UI_KEY).getUiMajor(false));
 		list1.add(HEADER_SPACER_50);
 		list1.addAll(AllSubUI.getHandle(COMBAT_TIMING_UI_KEY).getUiMajor(false));
+		list1.add(HEADER_SPACER_50);
+		list1.add(new ParamTitle("SHIELD_OPTIONS"));
+		list1.add(moo1ShieldRules);
 		map.add(list1);
 		map.add(AllSubUI.getHandle(WEAPON_ANIMATION_UI_KEY).getUiMajor(true));
 		map.add(AllSubUI.getHandle(SHIELD_ANIMATION_UI_KEY).getUiMajor(true));
