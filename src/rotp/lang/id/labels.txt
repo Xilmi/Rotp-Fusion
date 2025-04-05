@@ -294,6 +294,7 @@ CLICK_EXIT                        | Klik atau tekan tombol Escape untuk Keluar..
 BUTTON_EXIT                       | Keluar
 
 // GAME/SETUP UI 
+GAME_TITLE_FRAME				| Remnants of the Precursors
 GAME_TITLE_LINE_1                 | REMNANTS
 GAME_TITLE_LINE_2                 | of the
 GAME_TITLE_LINE_3                 | PRECURSORS

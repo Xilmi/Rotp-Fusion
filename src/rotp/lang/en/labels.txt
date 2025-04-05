@@ -455,6 +455,7 @@ CLICK_EXIT                        | Click or Escape to Exit...
 BUTTON_EXIT                       | Exit
 
 // GAME/SETUP UI
+GAME_TITLE_FRAME				| Remnants of the Precursors
 GAME_TITLE_LINE_1                 | REMNANTS
 GAME_TITLE_LINE_2                 | of the
 GAME_TITLE_LINE_3                 | PRECURSORS
@@ -1517,6 +1518,9 @@ SETUP_GALAXY_SIZE_MAXIMUM_DESC    | This galaxy size is function of the computer
 SETUP_GALAXY_SIZE_MOO1_DESC       | Galaxy size available in original MOO1 game.
 SETUP_GALAXY_SIZE_UP1000_DESC     | Galaxy size larger than those available in the original MOO1 game, but still reasonable. It will take time to win...
 SETUP_GALAXY_SIZE_OVER1000_DESC   | Indecent galaxy size, much larger than those available in the original MOO1 game. It will take you weeks to finish these games.
+
+SETUP_GALAXY_SIZE_VALUE			|  (%1)
+SETUP_GALAXY_SIZE_VALUE_DYN		|  (now %1)
 
 SETUP_GALAXY_SIZE_DYNAMIC         | Dynamic
 SETUP_GALAXY_SIZE_MICRO           | Micro

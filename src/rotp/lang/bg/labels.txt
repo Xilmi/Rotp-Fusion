@@ -288,7 +288,8 @@ CLICK_CONTINUE                    | Кликнете или натиснете E
 CLICK_EXIT                        | Кликнете или натиснете Escape за да излезете...
 BUTTON_EXIT                       | Излизане
 
-// GAME/SETUP UI 
+// GAME/SETUP UI
+GAME_TITLE_FRAME				| Следи От Предшествениците
 GAME_TITLE_LINE_1                 | Следи
 GAME_TITLE_LINE_2                 | От
 GAME_TITLE_LINE_3                 | Предшествениците

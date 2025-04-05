@@ -173,6 +173,8 @@
 
 - Moved "French" selection to second position, as English and French are the only fully supported language of RotP-Fusion.
 - French translation fixes and improvement.
+- Galaxy size text is now loaded from language labels.
+- Windows title is set according to the selected language.
 
 
 ### Fixes:

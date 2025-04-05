@@ -47,6 +47,8 @@ java -jar target/rotp-<timestamp>-mini.jar
 2025.04.05 (BR)
 - Added some installation information.
 - Fixed spending display glitch when gross income is negative.
+- Galaxy size text is now loaded from language labels.
+- Windows title is set according to the selected language.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

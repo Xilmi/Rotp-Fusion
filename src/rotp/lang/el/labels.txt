@@ -290,6 +290,7 @@ CLICK_EXIT                        | Κλικάρετε ή Πατήστε Esc γ�
 BUTTON_EXIT                       | Έξοδος
 
 // GAME/SETUP UI
+GAME_TITLE_FRAME				| Οι Εναπομείναντες των Προκατόχων
 GAME_TITLE_LINE_1                 | Οι Εναπομείναντες
 GAME_TITLE_LINE_2                 | των
 GAME_TITLE_LINE_3                 | Προκατόχων

@@ -5,6 +5,8 @@
 2025.04.05 (BR)
 - Added some installation instructions.
 - Fixed spending display glitch when gross income is negative.
+- Galaxy size text is now loaded from language labels.
+- Windows title is set according to the selected language.
 
 2025.04.03 (BR)
 - Fixed the random event "The Gauntlet of the precursors" generating asteroid systems resource rich or with artefact.

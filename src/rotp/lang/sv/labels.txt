@@ -289,6 +289,7 @@ CLICK_EXIT                        | Klicka eller tryck Escape för att Återgå.
 BUTTON_EXIT                       | Klar
 
 // GAME/SETUP UI
+GAME_TITLE_FRAME				| Förelöparnas Kvarlämnor
 GAME_TITLE_LINE_1                 | FÖRELÖPARNAS
 GAME_TITLE_LINE_2                 |
 GAME_TITLE_LINE_3                 | KVARLÄMNOR

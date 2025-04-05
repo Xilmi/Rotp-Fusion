@@ -288,6 +288,7 @@ CLICK_EXIT                        | Click or Escape to Exit...
 BUTTON_EXIT                       | Exit
 
 // GAME/SETUP UI 
+GAME_TITLE_FRAME				| Az Elődök Maradványai
 GAME_TITLE_LINE_1                 | Az
 GAME_TITLE_LINE_2                 | ELŐDÖK
 GAME_TITLE_LINE_3                 | MARADVÁNYAI

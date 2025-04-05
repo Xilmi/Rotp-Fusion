@@ -288,6 +288,7 @@ CLICK_EXIT                        | Click sau Escape pentru a Ieși...
 BUTTON_EXIT                       | Ieșire
 
 // GAME/SETUP UI 
+GAME_TITLE_FRAME				| Rămășiţele Precursorilor
 GAME_TITLE_LINE_1                 | RĂMĂȘIŢELE
 GAME_TITLE_LINE_2                 | 
 GAME_TITLE_LINE_3                 | PRECURSORILOR

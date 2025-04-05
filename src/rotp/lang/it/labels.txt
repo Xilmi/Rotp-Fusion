@@ -290,6 +290,7 @@ CLICK_EXIT                        | Clicca o Esc per uscire...
 BUTTON_EXIT                       | Esci
 
 // GAME/SETUP UI 
+GAME_TITLE_FRAME				| Residui dei Precursori
 GAME_TITLE_LINE_1                 | RESIDUI
 GAME_TITLE_LINE_2                 | dei
 GAME_TITLE_LINE_3                 | PRECURSORI

@@ -529,9 +529,9 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				String label   = getLangLabel(id);
 				int size = opts().numberStarSystems(label);
 				if (label.equals("SETUP_GALAXY_SIZE_DYNAMIC"))
-					diffLbl += " (now " + size + ")";
+					diffLbl += " " + langLabel("SETUP_GALAXY_SIZE_VALUE_DYN", ""+size);
 				else
-					diffLbl += " (" + size + ")";
+					diffLbl += " " + langLabel("SETUP_GALAXY_SIZE_VALUE", ""+size);
 				return diffLbl;
 			}
 			@Override public String realHelp(int id) {

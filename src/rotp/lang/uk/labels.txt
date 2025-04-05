@@ -288,6 +288,7 @@ CLICK_EXIT                        | Нажміть "Escape" чи Клацніт�
 BUTTON_EXIT                       | Вихід
 
 // GAME/SETUP UI 
+GAME_TITLE_FRAME				| Remnants of the Precursors
 GAME_TITLE_LINE_1                 | REMNANTS
 GAME_TITLE_LINE_2                 | of the
 GAME_TITLE_LINE_3                 | PRECURSORS

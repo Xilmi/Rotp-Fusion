@@ -287,6 +287,7 @@ CLICK_EXIT                        | Drücke Esc oder Klicke zum Abbrechen
 BUTTON_EXIT                       | Ausgang
 
 // GAME/SETUP UI
+GAME_TITLE_FRAME				| Remnants of the Precursors
 GAME_TITLE_LINE_1                 | REMNANTS
 GAME_TITLE_LINE_2                 | of the
 GAME_TITLE_LINE_3                 | PRECURSORS

@@ -290,6 +290,7 @@ CLICK_EXIT                        | 單擊或點擊ESC以退出……
 BUTTON_EXIT                       | 返回
 
 // GAME/SETUP UI 
+GAME_TITLE_FRAME				| 文明的餘燼
 GAME_TITLE_LINE_1                 | 文明的餘燼
 GAME_TITLE_LINE_2                 | 
 GAME_TITLE_LINE_3                 | 

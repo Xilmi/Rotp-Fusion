@@ -289,6 +289,7 @@ CLICK_EXIT                        | Клик или Esc да Изађете...
 BUTTON_EXIT                       | Излаз
 
 // GAME/SETUP UI 
+GAME_TITLE_FRAME				| Остаци Претходника
 GAME_TITLE_LINE_1                 | Остаци
 GAME_TITLE_LINE_2                 | 
 GAME_TITLE_LINE_3                 | Претходника

@@ -289,6 +289,7 @@ CLICK_EXIT                        | Prime Esc ou Faz Clique para Sair...
 BUTTON_EXIT                       | Sair
 
 // GAME/SETUP UI
+GAME_TITLE_FRAME				| Os Herdeiros dos Precursores
 GAME_TITLE_LINE_1                 | OS HERDEIROS
 GAME_TITLE_LINE_2                 | dos
 GAME_TITLE_LINE_3                 | PRECURSORES

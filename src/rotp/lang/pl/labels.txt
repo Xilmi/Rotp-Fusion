@@ -288,6 +288,7 @@ CLICK_EXIT                        | Escape lub klik aby wyjść...
 BUTTON_EXIT                       | Wyjście
 
 // GAME/SETUP UI 
+GAME_TITLE_FRAME				| Pozostałości Prekursorów
 GAME_TITLE_LINE_1                 | POZOSTAŁOŚCI
 GAME_TITLE_LINE_2                 | 
 GAME_TITLE_LINE_3                 | PREKURSORÓW
