@@ -33,6 +33,7 @@ import rotp.model.empires.Race;
 import rotp.model.empires.RaceFactory;
 import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGovOptions;
+import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.EmpireColonySpendingPane;
 import rotp.ui.planets.MultiColonySpendingPane;
@@ -130,6 +131,10 @@ public class LanguageManager implements Base {
         if (selectedLanguage() == i)
             return;
         loadLanguage(i);
+		String newFrameTitle = text("GAME_TITLE_FRAME");
+		Rotp.getFrame().setTitle(newFrameTitle);
+		if (RotPUI.instance() != null)
+			RotPUI.instance().resetListDialog();
         validateDialogueTokens(false); // TO DO BR: change to false (true for debug)
         if (!Rotp.noOptions("selectLanguage(" + i + ")")) {
         	EmpireColonySpendingPane.resetPanel();

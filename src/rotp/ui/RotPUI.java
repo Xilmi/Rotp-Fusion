@@ -394,15 +394,16 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
 				RulesOptions.rulesOptionsMap());
 		return ui;
 	}
-	public static ListDialogUI		listDialog()		{
-		if (instance.listDialog == null)
-			instance.listDialog = new ListDialogUI(Rotp.getFrame());
-		return instance.listDialog;
-	}
 	public static AdvancedOptionsUI	advancedOptionsUI()	{ return instance.advancedOptionsUI; }
 	public static MainOptionsUI		mainOptionsUI()		{ return instance.mainOptionsUI; }
 	public static SetupRaceUI		setupRaceUI()		{ return instance.setupRaceUI; }
 	public static SetupGalaxyUI		setupGalaxyUI()		{ return instance.setupGalaxyUI; }
+	public ListDialogUI	listDialog()					{
+		if (listDialog == null)
+			listDialog = new ListDialogUI(Rotp.getFrame());
+		return listDialog;
+	}
+	public void resetListDialog()						{ listDialog = null; }
 	private BaseCompactOptionsUI nextOptionPanel()		{
 		optionPanelId ++;
 		if (optionsPanels.size() == optionPanelId)

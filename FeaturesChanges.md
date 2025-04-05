@@ -175,7 +175,7 @@
 - French translation fixes and improvement.
 - Galaxy size text is now loaded from language labels.
 - Windows title is set according to the selected language.
-  - Set once on start. As GUI may not recognize renamed parent frame!
+
 
 ### Fixes:
 

@@ -262,7 +262,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 									String initialLabel, IParam param) {
 		String message = "Make your choice";
 		String initialChoice = text(initialLabel);
-		ListDialogUI dialog = RotPUI.listDialog();
+		ListDialogUI dialog = RotPUI.instance().listDialog();
 		dialog.init(
 		    	this, getParent(),			// Frame & Location component
 		    	message,					// Message
