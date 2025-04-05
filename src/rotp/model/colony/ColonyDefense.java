@@ -307,7 +307,7 @@ public class ColonyDefense extends ColonySpendingCategory {
         float maxBases = maxBases();
         float prodBC = pct()* colony().totalProductionIncome() * planet().productionAdj();
         float rsvBC = pct() * colony().maxReserveIncome();
-        float newBC = prodBC+rsvBC;
+        float newBC = max(0, prodBC+rsvBC);
         float shieldCost = 0;
 
         if (!shieldAtMaxLevel())

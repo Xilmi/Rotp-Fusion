@@ -316,7 +316,7 @@ public class ColonyEcology extends ColonySpendingCategory {
             return false;
         
         float newBC = totalAvailableBCthisCategory(colony().totalProductionIncome(), colony().maxReserveIncome());
-        
+        newBC = max(0, newBC);
         return (newBC < colony().wasteCleanupCost());
     }
     @Override
@@ -324,6 +324,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         Colony c = colony();
 
         float newBC = totalAvailableBCthisCategory(colony().totalProductionIncome(), colony().maxReserveIncome());
+        newBC = max(0, newBC);
         float cost;
 
         // new population

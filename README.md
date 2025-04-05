@@ -44,15 +44,15 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-2025.04.03 (BR)
-- Fixed the random event "The Gauntlet of the precursors" generating asteroid systems resource rich or with artefact.
-- New ship combat option to set MoO1 rules on Shields (Rounded down when halved).
+2025.04.05 (BR)
+- Added some installation information.
+- Fixed spending display glitch when gross income is negative.
 
 
-[### Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
+### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 
-[### Timed Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges.md)
+### [Timed Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges.md)
 
 
-[## To-Do list](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/TodoList.md)
+## [To-Do list](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/TodoList.md)
 

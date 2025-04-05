@@ -68,8 +68,8 @@ public class ColonyResearch extends ColonySpendingCategory {
     			* session().researchBonus();
     }
     @Override
-    public boolean warning()      {        
-        return (project != null) && (totalBC() < project.remainingResearchBC()); }
+    public boolean warning()      {
+        return (project != null) && (max(0, totalBC()) < project.remainingResearchBC()); }
     @Override
     public String upcomingResult() {
         if (colony().allocation(categoryType()) == 0)

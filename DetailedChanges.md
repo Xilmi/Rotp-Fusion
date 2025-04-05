@@ -2,6 +2,10 @@
 
 ## What's New
 
+2025.04.05 (BR)
+- Added some installation instructions.
+- Fixed spending display glitch when gross income is negative.
+
 2025.04.03 (BR)
 - Fixed the random event "The Gauntlet of the precursors" generating asteroid systems resource rich or with artefact.
 - New ship combat option to set MoO1 rules on Shields (Rounded down when halved).
