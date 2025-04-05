@@ -52,11 +52,12 @@ java -jar target/rotp-<timestamp>-mini.jar
   - Fixed child GUI rot recognizing renamed frame.
 - Fixed rare non-crashing null pointer exception when building fleet plan. (All AI)
 - Added additional info on audio error messages.
+- Restored Tune Galaxy Panel not masking the Galaxy preview.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 
-### [Timed Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges.md)
+### [Reverse Chronological Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges.md)
 
 
 ## [To-Do list](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/TodoList.md)

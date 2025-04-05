@@ -15,8 +15,9 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
   - Fixed child GUI rot recognizing renamed frame.
 - Fixed rare non-crashing null pointer exception when building fleet plan. (All AI)
 - Added additional info on audio error messages.
+- Restored Tune Galaxy Panel not masking the Galaxy preview.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 
-#### [Detailed Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges.md)
+#### [Reverse  Chronological Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/DetailedChanges.md)

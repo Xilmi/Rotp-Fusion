@@ -10,6 +10,7 @@
   - Fixed child GUI rot recognizing renamed frame.
 - Fixed rare non-crashing null pointer exception when building fleet plan. (All AI)
 - Added additional info on audio error messages.
+- Restored Tune Galaxy Panel not masking the Galaxy preview.
 
 2025.04.03 (BR)
 - Fixed the random event "The Gauntlet of the precursors" generating asteroid systems resource rich or with artefact.

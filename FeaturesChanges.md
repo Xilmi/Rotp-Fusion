@@ -179,6 +179,7 @@
 
 ### Fixes:
 
+- Restored Tune Galaxy Panel not masking the Galaxy preview.
 - Added additional info on audio error messages.
 - Fixed rare non-crashing null pointer exception when building fleet plan. (All AI)
 - Fixed spending display glitch when gross income is negative.

@@ -138,7 +138,6 @@ public final class BaseCompactOptionsUI extends BaseModPanel implements MouseWhe
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
 		optionsList	  = paramList;
-		this.hovering = hovering;
 		xFull = location.x;
 		yFull = location.y;
 		wFull = location.width;
@@ -152,6 +151,7 @@ public final class BaseCompactOptionsUI extends BaseModPanel implements MouseWhe
 		rGist = xGist + wGist;
 		bGist = yGist + hGist;
 		reInit();
+		this.hovering = hovering;
 	}
 	
 	private SafeListPanel getList() { return optionsList; }
