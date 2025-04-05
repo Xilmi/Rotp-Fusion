@@ -14,6 +14,7 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 - Windows title is set according to the selected language.
   - Fixed child GUI rot recognizing renamed frame.
 - Fixed rare non-crashing null pointer exception when building fleet plan. (All AI)
+- Added additional info on audio error messages.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

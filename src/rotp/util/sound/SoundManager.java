@@ -15,16 +15,16 @@
  */
 package rotp.util.sound;
 
-import rotp.ui.UserPreferences;
-import rotp.ui.game.GameUI;
-import rotp.util.Base;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import rotp.ui.UserPreferences;
+import rotp.ui.game.GameUI;
+import rotp.util.Base;
 
 public enum SoundManager implements Base {
     INSTANCE;
@@ -157,6 +157,7 @@ public enum SoundManager implements Base {
                 err("no sound found for key:"+key);
         }
         catch (Exception e) {
+        	System.err.println("Error while playing audioclip " + key);
             err("SoundManager.audio error1: "+e.getMessage());
             disableOnError("on play:"+e.getMessage());
         }
@@ -174,6 +175,7 @@ public enum SoundManager implements Base {
                 err("no sound found for key:"+key);
         }
         catch (Exception e) {
+        	System.err.println("Error while playing soundClip " + key + " hullSize " + hullSize);
             err("SoundManager.audio error1: "+e.getMessage());
             disableOnError("on play:"+e.getMessage());
         }
@@ -288,6 +290,10 @@ public enum SoundManager implements Base {
                     }
                 }
             } catch (IOException e) {
+            	System.err.println("Error playny file " + fn
+            			+ " Gain " + g
+            			+ " style " + s
+            			+ " music " + b);
                 throw new RuntimeException(e.getMessage(), e);
             }
         }

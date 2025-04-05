@@ -179,6 +179,7 @@
 
 ### Fixes:
 
+- Added additional info on audio error messages.
 - Fixed rare non-crashing null pointer exception when building fleet plan. (All AI)
 - Fixed spending display glitch when gross income is negative.
 - Fixed the random event "The Gauntlet of the precursors" generating asteroid systems resource rich or with artefact.
