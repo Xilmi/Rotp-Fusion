@@ -558,7 +558,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             System.out.println(fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" x: "+fleet.x()+" y: "+fleet.y()+" => "+empire.sv.name(best.id)+" score: "+bestScore+" colonizersEnroute: "+systemInfoBuffer.get(best.id).colonizersEnroute);*/
         return best;
     }
-    
+
     private void buildFleetPlans() {
         // clear existing fleet plans & planetary build queues
         fleetPlans().clear();
@@ -566,7 +566,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         systemsCommitted().clear();
         for (int id=0; id<empire.sv.count();id++) {
             empire.sv.clearFleetPlan(id);
-            if (empire.sv.empire(id) == empire) {
+            if (empire.sv.empire(id) == empire && empire.sv.colony(id) != null) {
                 empire.sv.colony(id).shipyard().resetQueueData();
                 if (canBuildShips)
                     systems.add(id);
@@ -582,7 +582,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 
         // fleets that are somehow trapped beyond scout range need to retreat
         setDistantFleetsToRetreat();
-        
+
         // sort fleet plans by priority
         Collections.sort(fleetPlans, FleetPlan.PRIORITY);
     }

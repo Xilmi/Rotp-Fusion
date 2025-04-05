@@ -50,6 +50,7 @@ java -jar target/rotp-<timestamp>-mini.jar
 - Galaxy size text is now loaded from language labels.
 - Windows title is set according to the selected language.
   - Fixed child GUI rot recognizing renamed frame.
+- Fixed rare non-crashing null pointer exception when building fleet plan. (All AI)
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

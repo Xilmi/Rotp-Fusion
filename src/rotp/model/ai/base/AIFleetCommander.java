@@ -102,7 +102,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         systemsCommitted().clear();
         for (int id=0; id<empire.sv.count();id++) {
             empire.sv.clearFleetPlan(id);
-            if (empire.sv.empire(id) == empire) {
+            if (empire.sv.empire(id) == empire && empire.sv.colony(id) != null) {
                 empire.sv.colony(id).shipyard().resetQueueData();
                 if (canBuildShips)
                     systems.add(id);

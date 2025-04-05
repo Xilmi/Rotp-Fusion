@@ -179,6 +179,7 @@
 
 ### Fixes:
 
+- Fixed rare non-crashing null pointer exception when building fleet plan. (All AI)
 - Fixed spending display glitch when gross income is negative.
 - Fixed the random event "The Gauntlet of the precursors" generating asteroid systems resource rich or with artefact.
 - Fixed a rare "Concurrent Modification Exception" crash when starting a combat.
