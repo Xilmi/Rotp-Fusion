@@ -7,6 +7,7 @@
 - Fixed spending display glitch when gross income is negative.
 - Galaxy size text is now loaded from language labels.
 - Windows title is set according to the selected language.
+  - Set once on start. As GUI may not recognize renamed parent frame!
 
 2025.04.03 (BR)
 - Fixed the random event "The Gauntlet of the precursors" generating asteroid systems resource rich or with artefact.

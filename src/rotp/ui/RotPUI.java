@@ -300,6 +300,10 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
     public long animationMs()       { return animationMs; }
 
     public RotPUI() {
+		// Frame Name can not be changed later...
+		// Children UI will not recognize their parent
+		String newFrameTitle = text("GAME_TITLE_FRAME");
+		Rotp.getFrame().setTitle(newFrameTitle);
         timer = new Timer(ANIMATION_TIMER, this);
         init();
     }

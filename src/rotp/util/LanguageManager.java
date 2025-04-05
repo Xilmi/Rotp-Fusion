@@ -130,8 +130,6 @@ public class LanguageManager implements Base {
         if (selectedLanguage() == i)
             return;
         loadLanguage(i);
-		String newFrameTitle = text("GAME_TITLE_FRAME");
-		Rotp.getFrame().setTitle(newFrameTitle);
         validateDialogueTokens(false); // TO DO BR: change to false (true for debug)
         if (!Rotp.noOptions("selectLanguage(" + i + ")")) {
         	EmpireColonySpendingPane.resetPanel();
