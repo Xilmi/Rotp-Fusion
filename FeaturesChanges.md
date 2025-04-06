@@ -179,6 +179,7 @@
 
 ### Fixes:
 
+- Fixed the governor who sometimes mistakenly abandoned poor colonies.
 - Restored Tune Galaxy Panel not masking the Galaxy preview.
 - Added additional info on audio error messages.
 - Fixed rare non-crashing null pointer exception when building fleet plan. (All AI)

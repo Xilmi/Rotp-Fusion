@@ -16,6 +16,7 @@
 package rotp.ui.sprites;
 
 import java.awt.Graphics2D;
+
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.ui.main.GalaxyMapPanel;
@@ -69,7 +70,7 @@ public class SystemTransportSprite extends MapSprite {
     public void accept() {
         homeSystem().transportDestId = id(clickedDest);
         homeSystem().transportTravelTime = 0;
-        homeSystem().colony().scheduleTransportsToSystem(clickedDest, amt());
+        homeSystem().colony().scheduleTransportsToSystem(clickedDest, amt(), false);
     }
     public void accept(float travelTime) {
         homeSystem().transportDestId = id(clickedDest);

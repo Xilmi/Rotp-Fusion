@@ -1677,7 +1677,8 @@ public final class Empire implements Base, NamedObject, Serializable {
                 if (options.isTransportPoorDouble() && (donor.planet().isResourcePoor() || donor.planet().isResourceUltraPoor()) ) {
                     populationToTransport *= 2;
                 }
-                donor.scheduleTransportsToSystem(c.starSystem(), populationToTransport);
+				// BR: to prevent abandon...
+				donor.scheduleTransportsToSystem(c.starSystem(), populationToTransport, true);
 //                System.out.println("After transport expectedPopulation="+c.expectedPopulation());
                 donors.remove(donor);
             } else {

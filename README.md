@@ -44,15 +44,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-2025.04.05 (BR)
-- Added some installation information.
-- Fixed spending display glitch when gross income is negative.
-- Galaxy size text is now loaded from language labels.
-- Windows title is set according to the selected language.
-  - Fixed child GUI rot recognizing renamed frame.
-- Fixed rare non-crashing null pointer exception when building fleet plan. (All AI)
-- Added additional info on audio error messages.
-- Restored Tune Galaxy Panel not masking the Galaxy preview.
+2025.04.06 (BR)
+- Fixed the governor who sometimes mistakenly abandoned poor colonies.
+- Updated some deprecated methods.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

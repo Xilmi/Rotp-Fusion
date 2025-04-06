@@ -281,7 +281,6 @@ public class Rotp {
             System.exit(0);
         }
     }
-    @SuppressWarnings("deprecation")
 	public static void restart() {
         File exeFile = new File(startupDir+"/"+exeFileName);
         String execStr = exeFile.exists() ? exeFileName : actualAlloc < 0 ? "java -jar "+jarFileName : "java -Xmx"+actualAlloc+"m -jar "+jarFileName+" arg1";
@@ -297,20 +296,24 @@ public class Rotp {
     public static void restartFromLowMemory() {
         restartWithMoreMemory(frame, true);
     }
-  
-	@SuppressWarnings("deprecation")
+
+//	@SuppressWarnings("deprecation")
 	private static boolean restartWithMoreMemory(JFrame frame, boolean reload) {
         // MXBeans are not supported by GraalVM Native, so skip this part
         if (RotpGovernor.GRAALVM_NATIVE) {
             System.out.println("Running as GraalVM Native image");
             return false;
         }
-        @SuppressWarnings("restriction")
+//        @SuppressWarnings("restriction")
+//		long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
+//                        .getOperatingSystemMXBean()).getTotalPhysicalMemorySize();
 		long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
-                        .getOperatingSystemMXBean()).getTotalPhysicalMemorySize();
-        @SuppressWarnings("restriction")
+                        .getOperatingSystemMXBean()).getTotalMemorySize();
+//        @SuppressWarnings("restriction")
+//		long freeMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
+//                        .getOperatingSystemMXBean()).getFreePhysicalMemorySize();
 		long freeMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
-                        .getOperatingSystemMXBean()).getFreePhysicalMemorySize();
+                        .getOperatingSystemMXBean()).getFreeMemorySize();
         int maxMb = (int) (memorySize / MB);
         long allocMb = Runtime.getRuntime().maxMemory() / MB;
         int freeMb = (int) (freeMemory / MB);

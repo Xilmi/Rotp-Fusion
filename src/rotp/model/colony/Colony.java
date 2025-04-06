@@ -1464,16 +1464,22 @@ public final class Colony implements Base, IMappedObject, Serializable {
             transport().travelSpeed(dist/travelTime);
         }
     }
-    public void scheduleTransportsToSystem(StarSystem dest, int pop) {
+	// To avoid involuntary abandon!
+	public void scheduleTransportsToSystem(StarSystem dest, int pop) {
+		scheduleTransportsToSystem(dest, pop, true);
+	}
+	public void scheduleTransportsToSystem(StarSystem dest, int pop, boolean adjustPop) {
     	if (dest == null) {
     		// BR: Should not happen! but it happens!
     		// little fix while searching for the initial bug to be fixed! 
     		 clearTransport();
     		 return;
     	}
-    		
+
         // adjust pop to max allowed... But still send original pop to allow abandon!
         int xPop = min(pop, maxTransportsAllowed());
+		if (adjustPop)
+			pop = xPop;
         log("Scheduling " + xPop + " transports from: " + starSystem().name() + "  to: " + dest.name());
 
         // if zero or to this system, then clear
