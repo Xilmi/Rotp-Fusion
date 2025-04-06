@@ -46,6 +46,8 @@ import rotp.model.galaxy.Location;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IConvenienceOptions;
+import rotp.model.game.IGameOptions;
 import rotp.model.ships.ShipDesign;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
@@ -837,7 +839,8 @@ public class MainUI extends BasePanel implements IMapHandler {
         drawString(g,title, x1, y1);
         
         String yearStr = displayYearOrTurn();
-        if (rotp.model.game.IConvenienceOptions.showNextCouncil.get()) {
+		if (IConvenienceOptions.showNextCouncil.get() 
+				&& !options().selectedCouncilWinOption().equals(IGameOptions.COUNCIL_NONE)) {
         	int nextC = galaxy().council().nextCouncil();
         	 if (nextC > 0)
         		 yearStr += " (" + nextC + ")";

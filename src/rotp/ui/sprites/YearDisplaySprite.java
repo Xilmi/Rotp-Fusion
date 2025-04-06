@@ -19,6 +19,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
+import rotp.model.game.IConvenienceOptions;
+import rotp.model.game.IGameOptions;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
@@ -56,7 +58,8 @@ public class YearDisplaySprite extends MapSprite {
             return;
 
         String s = displayYearOrTurn();
-        if (rotp.model.game.IConvenienceOptions.showNextCouncil.get()) {
+		if (IConvenienceOptions.showNextCouncil.get() 
+				&& !options().selectedCouncilWinOption().equals(IGameOptions.COUNCIL_NONE)) {
         	int nextC = galaxy().council().nextCouncil();
         	 if (nextC > 0)
         		 s += " (" + nextC + ")";

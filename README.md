@@ -47,6 +47,7 @@ java -jar target/rotp-<timestamp>-mini.jar
 2025.04.06 (BR)
 - Fixed the governor who sometimes mistakenly abandoned poor colonies.
 - Updated some deprecated methods.
+- Disabling the council meeting mid-game will also hide the "Next Council" date from being displayed.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
