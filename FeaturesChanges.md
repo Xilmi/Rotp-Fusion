@@ -191,6 +191,7 @@
 - Fixed fleets retreating after the player was threatened.
   - They were not allowed to change destination.
   - They can now be redirected to another of the player's colonies.
+  - Rallied fleets will only try to rally on player's colonies.
 - Disabling the council meeting mid-game will also hide the "Next Council" date from being displayed.
 - Fixed the governor who sometimes mistakenly abandoned poor colonies.
 - Restored Tune Galaxy Panel not masking the Galaxy preview.

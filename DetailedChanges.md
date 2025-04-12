@@ -9,6 +9,7 @@
 - Fixed fleets retreating after the player was threatened.
   - They were not allowed to change destination.
   - They can now be redirected to another of the player's colonies.
+  - Rallied fleets will only try to rally on player's colonies.
 
 2025.04.12 (Xilmi)
 - Using stasis-field now only plays the animation once instead of 4 times.

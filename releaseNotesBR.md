@@ -20,6 +20,7 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 - Fixed fleets retreating after the player was threatened.
   - They were not allowed to change destination.
   - They can now be redirected to another of the player's colonies.
+  - Rallied fleets will only try to rally on player's colonies.
 
 2025.04.12 (Frank Zago)
 - French translation fixes and improvement.

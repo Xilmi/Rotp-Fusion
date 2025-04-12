@@ -540,17 +540,17 @@ public class Ships implements Base, Serializable {
     }
     boolean arriveFleet(ShipFleet fleet) {
         StarSystem sys = galaxy().system(fleet.destSysId());
-        
+
         if (fleet.retreatOnArrival()) {
             fleet.arrive(sys, false);
             StarSystem destSys = fleet.empire().retreatSystem(sys);
             retreatFleet(fleet, destSys.id);
             return false;
         }
-        
-        // no need to emp-check the fleet or system
+
         // only players can set up rally points
-        if (fleet.isRallied() && player().sv.isScouted(sys.id)) {
+		// Only rally on player's colonies, they may have new owner
+		if (fleet.isRallied() && isPlayer(sys.empire())) {
         	ShipRelocationSprite spr = sys.rallySprite();
             if (spr.isActive() && spr.forwardRallies()) {
                 if (rallyPassByCombat) {	// Memorize the transit
