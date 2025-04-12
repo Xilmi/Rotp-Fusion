@@ -133,7 +133,8 @@ public class ShipFleet extends FleetBase {
         return isRallied() && (launchTime == galaxy().currentTime()); 
     }
     public boolean isRetreatingThisTurn() {
-        return retreating() && (launchTime == galaxy().currentTime()); 
+		return retreating() &&
+				(launchTime == galaxy().currentTime() || launchTime == NOT_LAUNCHED); 
     }
     public boolean hasDestination()     { return destSysId != StarSystem.NULL_ID; }
     

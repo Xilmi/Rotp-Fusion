@@ -1402,7 +1402,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         Ships shipMgr = galaxy().ships;
         List<ShipFleet> fleets = shipMgr.allFleets(id);
         for (ShipFleet fl: fleets) {
-	        	if (fl != null) {
+	        if (fl != null) {
 	            // if orbiting a system colonized by empId, then retreat it
 	            if (fl.isOrbiting()) {
 	                StarSystem orbitSys = fl.system();
