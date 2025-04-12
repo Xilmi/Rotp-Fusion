@@ -21,6 +21,9 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
   - They were not allowed to change destination.
   - They can now be redirected to another of the player's colonies.
 
+2025.04.12 (Frank Zago)
+- French translation fixes and improvement.
+
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 
