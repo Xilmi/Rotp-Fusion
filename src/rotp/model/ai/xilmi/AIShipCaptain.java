@@ -32,6 +32,7 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.ShipComponent;
+import rotp.model.ships.ShipSpecialStasisField;
 import rotp.model.ships.ShipDesign;
 import rotp.model.tech.Tech;
 import rotp.util.Base;
@@ -424,7 +425,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             }
             if(target.inStasis)
                 continue;
-            if(target.cloaked && (!allTargetsCloaked || stack.hasWard()) && stack.isShip())
+            if(target.cloaked && (!allTargetsCloaked || stack.hasWard()) && stack.isShip() && !stack.design().hasBlackHoleGenerator() && !stack.design().hasStasisFieldGenerator())
                 continue;
             // pct of target that this stack thinks it can kill
             float killPct = max(stack.estimatedKillPct(target, false), expectedPopLossPct(stack, target)); 
@@ -446,6 +447,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
                         if(!stack.weapon(i).groundAttacksOnly() && stack.shotsRemaining(i) > 0)
                         {
                             canStillFireShipWeapon = true;
+                            if(stack.weapon(i) instanceof ShipSpecialStasisField)
+                               killPct = 1.0f;
                         }
                     }
                     if(!canStillFireShipWeapon)

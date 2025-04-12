@@ -861,13 +861,14 @@ public class AIGeneral implements Base, General {
             for(Empire theirFoe : emp.warEnemies()) {
                 enemyMultiplyer += theirFoe.powerLevel(theirFoe) / (emp.powerLevel(emp) + theirFoe.powerLevel(theirFoe));
             }
-            currentScore *= enemyMultiplyer;
             currentScore /= tradeMod;
             float powerRatio = empire.powerLevel(empire) / emp.powerLevel(emp);
             float milPowerRatio = 0;
             if(emp.militaryPowerLevel() > 0)
                 milPowerRatio = smartPowerLevel() / emp.militaryPowerLevel();
             powerRatio = max(powerRatio, milPowerRatio);
+            powerRatio *= enemyMultiplyer;
+            powerRatio = min(powerRatio, 2);
             currentScore *= powerRatio;
             float spyAnnoyanceMod = 100f;
             for(DiplomaticIncident inc : empire.viewForEmpire(emp).embassy().allIncidents())
@@ -876,7 +877,7 @@ public class AIGeneral implements Base, General {
                     spyAnnoyanceMod -= inc.severity;
             }
             currentScore *= spyAnnoyanceMod;
-            //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" vs "+emp.name()+" dist: "+fleetCenter(empire).distanceTo(colonyCenter(emp))+" rev-dist: "+fleetCenter(emp).distanceTo(colonyCenter(empire))+" milrank: "+empire.diplomatAI().militaryRank(emp, true)+" poprank: "+empire.diplomatAI().popCapRank(emp, true)+" tradeMod: "+tradeMod+" spy-mod: "+spyAnnoyanceMod+" score: "+currentScore);
+            //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" vs "+emp.name()+" popcap: "+totalEmpirePopulationCapacity(emp)+" dist: "+(fleetCenter(empire).distanceTo(colonyCenter(emp)) + colonyCenter(empire).distanceTo(colonyCenter(emp)))+" powerMod: "+powerRatio+" tradeMod: "+tradeMod+" spy-mod: "+spyAnnoyanceMod+" score: "+currentScore);
             if(currentScore > highestScore)
             {
                 highestScore = currentScore;

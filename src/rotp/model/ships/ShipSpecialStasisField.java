@@ -50,6 +50,8 @@ public final class ShipSpecialStasisField extends ShipSpecial {
     @Override
     public void becomeDestroyed()  { breakStasis(); }
     @Override
+    public boolean createsStasisField() { return true; }
+    @Override
     public void fireUpon(CombatStack source, CombatStack tgt, int count, ShipCombatManager mgr)   {
         if (tgt.immuneToStasis())
             return;

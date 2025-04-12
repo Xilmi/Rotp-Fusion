@@ -126,7 +126,7 @@ public final class TechStasisField extends Tech {
             h0 += dH;
         }
         
-        int repeat = 4;
+        int repeat = 1;
         
         // create shade boxes for target as it gets increasingly in stasis
         int r = STASIS_COLOR.getRed();
