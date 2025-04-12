@@ -771,6 +771,18 @@ public final class ShipDesign extends Design {
                 return true;
         return false;
     }
+    public boolean hasBlackHoleGenerator() {
+        for (ShipSpecial spec: special)
+            if(!spec.isNone() && spec.createsBlackHole())
+                return true;
+        return false;
+    }
+    public boolean hasStasisFieldGenerator() {
+        for (ShipSpecial spec: special)
+            if(!spec.isNone() && spec.createsStasisField())
+                return true;
+        return false;
+    }
     public float missPct() {
         float pct = 0.0f;
         for (ShipSpecial spec: special)

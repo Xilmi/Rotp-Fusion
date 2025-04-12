@@ -28,6 +28,7 @@ public class ShipSpecial extends ShipComponent {
     public boolean isImmuneToStasis()  { return false; }
     public boolean resistRepulsors()   { return false; }
     public boolean createsBlackHole()  { return false; }
+    public boolean createsStasisField() { return false; }
     public boolean allowsTeleporting() { return false;  }
     public boolean allowsScanning()    { return false;  }
     public boolean canAttackPlanets()  { return isWeapon(); }
