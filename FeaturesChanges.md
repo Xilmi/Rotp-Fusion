@@ -185,8 +185,6 @@
 
 ### Fixes:
 
-2025.04.12 (BR)
-
 - Using stasis-field now only plays the animation once instead of 4 times.
 - Fixed fleets retreating after the player was threatened.
   - They were not allowed to change destination.
