@@ -1076,6 +1076,7 @@ public final class GameSession implements Base, Serializable {
     public long saveSession(String filename, boolean backup) throws Exception {
         log("Saving game as file: ", filename, "  backup: "+backup);
         GameSession currSession = GameSession.instance();
+		((MOO1GameOptions)currSession.options()).updateVersion();
 
     	File theDir = backup ? new File(backupDir()) : new File(saveDir());
         if (!theDir.exists())
@@ -1106,6 +1107,7 @@ public final class GameSession implements Base, Serializable {
     public long saveSession(File saveFile) throws Exception {
         log("Saving game as file: ", saveFile.getName());
         GameSession currSession = GameSession.instance();
+		((MOO1GameOptions)currSession.options()).updateVersion();
 
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(saveFile));
         ZipEntry e = new ZipEntry("GameSession.dat");
@@ -1343,6 +1345,8 @@ public final class GameSession implements Base, Serializable {
             		System.err.println("newSession.governorOptions == null ==> Not RotP-Fusion");
             	if (newSession.options.dynOpts() == null)
             		System.err.println("newSession.options.dynOpts() == null ==> Not RotP-Fusion");
+				String version = ((MOO1GameOptions)newSession.options).getVersion();
+				System.out.println("@ Version = " + version);
             }
 
 			// BR: save the last loaded game initial parameters

@@ -44,6 +44,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+2025.04.14 (BR)
+- Added Version identification in game files.
+
 2025.04.13 (Xilmi)
 - Update AIGeneral.java
   - Fusion-AI: When considering whom to attack next, AI-empires that were eligible for the last council-vote will now consider who voted for them. The more votes an empire contributed compared to their own votes, the stronger the effect. The score is affected by: 1 / (1 + theirVotes / myVotes).

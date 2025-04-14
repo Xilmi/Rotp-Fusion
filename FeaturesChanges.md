@@ -87,6 +87,10 @@
   - Population currently flying around in transports is now considered when evaluating the aggressiveness of Bulrathi- or Sakkra-like empires.
   - Invasions are now considered for all enemy-empires and not only the ones that we are already at war with.
   - For the calculation of an empires' power-level the population that is currently flying around in transports is now taken into consideration too.
+- Speed-requirement for missiles in ship-designs reduced
+  - When considering whether to use missiles for their ship-designs the AI now has a lower speed-requirement for the missiles based on the enemie's designs speeds.
+  - The distance-advantage of repulsors is split above the two turns the missile will travel instead being considered twice.
+  - It is also taken into consideration that the missile only needs to get into 0.7 range instead of having to catch up to the target's center.
 
 
 ### Governor:
@@ -112,10 +116,23 @@
   - New option to set a minimal growth, as the natural growth can be very low once the planet is almost full.
   - New option to force "Develop colonies as quickly as possible" until the colony has reached a minimum industrial level. (This way you can predefine the production when colonizing a rich planet... and production will not be started too early)
   - Similarly, new option to define when missile bases should be built. By default, they are only built after all factories are built... But in case of war, or a neighbor who is a bit too nosy, it may be interesting to build them earlier.
-  
+- New governor "advanced options":
+  - to disable the "Pop/Factory ROI limit" after the empire has grown pas a limit. (Sending transport is then more efficient.)
+  - to display production in green when "Pop/Factory ROI limit" has been reached.
+  - to set auto-colonization planet distance vs value weighting.
+- Governor buttons are now available on Colony panel - Multiple selection.
+- The default value of “Ship build limit ‘Take’ percentage”, for new colonies, can be set in Settings -> Governor Mandate -> Fine Tuning.
+- New Governor option to tell the rich colonies to build up their reserve.
+- Transport path from system to system will now be displayed for Governor sent troops.
+- Production per Worker (Factory) is displayed when Shift is down (instead of Production - Net (Gross))
+- Governor new advanced options to set when terraforming should be started.
+- Governor new advanced options to set what to do with funding.
+- Governor new advanced options to set when to grow vs when to build factories.
+
 
 ### Miscellaneous:
 
+- Added Version identification in game files. 
 - Added some installation instructions.
 - Error Messages and Warning Messages will now display the OS.
 - Moved Dark galaxy option to "Galaxy Rules"
@@ -165,6 +182,8 @@
 - Max Bases don't loop anymore.
   - Right-click will set the max to the current value.
 - New option: The ship design slot will memorize the last ship design name instead of getting a new one from the species ship name list, also keep the name of a copied design.
+- Colony panel: Spending priority can be set on multi selection.
+- Colony panel: Ship build limit "Take" percentage can be adjusted on multi selection.
 
 
 ### Guide and Help:
@@ -236,80 +255,28 @@
 - Removed some excess click sound on "Replay last turn".
 - Fixed "Recent" in backup folder crashing on load.
 - Removed duplicates "Hostile Terraforming" and "Colonizing" from Rules options panel.
+- Fixed potential double instance of governor panel. (made static)
+- Improved mouse Alt key management.
+- Fixed missiles hitting retreated targets
+  - Fixed a bug which caused missiles still hitting targets that have already retreated in auto- or smart-resolve.
+- Fixed JRE number in the window.xml assembly file
+- Fixed the bug of negative ship value in fleet.
+  - The origin of the bug is still unknown, but the num array is now private and the access methods check the validity of the values.
+- Fixed exploit that can be used to boost research with poor/ultra-poor colonies.
+- Fixed invisible ship in combat bug.
+  - When the fleet has a design with negative value, partial retreat could trigger this bug.
+- Fixed an issue that caused the AI not to attack with player-designed ships when handing control over to AI in an ongoing playthrough.
+  - The scoring for what colonies to attack no longer takes the value-ratio of population to missile-bases into account. This change means you can no longer simply build a missile-base to force the AI to ignore the closest colonies.
+- Fixed initial tech tree alignment when free tech are shown.
+- Fixed Design UI possible text overlap in foreign languages.
+- Fixed possible "Error saving: recent.rotp" Bug.
+- Fixed potential issue in future update (missing serialVersionUID)
+- Fixed Comet event not being set as the last aggressor.
+- Fixed obedient governor not always activated by requests.
 
 
 ### To categorize:
 
-
-2025.01.10 (BR)
-- New governor "advanced options":
-  - to disable the "Pop/Factory ROI limit" after the empire has grown pas a limit. (Sending transport is then more efficient.)
-  - to display production in green when "Pop/Factory ROI limit" has been reached.
-  - to set auto-colonization planet distance vs value weighting.
-
-2025.01.09 (BR)
-- Fixed potential double instance of governor panel. (made static)
-- Governor buttons are now available on Colony panel - Multiple selection.
-
-2025.01.08 (BR)
-- The default value of “Ship build limit ‘Take’ percentage”, for new colonies, can be set in Settings -> Governor Mandate -> Fine Tuning.
-
-2025.01.07 (BR)
-- Colony panel: Spending priority can be set on multi selection.
-
-2025.01.07 (Frank Zago)
-- French translation fixes.
-
-2025.01.06 (BR)
-- Improved mouse Alt key management.
-- Colony panel: Ship build limit "Take" percentage can be adjusted on multi selection.
-
-2025.01.05 (Xilmi)
-- Fixed missiles hitting retreated targets
-  - Fixed a bug which caused missiles still hitting targets that have already retreated in auto- or smart-resolve.
-- Speed-requirement for missiles in ship-designs reduced
-  - When considering whether to use missiles for their ship-designs the AI now has a lower speed-requirement for the missiles based on the enemie's designs speeds.
-  - The distance-advantage of repulsors is split above the two turns the missile will travel instead being considered twice.
-  - It is also taken into consideration that the missile only needs to get into 0.7 range instead of having to catch up to the target's center.
-
-2025.01.05 (BR)
-- Fixed JRE number in the window.xml assembly file
-- New Governor option to tell the rich colonies to build up their reserve.
-
-2025.01.04 (BR)
-- Fixed the bug of negative ship value in fleet.
-  - The origin of the bug is still unknown, but the num array is now private and the access methods check the validity of the values.
-- Fixed exploit that can be used to boost research with poor/ultra-poor colonies.
-
-2025.01.03 (BR)
-- Fixed invisible ship in combat bug.
-  - When the fleet has a design with negative value, partial retreat could trigger this bug.
-
-2025.01.03 (Xilmi)
-- Fixed an issue that caused the AI not to attack with player-designed ships when handing control over to AI in an ongoing playthrough.
-  - The scoring for what colonies to attack no longer takes the value-ratio of population to missile-bases into account. This change means you can no longer simply build a missile-base to force the AI to ignore the closest colonies.
-
-2025.01.02 (BR)
-- Transport path from system to system will now be displayed for Governor sent troops.
-
-2025.01.01 (BR)
-- Fixed initial tech tree alignment when free tech are shown.
-- Fixed Design UI possible text overlap in foreign languages.
-- Production per Worker (Factory) is displayed when Shift is down (instead of Production - Net (Gross))
-- Help Update.
-- Fixed possible "Error saving: recent.rotp" Bug.
-- Fixed potential issue in future update (missing serialVersionUID)
-- Added "serialVersionUID" to all serialisable class, even if not saved, as some may be include in a save game later... That was the case for the random generator
-- French translation improvement.
-
-2024.12.30 (BR)
-- Governor new advanced options to set when terraforming should be started.
-- Governor new advanced options to set what to do with funding.
-- Governor new advanced options to set when to grow vs when to build factories.
-- Fixed Comet event not being set as the last aggressor.
-
-2024.12.22 (BR)
-- Fixed obedient governor not always activated by requests.
 
 2024.12.21 (BR)
 - Obedient governor finalisation and documentation.

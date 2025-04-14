@@ -119,24 +119,25 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedAutoplayOption;
     // BR: Dynamic options
     private DynOptions dynamicOptions = new DynOptions();
+	private String version;
 
     private transient GalaxyShape galaxyShape;
     private transient int id = UNKNOWN_ID;
 
-    public MOO1GameOptions() { init(); }
-    public MOO1GameOptions(boolean init) { if(init) init(); }
-    private void init() {
-        // initOpponentRaces();
-        randomizeColors();
-        setBaseSettingsToDefault();
-    }
-    public void validateOnLoad() {
-   		if (dynamicOptions == null) // compatibility tentative... probably not enough!
-   			dynamicOptions = new DynOptions();
-
-    }
-	@Override public IGameOptions opts()		 { return this;	}
-	@Override public DynOptions dynOpts()		 { return dynamicOptions; }
+	public MOO1GameOptions()					{ init(); }
+	public MOO1GameOptions(boolean init)		{ if(init) init(); }
+	private void init()	{
+		randomizeColors();
+		setBaseSettingsToDefault();
+	}
+	public void updateVersion()					{ version = Rotp.version; }
+	public String getVersion()					{ return version; }
+	public void validateOnLoad()				{
+		if (dynamicOptions == null)
+			dynamicOptions = new DynOptions();
+	}
+	@Override public IGameOptions opts()		{ return this;	}
+	@Override public DynOptions dynOpts()		{ return dynamicOptions; }
     @Override public int id()                    { return id; }
     @Override public void id(int id)             { this.id = id; }
     @Override
