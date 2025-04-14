@@ -877,7 +877,15 @@ public class AIGeneral implements Base, General {
                     spyAnnoyanceMod -= inc.severity;
             }
             currentScore *= spyAnnoyanceMod;
-            //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" vs "+emp.name()+" popcap: "+totalEmpirePopulationCapacity(emp)+" dist: "+(fleetCenter(empire).distanceTo(colonyCenter(emp)) + colonyCenter(empire).distanceTo(colonyCenter(emp)))+" powerMod: "+powerRatio+" tradeMod: "+tradeMod+" spy-mod: "+spyAnnoyanceMod+" score: "+currentScore);
+            float voteMod = 1.0f;
+            if(emp.lastCouncilVoteEmpId() == empire.id)
+            {
+                float theirVotes = (int) Math.ceil(emp.totalPlanetaryPopulation() / 100);
+                float myVotes = (int) Math.ceil(empire.totalPlanetaryPopulation() / 100);
+                voteMod += theirVotes / myVotes;
+            }
+            currentScore /= voteMod;
+            //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" vs "+emp.name()+" popcap: "+totalEmpirePopulationCapacity(emp)+" dist: "+(fleetCenter(empire).distanceTo(colonyCenter(emp)) + colonyCenter(empire).distanceTo(colonyCenter(emp)))+" powerMod: "+powerRatio+" tradeMod: "+tradeMod+" spy-mod: "+spyAnnoyanceMod+" vote-mod: "+(1 / voteMod)+" score: "+currentScore);
             if(currentScore > highestScore)
             {
                 highestScore = currentScore;
