@@ -48,6 +48,8 @@
 
 ### AI Improvement:
 
+- Fusion-AI: When considering whom to attack next, AI-empires that were eligible for the last council-vote will now consider who voted for them. The more votes an empire contributed compared to their own votes, the stronger the effect. The score is affected by: 1 / (1 + theirVotes / myVotes).
+  - For example: An empire contributing their 30 votes to an empire who has 50 votes will see their "victim-score" multiplied by: 0.625.
 - AI smarter about Blackhole-generator and Stasis-field-usage
   - When a defending fleet has black-hole-generators or stasis-field-generators they will now no longer try to concede the first-hit to cloaked attackers. That is because black-hole-generator success-chance isn't reduced by cloaking-device and stasis-field has 100% chance to succeed.
   - AI-ships equipped with stasis-field-generator will now select targets as if they could kill them in order to make it more likely to freeze the most dangerous stack.
