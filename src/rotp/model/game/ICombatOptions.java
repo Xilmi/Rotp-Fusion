@@ -64,7 +64,6 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.setLimits(5, 100)
 			.setIncrements(1, 5, 20)
 			.isCfgFile(true);
-	default int beamAnimationFPS()			{ return beamAnimationFPS.get(); }
 	default int beamAnimationDelay()		{ return 1000/beamAnimationFPS.get(); }
 
 	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 1500)
@@ -101,7 +100,6 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.loop(true)
 			.specialZero(MOD_UI + "SHIELD_BORDER_SIZE")
 			.specialNegative(MOD_UI + "SHIELD_BORDER_SIZE_2");
-	default int shieldBorder()				{ return shieldBorder.get(); }
 	default int shieldBorder(int hullSize)	{
 		if (shieldBorder.isSpecialZero())
 			return hullSize+1;
@@ -122,7 +120,7 @@ public interface ICombatOptions extends IBaseOptsTools {
 	default int weaponZRandom()				{ return weaponZRandom.get(); }
 	
 	ParamBoolean startShieldDemo	= new StartShieldDemo();
-	class StartShieldDemo extends ParamBoolean {
+	final class StartShieldDemo extends ParamBoolean {
 		StartShieldDemo() {
 			super(MOD_UI, "START_SHIELD_DEMO", false);
 		}
@@ -151,7 +149,6 @@ public interface ICombatOptions extends IBaseOptsTools {
 
 	ParamBoolean former2DShield				= new ParamBoolean(MOD_UI, "FORMER_2D_SHIELD", true)
 			.isCfgFile(true);
-	default boolean former2DShield()		{ return former2DShield.get(); }
 
 	ParamList shieldType					= new ParamList( MOD_UI, "NEW_WEAPON_ANIMATION", "Yes")
 			.isCfgFile(true)
@@ -187,7 +184,6 @@ public interface ICombatOptions extends IBaseOptsTools {
 
 	ParamBoolean moo1ShieldRules			= new ParamBoolean(MOD_UI, "MOO1_SHIELD_RULES", false)
 			.setDefaultValue(MOO1_DEFAULT, true);
-	default boolean moo1ShieldRules()		{ return moo1ShieldRules.get(); }
 
 	ParamInteger retreatRestrictionTurns	= new ParamInteger(MOD_UI, "RETREAT_RESTRICTION_TURNS", 100)
 			.setDefaultValue(MOO1_DEFAULT, 1)
@@ -208,7 +204,6 @@ public interface ICombatOptions extends IBaseOptsTools {
 			.setDefaultValue(MOO1_DEFAULT, 50)
 			.setLimits(10, 1000)
 			.setIncrements(1, 5, 20);
-	default int maxCombatTurns()				{ return maxCombatTurns.get(); }
 
 	ParamBoolean asteroidsVanish			= new ParamBoolean(MOD_UI, "ASTEROIDS_VANISH", true)
 			.setDefaultValue(MOO1_DEFAULT, false)

@@ -39,6 +39,7 @@ import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
+import rotp.model.game.IGalaxyOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.Planet;
@@ -79,7 +80,7 @@ public class GalaxyFactory implements Base {
 		opts.randomizeColors();
 		Galaxy g = new Galaxy(gc);
 		g.restartedGame = true;
-		g.swappedPositions = src.swappedPositions;
+		g.swappedPositions = src.swappedPositions();
 		GameSession.instance().galaxy(g);
 		
 		Race playerRace = Race.keyed(gc.empires[0].raceKey, gc.empires[0].raceOptions);
@@ -104,8 +105,6 @@ public class GalaxyFactory implements Base {
 
 		IGameOptions opts = GameSession.instance().options();
 		opts.randomizeColors();
-		if (opts.isRandomGalaxy())
-			opts.setAndGenerateGalaxy();
 		GalaxyShape shape = opts.galaxyShape();
 
 		// for extremely large maps, shape is not fully generated on Setup UI
@@ -564,11 +563,11 @@ public class GalaxyFactory implements Base {
 				String selectedAbility = options().specificOpponentCROption(h+1);
 				SpecificCROption ability = SpecificCROption.set(selectedAbility);
 
-				if (!opts.selectedUseSelectableAbilities()
+				if (!IGalaxyOptions.useSelectableAbilities.get()
 						|| ability.isSelection()) { // Then Check for Global ability
 					// the global setting will be used
-					selectedAbility = opts.selectedUseGlobalCROptions();
-					ability = opts.globalCROptions().getEnu();
+					selectedAbility = IGalaxyOptions.globalCROptions.get();
+					ability = IGalaxyOptions.globalCROptions.getEnu();
 				}
 
 				switch (ability) {
@@ -905,7 +904,7 @@ public class GalaxyFactory implements Base {
 		}
 		public	IGameOptions options()			{ return newOptions; }
 		private	int numNearBySystem()			{ return nearbyStarSystemNumber; }
-		public	boolean swappedPositions()		{ return swappedPositions; }
+		private	boolean swappedPositions()		{ return swappedPositions; }
 		public	EmpireBaseData[] empires()		{ return galSrc.empires; }
 		private	EmpireBaseData empires(int id)	{ return galSrc.empires[id]; }
 	}

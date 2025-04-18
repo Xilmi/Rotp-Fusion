@@ -21,6 +21,9 @@
 
 ### Features:
 
+ - Galaxy Shape options don't share the same variable anymore.
+  - Galaxy Shape option will be individually memorized.
+  - They are now owned by the shape class itself, and memorized independently.
 - New ship combat option to set MoO1 rules on Shields (Rounded down when halved).
 - "Check for Updates" will provide direct links to download files.
 - The Dark galaxy apply to AI too.
@@ -206,6 +209,8 @@
 
 ### Fixes:
 
+- Removed some useless Galaxy generation in setup panels.
+- Fixed calls to the wrong options.
 - Using stasis-field now only plays the animation once instead of 4 times.
 - Fixed fleets retreating after the player was threatened.
   - They were not allowed to change destination.

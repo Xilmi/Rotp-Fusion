@@ -70,8 +70,6 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	String TEXTURES_INTERFACE	= "GAME_SETTINGS_TEXTURES_INTERFACE";
 	String TEXTURES_MAP			= "GAME_SETTINGS_TEXTURES_MAP";
 	String TEXTURES_BOTH		= "GAME_SETTINGS_TEXTURES_BOTH";
-	String SAVEDIR_DEFAULT		= "GAME_SETTINGS_SAVEDIR_DEFAULT";
-	String SAVEDIR_CUSTOM		= "GAME_SETTINGS_SAVEDIR_CUSTOM";
 	String SENSITIVITY_HIGH		= "GAME_SETTINGS_SENSITIVITY_HIGH";
 	String SENSITIVITY_MEDIUM	= "GAME_SETTINGS_SENSITIVITY_MEDIUM";
 	String SENSITIVITY_LOW		= "GAME_SETTINGS_SENSITIVITY_LOW";
@@ -80,7 +78,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	// ==================== Duplicates for Base Main Settings Options ====================
 	//
 	ParamList displayMode = new DisplayMode();
-	class DisplayMode extends ParamList {
+	final class DisplayMode extends ParamList {
 		DisplayMode() {
 			super( GAME_UI, "DISPLAY_MODE",
 					Arrays.asList(
@@ -103,7 +101,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 //	default String displayMode()	{ return displayMode.get(); }
 	
 	ParamList graphicsMode = new GraphicsMode();
-	class GraphicsMode extends ParamList {
+	final class GraphicsMode extends ParamList {
 		GraphicsMode() {
 			super(GAME_UI, "GRAPHICS",
 					Arrays.asList(
@@ -125,7 +123,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 //	default boolean antiAliasing()		{ return graphicsMode.get().equals(GRAPHICS_HIGH); }
 
 	ParamList texturesMode = new TexturesMode();
-	class TexturesMode extends ParamList {
+	final class TexturesMode extends ParamList {
 		TexturesMode() {
 			super(GAME_UI, "TEXTURES",
 					Arrays.asList(
@@ -147,7 +145,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 //	default boolean texturesMap()			{ return texturesMap(); }
 
 	ParamList sensitivityMode = new SensitivityMode();
-	class SensitivityMode extends ParamList {
+	final class SensitivityMode extends ParamList {
 		SensitivityMode() {
 			super(GAME_UI, "SENSITIVITY",
 					Arrays.asList(
@@ -169,7 +167,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 
 	// Do no use alone, Go through soundVolume
 	ParamBoolean playSounds = new PlaySounds();
-	class PlaySounds extends ParamBoolean {
+	final class PlaySounds extends ParamBoolean {
 		PlaySounds() {
 			super(GAME_UI, "SOUNDS", true);
 			isDuplicate(true);
@@ -184,7 +182,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	}
 
 	ParamBoolInt soundVolume = new SoundVolume();
-	class SoundVolume extends ParamBoolInt {
+	final class SoundVolume extends ParamBoolInt {
 		SoundVolume() {
 			super(GAME_UI, playSounds,
 					"SOUNDS_ON", "SOUNDS_OFF", 10, 0, 10);
@@ -204,7 +202,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	
 	// Do no use alone, Go through musicVolume
 	ParamBoolean playMusic = new PlayMusic();
-	class PlayMusic extends ParamBoolean {
+	final class PlayMusic extends ParamBoolean {
 		PlayMusic() {
 			super(GAME_UI, "MUSIC", true);
 			isDuplicate(true);
@@ -219,7 +217,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	}
 
 	ParamBoolInt musicVolume = new MusicVolume();
-	class MusicVolume extends ParamBoolInt {
+	final class MusicVolume extends ParamBoolInt {
 		MusicVolume() {
 			super(GAME_UI, playMusic, "MUSIC_ON", "MUSIC_OFF", 10, 0, 10);
 			isDuplicate(true);
@@ -237,7 +235,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 //	default boolean playMusic()		{ return playMusic.get(); }
 
 	ParamInteger selectedScreen = new SelectedScreen();
-	class SelectedScreen extends ParamInteger {
+	final class SelectedScreen extends ParamInteger {
 		SelectedScreen() {
 			super(GAME_UI, "SELECTED_SCREEN", -1);
 			setLimits(-1, Rotp.maxScreenIndex());
@@ -251,7 +249,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 //	default int selectedScreen()		{ return selectedScreen.get(); }
 
 	ParamInteger backupTurns = new BackupTurns();
-	class BackupTurns extends ParamInteger {
+	final class BackupTurns extends ParamInteger {
 		BackupTurns() {
 			super(GAME_UI, "BACKUP", 5);
 			setLimits(0, MAX_BACKUP_TURNS);
@@ -277,7 +275,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default boolean deleteBackup()	{ return !backupKeep.isSpecialNegative(); }
 
 	ParamString saveDirectory = new SaveDirectory();
-	class SaveDirectory extends ParamString {
+	final class SaveDirectory extends ParamString {
 		SaveDirectory() {
 			super(GAME_UI, "SAVEDIR", "");
 			isDuplicate(true);
@@ -317,7 +315,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	//	default int saveDir()		{ return saveDirectory.get(); }
 
 	ParamBoolean disableAdvisor = new DisableAdvisor();
-	class DisableAdvisor extends ParamBoolean {
+	final class DisableAdvisor extends ParamBoolean {
 		DisableAdvisor() {
 			super(MOD_UI, "DISABLE_ADVISOR", false);
 			isDuplicate(true);
@@ -346,7 +344,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	//
 	ParamOptions menuStartup	= new ParamOptions(MOD_UI, "MENU_STARTUP", ParamOptions.LAST).isCfgFile(true);
 	ParamBoolean useFusionFont	= new UseFusionFont();
-	class UseFusionFont extends ParamBoolean {
+	final class UseFusionFont extends ParamBoolean {
 		UseFusionFont() {
 			super(MOD_UI, "USE_FUSION_FONT", false);
 			isCfgFile(true);
@@ -363,7 +361,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			.put(LOAD_SAVE_NORMAL,	MOD_UI + "LOAD_SAVE_NORMAL")
 			.put(LOAD_SAVE_WIDE,	MOD_UI + "LOAD_SAVE_WIDE")
 			.put(LOAD_SAVE_FULL,	MOD_UI + "LOAD_SAVE_FULL");
-	default int loadSaveWidth()	{
+	static int loadSaveWidth()	{
 		String val = (loadSaveWidth.get().toUpperCase());
 		if (val.equals(LOAD_SAVE_NORMAL))
 			return 650;
@@ -374,7 +372,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		else
 			return 650;
 	}
-	default boolean isLoadSaveWidthNormal()	{ return loadSaveWidth.get().equals(LOAD_SAVE_NORMAL); }
+	static boolean isLoadSaveWidthNormal()	{ return loadSaveWidth.get().equals(LOAD_SAVE_NORMAL); }
 
 	ParamList compactOptionOnly = new ParamList( MOD_UI, "COMPACT_OPTION_ONLY", "Yes")
 			.isCfgFile(true)
@@ -416,7 +414,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default boolean noFogOnIcons()	{ return noFogOnIcons.get(); }
 
 	ParamFloat   showFlagFactor	= new ShowFlagFactor();
-	class ShowFlagFactor extends ParamFloat {
+	final class ShowFlagFactor extends ParamFloat {
 		ShowFlagFactor() {
 			super(MOD_UI, "SHOW_FLAG_FACTOR", 1.0f);
 			setLimits(0.3f, 3f);
@@ -429,7 +427,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	}
 
 	ParamFloat   showPathFactor	= new ShowPathFactor();
-	class ShowPathFactor extends ParamFloat {
+	final class ShowPathFactor extends ParamFloat {
 		ShowPathFactor() {
 			super(MOD_UI, "SHOW_PATH_FACTOR", 1.0f);
 			setLimits(0.3f, 3f);
@@ -442,7 +440,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	}
 
 	ParamInteger showNameMinFont	= new ShowNameMinFont();
-	class ShowNameMinFont extends ParamInteger {
+	final class ShowNameMinFont extends ParamInteger {
 		ShowNameMinFont() {
 			super(MOD_UI, "SHOW_NAME_MIN_FONT", 8);
 			setLimits(2, 24);
@@ -456,7 +454,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	}
 
 	ParamFloat showInfoFontRatio	= new ShowInfoFontRatio();
-	class ShowInfoFontRatio extends ParamFloat {
+	final class ShowInfoFontRatio extends ParamFloat {
 		ShowInfoFontRatio() {
 			super(MOD_UI, "SHOW_INFO_FONT_RATIO", 0.7f);
 			setLimits(0.2f, 3f);
@@ -469,7 +467,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	}
 
 	ParamFloat mapFontFactor	= new MapFontFactor();
-	class MapFontFactor extends ParamFloat {
+	final class MapFontFactor extends ParamFloat {
 		MapFontFactor() {
 			super(MOD_UI, "MAP_FONT_FACTOR", 1.0f);
 			setLimits(0.3f, 3f);
@@ -482,7 +480,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	}
 
 	ParamFloat showFleetFactor	= new ShowFleetFactor();
-	class ShowFleetFactor extends ParamFloat {
+	final class ShowFleetFactor extends ParamFloat {
 		ShowFleetFactor() {
 			super(MOD_UI, "SHOW_FLEET_FACTOR", 1.0f);
 			setLimits(0.3f, 3f);
@@ -535,7 +533,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default ParamInteger minListSizePopUp()	{ return minListSizePopUp; }
 
 	ParamList colorSet = new ColorSet();
-	class ColorSet extends ParamList {
+	final class ColorSet extends ParamList {
 		ColorSet() {
 			super(MOD_UI, "COLOR_SET", "Brown");
 			isCfgFile(true);
@@ -580,7 +578,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default boolean raceStatusViewValue()	{ return raceStatusView.get().equals("Value"); }
 
 	ParamInteger realNebulaSize	= new RealNebulaeSize();
-	class RealNebulaeSize extends ParamInteger {
+	final class RealNebulaeSize extends ParamInteger {
 		RealNebulaeSize() {
 			super(MOD_UI, "REAL_NEBULAE_SIZE", 0);
 			setLimits(0, 5);
@@ -612,7 +610,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default float realNebulaeOpacity()	{ return realNebulaeOpacity.get()/100f; }
 
 	ParamBoolean showAllAI	= new ShowAllAI();
-	class ShowAllAI extends ParamBoolean {
+	final class ShowAllAI extends ParamBoolean {
 		ShowAllAI() {
 			super(MOD_UI, "SHOW_ALL_AI", true);
 			isCfgFile(true);
@@ -722,7 +720,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	}
 
 	ParamBoolean moo1SpeciesName = new Moo1SpeciesName();
-	class Moo1SpeciesName extends ParamBoolean {
+	final class Moo1SpeciesName extends ParamBoolean {
 		Moo1SpeciesName() {
 			super(MOD_UI, "MOO1_SPECIES_NAME", false);
 			isCfgFile(false);
@@ -767,7 +765,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	}
 
 	ParamBoolean clearSpeciesName	= new ClearSpeciesName();
-	class ClearSpeciesName extends ParamBoolean {
+	final class ClearSpeciesName extends ParamBoolean {
 		ClearSpeciesName() {
 			super(MOD_UI, "CLEAR_SPECIES_NAME", false);
 			isCfgFile(false);
@@ -800,7 +798,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	}
 
 	ParamBoolean activateSpeciesName	= new ActivateSpeciesName();
-	class ActivateSpeciesName extends ParamBoolean {
+	final class ActivateSpeciesName extends ParamBoolean {
 		ActivateSpeciesName() {
 			super(MOD_UI, "ACTIVATE_SPECIES_NAME", false);
 			isCfgFile(false);
@@ -815,7 +813,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	}
 
 	ParamList defaultSettings	= new DefaultSettings();
-	class DefaultSettings extends ParamList {
+	final class DefaultSettings extends ParamList {
 		DefaultSettings() {
 			super(MOD_UI, "DEFAULT_SETTINGS",
 					Arrays.asList(

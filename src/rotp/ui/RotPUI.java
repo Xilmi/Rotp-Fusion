@@ -35,7 +35,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
@@ -48,19 +47,16 @@ import rotp.model.empires.SabotageMission;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.Transport;
-import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
+import rotp.model.game.IDebugOptions;
+import rotp.model.game.IGalaxyOptions.ListShapeParam;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.game.SafeListParam;
-import rotp.model.planet.PlanetFactory;
 import rotp.model.ships.ShipDesign;
-import rotp.model.ships.ShipLibrary;
 import rotp.model.tech.TechCategory;
-import rotp.model.tech.TechLibrary;
 import rotp.ui.combat.ShipBattleUI;
 import rotp.ui.design.DesignUI;
-import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.fleets.FleetUI;
 import rotp.ui.game.AdvancedOptionsUI;
@@ -80,8 +76,7 @@ import rotp.ui.map.SystemsUI;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.TurnNotification;
 import rotp.ui.options.AllSubUI;
-import rotp.ui.options.RulesOptions;
-import rotp.ui.options.SetupParameters;
+import rotp.ui.options.ISubUiKeys;
 import rotp.ui.planets.ColonizePlanetUI;
 import rotp.ui.planets.ColonyViewUI;
 import rotp.ui.planets.GroundBattleUI;
@@ -94,60 +89,18 @@ import rotp.ui.tech.DiscoverTechUI;
 import rotp.ui.tech.SelectNewTechUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ListDialogUI;
-import rotp.ui.util.planets.PlanetImager;
 import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.AnimationManager;
-import rotp.util.ImageManager;
-import rotp.util.LanguageManager;
-import rotp.util.Logger;
 import rotp.util.sound.SoundManager;
 
 public final class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private static final long serialVersionUID = 1L;
     private static int FPS = 10;
-    public static int ANIMATION_TIMER = 100;
+    private static int ANIMATION_TIMER = 100;
     private boolean drawNextTurnNotice = true;
-    
-
-    private static Throwable startupException;
-    static {
-        Logger.registerLogListener(Logger::logToFile);
-        // needed for opening ui
-        try { UserPreferences.load(); }
-        catch (Throwable t) { startupException = t; System.out.println("Err: UserPreferences init "+t.getMessage()); }
-        try { TechLibrary.current(); }
-        catch (Throwable t) { startupException = t; System.out.println("Err: TechLibrary init: "+t.getMessage()); }
-        try { LanguageManager.current().selectedLanguageName(); }
-        catch (Throwable t) { System.out.println("Err: LanguageManager init: "+t.getMessage()); }
-
-        try { SoundManager.current(); }
-        catch (Throwable t) { startupException = t; System.out.println("Err: SoundManager init: "+t.getMessage()); }
-
-        try { ImageManager.current(); }
-        catch (Throwable t) { startupException = t; System.out.println("Err: ImageManager init: "+t.getMessage()); }
-
-        try { AnimationManager.current(); }
-        catch (Throwable t) { startupException = t; System.out.println("Err: AnimationManager init: "+t.getMessage()); }
-
-        try { DialogueManager.current(); }
-        catch (Throwable t) { startupException = t; System.out.println("Err: DialogueManager init: "+t.getMessage()); }
-
-        try { ShipLibrary.current(); }
-        catch (Throwable t) { startupException = t; System.out.println("Err: ShipLibrary init: "+t.getMessage()); }
-
-        try { PlanetImager.current(); }
-        catch (Throwable t) { startupException = t; System.out.println("Err: PlanetImager init: "+t.getMessage()); }
-
-        try { PlanetFactory.current(); }
-        catch (Throwable t) { startupException = t; System.out.println("Err: PlanetFactory init: "+t.getMessage()); }
-
-        try { UserPreferences.loadAndSave(); }
-        catch (Throwable t) { startupException = t; System.out.println("Err: UserPreferences init: "+t.getMessage()); }
-    }
 
     public static boolean isVIPConsole = false; // BR: to avoid complex call on error!
     public static boolean useDebugFile = false;
-    public static IGameOptions newGameOptions;
 
     private static final String SETUP_RACE_PANEL = "SetupRace";
     private static final String SETUP_GALAXY_PANEL = "SetupGalaxy";
@@ -173,39 +126,13 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
     private static final String GNN_PANEL = "GNN";
     private static final String COUNCIL_PANEL = "GalacticCouncil";
     private static final String GAME_OVER_PANEL = "GameOver,Man,GameOver";
-    @SuppressWarnings("unused")
-	private static final String CREDITS_PANEL = "Credits";
+	// private static final String CREDITS_PANEL = "Credits";
     private static final String ERROR_PANEL = "Error";
     private static final String DIALOG_PANEL = "Dialog";
-    //private	static int optionVersion = 0;
-    private static int currentOptions = IGameOptions.SETUP_ID;
-
-    private static final RotPUI instance = new RotPUI();
-
+	private static RotPUI instance;
     private static PrintWriter debugFile = null;
-    public static boolean setupMode()	{ return currentOptions == IGameOptions.SETUP_ID; }
 
-    //public static int optionVersion()	{ return optionVersion;}
-    //public static void nextVersion()	{ optionVersion += 1; }
-    public static void currentOptions(int id)	{
-    	//System.out.println("currentOptions(int id) " + id);
-    	currentOptions = id;
-    	currentOptions().UpdateOptionsTools();
-    }
-    public static void updateOptionsFromGame() {
-    	if (currentOptions == IGameOptions.SETUP_ID)
-    		return; // not exiting a game
-    	newGameOptions = GameSession.instance().options().copyAllOptions();
-    	newGameOptions.setAsSetup();
-    	currentOptions = IGameOptions.SETUP_ID;
-    }
-    public static IGameOptions currentOptions()	{
-		if (currentOptions == IGameOptions.GAME_ID)
-			return GameSession.instance().options();
-		else
-			return newOptions();
-	}
-    public static void fps(int fps) {
+    static void fps(int fps) {
         // bound arg between 10 & 60
         int actualFPS = Math.min(60, Math.max(10,fps));
         if (FPS == actualFPS)
@@ -292,7 +219,6 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
     public static RaceIntroUI raceIntroUI()  { return instance.raceIntroUI; }
     public static GameUI gameUI()	  { return instance.gameUI; }
     public AllocateTechUI techUI()    { return allocateTechUI; }
-    public DesignUI designUI()        { return designUI; }
     public RacesUI racesUI()          { return racesUI; }
     @Override
     public int animationCount()     { return animationCount; }
@@ -305,14 +231,12 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
 		String newFrameTitle = text("GAME_TITLE_FRAME");
 		Rotp.getFrame().setTitle(newFrameTitle);
         timer = new Timer(ANIMATION_TIMER, this);
-        init();
+        instance = this;
     }
-    public void clearAdvice() {
-        RotPUI.this.mainUI().clearAdvice();
-    }
+	// public void clearAdvice()	{ RotPUI.this.mainUI().clearAdvice(); }
     public void processNotifications(List<TurnNotification> notifications) {
-    	if (options().debugAutoRun()) {
-    		if (options().debugLogNotif()) {
+    	if (IDebugOptions.debugAutoRun()) {
+    		if (IDebugOptions.debugLogNotif()) {
     			for (TurnNotification tn: notifications) {
     				writeToFile( IGameOptions.NOTIF_LOGFILE,
     						concat(getTurn(), " | ", tn.toString()),
@@ -340,14 +264,11 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
         timer = new Timer(ANIMATION_TIMER, this);
         timer.start();
     }
-    private void init() {
-        // Copy the former "Live.Option" to new "Last.Option"
-        MOO1GameOptions.copyOptionsFromLiveToLast();
-        newOptions().loadStartupOptions();
-        initModel();
+    public void init() {
+		selectGamePanel();
         addKeyListener(this);
-        if (startupException != null)
-            selectErrorPanel(startupException);
+        if (Rotp.startupException != null)
+            selectErrorPanel(Rotp.startupException);
         else
             selectCurrentPanel();
 
@@ -356,42 +277,25 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
 		listDialog = new ListDialogUI(Rotp.getFrame());
         repaint();
     }
-    public static IGameOptions newOptions() {
-        if (newGameOptions == null)
-            createNewOptions();
-        return newGameOptions;
-    }
-    // BR: Added option identification
-    private static void createNewOptions() {
-        System.out.println("==================== Create newGameOptions (Setup) ====================");
-    	newGameOptions = new MOO1GameOptions();
-    	newGameOptions.setAsSetup();
-    	Rotp.noOptions = false;
-        // System.out.println("==================== Rotp.noOptions = false; ====================");
-    }
-    public void toggleAnimations() {
+    public void toggleAnimations() { // Keep for debug
         if (playAnimations())
             timer.start();
         else
             timer.stop();
     }
-    public static RotPUI instance() { return instance; }
+	public static RotPUI instance() { return instance; }
     public static HelpUI helpUI()   { return instance.helpUI; }
 
 	public static BaseCompactOptionsUI getOptionPanel()	{ return instance.nextOptionPanel(); }
 	public static void releaseOptionPanel()				{ instance.optionPanelId--; }
 	public static BaseCompactOptionsUI	setupUI()		{
 		BaseCompactOptionsUI ui = getOptionPanel();
-		ui.initUI("SETTINGS_MOD_STATIC_TITLE",
-				"MERGED_STATIC_OPTIONS",
-				SetupParameters.setupParametersMap());
+		ui.initUI("SETTINGS_MOD_STATIC_TITLE", ISubUiKeys.SETUP_PARAMETERS_UI_KEY);
 		return ui;
 	}
 	public static BaseCompactOptionsUI	rulesUI()		{
 		BaseCompactOptionsUI ui = getOptionPanel();
-		ui.initUI("SETTINGS_MOD_DYNAMIC_TITLE",
-				"MERGED_DYNAMIC_OPTIONS",
-				RulesOptions.rulesOptionsMap());
+		ui.initUI("SETTINGS_MOD_DYNAMIC_TITLE", ISubUiKeys.RULES_OPTIONS_UI_KEY);
 		return ui;
 	}
 	public static AdvancedOptionsUI	advancedOptionsUI()	{ return instance.advancedOptionsUI; }
@@ -419,16 +323,23 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
         }
         requestFocusInWindow();
     }
-    public void repaintNotice() {
+    /* public void repaintNotice() {
         int w0 = scaled(500);
         int h0 = s100;
         int x0 = (getWidth()-w0)/2;
         int y0 = (getHeight()-h0)/2;
         repaint(x0,y0,w0,h0);
-    }
-    public void selectCurrentPanel() { selectPanel(currentPane, selectedPanel); }
+    } */
+    private void selectCurrentPanel() { selectPanel(currentPane, selectedPanel); }
 
-    // PLAYER-TRIGGERED ACTIONS
+	// PLAYER-TRIGGERED ACTIONS
+	public	void refreshShapeOptions(ListShapeParam optionsList)	{
+		setupGalaxyUI.refreshShapeOptions(optionsList);
+		if (optionPanelId < 0)
+			return;
+		optionsPanels.get(optionPanelId).reloadUI();
+	}
+
     public void selectSetupRacePanel()	 {
     	setupRaceUI.init();
     	selectPanel(SETUP_RACE_PANEL, setupRaceUI); 
@@ -438,7 +349,7 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
     	selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);
     }
     public void selectLoadGamePanel() {
-		if (guiOptions().selectedShowVIPPanel() && !Rotp.isIDE()) {
+		if (IDebugOptions.selectedShowVIPPanel() && !Rotp.isIDE()) {
 			VIPConsole.loadMenu.open("");
 		}
 		else {
@@ -458,10 +369,10 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
         enableGlassPane(raceIntroUI);
         repaint();
         GovernorOptions.callForReset();
-		if (guiOptions().selectedShowVIPPanel())
+		if (IDebugOptions.selectedShowVIPPanel())
 			VIPConsole.introMenu.open("");
 
-		else if (options().debugBenchmark()) {
+		else if (IDebugOptions.debugBenchmark()) {
     		raceIntroUI.finish();
     		repaint();
     		return;
@@ -504,11 +415,11 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
         selectPanel(MAIN_PANEL, mainUI());
         repaint();
         GovernorOptions.callForReset();
-        if (options().debugBenchmark()) {
+        if (IDebugOptions.debugBenchmark()) {
         	mainUI.map().initBenchmark();
         	mainUI.repaintAllImmediately();
         	final Runnable save = () -> {
-        		handleNextTurn();       	
+        		handleNextTurn();
             	session().nextTurn();
         	};
         	SwingUtilities.invokeLater(save);
@@ -529,7 +440,7 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
     public void selectTechPanel()      { allocateTechUI.init(); selectPanel(TECH_PANEL, allocateTechUI); }
     public void selectTechPanel(int r) { allocateTechUI.init(r); selectPanel(TECH_PANEL, allocateTechUI); }
     public void selectCouncilPanel()   {
-    	if (options().debugAutoRun()) {
+    	if (IDebugOptions.debugAutoRun()) {
     		galacticCouncilUI.autoRun();
     		return;
     	}  	
@@ -597,7 +508,7 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
 		setupGalaxyUI().startGame();
     }
     public void selectGameOverPanel()  {
-    	if (options().debugBenchmark()) {
+    	if (IDebugOptions.debugBenchmark()) {
     		benchmarkGameOver();
     		return;
     	}  	
@@ -848,10 +759,7 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
         else
             selectPanel(DIPLOMATIC_MESSAGE_PANEL, diplomaticMessageUI);
     }
-    
-    public void showTransportAlert(String title, String subtitle, String text) {  }
-    public void showSpyAlert(String title, String subtitle, String text) {  }
-    public void showRandomEventAlert(String title, String subtitle, String text, ImageIcon splash) { }
+
     public void allocateSystems() {
         try {
             drawNextTurnNotice = false;
@@ -885,7 +793,7 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
         selectMainPanel();
         session().waitUntilNextTurnCanProceed();
     }
-    private void initModel() {
+    public void initModel() {
         setFocusTraversalKeysEnabled(false);
         setBackground(Color.CYAN);
         setLayout(layout);
@@ -934,12 +842,14 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
             add(galacticCouncilUI, COUNCIL_PANEL);
             add(gameOverUI, GAME_OVER_PANEL);
         }
-        for (int level=0; level<2; level++) {
-        	SafeListParam allModOptions = AllSubUI.allModOptions(true);
-        	for (IParam param : allModOptions)
-        		param.initDependencies(level);
-        }
-        selectGamePanel();
+		// Copy the former "Live.Option" to new "Last.Option"
+		MOO1GameOptions.copyOptionsFromLiveToLast();
+		rulesetManager().newOptions().loadStartupOptions();
+		for (int level=0; level<2; level++) {
+			SafeListParam allModOptions = AllSubUI.allModOptions(true);
+			for (IParam param : allModOptions)
+				param.initDependencies(level);
+		}
     }
     private void selectDialogPanel(String panelName, BasePanel panel)   {
         currentPane = panelName;
@@ -1007,7 +917,7 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
         else if (selectedPanel != null)
             selectedPanel.keyTyped(e);
     }
-    public class LargeDialogPane extends BasePanel {
+    private class LargeDialogPane extends BasePanel {
         private static final long serialVersionUID = 1L;
         private final CardLayout dialogLayout = new CardLayout();
         private final BasePanel dialogHolder = new BasePanel();
@@ -1063,7 +973,7 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
             add(barRight, BorderLayout.EAST);
             add(dialogHolder, BorderLayout.CENTER);
         }
-        public void addToLayout(BasePanel panel, String key) {
+        private void addToLayout(BasePanel panel, String key) {
             dialogHolder.add(panel, key);
         }
         public void selectPanel(String panelName, BasePanel panel)   {
@@ -1071,12 +981,12 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
             dialogLayout.show(dialogHolder, panelName);
         }
     }
-    public class SideBarPane extends BasePanel {
+    /* public class SideBarPane extends BasePanel {
         private static final long serialVersionUID = 1L;
         // private final Color hazeC = new Color(0,0,0,64);
         public SideBarPane() {
             setOpaque(false);
             setBackground(Color.black);
         }
-    }
+    } */
 }

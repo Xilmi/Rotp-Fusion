@@ -36,7 +36,7 @@ import java.util.List;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 
-public interface IShipDesignOption extends IBaseOptsTools {
+interface IShipDesignOption extends IBaseOptsTools {
 	String ASD_AI		= "AI";
 	String ASD_SPECIES	= "SPECIES";
 	String ASD_USER		= "USER";
@@ -55,96 +55,66 @@ public interface IShipDesignOption extends IBaseOptsTools {
 
 	ParamInteger shipDesignSpecialTruePct		= new ParamInteger(AUTO_SHIP_DESIGN, "SPECIAL_TRUE", 100)
 			.pctValue(true).setLimits(0, 1000).setIncrements(1, 5, 20);
-	default float shipDesignSpecialTruePct()	{ return shipDesignSpecialTruePct.get()/100f; }
 
 	ParamInteger shipDesignSpecialFalsePct		= new ParamInteger(AUTO_SHIP_DESIGN, "SPECIAL_FALSE", 0)
 			.pctValue(true).setLimits(0, 100).setIncrements(1, 5, 20);
-	default float shipDesignSpecialFalsePct()	{ return shipDesignSpecialFalsePct.get()/100f; }
 
 	paramShipDesign shipDesignCostMultSmall		= new paramShipDesign(ASD_SIZE, COST_MULT_S, "COST_MULT_SMALL", 100);
-	default float shipDesignCostMultSmall()		{ return shipDesignCostMultSmall.get()/100f; }
 
 	paramShipDesign shipDesignCostMultMedium	= new paramShipDesign(ASD_SIZE, COST_MULT_M, "COST_MULT_MEDIUM", 100);
-	default float shipDesignCostMultMedium()	{ return shipDesignCostMultMedium.get()/100f; }
 
 	paramShipDesign shipDesignCostMultLarge		= new paramShipDesign(ASD_SIZE, COST_MULT_L, "COST_MULT_LARGE", 100);
-	default float shipDesignCostMultLarge()		{ return shipDesignCostMultLarge.get()/100f; }
 
 	paramShipDesign shipDesignCostMultHuge		= new paramShipDesign(ASD_SIZE, COST_MULT_H, "COST_MULT_HUGE", 100);
-	default float shipDesignCostMultHuge()		{ return shipDesignCostMultHuge.get()/100f; }
 
 	paramShipDesign shipDesignModuleSpace		= new paramShipDesign(ASD_OTHER, MODULE_SPACE, "MODULE_SPACE", 50)
 			.setLimits(10, 100).setIncrements(1, 5, 10);
-	default float shipDesignModuleSpace()		{ return shipDesignModuleSpace.get()/100f; }
 
 	paramShipDesign shipDesignShieldFightBomb	= new paramShipDesign(ASD_SPACE, SHIELD_WEIGHT_FB, "SHIELD_WEIGHT_FB", 400);
-	default float shipDesignShieldFightBomb()	{ return shipDesignShieldFightBomb.get()/100f; }
 
 	paramShipDesign shipDesignShieldDestroyer	= new paramShipDesign(ASD_SPACE, SHIELD_WEIGHT_D, "SHIELD_WEIGHT_D", 400);
-	default float shipDesignShieldDestroyer()	{ return shipDesignShieldDestroyer.get()/100f; }
 
 	paramShipDesign shipDesignEcmFightDestroy	= new paramShipDesign(ASD_SPACE, ECM_WEIGHT_FD, "ECM_WEIGHT_FD", 300);
-	default float shipDesignEcmFightDestroy()	{ return shipDesignEcmFightDestroy.get()/100f; }
 
 	paramShipDesign shipDesignEcmBomber			= new paramShipDesign(ASD_SPACE, ECM_WEIGHT_B, "ECM_WEIGHT_B", 300);
-	default float shipDesignEcmBomber()			{ return shipDesignEcmBomber.get()/100f; }
 
 	paramShipDesign shipDesignManeuverBD		= new paramShipDesign(ASD_SPACE, MANEUVER_WEIGHT_BD, "MANEUVER_WEIGHT_BD", 200);
-	default float shipDesignManeuverBD()		{ return shipDesignManeuverBD.get()/100f; }
 
 	paramShipDesign shipDesignManeuverFighter	= new paramShipDesign(ASD_SPACE, MANEUVER_WEIGHT_F, "MANEUVER_WEIGHT_F", 200);
-	default float shipDesignManeuverFighter()	{ return shipDesignManeuverFighter.get()/100f; }
 
 	paramShipDesign shipDesignArmorFightBomb	= new paramShipDesign(ASD_SPACE, ARMOR_WEIGHT_FB, "ARMOR_WEIGHT_FB", 300);
-	default float shipDesignArmorFightBomb()	{ return shipDesignArmorFightBomb.get()/100f; }
 
 	paramShipDesign shipDesignArmorDestroyer	= new paramShipDesign(ASD_SPACE, ARMOR_WEIGHT_D, "ARMOR_WEIGHT_D", 300);
-	default float shipDesignArmorDestroyer()	{ return shipDesignArmorDestroyer.get()/100f; }
 
 	paramShipDesign shipDesignSpecialWeight		= new paramShipDesign(ASD_SPACE, SPECIALS_WEIGHT, "SPECIALS_WEIGHT", 400);
-	default float shipDesignSpecialWeight()		{ return shipDesignSpecialWeight.get()/100f; }
 
 	paramShipDesign shipDesignSpeedMatching		= new paramShipDesign(ASD_BOOLEAN, SPEED_MATCHING, "SPEED_MATCHING", 0);
-	default float shipDesignSpeedMatching()		{ return shipDesignSpeedMatching.get()/100f; }
 
 	paramShipDesign shipDesignReinforcedArmor	= new paramShipDesign(ASD_BOOLEAN, REINFORCED_ARMOR, "REINFORCED_ARMOR", 100);
-	default float shipDesignReinforcedArmor()	{ return shipDesignReinforcedArmor.get()/100f; }
 
 	paramShipDesign shipDesignBioWeapon			= new paramShipDesign(ASD_BOOLEAN, BIO_WEAPONS, "BIO_WEAPONS", 100);
-	default float shipDesignBioWeapon()			{ return shipDesignBioWeapon.get()/100f; }
 
 	paramShipDesign shipDesignPrefPulsar		= new paramShipDesign(ASD_SPECIAL, PREF_PULSARS, "PREF_PULSARS", 100);
-	default float shipDesignPrefPulsar()		{ return shipDesignPrefPulsar.get()/100f; }
 
 	paramShipDesign shipDesignPrefCloak			= new paramShipDesign(ASD_SPECIAL, PREF_CLOAK, "PREF_CLOAK", 100);
-	default float shipDesignPrefCloak()			{ return shipDesignPrefCloak.get()/100f; }
 
 	paramShipDesign shipDesignPrefRepair		= new paramShipDesign(ASD_SPECIAL, PREF_REPAIR, "PREF_REPAIR", 100);
-	default float shipDesignPrefRepair()		{ return shipDesignPrefRepair.get()/100f; }
 
 	paramShipDesign shipDesignPrefInertial		= new paramShipDesign(ASD_SPECIAL, PREF_INERTIAL, "PREF_INERTIAL", 100);
-	default float shipDesignPrefInertial()		{ return shipDesignPrefInertial.get()/100f; }
 
 	paramShipDesign shipDesignPrefMissShield	= new paramShipDesign(ASD_SPECIAL, PREF_MISS_SHIELD, "PREF_MISS_SHIELD", 100);
-	default float shipDesignPrefMissShield()	{ return shipDesignPrefMissShield.get()/100f; }
 
 	paramShipDesign shipDesignPrefRepulsor		= new paramShipDesign(ASD_SPECIAL, PREF_REPULSOR, "PREF_REPULSOR", 100);
-	default float shipDesignPrefRepulsor()		{ return shipDesignPrefRepulsor.get()/100f; }
 
 	paramShipDesign shipDesignPrefStasis		= new paramShipDesign(ASD_SPECIAL, PREF_STASIS, "PREF_STASIS", 100);
-	default float shipDesignPrefStasis()		{ return shipDesignPrefStasis.get()/100f; }
 
 	paramShipDesign shipDesignPrefStreamProj	= new paramShipDesign(ASD_SPECIAL, PREF_STREAM_PROJECTOR, "PREF_STREAM_PROJ", 100);
-	default float shipDesignPrefStreamProj()	{ return shipDesignPrefStreamProj.get()/100f; }
 
 	paramShipDesign shipDesignPrefWarpDissip	= new paramShipDesign(ASD_SPECIAL, PREF_WARP_DISSIPATOR, "PREF_WARP_DISSIP", 100);
-	default float shipDesignPrefWarpDissip()	{ return shipDesignPrefWarpDissip.get()/100f; }
 
 	paramShipDesign shipDesignPrefTechNull		= new paramShipDesign(ASD_SPECIAL, PREF_TECH_NULLIFIER, "PREF_TECH_NULLIF", 100);
-	default float shipDesignPrefTechNull()		{ return shipDesignPrefTechNull.get()/100f; }
 
 	paramShipDesign shipDesignPrefBeamFocus		= new paramShipDesign(ASD_SPECIAL, PREF_BEAM_FOCUS, "PREF_BEAM_FOCUS", 100);
-	default float shipDesignPrefBeamFocus()		{ return shipDesignPrefBeamFocus.get()/100f; }
 
 	default float[] shipDesignMod(float[] species)	{
 		boolean	customSize		= autoShipDesignSize.get().equals(ASD_USER);
@@ -250,8 +220,8 @@ public interface IShipDesignOption extends IBaseOptsTools {
 				shipDesignPrefBeamFocus		// 27
 				));
 	}
-	class ParamShipDesignMode extends ParamList	{
-		ParamShipDesignMode(String name)	{
+	final class ParamShipDesignMode extends ParamList	{
+		private ParamShipDesignMode(String name)	{
 			super(AUTO_SHIP_DESIGN, name, ASD_AI);
 			showFullGuide(true);
 			isValueInit(false);
@@ -259,11 +229,11 @@ public interface IShipDesignOption extends IBaseOptsTools {
 			put(ASD_SPECIES,	AUTO_SHIP_DESIGN + ASD_SPECIES);
 			put(ASD_USER,		AUTO_SHIP_DESIGN + ASD_USER);
 		}
-		boolean isASDBest()	{ return get().equals(ASD_AI); }
+		private boolean isASDBest()	{ return get().equals(ASD_AI); }
 	}
-	class paramShipDesign extends ParamInteger	{
-		final int type;
-		final int id;
+	final class paramShipDesign extends ParamInteger	{
+		private final int type;
+		private final int id;
 		paramShipDesign (int type, int id, String name, Integer defaultValue)	{
 			super(AUTO_SHIP_DESIGN, name, defaultValue);
 			this.type = type;

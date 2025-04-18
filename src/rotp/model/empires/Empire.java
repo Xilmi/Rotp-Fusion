@@ -1465,21 +1465,12 @@ public final class Empire implements Base, NamedObject, Serializable {
             autospend();
             autotransport();
             // colonize first, then attack, then scout
-//            autocolonize();
-//            autoattack();
-//            autoscout();
-			// TODO BR: VALIDATE move to Governor AI
+			// BR: moved to Governor AI
 			fleetCommanderAI().nextTurn();
 			for (EmpireView ev : empireViews()) {
 				if ((ev != null) && ev.embassy().contact())
 					ev.setSuggestedAllocations();
 			}
-//            if(session().getGovernorOptions().isAutoSpy() || session().getGovernorOptions().isAutoInfiltrate()) {
-//                for (EmpireView ev : empireViews()) {
-//                    if ((ev != null) && ev.embassy().contact())
-//                        ev.setSuggestedAllocations();
-//                }
-//            }
             // If planets are governed, redo allocations now
             // BR: I don't know why!? But done at this time, this gives the wrong result!!!
             // For "isFollowingColonyRequests" Governor, the valid allocations will be redone later

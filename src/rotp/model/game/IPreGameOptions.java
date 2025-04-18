@@ -68,8 +68,8 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default void	resetEmpireSpreadingFactor()	{ empiresSpreadingFactor.setFromDefault(false, false); }
 	default void	toggleEmpireSpreadingFactor(MouseWheelEvent e)	{ empiresSpreadingFactor.toggle(e); }
 	default String	empireSpreadingFactorMapKey()	{ return MOD_UI + "EMPIRES_SPREADING_FACTOR_MAP"; }
-	default ParamInteger getEmpiresSpreadingFactor()	{ return empiresSpreadingFactor; }
 
+	// TODO BR: FINALIZE randomNumStars and randomNumAliens
 	ParamInteger randomNumStarsLim1		= new ParamInteger (MOD_UI, "RANDOM_NUM_STARS_LIM1", 50)
 			.setLimits(10, Rotp.maximumSystems-1)
 			.setIncrements(1, 5, 20);
@@ -84,7 +84,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 			.setIncrements(1, 5, 20);
 
 	ParamInteger minStarsPerEmpire	= new MinStarsPerEmpire();
-	class MinStarsPerEmpire extends ParamInteger {
+	final class MinStarsPerEmpire extends ParamInteger {
 		MinStarsPerEmpire() {
 			super(MOD_UI, "MIN_STARS_PER_EMPIRE", 3);
 			setDefaultValue(MOO1_DEFAULT, 4);
@@ -102,7 +102,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default int selectedMinStarsPerEmpire()		{ return minStarsPerEmpire.getValidValue(); }
 
 	ParamInteger prefStarsPerEmpire	= new PrefStarsPerEmpire();
-	class PrefStarsPerEmpire extends ParamInteger {
+	final class PrefStarsPerEmpire extends ParamInteger {
 		PrefStarsPerEmpire() {
 			super(MOD_UI, "PREF_STARS_PER_EMPIRE", 10);
 			setDefaultValue(MOO1_DEFAULT, 5);
@@ -120,7 +120,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default int selectedPrefStarsPerEmpire()	{ return prefStarsPerEmpire.getValidValue(); }
 
 	ParamInteger dynStarsPerEmpire	= new DynStarsPerEmpire();
-	class DynStarsPerEmpire extends ParamInteger {
+	final class DynStarsPerEmpire extends ParamInteger {
 		DynStarsPerEmpire() {
 			super(MOD_UI, "DYN_STARS_PER_EMPIRE", 10);
 			setLimits(1, Rotp.maximumSystems-1);
@@ -150,7 +150,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 		}
 		@Override public Integer set(Integer value)	{
 			super.set(value);
-			if (RotPUI.instance() != null)
+			if (Rotp.initialized())
 				RotPUI.setupGalaxyUI().postGalaxySizeSelection(false);
 			return value;
 		}
@@ -181,7 +181,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 			return forceUpdate;
 		}
 		@Override public String getGuiDisplay(int idx)	{
-			if (!opts().sizeSelection().get().equals(IGalaxyOptions.SIZE_DYNAMIC))
+			if (!IGalaxyOptions.sizeSelection.get().equals(IGalaxyOptions.SIZE_DYNAMIC))
 				return "---";
 			return super.getGuiDisplay(idx);
 		}
@@ -334,7 +334,6 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 		.put(NEBULA_POS_NORMAL,	MOD_UI + "NEBULA_POS_NORMAL")
 		.put(NEBULA_POS_INSIST,	MOD_UI + "NEBULA_POS_INSIST")
 		.put(NEBULA_POS_EXTEND,	MOD_UI + "NEBULA_POS_EXTEND");
-	default ParamList getNebulaPlacing()	{ return nebulaPlacing; }
 
 	default boolean looseNebula()	{ return nebulaPlacing.get().equalsIgnoreCase(NEBULA_POS_EXTEND); }
 	default int nebulaCallsBeforeShrink()	{
@@ -394,5 +393,4 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 
 	ParamBoolean looseNeighborhood	= new ParamBoolean( MOD_UI, "LOOSE_NEIGHBORHOOD", false);
 	default boolean looseNeighborhood()			{ return looseNeighborhood.get(); }
-	default ParamBoolean getLooseNeighborhood()	{ return looseNeighborhood; }
 }

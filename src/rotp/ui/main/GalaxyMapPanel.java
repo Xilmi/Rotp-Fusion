@@ -60,6 +60,7 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
+import rotp.model.game.IDebugOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IMapOptions;
 import rotp.model.tech.TechCategory;
@@ -328,9 +329,8 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         scaleX(scale*mapSizeX/mapSizeY);
     }
     public void initBenchmark() {
-    	IGameOptions opts = options();
-    	debugShowAll = opts.debugBMShowAll();
-    	if (opts.debugBMZoomOut()) {
+		debugShowAll = IDebugOptions.debugBMShowAll();
+		if (IDebugOptions.debugBMZoomOut()) {
     		centerX(sizeX()/2);
         	centerY(sizeY()/2);
         	setScale(maxScale());
@@ -684,12 +684,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         boolean isPlayer = emp.isPlayer();
 
         // draw extended range
-//        IGameOptions opts = options();
-//        List<StarSystem> systems; // TODO BR: Validate
-//        if (!isPlayer && opts.selectedDarkGalaxy() && !opts.darkGalaxySpy())
-//        	systems = pl.systemsForCivDark(emp.id);
-//        else
-//        	systems = pl.systemsForCiv(emp.id);
         List<StarSystem> systems = pl.systemsForCivNoSpy(emp.id);
         List<StarSystem> alliedSystems = new ArrayList<>();
         // only show range for allied systems when player is selected
@@ -703,7 +697,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 }
             }
         }
-
         float scale = getWidth()/scaleX();
 
         AffineTransform prevXForm = g.getTransform();

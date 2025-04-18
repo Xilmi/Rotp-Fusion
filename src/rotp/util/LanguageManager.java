@@ -39,7 +39,7 @@ import rotp.ui.main.EmpireColonySpendingPane;
 import rotp.ui.planets.MultiColonySpendingPane;
 
 public class LanguageManager implements Base {
-    static LanguageManager instance = new LanguageManager();
+    private static LanguageManager instance = new LanguageManager();
     public static LanguageManager current() { return instance; }
 
     public static int DEFAULT_LANGUAGE = 0;
@@ -135,11 +135,11 @@ public class LanguageManager implements Base {
 		Rotp.getFrame().setTitle(newFrameTitle);
 		if (RotPUI.instance() != null)
 			RotPUI.instance().resetListDialog();
-        validateDialogueTokens(false); // TO DO BR: change to false (true for debug)
-        if (!Rotp.noOptions("selectLanguage(" + i + ")")) {
-        	EmpireColonySpendingPane.resetPanel();
-        	MultiColonySpendingPane.resetPanel();
-        }
+		validateDialogueTokens(false); // TO DO BR: change to false (true for debug)
+		if (!Rotp.noOptions()) {
+			EmpireColonySpendingPane.resetPanel();
+			MultiColonySpendingPane.resetPanel();
+		}
         GovernorOptions.callForRefresh(IGovOptions.GOV_REFRESH);
     }
     private void validateDialogueTokens(boolean doIt) {

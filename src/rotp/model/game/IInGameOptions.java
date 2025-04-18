@@ -127,7 +127,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 			.setLimits(0, 200)
 			.setIncrements(1, 5, 20);
 	default int maxTechsCaptured()				{ return maxTechsCaptured.get(); }
-	class MaxTechsCaptured extends ParamInteger {
+	final class MaxTechsCaptured extends ParamInteger {
 		MaxTechsCaptured() {
 			super(MOD_UI, "MAX_TECH_CAPTURED", 6);
 			setLimits(0, 10);

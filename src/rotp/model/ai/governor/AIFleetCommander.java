@@ -320,7 +320,6 @@ public class AIFleetCommander implements Base, FleetCommander {
 			return;
 		subFleetList.sortForAttack();
 
-		// TODO BR: Customize Empire target
 		boolean extendedRange = subFleetList.hasExtendedRange();
 		List<Integer> hostileEmpires = IGovOptions.autoAttackEmpire.targetEmpires(empire);
 

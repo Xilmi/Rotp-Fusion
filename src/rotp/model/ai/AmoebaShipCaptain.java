@@ -29,7 +29,7 @@ import rotp.model.galaxy.SpaceAmoeba;
 import rotp.model.galaxy.StarSystem;
 import rotp.util.Base;
 
-public class AmoebaShipCaptain implements Base, ShipCaptain {
+public final class AmoebaShipCaptain implements Base, ShipCaptain {
 	private SpaceAmoeba monster;
 	public AmoebaShipCaptain (SpaceAmoeba amoeba) {
 		monster = amoeba;
@@ -38,7 +38,6 @@ public class AmoebaShipCaptain implements Base, ShipCaptain {
     public StarSystem retreatSystem(StarSystem fr) { return null; }
     @Override
     public boolean wantToRetreat(CombatStack stack) { return false; }
-    public boolean facingOverwhelmingForce(CombatStack stack) { return false; }
     @Override
     public void performTurn(CombatStack stack)  {
         ShipCombatManager mgr = galaxy().shipCombat();

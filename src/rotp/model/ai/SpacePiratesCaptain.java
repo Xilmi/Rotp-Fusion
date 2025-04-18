@@ -30,7 +30,7 @@ import rotp.util.Base;
 
 // modnar: add Space Pirates random event
 // modnar: Space Pirates Captain, use OrionGuardianCaptain.java as template
-public class SpacePiratesCaptain implements Base, ShipCaptain {
+public final class SpacePiratesCaptain implements Base, ShipCaptain {
 	@SuppressWarnings("unused")
 	private SpacePirates monster; // for potential later use
 	public SpacePiratesCaptain (SpacePirates pirate) {
@@ -41,7 +41,6 @@ public class SpacePiratesCaptain implements Base, ShipCaptain {
     public StarSystem retreatSystem(StarSystem fr) { return null; }
     @Override
     public boolean wantToRetreat(CombatStack stack) { return false; }
-    public boolean facingOverwhelmingForce(CombatStack stack) { return false; }
     @Override
     public void performTurn(CombatStack stack)  {
         ShipCombatManager mgr = galaxy().shipCombat();

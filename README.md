@@ -44,13 +44,29 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-2025.04.14 (BR)
-- Added Version identification in game files.
-
-2025.04.13 (Xilmi)
-- Update AIGeneral.java
-  - Fusion-AI: When considering whom to attack next, AI-empires that were eligible for the last council-vote will now consider who voted for them. The more votes an empire contributed compared to their own votes, the stronger the effect. The score is affected by: 1 / (1 + theirVotes / myVotes).
-  - For example: An empire contributing their 30 votes to an empire who has 50 votes will see their "victim-score" multiplied by: 0.625.
+2025.04.19 (BR)
+- Galaxy Shape options don't share the same variable anymore.
+  - So don't need to be a String from a list.
+  - They are now owned by the shape class itself, and memorized independently.
+  - Galaxy Shape option will be individually memorized.
+- Random Galaxy are no more managed by UI nor Galaxy Factory.
+  - It's a regular galaxy classe that calls the other shape.
+- Options panel can now refresh the param list.
+- many class final
+- Reworked sequence of IGameOption instances creation...
+  - Grouped their call to RulesSetManager instead of RotPUI.
+- Moved initialisation of the independant class from RotPUI in Rotp.
+  - This to make the full initialisation sequence easier to debug.
+- Partial initialisation of RotPUI is now done in Rotp.
+  - This to get an instance of RotPUI before it's final initialilsation.
+  - This to have access to the already initialised panel.
+- Debug's options that are saved in remant.cfg are now static (they where default).
+  - So they can be read before an option set is created.
+- Fixes:
+  - Removed some useless Galaxy generation in setup panels.
+  - Fixed calls to the wrong options.
+  - Removed old unused methods that would crash the game if called.
+  - Removed unused redundant methods that were confusing.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

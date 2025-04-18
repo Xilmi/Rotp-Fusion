@@ -17,6 +17,7 @@ package rotp.model.ai;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.ai.base.AIShipCaptain;
 import rotp.model.ai.interfaces.ShipCaptain;
 import rotp.model.combat.CombatStack;
@@ -25,12 +26,11 @@ import rotp.model.combat.ShipCombatManager;
 import rotp.model.galaxy.StarSystem;
 import rotp.util.Base;
 
-public class OrionGuardianCaptain implements Base, ShipCaptain {
+public final class OrionGuardianCaptain implements Base, ShipCaptain {
     @Override
     public StarSystem retreatSystem(StarSystem fr) { return null; }
     @Override
     public boolean wantToRetreat(CombatStack stack) { return false; }
-    public boolean facingOverwhelmingForce(CombatStack stack) { return false; }
     @Override
     public void performTurn(CombatStack stack)  {
         ShipCombatManager mgr = galaxy().shipCombat();

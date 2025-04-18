@@ -1,6 +1,6 @@
 package rotp.model.game;
 
-public class DefaultValues {
+public final class DefaultValues {
 	public static final DefaultValues DEF_VAL = new DefaultValues();
 
 	public static final String FUSION_DEFAULT	= "SETTINGS_MOD_DEFAULT_IS_FUSION";

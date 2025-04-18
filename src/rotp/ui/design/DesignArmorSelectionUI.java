@@ -16,11 +16,13 @@
 package rotp.ui.design;
 
 import java.util.List;
+
 import javax.swing.JLabel;
+
 import rotp.model.ships.ShipArmor;
 import rotp.model.ships.ShipComponent;
 
-public class DesignArmorSelectionUI extends DesignSelectionUI {
+final class DesignArmorSelectionUI extends DesignSelectionUI {
     private static final long serialVersionUID = 1L;
     @Override
     String title()                    { return text("SHIP_DESIGN_ARMOR_TITLE"); }

@@ -15,17 +15,36 @@
  */
 package rotp.ui.design;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.LinearGradientPaint;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
-import javax.swing.*;
 import java.util.List;
+
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+
 import rotp.model.ships.ShipDesign;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseTextField;
 import rotp.ui.main.SystemPanel;
 
-public final class ConfirmCreateUI extends BasePanel implements KeyListener, MouseListener, MouseMotionListener {
+final class ConfirmCreateUI extends BasePanel implements KeyListener, MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
     private static final Color backgroundHaze = new Color(0,0,0,160);
 
@@ -39,8 +58,8 @@ public final class ConfirmCreateUI extends BasePanel implements KeyListener, Mou
     private static final Color brownMidC = new Color(93,70,48);
     private static final Color textBackC = new Color(178,124,87);
 
-    final static String CANCEL_ACTION = "cancel-input";
-    final static String ACCEPT_ACTION = "accept-input";
+    private final static String CANCEL_ACTION = "cancel-input";
+    private final static String ACCEPT_ACTION = "accept-input";
 
     private LinearGradientPaint cancelBackground;
     private LinearGradientPaint createBackground;
@@ -51,16 +70,16 @@ public final class ConfirmCreateUI extends BasePanel implements KeyListener, Mou
     private ShipDesign targetDesign;
     private BaseTextField nameField;
 
-    public boolean renamingOnly = false;
-    boolean setNameBounds = true;
-    int keystrokeCount = 0;
+    boolean renamingOnly = false;
+    private boolean setNameBounds = true;
+    private int keystrokeCount = 0;
 
     public ConfirmCreateUI() {
         setOpaque(true);
         initTextFields();
         add(nameField);
     }
-    public void targetDesign(ShipDesign d) {
+    void targetDesign(ShipDesign d) {
         keystrokeCount = 0;
         targetDesign = d;
         targetDesign.resetImage();
@@ -337,14 +356,14 @@ public final class ConfirmCreateUI extends BasePanel implements KeyListener, Mou
         if (prevHover != hoverTarget) 
             repaint();  
     }
-    class CreateAction extends AbstractAction {
+    private class CreateAction extends AbstractAction {
         private static final long serialVersionUID = 1L;
         @Override
         public void actionPerformed(ActionEvent ev) {
             createAction();
         }
     }
-    class CancelAction extends AbstractAction {
+    private class CancelAction extends AbstractAction {
         private static final long serialVersionUID = 1L;
         @Override
         public void actionPerformed(ActionEvent ev) {

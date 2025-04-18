@@ -37,6 +37,7 @@ import rotp.model.events.RandomEvents;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
+import rotp.model.game.IDebugOptions;
 import rotp.model.game.IGameOptions;
 import rotp.ui.NoticeMessage;
 import rotp.ui.UserPreferences;
@@ -231,7 +232,7 @@ public class Galaxy implements Base, Serializable {
     @Override
     public boolean isPlayer(Empire d)        { return playerEmpire == d; }
     public void initNebulas(int size)        { nebulas = new ArrayList<>(size); }
-    public void initNebulas(List<Nebula> nebulas) { this.nebulas = nebulas; } // BR: For Restart with new options
+    //public void initNebulas(List<Nebula> nebulas) { this.nebulas = nebulas; } // BR: For Restart with new options
     public ShipCombatManager shipCombat() {
         if (shipCombat == null)
             shipCombat = new ShipCombatManager();
@@ -280,15 +281,11 @@ public class Galaxy implements Base, Serializable {
         }
         return systems;
     }
-    @SuppressWarnings("unused")
-	private float randomLocation(float max, float leftBuff, float rightBuff) {
-        return leftBuff + (random() * (max-leftBuff-rightBuff));
-    }
-    public void addAdviceGiven(String key) {
+    private void addAdviceGiven(String key) {
         if (!adviceGiven.contains(key))
             adviceGiven.add(key);
     }
-    public boolean adviceAlreadyGiven(String key) {
+    private boolean adviceAlreadyGiven(String key) {
         return adviceGiven.contains(key) || options().isAutoPlay();
     }
     public void giveAdvice(String key) {
@@ -310,29 +307,19 @@ public class Galaxy implements Base, Serializable {
             AdviceNotification.create(key, s1);
         }
     }
-    public void giveAdvice(String key, String s1, String s2) {
+    /*public void giveAdvice(String key, String s1, String s2) {
         if (!adviceAlreadyGiven(key)) {
             addAdviceGiven(key);
             AdviceNotification.create(key, s1, s2);
         }
-    }
+    }*/
     public void giveAdvice(String key, String s1, String s2, String s3) {
         if (!adviceAlreadyGiven(key)) {
             addAdviceGiven(key);
             AdviceNotification.create(key, s1, s2, s3);
         }
     }
-    public boolean inNebula(IMappedObject obj) {
-        return inNebula(obj.x(), obj.y());
-    }
-    public boolean inNebula (float x, float y) {
-        for (Nebula neb: nebulas) {
-            if (neb.contains(x,y))
-                return true;
-        }
-        return false;
-    }
-    public Nebula nebulaContaining(IMappedObject obj) {
+    private Nebula nebulaContaining(IMappedObject obj) {
         float x = obj.x();
         float y = obj.y();
         for (Nebula neb: nebulas) {
@@ -441,7 +428,7 @@ public class Galaxy implements Base, Serializable {
         	}
         }
     }
-    public void checkForColonization() {
+    private void checkForColonization() {
         for (StarSystem sys: starSystems) {
             Empire home = sys.empire();
             List<ShipFleet> fleets = sys.orbitingFleetsNoMonster();
@@ -556,11 +543,11 @@ public class Galaxy implements Base, Serializable {
         return null;
     }
     public void startGame() {
-        if (options().debugShowMoreMemory()) {
+        if (IDebugOptions.debugShowMoreMemory()) {
             memLog();
             // RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment
         }
-        if (options().selectedShowVIPPanel())
+        if (IDebugOptions.selectedShowVIPPanel())
         	VIPConsole.updateConsole();
         giveAdvice("MAIN_ADVISOR_SCOUT");
         session().processNotifications();
@@ -820,15 +807,15 @@ public class Galaxy implements Base, Serializable {
     // ==================== GalaxyBaseData ====================
     //
 	public static class GalaxyBaseData {
-		int width;
-		int height;
+		private int width;
+		private int height;
 		List<Nebula> nebulas;
 		private float maxScaleAdj;
 		int numCompWorlds;
 		int numStarSystems;
 		SystemBaseData[] starSystems;
 		private int numEmpires;
-		public EmpireBaseData[] empires;
+		EmpireBaseData[] empires;
 		
 		GalaxyBaseData(Galaxy src) {
 			width		= src.width();

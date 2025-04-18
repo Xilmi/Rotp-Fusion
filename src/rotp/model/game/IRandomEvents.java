@@ -54,7 +54,6 @@ public interface IRandomEvents extends IBaseOptsTools {
 		.put(MONSTER_CUSTOM,	MOD_UI + "MONSTERS_LEVEL_CUSTOM");
 	
 		//.put("MoO1",	MOD_UI + "MONSTERS_LEVEL_MOO1");
-	default String	monstersLevelKey()			{ return monstersLevel.get(); }
 	default float	monstersLevel()				{
 		switch (monstersLevel.get()) {
 			case MONSTER_EASY:		return 0.7f;
@@ -112,13 +111,11 @@ public interface IRandomEvents extends IBaseOptsTools {
 			.setLimits(0, MAX_SYSTEMS)
 			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNLIMITED);
-	default int selectedPiratesMaxSystems()		{ return piratesMaxSystems.get(); }
 	ParamInteger amoebaMaxSystems	= new ParamInteger(MOD_UI, "AMOEBA_MAX_SYSTEMS",  0)
 			.setDefaultValue(MOO1_DEFAULT, 5)
 			.setLimits(0, MAX_SYSTEMS)
 			.setIncrements(1, 5, 20)
 			.specialZero(SPECIAL_UNLIMITED);
-	default int selectedAmoebaMaxSystems()		{ return amoebaMaxSystems.get(); }
 	ParamInteger crystalMaxSystems	= new ParamInteger(MOD_UI, "CRYSTAL_MAX_SYSTEMS", 0)
 			.setDefaultValue(MOO1_DEFAULT, 5)
 			.setLimits(0, MAX_SYSTEMS)

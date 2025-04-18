@@ -114,19 +114,15 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 	static float getDensitySizeFactor(String density)	{ return densityMap().get(density); }
 	default float densitySizeFactor(String density)	{ return getDensitySizeFactor(density); }
-	//float densitySizeFactor();
 	default float systemBuffer(String density)	{  return 1.9f * getDensitySizeFactor(density); }
-
-//	static float getSystemBuffer(String densityOption)	{ 
-//		return 1.9f * getDensitySizeFactor(densityOption);
-//	}
 
 	// ==================== Duplicates for Base Advanced Options ====================
 	//
 	ParamList galaxyAge = new GalaxyAge(); // Duplicate Do not add the list
-	class GalaxyAge extends ParamList {
+	final class GalaxyAge extends ParamList {
 		GalaxyAge() {
 			super(ADV_UI, "GALAXY_AGE", getGalaxyAgeOptions(), GALAXY_AGE_NORMAL);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -139,9 +135,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 	
 	default ParamList starDensity()	{ return starDensity; }
 	ParamList starDensity = new StarDensity(); // Duplicate Do not add the list
-	class StarDensity extends ParamList {
+	final class StarDensity extends ParamList {
 		StarDensity() {
 			super(ADV_UI, "STAR_DENSITY", getStarDensityOptions(), STAR_DENSITY_NORMAL);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public void initDependencies(int level)	{
@@ -205,9 +202,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 
 	ParamList nebulae = new Nebulae(); // Duplicate Do not add the list
-	class Nebulae extends ParamList {
+	final class Nebulae extends ParamList {
 		Nebulae() {
 			super(ADV_UI, "NEBULAE", getNebulaeOptions(), NEBULAE_NORMAL);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -217,12 +215,12 @@ public interface IAdvOptions extends IBaseOptsTools {
 			options.selectedNebulaeOption(newValue);
 		}
 	}
-	default ParamList getNebula()	{ return nebulae; }
 
 	ParamList randomEvents = new RandomEvents(); // Duplicate Do not add the list
-	class RandomEvents extends ParamList {
+	final class RandomEvents extends ParamList {
 		RandomEvents() {
 			super(ADV_UI, "RANDOM_EVENTS", getRandomEventOptions(), RANDOM_EVENTS_NO_MONSTERS);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -234,9 +232,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 
 	ParamList planetQuality	= new PlanetQuality(); // Duplicate Do not add the list
-	class PlanetQuality extends ParamList {
+	final class PlanetQuality extends ParamList {
 		PlanetQuality() {
 			super(ADV_UI, "PLANET_QUALITY", getPlanetQualityOptions(), PLANET_QUALITY_NORMAL);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -248,9 +247,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 
 	ParamList terraforming		= new Terraforming(); // Duplicate Do not add the list
-	class Terraforming extends ParamList {
+	final class Terraforming extends ParamList {
 		Terraforming() {
 			super(ADV_UI, "TERRAFORMING", getTerraformingOptions(), TERRAFORMING_NORMAL);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -262,9 +262,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 
 	ParamList colonizing		= new Colonizing(); // Duplicate Do not add the list
-	class Colonizing extends ParamList {
+	final class Colonizing extends ParamList {
 		Colonizing() {
 			super(ADV_UI, "COLONIZING", getColonizingOptions(), COLONIZING_NORMAL);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -276,10 +277,11 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 
 	ParamList councilWin = new CouncilWin(); // Duplicate Do not add the list
-	class CouncilWin extends ParamList {
+	final class CouncilWin extends ParamList {
 		CouncilWin() {
 			super(ADV_UI, "COUNCIL_WIN", getCouncilWinOptions(), COUNCIL_REBELS);
-			this.setDefaultValue(MOO1_DEFAULT, COUNCIL_IMMEDIATE);
+			setDefaultValue(MOO1_DEFAULT, COUNCIL_IMMEDIATE);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -294,9 +296,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 
 	ParamList randomizeAI = new RandomizeAI(); // Duplicate Do not add the list
-	class RandomizeAI extends ParamList {
+	final class RandomizeAI extends ParamList {
 		RandomizeAI() {
 			super(ADV_UI, "RANDOMIZE_AI", getRandomizeAIOptions(), RANDOMIZE_AI_NONE);
+			isDuplicate(true);
 			showFullGuide(false);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -309,10 +312,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 
 	ParamList autoplay = new Autoplay(); // Duplicate Do not add the list
 	default ParamList autoplay()	{ return autoplay; }
-	class Autoplay extends ParamList {
+	final class Autoplay extends ParamList {
 		Autoplay() {
-			super(ADV_UI, "AUTOPLAY",
-					IGameOptions.autoPlayAIset().getAutoPlay(), AUTOPLAY_OFF);
+			super(ADV_UI, "AUTOPLAY", IGameOptions.autoPlayAIset().getAutoPlay(), AUTOPLAY_OFF);
+			isDuplicate(true);
 			showFullGuide(false);
 		}
 		@Override public void reInit(List<String> list) {
@@ -330,9 +333,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 
 	ParamList researchRate		= new ResearchRate(); // Duplicate Do not add the list
-	class ResearchRate extends ParamList {
+	final class ResearchRate extends ParamList {
 		ResearchRate() {
 			super(ADV_UI, "RESEARCH_RATE", getResearchRateOptions(), RESEARCH_NORMAL);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -344,9 +348,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 
 	ParamList warpSpeed	= new WarpSpeed(); // Duplicate Do not add the list
-	class WarpSpeed extends ParamList {
+	final class WarpSpeed extends ParamList {
 		WarpSpeed() {
 			super(ADV_UI, "WARP_SPEED", getWarpSpeedOptions(), WARP_SPEED_NORMAL);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -358,9 +363,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 
 	ParamList fuelRange	= new FuelRange(); // Duplicate Do not add the list
-	class FuelRange extends ParamList {
+	final class FuelRange extends ParamList {
 		FuelRange() {
 			super(ADV_UI, "FUEL_RANGE", getFuelRangeOptions(), FUEL_RANGE_NORMAL);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -374,9 +380,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 
 	ParamList techTrading = new TechTrading(); // Duplicate Do not add the list
-	class TechTrading extends ParamList {
+	final class TechTrading extends ParamList {
 		TechTrading() {
 			super(ADV_UI, "TECH_TRADING", getTechTradingOptions(), TECH_TRADING_YES);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {
@@ -388,9 +395,10 @@ public interface IAdvOptions extends IBaseOptsTools {
 	}
 
 	ParamList aiHostility	= new AiHostility(); // Duplicate Do not add the list
-	class AiHostility extends ParamList {
+	final class AiHostility extends ParamList {
 		AiHostility() {
 			super(ADV_UI, "AI_HOSTILITY", getAiHostilityOptions(), AI_HOSTILITY_NORMAL);
+			isDuplicate(true);
 			showFullGuide(true);
 		}
 		@Override public String getOptionValue(IGameOptions options) {

@@ -18,7 +18,6 @@ import rotp.ui.util.PlayerShipSet;
 public interface IRaceOptions extends IBaseOptsTools {
 
 	String defaultRace = "RACE_HUMAN";
-	default String defaultRace() { return defaultRace; }
 	
 	static LinkedList<String> getBaseRaceOptions() {
 		LinkedList<String> list = new LinkedList<>();
@@ -34,7 +33,6 @@ public interface IRaceOptions extends IBaseOptsTools {
 		list.add("RACE_BULRATHI");
 		return list;
 	}
-	LinkedList<String> baseRaceOptions = getBaseRaceOptions(); 
 	default LinkedList<String> baseRaceOptions() { return getBaseRaceOptions(); } 
 
 	static LinkedList<String> getAllRaceOptions() {
@@ -49,8 +47,6 @@ public interface IRaceOptions extends IBaseOptsTools {
 	}
 	LinkedList<String> allRaceOptions = getAllRaceOptions(); 
 	default LinkedList<String> allRaceOptions() { return getAllRaceOptions(); } 
-
-	default int numberSpecies() { return allRaceOptions.size(); }; // BR: This value have to be easily available
 
 	default BufferedImage getMugBackImg(int w, int h, float radius) {
 		BufferedImage backImg = new BufferedImage(w, h, TYPE_INT_ARGB);
@@ -71,8 +67,6 @@ public interface IRaceOptions extends IBaseOptsTools {
 	default int selectedPlayerShipSetId()			{ return playerShipSet.realShipSetId(); }
 
 	ParamBoolean playerIsCustom	= new ParamBoolean( BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false, false);
-	
-	default ParamBoolean playerIsCustom()			{ return playerIsCustom; }
 	default boolean selectedPlayerIsCustom()		{ return playerIsCustom.get(); }
 	default void selectedPlayerIsCustom(boolean is)	{ playerIsCustom.set(is); }
 

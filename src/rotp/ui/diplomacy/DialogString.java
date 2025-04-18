@@ -16,20 +16,21 @@
 package rotp.ui.diplomacy;
 
 import java.util.List;
+
 import rotp.model.empires.EmpireView;
 import rotp.util.Base;
 
-public class DialogString implements Base {
-    String messageType;
-    int relationsCode;
-    int powerCode;
-    String key;
-    public String key()               { return key; }
-    public DialogString (String line) {
+public final class DialogString implements Base {
+    private String messageType;
+    private int relationsCode;
+    private int powerCode;
+    private String key;
+    String key()               { return key; }
+    DialogString (String line) {
         decodeFileInput(line);
     }
-    public boolean matchesType(String t)      { return messageType.equals(t); }
-    public boolean fitsContext(EmpireView view) {
+    boolean matchesType(String t)      { return messageType.equals(t); }
+    boolean fitsContext(EmpireView view) {
         if (view == null)
             return true;
         return matchesRelations(view.embassy().relations())

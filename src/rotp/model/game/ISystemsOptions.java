@@ -1,15 +1,14 @@
 package rotp.model.game;
 
+import static rotp.model.game.IGalaxyOptions.sizeSelection;
 import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
 
 import rotp.Rotp;
-import rotp.ui.RotPUI;
 import rotp.ui.util.LinkData;
 import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
-import rotp.util.sound.SoundManager;
 
 public interface ISystemsOptions extends IBaseOptsTools {
 
@@ -98,12 +97,9 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			.setIncrements(1, 5, 20)
 			.pctValue(true);
 	default float	orionToEmpireModifier()	{ return (float) (0.01 * orionToEmpireModifier.get()); }
-	default ParamInteger getOrionToEmpireModifier()	{ return orionToEmpireModifier; }
-
-	static void badClick() { SoundManager.current().playAudioClip("MisClick"); }
 
 	ParamFloat firstRingRadius = new FirstRingRadius();
-	class FirstRingRadius extends ParamFloat {
+	final class FirstRingRadius extends ParamFloat {
 		FirstRingRadius() {
 			super(MOD_UI, "FIRST_RING_RADIUS", 3.0f);
 			setDefaultValue(MOO1_DEFAULT, 4.0f);
@@ -137,10 +133,9 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default float firstRingRadius() { return firstRingRadius.getValidValue(); }
-	default ParamFloat getFirstRingRadius()	{ return firstRingRadius; }
 
 	ParamFloat secondRingRadius = new SecondRingRadius();
-	class SecondRingRadius extends ParamFloat {
+	final class SecondRingRadius extends ParamFloat {
 		SecondRingRadius() {
 			super(MOD_UI, "SECOND_RING_RADIUS", 6.0f);
 			setLimits(2f, 50f);
@@ -173,14 +168,13 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default float secondRingRadius() { return secondRingRadius.getValidValue(); }
-	default ParamFloat getSecondRingRadius()	{ return secondRingRadius; }
 
 	float surfaceSecurityFactor = 0.855f;
 
 	static Integer radiusToNumStars(float radius) {
 		float systemBuffer = 1.9f;
-		if (!Rotp.noOptions) {
-			IGameOptions opts = RotPUI.currentOptions();
+		if (!Rotp.noOptions()) {
+			IGameOptions opts = RulesetManager.current().currentOptions();
 			systemBuffer = opts.systemBuffer(opts.selectedStarDensityOption());
 		}
 		float root = radius / (systemBuffer * surfaceSecurityFactor);
@@ -189,8 +183,8 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	}
 	static Float numStarsToRadius(int num) {
 		float systemBuffer = 1.9f;
-		if (!Rotp.noOptions) {
-			IGameOptions opts = RotPUI.currentOptions();
+		if (!Rotp.noOptions()) {
+			IGameOptions opts = RulesetManager.current().currentOptions();
 			systemBuffer = opts.systemBuffer(opts.selectedStarDensityOption());
 		}
 		float radius = (float) (systemBuffer * Math.sqrt(num) * surfaceSecurityFactor);
@@ -198,7 +192,7 @@ public interface ISystemsOptions extends IBaseOptsTools {
 	}
 
 	ParamInteger firstRingSystemNumber = new FirstRingSystemNumber();
-	class FirstRingSystemNumber extends ParamInteger {
+	final class FirstRingSystemNumber extends ParamInteger {
 		FirstRingSystemNumber() {
 			super(MOD_UI, "FIRST_RING_SYS_NUM",2);
 			setDefaultValue(MOO1_DEFAULT, 1);
@@ -233,12 +227,11 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default int firstRingSystemNumber()	{ return firstRingSystemNumber.getValidValue(); }
-	default ParamInteger getFirstRingSystemNumber()	{ return firstRingSystemNumber; }
 	default void setFirstRingSystemNumber(int num)	{ firstRingSystemNumber.set(num); }
 	default String getFirstRingSystemNumberLabel()	{ return firstRingSystemNumber.getLangLabel(); }
 
 	ParamInteger secondRingSystemNumber = new SecondRingSystemNumber();
-	class SecondRingSystemNumber extends ParamInteger {
+	final class SecondRingSystemNumber extends ParamInteger {
 		SecondRingSystemNumber() {
 			super(MOD_UI, "SECOND_RING_SYS_NUM", 2);
 			setLimits(0, 200);
@@ -249,11 +242,11 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			if (level == 0) {
 				resetLinks();
 				addLink(secondRingRadius,		DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
-				addLink(opts().sizeSelection(),	DO_FOLLOW, GO_UP,   GO_UP,   "Size");
+				addLink(sizeSelection,			DO_FOLLOW, GO_UP,   GO_UP,   "Size");
 				addLink(dynStarsPerEmpire,		DO_FOLLOW, GO_UP,   GO_UP,   "Dyn");
 				addLink(secondRingHabitable,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Habitable");
 				addLink(firstRingSystemNumber,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
-				addLink(opts().sizeSelection(),	DO_FOLLOW, GO_DOWN, GO_DOWN, "Size");
+				addLink(sizeSelection,			DO_FOLLOW, GO_DOWN, GO_DOWN, "Size");
 				addLink(opts().starDensity(),	DO_REFRESH);
 			}
 			else
@@ -283,12 +276,11 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default int secondRingSystemNumber() { return secondRingSystemNumber.getValidValue(); }
-	default ParamInteger getSecondRingSystemNumber()	{ return secondRingSystemNumber; }
 	default void setSecondRingSystemNumber(int num)		{ secondRingSystemNumber.set(num); }
 	default String getSecondRingSystemNumberLabel()		{ return secondRingSystemNumber.getLangLabel(); }
 
 	ParamInteger firstRingHabitable = new FirstRingHabitable();
-	class FirstRingHabitable extends ParamInteger {
+	final class FirstRingHabitable extends ParamInteger {
 		FirstRingHabitable() {
 			super(MOD_UI, "FIRST_RING_HABITABLE", 1);
 			setDefaultValue(MOO1_DEFAULT, 0);
@@ -318,10 +310,9 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default int firstRingHabitable() { return firstRingHabitable.getValidValue(); }
-	default ParamInteger getFirstRingHabitable()	{ return firstRingHabitable; }
 
 	ParamInteger secondRingHabitable = new SecondRingHabitable();
-	class SecondRingHabitable extends ParamInteger {
+	final class SecondRingHabitable extends ParamInteger {
 		SecondRingHabitable() {
 			super(MOD_UI, "SECOND_RING_HABITABLE", 1);
 			setDefaultValue(MOO1_DEFAULT, 0);
@@ -351,5 +342,4 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		}
 	}
 	default int secondRingHabitable() { return secondRingHabitable.getValidValue(); }
-	default ParamInteger getSecondRingHabitable()	{ return secondRingHabitable; }
 }

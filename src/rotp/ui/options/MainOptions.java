@@ -42,23 +42,19 @@ public final class MainOptions extends AbstractOptionsSubUI {
 
 						null,
 						soundVolume, musicVolume,
-						//debugShowMemory,
 						colorSet, gameOverTitles,
 						defaultSettings,
 						
 						null,
-						// IConvenienceOptions.autoColonize_, IConvenienceOptions.autoBombard_,
 						backupTurns, backupKeep, saveDirectory,
 						originalSpeciesOnly, showAllAI,
 
 						null,
 						disableAutoHelp,
 						disableAdvisor,
+						menuStartup,
 						AllSubUI.getHandle(SETTINGS_OPTIONS_UI_KEY).getUI(),
 						AllSubUI.getHandle(DEBUG_OPTIONS_UI_KEY).getUI()
-						// AllSubUI.commonSubUI(),
-						// AllSubUI.combatSubUI(),
-						// AllSubUI.debugSubUI()
 						));
 		return options;
 	}

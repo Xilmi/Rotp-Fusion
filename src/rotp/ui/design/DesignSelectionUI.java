@@ -31,10 +31,11 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
+
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+
 import rotp.model.ships.ShipComponent;
 import rotp.model.ships.ShipDesign;
 import rotp.ui.BasePanel;
@@ -42,24 +43,16 @@ import rotp.ui.main.SystemPanel;
 
 public abstract class DesignSelectionUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID = 1L;
-    static Color frameC = new Color(104,104,104);
-    static Color textBackgroundC = new Color(20,20,20);
-    static Color textHoverBackgroundC = new Color(97,0,0);
 
     private static final Color edgeC = new Color(112,85,68, 128);
     private static final Color brownC = new Color(112,85,68);
     private static final Color backC = new Color(140,101,76);
     private static final Color focusBackC = new Color(212,166,125);
-    static Color titleC = new Color(65,220,26);
-    static Color titleCHi = Color.yellow;
-    static Color textC = Color.gray;
-    static Color textCHi = Color.white;
     static Color backgroundHaze = new Color(0,0,0,160);
 
-    Polygon upArrow = new Polygon();
-    Polygon downArrow = new Polygon();
-    int hoveringArrow = 0;
-    Polygon hoverArrow = new Polygon();
+    private Polygon upArrow = new Polygon();
+    private Polygon downArrow = new Polygon();
+    private int hoveringArrow = 0;
     private final int upArrowX[] = new int[7];
     private final int upArrowY[] = new int[7];
     private final int downArrowX[] = new int[7];
@@ -67,23 +60,21 @@ public abstract class DesignSelectionUI extends BasePanel implements MouseListen
     private final Color arrowColorHi = new Color(248,127,0);
     private final Color arrowColorLo = Color.lightGray;
 
-    HashMap<Rectangle, ShipComponent> spriteMap = new HashMap<>();
-    List<Rectangle> selectionBoxes = new ArrayList<>();
-    List<Rectangle> sortingBoxes = new ArrayList<>();
-    List<ShipComponent> components = new ArrayList<>();
+    private List<Rectangle> selectionBoxes = new ArrayList<>();
+    private List<Rectangle> sortingBoxes = new ArrayList<>();
+    private List<ShipComponent> components = new ArrayList<>();
 
-    int startIndex = 0;
-    int hoverComp = -1;
-    int hoverHeader = -1;
-    String title;
-    List<String> headers = new ArrayList<>();
-    List<Integer> columnWidths = new ArrayList<>();
+    private int startIndex = 0;
+    private int hoverComp = -1;
+    private int hoverHeader = -1;
+    private String title;
+    private List<String> headers = new ArrayList<>();
+    private List<Integer> columnWidths = new ArrayList<>();
 
-    int MAX_LIST_SIZE = 30;
-    int numToDisplay = 0;
-    int sortColumn = -1;
-    boolean reverseSort = false;
-    public ShipDesign selectedDesign;
+    private int MAX_LIST_SIZE = 30;
+    private int numToDisplay = 0;
+    private boolean reverseSort = false;
+    ShipDesign selectedDesign;
 
     abstract String title();
     abstract int numColumns();
@@ -93,7 +84,7 @@ public abstract class DesignSelectionUI extends BasePanel implements MouseListen
     abstract void select(int compNum);
 
     int minimumWidth(int column)   { return 50; }
-    int minimumSpacing()           { return 20; }
+    private int minimumSpacing()           { return 20; }
     int alignment(int column)      { return JLabel.LEFT; }
     int bank()                     { return 0; }
 
@@ -103,9 +94,9 @@ public abstract class DesignSelectionUI extends BasePanel implements MouseListen
         super.disableGlassPane();
     }
 
-    public int numComponents()             { return components().size(); }
-    public boolean isSelected(int compNum) { return components().get(compNum) == selectedComponent(); }
-    public String value(int compNum, int fieldNum, int bank) {
+    int numComponents()             { return components().size(); }
+    private boolean isSelected(int compNum) { return components().get(compNum) == selectedComponent(); }
+    String value(int compNum, int fieldNum, int bank) {
             return components().get(compNum).fieldValue(fieldNum, selectedDesign, bank);
     }
     public DesignSelectionUI() {
@@ -117,10 +108,9 @@ public abstract class DesignSelectionUI extends BasePanel implements MouseListen
         addMouseMotionListener(this);
         addMouseWheelListener(this);
     }
-    public List<ShipComponent> components() {
+    List<ShipComponent> components() {
         if (components.isEmpty())
             components.addAll(baseComponents());
-
         return components;
     }
     @Override
@@ -318,7 +308,6 @@ public abstract class DesignSelectionUI extends BasePanel implements MouseListen
     }
     private void sortByColumn(int col) {
         reverseSort = !reverseSort;
-        sortColumn = col;
 
         ShipComponent.FLD_DESIGN = selectedDesign;
         ShipComponent.FLD_NUM = col;
@@ -367,7 +356,6 @@ public abstract class DesignSelectionUI extends BasePanel implements MouseListen
     }
     private void clearSettings() {
         components.clear();
-        sortColumn = -1;
         reverseSort = false;
         startIndex = 0;
     }

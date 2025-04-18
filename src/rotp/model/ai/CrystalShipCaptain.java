@@ -16,6 +16,7 @@
 package rotp.model.ai;
 
 import java.awt.Point;
+
 import rotp.model.ai.interfaces.ShipCaptain;
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.FlightPath;
@@ -24,7 +25,7 @@ import rotp.model.galaxy.SpaceCrystal;
 import rotp.model.galaxy.StarSystem;
 import rotp.util.Base;
 
-public class CrystalShipCaptain implements Base, ShipCaptain {
+public final class CrystalShipCaptain implements Base, ShipCaptain {
 	@SuppressWarnings("unused")
 	private SpaceCrystal monster; // for future use
 	public CrystalShipCaptain(SpaceCrystal crystal) {
@@ -34,7 +35,6 @@ public class CrystalShipCaptain implements Base, ShipCaptain {
     public StarSystem retreatSystem(StarSystem fr) { return null; }
     @Override
     public boolean wantToRetreat(CombatStack stack) { return false; }
-    public boolean facingOverwhelmingForce(CombatStack stack) { return false; }
     @Override
     public void performTurn(CombatStack stack)  {
         ShipCombatManager mgr = galaxy().shipCombat();

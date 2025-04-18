@@ -303,7 +303,7 @@ public interface IGameOptions extends IModOptions {
     	return list;
     }
     public default boolean isAutoPlay()           { return !selectedAutoplayOption().equals(AUTOPLAY_OFF); }
-	public default boolean autoRunAILocked()      { return debugAutoRun() && !isAutoPlay(); }
+	public default boolean autoRunAILocked()      { return IDebugOptions.debugAutoRun() && !isAutoPlay(); }
     //public default boolean communityAI()        { return false; }
     public default boolean selectableAI()         { return selectedOpponentAIOption().equals(OPPONENT_AI_SELECTABLE); }
     //public default boolean usingExtendedRaces() { return (selectedNumberOpponents()+1) > startingRaceOptions().size(); }
@@ -354,7 +354,6 @@ public interface IGameOptions extends IModOptions {
     public void randomizeColors();
     public GalaxyShape galaxyShape();
     public void setAndGenerateGalaxy();
-    public boolean isRandomGalaxy();
 
     public int numColors();
     public Color color(int i);
@@ -399,12 +398,12 @@ public interface IGameOptions extends IModOptions {
     public String selectedRandomEventOption();
     default boolean disabledRandomEvents() {
     	return selectedRandomEventOption().equals(RANDOM_EVENTS_OFF);
-    };
+    }
     default boolean techRandomEvents() {
     	String sre = selectedRandomEventOption();
     	return sre.equals(RANDOM_EVENTS_TECH_MONSTERS)
     			|| sre.equals(RANDOM_EVENTS_ONLY_MONSTERS);
-    };
+    }
     public void selectedRandomEventOption(String s);
     public String selectedWarpSpeedOption();
     public void selectedWarpSpeedOption(String s);
@@ -434,11 +433,6 @@ public interface IGameOptions extends IModOptions {
     public void selectedAutoplayOption(String s);
     public String specificOpponentCROption(int empId);
     public void specificOpponentCROption(String s, int empId);
-
-    public String selectedGalaxyShapeOption1();
-    public void selectedGalaxyShapeOption1(String s);
-    public String selectedGalaxyShapeOption2();
-    public void selectedGalaxyShapeOption2(String s);
 
     public int numGalaxyShapeOption1();
     public int numGalaxyShapeOption2();
@@ -611,7 +605,7 @@ public interface IGameOptions extends IModOptions {
         }
     }
     default List<String> getNewRacesOnOffList() {
-		if (showNewRaces().get()) {
+		if (showNewRaces.get()) {
 			return allRaceOptions();
 		}
 		return baseRaceOptions();

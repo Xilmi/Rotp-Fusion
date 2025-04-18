@@ -19,7 +19,7 @@ public interface IDebugOptions extends IBaseOptsTools {
     String AUTORUN_BENCHMARK = "AutoRunBenchmark.txt";
 
 	ParamBoolean debugShowMemory	= new DebugShowMemory();
-	class DebugShowMemory extends ParamBoolean {
+	final class DebugShowMemory extends ParamBoolean {
 		DebugShowMemory() {
 			super(GAME_UI, "MEMORY", false);
 			isDuplicate(true);
@@ -29,16 +29,16 @@ public interface IDebugOptions extends IBaseOptsTools {
 		@Override public Boolean getOption()		{ return showMemory(); }
 		@Override public void setOption(Boolean b)	{ showMemory(b); }
 	}
-	default boolean debugShowMemory()		{ return debugShowMemory.get(); }
+	static boolean debugShowMemory()		{ return debugShowMemory.get(); }
 
     ParamBoolean debugShowMoreMemory	= new ParamBoolean(GAME_UI, "MORE_MEMORY", false, true, true);
-	default boolean debugShowMoreMemory()	{ return debugShowMoreMemory.get(); }
+	static boolean debugShowMoreMemory()	{ return debugShowMoreMemory.get(); }
 
 	ParamBoolean debugConsoleMemory	= new ParamBoolean(GAME_UI, "MEMORY_CONSOLE", false, true, true);
-	default boolean debugConsoleMemory()	{ return debugConsoleMemory.get(); }
+	static boolean debugConsoleMemory()	{ return debugConsoleMemory.get(); }
 
 	ParamBoolean debugFileMemory	= new ParamBoolean(GAME_UI, "MEMORY_FILE", false, true, true);
-	default boolean debugFileMemory()		{ return debugFileMemory.get(); }
+	static boolean debugFileMemory()		{ return debugFileMemory.get(); }
 
 	ParamList debugAutoRun			= new ParamList( MOD_UI, "DEBUG_AUTO_RUN", "Off")
 		.isDuplicate(false)
@@ -48,10 +48,10 @@ public interface IDebugOptions extends IBaseOptsTools {
 		.put("On",		MOD_UI + "DEBUG_AUTO_RUN_ON")
 		.put("Bench",	MOD_UI + "DEBUG_AUTO_RUN_BENCH")
 		.put("End",		MOD_UI + "DEBUG_AUTO_RUN_END");
-	default boolean debugAutoRun()		{ return !debugAutoRun.get().equalsIgnoreCase("Off"); }
-	default boolean debugBenchmark()	{ return debugAutoRun.get().equalsIgnoreCase("Bench"); }
-	default void	debugBMContinue()	{ debugAutoRun.set("Bench"); }
-	default boolean debugBMBreak()		{ return debugAutoRun.get().equalsIgnoreCase("End"); }
+	static boolean debugAutoRun()	{ return !debugAutoRun.get().equalsIgnoreCase("Off"); }
+	static boolean debugBenchmark()	{ return debugAutoRun.get().equalsIgnoreCase("Bench"); }
+	static void	debugBMContinue()	{ debugAutoRun.set("Bench"); }
+	static boolean debugBMBreak()	{ return debugAutoRun.get().equalsIgnoreCase("End"); }
 
 	ParamList debugARContinueOnLoss	= new ParamList( MOD_UI, "DEBUG_AR_CONTINUE_ON_LOSS", "BMOnly")
 		.isDuplicate(false)
@@ -61,7 +61,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 		.put("Never",	MOD_UI + "DEBUG_AR_CONTINUE_ON_LOSS_NEVER")
 		.put("BMOnly",	MOD_UI + "DEBUG_AR_CONTINUE_ON_LOSS_BM_ONLY");
 
-	default boolean debugARStopOnLoss()	{
+	static boolean debugARStopOnLoss()	{
 		switch (debugARContinueOnLoss.get()) {
 		case "Never":
 			return true;
@@ -79,7 +79,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 		.put("Off",		MOD_UI + "DEBUG_BM_SHOW_ALL_OFF")
 		.put("Alway",	MOD_UI + "DEBUG_BM_SHOW_ALL_ALWAY")
 		.put("Lost",		MOD_UI + "DEBUG_BM_SHOW_ALL_LOSS");
-	default boolean debugBMShowAll()	{
+	static boolean debugBMShowAll()	{
 		switch (debugBMShowAll.get()) {
 		case "Off":
 			return false;
@@ -93,32 +93,34 @@ public interface IDebugOptions extends IBaseOptsTools {
 	ParamInteger debugBMMaxTurns	= new ParamInteger(MOD_UI, "DEBUG_BM_MAX_TURNS", -1)
 			.setLimits(-1, null)
 			.setIncrements(1, 10, 100)
+			.isCfgFile(true)
 			.specialNegative(NEGATIVE_DISABLED);
-	default int debugBMMaxTurns()			{ return debugBMMaxTurns.get(); }
+	static int debugBMMaxTurns()			{ return debugBMMaxTurns.get(); }
 	
 	ParamInteger debugBMLostTurns	= new ParamInteger(MOD_UI, "DEBUG_BM_LOST_TURNS", -1)
 			.setLimits(-1, null)
 			.setIncrements(1, 10, 100)
+			.isCfgFile(true)
 			.specialNegative(NEGATIVE_DISABLED);
-	default int debugBMLostTurns()			{ return debugBMLostTurns.get(); }
+	static int debugBMLostTurns()			{ return debugBMLostTurns.get(); }
 
 	ParamBoolean debugBMZoomOut		= new ParamBoolean(MOD_UI, "DEBUG_BM_ZOOM_OUT", false, true, true);
-	default boolean debugBMZoomOut()		{ return debugBMZoomOut.get(); }
+	static boolean debugBMZoomOut()		{ return debugBMZoomOut.get(); }
 
 	ParamBoolean debugNoAutoSave	= new ParamBoolean(MOD_UI, "DEBUG_NO_AUTOSAVE", false, true, true);
-	default boolean debugNoAutoSave()		{ return debugNoAutoSave.get(); }
+	static boolean debugNoAutoSave()		{ return debugNoAutoSave.get(); }
 
 	ParamBoolean consoleAutoRun		= new ParamBoolean(GAME_UI, "CONSOLE_AUTO_PLAY", false, true, true);
-	default boolean consoleAutoRun()		{ return consoleAutoRun.get(); }
+	static boolean consoleAutoRun()		{ return consoleAutoRun.get(); }
 
 	ParamBoolean debugLogNotif		= new ParamBoolean(GAME_UI, "DEBUG_LOG_NOTIF", true, true, true);
-	default boolean debugLogNotif()			{ return debugLogNotif.get(); }
+	static boolean debugLogNotif()			{ return debugLogNotif.get(); }
 
 	ParamBoolean debugLogEvents		= new ParamBoolean(GAME_UI, "DEBUG_LOG_EVENTS", true, true, true);
-	default boolean debugLogEvents()		{ return debugLogEvents.get(); }
+	static boolean debugLogEvents()		{ return debugLogEvents.get(); }
 
 	ParamBoolean showVIPPanel		= new ShowVIPPanel();
-	class ShowVIPPanel extends ParamBoolean {
+	final class ShowVIPPanel extends ParamBoolean {
 		ShowVIPPanel() {
 			super(GAME_UI, "SHOW_CONSOLE_PANEL", false);
 			isDuplicate(false);
@@ -132,9 +134,9 @@ public interface IDebugOptions extends IBaseOptsTools {
 			return newValue;
 		}
 	}
-	default boolean selectedShowVIPPanel()	{ return showVIPPanel.get(); }
-	default void showVIPPanel()				{ VIPConsole.showConsole(selectedShowVIPPanel()); }
-	default void showVIPPanel(boolean b)	{
+	static boolean selectedShowVIPPanel()	{ return showVIPPanel.get(); }
+	static void showVIPPanel()				{ VIPConsole.showConsole(selectedShowVIPPanel()); }
+	static void showVIPPanel(boolean b)	{
 		showVIPPanel.set(b);
 		showVIPPanel();
 	}
@@ -146,7 +148,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 	ParamInteger debugPlayerEmpire	= new DebugPlayerEmpire();
 	default void debugPlayerEmpire(int id)	{ debugPlayerEmpire.set(id); }
 	default int debugPlayerEmpire()			{ return debugPlayerEmpire.get(); }
-	class DebugPlayerEmpire extends ParamInteger {
+	final class DebugPlayerEmpire extends ParamInteger {
 		DebugPlayerEmpire() {
 			super(MOD_UI, "DEBUG_PLAYER_EMPIRE", Empire.DEFAULT_PLAYER_ID);
 			isValueInit(false);
@@ -156,7 +158,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 		}
 		@Override public Integer set(Integer newVal)	{
 			int val = super.set(newVal);
-			if (Rotp.noOptions)
+			if (Rotp.noOptions())
 				return val;
 			else {
 				GameSession session = GameSession.instance();
@@ -167,7 +169,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 		}
 		@Override public String guideSelectedValue()		{
 			String str = super.guideSelectedValue();
-			if (Rotp.noOptions)
+			if (Rotp.noOptions())
 				return str;
 			else {
 				GameSession session = GameSession.instance();
