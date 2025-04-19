@@ -82,7 +82,7 @@ final class GalaxyBullseyeShape extends GalaxyShape {
                 float gH = (float) galaxyHeightLY();
 
                 // number of arc sections in the dart board
-                int nArcs = (int) Math.min(20, Math.ceil(Math.sqrt(opts.numberStarSystems())/4.0f));
+                int nArcs = (int) Math.min(20, Math.ceil(Math.sqrt(finalNumberStarSystems)/4.0f));
 
                 // double ring
                 circle = new Ellipse2D.Float(gE,gE,gH,gH);
@@ -128,7 +128,7 @@ final class GalaxyBullseyeShape extends GalaxyShape {
                 float gH = (float) galaxyHeightLY();
 
                 // number of rings/halos
-                int nRings = (int) Math.min(200, Math.floor(Math.sqrt(opts.numberStarSystems())/2.5f));
+                int nRings = (int) Math.min(200, Math.floor(Math.sqrt(finalNumberStarSystems)/2.5f));
 
                 // width of each ring/halo, in ly
                 float rWidth = 4.0f;
@@ -169,7 +169,7 @@ final class GalaxyBullseyeShape extends GalaxyShape {
                 float gH = (float) galaxyHeightLY();
 
                 // number of rings/halos
-                int nRings = (int) Math.min(200, Math.floor(Math.sqrt(opts.numberStarSystems())/3));
+                int nRings = (int) Math.min(200, Math.floor(Math.sqrt(finalNumberStarSystems)/3));
 
                 // width of each ring/halo, in ly
                 float rWidth = 3.0f;
@@ -204,11 +204,11 @@ final class GalaxyBullseyeShape extends GalaxyShape {
     }
     @Override
     protected int galaxyWidthLY() { 
-        return (int) (Math.sqrt(adjust_density*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(adjust_density*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     protected int galaxyHeightLY() { 
-        return (int) (Math.sqrt(adjust_density*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(adjust_density*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations

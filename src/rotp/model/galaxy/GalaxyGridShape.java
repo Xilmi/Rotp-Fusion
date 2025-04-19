@@ -74,14 +74,14 @@ final class GalaxyGridShape extends GalaxyShape {
 		switch(option1) {
 	        case 2:
 	            // fine grid, no clusters
-	        	nGrid = (float) Math.max(1,(int)(1.8f*Math.sqrt(Math.sqrt(opts.numberStarSystems()))-1));
+	        	nGrid = (float) Math.max(1,(int)(1.8f*Math.sqrt(Math.sqrt(finalNumberStarSystems))-1));
 	        	maxClusters = (int) ((nGrid+1)*(nGrid+1));
 	            nClusters = 0;
 	            clusterR  = 0.1f;
 	            break;
 	        case 1:
 	            // rough grid, clusters at all intersections
-	        	nGrid = (float) Math.max(1,(int)(Math.sqrt(Math.sqrt(opts.numberStarSystems()))-1));
+	        	nGrid = (float) Math.max(1,(int)(Math.sqrt(Math.sqrt(finalNumberStarSystems))-1));
 	        	maxClusters = (int) ((nGrid+1)*(nGrid+1));
 	            nClusters = maxClusters;
 	            clusterR  = (nGrid + 5.0f) / 2.0f;
@@ -89,9 +89,9 @@ final class GalaxyGridShape extends GalaxyShape {
 	        case 0:
 	        default:
 	            // rough grid, some clusters at intersections
-	        	nGrid = (float) Math.max(1,(int)(Math.sqrt(Math.sqrt(opts.numberStarSystems()))-1));
+	        	nGrid = (float) Math.max(1,(int)(Math.sqrt(Math.sqrt(finalNumberStarSystems))-1));
 	        	maxClusters = (int) ((nGrid+1)*(nGrid+1));
-	            nClusters = (int) min(maxClusters-1, (int)(Math.sqrt(opts.numberStarSystems())/1.7));
+	            nClusters = (int) min(maxClusters-1, (int)(Math.sqrt(finalNumberStarSystems)/1.7));
 	            clusterR = (float) (nGrid + 5.0f) / 2.0f;
 	            break;
 		}
@@ -118,11 +118,11 @@ final class GalaxyGridShape extends GalaxyShape {
     }
     @Override
     protected int galaxyWidthLY() { 
-        return (int) (Math.sqrt(1.5*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(1.5*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     protected int galaxyHeightLY() { 
-        return (int) (Math.sqrt(1.5*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(1.5*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     public void setRandom(Point.Float pt) {		

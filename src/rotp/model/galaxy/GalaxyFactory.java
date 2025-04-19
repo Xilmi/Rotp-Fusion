@@ -771,7 +771,7 @@ public class GalaxyFactory implements Base {
 		
 		// add all other systems, starting at index 1
 		if (opts.galaxyShape().isSymmetric()) { // BR: Symmetry management
-			for (int i=1; i<sh.numberStarSystems(); i+=sh.numEmpires) {
+			for (int i=1; i<sh.numberStarSystems(); i+=sh.numEmpires()) {
 				// first symmetry system
 				StarSystem refSys = StarSystemFactory.current().newSystem(g);
 				sh.coords(i, pt);
@@ -783,7 +783,7 @@ public class GalaxyFactory implements Base {
 				addMonsters(refSys);
 				g.addStarSystem(refSys);
 				// other symmetry systems
-				for (int k=i+1; k<i+sh.numEmpires; k++) {
+				for (int k=i+1; k<i+sh.numEmpires(); k++) {
 					StarSystem sys = StarSystemFactory.current().copySystem(g, refSys);
 					sh.coords(k, pt);
 					sys.setXY(pt.x, pt.y);

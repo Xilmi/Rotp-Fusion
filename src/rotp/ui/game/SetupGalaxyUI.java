@@ -25,16 +25,27 @@ import static rotp.model.game.DefaultValues.ROTP_DEFAULT;
 import static rotp.model.game.IBaseOptsTools.BASE_UI;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
 import static rotp.model.game.IBaseOptsTools.MOD_UI;
+import static rotp.model.game.IGalaxyOptions.SIZE_DYNAMIC;
+import static rotp.model.game.IGalaxyOptions.SIZE_RANDOM;
 import static rotp.model.game.IGalaxyOptions.aliensNumber;
 import static rotp.model.game.IGalaxyOptions.bitmapGalaxyLastFolder;
 import static rotp.model.game.IGalaxyOptions.difficultySelection;
 import static rotp.model.game.IGalaxyOptions.galaxyRandSource;
 import static rotp.model.game.IGalaxyOptions.globalCROptions;
 import static rotp.model.game.IGalaxyOptions.previewNebula;
+import static rotp.model.game.IGalaxyOptions.randomNumStarsLim1;
+import static rotp.model.game.IGalaxyOptions.randomNumStarsLim2;
 import static rotp.model.game.IGalaxyOptions.shapeSelection;
 import static rotp.model.game.IGalaxyOptions.showNewRaces;
 import static rotp.model.game.IGalaxyOptions.sizeSelection;
 import static rotp.model.game.IGalaxyOptions.useSelectableAbilities;
+import static rotp.model.game.IGameOptions.baseAI;
+import static rotp.model.game.IGameOptions.defaultAI;
+import static rotp.model.game.IMainOptions.noFogOnIcons;
+import static rotp.ui.game.BaseModPanel.PolyBox.DOWN_ARROW;
+import static rotp.ui.game.BaseModPanel.PolyBox.LEFT_ARROW;
+import static rotp.ui.game.BaseModPanel.PolyBox.RIGHT_ARROW;
+import static rotp.ui.game.BaseModPanel.PolyBox.UP_ARROW;
 import static rotp.ui.options.ISubUiKeys.ADVANCED_SYSTEMS_UI_KEY;
 import static rotp.ui.options.ISubUiKeys.GALAXY_SHAPES_UI_KEY;
 import static rotp.ui.util.IParam.LABEL_DESCRIPTION;
@@ -57,7 +68,6 @@ import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
@@ -119,7 +129,6 @@ import rotp.util.FontManager;
 import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
 
-
 public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelListener {
 	private static final long serialVersionUID = 1L;
     // public  static final String guiTitleID	= "SETUP_GALAXY";
@@ -128,6 +137,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private static final String RESTART_KEY	 = "SETUP_BUTTON_RESTART";
 	private static final String START_KEY	 = "SETUP_BUTTON_START";
 	private static final String SIZE_OPT_KEY = "SETUP_GALAXY_SIZE_STAR_PER_EMPIRE";
+	private static final String SIZE_MAX_KEY = "SETUP_RANDOM_NUM_STARS_LIM_MAX";
+	private static final String SIZE_MIN_KEY = "SETUP_RANDOM_NUM_STARS_LIM_MIN";
 	private static final String NO_SELECTION = "SETUP_BITMAP_NO_SELECTION";
 	private static final String SPECIFIC_AI  = "SETUP_SPECIFIC_AI";
 	private static final String GLOBAL_AI    = "SETUP_GLOBAL_AI";
@@ -154,11 +165,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	public final  ParamListOpponentAI opponentAI	= new ParamListOpponentAI( // For Guide
 			BASE_UI, "OPPONENT_AI",
 			IGameOptions.globalAIset().getAliens(),
-			IGameOptions.defaultAI.aliensKey);
+			defaultAI.aliensKey);
 	private final ParamListSpecificAI specificAI	= new ParamListSpecificAI( // For Guide
 			BASE_UI, "SPECIFIC_AI",
 			IGameOptions.specificAIset().getAliens(),
-			IGameOptions.defaultAI.aliensKey);
+			defaultAI.aliensKey);
 	private final ParamListSpecificOpponent specificOpponent	= new ParamListSpecificOpponent( // For Guide
 			BASE_UI, "SPECIFIC_OPPONENT", guiOptions().allRaceOptions(), opponentRandom);
     public  final ParamListGlobalAbilities  globalAbilities		= new ParamListGlobalAbilities(  // For Guide
@@ -178,41 +189,47 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private Box	newRacesBox			= new Box("SETUP_GALAXY_RACE_LIST"); // BR:
 	private Box	showAbilitiesBox; // BR:
 	private Box		shapeBox;
-	private Polygon	shapeBoxL		= new PolyBox();
-	private Polygon	shapeBoxR		= new PolyBox();
+	private PolyBox	shapeBoxL		= new PolyBox(LEFT_ARROW);
+	private PolyBox	shapeBoxR		= new PolyBox(RIGHT_ARROW);
 	private Box		mapOption1Box;
-	private Polygon	mapOption1BoxL	= new PolyBox();
-	private Polygon	mapOption1BoxR	= new PolyBox();			 
+	private PolyBox	mapOption1BoxL	= new PolyBox(LEFT_ARROW);
+	private PolyBox	mapOption1BoxR	= new PolyBox(RIGHT_ARROW);			 
 	private Box		mapOption2Box;
-	private Polygon	mapOption2BoxL	= new PolyBox();
-	private Polygon	mapOption2BoxR	= new PolyBox();			 
+	private PolyBox	mapOption2BoxL	= new PolyBox(LEFT_ARROW);
+	private PolyBox	mapOption2BoxR	= new PolyBox(RIGHT_ARROW);			 
 	private Box		mapOption3Box;
-	private Polygon	mapOption3BoxL	= new PolyBox();
-	private Polygon	mapOption3BoxR	= new PolyBox();			 
+	private PolyBox	mapOption3BoxL	= new PolyBox(LEFT_ARROW);
+	private PolyBox	mapOption3BoxR	= new PolyBox(RIGHT_ARROW);			 
 	private Box		mapOption4Box;
-	private Polygon	mapOption4BoxL	= new PolyBox();
-	private Polygon	mapOption4BoxR	= new PolyBox();			 
+	private PolyBox	mapOption4BoxL	= new PolyBox(LEFT_ARROW);
+	private PolyBox	mapOption4BoxR	= new PolyBox(RIGHT_ARROW);			 
 	private Box		sizeOptionBox; // BR:
-	private Polygon	sizeOptionBoxL	= new PolyBox();   // BR:
-	private Polygon	sizeOptionBoxR	= new PolyBox();   // BR:
+	private PolyBox	sizeOptionBoxL	= new PolyBox(LEFT_ARROW);
+	private PolyBox	sizeOptionBoxR	= new PolyBox(RIGHT_ARROW);
 	private Box		sizeBox;
-	private Polygon	sizeBoxL		= new PolyBox();
-	private Polygon	sizeBoxR		= new PolyBox();
+	private PolyBox	sizeBoxL		= new PolyBox(LEFT_ARROW);
+	private PolyBox	sizeBoxR		= new PolyBox(RIGHT_ARROW);
+	private Box		sizeMinBox;
+	private PolyBox	sizeMinBoxL		= new PolyBox(LEFT_ARROW);
+	private PolyBox	sizeMinBoxR		= new PolyBox(RIGHT_ARROW);
+	private Box		sizeMaxBox;
+	private PolyBox	sizeMaxBoxL		= new PolyBox(LEFT_ARROW);
+	private PolyBox	sizeMaxBoxR		= new PolyBox(RIGHT_ARROW);
 	private Box		diffBox;
-	private Polygon	diffBoxL		= new PolyBox();
-	private Polygon	diffBoxR		= new PolyBox();
-	private Box		wysiwygBox; // BR:
-	private Polygon	wysiwygBoxL		= new PolyBox();   // BR:
-	private Polygon	wysiwygBoxR		= new PolyBox();   // BR:
+	private PolyBox	diffBoxL		= new PolyBox(LEFT_ARROW);
+	private PolyBox	diffBoxR		= new PolyBox(RIGHT_ARROW);
+	private Box		wysiwygBox;
+	private PolyBox	wysiwygBoxL		= new PolyBox(LEFT_ARROW);
+	private PolyBox	wysiwygBoxR		= new PolyBox(RIGHT_ARROW);
 	private Box		oppBox;
-	private Polygon	oppBoxU			= new PolyBox();
-	private Polygon	oppBoxD			= new PolyBox();
+	private PolyBox	oppBoxU			= new PolyBox(UP_ARROW);
+	private PolyBox	oppBoxD			= new PolyBox(DOWN_ARROW);
 	private Box		aiBox			= new Box(opponentAI);
-	private Polygon	aiBoxL			= new PolyBox();
-	private Polygon	aiBoxR			= new PolyBox();
+	private PolyBox	aiBoxL			= new PolyBox(LEFT_ARROW);
+	private PolyBox	aiBoxR			= new PolyBox(RIGHT_ARROW);
 	private Box		abilitiesBox	= new Box(globalAbilities); // dataRace selection
-	private Polygon	abilitiesBoxL	= new PolyBox(); // BR:
-	private Polygon	abilitiesBoxR	= new PolyBox(); // BR:
+	private PolyBox	abilitiesBoxL	= new PolyBox(LEFT_ARROW);
+	private PolyBox	abilitiesBoxR	= new PolyBox(RIGHT_ARROW);
 
 	private Box[]	oppSet			= new Box[MAX_DISPLAY_OPPS];
 	private Box[]	oppAI			= new Box[MAX_DISPLAY_OPPS];
@@ -321,9 +338,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	public	void refreshShapeOptions(ListShapeParam optionsList)	{
 		if (notActive())
 			return;
-
-//		if (optionsList == null)
-//			return;
 		shapeOptionsList = null;
 		switch (shapeOptionsList().size()) {
 			case 4:
@@ -353,6 +367,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		mapOption4Box		= new Box((IParam) null);
 		sizeOptionBox		= new Box(opts.dynStarsPerEmpire());
 		sizeBox				= new Box(sizeSelection);
+		sizeMinBox			= new Box(randomNumStarsLim1);
+		sizeMaxBox			= new Box(randomNumStarsLim2);
 		diffBox				= new Box(difficultySelection);
 		wysiwygBox			= new Box(galaxyRandSource);
 		oppBox				= new Box(aliensNumber);
@@ -424,7 +440,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		bigOppMugs		= null;
    }
     private void noFogChanged() {
-    	IGameOptions.noFogOnIcons.toggle();
+    	noFogOnIcons.toggle();
     	clearMugs();
         repaint();
     }
@@ -1125,10 +1141,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private void drawOpponentCount(Graphics2D g) {
 		// draw number of opponents
-		int maxOpp = opts.maximumOpponentsOptions();
+		//int maxOpp = opts.maximumOpponentsOptions();
 		int numOpp = opts.selectedNumberOpponents();
 		
-		boolean smallImages = maxOpp > 25;
+		boolean smallImages = numOpp > 25;
 		int mugW = smallImages? wSmallMug : wBigMug;
 		int mugH = smallImages? hSmallMug : hBigMug;
 		g.setFont(narrowFont(30));
@@ -1209,7 +1225,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.setFont(narrowFont(16));
 		int galaxyBoxW = boxW-s40;
 		int y3 = galaxyY+galaxyH+s16;
-		String systemsLbl = text("SETUP_GALAXY_NUMBER_SYSTEMS", opts.numberStarSystems());
+		int numSystem = opts.galaxyShape().finalNumberStarSystems();
+		String systemsLbl = text("SETUP_GALAXY_NUMBER_SYSTEMS", numSystem);
 		int sw3 = g.getFontMetrics().stringWidth(systemsLbl);
 		int x3 = rightBoxX+s20+((galaxyBoxW/2)-sw3)/2;
 		drawString(g,systemsLbl, x3,y3);
@@ -1223,6 +1240,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// highlight any controls that are hovered
 		if ((	 hoverPolyBox == shapeBoxL)		 || (hoverPolyBox == shapeBoxR)
 			||  (hoverPolyBox == sizeBoxL)		 || (hoverPolyBox == sizeBoxR)
+			||  (hoverPolyBox == sizeMinBoxL)	 || (hoverPolyBox == sizeMinBoxR)
+			||  (hoverPolyBox == sizeMaxBoxL)	 || (hoverPolyBox == sizeMaxBoxR)
 			||  (hoverPolyBox == diffBoxL)		 || (hoverPolyBox == diffBoxR)
 			||  (hoverPolyBox == wysiwygBoxL)	 || (hoverPolyBox == wysiwygBoxR)
 			||  (hoverPolyBox == aiBoxL)		 || (hoverPolyBox == aiBoxR)
@@ -1237,6 +1256,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			g.fill(hoverPolyBox);
 		}
 		else if ((hoverBox == shapeBox)		|| (hoverBox == sizeBox)
+			|| (hoverBox == sizeMinBox)		|| (hoverBox == sizeMaxBox)
 			|| (hoverBox == mapOption1Box)	|| (hoverBox == mapOption2Box)
 			|| (hoverBox == mapOption3Box)	|| (hoverBox == mapOption4Box)
 			|| (hoverBox == sizeOptionBox)	|| (hoverBox == abilitiesBox)
@@ -1401,13 +1421,32 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int x5b =sizeBox.x+((sizeBox.width-sizeSW)/2);
 		drawString(g,sizeLbl, x5b, y5);
 
-		if (isDynamic()) { // BR:
+		if (isDynamicSize()) { // BR:
 			String label = text(SIZE_OPT_KEY, opts.dynStarsPerEmpire().guideValue());
 			int sw2 = g.getFontMetrics().stringWidth(label);
 			int x5b1 =sizeOptionBox.x+((sizeOptionBox.width-sw2)/2);
 			drawString(g,label, x5b1, y5+s20);		   
 		}
+		else if (isRandomSize()) {
+			int lim1 = opts.randomNumStarsLim1();
+			int lim2 = opts.randomNumStarsLim2();
+			String label;
+			if (lim1>lim2)
+				label = text(SIZE_MAX_KEY, lim1);
+			else
+				label = text(SIZE_MIN_KEY, lim1);
+			int sw2 = g.getFontMetrics().stringWidth(label);
+			int xm =sizeMinBox.x+((sizeMinBox.width-sw2)/2);
+			drawString(g, label, xm, y5+s20);		   
 
+			if (lim1>lim2)
+				label = text(SIZE_MIN_KEY, lim2);
+			else
+				label = text(SIZE_MAX_KEY, lim2);
+			sw2 = g.getFontMetrics().stringWidth(label);
+			xm =sizeMaxBox.x+((sizeMaxBox.width-sw2)/2);
+			drawString(g, label, xm, y5+s40);		   
+		}
 		String diffLbl = text(opts.selectedGameDifficulty());
 		// modnar: add custom difficulty level option, set in Remnants.cfg
 		// append this custom difficulty percentage to diffLbl if selected
@@ -1789,16 +1828,15 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		return Color.gray;
 	}
-	private BufferedImage playerRaceImg() {
+	private BufferedImage playerRaceImg()	{
 		if (playerMug == null) {
 			String selRace = opts.selectedPlayerRace();
 			playerMug = newBufferedImage(Race.keyed(selRace).diploMug());
 		}
 		return playerMug;
 	}
-	private boolean isDynamic() {
-		return opts.selectedGalaxySize().equals(IGameOptions.SIZE_DYNAMIC);
-	}
+	private boolean isDynamicSize()			{ return opts.selectedGalaxySize().equals(SIZE_DYNAMIC); }
+	private boolean isRandomSize()			{ return opts.selectedGalaxySize().equals(SIZE_RANDOM); }
 	public	boolean isShapeTextMulti()		{ return opts.galaxyShape().getOption2().contains("MULTI"); }
 	public	boolean isShapeTextGalaxy()		{ return AllShapes.isTextShape(opts.selectedGalaxyShape()); }
 	public	boolean isShapeBitmapGalaxy()	{ return AllShapes.isBitMapShape(opts.selectedGalaxyShape()); }
@@ -2216,16 +2254,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.fill(oppBox);
 		int x2c = x2b+s33;
 		int y2c = (int)(oppBox.getY()+(oppBox.getHeight()/2));
-		oppBoxD.reset();
-		oppBoxD.addPoint(x2c,y2c+s2);
-		oppBoxD.addPoint(x2c+s13,y2c+s2);
-		oppBoxD.addPoint(x2c+s7,y2c+s17);
-		g.fill(oppBoxD);
-		oppBoxU.reset();
-		oppBoxU.addPoint(x2c,y2c-s1);
-		oppBoxU.addPoint(x2c+s13,y2c-s1);
-		oppBoxU.addPoint(x2c+s7,y2c-s16);
-		g.fill(oppBoxU);
+		oppBoxD.setAndFill(g, x2c, y2c);
+		oppBoxU.setAndFill(g, x2c, y2c);
 
 		int x2d = x2c+s20;
 		drawBorderedString(g, header2, 1, x2d, y2-yho, Color.black, Color.white);
@@ -2244,23 +2274,16 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int x3 = x2;
 		drawString(g,header3, x3, y3);
 		// int sliderW = s100+s20;
-		int sliderW = s100;
-		int sliderH = s16;
+		int sliderW	= s100;
+		int sliderH	= s16;
+		int sliderX	= x3+swHdr3+s20;
 		int sliderYAI = y3-sliderH+s3;
-		int sliderX = x3+swHdr3+s20;
+		int dy	= 0;
 		g.setColor(GameUI.setupFrame());
 
-		aiBoxL.reset();
-		aiBoxL.addPoint(sliderX-s4,sliderYAI+s1);
-		aiBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2);
-		aiBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2));
-		g.fill(aiBoxL);
-		aiBoxR.reset();
-		aiBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1);
-		aiBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2);
-		aiBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2));
-		g.fill(aiBoxR);
-		aiBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
+		aiBoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+		aiBoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
+		aiBox.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
 		g.fill(aiBox);
 
 		// draw CR selection
@@ -2272,17 +2295,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int sliderYCR = y3cr-sliderH+s3;
 		g.setColor(GameUI.setupFrame());
 
-		abilitiesBoxL.reset();
-		abilitiesBoxL.addPoint(sliderX-s4,sliderYCR+s1);
-		abilitiesBoxL.addPoint(sliderX-s4,sliderYCR+sliderH-s2);
-		abilitiesBoxL.addPoint(sliderX-s13,sliderYCR+(sliderH/2));
-		g.fill(abilitiesBoxL);
-		abilitiesBoxR.reset();
-		abilitiesBoxR.addPoint(sliderX+sliderW+s4,sliderYCR+s1);
-		abilitiesBoxR.addPoint(sliderX+sliderW+s4,sliderYCR+sliderH-s2);
-		abilitiesBoxR.addPoint(sliderX+sliderW+s13,sliderYCR+(sliderH/2));
-		g.fill(abilitiesBoxR);
-		abilitiesBox.setBounds(sliderX, sliderYCR, sliderW, sliderH);
+		abilitiesBoxL.setAndFill(g, sliderX, sliderYCR+dy, sliderH);
+		abilitiesBoxR.setAndFill(g, sliderX+sliderW, sliderYCR+dy, sliderH);
+		abilitiesBox.setBounds(sliderX, sliderYCR+dy, sliderW, sliderH);
 		g.fill(abilitiesBox);
 
 		// Align "New Races selection" and "Show Selectable Abilities"
@@ -2357,34 +2372,21 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		sliderH = s18;
 		sliderYAI = y5+s10;
 		sliderX = rightBoxX+s20+(sectionW/6);
+		dy = 0;
 		g.setColor(GameUI.setupFrame());
 
-		shapeBoxL.reset();
-		shapeBoxL.addPoint(sliderX-s4,sliderYAI+s1);
-		shapeBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2);
-		shapeBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2));
-		g.fill(shapeBoxL);
-		shapeBoxR.reset();
-		shapeBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1);
-		shapeBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2);
-		shapeBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2));
-		g.fill(shapeBoxR);
-		shapeBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
+		shapeBoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+		shapeBoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
+		shapeBox.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
 		g.fill(shapeBox);
 
 		mapOption1BoxL.reset();
 		mapOption1BoxR.reset();
 		mapOption1Box.setBounds(0,0,0,0);
 		if (shapeOptionsList().size() > 0) {
-			int dy = s20;
-			mapOption1BoxL.addPoint(sliderX-s4, sliderYAI+s1+dy);
-			mapOption1BoxL.addPoint(sliderX-s4, sliderYAI+sliderH-s2+dy);
-			mapOption1BoxL.addPoint(sliderX-s13, sliderYAI+(sliderH/2)+dy);
-			g.fill(mapOption1BoxL);
-			mapOption1BoxR.addPoint(sliderX+sliderW+s4, sliderYAI+s1+dy);
-			mapOption1BoxR.addPoint(sliderX+sliderW+s4, sliderYAI+sliderH-s2+dy);
-			mapOption1BoxR.addPoint(sliderX+sliderW+s13, sliderYAI+(sliderH/2)+dy);
-			g.fill(mapOption1BoxR);
+			dy = s20;
+			mapOption1BoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+			mapOption1BoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
 			mapOption1Box.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
 			g.fill(mapOption1Box);
 		}
@@ -2393,15 +2395,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		mapOption2BoxR.reset();
 		mapOption2Box.setBounds(0,0,0,0);
 		if (shapeOptionsList().size() > 1) {
-			int dy = s40;
-			mapOption2BoxL.addPoint(sliderX-s4, sliderYAI+s1+dy);
-			mapOption2BoxL.addPoint(sliderX-s4, sliderYAI+sliderH-s2+dy);
-			mapOption2BoxL.addPoint(sliderX-s13, sliderYAI+(sliderH/2)+dy);
-			g.fill(mapOption2BoxL);
-			mapOption2BoxR.addPoint(sliderX+sliderW+s4, sliderYAI+s1+dy);
-			mapOption2BoxR.addPoint(sliderX+sliderW+s4, sliderYAI+sliderH-s2+dy);
-			mapOption2BoxR.addPoint(sliderX+sliderW+s13, sliderYAI+(sliderH/2)+dy);
-			g.fill(mapOption2BoxR);
+			dy = s40;
+			mapOption2BoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+			mapOption2BoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
 			mapOption2Box.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
 			g.fill(mapOption2Box);
 		}
@@ -2409,20 +2405,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		mapOption3BoxR.reset();
 		mapOption3Box.setBounds(0,0,0,0);
 		if (shapeOptionsList().size() > 2) {
-			int dy = s60;
+			dy = s60;
 			if (isShapeBitmapGalaxy()) {
 				mapOption3Box.setBounds(sliderX, sliderYAI+dy, sliderW+2*sectionW, sliderH);
 				g.fill(mapOption3Box);
 			}
 			else {
-				mapOption3BoxL.addPoint(sliderX-s4, sliderYAI+s1+dy);
-				mapOption3BoxL.addPoint(sliderX-s4, sliderYAI+sliderH-s2+dy);
-				mapOption3BoxL.addPoint(sliderX-s13, sliderYAI+(sliderH/2)+dy);
-				g.fill(mapOption3BoxL);
-				mapOption3BoxR.addPoint(sliderX+sliderW+s4, sliderYAI+s1+dy);
-				mapOption3BoxR.addPoint(sliderX+sliderW+s4, sliderYAI+sliderH-s2+dy);
-				mapOption3BoxR.addPoint(sliderX+sliderW+s13, sliderYAI+(sliderH/2)+dy);
-				g.fill(mapOption3BoxR);
+				mapOption3BoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+				mapOption3BoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
 				mapOption3Box.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
 				g.fill(mapOption3Box);
 			}
@@ -2431,73 +2421,59 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		mapOption4BoxR.reset();
 		mapOption4Box.setBounds(0,0,0,0);
 		if (shapeOptionsList().size() > 3) {
-			int dy = s80;
-			mapOption4BoxL.addPoint(sliderX-s4, sliderYAI+s1+dy);
-			mapOption4BoxL.addPoint(sliderX-s4, sliderYAI+sliderH-s2+dy);
-			mapOption4BoxL.addPoint(sliderX-s13, sliderYAI+(sliderH/2)+dy);
-			g.fill(mapOption4BoxL);
-			mapOption4BoxR.addPoint(sliderX+sliderW+s4, sliderYAI+s1+dy);
-			mapOption4BoxR.addPoint(sliderX+sliderW+s4, sliderYAI+sliderH-s2+dy);
-			mapOption4BoxR.addPoint(sliderX+sliderW+s13, sliderYAI+(sliderH/2)+dy);
-			g.fill(mapOption4BoxR);
+			dy = s80;
+			mapOption4BoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+			mapOption4BoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
 			mapOption4Box.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
 			g.fill(mapOption4Box);
 		}
 
 		sliderX += sectionW;
-		sizeBoxL.reset();
-		sizeBoxL.addPoint(sliderX-s4,sliderYAI+s1);
-		sizeBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2);
-		sizeBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2));
-		g.fill(sizeBoxL);
-		sizeBoxR.reset();
-		sizeBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1);
-		sizeBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2);
-		sizeBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2));
-		g.fill(sizeBoxR);
-		sizeBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
+		dy = 0;
+		sizeBoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+		sizeBoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
+		sizeBox.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
 		g.fill(sizeBox);
 
-	sizeOptionBoxL.reset();
+		sizeMinBoxL.reset();
+		sizeMinBoxR.reset();
+		sizeMaxBoxL.reset();
+		sizeMaxBoxR.reset();
+		sizeOptionBoxL.reset();
 		sizeOptionBoxR.reset();
+		sizeMinBox.setBounds(0,0,0,0);
+		sizeMaxBox.setBounds(0,0,0,0);
 		sizeOptionBox.setBounds(0,0,0,0);
-		if (isDynamic()) {
-			sizeOptionBoxL.addPoint(sliderX-s4,sliderYAI+s1+s20);
-			sizeOptionBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2+s20);
-			sizeOptionBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2)+s20);
-			g.fill(sizeOptionBoxL);
-			sizeOptionBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1+s20);
-			sizeOptionBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2+s20);
-			sizeOptionBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2)+s20);
-			g.fill(sizeOptionBoxR);
-			sizeOptionBox.setBounds(sliderX, sliderYAI+s20, sliderW, sliderH);
+		if (isDynamicSize()) {
+			dy = s20;
+			sizeOptionBoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+			sizeOptionBoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
+			sizeOptionBox.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
 			g.fill(sizeOptionBox);
 		}
+		else if (isRandomSize()) {
+			dy = s20;
+			sizeMinBoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+			sizeMinBoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
+			sizeMinBox.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
+			g.fill(sizeMinBox);
+			dy = s40;
+			sizeMaxBoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+			sizeMaxBoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
+			sizeMaxBox.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
+			g.fill(sizeMaxBox);
+		}
 		sliderX += sectionW;
-		diffBoxL.reset();
-		diffBoxL.addPoint(sliderX-s4,sliderYAI+s1);
-		diffBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2);
-		diffBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2));
-		g.fill(diffBoxL);
-		diffBoxR.reset();
-		diffBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1);
-		diffBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2);
-		diffBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2));
-		g.fill(diffBoxR);
-		diffBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
+		dy = 0;
+		diffBoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+		diffBoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
+		diffBox.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
 		g.fill(diffBox);
 
-		wysiwygBoxL.reset();
-		wysiwygBoxL.addPoint(sliderX-s4,sliderYAI+s1+s20);
-		wysiwygBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2+s20);
-		wysiwygBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2)+s20);
-		g.fill(wysiwygBoxL);
-		wysiwygBoxR.reset();
-		wysiwygBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1+s20);
-		wysiwygBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2+s20);
-		wysiwygBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2+s20));
-		g.fill(wysiwygBoxR);
-		wysiwygBox.setBounds(sliderX, sliderYAI+s20, sliderW, sliderH);
+		dy = s20;
+		wysiwygBoxL.setAndFill(g, sliderX, sliderYAI+dy, sliderH);
+		wysiwygBoxR.setAndFill(g, sliderX+sliderW, sliderYAI+dy, sliderH);
+		wysiwygBox.setBounds(sliderX, sliderYAI+dy, sliderW, sliderH);
 		g.fill(wysiwygBox);
 
 		// draw settings button
@@ -2508,7 +2484,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int yb = 610;
 		int xb = 700;
 		int dx = 145;
-		int dy = 30;
+		dy = 30;
 		//smallButtonW = scaled(180);
 		smallButtonH = s30;
 		g.setPaint(GameUI.buttonBackgroundColor());
@@ -2590,8 +2566,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		guideBox.setBounds(xb, yb, buttonW, buttonH);
 
 		drawFixButtons(g, true);
-        initButtonBackImg();
-
+		initButtonBackImg();
 		g.dispose();
 	}
 	@Override public String ambienceSoundKey()		{ return GameUI.AMBIENCE_KEY; }
@@ -2667,12 +2642,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			shapeSelection.next();
 		else if (hoverPolyBox == mapOption1BoxL)
 			opts.galaxyShape().paramOption1().prev();
-//			prevMapOption1(true);
 		else if (hoverBox == mapOption1Box)
 			opts.galaxyShape().paramOption1().toggle(e, this);
 		else if (hoverPolyBox == mapOption1BoxR)
 			opts.galaxyShape().paramOption1().next();
-//			nextMapOption1(true);
 		else if (hoverPolyBox == mapOption2BoxL)
 			opts.galaxyShape().paramOption2().prev();
 		else if (hoverBox == mapOption2Box)
@@ -2697,6 +2670,30 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			sizeSelection.toggle(e, this);
 		else if (hoverPolyBox == sizeBoxR)
 			sizeSelection.next();
+		else if (hoverPolyBox == sizeMinBoxL) {
+			randomNumStarsLim1.prev();
+			postSelectionLight(true);
+		}
+		else if (hoverBox == sizeMinBox) {
+			randomNumStarsLim1.toggle(e, this);
+			postSelectionLight(true);
+		}
+		else if (hoverPolyBox == sizeMinBoxR) {
+			randomNumStarsLim1.next();
+			postSelectionLight(true);
+		}
+		else if (hoverPolyBox == sizeMaxBoxL) {
+			randomNumStarsLim2.prev();
+			postSelectionLight(true);
+		}
+		else if (hoverBox == sizeMaxBox) {
+			randomNumStarsLim2.toggle(e, this);
+			postSelectionLight(true);
+		}
+		else if (hoverPolyBox == sizeMaxBoxR) {
+			randomNumStarsLim2.next();
+			postSelectionLight(true);
+		}
 		else if (hoverPolyBox == sizeOptionBoxL) {
 			opts.dynStarsPerEmpire().prev(e);
 			opts.dynStarsPerEmpire().set(opts.dynStarsPerEmpire().getValidValue());
@@ -2776,6 +2773,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			opts.galaxyShape().paramOption4().toggle(e);
 		else if (hoverBox == sizeBox)
 			sizeSelection.toggle(e);
+		else if (hoverBox == sizeMinBox) {
+			randomNumStarsLim1.toggle(e);
+			postSelectionLight(false);
+		}
+		else if (hoverBox == sizeMaxBox) {
+			randomNumStarsLim2.toggle(e);
+			postSelectionLight(false);
+		}
 		else if (hoverBox == sizeOptionBox)
 			opts.dynStarsPerEmpire().toggle((MouseEvent)null, e, this);
 		else if (hoverBox == aiBox)
@@ -2823,8 +2828,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private class ParamListOpponentAI extends ParamList { // For Guide
 		private ParamListOpponentAI(String gui, String name, List<String> list, String defaultValue) {
 			super(gui, name, list, defaultValue);
-			this.setDefaultValue(MOO1_DEFAULT, IGameOptions.baseAI.aliensKey);
-			this.setDefaultValue(ROTP_DEFAULT, IGameOptions.baseAI.aliensKey);
+			this.setDefaultValue(MOO1_DEFAULT, baseAI.aliensKey);
+			this.setDefaultValue(ROTP_DEFAULT, baseAI.aliensKey);
 		}
 		@Override public String	getOptionValue(IGameOptions options)	{
 			return options.selectedOpponentAIOption();

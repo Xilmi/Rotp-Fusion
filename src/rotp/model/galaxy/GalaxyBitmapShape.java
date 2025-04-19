@@ -621,10 +621,10 @@ final class GalaxyBitmapShape extends GalaxyShape {
 		yMult  = (float) height/yBM;
 	}
 	@Override protected int galaxyWidthLY() { 
-		return (int) (Math.sqrt(opts.numberStarSystems()*adjustDensity*adjustedSizeFactor()*aspectRatio));
+		return (int) (Math.sqrt(finalNumberStarSystems*adjustDensity*adjustedSizeFactor()*aspectRatio));
 	}
 	@Override protected int galaxyHeightLY() { 
-		return (int) (Math.sqrt(opts.numberStarSystems()*adjustDensity*adjustedSizeFactor()/aspectRatio));
+		return (int) (Math.sqrt(finalNumberStarSystems*adjustDensity*adjustedSizeFactor()/aspectRatio));
 	}
 	@Override public void setRandom(Point.Float pt) { setRandom(starsCD, pt); }
 	// modnar: add possibility for specific placement of homeworld/orion locations

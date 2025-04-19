@@ -90,11 +90,11 @@ final class GalaxyLorenzShape extends GalaxyShape {
     }
     @Override
     protected int galaxyWidthLY() { 
-        return (int) (Math.sqrt(2.0*4.0/3.0*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(2.0*4.0/3.0*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     protected int galaxyHeightLY() { 
-        return (int) (Math.sqrt(2.0*3.0/4.0*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(2.0*3.0/4.0*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     public void setRandom(Point.Float pt) {

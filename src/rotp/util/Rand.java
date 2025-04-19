@@ -106,6 +106,12 @@ public class Rand extends Random {
 	@Override public int nextInt(int lim1, int lim2) {
 		return nextInt(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
+	/**
+	 * @return  min(lim1, lim2) <= random int <= max(lim1, lim2)
+	 */
+	public int nextIntInclusive(int lim1, int lim2) {
+		return nextInt(Math.abs(lim2-lim1)+1) + Math.min(lim2, lim1);
+	}
 
 	// ===== Symmetric Getters with multiplier =====
 	/**

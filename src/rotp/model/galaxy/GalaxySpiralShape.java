@@ -101,7 +101,7 @@ final class GalaxySpiralShape extends GalaxyShape {
     	return pt;
     }
 	@Override public CtrPoint getPlayerSymmetricHomeWorld()	{
-		double minHomeRay = Math.sqrt(empireBuffer * numEmpires / twoPI / galaxyRay());
+		double minHomeRay = Math.sqrt(empireBuffer * numEmpires() / twoPI / galaxyRay());
 		return getRandomSymmetric(minHomeRay);
 	}
 	@Override public IShapeOption paramOption1()	{ return param1(); }
@@ -123,8 +123,8 @@ final class GalaxySpiralShape extends GalaxyShape {
         if (isSymmetric()) {
         	randomOrientation = rand.nextDouble(twoPI);
         	// a void coming from symmetry depends on number of opponents
-         	double minHomeRay = empireBuffer * numEmpires / twoPI;
-        	double minRay = systemBuffer() * numEmpires / twoPI;
+         	double minHomeRay = empireBuffer * numEmpires() / twoPI;
+        	double minRay = systemBuffer() * numEmpires() / twoPI;
         	double maxRay = (float) Math.sqrt(maxStars * adjustedSizeFactor())
         							/ 2 - galaxyEdgeBuffer();
         	float adjTmp = (float) (1.0 / (1.0 - minRay*minRay/maxRay/maxRay));
@@ -135,7 +135,7 @@ final class GalaxySpiralShape extends GalaxyShape {
             }
             adjust_density = max(1f, adjust_density);
             minRandRay = Math.sqrt(minRay / galaxyRay()); 
-            numArms = numEmpires;
+            numArms = numEmpires();
         } // \BR:
 
         rotationFactor = option2;

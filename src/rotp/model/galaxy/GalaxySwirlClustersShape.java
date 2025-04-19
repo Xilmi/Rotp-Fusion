@@ -66,11 +66,11 @@ final class GalaxySwirlClustersShape extends GalaxyShape {
     }
     @Override
     protected int galaxyWidthLY() { 
-        return (int) (Math.sqrt(1.8*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(1.8*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     protected int galaxyHeightLY() { 
-        return (int) (Math.sqrt(1.8*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(1.8*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     public void setRandom(Point.Float pt) {
@@ -80,8 +80,8 @@ final class GalaxySwirlClustersShape extends GalaxyShape {
 		// scale up the swirl size with size of map
 		// scale up number of clusters with size of map
 		// scale cluster radius with ~numSwirls
-		float numSwirls = (float) Math.sqrt(Math.sqrt(opts.numberStarSystems())) - 1;
-		int numClusters = (int) Math.floor(Math.sqrt(opts.numberStarSystems())*Math.log(opts.numberStarSystems())/10);
+		float numSwirls = (float) Math.sqrt(Math.sqrt(finalNumberStarSystems)) - 1;
+		int numClusters = (int) Math.floor(Math.sqrt(finalNumberStarSystems)*Math.log(finalNumberStarSystems)/10);
 		float clusterR = (float) (numSwirls + 4.0f) / 1.5f;
 		float swirlWidth = 0.05f;
 		float clusterDelta = 0.0f; // distance to displace cluster
@@ -89,23 +89,23 @@ final class GalaxySwirlClustersShape extends GalaxyShape {
 		switch(option1) {
             case 0: {
                 // clusters distributed along spiral
-                numSwirls = (float) Math.sqrt(Math.sqrt(opts.numberStarSystems())) - 1;
-                numClusters = (int) Math.floor(Math.sqrt(opts.numberStarSystems())*Math.log(opts.numberStarSystems())/10);
+                numSwirls = (float) Math.sqrt(Math.sqrt(finalNumberStarSystems)) - 1;
+                numClusters = (int) Math.floor(Math.sqrt(finalNumberStarSystems)*Math.log(finalNumberStarSystems)/10);
                 clusterR = (float) (numSwirls + 4.0f) / 1.5f;
                 clusterDelta = 0.0f;
                 break;
             }
             case 1: {
                 // clusters spanning across tighter spirals
-                numSwirls = (float) Math.sqrt(Math.sqrt(opts.numberStarSystems()))*1.5f - 1;
-                numClusters = (int) Math.floor(Math.sqrt(opts.numberStarSystems())*Math.log(opts.numberStarSystems())/10);
+                numSwirls = (float) Math.sqrt(Math.sqrt(finalNumberStarSystems))*1.5f - 1;
+                numClusters = (int) Math.floor(Math.sqrt(finalNumberStarSystems)*Math.log(finalNumberStarSystems)/10);
                 clusterR = (float) (numSwirls + 4.0f) / 1.5f;
                 clusterDelta = clusterR;
                 break;
             }
             case 2: {
                 // very tight spiral only, no visible clusters
-                numSwirls = (float) (Math.sqrt(opts.numberStarSystems()))/3.0f;
+                numSwirls = (float) (Math.sqrt(finalNumberStarSystems))/3.0f;
                 numClusters = 5;
                 clusterR = 0.1f;
                 clusterDelta = 0.0f;

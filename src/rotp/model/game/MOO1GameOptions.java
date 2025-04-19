@@ -106,10 +106,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 
     private transient GalaxyShape galaxyShape;
     private transient int id = UNKNOWN_ID;
+    private transient Integer currentNumSystem;
 
 	public MOO1GameOptions()					{ init(); }
 	public MOO1GameOptions(boolean init)		{ if(init) init(); }
 	void init()	{
+		currentNumSystem = null;
 		randomizeColors();
 		setBaseSettingsToDefault();
 	}
@@ -139,6 +141,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public String selectedGalaxySize()           { return selectedGalaxySize; }
     @Override
     public void selectedGalaxySize(String s)     {
+		currentNumSystem = null;
         int prevNumOpp = defaultOpponentsOptions();
         selectedGalaxySize = s; 
         if (selectedNumberOpponents() == prevNumOpp)
@@ -146,17 +149,22 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
 	@Override public String selectedGalaxyShape()	{ return selectedGalaxyShape; }
 	@Override public void selectedGalaxyShape(String s)	{
+		currentNumSystem = null;
 		selectedGalaxyShape = s;
 		setGalaxyShape();
 	}
     @Override
     public String selectedGalaxyAge()           { return selectedGalaxyAge; }
-    @Override
-    public void selectedGalaxyAge(String s)     { selectedGalaxyAge = s; }
+	@Override public void selectedGalaxyAge(String s)	{
+		currentNumSystem = null;
+		selectedGalaxyAge = s;
+	}
     @Override
     public String selectedGameDifficulty()       { return selectedGameDifficulty; }
-    @Override
-    public void selectedGameDifficulty(String s) { selectedGameDifficulty = s; }
+	@Override public void selectedGameDifficulty(String s)	{
+		currentNumSystem = null;
+		selectedGameDifficulty = s;
+	}
     @Override
     public String selectedResearchRate()         { return selectedResearchRate == null ? RESEARCH_NORMAL : selectedResearchRate; }
     @Override
@@ -183,8 +191,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public void selectedCouncilWinOption(String s)  { selectedCouncilWinOption = s; }
     @Override
     public String selectedStarDensityOption()       { return selectedStarDensityOption == null ? STAR_DENSITY_NORMAL : selectedStarDensityOption; }
-    @Override
-    public void selectedStarDensityOption(String s) { selectedStarDensityOption = s; }
+	@Override public void selectedStarDensityOption(String s)	{
+		currentNumSystem = null;
+		selectedStarDensityOption = s;
+	}
     @Override
     public String selectedPlanetQualityOption()       { return selectedPlanetQualityOption == null ? PLANET_QUALITY_NORMAL : selectedPlanetQualityOption; }
     @Override
@@ -212,8 +222,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public String selectedOpponentAIOption()       { 
     	return selectedOpponentAIOption == null ? defaultAI.aliensKey : selectedOpponentAIOption; } // modnar: default to modnar AI
-    @Override
-    public void selectedOpponentAIOption(String s) { selectedOpponentAIOption = s; }
+	@Override public void selectedOpponentAIOption(String s)	{
+		currentNumSystem = null;
+		selectedOpponentAIOption = s;
+	}
     @Override
     public String specificOpponentAIOption(int n)  { 
             if ((specificOpponentAIOption == null) || (specificOpponentAIOption.length < n))
@@ -243,8 +255,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public void selectedAIHostilityOption(String s) { selectedAIHostilityOption = s; }
     @Override
     public int selectedNumberOpponents()         { return selectedNumberOpponents; }
-    @Override
-    public void selectedNumberOpponents(int i)   { selectedNumberOpponents = i; }
+	@Override public void selectedNumberOpponents(int i)	{
+		currentNumSystem = null;
+		selectedNumberOpponents = i;
+	}
     @Override
     public String selectedPlayerRace()           { return selectedPlayer().race(); }
     @Override
@@ -349,7 +363,16 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
 	@Override public int numGalaxyShapeOption1() { return galaxyShape.numOptions1(); }
 	@Override public int numGalaxyShapeOption2() { return galaxyShape.numOptions2(); }
-	@Override public int numberStarSystems()	 { return numberStarSystems(selectedGalaxySize()); }
+	@Override public int numberStarSystems(boolean refresh)	{
+		if (refresh)
+			currentNumSystem = null;
+		return numberStarSystems();
+	}
+	@Override public int numberStarSystems()	{
+		if (currentNumSystem == null)
+			currentNumSystem = numberStarSystems(selectedGalaxySize());
+		return currentNumSystem;
+	}
 	@Override public int numberStarSystems(String size)	{ return galaxySizeMap(true, this).get(size); }
     @Override
     public int numberNebula() {
@@ -682,10 +705,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public List<Integer> possibleColors()	  { return new ArrayList<>(colors); }
 	@Override public void setAndGenerateGalaxy()	{
+		currentNumSystem = null;
 		setGalaxyShape();
 		generateGalaxy();
 	}
-    private void generateGalaxy() { galaxyShape().quickGenerate(); }
+	private void generateGalaxy()	{
+		currentNumSystem = null;
+		galaxyShape().quickGenerate();
+	}
     @Override
     public Color color(int i)     {
     	if (i<0 || i>=empireColors.size())
@@ -975,6 +1002,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     // ========== Galaxy Menu Options ==========
     private void setBaseGalaxySettingsToDefault() { // BR:
+		currentNumSystem	= null;
 		selectedGalaxySize	= SIZE_DEFAULT;
 		selectedGalaxyShape	= AllShapes.getDefault();
         setGalaxyShape();
@@ -993,6 +1021,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
     }
     private void copyBaseGalaxySettings(MOO1GameOptions dest) { // BR:
+		dest.currentNumSystem	 = null;
     	dest.selectedGalaxySize  = selectedGalaxySize;
     	dest.selectedGalaxyShape = selectedGalaxyShape;
     	dest.selectedNumberOpponents = selectedNumberOpponents;
@@ -1006,6 +1035,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     // ========== Other Menu ==========
     @Override public  void setAdvancedOptionsToDefault() {
+		currentNumSystem = null;
         selectedGalaxyAge = GALAXY_AGE_NORMAL;
         selectedPlanetQualityOption = PLANET_QUALITY_NORMAL;
         selectedTerraformingOption = TERRAFORMING_NORMAL;
@@ -1023,6 +1053,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedAIHostilityOption = AI_HOSTILITY_NORMAL;
     }
     private void copyAdvancedOptions(MOO1GameOptions dest) { // BR:
+		dest.currentNumSystem			= null;
         dest.selectedGalaxyAge			= selectedGalaxyAge;
         dest.selectedPlanetQualityOption =selectedPlanetQualityOption;
         dest.selectedTerraformingOption = selectedTerraformingOption;
@@ -1123,6 +1154,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     //
 	@Override public void loadStartupOptions() {
 		Rotp.ifIDE("==================== reset all options() ====================");
+		currentNumSystem = null;
 		resetAllNonCfgSettingsToDefault(true);
 		Rotp.ifIDE("==================== loadStartupOptions() ===================");
     	if (menuStartup.isUser()) {
@@ -1410,6 +1442,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 for (int i=0;i<newOptions.specificOpponentCROption.length;i++)
                 	newOptions.specificOpponentCROption[i] = defVal;
             }
+    		newOptions.currentNumSystem = null;
             return newOptions;
         }
         catch (IOException | ClassNotFoundException e) {

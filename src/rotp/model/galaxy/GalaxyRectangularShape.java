@@ -202,11 +202,11 @@ final class GalaxyRectangularShape extends GalaxyShape {
     }
     @Override
     protected int galaxyWidthLY() { 
-        return (int) (Math.sqrt(adjust_density*rectangleRatio*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(adjust_density*rectangleRatio*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     protected int galaxyHeightLY() { 
-        return (int) (Math.sqrt(adjust_density*(1/rectangleRatio)*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(adjust_density*(1/rectangleRatio)*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations

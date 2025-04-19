@@ -89,13 +89,13 @@ final class GalaxyFractalShape extends GalaxyShape {
     @Override
     protected int galaxyWidthLY() { 
 		return (int) (Math.sqrt(adjust_density
-				* Math.max(33, opts.numberStarSystems()) 
+				* Math.max(33, finalNumberStarSystems) 
 				* adjustedSizeFactor()));
     }
     @Override
     protected int galaxyHeightLY() { 
 		return (int) (Math.sqrt(adjust_density
-				* Math.max(33, opts.numberStarSystems())
+				* Math.max(33, finalNumberStarSystems)
 				* adjustedSizeFactor()));
     }
 

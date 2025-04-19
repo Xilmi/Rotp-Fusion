@@ -981,9 +981,52 @@ public abstract class BaseModPanel extends BasePanel
 
 	final class PolyBox extends Polygon {
 		private static final long serialVersionUID = 1L;
+		static final int LEFT_ARROW		= 0;
+		static final int RIGHT_ARROW	= 1;
+		static final int UP_ARROW		= 2;
+		static final int DOWN_ARROW		= 3;
+		private final int dir;
+		private int sliderH	= s16;
 		// ========== Constructors ==========
 		//
-		PolyBox() { polyBoxList.add(this); }
+		PolyBox(int direction) {
+			super();
+			polyBoxList.add(this);
+			dir = direction;
+		}
+		void setPos(int x, int y)	{
+			reset();
+			switch (dir) {
+			case LEFT_ARROW:
+				addPoint(x-s4,	y+s1);
+				addPoint(x-s4,	y+sliderH-s2);
+				addPoint(x-s13,	y+(sliderH/2));
+				return;
+			case RIGHT_ARROW:
+				addPoint(x+s4,	y+s1);
+				addPoint(x+s4,	y+sliderH-s2);
+				addPoint(x+s13,	y+(sliderH/2));
+				return;
+			case UP_ARROW:
+				addPoint(x,		y-s1);
+				addPoint(x+s13,	y-s1);
+				addPoint(x+s7,	y-s16);
+				return;
+			case DOWN_ARROW:
+				addPoint(x,		y+s2);
+				addPoint(x+s13,	y+s2);
+				addPoint(x+s7,	y+s17);
+				return;
+			}
+		}
+		void setAndFill(Graphics2D g, int x, int y)	{
+			setPos(x, y);
+			g.fill(this);
+		}
+		void setAndFill(Graphics2D g, int x, int y, int h)	{
+			sliderH = h;
+			setAndFill(g, x, y);
+		}
 	}
 	public final class ModText extends BaseText {
 		

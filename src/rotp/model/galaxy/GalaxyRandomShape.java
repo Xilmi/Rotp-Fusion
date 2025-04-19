@@ -180,6 +180,8 @@ final class GalaxyRandomShape extends GalaxyShape {
 	@Override public CtrPoint getValidRandomSymmetric()		{ return finalShape.getValidRandomSymmetric(); }
 	@Override public int numCompanionWorld()			{ return finalShape.numCompanionWorld(); }
 	@Override public int numberStarSystems()			{ return finalShape.numberStarSystems(); }
+	@Override public int finalNumberStarSystems()		{ return finalShape.finalNumberStarSystems(); }
+	@Override public int numEmpires()					{ return finalShape.numEmpires(); }
 	@Override int totalStarSystems()					{ return finalShape.totalStarSystems(); }
 	@Override public List<EmpireSystem> empireSystems()	{ return finalShape.empireSystems(); }
 	@Override public Point.Float getCompanion(int eId, int cId)	{ return finalShape.getCompanion(eId, cId); }

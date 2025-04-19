@@ -85,7 +85,7 @@ final class GalaxyEllipticalShape extends GalaxyShape {
     // BR: for symmetric galaxy
     private CtrPoint getRandomSymmetric(double minRay) {
     	double ray   = galaxyRay() * Math.sqrt(randX.nextDouble(minRay, 1));
-    	double angle = randY.sym(randomOrientation, twoPI / numEmpires);
+    	double angle = randY.sym(randomOrientation, twoPI / numEmpires());
     	return new CtrPoint(ray).rotate(angle);
     }
     @Override public CtrPoint getValidRandomSymmetric() {
@@ -95,7 +95,7 @@ final class GalaxyEllipticalShape extends GalaxyShape {
     	return pt;
     }
 	@Override public CtrPoint getPlayerSymmetricHomeWorld()	{
-		double minHomeRay = Math.pow(empireBuffer * numEmpires / twoPI / galaxyRay(), 2);
+		double minHomeRay = Math.pow(empireBuffer * numEmpires() / twoPI / galaxyRay(), 2);
 		return getRandomSymmetric(minHomeRay);
 	}
 
@@ -135,8 +135,8 @@ final class GalaxyEllipticalShape extends GalaxyShape {
             	ellipseRatio = 1.0f;  // BR: Symmetric
 	        	randomOrientation = rand.nextDouble(twoPI);
 	        	// a void coming from symmetry depends on number of opponents
-	         	double minHomeRay = empireBuffer * numEmpires / twoPI;
-	        	double minRay = systemBuffer() * numEmpires / twoPI;
+	         	double minHomeRay = empireBuffer * numEmpires() / twoPI;
+	        	double minRay = systemBuffer() * numEmpires() / twoPI;
 	        	double maxRay = (float) Math.sqrt(maxStars * adjustedSizeFactor())
 	        							/ 2 - galaxyEdgeBuffer();
 	        	float adjTmp = (float) (1.0 / (1.0 - minRay*minRay/maxRay/maxRay));
@@ -177,7 +177,7 @@ final class GalaxyEllipticalShape extends GalaxyShape {
         float rOrion = 1.0f;
         orionSpot = new Ellipse2D.Float(gE+0.5f*gW-rOrion,gE+0.5f*gH-rOrion,2.0f*rOrion,2.0f*rOrion);
         orionArea = new Area(orionSpot);
-        if ((option1 == 0)&&(opts.numberStarSystems()>90)&&(voidSize > 0.7f)) {
+        if ((option1 == 0)&&(finalNumberStarSystems>90)&&(voidSize > 0.7f)) {
             totalArea.add(orionArea);
         }
 
@@ -193,7 +193,7 @@ final class GalaxyEllipticalShape extends GalaxyShape {
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         // modnar: setSpecific only for circular, void-4, non-small maps
-        if ((option1 == 0)&&(opts.numberStarSystems()>90)&&(voidSize > 0.7f)) {
+        if ((option1 == 0)&&(finalNumberStarSystems>90)&&(voidSize > 0.7f)) {
             if (indexWorld == 0) { // orion
                 pt.x = galaxyEdgeBuffer()+0.5f*galaxyWidthLY();
                 pt.y = galaxyEdgeBuffer()+0.5f*galaxyHeightLY();

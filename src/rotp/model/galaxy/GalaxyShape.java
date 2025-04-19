@@ -54,7 +54,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private int numCompanions;
 	private ShapeRegion[][] regions;
 	private int regionScale = 16;
-	int fullWidth, fullHeight, width, height;
+	protected int fullWidth, fullHeight, width, height;
 	int maxStars = 0;
 	private int num = 0;
 	private int homeStars = 0;
@@ -70,7 +70,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private static float cx; // Width galaxy center
 	private static float cy; // Height galaxy center
 	private float sysBuffer = 1.9f;
-	int numEmpires;
+	private int numEmpires;
 	private int numOpponents;
 	protected Rand randRnd = new Rand(rng().nextLong()); // For random option selection purpose
 	protected Rand rand	 = new Rand(randRnd.nextLong()); // For other than location purpose
@@ -84,6 +84,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private int   loopReserve   = 0;
 	protected int homeStarNum	= 3;
 	
+	protected int finalNumberStarSystems;
 	protected String finalOption1, finalOption2, finalOption3, finalOption4;
 	protected int option1, option2, option3, option4;
 	protected boolean[] randomizeShapeOptions;
@@ -106,6 +107,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		rand	= randRnd;
 		randX	= randRnd;
 		randY	= randRnd;
+		finalNumberStarSystems = opts.numberStarSystems(true);
 		initFinalOption1();
 		initFinalOption2();
 		initFinalOption3();
@@ -144,6 +146,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	void registerOptions(Map<String, ListShapeParam> shapesMap)	{
 		shapesMap.put(name(), new ListShapeParam(paramList()));
 	}
+	public int finalNumberStarSystems()	{ return finalNumberStarSystems; }
 	public ListShapeParam paramList()	{
 		ListShapeParam list = new ListShapeParam();
 		// ListShapeParam ignore null entries
@@ -213,6 +216,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			coords(systemId, pt);
 		}
 	}
+	protected int numEmpires()	{return numEmpires; }
 	protected void setRandom(Point.Float pt) {
         pt.x = galaxyEdgeBuffer() + (fullWidth  - 2*galaxyEdgeBuffer()) * randX.nextFloat();
         pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * randY.nextFloat();
@@ -487,7 +491,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	//
 	public float empireBuffer() { // BR: Made this parameter available for GUI
 		float sysBuffer			 = systemBuffer();
-		float minMaxEmpireBuffer = opts.numberStarSystems()/(numEmpires*2);
+		float minMaxEmpireBuffer = finalNumberStarSystems/(numEmpires*2);
 		float minEmpireBuffer    = sysBuffer * minEmpireFactor();
 		float maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
 		// the stars/empires ratio for the most "densely" populated galaxy is about 8:1
@@ -501,9 +505,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	protected void singleInit(boolean full) {
 		if (full)
-			maxStars = opts.numberStarSystems();
+			maxStars = finalNumberStarSystems();
 		else
-			maxStars = min(MaxPreviewSystems, opts.numberStarSystems());
+			maxStars = min(MaxPreviewSystems, finalNumberStarSystems);
 			
 		// common symmetric and non symmetric initializer for generation
 		numOpponents = max(0, opts.selectedNumberOpponents());
@@ -524,11 +528,11 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	private void fullInit() {
 		fullyInit = true;
-		init(opts.numberStarSystems());
+		init(finalNumberStarSystems);
 	}
 	private void quickInit() {
 		fullyInit = false;
-		init(min(MaxPreviewSystems, opts.numberStarSystems()));
+		init(min(MaxPreviewSystems, finalNumberStarSystems));
 	}
 	protected void init(int numStars) {
 		// System.out.println("========== GalaxyShape.init(): genAttempt = " + genAttempt);

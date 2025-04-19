@@ -60,11 +60,11 @@ final class GalaxyClusterShape extends GalaxyShape {
 	@Override protected float minEmpireFactor()		{ return 4f; }
     @Override
     protected int galaxyWidthLY() { 
-        return (int) (Math.sqrt(1.7*4.0/3.0*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(1.7*4.0/3.0*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     protected int galaxyHeightLY() { 
-        return (int) (Math.sqrt(1.7*3.0/4.0*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(1.7*3.0/4.0*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     public void init(int n) {

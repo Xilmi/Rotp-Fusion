@@ -1519,9 +1519,16 @@ SETUP_GALAXY_SIZE_MOO1_DESC       | Cette taille de Galaxie est disponible dans 
 SETUP_GALAXY_SIZE_UP1000_DESC     | Taille de Galaxie plus grande que celles disponibles dans le jeu original MOO1, mais toujours raisonnable. Il faudra du temps pour gagner...
 SETUP_GALAXY_SIZE_OVER1000_DESC   | Taille de galaxie indécente, beaucoup plus grande que celles disponibles dans le jeu original MOO1. Il vous faudra des semaines pour terminer cette partie.
 
-SETUP_GALAXY_SIZE_VALUE			|  (%1)
-SETUP_GALAXY_SIZE_VALUE_DYN		|  (--> %1)
+SETUP_RANDOM_NUM_STARS_LIM_MAX		| ≤ %1
+SETUP_RANDOM_NUM_STARS_LIM_MIN		| ≥ %1
+SETUP_RANDOM_NUM_STARS_LIM1			| lim. : %1
+SETUP_RANDOM_NUM_STARS_LIM1_DESC	| Première limite de taille de galaxie aléatoire. Peut être le minimum ou maximum.
+SETUP_RANDOM_NUM_STARS_LIM2			| lim. : %1
+SETUP_RANDOM_NUM_STARS_LIM2_DESC	| Seconde limite de taille de galaxie aléatoire. Peut être le minimum ou maximum.
 
+SETUP_GALAXY_SIZE_VALUE				|  (%1)
+SETUP_GALAXY_SIZE_VALUE_DYN			|  (--> %1)
+SETUP_GALAXY_SIZE_RANDOM			| Aléatoire
 SETUP_GALAXY_SIZE_DYNAMIC         | Dynamique
 SETUP_GALAXY_SIZE_MICRO           | Micro
 SETUP_GALAXY_SIZE_TINY            | Minuscule

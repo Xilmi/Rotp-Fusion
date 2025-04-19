@@ -125,7 +125,7 @@ final class GalaxyShurikenShape extends GalaxyShape {
 			case 0: // BR: original Modnar solution
 				// keep same random number seed
 				// modified by numberStarSystems, UI_option, and selectedNumberOpponents
-				// rand.setSeed(opts.numberStarSystems()*numPoints + opts.selectedNumberOpponents());
+				// rand.setSeed(finalNumberStarSystems*numPoints + opts.selectedNumberOpponents());
 				// initial flake polygon start, ensure polygon extent
 				flake.moveTo(gE + 0.5f*gW, gE + 0.65f*gH);
 				flake.lineTo(gE + 0.4f*gW, gE + 0.02f*gH);
@@ -149,7 +149,7 @@ final class GalaxyShurikenShape extends GalaxyShape {
 			case 1:
 				// keep same random number seed
 				// modified by numberStarSystems, UI_option, and selectedNumberOpponents
-				// rand.setSeed(opts.numberStarSystems()*numPoints + opts.selectedNumberOpponents());
+				// rand.setSeed(finalNumberStarSystems*numPoints + opts.selectedNumberOpponents());
 				// Then same as Case 2
 			case 2:
 				// initial flake polygon start, ensure polygon extent
@@ -206,11 +206,11 @@ final class GalaxyShurikenShape extends GalaxyShape {
     }
     @Override
     protected int galaxyWidthLY() { 
-        return (int) (Math.sqrt(1.2*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(1.2*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     protected int galaxyHeightLY() { 
-        return (int) (Math.sqrt(1.2*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(1.2*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations

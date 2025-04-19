@@ -76,7 +76,7 @@ final class GalaxySpiralArmsShape extends GalaxyShape {
 	GalaxySpiralArmsShape(IGameOptions options, boolean[] rndOpt)	{ super(options, rndOpt); }
 	// BR: for symmetric galaxy
     private CtrPoint getRandomSymmetric(double minRay) {
-		double armRadius   = Math.min(this.armRadius, twoPI * galaxyRay() / numEmpires);
+		double armRadius   = Math.min(this.armRadius, twoPI * galaxyRay() / numEmpires());
 		double swirlRadius = randX.nextDouble();
 		double swirlAngle  = numSwirls * swirlRadius * Math.PI;
 		CtrPoint arm = new CtrPoint(swirlRadius * galaxyRay()).rotate(swirlAngle);
@@ -92,7 +92,7 @@ final class GalaxySpiralArmsShape extends GalaxyShape {
     	return pt;
     }
 	@Override public CtrPoint getPlayerSymmetricHomeWorld() {
-		double minHomeRay = Math.sqrt(empireBuffer * numEmpires / twoPI / galaxyRay());
+		double minHomeRay = Math.sqrt(empireBuffer * numEmpires() / twoPI / galaxyRay());
 		return getRandomSymmetric(minHomeRay);
 	}
 	@Override public boolean isSymmetric() {
@@ -153,8 +153,8 @@ final class GalaxySpiralArmsShape extends GalaxyShape {
         if (isSymmetric()) {
         	randomOrientation = rand.nextDouble(twoPI);
         	// a void coming from symmetry depends on number of opponents
-         	double minHomeRay = empireBuffer * numEmpires / twoPI;
-        	double minRay = systemBuffer() * numEmpires / twoPI;
+         	double minHomeRay = empireBuffer * numEmpires() / twoPI;
+        	double minRay = systemBuffer() * numEmpires() / twoPI;
         	double maxRay = (float) Math.sqrt(maxStars * adjustedSizeFactor())
         							/ 2 - galaxyEdgeBuffer();
         	float adjTmp = (float) (1.0 / (1.0 - minRay*minRay/maxRay/maxRay));
@@ -170,18 +170,18 @@ final class GalaxySpiralArmsShape extends GalaxyShape {
     }
     @Override // BR: added adjust_density for the void in symmetric galaxies
     protected int galaxyWidthLY() { 
-        return (int) (Math.sqrt(2.0*opts.numberStarSystems()*adjust_density*adjustedSizeFactor()));
+        return (int) (Math.sqrt(2.0*finalNumberStarSystems*adjust_density*adjustedSizeFactor()));
     }
     @Override // BR: added adjust_density for the void in symmetric galaxies
     protected int galaxyHeightLY() { 
-        return (int) (Math.sqrt(2.0*opts.numberStarSystems()*adjust_density*adjustedSizeFactor()));
+        return (int) (Math.sqrt(2.0*finalNumberStarSystems*adjust_density*adjustedSizeFactor()));
     }
     @Override
     public void setRandom(Point.Float pt) {
 		float gW = (float) galaxyWidthLY();
 
 		// scale up the number of spirals with size of map
-		int numSpirals = (int) Math.floor(Math.sqrt(Math.sqrt(opts.numberStarSystems())));
+		int numSpirals = (int) Math.floor(Math.sqrt(Math.sqrt(finalNumberStarSystems)));
 		int numSteps = (int) 50*numSpirals;
 
 		int armSelect  = randY.nextInt(numSpirals);

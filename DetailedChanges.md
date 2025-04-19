@@ -3,6 +3,10 @@
 ## What's New
 
 2025.04.19 (BR)
+- Fixed a possible crash on random symmetric galaxies generation.
+- The Galaxy size can now be set to Random, with customizable min and Max.
+
+2025.04.18 (BR)
 - Galaxy Shape options don't share the same variable anymore.
   - So don't need to be a String from a list.
   - They are now owned by the shape class itself, and memorized independently.

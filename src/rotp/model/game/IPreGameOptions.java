@@ -69,20 +69,6 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions, ISystemsO
 	default void	toggleEmpireSpreadingFactor(MouseWheelEvent e)	{ empiresSpreadingFactor.toggle(e); }
 	default String	empireSpreadingFactorMapKey()	{ return MOD_UI + "EMPIRES_SPREADING_FACTOR_MAP"; }
 
-	// TODO BR: FINALIZE randomNumStars and randomNumAliens
-	ParamInteger randomNumStarsLim1		= new ParamInteger (MOD_UI, "RANDOM_NUM_STARS_LIM1", 50)
-			.setLimits(10, Rotp.maximumSystems-1)
-			.setIncrements(1, 5, 20);
-	ParamInteger randomNumStarsLim2		= new ParamInteger (MOD_UI, "RANDOM_NUM_STARS_LIM2", 250)
-			.setLimits(10, Rotp.maximumSystems-1)
-			.setIncrements(1, 5, 20);
-	ParamInteger randomNumAliensLim1	= new ParamInteger (MOD_UI, "RANDOM_NUM_ALIENS_LIM1", 4)
-			.setLimits(0, Rotp.maximumSystems-1)
-			.setIncrements(1, 5, 20);
-	ParamInteger randomNumAliensLim2	= new ParamInteger (MOD_UI, "RANDOM_NUM_ALIENS_LIM2", 20)
-			.setLimits(0, Rotp.maximumSystems-1)
-			.setIncrements(1, 5, 20);
-
 	ParamInteger minStarsPerEmpire	= new MinStarsPerEmpire();
 	final class MinStarsPerEmpire extends ParamInteger {
 		MinStarsPerEmpire() {

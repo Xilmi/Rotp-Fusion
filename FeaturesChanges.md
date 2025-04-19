@@ -21,7 +21,8 @@
 
 ### Features:
 
- - Galaxy Shape options don't share the same variable anymore.
+- The Galaxy size can now be set to Random, with customizable min and Max.
+- Galaxy Shape options don't share the same variable anymore.
   - Galaxy Shape option will be individually memorized.
   - They are now owned by the shape class itself, and memorized independently.
 - New ship combat option to set MoO1 rules on Shields (Rounded down when halved).
@@ -209,6 +210,7 @@
 
 ### Fixes:
 
+- Fixed a possible crash on random symmetric galaxies generation.
 - Removed some useless Galaxy generation in setup panels.
 - Fixed calls to the wrong options.
 - Using stasis-field now only plays the animation once instead of 4 times.

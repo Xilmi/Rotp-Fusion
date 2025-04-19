@@ -92,8 +92,8 @@ final class GalaxyMazeShape extends GalaxyShape {
     		rand.nextDouble();
 
 		// determine maze size with numberStarSystems
-		int width = (int) Math.max(1, 4*Math.ceil(1.5*Math.log(opts.numberStarSystems())-5));
-		int height = (int) Math.max(1, 3*Math.ceil(1.5*Math.log(opts.numberStarSystems())-5));
+		int width = (int) Math.max(1, 4*Math.ceil(1.5*Math.log(finalNumberStarSystems)-5));
+		int height = (int) Math.max(1, 3*Math.ceil(1.5*Math.log(finalNumberStarSystems)-5));
 		float deltaW = (float) gW/width;
 		float deltaH = (float) gH/height;
 		boolean WALL = false;
@@ -108,7 +108,7 @@ final class GalaxyMazeShape extends GalaxyShape {
         // Random randnum = new Random();
 		// keep same random number seed
 		// modified by numberStarSystems, UI_option, and selectedNumberOpponents
-		// randnum.setSeed(opts.numberStarSystems()*adjust_seed + opts.selectedNumberOpponents());
+		// randnum.setSeed(finalNumberStarSystems*adjust_seed + opts.selectedNumberOpponents());
         int x = randX.nextInt(width);
         int y = randY.nextInt(height);
         frontiers.add(new int[]{x,y,x,y});
@@ -148,11 +148,11 @@ final class GalaxyMazeShape extends GalaxyShape {
 
     @Override
     protected int galaxyWidthLY() { 
-        return (int) (Math.sqrt(0.75*4.0/3.0*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(0.75*4.0/3.0*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     protected int galaxyHeightLY() { 
-        return (int) (Math.sqrt(0.75*3.0/4.0*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(0.75*3.0/4.0*finalNumberStarSystems*adjustedSizeFactor()));
     }
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations

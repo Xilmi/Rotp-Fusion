@@ -24,8 +24,10 @@ import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamListMultiple;
 import rotp.ui.util.ParamString;
 import rotp.ui.util.SpecificCROption;
+import rotp.util.Rand;
 
 public interface IGalaxyOptions extends IBaseOptsTools {
+	String SIZE_RANDOM		= "SETUP_GALAXY_SIZE_RANDOM";
 	String SIZE_DYNAMIC		= "SETUP_GALAXY_SIZE_DYNAMIC";
 	String SIZE_MICRO		= "SETUP_GALAXY_SIZE_MICRO";
 	String SIZE_TINY		= "SETUP_GALAXY_SIZE_TINY";
@@ -50,9 +52,16 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	static LinkedHashMap<String, Integer> galaxySizeMap(boolean dynamic, IGameOptions opts) {
 		LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
 		if (dynamic)
-			if (opts== null)
-			    map.put(SIZE_DYNAMIC,	Rotp.maximumSystems);
+			if (opts== null) {
+				map.put(SIZE_RANDOM,	Rotp.maximumSystems);
+				map.put(SIZE_DYNAMIC,	Rotp.maximumSystems);
+			}
 			else {
+				Rand randRnd = new Rand(galaxyRandSource.get());
+				int sysLim1 = randomNumStarsLim1.getValidValue();
+				int sysLim2 = randomNumStarsLim2.getValidValue();
+				int rndNum = randRnd.nextIntInclusive(sysLim1, sysLim2);
+				map.put(SIZE_RANDOM, rndNum);
 				map.put(SIZE_DYNAMIC,
 						1 + (opts.selectedDynStarsPerEmpire() // +1 for Orion
 							* (opts.selectedNumberOpponents()+1))); // +1 for player);
@@ -251,8 +260,6 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 		return null;
 	}
 
-	// ==================== Galaxy Menu addition ====================
-	//
 	ParamBoolean previewNebula			= new ParamBoolean(MOD_UI, "PREVIEW_NEBULA", true);
 	ParamInteger galaxyRandSource		= new GalaxyRandSource() ;
 	final class GalaxyRandSource extends ParamInteger {
@@ -324,6 +331,28 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			return get();
 		}
 	}
+
+	// TODO BR: FINALIZE randomNumStars and randomNumAliens
+	ParamInteger randomNumStarsLim1		= new ParamInteger (BASE_UI, "RANDOM_NUM_STARS_LIM1", 50)
+			.setLimits(10, Rotp.maximumSystems-1)
+			.setIncrements(1, 5, 20);
+	ParamInteger randomNumStarsLim2		= new ParamInteger (BASE_UI, "RANDOM_NUM_STARS_LIM2", 250)
+			.setLimits(10, Rotp.maximumSystems-1)
+			.setIncrements(1, 5, 20);
+	ParamInteger randomNumAliensLim1	= new ParamInteger (BASE_UI, "RANDOM_NUM_ALIENS_LIM1", 4)
+			.setLimits(0, Rotp.maximumSystems-1)
+			.setIncrements(1, 5, 20);
+	ParamInteger randomNumAliensLim2	= new ParamInteger (BASE_UI, "RANDOM_NUM_ALIENS_LIM2", 20)
+			.setLimits(0, Rotp.maximumSystems-1)
+			.setIncrements(1, 5, 20);
+	default int randomNumStarsLim1()	{ return randomNumStarsLim1.getValidValue(); }
+	default int randomNumStarsLim2()	{ return randomNumStarsLim2.getValidValue(); }
+	default int randomNumStarsMax()		{ return Math.max(randomNumStarsLim1(), randomNumStarsLim2()); }
+	default int randomNumStarsMin()		{ return Math.min(randomNumStarsLim1(), randomNumStarsLim2()); }
+	default int randomNumAliensLim1()	{ return randomNumAliensLim1.getValidValue(); }
+	default int randomNumAliensLim2()	{ return randomNumAliensLim2.getValidValue(); }
+	default int randomNumAliensMax()	{ return Math.max(randomNumAliensLim1(), randomNumAliensLim2()); }
+	default int randomNumAliensMin()	{ return Math.min(randomNumAliensLim1(), randomNumAliensLim2()); }
 
 	ParamList sizeSelection 			= new SizeSelection();
 	final class SizeSelection extends ParamList {

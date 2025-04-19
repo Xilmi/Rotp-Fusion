@@ -1519,9 +1519,16 @@ SETUP_GALAXY_SIZE_MOO1_DESC       | Galaxy size available in original MOO1 game.
 SETUP_GALAXY_SIZE_UP1000_DESC     | Galaxy size larger than those available in the original MOO1 game, but still reasonable. It will take time to win...
 SETUP_GALAXY_SIZE_OVER1000_DESC   | Indecent galaxy size, much larger than those available in the original MOO1 game. It will take you weeks to finish these games.
 
-SETUP_GALAXY_SIZE_VALUE			|  (%1)
-SETUP_GALAXY_SIZE_VALUE_DYN		|  (now %1)
+SETUP_RANDOM_NUM_STARS_LIM_MAX		| ≤ %1
+SETUP_RANDOM_NUM_STARS_LIM_MIN		| ≥ %1
+SETUP_RANDOM_NUM_STARS_LIM1			| limit: %1
+SETUP_RANDOM_NUM_STARS_LIM1_DESC	| First boundary for random Galaxy size. Can be Min or Max.
+SETUP_RANDOM_NUM_STARS_LIM2			| limit: %1
+SETUP_RANDOM_NUM_STARS_LIM2_DESC	| Second boundary for random Galaxy size. Can be Min or Max.
 
+SETUP_GALAXY_SIZE_VALUE				|  (%1)
+SETUP_GALAXY_SIZE_VALUE_DYN			|  (now %1)
+SETUP_GALAXY_SIZE_RANDOM			| Random
 SETUP_GALAXY_SIZE_DYNAMIC         | Dynamic
 SETUP_GALAXY_SIZE_MICRO           | Micro
 SETUP_GALAXY_SIZE_TINY            | Tiny

@@ -334,6 +334,7 @@ public interface IGameOptions extends IModOptions {
     public String name();
     public void setAdvancedOptionsToDefault();
 
+	public int numberStarSystems(boolean refresh);
     public int numberStarSystems();
 	public int numberStarSystems(String size);
     public int numberNebula();
