@@ -3,6 +3,7 @@
 ## What's New
 
 2025.04.19 (BR)
+- Fixed random galaxy size not always remembering the right number of stars on reload.
 - Fixed a possible crash on random symmetric galaxies generation.
 - The Galaxy size can now be set to Random, with customizable min and Max.
 

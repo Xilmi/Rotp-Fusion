@@ -108,6 +108,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 		randX	= randRnd;
 		randY	= randRnd;
 		finalNumberStarSystems = opts.numberStarSystems(true);
+		numOpponents = max(0, opts.selectedNumberOpponents());
+		numEmpires	 = numOpponents + 1;
+
 		initFinalOption1();
 		initFinalOption2();
 		initFinalOption3();
@@ -280,8 +283,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	// modnar: add option to start game with additional colonies
 	// modnar: these colonies are in addition to number of stars chosen in galaxy
 	int totalStarSystems()	{
-		return num + homeStars
-			+ opts.selectedCompanionWorlds()*(opts.selectedNumberOpponents()+1);
+		return num + homeStars + opts.selectedCompanionWorlds()*numEmpires;
 	}
 	public List<EmpireSystem> empireSystems()	{ return empSystems; }
 	protected float adjustedSizeFactor()	{ // BR: to converge more quickly
@@ -510,8 +512,6 @@ public abstract class GalaxyShape implements Base, Serializable {
 			maxStars = min(MaxPreviewSystems, finalNumberStarSystems);
 			
 		// common symmetric and non symmetric initializer for generation
-		numOpponents = max(0, opts.selectedNumberOpponents());
-		numEmpires = numOpponents + 1;
 		log("Galaxy shape: "+maxStars+ " stars"+ "  regionScale: "+regionScale+"   emps:"+numEmpires);
 		tm0 = System.currentTimeMillis();
 		empSystems.clear();
@@ -536,8 +536,6 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	protected void init(int numStars) {
 		// System.out.println("========== GalaxyShape.init(): genAttempt = " + genAttempt);
-		numOpponents = opts.selectedNumberOpponents();
-		numEmpires = numOpponents + 1;
 		numCompanions = opts.signedCompanionWorlds();
 		num = 0;
 		homeStars = 0;
