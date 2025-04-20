@@ -27,6 +27,9 @@ public final class GalaxyMenuOptions extends AbstractOptionsSubUI {
 					empiresSpreadingFactor,
 					randomNumStarsLim1,
 					randomNumStarsLim2,
+					randomNumAliens,
+					randomNumAliensLim1,
+					randomNumAliensLim2,
 					dynStarsPerEmpire // This one is a duplicate, but it helps readability
 					));
 	}

@@ -58,6 +58,7 @@ import rotp.ui.util.IParam;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
+import rotp.util.Rand;
 
 //public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
@@ -240,11 +241,20 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public String selectedAIHostilityOption()       { return selectedAIHostilityOption == null ? AI_HOSTILITY_NORMAL : selectedAIHostilityOption; }
     @Override
     public void selectedAIHostilityOption(String s) { selectedAIHostilityOption = s; }
-    @Override
-    public int selectedNumberOpponents()         { return selectedNumberOpponents; }
-	@Override public void selectedNumberOpponents(int i)	{
-		selectedNumberOpponents = i;
+	@Override public int selectedNumberOpponents(boolean refresh)	{
+		if (randomNumAliens()) {
+			int absMax = maximumOpponentsOptions();
+			int rndMax = min(absMax, randomNumAliensMax());
+			int rndMin = min(absMax, randomNumAliensMin());
+			Rand randRnd = new Rand(galaxyRandSource.get());
+			int num = randRnd.nextInt(); // To get a different roll than number of systems
+			num = randRnd.nextIntInclusive(rndMin, rndMax);
+			selectedNumberOpponents(num);
+		}
+		return selectedNumberOpponents();
 	}
+	@Override public int selectedNumberOpponents()			{ return selectedNumberOpponents; }
+	@Override public void selectedNumberOpponents(int i)	{ selectedNumberOpponents = i; }
     @Override
     public String selectedPlayerRace()           { return selectedPlayer().race(); }
     @Override

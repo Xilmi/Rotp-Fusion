@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 import rotp.Rotp;
 import rotp.model.galaxy.AllShapes;
 import rotp.ui.RotPUI;
+import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.IParam;
 import rotp.ui.util.LinkData;
@@ -332,18 +333,18 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 		}
 	}
 
-	// TODO BR: FINALIZE randomNumStars and randomNumAliens
-	ParamInteger randomNumStarsLim1		= new ParamInteger (BASE_UI, "RANDOM_NUM_STARS_LIM1", 50)
+	ParamInteger randomNumStarsLim1		= new ParamInteger(BASE_UI, "RANDOM_NUM_STARS_LIM1", 50)
 			.setLimits(10, Rotp.maximumSystems-1)
 			.setIncrements(1, 5, 20);
-	ParamInteger randomNumStarsLim2		= new ParamInteger (BASE_UI, "RANDOM_NUM_STARS_LIM2", 250)
+	ParamInteger randomNumStarsLim2		= new ParamInteger(BASE_UI, "RANDOM_NUM_STARS_LIM2", 250)
 			.setLimits(10, Rotp.maximumSystems-1)
 			.setIncrements(1, 5, 20);
-	ParamInteger randomNumAliensLim1	= new ParamInteger (BASE_UI, "RANDOM_NUM_ALIENS_LIM1", 4)
-			.setLimits(0, Rotp.maximumSystems-1)
+	ParamBoolean randomNumAliens		= new ParamBoolean(BASE_UI, "RANDOM_NUM_ALIENS", false);
+	ParamInteger randomNumAliensLim1	= new ParamInteger(BASE_UI, "RANDOM_NUM_ALIENS_LIM1", 4)
+			.setLimits(0, SetupGalaxyUI.MAX_DISPLAY_OPPS)
 			.setIncrements(1, 5, 20);
 	ParamInteger randomNumAliensLim2	= new ParamInteger (BASE_UI, "RANDOM_NUM_ALIENS_LIM2", 20)
-			.setLimits(0, Rotp.maximumSystems-1)
+			.setLimits(0, SetupGalaxyUI.MAX_DISPLAY_OPPS)
 			.setIncrements(1, 5, 20);
 	default int randomNumStarsLim1()	{ return randomNumStarsLim1.getValidValue(); }
 	default int randomNumStarsLim2()	{ return randomNumStarsLim2.getValidValue(); }
@@ -353,6 +354,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	default int randomNumAliensLim2()	{ return randomNumAliensLim2.getValidValue(); }
 	default int randomNumAliensMax()	{ return Math.max(randomNumAliensLim1(), randomNumAliensLim2()); }
 	default int randomNumAliensMin()	{ return Math.min(randomNumAliensLim1(), randomNumAliensLim2()); }
+	default boolean randomNumAliens()	{ return randomNumAliens.get(); }
 
 	ParamList sizeSelection 			= new SizeSelection();
 	final class SizeSelection extends ParamList {
@@ -510,7 +512,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	final class AliensNumber extends ParamInteger {
 		AliensNumber() {
 			super(BASE_UI, "ALIENS_NUMBER", 1);
-			setLimits(0, 49);
+			setLimits(0, SetupGalaxyUI.MAX_DISPLAY_OPPS);
 			setIncrements(1, 5, 20);
 			isDuplicate(true);
 		}

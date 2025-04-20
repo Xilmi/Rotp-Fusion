@@ -47,12 +47,12 @@ import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.Base;
 import rotp.util.Rand;
 
-public class Galaxy implements Base, Serializable {
+public final class Galaxy implements Base, Serializable {
     private static final long serialVersionUID = 1L;
     public static Galaxy current()   { return GameSession.instance().galaxy(); }
     public static final float TIME_PER_TURN = 1;
-    public	static final String EMPIRES_KEY	= "SETUP_EMPIRE_LIST";
-    public	static final String SYSTEMS_KEY	= "SETUP_SYSTEM_LIST";
+    public static final String EMPIRES_KEY	= "SETUP_EMPIRE_LIST";
+    public static final String SYSTEMS_KEY	= "SETUP_SYSTEM_LIST";
     
     private float currentTime = 0;
     private final GalacticCouncil council = new GalacticCouncil();
@@ -140,10 +140,9 @@ public class Galaxy implements Base, Serializable {
     public StarSystem orionSystem() 		 { return system(orionId()); }
     public int orionId() 				     {
     	IGameOptions opts = options();
-    	int numEmpire = opts.selectedNumberOpponents() + 1;
     	int numCompWorlds = opts.selectedCompanionWorlds();
     	int numNearbySys  = opts.secondRingSystemNumber();
-    	int orionId = numEmpire * (1 + numCompWorlds + numNearbySys);
+    	int orionId = numEmpires() * (1 + numCompWorlds + numNearbySys);
     	return orionId;
     }
     public void addStarSystem(StarSystem s)  {
@@ -253,14 +252,14 @@ public class Galaxy implements Base, Serializable {
         heightLY	= src.height;
         maxScaleAdj	= src.maxScaleAdj;
         starSystems	= new StarSystem[src.numStarSystems];
-        empires		= new Empire[options().selectedNumberOpponents()+1];
+        empires		= new Empire[src.numEmpires];
     }
     public Galaxy(GalaxyShape sh) {
         widthLY = sh.width();
         heightLY = sh.height();
         maxScaleAdj = sh.maxScaleAdj();
         starSystems = new StarSystem[sh.totalStarSystems()];
-        empires = new Empire[options().selectedNumberOpponents()+1];
+        empires = new Empire[sh.numEmpires()];
     }
     public void advanceTime() { currentTime += TIME_PER_TURN; }
     public void resetAllAI() { // BR: needed when updating fuelRange
@@ -728,6 +727,7 @@ public class Galaxy implements Base, Serializable {
         return pop;
     }
     public int numEmpires()       { return empires.length; }
+    public int numOpponents()     { return empires.length-1; }
     public int numActiveEmpires() {
         int emps = 0;
         for (Empire e : empires) {

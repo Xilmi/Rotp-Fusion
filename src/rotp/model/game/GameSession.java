@@ -220,7 +220,7 @@ public final class GameSession implements Base, Serializable {
     public float researchBonus()        { return 1.0f; }
     public float researchMapSizeAdjustment() {
         float stars = galaxy().numStarSystems();
-        int races = options().selectedNumberOpponents()+2;
+        int races = galaxy().numOpponents()+2;
         float targetRatio = 12.0f;
         return sqrt(stars/races/targetRatio);
     }
@@ -1205,7 +1205,7 @@ public final class GameSession implements Base, Serializable {
             diff = diff + " (" + Integer.toString(options().selectedCustomDifficulty()) + "%)";
         }
         String turn = "T"+pad4.format(num);
-        String opp = "vs"+options().selectedNumberOpponents();
+        String opp  = "vs"+galaxy().numOpponents();
         String dash = "-";
         return concat(leader,dash,race,dash,gShape,dash,gSize,dash,diff,dash,opp,dash,turn,SAVEFILE_EXTENSION);
     }

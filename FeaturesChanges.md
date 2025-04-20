@@ -21,6 +21,9 @@
 
 ### Features:
 
+2025.04.20 (BR)
+- Added an option for a random number of opponents, with customizable Min and Max.
+  - The final number of opponents may still be lower than the minimum requested value if the galaxy size is too small.
 - The Galaxy size can now be set to Random, with customizable min and Max.
 - Galaxy Shape options don't share the same variable anymore.
   - Galaxy Shape option will be individually memorized.

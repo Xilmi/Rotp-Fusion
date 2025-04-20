@@ -986,7 +986,8 @@ public abstract class BaseModPanel extends BasePanel
 		static final int UP_ARROW		= 2;
 		static final int DOWN_ARROW		= 3;
 		private final int dir;
-		private int sliderH	= s16;
+		private int dy	= s8;
+		private int dx	= s3;
 		// ========== Constructors ==========
 		//
 		PolyBox(int direction) {
@@ -999,33 +1000,31 @@ public abstract class BaseModPanel extends BasePanel
 			switch (dir) {
 			case LEFT_ARROW:
 				addPoint(x-s4,	y+s1);
-				addPoint(x-s4,	y+sliderH-s2);
-				addPoint(x-s13,	y+(sliderH/2));
+				addPoint(x-s4,	y+dy+dy-s2);
+				addPoint(x-s13,	y+dy);
 				return;
 			case RIGHT_ARROW:
 				addPoint(x+s4,	y+s1);
-				addPoint(x+s4,	y+sliderH-s2);
-				addPoint(x+s13,	y+(sliderH/2));
+				addPoint(x+s4,	y+dy+dy-s2);
+				addPoint(x+s13,	y+dy);
 				return;
 			case UP_ARROW:
-				addPoint(x,		y-s1);
-				addPoint(x+s13,	y-s1);
-				addPoint(x+s7,	y-s16);
+				addPoint(x,				y-dy-s1);
+				addPoint(x+s13+dx+dx,	y-dy-s1);
+				addPoint(x+s7+dx,		y-dy-s13);
 				return;
 			case DOWN_ARROW:
-				addPoint(x,		y+s2);
-				addPoint(x+s13,	y+s2);
-				addPoint(x+s7,	y+s17);
+				addPoint(x,				y+dy+s2);
+				addPoint(x+s13+dx+dx,	y+dy+s2);
+				addPoint(x+s7+dx,		y+dy+s14);
 				return;
 			}
 		}
-		void setAndFill(Graphics2D g, int x, int y)	{
+		void setAndFill(Graphics2D g, int x, int y, int h)	{
+			dy = h/2;
+			dx = h/4;
 			setPos(x, y);
 			g.fill(this);
-		}
-		void setAndFill(Graphics2D g, int x, int y, int h)	{
-			sliderH = h;
-			setAndFill(g, x, y);
 		}
 	}
 	public final class ModText extends BaseText {
@@ -1235,6 +1234,9 @@ public abstract class BaseModPanel extends BasePanel
 			int xb, xd, yb, yd;
 			int iW = scaled(Rotp.IMG_W);
 			int iH = scaled(Rotp.IMG_H);
+			xCover = min(xCover, dest.width/2);
+			yCover = min(yCover, dest.height/2);
+			
 			autoSize(maxWidth);
 			// relative position
 			// find X location

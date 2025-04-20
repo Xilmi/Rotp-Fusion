@@ -82,13 +82,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private float dynamicGrowth = 1f;
 	private int   currentEmpire = 0;
 	private int   loopReserve   = 0;
-	protected int homeStarNum	= 3;
+	private int homeStarNum	= 3;
 	
 	protected int finalNumberStarSystems;
 	protected String finalOption1, finalOption2, finalOption3, finalOption4;
 	protected int option1, option2, option3, option4;
 	protected boolean[] randomizeShapeOptions;
-	protected boolean isSymmetric;
+	private boolean isSymmetric;
 	private boolean looseLimits;
 
 	protected abstract String name();
@@ -108,7 +108,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		randX	= randRnd;
 		randY	= randRnd;
 		finalNumberStarSystems = opts.numberStarSystems(true);
-		numOpponents = max(0, opts.selectedNumberOpponents());
+		numOpponents = max(0, opts.selectedNumberOpponents(true));
 		numEmpires	 = numOpponents + 1;
 
 		initFinalOption1();

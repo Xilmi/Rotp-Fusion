@@ -33,6 +33,9 @@ import static rotp.model.game.IGalaxyOptions.difficultySelection;
 import static rotp.model.game.IGalaxyOptions.galaxyRandSource;
 import static rotp.model.game.IGalaxyOptions.globalCROptions;
 import static rotp.model.game.IGalaxyOptions.previewNebula;
+import static rotp.model.game.IGalaxyOptions.randomNumAliens;
+import static rotp.model.game.IGalaxyOptions.randomNumAliensLim1;
+import static rotp.model.game.IGalaxyOptions.randomNumAliensLim2;
 import static rotp.model.game.IGalaxyOptions.randomNumStarsLim1;
 import static rotp.model.game.IGalaxyOptions.randomNumStarsLim2;
 import static rotp.model.game.IGalaxyOptions.shapeSelection;
@@ -224,6 +227,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private Box		oppBox;
 	private PolyBox	oppBoxU			= new PolyBox(UP_ARROW);
 	private PolyBox	oppBoxD			= new PolyBox(DOWN_ARROW);
+	private Box		oppRandomBox;
+	private Box		oppMinBox;
+	private PolyBox	oppMinBoxU		= new PolyBox(UP_ARROW);
+	private PolyBox	oppMinBoxD		= new PolyBox(DOWN_ARROW);
+	private Box		oppMaxBox;
+	private PolyBox	oppMaxBoxU		= new PolyBox(UP_ARROW);
+	private PolyBox	oppMaxBoxD		= new PolyBox(DOWN_ARROW);
 	private Box		aiBox			= new Box(opponentAI);
 	private PolyBox	aiBoxL			= new PolyBox(LEFT_ARROW);
 	private PolyBox	aiBoxR			= new PolyBox(RIGHT_ARROW);
@@ -358,20 +368,22 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 	}
 	@Override protected void singleInit()	{
-		//startBox			= new Box(startButtonHelp);
 		showAbilitiesBox	= new Box(useSelectableAbilities);
-		shapeBox			= new Box(shapeSelection);
-		mapOption1Box		= new Box((IParam) null);
-		mapOption2Box		= new Box((IParam) null);
-		mapOption3Box		= new Box((IParam) null);
-		mapOption4Box		= new Box((IParam) null);
-		sizeOptionBox		= new Box(opts.dynStarsPerEmpire());
-		sizeBox				= new Box(sizeSelection);
-		sizeMinBox			= new Box(randomNumStarsLim1);
-		sizeMaxBox			= new Box(randomNumStarsLim2);
-		diffBox				= new Box(difficultySelection);
-		wysiwygBox			= new Box(galaxyRandSource);
-		oppBox				= new Box(aliensNumber);
+		shapeBox		= new Box(shapeSelection);
+		mapOption1Box	= new Box((IParam) null);
+		mapOption2Box	= new Box((IParam) null);
+		mapOption3Box	= new Box((IParam) null);
+		mapOption4Box	= new Box((IParam) null);
+		sizeOptionBox	= new Box(opts.dynStarsPerEmpire());
+		sizeBox			= new Box(sizeSelection);
+		sizeMinBox		= new Box(randomNumStarsLim1);
+		sizeMaxBox		= new Box(randomNumStarsLim2);
+		diffBox			= new Box(difficultySelection);
+		wysiwygBox		= new Box(galaxyRandSource);
+		oppBox			= new Box(aliensNumber);
+		oppMinBox		= new Box(randomNumAliensLim1);
+		oppMaxBox		= new Box(randomNumAliensLim2);
+		oppRandomBox	= new Box(randomNumAliens);
 
 		paramList = AllSubUI.optionsGalaxy();
 		paramList.addAll(AllSubUI.getHandle(GALAXY_SHAPES_UI_KEY).getUiAll(false));
@@ -713,6 +725,19 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		xe   = dest.x + dest.width/2;
 		ye   = dest.y + dest.height;
 		sp.setLine(xb, yb, xe, ye);
+
+		dest = oppRandomBox;
+		txt  = dest.getDescription();
+		nL   = 3;
+		hBox = HelpUI.height(nL);
+		xBox = dest.x - wBox - hShift/2;
+		yBox = dest.y;
+		HelpSpec spOR = helpUI.addBrownHelpText(xBox, yBox, wBox, -nL, txt);
+		xb   = spOR.xe();
+		yb   = spOR.yc();
+		xe   = dest.x + dest.width/2;
+		ye   = dest.y + dest.height/2;
+		spOR.setLine(xb, yb, xe, ye);
 
 		dest = newRacesBox;
 		txt  = dest.getDescription();
@@ -1149,11 +1174,31 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int mugH = smallImages? hSmallMug : hBigMug;
 		g.setFont(narrowFont(30));
 		g.setColor(Color.black);
-		String oppStr =str(numOpp);
-		int numSW = g.getFontMetrics().stringWidth(oppStr);
-		int x0 = oppBox.x + ((oppBox.width-numSW)/2);
-		int y0 = oppBox.y + oppBox.height -s5;
-		drawString(g,oppStr, x0, y0);
+		int y0;
+		if (isRandomNumAlien()) {
+			g.setFont(narrowFont(26));
+			int minOpp = opts.randomNumAliensLim1();
+			String str = str(minOpp);
+			int numSW = g.getFontMetrics().stringWidth(str);
+			int x0 = oppMinBox.x + ((oppMinBox.width-numSW)/2);
+			y0 = oppMinBox.y + oppMinBox.height -s6;
+			drawString(g, str, x0, y0);
+
+			int maxOpp = opts.randomNumAliensLim2();
+			str = str(maxOpp);
+			numSW = g.getFontMetrics().stringWidth(str);
+			x0 = oppMaxBox.x + ((oppMaxBox.width-numSW)/2);
+			y0 = oppMaxBox.y + oppMaxBox.height -s6;
+			drawString(g, str, x0, y0);
+		}
+		else {
+			g.setFont(narrowFont(30));
+			String oppStr = str(numOpp);
+			int numSW = g.getFontMetrics().stringWidth(oppStr);
+			int x0 = oppBox.x + ((oppBox.width-numSW)/2);
+			y0 = oppBox.y + oppBox.height -s8;
+			drawString(g, oppStr, x0, y0);
+		}
 
 		int numRows = smallImages ? 7 : 5;
 		int numCols = smallImages ? 7 : 5;
@@ -1251,7 +1296,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			||  (hoverPolyBox == mapOption3BoxL) || (hoverPolyBox == mapOption3BoxR)
 			||  (hoverPolyBox == mapOption4BoxL) || (hoverPolyBox == mapOption4BoxR)
 			||  (hoverPolyBox == sizeOptionBoxL) || (hoverPolyBox == sizeOptionBoxR)
-			||  (hoverPolyBox == oppBoxU)		 || (hoverPolyBox == oppBoxD)) {
+			||  (hoverPolyBox == oppBoxU)		 || (hoverPolyBox == oppBoxD)
+			||  (hoverPolyBox == oppMinBoxU)	 || (hoverPolyBox == oppMinBoxD)
+			||  (hoverPolyBox == oppMaxBoxU)	 || (hoverPolyBox == oppMaxBoxD)) {
 			g.setColor(Color.yellow);
 			g.fill(hoverPolyBox);
 		}
@@ -1261,8 +1308,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			|| (hoverBox == mapOption3Box)	|| (hoverBox == mapOption4Box)
 			|| (hoverBox == sizeOptionBox)	|| (hoverBox == abilitiesBox)
 			|| (hoverBox == aiBox)			|| (hoverBox == newRacesBox)
-			|| (hoverBox == oppBox)			|| (hoverBox == showAbilitiesBox)
-			|| (hoverBox == diffBox)		|| (hoverBox == wysiwygBox)) {
+			|| (hoverBox == oppBox)			|| (hoverBox == oppRandomBox)
+			|| (hoverBox == oppMinBox)		|| (hoverBox == oppMaxBox)
+			|| (hoverBox == diffBox)		|| (hoverBox == showAbilitiesBox)		
+			|| (hoverBox == wysiwygBox)) {
 			Stroke prev = g.getStroke();
 			g.setStroke(stroke2);
 			g.setColor(Color.yellow);
@@ -1837,6 +1886,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private boolean isDynamicSize()			{ return opts.selectedGalaxySize().equals(SIZE_DYNAMIC); }
 	private boolean isRandomSize()			{ return opts.selectedGalaxySize().equals(SIZE_RANDOM); }
+	private boolean isRandomNumAlien()		{ return opts.randomNumAliens(); }
 	public	boolean isShapeTextMulti()		{ return opts.galaxyShape().getOption2().contains("MULTI"); }
 	public	boolean isShapeTextGalaxy()		{ return AllShapes.isTextShape(opts.selectedGalaxyShape()); }
 	public	boolean isShapeBitmapGalaxy()	{ return AllShapes.isBitMapShape(opts.selectedGalaxyShape()); }
@@ -2236,12 +2286,15 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.drawImage(backimg, leftBoxX+s25, boxY+s25, this);
 		g.drawImage(playerRaceImg(), leftBoxX+s25, boxY+s25, mugW, mugH, this);
 
+		boolean isRandomNumAlien = isRandomNumAlien();
 		// draw player vs opponent text
 		int x2 = leftBoxX+s25+mugW+s15;
-		// int y2 = boxY+s25+mugH-s42;
-		int y2 = boxY+s25+mugH-s52; // BR: up a little
-		int yho = s5; // BR: a little space for new races on/off 
-		g.setFont(narrowFont(28));
+		int y2 = boxY+s25+mugH-s52;
+		int yho = isRandomNumAlien? s7 : s5;
+		if (isRandomNumAlien)
+			g.setFont(narrowFont(24));
+		else
+			g.setFont(narrowFont(28));
 		String header1 = text("SETUP_OPPONENTS_HEADER_1", setupName);
 		String header2 = text("SETUP_OPPONENTS_HEADER_2");
 		int swHdr = g.getFontMetrics().stringWidth(header1);
@@ -2249,13 +2302,57 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		// draw opponent count box and arrows
 		int x2b = x2+swHdr+s5;
+		int x2c = x2b;
+		
 		g.setColor(GameUI.setupFrame());
-		oppBox.setBounds(x2b,y2-s30,s30,s35);
-		g.fill(oppBox);
-		int x2c = x2b+s33;
-		int y2c = (int)(oppBox.getY()+(oppBox.getHeight()/2));
-		oppBoxD.setAndFill(g, x2c, y2c);
-		oppBoxU.setAndFill(g, x2c, y2c);
+		if (isRandomNumAlien) {
+			int y2c = y2-s13;
+			int ySep = 0;
+			oppBoxD.reset();
+			oppBoxU.reset();
+			oppBox.setBounds(0,0,0,0);
+
+			g.setColor(GameUI.setupFrame());
+			oppMinBoxD.setAndFill(g, x2b, y2c, ySep);
+			oppMinBoxU.setAndFill(g, x2b, y2c, ySep);			
+
+			x2c += s15;
+			oppMinBox.setBounds(x2c, y2-s27, s25, s29);
+			g.fill(oppMinBox);
+
+			x2c += s27;
+			g.setColor(GameUI.buttonBackgroundColor());
+			oppRandomBox.setBounds(x2c, y2c-s2, s13, s4);
+			g.fill(oppRandomBox);
+
+			x2c += s15;
+			g.setColor(GameUI.setupFrame());
+			oppMaxBox.setBounds(x2c, y2-s27, s25, s29);
+			g.fill(oppMaxBox);
+
+			x2c += s28;
+			oppMaxBoxD.setAndFill(g, x2c, y2c, ySep);
+			oppMaxBoxU.setAndFill(g, x2c, y2c, ySep);			
+		}
+		else {
+			int y2c = y2-s13;
+			int ySep = s6;
+			oppMinBoxD.reset();
+			oppMinBoxU.reset();
+			oppMaxBoxD.reset();
+			oppMaxBoxD.reset();
+			oppMinBox.setBounds(0,0,0,0);
+			oppMaxBox.setBounds(0,0,0,0);
+			x2c += s33;
+			g.setColor(GameUI.buttonBackgroundColor());
+			oppRandomBox.setBounds(x2c, y2c-s2, s14, s4);
+			g.fill(oppRandomBox);
+			g.setColor(GameUI.setupFrame());
+			oppBox.setBounds(x2b, y2-s30, s30, s35);
+			g.fill(oppBox);
+			oppBoxD.setAndFill(g, x2c, y2c, ySep);
+			oppBoxU.setAndFill(g, x2c, y2c, ySep);			
+		}
 
 		int x2d = x2c+s20;
 		drawBorderedString(g, header2, 1, x2d, y2-yho, Color.black, Color.white);
@@ -2740,6 +2837,34 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			aliensNumber.toggle(e, this);
 		else if (hoverPolyBox == oppBoxD)
 			aliensNumber.prev();
+		else if (hoverPolyBox == oppMinBoxU) {
+			randomNumAliensLim1.next();
+			postSelectionFull(true);
+		}
+		else if (hoverBox == oppMinBox) {
+			randomNumAliensLim1.toggle(e, this);
+			postSelectionFull(true);
+		}
+		else if (hoverPolyBox == oppMinBoxD) {
+			randomNumAliensLim1.prev();
+			postSelectionFull(true);
+		}
+		else if (hoverPolyBox == oppMaxBoxU) {
+			randomNumAliensLim2.next();
+			postSelectionFull(true);
+		}
+		else if (hoverBox == oppMaxBox) {
+			randomNumAliensLim2.toggle(e, this);
+			postSelectionFull(true);
+		}
+		else if (hoverPolyBox == oppMaxBoxD) {
+			randomNumAliensLim2.prev();
+			postSelectionFull(true);
+		}
+		else if (hoverBox == oppRandomBox) {
+			randomNumAliens.toggle(e, this);
+			postSelectionFull(true);
+		}
 		else {
 			for (int i=0;i<oppSet.length;i++) {
 				if (hoverBox == oppAI[i]) {
@@ -2803,6 +2928,18 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			galaxyRandSource.toggle(e);
 		else if (hoverBox == oppBox)
 			aliensNumber.toggle(e);
+		else if (hoverBox == oppMinBox) {
+			randomNumAliensLim1.toggle(e);
+			postSelectionFull(false);
+		}
+		else if (hoverBox == oppMaxBox) {
+			randomNumAliensLim2.toggle(e);
+			postSelectionFull(false);
+		}
+		else if (hoverBox == oppRandomBox) {
+			randomNumAliens.toggle(e);
+			postSelectionFull(false);
+		}
 		else {
 			for (int i=0;i<oppAI.length;i++) {
 				if (hoverBox == oppAI[i]) {

@@ -44,10 +44,14 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+2025.04.20 (BR)
+- Added an option for a random number of opponents, with customizable Min and Max.
+  - The final number of opponents may still be lower than the minimum requested value if the galaxy size is too small.
+
 2025.04.19 (BR)
 - Fixed random galaxy size not always remembering the right number of stars on reload.
 - Fixed a possible crash on random symmetric galaxies generation.
-- The Galaxy size can now be set to Random, with customizable min and Max.
+- The Galaxy size can now be set to Random, with customizable Min and Max.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

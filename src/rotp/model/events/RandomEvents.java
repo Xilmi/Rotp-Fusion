@@ -97,7 +97,7 @@ public class RandomEvents implements Base, Serializable {
 		return list.get(listRnd(list.size()));
 	}
 	private int targetRnd()				{
-		int numEmp = options().selectedNumberOpponents()+1;
+		int numEmp = galaxy().numEmpires();
 		targetSeed = new Random(targetSeed()).nextLong();
 		return new Random(targetSeed).nextInt(numEmp);
 	}

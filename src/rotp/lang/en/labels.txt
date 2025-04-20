@@ -1521,10 +1521,16 @@ SETUP_GALAXY_SIZE_OVER1000_DESC   | Indecent galaxy size, much larger than those
 
 SETUP_RANDOM_NUM_STARS_LIM_MAX		| ≤ %1
 SETUP_RANDOM_NUM_STARS_LIM_MIN		| ≥ %1
-SETUP_RANDOM_NUM_STARS_LIM1			| limit: %1
+SETUP_RANDOM_NUM_STARS_LIM1			| Size limit: %1
 SETUP_RANDOM_NUM_STARS_LIM1_DESC	| First boundary for random Galaxy size. Can be Min or Max.
-SETUP_RANDOM_NUM_STARS_LIM2			| limit: %1
+SETUP_RANDOM_NUM_STARS_LIM2			| Size limit: %1
 SETUP_RANDOM_NUM_STARS_LIM2_DESC	| Second boundary for random Galaxy size. Can be Min or Max.
+SETUP_RANDOM_NUM_ALIENS				| Random number of rival empires: %1
+SETUP_RANDOM_NUM_ALIENS_DESC		| Enables or disables random selection of the number of rival empires.
+SETUP_RANDOM_NUM_ALIENS_LIM1		| Limit on the number of opponents: %1
+SETUP_RANDOM_NUM_ALIENS_LIM1_DESC	| First limit on the random number of opponents. Can be the minimum or maximum.
+SETUP_RANDOM_NUM_ALIENS_LIM2		| Limit on the number of opponents: %1
+SETUP_RANDOM_NUM_ALIENS_LIM2_DESC	| Second limit on the random number of opponents. Can be the minimum or maximum.
 
 SETUP_GALAXY_SIZE_VALUE				|  (%1)
 SETUP_GALAXY_SIZE_VALUE_DYN			|  (now %1)

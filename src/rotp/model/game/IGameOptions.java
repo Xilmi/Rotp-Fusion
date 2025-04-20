@@ -440,6 +440,7 @@ public interface IGameOptions extends IModOptions {
 
     public String selectedGameDifficulty();
     public void selectedGameDifficulty(String s);
+    public int selectedNumberOpponents(boolean refresh);
     public int selectedNumberOpponents();
     public void selectedNumberOpponents(int i);
 

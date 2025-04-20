@@ -1521,10 +1521,16 @@ SETUP_GALAXY_SIZE_OVER1000_DESC   | Taille de galaxie indécente, beaucoup plus 
 
 SETUP_RANDOM_NUM_STARS_LIM_MAX		| ≤ %1
 SETUP_RANDOM_NUM_STARS_LIM_MIN		| ≥ %1
-SETUP_RANDOM_NUM_STARS_LIM1			| lim. : %1
+SETUP_RANDOM_NUM_STARS_LIM1			| Taille limite : %1
 SETUP_RANDOM_NUM_STARS_LIM1_DESC	| Première limite de taille de galaxie aléatoire. Peut être le minimum ou maximum.
-SETUP_RANDOM_NUM_STARS_LIM2			| lim. : %1
+SETUP_RANDOM_NUM_STARS_LIM2			| Taille limite : %1
 SETUP_RANDOM_NUM_STARS_LIM2_DESC	| Seconde limite de taille de galaxie aléatoire. Peut être le minimum ou maximum.
+SETUP_RANDOM_NUM_ALIENS				| Nombre aléatoire d’empires rivaux : %1
+SETUP_RANDOM_NUM_ALIENS_DESC		| Active ou désactive la sélection aléatoire du nombre d'empires rivaux.
+SETUP_RANDOM_NUM_ALIENS_LIM1		| Limite du nombre d’opposants : %1
+SETUP_RANDOM_NUM_ALIENS_LIM1_DESC	| Première limite du nombre aléatoire d’opposants. Peut être le minimum ou maximum.
+SETUP_RANDOM_NUM_ALIENS_LIM2		| Limite du nombre d’opposants : %1
+SETUP_RANDOM_NUM_ALIENS_LIM2_DESC	| Seconde limite du nombre aléatoire d’opposants. Peut être le minimum ou maximum.
 
 SETUP_GALAXY_SIZE_VALUE				|  (%1)
 SETUP_GALAXY_SIZE_VALUE_DYN			|  (--> %1)
