@@ -21,9 +21,7 @@
   -
   - Peaceful mode
 - Search tools for options.
-- add a "Randomness Management" sub-panel in the "Setup" panel
-  - Limit for Galaxy Size
-  - Limit for number of opponents
+
 
 ### Later:
 

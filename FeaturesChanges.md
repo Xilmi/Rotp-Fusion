@@ -149,6 +149,7 @@
 
 ### User Interfaces:
 
+- The opponent control panel now progressively displays from 3x3 to 7x7 icons.
 - Design UI: changed some text by icons:
   - Auto-scout = Eye
   - Auto-Attack = Target

@@ -257,34 +257,27 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     private boolean showGrid = false;
     private boolean prevShowGrid = false;
 
-    private int wSmallMug	= s54;
-    private int hSmallMug 	= s58;
-    private int rShSmallMug	= s56;
-
     private int wBigMug		= s76;
     private int hBigMug		= s82;
     private int rShBigMug	= s78;
 
 	private BufferedImage playerMug;
-	private BufferedImage smallBackMug;
 	private BufferedImage bigBackMug;
-	private BufferedImage smallNullMug;
-	private BufferedImage bigNullMug;
+	private BufferedImage nullMug;
+	private BufferedImage backMug;
+	private BufferedImage[] rivalMugs;
 
 	private IGameOptions opts;
 	private boolean forceUpdate = true;
 	private List<Nebula> nebulas;
 	private ListShapeParam shapeOptionsList;
 
-    // Local copy of the good sized race Mug, to avoid depending SetupRaceUI
-    private BufferedImage[] bigOppMugs;
-    private BufferedImage[] smallOppMugs;
-
+	private int lastMugSize;
     // Buttons Parameters
     private int buttonSep	= s15;
     private Box	helpBox		= new Box("SETTINGS_BUTTON_HELP");
 	@Override protected Box newExitBox()		{ return new Box(newExitButton()); }
-	@Override protected Font bigButtonFont()					{ return bigButtonFont; }
+	@Override protected Font bigButtonFont()	{ return bigButtonFont; }
 	@Override protected Font bigButtonFont(boolean retina)		{
 		if (retina)
 			return narrowFont(retina(buttonFont));
@@ -314,7 +307,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
 	}
-    public void initOpponentGuide() {
+	public void initOpponentGuide() {
 		opponentRandom = text(OPPONENT_RANDOM);
 		LinkedList<String> list = new LinkedList<>();
 		list.addAll(opts.getNewRacesOnOffList());
@@ -424,11 +417,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		nebulas = null;
 		repaint();
 	}
-	@Override public void clearImages() {
+	@Override public void clearImages()	{
 		super.clearImages();
-      	nebulas 		= null;
-      	clearMugs();
-    }
+		nebulas = null;
+		clearMugs();
+	}
 	private void initPopupPositions()	{
 		if (popupPositionsInitialised)
 			return;
@@ -442,30 +435,35 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		popupPositionsInitialised = true;
 	}
-    private void clearMugs() {
-    	playerMug		= null;
-    	smallBackMug	= null;
-		bigBackMug		= null;
-		smallNullMug	= null;
-		bigNullMug		= null;
-		smallOppMugs	= null;
-		bigOppMugs		= null;
-   }
-    private void noFogChanged() {
-    	noFogOnIcons.toggle();
-    	clearMugs();
-        repaint();
-    }
-    private BufferedImage getMug(BufferedImage diplo, BufferedImage back) {
-    	int bw = back.getWidth();
-    	int bh = back.getHeight();
-    	int dw = diplo.getWidth();
-    	int dh = diplo.getHeight();
+	private int mugWidth(int size)	{ return scaled(380)/size; }
+	private int mugHeight(int size)	{ return scaled(410)/size; }
+	private int mugRSh(int size)	{ return scaled(390)/size; }
+	private void resetMugs()		{
+		lastMugSize	= 0;
+		rivalMugs	= null;
+		nullMug		= null;
+		backMug		= null;
+	}
+	private void clearMugs()		{
+		playerMug	= null;
+		bigBackMug	= null;
+		resetMugs();
+	}
+	private void noFogChanged()		{
+		noFogOnIcons.toggle();
+		clearMugs();
+		repaint();
+	}
+	private BufferedImage getMug(BufferedImage diplo, BufferedImage back)	{
+		int bw = back.getWidth();
+		int bh = back.getHeight();
+		int dw = diplo.getWidth();
+		int dh = diplo.getHeight();
 		BufferedImage mug = new BufferedImage(bw, bh, TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) mug.getGraphics();
-
+	
 		float fog = opts.noFogOnIcons()? 1.0f : 0.5f;
-        Composite raceComp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , fog);
+		Composite raceComp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , fog);
 		g.setComposite(raceComp);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
@@ -476,72 +474,60 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.drawImage(diplo, 0, 0, bw, bh, 0, 0, dw, dh, null);
 		g.dispose();
 		return mug;
-    }
-    private BufferedImage smallOppMug(int num) {
-        if (smallOppMugs == null)
-        	initOppMugs();
-        return smallOppMugs[num];
-    }
-    private BufferedImage bigOppMug(int num) {
-        if (bigOppMugs == null)
-        	initOppMugs();
-        return bigOppMugs[num];
-    }
-    private BufferedImage oppMug(int num, boolean small) { return small? smallOppMug(num) : bigOppMug(num); }
-    private void updateOppMugs(int i) {
-    	if (smallOppMugs == null) {
-    		initOppMugs();
-    		return;
-    	}
-		String selOpp = opts.selectedOpponentRace(i);
-		if (selOpp == null) {
-    		smallOppMugs[i] = smallNullMug();
-    		bigOppMugs[i]   = bigNullMug();
-		} else {
-    		BufferedImage diplo = Race.keyed(selOpp).diploMugshotQuiet();
-    		smallOppMugs[i] = getMug(diplo, smallBackMug());
-    		bigOppMugs[i]   = getMug(diplo, bigBackMug());
-		}
-    }
-    private void initOppMugs() {
-    	smallOppMugs = new BufferedImage[MAX_DISPLAY_OPPS];
-    	bigOppMugs   = new BufferedImage[MAX_DISPLAY_OPPS];
-    	for (int i=0; i<MAX_DISPLAY_OPPS; i++)
-    		updateOppMugs(i);
-    }
-	private BufferedImage smallBackMug() {
-		if (smallBackMug == null)
-			initBackMugs();
-		return smallBackMug;
 	}
-	private BufferedImage bigBackMug() {
+	private BufferedImage rivalMug(int num, int size)	{
+		if (size != lastMugSize) {
+			resetMugs();
+			lastMugSize = size;
+		}
+		if (rivalMugs == null)
+			initRivalMugs();
+		return rivalMugs[num]; 
+	}
+	private void updateRivalMugs(int i)	{
+		if (rivalMugs == null) {
+			initRivalMugs();
+			return;
+		}
+		String selOpp = opts.selectedOpponentRace(i);
+		if (selOpp == null)
+			rivalMugs[i] = nullMug();
+		else {
+			BufferedImage diplo = Race.keyed(selOpp).diploMugshotQuiet();
+			rivalMugs[i] = getMug(diplo, backMug());
+		}
+	}
+	private void initRivalMugs()		{
+		rivalMugs	=  new BufferedImage[MAX_DISPLAY_OPPS];
+		for (int i=0; i<MAX_DISPLAY_OPPS; i++)
+			updateRivalMugs(i);
+	}
+	private BufferedImage backMug()		{
+		if (backMug == null)
+			initRivalBackMugs();
+		return backMug;
+	}
+	private BufferedImage bigBackMug()	{
 		if (bigBackMug == null)
 			initBackMugs();
 		return bigBackMug;
 	}
-    private BufferedImage backMug(boolean small) { return small? smallBackMug() : bigBackMug(); }
-	private BufferedImage smallNullMug() {
-		if (smallNullMug == null)
-			initBackMugs();
-		return smallNullMug;
+	private BufferedImage nullMug()		{
+		if (nullMug == null)
+			initRivalBackMugs();
+		return nullMug;
 	}
-	private BufferedImage bigNullMug() {
-		if (bigNullMug == null)
-			initBackMugs();
-		return bigNullMug;
-	}
-	private void initBackMugs() {
-		smallBackMug = opts.getMugBackImg(wSmallMug, hSmallMug, rShSmallMug);
-		bigBackMug   = opts.getMugBackImg(wBigMug,   hBigMug,   rShBigMug);
+	private void initRivalBackMugs()	{
+		backMug	= opts.getMugBackImg(mugWidth(lastMugSize), mugHeight(lastMugSize), mugRSh(lastMugSize));
 		String label = text("SETUP_OPPONENT_RANDOM");
-		smallNullMug = getNullMug(label, true);
-		bigNullMug   = getNullMug(label, false);
+		nullMug = getNullMug(label);
 	}
-    private BufferedImage getNullMug(String label, boolean smallImages) {
-    	BufferedImage back = backMug(smallImages);
-    	int bw = back.getWidth();
-    	int bh = back.getHeight();
-    	BufferedImage mug = new BufferedImage(bw, bh, TYPE_INT_ARGB);
+	private void initBackMugs()	{ bigBackMug = opts.getMugBackImg(wBigMug, hBigMug, rShBigMug); }
+	private BufferedImage getNullMug(String label) {
+		BufferedImage back = backMug();
+		int bw = back.getWidth();
+		int bh = back.getHeight();
+		BufferedImage mug = new BufferedImage(bw, bh, TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) mug.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
@@ -551,13 +537,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.drawImage(back, 0, 0, null);
 		g.setFont(narrowFont(30));
 		g.setColor(Color.black);
-    	int randSW = g.getFontMetrics().stringWidth(label);
-    	int x = ((bw - randSW)/2);
-		int y = smallImages ? bh-s20 : bh-s31;
+		int randSW = g.getFontMetrics().stringWidth(label);
+		int x = (bw - randSW)/2;
+		int y = bh - scaled(150) / lastMugSize;
 		drawString(g, label, x, y);
 		g.dispose();
 		return mug;
-    }
+	}
 	@Override public void showHelp() {
 		loadHelpUI();
 		repaint();   
@@ -1166,22 +1152,16 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private void drawOpponentCount(Graphics2D g) {
 		// draw number of opponents
-		//int maxOpp = opts.maximumOpponentsOptions();
 		int numOpp = opts.selectedNumberOpponents();
-		
-		boolean smallImages = numOpp > 25;
-		int mugW = smallImages? wSmallMug : wBigMug;
-		int mugH = smallImages? hSmallMug : hBigMug;
 		g.setFont(narrowFont(30));
 		g.setColor(Color.black);
-		int y0;
 		if (isRandomNumAlien()) {
 			g.setFont(narrowFont(26));
 			int minOpp = opts.randomNumAliensLim1();
 			String str = str(minOpp);
 			int numSW = g.getFontMetrics().stringWidth(str);
 			int x0 = oppMinBox.x + ((oppMinBox.width-numSW)/2);
-			y0 = oppMinBox.y + oppMinBox.height -s6;
+			int y0 = oppMinBox.y + oppMinBox.height -s6;
 			drawString(g, str, x0, y0);
 
 			int maxOpp = opts.randomNumAliensLim2();
@@ -1196,44 +1176,47 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			String oppStr = str(numOpp);
 			int numSW = g.getFontMetrics().stringWidth(oppStr);
 			int x0 = oppBox.x + ((oppBox.width-numSW)/2);
-			y0 = oppBox.y + oppBox.height -s8;
+			int y0 = oppBox.y + oppBox.height -s8;
 			drawString(g, oppStr, x0, y0);
 		}
+		drawOpponentBoxes(g);
+	}
+	private void drawOpponentBoxes(Graphics2D g) {
+		int numOpp	= opts.selectedNumberOpponents();
+		int numCols	= max (3, ceil(sqrt(numOpp)));
+		int mugW	= mugWidth(numCols);
+		int mugH	= mugHeight(numCols);
+		int fSize	= 108 / (numCols+2);
+		int offset1	= s36 / (numCols+2);
+		int offset2	= scaled(108) / (numCols+2);
+		int boundH	= scaled(144) / (numCols+2);
+		int spaceW	= mugW + ((boxW-s60-numCols*mugW) / (numCols-1));
+		int spaceH	= mugH + s60 / (numCols-1);
+		int y0		= scaled(214);
 
-		int numRows = smallImages ? 7 : 5;
-		int numCols = smallImages ? 7 : 5;
-		int fSize	= smallImages ? 12 : 15;
-		int offset1	= smallImages ? s4 : s5;
-		int offset2	= smallImages ? s12 : s15;
-		int boundH	= smallImages ? s17 : s20;
-		int spaceW = mugW+(((boxW-s60)-(numCols*mugW))/(numCols-1));
-		int spaceH = smallImages ? mugH+s10 : mugH+s15;
-
-		// draw opponent boxes
 		Stroke prevStroke = g.getStroke();
 		Color borderC = GameUI.setupFrame();
 		boolean selectableAI = opts.selectableAI();
 		boolean selectableCR = useSelectableAbilities.get();
-		int maxDraw = min((numRows*numCols), numOpp, MAX_DISPLAY_OPPS);
-		for (int i=0;i<maxDraw;i++) {
-			int row = i/numCols;
-			int col = i%numCols;
-			// int y2 = y0+s50+(row*spaceH);
-			int y2 = y0+s67+(row*spaceH); // BR: Adjusted for dataRace selection
-			int x2 = leftBoxX+s30+(col*spaceW);
-			int y2o = y2;
+		int maxDraw = min((numCols*numCols), numOpp, MAX_DISPLAY_OPPS);
+		for (int i=0; i<maxDraw; i++) {
+			int row	= i/numCols;
+			int col	= i%numCols;
+			int y2	= y0 + row*spaceH;
+			int x2	= leftBoxX + s30 + col*spaceW;
+			int y2o	= y2;
 			int mugHo = mugH;
 			if (selectableCR) {
 				y2o   += boundH;
 				mugHo -= boundH;
 			}
-			if (selectableAI) {
+			if (selectableAI)
 				mugHo -= boundH;
-			}
+
 			oppSet[i].setBounds(x2, y2o, mugW, mugHo);
-			oppAI[i].setBounds(x2, y2+mugH-boundH, mugW, boundH); // BR: Adjusted
+			oppAI[i].setBounds(x2, y2+mugH-boundH, mugW, boundH);
 			oppAbilities[i].setBounds(x2, y2, mugW, boundH);
-			g.drawImage(oppMug(i, smallImages), x2, y2, this);
+			g.drawImage(rivalMug(i, numCols), x2, y2, this);
 
 			if (selectableAI) {
 				g.setColor(SystemPanel.whiteText);
@@ -2109,7 +2092,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			opts.nextOpponent(i);
 		else
 			opts.prevOpponent(i);
-		updateOppMugs(i);
+		updateRivalMugs(i);
 		postSelectionLight(false);
 	}
 	private void toggleGalaxyGrid(MouseEvent e) {
@@ -2227,9 +2210,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		Graphics2D g = (Graphics2D) backImg.getGraphics();
 		setFontHints(g);
 		// modnar: use (slightly) better upsampling
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		Race race;
