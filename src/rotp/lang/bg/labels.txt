@@ -996,6 +996,8 @@ INVASION_TROOPS_LANDED            | %1 [attacker_race] войски се при�
 INVASION_SOME_TROOPS_LANDED       | %1 of %2 [attacker_race] войски се приземиха.
 INVASION_WIN                      | [attacker_race] транспорти превземат %2.
 INVASION_LOSS                     | [defender_race] войски успешно се защитават %2.
+INVASION_WIN_REBEL                | [attacker_race] транспорти превземат %2.
+INVASION_LOSS_REBEL               | [defender_race] войски успешно се защитават %2.
 INVASION_ATTACKERS_TITLE          | %1 [attacker_race] Войски
 INVASION_DEFENDERS_TITLE          | %1 [defender_race] Войски
 INVASION_REBELS_TITLE             | %1 [defender_race] Бунтовници

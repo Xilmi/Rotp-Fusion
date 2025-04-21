@@ -1002,6 +1002,8 @@ INVASION_TROOPS_LANDED            | Jednotky [attacker_race_akuzativ] pristáli.
 INVASION_SOME_TROOPS_LANDED       | %1 z %2 jednotiek [attacker_race_akuzativ] pristálo.
 INVASION_WIN                      | [attacker_race_plural] obsadili %2 
 INVASION_LOSS                     | [defender_race_plural] úspešne ubránili %2.
+INVASION_WIN_REBEL                | [attacker_race_plural] obsadili %2 
+INVASION_LOSS_REBEL               | [defender_race_plural] úspešne ubránili %2.
 INVASION_ATTACKERS_TITLE          | Vojsko [attacker_race_akuzativ]: %1
 INVASION_DEFENDERS_TITLE          | Vojsko [defender_race_akuzativ]: %1
 INVASION_REBELS_TITLE             | Rebeli [defender_race_akuzativ]: %1

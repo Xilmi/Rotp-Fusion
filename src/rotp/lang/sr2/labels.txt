@@ -997,6 +997,8 @@ INVASION_TROOPS_LANDED            | %1 [attacker_raceSke] трупе су сле
 INVASION_SOME_TROOPS_LANDED       | %1 од %2 [attacker_raceSkih] трупа је слетело.
 INVASION_WIN                      | [attacker_raceSki] транспортери су заузели %2.
 INVASION_LOSS                     | [defender_raceSke] трупе су успешно одбраниле %2.
+INVASION_WIN_REBEL                | [attacker_raceSki] транспортери су заузели %2.
+INVASION_LOSS_REBEL               | [defender_raceSke] трупе су успешно одбраниле %2.
 INVASION_ATTACKERS_TITLE          | %1 [attacker_raceSke] Трупе
 INVASION_DEFENDERS_TITLE          | %1 [defender_raceSke] Трупе
 INVASION_REBELS_TITLE             | %1 [defender_raceSki] Побуњеници

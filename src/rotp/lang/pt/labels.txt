@@ -996,6 +996,8 @@ INVASION_TROOPS_LANDED            | %1 tropas [attacker_race_female_plural] ater
 INVASION_SOME_TROOPS_LANDED       | %1 de %2 tropas [attacker_race_female_plural] aterraram.
 INVASION_WIN                      | Transportes [attacker_race_male_plural] capturam %2.
 INVASION_LOSS                     | Tropas [defender_race_female_plural] conseguem defender %2.
+INVASION_WIN_REBEL                | Transportes [attacker_race_male_plural] capturam %2.
+INVASION_LOSS_REBEL               | Tropas [defender_race_female_plural] conseguem defender %2.
 INVASION_ATTACKERS_TITLE          | %1 tropas [attacker_race_female_plural]
 INVASION_DEFENDERS_TITLE          | %1 tropas [defender_race_female_plural]
 INVASION_REBELS_TITLE             | %1 rebeldes [defender_race_male_plural]

@@ -997,6 +997,8 @@ INVASION_TROOPS_LANDED            | [attacker_race_possessive_prefix_uppercase] 
 INVASION_SOME_TROOPS_LANDED       | [attacker_race_possessive_prefix_uppercase] %1 csapatából %2 leszállt.
 INVASION_WIN                      | [attacker_race_possessive_prefix_uppercase] szállítói elfoglalják a következőt: %2.
 INVASION_LOSS                     | [defender_race_possessive_prefix_uppercase]csapatai sikeresen védelmezik a következőt: %2.
+INVASION_WIN_REBEL                | [attacker_race_possessive_prefix_uppercase] szállítói elfoglalják a következőt: %2.
+INVASION_LOSS_REBEL               | [defender_race_possessive_prefix_uppercase]csapatai sikeresen védelmezik a következőt: %2.
 INVASION_ATTACKERS_TITLE          | [attacker_race_possessive] %1 csapata
 INVASION_DEFENDERS_TITLE          | [defender_race_possessive] %1 csapata
 INVASION_REBELS_TITLE             | [defender_race_possessive] %1 lázadója

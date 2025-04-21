@@ -4,6 +4,8 @@
 
 ### Bug to fix:
 
+- Check phantom empires, when still alive without colony, but with transports.
+
 
 ### Very soon:
 

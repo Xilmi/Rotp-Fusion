@@ -996,6 +996,8 @@ INVASION_TROOPS_LANDED            | Війська [attacker_race_plural2] ви�
 INVASION_SOME_TROOPS_LANDED       | %1 з %2 воїнів [attacker_race_plural2] висадились.
 INVASION_WIN                      | Транспорти [attacker_race_plural2] захопили систему %2.
 INVASION_LOSS                     | Війська [defender_race_plural2] успішно захистили систему %2.
+INVASION_WIN_REBEL                | Транспорти [attacker_race_plural2] захопили систему %2.
+INVASION_LOSS_REBEL               | Війська [defender_race_plural2] успішно захистили систему %2.
 INVASION_ATTACKERS_TITLE          | %1 воїнів [attacker_race_plural2] 
 INVASION_DEFENDERS_TITLE          | %1 воїнів [defender_race_plural2]
 INVASION_REBELS_TITLE             | %1 повстанців [defender_race_plural2] 

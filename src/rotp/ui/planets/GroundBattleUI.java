@@ -20,14 +20,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.LinearGradientPaint;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.colony.Colony;
 import rotp.model.colony.ColonyDefense;
 import rotp.model.empires.Empire;
@@ -566,16 +567,22 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
     private boolean battleInProgress() {
         return colony.defense().troops() > 0 && transport.size() > 0;
     }
-    private void updateEndOfCombatTitle()	{
-    	if (transport.size() == 0) {
-            title = text("INVASION_LOSS", defenderEmp.raceName(), sysName);
-            title = defenderEmp.replaceTokens(title, "defender");
-        }
-        else {
-            title = text("INVASION_WIN", attackerEmp.raceName(), sysName);
-            title = attackerEmp.replaceTokens(title, "attacker");
-        }
-    }
+	private void updateEndOfCombatTitle()	{
+		if (transport.size() == 0) {
+			if (defenderEmp == attackerEmp)	// Rebels
+				title = text("INVASION_LOSS_REBEL", defenderEmp.raceName(), sysName);
+			else 
+				title = text("INVASION_LOSS", defenderEmp.raceName(), sysName);
+			title = defenderEmp.replaceTokens(title, "defender");
+		}
+		else {
+			if (defenderEmp == attackerEmp)	// Rebels
+				title = text("INVASION_WIN_REBEL", attackerEmp.raceName(), sysName);
+			else 
+				title = text("INVASION_WIN", attackerEmp.raceName(), sysName);
+			title = attackerEmp.replaceTokens(title, "attacker");
+		}
+	}
     private void advanceScreen() {
         if (landing()) {
             if (shipLanding != null)

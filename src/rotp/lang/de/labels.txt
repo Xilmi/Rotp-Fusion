@@ -995,6 +995,8 @@ INVASION_TROOPS_LANDED            | %1 [attacker_race] Truppen sind gelandet.
 INVASION_SOME_TROOPS_LANDED       | %1 von %2 [attacker_race] Truppen sind gelandet.
 INVASION_WIN                      | [attacker_race] Truppen erobern %2.
 INVASION_LOSS                     | [defender_race] Truppen verteidigen erfolgreich %2.
+INVASION_WIN_REBEL                | [attacker_race] Truppen erobern %2.
+INVASION_LOSS_REBEL               | [defender_race] Truppen verteidigen erfolgreich %2.
 INVASION_ATTACKERS_TITLE          | %1 [attacker_race] Truppen
 INVASION_DEFENDERS_TITLE          | %1 [defender_race] Truppen
 INVASION_REBELS_TITLE             | %1 [defender_race] Rebellen

@@ -999,6 +999,8 @@ INVASION_TROOPS_LANDED            | [attacker_race]的%1個部隊登陸了。
 INVASION_SOME_TROOPS_LANDED       | %2個[attacker_race]部隊中有%1個登陸了。
 INVASION_WIN                      | [attacker_race]的部隊佔領了%2。
 INVASION_LOSS                     | [defender_race]的部隊成功守護了%2。
+INVASION_WIN_REBEL                | [attacker_race]的部隊佔領了%2。
+INVASION_LOSS_REBEL               | [defender_race]的部隊成功守護了%2。
 INVASION_ATTACKERS_TITLE          | %1 [attacker_race]部隊
 INVASION_DEFENDERS_TITLE          | %1 [defender_race]部隊
 INVASION_REBELS_TITLE             | %1 [defender_race]起義軍

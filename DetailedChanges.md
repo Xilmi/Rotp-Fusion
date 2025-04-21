@@ -4,6 +4,7 @@
 
 2025.04.21 (BR)
 - Fixed "Concurrent Modification Exception" in Ship combat Manager.
+- Added distinct Messages for when rebels repel invasion, or are eliminated.
 
 2025.04.20 (BR)
 - Added an option for a random number of opponents, with customizable Min and Max.

@@ -1002,6 +1002,8 @@ INVASION_TROOPS_LANDED            | %1 tentara [attacker_race] mendarat.
 INVASION_SOME_TROOPS_LANDED       | %1 dari %2 tentara [attacker_race] mendarat.
 INVASION_WIN                      | Transport [attacker_race] menangkap %2.
 INVASION_LOSS                     | Tentara [defender_race] sukses mempertahankan %2.
+INVASION_WIN_REBEL                | Transport [attacker_race] menangkap %2.
+INVASION_LOSS_REBEL               | Tentara [defender_race] sukses mempertahankan %2.
 INVASION_ATTACKERS_TITLE          | %1 Tentara [attacker_race] 
 INVASION_DEFENDERS_TITLE          | %1 Tentara [defender_race]
 INVASION_REBELS_TITLE             | %1 Pemberontak [defender_race]

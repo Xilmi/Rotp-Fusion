@@ -997,6 +997,8 @@ INVASION_TROOPS_LANDED            | Приземлилось %1 солдат [at
 INVASION_SOME_TROOPS_LANDED       | Приземлилось %1 из %2 солдат [attacker_race_plural_rod].
 INVASION_WIN                      | [attacker_race_plural] захватили планету %2.
 INVASION_LOSS                     | [defender_race_plural] успешно защитили планету %2.
+INVASION_WIN_REBEL                | [attacker_race_plural] захватили планету %2.
+INVASION_LOSS_REBEL               | [defender_race_plural] успешно защитили планету %2.
 INVASION_ATTACKERS_TITLE          | %1 Солдат [attacker_race_plural_rod]
 INVASION_DEFENDERS_TITLE          | %1 Солдат [defender_race_plural_rod]
 INVASION_REBELS_TITLE             | %1 Повстанцев-[defender_race_plural_rod]

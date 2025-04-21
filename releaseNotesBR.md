@@ -9,7 +9,7 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 2025.04.21 (BR)
 - Fixed "Concurrent Modification Exception" in Ship combat Manager.
-  
+- Added distinct Messages for when rebels repel invasion, or are eliminated.
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 

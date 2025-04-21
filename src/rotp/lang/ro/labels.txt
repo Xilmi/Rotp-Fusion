@@ -997,6 +997,8 @@ INVASION_TROOPS_LANDED            | %1 transporturi [attacker_race] au aterizat.
 INVASION_SOME_TROOPS_LANDED       | %1 din %2 transporturi [attacker_race] au aterizat.
 INVASION_WIN                      | Transporturile [attacker_race] capturează %2.
 INVASION_LOSS                     | Trupele [defender_race] apără cu succes %2.
+INVASION_WIN_REBEL                | Transporturile [attacker_race] capturează %2.
+INVASION_LOSS_REBEL               | Trupele [defender_race] apără cu succes %2.
 INVASION_ATTACKERS_TITLE          | %1 Trupe [attacker_race]
 INVASION_DEFENDERS_TITLE          | %1 Trupe [defender_race]
 INVASION_REBELS_TITLE             | %1 Rebeli [defender_race]

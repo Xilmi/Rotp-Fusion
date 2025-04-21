@@ -997,6 +997,8 @@ INVASION_TROOPS_LANDED            | %1 [attacker_race] birlikleri karaya indi.
 INVASION_SOME_TROOPS_LANDED       | %2 [attacker_race] askerinden %1 kadarı karaya indi.
 INVASION_WIN                      | [attacker_race] taşıyıcıları %2 mevkisisini ele geçirdi.
 INVASION_LOSS                     | [defender_race] birlikleri %2' mevkisisini başarıyla savundu.
+INVASION_WIN_REBEL                | [attacker_race] taşıyıcıları %2 mevkisisini ele geçirdi.
+INVASION_LOSS_REBEL               | [defender_race] birlikleri %2' mevkisisini başarıyla savundu.
 INVASION_ATTACKERS_TITLE          | %1 [attacker_race] Birlikleri
 INVASION_DEFENDERS_TITLE          | %1 [defender_race] Birlikleri
 INVASION_REBELS_TITLE             | %1 [defender_race] Asileri

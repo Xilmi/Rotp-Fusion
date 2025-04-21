@@ -998,6 +998,8 @@ INVASION_TROOPS_LANDED            | Le truppe [attacker_race_pluraladjecF] %1  s
 INVASION_SOME_TROOPS_LANDED       | Le truppe [attacker_race_pluraladjecF] %1 di %2 sono atterrate.
 INVASION_WIN                      | I trasporti [attacker_race_pluraladjec] catturano %2.
 INVASION_LOSS                     | Le truppe [defender_race_pluraladjecF]  difendono con successo %2.
+INVASION_WIN_REBEL                | I trasporti [attacker_race_pluraladjec] catturano %2.
+INVASION_LOSS_REBEL               | Le truppe [defender_race_pluraladjecF]  difendono con successo %2.
 INVASION_ATTACKERS_TITLE          | Truppe [attacker_race_pluraladjecF] %1
 INVASION_DEFENDERS_TITLE          | Truppe [defender_race_pluraladjecF] %1
 INVASION_REBELS_TITLE             | Ribelli [defender_race_pluraladjec] %1	

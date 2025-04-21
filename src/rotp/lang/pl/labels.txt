@@ -998,6 +998,8 @@ INVASION_TROOPS_LANDED            | Wylądowało %1 oddziałów [attacker_race3]
 INVASION_SOME_TROOPS_LANDED       | Wylądowało %1 z %2 oddziałów [attacker_race3].
 INVASION_WIN                      | Transporty [attacker_race3] przejmują system %2.
 INVASION_LOSS                     | Oddziały [defender_race3] z powodzeniem bronią systemu %2.
+INVASION_WIN_REBEL                | Transporty [attacker_race3] przejmują system %2.
+INVASION_LOSS_REBEL               | Oddziały [defender_race3] z powodzeniem bronią systemu %2.
 INVASION_ATTACKERS_TITLE          | %1 Oddziałów [attacker_race3]
 INVASION_DEFENDERS_TITLE          | %1 Oddziałów [defender_race3]
 INVASION_REBELS_TITLE             | %1 Rebeliantów [defender_race3]
