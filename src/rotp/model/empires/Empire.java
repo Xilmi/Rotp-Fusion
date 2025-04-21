@@ -1078,11 +1078,13 @@ public final class Empire implements Base, NamedObject, Serializable {
             	ally.setRecalcDistances();
 //            ally.refreshViews(); // BR: Optimization
         }
-        
+
         if (colonizedSystems.isEmpty())
             goExtinct();
     }
     public void takeAbandonedSystem(StarSystem sys, Transport tr) {
+		if (tr.size() == 0)
+			return;
         sys.addEvent(new SystemColonizedEvent(id));
         newSystems.add(sys);
         addColonizedSystem(sys);

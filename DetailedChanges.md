@@ -5,6 +5,12 @@
 2025.04.21 (BR)
 - Fixed "Concurrent Modification Exception" in Ship combat Manager.
 - Added distinct Messages for when rebels repel invasion, or are eliminated.
+- Fixed retaking abandoned system with surrendering transports.
+  - Surrendering transports size were set to -1, and were not always checked for surrendering.
+    - While joining an abandoned colony, its size was negative.
+    - While joining non surrendering transport, their size were reduced by one.
+  - Surrendering transports size is now set to 0, and a surrendering flag is set.
+  - Abandoned colony will only accept non empty transport.
 
 2025.04.20 (BR)
 - Added an option for a random number of opponents, with customizable Min and Max.

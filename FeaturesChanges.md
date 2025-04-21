@@ -214,6 +214,12 @@
 
 ### Fixes:
 
+- Fixed retaking abandoned system with surrendering transports.
+  - Surrendering transports size were set to -1, and were not always checked for surrendering.
+    - While joining an abandoned colony, its size was negative.
+    - While joining non surrendering transport, their size were reduced by one.
+  - Surrendering transports size is now set to 0, and a surrendering flag is set.
+  - Abandoned colony will only accept non empty transport.
 - Added distinct Messages for when rebels repel invasion, or are eliminated.
 - Fixed "Concurrent Modification Exception" in Ship combat Manager.
 - Fixed a possible crash on random symmetric galaxies generation.

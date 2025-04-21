@@ -47,6 +47,7 @@ public class Transport extends FleetBase {
     private float combatAdj = 0;
     private float launchTime = NOT_LAUNCHED;
     private float travelSpeed = 0;
+	private boolean surrenderOnArrival;
 
     private String troopArmorId;
     private String troopBattleSuitId;
@@ -68,15 +69,16 @@ public class Transport extends FleetBase {
     public boolean hasDisplayPanel()            { return true; }
     @Override
     public boolean persistOnClick()             { return empire() == player(); }    
-    public boolean surrenderOnArrival()         { return size < 0; }
-    
-    public void orderToSurrenderOnArrival()    {  size = -1; }
-    public void toggleSurrenderOnArrival() {
-        if (surrenderOnArrival())
-            size = originalSize;
-        else 
-            orderToSurrenderOnArrival();
-    }
+	public boolean surrenderOnArrival()		{ return surrenderOnArrival; }
+	public void orderToSurrenderOnArrival()	{ size(0); surrenderOnArrival = true; }
+	public void toggleSurrenderOnArrival()	{
+	if (surrenderOnArrival()) {
+		surrenderOnArrival = false;
+		size(originalSize);
+	}
+	else 
+		orderToSurrenderOnArrival();
+	}
 
     @Override
     public FlightPathSprite pathSprite() {
@@ -89,6 +91,11 @@ public class Transport extends FleetBase {
         from = sys;
         empire = sys.empire();
     }
+	void validateOnLoad() {
+		// convert previous negative surrender encoding size
+		if (size()<0)
+			orderToSurrenderOnArrival();
+	}
     @Override
     public String toString()          { return concat("Transport: ", Integer.toHexString(hashCode())); }
     private Colony home()              { return from.colony(); }
@@ -119,7 +126,7 @@ public class Transport extends FleetBase {
 
 
     public void reset(Empire emp) {
-        size = 0;
+		size(0);
         dest = null;
         empire = emp;
     }
@@ -143,7 +150,7 @@ public class Transport extends FleetBase {
     public boolean deployed()       { return launched(); }
     @Override
     public boolean inTransit()     { return dest != null; }
-    public boolean isActive()      { return (size > 0) && (dest != null) && (dest != home().starSystem()); }
+	public boolean isActive()	{ return (size() > 0) && (dest != null) && (dest != home().starSystem()); }
     @Override
     public boolean isPotentiallyArmed(Empire e) {
         return empire != e;
@@ -156,14 +163,14 @@ public class Transport extends FleetBase {
         Galaxy gal = galaxy();
         // if being sent back to home system, then abort the launch
         if (dest == from) {
-            size = 0;
+			size(0);
             gal.removeTransport(this);
             return;
         }
 
         // one last sanity check on size
-        size = min(size, (int) Math.ceil(from.colony().population()));
-        originalSize = size;
+		size(min(size(), (int) Math.ceil(from.colony().population())));
+		originalSize = size();
         launchTime = gal.currentTime();
         targetEmp = dest.empire();
         speed = empire.tech().transportTravelSpeed();
@@ -213,26 +220,13 @@ public class Transport extends FleetBase {
             normalTime = travelTimeAdjusted(this, dest, empire().tech().transportTravelSpeed());
         else
             normalTime = travelTimeAdjusted(this, dest, speed); 
-        
+
         if ((from.empire() == dest.empire()) && (from.empire() == empire)
         && from.colony().shipyard().hasStargate() && dest.colony().shipyard().hasStargate())
             return min(1, normalTime);
         else
             return normalTime;
     }
-    /* public float travelTime(IMappedObject fr, StarSystem to) {
-        //float speed = empire.transportSpeed(fr, to);
-        float normalTime = travelTimeAdjusted(fr ,to, travelSpeed);
-
-        if (fr instanceof StarSystem) {
-            StarSystem fromSystem = (StarSystem) fr;
-            if ((fromSystem.empire() == to.empire()) && (fromSystem.empire() == empire)
-            && fromSystem.colony().shipyard().hasStargate() && to.colony().shipyard().hasStargate())
-                return min(1, normalTime);
-        }
-        return normalTime;
-    } */
-    
     // Why does Transport.travelTurnsRemaining() check whether it's inTransit?
     // It sort of works, since Transports don't have a "deployed, not in transit" state like ShipFleet,
     // but a Transport is only not inTransit when dest == null, and when could that ever happen?
@@ -247,17 +241,8 @@ public class Transport extends FleetBase {
         // take the worst time
         return galaxy().currentTime() + max(setTime, directTime);
     }
-    /* public boolean  changeDestination(StarSystem to) {
-        if (inTransit()
-        && validDestination(id(to))) {
-            setDest(to);
-            targetEmp = to.empire();
-            return true;
-        }
-        return false;
-    } */
     void joinWith(Transport tr) {
-        size += tr.size;
+		size(size() + tr.size());
         originalSize += tr.originalSize;
         hitPoints = Math.max(hitPoints, tr.hitPoints);
         speed = max(speed, tr.speed);
@@ -285,23 +270,24 @@ public class Transport extends FleetBase {
     void land() {
         //there's a chance that our empire was destroyed between the arrival of our transport and it's landing
         if(empire().extinct())
-            size = 0;
+			size(0);
+
         else if (!dest.isColonized()) {
             if (dest.abandoned() && !dest.unnamed() && empire.canColonize(dest))
                 empire().takeAbandonedSystem(dest, this);
             else {
-                log(concat(str(size), " ", empire.name(), " transports perished at ", dest.name()));
+                log(concat(str(size()), " ", empire.name(), " transports perished at ", dest.name()));
                 if (empire.isPlayerControlled())
                     TransportsPerishedAlert.create(targetEmp, dest);
-                size = 0;
+                size(0);
             }
         }
         else if (dest.empire() != empire) {
             if (surrenderOnArrival()) {
-                log(concat(str(size), " ", empire.name(), " transports surrendered at ", dest.name()));
+                log(concat(str(size()), " ", empire.name(), " transports surrendered at ", dest.name()));
                 if (empire.isPlayerControlled() || dest.empire().isPlayerControlled())
                     TransportsCapturedAlert.create(empire, dest.empire(), dest, originalSize);
-                size = 0;
+                size(0);
             }
             else
                 dest.colony().resistTransport(this);

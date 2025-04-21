@@ -502,6 +502,10 @@ public final class Galaxy implements Base, Serializable {
     				monster.setXY(sys);
     			}
     		}
+		// Transport don't have negative size on surrender
+		for (Transport tr : transports)
+			tr.validateOnLoad();
+
 		ironmanLockedOptions = !options().isGameOptionsAllowed();
 		Empire.updatePlayerId(player().id);
 
