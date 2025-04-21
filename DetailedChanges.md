@@ -2,6 +2,9 @@
 
 ## What's New
 
+2025.04.21 (BR)
+- Fixed "Concurrent Modification Exception" in Ship combat Manager.
+
 2025.04.20 (BR)
 - Added an option for a random number of opponents, with customizable Min and Max.
   - The final number of opponents may still be lower than the minimum requested value if the galaxy size is too small.

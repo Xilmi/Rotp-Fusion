@@ -285,7 +285,7 @@ public class ShipCombatManager implements Base {
     private void beginInSystem(StarSystem s, Empire emp1, Empire emp2) {
         system = s;
         results = new ShipCombatResults(this, system, emp1, emp2);
-        
+
         // set last attacker for colony empire() in case genocide occurs
         if (system.empire() == emp1)
             emp1.lastAttacker(emp2);
@@ -859,7 +859,22 @@ public class ShipCombatManager implements Base {
         //newStack.y = tgtY;
         return tgtStack;
     }
-    private void scanShips() {
+	private void scanShips() { // BR: Fixed ConcurrentModificationException
+		// scan only if have scanners and NOT same civ as planet (already scanned)
+		for (int i=0; i<results.activeStacks().size(); i++) {
+			CombatStack st = results.activeStacks().get(i);
+			if (st.canScan()) {
+				for (int j=0; j<results.activeStacks().size(); j++) {
+					CombatStack st2 = results.activeStacks().get(j);
+					if (st2.isShip()) {
+						CombatStackShip sh2 = (CombatStackShip) st2;
+						st.empire().scanDesign(sh2.design(), sh2.empire());
+					}
+				}
+			}
+		}
+	}
+/*    private void scanShips() {
         // scan only if have scanners and NOT same civ as planet (already scanned)
         for (CombatStack st : results.activeStacks()) {
             if (st.canScan()) {
@@ -871,7 +886,7 @@ public class ShipCombatManager implements Base {
                 }
             }
         }
-    }
+    } */
     private boolean remainingStacksInConflict() {
         // check remaining stacks for conflict, excluding unarmed colony stacks
         // which may have been added as potential bombing targets

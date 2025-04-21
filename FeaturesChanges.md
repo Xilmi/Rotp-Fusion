@@ -214,6 +214,7 @@
 
 ### Fixes:
 
+- Fixed "Concurrent Modification Exception" in Ship combat Manager.
 - Fixed a possible crash on random symmetric galaxies generation.
 - Removed some useless Galaxy generation in setup panels.
 - Fixed calls to the wrong options.
