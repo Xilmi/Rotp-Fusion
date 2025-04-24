@@ -2470,8 +2470,8 @@ HEADERS_RANDOM_OPP_DEF               | ~~~ DÉFINITIONS ~~~
 HEADERS_RANDOM_OPP_DIST_DESC         | Caractéristiques de la distribution statistique des paramètres des espèces aléatoires.
 HEADERS_RANDOM_OPP_DIST              | ~~~ DISTRIBUTIONS ~~~
 
-HEADERS_AGRESSIVENESS_DESC			| Niveau d’agressivité du jeu.
-HEADERS_AGRESSIVENESS				| ~~~ AGRESSIVITÉ ~~~
+HEADERS_AGGRESSIVENESS_DESC			| Niveau de bellicisme du jeu.
+HEADERS_AGGRESSIVENESS				| ~~~ BELLICISME ~~~
 
 HEADERS_UNCLASSIFIED_DESC            | Il reste encore à trouver la bonne position !
 HEADERS_UNCLASSIFIED                 | ~~~ NON-CLASSIFIÉ ~~~
@@ -3180,8 +3180,8 @@ SETTINGS_MOD_MAX_LANDING_FACTOR          | Facteur de taille de la planète : %
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR_DESC  | Modificateur IA contre joueur. Ce pourcentage est appliqué sur le débarquement maximal avant d’être utilisé par l’IA.
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR       | Pourcentage IA : %1 %
 
-SETTINGS_MOD_GAME_AGGRESSIVENESS_DESC	| Quel niveau d’agressivité est acceptable ?
-SETTINGS_MOD_GAME_AGGRESSIVENESS		| Agressivité : %1
+SETTINGS_MOD_GAME_AGGRESSIVENESS_DESC	| Quel niveau de bellicisme est acceptable ?
+SETTINGS_MOD_GAME_AGGRESSIVENESS		| Bellicisme : %1
 SETTINGS_MOD_AGGRESSIV_NORMAL_DESC		| N’importe qui peut déclencher une guerre contre n’importe qui.
 SETTINGS_MOD_AGGRESSIV_NORMAL			| Normale
 SETTINGS_MOD_AGGRESSIV_AI_WAR_OK_DESC	| Une IA peut déclarer la guerre à une autre IA, mais pas au joueur. Le joueur peut cependant déclarer la guerre à une IA, les alliés des IA en guerre peuvent alors se joindre la guerre contre le joueur.
@@ -3190,7 +3190,7 @@ SETTINGS_MOD_AGGRESSIV_AI_NO_WAR_DESC	| Une IA ne peut pas déclarer la guerre, 
 SETTINGS_MOD_AGGRESSIV_AI_NO_WAR		| L’IA ne déclare pas la guerre
 SETTINGS_MOD_AGGRESSIV_NEVER_WAR_DESC	| Même le joueur ne peut pas déclarer la guerre.
 SETTINGS_MOD_AGGRESSIV_NEVER_WAR		| Les guerres sont interdites
-SETTINGS_MOD_AGGRESSIV_ALWAYS_WAR_DESC	| Tous les empires sont en guerre permanente.
+SETTINGS_MOD_AGGRESSIV_ALWAYS_WAR_DESC	| Tous les empires sont en guerre permanente, soit dès le début de la partie, soit dès le tour suivant son activation. Désactiver cette option n'arrêtera pas immédiatement les guerres ; les diplomates jugeront du moment opportun.
 SETTINGS_MOD_AGGRESSIV_ALWAYS_WAR		| Guerre totale
 
 SETTINGS_MOD_SKIRMISHES_ALLOWED_HELP	| Des escarmouches peuvent-elles se produire lorsque les guerres sont interdites ?<br>Des combats peuvent survenir pour défendre une planète non colonisée, et certaines bombes peuvent être larguées « accidentellement » sur des colonies.<br>Si le joueur est le seul à pouvoir déclarer la guerre, ce paramètre s’applique également à lui ; il ne pourra pas déclencher unilatéralement des escarmouches, il doit déclarer formellement la guerre avant de commencer les hostilités.
@@ -4138,9 +4138,9 @@ SETTINGS_MOD_SETUP_NEBULA_TITLE          | Configuration des Nébuleuses.
 SETTINGS_MOD_SETUP_NEBULA_UI             | Nébuleuses
 SETTINGS_MOD_SETUP_NEBULA_UI_DESC        | Quantités, forme et impact des nébuleuses.
 
-SETTINGS_MOD_AGGRESSIVITY_LEVEL_TITLE	| Configuration du Niveau d’Aggressivité.
-SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI		| Niveau d’aggressivité
-SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI_DESC	| Quel niveau d’agressivité est acceptable ?
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_TITLE	| Configuration du Niveau de bellicisme.
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI		| Niveau de bellicisme
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI_DESC	| Quel niveau de bellicisme est acceptable ?
 
 SETTINGS_MOD_SETUP_RANDOM_OPP_TITLE      | Statistiques des Adversaires.
 SETTINGS_MOD_SETUP_RANDOM_OPP_UI         | Espèces Aléatoire

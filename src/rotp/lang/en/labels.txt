@@ -2470,8 +2470,8 @@ HEADERS_RANDOM_OPP_DEF               | ~~~ DEFINITION ~~~
 HEADERS_RANDOM_OPP_DIST_DESC         | Characteristics of the statistical distribution of random species parameters.
 HEADERS_RANDOM_OPP_DIST              | ~~~ DISTRIBUTION ~~~
 
-HEADERS_AGGRESSIVENESS_DESC			| Aggression level of the game.
-HEADERS_AGGRESSIVENESS				| ~~~ AGGRESSIVENESS ~~~
+HEADERS_AGGRESSIVENESS_DESC			| Warmongering level of the game.
+HEADERS_AGGRESSIVENESS				| ~~~ WARMONGERING ~~~
 
 HEADERS_UNCLASSIFIED_DESC            | The right position has still to be found!
 HEADERS_UNCLASSIFIED                 | ~~~ UNCLASSIFIED MOD ~~~
@@ -3180,8 +3180,8 @@ SETTINGS_MOD_MAX_LANDING_FACTOR          | Size Multiplier: %1%
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR_DESC  | AI vs Player Modifier. This Percentage is applied to Max Troop before being used by AI.
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR       | AI Percentage: %1%
 
-SETTINGS_MOD_GAME_AGGRESSIVENESS_DESC	| What level of aggression is acceptable?
-SETTINGS_MOD_GAME_AGGRESSIVENESS		| Aggressiveness: %1
+SETTINGS_MOD_GAME_AGGRESSIVENESS_DESC	| What level of warmongering is acceptable?
+SETTINGS_MOD_GAME_AGGRESSIVENESS		| Warmongering: %1
 SETTINGS_MOD_AGGRESSIV_NORMAL_DESC		| Anyone can start a war with anyone.
 SETTINGS_MOD_AGGRESSIV_NORMAL			| Normal
 SETTINGS_MOD_AGGRESSIV_AI_WAR_OK_DESC	| An AI can declare war on an AI but not on the player. The player can, however, declare war on an AI, the allies of the warring AIs can then join the war against the player.
@@ -4138,9 +4138,9 @@ SETTINGS_MOD_SETUP_NEBULA_TITLE          | Nebulae Configuration.
 SETTINGS_MOD_SETUP_NEBULA_UI             | Nebulae Options
 SETTINGS_MOD_SETUP_NEBULA_UI_DESC        | Quantities, shape and impact of nebulae.
 
-SETTINGS_MOD_AGGRESSIVITY_LEVEL_TITLE	| Aggressivity Level Configuration
-SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI		| Aggressivity Level
-SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI_DESC	| Aggression level of the game.
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_TITLE	| Warmongering Level Configuration
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI		| Warmongering Level
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI_DESC	| Warmongering level of the game.
 
 SETTINGS_MOD_SETUP_RANDOM_OPP_TITLE      | Opponents Random Species Configuration.
 SETTINGS_MOD_SETUP_RANDOM_OPP_UI         | Random Species
