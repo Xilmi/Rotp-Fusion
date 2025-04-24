@@ -17,28 +17,23 @@ package rotp.model.empires;
 
 import rotp.model.galaxy.Galaxy;
 
-public class TreatyWar extends DiplomaticTreaty {
-    private static final long serialVersionUID = 1L;
-    int[] coloniesStart = new int[2];
-    int[] contactsStart = new int[2];
-    float[] populationStart = new float[2];
-    float[] factoriesStart = new float[2];
-    float[] fleetSizeStart = new float[2];
-    int[] coloniesNow = new int[2];
-    int[] contactsNow = new int[2];
-    float[] populationNow = new float[2];
-    float[] factoriesNow = new float[2];
-    float[] fleetSizeNow = new float[2];
+public final class TreatyWar extends DiplomaticTreaty {
+	private static final long serialVersionUID = 1L;
+	private int[]	coloniesStart	= new int[2];
+	private int[]	contactsStart	= new int[2];
+	private float[]	populationStart	= new float[2];
+	private float[]	factoriesStart	= new float[2];
+	private float[]	fleetSizeStart	= new float[2];
+	private int[]	coloniesNow		= new int[2];
+	private int[]	contactsNow		= new int[2];
+	private float[]	populationNow	= new float[2];
+	private float[]	factoriesNow	= new float[2];
+	private float[]	fleetSizeNow	= new float[2];
+	private float[]	populationLost	= new float[2];
+	private float[]	factoriesLost	= new float[2];
+	private float[]	fleetSizeLost	= new float[2];
 
-    float[] populationLost = new float[2];
-    float[] factoriesLost = new float[2];
-    float[] fleetSizeLost = new float[2];
-
-    public TreatyWar(Empire e1, Empire e2) {
-        super(e1,e2,"RACES_AT_WAR");
-        initValues(e1, e2);
-    }
-	public TreatyWar(int e1, int e2) {
+	TreatyWar(int e1, int e2) {
 		super(e1,e2,"RACES_AT_WAR");
 		Galaxy gal = galaxy();
 		initValues(gal.empire(e1), gal.empire(e2));
@@ -51,16 +46,16 @@ public class TreatyWar extends DiplomaticTreaty {
     public boolean isWar()                      { return true; }
     @Override
     public int listOrder()                      { return 2; }
-    public int coloniesStart(Empire e)          { return coloniesStart[index(e)]; }
-    public int contactsStart(Empire e)          { return contactsStart[index(e)]; }
-    public float populationStart(Empire e)      { return populationStart[index(e)]; }
-    public float productionStart(Empire e)      { return factoriesStart[index(e)]; }
-    public float fleetSizeStart(Empire e)       { return fleetSizeStart[index(e)]; }
-    public int coloniesNow(Empire e)            { return coloniesNow[index(e)]; }
-    public int contactsNow(Empire e)            { return contactsNow[index(e)]; }
-    public float populationNow(Empire e)        { return populationNow[index(e)]; }
-    public float factoriesNow(Empire e)         { return factoriesNow[index(e)]; }
-    public float fleetSizeNow(Empire e)         { return fleetSizeNow[index(e)]; }
+//    public int coloniesStart(Empire e)          { return coloniesStart[index(e)]; }
+//    public int contactsStart(Empire e)          { return contactsStart[index(e)]; }
+//    public float populationStart(Empire e)      { return populationStart[index(e)]; }
+//    public float productionStart(Empire e)      { return factoriesStart[index(e)]; }
+//    public float fleetSizeStart(Empire e)       { return fleetSizeStart[index(e)]; }
+//    public int coloniesNow(Empire e)            { return coloniesNow[index(e)]; }
+//    public int contactsNow(Empire e)            { return contactsNow[index(e)]; }
+//    public float populationNow(Empire e)        { return populationNow[index(e)]; }
+//    public float factoriesNow(Empire e)         { return factoriesNow[index(e)]; }
+//    public float fleetSizeNow(Empire e)         { return fleetSizeNow[index(e)]; }
 
     public float colonyChange(int empId)        { return (float) coloniesNow[index(empId)]/coloniesStart[index(empId)]; }
     //public float colonyChange(Empire e)         { return (float) coloniesNow[index(e)]/coloniesStart[index(e)]; }

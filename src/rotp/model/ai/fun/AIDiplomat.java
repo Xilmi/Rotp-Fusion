@@ -527,7 +527,7 @@ public class AIDiplomat implements Base, Diplomat {
     //-----------------------------------
     //  PEACE
     //-----------------------------------
-    public boolean canOfferPeaceTreaty(Empire e)           { return diplomats(id(e)) && empire.atWarWith(id(e)); }
+    private boolean canOfferPeaceTreaty(Empire e) { return diplomats(id(e)) && empire.atWarWith(id(e)); }
     @Override
     public DiplomaticReply receiveOfferPeace(Empire requestor) {
         log(empire.name(), " receiving offer of Peace from: ", requestor.name());
@@ -563,6 +563,8 @@ public class AIDiplomat implements Base, Diplomat {
         return DiplomaticReply.answer(false, declineReasonText(v));
     }
     private boolean willingToOfferPeace(EmpireView v) {
+    	if (options().alwaysAtWar())
+			return false;
         if (!v.embassy().war())
             return false;
         if (!v.embassy().onWarFooting() && !canOfferPeaceTreaty(v.empireUncut()))
@@ -1046,8 +1048,8 @@ public class AIDiplomat implements Base, Diplomat {
         return false;
     }
     //----------------
-//
-//----------------
+    //
+    //----------------
     @Override
     public void makeDiplomaticOffers(EmpireView v) {
         //updatePersonality(); this is too telling but I'll leave the code in
@@ -1059,7 +1061,7 @@ public class AIDiplomat implements Base, Diplomat {
         /*if(v.embassy().diplomatGone()) {
             v.embassy().openEmbassy();
         }*/
-            
+
         if (v.embassy().unity() || v.embassy().finalWar())
             return;
 
@@ -1083,7 +1085,7 @@ public class AIDiplomat implements Base, Diplomat {
 
         if (v.embassy().finalWar() || v.embassy().unity())
             return;
-        
+
         // if this empire is at war with us or we are preparing
         // for war, then stop now. No more Mr. Nice Guy.
         List<Empire> enemies = empire.enemies();
@@ -1092,7 +1094,7 @@ public class AIDiplomat implements Base, Diplomat {
             //System.out.println(empire.galaxy().currentTurn()+" "+ empire.name()+" considers "+v.empire().name()+" an enemy.");
             return;
         }
-        
+
         // build a priority list for Joint War offers:
         for (Empire target: empire.enemies()) {
             if (willingToOfferJointWar(v.empireUncut(), target)) {
@@ -1100,11 +1102,11 @@ public class AIDiplomat implements Base, Diplomat {
                 v.diplomatAI().receiveOfferJointWar(v.owner(), target); 
             }
         }
-        
+
         if (willingToOfferTrade(v, v.trade().maxLevel())) {
             v.diplomatAI().receiveOfferTrade(v.owner(), v.trade().maxLevel());
         }
-        
+
         decidedToExchangeTech(v);
 
         if(v.isMember(empire.allies()))
@@ -1113,7 +1115,7 @@ public class AIDiplomat implements Base, Diplomat {
             while(canOfferTechnology(v.empireUncut()))
                 v.diplomatAI().receiveTechnologyAid(empire, offerableTechnologies(v.empireUncut()).get(0).id);
         }
-        
+
         if (canOfferPact(v.empireUncut()) && willingToOfferPact(v)) {
             v.diplomatAI().receiveOfferPact(empire);
         }
@@ -1211,12 +1213,14 @@ public class AIDiplomat implements Base, Diplomat {
             return false;
         if(view.isMember(empire.enemies()))
             return false;
-        
+		if (!options().canStartWar(empire.isPlayer(), view.isPlayer()))
+			return false;
+
         // look at new incidents. If any trigger war, pick
         // the one with the greatest severity
         DiplomaticIncident warIncident = null;
         float worstNewSeverity = 0;
-        
+
         // check for a war incident if we are not at peace, or the start
         // date of our peace treaty precedes the current time
         if (!view.embassy().atPeace()
@@ -1241,12 +1245,12 @@ public class AIDiplomat implements Base, Diplomat {
                 }
             }
         }
-        
+
         if (wantToDeclareWarOfOpportunity(view)) {
             //ail: even if the real reason is because of geopolitics, we can still blame it on an incident, if there ever was one, so the player thinks it is their own fault
             //System.out.println(empire.galaxy().currentTurn()+" "+empire.name()+" starts Opportunity-War vs. "+view.empire().name());
             beginOpportunityWar(view);
-            return true;          
+            return true;
         }
         return false;
     }

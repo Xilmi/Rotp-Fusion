@@ -152,7 +152,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
  	private static final int    buttonFont		= 30;
 	private	static final Font   bigButtonFont	= FontManager.current().narrowFont(buttonFont);
 	public  static final int	MAX_DISPLAY_OPPS = 49;
-	private static String opponentRandom = "???";
+	private static String opponentRandom = "Randomized";
 	private static SetupGalaxyUI instance;
     private final Color darkBrownC = new Color(112,85,68);
 	private final Color darkYellow = new Color(223, 223, 0);
@@ -311,7 +311,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		opponentRandom = text(OPPONENT_RANDOM);
 		LinkedList<String> list = new LinkedList<>();
 		list.addAll(opts.getNewRacesOnOffList());
-		list.add(opponentRandom); // For Random (???)
+		list.add(opponentRandom); // For Random (Randomized)
 		specificOpponent.reInit(list);
 		specificOpponent.defaultValue(opponentRandom);
 	}
@@ -2752,27 +2752,27 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			sizeSelection.next();
 		else if (hoverPolyBox == sizeMinBoxL) {
 			randomNumStarsLim1.prev();
-			postSelectionLight(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverBox == sizeMinBox) {
 			randomNumStarsLim1.toggle(e, this);
-			postSelectionLight(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == sizeMinBoxR) {
 			randomNumStarsLim1.next();
-			postSelectionLight(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == sizeMaxBoxL) {
 			randomNumStarsLim2.prev();
-			postSelectionLight(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverBox == sizeMaxBox) {
 			randomNumStarsLim2.toggle(e, this);
-			postSelectionLight(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == sizeMaxBoxR) {
 			randomNumStarsLim2.next();
-			postSelectionLight(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == sizeOptionBoxL) {
 			opts.dynStarsPerEmpire().prev(e);
@@ -2883,11 +2883,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			sizeSelection.toggle(e);
 		else if (hoverBox == sizeMinBox) {
 			randomNumStarsLim1.toggle(e);
-			postSelectionLight(false);
+			postSelectionMedium(false);
 		}
 		else if (hoverBox == sizeMaxBox) {
 			randomNumStarsLim2.toggle(e);
-			postSelectionLight(false);
+			postSelectionMedium(false);
 		}
 		else if (hoverBox == sizeOptionBox)
 			opts.dynStarsPerEmpire().toggle((MouseEvent)null, e, this);

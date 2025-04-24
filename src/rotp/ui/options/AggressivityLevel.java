@@ -4,40 +4,35 @@ import java.util.Arrays;
 
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.ui.util.ParamTitle;
 
-final class GNNandPopupFilter extends AbstractOptionsSubUI {
-	static final String OPTION_ID = GNN_AND_POPUP_FILTER_UI_KEY;
+final class AggressivityLevel extends AbstractOptionsSubUI {
+	static final String OPTION_ID = AGGRESSIVITY_LEVEL_UI_KEY;
 
 	@Override public String optionId()			{ return OPTION_ID; }
 
 	@Override public SafeListPanel optionsMap()	{
 		SafeListPanel map = new SafeListPanel(OPTION_ID);
 		map.add(new SafeListParam(Arrays.asList(
-				showAlliancesGNN,
-				hideMinorReports,
-				showLimitedWarnings,
-				showAllocatePopUp,
-
-				HEADER_SPACER_50,
-				allowWarningExpansion,
-				allowWarningGenocide,
-				allowWarningBioweapon
+				new ParamTitle("AGGRESSIVENESS"),
+				gameAgressiveness,
+				skirmishesAllowed
 				)));
 		map.add(new SafeListParam(Arrays.asList(
-				RELEVANT_TITLE,
-				autoBombard_,
-				autoColonize_,
-				techExchangeAutoRefuse
+				new ParamTitle("DEBUG_RELEVANT"),
+				councilWin,
+				randomEvents,
+				
+				HEADER_SPACER_50,
+				allowWarningExpansion
 				)));
 		return map;
 	}
 	@Override public SafeListParam majorList()	{
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				Arrays.asList(
-						showAlliancesGNN,
-						hideMinorReports,
-						showLimitedWarnings,
-						showAllocatePopUp
+						gameAgressiveness,
+						skirmishesAllowed
 						));
 		return majorList;
 	}

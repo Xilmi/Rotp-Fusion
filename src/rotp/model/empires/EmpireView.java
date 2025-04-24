@@ -221,37 +221,6 @@ public final class EmpireView implements Base, Serializable {
     }
 	// BR: moved Governor to GovernorAI
 	void setSuggestedAllocations()	{ spies.setSuggestedAllocations(); }
-//        if (owner.isAIControlled()) {
-//            spies.setSuggestedAllocations();
-//            return;
-//        }
-//        GovernorOptions governor = owner.session().getGovernorOptions();
-//        if (governor.respectPromises()
-//        		&& !spies.govIgnoreThreat()
-//        		&& timerIsActive()) {
-//        	// Then respect your promise
-//        	// Cut allocation for hide and ShutDown
-//        	if(spies.allocation() > 0)
-//		        spies.allocation(0);
-//        	// Remove the spies if ShutDown
-//		    if(spies.maxSpies() > 0 && spies.govShutdownSpy())
-//		        spies.maxSpies(0);
-//		    return;
-//        }
-//        if (!inEconomicRange())
-//        	return;
-//        if(governor.isAutoSpy()) {
-//        	spies.setSuggestedAllocations();
-//		    return;
-//        }
-//        if(governor.isAutoInfiltrate()) {
-//        	if(spies.allocation() < 1)
-//        		spies.allocation(1);
-//        	if(spies.maxSpies() < 1)
-//        		spies.maxSpies(1);
-//        	return;
-//        }
-//    }
     void setContact() {
         if (owner.extinct() || empire.extinct())
             return;

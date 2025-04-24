@@ -426,6 +426,22 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         }
         return false;
     }
+	public boolean orbitingShipsBarColony(ShipFleet flCol)	{
+		List<ShipFleet> fleets	= orbitingFleetsNoMonster();
+		Empire fleetColEmpire	= flCol.empire();
+		boolean flColIsPlayer	= fleetColEmpire.isPlayer();
+		IGameOptions opts = options();
+		for (ShipFleet fleet: fleets) {
+			Empire fleetEmpire = fleet.empire();
+			if (flColIsPlayer && fleetEmpire.isPlayer())
+				continue;
+			if (opts.skirmishesAllowed(fleetColEmpire, fleetEmpire)
+					&& fleet.isArmedForShipCombat()
+					&& fleet.aggressiveWith(flCol, this))
+				return true;
+		}
+		return false;
+	}
     public boolean orbitingShipsInConflict() {
         List<ShipFleet> fleets = orbitingFleetsNoMonster();
         if (hasMonster() && !fleets.isEmpty())

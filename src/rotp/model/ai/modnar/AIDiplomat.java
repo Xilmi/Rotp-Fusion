@@ -519,7 +519,7 @@ public class AIDiplomat implements Base, Diplomat {
     //-----------------------------------
     //  PEACE
     //-----------------------------------
-    public boolean canOfferPeaceTreaty(Empire e)           { return diplomats(id(e)) && empire.atWarWith(id(e)); }
+    private boolean canOfferPeaceTreaty(Empire e) { return diplomats(id(e)) && empire.atWarWith(id(e)); }
     @Override
     public DiplomaticReply receiveOfferPeace(Empire requestor) {
         log(empire.name(), " receiving offer of Peace from: ", requestor.name());
@@ -562,6 +562,8 @@ public class AIDiplomat implements Base, Diplomat {
         return DiplomaticReply.answer(false, declineReasonText(v));
     }
     private boolean willingToOfferPeace(EmpireView v) {
+    	if (options().alwaysAtWar())
+			return false;
         if (!v.embassy().war())
             return false;
         if (!v.embassy().onWarFooting() && !canOfferPeaceTreaty(v.empireUncut()))
@@ -1150,8 +1152,8 @@ public class AIDiplomat implements Base, Diplomat {
         return baseChanceForTrade(v) + treatyMod < -40;
     }
     //----------------
-//
-//----------------
+    //
+    //----------------
     @Override
     public void makeDiplomaticOffers(EmpireView v) {
         if (v.embassy().contactAge() < 2)
@@ -1194,7 +1196,7 @@ public class AIDiplomat implements Base, Diplomat {
         List<Empire> enemies = empire.enemies();
         if (v.isMember(enemies))
             return;
-        
+
         if (decidedToExchangeTech(v))
             return;
 
@@ -1223,13 +1225,13 @@ public class AIDiplomat implements Base, Diplomat {
                 if (willingToRequestAllyToJoinWar(v.empireUncut(), target)) {
                     v.diplomatAI().receiveOfferJointWar(v.owner(), target); 
                     return;
-                }                
-            }            
+                }
+            }
             for (Empire target: comingWarEnemies) {
                 if (willingToOfferJointWar(v.empireUncut(), target)) {
                     v.diplomatAI().receiveOfferJointWar(v.owner(), target); 
                     return;
-                }                
+                }
             }
         }
     }
@@ -1317,12 +1319,14 @@ public class AIDiplomat implements Base, Diplomat {
             return false;
         if (!view.inEconomicRange())
             return false;
-        
+		if (!options().canStartWar(empire.isPlayer(), view.isPlayer()))
+			return false;
+
         // look at new incidents. If any trigger war, pick
         // the one with the greatest severity
         DiplomaticIncident warIncident = null;
         float worstNewSeverity = 0;
-        
+
         // check for a war incident if we are not at peace, or the start
         // date of our peace treaty precedes the current time
         if (!view.embassy().atPeace()
@@ -1343,7 +1347,7 @@ public class AIDiplomat implements Base, Diplomat {
                 return true;
             }
         }
-        
+
         // 2% chance of war if erratic leader (these guys are crazy)
         if (empire.leader().isErratic() && (random() <= ERRATIC_WAR_PCT)) {
             beginErraticWar(view);
@@ -1359,11 +1363,11 @@ public class AIDiplomat implements Base, Diplomat {
             beginHateWar(view);
             return true;
         }
-        
+
         // must break alliance before declaring war
         if (wantToDeclareWarOfOpportunity(view)) {
             beginOpportunityWar(view);
-            return true;          
+            return true;
         }
 
         return false;

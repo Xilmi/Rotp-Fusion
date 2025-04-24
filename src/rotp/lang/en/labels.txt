@@ -1529,6 +1529,10 @@ SETUP_RANDOM_NUM_STARS_LIM2			| Size limit: %1
 SETUP_RANDOM_NUM_STARS_LIM2_DESC	| Second boundary for random Galaxy size. Can be Min or Max.
 SETUP_RANDOM_NUM_ALIENS				| Random number of rival empires: %1
 SETUP_RANDOM_NUM_ALIENS_DESC		| Enables or disables random selection of the number of rival empires.
+SETUP_RANDOM_NUM_ALIENS_YES			| Two selection boxes
+SETUP_RANDOM_NUM_ALIENS_YES_DESC	| Random number of rivals between the two selected values.
+SETUP_RANDOM_NUM_ALIENS_NO			| One selection box
+SETUP_RANDOM_NUM_ALIENS_NO_DESC		| Selected number of rivals.
 SETUP_RANDOM_NUM_ALIENS_LIM1		| Limit on the number of opponents: %1
 SETUP_RANDOM_NUM_ALIENS_LIM1_DESC	| First limit on the random number of opponents. Can be the minimum or maximum.
 SETUP_RANDOM_NUM_ALIENS_LIM2		| Limit on the number of opponents: %1
@@ -2466,8 +2470,8 @@ HEADERS_RANDOM_OPP_DEF               | ~~~ DEFINITION ~~~
 HEADERS_RANDOM_OPP_DIST_DESC         | Characteristics of the statistical distribution of random species parameters.
 HEADERS_RANDOM_OPP_DIST              | ~~~ DISTRIBUTION ~~~
 
-
-
+HEADERS_AGGRESSIVENESS_DESC			| Aggression level of the game.
+HEADERS_AGGRESSIVENESS				| ~~~ AGGRESSIVENESS ~~~
 
 HEADERS_UNCLASSIFIED_DESC            | The right position has still to be found!
 HEADERS_UNCLASSIFIED                 | ~~~ UNCLASSIFIED MOD ~~~
@@ -3176,6 +3180,22 @@ SETTINGS_MOD_MAX_LANDING_FACTOR          | Size Multiplier: %1%
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR_DESC  | AI vs Player Modifier. This Percentage is applied to Max Troop before being used by AI.
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR       | AI Percentage: %1%
 
+SETTINGS_MOD_GAME_AGGRESSIVENESS_DESC	| What level of aggression is acceptable?
+SETTINGS_MOD_GAME_AGGRESSIVENESS		| Aggressiveness: %1
+SETTINGS_MOD_AGGRESSIV_NORMAL_DESC		| Anyone can start a war with anyone.
+SETTINGS_MOD_AGGRESSIV_NORMAL			| Normal
+SETTINGS_MOD_AGGRESSIV_AI_WAR_OK_DESC	| An AI can declare war on an AI but not on the player. The player can, however, declare war on an AI, the allies of the warring AIs can then join the war against the player.
+SETTINGS_MOD_AGGRESSIV_AI_WAR_OK		| AI wars are allowed
+SETTINGS_MOD_AGGRESSIV_AI_NO_WAR_DESC	| An AI cannot declare war, neither on the player nor on an AI. The player can, however, declare war on an AI, the allies of the warring AIs can then join the war against the player and other AI.
+SETTINGS_MOD_AGGRESSIV_AI_NO_WAR		| AI can't declare war
+SETTINGS_MOD_AGGRESSIV_NEVER_WAR_DESC	| Even the player cannot declare war.
+SETTINGS_MOD_AGGRESSIV_NEVER_WAR		| No war are allowed
+SETTINGS_MOD_AGGRESSIV_ALWAYS_WAR_DESC	| All empires are at permanent war, either from the start of the game or the next turn after it is activated. Disabling this option will not immediately stop wars; diplomats will judge when the time is right.
+SETTINGS_MOD_AGGRESSIV_ALWAYS_WAR		| Permanent war
+
+SETTINGS_MOD_SKIRMISHES_ALLOWED_HELP	| Can skirmishes occur when wars are banned?<br>Fights may occur to defend an uncolonized planet, and some bombs may be "accidentally" dropped on colonies.<br>If the player is the only one who can declare war, this setting applies to him as well; he will not be able to unilaterally trigger skirmishes, he must formally declare war before starting hostilities.
+SETTINGS_MOD_SKIRMISHES_ALLOWED_DESC	| Can skirmishes occur when wars are banned?
+SETTINGS_MOD_SKIRMISHES_ALLOWED			| Allow Skirmishes: %1
 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | To disable peace treaties or remove the ability to colonize when another fleet is orbiting the planet.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Peace Treaty: %1
@@ -3358,6 +3378,13 @@ SETTINGS_MOD_GALAXY_PREVIEW_PLAYER_DESC  | Galaxy preview will display Player's 
 SETTINGS_MOD_GALAXY_PREVIEW_PLAYER       | Show Player in Green: %1
 SETTINGS_MOD_GALAXY_PREVIEW_ORION_DESC   | Galaxy preview will display Orion's location in Blue.
 SETTINGS_MOD_GALAXY_PREVIEW_ORION        | Show Orion in Blue: %1
+
+SETTINGS_MOD_ALLOW_WARNING_EXPANSION_DESC	| Use this option to prevent other empires from complaining that yours is getting too big.<br>This will not remove the negative impact of your expansion.
+SETTINGS_MOD_ALLOW_WARNING_EXPANSION		| Allow Expansion Warnings: %1
+SETTINGS_MOD_ALLOW_WARNING_GENOCIDE_DESC	| Use this option to prevent other empires from complaining that yours wiped out a civilization.<br>This will not remove the negative impact of your heinous actions.
+SETTINGS_MOD_ALLOW_WARNING_GENOCIDE			| Allow Genocide Warnings: %1
+SETTINGS_MOD_ALLOW_WARNING_BIOWEAPON_DESC	| Use this option to prevent other empires from complaining about yours using biological weapons.<br>This will not remove the negative impact of your bad actions.
+SETTINGS_MOD_ALLOW_WARNING_BIOWEAPON		| Allow Bio-Weapons Warnings: %1
 
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP_DESC   | Minimum List size for the selection panel to Pop-Up.
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP        | Min List Size: %1
@@ -4110,6 +4137,10 @@ SETTINGS_MOD_SETUP_GALAXY_UI_DESC        | Basic configuration of star systems.
 SETTINGS_MOD_SETUP_NEBULA_TITLE          | Nebulae Configuration.
 SETTINGS_MOD_SETUP_NEBULA_UI             | Nebulae Options
 SETTINGS_MOD_SETUP_NEBULA_UI_DESC        | Quantities, shape and impact of nebulae.
+
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_TITLE	| Aggressivity Level Configuration
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI		| Aggressivity Level
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI_DESC	| Aggression level of the game.
 
 SETTINGS_MOD_SETUP_RANDOM_OPP_TITLE      | Opponents Random Species Configuration.
 SETTINGS_MOD_SETUP_RANDOM_OPP_UI         | Random Species

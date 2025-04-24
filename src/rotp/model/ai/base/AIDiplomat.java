@@ -66,7 +66,7 @@ import rotp.ui.diplomacy.DiplomaticReply;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.util.Base;
 
-public class AIDiplomat implements Base, Diplomat {
+public final class AIDiplomat implements Base, Diplomat {
     private static final float ERRATIC_WAR_PCT = .02f;
     private final Empire empire;
     private float cumulativeSeverity = 0;
@@ -520,7 +520,7 @@ public class AIDiplomat implements Base, Diplomat {
     //-----------------------------------
     //  PEACE
     //-----------------------------------
-    public boolean canOfferPeaceTreaty(Empire e)           { return diplomats(id(e)) && empire.atWarWith(id(e)); }
+	private boolean canOfferPeaceTreaty(Empire e)	{ return diplomats(id(e)) && empire.atWarWith(id(e)); }
     @Override
     public DiplomaticReply receiveOfferPeace(Empire requestor) {
         log(empire.name(), " receiving offer of Peace from: ", requestor.name());
@@ -563,6 +563,8 @@ public class AIDiplomat implements Base, Diplomat {
         return DiplomaticReply.answer(false, declineReasonText(v));
     }
     private boolean willingToOfferPeace(EmpireView v) {
+    	if (options().alwaysAtWar())
+			return false;
         if (!v.embassy().war())
             return false;
         if (!v.embassy().onWarFooting() && !canOfferPeaceTreaty(v.empireUncut()))
@@ -751,7 +753,7 @@ public class AIDiplomat implements Base, Diplomat {
     public boolean willingToRequestAllyToJoinWar(Empire friend, Empire target) {
         // this method is called only for targets that we are at explicit war with
         // and the friend is our ALLY
-        
+
         // if he's already at war, don't bother
         if (friend.atWarWith(target.id))
             return false;
@@ -796,11 +798,11 @@ public class AIDiplomat implements Base, Diplomat {
         // never willing to declare war on an ally unless we are ruthless
         if (empire.alliedWith(target.id) && !empire.leader().isRuthless())
             return v.refuse(DialogueManager.DECLINE_NO_WAR_ON_ALLY, target);
-        
+
         // never willing to declare war on an NAP partner if we are honorable
         if (empire.pactWith(target.id) && empire.leader().isHonorable())
             return v.refuse(DialogueManager.DECLINE_OFFER, target);
-        
+
         // if a peacy treaty is in effect with the target, then refuse
         if (empire.viewForEmpire(target.id).embassy().atPeace()) {
             return v.refuse(DialogueManager.DECLINE_PEACE_TREATY, target);
@@ -812,21 +814,21 @@ public class AIDiplomat implements Base, Diplomat {
 
         int maxBribe = galaxy().numberTurns()*50;
         float bribeValue = bribeAmountToJointWar(target);
-        
+
         if (empire.alliedWith(target.id))
             bribeValue *= 2;
         else if (empire.pactWith(target.id))
             bribeValue *= 1.5;
         if (empire.leader().isPacifist())
             bribeValue *= 2;
-        
+
         List<Tech> allTechs = v.spies().unknownTechs();   
         if (allTechs.isEmpty())
             return v.refuse(DialogueManager.DECLINE_OFFER, target);
 
         Tech.comparatorCiv = empire;
         Collections.sort(allTechs, Tech.WAR_TRADE_VALUE);
-        
+
         List<String> requestedTechs = new ArrayList<>();
         for (Tech tech : allTechs) {
             if ((bribeValue > 0) && (requestedTechs.size() < 3)) {
@@ -836,7 +838,7 @@ public class AIDiplomat implements Base, Diplomat {
         }
         if (requestedTechs.isEmpty())
             requestedTechs.add(allTechs.get(0).id());
-        
+
         if (bribeValue > maxBribe)
             return v.refuse(DialogueManager.DECLINE_OFFER, target);
         return v.counter(DialogueManager.COUNTER_JOINT_WAR, target, requestedTechs, bribeValue);
@@ -1149,8 +1151,8 @@ public class AIDiplomat implements Base, Diplomat {
         return baseChanceForTrade(v) + treatyMod < -40;
     }
     //----------------
-//
-//----------------
+    //
+    //----------------
     @Override
     public void makeDiplomaticOffers(EmpireView v) {
         if (v.embassy().contactAge() < 2)
@@ -1222,13 +1224,13 @@ public class AIDiplomat implements Base, Diplomat {
                 if (willingToRequestAllyToJoinWar(v.empireUncut(), target)) {
                     v.diplomatAI().receiveOfferJointWar(v.owner(), target); 
                     return;
-                }                
-            }            
+                }
+            }
             for (Empire target: comingWarEnemies) {
                 if (willingToOfferJointWar(v.empireUncut(), target)) {
                     v.diplomatAI().receiveOfferJointWar(v.owner(), target); 
                     return;
-                }                
+                }
             }
         }
     }
@@ -1316,12 +1318,14 @@ public class AIDiplomat implements Base, Diplomat {
             return false;
         if(!empire.inShipRange(view.empId()))
             return false;
-        
+		if (!options().canStartWar(empire.isPlayer(), view.isPlayer()))
+			return false;
+
         // look at new incidents. If any trigger war, pick
         // the one with the greatest severity
         DiplomaticIncident warIncident = null;
         float worstNewSeverity = 0;
-        
+
         // check for a war incident if we are not at peace, or the start
         // date of our peace treaty precedes the current time
         if (!view.embassy().atPeace()
@@ -1342,7 +1346,7 @@ public class AIDiplomat implements Base, Diplomat {
                 return true;
             }
         }
-        
+
         // 2% chance of war if erratic leader (these guys are crazy)
         if (empire.leader().isErratic() && (random() <= ERRATIC_WAR_PCT)) {
             beginErraticWar(view);
@@ -1358,11 +1362,11 @@ public class AIDiplomat implements Base, Diplomat {
             beginHateWar(view);
             return true;
         }
-        
+
         // must break alliance before declaring war
         if (wantToDeclareWarOfOpportunity(view)) {
             beginOpportunityWar(view);
-            return true;          
+            return true;
         }
 
         return false;

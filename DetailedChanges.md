@@ -2,6 +2,16 @@
 
 ## What's New
 
+2025.04.24 (BR)
+- New option to set the wariness level.
+  - Normal.
+  - No war are allowed.
+  - AI can't declare war. (The player can)
+  - AI can declare war on an AI but not on the player. (The player can)
+  - Permanent war. (No peace allowed)
+  - Skirmishes can be allowed or not.
+  - Expansions warnings can be disabled.
+
 2025.04.21 (BR)
 - Fixed "Concurrent Modification Exception" in Ship combat Manager.
 - Added distinct Messages for when rebels repel invasion, or are eliminated.

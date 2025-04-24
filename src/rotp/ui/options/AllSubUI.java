@@ -27,6 +27,7 @@ public final class AllSubUI {
 	private void init()							{
 		// Level 0 Panels
 		put(new AdvancedSystems());
+		put(new AggressivityLevel());
 		put(new AutoSendFleetOption());
 		put(new BackupOptions());
 		put(new ColonyRules());

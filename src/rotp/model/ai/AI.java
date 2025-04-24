@@ -305,13 +305,15 @@ public class AI implements Base {
     public void checkColonize(StarSystem sys, ShipFleet fl) {
         if (fl.retreating())
             return;
-        if (sys.orbitingShipsInConflict())
-            return;
-
+		// At this point Conflict have been resolved
+		// if (sys.orbitingShipsInConflict())
+		// 	return;
         if (sys.colony() != null)
             return;
         if (!empire.canColonize(sys.planet().type()))
             return;
+        if (sys.orbitingShipsBarColony(fl))
+        	return;
 
         ShipDesign bestDesign = shipDesigner().bestDesignToColonize(fl, sys);
         // if no useable colony design, exit

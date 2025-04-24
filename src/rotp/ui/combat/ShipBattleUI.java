@@ -1717,7 +1717,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             repaint();
         }
         else {
-            mgr.showAnimations  = false;
+            mgr.showAnimations = false;
         	refreshCombatScreen(false);
         	refreshResultScreen(false);
             mgr.resolveAllCombat();
@@ -2391,7 +2391,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
 
     public void showResult() {
         mode = Display.RESULT;
-        
+
         if (mgr.showAnimations()) {
         	refreshResultScreen(delayedExit());
         	refreshCombatScreen(delayedResult());

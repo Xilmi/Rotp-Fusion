@@ -529,7 +529,7 @@ public class AIDiplomat implements Base, Diplomat {
     //-----------------------------------
     //  PEACE
     //-----------------------------------
-    public boolean canOfferPeaceTreaty(Empire e)           { return diplomats(id(e)) && empire.atWarWith(id(e)); }
+    private boolean canOfferPeaceTreaty(Empire e) { return diplomats(id(e)) && empire.atWarWith(id(e)); }
     @Override
     public DiplomaticReply receiveOfferPeace(Empire requestor) {
         log(empire.name(), " receiving offer of Peace from: ", requestor.name());
@@ -571,6 +571,8 @@ public class AIDiplomat implements Base, Diplomat {
         return DiplomaticReply.answer(false, declineReasonText(v));
     }
     private boolean willingToOfferPeace(EmpireView v) {
+		if (options().alwaysAtWar())
+			return false;
         if (!v.embassy().war())
             return false;
         if (!v.embassy().onWarFooting() && !canOfferPeaceTreaty(v.empireUncut()))
@@ -1171,8 +1173,8 @@ public class AIDiplomat implements Base, Diplomat {
         return false;
     }
     //----------------
-//
-//----------------
+    //
+    //----------------
     @Override
     public void makeDiplomaticOffers(EmpireView v) {
         //updatePersonality(); this is too telling but I'll leave the code in
@@ -1216,7 +1218,7 @@ public class AIDiplomat implements Base, Diplomat {
         List<Empire> enemies = empire.enemies();
         if (v.isMember(enemies))
             return;
-        
+
         // build a priority list for Joint War offers:
         for (Empire target: empire.enemies()) {
             if (willingToOfferJointWar(v.empireUncut(), target)) {
@@ -1224,7 +1226,7 @@ public class AIDiplomat implements Base, Diplomat {
                 v.diplomatAI().receiveOfferJointWar(v.owner(), target); 
             }
         }
-        
+
         if (willingToOfferTrade(v, v.trade().maxLevel())) {
             v.diplomatAI().receiveOfferTrade(v.owner(), v.trade().maxLevel());
         }
@@ -1328,12 +1330,14 @@ public class AIDiplomat implements Base, Diplomat {
             return false;
         if(view.isMember(empire.enemies()))
             return false;
-        
+		if (!options().canStartWar(empire.isPlayer(), view.isPlayer()))
+			return false;
+
         // look at new incidents. If any trigger war, pick
         // the one with the greatest severity
         DiplomaticIncident warIncident = null;
         float worstNewSeverity = 0;
-        
+
         // check for a war incident if we are not at peace, or the start
         // date of our peace treaty precedes the current time
         if (!view.embassy().atPeace()
@@ -1354,17 +1358,17 @@ public class AIDiplomat implements Base, Diplomat {
                 return true;
             }
         }
-        
+
         if (wantToDeclareWarOfHate(view)){
             beginHateWar(view);
             return true;
         }
-        
+
         if (wantToDeclareWarOfOpportunity(view)) {
             //ail: even if the real reason is because of geopolitics, we can still blame it on an incident, if there ever was one, so the player thinks it is their own fault
             //System.out.println(empire.galaxy().currentTurn()+" "+empire.name()+" starts Opportunity-War vs. "+view.empire().name());
             beginOpportunityWar(view);
-            return true;          
+            return true;
         }
         
         if (wantToDeclareWarOfDesperation(view)) {
@@ -2233,4 +2237,3 @@ public class AIDiplomat implements Base, Diplomat {
         return true; 
     }
 }
-

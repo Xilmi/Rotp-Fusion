@@ -136,6 +136,7 @@ public final class GameSession implements Base, Serializable {
     private boolean spyActivity = false;
     private Integer lastTurnAlive;
     private boolean aFewMoreTurns = false;
+	private boolean lastAlwaysAtWar = false;
 
     public GameStatus status()                   { return status; }
     public long id()                             { return id; }
@@ -414,7 +415,6 @@ public final class GameSession implements Base, Serializable {
         return maxHeap > reqHeap;
     }
     public boolean inProgress()  { return status().inProgress(); }
-
     private void debugMonitor(long fileSize, long dt) {
     	boolean append = galaxy().currentTurn() > 1;
     	String turn;
@@ -465,7 +465,7 @@ public final class GameSession implements Base, Serializable {
 //			return;
 //		sys.eventKey(RandomEventPlague.eventKey);
 	}
-    @SuppressWarnings("unused") private void ModnarPrivateLogging() {
+	@SuppressWarnings("unused") private void ModnarPrivateLogging() {
 		String LogPath = Rotp.jarPath();
 		File TestLogFile = new File(LogPath, "TestLogFile.txt");
 		if (galaxy.currentTurn() % 5 == 0) { // log every 5 turns
@@ -490,7 +490,7 @@ public final class GameSession implements Base, Serializable {
 				+ String.format("%12.0f", e.totalFleetSize())
 				+ String.format("%10.2f", 100*e.shipMaintCostPerBC()) + "%"
 				+ String.format("%10.2f", 100*e.missileBaseCostPerBC()) + "%"
-                + String.format("%10.2f", 100*e.totalSecurityCostPct()) + "%"
+				+ String.format("%10.2f", 100*e.totalSecurityCostPct()) + "%"
 				+ String.format("%12.2f", e.totalPlanetaryResearch())
 				+ String.format("%8.2f", e.tech().avgTechLevel())
 				+ String.format("%6d", e.numEnemies())
@@ -507,11 +507,21 @@ public final class GameSession implements Base, Serializable {
 			}
 			out.close();
 		}
-    }
+	}
+	private void validateAlwaysAtWar()	{
+		boolean alwaysAtWar = options().alwaysAtWar();
+		if(alwaysAtWar = lastAlwaysAtWar)
+			return;
+		lastAlwaysAtWar = alwaysAtWar;
+		if (alwaysAtWar)
+			galaxy().startAlwaysAtWar();
+	}
+
     private Runnable nextTurnProcess() {
         return () -> {
             try {
 				TradeTechNotification.resetSkipButton();
+				validateAlwaysAtWar();
 				player().startingNextTurnProcess();
                 performingTurn = true;
                 Galaxy gal = galaxy();
@@ -772,7 +782,7 @@ public final class GameSession implements Base, Serializable {
         clearScoutedSystems();
         return true;
     }
-    public void startGroundCombat() {
+    public void startGroundCombat() { // For test and debug only
         for (EmpireView v : player().empireViews()) {
             if ((v!= null) && !v.embassy().contact()) {
                 v.embassy().makeFirstContact();
@@ -921,7 +931,7 @@ public final class GameSession implements Base, Serializable {
             }
         }
     }
-    public void startHighTechShipCombat() {
+    public void startHighTechShipCombat() { // For Test and debug
         if (galaxy().numberTurns() > 2)
             return;
 

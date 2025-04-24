@@ -126,14 +126,16 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         player().sv.resetFlagColor(sysId);
         parent.repaint();
     }
-    private void startWar()	{
-    	Empire alien  = mgr.results().aiEmpire();
-    	if (alien == null)
-    		return;
-    	Empire player = mgr.player();
-    	DiplomaticEmbassy embassy = player.viewForEmpire(alien).embassy();
-    	embassy.declareWar();
-    }
+	private void startWar()	{
+		Empire alien = mgr.results().aiEmpire();
+		if (alien == null)
+			return;
+		Empire player = mgr.player();
+		if (options().canStartWar(player, alien)) {
+			DiplomaticEmbassy embassy = player.viewForEmpire(alien).embassy();
+			embassy.declareWar();
+		}
+	}
     private void drawFleetsInfo(Graphics2D g) {
     	if (showInfo == 0)
     		return;
@@ -294,8 +296,6 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         int x0 = boxX+((leftW-sw)/2);
         drawBorderedString(g, yearStr, 2, x0, boxY+boxH1-s20, SystemPanel.textShadowC, SystemPanel.orangeText);
 
-        
-        
         Empire aiEmpire = mgr.results().aiEmpire();
         String titleStr;
         if (aiEmpire == null)
@@ -328,7 +328,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         resolveButton.mapX(boxX);
         resolveButton.mapY(battleButton.mapY());
         resolveButton.draw(parent.map(), g);
-        
+
         parent.addNextTurnControl(smartResolveButton);
         smartResolveButton.init(this, g);
        	smartResolveButton.mapX(resolveButton.mapX()+resolveButton.width()+s7);
@@ -351,7 +351,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         int y2 = y1;
         int lineH = s20;
         int desiredFont = 18;
-        
+
         HashMap<String, Integer> mySizes = new HashMap<>();
         HashMap<String, Integer> aiSizes = new HashMap<>();
         for(CombatStack st : mgr.activeStacks())
@@ -391,13 +391,13 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             drawBorderedString(g, entry.getValue() + " " + entry.getKey(), 1, x2, y2, Color.black, txtColor);
             y2 += lineH;
         }
-       
+
         // if unscouted, no planet info
         if (!scouted) {
         	drawFleetsInfo(g);
         	return;
         }
-        
+
         x1 = boxX+s15;
         y1 = boxY+boxH1+boxH2-s10;
 
@@ -1015,13 +1015,15 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             		xv = xe - sw;
             		g.drawString(str, xv, ys);
 
-            		// declare war?
-            		ys += lineH + s10;
-            		str = label();
-                    sw = g.getFontMetrics().stringWidth(str);
-                    xv = x3+((w3-sw)/2);
-                    g.setColor(Color.RED);
-                    drawBorderedString(g, str, xv, ys, SystemPanel.grayText, Color.RED);
+					// declare war?
+					if (options().canStartWar(player, alien)) {
+						ys += lineH + s10;
+						str = label();
+						sw = g.getFontMetrics().stringWidth(str);
+						xv = x3+((w3-sw)/2);
+						g.setColor(Color.RED);
+						drawBorderedString(g, str, xv, ys, SystemPanel.grayText, Color.RED);
+					}
             	}
             }
             else {

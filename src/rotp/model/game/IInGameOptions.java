@@ -2,6 +2,7 @@ package rotp.model.game;
 
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
+import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
@@ -362,5 +363,93 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 			return playerLimit;
 		else
 			return playerLimit * maxLandingTroopsIAFactor.get() / 100;
+	}
+	String AGGRESSIV_NORMAL		= "AGGRESSIV_NORMAL";
+	String AGGRESSIV_AI_WAR_OK	= "AGGRESSIV_AI_WAR_OK";	// AI can declare war to AI but not to player
+	String AGGRESSIV_AI_NO_WAR	= "AGGRESSIV_AI_NO_WAR";	// No war between AI
+	String AGGRESSIV_NEVER_WAR	= "AGGRESSIV_NEVER_WAR";	// Player can't declare war neither
+	String AGGRESSIV_ALWAYS_WAR	= "AGGRESSIV_ALWAYS_WAR";	// All empire are permanently at war
+	ParamList gameAgressiveness	= new ParamList( MOD_UI, "GAME_AGGRESSIVENESS", AGGRESSIV_NORMAL)
+			.isCfgFile(true)
+			.showFullGuide(true)
+			.put(AGGRESSIV_NORMAL,		MOD_UI + AGGRESSIV_NORMAL)
+			.put(AGGRESSIV_AI_WAR_OK,	MOD_UI + AGGRESSIV_AI_WAR_OK)
+			.put(AGGRESSIV_AI_NO_WAR,	MOD_UI + AGGRESSIV_AI_NO_WAR)
+			.put(AGGRESSIV_NEVER_WAR,	MOD_UI + AGGRESSIV_NEVER_WAR)
+			.put(AGGRESSIV_ALWAYS_WAR,	MOD_UI + AGGRESSIV_ALWAYS_WAR);
+//	default boolean aiCanAttackPlayer()	{ return rallyCombatLoss.get().equals(COMBAT_LOSS_DEFENSES); }
+//	default boolean aiCanAttackAI()		{ return rallyCombatLoss.get().equals(COMBAT_LOSS_RALLY); }
+//	default boolean playerCanAttackAI()	{ return rallyCombatLoss.get().equals(COMBAT_LOSS_SHARED); }
+	
+	default boolean alwaysAtWar()	{ return gameAgressiveness.get().equals(AGGRESSIV_ALWAYS_WAR); }
+	default boolean canStopWar()	{ return !alwaysAtWar(); }
+	default boolean canStartWar(Empire ask, Empire target)	{ return canStartWar(ask.isPlayer(), target.isPlayer()); }
+	default boolean canStartWar(boolean askIsPlayer, boolean targetIsPlayer)	{
+		// Player vs AI
+		if (askIsPlayer)
+			switch (gameAgressiveness.get()) {
+				case AGGRESSIV_NEVER_WAR:
+					return false;
+				default:
+					return true;
+			}
+		// AI vs Player
+		if (targetIsPlayer)
+			switch (gameAgressiveness.get()) {
+				case AGGRESSIV_NEVER_WAR:
+				case AGGRESSIV_AI_WAR_OK:
+				case AGGRESSIV_AI_NO_WAR:
+					return false;
+				default:
+					return true;
+			}
+		// AI vs AI
+		switch (gameAgressiveness.get()) {
+			case AGGRESSIV_NEVER_WAR:
+				return false;
+			default:
+				return true;
+		}
+	}
+	ParamBoolean skirmishesAllowed		= new ParamBoolean(MOD_UI, "SKIRMISHES_ALLOWED", true);
+	default boolean skirmishesAllowed()	{ return skirmishesAllowed.get(); }
+	default boolean skirmishesAllowed(Empire ask, Empire target)	{
+		if (skirmishesAllowed.get())
+			return true;
+		EmpireView view = ask.viewForEmpire(target);
+		if (view != null && view.embassy().war())
+			return true;
+
+		boolean askIsPlayer		= ask.isPlayer();
+		boolean targetIsPlayer	= target.isPlayer();
+		if (askIsPlayer)
+			switch (gameAgressiveness.get()) {
+				case AGGRESSIV_NEVER_WAR:
+					return false;
+				case AGGRESSIV_AI_WAR_OK:
+				case AGGRESSIV_AI_NO_WAR:
+					// if AI can't attack player, and skirmish are not allowed:
+					// Player can't start skirmish either. Player should declare war first!
+					return skirmishesAllowed.get();
+				default:
+					return true;
+			}
+		// AI vs Player
+		if (targetIsPlayer)
+			switch (gameAgressiveness.get()) {
+				case AGGRESSIV_NEVER_WAR:
+				case AGGRESSIV_AI_WAR_OK:
+				case AGGRESSIV_AI_NO_WAR:
+					return skirmishesAllowed.get();
+				default:
+					return true;
+			}
+		// AI vs AI
+		switch (gameAgressiveness.get()) {
+			case AGGRESSIV_NEVER_WAR:
+				return skirmishesAllowed.get();
+			default:
+				return true;
+		}
 	}
 }

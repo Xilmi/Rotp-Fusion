@@ -41,7 +41,6 @@ import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGalaxyOptions;
 import rotp.model.game.IGameOptions;
-import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.Planet;
 import rotp.model.tech.Tech; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.model.tech.TechTree; // modnar: add game mode to start all Empires with 2 random techs
@@ -242,12 +241,13 @@ public class GalaxyFactory implements Base {
 	}
 	// BR: Common part of "Restart" standard "Start"
 	private void init(Galaxy g, long tm2) {
-		g.ironmanLockedOptions = !options().isGameOptionsAllowed();
+		IGameOptions opts = options();
+		g.ironmanLockedOptions = !opts.isGameOptionsAllowed();
 		// after systems created, add system views for each empire
 		for (Empire e: g.empires()) {
 			e.loadStartingTechs();
 			// modnar: add game mode to start all Empires with 2 random techs
-			if (options().selectedRandomTechStart()) {
+			if (opts.selectedRandomTechStart()) {
 				// randomUnknownTech, somewhat awkward to use in succession
 				//e.tech().learnTech(e.tech().randomUnknownTech(1,4).id());
 				//e.tech().learnTech(e.tech().randomUnknownTech(1,4).id());
@@ -283,7 +283,7 @@ public class GalaxyFactory implements Base {
 		long tm3b = System.currentTimeMillis();
 		log("load ship designs: "+(tm3b-tm3)+"ms");
 
-		int companionWorlds = options().selectedCompanionWorlds();
+		int companionWorlds = opts.selectedCompanionWorlds();
 		for (Empire e: g.empires()) {
 			e.colonizeHomeworld();
 			// modnar: add option to start game with additional colonies
@@ -324,8 +324,7 @@ public class GalaxyFactory implements Base {
 		log("Next Turn Decision: "+(tm5-tm4)+"ms");
 
 		PlanetImager.current().finished();
-		
-		MOO1GameOptions opts = (MOO1GameOptions) GameSession.instance().options();
+
 		opts.resetShipDisplay();
 		opts.dynOpts().setObject(Galaxy.EMPIRES_KEY, g.empires());
 		// Save initial state

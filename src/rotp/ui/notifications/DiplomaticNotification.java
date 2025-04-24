@@ -40,25 +40,30 @@ public class DiplomaticNotification implements TurnNotification, Base {
         bioweaponWarningCount = 0;
         genocideWarningCount  = 0;
     }
-    public static DiplomaticNotification create(EmpireView v, String messageType) {
-        DiplomaticNotification notif = new DiplomaticNotification(v, messageType);
-        GameSession.instance().addTurnNotification(notif);
-        return notif;
-    }
-    public static DiplomaticNotification create(EmpireView v, String messageType, Empire otherEmp) {
-        DiplomaticNotification notif = new DiplomaticNotification(v, messageType);
-        notif.other = otherEmp;
-        GameSession.instance().addTurnNotification(notif);
-        return notif;
-    }
-    public static void createAndNotify(EmpireView v, String messageType) {
-        new DiplomaticNotification(v, messageType).notifyPlayer();
-    }
-    public static DiplomaticNotification create(EmpireView v, DiplomaticIncident inc, String messageType) {
-        DiplomaticNotification notif = new DiplomaticNotification(v, inc, messageType);
-        GameSession.instance().addTurnNotification(notif);
-        return notif;
-    }
+	public static void create(EmpireView v, String messageType)	{
+		if (!notificationIsAllowed(messageType))
+			return;
+		DiplomaticNotification notif = new DiplomaticNotification(v, messageType);
+		GameSession.instance().addTurnNotification(notif);
+	}
+	public static void create(EmpireView v, String messageType, Empire otherEmp)	{
+		if (!notificationIsAllowed(messageType))
+			return;
+		DiplomaticNotification notif = new DiplomaticNotification(v, messageType);
+		notif.other = otherEmp;
+		GameSession.instance().addTurnNotification(notif);
+	}
+	public static void createAndNotify(EmpireView v, String messageType)	{
+		if (!notificationIsAllowed(messageType))
+			return;
+		new DiplomaticNotification(v, messageType).notifyPlayer();
+	}
+	public static void create(EmpireView v, DiplomaticIncident inc, String messageType)	{
+		if (!notificationIsAllowed(messageType))
+			return;
+		DiplomaticNotification notif = new DiplomaticNotification(v, inc, messageType);
+		GameSession.instance().addTurnNotification(notif);
+	}
     public static DiplomaticNotification create(EmpireView v, DiplomaticIncident inc) {
         DiplomaticNotification notif = new DiplomaticNotification(v, inc);
         GameSession.instance().addTurnNotification(notif);
@@ -104,12 +109,11 @@ public class DiplomaticNotification implements TurnNotification, Base {
     public void view(EmpireView v)       { view = v; talker = v.owner(); }
     @Override
     public String displayOrder() { return incident == null ? DIPLOMATIC_MESSAGE : incident.displayOrder(); }
-    @Override
-    public void notifyPlayer()   {
-    	// BR: Test if this warning is allowed.
-    	// System.out.println("Diplomatic Notification: type = " + type);
-    	IGameOptions opts = GameSession.instance().options();
-    	switch (type) {
+	@Override  public void notifyPlayer()	{
+		// BR: Test if this warning is allowed.
+		// System.out.println("Diplomatic Notification: type = " + type);
+		IGameOptions opts = GameSession.instance().options();
+		switch (type) {
 			case DialogueManager.WARNING_EXPANSION:
 				expansionWarningCount += 1;
 				if (opts.selectedMaxWarnings() < expansionWarningCount)
@@ -125,8 +129,16 @@ public class DiplomaticNotification implements TurnNotification, Base {
 				if (opts.selectedMaxWarnings() < genocideWarningCount)
 					return;
 				break;
-    	}
-   	
-        RotPUI.instance().selectDiplomaticMessagePanel(this);
-    }
+		}
+		RotPUI.instance().selectDiplomaticMessagePanel(this);
+	}
+	private static boolean notificationIsAllowed(String messageType)	{
+		IGameOptions opts = GameSession.instance().options();
+		switch (messageType) {
+			case DialogueManager.WARNING_EXPANSION:	return opts.allowWarningExpansion();
+			case DialogueManager.WARNING_BIOWEAPON:	return opts.allowWarningBioweapon();
+			case DialogueManager.WARNING_GENOCIDE:	return opts.allowWarningGenocide();
+		}
+		return true;
+	}
 }

@@ -21,7 +21,14 @@
 
 ### Features:
 
-2025.04.20 (BR)
+- New option to set the wariness level.
+  - Normal.
+  - No war are allowed.
+  - AI can't declare war. (The player can)
+  - AI can declare war on an AI but not on the player. (The player can)
+  - Permanent war. (No peace allowed)
+  - Skirmishes can be allowed or not.
+  - Expansions warnings can be disabled.
 - Added an option for a random number of opponents, with customizable Min and Max.
   - The final number of opponents may still be lower than the minimum requested value if the galaxy size is too small.
 - The Galaxy size can now be set to Random, with customizable min and Max.

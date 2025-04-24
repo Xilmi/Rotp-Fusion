@@ -17,6 +17,7 @@ package rotp.ui.notifications;
 
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
+import rotp.model.game.GameSession;
 import rotp.ui.RotPUI;
 import rotp.util.Base;
 
@@ -34,6 +35,7 @@ public class BombardSystemNotification implements TurnNotification, Base {
         if (!fl.canAttackPlanets() || fl.launched() || !emp.sv.isColonized(sysId) || !emp.aggressiveWith(emp.sv.empId(sysId)))
             return;
 
+
         // bomb immediately instead of queueing notification
         // this is at end-of-turn anyway so no point in waiting
         //GameSession.instance().addTurnNotification(new BombardSystemNotification(sv, fl));
@@ -45,6 +47,10 @@ public class BombardSystemNotification implements TurnNotification, Base {
         Empire emp1 = fl.empire();
         emp1.sv.refreshFullScan(sysId);
         Empire emp2 = emp1.sv.empire(sysId);
+
+		// Check if options prevent bombing
+		if (!GameSession.instance().options().skirmishesAllowed(emp1, emp2))
+			return;
 
         if (emp1.isPlayerControlled() && !autoBomb)
             RotPUI.instance().promptForBombardment(sysId, fl);

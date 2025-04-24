@@ -25,12 +25,18 @@ public interface IConvenienceOptions extends IMapOptions {
 			.isCfgFile(false)
 			.loop(true)
 			.specialNegative(MOD_UI + "SHOW_LIMITED_WARNINGS_ALL");
-	default int selectedMaxWarnings()				{
+	default int selectedMaxWarnings()		{
 		int max = showLimitedWarnings.get();
 		if (max < 0)
 			max=100;
 		return max;
 	}
+	ParamBoolean allowWarningExpansion	= new ParamBoolean(MOD_UI, "ALLOW_WARNING_EXPANSION", true);
+	default boolean allowWarningExpansion()	{ return allowWarningExpansion.get(); }
+	ParamBoolean allowWarningGenocide	= new ParamBoolean(MOD_UI, "ALLOW_WARNING_GENOCIDE", true);
+	default boolean allowWarningGenocide()	{ return allowWarningGenocide.get(); }
+	ParamBoolean allowWarningBioweapon	= new ParamBoolean(MOD_UI, "ALLOW_WARNING_BIOWEAPON", true);
+	default boolean allowWarningBioweapon()	{ return allowWarningBioweapon.get(); }
 
 	ParamBoolean showAlliancesGNN	= new ParamBoolean(MOD_UI, "SHOW_ALLIANCES_GNN", true)
 			.isCfgFile(false);

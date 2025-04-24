@@ -481,13 +481,13 @@ GAME_MENU_GOT_NEW_VERSION		| Une nouvelle version est disponible.
 GAME_MENU_LAST_VERSION			| Une nouvelle version est disponible au dépot de %1.<br>Il s’agit de la version la plus récente.
 GAME_MENU_NEWER_VERSION			| Une nouvelle version est disponible au dépot de %1.<br>Ce n’est pas la version la plus récente, mais elle est plus récente que celle en cours d’exécution.
 GAME_MENU_GITHUB_REPOSITORY		| Github Repository : %1
-GAME_MENU_NEW_RELEASE			| Aller à l'autre relâche
+GAME_MENU_NEW_RELEASE			| Aller à l’autre relâche
 GAME_MENU_LAST_RELEASE			| Aller à la dernière relâche
 GAME_MENU_LAST_JAR				| Télécharger le dernier fichier .jar
 GAME_MENU_LAST_MINI_JAR			| Télécharger le dernier fichier -mini.jar
 GAME_MENU_LAST_ZIP				| Télécharger le dernier fichier -windows.zip
 GAME_MENU_JAR_DESC				| Java JRE (ou JDK) doit être installé sur votre ordinateur pour que ce fichier puisse être exécuter.
-GAME_MENU_MINI_JAR_DESC			| Comme le .jar, avec les fichiers d'images et de sons compressés pour minimiser la taille du fichier.
+GAME_MENU_MINI_JAR_DESC			| Comme le .jar, avec les fichiers d’images et de sons compressés pour minimiser la taille du fichier.
 GAME_MENU_ZIP_DESC				| Contient un exécutable autonome pour Windows, incluant Java.
 
 // Game Settings UI
@@ -1528,7 +1528,11 @@ SETUP_RANDOM_NUM_STARS_LIM1_DESC	| Première limite de taille de galaxie aléato
 SETUP_RANDOM_NUM_STARS_LIM2			| Taille limite : %1
 SETUP_RANDOM_NUM_STARS_LIM2_DESC	| Seconde limite de taille de galaxie aléatoire. Peut être le minimum ou maximum.
 SETUP_RANDOM_NUM_ALIENS				| Nombre aléatoire d’empires rivaux : %1
-SETUP_RANDOM_NUM_ALIENS_DESC		| Active ou désactive la sélection aléatoire du nombre d'empires rivaux.
+SETUP_RANDOM_NUM_ALIENS_DESC		| Active ou désactive la sélection aléatoire du nombre d’empires rivaux.
+SETUP_RANDOM_NUM_ALIENS_YES			| Deux boîtes de sélection
+SETUP_RANDOM_NUM_ALIENS_YES_DESC	| Nombre aléatoire de rivaux entre les deux valeurs sélectionnées.
+SETUP_RANDOM_NUM_ALIENS_NO			| Une boîte de sélection
+SETUP_RANDOM_NUM_ALIENS_NO_DESC		| Nombre de rivaux sélectionnés.
 SETUP_RANDOM_NUM_ALIENS_LIM1		| Limite du nombre d’opposants : %1
 SETUP_RANDOM_NUM_ALIENS_LIM1_DESC	| Première limite du nombre aléatoire d’opposants. Peut être le minimum ou maximum.
 SETUP_RANDOM_NUM_ALIENS_LIM2		| Limite du nombre d’opposants : %1
@@ -2296,7 +2300,7 @@ SETTINGS_RANDOM_EVENTS            | Événements aléatoires : %1
 SETTINGS_RESEARCH_RATE            | Vitesse de la recherche : %1
 SETTINGS_COUNCIL_WIN              | Victoire par élection : %1
 SETTINGS_RANDOMIZE_AI             | IA aléatoire : %1
-SETTINGS_AUTOPLAY                 | L'IA joue pour vous : %1
+SETTINGS_AUTOPLAY                 | L’IA joue pour vous : %1
 SETTINGS_TECH_TRADING             | Échanges de technologies : %1
 SETTINGS_GALAXY_AGE               | Âge de la galaxie : %1
 SETTINGS_WARP_SPEED               | Vitesse de distorsion : %1
@@ -2466,8 +2470,8 @@ HEADERS_RANDOM_OPP_DEF               | ~~~ DÉFINITIONS ~~~
 HEADERS_RANDOM_OPP_DIST_DESC         | Caractéristiques de la distribution statistique des paramètres des espèces aléatoires.
 HEADERS_RANDOM_OPP_DIST              | ~~~ DISTRIBUTIONS ~~~
 
-
-
+HEADERS_AGRESSIVENESS_DESC			| Niveau d’agressivité du jeu.
+HEADERS_AGRESSIVENESS				| ~~~ AGRESSIVITÉ ~~~
 
 HEADERS_UNCLASSIFIED_DESC            | Il reste encore à trouver la bonne position !
 HEADERS_UNCLASSIFIED                 | ~~~ NON-CLASSIFIÉ ~~~
@@ -2796,9 +2800,9 @@ SETTINGS_MOD_RANDOM_NUM_STARS_LIM1			| Taille aléatoire minimale : %1
 SETTINGS_MOD_RANDOM_NUM_STARS_LIM2_DESC		| →SETTINGS_MOD_RANDOM_NUM_STARS_LIM1_DESC←
 SETTINGS_MOD_RANDOM_NUM_STARS_LIM2			| Taille aléatoire maximale : %1
 SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1_DESC	| Valeurs limites du nombre d’opposants lorsque « Nombre aléatoire d’adversaires » est sélectionné.<br>Les valeurs minimales et maximales peuvent être interverties.
-SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1			| Nombre minimal d'opposants : %1
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1			| Nombre minimal d’opposants : %1
 SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM2_DESC	| →SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM1_DESC←
-SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM2			| Nombre maximal d'opposants : %1
+SETTINGS_MOD_RANDOM_NUM_ALIENS_LIM2			| Nombre maximal d’opposants : %1
 
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_HELP | Lors du démarrage d’une nouvelle partie, basée sur une partie précédemment jouée, les adversaires peuvent soit conserver leur IA précédente, soit utiliser les options actuelles.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | « Redémarrer » doit-il modifier l’IA des extraterrestres ?
@@ -3176,6 +3180,22 @@ SETTINGS_MOD_MAX_LANDING_FACTOR          | Facteur de taille de la planète : %
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR_DESC  | Modificateur IA contre joueur. Ce pourcentage est appliqué sur le débarquement maximal avant d’être utilisé par l’IA.
 SETTINGS_MOD_MAX_LANDING_IA_FACTOR       | Pourcentage IA : %1 %
 
+SETTINGS_MOD_GAME_AGGRESSIVENESS_DESC	| Quel niveau d’agressivité est acceptable ?
+SETTINGS_MOD_GAME_AGGRESSIVENESS		| Agressivité : %1
+SETTINGS_MOD_AGGRESSIV_NORMAL_DESC		| N’importe qui peut déclencher une guerre contre n’importe qui.
+SETTINGS_MOD_AGGRESSIV_NORMAL			| Normale
+SETTINGS_MOD_AGGRESSIV_AI_WAR_OK_DESC	| Une IA peut déclarer la guerre à une autre IA, mais pas au joueur. Le joueur peut cependant déclarer la guerre à une IA, les alliés des IA en guerre peuvent alors se joindre la guerre contre le joueur.
+SETTINGS_MOD_AGGRESSIV_AI_WAR_OK		| Guerres d’IA permises
+SETTINGS_MOD_AGGRESSIV_AI_NO_WAR_DESC	| Une IA ne peut pas déclarer la guerre, ni au joueur, ni à une IA. Le joueur peut cependant déclarer la guerre à une IA, les alliés des IA en guerre peuvent alors se joindre la guerre contre le joueur et les autres IA.
+SETTINGS_MOD_AGGRESSIV_AI_NO_WAR		| L’IA ne déclare pas la guerre
+SETTINGS_MOD_AGGRESSIV_NEVER_WAR_DESC	| Même le joueur ne peut pas déclarer la guerre.
+SETTINGS_MOD_AGGRESSIV_NEVER_WAR		| Les guerres sont interdites
+SETTINGS_MOD_AGGRESSIV_ALWAYS_WAR_DESC	| Tous les empires sont en guerre permanente.
+SETTINGS_MOD_AGGRESSIV_ALWAYS_WAR		| Guerre totale
+
+SETTINGS_MOD_SKIRMISHES_ALLOWED_HELP	| Des escarmouches peuvent-elles se produire lorsque les guerres sont interdites ?<br>Des combats peuvent survenir pour défendre une planète non colonisée, et certaines bombes peuvent être larguées « accidentellement » sur des colonies.<br>Si le joueur est le seul à pouvoir déclarer la guerre, ce paramètre s’applique également à lui ; il ne pourra pas déclencher unilatéralement des escarmouches, il doit déclarer formellement la guerre avant de commencer les hostilités.
+SETTINGS_MOD_SKIRMISHES_ALLOWED_DESC	| Des escarmouches peuvent-elles se produire lorsque les guerres sont interdites ?
+SETTINGS_MOD_SKIRMISHES_ALLOWED			| Escarmouches permises : %1
 
 SETTINGS_MOD_SPECIAL_PEACE_TREATY_DESC        | Désactiver les traités de paix ou supprimer la possibilité de coloniser lorsqu’une autre flotte est en orbite autour de la planète.
 SETTINGS_MOD_SPECIAL_PEACE_TREATY             | Traité de paix : %1
@@ -3358,6 +3378,13 @@ SETTINGS_MOD_GALAXY_PREVIEW_PLAYER_DESC  | L’aperçu de la galaxie affiche la 
 SETTINGS_MOD_GALAXY_PREVIEW_PLAYER       | Révéler le Joueur en Vert : %1
 SETTINGS_MOD_GALAXY_PREVIEW_ORION_DESC   | L’aperçu de la galaxie affiche la position d’Orion en bleu.
 SETTINGS_MOD_GALAXY_PREVIEW_ORION        | Révéler Orion en Bleu : %1
+
+SETTINGS_MOD_ALLOW_WARNING_EXPANSION_DESC	| Utilisez cette option pour empêcher les autres empires de se plaindre que le vôtre devient trop grand.<br>Cela ne supprimera pas l’impact négatif de votre expansion.
+SETTINGS_MOD_ALLOW_WARNING_EXPANSION		| Avertissements d’expansion : %1
+SETTINGS_MOD_ALLOW_WARNING_GENOCIDE_DESC	| Utilisez cette option pour empêcher les autres empires de se plaindre que le vôtre a anéanti une civilisation.<br>Cela ne supprimera pas l’impact négatif de vos odieuses actions.
+SETTINGS_MOD_ALLOW_WARNING_GENOCIDE			| Avertissements de génocide : %1
+SETTINGS_MOD_ALLOW_WARNING_BIOWEAPON_DESC	| Utilisez cette option pour empêcher les autres empires de se plaindre que le vôtre utilise des armes biologiques.<br>Cela ne supprimera pas l’impact négatif de vos mauvaises actions.
+SETTINGS_MOD_ALLOW_WARNING_BIOWEAPON		| Avertissements armes biologiques : %1
 
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP_DESC   | Taille minimale de la liste pour que le panneau de sélection s’affiche.
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP        | Taille min. des listes : %1
@@ -4110,6 +4137,10 @@ SETTINGS_MOD_SETUP_GALAXY_UI_DESC        | Configuration de base des systèmes s
 SETTINGS_MOD_SETUP_NEBULA_TITLE          | Configuration des Nébuleuses.
 SETTINGS_MOD_SETUP_NEBULA_UI             | Nébuleuses
 SETTINGS_MOD_SETUP_NEBULA_UI_DESC        | Quantités, forme et impact des nébuleuses.
+
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_TITLE	| Configuration du Niveau d’Aggressivité.
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI		| Niveau d’aggressivité
+SETTINGS_MOD_AGGRESSIVITY_LEVEL_UI_DESC	| Quel niveau d’agressivité est acceptable ?
 
 SETTINGS_MOD_SETUP_RANDOM_OPP_TITLE      | Statistiques des Adversaires.
 SETTINGS_MOD_SETUP_RANDOM_OPP_UI         | Espèces Aléatoire
@@ -5258,19 +5289,19 @@ GOVERNOR_FLEET_OPTIONS_LABEL         | Paramètres des Flottes
 GOVERNOR_FLEET_OPTIONS_TT            | Comment l’IA doit-elle gérer les activités des flottes.
 
 GOVERNOR_AUTO_SCOUT_DESC_0			| Le gouverneur enverra automatiquement des vaisseaux pour explorer de nouvelles planètes.
-GOVERNOR_AUTO_SCOUT_DESC_1			| (Vaisseaux étiquetés comme « →SHIP_DESIGN_AUTO_SCOUT← » dans l'écran de conception.)
+GOVERNOR_AUTO_SCOUT_DESC_1			| (Vaisseaux étiquetés comme « →SHIP_DESIGN_AUTO_SCOUT← » dans l’écran de conception.)
 GOVERNOR_AUTO_SCOUT_DESC			| →GOVERNOR_AUTO_SCOUT_DESC_0← →GOVERNOR_AUTO_SCOUT_DESC_1←
 GOVERNOR_AUTO_SCOUT					| L’IA Explore : %1
 GOVERNOR_AUTO_SCOUT_LABEL			| L’IA Explore
 
 GOVERNOR_AUTO_COLONIZE_DESC_0		| Le gouverneur enverra automatiquement des vaisseaux pour coloniser de nouvelles planètes.
-GOVERNOR_AUTO_COLONIZE_DESC_1		| (Vaisseaux étiquetés comme « →SHIP_DESIGN_AUTO_COLONIZE← » dans l'écran de conception.)
+GOVERNOR_AUTO_COLONIZE_DESC_1		| (Vaisseaux étiquetés comme « →SHIP_DESIGN_AUTO_COLONIZE← » dans l’écran de conception.)
 GOVERNOR_AUTO_COLONIZE_DESC			| →GOVERNOR_AUTO_COLONIZE_DESC_0←→GOVERNOR_AUTO_COLONIZE_DESC_1←
 GOVERNOR_AUTO_COLONIZE				| L’IA Colonise : %1
 GOVERNOR_AUTO_COLONIZE_LABEL		| L’IA Colonise
 
 GOVERNOR_AUTO_ATTACK_DESC_0			| Le gouverneur enverra automatiquement des vaisseaux de guerre vers les colonies ennemies.
-GOVERNOR_AUTO_ATTACK_DESC_1			| (Vaisseaux étiquetés comme « →SHIP_DESIGN_AUTO_ATTACK← » dans l'écran de conception.)
+GOVERNOR_AUTO_ATTACK_DESC_1			| (Vaisseaux étiquetés comme « →SHIP_DESIGN_AUTO_ATTACK← » dans l’écran de conception.)
 GOVERNOR_AUTO_ATTACK_DESC			| →GOVERNOR_AUTO_ATTACK_DESC_0← →GOVERNOR_AUTO_ATTACK_DESC_1←
 GOVERNOR_AUTO_ATTACK 				| L’IA Extermine : %1
 GOVERNOR_AUTO_ATTACK_LABEL			| L’IA Extermine
@@ -5691,7 +5722,7 @@ SETUP_GRID_0_HELP						| Les galaxies ne se trouvent que sur certaines intersect
 SETUP_GRID_1_HELP						| Les galaxies sont à toutes les intersections.
 SETUP_GRID_2_HELP						| Seulement les lignes de la grille !
 SETUP_GALAXY_SHAPE_CLUSTER_HELP			| Pourquoi ne pas répartir le combat sur plusieurs galaxies ? 3, 6 ou 8 amas sont disponibles.
-SETUP_GALAXY_SHAPE_CLUSTER_O1			| Nombre d'amas : %1
+SETUP_GALAXY_SHAPE_CLUSTER_O1			| Nombre d’amas : %1
 SETUP_GALAXY_SHAPE_CLUSTER_O1_DESC		| Sélection du nombre d’amas.
 SETUP_CLUSTER_0_HELP					| Les systèmes stellaires sont répartis sur 4 amas.
 SETUP_CLUSTER_1_HELP					| Les systèmes stellaires sont répartis sur 6 amas.
@@ -5716,7 +5747,7 @@ SETUP_SPIRALARMS_NORMAL_HELP			| Normale, car non symétrique !
 SETUP_SPIRALARMS_SYMMETRIC_HELP			| Galaxie à symétrie circulaire, chaque empire a le même monde d’origine et le même voisinage. Orion est au point central.
 
 SETUP_GALAXY_SHAPE_BITMAP_HELP    | Construisez votre propre forme de galaxie, basée sur un bitmap.<ul><li>Des prises de vue réelles de galaxies donnent de bons résultats.</li><li>Vous pouvez dessiner vos propres galaxies, en nuances de gris ou en couleurs.</li><li>Avec des galaxies colorées, vous pouvez définir des régions où les systèmes stellaires Orion, Player et Aliens devraient se trouver.</li><li>Un mode couleur avancé vous permet de définir les régions de chaque Aliens, ainsi que les régions de nébuleuses !</li><li>Quelques exemples peuvent être trouvés dans BitmapGalaxyExamples.zip</li></ul>Utilisez de préférence une petite image bitmap pour définir la galaxie ; la taille VGA est largement suffisante... Les galaxies sont toujours générées aléatoirement !
-SETUP_GALAXY_SHAPE_BITMAP_O1      | Conversion de l'image : %1
+SETUP_GALAXY_SHAPE_BITMAP_O1      | Conversion de l’image : %1
 SETUP_GALAXY_SHAPE_BITMAP_O2      | Réglages fins : %1
 SETUP_GALAXY_SHAPE_BITMAP_O2      | Fichier : %1
 SETUP_GALAXY_SHAPE_BITMAP_O1_DESC | Comment convertir le fichier image.
@@ -5741,7 +5772,7 @@ SETUP_GALAXY_SHAPE_RANDOM_2_HELP  | Galaxie sélectionnée au hasard parmi presq
 SETUP_GALAXY_SHAPE_RANDOMIZED_DESC		| Galaxie sélectionnée aléatoirement. (Le type Bitmap ne fait pas partie de la liste)
 SETUP_GALAXY_SHAPE_RANDOMIZED_O1_DESC	| Liste des galaxies disponibles pour la sélection aléatoire.
 SETUP_GALAXY_SHAPE_RANDOMIZED_O1		| Liste des Galaxies : %1
-SETUP_RANDOMIZED_REAL_SHAPES_DESC		| Galaxies pouvant vaguement sembler réelles. (Avec un peu d'imagination)
+SETUP_RANDOMIZED_REAL_SHAPES_DESC		| Galaxies pouvant vaguement sembler réelles. (Avec un peu d’imagination)
 SETUP_RANDOMIZED_IMAGINARY_SHAPES_DESC	| Il n’y a aucune chance que ces galaxies ressemblent à la réalité.
 SETUP_RANDOMIZED_COMPLEX_SHAPES_DESC	| Inclu →SETUP_RANDOMIZED_REAL_SHAPES← et →SETUP_RANDOMIZED_IMAGINARY_SHAPES←.
 SETUP_RANDOMIZED_ALL_SHAPES_DESC		| La galaxie →SETUP_GALAXY_SHAPE_TEXT← est ajouté à la liste →SETUP_RANDOMIZED_COMPLEX_SHAPES←.

@@ -108,7 +108,7 @@ public class ShipCombatManager implements Base {
     public boolean showAnimations()            { return showAnimations && (ui != null) && playerInBattle; }
     public List<CombatStack> allStacks()       { return allStacks; }
     public void setInitialPause()              { initialPause = true; }
-    
+
     /* public boolean involves(Empire emp) {
         return (results.attacker() == emp) || (results.defender() == emp);
     } */
@@ -119,7 +119,7 @@ public class ShipCombatManager implements Base {
         if (sys.hasMonster()) {
             battle(sys, sys.monster());
             galaxy().ships.launchFleets(system.id); // Launch retreating fleets
-            return;                   
+            return;
         }
         empiresInConflict = sys.empiresInConflict();
         log("Ship Combat starting in ", player().sv.name(sys.id), " between empires: ", empiresInConflict.toString());
@@ -128,7 +128,7 @@ public class ShipCombatManager implements Base {
         List<EmpireMatchup> matchups = new ArrayList<>();
         for (Empire e1: empiresInConflict) {
             for (Empire e2: empiresInConflict) {
-                if (e1.aggressiveWith(e2, sys)) {
+                if (options().skirmishesAllowed(e1, e2) && e1.aggressiveWith(e2, sys)) {
                     boolean alreadyAdded = false;
                     for (EmpireMatchup m: matchups) {
                         if (m.matches(e1,e2))
@@ -141,7 +141,7 @@ public class ShipCombatManager implements Base {
         }
         // randomize the order that we do the potential combats
         Collections.shuffle(matchups);
-        
+
         // decide for each matchup if we should start combat
         // if a fleet retreats or is destroyed in one combat, it will 
         //  be "null" in subsequent potential combats
@@ -159,8 +159,8 @@ public class ShipCombatManager implements Base {
             Empire homeEmpire = sys.empire();
             boolean startCombat = false;
             // if both fleets are armed, we always have combat
-            if (fleet1Armed && fleet2Armed) 
-                startCombat = true; 
+            if (fleet1Armed && fleet2Armed)
+                startCombat = true;
             // if we have a colony that belongs to either of the fleets, combat 
             // rules are different
             else if (sys.isColonized()  && ((sys.empire() == emp1) || (sys.empire() == emp2))) {
@@ -170,9 +170,9 @@ public class ShipCombatManager implements Base {
                 // else if colony is unarmed we might have combat if one of the fleets is armed
                 // and there is a home fleet. If no home fleet, then this goes to the bombardment phase
                 else if (fleet1Armed || fleet2Armed) {
-                    if ((fleet1 != null) && (fleet1.empire() == homeEmpire)) 
+                    if ((fleet1 != null) && (fleet1.empire() == homeEmpire))
                         startCombat = true;
-                    else if ((fleet2 != null) && (fleet2.empire() == homeEmpire)) 
+                    else if ((fleet2 != null) && (fleet2.empire() == homeEmpire))
                         startCombat = true;
                }
             }
@@ -217,11 +217,11 @@ public class ShipCombatManager implements Base {
     private void battle(StarSystem sys, Empire emp1, Empire emp2) {
         finished = false;
         playerInBattle = emp1.isPlayerControlled() || emp2.isPlayerControlled();
-        
+
         ShipFleet fl1 = sys.orbitingFleetForEmpire(emp1);
         ShipFleet fl2 = sys.orbitingFleetForEmpire(emp2);
         int sysEmpId = sys.empId();
-        
+
         // each empire() gets an encounter scan of the opposing fleet
         // in addition, if a fleet has a NAP with the system empire(),
         // update the ownership for the system
@@ -233,7 +233,7 @@ public class ShipCombatManager implements Base {
             if (emp1.pactWith(sysEmpId))
                 emp1.sv.view(sys.id).setEmpire();
         }
-        
+
         if (fl2 != null) {
             if ((fl1 != null) && fl1.allowsScanning())
                 emp1.scanFleet(fl2);
@@ -412,13 +412,13 @@ public class ShipCombatManager implements Base {
         // don't automatically trigger war over uncolonized systems
         if (!system.isColonized())
             return;
-        
+
         // don't automatically trigger when emp2 stumbled into our system
         if (system.empire() == emp1)
             return;
         DiplomaticEmbassy emb1 = emp1.viewForEmpire(emp2).embassy();
         if (!emb1.anyWar()) {
-            if (emb1.onWarFooting())
+            if (emb1.onWarFooting() && options().canStartWar(emp1, emp2))
                 emb1.declareWar();
         }
     }
@@ -487,9 +487,9 @@ public class ShipCombatManager implements Base {
                     retreatStack(sh, dest);
                 }
                 showAnimations = prevShow;
-            }          
+            }
         }
-        
+
         // cancel the retreat of any ships that belong to the combat victor
         Empire victor = results.victor();
         if (victor != null) {
@@ -499,7 +499,7 @@ public class ShipCombatManager implements Base {
                 if (victor.shipLab().design(des.id()) == des) {
                     results.shipsRetreated().remove(des);
                     retreatsCancelled = true;
-                }        
+                }
             }
             if (retreatsCancelled)
                 galaxy().ships.cancelRetreatingFleets(victor.id, system().id);

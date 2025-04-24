@@ -21,6 +21,8 @@ public final class RulesOptions extends AbstractOptionsSubUI {
 		list.add(HEADER_SPACER_50);
 		list.addAll(AllSubUI.getHandle(GALAXY_RULES_UI_KEY).getUiMajor(false));
 		list.add(HEADER_SPACER_50);
+		list.add(AllSubUI.getHandle(AGGRESSIVITY_LEVEL_UI_KEY).getUI());
+		list.add(HEADER_SPACER_50);
 		list.addAll(AllSubUI.getHandle(COLONY_RULES_UI_KEY).getUiMajor(false));
 		map.add(list);
 
@@ -50,7 +52,7 @@ public final class RulesOptions extends AbstractOptionsSubUI {
 		list.addAll(AllSubUI.getHandle(SHIP_RULES_UI_KEY).getUiMajor(false));
 		list.add(HEADER_SPACER_50);
 		list.addAll(AllSubUI.getHandle(COMBAT_XILMI_AI_UI_KEY).getUiMajor(false));
-		list.add(HEADER_SPACER_100);
+		list.add(HEADER_SPACER_50);
 		list.add(RELEVANT_TITLE);
 		list.add(AllSubUI.getHandle(IN_GAME_OPTIONS_UI_KEY).getUI());
 		list.add(HEADER_SPACER_50);

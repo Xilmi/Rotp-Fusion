@@ -421,7 +421,7 @@ public final class Galaxy implements Base, Serializable {
 	                                BombardSystemNotification.create(sys.id, fl, true, 1);
 	                            }
 	                        }
-	                    }                
+	                    }
 	                }
 	            }
         	}
@@ -469,7 +469,12 @@ public final class Galaxy implements Base, Serializable {
                 emp.makeNextTurnDecisions();
         }
     }
-    public void validateOnLoad() {
+	public void startAlwaysAtWar()	{
+		for (Empire emp: empires())
+			if (!emp.extinct())
+				emp.startAlwaysAtWar();
+	}
+	public void validateOnLoad()	{
     	if (dynamicOptions == null)
     		dynamicOptions = new DynOptions();
     	if (galRandom == null) // For backward compatibility

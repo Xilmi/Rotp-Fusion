@@ -53,7 +53,7 @@ import rotp.ui.notifications.GNNAllianceFormedNotice;
 import rotp.ui.notifications.GNNAllyAtWarNotification;
 import rotp.util.Base;
 
-public class DiplomaticEmbassy implements Base, Serializable {
+public final class DiplomaticEmbassy implements Base, Serializable {
     private static final long serialVersionUID = 1L;
     public static final float MAX_ADJ_POWER = 10;
 
@@ -119,6 +119,8 @@ public class DiplomaticEmbassy implements Base, Serializable {
     public boolean muted()                               { return muted; }
     public void toggleMuted()                            { muted = !muted; }
     public void beginWarPreparations(String cb, DiplomaticIncident inc) {
+    	if (!options().canStartWar(view.owner().isPlayer(), view.isPlayer()))
+    		return;
         // don't replace an existing casus belli unless the new one is worse
         if (casusBelliInc != null) {
             if (casusBelliInc.moreSevere(inc))
@@ -144,7 +146,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
                 endWarPreparations();
             return;
         }
-        
+
         if (casusBelli != null) {
             // re-evaluate hate and opportunity
             switch(casusBelli) {
@@ -234,7 +236,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
     public boolean readyForTech()           { return techTimer <= 0; }
     public void resetTechTimer()            { techTimer = TECH_DELAY; }
     public boolean alreadyOfferedTech()     { return techTimer == TECH_DELAY; }
-    public boolean readyForPeace()          { return peaceTimer <= 0; }
+	public boolean readyForPeace()			{ return peaceTimer <= 0 && options().canStopWar(); }
     public void resetPeaceTimer()           { resetPeaceTimer(1); }
     public void resetPeaceTimer(int mult)   { peaceTimer = mult*PEACE_DELAY; }
     public boolean alreadyOfferedPeace()    { return peaceTimer == PEACE_DELAY; }
@@ -282,7 +284,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
     public boolean threatened()       { return threatened; }
     
     public boolean tooManyRequests()        { return requestCount > currentMaxRequests; }
-    public float otherRelations()          { return otherEmbassy().relations(); }
+    public float otherRelations()           { return otherEmbassy().relations(); }
     public int contactAge()                 { return (galaxy().currentYear() - contactYear); }
     public DiplomaticEmbassy otherEmbassy() { return view.otherView().embassy(); }
     public boolean tradePraised()           { return tradePraised; }
@@ -395,7 +397,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
     public void recallAmbassador()     { diplomatGoneTimer = Integer.MAX_VALUE; }
     public void openEmbassy()          { diplomatGoneTimer = 0; }
     public boolean diplomatGone()      { return diplomatGoneTimer > 0;  }
-    public boolean wantWar()           { return otherEmbassy().relations() < -50; }
+	public boolean wantWar() { return otherEmbassy().relations() < -50 && options().canStartWar(owner().isPlayer(), view.isPlayer()); }
     public boolean isAlly()            { return (alliance() || unity()); }
     public boolean alliedWithEnemy() {
         List<Empire> myEnemies = owner().warEnemies();
@@ -426,10 +428,10 @@ public class DiplomaticEmbassy implements Base, Serializable {
         view.otherView().setSuggestedAllocations();
     }
     public boolean isFriend()    { return pact() || alliance() || unity(); }
-    public boolean isEnemy()     { return anyWar() || onWarFooting(); }
+	public boolean isEnemy() { return anyWar() || (onWarFooting() && options().canStartWar(owner().isPlayer(), view.isPlayer())); }
     public boolean anyWar()      { return war() || finalWar(); }
     public boolean atPeace()     { return peaceTreatyInEffect(); }
-	public boolean menacing()	 { return anyWar() || onWarFooting(); }
+	public boolean menacing() { return anyWar() || (onWarFooting() && options().canStartWar(owner().isPlayer(), view.isPlayer())); }
 	public boolean hostile()	 { return !isFriend(); }
 	public boolean noEntente()	 { return !isFriend() && !atPeace(); }
 
@@ -479,9 +481,8 @@ public class DiplomaticEmbassy implements Base, Serializable {
         casusBelliInc = null;
         return declareWar(requestor);
     }
-    public DiplomaticIncident declareWar() {
-        return declareWar(null);
-    }
+	public void startAlwaysAtWar()			{ if (!war()) declareWar(null); }
+	public DiplomaticIncident declareWar()	{ return declareWar(null); }
     public DiplomaticIncident declareWar(Empire requestor) {
         endTreaty();
         int oathBreakType = 0;
@@ -542,7 +543,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
                 OathBreakerIncident.alertBrokenAlliance(owner(),empire(),requestor,false); break;
             case 2: OathBreakerIncident.alertBrokenPact(owner(),empire(),requestor,false); break;
         }
-        
+
         // if the player is one of our allies, let him know
         if (!finalWar) {
             for (Empire ally : owner().allies()) {
@@ -555,7 +556,7 @@ public class DiplomaticEmbassy implements Base, Serializable {
                     GNNAllyAtWarNotification.create(empire(), owner());
             }
         }
-        
+
         if (empire().isPlayerControlled()) 
             galaxy().giveAdvice("MAIN_ADVISOR_RALLY_POINTS", owner(), owner().raceName());
         else if  (owner().isPlayerControlled())
@@ -703,12 +704,14 @@ public class DiplomaticEmbassy implements Base, Serializable {
             }
         }
     }
-    public void makeFirstContact() {
-        log("First Contact: ", owner().name(), " & ", empire().name());
-        setContact();
-        if (empire().isPlayerControlled())
-            DiplomaticNotification.create(view, owner().leader().dialogueContactType());
-    }
+	public void makeFirstContact() {
+		log("First Contact: ", owner().name(), " & ", empire().name());
+		setContact();
+		if (options().alwaysAtWar())
+			startAlwaysAtWar();
+		else if (empire().isPlayerControlled())
+		 	DiplomaticNotification.create(view, owner().leader().dialogueContactType());
+	}
     public void removeContact() {
         contact = false;
         resetTreaty();

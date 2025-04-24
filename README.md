@@ -44,15 +44,15 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-2025.04.21 (BR)
-- Fixed "Concurrent Modification Exception" in Ship combat Manager.
-- Added distinct Messages for when rebels repel invasion, or are eliminated.
-- Fixed retaking abandoned system with surrendering transports.
-  - Surrendering transports size were set to -1, and were not always checked for surrendering.
-    - While joining an abandoned colony, its size was negative.
-    - While joining non surrendering transport, their size were reduced by one.
-  - Surrendering transports size is now set to 0, and a surrendering flag is set.
-  - Abandoned colony will only accept non empty transport.
+2025.04.24 (BR)
+- New option to set the wariness level.
+  - Normal.
+  - No war are allowed.
+  - AI can't declare war. (The player can)
+  - AI can declare war on an AI but not on the player. (The player can)
+  - Permanent war. (No peace allowed)
+  - Skirmishes can be allowed or not.
+  - Expansions warnings can be disabled.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

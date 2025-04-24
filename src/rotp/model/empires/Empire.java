@@ -1034,11 +1034,16 @@ public final class Empire implements Base, NamedObject, Serializable {
             }
         }
     }
-    public void validateOnLoad() {
+	public void startAlwaysAtWar()	{
+		for(EmpireView view : empireViews)
+			if (view != null && !view.extinct())
+				view.embassy().startAlwaysAtWar();
+	}
+	public void validateOnLoad()	{
     	if (dynamicOptions == null)
     		dynamicOptions = new DynOptions();
 		tech().validateOnLoad();
-        for(EmpireView view : this.empireViews)
+        for(EmpireView view : empireViews)
             if(view != null)
                 view.validateOnLoad();
     }
@@ -2502,8 +2507,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     public int numEnemies() {
         int n = 0;
         for (EmpireView v : empireViews()) {
-            if ((v!= null) && !v.extinct()
-            && (v.embassy().anyWar() || v.embassy().onWarFooting()))
+            if ((v!= null) && !v.extinct() && v.embassy().isEnemy())
+//            && (v.embassy().anyWar() || v.embassy().onWarFooting()))
                 n++;
         }
         return n;
@@ -2527,16 +2532,16 @@ public final class Empire implements Base, NamedObject, Serializable {
 	public List<EmpireView> enemiesView() {
 		List<EmpireView> r = new ArrayList<>();
 		for (EmpireView v : empireViews())
-			if ((v!= null) && !v.extinct()
-					&& (v.embassy().anyWar() || v.embassy().onWarFooting()))
+			if ((v!= null) && !v.extinct() && v.embassy().isEnemy())
+//					&& (v.embassy().anyWar() || v.embassy().onWarFooting()))
 				r.add(v);
 		return r;
 	}
     public List<Empire> enemies() {
         List<Empire> r = new ArrayList<>();
         for (EmpireView v : empireViews()) {
-            if ((v!= null) && !v.extinct()
-            && (v.embassy().anyWar() || v.embassy().onWarFooting()))
+            if ((v!= null) && !v.extinct() && v.embassy().isEnemy())
+//            && (v.embassy().anyWar() || v.embassy().onWarFooting()))
                 r.add(v.empireUncut());
         }
         return r;
@@ -2548,16 +2553,16 @@ public final class Empire implements Base, NamedObject, Serializable {
         boolean[] map = new boolean[empViews.length];
         for (int i=0;i<map.length;i++) {
             EmpireView v = empViews[i];
-            map[i] = (v != null) && !v.extinct()
-                        && (v.embassy().anyWar() || v.embassy().onWarFooting());
+            map[i] = (v != null) && !v.extinct() && v.embassy().isEnemy();
+//                        && (v.embassy().anyWar() || v.embassy().onWarFooting());
         }
         return map;
     }
     public List<EmpireView> enemyViews() {
         List<EmpireView> r = new ArrayList<>();
         for (EmpireView v : empireViews()) {
-            if ((v!= null) && !v.extinct()
-            && (v.embassy().anyWar() || v.embassy().onWarFooting()))
+            if ((v!= null) && !v.extinct() && v.embassy().isEnemy())
+//            && (v.embassy().anyWar() || v.embassy().onWarFooting()))
                 r.add(v);
         }
         return r;
@@ -2666,7 +2671,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         EmpireView v = viewForEmpire(empId);
         if (v == null)
             return false;
-        
+
         if (v.embassy().peaceTreatyInEffect())
             return false;
         return v.embassy().canAttackWithoutPenalty();

@@ -16,21 +16,22 @@
 package rotp.model.ai.interfaces;
 
 import java.util.List;
+
 import rotp.model.combat.ShipCombatResults;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.empires.Leader.Personality;
-import rotp.model.incidents.DiplomaticIncident;
 import rotp.model.incidents.BioweaponIncident;
+import rotp.model.incidents.DiplomaticIncident;
 // modnar: add incidents for modnar-AI
 import rotp.model.incidents.EspionageTechIncident;
 import rotp.model.incidents.FinancialAidIncident;
 import rotp.model.incidents.SpyConfessionIncident;
 import rotp.model.incidents.TradeIncomeIncident;
-import rotp.ui.diplomacy.DiplomaticReply;
 import rotp.model.tech.Tech;
 import rotp.ui.diplomacy.DiplomaticCounterReply;
+import rotp.ui.diplomacy.DiplomaticReply;
 
 public interface Diplomat {
     boolean canOfferDiplomaticTreaties(Empire e);
@@ -42,15 +43,15 @@ public interface Diplomat {
     boolean canEvictSpies(Empire e);
     boolean canThreatenSpying(Empire e);
     boolean canThreatenAttacking(Empire e);
-    
+
     List<Integer> offerAidAmounts();
     List<Tech> offerableTechnologies(Empire emp);
-    
+
     void noticeIncident(DiplomaticIncident inc, Empire e);
     void makeDiplomaticOffers(EmpireView ev);
     Empire councilVoteFor(Empire emp1, Empire emp2);
     void acceptCouncilRuling(GalacticCouncil c);
-    
+
     void noticeNoRelationIncident(EmpireView v, List<DiplomaticIncident> incidents);
     void noticeAtWarWithAllyIncidents(EmpireView v, List<DiplomaticIncident> incidents);
     void noticeAlliedWithEnemyIncidents(EmpireView v, List<DiplomaticIncident> incidents);
@@ -58,7 +59,7 @@ public interface Diplomat {
     void noticeExpansionIncidents(EmpireView v, List<DiplomaticIncident> incidents);
     void noticeBuildupIncidents(EmpireView v, List<DiplomaticIncident> incidents);
     DiplomaticIncident noticeSkirmishIncident(ShipCombatResults res);
-    
+
     DiplomaticReply receiveFinancialAid(Empire e, int amt);
     DiplomaticReply receiveTechnologyAid(Empire e, String techId);
     DiplomaticReply receiveThreatEvictSpies(Empire e);
@@ -89,7 +90,7 @@ public interface Diplomat {
     boolean willingToOfferAlliance(Empire e);
     boolean wantToDeclareWarOfHate(EmpireView v);
     boolean wantToDeclareWarOfOpportunity(EmpireView v);
-    
+
     List<Tech> techsAvailableForRequest(Empire emp);
     List<Tech> techsRequestedForCounter(Empire emp, Tech t);
     DiplomaticReply receiveRequestTech(Empire emp, Tech t);
@@ -112,7 +113,7 @@ public interface Diplomat {
     float leaderPreserveTreatyMod();
     float leaderAffinityMod(Personality p1, Personality p2);
     boolean leaderHatesAllSpies();
-    
+
     // generic api for overriding diplomat incident settings
     // create as needed for incidents, but always set default return false to false
     // when overriding, set return to true.
@@ -122,7 +123,7 @@ public interface Diplomat {
     default boolean setSeverityAndDuration(FinancialAidIncident inc)  { return false; }
     default boolean setSeverityAndDuration(SpyConfessionIncident inc, float spySeverity)  { return false; }
     default boolean setSeverityAndDuration(TradeIncomeIncident inc)  { return false; }
-    
+
     //Xilmi-AI:
     default int popLossToTriggerWar() { return 1; }
     default boolean masksDiplomacy() { return false; }
