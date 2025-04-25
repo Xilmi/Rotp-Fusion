@@ -2,6 +2,10 @@
 
 ## What's New
 
+2025.04.25 (BR)
+- New option to automatically label a design with colonization capabilities as "Auto Colonize".
+- New option to automatically label a small or medium hull design with extended range capabilities as "Auto Scout".
+
 2025.04.24 (BR)
 - New option to set the wariness level.
   - Normal.

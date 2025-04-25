@@ -4365,6 +4365,12 @@ SHIP_DESIGN_SPECIAL_SIZE          | Taille
 SHIP_DESIGN_SPECIAL_POWER         | Puiss.
 SHIP_DESIGN_SPECIAL_SPACE         | Espace
 
+// Auto tag Design
+AUTO_SD_AUTO_TAG_COLON			| Colons auto reconnus : %1
+AUTO_SD_AUTO_TAG_COLON_DESC		| Les vaisseaux dotés d'un module de colonisation, et qui ne sont pas trop armés, seront identifiés en tant que colonisateurs automatisés lors de leur activation.
+AUTO_SD_AUTO_TAG_SCOUT			| Éclaireurs auto reconnus : %1
+AUTO_SD_AUTO_TAG_SCOUT_DESC		| Les vaisseaux de petite et moyenne taille, avec réservoir supplémentaire, seront identifiés en tant qu’éclaireurs automatisés lors de leur activation.
+
 // Auto Design
 AUTO_SD_AI						| Aie confiance
 AUTO_SD_AI_DESC					| Inspiré par les outils utilisés par la famille d’AI de Xilmi.
@@ -4455,6 +4461,8 @@ AUTO_SD_PREF_TECH_NULLIF_DESC	| →AUTO_SD_PREF_DESC← les dispositifs annulate
 AUTO_SD_PREF_BEAM_FOCUS			| Focalisateurs d’énergie : %1 %
 AUTO_SD_PREF_BEAM_FOCUS_DESC	| →AUTO_SD_PREF_DESC← les dispositifs focalisateurs d’énergie ? (Concentration à haute énergie et Interface Oracle)
 
+HEADERS_AUTO_SD_AUTO_TAG		| ~~~ ÉTIQUETAGE AUTOMATIQUE ~~~
+HEADERS_AUTO_SD_AUTO_TAG_DESC	| Les navires reconnus comme éclaireurs ou colonisateurs seront automatiquement marqués pour un envoi automatisé.
 HEADERS_AUTO_SD_SIZE			| ~~~ SURCOÛT DES COQUES ~~~
 HEADERS_AUTO_SD_SIZE_DESC		| Ajustements des coûts des coques. Plus le Surcoût est élevé, plus les coûts estimés sont élevés, et moins il sera probable que cette coque soit choisie.
 HEADERS_AUTO_SD_SPACE			| ~~~ RÉPARTITION DES ESPACES ~~~
@@ -5476,7 +5484,7 @@ AUTO_ATTACK_ALL						| Tous
 AUTO_ATTACK_ALL_HELP				| Envoyons nos vaisseaux vers tous les empires, le temps de la guerre n’est plus si lointain.
 
 GOVERNOR_ARMED_COLONIZER_GUARD_DESC	| Les vaisseaux armés ayant des modules de colonisation garderont les planètes.
-GOVERNOR_ARMED_COLONIZER_GUARD		| Les colonisateurs armés gardent :: %1
+GOVERNOR_ARMED_COLONIZER_GUARD		| Les colonisateurs armés gardent : %1
 GOVERNOR_ARMED_SCOUT_GUARD_DESC		| Les éclaireurs armés garderont les planètes non colonisées qu’ils ont découvertes.
 GOVERNOR_ARMED_SCOUT_GUARD			| Les éclaireurs armés gardent : %1
 GOVERNOR_AUTO_SCOUT_SMART_HELP		| Pour éviter que nos éclaireurs ne traversent sans cesse notre espace d’un bout à l’autre, les éclaireurs déjà déployés auront un rayon d’action plus limité.<br>Ceux des colonies pourront toujours être déployés sur de longues distances.<br>Plus tard, si un éclaireur est plus proche d’une étoile déjà ciblée, il sera également dirigé vers cette étoile afin de la découvrir au plus vite.

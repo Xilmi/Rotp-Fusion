@@ -109,6 +109,8 @@
 
 ### Governor:
 
+- New option to automatically label a design with colonization capabilities as "Auto Colonize".
+- New option to automatically label a small or medium hull design with extended range capabilities as "Auto Scout".
 - New governor option to update spendings after spy allocation is increased.
 - New option to delay spy training when in contact with an empire. This is to avoid any changes to spending allocations.
 - Added an option for armed auto-colonizer to guard or not their colonies. (If tagged as Attack, they will always guard.)

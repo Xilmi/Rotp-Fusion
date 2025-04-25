@@ -94,7 +94,7 @@ final class ConfirmCreateUI extends BasePanel implements KeyListener, MouseListe
     public void paintComponent(Graphics g0) {
         Graphics2D g = (Graphics2D) g0;
         super.paintComponent(g);
-        
+
         DesignUI.instance.paint(g0);
         nameField.requestFocus();
         int w = getWidth();
@@ -119,7 +119,7 @@ final class ConfirmCreateUI extends BasePanel implements KeyListener, MouseListe
         int lineSep = s20;
         int numSep = titleLines.size()-1;
         int extraH = lineSep * numSep;
-        
+
         // draw border
         int dlgH = scaled(DIALOG_H)+extraH;
         List<String> amtLines = null; 
@@ -130,7 +130,7 @@ final class ConfirmCreateUI extends BasePanel implements KeyListener, MouseListe
             amtLines = wrappedLines(g, descString,  w0);
             dlgH = scaled(DIALOG_H)+(amtLines.size()*s16)+extraH;        
         }
-        
+
         int dlgX = (w-dlgW)/2;
         int dlgY = (h-dlgH+extraH)/2;
         g.setColor(borderC);
@@ -154,9 +154,6 @@ final class ConfirmCreateUI extends BasePanel implements KeyListener, MouseListe
         g.setFont(narrowFont(20));
 //        List<String> titleLines = wrappedLines(g, titleString, w0);
 
-        
-        
-        
         int y1 = y0 + s25;
         g.setColor(SystemPanel.whiteText);
         for (String line: titleLines) {
@@ -258,7 +255,7 @@ final class ConfirmCreateUI extends BasePanel implements KeyListener, MouseListe
         am0.put(CANCEL_ACTION, new CancelAction());
         am0.put(ACCEPT_ACTION, new CreateAction());
         nameField.addKeyListener(this);
-        
+
         addMouseListener(this);
         addMouseMotionListener(this);
         nameField.addMouseListener(this);
@@ -296,8 +293,9 @@ final class ConfirmCreateUI extends BasePanel implements KeyListener, MouseListe
             targetDesign.name(text("SHIP_DESIGN_UNNAMED_DESIGN"));
         else
             targetDesign.name(name);
-        
+
         targetDesign.clearEmptyWeapons();
+		targetDesign.checkForAutoTag();
 
         hoverTarget = null;
         disableGlassPane();

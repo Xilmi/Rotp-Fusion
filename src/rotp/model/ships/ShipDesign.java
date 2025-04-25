@@ -827,6 +827,12 @@ public final class ShipDesign extends Design {
         resetBuildCount();
         usedCount = 0;
     }
+	private boolean weaponSlotsFilled()	{
+		for (int count : wpnCount)
+			if (count == 0)
+				return false;
+		return true;
+	}
 	public int autoShipCount(int id)	{
 		switch (id) {
 			case SCOUT:	 return autoScoutShipCount();
@@ -834,6 +840,21 @@ public final class ShipDesign extends Design {
 			default:	 return autoAttackShipCount();
 		}
 	}
+	public void checkForAutoTag()		{
+		if (options().autoTagAutoColon()) {
+			if (hasColonySpecial() && !weaponSlotsFilled()) {
+				setAutoColonize(true);
+				return;
+			}
+		}
+		if (options().autoTagAutoScout()) {
+			if (isExtendedRange() && size()<=MEDIUM) {
+				setAutoScout(true);
+				return;
+			}
+		}
+	}
+
 	public boolean isAutoScout()					{ return autoScout; }
 	public void setAutoScout(boolean auto)			{ autoScout = auto; }
 	public void autoScoutShipCount(int shipCount)	{ autoScoutShipCount = shipCount; }

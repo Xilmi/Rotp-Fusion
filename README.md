@@ -44,15 +44,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-2025.04.24 (BR)
-- New option to set the wariness level.
-  - Normal.
-  - No war are allowed.
-  - AI can't declare war. (The player can)
-  - AI can declare war on an AI but not on the player. (The player can)
-  - Permanent war. (No peace allowed)
-  - Skirmishes can be allowed or not.
-  - Expansions warnings can be disabled.
+2025.04.25 (BR)
+- New option to automatically label a design with colonization capabilities as "Auto Colonize".
+- New option to automatically label a small or medium hull design with extended range capabilities as "Auto Scout".
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

@@ -130,7 +130,7 @@ public class ShipDesignLab implements Base, Serializable {
         if (prototypeDesign == null)
             prototypeDesign = newBlankDesign(ShipDesign.SMALL);
         return prototypeDesign;
-    }  
+    }
     public boolean slotInUse(int slot) {
         return (slot == scoutDesignId) || (slot == bomberDesignId) || (slot == fighterDesignId)
                 || (slot == colonyDesignId) || (slot == destroyerDesignId);
@@ -157,13 +157,14 @@ public class ShipDesignLab implements Base, Serializable {
         // shield, armor, engine added by starting techs
         addWeapon(new ShipWeapon());
         addSpecial(new ShipSpecial());
-        
+
         loadInitialDesigns();
-        
+
         // modnar: add battleScout option to give player super Scout design
         if ( c.isPlayerControlled() && options().selectedBattleScout() ) { 
             ShipDesign design;
             design = battleScoutDesign();
+			design.checkForAutoTag();
             setFighterDesign(design, 5);
         }
     }
@@ -199,19 +200,20 @@ public class ShipDesignLab implements Base, Serializable {
         bomberDesignId = 2;
         destroyerDesignId = 3;
         colonyDesignId = 4;
-        
-        if (empire.id < 0) // BR: Monster Empire
-        	return;
-        
+
+		if (empire.isMonster())
+			return;
+		boolean isPlayer = empire.isPlayer();
+		boolean isActive = !(isPlayer && options().scoutAndColonyOnly());
+
         ShipDesign design;
         rotp.model.ai.xilmi.NewShipTemplate nst = new rotp.model.ai.xilmi.NewShipTemplate();
 
         design = startingScoutDesign();
         setScoutDesign(design, 0);
+		if (isPlayer)
+			design.checkForAutoTag();
 
-        boolean isPlayer = empire.isPlayer();
-        boolean isActive = !(isPlayer && options().scoutAndColonyOnly());
- 
         design = nst.autoDestroyerDesign(empire.shipDesignerAI(), 0);
         if (isPlayer)
             design.name(text("SHIP_DESIGN_1ST_FIGHTER_NAME"));
@@ -234,7 +236,8 @@ public class ShipDesignLab implements Base, Serializable {
 
         design = startingColonyDesign();
         setColonyDesign(design, 4);
-        
+		if (isPlayer)
+			design.checkForAutoTag();
     }
     public void nextTurn() {
         for (int i=0;i<designs.length;i++) {

@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 
@@ -47,6 +48,13 @@ interface IShipDesignOption extends IBaseOptsTools {
 	int ASD_BOOLEAN	= 3;
 	int ASD_SPECIAL	= 4;
 
+	ParamBoolean autoTagAutoColon		= new ParamBoolean(AUTO_SHIP_DESIGN, "AUTO_TAG_COLON", false)
+			.isCfgFile(true);
+	default boolean autoTagAutoColon()	{ return autoTagAutoColon.get(); }
+	ParamBoolean autoTagAutoScout		= new ParamBoolean(AUTO_SHIP_DESIGN, "AUTO_TAG_SCOUT", false)
+			.isCfgFile(true);
+	default boolean autoTagAutoScout()	{ return autoTagAutoScout.get(); }
+	
 	ParamShipDesignMode autoShipDesignSize		= new ParamShipDesignMode( "SIZE");
 	ParamShipDesignMode autoShipDesignSpace		= new ParamShipDesignMode( "SPACE");
 	ParamShipDesignMode autoShipDesignBoolean	= new ParamShipDesignMode( "BOOLEAN");

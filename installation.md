@@ -20,8 +20,8 @@ You don't need to install Java.
 - Download ROTP-Fusion and stick in in a directory. It could be ~/Games/ROTP
 - Bring up a terminal
 - CD to the ROTP directory
-- Start the progrm with something like: java -jar rotp-Fusion-2024-06-07.jar
-- Some Linux OS are memory stingy and need to be told to not hog memory
+- Start the program with something like: java -jar rotp-Fusion-2024-06-07.jar
+- Some Linux OS are memory stingy and need to be told to not hog memory.
   - java -Xmx4096m -jar rotp-Fusion-2024-06-07.jar arg1
   - The dummy argument "arg1" tells ROTP to just assume everything is fine and start with whatever memory is allocated.
 

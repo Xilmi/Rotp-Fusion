@@ -4365,6 +4365,12 @@ SHIP_DESIGN_SPECIAL_SIZE          | Size
 SHIP_DESIGN_SPECIAL_POWER         | Power
 SHIP_DESIGN_SPECIAL_SPACE         | Space
 
+// Auto tag Design
+AUTO_SD_AUTO_TAG_COLON			| Auto Tag Colony Ships: %1
+AUTO_SD_AUTO_TAG_COLON_DESC		| Designs with a colonization module, that are not overly armed, will receive the auto-colonization flag upon activation.
+AUTO_SD_AUTO_TAG_SCOUT			| Auto Tag Scout Ships: %1
+AUTO_SD_AUTO_TAG_SCOUT_DESC		| Small and medium hull long range designs will get the auto scout tag when set active.
+
 // Auto Design
 AUTO_SD_AI						| Trust AI
 AUTO_SD_AI_DESC					| Inspired by the tools used by Xilmi's AI family.
@@ -4455,6 +4461,8 @@ AUTO_SD_PREF_TECH_NULLIF_DESC	| →AUTO_SD_PREF_DESC← Technology Nullifier dev
 AUTO_SD_PREF_BEAM_FOCUS			| Beam Focus: %1%
 AUTO_SD_PREF_BEAM_FOCUS_DESC	| →AUTO_SD_PREF_DESC← High Energy Focus and Oracle Interface devices
 
+HEADERS_AUTO_SD_AUTO_TAG		| ~~~ AUTO TAG DESIGNS ~~~
+HEADERS_AUTO_SD_AUTO_TAG_DESC	| Ships recognized as scouts or colonizers will be automatically marked for automated dispatch.
 HEADERS_AUTO_SD_SIZE			| ~~~ HULL COST ADJUSTMENTS ~~~
 HEADERS_AUTO_SD_SIZE_DESC		| Hull cost adjustments. Higher means estimated costs more, means less likely to build.
 HEADERS_AUTO_SD_SPACE			| ~~~ SPACE DISTRIBUTION ~~~

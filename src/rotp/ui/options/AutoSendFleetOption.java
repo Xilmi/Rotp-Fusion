@@ -21,18 +21,22 @@ final class AutoSendFleetOption extends AbstractOptionsSubUI {
 				autoScoutNearFirst,
 				autoScoutMaxTime,
 				LINE_SPACER_25,
-				armedScoutGuard
+				armedScoutGuard,
+				LINE_SPACER_25,
+				autoTagAutoScout
 				)));
 		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("AUTO_ATTACK"),
+				new ParamTitle("GOVERNOR_AUTO_ATTACK"),
 				fleetAutoAttackMode,
 				autoAttackEmpire
 				)));
 		map.add(new SafeListParam(Arrays.asList(
-				new ParamTitle("AUTO_COLONIZE"),
+				new ParamTitle("GOVERNOR_AUTO_COLONIZE"),
 				fleetAutoColonizeMode,
 				armedColonizerGuard,
-				autoColonize_
+				autoColonize_,
+				LINE_SPACER_25,
+				autoTagAutoColon
 				)));
 		return map;
 	};
@@ -53,11 +57,13 @@ final class AutoSendFleetOption extends AbstractOptionsSubUI {
 						autoScoutNearFirst,
 						autoScoutMaxTime,
 						armedScoutGuard,
-						LINE_SPACER_25,
+						autoTagAutoScout,
+						HEADER_SPACER_50,
 						fleetAutoColonizeMode,
 						armedColonizerGuard,
 						autoColonize_,
-						LINE_SPACER_25,
+						autoTagAutoColon,
+						HEADER_SPACER_50,
 						fleetAutoAttackMode,
 						autoAttackEmpire
 						));
