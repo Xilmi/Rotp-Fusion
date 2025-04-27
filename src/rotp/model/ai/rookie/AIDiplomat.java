@@ -1095,6 +1095,8 @@ public class AIDiplomat implements Base, Diplomat {
         return empire.respond(DialogueManager.DECLARE_HATE_WAR, inc, e);
     }
     private boolean decidedToBreakAlliance(EmpireView view) {
+		if (options().alwaysAlly())
+			return false;
         if (!wantToBreakAlliance(view))
             return false;
 

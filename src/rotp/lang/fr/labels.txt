@@ -3183,7 +3183,7 @@ SETTINGS_MOD_MAX_LANDING_IA_FACTOR       | Pourcentage IA : %1 %
 SETTINGS_MOD_GAME_AGGRESSIVENESS_DESC	| Quel niveau de bellicisme est acceptable ?
 SETTINGS_MOD_GAME_AGGRESSIVENESS		| Bellicisme : %1
 SETTINGS_MOD_AGGRESSIV_NORMAL_DESC		| N’importe qui peut déclencher une guerre contre n’importe qui.
-SETTINGS_MOD_AGGRESSIV_NORMAL			| Normale
+SETTINGS_MOD_AGGRESSIV_NORMAL			| Normal
 SETTINGS_MOD_AGGRESSIV_AI_WAR_OK_DESC	| Une IA peut déclarer la guerre à une autre IA, mais pas au joueur. Le joueur peut cependant déclarer la guerre à une IA, les alliés des IA en guerre peuvent alors se joindre la guerre contre le joueur.
 SETTINGS_MOD_AGGRESSIV_AI_WAR_OK		| Guerres d’IA permises
 SETTINGS_MOD_AGGRESSIV_AI_NO_WAR_DESC	| Une IA ne peut pas déclarer la guerre, ni au joueur, ni à une IA. Le joueur peut cependant déclarer la guerre à une IA, les alliés des IA en guerre peuvent alors se joindre la guerre contre le joueur et les autres IA.
@@ -3192,6 +3192,8 @@ SETTINGS_MOD_AGGRESSIV_NEVER_WAR_DESC	| Même le joueur ne peut pas déclarer la
 SETTINGS_MOD_AGGRESSIV_NEVER_WAR		| Les guerres sont interdites
 SETTINGS_MOD_AGGRESSIV_ALWAYS_WAR_DESC	| Tous les empires sont en guerre permanente, soit dès le début de la partie, soit dès le tour suivant son activation. Désactiver cette option n'arrêtera pas immédiatement les guerres ; les diplomates jugeront du moment opportun.
 SETTINGS_MOD_AGGRESSIV_ALWAYS_WAR		| Guerre totale
+SETTINGS_MOD_AGGRESSIV_ALLIANCE_DESC	| Tous les empires vivent en symbiose et deviennent alliés dès le premier contact, sans possibilité de rompre le pacte.
+SETTINGS_MOD_AGGRESSIV_ALLIANCE			| Symbiose
 
 SETTINGS_MOD_SKIRMISHES_ALLOWED_HELP	| Des escarmouches peuvent-elles se produire lorsque les guerres sont interdites ?<br>Des combats peuvent survenir pour défendre une planète non colonisée, et certaines bombes peuvent être larguées « accidentellement » sur des colonies.<br>Si le joueur est le seul à pouvoir déclarer la guerre, ce paramètre s’applique également à lui ; il ne pourra pas déclencher unilatéralement des escarmouches, il doit déclarer formellement la guerre avant de commencer les hostilités.
 SETTINGS_MOD_SKIRMISHES_ALLOWED_DESC	| Des escarmouches peuvent-elles se produire lorsque les guerres sont interdites ?
@@ -4645,7 +4647,7 @@ RACES_DIPLOMAT_RECALLED           | Diplomate [alien_raceadjec] rappelé
 RACES_DIPLOMATS_RECALLED          | Diplomates rappelés
 
 RACES_DIPLOMACY_HOMEWORLD         | Planète
-RACES_DIPLOMACY_LEADER            | Leader
+RACES_DIPLOMACY_LEADER            | Chef
 RACES_DIPLOMACY_CURRENT_TRADE     | Revenu commercial courant
 RACES_DIPLOMACY_TOTAL_TRADE       | Total des traités commerciaux
 RACES_DIPLOMACY_TRADE_AMT         | %1 BC
@@ -4683,6 +4685,9 @@ RACES_DIPLOMACY_EVENT_RACE        | Race
 RACES_DIPLOMACY_EVENT_TITLE       | Incident diplomatique
 RACES_DIPLOMACY_EVENT_EFFECT      | Effet
 RACES_DIPLOMACY_ABILITY           | Aptitudes de l’espèce
+RACES_DIPLOMACY_FLEETS_POWER_RATIO	| Rapport de puissance des flottes
+RACES_DIPLOMACY_EMPIRES_POWER_RATIO	| Rapport de puissance des empires
+RACES_DIPLOMACY_AGE					| (%1)
 RACES_MANAGE_DIALOG_OK            | OK
 RACES_MANAGE_REINSTATE_DIPLOMAT   | Réintégrer votre Diplomate
 RACES_MANAGE_RECALL_DIPLOMAT      | Rappeler votre Diplomate
@@ -5091,7 +5096,7 @@ GAME_OVER_REBELLION_LEADER_LOSS_E         | Dirigeant Fou vaincu pendant sa réb
 GAME_OVER_REBELLION_CHALLENGER_LOSS_E     | Opposant vaincu pendant sa rébellion
 GAME_OVER_REBELLION_FOLLOWER_LOSS_E       | Détruit suite à la rébellion
 GAME_OVER_MILITARY_WIN_E                  | Extermination Galactique
-GAME_OVER_MILITARY_ALLIANCE_WIN_E         | Survivant Graçe à une Alliance
+GAME_OVER_MILITARY_ALLIANCE_WIN_E         | Victorieux par la Grâce de vos Alliés
 GAME_OVER_DIPLOMATIC_WIN_E                | →GAME_OVER_DIPLOMATIC_WIN←
 GAME_OVER_DIPLO_FEARED_WIN_E              | Dirigeant Redouté d’une Galaxie Unie
 GAME_OVER_DIPLO_MAJOR_WIN_E               | Dirigeant d’une galaxie unie

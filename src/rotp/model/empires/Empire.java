@@ -1034,6 +1034,11 @@ public final class Empire implements Base, NamedObject, Serializable {
             }
         }
     }
+	public void startAlwaysAlly()	{
+		for(EmpireView view : empireViews)
+			if (view != null && !view.extinct())
+				view.embassy().startAlwaysAlly();
+	}
 	public void startAlwaysAtWar()	{
 		for(EmpireView view : empireViews)
 			if (view != null && !view.extinct())

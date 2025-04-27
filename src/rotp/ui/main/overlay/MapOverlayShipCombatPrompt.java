@@ -987,7 +987,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
 
             		// Fleets power
             		ys += lineH;
-            		str = "Military Power Ratio";
+            		str = text("RACES_DIPLOMACY_FLEETS_POWER_RATIO");
             		g.drawString(str, xs, ys);
             		int age =  alien.status().age(player());
             		float alienPower  = alien.status().lastViewValue(player, EmpireStatus.FLEET);
@@ -995,14 +995,14 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             		float ratio = playerPower/alienPower;
             		str = df1.format(ratio);
             		if (age>1) // Current turn has not been computed
-            			str += "(" + (age-1) + ")";
+					str += text("RACES_DIPLOMACY_AGE", (age-1));
             		sw = g.getFontMetrics().stringWidth(str);
             		xv = xe - sw;
             		g.drawString(str, xv, ys);
 
             		// Empires power
             		ys += lineH;
-            		str = "Empires Power Ratio";
+            		str = text("RACES_DIPLOMACY_EMPIRES_POWER_RATIO");
             		g.drawString(str, xs, ys);
             		age =  alien.status().age(player());
             		alienPower  = alien.status().lastViewValue(player, EmpireStatus.POWER);
@@ -1010,7 +1010,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             		ratio = playerPower/alienPower;
             		str = df1.format(ratio);
             		if (age>1) // Current turn has not been computed
-            			str += "(" + (age-1) + ")";
+					str += text("RACES_DIPLOMACY_AGE", (age-1));
             		sw = g.getFontMetrics().stringWidth(str);
             		xv = xe - sw;
             		g.drawString(str, xv, ys);

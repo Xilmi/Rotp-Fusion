@@ -235,7 +235,7 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
 	}
 	private void drawGovernorButton(Graphics2D g, boolean hovered)	{
 		Color borderC, titleC;
-		Boolean isGovernor = isGovernor();
+		Boolean isGovernor = isGovernor(null);
 		String title;
 		if (isGovernor == null)
 			title = text("GOVERNOR_IS_ON_AND_OFF_BUTTON");
@@ -375,7 +375,7 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
             y0 += s15;
         }
     }
-	private Boolean isGovernor()	{
+	private Boolean isGovernor(Boolean yesAndNo)	{
 		List<StarSystem> systems = parent.systemsToDisplay();
 		boolean yes = false;
 		boolean no  = false;
@@ -385,7 +385,7 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
 			else
 				no = true;
 			if (yes && no)
-				return null;
+				return yesAndNo;
 		}
 		return yes;
 	}
@@ -557,26 +557,7 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
 		repaint();
 	}
 
-	private void mouseToggleGovernor() {
-		Boolean isGovernor = isGovernor();
-		if (isGovernor == null)
-			setGovernor(true);
-		else
-			setGovernor(!isGovernor);
-	}
-	void toggleGovernor() {
-        List<StarSystem> systems = parent.systemsToDisplay();
-        for (StarSystem sys: systems) {
-            Colony c = sys.colony();
-            if (c != null) {
-                c.setGovernor(!c.isGovernor());
-                if (c.isGovernor()) {
-                    c.govern();
-                }
-            }
-        }
-        parent.repaintAll();
-    }
+	void toggleGovernor()	{ setGovernor(!isGovernor(false)); }
     public void setGovernor(boolean gov) {
         List<StarSystem> systems = parent.systemsToDisplay();
         for (StarSystem sys: systems) {
@@ -685,7 +666,7 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
         else if (hoverBox == spendingMaxBox) 
             setSpendingLevel(1);
 		else if (hoverBox == governorBox)
-			mouseToggleGovernor();
+			toggleGovernor();
 		else if (hoverBox == optionsBox)
 			if (e.isShiftDown()) {
 				ParamSubUI optionsUI = AllSubUI.governorSubUI();

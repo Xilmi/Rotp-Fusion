@@ -137,6 +137,7 @@ public final class GameSession implements Base, Serializable {
     private Integer lastTurnAlive;
     private boolean aFewMoreTurns = false;
 	private boolean lastAlwaysAtWar = false;
+	private boolean lastAlwaysAlly  = false;
 
     public GameStatus status()                   { return status; }
     public long id()                             { return id; }
@@ -516,12 +517,21 @@ public final class GameSession implements Base, Serializable {
 		if (alwaysAtWar)
 			galaxy().startAlwaysAtWar();
 	}
+	private void validateAlwaysAlly()	{
+		boolean alwaysAlly  = options().alwaysAlly();
+		if(alwaysAlly = lastAlwaysAlly)
+			return;
+		lastAlwaysAlly = alwaysAlly;
+		if (alwaysAlly)
+			galaxy().startAlwaysAlly();
+	}
 
     private Runnable nextTurnProcess() {
         return () -> {
             try {
 				TradeTechNotification.resetSkipButton();
 				validateAlwaysAtWar();
+				validateAlwaysAlly();
 				player().startingNextTurnProcess();
                 performingTurn = true;
                 Galaxy gal = galaxy();
@@ -1155,11 +1165,11 @@ public final class GameSession implements Base, Serializable {
             RotPUI.instance().selectMainPanelLoadGame();
         }
         instance.getGovernorOptions().gameLoaded();
-        
+
         // BR: To fix a previous bug.
-        if (instance.aFewMoreTurns() &&  GameOverUI.gameOverTitleKey().isEmpty())
+        if (instance.aFewMoreTurns() && GameOverUI.gameOverTitleBaseKey().isEmpty())
         	instance.aFewMoreTurns(false);
-        
+
         if (IDebugOptions.selectedShowVIPPanel())
         	VIPConsole.updateConsole();
     }

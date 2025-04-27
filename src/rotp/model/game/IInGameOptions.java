@@ -369,6 +369,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	String AGGRESSIV_AI_NO_WAR	= "AGGRESSIV_AI_NO_WAR";	// No war between AI
 	String AGGRESSIV_NEVER_WAR	= "AGGRESSIV_NEVER_WAR";	// Player can't declare war neither
 	String AGGRESSIV_ALWAYS_WAR	= "AGGRESSIV_ALWAYS_WAR";	// All empire are permanently at war
+	String AGGRESSIV_ALLIANCE	= "AGGRESSIV_ALLIANCE"; 	// All empire are permanently Allied
 	ParamList gameAgressiveness	= new ParamList( MOD_UI, "GAME_AGGRESSIVENESS", AGGRESSIV_NORMAL)
 			.isCfgFile(true)
 			.showFullGuide(true)
@@ -376,11 +377,10 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 			.put(AGGRESSIV_AI_WAR_OK,	MOD_UI + AGGRESSIV_AI_WAR_OK)
 			.put(AGGRESSIV_AI_NO_WAR,	MOD_UI + AGGRESSIV_AI_NO_WAR)
 			.put(AGGRESSIV_NEVER_WAR,	MOD_UI + AGGRESSIV_NEVER_WAR)
+			.put(AGGRESSIV_ALLIANCE,	MOD_UI + AGGRESSIV_ALLIANCE)
 			.put(AGGRESSIV_ALWAYS_WAR,	MOD_UI + AGGRESSIV_ALWAYS_WAR);
-//	default boolean aiCanAttackPlayer()	{ return rallyCombatLoss.get().equals(COMBAT_LOSS_DEFENSES); }
-//	default boolean aiCanAttackAI()		{ return rallyCombatLoss.get().equals(COMBAT_LOSS_RALLY); }
-//	default boolean playerCanAttackAI()	{ return rallyCombatLoss.get().equals(COMBAT_LOSS_SHARED); }
 	
+	default boolean alwaysAlly()	{ return gameAgressiveness.get().equals(AGGRESSIV_ALLIANCE); }
 	default boolean alwaysAtWar()	{ return gameAgressiveness.get().equals(AGGRESSIV_ALWAYS_WAR); }
 	default boolean canStopWar()	{ return !alwaysAtWar(); }
 	default boolean canStartWar(Empire ask, Empire target)	{ return canStartWar(ask.isPlayer(), target.isPlayer()); }

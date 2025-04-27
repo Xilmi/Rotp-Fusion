@@ -3192,6 +3192,8 @@ SETTINGS_MOD_AGGRESSIV_NEVER_WAR_DESC	| Even the player cannot declare war.
 SETTINGS_MOD_AGGRESSIV_NEVER_WAR		| No war are allowed
 SETTINGS_MOD_AGGRESSIV_ALWAYS_WAR_DESC	| All empires are at permanent war, either from the start of the game or the next turn after it is activated. Disabling this option will not immediately stop wars; diplomats will judge when the time is right.
 SETTINGS_MOD_AGGRESSIV_ALWAYS_WAR		| Permanent war
+SETTINGS_MOD_AGGRESSIV_ALLIANCE_DESC	| All empires live in symbiosis and become allies from the first contact, without the possibility of breaking the pact.
+SETTINGS_MOD_AGGRESSIV_ALLIANCE			| Symbiosis
 
 SETTINGS_MOD_SKIRMISHES_ALLOWED_HELP	| Can skirmishes occur when wars are banned?<br>Fights may occur to defend an uncolonized planet, and some bombs may be "accidentally" dropped on colonies.<br>If the player is the only one who can declare war, this setting applies to him as well; he will not be able to unilaterally trigger skirmishes, he must formally declare war before starting hostilities.
 SETTINGS_MOD_SKIRMISHES_ALLOWED_DESC	| Can skirmishes occur when wars are banned?
@@ -4683,6 +4685,9 @@ RACES_DIPLOMACY_EVENT_RACE        | Empire
 RACES_DIPLOMACY_EVENT_TITLE       | Diplomatic Incident
 RACES_DIPLOMACY_EVENT_EFFECT      | Effect
 RACES_DIPLOMACY_ABILITY           | Click for details on species' abilities
+RACES_DIPLOMACY_FLEETS_POWER_RATIO	| Military Power Ratio
+RACES_DIPLOMACY_EMPIRES_POWER_RATIO	| Empires Power Ratio
+RACES_DIPLOMACY_AGE					| (%1)
 RACES_MANAGE_DIALOG_OK            | OK
 RACES_MANAGE_REINSTATE_DIPLOMAT   | Reinstate Diplomat
 RACES_MANAGE_RECALL_DIPLOMAT      | Recall Diplomat
@@ -5091,7 +5096,7 @@ GAME_OVER_REBELLION_LEADER_LOSS_E         | Crazy Leader Defeated During his Reb
 GAME_OVER_REBELLION_CHALLENGER_LOSS_E     | Challenger Defeated During his Rebellion
 GAME_OVER_REBELLION_FOLLOWER_LOSS_E       | Destroyed following the Rebellion
 GAME_OVER_MILITARY_WIN_E                  | Galactic Extermination
-GAME_OVER_MILITARY_ALLIANCE_WIN_E         | Survival as part of alliance
+GAME_OVER_MILITARY_ALLIANCE_WIN_E         | Victorious by Grace of your Allies
 GAME_OVER_DIPLOMATIC_WIN_E                | →GAME_OVER_DIPLOMATIC_WIN←
 GAME_OVER_DIPLO_FEARED_WIN_E              | Feared Leaders of a United Galaxy
 GAME_OVER_DIPLO_MAJOR_WIN_E               | United Galaxy Leader

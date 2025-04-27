@@ -20,8 +20,7 @@
   - Starting alliances (free for the ai to dismiss)
   - Starting factions (Stronger than alliance, but breakable at very low diplomacy level)
   - Immuable faction (Like final war)
-  -
-  - Peaceful mode
+
 - Search tools for options.
 
 

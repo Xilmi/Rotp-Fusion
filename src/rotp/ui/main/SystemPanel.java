@@ -294,7 +294,7 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             		g.setColor(Color.red);
             		drawString(g, str, x0, y0);
             	}
-                if (friendPop > 0 || enemyPop > 0)
+                if (friendPop > 0 || enemyPop > 0 || sentPop > 0)
                     y0 += lineH;
         	}
         }
@@ -437,7 +437,7 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             resourceStr = text("PLANET_ULTRA_RICH");
         else if (planet.isResourceRich())
             resourceStr = text("PLANET_RICH");
-        
+
         // Check Artifacts
         if (planet.isArtifact()) {
         	if (resourceStr.isEmpty()) { // Artifacts alone
@@ -503,7 +503,7 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             g2.setFont(textF);
             String popStr;
             boolean ignoreWaste = planet.isColonized() && planet.empire().ignoresPlanetEnvironment();
-            
+
             int planetSize = 0;
             if (planet.empire() != pl)
                 planetSize = pl.sv.currentSize(id);
@@ -573,7 +573,7 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             if (sys == null)
                 return;
             float range = (float) Math.ceil(pl.sv.distance(sys.id)*10)/10;
-            
+
             String label = pl.alliedWith(id(sys.empire())) ?  text("MAIN_ALLIED_COLONY") : text("MAIN_SYSTEM_RANGE", df1.format(range));
             String desc;
             Color c0;

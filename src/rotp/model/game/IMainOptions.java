@@ -388,7 +388,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			.put("Original",	 MOD_UI + "GAME_OVER_TITLE_ORIGINAL")
 			.put("Extended",	 MOD_UI + "GAME_OVER_TITLE_EXTENDED")
 			.put("RealmsBeyond", MOD_UI + "GAME_OVER_TITLE_RB");
-	default String gameOverTitlesKeyExt() {
+	static String gameOverTitlesKeyExt() {
 		switch (gameOverTitles.get().toUpperCase()) {
 			case "EXTENDED" :		return "_E";
 			case "REALMSBEYOND" :	return "_RB";

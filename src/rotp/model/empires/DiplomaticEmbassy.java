@@ -617,6 +617,7 @@ public final class DiplomaticEmbassy implements Base, Serializable {
         OathBreakerIncident.alertBrokenPact(owner(),empire(), caughtSpying);
         return inc;
     }
+	public void startAlwaysAlly()	{ if (!alliance()) signAlliance(); }
     public DiplomaticIncident signAlliance() {
         beginTreaty();
         endWarPreparations();
@@ -709,6 +710,8 @@ public final class DiplomaticEmbassy implements Base, Serializable {
 		setContact();
 		if (options().alwaysAtWar())
 			startAlwaysAtWar();
+		else if (options().alwaysAlly())
+			startAlwaysAlly();
 		else if (empire().isPlayerControlled())
 		 	DiplomaticNotification.create(view, owner().leader().dialogueContactType());
 	}

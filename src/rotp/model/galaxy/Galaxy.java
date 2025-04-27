@@ -469,6 +469,11 @@ public final class Galaxy implements Base, Serializable {
                 emp.makeNextTurnDecisions();
         }
     }
+	public void startAlwaysAlly()	{
+		for (Empire emp: empires())
+			if (!emp.extinct())
+				emp.startAlwaysAlly();
+	}
 	public void startAlwaysAtWar()	{
 		for (Empire emp: empires())
 			if (!emp.extinct())

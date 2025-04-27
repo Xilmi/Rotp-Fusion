@@ -40,6 +40,7 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.game.GameSession;
 import rotp.model.game.GameStatus;
+import rotp.model.game.IMainOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
@@ -269,12 +270,13 @@ public final class GameOverUI extends FadeInPanel
         x2a = exitBox.x + ((exitBox.width - sw0) / 2);
         drawShadowedString(g, exitText, x2a, exitBox.y + exitBox.height - s12, Color.black, c0);
     }
-    public String gameOverTitle() {
-    	String titleBaseKey = gameOverTitleKey();
-    	String titleKey = titleBaseKey + options().gameOverTitlesKeyExt();
-    	return text(titleKey);
-    }
-    public static String gameOverTitleKey() {
+	public String gameOverTitle()			{ return text(gameOverTitleKey()); }
+	public static String gameOverTitleKey()	{
+		String titleBaseKey = gameOverTitleBaseKey();
+		String titleKey = titleBaseKey + IMainOptions.gameOverTitlesKeyExt();
+		return titleKey;
+	}
+	public static String gameOverTitleBaseKey() {
     	GameStatus status = GameSession.instance().status();
         if (status.lostOverthrown())
             return "GAME_OVER_OVERTHROWN_LOSS";
