@@ -2948,8 +2948,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private class ParamListOpponentAI extends ParamList { // For Guide
 		private ParamListOpponentAI(String gui, String name, List<String> list, String defaultValue) {
 			super(gui, name, list, defaultValue);
-			this.setDefaultValue(MOO1_DEFAULT, baseAI.aliensKey);
-			this.setDefaultValue(ROTP_DEFAULT, baseAI.aliensKey);
+			setDefaultValue(MOO1_DEFAULT, baseAI.aliensKey);
+			setDefaultValue(ROTP_DEFAULT, baseAI.aliensKey);
+			isDuplicate(true);
 		}
 		@Override public String	getOptionValue(IGameOptions options)	{
 			return options.selectedOpponentAIOption();
