@@ -400,11 +400,11 @@ public final class SerialRandom implements Serializable{
      * @param bound the upper bound (exclusive).  Must be positive.
      * @return a pseudorandom {@code int} value between zero
      *         (inclusive) and the bound (exclusive)
-     * @throws IllegalArgumentException if {@code bound} is not positive
+     * </br> return 0 if {@code bound} is not positive
      */
     public int nextInt(int bound) {
         if (bound <= 0)
-            throw new IllegalArgumentException(BadBound);
+            return 0;
         // Specialize internalNextInt for origin 0
         int r = mix32(nextSeed());
         int m = bound - 1;
@@ -427,14 +427,16 @@ public final class SerialRandom implements Serializable{
      * @param bound the upper bound (exclusive)
      * @return a pseudorandom {@code int} value between the origin
      *         (inclusive) and the bound (exclusive)
-     * @throws IllegalArgumentException if {@code origin} is greater than
+     * </br> return 0 if {@code origin} is greater than
      *         or equal to {@code bound}
      */
-    public int nextInt(int origin, int bound) {
-        if (origin >= bound)
-            throw new IllegalArgumentException(BadRange);
-        return internalNextInt(origin, bound);
-    }
+	public int nextInt(int origin, int bound) {
+		if (origin == bound)
+			return origin;
+		if (origin > bound)
+			return internalNextInt(bound, origin);
+		return internalNextInt(origin, bound);
+	}
 
     /**
      * Returns a pseudorandom {@code long} value.
@@ -452,11 +454,11 @@ public final class SerialRandom implements Serializable{
      * @param bound the upper bound (exclusive).  Must be positive.
      * @return a pseudorandom {@code long} value between zero
      *         (inclusive) and the bound (exclusive)
-     * @throws IllegalArgumentException if {@code bound} is not positive
+     * </br> return 0 if {@code bound} is not positive
      */
     public long nextLong(long bound) {
-        if (bound <= 0)
-            throw new IllegalArgumentException(BadBound);
+        if (bound <= 0L)
+            return 0L;
         // Specialize internalNextLong for origin 0
         long r = mix64(nextSeed());
         long m = bound - 1;
@@ -479,14 +481,16 @@ public final class SerialRandom implements Serializable{
      * @param bound the upper bound (exclusive)
      * @return a pseudorandom {@code long} value between the origin
      *         (inclusive) and the bound (exclusive)
-     * @throws IllegalArgumentException if {@code origin} is greater than
+     * </br> return 0 if {@code origin} is greater than
      *         or equal to {@code bound}
      */
-    public long nextLong(long origin, long bound) {
-        if (origin >= bound)
-            throw new IllegalArgumentException(BadRange);
-        return internalNextLong(origin, bound);
-    }
+	public long nextLong(long origin, long bound) {
+		if (origin == bound)
+			return origin;
+		if (origin > bound)
+			return internalNextLong(bound, origin);
+		return internalNextLong(origin, bound);
+	}
 
     /**
      * Returns a pseudorandom {@code double} value between zero
@@ -506,11 +510,11 @@ public final class SerialRandom implements Serializable{
      * @param bound the upper bound (exclusive).  Must be positive.
      * @return a pseudorandom {@code double} value between zero
      *         (inclusive) and the bound (exclusive)
-     * @throws IllegalArgumentException if {@code bound} is not positive
+     * </br> return 0 if {@code bound} is not positive
      */
     public double nextDouble(double bound) {
         if (!(bound > 0.0))
-            throw new IllegalArgumentException(BadBound);
+            return 0.0;
         double result = (mix64(nextSeed()) >>> 11) * DOUBLE_UNIT * bound;
         return (result < bound) ?  result : // correct for rounding
             Double.longBitsToDouble(Double.doubleToLongBits(bound) - 1);
@@ -524,12 +528,14 @@ public final class SerialRandom implements Serializable{
      * @param bound the upper bound (exclusive)
      * @return a pseudorandom {@code double} value between the origin
      *         (inclusive) and the bound (exclusive)
-     * @throws IllegalArgumentException if {@code origin} is greater than
+     * </br> return 0 if {@code origin} is greater than
      *         or equal to {@code bound}
      */
     public double nextDouble(double origin, double bound) {
-        if (!(origin < bound))
-            throw new IllegalArgumentException(BadRange);
+		if (origin == bound)
+			return origin;
+		if (origin > bound)
+			return internalNextDouble(bound, origin);
         return internalNextDouble(origin, bound);
     }
 

@@ -13,6 +13,7 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 - Fixed the number of alien factories being hidden under the sent population.
 - In colony multi-selection, "G" no longer toggles governors individually; they are now all synchronized to the displayed value.
 - Fixed the issue where the opponent's AI guide was not displaying relevant information.
+- Fixed Random generator throwing error when asked for a number between 0 and 0; will return 0 instead.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
