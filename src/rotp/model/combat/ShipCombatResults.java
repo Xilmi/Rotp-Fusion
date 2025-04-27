@@ -208,14 +208,16 @@ public final class ShipCombatResults implements Base {
 
         empires.add(emp);
     }
-    public Empire victor() {
-        // if there is a ship stack, that empire is the victor
-        for (CombatStack st: activeStacks) {
-            if (!st.isColony())
-                return st.empire();
-        }
-        return activeStacks.isEmpty() ? null : activeStacks.get(0).empire();
-    }
+	public Empire victor() {
+		// BR: changed loop type to avoid comodification error
+		// if there is a ship stack, that empire is the victor
+		for (int i=0; i<activeStacks.size(); i++) {
+			CombatStack st = activeStacks.get(i);
+			if (!st.isColony())
+				return st.empire();
+		}
+		return activeStacks.isEmpty() ? null : activeStacks.get(0).empire();
+	}
     void addEmpire(Empire e)  { empires.add(e);  }
     void clearEmpires()       { empires.clear(); }
     void addBasesDestroyed(int num) {

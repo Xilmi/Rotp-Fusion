@@ -224,6 +224,7 @@
 
 ### Fixes:
 
+- Fixed a comodification error in ship combat.
 - Fixed Random generator throwing error when asked for a number between 0 and 0; will return 0 instead.
 - Fixed the issue where the opponent's AI guide was not displaying relevant information.
 - Moved two hard-coded texts to the label files to make them available for translation.
