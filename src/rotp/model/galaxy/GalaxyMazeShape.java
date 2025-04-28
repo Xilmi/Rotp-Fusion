@@ -22,6 +22,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import rotp.model.game.IGalaxyOptions.IShapeOption;
 import rotp.model.game.IGalaxyOptions.ShapeOptionList;
@@ -58,6 +59,7 @@ final class GalaxyMazeShape extends GalaxyShape {
 
 	@Override public IShapeOption paramOption1()	{ return param1(); }
 	@Override public void setOption1(String value)	{ param1().set(value); }
+	@Override public List<String> options1()		{ return param1().getOptions(); }
 	@Override public String name()					{ return NAME; }
 	@Override public GalaxyShape get()				{ return this; }
 

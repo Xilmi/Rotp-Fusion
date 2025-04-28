@@ -44,6 +44,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+25-04-28 (BR)
+- Fixed galaxies with a single option field not following the value selected for that option.
+
 25-04-27 (BR)
 - Added "Symbiosis" to the "Warmongering" level list. This allows you to form an alliance on first contact. (Quite bland... Will be improved)
 - Moved two hard-coded texts to the label files to make them available for translation.
