@@ -2062,6 +2062,8 @@ CUSTOM_RACE_RANDOM_USE_TARGET_NO   | Ignorer
 CUSTOM_RACE_RANDOM_USE_TARGET_YES_DESC | Il est indispensable que le coût se situe à l’intérieur des limites fixées.
 CUSTOM_RACE_RANDOM_USE_TARGET_NO_DESC  | Ignorer les limites.
 
+CUSTOM_RACE_DESCRIPTION				| Espèce Personnalisée
+
 // BR: Ne pas traduire maintenant...
 //FR_REWORKED                     | « ’Retravaillées’ » →FR_REWORKED←
 FR_REWORKED                       | « ’Reworked’ »

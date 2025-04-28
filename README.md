@@ -46,6 +46,11 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 25-04-28 (BR)
 - Fixed galaxies with a single option field not following the value selected for that option.
+- Custom Species can now have their own intro:
+  - Create a folder "CustomSpecies"
+  - add a file named 'speciesname'.intro.txt
+  - The fist line will also be used as title
+  - Inspiration can be taken from the intro files in the directory: rotp/lang/en/races
 
 25-04-27 (BR)
 - Added "Symbiosis" to the "Warmongering" level list. This allows you to form an alliance on first contact. (Quite bland... Will be improved)

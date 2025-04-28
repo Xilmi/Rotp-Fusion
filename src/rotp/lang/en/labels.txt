@@ -2062,6 +2062,8 @@ CUSTOM_RACE_RANDOM_USE_TARGET_NO   | Ignored
 CUSTOM_RACE_RANDOM_USE_TARGET_YES_DESC | Force targeted value.
 CUSTOM_RACE_RANDOM_USE_TARGET_NO_DESC  | Ignore targeted value.
 
+CUSTOM_RACE_DESCRIPTION				| Customized Species
+
 
 
 

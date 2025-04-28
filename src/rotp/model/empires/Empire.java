@@ -282,6 +282,31 @@ public final class Empire implements Base, NamedObject, Serializable {
     		return "Orion";
     	return raceName(0);
     }
+	public String title()		{
+		if (isPlayer() && isCustomRace()) {
+			String title = dataRace().title();
+			if (title != null && !title.isEmpty())
+				return title;
+		}
+		return race().title();
+	}
+	public String fullTitle()	{
+		if (isPlayer() && isCustomRace()) {
+			String title = dataRace().fullTitle();
+			if (title != null && !title.isEmpty())
+				return title;
+		}
+		return race().fullTitle();
+	}
+	public int introTextX()		{ return race().introTextX; }
+	public List<String> introduction()	{
+		if (isPlayer() && isCustomRace()) {
+			List<String> intro = dataRace().customIntroduction();
+			if (intro != null && !intro.isEmpty())
+				return intro;
+		}
+		return race().introduction();
+	}
     private String raceName(int i) {
     	String rn;
         List<String> names = substrings(unparsedRaceName(), '|');

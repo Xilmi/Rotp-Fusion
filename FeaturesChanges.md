@@ -21,6 +21,11 @@
 
 ### Features:
 
+- Custom Species can now have their own intro:
+  - Create a folder "CustomSpecies"
+  - add a file named 'speciesname'.intro.txt
+  - The fist line will also be used as title
+  - Inspiration can be taken from the intro files in the directory: rotp/lang/en/races
 - New option to set the wariness level.
   - Normal.
   - No war are allowed.

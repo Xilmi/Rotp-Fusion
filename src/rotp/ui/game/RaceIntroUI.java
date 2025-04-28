@@ -26,6 +26,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.LinearGradientPaint;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
@@ -34,10 +35,11 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
+
 import rotp.model.empires.Empire;
 import rotp.ui.BasePanel;
 import rotp.ui.ButtonPanel;
@@ -131,21 +133,21 @@ public class RaceIntroUI extends BasePanel implements MouseListener {
     }
     private void drawIntroductionTitle(Graphics2D g) {
         Empire pl = player();
-        String title = pl.race().introduction().get(0);
+        String title = pl.introduction().get(0);
         title = title.replace("[race]", pl.raceName());
         g.setColor(textColor);
         g.setFont(font(24));
-        int x0 = scaled(pl.race().introTextX);
+        int x0 = scaled(pl.introTextX());
         int y0 = scaled(230);
         drawString(g,title, x0, y0);
     }
     private void drawIntroductionText(Graphics2D g) {
         int w = getWidth();
         Empire pl = player();
-        List<String> text = pl.race().introduction();
+        List<String> text = pl.introduction();
         g.setColor(textColor);
         g.setFont(font(14));
-        int x0 = scaled(pl.race().introTextX);
+        int x0 = scaled(pl.introTextX());
         int y0 = scaled(250);
         int lineW = w-x0-s40;
         int lineH = s18;
@@ -153,8 +155,8 @@ public class RaceIntroUI extends BasePanel implements MouseListener {
         for (int i=0;i<text.size();i++)  {
             if (i > 0) {
                 String paragraph = text.get(i).replace("[race]", pl.raceName());
-                paragraph = paragraph.replace("[title]", pl.race().title());
-                paragraph = paragraph.replace("[fulltitle]", pl.race().fullTitle());
+                paragraph = paragraph.replace("[title]", pl.title());
+                paragraph = paragraph.replace("[fulltitle]", pl.fullTitle());
                 paragraph = paragraph.replace("[home]", pl.getHomeWorldName());
                 List<String> lines = scaledWrappedLines(g, paragraph, lineW, 30, 16, 12);
                 for (String line: lines) {

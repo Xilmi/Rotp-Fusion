@@ -21,6 +21,8 @@ import static rotp.model.empires.CustomRaceDefinitions.keyToRace;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,9 +44,11 @@ import rotp.util.LanguageManager;
 
 public class Race implements Base, Serializable {
     private static final long serialVersionUID = 1L;
-    private static final String customRaceDescription = "Customized Race";
-    public static final String crEmpireNameRandom = "Randomized";
-    
+	private static final String CUSTOM_RACE_DESCRIPTION	= "CUSTOM_RACE_DESCRIPTION";
+	private static final String CUSTOM_SPECIES_FOLDER	= "CustomSpecies/";
+	private static final String INTRO_FILE_EXTENSION	= ".intro.txt";
+	public  static final String crEmpireNameRandom		= "Randomized";
+
     private static Map<String, Race> raceMap = new HashMap<>();
     public static boolean isValidKey(String s) {
     	return raceMap.get(s) != null;
@@ -54,7 +58,7 @@ public class Race implements Base, Serializable {
         if (race == null) { // BR: Add custom race if missing
         	race = keyToRace(s);
             race.isCustomRace(true);
-            race.description4 = customRaceDescription;
+            race.description4 = race.text(CUSTOM_RACE_DESCRIPTION);
         }
         return race;
     }
@@ -372,6 +376,38 @@ public class Race implements Base, Serializable {
         return str;
     }
 
+	public List<String> customIntroduction() {
+		List<String> introLines = new ArrayList<>();
+		if (isCustomRace) {
+			log("loading Custom Species Intro");
+			String filename = CUSTOM_SPECIES_FOLDER +  id + INTRO_FILE_EXTENSION;
+			BufferedReader in = reader(filename);
+			if (in != null) {
+				try {
+					String input;
+					while ((input = in.readLine()) != null) {
+						if (!isComment(input)) {
+							introLines.add(input);
+						}
+					}
+				}
+				catch (IOException e) {}
+				finally {
+					try {
+						in.close();
+					} catch (IOException e) {}
+				}
+			}
+		}
+		if (!introLines.isEmpty())
+			return introLines;
+
+		// return race-specific dialogue if present
+		// else return default dialog
+		if (raceLabels().hasIntroduction())
+			return raceLabels().introduction();
+		return null;
+	}
     public List<String> introduction() {
         // return race-specific dialogue if present
         // else return default dialog
