@@ -36,7 +36,6 @@ import javax.swing.SwingUtilities;
 
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
-import rotp.model.empires.Race;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.ShipDesign;
@@ -77,8 +76,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		StarSystem sys	= galaxy().system(sysId);
 		Colony colony	= sys.colony();
 		exited			= false;
-		Race race		= sys.empire().race();
-		ambienceKey		= race.ambienceKey;
+		Empire empire	= sys.empire();
+		ambienceKey		= empire.ambienceKey();
 		float pop		= colony.population();
 		float bases		= colony.defense().bases();
 		float factories	= colony.industry().factories();
@@ -101,7 +100,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		colSep = 0;
 
 		initFactoryImage();
-		initSpeciesImage(race);
+		initSpeciesImage(empire);
 		createImage(false);
 	}
 	private void initDisplayVar(float pop, float bases, float factories)	{
@@ -117,13 +116,13 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		factoryCols	= (int) Math.ceil((double)factoryNum/factoryRows);
 		factoryBars	= (int) Math.ceil((double)factoryCols/maxColumns);
 	}
-	private BufferedImage initSpeciesImage(Race race)	{
+	private BufferedImage initSpeciesImage(Empire empire)	{
 		speciesWidth	= iconWidth;
 		speciesHeight = speciesWidth;
 		int spH = speciesWidth*8/10;
 		int spW = spH;
 		int[] iHue = new int[] {180};
-		BufferedImage mugshot = race.diplomatQuiet();
+		BufferedImage mugshot = empire.diplomatQuiet();
 		int mW	= mugshot.getWidth(null);
 		int mH	= mugshot.getHeight(null);
 		int mX1	= 0;
@@ -144,7 +143,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		x = x/2;
 		y = speciesHeight-spH;
 
-		mugshot = race.scientistQuiet();
+		mugshot = empire.scientistQuiet();
 		mW	= mugshot.getWidth(null);
 		mH	= mugshot.getHeight(null);
 		mX1	= 0;
@@ -573,7 +572,6 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		Colony colony  = sys.colony();
 		Empire empire  = sys.empire();
 		int empId	 = empire.id;
-		Race race    = sys.empire().race();
 		landscapeImg = newBufferedImage(w,h);
 		Graphics2D g = getGraphicsRH(landscapeImg);
 		g.setColor(Color.black);
@@ -583,8 +581,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.drawImage(colony.planet().landscapeImage(), 0, 0, w, h, null);
 
 		// draw fortress
-		BufferedImage fortImg = race.fortress(sys.colony().fortressNum());
-		//BufferedImage fortImg = race.fortress(0);
+		BufferedImage fortImg = empire.fortress(sys.colony().fortressNum());
 		int fortW = scaled(fortImg.getWidth());
 		int fortH = scaled(fortImg.getHeight());
 		int fortX = w-fortW;
@@ -592,8 +589,8 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		g.drawImage(fortImg, fortX, fortY, fortX+fortW, fortY+fortH, 0, 0, fortImg.getWidth(), fortImg.getHeight(), null);
 
 		// for hostile planets, draw shield
-		if (race.isHostile(sys.planet().type())) {
-			BufferedImage shieldImg = race.shield();
+		if (empire.isHostile(sys.planet().type())) {
+			BufferedImage shieldImg = empire.shield();
 			g.drawImage(shieldImg, fortX, fortY, fortX+fortW, fortY+fortH, 0, 0, shieldImg.getWidth(), shieldImg.getHeight(), null);
 		}
 		if (bgOnly) {
@@ -606,7 +603,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		int dx		= iconWidth + colSep;
 
 		// draw pop
-		BufferedImage speciesImg = initSpeciesImage(race);
+		BufferedImage speciesImg = initSpeciesImage(empire);
 		int xSpecies = marginX+dx/8;
 		int ySpecies = h - marginY - speciesRows*(speciesHeight + rowSep) + rowSep;
 		int xa = xSpecies;

@@ -75,10 +75,6 @@ public final class EmpireView implements Base, Serializable {
 	// To be reviewed
 	public int numSystemsForIncidents()				{ return empire.numSystemsForCiv(empire.id); }
 	public int numSystemsForCiv()					{ return owner.numSystemsForCiv(empire.id); }
-	// public int numSystemsForCivDark()				{ return owner.numSystemsForCivDark(empire.id); }
-	//public List<StarSystem> systemsForCiv()			{ return owner.systemsForCiv(empire.id); }
-	//public List<StarSystem> systemsForCivDark()		{ return owner.systemsForCivDark(empire.id); }
-
 
 	// These calls are fair
     public Empire owner()                 { return owner; }		// Viewer
@@ -100,8 +96,8 @@ public final class EmpireView implements Base, Serializable {
 	public boolean wantToBreakTreaty()			{ return embassy.treaty().wantToBreak(empire); }
 	public boolean isMember(List<Empire> l)		{ return l != null && l.contains(empire); }
 	public boolean withinRange(int i, float r)	{ return empire.sv.withinRange(i, r); }
-	public Race race()							{ return empire.race(); }
-	public Race dataRace()						{ return empire.dataRace(); }
+	public String dialogue(String key)			{ return empire.dialogue(key); }
+	public float internalSecurityAdj()			{ return empire.internalSecurityAdj(); }
 	public Diplomat diplomatAI()				{ return empire.diplomatAI(); }
 	public float tradePctBonus()				{ return empire.tradePctBonus(); }
 	public float diplomacyBonus()				{ return empire.diplomacyBonus(); }
@@ -142,22 +138,22 @@ public final class EmpireView implements Base, Serializable {
     public boolean diplomats() {
         return !embassy.diplomatGone() && !otherView().embassy.diplomatGone() && !embassy.finalWar();
     }
-    public Image flag() {
-        if (embassy().anyWar())
-            return empire.race().flagWar();
-        else if (embassy().isFriend())
-            return empire.race().flagPact();
-        else
-            return empire.race().flagNorm();
-    }
-    public Image dialogueBox() {
-        if (embassy().anyWar())
-            return owner().race().dialogWar();
-        else if (embassy().isFriend())
-            return owner().race().dialogPact();
-        else
-                    return owner().race().dialogNorm();
-    }
+	public Image flag() {
+		if (embassy().anyWar())
+			return empire.flagWar();
+		else if (embassy().isFriend())
+			return empire.flagPact();
+		else
+			return empire.flagNorm();
+	}
+	public Image dialogueBox() {
+		if (embassy().anyWar())
+			return owner().dialogWar();
+		else if (embassy().isFriend())
+			return owner().dialogPact();
+		else
+			return owner().dialogNorm();
+	}
     public float scaleOfContempt() {
         // returns 0 if equal power
         // returns 1, 2, 3 if we are 2x,3x,4x more powerful
@@ -247,7 +243,6 @@ public final class EmpireView implements Base, Serializable {
         // known colonies, PLUS one additional previously-unknown colony
         // per spy network. Unknown colonies closest in distance to this
         // empire are learned first
-
 
         // get all #empire views AND all views we think belong to #empire
         // this keeps us from sabotaging #empire colonies that have been destroyed

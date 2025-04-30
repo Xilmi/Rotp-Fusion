@@ -177,7 +177,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	public void loadRace(IGameOptions options)		{ // For Race Diplomatic UI Panel
 		forceUpdate = true;
-		cr().setFromRaceToShow(raceUI.selectedEmpire().dataRace());
+		raceUI.selectedEmpire().initCRToShow(cr);
 	}
 	public void init(RacesUI p)	{ // For Race Diplomatic UI Panel
 		forceUpdate = true;

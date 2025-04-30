@@ -41,7 +41,6 @@ import java.util.List;
 import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
-import rotp.model.empires.Race;
 import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
 import rotp.ui.diplomacy.DialogueManager;
@@ -98,14 +97,14 @@ public class DiplomaticMessageUI extends FadeInPanel
         addMouseMotionListener(this);
     }
     @Override
-    public String ambienceSoundKey() { return diplomatEmpire.isPlayer() ? defaultAmbience() : diplomatEmpire.race().diplomacyTheme; }
+    public String ambienceSoundKey() { return diplomatEmpire.isPlayer() ? defaultAmbience() : diplomatEmpire.diplomacyTheme(); }
 
     public boolean init(DiplomaticNotification notif) {
         clearBuffer();
         diplomatEmpire = notif.talker();
         if (diplomatEmpire.isPlayer()) {
-            flag = player().race().flagNorm();
-            dialogBox = player().race().dialogNorm();
+            flag = player().flagNorm();
+            dialogBox = player().dialogNorm();
         }
         else {
         	EmpireView view = player().viewForEmpire(diplomatEmpire);
@@ -121,7 +120,7 @@ public class DiplomaticMessageUI extends FadeInPanel
             dialogBox = view.dialogueBox();
         }
 
-        diplomatEmpire.race().resetDiplomat();
+        diplomatEmpire.resetDiplomat();
         message = DialogueManager.current().message(notif.type(), notif.incident(), diplomatEmpire, notif.otherEmpire());
         message.returnToMap(notif.returnToMap());
         messageRemark = "";
@@ -150,14 +149,14 @@ public class DiplomaticMessageUI extends FadeInPanel
     public void initReply(DiplomacyRequestReply reply) {
         diplomatEmpire = reply.view().owner();
         if (diplomatEmpire.isPlayer()) {
-            flag = player().race().flagNorm();
-            dialogBox = player().race().dialogNorm();
+            flag = player().flagNorm();
+            dialogBox = player().dialogNorm();
         }
         else {
             flag = player().viewForEmpire(diplomatEmpire).flag();
             dialogBox = player().viewForEmpire(diplomatEmpire).dialogueBox();
         }
-        diplomatEmpire.race().resetDiplomat();
+        diplomatEmpire.resetDiplomat();
         message = reply;
         messageRemark = reply.remark();
         commonInit();
@@ -203,10 +202,9 @@ public class DiplomaticMessageUI extends FadeInPanel
         boolean talking = message.showTalking() && ((System.currentTimeMillis() - startTimeMs) < talkTimeMs);
         boolean receiving = message.showTalking() && ((System.currentTimeMillis() - startTimeMs) < 200);
 
-        Race diploRace = diplomatEmpire.race();
-        BufferedImage labImg = diploRace.embassy();
-        BufferedImage holoImg = diploRace.holograph();
-        Image raceImg = talking ? diploRace.diplomatTalking() : diploRace.diplomatQuiet();
+		BufferedImage labImg = diplomatEmpire.embassy();
+		BufferedImage holoImg = diplomatEmpire.holograph();
+		Image raceImg = talking ? diplomatEmpire.diplomatTalking() : diplomatEmpire.diplomatQuiet();
 
         int w = getWidth();
         int h = getHeight();
@@ -214,9 +212,9 @@ public class DiplomaticMessageUI extends FadeInPanel
         int w0 = labImg.getWidth();
         int h0 = labImg.getHeight();
         //  location of flag
-        int fW = scaled(diploRace.flagW);
-        int fH = scaled(diploRace.flagH);
-        int fX = (int)(w-(diplomatEmpire.race().labFlagX()*w))-(fW/2);
+		int fW = scaled(diplomatEmpire.flagW());
+		int fH = scaled(diplomatEmpire.flagH());
+		int fX = (int)(w-(diplomatEmpire.labFlagX()*w))-(fW/2);
         int fY = (h*4/10)-(fH/2);
 
         Image dataImg = screenBuffer();
@@ -308,10 +306,10 @@ public class DiplomaticMessageUI extends FadeInPanel
         int dlgY = h-dlgH2;
         g.drawImage(dialogBox, 0, dlgY, dlgW2, dlgH2, null);
 
-        int rMargin = scaled(player().race().dialogRightMargin());
+        int rMargin = scaled(player().dialogRightMargin());
 
-        int textBoxX = scaled(player().race().dialogLeftMargin());
-        int textBoxY = scaled(player().race().dialogTopY());
+        int textBoxX = scaled(player().dialogLeftMargin());
+        int textBoxY = scaled(player().dialogTopY());
         int textBoxW = w-textBoxX-rMargin;
         int textBoxH = h-textBoxY;
 

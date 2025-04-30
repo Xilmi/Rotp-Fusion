@@ -44,22 +44,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-25-04-28 (BR)
-- Fixed galaxies with a single option field not following the value selected for that option.
-- Custom Species can now have their own intro:
-  - Create a folder "CustomSpecies"
-  - add a file named 'speciesname'.intro.txt
-  - The fist line will also be used as title
-  - Inspiration can be taken from the intro files in the directory: rotp/lang/en/races
-
-25-04-27 (BR)
-- Added "Symbiosis" to the "Warmongering" level list. This allows you to form an alliance on first contact. (Quite bland... Will be improved)
-- Moved two hard-coded texts to the label files to make them available for translation.
-- Fixed the number of alien factories being hidden under the sent population.
-- In colony multi-selection, "G" no longer toggles governors individually; they are now all synchronized to the displayed value.
-- Fixed the issue where the opponent's AI guide was not displaying relevant information.
-- Fixed Random generator throwing error when asked for a number between 0 and 0; will return 0 instead.
-- Fixed a comodification error in ship combat.
+25-04-30 (BR)
+- The Empire class takes over full ownership of the “race” and “datarace” calls.
+  - This is to prepare it for creating a "Species" class that will manage race, datarace, customrace, random race and abilities
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

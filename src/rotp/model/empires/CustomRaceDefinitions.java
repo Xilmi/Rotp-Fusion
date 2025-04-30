@@ -120,13 +120,13 @@ public class CustomRaceDefinitions  {
 	}
 	private static DynOptions loadOptions(String path, String fileName) {
 		DynOptions opts = DynOptions.loadOptions(path, fileName);
-    	return opts;
-    }
+		return opts;
+	}
 	private static DynOptions loadOptions(File saveFile) {
-    	DynOptions opts =  DynOptions.loadOptions(saveFile);
+		DynOptions opts =  DynOptions.loadOptions(saveFile);
 		backwardComp(opts);
-    	return opts;
-    }
+		return opts;
+	}
 
 	public static boolean raceFileExist(String fileName) {
 		File f = new File(Rotp.jarPath(), fileName + EXT);
@@ -286,12 +286,12 @@ public class CustomRaceDefinitions  {
 		float target	= (targetMax + targetMin)/2;
 		float maxDiff	= Math.max(0.04f, Math.abs(targetMax-targetMin)/2);
 		float maxChange	= Math.max(0.1f, Math.abs(max-min));
-		
+
 		List<SettingBase<?>> shuffledSettingList = new ArrayList<>(settingList);
 		// first pass full random
 		randomizeRace(min, max, gaussian, updateGui);
 		float cost = getTotalCost();
-		
+
 		// second pass going smoothly to the target
 		for (int i=0; i<10; i++) {
 			Collections.shuffle(shuffledSettingList);
@@ -411,7 +411,7 @@ public class CustomRaceDefinitions  {
 	private void newSettingList() {
 		spacerList  = new LinkedList<>();
 		columnList  = new LinkedList<>();
-		
+
 		// ====================
 		// First column (left)
 		settingList.add(raceKey);
@@ -528,7 +528,6 @@ public class CustomRaceDefinitions  {
 	// ==================== RaceList ====================
 	//
 	public class RaceList extends SettingBase<String> {
-		
 		private boolean newValue = false;
 		private boolean reload	 = false;
 
@@ -569,59 +568,59 @@ public class CustomRaceDefinitions  {
 			reload = true;
 			set(currentValue);
 		}
-	    private File[] loadListing() {
-	        String path	= Rotp.jarPath();
-	        File saveDir = new File(path);
-	        FilenameFilter filter = (File dir, String name1) -> name1.toLowerCase().endsWith(EXT);
-	        File[] fileList = saveDir.listFiles(filter);
-	        return fileList;
-	    }
-	    private void add(DynOptions opt) {
-	    	CustomRaceDefinitions cr = new CustomRaceDefinitions(opt);
-	    	Race dr = cr.getRace();
-	    	String cfgValue	 = dr.setupName;
-	    	String langLabel = dr.id;
-	    	String tooltipKey = dr.getDescription3();
-	    	float cost = cr.getTotalCost();
-	    	put(cfgValue, langLabel, cost, langLabel, tooltipKey);
-	    }
-	    private void add(String raceKey) {
-	    	Race dr = Race.keyed(raceKey);	    	
-	    	String cfgValue	  = dr.id;
-	    	String langLabel  = BASE_RACE_MARKER + dr.setupName();
-	    	String tooltipKey = dr.getDescription3();
-	    	CustomRaceDefinitions cr = new CustomRaceDefinitions(dr);
-	    	float cost = cr.getTotalCost();
-	    	put(cfgValue, langLabel, cost, langLabel, tooltipKey);
-	    }
-	    private String getBaseRace(String key) {
-	    	return getCfgValue(key);
-	    }
-	    public boolean newValue() {
-	    	if (newValue) {
-	    		newValue = false;
-	    		return true;
-	    	}
-	    	return false;
-	    }
-	    public LinkedList<String> getAllowedAlienRaces() {
-	    	LinkedList<String> list = new LinkedList<>();
+		private File[] loadListing() {
+		    String path	= Rotp.jarPath();
+		    File saveDir = new File(path);
+		    FilenameFilter filter = (File dir, String name1) -> name1.toLowerCase().endsWith(EXT);
+		    File[] fileList = saveDir.listFiles(filter);
+		    return fileList;
+		}
+		private void add(DynOptions opt) {
+			CustomRaceDefinitions cr = new CustomRaceDefinitions(opt);
+			Race dr = cr.getRace();
+			String cfgValue	 = dr.setupName;
+			String langLabel = dr.id;
+			String tooltipKey = dr.getDescription3();
+			float cost = cr.getTotalCost();
+			put(cfgValue, langLabel, cost, langLabel, tooltipKey);
+		}
+		private void add(String raceKey) {
+			Race dr = Race.keyed(raceKey);	    	
+			String cfgValue	  = dr.id;
+			String langLabel  = BASE_RACE_MARKER + dr.setupName();
+			String tooltipKey = dr.getDescription3();
+			CustomRaceDefinitions cr = new CustomRaceDefinitions(dr);
+			float cost = cr.getTotalCost();
+			put(cfgValue, langLabel, cost, langLabel, tooltipKey);
+		}
+		private String getBaseRace(String key) {
+			return getCfgValue(key);
+		}
+		public boolean newValue() {
+			if (newValue) {
+				newValue = false;
+				return true;
+			}
+			return false;
+		}
+		public LinkedList<String> getAllowedAlienRaces() {
+			LinkedList<String> list = new LinkedList<>();
 			File[] fileList = loadListing();
 			if (fileList != null)
 				for (File file : fileList) {
-			    	CustomRaceDefinitions cr = new CustomRaceDefinitions(loadOptions(file));
-			    	if (cr.availableAI.settingValue())
-			    		list.add(cr.raceKey.settingValue());
+					CustomRaceDefinitions cr = new CustomRaceDefinitions(loadOptions(file));
+					if (cr.availableAI.settingValue())
+						list.add(cr.raceKey.settingValue());
 				}
 			return list;
-	    }
-	    public LinkedList<String> getAllAlienRaces() {
-	    	LinkedList<String> list = new LinkedList<>();
+		}
+		public LinkedList<String> getAllAlienRaces() {
+			LinkedList<String> list = new LinkedList<>();
 			File[] fileList = loadListing();
 			if (fileList != null)
 				for (File file : fileList) {
-			    	CustomRaceDefinitions cr = new CustomRaceDefinitions(loadOptions(file));
-			    	list.add(cr.raceKey.settingValue());
+					CustomRaceDefinitions cr = new CustomRaceDefinitions(loadOptions(file));
+					list.add(cr.raceKey.settingValue());
 				}
 			return list;
 	    }
@@ -647,8 +646,8 @@ public class CustomRaceDefinitions  {
 			if (index()>=listSize()-16) { // Base Race
 				race = Race.keyed(getCfgValue(settingValue())).copy();
 				pullSettings();
-		    	updateSettings();
-		    	return;
+				updateSettings();
+				return;
 			}
 			File file = new File(Rotp.jarPath(), settingValue()+EXT);
 			if (file.exists()) {
@@ -666,12 +665,8 @@ public class CustomRaceDefinitions  {
 			inputMessage("Enter the Race File Name");
 			randomStr(RANDOMIZED_RACE_KEY);
 		}
-		@Override public void pushSetting() {
-			race.id = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.id);
-		}
+		@Override public void pushSetting() { race.id = settingValue(); }
+		@Override public void pullSetting() { set(race.id); }
 	}
 	// ==================== RaceName ====================
 	//
@@ -684,15 +679,10 @@ public class CustomRaceDefinitions  {
 		@Override public void pushSetting() {
 			race.parseRaceNames(settingValue());
 			race.setupName = race.setupName();
-//			race.setupName = settingValue();
 		}
 		@Override public void pullSetting() {
-			String raceNames = String.join(",", race.raceNames);
+			String raceNames = String.join(",", race.raceNames());
 			set(raceNames);
-//			if (race.setupName == null)
-//				set(race.setupName());
-//			else
-//				set(race.setupName);				
 		}
 	}
 	// ==================== EmpireName ====================
@@ -703,14 +693,12 @@ public class CustomRaceDefinitions  {
 			inputMessage("Enter the Empire Designation");
 			randomStr(crEmpireNameRandom);
 		}
-		@Override public void pushSetting() {
-			race.empireTitle = settingValue();
-		}
+		@Override public void pushSetting() { race.empireTitle(settingValue()); }
 		@Override public void pullSetting() {
-			if (race.empireTitle == null)
+			if (race.empireTitle() == null)
 				set(race.empireTitle());
 			else
-				set(race.empireTitle);				
+				set(race.empireTitle());				
 		}
 	}
 	// ==================== RaceDescription1 ====================
@@ -736,12 +724,8 @@ public class CustomRaceDefinitions  {
 			inputMessage("Enter the Description");
 			randomStr("Randomized");
 		}
-		@Override public void pushSetting() {
-			race.setDescription2(settingValue());
-		}
-		@Override public void pullSetting() {
-			set(race.getDescription2());
-		}
+		@Override public void pushSetting() { race.setDescription2(settingValue()); }
+		@Override public void pullSetting() { set(race.getDescription2()); }
 	}
 	// ==================== RaceDescription3 ====================
 	//
@@ -751,12 +735,8 @@ public class CustomRaceDefinitions  {
 			inputMessage("Enter the Description");
 			randomStr("Randomized");
 		}
-		@Override public void pushSetting() {
-			race.setDescription3(settingValue());
-		}
-		@Override public void pullSetting() {
-			set(race.getDescription3());
-		}
+		@Override public void pushSetting() { race.setDescription3(settingValue()); }
+		@Override public void pullSetting() { set(race.getDescription3()); }
 	}
 	// ==================== RaceDescription4 ====================
 	//
@@ -766,12 +746,8 @@ public class CustomRaceDefinitions  {
 			inputMessage("Enter the Description");
 			randomStr("Randomized");
 		}
-		@Override public void pushSetting() {
-			race.setDescription4(settingValue());
-		}
-		@Override public void pullSetting() {
-			set(race.getDescription4());
-		}
+		@Override public void pushSetting() { race.setDescription4(settingValue()); }
+		@Override public void pullSetting() { set(race.getDescription4()); }
 	}
 	// ==================== RacePrefix ====================
 	//
@@ -782,12 +758,8 @@ public class CustomRaceDefinitions  {
 			randomStr("#");
 			isBullet(false);
 		}
-		@Override public void pushSetting() {
-			race.racePrefix = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.racePrefix);		
-		}
+		@Override public void pushSetting() { race.racePrefix(settingValue()); }
+		@Override public void pullSetting() { set(race.racePrefix()); }
 	}
 	// ==================== RaceSuffix ====================
 	//
@@ -798,12 +770,8 @@ public class CustomRaceDefinitions  {
 			randomStr("#");
 			isBullet(false);
 		}
-		@Override public void pushSetting() {
-			race.raceSuffix = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.raceSuffix);		
-		}
+		@Override public void pushSetting() { race.raceSuffix(settingValue()); }
+		@Override public void pullSetting() { set(race.raceSuffix()); }
 	}
 	// ==================== LeaderPrefix ====================
 	//
@@ -814,12 +782,8 @@ public class CustomRaceDefinitions  {
 			randomStr("#");
 			isBullet(false);
 		}
-		@Override public void pushSetting() {
-			race.leaderPrefix = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.leaderPrefix);		
-		}
+		@Override public void pushSetting() { race.leaderPrefix(settingValue()); }
+		@Override public void pullSetting() { set(race.leaderPrefix()); }
 	}
 	// ==================== LeaderSuffix ====================
 	//
@@ -830,12 +794,8 @@ public class CustomRaceDefinitions  {
 			randomStr("#");
 			isBullet(false);
 		}
-		@Override public void pushSetting() {
-			race.leaderSuffix = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.leaderSuffix);		
-		}
+		@Override public void pushSetting() { race.leaderSuffix(settingValue()); }
+		@Override public void pullSetting() { set(race.leaderSuffix()); }
 	}
 	// ==================== WorldsPrefix ====================
 	//
@@ -846,12 +806,8 @@ public class CustomRaceDefinitions  {
 			randomStr("#");
 			isBullet(false);
 		}
-		@Override public void pushSetting() {
-			race.worldsPrefix = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.worldsPrefix);		
-		}
+		@Override public void pushSetting() { race.worldsPrefix(settingValue()); }
+		@Override public void pullSetting() { set(race.worldsPrefix()); }
 	}
 	// ==================== WorldsSuffix ====================
 	//
@@ -862,37 +818,29 @@ public class CustomRaceDefinitions  {
 			randomStr("#");
 			isBullet(false);
 		}
-		@Override public void pushSetting() {
-			race.worldsSuffix = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.worldsSuffix);		
-		}
+		@Override public void pushSetting() { race.worldsSuffix(settingValue()); }
+		@Override public void pullSetting() { set(race.worldsSuffix()); }
 	}
 	// ==================== AvailablePlayer ====================
 	//
 	@SuppressWarnings("unused")
 	private class AvailablePlayer extends SettingBoolean {
 		private static final boolean defaultValue = true;
-		
+
 		private AvailablePlayer() {
 			super(ROOT, "AVAILABLE_PLAYER", defaultValue);
 			isBullet(false);
 			hasNoCost(true);
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.availablePlayer = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.availablePlayer);
-		}
+		@Override public void pushSetting() { race.availablePlayer(settingValue()); }
+		@Override public void pullSetting() { set(race.availablePlayer()); }
 	}
 	// ==================== AvailableAI ====================
 	//
 	private class AvailableAI extends SettingBoolean {
 		private static final boolean defaultValue = true;
-		
+
 		private AvailableAI() {
 			super(ROOT, "AVAILABLE_AI", defaultValue);
 			isBullet(true);
@@ -900,18 +848,14 @@ public class CustomRaceDefinitions  {
 			getToolTip();
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.availableAI = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.availableAI);
-		}
+		@Override public void pushSetting() { race.availableAI(settingValue()); }
+		@Override public void pullSetting() { set(race.availableAI()); }
 	}
 	// ==================== PreferredShipSize ====================
 	//
 	private class PreferredShipSize extends SettingBase<String> {
 		private static final String defaultValue = "Large";
-		
+
 		private PreferredShipSize() {
 			super(ROOT, "FAVORED_SHIP_SIZE");
 			isBullet(true);
@@ -927,14 +871,14 @@ public class CustomRaceDefinitions  {
 			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}
-		@Override public void pushSetting() { race.preferredShipSize = index(); }
+		@Override public void pushSetting() { race.preferredShipSize(index()); }
 		@Override public void pullSetting() { index(race.preferredShipSize()); }
 	}
 	// ==================== PreferredShipSet ====================
 	//
 	private class PreferredShipSet extends SettingBase<String> {
 		private static final String defaultValue = DISPLAY_RACE_SET;
-		
+
 		private PreferredShipSet() {
 			super(ROOT, "FAVORED_SHIPSET");
 			isBullet(false);
@@ -955,8 +899,8 @@ public class CustomRaceDefinitions  {
 		}
 		@Override public String guideDefaultValue()	{ return defaultLangLabel(); }
 		@Override public String guideValue()		{ return getSelLangLabel(); }
-		@Override public void pushSetting() 		{ race.preferredShipSet = settingValue(); }
-		@Override public void pullSetting() 		{ set(race.preferredShipSet); }
+		@Override public void pushSetting() 		{ race.preferredShipSet(settingValue()); }
+		@Override public void pullSetting() 		{ set(race.preferredShipSet()); }
 	}
 	// ==================== CRObjective ====================
 	//
@@ -977,7 +921,7 @@ public class CustomRaceDefinitions  {
 			objectivePct[3] = industrialist.settingValue();
 			objectivePct[4] = expansionist.settingValue();
 			objectivePct[5] = technologist.settingValue();
-			
+
 			// Normalization
 			float sum = 0;
 			for (float f : objectivePct)
@@ -988,10 +932,10 @@ public class CustomRaceDefinitions  {
 				for (int i=0; i<objectivePct.length; i++)
 					objectivePct[i] /= sum;
 
-			race.objectivePct = objectivePct;
+			race.objectivePct(objectivePct);
 		}
 		void pullSetting() {
-			objectivePct = race.objectivePct;
+			objectivePct = race.objectivePct();
 			militarist   .set(objectivePct[0]);
 			ecologist    .set(objectivePct[1]);
 			diplomat     .set(objectivePct[2]);
@@ -1008,12 +952,8 @@ public class CustomRaceDefinitions  {
 				cfgFormat("%");
 				hasNoCost(true);
 			}
-			@Override public void pushSetting() {
-				objective.pushSetting();
-			}
-			@Override public void pullSetting() {
-				objective.pullSetting();
-			}
+			@Override public void pushSetting() { objective.pushSetting(); }
+			@Override public void pullSetting() { objective.pullSetting(); }
 		}
 		// ==================== Expansionist ====================
 		//
@@ -1080,7 +1020,7 @@ public class CustomRaceDefinitions  {
 			personalityPct[3] = ruthless.settingValue();
 			personalityPct[4] = aggressive.settingValue();
 			personalityPct[5] = xenophobic.settingValue();
-			
+
 			// Normalization
 			float sum = 0;
 			for (float f : personalityPct)
@@ -1091,10 +1031,10 @@ public class CustomRaceDefinitions  {
 				for (int i=0; i<personalityPct.length; i++)
 					personalityPct[i] /= sum;
 
-			race.personalityPct = personalityPct;
+			race.personalityPct(personalityPct);
 		}
 		void pullSetting() {
-			personalityPct = race.personalityPct;
+			personalityPct = race.personalityPct();
 			erratic   .set(personalityPct[0]);
 			pacifist  .set(personalityPct[1]);
 			honorable .set(personalityPct[2]);
@@ -1111,12 +1051,8 @@ public class CustomRaceDefinitions  {
 				cfgFormat("%");
 				hasNoCost(true);
 			}
-			@Override public void pushSetting() {
-				personality.pushSetting();
-			}
-			@Override public void pullSetting() {
-				personality.pullSetting();
-			}
+			@Override public void pushSetting() { personality.pushSetting(); }
+			@Override public void pullSetting() { personality.pullSetting(); }
 		}
 		// ==================== Aggressive ====================
 		//
@@ -1172,12 +1108,8 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "CREDIT", 0, 0, 35, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .8f}, new float[]{0f, .8f});
 		}
-		@Override public void pushSetting() {
-			race.bCBonus((float) settingValue()/100);
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.bCBonus() * 100));
-		}
+		@Override public void pushSetting() { race.bCBonus(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.bCBonus() * 100)); }
 	}
 	// ==================== HitPointsBonus ====================
 	//
@@ -1187,12 +1119,8 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "HIT_POINTS", 100, 50, 200, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .6f});
 		}
-		@Override public void pushSetting() {
-			race.hPFactor((float) settingValue()/100);
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.hPFactor() * 100));
-		}
+		@Override public void pushSetting() { race.hPFactor(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.hPFactor() * 100)); }
 	}
 	// ==================== ShipSpaceBonus ====================
 	//
@@ -1203,12 +1131,8 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "SHIP_SPACE", 100, 80, 175, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, 1f}, new float[]{0f, 2f});
 		}
-		@Override public void pushSetting() {
-			race.shipSpaceFactor((float) settingValue()/100);
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.shipSpaceFactor() * 100));
-		}
+		@Override public void pushSetting() { race.shipSpaceFactor(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.shipSpaceFactor() * 100)); }
 	}
 	// ==================== MaintenanceBonus ====================
 	//
@@ -1218,18 +1142,14 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "MAINTENANCE", 100, 50, 200, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, -.2f}, new float[]{0f, -.4f});
 		}
-		@Override public void pushSetting() {
-			race.maintenanceFactor((float) settingValue()/100);
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.maintenanceFactor() * 100));
-		}
+		@Override public void pushSetting() { race.maintenanceFactor(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.maintenanceFactor() * 100f)); }
 	}
 	// ==================== PlanetRessources ====================
 	//
 	private class PlanetRessources extends SettingBase<String> {
 		private static final String defaultValue = "Normal";
-		
+
 		public PlanetRessources() {
 			super(ROOT, "HOME_RESOURCES");
 			isBullet(true);
@@ -1244,19 +1164,15 @@ public class CustomRaceDefinitions  {
 			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}
-		
-		@Override public void pushSetting() {
-			race.planetRessource(settingValue());
-		}
-		@Override public void pullSetting() {
-			set(race.planetRessource());
-		}
+
+		@Override public void pushSetting() { race.planetRessource(settingValue()); }
+		@Override public void pullSetting() { set(race.planetRessource()); }
 	}
 	// ==================== PlanetArtifacts ====================
 	//
 	private class PlanetArtifacts extends SettingBase<String> {
 		private static final String defaultValue = "None";
-		
+
 		public PlanetArtifacts() {
 			super(ROOT, "HOME_ARTIFACTS");
 			isBullet(true);
@@ -1268,18 +1184,14 @@ public class CustomRaceDefinitions  {
 			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.planetArtifacts(settingValue());
-		}
-		@Override public void pullSetting() {
-			set(race.planetArtifacts());
-		}
+		@Override public void pushSetting() { race.planetArtifacts(settingValue()); }
+		@Override public void pullSetting() { set(race.planetArtifacts()); }
 	}
 	// ==================== PlanetEnvironment ====================
 	//
 	private class PlanetEnvironment extends SettingBase<String> {
 		private static final String defaultValue = "Normal";
-		
+
 		private PlanetEnvironment() {
 			super(ROOT, "HOME_ENVIRONMENT");
 			isBullet(true);
@@ -1292,27 +1204,20 @@ public class CustomRaceDefinitions  {
 			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.planetEnvironment(settingValue());
-		}
-		@Override public void pullSetting() {
-			set(race.planetEnvironment());
-		}
+		@Override public void pushSetting() { race.planetEnvironment(settingValue()); }
+		@Override public void pullSetting() { set(race.planetEnvironment()); }
 	}
 	// ==================== PlanetType ====================
 	//
 	@SuppressWarnings("unused")
 	private class RacePlanetType extends SettingBase<String> {
 		private static final String defaultValue = "Terran";
-		
+
 		private RacePlanetType() {
 			super(ROOT, "HOME_TYPE");
 			isBullet(true);
 			labelsAreFinals(true);
 			showFullGuide(true);
-//			put("Ocean",	PlanetType.OCEAN,	-8f, PlanetType.OCEAN);
-//			put("Jungle",	PlanetType.JUNGLE,	-5f, PlanetType.JUNGLE);
-//			put("Terran",	PlanetType.TERRAN,	 0f, PlanetType.TERRAN);
 			put("Ocean",	PlanetType.OCEAN,	0f, PlanetType.OCEAN);
 			put("Jungle",	PlanetType.JUNGLE,	0f, PlanetType.JUNGLE);
 			put("Terran",	PlanetType.TERRAN,	0f, PlanetType.TERRAN);
@@ -1320,12 +1225,8 @@ public class CustomRaceDefinitions  {
 			initOptionsText();
 			hasNoCost(true); // to be removed
 		}
-		@Override public void pushSetting() {
-			race.homeworldPlanetType = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.homeworldPlanetType);
-		}
+		@Override public void pushSetting() { race.homeworldPlanetType(settingValue()); }
+		@Override public void pullSetting() { set(race.homeworldPlanetType()); }
 	}
 	// ==================== HomeworldSize ====================
 	//
@@ -1334,19 +1235,15 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "HOME_SIZE", 100, 70, 150, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .7f});
 		}
-		@Override public void pushSetting() {
-			race.homeworldSize = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.homeworldSize);
-		}
+		@Override public void pushSetting() { race.homeworldSize(settingValue()); }
+		@Override public void pullSetting() { set(race.homeworldSize()); }
 	}
 	// ==================== SpeciesType ====================
 	//
 	@SuppressWarnings("unused")
 	private class SpeciesType extends SettingBase<Integer> {
 		private static final String defaultValue = "Terran";
-		
+
 		private SpeciesType() {
 			super(ROOT, "RACE_TYPE");
 			isBullet(true);
@@ -1358,18 +1255,14 @@ public class CustomRaceDefinitions  {
 			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.speciesType = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.speciesType);
-		}
+		@Override public void pushSetting() { race.speciesType(settingValue()); }
+		@Override public void pullSetting() { set(race.speciesType()); }
 	}
 	// ==================== IgnoreEco ====================
 	//
 	private class IgnoresEco extends SettingBase<String> {
 		private static final String defaultValue = "No";
-		
+
 		private IgnoresEco() {
 			super(ROOT, "IGNORES_ECO");
 			isBullet(true);
@@ -1382,13 +1275,10 @@ public class CustomRaceDefinitions  {
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
-//			System.err.println("ignoresEco push: "+settingValue());
-			race.acceptedPlanetEnvironment = settingValue();
-			race.ignoresPlanetEnvironment = !settingValue().equalsIgnoreCase("No");
+			race.acceptedPlanetEnvironment(settingValue());
+			race.ignoresPlanetEnvironment(!settingValue().equalsIgnoreCase("No"));
 		}
-		@Override public void pullSetting() {
-			set(race.acceptedPlanetEnvironment);
-		}
+		@Override public void pullSetting() { set(race.acceptedPlanetEnvironment()); }
 		@Override public void updateOptionTool(DynamicOptions srcOptions) {
 			if (srcOptions != null) {
 				// get the old boolean value (if there is one)
@@ -1404,14 +1294,9 @@ public class CustomRaceDefinitions  {
 		private PopGrowRate() {
 			super(ROOT, "POP_GROW_RATE", 100, 50, 200, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .3f});
-//			DIFFERENCE, new float[]{0f, .2f, .003f}, new float[]{0f, .3f});
 		}
-		@Override public void pushSetting() {
-			race.growthRateMod = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round (race.growthRateMod * 100));
-		}
+		@Override public void pushSetting() { race.growthRateMod(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round (race.growthRateMod() * 100)); }
 	}
 	// ==================== ShipAttack ====================
 	//
@@ -1421,12 +1306,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, 3f}, new float[]{0f, 5f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.shipAttackBonus(settingValue());
-		}
-		@Override public void pullSetting() {
-			set(race.shipAttackBonus());
-		}
+		@Override public void pushSetting() { race.shipAttackBonus(settingValue()); }
+		@Override public void pullSetting() { set(race.shipAttackBonus()); }
 	}
 	// ==================== ShipDefense ====================
 	//
@@ -1436,12 +1317,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, 1.5f, 1.5f}, new float[]{0f, 6f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.shipDefenseBonus(settingValue());
-		}
-		@Override public void pullSetting() {
-			set(race.shipDefenseBonus());
-		}
+		@Override public void pushSetting() { race.shipDefenseBonus(settingValue()); }
+		@Override public void pullSetting() { set(race.shipDefenseBonus()); }
 	}
 	// ==================== ShipInitiative ====================
 	//
@@ -1451,12 +1328,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{5f, 1f}, new float[]{0f, 6f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.shipInitiativeBonus(settingValue());
-		}
-		@Override public void pullSetting() {
-			set(race.shipInitiativeBonus());
-		}
+		@Override public void pushSetting() { race.shipInitiativeBonus(settingValue()); }
+		@Override public void pullSetting() { set(race.shipInitiativeBonus()); }
 	}
 	// ==================== GroundAttack ====================
 	//
@@ -1466,12 +1339,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, 1.25f}, new float[]{0f, 0.75f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.groundAttackBonus(settingValue());
-		}
-		@Override public void pullSetting() {
-			set(race.groundAttackBonus());
-		}
+		@Override public void pushSetting() { race.groundAttackBonus(settingValue()); }
+		@Override public void pullSetting() { set(race.groundAttackBonus()); }
 	}
 	// ==================== SpyCost ====================
 	//
@@ -1481,12 +1350,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, -.1f}, new float[]{0f, -.2f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.spyCostMod = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.spyCostMod * 100));
-		}
+		@Override public void pushSetting() { race.spyCostMod(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.spyCostMod() * 100)); }
 	}
 	// ==================== SpySecurity ====================
 	//
@@ -1496,12 +1361,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, 1f}, new float[]{0f, 2f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.internalSecurityAdj = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.internalSecurityAdj * 100));
-		}
+		@Override public void pushSetting() { race.internalSecurityAdj(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.internalSecurityAdj() * 100)); }
 	}
 	// ==================== SpyInfiltration ====================
 	//
@@ -1511,30 +1372,22 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, 1.25f}, new float[]{0f, 2.5f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.spyInfiltrationAdj = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.spyInfiltrationAdj * 100));
-		}
+		@Override public void pushSetting() { race.spyInfiltrationAdj(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.spyInfiltrationAdj() * 100)); }
 	}
 	// ==================== SpyTelepathy ====================
 	//
 	@SuppressWarnings("unused")
 	private class SpyTelepathy extends SettingBoolean {
 		private static final boolean defaultValue = false;
-		
+
 		private SpyTelepathy() {
 			super(ROOT, "SPY_TELEPATHY", defaultValue, 20f, 0f);
 			isBullet(booleansAreBullet);
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.telepathic = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.telepathic);
-		}
+		@Override public void pushSetting() { race.telepathic(settingValue()); }
+		@Override public void pullSetting() { set(race.telepathic()); }
 	}
 	// ==================== DiplomacyTrade ====================
 	//
@@ -1544,12 +1397,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .3f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.tradePctBonus = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.tradePctBonus * 100));
-		}
+		@Override public void pushSetting() { race.tradePctBonus(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.tradePctBonus() * 100)); }
 	}
 	// ==================== DiploPosDP ====================
 	//
@@ -1560,12 +1409,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, .3f}, new float[]{0f, .8f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.positiveDPMod = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.positiveDPMod * 100));
-		}
+		@Override public void pushSetting() { race.positiveDPMod(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.positiveDPMod() * 100)); }
 	}
 	// ==================== DiplomacyBonus ====================
 	//
@@ -1575,12 +1420,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, .1f}, new float[]{0f, .2f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.diplomacyBonus = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.diplomacyBonus);
-		}
+		@Override public void pushSetting() { race.diplomacyBonus(settingValue()); }
+		@Override public void pullSetting() { set(race.diplomacyBonus()); }
 	}
 	// ==================== DiplomacyCouncil ====================
 	//
@@ -1590,12 +1431,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, .2f}, new float[]{0f, .2f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.councilBonus = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.councilBonus * 100));
-		}
+		@Override public void pushSetting() { race.councilBonus(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.councilBonus() * 100)); }
 	}
 	// ==================== RelationDefault ====================
 	//
@@ -1605,12 +1442,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .4f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.defaultRaceRelations(settingValue());
-		}
-		@Override public void pullSetting() {
-			set((int)race.defaultRaceRelations());
-		}
+		@Override public void pushSetting() { race.defaultRaceRelations(settingValue()); }
+		@Override public void pullSetting() { set((int)race.defaultRaceRelations()); }
 	}
 	// ==================== ProdWorker ====================
 	//
@@ -1621,12 +1454,8 @@ public class CustomRaceDefinitions  {
 					DIFFERENCE, new float[]{0f, .8f, 0f}, new float[]{0f, 0.8f, 0.01f});
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.workerProductivityMod = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.workerProductivityMod * 100));
-		}
+		@Override public void pushSetting() { race.workerProductivityMod(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.workerProductivityMod() * 100)); }
 	}
 	// ==================== ProdControl ====================
 	//
@@ -1637,29 +1466,21 @@ public class CustomRaceDefinitions  {
 			pctValue(false);
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.robotControlsAdj = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.robotControlsAdj);
-		}
+		@Override public void pushSetting() { race.robotControlsAdj(settingValue()); }
+		@Override public void pullSetting() { set(race.robotControlsAdj()); }
 	}
 	// ==================== IgnoresFactoryRefit ====================
 	//
 	private class IgnoresFactoryRefit extends SettingBoolean {
 		private static final boolean defaultValue = false;
-		
+
 		private IgnoresFactoryRefit() {
 			super(ROOT, "PROD_REFIT_COST", defaultValue, 40f, 0f);
 			isBullet(booleansAreBullet);
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.ignoresFactoryRefit = settingValue();
-		}
-		@Override public void pullSetting() {
-			set(race.ignoresFactoryRefit());
-		}
+		@Override public void pushSetting() { race.ignoresFactoryRefit(settingValue()); }
+		@Override public void pullSetting() { set(race.ignoresFactoryRefit()); }
 	}
 	// ==================== TechResearch ====================
 	//
@@ -1679,13 +1500,8 @@ public class CustomRaceDefinitions  {
 			hasNoCost(true);
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.researchBonusPct = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.researchBonusPct * 100));
-		}
-
+		@Override public void pushSetting() { race.researchBonusPct(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.researchBonusPct() * 100)); }
 		@Override public String guiSettingDisplayStr() {
 			return getLabel() + ": " + guideSelectedValue() + " " + costString(cost());
 		}
@@ -1699,9 +1515,7 @@ public class CustomRaceDefinitions  {
 			weapon.settingText().repaint(weapon.guiSettingDisplayStr());
 			return false;
 		}
-		@Override public void enabledColor(float cost) {
-			super.enabledColor(cost());
-		}
+		@Override public void enabledColor(float cost) { super.enabledColor(cost()); }
 
 		private String costString(float cost) {
 			String str = "(<";
@@ -1724,12 +1538,8 @@ public class CustomRaceDefinitions  {
 				super("RESEARCH_COMPUTER");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.techMod[0] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.techMod[0] * 100));
-			}
+			@Override public void pushSetting() { race.techMod(0, settingValue()/100f); }
+			@Override public void pullSetting() { set(Math.round(race.techMod(0) * 100)); }
 		}
 		// ==================== ResearchConstruction ====================
 		//
@@ -1738,12 +1548,8 @@ public class CustomRaceDefinitions  {
 				super("RESEARCH_CONSTRUCTION");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.techMod[1] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.techMod[1] * 100));
-			}
+			@Override public void pushSetting() { race.techMod(1, settingValue()/100); }
+			@Override public void pullSetting() { set(Math.round(race.techMod(1) * 100)); }
 		}
 		// ==================== ResearchForceField ====================
 		//
@@ -1752,12 +1558,8 @@ public class CustomRaceDefinitions  {
 				super("RESEARCH_FORCEFIELD");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.techMod[2] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.techMod[2] * 100));
-			}
+			@Override public void pushSetting() { race.techMod(2, settingValue()/100); }
+			@Override public void pullSetting() { set(Math.round(race.techMod(2) * 100)); }
 		}
 		// ==================== ResearchPlanet ====================
 		//
@@ -1766,12 +1568,8 @@ public class CustomRaceDefinitions  {
 				super("RESEARCH_PLANET");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.techMod[3] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.techMod[3] * 100));
-			}
+			@Override public void pushSetting() { race.techMod(3, settingValue()/100); }
+			@Override public void pullSetting() { set(Math.round(race.techMod(3) * 100)); }
 		}
 		// ==================== ResearchPropulsion ====================
 		//
@@ -1780,12 +1578,8 @@ public class CustomRaceDefinitions  {
 				super("RESEARCH_PROPULSION");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.techMod[4] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.techMod[4] * 100));
-			}
+			@Override public void pushSetting() { race.techMod(4, settingValue()/100); }
+			@Override public void pullSetting() { set(Math.round(race.techMod(4) * 100)); }
 		}
 		// ==================== ResearchWeapon ====================
 		//
@@ -1794,12 +1588,8 @@ public class CustomRaceDefinitions  {
 				super("RESEARCH_WEAPON");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.techMod[5] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.techMod[5] * 100));
-			}
+			@Override public void pushSetting() { race.techMod(5, settingValue()/100); }
+			@Override public void pullSetting() { set(Math.round(race.techMod(5) * 100)); }
 		}
 		//
 		// ==================== Research ====================
@@ -1818,10 +1608,8 @@ public class CustomRaceDefinitions  {
 				super(ROOT, nameLangLabel, 100, 50, 200, 1, 5, 20, NORMALIZED,
 						new float[]{c0, c1, c2, c3, c4}, null);
 			}
-			
-			@Override public float settingCost() {
-				return settingCost(combinedValue());
-			}
+
+			@Override public float settingCost() { return settingCost(combinedValue()); }
 			@Override protected float settingCost(Integer value) {
 				float baseCost = (value - baseCostDefault)/norm;
 				float cost = 0;
@@ -1846,9 +1634,7 @@ public class CustomRaceDefinitions  {
 				str +=  new DecimalFormat("0.0").format(cost);
 				return str + ")";
 			}
-			private Integer combinedValue() {
-				return combinedValue(settingValue());
-			}
+			private Integer combinedValue() { return combinedValue(settingValue()); }
 			private Integer combinedValue(Integer value) {
 				return Math.round(100f * value / techResearch.settingValue());
 			}
@@ -1871,12 +1657,8 @@ public class CustomRaceDefinitions  {
 			hasNoCost(true);
 			initOptionsText();
 		}
-		@Override public void pushSetting() {
-			race.techDiscoveryPct = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.techDiscoveryPct * 100));
-		}
+		@Override public void pushSetting() { race.techDiscoveryPct(settingValue()/100f); }
+		@Override public void pullSetting() { set(Math.round(race.techDiscoveryPct() * 100)); }
 		@Override public String guiSettingDisplayStr() {
 			return getLabel() + ": " + guideSelectedValue() + " " + costString(cost());
 		}
@@ -1890,9 +1672,7 @@ public class CustomRaceDefinitions  {
 			weapon.settingText().repaint(weapon.guiSettingDisplayStr());
 			return false;
 		}
-		@Override public void enabledColor(float cost) {
-			super.enabledColor(cost());
-		}
+		@Override public void enabledColor(float cost) { super.enabledColor(cost()); }
 
 		private String costString(float cost) {
 			String str = "(<";
@@ -1916,12 +1696,8 @@ public class CustomRaceDefinitions  {
 				super("DISCOVERY_COMPUTER");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.discoveryMod[0] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.discoveryMod[0] * 100));
-			}
+			@Override public void pushSetting() { race.discoveryMod(0, settingValue()/100f); }
+			@Override public void pullSetting() { set(Math.round(race.discoveryMod(0) * 100)); }
 		}
 		// ==================== DiscoveryConstruction ====================
 		//
@@ -1930,12 +1706,8 @@ public class CustomRaceDefinitions  {
 				super("DISCOVERY_CONSTRUCTION");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.discoveryMod[1] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.discoveryMod[1] * 100));
-			}
+			@Override public void pushSetting() { race.discoveryMod(1, settingValue()/100f); }
+			@Override public void pullSetting() { set(Math.round(race.discoveryMod(1) * 100)); }
 		}
 		// ==================== DiscoveryForceField ====================
 		//
@@ -1944,12 +1716,8 @@ public class CustomRaceDefinitions  {
 				super("DISCOVERY_FORCEFIELD");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.discoveryMod[2] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.discoveryMod[2] * 100));
-			}
+			@Override public void pushSetting() { race.discoveryMod(2, settingValue()/100f); }
+			@Override public void pullSetting() { set(Math.round(race.discoveryMod(2) * 100)); }
 		}
 		// ==================== DiscoveryPlanet ====================
 		//
@@ -1958,12 +1726,8 @@ public class CustomRaceDefinitions  {
 				super("DISCOVERY_PLANET");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.discoveryMod[3] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.discoveryMod[3] * 100));
-			}
+			@Override public void pushSetting() { race.discoveryMod(3, settingValue()/100f); }
+			@Override public void pullSetting() { set(Math.round(race.discoveryMod(3) * 100)); }
 		}
 		// ==================== DiscoveryPropulsion ====================
 		//
@@ -1972,12 +1736,8 @@ public class CustomRaceDefinitions  {
 				super("DISCOVERY_PROPULSION");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.discoveryMod[4] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.discoveryMod[4] * 100));
-			}
+			@Override public void pushSetting() { race.discoveryMod(4, settingValue()/100f); }
+			@Override public void pullSetting() { set(Math.round(race.discoveryMod(4) * 100)); }
 		}
 		// ==================== DiscoveryWeapon ====================
 		//
@@ -1986,12 +1746,8 @@ public class CustomRaceDefinitions  {
 				super("DISCOVERY_WEAPON");
 				initOptionsText();
 			}
-			@Override public void pushSetting() {
-				race.discoveryMod[5] = (float) settingValue()/100;
-			}
-			@Override public void pullSetting() {
-				set(Math.round(race.discoveryMod[5] * 100));
-			}
+			@Override public void pushSetting() { race.discoveryMod(5, settingValue()/100f); }
+			@Override public void pullSetting() { set(Math.round(race.discoveryMod(5) * 100)); }
 		}
 		//
 		// ==================== Discovery ====================
@@ -2011,7 +1767,7 @@ public class CustomRaceDefinitions  {
 				super(ROOT, nameLangLabel, 0, -100, 100, 1, 5, 20, NORMALIZED,
 						new float[]{c0, c1, c2, c3, c4, c5}, null);
 			}
-			
+
 			@Override public float settingCost() {
 				return settingCost(combinedValue());
 			}
@@ -2038,9 +1794,7 @@ public class CustomRaceDefinitions  {
 				str +=  new DecimalFormat("0.0").format(cost);
 				return str + ")";
 			}
-			private Integer combinedValue() {
-				return combinedValue(settingValue());
-			}
+			private Integer combinedValue() { return combinedValue(settingValue()); }
 			private Integer combinedValue(Integer value) {
 				return Math.max(0, Math.min(100, 
 						Math.round(value + techDiscovery.settingValue())));

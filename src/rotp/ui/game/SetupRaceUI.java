@@ -630,20 +630,20 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         int y0 = scaled(240); // BR: squeezed
         // BR: show custom race name and descriptions
         String raceName, desc1, desc2, desc3, desc4;
-        if (playerIsCustom.get()) {
-        	raceName = dataRace.setupName;
-        	desc1 = dataRace.getDescription1();
-        	desc2 = dataRace.getDescription2();
-        	desc3 = dataRace.getDescription3(raceName);
-        	desc4 = dataRace.getDescription4();
-        }
-        else {
-        	raceName = race.setupName();
-        	desc1 = race.getDescription1();
-        	desc2 = race.getDescription2();
-        	desc3 = race.getDescription3();
-        	desc4 = race.getDescription4();
-        }
+		if (playerIsCustom.get()) {
+			raceName = dataRace.setupName;
+			desc1 = dataRace.getDescription1();
+			desc2 = dataRace.getDescription2();
+			desc3 = dataRace.getDescription3(raceName);
+			desc4 = dataRace.getDescription4();
+		}
+		else {
+			raceName = race.setupName();
+			desc1 = race.getDescription1();
+			desc2 = race.getDescription2();
+			desc3 = race.getDescription3();
+			desc4 = race.getDescription4();
+		}
         // \BR:
         int fs = scaledFontSize(g, raceName, scaled(200), 30, 10);
         g.setFont(font(fs));
@@ -687,7 +687,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
                 y0 += dy;
             }
         }
-        
+
         // draw race desc #3
         y0 += s3;  // BR: squeezed
         // String desc3 = race.description3.replace("[race]", race.setupName());
@@ -1063,7 +1063,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         helpBox.setBounds(s20,s20,s20,s25);
         g.setColor(darkBrownC);
         g.fillOval(helpBox.x, helpBox.y, helpBox.width, helpBox.height);
-        
+
         // draw left button
         g.setPaint(GameUI.buttonLeftBackground());
         cancelBox.setBounds(scaled(710), scaled(685+10), buttonW, buttonH);
@@ -1110,7 +1110,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 
         drawFixButtons(g, true);
         initButtonBackImg();
-        
+
         g.dispose();
 		if (showTiming) 
 			System.out.println("initBackImg() Time = " + (System.currentTimeMillis()-timeStart));

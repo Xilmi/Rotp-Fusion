@@ -101,7 +101,7 @@ public final class GalacticCouncilUI extends FadeInPanel
     public void init() {
         showVoterSummary = false;
         displayMode = Display.ANNOUNCE;
-        background = player().race().council();
+        background = player().council();
         startFadeTimer();
         initConsole();
     }
@@ -339,8 +339,8 @@ public final class GalacticCouncilUI extends FadeInPanel
         int x3a = 0;
         int x3b = w-w3;
         
-        BufferedImage img1 = c.candidate1().race().diploMugshotQuiet();
-        BufferedImage img2 = c.candidate2().race().diploMugshotQuiet();
+        BufferedImage img1 = c.candidate1().diploMugshotQuiet();
+        BufferedImage img2 = c.candidate2().diploMugshotQuiet();
 
         // modnar: use (slightly) better sampling
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -425,8 +425,8 @@ public final class GalacticCouncilUI extends FadeInPanel
         
         // council leader images shoud be 480x216... we want to show the middle 200x216 for this screen
         BufferedImage backImg = raceBackImg();
-        BufferedImage img1 = c.candidate1().race().councilLeader().getSubimage(140, 0, 200, 216);
-        BufferedImage img2 = c.candidate2().race().councilLeader().getSubimage(140, 0, 200, 216);
+        BufferedImage img1 = c.candidate1().councilLeader().getSubimage(140, 0, 200, 216);
+        BufferedImage img2 = c.candidate2().councilLeader().getSubimage(140, 0, 200, 216);
 
         g.drawImage(backImg, x3a, y3, w3, h3, null);
         g.drawImage(img1, x3a, y3, w3, h3, null);
@@ -689,7 +689,7 @@ public final class GalacticCouncilUI extends FadeInPanel
         int x3a = x1+s10;
        
         BufferedImage backImg = wideBackImg();
-        BufferedImage img1 = c.leader().race().councilLeader();
+        BufferedImage img1 = c.leader().councilLeader();
 
         g.drawImage(backImg, x3a, y3, w3, h3, null);
         g.drawImage(img1, x3a, y3, w3, h3, null);
@@ -933,7 +933,7 @@ public final class GalacticCouncilUI extends FadeInPanel
         int imgW = img.getWidth();
         int imgH = img.getHeight();
         
-        BufferedImage img2 = voter.race().diploMugshotQuiet();
+        BufferedImage img2 = voter.diploMugshotQuiet();
         g.drawImage(img2, x,y,imgW, imgH, null);
         
         boolean voted = c.hasVoted(voter);
@@ -1023,12 +1023,12 @@ public final class GalacticCouncilUI extends FadeInPanel
 			imgG.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
             // draw race diplo image
-            BufferedImage dipImg = emp.race().diplomatQuiet();
+            BufferedImage dipImg = emp.diplomatQuiet();
             int h0 = dipImg.getHeight();
             int w0 = diplomatImg.getWidth()*h0/diplomatImg.getHeight();
             Composite prevComp  =  imgG.getComposite();
-            if (player().race().diploOpacity < 1) {
-                AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)player().race().diploOpacity);
+            if (player().diploOpacity() < 1) {
+                AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)player().diploOpacity());
                 imgG.setComposite(ac);
             }
             imgG.drawImage(dipImg, 0, 0, w, h, 0, 0, w0, h0, null);
@@ -1044,10 +1044,10 @@ public final class GalacticCouncilUI extends FadeInPanel
         }
         int h = getHeight();
         int w = getWidth();
-        int h1 = (int) (h*player().race().diploScale);
+        int h1 = (int) (h*player().diploScale());
         int w1 = diplomatImg.getWidth()*h1/diplomatImg.getHeight();
-        int xOff = scaled(player().race().diploXOffset);
-        int yOff = scaled(player().race().diploYOffset);
+        int xOff = scaled(player().diploXOffset());
+        int yOff = scaled(player().diploYOffset());
 		// modnar: use (slightly) better sampling
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
@@ -1551,7 +1551,7 @@ public final class GalacticCouncilUI extends FadeInPanel
         GalacticCouncil c = galaxy().council();
 		String msg = text("COUNCIL_ELECTED_TITLE");
         msg += NEWLINE + voteTotals();
-        msg += NEWLINE + "The winner is: " + c.leader().race().name();
+        msg += NEWLINE + "The winner is: " + c.leader().empireRaceName();
 		return msg;
 	}
 	private String announceMessage()		{

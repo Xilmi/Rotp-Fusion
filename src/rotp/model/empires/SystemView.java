@@ -1008,7 +1008,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 //        	vName = owner().dataRace().worldsPrefix
 //        			+ owner().race().randomSystemName(owner())
 //        			+ owner().dataRace().worldsSuffix;
-        	vName = owner().race().randomSystemName(owner());
+        	vName = owner().randomSystemName(owner());
         	// BR: Update the system name too, to avoid multiple naming
         }
     }

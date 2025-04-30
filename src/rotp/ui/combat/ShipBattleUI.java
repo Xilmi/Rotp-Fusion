@@ -1437,7 +1437,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         g.setColor(SystemPanel.whiteText);
         drawString(g,empName, x2+flagW, y2+s70);
 
-        Image flag = leftEmpire.race().flagWar();
+        Image flag = leftEmpire.flagWar();
         g.drawImage(flag,x2+s5,y2+s5,x2+flagW-s5,y2+flagW-s5,0,0,flag.getWidth(null),flag.getHeight(null), null);
 
         List<ShipDesign> ships = new ArrayList<>(leftFleet.keySet());
@@ -1478,7 +1478,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         g.setColor(SystemPanel.whiteText);
         drawString(g,empName, x3+flagW, y3+s70);
         if (monster == null) {
-            flag = rightEmpire.race().flagWar();
+            flag = rightEmpire.flagWar();
             g.drawImage(flag,x3+s5,y3+s5,x3+flagW-s5,y3+flagW-s5,0,0,flag.getWidth(null),flag.getHeight(null), null);
         }
 

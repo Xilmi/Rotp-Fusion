@@ -57,7 +57,7 @@ public final class TechControlEnvironment extends Tech {
     @Override
     public boolean canBeResearched(Race r)  {
         // If Ignores Eco is not No, only environments that are not colonizable are researchable
-        switch (r.acceptedPlanetEnvironment) {
+        switch (r.acceptedPlanetEnvironment()) {
             case "All":
                 return false;
             case "Limited":

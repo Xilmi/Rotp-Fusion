@@ -307,7 +307,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 			setDefaultGovernor();
     }
     public boolean isBuildingShip() { return shipyard().design() instanceof ShipDesign; }
-    private void buildFortress()    { fortressNum = empire.race().randomFortress(); }
+    private void buildFortress()    { fortressNum = empire.randomFortress(); }
     public boolean isAutopilot()    { return empire.isAIControlled(); }
     // MappedObject overrides
     @Override public float x()      { return starSystem().x(); }

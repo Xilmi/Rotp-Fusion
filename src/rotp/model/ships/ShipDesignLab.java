@@ -416,7 +416,7 @@ public class ShipDesignLab implements Base, Serializable {
         return design;
     }
     public void nameDesign(ShipDesign d) {
-        List<String> shipNames = empire.race().shipNames(d.size());
+        List<String> shipNames = empire.shipNames(d.size());
         if ((shipNames == null) || shipNames.isEmpty()) {
             d.name(concat("Ship", str(roll(100,999))));
             return;

@@ -36,7 +36,6 @@ import java.util.List;
 
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
-import rotp.model.empires.Race;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.ui.BasePanel;
@@ -82,7 +81,7 @@ public class TransportPanel extends BasePanel {
     public class TransportGraphicPane extends BasePanel {
         private static final long serialVersionUID = 1L;
         private final TransportPanel parent;
-        private Race displayedRace;
+		private String displayedRaceId;
         private Image shipImg;
         public TransportGraphicPane(TransportPanel p){
             parent = p;
@@ -108,14 +107,14 @@ public class TransportPanel extends BasePanel {
             if (tr == null)
                 return;
 
-            // draw ship image
-            if (displayedRace != tr.empire().race()) {
-                displayedRace = tr.empire().race();
-                if (pl.hasContact(tr.empire()))
-                    shipImg = tr.empire().race().transport();
-                else
-                    shipImg = pl.race().transport();
-            }
+			// draw ship image
+			if (displayedRaceId == null || !displayedRaceId.equals(tr.empire().raceId())) {
+				displayedRaceId = tr.empire().raceId();
+				if (pl.hasContact(tr.empire()))
+					shipImg = tr.empire().transport();
+				else
+					shipImg = pl.transport();
+			}
             int imgW = shipImg.getWidth(null);
             int imgH = shipImg.getHeight(null);
             float scale = (float) s80 / max(imgW, imgH);
@@ -273,9 +272,9 @@ public class TransportPanel extends BasePanel {
         private void drawTransports(Graphics2D g, Transport tr, int x, int y, int w, int h) {
             Image img;
             if (player().hasContact(tr.empire()))
-                img = tr.empire().race().transport();
+                img = tr.empire().transport();
             else
-                img = player().race().transport();
+                img = player().transport();
             int n = min(tr.launchSize(),MAX_DISPLAY);
             for (int i=n-1;i>=0;i--)
                 drawTransport(g, img, w, h, i);

@@ -163,7 +163,7 @@ public class DialogueManager implements Base {
         if (matchingStrings.isEmpty())
             return concat("Message not found. type:", type);
         else 
-            return speaker.race().dialogue(random(matchingStrings).key());
+            return speaker.dialogue(random(matchingStrings).key());
     }
     public String randomMessage(String type, EmpireView view) {
         // find all dialog strings of proper type
@@ -175,7 +175,7 @@ public class DialogueManager implements Base {
         if (matchingStrings.isEmpty())
             return concat("Message not found. type:", type);
         else 
-            return view.race().dialogue(random(matchingStrings).key());
+            return view.dialogue(random(matchingStrings).key());
     }
     private void loadMessages() {
         addMessage(new TurnNotificationMessage(CONTACT_DIPLOMATIC));

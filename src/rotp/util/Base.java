@@ -182,7 +182,7 @@ public interface Base extends InputEventUtil {
         if (!Rotp.initialized() || (galaxy() == null) || (player() == null))
             return labels().label(key);
         else
-            return player().race().text(key);
+            return player().raceText(key);
     }
     public default String text(String key, String... vals) {
         String str = text(key);

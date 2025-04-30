@@ -66,16 +66,16 @@ public class PlayerShipSet extends ParamList {
 	 */
 	public String displaySet() {
 		if (playerIsCustom.get() && isOriginal()) {
-		   	if (isDisplaySet()) {
-		   		return shipsetName();
-		   	}
-		   	else {
-    			String key = getLangLabel() + CUSTOM_SPECIES;
-    			String str = langLabel(key, preferredShipsetName());
-    			return str;
-		   	}
-	    }
-    	else if (isOriginal()) {
+			if (isDisplaySet()) {
+				return shipsetName();
+			}
+			else {
+				String key = getLangLabel() + CUSTOM_SPECIES;
+				String str = langLabel(key, preferredShipsetName());
+				return str;
+			}
+		}
+		else if (isOriginal()) {
 			String key = getLangLabel() + "_" + ORIGINAL.toUpperCase();
 			String str = langLabel(key);
 			return str;
@@ -93,30 +93,30 @@ public class PlayerShipSet extends ParamList {
 		int index;
 		Race r =  Race.keyed(RulesetManager.current().newOptions().selectedPlayerRace());
 		if (playerIsCustom.get() && isOriginal()) {
-		   	String preferredShipSet = preferredShipSet();
-		   	if (preferredShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
-		   		index = getIndex(r.preferredShipSet);
-		   	else
-		   		index = getIndex(preferredShipSet);
-    	}
+			String preferredShipSet = preferredShipSet();
+			if (preferredShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
+				index = getIndex(r.preferredShipSet());
+			else
+				index = getIndex(preferredShipSet);
+		}
 		// Standard process
-    	else if (isOriginal())
-			index = getIndex(r.preferredShipSet);
+		else if (isOriginal())
+			index = getIndex(r.preferredShipSet());
 		else 
 			index = getIndex();
 		
 		if (index == -1) index = 0;
 		return index;
 	}
-	private String preferredShipSet() 		{ return playerCustomRace.getRace().preferredShipSet; }
+	private String preferredShipSet() 		{ return playerCustomRace.getRace().preferredShipSet(); }
 	private String preferredShipsetName()	{
 		String key = rootLabelKey() + preferredShipSet().toUpperCase();
 		String str = langLabel(key);
-   		return str;
+		return str;
 	}
 	private String shipsetName()			{
 		String key = rootLabelKey() + get().toUpperCase();
 		String str = langLabel(key);
-   		return str;
+		return str;
 	}
 }

@@ -84,7 +84,7 @@ public class GalaxyFactory implements Base {
 		
 		Race playerRace = Race.keyed(gc.empires[0].raceKey, gc.empires[0].raceOptions);
 		addNebulas(g, src);
-		List<String> systemNames = playerRace.systemNames;
+		List<String> systemNames = playerRace.systemNames();
 		shuffle(systemNames);
 		
 		addPlayerSystemForGalaxy(g, 0, null, src);
@@ -123,7 +123,7 @@ public class GalaxyFactory implements Base {
 		long tm1 = System.currentTimeMillis();
 		log(str(g.nebulas().size()) +" Nebulas: "+(tm1-tm0)+"ms");
 
-		List<String> systemNames = playerRace.systemNames;
+		List<String> systemNames = playerRace.systemNames();
 		shuffle(systemNames);
 
 		List<EmpireSystem> empires = shape.empireSystems();
@@ -158,7 +158,7 @@ public class GalaxyFactory implements Base {
 		for (Empire emp : g.empires()) {
 			int id = emp.homeSysId();
 			int ai = emp.selectedAI;
-			String name	  = emp.race().name();
+			String name	  = emp.raceName();
 			String home	  = g.system(id).name();
 			String aiName = emp.getAiName(); 
 			System.out.println(
@@ -176,13 +176,12 @@ public class GalaxyFactory implements Base {
 		System.out.println();
 		for (Empire emp : g.empires()) {
 			int id = emp.homeSysId();
-			Race r = emp.race();
 			StarSystem sys = g.system(id);
 			Leader boss = emp.leader();
 			System.out.println(
-					String.format("%-16s", r.name())
+					String.format("%-16s", emp.empireRaceName())
 					+ String.format("%-12s", sys.name())
-					+ String.format("%-16s", emp.dataRace().name())
+					+ String.format("%-16s", emp.dataRaceName())
 					+ String.format("%-12s", boss.personality())
 					+ String.format("%-15s", boss.objective())
 					+ String.format("%-22s", emp.diplomatAI())
@@ -251,7 +250,7 @@ public class GalaxyFactory implements Base {
 				// randomUnknownTech, somewhat awkward to use in succession
 				//e.tech().learnTech(e.tech().randomUnknownTech(1,4).id());
 				//e.tech().learnTech(e.tech().randomUnknownTech(1,4).id());
-				
+
 				// generate full tech tree
 				TechTree eTech = e.tech();
 				List<String> firstTierTechs = new ArrayList<>();
@@ -319,7 +318,7 @@ public class GalaxyFactory implements Base {
 		log("Other inits: "+(tm4-tm3c)+"ms");
 
 		g.player().refreshViews(false);
-                g.player().makeNextTurnDecisions();
+		g.player().makeNextTurnDecisions();
 		long tm5 = System.currentTimeMillis();
 		log("Next Turn Decision: "+(tm5-tm4)+"ms");
 
@@ -350,7 +349,7 @@ public class GalaxyFactory implements Base {
 		String[] selectedOpponents = options().selectedOpponentRaces();
 		isRandomOpponent = new boolean[selectedOpponents.length]; // BR: only Random Races will be customized
 		allRaceOptions.remove(options().selectedPlayerRace());
-		
+
 		for (int i=0;i<maxRaces;i++) {
 			if (selectedOpponents[i] != null) {
 				allRaceOptions.remove(selectedOpponents[i]);
@@ -377,7 +376,7 @@ public class GalaxyFactory implements Base {
 			galSrc = src.galSrc;
 			empSrc = galSrc.empires[id];
 		}
-		
+
 		IGameOptions opts = GameSession.instance().options();
 		String raceKey = opts.selectedPlayerRace();
 		Race playerRace = Race.keyed(raceKey);
@@ -401,12 +400,12 @@ public class GalaxyFactory implements Base {
 			options = empSrc.raceOptions;
 		}
 		Race playerDataRace = Race.keyed(playerDataRaceKey, options);
-		
+
 		// create home system for player
 		StarSystem sys;
 		EmpireSystem empSystem = null;
 		sys = StarSystemFactory.current().newSystemForPlayer(playerRace, playerDataRace , g);
-		
+
 		if (src == null) { // Start
 			empSystem = empSystems.get(id);
 			sys.setXY(empSystem.colonyX(), empSystem.colonyY());
@@ -515,7 +514,7 @@ public class GalaxyFactory implements Base {
 			else
 				raceColors.add(i);
 		}
-		
+
 		// possible the galaxy shape could not fit in all of the races
 		GalaxyBaseData galSrc	= null; // Used for Restart
 		EmpireBaseData empSrc[]	= null; // Used for Restart
@@ -537,14 +536,14 @@ public class GalaxyFactory implements Base {
 			allowedRaceList	= getAllowedAlienRaces();
 			alienRaceList	= getAllAlienRaces();
 		}
-		
+
 		// since we may have more races than colors we will need to reset the
 		// color list each time we run out. 
 		for (int h=0; h<maxRaces; h++) {
 			StarSystem sys;
 			String raceKey;
 			if (src == null) // Start
-            	raceKey = alienRaces.get(h);
+				raceKey = alienRaces.get(h);
 			else { // Restart
 				eSrc	= empSrc[h+1];
 				raceKey = eSrc.raceKey;
@@ -649,11 +648,11 @@ public class GalaxyFactory implements Base {
 				SystemBaseData ref = empSrc[empId].homeSys;
 				sys.setXY(ref.x, ref.y);
 			}
-			sys.name(dataRace.worldsPrefix +
+			sys.name(dataRace.worldsPrefix() +
 					race.nextAvailableHomeworld() +
-					dataRace.worldsSuffix);
+					dataRace.worldsSuffix());
 			g.addStarSystem(sys);
-			
+
 			// modnar: add option to start game with additional colonies
 			// between 0 to 6 additional colonies, set in UserPreferences
 			int numCompWorlds;
@@ -690,7 +689,7 @@ public class GalaxyFactory implements Base {
 			}
 			g.addEmpire(emp);
 			empId++;
-			
+	
 			// create two nearby system within 3 light-years (required to be at least 1 habitable)
 			if (src == null) { // Start
 				boolean needHabitable;

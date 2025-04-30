@@ -1730,7 +1730,7 @@ public class VIPConsole extends JPanel  implements IVIPConsole, ActionListener {
 		@Override public String open(String out) {
 			reInit();
 			Empire pl = player();
-			List<String> text = pl.race().introduction();
+			List<String> text = pl.introduction();
 			out = "Intro Menu" + NEWLINE + NEWLINE;
 			for (int i=0; i<text.size(); i++)  {
 				String paragraph = text.get(i).replace("[race]", pl.raceName());

@@ -136,7 +136,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         tech = tech(techId);
         sourceEmpire = player();
         researchedTech = true;
-        player().race().resetScientist();
+        player().resetScientist();
         title = text("TECH_DISCOVERY_TITLE", text(tech().cat.key()));
         title = player().replaceTokens(title, "player");
         finished = false;
@@ -157,7 +157,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         researchedTech = false;
         tech = tech(techId);
         sourceEmpire = gal.empire(empId);
-        player().race().resetScientist();
+        player().resetScientist();
         title = text("TECH_TRADED_TITLE");
         title = player().replaceTokens(title, "player");
         title = sourceEmpire.replaceTokens(title, "alien");
@@ -180,7 +180,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         tech = tech(techId);
         system = gal.system(sysId);
         sourceEmpire = empId == Empire.NULL_ID ? null : gal.empire(empId);  // could be null for artifact planets
-        player().race().resetSoldier();
+        player().resetSoldier();
         if (sourceEmpire == null)
             title = text("TECH_SCOUTED_TITLE", player().sv.name(sysId));
         else
@@ -204,7 +204,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         tech = tech(techId);
         mission = null;
         sourceEmpire = null;
-        player().race().resetScientist();
+        player().resetScientist();
         title = empId == -2 ? text("TECH_GUARDIAN_TITLE") :  text("TECH_DERELICT_TITLE");
         title = player().replaceTokens(title, "player");
         finished = false;
@@ -225,7 +225,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         tech = m.choice();
         system = m.targetSystem();
         sourceEmpire = gal.empire(empId);
-        player().race().resetSpy();
+        player().resetSpy();
         mission = m;
         title = text("TECH_STOLEN_TITLE", text(sourceEmpire.raceName()), player().sv.name(system.id));
         title = sourceEmpire.replaceTokens(title, "alien");
@@ -258,8 +258,8 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
 
         switch(background) {
             case BACKGROUND_ALIEN_LAB:
-                labImg = sourceEmpire.race().laboratory();
-                holoImg = sourceEmpire.race().holograph();
+				labImg = sourceEmpire.laboratory();
+				holoImg = sourceEmpire.holograph();
                 break;
             case BACKGROUND_DERELICT:
                 labImg = currentFrame("DERELICT_SHIP");
@@ -271,29 +271,29 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
                 break;
             case BACKGROUND_LABORATORY:
             default:
-                labImg = pl.race().laboratory();
-                holoImg = pl.race().holograph();
+				labImg = pl.laboratory();
+				holoImg = pl.holograph();
                 break;
         }
         switch(view) {
             case SPY_VIEW:
-                raceImg = talking ? pl.race().spyTalking() :  pl.race().spyQuiet();
+                raceImg = talking ? pl.spyTalking() :  pl.spyQuiet();
                 break;
             case TROOPER_VIEW:
-                raceImg = talking ? pl.race().soldierTalking() : pl.race().soldierQuiet();
+                raceImg = talking ? pl.soldierTalking() : pl.soldierQuiet();
                 break;
             case SCIENTIST_VIEW:
             default:
                 if (sourceEmpire == null)
-                    raceImg = talking ? pl.race().scientistTalking() : pl.race().scientistQuiet();
+                    raceImg = talking ? pl.scientistTalking() : pl.scientistQuiet();
                 else
-                    raceImg = sourceEmpire.race().scientistQuiet();
+                    raceImg = sourceEmpire.scientistQuiet();
                 break;
         }
         int w = getWidth();
         int h = getHeight();
 
-        int fX = (int) ((player().race().labFlagX()-.2)*w);
+        int fX = (int) ((player().labFlagX()-.2)*w);
         int fY = scaled(200);
         int fW = scaled(448);
         int fH = scaled(280);

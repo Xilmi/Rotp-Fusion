@@ -15,9 +15,16 @@
  */
 package rotp.model.ai.xilmi;
 
+import static rotp.model.tech.Tech.ARMOR;
+import static rotp.model.tech.Tech.BIOLOGICAL_WEAPON;
+import static rotp.model.tech.Tech.CLOAKING;
+import static rotp.model.tech.TechCategory.PROPULSION;
+import static rotp.model.tech.TechCategory.WEAPON;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import rotp.model.ai.interfaces.Scientist;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
@@ -25,10 +32,6 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.ShipDesign;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechAmoebaEatShips;
-
-import static rotp.model.tech.Tech.ARMOR;
-import static rotp.model.tech.Tech.BIOLOGICAL_WEAPON;
-import static rotp.model.tech.Tech.CLOAKING;
 import rotp.model.tech.TechArmor;
 import rotp.model.tech.TechAtmosphereEnrichment;
 import rotp.model.tech.TechAutomatedRepair;
@@ -40,8 +43,6 @@ import rotp.model.tech.TechBiologicalWeapon;
 import rotp.model.tech.TechBlackHole;
 import rotp.model.tech.TechBombWeapon;
 import rotp.model.tech.TechCategory;
-import static rotp.model.tech.TechCategory.PROPULSION;
-import static rotp.model.tech.TechCategory.WEAPON;
 import rotp.model.tech.TechCloaking;
 import rotp.model.tech.TechCloning;
 import rotp.model.tech.TechCombatTransporter;
@@ -630,7 +631,7 @@ public class AIScientist implements Base, Scientist {
                 continue;
             if(!galaxy().options().canTradeTechs(empire, ev.empireUncut()))
                 continue;
-            if(ev.dataRace().internalSecurityAdj() > empire.dataRace().spyInfiltrationAdj())
+            if(ev.internalSecurityAdj() > empire.spyInfiltrationAdj())
                 continue;
             if(isImportant(t))
                 continue;

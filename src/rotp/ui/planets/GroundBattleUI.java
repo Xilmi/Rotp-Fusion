@@ -32,7 +32,6 @@ import java.util.List;
 import rotp.model.colony.Colony;
 import rotp.model.colony.ColonyDefense;
 import rotp.model.empires.Empire;
-import rotp.model.empires.Race;
 import rotp.model.empires.RaceCombatAnimation;
 import rotp.model.galaxy.Transport;
 import rotp.model.tech.TechHandWeapon;
@@ -134,22 +133,21 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
         }
 
         initLandscapeImage(colony);
-        
+
         if (tr.size() < tr.launchSize()) 
             subtitle = text("INVASION_SOME_TROOPS_LANDED", str(tr.size()), str(tr.launchSize()));
         else
             subtitle = text("INVASION_TROOPS_LANDED", str(tr.size()));
 
-        subtitle = tr.empire().replaceTokens(subtitle, "attacker");
-        
+		subtitle = attackerEmp.replaceTokens(subtitle, "attacker");
+
         descendingFrames.clear();
         descendingFrameRefs.clear();
-        Race race = tr.empire().race();
-        
-        allFrames(race.transportDescKey, race.transportDescFrames, 0, descendingFrames, descendingFrameRefs);
+
+		allFrames(attackerEmp.transportDescKey(), attackerEmp.transportDescFrames(), 0, descendingFrames, descendingFrameRefs);
         openingFrames.clear();
         openingFrameRefs.clear();
-        allFrames(race.transportOpenKey, race.transportOpenFrames, 0, openingFrames, openingFrameRefs);
+		allFrames(attackerEmp.transportOpenKey(), attackerEmp.transportOpenFrames(), 0, openingFrames, openingFrameRefs);
 
         for (int i=0;i<ships.length;i++)
             ships[i] = new LandingShip(i);
@@ -161,38 +159,38 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
         RaceCombatAnimation defender;
         RaceCombatAnimation attackerDeath  = null;
         RaceCombatAnimation defenderDeath  = null;
-        if (c.planet().isEnvironmentHostile()) {
-            attacker  = attackerEmp.race().troopHostile;
-            defender  = defenderEmp.race().troopHostile;
-            switch(attackerWeapon.deathType) {
-                case TechHandWeapon.COLLAPSE: defenderDeath = defenderEmp.race().troopDeath1H; break;
-                case TechHandWeapon.DISRUPT: defenderDeath = defenderEmp.race().troopDeath2H; break;
-                case TechHandWeapon.IMMOLATE: defenderDeath = defenderEmp.race().troopDeath3H; break;
-                case TechHandWeapon.VAPORIZE: defenderDeath = defenderEmp.race().troopDeath4H; break;
-            }
-            switch(defenderWeapon.deathType) {
-                case TechHandWeapon.COLLAPSE: attackerDeath = attackerEmp.race().troopDeath1H; break;
-                case TechHandWeapon.DISRUPT: attackerDeath = attackerEmp.race().troopDeath2H; break;
-                case TechHandWeapon.IMMOLATE: attackerDeath = attackerEmp.race().troopDeath3H; break;
-                case TechHandWeapon.VAPORIZE: attackerDeath = attackerEmp.race().troopDeath4H; break;
-            }
-        }
-        else {
-            attacker  = attackerEmp.race().troopNormal;
-            defender  = defenderEmp.race().troopNormal;
-            switch(attackerWeapon.deathType) {
-                case TechHandWeapon.COLLAPSE: defenderDeath = defenderEmp.race().troopDeath1; break;
-                case TechHandWeapon.DISRUPT: defenderDeath = defenderEmp.race().troopDeath2; break;
-                case TechHandWeapon.IMMOLATE: defenderDeath = defenderEmp.race().troopDeath3; break;
-                case TechHandWeapon.VAPORIZE: defenderDeath = defenderEmp.race().troopDeath4; break;
-            }
-            switch(defenderWeapon.deathType) {
-                case TechHandWeapon.COLLAPSE: attackerDeath = attackerEmp.race().troopDeath1; break;
-                case TechHandWeapon.DISRUPT: attackerDeath = attackerEmp.race().troopDeath2; break;
-                case TechHandWeapon.IMMOLATE: attackerDeath = attackerEmp.race().troopDeath3; break;
-                case TechHandWeapon.VAPORIZE: attackerDeath = attackerEmp.race().troopDeath4; break;
-            }
-        }
+		if (c.planet().isEnvironmentHostile()) {
+			attacker  = attackerEmp.troopHostile();
+			defender  = defenderEmp.troopHostile();
+			switch(attackerWeapon.deathType) {
+				case TechHandWeapon.COLLAPSE:	defenderDeath = defenderEmp.troopDeath1H(); break;
+				case TechHandWeapon.DISRUPT:	defenderDeath = defenderEmp.troopDeath2H(); break;
+				case TechHandWeapon.IMMOLATE:	defenderDeath = defenderEmp.troopDeath3H(); break;
+				case TechHandWeapon.VAPORIZE:	defenderDeath = defenderEmp.troopDeath4H(); break;
+			}
+			switch(defenderWeapon.deathType) {
+				case TechHandWeapon.COLLAPSE:	attackerDeath = attackerEmp.troopDeath1H(); break;
+				case TechHandWeapon.DISRUPT:	attackerDeath = attackerEmp.troopDeath2H(); break;
+				case TechHandWeapon.IMMOLATE:	attackerDeath = attackerEmp.troopDeath3H(); break;
+				case TechHandWeapon.VAPORIZE:	attackerDeath = attackerEmp.troopDeath4H(); break;
+			}
+		}
+		else {
+			attacker  = attackerEmp.troopNormal();
+			defender  = defenderEmp.troopNormal();
+			switch(attackerWeapon.deathType) {
+				case TechHandWeapon.COLLAPSE:	defenderDeath = defenderEmp.troopDeath1(); break;
+				case TechHandWeapon.DISRUPT:	defenderDeath = defenderEmp.troopDeath2(); break;
+				case TechHandWeapon.IMMOLATE:	defenderDeath = defenderEmp.troopDeath3(); break;
+				case TechHandWeapon.VAPORIZE:	defenderDeath = defenderEmp.troopDeath4(); break;
+			}
+			switch(defenderWeapon.deathType) {
+				case TechHandWeapon.COLLAPSE:	attackerDeath = attackerEmp.troopDeath1(); break;
+				case TechHandWeapon.DISRUPT:	attackerDeath = attackerEmp.troopDeath2(); break;
+				case TechHandWeapon.IMMOLATE:	attackerDeath = attackerEmp.troopDeath3(); break;
+				case TechHandWeapon.VAPORIZE:	attackerDeath = attackerEmp.troopDeath4(); break;
+			}
+		}
 
         // init attacker vars
         totalAttackers = tr.size();
@@ -247,7 +245,7 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
                 remainingDefenders.add(i);
         for (int i=0;i<defenderState.length;i++)
                 defenderState[i] = NOT_FIRING;  // -1 is "not firing"  0-N is the firing frame #
-        shipLanding = playAudioClip(attackerEmp.race().shipAudioKey);
+		shipLanding = playAudioClip(attackerEmp.shipAudioKey());
 
         //log("Starting Ground Battle. ", totalAttackers+" attackers vs. ", str(totalDefenders), " defenders");
     }
@@ -266,7 +264,7 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
         g.drawImage(c.planet().landscapeImage(), 0, 0, w, h, null);
 
         // draw fortress
-        BufferedImage fortImg = colony.empire().race().fortress(colony.fortressNum());
+        BufferedImage fortImg = colony.empire().fortress(colony.fortressNum());
         //BufferedImage fortImg = defenderEmp.race().fortress(0);
         int fortW = scaled(fortImg.getWidth());
         int fortH = scaled(fortImg.getHeight());
@@ -275,8 +273,8 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
         g.drawImage(fortImg, fortX, fortY, fortX+fortW, fortY+fortH, 0, 0, fortImg.getWidth(), fortImg.getHeight(), null);
 
         // for hostile planets, draw shield
-        if (defenderEmp.race().isHostile(colony.planet().type())) {
-            BufferedImage shieldImg = defenderEmp.race().shield();
+        if (defenderEmp.isHostile(colony.planet().type())) {
+            BufferedImage shieldImg = defenderEmp.shield();
             g.drawImage(shieldImg, fortX, fortY, fortX+fortW, fortY+fortH, 0, 0, shieldImg.getWidth(), shieldImg.getHeight(), null);
         }
 
@@ -777,7 +775,6 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
     }
     private class LandingShip implements Base {
         int countDelay = 0;
-        Race race;
         BufferedImage shipClosed;
         int shipX, shipEndY, dispW, dispH;
         int descIndex = 0;
@@ -788,9 +785,9 @@ public class GroundBattleUI extends BasePanel implements MouseListener {
         int startY = 0;
 
         public LandingShip(int n) {
-            race = transport.empire().race();
-            numLandingFrames = race.transportLandingFrames / 5;
-            shipClosed = newBufferedImage(race.transportDescending());
+			Empire emp = transport.empire();
+			numLandingFrames = emp.transportLandingFrames() / 5;
+			shipClosed = newBufferedImage(emp.transportDescending());
 
             shipX = scaled(colony.planet().type().shipX(n+1));
             shipEndY = scaled(colony.planet().type().shipY(n+1));

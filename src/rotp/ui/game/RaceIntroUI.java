@@ -74,7 +74,7 @@ public class RaceIntroUI extends BasePanel implements MouseListener {
     @Override
     public boolean hasStarBackground()     { return true; }
     @Override
-    public String ambienceSoundKey() { return player().race().diplomacyTheme; }
+    public String ambienceSoundKey() { return player().diplomacyTheme(); }
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -176,7 +176,7 @@ public class RaceIntroUI extends BasePanel implements MouseListener {
         if (fadeLab == null) {
             fadeLab = newBufferedImage(w, h);
             Graphics2D g = (Graphics2D) fadeLab.getGraphics();
-            g.drawImage(player().race().laboratory(), 0, 0, w, h, this);
+            g.drawImage(player().laboratory(), 0, 0, w, h, this);
             g.setPaint(backGradient(w));
             g.setComposite(AlphaComposite.DstOut);
             g.fillRect(0,0,w,h);
@@ -208,8 +208,8 @@ public class RaceIntroUI extends BasePanel implements MouseListener {
         g.fillRect(0,0, w, h);
         drawStars(g);
 		// modnar: use (slightly) better sampling
-		int w0 = player().race().laboratory().getWidth();
-        int h0 = player().race().laboratory().getHeight();
+		int w0 = player().laboratory().getWidth();
+        int h0 = player().laboratory().getHeight();
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g.drawImage(fadeLab(w0,h0), 0, 0, w1, h1, 0, 0, w0, h0, this);
@@ -219,8 +219,8 @@ public class RaceIntroUI extends BasePanel implements MouseListener {
         drawIntroductionTitle(g);
         drawIntroductionText(g);
 
-        Image raceImg = player().race().diplomatQuiet();
-        g.drawImage(player().race().diplomatQuiet(), 0, h1/10, w1*9/10, h, 0, 0, raceImg.getWidth(null), raceImg.getHeight(null), this);
+        Image raceImg = player().diplomatQuiet();
+        g.drawImage(player().diplomatQuiet(), 0, h1/10, w1*9/10, h, 0, 0, raceImg.getWidth(null), raceImg.getHeight(null), this);
         g.dispose();
     }
     private void initModel() {

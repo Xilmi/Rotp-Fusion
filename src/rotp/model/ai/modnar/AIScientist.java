@@ -18,6 +18,7 @@ package rotp.model.ai.modnar;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import rotp.model.ai.interfaces.Scientist;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
@@ -427,11 +428,11 @@ public class AIScientist implements Base, Scientist {
 
         float val = t.level;
         float adj = 1.0f;
-        
+
         if (empire.leader().isMilitarist())
             adj *= 1.25;
-        
-        if (empire.dataRace().shipDesignMods[NewShipTemplate.PREF_REPAIR] > 0)
+
+        if (empire.shipDesignMods(NewShipTemplate.PREF_REPAIR) > 0)
             val *= 2;
         return adj * val;
     }
@@ -463,9 +464,9 @@ public class AIScientist implements Base, Scientist {
         TechBattleSuit curr = empire.tech().topBattleSuitTech();
         if (curr.level >= t.level)
             return 0;
-        
+
         float val = t.level;
-        
+
         if (empire.leader().isAggressive())
             val *= 1.5;
         else if (empire.leader().isMilitarist())
@@ -480,11 +481,11 @@ public class AIScientist implements Base, Scientist {
     public float baseValue(TechBeamFocus t) {
         float val = t.level;
         float adj = 1.0f;
-        
+
         if (empire.leader().isMilitarist())
             adj *= 1.25;
-        
-        if (empire.dataRace().shipDesignMods[NewShipTemplate.PREF_BEAM_FOCUS] > 0)
+
+        if (empire.shipDesignMods(NewShipTemplate.PREF_BEAM_FOCUS) > 0)
             val *= 2;
         return adj * val;
     }
@@ -548,7 +549,7 @@ public class AIScientist implements Base, Scientist {
             adj *= 0.75;
         if (empire.leader().isHonorable())
             adj *= 0.5;
-        
+
         return adj * baseVal;
     }
     @Override
@@ -589,13 +590,13 @@ public class AIScientist implements Base, Scientist {
     public float baseValue(TechCloaking t) {
         float val = t.level;
         float adj = 1.0f;
-        
+
         if (empire.leader().isMilitarist())
             adj *= 1.25;
         if (empire.leader().isAggressive())
             adj *= 1.25;
-        
-        if (empire.dataRace().shipDesignMods[NewShipTemplate.PREF_CLOAK] > 0)
+
+        if (empire.shipDesignMods(NewShipTemplate.PREF_CLOAK) > 0)
             val *= 2;
         return adj * val;
     }
@@ -652,7 +653,7 @@ public class AIScientist implements Base, Scientist {
 
         int numRaces = empire.contactedEmpires().size() + 1;
         // multiply tech level by # new planets possible vs. # known races
-        // modnar: further prioritize enviroment tech
+        // modnar: further prioritize environment tech
         adj *= 2;
         return (newPlanets / numRaces) * adj * t.level;
     }
@@ -682,12 +683,12 @@ public class AIScientist implements Base, Scientist {
     public float baseValue(TechDisplacement t) {
         int val = t.level;
         float adj = 1.0f;
-        
+
         if (empire.leader().isMilitarist())
             adj *= 1.25;
         if (empire.leader().isAggressive())
             adj *= 1.25;
-        
+
         return adj * val;
     }
     @Override
@@ -731,7 +732,7 @@ public class AIScientist implements Base, Scientist {
 
         float  val = t.level * t.warp() / curr.warp();
         float adj = 1.0f;
-        
+
         // Major breakpoints in warp technology:
         // The first warp tech you find is a critical tech
         if (curr.warp() == 1)
@@ -745,7 +746,7 @@ public class AIScientist implements Base, Scientist {
             if (empire.leader().isExpansionist())
                 adj *= 1.5;
         }
-        
+
         return adj * val;
     }
     @Override
@@ -757,13 +758,13 @@ public class AIScientist implements Base, Scientist {
 
         float val = t.level;
         float adj = 1.0f;
-        
+
         if (empire.leader().isMilitarist())
             adj *= 1.25;
         if (empire.leader().isAggressive())
             adj *= 1.25;
-        
-        if (empire.dataRace().shipDesignMods[NewShipTemplate.PREF_PULSARS] > 0)
+
+        if (empire.shipDesignMods(NewShipTemplate.PREF_PULSARS) > 0)
             val *= 2;
         return adj * val;
     }
@@ -774,10 +775,10 @@ public class AIScientist implements Base, Scientist {
         // obsolete?
         if (currRange >= t.range())
             return 0;
-        
+
         // limit max range, use 13 instead of 10, for Range-inf scaling
         float newRange = min(13,t.range());
-        
+
         // Count new planets this gets us to
         List<StarSystem> possible = empire.uncolonizedPlanetsInRange(currRange);
         List<StarSystem> newPossible = empire.uncolonizedPlanetsInRange(t.range());
@@ -788,7 +789,7 @@ public class AIScientist implements Base, Scientist {
         // modnar: the incremental value may not be tiny (invading other empires, etc.)
         // modnar: combine both valuations, approx scaling up to Range-10 (level 29) and Range-inf (level 41)
         float val = 4 * (newRange-currRange) + 4 * newPlanets;
-        
+
         float adj = 1.0f;
         if (empire.leader().isExpansionist())
             adj *= 2;
@@ -895,7 +896,7 @@ public class AIScientist implements Base, Scientist {
         float adj = 1.0f;
         if (empire.leader().isEcologist())
             adj *= 2;
-        
+
         // modnar: wasteCleanupTechMod() = 4 * factoryWasteMod() / wasteElimination()
         // in TechTree.java
         // wasteCleanupTechMod goes from 1.6 (initially) to 0 (best)
@@ -919,14 +920,14 @@ public class AIScientist implements Base, Scientist {
         if (empire.leader().isMilitarist())
             val *= 1.5;
 
-        if (empire.dataRace().shipDesignMods[NewShipTemplate.PREF_MISS_SHIELD] > 0)
+        if (empire.shipDesignMods(NewShipTemplate.PREF_MISS_SHIELD) > 0)
             val *= 2;
         return val;
     }
     @Override
     public float baseValue(TechMissileWeapon t) {
         TechMissileWeapon curr = empire.tech().topBaseMissileTech();
-        
+
         // turns out this effectiveness formula equals about 50 for the
         // highest value, so no need for a scaling factor to make it 50
         float currVal = curr.damage() * (float) Math.sqrt(curr.attacks);
@@ -946,7 +947,7 @@ public class AIScientist implements Base, Scientist {
         val *= Math.sqrt(empire.numEnemies()+1);
 
         return val;
-        
+
         /*
         if (isMissileBaseWeapon()) {
             if ((attacks > 1)  && (c.tech().topBaseScatterPackTech() != null))
@@ -1009,11 +1010,11 @@ public class AIScientist implements Base, Scientist {
     public float baseValue(TechRepulsor t) {
         float val = t.level;
         float adj = 1.0f;
-        
+
         if (empire.leader().isMilitarist())
             adj *= 1.25;
-        
-        if (empire.dataRace().shipDesignMods[NewShipTemplate.PREF_REPULSOR] > 0)
+
+        if (empire.shipDesignMods(NewShipTemplate.PREF_REPULSOR) > 0)
             val *= 2;
         return adj * val;
     }
@@ -1058,7 +1059,7 @@ public class AIScientist implements Base, Scientist {
         if (empire.leader().isMilitarist())
             val *= 1.5;
 
-        if (empire.dataRace().shipDesignMods[NewShipTemplate.PREF_INERTIAL] > 0)
+        if (empire.shipDesignMods(NewShipTemplate.PREF_INERTIAL) > 0)
             val *= 2;
         return val;
     }
@@ -1066,17 +1067,17 @@ public class AIScientist implements Base, Scientist {
     public float baseValue(TechShipNullifier t) {
         float val = t.level;
         float adj = 1.0f;
-        
+
         if (empire.leader().isMilitarist())
             adj *= 1.25;
         if (empire.leader().isTechnologist())
             adj *= 1.25;
-        
-        if ((t.speedRed > 0) && (empire.dataRace().shipDesignMods[NewShipTemplate.PREF_WARP_DISSIPATOR] > 0))
+
+        if ((t.speedRed > 0) && (empire.shipDesignMods(NewShipTemplate.PREF_WARP_DISSIPATOR) > 0))
             val *= 2;
-        else if ((t.minComputerRed > 0) && (empire.dataRace().shipDesignMods[NewShipTemplate.PREF_TECH_NULLIFIER] > 0))
+        else if ((t.minComputerRed > 0) && (empire.shipDesignMods(NewShipTemplate.PREF_TECH_NULLIFIER) > 0))
             val *= 2;
-        
+
         return adj * val;
     }
     @Override
@@ -1150,11 +1151,11 @@ public class AIScientist implements Base, Scientist {
     public float baseValue(TechStasisField t) {
         float val = t.level;
         float adj = 1.0f;
-        
+
         if (empire.leader().isMilitarist())
             adj *= 1.25;
-        
-        if (empire.dataRace().shipDesignMods[NewShipTemplate.PREF_STASIS] > 0)
+
+        if (empire.shipDesignMods(NewShipTemplate.PREF_STASIS) > 0)
             val *= 2;
         return adj * val;
     }
@@ -1162,11 +1163,11 @@ public class AIScientist implements Base, Scientist {
     public float baseValue(TechStreamProjector t) {
         float val = t.level;
         float adj = 1.0f;
-        
+
         if (empire.leader().isMilitarist())
             adj *= 1.25;
-        
-        if (empire.dataRace().shipDesignMods[NewShipTemplate.PREF_STREAM_PROJECTOR] > 0)
+
+        if (empire.shipDesignMods(NewShipTemplate.PREF_STREAM_PROJECTOR) > 0)
             val *= 2;
         return adj * val;
     }

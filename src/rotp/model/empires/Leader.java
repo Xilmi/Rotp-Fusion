@@ -16,6 +16,7 @@
 package rotp.model.empires;
 
 import java.io.Serializable;
+
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.util.Base;
 
@@ -62,7 +63,7 @@ public class Leader implements Base, Serializable {
     } // \BR
     
     public Leader(Empire c) {
-        this(c, c.race().randomLeaderName());
+        this(c, c.randomLeaderName());
     }
     public Leader(Empire c, String s) {
         empire = c;
@@ -72,8 +73,8 @@ public class Leader implements Base, Serializable {
             objective = random(Objective.values());
         }
         else { // BR: depend now on dataRace
-            personality = Personality.values()[empire.dataRace().randomLeaderAttitude()];
-            objective = Objective.values()[empire.dataRace().randomLeaderObjective()];
+			personality = Personality.values()[empire.randomLeaderAttitude()];
+			objective = Objective.values()[empire.randomLeaderObjective()];
         }
     }
     public String objective()   { return text(objective.label); }
@@ -99,7 +100,7 @@ public class Leader implements Base, Serializable {
         // when using the random personality option, use the most common attitude for  
         // contact dialogue since there is not text for every race/attitude combination
         if (options().randomizeAIPersonality() || empire.diplomatAI().masksDiplomacy())
-            p = Personality.values()[empire.race().mostCommonLeaderAttitude()];
+            p = Personality.values()[empire.mostCommonLeaderAttitude()];
 
         switch(p) {
             case PACIFIST:   return DialogueManager.CONTACT_PACIFIST;

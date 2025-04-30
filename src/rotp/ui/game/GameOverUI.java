@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rotp.model.empires.Empire;
-import rotp.model.empires.Race;
 import rotp.model.game.GameSession;
 import rotp.model.game.GameStatus;
 import rotp.model.game.IMainOptions;
@@ -70,16 +69,16 @@ public final class GameOverUI extends FadeInPanel
         setBackground(Color.black);
         addMouseListener(this);
         addMouseMotionListener(this);
-        
     }
     public boolean textFinished()  { return transIndex >= (trans.length -1); }
     @Override
     public int fadeInMs()        { return 2000; }
     public void init() {
         startFadeTimer();
-        Race r = player().race();
-        Image gameOverImage = session().status().lost() ? image(r.lossSplashKey) : image(r.winSplashKey);
-        
+		Empire pl = player();
+		String key = session().status().lost() ? pl.lossSplashKey() : pl.winSplashKey();
+		Image gameOverImage = image(key);
+
         if (gameOverImage == null) {
             backImg = GalaxyMapPanel.sharedStarBackground;
             fadeDelay = 1000;
@@ -88,7 +87,7 @@ public final class GameOverUI extends FadeInPanel
             backImg = newBufferedImage(gameOverImage);
             fadeDelay = 3000;
         }
-            
+
         if (trans == null) {
             trans = new Composite[20];
             for (int i=0;i<trans.length;i++) 
@@ -394,7 +393,7 @@ public final class GameOverUI extends FadeInPanel
         else if (session().status().lostNewRepublic())
             resultText = text("GAME_OVER_COUNCIL_MILITARY_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
         else if (session().status().lostRebellion()) {
-            String special = ruler.race().text("GAME_OVER_REBELLION_LOSS3", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
+            String special = ruler.raceText("GAME_OVER_REBELLION_LOSS3", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
             resultText = text("GAME_OVER_REBELLION_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, special, pPlural, pTitle);
         }
         else if (session().status().lostNoColonies()) {
@@ -412,7 +411,7 @@ public final class GameOverUI extends FadeInPanel
         else if (session().status().wonRebellion())
             resultText = text("GAME_OVER_REBELLION_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
         else if (session().status().wonCouncilAlliance()) {
-            String special = ruler.race().text("GAME_OVER_ALLIANCE_WIN3", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
+            String special = ruler.raceText("GAME_OVER_ALLIANCE_WIN3", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
             resultText = text("GAME_OVER_COUNCIL_ALLIANCE_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, special, pPlural, pTitle);
         }
         else if (session().status().wonRebellionAlliance())

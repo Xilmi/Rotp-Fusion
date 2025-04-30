@@ -26,7 +26,6 @@ import rotp.model.ai.interfaces.ShipDesigner;
 import rotp.model.ai.interfaces.ShipTemplate;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
-import rotp.model.empires.Race;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.ShipArmor;
 import rotp.model.ships.ShipComputer;
@@ -203,7 +202,6 @@ public class NewShipTemplate extends ShipTemplate {
             setBestBattleComputer(ai, d); 
 
         float totalSpace = d.availableSpace();
-        Race race = ai.empire().dataRace();
         float enemyMissilePercentage = 0.0f;
         //ail: looking at the stats of our enemies
         boolean needRange = false;
@@ -298,7 +296,7 @@ public class NewShipTemplate extends ShipTemplate {
         }
 
         // initial separation of the free space left onto weapons and non-weapons/specials
-        float moduleSpaceRatio = race.shipDesignMods[MODULE_SPACE];        
+        float moduleSpaceRatio = ai.empire().shipDesignMods(MODULE_SPACE);
         float modulesSpace = totalSpace * moduleSpaceRatio;
 
         // arbitrary initial weighting of what isn't weapons

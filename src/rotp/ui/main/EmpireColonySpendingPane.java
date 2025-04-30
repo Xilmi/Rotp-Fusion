@@ -195,7 +195,7 @@ public class EmpireColonySpendingPane extends BasePanel {
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-		Image img = player().race().diploMugshotQuiet();
+		Image img = player().diploMugshotQuiet();
         int imgW = img.getWidth(null);
         int imgH = img.getHeight(null);
 		g.drawImage(img, 0, 0, mugW, mugH, 0, 0, imgW, imgH, null);

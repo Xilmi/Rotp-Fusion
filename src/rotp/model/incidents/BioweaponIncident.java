@@ -18,6 +18,7 @@ package rotp.model.incidents;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.diplomacy.DialogueManager;
@@ -75,7 +76,7 @@ public class BioweaponIncident extends DiplomaticIncident {
     public String warningMessageId() { return DialogueManager.WARNING_BIOWEAPON; }
     @Override
     public String key() {
-        return concat("Bioweapon:", galaxy().empire(empAttacker).race().id);
+        return concat("Bioweapon:", galaxy().empire(empAttacker).raceId());
     }
     @Override
     public String decode(String s) {

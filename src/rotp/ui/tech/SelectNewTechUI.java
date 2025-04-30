@@ -101,7 +101,7 @@ public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMo
     public String ambienceSoundKey() { return "ResearchAmbience"; }
 
     public void category(TechCategory c)  {
-        player().race().resetScientist();
+        player().resetScientist();
         category = c;
         techIndex = 0;
         availableTechs = category.techIdsAvailableForResearch();
@@ -129,9 +129,9 @@ public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMo
         String obsDesc = text("TECH_OBSOLETE_DETAIL");
         String title = text(category.researchKey());
 
-        BufferedImage backImg = player().race().laboratory();
+        BufferedImage backImg = player().laboratory();
         boolean talking = (System.currentTimeMillis() - startTimeMs) < talkTimeMs;
-        Image raceImage = talking ? player().race().scientistTalking() : player().race().scientistQuiet();
+        Image raceImage = talking ? player().scientistTalking() : player().scientistQuiet();
 
         int w = getWidth();
         int h = getHeight();

@@ -2,6 +2,10 @@
 
 ## What's New
 
+25-04-30 (BR)
+- The Empire class takes over full ownership of the “race” and “datarace” calls.
+  - This is to prepare it for creating a "Species" class that will manage race, datarace, customrace, random race and abilities
+
 25-04-28 (BR)
 - Fixed galaxies with a single option field not following the value selected for that option.
 - Custom Species can now have their own intro:

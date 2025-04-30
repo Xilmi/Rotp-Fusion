@@ -47,7 +47,7 @@ public class FinalWarIncident extends DiplomaticIncident {
     public String warningMessageId() {  return DialogueManager.WARNING_FINAL_WAR; }
     @Override
     public String key() {
-        return concat("FinalWar:", galaxy().empire(empRebel).race().id);
+        return concat("FinalWar:", galaxy().empire(empRebel).raceId());
     }
     @Override
     public String decode(String s) {

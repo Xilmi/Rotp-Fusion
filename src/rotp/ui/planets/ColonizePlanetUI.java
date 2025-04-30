@@ -21,6 +21,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,9 +31,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
@@ -40,7 +41,8 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.border.Border;
-import rotp.model.empires.Race;
+
+import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.PlanetType;
@@ -140,9 +142,9 @@ public class ColonizePlanetUI extends FadeInPanel implements MouseListener, Mous
         okBox.setBounds(0,0,0,0);
         setFPS(30);
         screenBuffer();
-        Race pr = player().race();
+        Empire pl = player();
 
-        raceImg = asBufferedImage(pr.troopHostile.firingFrames().get(0));
+        raceImg = asBufferedImage(pl.troopHostile().firingFrames().get(0));
 
         // hide nameField so keyFocus can be regained by main UI
         nameField.setVisible(false);
@@ -151,10 +153,10 @@ public class ColonizePlanetUI extends FadeInPanel implements MouseListener, Mous
         
         descendingFrames.clear();
         descendingFrameRefs.clear();        
-        allFrames(pr.transportDescKey, pr.transportDescFrames, 0, descendingFrames, descendingFrameRefs);
+        allFrames(pl.transportDescKey(), pl.transportDescFrames(), 0, descendingFrames, descendingFrameRefs);
         openingFrames.clear();
         openingFrameRefs.clear();
-        allFrames(pr.transportOpenKey, pr.transportOpenFrames, 0, openingFrames, openingFrameRefs);
+        allFrames(pl.transportOpenKey(), pl.transportOpenFrames(), 0, openingFrames, openingFrameRefs);
 
         system = galaxy().system(sysId);
 
@@ -180,22 +182,22 @@ public class ColonizePlanetUI extends FadeInPanel implements MouseListener, Mous
         g.dispose();
 
         // scale the needed width of the ship with race-specific modifiers
-        landingShipW = scaled(pType.shipW(0)*pr.transportW/100);
+        landingShipW = scaled(pType.shipW(0)*pl.transportW()/100);
         startLandingX = scaled(pType.shipX(0));
         stopLandingX = startLandingX;
-        stopLandingY = scaled(pType.shipY(0)-pr.transportYOffset);
-        numLandingFrames = pr.transportLandingFrames;
-        numClaimingFrames = pr.colonistWalkingFrames;
+        stopLandingY = scaled(pType.shipY(0)-pl.transportYOffset());
+        numLandingFrames = pl.transportLandingFrames();
+        numClaimingFrames = pl.colonistWalkingFrames();
 
         // reset animation vars
         landingX = startLandingX;
         landingY = startLandingY;
         landingFrame = 0;
-        claimingDelay = pr.colonistDelay();
-        startClaimingX = pr.colonistStartX();
-        startClaimingY = pr.colonistStartY();
-        stopClaimingX = pr.colonistStopX();
-        stopClaimingY = pr.colonistStopY();
+        claimingDelay = pl.colonistDelay();
+        startClaimingX = pl.colonistStartX();
+        startClaimingY = pl.colonistStartY();
+        stopClaimingX = pl.colonistStopX();
+        stopClaimingY = pl.colonistStopY();
         claimingX = startClaimingX;
         claimingY = startClaimingY;
         claimingFrame = 0;
@@ -207,7 +209,7 @@ public class ColonizePlanetUI extends FadeInPanel implements MouseListener, Mous
         nameField.setVisible(false);
         nameField.setBounds((w/2)-scaled(150),(h/2)-s100, scaled(300), s40);
         stopAmbience();
-        shipLanding = playAudioClip(pr.shipAudioKey);
+        shipLanding = playAudioClip(pl.shipAudioKey());
 
         if (!playAnimations()) {
             frameIndex = 5000;
@@ -333,7 +335,7 @@ public class ColonizePlanetUI extends FadeInPanel implements MouseListener, Mous
                     int fY = claimY-dispH;
                     Image flg = flagPole();
                     g.drawImage(flg, fX+s5, fY, fX+s15, fY+s30, 0, 0, flg.getWidth(null), flg.getHeight(null), null);
-                    Image flagImg = player().race().flagNorm();
+                    Image flagImg = player().flagNorm();
                     g.drawImage(flagImg, fX, fY-s18, fX+s20, fY+s2, 0, 0, flagImg.getWidth(null), flagImg.getHeight(null), null);
                 }
             }

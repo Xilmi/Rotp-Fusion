@@ -568,9 +568,9 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             	shipImg = monster.image();
             }
             else if (contact)
-            	shipImg = fl.empire().race().transport();
+            	shipImg = fl.empire().transport();
             else
-            	shipImg = pl.race().transport();
+            	shipImg = pl.transport();
 
             int imgW = shipImg.getWidth(null);
             int imgH = shipImg.getHeight(null);

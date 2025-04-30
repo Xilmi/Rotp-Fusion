@@ -195,7 +195,7 @@ public class NewShipTemplate extends ShipTemplate { // For Player auto Design
 		duty = role;
 		Empire empire	= ai.empire();
 		TechTree tech	= empire.tech();
-		shipDesignMods	= opts.shipDesignMod(empire.dataRace().shipDesignMods);
+		shipDesignMods	= opts.shipDesignMod(empire.shipDesignMods());
 		useSDModsSpace	= opts.useShipDesignModsSpace();
 
 		//ail: looking at the stats of our enemies

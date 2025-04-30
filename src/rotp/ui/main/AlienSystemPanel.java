@@ -30,11 +30,12 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
+
 import javax.swing.SwingUtilities;
+
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
-
 import rotp.ui.RotPUI;
 
 public class AlienSystemPanel extends SystemPanel {
@@ -184,7 +185,7 @@ public class AlienSystemPanel extends SystemPanel {
             g.drawImage(img, 0, topH, w, h, 0, 0, img.getWidth(), img.getHeight(), null);
             // modnar: draw fortress and shield if hostile, on top of terrain
             if (spied && sys.colony() != null) {
-                BufferedImage fortImg = sys.colony().empire().race().fortress(0);
+                BufferedImage fortImg = sys.colony().empire().fortress(0);
                 int fortW = (int)(0.6f*w);
                 int fortH = (int)(45*fortW/42);
                 int fortX = w-fortW;
@@ -192,8 +193,8 @@ public class AlienSystemPanel extends SystemPanel {
                 g.drawImage(fortImg, fortX, fortY, fortX+fortW, fortY+fortH, 0, 0, fortImg.getWidth(), fortImg.getHeight(), null);
 
                 // for hostile planets, draw shield
-                if (sys.colony() != null && sys.colony().empire().race().isHostile(sys.colony().planet().type())) {
-                    BufferedImage shieldImg = sys.colony().empire().race().shield();
+                if (sys.colony() != null && sys.colony().empire().isHostile(sys.colony().planet().type())) {
+                    BufferedImage shieldImg = sys.colony().empire().shield();
                     g.drawImage(shieldImg, fortX, fortY, fortX+fortW, fortY+fortH, 0, 0, shieldImg.getWidth(), shieldImg.getHeight(), null);
                 }
             }

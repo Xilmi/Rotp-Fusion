@@ -56,7 +56,6 @@ import rotp.model.empires.EmpireView;
 import rotp.model.empires.EspionageMission;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.empires.Leader;
-import rotp.model.empires.Race;
 import rotp.model.empires.SabotageMission;
 import rotp.model.empires.Spy;
 import rotp.model.galaxy.Galaxy;
@@ -1178,13 +1177,12 @@ public final class GameSession implements Base, Serializable {
 		System.out.println();
 		for (Empire emp : g.empires()) {
 			int id = emp.homeSysId();
-			Race r = emp.race();
 			StarSystem sys = g.system(id);
 			Leader boss = emp.leader();
 			System.out.println(
-					String.format("%-16s", r.name())
+					String.format("%-16s", emp.empireRaceName())
 					+ String.format("%-12s", sys.name())
-					+ String.format("%-16s", emp.dataRace().name())
+					+ String.format("%-16s", emp.dataRaceName())
 					+ String.format("%-12s", boss.personality())
 					+ String.format("%-15s", boss.objective())
 					+ String.format("%-22s", emp.diplomatAI())

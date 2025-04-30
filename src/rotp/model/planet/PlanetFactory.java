@@ -95,7 +95,7 @@ public class PlanetFactory implements Base {
     		float bonus, boolean isPlayer) { // BR: added player info and dataRace
     	IGameOptions opts = GameSession.instance().options();
         Planet p = instance.options().randomPlayerPlanet(dr, sys);
-        p.baseSize(dr.homeworldSize*bonus);
+        p.baseSize(dr.homeworldSize()*bonus);
         if (r.homeworldKey() > 0)
             p.terrainSeed(r.homeworldKey());
 		// modnar: add option for changing Race homeworld type
@@ -124,9 +124,9 @@ public class PlanetFactory implements Base {
 		if (combo(opts.selectedGaiaHomeworld(),
 				dr.raceWithGaiaHomeworld(), isPlayer)) {
 			p.enrichSoil();
-            p.enrichSoil();
+			p.enrichSoil();
 		}
-		
+
         return p;
     }
     // modnar: add option to start game with additional colonies

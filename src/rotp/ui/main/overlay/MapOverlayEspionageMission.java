@@ -232,9 +232,9 @@ public class MapOverlayEspionageMission extends MapOverlay implements IVIPListen
 
         Empire pl = player();
         if (labImg == null) {
-            labImg = asBufferedImage(pl.race().laboratory());
+            labImg = asBufferedImage(pl.laboratory());
             Graphics imgG = labImg.getGraphics();
-            BufferedImage spyImg = pl.race().spyQuiet();
+            BufferedImage spyImg = pl.spyQuiet();
             int w0a = labImg.getWidth();
             int h0a = labImg.getHeight();
             imgG.drawImage(spyImg, w0a/2, 0, w0a, h0a, 0, 0, (spyImg.getWidth()/2), spyImg.getHeight(), null);

@@ -1227,7 +1227,7 @@ public class RacesUI extends BasePanel {
             }
         }
         public void drawRaceImage(Graphics2D g, Empire emp, BufferedImage back, int x, int y, int h, boolean inRange) {
-            BufferedImage img = emp.race().diploMugshotQuiet();
+            BufferedImage img = emp.diploMugshotQuiet();
             
             int w1 = back.getWidth();
             int h1 = back.getHeight();

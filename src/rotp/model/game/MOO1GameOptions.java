@@ -666,7 +666,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public Planet randomPlayerPlanet(Race r, StarSystem s) {
         Planet p = new Planet(s);
-        p.initPlanetType(r.homeworldPlanetType);
+        p.initPlanetType(r.homeworldPlanetType());
         return p;
     }
     // @Override public List<String> galaxySizeOptions()     { return IGameOptions.getGalaxySizeOptions(); }

@@ -21,6 +21,7 @@ import static rotp.ui.util.PlayerShipSet.DISPLAY_RACE_SET;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
@@ -270,19 +271,43 @@ public final class Empire implements Base, NamedObject, Serializable {
     public int homeSysId()                        { return homeSysId; }
     public int capitalSysId()                     { return capitalSysId; }
     public int compSysId(int i)                   { return compSysId[i]; } // modnar: add option to start game with additional colonies
-    private String unparsedRaceName() {
-    	if (isPlayer() && isCustomRace())
-    		return dataRace().setupName;
-    	return race().nameVariant(raceNameIndex);
-    }
-    public String raceName() {
-    	if (isPlayer() && isCustomRace())
-    		return dataRace().setupName;
-    	if (id < 0)
-    		return "Orion";
-    	return raceName(0);
-    }
-	public String title()		{
+
+	public int randomFortress()						{ return race().randomFortress(); }
+	public int mostCommonLeaderAttitude()			{ return race().mostCommonLeaderAttitude(); }
+	public int startingYear()						{ return race().startingYear(); }
+	public int dialogTopY()							{ return race().dialogTopY(); }
+	public int dialogRightMargin()					{ return race().dialogRightMargin(); }
+	public int dialogLeftMargin()					{ return race().dialogLeftMargin(); }
+	public int introTextX()							{ return race().introTextX(); }
+	public int diploXOffset()						{ return race().diploXOffset(); }
+	public int diploYOffset()						{ return race().diploYOffset(); }
+	public int flagW()								{ return race().flagW(); }
+	public int flagH()								{ return race().flagH(); }
+	public float diploOpacity()						{ return race().diploOpacity(); }
+	public float diploScale()						{ return race().diploScale(); }
+	public float labFlagX()							{ return race().labFlagX(); }
+
+	private String unparsedRaceName()				{
+		if (isPlayer() && isCustomRace())
+			return dataRace().setupName;
+		return race().nameVariant(raceNameIndex);
+	}
+	public String empireRaceName()					{return race().name(); }
+	public String dataRaceName()					{return race().name(); } // For debug only
+	public String raceName()						{
+		if (isPlayer() && isCustomRace())
+			return dataRace().setupName;
+		if (id < 0)
+			return "Orion";
+		return raceName(0);
+	}
+	public String diplomacyTheme()					{ return race().diplomacyTheme(); }
+	public String shipAudioKey()					{ return race().shipAudioKey(); }
+	public String ambienceKey()						{ return race().ambienceKey(); }
+	public String randomLeaderName()				{ return race().randomLeaderName(); }
+	public String randomSystemName(Empire e)		{ return race().randomSystemName(e); }
+	public String dialogue(String key)				{ return race().dialogue(key); }
+	public String title()							{
 		if (isPlayer() && isCustomRace()) {
 			String title = dataRace().title();
 			if (title != null && !title.isEmpty())
@@ -290,7 +315,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 		}
 		return race().title();
 	}
-	public String fullTitle()	{
+	public String fullTitle()						{
 		if (isPlayer() && isCustomRace()) {
 			String title = dataRace().fullTitle();
 			if (title != null && !title.isEmpty())
@@ -298,8 +323,27 @@ public final class Empire implements Base, NamedObject, Serializable {
 		}
 		return race().fullTitle();
 	}
-	public int introTextX()		{ return race().introTextX; }
-	public List<String> introduction()	{
+	public String raceId()							{ return race().id; }
+	public String lossSplashKey()					{ return race().lossSplashKey(); }
+	public String winSplashKey()					{ return race().winSplashKey(); }
+	public String raceText(String key, String... s)	{ return race().text(key, s); }
+	private String raceName(int i)					{
+		String rn;
+		List<String> names = substrings(unparsedRaceName(), '|');
+		if (i >= names.size() || names.get(i).isEmpty())
+			rn = names.get(0);
+		else
+			rn = names.get(i);
+		return racePrefix() + rn + raceSuffix(); // BR: for custom Races
+	}
+	public String raceType()						{
+		if (isCustomRace())
+			return dataRace().setupName;
+		else
+			return dataRace().nameVariant(0);
+	}
+
+	public List<String> introduction()				{
 		if (isPlayer() && isCustomRace()) {
 			List<String> intro = dataRace().customIntroduction();
 			if (intro != null && !intro.isEmpty())
@@ -307,22 +351,84 @@ public final class Empire implements Base, NamedObject, Serializable {
 		}
 		return race().introduction();
 	}
-    private String raceName(int i) {
-    	String rn;
-        List<String> names = substrings(unparsedRaceName(), '|');
-        if (i >= names.size() || names.get(i).isEmpty())
-        	rn = names.get(0);
-        else
-            rn = names.get(i);
-        return dataRace().racePrefix + rn + dataRace().raceSuffix; // BR: for custom Races
-    }
-    public String raceType() {
-    	if (isCustomRace())
-    		return dataRace().setupName;
-    	else
-    		return dataRace.nameVariant(0);
-    }
-    public boolean masksDiplomacy()               { return race().masksDiplomacy || ai().diplomat().masksDiplomacy(); }
+	public List<String> shipNames(int size)			{ return race.shipNames(size); }
+
+	public List<Image> sabotageMissileFrames()		{ return race().sabotageMissileFrames(); }
+	public List<Image> sabotageFactoryFrames()		{ return race().sabotageFactoryFrames(); }
+	public List<Image> sabotageRebellionFrames()	{ return race().sabotageRebellionFrames(); }
+	public RaceCombatAnimation troopNormal()		{ return race().troopNormal(); }
+	public RaceCombatAnimation troopHostile()		{ return race().troopHostile(); }
+	public RaceCombatAnimation troopDeath1()		{ return race().troopDeath1(); }
+	public RaceCombatAnimation troopDeath2()		{ return race().troopDeath2(); }
+	public RaceCombatAnimation troopDeath3()		{ return race().troopDeath3(); }
+	public RaceCombatAnimation troopDeath4()		{ return race().troopDeath4(); }
+	public RaceCombatAnimation troopDeath1H()		{ return race().troopDeath1H(); }
+	public RaceCombatAnimation troopDeath2H()		{ return race().troopDeath2H(); }
+	public RaceCombatAnimation troopDeath3H()		{ return race().troopDeath3H(); }
+	public RaceCombatAnimation troopDeath4H()		{ return race().troopDeath4H(); }
+	public String transportDescKey()				{ return race().transportDescKey(); }
+	public String transportOpenKey()				{ return race().transportOpenKey(); }
+	public int transportW()							{ return race().transportW(); }
+	public int transportYOffset()					{ return race().transportYOffset(); }
+	public int transportDescFrames()				{ return race().transportDescFrames(); }
+	public int transportOpenFrames()				{ return race().transportOpenFrames(); }
+	public int transportLandingFrames()				{ return race().transportLandingFrames(); }
+	public int colonistWalkingFrames()				{ return race().colonistWalkingFrames(); }
+	public int colonistDelay()						{ return race().colonistDelay(); }
+	public int colonistStartX()						{ return race().colonistStartX(); }
+	public int colonistStartY()						{ return race().colonistStartY(); }
+	public int colonistStopX()						{ return race().colonistStopX(); }
+	public int colonistStopY()						{ return race().colonistStopY(); }
+	public BufferedImage transportDescending()		{ return race().transportDescending(); }
+	public BufferedImage advisorScout()				{ return race().advisorScout(); }
+	public BufferedImage advisorTransport()			{ return race().advisorTransport(); }
+	public BufferedImage advisorDiplomacy()			{ return race().advisorDiplomacy(); }
+	public BufferedImage advisorShip()				{ return race().advisorShip(); }
+	public BufferedImage advisorRally()				{ return race().advisorRally(); }
+	public BufferedImage advisorMissile()			{ return race().advisorMissile(); }
+	public BufferedImage advisorWeapon()			{ return race().advisorWeapon(); }
+	public BufferedImage advisorCouncil()			{ return race().advisorCouncil(); }
+	public BufferedImage advisorRebellion()			{ return race().advisorRebellion(); }
+	public BufferedImage advisorCouncilResisted()	{ return race().advisorCouncilResisted(); }
+	public BufferedImage advisorResistCouncil()		{ return race().advisorResistCouncil(); }
+	public BufferedImage soldierQuiet()				{ return race().soldierQuiet(); }
+	public BufferedImage soldierTalking()			{ return race().soldierTalking(); }
+	public BufferedImage spyQuiet()					{ return race().spyQuiet(); }
+	public BufferedImage spyTalking()				{ return race().spyTalking(); }
+	public BufferedImage scientistQuiet()			{ return race().scientistQuiet(); }
+	public BufferedImage scientistTalking()			{ return race().scientistTalking(); }
+	public BufferedImage diplomatQuiet()			{ return race().diplomatQuiet(); }
+	public BufferedImage diplomatTalking()			{ return race().diplomatTalking(); }
+	public BufferedImage diploMugshotQuiet()		{ return race().diploMugshotQuiet(); }
+	public BufferedImage councilLeader()	{ return race().councilLeader(); }
+	public BufferedImage setupImage()		{ return race().setupImage(); }
+	public BufferedImage shield()			{ return race().shield(); }
+	public BufferedImage laboratory()		{ return race().laboratory(); }
+	public BufferedImage embassy()			{ return race().embassy(); }
+	public BufferedImage holograph()		{ return race().holograph(); }
+	public BufferedImage gnn()				{ return race().gnn(); }
+	public BufferedImage gnnHost()			{ return race().gnnHost(); }
+	public BufferedImage fortress(int i)	{ return race().fortress(i); }
+	public Image flagNorm()					{ return race().flagNorm(); }
+	public Image flagWar()					{ return race().flagWar(); }
+	public Image flagPact()					{ return race().flagPact(); }
+	public Image dialogNorm()				{ return race().dialogNorm(); }
+	public Image dialogWar()				{ return race().dialogWar(); }
+	public Image dialogPact()				{ return race().dialogPact(); }
+	public Image council()					{ return race().council(); }
+	public Image transport()				{ return race().transport(); }
+	public Image gnnEvent(String s)			{ return race().gnnEvent(s); }
+	public Color gnnTextColor()				{ return race().gnnTextColor(); }
+
+	public void resetScientist()			{ race().resetScientist(); }
+	public void resetSpy()					{ race().resetSpy(); }
+	public void resetDiplomat()				{ race().resetDiplomat(); }
+	public void resetSoldier()				{ race().resetSoldier(); }
+	public void resetGNN(String s)			{ race().resetGNN(s); }
+	public boolean isRace(Race r)			{ return race() == r; }
+	public boolean isHostile(PlanetType pt)	{ return race().isHostile(pt); }
+	public boolean masksDiplomacy()			{ return race().masksDiplomacy() || ai().diplomat().masksDiplomacy(); }
+
     public List<StarSystem> shipBuildingSystems() { return shipBuildingSystems; }
     public boolean inGalacticAlliance()           { return galacticAlliance; }
     void joinGalacticAlliance()						{ galacticAlliance = true; }
@@ -449,21 +555,23 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return canSeeShips[empId];
     }
-    public Race race() {
-        if (race == null)
-            race = Race.keyed(raceKey);
-        return race;
-    }
-    public Race dataRace() {
-        if (dataRace == null)
-        	if (raceOptions != null)
-        		dataRace = CustomRaceDefinitions.optionToAlienRace(raceOptions);
-        	else if (dataRaceKey == null)
-        		dataRace = Race.keyed(raceKey);
-        	else
-        		dataRace = Race.keyed(dataRaceKey, raceOptions());
-        return dataRace;
-    }
+	private void setRace(Race r)		{ race = r; }
+	private void setDataRace(Race r)	{ dataRace = r; }
+	private Race race()		{
+		if (race == null)
+			setRace(Race.keyed(raceKey()));
+		return race;
+	}
+	private Race dataRace()	{
+		if (dataRace == null)
+			if (raceOptions != null)
+				setDataRace(CustomRaceDefinitions.optionToAlienRace(raceOptions));
+			else if (dataRaceKey() == null)
+				setDataRace(Race.keyed(raceKey()));
+			else
+				setDataRace(Race.keyed(dataRaceKey(), raceOptions()));
+		return dataRace;
+	}
     public BufferedImage scoutImage() {
         if (scoutImage == null)
             scoutImage = ShipLibrary.current().scoutImage(shipColorId());
@@ -560,7 +668,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         	randomSource = rng().nextLong();
         else
         	randomSource = empSrc.randomSource();
-        	
+
         id = empId;
         raceKey = r.id;
         dataRaceKey = dr.id;
@@ -580,15 +688,15 @@ public final class Empire implements Base, NamedObject, Serializable {
 			resetDivertColonyExcessToResearch();
             g.player(this);
         }
-        
+
         colorId(cId);
-        race = r;
-        dataRace = dr;
+		setRace(r);
+		setDataRace(dr);
         String raceName = r.nextAvailableName();
         raceNameIndex = r.nameIndex(raceName);
         String leaderName = name;
-        if (leaderName == null)
-        	leaderName = dataRace.leaderPrefix + r.nextAvailableLeader() + dataRace.leaderSuffix;
+		if (leaderName == null)
+			leaderName = leaderPrefix() + r.nextAvailableLeader() + leaderSuffix();
         leader = new Leader(this, leaderName);
         if (empSrc != null && empId != Empire.PLAYER_ID
         		&& !options().selectedRestartAppliesSettings()) { // BR: For Restart with new options 
@@ -603,8 +711,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         selectedAI	= IGameOptions.BASE;
         raceKey		= "RACE_PSILON";
         dataRaceKey	= "RACE_PSILON";
-        race		= Race.keyed(raceKey);
-        dataRace	= Race.keyed(raceKey);
+		setRace(Race.keyed(raceKey));
+		setDataRace(Race.keyed(raceKey));
         raceOptions(dataRace.raceOptions());
         homeSysId	= capitalSysId = sysId;
 		compSysId	= new int[0];
@@ -612,8 +720,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         status		= null;
         sv			= null;
         bannerColor	= cId;
-        race		= null;
-        dataRace	= null;
+		setRace(null);
+		setDataRace(null);
         leader		= new Leader(this, name);
         shipLab		= new ShipDesignLab();
         loadStartingTechs();
@@ -652,10 +760,10 @@ public final class Empire implements Base, NamedObject, Serializable {
     @Override
     public String name() {
         if (empireName == null)
-        	if (isPlayer() && isCustomRace())
-        		empireName = dataRace().empireTitle;
-        	else
-        		empireName = replaceTokens("[this_empire]", "this");
+			if (isPlayer() && isCustomRace())
+				empireName = empireTitle();
+			else
+				empireName = replaceTokens("[this_empire]", "this");
         return empireName;
     }
     public DiplomaticReply respond(String reason, Empire listener) {
@@ -727,7 +835,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             else if (isCustomPlayer() && !isRandomized() && token.equals("_race"))
                     s1 = s1.replace(replString, dataRace().setupName);              
             else if (isCustomPlayer() && !isRandomized() && token.equals("_empire"))
-                    s1 = s1.replace(replString, dataRace().empireTitle);
+                    s1 = s1.replace(replString, empireTitle());
             else {
                 List<String> values = substrings(race().text(token), ',');
                 String value = raceNameIndex < values.size() ? values.get(raceNameIndex) : values.get(0);
@@ -3232,16 +3340,29 @@ public final class Empire implements Base, NamedObject, Serializable {
             }
         }
     }
-    // BR: Custom Races
-    public String  raceKey()				   { return raceKey; }
-    public String  dataRaceKey()			   { return dataRaceKey; }
-    public boolean isCustomRace()			   { return dataRace().isCustomRace(); }
-    public boolean isCustomPlayer()			   { return isPlayer() && isCustomRace(); }
-    public boolean isRandomized()			   { return dataRace().isRandomized(); }
-    public DynOptions raceOptions()			   { return raceOptions; }
-    public void raceOptions(DynOptions opts)   { raceOptions = opts; }
-    public String  description4()			   { return dataRace().getDescription4(); }
-    public DynOptions dynamicOptions()		   { return dynamicOptions; }
+	// BR: Custom Races
+	public void initCRToShow(CustomRaceDefinitions cr)	{ cr.setFromRaceToShow(dataRace());}
+	public String  raceKey()				{ return raceKey; }
+	public String  dataRaceKey()			{ return dataRaceKey; }
+	public boolean isCustomRace()			{ return dataRace().isCustomRace(); }
+	public boolean isCustomPlayer()			{ return isPlayer() && isCustomRace(); }
+	public boolean isRandomized()			{ return dataRace().isRandomized(); }
+	public DynOptions raceOptions()			{ return raceOptions; }
+	public void raceOptions(DynOptions opt)	{ raceOptions = opt; }
+	public String description4()			{ return dataRace().getDescription4(); }
+	public DynOptions dynamicOptions()		{ return dynamicOptions; }
+	public String worldsPrefix()			{ return dataRace().worldsPrefix(); }
+	public String worldsSuffix()			{ return dataRace().worldsSuffix(); }
+	public String racePrefix()				{ return dataRace().racePrefix(); }
+	public String raceSuffix()				{ return dataRace().raceSuffix(); }
+	public String leaderPrefix()			{ return dataRace().leaderPrefix(); }
+	public String leaderSuffix()			{ return dataRace().leaderSuffix(); }
+	public String empireTitle()				{ return dataRace().empireTitle(); }
+	public float shipDesignMods(int i)		{ return dataRace().shipDesignMods(i); }
+	public float[] shipDesignMods()			{ return dataRace().shipDesignMods(); }
+	public int randomLeaderAttitude()		{ return dataRace().randomLeaderAttitude(); }
+	public int randomLeaderObjective()		{ return dataRace().randomLeaderObjective(); }
+
     // Modnar added features
     public float bCBonus()                     { return dataRace().bCBonus(); }
     public float hPFactor()                    { return dataRace().hPFactor();  }
@@ -3250,12 +3371,12 @@ public final class Empire implements Base, NamedObject, Serializable {
     // public String planetRessource()            { return dataRace().planetRessource(); }
     // public String planetEnvironment()          { return dataRace().planetEnvironment(); }
     // \BR:
-    public String preferredShipSet() { // BR: Add Ship Set for custom races
-    	String ShipSet = dataRace().preferredShipSet;
-    	if (ShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
-    		ShipSet = race().preferredShipSet;
-    	return ShipSet;
-    }
+	public String preferredShipSet()	{ // BR: Add Ship Set for custom races
+		String ShipSet = dataRace().preferredShipSet();
+		if (ShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
+			ShipSet = race().preferredShipSet();
+		return ShipSet;
+	}
     public int preferredShipSize()             { return dataRace().preferredShipSize(); }
     public int diplomacyBonus()                { return dataRace().diplomacyBonus(); }
     public int robotControlsAdj()              { return dataRace().robotControlsAdj(); }
@@ -3270,7 +3391,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public float workerProductivityMod()       { return dataRace().workerProductivityMod(); }
     public float internalSecurityAdj()         { return dataRace().internalSecurityAdj(); }
     public float spyInfiltrationAdj()          { return dataRace().spyInfiltrationAdj(); }
-    public float techMod(int cat)              { return dataRace().techMod[cat]; }
+    public float techMod(int cat)              { return dataRace().techMod(cat); }
     public int groundAttackBonus()             { return dataRace().groundAttackBonus(); }
     public int shipAttackBonus()               { return dataRace().shipAttackBonus(); }
     public int shipDefenseBonus()              { return dataRace().shipDefenseBonus(); }

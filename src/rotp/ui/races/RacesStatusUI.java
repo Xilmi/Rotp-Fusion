@@ -287,7 +287,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         int y1 = y + h/10;
         int h1 = h * 8/10;
 
-        Image img = player().race().flagPact();
+        Image img = player().flagPact();
         int imgH = img.getHeight(null);
         int imgW = img.getWidth(null);
         g.drawImage(img, x1, y1, x1+w1, y1+h1, 0, 0, imgW, imgH, null);

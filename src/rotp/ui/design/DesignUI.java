@@ -1274,7 +1274,7 @@ public class DesignUI extends BasePanel {
 			int iconSize = s16;
 			int y = boxHeight + s5 - iconSize;
 			int x = (int) (boxWidth * xPos) + s4 - iconSize;
-			BufferedImage img1 = player().race().fortress(0);
+			BufferedImage img1 = player().fortress(0);
 			BufferedImage img2;
 			if (govDef)
 				if (autoOn)

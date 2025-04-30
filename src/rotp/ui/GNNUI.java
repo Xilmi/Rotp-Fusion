@@ -76,8 +76,8 @@ public class GNNUI extends FadeInPanel implements MouseListener, MouseMotionList
         empires = empireList;
         exited = false;
         frameCtr = 0;
-        eventImg = player().race().gnnEvent(eventId);
-        player().race().resetGNN(id);
+		eventImg = player().gnnEvent(eventId);
+		player().resetGNN(id);
         startFadeTimer();
         if (!playAnimations())
             frameCtr = EVENT_FADE_IN_FRAME + NUM_EVENT_FADE_FRAMES + 1;
@@ -97,9 +97,8 @@ public class GNNUI extends FadeInPanel implements MouseListener, MouseMotionList
     public Image paintToImage() {
         int w = getWidth();
         int h = getHeight();
-
-        BufferedImage backImg = player().race().gnn();
-        BufferedImage hostImg = player().race().gnnHost();
+		BufferedImage backImg = player().gnn();
+		BufferedImage hostImg = player().gnnHost();
 
         float resizePct = (float) w / backImg.getWidth();
 
@@ -144,7 +143,7 @@ public class GNNUI extends FadeInPanel implements MouseListener, MouseMotionList
         drawBorderedString(g, title, 2, (w-titleW)/2, s36, Color.black, SystemPanel.orangeText);
     }
     private void drawText(Graphics g, int w, int h) {
-        Color c0 = player().race().gnnTextColor;
+        Color c0 = player().gnnTextColor();
         g.setColor(c0);
         g.setFont(dlgOrPlainFont(28, messageText));
         int lineH = s28;

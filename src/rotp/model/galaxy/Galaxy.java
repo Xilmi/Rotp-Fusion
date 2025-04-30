@@ -126,8 +126,8 @@ public final class Galaxy implements Base, Serializable {
     		return starSystems();
     	return originalStarSystem;
     }
-    public DynOptions dynamicOptions()		 { return dynamicOptions; } // BR:
-    public int beginningYear()               { return player().race().startingYear; }
+	public DynOptions dynamicOptions()			{ return dynamicOptions; } // BR:
+	public int beginningYear()					{ return player().startingYear(); }
     public float currentTime()               { return currentTime; }
     public GalacticCouncil council()         { return council; }
     public RandomEvents events()       		 { return events; }
@@ -543,7 +543,7 @@ public final class Galaxy implements Base, Serializable {
     }
     public Empire empireForRace(Race r) {
         for (Empire e: empires) {
-            if (e.race() == r)
+            if (e.isRace(r))
                 return e;
         }
         return null;
@@ -796,7 +796,7 @@ public final class Galaxy implements Base, Serializable {
     }
     private void loadRaceNames(String rId, int i) {
         Race r = Race.keyed(rId);
-        List<String> names = new ArrayList<>(r.systemNames);
+        List<String> names = new ArrayList<>(r.systemNames());
         shuffle(names);
         raceSystemNames().put(rId, names);
         raceSystemCtr().put(rId, i);

@@ -39,6 +39,7 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -347,8 +348,18 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         Graphics2D g2 = (Graphics2D) g;
         setFontHints(g2);
         parent.checkMapInitialized();
-        paintToImage(mapBuffer());
-        g2.drawImage(mapBuffer,0,0,null);
+		try {
+			paintToImage(mapBuffer());
+		}
+		catch (NullPointerException | ConcurrentModificationException e) {
+			if (e instanceof ConcurrentModificationException) {
+				System.err.println("Concurrent Modification Exception while painting the galaxy map");
+			}
+			else if (e instanceof NullPointerException) {
+				System.err.println("Null Pointer Exception while painting the galaxy map");
+			}
+		}
+        g2.drawImage(mapBuffer, 0, 0, null);
         parent.paintOverMap(this, g2);
     }
     private void paintToImage(Image img) {
@@ -371,7 +382,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             }
         }
         setScale(scaleY());
-        	
+
         //log("map scale:", fmt(scaleX(),2), "@", fmt(scaleY(),2), "  center:", fmt(center().x(),2), "@", fmt(center().y(),2), "  x-rng:", fmt(mapMinX()), "-", fmt(mapMaxX(),2), "  y-rng:", fmt(mapMinY()), "-", fmt(mapMaxY(),2));
         //drawBackground(g2); // modnar: not needed due to drawShipRanges below
         Empire emp = parent.empireBoundaries();
@@ -383,7 +394,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
        		g2.setClip(darkRangeArea);
         if (!isPlayer)
         	drawShipRanges(g2);
-        
+
     	// BR: check for WarView Mode
     	if (warView) {
     		Sprite clickedSprite = parent.clickedSprite();
@@ -435,14 +446,14 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     private Image mapBuffer() {
         if ((mapBuffer == null) || (mapBuffer.getWidth(this) != getWidth()) || (mapBuffer.getHeight(this) != getHeight())) 
             generateNewMapBuffers();
-        
+
         return mapBuffer;
     }
     private void generateNewMapBuffers() {
         int w = getWidth();
         int h = getHeight();
         mapBuffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-        
+
         if (sharedStarBackground == null) {
             sharedStarBackground = new BufferedImage(RotPUI.instance().getWidth(), RotPUI.instance().getHeight(), BufferedImage.TYPE_INT_ARGB);
             drawBackgroundStars(sharedStarBackground, this);

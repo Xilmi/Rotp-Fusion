@@ -42,7 +42,6 @@ import rotp.model.empires.DiplomaticEmbassy;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireStatus;
 import rotp.model.empires.EmpireView;
-import rotp.model.empires.Race;
 import rotp.model.empires.ShipView;
 import rotp.model.empires.SpyNetwork;
 import rotp.model.galaxy.ShipFleet;
@@ -274,7 +273,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
                 Graphics imgG = planetImg.getGraphics();
                 Empire emp = sys.empire();
                 if (emp != null) {
-                    BufferedImage fortImg = emp.race().fortress(sys.colony().fortressNum());
+                    BufferedImage fortImg = emp.fortress(sys.colony().fortressNum());
                     int fortW = scaled(fortImg.getWidth());
                     int fortH = scaled(fortImg.getHeight());
                     int fortScaleW = fortW*planetW/w;
@@ -910,16 +909,15 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         		return;
             }
             else if (alien == null) { // Should never happen...
-        		Race race = player.race();
-        		flagWar = race.flagWar();
-        		flag    = race.flagPact();
-        		anyWar  = true;
+				flagWar = player.flagWar();
+				flag    = player.flagPact();
+				anyWar  = true;
         	}
         	else {
         		view    = player.viewForEmpire(alien);
         		embassy = view.embassy();
         		flag    = view.flag();
-        		flagWar = alien.race().flagWar();
+        		flagWar = alien.flagWar();
         		anyWar  = embassy.anyWar();
         	}
             if (hovering) {

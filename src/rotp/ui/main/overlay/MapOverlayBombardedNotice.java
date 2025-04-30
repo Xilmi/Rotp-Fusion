@@ -23,6 +23,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
@@ -160,7 +161,7 @@ public class MapOverlayBombardedNotice  extends MapOverlay {
                 Graphics imgG = planetImg.getGraphics();
                 Empire emp = pl.sv.empire(sysId);
                 if (emp != null) {
-                    BufferedImage fortImg = emp.race().fortress(sys.colony().fortressNum());
+                    BufferedImage fortImg = emp.fortress(sys.colony().fortressNum());
                     int fortW = scaled(fortImg.getWidth());
                     int fortH = scaled(fortImg.getHeight());
                     int fortScaleW = fortW*planetW/w;

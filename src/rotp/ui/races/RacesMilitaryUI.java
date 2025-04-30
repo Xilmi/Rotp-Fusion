@@ -244,7 +244,7 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         int y1 = y + h/10;
         int h1 = h * 8/10;
 
-        Image img = emp.isPlayer() ? emp.race().flagPact() : player().viewForEmpire(emp).flag();
+        Image img = emp.isPlayer() ? emp.flagPact() : player().viewForEmpire(emp).flag();
         int imgH = img.getHeight(null);
         int imgW = img.getWidth(null);
         g.drawImage(img, x1, y1, x1+w1, y1+h1, 0, 0, imgW, imgH, null);

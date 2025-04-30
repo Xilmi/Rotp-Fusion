@@ -25,9 +25,9 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
-import rotp.model.empires.Race;
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
@@ -58,29 +58,29 @@ public class MapOverlayAdvice extends MapOverlay {
         var1 = s1;
         var2 = s2;
         var3 = s3;
-        
-        Race r = player().race();
-        BufferedImage img;
-        r.resetScientist();
-        r.resetSpy();
-        r.resetDiplomat();
-        r.resetSoldier();
-        switch(key) {
-            case "MAIN_ADVISOR_SCOUT":            img = r.advisorScout(); break;
-            case "MAIN_ADVISOR_TRANSPORT":        img = r.advisorTransport(); break;
-            case "MAIN_ADVISOR_DIPLOMACY":        img = r.advisorDiplomacy(); break;
-            case "MAIN_ADVISOR_SHIP_ENGINE":      img = r.advisorShip(); break;
-            case "MAIN_ADVISOR_RALLY_POINTS":     img = r.advisorRally(); break;
-            case "MAIN_ADVISOR_MISSILE_BASES":    img = r.advisorMissile(); break;
-            case "MAIN_ADVISOR_SHIP_WEAPON":      img = r.advisorWeapon(); break;
-            case "MAIN_ADVISOR_COUNCIL":          img = r.advisorCouncil(); break;
-            case "MAIN_ADVISOR_REBELLION":        img = r.advisorRebellion(); break;
-            case "MAIN_ADVISOR_COUNCIL_RESISTED": img = r.advisorCouncilResisted(); break;
-            case "MAIN_ADVISOR_RESIST_COUNCIL":   img = r.advisorResistCouncil(); break;
-            default: img = r.advisorRebellion();
-        }
-        
-        advisorImg = newBufferedImage(img);      
+
+		Empire pl = player();
+		BufferedImage img;
+		pl.resetScientist();
+		pl.resetSpy();
+		pl.resetDiplomat();
+		pl.resetSoldier();
+		switch(key) {
+			case "MAIN_ADVISOR_SCOUT":				img = pl.advisorScout(); break;
+			case "MAIN_ADVISOR_TRANSPORT":			img = pl.advisorTransport(); break;
+			case "MAIN_ADVISOR_DIPLOMACY":			img = pl.advisorDiplomacy(); break;
+			case "MAIN_ADVISOR_SHIP_ENGINE":		img = pl.advisorShip(); break;
+			case "MAIN_ADVISOR_RALLY_POINTS":		img = pl.advisorRally(); break;
+			case "MAIN_ADVISOR_MISSILE_BASES":		img = pl.advisorMissile(); break;
+			case "MAIN_ADVISOR_SHIP_WEAPON":		img = pl.advisorWeapon(); break;
+			case "MAIN_ADVISOR_COUNCIL":			img = pl.advisorCouncil(); break;
+			case "MAIN_ADVISOR_REBELLION":			img = pl.advisorRebellion(); break;
+			case "MAIN_ADVISOR_COUNCIL_RESISTED":	img = pl.advisorCouncilResisted(); break;
+			case "MAIN_ADVISOR_RESIST_COUNCIL":		img = pl.advisorResistCouncil(); break;
+			default: img = pl.advisorRebellion();
+		}
+
+        advisorImg = newBufferedImage(img);
         okButton.draw(true);
         parent.repaint();
     }

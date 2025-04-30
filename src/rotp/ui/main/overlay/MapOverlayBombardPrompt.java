@@ -240,7 +240,7 @@ public class MapOverlayBombardPrompt extends MapOverlay implements IVIPListener 
                 Graphics imgG = planetImg.getGraphics();
                 Empire emp = pl.sv.empire(sysId);
                 if (emp != null) {
-                    BufferedImage fortImg = emp.race().fortress(sys.colony().fortressNum());
+                    BufferedImage fortImg = emp.fortress(sys.colony().fortressNum());
                     int fortW = scaled(fortImg.getWidth());
                     int fortH = scaled(fortImg.getHeight());
                     int fortScaleW = fortW*planetW/w;

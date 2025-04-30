@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
 import rotp.model.empires.DiplomaticEmbassy;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
@@ -200,7 +201,7 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
         int y1 = y + h/10;
         int h1 = h * 8/10;
 
-        Image img = emp.isPlayer() ? emp.race().flagPact() : player().viewForEmpire(emp).flag();
+        Image img = emp.isPlayer() ? emp.flagPact() : player().viewForEmpire(emp).flag();
         int imgH = img.getHeight(null);
         int imgW = img.getWidth(null);
         g.drawImage(img, x1, y1, x1+w1, y1+h1, 0, 0, imgW, imgH, null);

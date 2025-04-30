@@ -44,7 +44,6 @@ import javax.swing.border.Border;
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Leader;
-import rotp.model.empires.Race;
 import rotp.model.empires.SabotageMission;
 import rotp.model.empires.SystemView;
 import rotp.model.galaxy.Location;
@@ -745,13 +744,13 @@ public final class SabotageUI extends BasePanel implements MouseListener, IVIPLi
         private Image panelBuffer;
         private List<Image> animationFrames;
         public void init() {
-            Race r = mission.target().race();
+            Empire emp = mission.target();
             if (mission.isDestroyBases()) 
-                animationFrames = r.sabotageMissileFrames();
+                animationFrames = emp.sabotageMissileFrames();
             else if (mission.isDestroyFactories()) 
-                animationFrames = r.sabotageFactoryFrames();
+                animationFrames = emp.sabotageFactoryFrames();
             else if (mission.isInciteRebellion()) 
-                animationFrames = r.sabotageRebellionFrames();
+                animationFrames = emp.sabotageRebellionFrames();
             
             // if no animation, just show a star background
             if (animationFrames.isEmpty()) 

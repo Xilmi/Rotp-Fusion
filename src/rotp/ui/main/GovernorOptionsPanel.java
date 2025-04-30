@@ -371,7 +371,7 @@ public class GovernorOptionsPanel extends BasePanel{
 		}
 	}
 	private void updateRaceImage() {
-		BufferedImage raceImg = GameSession.instance().galaxy().player().race().setupImage();
+		BufferedImage raceImg = GameSession.instance().galaxy().player().setupImage();
 		int srcWidth	= raceImg.getWidth();
 		int srcHeight	= raceImg.getHeight();
 		int margin		= scaledSize(0);
