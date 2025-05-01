@@ -21,9 +21,8 @@
   - Starting alliances (free for the ai to dismiss)
   - Starting factions (Stronger than alliance, but breakable at very low diplomacy level)
   - Immuable faction (Like final war)
-
 - Search tools for options.
-
+- if you have hyperspace comms you should be able to immediately redirect retreating ships (Still not back to the same planet)
 
 ### Later:
 

@@ -70,7 +70,11 @@ final class ShipDesignOption extends AbstractOptionsSubUI {
 				shipDesignPrefStreamProj,
 				shipDesignPrefWarpDissip,
 				shipDesignPrefTechNull,
-				shipDesignPrefBeamFocus
+				shipDesignPrefBeamFocus,
+
+				HEADER_SPACER_100,
+				RELEVANT_TITLE,
+				keepShipDesignName
 				)));
 		return map;
 	};

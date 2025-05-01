@@ -44,9 +44,10 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-25-04-30 (BR)
-- The Empire class takes over full ownership of the “race” and “datarace” calls.
-  - This is to prepare it for creating a "Species" class that will manage race, datarace, customrace, random race and abilities
+25-05-01 (BR)
+- Combat result: Fixed possible crash when double-clicking Exit.
+- Design UI: Fixed "Keep Ship Design Name" not alway keeping.
+  - Made this option selectable in the "Ship Design Option" panel.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

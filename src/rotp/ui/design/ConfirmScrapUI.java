@@ -15,13 +15,21 @@
  */
 package rotp.ui.design;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.LinearGradientPaint;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.util.List;
+
 import rotp.model.ships.ShipDesign;
 import rotp.ui.BasePanel;
 import rotp.ui.main.SystemPanel;
@@ -197,10 +205,13 @@ public final class ConfirmScrapUI extends BasePanel implements MouseListener, Mo
         disableGlassPane();
     }
     private void scrapAction() {
-        player().shipLab().scrapDesign(targetDesign);
-        
+		String previousName = targetDesign.name();
+		ShipDesign newDes = player().shipLab().scrapDesign(targetDesign);
+		if (options().keepShipDesignName()) {
+			newDes.name(previousName);
+		}
         // mark the player's empire economic stats to be
-        // recalculated since ship maint costs may change
+        // recalculated since ship maintenance costs may change
         player().recalcPlanetaryProduction();
         DesignUI.instance.init();
         hoverTarget = null;

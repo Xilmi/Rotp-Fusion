@@ -164,6 +164,7 @@
 
 ### User Interfaces:
 
+- Design UI: Made "Keep Ship Design Name" option selectable in the "Ship Design Option" panel.
 - The opponent control panel now progressively displays from 3x3 to 7x7 icons.
 - Design UI: changed some text by icons:
   - Auto-scout = Eye
@@ -229,6 +230,7 @@
 
 ### Fixes:
 
+- Design UI: Fixed "Keep Ship Design Name" not alway keeping.
 - Combat result: Fixed possible crash when double-clicking Exit.
 - Fixed galaxies with a single option field not following the value selected for that option.
 - Fixed a comodification error in ship combat.

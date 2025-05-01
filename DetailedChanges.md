@@ -4,6 +4,8 @@
 
 25-05-01 (BR)
 - Combat result: Fixed possible crash when double-clicking Exit.
+- Design UI: Fixed "Keep Ship Design Name" not alway keeping.
+  - Made this option selectable in the "Ship Design Option" panel.
 
 25-04-30 (BR)
 - The Empire class takes over full ownership of the “race” and “datarace” calls.

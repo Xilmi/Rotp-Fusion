@@ -551,18 +551,16 @@ public class ShipDesignLab implements Base, Serializable {
         for (int i=0;i<design.maxSpecials();i++)
             design.special(i, specials().get(0));
     }
-    public void scrapDesign(ShipDesign d) {
+    public ShipDesign scrapDesign(ShipDesign d) {
         int designId = d.id();
 
         // remove from existing fleets
-//        int scrappedCount = galaxy().ships.scrapDesign(empire.id, designId);
         int[] counts = galaxy().ships.scrapDesign(empire.id, designId);
         log("Empire: "+empire.name()+"  Scrapping design: ",
         		d.name(), "  id: "+d.id()+"  count:", str(counts[0]));
 
         d.scrapped(true);
         d.active(false);
-//        d.addTotalScrapped(scrappedCount);
         d.addTotalScrapped(counts[0]);
 
         // reimburse civ reserve for 1/2 of ship's cost (halved when added to reserve)
@@ -579,13 +577,13 @@ public class ShipDesignLab implements Base, Serializable {
 	        default:
 	        	empire().addReserve(d.scrapValue(counts[0])*2);
         }
-//        empire().addReserve(d.scrapValue(scrappedCount)*2);
         empire().swapShipConstruction(d);
-        
+
         // remove scrapped design from list of designs and replace with new, inactive design
         designs[designId] = newBlankDesign(ShipDesign.SMALL);
         designs[designId].id(designId);
         designs[designId].copyFrom(d);
+        return designs[designId];
     }
     public String nextAvailableIconKey(int size, String currIconKey) {
         int newNum;

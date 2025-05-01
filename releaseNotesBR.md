@@ -9,7 +9,8 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 25-05-01 (BR)
 - Combat result: Fixed possible crash when double-clicking Exit.
-
+- Design UI: Fixed "Keep Ship Design Name" not alway keeping.
+  - Made this option selectable in the "Ship Design Option" panel.
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 
