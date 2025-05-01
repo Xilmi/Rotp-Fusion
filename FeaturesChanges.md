@@ -229,6 +229,7 @@
 
 ### Fixes:
 
+- Combat result: Fixed possible crash when double-clicking Exit.
 - Fixed galaxies with a single option field not following the value selected for that option.
 - Fixed a comodification error in ship combat.
 - Fixed Random generator throwing error when asked for a number between 0 and 0; will return 0 instead.

@@ -7,13 +7,9 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
-25-04-28 (BR)
-- Fixed galaxies with a single option field not following the value selected for that option.
-- Custom Species can now have their own intro:
-  - Create a folder "CustomSpecies"
-  - add a file named 'speciesname'.intro.txt
-  - The fist line will also be used as title
-  - Inspiration can be taken from the intro files in the directory: rotp/lang/en/races
+25-05-01 (BR)
+- Combat result: Fixed possible crash when double-clicking Exit.
+
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 

@@ -101,7 +101,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     private int ptY[] = new int[GRID_COUNT_Y+1];
     public int boxH = -1;
     public int boxW = -1;
-    
+
     private int mouseGridX = 0;
     private int mouseGridY = 0;
     private int planetX = 250;
@@ -600,9 +600,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             if (targetStack.canRetreat()) 
                 shipRetreatButton.setData(currentStack, hoveringX, hoveringY);
         }
-        else if (targetStack.inStasis) {
-            
-        }
+        else if (targetStack.inStasis) {}
         else if (targetStack.isMonster() || (targetStack.empire() != currentStack.empire())) {
             int wpnI = 0;
             int spcI = 0;
@@ -1210,7 +1208,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
 
         boolean performingTurn = mgr.performingStackTurn;
         boolean autoCompleting = mgr.autoComplete || mgr.autoResolve;
-        if (mgr.combatIsFinished()) {
+        if (readyToShowResult() || mgr.combatIsFinished()) {
             nextBox.setBounds(0,0,0,0);
             String exitText = text("SHIP_COMBAT_EXIT");
             int buttX = x+w-buttW-s10;
@@ -1694,6 +1692,20 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         if (inCombat && mgr.currentStack().usingAI())
             mgr.continueToNextPlayerStack();
     }
+	// Multiple click could lead to issues.
+	private void finalFinishAndResume() {
+		if (blockShowResult()) {
+			newAnimationStarted(-1L);
+			refreshCombatScreen(true);
+			refreshResultScreen(true);
+			repaint();
+		}
+		else {
+			mode = Display.RESULT;
+			repaint();
+			session().resumeNextTurnProcessing();
+		}
+	}
     private void finishAndResume() {
     	if (blockShowResult()) {
     		newAnimationStarted(-1L);
@@ -1845,7 +1857,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             case KeyEvent.VK_E:
             case KeyEvent.VK_ESCAPE:
                 if (mgr.combatIsFinished())
-                    finishAndResume();
+                    finalFinishAndResume();
                 else
                     finish();
                 return;
@@ -1877,7 +1889,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
 		if (mgr.combatIsFinished()) {
 			finish();
 			if (hoverBox == exitBox)
-				finishAndResume();
+				finalFinishAndResume();
 			return;
 		}
         if (rightClick) {
@@ -1909,7 +1921,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
 			return;
 		}
 		else if (hoverBox == exitBox) {
-			finishAndResume();
+			finalFinishAndResume();
 			return;
 		}
 		else if (hoverBox == nextBox) {
@@ -2467,7 +2479,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         }
         if (colonyEmp == leftEmpire)
             message += NEWLINE + drawPlanetResult(sysName);
-        
+
         // right empire()
         if (monster != null)
             empName = monster.name();

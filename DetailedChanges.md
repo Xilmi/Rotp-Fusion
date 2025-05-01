@@ -2,6 +2,9 @@
 
 ## What's New
 
+25-05-01 (BR)
+- Combat result: Fixed possible crash when double-clicking Exit.
+
 25-04-30 (BR)
 - The Empire class takes over full ownership of the “race” and “datarace” calls.
   - This is to prepare it for creating a "Species" class that will manage race, datarace, customrace, random race and abilities
