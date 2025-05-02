@@ -164,6 +164,8 @@
 
 ### User Interfaces:
 
+- Species Setup Panel: The leader's name no longer changes when returning from the Galaxy Setup Panel.
+- Game Diplomacy: The leader's name can now be changed. (Click on "Leader")
 - Design UI: Made "Keep Ship Design Name" option selectable in the "Ship Design Option" panel.
 - The opponent control panel now progressively displays from 3x3 to 7x7 icons.
 - Design UI: changed some text by icons:

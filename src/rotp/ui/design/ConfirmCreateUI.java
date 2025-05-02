@@ -52,8 +52,8 @@ final class ConfirmCreateUI extends BasePanel implements KeyListener, MouseListe
     private static final int DIALOG_H = 355;
     private static final Color borderC = new Color(112,85,68,128);
     private static final Color backC = new Color(112,85,68);
-    private final Color greenEdgeC = new Color(44,59,30);
-    private final Color greenMidC = new Color(70,93,48);
+    private static final Color greenEdgeC = new Color(44,59,30);
+    private static final Color greenMidC = new Color(70,93,48);
     private static final Color brownEdgeC = new Color(59,44,30);
     private static final Color brownMidC = new Color(93,70,48);
     private static final Color textBackC = new Color(178,124,87);

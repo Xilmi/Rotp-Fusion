@@ -45,12 +45,14 @@ import rotp.model.empires.EmpireView;
 import rotp.model.empires.TreatyAlliance;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.ui.BasePanel;
+import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomaticMessage;
 import rotp.ui.game.ShowCustomRaceUI;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.StringDialogUI;
 
 public final class RacesDiplomacyUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID = 1L;
@@ -85,6 +87,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     private final Rectangle manageDiplomatsBox = new Rectangle();
     private final Rectangle manageSpiesBox = new Rectangle();
     private final Rectangle showAbilitiesBox = new Rectangle();
+    private final Rectangle changeLeaderNameBox = new Rectangle();
     Polygon buttonIncr = new Polygon();
     Polygon buttonDecr = new Polygon();
     Rectangle buttonSlider = new Rectangle();
@@ -95,7 +98,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     private final HashMap<DiplomaticIncident, Empire> incidentMap = new HashMap<>();
 
     private Shape hoverShape;
-    
+
     public RacesDiplomacyUI(RacesUI p) {
         parent = p;
         manageDiplomatsPane = new ManageDiplomatsUI(p);
@@ -130,9 +133,10 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         manageDiplomatsBox.setBounds(0,0,0,0);
         manageSpiesBox.setBounds(0,0,0,0);
         showAbilitiesBox.setBounds(0,0,0,0);
+        changeLeaderNameBox.setBounds(0,0,0,0);
         buttonIncr.reset();
         buttonDecr.reset();
-        
+
         if (backGradient == null) {
             Point2D start = new Point2D.Float(0, getHeight() / 2);
             Point2D end = new Point2D.Float(0, getHeight());
@@ -265,7 +269,8 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         drawShadowedString(g, text("RACES_DIPLOMACY_HOMEWORLD"), 1, x0, y1, SystemPanel.blackText, textC);
         String leader = text("RACES_DIPLOMACY_LEADER");
         int swL = g.getFontMetrics().stringWidth(leader);
-        drawShadowedString(g, leader, 1, x0, y2, SystemPanel.blackText, textC);
+		//drawShadowedString(g, leader, 1, x0, y2, SystemPanel.blackText, textC);
+		drawChangeLeaderNameButton(g, x0-s10, y2-s15, s20, s22);
         drawShadowedString(g, text("RACES_DIPLOMACY_CURRENT_TRADE"), 1, x0, y3, SystemPanel.blackText, textC);
         drawShadowedString(g, text("RACES_DIPLOMACY_TOTAL_TRADE"), 1, x0, y4, SystemPanel.blackText, textC);
         // drawShadowedString(g, text("RACES_DIPLOMACY_ABILITY"), 1, x0, y5, SystemPanel.blackText, textC);
@@ -314,7 +319,8 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         g.setFont(narrowFont(22));
         Color textC = SystemPanel.whiteText;
         drawShadowedString(g, text("RACES_DIPLOMACY_HOMEWORLD"), 1, x0, y1, SystemPanel.blackText, textC);
-        drawShadowedString(g, text("RACES_DIPLOMACY_LEADER"), 1, x0, y2, SystemPanel.blackText, textC);
+		//drawShadowedString(g, text("RACES_DIPLOMACY_LEADER"), 1, x0, y2, SystemPanel.blackText, textC);
+		drawChangeLeaderNameButton(g, x0-s10, y2-s15, s20, s22);
         drawShadowedString(g, text("RACES_DIPLOMACY_CHARACTER"), 1, x0, y3, SystemPanel.blackText, textC);
         drawShadowedString(g, text("RACES_DIPLOMACY_STATUS"), 1, x0, y4, SystemPanel.blackText, textC);
         if (hasVoted)
@@ -888,6 +894,22 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         g.drawRect(x,y,w,h);
         g.setStroke(prev);
     }
+	private void drawChangeLeaderNameButton(Graphics2D g, int x, int y, int margin, int h) {
+		String lbl = text("RACES_DIPLOMACY_LEADER");
+		g.setFont(narrowFont(22));
+		int sw = g.getFontMetrics().stringWidth(lbl);
+		int w  = sw + margin;
+		int x0 = x+((w-sw)/2);
+		int y0 = y+h-s8;
+		changeLeaderNameBox.setBounds(x,y,w,h);
+		g.setColor(unselectedC);
+		g.fillRect(x,y,w,h);
+		
+		Color c0 = SystemPanel.whiteText;
+		if (hoverShape == changeLeaderNameBox)
+			c0 = Color.yellow;
+		drawShadowedString(g, lbl, 1, x0, y0, SystemPanel.blackText, c0);
+	}
     private void drawShowAbilitiesButton(Graphics2D g, int x, int y, int margin, int h) {
         String lbl = text("RACES_DIPLOMACY_ABILITY");
         g.setFont(narrowFont(22));
@@ -924,7 +946,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         g.setFont(narrowFont(20));
         String year = options().displayYear() ? text("RACES_DIPLOMACY_EVENT_YEAR") :  text("RACES_DIPLOMACY_EVENT_TURN");
         drawShadowedString(g, year, 1, x0+s10, y0+s23, Color.black, SystemPanel.whiteText);
-        
+
         g.setFont(narrowFont(22));
         String title = text("RACES_DIPLOMACY_EVENT_TITLE");
         int sw = g.getFontMetrics().stringWidth(title);
@@ -1338,6 +1360,22 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         enableGlassPane(showRaceAbilitiesPane);
         return;
     }
+	private void changeLeaderName() {
+		softClick();
+		Empire emp = parent.selectedEmpire();
+		String leaderName = emp.leader().name();
+		String nameTitle  = emp.raceText("_nameTitle");
+		String specieName  = emp.raceName();
+		System.out.println(nameTitle + " / " + specieName);
+		String dlgTitle = text("RACES_DIPLOMACY_LEADER_DIALOG_TITLE", nameTitle, specieName);
+		String dlgLabel = text("RACES_DIPLOMACY_LEADER_DIALOG_LABEL", nameTitle, specieName);
+		StringDialogUI dlg = RotPUI.instance().stringDialog();
+		dlg.init(null, this, dlgLabel, dlgTitle, leaderName, leaderName,
+				-1, -1, scaled(350), -1, null, null, null);
+		String newName = dlg.showDialog(0);
+		emp.leader().setName(newName);
+		return;
+	}
     private boolean increaseSliderValue(int i) {
         int oldValue = player().internalSecurity();
         player().increaseInternalSecurity(i);
@@ -1467,6 +1505,8 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
             hoverShape = manageSpiesBox;
         else if (showAbilitiesBox.contains(x,y))
             hoverShape = showAbilitiesBox;
+        else if (changeLeaderNameBox.contains(x,y))
+            hoverShape = changeLeaderNameBox;
         else if (manageDiplomatsBox.contains(x,y))
             hoverShape = manageDiplomatsBox;
 
@@ -1502,6 +1542,10 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         }
         else if (hoverShape == showAbilitiesBox) {
             openShowAbilitiesPane();
+            return;
+        }
+        else if (hoverShape == changeLeaderNameBox) {
+        	changeLeaderName();
             return;
         }
         else if (hoverShape == manageDiplomatsBox) {

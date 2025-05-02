@@ -44,10 +44,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-25-05-01 (BR)
-- Combat result: Fixed possible crash when double-clicking Exit.
-- Design UI: Fixed "Keep Ship Design Name" not alway keeping.
-  - Made this option selectable in the "Ship Design Option" panel.
+25-05-02 (BR)
+- Species Setup Panel: The leader's name no longer changes when returning from the Galaxy Setup Panel.
+- Game Diplomacy: The leader's name can now be changed. (Click on "Leader")
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

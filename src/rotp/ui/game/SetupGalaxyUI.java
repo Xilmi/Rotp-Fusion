@@ -845,7 +845,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		// Go back to Race Panel
 		close();
-		RotPUI.instance().selectSetupRacePanel();
+		String name = opts.selectedLeaderName();
+		RotPUI.instance().selectSetupRacePanel(name);
  	}
 	private static String backButtonKey() {
 		switch (ModifierKeysState.get()) {

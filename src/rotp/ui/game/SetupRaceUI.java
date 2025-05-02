@@ -218,6 +218,11 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         	shipBox[i].setBounds(xFleet, yFleet + i * shipDist, shipWidth, shipHeight);
     }
 	@Override protected void singleInit()	{ paramList = AllSubUI.optionsRace(); }
+	public void init(String leaderName) {
+		System.out.println("leaderName: " + leaderName);
+		init();
+		this.leaderName.setText(leaderName);
+	}
     @Override public void init() {
     	super.init();
     	leaderName.setBackground(GameUI.setupFrame());

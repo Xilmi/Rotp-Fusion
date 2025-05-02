@@ -8,7 +8,7 @@
 //
 // To cross reference labels put the key between →←
 // Used these char because they are not available in MyriadPro fonts anyways!
-// example :
+// example :
 // CROSS_REFERENCED_EXAMPLE | blablabla either →BOOLEAN_YES← or →BOOLEAN_NO←
 // ALT 8594 →
 // ALT 8582 ←
@@ -3781,8 +3781,8 @@ SETTINGS_MOD_MONSTERS_LEVEL_HARD_DESC    | Less scary monsters. Twice the diffic
 SETTINGS_MOD_MONSTERS_LEVEL_CUSTOM       | Custom
 SETTINGS_MOD_MONSTERS_LEVEL_CUSTOM_DESC  | Linked to the Guardian monsters level.
 
-SETTINGS_MOD_MONSTERS_GNN_HELP           | La répétition des notifications des monstres par GNN : Avec l’apparition multiple de monstres, le nombre de notifications GNN peut devenir gênant. Elles peuvent être limitées à une par apparition de monstre, ou à une par type de monstre.
-SETTINGS_MOD_MONSTERS_GNN_DESC           | La répétition des notifications des monstres par GNN : Avec l’apparition multiple de monstres, le nombre de notifications GNN peut devenir gênant. Elles peuvent être limitées à une par apparition de monstre, ou à une par type de monstre.
+SETTINGS_MOD_MONSTERS_GNN_HELP           | La répétition des notifications des monstres par GNN : Avec l’apparition multiple de monstres, le nombre de notifications GNN peut devenir gênant. Elles peuvent être limitées à une par apparition de monstre, ou à une par type de monstre.
+SETTINGS_MOD_MONSTERS_GNN_DESC           | La répétition des notifications des monstres par GNN : Avec l’apparition multiple de monstres, le nombre de notifications GNN peut devenir gênant. Elles peuvent être limitées à une par apparition de monstre, ou à une par type de monstre.
 SETTINGS_MOD_MONSTERS_GNN                | GNN Notifie %1 monstres
 SETTINGS_MOD_MONSTERS_GNN_ALL            | tous les
 SETTINGS_MOD_MONSTERS_GNN_NEW            | les nouveaux
@@ -4648,6 +4648,8 @@ RACES_TRADE_NONE                  | Pas de traité commercial
 RACES_DIPLOMAT_RECALLED           | Diplomate [alien_raceadjec] rappelé
 RACES_DIPLOMATS_RECALLED          | Diplomates rappelés
 
+RACES_DIPLOMACY_LEADER_DIALOG_TITLE	| %1 %2 change son Nom
+RACES_DIPLOMACY_LEADER_DIALOG_LABEL	| Saisissez le nouveau nom :
 RACES_DIPLOMACY_HOMEWORLD         | Planète
 RACES_DIPLOMACY_LEADER            | Chef
 RACES_DIPLOMACY_CURRENT_TRADE     | Revenu commercial courant
@@ -5827,7 +5829,7 @@ HK_SET_DEFAULT | <br>Alt-F : Définir les valeurs par défaut à →FUSION_HK�
 // Shortcuts Full lists*
 MAIN_HELP_SHIPFLEET_H	| Raccourcis clavier QUAND LA FLOTTE EST SÉLECTIONNÉE :<br><br>H : Afficher plus d’informations détaillées (si elles sont connues)<br><br> MODE DE REDIRECTION DES FLOTTES :<br><br>Appuyez sur «Alt» pour montrer des informations sur l’étoile ou la flotte survolée par la souris.
 
-MAIN_HELP_HK			| →HK_HEADER← →HK_F1←<br>H : Afficher les caractéristiques connues de la flotte sous le curseur<br><br>F2/F3 Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n’affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n’est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Espace/Page Down/Page Up : Votre flotte inactive Suivante/Précédente<br>«Maj-» Espace/Page Down/Page Up : Votre flotte Auto. mais inactive Suivante/Précédente→HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d’Option →HK_YEAR←<br>Maj-S : Rapport d’espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br>ALT-W : Afficher/Cacher la grille carrée <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
+MAIN_HELP_HK			| →HK_HEADER← →HK_F1←<br>H : Afficher les caractéristiques connues de la flotte sous le curseur<br><br>F2/F3 Votre colonie Suivante/Précédente<br>F5/F6 : Votre colonie Suivante/Précédente ayant construit un vaisseau<br>F7/F8 : Votre colonie Suivante/Précédente ciblée par un ennemi<br>W : Basculer la vue de guerre, n’affichant que les vaisseaux ciblant la planète en danger.<br>        (Se désactive lorsque la planète n’est pas en danger)<br>F9/F10 : Votre flotte Suivante/Précédente<br>F11/F12 : flotte IA Suivante/Précédente<br>Espace/Page Down/Page Up : Votre flotte inactive Suivante/Précédente<br>«Maj-» Espace/Page Down/Page Up : Votre flotte Auto. mais inactive Suivante/Précédente→HK_FLAG_LOOP←<br><br>G : --> Menu (Game)<br>S : --> Systèmes<br>F : --> Flottes<br>D : --> Conception (Design)<br>R, E : --> Empires<br>C : --> Colonies<br>T : --> Tech<br>N : Tour Suivant (Next)<br>O : --> Panneau d’Option →HK_YEAR←<br>Maj-S : Rapport d’espionnage (Spy)<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← <br>ALT-W : Afficher/Cacher la grille carrée <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Molette de la souris : Incrémenter les quantités/ajuster la coulisse<br>→HK_ESCAPE←
 
 PLANETS_HELP_HK			| →HK_HEADER← →HK_F1←<br><br>Flèches Haut / Bas : Bouge barre de défilement<br>Flèches Droite / Gauche : Colonie suivante / précédente. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← →HK_ALT_1_5← (Aussi pour Sélection multiple)<br><br>Ctrl+A : Sélectionner tous les systèmes<br>Q/+Ctrl : Sélectionner normales et riches en pleine économie / + Définissez les dépenses des vaisseaux à 100%<br>Y,Z/+Ctrl : Planète en manque de population / + Dépenses ÉCO à 100%<br><br>S→HK_SEL_B← Vaisseaux →HK_SEL_E←<br>D→HK_SEL_B← Défense →HK_SEL_E←<br> W→HK_SEL_B← Industrie →HK_SEL_E←<br>E→HK_SEL_B← Écologie →HK_SEL_E←<br>R→HK_SEL_B← Recherche →HK_SEL_E←<br>G / +Ctrl /+Maj : Basculer activation du gouverneur / Activé / Désactivé <br>→HK_ESCAPE←
 
@@ -5838,16 +5840,16 @@ FLEETS_HELP_HK			| →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP
 // !!!
 TECH_HELP_HK			| →HK_HEADER← →HK_F1← <br><br>1-6/+SHIFT : augmente / diminue la catégorie.<br>Ctrl+1-6 : (dé)verrouiller les curseurs.<br>Flèches : Déplacer l’arbre / Catégories<br> = : Égaliser<br>Molette souris : Changer l’allocation.<br><br>A, F : Montrer ou Cacher les techs de départ<br>G, H, I, ou Clique droit : Montre plus d’info sur la tech survolée <br> →HK_ESCAPE←
 
-SHIP_DESIGN_HELP_HK		| →HK_HEADER← →HK_F1← <br><br>Flèches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+Ctrl) : Purger le modèle / (Juste l’armement)<br>O : Ouvrir le panneau d’options de conception des vaisseaux<br><br>(Shift) Alt-A : Conception automatique<br>(Shift) Alt-B : Conception automatique Bombardier<br>(Shift) Alt-E : Conception automatique Éclaireur<br>(Shift) Alt-F : Conception automatique Chasseur<br>(Shift) Alt-G : Conception automatique Faisceaux<br>(Shift) Alt-H : Conception automatique Hybride<br>(Shift) Alt-I : Conception automatique Intercepteur<br>(Shift) Alt-M : Conception automatique Missiles.<br>(Shift) Alt-P : Conception automatique Colonisateur.<br>Shift-Alt : Autorise le changement de la taille de la coque<br>→HK_ESCAPE←
+SHIP_DESIGN_HELP_HK		| →HK_HEADER← →HK_F1← <br><br>Flèches Haut / Bas : Flotte Suivante / Précédente<br>S : Supprimer le Modèle<br>R : Renommer le Modèle<br>D : Créer le Modèle<br>C / (+Ctrl) : Purger le modèle / (Juste l’armement)<br>O : Ouvrir le panneau d’options de conception des vaisseaux<br><br>(Shift) Alt-A : Conception automatique<br>(Shift) Alt-B : Conception automatique Bombardier<br>(Shift) Alt-E : Conception automatique Éclaireur<br>(Shift) Alt-F : Conception automatique Chasseur<br>(Shift) Alt-G : Conception automatique Faisceaux<br>(Shift) Alt-H : Conception automatique Hybride<br>(Shift) Alt-I : Conception automatique Intercepteur<br>(Shift) Alt-M : Conception automatique Missiles.<br>(Shift) Alt-P : Conception automatique Colonisateur.<br>Shift-Alt : Autorise le changement de la taille de la coque<br>→HK_ESCAPE←
 
-RACES_HELP_HK			| →HK_HEADER← →HK_F1← <br><br>Flèches Down/Up : Empire Suivant/Précédent. →HK_TAB←<br><br>A : →RACES_DIPLOMACY_AUDIENCE← avec l’empire sélectionné.<br><br>Lorsque l’empire du joueur est sélectionné:<br>D : →RACES_DIPLOMACY_MANAGE_DIPLOMATS←.<br>S : →RACES_INTEL_BUREAU_MANAGE←. <br>→HK_ESCAPE←
+RACES_HELP_HK			| →HK_HEADER← →HK_F1← <br><br>Flèches Down/Up : Empire Suivant/Précédent. →HK_TAB←<br><br>A : →RACES_DIPLOMACY_AUDIENCE← avec l’empire sélectionné.<br><br>Lorsque l’empire du joueur est sélectionné:<br>D : →RACES_DIPLOMACY_MANAGE_DIPLOMATS←.<br>S : →RACES_INTEL_BUREAU_MANAGE←. <br>→HK_ESCAPE←
 
 SYSTEMS_HELP_HK			| →HK_HEADER← →HK_F1← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_YEAR← →HK_FLAG← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
 
-SETUP_GALAXY_HELP_HK	| →HK_HEADER← →HK_F1← →HK_GUIDE← <br><br>B : Toggle submenus call buttons. →HK_FOG← <br>T : Go to Tune Galaxy Menu. <br>→HK_SET_DEFAULT← <br><br>Enter : Start a new Game. <br><br>M : Go to Main Menu.<br>Escape : Go to Player Setup Panel.
+SETUP_GALAXY_HELP_HK	| →HK_HEADER← →HK_F1← →HK_GUIDE← <br><br>B : Toggle submenus call buttons. →HK_FOG← <br>T : Go to Tune Galaxy Menu. <br>→HK_SET_DEFAULT← <br><br>Enter : Start a new Game. <br><br>M : Go to Main Menu.<br>Escape : Go to Player Setup Panel.
 
-SETUP_RACE_HELP_HK		| →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>N : Open Name Player Species Sub Menu. <br>R : Random Species.<br>→HK_SET_DEFAULT← <br><br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
+SETUP_RACE_HELP_HK		| →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>N : Open Name Player Species Sub Menu. <br>R : Random Species.<br>→HK_SET_DEFAULT← <br><br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
 
-MOD_OPTIONS_HELP_HK		| <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. <br>→HK_SET_DEFAULT←<br>→HK_GUIDE← <br>→HK_ESCAPE←
+MOD_OPTIONS_HELP_HK		| <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. <br>→HK_SET_DEFAULT←<br>→HK_GUIDE← <br>→HK_ESCAPE←
 
-SETUP_GAME_HELP_HK		| H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N : New Game.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.<br><br>PAGE_UP / PAGE_DOWN: (Work in progress)<br>      Open / Close Console for the visually impaired people.
+SETUP_GAME_HELP_HK		| H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N : New Game.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.<br><br>PAGE_UP / PAGE_DOWN: (Work in progress)<br>      Open / Close Console for the visually impaired people.

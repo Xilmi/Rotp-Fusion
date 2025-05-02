@@ -4648,6 +4648,8 @@ RACES_TRADE_NONE                  | No trade treaty
 RACES_DIPLOMAT_RECALLED           | [alien_race] diplomat recalled
 RACES_DIPLOMATS_RECALLED          | Diplomats recalled
 
+RACES_DIPLOMACY_LEADER_DIALOG_TITLE	| %1 %2 new Name
+RACES_DIPLOMACY_LEADER_DIALOG_LABEL	| Enter the new %1 %2 Name:
 RACES_DIPLOMACY_HOMEWORLD         | Homeworld
 RACES_DIPLOMACY_LEADER            | Leader
 RACES_DIPLOMACY_CURRENT_TRADE     | Current Trade Income

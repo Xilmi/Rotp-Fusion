@@ -89,6 +89,7 @@ import rotp.ui.tech.DiscoverTechUI;
 import rotp.ui.tech.SelectNewTechUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ListDialogUI;
+import rotp.ui.util.StringDialogUI;
 import rotp.ui.vipconsole.VIPConsole;
 import rotp.util.AnimationManager;
 import rotp.util.sound.SoundManager;
@@ -197,7 +198,8 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
     private final ErrorUI errorUI = new ErrorUI();
     private final HelpUI helpUI = new HelpUI();
     private final MainOptionsUI mainOptionsUI = new MainOptionsUI();
-    private ListDialogUI listDialog;
+	private StringDialogUI	stringDialog;
+	private ListDialogUI	listDialog;
     private final List<BaseCompactOptionsUI> optionsPanels = new ArrayList<>();
 
     private final AdvancedOptionsUI advancedOptionsUI = new AdvancedOptionsUI();
@@ -274,7 +276,8 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
 
         timer.start();
 		//toggleAnimations();
-		listDialog = new ListDialogUI(Rotp.getFrame());
+		stringDialog = new StringDialogUI(Rotp.getFrame());
+		listDialog	 = new ListDialogUI(Rotp.getFrame());
         repaint();
     }
     public void toggleAnimations() { // Keep for debug
@@ -307,6 +310,12 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
 			listDialog = new ListDialogUI(Rotp.getFrame());
 		return listDialog;
 	}
+	public StringDialogUI	stringDialog()				{
+		if (stringDialog == null)
+			stringDialog = new StringDialogUI(Rotp.getFrame());
+		return stringDialog;
+	}
+	public void resetStringDialog()						{ stringDialog = null; }
 	public void resetListDialog()						{ listDialog = null; }
 	private BaseCompactOptionsUI nextOptionPanel()		{
 		optionPanelId ++;
@@ -340,6 +349,10 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
 		optionsPanels.get(optionPanelId).reloadUI();
 	}
 
+	public void selectSetupRacePanel(String leaderName)	{
+		setupRaceUI.init(leaderName);
+		selectPanel(SETUP_RACE_PANEL, setupGalaxyUI);
+	}
     public void selectSetupRacePanel()	 {
     	setupRaceUI.init();
     	selectPanel(SETUP_RACE_PANEL, setupRaceUI); 
