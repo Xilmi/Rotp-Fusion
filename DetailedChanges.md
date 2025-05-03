@@ -2,6 +2,10 @@
 
 ## What's New
 
+25-05-03 (BR)
+- Fixed Auto design Bomber  null pointer exception crash.
+  - Was added by the Bombard estimation fixes.
+
 25-05-02 (BR)
 - Species Setup Panel: The leader's name no longer changes when returning from the Galaxy Setup Panel.
 - Game Diplomacy: The leader's name can now be changed. (Click on "Leader")

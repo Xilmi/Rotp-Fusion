@@ -232,6 +232,7 @@
 
 ### Fixes:
 
+- Fixed Auto design Bomber  null pointer exception crash.
 - Design UI: Fixed "Keep Ship Design Name" not alway keeping.
 - Combat result: Fixed possible crash when double-clicking Exit.
 - Fixed galaxies with a single option field not following the value selected for that option.

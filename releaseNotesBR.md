@@ -7,6 +7,9 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
+25-05-03 (BR)
+- Fixed Auto design Bomber null pointer exception crash.
+
 25-05-02 (BR)
 - Species Setup Panel: The leader's name no longer changes when returning from the Galaxy Setup Panel.
 - Game Diplomacy: The leader's name can now be changed. (Click on "Leader")

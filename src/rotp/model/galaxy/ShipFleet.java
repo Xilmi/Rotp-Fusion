@@ -166,20 +166,23 @@ public class ShipFleet extends FleetBase {
         fromY = s.y();
         reloadBombs();
     }
-    final void reloadBombs() {
-        if (bombardCount == null)
-            bombardCount = new int[MAX_DESIGNS];
-        
-        for (int i=0;i<bombardCount.length;i++)
-            bombardCount[i]=0;
-    }
-    private int bombardCount(int i)    { return bombardCount[i]; }
-    public void bombarded(int i)      { bombardCount[i]++; }
+	final int[] bombardCount()	{
+		if (bombardCount == null)
+			bombardCount = new int[MAX_DESIGNS];
+		return bombardCount;
+	}
+	final void reloadBombs()	{
+		int length = bombardCount().length;
+		for (int i=0;i<length;i++)
+			bombardCount[i]=0;
+	}
+	private int bombardCount(int i)	{ return bombardCount()[i]; }
+	public void bombarded(int i)	{ bombardCount()[i]++; }
     public void clear() {
         for (int i=0;i<MAX_DESIGNS;i++)
             num(i, 0);
     }
-    
+
     @Override
     public boolean persistOnClick()             { return empire() == player(); }
     public static ShipFleet copy(ShipFleet fl) {
