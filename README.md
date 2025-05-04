@@ -45,6 +45,7 @@ java -jar target/rotp-<timestamp>-mini.jar
 ## What's New
 
 25-05-04 (BR)
+- Fixed crash when displaying ship info of cloacked ships. 
 - Fixed mass deployment bug, when fleets deployed (in 0 turns) to the planet they are already on.
 - New Fleet Retreat Options:
   - To select the allowed destinations:

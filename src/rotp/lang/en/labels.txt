@@ -2763,9 +2763,9 @@ SETTINGS_MOD_ANY_STAR_SYSTEM_DESC		| Any star system within range.
 SETTINGS_MOD_HYPER_COM_RETREAT_EXT		| Hyper Comm Retreat: %1
 SETTINGS_MOD_HYPER_COM_RETREAT_EXT_DESC	| Does having hyperspace communication allow an empire to retreat anywhere?
 SETTINGS_MOD_RETREAT_ON_ARRIVAL_RETREATING		| Retreat on Arrival: %1
-SETTINGS_MOD_RETREAT_ON_ARRIVAL_RETREATING_DESC	| Should "Retreat on Arrival" be tagged as "Retreating" or is just de treated as a game automation?
+SETTINGS_MOD_RETREAT_ON_ARRIVAL_RETREATING_DESC	| Should "Retreat on Arrival" be tagged as "Retreating" or is just treated as a game automation?
 SETTINGS_MOD_DIPLOMATIC_RETREAT_RETREATING		| Diplomatic Retreat: %1
-SETTINGS_MOD_DIPLOMATIC_RETREAT_RETREATING_DESC	| Should "Diplomatic Retreat" be tagged as "Retreating" or is just de treated as a game automation?
+SETTINGS_MOD_DIPLOMATIC_RETREAT_RETREATING_DESC	| Should "Diplomatic Retreat" be tagged as "Retreating" or is just treated as a game automation?
 SETTINGS_MOD_NO_RETREAT_ENEMY_DESTINATION		| No Enemy Retreat: %1
 SETTINGS_MOD_NO_RETREAT_ENEMY_DESTINATION_DESC	| Can retreat destination have an enemy fleet orbiting, or be an enemy colony?
  

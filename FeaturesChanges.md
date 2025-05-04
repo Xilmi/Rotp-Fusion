@@ -240,6 +240,7 @@
 
 ### Fixes:
 
+- Fixed crash when displaying ship info of cloacked ships. 
 - Fixed mass deployment bug, when fleets deployed (in 0 turns) to the planet they are already on.
 - Fixed Auto design Bomber  null pointer exception crash.
 - Design UI: Fixed "Keep Ship Design Name" not alway keeping.

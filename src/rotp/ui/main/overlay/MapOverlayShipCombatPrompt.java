@@ -172,8 +172,10 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
                     if(st.isShip()) {
                         if(st.empire() == alien) {
                         	ShipView view = spies.shipViewFor(st.design());
-                        	milPane.drawShipDesign(g, view, st.num, x, y, w, h, MainUI.paneBackground);
-                            y += dh;
+							if (view != null) {
+								milPane.drawShipDesign(g, view, st.num, x, y, w, h, MainUI.paneBackground);
+								y += dh;
+							}
                         }
                     }
         		}
