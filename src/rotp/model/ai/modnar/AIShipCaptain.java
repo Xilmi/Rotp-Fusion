@@ -15,11 +15,19 @@
  */
 package rotp.model.ai.modnar;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
 import rotp.model.ai.interfaces.ShipCaptain;
-import rotp.model.combat.*;
+import rotp.model.combat.CombatStack;
+import rotp.model.combat.CombatStackColony;
+import rotp.model.combat.CombatStackMissile;
+import rotp.model.combat.CombatStackShip;
+import rotp.model.combat.FlightPath;
+import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.StarSystem;
@@ -433,12 +441,22 @@ public class AIShipCaptain implements Base, ShipCaptain {
             return ((enemyKills / allyKills) > retreatRatio/1.2f); // modnar: adjust AI to accept less losses, more likely to retreat
         }
     }
-    @Override
-    public StarSystem retreatSystem(StarSystem sys) {
-        float speed = empire.tech().topSpeed();
-        int sysId = empire.alliedColonyNearestToSystem(sys, speed);
-        return galaxy().system(sysId);
-    }
+	@Override public StarSystem retreatSystem(StarSystem sys) {
+		float speed = empire.tech().topSpeed();
+		List<StarSystem> allowedRetreatSystems = empire.allowedRetreatSystems(sys);
+		if(allowedRetreatSystems.isEmpty())
+			return null;
+		if(allowedRetreatSystems.size() == 1)
+			return allowedRetreatSystems.get(0);
+		List<StarSystem> allySystems = empire.onlyAlliedSystems(allowedRetreatSystems);
+		if(allySystems.size() == 1)
+			return allySystems.get(0);
+		if(allySystems.isEmpty())
+			allySystems = allowedRetreatSystems;
+		return sys.minTimeTo(allySystems, speed);
+		//int sysId = empire.alliedColonyNearestToSystem(sys, speed);
+		//return galaxy().system(sysId);
+	}
     @Override
     public FlightPath pathTo(CombatStack st, int x1, int y1) {
         List<FlightPath> validPaths = allValidPathsTo(st,x1,y1);

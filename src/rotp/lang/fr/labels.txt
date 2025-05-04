@@ -2748,6 +2748,27 @@ SETTINGS_MOD_POP_GROWTH_NORMAL_DESC  | Croissance normale
 SETTINGS_MOD_POP_GROWTH_REDUCED      | Réduite
 SETTINGS_MOD_POP_GROWTH_REDUCED_DESC | Croissance démographique à 50 %, coût d’achat doublé, achat colons plafonné à une valeur égale à la taille maximale de la colonie
 
+HEADERS_RETREAT_RULES					| ~~~ RÈGLES DE RETRAITE ~~~
+HEADERS_RETREAT_RULES_DESC				| Paramètres des flottes en retraite sur la carte de la galaxie.
+SETTINGS_MOD_RETREAT_DESTINATION		| Destination de retraite : %1
+SETTINGS_MOD_RETREAT_DESTINATION_DESC	| Quelles sont les possibles destinations des flottes battant en retraite ?
+SETTINGS_MOD_CLOSEST_COLONY				| Colonie la plus proche
+SETTINGS_MOD_CLOSEST_COLONY_DESC		| La plus proche des colonies de l'empire battant en retraite.
+SETTINGS_MOD_CLOSEST_ALLY				| Allié le plus proche
+SETTINGS_MOD_CLOSEST_ALLY_DESC			| La colonie la plus proche, appartenant soit à l'empire en retraite, soit à l'un de ses alliés.
+SETTINGS_MOD_ANY_ALLY					| Tout allié
+SETTINGS_MOD_ANY_ALLY_DESC				| Toute colonie de l’empire en retraite ou de l’un de ses alliés est acceptable.
+SETTINGS_MOD_ANY_STAR_SYSTEM			| N’importe où
+SETTINGS_MOD_ANY_STAR_SYSTEM_DESC		| Tout système stellaire à portée.
+SETTINGS_MOD_HYPER_COM_RETREAT_EXT		| Retraite Hi-Tech : %1
+SETTINGS_MOD_HYPER_COM_RETREAT_EXT_DESC	| Le fait d’avoir la communication hyperspatiale permet-il à un empire de se retirer n’importe où ?
+SETTINGS_MOD_RETREAT_ON_ARRIVAL_RETREATING		| Retreat on Arrival : %1
+SETTINGS_MOD_RETREAT_ON_ARRIVAL_RETREATING_DESC	| Should "Retreat on Arrival" be tagged as "Retreating" or is just de treated as a game automation?
+SETTINGS_MOD_DIPLOMATIC_RETREAT_RETREATING		| Diplomatic Retreat : %1
+SETTINGS_MOD_DIPLOMATIC_RETREAT_RETREATING_DESC	| Should "Diplomatic Retreat" be tagged as "Retreating" or is just de treated as a game automation?
+SETTINGS_MOD_NO_RETREAT_ENEMY_DESTINATION		| No Enemy Retreat : %1
+SETTINGS_MOD_NO_RETREAT_ENEMY_DESTINATION_DESC	| Can retreat destination have an enemy fleet orbiting, or be an enemy colony?
+ 
 // BR: Second UI panel for MOD game options
 SETTINGS_MOD_TITLE_B                     | Options MOD secondaires
 SETTINGS_MOD_OPTION_NEVER                | Jamais

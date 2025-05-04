@@ -32,8 +32,8 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.ShipComponent;
-import rotp.model.ships.ShipSpecialStasisField;
 import rotp.model.ships.ShipDesign;
+import rotp.model.ships.ShipSpecialStasisField;
 import rotp.model.tech.Tech;
 import rotp.util.Base;
 
@@ -1148,12 +1148,19 @@ public class AIShipCaptain implements Base, ShipCaptain {
     @Override
     public StarSystem retreatSystem(StarSystem sys) {
         float speed = empire.tech().topSpeed();
-        //ail: first try to use the staging-point for the system we are currently retreating from so we don't retreat to system with enemies
-        int sysId = empire.optimalStagingPoint(sys, 1);
-        //ail: only if that fails take overall closest system
-        if(sysId == StarSystem.NULL_ID)
-            sysId = empire.alliedColonyNearestToSystem(sys, speed);
-        return galaxy().system(sysId);
+		List<StarSystem> allowedRetreatSystems = empire.allowedRetreatSystems(sys);
+		if(allowedRetreatSystems.isEmpty())
+			return null;
+		if(allowedRetreatSystems.size() == 1)
+			return allowedRetreatSystems.get(0);
+		//ail: first try to use the staging-point for the system we are currently retreating from so we don't retreat to system with enemies
+		int sysId = empire.optimalStagingPoint(sys, 1, allowedRetreatSystems);
+		//ail: only if that fails take overall closest system
+		if(sysId == StarSystem.NULL_ID)
+			//sysId = empire.alliedColonyNearestToSystem(sys, speed);
+			return sys.minTimeTo(allowedRetreatSystems, speed);
+		else
+			return galaxy().system(sysId);
     }
     @Override
     public FlightPath pathTo(CombatStack st, int x1, int y1) {

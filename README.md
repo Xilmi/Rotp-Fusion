@@ -44,9 +44,16 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-25-05-03 (BR)
-- Fixed Auto design Bomber  null pointer exception crash.
-  - Was added by the Bombard estimation fixes.
+25-05-04 (BR)
+- Fixed mass deployment bug, when fleets deployed (in 0 turns) to the planet they are already on.
+- New Fleet Retreat Options:
+  - To select the allowed destinations:
+    - The nearest retreating empire's colony.
+    - The nearest colony, belonging either to the retreating empire, or to one of its allies.
+    - Any colony of the retreating empire or one of its allies is acceptable. (Default)
+    - Any star system within range.
+  - Does having hyperspace communication allow an empire to retreat anywhere?
+  - Can retreat destination have an enemy fleet orbiting, or be an enemy colony?
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

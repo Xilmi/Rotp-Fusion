@@ -1537,6 +1537,95 @@ public final class Empire implements Base, NamedObject, Serializable {
     public StarSystem retreatSystem(StarSystem from) {
         return shipCaptainAI().retreatSystem(from);
     }
+	private boolean enemyInOrbit(StarSystem sys, List<Integer> enemies)	{
+		List<ShipFleet> fleets = sys.orbitingFleetsNoMonster();
+		if (fleets.isEmpty())
+			return false;
+		for (ShipFleet fleet: fleets)
+			if (enemies.contains(fleet.empId()))
+				return true;
+		return false;
+	}
+	public boolean allowedToRetreatTo(StarSystem fromSys, StarSystem toSys)	{
+		IGameOptions opts	= options();
+		boolean closestOnly	= opts.retreatClosestOnly();
+		if (closestOnly)
+			return allowedRetreatSystems(fromSys).contains(toSys);
+
+		int fromSysId	= fromSys.id;
+		int toSysId		= toSys.id;
+		boolean hyperComExt	= opts.hyperComRetreatExtended() && tech().hyperspaceCommunications();
+		boolean anyColony	= hyperComExt || opts.retreatToAnyPlanet();
+		boolean allowAlly	= anyColony || opts.retreatOnlyToAlly();
+		boolean noEnemy		= opts.noEnemyOnRetreatDestination();
+
+		if (noEnemy) {
+			List<Integer> enemies = enemiesId();
+			if (toSysId == fromSysId || toSys.hasMonster() || enemies.contains(toSys.empId()))
+				return false;
+			if (!sv.inShipRange(toSysId))
+				return false;
+			if (anyColony || toSys.empId() == id || (allowAlly && alliedWith(sv.empId(toSysId))))
+				return !enemyInOrbit(toSys, enemies);
+		}
+		else {
+			if (toSysId != fromSysId && sv.inShipRange(toSysId))
+				return (anyColony|| toSys.empId() == id || (allowAlly && alliedWith(sv.empId(toSysId))));
+		}
+		return false;
+	}
+	public List<StarSystem> allowedRetreatSystems(StarSystem fromSys)	{
+		Galaxy gal		= galaxy();
+		int fromSysId	= fromSys.id;
+		IGameOptions opts	= options();
+		boolean hyperComExt	= opts.hyperComRetreatExtended() && tech().hyperspaceCommunications();
+		boolean anyColony	= hyperComExt || opts.retreatToAnyPlanet();
+		boolean allowAlly	= anyColony || opts.retreatOnlyToAlly();
+		boolean closestOnly	= opts.retreatClosestOnly();
+		boolean noEnemy		= opts.noEnemyOnRetreatDestination();
+
+		List<StarSystem> systems = new ArrayList<>();
+		if (noEnemy) {
+			List<Integer> enemies = enemiesId();
+			for (StarSystem sys : gal.starSystems()) {
+				int sysId = sys.id;
+				if (sysId == fromSysId || sys.hasMonster() || enemies.contains(sys.empId()))
+					continue;
+				if (!sv.inShipRange(sysId))
+					continue;
+				if (anyColony || sys.empId() == id || (allowAlly && alliedWith(sv.empId(sysId))))
+					if (!enemyInOrbit(sys, enemies))
+						systems.add(sys);
+			}
+			return systems;
+		}
+		else {
+			for (StarSystem sys : gal.starSystems()) {
+				int sysId = sys.id;
+				if (sysId != fromSysId && sv.inShipRange(sysId)) {
+					if (anyColony|| sys.empId() == id || (allowAlly && alliedWith(sv.empId(sysId)))) {
+						systems.add(sys);
+					}
+				}
+			}
+		}
+		if (systems.isEmpty() || hyperComExt|| !closestOnly)
+			return systems;
+
+		float speed = tech().topSpeed();
+		StarSystem system = fromSys.minTimeTo(systems, speed);
+		systems.clear();
+		systems.add(system);
+		return systems;
+	}
+	public List<StarSystem> onlyAlliedSystems(List<StarSystem> systems) {
+		List<StarSystem> alliedSystems = new ArrayList<>();
+		for (StarSystem sys : systems)
+			if (alliedWith(sys.id))
+				alliedSystems.add(sys);
+		return alliedSystems;
+	}
+
     public void retreatShipsFrom(int empId) {
         List<Transport> transports = transports();
         for (Transport tr: transports) {
@@ -2679,11 +2768,17 @@ public final class Empire implements Base, NamedObject, Serializable {
         List<Empire> r = new ArrayList<>();
         for (EmpireView v : empireViews()) {
             if ((v!= null) && !v.extinct() && v.embassy().isEnemy())
-//            && (v.embassy().anyWar() || v.embassy().onWarFooting()))
                 r.add(v.empireUncut());
         }
         return r;
     }
+	public List<Integer> enemiesId() {
+		List<Integer> r = new ArrayList<>();
+		for (EmpireView v : empireViews())
+			if ((v!= null) && !v.extinct() && v.embassy().isEnemy())
+				r.add(v.empId());
+		return r;
+	}
     private boolean[] enemyMap() {
         // returns a boolean array where the index is an empire id and 
         // the array value is true if that empire is an "enemy"
@@ -2956,7 +3051,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             if (alliedWith(sv.empId(i)))
                 systems.add(gal.system(i));
         }
-            return systems;
+        return systems;
     }
     public StarSystem colonyNearestToSystem(StarSystem sys) {
         List<StarSystem> colonies = new ArrayList<>(allColonizedSystems());
@@ -2998,9 +3093,20 @@ public final class Empire implements Base, NamedObject, Serializable {
         Collections.sort(closestSystems, StarSystem.DISTANCE_TO_TARGET_SYSTEM);
         return closestSystems.get(0).id;
     }
-    public int optimalStagingPoint(StarSystem target, float speed) {
-        List<StarSystem> colonies = allySystems();
-        colonies.remove(target);
+	public int optimalStagingPoint(StarSystem target, float speed) {
+		List<StarSystem> colonies = allySystems();
+		colonies.remove(target);
+		if (colonies.isEmpty())
+			return StarSystem.NULL_ID;
+		if (colonies.size() == 1) {
+			StarSystem col = colonies.get(0);
+			return col == null? StarSystem.NULL_ID : col.id;
+		}
+		return optimalStagingPoint(target, speed, allySystems());
+	}
+	public int optimalStagingPoint(StarSystem target, float speed, List<StarSystem> colonies) {
+		//List<StarSystem> colonies = allySystems();
+		//colonies.remove(target);
 
         // build a list of allied systems from sys that take the fewer travel turns
         // from that list, return the one with the greatest range
@@ -3023,14 +3129,14 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         if (closestSystems.isEmpty())
             return StarSystem.NULL_ID;
-        
+
         if (closestSystems.size() == 1)
             return closestSystems.get(0).id;
-        
+
         Empire targetEmpire = target.empire();
         if (targetEmpire == null) 
             return closestSystems.get(0).id;
-        
+
         float maxDistance = Float.MIN_VALUE;
         StarSystem bestStagingPoint = null;
         for (StarSystem stage: closestSystems) {
@@ -3437,7 +3543,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         return inRangeOfAnyEmpire() ? totalTaxablePlanetaryProduction() * internalSecurityCostPct() : 0f;
     }
     public float empireExternalSpyingCost()   { return totalTaxablePlanetaryProduction() * totalSpyCostPct(); }
-    
+
     public boolean incrementEmpireTaxLevel()  { return empireTaxLevel(empireTaxLevel+1); }
     public boolean decrementEmpireTaxLevel()  { return empireTaxLevel(empireTaxLevel-1); }
     public float empireTaxPct()               { return (float) empireTaxLevel / 100; }

@@ -20,6 +20,13 @@ final class NewRulesBeta extends AbstractOptionsSubUI {
 		SafeListParam list = new SafeListParam("NEW_BETA");
 		list.add(new ParamTitle("NEW_BETA"));
 		list.addAll(AllSubUI.getHandle(AGGRESSIVITY_LEVEL_UI_KEY).getUiMajor(false));
+		list.addAll(Arrays.asList(
+				HEADER_SPACER_100,
+				new ParamTitle("RETREAT_RULES"),
+				retreatDestination,
+				hyperComRetreatExtended,
+				noEnemyOnRetreatDestination
+				));
 		map.add(list);
 
 		map.add(new SafeListParam(Arrays.asList(
@@ -32,6 +39,10 @@ final class NewRulesBeta extends AbstractOptionsSubUI {
 	@Override public SafeListParam majorList()	{
 		SafeListParam majorList = new SafeListParam(uiMajorKey(),
 				AllSubUI.getHandle(AGGRESSIVITY_LEVEL_UI_KEY).getUiMajor(false));
+		majorList.add(HEADER_SPACER_50);
+		majorList.add(retreatDestination);
+		majorList.add(hyperComRetreatExtended);
+		majorList.add(noEnemyOnRetreatDestination);
 		return majorList;
 	}
 	@Override public SafeListParam minorList()	{

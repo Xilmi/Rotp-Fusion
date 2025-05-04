@@ -207,37 +207,43 @@ public class Ships implements Base, Serializable {
             else
                 return sourceFleet;
         }
-        
+
         // returns the deployed fleet
         int sysId = id(sourceFleet.system());
-        
+		if (sysId == destSysId) {
+			if (sourceFleet.isDeployed())
+				undeployFleet(sourceFleet);
+			if (sourceFleet.isOrbiting())
+				return sourceFleet;
+		}
+
         StarSystem destSys = galaxy().system(destSysId);
         int turns = sourceFleet.travelTurnsAdjusted(destSys);
-        
+
         // get deployed fleet to add ships to
         ShipFleet deployedFleet = deployedFleet(sourceFleet.empId, sysId, destSysId, turns);   
-        
+
         if (deployedFleet == sourceFleet) 
             return sourceFleet;
-        
+
         // if no deployed fleet, use this one
         if (deployedFleet == null) {
             sourceFleet.destSysId(destSysId);
             sourceFleet.makeDeployed();
             sourceFleet.setArrivalTimeAdjusted();
             return sourceFleet;
-        }   
-        
+        }
+
         // transfer ships from source to deployed fleet
         for (int i=0; i<MAX_DESIGNS; i++) {
             int a = sourceFleet.num(i);
             int b = deployedFleet.num(i);
             deployedFleet.num(i, a+b);
             sourceFleet.num(i, 0);
-        }         
+        }
         // recalc arrival time (added ships may change this)
         deployedFleet.setArrivalTimeAdjusted();
-        
+
         // if source fleet is gone, remove it and subst session vars
         if (sourceFleet.isEmpty()) {
             deleteFleet(sourceFleet);
@@ -245,14 +251,20 @@ public class Ships implements Base, Serializable {
         }
         return deployedFleet;
     }
-    public boolean deploySubfleet(ShipFleet sourceFleet, List<ShipDesign> designs, int destSysId) {  
+    public boolean deploySubfleet(ShipFleet sourceFleet, List<ShipDesign> designs, int destSysId) {
+		if (sourceFleet.sysId() == destSysId) {
+			if (sourceFleet.isOrbiting())
+				return false;
+			if (sourceFleet.isDeployed())
+				undeployFleet(sourceFleet, designs);
+		}
         int[] counts = new int[MAX_DESIGNS];
         for (ShipDesign d: designs) 
             counts[d.id()] = sourceFleet.num(d.id());
-        
-        return deploySubfleet(sourceFleet, counts, destSysId);        
+
+        return deploySubfleet(sourceFleet, counts, destSysId);
     }
-    public boolean deploySubfleet(ShipFleet sourceFleet, int[] counts, int destSysId) {   
+    public boolean deploySubfleet(ShipFleet sourceFleet, int[] counts, int destSysId) {
         // returns true if a new subfleet was created
         // adjust ship counts
         int[] actual = new int[MAX_DESIGNS];
@@ -272,28 +284,28 @@ public class Ships implements Base, Serializable {
             ShipFleet deployedFleet = deployFleet(sourceFleet, destSysId);
             return deployedFleet != sourceFleet;
         }
-        
+
         // cannot redirect a partial fleet, even with HC
-        if (sourceFleet.inTransit()) 
+        if (sourceFleet.inTransit())
             return false;
-              
+
         // else we create a new deployed subfleet from the source 
         StarSystem sys = sourceFleet.system();
         StarSystem destSys = galaxy().system(destSysId);
-        
+
         // calculate warp speed of new fleet and travel turns to the destination
         int minSpeed = 9;
         Empire sourceEmp = sourceFleet.empire();
         for (int i=0; i<actual.length; i++) {
-            if (counts[i] > 0) 
+            if (counts[i] > 0)
                 minSpeed = min(minSpeed, sourceEmp.shipLab().design(i).warpSpeed());
-        }   
+        }
         int turns = sourceEmp.travelTurnsAdjusted(sys, destSys, minSpeed);
-        
+
         // find any existing deployed fleets to that dest with the same travel turns
         int empId = sourceFleet.empId;
-        ShipFleet deployedFleet = deployedFleet(empId, sys.id, destSysId, turns);    
-        
+        ShipFleet deployedFleet = deployedFleet(empId, sys.id, destSysId, turns);
+
         if (deployedFleet == null) {
             // if entire source fleet is being deployed just use it
             if (totalOrbiting == totalDeployed) {
@@ -301,23 +313,23 @@ public class Ships implements Base, Serializable {
                 sourceFleet.makeDeployed();
                 sourceFleet.setArrivalTimeAdjusted();
                 return false;
-            }           
+            }
             deployedFleet = new ShipFleet(empId, sys);
             deployedFleet.destSysId(destSysId);
             deployedFleet.makeDeployed();
-            allFleets.add(deployedFleet); 
+            allFleets.add(deployedFleet);
             galaxy().empire(empId).addVisibleShip(deployedFleet);
         }
-        
+
         // transfer ships from orbiting to deployed fleet
         for (int i=0; i<actual.length; i++) {
             int srcCount = sourceFleet.num(i);
             int destCount = deployedFleet.num(i);
             deployedFleet.num(i, destCount+actual[i]);
             sourceFleet.num(i, srcCount-actual[i]);
-        }        
+        }
         deployedFleet.setArrivalTimeAdjusted();
-        
+
         // if source fleet is gone, remove it and subst session vars
         if (sourceFleet.isEmpty()) {
             deleteFleet(sourceFleet);
@@ -329,10 +341,10 @@ public class Ships implements Base, Serializable {
         // else we create a new deployed subfleet from the source 
         float currX = sourceFleet.x();
         float currY = sourceFleet.y();
-      
+
         sourceFleet.destSysId(destSysId);
         sourceFleet.launch(currX, currY);
-        
+
         return sourceFleet;
     }
     public ShipFleet retreatFleet(ShipFleet sourceFleet, int destSysId) {
@@ -447,8 +459,8 @@ public class Ships implements Base, Serializable {
             sourceFleet.rallySysId(StarSystem.NULL_ID);
             sourceFleet.destSysId(StarSystem.NULL_ID);
             return false;
-        }        
-        
+        }
+
         for (int i=0;i<MAX_DESIGNS;i++) {
             int a = sourceFleet.num(i);
             int b = orbitingFleet.num(i);
@@ -457,7 +469,7 @@ public class Ships implements Base, Serializable {
         }
         deleteFleet(sourceFleet);
         session().replaceVarValue(sourceFleet, orbitingFleet);
-        
+
         return true;
     }
     public void undeployFleet(ShipFleet sourceFleet, List<ShipDesign> designs) {

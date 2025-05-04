@@ -2748,6 +2748,27 @@ SETTINGS_MOD_POP_GROWTH_NORMAL_DESC  | Pop Growth same as vanilla
 SETTINGS_MOD_POP_GROWTH_REDUCED      | Reduced
 SETTINGS_MOD_POP_GROWTH_REDUCED_DESC | Pop Growth 1/2, Pop purchase cost 2x, Pop purchase capped at a value equal to the max size of the colony
 
+HEADERS_RETREAT_RULES					| ~~~ RETREAT RULES ~~~
+HEADERS_RETREAT_RULES_DESC				| Galaxy map retreating fleets parameters.
+SETTINGS_MOD_RETREAT_DESTINATION		| Retreat Destination: %1
+SETTINGS_MOD_RETREAT_DESTINATION_DESC	| What are the possible destinations of the retiring fleets?
+SETTINGS_MOD_CLOSEST_COLONY				| Nearest colony
+SETTINGS_MOD_CLOSEST_COLONY_DESC		| The nearest retreating empire's colony.
+SETTINGS_MOD_CLOSEST_ALLY				| Nearest Ally
+SETTINGS_MOD_CLOSEST_ALLY_DESC			| The nearest colony, belonging either to the retreating empire, or to one of its allies.
+SETTINGS_MOD_ANY_ALLY					| Any Ally
+SETTINGS_MOD_ANY_ALLY_DESC				| Any colony of the retreating empire or one of its allies is acceptable.
+SETTINGS_MOD_ANY_STAR_SYSTEM			| Any star system
+SETTINGS_MOD_ANY_STAR_SYSTEM_DESC		| Any star system within range.
+SETTINGS_MOD_HYPER_COM_RETREAT_EXT		| Hyper Comm Retreat: %1
+SETTINGS_MOD_HYPER_COM_RETREAT_EXT_DESC	| Does having hyperspace communication allow an empire to retreat anywhere?
+SETTINGS_MOD_RETREAT_ON_ARRIVAL_RETREATING		| Retreat on Arrival: %1
+SETTINGS_MOD_RETREAT_ON_ARRIVAL_RETREATING_DESC	| Should "Retreat on Arrival" be tagged as "Retreating" or is just de treated as a game automation?
+SETTINGS_MOD_DIPLOMATIC_RETREAT_RETREATING		| Diplomatic Retreat: %1
+SETTINGS_MOD_DIPLOMATIC_RETREAT_RETREATING_DESC	| Should "Diplomatic Retreat" be tagged as "Retreating" or is just de treated as a game automation?
+SETTINGS_MOD_NO_RETREAT_ENEMY_DESTINATION		| No Enemy Retreat: %1
+SETTINGS_MOD_NO_RETREAT_ENEMY_DESTINATION_DESC	| Can retreat destination have an enemy fleet orbiting, or be an enemy colony?
+ 
 // BR: Second UI panel for MOD game options
 SETTINGS_MOD_TITLE_B                     | Secondary MOD Options
 SETTINGS_MOD_OPTION_NEVER                | Never

@@ -21,6 +21,14 @@
 
 ### Features:
 
+- New Fleet Retreat Options:
+  - To select the allowed destinations:
+    - The nearest retreating empire's colony.
+    - The nearest colony, belonging either to the retreating empire, or to one of its allies.
+    - Any colony of the retreating empire or one of its allies is acceptable. (Default)
+    - Any star system within range.
+  - Does having hyperspace communication allow an empire to retreat anywhere?
+  - Can retreat destination have an enemy fleet orbiting, or be an enemy colony?
 - Custom Species can now have their own intro:
   - Create a folder "CustomSpecies"
   - add a file named 'speciesname'.intro.txt
@@ -232,6 +240,7 @@
 
 ### Fixes:
 
+- Fixed mass deployment bug, when fleets deployed (in 0 turns) to the planet they are already on.
 - Fixed Auto design Bomber  null pointer exception crash.
 - Design UI: Fixed "Keep Ship Design Name" not alway keeping.
 - Combat result: Fixed possible crash when double-clicking Exit.

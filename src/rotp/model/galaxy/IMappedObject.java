@@ -57,6 +57,8 @@ public interface IMappedObject {
         float dist = fr.distanceTo(to);
         if (fr instanceof SpaceMonster)
         	return ((SpaceMonster) fr).event.targetTurnCount();
+		if (!passesThroughNebula(fr.x(), fr.y(), to.x(), to.y()))
+			return dist/speed - 0.01f;
 
         int numSegments = (int) Math.ceil(dist);
         float dX = (to.x()-fr.x())/dist;
@@ -87,6 +89,8 @@ public interface IMappedObject {
     }
     default public float travelTimeTo(IMappedObject to, float speed) {
         float dist = distanceTo(to);
+		if (!passesThroughNebula(x(), y(), to.x(), to.y()))
+			return dist/speed;
         int numSegments = (int) Math.ceil(dist);
         float dX = (to.x()-x())/dist;
         float dY = (to.y()-y())/dist;

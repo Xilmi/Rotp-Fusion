@@ -18,7 +18,7 @@ public final class DefaultValues {
 			case MOO1_DEFAULT:	return "MoO1";
 			case ROTP_DEFAULT:	return "RotP";
 			case FUSION_DEFAULT:
-			default:				return "Fusion";
+			default:			return "Fusion";
 		}		
 	}
 	public void setFromSettingName(String val)	{

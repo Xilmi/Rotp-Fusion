@@ -137,7 +137,8 @@ public class ShipFleet extends FleetBase {
 				(launchTime == galaxy().currentTime() || launchTime == NOT_LAUNCHED); 
     }
     public boolean hasDestination()     { return destSysId != StarSystem.NULL_ID; }
-    
+	public List<StarSystem> allowedRetreatSystems()	{ return empire().allowedRetreatSystems(system()); }
+
     @Override
     public int empId()                  { return empId; }
     @Override
@@ -306,8 +307,8 @@ public class ShipFleet extends FleetBase {
         sysId = sys.id;
         fromX = sys.x();
         fromY = sys.y();
-        retreating = false;
-        
+        retreating(false);
+
         destSysId = StarSystem.NULL_ID;
         rallySysId = StarSystem.NULL_ID;
         launchTime = NOT_LAUNCHED;
@@ -600,9 +601,10 @@ public class ShipFleet extends FleetBase {
             return false;
 
         // retreating fleets can only go to different systems, colonized by friendly empire
-        if (retreating)  {
+        if (retreating())  {
             StarSystem sys = galaxy().system(id);
-            return isRetreatingThisTurn() && (id != sysId) && sys.isColonized() && sys.empire().alliedWith(empId());
+			return isRetreatingThisTurn() && (id != sysId) && empire().allowedToRetreatTo(system(), sys);
+            //return isRetreatingThisTurn() && (id != sysId) && sys.isColonized() && sys.empire().alliedWith(empId());
         }
         if (!canSend())
             return false;
@@ -612,7 +614,7 @@ public class ShipFleet extends FleetBase {
             return false;
         if (!empire().sv.withinRange(id, range()))
             return false;
-        
+
         return true;
     }
     public boolean canSendDesignTo(ShipDesign d, int id) {
@@ -620,9 +622,10 @@ public class ShipFleet extends FleetBase {
             return false;
 
         // retreating fleets can only go to different systems, colonized by friendly empire
-        if (retreating)  {
+        if (retreating()) {
             StarSystem sys = galaxy().system(id);
-            return isRetreatingThisTurn() && (id != sysId) && sys.isColonized() && sys.empire().alliedWith(empId());
+			return isRetreatingThisTurn() && (id != sysId) && empire().allowedToRetreatTo(system(), sys);
+            //return isRetreatingThisTurn() && (id != sysId) && sys.isColonized() && sys.empire().alliedWith(empId());
         }
         if (!canSend())
             return false;
@@ -632,7 +635,7 @@ public class ShipFleet extends FleetBase {
             return false;
         if (!empire().sv.withinRange(id, d.range()))
             return false;
-        
+
         return true;
     }
 //    public boolean canSend(Empire c) { return canSend() && (empire() == c); }
@@ -643,8 +646,9 @@ public class ShipFleet extends FleetBase {
         if (inOrbit() && !inTransit() && (system() == sys))
             return true;
         // retreating fleets can only go to different systems, colonized by friendly empire
-        if (retreating)
-            return (sys != system()) && sys.isColonized() && sys.empire().alliedWith(empId());
+        if (retreating())
+			return sys != system() && empire().allowedToRetreatTo(system(), sys);
+			//return (sys != system()) && sys.isColonized() && sys.empire().alliedWith(empId());
         return true;
     }
     @Override
@@ -741,7 +745,7 @@ public class ShipFleet extends FleetBase {
         }
         return dmg;
     }
-    
+
     // BR: tools against space monsters
 /*    public float firepowerAntiMonster(float shield, float defense, float missileDefense, int speed, int beamRange) {
         float dmg = 0 + 0;

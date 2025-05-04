@@ -30,7 +30,18 @@ final class GalaxyRules extends AbstractOptionsSubUI {
 				realNebulaSize,
 				realNebulaShape
 				)));
-		SafeListParam list = new SafeListParam("");
+		SafeListParam list = new SafeListParam(Arrays.asList(
+				new ParamTitle("RETREAT_RULES"),
+				retreatDestination,
+				hyperComRetreatExtended,
+				noEnemyOnRetreatDestination,
+
+//				LINE_SPACER_25,
+//				markRetreatOnArrivalAsRetreating,
+//				markDiplomaticRetreatAsRetreating,
+
+				HEADER_SPACER_100
+				));
 		list.add(RELEVANT_TITLE);
 		list.addAll(Arrays.asList(
 				specialPeaceTreaty,

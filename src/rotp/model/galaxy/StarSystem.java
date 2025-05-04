@@ -130,7 +130,23 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     		return ((StarSystem) starSystem).hashCode() == this.hashCode();
     	return false;
     }
-   
+	public StarSystem minTimeTo(List<StarSystem> targets, float speed)	{
+		if (targets.isEmpty())
+			return null;
+		if (targets.size() == 1)
+			return targets.get(0);
+
+		float minTime = Float.MAX_VALUE;
+		StarSystem system = null;
+		for (StarSystem sys : targets) {
+			float time = travelTimeTo(sys, speed);
+			if (time < minTime) {
+				minTime = time;
+				system = sys;
+			}
+		}
+		return system;
+	}
     public Long seed() { // BR: seed for deterministic randomness
     	if (seed == null)
     		seed = (long) rng().nextInt(); // To allow seed multiplication

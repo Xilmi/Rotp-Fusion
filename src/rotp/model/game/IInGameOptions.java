@@ -452,4 +452,48 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 				return true;
 		}
 	}
+
+	String CLOSEST_COLONY	= "CLOSEST_COLONY";
+	String CLOSEST_ALLY		= "CLOSEST_ALLY";
+	String ANY_ALLY			= "ANY_ALLY";
+	String ANY_STAR_SYSTEM	= "ANY_STAR_SYSTEM";
+	ParamList retreatDestination	= new ParamList( MOD_UI, "RETREAT_DESTINATION", ANY_ALLY)
+			.isCfgFile(true)
+			.showFullGuide(true)
+			.put(CLOSEST_COLONY,	MOD_UI + CLOSEST_COLONY)
+			.put(CLOSEST_ALLY,		MOD_UI + CLOSEST_ALLY)
+			.put(ANY_ALLY,			MOD_UI + ANY_ALLY)
+			.put(ANY_STAR_SYSTEM,	MOD_UI + ANY_STAR_SYSTEM);
+	default boolean retreatToAnyPlanet()	{ return retreatDestination.get().equals(ANY_STAR_SYSTEM); }
+	default boolean retreatOnlyToAlly()		{ 
+		switch (retreatDestination.get()) {
+			case CLOSEST_ALLY:
+			case ANY_ALLY:
+				return true;
+			default:
+				return false;
+		}
+	}
+	default boolean retreatClosestOnly()	{ 
+		switch (retreatDestination.get()) {
+			case CLOSEST_COLONY:
+			case CLOSEST_ALLY:
+				return true;
+			default:
+				return false;
+		}
+	}
+
+	ParamBoolean hyperComRetreatExtended	= new ParamBoolean(MOD_UI, "HYPER_COM_RETREAT_EXT", true)
+			.setDefaultValue(FUSION_DEFAULT, true)
+			.setDefaultValue(MOO1_DEFAULT, false)
+			.setDefaultValue(ROTP_DEFAULT, false);
+	default boolean hyperComRetreatExtended()			{ return hyperComRetreatExtended.get(); }
+	ParamBoolean noEnemyOnRetreatDestination	= new ParamBoolean(MOD_UI, "NO_RETREAT_ENEMY_DESTINATION", false);
+	default boolean noEnemyOnRetreatDestination()		{ return noEnemyOnRetreatDestination.get(); }
+
+//	ParamBoolean markRetreatOnArrivalAsRetreating	= new ParamBoolean(MOD_UI, "RETREAT_ON_ARRIVAL_RETREATING", true);
+//	default boolean markRetreatOnArrivalAsRetreating()	{ return markRetreatOnArrivalAsRetreating.get(); }
+//	ParamBoolean markDiplomaticRetreatAsRetreating	= new ParamBoolean(MOD_UI, "DIPLOMATIC_RETREAT_RETREATING", true);
+//	default boolean markDiplomaticRetreatAsRetreating()	{ return markDiplomaticRetreatAsRetreating.get(); }
 }

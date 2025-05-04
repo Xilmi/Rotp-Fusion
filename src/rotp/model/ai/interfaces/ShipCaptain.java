@@ -16,15 +16,15 @@
 package rotp.model.ai.interfaces;
 
 import rotp.model.combat.CombatStack;
-import rotp.model.galaxy.StarSystem;
 import rotp.model.combat.FlightPath;
+import rotp.model.galaxy.StarSystem;
 
 public interface ShipCaptain {
     void performTurn(CombatStack stack);
     StarSystem retreatSystem(StarSystem fr);
     boolean wantToRetreat(CombatStack stack);
     FlightPath pathTo(CombatStack st, int x, int y);
-    
+
     //differentiation between behavior in Xilmi- and Base-AI
     default boolean useSmartRangeForBeams() { return false; }
 }
