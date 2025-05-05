@@ -458,12 +458,14 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	String ANY_ALLY			= "ANY_ALLY";
 	String ANY_STAR_SYSTEM	= "ANY_STAR_SYSTEM";
 	ParamList retreatDestination	= new ParamList( MOD_UI, "RETREAT_DESTINATION", ANY_ALLY)
-			.isCfgFile(true)
 			.showFullGuide(true)
 			.put(CLOSEST_COLONY,	MOD_UI + CLOSEST_COLONY)
 			.put(CLOSEST_ALLY,		MOD_UI + CLOSEST_ALLY)
 			.put(ANY_ALLY,			MOD_UI + ANY_ALLY)
-			.put(ANY_STAR_SYSTEM,	MOD_UI + ANY_STAR_SYSTEM);
+			.put(ANY_STAR_SYSTEM,	MOD_UI + ANY_STAR_SYSTEM)
+			.setDefaultValue(FUSION_DEFAULT, ANY_ALLY)
+			.setDefaultValue(MOO1_DEFAULT, CLOSEST_COLONY)
+			.setDefaultValue(ROTP_DEFAULT, ANY_ALLY);
 	default boolean retreatToAnyPlanet()	{ return retreatDestination.get().equals(ANY_STAR_SYSTEM); }
 	default boolean retreatOnlyToAlly()		{ 
 		switch (retreatDestination.get()) {
@@ -485,7 +487,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions, ICom
 	}
 
 	ParamBoolean hyperComRetreatExtended	= new ParamBoolean(MOD_UI, "HYPER_COM_RETREAT_EXT", true)
-			.setDefaultValue(FUSION_DEFAULT, true)
+			.setDefaultValue(FUSION_DEFAULT, false)
 			.setDefaultValue(MOO1_DEFAULT, false)
 			.setDefaultValue(ROTP_DEFAULT, false);
 	default boolean hyperComRetreatExtended()			{ return hyperComRetreatExtended.get(); }

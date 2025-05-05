@@ -44,6 +44,11 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+25-05-05 (BR)
+- New Fleet Retreat Options:
+  - Application of the new rules to Xilmi AI is now complete.
+  - Fixed some bugs for the new rules when no retreat to the enemy was selected.
+
 25-05-04 (BR)
 - Fixed crash when displaying ship info of cloacked ships. 
 - Fixed mass deployment bug, when fleets deployed (in 0 turns) to the planet they are already on.

@@ -1579,8 +1579,8 @@ public final class Empire implements Base, NamedObject, Serializable {
 		int fromSysId	= fromSys.id;
 		IGameOptions opts	= options();
 		boolean hyperComExt	= opts.hyperComRetreatExtended() && tech().hyperspaceCommunications();
-		boolean anyColony	= hyperComExt || opts.retreatToAnyPlanet();
-		boolean allowAlly	= anyColony || opts.retreatOnlyToAlly();
+		boolean anyPlanet	= hyperComExt || opts.retreatToAnyPlanet();
+		boolean allowAlly	= anyPlanet || opts.retreatOnlyToAlly();
 		boolean closestOnly	= opts.retreatClosestOnly();
 		boolean noEnemy		= opts.noEnemyOnRetreatDestination();
 
@@ -1593,17 +1593,16 @@ public final class Empire implements Base, NamedObject, Serializable {
 					continue;
 				if (!sv.inShipRange(sysId))
 					continue;
-				if (anyColony || sys.empId() == id || (allowAlly && alliedWith(sv.empId(sysId))))
+				if (anyPlanet || sys.empId() == id || (allowAlly && alliedWith(sv.empId(sysId))))
 					if (!enemyInOrbit(sys, enemies))
 						systems.add(sys);
 			}
-			return systems;
 		}
 		else {
 			for (StarSystem sys : gal.starSystems()) {
 				int sysId = sys.id;
 				if (sysId != fromSysId && sv.inShipRange(sysId)) {
-					if (anyColony|| sys.empId() == id || (allowAlly && alliedWith(sv.empId(sysId)))) {
+					if (anyPlanet|| sys.empId() == id || (allowAlly && alliedWith(sv.empId(sysId)))) {
 						systems.add(sys);
 					}
 				}
@@ -3094,7 +3093,12 @@ public final class Empire implements Base, NamedObject, Serializable {
         return closestSystems.get(0).id;
     }
 	public int optimalStagingPoint(StarSystem target, float speed) {
-		List<StarSystem> colonies = allySystems();
+		IGameOptions opts	= options();
+		// BR: Extends the list if more Retreat options are allowed,
+		// but does not limit the list when Retreating fleets can not join.
+		boolean hyperComExt	= opts.hyperComRetreatExtended() && tech().hyperspaceCommunications();
+		boolean anyPlanet	= hyperComExt || opts.retreatToAnyPlanet();
+		List<StarSystem> colonies = anyPlanet? systemsInShipRange((Empire)null) : allySystems();
 		colonies.remove(target);
 		if (colonies.isEmpty())
 			return StarSystem.NULL_ID;
@@ -3102,7 +3106,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 			StarSystem col = colonies.get(0);
 			return col == null? StarSystem.NULL_ID : col.id;
 		}
-		return optimalStagingPoint(target, speed, allySystems());
+		return optimalStagingPoint(target, speed, colonies);
 	}
 	public int optimalStagingPoint(StarSystem target, float speed, List<StarSystem> colonies) {
 		//List<StarSystem> colonies = allySystems();

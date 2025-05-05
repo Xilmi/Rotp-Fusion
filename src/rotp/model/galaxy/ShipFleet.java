@@ -66,7 +66,7 @@ public class ShipFleet extends FleetBase {
     @Override
     public int destSysId()              { return destSysId; }
     public void destSysId(int i)        { 
-        destSysId = i; 
+        destSysId = i;
         if (hasDestination()) {
             StarSystem s = galaxy().system(destSysId);
             destX = s.x();
@@ -211,7 +211,7 @@ public class ShipFleet extends FleetBase {
         status = f.status;
         launchTime = f.launchTime;
         isCopy = true;
-        
+
         reloadBombs();
     }
 /*    public ShipFleet(ShipFleet fl) {
@@ -819,36 +819,13 @@ public class ShipFleet extends FleetBase {
     	float attackerDefenderRatio = attackerPower/defenderPower;
         return attackerDefenderRatio < securityFactor;
     }
-
-/*    public boolean monsterStrongerThan(ShipFleet attacker, float securityFactor) {
-        FleetStats defenderStats = getFleetStats();
-        FleetStats attackerStats = getFleetStats(attacker);
-        float attackerPower = attacker.firepowerAntiMonster(defenderStats.avgShield, defenderStats.avgDefense,
-        		defenderStats.avgMissileDefense, bestBeamCombatSpeed(), bestBeamWeaponRange(1));
-        attackerPower *= Math.pow(1.26, attackerStats.avgSpecials);
-        attackerPower *= attackerStats.totalHP;
-        float defenderPower = firepowerAntiMonster(attackerStats.avgShield, attackerStats.avgDefense,
-        		attackerStats.avgMissileDefense, attacker.bestBeamCombatSpeed(), attacker.bestBeamWeaponRange(1));
-        defenderPower *= Math.pow(1.26, defenderStats.avgSpecials);
-        defenderPower *= defenderStats.totalHP;
-        if (defenderPower == 0)
-        	return attackerPower == 0;
-        float attackerDefenderRatio = attackerPower/defenderPower;
-//        if (attackerDefenderRatio > 0) // TO DO BR: Comment
-//        	System.out.println(getTurn() + " System " + sysId +
-//        			" attacker (" + attacker.empId + ") / Defender Ratio = " + attackerDefenderRatio);
-        return attackerDefenderRatio < securityFactor;
-    } */
-/*    public float combatPower(ShipFleet attacker) {
-        FleetStats defenderStats = getFleetStats();
-        FleetStats attackerStats = getFleetStats(attacker);
-        float power = attacker.firepowerAntiShip(defenderStats.avgShield, defenderStats.avgDefense, defenderStats.avgMissileDefense);
-        power *= Math.pow(1.26, attackerStats.avgSpecials);
-        power *= attackerStats.totalHP;
-        return power;
-    } */
-    // \BR:
-    public boolean canReach(StarSystem dest)	{ return empire().sv.withinRange(dest.id, range()); }
+	public boolean canReach(StarSystem dest)	{
+		boolean inRange = empire().sv.withinRange(dest.id, range());
+		if (inRange && retreating()) {
+			return canSendTo(dest.id);
+		}
+		return inRange;
+	}
     public float travelTimeAdjusted(StarSystem to)	{ return travelTimeAdjusted(to, travelSpeed()); }
     public float travelTimeAdjusted(StarSystem dest, float speed) {
         if (inOrbit() || deployed()
@@ -868,22 +845,22 @@ public class ShipFleet extends FleetBase {
         // calculate full travel turns for a ship in this fleet of type design
         // to travel from its current position (may be in transit to another 
         // system) to the requested finalDest
-        
+
         // if we can travel directly (i.e. in orbit or hyperspace comms), return 
         // turns to finalDest for the requested design
         if (canSend()) 
             return travelTurns(finalDest, design.warpSpeed());  
 
         // ok, fleet needs to reach its current dest and the travel to final dest
-        
+
         // get turns to current dest
         StarSystem currDest = destination();
         int currTurns = travelTurns(currDest);
-        
+
         // if we can then stargate hop, just add 1 turn
         if (currDest.hasStargate(empire()) && finalDest.hasStargate(empire()))
             return currTurns + 1;
-        
+
         // calculate turns to next dest and then return total
         int nextTurns = (int) Math.ceil(travelTime(currDest,finalDest,design.warpSpeed()));
         return currTurns+nextTurns;
@@ -1210,7 +1187,7 @@ public class ShipFleet extends FleetBase {
         boolean armed = isPotentiallyArmed(player());    
         if (!armed && !map.showUnarmedShips() && !clickingOnThisFleet)
             return false;
-        
+
         // stop drawing unarmed AI fleets at a certain zoom level
         if (!armed && !empire().isPlayerControlled() && (map.scaleX() > GalaxyMapPanel.MAX_FLEET_UNARMED_SCALE))
             return false;
@@ -1219,7 +1196,7 @@ public class ShipFleet extends FleetBase {
         // make sure this fleet is still active before drawing
         if (!isActive())
             return false;
-        
+
         if (!map.parent().shouldDrawSprite(this))
             return false;
 
@@ -1235,23 +1212,23 @@ public class ShipFleet extends FleetBase {
             imgSize = 2;
         else if (size >= 10000)
             imgSize = 3;
-        
+
         if (map.scaleX() > GalaxyMapPanel.MAX_FLEET_LARGE_SCALE) 
             imgSize--;
         if (map.scaleX() > GalaxyMapPanel.MAX_FLEET_SMALL_SCALE)
             imgSize--;
-        
+
         // are we zoomed out too far to show a fleet of this size?
         if (imgSize < 1)
             return;
-        
+
 //        int x1 = centerMapX(map);
 //        int y1 = centerMapY(map);
 //        System.out.println("drawShipPath x1 / y1 : " + x1 + " / " + y1);
         int x = mapX(map);
         int y = mapY(map);
         BufferedImage img;
-        
+
         boolean armed = isPotentiallyArmed(player());    
         if (armed) {
             if (imgSize == 1)

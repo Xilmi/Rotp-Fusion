@@ -815,10 +815,12 @@ public class AIFleetCommander implements Base, FleetCommander {
             //this cannot be done from ship-captain as at that point it isn't known how big the retreating fleet will become when it retreats partially
             if(fleet.retreating() && fleet.system() != null && fleet.distanceTo(fleet.system()) == 0)
             {
-                if(RetreatSystem(fleet) != null)
+                // BR: This call may now take some time... no need to call it twice.
+                StarSystem retreatSystem = RetreatSystem(fleet);
+                if(retreatSystem != null)
                 {
-                    //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" fleet at "+fleet.system().name()+" rerouted from "+fleet.destination().name()+" to "+RetreatSystem(fleet).name());
-                    attackWithFleet(fleet, RetreatSystem(fleet), 1.0f, 1.0f, true, true, true, true, 0, true);
+                    //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" fleet at "+fleet.system().name()+" rerouted from "+fleet.destination().name()+" to "+retreatSystem.name());
+                    attackWithFleet(fleet, retreatSystem, 1.0f, 1.0f, true, true, true, true, 0, true);
                 }
             }
             if(!fleet.canSend() || fleet.deployed() || fleet.retreating())
@@ -1387,7 +1389,8 @@ public class AIFleetCommander implements Base, FleetCommander {
     public StarSystem RetreatSystem(ShipFleet fl) {
         float shortestDistance = Float.MAX_VALUE;
         StarSystem best = null;
-        for(StarSystem sys : empire.allySystems())
+        //for(StarSystem sys : empire.allySystems())
+        for(StarSystem sys : fl.allowedRetreatSystems())
         {
             UpdateSystemInfo(sys.id);
             if(systemInfoBuffer.get(sys.id).enemyFightingPower > combatPower(fl, sys.empire()) + systemInfoBuffer.get(sys.id).myTotalPower)
