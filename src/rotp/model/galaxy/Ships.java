@@ -221,7 +221,7 @@ public class Ships implements Base, Serializable {
         int turns = sourceFleet.travelTurnsAdjusted(destSys);
 
         // get deployed fleet to add ships to
-        ShipFleet deployedFleet = deployedFleet(sourceFleet.empId, sysId, destSysId, turns);   
+        ShipFleet deployedFleet = deployedFleet(sourceFleet.empId(), sysId, destSysId, turns);   
 
         if (deployedFleet == sourceFleet) 
             return sourceFleet;
@@ -303,7 +303,7 @@ public class Ships implements Base, Serializable {
         int turns = sourceEmp.travelTurnsAdjusted(sys, destSys, minSpeed);
 
         // find any existing deployed fleets to that dest with the same travel turns
-        int empId = sourceFleet.empId;
+        int empId = sourceFleet.empId();
         ShipFleet deployedFleet = deployedFleet(empId, sys.id, destSysId, turns);
 
         if (deployedFleet == null) {
@@ -348,7 +348,7 @@ public class Ships implements Base, Serializable {
         return sourceFleet;
     }
     public ShipFleet retreatFleet(ShipFleet sourceFleet, int destSysId) {
-        ShipFleet retreatingFleet = retreatingFleet(sourceFleet.empId, id(sourceFleet.system()), destSysId);
+        ShipFleet retreatingFleet = retreatingFleet(sourceFleet.empId(), id(sourceFleet.system()), destSysId);
 
         if (retreatingFleet == null) {
             sourceFleet.destSysId(destSysId);
@@ -380,8 +380,8 @@ public class Ships implements Base, Serializable {
         int allCount = sourceFleet.numShips();
         
         StarSystem sys = sourceFleet.system();
-        int empId = sourceFleet.empId;
-        ShipFleet retreatingFleet = retreatingFleet(sourceFleet.empId, sys.id, destSysId);
+        int empId = sourceFleet.empId();
+        ShipFleet retreatingFleet = retreatingFleet(sourceFleet.empId(), sys.id, destSysId);
         
         if (sys.id == destSysId) {
             err("Trying to retreat to same system");
@@ -448,11 +448,11 @@ public class Ships implements Base, Serializable {
         return cancelled;
     }
     public boolean undeployFleet(ShipFleet sourceFleet) {
-        if (!sourceFleet.deployed() && !sourceFleet.isRalliedThisTurn())
+        if (!sourceFleet.isDeployed() && !sourceFleet.isRalliedThisTurn())
             return false;
         // returns true if the source fleet was scrapped
         StarSystem sys = sourceFleet.system();
-        int empId = sourceFleet.empId;
+        int empId = sourceFleet.empId();
         ShipFleet orbitingFleet = orbitingFleet(empId, sys.id);
         if (orbitingFleet == null) {
             sourceFleet.makeOrbiting();
@@ -473,11 +473,11 @@ public class Ships implements Base, Serializable {
         return true;
     }
     public void undeployFleet(ShipFleet sourceFleet, List<ShipDesign> designs) {
-        if (!sourceFleet.deployed())
+        if (!sourceFleet.isDeployed())
             return;
         // returns true if the source fleet was scrapped
         StarSystem sys = sourceFleet.system();
-        int empId = sourceFleet.empId;
+        int empId = sourceFleet.empId();
         
         int count = 0;
         for (ShipDesign d: designs) 
@@ -577,7 +577,7 @@ public class Ships implements Base, Serializable {
             }
         }
         // if an orbiting fleet already exists, merge with it
-        ShipFleet orbitingFleet = orbitingFleet(fleet.empId, sys.id);
+        ShipFleet orbitingFleet = orbitingFleet(fleet.empId(), sys.id);
         if (orbitingFleet == null) {
             fleet.arrive(sys, true);
             orbitingFleet = fleet;
@@ -623,7 +623,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && (fl.empId == empId) && (fl.sysId() == sysId) && fl.inOrbit())
+            if (fl != null && (fl.empId() == empId) && (fl.sysId() == sysId) && fl.isOrbiting())
                 return fl;
         }
         return null;
@@ -632,7 +632,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && (fl.empId == empId) && (fl.sysId() == sysId) 
+            if (fl != null && (fl.empId() == empId) && (fl.sysId() == sysId) 
             		&& fl.isOrbiting() && !fl.isRallied())
                 return fl;
         }
@@ -642,7 +642,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && (fl.empId == empId) && (fl.sysId() == sysId) 
+            if (fl != null && (fl.empId() == empId) && (fl.sysId() == sysId) 
             		&& fl.isDeployed() && (fl.rallySysId() == rallySysId))
                 return fl;
         }
@@ -652,7 +652,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && (fl.empId == empId) && (fl.sysId() == sysId) 
+            if (fl != null && (fl.empId() == empId) && (fl.sysId() == sysId) 
             		&& fl.isDeployed() && fl.retreating() && (fl.destSysId() == destSysId))
                 return fl;
         }
@@ -662,7 +662,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         List<ShipFleet> retreating = new ArrayList<>();
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && (fl.empId == empId) && (fl.sysId() == sysId) 
+            if (fl != null && (fl.empId() == empId) && (fl.sysId() == sysId) 
             		&& fl.retreating())
                 retreating.add(fl);
         }
@@ -672,7 +672,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         List<ShipFleet> retreating = new ArrayList<>();
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && (fl.empId == empId) && (fl.sysId() == sysId) 
+            if (fl != null && (fl.empId() == empId) && (fl.sysId() == sysId) 
             		&& fl.isDeployed() && fl.retreating())
                 retreating.add(fl);
         }
@@ -682,7 +682,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && (fl.empId == empId) && (fl.sysId() == sysId) 
+            if (fl != null && (fl.empId() == empId) && (fl.sysId() == sysId) 
             			&& fl.isDeployed() && (fl.destSysId() == destSysId)) {
                 StarSystem destSys = galaxy().system(destSysId);
                 if (fl.travelTurnsAdjusted(destSys) == turns)
@@ -697,7 +697,7 @@ public class Ships implements Base, Serializable {
         
         for (ShipFleet fl: fleetsAll) {
             if (fl != null) {
-                if ((fl.destSysId() == sysId) && (fl.inTransit() || fl.deployed()))
+                if ((fl.destSysId() == sysId) && (fl.inTransit() || fl.isDeployed()))
                     fleets.add(fl);
             }
         }
@@ -746,7 +746,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && fl.isInTransit())
+            if (fl != null && fl.inTransit())
                 fleets.add(fl);
         }
         return fleets;
@@ -758,7 +758,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && (fl.empId == empId) && fl.isInTransit() 
+            if (fl != null && (fl.empId() == empId) && fl.inTransit() 
             		&& !fl.retreating() && (fl.num(designId) > 0))
             	fleets.add(fl);
         }
@@ -769,7 +769,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
 
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && (fl.empId == empireId) && !fl.isInTransit())
+            if (fl != null && (fl.empId() == empireId) && !fl.inTransit())
                 fleets.add(fl);
         }
         return fleets;
@@ -782,7 +782,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
 
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && fl.empId == empireId)
+            if (fl != null && fl.empId() == empireId)
                 fleets.add(fl);
         }
         return fleets;
@@ -792,7 +792,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
 
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && fl.empId == empireId && fl.isOrbiting())
+            if (fl != null && fl.empId() == empireId && fl.isOrbiting())
                 fleets.add(fl);
         }
         return fleets;
@@ -806,7 +806,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
 
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && fl.empId == empireId) {
+            if (fl != null && fl.empId() == empireId) {
             	int count = fl.num(designId);
                 if (count > 0) {
                 	StarSystem sys = fl.system();
@@ -833,7 +833,7 @@ public class Ships implements Base, Serializable {
         int scrapCount = 0;
         List<ShipFleet> emptyFleets = new ArrayList<>();
         List<ShipFleet> fleetsAll = allFleetsCopy();
-        
+
         for (ShipFleet fl: fleetsAll) {
             if (fl.empId == empireId) {
                 int count = fl.num(designId);
@@ -845,18 +845,18 @@ public class Ships implements Base, Serializable {
                 }
             }
         }
-        
+
         for (ShipFleet fl: emptyFleets) 
             this.deleteFleet(fl);
-        
+
         return scrapCount;
     } */
     public int[] shipDesignCounts(int empireId) {
         int[] count = new int[ShipDesignLab.MAX_DESIGNS];
         List<ShipFleet> fleetsAll = allFleetsCopy();
-        
+
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && fl.empId == empireId) {
+            if (fl != null && fl.empId() == empireId) {
                 for (int i=0;i<count.length;i++)
                     count[i] += fl.num(i);
             }
@@ -868,8 +868,8 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && (fl.empId == empireId)
-            && (fl.inTransit() || fl.deployed())) {
+            if (fl != null && (fl.empId() == empireId)
+            && (fl.inTransit() || fl.isDeployed())) {
                 for (int i=0;i<count.length;i++)
                     count[i] += fl.num(i);
             }
@@ -892,7 +892,7 @@ public class Ships implements Base, Serializable {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
         for (ShipFleet fl: fleetsAll) {
-            if (fl != null && fl.empId == empireId) 
+            if (fl != null && fl.empId() == empireId) 
                 count += fl.num(designId);
         }       
         return count;        

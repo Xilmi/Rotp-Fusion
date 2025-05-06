@@ -2,6 +2,12 @@
 
 ## What's New
 
+25-05-06 (BR)
+- Improved ShipFleet responsivity to new Retreat Options Rules:
+  - Last requested destination is memorized.
+  - ShipFleet take full ownership of its parameters (Private, and only publicly accessed through methods)
+  - Duplicate methods are merged.
+  
 25-05-05 (BR)
 - New Fleet Retreat Options:
   - Application of the new rules to Xilmi AI is now complete.

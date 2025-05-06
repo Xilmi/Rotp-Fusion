@@ -407,7 +407,7 @@ public final class Galaxy implements Base, Serializable {
 	            List<ShipFleet> fleets = sys.orbitingFleets();
 	            if ((home != null) && !fleets.isEmpty()){
 	                for (ShipFleet fl: fleets) {
-	                    if (fl != null && fl.inOrbit() && !fl.retreating()) {
+	                    if (fl != null && fl.isOrbiting() && !fl.retreating()) {
 	                        Empire fleetEmp = fl.empire();
 	                        // cannot bombard if alliance or unity
 	                        if (fleetEmp.aggressiveWith(home.id)) {

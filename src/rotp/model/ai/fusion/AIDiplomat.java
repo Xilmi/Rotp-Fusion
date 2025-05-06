@@ -1331,13 +1331,13 @@ public class AIDiplomat implements Base, Diplomat {
                 continue;
             for(ShipFleet orbiting : current.orbitingFleets())
             {
-                if(orbiting.empId != v.empId())
+                if(orbiting.empId() != v.empId())
                     continue;
                 totalPotentialBombard += orbiting.expectedBombardDamage(false) / (200 * current.colony().maxSize());
             }
             for(ShipFleet incoming : current.incomingFleets())
             {
-                if(incoming.empId != v.empId())
+                if(incoming.empId() != v.empId())
                     continue;
                 if(!empire.visibleShips().contains(incoming))
                     continue;
@@ -1833,7 +1833,7 @@ public class AIDiplomat implements Base, Diplomat {
             boolean orbitingSystemsThatMightIncreaseRange = false;
             for(ShipFleet fl : empire.allFleets())
             {
-                if(fl.inOrbit() && fl.system() != null)
+                if(fl.isOrbiting() && fl.system() != null)
                 {
                     StarSystem sys = fl.system();
                     if(empire.canColonize(sys) && !sys.isColonized())

@@ -18,6 +18,7 @@ package rotp.model.ai;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
+
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
@@ -60,7 +61,7 @@ public class ShipPlan implements Base, Serializable {
                 int turns = (int)Math.ceil(travelTimeFrom(fl.x(), fl.y(), design));
                 if (turns < decision.turns) {
                     float priority = 0;
-                    if (fl.inOrbit()) {
+                    if (fl.isOrbiting()) {
                         // get the fleet plan for the system that this fleet is currently in so we can understand the
                         // priority of the system fleet plan we are potentially pulling ships away from
                         FleetPlan systemPlan = fl.empire().sv.view(fl.sysId()).fleetPlan();
@@ -74,7 +75,7 @@ public class ShipPlan implements Base, Serializable {
                 }
                 else if ((turns == decision.turns) && (decision.shipCurrPriority > 0)) {
                    float priority = 0;
-                    if (fl.inOrbit()) {
+                    if (fl.isOrbiting()) {
                         // get the fleet plan for the system that this fleet is currently in so we can understand the
                         // priority of the system fleet plan we are potentially pulling ships away from
                         FleetPlan systemPlan = fl.empire().sv.view(fl.sysId()).fleetPlan();

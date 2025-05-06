@@ -42,108 +42,139 @@ import rotp.ui.sprites.FlightPathSprite;
 import rotp.util.Base;
 
 public class ShipFleet extends FleetBase {
-    private static final long serialVersionUID = 1L;
-    private enum Status { ORBITING, DEPLOYED, IN_TRANSIT, RETREAT_ON_ARRIVAL };
-    public final int empId;
-    private int sysId;
-    private int destSysId = StarSystem.NULL_ID;
-    private int rallySysId = StarSystem.NULL_ID;
-    private int[] num = new int[MAX_DESIGNS];
-    private Status status = Status.ORBITING;
+	private static final long serialVersionUID = 1L;
+	private enum Status { ORBITING, DEPLOYED, IN_TRANSIT, RETREAT_ON_ARRIVAL };
+	private final int empId;
+	private int sysId = StarSystem.NULL_ID;
+	private int destSysId = StarSystem.NULL_ID;
+	private int rallySysId = StarSystem.NULL_ID;
+	private int[] num = new int[MAX_DESIGNS];
+	private Status status = Status.ORBITING;
 
-    private boolean retreating = false;
-    private float fromX, fromY, destX, destY;
-    private float launchTime = NOT_LAUNCHED;
+	private boolean retreating = false;
+	private float fromX, fromY, destX, destY;
+	private float launchTime = NOT_LAUNCHED;
 
-    private transient FleetOrders orders;
-    private transient FlightPathSprite pathSprite;
-    private transient int[] bombardCount = new int[MAX_DESIGNS];
-    //private transient FleetStats fleetStats;
-    private transient boolean isCopy = false;
+	private transient FleetOrders orders;
+	private transient FlightPathSprite pathSprite;
+	private transient int[] bombardCount = new int[MAX_DESIGNS];
+	private transient boolean isCopy = false;
+	private transient Integer lastDestIdTest; // some options can make this test time consuming
 
-    public int sysId()                  { return sysId; }
-    public void sysId(int i)            { sysId = i; }
-    @Override
-    public int destSysId()              { return destSysId; }
-    public void destSysId(int i)        { 
-        destSysId = i;
-        if (hasDestination()) {
-            StarSystem s = galaxy().system(destSysId);
-            destX = s.x();
-            destY = s.y();
-            setArrivalTimeAdjusted();
-        }
-    }
-/*    public void destination(int i, float x, float y) {
-        destSysId(i);
-        destX = x;
-        destY = y;
-    } */
-    @Override
-    public int displayPriority()        { return 8; }
-    @Override
-    public boolean hasDisplayPanel()       { return true; }
-    public int rallySysId()             { return rallySysId; }
-    public void rallySysId(int i)       { rallySysId = i; }
-    public void toggleRally() {
-        if (rallySysId == StarSystem.NULL_ID)
-            rallySysId = destSysId;
-        else
-            rallySysId = StarSystem.NULL_ID;
-    }
-    @Override
-    public Empire empire()              { return galaxy().empire(empId); }
-    @Override
-    public boolean retreating()         { return retreating; }
+	// =========================================================
+	// Constructors
+	//
+	private ShipFleet(int emp, ShipFleet f) {
+		empId = emp;
+		sysId(f.sysId());
+		fromX(f.x());
+		fromY(f.y());
+		destSysId(f.destSysId());
+		destX(f.destX());
+		destY(f.destY());
+		status(f.status());
+		launchTime(f.launchTime());
+		isCopy = true;
+		reloadBombs();
+	}
+	ShipFleet(int emp, int x, int y) {
+		empId = emp;
+		sysId(StarSystem.NULL_ID);
+		fromX(x);
+		fromY(y);
+		reloadBombs();
+	}
+	public ShipFleet(int emp, StarSystem s) {
+		empId = emp;
+		sysId(s.id);
+		fromX(s.x());
+		fromY(s.y());
+		reloadBombs();
+	}
+
+	// =========================================================
+	// Local variables management
+	//
+	@Override public int empId()		{ return empId; }
+	public int sysId()					{ return sysId; }
+	public void sysId(int i)			{ sysId = i; }
+	@Override public int destSysId()	{ return destSysId; }
+	public void destSysId(int i)		{ 
+		destSysId = i;
+		if (hasDestination()) {
+			StarSystem s = galaxy().system(destSysId());
+			destX(s.x());
+			destY(s.y());
+			setArrivalTimeAdjusted();
+		}
+	}
+	public int rallySysId()				{ return rallySysId; }
+	public void rallySysId(int i)		{ rallySysId = i; }
+	private Status status()				{ return status; }
+	private void status(Status st)		{
+		lastDestIdTest = null;
+		status = st;
+	}
+	@Override public float fromX()		{ return fromX; }
+	private void fromX(float f)			{ fromX = f; }
+	@Override public float fromY()		{ return fromY; }
+	private void fromY(float f)			{ fromY = f; }
+	@Override public float destX()		{ return destX; }
+	private void destX(float f)			{ destX = f; }
+	@Override public float destY()		{ return destY; }
+	private void destY(float f)			{ destY = f; }
+	@Override public float launchTime()	{ return launchTime; }
+	private void launchTime(float f)	{ launchTime = f; }
+
+	// =========================================================
+	// Other methods
+	//
+	@Override public int displayPriority()		{ return 8; }
+	@Override public boolean hasDisplayPanel()	{ return true; }
+	public void toggleRally()				{
+		if (rallySysId() == StarSystem.NULL_ID)
+			rallySysId(destSysId());
+		else
+			rallySysId(StarSystem.NULL_ID);
+	}
+	@Override public Empire empire()		{ return galaxy().empire(empId()); }
+	@Override public boolean retreating()	{ return retreating; }
     public void retreating(boolean b)   { retreating = b; }
-    public StarSystem system()          { return galaxy().system(sysId); }
-    public void system(StarSystem s)    { sysId = id(s); }
-    @Override
-    public StarSystem destination()     { return galaxy().system(destSysId);  }
-    @Override
-    public float destX()                { return destX; }
-    @Override
-    public float destY()                { return destY; }
-    @Override
-    public float fromX()                { return fromX; }
-    @Override
-    public float fromY()                { return fromY; }
-    @Override
-    public float launchTime()           { return launchTime; }
-    void makeOrbiting()          { status = Status.ORBITING; }
-    void makeDeployed()          { status = Status.DEPLOYED; }
-    private void makeInTransit()         { status = Status.IN_TRANSIT; }
-    public void makeRetreatOnArrival()  { status = Status.RETREAT_ON_ARRIVAL; }
-    public boolean isOrbiting()         { return status == Status.ORBITING; }
-    public boolean isDeployed()         { return status == Status.DEPLOYED; }
-    public boolean isInTransit()        { return (status == Status.IN_TRANSIT) || (status == Status.RETREAT_ON_ARRIVAL); }
-    public boolean retreatOnArrival()   { return status == Status.RETREAT_ON_ARRIVAL; }
-    @SuppressWarnings("incomplete-switch")
-	public void toggleRetreatOnArrival() {
-        switch (status) {
-            case IN_TRANSIT:         status = Status.RETREAT_ON_ARRIVAL; break;
-            case RETREAT_ON_ARRIVAL: status = Status.IN_TRANSIT; break;
-        }
-    }
-    public void setXY(float x, float y) { fromX = x; fromY = y; }
-    public void setXY(StarSystem sys)   { fromX = sys.x(); fromY = sys.y(); }
-    @Override
-    public boolean isRallied()          { return rallySysId != StarSystem.NULL_ID; }
-    public boolean isRalliedThisTurn()  {
-        return isRallied() && (launchTime == galaxy().currentTime()); 
-    }
-    public boolean isRetreatingThisTurn() {
+    public StarSystem system()          { return galaxy().system(sysId()); }
+    public void system(StarSystem s)    { sysId(id(s)); }
+	@Override public StarSystem destination()	{ return galaxy().system(destSysId()); }
+	void makeOrbiting()					{ status(Status.ORBITING); }
+	void makeDeployed()					{ status(Status.DEPLOYED); }
+	private void makeInTransit()		{ status(Status.IN_TRANSIT); }
+	public void makeRetreatOnArrival()	{ status(Status.RETREAT_ON_ARRIVAL); }
+	public boolean isOrbiting()				{ return status() == Status.ORBITING; }
+	@Override public boolean isDeployed()	{ return status() == Status.DEPLOYED; }
+	@Override public boolean inTransit()	{ return status() == Status.IN_TRANSIT || retreatOnArrival(); }
+	public boolean retreatOnArrival()		{ return status() == Status.RETREAT_ON_ARRIVAL; }
+	public void toggleRetreatOnArrival()	{
+		switch (status()) {
+			case IN_TRANSIT:
+				status(Status.RETREAT_ON_ARRIVAL);
+				return;
+			case RETREAT_ON_ARRIVAL:
+				status(Status.IN_TRANSIT);
+				return;
+			default:
+				return;
+		}
+	}
+	public void setXY(float x, float y)		{ fromX(x); fromY(y); }
+	public void setXY(StarSystem sys)		{ fromX(sys.x()); fromY(sys.y()); }
+	@Override public boolean isRallied()	{ return rallySysId() != StarSystem.NULL_ID; }
+	public boolean isRalliedThisTurn()		{ return isRallied() && (launchTime() == galaxy().currentTime());  }
+	public boolean isRetreatingThisTurn()	{
 		return retreating() &&
-				(launchTime == galaxy().currentTime() || launchTime == NOT_LAUNCHED); 
-    }
-    public boolean hasDestination()     { return destSysId != StarSystem.NULL_ID; }
+				(launchTime() == galaxy().currentTime() || launchTime() == NOT_LAUNCHED); 
+	}
+	public boolean hasDestination()			{ return destSysId() != StarSystem.NULL_ID; }
 	public List<StarSystem> allowedRetreatSystems()	{ return empire().allowedRetreatSystems(system()); }
-
-    @Override
-    public int empId()                  { return empId; }
-    @Override
-    public boolean visibleTo(int emp) {
-        if (emp == empId)
+	@Override public boolean visibleTo(int empireId)	{
+		if (empireId == empId())
             return true;
 
         for (int i=0;i<MAX_DESIGNS;i++) {
@@ -153,26 +184,12 @@ public class ShipFleet extends FleetBase {
         }
         return false;
     }
-    ShipFleet(int emp, int x, int y) {
-        empId = emp;
-        sysId = -1;
-        fromX = x;
-        fromY = y;
-        reloadBombs();
-    }
-    public ShipFleet(int emp, StarSystem s) {
-        empId = emp;
-        sysId = s.id;
-        fromX = s.x();
-        fromY = s.y();
-        reloadBombs();
-    }
-	final int[] bombardCount()	{
+	private final int[] bombardCount()	{
 		if (bombardCount == null)
 			bombardCount = new int[MAX_DESIGNS];
 		return bombardCount;
 	}
-	final void reloadBombs()	{
+	final void reloadBombs()		{
 		int length = bombardCount().length;
 		for (int i=0;i<length;i++)
 			bombardCount[i]=0;
@@ -188,49 +205,15 @@ public class ShipFleet extends FleetBase {
     public boolean persistOnClick()             { return empire() == player(); }
     public static ShipFleet copy(ShipFleet fl) {
         // returns a new ship fleet with identical stacks & count
-        ShipFleet temp = new ShipFleet(fl.empId, fl);
-        
+		ShipFleet temp = new ShipFleet(fl.empId(), fl);
+
         System.arraycopy(fl.num, 0, temp.num, 0, MAX_DESIGNS);
         return temp;
     }
-/*    public static ShipFleet copy(ShipFleet fl, List<ShipDesign> designs) {
-        // returns a new ship fleet with only stacks & count matching designs
-        ShipFleet temp = new ShipFleet(fl.empId, fl.system());
-        for (ShipDesign desn: designs)
-            temp.num[desn.id()] = fl.num[desn.id()];
-        return temp;
-    } */
-    private ShipFleet(int emp, ShipFleet f) {
-        empId = emp;
-        sysId = f.sysId;
-        fromX = f.x();
-        fromY = f.y();
-        destSysId(f.destSysId);
-        destX = f.destX;
-        destY = f.destY;
-        status = f.status;
-        launchTime = f.launchTime;
-        isCopy = true;
-
-        reloadBombs();
-    }
-/*    public ShipFleet(ShipFleet fl) {
-        empId = fl.empId;
-        sysId = fl.sysId;
-        fromX = fl.fromX;
-        fromY = fl.fromY;
-        destSysId(fl.destSysId);
-        destX = fl.destX;
-        destY = fl.destY;
-    } */
-    @Override
-    public StarSystem destinationOrRallySystem() {
-        int destId = hasDestination() ? destSysId : rallySysId;
-        // galaxy().system(destId) will return null if destId is StarSystem.NULL_ID
-        // if (destId == StarSystem.NULL_ID)
-        //     return null;
-        return galaxy().system(destId);
-    }
+	@Override public StarSystem destinationOrRallySystem()	{
+		int destId = hasDestination() ? destSysId() : rallySysId();
+		return galaxy().system(destId);
+	}
     @Override public FlightPathSprite pathSprite() {
         StarSystem dest = destinationOrRallySystem();
         // If we have no destination and no rally system, we have no path and no path sprite.
@@ -244,21 +227,8 @@ public class ShipFleet extends FleetBase {
             pathSprite.destination(dest);
         return pathSprite;
     }
-    public ShipDesign design(int i)		 { return empire().shipLab().design(i); }
-    protected ShipDesign[] designs()	 { return empire().shipLab().designs(); }
-
-/*    public ShipFleet matchingFleetWithin(List<ShipFleet> fleets, StarSystem dest) {
-        for (ShipFleet fl: fleets) {
-            if ((fl.empId == empId)
-            && (fl.destSysId == destSysId)
-            && (fl.slowestStackSpeed() == slowestStackSpeed())
-            && (fl.retreating() == retreating())
-            && (fl.rallySysId == rallySysId)) {
-                return fl;
-            }
-        }
-        return null;
-    } */
+	public ShipDesign design(int i)		{ return empire().shipLab().design(i); }
+	protected ShipDesign[] designs()	{ return empire().shipLab().designs(); }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(Integer.toHexString(hashCode()));
@@ -275,59 +245,52 @@ public class ShipFleet extends FleetBase {
         sb.append(')');
         return sb.toString();
     }
-    @Override
-    public float x() { return isInTransit() ? transitX() : fromX; }
-    @Override
-    public float y() { return isInTransit() ? transitY() : fromY; }
-    @Override public float transitX() {
-    	if (isCopy)
-            return fromX();
-    	else
-    		return fromX() + travelPct()*(destX() - fromX());
-    }
-    @Override public float transitY() {
-    	if (isCopy)
-            return fromY();
-    	else
-    		return fromY() + travelPct()*(destY() - fromY());
-    }
+	@Override public float x()	{ return inTransit() ? transitX() : fromX(); }
+	@Override public float y()	{ return inTransit() ? transitY() : fromY(); }
+	@Override public float transitX()	{
+		if (isCopy)
+			return fromX();
+		else
+			return fromX() + travelPct()*(destX() - fromX());
+	}
+	@Override public float transitY()	{
+		if (isCopy)
+			return fromY();
+		else
+			return fromY() + travelPct()*(destY() - fromY());
+	}
 
     public void launch() {
         StarSystem sys = system();
         launch(sys.x(), sys.y());
     }
     public void launch(float x, float y)  {
-        fromX = x;
-        fromY = y;
-        launchTime = galaxy().currentTime();
+		fromX(x);
+		fromY(y);
+	    launchTime(galaxy().currentTime());
         setArrivalTimeAdjusted();
         makeInTransit();
     }
-    void arrive(StarSystem sys, boolean scan) {
-        sysId = sys.id;
-        fromX = sys.x();
-        fromY = sys.y();
-        retreating(false);
-
-        destSysId = StarSystem.NULL_ID;
-        rallySysId = StarSystem.NULL_ID;
-        launchTime = NOT_LAUNCHED;
-        makeOrbiting();
-        if (scan)
-            empire().sv.view(sys.id).refreshSystemEntryScan();
-    }
-    public boolean inOrbit()        { return isOrbiting(); }
-    @Override
-    public boolean deployed()       { return isDeployed(); }
-    public boolean launched()       { return launchTime > NOT_LAUNCHED; }
+	void arrive(StarSystem sys, boolean scan)	{
+		sysId(sys.id);
+		fromX(sys.x());
+		fromY(sys.y());
+		retreating(false);
+		
+		destSysId(StarSystem.NULL_ID);
+		rallySysId(StarSystem.NULL_ID);
+		launchTime(NOT_LAUNCHED);
+		makeOrbiting();
+		if (scan)
+			empire().sv.view(sys.id).refreshSystemEntryScan();
+	}
+	public boolean launched()			{ return launchTime() > NOT_LAUNCHED; }
     public boolean canUndeploy()    { 
         if (isRalliedThisTurn())
             return true;
         return isDeployed() && !retreating(); 
     }
-    @Override
-    public boolean inTransit()      { return isInTransit(); }
-    public boolean isActive()       { return hasShips(); }
+    //public boolean isActive()       { return hasShips(); }
 
     public int[] numCopy()          { return num.clone(); }
     public int num(int i)           { return max(0, num[i]); } // BR for backward fix
@@ -339,16 +302,8 @@ public class ShipFleet extends FleetBase {
     	}
     }
     void num(int i, int count)      { num[i] = max(0, count); }
-/*    public int visibleNum(int emp, int i) {
-        ShipDesign d = design(i);
-        if ((emp == empId)
-        || ((d != null) && !d.allowsCloaking()))
-            return num(i);
-        else
-            return 0;
-    } */
     public boolean visibleTo(Empire emp) {
-        if (emp.canSeeShips(empId))
+        if (emp.canSeeShips(empId()))
             return true;
 
         for (int i=0;i<MAX_DESIGNS;i++) {
@@ -366,19 +321,6 @@ public class ShipFleet extends FleetBase {
         }
         return false;
     }
-/*    public ShipDesign design(int emp, int num) {
-        int[] visible = visibleShips(emp);
-        int cnt = num;
-        for (int i=0;i<visible.length;i++) {
-            if (visible[i] > 0) {
-                if (cnt == 0)
-                    return design(i);
-                else
-                    cnt--;
-            }
-        }
-        return null;
-    } */
     public ShipDesign visibleDesign(int emp, int num) {
         int[] visible = visibleShips(emp);
         int cnt = num;
@@ -393,7 +335,7 @@ public class ShipFleet extends FleetBase {
         return null;
     }
     public int[] visibleShips(int emp) {
-        if (empId == emp)
+        if (empId() == emp)
             return numCopy();
 
         int[] visible = new int[MAX_DESIGNS];
@@ -454,7 +396,7 @@ public class ShipFleet extends FleetBase {
             return false;
     }
     void checkColonize() {
-        if ((system() != null) && inOrbit())
+        if ((system() != null) && isOrbiting())
         	if (options().isColdWarMode()) {
         		boolean dangerFleets = system().nonAlliedAlienShipsInOrbit(empire());
         		if (!dangerFleets)
@@ -553,7 +495,7 @@ public class ShipFleet extends FleetBase {
         }
         return false;
     }
-    public boolean hasShips()  {
+    public boolean isActive()  { // = has ships
         for (int i=0;i<MAX_DESIGNS;i++) {
             if (num(i)>0)
                 return true;
@@ -590,27 +532,40 @@ public class ShipFleet extends FleetBase {
         return (c == empire()) && canSend();
     }
     private boolean canAdjust() {
-        return hasShips() && !inTransit();
+        return isActive() && !inTransit();
     }
     public boolean canSend() {
-        return hasShips() && (!inTransit() || isRetreatingThisTurn() || isRalliedThisTurn() || inOrbit() || empire().tech().hyperspaceCommunications());
+        return isActive() && (!inTransit() || isRetreatingThisTurn() || isRalliedThisTurn() || isOrbiting() || empire().tech().hyperspaceCommunications());
     }
-    @Override
-    public boolean canSendTo(int id) {
-        if (id == StarSystem.NULL_ID)
-            return false;
+	private boolean allowedToRetreatTo(int id)	{
+		if (id == sysId())
+			return false;
+		if (lastDestIdTest != null) {
+			if (id == lastDestIdTest)
+				return true;
+			if (-id == lastDestIdTest)
+				return false;
+		}
+		if (empire().allowedToRetreatTo(system(), galaxy().system(id))) {
+			lastDestIdTest = id;
+			return true;
+		}
+		else {
+			lastDestIdTest = -id;
+			return false;
+		}
+	}
+	@Override public boolean canSendTo(int id)	{
+		if (id == StarSystem.NULL_ID)
+			return false;
 
-        // retreating fleets can only go to different systems, colonized by friendly empire
-        if (retreating())  {
-            StarSystem sys = galaxy().system(id);
-			return isRetreatingThisTurn() && (id != sysId) && empire().allowedToRetreatTo(system(), sys);
-            //return isRetreatingThisTurn() && (id != sysId) && sys.isColonized() && sys.empire().alliedWith(empId());
-        }
-        if (!canSend())
+		if (retreating())
+				return isRetreatingThisTurn() && allowedToRetreatTo(id);
+		if (!canSend())
             return false;
 
         //cannot send if already orbiting the sv.system
-        if (!inTransit() && (sysId == id))
+        if (!inTransit() && (sysId() == id))
             return false;
         if (!empire().sv.withinRange(id, range()))
             return false;
@@ -621,34 +576,27 @@ public class ShipFleet extends FleetBase {
         if (id == StarSystem.NULL_ID)
             return false;
 
-        // retreating fleets can only go to different systems, colonized by friendly empire
-        if (retreating()) {
-            StarSystem sys = galaxy().system(id);
-			return isRetreatingThisTurn() && (id != sysId) && empire().allowedToRetreatTo(system(), sys);
-            //return isRetreatingThisTurn() && (id != sysId) && sys.isColonized() && sys.empire().alliedWith(empId());
-        }
+		if (retreating())
+			return isRetreatingThisTurn() && allowedToRetreatTo(id);
         if (!canSend())
             return false;
 
         //cannot send if already orbiting the sv.system
-        if (!inTransit() && (sysId == id))
+        if (!inTransit() && (sysId() == id))
             return false;
         if (!empire().sv.withinRange(id, d.range()))
             return false;
 
         return true;
     }
-//    public boolean canSend(Empire c) { return canSend() && (empire() == c); }
     public boolean canMassDeployTo(StarSystem sys) {
         if (sys == null)
             return false;
         //allow if already orbiting the sv.system
-        if (inOrbit() && !inTransit() && (system() == sys))
+        if (isOrbiting() && !inTransit() && (system() == sys))
             return true;
-        // retreating fleets can only go to different systems, colonized by friendly empire
-        if (retreating())
-			return sys != system() && empire().allowedToRetreatTo(system(), sys);
-			//return (sys != system()) && sys.isColonized() && sys.empire().alliedWith(empId());
+		if (retreating())
+			return allowedToRetreatTo(sys.id);
         return true;
     }
     @Override
@@ -688,28 +636,6 @@ public class ShipFleet extends FleetBase {
         }
         return maxSpeed;
     }
-/*    private int bestBeamCombatSpeed() {
-        int speed = 1;
-        for (int i=0;i<MAX_DESIGNS;i++) {
-            if (num(i)>0) {
-                ShipDesign des = design(i);
-                if (des != null && des.hasBeamWeapon())
-                    speed = max(speed, des.combatSpeed());
-            }
-        }
-        return speed;
-    } */
-/*    private int bestBeamWeaponRange(int minRange) {
-        int rng = 1;
-        for (int i=0;i<MAX_DESIGNS;i++) {
-            if (num(i)>0) {
-                ShipDesign des = design(i);
-                if (des != null)
-                    rng = max(rng, des.bestBeamWeaponRange(minRange));
-            }
-        }
-        return rng;
-    } */
     // modnar: add firepowerAntiShip to only count weapons that can attack ships
     public float firepowerAntiShip(float shield) {
         float dmg = 0;
@@ -745,29 +671,7 @@ public class ShipFleet extends FleetBase {
         }
         return dmg;
     }
-
-    // BR: tools against space monsters
-/*    public float firepowerAntiMonster(float shield, float defense, float missileDefense, int speed, int beamRange) {
-        float dmg = 0 + 0;
-        for (int i=0;i<MAX_DESIGNS;i++) {
-            if (num(i)>0) {
-                ShipDesign des = design(i);
-                if (des != null)
-                    dmg += (num(i) * des.firepowerAntiMonster(shield, defense, missileDefense, speed, beamRange));
-            }
-        }
-//        if (dmg == 0) {
-//        	System.out.println("firepowerAntiMonster = 0 --> " + design(0).name());
-//        }
-        return dmg;
-    } */
 	protected int otherSpecialCount()	{ return 0; } // For monster out of design specials
-//    protected void clearFleetStats()	{ fleetStats = null; }
-//    private FleetStats getFleetStats()	{
-//    	if (fleetStats == null)
-//    		fleetStats = getFleetStats(this);
-//    	return fleetStats;
-//    }
     private FleetStats getFleetStats(ShipFleet fl) {
         FleetStats stats	= new FleetStats();
         float totalShield	= 0;
@@ -828,8 +732,8 @@ public class ShipFleet extends FleetBase {
 	}
     public float travelTimeAdjusted(StarSystem to)	{ return travelTimeAdjusted(to, travelSpeed()); }
     public float travelTimeAdjusted(StarSystem dest, float speed) {
-        if (inOrbit() || deployed()
-        || (isInTransit() && (travelPct() == 0 && system() != null))) {
+        if (isOrbiting() || isDeployed()
+        || (inTransit() && (travelPct() == 0 && system() != null))) {
         	StarSystem sys = system();
             if (sys != null && sys.hasStargate(empire()) && dest.hasStargate(empire()))
                 return 1;
@@ -837,54 +741,11 @@ public class ShipFleet extends FleetBase {
         return travelTimeAdjusted(this,dest,speed);
     }
     public int travelTurnsAdjusted(StarSystem dest)	{ return ceil(travelTimeAdjusted(dest)); }
-    // BR: Not used! Have to be tested before uncommenting and using it
-/*    private int travelTurns(StarSystem dest, float speed) { 
-        return (int)Math.ceil(travelTime(dest, speed));  
-    } */
-/*    public int fullTravelTurns(StarSystem finalDest, ShipDesign design) {
-        // calculate full travel turns for a ship in this fleet of type design
-        // to travel from its current position (may be in transit to another 
-        // system) to the requested finalDest
-
-        // if we can travel directly (i.e. in orbit or hyperspace comms), return 
-        // turns to finalDest for the requested design
-        if (canSend()) 
-            return travelTurns(finalDest, design.warpSpeed());  
-
-        // ok, fleet needs to reach its current dest and the travel to final dest
-
-        // get turns to current dest
-        StarSystem currDest = destination();
-        int currTurns = travelTurns(currDest);
-
-        // if we can then stargate hop, just add 1 turn
-        if (currDest.hasStargate(empire()) && finalDest.hasStargate(empire()))
-            return currTurns + 1;
-
-        // calculate turns to next dest and then return total
-        int nextTurns = (int) Math.ceil(travelTime(currDest,finalDest,design.warpSpeed()));
-        return currTurns+nextTurns;
-    } */
-//  public int numScouts()   { return numShipType(ShipDesign.SCOUT); }
-    public int numFighters() { return numShipType(ShipDesign.FIGHTER); }
-    public int numBombers()  { return numShipType(ShipDesign.BOMBER); }
-//  public int numDestroyers()  { return numShipType(ShipDesign.DESTROYER); } // modnar: add in destroyer number, not used anywhere (?)
-//  public int numColonies() { return numShipType(ShipDesign.COLONY); }
     public boolean isEmpty() { return numShips() == 0; }
     public int numShips ()   {
         int count = 0;
         for (int i=0;i<MAX_DESIGNS;i++)
             count += num(i);
-        return count;
-    }
-    private int numShipType(int missionType) {
-        int count = 0;
-        for (int i=0;i<MAX_DESIGNS;i++)
-            if (num(i)>0) {
-                ShipDesign des = design(i);
-                if ((des != null) && (des.mission() == missionType))
-                    count += num(i);
-            }
         return count;
     }
     public float bcValue() {
@@ -921,18 +782,6 @@ public class ShipFleet extends FleetBase {
         }
         return false;
     }
-/*    public int[] colonyShips() {
-        // return the ship stacks which have colony ships
-        int[] colony = new int[MAX_DESIGNS];
-        for (int i=0;i<MAX_DESIGNS;i++) {
-            if (num(i) > 0) {
-                ShipDesign des = design(i);
-                if ((des != null) && des.hasColonySpecial())
-                    colony[i] = num(i);
-            }
-        }
-        return colony;
-    } */
     public void disband()	{ galaxy().ships.deleteFleet(this); }
     public boolean addFleet(ShipFleet fl)	{
     	if (this == fl)
@@ -951,7 +800,7 @@ public class ShipFleet extends FleetBase {
     }
     public void removeShips(int designId, int n, boolean disbandIfEmpty)	{
     	addShips(designId, -n);
-        if (disbandIfEmpty && !hasShips()) {
+        if (disbandIfEmpty && !isActive()) {
             log("disband#4 fleet: ", toString());
             disband();
         }
@@ -962,19 +811,6 @@ public class ShipFleet extends FleetBase {
     	addShips(i, -count);
     	return count;
     }
-/*    public int removeScrappedShips(int designId) {
-        int scrappedCount = num[designId];
-        // design has been scrapped
-        num[designId] = 0;
-        if (!hasShips()) 
-            disband();
-        
-        return scrappedCount;
-    } */
-/*    public void removeShips(ShipFleet subfleet) {
-        for (int i=0;i<MAX_DESIGNS;i++)
-            num(i) = max(0, num(i)-subfleet.num(i));
-    } */
     public void targetBombard(float popLim) { // BR:
         StarSystem sys = system();
         if (!sys.isColonized())
@@ -1009,8 +845,8 @@ public class ShipFleet extends FleetBase {
             }
         }
         mgr.endOfCombat(true);
-        empire().sv.refreshFullScan(sysId);
-        victim.sv.refreshFullScan(sysId);
+        empire().sv.refreshFullScan(sysId());
+        victim.sv.refreshFullScan(sysId());
     }
     public void bombard() {
         StarSystem sys = system();
@@ -1046,8 +882,8 @@ public class ShipFleet extends FleetBase {
             }
         }
         mgr.endOfCombat(true);
-        empire().sv.refreshFullScan(sysId);
-        victim.sv.refreshFullScan(sysId);
+        empire().sv.refreshFullScan(sysId());
+        victim.sv.refreshFullScan(sysId());
     }
     public float expectedBombardDamage(boolean ignoreBio) {  return expectedBombardDamage(system(), ignoreBio);  }
     public float expectedBombardDamage(StarSystem sys, boolean ignoreBio) {
@@ -1105,7 +941,7 @@ public class ShipFleet extends FleetBase {
     public int mapX(GalaxyMapPanel map) {
         int x = map.mapX(x());
         
-        if (isInTransit())
+        if (inTransit())
             return x;
         // if in orbit, offset map position above and to right of the star
         float mult = max(4, min(100,map.scaleX()));
@@ -1119,12 +955,12 @@ public class ShipFleet extends FleetBase {
     public int mapY(GalaxyMapPanel map) {
         int vSpacing = BasePanel.s14;
         int y = map.mapY(y());
-        if (isInTransit())
+        if (inTransit())
             return y;
         float mult = max(4, min(60,map.scaleX()));
         int shipH = (int) (500/mult);
         // check orbiting fleets
-        if (!isInTransit()) {
+        if (!inTransit()) {
             // 20 px above star, then +10 down for its position in fleet list
             y -= shipH;
             StarSystem sys = system();
@@ -1244,7 +1080,7 @@ public class ShipFleet extends FleetBase {
         int w = img.getWidth();
         int h = img.getHeight();
 
-        if (!hasDestination() || (destX > x()))
+        if (!hasDestination() || (destX() > x()))
             g2.drawImage(img, x, y, w, h, map);
         else
             g2.drawImage(img, x+w, y, -w, h, map);

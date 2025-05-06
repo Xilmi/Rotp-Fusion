@@ -136,7 +136,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         List<ShipFleet> fleets = galaxy().ships.allFleets(empire.id);
         List<FleetOrders> fleetOrders = new ArrayList<>(fleets.size());
         for (ShipFleet fleet : fleets) {
-            if (fleet.hasShips())
+            if (fleet.isActive())
                 fleetOrders.add(fleet.newOrders());
         }
 

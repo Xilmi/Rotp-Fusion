@@ -192,7 +192,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 						if (!fleet.isArmed())
 							continue;
 						// if fleet belongs to allied/non-aggression pact empire- ignore it
-						if (empire.pactWith(fleet.empId) || empire.alliedWith(fleet.empId))
+						if (empire.pactWith(fleet.empId()) || empire.alliedWith(fleet.empId()))
 							continue;
 						// don't scout systems guarded by by armed enemy.
 						// System.out.println("System "+i+" "+empire.sv.descriptiveName(i)+" has armed enemy ships in orbit");
@@ -354,7 +354,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 			// empire will send ships to own colonies that have enemy ships in orbit. I guess that's OK
 			if (fleets != null) {
 				for (ShipFleet sf: fleets) {
-					if (sf != null && hostileEmpires.contains(sf.empId) && !sf.retreating()) {
+					if (sf != null && hostileEmpires.contains(sf.empId()) && !sf.retreating()) {
 						//System.out.println("System "+empire.sv.name(i)+" has enemy ships, targeting");
 						return true;
 					}

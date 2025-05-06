@@ -1647,7 +1647,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 	            }
 	            // if in transit to a system colonized by empId, then
 	            // set it to retreat on arrival
-	            else if (fl.isInTransit()) {
+	            else if (fl.inTransit()) {
 	                StarSystem dest = fl.destination();
 	                if (dest.empId() == empId)
 	                    fl.makeRetreatOnArrival();
@@ -2274,7 +2274,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public List<ShipFleet> getEtaFleets() {
         List<ShipFleet> fleets = new ArrayList<>();
         for (ShipFleet fl : getVisibleFleets())
-        	if (fl != null && !fl.inOrbit() && knowETA(fl))
+        	if (fl != null && !fl.isOrbiting() && knowETA(fl))
         		fleets.add(fl);
         return fleets;
     }
@@ -4152,7 +4152,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         for (ShipFleet fl: fleets) {
             if (fl != null && !fl.isEmpty())
             {
-                if(fl.isDeployed() || fl.isInTransit())
+                if(fl.isDeployed() || fl.inTransit())
                     continue;
                 if(fl.system() != null && warEnemies().contains(fl.system().empire()))
                     continue;
@@ -4183,7 +4183,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         for (ShipFleet fl: fleets) {
             if (fl != null && !fl.isEmpty())
             {
-                if(fl.isDeployed() || fl.isInTransit())
+                if(fl.isDeployed() || fl.inTransit())
                     continue;
                 if(fl.system() != null && warEnemies().contains(fl.system().empire()))
                     continue;
@@ -4221,7 +4221,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 	    			if (knowShipETA || sh.empId() == id)
 	    				list.add(sh);
     			}
-    			else if (sh.deployed() && (knowShipETA || sh.empId() == id))
+    			else if (sh.isDeployed() && (knowShipETA || sh.empId() == id))
     				list.add(sh);
     		}
     	}

@@ -48,7 +48,7 @@ public class VIPFleetView implements IVIPConsole {
 	// ##### SUB BOXES
 	private String topBox(String out)	{
 		// draw orbiting data, bottom up
-		if (fleet.launched() || (fleet.deployed() && !player().knowETA(fleet))) {
+		if (fleet.launched() || (fleet.isDeployed() && !player().knowETA(fleet))) {
 			if (player().knowETA(fleet) && (fleet.hasDestination())) {
 				String dest =  planetName(fleet.destination().altId);
 				String str2 = dest.isEmpty() ? text("MAIN_FLEET_DEST_UNSCOUTED") : text("MAIN_FLEET_DESTINATION", dest);
@@ -57,16 +57,16 @@ public class VIPFleetView implements IVIPConsole {
 			String str3 = fleet.retreating() ? text("MAIN_FLEET_RETREATING") : text("MAIN_FLEET_IN_TRANSIT");
 			out += NEWLINE + str3;
 			if (!fleet.empire().isPlayer()) {
-				if (player().alliedWith(fleet.empId)) {
+				if (player().alliedWith(fleet.empId())) {
 					String str4 = text("MAIN_FLEET_ALLY");
 					out += str4;
-				} else if (player().atWarWith(fleet.empId)) {
+				} else if (player().atWarWith(fleet.empId())) {
 					String str4 = text("MAIN_FLEET_ENEMY");
 					out += "!" + str4;
 				}
 			}
 		}
-		else if (fleet.deployed()) {
+		else if (fleet.isDeployed()) {
 			String dest =  planetName(fleet.destination().altId);
 			String str2 = dest.isEmpty() ? text("MAIN_FLEET_DEST_UNSCOUTED") : text("MAIN_FLEET_DESTINATION", dest);
 			out += str2;
@@ -125,7 +125,7 @@ public class VIPFleetView implements IVIPConsole {
 						text = text("MAIN_FLEET_INVALID_DESTINATION", name);
 				}
 			}
-			else if (fleet.isDeployed() || fleet.isInTransit()) {
+			else if (fleet.isDeployed() || fleet.inTransit()) {
 				if (fleet.empire().isPlayer()) {
 					retreatText = text("MAIN_FLEET_AUTO_RETREAT");
 					rallyText = text("MAIN_FLEET_SET_RALLY");
@@ -161,7 +161,7 @@ public class VIPFleetView implements IVIPConsole {
 				text = text("MAIN_FLEET_CHOOSE_DEST");
 			}
 		}
-		else if (fleet.isInTransit() || fleet.isDeployed()) {
+		else if (fleet.inTransit() || fleet.isDeployed()) {
 			if (fleet.empire().isPlayer()) {
 				retreatText = text("MAIN_FLEET_AUTO_RETREAT");
 				rallyText = text("MAIN_FLEET_SET_RALLY");

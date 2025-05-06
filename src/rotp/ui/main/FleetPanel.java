@@ -190,7 +190,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         if (!selectedFleet.isActive())
             return null;
 
-        if (selectedFleet.deployed())
+        if (selectedFleet.isDeployed())
             return selectedFleet;
 
         ShipFleet newFleet = ShipFleet.copy(selectedFleet);
@@ -209,7 +209,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         ShipFleet newFleet = adjustedFleet();
         ShipFleet displayedFleet = selectedFleet();
 
-        if (displayedFleet.isInTransit()) {
+        if (displayedFleet.inTransit()) {
             galaxy().ships.redirectFleet(displayedFleet, selectedDest().id);
             cancelFleet();
         }
@@ -423,7 +423,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 if (tentativeDest() != null)
                     currSys = tentativeDest();
                 else {
-                    int currSysId = fl.isInTransit() ? fl.destSysId() : fl.sysId();
+                    int currSysId = fl.inTransit() ? fl.destSysId() : fl.sysId();
                     currSys = galaxy().system(currSysId);
                 }
                 List<StarSystem> systems = player().orderedFleetTargetSystems(fl);
@@ -615,7 +615,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             int y0 = h-s12;
             g.setColor(SystemPanel.whiteText);
             g.setFont(narrowFont(20));
-            if (fl.launched() || ( fl.deployed() && !pl.knowETA(fl) )) {
+            if (fl.launched() || ( fl.isDeployed() && !pl.knowETA(fl) )) {
                 if (pl.knowETA(fl) && (fl.hasDestination())) {
                     String dest =  pl.sv.name(fl.destSysId());
                     String str2 = dest.isEmpty() ? text("MAIN_FLEET_DEST_UNSCOUTED") : text("MAIN_FLEET_DESTINATION", dest);
@@ -628,12 +628,12 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 drawString(g,str3, w-sw3-s10, y0);
                 y0 -= s25;
                 if (!fl.empire().isPlayer()) {
-                    if (pl.alliedWith(fl.empId)) {
+                    if (pl.alliedWith(fl.empId())) {
                         g.setColor(SystemPanel.greenText);
                         String str4 = text("MAIN_FLEET_ALLY");
                         int sw4 = g.getFontMetrics().stringWidth(str4);
                         drawString(g,str4, w-sw4-s10, y0);
-                    } else if (pl.atWarWith(fl.empId)) {
+                    } else if (pl.atWarWith(fl.empId())) {
                         g.setColor(SystemPanel.redText);
                         String str4 = text("MAIN_FLEET_ENEMY");
                         int sw4 = g.getFontMetrics().stringWidth(str4);
@@ -641,7 +641,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                     }
                 }
             }
-            else if (fl.deployed()) {
+            else if (fl.isDeployed()) {
                 String dest =  pl.sv.name(fl.destSysId());
                 String str2 = dest.isEmpty() ? text("MAIN_FLEET_DEST_UNSCOUTED") : text("MAIN_FLEET_DESTINATION", dest);
                 int sw2 = g.getFontMetrics().stringWidth(str2);
@@ -938,7 +938,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                             text = text("MAIN_FLEET_INVALID_DESTINATION", name);
                     }
                 }
-                else if (displayFl.isDeployed() || displayFl.isInTransit()) {
+                else if (displayFl.isDeployed() || displayFl.inTransit()) {
                     if (displayFl.empire().isPlayer()) {
                         retreatText = text("MAIN_FLEET_AUTO_RETREAT");
                         rallyText = text("MAIN_FLEET_SET_RALLY");
@@ -974,19 +974,13 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                     text = text("MAIN_FLEET_CHOOSE_DEST");
                 }
             }
-            else if (displayFl.isInTransit() || displayFl.isDeployed()) {
+            else if (displayFl.inTransit() || displayFl.isDeployed()) {
                 if (displayFl.empire().isPlayer()) {
                     retreatText = text("MAIN_FLEET_AUTO_RETREAT");
                     rallyText = text("MAIN_FLEET_SET_RALLY");
                 }
                 if (player().knowETA(displayFl)) {
-                	
                     int dist = displayFl.travelTurnsRemainingAdjusted();
-//                    if (displayFl.empire().isMonster()) {
-//                    	dist = ((SpaceMonster)displayFl).event.targetTurnCount();
-//                    }
-//                    else
-//                    	dist = displayFl.travelTurnsRemainingAdjusted();
                     if (displayFl.hasDestination()) {
                         String destName = player().sv.name(displayFl.destSysId());
                         if (destName.isEmpty())

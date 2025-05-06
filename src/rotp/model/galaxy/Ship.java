@@ -16,6 +16,7 @@
 package rotp.model.galaxy;
 
 import java.util.Comparator;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.ui.main.GalaxyMapPanel;
@@ -92,7 +93,7 @@ public interface Ship extends IMappedObject, Base, Sprite {
     @Override // from IMappedObject
     default float y() { return inTransit() ? transitY() : fromY(); }
 
-    public boolean deployed();
+	public boolean isDeployed();
     public FlightPathSprite pathSprite();
 // BR: To fix dHannash resulting pathSprite bug
 //    default FlightPathSprite pathSpriteTo(StarSystem sys) {

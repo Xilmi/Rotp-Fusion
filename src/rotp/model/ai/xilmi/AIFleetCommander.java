@@ -602,7 +602,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         List<ShipFleet> fleets = galaxy().ships.allFleets(empire.id);
         List<FleetOrders> fleetOrders = new ArrayList<>(fleets.size());
         for (ShipFleet fleet : fleets) {
-            if (fleet.hasShips())
+            if (fleet.isActive())
                 fleetOrders.add(fleet.newOrders());
         }
 
@@ -758,7 +758,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         {
             if(!fleet.hasShip(des))
                 continue;
-            if(!fleet.canSend() || fleet.deployed() || fleet.retreating())
+            if(!fleet.canSend() || fleet.isDeployed() || fleet.retreating())
                 continue;
             float currentDist = sys.distanceTo(fleet);
             if(currentDist < closestDist)
@@ -823,7 +823,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                     attackWithFleet(fleet, retreatSystem, 1.0f, 1.0f, true, true, true, true, 0, true);
                 }
             }
-            if(!fleet.canSend() || fleet.deployed() || fleet.retreating())
+            if(!fleet.canSend() || fleet.isDeployed() || fleet.retreating())
             {
                 continue;
             }
@@ -1165,7 +1165,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                     {
                         canStillSend = false;
                     }
-                    if(!fleet.hasShips())
+                    if(!fleet.isActive())
                     {
                         canStillSend = false;
                     }
@@ -1197,7 +1197,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         if(topSpeedVal / totalVal > 2.0 / 3.0)
             splitBySpeed = true;
         
-        if(fl.isInTransit())
+        if(fl.inTransit())
             splitBySpeed = false;
         
         ShipDesign Repeller = null;
@@ -1210,7 +1210,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             needToKeep = max(needToKeep, 1);*/
         
         boolean handleEvent = false;
-        if(!fl.isInTransit())
+        if(!fl.inTransit())
         {
             StarSystem current = fl.system();
             if (current.empire() == empire && current.hasEvent()) {
@@ -1490,7 +1490,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             if(fl.empire() == empire.sv.empire(sys.id))
             {
                 //It is orbiting one of my systems, so it's unlikely it'll go back
-                if(fl.inOrbit() && fl.system().empire() == empire)
+                if(fl.isOrbiting() && fl.system().empire() == empire)
                     totalEnemyFleet -= combatPower(fl, empire);
                 //It is en route to one of my systems, so it's unlikely it'll go back
                 if(fl.destination() != null && !fl.empire().tech().hyperspaceCommunications() && fl.destination().empire() == empire)

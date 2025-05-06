@@ -7,6 +7,9 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
+25-05-06 (BR)
+- Improved ShipFleet responsivity to new Retreat Options Rules:
+
 25-05-05 (BR)
 - New Fleet Retreat Options:
   - Application of the new rules to Xilmi AI is now complete.

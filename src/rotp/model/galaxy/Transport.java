@@ -146,8 +146,7 @@ public class Transport extends FleetBase {
     @Override
     public float y() { return inTransit() ? transitY() : from.y();  }
     private boolean launched()       { return launchTime > NOT_LAUNCHED; }
-    @Override
-    public boolean deployed()       { return launched(); }
+	@Override public boolean isDeployed()	{ return launched(); }
     @Override
     public boolean inTransit()     { return dest != null; }
 	public boolean isActive()	{ return (size() > 0) && (dest != null) && (dest != home().starSystem()); }

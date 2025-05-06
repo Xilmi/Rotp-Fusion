@@ -157,11 +157,11 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
         for (Ship sh: pl.visibleShips()) {
             if (sh instanceof ShipFleet) {
                 ShipFleet fl = (ShipFleet) sh;
-                if (fl.inOrbit()) {
+                if (fl.isOrbiting()) {
                     StarSystem sys = fl.system();
                     if (pl.sv.inShipRange(fl.sysId()) && !sys.isColonized() && pl.canColonize(fl.sysId())) {
                         if (fl.empire().aggressiveWith(pl, sys)) {
-                            expandGuardedSystems.put(sys.id, fl.empId);
+                            expandGuardedSystems.put(sys.id, fl.empId());
                         }
                     }
                 }

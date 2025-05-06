@@ -79,7 +79,7 @@ public class BombardSystemNotification implements TurnNotification, Base {
         Empire pl = player();
         // last minute check to ensure system is still colonized and that the
         // fleet is still aggressive with the planet's empire
-        if (fleet.canAttackPlanets() && fleet.inOrbit() && pl.sv.isColonized(sysId) && fleet.empire().aggressiveWith(pl.sv.empId(sysId)))
+        if (fleet.canAttackPlanets() && fleet.isOrbiting() && pl.sv.isColonized(sysId) && fleet.empire().aggressiveWith(pl.sv.empId(sysId)))
             RotPUI.instance().promptForBombardment(sysId, fleet);
     }
 }

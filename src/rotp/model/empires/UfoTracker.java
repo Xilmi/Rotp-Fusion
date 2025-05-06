@@ -300,6 +300,6 @@ public final class UfoTracker {
 	private boolean knowsShipIsLeavingSystemThisTurn(Ship sh, StarSystem sys) {
 		// The fact of whether a ship is retreating or not is always visible to the player if the ship itself is visible.
 		// Similarly, the player can always see that a ship has been deployed (that is, is no longer in orbit).
-		return sh.x() == sys.x() && sh.y() == sys.y() && (sh.retreating() || sh.deployed());
+		return sh.x() == sys.x() && sh.y() == sys.y() && (sh.retreating() || sh.isDeployed());
 	}
 }

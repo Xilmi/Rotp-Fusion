@@ -966,7 +966,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                     sh.setDisplayed(this);
                     Sprite spr = (Sprite) sh;
                     // if we are drawing the ship, then check if its flight path should be drawn first
-                    if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
+                    if ((sh.isDeployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
                     		&& (parent.shouldDrawSprite(sh.pathSprite()) || debugShowAll)) {
                         if (sh.pathSprite()!=null)
                             sh.pathSprite().draw(this,g);
@@ -998,7 +998,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         				else
         					continue;
         			}
-        			else if (sh.deployed()) {
+        			else if (sh.isDeployed()) {
         				if (sh.destSysId() == targetSysId) {
 	            			if (!pl.knowETA(sh))
 	            				continue;
@@ -1025,7 +1025,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                     if (sh.displayed() || debugShowAll) {
                         Sprite spr = (Sprite) sh;
                         // if we are drawing the ship, then check if its flight path should be drawn first
-                        if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
+                        if ((sh.isDeployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
                         && (parent.shouldDrawSprite(sh.pathSprite()) || debugShowAll)) {
                             if (pl.knowETA(sh) && sh.pathSprite()!=null)
                                 sh.pathSprite().draw(this,g);
@@ -1071,7 +1071,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                     if (sh.displayed() || debugShowAll) {
                         Sprite spr = (Sprite) sh;
                         // if we are drawing the ship, then check if its flight path should be drawn first
-                        if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
+                        if ((sh.isDeployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
                         && (parent.shouldDrawSprite(sh.pathSprite()) || debugShowAll)) {
                             if (pl.knowETA(sh) && sh.pathSprite()!=null)
                                 sh.pathSprite().draw(this,g);

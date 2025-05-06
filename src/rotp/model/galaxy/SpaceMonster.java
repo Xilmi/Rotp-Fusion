@@ -209,7 +209,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	@Override public boolean inTransit()			{ return !isOrionGuardian(); }
 	@Override public float	 transitX()				{ return fromX(); }
 	@Override public float	 transitY()				{ return fromY(); }
-	@Override public boolean deployed()				{ return false; }
+	@Override public boolean isDeployed()			{ return false; }
 	@Override public int	 maxMapScale()			{ return GalaxyMapPanel.MAX_FLEET_HUGE_SCALE; }
 	@Override public boolean isArmed()				{ return true; }
 	@Override public boolean isArmedForShipCombat()	{ return true; }
