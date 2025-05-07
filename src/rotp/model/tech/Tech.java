@@ -201,6 +201,7 @@ public class Tech implements Base {
     public	  Integer level()				{ return level; }
     public	  String  detail()				{ return text(detailKey()); }
     protected String  detail(int i)			{ return text(detailKey(), i); }
+    protected String  detail(float f)		{ return text(detailKey(), fmt(f)); }
     protected String  detail(String s)		{ return text(detailKey(), s); }
     public	  String  brief()				{ return text(shDesc); }
     protected String  brief(int i)			{ return text(shDesc, i); }

@@ -22,9 +22,9 @@ import rotp.model.ships.ShipManeuver;
 
 public final class TechEngineWarp extends Tech {
     private int baseWarp;
-    public String shName;
+    //public String shName;
 
-    public TechEngineWarp(String typeId, int lv, int seq, boolean b, TechCategory c) {
+    TechEngineWarp(String typeId, int lv, int seq, boolean b, TechCategory c) {
         id(typeId, seq);
         typeSeq = seq;
         level = lv;
@@ -54,20 +54,13 @@ public final class TechEngineWarp extends Tech {
             case 8: baseWarp = 9; break;
         }
     }
-    public int baseWarp()                { return baseWarp; }
-    public int warp()                    { return options().warpSpeed(this); }
-    @Override
-    public float warModeFactor()        { return 1.5f; }
-    @Override
-    public float expansionModeFactor()  { return 2; }
-    @Override
-    public boolean providesShipComponent()  { return true; }
-    @Override
-    public boolean isObsolete(Empire c) {
-            return warp() < c.tech().topSpeed();
-    }
-    @Override
-    public float baseValue(Empire c) { return c.ai().scientist().baseValue(this); }
+	public int baseWarp()							{ return baseWarp; }
+	public float warp()								{ return options().warpSpeed(this); }
+    @Override public float warModeFactor()			{ return 1.5f; }
+    @Override public float expansionModeFactor()	{ return 2; }
+    @Override public boolean providesShipComponent(){ return true; }
+    @Override public boolean isObsolete(Empire c)	{ return warp() < c.tech().topSpeed(); }
+    @Override public float baseValue(Empire c)		{ return c.ai().scientist().baseValue(this); }
     @Override
     public void provideBenefits(Empire c) {
         super.provideBenefits(c);
@@ -79,7 +72,7 @@ public final class TechEngineWarp extends Tech {
 
         // when engine tech is learned, ship maneuvers for all
         // lower engine techs become available. Add them if the
-        // design lab does nothave them yet.
+        // design lab does not have them yet.
         for (Tech t: c.tech().allTechsOfType(techType)) {
             TechEngineWarp tech = (TechEngineWarp) t;
             if (tech.level <= level) {
@@ -113,7 +106,7 @@ public final class TechEngineWarp extends Tech {
         }
         return (23 + (baseWarp * 3));
     }
-    public float baseManeuverSize(int size, int engineWarp) {
+    /* public float baseManeuverSize(int size, int engineWarp) {
         switch (size) {
             case ShipDesign.SMALL:  return 2;
             case ShipDesign.MEDIUM: return 15;
@@ -121,7 +114,7 @@ public final class TechEngineWarp extends Tech {
             case ShipDesign.HUGE:   return 700;
         }
         return 0;
-    }
+    } */
     public float baseManeuverPower(int size, int engineWarp) {
         switch (size) {
             case ShipDesign.SMALL:  return 2 * baseWarp / engineWarp;

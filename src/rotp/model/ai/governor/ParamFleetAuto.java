@@ -108,14 +108,14 @@ public abstract class ParamFleetAuto extends ParamList	{
 			// sort ships fastest to slowest, send out fastest Attack ships first
 			sort((d1, d2) -> {
 				int rangeDiff = Boolean.compare(d1.isExtendedRange(), d2.isExtendedRange());
-				// desc order
-				int warpDiff = d2.warpSpeed() - d1.warpSpeed();
-				// ascendent order, cheapest first
-				int costDiff = d1.cost() - d2.cost();
 				if (rangeDiff != 0)
 					return rangeDiff;
-				else if (warpDiff != 0)
-					return warpDiff;
+				// desc order
+				float warpDiff = d2.warpSpeed() - d1.warpSpeed();
+				// ascendent order, cheapest first
+				int costDiff = d1.cost() - d2.cost();
+				if (warpDiff != 0)
+					return  (int) Math.signum(warpDiff);
 				else
 					return costDiff;
 			});
@@ -127,30 +127,31 @@ public abstract class ParamFleetAuto extends ParamList	{
 			sort((d1, d2) -> {
 				int rangeDiff = Boolean.compare(d1.isExtendedRange(), d2.isExtendedRange());
 				// desc order
-				int warpDiff = d2.warpSpeed() - d1.warpSpeed();
-				int envDiff = d1.environment() - d2.environment();
-				// ascendent order, cheapest first
-				int costDiff = d1.cost() - d2.cost();
 				if (rangeDiff != 0)
 					return rangeDiff;
-				else if (envDiff != 0)
+				int envDiff = d1.environment() - d2.environment();
+				if (envDiff != 0)
 					return envDiff;
-				else if (warpDiff != 0)
-					return warpDiff;
+
+				float warpDiff = d2.warpSpeed() - d1.warpSpeed();
+				// ascendent order, cheapest first
+				int costDiff = d1.cost() - d2.cost();
+				if (warpDiff != 0)
+					return (int) Math.signum(warpDiff);
 				else
 					return costDiff;
 			});
 		}
 		void sortByWarpSpeed()	{
 			sort((sf1, sf2) ->  {
-				int rangeDiff = Boolean.compare(sf1.isExtendedRange(), sf2.isExtendedRange());
-				int warpDiff = sf2.warpSpeed() - sf1.warpSpeed();
-				int costDiff = sf2.cost() - sf1.cost(); // send colony first
+				float warpDiff = sf2.warpSpeed() - sf1.warpSpeed();
 				// Quick first
 				if (warpDiff != 0)
-					return warpDiff;
+					return (int) Math.signum(warpDiff);
 				// Short range first
-				else if (rangeDiff != 0) 
+				int rangeDiff = Boolean.compare(sf1.isExtendedRange(), sf2.isExtendedRange());
+				int costDiff = sf2.cost() - sf1.cost(); // send colony first
+				if (rangeDiff != 0) 
 					return rangeDiff;
 				else // Expensive first (colony or armed scout)
 					return costDiff;
@@ -162,8 +163,8 @@ public abstract class ParamFleetAuto extends ParamList	{
 					sf1.fleet.travelTimeAdjusted(sys, sf1.warpSpeed) -
 					sf2.fleet.travelTimeAdjusted(sys, sf2.warpSpeed)) );
 		}
-		int minWarpSpeed()	{
-			int minWarpSpeed = -1;
+		float minWarpSpeed()	{
+			float minWarpSpeed = -1;
 			for (SubFleet subFleet : this)
 				if (minWarpSpeed < 0 || subFleet.warpSpeed() < minWarpSpeed)
 					minWarpSpeed = subFleet.warpSpeed();
@@ -197,7 +198,7 @@ public abstract class ParamFleetAuto extends ParamList	{
 	final record SubFleet (
 			ShipFleet fleet,
 			int[] shipCounts,
-			int warpSpeed,
+			float warpSpeed,
 			int cost,
 			int environment,
 			boolean isExtendedRange)	{
@@ -214,7 +215,8 @@ public abstract class ParamFleetAuto extends ParamList	{
 		private int[] shipCounts;
 		private int[] requests;
 		private int[] nextCounts;
-		private int designCount, requestNum, warpSpeed, fleetCost, environment;
+		private int designCount, requestNum, fleetCost, environment;
+		private float warpSpeed;
 		// private int fleetCount;
 		private boolean isExtRange;
 
@@ -318,7 +320,7 @@ public abstract class ParamFleetAuto extends ParamList	{
 			nextCounts	= new int[MAX_DESIGNS];
 			designCount	= 0;
 			fleetCost	= 0;
-			warpSpeed	= Integer.MAX_VALUE;
+			warpSpeed	= Float.MAX_VALUE;
 			isExtRange	=  true;
 			switch (get()) {
 				case FLEET_AUTO_ALONE:

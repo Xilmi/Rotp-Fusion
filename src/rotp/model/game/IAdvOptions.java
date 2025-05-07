@@ -44,6 +44,7 @@ import java.util.Map.Entry;
 import rotp.ui.options.AllSubUI;
 import rotp.ui.util.LinkData;
 import rotp.ui.util.LinkValue;
+import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 
 // Duplicates Options, Race Menu Options and Galaxy Options
@@ -361,6 +362,11 @@ public interface IAdvOptions extends IBaseOptsTools {
 			options.selectedWarpSpeedOption(newValue);
 		}
 	}
+	ParamInteger warpSpeedPct	= new ParamInteger(ADV_UI, "WARP_SPEED_PCT", 100)
+			.setLimits(10, 500)
+			.setIncrements(1, 5, 20)
+			.loop(false);
+	default float selectedWarpSpeedFactor()		{ return warpSpeedPct.get()/100f;	}
 
 	ParamList fuelRange	= new FuelRange(); // Duplicate Do not add the list
 	final class FuelRange extends ParamList {

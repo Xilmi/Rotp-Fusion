@@ -2305,7 +2305,8 @@ SETTINGS_RANDOMIZE_AI             | IA aléatoire : %1
 SETTINGS_AUTOPLAY                 | L’IA joue pour vous : %1
 SETTINGS_TECH_TRADING             | Échanges de technologies : %1
 SETTINGS_GALAXY_AGE               | Âge de la galaxie : %1
-SETTINGS_WARP_SPEED               | Vitesse de distorsion : %1
+SETTINGS_WARP_SPEED				| Vitesse de distorsion : %1
+SETTINGS_WARP_SPEED_PCT			| Multiplicateur de Vitesse : %1 %
 SETTINGS_NEBULAE                  | Nébuleuses : %1
 SETTINGS_PLANET_QUALITY           | Qualité des planètes : %1
 SETTINGS_TERRAFORMING             | Terraformation : %1
@@ -2315,6 +2316,7 @@ SETTINGS_AI_HOSTILITY             | Hostilité : %1
 SETTINGS_RANDOM_EVENTS_HELP       | Il y a vingt événements aléatoires dans RotP (seize originaux et quatre de Modnar), certains favorables et d’autres défavorables. À partir du tour 50 (cette valeur est configurable), le pourcentage de chance qu’un événement aléatoire se produise quelque part dans la galaxie commence à grimper. Après qu’un événement aléatoire se soit produit, le pourcentage de chance se réinitialise à zéro et recommence à grimper au tour suivant. Les événements aléatoires sont une mécanique de rattrapage qui favorise les factions les plus faibles (Configurable). Une fois l’événement déterminé, il ciblera un joueur en fonction de ses performances dans le jeu. Les événements favorables ont plus de chances de se produire sur les joueurs ayant une production globale plus faible, tandis que les événements défavorables ont plus de chances de se produire sur les joueurs ayant une production globale plus élevée. Certains événements ne peuvent se produire qu’une seule fois. (Configurable)
 SETTINGS_RANDOM_EVENTS_DESC       | Les monstres spatiaux sont des événements aléatoires et des menaces considérables en milieu de partie. Désactiver les monstres spatiaux ou tous les événements aléatoires.
 SETTINGS_WARP_SPEED_DESC          | Augmenter la vitesse des technologies de distorsion plus avancées. Cela peut être souhaitable sur de très grandes cartes.
+SETTINGS_WARP_SPEED_PCT_DESC	| Multiplicateur de vitesse global, applicable à toutes les progressions.
 SETTINGS_GALAXY_AGE_DESC          | Par rapport aux galaxies normales, les jeunes galaxies ont plus d’étoiles blanches et bleues tandis que les vieilles galaxies ont plus d’étoiles rouges et à neutrons.
 SETTINGS_TECH_TRADING_HELP        | L’échange de technologies est l’autre moyen habituel d’apprendre une technologie. Les factions de l’IA échangeront des technologies les unes avec les autres, donc vous pourriez aussi bien vous lancer dans l’action.<br> Vous pouvez désactiver tous les échanges de technologies ou limiter ces échanges aux alliés. Cette limitation peut également être étendue à l’aide.
 SETTINGS_TECH_TRADING_DESC        | Désactivez tous les métiers technologiques ou limitez ces métiers aux alliés.

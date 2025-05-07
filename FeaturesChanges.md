@@ -21,6 +21,8 @@
 
 ### Features:
 
+- New warp speed factor.
+  - Global speed multiplier, applicable for all progressions.
 - New Fleet Retreat Options:
   - To select the allowed destinations:
     - The nearest retreating empire's colony.
@@ -240,6 +242,7 @@
 
 ### Fixes:
 
+- Fixed deploy sub fleet having a max speed of 9, even with alternate progression speed.
 - Fixed crash when displaying ship info of cloacked ships. 
 - Fixed mass deployment bug, when fleets deployed (in 0 turns) to the planet they are already on.
 - Fixed Auto design Bomber  null pointer exception crash.

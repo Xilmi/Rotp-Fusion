@@ -23,6 +23,7 @@ final class GalaxyRules extends AbstractOptionsSubUI {
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("SPACE_RULES"),
 				warpSpeed,
+				warpSpeedPct,
 				fuelRange,
 				darkGalaxy,
 
@@ -56,6 +57,7 @@ final class GalaxyRules extends AbstractOptionsSubUI {
 				Arrays.asList(
 						darkGalaxy,
 						warpSpeed,
+						warpSpeedPct,
 						fuelRange,
 						realNebulaSize,
 						realNebulaShape,

@@ -2305,7 +2305,8 @@ SETTINGS_RANDOMIZE_AI             | Randomize AI: %1
 SETTINGS_AUTOPLAY                 | Auto play: %1
 SETTINGS_TECH_TRADING             | Tech Trading: %1
 SETTINGS_GALAXY_AGE               | Galaxy Age: %1
-SETTINGS_WARP_SPEED               | Warp Speed: %1
+SETTINGS_WARP_SPEED				| Warp Speed Progression: %1
+SETTINGS_WARP_SPEED_PCT			| Warp Speed Multiplier: %1%
 SETTINGS_NEBULAE                  | Nebulae: %1
 SETTINGS_PLANET_QUALITY           | Planet Quality: %1
 SETTINGS_TERRAFORMING             | Hostile Terraforming: %1
@@ -2315,6 +2316,7 @@ SETTINGS_AI_HOSTILITY             | Hostility: %1
 SETTINGS_RANDOM_EVENTS_HELP       | There are twenty random events in Remnants of the Precursors <i> (sixteen vanilla and four from the Modnar)</i>, some favorable and some unfavorable. As of turn 50 <i> (this value can be changed) </i>, the percentage chance that a random event will occur somewhere in the galaxy begins to climb. After a random event occurs, the percentage chance resets to zero and begins climbing again next turn.<br>Random events are a catch-up mechanic that favors weaker factions <i> (this can be changed) </i>. Once the event is determined, it will target a player based on how well they're doing in the game. Favorable events are more likely to happen to players with lower overall production, whereas unfavorable events are more likely to happen to players with higher overall production. Some event can only happen once.
 SETTINGS_RANDOM_EVENTS_DESC       | Space Monsters are random events and considerable mid-game threats.<br> Turn off space monsters or all random events.
 SETTINGS_WARP_SPEED_DESC          | Increase the speed of more advanced warp technologies. This can be desirable on very large maps.
+SETTINGS_WARP_SPEED_PCT_DESC	| Global speed multiplier, applicable for all progressions.
 SETTINGS_GALAXY_AGE_DESC          | Compared to normal galaxies, young galaxies have more white and blue stars while old galaxies have more red and neutron stars.
 SETTINGS_TECH_TRADING_HELP        | Tech trading is the other common way to learn a technology. The AI factions will trade technologies with each other, so you might as well get in on the action.<br>You can turn off all technology trades or restrict these trades to allies, this limitation can also be extended to aid.
 SETTINGS_TECH_TRADING_DESC        | Turn off all technology trades or restrict these trades to allies. **To restrict aid too.

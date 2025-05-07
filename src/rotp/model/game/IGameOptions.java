@@ -343,7 +343,7 @@ public interface IGameOptions extends IModOptions {
     public float researchCostBase(int techLevel);
     public boolean canTradeTechs(Empire e1, Empire e2);
     public boolean canOfferTechs(Empire e1, Empire e2);
-    public int warpSpeed(TechEngineWarp tech);
+    public float warpSpeed(TechEngineWarp tech);
     public boolean allowRandomEvent(RandomEvent ev);
     public String randomStarType();
     public String randomPlayerStarType(Race r);

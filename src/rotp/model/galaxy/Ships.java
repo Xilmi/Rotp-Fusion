@@ -294,7 +294,7 @@ public class Ships implements Base, Serializable {
         StarSystem destSys = galaxy().system(destSysId);
 
         // calculate warp speed of new fleet and travel turns to the destination
-        int minSpeed = 9;
+        float minSpeed = Integer.MAX_VALUE;
         Empire sourceEmp = sourceFleet.empire();
         for (int i=0; i<actual.length; i++) {
             if (counts[i] > 0)

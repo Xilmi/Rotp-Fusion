@@ -761,11 +761,9 @@ public final class ShipDesign extends Design {
         else
             return empire().tech().shipRange();
     }
-    public int warpSpeed() {
-        return engine().warp();
-    }
-    public boolean hasColonySpecial() { return colonySpecial() != null; }
-    public boolean hasWarpDissipator() {
+	public float warpSpeed()			{ return engine().warp(); }
+	public boolean hasColonySpecial()	{ return colonySpecial() != null; }
+	public boolean hasWarpDissipator()	{
         for (ShipSpecial spec: special)
             if(!spec.isNone() && spec.tech().isWarpDissipator())
                 return true;

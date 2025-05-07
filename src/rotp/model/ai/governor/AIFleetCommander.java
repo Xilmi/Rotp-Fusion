@@ -55,7 +55,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 	 * Sort targets to by value and to be as close to source system as possible
 	 */
 	private interface SystemsSorter	{
-		void sort(Integer sourceSystem, List<Integer> targets, int warpSpeed);
+		void sort(Integer sourceSystem, List<Integer> targets, float warpSpeed);
 	}
 	/**
 	 * Sort fleets by value and to be as close to target system as possible
@@ -66,7 +66,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 		public ColonizePriority(String message)	{
 			this.message = message;
 		}
-		@Override public void sort(Integer sourceSystem, List<Integer> targets, int warpSpeed)	{
+		@Override public void sort(Integer sourceSystem, List<Integer> targets, float warpSpeed)	{
 			// ok, let's use both distance and value of planet to prioritize colonization, 50% and 50%
 			StarSystem source = empire.sv.system(sourceSystem);
 
@@ -100,7 +100,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 			//}
 		}
 	}
-	private double autocolonizeWeight(StarSystem source, int targetId, float maxDistance, float maxValue, int warpSpeed) {
+	private double autocolonizeWeight(StarSystem source, int targetId, float maxDistance, float maxValue, float warpSpeed) {
 		// let's flip value percent and sort by descending order. That's because in rare cases distancePercent could be
 		// greater than 1
 		float valuePercent = 1 - planetValue(targetId) / maxValue;
@@ -416,7 +416,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 					if (!subFleet.fleet().isOrbiting())
 						continue;
 					// System.out.println("Deploying ships from Fleet " + fleet + " " + fleet.system().name());
-					int warpSpeed = subFleet.warpSpeed();
+					float warpSpeed = subFleet.warpSpeed();
 					systemsSorter.sort(subFleet.fleet().sysId(), targets, warpSpeed);
 
 					for (Iterator<Integer> iTarget = targets.iterator(); iTarget.hasNext(); ) {
@@ -443,7 +443,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 		else {
 			// System.out.println("MORE SHIPS THAN TARGET SYSTEMS");
 			// We sort target systems by distance from home as the starting point
-			int warpSpeed = subFleetList.minWarpSpeed();
+			float warpSpeed = subFleetList.minWarpSpeed();
 			// System.out.println("Warp Speed "+warpSpeed);
 			systemsSorter.sort(empire.homeSysId(), targets, warpSpeed);
 

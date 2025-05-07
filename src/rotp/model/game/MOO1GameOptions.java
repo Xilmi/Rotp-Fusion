@@ -527,25 +527,24 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
         return true;
     }
-    @Override
-    public int warpSpeed(TechEngineWarp tech) {
-        switch(selectedWarpSpeedOption()) {
-            case WARP_SPEED_NORMAL:
-            	return tech.baseWarp();
-            // case WARP_SPEED_FAST: return fibonacci(tech.baseWarp());
-            // modnar: adjust Fast Warp down at advanced Engines
-            //         use [A033638] https://oeis.org/A033638
-            //         a(n) = floor(n^2/4)+1
-            // Normal:     1, 2, 3, 4, 5,  6,  7,  8,  9
-            // FastMOD:    1, 2, 3, 5, 7, 10, 13, 17, 21
-            // Fibonacci:  1, 2, 3, 5, 8, 13, 21, 34, 55
-            case WARP_SPEED_FAST:
-            	return quarterSquaresPlusOne(tech.baseWarp());
-            case WARP_SPEED_FAST_F: // BR: restored original Fast option
-            	return fibonacci(tech.baseWarp());
-        }
-        return tech.baseWarp();
-    }
+	@Override public float warpSpeed(TechEngineWarp tech) {
+		switch(selectedWarpSpeedOption()) {
+			case WARP_SPEED_NORMAL:
+				return tech.baseWarp() * selectedWarpSpeedFactor();
+			//	case WARP_SPEED_FAST: return fibonacci(tech.baseWarp());
+			//	modnar: adjust Fast Warp down at advanced Engines
+			//		use [A033638] https://oeis.org/A033638
+			//		a(n) = floor(n^2/4)+1
+			//	Normal:		1, 2, 3, 4, 5,  6,  7,  8,  9
+			//	FastMOD:	1, 2, 3, 5, 7, 10, 13, 17, 21
+			//	Fibonacci:	1, 2, 3, 5, 8, 13, 21, 34, 55
+			case WARP_SPEED_FAST:
+				return quarterSquaresPlusOne(tech.baseWarp()) * selectedWarpSpeedFactor();
+			case WARP_SPEED_FAST_F: // BR: restored original Fast option
+				return fibonacci(tech.baseWarp()) * selectedWarpSpeedFactor();
+		}
+		return tech.baseWarp() * selectedWarpSpeedFactor();
+	}
     @Override
     public String randomStarType() {
         float[] pcts;

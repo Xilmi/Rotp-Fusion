@@ -3,6 +3,11 @@
 ## What's New
 
 25-05-06 (BR)
+- New warp speed factor.
+  - Global speed multiplier, applicable for all progressions.
+- Fixed deploy sub fleet having a max speed of 9, even with alternate progression speed.
+
+25-05-06 (BR)
 - Improved ShipFleet responsivity to new Retreat Options Rules:
   - Last requested destination is memorized.
   - ShipFleet take full ownership of its parameters (Private, and only publicly accessed through methods)
