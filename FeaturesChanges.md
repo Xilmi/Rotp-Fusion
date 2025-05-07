@@ -21,6 +21,7 @@
 
 ### Features:
 
+- Decreased Ship space factor minimum to 80%
 - New warp speed factor.
   - Global speed multiplier, applicable for all progressions.
 - New Fleet Retreat Options:

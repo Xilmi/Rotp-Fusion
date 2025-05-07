@@ -7,11 +7,11 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
-25-05-06 (BR)
+25-05-07 (BR)
 - New warp speed factor.
   - Global speed multiplier, applicable for all progressions.
 - Fixed deploy sub fleet having a max speed of 9, even with alternate progression speed.
-
+- Decreased Ship space factor minimum to 80%
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 
