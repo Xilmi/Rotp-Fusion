@@ -21,7 +21,8 @@
 
 ### Features:
 
-- Decreased Ship space factor minimum to 80%
+- Decreased Ship space factor minimum to 10%
+  - Initial scout and colony ships will keep their hull size, and an extra cost will be added to these ship.
 - New warp speed factor.
   - Global speed multiplier, applicable for all progressions.
 - New Fleet Retreat Options:
@@ -243,6 +244,7 @@
 
 ### Fixes:
 
+- Fixed Antaran offset and Antaran multiplier being just decoration.
 - Fixed deploy sub fleet having a max speed of 9, even with alternate progression speed.
 - Fixed crash when displaying ship info of cloacked ships. 
 - Fixed mass deployment bug, when fleets deployed (in 0 turns) to the planet they are already on.

@@ -959,9 +959,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             default:
             	rArtifact *= 0.0f;
         }
-        float r = random();
-        if (r < 0.1f * rArtifact) // modnar: change artifact ratio for testing, original 0.10
-        	p.setArtifact();
+		float r1 = artifactPlanetProb(0.1f * rArtifact);
+		float r = random();
+		if (r < r1)
+			p.setArtifact();
         else if (r <= orionPlanetProb())
         	p.setOrionArtifact();
     }

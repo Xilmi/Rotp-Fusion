@@ -2,6 +2,11 @@
 
 ## What's New
 
+25-05-08 (BR)
+- Decreased Ship space factor minimum to 10%
+  - initial scout and colony ships will keep their hull size, and an extra cost will be added to these ship.
+- Fixed Antaran offset and Antaran multiplier being just decoration.
+
 25-05-07 (BR)
 - New warp speed factor.
   - Global speed multiplier, applicable for all progressions.

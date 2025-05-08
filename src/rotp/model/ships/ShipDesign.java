@@ -357,6 +357,9 @@ public final class ShipDesign extends Design {
                 cost += (wpnCount(i) * weapon(i).cost(this));
             for (int i=0; i<maxSpecials(); i++)
                 cost += special(i).cost(this);
+			float availableSpace = availableSpace();
+			if (availableSpace < 0)
+				cost -= availableSpace;
             costBC = cost;
         }
         return (int) Math.ceil(costBC);
