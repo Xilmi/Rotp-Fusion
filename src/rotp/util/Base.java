@@ -84,7 +84,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import rotp.Rotp;
 import rotp.model.empires.Empire;
-import rotp.model.empires.Race;
+import rotp.model.empires.ISpecies;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.DynOptions;
@@ -1515,7 +1515,7 @@ public interface Base extends InputEventUtil {
 		if (playerIsCustom.get())
 			name = playerCustomRace.getRace().setupName;
 		else
-			name = Race.keyed(newGameOptions().selectedPlayerRace()).setupName();
+			name = ISpecies.R_M.keyed(newGameOptions().selectedPlayerRace()).setupName();
 		name +=   " - " + text(newGameOptions().selectedGalaxySize())
 				+ " - " + text(newGameOptions().selectedGameDifficulty());
 		// modnar: add custom difficulty level option, set in Remnants.cfg
@@ -1530,7 +1530,7 @@ public interface Base extends InputEventUtil {
 		if (options.selectedPlayerIsCustom())
 			name = options.playerCustomRace().getRace().setupName;
 		else
-			name = Race.keyed(options.selectedPlayerRace()).setupName();
+			name = ISpecies.R_M.keyed(options.selectedPlayerRace()).setupName();
 		name +=   " - " + text(options.selectedGalaxySize())
 				+ " - " + text(options.selectedGameDifficulty());
 		// modnar: add custom difficulty level option, set in Remnants.cfg

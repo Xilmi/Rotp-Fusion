@@ -17,6 +17,7 @@ package rotp.model.game;
 
 import java.io.Serializable;
 
+import rotp.model.empires.ISpecies;
 import rotp.model.empires.Race;
 
 public class NewPlayer implements Serializable {
@@ -50,7 +51,7 @@ public class NewPlayer implements Serializable {
     public String race()						{ return race; }
     public void	  race(String name)				{ race = name; }
     public void	  update(IGameOptions opts)		{
-        Race r = Race.keyed(race());
+        Race r = ISpecies.R_M.keyed(race());
         homeWorldName(r.defaultHomeworldName());
         leaderName(r.randomLeaderName());
     }

@@ -104,6 +104,7 @@ import rotp.Rotp;
 import rotp.model.ai.AIList;
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Empire;
+import rotp.model.empires.ISpecies;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.AllShapes;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
@@ -132,7 +133,7 @@ import rotp.util.FontManager;
 import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
 
-public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelListener {
+public final class SetupGalaxyUI  extends BaseModPanel implements ISpecies, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
     // public  static final String guiTitleID	= "SETUP_GALAXY";
 	private	static final String GUI_ID       = "START_GALAXY";
@@ -493,7 +494,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (selOpp == null)
 			rivalMugs[i] = nullMug();
 		else {
-			BufferedImage diplo = Race.keyed(selOpp).diploMugshotQuiet();
+			BufferedImage diplo = R_M.keyed(selOpp).diploMugshotQuiet();
 			rivalMugs[i] = getMug(diplo, backMug());
 		}
 	}
@@ -1864,7 +1865,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private BufferedImage playerRaceImg()	{
 		if (playerMug == null) {
 			String selRace = opts.selectedPlayerRace();
-			playerMug = newBufferedImage(Race.keyed(selRace).diploMug());
+			playerMug = newBufferedImage(R_M.keyed(selRace).diploMug());
 		}
 		return playerMug;
 	}
@@ -2219,11 +2220,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		Race race;
 		String setupName;
 		if (opts.selectedPlayerIsCustom()) {
-			race = Race.keyed(CustomRaceDefinitions.CUSTOM_RACE_KEY, null);
+			race = R_M.keyed(CustomRaceDefinitions.CUSTOM_RACE_KEY, null);
 			setupName = race.setupName;
 		}
 		else {
-			race = Race.keyed(opts.selectedPlayerRace());
+			race = R_M.keyed(opts.selectedPlayerRace());
 			setupName = race.setupName();
 		}
 
@@ -3019,7 +3020,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			String key = get();
 			if (key == null || key.equals(opponentRandom))
 				return "Random";
-			Race race = Race.keyed(key);
+			Race race = R_M.keyed(key);
 			String name = race.setupName();
 			return name; 
 		}
@@ -3030,7 +3031,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			if (key == null || key.equals(opponentRandom))
 				help = labelFormat(opponentRandom) + "Surprise me!";
 			else {
-				Race   race		= Race.keyed(key);
+				Race   race		= R_M.keyed(key);
 				String raceName = race.setupName();
 				help = labelFormat(raceName) + race.getDescription1()
 						+ "<br>" + race.getDescription2()
@@ -3046,7 +3047,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			if (key == null || key.equals(opponentRandom))
 				help = "Surprise me!";
 			else {
-				Race   race		= Race.keyed(key);
+				Race   race		= R_M.keyed(key);
 				String raceName = race.setupName();
 				help = labelFormat(raceName) + race.getDescription1()
 						+ "<br>" + race.getDescription2()

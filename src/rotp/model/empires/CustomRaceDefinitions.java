@@ -17,7 +17,6 @@
 package rotp.model.empires;
 
 import static rotp.Rotp.rand;
-import static rotp.model.empires.Race.crEmpireNameRandom;
 import static rotp.model.game.IPreGameOptions.randomAlienRaces;
 import static rotp.model.game.IPreGameOptions.randomAlienRacesMax;
 import static rotp.model.game.IPreGameOptions.randomAlienRacesMin;
@@ -52,7 +51,7 @@ import rotp.ui.util.SettingFloat;
 import rotp.ui.util.SettingInteger;
 import rotp.ui.util.SettingString;
 
-public class CustomRaceDefinitions  {
+public class CustomRaceDefinitions implements ISpecies {
 	
 	public	static final String ROOT	= "CUSTOM_RACE_";
 	private	static final String PLANET	= "PLANET_";
@@ -239,7 +238,7 @@ public class CustomRaceDefinitions  {
 	private String fileName() { return race.id + EXT; }
 	public void saveRace() { saveSettingList(Rotp.jarPath(), fileName()); }
 	public void loadRace() {
-		if (Race.isValidKey(race.id))
+		if (R_M.isValidKey(race.id))
 			setRace(race.id);
 		else
 			loadSettingList(Rotp.jarPath(), fileName());
@@ -266,7 +265,7 @@ public class CustomRaceDefinitions  {
 	 * @param raceKey the new race
 	 */
 	public void setRace(String raceKey) {
-		race = Race.keyed(raceKey).copy();
+		race = R_M.keyed(raceKey).copy();
 		pullSettings();
 	}
 	public int getCount() {
@@ -392,7 +391,7 @@ public class CustomRaceDefinitions  {
 		return -malus;
 	}
 	private void pushSettings() {
-		race = Race.keyed(baseRace).copy();
+		race = R_M.keyed(baseRace).copy();
 		for (SettingBase<?> setting : settingList) {
 			setting.pushSetting();
 		}
@@ -585,7 +584,7 @@ public class CustomRaceDefinitions  {
 			put(cfgValue, langLabel, cost, langLabel, tooltipKey);
 		}
 		private void add(String raceKey) {
-			Race dr = Race.keyed(raceKey);	    	
+			Race dr = R_M.keyed(raceKey);	    	
 			String cfgValue	  = dr.id;
 			String langLabel  = BASE_RACE_MARKER + dr.setupName();
 			String tooltipKey = dr.getDescription3();
@@ -644,7 +643,7 @@ public class CustomRaceDefinitions  {
 				return;
 			}
 			if (index()>=listSize()-16) { // Base Race
-				race = Race.keyed(getCfgValue(settingValue())).copy();
+				race = R_M.keyed(getCfgValue(settingValue())).copy();
 				pullSettings();
 				updateSettings();
 				return;
@@ -691,7 +690,7 @@ public class CustomRaceDefinitions  {
 		private EmpireName() {
 			super(ROOT, "RACE_EMPIRE_NAME", "Custom Empire", 1);
 			inputMessage("Enter the Empire Designation");
-			randomStr(crEmpireNameRandom);
+			randomStr(CR_EMPIRE_NAME_RANDOM);
 		}
 		@Override public void pushSetting() { race.empireTitle(settingValue()); }
 		@Override public void pullSetting() {

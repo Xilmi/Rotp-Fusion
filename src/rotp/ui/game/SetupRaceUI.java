@@ -44,6 +44,7 @@ import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import rotp.model.empires.ISpecies;
 import rotp.model.empires.Race;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IRaceOptions;
@@ -60,7 +61,7 @@ import rotp.util.FontManager;
 import rotp.util.LanguageManager;
 import rotp.util.ModifierKeysState;
 
-public final class SetupRaceUI extends BaseModPanel implements MouseWheelListener, IRaceOptions {
+public final class SetupRaceUI extends BaseModPanel implements ISpecies, MouseWheelListener, IRaceOptions {
     private static final long serialVersionUID	= 1L;
 	private static final String guiTitleID		= "SETUP_SELECT_RACE";
 	private static final String GUI_ID          = "START_RACE";
@@ -630,7 +631,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         	g.drawImage(raceIcon(), xIcon(), yIcon, null);
 
         // draw race name
-        Race race = Race.keyed(newGameOptions().selectedPlayerRace());
+        Race race = R_M.keyed(newGameOptions().selectedPlayerRace());
         int x0 = colorBox[0].x;
         int y0 = scaled(240); // BR: squeezed
         // BR: show custom race name and descriptions
@@ -839,7 +840,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     	repaint();
     }
     void raceChanged() {
-        Race r   =  Race.keyed(newGameOptions().selectedPlayerRace());
+        Race r   =  R_M.keyed(newGameOptions().selectedPlayerRace());
       	dataRace = playerCustomRace.getRace(); // BR:
         r.resetSetupImage();
         r.resetMugshot();
@@ -883,7 +884,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
             String selRace = newGameOptions().selectedPlayerRace();
-    		BufferedImage img = newBufferedImage(Race.keyed(selRace).setupImage());
+    		BufferedImage img = newBufferedImage(R_M.keyed(selRace).setupImage());
             int imgW = img.getWidth(null);
             int imgH = img.getHeight(null);
     		g.drawImage(img, 0, 0, newW, newH, 0, 0, imgW, imgH, null);
@@ -897,22 +898,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
             int newW = retina(iconSize);
             int newH = retina(iconSize);
             String selRace = newGameOptions().selectedPlayerRace();
-    		Image image = Race.keyed(selRace).flagNorm();
+    		Image image = R_M.keyed(selRace).flagNorm();
             raceIconImg = resizeImage(image, newW, newH);
-//            raceIconImg = new BufferedImage(newW, newH, TYPE_INT_ARGB);
-//            Graphics2D g = (Graphics2D) raceIconImg.getGraphics();
-//            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//            g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-//            g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-//    		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-//    		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-//    		
-//            String selRace    = newGameOptions().selectedPlayerRace();
-//    		BufferedImage img = newBufferedImage(Race.keyed(selRace).flagNorm());
-//            int imgW = img.getWidth(null);
-//            int imgH = img.getHeight(null);
-//    		g.drawImage(img, 0, 0, newW, newH, 0, 0, imgW, imgH, null);
-//    		g.dispose();
         }
         return raceIconImg;
     }
@@ -1144,7 +1131,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 
 	        g.drawImage(back, 0, 0, rbW, rbH, null); // modnar: 80% size box for newRaces
 
-	        BufferedImage img = newBufferedImage(Race.keyed(races.get(num)).diploMugshotQuiet());
+	        BufferedImage img = newBufferedImage(R_M.keyed(races.get(num)).diploMugshotQuiet());
             int imgW = img.getWidth();
             int imgH = img.getHeight();
     		g.drawImage(img, 0, 0, rbW, rbH, 0, 0, imgW, imgH, null);
@@ -1397,7 +1384,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 			if (help != null)
 				return rowFormat(labelFormat(name(id)), help);
 
-			Race   race		= Race.keyed(key);
+			Race   race		= R_M.keyed(key);
 			String raceName = race.setupName();
 			if (key.startsWith(BASE_RACE_MARKER))
 				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.getDescription1();
@@ -1430,7 +1417,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		}
 		@Override public String	guideValue()	{ return text(get()); }
 		@Override public String	defaultValue()	{
-	        Race r = Race.keyed(newGameOptions().selectedPlayerRace());
+	        Race r = R_M.keyed(newGameOptions().selectedPlayerRace());
 			return r.defaultHomeworldName();
 		}
 	}
@@ -1448,7 +1435,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		}
 		@Override public String	guideValue()	{ return text(get()); }
 		@Override public String	defaultValue()	{
-	        Race r = Race.keyed(newGameOptions().selectedPlayerRace());
+	        Race r = R_M.keyed(newGameOptions().selectedPlayerRace());
 			return r.randomLeaderName();
 		}
 	}

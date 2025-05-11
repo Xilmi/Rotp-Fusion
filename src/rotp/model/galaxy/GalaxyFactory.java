@@ -32,6 +32,7 @@ import java.util.List;
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Empire.EmpireBaseData;
+import rotp.model.empires.ISpecies;
 import rotp.model.empires.Leader;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.Galaxy.GalaxyBaseData;
@@ -48,7 +49,7 @@ import rotp.ui.util.SpecificCROption;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.Base;
 
-public class GalaxyFactory implements Base {
+public class GalaxyFactory implements ISpecies, Base {
 	private static GalaxyFactory instance = new GalaxyFactory();
 	public  static GalaxyFactory current() { return instance; }
 	/**
@@ -62,7 +63,7 @@ public class GalaxyFactory implements Base {
 
 	public Galaxy newGalaxy(GalaxyCopy src) {
 		GalaxyBaseData gc = src.galSrc;
-		for (Race r: Race.races()) {
+		for (Race r: R_M.races()) {
 			r.loadNameList();
 			r.loadLeaderList();
 			r.loadHomeworldList();
@@ -82,7 +83,7 @@ public class GalaxyFactory implements Base {
 		g.swappedPositions = src.swappedPositions();
 		GameSession.instance().galaxy(g);
 		
-		Race playerRace = Race.keyed(gc.empires[0].raceKey, gc.empires[0].raceOptions);
+		Race playerRace = R_M.keyed(gc.empires[0].raceKey, gc.empires[0].raceOptions);
 		addNebulas(g, src);
 		List<String> systemNames = playerRace.systemNames();
 		shuffle(systemNames);
@@ -96,7 +97,7 @@ public class GalaxyFactory implements Base {
 		return g;
 	}
 	public Galaxy newGalaxy() {
-		for (Race r: Race.races()) {
+		for (Race r: R_M.races()) {
 			r.loadNameList();
 			r.loadLeaderList();
 			r.loadHomeworldList();
@@ -112,7 +113,7 @@ public class GalaxyFactory implements Base {
 
 		Galaxy g = new Galaxy(shape);
 		GameSession.instance().galaxy(g);
-		Race playerRace = Race.keyed(opts.selectedPlayerRace());
+		Race playerRace = R_M.keyed(opts.selectedPlayerRace());
 
 		LinkedList<String> alienRaces = buildAlienRaces();
 
@@ -379,7 +380,7 @@ public class GalaxyFactory implements Base {
 
 		IGameOptions opts = GameSession.instance().options();
 		String raceKey = opts.selectedPlayerRace();
-		Race playerRace = Race.keyed(raceKey);
+		Race playerRace = R_M.keyed(raceKey);
 		String defaultName = playerRace.nextAvailableHomeworld();
 		String systemName = options().selectedHomeWorldName();
 		if (systemName.isEmpty())
@@ -399,7 +400,7 @@ public class GalaxyFactory implements Base {
 			playerDataRaceKey = empSrc.dataRaceKey;
 			options = empSrc.raceOptions;
 		}
-		Race playerDataRace = Race.keyed(playerDataRaceKey, options);
+		Race playerDataRace = R_M.keyed(playerDataRaceKey, options);
 
 		// create home system for player
 		StarSystem sys;
@@ -549,7 +550,7 @@ public class GalaxyFactory implements Base {
 				raceKey = eSrc.raceKey;
 			}
 
-			Race race = Race.keyed(raceKey);
+			Race race = R_M.keyed(raceKey);
 			if (raceColors.isEmpty()) 
 				raceColors = opts.possibleColors();
 			Integer colorId = raceColors.remove(0);
@@ -576,40 +577,40 @@ public class GalaxyFactory implements Base {
 						if(raceFileExist(raceKey))
 							dataRace = fileToAlienRace(raceKey);
 						else
-							dataRace = Race.keyed(raceKey);
+							dataRace = R_M.keyed(raceKey);
 						break;
 					case PLAYER:
 						dataRace = optionToAlienRace(g.empire(0).raceOptions());
 						break;
 					case RANDOM: // Create a random race
-						dataRace = Race.keyed(RANDOM_RACE_KEY);
+						dataRace = R_M.keyed(RANDOM_RACE_KEY);
 						break;
 					case RANDOM_BASE: // Choose randomly in the base list
-						dataRace = Race.keyed(random(opts.baseRaceOptions()));
+						dataRace = R_M.keyed(random(opts.baseRaceOptions()));
 						break;
 					case RANDOM_MOD: // Choose randomly including the Modnar Races
-						dataRace = Race.keyed(random(opts.allRaceOptions()));
+						dataRace = R_M.keyed(random(opts.allRaceOptions()));
 						break;
 					case FILES_FLT:
 						if (allowedRaceList.isEmpty())
-							dataRace = Race.keyed(raceKey);
+							dataRace = R_M.keyed(raceKey);
 						else
 							dataRace = fileToAlienRace(random(allowedRaceList));
 						break;
 					case FILES_NO_FLT:
 						if (alienRaceList.isEmpty())
-							dataRace = Race.keyed(raceKey);
+							dataRace = R_M.keyed(raceKey);
 						else
 							dataRace = fileToAlienRace(random(alienRaceList));
 						break;
 					case FILES_RACES:
 						if (rng().nextBoolean())
 							if (allowedRaceList.isEmpty())
-								dataRace = Race.keyed(random(opts.allRaceOptions()));
+								dataRace = R_M.keyed(random(opts.allRaceOptions()));
 							else
 								dataRace = fileToAlienRace(random(allowedRaceList));
 						else
-							dataRace = Race.keyed(random(opts.allRaceOptions()));
+							dataRace = R_M.keyed(random(opts.allRaceOptions()));
 						break;
 					case ALL:
 						if (rng().nextBoolean())
@@ -621,21 +622,21 @@ public class GalaxyFactory implements Base {
 							else
 								dataRace = optionToAlienRace(g.empire(0).raceOptions());
 						else if (rng().nextBoolean())
-							dataRace = Race.keyed(random(opts.allRaceOptions()));
+							dataRace = R_M.keyed(random(opts.allRaceOptions()));
 						else
-							dataRace = Race.keyed(RANDOM_RACE_KEY);
+							dataRace = R_M.keyed(RANDOM_RACE_KEY);
 						break;
 					case BASE_RACE: // default as vanilla
 					default:
 						if (options().randomizeAIAbility()) // original Advanced Option random abilities
-							dataRace = Race.keyed(random(opts.baseRaceOptions()));
+							dataRace = R_M.keyed(random(opts.baseRaceOptions()));
 						else
-							dataRace = Race.keyed(raceKey);
+							dataRace = R_M.keyed(raceKey);
 						break;
 				}
 			} else // Restart
 				if(eSrc.raceOptions == null)
-					dataRace = Race.keyed(eSrc.dataRaceKey);
+					dataRace = R_M.keyed(eSrc.dataRaceKey);
 				else
 					dataRace = optionToAlienRace(eSrc.raceOptions);
  

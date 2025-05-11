@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Locale;
 
 import rotp.Rotp;
+import rotp.model.empires.ISpecies;
 import rotp.model.empires.Race;
 import rotp.model.empires.RaceFactory;
 import rotp.model.game.GovernorOptions;
@@ -148,7 +149,7 @@ public class LanguageManager implements Base {
     		return;
     	boolean valid = true;
     	System.out.println("Start Dialogue Tokens Validation");    	
-    	for (Race r : Race.races()) {
+    	for (Race r : ISpecies.R_M.races()) {
     		valid &= r.validateDialogueTokens();
     	}
     	if (valid)

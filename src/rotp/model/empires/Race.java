@@ -15,9 +15,6 @@
  */
 package rotp.model.empires;
 
-import static rotp.model.empires.CustomRaceDefinitions.getAlienRace;
-import static rotp.model.empires.CustomRaceDefinitions.keyToRace;
-
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -28,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import rotp.model.empires.Leader.Objective;
@@ -42,53 +38,8 @@ import rotp.util.ImageTransformer;
 import rotp.util.LabelManager;
 import rotp.util.LanguageManager;
 
-public class Race implements Base, Serializable {
-    private static final long serialVersionUID = 1L;
-	private static final String CUSTOM_RACE_DESCRIPTION	= "CUSTOM_RACE_DESCRIPTION";
-	private static final String CUSTOM_SPECIES_FOLDER	= "CustomSpecies/";
-	private static final String INTRO_FILE_EXTENSION	= ".intro.txt";
-	static final String crEmpireNameRandom		= "Randomized";
-
-    private static Map<String, Race> raceMap = new HashMap<>();
-    static boolean isValidKey(String s) {
-    	return raceMap.get(s) != null;
-    }
-    public static Race keyed(String s) {
-        Race race = raceMap.get(s);
-        if (race == null) { // BR: Add custom race if missing
-        	race = keyToRace(s);
-            race.isCustomRace(true);
-            race.description4 = race.text(CUSTOM_RACE_DESCRIPTION);
-        }
-        return race;
-    }
-    public static Race keyed(String s, DynOptions options) {
-        Race race = raceMap.get(s);
-        if (race == null) { // BR: get the custom race
-       		race = getAlienRace(s, options);
-            race.isCustomRace(true);
-        }
-        return race;
-    }
-    static void addRace(Race r) { raceMap.put(r.id, r);}
-    public static List<Race> races() {
-        List<Race> races = new ArrayList<>();
-        races.addAll(raceMap.values());
-        return races;
-    }
-
-    static final List<String> notTalking, closed, open, notFiring;
-
-    static {
-        notTalking = new ArrayList<>();
-        notTalking.add("Mouth");
-        open = new ArrayList<>();
-        open.add("Closed");
-        closed = new ArrayList<>();
-        closed.add("Open");
-        notFiring = new ArrayList<>();
-        notFiring.add("Firing");
-    }
+public class Race implements ISpecies, Base, Serializable {
+	private static final long serialVersionUID = 1L;
 
 	String id;
 	public String setupName; // BR: was never used
@@ -232,9 +183,12 @@ public class Race implements Base, Serializable {
 	private int diploXOffset, diploYOffset;
 	private int flagW, flagH;
 
-	private float[] personalityPct = new float[Personality.values().length];
-	private float[] objectivePct = new float[Objective.values().length];
-	private float[] shipDesignMods = new float[28];
+	private static final int PERSONALITY_COUNT	= Personality.values().length;
+	private static final int OBJECTIVE_COUNT	= Objective.values().length;
+	private static final int DESIGN_MODS_COUNT	= 28;
+	private float[] personalityPct	= new float[PERSONALITY_COUNT];
+	private float[] objectivePct	= new float[OBJECTIVE_COUNT];
+	private float[] shipDesignMods	= new float[DESIGN_MODS_COUNT];
 
 	private transient BufferedImage transportClosedImg;
 	private transient Image transportImg;
@@ -248,27 +202,29 @@ public class Race implements Base, Serializable {
 	public String homeworldPlanetType()	{ return homeworldPlanetType; }
 	void homeworldPlanetType(String s)	{ homeworldPlanetType = s; }
 
+	String id()							{ return id; }
+	void id(String s)					{ id = s; }
 	int colonistDelay()					{ return colonistDelay; }
 	int colonistStartX()				{ return colonistX1; }
 	int colonistStartY()				{ return colonistY1; }
 	int colonistStopX()					{ return colonistX2; }
 	int colonistStopY()					{ return colonistY2; }
 	int dialogLeftMargin()				{ return dialogLeftMargin; }
-	void dialogLeftMargin(int i)		{ dialogLeftMargin =i; }
+	void dialogLeftMargin(int i)		{ dialogLeftMargin = i; }
 	int dialogRightMargin()				{ return dialogRightMargin; }
-	void dialogRightMargin(int i)		{ dialogRightMargin =i; }
+	void dialogRightMargin(int i)		{ dialogRightMargin = i; }
 	int dialogTopY()					{ return dialogTopY; }
-	void dialogTopY(int i)				{ dialogTopY =i; }
+	void dialogTopY(int i)				{ dialogTopY = i; }
 	int colonistWalkingFrames()			{ return colonistWalkingFrames; }
-	void colonistWalkingFrames(int i)	{ colonistWalkingFrames =i; }
+	void colonistWalkingFrames(int i)	{ colonistWalkingFrames = i; }
 	int transportLandingFrames()		{ return transportLandingFrames; }
-	void transportLandingFrames(int i)	{ transportLandingFrames =i; }
+	void transportLandingFrames(int i)	{ transportLandingFrames = i; }
 	int transportDescFrames()			{ return transportDescFrames; }
-	void transportDescFrames(int i)		{ transportDescFrames =i; }
+	void transportDescFrames(int i)		{ transportDescFrames = i; }
 	int transportOpenFrames()			{ return transportOpenFrames; }
-	void transportOpenFrames(int i)		{ transportOpenFrames =i; }
+	void transportOpenFrames(int i)		{ transportOpenFrames = i; }
 	int transportYOffset()				{ return transportYOffset; }
-	void transportYOffset(int i)		{ transportYOffset =i; }
+	void transportYOffset(int i)		{ transportYOffset = i; }
 	int transportW()					{ return transportW; }
 	void transportW(int i)				{ transportW = i; }
 	int flagW()							{ return flagW; }
@@ -439,13 +395,13 @@ public class Race implements Base, Serializable {
 	ImageTransformer diplomacyTransformer()			{ return diplomacyTransformer; }
 	void diplomacyTransformer(ImageTransformer s)	{ diplomacyTransformer = s; }
 
-    Race () {
-        leaderNames.add("Leader");
-        for (int i=0;i<personalityPct.length;i++)
-            personalityPct[i] = 1;
-        for (int i=0;i<objectivePct.length;i++)
-            objectivePct[i] = 1;
-    }
+	Race () {
+		leaderNames.add("Leader");
+		for (int i=0; i<PERSONALITY_COUNT; i++)
+			personalityPct(i, 1);
+		for (int i=0; i<OBJECTIVE_COUNT; i++)
+			objectivePct(i, 1);
+	}
 
     Race(String dirPath) {
         directoryName = dirPath;
@@ -765,7 +721,7 @@ public class Race implements Base, Serializable {
 	float[] shipDesignMods()			{ return shipDesignMods; }
 	float shipDesignMods(int i)			{ return shipDesignMods[i]; }
 	void shipDesignMods(int i, float f)	{ shipDesignMods[i] = f; }
-	int shipDesignModsSize()			{ return shipDesignMods.length; }
+	int shipDesignModsSize()			{ return DESIGN_MODS_COUNT; }
 	boolean availablePlayer()			{ return availablePlayer; }
 	void availablePlayer(boolean b)		{ availablePlayer = b; }
 	boolean availableAI()				{ return availableAI; }
@@ -785,7 +741,7 @@ public class Race implements Base, Serializable {
 	// BR: Custom Races
 	boolean isCustomRace()				{ return isCustomRace; }
 	Race isCustomRace(boolean val)		{ isCustomRace = val; return this;}
-	boolean isRandomized()				{ return crEmpireNameRandom.equalsIgnoreCase(empireTitle); }
+	boolean isRandomized()				{ return CR_EMPIRE_NAME_RANDOM.equalsIgnoreCase(empireTitle); }
 	DynOptions raceOptions()			{ return raceOptions; }
 	void raceOptions(DynOptions val)	{ raceOptions = val; }
 	// BR: Get the values encoded in HomeworldKey
@@ -999,8 +955,8 @@ public class Race implements Base, Serializable {
     int randomLeaderAttitude() {
         float r = random();
         float modAccum = 0;
-        for (int i=0;i<personalityPct.length;i++) {
-            modAccum += personalityPct[i];
+        for (int i=0;i<PERSONALITY_COUNT;i++) {
+            modAccum += personalityPct(i);
             if (r < modAccum)
                 return i;
         };
@@ -1009,9 +965,9 @@ public class Race implements Base, Serializable {
     int mostCommonLeaderAttitude() {
         float maxPct = 0;
         int maxAttitude = 0;
-        for (int i=0;i<personalityPct.length;i++) {
-            if (personalityPct[i] > maxPct) {
-                maxPct = personalityPct[i];
+        for (int i=0;i<PERSONALITY_COUNT;i++) {
+            if (personalityPct(i) > maxPct) {
+                maxPct = personalityPct(i);
                 maxAttitude = i;
             }
         };
@@ -1020,8 +976,8 @@ public class Race implements Base, Serializable {
     int randomLeaderObjective() {
         float r = random();
         float modAccum = 0;
-        for (int i=0;i<objectivePct.length;i++) {
-            modAccum += objectivePct[i];
+        for (int i=0;i<OBJECTIVE_COUNT;i++) {
+            modAccum += objectivePct(i);
             if (r < modAccum)
                 return i;
         };
@@ -1075,13 +1031,13 @@ public class Race implements Base, Serializable {
             names.add(text("COLONY_NAME_5", s));
         return names;
     }
-    public String randomLeaderName() { return random(leaderNames); }
+    public String randomLeaderName() { return random(leaderNames()); }
     List<String> shipNames(int size) {
         switch(size) {
-            case ShipDesign.SMALL:   return shipNamesSmall;
-            case ShipDesign.MEDIUM:  return shipNamesMedium;
-            case ShipDesign.LARGE:   return shipNamesLarge;
-            case ShipDesign.HUGE:    return shipNamesHuge;
+            case ShipDesign.SMALL:   return shipNamesSmall();
+            case ShipDesign.MEDIUM:  return shipNamesMedium();
+            case ShipDesign.LARGE:   return shipNamesLarge();
+            case ShipDesign.HUGE:    return shipNamesHuge();
         }
         return null;
     }
@@ -1135,24 +1091,24 @@ public class Race implements Base, Serializable {
         if (vals.size() != 2)
             err("Invalid FlagSize string: ", s);
 
-        flagW  = parseInt(vals.get(0));
-        flagH = parseInt(vals.get(1));
+        flagW(parseInt(vals.get(0)));
+        flagH(parseInt(vals.get(1)));
     }
     void parseTransportDesc(String s) {
         List<String> vals = substrings(s, ',');
         if (vals.size() != 3)
             err("Invalid TransportDesc string: ", s);
 
-        transportDescKey  = concat(vals.get(0), ",", vals.get(2));
-        transportDescFrames = parseInt(vals.get(1));
+        transportDescKey(concat(vals.get(0), ",", vals.get(2)));
+        transportDescFrames(parseInt(vals.get(1)));
     }
     void parseTransportOpen(String s) {
         List<String> vals = substrings(s, ',');
         if (vals.size() != 3)
             err("Invalid Transport Open string: ", s);
 
-        transportOpenKey  = concat(vals.get(0), ",", vals.get(2));
-        transportOpenFrames = parseInt(vals.get(1));
+        transportOpenKey(concat(vals.get(0), ",", vals.get(2)));
+        transportOpenFrames (parseInt(vals.get(1)));
     }
     void parseWinSplash(String s) {
         List<String> vals = substrings(s, ',');

@@ -32,7 +32,7 @@ import rotp.util.LabelManager;
 import rotp.util.LanguageManager;
 import rotp.util.PixelShifter;
 
-public enum RaceFactory implements Base {
+public enum RaceFactory implements ISpecies, Base {
     INSTANCE;
     public static RaceFactory current()   { return INSTANCE; }
 
@@ -234,14 +234,14 @@ public enum RaceFactory implements Base {
         catch (IOException e) {
             err("RaceFactory.loadRaceDataFile(", filename, ") -- IOException: ", e.toString());
         }
-        Race.addRace(newRace);
+        R_M.addRace(newRace);
     }
     public void resetRaceLangFiles() {
-        for (Race r : Race.races())
+        for (Race r : R_M.races())
             r.raceLabels().resetDialogue();
     }
     public void loadRaceLangFiles(String langDir) {
-        for (Race r : Race.races()) {
+        for (Race r : R_M.races()) {
         	r.raceLabels().resetDialogue();
         	loadRaceLangFiles(r, langDir);
         }

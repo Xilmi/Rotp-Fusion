@@ -16,6 +16,7 @@
 
 package rotp.ui.util;
 
+import rotp.model.empires.ISpecies;
 import rotp.model.empires.Race;
 import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
@@ -205,7 +206,7 @@ public class ParamSpeciesName extends ParamString {
 			String suffix = "_" + id.toUpperCase();
 			if (key.endsWith(suffix))
 				key = key.replace(suffix, "");
-			Race race = Race.keyed(key);
+			Race race = ISpecies.R_M.keyed(key);
 			LanguageManager.current().reloadRace(race);
 		}
 		else {

@@ -95,7 +95,7 @@ import rotp.ui.notifications.PlunderTechNotification;
 import rotp.util.Base;
 import rotp.util.Rand;
 
-public final class Empire implements Base, NamedObject, Serializable {
+public final class Empire implements ISpecies, Base, NamedObject, Serializable {
     private static final long serialVersionUID = 1L;
     private static final float SHIP_MAINTENANCE_PCT = .02f;
     private static final float SECURITY_COST_RATIO = 2f;
@@ -559,7 +559,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 	private void setDataRace(Race r)	{ dataRace = r; }
 	private Race race()		{
 		if (race == null)
-			setRace(Race.keyed(raceKey()));
+			setRace(R_M.keyed(raceKey()));
 		return race;
 	}
 	private Race dataRace()	{
@@ -567,9 +567,9 @@ public final class Empire implements Base, NamedObject, Serializable {
 			if (raceOptions != null)
 				setDataRace(CustomRaceDefinitions.optionToAlienRace(raceOptions));
 			else if (dataRaceKey() == null)
-				setDataRace(Race.keyed(raceKey()));
+				setDataRace(R_M.keyed(raceKey()));
 			else
-				setDataRace(Race.keyed(dataRaceKey(), raceOptions()));
+				setDataRace(R_M.keyed(dataRaceKey(), raceOptions()));
 		return dataRace;
 	}
     public BufferedImage scoutImage() {
@@ -711,8 +711,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         selectedAI	= IGameOptions.BASE;
         raceKey		= "RACE_PSILON";
         dataRaceKey	= "RACE_PSILON";
-		setRace(Race.keyed(raceKey));
-		setDataRace(Race.keyed(raceKey));
+		setRace(R_M.keyed(raceKey));
+		setDataRace(R_M.keyed(raceKey));
         raceOptions(dataRace.raceOptions());
         homeSysId	= capitalSysId = sysId;
 		compSysId	= new int[0];
