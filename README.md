@@ -44,21 +44,14 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+25-05-13 (BR)
+- Fixed TopEngineWarpTech initialisation
+
 25-05-10 (BR)
 - Added Race Manager
   - Race management is not static anymore.
   - Moved Race management out of the Race class, to a new SpeciesManager class.
 
-25-05-08 (BR)
-- Decreased Ship space factor minimum to 10%
-  - initial scout and colony ships will keep their hull size, and an extra cost will be added to these ship.
-- Fixed Antaran offset and Antaran multiplier being just decoration.
-
-25-05-07 (BR)
-- New warp speed factor.
-  - Global speed multiplier, applicable for all progressions.
-- Fixed deploy sub fleet having a max speed of 9, even with alternate progression speed.
-- Decreased Ship space factor minimum to 80%
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 

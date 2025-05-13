@@ -812,7 +812,7 @@ public final class TechTree implements Base, Serializable {
         return topTerraformingTech == null ? 0 : topTerraformingTech().increase();
     }
     public float topSpeed() {
-        return topEngineWarpTech == null ? 1 : topEngineWarpTech().warp();
+        return topEngineWarpTech == null ? 0.01f : topEngineWarpTech().warp();
     }
     public float transportTravelSpeed() {
         return max(1, (topSpeed() - 1));
