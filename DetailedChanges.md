@@ -2,6 +2,17 @@
 
 ## What's New
 
+25-05-14 (BR)
+- Text Galaxies will display "?" in case of "unfilled" characters (blank, but not recognized as blank!)
+
+25-05-13 (BR)
+- Fixed TopEngineWarpTech initialisation
+
+25-05-10 (BR)
+- Added Race Manager
+  - Race management is not static anymore.
+  - Moved Race management out of the Race class, to a new SpeciesManager class.
+
 25-05-08 (BR)
 - Decreased Ship space factor minimum to 10%
   - initial scout and colony ships will keep their hull size, and an extra cost will be added to these ship.

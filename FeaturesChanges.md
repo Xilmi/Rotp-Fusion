@@ -244,6 +244,8 @@
 
 ### Fixes:
 
+- Text Galaxies will display "?" in case of "unfilled" characters (blank, but not recognized as blank!).
+- Fixed TopEngineWarpTech initialisation.
 - Fixed Antaran offset and Antaran multiplier being just decoration.
 - Fixed deploy sub fleet having a max speed of 9, even with alternate progression speed.
 - Fixed crash when displaying ship info of cloacked ships. 

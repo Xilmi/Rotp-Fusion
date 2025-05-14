@@ -44,6 +44,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+25-05-14 (BR)
+- Text Galaxies will display "?" in case of "unfilled" characters (blank, but not recognized as blank!)
+
 25-05-13 (BR)
 - Fixed TopEngineWarpTech initialisation
 
@@ -51,7 +54,6 @@ java -jar target/rotp-<timestamp>-mini.jar
 - Added Race Manager
   - Race management is not static anymore.
   - Moved Race management out of the Race class, to a new SpeciesManager class.
-
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
 

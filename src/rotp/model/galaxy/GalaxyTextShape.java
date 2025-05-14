@@ -152,7 +152,6 @@ final class GalaxyTextShape extends GalaxyShape {
 
 	@Override public void init(int n)		{
 		super.init(n);
-		guiOptions();
 		lineSpacing = param4().getAsInt();
 
 		BufferedImage img = new BufferedImage(16, 10, BufferedImage.TYPE_INT_ARGB);
@@ -161,6 +160,12 @@ final class GalaxyTextShape extends GalaxyShape {
 
 		textW = textShape.getBounds().getWidth();
 		textH = textShape.getBounds().getHeight();
+
+		if (textW == 0 || textH == 0) {
+			initTextArea (g2, "?");
+			textW = textShape.getBounds().getWidth();
+			textH = textShape.getBounds().getHeight();
+		}
 
 		// set galaxy aspect ratio to the textShape aspect ratio
 		// this accommodates very long or short text strings
@@ -282,40 +287,22 @@ final class GalaxyTextShape extends GalaxyShape {
 		return sh;
 	}
 	private void initTextArea (Graphics2D g2, String s)	{
-		if (s.trim().isEmpty()) {
-			s = "!!!Blank!!!";
-			textShape = getArea(g2, s);
-			return;
-		}
-		else if (!s.contains(System.lineSeparator())) {
+		if (!s.contains(System.lineSeparator())) {
 			textShape = getArea(g2, s);
 			return;
 		}
 		textShape = new Area();
-		boolean isEmpty	= true;
 		String[] txtArr	= s.split(System.lineSeparator());
 		int moveY = 0;
 		for (String txt : txtArr) {
-			if (!txt.isEmpty()) {
-				Shape sh = getShape(g2, txt);
-				Rectangle bounds = sh.getBounds();
-				int h = bounds.height;
-				if (!isEmpty) {
-					AffineTransform moveText = new AffineTransform();
-					moveText.translate(0, moveY);
-					sh = moveText.createTransformedShape(sh);
-				}
-				textShape.add(new Area(sh));
-				moveY += h;
-				isEmpty = false;
-			}
-			moveY += lineSpacing;
-			isEmpty &= txt.isEmpty();
-		}
-		if (isEmpty) {
-			s = "!!!Blank!!!";
-			textShape = getArea(g2, s);
-			return;
+			Shape sh = getShape(g2, txt);
+			Rectangle bounds = sh.getBounds();
+			int h = bounds.height;
+			AffineTransform moveText = new AffineTransform();
+			moveText.translate(0, moveY);
+			sh = moveText.createTransformedShape(sh);
+			textShape.add(new Area(sh));
+			moveY += h + lineSpacing;
 		}
 	}
 	private int currentGalaxyTextIndex(String s)		{

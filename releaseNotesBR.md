@@ -7,8 +7,8 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
-25-05-13 (BR)
-- Fixed TopEngineWarpTech initialisation
+25-05-14 (BR)
+- Text Galaxies will display "?" in case of "unfilled" characters (blank, but not recognized as blank!)
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
