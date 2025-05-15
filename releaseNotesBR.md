@@ -7,8 +7,9 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
-25-05-14 (BR)
-- Text Galaxies will display "?" in case of "unfilled" characters (blank, but not recognized as blank!)
+25-05-16 (BR)
+- Fixed rare occurring crash when selecting Galaxy shapes.
+- Error Message will display the best save game to be sent.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

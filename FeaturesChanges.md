@@ -166,6 +166,7 @@
 
 ### Miscellaneous:
 
+- Error Message will display the best save game to be sent.
 - Added Version identification in game files. 
 - Added some installation instructions.
 - Error Messages and Warning Messages will now display the OS.
@@ -244,6 +245,7 @@
 
 ### Fixes:
 
+- Fixed rare occurring crash when selecting Galaxy shapes.
 - Text Galaxies will display "?" in case of "unfilled" characters (blank, but not recognized as blank!).
 - Fixed TopEngineWarpTech initialisation.
 - Fixed Antaran offset and Antaran multiplier being just decoration.

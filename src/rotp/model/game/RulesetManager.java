@@ -16,6 +16,7 @@
 package rotp.model.game;
 
 import rotp.Rotp;
+import rotp.ui.ErrorUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.options.AllSubUI;
 
@@ -66,9 +67,15 @@ public final class RulesetManager {
 	}
 	public boolean isSetupMode()			{ return currentOptions == IGameOptions.SETUP_ID; }
 	public boolean isGameMode()				{ return currentOptions == IGameOptions.GAME_ID; }
-	public void setAsGameMode()				{ currentOptions(IGameOptions.GAME_ID); }
+	public void setAsGameMode()				{
+		currentOptions(IGameOptions.GAME_ID);
+		ErrorUI.inPlayerMode();
+	}
 
-	private void setAsSetupMode()			{ currentOptions(IGameOptions.SETUP_ID); }
+	private void setAsSetupMode()			{
+		currentOptions(IGameOptions.SETUP_ID);
+		ErrorUI.inSetupMode();
+	}
 	private void currentOptions(int id)		{
 		currentOptions = id;
 		currentOptions().UpdateOptionsTools();

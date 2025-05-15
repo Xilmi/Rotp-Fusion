@@ -26,18 +26,39 @@ import java.util.List;
 import rotp.Rotp;
 import rotp.util.OSUtil;
 
-public class ErrorUI extends BasePanel implements MouseListener, MouseMotionListener {
-    private static final long serialVersionUID = 1L;
-    private final String osTxt = "OS = " + OSUtil.getOS();
-    private Throwable exception;
-    public ErrorUI() {
-        init();
-    }
-    private void init() {
-        setBackground(Color.black);
-        addMouseListener(this);
-        addMouseMotionListener(this);
-    }
+public final class ErrorUI extends BasePanel implements MouseListener, MouseMotionListener {
+	private static final long serialVersionUID = 1L;
+	private static final String BASE_TITLE	= "An Error has occurred  :(  - ";
+	private static final String DESC_1		="If you would like to help fix this problem, please send a screen shot of this UI plus the ";
+	private static final String DESC_2		=" save game file to BrokenRegistry, or bring it to his attention on the ROTP subreddit.";
+	private static final int LOADING_MODE	= 0;
+	private static final int SETUP_MODE		= 1;
+	private static final int PLAYER_MODE	= 2;
+	private static final int TURN_MODE		= 3;
+	public static int currentMode = LOADING_MODE;
+	public static void inLoadingMode()	{ currentMode = LOADING_MODE; }
+	public static void inSetupMode()	{ currentMode = SETUP_MODE; }
+	public static void inPlayerMode()	{ currentMode = PLAYER_MODE; }
+	public static void inTurnMode()		{ currentMode = TURN_MODE; }
+
+	private final String[] mode	= new String[4];
+	private final String[] file	= new String[4];
+	private final String osTxt = "OS = " + OSUtil.getOS();
+	private Throwable exception;
+	public ErrorUI()	{ init(); }
+	private void init()	{
+		setBackground(Color.black);
+		addMouseListener(this);
+		addMouseMotionListener(this);
+		mode[LOADING_MODE]	= "When Loading";
+		mode[SETUP_MODE]	= "In Setup";
+		mode[PLAYER_MODE]	= "During Player Turn";
+		mode[TURN_MODE]		= "During AI Turn";
+		file[LOADING_MODE]	= "'recent.rotp'";
+		file[SETUP_MODE]	= "'recent.rotp'";
+		file[PLAYER_MODE]	= "'recent.rotp'";
+		file[TURN_MODE]		= "!!! To Replay Last Turn !!!.rotp";
+	}
     public void init(Throwable e) {
         exception = e;
         e.printStackTrace();
@@ -53,9 +74,9 @@ public class ErrorUI extends BasePanel implements MouseListener, MouseMotionList
 		int x0 = w/10;
 		int w0 = w*4/5;
 		int y0 = BasePanel.s50;
-        g.setFont(narrowFont(40));
-        String title = "An Error has occurred  :(";
-        drawString(g,title, x0, y0);
+		g.setFont(narrowFont(40));
+		String title = BASE_TITLE + mode[currentMode];
+		drawString(g, title, x0, y0);
 
 		g.setFont(narrowFont(30));
 		int sw = g.getFontMetrics().stringWidth(osTxt);
@@ -64,8 +85,8 @@ public class ErrorUI extends BasePanel implements MouseListener, MouseMotionList
         w0 = w*4/5;
         y0 = BasePanel.s80;
         g.setFont(narrowFont(30));
-        String desc = "If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to BrokenRegistry, or bring it to his attention on the ROTP subreddit.";
-        List<String> lines = wrappedLines(g, desc, w0);
+		String desc = DESC_1 + file[currentMode] + DESC_2;
+		List<String> lines = wrappedLines(g, desc, w0);
         int lineCount = 0;
         for (String line : lines) {
             y0 += BasePanel.s35;

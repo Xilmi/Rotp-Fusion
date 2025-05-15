@@ -389,7 +389,7 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
     		raceIntroUI.finish();
     		repaint();
     		return;
-    	}  	
+    	}
     }
     public void selectMainPanel()      { selectMainPanel(false); }
     public void selectMainPanel(boolean pauseNextTurn)      {

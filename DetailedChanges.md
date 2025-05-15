@@ -2,6 +2,10 @@
 
 ## What's New
 
+25-05-16 (BR)
+- Fixed rare occurring crash when selecting Galaxy shapes.
+- Error Message will display the best save game to be sent.
+
 25-05-14 (BR)
 - Text Galaxies will display "?" in case of "unfilled" characters (blank, but not recognized as blank!)
 

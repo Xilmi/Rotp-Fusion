@@ -1248,7 +1248,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements ISpecies, Mous
 	}
 	private void drawGalaxy(Graphics2D g) {
 		// draw galaxy
+		try {
 		drawGalaxyShape(g, opts.galaxyShape(), galaxyX, galaxyY, galaxyW, galaxyH);
+		}
+		catch(NullPointerException e) {}
 
 		// draw info under galaxy map
 		g.setColor(Color.black);

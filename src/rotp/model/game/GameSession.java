@@ -71,6 +71,7 @@ import rotp.model.ships.ShipSpecial;
 import rotp.model.ships.ShipWeapon;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechTree;
+import rotp.ui.ErrorUI;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
@@ -527,7 +528,8 @@ public final class GameSession implements Base, Serializable {
 
     private Runnable nextTurnProcess() {
         return () -> {
-            try {
+			try {
+				ErrorUI.inTurnMode();
 				TradeTechNotification.resetSkipButton();
 				validateAlwaysAtWar();
 				validateAlwaysAlly();
@@ -557,9 +559,10 @@ public final class GameSession implements Base, Serializable {
                 processNotifications();
                 gal.preNextTurn(); // Launching deployed fleets
 
-                if (!inProgress())
-                    return;
-
+				if (!inProgress()) {
+					ErrorUI.inPlayerMode();
+					return;
+				}
                 // REMOVE THIS CODE
                 // playerViewAllSystems();
                 // playerViewAllHomeSystems();
@@ -584,17 +587,20 @@ public final class GameSession implements Base, Serializable {
 
                 // test game over conditions
                 // randomlyEndGame(); // TO DO BR: Comment
-
-                if (!inProgress())
-                    return;
+				if (!inProgress()) {
+					ErrorUI.inPlayerMode();
+					return;
+				}
 
                 if (processNotifications()) {
                     log("Notifications processed 1 - back to MainPanel");
                     RotPUI.instance().selectMainPanel();
                 }
                 gal.postNextTurn1(); // ship combat & invasions at each system
-                if (!inProgress())
-                    return;
+				if (!inProgress()) {
+					ErrorUI.inPlayerMode();
+					return;
+				}
 
                 player().updateScoutMessages();
                 if (processNotifications()) {
@@ -604,8 +610,10 @@ public final class GameSession implements Base, Serializable {
                 gal.refreshAllEmpireViews();
                 gal.postNextTurn2(); // Ship and colonies interaction => Troop Invasion
 
-                if (!inProgress())
-                    return;
+				if (!inProgress()) {
+					ErrorUI.inPlayerMode();
+					return;
+				}
                 if (processNotifications()) {
                     log("Notifications processed 3 - back to MainPanel");
                     RotPUI.instance().selectMainPanel();
@@ -701,7 +709,8 @@ public final class GameSession implements Base, Serializable {
                 	IDebugOptions.debugBMContinue();
                 	RotPUI.instance().selectGameOverPanel();
                 	performingTurn = false;
-                	return;
+					ErrorUI.inPlayerMode();
+					return;
                 }
                 if (autoRunning && IDebugOptions.debugAutoRun()) {
                 	// Auto Run Mode Stop if:
@@ -713,19 +722,22 @@ public final class GameSession implements Base, Serializable {
                  	if(status().won()) {
                 		RotPUI.instance().selectGameOverPanel();
                 		performingTurn = false;
-                		return;
+						ErrorUI.inPlayerMode();
+						return;
                 	}
                  	if(status().lost() && IDebugOptions.debugARStopOnLoss()) {
                 		RotPUI.instance().selectGameOverPanel();
                 		performingTurn = false;
-                		return;
+				ErrorUI.inPlayerMode();
+				return;
                 	}
                 	// Stop if only one empire remaining and player started with opponent(s)
                 	if (galaxy().numActiveEmpires() == 1 
                 			&& options.selectedOpponentRaces()[0]!=null) {
                 		RotPUI.instance().selectGameOverPanel();
                 		performingTurn = false;
-                		return;
+						ErrorUI.inPlayerMode();
+						return;
                 	}
                 	GalacticCouncil council = galaxy().council();
                 	boolean wonByAlly = !council.finalWar(); // No rebellion or win by ally.
@@ -734,7 +746,8 @@ public final class GameSession implements Base, Serializable {
             			// System.out.println("wonByAlly Or wonByRebels");
                 		RotPUI.instance().selectGameOverPanel();
                 		performingTurn = false;
-                		return;
+						ErrorUI.inPlayerMode();
+						return;
                 	}
                		performingTurn = false;
                		nextTurnLoop();
@@ -746,6 +759,7 @@ public final class GameSession implements Base, Serializable {
                 performingTurn = false;
                 if (IDebugOptions.selectedShowVIPPanel() && status().inProgress())
                 	VIPConsole.turnCompleted(galaxy().currentTurn());
+				ErrorUI.inPlayerMode();
             }
         };
     }
@@ -1171,6 +1185,7 @@ public final class GameSession implements Base, Serializable {
 
         if (IDebugOptions.selectedShowVIPPanel())
         	VIPConsole.updateConsole();
+		ErrorUI.inPlayerMode();
     }
 	private void showInfo(Galaxy g) { // BR: for debug
 		System.out.println("GameSession.showInfo = true ===========================================");
