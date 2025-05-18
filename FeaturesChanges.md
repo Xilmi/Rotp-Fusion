@@ -127,6 +127,7 @@
 
 ### Governor:
 
+- Auto-Scouts will leave alien colonies, even if they don't have new star systems to explore. This is to avoid damaging your relationship with that empire.
 - New option to automatically label a design with colonization capabilities as "Auto Colonize".
 - New option to automatically label a small or medium hull design with extended range capabilities as "Auto Scout".
 - New governor option to update spendings after spy allocation is increased.

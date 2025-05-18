@@ -782,6 +782,18 @@ public class ShipFleet extends FleetBase {
         }
         return false;
     }
+	public boolean isAutoScoutOnly()	{
+		boolean hasShip = false;
+		for (int i=0;i<MAX_DESIGNS;i++) {
+			if (num(i) > 0) {
+				hasShip = true;
+				ShipDesign des = design(i);
+				if (des != null && !des.isAutoScout())
+					return false;
+			}
+		}
+		return hasShip;
+	}
     public void disband()	{ galaxy().ships.deleteFleet(this); }
     public boolean addFleet(ShipFleet fl)	{
     	if (this == fl)

@@ -35,6 +35,9 @@ public class AIFleetCommander implements Base, FleetCommander {
 		autocolonize();
 		autoattack();
 		autoscout();
+		if (session().getGovernorOptions().isAutoScout())
+			// To avoid damaging your relationship with that empire
+			moveScoutAwayFromAlienColonies();
 	}
 	@Override public float transportPriority(StarSystem sv){
 			int id = sv.id;
@@ -143,8 +146,24 @@ public class AIFleetCommander implements Base, FleetCommander {
 			value /= 3;
 		return value;
 	}
-	
 
+	private void moveScoutAwayFromAlienColonies() {
+		List<ShipFleet> allFleets = galaxy().ships.notInTransitFleets(empire.id);
+		for (ShipFleet fleet : allFleets) {
+			if (fleet == null)
+				continue;
+			if (!fleet.isOrbiting() || !fleet.canSend())	// we only use idle (orbiting) fleets
+				continue;
+			StarSystem sys = fleet.system();
+			if (!sys.isColonized())
+				continue;
+			if (empire != sys.empire() && fleet.isAutoScoutOnly()) {
+				StarSystem destSys = empire.retreatSystem(sys);
+				if (destSys != null)
+					galaxy().ships.deployFleet(fleet, destSys.id);
+			}
+		}
+	}
 	private List<Integer> filterTargets(Predicate<Integer> filterFunction)	{
 		List<Integer> targets = new LinkedList<>();
 		for (int i = 0; i < empire.sv.count(); ++i) {
@@ -380,7 +399,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 				continue;
 			if (!fleet.isOrbiting() || !fleet.canSend())	// we only use idle (orbiting) fleets
 				continue;
-			if (colonyOnly && empire != fleet.system().empire())
+			if (colonyOnly && !fleet.system().isColonized())
 				continue;
 			subFleetList.splitAndAdd(fleet);
 		}

@@ -7,9 +7,8 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
-25-05-16 (BR)
-- Fixed rare occurring crash when selecting Galaxy shapes.
-- Error Message will display the best save game to be sent.
+225-05-18 (BR)
+- Auto-Scouts will leave alien colonies, even if they don't have new star systems to explore. This is to avoid damaging your relationship with that empire.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

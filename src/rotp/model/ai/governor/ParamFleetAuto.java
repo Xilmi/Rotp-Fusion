@@ -64,11 +64,13 @@ public abstract class ParamFleetAuto extends ParamList	{
 			// unarmed ships don't contribute to defense
 			if (!sd.isArmed())
 				return true;
-			if (systemHasHostileIncoming.contains(sf.system().id))
+			StarSystem sys = sf.system();
+			// auto-scout on mission 
+			if (sd.isAutoScout() && IGovOptions.auto_Scout.get())
+				return !(defendUncolonized && sys.empire() == null && sys.hasPlanet());
+			if (systemHasHostileIncoming.contains(sys.id))
 				return false;
-			if (defendUncolonized && sf.system().empire() == null && sf.system().hasPlanet())
-				return false;
-			if (sf.system().empire() != null && empire != sf.system().empire())
+			if (sys.empire() != null && empire != sys.empire())
 				// Don't send out armed ships orbiting enemy systems.
 				// It's OK to send away armed ships orbiting uncolonized planets if there are no incoming
 				// enemy fleets and that's checked above.
