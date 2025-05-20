@@ -4851,7 +4851,7 @@ RACES_HELP_2E                     | Incidents diplomatiques qui affectent la fa�
 RACES_HELP_2F                     | Une mesure de l’état actuel des relations avec l’empire sélectionné.
 RACES_HELP_3A                     | Augmentez la taxe de sécurité pour améliorer vos chances de déjouer les espions ennemis.
 RACES_HELP_3B                     | Fournit un accès direct pour gérer vos espions dans tous les empires contactés.
-RACES_HELP_3C                     | Toutes les technologies connues par d’autres empires, telles que rassemblées par vos espions. Les technologies que vous ne connaissez pas sont indiquées en jaune.
+RACES_HELP_3C                     | Technologies connues des autres empires, telles que collectées par vos espions.<br>Les technologies que vous maîtrisez également sont affichées en noir.<br>Les technologies que vous ne connaissez pas sont affichées :<br>  - en gris si elles sont obsolètes,<br>  - en jaune si vous pouvez les voler,<br>  - en orange si elles sont hors de portée de vos espions.
 RACES_HELP_4A                     | Définissez le nombre de réseaux d’espionnage que vous souhaitez établir dans l’empire sélectionné et le montant que vous souhaitez dépenser chaque année.
 RACES_HELP_4B                     | Définissez les ordres pour les espions infiltrant l’empire sélectionné. Masquer - collecter des données. Espionnage - tentative de vol de technologie. Sabotage - incitez à des rébellions ou détruisez des usines et des bases de missiles.
 RACES_HELP_4C                     | Toutes les technologies connues par l’empire sélectionné. Les technologies que vous ne connaissez pas sont indiquées en jaune.

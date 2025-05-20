@@ -7,8 +7,12 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
-225-05-18 (BR)
-- Auto-Scouts will leave alien colonies, even if they don't have new star systems to explore. This is to avoid damaging your relationship with that empire.
+25-05-20 (BR)
+- Star system in nearby and Midrange radii are no longer limited by "Star Density" option.
+  - Star density will be adjusted to fit the requested number of neighbor systems.
+- Improved galaxy generation speed.
+- Improved Empire intelligence help texts.
+- Fixed random crash when number of nebulae was very high.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

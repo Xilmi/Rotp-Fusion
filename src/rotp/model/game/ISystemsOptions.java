@@ -3,7 +3,6 @@ package rotp.model.game;
 import static rotp.model.game.IGalaxyOptions.sizeSelection;
 import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
 
-import rotp.Rotp;
 import rotp.ui.util.LinkData;
 import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamBoolean;
@@ -112,8 +111,8 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			if (level == 0) {
 				resetLinks();
 				addLink(secondRingRadius,	   DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
-				addLink(firstRingSystemNumber, DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
-				addLink(opts().starDensity(),	DO_REFRESH);
+				//addLink(firstRingSystemNumber, DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
+				//addLink(opts().starDensity(),	DO_REFRESH);
 			}
 			else
 				super.initDependencies(level);
@@ -121,9 +120,9 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
 		@Override protected void convertValueToLink(LinkData rec)	{
 			switch (rec.key) {
-				case "Number":
-					rec.aimValue = new LinkValue(radiusToNumStars(rec.srcValue.floatValue()));
-					return;
+//				case "Number":
+//					rec.aimValue = new LinkValue(radiusToNumStars(rec.srcValue.floatValue()));
+//					return;
 				case "Radius":
 					rec.aimValue = rec.srcValue;
 					return;
@@ -147,8 +146,8 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			if (level == 0) {
 				resetLinks();
 				addLink(firstRingRadius,		DO_FOLLOW, GO_DOWN, GO_DOWN, "Radius");
-				addLink(secondRingSystemNumber,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
-				addLink(opts().starDensity(),	DO_REFRESH);
+				//addLink(secondRingSystemNumber,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
+				//addLink(opts().starDensity(),	DO_REFRESH);
 			}
 			else
 				super.initDependencies(level);
@@ -156,9 +155,9 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
 		@Override protected void convertValueToLink(LinkData rec)	{
 			switch (rec.key) {
-				case "Number":
-					rec.aimValue = new LinkValue(radiusToNumStars(rec.srcValue.floatValue()));
-					return;
+//				case "Number":
+//					rec.aimValue = new LinkValue(radiusToNumStars(rec.srcValue.floatValue()));
+//					return;
 				case "Radius":
 					rec.aimValue = rec.srcValue;
 					return;
@@ -171,25 +170,25 @@ public interface ISystemsOptions extends IBaseOptsTools {
 
 	float surfaceSecurityFactor = 0.855f;
 
-	static Integer radiusToNumStars(float radius) {
-		float systemBuffer = 1.9f;
-		if (!Rotp.noOptions()) {
-			IGameOptions opts = RulesetManager.current().currentOptions();
-			systemBuffer = opts.systemBuffer(opts.selectedStarDensityOption());
-		}
-		float root = radius / (systemBuffer * surfaceSecurityFactor);
-		int numStars = (int) (root*root);
-		return numStars;
-	}
-	static Float numStarsToRadius(int num) {
-		float systemBuffer = 1.9f;
-		if (!Rotp.noOptions()) {
-			IGameOptions opts = RulesetManager.current().currentOptions();
-			systemBuffer = opts.systemBuffer(opts.selectedStarDensityOption());
-		}
-		float radius = (float) (systemBuffer * Math.sqrt(num) * surfaceSecurityFactor);
-		return radius;
-	}
+//	static Integer radiusToNumStars(float radius) {
+//		float systemBuffer = 1.9f;
+//		if (!Rotp.noOptions()) {
+//			IGameOptions opts = RulesetManager.current().currentOptions();
+//			systemBuffer = opts.systemBuffer(opts.selectedStarDensityOption());
+//		}
+//		float root = radius / (systemBuffer * surfaceSecurityFactor);
+//		int numStars = (int) (root*root);
+//		return numStars;
+//	}
+//	static Float numStarsToRadius(int num) {
+//		float systemBuffer = 1.9f;
+//		if (!Rotp.noOptions()) {
+//			IGameOptions opts = RulesetManager.current().currentOptions();
+//			systemBuffer = opts.systemBuffer(opts.selectedStarDensityOption());
+//		}
+//		float radius = (float) (systemBuffer * Math.sqrt(num) * surfaceSecurityFactor);
+//		return radius;
+//	}
 
 	ParamInteger firstRingSystemNumber = new FirstRingSystemNumber();
 	final class FirstRingSystemNumber extends ParamInteger {
@@ -204,9 +203,9 @@ public interface ISystemsOptions extends IBaseOptsTools {
 			if (level == 0) {
 				resetLinks();
 				addLink(secondRingSystemNumber,	DO_FOLLOW, GO_UP,   GO_UP,   "Number");
-				addLink(firstRingRadius,		DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
+				//addLink(firstRingRadius,		DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
 				addLink(firstRingHabitable,		DO_FOLLOW, GO_DOWN, GO_DOWN, "Habitable");			
-				addLink(opts().starDensity(),	DO_REFRESH);
+				//addLink(opts().starDensity(),	DO_REFRESH);
 			}
 			else
 				super.initDependencies(level);
@@ -218,9 +217,9 @@ public interface ISystemsOptions extends IBaseOptsTools {
 				case "Habitable":
 					rec.aimValue = rec.srcValue;
 					return;
-				case "Radius":
-					rec.aimValue = new LinkValue(numStarsToRadius(rec.srcValue.intValue()));
-					return;
+//				case "Radius":
+//					rec.aimValue = new LinkValue(numStarsToRadius(rec.srcValue.intValue()));
+//					return;
 				default:
 					super.convertValueToLink(rec);
 			}
@@ -241,13 +240,13 @@ public interface ISystemsOptions extends IBaseOptsTools {
 		@Override public void initDependencies(int level)	{
 			if (level == 0) {
 				resetLinks();
-				addLink(secondRingRadius,		DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
+				//addLink(secondRingRadius,		DO_FOLLOW, GO_UP,   GO_UP,   "Radius");
 				addLink(sizeSelection,			DO_FOLLOW, GO_UP,   GO_UP,   "Size");
 				addLink(dynStarsPerEmpire,		DO_FOLLOW, GO_UP,   GO_UP,   "Dyn");
 				addLink(secondRingHabitable,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Habitable");
 				addLink(firstRingSystemNumber,	DO_FOLLOW, GO_DOWN, GO_DOWN, "Number");
 				addLink(sizeSelection,			DO_FOLLOW, GO_DOWN, GO_DOWN, "Size");
-				addLink(opts().starDensity(),	DO_REFRESH);
+				//addLink(opts().starDensity(),	DO_REFRESH);
 			}
 			else
 				super.initDependencies(level);
@@ -267,9 +266,9 @@ public interface ISystemsOptions extends IBaseOptsTools {
 				case "Dyn":
 					rec.aimValue = new LinkValue((rec.srcValue.intValue()+1));
 					return;
-				case "Radius":
-					rec.aimValue = new LinkValue(numStarsToRadius(rec.srcValue.intValue()));
-					return;
+//				case "Radius":
+//					rec.aimValue = new LinkValue(numStarsToRadius(rec.srcValue.intValue()));
+//					return;
 				default:
 					super.convertValueToLink(rec);
 			}

@@ -28,12 +28,6 @@ import static rotp.model.game.IGameOptions.getResearchRateOptions;
 import static rotp.model.game.IGameOptions.getTechTradingOptions;
 import static rotp.model.game.IGameOptions.getTerraformingOptions;
 import static rotp.model.game.IGameOptions.getWarpSpeedOptions;
-import static rotp.model.game.ISystemsOptions.firstRingRadius;
-import static rotp.model.game.ISystemsOptions.firstRingSystemNumber;
-import static rotp.model.game.ISystemsOptions.radiusToNumStars;
-import static rotp.model.game.ISystemsOptions.secondRingRadius;
-import static rotp.model.game.ISystemsOptions.secondRingSystemNumber;
-import static rotp.model.game.ISystemsOptions.surfaceSecurityFactor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,7 +37,6 @@ import java.util.Map.Entry;
 
 import rotp.ui.options.AllSubUI;
 import rotp.ui.util.LinkData;
-import rotp.ui.util.LinkValue;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 
@@ -147,15 +140,16 @@ public interface IAdvOptions extends IBaseOptsTools {
 				resetLinks();
 				// Density numerical value = spreading
 				// When spreading goes system number should go down.
-				addLink(firstRingSystemNumber,  DO_LOCK, GO_UP, GO_DOWN, "Ring 1");
-				addLink(secondRingSystemNumber, DO_LOCK, GO_UP, GO_DOWN, "Ring 2");
+				//addLink(firstRingSystemNumber,  DO_LOCK, GO_UP, GO_DOWN, "Ring 1");
+				//addLink(secondRingSystemNumber, DO_LOCK, GO_UP, GO_DOWN, "Ring 2");
 			}
 			else {
-				IGameOptions opts = opts();
-				float density1 = density(opts.firstRingRadius(), opts.firstRingSystemNumber());
-				float density2 = density(opts.secondRingRadius(), opts.secondRingSystemNumber());
-				float maxDensity = Math.min(density1, density2);
-				reInit(getGalaxyDensityOptions(maxDensity));
+				//IGameOptions opts = opts();
+				//float density1 = density(opts.firstRingRadius(), opts.firstRingSystemNumber());
+				//float density2 = density(opts.secondRingRadius(), opts.secondRingSystemNumber());
+				//float maxDensity = Math.min(density1, density2);
+				//reInit(getGalaxyDensityOptions(maxDensity));
+				reInit(getGalaxyDensityOptions(5f));
 				boolean invalid = isInvalidLocalValue(get());
 				if (invalid) {
 					invalid = isInvalidLocalValue(get());
@@ -165,20 +159,20 @@ public interface IAdvOptions extends IBaseOptsTools {
 				}
 				super.initDependencies(level);
 			}
-       		}
+		}
 		@Override public boolean isValidValue()	{ return isValidDoubleCheck(); }
 		@Override protected void convertValueToLink(LinkData rec)	{
-			// Convert the current state
-			switch (rec.key) {
-				case "Ring 1":
-					rec.aimValue = new LinkValue(radiusToNumStars(firstRingRadius.get()));
-					return;
-				case "Ring 2":
-					rec.aimValue = new LinkValue(radiusToNumStars(secondRingRadius.get()));
-					return;
-				default:
-					super.convertValueToLink(rec);
-			}
+//			// Convert the current state
+//			switch (rec.key) {
+//				case "Ring 1":
+//					rec.aimValue = new LinkValue(radiusToNumStars(firstRingRadius.get()));
+//					return;
+//				case "Ring 2":
+//					rec.aimValue = new LinkValue(radiusToNumStars(secondRingRadius.get()));
+//					return;
+//				default:
+//					super.convertValueToLink(rec);
+//			}
 		}
 		@Override protected Boolean getDirectionOfChange(String before, String after) {
 			float valBefore	= getDensitySizeFactor(before);
@@ -195,11 +189,12 @@ public interface IAdvOptions extends IBaseOptsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedStarDensityOption(newValue);
 		}
-		private float density(float radius, int NumStar)	{
-			float systemBuffer = (float) (radius / (Math.sqrt(NumStar) * surfaceSecurityFactor));
-			float density = systemBuffer / 1.9f;
-			return density;
-		}
+//		private float density(float radius, int NumStar)	{
+//			float systemBuffer = (float) (radius / (Math.sqrt(NumStar) / surfaceSecurityFactor));
+//			float density = systemBuffer / 1.9f;
+//			//System.out.println("systemBuffer: " + systemBuffer + " density: " + density);
+//			return density;
+//		}
 	}
 
 	ParamList nebulae = new Nebulae(); // Duplicate Do not add the list

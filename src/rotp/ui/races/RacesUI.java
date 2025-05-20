@@ -343,9 +343,9 @@ public class RacesUI extends BasePanel {
         sp3.setLine(x3+(w3*2/3), y3+sp3.height(), w-scaled(525), scaled(255));
         
         int x4 = scaled(255);
-        int w4 = scaled(360);
+        int w4 = scaled(400);
         int y4 = scaled(445);
-        helpUI.addBrownHelpText(x4, y4, w4, 4, text("RACES_HELP_3C"));
+        helpUI.addBrownHelpText(x4, y4, w4, 0, text("RACES_HELP_3C"));
     }
     private void loadHelpIntelligenceAI()		{ // Intelligence Panel AI
         int w = getWidth();

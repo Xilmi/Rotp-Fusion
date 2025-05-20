@@ -1185,7 +1185,6 @@ public final class GameSession implements Base, Serializable {
 
         if (IDebugOptions.selectedShowVIPPanel())
         	VIPConsole.updateConsole();
-		ErrorUI.inPlayerMode();
     }
 	private void showInfo(Galaxy g) { // BR: for debug
 		System.out.println("GameSession.showInfo = true ===========================================");

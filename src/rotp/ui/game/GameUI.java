@@ -55,6 +55,7 @@ import rotp.model.game.IDebugOptions;
 import rotp.model.game.IGameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
+import rotp.ui.ErrorUI;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.sprites.RoundGradientPaint;
@@ -554,8 +555,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         else if ((slideshowFade <= 1) && (slideshowFade >= -0.3f))
             repaint();
     }
-    @Override
-    public boolean drawMemory()      { return true; }
+	@Override public boolean drawMemory()	{ return true; }
     @Override
     public String ambienceSoundKey() { return canContinue() ? super.ambienceSoundKey() : AMBIENCE_KEY; }
     @Override public void paintComponent(Graphics g0) {
@@ -563,7 +563,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         Graphics2D g = (Graphics2D) g0;
         int w = getWidth();
 		updateTextValues();
-        
+
         languagePanel.initFonts();
 
         if (backImg == null) {
@@ -576,7 +576,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         int imgW = back.getWidth(null);
         int imgH = back.getHeight(null);
         g.drawImage(back, 0, 0, getWidth(), getHeight(), 0, 0, imgW, imgH, this);
-        
+
         Composite prevComp = g.getComposite();
         float textAlpha = min(1,max(0,slideshowFade));
         if ((textAlpha < 1) || hideText) {
@@ -586,18 +586,18 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             }
             slideshowText.draw(g);
         }
- 
+
         if (textAlpha == 0) {
             languagePanel.setVisible(false);
             g.setComposite(prevComp);
             return;
         }
-        
+
         if (textAlpha < 1) {
             AlphaComposite ac = java.awt.AlphaComposite.getInstance(AlphaComposite.SRC_OVER,textAlpha);
             g.setComposite(ac);
         }
-        
+
         String titleStr1 = text("GAME_TITLE_LINE_1");
         String titleStr2 = text("GAME_TITLE_LINE_2");
         String titleStr3 = text("GAME_TITLE_LINE_3");
@@ -630,7 +630,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             imgG.setFont(logoFont(bigFont));
             imgG.dispose();
         }
-        
+
         if (!hideText)
            g.drawImage(titleImg, 0, s100, null);
         if (hideText) {
@@ -662,7 +662,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         discussText.disabled(false);
         if (!discussText.isEmpty())
             discussText.draw(g);
-        
+
         if (canOpenManual()) {
             exitText.setY(610);
         }
@@ -1156,13 +1156,12 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         if (canNewGame()) {
             buttonClick();
             RotPUI.instance().selectSetupRacePanel();
+			ErrorUI.inSetupMode();
         }
     }
     private void loadGame() { // BR:
         if (canLoadGame()) {
             buttonClick();
-//            loadRequest(false); // The call was not for SetupRaceUI
-//            newGameOptions(); // To create one if none
             RotPUI.instance().selectLoadGamePanel();
         }
     }

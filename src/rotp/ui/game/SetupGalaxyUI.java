@@ -277,6 +277,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements ISpecies, Mous
     // Buttons Parameters
     private int buttonSep	= s15;
     private Box	helpBox		= new Box("SETTINGS_BUTTON_HELP");
+	@Override public boolean drawMemory()		{ return true; }
 	@Override protected Box newExitBox()		{ return new Box(newExitButton()); }
 	@Override protected Font bigButtonFont()	{ return bigButtonFont; }
 	@Override protected Font bigButtonFont(boolean retina)		{
@@ -296,7 +297,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements ISpecies, Mous
 
     public static ParamList specificAI() { return instance.specificAI; }
     public static ParamList opponentAI() { return instance.opponentAI; }
-    private static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
+	private static int mouseBoxIndex()	 {
+		if (instance.hoverBox == null)
+			return 0;
+		return instance.hoverBox.mouseBoxIndex();
+	}
 
 	public SetupGalaxyUI() {
 		instance = this;
@@ -1249,9 +1254,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements ISpecies, Mous
 	private void drawGalaxy(Graphics2D g) {
 		// draw galaxy
 		try {
-		drawGalaxyShape(g, opts.galaxyShape(), galaxyX, galaxyY, galaxyW, galaxyH);
+			if (!GalaxyShape.generating)
+				drawGalaxyShape(g, opts.galaxyShape(), galaxyX, galaxyY, galaxyW, galaxyH);
 		}
-		catch(NullPointerException e) {}
+		catch(NullPointerException | IndexOutOfBoundsException e) {
+			System.out.println("drawGalaxyShape failed");
+		}
 
 		// draw info under galaxy map
 		g.setColor(Color.black);
@@ -1664,6 +1672,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements ISpecies, Mous
 	}
 	private void drawGalaxyShape(Graphics2D g, GalaxyShape sh, int x, int y, int w, int h) {
 		// Value in ly
+		if (!sh.isValid())
+			return;
 		float radius = 0;
 			if (opts.looseNeighborhood())
 				radius = opts.secondRingRadius();
@@ -1676,7 +1686,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements ISpecies, Mous
 		int dispNomH = Math.round(sh.height() * factor);
 		int xOff = x + Math.round((w - sh.width()*factor) / 2f);
 		int yOff = y + Math.round((h - sh.height()*factor) / 2f);
-		int grid = Math.round(galaxyGrid * factor);
+		int grid = max(1, Math.round(galaxyGrid * factor));
 
 		// Work in pixel
 		int starSize    = s2;
@@ -1924,7 +1934,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements ISpecies, Mous
 		opts = guiOptions();
 		if (click)
 			softClick();
-		opts.galaxyShape().quickGenerate();
+		if(!GalaxyShape.generating)
+			opts.galaxyShape().quickGenerate();
 		refreshShapeOptions(opts.galaxyShape().paramList());
 		backImg = null;
 		nebulas = null;

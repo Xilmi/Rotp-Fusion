@@ -36,10 +36,10 @@ public final class ErrorUI extends BasePanel implements MouseListener, MouseMoti
 	private static final int PLAYER_MODE	= 2;
 	private static final int TURN_MODE		= 3;
 	public static int currentMode = LOADING_MODE;
-	public static void inLoadingMode()	{ currentMode = LOADING_MODE; }
-	public static void inSetupMode()	{ currentMode = SETUP_MODE; }
-	public static void inPlayerMode()	{ currentMode = PLAYER_MODE; }
-	public static void inTurnMode()		{ currentMode = TURN_MODE; }
+	public static void inLoadingMode()	{ currentMode = LOADING_MODE; Rotp.ifIDE("Loading Mode"); }
+	public static void inSetupMode()	{ currentMode = SETUP_MODE; Rotp.ifIDE("Setup Mode"); }
+	public static void inPlayerMode()	{ currentMode = PLAYER_MODE; Rotp.ifIDE("Player Mode"); }
+	public static void inTurnMode()		{ currentMode = TURN_MODE; Rotp.ifIDE("Turn Mode"); }
 
 	private final String[] mode	= new String[4];
 	private final String[] file	= new String[4];

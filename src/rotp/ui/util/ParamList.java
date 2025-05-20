@@ -91,6 +91,8 @@ public class ParamList extends AbstractParam<String> {
 		valueLabelMap.clear();
 		for (String element : list)
 			put(element, langLabel(element)); // "text" should now be available
+		if (!list.contains(get()))
+			set(list.get(0));
 	}
 	// ===== Overriders =====
 	//

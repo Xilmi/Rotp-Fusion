@@ -63,7 +63,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     }
     private	static int requestedQuality = 0;
     private static Rand randNeb;
-    
+
     private Rectangle.Float shape;
     private Rectangle.Float innerShape;
     private int sysId = -1;
@@ -91,7 +91,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     private String name() {
         if (sysId < 1)
             return "";
-        
+
         String sysName = player().sv.name(sysId);
         if (sysName.isEmpty())
             return text("NEBULA_ID", sysId);
@@ -105,6 +105,8 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         neb.width  = width;
         neb.height = height;
         neb.image  = image;
+		neb.nebulaFile = nebulaFile;
+		neb.baseRNShape = baseRNShape;
         return neb;
     }
     //public boolean intersects(Nebula n)	{ return shape.intersects(n.shape); }
@@ -112,15 +114,12 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     public float x()               { return x; }
     @Override
     public float y()               { return y; }
-    
     float adjWidth()               { return size == 0 ? width : size*width; }
     float adjHeight()              { return size == 0 ? height : size*height; }
-    
     float centerX()                { return x+(adjWidth()/2); }
     float centerY()                { return y+(adjHeight()/2); }
-    
     boolean noStars()              { return numStars == 0; }
-    
+
     void setXY(float x1, float y1) {
         x = x1;
         y = y1;
@@ -194,7 +193,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
             return;
         if (galaxy().numStarSystems() <= opts.nebulaEnrichmentGalaxySize())
             return;
-        
+
         Planet planet = galaxy().system(sysId).planet();
         if (planet.isEnvironmentNone())
             return;

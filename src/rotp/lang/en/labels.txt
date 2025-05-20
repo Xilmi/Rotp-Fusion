@@ -4851,7 +4851,7 @@ RACES_HELP_2E                     | Diplomatic incidents that affect how the sel
 RACES_HELP_2F                     | A measure of the current state of relations with the selected empire.
 RACES_HELP_3A                     | Increase the security tax to improve your chances of thwarting enemy spies.
 RACES_HELP_3B                     | Provides direct access to manage your spies in all contacted empires.
-RACES_HELP_3C                     | All technologies known by other empires, as gathered by your spies.<br>Technologies that you do not know are shown:<br>- in grey if they are outdated,<br>- in yellow otherwise.
+RACES_HELP_3C                     | Technologies known to other empires, as collected by your spies.<br>Technologies you also master are displayed in black.<br>Technologies you do not know are displayed:<br>  - in gray if they are obsolete,<br>  - in yellow if you can steal them,<br>  - in orange if they are out of reach of your spies.
 RACES_HELP_4A                     | Set the number of spy networks you want to establish in the selected empire, and the amount you wish to spend annually.
 RACES_HELP_4B                     | Set the orders for the spies infiltrating the selected empire. Hide - gather data. Espionage - attempt to steal technology. Sabotage - incite rebellions or destroy factories and missile bases.
 RACES_HELP_4C                     | All technologies known by the selected empire. Technologies that you do not know are shown in yellow.

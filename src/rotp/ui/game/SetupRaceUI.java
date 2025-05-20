@@ -169,6 +169,7 @@ public final class SetupRaceUI extends BaseModPanel implements ISpecies, MouseWh
 		return new ParamStringPlayerLeader(BASE_UI, "PLAYER_LEADER", "");
 	}
 
+	@Override public boolean drawMemory()		{ return true; }
 	@Override protected Box newExitBox()		{ return new Box("SETUP_RACE_NEXT"); }
 	@Override protected String exitButtonKey()	{ return "SETUP_BUTTON_NEXT" ; }
 	@Override protected Font bigButtonFont(boolean retina)	{

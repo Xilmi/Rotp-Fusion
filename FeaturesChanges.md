@@ -21,6 +21,9 @@
 
 ### Features:
 
+- Star system in nearby and Midrange radii are no longer limited by "Star Density" option.
+  - Star density will be adjusted to fit the requested number of neighbor systems.
+- Improved galaxy generation speed.
 - Decreased Ship space factor minimum to 10%
   - Initial scout and colony ships will keep their hull size, and an extra cost will be added to these ship.
 - New warp speed factor.
@@ -228,6 +231,7 @@
 
 ### Guide and Help:
 
+- Improved Empire intelligence help texts.
 - Completed help for new Alt-Scroll in Design UI
 - Added Help for new auto fleet sending features.
 - Added help on Right-Click-Rally.
@@ -246,6 +250,7 @@
 
 ### Fixes:
 
+- Fixed random crash when number of nebulae was very high.
 - Fixed rare occurring crash when selecting Galaxy shapes.
 - Text Galaxies will display "?" in case of "unfilled" characters (blank, but not recognized as blank!).
 - Fixed TopEngineWarpTech initialisation.
