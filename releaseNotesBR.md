@@ -13,6 +13,7 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 - Improved galaxy generation speed.
 - Improved Empire intelligence help texts.
 - Fixed random crash when number of nebulae was very high.
+- Fixed Random Galaxies preview not being displayed.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
