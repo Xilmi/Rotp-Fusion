@@ -637,8 +637,21 @@ public class AIFleetCommander implements Base, FleetCommander {
                     StarSystem safeSystem = RetreatSystem(fleet);
                     if(safeSystem == null)
                         safeSystem = empire.shipCaptainAI().retreatSystem(dest);
-                    log("Withdrawing fleet: ", fleet.toString(), " from: ", str(fp.destId), "  to: ", safeSystem.toString());
-                    galaxy().ships.retreatFleet(fleet, safeSystem.id);
+                    // BR: When there is no valid retreat destination
+                    // keep valid fleets and destroy invalid retreating fleet
+                    if(safeSystem == null) {
+                    	if(fleet.retreating() && !fleet.hasDestination()) {
+                			log("Withdrawing fleet: ", fleet.toString(), " from: ", str(fp.destId), "  to: No valid retreat => deleted");
+                    		galaxy().ships.deleteFleet(fleet);
+                    		session().removeVarValue(fleet);
+                    	}
+                    	else
+                    		log("Withdrawing fleet: ", fleet.toString(), " from: ", str(fp.destId), "  aborted: No valid destination");
+                    }
+                    else {
+	                    log("Withdrawing fleet: ", fleet.toString(), " from: ", str(fp.destId), "  to: ", safeSystem.toString());
+	                    galaxy().ships.retreatFleet(fleet, safeSystem.id);
+                    }
                 }
             }
         }

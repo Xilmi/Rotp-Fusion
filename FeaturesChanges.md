@@ -181,6 +181,7 @@
 
 ### User Interfaces:
 
+- Added an exception in low graphic level to keep minimalistic animations.
 - Species Setup Panel: The leader's name no longer changes when returning from the Galaxy Setup Panel.
 - Game Diplomacy: The leader's name can now be changed. (Click on "Leader")
 - Design UI: Made "Keep Ship Design Name" option selectable in the "Ship Design Option" panel.
@@ -250,6 +251,7 @@
 
 ### Fixes:
 
+- Fixed crash when fleets where sent to "Null Destination".
 - Fixed custom species tech cost bug, where setting cost below 100% made them free.
 - Fixed random crash when number of nebulae was very high.
 - Fixed rare occurring crash when selecting Galaxy shapes.

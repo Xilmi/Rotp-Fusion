@@ -104,13 +104,13 @@ public final class Empire implements ISpecies, Base, NamedObject, Serializable {
     public static int PLAYER_ID = DEFAULT_PLAYER_ID;
     public static final int NULL_ID = -1;
     public static final int ABSTAIN_ID = -2;
-    
+
     public static final int SHAPE_CIRCLE = 0;
     public static final int SHAPE_SQUARE = 1;
     public static final int SHAPE_DIAMOND = 2;
     public static final int SHAPE_TRIANGLE1 = 3;
     public static final int SHAPE_TRIANGLE2 = 4;
-    
+
     public static Empire thePlayer() { return Galaxy.current().player(); }
 
     public static long[] times = new long[6];
@@ -264,7 +264,7 @@ public final class Empire implements ISpecies, Base, NamedObject, Serializable {
     public SpyMaster spyMasterAI()                { return ai().spyMaster(); }
     public Scientist scientistAI()                { return ai().scientist(); }
     public ShipDesigner shipDesignerAI()          { return ai().shipDesigner(); }
-    
+
     public Leader leader()                        { return leader; }
     public ShipDesignLab shipLab()                { return shipLab; }
     public EmpireStatus status()                  { return status; }

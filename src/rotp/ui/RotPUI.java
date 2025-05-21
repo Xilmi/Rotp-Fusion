@@ -900,6 +900,12 @@ public final class RotPUI extends BasePanel implements ActionListener, KeyListen
                 if (selectedPanel != null)
                     selectedPanel.animate();
             }
+            else {
+                if (glassPane() != null)
+                    glassPane().animateForLowGraphic();
+                if (selectedPanel != null)
+                    selectedPanel.animateForLowGraphic();
+            }
         }
         catch (Exception e) {
             // we have to catch all errors or else the

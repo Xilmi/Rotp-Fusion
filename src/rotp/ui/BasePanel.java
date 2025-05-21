@@ -210,6 +210,7 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
     }
     public void actionPerformed(ActionEvent e) { }
 
+    public void animateForLowGraphic() { }
     public void animate() { }
     public void drawStar(Graphics2D g2, StarType sType, int r, int x0, int y0) {
         Composite prev = g2.getComposite();

@@ -287,11 +287,11 @@ public final class HistoryUI extends BasePanel implements MouseListener {
     	//System.out.println("TurnPace: " + turnPace + " x 100 ms");
     }
 
-    @Override
-    public void animate() {
+	@Override public void animateForLowGraphic()	{ animate(); }
+    @Override public void animate()	{
         if (paused)
             return;
-        
+
         if (canNextTurn()) {
         	paceCount++;
         	if (paceCount >= turnPace) {
