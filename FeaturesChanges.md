@@ -250,6 +250,7 @@
 
 ### Fixes:
 
+- Fixed custom species tech cost bug, where setting cost below 100% made them free.
 - Fixed random crash when number of nebulae was very high.
 - Fixed rare occurring crash when selecting Galaxy shapes.
 - Text Galaxies will display "?" in case of "unfilled" characters (blank, but not recognized as blank!).

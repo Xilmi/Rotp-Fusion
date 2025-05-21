@@ -2,6 +2,9 @@
 
 ## What's New
 
+25-05-21 (BR)
+- Fixed custom species tech cost bug, where setting cost below 100% made them free.
+
 25-05-20 (BR)
 - Star system in nearby and Midrange radii are no longer limited by "Star Density" option.
   - Star density will be adjusted to fit the requested number of neighbor systems.

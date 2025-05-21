@@ -44,12 +44,8 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-25-05-20 (BR)
-- Star system in nearby and Midrange radii are no longer limited by "Star Density" option.
-  - Star density will be adjusted to fit the requested number of neighbor systems.
-- Improved galaxy generation speed.
-- Improved Empire intelligence help texts.
-- Fixed random crash when number of nebulae was very high.
+25-05-21 (BR)
+- Fixed custom species tech cost bug, where setting cost below 100% made them free.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

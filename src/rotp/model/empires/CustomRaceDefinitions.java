@@ -1547,7 +1547,7 @@ public class CustomRaceDefinitions implements ISpecies {
 				super("RESEARCH_CONSTRUCTION");
 				initOptionsText();
 			}
-			@Override public void pushSetting() { race.techMod(1, settingValue()/100); }
+			@Override public void pushSetting() { race.techMod(1, settingValue()/100f); }
 			@Override public void pullSetting() { set(Math.round(race.techMod(1) * 100)); }
 		}
 		// ==================== ResearchForceField ====================
@@ -1557,7 +1557,7 @@ public class CustomRaceDefinitions implements ISpecies {
 				super("RESEARCH_FORCEFIELD");
 				initOptionsText();
 			}
-			@Override public void pushSetting() { race.techMod(2, settingValue()/100); }
+			@Override public void pushSetting() { race.techMod(2, settingValue()/100f); }
 			@Override public void pullSetting() { set(Math.round(race.techMod(2) * 100)); }
 		}
 		// ==================== ResearchPlanet ====================
@@ -1567,7 +1567,7 @@ public class CustomRaceDefinitions implements ISpecies {
 				super("RESEARCH_PLANET");
 				initOptionsText();
 			}
-			@Override public void pushSetting() { race.techMod(3, settingValue()/100); }
+			@Override public void pushSetting() { race.techMod(3, settingValue()/100f); }
 			@Override public void pullSetting() { set(Math.round(race.techMod(3) * 100)); }
 		}
 		// ==================== ResearchPropulsion ====================
@@ -1577,7 +1577,7 @@ public class CustomRaceDefinitions implements ISpecies {
 				super("RESEARCH_PROPULSION");
 				initOptionsText();
 			}
-			@Override public void pushSetting() { race.techMod(4, settingValue()/100); }
+			@Override public void pushSetting() { race.techMod(4, settingValue()/100f); }
 			@Override public void pullSetting() { set(Math.round(race.techMod(4) * 100)); }
 		}
 		// ==================== ResearchWeapon ====================
@@ -1587,7 +1587,7 @@ public class CustomRaceDefinitions implements ISpecies {
 				super("RESEARCH_WEAPON");
 				initOptionsText();
 			}
-			@Override public void pushSetting() { race.techMod(5, settingValue()/100); }
+			@Override public void pushSetting() { race.techMod(5, settingValue()/100f); }
 			@Override public void pullSetting() { set(Math.round(race.techMod(5) * 100)); }
 		}
 		//
