@@ -251,6 +251,7 @@
 
 ### Fixes:
 
+- Fixed some Error message asking for the wrong file.
 - Fixed crash when fleets where sent to "Null Destination".
 - Fixed custom species tech cost bug, where setting cost below 100% made them free.
 - Fixed random crash when number of nebulae was very high.

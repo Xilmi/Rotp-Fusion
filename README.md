@@ -44,10 +44,8 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-25-05-21 (BR)
-- Fixed custom species tech cost bug, where setting cost below 100% made them free.
-- Fixed crash when fleets where sent to "Null Destination".
-- Added an exception in low graphic level to keep minimalistic animations.
+25-05-22 (BR)
+- Fixed some Error message asking for the wrong file.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

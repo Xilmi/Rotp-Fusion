@@ -36,6 +36,7 @@ public final class ErrorUI extends BasePanel implements MouseListener, MouseMoti
 	private static final int PLAYER_MODE	= 2;
 	private static final int TURN_MODE		= 3;
 	public static int currentMode = LOADING_MODE;
+	public static int errorMode = LOADING_MODE;
 	public static void inLoadingMode()	{ currentMode = LOADING_MODE; }
 	public static void inSetupMode()	{ currentMode = SETUP_MODE; }
 	public static void inPlayerMode()	{ currentMode = PLAYER_MODE; }
@@ -62,6 +63,7 @@ public final class ErrorUI extends BasePanel implements MouseListener, MouseMoti
     public void init(Throwable e) {
         exception = e;
         e.printStackTrace();
+		errorMode = currentMode;
     }
     @Override
     public void paint(Graphics g) {
@@ -75,7 +77,7 @@ public final class ErrorUI extends BasePanel implements MouseListener, MouseMoti
 		int w0 = w*4/5;
 		int y0 = BasePanel.s50;
 		g.setFont(narrowFont(40));
-		String title = BASE_TITLE + mode[currentMode];
+		String title = BASE_TITLE + mode[errorMode];
 		drawString(g, title, x0, y0);
 
 		g.setFont(narrowFont(30));
@@ -85,7 +87,7 @@ public final class ErrorUI extends BasePanel implements MouseListener, MouseMoti
         w0 = w*4/5;
         y0 = BasePanel.s80;
         g.setFont(narrowFont(30));
-		String desc = DESC_1 + file[currentMode] + DESC_2;
+		String desc = DESC_1 + file[errorMode] + DESC_2;
 		List<String> lines = wrappedLines(g, desc, w0);
         int lineCount = 0;
         for (String line : lines) {
