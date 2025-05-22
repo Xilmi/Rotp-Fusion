@@ -251,6 +251,7 @@
 
 ### Fixes:
 
+- Retreating limitations will not be applied to withdrawed fleets using the retreat tools.
 - Fixed some Error message asking for the wrong file.
 - Fixed crash when fleets where sent to "Null Destination".
 - Fixed custom species tech cost bug, where setting cost below 100% made them free.

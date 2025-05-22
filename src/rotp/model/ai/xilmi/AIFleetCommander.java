@@ -637,20 +637,35 @@ public class AIFleetCommander implements Base, FleetCommander {
                     StarSystem safeSystem = RetreatSystem(fleet);
                     if(safeSystem == null)
                         safeSystem = empire.shipCaptainAI().retreatSystem(dest);
-                    // BR: When there is no valid retreat destination
-                    // keep valid fleets and destroy invalid retreating fleet
-                    if(safeSystem == null) {
-                    	if(fleet.retreating() && !fleet.hasDestination()) {
-                			log("Withdrawing fleet: ", fleet.toString(), " from: ", str(fp.destId), "  to: No valid retreat => deleted");
-                    		galaxy().ships.deleteFleet(fleet);
-                    		session().removeVarValue(fleet);
-                    	}
-                    	else
-                    		log("Withdrawing fleet: ", fleet.toString(), " from: ", str(fp.destId), "  aborted: No valid destination");
+                    if (safeSystem != null) {
+                        log("Withdrawing fleet: ", fleet.toString(), " from: ", str(fp.destId), "  to: ", safeSystem.toString());
+                        if (fleet.retreating())
+                            galaxy().ships.retreatFleet(fleet, safeSystem.id);
+                        else
+                            galaxy().ships.deployFleet(fleet, safeSystem.id);
+                        continue;
                     }
-                    else {
-	                    log("Withdrawing fleet: ", fleet.toString(), " from: ", str(fp.destId), "  to: ", safeSystem.toString());
-	                    galaxy().ships.retreatFleet(fleet, safeSystem.id);
+                    // BR: When there is no valid retreat destination
+                    // keep valid fleets
+                    // and destroy invalid retreating fleet (should never happen)
+                    else { // (safeSystem == null)
+                        if(fleet.retreating()) {
+                            if(fleet.hasDestination())
+                                continue; // Noting better was found. (should not happen)
+                            else {
+                	            log("Withdrawing fleet: ", fleet.toString(), " from: ", str(fp.destId), "  to: No valid retreat => deleted");
+                                galaxy().ships.deleteFleet(fleet);
+                                session().removeVarValue(fleet);
+                                continue;
+                            }
+                        }
+                        else { // Not retreating:  Withdrawing
+                            safeSystem = empire.withDrawSystem(dest);
+                            if (safeSystem != null) {
+                                log("Withdrawing fleet: ", fleet.toString(), " from: ", str(fp.destId), "  to: ", safeSystem.toString());
+        	                    galaxy().ships.deployFleet(fleet, safeSystem.id);
+                           }
+                       }
                     }
                 }
             }
@@ -1186,7 +1201,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             }
         }
     }
-    
+
     public void attackWithFleet(ShipFleet fl, StarSystem target, float amount, float bombAmount, boolean includeScouts, boolean includeFighters, boolean includeBombers, boolean includeColonizer, float needToKeep, boolean splitBySpeed)
     {
         /*if(fl.system() != null)
@@ -1402,8 +1417,13 @@ public class AIFleetCommander implements Base, FleetCommander {
     public StarSystem RetreatSystem(ShipFleet fl) {
         float shortestDistance = Float.MAX_VALUE;
         StarSystem best = null;
+        List<StarSystem> allowedSystems;
+        if (fl.retreating())
+            allowedSystems = fl.allowedRetreatSystems(); // Retreating
+        else
+            allowedSystems = empire.allySystems(); // Withdrawing
         //for(StarSystem sys : empire.allySystems())
-        for(StarSystem sys : fl.allowedRetreatSystems())
+        for(StarSystem sys : allowedSystems)
         {
             UpdateSystemInfo(sys.id);
             if(systemInfoBuffer.get(sys.id).enemyFightingPower > combatPower(fl, sys.empire()) + systemInfoBuffer.get(sys.id).myTotalPower)

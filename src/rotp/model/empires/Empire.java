@@ -1624,7 +1624,22 @@ public final class Empire implements ISpecies, Base, NamedObject, Serializable {
 				alliedSystems.add(sys);
 		return alliedSystems;
 	}
-
+	public StarSystem withDrawSystem(StarSystem sys) {
+		float speed = tech().topSpeed();
+		List<StarSystem> allySystems = allySystems();
+		if(allySystems.isEmpty())
+			return null;
+		if(allySystems.size() == 1)
+			return allySystems.get(0);
+		//ail: first try to use the staging-point for the system we are currently retreating from so we don't retreat to system with enemies
+		int sysId = optimalStagingPoint(sys, 1, allySystems);
+		//ail: only if that fails take overall closest system
+		if(sysId == StarSystem.NULL_ID)
+			//sysId = empire.alliedColonyNearestToSystem(sys, speed);
+			return sys.minTimeTo(allySystems, speed);
+		else
+			return galaxy().system(sysId);
+	}
     public void retreatShipsFrom(int empId) {
         List<Transport> transports = transports();
         for (Transport tr: transports) {

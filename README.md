@@ -46,6 +46,7 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 25-05-22 (BR)
 - Fixed some Error message asking for the wrong file.
+- Retreating limitations will not be applied to withdrawed fleets using the retreat tools.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

@@ -4,6 +4,7 @@
 
 25-05-22 (BR)
 - Fixed some Error message asking for the wrong file.
+- Retreating limitations will not be applied to withdrawed fleets using the retreat tools.
 
 25-05-21 (BR)
 - Fixed custom species tech cost bug, where setting cost below 100% made them free.
