@@ -1624,7 +1624,7 @@ public final class Empire implements ISpecies, Base, NamedObject, Serializable {
 				alliedSystems.add(sys);
 		return alliedSystems;
 	}
-	public StarSystem withDrawSystem(StarSystem sys) {
+	public StarSystem withDrawFromSystem(StarSystem sys) {
 		float speed = tech().topSpeed();
 		List<StarSystem> allySystems = allySystems();
 		if(allySystems.isEmpty())

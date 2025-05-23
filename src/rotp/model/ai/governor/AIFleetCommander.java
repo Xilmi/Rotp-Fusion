@@ -157,8 +157,9 @@ public class AIFleetCommander implements Base, FleetCommander {
 			StarSystem sys = fleet.system();
 			if (!sys.isColonized())
 				continue;
-			if (empire != sys.empire() && fleet.isAutoScoutOnly()) {
-				StarSystem destSys = empire.retreatSystem(sys);
+			Empire sysEmp = sys.empire();
+			if (empire != sysEmp && fleet.isAutoScoutOnly() && !empire.atWarWith(sysEmp.id)) {
+				StarSystem destSys = empire.withDrawFromSystem(sys);
 				if (destSys != null)
 					galaxy().ships.deployFleet(fleet, destSys.id);
 			}

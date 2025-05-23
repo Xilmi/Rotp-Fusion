@@ -660,7 +660,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                             }
                         }
                         else { // Not retreating:  Withdrawing
-                            safeSystem = empire.withDrawSystem(dest);
+                            safeSystem = empire.withDrawFromSystem(dest);
                             if (safeSystem != null) {
                                 log("Withdrawing fleet: ", fleet.toString(), " from: ", str(fp.destId), "  to: ", safeSystem.toString());
         	                    galaxy().ships.deployFleet(fleet, safeSystem.id);

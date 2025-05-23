@@ -130,6 +130,9 @@
 
 ### Governor:
 
+25-05-23 (BR)
+- Auto-Scouts improvement:
+  - To avoid damaging our relations with empires we are not at war with, Auto-Scouts will leave their colonies to go to the most strategic location.
 - Auto-Scouts will leave alien colonies, even if they don't have new star systems to explore. This is to avoid damaging your relationship with that empire.
 - New option to automatically label a design with colonization capabilities as "Auto Colonize".
 - New option to automatically label a small or medium hull design with extended range capabilities as "Auto Scout".
@@ -166,7 +169,9 @@
 - Governor new advanced options to set when terraforming should be started.
 - Governor new advanced options to set what to do with funding.
 - Governor new advanced options to set when to grow vs when to build factories.
-
+- Obedient governor finalisation and documentation.
+- When Alt is down, population display is replaced by workers display.
+- Changed Governor tooltip dismiss delay to 10 seconds
 
 ### Miscellaneous:
 
@@ -177,6 +182,9 @@
 - Moved Dark galaxy option to "Galaxy Rules"
 - Restored former look of tech bubble.
 - Moved to java 17
+- Updated to Java 11.
+- Updated Zip files to JRE23.
+- Updated Zip files to JRE21
 
 
 ### User Interfaces:
@@ -239,6 +247,7 @@
 - Fixed "Restricted Environment" Guide description.
 - Fixed Bitmap Galaxy "Guide" text, that was too wide to be displayed.
 - Updated DesignUI Help pop-up.
+- Updated Help for "block governor from sending transport".
 
 
 ### Other Language:
@@ -354,21 +363,6 @@
 
 
 ### To categorize:
-
-
-2024.12.21 (BR)
-- Obedient governor finalisation and documentation.
-- Updated to Java 11.
-- Updated Zip files to JRE23.
-- Improved key state management to get the real Alt key state with mouse events.
-- Splitted InputEventUtil from Base.
-- When Alt is down, population display is replaced by workers display.
-- Changed Governor tooltip dismiss delay to 10 seconds
-
-2024.12.18 (BR)
-- Updated Help for "block governor from sending transport".
-- Groundwork for more governor customisation
-- Updated Zip files to JRE21
 
 2024.12.16 (BR)
 - Eco growth is now displayed with one decimal.

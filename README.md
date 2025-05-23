@@ -44,6 +44,10 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+25-05-23 (BR)
+- Auto-Scouts improvement:
+  - To avoid damaging our relations with empires we are not at war with, Auto-Scouts will leave their colonies to go to the most strategic location.
+
 25-05-22 (BR)
 - Fixed some Error message asking for the wrong file.
 - Retreating limitations will not be applied to withdrawed fleets using the retreat tools.
