@@ -711,8 +711,13 @@ public final class GameSession implements Base, Serializable {
                 	performingTurn = false;
 					ErrorUI.inPlayerMode();
 					return;
-                }
-                if (autoRunning && IDebugOptions.debugAutoRun()) {
+				}
+				if (autoRunning && IDebugOptions.debugAutoRun()) {
+					if (aFewMoreTurns()) {
+						performingTurn = false;
+						nextTurnLoop();
+						return;
+					}
                 	// Auto Run Mode Stop if:
                    	// 1) Easy case: the player won
                    	// 2) The player lost with option StopOnLoss
@@ -728,8 +733,8 @@ public final class GameSession implements Base, Serializable {
                  	if(status().lost() && IDebugOptions.debugARStopOnLoss()) {
                 		RotPUI.instance().selectGameOverPanel();
                 		performingTurn = false;
-				ErrorUI.inPlayerMode();
-				return;
+						ErrorUI.inPlayerMode();
+						return;
                 	}
                 	// Stop if only one empire remaining and player started with opponent(s)
                 	if (galaxy().numActiveEmpires() == 1 

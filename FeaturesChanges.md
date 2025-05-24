@@ -21,6 +21,8 @@
 
 ### Features:
 
+- "Auto Run" is now compatible with "A few more turns..."
+  - After selecting "A few more turns...", "Auto Run" will be set on "pause" before returning to the galaxy map screen.
 - Star system in nearby and Midrange radii are no longer limited by "Star Density" option.
   - Star density will be adjusted to fit the requested number of neighbor systems.
 - Improved galaxy generation speed.

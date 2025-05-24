@@ -7,13 +7,9 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
-25-05-23 (BR)
-- Auto-Scouts improvement:
-  - To avoid damaging our relations with empires we are not at war with, Auto-Scouts will leave their colonies to go to the most strategic location.
-
-25-05-22 (BR)
-- Fixed some Error message asking for the wrong file.
-- Retreating limitations will not be applied to withdrawed fleets using the retreat tools.
+25-05-24 (BR)
+- "Auto Run" is now compatible with "A few more turns..."
+  - After selecting "A few more turns...", "Auto Run" will be set on "pause" before returning to the galaxy map screen.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

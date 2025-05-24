@@ -176,13 +176,12 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
         g.drawRoundRect(x,y,w,h,s10,s10);
         g.setStroke(prevS);
 
-//        String label = options().displayYear() ? text("MAIN_NAVIGATION_NEXT_YEAR") : text("MAIN_NAVIGATION_NEXT_TURN");
         String label;
         if (opts.ironmanLocked())
         	label = text("MAIN_NAVIGATION_LOCKED", opts.selectedIronmanLoadDelay());
         else if (opts.autoRunAILocked())
         	label = text("MAIN_NAVIGATION_AUTO_RUN_AI", opts.selectedIronmanLoadDelay());
-        else if (session().autoRunning())
+        else if (session().autoRunning() && session().performingTurn())
     		label = text("MAIN_NAVIGATION_AUTO_RUN_PAUSE");
         else {
         	String key;
@@ -190,7 +189,7 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
 	        	key = "MAIN_NAVIGATION_AUTO_RUN";
 	        else if (opts.displayYear())
 	        	key = "MAIN_NAVIGATION_NEXT_YEAR";
-	        else 
+	        else
 	        	key = "MAIN_NAVIGATION_NEXT_TURN";
         	if (opts.selectedIronmanLoad())
         		label = text(key + "_LOCKED", opts.selectedIronmanLoadDelay());

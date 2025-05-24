@@ -2,6 +2,10 @@
 
 ## What's New
 
+25-05-24 (BR)
+- "Auto Run" is now compatible with "A few more turns..."
+  - After selecting "A few more turns...", "Auto Run" will be set on "pause" before returning to the galaxy map screen.
+
 25-05-23 (BR)
 - Auto-Scouts improvement:
   - To avoid damaging our relations with empires we are not at war with, Auto-Scouts will leave their colonies to go to the most strategic location.
