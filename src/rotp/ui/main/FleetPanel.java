@@ -36,6 +36,7 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import rotp.model.Sprite;
@@ -50,7 +51,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.map.IMapHandler;
 import rotp.ui.sprites.FlightPathSprite;
 
-public class FleetPanel extends BasePanel implements MapSpriteViewer {
+public final class FleetPanel extends BasePanel implements MapSpriteViewer {
     private static final long serialVersionUID = 1L;
     private final SpriteDisplayPanel parent;
     protected BasePanel topPane;
@@ -517,7 +518,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         bottomPane.setBackground(MainUI.shadeBorderC());
         return bottomPane;
     }
-    public class FleetGraphicPane extends BasePanel implements MouseWheelListener {
+    public final class FleetGraphicPane extends BasePanel implements MouseWheelListener {
         private static final long serialVersionUID = 1L;
         private final FleetPanel parent;
         public FleetGraphicPane(FleetPanel p){
@@ -528,8 +529,16 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             setBackground(Color.black);
             addMouseWheelListener(this);
         }
-        @Override
-        public void paintComponent(Graphics g0) {
+		@Override public void paintComponent(Graphics g0) {
+			try { paintFleetGraphicPane(g0); }
+			catch (NullPointerException | ConcurrentModificationException e) {
+				if (e instanceof ConcurrentModificationException)
+					System.err.println("Concurrent Modification Exception while painting the Fleet Graphic Pane");
+				else if (e instanceof NullPointerException)
+					System.err.println("Null Pointer Exception while painting the Fleet Graphic Pane");
+			}
+		}
+		private void paintFleetGraphicPane(Graphics g0) {
 			// modnar: paint top of "Fleet Deployment" panel on main map screen
             Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
@@ -695,7 +704,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             scrollToNextFleet(up);
         }
     }
-    public class FleetDetailPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+    public final class FleetDetailPane extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
         private static final long serialVersionUID = 1L;
         private final Color fleetBackC = new Color(255,255,255,40);
         private BufferedImage starImg;
@@ -794,8 +803,16 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         public String textureName()            { return TEXTURE_GRAY; }
         @Override
         public Shape textureClip()     { return textureClip; }
-        @Override
-        public void paintComponent(Graphics g0) {
+		@Override public void paintComponent(Graphics g0) {
+			try { paintDetailPane(g0); }
+			catch (NullPointerException | ConcurrentModificationException e) {
+				if (e instanceof ConcurrentModificationException)
+					System.err.println("Concurrent Modification Exception while painting the Fleet Detail Pane");
+				else if (e instanceof NullPointerException)
+					System.err.println("Null Pointer Exception while painting the Fleet Detail Pane");
+			}
+		}
+        public void paintDetailPane(Graphics g0) {
             Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g0);
             int w = getWidth();
@@ -1493,7 +1510,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
     	adjustedFleet(newAdjustedFleet());
     	return true;
     }
-    public class FleetButtonPane extends BasePanel implements MouseListener, MouseMotionListener {
+    public final class FleetButtonPane extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
         private final FleetPanel parent;
         private final Color buttonShadowC = new Color(33,33,33);
@@ -1549,8 +1566,16 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             largeGreenBackC = new LinearGradientPaint(start, mid1, dist, greenColors);
             largeRedBackC = new LinearGradientPaint(start, mid1, dist, redColors);
         }
-        @Override
-        public void paintComponent(Graphics g0) {
+		@Override public void paintComponent(Graphics g0) {
+			try { paintButtonPane(g0); }
+			catch (NullPointerException | ConcurrentModificationException e) {
+				if (e instanceof ConcurrentModificationException)
+					System.err.println("Concurrent Modification Exception while painting the Fleet Button Pane");
+				else if (e instanceof NullPointerException)
+					System.err.println("Null Pointer Exception while painting the Fleet Button Pane");
+			}
+		}
+		public void paintButtonPane(Graphics g0) {
             Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
 

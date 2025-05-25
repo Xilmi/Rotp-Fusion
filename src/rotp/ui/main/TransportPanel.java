@@ -32,6 +32,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import rotp.model.colony.Colony;
@@ -40,7 +41,7 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.ui.BasePanel;
 
-public class TransportPanel extends BasePanel {
+public final class TransportPanel extends BasePanel {
     private static final long serialVersionUID = 1L;
     private final SpriteDisplayPanel parent;
     protected BasePanel topPane;
@@ -78,7 +79,7 @@ public class TransportPanel extends BasePanel {
             add(bottomPane, BorderLayout.SOUTH);
         }
     }
-    public class TransportGraphicPane extends BasePanel {
+    public final class TransportGraphicPane extends BasePanel {
         private static final long serialVersionUID = 1L;
         private final TransportPanel parent;
 		private String displayedRaceId;
@@ -94,8 +95,16 @@ public class TransportPanel extends BasePanel {
         public boolean hasStarBackground()     { return true; }
         @Override
         public Color starBackgroundC()         { return SystemPanel.starBackgroundC; }
-        @Override
-        public void paintComponent(Graphics g0) {
+		@Override public void paintComponent(Graphics g0) {
+			try { paintGraphicPane(g0); }
+			catch (NullPointerException | ConcurrentModificationException e) {
+				if (e instanceof ConcurrentModificationException)
+					System.err.println("Concurrent Modification Exception while painting the Transport Graphic Pane");
+				else if (e instanceof NullPointerException)
+					System.err.println("Null Pointer Exception while painting the Transport Graphic Pane");
+			}
+		}
+		private void paintGraphicPane(Graphics g0) {
 			// modnar: draw transport ship icon on top of Transport information panel on main map screen
             Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
@@ -175,7 +184,7 @@ public class TransportPanel extends BasePanel {
             g.fillRect(0, h-s5, w, s5);
         }
     }
-    public class TransportDetailPane extends BasePanel implements MouseListener, MouseMotionListener {
+    public final class TransportDetailPane extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
         final int MAX_DISPLAY = 30;
         int randX[] = { 48,344,393,229,534,599,586,536,286,368,460, 67,414,355,296,466,405,653,777,794,290,645,281,145,  2,498,290,391,603,151 };
@@ -193,8 +202,16 @@ public class TransportPanel extends BasePanel {
         public boolean hasStarBackground()     { return true; }
         @Override
         public Color starBackgroundC()         { return SystemPanel.starBackgroundC; }
-        @Override
-        public void paintComponent(Graphics g0) {
+		@Override public void paintComponent(Graphics g0) {
+			try { paintDetailPane(g0); }
+			catch (NullPointerException | ConcurrentModificationException e) {
+				if (e instanceof ConcurrentModificationException)
+					System.err.println("Concurrent Modification Exception while painting the Transport Detail Pane");
+				else if (e instanceof NullPointerException)
+					System.err.println("Null Pointer Exception while painting the Transport Detail Pane");
+			}
+		}
+		public void paintDetailPane(Graphics g0) {
             Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
             int w = getWidth();
@@ -211,7 +228,7 @@ public class TransportPanel extends BasePanel {
             int sw = g.getFontMetrics().stringWidth(str1);
             int x0 = (w-sw)/2;
             drawBorderedString(g, str1, 2, x0, s24, Color.black, SystemPanel.orangeText);
-            
+
             if (!tr.empire().isPlayer())
                 return;
 
@@ -233,11 +250,11 @@ public class TransportPanel extends BasePanel {
                 ye += lineH;
                 drawString(g, wpnDesc, xe, ye);
             }
-            
+
             // draw surrender on arrival
             g.setColor(MainUI.shadeBorderC());
             g.fillRect(0, h-s50, w, s50);
-            
+
             x0 = s10;
             int y0 = h-s30;
             int lineH = s18;
@@ -349,7 +366,7 @@ public class TransportPanel extends BasePanel {
             }
         }
     }
-    public class TransportButtonPane extends BasePanel implements MouseListener, MouseMotionListener {
+    public final class TransportButtonPane extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
         private final TransportPanel parent;
         private final Color buttonShadowC = new Color(33,33,33);
@@ -390,8 +407,16 @@ public class TransportPanel extends BasePanel {
         public String textureName()            { return TEXTURE_GRAY; }
         @Override
         public Shape textureClip()     { return textureClip; }
-        @Override
-        public void paintComponent(Graphics g0) {
+		@Override public void paintComponent(Graphics g0) {
+			try { paintButtonPane(g0); }
+			catch (NullPointerException | ConcurrentModificationException e) {
+				if (e instanceof ConcurrentModificationException)
+					System.err.println("Concurrent Modification Exception while painting the Transport Button Pane");
+				else if (e instanceof NullPointerException)
+					System.err.println("Null Pointer Exception while painting the Transport Button Pane");
+			}
+		}
+		public void paintButtonPane(Graphics g0) {
             Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
 

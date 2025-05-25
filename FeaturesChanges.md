@@ -262,6 +262,7 @@
 
 ### Fixes:
 
+- Fixed rare occurring "null pointer exception" when the Map, or its side panels, refresh during any kind of ships removal.
 - Retreating limitations will not be applied to withdrawed fleets using the retreat tools.
 - Fixed some Error message asking for the wrong file.
 - Fixed crash when fleets where sent to "Null Destination".
