@@ -4,7 +4,7 @@
 
 25-05-30 (BR)
 - Fixed Some AI not expanding when using the Warp Speed Multiplier below 100%.
-- Fixed the speed in nebulae not folowing the Warp Speed Multiplier.
+- Fixed the speed in nebulae not following the Warp Speed Multiplier.
 - Fixed the transport speed not being limited by the Warp Speed Multiplier.
 
 25-05-25 (BR)
