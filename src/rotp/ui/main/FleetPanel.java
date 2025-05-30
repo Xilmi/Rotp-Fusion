@@ -968,7 +968,7 @@ public final class FleetPanel extends BasePanel implements MapSpriteViewer {
                     else
                         text = text("MAIN_FLEET_ETA_NAMED", destName, dist);
                     if ((dist > 1) && displayFl.passesThroughNebula(dest))
-                        nebulaText = text("MAIN_FLEET_THROUGH_NEBULA");
+                        nebulaText = text("MAIN_FLEET_THROUGH_NEBULA", displayFl.speedInNebulaeStr());
                 }
                 else if (displayFl.canSendTo(id(dest))) {
                     int dist = 0;
@@ -985,7 +985,7 @@ public final class FleetPanel extends BasePanel implements MapSpriteViewer {
                         text = text("MAIN_FLEET_OUT_OF_RANGE_DESC", dist);
                     }
                     if ((dist > 1) && displayFl.passesThroughNebula(dest))
-                        nebulaText = text("MAIN_FLEET_THROUGH_NEBULA");
+                        nebulaText = text("MAIN_FLEET_THROUGH_NEBULA", displayFl.speedInNebulaeStr());
                 }
                 else if (displayFl.isOrbiting()) {
                     text = text("MAIN_FLEET_CHOOSE_DEST");

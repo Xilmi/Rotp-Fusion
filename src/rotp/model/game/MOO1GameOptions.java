@@ -531,9 +531,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         return true;
     }
 	@Override public float warpSpeed(TechEngineWarp tech) {
+		return extendedWarp(tech) * selectedWarpSpeedFactor();
+	}
+	@Override public int extendedWarp(TechEngineWarp tech) {
 		switch(selectedWarpSpeedOption()) {
 			case WARP_SPEED_NORMAL:
-				return tech.baseWarp() * selectedWarpSpeedFactor();
+				return tech.baseWarp();
 			//	case WARP_SPEED_FAST: return fibonacci(tech.baseWarp());
 			//	modnar: adjust Fast Warp down at advanced Engines
 			//		use [A033638] https://oeis.org/A033638
@@ -542,11 +545,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 			//	FastMOD:	1, 2, 3, 5, 7, 10, 13, 17, 21
 			//	Fibonacci:	1, 2, 3, 5, 8, 13, 21, 34, 55
 			case WARP_SPEED_FAST:
-				return quarterSquaresPlusOne(tech.baseWarp()) * selectedWarpSpeedFactor();
+				return quarterSquaresPlusOne(tech.baseWarp());
 			case WARP_SPEED_FAST_F: // BR: restored original Fast option
-				return fibonacci(tech.baseWarp()) * selectedWarpSpeedFactor();
+				return fibonacci(tech.baseWarp());
 		}
-		return tech.baseWarp() * selectedWarpSpeedFactor();
+		return tech.baseWarp();
 	}
     @Override
     public String randomStarType() {

@@ -933,7 +933,7 @@ MAIN_FLEET_ETA_NAMED              | ETA to %1: %2 Years
 MAIN_FLEET_SET_RALLY              | Rallying
 MAIN_FLEET_AUTO_RETREAT           | Automatically retreat upon arrival
 MAIN_FLEET_ETA_UNKNOWN            | Scanners cannot determine destination
-MAIN_FLEET_THROUGH_NEBULA         | Maximum speed limited to Warp 1 by nebula
+MAIN_FLEET_THROUGH_NEBULA         | Maximum speed limited to Warp %1 by nebula
 MAIN_FLEET_SELECT_ALL             | All
 
 MAIN_FLEET_CANCEL                 | Cancel

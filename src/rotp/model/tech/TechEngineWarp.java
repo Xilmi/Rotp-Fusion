@@ -21,6 +21,7 @@ import rotp.model.ships.ShipEngine;
 import rotp.model.ships.ShipManeuver;
 
 public final class TechEngineWarp extends Tech {
+	public static final String KEY = "EngineWarp";
     private int baseWarp;
     //public String shName;
 
@@ -32,8 +33,6 @@ public final class TechEngineWarp extends Tech {
         free = b;
         init();
     }
-//    @Override
-//    public String detail()                { return text(detail, warp()); }
     @Override public String detail()        { return detail(warp()); }
     @Override
     public boolean canBeMiniaturized()      { return true; }
@@ -54,12 +53,15 @@ public final class TechEngineWarp extends Tech {
             case 8: baseWarp = 9; break;
         }
     }
-	public int baseWarp()							{ return baseWarp; }
-	public float warp()								{ return options().warpSpeed(this); }
+	public float transportTravelSpeed()	{ return max(1, (extendedWarp() - 1)) * options().selectedWarpSpeedFactor(); }
+	public int transportCombatSpeed()	{ return max(1, baseWarp - 1); }
+	public int baseWarp()				{ return baseWarp; }
+	public int extendedWarp()			{ return options().extendedWarp(this); }
+	public float warp()					{ return options().warpSpeed(this); }
     @Override public float warModeFactor()			{ return 1.5f; }
     @Override public float expansionModeFactor()	{ return 2; }
     @Override public boolean providesShipComponent(){ return true; }
-    @Override public boolean isObsolete(Empire c)	{ return warp() < c.tech().topSpeed(); }
+    @Override public boolean isObsolete(Empire c)	{ return baseWarp() < c.tech().topBaseSpeed(); }
     @Override public float baseValue(Empire c)		{ return c.ai().scientist().baseValue(this); }
     @Override
     public void provideBenefits(Empire c) {

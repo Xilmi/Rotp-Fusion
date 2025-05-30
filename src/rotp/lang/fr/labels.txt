@@ -933,7 +933,7 @@ MAIN_FLEET_ETA_NAMED              | Durée du trajet vers %1 : %2 Années
 MAIN_FLEET_SET_RALLY              | Ralliement
 MAIN_FLEET_AUTO_RETREAT           | Se retirer automatiquement à l’arrivée
 MAIN_FLEET_ETA_UNKNOWN            | Les scanners ne peuvent pas déterminer la destination
-MAIN_FLEET_THROUGH_NEBULA         | Vitesse maximale limitée à Distorsion 1 dans les nébuleuses
+MAIN_FLEET_THROUGH_NEBULA         | Vitesse maximale limitée à Distorsion %1 dans les nébuleuses
 MAIN_FLEET_SELECT_ALL             | Tous
 
 MAIN_FLEET_CANCEL                 | Annuler

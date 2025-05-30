@@ -144,6 +144,7 @@ public class Tech implements Base {
     	typeMap.put(FUTURE_PROPULSION, "FUTUREPROP");
     	typeMap.put(FUTURE_WEAPON, "FUTUREWEAPON");
     }
+	public static String buildId(String s, int i)	{ return s + ":" + i; }
 
     public String id;
     public int techType;
@@ -172,15 +173,15 @@ public class Tech implements Base {
     public float power = 0;
 
     public String id()               { return id; }
-    public void id(String s, int i)  { id = concat(s,":", str(i)); }
+    public void id(String s, int i)  { id = buildId(s, i); }
     public Tech () {  }
 
-    public Tech(int lv, int seq, TechCategory c) {
-        typeSeq = seq;
-        level = lv;
-        cat = c;
-        init();
-    }
+//    public Tech(int lv, int seq, TechCategory c) {
+//        typeSeq = seq;
+//        level = lv;
+//        cat = c;
+//        init();
+//    }
     public void init() {
         quintile = (level+4)/5;
     }

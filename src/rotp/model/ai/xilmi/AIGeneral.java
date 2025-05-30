@@ -773,7 +773,7 @@ public class AIGeneral implements Base, General {
             {
                 float speed = fleet.slowestStackSpeed();
                 if(theirs.inNebula())
-                    speed = 1;
+                    speed = fleet.speedInNebulae();
                 avgFleetDistance += max(fleet.distanceTo(theirs) / speed, 1) * fleet.bcValue();
                 //fleet.travelTimeTo(theirs, fleet.slowestStackSpeed()) * fleet.bcValue();
                 fleetDistanceCounts += fleet.bcValue();
@@ -782,7 +782,7 @@ public class AIGeneral implements Base, General {
             {
                 float speed = attacker.tech().topSpeed();
                 if(theirs.inNebula())
-                    speed = 1;
+                    speed = attacker.speedInNebulae();
                 float colonyContributionValue = mine.colony().totalIncome() * mine.planet().productionAdj();
                 //System.out.println(attacker.name()+" "+mine.name()+" can make "+newGrownPopulation+" per turn. so far: "+popDistanceCounts);
                 float dist = mine.distanceTo(theirs);

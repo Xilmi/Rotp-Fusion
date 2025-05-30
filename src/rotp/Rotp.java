@@ -89,7 +89,7 @@ public final class Rotp {
     //public static long maxAllocatedMemory;
     public static long memoryReserve = -1;
     public static boolean isMemoryMonitored = false;
-    public static boolean logging = false;
+    public static boolean logging;
     private static float resizeAmt =  -1.0f;
     public static int actualAlloc = -1;
     public static boolean reloadRecentSave = false;

@@ -7,12 +7,10 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
-25-05-25 (BR)
-- Fixed rare occurring "null pointer exception" when the Map, or its side panels, refresh during any kind of ships removal.
-
-25-05-24 (BR)
-- "Auto Run" is now compatible with "A few more turns..."
-  - After selecting "A few more turns...", "Auto Run" will be set on "pause" before returning to the galaxy map screen.
+25-05-30 (BR)
+- Fixed Some AI not expanding when using the Warp Speed Multiplier below 100%.
+- Fixed the speed in nebulae not folowing the Warp Speed Multiplier.
+- Fixed the transport speed not being limited by the Warp Speed Multiplier.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

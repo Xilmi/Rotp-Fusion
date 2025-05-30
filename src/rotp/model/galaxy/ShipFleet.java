@@ -625,6 +625,19 @@ public class ShipFleet extends FleetBase {
         return empire().tech().scoutRange();
     }
     @Override public float travelSpeed() { return slowestStackSpeed(); }
+	@Override public float speedInNebulae()	{ return empire().speedInNebulae(); }
+	public String speedInNebulaeStr()	{ return empire().speedInNebulaeStr(); }
+	public int slowestStackBaseSpeed()	{
+		int maxBaseSpeed = Integer.MAX_VALUE;
+		for (int i=0; i<MAX_DESIGNS; i++) {
+			if (num(i)>0) {
+				ShipDesign des = design(i);
+				if (des != null)
+					maxBaseSpeed = min(maxBaseSpeed, des.engine().baseWarp());
+			}
+		}
+		return maxBaseSpeed;
+	}
     public float slowestStackSpeed() {
         float maxSpeed = Integer.MAX_VALUE;
         for (int i=0;i<MAX_DESIGNS;i++) {

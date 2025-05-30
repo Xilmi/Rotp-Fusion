@@ -841,7 +841,7 @@ public class AIGeneral implements Base, General {
                 continue;
             if(!empire.inShipRange(emp.id))
                 continue;
-            if(empire.tech().topSpeed() < empire.viewForEmpire(emp).spies().tech().topSpeed())
+            if(empire.tech().topBaseSpeed() < empire.viewForEmpire(emp).spies().tech().topBaseSpeed())
                 continue;
             float currentScore = totalEmpirePopulationCapacity(emp) / (fleetCenter(empire).distanceTo(colonyCenter(emp)) + colonyCenter(empire).distanceTo(colonyCenter(emp)));
             currentScore *= diploMod;

@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+
 import rotp.util.Base;
 
 public final class TechLibrary implements Base {
@@ -140,7 +141,7 @@ public final class TechLibrary implements Base {
         if (type.equalsIgnoreCase("BiologicalAntidote"))   { return new TechBiologicalAntidote(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("Cloning"))              { return new TechCloning(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("AtmosphereEnrichment")) { return new TechAtmosphereEnrichment(type, level, seq, free, loadingCat); }
-        if (type.equalsIgnoreCase("EngineWarp"))           { return new TechEngineWarp(type, level, seq, free, loadingCat); }
+        if (type.equalsIgnoreCase(TechEngineWarp.KEY))		{ return new TechEngineWarp(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("FuelRange"))            { return new TechFuelRange(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("ShipInertial"))         { return new TechShipInertial(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("EnergyPulsar"))         { return new TechEnergyPulsar(type, level, seq, free, loadingCat); }

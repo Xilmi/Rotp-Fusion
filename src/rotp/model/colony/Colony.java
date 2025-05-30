@@ -500,7 +500,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             return;
         if (starSystem().inNebula() && order == Orders.SHIELD)
             return;
-        
+
         float existingAmt = orders.containsKey(order) ? orders.get(order) : 0;
 
         if (amt <= existingAmt)

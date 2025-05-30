@@ -102,7 +102,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         return (empire.tech().topShipWeaponTech().quintile() > 1 
                 || empire.tech().topBaseMissileTech().quintile() > 1 
                 || empire.tech().topBaseScatterPackTech() != null) 
-                && empire.tech().topSpeed() > 1;
+                && empire.tech().topBaseSpeed() > 1;
     }
     @Override
     public float maxShipMaintainance() {
@@ -1218,7 +1218,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             int num = fl.num(i);
             ShipDesign d = fl.design(i); 
             totalVal += num * d.cost();
-            if(d.warpSpeed() == empire.tech().topSpeed())
+            if(d.baseWarpSpeed() == empire.tech().topBaseSpeed())
                 topSpeedVal += num * d.cost();
         }
         
@@ -1236,7 +1236,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         //No we don't. We need our ships to apply pressure.
         /*if(!fl.isInTransit() && !fl.system().isColonized() && empire.canColonize(fl.system()))
             needToKeep = max(needToKeep, 1);*/
-        
+
         boolean handleEvent = false;
         if(!fl.inTransit())
         {
@@ -1250,15 +1250,16 @@ public class AIFleetCommander implements Base, FleetCommander {
                 }
             }
         }
-        
-        for (int speed=(int)fl.slowestStackSpeed();speed<=(int)empire.tech().topSpeed();speed++)
+
+        for (int baseSpeed= fl.slowestStackBaseSpeed(); baseSpeed<=empire.tech().topBaseSpeed(); baseSpeed++)
+//        for (int speed=(int)fl.slowestStackSpeed();speed<=(int)empire.tech().topSpeed();speed++)
         {
             boolean haveToDeploy = false;
             int[] counts = new int[ShipDesignLab.MAX_DESIGNS];
             for (int i=0;i<MAX_DESIGNS;i++) {
                 int num = fl.num(i);
                 ShipDesign d = fl.design(i); 
-                if(d.warpSpeed()!=speed && splitBySpeed)
+                if(d.baseWarpSpeed()!=baseSpeed && splitBySpeed)
                     continue;
                 if(!d.isArmed() && !d.hasColonySpecial() && !includeScouts)
                 {

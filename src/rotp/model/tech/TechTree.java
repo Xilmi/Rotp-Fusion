@@ -148,7 +148,11 @@ public final class TechTree implements Base, Serializable {
     public void topEcoRestorationTech(TechEcoRestoration t)           { topEcoRestorationTech = t.id(); }
     public TechEnergyPulsar topEnergyPulsarTech()                     { return (TechEnergyPulsar) tech(topEnergyPulsarTech); }
     public void topEnergyPulsarTech(TechEnergyPulsar t)               { topEnergyPulsarTech = t.id(); }
-    public TechEngineWarp topEngineWarpTech()                         { return (TechEngineWarp) tech(topEngineWarpTech); }
+	public TechEngineWarp topEngineWarpTech()						{
+		if (topEngineWarpTech == null)
+			topEngineWarpTech = Tech.buildId(TechEngineWarp.KEY, 0);
+		return (TechEngineWarp) tech(topEngineWarpTech);
+	}
     public void topEngineWarpTech(TechEngineWarp t)                   { topEngineWarpTech = t.id(); }
     public TechFuelRange topFuelRangeTech()                           { return (TechFuelRange) tech(topFuelRangeTech); }
     public void topFuelRangeTech(TechFuelRange t)                     { topFuelRangeTech = t.id(); }
@@ -811,16 +815,10 @@ public final class TechTree implements Base, Serializable {
     public float terraformAdj() {
         return topTerraformingTech == null ? 0 : topTerraformingTech().increase();
     }
-    public float topSpeed() {
-        return topEngineWarpTech == null ? 0.01f : topEngineWarpTech().warp();
-    }
-    public float transportTravelSpeed() {
-        return max(1, (topSpeed() - 1));
-    }
-    public float transportCombatSpeed() {
-        float topBaseWarp = topEngineWarpTech == null ? 1 : topEngineWarpTech().baseWarp();
-        return max(1, (topBaseWarp - 1));
-    }
+	public int topBaseSpeed()				{ return topEngineWarpTech().baseWarp(); }
+	public float topSpeed()					{ return topEngineWarpTech().warp(); }
+	public float transportTravelSpeed()		{ return topEngineWarpTech().transportTravelSpeed(); }
+	public int transportCombatSpeed()		{ return topEngineWarpTech().transportCombatSpeed(); }
     public float shipDamageRepairPct() {
         return topAutomatedRepairTech == null ? 0 : topAutomatedRepairTech().repairAdj;
     }

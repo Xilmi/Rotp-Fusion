@@ -735,10 +735,10 @@ public class AIScientist implements Base, Scientist {
 
         // Major breakpoints in warp technology:
         // The first warp tech you find is a critical tech
-        if (curr.warp() == 1)
+        if (curr.baseWarp() == 1)
             adj *= 3;
         // The first warp above 2 significantly aids troops and expansion
-        if (curr.warp() == 2) {
+        if (curr.baseWarp() == 2) {
             if (empire.leader().isMilitarist())
                 adj *= 1.25;
             if (empire.leader().isAggressive())

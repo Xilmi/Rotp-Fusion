@@ -138,7 +138,7 @@ public class VIPFleetView implements IVIPConsole {
 				else
 					text = text("MAIN_FLEET_ETA_NAMED", destName, dist);
 				if ((dist > 1) && fleet.passesThroughNebula(dest))
-					nebulaText = text("MAIN_FLEET_THROUGH_NEBULA");
+					nebulaText = text("MAIN_FLEET_THROUGH_NEBULA", fleet.speedInNebulaeStr());
 			}
 			else if (fleet.canSendTo(id(dest))) {
 				int dist = 0;
@@ -155,7 +155,7 @@ public class VIPFleetView implements IVIPConsole {
 					text = text("MAIN_FLEET_OUT_OF_RANGE_DESC", dist);
 				}
 				if ((dist > 1) && fleet.passesThroughNebula(dest))
-					nebulaText = text("MAIN_FLEET_THROUGH_NEBULA");
+					nebulaText = text("MAIN_FLEET_THROUGH_NEBULA", fleet.speedInNebulaeStr();
 			}
 			else if (fleet.isOrbiting()) {
 				text = text("MAIN_FLEET_CHOOSE_DEST");

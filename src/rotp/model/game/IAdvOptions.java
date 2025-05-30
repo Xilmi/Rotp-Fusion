@@ -361,7 +361,7 @@ public interface IAdvOptions extends IBaseOptsTools {
 			.setLimits(10, 500)
 			.setIncrements(1, 5, 20)
 			.loop(false);
-	default float selectedWarpSpeedFactor()		{ return warpSpeedPct.get()/100f;	}
+	default float selectedWarpSpeedFactor()		{ return warpSpeedPct.get()/100f; }
 
 	ParamList fuelRange	= new FuelRange(); // Duplicate Do not add the list
 	final class FuelRange extends ParamList {

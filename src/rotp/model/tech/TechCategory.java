@@ -389,7 +389,7 @@ public final class TechCategory implements Base, Serializable {
                 else
                     return text("TECH_GROUND_COMBAT_BONUS", (int)tree.shieldGroundBonus());
             case 3: return key ? text("TECH_WASTE_CLEANUP") : text("TECH_WASTE_CLEANUP_BONUS", (int)tree.wasteElimination());
-            case 4: return key ? text("TECH_SHIP_SPEED") : text("TECH_SHIP_SPEED_AMT", (int)tree.topSpeed());
+            case 4: return key ? text("TECH_SHIP_SPEED") : text("TECH_SHIP_SPEED_AMT", fmt(tree.topSpeed()));
             case 5: return "";
         }
         return "";

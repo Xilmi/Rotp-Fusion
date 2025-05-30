@@ -1081,6 +1081,6 @@ public class AIScientist implements Base, Scientist {
         return (empire.tech().topShipWeaponTech().quintile() > 1 
                 || empire.tech().topBaseMissileTech().quintile() > 1 
                 || empire.tech().topBaseScatterPackTech() != null) 
-                && empire.tech().topSpeed() > 1;
+                && empire.tech().topBaseSpeed() > 1;
     }
 }

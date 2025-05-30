@@ -1329,7 +1329,13 @@ public final class Empire implements ISpecies, Base, NamedObject, Serializable {
     public float learnableScoutRange()    { return tech().learnableScoutRange(); }
     public float shipReach(int turns)   { return min(shipRange(), turns*tech().topSpeed()); }
     public float scoutReach(int turns)  { return min(scoutRange(), turns*tech().topSpeed()); }
-    
+	public float speedInNebulae()		{ return options().selectedWarpSpeedFactor(); }
+	public String speedInNebulaeStr()	{
+		float speed = speedInNebulae();
+		if (speed %1 == 0)
+			return "" + (int)speed;
+		return fmt(speed);
+	}
     public String rangeTechNeededToScout(int sysId) {
         float dist = sv.distance(sysId);
         return tech().rangeTechNeededToScoutDistance(dist);
@@ -1337,13 +1343,13 @@ public final class Empire implements ISpecies, Base, NamedObject, Serializable {
     public String rangeTechNeededToReach(int sysId) {
         float dist = sv.distance(sysId);
         return tech().rangeTechNeededToReachDistance(dist);
-    }    
+    }
     public String environmentTechNeededToColonize(int sysId) {
         if (canColonize(sysId))
             return null;
         int hostility = sv.planetType(sysId).hostility();
         return tech().environmentTechNeededToColonize(hostility);
-    }    
+    }
     public boolean canColonize(int sysId) {
         StarSystem sys = galaxy().system(sysId);
         return canColonize(sys.planet().type());
@@ -1992,7 +1998,7 @@ public final class Empire implements ISpecies, Base, NamedObject, Serializable {
     public float transportTravelSpeed(IMappedObject fr, IMappedObject to) {
         if (!fr.passesThroughNebula(fr, to))
             return tech().transportTravelSpeed();
-        
+
         float dist = fr.distanceTo(to);
         float time = fr.travelTimeAdjusted(fr, to, tech().transportTravelSpeed());
         return dist/time;

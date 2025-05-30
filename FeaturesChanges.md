@@ -262,6 +262,9 @@
 
 ### Fixes:
 
+- Fixed Some AI not expanding when using the Warp Speed Multiplier below 100%.
+- Fixed the speed in nebulae not folowing the Warp Speed Multiplier.
+- Fixed the transport speed not being limited by the Warp Speed Multiplier.
 - Fixed rare occurring "null pointer exception" when the Map, or its side panels, refresh during any kind of ships removal.
 - Retreating limitations will not be applied to withdrawed fleets using the retreat tools.
 - Fixed some Error message asking for the wrong file.

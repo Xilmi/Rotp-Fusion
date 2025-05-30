@@ -41,12 +41,12 @@ public class Transport extends FleetBase {
     private int size;
     private int originalSize;
     private float hitPoints;
-    private float speed;
-    private float combatSpeed;
+    private float speed; // Nominal speed from tech
+    private float combatSpeed; // Base speed used for combat strength... Should have been int
     private float combatTransportPct;
     private float combatAdj = 0;
     private float launchTime = NOT_LAUNCHED;
-    private float travelSpeed = 0;
+    private float travelSpeed = 0; // Final speed used for sync
 	private boolean surrenderOnArrival;
 
     private String troopArmorId;
@@ -188,9 +188,9 @@ public class Transport extends FleetBase {
         troopWeaponId = tech.topHandWeaponTech().id;
         troopShieldId = tech.topPersonalShieldTech().id;
     }
-    public void setDefaultTravelSpeed() {
-        travelSpeed = from.canStargateTravelTo(dest) ? distanceTo(dest) : empire.transportTravelSpeed(from, dest);
-    }
+	public void setDefaultTravelSpeed() {
+		travelSpeed(from.canStargateTravelTo(dest) ? distanceTo(dest) : empire.transportTravelSpeed(from, dest));
+	}
     @Override
     public boolean canSendTo(int sysId) {
         return empire.sv.withinRange(sysId, range());
@@ -236,7 +236,7 @@ public class Transport extends FleetBase {
         // direct time is if we go straight there at empire's tech transport speed
         float directTime = travelTimeAdjusted(dest);
         // set time is if we have travelSpeed already set, by synching transports
-        float setTime = travelSpeed > 0 ? distanceTo(dest)/travelSpeed : directTime;
+        float setTime = travelSpeed() > 0 ? distanceTo(dest)/travelSpeed() : directTime;
         // take the worst time
         return galaxy().currentTime() + max(setTime, directTime);
     }

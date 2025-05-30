@@ -18,6 +18,8 @@ package rotp.model.galaxy;
 import java.awt.geom.Line2D;
 import java.util.Comparator;
 
+import rotp.model.game.IAdvOptions;
+
 public interface IMappedObject {
     public float x();
     public float y();
@@ -28,14 +30,6 @@ public interface IMappedObject {
     default public float distanceTo (IMappedObject obj) {
         return distanceTo(obj.x(), obj.y());
     }
-//    default float squaredDistanceTo (float x2, float y2) {
-//        float horizontalDistance = x() - x2;
-//        float verticalDistance = y() - y2;
-//        return horizontalDistance*horizontalDistance + verticalDistance*verticalDistance;
-//    }
-//    default float squaredDistanceTo (IMappedObject point) {
-//        return distanceTo(point.x(), point.y());
-//    }
     public static Comparator<IMappedObject> MAP_ORDER = new MapOrderComparator();
     default public boolean passesThroughNebula(IMappedObject fr, IMappedObject to) {
         Line2D.Float path = new Line2D.Float(fr.x(), fr.y(), to.x(), to.y());
@@ -53,6 +47,7 @@ public interface IMappedObject {
         }
         return false;
     }
+	default public float speedInNebulae()	{ return IAdvOptions.warpSpeedPct.get()/100f; }
     default public float travelTimeAdjusted(IMappedObject fr, IMappedObject to, float speed) {
         float dist = fr.distanceTo(to);
         if (fr instanceof SpaceMonster)
@@ -68,13 +63,15 @@ public interface IMappedObject {
         float x2 = to.x();
         float y2 = to.y();
         float travelTime = 0f;
+		float stepTime = 1.0f/speed;
+		float nebStepTime = 1.0f/speedInNebulae();
         for (int i=1;i<=numSegments;i++) {
             float x1 = i == numSegments ? x2 : x0+dX;
             float y1 = i == numSegments ? y2 : y0+dY;
-            if (passesThroughNebula(x0,y0,x1,y1))
-                travelTime += 1.0f;
-            else 
-                travelTime += (1.0f/speed);
+			if (passesThroughNebula(x0,y0,x1,y1))
+				travelTime += nebStepTime;
+			else 
+				travelTime += stepTime;
             x0 = x1;
             y0 = y1;
         }
@@ -99,13 +96,15 @@ public interface IMappedObject {
         float x2 = to.x();
         float y2 = to.y();
         float travelTime = 0f;
+		float stepTime = 1.0f/speed;
+		float nebStepTime = 1.0f/speedInNebulae();
         for (int i=1;i<=numSegments;i++) {
             float x1 = i == numSegments ? x2 : x0+dX;
             float y1 = i == numSegments ? y2 : y0+dY;
-            if (passesThroughNebula(x0,y0,x1,y1))
-                travelTime += 1.0f;
-            else 
-                travelTime += (1.0f/speed);
+			if (passesThroughNebula(x0,y0,x1,y1))
+				travelTime += nebStepTime;
+			else 
+				travelTime += stepTime;
             x0 = x1;
             y0 = y1;
         }
