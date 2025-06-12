@@ -26,6 +26,8 @@
 - if you have hyperspace comms you should be able to immediately redirect retreating ships (Still not back to the same planet)
 - Split the ship stacks so that they fill two front lines…
 - Option to increase the size of the combat screen.
+- Would it be possible to have a governor option to extend autospend - to prioritise artifacts planets with spending?
+  - (and on a similar topic, per-planet taxes? maybe that's kinda weird idk)
 
 ### Later:
 

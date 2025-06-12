@@ -262,6 +262,10 @@
 
 ### Fixes:
 
+- Fixed crashing bug in Ship Design UI.
+  - Clicking quickly on components fields selection may result in a too high component index.
+- Fixed an issue where the AI considered the top-ship of it's stack at full health when calculating whether it should kite missiles or retreat from them.
+- Fixed an issue where the AI wouldn't try to kite missiles when this could potentially save their top-stack from losing ships.
 - Fixed Some AI not expanding when using the Warp Speed Multiplier below 100%.
 - Fixed the speed in nebulae not following the Warp Speed Multiplier.
 - Fixed the transport speed not being limited by the Warp Speed Multiplier.

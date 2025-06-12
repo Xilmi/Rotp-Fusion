@@ -7,10 +7,13 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
-25-05-30 (BR)
-- Fixed Some AI not expanding when using the Warp Speed Multiplier below 100%.
-- Fixed the speed in nebulae not following the Warp Speed Multiplier.
-- Fixed the transport speed not being limited by the Warp Speed Multiplier.
+25-06-12 (BR)
+- Fixed crashing bug in Ship Design UI.
+  - Clicking quickly on components fields selection may result in a too high component index.
+
+2025.06.08 (Xilmi)
+- Fixed an issue where the AI considered the top-ship of it's stack at full health when calculating whether it should kite missiles or retreat from them.
+- Fixed an issue where the AI wouldn't try to kite missiles when this could potentially save their top-stack from losing ships.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
