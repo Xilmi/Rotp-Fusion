@@ -262,6 +262,8 @@
 
 ### Fixes:
 
+- Fixed crashing bug when opening browser in some linux versions.
+  - On linux OS without gnome, when trying to reach github download.
 - Fixed crashing bug in Ship Design UI.
   - Clicking quickly on components fields selection may result in a too high component index.
 - Fixed an issue where the AI considered the top-ship of it's stack at full health when calculating whether it should kite missiles or retreat from them.

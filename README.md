@@ -44,13 +44,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-25-06-12 (BR)
-- Fixed crashing bug in Ship Design UI.
-  - Clicking quickly on components fields selection may result in a too high component index.
-
-2025.06.08 (Xilmi)
-- Fixed an issue where the AI considered the top-ship of it's stack at full health when calculating whether it should kite missiles or retreat from them.
-- Fixed an issue where the AI wouldn't try to kite missiles when this could potentially save their top-stack from losing ships.
+25-06-23 (BR)
+- Fixed crashing bug when opening browser in some linux versions.
+  - On linux OS without gnome, when trying to reach github download.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

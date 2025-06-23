@@ -2,6 +2,10 @@
 
 ## What's New
 
+25-06-23 (BR)
+- Fixed crashing bug when opening browser in some linux versions.
+  - On linux OS without gnome, when trying to reach github download.
+
 25-06-12 (BR)
 - Fixed crashing bug in Ship Design UI.
   - Clicking quickly on components fields selection may result in a too high component index.
