@@ -44,6 +44,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+25-06-26 (BR)
+- Fixed crashing bug when opening browser for Reddit page too.
+
 25-06-23 (BR)
 - Fixed crashing bug when opening browser in some linux versions.
   - On linux OS without gnome, when trying to reach github download.

@@ -1059,13 +1059,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             repaint();
        }    
     }
-    private void openRedditPage() {
-        try {
-            buttonClick();
-            Desktop.getDesktop().browse(new URL("http://www.reddit.com/r/rotp").toURI());
-        } catch (IOException | URISyntaxException e) {}
-    }
-	private void openUrlPage(String url) {
+	private void openRedditPage()	{ openUrlPage("http://www.reddit.com/r/rotp"); }
+	private void openUrlPage(String url)	{
 		buttonClick();
 		String myOS = System.getProperty("os.name").toLowerCase();
 		try {
