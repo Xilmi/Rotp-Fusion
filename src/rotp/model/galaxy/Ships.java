@@ -70,8 +70,10 @@ public class Ships implements Base, Serializable {
             		defenseCount = orbitingCount - rallyCount;
             	}
             }
-            rallyingFleet.addShips(i, rallyCount);
-            orbitingFleet.removeShips(i, rallyCount, true);
+			if (rallyCount > 0) {
+				rallyingFleet.addShips(i, rallyCount);
+				orbitingFleet.removeShips(i, rallyCount, true);
+			}
         	orbitCopy.num(i, defenseCount);
         }
         // Deploy fleet if new fleet
@@ -580,6 +582,7 @@ public class Ships implements Base, Serializable {
         	ShipRelocationSprite spr = sys.rallySprite();
             if (spr.isActive() && spr.forwardRallies()) {
                 if (rallyTransitJoinCombat) {	// Memorize the transit
+                	// System.out.println("arriveFleet addToRallyFleetCopy " + fleet.toString()); // TO DO BR: comment
                 	sys.colony().shipyard().addToRallyFleetCopy(fleet);
                 	// Then continue to make them orbiting
                 }

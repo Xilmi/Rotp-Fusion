@@ -74,9 +74,12 @@ public class ColonyShipyard extends ColonySpendingCategory {
 			ShipFleet orbitingFleet = colony().starSystem().orbitingFleetForEmpire(empire());
 			if (orbitingFleet != null) {
 				orbitFleetCopy = ShipFleet.copy(orbitingFleet);
+				// System.out.println("nexTurn orbitFleetCopy = " + orbitFleetCopy.toString()); // TO DO BR: Comment
 				IGameOptions opts = options();
-				if (opts.rallyTransitJoinCombat() || !opts.rallyLossDefense())
+				if (opts.rallyTransitJoinCombat() || !opts.rallyLossDefense()) {
 					rallyFleetCopy(); // to init if empty
+					// System.out.println("nexTurn rallyFleetCopy = " + rallyFleetCopy().toString()); // TO DO BR: Comment
+				}
 			}
 		}
 	}

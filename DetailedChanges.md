@@ -6,6 +6,7 @@
 - Fixed new ships not always rallying when transit was forwarded.
   - Regrouped and commented Shipyard rally related methods.
 - Fixed Rules and setting panel showing (sometime) the wrong button set after reload...
+- Fixed local colony option "Forward incoming rallies" being reset to the default value when loading a game.
 
 25-06-26 (BR)
 - Fixed crashing bug when opening browser for Reddit page too.

@@ -48,13 +48,7 @@ java -jar target/rotp-<timestamp>-mini.jar
 - Fixed new ships not always rallying when transit was forwarded.
   - Regrouped and commented Shipyard rally related methods.
 - Fixed Rules and setting panel showing (sometime) the wrong button set after reload...
-
-25-06-26 (BR)
-- Fixed crashing bug when opening browser for Reddit page too.
-
-25-06-23 (BR)
-- Fixed crashing bug when opening browser in some linux versions.
-  - On linux OS without gnome, when trying to reach github download.
+- Fixed local colony option "Forward incoming rallies" being reset to the default value when loading a game.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
