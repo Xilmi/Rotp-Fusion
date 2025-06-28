@@ -9,6 +9,7 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 25-06-28 (BR)
 - Fixed new ships not always rallying when transit was forwarded.
+- Fixed Rules and setting panel showing (sometime) the wrong button set after reload...
 
 25-06-26 (BR)
 - Fixed crashing bug when opening browser for Reddit page too.

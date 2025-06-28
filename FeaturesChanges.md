@@ -262,6 +262,7 @@
 
 ### Fixes:
 
+- Fixed Rules and setting panel showing (sometime) the wrong button set after reload...
 - Fixed new ships not always rallying when transit was forwarded.
 - Fixed crashing bug when opening browser in some linux versions.
   - On linux OS without gnome, when trying to reach github download.

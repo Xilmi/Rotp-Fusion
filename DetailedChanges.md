@@ -4,7 +4,8 @@
 
 25-06-28 (BR)
 - Fixed new ships not always rallying when transit was forwarded.
-- Regrouped and commented Shipyard rally related methods.
+  - Regrouped and commented Shipyard rally related methods.
+- Fixed Rules and setting panel showing (sometime) the wrong button set after reload...
 
 25-06-26 (BR)
 - Fixed crashing bug when opening browser for Reddit page too.
