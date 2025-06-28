@@ -262,6 +262,7 @@
 
 ### Fixes:
 
+- Fixed new ships not always rallying when transit was forwarded.
 - Fixed crashing bug when opening browser in some linux versions.
   - On linux OS without gnome, when trying to reach github download.
 - Fixed crashing bug in Ship Design UI.

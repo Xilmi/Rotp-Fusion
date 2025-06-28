@@ -555,7 +555,7 @@ public final class GameSession implements Base, Serializable {
                 clearNotificationLimits();
                 RotPUI.instance().repaint();
                 // BR: This could be called quite often, better make it quick.
-                Ships.rallyPassByCombat = options.rallyPassByCombat();
+                Ships.rallyTransitJoinCombat = options.rallyTransitJoinCombat();
                 processNotifications();
                 gal.preNextTurn(); // Launching deployed fleets
 
