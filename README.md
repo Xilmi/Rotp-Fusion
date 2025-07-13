@@ -44,11 +44,8 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
-25-06-28 (BR)
-- Fixed new ships not always rallying when transit was forwarded.
-  - Regrouped and commented Shipyard rally related methods.
-- Fixed Rules and setting panel showing (sometime) the wrong button set after reload...
-- Fixed local colony option "Forward incoming rallies" being reset to the default value when loading a game.
+25-07-13 (BR)
+- Fixed Meklar Intro.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

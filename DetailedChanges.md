@@ -2,6 +2,9 @@
 
 ## What's New
 
+25-07-13 (BR)
+- Fixed Meklar Intro.
+
 25-06-28 (BR)
 - Fixed new ships not always rallying when transit was forwarded.
   - Regrouped and commented Shipyard rally related methods.

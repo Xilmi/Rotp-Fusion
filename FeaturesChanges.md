@@ -262,6 +262,7 @@
 
 ### Fixes:
 
+- Fixed Meklar Intro.
 - Fixed local colony option "Forward incoming rallies" being reset to the default value when loading a game.
 - Fixed Rules and setting panel showing (sometime) the wrong button set after reload...
 - Fixed new ships not always rallying when transit was forwarded.
