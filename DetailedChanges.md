@@ -4,6 +4,7 @@
 
 25-07-13 (BR)
 - Fixed Meklar Intro.
+- Fixed Torpedoes not displaying successful attack results.
 
 25-06-28 (BR)
 - Fixed new ships not always rallying when transit was forwarded.

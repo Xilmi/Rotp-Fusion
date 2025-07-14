@@ -46,6 +46,7 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 25-07-13 (BR)
 - Fixed Meklar Intro.
+- Fixed Torpedoes not displaying successful attack results.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

@@ -9,6 +9,7 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 25-07-13 (BR)
 - Fixed Meklar Intro.
+- Fixed Torpedoes not displaying successful attack results.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

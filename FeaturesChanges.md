@@ -262,6 +262,7 @@
 
 ### Fixes:
 
+- Fixed Torpedoes not displaying successful attack results.
 - Fixed Meklar Intro.
 - Fixed local colony option "Forward incoming rallies" being reset to the default value when loading a game.
 - Fixed Rules and setting panel showing (sometime) the wrong button set after reload...
