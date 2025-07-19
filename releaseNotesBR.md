@@ -7,9 +7,9 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
-25-07-13 (BR)
-- Fixed Meklar Intro.
-- Fixed Torpedoes not displaying successful attack results.
+25-07-19 (BR)
+- Fixed "Alt"-Key glitch in Galaxy Map panel.
+  - Which resulted in the info-panel being locked on a system or fleet.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)
