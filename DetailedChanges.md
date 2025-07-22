@@ -2,6 +2,9 @@
 
 ## What's New
 
+25-07-22 (BR)
+- Fixed Betelguese -> Betelgeuse.
+
 25-07-19 (BR)
 - Fixed "Alt"-Key glitch in Galaxy Map panel.
   - Which resulted in the info-panel being locked on a system or fleet.

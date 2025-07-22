@@ -262,6 +262,7 @@
 
 ### Fixes:
 
+- Fixed Betelguese -> Betelgeuse.
 - Fixed "Alt"-Key glitch in Galaxy Map panel.
   - Which resulted in the info-panel being locked on a system or fleet.
 - Fixed Torpedoes not displaying successful attack results.
