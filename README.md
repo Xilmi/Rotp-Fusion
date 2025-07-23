@@ -44,6 +44,11 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+25-07-23 (BR)
+- Fixed Transport Flight path between colonies not following the Display settings.
+- Flight path to hovered systems are now always shown. (Was only true for selected colonies)
+- Transport Display: Empires are now displayed in the selected language.
+
 25-07-22 (BR)
 - Fixed Betelguese -> Betelgeuse.
 
