@@ -46,6 +46,7 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 25-07-28 (BR)
 - Fixed a potential issue during a key or mouse event that occurs when swapping information panels.
+- Fixed a possible misselection of the info-panel when the Alt key is activated.
 
 
 ### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

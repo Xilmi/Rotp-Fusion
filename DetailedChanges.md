@@ -4,6 +4,7 @@
 
 25-07-28 (BR)
 - Fixed a potential issue during a key or mouse event that occurs when swapping information panels.
+- Fixed a possible misselection of the info-panel when the Alt key is activated.
 
 25-07-23 (BR)
 - Fixed Transport Flight path between colonies not following the Display settings.

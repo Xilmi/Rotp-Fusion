@@ -263,6 +263,7 @@
 
 ### Fixes:
 
+- Fixed a possible misselection of the info-panel when the Alt key is activated.
 - Fixed a potential issue during a key or mouse event that occurs when swapping information panels.
 - Fixed Transport Flight path between colonies not following the Display settings.
 - Transport Display: Empires are now displayed in the selected language.
