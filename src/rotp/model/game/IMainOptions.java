@@ -281,7 +281,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		@Override public void setOption(Boolean b)	{ disableAdvisor(b); }
 	}
 
-	ParamList disableAutoHelp = new ParamList( MOD_UI, "DISABLE_AUTO_HELP", "Yes")
+	ParamList disableAutoHelp = new ParamList( MOD_UI, "DISABLE_AUTO_HELP", "No")
 			.isCfgFile(true)
 			.showFullGuide(true)
 			.put("Yes",		MOD_UI + "DISABLE_AUTO_HELP_YES")

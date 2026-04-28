@@ -307,6 +307,7 @@
 
 ### User Interfaces:
 
+- Random number of opponent separator is now ~.
 - Since the colonies under attack are usually located on the empire's periphery, the current sequence from left to right and top to bottom isn't always ideal. The new sequence revolves around the center of the player's empire.
   - To browse the attacked colonies, use the F8 key to rotate clockwise and the F7 key to rotate counterclockwise.
 - The “War View” panel is now available for all colonies.
@@ -401,6 +402,13 @@
 
 ### Fixes:
 
+- Replaced "L" to Loop through the swarm of fleets. by "L" to Loop through overlapping fleets. (Thanks williams482)
+- Fixed stagate redirection bug:
+  - launch a fleet from a colony with a stargate to a colony without stargate.
+  - One year later, redirect the fleet to another colony with a stargate.
+  - time to arrival was always 1 year! 
+- New players will get the Help popup on their firts play.
+- Fixed a restart crash; with Spiral arm galaxy, when randomly selected, when swapping home world.
 - Fixed Governor "Honor Promise" conflict with "No Relation Bar" AI.
 - Improved looping through overlapping fleets:
   - The Zoom factor is now taken into account.

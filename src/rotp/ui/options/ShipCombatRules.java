@@ -1,5 +1,7 @@
 package rotp.ui.options;
 
+import java.util.Arrays;
+
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
 import rotp.ui.util.ParamTitle;
@@ -22,7 +24,16 @@ final class ShipCombatRules extends AbstractOptionsSubUI {
 		list1.add(moo1ShieldRules);
 		list1.add(moo1CombatResolution);
 		map.add(list1);
-		map.add(AllSubUI.getHandle(WEAPON_ANIMATION_UI_KEY).getUiMajor(true));
+		list1 = new SafeListParam("");
+		list1.addAll(AllSubUI.getHandle(WEAPON_ANIMATION_UI_KEY).getUiMajor(true));
+		list1.addAll(Arrays.asList(
+				HEADER_SPACER_100,
+				new ParamTitle("RETREAT_RULES"),
+				retreatDestination,
+				hyperComRetreatExtended,
+				noEnemyOnRetreatDestination
+				));
+		map.add(list1);
 		map.add(AllSubUI.getHandle(SHIELD_ANIMATION_UI_KEY).getUiMajor(true));
 
 		return map;

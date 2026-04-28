@@ -95,10 +95,8 @@ final class GalaxySpiralArmsShape extends GalaxyShape {
 		double minHomeRay = Math.sqrt(empireBuffer * numEmpires() / twoPI / galaxyRay());
 		return getRandomSymmetric(minHomeRay);
 	}
-	@Override public boolean isSymmetric() {
-		return finalOption2.equals(SYMMETRIC);
-	}
-	@Override public boolean isCircularSymmetric() { return isSymmetric(); }
+	@Override public boolean isSymmetric()			{ return SYMMETRIC.equals(finalOption2); }
+	@Override public boolean isCircularSymmetric()	{ return isSymmetric(); }
 
 	@Override public IShapeOption<?> paramOption1()	{ return param1(); }
 	@Override public IShapeOption<?> paramOption2()	{ return param2(); }

@@ -85,8 +85,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import rotp.Rotp;
 import rotp.model.ai.AIList;
 import rotp.model.empires.Empire;
-import rotp.model.empires.species.ISpecies;
 import rotp.model.empires.species.DNAFactory;
+import rotp.model.empires.species.ISpecies;
 import rotp.model.empires.species.Species;
 import rotp.model.empires.species.SpecificCROption;
 import rotp.model.galaxy.AllShapes;
@@ -1961,6 +1961,24 @@ public final class SetupGalaxyUI  extends BaseModPanel implements ISpecies, Mous
 		Rectangle rec = new Rectangle(x, y, w, h);
 		subUI.hovering(this, rec);
 	}
+	private void drawOppRandomBox(Graphics2D g)	{
+		g.setColor(GameUI.buttonBackgroundColor());
+		int n = oppRandomBox.width - s2 - s2;
+		int[] ptX = new int[n];
+		int[] ptY = new int[n];
+		int x = oppRandomBox.x + s2;
+		double a = s3/2;
+		double y = oppRandomBox.y + s2;
+		for (int i=0; i<n; i++) {
+			ptX[i] = x+i;
+			double phi = 2*Math.PI*i/(n-1);
+			ptY[i] = (int) Math.round(y - a * Math.sin(phi));
+		}
+		Stroke oldStrk = g.getStroke();
+		g.setStroke(stroke4);
+		g.drawPolyline(ptX, ptY, n);
+		g.setStroke(oldStrk);
+	}
 
 	@Override protected void initBackImg() {
 		int w = getWidth();
@@ -2059,7 +2077,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements ISpecies, Mous
 			x2c += s27;
 			g.setColor(GameUI.buttonBackgroundColor());
 			oppRandomBox.setBounds(x2c, y2c-s2, s13, s4);
-			g.fill(oppRandomBox);
+			drawOppRandomBox(g);
 
 			x2c += s15;
 			g.setColor(GameUI.setupFrame());
@@ -2082,7 +2100,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements ISpecies, Mous
 			x2c += s33;
 			g.setColor(GameUI.buttonBackgroundColor());
 			oppRandomBox.setBounds(x2c, y2c-s2, s14, s4);
-			g.fill(oppRandomBox);
+			drawOppRandomBox(g);
 			g.setColor(GameUI.setupFrame());
 			oppBox.setBounds(x2b, y2-s30, s30, s35);
 			g.fill(oppBox);

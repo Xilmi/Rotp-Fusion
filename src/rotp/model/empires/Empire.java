@@ -1405,8 +1405,8 @@ public final class Empire extends Species implements NamedObject {
 		if (closestOnly)
 			return allowedRetreatSystems(fromSys).contains(toSys);
 
-		int fromSysId	= fromSys.id;
-		int toSysId		= toSys.id;
+		int fromSysId	= fromSys == null? StarSystem.NULL_ID : fromSys.id;
+		int toSysId		= toSys == null? StarSystem.NULL_ID : toSys.id;
 		boolean hyperComExt	= opts.hyperComRetreatExtended() && tech().hyperspaceCommunications();
 		boolean anyColony	= hyperComExt || opts.retreatToAnyPlanet();
 		boolean allowAlly	= anyColony || opts.retreatOnlyToAlly();
