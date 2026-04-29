@@ -402,6 +402,7 @@
 
 ### Fixes:
 
+- Fixed duplicate option in "Rules for Space Monster" options panel.
 - Replaced "L" to Loop through the swarm of fleets. by "L" to Loop through overlapping fleets. (Thanks williams482)
 - Fixed stagate redirection bug:
   - launch a fleet from a colony with a stargate to a colony without stargate.

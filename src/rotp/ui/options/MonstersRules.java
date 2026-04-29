@@ -48,9 +48,6 @@ final class MonstersRules extends AbstractOptionsSubUI {
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ROAMING_MONSTERS_RULES"),
-				OrionGuardianShip.isMoO1Monster,
-
-				HEADER_SPACER_50,
 				monstersLevel,
 				monstersGiveLoots,
 				monstersGNNNotification,

@@ -2,6 +2,9 @@
 
 ## What's New
 
+26-04-29 (BR)
+- Fixed duplicate option in "Rules for Space Monster" options panel.
+
 26-04-28 (BR)
 - Replaced "L" to Loop through the swarm of fleets. by "L" to Loop through overlapping fleets. (Thanks williams482)
 - Fixed stagate redirection bug:

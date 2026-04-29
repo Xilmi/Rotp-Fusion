@@ -680,6 +680,7 @@ public final class BaseCompactOptionsUI extends BaseModPanel implements MouseWhe
 	}
 	public  void start(String p, BasePanel ui) { // Called from subUI
 		parentUI = ui;
+		ModifierKeysState.reset();
 		start();
 	}
 	private void start() { // Called from subUI
