@@ -214,7 +214,6 @@ public final class FleetPanel extends BasePanel implements MapSpriteViewer {
         ShipFleet displayedFleet = selectedFleet();
 
         if (displayedFleet.inTransit()) {
-			displayedFleet.sysId(StarSystem.NULL_ID);
             galaxy().ships.redirectFleet(displayedFleet, selectedDest().id);
             cancelFleet();
         }

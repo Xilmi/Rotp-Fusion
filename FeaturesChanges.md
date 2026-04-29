@@ -402,6 +402,7 @@
 
 ### Fixes:
 
+- Fixed the fix for stargate redirection bug in a safer way, as the previous one could crash the game.
 - Fixed duplicate option in "Rules for Space Monster" options panel.
 - Replaced "L" to Loop through the swarm of fleets. by "L" to Loop through overlapping fleets. (Thanks williams482)
 - Fixed stagate redirection bug:

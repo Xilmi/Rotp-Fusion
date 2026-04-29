@@ -762,8 +762,9 @@ public class ShipFleet extends FleetBase implements ScaledInteger {
     public float travelTimeAdjusted(StarSystem dest, float speed) {
         if (isOrbiting() || isDeployed()
         || (inTransit() && (travelPct() == 0 && system() != null))) {
-        	StarSystem sys = system();
-            if (sys != null && sys.hasStargate(empire()) && dest.hasStargate(empire()))
+			StarSystem sys = system();
+			// redirect from SG to SG while still at the original system
+			if (sys != null && sys.x() == fromX && sys.y() == fromY && sys.hasStargate(empire()) && dest.hasStargate(empire()))
                 return 1;
         }
         return travelTimeAdjusted(this,dest,speed);
