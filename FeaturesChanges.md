@@ -307,6 +307,7 @@
 
 ### User Interfaces:
 
+- Added a few shortcuts that were missing from the Galaxy Map's shortcut list.
 - Random number of opponent separator is now ~.
 - Since the colonies under attack are usually located on the empire's periphery, the current sequence from left to right and top to bottom isn't always ideal. The new sequence revolves around the center of the player's empire.
   - To browse the attacked colonies, use the F8 key to rotate clockwise and the F7 key to rotate counterclockwise.

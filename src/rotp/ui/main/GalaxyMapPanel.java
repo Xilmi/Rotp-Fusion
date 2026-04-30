@@ -574,7 +574,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     public void maxZoomOut(float sX, float sY) {
     	centerX(sizeX()/2/sX);
     	centerY(sizeY()/2/sY);
-    	desiredScale = maxScale();
+    	desiredScale = maxScale() * 0.8f;
         zoomTimer.start();
     }
     private void initDarkRangeArea() {

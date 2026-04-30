@@ -7,6 +7,9 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
+26-04-30 (BR)
+- Added a few shortcuts that were missing from the Galaxy Map's shortcut list.
+
 26-04-29 (BR)
 - Fixed duplicate option in "Rules for Space Monster" options panel.
 - Fixed the fix for stargate redirection bug in a safer way, as the previous one could crash the game.

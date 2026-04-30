@@ -7,7 +7,7 @@ import rotp.ui.util.ParamList;
 
 public interface ICombatOptions extends IBaseOptsTools {
 
-	ParamBoolean finalReplayZoomOut	 = new ParamBoolean(MOD_UI, "ZOOM_FINAL_REPLAY", false)
+	ParamBoolean finalReplayZoomOut	 = new ParamBoolean(MOD_UI, "ZOOM_FINAL_REPLAY", true)
 			.isCfgFile(true);
 	default boolean finalReplayZoomOut()	{ return finalReplayZoomOut.get(); }
 
