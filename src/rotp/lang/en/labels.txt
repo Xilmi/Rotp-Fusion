@@ -464,6 +464,7 @@ GAME_TITLE_LINE_3                 | PRECURSORS
 GAME_DISCUSS_ONLINE               | Discuss Online
 GAME_MENU_CONTINUE                | Continue Game
 GAME_MENU_NEW_GAME                | New Game
+GAME_MENU_NEW_GAME_NEW_DICE		| Relaunch
 GAME_MENU_LOAD_GAME               | Load Game
 GAME_MENU_LOAD_OPTIONS            | Load Options
 GAME_MENU_SAVE_GAME               | Save Game
@@ -6326,4 +6327,4 @@ SETUP_RACE_HELP_HK		| →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG�
 
 MOD_OPTIONS_HELP_HK		| <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. <br>→HK_SET_DEFAULT←<br>→HK_GUIDE← <br>→HK_ESCAPE←
 
-SETUP_GAME_HELP_HK		| H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N : New Game.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.
+SETUP_GAME_HELP_HK		| H / F1 : Show Help.<br><br> - / + : Shrink / Expand Window.<br><br>C / Escape : Continue<br>      (Either the current game or the last saved game)<br>R : Replay Last Turn.<br>N / Ctrl+N: New Game / Relaunch.<br>L / Ctrl+L : Load Game / Load Options.<br>S / Ctrl+S : Save Game / Save Options.<br>T : Go to Settings.<br>O / M : Open Manual.<br>E / X : Exit Game.<br><br>Z : Hide text to get a better view of the background.

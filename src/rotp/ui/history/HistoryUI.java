@@ -58,6 +58,7 @@ import rotp.ui.main.SystemPanel;
 import rotp.ui.map.IMapHandler;
 import rotp.ui.sprites.ZoomInWidgetSprite;
 import rotp.ui.sprites.ZoomOutWidgetSprite;
+import rotp.util.LanguageManager;
 
 public final class HistoryUI extends BasePanel implements MouseListener {
     private static final long serialVersionUID = 1L;
@@ -481,7 +482,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
             int numButtons = 4;
             int buttonW = s90;
             int buttonH = s30; // -s25 is because 4 buttons at -s5 spacing/button
-            
+
             int totalButtonSpacing = numButtons*(buttonW+s20); // modnar: adjust button spacing
             int buttonX = (w-totalButtonSpacing)/2;
             int buttonY = h-buttonH-s20;
@@ -496,15 +497,23 @@ public final class HistoryUI extends BasePanel implements MouseListener {
                 Color[] grayColors = {grayEdgeC, grayMidC, grayEdgeC};
                 grayBackground = new LinearGradientPaint(ptStart, ptEnd, dist, grayColors);                
             }
-            
+
             // modnar: re-order history UI buttons
             // from: Forward Back Play Exit
             //   to: Back  Play  Forward    Exit
-            
+			// BR: French only display symbols
+			boolean onlySymblol = LanguageManager.selectedLanguageDir().equalsIgnoreCase("fr");
+			Font fontForSymbol;
+
             // draw previous turn button
             //g.setFont(narrowFont(18));
             Font fontSansSerif = new Font("SansSerif", Font.BOLD, 20); // modnar: change font to display unicode
-            g.setFont(fontSansSerif); // modnar: change font to display unicode
+			if (onlySymblol) {
+				fontForSymbol = new Font("SansSerif", Font.BOLD, 40);
+				g.setFont(fontForSymbol);
+			}
+			else
+				g.setFont(fontSansSerif); // modnar: change font to display unicode
             prevTurnBox.setBounds(buttonX, buttonY, buttonW, buttonH);
             String label = text("HISTORY_BACK");
             int sw = g.getFontMetrics().stringWidth(label);
@@ -536,7 +545,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
             // draw play/pause button
             buttonX = buttonX+buttonW+s20; // modnar: adjust button spacing
             //g.setFont(narrowFont(18));
-            g.setFont(fontSansSerif); // modnar: change font to display unicode
+			//g.setFont(fontSansSerif); // modnar: change font to display unicode
             playBox.setBounds(buttonX, buttonY, buttonW, buttonH);
             if (canReset())
                 label = text("HISTORY_RESET");
@@ -572,7 +581,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
             // draw next turn button
             buttonX = buttonX+buttonW+s20; // modnar: adjust button spacing
             //g.setFont(narrowFont(18));
-            g.setFont(fontSansSerif); // modnar: change font to display unicode
+			//g.setFont(fontSansSerif); // modnar: change font to display unicode
             nextTurnBox.setBounds(buttonX, buttonY, buttonW, buttonH);
             label = text("HISTORY_FORWARD");
             sw = g.getFontMetrics().stringWidth(label);
@@ -603,7 +612,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
             // draw exit button
             buttonX = buttonX+buttonW+s40; // modnar: adjust button spacing
             //g.setFont(narrowFont(18));
-            g.setFont(fontSansSerif); // modnar: change font to display unicode
+			//g.setFont(fontSansSerif); // modnar: change font to display unicode
             exitBox.setBounds(buttonX, buttonY, buttonW, buttonH);
             label = text("HISTORY_EXIT");
             sw = g.getFontMetrics().stringWidth(label);

@@ -525,14 +525,16 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
-	        continueText.displayText(text("GAME_MENU_REPLAY_LAST_TURN"));
-	        loadGameText.displayText(text("GAME_MENU_LOAD_OPTIONS"));
-	        saveGameText.displayText(text("GAME_MENU_SAVE_OPTIONS"));
-	        break;
+			continueText.displayText(text("GAME_MENU_REPLAY_LAST_TURN"));
+			newGameText.displayText(text("GAME_MENU_NEW_GAME_NEW_DICE"));
+			loadGameText.displayText(text("GAME_MENU_LOAD_OPTIONS"));
+			saveGameText.displayText(text("GAME_MENU_SAVE_OPTIONS"));
+			break;
 		default:
-	        continueText.displayText(text("GAME_MENU_CONTINUE"));
-	        loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
-	        saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
+			continueText.displayText(text("GAME_MENU_CONTINUE"));
+			newGameText.displayText(text("GAME_MENU_NEW_GAME"));
+			loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
+			saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
 		}
 	}
 
@@ -1031,7 +1033,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 		    case KeyEvent.VK_F1: showHotKeys();		return;
             case KeyEvent.VK_ESCAPE:
             case KeyEvent.VK_C:  continueGame();	return;
-            case KeyEvent.VK_N:  newGame();			return;
+            case KeyEvent.VK_N:  newGame(e.isControlDown());	return;
             case KeyEvent.VK_L:
             	if (e.isControlDown())
             		loadOptions();
@@ -1196,11 +1198,18 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         		gameName = generateGameName(options());
         }
     }
-    private void newGame() { // BR:
+	private void newGame(boolean newDice)	{ // BR:
         if (canNewGame()) {
             buttonClick();
-            RotPUI.instance().selectSetupRacePanel();
-			ErrorUI.inSetupMode();
+			if (newDice) {
+				ErrorUI.inSetupMode();
+				RotPUI.setupGalaxyUI().init();
+				RotPUI.setupGalaxyUI().startGame();
+			}
+			else {
+				RotPUI.instance().selectSetupRacePanel();
+				ErrorUI.inSetupMode();
+			}
         }
     }
     private void loadGame() { // BR:
@@ -1278,7 +1287,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         	else
         		continueGame();
         else if (newGameText.contains(x,y))
-            newGame();
+			newGame(e.isControlDown());
         else if (loadGameText.contains(x,y))
         	if (e.isControlDown())
         		loadOptions();

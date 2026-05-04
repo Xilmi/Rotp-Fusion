@@ -2,6 +2,12 @@
 
 ## What's New
 
+26-05-04 (BR)
+- New Main menu option: “Relaunch a New Game”.
+  - When the Ctrl key is held down, “New Game” is replaced by  "Relaunch"
+  - Keyboard shortcut = Ctrl-N
+- A few improvements have been made to the French translation.
+
 26-04-30 (BR)
 - Added a few shortcuts that were missing from the Galaxy Map's shortcut list.
 
