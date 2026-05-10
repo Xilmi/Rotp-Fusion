@@ -237,6 +237,13 @@ public final class Empire extends Species implements NamedObject {
 //		for (StarSystem sys : allColonizedSystems())
 //			sys.colony().shipyard().defaultDesignId(null);
 //	}
+	public void clearShipImages()	{
+		shipImage		= null;
+		shipImageLarge	= null;
+		shipImageHuge	= null;
+		scoutImage		= null;
+		transportImage	= null;
+	}
     public float benchmark() { return benchmark; }
         public void setBenchmark() {
     	if (extinct()) {

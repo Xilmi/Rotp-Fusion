@@ -2,6 +2,11 @@
 
 ## What's New
 
+26-05-10 (BR)
+- New option to change ship sprites opacity.
+- A few French translation improvement.
+- As suggested by Warcat, renamed “Relaunch” by Quick “Start”
+
 26-05-04 (BR)
 - New Main menu option: “Relaunch a New Game”.
   - When the Ctrl key is held down, “New Game” is replaced by  "Relaunch"

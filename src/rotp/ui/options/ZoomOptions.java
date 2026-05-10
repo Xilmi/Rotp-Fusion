@@ -5,6 +5,7 @@ import java.util.Arrays;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.model.ships.ShipLibrary;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.util.ParamTitle;
@@ -41,7 +42,10 @@ final class ZoomOptions extends AbstractOptionsSubUI {
 				FlightPathSprite.invaderTroopOpacity,
 				FlightPathSprite.alienTransportOpacity,
 				LINE_SPACER_25,
-				FlightPathSprite.rallyOpacity
+				FlightPathSprite.rallyOpacity,
+				HEADER_SPACER_50,
+				new ParamTitle("MAP_SHIP_OPACITY"),
+				ShipLibrary.shipSpritesAlpha
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("ZOOM_REPLAY"),
@@ -64,7 +68,9 @@ final class ZoomOptions extends AbstractOptionsSubUI {
 						LINE_SPACER_25,
 						finalReplayZoomOut,
 						empireReplayZoomOut,
-						replayTurnPace
+						replayTurnPace,
+						LINE_SPACER_25,
+						ShipLibrary.shipSpritesAlpha
 						));
 		return majorList;
 	}

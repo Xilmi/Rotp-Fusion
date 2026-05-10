@@ -85,6 +85,10 @@ public final class Galaxy implements Base, Serializable {
     private int		requestedSwapPlayer;
     boolean	ironmanLockedOptions;
 
+	public void clearShipImages()	{
+		for (Empire e : empires)
+			e.clearShipImages();
+	}
     public	Integer nextHashCodeDiplomaticIncident() {
     	if (lastHashCodeDiplomaticIncident!=null)
     		lastHashCodeDiplomaticIncident++;

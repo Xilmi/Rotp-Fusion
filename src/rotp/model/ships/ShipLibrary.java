@@ -15,6 +15,8 @@
  */
 package rotp.model.ships;
 
+import static rotp.model.game.IBaseOptsTools.MOD_UI;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -25,7 +27,12 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import rotp.model.galaxy.Galaxy;
+import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
+import rotp.model.game.RulesetManager;
 import rotp.ui.BasePanel;
+import rotp.ui.util.ParamInteger;
 import rotp.util.Base;
 
 public class ShipLibrary implements Base {
@@ -78,7 +85,7 @@ public class ShipLibrary implements Base {
         BufferedImage destImg = newBufferedImage(destW, destH);
         Graphics2D g = (Graphics2D) destImg.getGraphics();
         setRenderingHints(g);
-        Color c0 = options().color(colorId);
+        Color c0 = options().shipColor(colorId);
         g.setColor(c0);
         g.fillPolygon(pX, pY, 3);
         g.setStroke(BasePanel.stroke2);
@@ -109,7 +116,7 @@ public class ShipLibrary implements Base {
         BufferedImage destImg = newBufferedImage(destW, destH);
         Graphics2D g = (Graphics2D) destImg.getGraphics();
         setRenderingHints(g);
-        Color c0 = options().color(colorId);
+        Color c0 = options().shipColor(colorId);
         g.setColor(c0);
         g.fillPolygon(pX, pY, 3);
         g.setStroke(BasePanel.stroke2);
@@ -145,7 +152,7 @@ public class ShipLibrary implements Base {
         BufferedImage destImg = newBufferedImage(destW, destH);
         Graphics2D g = (Graphics2D) destImg.getGraphics();
         setRenderingHints(g);
-        Color c0 = options().color(colorId);
+        Color c0 = options().shipColor(colorId);
         g.setColor(c0);
         g.fillPolygon(pX, pY, 3);
         g.setStroke(BasePanel.stroke2);
@@ -183,7 +190,7 @@ public class ShipLibrary implements Base {
         BufferedImage destImg = newBufferedImage(destW, destH);
         Graphics2D g = (Graphics2D) destImg.getGraphics();
         setRenderingHints(g);
-        Color c0 = options().color(colorId);
+        Color c0 = options().shipColor(colorId);
         g.setColor(c0);
         g.fillPolygon(pX, pY, 3);
         g.setStroke(BasePanel.stroke2);
@@ -208,7 +215,7 @@ public class ShipLibrary implements Base {
         BufferedImage destImg = newBufferedImage(destW, destH);
         Graphics2D g = (Graphics2D) destImg.getGraphics();
         setRenderingHints(g);
-        Color c0 = options().color(colorId);
+        Color c0 = options().shipColor(colorId);
         g.setColor(c0);
         g.fillRoundRect(s1,s1,destW-s2,destH-s2,crv,crv);
         g.setStroke(BasePanel.stroke2);
@@ -355,4 +362,20 @@ public class ShipLibrary implements Base {
         // String setName = input.substring(0, mark).trim();
         // styles.add(setName);
     }
+	public static final ParamInteger shipSpritesAlpha	= new ParamInteger(MOD_UI, "SHIP_SPRITES_OPACITY", 255)
+			.setLimits(0, 255)
+			.setIncrements(1, 5, 20)
+			.isCfgFile(true)
+			.setNewValueMethod(ShipLibrary::setShipSpritesColors);
+	private static final void setShipSpritesColors(Integer alpha)	{
+		IGameOptions options = RulesetManager.current().currentOptions();
+		options.initShipColors(alpha);
+		GameSession session = GameSession.instance();
+		if (session == null)
+			return;
+		Galaxy galaxy= session.galaxy();
+		if (galaxy == null)
+			return;
+		galaxy.clearShipImages();
+	}
 }

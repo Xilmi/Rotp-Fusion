@@ -54,7 +54,7 @@ public interface IGameOptions extends IModOptions {
     public static final String RESEARCH_LETHARGIC = "SETUP_RESEARCH_RATE_SLOWEST"; // for backward compatibility
     public static final String RESEARCH_CRAWLING  = "SETUP_RESEARCH_RATE_IMPEDED";
     public static final String RESEARCH_IMPEDED   = "SETUP_RESEARCH_RATE_LETHARGIC";
-    
+
     public static float[] slowFactors (float src) {
     	// convert old formula factor to new formula factors
     	double r2 = Math.log10(src)/10 + 1.2; // rate for tech 2
@@ -95,7 +95,7 @@ public interface IGameOptions extends IModOptions {
     			return 1f;
     	}
     }
-    
+
     public static final String TECH_TRADING_YES        = "SETUP_TECH_TRADING_YES";
     public static final String TECH_TRADING_ALLIES     = "SETUP_TECH_TRADING_ALLIES";
     public static final String TECH_TRADING_ALLIES_AID = "SETUP_TECH_TRADING_ALLIES_AID";
@@ -374,6 +374,8 @@ public interface IGameOptions extends IModOptions {
 
     public int numColors();
     public Color color(int i);
+	public Color shipColor(int i);
+	public void initShipColors(Integer alpha);
 
     // selectable options
     public List<String> galaxyAgeOptions();

@@ -66,6 +66,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private static final long serialVersionUID = 1L;
     private static final float BASE_RESEARCH_MOD = 30f;
     private static final boolean beepsOnError = false;
+	private static final List<Color> empireShipColors	= new ArrayList<>();
     private final String[] opponentRaces = new String[maxOpponents()];
     private final List<Integer> colors = new ArrayList<>();
     private final List<Color> empireColors = new ArrayList<>();
@@ -712,6 +713,16 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		generateGalaxy();
 	}
 	private void generateGalaxy()	{ galaxyShape().quickGenerate(); }
+	@Override public void initShipColors(Integer alpha)	{
+		empireShipColors.clear();
+		for (Color color : empireColors)
+			empireShipColors.add(Base.setAlpha(color, alpha));
+	}
+	@Override public Color shipColor(int i)	{
+		if (i >= empireShipColors.size())
+			initShipColors(255);
+		return empireShipColors.get(i);
+	}
     @Override
     public Color color(int i)     {
     	if (i<0 || i>=empireColors.size())
@@ -739,7 +750,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		empireColors.add(new Color(170,255,195)); // modnar: mint*
 		empireColors.add(new Color(128,128,0));   // modnar: olive**
 		//empireColors.add(new Color(255,215,180)); // modnar: apricot*
-		
+
+		//empireShipColors.clear();)
         //empireColors.add(new Color(9,131,214));   // blue
         //empireColors.add(new Color(132,57,20));   // brown
         //empireColors.add(new Color(0,166,81));    // green
@@ -750,6 +762,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         //empireColors.add(new Color(56,232,186));  // teal
         //empireColors.add(new Color(247,229,60));  // yellow
         //empireColors.add(new Color(255,255,255)); // white
+
+		initShipColors(255);
 
         colors.clear();
         //primary color list
@@ -764,7 +778,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list1.add(7);
         list1.add(8);
         list1.add(9);
-		
+
         //secondary color list
         List<Integer> list1a = new ArrayList<>();
         list1a.add(10);
@@ -781,7 +795,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         List<Integer> list3 = new ArrayList<>(list2);
         List<Integer> list4 = new ArrayList<>(list2);
         List<Integer> list5 = new ArrayList<>(list2);
-            
+
         Collections.shuffle(list1);
         Collections.shuffle(list1a);
         Collections.shuffle(list2);

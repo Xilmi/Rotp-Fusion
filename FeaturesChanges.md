@@ -307,6 +307,7 @@
 
 ### User Interfaces:
 
+- New option to change ship sprites opacity.
 - New Main menu option: “Relaunch a New Game”.
   - When the Ctrl key is held down, “New Game” is replaced by  "Relaunch"
   - Keyboard shortcut = Ctrl-N
