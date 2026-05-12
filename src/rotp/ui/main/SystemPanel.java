@@ -35,11 +35,14 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import rotp.model.empires.Empire;
+import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
+import rotp.model.tech.TechTree;
 import rotp.ui.BasePanel;
 import rotp.ui.SystemViewer;
+import rotp.ui.fleets.SystemMassTransportPanel;
 import rotp.ui.map.IMapHandler;
 import rotp.util.ThickBevelBorder;
 
@@ -232,6 +235,10 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             drawSystemReportAge(g, sys, f,  y, w, lineH);
             y -= lineH;
         }
+
+		if (this instanceof SystemMassTransportPanel)
+			if (drawGroundTroopBonus(g, sys, f, y, w, lineH))
+				y -= lineH;
 
         if (showPopulation)
             drawSystemPopulation(g, sys, f, y, w, lineH);
@@ -469,6 +476,36 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
         }
         return false;
     }
+	public boolean drawGroundTroopBonus(Graphics2D g2, StarSystem sys, Font textF, int y, int w, int h) {
+		Empire player = player();
+		Planet planet = sys.planet();
+		int rightMargin = s10;
+
+		if (planet.maxSize() <= 0)
+			return false;
+
+		Empire alien = sys.empire();
+		if (alien == player)
+			return false;
+
+		EmpireView v = player.viewForEmpire(alien);
+		if (v == null)
+			return false;
+
+		TechTree playerTech = player.tech();
+		int playerBonus = (int)playerTech.troopCombatAdj(false);
+		TechTree alienTech = v.spies().tech();
+		int alientBonus = (int)alienTech.troopCombatAdj(true);
+
+		g2.setFont(textF);
+		String bonusStr = text("MAIN_PLANET_TROOP_BONUS_COMP", playerBonus, alientBonus);
+		int sw = g2.getFontMetrics().stringWidth(bonusStr);
+
+		int x0 = w-rightMargin-sw;
+		g2.setColor(redText);
+		drawString(g2,bonusStr, x0, y+h);
+		return true;
+	}
     public void drawSystemPopulation(Graphics2D g2, StarSystem sys, Font textF, int y, int w, int h) {
         int id = sys.id;
         Empire pl = player();
@@ -519,7 +556,11 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
                 g2.setColor(greenText);
             else
                 g2.setColor(redText);
-            if (pl.sv.isColonized(id) && pl.sv.colony(id).inRebellion()) {
+			if (this instanceof SystemMassTransportPanel) {
+				int population = (int) pl.sv.population(sys.id);
+				popStr = text("MAIN_PLANET_SIZE_POP", planetSize, population);
+			}
+			else if (pl.sv.isColonized(id) && pl.sv.colony(id).inRebellion()) {
                 popStr = text("MAIN_PLANET_REBELLION");
                 g2.setColor(redText);
             }

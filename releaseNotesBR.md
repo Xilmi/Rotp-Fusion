@@ -7,6 +7,9 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
+26-05-12
+- In the mass transport deployment panel, the troop bonus and colony size will be displayed along with the planet's information.
+
 26-05-10 (BR)
 - New option to change ship sprites opacity.
 - A few French translation improvement.

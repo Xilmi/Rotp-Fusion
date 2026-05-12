@@ -44,6 +44,9 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+26-05-12
+- In the mass transport deployment panel, the troop bonus and colony size will be displayed along with the planet's information.
+
 26-05-10 (BR)
 - New option to change ship sprites opacity.
 - A few French translation improvement.

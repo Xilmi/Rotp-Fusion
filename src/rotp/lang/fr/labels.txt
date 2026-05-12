@@ -880,11 +880,13 @@ MAIN_PLANET_SIZE                  | Taille %1
 MAIN_PLANET_SIZE+                 | Taille %1+
 MAIN_PLANET_POP                   | Pop %1
 MAIN_PLANET_POP_SIZE              | Pop %1/%2
+MAIN_PLANET_SIZE_POP			| Taille %1 (%2)
+MAIN_PLANET_TROOP_BONUS_COMP	| Bonus %1 -> %2
 MAIN_PLANET_REBELLION             | En Rébellion
 MAIN_PLANET_QUARANTINE            | En Quarantaine
 MAIN_PLANET_EVENT_COMET           | Comète
 MAIN_PLANET_EVENT_PIRACY          | Piraterie
-MAIN_PLANET_EVENT_PLAGUE          | pandémie
+MAIN_PLANET_EVENT_PLAGUE		| Pandémie
 MAIN_PLANET_EVENT_SUPERNOVA       | Supernova
 MAIN_PLANET_EVENT_AMOEBA          | l’Amibe Spatiale
 MAIN_PLANET_EVENT_CRYSTAL         | le Cristal Spatial
