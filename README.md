@@ -44,6 +44,11 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+26-05-15
+- Fixed an issue with large maps where a star system could be placed too close to Orion.
+- Fixed annoying "Null Pointer Exception" in Auto Resolve.
+  - They were already trapped by ae "Try - Catch", but this was very annoying when debugging, with a break point on "Null Pointer Exception".
+
 26-05-12
 - In the mass transport deployment panel, the troop bonus and colony size will be displayed along with the planet's information.
 

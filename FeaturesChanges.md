@@ -408,6 +408,9 @@
 
 ### Fixes:
 
+- Fixed an issue with large maps where a star system could be placed too close to Orion.
+- Fixed annoying "Null Pointer Exception" in Auto Resolve.
+  - They were already trapped by ae "Try - Catch", but this was very annoying when debugging, with a break point on "Null Pointer Exception".
 - Fixed the fix for stargate redirection bug in a safer way, as the previous one could crash the game.
 - Fixed duplicate option in "Rules for Space Monster" options panel.
 - Replaced "L" to Loop through the swarm of fleets. by "L" to Loop through overlapping fleets. (Thanks williams482)

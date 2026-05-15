@@ -172,6 +172,8 @@ public class ShipWeapon extends ShipComponent {
         return "";
     }
     public void drawIneffectiveAttack(CombatStack source, CombatStack target, int count) {
+		if (!source.mgr.showAnimations())
+			return;
     	if (showErrors)
     		tech().drawIneffectiveAttack(source, target, source.weaponNum(this), count);
     	else {
@@ -187,6 +189,8 @@ public class ShipWeapon extends ShipComponent {
     	}
     }
     public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int count) {
+		if (!source.mgr.showAnimations())
+			return;
     	if (showErrors)
     		tech().drawUnsuccessfulAttack(source, target, source.weaponNum(this), count);
     	else {
@@ -202,6 +206,8 @@ public class ShipWeapon extends ShipComponent {
     	}
     }
     public void drawSuccessfulAttack(CombatStack source, CombatStack target, float dmg, int count) {
+		if (!source.mgr.showAnimations())
+			return;
     	if (showErrors)
     		tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg, count);
     	else {
@@ -217,6 +223,8 @@ public class ShipWeapon extends ShipComponent {
     	}
     }
     public void drawSuccessfulAttack(CombatStack source, CombatStack target, float dmg, int count, float force) {
+		if (!source.mgr.showAnimations())
+			return;
     	if (showErrors)
     		 tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg, count, force);
     	else {

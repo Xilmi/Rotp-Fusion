@@ -706,10 +706,10 @@ public class ShipDesignLab implements Base, Serializable {
         return null;
     }
     public ShipSpecial getSpecial(String s, int seq) {
-        for (ShipSpecial special : specials()) {
-            Tech tech = special.tech();
+        for (ShipSpecial sp : specials()) {
+            Tech tech = sp.tech();
             if (tech != null && tech.id.startsWith(s) && tech.typeSeq==seq)
-                return special;
+                return sp;
         }
         return null;
     }
@@ -723,7 +723,7 @@ public class ShipDesignLab implements Base, Serializable {
     public ShipSpecial specialCrystalNullifier()	{ return getSpecial("ShipNullifier", 2); }
     public ShipSpecial specialAutomatedRepair()		{ return getSpecial("AutomatedRepair", 0); }
     public ShipSpecial specialAdvDamControl()		{ return getSpecial("AutomatedRepair", 1); }
-    public ShipSpecial specialBlackHole()			{ return getSpecial("EnergyPulsar", 0); }
+    public ShipSpecial specialBlackHole()			{ return getSpecial("BlackHole", 0); }
     public ShipSpecial specialAntiMissileRockets()	{ return getSpecial("MissileShield", 0); }
     public ShipSpecial specialZyroShield()			{ return getSpecial("MissileShield", 1); }
     public ShipSpecial specialLightningShield()		{ return getSpecial("MissileShield", 2); }

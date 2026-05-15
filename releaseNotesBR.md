@@ -7,6 +7,9 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
+26-05-15
+- Fixed an issue with large maps where a star system could be placed too close to Orion.
+
 26-05-12
 - In the mass transport deployment panel, the troop bonus and colony size will be displayed along with the planet's information.
 
