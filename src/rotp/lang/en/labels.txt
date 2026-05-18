@@ -3214,13 +3214,13 @@ SETTINGS_MOD_TECH_GAIA                   | Gaia Improvement: %1
 
 SETTINGS_MOD_TECH_UNLIMITED_MAX_GAP		| Unlimited 
 
-SETTINGS_MOD_TECH_MINIMAL_RANGE_HELP	| Maximum number of columns separating two fuel technologies in the table of technologies to research.<br>It's always frustrating when no fuel technologies are available for research.<br>This option ensures that at least some fuel technologies are included in the technology tree.
-SETTINGS_MOD_TECH_MINIMAL_RANGE_DESC	| Maximum number of columns separating two fuel technologies in the table of technologies to research.<br>This option ensures that at least some fuel technologies are included in the technology tree.
-SETTINGS_MOD_TECH_MINIMAL_RANGE			| Max Range Tech Gap: %1
+SETTINGS_MOD_TECH_RANGE_MAX_GAP_HELP	| Maximum number of columns separating two fuel technologies in the table of technologies to research.<br>It's always frustrating when no fuel technologies are available for research.<br>This option ensures that at least some fuel technologies are included in the technology tree.
+SETTINGS_MOD_TECH_RANGE_MAX_GAP_DESC	| Maximum number of columns separating two fuel technologies in the table of technologies to research.<br>This option ensures that at least some fuel technologies are included in the technology tree.
+SETTINGS_MOD_TECH_RANGE_MAX_GAP			| Max Range Tech Gap: %1
 
-SETTINGS_MOD_TECH_MINIMAL_WARP_HELP		| It's always frustrating when no engine technologies are available for research.<br>This option ensures that at least some engine technologies are included in the technology tree.
-SETTINGS_MOD_TECH_MINIMAL_WARP_DESC		| It's always frustrating when no engine technologies are available for research.<br>This option ensures that at least some engine technologies are included in the technology tree.
-SETTINGS_MOD_TECH_MINIMAL_WARP			| Max Warp Tech Gap: %1
+SETTINGS_MOD_TECH_WARP_MAX_GAP_HELP		| It's always frustrating when no engine technologies are available for research.<br>This option ensures that at least some engine technologies are included in the technology tree.
+SETTINGS_MOD_TECH_WARP_MAX_GAP_DESC		| It's always frustrating when no engine technologies are available for research.<br>This option ensures that at least some engine technologies are included in the technology tree.
+SETTINGS_MOD_TECH_WARP_MAX_GAP			| Max Warp Tech Gap: %1
 
 
 
