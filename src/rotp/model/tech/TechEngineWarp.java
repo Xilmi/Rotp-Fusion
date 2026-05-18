@@ -132,4 +132,5 @@ public final class TechEngineWarp extends Tech {
         }
         return 0;
     }
+	@Override public boolean isEngineWarpTech()	{ return true; }
 }

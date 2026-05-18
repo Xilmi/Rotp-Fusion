@@ -7,22 +7,12 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 
 <b><ins>Very last changes:</ins></b>
 
+26-05-18
+- New Options: Max Range Tech Gap & Max Warp Tech Gap
+  - It's always frustrating when no engine technologies or no fuel technologies are available for research... These options ensure that at least some of these technologies are included in the technology tree.
+
 26-05-15
 - Fixed an issue with large maps where a star system could be placed too close to Orion.
-
-26-05-12
-- In the mass transport deployment panel, the troop bonus and colony size will be displayed along with the planet's information.
-
-26-05-10 (BR)
-- New option to change ship sprites opacity.
-- A few French translation improvement.
-- As suggested by Warcat, renamed “Relaunch” by Quick “Start”
-
-26-05-04 (BR)
-- New Main menu option: “Relaunch a New Game”.
-  - When the Ctrl key is held down, “New Game” is replaced by  "Relaunch"
-  - Keyboard shortcut = Ctrl-N
-- A few improvements have been made to the French translation.
 
 
 #### [Features Historic](https://github.com/BrokenRegistry/Rotp-Fusion/blob/main/FeaturesChanges.md)

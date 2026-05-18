@@ -238,6 +238,7 @@ public class Tech implements Base, ScaledInteger {
     public boolean isRoboticControlsTech()  { return false; }
     public boolean isPlanetaryShieldTech()  { return false; }
     public boolean isFuelRangeTech()        { return false; }
+    public boolean isEngineWarpTech()       { return false; }
     public boolean isFutureTech()           { return false; }
     public boolean isMonsterTech()          { return false; }
     public boolean isObsolete(Empire c)     { return false; }

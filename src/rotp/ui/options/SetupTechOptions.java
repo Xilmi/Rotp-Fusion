@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import rotp.model.game.SafeListPanel;
 import rotp.model.game.SafeListParam;
+import rotp.model.tech.TechCategory;
 import rotp.ui.util.ParamTitle;
 
 final class SetupTechOptions extends AbstractOptionsSubUI {
@@ -30,7 +31,10 @@ final class SetupTechOptions extends AbstractOptionsSubUI {
 				new ParamTitle("TECH_SPACE"),
 				techStargate,
 				techHyperspace,
-				techThorium
+				techThorium,
+				LINE_SPACER_25,
+				TechCategory.maxRangeTechGap,
+				TechCategory.maxWarpTechGap
 				)));
 		map.add(new SafeListParam(Arrays.asList(
 				new ParamTitle("TECH_COMBAT"),
@@ -60,7 +64,9 @@ final class SetupTechOptions extends AbstractOptionsSubUI {
 						techHyperspace,
 						techThorium,
 						techCloaking,
-						techTransport
+						techTransport,
+						TechCategory.maxRangeTechGap,
+						TechCategory.maxWarpTechGap
 						));
 		return majorList;
 	}

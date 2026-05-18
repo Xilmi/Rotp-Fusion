@@ -15,6 +15,8 @@
  */
 package rotp.model.tech;
 
+import static rotp.model.game.IBaseOptsTools.MOD_UI;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +28,9 @@ import rotp.model.events.RandomEventSpaceCrystal;
 import rotp.model.events.RandomEventSpacePirates;
 import rotp.model.events.RandomEvents;
 import rotp.ui.notifications.GNNNotification;
+import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamTech;
+import rotp.ui.util.StringList;
 import rotp.util.Base;
 import rotp.util.Rand;
 
@@ -38,9 +42,8 @@ public final class TechCategory implements Base, Serializable {
     public static final int PLANETOLOGY = 3;
     public static final int PROPULSION = 4;
     public static final int WEAPON = 5;
-    
-    public static int ATTEMPTS = 0;
-    public static float RESEARCH_INTEREST = 0.25f;
+
+    private static float RESEARCH_INTEREST = 0.25f;
     public static final int MAX_ALLOCATION_TICKS = 60;
     private static final int MAX_QUINTILES = 20;
     private static String[] researchKeys = { "TECH_RESEARCH_COMPUTER", "TECH_RESEARCH_CONSTRUCTION",
@@ -76,10 +79,9 @@ public final class TechCategory implements Base, Serializable {
     private boolean researchStarted = false;
 
     public int index()                     { return index; }
-    public void index(int i)               { index = i; }
+    void index(int i)                      { index = i; }
     public List<String> knownTechs()       { return knownTechs; }
     public String currentTech()            { return currentTech; }
-    public String currentTechName()        { return tech(currentTech).name(); }
     public boolean currentTech(Tech t)     { 
         if (!id().equals(t.cat.id()))
             return false;
@@ -96,11 +98,11 @@ public final class TechCategory implements Base, Serializable {
     public String key()                    { return categoryKeys[index]; }
     public boolean isWeaponTechCategory()  { return (this == tree.weapon()); }
     private float racialMod()              { return tree == null? 1.0f : tree.empire().techMod(index); }
-    public float discoveryPct()            { return discoveryPct; }
+    float discoveryPct()                   { return discoveryPct; }
 
     public TechCategory() { }
 
-    public TechCategory (int i, TechTree tr, float p) {
+    TechCategory (int i, TechTree tr, float p) {
         index = i;
         tree = tr;
         discoveryPct = p;
@@ -151,7 +153,7 @@ public final class TechCategory implements Base, Serializable {
     public float allocationPct()        { return (float) allocation/MAX_ALLOCATION_TICKS; }
     public void adjustAllocation(int i) { allocation(allocation+i); }
     public void increaseAllocation()    { allocation(allocation+1); }
-    public void decreaseAllocation()    { allocation(allocation-1); }
+//    public void decreaseAllocation()    { allocation(allocation-1); }
     public void allocationPct(float d)  {
         // d assumed to be between 0 & 1, representing pct of slider clicked
         float incr = 1.0f/(MAX_ALLOCATION_TICKS+1);
@@ -166,11 +168,15 @@ public final class TechCategory implements Base, Serializable {
         allocation(MAX_ALLOCATION_TICKS);
     }
     public float baseResearchCost(int techLevel)  { return options().researchCostBase(techLevel)*session().researchMapSizeAdjustment();}
-    private void init() {
-        if (!tree.spy())
-            buildResearchList();
-    }
-    public void addPossibleTech(String id) {
+	private void init()	{
+		if (tree.spy())
+			return;
+		if (index == PROPULSION)
+			buildPropulsionResearchList();
+		else
+			buildResearchList();
+	}
+    void addPossibleTech(String id) {
         if (!possibleTechs.contains(id)) {
             possibleTechs.add(id);
             if (researchCompleted) {
@@ -193,7 +199,7 @@ public final class TechCategory implements Base, Serializable {
         }
     }
     private void addBonusTech(String id)      {  bonusTechs.add(id); }
-    public void allowResearch(String id) {
+    void allowResearch(String id) {
         if (knownTechs().contains(id))
             return;
         if (possibleTechs.contains(id))
@@ -201,7 +207,7 @@ public final class TechCategory implements Base, Serializable {
         addPossibleTech(id);
         addBonusTech(id);
     }
-    public void spyKnownTechs(TechCategory cat) { spyKnownTechs(cat, 99); }
+    void spyKnownTechs(TechCategory cat) { spyKnownTechs(cat, 99); }
     private void spyKnownTechs(TechCategory cat, int maxLevel) {
         for (String id: cat.knownTechs()) {
             Tech t = tech(id);
@@ -211,11 +217,9 @@ public final class TechCategory implements Base, Serializable {
         //can't see new techs
         knownTechs().removeAll(tree.newTechs());
     }
-    public String randomKnownTech() {
-        return random(knownTechs());
-    }
+    String randomKnownTech() { return random(knownTechs()); }
     // BR: modified for the "Never" tech
-    public Tech randomUnknownTech(int minLevel, int levelDiff, boolean isPlayer, Long seed) {
+    Tech randomUnknownTech(int minLevel, int levelDiff, boolean isPlayer, Long seed) {
         // find level of highest known tech
         int highestLevel = 0;
         for (String id: knownTechs()) {
@@ -259,43 +263,103 @@ public final class TechCategory implements Base, Serializable {
         }
     	return true;
     }
-    public Rand techRandom()		{ return tree.empire().techRandom(); }
+    private Rand techRandom()		{ return tree.empire().techRandom(); }
     @Override public float random() { return techRandom().nextFloat(); }
     @Override public <T> T random(List<T> list) {
         return (list == null || list.isEmpty()) ? null : list.get(techRandom().nextInt(list.size()));
     }
+	private void buildPropulsionResearchList() {
+		TechCategory baseCat = TechLibrary.baseCategory[index];
+		Empire emp = tree.empire();
+		possibleTechs.clear();
+		int currentRangeSeq = 0;
+		int currentWarpSeq  = 0;
 
-    @SuppressWarnings("unchecked")
+		StringList[] techsByQuintile = new StringList[MAX_QUINTILES];
+		for (int i=0;i<MAX_QUINTILES;i++) 
+			techsByQuintile[i] = new StringList();      
+
+		for (int i=0; i<baseCat.possibleTechs.size(); i++) {
+			String id = baseCat.possibleTechs.get(i);
+			Tech t = tech(id);
+			if (!t.restricted && emp.canResearch(t) && !t.free && isAllowed(id, emp.isPlayer())) { // BR: never add in some Technologies
+				List<String> techs = techsByQuintile[t.quintile()-1];
+				techs.add(id);
+			}
+		}
+
+		// BR: always add in some Technologies
+		for (ParamTech tech : options().techModList())
+			if (tech.isAlways(index, tech.techSeqNum, emp.isPlayer()))
+				addPossibleTech(tech.techId());
+
+		for (int i=0; i<MAX_QUINTILES; i++) {
+			boolean found = false;
+			List<String> techs = techsByQuintile[i];
+			for (String id: techs) {
+				Tech t = tech(id);
+				// to prevent big fuel range step
+				if (t.isFuelRangeTech() && (t.typeSeq-currentRangeSeq) >= maxRangeTechGap()) {
+					// System.out.println(t + " is in "+key()+" for "+emp.name());
+					addPossibleTech(id);
+					currentRangeSeq = t.typeSeq;
+					found = true;
+				}
+				// to prevent big engine warp step
+				else if (t.isEngineWarpTech() && (t.typeSeq-currentWarpSeq) >= maxWarpTechGap()) {
+					// System.out.println(t + " is in "+key()+" for "+emp.name());
+					addPossibleTech(id);
+					currentWarpSeq = t.typeSeq;
+					found = true;
+				}
+				// Standard build
+				else if (random() <= discoveryPct()) {
+					addPossibleTech(id);
+					if (t.isFuelRangeTech())
+						currentRangeSeq = t.typeSeq;
+					else if (t.isEngineWarpTech())
+						currentWarpSeq = t.typeSeq;
+					found = true;
+				}
+				else if(possibleTechs.contains(id))
+					found = true;
+			}
+			if (!found)
+				if(techs.size() > 0)
+					addPossibleTech(random(techs));
+				else
+					System.err.println("No Propulsion tech in Quintille " + i);
+		}
+		/* for(String t : possibleTechs)
+			System.out.println(t + " is in "+key()+" for "+emp.name()); */
+	}
     private void buildResearchList() {
         TechCategory baseCat = TechLibrary.baseCategory[index];
         Empire emp = tree.empire();
         possibleTechs.clear();
 
-        Object[] techsByQuintile =new Object[MAX_QUINTILES]; // List<String>[]
-        for (int i=0;i<MAX_QUINTILES;i++) 
-            techsByQuintile[i] = new ArrayList<String>();      
+		StringList[] techsByQuintile = new StringList[MAX_QUINTILES];
+		for (int i=0;i<MAX_QUINTILES;i++) 
+			techsByQuintile[i] = new StringList();      
 
         for (int i=0;i<baseCat.possibleTechs.size();i++) {
             String id = baseCat.possibleTechs.get(i);
             Tech t = tech(id);
             if (!t.restricted && emp.canResearch(t) && !t.free
                 && isAllowed(id, emp.isPlayer())) { // BR: never add in some Technologies
-                List<String> techs = (List<String>) techsByQuintile[t.quintile()-1];
+                List<String> techs = techsByQuintile[t.quintile()-1];
                 techs.add(id);
             }
         }
 
-        // BR: always add in some Technologies
-        // quintile != techSeqNum
-        for (ParamTech tech : options().techModList()) {
-            if (tech.isAlways(index, tech.techSeqNum, emp.isPlayer())) {
-                addPossibleTech(tech.techId());
-            }
-        }
-        
+		// BR: always add in some Technologies
+		for (ParamTech tech : options().techModList())
+			if (tech.isAlways(index, tech.techSeqNum, emp.isPlayer()))
+				addPossibleTech(tech.techId());
+
         for (int i=0;i<MAX_QUINTILES;i++) {
             boolean found = false;
-            List<String> techs = (List<String>) techsByQuintile[i];
+            List<String> techs = techsByQuintile[i];
             for (String id: techs) {
                 if (random() <= discoveryPct()) {
                     addPossibleTech(id);
@@ -313,7 +377,7 @@ public final class TechCategory implements Base, Serializable {
         /*for(String t : possibleTechs)
             System.out.println(t + " is in "+key()+" for "+emp.name());*/
     }
-    public void learnFreeTechs() {
+    void learnFreeTechs() {
         TechCategory baseCat = TechLibrary.baseCategory[index];
         for (int i=0; i<baseCat.possibleTechs.size(); i++) {
             String id = baseCat.possibleTechs.get(i);
@@ -402,7 +466,7 @@ public final class TechCategory implements Base, Serializable {
         }
         return "";
     }
-    public float techLevelSpy() {
+/*    public float techLevelSpy() {
         int max = 0;
         int free = 0;
         List<String> ids = new ArrayList<>(knownTechs());
@@ -414,7 +478,7 @@ public final class TechCategory implements Base, Serializable {
                 max = t.level;
         }
         return max(1, min(max, ((.80f * max) + ids.size() - free)));
-    }
+    } */
     public int maxTechLevel() {
         int max = 0;
         List<String> ids = new ArrayList<>(knownTechs());
@@ -438,14 +502,14 @@ public final class TechCategory implements Base, Serializable {
         }
         return max(1, ((.80f * max) + ids.size() - free));
     }
-    public void knowAll() {
+    public void knowAll() { // unused, but kept for debug
         for (String id: possibleTechs()) {
             Tech t = tech(id);
             if (!t.restricted)
                 addKnownTech(id);
         }
     }
-    public void knowAll(int maxLevel, float pct) {
+    void knowAll(int maxLevel, float pct) {
         TechCategory baseCat = TechLibrary.baseCategory[index];
         for (String id: baseCat.allTechs()) {
             Tech t = tech(id);
@@ -453,7 +517,7 @@ public final class TechCategory implements Base, Serializable {
                 addKnownTech(t.id());
         }
     }
-    public void learnAll() {
+    void learnAll() {
         TechCategory baseCat = TechLibrary.baseCategory[index];
         List<String> possCopy = new ArrayList<>();
         for (String id: baseCat.possibleTechs())
@@ -461,17 +525,15 @@ public final class TechCategory implements Base, Serializable {
         for (String id: possCopy)
             learnTech(id);
     }
-    private Tech techNamed(String name) {
+    /* private Tech techNamed(String name) {
         for (String id: possibleTechs()) {
             Tech t = tech(id);
             if (t.name().equals(name))
                 return t;
         }
         return null;
-    }
-    public void beginResearchOnTechNamed(String name) {
-        currentTech = techNamed(name).id();
-    }
+    } */
+    //public void beginResearchOnTechNamed(String name) { currentTech = techNamed(name).id(); }
     public int maxKnownQuintile() {
         int max = 0;
         for (String id: knownTechs()) {
@@ -486,7 +548,7 @@ public final class TechCategory implements Base, Serializable {
         // until future techs (maxQ = 10), can alway learn techs in the next quintile
         if (maxQ < 10)
             return maxQ+1;
-        
+
         // we have techs known in the last non-future quintile. At this point, we
         // can only research techs up to the current maxQ if there are any unresearched
         // techs in current maxQ or lower
@@ -495,7 +557,7 @@ public final class TechCategory implements Base, Serializable {
             if (t.quintile() <= maxQ)
                 return maxQ;
         }
-        
+
         // all unresearched techs are above current maxQ. Therefore we can learn
         // future techs in the next quintile
         return maxQ+1;
@@ -503,7 +565,7 @@ public final class TechCategory implements Base, Serializable {
     public List<String> techIdsAvailableForResearch() {
         return techIdsAvailableForResearch(true);
     }
-    public List<String> techIdsAvailableForResearch(boolean lookAhead) {
+    List<String> techIdsAvailableForResearch(boolean lookAhead) {
         int q = maxResearchableQuintile();
         List<String> r = new ArrayList<>();
         String first = null;
@@ -525,7 +587,7 @@ public final class TechCategory implements Base, Serializable {
     public List<Tech> techsAvailableForResearch() {
         return techsAvailableForResearch(true);
     }
-    public List<Tech> techsAvailableForResearch(boolean lookAhead) {
+    private List<Tech> techsAvailableForResearch(boolean lookAhead) {
         int q = maxResearchableQuintile();
         List<Tech> r = new ArrayList<>();
         Tech first = null;
@@ -590,17 +652,15 @@ public final class TechCategory implements Base, Serializable {
 
         return upcomingDiscoveryChance(tree.empire().totalPlanetaryResearch());
     }
-    public float currentResearch() {
-        return currentResearch(tree.totalResearchThisTurn);
-    }
+    private float currentResearch() { return currentResearch(tree.totalResearchThisTurn); }
     public float currentResearch(float totalRP) {
         float categoryBC = totalRP * allocationPct();
         float interestBC = RESEARCH_INTEREST * min(totalRP/6, categoryBC);
         return categoryBC+interestBC;
     }
-    public void allocateResearchBC() {
+    void allocateResearchBC() {
         totalBC = totalBC + currentResearch();
-        
+
         researchStarted = false;
        // currentTech == null should only happen at game start
         // and when all category techs have been research
@@ -614,7 +674,7 @@ public final class TechCategory implements Base, Serializable {
             else
                 setTechToResearch();
         }
-        
+
         // error case where current tech does not belong to this category, force
         // a new selection, but keep RP in this category
         if ((currentTech != null) && !tech(currentTech).cat.id().equals(id())) {
@@ -625,15 +685,13 @@ public final class TechCategory implements Base, Serializable {
                 setTechToResearch();
             return;
         }
-        
+
         if (random() < discoveryChance()) 
             tree.empire().learnTech(currentTech);
     }
-    public void setTechToResearch() {
-        tree.empire().ai().scientist().setTechToResearch(this);
-    }
-    public void resetResearchBC()   { totalBC = 0; }
-    public boolean learnTech(String id) {
+    private void setTechToResearch() { tree.empire().ai().scientist().setTechToResearch(this); }
+    public void resetResearchBC()    { totalBC = 0; }
+    boolean learnTech(String id)     {
         Tech t = tech(id);
         // infrequently we get here for a tech we already know... perhaps
         // if a tech is discovered/stolen on the same turn it is researched
@@ -667,7 +725,7 @@ public final class TechCategory implements Base, Serializable {
             researchCompleted = true;
         return newTech;
     }
-    
+
     // BR: Loot Monsters options: Complete tech events
     public boolean contributeToResearch(int bc) {
    	 if (currentTech == null)
@@ -681,4 +739,16 @@ public final class TechCategory implements Base, Serializable {
    	 totalBC += 4*costForTech(tech(currentTech));
    	 return true;
    }
+	public static ParamInteger maxRangeTechGap	= new ParamInteger(MOD_UI, "TECH_RANGE_MAX_GAP", 9)
+			.setLimits(1, 9)
+			.setIncrements(1, 2, 10)
+			.loop(false)
+			.specialValue(9, MOD_UI + "TECH_UNLIMITED_MAX_GAP");
+	public static ParamInteger maxWarpTechGap	= new ParamInteger(MOD_UI, "TECH_WARP_MAX_GAP", 9)
+			.setLimits(1, 9)
+			.setIncrements(1, 2, 10)
+			.loop(false)
+			.specialValue(9, MOD_UI + "TECH_UNLIMITED_MAX_GAP");
+	private int maxRangeTechGap()	{ return maxRangeTechGap.get(); }
+	private int maxWarpTechGap()	{ return maxWarpTechGap.get(); }
 }

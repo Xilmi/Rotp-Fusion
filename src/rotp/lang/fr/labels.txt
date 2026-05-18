@@ -3183,34 +3183,44 @@ SETTINGS_MOD_TECH_IRRADIATED_DESC	| (Niveau 18)→TECH_VAL_HK← "→CONTROLENV_
 SETTINGS_MOD_TECH_IRRADIATED		| Maîtrise Env. Irradiés : %1
 SETTINGS_MOD_TECH_CLOAKING_HELP          | →TECH_HEAD_HK← <b>→CLOAK_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CLOAK_0_DETAIL←</i><br>→TECH_LEVEL_HK← 27.<br>Vous l’aimez ! ou pas ! Utilisées en conjonction avec la communication hyperspatiale, les fins de jeu peuvent devenir très ennuyeuses.
 SETTINGS_MOD_TECH_CLOAKING_DESC          | (Niveau 27) →TECH_VAL_HK← "→CLOAK_0_NAME←" →TECH_END_HK←
-SETTINGS_MOD_TECH_CLOAKING               | →CLOAK_0_NAME←: %1
+SETTINGS_MOD_TECH_CLOAKING               | →CLOAK_0_NAME← : %1
 SETTINGS_MOD_TECH_STARGATES_HELP         | →TECH_HEAD_HK← <b>→STARGATE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→STARGATE_0_DETAIL←</i><br>→TECH_LEVEL_HK← 27.<br>Les immenses galaxies sans elles ne me conviennent pas !
 SETTINGS_MOD_TECH_STARGATES_DESC         | (Niveau 27) →TECH_VAL_HK← "→STARGATE_0_NAME←" →TECH_END_HK←
-SETTINGS_MOD_TECH_STARGATES              | →STARGATE_0_NAME←: %1
+SETTINGS_MOD_TECH_STARGATES              | →STARGATE_0_NAME← : %1
 SETTINGS_MOD_TECH_HYPERSPACE_HELP        | →TECH_HEAD_HK← <b>→HYPERSPACE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→HYPERSPACE_0_DETAIL←</i><br>→TECH_LEVEL_HK← 34.<br>On aime ! ou pas ! Certains aiment le jeu du chat et de la souris...
 SETTINGS_MOD_TECH_HYPERSPACE_DESC        | (Niveau 34) →TECH_VAL_HK← "→HYPERSPACE_0_NAME←" →TECH_END_HK←
-SETTINGS_MOD_TECH_HYPERSPACE             | Comm. hyperespace: %1
+SETTINGS_MOD_TECH_HYPERSPACE             | Comm. hyperespace : %1
 SETTINGS_MOD_TECH_INDUSTRY_2_HELP        | →TECH_HEAD_HK← <b>→IMPRINDUSTRY_7_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→IMPRINDUSTRY_7_DETAIL←</i><br>→TECH_LEVEL_HK← 38.<br>Pour accélérer la construction de nouvelles usines en fin de partie !
 SETTINGS_MOD_TECH_INDUSTRY_2_DESC        | (Niveau 38) →TECH_VAL_HK← "→IMPRINDUSTRY_7_NAME←" →TECH_END_HK←
-SETTINGS_MOD_TECH_INDUSTRY_2             | Coût des Usines 2: %1
+SETTINGS_MOD_TECH_INDUSTRY_2             | Coût des Usines 2 : %1
 SETTINGS_MOD_TECH_THORIUM_HELP           | →TECH_HEAD_HK← <b>→FUELRANGE_8_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→FUELRANGE_8_DETAIL←</i><br>→TECH_LEVEL_HK← 41.<br>Indispensable pour atteindre Orion dans certaines galaxies annulaires et symétriques... Mais parfois on ne souhaite que protéger ses lignes arrières...
 SETTINGS_MOD_TECH_THORIUM_DESC           | (Niveau 41) →TECH_VAL_HK← "→FUELRANGE_8_NAME←" →TECH_END_HK←
-SETTINGS_MOD_TECH_THORIUM                | →FUELRANGE_8_NAME←: %1
+SETTINGS_MOD_TECH_THORIUM                | →FUELRANGE_8_NAME← : %1
 SETTINGS_MOD_TECH_TRANSPORTERS_HELP      | →TECH_HEAD_HK← <b>→COMBATTRANSPORT_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→COMBATTRANSPORT_0_DETAIL←</i> <br>→TECH_LEVEL_HK← 45.<br>Un remède possible contre les invasions sauvages...
 SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Niveau 45) →TECH_VAL_HK← "→COMBATTRANSPORT_0_NAME←" →TECH_END_HK←
-SETTINGS_MOD_TECH_TRANSPORTERS           | →COMBATTRANSPORT_0_NAME←: %1
+SETTINGS_MOD_TECH_TRANSPORTERS           | →COMBATTRANSPORT_0_NAME← : %1
 
 SETTINGS_MOD_TECH_CLONING_HELP           | →TECH_HEAD_HK← <b>→CLONE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→CLONE_0_DETAIL←</i> <br>→TECH_LEVEL_HK← 21. <br>Une contribution possible contre les invasions sauvages...
 SETTINGS_MOD_TECH_CLONING_DESC           | (Niveau 21) →TECH_VAL_HK← "→CLONE_0_NAME←" →TECH_END_HK←
-SETTINGS_MOD_TECH_CLONING                | →CLONE_0_NAME←: %1
+SETTINGS_MOD_TECH_CLONING                | →CLONE_0_NAME← : %1
 
 SETTINGS_MOD_TECH_ATMOSPHERIC_HELP       | →TECH_HEAD_HK← <b>→ATMOSPHERE_0_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→ATMOSPHERE_0_DETAIL←</i> <br>→TECH_LEVEL_HK← 22.<br> Pour supprimer la pénalité de 50% des planètes hostiles...
 SETTINGS_MOD_TECH_ATMOSPHERIC_DESC       | (Niveau 22) →TECH_VAL_HK← "→ATMOSPHERE_0_NAME←" →TECH_END_HK←
-SETTINGS_MOD_TECH_ATMOSPHERIC            | Conversion Atmosphère: %1
+SETTINGS_MOD_TECH_ATMOSPHERIC            | Conversion Atmosphère : %1
 
 SETTINGS_MOD_TECH_GAIA_HELP              | →TECH_HEAD_HK← <b>→SOILENRICH_1_NAME←</b>&nbsp →TECH_END_HK← <br>&emsp<i>→SOILENRICH_1_DETAIL←</i> <br>→TECH_LEVEL_HK← 30.<br>Pour garantir la terraformation en Gaïa...
 SETTINGS_MOD_TECH_GAIA_DESC              | (Niveau 30) →TECH_VAL_HK← "→SOILENRICH_1_NAME←" (terraformation en Gaïa) →TECH_END_HK←
-SETTINGS_MOD_TECH_GAIA                   | Planètes Gaïa: %1
+SETTINGS_MOD_TECH_GAIA                   | Planètes Gaïa : %1
+
+SETTINGS_MOD_TECH_UNLIMITED_MAX_GAP		| Illimité 
+
+SETTINGS_MOD_TECH_RANGE_MAX_GAP_HELP	| Nombre maximal de colonnes séparant deux technologies de carburant dans le tableau des technologies à étudier.<br>Il est toujours frustrant de ne disposer d'aucune technologie de carburant à rechercher.<br>Cette option permet de garantir qu'au moins quelques technologies de carburant seront incluses dans l'arbre des technologies.
+SETTINGS_MOD_TECH_RANGE_MAX_GAP_DESC	| Il est toujours frustrant de ne disposer d'aucune technologie de carburant à rechercher.<br>Cette option garantit qu'au moins quelques technologies de carburant seront incluses dans l'arbre des technologies.
+SETTINGS_MOD_TECH_RANGE_MAX_GAP			| Écarts max. des Carburants : %1
+
+SETTINGS_MOD_TECH_WARP_MAX_GAP_HELP		| Nombre maximal de colonnes séparant deux technologies de motorisation dans le tableau des technologies à étudier.<br>Il est toujours frustrant de ne disposer d'aucune technologie de motorisation à rechercher.<br>Cette option permet de garantir qu'au moins quelques technologies de motorisation seront incluses dans l'arbre des technologies.
+SETTINGS_MOD_TECH_WARP_MAX_GAP_DESC		| Nombre maximal de colonnes séparant deux technologies de motorisation dans le tableau des technologies à étudier.<br>Cette option garantit qu'au moins quelques technologies de motorisation seront incluses dans l'arbre des technologies.
+SETTINGS_MOD_TECH_WARP_MAX_GAP			| Écarts max. des Motorisations : %1
 
 // Pas encore certain de la traduction finale...
 // Des racourcis sont créés pour garantir l’uniformité en cas de changement.
@@ -3219,11 +3229,11 @@ FR_APTITUDE_SELECTION                    | Paramètre utilisé lorsque des adver
 
 SETTINGS_MOD_RACES_RAND_MIN_HELP         | →FR_APTITUDE_SELECTION←.<br>Lorsque « →FR_CUSTOM_ALIENS← » = « →SETTINGS_MOD_RACES_ARE_RANDOM_SETTING← », chaque paramètre individuel sera défini dans une plage relative.<br>→CUSTOM_RACE_RANDOM_MIN_DESC←
 SETTINGS_MOD_RACES_RAND_MIN_DESC         | →CUSTOM_RACE_RANDOM_MIN_DESC←
-SETTINGS_MOD_RACES_RAND_MIN              | Limite basse: %1%
+SETTINGS_MOD_RACES_RAND_MIN              | Limite basse : %1%
 
 SETTINGS_MOD_RACES_RAND_MAX_HELP         | →FR_APTITUDE_SELECTION←.<br>Lorsque « →FR_CUSTOM_ALIENS← » = « →SETTINGS_MOD_RACES_ARE_RANDOM_SETTING← », chaque paramètre individuel sera défini dans une plage relative.<br>→CUSTOM_RACE_RANDOM_MAX_DESC←
 SETTINGS_MOD_RACES_RAND_MAX_DESC         | →CUSTOM_RACE_RANDOM_MAX_DESC←
-SETTINGS_MOD_RACES_RAND_MAX              | Limite haute: %1%
+SETTINGS_MOD_RACES_RAND_MAX              | Limite haute : %1%
 
 SETTINGS_MOD_RACES_RAND_EDGES_HELP       | →FR_APTITUDE_SELECTION←:<br>→CUSTOM_RACE_RANDOM_EDGES_HELP←
 SETTINGS_MOD_RACES_RAND_EDGES_DESC       | →CUSTOM_RACE_RANDOM_EDGES_DESC←

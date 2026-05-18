@@ -22,6 +22,8 @@
 
 ### Features:
 
+- New Options: Max Range Tech Gap & Max Warp Tech Gap
+  - It's always frustrating when no engine technologies or no fuel technologies are available for research... These options ensure that at least some of these technologies are included in the technology tree.
 - New option to select MoO1 rules for the miniaturization of the Battle Scanners and the Reserve Fuel Tanks.
 - Ship Combat prompt: The “Smart-Resolve” button will once again display only “Smart-Resolve,” but if the action is “immediate withdrawal,” a pop-up window will explain why. If the reason is that the alien is not considered an enemy, pressing ‘W’ will start a war and update the “Smart-Resolve” button's action. (As always, hovering over the flag icon will provide more information about our relations.)
 - From now on, when deciding whether or not to fight, both the player and the AI follow the same relationship penalties rules: the player will no longer incur a relationship penalty when retreating.

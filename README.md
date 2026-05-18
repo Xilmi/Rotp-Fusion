@@ -44,24 +44,14 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+26-05-18
+- New Options: Max Range Tech Gap & Max Warp Tech Gap
+  - It's always frustrating when no engine technologies or no fuel technologies are available for research... These options ensure that at least some of these technologies are included in the technology tree.
+
 26-05-15
 - Fixed an issue with large maps where a star system could be placed too close to Orion.
 - Fixed annoying "Null Pointer Exception" in Auto Resolve.
   - They were already trapped by ae "Try - Catch", but this was very annoying when debugging, with a break point on "Null Pointer Exception".
-
-26-05-12
-- In the mass transport deployment panel, the troop bonus and colony size will be displayed along with the planet's information.
-
-26-05-10 (BR)
-- New option to change ship sprites opacity.
-- A few French translation improvement.
-- As suggested by Warcat, renamed “Relaunch” by Quick “Start”
-
-26-05-04 (BR)
-- New Main menu option: “Relaunch a New Game”.
-  - When the Ctrl key is held down, “New Game” is replaced by  "Relaunch"
-  - Keyboard shortcut = Ctrl-N
-- A few improvements have been made to the French translation.
 
 
 ### [Features Historic](FeaturesChanges.md)

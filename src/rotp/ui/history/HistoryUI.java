@@ -482,6 +482,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
             int numButtons = 4;
             int buttonW = s90;
             int buttonH = s30; // -s25 is because 4 buttons at -s5 spacing/button
+			int fwShift = 0;
 
             int totalButtonSpacing = numButtons*(buttonW+s20); // modnar: adjust button spacing
             int buttonX = (w-totalButtonSpacing)/2;
@@ -504,11 +505,12 @@ public final class HistoryUI extends BasePanel implements MouseListener {
 			// BR: French only display symbols
 			boolean onlySymblol = LanguageManager.selectedLanguageDir().equalsIgnoreCase("fr");
 			Font fontForSymbol;
-
+			fwShift = s6;
             // draw previous turn button
             //g.setFont(narrowFont(18));
             Font fontSansSerif = new Font("SansSerif", Font.BOLD, 20); // modnar: change font to display unicode
 			if (onlySymblol) {
+				
 				fontForSymbol = new Font("SansSerif", Font.BOLD, 40);
 				g.setFont(fontForSymbol);
 			}
@@ -606,7 +608,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
             g.setColor(c0);
             g.drawRoundRect(buttonX, buttonY, buttonW, buttonH, s8, s8);
             g.setStroke(prevStr);
-            x2a = buttonX + ((buttonW - sw) / 2);
+			x2a = buttonX + ((buttonW - sw) / 2) + fwShift;
             drawShadowedString(g, label, x2a, buttonY + buttonH - s8, Color.black, c0);
 
             // draw exit button
