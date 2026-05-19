@@ -580,7 +580,7 @@ public class NewShipTemplate extends ShipTemplate {
 
             boolean notInstalledAlready = true;
             for (int i = 0; i<ShipDesign.maxSpecials; i++) {
-                if (d.special(i).name().equals(spec.name())) // ugly as hell
+                if (d.special(i).designGroup().equals(spec.designGroup())) // ugly as hell
                     notInstalledAlready = false;
             }
 

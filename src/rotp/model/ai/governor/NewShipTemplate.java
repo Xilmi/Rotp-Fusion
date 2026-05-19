@@ -1095,12 +1095,22 @@ public class NewShipTemplate extends ShipTemplate { // For Player auto Design
 
 		boolean alreadyInertial = false;
 		boolean alreadyAutoRepair = false;
+		boolean alreadyProjector = false;
+		boolean alreadyMissileShield = false;
+		boolean alreadyPulsar = false;
+
 		for(ShipSpecial spec : specials.values()) {
 			if (spec.isNone())
 				continue;
 			if ((spec.beamRangeBonus() > 0 || spec.beamShieldMod() < 1) && skipBeamBonus)
 				continue;
 			if (spec.isInertial() && alreadyInertial)
+				continue;
+			if(spec.isProjector() && alreadyProjector)
+				continue;
+			if(spec.isMissileShield() && alreadyMissileShield)
+				continue;
+			if(spec.isPulsar() && alreadyPulsar)
 				continue;
 			if (spec.shipRepairPct()>0 && alreadyAutoRepair)
 				continue;
@@ -1110,6 +1120,12 @@ public class NewShipTemplate extends ShipTemplate { // For Player auto Design
 				remainingSpace -= spec.space(d);
 				if (spec.isInertial())
 					alreadyInertial = true;
+				if(spec.isProjector())
+					alreadyProjector = true;
+				if(spec.isMissileShield())
+					alreadyMissileShield = true;
+				if(spec.isPulsar())
+					alreadyPulsar = true;
 				if (spec.shipRepairPct()>0)
 					alreadyAutoRepair = true;
 				if (nextSlot > 2)

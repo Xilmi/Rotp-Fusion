@@ -27,6 +27,8 @@ public final class ShipSpecialProjector extends ShipSpecial {
         tech(t);
         sequence(t.level + .05f);
     }
+	@Override public String designGroup()		{ return "Projector"; }
+	@Override public boolean isProjector()		{ return true; }
     @Override
     public TechStreamProjector tech() { return (TechStreamProjector) super.tech(); }
     @Override

@@ -410,6 +410,9 @@
 
 ### Fixes:
 
+- Fixed prohibited combinations of special devices:
+  - Specifically, ion beam projectors and neutron beam projectors.
+  - In both User GUI and AI New Ship Template.
 - Fixed an issue with large maps where a star system could be placed too close to Orion.
 - Fixed annoying "Null Pointer Exception" in Auto Resolve.
   - They were already trapped by ae "Try - Catch", but this was very annoying when debugging, with a break point on "Null Pointer Exception".
