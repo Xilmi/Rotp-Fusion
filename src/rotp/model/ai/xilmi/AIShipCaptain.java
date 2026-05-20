@@ -921,12 +921,12 @@ public class AIShipCaptain implements Base, ShipCaptain {
         boolean canBeTargeted = false;
         boolean canTarget = false;
         for (CombatStack st: activeStacks) {
-            if (st.canPotentiallyAttack(currStack))
+            if (st.canPotentiallyAttack(currStack) && st.estimatedKills(currStack, false) > 0)
                 canBeTargeted = true;
-            if(currStack.canPotentiallyAttack(st))
+            if(currStack.canPotentiallyAttack(st) && currStack.estimatedKills(st, false) > 0)
                 canTarget = true;
         }
-        //System.out.print("\n"+mgr.system().name()+" "+currStack.fullName()+" canBeTargeted: "+canBeTargeted);
+        //System.out.print("\n"+mgr.system().name()+" "+currStack.fullName()+" canBeTargeted: "+canBeTargeted+ " canTarget: "+canTarget);
         if (!canBeTargeted)
             return false;
         if(!canTarget)
