@@ -10,6 +10,8 @@ New Java requirement: minimum JRE-17, recommended JRE-23.
 26-05-21 (Xilmi)
 - Fix in retreat logic
   - Ships that still can attack enemies with specials that deal no damage but not anything else will no longer want to stay in combat.
+- Bio-bomber-fix
+  - Bio-bombers shouldn't retreat if they can inflict damage to colonies with missile-bases.
 
 26-05-19 (BR)
 - Fixed prohibited combinations of special devices:

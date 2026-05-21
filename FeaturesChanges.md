@@ -410,6 +410,8 @@
 
 ### Fixes:
 
+- Bio-bomber-fix
+  - Bio-bombers shouldn't retreat if they can inflict damage to colonies with missile-bases.
 - Fix in retreat logic
   - Ships that still can attack enemies with specials that deal no damage but not anything else will no longer want to stay in combat.
 - Fixed prohibited combinations of special devices:
