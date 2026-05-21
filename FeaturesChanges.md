@@ -410,6 +410,8 @@
 
 ### Fixes:
 
+- Fix in retreat logic
+  - Ships that still can attack enemies with specials that deal no damage but not anything else will no longer want to stay in combat.
 - Fixed prohibited combinations of special devices:
   - Specifically, ion beam projectors and neutron beam projectors.
   - In both User GUI and AI New Ship Template.

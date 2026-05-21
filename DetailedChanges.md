@@ -2,6 +2,10 @@
 
 ## What's New
 
+26-05-21 (Xilmi)
+- Fix in retreat logic
+  - Ships that still can attack enemies with specials that deal no damage but not anything else will no longer want to stay in combat.
+
 26-05-19 (BR)
 - Fixed prohibited combinations of special devices:
   - Specifically, ion beam projectors and neutron beam projectors.

@@ -44,6 +44,10 @@ java -jar target/rotp-<timestamp>-mini.jar
 
 ## What's New
 
+26-05-21 (Xilmi)
+- Fix in retreat logic
+  - Ships that still can attack enemies with specials that deal no damage but not anything else will no longer want to stay in combat.
+
 26-05-19 (BR)
 - Fixed prohibited combinations of special devices:
   - Specifically, ion beam projectors and neutron beam projectors.
@@ -53,11 +57,6 @@ java -jar target/rotp-<timestamp>-mini.jar
 - New Options: Max Range Tech Gap & Max Warp Tech Gap
   - It's always frustrating when no engine technologies or no fuel technologies are available for research... These options ensure that at least some of these technologies are included in the technology tree.
 - Fixed English guide text not showing for this new option.
-
-26-05-15 (BR)
-- Fixed an issue with large maps where a star system could be placed too close to Orion.
-- Fixed annoying "Null Pointer Exception" in Auto Resolve.
-  - They were already trapped by ae "Try - Catch", but this was very annoying when debugging, with a break point on "Null Pointer Exception".
 
 
 ### [Features Historic](FeaturesChanges.md)
