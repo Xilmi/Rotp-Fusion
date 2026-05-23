@@ -1847,6 +1847,11 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
                 repaint();
                 return;
             case KeyEvent.VK_A:
+				if (mgr.results().attacker().isPlayer())
+					if (e.isShiftDown())
+						mgr.dontTargetHarmlessColony(true);
+					else if (e.isControlDown())
+						mgr.dontTargetHarmlessColony(false);
                 togglePlayPause();
                 return;
             case KeyEvent.VK_C:
@@ -1911,8 +1916,14 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         }
 
 		if (hoverBox == resolveBox) {
-			if (!mgr.autoResolve) 
+			if (!mgr.autoResolve) {
+				if (mgr.results().attacker().isPlayer())
+					if (e.isShiftDown())
+						mgr.dontTargetHarmlessColony(true);
+					else if (e.isControlDown())
+						mgr.dontTargetHarmlessColony(false);
 				autoResolve(false);
+			}
 			return;
 		}
 		else if (hoverBox == retreatBox) {
@@ -2088,8 +2099,9 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             g.setColor(c0);
             g.drawRoundRect(x0, y0, w0, h0, bdr, bdr);
             g.setStroke(prev);
-            g.setFont(narrowFont(16));
+            //g.setFont(narrowFont(16));
             String label = text("SHIP_COMBAT_ACTION_FMT", numKey, label());
+			scaledFont(g, label, w0-s4, 16, 10);
             int sw = g.getFontMetrics().stringWidth(label);
             int x1 = x0+((w0-sw)/2);
             int y1 = y0+h0-s10;
@@ -2140,7 +2152,8 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             g.drawRoundRect(x,y,w,h,cnr,cnr);
             g.setStroke(prev);
 
-            g.setFont(narrowFont(14));
+            //g.setFont(narrowFont(14));
+			scaledFont(g, text, w-s4, 14, 10);
             int sw = g.getFontMetrics().stringWidth(text);
             int x1 = x+((w-sw)/2);
             int y1 = y+h-s8;
@@ -2154,7 +2167,8 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             g.setColor(c4);
             g.draw(quick);
             g.setStroke(prev);
-            g.setFont(narrowFont(14));
+            //g.setFont(narrowFont(14));
+			scaledFont(g, numKey, quick.width-s4, 14, 10);
             sw = g.getFontMetrics().stringWidth(numKey);
             x1 = quick.x+((quick.width-sw)/2);
             y1 = quick.y+quick.height-s4;

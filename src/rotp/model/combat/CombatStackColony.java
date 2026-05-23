@@ -21,6 +21,7 @@ import java.awt.Stroke;
 
 import rotp.model.colony.Colony;
 import rotp.model.colony.MissileBase;
+import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.ShipComponent;
 import rotp.model.ships.ShipWeapon;
 import rotp.model.ships.ShipWeaponMissile;
@@ -67,6 +68,11 @@ public class CombatStackColony extends CombatStack {
         streamProjectorHits(0); // BR:
         shield = maxShield;
     }
+	@Override public boolean hostileTo(CombatStack st, StarSystem sys)	{
+		if (num < 1 && mgr.dontTargetHarmlessColony())
+			return false;
+		return empire().aggressiveWith(st.empire(), sys);
+	}
     @Override
     public boolean usingAI()          { return usingAI; }
     @Override

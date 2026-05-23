@@ -5943,7 +5943,12 @@ FLEET_AUTO_COMBAT_SMART_DESC		| Ne posez aucune question ; réglez le combat au
 FLEET_AUTO_COMBAT_SMART				| →SHIP_COMBAT_SMART_RESOLVE←
 
 GOVERNOR_AUTO_COMBAT_RESULTS_DESC	| Faut-il interrompre le déroulement du jeu pour afficher les résultats des combats de flotte qui démarrent automatiquement ?
-GOVERNOR_AUTO_COMBAT_RESULTS		| Résultats des combats automatiques: %1
+GOVERNOR_AUTO_COMBAT_RESULTS		| Résultats des combats automatiques : %1
+
+GOVERNOR_IGNORE_HARMLESS_COLONY_HELP	| Les flottes du joueur automatisées peuvent-elles prendre pour cible une colonie qui ne dispose pas de bases de missiles ?<br>
+Par la suite, lorsque vous sélectionnerez l’automatisation, vous pourrez forcer un « Oui » en appuyant sur la touche « Maj », ou forcer un « Non » en appuyant sur la touche « Ctrl ».
+GOVERNOR_IGNORE_HARMLESS_COLONY_DESC	| Les flottes du joueur automatisées peuvent-elles prendre pour cible une colonie qui ne dispose pas de bases de missiles ?
+GOVERNOR_IGNORE_HARMLESS_COLONY			| Ignorer la colonie inoffensive : %1
 
 GOVERNOR_ARMED_COLONIZER_GUARD_DESC	| Les vaisseaux armés ayant des modules de colonisation garderont les planètes.
 GOVERNOR_ARMED_COLONIZER_GUARD		| Les colonisateurs armés gardent : %1

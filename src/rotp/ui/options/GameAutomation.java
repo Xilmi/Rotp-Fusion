@@ -25,6 +25,7 @@ final class GameAutomation extends AbstractOptionsSubUI {
 				autoColonize_,
 				ShipCombatManager.fleetAutoCombat,
 				ShipCombatManager.showAutoCombatResults,
+				ShipCombatManager.playerDontTargetHarmlessColony,
 
 				LINE_SPACER_25,
 				techExchangeAutoRefuse

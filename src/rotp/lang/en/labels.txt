@@ -5945,6 +5945,10 @@ FLEET_AUTO_COMBAT_SMART				| →SHIP_COMBAT_SMART_RESOLVE←
 GOVERNOR_AUTO_COMBAT_RESULTS_DESC	| Should the game be paused to display the results of fleet battles that start automatically?
 GOVERNOR_AUTO_COMBAT_RESULTS		| Show auto combat results: %1
 
+GOVERNOR_IGNORE_HARMLESS_COLONY_HELP	| Can a player's automated fleets target a colony that doesn't have missile bases?<br>Later, when selecting the automation, you can force a “Yes” by pressing the “Shift” key, or force a ‘No’ by pressing the “Control” key.
+GOVERNOR_IGNORE_HARMLESS_COLONY_DESC	| Can a player's automated fleets target a colony that doesn't have missile bases?
+GOVERNOR_IGNORE_HARMLESS_COLONY			| Ignore Harmless Colony: %1
+
 GOVERNOR_ARMED_COLONIZER_GUARD_DESC	| Armed Colonizers will guard planets.
 GOVERNOR_ARMED_COLONIZER_GUARD		| Armed Colonizers Guard: %1
 GOVERNOR_ARMED_COLONIZER_FIGHT_DESC	| Armed colonization ships will be sent to planets guarded by armed ships.

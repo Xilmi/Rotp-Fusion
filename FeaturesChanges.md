@@ -216,6 +216,8 @@
 
 ### Governor:
 
+- New option to tell the combat automation to not target a colony that doesn't have missile bases.
+  - Later, when selecting the automation, you can change the default value. You can force a “Yes” by pressing the “Shift” key, or force a ‘No’ by pressing the “Control” key.
 - New auto-colonization tuning options:
   - Option to limit the maximum flight time: to prevent a colony from being sent to the other side of the galaxy instead of waiting for a closer planet to become accessible.
   - Option to send a second colony ship that will reach a planet before the one already en route.
@@ -410,6 +412,7 @@
 
 ### Fixes:
 
+- Fixed weapon action text that overflows the boxes.
 - Fixed a bug that caused retreating ships to leave the victorious faction in certain cases.
   - This occurred when the retreating ships had never engaged in combat and none of the ships that had participated in the battle had retreated.
 - Bio-bomber-fix

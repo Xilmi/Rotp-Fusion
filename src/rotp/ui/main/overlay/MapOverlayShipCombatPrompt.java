@@ -519,18 +519,35 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
             		break;
             	}
             case KeyEvent.VK_E:
+				if (mgr.results().attacker().isPlayer())
+					if (e.isShiftDown())
+						mgr.dontTargetHarmlessColony(true);
+					else if (e.isControlDown())
+						mgr.dontTargetHarmlessColony(false);
                 startCombat(ShipBattleUI.ENTER_COMBAT);
                 break;
             case KeyEvent.VK_A:
-                if (aiEmpire != null)
-                    startCombat(ShipBattleUI.AUTO_RESOLVE);
+				if (aiEmpire != null) {
+					if (mgr.results().attacker().isPlayer())
+						if (e.isShiftDown())
+							mgr.dontTargetHarmlessColony(true);
+						else if (e.isControlDown())
+							mgr.dontTargetHarmlessColony(false);
+					startCombat(ShipBattleUI.AUTO_RESOLVE);
+				}
                 break;
             case KeyEvent.VK_S:
 				if (aiEmpire != null)
 					if (advisor.playerShouldRetreat())
 						startCombat(ShipBattleUI.RETREAT_ALL); // Immediate retreat
-					else
+					else {
+						if (mgr.results().attacker().isPlayer())
+							if (e.isShiftDown())
+								mgr.dontTargetHarmlessColony(true);
+							else if (e.isControlDown())
+								mgr.dontTargetHarmlessColony(false);
 						startCombat(ShipBattleUI.SMART_RESOLVE);
+					}
                 break;
             case KeyEvent.VK_R:
                 if (aiEmpire != null)
@@ -645,6 +662,11 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         }
         @Override
         public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
+			if (mgr.results().attacker().isPlayer())
+				if (e.isShiftDown())
+					mgr.dontTargetHarmlessColony(true);
+				else if (e.isControlDown())
+					mgr.dontTargetHarmlessColony(false);
             startCombat(ShipBattleUI.AUTO_RESOLVE);
         };
     }
@@ -725,8 +747,14 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
 		@Override public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
 			if (advisor.playerShouldRetreat())
 				startCombat(ShipBattleUI.RETREAT_ALL); // Immediate retreat
-			else
+			else {
+				if (mgr.results().attacker().isPlayer())
+					if (e.isShiftDown())
+						mgr.dontTargetHarmlessColony(true);
+					else if (e.isControlDown())
+						mgr.dontTargetHarmlessColony(false);
 				startCombat(ShipBattleUI.SMART_RESOLVE);
+			}
 		};
 		private void drawComments (GalaxyMapPanel map, Graphics2D g) {
 			// advisor.performRetreatAnalysis();
@@ -1116,6 +1144,11 @@ public class MapOverlayShipCombatPrompt extends MapOverlay implements IVIPListen
         }
         @Override
         public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick, MouseEvent e) {
+			if (mgr.results().attacker().isPlayer())
+				if (e.isShiftDown())
+					mgr.dontTargetHarmlessColony(true);
+				else if (e.isControlDown())
+					mgr.dontTargetHarmlessColony(false);
             startCombat(ShipBattleUI.ENTER_COMBAT);
         };
     }

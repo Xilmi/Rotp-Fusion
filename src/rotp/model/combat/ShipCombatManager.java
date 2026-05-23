@@ -74,6 +74,7 @@ public class ShipCombatManager implements Base {
     private List<CombatStack> currentTurnList;
 	private boolean combatAlreadyEnded = false;
 	private int playerSelection = ShipBattleUI.ENTER_COMBAT;
+	private boolean doNotTargetHarmlessColony = false; // For Player fleet only
     boolean moO1Asteroids; // if true => impact beam and missiles
     boolean isAsteroid(float x, float y) { return asteroidMap[(int)(x+0.5)][(int)(y+0.5)]; }
     public int asteroidsInPath(float srcX, float srcY, float tarX, float tarY) {
@@ -105,6 +106,8 @@ public class ShipCombatManager implements Base {
        	}
     	return count;
     }
+	public void dontTargetHarmlessColony(boolean b)	{ doNotTargetHarmlessColony = b; }
+	public boolean dontTargetHarmlessColony()		{ return doNotTargetHarmlessColony; }
 	private int playerSelection()			{ return playerSelection; }
 	public void playerSelection(int i)		{ playerSelection = i; }
     boolean interdiction()                     { return interdiction; }
@@ -480,6 +483,7 @@ public class ShipCombatManager implements Base {
         }
     }
     private void setupBattle(Empire emp1, Empire emp2) {
+		doNotTargetHarmlessColony = false;
         raiseHostilityLevels();
 
 		turnCounter = -1;
@@ -505,6 +509,7 @@ public class ShipCombatManager implements Base {
         currentStack.beginTurn();
     }
     private void setupBattle(Empire emp, SpaceMonster monster) {
+		doNotTargetHarmlessColony = false;
 		turnCounter = -1;
         interdiction = false;
         performingStackTurn = false;
@@ -702,6 +707,8 @@ public class ShipCombatManager implements Base {
             log("retreating empires from init: ",passives.toString());
             empiresInConflict.remove(passiveEmp);
         }
+		if (results.attacker().isPlayer())
+			doNotTargetHarmlessColony = playerDontTargetHarmlessColony.get();
 		// Ask Player & Remove Passive player empire
 		if (playerInBattle() && passives.isEmpty())
 			promptPlayer();
@@ -1387,4 +1394,5 @@ public class ShipCombatManager implements Base {
 			.put(FLEET_AUTO_COMBAT_AUTO, FLEET_AUTO_COMBAT_AUTO)
 			.put(FLEET_AUTO_COMBAT_SMART, FLEET_AUTO_COMBAT_SMART);
 	public static final ParamBoolean showAutoCombatResults	= new ParamBoolean(IGovOptions.GOV_UI, "AUTO_COMBAT_RESULTS", true);
+	public static final ParamBoolean playerDontTargetHarmlessColony	= new ParamBoolean(IGovOptions.GOV_UI, "IGNORE_HARMLESS_COLONY", false);
 }
