@@ -394,7 +394,7 @@ public class ShipCombatManager implements Base {
         performingStackTurn = true;
         while (shouldContinue())
             performNextStackTurn();
-    } 
+    }
     private boolean shouldContinue() {
         return autoComplete && !combatIsFinished();
     }
@@ -553,14 +553,19 @@ public class ShipCombatManager implements Base {
         // cancel the retreat of any ships that belong to the combat victor
         Empire victor = results.victor();
         if (victor != null) {
-            List<ShipDesign> retreatedShips = new ArrayList<>(results.shipsRetreated().keySet());
-            boolean retreatsCancelled = false;
-            for (ShipDesign des: retreatedShips) {
-                if (victor.shipLab().design(des.id()) == des) { // TODO BR: VALIDATE
-                    results.shipsRetreated().remove(des);
-                    retreatsCancelled = true;
-                }
-            }
+			boolean retreatsCancelled = false;
+			List<ShipDesign> retreatedShips = new ArrayList<>(results.shipsPostRetreated().keySet());
+			for (ShipDesign des: retreatedShips)
+				if (victor.shipLab().design(des.id()) == des) {
+					results.shipsPostRetreated().remove(des);
+					retreatsCancelled = true;
+				}
+			retreatedShips = new ArrayList<>(results.shipsPreRetreated().keySet());
+			for (ShipDesign des: retreatedShips)
+				if (victor.shipLab().design(des.id()) == des) {
+					results.shipsPreRetreated().remove(des);
+					retreatsCancelled = true;
+				}
             if (retreatsCancelled)
                 galaxy().ships.cancelRetreatingFleets(victor.id, system().id);
         }
@@ -606,7 +611,7 @@ public class ShipCombatManager implements Base {
         log("Retreating: ", stack.fullName());
         performingStackTurn = true;
         stack.drawRetreat();
-        results.addShipsRetreated(stack.design(), stack.num);
+        results.addShipsPostRetreated(stack.design(), stack.num);
         stack.retreatToSystem(s);
 		removeFromCombat(stack);
         //turnDone(stack);
@@ -679,8 +684,10 @@ public class ShipCombatManager implements Base {
 					retreatingFleets.add(st);
 
             results.activeStacks().removeAll(retreatingFleets);
+			results.addShipsPreRetreated(retreatingFleets);
             retreating = !retreatingFleets.isEmpty();
         }
+
 		// Remove Passive alien empires
         List<Empire> passives = new ArrayList<>();
         passives.add(emp1);
@@ -731,6 +738,7 @@ public class ShipCombatManager implements Base {
 						if (st.isPlayer() && st.wantToRetreat() && st.retreat())
 							retreatingFleets.add(st);
 					results.activeStacks().removeAll(retreatingFleets);
+					results.addShipsPreRetreated(retreatingFleets);
 					retreating = !retreatingFleets.isEmpty();
 				}
 				break;

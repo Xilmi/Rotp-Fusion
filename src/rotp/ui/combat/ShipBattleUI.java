@@ -1388,7 +1388,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         mgr.showAnimations = false;
 
         Map<ShipDesign,Integer> destroyed = mgr.results().shipsDestroyed();
-        Map<ShipDesign,Integer> retreated = mgr.results().shipsRetreated();
+        Map<ShipDesign,Integer> retreated = mgr.results().shipsPostRetreated();
 
         int w0 = scaled(700);
         int x0 = x+((w-w0)/2);
@@ -2459,7 +2459,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
 	@Override public String getMessage() {
 		String sysName =  player().sv.name(mgr.system().id);
         Map<ShipDesign,Integer> destroyed = mgr.results().shipsDestroyed();
-        Map<ShipDesign,Integer> retreated = mgr.results().shipsRetreated();
+        Map<ShipDesign,Integer> retreated = mgr.results().shipsPostRetreated();
         Empire victor	 = mgr.results().victor();
         Empire colonyEmp = mgr.results().colonyStack == null ? null : mgr.results().colonyStack.empire();
 

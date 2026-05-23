@@ -41,7 +41,8 @@ public final class ShipCombatResults implements Base {
 	private final List<CombatStack> activeStacks = new ArrayList<>();
 	private final Map<ShipDesign, Integer> shipsDestroyed = new HashMap<>();
 	//private Map<ShipDesign, Integer> shipsDamaged = new HashMap<>();
-	private final Map<ShipDesign, Integer> shipsRetreated = new HashMap<>();
+	private final Map<ShipDesign, Integer> shipsPreRetreated	= new HashMap<>();
+	private final Map<ShipDesign, Integer> shipsPostRetreated	= new HashMap<>();
 	int basesDestroyed = 0;
 	private final List<Empire> usedBioweapons = new ArrayList<>();
     private Float currentFactories  = null; // BR: for bioweapons destruction only, null otherwise
@@ -69,7 +70,8 @@ public final class ShipCombatResults implements Base {
     public List<CombatStack> activeStacks()           { return activeStacks; }
     public Map<ShipDesign, Integer> shipsDestroyed()  { return shipsDestroyed; }
     //public Map<ShipDesign, Integer> shipsDamaged()  { return shipsDamaged; }
-    public Map<ShipDesign, Integer> shipsRetreated()  { return shipsRetreated; }
+	public Map<ShipDesign, Integer> shipsPreRetreated()		{ return shipsPreRetreated; }
+	public Map<ShipDesign, Integer> shipsPostRetreated()	{ return shipsPostRetreated; }
 
     float shipHullPointsDestroyed(Empire e) {
         float bc = 0;
@@ -242,12 +244,22 @@ public final class ShipCombatResults implements Base {
         else
             shipsDamaged.put(d, count);
     } */
-    void addShipsRetreated(ShipDesign d, int count) {
-        if (shipsRetreated.containsKey(d))
-            shipsRetreated.put(d, count+shipsRetreated.get(d));
-        else
-            shipsRetreated.put(d, count);
-    }
+	private void addShipsPreRetreated(ShipDesign d, int count)	{
+		if (shipsPreRetreated.containsKey(d))
+			shipsPreRetreated.put(d, count + shipsPreRetreated.get(d));
+		else
+			shipsPreRetreated.put(d, count);
+	}
+	void addShipsPreRetreated(List<CombatStack> fleets)	{
+		for (CombatStack stack : fleets)
+			addShipsPreRetreated(stack.design(), stack.num);
+	}
+	void addShipsPostRetreated(ShipDesign d, int count)	{
+		if (shipsPostRetreated.containsKey(d))
+			shipsPostRetreated.put(d, count + shipsPostRetreated.get(d));
+		else
+			shipsPostRetreated.put(d, count);
+	}
     void logIncidents() {
         for (Empire e: usedBioweapons)
             BioweaponIncident.create(defender(), e, system());

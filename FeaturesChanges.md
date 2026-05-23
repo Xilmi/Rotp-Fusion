@@ -410,6 +410,8 @@
 
 ### Fixes:
 
+- Fixed a bug that caused retreating ships to leave the victorious faction in certain cases.
+  - This occurred when the retreating ships had never engaged in combat and none of the ships that had participated in the battle had retreated.
 - Bio-bomber-fix
   - Bio-bombers shouldn't retreat if they can inflict damage to colonies with missile-bases.
 - Fix in retreat logic
