@@ -31,7 +31,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -55,6 +57,7 @@ import rotp.model.empires.ShipView;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IMainOptions;
 import rotp.model.ships.ShipComponent;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
@@ -175,6 +178,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     private Color[] yellowColors = new Color[3];
     private Color[] grayColors = new Color[3];
     private BufferedImage combatBackground;
+	private List<CombatStackMissile> targetingMissiles = new ArrayList<>();
     public int boxH() {
     	if (boxH < 0)
             boxH = (getHeight()-pad-pad-barH) / GRID_COUNT_Y;
@@ -378,6 +382,12 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         	refreshCombatScreen(false);
         	repaint = true;
         }
+		if (!targetingMissiles.isEmpty() && IMainOptions.shipBasedMissiles.get()) {
+			for (CombatStackMissile missile : targetingMissiles) {
+				missile.updateImage();
+			}
+			repaint = true;
+		}
         if (repaint)
         	repaint();
     }
@@ -872,7 +882,52 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             g.setColor(lineColor);
             g.fillRect(x1,y2,w1,s1);
         }
+
+		drawMissileWarning(g, target, x, y, w, h, borderColor);
     }
+	private void drawMissileWarning(Graphics2D g, CombatStack target, int x, int y, int w, int h, Color borderCol)	{
+		targetingMissiles = target.targetingMissiles();
+		if (!targetingMissiles.isEmpty()) {
+			borderCol = new Color(192,96,0);
+			int mrg = s1;
+			int mW = s30;
+			int mH = mW/5;
+			int iW = mW + mrg + mrg;
+			int iH = iW;
+			int iX = x + w - iW - s4;
+			int iY = y + s4;
+			int aX = iW/2;
+			int aY = iH/2;
+			for (CombatStackMissile missile : targetingMissiles) {
+				BufferedImage img = missile.empire().shipLab().missileImage(missile.missile.tech(), mW, mH, true);
+				//miss.drawStack(null, g, sw1, maxHits, y2a, w, h, sw2);
+				if (img != null) {
+					AffineTransform tx = AffineTransform.getRotateInstance(missile.rotateRadians(), aX, aY);
+					AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
+					BufferedImage image = new BufferedImage(iW, iH, img.getType());
+					Graphics gi = image.getGraphics();
+					gi.drawImage(img, mrg, mrg + (mW-mH)/2, null);
+					gi.dispose();
+
+					BufferedImage newImage = new BufferedImage(iW, iH, img.getType());
+					op.filter(image, newImage);
+					g.setColor(borderCol);
+					g.fillRect(iX, iY, iW, iH);
+					g.drawImage(newImage, iX, iY, null);
+					iX -= iW;
+				}
+				else {
+					String warningTxt = "***"; // TODO BR: add to labels.txt
+					g.setColor(Color.RED);
+					g.setFont(narrowFont(20));
+					int sw = g.getFontMetrics().stringWidth(warningTxt);
+					int wx = x + w -sw - s10;
+					int wy = y + s25;
+					drawString(g, warningTxt, wx, wy);
+				}
+			}
+		}
+	}
     private void drawShipButtonOverlay(Graphics2D g, CombatStack target, List<ShipActionButton> actions) {
         CombatStack currentStack = mgr.currentStack();
 
@@ -1141,8 +1196,9 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             g.setColor(borderColor);
             g.fillRect(x, y2+s5, w, s4);
         }
+
+		drawMissileWarning(g, target, x, y, w, h, borderColor);
     }
-	
     private void paintTravelPathToImage(Graphics2D g, CombatStack stack, int hoveringX, int hoveringY) {
         if (mgr.autoComplete || mgr.performingStackTurn)
             return;

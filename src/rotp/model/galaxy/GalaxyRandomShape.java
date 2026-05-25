@@ -190,4 +190,5 @@ final class GalaxyRandomShape extends GalaxyShape {
 	@Override protected void setSpecific(Point.Float p)	{ finalShape.setSpecific(p); }
 	@Override protected float sizeFactor(String size)	{ return finalShape.sizeFactor(size); }
 	@Override public boolean isValid()					{ return finalShape.isValid(); }
+	@Override public double starDist(float x0, float y0, float x1, float y1)	{ return finalShape.starDist(x0, y0, x1, y1); }
 }

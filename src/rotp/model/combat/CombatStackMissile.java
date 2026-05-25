@@ -23,9 +23,10 @@ import java.awt.geom.AffineTransform;
 
 import rotp.model.ships.ShipWeaponMissileType;
 import rotp.ui.BasePanel;
+import rotp.ui.ScaledInteger;
 import rotp.ui.combat.ShipBattleUI;
 
-public class CombatStackMissile extends CombatStack {
+public class CombatStackMissile extends CombatStack implements ScaledInteger {
     public static int MAX_TURNS = 10;
     public static final float MIN_ATTACK_DIST = 0.7f;
     public CombatStack owner;
@@ -50,9 +51,9 @@ public class CombatStackMissile extends CombatStack {
         offsetY = ship.offsetY;
         attackLevel = ship.attackLevel();
 
-        int imgW = BasePanel.s60;
+        int imgW = s60;
         if (options().shipBasedMissiles() && empire().isEmpire()) {
-        	missiles = empire().shipLab().missileImage(miss.tech(), imgW, imgW/5);
+        	missiles = empire().shipLab().missileImage(miss.tech(), imgW, imgW/5, false);
         }
         else {
             Image missileImg = image(miss.tech().imageKey());
@@ -201,6 +202,10 @@ public class CombatStackMissile extends CombatStack {
             return true;
         return false;
     }
+	public void updateImage()	{
+		if (options().shipBasedMissiles() && empire().isEmpire())
+			missiles = empire().shipLab().missileImage(missile.tech(), s60, s60/5, true);
+	}
     @Override
     public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH, int stop) {
         int x0 = (int) ((x()+0.5f)*stackW);

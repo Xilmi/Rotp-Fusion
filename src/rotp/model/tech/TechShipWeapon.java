@@ -45,6 +45,7 @@ import rotp.model.game.IGameOptions;
 import rotp.model.ships.ShipComponent;
 import rotp.model.ships.ShipWeaponBeam;
 import rotp.ui.combat.ShipBattleUI;
+import rotp.ui.main.overlay.MapOverlayAdvice;
 
 public final class TechShipWeapon extends Tech {
 	private static int WIND_UP_FRAMES = 3;
@@ -468,7 +469,7 @@ public final class TechShipWeapon extends Tech {
             c.shipLab().addWeapon(sh2);
         }
         if (c.isPlayerControlled())
-            galaxy().giveAdvice("MAIN_ADVISOR_SHIP_WEAPON");
+            galaxy().giveAdvice(MapOverlayAdvice.MAIN_ADVISOR_SHIP_WEAPON);
     }
     @Override // Shielded
     public void drawIneffectiveAttack(CombatStack source, CombatStack target, int wpnNum, int count) {

@@ -311,6 +311,7 @@
 
 ### User Interfaces:
 
+- During a space battle, a ship targeted by missiles will display a missile warning in the information panel, and incoming missiles will be highlighted with an animation.
 - In the mass transport deployment panel, the troop bonus and colony size will be displayed along with the planet's information.
 - New option to change ship sprites opacity.
 - New Main menu option: “Relaunch a New Game”.

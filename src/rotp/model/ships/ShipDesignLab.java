@@ -950,7 +950,7 @@ public class ShipDesignLab implements Base, Serializable {
         }
         return bestWpn;
     }
-    public BufferedImage missileImage(Tech tech, int length, int height) {
+	public BufferedImage missileImage(Tech tech, int length, int height, boolean anim)	{
     	String key = tech.imageKey();
     	int size = ShipDesign.SMALL;
     	int rawModel = 1;
@@ -996,7 +996,11 @@ public class ShipDesignLab implements Base, Serializable {
     	
         // get source image to be transformed
         ShipImage src = ShipLibrary.current().shipImage(shipStyleIndex(), size, model);
-        Image image = newBufferedImage(icon(src.baseIcon()).getImage());
+        Image image;
+		if (anim)
+			image = newBufferedImage(icon(src.animationIcon()).getImage());
+		else
+			image = newBufferedImage(icon(src.baseIcon()).getImage());
         int imgW = image.getWidth(null);
         int imgH = image.getHeight(null);
         BufferedImage srcImg = new BufferedImage(imgW, imgH, BufferedImage.TYPE_INT_ARGB);

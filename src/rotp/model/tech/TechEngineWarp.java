@@ -19,6 +19,7 @@ import rotp.model.empires.Empire;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipEngine;
 import rotp.model.ships.ShipManeuver;
+import rotp.ui.main.overlay.MapOverlayAdvice;
 
 public final class TechEngineWarp extends Tech {
 	public static final String KEY = "EngineWarp";
@@ -92,7 +93,7 @@ public final class TechEngineWarp extends Tech {
         }
 
         if (c.isPlayerControlled() && (baseWarp > 1))
-            galaxy().giveAdvice("MAIN_ADVISOR_SHIP_ENGINE");
+            galaxy().giveAdvice(MapOverlayAdvice.MAIN_ADVISOR_SHIP_ENGINE);
     }
     @Override
     public float baseCost() {

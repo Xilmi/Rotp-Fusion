@@ -17,7 +17,6 @@ package rotp.ui.main.overlay;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.LinearGradientPaint;
 import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
 import java.awt.Stroke;
@@ -35,17 +34,28 @@ import rotp.ui.main.SystemPanel;
 import rotp.ui.sprites.AdvisorOKSprite;
 
 public class MapOverlayAdvice extends MapOverlay {
-    static Color backDarkC = new Color(34,53,102);
-    static Color centerC = new Color(79,102,156);
-    RadialGradientPaint backPaint;
-    LinearGradientPaint buttonPaint;
-    Rectangle bounds = new Rectangle();
-    MainUI parent;
-    BufferedImage advisorImg;
-    AdvisorOKSprite okButton = new AdvisorOKSprite();
-    String textKey;
-    Empire emp1;
-    String var1, var2, var3;
+	public static final String MAIN_ADVISOR_SCOUT			= "MAIN_ADVISOR_SCOUT";
+	public static final String MAIN_ADVISOR_TRANSPORT		= "MAIN_ADVISOR_TRANSPORT";
+	public static final String MAIN_ADVISOR_DIPLOMACY		= "MAIN_ADVISOR_DIPLOMACY";
+	public static final String MAIN_ADVISOR_SHIP_ENGINE		= "MAIN_ADVISOR_SHIP_ENGINE";
+	public static final String MAIN_ADVISOR_RALLY_POINTS	= "MAIN_ADVISOR_RALLY_POINTS";
+	public static final String MAIN_ADVISOR_MISSILE_BASES	= "MAIN_ADVISOR_MISSILE_BASES";
+	public static final String MAIN_ADVISOR_SHIP_WEAPON		= "MAIN_ADVISOR_SHIP_WEAPON";
+	public static final String MAIN_ADVISOR_COUNCIL			= "MAIN_ADVISOR_COUNCIL";
+	public static final String MAIN_ADVISOR_REBELLION		= "MAIN_ADVISOR_REBELLION";
+	public static final String MAIN_ADVISOR_COUNCIL_RESISTED= "MAIN_ADVISOR_COUNCIL_RESISTED";
+	public static final String MAIN_ADVISOR_RESIST_COUNCIL	= "MAIN_ADVISOR_RESIST_COUNCIL";
+	private static Color backDarkC = new Color(34,53,102);
+	private static Color centerC = new Color(79,102,156);
+	private RadialGradientPaint backPaint;
+	// private LinearGradientPaint buttonPaint;
+	private Rectangle bounds = new Rectangle();
+	private MainUI parent;
+	private BufferedImage advisorImg;
+	private AdvisorOKSprite okButton = new AdvisorOKSprite();
+	private String textKey;
+	private Empire emp1;
+	private String var1, var2, var3;
     public MapOverlayAdvice(MainUI p) {
         parent = p;
     }
@@ -66,17 +76,17 @@ public class MapOverlayAdvice extends MapOverlay {
 		pl.resetDiplomat();
 		pl.resetSoldier();
 		switch(key) {
-			case "MAIN_ADVISOR_SCOUT":				img = pl.advisorScout(); break;
-			case "MAIN_ADVISOR_TRANSPORT":			img = pl.advisorTransport(); break;
-			case "MAIN_ADVISOR_DIPLOMACY":			img = pl.advisorDiplomacy(); break;
-			case "MAIN_ADVISOR_SHIP_ENGINE":		img = pl.advisorShip(); break;
-			case "MAIN_ADVISOR_RALLY_POINTS":		img = pl.advisorRally(); break;
-			case "MAIN_ADVISOR_MISSILE_BASES":		img = pl.advisorMissile(); break;
-			case "MAIN_ADVISOR_SHIP_WEAPON":		img = pl.advisorWeapon(); break;
-			case "MAIN_ADVISOR_COUNCIL":			img = pl.advisorCouncil(); break;
-			case "MAIN_ADVISOR_REBELLION":			img = pl.advisorRebellion(); break;
-			case "MAIN_ADVISOR_COUNCIL_RESISTED":	img = pl.advisorCouncilResisted(); break;
-			case "MAIN_ADVISOR_RESIST_COUNCIL":		img = pl.advisorResistCouncil(); break;
+			case MAIN_ADVISOR_SCOUT:			img = pl.advisorScout();		break;
+			case MAIN_ADVISOR_TRANSPORT:		img = pl.advisorTransport();	break;
+			case MAIN_ADVISOR_DIPLOMACY:		img = pl.advisorDiplomacy();	break;
+			case MAIN_ADVISOR_SHIP_ENGINE:		img = pl.advisorShip();			break;
+			case MAIN_ADVISOR_RALLY_POINTS:		img = pl.advisorRally();		break;
+			case MAIN_ADVISOR_MISSILE_BASES:	img = pl.advisorMissile();		break;
+			case MAIN_ADVISOR_SHIP_WEAPON:		img = pl.advisorWeapon();		break;
+			case MAIN_ADVISOR_COUNCIL:			img = pl.advisorCouncil();		break;
+			case MAIN_ADVISOR_REBELLION:		img = pl.advisorRebellion();	break;
+			case MAIN_ADVISOR_COUNCIL_RESISTED:	img = pl.advisorCouncilResisted();	break;
+			case MAIN_ADVISOR_RESIST_COUNCIL:	img = pl.advisorResistCouncil();	break;
 			default: img = pl.advisorRebellion();
 		}
 

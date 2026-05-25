@@ -189,7 +189,7 @@ public class ColonyViewUI extends BasePanel implements MouseListener {
 		Image missile;
 		if (options().shipBasedMissiles()) {
 			Tech tech = empire.tech().bestMissileBase().missile().tech();
-			missile = empire.shipLab().missileImage(tech, length, length/5);
+			missile = empire.shipLab().missileImage(tech, length, length/5, false);
 		}
 		else {
 			missile = image("BASE_MISSILE");

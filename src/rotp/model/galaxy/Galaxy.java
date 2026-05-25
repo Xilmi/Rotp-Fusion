@@ -40,6 +40,7 @@ import rotp.model.game.IDebugOptions;
 import rotp.model.game.IGameOptions;
 import rotp.ui.NoticeMessage;
 import rotp.ui.UserPreferences;
+import rotp.ui.main.overlay.MapOverlayAdvice;
 import rotp.ui.notifications.AdviceNotification;
 import rotp.ui.notifications.BombardSystemNotification;
 import rotp.ui.vipconsole.VIPConsole;
@@ -566,7 +567,7 @@ public final class Galaxy implements Base, Serializable {
         }
         if (IDebugOptions.selectedShowVIPPanel())
         	VIPConsole.updateConsole();
-        giveAdvice("MAIN_ADVISOR_SCOUT");
+        giveAdvice(MapOverlayAdvice.MAIN_ADVISOR_SCOUT);
         session().processNotifications();
     }
     public void moveShipsInTransit() {

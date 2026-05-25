@@ -31,6 +31,7 @@ import rotp.model.tech.Tech;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.diplomacy.DialogueManager;
+import rotp.ui.main.overlay.MapOverlayAdvice;
 import rotp.ui.notifications.CouncilVoteNotification;
 import rotp.ui.notifications.GNNNotification;
 import rotp.util.Base;
@@ -171,7 +172,7 @@ public class GalacticCouncil implements Base, Serializable {
     }
     private void schedule() {
         if (!options().isAutoPlay()) {
-            galaxy().giveAdvice("MAIN_ADVISOR_COUNCIL");
+            galaxy().giveAdvice(MapOverlayAdvice.MAIN_ADVISOR_COUNCIL);
             GNNNotification.notifyCouncil(text("GNN_FORM_COUNCIL"));
         }
         nextAction = CONVENE;
@@ -308,9 +309,9 @@ public class GalacticCouncil implements Base, Serializable {
         // Either player is rebelling against leader,
         // or player is leader and at least one AI is rebelling
         if (leader.isPlayerControlled())
-            galaxy().giveAdvice("MAIN_ADVISOR_COUNCIL_RESISTED", leader.raceName());                   
+            galaxy().giveAdvice(MapOverlayAdvice.MAIN_ADVISOR_COUNCIL_RESISTED, leader.raceName());
         else 
-            galaxy().giveAdvice("MAIN_ADVISOR_RESIST_COUNCIL");
+            galaxy().giveAdvice(MapOverlayAdvice.MAIN_ADVISOR_RESIST_COUNCIL);
 
         // all members of alliance declare final war on player or all rebels
         // everyone gets the incident first. Once Final War is declared, no

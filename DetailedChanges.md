@@ -2,6 +2,10 @@
 
 ## What's New
 
+26-05-25 (BR)
+- The option to automate space battles, added on May 26, 2023, has been moved to the remnant.cfg file. (You may need to reset your preferences.)
+- During a space battle, a ship targeted by missiles will display a missile warning in the information panel, and incoming missiles will be highlighted with an animation.
+
 26-05-23 (BR)
 - Fixed a bug that caused retreating ships to leave the victorious faction in certain cases.
   - This occurred when the retreating ships had never engaged in combat and none of the ships that had participated in the battle had retreated.

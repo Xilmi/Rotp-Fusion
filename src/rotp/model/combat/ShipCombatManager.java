@@ -15,6 +15,8 @@
  */
 package rotp.model.combat;
 
+import static rotp.model.game.IGovOptions.GOV_UI;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +28,6 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
-import rotp.model.game.IGovOptions;
 import rotp.model.game.IInGameOptions;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
@@ -1388,11 +1389,12 @@ public class ShipCombatManager implements Base {
 	private static final String FLEET_AUTO_COMBAT_NO	= "FLEET_AUTO_COMBAT_NO";
 	private static final String FLEET_AUTO_COMBAT_AUTO	= "FLEET_AUTO_COMBAT_AUTO";
 	private static final String FLEET_AUTO_COMBAT_SMART	= "FLEET_AUTO_COMBAT_SMART";
-	public static final ParamList fleetAutoCombat	= new ParamList(IGovOptions.GOV_UI, "FLEET_AUTO_COMBAT", FLEET_AUTO_COMBAT_NO)
+	public static final ParamList fleetAutoCombat	= new ParamList(GOV_UI, "FLEET_AUTO_COMBAT", FLEET_AUTO_COMBAT_NO)
 			.showFullGuide(true)
 			.put(FLEET_AUTO_COMBAT_NO, FLEET_AUTO_COMBAT_NO)
 			.put(FLEET_AUTO_COMBAT_AUTO, FLEET_AUTO_COMBAT_AUTO)
 			.put(FLEET_AUTO_COMBAT_SMART, FLEET_AUTO_COMBAT_SMART);
-	public static final ParamBoolean showAutoCombatResults	= new ParamBoolean(IGovOptions.GOV_UI, "AUTO_COMBAT_RESULTS", true);
-	public static final ParamBoolean playerDontTargetHarmlessColony	= new ParamBoolean(IGovOptions.GOV_UI, "IGNORE_HARMLESS_COLONY", false);
+	public static final ParamBoolean showAutoCombatResults	= new ParamBoolean(GOV_UI, "AUTO_COMBAT_RESULTS", true);
+	public static final ParamBoolean playerDontTargetHarmlessColony	= new ParamBoolean(GOV_UI, "IGNORE_HARMLESS_COLONY", false)
+			.isCfgFile(true);
 }

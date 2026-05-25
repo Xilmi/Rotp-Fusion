@@ -47,6 +47,7 @@ import rotp.model.incidents.SignPeaceIncident;
 import rotp.model.incidents.SignTradeIncident;
 import rotp.model.tech.Tech;
 import rotp.ui.diplomacy.DialogueManager;
+import rotp.ui.main.overlay.MapOverlayAdvice;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.GNNAllianceBrokenNotice;
 import rotp.ui.notifications.GNNAllianceFormedNotice;
@@ -468,7 +469,7 @@ public final class DiplomaticEmbassy implements Base, Serializable {
         treaty = new TreatyFinalWar(view.ownerId(), view.empId());
         view.trade().stopRoute();
         if (empire().isPlayerControlled())
-            galaxy().giveAdvice("MAIN_ADVISOR_RALLY_POINTS");
+            galaxy().giveAdvice(MapOverlayAdvice.MAIN_ADVISOR_RALLY_POINTS);
     }
     public DiplomaticIncident demandTribute() {
         DiplomaticIncident inc = DemandTributeIncident.create(owner(), empire(), true);
